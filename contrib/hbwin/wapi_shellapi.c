@@ -94,3 +94,43 @@ HB_FUNC( WAPI_ISUSERANADMIN )
 
    hb_retl( bResult );
 }
+
+HB_FUNC( WAPI_SHELLEXECUTEEX ){
+/*
+Performs operation(s) on a specified file.
+Usage: nResult := wapi_ShellExecuteEx( [<hparentWindow>] [, <"operation">], <"filename"> ;
+                               [, <"parameters">] [, <"workdir">] [, <nShowmode>] [, <nfMask>] )
+Returns: numeric : > 32 on sucess;
+                   <= 32 on error! (in which case, the returned value indicates the cause of the failure).
+                   More about error codes at: <http://msdn.microsoft.com/en-us/library/windows/desktop/bb759784%28v=vs.85%29.aspx> 
+(c) Pete D. <pete_westg@yahoo.gr> 29/10/2014                   
+*/
+   void * hOperation;
+   void * hFile;
+   void * hParameters;
+   void * hDirectory;
+   SHELLEXECUTEINFO ShExecInfo;
+	
+   memset( &ShExecInfo, 0, sizeof(SHELLEXECUTEINFO) );           // initialize struct to avoid unpredictable behavior..
+   
+	ShExecInfo.cbSize       = sizeof( SHELLEXECUTEINFO );
+   ShExecInfo.fMask        = hb_parnldef(7, SEE_MASK_DEFAULT);   
+   ShExecInfo.hwnd         = ( HWND ) hb_parptr( 1 );            // parent window. usually 0
+   ShExecInfo.lpVerb       = HB_PARSTR( 2, &hOperation, NULL );  // "open", "print", "edit", "find", "properties", "openas" ("openas" may not work on older win vers)
+                                                                 // note: to get "properties", must used the SEE_MASK_INVOKEIDLIST flag (tip: pass nfMask=12 when calling)
+
+   ShExecInfo.lpFile       = HB_PARSTR( 3, &hFile, NULL );       // cfilename on which the requeste operation will be performed
+   ShExecInfo.lpParameters = HB_PARSTR( 4, &hParameters, NULL ); // additional exec parameters
+   ShExecInfo.lpDirectory  = HB_PARSTR( 5, &hDirectory, NULL );  // workdir. NULL=current dir
+   ShExecInfo.nShow        = hb_parnidef( 6, SW_SHOWNORMAL );    // Show modes, default:SW_SHOWNORMAL
+   ShExecInfo.hInstApp     = NULL;
+
+   ShellExecuteEx( &ShExecInfo );
+
+   hb_strfree( hOperation );
+   hb_strfree( hFile );
+   hb_strfree( hParameters );
+   hb_strfree( hDirectory );
+
+   hb_retnint( (int) ShExecInfo.hInstApp );
+}
