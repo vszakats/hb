@@ -113,7 +113,7 @@ Returns: numeric : > 32 on sucess;
 	
    memset( &ShExecInfo, 0, sizeof(SHELLEXECUTEINFO) );           // initialize struct to avoid unpredictable behavior..
    
-	ShExecInfo.cbSize       = sizeof( SHELLEXECUTEINFO );
+   ShExecInfo.cbSize       = sizeof( SHELLEXECUTEINFO );
    ShExecInfo.fMask        = hb_parnldef(7, SEE_MASK_DEFAULT);   
    ShExecInfo.hwnd         = ( HWND ) hb_parptr( 1 );            // parent window. usually 0
    ShExecInfo.lpVerb       = HB_PARSTR( 2, &hOperation, NULL );  // "open", "print", "edit", "find", "properties", "openas" ("openas" may not work on older win vers)
