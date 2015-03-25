@@ -177,11 +177,6 @@
     * use hb_array[SG]et*() functions insteaf of
       hb_item*( hb_arrayGetItemPtr, ... )
 
-2008-08-12 21:02 UTC+0200 Viktor Szakats (harbour.01 syenar hu)
-   * doc/linux1st.txt
-     * Some further updates.
-       [1.0]
-
 2008-08-12 20:55 UTC+0200 Viktor Szakats (harbour.01 syenar hu)
    + config/w32/dm.cf
      + Digital Mars .cf file added. Some cleanups done, and 
@@ -207,43 +202,56 @@
      config/w32/owatcom.cf
      config/w32/watcom.cf
 
-2008-08-12 19:31 UTC+0200 Viktor Szakats (harbour.01 syenar hu)
-   * doc/linux1st.txt
-     * Updated with hbgf package requirement information.
-       [1.0]
+2008-08-11 21:20 UTC+0200 Viktor Szakats (harbour.01 syenar hu)
+   * config/hpux/gcc.cf
+   * config/linux/gcc.cf
+   * config/os2/gcc.cf
+   * config/bsd/gcc.cf
+     ! Never force the platform from the make files, rather 
+       rely on the autodetection in hbsetup.h.
+       Compiling default parts of the software should only rely 
+       on manually set macros if there is no reasonable chance to 
+       make the detection automatic.
 
-   * contrib/hbcurl/hbcurl.ch
-     * Minor update for libcurl 7.18.2
-       [1.0]
+   * contrib/rddado/Makefile
+     ! Excluded from OS/2 builds.
+
+2008-08-11 18:24 UTC+0200 Viktor Szakats (harbour.01 syenar hu)
+   * config/rules.cf
+     % Removed unnecessary -I option from Harbour command line.
+
+   * ChangeLog
+     + Added entry to signal the branching.
 
 2008-08-12 16:00 UTC+0200 Viktor Szakats (harbour.01 syenar hu)
+   ; Merging last-minute fixes to 1.0 from main branch.
+
    * doc/Makefile
    - doc/hbpplib.txt
      - Removed obsolete file.
-       [1.0]
 
    * doc/linux1st.txt
      * Added required Ubuntu packages for all existing contribs 
        (except hbgf).
-       [1.0]
 
    * doc/whatsnew.txt
      + Added "Known issues", with MSVC 64 bit C mode compilation 
        and hbfimage compile failure in Linux.
-       [1.0]
 
 2008-08-12 14:06 UTC+0200 Przemyslaw Czerpak (druzus/at/priv.onet.pl)
+  ; Merging last-minute fixes to 1.0 from main branch.
+
   * harbour/make_rpmw32.sh
   * harbour/make_rpmce.sh
     ! fixed release number setting for empty harbour release string
-      [1.0]
 
 2008-08-12 13:00 UTC+0200 Viktor Szakats (harbour.01 syenar hu)
+   ; Merging last-minute fixes to 1.0 from main branch.
+
    * contrib/hbhpdf/Makefile
      ! Fixed to find libharu headers in its current default 
        location. (tested on Ubuntu with .tar.gz package from 
        libharu.org.)
-       [1.0]
 
    ; Some more (albeit not new) errors from Ubuntu when compiled 
      will all possible external packages installed:
@@ -256,18 +264,20 @@
      ../../../../include/hbdefs.h:205: error: previous declaration of 'LONG' was here
 
 2008-08-12 13:01 UTC+0200 Przemyslaw Czerpak (druzus/at/priv.onet.pl)
+   ; Merging last-minute fixes to 1.0 from main branch.
+
   * harbour/make_xmingw.sh
   * harbour/make_xmingwce.sh
     ! cleanup and some minor fixes
     * synced behavior of both scripts in few places
-       [1.0]
 
   * harbour/contrib/rddads/ads1.c
   * harbour/contrib/rddads/adsfunc.c
     ! fixed casting of parameters passed to snprintf()
-       [1.0]
 
 2008-08-12 12:02 UTC+0200 Viktor Szakats (harbour.01 syenar hu)
+   ; Merging last-minute fixes to 1.0 from main branch.
+
    * contrib/rddads/adsfunc.c
      ! Fixed GCC warning (Ubuntu/GCC422 + ACE 9.00.0.0)
      ; TOFIX: These ones still remain:
@@ -285,80 +295,44 @@
        ../../adsfunc.c:1620: warning: format '%ld' expects type 'long int', but argument 6 has type 'UNSIGNED32'
        ../../adsfunc.c:1620: warning: format '%ld' expects type 'long int', but argument 5 has type 'UNSIGNED32'
        ../../adsfunc.c:1620: warning: format '%ld' expects type 'long int', but argument 6 has type 'UNSIGNED32'
-       [1.0]
 
 2008-08-12 10:55 UTC+0200 Viktor Szakats (harbour.01 syenar hu)
+   ; Merging last-minute fixes to 1.0 from main branch.
+
    * source/lang/msgcskam.c
    * source/lang/msgcs852.c
    * source/lang/msgcsiso.c
    * source/lang/msgcswin.c
      ! Typo fixed (by Vojtech Obrdlik).
-       [1.0]
 
-2008-08-11 21:20 UTC+0200 Viktor Szakats (harbour.01 syenar hu)
-   * config/hpux/gcc.cf
-   * config/linux/gcc.cf
-   * config/os2/gcc.cf
-   * config/bsd/gcc.cf
-     ! Never force the platform from the make files, rather 
-       rely on the autodetection in hbsetup.h.
-       Compiling default parts of the software should only rely 
-       on manually set macros if there is no reasonable chance to 
-       make the detection automatic.
+2008-08-12 00:17 UTC+0200 Viktor Szakats (harbour.01 syenar hu)
+   ; Merging last-minute fixes to 1.0 from main branch.
 
    * include/hbsetup.h
      ! HB_OS_LINUX, HB_OS_HPUX autodetection supposedly made more robust.
-       [1.0]
+
+2008-08-12 00:11 UTC+0200 Viktor Szakats (harbour.01 syenar hu)
+   ; Merging last-minute fixes to 1.0 from main branch.
 
    * include/hbsetup.ch
    * include/hbapi.h
    * source/rtl/hbffind.c
      - Removed HB_FILE_VER stuff. It's lost its importancy with SVN.
-       [1.0]
 
    * include/Makefile
    * include/hbcommon.ch
      - Removed hbcommon.ch no longer needed. It only contained 
        HB_FILE_VER related stuff.
-       [1.0]
 
-   * contrib/rddado/Makefile
-     ! Excluded from OS/2 builds.
+2008-08-11 21:20 UTC+0200 Viktor Szakats (harbour.01 syenar hu)
+   ; Merging last-minute fixes to 1.0 from main branch.
 
-2008-08-11 20:41 UTC+0200 Viktor Szakats (harbour.01 syenar hu)
    * contrib/hbmisc/spd.c
      ! Fix to SQL_SPRINTF() by Xavi.
-       [1.0]
 
-2008-08-11 19:40 UTC+0200 Viktor Szakats (harbour.01 syenar hu)
    * make_xmingw.sh
      ! Fixed to look for hbpp in the path, like it does for 
        harbour.
-       [1.0]
-
-2008-08-11 18:24 UTC+0200 Viktor Szakats (harbour.01 syenar hu)
-   * config/rules.cf
-     % Removed unnecessary -I option from Harbour command line.
-
-   * ChangeLog
-     + Added entry to signal the branching.
-
-2008-08-11 12:13 UTC+0200 Viktor Szakats (harbour.01 syenar hu)
-   * SVN
-     ; =========================================================
-     ; =========================================================
-     + New '/branches/harbour-1.0' branch created.
-       Any work involving 1.0.x versions should be done in this 
-       branch.
-     ; In the "normal" repository (= the trunk = this one), the 
-       development of next main version (1.1) of Harbour should 
-       continue.
-       To put it shortly:
-       - Don't commit here anything belonging to 1.0.x.
-       - Do commit everything belonging to 1.1.
-       - Do commit everything belonging to 1.0 to /branches/harbour-1.0
-     ; =========================================================
-     ; =========================================================
 
 2008-08-11 11:02 UTC+0200 Viktor Szakats (harbour.01 syenar hu)
    * make_vcce.mak
