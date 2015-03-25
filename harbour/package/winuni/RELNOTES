@@ -1,6 +1,6 @@
 Hi All,
 
-Harbour 3.0.0 (r?????) source archives and Windows binary
+Harbour 3.0.0 (r16952) source archives and Windows binary
 releases are available for download on sourceforge.net:
 
    http://sourceforge.net/projects/harbour-project/files/
@@ -15,7 +15,7 @@ Release notes:
 Unified Windows release for mainstream compilers and
 x86, x64, WinCE/ARM platforms.
 
-Installed size: 233MB (78MB - 322MB)
+Installed size: 231MB (76MB - 317MB)
 
 The default installation will install MinGW compiler + x86 static
 and shared libs, MSVC and BCC x86 libs and examples.
