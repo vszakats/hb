@@ -353,6 +353,8 @@ typedef struct
 
    RECT     ciLast;                       /* need in WM_ENTERSIZEMOVE processing and hb_gt_wvt_PaintText() function [HVB] */
 
+   HB_BOOL  bQuickEdit;
+
 } HB_GTWVT, * PHB_GTWVT;
 
 #ifndef WM_MOUSEWHEEL

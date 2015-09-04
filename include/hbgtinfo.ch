@@ -152,6 +152,8 @@
 #define HB_GTI_MINIMIZED        75  /* Get/Set Window's Minimized status (supported by: GTQTC, GTXWC) */
 #define HB_GTI_QUICKEDIT        76  /* Enable/Disable quick edit mode (supported by: GTWVT) */
 
+#define HB_GTI_QUICKEDIT        76  /* Enable/Disable quick edit mode (supported by: GTWVT) */
+
 /* Font weights */
 #define HB_GTI_FONTW_THIN       1
 #define HB_GTI_FONTW_NORMAL     2

@@ -381,6 +381,8 @@ static PHB_GTWVT hb_gt_wvt_New( PHB_GT pGT, HINSTANCE hInstance, int iCmdShow )
 
    pWVT->bComposited       = HB_FALSE;
 
+   pWVT->bQuickEdit        = HB_FALSE;
+
    return pWVT;
 }
 
