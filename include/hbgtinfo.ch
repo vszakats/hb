@@ -151,6 +151,8 @@
 #define HB_GTI_CLOSEMODE        74  /* Close event: 0 terminate application, >=1 generate HB_K_CLOSE, 2 disable close button */
 #define HB_GTI_MINIMIZED        75  /* Get/Set Window's Minimized status (supported by: GTQTC, GTXWC) */
 
+#define HB_GTI_QUICKEDIT        76  /* Enable/Disable quick edit mode (supported by: GTWVT) */
+
 /* Font weights */
 #define HB_GTI_FONTW_THIN       1
 #define HB_GTI_FONTW_NORMAL     2

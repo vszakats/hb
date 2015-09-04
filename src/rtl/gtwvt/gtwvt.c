@@ -378,6 +378,8 @@ static PHB_GTWVT hb_gt_wvt_New( PHB_GT pGT, HINSTANCE hInstance, int iCmdShow )
 
    pWVT->bComposited       = HB_FALSE;
 
+   pWVT->bQuickEdit        = HB_FALSE;
+
    return pWVT;
 }
 
@@ -2189,7 +2191,7 @@ static void hb_gt_wvt_MouseEvent( PHB_GTWVT pWVT, UINT message, WPARAM wParam, L
          break;
 
       case WM_LBUTTONDOWN:
-         if( pWVT->bBeginMarked )
+         if( pWVT->bBeginMarked || pWVT->bQuickEdit )
          {
             pWVT->bBeingMarked = HB_TRUE;
 
@@ -2215,12 +2217,29 @@ static void hb_gt_wvt_MouseEvent( PHB_GTWVT pWVT, UINT message, WPARAM wParam, L
          break;
 
       case WM_RBUTTONUP:
+         if( pWVT->bQuickEdit )
+         {
+            HB_GT_INFO gtInfo;
+
+            gtInfo.pNewVal  = NULL;
+            gtInfo.pNewVal2 = NULL;
+            gtInfo.pResult  = NULL;
+
+            if( HB_GTSELF_INFO( pWVT->pGT, HB_GTI_CLIPBOARDDATA, &gtInfo ) )
+               HB_GTSELF_INKEYSETTEXT( pWVT->pGT, hb_itemGetCPtr( gtInfo.pResult ),
+                                       hb_itemGetCLen( gtInfo.pResult ) );
+
+            hb_gt_wvt_Composited( pWVT, HB_FALSE );
+
+            return;
+         }
+
          keyCode = K_RBUTTONUP;
          break;
 
       case WM_LBUTTONUP:
 
-         if( pWVT->bBeingMarked )
+         if( pWVT->bBeingMarked || pWVT->bQuickEdit )
          {
             pWVT->bBeginMarked = HB_FALSE;
             pWVT->bBeingMarked = HB_FALSE;
@@ -4145,6 +4164,16 @@ static HB_BOOL hb_gt_wvt_Info( PHB_GT pGT, int iType, PHB_GT_INFO pInfo )
 
       case HB_GTI_WINHANDLE:
          pInfo->pResult = hb_itemPutPtr( pInfo->pResult, pWVT->hWnd );
+         break;
+
+      case HB_GTI_QUICKEDIT:
+         pInfo->pResult = hb_itemPutL( pInfo->pResult, pWVT->bQuickEdit );
+         if( pInfo->pNewVal )
+         {
+            HB_BOOL bNewValue = hb_itemGetL( pInfo->pNewVal );
+            if( bNewValue != pWVT->bQuickEdit )
+               pWVT->bQuickEdit = bNewValue;
+         }
          break;
 
       default:
