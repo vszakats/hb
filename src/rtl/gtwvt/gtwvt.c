@@ -2220,14 +2220,9 @@ static void hb_gt_wvt_MouseEvent( PHB_GTWVT pWVT, UINT message, WPARAM wParam, L
          if( pWVT->bQuickEdit )
          {
             HB_GT_INFO gtInfo;
+            memset( &gtInfo, 0, sizeof( gtInfo ) );
 
-            gtInfo.pNewVal  = NULL;
-            gtInfo.pNewVal2 = NULL;
-            gtInfo.pResult  = NULL;
-
-            if( HB_GTSELF_INFO( pWVT->pGT, HB_GTI_CLIPBOARDDATA, &gtInfo ) )
-               HB_GTSELF_INKEYSETTEXT( pWVT->pGT, hb_itemGetCPtr( gtInfo.pResult ),
-                                       hb_itemGetCLen( gtInfo.pResult ) );
+            hb_gtInfo( HB_GTI_CLIPBOARDPASTE, &gtInfo );
 
             hb_gt_wvt_Composited( pWVT, HB_FALSE );
 
