@@ -2236,7 +2236,6 @@ static void hb_gt_wvt_MouseEvent( PHB_GTWVT pWVT, UINT message, WPARAM wParam, L
          if( pWVT->bQuickEdit )
          {
             HB_GT_INFO gtInfo;
-
             memset( &gtInfo, 0, sizeof( gtInfo ) );
 
             hb_gtInfo( HB_GTI_CLIPBOARDPASTE, &gtInfo );
