@@ -82,7 +82,7 @@
 typedef struct
 {
    PGconn * pConn;
-   int existingConnection;
+   int      existingConnection;
 } SDDCONN;
 
 typedef struct
@@ -170,21 +170,24 @@ static HB_ERRCODE pgsqlConnect( SQLDDCONNECTION * pConnection, PHB_ITEM pItem )
    PGconn *       pConn;
    ConnStatusType status;
    const char *   pszHost;
-   void ** hbConn;
-   PHB_ITEM  pSecond;
+   void **        hbConn;
+   PHB_ITEM       pSecond;
    int existingConnection = 0;
 
-   pSecond = hb_itemArrayGet( pItem, 2);
-   if HB_IS_POINTER( pSecond )  {
-      hbConn = (void **) hb_itemGetPtr( pSecond );
-      pConn = (PGconn *) *hbConn;
+   pSecond = hb_itemArrayGet( pItem, 2 );
+   if( HB_IS_POINTER( pSecond ) )
+   {
+      hbConn = ( void ** ) hb_itemGetPtr( pSecond );
+      pConn  = ( PGconn * ) *hbConn;
       existingConnection = 1;
-   } else {
+   }
+   else
+   {
       pszHost = hb_arrayGetCPtr( pItem, 2 );
       if( pszHost && ( strncmp( pszHost, "postgresql://", 13 ) == 0 || strchr( pszHost, '=' ) ) )
-          pConn = PQconnectdb( pszHost );
+         pConn = PQconnectdb( pszHost );
       else
-          pConn = PQsetdbLogin( pszHost, hb_arrayGetCPtr( pItem, 6 ), hb_arrayGetCPtr( pItem, 7 ), hb_arrayGetCPtr( pItem, 8 ), hb_arrayGetCPtr( pItem, 5 ), hb_arrayGetCPtr( pItem, 3 ), hb_arrayGetCPtr( pItem, 4 ) );
+         pConn = PQsetdbLogin( pszHost, hb_arrayGetCPtr( pItem, 6 ), hb_arrayGetCPtr( pItem, 7 ), hb_arrayGetCPtr( pItem, 8 ), hb_arrayGetCPtr( pItem, 5 ), hb_arrayGetCPtr( pItem, 3 ), hb_arrayGetCPtr( pItem, 4 ) );
    }
 
    if( ! pConn )   /* Low memory, etc */
@@ -208,8 +211,9 @@ static HB_ERRCODE pgsqlConnect( SQLDDCONNECTION * pConnection, PHB_ITEM pItem )
 
 static HB_ERRCODE pgsqlDisconnect( SQLDDCONNECTION * pConnection )
 {
-   if ( ! ( ( SDDCONN * ) pConnection->pSDDConn )->existingConnection ) {
-     PQfinish( ( ( SDDCONN * ) pConnection->pSDDConn )->pConn );
+   if( ! ( ( SDDCONN * ) pConnection->pSDDConn )->existingConnection )
+   {
+      PQfinish( ( ( SDDCONN * ) pConnection->pSDDConn )->pConn );
    }
    hb_xfree( pConnection->pSDDConn );
    return HB_SUCCESS;
