@@ -82,7 +82,7 @@
 typedef struct
 {
    PGconn * pConn;
-   int      existingConnection;
+   HB_BOOL      fExistingConnection;
 } SDDCONN;
 
 typedef struct
@@ -172,14 +172,14 @@ static HB_ERRCODE pgsqlConnect( SQLDDCONNECTION * pConnection, PHB_ITEM pItem )
    const char *   pszHost;
    void **        hbConn;
    PHB_ITEM       pSecond;
-   int existingConnection = 0;
+   int fExistingConnection = 0;
 
    pSecond = hb_itemArrayGet( pItem, 2 );
    if( HB_IS_POINTER( pSecond ) )
    {
       hbConn = ( void ** ) hb_itemGetPtr( pSecond );
       pConn  = ( PGconn * ) *hbConn;
-      existingConnection = 1;
+      fExistingConnection = 1;
    }
    else
    {
@@ -204,17 +204,15 @@ static HB_ERRCODE pgsqlConnect( SQLDDCONNECTION * pConnection, PHB_ITEM pItem )
    }
    pConnection->pSDDConn = hb_xgrab( sizeof( SDDCONN ) );
    ( ( SDDCONN * ) pConnection->pSDDConn )->pConn = pConn;
-   ( ( SDDCONN * ) pConnection->pSDDConn )->existingConnection = existingConnection;
+   ( ( SDDCONN * ) pConnection->pSDDConn )->fExistingConnection = fExistingConnection;
    return HB_SUCCESS;
 }
 
 
 static HB_ERRCODE pgsqlDisconnect( SQLDDCONNECTION * pConnection )
 {
-   if( ! ( ( SDDCONN * ) pConnection->pSDDConn )->existingConnection )
-   {
+   if( !( ( SDDCONN * ) pConnection->pSDDConn )->fExistingConnection )
       PQfinish( ( ( SDDCONN * ) pConnection->pSDDConn )->pConn );
-   }
    hb_xfree( pConnection->pSDDConn );
    return HB_SUCCESS;
 }
