@@ -208,7 +208,9 @@ static HB_ERRCODE pgsqlConnect( SQLDDCONNECTION * pConnection, PHB_ITEM pItem )
 
 static HB_ERRCODE pgsqlDisconnect( SQLDDCONNECTION * pConnection )
 {
-   PQfinish( ( ( SDDCONN * ) pConnection->pSDDConn )->pConn );
+   if ( ! ( ( SDDCONN * ) pConnection->pSDDConn )->existingConnection ) {
+     PQfinish( ( ( SDDCONN * ) pConnection->pSDDConn )->pConn );
+   }
    hb_xfree( pConnection->pSDDConn );
    return HB_SUCCESS;
 }
