@@ -2248,14 +2248,14 @@ static int hb_gt_def_Alert( PHB_GT pGT, PHB_ITEM pMessage, PHB_ITEM pOptions,
             {
                if( --iPos == 0 )
                   iPos = iOptions;
-               if( iOptions > 1 ) // retain timeout for informative Alerts
+               if( iOptions > 1 ) /* invalidate timeout for non-informative Alerts (viz. those with choices) */
                   dDelay = 0.0;
             }
             else if( iKey == K_RIGHT || iKey == K_TAB )
             {
                if( ++iPos > iOptions )
                   iPos = 1;
-               if( iOptions > 1 ) // retain timeout for informative Alerts
+               if( iOptions > 1 ) /* invalidate timeout for non-informative Alerts (viz. those with choices) */
                   dDelay = 0.0;
             }
 #ifdef HB_COMPAT_C53
