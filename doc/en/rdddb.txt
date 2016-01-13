@@ -920,7 +920,7 @@
       select the work area with the alias name.
 
       dbSelectArea( 0 ) will select the next avaliable and unused work area.
-      Up to 255 work areas are supported. Each work area has its own alias
+      Up to 65534 work areas are supported. Each work area has its own alias
       and record pointer, as well as its own Found(), dbFilter(),
       dbRSelect() and dbRelation() function values.
    $EXAMPLES$
