@@ -64,7 +64,7 @@
 #define _RETTYPERAW_DOUBLE  3
 #define _RETTYPERAW_FLOAT   4
 
-#define _DYNEXEC_MAXPARAM   15
+#define _DYNEXEC_MAXPARAM   32
 
 typedef void ( *PHB_DYNADDR )( void );
 
