@@ -1,0 +1,396 @@
+@ <nRow>, <nCol> [SAY <cSay> [PICTURE <cSayPict>] COLOR <cSayColor> ] GET <xVar> [PICTURE <cGetPict>] [WHEN <lWhen>] [COLOR <cGetColor>] [VALID <lValid> / RANGE <xStart>, <xEnd>]
+AAdd(<aTarget>, <expValue>) -> Value
+Abs(<nExp>) -> nPositive
+AChoice( <nTop>, <nLeft>, <nBottom>, <nRight>, <acMenuItems>, [<alSelectableItems> | <lSelectableItems>], [<cUserFunction> | <bUserBlock>], [<nInitialItem>], [<nWindowRow>] ) -> nPosition
+AClone( <aSource> ) -> aDuplicate
+ACopy(<aSource>, <aTarget>, [<nStart>], [<nCount>], [<nTagetPos>]) -> aTarget
+ADel(<aTarget>, <nPosition>) -> aTarget
+ADir([<cFileSpec>], [<aFilenames>], [<aSizes>], [<aDates>], [<aTimes>], [<aAttributes>]) -> nFiles
+AEval(<aArray>, <bBlock>, [<nStart>], [<nCount>]) -> aArray
+AFields([<aFieldsnames>], [<aTypes>], [<aWidths>], [<aDecimals>]) -> nFields
+AFill( <aArray>, <xValue>, [<nStart>], [<nCount>] ) -> aTarget
+AIns(<aTarget>, <nPosition>) -> aTarget
+Alert(<cMessage>, [<aOptions>]) -> nChoice
+Alias([<nWorkarea>]) -> cAlias  (returns the alias of the work area indicated by <nWorkArea>. If <nWorkArea> is not provided, the alias of the current work area is returned.)
+AllTrim(<cString>) -> cTrimString
+AltD([<nAction>]) -> Nil
+Array(<nElements> [, <nElements>...]) -> aArray
+Asc(<cExp>) -> nCode
+AScan( <aTarget>, <xSearch>, [<nStart>], [<nCount>] ) -> nStoppedAt
+ASize(<aTarget>, <nLength>) -> aTarget
+ASort( <aArray>, [<nStart>], [<nCount>], [<bSort>] ) -> aArray
+At(<cSearch>, <cTarget>) -> nPosition
+ATail(<aArray>) -> rightmost element of aArray
+Bin2I(<cSignedInt>) -> nNumber
+Bin2L( <c32bitSignedLongInteger> ) -> nNumber
+Bin2U( <c32bitUnsignedLongInteger> ) -> nNumber
+Bin2W(<cUnsignedInt>) -> nNumber
+Bof() -> lBoundary
+Break(<cExpr>) -> Nil
+Browse([<nTop>], [<nLeft>], [<nBottom>], [<nRight>]) -> lSuccess
+CDoW( <dDate> ) -> cDayName
+Chr(<nCode>) -> cChar
+CMonth(<dDate>) -> cMonth
+Col() -> nCol
+ColorSelect(<nColorIndex>) -> Nil
+CtoD(<cDateString>) -> dDate
+CurDir([<cDrivespec>]) -> cDirectory
+Date() -> dCurDate
+Day(<dDate>) -> nDay
+Days( <nSecs> ) -> nDay - converts <nSecs> seconds to the equivalent number of days
+DoW( <dDate> ) -> nDay
+dbAppend() -> Nil (adds a new record to the end of the database in the current or aliased work area.)
+dbClearFilter() -> Nil (clears any active filter condiction for the current or aliased work area.)
+dbClearIndex() -> Nil
+dbClearRelation() -> Nil
+dbCloseAll() -> Nil (close all open databases, associated indexes and format files and moves the work area pointer to the first position)
+dbCloseArea() -> Nil (closes an open database (if any) in the selected or aliased work area.)
+dbCommit() -> Nil (updates a database and all related index buffers for the current or aliased work area only)
+dbCommitAll() -> Nil (Flushes the memory buffer and performs a hard-disk write for all work areas.)
+dbCreate(<cDatabase>, <aStruct>, [<cDriver>]) -> Nil
+dbCreateIndex(<cIndexName>, <cKeyExpr>, <bKeyExpr>, [<lUnique>]) -> Nil
+dbDelete() -> Nil  (Mark a record for deletion in a database.)
+dbEdit( [<nTop>], [<nLeft>], [<nBottom>], [<nRight>], [<acColumns>], [<cUserFunction>], [<acColumnSayPictures> | <cColumnSayPicture>], [<acColumnHeaders> | <cColumnHeader>], [<acHeadingSeparators> | <cHeadingSeparator>], [<acColumnSeparators> | <cColumnSeparator>], [<acFootingSeparators> | <cFootingSeperator>], [<acColumnFootings> | <cColumnFooting>]) -> .T. (or .F. if no dbf is open or invalid column specified)
+dbEval(<bBlock>, [<bForCondition>], [<bWhileCondition>], [<nNextRecords>], [<nRecord>], [<lRest>]) -> Nil  (evaluates <bBlock> for all records in the current work area. A matching scope can be defined with <bFor>/<bWhile> blocks.)
+Dbf() -> cAlias  (alias name of the currently selected work area. )
+dbFilter() -> cFilter
+dbGoBottom() -> Nil
+dbGoTo(<nRecordNumber>) -> Nil
+dbGoTop() -> Nil
+dbRecall() -> Nil
+dbReindex() -> Nil
+dbRelation(<nRelation>) -> cLinkExp
+dbRLockList() -> aRecordLocks  (return a list of locked records in the database work area)
+dbRUnlock( [<nRecno>] )
+dbRSelect(<nRelation>) -> nWorkArea
+dbSeek( <expKey>, [<lSoftSeek>], [<lFindLast>] ) -> lFound  (<lFindLast> is an optional logical value that set the current record position to the last record if successful)
+dbSelectArea(<nArea> | <cAlias>) -> Nil
+dbSetDriver([<cDriver>]) -> cCurrentDriver
+dbSetFilter(<bCondition>, [<cCondition>]) -> Nil
+dbSetIndex(<cIndexName>) -> Nil
+dbSetOrder(<nOrdernum>) -> Nil
+dbSetRelation(<nArea> | <cAlias>, <bExpr>, [<cExpr>]) -> Nil
+dbSkip(<nRecords>) -> Nil
+dbStruct() -> aStruct
+dbUnlock() -> Nil
+dbUnlockAll() -> Nil
+dbUseArea([<lNewArea>], [<cRddName>], <cDatabase>, [<cAlias>], [<lShared>], [<lReadOnly>], [cCodePage], [nConnection]) -> .T. on sucess, otherwise .F.
+Deleted() -> lDeleted
+DeleteFile(<cFileName>) -> nErrorCode 
+Descend(<exp>) -> ValueInverted
+DevOut(<exp>, [<cColorString>]) -> Nil
+DevOutPict(<exp>, <cPicture>, [<cColorString>]) -> Nil
+DevPos(<nRow>, <nCol>) -> Nil
+Directory(<cDirSpec>, [<cAttributes>]) -> aDirectory
+DiskSpace(<nDrives>) -> nBytes
+DispBegin() -> Nil
+DispBox(<nTop>, <nLeft>, <nBottom>, <nRight>, [<cnBoxString>], [<cColorString>]) -> Nil
+DispCount() -> nDispCount
+DispEnd() -> Nil
+DispOut(<exp>, [<cColorString>]) -> Nil
+DoMethod(<WindowName>,[<ControlName>],<MethodName>)
+DOSError([<nNewOsCode>]) -> nOsCode
+DoW(<dDate>) -> nDay
+DToC(<dDate>) -> cDate
+DToS(<dDate>) -> cDate
+ElapTime( <cStartTime>, <cEndTime> ) -> cDiference
+Empty(<exp>) -> lEmpty
+Eof() -> lBoundary
+ErrorBlock([<bErrorHandler>]) -> bCurrentErrorHandler
+ErrorLevel([<nNewReturnCode>]) -> nCurrentReturnCode
+Eval(<bBlock>, [<BlockArg list>]) -> LastBlockValue
+Exp(<nExponent>) -> nAntilogarithm  (Calculates the value of e raised to the passed power.)
+FClose(<nHandle>) -> lError
+FCount() -> nFields
+FCreate(<cFile, [<nAttibute>]) -> nHandle
+FErase(<cFile>) -> nSuccess
+FError() -> nErrorCode
+Field(<nPosition>) -> cFieldName
+FieldBlock(<cFieldName>) -> bFieldBlock
+FieldGet(<nField>) -> ValueField
+FieldName(<nPosition>) -> cFieldName
+FieldPos(<cFieldName>) ->nFieldPos
+FieldPut(<nField>, <expAssign>) ->ValueAssigned
+FieldWBlock(<cFieldName>, <nWorkArea>) -> bFieldWBlock
+File(<cFileSpec>) -> lExist
+FKLabel(<nFunctionKey>) -> cKeyLabel
+FKMax() -> nFunctionKey
+FLock() -> lSuccess
+FOpen(<cFile>, [<nMode>]) -> nHandle
+Found() -> lSuccess
+FRead(<nHandle>, @<cBufferVar>, <nBytes>) -> nBytes
+FReadStr(<nHandle>, <nBytes>) -> cString
+FRename(<cOldFile>, <cNewFile>) -> nSuccess
+FSeek(<nHandle>, <nOffset>, [<nOrigin>]) -> nPosition
+FWrite(<nHandle>, <cBuffer>, [<nBytes>]) -> nBytesWritten
+GetEnv(<cEnvironmentVariable>) -> cString
+GetFile( acFilter , cTitle, cDefaultPath , lMultiSelect , lNoChangeDir ) -> SelectedFileName(s)
+GetProperty(<cWindowName>[,<cControlName>] ,<cPropertyName>) -> PropertyValue
+HardCR(<cString>) -> cConvertedString
+hb_ADel( <aArray> [, <nPos> := 1, <lAutoSize> := .F. ] ) -> <aArray> Deletes the value at position <nPos> moving all the following values to the previous position. If <lAutoSize> is .T., then the last element is deleted (the size of the array is decreased by one), otherwise NIL will be stored in the last element of the array (as in ADel()).
+hb_AIns( <aArray> [, <nPos> := 1, <uValue>, <lAutoSize> := .F. ] ) -> <aArray>  Inserts <uValue> in the <nPos> position of the array moving all the items to the next position. If <lAutoSize> is .T., a new element will be added making room for the previous last element, else the size of <aArray> won't change and the last item of <aArray> will be lost
+hb_Alert( xMessage, aOptions, cColorNorm, nDelay )
+hb_AParams( [ <nUpLevel> ] ) -> <aParamList>  Returns an array with the parameters passed to a function. <nLevel> lets you obtain the parameter list of the caller functions up in the call tree.
+hb_AScan( <aArray>, <uValue> [ , <nStart>, <nCount>, <lExact> ] ) -> <nPos>  Scans (left to right) for <uValue> into <aArray> and returns <nPosition> of found or <zero> if nothing found.
+hb_RAScan( <aArray>, <uValue> [ , <nStart>, <nCount>, <lExact> ] ) -> <nPos>  Scans (right to left) for <uValue> into <aArray> and returns <nPosition> of found or <zero> if nothing found.
+hb_At( <cSearch>, <cString>, [<nStart>], [<nEnd>] ) -> nPos
+hb_AtI( <cSearch>, <cString>, [<nStart>], [<nEnd>] ) -> nPos  (same as hb_At(), but case-Insensitive )
+hb_ATokens( <cString> [ , <cDelim>, <lSkipStrings>, <lDoubleQuoteOnly> ] ) -> <aTokens> Returns an array with all the tokens in a string.
+hb_CdpSelect( [<cNewLang>] ) -> cOldLang  (<cNewLang>  The optional ID of the language module.)
+hb_CStr( xVal ) -> cExp  Converts a value of any type into a string expression. Complex types are converted into a descriptive text
+hb_CtoD( <cDate> [ , <cDateFormat> ] ) -> <dDate>  Harbour extension to the CtoD() function. It converts a string <cDate> representing a date to a DATE type value. Additionally, the date format used in <cDate> can be supplied in <cDateFormat>, otherwise the _SET_DATEFORMAT format will be used.
+hb_CtoT( <cTimeStamp> [ , <cDateFormat>, <cTimeFormat> ] ) -> <tTimeStamp>  Converts between timestamp values and timestamp string representations. By default it uses the _SET_DATEFORMAT and _SET_TIMEFORMAT format strings to do the conversion, but you can specify other formats using <cDateFormat> and <cTimeFormat>.
+hb_Date( [ <nYear>, <nMonth>, <nDay> ] ) -> <dDate>  Harbour extension to the Date() function that returns a date value from the supplied day, month and year values. If any of them is invalid or missing, an empty date is returned. If none of them is supplied, the current date is returned.
+hb_DateTime( [ <nYear>, <nMonth>, <nDay>, <nHour>, <nMinute>, <nSecond>, <nFragment> ] ) -> <tTimeStamp>  Returns a timestamp value from the supplied day, month, year, hour, minute, second and second fragment values. If none of them is supplied, the current date and time is returned.
+hb_dbDrop( <cDbf>, [<cIndex>], [<cRDD>], [<nConnection>] ) -> lSuccess (.t. or .f.). Deletes database files and/or indexes. To delete a <cIndex> only, <cDbf> must defined as empty string '""', otherwise RTE occurs.
+hb_dbCreateTemp( <cAlias>, <aStruct>, <cRDD>, <cCodePage>, <nConnection> ) -> <lSuccess>
+hb_dbExists( <cDbf>, [<cIndex>], [<cRDD>], [<nConnection>] ) -> lExist (.t. or .f.). Check if dbf and/or index exists. To check for a <cIndex> only, <cDbf> must defined as empty string <"">, otherwise RTE occurs.)
+hb_dbRename( <cDbf>, [<cIndex>], <cNewName> [<cRDD>], [<nConnection>] ) -> lExist (.t. or .f.). Rename a dbf and/or index exists. To rename a <cIndex> only, <cDbf> must defined as empty string <"">, otherwise RTE occurs.)
+hb_Default( <@xVar>, <xValue> ) -> Sets the value of <xVar> to <xValue> if either <xVar> value is NIL or the types of both values doesn't match. <xVar> must passed by refernce!
+hb_DefaultValue( <xValue>, <xDefaultValue> ) -> <xReturn>  Returns <xDefaultValue> if <xValue> is NIL or different type of <xDefaultValue> (as in hb_Default() but not modifying the variable)
+hb_DiskSpace( [<cDrive>] [, <nType>] ) -> nDiskbytes (types: HB_FS_AVAIL - HB_FS_FREE - HB_FS_USED - HB_FS_TOTAL in fileio.ch)
+hb_DtoC( <dDate> | <tTimeStamp> [ , <cDateFormat> ] ) -> <cDate>  Harbour extension to the DtoC() function. It converts a date value <dDate> (or the date value of <tTimeStamp>) to a string. If no date format is supplied the _SET_DATEFORMAT format will be used.
+hb_DtoT( <dDate> [ , <cnTime> ] ) -> <tTimeStamp>  Returns a timestamp from the date and time values. <dDate> is a date value and <cnTime> is the time part and could be a number (as from Seconds()) or a string (as from Time(), see time string format).
+hb_FCreate( <cFile>, <nCreateFlags>, <nOpenFlags> ) -> <nHandle> on success or F_ERROR on failure
+hb_FEof( <nHandle> ) -> <lEof>
+hb_FileDelete( cFileMask, cAttr ) -> .T. if one ore more files deleted, otherwise .F.
+hb_FileExists( cFileMask ) -> .T. | .F.
+hb_FLock( <nHandle>, <nOffset>, <nBytes> [, <nType ] ) -> <lSuccess>  (Locks part or all of any file)
+hb_FNameSplit( <cFile>, [@cFullDirWithDrive], [@cName], [@cExt], [@cDriveLetter] ) -> Nil
+hb_FUnlock( <nHandle>, <nOffset>, <nBytes> ) -> <lSuccess>  (Unlocks part or all of any file)
+hb_GetEnv( <cEnviroment>, [<cDefaultValue>] ) -> <cReturn>  (<cDefaultValue> Optional value to return if <cEnvironment> is not found.)
+hb_GetPID( <cExeFile> ) -> integer Process ID
+hb_GetProcess( <cExeFile>, [(by ref) nProcessID] ) -> Bool
+hb_FCreate( <cFile>, <nCreateFlags>, <nOpenFlags> ) -> <nHandle> on success or F_ERROR on failure
+hb_FEof( <nHandle> ) -> <lEof>
+hb_Hash( [ <Key1>, <Value1> ], [ <KeyN>, <ValueN> ], ... ) -> hsTable
+hb_HAllocate( <hsTable>, <nItems> ) (Preallocates <nItems> to a hash table)
+hb_HAutoAdd( <hsTable>, [<lFlag>] ) -> <lPreviousFlag>  (Sets the 'auto add' flag for the hash table)
+hb_HBinary( <hsTable>, [<lFlag>] ) -> <lPreviousFlag>  (Sets the 'binary' flag for the hash table)
+hb_HCaseMatch( <hsTable>, [<lFlag>] ) -> <lPreviousFlag>  (Sets the 'case match' flag for the hash table)
+hb_HClone( <hsTable> ) -> <hsDestination> (Creates a copy of a hash table)
+hb_HCopy( <hsDestination>, <hsSource>, [<nStart>], [<nCount>] ) -> <hsDestination> (Adds entries from the source hash table to the destination hash table)
+hb_HDefault( <hsTable>, <DefaultValue> ) -> <OldDefaultValye>  (Returns/sets a default value for a hash table.)
+hb_HDel( <hsTable>, <Key> ) -> <hsTable>
+hb_HDelAt( <hsTable>, <nPosition> ) -> <hsTable> (Removes an entry from a hash table based on its index position)
+hb_HEval( <hsTable>, <bBlock>, [<nStart>], [<nCount>] ) -> <hsTable> (evaluate a code block across the contents of a hash table)
+hb_HFill( <hsTable>, <Value> ) -> <hsTable> (Fills a hash table with a value)
+hb_HGet( <hsTable>, <Key> ) -> <Value>
+hb_HGetDef( <hsTable>, <Key>, [<DefaultValue>] ) -> <Value> (Either the value within the hash table for the given key, or the default value.)
+hb_HHasKey( <hsTable>, <Key> ) -> lExists
+hb_HKeyAt( <hsTable>, <nPosition> ) -> <Key>
+hb_HKeys( <hsTable> ) -> <aKeys> (Returns an array of the keys of a hash table)
+hb_langErrMsg( <nErrorCode> ) -> cErrorMessage
+hb_langMessage( <nMsg>[, <cLangID>] ) -> cMessage
+hb_langName( [<cLangID>] ) -> cLangName
+hb_langSelect( [<cNewLang>][, <cCodepage>] ) -> cOldLang
+hb_HexToStr( <cHexValues> ) -> <cBytes> The inverse of hb_StrToHex(). Converts a string of hexadecimal values into it's corresponding bytes stream.
+hb_HMerge( <hsDestination>, <hsSource>, <bBlock>|<nPosition> ) -> <hsDestination> (Merges a source hash table into a destination hash table)
+hb_HPairAt( <hsTable>, <nPosition> ) -> <aKeyValue> (A two-dimensional array of the key/value pair entry of the hash table)
+hb_HPos( <hsTable>, <Key> ) -> nPosition
+hb_HScan( <hsTable>, <Value>, [<nStart>], [<nCount>, [<lExact>] ) -> nPosition (Scans a hash table)
+hb_HSet( <hsTable>, <Key>, <Value> ) -> <hsTable>
+hb_HSort( <hsTable> ) -> <hsSortedTable>
+hb_HValueAt( <hsTable>, <nPosition>, [<NewValue>] ) -> <Value>
+hb_HValues( <hsTable> ) -> <aValues> (Returns an array of the values of a hash table)
+hb_idleAdd( <bAction> ) -> nHandle (Adds the background task. <bAction> is a codeblock that will be executed during idle states.)
+hb_idleDel( <nHandle> ) -> <bAction>
+hb_idleState() -> Nil  (Evaluates a single background task and calls the garbage collector.)
+hb_IsArray( <xExp> ) -> <lResult>  Determines if <xExp> evaluates to an array value (type A).
+hb_IsBlock( <xExp> ) -> <lResult>  Determines if <xExp> evaluates to a codeblock (type B).
+hb_IsChar( <xExp> ) -> <lResult>  Determines if <xExp> evaluates to a character value including both strings (type C) and memo (type M) values.
+hb_IsDate( <xExp> ) -> <lResult>  Determines if <xExp> evaluates to date value (type D).
+hb_IsDateTime( <xExp> ) -> <lResult> Determines if <xExp> evaluates to a timestamp (type T) or a date (type D) value.
+hb_IsEvalItem( <xExp> ) -> <lResult>  Determines if <xExp> can be evaluated with the Eval() function (i.e. codeblocks and symbols) (types B and S).
+hb_IsHash( <xExp> ) -> <lResult>  Determines if <xExp> evaluates to a hash value (type H).
+hb_IsHashKey( <xExp> ) -> <lResult>  Determines if <xExp> can be used as a hash key (types N, D, T, C and P).
+hb_IsLogical( <xExp> ) -> <lResult> Determines if xExp evaluates to a logical value (type L).
+hb_IsMemo( <xExp> ) -> <lResult> Determines if <xExp> evaluates to a memo value (type M).
+hb_IsNil( <xExp> ) -> <lResult> Determines if <xExp> evaluates to NIL (type U).
+hb_IsNull( <xExp> ) -> <lResult>  Determines if the lenght of <xExp> when is a string, an array or a hash is zero ( Len() == 0 ).
+hb_IsNumeric( <xExp> ) -> <lResult>  Determines if <xExp> evaluates to a numerical value (both integers and floating point numbers) (type N).
+hb_IsObject( <xExp> ) -> <lResult>  Determines if <xExp> evaluates to an object value (type O).
+hb_IsPointer( <xExp> ) -> <lResult>  Determines if <xExp> evaluates to pointer value (type P)
+hb_IsString( <xExp> ) -> <lResult>  Determines if <xExp> evaluates to string value (type C). It will return .F. with memo values (type M).
+hb_IsSymbol( <xExp> ) -> <lResult>  Determines if <xExp> evaluates to a symbol value (type S).
+hb_IsTimestamp( <xExp> ) -> <lResult> Determines if <xExp> evaluates to a timestamp (type T).
+hb_IsProcess( <cExeFile> ) -> Bool .T. if cExeFile is running
+hb_KillProcess( <cExeFile> ) -> TRUE on success
+hb_keyPut( <nInkeyCode> ) -> Nil  (Put an inkey code to the keyboard buffer.)
+hb_LangSelect( [cLangCode] ) -> cCurrentLangCode
+hb_MemoRead(<cFile>) -> cString EOF included (if any) - diff from MemoRead which strips out EOF)
+hb_MemoWrit( <cFileName>, <cString>, [<lWriteEof>] ) 
+hb_NtoS( <nNumber> ) -> <cSstring>  Converts any numeric value to a string, trimming all the surplus spaces (equivalent to LTrim( Str( <nNumber> ) )).
+hb_NtoT( <nValue> ) -> <tTimeStamp>
+hb_NumToHex( <nNumber> [ , <nHexDigits> ] ) -> <cHexNumber>  Converts a decimal number into a hexadecimal number. You can specify the lenght of the resulting hexadecimal number with <nHexDigits>.
+hb_HexToNum( <cHexNumber> ) -> <nNumber>  Convert an hexadecimal number into a decimal number.
+HB_PIsByRef( <nParam> ) -> <lIsByRef> Returns .T. if the param is passed by reference.
+hb_ProcessRun( <cCommand>, [ <cStdIn> ], [ @<cStdOut> ], [ @<cStdErr> ], [ <lDetach> ] ) -> <nResult>
+hb_PValue( <nParam> [, <uNewValue> ] ) -> <uValue>  Returns the value passed in the <nParam> parameter and optionally assings a new value to it. It returns the *current* (not the original passed) parameter value.
+hb_RAt( <cFind>, <cText> [ , <nStart>, <nEnd> ] ) -> <nPosFound>  It finds the last (rightmost) match of <cFind> in the range <nStart> - <nEnd>. 
+hb_StoD( [ <cDate> ] ) -> <dDate>  Harbour extension, counterpart of the standard DtoS() function, that converts a string representing a date with the format YYYYMMDD to a date value. If no <cDate> is supplied, and empty date string will be returned.
+hb_StrClear( @<cVar> ) -> <lResult> Safely erases the content of a string variable filling it with Chr( 0 )'s.
+hb_StrFormat( cFormat, nParam1, ... , nParamN ) -> cString (for more see: https://github.com/zgamero/sandbox/wiki/2.2-String-manipulation )
+hb_StrShrink( <cString> [ , <nCount> ) -> <cNewString> Shrink the string by eating <nCount> characters from right side of the string. Alike to Left( cString, Len( cString ) - nCount ).
+hb_StoT( <cDateTime> ) -> <tTimeStamp> Converts between timestamp values and plain datetime string representations. hb_TtoS() allways return <cDateTime> with the format YYYYMMDDHHMMSSFFF. When <cDateTime> is passed to hb_StoT() it should be as one of the formats bellow:
+hb_StrToExp( cString, lCont ) -> cExp
+hb_StrToHex( <cString> [ , <cSeparator> ] ) -> <cHexValues> Converts a string (or buffer) into a string of it's corresponding hexadecimal values. 
+hb_RDDInfo( <nConstandIndex>, [ <xNewSetting> ], [ <xcRDDName> ], [ <nConnection> ] ) -> cCurrentRDDInfo (for Info constants see dbinfo.ch)
+hb_Translate( <cString>, <cCodePageID_Source>, <cCodePageID_Target> ) -> cConvertedString
+hb_TokenCount( <cString> [, <cDelim>, <lSkipStrings>, <lDoubleQuoteOnly> ] ) -> <nTokens>  Returns the number of tokens in the string.
+hb_TokenGet( <cString>, <nToken> [ , <cDelim>, <lSkipStrings>, <lDoubleQuoteOnly> ] ) -> <cToken> Returns the <nToken.0>'th token in the string.
+hb_TtoC( <dDate> | <tTimeStamp> [ , <cDateFormat>, <cTimeFormat> ] ) -> <cTimeStamp>  
+hb_TtoD( <dDate> | <tTimeStamp> [ , @<nSeconds>|@<cTime>, @<cTimeFormat> ] ) -> <dDate>  Extract date and time information from a timestamp or date value. It returns the date part as a date value. If <nSeconds> parameter is supplied by reference then it stores in it the number of seconds in given day specified by timestamp value. If 3-rd parameter <cTimeFormat> is supplied, then this function stores time part in 2-nd parameter <cTime> as a string. If empty <cTimeFormat> is passed, then _SET_TIMEFORMAT is used.
+hb_TtoN( <dDate> | <tTimeStamp> ) -> <nValue>  Converts between a numeric value <nValue> and a timestamp <tTimeStamp>. The integer part of <nValue> is the date part represented as a julian date value, and the decimal part of <nValue> is the time part represented as milliseconds from midnight.
+hb_TtoS( <dDate> | <tTimeStamp> ) -> <cDateTime>
+hb_ValToExp( xVal ) -> cExp  Converts a value of any type (including complex types) into a string for serialization. The string cExp returned can be evaluated (p.e. with the macro operator &) to obtain the original value.
+hb_ValToStr( xValue ) -> cText Converts a value of any type into a human readable string expression. Complex types are converted to an empty string
+Header() -> nBytes
+I2Bin(<nInteger>) -> cBinaryInteger
+IIf(<lCondition>, <expTrue>, <expFalse>) -> Value
+IndexExt() -> cExtension
+IndexKey(nOrder) -> cKeyExp
+IndexOrd() -> nOrder
+Inkey([<nSeconds>]) -> nInkeyCode  (Extracts the next key code from the Harbour keyboard buffer.)
+InputBox(cInputPrompt [, cWindowTitle] [, cDefaultValue] [, nTimeout][, lMultiLine ] [, @lCanceled] ) -> cTextEntered
+Int(<nExp>) -> nInteger
+IsAlpha(<cString>) -> lBoolean
+IsColor() -> lBoolean
+IsColour() -> lBoolean
+IsDigit(<cString>) -> lBoolean
+IsLower(<cString>) -> lBoolean
+IsNegative( <cChar> ) -> <lTrueOrFalse>
+IsPrinter() -> lReady
+IsUpper(<cString>) -> lBoolean
+L2Bin(<nExp> -> cBinaryInteger
+LastKey([<nInputMask>]) -> nInkeyCode
+LastRec() -> nRecords  (Same as RecCount() )
+Left(<cString>, <nCount>) -> cSubString
+Len( <cString> | <aArray> ) -> <nLength>
+Log(<nExp>) -> nNaturalLog  (the natural logarithm of a number.)
+Lower(<cString>) -> cLowerString
+LTrim(<cString>) -> cTrimString
+LUpdate() -> dModification
+Max(<xExp1>, <xExp2>) -> xLarger  (<xExp>  Any date or numeric value. xLarger the larger numeric (or later date) value.)
+MaxCol() -> nColumn
+MaxRow() -> nRow
+MCol() -> nMouseColumn
+MemoEdit(<cString>, [<nTop>], [<nLeft>], [<nBottom>], [<nRight>], [<lEditMode>], [<cUserFunction>], [<nLineLength>], [<nTabSize>], [<TextBufferRow>], [<nTextBufferColumn>], [<nWindowRow>], [<nWindowColumn>]) -> cTextBuffer
+MemoLine(<cString>, [<nLineLength>], [<nLineNumber>], [<nTabSize>], [<lWrap>]) -> cLine
+MemoRead(<cFile>) -> cString
+Memory(<nExp>) -> nKBytes
+MemoTran(<cString>, [<cReplaceHardCR>], [<cReplaceSoftCR>]) -> cNewString
+MemoWrit( <cFileName>, <cString> ) -> lSuccess
+MemvarBlock(<cMemvarName>) -> bMemvarBlock
+MessageBoxTimeout( <cMessage>, <cTitle>, <nButtonFlag>, <nMilliSeconds> )--> nRet
+Min(<xExp1>, <xExp2>) -> xSmaller
+MLCount(<cString>, [<nLineLength>], [<nTabSize>], [<lWrap>]) -> nLines
+MLCToPos(<cText>, <nWidth>, <nLine>, <nCol>, [<nTabSize>], [<lWrap>]) -> nPosition
+MLPos(<cString>, <nLineLenght>, <nLine>, [<nTabSize>], [<lWrap>]) -> nPosition
+Mod(<nDivident>, <nDivisior>) -> nRemainder
+Month(<dDate>) -> nMonth
+MPosToLC(<cText>, <nWidth>, <nPos>, [<nTabSize>], [<lWrap>]) -> aLineColumn
+MRow() -> nMouseRow
+MsgBox(<cMessage>,<cTitle>, [<lSysModal>]) -> Nil 
+MsgExclamation(<cMessage>,<cTitle>, [<nIcon>], [<lSysModal>], [<lTopMost>]) -> Nil
+MsgInfo(<cMessage | nValue | date | lValue>,<cTitle>, [<nIcon>], [<lSysModal>], [<lTopMost>]) -> Nil
+MsgOkCancel(<cMessage>,<cTitle>, [<nIcon>], [<lSysModal>], [<nDefaultButton>], [<lTopMost>]) -> lResponse  
+MsgRetryCancel(<cMessage>,<cTitle>, [<nIcon>], [<lSysModal>], [<nDefaultButton>]) -> lResponse
+MsgStop(<cMessage>,<cTitle>, [<nIcon>], [<lSysModal>]) -> Nil
+MsgYesNo(<cMessage>,<cTitle>[, <lInvertDefault> ], [<nIcon>], [<lSysModal>]) -> lResponse 
+NetErr(<lNewError>) -> lError
+NetName() -> cWorkstationName
+NextKey( [<nInputMask>] ) -> nInkeyCode   (Returns the value of the next key in the buffer without extracting it.)
+NoSnow(<lToggle>) -> Nil
+OrdCreate( <cIndexFile>, [<cIndexName>], <cIndexExpr>, <bIndexExpr>, [<lUnique>] ) -> NIL
+OrdKey( [<nOrder>|<cIndexName>][,<cIndexFile>] ) -> cIndexKey
+OrdListAdd(<cOrderBagName>,[<cOrderName>]) -> NIL
+OrdListClear() -> NIL (closes all indexes open in a work area)
+OrdName( [<nOrder>] [,<cIndexFile>] ) -> cIndexName
+OrdNumber( [<cIndexName>][, <cIndexFile>] ) -> nOrder
+OrdSetFocus([<cOrderName> | <nOrder>],[<cOrderBagName>])-> cPrevOrderNameInFocus
+OrdSetRelation(<nArea> | <cAlias>,<bKey>, [<cKey>]) -> NIL
+OrdWildSeek( <cWildCardString>, [<lCurrentRec>], [<lBackwards>] ) -> lFound
+OS() -> cOSName
+OutErr(<exp list>) -> Nil
+OutStd(<exp list>) -> Nil
+Pad(<exp>, <nLength>, [<cFillChar>]) -> cPaddedString
+PadC(<exp>, <nLength>, [<cFillChar>]) -> cPaddedString
+PadL(<exp>, <nLength>, [<cFillChar>]) -> cPaddedString
+PadR(<exp>, <nLength>, [<cFillChar>]) -> cPaddedString
+PCol() -> nColumn
+PCount() -> <nArgs>  (Retrieves the number of arguments passed to a function.)
+ProcLine(<nLevel>) -> nSourceLine
+ProcName(<nLevel>) -> cProcedureName
+PRow() -> nRow
+QOut(<exp list>) -> Nil
+QQOut(<exp list>) -> Nil
+RAt(<cSearch>, <cTarget>) -> nPosition
+RDDName() -> RDD name in use, RTE if no database is in use.
+RDDSetDefault([<cNewDefaultRDD>])-> cPreviousDefaultRDD (there exist also, DBSetDriver([<cNewDefaultRDD>]) )
+ReadExit(<lToggle>) -> lCurrentState
+ReadInsert(<lToggle>) ->lCurrentMode
+ReadKey() -> nReadkeyCode
+ReadModal(<aGetList>) -> Nil
+ReadVar() -> cVarName
+RecCount() -> nRecords (It is translated into Lastrec(). So, use LastRec() )
+RecNo() -> nRecord
+RecSize() -> nBytes
+Replicate(<cString>, <nCount>) -> cRepeatedString
+RestScreen([<nTop>], [<nLeft>], [<nBottom>], [<nRight>], <cScreen>) -> Nil
+Right(<cString>, <nCount>) -> cSubString
+RLock() -> lSuccess
+Round(<nNumber>, <nDecimals>) -> nRounded
+Row() -> nRow
+RTrim(<cString>) -> cTrimString
+SaveScreen([<nTop>], [<nLeft>], [<nBottom>], [<nRight>]) -> cScreen
+Scroll([<nTop>], [<nLeft>], [<nBottom>], [<nRight>], [<nVert>], [<nHoriz>]) -> Nil
+Seconds() -> nSeconds
+Secs( <cTime> ) -> nSeconds (elapsed seconds from midnight)
+Select([<cAlias>]) -> nWorkArea
+Set(<nSpecifier>, [<expNewSetting>], [<lOpenMode>]) -> lCurrentSetting
+SetBlink([<lToggle>]) -> lCurrentSetting
+SetCancel([<lToggle>]) -> lCurrentSetting
+SetColor([<cColorString>]) -> cColorString
+SetCursor([<nCursorShape>]) -> nCurrentSetting
+SetKey(<nInkeyCode>, [<bAction>]) -> bCurrentAction
+SetMode(<nRows>, <nCols>) -> lSuccess
+SetPos(<nRow>, <nCol>) -> Nil
+SetPrc(<nRow>, <nCol>) -> Nil
+SetProperty( <cWindowName>[,<cControlName>], <cPropertyName> , <PropertyValue> )
+SoundEx(<cString>) -> cSoundExString
+Space( <nSize> ) -> cString
+StoD( [<cDate>] ) --> dDate formated as ( "yyyymmdd" )
+Sqrt(<nNumber>) -> nRoot
+Str(<nNumber>, [<nLength>], [<nDecimals>]) -> cNumber
+StrTran(<cString>, <cLocString>, [<cRepString>], [<nPos>], [<nOccurences>] ) -> cNewString
+StrZero( <nNumber>, [<nLength>], [<nDecimals>] ) -> cNumber
+Stuff(<cString>, <nStart>, <nDelete>, <cInsert>) -> cNewString
+SubStr(<cString>, <nStart>, [<nCount>]) -> cSubstring
+TBrowseDB( [<nTop>], [<nLeft>], [<nBottom>], [<nRight>] ) -> oBrowse
+Time() -> cTimeString
+Tone(<nFrequency>, <nDuration>) -> Nil
+Transform(<xExpression>, <cSayPicture>) -> cFormatString
+Trim(<cString>) -> cTrimString
+Type(<cExp>) -> cType
+U2Bin( <nNumber> ) -> cBuffer -four bytes character string that contain 32 bit encoded unsigned long integer (least significant byte first).
+Updated() -> lChange
+Upper(<cString>) -> cUpperString
+Used() -> lDfbOpen
+Val(<cNumber>) -> nNumber
+ValType(<exp>) -> cType
+Version() -> cVersion (the HARBOUR Version or the Harbour/Compiler Version.)
+W2Bin( <nNumber> ) -> cBuffer (two bytes character string that contain 16 bit encoded unsigned short integer (least significant byte first))
+WClose() -> nNextWindowID
+win_GetProcessList( <aProcess>, [cExeFile] ) -> integer (0 on success >0 on fail. aProcess filled with processes)
+win_KillProcess( nProcessID ) -> .T. on success, .F. otherwise
+win_PrinterList( [lPrinterNamesOnly] [, lLocalPrintersOnly] ) -> 1 dimension array if 1st par=.f. with PrinterNames or 5/6 dimensions array with printer info {PrinterName, PortName, [Type(LOCAL/NETWORK)], DriverName, ShareName, ServerName } (5or6 dimensions depend on 2nd par set .t. or.f.)
+WOpen( <nTop>, <nLeft>, <nBottom>, <nRight>, [<lClear>] ) -> nWindowID
+Word( <nDouble> ) -> <nInteger> in the range +-32767
+WSelect( [<nWindowID>] ) -> nCurrentWindow
+WSetShadow( [<xNewColor> ) -> nOldColor
+XToC( <expValue> ) -> cValue 
+Year(<dDate>) -> nYear
+__dbCopyStruct( <cFileName>, [<aFieldList>] )
+__dbCreate( <cFileName>, [<cFileFrom>], [<cRDDName>], [<lNew>], [<cAlias>] ) -> lUsed
+__dbPack( [<bBlock>, [<nEvery>] ) -> Nil
