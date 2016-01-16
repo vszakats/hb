@@ -41,6 +41,7 @@ ifneq ($(HB_BUILD_WARN),no)
          CFLAGS += -Wno-reserved-id-macro
       endif
    endif
+   CFLAGS += -Wno-empty-translation-unit
    # These are potentially useful. -Wsign-conversion would require proper HB_SIZE/HB_ISIZ cleanup.
    CFLAGS += -Wno-sign-conversion -Wno-shorten-64-to-32 -Wno-conversion -Wno-bad-function-cast
 else
@@ -68,7 +69,7 @@ LDFLAGS += $(LIBPATHS)
 
 ifeq ($(HB_PLATFORM),darwin)
    AR := libtool
-   AR_RULE = ( $(AR) -static $(ARFLAGS) $(HB_AFLAGS) $(HB_USER_AFLAGS) -o $(LIB_DIR)/$@ $(^F) $(ARSTRIP) ) || ( $(RM) $(LIB_DIR)/$@ && $(FALSE) )
+   AR_RULE = ( $(AR) -static -no_warning_for_no_symbols $(ARFLAGS) $(HB_AFLAGS) $(HB_USER_AFLAGS) -o $(LIB_DIR)/$@ $(^F) $(ARSTRIP) ) || ( $(RM) $(LIB_DIR)/$@ && $(FALSE) )
 
    DY := $(AR)
    DFLAGS += -dynamic -flat_namespace -undefined warning -multiply_defined suppress -single_module $(LIBPATHS)

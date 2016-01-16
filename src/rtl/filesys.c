@@ -563,19 +563,13 @@ static void convert_open_flags( HB_BOOL fCreate, HB_FATTR nAttr, HB_USHORT uiFla
    *mode = HB_FA_POSIX_ATTR( nAttr );
    if( *mode == 0 )
    {
-      *mode = ( nAttr & FC_HIDDEN ) ? S_IRUSR : ( S_IRUSR | S_IRGRP | S_IROTH );
-      if( ! ( nAttr & FC_READONLY ) )
-      {
-         if( *mode & S_IRUSR ) *mode |= S_IWUSR;
-         if( *mode & S_IRGRP ) *mode |= S_IWGRP;
-         if( *mode & S_IROTH ) *mode |= S_IWOTH;
-      }
-      if( nAttr & FC_SYSTEM )
-      {
-         if( *mode & S_IRUSR ) *mode |= S_IXUSR;
-         if( *mode & S_IRGRP ) *mode |= S_IXGRP;
-         if( *mode & S_IROTH ) *mode |= S_IXOTH;
-      }
+      *mode = S_IRUSR | S_IRGRP | S_IROTH;
+      if( ! ( nAttr & HB_FA_READONLY ) )
+         *mode |= S_IWUSR | S_IWGRP | S_IWOTH;
+      if( nAttr & HB_FA_SYSTEM )
+         *mode |= S_IXUSR | S_IXGRP | S_IXOTH;
+      if( nAttr & HB_FA_HIDDEN )
+         *mode &= S_IRUSR | S_IWUSR | S_IXUSR;
    }
 #else
    *mode = S_IREAD |
@@ -584,16 +578,14 @@ static void convert_open_flags( HB_BOOL fCreate, HB_FATTR nAttr, HB_USHORT uiFla
 #endif
 
    /* dos file attributes */
-#if defined( HB_FS_DOSATTR )
+#if defined( HB_OS_DOS )
    if( nAttr == FC_NORMAL )
-   {
       *attr = _A_NORMAL;
-   }
    else
    {
       *attr = _A_ARCH;
       if( nAttr & FC_READONLY )
-         *attr |= _A_READONLY;
+         *attr |= _A_RDONLY;
       if( nAttr & FC_HIDDEN )
          *attr |= _A_HIDDEN;
       if( nAttr & FC_SYSTEM )
@@ -610,7 +602,6 @@ static void convert_open_flags( HB_BOOL fCreate, HB_FATTR nAttr, HB_USHORT uiFla
    }
    else
    {
-      *attr = 0;
       *flags = O_BINARY | O_LARGEFILE;
       switch( uiFlags & ( FO_READ | FO_WRITE | FO_READWRITE ) )
       {
@@ -902,13 +893,17 @@ HB_BOOL hb_fsPipeCreate( HB_FHANDLE hPipe[ 2 ] )
          {
             /* open the write end of then named pipe */
             ULONG ulAction = 0;
-            ret = DosOpen( ( PSZ ) szPipeName, &hPipeWr, &ulAction, 0,
-                           FILE_NORMAL,
-                           OPEN_ACTION_FAIL_IF_NEW | OPEN_ACTION_OPEN_IF_EXISTS,
-                           OPEN_ACCESS_WRITEONLY | OPEN_SHARE_DENYNONE | OPEN_FLAGS_FAIL_ON_ERROR,
-                           NULL );
+            HB_FHANDLE hFile;
+
+            ret = hb_fsOS2DosOpen( szPipeName, &hFile, &ulAction, 0,
+                                   FILE_NORMAL,
+                                   OPEN_ACTION_FAIL_IF_NEW | OPEN_ACTION_OPEN_IF_EXISTS,
+                                   OPEN_ACCESS_WRITEONLY | OPEN_SHARE_DENYNONE | OPEN_FLAGS_FAIL_ON_ERROR );
             if( ret == NO_ERROR )
+            {
+               hPipeWr = ( HFILE ) hFile;
                break;
+            }
          }
          DosClose( hPipeRd );
       }
@@ -1406,9 +1401,16 @@ HB_SIZE hb_fsPipeWrite( HB_FHANDLE hPipeHandle, const void * buffer, HB_SIZE nSi
 
 HB_FHANDLE hb_fsOpen( const char * pszFileName, HB_USHORT uiFlags )
 {
+   HB_TRACE( HB_TR_DEBUG, ( "hb_fsOpen(%s, %hu)", pszFileName, uiFlags ) );
+
+   return hb_fsOpenEx( pszFileName, FC_NORMAL, uiFlags );
+}
+
+HB_FHANDLE hb_fsOpenEx( const char * pszFileName, HB_FATTR nAttr, HB_USHORT uiFlags )
+{
    HB_FHANDLE hFileHandle;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_fsOpen(%s, %hu)", pszFileName, uiFlags ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_fsOpenEx(%s, %u, %hu)", pszFileName, nAttr, uiFlags ) );
 
 #if defined( HB_OS_WIN )
    {
@@ -1419,7 +1421,7 @@ HB_FHANDLE hb_fsOpen( const char * pszFileName, HB_USHORT uiFlags )
 
       lpFileName = HB_FSNAMECONV( pszFileName, &lpFree );
 
-      convert_open_flags( HB_FALSE, FC_NORMAL, uiFlags, &dwMode, &dwShare, &dwCreat, &dwAttr );
+      convert_open_flags( HB_FALSE, nAttr, uiFlags, &dwMode, &dwShare, &dwCreat, &dwAttr );
 
       hb_vmUnlock();
       hFile = CreateFile( lpFileName, dwMode, dwShare, NULL, dwCreat, dwAttr, NULL );
@@ -1435,7 +1437,7 @@ HB_FHANDLE hb_fsOpen( const char * pszFileName, HB_USHORT uiFlags )
    {
       ULONG ulAction = 0, ulAttribute, fsOpenFlags, fsOpenMode;
 
-      convert_open_flags( HB_FALSE, FC_NORMAL, uiFlags,
+      convert_open_flags( HB_FALSE, nAttr, uiFlags,
                           &ulAttribute, &fsOpenFlags, &fsOpenMode );
       hb_vmUnlock();
       hb_fsOS2DosOpenL( pszFileName, &hFileHandle, &ulAction, 0,
@@ -1450,10 +1452,17 @@ HB_FHANDLE hb_fsOpen( const char * pszFileName, HB_USHORT uiFlags )
 
       pszFileName = hb_fsNameConv( pszFileName, &pszFree );
 
-      convert_open_flags( HB_FALSE, FC_NORMAL, uiFlags, &flags, &mode, &share, &attr );
+      convert_open_flags( HB_FALSE, nAttr, uiFlags, &flags, &mode, &share, &attr );
 
       hb_vmUnlock();
-#if defined( _MSC_VER ) || defined( __DMC__ )
+
+#if defined( HB_OS_DOS )
+      if( ( nAttr & ( FC_HIDDEN | FC_SYSTEM ) ) == 0 ||
+          access( pszFileName, F_OK ) == 0 )
+         attr = 0;
+#endif
+
+#if defined( _MSC_VER )
       if( share )
          hFileHandle = _sopen( pszFileName, flags, share, mode );
       else
@@ -1468,6 +1477,16 @@ HB_FHANDLE hb_fsOpen( const char * pszFileName, HB_USHORT uiFlags )
 #else
       HB_FAILURE_RETRY( hFileHandle, open( pszFileName, flags | share, mode ) );
 #endif
+
+#if defined( HB_OS_DOS )
+      if( attr != 0 && hFileHandle != ( HB_FHANDLE ) FS_ERROR )
+#     if defined( __DJGPP__ ) || defined( __BORLANDC__ )
+         _chmod( pszFileName, 1, attr );
+#     else
+         _dos_setfileattr( pszFileName, attr );
+#     endif
+#endif
+
       hb_vmLock();
 
       if( pszFree )
@@ -2214,19 +2233,13 @@ HB_BOOL hb_fsSetAttr( const char * pszFileName, HB_FATTR nAttr )
          int iAttr = HB_FA_POSIX_ATTR( nAttr ), iResult;
          if( iAttr == 0 )
          {
-            iAttr = ( nAttr & HB_FA_HIDDEN ) ? S_IRUSR : ( S_IRUSR | S_IRGRP | S_IROTH );
+            iAttr = S_IRUSR | S_IRGRP | S_IROTH;
             if( ! ( nAttr & HB_FA_READONLY ) )
-            {
-               if( iAttr & S_IRUSR ) iAttr |= S_IWUSR;
-               if( iAttr & S_IRGRP ) iAttr |= S_IWGRP;
-               if( iAttr & S_IROTH ) iAttr |= S_IWOTH;
-            }
+               iAttr |= S_IWUSR | S_IWGRP | S_IWOTH;
             if( nAttr & HB_FA_SYSTEM )
-            {
-               if( iAttr & S_IRUSR ) iAttr |= S_IXUSR;
-               if( iAttr & S_IRGRP ) iAttr |= S_IXGRP;
-               if( iAttr & S_IROTH ) iAttr |= S_IXOTH;
-            }
+               iAttr |= S_IXUSR | S_IXGRP | S_IXOTH;
+            if( nAttr & HB_FA_HIDDEN )
+               iAttr &= S_IRUSR | S_IWUSR | S_IXUSR;
          }
          HB_FAILURE_RETRY( iResult, chmod( pszFileName, iAttr ) );
          fResult = iResult != -1;
@@ -4533,7 +4546,7 @@ HB_FHANDLE hb_fsExtOpen( const char * pszFileName, const char * pDefExt,
          uiFlags |= FO_TRUNC;
    }
 
-   hFile = hb_fsOpen( szPath, uiFlags );
+   hFile = hb_fsOpenEx( szPath, FC_NORMAL, uiFlags );
 
 #if defined( HB_USE_SHARELOCKS )
    if( hFile != FS_ERROR && ( nExFlags & FXO_SHARELOCK ) != 0 )

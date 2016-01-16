@@ -151,6 +151,7 @@ extern HB_EXPORT int        hb_fsLockTest    ( HB_FHANDLE hFileHandle, HB_FOFFSE
                                                HB_FOFFSET nLength, HB_USHORT uiMode );
 extern HB_EXPORT HB_BOOL    hb_fsMkDir       ( const char * pszDirName ); /* create a directory */
 extern HB_EXPORT HB_FHANDLE hb_fsOpen        ( const char * pszFileName, HB_USHORT uiFlags ); /* open a file */
+extern HB_EXPORT HB_FHANDLE hb_fsOpenEx      ( const char * pszFileName, HB_FATTR nAttr, HB_USHORT uiFlags ); /* open or newly create a file with given attributes */
 extern HB_EXPORT HB_USHORT  hb_fsRead        ( HB_FHANDLE hFileHandle, void * pBuff, HB_USHORT uiCount ); /* read contents of a file into a buffer (<=64K) */
 extern HB_EXPORT HB_SIZE    hb_fsReadLarge   ( HB_FHANDLE hFileHandle, void * pBuff, HB_SIZE nCount ); /* read contents of a file into a buffer (>64K) */
 extern HB_EXPORT HB_SIZE    hb_fsReadAt      ( HB_FHANDLE hFileHandle, void * pBuff, HB_SIZE nCount, HB_FOFFSET nOffset ); /* read from given offset contents of a file into a buffer (>64K) */
@@ -300,6 +301,10 @@ extern HB_EXPORT HB_WCHAR *   hb_fsNameConvU16( const char * pszFileName );
 #endif
 #if defined( HB_OS_OS2 )
 extern HB_EXPORT HB_BOOL  hb_isWSeB( void );
+extern HB_EXPORT HB_ULONG hb_fsOS2DosOpen( const char * pszFileName,
+                                           HB_FHANDLE * pHFile, HB_ULONG * pulAction,
+                                           HB_ULONG nInitSize, HB_ULONG ulAttribute,
+                                           HB_ULONG fsOpenFlags, HB_ULONG fsOpenMode );
 extern HB_EXPORT HB_ULONG hb_fsOS2DosOpenL( const char * pszFileName,
                                             HB_FHANDLE * pHFile, HB_ULONG * pulAction,
                                             HB_FOFFSET nInitSize, HB_ULONG ulAttribute,
