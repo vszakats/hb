@@ -9988,6 +9988,8 @@ STATIC PROCEDURE dep_postprocess_one( hbmk, dep )
       FOR EACH tmp IN dep[ _HBMKDEP_aINCPATH ]
          IF tmp == _HBMK_DEP_CTRL_MARKER
             tmp := dep[ _HBMKDEP_cControl ]
+            /* disable `pkg-config`-based detection when a custom search path is specified */
+            dep[ _HBMKDEP_aPKG ] := {}
             EXIT
          ENDIF
       NEXT
@@ -12919,7 +12921,8 @@ STATIC FUNCTION getFirstFunc( hbmk, cFile )
    LOCAL cFuncList, cExecNM, cFuncName, cExt, cLine, n, c
 
    cFuncName := ""
-   IF HBMK_ISCOMP( "gcc|mingw|mingw64|mingwarm|gccomf|clang" )
+   IF hb_vfExists( cFile ) .AND. ;
+      HBMK_ISCOMP( "gcc|mingw|mingw64|mingwarm|gccomf|clang" )
       cExt := hb_FNameExt( cFile )
       IF cExt == ".c"
          FOR EACH cLine IN hb_ATokens( hb_MemoRead( cFile ), .T. )
@@ -12939,7 +12942,7 @@ STATIC FUNCTION getFirstFunc( hbmk, cFile )
          /* do nothing */
       ELSEIF ! Empty( cExecNM := FindInPath( hbmk[ _HBMK_cCCPREFIX ] + "nm" ) )
          hb_processRun( cExecNM + " " + FNameEscape( cFile, hbmk[ _HBMK_nCmd_Esc ], hbmk[ _HBMK_nCmd_FNF ] ) + ;
-            " -g -n" + iif( hbmk[ _HBMK_cCOMP ] == "darwin", "", " --defined-only -C" ),, @cFuncList )
+            " -g -n" + iif( hbmk[ _HBMK_cPLAT ] == "darwin", "", " --defined-only -C" ),, @cFuncList )
          IF ( n := At( " T HB_FUN_", cFuncList ) ) > 0
             n += 10
          ELSEIF ( n := At( " T _HB_FUN_", cFuncList ) ) > 0
@@ -16694,6 +16697,7 @@ STATIC FUNCTION __hbshell_win_reg_app( lRegister, lAllUser, cAppPath )
    a full-screen CUI ("interactive") app */
 STATIC FUNCTION __hbshell_detect_CUI_extern_positive()
    RETURN { ;
+      "BROWSE"           =>, ;
       "COL"              =>, ;
       "DISPBEGIN"        =>, ;
       "DISPBOX"          =>, ;

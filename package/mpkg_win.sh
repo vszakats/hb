@@ -208,10 +208,10 @@ if [ "${_HB_BUNDLE_3RDLIB}" = 'yes' ] ; then
          'nghttp2' \
          'curl' \
    ; do
-      dir_32="HB_DIR_$(echo "${name}" | tr '[:lower:]' '[:upper:]' 2> /dev/null)_32"
-      dir_32=$(echo "${!dir_32}" | sed 's|\\|/|g')
-      dir_64="HB_DIR_$(echo "${name}" | tr '[:lower:]' '[:upper:]' 2> /dev/null)_64"
-      dir_64=$(echo "${!dir_64}" | sed 's|\\|/|g')
+      eval dir_32="\$$(echo "HB_DIR_${name}_32" | tr '[:lower:]' '[:upper:]' 2> /dev/null)"
+      dir_32=$(echo "${dir_32}" | sed 's|\\|/|g')
+      eval dir_64="\$$(echo "HB_DIR_${name}_64" | tr '[:lower:]' '[:upper:]' 2> /dev/null)"
+      dir_64=$(echo "${dir_64}" | sed 's|\\|/|g')
       for file in ${dir_32}lib/*.a ; do
          if [ -f "${file}" ] && echo "${file}" | grep -v 'dll' > /dev/null 2>&1 ; then
             cp -f -p "${file}" "${HB_ABSROOT}lib/win/mingw/"

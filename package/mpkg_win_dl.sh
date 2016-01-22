@@ -46,19 +46,22 @@ readonly base='https://bintray.com/artifact/download/vszakats/generic/'
 
 for plat in '32' '64' ; do
    for name in \
-         'openssl' \
-         'libssh2' \
-         'nghttp2' \
-         'curl' \
+      'openssl' \
+      'libssh2' \
+      'nghttp2' \
+      'curl' \
    ; do
-      ver="$(echo "${name}" | tr '[:lower:]' '[:upper:]' 2> /dev/null)_VER"
-      hash="$(echo "${name}" | tr '[:lower:]' '[:upper:]' 2> /dev/null)_HASH_${plat}"
+      eval ver="\$$(echo "${name}" | tr '[:lower:]' '[:upper:]' 2> /dev/null)_VER"
+      eval hash="\$$(echo "${name}" | tr '[:lower:]' '[:upper:]' 2> /dev/null)_HASH_${plat}"
       (
          set -x
-         curl -fsS -o pack.bin -L --proto-redir =https "${base}${name}-${!ver}-win${plat}-mingw.7z"
-         openssl dgst -sha256 pack.bin | grep -q "${!hash}"
+         # shellcheck disable=SC2154
+         curl -fsS -o pack.bin -L --proto-redir =https "${base}${name}-${ver}-win${plat}-mingw.7z"
+         # shellcheck disable=SC2154
+         openssl dgst -sha256 pack.bin | grep -q "${hash}"
          7z x -y pack.bin > /dev/null
-         mv "${name}-${!ver}-win${plat}-mingw" "${name}-mingw${plat}"
+         # shellcheck disable=SC2154
+         mv "${name}-${ver}-win${plat}-mingw" "${name}-mingw${plat}"
       )
    done
 done
