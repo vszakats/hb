@@ -852,9 +852,9 @@ FUNCTION wvg_LoadImage( ncImage, nSource, nBmpOrIcon, nWidth, nHeight )
    CASE 0
    CASE 1
       IF hb_defaultValue( nBmpOrIcon, WIN_IMAGE_BITMAP ) == WIN_IMAGE_ICON
-         RETURN wapi_LoadImage( wapi_GetModuleHandle(), ncImage, nBmpOrIcon, nWidth, nHeight, WIN_LR_DEFAULTSIZE )
+         RETURN wapi_LoadImage( wapi_GetModuleHandle(), ncImage, WIN_IMAGE_ICON, nWidth, nHeight, WIN_LR_DEFAULTSIZE )
       ELSE
-         RETURN wapi_LoadImage( wapi_GetModuleHandle(), ncImage, nBmpOrIcon, nWidth, nHeight, WIN_LR_DEFAULTSIZE )
+         RETURN wapi_LoadImage( wapi_GetModuleHandle(), ncImage, WIN_IMAGE_BITMAP, nWidth, nHeight, WIN_LR_DEFAULTSIZE )
       ENDIF
    CASE 2
       RETURN wapi_LoadImage( , ncImage, nBmpOrIcon, nWidth, nHeight, WIN_LR_LOADFROMFILE + WIN_LR_DEFAULTSIZE )
