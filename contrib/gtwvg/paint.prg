@@ -850,11 +850,9 @@ FUNCTION wvg_LoadImage( ncImage, nSource, nBmpOrIcon, nWidth, nHeight )
 
    hb_defaultValue( @nBmpOrIcon, WIN_IMAGE_BITMAP )
 
-   IF hb_defaultValue( nSource, 0 ) == 2
-      RETURN wapi_LoadImage( , ncImage, nBmpOrIcon, nWidth, nHeight, WIN_LR_LOADFROMFILE + WIN_LR_DEFAULTSIZE )
-   ENDIF
-
-   RETURN wapi_LoadImage( wapi_GetModuleHandle(), ncImage, nBmpOrIcon, nWidth, nHeight, WIN_LR_DEFAULTSIZE )
+   RETURN iif( hb_defaultValue( nSource, 0 ) == 2, ;
+      wapi_LoadImage( , ncImage, nBmpOrIcon, nWidth, nHeight, WIN_LR_LOADFROMFILE + WIN_LR_DEFAULTSIZE ), ;
+      wapi_LoadImage( wapi_GetModuleHandle(), ncImage, nBmpOrIcon, nWidth, nHeight, WIN_LR_DEFAULTSIZE ) )
 
 FUNCTION wvg_TrackPopupMenu( hMenu, nFlags, x, y, hWnd )
 
