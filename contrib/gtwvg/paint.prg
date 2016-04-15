@@ -840,7 +840,10 @@ FUNCTION wvg_LoadIcon( ncIcon )
 
    RETURN wapi_LoadImage( , ncIcon, WIN_IMAGE_ICON,,, WIN_LR_LOADFROMFILE )
 
-/* nSource: 0 ResourceIdByNumber
+/* https://msdn.microsoft.com/en-us/library/windows/desktop/ms648045(v=vs.85).aspx
+   W2000 and Upper, wapi_LoadImage() can resize image
+
+   nSource: 0 ResourceIdByNumber
    nSource: 1 ResourceIdByName
    nSource: 2 ImageFromDiskFile */
 FUNCTION wvg_LoadImage( ncImage, nSource, nBmpOrIcon, nWidth, nHeight )
@@ -849,12 +852,12 @@ FUNCTION wvg_LoadImage( ncImage, nSource, nBmpOrIcon, nWidth, nHeight )
    CASE 0
    CASE 1
       IF hb_defaultValue( nBmpOrIcon, WIN_IMAGE_BITMAP ) == WIN_IMAGE_ICON
-         RETURN wapi_LoadIcon( wapi_GetModuleHandle(), ncImage )
+         RETURN wapi_LoadImage( wapi_GetModuleHandle(), ncImage, WIN_IMAGE_ICON, nWidth, nHeight, WIN_LR_DEFAULTSIZE )
       ELSE
-         RETURN wapi_LoadBitmap( wapi_GetModuleHandle(), ncImage )
+         RETURN wapi_LoadImage( wapi_GetModuleHandle(), ncImage, WIN_IMAGE_BITMAP, nWidth, nHeight, WIN_LR_DEFAULTSIZE )
       ENDIF
    CASE 2
-      RETURN wapi_LoadImage( , ncImage, nBmpOrIcon, nWidth, nHeight, WIN_LR_LOADFROMFILE )
+      RETURN wapi_LoadImage( , ncImage, nBmpOrIcon, nWidth, nHeight, WIN_LR_LOADFROMFILE + WIN_LR_DEFAULTSIZE )
    ENDSWITCH
 
    RETURN NIL
