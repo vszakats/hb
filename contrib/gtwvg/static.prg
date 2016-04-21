@@ -62,8 +62,8 @@ CREATE CLASS WvgStatic INHERIT WvgWindow
    VAR    caption                               INIT ""
    VAR    clipParent                            INIT .T.
    VAR    clipSiblings                          INIT .F.
-   VAR    options                               INIT 0
-   VAR    TYPE                                  INIT 0
+   VAR    options                               INIT -1 /* WVGSTATIC_TEXT_LEFT */
+   VAR    TYPE                                  INIT -1 /* WVGSTATIC_TYPE_TEXT */
 
    VAR    hBitmap
 
@@ -108,16 +108,18 @@ METHOD WvgStatic:create( oParent, oOwner, aPos, aSize, aPresParams, lVisible )
 
    SWITCH ::type
    CASE WVGSTATIC_TYPE_TEXT
-      DO CASE
-      CASE hb_bitAnd( ::options, WVGSTATIC_TEXT_WORDBREAK ) != 0
-         ::style -= SS_LEFTNOWORDWRAP
-      CASE hb_bitAnd( ::options, WVGSTATIC_TEXT_CENTER ) != 0
-         ::style += SS_CENTER
-      CASE hb_bitAnd( ::options, WVGSTATIC_TEXT_RIGHT ) != 0
+      IF hb_bitAnd( ::options, WVGSTATIC_TEXT_LEFT ) != 0
+         ::style += SS_LEFT /* + SS_LEFTNOWORDWRAP */
+      ENDIF
+      IF hb_bitAnd( ::options, WVGSTATIC_TEXT_RIGHT ) != 0
          ::style += SS_RIGHT
-      OTHERWISE
-         ::style += SS_LEFT
-      ENDCASE
+      ENDIF
+      IF hb_bitAnd( ::options, WVGSTATIC_TEXT_CENTER ) != 0
+         ::style += SS_CENTER
+      ENDIF
+      IF hb_bitAnd( ::options, WVGSTATIC_TEXT_WORDBREAK ) != 0
+         ::style -= SS_LEFTNOWORDWRAP
+      ENDIF
       EXIT
 
    CASE WVGSTATIC_TYPE_GROUPBOX
@@ -270,7 +272,7 @@ METHOD WvgStatic:setCaption( xCaption, cDll )
 
    DO CASE
    CASE ::type == WVGSTATIC_TYPE_TEXT .OR. ::type == WVGSTATIC_TYPE_GROUPBOX
-      ::sendMessage( WIN_WM_SETTEXT, 0, ::caption )
+      wapi_SendMessage( ::hWnd, WIN_WM_SETTEXT, 0, ::caption )
 
    CASE ::type == WVGSTATIC_TYPE_BITMAP
       IF ::hBitmap != NIL
@@ -279,7 +281,7 @@ METHOD WvgStatic:setCaption( xCaption, cDll )
 
       ::hBitmap := wvg_LoadImage( ::caption, iif( HB_ISNUMERIC( ::caption ), 1, 2 ) )
 
-      ::sendMessage( STM_SETIMAGE, WIN_IMAGE_BITMAP, ::hBitmap )
+      wapi_SendMessage( ::hWnd, STM_SETIMAGE, WIN_IMAGE_BITMAP, ::hBitmap )
 
    ENDCASE
 
