@@ -1143,11 +1143,11 @@ METHOD WvgWindow:getPosAndSize( aPs, aSz )
       IF aPos[ 1 ] < 0 .OR. aPos[ 2 ] < 0 .OR. aSize[ 1 ] < 0 .OR. aSize[ 2 ] < 0
          nx := aPos[ 2 ]
          IF nX < 0
-            nX := Int( Abs( aPos[ 2 ] ) * wvt_GetXYFromRowCol( 1, 1 )[ 1 ] )
+            nX := Int( Abs( aPos[ 2 ] ) * wvt_GetFontInfo()[ 7 ] )
          ENDIF
          nY := aPos[ 1 ]
          IF nY < 0
-            nY := Int( Abs( aPos[ 1 ] ) * wvt_GetXYFromRowCol( 1, 1 )[ 2 ] )
+            nY := Int( Abs( aPos[ 1 ] ) * wvt_GetFontInfo()[ 6 ] )
          ENDIF
          nW := aSize[ 2 ]
          IF nW < 0
