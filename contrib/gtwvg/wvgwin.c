@@ -319,9 +319,6 @@ HB_FUNC( WVG_SENDTOOLBARMESSAGE )
          hb_strfree( hCaption );
          break;
       }
-      case TB_AUTOSIZE:
-         SendMessage( hTB, TB_AUTOSIZE, 0, 0 );
-         break;
       case TB_BUTTONCOUNT:
          break;
       case TB_BUTTONSTRUCTSIZE:
@@ -484,12 +481,6 @@ HB_FUNC( WVG_SENDCBMESSAGE )
 
    switch( hbwapi_par_INT( 2 ) )
    {
-      case CB_ADDSTRING:
-         hb_retnint( SendMessage( hCB, CB_ADDSTRING, 0, ( LPARAM ) ( LPCTSTR ) HB_PARSTR( 3, &hText, NULL ) ) );
-         break;
-      case CB_DELETESTRING:
-         hb_retnint( SendMessage( hCB, CB_DELETESTRING, hb_parni( 3 ), 0 ) );
-         break;
 #if defined( CB_DIR )
       case CB_DIR:
          hb_retnint( SendMessage( hCB, CB_DIR, ( WPARAM ) hb_parni( 3 ), ( LPARAM ) HB_PARSTR( 4, &hText, NULL ) ) );
@@ -568,9 +559,6 @@ HB_FUNC( WVG_SENDCBMESSAGE )
          hb_itemReturnRelease( pRect );
          break;
       }
-      case CB_GETDROPPEDSTATE:
-         hb_retnint( SendMessage( hCB, CB_GETDROPPEDSTATE, 0, 0 ) );
-         break;
       case CB_GETDROPPEDWIDTH:
          hb_retnint( SendMessage( hCB, CB_GETDROPPEDWIDTH, 0, 0 ) );
          break;
@@ -620,14 +608,8 @@ HB_FUNC( WVG_SENDCBMESSAGE )
          break;
       case CB_INITSTORAGE:
          break;
-      case CB_INSERTSTRING:
-         hb_retnint( SendMessage( hCB, CB_INSERTSTRING, ( WPARAM ) hb_parnint( 3 ), ( LPARAM ) HB_PARSTR( 4, &hText, NULL ) ) );
-         break;
       case CB_LIMITTEXT:
          SendMessage( hCB, CB_LIMITTEXT, hb_parni( 3 ), 0 );
-         break;
-      case CB_RESETCONTENT:
-         SendMessage( hCB, CB_RESETCONTENT, 0, 0 );
          break;
       case CB_SELECTSTRING:
          hb_retnint( SendMessage( hCB, CB_SELECTSTRING, ( WPARAM ) hb_parnint( 3 ), ( LPARAM ) HB_PARSTR( 4, &hText, NULL ) ) );
@@ -649,9 +631,6 @@ HB_FUNC( WVG_SENDCBMESSAGE )
          break;
       case CB_SETHORIZONTALEXTENT:
          SendMessage( hCB, CB_SETHORIZONTALEXTENT, hb_parl( 3 ), 0 );
-         break;
-      case CB_SETITEMDATA:
-         SendMessage( hCB, CB_SETITEMDATA, hb_parl( 3 ), ( LPARAM ) hb_parnint( 4 ) );
          break;
       case CB_SETITEMHEIGHT:
          hb_retnint( SendMessage( hCB, CB_SETITEMHEIGHT, ( WPARAM ) hb_parnint( 3 ), 0 ) );
