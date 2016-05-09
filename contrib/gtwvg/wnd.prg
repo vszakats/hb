@@ -65,6 +65,7 @@
 
 CREATE CLASS WvgWindow INHERIT WvgPartHandler
 
+   VAR    CLSID                                 INIT ""
    /*  CONFIGURATION */
    VAR    animate                               INIT .F.
    VAR    clipChildren                          INIT .F.
@@ -1185,7 +1186,7 @@ METHOD WvgWindow:createControl()
    hWnd := wapi_CreateWindowEx( ;
       ::exStyle, ;
       ::className(), ;
-      "", ;                              /* window name */
+      ::CLSID, ;                         /* window name/activex */
       ::style, ;
       aPosSz[ 1 ], aPosSz[ 2 ], ;
       aPosSz[ 3 ], aPosSz[ 4 ], ;
