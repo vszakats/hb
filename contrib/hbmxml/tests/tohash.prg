@@ -61,10 +61,8 @@ STATIC FUNCTION s_NodeToHash( pNode )
                   AAdd( hHash[ mxmlGetElement( pNode ) ], hb_mxmlGetAttrs( pNode ) )
                ENDIF
             ENDIF
-         ELSE
-             IF hb_mxmlGetAttrsCount( pNode ) > 0
-               hHash[ mxmlGetElement( pNode ) + "@attr" ] := hb_mxmlGetAttrs( pNode )
-             ENDIF
+         ELSEIF hb_mxmlGetAttrsCount( pNode ) > 0
+            hHash[ mxmlGetElement( pNode ) + "@attr" ] := hb_mxmlGetAttrs( pNode )
          ENDIF
       ENDIF
 
