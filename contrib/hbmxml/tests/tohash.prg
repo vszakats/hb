@@ -41,8 +41,7 @@ STATIC FUNCTION s_NodeToHash( pNode )
          ENDIF
 
          IF Empty( mxmlGetOpaque( pNode ) )
-            hNext := mxmlWalkNext( pNode, pNode, MXML_DESCEND )
-            IF hNext != NIL
+            IF ! Empty( hNext := mxmlWalkNext( pNode, pNode, MXML_DESCEND ) )
                hHashChild := s_NodeToHash( hNext )
                IF hHashChild != NIL .AND. ! Empty( hHashChild )
                   IF Empty( hHash[ mxmlGetElement( pNode ) ] )
