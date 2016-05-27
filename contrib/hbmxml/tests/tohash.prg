@@ -53,10 +53,10 @@ STATIC FUNCTION s_NodeToHash( pNode )
                   AAdd( hHash[ mxmlGetElement( pNode ) ], hHashChild )
                ENDIF
             ELSEIF hb_mxmlGetAttrsCount( pNode ) > 0
-                  IF Empty( hHash[ mxmlGetElement( pNode ) ] ) 
-                        hHash[ mxmlGetElement( pNode ) ] := {}
-                  ENDIF
-                  AAdd( hHash[ mxmlGetElement( pNode ) ], hb_mxmlGetAttrs( pNode ) )
+               IF Empty( hHash[ mxmlGetElement( pNode ) ] )
+                  hHash[ mxmlGetElement( pNode ) ] := {}
+               ENDIF
+               AAdd( hHash[ mxmlGetElement( pNode ) ], hb_mxmlGetAttrs( pNode ) )
             ENDIF
          ELSEIF hb_mxmlGetAttrsCount( pNode ) > 0
             hHash[ mxmlGetElement( pNode ) + "@attr" ] := hb_mxmlGetAttrs( pNode )
