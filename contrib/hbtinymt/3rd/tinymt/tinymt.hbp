@@ -11,10 +11,7 @@
 tinymt32.c
 tinymt64.c
 
-# 1.1 patch:
-#   https://github.com/MersenneTwister-Lab/TinyMT/commit/c68f0374de14512412e0b305b184642ce1628198.diff
-
-# URL    http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/TINYMT/TinyMT-src-1.0.3.zip
+# URL    https://github.com/MersenneTwister-Lab/TinyMT/archive/v1.1.1.tar.gz
 # DIFF   tinymt.dif
 #
 # MAP    LICENSE.txt       LICENSE.txt
