@@ -25,7 +25,6 @@
 #{win&allmingw&HB_COMP_VER>'0401'}-cflag=-Wstrict-overflow=4
 
 {allwin}-winuni
-{allwin&HB_LIB3RD}-lunicows
 
 {HB_BUILD_DEBUG}-prgflag=-l-
 {HB_BUILD_DEBUG}-debug

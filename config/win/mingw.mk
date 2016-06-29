@@ -14,21 +14,6 @@ LIB_EXT := .a
 
 3RDLIBS_DYN := $(3RDLIBS)
 
-ifneq ($(HB_COMPILER),mingw64)
-
-   # Since unicows support in harbour-*.dll effectively
-   # doubles build time for core, allow it to be disabled.
-   ifeq ($(__HB_HARBOUR_DLL_UNICOWS),no)
-      3RDLIBS_DYN := $(filter-out $(3RDLIBS_DYN),unicows)
-   endif
-
-   ifneq ($(findstring unicows,$(3RDLIBS_DYN)),)
-      # Required to be able to link harbour-*.dll against unicows lib
-      # without 'Cannot export <*>: symbol not found' errors.
-      HB_DYN_COPT := -DHB_DYNLIB
-   endif
-endif
-
 CC := $(HB_CCPATH)$(HB_CCPREFIX)$(HB_CMP)$(HB_CCSUFFIX)
 CC_IN :=
 CC_OUT := -o

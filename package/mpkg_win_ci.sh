@@ -77,10 +77,6 @@ if [ "${_BRANC4}" != 'msvc' ] ; then
    [ "${_BRANCH#*lto*}" != "${_BRANCH}" ] && export HB_USER_CFLAGS="${HB_USER_CFLAGS} -flto -ffat-lto-objects"
    [ "${HB_BUILD_MODE}" = 'cpp' ] && export HB_USER_LDFLAGS="${HB_USER_LDFLAGS} -static-libstdc++"
 
-   # Disable Unicows support in 32-bit harbour-*.dll.
-   # Get double the build speed in return.
-   export __HB_HARBOUR_DLL_UNICOWS=no
-
    export HB_DIR_MINGW="${HB_RT}/mingw64"
    if [ -d "${HB_DIR_MINGW}/bin" ] ; then
       # Use the same toolchain for both targets

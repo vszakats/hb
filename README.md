@@ -1560,17 +1560,6 @@ Supported shells per host platforms:
      * HB_WITH_ZLIB - zlib [multi-platform, free, open-source]
         * <http://zlib.net/>
 
-     * Windows 95 Winsock2 [win, free, closed-source]
-        * Information: Microsoft KB182108 "Availability of Windows Sockets 2.0 for Windows 95"
-        * Search for `w95ws2setup.exe`: <https://duckduckgo.com/?q=w95ws2setup.exe>
-            (required for Win95 support to run applications built with Harbour)
-     * Windows UNICOWS .dll [win, free, closed-source]
-        * <https://www.microsoft.com/en-us/download/details.aspx?id=4237>
-            (required for Win9x/ME support to run applications built with Harbour in UNICODE mode)
-     * Windows UNICOWS runtime/import library [win, free, open-source]
-        * <https://web.archive.org/http://libunicows.sourceforge.net/>
-            (required for Win9x/ME support at application built-time)
-
 * Tools:
 
      * Git (1.7 or upper) [multi-platform, free, open-source]
