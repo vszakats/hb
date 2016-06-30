@@ -648,7 +648,6 @@ STATIC FUNCTION CheckFile( cName, /* @ */ aErr, lApplyFixes, cLocalRoot, lRebase
       "*/hb-charmap.def", ;  /* TOFIX: Use 8.3 name */
       "debian/*", ;
       "package/*", ;
-      "lib/3rd/*", ;
       "contrib/gtqtc/*", ;
       "contrib/hbwin/*", ;
       "contrib/rddads/unixutils.h", ;

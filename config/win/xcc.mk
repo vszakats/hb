@@ -42,8 +42,8 @@ RCFLAGS += -I. -I$(TOP) -I$(HB_HOST_INC) -c65001
 LD := xLink.exe
 LD_OUT := -out:
 
-LIBPATHS := $(foreach dir,$(LIB_DIR) $(3RDLIB_DIR),-libpath:$(dir))
-LDLIBS := $(foreach lib,$(HB_USER_LIBS) $(LIBS) $(3RDLIBS) $(SYSLIBS),$(lib)$(LIB_EXT))
+LIBPATHS := $(foreach dir,$(LIB_DIR),-libpath:$(dir))
+LDLIBS := $(foreach lib,$(HB_USER_LIBS) $(LIBS) $(SYSLIBS),$(lib)$(LIB_EXT))
 
 LDFLAGS += $(LIBPATHS)
 
@@ -53,7 +53,7 @@ AR_RULE = $(AR) $(ARFLAGS) $(HB_AFLAGS) $(HB_USER_AFLAGS) -out:$(LIB_DIR)/$@ $(^
 DY := $(LD)
 DFLAGS += -nologo -dll -noexpobj $(LIBPATHS)
 DY_OUT := $(LD_OUT)
-DLIBS := $(foreach lib,$(HB_USER_LIBS) $(LIBS) $(3RDLIBS) $(SYSLIBS),$(lib)$(LIB_EXT))
+DLIBS := $(foreach lib,$(HB_USER_LIBS) $(LIBS) $(SYSLIBS),$(lib)$(LIB_EXT))
 
 ifeq ($(HB_SHELL),sh)
    DYNFIX = && mv $(DYN_DIR)/$(@:.dll=.LIB) $(LIB_DIR)/$(@:.dll=.lib)
