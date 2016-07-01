@@ -9376,7 +9376,7 @@ static LPCDXSORTINFO hb_cdxSortNew( LPCDXTAG pTag, HB_ULONG ulRecCount )
        * The memory necessary to index file is now ~
        *    ~ (keySize+4+sizeof(CDXSWAPPAGE)) * sqrt(ulRecCount) * 2
        * so the maximum is for DBF with 2^32 records and keySize 240 ~
-       * ~ 2^17 * 268 ~=~ 35 Mb
+       * ~ 2^17 * 268 ~=~ 35 MB
        * this is not a problem for current computers and I do not see
        * any way to use DBFs with four billions records and indexes with
        * such long (240 bytes) keys on the old ones - they will be simply

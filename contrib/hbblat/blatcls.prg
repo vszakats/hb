@@ -159,7 +159,7 @@ CREATE CLASS HBBlat
    VAR cAlternateTextFile      AS STRING
    VAR lMime                   AS LOGICAL INIT .F.       // MIME Quoted-Printable Content-Transfer-Encoding
    VAR lAskFor8BitMime         AS LOGICAL INIT .F.       // ask for 8bit data support when sending MIME
-   VAR nMultipartSize          AS NUMERIC                // send multipart messages, breaking attachments on <size> KB boundaries, where <size> is per 1000 bytes
+   VAR nMultipartSize          AS NUMERIC                // send multipart messages, breaking attachments on <size> kB boundaries, where <size> is per 1000 bytes
    VAR lNoMultipartMessage     AS LOGICAL INIT .F.       // do not allow multipart messages
    VAR cContentType            AS STRING                 // use cContentType in the ContentType header for attachments that do not have a registered content type for the extension. For example: -contenttype "text/calendar"
 

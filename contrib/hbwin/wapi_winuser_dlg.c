@@ -217,7 +217,7 @@ HB_FUNC( WAPI_SENDDLGITEMMESSAGE )  /* NOTE: unsafe function, may corrupt memory
    hb_strfree( hText );
 }
 
-#define _BUFFERSIZE  65534  /* 64kB allows to build up to 255 items on the dialog */
+#define _BUFFERSIZE  65534  /* 64KB allows to build up to 255 items on the dialog */
 
 /* Take an input pointer, return closest pointer that is
    aligned on a DWORD (4 byte) boundary. */

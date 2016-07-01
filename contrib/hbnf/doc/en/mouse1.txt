@@ -213,7 +213,7 @@
       movement values are documented to be the number of mickeys per 8
       pixels and the double speed value as the number mickeys per second
       required to double the speed. Each of these values should range from 1
-      to 32K but the driver forces a maximum of 100. Also the documentation
+      to 32000 but the driver forces a maximum of 100. Also the documentation
       states that resetting the mouse will reset these values. This is not
       the case.
 
