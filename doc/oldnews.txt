@@ -2236,7 +2236,7 @@ Version 0.23 Alpha Build 23 (1999-05-19)
 ----------------------------------------------------------------------
 Version 0.21-2 Alpha Build 21-2 (1999-05-13)
 
-- 32 bits OBJ's generation
+- 32-bit OBJ's generation
 - More Clipper language compatibility
 - New object oriented features
 

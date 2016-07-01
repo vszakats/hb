@@ -71,7 +71,7 @@ PROCEDURE Main_STR()
 #ifndef RT_NO_C
 
 #ifdef __PLATFORM__WINDOWS
-   IF .F.   /* [U]LONG is 32 bit integer in Windows 64-bit */
+   IF .F.   /* [U]LONG is 32-bit integer in Windows 64-bit */
 #else
    IF l64
 #endif

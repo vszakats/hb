@@ -545,9 +545,9 @@ extern void *     hb_xRefResize( void * pMem, HB_SIZE nSave, HB_SIZE nSize, HB_S
 #define hb_xreallocz( p, n )  memset( hb_xrealloc( ( p ), ( n ) ), 0, ( n ) )
 
 /* #if UINT_MAX == ULONG_MAX */
-/* it fails on 64bit platforms where int has 32 bit and long has 64 bit.
+/* it fails on 64-bit platforms where int has 32 bits and long has 64 bits.
    we need these functions only when max(size_t) < max(long)
-   and only on 16bit platforms, so the below condition seems to be
+   and only on 16-bit platforms, so the below condition seems to be
    more reasonable. */
 #if UINT_MAX > USHRT_MAX
    /* NOTE: memcpy/memset can work with HB_SIZE data blocks */

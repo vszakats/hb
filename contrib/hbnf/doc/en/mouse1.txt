@@ -782,8 +782,8 @@
       the actual hardware cursor. This routine allows one choose between them.
       The software cursor is the default and its effect on the character it
       covers is determined by the screen mask and the cursor mask. Both of
-      these masks are 16 bit values (which in Clipper are passed as standard
-      numerical values). The 16 bit masks are arranged in a manner identical
+      these masks are 16-bit values (which in Clipper are passed as standard
+      numerical values). The 16-bit masks are arranged in a manner identical
       to the way information is stored for each character cell on the screen.
       The low order 8 bits represent the actual character displayed while the
       high order bits represent the display atributes such as blinking,

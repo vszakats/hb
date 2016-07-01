@@ -25,7 +25,7 @@
  * Copyright 2000-2001 Maurilio Longo <maurilio.longo@libero.it>
  *    hb_gt_DispBegin() / hb_gt_DispEnd()
  *    hb_gt_ScreenPtr() and hb_gt_xYYYY() functions and virtual screen support inside hb_gt_XXXX()s
- *    16 bit KBD subsystem use inside hb_gt_os2_ReadKey()
+ *    16-bit KBD subsystem use inside hb_gt_os2_ReadKey()
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
