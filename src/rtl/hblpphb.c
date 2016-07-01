@@ -54,7 +54,7 @@
    described by simple Clipper expression:
     Bin2L(Len(cData)) + cData
 
-   Future extensions: Protocol is limitted to 4GB size for a single LPP
+   Future extensions: Protocol is limited to 4 GiB size for a single LPP
    message. This can be extended in future to use highest bit of length
    (or some highest length values 2^32-1, etc) as a special marker for
    64-bit or similar length encoding.

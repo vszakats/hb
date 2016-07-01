@@ -132,7 +132,7 @@ STATIC FUNCTION WMI_Bios_BiosCharacteristics( nValue )
    CASE 17 ; RETURN "BIOS ROM is socketed"
    CASE 18 ; RETURN "Boot From PC Card (PCMCIA) is supported"
    CASE 19 ; RETURN "EDD (Enhanced Disk Drive) Specification is supported"
-   CASE 20 ; RETURN "Int 13h - Japanese Floppy for NEC 9800 1.2 MB (3.5, 1 KB/Sector, 360 RPM) is supported"
+   CASE 20 ; RETURN "Int 13h - Japanese Floppy for NEC 9800 1.2 MB (3.5, 1 KiB/Sector, 360 RPM) is supported"
    CASE 21 ; RETURN "Int 13h - Japanese Floppy for Toshiba 1.2 MB (3.5, 360 RPM) is supported"
    CASE 22 ; RETURN "Int 13h - 5.25 / 360 KB Floppy Services are supported"
    CASE 23 ; RETURN "Int 13h - 5.25 / 1.2 MB Floppy Services are supported"

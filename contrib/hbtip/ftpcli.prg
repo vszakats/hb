@@ -229,7 +229,7 @@ METHOD TransferStart() CLASS TIPClientFTP
       ENDIF
    ENDIF
 
-   /* Set internal socket send buffer to 64KB, this should
+   /* Set internal socket send buffer to 64 KiB, this should
       resolve the speed problems some users have reported */
    IF HB_ISNUMERIC( ::nDefaultSndBuffSize )
       ::InetSndBufSize( ::SocketCon, ::nDefaultSndBuffSize )

@@ -282,7 +282,7 @@ Core
   Harbour help screen.
 - Added support for reading FoxPro .mem files - Clipper compatibility.
 - Fixed very old bug which disabled writing to .mem files strings
-  longer then 32KB.
+  longer then 32 KiB.
 - hbrun now accepts .dbf file as paramater, which it will open after startup.
 - hbrun now accepts -v option which makes it display its own version after
   startup.
@@ -1454,7 +1454,7 @@ RDD
 - Rewritten DBFNTX, now it supports in practice all CDX features with
   multi tags and many others. With rddInfo() some important new
   features in DBFNTX can be enabled like increased maximum NTX file
-  size up to 4TB, support structural/autoopen indexes, bounding record
+  size up to 4 TiB, support structural/autoopen indexes, bounding record
   number with index key (like in CDX format what resaolves the
   performance problem with indexes which have a lot of non unique
   keys, etc.)
@@ -1504,7 +1504,7 @@ Contrib
 - ADS: Added ADSCDX, ADSNTX and ADT RDDs. ADS RDD should not be longer
   used, it's only for backward compatibility.
 - ADS: Call AdsFlushFileBuffers() only when _SET_HARDCOMMIT is set.
-- ADS: Added possibility to save memo fields > 64KB.
+- ADS: Added possibility to save memo fields > 64 KiB.
 - ADS: Added support for relations in ADS* RDDs which are not
   supported directly by ADS or are for other non ADS* tables.
 - ADS: Synced base RDD with xHarbour.
@@ -2320,7 +2320,7 @@ OpenClipper #9 Alpha build 9 (1999-04-01)
 - Bison 1.24 is used now instead of byacc as byacc were returning
   a 'Out of space' error (parser execution is faster now!)
 - We are linking using huge memory model now cause DGROUP was already
-  over 64KB
+  over 64 KiB
 
 ----------------------------------------------------------------------
 OpenClipper #8 Alpha build 8 (1999-03-29)

@@ -2735,7 +2735,7 @@ static HB_ERRCODE adsPutValue( ADSAREAP pArea, HB_USHORT uiIndex, PHB_ITEM pItem
             nLen = hb_itemGetCLen( pItem );
 
             /* ToninhoFwi - 2006-12-09 - In the previous code nLen was limited to 0xFFFF
-               so, I comment it, because ADS support up to 4GB in memo/binary/image fields.
+               so, I comment it, because ADS support up to 4 GiB in memo/binary/image fields.
                Advantage documentations says that we need use AdsSetBinary in binary/image
                fields. I tested these special fields with AdsSetString() and it works, but
                is a little bit slower to save big image file in the fields, so I keep

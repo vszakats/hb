@@ -343,7 +343,7 @@ PROCEDURE NetCommitAll()
    LOCAL n
 
    FOR n := 1 TO MAX_TABLE_AREAS
-      IF ! Empty( Alias( n ) )
+      IF ! HB_ISNULL( Alias( n ) )
          ( Alias( n ) )->( dbCommit(), dbUnlock() )
       ENDIF
    NEXT

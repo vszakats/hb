@@ -143,7 +143,7 @@ static char * set_string( PHB_ITEM pItem, char * szOldString )
    {
       if( szOldString )
          hb_xfree( szOldString );
-      /* Limit size of SET strings to 64KB, truncating if source is longer */
+      /* Limit size of SET strings to 64 KiB, truncating if source is longer */
       szString = hb_strndup( hb_itemGetCPtr( pItem ), USHRT_MAX );
    }
    else
@@ -998,7 +998,7 @@ PHB_ITEM hb_setGetItem( HB_set_enum set_specifier, PHB_ITEM pResult,
             if( HB_IS_NIL( pArg1 ) )
                pSet->HB_SET_HBOUTLOG = NULL;
             else
-               /* Limit size of SET strings to 64KB, truncating if source is longer */
+               /* Limit size of SET strings to 64 KiB, truncating if source is longer */
                pSet->HB_SET_HBOUTLOG = hb_strndup( hb_itemGetCPtr( pArg1 ), USHRT_MAX );
             hb_xsetfilename( pSet->HB_SET_HBOUTLOG );
          }

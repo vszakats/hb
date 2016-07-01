@@ -6,7 +6,7 @@ PROCEDURE Main()
    LOCAL cShort := "1234567890"
    LOCAL i, cLong, cBuffer
 
-   // Create an 80 KB string (Clipper is limited to 64 KB).
+   // Create an 80 KiB string (Clipper is limited to 64 KiB).
    cLong := cShort
    FOR i := 1 TO 13
       cLong += cLong

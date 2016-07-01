@@ -66,7 +66,7 @@
 #define RDDI_CONNECTION          12   /* Get/Set default connection */
 #define RDDI_TABLETYPE           13   /* Type of table file */
 #define RDDI_MEMOTYPE            14   /* Type of MEMO file DB_MEMO_*: DBT, SMT, FPT(FP,SIX3,FLEXIII) */
-#define RDDI_LARGEFILE           15   /* Is large file size (>=4GB) supported */
+#define RDDI_LARGEFILE           15   /* Is large file size (>= 4 GiB) supported */
 #define RDDI_LOCKSCHEME          16   /* Locking scheme used by RDD */
 #define RDDI_RECORDMAP           17   /* Does RDD support record map functionality? */
 #define RDDI_ENCRYPTION          18   /* Does RDD support encryption */
@@ -178,7 +178,7 @@
 
 #define DBOI_ISMULTITAG         114  /* does RDD support multi tag in index file */
 #define DBOI_ISSORTRECNO        115  /* is record number part of key in sorting */
-#define DBOI_LARGEFILE          116  /* is large file size (>=4GB) supported */
+#define DBOI_LARGEFILE          116  /* is large file size (>= 4 GiB) supported */
 #define DBOI_TEMPLATE           117  /* order with free user keys */
 #define DBOI_MULTIKEY           118  /* custom order with multikeys */
 #define DBOI_CHGONLY            119  /* update only existing keys */

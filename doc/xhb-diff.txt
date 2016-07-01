@@ -2379,15 +2379,15 @@ limited only by OS and file format structures. Neither Harbour nor
 xHarbour introduce own limits here.
 The maximal file size for DBFs is limited by number of records
 2^32-1 = 4294967295 and maximal record size: 2^16-1 = 65535 what
-gives nearly 2^48 = 256TB as maximal .dbf file size.
+gives nearly 2^48 = 256 TiB as maximal .dbf file size.
 The maximal memo format size depends on used memo type: DBT, FPT
 or SMT and size of memo block. It's limited by maximal number of memo
 blocks = 2^32 and size of memo block so it's 2^32*<size_of_memo_block>.
 The default memo block size for DBT is 512 bytes, FPT - 64 bytes and
 for SMT 32 bytes. So for standard memo block sizes the maximum are:
-DBT->l2TB, FPT->256GB, SMT->128GB. The maximal memo block size in
+DBT-> 2 TiB, FPT-> 256 GiB, SMT-> 128 GiB. The maximal memo block size in
 Harbour is 2^32 and minimal is 1 byte and it can be any value between
-1 and 65536 and then any number of 64KB blocks. The last limitation
+1 and 65536 and then any number of 64 KiB blocks. The last limitation
 is introduced as workaround for some wrongly implemented in other
 languages memo drivers which were setting only 16 bits in 32-bit field
 in memo header. Most of other languages has limit for memo block
@@ -2397,23 +2397,23 @@ data with programs compiled by such languages then he should check
 their documentation to not create memo files which cannot be accessed
 by them.
 
-Maximal NTX file size for standard NTX files is 4GB and it's limited
+Maximal NTX file size for standard NTX files is 4 GiB and it's limited
 by internal NTX structures. Enabling 64-bit locking in [x]Harbour change
-slightly used NTX format and increase maximum NTX file size to 4TB.
+slightly used NTX format and increase maximum NTX file size to 4 TiB.
 The NTX format in [x]Harbour has also many other extensions like support
 for multitag indexes or using record number as hidden part of index key
 and many others which are unique to [x]Harbour. In practice all of CDX
 extensions are supported by NTX in [x]Harbour.
-The NSX format in [x]Harbour is also limited by default to 4GB but like
-in NTX enabling 64-bit locking extend this limit to 4TB. It also supports
+The NSX format in [x]Harbour is also limited by default to 4 GiB but like
+in NTX enabling 64-bit locking extend this limit to 4 TiB. It also supports
 common to NTX and CDX set of features.
-The CDX format is limited to 4GB by it's internal structure. In Harbour
+The CDX format is limited to 4 GiB by it's internal structure. In Harbour
 just like in NTX and NSX enabling 64-bit locking slightly change the
-format increasing maximum index size to 2TB for standard CDX page length
+format increasing maximum index size to 2 TiB for standard CDX page length
 (512 bytes). DBFCDX and SIXCDX RDDs in Harbour support also user defined
 index page size. It can be set as power of 2 value from 512 up to 8192.
 Longer index pages also increase maximum file size. For 8192 bytes pages
-maximum CDX file size in Harbour is 32TB. Enabling longer index pages
+maximum CDX file size in Harbour is 32 TiB. Enabling longer index pages
 automatically change internal index format to the same as used with
 64-bit locking. Longer index pages allow to use longer index key and can
 interact with total index size and performance. User can make test with
@@ -2579,11 +2579,11 @@ API so it's portable between different OS-es.
 In Harbour macro compiler supports the same expressions as compiler.
 The only one and documented difference is support for VFP like datetime
 constant values {^...} which are supported only by compiler.
-It's guaranteed that any valid expressions not longer then 8MB will be
+It's guaranteed that any valid expressions not longer then 8 MiB will be
 cleanly compiled and executed by Harbour. It's possible to compile and
 execute longer expressions (in practice there is no maximal size limit)
 but in such case it's not guaranteed that all expressions can be compiled,
-f.e. macro expressions containing string constant values longer then 16MB
+f.e. macro expressions containing string constant values longer then 16 MiB
 cannot be compiled. It's only guaranteed that if Harbour cannot compile
 macro expression then it generates RT error and never generates broken
 code.
@@ -2591,11 +2591,11 @@ code.
 In xHarbour there are differences between macro compiler and compiler
 and not all expressions supported at compile time can be used in macro
 compiler. The maximum size for valid expressions which are always correctly
-compiled by xHarbour is 32KB. Expressions longer then 32KB can be compiled
+compiled by xHarbour is 32 KiB. Expressions longer then 32 KiB can be compiled
 without any RT error by xHarbour but it's possible that wrong code will be
 generated for them which may cause any unpredictable behavior so user should
 not use such expressions. There is no clean way in xHarbour to check if macro
-expression longer then 32KB will be correctly compiled.
+expression longer then 32 KiB will be correctly compiled.
 
 Just like Clipper neither Harbour nor xHarbour support statements in macro
 compiler so extended codeblocks also cannot be compiled.

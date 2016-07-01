@@ -64,7 +64,7 @@
   - Remove trailing spaces from lines
   - Keep one (not zero or multiple) newline at the end of file
   - Use platform native newline (CRLF or LF)
-- In the rare case you need to send something large (> 100kB),
+- In the rare case you need to send something large (> 100 kB),
   use this [free service](https://transfer.sh).
 - See this good guideline on how to contribute:
   <https://github.com/necolas/issue-guidelines/blob/master/CONTRIBUTING.md>
@@ -132,7 +132,7 @@ Evaluate these points before reporting an issue:
     problematic behavior occurred _first_. Make sure to not only include
     a link failure or a make tool failure, as it's most of the time not
     enough information. Compress your log using zip if it is larger
-    than 25kB (use the extension `.zip`).
+    than 25 kB (use the extension `.zip`).
     With these, you have much better chance to get useful or any response.
 10. <a name="trbl-10"></a> Do not alter the directory layout and files in
     Harbour and 3rd party packages and tools (including C compilers).

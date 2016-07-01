@@ -1373,7 +1373,7 @@ static HB_DYNS_FUNC( hb_memvarSave )
             HB_SIZE nLen = hb_itemGetCLen( pMemvar ) + 1;
             int iOverFlow = 0;
 
-            /* Clipper supports only 64KB strings */
+            /* Clipper supports only 64 KiB strings */
             if( nLen > USHRT_MAX )
             {
                nLen = USHRT_MAX;
