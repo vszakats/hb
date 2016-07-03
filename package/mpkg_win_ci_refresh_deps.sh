@@ -9,6 +9,7 @@
 
 f="$(curl -fsS 'https://ci.appveyor.com/api/projects/vsz/harbour-deps/branch/master')"
 
+# "$(echo | jq '.build.jobs[0].jobId')"
 if [[ "${f}" =~ \"jobId\":\"([a-z0-9]+)\" ]] ; then
 
    f="$(curl -fsS "https://ci.appveyor.com/api/buildjobs/${BASH_REMATCH[1]}/log" | grep 'SHA256(')"
