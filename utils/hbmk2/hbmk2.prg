@@ -17854,6 +17854,15 @@ STATIC PROCEDURE ShowHeader( hbmk )
    ENDIF
 #endif
 
+   /* Ugly hack to force GTCGI for command-line output on
+      systems having a '--gttrm' option in the HARBOUR envvar.
+      This may be the case when wanting to set a default
+      GTTRM flag, f.e. 'exclr=2' to enable Cl*pper compatible
+      high colors. [vszakats] */
+   IF "GTTRM" $ hb_asciiUpper( GetEnv( "HARBOUR" ) )
+      hb_gtSelect( hb_gtCreate( _HBMK_GT_DEF_ ) )
+   ENDIF
+
    IF hbmk[ _HBMK_lMarkdown ]
       hb_SetTermCP( "UTF8EX" )  /* UTF-8 output for Markdown */
       cText := ToMarkdown( cText )
