@@ -231,13 +231,15 @@ static HB_BOOL hb_wvt_gtRenderPicture( int x, int y, int wd, int ht, IPicture * 
             int iWd;
             if( nHeight > nWidth )
             {
-               iWd = HB_MIN( wd, ( int ) ( ( float ) ht * nWidth / nHeight ) );
-               iHt =             ( int ) ( ( float ) iWd * nHeight / nWidth );
+               iWd = ( int ) ( ( double ) ht * nWidth / nHeight );
+               iWd = HB_MIN( iWd, wd );
+               iHt = ( int ) ( ( double ) iWd * nHeight / nWidth );
             }
             else
             {
-               iHt = HB_MIN( ht, ( int ) ( ( float ) wd * nHeight / nWidth ) );
-               iWd =             ( int ) ( ( float ) iHt * nWidth / nHeight );
+               iHt = ( int ) ( ( double ) wd * nHeight / nWidth );
+               iHt = HB_MIN( iHt, ht );
+               iWd = ( int ) ( ( double ) iHt * nWidth / nHeight );
             }
             x  += abs( ( iWd - wd ) / 2 );
             y  += abs( ( iHt - ht ) / 2 );
@@ -364,13 +366,15 @@ static HB_BOOL hb_wvt_DrawImage( HDC hdc, int x, int y, int wd, int ht, LPCTSTR 
                         int iWd;
                         if( nHeight > nWidth )
                         {
-                           iWd = HB_MIN( wd, ( int ) ( ( float ) ht * nWidth / nHeight ) );
-                           iHt =             ( int ) ( ( float ) iWd * nHeight / nWidth );
+                           iWd = ( int ) ( ( double ) ht * nWidth / nHeight );
+                           iWd = HB_MIN( iWd, wd );
+                           iHt = ( int ) ( ( double ) iWd * nHeight / nWidth );
                         }
                         else
                         {
-                           iHt = HB_MIN( ht, ( int ) ( ( float ) wd * nHeight / nWidth ) );
-                           iWd =             ( int ) ( ( float ) iHt * nWidth / nHeight );
+                           iHt = ( int ) ( ( double ) wd * nHeight / nWidth );
+                           iHt = HB_MIN( iHt, ht );
+                           iWd = ( int ) ( ( double ) iHt * nWidth / nHeight );
                         }
                         x  += abs( ( iWd - wd ) / 2 );
                         y  += abs( ( iHt - ht ) / 2 );
