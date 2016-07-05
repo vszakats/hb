@@ -27,6 +27,8 @@
 -depincpath=openssl:/usr/pkg/include
 -depfinish=openssl
 
+-iflag={bcc}-a
+
 # for openssl/applink.c
 -cflag={lngcpp&allgcc}-fpermissive
 
