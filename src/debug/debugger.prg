@@ -351,8 +351,11 @@ METHOD New() CLASS HBDebugger
       that way if the source is in the same directory it will still be found even if the application
       changes the current directory with the SET DEFAULT command. */
    ::cPathForFiles := GetEnv( "HB_DBG_PATH" )
-   IF ::cPathForFiles == NIL
+   IF HB_ISNULL( ::cPathForFiles )
       ::cPathForFiles := GetEnv( "PATH" )
+   ENDIF
+   IF HB_ISNULL( ::cPathForFiles )
+      ::cPathForFiles := NIL
    ENDIF
    ::aPathDirs := PathToArray( ::cPathForFiles )
 
@@ -1989,8 +1992,7 @@ METHOD LocatePrgPath( cPrgName ) CLASS HBDebugger
    LOCAL cDir
 
    FOR EACH cDir IN ::aPathDirs
-      cRetPrgName := hb_DirSepAdd( cDir ) + cPrgName
-      IF hb_vfExists( cRetPrgName )
+      IF hb_vfExists( cRetPrgName := cDir + cPrgName )
          RETURN cRetPrgName
       ENDIF
    NEXT
@@ -2069,7 +2071,7 @@ METHOD PROCEDURE Open( cFileName ) CLASS HBDebugger
 
       IF ! hb_vfExists( cFileName ) .AND. ::cPathForFiles != NIL
          IF ( cRealName := ::LocatePrgPath( cFileName ) ) == NIL
-            __dbgAlert( "File '" + cFileName + "' not found!" )
+            __dbgAlert( hb_StrFormat( "File '%1$s' not found!", cFileName ) )
             RETURN
          ENDIF
          cFileName := cRealName
@@ -2160,7 +2162,7 @@ METHOD PROCEDURE OSShell() CLASS HBDebugger
 
    RECOVER USING oE
 
-      __dbgAlert( "Error: " + oE:description )
+      __dbgAlert( hb_StrFormat( "Error: %1$s", oE:description ) )
 
    END SEQUENCE
 
@@ -2187,6 +2189,9 @@ METHOD PathForFiles( cPathForFiles ) CLASS HBDebugger
 
    IF ! HB_ISSTRING( cPathForFiles )
       cPathForFiles := ::InputBox( "Search path for source files:", ::cPathForFiles )
+   ENDIF
+   IF HB_ISNULL( cPathForFiles )
+      cPathForFiles := NIL
    ENDIF
    ::cPathForFiles := cPathForFiles
    ::aPathDirs := PathToArray( ::cPathForFiles )
@@ -3553,22 +3558,13 @@ STATIC FUNCTION ArrayBrowseSkip( nPos, oBrwSets )
 
 STATIC FUNCTION PathToArray( cList )
 
-   LOCAL aList := {}
-   LOCAL cSep := hb_osPathListSeparator()
-   LOCAL cDirSep := hb_osPathDelimiters()
-   LOCAL nPos
+   LOCAL aList
 
-   IF cList != NIL
-
-      DO WHILE ( nPos := hb_UAt( cSep, cList ) ) > 0
-         AAdd( aList, hb_ULeft( cList, nPos - 1 ) )        // Add a new element
-         cList := hb_USubStr( cList, nPos + 1 )
-      ENDDO
-
-      AAdd( aList, cList )              // Add final element
-
-      /* Strip ending delimiters */
-      AEval( aList, {| x, i | iif( Right( x, 1 ) $ cDirSep, aList[ i ] := hb_StrShrink( x ), ) } )
+   IF HB_ISSTRING( cList )
+      aList := hb_ATokens( cList, hb_osPathListSeparator() )
+      AEval( aList, {| x, i | aList[ i ] := hb_DirSepAdd( x ) } )
+   ELSE
+      aList := {}
    ENDIF
 
    RETURN aList
@@ -3580,6 +3576,7 @@ STATIC FUNCTION hb_LeftEqN( cLine, cStart, nMin )
 
 
 FUNCTION __dbgExprValidBlock( cType )
+
    LOCAL cTypeName
 
    IF HB_ISSTRING( cType )
@@ -3618,7 +3615,7 @@ FUNCTION __dbgExprValidBlock( cType )
       RETURN {| u | iif( Type( u ) == "UE", ;
                          ( __dbgAlert( "Expression error" ), .F. ), ;
                          Type( u ) == cType .OR. ;
-                         ( __dbgAlert( "Must be " + cTypeName ), .F. ) ) }
+                         ( __dbgAlert( hb_StrFormat( "Must be %1$s", cTypeName ) ), .F. ) ) }
    ENDIF
 
    RETURN {| u | ! Type( u ) == "UE" .OR. ;
