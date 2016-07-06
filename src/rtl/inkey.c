@@ -268,7 +268,7 @@ HB_FUNC( HB_KEYNEW )
 
    if( iKey >= 127 )
       iKey = HB_INKEY_NEW_UNICODEF( iKey, iMod );
-   else if( ( iMod & ( HB_KF_CTRL | HB_KF_ALT ) ) != 0 )
+   else if( ! pText || ( iMod & ( HB_KF_CTRL | HB_KF_ALT ) ) != 0 )
       iKey = HB_INKEY_NEW_KEY( iKey, iMod );
    else
       iKey = HB_INKEY_NEW_CHARF( iKey, iMod );
