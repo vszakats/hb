@@ -11,8 +11,6 @@
 PROCEDURE Main()
 
    TEST hb_keyNew( HB_KX_UP )   , hb_bitOr( HB_INKEY_EXT_BIT, HB_INKEY_EXT_KEY, HB_KX_UP )
-
-   TEST hb_keyNew( HB_KX_UP )   , hb_bitOr( HB_INKEY_EXT_BIT, HB_INKEY_EXT_KEY, HB_KX_UP )
    TEST hb_keyNew( HB_KX_DOWN ) , hb_bitOr( HB_INKEY_EXT_BIT, HB_INKEY_EXT_KEY, HB_KX_DOWN )
    TEST hb_keyNew( HB_KX_ENTER ), hb_bitOr( HB_INKEY_EXT_BIT, HB_INKEY_EXT_KEY, HB_KX_ENTER )
    TEST hb_keyNew( HB_KX_RIGHT ), hb_bitOr( HB_INKEY_EXT_BIT, HB_INKEY_EXT_KEY, HB_KX_RIGHT )
