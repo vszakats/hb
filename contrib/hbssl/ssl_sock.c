@@ -282,7 +282,7 @@ PHB_SSLSTREAM hb_ssl_socketNew( HB_SOCKET sd, SSL * ssl, HB_BOOL fServer,
       pStream->blocking = ! pStream->blocking;
 
    SSL_set_mode( ssl, HB_SSL_MODE_AUTO_RETRY );
-   iResult = SSL_set_fd( ssl, sd );
+   iResult = SSL_set_fd( ssl, sd );  /* Truncates `sd` on win64. OpenSSL bug: https://guest:guest@rt.openssl.org/Ticket/Display.html?id=1928 */
    while( iResult == 1 )
    {
       if( fServer )
