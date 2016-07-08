@@ -488,6 +488,45 @@ static void hb_gt_cgi_Refresh( PHB_GT pGT )
 
 /* *********************************************************************** */
 
+#ifdef HB_GT_CGI_WINUTF8
+static HB_BOOL hb_gt_cgi_Suspend( PHB_GT pGT )
+{
+   PHB_GTCGI pGTCGI;
+
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_cgi_Suspend(%p)", pGT ) );
+
+   pGTCGI = HB_GTCGI_GET( pGT );
+
+   if( pGTCGI && hb_gt_cgi_winutf8_enabled() )
+   {
+      SetConsoleOutputCP( pGTCGI->uiOldCP );
+      SetConsoleCtrlHandler( hb_gt_cgi_CtrlHandler, FALSE );
+   }
+
+   return HB_TRUE;
+}
+
+static HB_BOOL hb_gt_cgi_Resume( PHB_GT pGT )
+{
+   PHB_GTCGI pGTCGI;
+
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_cgi_Resume(%p)", pGT ) );
+
+   pGTCGI = HB_GTCGI_GET( pGT );
+
+   if( pGTCGI && hb_gt_cgi_winutf8_enabled() )
+   {
+      pGTCGI->uiOldCP = GetConsoleOutputCP();
+      SetConsoleCtrlHandler( hb_gt_cgi_CtrlHandler, TRUE );
+      SetConsoleOutputCP( CP_UTF8 );
+   }
+
+   return HB_TRUE;
+}
+#endif
+
+/* *********************************************************************** */
+
 static HB_BOOL hb_gt_FuncInit( PHB_GT_FUNCS pFuncTable )
 {
    HB_TRACE( HB_TR_DEBUG, ( "hb_gt_FuncInit(%p)", pFuncTable ) );
@@ -509,6 +548,11 @@ static HB_BOOL hb_gt_FuncInit( PHB_GT_FUNCS pFuncTable )
    pFuncTable->Scroll                     = hb_gt_cgi_Scroll;
    pFuncTable->Version                    = hb_gt_cgi_Version;
    pFuncTable->Bell                       = hb_gt_cgi_Bell;
+
+#ifdef HB_GT_CGI_WINUTF8
+   pFuncTable->Suspend                    = hb_gt_cgi_Suspend;
+   pFuncTable->Resume                     = hb_gt_cgi_Resume;
+#endif
 
    pFuncTable->ReadKey                    = hb_gt_cgi_ReadKey;
 
