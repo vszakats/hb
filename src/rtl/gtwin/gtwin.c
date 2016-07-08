@@ -1197,7 +1197,7 @@ static int hb_gt_win_ReadKey( PHB_GT pGT, int iEventMask )
       {
 #if defined( UNICODE )
          /* Workaround for UNICOWS bug:
-               http://blogs.msdn.com/michkap/archive/2007/01/13/1460724.aspx
+               https://web.archive.org/http://blogs.msdn.com/michkap/archive/2007/01/13/1460724.aspx
             [vszakats] */
 
          if( s_fWin9x )
@@ -1210,10 +1210,10 @@ static int hb_gt_win_ReadKey( PHB_GT pGT, int iEventMask )
 #endif
 
          /* Read keyboard input */
-         ReadConsoleInput( s_HInput,          /* input buffer handle   */
-                           s_irBuffer,         /* buffer to read into   */
-                           INPUT_BUFFER_LEN,  /* size of read buffer   */
-                           &s_dwNumRead );     /* number of records read */
+         ReadConsoleInput( s_HInput,          /* input buffer handle    */
+                           s_irBuffer,        /* buffer to read into    */
+                           INPUT_BUFFER_LEN,  /* size of read buffer    */
+                           &s_dwNumRead );    /* number of records read */
          /* Set up to process the first input event */
          s_dwNumIndex = 0;
 
