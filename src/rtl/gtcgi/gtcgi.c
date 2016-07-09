@@ -85,6 +85,7 @@ static HB_GT_FUNCS SuperTable;
 
 typedef struct _HB_GTCGI
 {
+   PHB_GT         pGT;        /* core GT pointer */
    HB_FHANDLE     hStdout;
    int            iRow;
    int            iCol;
@@ -126,9 +127,21 @@ static void hb_gt_cgi_termOut( PHB_GTCGI pGTCGI, const char * szStr, HB_SIZE nLe
    if( pGTCGI->fIsConsole )
    {
       HANDLE hFile = DosToWinHandle( pGTCGI->hStdout );
-      LPTSTR lpString = HB_CHARDUPN( szStr, nLen );
+
       HB_SIZE nWritten = 0;
-      HB_SIZE nCount = HB_STRLEN( lpString );
+      HB_SIZE nCount;
+
+      LPTSTR lpString;
+
+#if defined( UNICODE )
+      lpString = hb_cdpnStrDupU16( HB_GTSELF_TERMCP( pGTCGI->pGT ),
+                                   HB_CDP_ENDIAN_NATIVE,
+                                   szStr, nLen, &nCount );
+#else
+      nCount = nLen;
+      lpString = hb_cdpnDup( szStr, &nCount,
+                             HB_GTSELF_TERMCP( pGTCGI->pGT ), hb_setGetOSCP() );
+#endif
 
       while( nCount )
       {
@@ -179,6 +192,7 @@ static void hb_gt_cgi_Init( PHB_GT pGT, HB_FHANDLE hFilenoStdin, HB_FHANDLE hFil
 
    HB_GTLOCAL( pGT ) = pGTCGI = ( PHB_GTCGI ) hb_xgrabz( sizeof( HB_GTCGI ) );
 
+   pGTCGI->pGT = pGT;
    pGTCGI->hStdout = hFilenoStdout;
 
    pGTCGI->szCrLf = hb_strdup( hb_conNewLine() );
