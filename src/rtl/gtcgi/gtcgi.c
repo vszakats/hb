@@ -70,6 +70,12 @@
 #include "hbapicdp.h"
 #include "hbdate.h"
 
+#if defined( HB_OS_WIN ) && ! defined( HB_OS_WIN_CE )
+   #define HB_GT_CGI_WIN
+   #include <windows.h>
+   #include "hbwinuni.h"
+#endif
+
 static int s_GtId;
 static HB_GT_FUNCS SuperTable;
 #define HB_GTSUPER   ( &SuperTable )
@@ -89,11 +95,75 @@ typedef struct _HB_GTCGI
 #endif
    char *         szCrLf;
    HB_SIZE        nCrLf;
+#ifdef HB_GT_CGI_WIN
+   HB_BOOL        fIsConsole;
+#endif
 } HB_GTCGI, * PHB_GTCGI;
+
+#ifdef HB_GT_CGI_WIN
+static HANDLE DosToWinHandle( HB_FHANDLE fHandle )
+{
+   switch( fHandle )
+   {
+      case ( HB_FHANDLE ) FS_ERROR:
+         return NULL;
+      case ( HB_FHANDLE ) HB_STDIN_HANDLE:
+         return GetStdHandle( STD_INPUT_HANDLE );
+      case ( HB_FHANDLE ) HB_STDOUT_HANDLE:
+         return GetStdHandle( STD_OUTPUT_HANDLE );
+      case ( HB_FHANDLE ) HB_STDERR_HANDLE:
+         return GetStdHandle( STD_ERROR_HANDLE );
+   }
+   return ( HANDLE ) fHandle;
+}
+#endif
 
 static void hb_gt_cgi_termOut( PHB_GTCGI pGTCGI, const char * szStr, HB_SIZE nLen )
 {
+#ifdef HB_GT_CGI_WIN
+   #define HB_WIN_IOWRITE_LIMIT  10000  /* https://tahoe-lafs.org/trac/tahoe-lafs/ticket/1232#no1 */
+
+   if( pGTCGI->fIsConsole )
+   {
+      HANDLE hFile = DosToWinHandle( pGTCGI->hStdout );
+      LPTSTR lpString = HB_CHARDUPN( szStr, nLen );
+      HB_SIZE nWritten = 0;
+      HB_SIZE nCount = HB_STRLEN( lpString );
+
+      while( nCount )
+      {
+         DWORD dwToWrite;
+         DWORD dwWritten;
+
+         /* Determine how much to write this time */
+         if( nCount > ( HB_SIZE ) HB_WIN_IOWRITE_LIMIT )
+         {
+            dwToWrite = HB_WIN_IOWRITE_LIMIT;
+            nCount -= ( HB_SIZE ) dwToWrite;
+         }
+         else
+         {
+            dwToWrite = ( DWORD ) nCount;
+            nCount = 0;
+         }
+
+         if( ! WriteConsole( hFile, lpString + nWritten,
+                             dwToWrite, &dwWritten, NULL ) )
+            break;
+
+         nWritten += ( HB_SIZE ) dwWritten;
+
+         if( dwWritten != dwToWrite )
+            break;
+      }
+
+      hb_xfree( lpString );
+   }
+   else
+      hb_fsWriteLarge( pGTCGI->hStdout, szStr, nLen );
+#else
    hb_fsWriteLarge( pGTCGI->hStdout, szStr, nLen );
+#endif
 }
 
 static void hb_gt_cgi_newLine( PHB_GTCGI pGTCGI )
@@ -113,6 +183,15 @@ static void hb_gt_cgi_Init( PHB_GT pGT, HB_FHANDLE hFilenoStdin, HB_FHANDLE hFil
 
    pGTCGI->szCrLf = hb_strdup( hb_conNewLine() );
    pGTCGI->nCrLf = strlen( pGTCGI->szCrLf );
+
+#ifdef HB_GT_CGI_WIN
+   {
+      DWORD dwMode;
+      pGTCGI->fIsConsole = GetConsoleMode( DosToWinHandle( pGTCGI->hStdout ), &dwMode );
+      if( pGTCGI->fIsConsole )
+         HB_GTSELF_SETDISPCP( pGT, "UTF8", NULL, HB_FALSE );
+   }
+#endif
 
    hb_fsSetDevMode( pGTCGI->hStdout, FD_BINARY );
 
