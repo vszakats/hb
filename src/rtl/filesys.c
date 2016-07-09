@@ -390,20 +390,18 @@ static void fs_win_set_drive( int iDrive )
 
 static HANDLE DosToWinHandle( HB_FHANDLE fHandle )
 {
-   if( fHandle == ( HB_FHANDLE ) FS_ERROR )
-      return NULL;
-
-   else if( fHandle == ( HB_FHANDLE ) HB_STDIN_HANDLE )
-      return GetStdHandle( STD_INPUT_HANDLE );
-
-   else if( fHandle == ( HB_FHANDLE ) HB_STDOUT_HANDLE )
-      return GetStdHandle( STD_OUTPUT_HANDLE );
-
-   else if( fHandle == ( HB_FHANDLE ) HB_STDERR_HANDLE )
-      return GetStdHandle( STD_ERROR_HANDLE );
-
-   else
-      return ( HANDLE ) fHandle;
+   switch( fHandle )
+   {
+      case ( HB_FHANDLE ) FS_ERROR:
+         return NULL;
+      case ( HB_FHANDLE ) HB_STDIN_HANDLE:
+         return GetStdHandle( STD_INPUT_HANDLE );
+      case ( HB_FHANDLE ) HB_STDOUT_HANDLE:
+         return GetStdHandle( STD_OUTPUT_HANDLE );
+      case ( HB_FHANDLE ) HB_STDERR_HANDLE:
+         return GetStdHandle( STD_ERROR_HANDLE );
+   }
+   return ( HANDLE ) fHandle;
 }
 
 static void convert_open_flags( HB_BOOL fCreate, HB_FATTR nAttr, HB_USHORT uiFlags,
