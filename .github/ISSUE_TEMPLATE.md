@@ -11,7 +11,7 @@ _You can erase any parts of this template not applicable to your Issue._
 
 ### Bug reports:
 
-Please replace this section with a brief summary of your issue, including example code, stdout/stderr output, platform/compiler and version details.
+Please replace this section with a brief summary of your issue, including self-contained example code, stdout/stderr output, platform/compiler and version details.
 
 ### Notes:
 
