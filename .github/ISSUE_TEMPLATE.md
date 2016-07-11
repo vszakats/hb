@@ -4,8 +4,8 @@
 - [ ] Does the issue happen with the _latest_ 3.4 revision?
 - [ ] If this was working before, do you know which one was the latest working revision?
 - [ ] Does it also happen with [mainline](https://github.com/harbour/core) (3.2)?
-- [ ] If this is an issue with a Cl*pper legacy function or component, have you tested
-      the original behavior with Cl*pper itself?
+- [ ] If this is an issue with a Cl\*pper legacy function or component, have you tested
+      the original behavior with Cl\*pper itself?
 - [ ] If this is an issue with 3.2 or a Cl*pper incompatibility,
       have you reported this to [mainline](https://groups.google.com/forum/#!forum/harbour-devel) already?
 
