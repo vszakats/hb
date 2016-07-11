@@ -13,7 +13,7 @@ _You can erase any parts of this template not applicable to your Issue._
 
 Please replace this section with a brief summary of your issue, including example code, stdout/stderr output, platform/compiler and version details.
 
-### Note:
+### Notes:
 
 In case of enquires, questions, usage issues and general or feature specific discussion, please use available public forums. Popular ones are listed in the [README](../README.md#external-links).
 
