@@ -14,9 +14,9 @@ Content
 =========================================================
 by Viktor Szakats
 
- 1. Read CONTRIBUTING.md, monitor the development forums,
-    consult with the developers, make contributions. This
-    way your chances are high to get your Pull Requests
+ 1. Read .github/CONTRIBUTING.md, monitor the development
+    forums, consult with the developers, make contributions.
+    This way your chances are high to get your Pull Requests
     accepted and eventually join the team of committers.
  2. You'll need an Git client for your platform.
  3. Do a 'git clone' to get your own local development Git repository.

@@ -70,7 +70,7 @@ and interfaces to popular APIs.
 > :bulb: TIP:
 > [For](https://groups.google.com/forum/#!msg/harbour-users/2fwUzdKwpKA/32nI4WhZLfYJ)
 > [users](https://groups.google.com/forum/#!msg/harbour-users/Ro99f8S6my0/KvfjhCx_jE4J)
-> [contributing](CONTRIBUTING.md) to development, it's recommended to follow [commits](https://github.com/vszakats/harbour-core/commits/master) and reading
+> [contributing](.github/CONTRIBUTING.md) to development, it's recommended to follow [commits](https://github.com/vszakats/harbour-core/commits/master) and reading
 > [ChangeLog.txt](ChangeLog.txt?raw=true).
 
 ### Harbour live source repository
@@ -1671,7 +1671,7 @@ Supported shells per host platforms:
 # Harbour Links
 
   * [Homepage](https://vszakats.github.io/harbour-core/)
-  * [How to contribute](CONTRIBUTING.md)
+  * [How to contribute](.github/CONTRIBUTING.md)
   * [Source code](https://github.com/vszakats/harbour-core)
   * [Issues](https://github.com/vszakats/harbour-core/issues)
   * [Localization](https://www.transifex.com/projects/p/harbour/) (Resource [hbmk2-vszakats](https://www.transifex.com/projects/p/harbour/resource/hbmk2-vszakats/))
@@ -1696,7 +1696,7 @@ Supported shells per host platforms:
    Harbour in any ways. For more legal details, see [LICENSE](LICENSE.txt).
 
    If you feel you can make Harbour better: contribute.
-   [See how](CONTRIBUTING.md).
+   [See how](.github/CONTRIBUTING.md).
 
    The information this document is subject to change without notice
    and does not represent any future commitment by the participants

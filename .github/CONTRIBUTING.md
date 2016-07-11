@@ -93,7 +93,7 @@ Evaluate these points before reporting an issue:
     a build after refreshing the sources.
 3.  <a name="trbl-3"></a> If that still fails, make sure to install fresh
     source tree in a new local directory and start over. See
-    [How to Get](README.md#how-to-get) for instructions to get the source.
+    [How to Get](../README.md#how-to-get) for instructions to get the source.
     In case you installed Harbour into system locations (this used to be
     the case with some \*nix users, albeit mostly completely unnecessarily
     or wrongly - f.e. for unstable versions), you will need to remember
@@ -115,9 +115,9 @@ Evaluate these points before reporting an issue:
     any custom settings for your C compiler.
     Use only those documented in this file.
 7.  <a name="trbl-7"></a> Remove any Harbour build settings documented in
-    [Build Options](README.md#build-options).
+    [Build Options](../README.md#build-options).
 8.  <a name="trbl-8"></a> Do no or only minor modifications at once to the
-    examples included in [Build Examples](README.md#build-examples).
+    examples included in [Build Examples](../README.md#build-examples).
     If it doesn't work, fall back to documented examples _as is_.
 9.  <a name="trbl-9"></a> If everything fails and you are to report a build
     problem to Harbour developers, make sure to include your OS
