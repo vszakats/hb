@@ -23,5 +23,5 @@ charset =
 [{*.hb*,Makefile}]
 trim_trailing_whitespace = yes
 
-[Makefile,debian/rules,*.mk,*.yyc,*.cs,*.dif,*.htm*,*.xml,*.js,*.svg,*.vbs,*.css]
+[Makefile,debian/rules,*.mk,*.yyc,*.dif,*.htm*,*.xml,*.js,*.svg,*.vbs,*.css]
 indent_size = tab
