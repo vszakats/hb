@@ -13,6 +13,8 @@ PRG_MAIN := hbtest.prg
 
 LIBS = $(HB_LIBS_ST_RDD)
 
+HB_PRGFLAGS += -DRT_HAS_C
+
 ifneq ($(filter $(HB_PLATFORM),win wce os2),)
    ifneq ($(HB_BUILD_DYN),no)
       HB_BUILD_SHARED := yes
