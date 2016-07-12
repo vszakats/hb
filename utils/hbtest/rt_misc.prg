@@ -598,7 +598,7 @@ PROCEDURE Main_MISC()
       }
    */
 
-#ifndef RT_NO_C
+#ifdef RT_HAS_C
 #ifndef __XPP__
    HBTEST hb_SToD()                       IS hb_SToD( "        " )
 #endif

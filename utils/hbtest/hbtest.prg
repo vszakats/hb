@@ -240,26 +240,6 @@ PROCEDURE Main( cPar1, cPar2, cPar3 )
 
    RETURN
 
-#ifndef RT_HAS_C
-
-#ifdef __CLIPPER__
-STATIC FUNCTION hb_SToD( s )
-
-   LOCAL dt, df := Set( _SET_DATEFORMAT, "yyyy-mm-dd" )
-
-   dt := CToD( Stuff( Stuff( s, 7, 0, "-" ), 5, 0, "-" ) )
-   Set( _SET_DATEFORMAT, df )
-
-   RETURN dt
-#endif
-
-#ifdef __XPP__
-STATIC FUNCTION hb_SToD( cDate )
-   RETURN SToD( cDate )
-#endif
-
-#endif
-
 /* NOTE: These should always be called last, since they can mess up the test
          environment.
 
@@ -756,7 +736,7 @@ FUNCTION hb_SToD( cDate )
    RETURN SToD( cDate )
 #endif
 
-#ifdef RT_NO_C
+#ifndef RT_HAS_C
 #ifndef __HARBOUR__
 #ifndef __XPP__
 
