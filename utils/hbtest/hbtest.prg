@@ -85,10 +85,6 @@
 #include "error.ch"
 #include "fileio.ch"
 
-#ifdef __HARBOUR__
-   #include "hbclass.ch"
-#endif
-
 MEMVAR mxNotHere /* Please don't declare this variable, since it's used to test undeclared MEMVAR situations. */
 MEMVAR mcLongerNameThen10Chars
 MEMVAR mcString
