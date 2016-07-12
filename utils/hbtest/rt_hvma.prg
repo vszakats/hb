@@ -44,11 +44,6 @@
  *
  */
 
-#include "rt_main.ch"
-
-/* Don't change the position of this #include. */
-#include "rt_vars.ch"
-
 PROCEDURE Main_HVMA()
 
    LOCAL nA, nB, nC
@@ -653,6 +648,3 @@ PROCEDURE Main_HVMA()
 
 STATIC FUNCTION RTSTR( nValue )
    RETURN Str( Len( Str( nValue ) ), 3 ) + " " + Str( nValue )
-
-/* Don't change the position of this #include. */
-#include "rt_init.ch"

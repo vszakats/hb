@@ -44,11 +44,6 @@
  *
  */
 
-#include "rt_main.ch"
-
-/* Don't change the position of this #include. */
-#include "rt_vars.ch"
-
 PROCEDURE Main_HVM()
 
    /* ValType() */
@@ -587,6 +582,3 @@ PROCEDURE Main_HVM()
    HBTEST {|| NIL } >= {|| NIL }          IS "E 1 BASE 1076 Argument error (>=) OS:0 #:0 A:2:B:{||...};B:{||...} F:S"
 
    RETURN
-
-/* Don't change the position of this #include. */
-#include "rt_init.ch"

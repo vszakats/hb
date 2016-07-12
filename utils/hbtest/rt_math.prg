@@ -44,11 +44,6 @@
  *
  */
 
-#include "rt_main.ch"
-
-/* Don't change the position of this #include. */
-#include "rt_vars.ch"
-
 PROCEDURE Main_MATH()
 
    LOCAL l, s, o
@@ -527,6 +522,3 @@ PROCEDURE Main_MATH()
 #endif
 
    RETURN
-
-/* Don't change the position of this #include. */
-#include "rt_init.ch"

@@ -44,11 +44,6 @@
  *
  */
 
-#include "rt_main.ch"
-
-/* Don't change the position of this #include. */
-#include "rt_vars.ch"
-
 #ifdef __HARBOUR__
    #include "hbver.ch"
 #endif
@@ -68,7 +63,7 @@ PROCEDURE Main_STR()
    HBTEST Val( NIL )                      IS "E 1 BASE 1098 Argument error (VAL) OS:0 #:0 A:1:U:NIL F:S"
    HBTEST Val( 10 )                       IS "E 1 BASE 1098 Argument error (VAL) OS:0 #:0 A:1:N:10 F:S"
 
-#ifndef RT_NO_C
+#ifdef RT_HAS_C
 
 #ifdef __PLATFORM__WINDOWS
    IF .F.   /* [U]LONG is 32-bit integer in Windows 64-bit */
@@ -809,6 +804,3 @@ PROCEDURE Main_STR()
    HBTEST Stuff( "ABC" + Chr( 0 ) + "EF",  2,  3, "x" + Chr( 0 ) + "z" ) IS "Ax" + Chr( 0 ) + "zEF"
 
    RETURN
-
-/* Don't change the position of this #include. */
-#include "rt_init.ch"
