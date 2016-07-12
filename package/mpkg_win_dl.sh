@@ -42,7 +42,7 @@ gpg --version | grep gpg
    openssl dgst -sha256 pack.bin | grep -q d7d4817f46d2616c209c46fb8bce44e4bec93ab5adef5e4dfc93ee879527be1b
    7z e -y -oupx pack.bin > /dev/null
 
-   if [ "${_BRANCH#*extmingw*}" != "${_BRANCH}" ] ; then
+   if [ "${_BRANCH#*mingwmsys*}" = "${_BRANCH}" ] ; then
       readonly mingwbase='https://downloads.sourceforge.net'; readonly option='-L'
 #     curl -o pack.bin "${option}" "${mingwbase}/mingw-w64/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/6.1.0/threads-posix/sjlj/i686-6.1.0-release-posix-sjlj-rt_v5-rev0.7z"
 #     openssl dgst -sha256 pack.bin | grep -q f3ce910465f72b0a6180b7255f3f1c6ae10855454b10939a8608ddb9b1f2aa52

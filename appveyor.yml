@@ -3,9 +3,11 @@ branches:
   only:
   - master
   - test-appveyor
-  - test-extmingw
+  - test-mingwext
+  - test-mingwmsys
   - lto
-  - lto-extmingw
+  - lto-mingwext
+  - lto-mingwmsys
   - msvc2008
   - msvc2010
   - msvc2012

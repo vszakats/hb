@@ -3309,8 +3309,8 @@ HB_FUNC( __CLSADDMSG )
       }
       else if( nType == HB_OO_MSG_CLASSDATA )
       {
-            nType = szMessage[ 0 ] == '_' ? HB_OO_MSG_CLSASSIGN :
-                                            HB_OO_MSG_CLSACCESS;
+         nType = szMessage[ 0 ] == '_' ? HB_OO_MSG_CLSASSIGN :
+                                         HB_OO_MSG_CLSACCESS;
       }
       /* to make xHarbour users happy ;-) */
       else if( nType == HB_OO_MSG_PROPERTY ||
@@ -4674,24 +4674,25 @@ HB_FUNC_STATIC( msgNoMethod )
 {
    HB_STACK_TLS_PRELOAD
    PHB_SYMB pSym = hb_itemGetSymbol( hb_stackBaseItem() );
+   const char * szName = pSym ? pSym->szName : "";
 
 #if 1  /* Clipper compatible error message */
-   if( pSym->szName[ 0 ] == '_' )
-      hb_errRT_BASE_SubstR( EG_NOVARMETHOD, 1005, NULL, pSym->szName + 1, HB_ERR_ARGS_SELFPARAMS );
+   if( szName[ 0 ] == '_' )
+      hb_errRT_BASE_SubstR( EG_NOVARMETHOD, 1005, NULL, szName + 1, HB_ERR_ARGS_SELFPARAMS );
    else
-      hb_errRT_BASE_SubstR( EG_NOMETHOD, 1004, NULL, pSym->szName, HB_ERR_ARGS_SELFPARAMS );
+      hb_errRT_BASE_SubstR( EG_NOMETHOD, 1004, NULL, szName, HB_ERR_ARGS_SELFPARAMS );
 #else
    char szDesc[ 40 + HB_SYMBOL_NAME_LEN ];
 
-   if( pSym->szName[ 0 ] == '_' )
+   if( szName[ 0 ] == '_' )
    {
       hb_snprintf( szDesc, sizeof( szDesc ), "Class: '%s' has no property", hb_objGetClsName( hb_stackSelfItem() ) );
-      hb_errRT_BASE_SubstR( EG_NOVARMETHOD, 1005, szDesc, pSym->szName + 1, HB_ERR_ARGS_BASEPARAMS );
+      hb_errRT_BASE_SubstR( EG_NOVARMETHOD, 1005, szDesc, szName + 1, HB_ERR_ARGS_BASEPARAMS );
    }
    else
    {
       hb_snprintf( szDesc, sizeof( szDesc ), "Class: '%s' has no exported method", hb_objGetClsName( hb_stackSelfItem() ) );
-      hb_errRT_BASE_SubstR( EG_NOMETHOD, 1004, szDesc, pSym->szName, HB_ERR_ARGS_BASEPARAMS );
+      hb_errRT_BASE_SubstR( EG_NOMETHOD, 1004, szDesc, szName, HB_ERR_ARGS_BASEPARAMS );
    }
 #endif
 }

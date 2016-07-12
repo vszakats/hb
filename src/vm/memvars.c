@@ -607,7 +607,7 @@ char * hb_memvarGetStrValuePtr( char * szVarName, HB_SIZE * pnLen )
  *
  * pMemvar - an item that stores the name of variable - it can be either
  *          the HB_IT_SYMBOL (if created by PUBLIC statement) or HB_IT_STRING
- *          (if created by direct call to __MVPUBLIC function)
+ *          (if created by direct call to __mvPublic() function)
  * iScope - the scope of created variable - if a variable with the same name
  *          exists already then it's value is hidden by new variable with
  *          passed scope
@@ -621,12 +621,18 @@ void hb_memvarCreateFromItem( PHB_ITEM pMemvar, int iScope, PHB_ITEM pValue )
 
    HB_TRACE( HB_TR_DEBUG, ( "hb_memvarCreateFromItem(%p, %d, %p)", pMemvar, iScope, pValue ) );
 
-   /* find dynamic symbol or creeate one */
-   if( HB_IS_SYMBOL( pMemvar ) )
-      /* pDynVar = hb_dynsymGet( pMemvar->item.asSymbol.value->szName ); */
-      pDynVar = pMemvar->item.asSymbol.value->pDynSym;
-   else if( HB_IS_STRING( pMemvar ) )
-      pDynVar = hb_dynsymGet( pMemvar->item.asString.value );
+   if( pMemvar )
+   {
+      /* find dynamic symbol or create one */
+      if( HB_IS_SYMBOL( pMemvar ) )
+#if 0
+         pDynVar = hb_dynsymGet( pMemvar->item.asSymbol.value->szName );
+#else
+         pDynVar = pMemvar->item.asSymbol.value->pDynSym;
+#endif
+      else if( HB_IS_STRING( pMemvar ) )
+         pDynVar = hb_dynsymGet( pMemvar->item.asString.value );
+   }
 
    if( pDynVar )
       hb_memvarCreateFromDynSymbol( pDynVar, iScope, pValue );
@@ -686,7 +692,7 @@ static void hb_memvarRelease( PHB_ITEM pMemvar )
 {
    HB_TRACE( HB_TR_DEBUG, ( "hb_memvarRelease(%p)", pMemvar ) );
 
-   if( HB_IS_STRING( pMemvar ) )
+   if( pMemvar && HB_IS_STRING( pMemvar ) )
    {
       PHB_DYNS pDynSymbol = hb_memvarFindSymbol( pMemvar->item.asString.value,
                                                  pMemvar->item.asString.length );
