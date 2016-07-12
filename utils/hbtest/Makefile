@@ -11,9 +11,9 @@ RC_SOURCES := \
 
 PRG_MAIN := hbtest.prg
 
-LIBS = $(HB_LIBS_ST_RDD)
-
 HB_PRGFLAGS += -DRT_HAS_C
+
+LIBS = $(HB_LIBS_ST_RDD)
 
 ifneq ($(filter $(HB_PLATFORM),win wce os2),)
    ifneq ($(HB_BUILD_DYN),no)
