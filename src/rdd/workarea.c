@@ -853,17 +853,17 @@ static HB_ERRCODE hb_waInfo( AREAP pArea, HB_USHORT uiIndex, PHB_ITEM pItem )
       {
          char szAlias[ HB_RDD_MAX_ALIAS_LEN + 1 ];
          if( SELF_ALIAS( pArea, szAlias ) != HB_SUCCESS )
-         {
             return HB_FAILURE;
-         }
          hb_itemPutC( pItem, szAlias );
          break;
       }
 
       case DBI_TABLEEXT:
+      {
+         LPRDDNODE pNode = SELF_RDDNODE( pArea );
          hb_itemClear( pItem );
-         return SELF_RDDINFO( SELF_RDDNODE( pArea ), RDDI_TABLEEXT, 0, pItem );
-
+         return pNode ? SELF_RDDINFO( pNode, RDDI_TABLEEXT, 0, pItem ) : HB_FAILURE;
+      }
       case DBI_SCOPEDRELATION:
       {
          int iRelNo = hb_itemGetNI( pItem );

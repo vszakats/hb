@@ -7639,7 +7639,7 @@ static void hb_vmStaticsClear( void )
             for( ul = 1; ul <= nLen; ++ul )
             {
                PHB_ITEM pItem = hb_arrayGetItemPtr( pStatics, ul );
-               if( HB_IS_COMPLEX( pItem ) )
+               if( pItem && HB_IS_COMPLEX( pItem ) )
                   hb_itemClear( pItem );
             }
          }

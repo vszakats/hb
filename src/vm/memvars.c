@@ -1009,22 +1009,25 @@ PHB_ITEM hb_memvarSaveInArray( int iScope, HB_BOOL fCopy )
       do
       {
          PHB_ITEM pItem = hb_arrayGetItemPtr( pArray, MVInfo.nCount );
-         PHB_DYNS pDynSymbol = MVInfo.pDyns[ --MVInfo.nCount ];
-         PHB_ITEM pMemvar = hb_dynsymGetMemvar( pDynSymbol );
+         if( pItem )
+         {
+            PHB_DYNS pDynSymbol = MVInfo.pDyns[ --MVInfo.nCount ];
+            PHB_ITEM pMemvar = hb_dynsymGetMemvar( pDynSymbol );
 
-         hb_arrayNew( pItem, 2 );
-         hb_arraySetSymbol( pItem, 1, pDynSymbol->pSymbol );
-         pItem = hb_arrayGetItemPtr( pItem, 2 );
-         if( fCopy )
-         {
-            hb_itemCopy( pItem, pMemvar );
-            hb_memvarDetachLocal( pItem );
-         }
-         else
-         {
-            pItem->type = HB_IT_BYREF | HB_IT_MEMVAR;
-            pItem->item.asMemvar.value = pMemvar;
-            hb_xRefInc( pMemvar );
+            hb_arrayNew( pItem, 2 );
+            hb_arraySetSymbol( pItem, 1, pDynSymbol->pSymbol );
+            pItem = hb_arrayGetItemPtr( pItem, 2 );
+            if( fCopy )
+            {
+               hb_itemCopy( pItem, pMemvar );
+               hb_memvarDetachLocal( pItem );
+            }
+            else
+            {
+               pItem->type = HB_IT_BYREF | HB_IT_MEMVAR;
+               pItem->item.asMemvar.value = pMemvar;
+               hb_xRefInc( pMemvar );
+            }
          }
       }
       while( MVInfo.nCount );
@@ -1042,13 +1045,21 @@ void hb_memvarRestoreFromArray( PHB_ITEM pArray )
    for( nPos = 1; nPos <= nCount; ++nPos )
    {
       PHB_ITEM pItem = hb_arrayGetItemPtr( pArray, nPos );
-      PHB_DYNS pDynSym = hb_arrayGetSymbol( pItem, 1 )->pDynSym;
-      PHB_ITEM pMemvar = hb_arrayGetItemPtr( pItem, 2 )->item.asMemvar.value;
-      hb_memvarValueIncRef( pMemvar );
-      if( hb_dynsymGetMemvar( pDynSym ) )
-         hb_memvarDetachDynSym( pDynSym, pMemvar );
-      else
-         hb_dynsymSetMemvar( pDynSym, pMemvar );
+      if( pItem )
+      {
+         PHB_SYMB pSymbol = hb_arrayGetSymbol( pItem, 1 );
+         PHB_ITEM pMemRef = hb_arrayGetItemPtr( pItem, 2 );
+         if( pSymbol && pMemRef )
+         {
+            PHB_DYNS pDynSym = pSymbol->pDynSym;
+            PHB_ITEM pMemvar = pMemRef->item.asMemvar.value;
+            hb_memvarValueIncRef( pMemvar );
+            if( hb_dynsymGetMemvar( pDynSym ) )
+               hb_memvarDetachDynSym( pDynSym, pMemvar );
+            else
+               hb_dynsymSetMemvar( pDynSym, pMemvar );
+         }
+      }
    }
 }
 
@@ -1087,7 +1098,6 @@ HB_FUNC( __MVPUBLIC )
                for( n = 1; n <= nLen; n++ )
                {
                   PHB_ITEM pItem = hb_arrayGetItemPtr( pMemvar, n );
-
                   if( pItem )
                      hb_memvarCreateFromItem( pItem, HB_VSCOMP_PUBLIC, NULL );
                }
@@ -1124,7 +1134,6 @@ HB_FUNC( __MVPRIVATE )
                for( n = 1; n <= nLen; n++ )
                {
                   PHB_ITEM pItem = hb_arrayGetItemPtr( pMemvar, n );
-
                   if( pItem )
                      hb_memvarCreateFromItem( pItem, HB_VSCOMP_PRIVATE, NULL );
                }
@@ -1161,7 +1170,6 @@ HB_FUNC( __MVXRELEASE )
                for( n = 1; n <= nLen; n++ )
                {
                   PHB_ITEM pItem = hb_arrayGetItemPtr( pMemvar, n );
-
                   if( pItem )
                      hb_memvarRelease( pItem );
                }
