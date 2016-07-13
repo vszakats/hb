@@ -4523,13 +4523,13 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
                      AAdd( hbmk[ _HBMK_aOPTC ], "-Wno-reserved-id-macro" )
                   ENDIF
                   AAdd( hbmk[ _HBMK_aOPTC ], "-Wno-sign-conversion -Wno-shorten-64-to-32 -Wno-conversion -Wno-bad-function-cast" )
+                  AAdd( hbmk[ _HBMK_aOPTC ], "-Wno-empty-translation-unit" )
                ELSE
                   AAdd( hbmk[ _HBMK_aOPTC ], "-W -Wall" )
                   IF hbmk[ _HBMK_nCOMPVer ] >= 0601
                      AAdd( hbmk[ _HBMK_aOPTC ], "-Wlogical-op -Wduplicated-cond -Wshift-negative-value -Wnull-dereference" )
                   ENDIF
                ENDIF
-               AAdd( hbmk[ _HBMK_aOPTC ], "-Wno-empty-translation-unit" )
                EXIT
             CASE _WARN_LOW
                AAdd( hbmk[ _HBMK_aOPTC ], "-Wmissing-braces -Wreturn-type -Wformat" )
@@ -4862,7 +4862,6 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             IF hbmk[ _HBMK_nCOMPVer ] >= 0601
                AAdd( hbmk[ _HBMK_aOPTC ], "-Wlogical-op -Wduplicated-cond -Wshift-negative-value -Wnull-dereference" )
             ENDIF
-            AAdd( hbmk[ _HBMK_aOPTC ], "-Wno-empty-translation-unit" )
             EXIT
          CASE _WARN_LOW
             AAdd( hbmk[ _HBMK_aOPTC ], "-Wmissing-braces -Wreturn-type -Wformat" )
