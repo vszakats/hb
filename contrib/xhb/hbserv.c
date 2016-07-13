@@ -1063,6 +1063,9 @@ HB_FUNC( __HB_SERVICEGENERATEFAULT )
 #if defined( _MSC_VER ) && _MSC_VER >= 1800
 #pragma warning(push)
 #pragma warning(disable:6011)
+#elif defined( HB_GCC_HAS_DIAG )
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wnull-dereference"
 #endif
    int * pGPF = NULL;
 
@@ -1071,6 +1074,8 @@ HB_FUNC( __HB_SERVICEGENERATEFAULT )
    *( --pGPF ) = 0;
 #if defined( _MSC_VER ) && _MSC_VER >= 1800
 #pragma warning(pop)
+#elif defined( HB_GCC_HAS_DIAG )
+#pragma GCC diagnostic pop
 #endif
 }
 

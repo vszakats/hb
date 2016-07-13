@@ -530,6 +530,13 @@
    #define HB_EXTERN_END
 #endif
 
+#if defined( __GNUC__ ) && \
+    ( ( ( __GNUC__ - 0 ) * 100 ) + ( __GNUC_MINOR__ - 0 ) ) >= 406
+   #define HB_GCC_HAS_DIAG
+#else
+   #undef HB_GCC_HAS_DIAG
+#endif
+
 #if defined( __GNUC__ ) && ( __GNUC__ - 0 >= 3 )
 
    #define HB_DEPRECATED __attribute__ (( __deprecated__ ))
