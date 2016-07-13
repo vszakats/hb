@@ -27,8 +27,8 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - clang-3.8
-      - gcc-5
-      - g++-5
+      - gcc-6
+      - g++-6
       - firebird2.5-dev
      #- liballegro4.2-dev
      #- libcairo2-dev
@@ -87,7 +87,7 @@ script:
     else
        if [ "$TRAVIS_OS_NAME" = "linux" ] ; then
           if [ "$CC" = "gcc" ] ; then
-             export HB_CCSUFFIX=-5;
+             export HB_CCSUFFIX=-6;
           else
              export HB_CCSUFFIX=-3.8;
           fi;
