@@ -621,18 +621,15 @@ void hb_memvarCreateFromItem( PHB_ITEM pMemvar, int iScope, PHB_ITEM pValue )
 
    HB_TRACE( HB_TR_DEBUG, ( "hb_memvarCreateFromItem(%p, %d, %p)", pMemvar, iScope, pValue ) );
 
-   if( pMemvar )
-   {
-      /* find dynamic symbol or create one */
-      if( HB_IS_SYMBOL( pMemvar ) )
+   /* find dynamic symbol or create one */
+   if( HB_IS_SYMBOL( pMemvar ) )
 #if 0
-         pDynVar = hb_dynsymGet( pMemvar->item.asSymbol.value->szName );
+      pDynVar = hb_dynsymGet( pMemvar->item.asSymbol.value->szName );
 #else
-         pDynVar = pMemvar->item.asSymbol.value->pDynSym;
+      pDynVar = pMemvar->item.asSymbol.value->pDynSym;
 #endif
-      else if( HB_IS_STRING( pMemvar ) )
-         pDynVar = hb_dynsymGet( pMemvar->item.asString.value );
-   }
+   else if( HB_IS_STRING( pMemvar ) )
+      pDynVar = hb_dynsymGet( pMemvar->item.asString.value );
 
    if( pDynVar )
       hb_memvarCreateFromDynSymbol( pDynVar, iScope, pValue );
@@ -692,7 +689,7 @@ static void hb_memvarRelease( PHB_ITEM pMemvar )
 {
    HB_TRACE( HB_TR_DEBUG, ( "hb_memvarRelease(%p)", pMemvar ) );
 
-   if( pMemvar && HB_IS_STRING( pMemvar ) )
+   if( HB_IS_STRING( pMemvar ) )
    {
       PHB_DYNS pDynSymbol = hb_memvarFindSymbol( pMemvar->item.asString.value,
                                                  pMemvar->item.asString.length );
@@ -1088,7 +1085,12 @@ HB_FUNC( __MVPUBLIC )
                HB_SIZE n, nLen = hb_arrayLen( pMemvar );
 
                for( n = 1; n <= nLen; n++ )
-                  hb_memvarCreateFromItem( hb_arrayGetItemPtr( pMemvar, n ), HB_VSCOMP_PUBLIC, NULL );
+               {
+                  PHB_ITEM pItem = hb_arrayGetItemPtr( pMemvar, n );
+
+                  if( pItem )
+                     hb_memvarCreateFromItem( pItem, HB_VSCOMP_PUBLIC, NULL );
+               }
             }
             else
                hb_memvarCreateFromItem( pMemvar, HB_VSCOMP_PUBLIC, NULL );
@@ -1120,7 +1122,12 @@ HB_FUNC( __MVPRIVATE )
                HB_SIZE n, nLen = hb_arrayLen( pMemvar );
 
                for( n = 1; n <= nLen; n++ )
-                  hb_memvarCreateFromItem( hb_arrayGetItemPtr( pMemvar, n ), HB_VSCOMP_PRIVATE, NULL );
+               {
+                  PHB_ITEM pItem = hb_arrayGetItemPtr( pMemvar, n );
+
+                  if( pItem )
+                     hb_memvarCreateFromItem( pItem, HB_VSCOMP_PRIVATE, NULL );
+               }
             }
             else
                hb_memvarCreateFromItem( pMemvar, HB_VSCOMP_PRIVATE, NULL );
@@ -1152,7 +1159,12 @@ HB_FUNC( __MVXRELEASE )
                HB_SIZE n, nLen = hb_arrayLen( pMemvar );
 
                for( n = 1; n <= nLen; n++ )
-                  hb_memvarRelease( hb_arrayGetItemPtr( pMemvar, n ) );
+               {
+                  PHB_ITEM pItem = hb_arrayGetItemPtr( pMemvar, n );
+
+                  if( pItem )
+                     hb_memvarRelease( pItem );
+               }
             }
             else
                hb_memvarRelease( pMemvar );
