@@ -243,7 +243,12 @@ static PHB_MEMFS_FILE memfsFileAlloc( PHB_MEMFS_INODE pInode )
    pFile->pInode = pInode;
    pFile->llPos = 0;
 
-   pInode->uiCount++;
+   /* TODO: Recheck if this `if` condition is still required to avoid
+            'potential null pointer dereference' warning with gcc 6.1.0
+            or upper, after marking hb_errInternal() as non-returning */
+   if( pInode )
+      pInode->uiCount++;
+
    return pFile;
 }
 
