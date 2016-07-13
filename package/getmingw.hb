@@ -64,28 +64,36 @@ PROCEDURE Main()
                   " " + cCOpt + ;
                   " " + pkg[ "url" ] ) == 0
 
-               IF Empty( pkg[ "sum" ] ) .OR. hb_SHA256( hb_MemoRead( cFileName ) ) == pkg[ "sum" ]
+               tmp := hb_MemoRead( cFileName )
 
-                  IF Empty( pkg[ "sum" ] )
-                     OutStd( "! Warning: Checksum not verified." + hb_eol() )
+               IF ! hb_LeftEqI( tmp, "<!DOCTYPE" ) .AND. ;
+                  ! hb_LeftEqI( tmp, "<html" )
+
+                  IF Empty( pkg[ "sum" ] ) .OR. hb_SHA256( tmp ) == pkg[ "sum" ]
+
+                     IF Empty( pkg[ "sum" ] )
+                        OutStd( "! Warning: Checksum not verified." + hb_eol() )
+                     ELSE
+                        OutStd( "! Checksum OK." + hb_eol() )
+                     ENDIF
+
+                     cDst := hb_PathNormalize( cTarget := cDirBase + ".." + hb_ps() + "comp" )
+
+                     OutStd( hb_StrFormat( "! Unpacking to '%1$s'...", cDst ) + hb_eol() )
+
+                     IF hb_processRun( "7za" + ;
+                           " x -y" + ;
+                           " " + FNameEscape( "-o" + cDst ) + ;
+                           " " + FNameEscape( cFileName ),, @tmp, @tmp ) != 0
+
+                        hb_vfCopyFile( cFileName, tmp := pkg[ "fil" ] + ".7z" )
+                        OutStd( hb_StrFormat( "! Error: Unpacking. Please unpack '%1$s' manually to '%2$s'.", tmp, cTarget ) + hb_eol() )
+                     ENDIF
                   ELSE
-                     OutStd( "! Checksum OK." + hb_eol() )
-                  ENDIF
-
-                  cDst := hb_PathNormalize( cTarget := cDirBase + ".." + hb_ps() + "comp" )
-
-                  OutStd( hb_StrFormat( "! Unpacking to '%1$s'...", cDst ) + hb_eol() )
-
-                  IF hb_processRun( "7za" + ;
-                        " x -y" + ;
-                        " " + FNameEscape( "-o" + cDst ) + ;
-                        " " + FNameEscape( cFileName ),, @tmp, @tmp ) != 0
-
-                     hb_vfCopyFile( cFileName, tmp := pkg[ "fil" ] + ".7z" )
-                     OutStd( hb_StrFormat( "! Error: Unpacking. Please unpack '%1$s' manually to '%2$s'.", tmp, cTarget ) + hb_eol() )
+                     OutStd( "! Error: Checksum mismatch - corrupted download. Please retry." + hb_eol() )
                   ENDIF
                ELSE
-                  OutStd( "! Error: Checksum mismatch - corrupted download. Please retry." + hb_eol() )
+                  OutStd( "! Error: Downloading MinGW. Please retry." + hb_eol() )
                ENDIF
             ELSE
                OutStd( "! Error: Downloading MinGW." + hb_eol() )
