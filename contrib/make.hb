@@ -483,7 +483,7 @@ STATIC PROCEDURE build_projects( nAction, hProjectList, hProjectReqList, cOption
 STATIC PROCEDURE call_hbmk2_hbinfo( cProjectPath, hProject )
 
    LOCAL cStdOut
-   LOCAL tmp, tmp1
+   LOCAL tmp, tmp1, tmp2
    LOCAL hInfo
 
    LOCAL nErrorLevel
@@ -513,12 +513,23 @@ STATIC PROCEDURE call_hbmk2_hbinfo( cProjectPath, hProject )
                LOOP
             ENDIF
 #endif
+            /* Convert .hbc reference to an .hbp one */
             tmp1 := hb_FNameExtSet( hb_DirSepToOS( LTrim( tmp ) ), ".hbp" )
+            /* Calculate its full path */
+            tmp2 := hb_PathNormalize( hb_PathJoin( hb_DirSepToOS( hb_cwd() ), tmp1 ) )
+            /* Rebase its full path onto the contrib root */
             tmp1 := hb_PathNormalize( hb_PathRelativize( ;
                hb_PathNormalize( hb_PathJoin( hb_DirSepToOS( hb_cwd() ), hb_DirSepToOS( hb_DirBase() ) ) ), ;
-               hb_PathNormalize( hb_PathJoin( hb_DirSepToOS( hb_cwd() ), tmp1 ) ) ) )
-            AAdd( hProject[ "aDept" ], { "nDepth" => Len( tmp ) - Len( LTrim( tmp ) ), ;
-               "cFileName_HBP" => StrTran( tmp1, "\", "/" ) } )
+               tmp2 ) )
+
+            /* Do not add any .hbc reference that resides outside the
+               'contrib' directory tree. This case can be detected by
+               verifying if the full path remained unchanged after
+               rebasing to contrib root. */
+            IF !( tmp1 == tmp2 )
+               AAdd( hProject[ "aDept" ], { "nDepth" => Len( tmp ) - Len( LTrim( tmp ) ), ;
+                  "cFileName_HBP" => StrTran( tmp1, "\", "/" ) } )
+            ENDIF
          ENDIF
       NEXT
    ELSE
