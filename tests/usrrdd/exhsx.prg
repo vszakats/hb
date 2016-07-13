@@ -20,11 +20,11 @@ PROCEDURE Main()
       { "SALARY",      "N",  6,  0 }, ;
       { "NOTES",       "C", 70,  0 } } )
    USE _tst.dbf
-   HSX_CREATE( "_tst.hsx", "FIRST+LAST+STREET+CITY", 2, 0, .T., 3 )
+   hsx_Create( "_tst.hsx", "FIRST+LAST+STREET+CITY", 2, 0, .T., 3 )
    APPEND FROM ( hb_DirSepToOS( "..\test.dbf" ) )
 
    /* Look for all records which have 'SHERMAN' string inside */
-   hs := HSX_HANDLE( "_tst" )
+   hs := hsx_Handle( "_tst" )
    hs_Set( hs, "SHERMAN" )
    DO WHILE ( n := hs_Next( hs ) ) > 0
       dbGoto( n )

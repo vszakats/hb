@@ -19,7 +19,7 @@ PROCEDURE Main()
    rddInfo( RDDI_MEMOVERSION, DB_MEMOVER_CLIP, "LOGRDD" )
 
    // Define Log File Name and position
-   hb_LogRddLogFileName( "changes.log" )
+   hb_LogRddLogFilename( "changes.log" )
    // Define Tag to add for each line logged
    hb_LogRddTag( NetName() + "\" + hb_UserName() )
    // Activate Logging, it can be stopped/started at any moment
