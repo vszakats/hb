@@ -4857,7 +4857,13 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          ENDIF
          SWITCH hbmk[ _HBMK_nWARN ]
          CASE _WARN_MAX ; AAdd( hbmk[ _HBMK_aOPTC ], "-W -Wall -pedantic" ) ; EXIT
-         CASE _WARN_YES ; AAdd( hbmk[ _HBMK_aOPTC ], "-W -Wall" )           ; EXIT
+         CASE _WARN_YES
+            AAdd( hbmk[ _HBMK_aOPTC ], "-W -Wall" )
+            IF hbmk[ _HBMK_nCOMPVer ] >= 0601
+               AAdd( hbmk[ _HBMK_aOPTC ], "-Wlogical-op -Wduplicated-cond -Wshift-negative-value -Wnull-dereference" )
+            ENDIF
+            AAdd( hbmk[ _HBMK_aOPTC ], "-Wno-empty-translation-unit" )
+            EXIT
          CASE _WARN_LOW
             AAdd( hbmk[ _HBMK_aOPTC ], "-Wmissing-braces -Wreturn-type -Wformat" )
             IF hbmk[ _HBMK_lCPP ] != NIL .AND. ! hbmk[ _HBMK_lCPP ]
