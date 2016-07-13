@@ -134,7 +134,7 @@
 #  define HB_NUMTYPE( v, d )  do { \
                                  v = ( isfinite( d ) ? 0 : \
                                        ( isnan( d ) ? _HB_NUM_NAN : \
-                                         ( isinf( d ) < 0 ? _HB_NUM_NINF : \
+                                         ( ( isinf( d ) < 0 ) ? _HB_NUM_NINF : \
                                            _HB_NUM_PINF ) ) ); \
                               } while( 0 )
 
@@ -149,14 +149,14 @@
 #  define HB_NUMTYPE( v, d )  do { \
                                  v = ( finite( d ) ? 0 : \
                                        ( isnan( d ) ? _HB_NUM_NAN : \
-                                         ( isinf( d ) < 0 ? _HB_NUM_NINF : \
+                                         ( ( isinf( d ) < 0 ) ? _HB_NUM_NINF : \
                                            _HB_NUM_PINF ) ) ); \
                               } while( 0 )
 #  if ! defined( __NO_LONGDOUBLE__ ) && ! defined( HB_OS_SUNOS )
 #     define HB_NUMTYPEL( v, d ) do { \
                                     v = ( finitel( d ) ? 0 : \
                                           ( isnanl( d ) ? _HB_NUM_NAN : \
-                                            ( isinfl( d ) < 0 ? _HB_NUM_NINF : \
+                                            ( ( isinfl( d ) < 0 ) ? _HB_NUM_NINF : \
                                               _HB_NUM_PINF ) ) ); \
                                  } while( 0 )
 #  endif
