@@ -1057,12 +1057,16 @@ HB_FUNC( GDIMAGESETTHICKNESS ) /* void gdImageSetThickness(gdImagePtr im, int th
    {
       gdImagePtr im = hb_parGdImage( 1 );
 
-      int thickness = hb_parni( 2 );
+      if( im )
+      {
+         int thickness = hb_parni( 2 );
 
-      /* Return previous */
-      hb_retni( im->thick );
+         hb_retni( im->thick );  /* Return previous */
 
-      gdImageSetThickness( im, thickness );
+         gdImageSetThickness( im, thickness );
+      }
+      else
+         hb_retni( 0 );
    }
    else
       hb_errRT_BASE_SubstR( EG_ARG, 0, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
@@ -1148,7 +1152,14 @@ HB_FUNC( GDIMAGEGETCLIP ) /* original: void gdImageGetClip(gdImagePtr im, int *x
 HB_FUNC( GDIMAGECOLORSTOTAL ) /* int gdImageColorsTotal(gdImagePtr im) */
 {
    if( hb_isGdImage( 1 ) )
-      hb_retni( gdImageColorsTotal( hb_parGdImage( 1 ) ) );
+   {
+      gdImagePtr im = hb_parGdImage( 1 );
+
+      if( im )
+         hb_retni( gdImageColorsTotal( im ) );
+      else
+         hb_retni( 0 );
+   }
    else
       hb_errRT_BASE_SubstR( EG_ARG, 0, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
@@ -1216,8 +1227,14 @@ HB_FUNC( GDIMAGEBLUE ) /* int gdImageBlue(gdImagePtr im, int color) */
 HB_FUNC( GDIMAGESX ) /* int gdImageSX(gdImagePtr im) */
 {
    if( hb_isGdImage( 1 ) )
-      /* Get Image Width in pixels */
-      hb_retni( gdImageSX( hb_parGdImage( 1 ) ) );
+   {
+      gdImagePtr im = hb_parGdImage( 1 );
+
+      if( im )
+         hb_retni( gdImageSX( im ) );  /* Get Image Width in pixels */
+      else
+         hb_retni( 0 );
+   }
    else
       hb_errRT_BASE_SubstR( EG_ARG, 0, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
@@ -1225,8 +1242,14 @@ HB_FUNC( GDIMAGESX ) /* int gdImageSX(gdImagePtr im) */
 HB_FUNC( GDIMAGESY ) /* int gdImageSX(gdImagePtr im) */
 {
    if( hb_isGdImage( 1 ) )
-      /* Get Image Height in pixels */
-      hb_retni( gdImageSY( hb_parGdImage( 1 ) ) );
+   {
+      gdImagePtr im = hb_parGdImage( 1 );
+
+      if( im )
+         hb_retni( gdImageSY( im ) );  /* Get Image Height in pixels */
+      else
+         hb_retni( 0 );
+   }
    else
       hb_errRT_BASE_SubstR( EG_ARG, 0, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
@@ -1366,7 +1389,14 @@ HB_FUNC( GDIMAGETRUECOLORPIXEL ) /* int gdImageTrueColorPixel(gdImagePtr im, int
 HB_FUNC( GDIMAGEGETTHICKNESS ) /* void gdImageGetThickness(gdImagePtr im) */
 {
    if( hb_isGdImage( 1 ) )
-      hb_retni( hb_parGdImage( 1 )->thick );
+   {
+      gdImagePtr im = hb_parGdImage( 1 );
+
+      if( im )
+         hb_retni( im->thick );
+      else
+         hb_retni( 0 );
+   }
    else
       hb_errRT_BASE_SubstR( EG_ARG, 0, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
@@ -1598,7 +1628,14 @@ HB_FUNC( GDFONTCACHESHUTDOWN ) /* void gdFontCacheShutdown (void) */
 HB_FUNC( GDFONTGETWIDTH )
 {
    if( hb_isGdFont( 1 ) )
-      hb_retni( hb_parGdFont( 1 )->w );
+   {
+      gdFontPtr font = hb_parGdFont( 1 );
+
+      if( font )
+         hb_retni( font->w );
+      else
+         hb_retni( 0 );
+   }
    else
       hb_errRT_BASE_SubstR( EG_ARG, 0, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
@@ -1606,7 +1643,14 @@ HB_FUNC( GDFONTGETWIDTH )
 HB_FUNC( GDFONTGETHEIGHT )
 {
    if( hb_isGdFont( 1 ) )
-      hb_retni( hb_parGdFont( 1 )->h );
+   {
+      gdFontPtr font = hb_parGdFont( 1 );
+
+      if( font )
+         hb_retni( font->h );
+      else
+         hb_retni( 0 );
+   }
    else
       hb_errRT_BASE_SubstR( EG_ARG, 0, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
