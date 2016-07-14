@@ -225,6 +225,8 @@ HB_FUNC( ATADJUST )
          }
          else
          {
+            HB_SIZE nLen;
+
             /* adjust to right */
             sRetStrLen = sStrLen + ( pcString + sAdjustPosition ) - pc;
             pcRetStr = ( char * ) hb_xgrab( sRetStrLen + 1 );
@@ -234,8 +236,9 @@ HB_FUNC( ATADJUST )
                hb_xmemcpy( pcRetStr, pcString, pc - pcString );
 
             /* fill characters */
-            hb_xmemset( pcRetStr + ( pc - pcString ), cFillChar,
-                        sAdjustPosition - ( pc - pcString ) );
+            nLen = sAdjustPosition - ( pc - pcString );
+            if( nLen > 0 )
+               hb_xmemset( pcRetStr + ( pc - pcString ), cFillChar, nLen );
 
             /* copy second portion of string */
             if( sRetStrLen > sAdjustPosition )

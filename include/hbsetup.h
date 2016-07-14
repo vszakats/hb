@@ -530,11 +530,20 @@
    #define HB_EXTERN_END
 #endif
 
-#if defined( __GNUC__ ) && \
-    ( ( ( __GNUC__ - 0 ) * 100 ) + ( __GNUC_MINOR__ - 0 ) ) >= 406
-   #define HB_GCC_HAS_DIAG
+#if defined( __GNUC__ )
+   #define HB_GCC_VER  ( ( ( __GNUC__ - 0 ) * 100 ) + ( __GNUC_MINOR__ - 0 ) )
+#  if HB_GCC_VER >= 406
+      #define HB_GCC_HAS_DIAG
+#  else
+      #undef HB_GCC_HAS_DIAG
+#  endif
+#  if HB_GCC_VER >= 404
+      #define HB_GCC_HAS_OPTIMIZE
+#  else
+      #undef HB_GCC_HAS_OPTIMIZE
+#  endif
 #else
-   #undef HB_GCC_HAS_DIAG
+   #define HB_GCC_VER  0
 #endif
 
 #if defined( __GNUC__ ) && ( __GNUC__ - 0 >= 3 )
