@@ -4827,6 +4827,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
 
          IF hbmk[ _HBMK_lDEBUG ]
             AAdd( hbmk[ _HBMK_aOPTC ], "-g" )
+            AAdd( hbmk[ _HBMK_aOPTL ], "-g" )
+            AAdd( hbmk[ _HBMK_aOPTD ], "-g" )
          ENDIF
          cLibLibPrefix := "lib"
          cLibPrefix := "-l"

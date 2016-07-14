@@ -26,6 +26,8 @@ endif
 
 ifeq ($(HB_BUILD_DEBUG),yes)
    CFLAGS += -g
+   DFLAGS += -g
+   LDFLAGS += -g
 endif
 
 #RC := windres
