@@ -77,6 +77,9 @@ if [ "${_BRANC4}" != 'msvc' ] ; then
    [ "${_BRANCH#*lto*}" != "${_BRANCH}" ] && export HB_USER_CFLAGS="${HB_USER_CFLAGS} -flto -ffat-lto-objects"
    [ "${HB_BUILD_MODE}" = 'cpp' ] && export HB_USER_LDFLAGS="${HB_USER_LDFLAGS} -static-libstdc++"
 
+   readonly _msys_mingw32='/mingw32'
+   readonly _msys_mingw64='/mingw64'
+
    export HB_DIR_MINGW="${HB_RT}/mingw64"
    if [ -d "${HB_DIR_MINGW}/bin" ] ; then
       # Use the same toolchain for both targets
@@ -85,8 +88,8 @@ if [ "${_BRANC4}" != 'msvc' ] ; then
       _build_info_32='BUILD-mingw.txt'
       _build_info_64=/dev/null
    else
-      export HB_DIR_MINGW_32='/mingw32'
-      export HB_DIR_MINGW_64='/mingw64'
+      export HB_DIR_MINGW_32="${_msys_mingw32}"
+      export HB_DIR_MINGW_64="${_msys_mingw64}"
       [ "${HB_BASE}" != '64' ] && HB_DIR_MINGW="${HB_DIR_MINGW_32}"
       [ "${HB_BASE}"  = '64' ] && HB_DIR_MINGW="${HB_DIR_MINGW_64}"
       _build_info_32='BUILD-mingw32.txt'
@@ -106,10 +109,11 @@ if [ "${_BRANC4}" != 'msvc' ] ; then
 
    export HB_WITH_CURL="${HB_DIR_CURL_32}include"
    export HB_WITH_OPENSSL="${HB_DIR_OPENSSL_32}include"
-   export HB_WITH_FREEIMAGE='/mingw32/include'
-   export HB_WITH_GD='/mingw32/include'
-   export HB_WITH_ICU='/mingw32/include'
-   export HB_WITH_PGSQL='/mingw32/include'
+   _inc="${_msys_mingw32}/include"
+   export HB_WITH_FREEIMAGE="${_inc}"
+   export HB_WITH_GD="${_inc}"
+   export HB_WITH_ICU="${_inc}"
+   export HB_WITH_PGSQL="${_inc}"
    export PATH="${HB_DIR_MINGW_32}/bin:${_ori_path}"
    gcc -v 2> "${_build_info_32}"
    # shellcheck disable=SC2086
@@ -117,10 +121,11 @@ if [ "${_BRANC4}" != 'msvc' ] ; then
 
    export HB_WITH_CURL="${HB_DIR_CURL_64}include"
    export HB_WITH_OPENSSL="${HB_DIR_OPENSSL_64}include"
-   export HB_WITH_FREEIMAGE='/mingw64/include'
-   export HB_WITH_GD='/mingw64/include'
-   export HB_WITH_ICU='/mingw64/include'
-   export HB_WITH_PGSQL='/mingw64/include'
+   _inc="${_msys_mingw64}/include"
+   export HB_WITH_FREEIMAGE="${_inc}"
+   export HB_WITH_GD="${_inc}"
+   export HB_WITH_ICU="${_inc}"
+   export HB_WITH_PGSQL="${_inc}"
    export PATH="${HB_DIR_MINGW_64}/bin:${_ori_path}"
    gcc -v 2> "${_build_info_64}"
    # shellcheck disable=SC2086
