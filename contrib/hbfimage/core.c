@@ -53,7 +53,7 @@
 #include "hbstack.h"
 #include "hbvm.h"
 
-#define hb_fi_retl( x )  hb_retl( x ? HB_TRUE : HB_FALSE )
+#define hb_fi_retl( x )  hb_retl( ( x ) ? HB_TRUE : HB_FALSE )
 #define hb_fi_parl( x )  ( hb_parl( x ) ? TRUE : FALSE )
 
 /* Error callback */
@@ -275,9 +275,7 @@ HB_FUNC( FI_SETOUTPUTMESSAGE )
 /* DLL_API FIBITMAP *DLL_CALLCONV FreeImage_Allocate(int width, int height, int bpp, unsigned red_mask FI_DEFAULT(0), unsigned green_mask FI_DEFAULT(0), unsigned blue_mask FI_DEFAULT(0)); */
 HB_FUNC( FI_ALLOCATE )
 {
-   if( HB_ISNUM( 1 ) &&
-       HB_ISNUM( 2 ) &&
-       HB_ISNUM( 3 ) )
+   if( HB_ISNUM( 1 ) && HB_ISNUM( 2 ) && HB_ISNUM( 3 ) )
       hb_FIBITMAP_ret( FreeImage_Allocate( hb_parni( 1 ) /* width */,
                                            hb_parni( 2 ) /* height */,
                                            hb_parni( 3 ) /* bpp */,
@@ -291,9 +289,7 @@ HB_FUNC( FI_ALLOCATE )
 /* DLL_API FIBITMAP *DLL_CALLCONV FreeImage_AllocateT(FREE_IMAGE_TYPE type, int width, int height, int bpp FI_DEFAULT(8), unsigned red_mask FI_DEFAULT(0), unsigned green_mask FI_DEFAULT(0), unsigned blue_mask FI_DEFAULT(0)); */
 HB_FUNC( FI_ALLOCATET )
 {
-   if( HB_ISNUM( 1 ) &&
-       HB_ISNUM( 2 ) &&
-       HB_ISNUM( 3 ) )
+   if( HB_ISNUM( 1 ) && HB_ISNUM( 2 ) && HB_ISNUM( 3 ) )
       hb_FIBITMAP_ret( FreeImage_AllocateT( ( FREE_IMAGE_TYPE ) hb_parni( 1 ) /* type */,
                                             hb_parni( 2 ) /* width */,
                                             hb_parni( 3 ) /* height */,
@@ -1306,11 +1302,7 @@ HB_FUNC( FI_COPY )
 {
    FIBITMAP * dib = hb_FIBITMAP_par( 1 );
 
-   if( dib &&
-       HB_ISNUM( 2 ) &&
-       HB_ISNUM( 3 ) &&
-       HB_ISNUM( 4 ) &&
-       HB_ISNUM( 5 ) )
+   if( dib && HB_ISNUM( 2 ) && HB_ISNUM( 3 ) && HB_ISNUM( 4 ) && HB_ISNUM( 5 ) )
       hb_FIBITMAP_ret( FreeImage_Copy( dib,
                                        hb_parni( 2 ) /* left */,
                                        hb_parni( 3 ) /* top */,
@@ -1326,10 +1318,7 @@ HB_FUNC( FI_PASTE )
    FIBITMAP * dst = hb_FIBITMAP_par( 1 );
    FIBITMAP * src = hb_FIBITMAP_par( 2 );
 
-   if( dst && src &&
-       HB_ISNUM( 3 ) &&
-       HB_ISNUM( 4 ) &&
-       HB_ISNUM( 5 ) )
+   if( dst && src && HB_ISNUM( 3 ) && HB_ISNUM( 4 ) && HB_ISNUM( 5 ) )
       hb_fi_retl( FreeImage_Paste( dst, src,
                                    hb_parni( 3 ) /* left */,
                                    hb_parni( 4 ) /* top */,
