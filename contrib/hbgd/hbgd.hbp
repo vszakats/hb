@@ -21,6 +21,7 @@ hbct.hbc
 -depincpath=gd:/usr/local/opt/gd/include
 -depimplibs=gd:../bin/bgd.dll{!(msvc|pocc|mingw)|hbdyn}
 -depimplibs=gd:../lib/bgd.lib{(msvc|pocc|mingw)&!hbdyn}
+-depimplibs=gd:../lib/bgd.dll.a
 
 -hbx=${hb_name}
 
