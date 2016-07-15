@@ -16,12 +16,12 @@ PROCEDURE Main()
    LOCAL centerX, centerY, width, height
 
 #if 0
+   LOCAL bmpinfo
    LOCAL bmpinfoheader
    LOCAL iccprofile
    LOCAL appo
 #endif
    LOCAL bkcolor
-   LOCAL bmpinfo
    LOCAL cStr
 
 #if 0
@@ -41,9 +41,9 @@ PROCEDURE Main()
    ? "File type        :", fi_GetFileType( IMAGES_IN + "sample1.jpg" )
 
    ? "Set Error Message (symbol):", fi_SetOutputMessage( @fi_Error() )
-   im := fi_Load( FIF_JPEG, IMAGES_IN + "nothere.jpg", JPEG_DEFAULT )
+   ? fi_Load( FIF_JPEG, IMAGES_IN + "nothere.jpg", JPEG_DEFAULT )
    ? "Set Error Message (block):", fi_SetOutputMessage( {| cFormat, cMessage | fi_Error( cFormat, cMessage ) } )
-   im := fi_Load( FIF_JPEG, IMAGES_IN + "nothere.jpg", JPEG_DEFAULT )
+   ? fi_Load( FIF_JPEG, IMAGES_IN + "nothere.jpg", JPEG_DEFAULT )
 
    ? "Load JPEG directly from file"
    im := fi_Load( FIF_JPEG, IMAGES_IN + "sample1.jpg", JPEG_DEFAULT )

@@ -223,7 +223,7 @@ static void * LoadImageFromFileObject( PHB_FILE fhandle, int sz )
 static void * LoadImageFromFile( const char * szFile, int * sz )
 {
    HB_SIZE nSize;
-   char * iptr = ( char * ) hb_fileLoad( szFile, INT_MAX - 1, &nSize );
+   char *  iptr = ( char * ) hb_fileLoad( szFile, INT_MAX - 1, &nSize );
 
    *sz = iptr ? ( int ) nSize : 0;
 
@@ -345,15 +345,15 @@ static void GDImageSaveTo( int nType )
    {
       gdImagePtr im = hb_parGdImage( 1 );
 
-      int    sz    = 0;
-      void * iptr  = NULL;
+      int    sz = 0;
+      void * iptr = NULL;
       int    level = 0, fg = 0;
 
       /* Get file name or an output handler or NIL it I want a return string */
-      if( !( HB_ISNIL( 2 ) ||
-             HB_ISCHAR( 2 ) ||
-             hb_fileParamGet( 2 ) ||
-             HB_ISNUM( 2 ) ) )
+      if( ! ( HB_ISNIL( 2 ) ||
+              HB_ISCHAR( 2 ) ||
+              hb_fileParamGet( 2 ) ||
+              HB_ISNUM( 2 ) ) )
       {
          hb_errRT_BASE_SubstR( EG_ARG, 0,
                                "Second argument must be NIL, a file handle or a string.",
@@ -363,8 +363,8 @@ static void GDImageSaveTo( int nType )
 
       /* Retrieve compression level */
       /* check if is numeric */
-      if( !( HB_ISNIL( 3 ) ||
-             HB_ISNUM( 3 ) ) )
+      if( ! ( HB_ISNIL( 3 ) ||
+              HB_ISNUM( 3 ) ) )
       {
          hb_errRT_BASE_SubstR( EG_ARG, 0,
                                "Third argument must be NIL or numeric.",
@@ -376,7 +376,7 @@ static void GDImageSaveTo( int nType )
       {
          /* check range */
          level = hb_parnidef( 3, -1 );
-         if( !( level >= -1 && level <= 95 ) )
+         if( ! ( level >= -1 && level <= 95 ) )
          {
             hb_errRT_BASE_SubstR( EG_ARG, 0,
                                   "Compression level must be -1 (default) or a value between 0 and 95.",
@@ -388,7 +388,7 @@ static void GDImageSaveTo( int nType )
       {
          /* check range */
          level = hb_parnidef( 3, -1 );
-         if( !( level >= -1 && level <= 9 ) )
+         if( ! ( level >= -1 && level <= 9 ) )
          {
             hb_errRT_BASE_SubstR( EG_ARG, 0,
                                   "Compression level must be -1 (default) or a value between 0 and 9.",
@@ -509,7 +509,7 @@ HB_FUNC( GDIMAGECREATE ) /* gdImagePtr gdImageCreate(sx, sy) */
 /* Alias of GDCreate() */
 HB_FUNC_TRANSLATE( GDIMAGECREATEPALETTE, GDIMAGECREATE ) /* gdImagePtr gdImageCreatePalette(sx, sy) */
 
-HB_FUNC( GDIMAGECREATETRUECOLOR ) /* gdImageCreateTrueColor(sx, sy) */
+HB_FUNC( GDIMAGECREATETRUECOLOR )                        /* gdImageCreateTrueColor(sx, sy) */
 {
    if( HB_ISNUM( 1 ) &&
        HB_ISNUM( 2 ) )
@@ -666,8 +666,10 @@ HB_FUNC( GDIMAGEDASHEDLINE ) /* void gdImageDashedLine(gdImagePtr im, int x1, in
       hb_errRT_BASE_SubstR( EG_ARG, 0, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
-HB_FUNC( GDIMAGEPOLYGON ) /* original: void gdImagePolygon(gdImagePtr im, gdPointPtr points, int pointsTotal, int color) */
-{                         /* implementation: void gdImagePolygon(gdImagePtr im, gdPointPtr points, int color) */
+/* original: void gdImagePolygon(gdImagePtr im, gdPointPtr points, int pointsTotal, int color) */
+/* implementation: void gdImagePolygon(gdImagePtr im, gdPointPtr points, int color) */
+HB_FUNC( GDIMAGEPOLYGON )
+{
    if( hb_isGdImage( 1 ) &&
        HB_ISARRAY( 2 ) &&
        HB_ISNUM( 3 ) )
@@ -709,8 +711,10 @@ HB_FUNC( GDIMAGEPOLYGON ) /* original: void gdImagePolygon(gdImagePtr im, gdPoin
       hb_errRT_BASE_SubstR( EG_ARG, 0, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
-HB_FUNC( GDIMAGEOPENPOLYGON ) /* original: void gdImageOpenPolygon(gdImagePtr im, gdPointPtr points, int pointsTotal, int color) */
-{                             /* implementation: void gdImageOpenPolygon(gdImagePtr im, gdPointPtr points, int color) */
+/* original: void gdImageOpenPolygon(gdImagePtr im, gdPointPtr points, int pointsTotal, int color) */
+/* implementation: void gdImageOpenPolygon(gdImagePtr im, gdPointPtr points, int color) */
+HB_FUNC( GDIMAGEOPENPOLYGON )
+{
 #if HB_GD_VERS( 2, 0, 33 )
    if( hb_isGdImage( 1 ) &&
        HB_ISARRAY( 2 ) &&
@@ -777,8 +781,10 @@ HB_FUNC( GDIMAGERECTANGLE ) /* void gdImageRectangle(gdImagePtr im, int x1, int 
       hb_errRT_BASE_SubstR( EG_ARG, 0, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
-HB_FUNC( GDIMAGEFILLEDPOLYGON ) /* original: void gdImageFilledPolygon(gdImagePtr im, gdPointPtr points, int pointsTotal, int color) */
-{                               /* implementation: void gdImageFilledPolygon(gdImagePtr im, gdPointPtr points, int color) */
+/* original: void gdImageFilledPolygon(gdImagePtr im, gdPointPtr points, int pointsTotal, int color) */
+/* implementation: void gdImageFilledPolygon(gdImagePtr im, gdPointPtr points, int color) */
+HB_FUNC( GDIMAGEFILLEDPOLYGON )
+{
    if( hb_isGdImage( 1 ) &&
        HB_ISARRAY( 2 ) &&
        HB_ISNUM( 3 ) )
@@ -1051,8 +1057,10 @@ HB_FUNC( GDIMAGESETTILE ) /* void gdImageSetTile(gdImagePtr im, gdImagePtr tile)
       hb_errRT_BASE_SubstR( EG_ARG, 0, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
-HB_FUNC( GDIMAGESETSTYLE ) /* original: void gdImageSetStyle(gdImagePtr im, int *style, int styleLength) */
-{                          /* implementation: void gdImageSetStyle(gdImagePtr im, int *style) */
+/* original: void gdImageSetStyle(gdImagePtr im, int *style, int styleLength) */
+/* implementation: void gdImageSetStyle(gdImagePtr im, int *style) */
+HB_FUNC( GDIMAGESETSTYLE )
+{
    if( hb_isGdImage( 1 ) &&
        HB_ISARRAY( 2 ) )
    {
@@ -1580,8 +1588,8 @@ HB_FUNC( GDIMAGESTRINGFTEX )
       if( flags != 0 )
       {
          extra.flags       = flags;
-         extra.linespacing = ( flags & gdFTEX_LINESPACE  ) ? linespacing : 1.05;
-         extra.charmap     = ( flags & gdFTEX_CHARMAP    ) ? charmap : gdFTEX_Unicode;
+         extra.linespacing = ( flags & gdFTEX_LINESPACE ) ? linespacing : 1.05;
+         extra.charmap     = ( flags & gdFTEX_CHARMAP ) ? charmap : gdFTEX_Unicode;
          extra.hdpi        = ( flags & gdFTEX_RESOLUTION ) ? resolution : 96;
          extra.vdpi        = ( flags & gdFTEX_RESOLUTION ) ? resolution : 96;
       }
