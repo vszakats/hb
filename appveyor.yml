@@ -41,6 +41,10 @@ build_script:
   - pacman --noconfirm --noprogressbar -S -yu -u
   - pacman --noconfirm --noprogressbar -S -yu -u
   - pacman --noconfirm --noprogressbar -S --needed p7zip mc
+  - pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{freeimage,gd,icu,postgresql}
+# - pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{allegro,cairo,ghostscript,curl,openssl,qt5}
+# - pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{pcre,zlib}
+# - pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{expat,lzo2,sqlite3}
   - sh -c ./package/mpkg_win_ci.sh
 
 artifacts:
