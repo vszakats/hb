@@ -25,9 +25,9 @@ if "%LX%" == "" set PX=clipper
 if "%LX%" == "" set LX=rtlink fi
 
 ::
-%CX% /c /AL /Zl /Oalt /Gs /W3 /G2 %CO% rt_miscc.c
-if exist rt_miscc.obj set LO=%LO% fi rt_miscc
-if exist rt_miscc.obj set PO=%PO% /DRT_HAS_C
+%CX% /c /AL /Zl /Oalt /Gs /W3 /G2 %CO% hbtestc.c
+if exist hbtestc.obj set LO=%LO% fi hbtestc
+if exist hbtestc.obj set PO=%PO% /DRT_HAS_C
 
 %PX% hbtest /w /n %PO%
 %LX% hbtest %LO%

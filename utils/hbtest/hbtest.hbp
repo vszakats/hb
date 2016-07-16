@@ -3,6 +3,6 @@
 hbtest.prg
 
 -DRT_HAS_C
-rt_miscc.c
+hbtestc.c
 
 ../../package/harbour.hbc

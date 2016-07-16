@@ -4,7 +4,7 @@ PRG_SOURCES := \
    hbtest.prg \
 
 C_SOURCES := \
-   rt_miscc.c \
+   hbtestc.c \
 
 RC_SOURCES := \
    $(TOP)$(ROOT)package/harbour.rc
