@@ -44,7 +44,22 @@
  *
  */
 
-#include "rt_main.h"
+#include "clipdefs.h"
+#include "extend.api"
+#include "item.api"
+
+/* NOTE: Do not use names longer than 10 chars for .prg callable functions.
+         This is to keep things simple. [vszakats] */
+
+#if defined( __HARBOUR__ )
+   #include "hbundoc.api"
+   #define RT_FUNDEF( funcname )  HB_FUNC( funcname )
+#elif defined( __XPP__ )
+   #define RT_FUNDEF( funcname )  XPPRET XPPENTRY funcname ( XppParamList paramList )
+#else  /* __CLIPPER__ */
+   #define RT_FUNDEF( funcname )  CLIPPER funcname ( void )
+#endif
+
 
 RT_FUNDEF( R_PASSENL )
 {
