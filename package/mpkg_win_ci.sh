@@ -48,6 +48,10 @@ export HB_DIR_7Z="${HB_RT}/7z/"
 export HB_DIR_UPX="${HB_RT}/upx/"
 _ori_path="${PATH}"
 
+if [ -n "${HB_CI_THREADS}" ] ; then
+   export HB_MKFLAGS="${HB_MKFLAGS} -j ${HB_CI_THREADS}"
+fi
+
 # common settings
 
 [ "${_BRANCH#*lto*}" != "${_BRANCH}" ] && export HB_BUILD_CONTRIBS='hbrun hbformat/utils hbct hbcurl hbhpdf hbmzip hbwin hbsqlit3 hbtip hbssl hbexpat hbmemio rddsql hbzebra sddsqlt3 sddodbc hbunix hbmisc hbmxml hbcups hbtest hbtcpio hbcomio hbcrypto hbnetio hbpipeio hbgzio hbbz2io'
