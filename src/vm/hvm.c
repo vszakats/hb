@@ -446,6 +446,7 @@ static void hb_vmDoInitHelp( void )
 HB_BOOL hb_vmIsMt( void ) { return HB_FALSE; }
 void hb_vmLock( void ) {}
 void hb_vmUnlock( void ) {}
+void hb_vmLockForce( void ) {}
 HB_BOOL hb_vmSuspendThreads( HB_BOOL fWait ) { HB_SYMBOL_UNUSED( fWait ); return HB_TRUE; }
 void hb_vmResumeThreads( void ) {}
 #if 0
