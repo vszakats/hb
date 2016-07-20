@@ -35,7 +35,7 @@ pacman --noconfirm --noprogressbar -S --needed p7zip mc
 
 # Dependencies of the default (full) list of contribs
 if [ "${_BRANCH#*prod*}" = "${_BRANCH}" ] ; then
-   pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{allegro,cairo,freeimage,gd,ghostscript,icu,postgresql}
+   pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{cairo,freeimage,gd,ghostscript,icu,postgresql}
 #  pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{qt5}
 fi
 
@@ -134,8 +134,7 @@ if [ "${_BRANC4}" != 'msvc' ] ; then
    export HB_WITH_CURL="${HB_DIR_CURL_32}include"
    export HB_WITH_OPENSSL="${HB_DIR_OPENSSL_32}include"
    _inc="${_msys_mingw32}/include"
-   export HB_WITH_ALLEGRO="${_inc}"
-   export HB_WITH_CAIRO="${_inc}"
+   export HB_WITH_CAIRO="${_inc}/cairo"
    export HB_WITH_FREEIMAGE="${_inc}"
    export HB_WITH_GD="${_inc}"
    export HB_WITH_GS="${_inc}/ghostscript"
@@ -149,8 +148,7 @@ if [ "${_BRANC4}" != 'msvc' ] ; then
    export HB_WITH_CURL="${HB_DIR_CURL_64}include"
    export HB_WITH_OPENSSL="${HB_DIR_OPENSSL_64}include"
    _inc="${_msys_mingw64}/include"
-   export HB_WITH_ALLEGRO="${_inc}"
-   export HB_WITH_CAIRO="${_inc}"
+   export HB_WITH_CAIRO="${_inc}/cairo"
    export HB_WITH_FREEIMAGE="${_inc}"
    export HB_WITH_GD="${_inc}"
    export HB_WITH_GS="${_inc}/ghostscript"
