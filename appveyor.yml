@@ -5,9 +5,9 @@ branches:
   - test-appveyor
   - test-mingwext
   - test-mingwmsys
-  - lto
-  - lto-mingwext
-  - lto-mingwmsys
+  - prod
+  - prod-mingwext
+  - prod-mingwmsys
   - msvc2008
   - msvc2010
   - msvc2012

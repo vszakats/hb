@@ -328,7 +328,7 @@ cd "${HB_RT}" || exit
 ) >> "${_ROOT}/_hbfiles"
 
 _pkgdate=
-if [ "${_BRANCH#*lto*}" != "${_BRANCH}" ] ; then
+if [ "${_BRANCH#*prod*}" != "${_BRANCH}" ] ; then
    case "$(uname)" in
       *BSD|Darwin) _pkgdate="$(stat -f '-%Sm' -t '%Y%m%d-%H%M' "${HB_ABSROOT}README.md")";;
       *)           _pkgdate="$(stat -c '%Y' "${HB_ABSROOT}README.md" | awk '{print "-" strftime("%Y%m%d-%H%M", $1)}')";;
@@ -389,7 +389,7 @@ openssl dgst -sha256 "${_pkgname}"
 
 cd - || exit
 
-if [ "${_BRANCH#*lto*}" != "${_BRANCH}" ] && \
+if [ "${_BRANCH#*prod*}" != "${_BRANCH}" ] && \
    [ -n "${PUSHOVER_USER}" ] && \
    [ -n "${PUSHOVER_TOKEN}" ] ; then
    (
