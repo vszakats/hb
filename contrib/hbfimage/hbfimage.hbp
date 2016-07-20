@@ -21,7 +21,8 @@ hbwin.hbc{allwin}
 -depincpath=freeimage:/usr/local/include
 -depincpath=freeimage:/usr/local/opt/freeimage/include
 -depimplibs=freeimage:FreeImage.dll
--depimplibs=freeimage:../lib/libfreeimage.dll.a:FreeImage{allmingw}
+-depimplibs=freeimage:../lib/libfreeimage.dll.a{allmingw}
+-depimplibd=freeimage:freeimage
 
 {hbdyn&allmingw}-instfile=depimplibsrc:${HBMK_DIR_CURL}/../bin/libfreeimage-3.dll
 

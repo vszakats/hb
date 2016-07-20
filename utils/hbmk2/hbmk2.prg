@@ -1483,7 +1483,7 @@ STATIC FUNCTION DetectPackageManager()
       cPkgMgr := "cygwin"
    #elif defined( __PLATFORM__WINDOWS )
       DO CASE
-      CASE hb_vfExists( "/etc/pacman.conf" )
+      CASE FindInPath( "pacman.exe" )
          cPkgMgr := "pacman"
       ENDCASE
    /* extend below as needed */

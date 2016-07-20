@@ -126,7 +126,7 @@ ifeq ($(HB_INIT_DONE),)
       endif
       # 'clean' and 'install' are required when building a release package
       ifeq ($(filter clean,$(HB_MAKECMDGOALS)),)
-         $(warning ! Warning: HB_BUILD_YES set, please make sure that a 'make clean' was done before the build.)
+         $(warning ! Warning: HB_BUILD_PKG=yes set, please make sure that a 'make clean' was done before the build.)
       else
       ifeq ($(filter install,$(HB_MAKECMDGOALS)),)
          # Let 'clean' be called without 'install'
@@ -1543,14 +1543,8 @@ ifeq ($(HB_HOST_PKGM),)
    ifeq ($(HB_PLATFORM),sunos)
       HB_HOST_PKGM += pkg
    else
-   ifeq ($(HB_PLATFORM),win)
-      ifneq ($(wildcard /etc/pacman.conf),)
-         HB_HOST_PKGM += pacman
-      endif
-   else
    ifeq ($(HB_PLATFORM),cygwin)
       HB_HOST_PKGM += cygwin
-   endif
    endif
    endif
    endif

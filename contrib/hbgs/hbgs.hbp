@@ -22,11 +22,11 @@
 -depincpath=gs:/usr/local/opt/ghostscript/include
 -depimplibs=gs:${HB_WITH_GS_BIN}/gsdll32.dll{win&x86}
 -depimplibs=gs:${HB_WITH_GS_BIN}/gsdll64.dll{win&x86_64}
--depimplibs=gs:../../lib/libgs.dll.a:gs{allmingw}
+-depimplibs=gs:../../lib/libgs.dll.a{allmingw}
 -depimplibs=gs:${HB_WITH_GS_BIN}/gsdll2.dll{os2}
 -depimplibd=gs:gs
 
-"-echo=Hint: Point HB_WITH_GS_BIN envvar to the Ghostscript .dll directory{(win|os2)&!HB_WITH_GS_BIN}"
+"-echo=Hint: Point HB_WITH_GS_BIN envvar to the Ghostscript .dll directory{(win|os2)&!HB_WITH_GS_BIN&!pacman}"
 
 -hbx=${hb_name}
 

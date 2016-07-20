@@ -5,9 +5,11 @@
 
 ifneq ($(findstring MINGW,$(_DETPLAT_STR)),)
    HB_HOST_PLAT := win
+   HB_HOST_PKGM := pacman
 else
 ifneq ($(findstring MSys,$(_DETPLAT_STR)),)
    HB_HOST_PLAT := win
+   HB_HOST_PKGM := pacman
 else
 ifneq ($(findstring Windows,$(_DETPLAT_STR)),)
    HB_HOST_PLAT := win
