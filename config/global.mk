@@ -126,10 +126,13 @@ ifeq ($(HB_INIT_DONE),)
       endif
       # 'clean' and 'install' are required when building a release package
       ifeq ($(filter clean,$(HB_MAKECMDGOALS)),)
-         export HB_BUILD_PKG := no
+         $(warning ! Warning: HB_BUILD_YES set, please make sure that a 'make clean' was done before the build.)
       else
       ifeq ($(filter install,$(HB_MAKECMDGOALS)),)
-         export HB_BUILD_PKG := no
+         # Let 'clean' be called without 'install'
+         ifeq ($(filter clean,$(HB_MAKECMDGOALS)),)
+            export HB_BUILD_PKG := no
+         endif
       else
       ifneq ($(ROOT),./)
          export HB_BUILD_PKG := no

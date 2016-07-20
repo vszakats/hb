@@ -40,7 +40,7 @@ export CURL_HASH_64='40b88b76c5a9c0e443dde0294449b4885f4160816abffe4f947b29d8766
 
 export HB_VF='daily'
 export HB_RT="${_ROOT}"
-export HB_MKFLAGS="clean install HB_VERSION=${HB_VF}"
+export HB_MKFLAGS="HB_VERSION=${HB_VF}"
 [ "${_BRANCH#*prod*}" != "${_BRANCH}" ] && export HB_BASE='64'
 [ "${HB_BASE}" != '64' ] && export HB_SFX_7Z="${HB_RT}/7zsfx/7zsd_All.sfx"
 # [ "${HB_BASE}"  = '64' ] && export HB_SFX_7Z="${HB_RT}/7zsfx/7zsd_All_x64.sfx"
@@ -122,7 +122,7 @@ if [ "${_BRANC4}" != 'msvc' ] ; then
    export PATH="${HB_DIR_MINGW_32}/bin:${_ori_path}"
    gcc -v 2> "${_build_info_32}"
    # shellcheck disable=SC2086
-   mingw32-make ${HB_MKFLAGS} HB_COMPILER=mingw HB_CPU=x86 || exit 1
+   mingw32-make install ${HB_MKFLAGS} HB_COMPILER=mingw HB_CPU=x86 || exit 1
 
    export HB_WITH_CURL="${HB_DIR_CURL_64}include"
    export HB_WITH_OPENSSL="${HB_DIR_OPENSSL_64}include"
@@ -134,7 +134,8 @@ if [ "${_BRANC4}" != 'msvc' ] ; then
    export PATH="${HB_DIR_MINGW_64}/bin:${_ori_path}"
    gcc -v 2> "${_build_info_64}"
    # shellcheck disable=SC2086
-   mingw32-make ${HB_MKFLAGS} HB_COMPILER=mingw64 HB_CPU=x86_64 || exit 1
+   mingw32-make clean ${HB_MKFLAGS} HB_COMPILER=mingw64 HB_CPU=x86_64 || exit 1
+   mingw32-make install ${HB_MKFLAGS} HB_COMPILER=mingw64 HB_CPU=x86_64 || exit 1
 fi
 
 # msvc
@@ -163,7 +164,7 @@ if [ "${_BRANC4}" = 'msvc' ] ; then
    if [ -n "${_VCVARSALL}" ] ; then
       cat << EOF > _make.bat
          call "%_VCVARSALL%" x86
-         win-make.exe %HB_MKFLAGS% HB_COMPILER=msvc
+         win-make.exe install %HB_MKFLAGS% HB_COMPILER=msvc
 EOF
       ./_make.bat
       rm _make.bat
@@ -176,7 +177,8 @@ EOF
    if [ -n "${_VCVARSALL}" ] ; then
       cat << EOF > _make.bat
          call "%_VCVARSALL%" x86_amd64
-         win-make.exe %HB_MKFLAGS% HB_COMPILER=msvc64
+         win-make.exe clean %HB_MKFLAGS% HB_COMPILER=msvc64
+         win-make.exe install %HB_MKFLAGS% HB_COMPILER=msvc64
 EOF
       ./_make.bat
       rm _make.bat
