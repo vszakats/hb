@@ -30,7 +30,6 @@ addons:
       - gcc-6
       - g++-6
       - firebird2.5-dev
-     #- liballegro4.2-dev
      #- libcairo2-dev
       - libcups2-dev
       - libcurl4-openssl-dev

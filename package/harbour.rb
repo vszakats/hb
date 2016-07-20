@@ -22,7 +22,6 @@ class Harbour < Formula
   # This one is "vendored", but it is used when found on the system
   depends_on "pcre"
 
-  depends_on "allegro" => :optional
   depends_on "cairo" => :optional
   depends_on "freeimage" => :optional
   depends_on "gd" => :optional

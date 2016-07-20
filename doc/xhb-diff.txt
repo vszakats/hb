@@ -2041,7 +2041,7 @@ extensively use multi window functionality like GTWVG, GTQTC.
 Not all GTs in Harbour has been adopted to work simultaneously in multi
 thread mode with more then one instance so user should not allocate more
 then one instance of the following GTs GTDOS, GTWIN, GTOS2, GTCRS, GTSLN,
-GTPCA, GTALLEG.
+GTPCA.
 
 These GTs are limited by resources or have alternative GT drivers with
 similar functionality so it's hard to say if Harbour developers invest

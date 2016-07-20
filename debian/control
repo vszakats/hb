@@ -5,7 +5,6 @@ Maintainer: Luis Mayoral <mayoral@linuxadicto.org>
 Build-Depends: debhelper (>= 5.0.0),
  libjpeg62-dev, libpcre3-dev, libpng12-dev, zlib1g-dev,
  libslang2-dev, libncurses5-dev | libncursesw5-dev, libslang2-dev, libx11-dev,
- liballegro4.2-dev,
  libbz2-dev,
  libcairo2-dev,
  libcups2-dev,
