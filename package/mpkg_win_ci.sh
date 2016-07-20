@@ -35,8 +35,8 @@ pacman --noconfirm --noprogressbar -S --needed p7zip mc
 
 # Dependencies of the default (full) list of contribs
 if [ "${_BRANCH#*prod*}" = "${_BRANCH}" ] ; then
-   pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{freeimage,gd,icu,postgresql}
-#  pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{allegro,cairo,ghostscript,qt5}
+   pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{allegro,cairo,freeimage,gd,ghostscript,icu,postgresql}
+#  pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{qt5}
 fi
 
 # Dependencies of 'prod' builds (though we use our own builds for them yet)
