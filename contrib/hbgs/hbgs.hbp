@@ -26,7 +26,7 @@
 -depimplibs=gs:${HB_WITH_GS_BIN}/gsdll2.dll{os2}
 -depimplibd=gs:gs
 
-"-echo=Hint: Point HB_WITH_GS_BIN envvar to the Ghostscript .dll directory{(win|os2)&!HB_WITH_GS_BIN&!pacman}"
+"-echo=Hint: Point HB_WITH_GS_BIN envvar to the Ghostscript .dll directory{(win|os2)&!HB_WITH_GS_BIN}"
 
 -hbx=${hb_name}
 

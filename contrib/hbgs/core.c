@@ -51,10 +51,14 @@
    #include "hbapistr.h"
 #endif
 
-#if defined( HB_OS_WIN ) && ! defined( _Windows )
-   #define _Windows
+#if defined( HB_OS_WIN )
+   #if ! defined( _Windows )
+      #define _Windows
+   #endif
    #include <windows.h>
    #define GSDLLEXPORT  __declspec( dllimport )
+   /* Some binary build may need the line below to be commented */
+   #define GSDLLAPI
 #endif
 
 #include "ierrors.h"

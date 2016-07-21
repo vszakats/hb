@@ -23,6 +23,7 @@
 -depincpath=pgsql:/postgres/include
 -depimplibs=pgsql:../lib/libpq.dll
 -depimplibs=pgsql:../lib/libpq.dll.a
+-depimplibd=pgsql:pq
 
 -iflag={bcc}-a
 
