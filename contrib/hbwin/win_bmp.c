@@ -162,7 +162,6 @@ HB_FUNC( WIN_BITMAPISSUPPORTED )
 
 HB_FUNC( WIN_DRAWBITMAP )
 {
-   BITMAPINFO * pbmi = NULL;
    HDC hDC = hbwapi_par_HDC( 1 );
    HB_SIZE nSize = hb_parclen( 2 );
    BITMAPFILEHEADER * pbmfh = ( BITMAPFILEHEADER * ) hb_parc( 2 );
@@ -173,6 +172,7 @@ HB_FUNC( WIN_DRAWBITMAP )
              [vszakats] */
    if( hbwin_bitmapIsSupported( hDC, iType, pbmfh, nSize ) == 0 )
    {
+      BITMAPINFO * pbmi = NULL;
       BYTE * pBits = NULL;
 
       int iWidth  = hb_parni( 7 );

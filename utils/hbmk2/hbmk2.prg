@@ -10023,6 +10023,7 @@ STATIC PROCEDURE dep_postprocess_one( hbmk, dep )
       dep[ _HBMKDEP_lForced ] := .T.
    CASE cControlL == "local"
       dep[ _HBMKDEP_cControl ] := cControlL
+      dep[ _HBMKDEP_aPKG ] := {}
       dep[ _HBMKDEP_cINCROOT ] := ""
       dep[ _HBMKDEP_aINCPATH ] := {}
    CASE cControlL == "nolocal"
@@ -10030,6 +10031,7 @@ STATIC PROCEDURE dep_postprocess_one( hbmk, dep )
       dep[ _HBMKDEP_aINCPATHLOCAL ] := {}
    CASE hb_LeftEq( cControlL, "strict:" )
       dep[ _HBMKDEP_cControl ] := cControlL
+      dep[ _HBMKDEP_aPKG ] := {}
       dep[ _HBMKDEP_aINCPATH ] := { SubStr( dep[ _HBMKDEP_cControl ], Len( "strict:" ) + 1 ) }
       dep[ _HBMKDEP_aINCPATHLOCAL ] := {}
    CASE cControlL == "yes"

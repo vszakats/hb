@@ -96,9 +96,9 @@ Download source archive from any of these URLs and unpack:
 
 ### Harbour unstable binaries (updated after each commit)
 
-#### Windows (mingw, 32-bit, 7-zip archive and installer combined)
+#### Windows (mingw, 32-bit, 7-zip archive)
 
-* <https://github.com/vszakats/harbour-core/releases/download/v3.4.0dev/harbour-daily-win.7z.exe>
+* <https://github.com/vszakats/harbour-core/releases/download/v3.4.0dev/harbour-daily-win.7z>
 
 #### Mac (using Homebrew :beer:)
 
@@ -373,13 +373,6 @@ You can fine-tune the build with these options:
 
 Then run build as usual with `clean install` options.
 See: [How to Build](#how-to-build)
-
-## Binary .7z.exe installer for Windows
-
-    $ package\mpkg_win.bat
-
-> Read in-file instructions and do the necessary
-> steps before calling the script.
 
 
 # How to Enable Optional Components

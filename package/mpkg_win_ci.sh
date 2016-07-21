@@ -15,9 +15,9 @@ _ROOT="$(realpath '.')"
 
 # Don't remove these markers.
 #hashbegin
-export NGHTTP2_VER='1.12.0'
-export NGHTTP2_HASH_32='9d8711a820c98295952e3f522ac207a778a09ea2e46c2bd310fdb66674ee91ef'
-export NGHTTP2_HASH_64='1727103252db97901bbcbd2b26de6be20990e8b09dbb7efdcf027865f87be95f'
+export NGHTTP2_VER='1.13.0'
+export NGHTTP2_HASH_32='fe3a65d35c9bf223f713ccea50df96b35d782773a032c15a582fe15301f23f74'
+export NGHTTP2_HASH_64='04e4df55f042e4eb953d98cfaefa9ddb8599af08e961305f87462e3e48860d9e'
 export OPENSSL_VER='1.0.2h'
 export OPENSSL_HASH_32='10bfb57ab559005f6ddd4d96f4156bc7875ccfdd2552b7fb48f52c3616a3bfd9'
 export OPENSSL_HASH_64='12fe2d26ec8c028f015781804e35163710badd626c8ff2d4a6260b1b27355081'
@@ -25,8 +25,8 @@ export LIBSSH2_VER='1.7.0'
 export LIBSSH2_HASH_32='50e84ed923cea3790759dfe8b2e6e81fc59bd452d2cabbd13ba231c6b12f8518'
 export LIBSSH2_HASH_64='f14cc91dd461ff41298aaf5b1202bcc1ce3092e511f8592320ca0f87ff215e96'
 export CURL_VER='7.50.0'
-export CURL_HASH_32='77fdce3daeb5d7a57743727fd48f14615a305f727503f0c8884e74b53ead59fc'
-export CURL_HASH_64='5a39c098cab9522d484e4886695beb3c0c60e7b59165a43acf2ae2001e60c254'
+export CURL_HASH_32='e906775997b643dd7e3b6366ef39cf921562b3aceb849efcde1bd5455c263e6d'
+export CURL_HASH_64='368d64f567292d771768379901f8936139eb59525f9f9f2245f057de2b1146a0'
 #hashend
 
 # Update/install MSYS2 pacman packages
@@ -35,9 +35,11 @@ pacman --noconfirm --noprogressbar -S --needed p7zip mc
 
 # Dependencies of the default (full) list of contribs
 if [ "${_BRANCH#*prod*}" = "${_BRANCH}" ] ; then
-   pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{cairo,freeimage,gd,ghostscript,icu,postgresql}
+   pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{cairo,freeimage,gd,ghostscript,postgresql}
 #  pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{qt5}
 fi
+
+pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-icu
 
 # Dependencies of 'prod' builds (though we use our own builds for them yet)
 # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{curl,openssl}
@@ -61,7 +63,7 @@ export HB_VF='daily'
 export HB_RT="${_ROOT}"
 export HB_MKFLAGS="HB_VERSION=${HB_VF}"
 [ "${_BRANCH#*prod*}" != "${_BRANCH}" ] && export HB_BASE='64'
-[ "${HB_BASE}" != '64' ] && export HB_SFX_7Z="${HB_RT}/7zsfx/7zsd_All.sfx"
+# [ "${HB_BASE}" != '64' ] && export HB_SFX_7Z="${HB_RT}/7zsfx/7zsd_All.sfx"
 # [ "${HB_BASE}"  = '64' ] && export HB_SFX_7Z="${HB_RT}/7zsfx/7zsd_All_x64.sfx"
 export HB_DIR_7Z="${HB_RT}/7z/"
 export HB_DIR_UPX="${HB_RT}/upx/"
@@ -73,7 +75,7 @@ fi
 
 # common settings
 
-[ "${_BRANCH#*prod*}" != "${_BRANCH}" ] && export HB_BUILD_CONTRIBS='hbrun hbformat/utils hbct hbcurl hbhpdf hbmzip hbwin hbsqlit3 hbtip hbssl hbexpat hbmemio rddsql hbzebra sddsqlt3 sddodbc hbunix hbmisc hbmxml hbcups hbtest hbtcpio hbcomio hbcrypto hbnetio hbpipeio hbgzio hbbz2io'
+[ "${_BRANCH#*prod*}" != "${_BRANCH}" ] && export HB_BUILD_CONTRIBS='hbrun hbformat/utils hbct hbcurl hbhpdf hbmzip hbwin hbsqlit3 hbtip hbssl hbexpat hbmemio rddsql hbzebra sddsqlt3 sddodbc hbunix hbmisc hbmxml hbcups hbtest hbtcpio hbcomio hbcrypto hbnetio hbpipeio hbgzio hbbz2io hbicu'
 export HB_BUILD_STRIP='bin'
 export HB_BUILD_PKG='yes'
 export _HB_BUILD_PKG_ARCHIVE='no'
@@ -130,6 +132,9 @@ if [ "${_BRANC4}" != 'msvc' ] ; then
    export HB_DIR_CURL_64="${HB_RT}/curl-mingw64/"
 
    #
+
+   # Disable picking MSYS2 packages for now
+   export HB_BUILD_3RDEXT=no
 
    export HB_WITH_CURL="${HB_DIR_CURL_32}include"
    export HB_WITH_OPENSSL="${HB_DIR_OPENSSL_32}include"

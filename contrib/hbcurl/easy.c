@@ -559,9 +559,9 @@ static void PHB_CURL_free( PHB_CURL hb_curl, HB_BOOL bFree )
 /* NOTE: Will create a new one. If 'from' is specified, the new one
          will be based on the 'from' one. */
 
-static PHB_CURL PHB_CURL_create( CURL * from )
+static PHB_CURL PHB_CURL_create( PHB_CURL from )
 {
-   CURL * curl = from ? curl_easy_duphandle( from ) : curl_easy_init();
+   CURL * curl = from && from->curl ? curl_easy_duphandle( from->curl ) : curl_easy_init();
 
    if( curl )
    {
