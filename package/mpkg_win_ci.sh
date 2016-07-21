@@ -42,10 +42,10 @@ fi
 # Dependencies of 'prod' builds (though we use our own builds for them yet)
 # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{curl,openssl}
 
-# Dependencies of 'prod' builds (though we use our vendored copies)
+# Dependencies of 'prod' builds (though we use vendored sources)
 # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{expat,lzo2,sqlite3}
 
-# Dependencies of Harbour core (though we use our vendored copies)
+# Dependencies of Harbour core (though we use vendored sources)
 # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{libpng,libtiff,pcre,zlib}
 
 # debug
