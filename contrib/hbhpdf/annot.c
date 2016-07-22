@@ -119,36 +119,6 @@ HB_FUNC( HPDF_PAGE_CREATELINEANNOT )
 #endif
 }
 
-/* HPDF_Annotation
-   HPDF_Page_CreateTextMarkupAnnot (HPDF_Page     page,
-                        HPDF_Rect      rect,
-                        const char     *text,
-                        HPDF_Encoder   encoder,
-                        HPDF_AnnotType subType);
- */
-HB_FUNC( HPDF_PAGE_CREATETEXTMARKUPANNOT )
-{
-#if HB_HPDF_VERS( 2, 2, 0 )
-   HPDF_Page page = ( HPDF_Page ) hb_parptr( 1 );
-
-   if( page )
-   {
-      HPDF_Rect rc;
-
-      rc.left   = ( HPDF_REAL ) hb_parvnd( 2, 1 );
-      rc.top    = ( HPDF_REAL ) hb_parvnd( 2, 2 );
-      rc.right  = ( HPDF_REAL ) hb_parvnd( 2, 3 );
-      rc.bottom = ( HPDF_REAL ) hb_parvnd( 2, 4 );
-
-      hb_retptr( HPDF_Page_CreateTextMarkupAnnot( page, rc, hb_parc( 3 ), ( HPDF_Encoder ) hb_parptr( 4 ), ( HPDF_AnnotType ) hb_parni( 5 ) ) );
-   }
-   else
-      hb_retptr( NULL );
-#else
-   hb_retptr( NULL );
-#endif
-}
-
 /* HPDF_EXPORT(HPDF_Annotation)
    HPDF_Page_CreateHighlightAnnot  (HPDF_Page   page,
                         HPDF_Rect    rect,
