@@ -2,6 +2,8 @@ ROOT := ../../../
 
 include $(TOP)$(ROOT)config/global.mk
 
+LIBNAME := hbpcre
+
 HB_BUILD_WARN := no
 HB_BUILD_MODE := c
 
@@ -26,8 +28,6 @@ C_SOURCES := \
    pcrever.c \
    pcrevutf.c \
    pcrexcls.c \
-
-LIBNAME := hbpcre
 
 ifneq ($(HB_HAS_PCRE_LOCAL),)
 
