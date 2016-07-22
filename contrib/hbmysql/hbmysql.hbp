@@ -29,6 +29,8 @@
 -depimplibs=mysql:../lib/libmySQL.dll
 -depimplibs=mysql:../../lib/libmysql.dll
 -depimplibs=mysql:../../lib/libmysql.def{x86_64}
+-depimplibs=mysql:libmysqlclient.dll.a
+-depimplibd=mysql:mysqlclient
 
 -hbx=${hb_name}
 
