@@ -8,6 +8,8 @@
 -depurlbase=pgsql:https://www.postgresql.org/
 -deppkgname=pgsql:libpq-dev{deb}
 -deppkgname=pgsql:postgresql-devel{rpm}
+-deppkgname=pgsql:mingw-w64-i686-postgresql{msys2&mingw}
+-deppkgname=pgsql:mingw-w64-x86_64-postgresql{msys2&mingw64}
 -deppkgname=pgsql:postgresql{pacman}
 -deppkgname=pgsql:postgresql{homebrew}
 -depkeyhead=pgsql:libpq-fe.h

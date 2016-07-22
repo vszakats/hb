@@ -1484,7 +1484,7 @@ STATIC FUNCTION DetectPackageManager()
    #elif defined( __PLATFORM__WINDOWS )
       DO CASE
       CASE FindInPath( "pacman.exe" ) != NIL
-         cPkgMgr := "pacman"
+         cPkgMgr := "msys2"
       ENDCASE
    /* extend below as needed */
    #else

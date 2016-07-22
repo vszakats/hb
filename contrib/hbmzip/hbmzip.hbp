@@ -10,6 +10,8 @@
 
 -depurlbase=minizip:http://zlib.net/
 -depurlbase=minizip:http://winimage.com/zLibDll/minizip.html
+-deppkgname=minizip:mingw-w64-i686-zlib{msys2&mingw}
+-deppkgname=minizip:mingw-w64-x86_64-zlib{msys2&mingw64}
 -deppkgname=minizip:minizip{pacman}
 -deppkgname=minizip:minizip{homebrew}
 # component named libzip also has a header
@@ -24,6 +26,8 @@
 
 # This is a dependency of minizip
 -depurlbase=zlib:http://zlib.net/
+-deppkgname=zlib:mingw-w64-i686-zlib{msys2&mingw}
+-deppkgname=zlib:mingw-w64-x86_64-zlib{msys2&mingw64}
 -depkeyhead=zlib:zlib.h
 -depcontrol=zlib:local{HB_BUILD_3RDEXT='no'}
 -depcontrol=zlib:${HB_WITH_ZLIB}

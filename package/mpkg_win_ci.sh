@@ -35,19 +35,19 @@ pacman --noconfirm --noprogressbar -S --needed p7zip mc
 
 # Dependencies of the default (full) list of contribs
 if [ "${_BRANCH#*prod*}" = "${_BRANCH}" ] ; then
-   pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{cairo,freeimage,gd,ghostscript,postgresql}
+   pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{cairo,freeimage,gd,ghostscript,libmariadbclient,postgresql}
 #  pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{qt5}
 fi
 
 pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-icu
 
-# Dependencies of 'prod' builds (though we use our own builds for them yet)
+# Dependencies of 'prod' builds (we use our own builds instead for now)
 # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{curl,openssl}
 
-# Dependencies of 'prod' builds (though we use vendored sources)
-# pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{expat,lzo2,sqlite3}
+# Dependencies of 'prod' builds (we use vendored sources instead for now)
+# pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{bzip2,expat,libharu,lzo2,sqlite3}
 
-# Dependencies of Harbour core (though we use vendored sources)
+# Dependencies of Harbour core (we use vendored sources instead for now)
 # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{libpng,libtiff,pcre,zlib}
 
 # debug

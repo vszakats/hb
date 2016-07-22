@@ -12,6 +12,8 @@
 -depurlbase=openssl:https://www.openssl.org/community/binaries.html
 -deppkgname=openssl:libssl-dev{deb}
 -deppkgname=openssl:openssl-devel{rpm}
+-deppkgname=openssl:mingw-w64-i686-openssl{msys2&mingw}
+-deppkgname=openssl:mingw-w64-x86_64-openssl{msys2&mingw64}
 -deppkgname=openssl:openssl{pacman}
 -deppkgname=openssl:openssl{homebrew}
 -deppkgname=openssl:libressl{homebrew}

@@ -12,6 +12,8 @@
 -depurlbase=gs:http://ghostscript.com/
 -deppkgname=gs:ghostscript-devel{rpm}
 -deppkgname=gs:libgs-dev{deb}
+-deppkgname=gs:mingw-w64-i686-ghostscript{msys2&mingw}
+-deppkgname=gs:mingw-w64-x86_64-ghostscript{msys2&mingw64}
 -deppkgname=gs:ghostscript{pacman}
 -deppkgname=gs:ghostscript{homebrew}
 -depkeyhead=gs:iapi.h

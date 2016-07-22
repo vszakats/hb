@@ -11,6 +11,8 @@ hbct.hbc
 -deppkgname=gd:gd-devel{rpm}
 -deppkgname=gd:libgd2-xpm-dev{deb}
 -deppkgname=gd:libgd-xpm-dev{deb}
+-deppkgname=gd:mingw-w64-i686-gd{msys2&mingw}
+-deppkgname=gd:mingw-w64-x86_64-gd{msys2&mingw64}
 -deppkgname=gd:gd{pacman}
 -deppkgname=gd:gd{homebrew}
 -depkeyhead=gd:gd.h

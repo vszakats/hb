@@ -12,9 +12,14 @@ ${hb_name}.hbx
 hbbz2.hbc
 
 # This is a dependency of bz2lib
+-depurlbase=bzip2:http://bzip.org/
+-deppkgname=bzip2:libbz2-dev{deb}
+-deppkgname=bzip2:mingw-w64-i686-bzip2{msys2&mingw}
+-deppkgname=bzip2:mingw-w64-x86_64-bzip2{msys2&mingw64}
 -depkeyhead=bzip2:bzlib.h
 -depcontrol=bzip2:local{HB_BUILD_3RDEXT='no'}
 -depcontrol=bzip2:${HB_WITH_BZIP2}
+-depincpath=bzip2:/usr/local/opt/bzip2/include
 -depincpath=bzip2:/usr/include
 -depincpathlocal=bzip2:../hbbz2/3rd/bz2
 -depfinish=bzip2
