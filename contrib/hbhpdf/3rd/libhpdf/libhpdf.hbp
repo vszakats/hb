@@ -6,7 +6,7 @@
 -hblib
 -inc
 
--o${hb_targetname}
+-ohpdf
 
 -warn=low
 -cpp=no
