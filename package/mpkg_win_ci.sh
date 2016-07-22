@@ -36,7 +36,7 @@ pacman --noconfirm --noprogressbar -S --needed p7zip mc
 # Dependencies of the default (full) list of contribs
 if [ "${_BRANCH#*prod*}" = "${_BRANCH}" ] ; then
    pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{cairo,freeimage,gd,ghostscript,libmariadbclient,postgresql}
-#  pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{qt5}
+#  pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-qt5
 fi
 
 pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-icu
