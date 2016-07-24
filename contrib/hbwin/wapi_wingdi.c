@@ -82,7 +82,7 @@ POINT * hbwapi_par_POINT( POINT * p, int iParam, HB_BOOL bMandatory )
 {
    PHB_ITEM pStru = hb_param( iParam, HB_IT_ANY );
 
-   memset( p, 0, sizeof( POINT ) );
+   memset( p, 0, sizeof( *p ) );
 
    if( pStru && HB_IS_HASH( pStru ) )
    {

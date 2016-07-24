@@ -253,19 +253,27 @@ HB_FUNC( WAPI_GETSCROLLBARINFO )
    PSCROLLBARINFO sbi = ( PSCROLLBARINFO ) hbwapi_par_STRUCT( 3 );
    BOOL           bSuccess;
 
-   memset( &sbi, 0, sizeof( sbi ) );
-   sbi->cbSize = sizeof( sbi );
+   if( sbi )
+   {
+      memset( sbi, 0, sizeof( *sbi ) );
+      sbi->cbSize = sizeof( *sbi );
 
-   bSuccess = GetScrollBarInfo( hbwapi_par_raw_HWND( 1 ),
-                                hbwapi_par_LONG( 2 ),
-                                sbi );
+      bSuccess = GetScrollBarInfo( hbwapi_par_raw_HWND( 1 ),
+                                   hbwapi_par_LONG( 2 ),
+                                   sbi );
 
-   hbwapi_SetLastError( GetLastError() );
+      hbwapi_SetLastError( GetLastError() );
 
-   if( bSuccess )
-      hb_storclen( ( char * ) &sbi, sizeof( SCROLLBARINFO ), 3 );
+      if( bSuccess )
+         hb_storclen( ( char * ) sbi, sizeof( *sbi ), 3 );
+      else
+         hb_storc( NULL, 3 );
+   }
    else
+   {
+      bSuccess = HB_FALSE;
       hb_storc( NULL, 3 );
+   }
 
    hbwapi_ret_L( bSuccess );
 }
@@ -279,6 +287,9 @@ HB_FUNC( WAPI_GETSCROLLINFO )
 
    if( si )
    {
+      memset( si, 0, sizeof( *si ) );
+      si->cbSize = sizeof( *si );
+
       bSuccess = GetScrollInfo( hbwapi_par_raw_HWND( 1 ),
                                 hbwapi_par_INT( 2 ),
                                 si );
@@ -286,7 +297,7 @@ HB_FUNC( WAPI_GETSCROLLINFO )
       hbwapi_SetLastError( GetLastError() );
 
       if( bSuccess )
-         hb_storclen( ( char * ) &si, 3, sizeof( SCROLLINFO ) );
+         hb_storclen( ( char * ) si, sizeof( *si ), 3 );
       else
          hb_storc( NULL, 3 );
    }

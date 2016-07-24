@@ -200,7 +200,7 @@ HB_FUNC( WIN_DRAWBITMAP )
          BITMAPINFO bmi;
 
          memset( &bmi, 0, sizeof( bmi ) );
-         bmi.bmiHeader.biSize        = sizeof( BITMAPINFO );
+         bmi.bmiHeader.biSize        = sizeof( bmi );
          bmi.bmiHeader.biWidth       = iWidth;
          bmi.bmiHeader.biHeight      = -iHeight; /* top-down image */
          bmi.bmiHeader.biPlanes      = 1;
