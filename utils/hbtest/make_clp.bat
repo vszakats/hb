@@ -27,8 +27,10 @@ set LO=/out:hbtestxpp
 
 :OK
 %CX% /c /AL /Zl /Oalt /Gs /W3 /G2 %CO% hbtestc.c
-if exist hbtestc.obj set LO=%LO% fi hbtestc
-if exist hbtestc.obj set PO=%PO% /DRT_HAS_C
+if not exist hbtestc.obj goto SC
+set PO=%PO% /DRT_HAS_C
+set LO=%LO% fi hbtestc
+:SC
 
 %PX% hbtest /w /n %PO%
 %LX% hbtest %LO%

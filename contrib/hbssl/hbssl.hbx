@@ -47,7 +47,6 @@ DYNAMIC BIO_read
 DYNAMIC BIO_reset
 DYNAMIC BIO_retry_type
 DYNAMIC BIO_seek
-DYNAMIC BIO_set
 DYNAMIC BIO_set_close
 DYNAMIC BIO_set_conn_hostname
 DYNAMIC BIO_set_conn_ip

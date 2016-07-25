@@ -184,15 +184,20 @@ HB_FUNC( BIO_NEW )
       hb_errRT_BASE( EG_ARG, 2010, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
+#if defined( HB_LEGACY_LEVEL5 )
 HB_FUNC( BIO_SET )
 {
+#if OPENSSL_VERSION_NUMBER < 0x10100000L || \
+    defined( LIBRESSL_VERSION_NUMBER )
    BIO * bio = hb_BIO_par( 1 );
 
    if( bio && hb_BIO_METHOD_is( 2 ) )
       hb_retni( BIO_set( bio, hb_BIO_METHOD_par( 2 ) ) );
    else
       hb_errRT_BASE( EG_ARG, 2010, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+#endif
 }
+#endif
 
 HB_FUNC( BIO_CLEAR_FLAGS )
 {

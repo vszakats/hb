@@ -122,7 +122,7 @@ static void hb_PEM_read_bio( PEM_READ_BIO * func, HB_BOOL fX509 )
       else
       {
          cb = NULL;
-         cargo = ( void * ) hb_parc( 2 ); /* NOTE: Dropping 'const' qualifier. [vszakats] */
+         cargo = HB_UNCONST( hb_parc( 2 ) );  /* NOTE: Discarding 'const' qualifier, OpenSSL will memcpy() it */
       }
 
       result = ( *func )( bio, NULL, cb, cargo );
