@@ -1,30 +1,31 @@
 @echo off
 
-:: Xbase++
-if "%1" == "xpp" set CO=
-if "%1" == "xpp" set PO=
-if "%1" == "xpp" set LO=/out:hbtestxpp
-if "%1" == "xpp" set CX=rem
-if "%1" == "xpp" set PX=xpp
-if "%1" == "xpp" set LX=alink
+:: 5.2 (default)
+set CX=cl
+set CO=/FPa
+set PX=clipper
+set PO=
+set LX=rtlink fi
+set LO=out hbtest52
 
-:: Cl*pper 5.3
-if "%1" == "53" set CO=/FPi
-if "%1" == "53" set PO=/D_COMPAT_C53
-if "%1" == "53" set LO=out hbtest53
-if "%1" == "53" set CX=cl
-if "%1" == "53" set PX=clipper
-if "%1" == "53" set LX=exospace fi
+if "%1" == "53" goto C53
+if "%1" == "xpp" goto XPP
+goto OK
 
-:: Cl*pper 5.2 (default)
-if "%LX%" == "" set CO=/FPa
-if "%LX%" == "" set PO=
-if "%LX%" == "" set LO=out hbtest52
-if "%LX%" == "" set CX=cl
-if "%LX%" == "" set PX=clipper
-if "%LX%" == "" set LX=rtlink fi
+:C53
+set CO=/FPi
+set PO=/DHB_COMPAT_C53
+set LX=exospace fi
+set LO=out hbtest53
+goto OK
 
-::
+:XPP
+set CX=rem
+set PX=xpp
+set LX=alink
+set LO=/out:hbtestxpp
+
+:OK
 %CX% /c /AL /Zl /Oalt /Gs /W3 /G2 %CO% hbtestc.c
 if exist hbtestc.obj set LO=%LO% fi hbtestc
 if exist hbtestc.obj set PO=%PO% /DRT_HAS_C
