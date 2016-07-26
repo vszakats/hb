@@ -117,7 +117,7 @@ static void sizeofbits( HB_USHORT * pusBytes, HB_LONG * plPattern, HB_LONG * plT
    if( *pusBytes > sizeof( HB_LONG ) * 8 )
       *pusBytes = *pusBytes % ( sizeof( HB_LONG ) * 8 );
 
-   *plPattern = ( *pusBytes == ( sizeof( HB_LONG ) * 8 ) ) ? 0 : ( ~( ( HB_ULONG ) 0 ) << *pusBytes );
+   *plPattern = ( *pusBytes == ( sizeof( HB_LONG ) * 8 ) ) ? 0 : ( ( HB_LONG ) ULONG_MAX << *pusBytes );
 
    *plTestMSB = ( *pusBytes == 0 ) ? 0 : ( 1 << ( *pusBytes - 1 ) );
 }
