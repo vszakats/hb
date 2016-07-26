@@ -19,7 +19,7 @@ rddsql.hbc
 -depcontrol=odbc:no{!allwin&HB_BUILD_3RDEXT='no'}
 -depcontrol=odbc:${HB_WITH_ODBC}{!allwin}
 -depcontrol=odbc:force{allwin&!msvcarm}
--depincpath=odbc:/usr/include
+-depincpath=odbc:/usr/include{!darwin}
 -depincpath=odbc:/usr/local/include
 
 -hbx=${hb_name}

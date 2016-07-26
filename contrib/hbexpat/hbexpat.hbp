@@ -14,6 +14,7 @@
 -depkeyhead=expat:expat.h
 -depcontrol=expat:local{HB_BUILD_3RDEXT='no'}
 -depcontrol=expat:${HB_WITH_EXPAT}
+-depincpath=expat:/usr/local/opt/expat/include
 -depincpath=expat:/usr/include
 -depincpath=expat:/usr/local/include
 -depincpathlocal=expat:3rd/expat
