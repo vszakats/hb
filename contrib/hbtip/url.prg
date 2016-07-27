@@ -47,13 +47,13 @@
 #include "hbclass.ch"
 
 /* An URL:
-   https://user:passwd@example.com/mypages/mysite/page.html?avar=0&avar1=1
-   ^---^   ^--^ ^----^ ^---------^ ^----------------------^ ^------------^
-   cProto   UID  PWD     cServer             cPath                 cQuery
-                                   ^------------^ ^-------^
-                                     cDirectory     cFile
-                                                  ^--^ ^--^
-                                                cFname cExt
+   https://user:passwd@example.com:port/mypages/mysite/page.html?avar=0&avar1=1
+   ^---^   ^--^ ^----^ ^---------^ ^--^ ^----------------------^ ^------------^
+   cProto   UID  PWD     cServer  nPort          cPath               cQuery
+                                        ^------------^ ^-------^
+                                          cDirectory     cFile
+                                                       ^--^ ^--^
+                                                     cFname cExt
  */
 
 CREATE CLASS TUrl
