@@ -140,26 +140,28 @@ rm -f "${HB_ABSROOT}bin/hbmk2-temp.exe"
 # strips timestamps before code-signing, so they are
 # fine.
 if [ -f "${HB_CODESIGN_KEY}" ] ; then
-   (
-      set +x
-      for file in \
-         "${HB_ABSROOT}bin/harbour*.dll" \
-         "${HB_ABSROOT}bin/harbour.exe" \
-         "${HB_ABSROOT}bin/hbi18n.exe" \
-         "${HB_ABSROOT}bin/hbmk2.exe" \
-         "${HB_ABSROOT}bin/hbpp.exe" \
-         "${HB_ABSROOT}bin/hbspeed.exe" \
-         "${HB_ABSROOT}bin/hbtest.exe" ; do
+   for name in \
+      'harbour*.dll' \
+      'harbour.exe' \
+      'hbi18n.exe' \
+      'hbmk2.exe' \
+      'hbpp.exe' \
+      'hbspeed.exe' \
+      'hbtest.exe' ; do
+      (
+         set +x
+         for file in ${HB_ABSROOT}bin/${name} ; do
 
-         "${_mingw_dir}/bin/strip" "${file}"
-         osslsigncode sign -h sha256 \
-            -pkcs12 "${HB_CODESIGN_KEY}" -pass "${HB_CODESIGN_KEY_PASS}" \
-            -ts 'http://timestamp.digicert.com' \
-            -in "${file}" -out "${file}-signed"
-         rm -f "${file}"
-         mv -f "${file}-signed" "${file}"
-      done
-   )
+            "${_mingw_dir}/bin/strip" "${file}"
+            osslsigncode sign -h sha256 \
+               -pkcs12 "${HB_CODESIGN_KEY}" -pass "${HB_CODESIGN_KEY_PASS}" \
+               -ts 'http://timestamp.digicert.com' \
+               -in "${file}" -out "${file}-signed"
+            rm -f "${file}"
+            mv -f "${file}-signed" "${file}"
+         done
+      )
+   done
 fi
 
 # Workaround for ld --no-insert-timestamp issue in that it
