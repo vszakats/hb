@@ -121,7 +121,7 @@ ifneq ($(HB_SHELL),sh)
       #       are only needed to support pre-Windows XP systems, where
       #       limit is 2047 chars. [vszakats]
 
-      # NOTE: The empty line directly before 'endef' HAVE TO exist!
+      # NOTE: The empty line directly before 'endef' HAS TO exist!
       define library_object
          @$(ECHO) $(ECHOQUOTE)-+$(subst /,$(ECHOBACKSLASH),$(file)) $(LINECONT)$(ECHOQUOTE) >> __lib__.tmp
 
@@ -154,7 +154,7 @@ else
    DLIBS := $(HB_USER_LIBS) $(LIBS) $(SYSLIBS) cw32mt import32
 endif
 
-# NOTE: The empty line directly before 'endef' HAVE TO exist!
+# NOTE: The empty line directly before 'endef' HAS TO exist!
 define dynlib_object
    @$(ECHO) $(ECHOQUOTE)$(subst /,$(ECHOBACKSLASH),$(file)) +$(ECHOQUOTE) >> __dyn__.tmp
 
