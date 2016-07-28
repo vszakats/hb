@@ -134,6 +134,34 @@ cp -f -p "${HB_ABSROOT}bin/hbmk2.exe" "${HB_ABSROOT}bin/hbmk2-temp.exe"
 "${HB_ABSROOT}bin/hbmk2-temp.exe" "${_SCRIPT}" pe "${_ROOT}" "${HB_ABSROOT}bin/*.dll"
 rm -f "${HB_ABSROOT}bin/hbmk2-temp.exe"
 
+# Rebuild code signatures after having stripped internal
+# timestamps from them. Only those built using the
+# GNU Make system need to be redone, as hbmk2 automatically
+# strips timestamps before code-signing, so they are
+# fine.
+if [ -f "${HB_CODESIGN_KEY}" ] ; then
+   (
+      set +x
+      for file in \
+         "${HB_ABSROOT}bin/harbour*.dll" \
+         "${HB_ABSROOT}bin/harbour.exe" \
+         "${HB_ABSROOT}bin/hbi18n.exe" \
+         "${HB_ABSROOT}bin/hbmk2.exe" \
+         "${HB_ABSROOT}bin/hbpp.exe" \
+         "${HB_ABSROOT}bin/hbspeed.exe" \
+         "${HB_ABSROOT}bin/hbtest.exe" ; do
+
+         "${_mingw_dir}/bin/strip" "${file}"
+         osslsigncode sign -h sha256 \
+            -pkcs12 "${HB_CODESIGN_KEY}" -pass "${HB_CODESIGN_KEY_PASS}" \
+            -ts 'http://timestamp.digicert.com' \
+            -in "${file}" -out "${file}-signed"
+         rm -f "${file}"
+         mv -f "${file}-signed" "${file}"
+      done
+   )
+fi
+
 # Workaround for ld --no-insert-timestamp issue in that it
 # won't remove internal timestamps from generated implibs.
 # Slow. Requires binutils 2.23 (maybe 2.24/2.25).

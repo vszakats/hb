@@ -153,6 +153,16 @@ endif
 
 LDFLAGS += $(LIBPATHS)
 
+ifneq ($(HB_CODESIGN_KEY),)
+   define create_exe_signed
+      $(LD) $(LDFLAGS) $(HB_LDFLAGS) $(HB_USER_LDFLAGS) $(LD_OUT)$(subst /,$(DIRSEP),$(BIN_DIR)/$@)-unsigned $(^F) $(LDLIBS) $(LDSTRIP)
+      @$(ECHO) $(ECHOQUOTE)! Code signing: $(subst /,$(DIRSEP),$(BIN_DIR)/$@)$(ECHOQUOTE)
+      @osslsigncode sign -h sha256 -pkcs12 $(HB_CODESIGN_KEY) -pass "$(HB_CODESIGN_KEY_PASS)" -ts http://timestamp.digicert.com -in $(subst /,$(DIRSEP),$(BIN_DIR)/$@)-unsigned -out $(subst /,$(DIRSEP),$(BIN_DIR)/$@)
+      @$(RM) $(subst /,$(DIRSEP),$(BIN_DIR)/$@)-unsigned
+   endef
+   LD_RULE = $(create_exe_signed)
+endif
+
 AR := $(HB_CCPATH)$(HB_CCPREFIX)ar
 
 # NOTE: The empty line directly before 'endef' HAS TO exist!
@@ -178,12 +188,23 @@ define dynlib_object
    @$(ECHO) $(ECHOQUOTE)INPUT($(subst \,/,$(file)))$(ECHOQUOTE) >> __dyn__.tmp
 
 endef
-define create_dynlib
-   $(if $(wildcard __dyn__.tmp),@$(RM) __dyn__.tmp,)
-   $(foreach file,$^,$(dynlib_object))
-   $(DY) $(DFLAGS) $(HB_USER_DFLAGS) $(DY_OUT)$(DYN_DIR)/$@ __dyn__.tmp $(DEF_FILE) $(DLIBS) -Wl,--out-implib,$(IMP_FILE),--output-def,$(DYN_DIR)/$(basename $@).def -Wl,--major-image-version,$(HB_VER_MAJOR) -Wl,--minor-image-version,$(HB_VER_MINOR) $(DYSTRIP)
-endef
-
-DY_RULE = $(create_dynlib)
+ifneq ($(HB_CODESIGN_KEY),)
+   define create_dynlib_signed
+      $(if $(wildcard __dyn__.tmp),@$(RM) __dyn__.tmp,)
+      $(foreach file,$^,$(dynlib_object))
+      $(DY) $(DFLAGS) $(HB_USER_DFLAGS) $(DY_OUT)$(DYN_DIR)/$@-unsigned __dyn__.tmp $(DEF_FILE) $(DLIBS) -Wl,--out-implib,$(IMP_FILE),--output-def,$(DYN_DIR)/$(basename $@).def -Wl,--major-image-version,$(HB_VER_MAJOR) -Wl,--minor-image-version,$(HB_VER_MINOR) $(DYSTRIP)
+      @$(ECHO) $(ECHOQUOTE)! Code signing: $(DYN_DIR)/$@$(ECHOQUOTE)
+      @osslsigncode sign -h sha256 -pkcs12 $(HB_CODESIGN_KEY) -pass $(HB_CODESIGN_KEY_PASS) -ts http://timestamp.digicert.com -in $(DYN_DIR)/$@-unsigned -out $(DYN_DIR)/$@
+      @$(RM) $(DYN_DIR)/$@-unsigned
+   endef
+   DY_RULE = $(create_dynlib_signed)
+else
+   define create_dynlib
+      $(if $(wildcard __dyn__.tmp),@$(RM) __dyn__.tmp,)
+      $(foreach file,$^,$(dynlib_object))
+      $(DY) $(DFLAGS) $(HB_USER_DFLAGS) $(DY_OUT)$(DYN_DIR)/$@ __dyn__.tmp $(DEF_FILE) $(DLIBS) -Wl,--out-implib,$(IMP_FILE),--output-def,$(DYN_DIR)/$(basename $@).def -Wl,--major-image-version,$(HB_VER_MAJOR) -Wl,--minor-image-version,$(HB_VER_MINOR) $(DYSTRIP)
+   endef
+   DY_RULE = $(create_dynlib)
+endif
 
 include $(TOP)$(ROOT)config/rules.mk

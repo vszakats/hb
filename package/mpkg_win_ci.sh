@@ -97,13 +97,14 @@ export HB_BUILD_POSTRUN='"./hbmk2 --version" "./hbtest -noenv" "./hbspeed --noen
 
 # decrypt code signing key
 
-export HB_CODESIGN_KEY="$(realpath './package/vsz_01_code.p12')"
+export HB_CODESIGN_KEY="$(realpath './package/vszakats.p12')"
 (
    set +x
    if [ -n "${HB_CODESIGN_GPG_PASS}" ] ; then
       gpg --batch --passphrase "${HB_CODESIGN_GPG_PASS}" -o "${HB_CODESIGN_KEY}" -d "${HB_CODESIGN_KEY}.gpg"
    fi
 )
+[ -f "${HB_CODESIGN_KEY}" ] || unset HB_CODESIGN_KEY
 
 # mingw
 
@@ -159,7 +160,6 @@ if [ "${_BRANC4}" != 'msvc' ] ; then
    export HB_WITH_PGSQL="${_inc}"
    export PATH="${HB_DIR_MINGW_32}/bin:${_ori_path}"
    gcc -v 2> "${_build_info_32}"
-   osslsigncode -v
    # shellcheck disable=SC2086
    mingw32-make install ${HB_MKFLAGS} HB_COMPILER=mingw HB_CPU=x86 || exit 1
 
@@ -176,7 +176,6 @@ if [ "${_BRANC4}" != 'msvc' ] ; then
    export HB_WITH_PGSQL="${_inc}"
    export PATH="${HB_DIR_MINGW_64}/bin:${_ori_path}"
    gcc -v 2> "${_build_info_64}"
-   osslsigncode -v
    # shellcheck disable=SC2086
    mingw32-make clean ${HB_MKFLAGS} HB_COMPILER=mingw64 HB_CPU=x86_64 || exit 1
    mingw32-make install ${HB_MKFLAGS} HB_COMPILER=mingw64 HB_CPU=x86_64 || exit 1
