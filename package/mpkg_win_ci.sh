@@ -104,9 +104,6 @@ export HB_CODESIGN_KEY="$(realpath './package/vsz_01_code.p12')"
       gpg --batch --passphrase "${HB_CODESIGN_GPG_PASS}" -o "${HB_CODESIGN_KEY}" -d "${HB_CODESIGN_KEY}.gpg"
    fi
 )
-# debug. TODO: remove
-ls -lA "${HB_CODESIGN_KEY}"
-ls -lA "${HB_CODESIGN_KEY}.gpg"
 
 # mingw
 
