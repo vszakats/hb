@@ -31,8 +31,7 @@ export CURL_HASH_64='368d64f567292d771768379901f8936139eb59525f9f9f2245f057de2b1
 
 # Update/install MSYS2 pacman packages
 
-pacman --noconfirm --noprogressbar -S --needed p7zip mc
-# pacman --noconfirm --noprogressbar -S --needed mingw-w64-x86_64-{jq,osslsigncode}
+pacman --noconfirm --noprogressbar -S --needed p7zip mc mingw-w64-{i686,x86_64}-{jq,osslsigncode}
 
 # Dependencies of the default (full) list of contribs
 if [ "${_BRANCH#*prod*}" = "${_BRANCH}" ] ; then
@@ -150,6 +149,7 @@ if [ "${_BRANC4}" != 'msvc' ] ; then
    export HB_WITH_PGSQL="${_inc}"
    export PATH="${HB_DIR_MINGW_32}/bin:${_ori_path}"
    gcc -v 2> "${_build_info_32}"
+   osslsigncode -v
    # shellcheck disable=SC2086
    mingw32-make install ${HB_MKFLAGS} HB_COMPILER=mingw HB_CPU=x86 || exit 1
 
@@ -166,6 +166,7 @@ if [ "${_BRANC4}" != 'msvc' ] ; then
    export HB_WITH_PGSQL="${_inc}"
    export PATH="${HB_DIR_MINGW_64}/bin:${_ori_path}"
    gcc -v 2> "${_build_info_64}"
+   osslsigncode -v
    # shellcheck disable=SC2086
    mingw32-make clean ${HB_MKFLAGS} HB_COMPILER=mingw64 HB_CPU=x86_64 || exit 1
    mingw32-make install ${HB_MKFLAGS} HB_COMPILER=mingw64 HB_CPU=x86_64 || exit 1

@@ -30,6 +30,10 @@ environment:
     secure: zKEcvmxcPuch0HUR9NuvXSXrMJL13qbQ0Ixh65VQUi0=
   PUSHOVER_TOKEN:
     secure: DjWTkh5sUw6dUQkHv3KhTvi2llF9GN17z60h9kRGYX4=
+  CODESIGN_GPG_PASS:
+    secure: NyIcyDVk8yVMsrZyXORI/mQ2sLQMLbnZf/PxhnSkZf0sQXe6e+41LHGVQd4T/bIa
+  CODESIGN_P12_PASS:
+    secure: 9L3bDW8BWoN8yPVjOpAh7JedF9PvCwKbhZAUWyYtlW6/9oZijjFJalium36tW9lp
 
 #init:
 #  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
