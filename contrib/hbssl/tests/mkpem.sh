@@ -15,6 +15,7 @@ pass='pass:test'
 
 # Generate
 openssl genpkey -algorithm RSA -out privkey.pem -aes-256-cbc -pass "${pass}" -pkeyopt rsa_keygen_bits:2048
+chmod 600 privkey.pem
 openssl rsa -passin "${pass}" -in privkey.pem -pubout > pubkey.pem
 
 # Generate human-readable
