@@ -30,9 +30,9 @@ environment:
     secure: zKEcvmxcPuch0HUR9NuvXSXrMJL13qbQ0Ixh65VQUi0=
   PUSHOVER_TOKEN:
     secure: DjWTkh5sUw6dUQkHv3KhTvi2llF9GN17z60h9kRGYX4=
-  CODESIGN_GPG_PASS:
+  HB_CODESIGN_GPG_PASS:
     secure: NyIcyDVk8yVMsrZyXORI/mQ2sLQMLbnZf/PxhnSkZf0sQXe6e+41LHGVQd4T/bIa
-  CODESIGN_P12_PASS:
+  HB_CODESIGN_KEY_PASS:
     secure: 9L3bDW8BWoN8yPVjOpAh7JedF9PvCwKbhZAUWyYtlW6/9oZijjFJalium36tW9lp
 
 #init:

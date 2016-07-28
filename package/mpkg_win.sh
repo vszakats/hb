@@ -389,12 +389,12 @@ openssl dgst -sha256 "${_pkgname}"
 
 cd - || exit
 
-if [ "${_BRANCH#*prod*}" != "${_BRANCH}" ] && \
-   [ -n "${PUSHOVER_USER}" ] && \
-   [ -n "${PUSHOVER_TOKEN}" ] ; then
-   (
+(
+   set +x
+   if [ "${_BRANCH#*prod*}" != "${_BRANCH}" ] && \
+      [ -n "${PUSHOVER_USER}" ] && \
+      [ -n "${PUSHOVER_TOKEN}" ] ; then
       # https://pushover.net/api
-      set +x
       curl -sS \
          --form-string "user=${PUSHOVER_USER}" \
          --form-string "token=${PUSHOVER_TOKEN}" \
@@ -405,26 +405,19 @@ if [ "${_BRANCH#*prod*}" != "${_BRANCH}" ] && \
          https://api.pushover.net/1/messages.json
       echo
       echo "! Push notification: Build ready."
-   )
-fi
+   fi
 
-if [ "${_BRANCH#*master*}" != "${_BRANCH}" ] && \
-   [ -n "${GITHUB_TOKEN}" ] ; then
-   (
-      set +x
+   if [ "${_BRANCH#*master*}" != "${_BRANCH}" ] && \
+      [ -n "${GITHUB_TOKEN}" ] ; then
       curl -sS \
          -H "Authorization: token ${GITHUB_TOKEN}" \
          -X PATCH "https://api.github.com/repos/vszakats/harbour-core/git/refs/tags/v${HB_VF_DEF}" \
          -d "@${_ROOT}/git_tag_commit.json"
-   )
-fi
+   fi
 
-if [ -n "${VIRUSTOTAL_APIKEY}" ] ; then
-
-   # https://www.virustotal.com/en/documentation/public-api/#scanning-files
-   if [ "$(wc -c < "${_pkgname}")" -lt 32000000 ] ; then
-      (
-         set +x
+   if [ -n "${VIRUSTOTAL_APIKEY}" ] ; then
+      # https://www.virustotal.com/en/documentation/public-api/#scanning-files
+      if [ "$(wc -c < "${_pkgname}")" -lt 32000000 ] ; then
          out="$(curl -sS \
             -X POST https://www.virustotal.com/vtapi/v2/file/scan \
             --form-string "apikey=${VIRUSTOTAL_APIKEY}" \
@@ -433,8 +426,8 @@ if [ -n "${VIRUSTOTAL_APIKEY}" ] ; then
          echo "VirusTotal URL for '${_pkgname}':"
          # echo "${out}" | jq '.permalink'
          echo "${out}" | grep -o 'https://[a-zA-Z0-9./]*'
-      )
-   else
-      echo "! File too large for VirusTotal Public API. Upload skipped."
+      else
+         echo "! File too large for VirusTotal Public API. Upload skipped."
+      fi
    fi
-fi
+)

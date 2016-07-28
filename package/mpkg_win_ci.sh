@@ -95,6 +95,19 @@ export HB_BUILD_POSTRUN='"./hbmk2 --version" "./hbtest -noenv" "./hbspeed --noen
 # export _HB_PKG_DEBUG='yes'
 # export _HB_BUNDLE_3RDLIB='yes'
 
+# decrypt code signing key
+
+export HB_CODESIGN_KEY="$(realpath './package/vsz_01_code.p12')"
+(
+   set +x
+   if [ -n "${HB_CODESIGN_GPG_PASS}" ] ; then
+      gpg --batch --passphrase "${HB_CODESIGN_GPG_PASS}" -o "${HB_CODESIGN_KEY}" -d "${HB_CODESIGN_KEY}.gpg"
+   fi
+)
+# debug. TODO: remove
+ls -lA "${HB_CODESIGN_KEY}"
+ls -lA "${HB_CODESIGN_KEY}.gpg"
+
 # mingw
 
 if [ "${_BRANC4}" != 'msvc' ] ; then
