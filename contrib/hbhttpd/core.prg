@@ -100,8 +100,8 @@ METHOD Run( hConfig ) CLASS UHttpd
             RAND_add( hb_randStr( 20 ) + Str( hb_MilliSeconds(), 20 ), 1 )
          ENDDO
 
-         ::hSSLCtx := SSL_CTX_new( HB_SSL_CTX_NEW_METHOD_SSLV23_SERVER )
-         SSL_CTX_set_options( ::hSSLCtx, HB_SSL_OP_NO_TLSv1 )
+         ::hSSLCtx := SSL_CTX_new( HB_SSL_CTX_NEW_METHOD_TLS_SERVER )
+         SSL_CTX_set_options( ::hSSLCtx, hb_bitOr( HB_SSL_OP_NO_SSLv2, HB_SSL_OP_NO_SSLv3 ) )
          IF SSL_CTX_use_PrivateKey_file( ::hSSLCtx, ::hConfig[ "PrivateKeyFilename" ], HB_SSL_FILETYPE_PEM ) != 1
             ::cError := "Invalid private key file"
             RETURN .F.

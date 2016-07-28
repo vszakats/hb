@@ -110,6 +110,8 @@
 #define HB_SSL_OP_NO_SSLv2                                  0x01000000
 #define HB_SSL_OP_NO_SSLv3                                  0x02000000
 #define HB_SSL_OP_NO_TLSv1                                  0x04000000
+#define HB_SSL_OP_NO_TLSv1_2                                0x08000000
+#define HB_SSL_OP_NO_TLSv1_1                                0x10000000
 #define HB_SSL_OP_PKCS1_CHECK_1                             0x08000000
 #define HB_SSL_OP_PKCS1_CHECK_2                             0x10000000
 #define HB_SSL_OP_NETSCAPE_CA_DN_BUG                        0x20000000
