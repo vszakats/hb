@@ -123,6 +123,25 @@ for dir in \
    fi
 done
 
+# Remove code signatures.
+if [ -f "${HB_CODESIGN_KEY}" ] ; then
+   for name in \
+      'harbour*.dll' \
+      'harbour.exe' \
+      'hbi18n.exe' \
+      'hbmk2.exe' \
+      'hbpp.exe' \
+      'hbspeed.exe' \
+      'hbtest.exe' ; do
+      # A 'strip' would also work, but this is cleaner
+      for file in ${HB_ABSROOT}bin/${name} ; do
+         osslsigncode remove-signature \
+            -in "${file}" -out "${file}-unsigned"
+         mv -f "${file}-unsigned" "${file}"
+      done
+   done
+fi
+
 # Workaround for ld --no-insert-timestamp bug that exist as of
 # binutils 2.25, when the PE build timestamp field is often
 # filled with random bytes instead of zeroes. -s option is not
@@ -148,18 +167,16 @@ if [ -f "${HB_CODESIGN_KEY}" ] ; then
       'hbpp.exe' \
       'hbspeed.exe' \
       'hbtest.exe' ; do
-      (
-         set +x
-         for file in ${HB_ABSROOT}bin/${name} ; do
-
-            "${_mingw_dir}/bin/strip" "${file}"
-            "${_mingw_dir}osslsigncode" sign -h sha256 \
+      for file in ${HB_ABSROOT}bin/${name} ; do
+         (
+            set +x
+            osslsigncode sign -h sha256 \
                -pkcs12 "${HB_CODESIGN_KEY}" -pass "${HB_CODESIGN_KEY_PASS}" \
                -ts 'http://timestamp.digicert.com' \
                -in "${file}" -out "${file}-signed"
             mv -f "${file}-signed" "${file}"
-         done
-      )
+         )
+      done
    done
 fi
 
