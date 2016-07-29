@@ -4,6 +4,9 @@ include $(TOP)$(ROOT)config/global.mk
 
 ifneq ($(DYNDIRLIST_BASE),)
 
+   RC_SOURCES := \
+      $(TOP)$(ROOT)package/harbour.rc
+
    ifeq ($(__HB_BUILD_DYN_ST),yes)
       DYNDIRLIST := $(DYNDIRLIST_BASE) src/vm/vmmt
    else
