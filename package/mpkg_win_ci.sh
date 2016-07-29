@@ -62,7 +62,7 @@ pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-icu
 export HB_VF='daily'
 export HB_RT="${_ROOT}"
 export HB_MKFLAGS="HB_VERSION=${HB_VF}"
-[ "${_BRANCH#*prod*}" != "${_BRANCH}" ] && export HB_BASE='64'
+export HB_BASE='64'
 # [ "${HB_BASE}" != '64' ] && export HB_SFX_7Z="${HB_RT}/7zsfx/7zsd_All.sfx"
 # [ "${HB_BASE}"  = '64' ] && export HB_SFX_7Z="${HB_RT}/7zsfx/7zsd_All_x64.sfx"
 export HB_DIR_7Z="${HB_RT}/7z/"
