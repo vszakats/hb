@@ -123,62 +123,47 @@ for dir in \
    fi
 done
 
-# Remove code signatures.
-if [ -f "${HB_CODESIGN_KEY}" ] ; then
-   for name in \
-      'harbour*.dll' \
-      'harbour.exe' \
-      'hbi18n.exe' \
-      'hbmk2.exe' \
-      'hbpp.exe' \
-      'hbspeed.exe' \
-      'hbtest.exe' ; do
-      # A 'strip' would also work, but this is cleaner
-      for file in ${HB_ABSROOT}bin/${name} ; do
-         osslsigncode remove-signature \
-            -in "${file}" -out "${file}-unsigned"
-         mv -f "${file}-unsigned" "${file}"
-      done
-   done
-fi
-
 # Workaround for ld --no-insert-timestamp bug that exist as of
 # binutils 2.25, when the PE build timestamp field is often
 # filled with random bytes instead of zeroes. -s option is not
 # fixing this, 'strip' randomly fails either, so we're
-# patching manually. Do this while only Harbour built binaries are
-# present in the bin directory to not modify 3rd party binaries.
+# patching manually.
 cp -f -p "${HB_ABSROOT}bin/hbmk2.exe" "${HB_ABSROOT}bin/hbmk2-temp.exe"
-"${HB_ABSROOT}bin/hbmk2-temp.exe" "${_SCRIPT}" pe "${_ROOT}" "${HB_ABSROOT}bin/*.exe"
-"${HB_ABSROOT}bin/hbmk2-temp.exe" "${_SCRIPT}" pe "${_ROOT}" "${HB_ABSROOT}bin/*.dll"
-rm -f "${HB_ABSROOT}bin/hbmk2-temp.exe"
+# NOTE: do not forget to update the list of binary names created
+#       by the GNU Make process, in case it changes.
+for name in \
+   'harbour*.dll' \
+   'harbour.exe' \
+   'hbi18n.exe' \
+   'hbmk2.exe' \
+   'hbpp.exe' \
+   'hbspeed.exe' \
+   'hbtest.exe' ; do
+   for file in ${HB_ABSROOT}bin/${name} ; do
 
-# Rebuild code signatures after having stripped internal
-# timestamps from them. Only those built using the
-# GNU Make system need to be redone, as hbmk2 automatically
-# strips timestamps before code-signing, so they are
-# fine.
-if [ -f "${HB_CODESIGN_KEY}" ] ; then
-   for name in \
-      'harbour*.dll' \
-      'harbour.exe' \
-      'hbi18n.exe' \
-      'hbmk2.exe' \
-      'hbpp.exe' \
-      'hbspeed.exe' \
-      'hbtest.exe' ; do
-      for file in ${HB_ABSROOT}bin/${name} ; do
+      # Remove code signature first
+      if [ -f "${HB_CODESIGN_KEY}" ] ; then
+         # 'strip' would also work, but this is cleaner
+         osslsigncode remove-signature -in "${file}" -out "${file}-unsigned"
+         mv -f "${file}-unsigned" "${file}"
+      fi
+
+      # Remove embedded timestamps
+      "${HB_ABSROOT}bin/hbmk2-temp.exe" "${_SCRIPT}" pe "${_ROOT}" "${file}"
+
+      # Readd code signature
+      if [ -f "${HB_CODESIGN_KEY}" ] ; then
          (
             set +x
-            osslsigncode sign -h sha256 \
+            osslsigncode sign -h sha256 -in "${file}" -out "${file}-signed" \
                -pkcs12 "${HB_CODESIGN_KEY}" -pass "${HB_CODESIGN_KEY_PASS}" \
-               -ts 'http://timestamp.digicert.com' \
-               -in "${file}" -out "${file}-signed"
+               -ts 'http://timestamp.digicert.com'
             mv -f "${file}-signed" "${file}"
          )
-      done
+      fi
    done
-fi
+done
+rm -f "${HB_ABSROOT}bin/hbmk2-temp.exe"
 
 # Workaround for ld --no-insert-timestamp issue in that it
 # won't remove internal timestamps from generated implibs.
