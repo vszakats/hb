@@ -105,7 +105,7 @@ else
    ALL_OBJS := $(subst /,$(DIRSEP),$(foreach dir,$(DYNDIRLIST),$(wildcard $(TOP)$(ROOT)$(dir)/$(OBJ_DIR)/*$(OBJ_DYN_POSTFIX)$(OBJ_EXT))))
 endif
 ifneq ($(RC),)
-   ALL_OBJS += $(foreach file,$(ALL_RC_OBJS),$(notdir $(file)))
+   ALL_OBJS += $(ALL_RC_OBJS)
 endif
 
 first:: dirbase descend

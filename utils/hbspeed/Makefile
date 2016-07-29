@@ -3,8 +3,7 @@ ROOT := ../../
 PRG_SOURCES := \
    hbspeed.prg \
 
-RC_SOURCES := \
-   $(TOP)$(ROOT)package/harbour.rc
+RC_SOURCES := harbour.rc
 
 PRG_MAIN := hbspeed.prg
 

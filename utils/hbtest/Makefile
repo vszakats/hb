@@ -6,8 +6,7 @@ PRG_SOURCES := \
 C_SOURCES := \
    hbtestc.c \
 
-RC_SOURCES := \
-   $(TOP)$(ROOT)package/harbour.rc
+RC_SOURCES := harbour.rc
 
 PRG_MAIN := hbtest.prg
 

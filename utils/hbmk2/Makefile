@@ -5,8 +5,7 @@ include $(TOP)$(ROOT)config/global.mk
 PRG_SOURCES := \
    hbmk2.prg \
 
-RC_SOURCES := \
-   $(TOP)$(ROOT)package/harbour.rc
+RC_SOURCES := harbour.rc
 
 PRG_MAIN := hbmk2.prg
 

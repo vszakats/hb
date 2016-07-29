@@ -4,8 +4,7 @@ include $(TOP)$(ROOT)config/global.mk
 
 ifneq ($(DYNDIRLIST_BASE),)
 
-   RC_SOURCES := \
-      $(TOP)$(ROOT)package/harbour.rc
+   RC_SOURCES := harbour.rc
 
    ifeq ($(__HB_MT),no)
       __HB_BUILD_DYN_ST := yes
