@@ -20,6 +20,6 @@
 
    `hbmk2 dbu.hbp`
 
-5. You're done.
+5. Done.
 
 [vszakats]

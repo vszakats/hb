@@ -22,7 +22,7 @@
 
    `hbmk2 ps32.hbp`
 
-5. You're done.
+5. Done.
 
 6. Finally, to build an application with PageScript32, use:
 

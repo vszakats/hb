@@ -25,7 +25,7 @@
 
    `hbmk2 superlib.hbp`
 
-6. You're done.
+6. Done.
 
 7. Finally, to build an application with SuperLib, use:
 
