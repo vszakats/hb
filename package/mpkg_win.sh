@@ -153,11 +153,10 @@ if [ -f "${HB_CODESIGN_KEY}" ] ; then
          for file in ${HB_ABSROOT}bin/${name} ; do
 
             "${_mingw_dir}/bin/strip" "${file}"
-            osslsigncode sign -h sha256 \
+            "${_mingw_dir}osslsigncode" sign -h sha256 \
                -pkcs12 "${HB_CODESIGN_KEY}" -pass "${HB_CODESIGN_KEY_PASS}" \
                -ts 'http://timestamp.digicert.com' \
                -in "${file}" -out "${file}-signed"
-            rm -f "${file}"
             mv -f "${file}-signed" "${file}"
          done
       )
