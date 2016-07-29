@@ -1072,18 +1072,37 @@ HB_FUNC( CURL_EASY_SETOPT )
 
                if( pList )
                {
-                  HB_SIZE ulPos, ulLen = hb_arrayLen( pList );
+                  HB_BOOL fHash = HB_IS_HASH( pList );
+                  HB_SIZE ulPos, ulLen = fHash ? hb_hashLen( pList ) : hb_arrayLen( pList );
 
                   for( ulPos = 0; ulPos < ulLen; ++ulPos )
                   {
-                     PHB_ITEM pSubArray = hb_arrayGetItemPtr( pList, ulPos + 1 );
+                     PHB_ITEM pKey, pVal;
 
-                     if( pSubArray && HB_IS_ARRAY( pSubArray ) && hb_arrayLen( pSubArray ) >= 2 )
+                     if( fHash )
+                     {
+                        pKey = hb_hashGetKeyAt( pList, ulPos + 1 );
+                        pVal = hb_hashGetValueAt( pList, ulPos + 1 );
+                     }
+                     else
+                     {
+                        PHB_ITEM pSubArray = hb_arrayGetItemPtr( pList, ulPos + 1 );
+
+                        if( pSubArray )
+                        {
+                           pKey = hb_arrayGetItemPtr( pSubArray, 1 );
+                           pVal = hb_arrayGetItemPtr( pSubArray, 2 );
+                        }
+                        else
+                           pKey = pVal = NULL;
+                     }
+
+                     if( pKey && pVal )
                         curl_formadd( &hb_curl->pHTTPPOST_First,
                                       &hb_curl->pHTTPPOST_Last,
-                                      CURLFORM_COPYNAME, hb_arrayGetCPtr( pSubArray, 1 ),
-                                      CURLFORM_NAMELENGTH, ( long ) hb_arrayGetCLen( pSubArray, 1 ),
-                                      CURLFORM_FILE, hb_curl_StrHash( hb_curl, hb_arrayGetCPtr( pSubArray, 2 ) ),
+                                      CURLFORM_COPYNAME, hb_itemGetCPtr( pKey ),
+                                      CURLFORM_NAMELENGTH, ( long ) hb_itemGetCLen( pKey ),
+                                      CURLFORM_FILE, hb_curl_StrHash( hb_curl, hb_itemGetCPtr( pVal ) ),
                                       CURLFORM_END );
                   }
 
@@ -1097,65 +1116,49 @@ HB_FUNC( CURL_EASY_SETOPT )
 
                if( pList )
                {
-                  HB_SIZE ulPos, ulLen;
+                  HB_BOOL fHash = HB_IS_HASH( pList );
+                  HB_SIZE ulPos, ulLen = fHash ? hb_hashLen( pList ) : hb_arrayLen( pList );
 
-                  if( HB_IS_ARRAY( pList ) )
+                  for( ulPos = 0; ulPos < ulLen; ++ulPos )
                   {
-                     ulLen = hb_arrayLen( pList );
+                     PHB_ITEM pKey, pVal;
 
-                     for( ulPos = 0; ulPos < ulLen; ++ulPos )
+                     if( fHash )
+                     {
+                        pKey = hb_hashGetKeyAt( pList, ulPos + 1 );
+                        pVal = hb_hashGetValueAt( pList, ulPos + 1 );
+                     }
+                     else
                      {
                         PHB_ITEM pSubArray = hb_arrayGetItemPtr( pList, ulPos + 1 );
 
-                        if( pSubArray && HB_IS_ARRAY( pSubArray ) && hb_arrayLen( pSubArray ) >= 2 )
-#if defined( CURLFORM_CONTENTLEN )
-                           curl_formadd( &hb_curl->pHTTPPOST_First,
-                                         &hb_curl->pHTTPPOST_Last,
-                                         CURLFORM_COPYNAME, hb_arrayGetCPtr( pSubArray, 1 ),
-                                         CURLFORM_NAMELENGTH, ( long ) hb_arrayGetCLen( pSubArray, 1 ),
-                                         CURLFORM_COPYCONTENTS, hb_arrayGetCPtr( pSubArray, 2 ),
-                                         CURLFORM_CONTENTLEN, ( curl_off_t ) hb_arrayGetCLen( pSubArray, 2 ),
-                                         CURLFORM_END );
-#else
-                           curl_formadd( &hb_curl->pHTTPPOST_First,
-                                         &hb_curl->pHTTPPOST_Last,
-                                         CURLFORM_COPYNAME, hb_arrayGetCPtr( pSubArray, 1 ),
-                                         CURLFORM_NAMELENGTH, ( long ) hb_arrayGetCLen( pSubArray, 1 ),
-                                         CURLFORM_COPYCONTENTS, hb_arrayGetCPtr( pSubArray, 2 ),
-                                         CURLFORM_CONTENTSLENGTH, ( long ) hb_arrayGetCLen( pSubArray, 2 ),
-                                         CURLFORM_END );
-#endif
+                        if( pSubArray )
+                        {
+                           pKey = hb_arrayGetItemPtr( pSubArray, 1 );
+                           pVal = hb_arrayGetItemPtr( pSubArray, 2 );
+                        }
+                        else
+                           pKey = pVal = NULL;
                      }
-                  }
-                  else
-                  {
-                     ulLen = hb_hashLen( pList );
 
-                     for( ulPos = 0; ulPos < ulLen; ++ulPos )
-                     {
-                        PHB_ITEM pKey = hb_hashGetKeyAt( pList, ulPos + 1 );
-                        PHB_ITEM pVal = hb_hashGetValueAt( pList, ulPos + 1 );
-
-                        if( pKey && HB_IS_STRING( pKey ) &&
-                            pVal && HB_IS_STRING( pVal ) )
+                     if( pKey && pVal )
 #if defined( CURLFORM_CONTENTLEN )
-                           curl_formadd( &hb_curl->pHTTPPOST_First,
-                                         &hb_curl->pHTTPPOST_Last,
-                                         CURLFORM_COPYNAME, hb_itemGetCPtr( pKey ),
-                                         CURLFORM_NAMELENGTH, ( long ) hb_itemGetCLen( pKey ),
-                                         CURLFORM_COPYCONTENTS, hb_itemGetCPtr( pVal ),
-                                         CURLFORM_CONTENTLEN, ( curl_off_t ) hb_itemGetCLen( pVal ),
-                                         CURLFORM_END );
+                        curl_formadd( &hb_curl->pHTTPPOST_First,
+                                      &hb_curl->pHTTPPOST_Last,
+                                      CURLFORM_COPYNAME, hb_itemGetCPtr( pKey ),
+                                      CURLFORM_NAMELENGTH, ( long ) hb_itemGetCLen( pKey ),
+                                      CURLFORM_COPYCONTENTS, hb_itemGetCPtr( pVal ),
+                                      CURLFORM_CONTENTLEN, ( curl_off_t ) hb_itemGetCLen( pVal ),
+                                      CURLFORM_END );
 #else
-                           curl_formadd( &hb_curl->pHTTPPOST_First,
-                                         &hb_curl->pHTTPPOST_Last,
-                                         CURLFORM_COPYNAME, hb_itemGetCPtr( pKey ),
-                                         CURLFORM_NAMELENGTH, ( long ) hb_itemGetCLen( pKey ),
-                                         CURLFORM_COPYCONTENTS, hb_itemGetCPtr( pVal ),
-                                         CURLFORM_CONTENTSLENGTH, ( long ) hb_itemGetCLen( pVal ),
-                                         CURLFORM_END );
+                        curl_formadd( &hb_curl->pHTTPPOST_First,
+                                      &hb_curl->pHTTPPOST_Last,
+                                      CURLFORM_COPYNAME, hb_itemGetCPtr( pKey ),
+                                      CURLFORM_NAMELENGTH, ( long ) hb_itemGetCLen( pKey ),
+                                      CURLFORM_COPYCONTENTS, hb_itemGetCPtr( pVal ),
+                                      CURLFORM_CONTENTSLENGTH, ( long ) hb_itemGetCLen( pVal ),
+                                      CURLFORM_END );
 #endif
-                     }
                   }
 
                   res = curl_easy_setopt( hb_curl->curl, CURLOPT_HTTPPOST, hb_curl->pHTTPPOST_First );
