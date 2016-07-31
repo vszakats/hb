@@ -8408,9 +8408,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
                DO CASE
                CASE ( cBin_Sign := FindInPath( "signtool.exe" ) ) != NIL /* in MS Windows SDK */
                   cOpt_Sign := "sign {FS} -fd sha256 -f {ID} -p {PW} {OB}"
-                  /* -td sha256 */
                   SWITCH signts_split_arg( hbmk[ _HBMK_cSignTime ] )
-                  CASE "rfc3161"      ; AAdd( hbmk[ _HBMK_aOPTS ], "-tr " + signts_split_arg( hbmk[ _HBMK_cSignTime ], .T. ) ) ; EXIT
+                  CASE "rfc3161"      ; AAdd( hbmk[ _HBMK_aOPTS ], "-td sha256 -tr " + signts_split_arg( hbmk[ _HBMK_cSignTime ], .T. ) ) ; EXIT
                   CASE "authenticode" ; AAdd( hbmk[ _HBMK_aOPTS ], "-t " + signts_split_arg( hbmk[ _HBMK_cSignTime ], .T. ) ) ; EXIT
                   ENDSWITCH
                   IF AScan( hbmk[ _HBMK_aOPTS ], {| tmp | HBMK_IS_IN( Lower( tmp ), "-v|/v" ) } ) == 0
