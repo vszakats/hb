@@ -155,7 +155,7 @@ To test it, type:
 
 You should see `Hello, world!` on screen.
 
-## on Windows hosts with POSIX shells (MSYS/Cygwin)
+## on Windows hosts with POSIX shells (MSYS2/Cygwin)
 
 > Though you can use these alternative shells to build Harbour on Windows,
 > it's recommended to use the native one.
@@ -852,8 +852,8 @@ win-make
 ```
 
 ```batchfile
-:: MinGW GCC using MSYS shell
-set PATH=C:\msys\1.0.11\bin;C:\mingw\bin;%PATH%
+:: MinGW GCC using MSYS2 shell
+set PATH=C:\msys64\usr\bin;C:\msys64\mingw64\bin;%PATH%
 sh -c make
 ```
 
@@ -1478,7 +1478,7 @@ Press `<Alt+D>` in the app.
 Supported shells per host platforms:
 
 * win  / NT shell (cmd.exe)
-* win  / POSIX shell (MSYS or Cygwin sh.exe)
+* win  / POSIX shell (MSYS2 or Cygwin sh.exe)
 * win  / MS-DOS shell (command.com)
 * dos  / MS-DOS shell (command.com)
 * dos  / POSIX shell (bash.exe)
@@ -1492,7 +1492,7 @@ Supported shells per host platforms:
 * C/C++ Compilers/Shells:
 
      * MinGW/MinGW-64 [win, \*nix, free, open-source]
-        * <http://mingw-w64.org/>, <https://duckduckgo.com/?q=mingw-w64> (recommended, look for MSYS2 or niXman builds)
+        * <https://mingw-w64.org/>, <https://duckduckgo.com/?q=mingw-w64> (recommended, look for MSYS2 or niXman builds)
           * Dual-target (aka _multilib_) for x86-64 and x86 hosts (select non-native target with `HB_CPU=x86` or `HB_CPU=x86_64`):
             * 32-bit hosted, posix, sjlj
             * 64-bit hosted, posix, sjlj
