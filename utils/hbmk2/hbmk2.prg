@@ -8407,6 +8407,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
                 */
                DO CASE
                CASE ( cBin_Sign := FindInPath( "signtool.exe" ) ) != NIL /* in MS Windows SDK */
+                  /* -seal -tseal <ts> -td sha256 */
                   cOpt_Sign := "sign {FS} -fd sha256 -f {ID} -p {PW} {OB}"
                   SWITCH signts_split_arg( hbmk[ _HBMK_cSignTime ] )
                   CASE "rfc3161"      ; AAdd( hbmk[ _HBMK_aOPTS ], "-td sha256 -tr " + signts_split_arg( hbmk[ _HBMK_cSignTime ], .T. ) ) ; EXIT

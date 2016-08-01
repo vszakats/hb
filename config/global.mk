@@ -51,6 +51,11 @@ substpat := !@!@
 
 .PHONY: all clean install
 
+# Try to instruct tools to output English messages to help debugging
+export LC_ALL := C
+export LC_MESSAGES := C
+export LANG := C
+
 _make_ver_min := 3.81
 _make_ver_ok := $(filter $(_make_ver_min),$(firstword $(sort $(MAKE_VERSION) $(_make_ver_min))))
 ifeq ($(_make_ver_ok),)

@@ -31,7 +31,7 @@ export CURL_HASH_64='368d64f567292d771768379901f8936139eb59525f9f9f2245f057de2b1
 
 # Update/install MSYS2 pacman packages
 
-pacman --noconfirm --noprogressbar -S --needed p7zip mc mingw-w64-{i686,x86_64}-{jq,osslsigncode}
+pacman --noconfirm --noprogressbar -S --needed p7zip mingw-w64-{i686,x86_64}-{jq,osslsigncode}
 
 # Dependencies of the default (full) list of contribs
 if [ "${_BRANCH#*prod*}" = "${_BRANCH}" ] ; then
