@@ -18,18 +18,16 @@ privout() {
    o="$1"; rm -f "$o"; touch "$o"; chmod 0600 "$o"; shift; "$@" >> "$o"
 }
 
-pass='pass:test'
+readonly pass='pass:test'
 
 # Private
 privout 'privkey.pem' \
 openssl genpkey -algorithm RSA -aes-256-cbc -pkeyopt rsa_keygen_bits:2048 -pass "${pass}"
 # human-readable
-privout 'privkey.pem.rsa.txt' \
-openssl rsa -passin "${pass}" -in 'privkey.pem' -text -noout
-privout 'privkey.pem.asn.txt' \
+privout 'privkey.pem.asn1.txt' \
 openssl asn1parse             -in 'privkey.pem'
 
 # Public
 openssl rsa -passin "${pass}" -in 'privkey.pem' -pubout > pubkey.pem
 # human-readable
-openssl rsa -passin "${pass}" -in 'pubkey.pem'  -text -noout -pubin > pubkey.pem.txt
+openssl rsa -pubin            -in 'pubkey.pem'  -text -noout > pubkey.pem.txt
