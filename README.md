@@ -172,9 +172,6 @@ To test it, type:
 
 You should see `Hello, world!` on screen.
 
-> When building for Borland C++ make sure that GNU Make
-> is executed when typing `make`, Borland Make has the same name.
-
 ## on MS-DOS hosts (possible cross-build targets: Windows, OS/2, Linux)
 
 Make sure to have your C compiler of choice installed in `PATH`.
