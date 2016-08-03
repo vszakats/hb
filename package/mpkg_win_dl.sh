@@ -94,7 +94,7 @@ for plat in '32' '64' ; do
          set -x
          curl -o pack.bin -L --proto-redir =https "${base}${name}-${ver}-win${plat}-mingw.7z"
          curl -o pack.sig -L --proto-redir =https "${base}${name}-${ver}-win${plat}-mingw.7z.asc"
-         gpg --verify pack.sig pack.bin
+         gpg --verify-options show-primary-uid-only --verify pack.sig pack.bin
          openssl dgst -sha256 pack.bin | grep -q "${hash}"
          7z x -y pack.bin > /dev/null
          mv "${name}-${ver}-win${plat}-mingw" "${name}-mingw${plat}"
