@@ -50,15 +50,15 @@ build_script:
   - sh -c ./package/mpkg_win_ci.sh
 
 artifacts:
-  - path: harbour-daily-win*.7z*
+  - path: harbour-snapshot-win*.7z*
     name: pkg-win
 
 deploy:
   - provider: GitHub
     auth_token: $(github_token)
     tag: v3.4.0dev
-    release: 'Harbour 3.4.0dev daily'
-    description: 'Snapshot build generated after each commit.'
+    release: 'Harbour 3.4.0dev snapshot'
+    description: 'Binaries generated after each commit.'
     artifact: pkg-win
     draft: false
     prerelease: true

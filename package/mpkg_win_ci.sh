@@ -59,7 +59,7 @@ pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-icu
 
 [ "${_BRANC4}" = 'msvc' ] || "$(dirname "$0")/mpkg_win_dl.sh" || exit
 
-export HB_VF='daily'
+export HB_VF='snapshot'
 export HB_RT="${_ROOT}"
 export HB_MKFLAGS="HB_VERSION=${HB_VF}"
 export HB_BASE='64'
