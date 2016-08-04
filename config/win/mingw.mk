@@ -192,10 +192,11 @@ ifneq ($(HB_CODESIGN_KEY),)
    define create_dynlib_signed
       $(if $(wildcard __dyn__.tmp),@$(RM) __dyn__.tmp,)
       $(foreach file,$^,$(dynlib_object))
-      $(DY) $(DFLAGS) $(HB_USER_DFLAGS) $(DY_OUT)$(DYN_DIR)/$@-unsigned __dyn__.tmp $(DEF_FILE) $(DLIBS) -Wl,--out-implib,$(IMP_FILE),--output-def,$(DYN_DIR)/$(basename $@).def -Wl,--major-image-version,$(HB_VER_MAJOR) -Wl,--minor-image-version,$(HB_VER_MINOR) $(DYSTRIP)
+      $(DY) $(DFLAGS) $(HB_USER_DFLAGS) $(DY_OUT)$(DYN_DIR)/$@ __dyn__.tmp $(DEF_FILE) $(DLIBS) -Wl,--out-implib,$(IMP_FILE),--output-def,$(DYN_DIR)/$(basename $@).def -Wl,--major-image-version,$(HB_VER_MAJOR) -Wl,--minor-image-version,$(HB_VER_MINOR) $(DYSTRIP)
       @$(ECHO) $(ECHOQUOTE)! Code signing: $(DYN_DIR)/$@$(ECHOQUOTE)
-      @osslsigncode sign -h sha256 -pkcs12 $(HB_CODESIGN_KEY) -pass $(HB_CODESIGN_KEY_PASS) -ts http://timestamp.digicert.com -in $(DYN_DIR)/$@-unsigned -out $(DYN_DIR)/$@
-      @$(RM) $(DYN_DIR)/$@-unsigned
+      @osslsigncode sign -h sha256 -pkcs12 $(HB_CODESIGN_KEY) -pass $(HB_CODESIGN_KEY_PASS) -ts http://timestamp.digicert.com -in $(DYN_DIR)/$@ -out $(DYN_DIR)/$@-signed
+      @$(CP) $(DYN_DIR)/$@-signed $(DYN_DIR)/$@
+      @$(RM) $(DYN_DIR)/$@-signed
    endef
    DY_RULE = $(create_dynlib_signed)
 else
