@@ -155,10 +155,11 @@ LDFLAGS += $(LIBPATHS)
 
 ifneq ($(HB_CODESIGN_KEY),)
    define create_exe_signed
-      $(LD) $(LDFLAGS) $(HB_LDFLAGS) $(HB_USER_LDFLAGS) $(LD_OUT)$(subst /,$(DIRSEP),$(BIN_DIR)/$@)-unsigned $(^F) $(LDLIBS) $(LDSTRIP)
+      $(LD) $(LDFLAGS) $(HB_LDFLAGS) $(HB_USER_LDFLAGS) $(LD_OUT)$(subst /,$(DIRSEP),$(BIN_DIR)/$@) $(^F) $(LDLIBS) $(LDSTRIP)
       @$(ECHO) $(ECHOQUOTE)! Code signing: $(subst /,$(DIRSEP),$(BIN_DIR)/$@)$(ECHOQUOTE)
-      @osslsigncode sign -h sha256 -pkcs12 $(HB_CODESIGN_KEY) -pass "$(HB_CODESIGN_KEY_PASS)" -ts http://timestamp.digicert.com -in $(subst /,$(DIRSEP),$(BIN_DIR)/$@)-unsigned -out $(subst /,$(DIRSEP),$(BIN_DIR)/$@)
-      @$(RM) $(subst /,$(DIRSEP),$(BIN_DIR)/$@)-unsigned
+      @osslsigncode sign -h sha256 -pkcs12 $(HB_CODESIGN_KEY) -pass "$(HB_CODESIGN_KEY_PASS)" -ts http://timestamp.digicert.com -in $(subst /,$(DIRSEP),$(BIN_DIR)/$@) -out $(subst /,$(DIRSEP),$(BIN_DIR)/$@)-signed
+      @$(CP) $(subst /,$(DIRSEP),$(BIN_DIR)/$@)-signed $(subst /,$(DIRSEP),$(BIN_DIR)/$@)
+      @$(RM) $(subst /,$(DIRSEP),$(BIN_DIR)/$@)-signed
    endef
    LD_RULE = $(create_exe_signed)
 endif
