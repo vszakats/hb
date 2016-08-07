@@ -284,7 +284,7 @@ fi
 # Copy getmingw.hb with some burn-in
 
 sed "s/_HB_VF_DEF_/${HB_VF_DEF}/g" 'getmingw.hb' > "${HB_ABSROOT}bin/getmingw.hb"
-touch -c "${HB_ABSROOT}bin/getmingw.hb" -r "${HB_ABSROOT}README.md"
+touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}bin/getmingw.hb"
 
 cp -f -p 'getsrc.hb' "${HB_ABSROOT}bin/"
 
@@ -298,7 +298,7 @@ fi
 _vcs_id="$(git rev-parse --short HEAD)"
 sed -e "s/_VCS_ID_/${_vcs_id}/g" \
     -e "s/_HB_VERSION_/${_hb_ver}/g" 'RELNOTES.txt' > "${HB_ABSROOT}RELNOTES.txt"
-touch -c "${HB_ABSROOT}RELNOTES.txt" -r "${HB_ABSROOT}README.md"
+touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}RELNOTES.txt"
 
 # Create tag update JSON request
 # https://developer.github.com/v3/git/refs/#update-a-reference
@@ -316,7 +316,7 @@ echo "{\"sha\":\"$(git rev-parse --verify HEAD)\",\"force\":true}" > "${_ROOT}/g
    cd "${HB_ABSROOT}lib" || exit
    find . -type d | grep -Eo '\./[a-z]+?/[a-z0-9]+?$' | cut -c 3-
 ) >> "${HB_ABSROOT}BUILD.txt"
-touch -c "${HB_ABSROOT}BUILD.txt" -r "${HB_ABSROOT}README.md"
+touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}BUILD.txt"
 
 # Copy optional text files containing compiler details
 
@@ -409,7 +409,7 @@ fi
 
 rm "${_ROOT}/_hbfiles"
 
-touch -c "${_pkgname}" -r "${HB_ABSROOT}README.md"
+touch -c -r "${HB_ABSROOT}README.md" "${_pkgname}"
 
 # <filename>: <size> bytes <YYYY-MM-DD> <HH:MM>
 case "$(uname)" in
