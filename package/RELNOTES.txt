@@ -27,7 +27,7 @@ Usage:
    ```
 6. Build test x64 executable:
    ```
-   set PATH=<path-to-msys2>\mingw32\bin;%PATH%
+   set PATH=<path-to-msys2>\mingw64\bin;%PATH%
    hbmk2 <path-to-harbour>/tests/hello.prg -cpu=x64
    ```
 7. Further hints in section **Build Your Own Harbour App**
