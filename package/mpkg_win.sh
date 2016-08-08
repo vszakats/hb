@@ -321,10 +321,12 @@ fi
 
 # Convert EOLs
 
-"${HB_ABSROOT}bin/hbmk2.exe" "${_SCRIPT}" nl "${HB_ABSROOT}*.md"
-"${HB_ABSROOT}bin/hbmk2.exe" "${_SCRIPT}" nl "${HB_ABSROOT}*.txt"
-"${HB_ABSROOT}bin/hbmk2.exe" "${_SCRIPT}" nl "${HB_ABSROOT}addons/*.txt"
-"${HB_ABSROOT}bin/hbmk2.exe" "${_SCRIPT}" nl "${HB_ABSROOT}doc/*.txt"
+if [ "${_BRANCH#*prod*}" = "${_BRANCH}" ] ; then
+   "${HB_ABSROOT}bin/hbmk2.exe" "${_SCRIPT}" nl "${HB_ABSROOT}*.md"
+   "${HB_ABSROOT}bin/hbmk2.exe" "${_SCRIPT}" nl "${HB_ABSROOT}*.txt"
+   "${HB_ABSROOT}bin/hbmk2.exe" "${_SCRIPT}" nl "${HB_ABSROOT}addons/*.txt"
+   "${HB_ABSROOT}bin/hbmk2.exe" "${_SCRIPT}" nl "${HB_ABSROOT}doc/*.txt"
+fi
 
 # Reset Windows attributes
 
