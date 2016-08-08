@@ -18,9 +18,8 @@ Usage:
 2. Launch a Command Prompt.
 3. Add Harbour to `PATH`: `set PATH=<path-to-harbour>\bin;%PATH%`
 4. Download MinGW C compiler by typing: `hbrun getmingw.hb`
-5. Build test x86 executable: `hbmk2 <path-to-harbour>/tests/hello.prg`
+5. Build test x86 executable: `hbmk2 <path-to-harbour>/tests/hello.prg -cpu=x86`
 6. Build test x64 executable: `hbmk2 <path-to-harbour>/tests/hello.prg -cpu=x64`
-   (requires package that contains x64 libraries)
 7. Further hints in section **Build Your Own Harbour App**
    of `README.md`.
 
