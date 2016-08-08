@@ -66,7 +66,7 @@ export HB_BASE='64'
 # [ "${HB_BASE}" != '64' ] && export HB_SFX_7Z="${HB_RT}/7zsfx/7zsd_All.sfx"
 # [ "${HB_BASE}"  = '64' ] && export HB_SFX_7Z="${HB_RT}/7zsfx/7zsd_All_x64.sfx"
 # export HB_DIR_7Z="${HB_RT}/7z/"
-export HB_DIR_UPX="${HB_RT}/upx/"
+# export HB_DIR_UPX="${HB_RT}/upx/"
 _ori_path="${PATH}"
 
 if [ -n "${HB_CI_THREADS}" ] ; then
