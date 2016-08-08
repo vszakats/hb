@@ -281,11 +281,6 @@ if [ -d "${_MINGW_DLL_DIR}" ] ; then
    fi
 fi
 
-# Copy getmingw.hb with some burn-in
-
-sed "s/_HB_VF_DEF_/${HB_VF_DEF}/g" 'getmingw.hb' > "${HB_ABSROOT}bin/getmingw.hb"
-touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}bin/getmingw.hb"
-
 cp -f -p 'getsrc.hb' "${HB_ABSROOT}bin/"
 
 # Burn build information into RELNOTES.txt

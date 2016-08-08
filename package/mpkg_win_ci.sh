@@ -65,7 +65,7 @@ export HB_MKFLAGS="HB_VERSION=${HB_VF}"
 export HB_BASE='64'
 # [ "${HB_BASE}" != '64' ] && export HB_SFX_7Z="${HB_RT}/7zsfx/7zsd_All.sfx"
 # [ "${HB_BASE}"  = '64' ] && export HB_SFX_7Z="${HB_RT}/7zsfx/7zsd_All_x64.sfx"
-export HB_DIR_7Z="${HB_RT}/7z/"
+# export HB_DIR_7Z="${HB_RT}/7z/"
 export HB_DIR_UPX="${HB_RT}/upx/"
 _ori_path="${PATH}"
 
@@ -229,5 +229,8 @@ EOF
 fi
 
 # packaging
+
+unset HB_DIR_CURL_32
+unset HB_DIR_CURL_64
 
 [ "${_BRANC4}" = 'msvc' ] || "$(dirname "$0")/mpkg_win.sh"
