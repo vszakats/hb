@@ -281,8 +281,6 @@ if [ -d "${_MINGW_DLL_DIR}" ] ; then
    fi
 fi
 
-cp -f -p 'getsrc.hb' "${HB_ABSROOT}bin/"
-
 # Burn build information into RELNOTES.txt
 
 _hb_ver="${HB_VF}"
@@ -304,6 +302,8 @@ echo "{\"sha\":\"$(git rev-parse --verify HEAD)\",\"force\":true}" > "${_ROOT}/g
 
 (
    "${HB_ABSROOT}bin/harbour" -build 2>&1 | grep -Ev '^(Version:|Platform:|Extra )'
+   echo "Source archive URL: https://github.com/vszakats/harbour-core/archive/${_vcs_id}.zip"
+   echo ---------------------------
    set | grep '_VER=' | grep -v '^_'
    echo ---------------------------
    set | grep -E '^(HB_USER_|HB_BUILD_|HB_WITH_|HB_STATIC_)' | grep -Ev '(HB_BUILD_POSTRUN=|HB_BUILD_PKG=)'
