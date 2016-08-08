@@ -230,7 +230,4 @@ fi
 
 # packaging
 
-unset HB_DIR_CURL_32
-unset HB_DIR_CURL_64
-
 [ "${_BRANC4}" = 'msvc' ] || "$(dirname "$0")/mpkg_win.sh"

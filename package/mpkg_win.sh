@@ -203,16 +203,16 @@ fi
 
 # Copy curl
 
-if [ "${_lib_target}" = '64' ] ; then
-   HB_DIR_CURL="${HB_DIR_CURL_64}"
-else
-   HB_DIR_CURL="${HB_DIR_CURL_32}"
-fi
-if [ -n "${HB_DIR_CURL}" ] ; then
-   cp -f -p "${HB_DIR_CURL}bin/curl.exe"           "${HB_ABSROOT}bin/"
-   cp -f -p "${HB_DIR_CURL}bin/curl-ca-bundle.crt" "${HB_ABSROOT}bin/"
-   cp -f -p "${HB_DIR_CURL}COPYING.txt"            "${HB_ABSROOT}LICENSE_curl.txt"
-fi
+# if [ "${_lib_target}" = '64' ] ; then
+#    HB_DIR_CURL="${HB_DIR_CURL_64}"
+# else
+#    HB_DIR_CURL="${HB_DIR_CURL_32}"
+# fi
+# if [ -n "${HB_DIR_CURL}" ] ; then
+#    cp -f -p "${HB_DIR_CURL}bin/curl.exe"           "${HB_ABSROOT}bin/"
+#    cp -f -p "${HB_DIR_CURL}bin/curl-ca-bundle.crt" "${HB_ABSROOT}bin/"
+#    cp -f -p "${HB_DIR_CURL}COPYING.txt"            "${HB_ABSROOT}LICENSE_curl.txt"
+# fi
 
 # Copy 3rd party static libraries
 
