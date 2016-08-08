@@ -17,9 +17,19 @@ Usage:
 1. Install/unpack to any directory.
 2. Launch a Command Prompt.
 3. Add Harbour to `PATH`: `set PATH=<path-to-harbour>\bin;%PATH%`
-4. Download MinGW C compiler by typing: `hbrun getmingw.hb`
-5. Build test x86 executable: `hbmk2 <path-to-harbour>/tests/hello.prg -cpu=x86`
-6. Build test x64 executable: `hbmk2 <path-to-harbour>/tests/hello.prg -cpu=x64`
+4. Install MSYS2: <https://msys2.github.io/>
+5. Install mingw using this command on the MSYS2 console:
+   `pacman -S VCS base-devel msys2-devel mingw-w64-{i686,x86_64}-toolchain`
+5. Build test x86 executable:
+   ```
+   set PATH=<path-to-msys2>\mingw32\bin;%PATH%
+   hbmk2 <path-to-harbour>/tests/hello.prg -cpu=x86
+   ```
+6. Build test x64 executable:
+   ```
+   set PATH=<path-to-msys2>\mingw32\bin;%PATH%
+   hbmk2 <path-to-harbour>/tests/hello.prg -cpu=x64
+   ```
 7. Further hints in section **Build Your Own Harbour App**
    of `README.md`.
 
