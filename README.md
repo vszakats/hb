@@ -407,7 +407,6 @@ the build. Make sure to adjust them to your own directories:
     HB_WITH_PCRE=C:\pcre (defaults to locally hosted version if not found)
     HB_WITH_PNG=C:\libpng (defaults to locally hosted version if not found)
     HB_WITH_SLANG= (on *nix systems)
-    HB_WITH_TIFF=C:\libtiff (defaults to locally hosted version if not found)
     HB_WITH_WATT= (on MS-DOS systems)
     HB_WITH_X11= (on *nix systems)
     HB_WITH_ZLIB=C:\zlib (defaults to locally hosted version if not found)
@@ -1546,8 +1545,6 @@ Supported shells per host platforms:
         * <http://pcre.org/>
      * HB_WITH_PNG - libpng [multi-platform, free, open-source]
         * <https://github.com/glennrp/libpng>
-     * HB_WITH_TIFF - libtiff [multi-platform, free, open-source]
-        * <http://remotesensing.org/libtiff/>
      * HB_WITH_WATT - Watt-32 (TCP/IP sockets) [dos, free, open-source]
         * <http://www.watt-32.net/>
      * HB_WITH_ZLIB - zlib [multi-platform, free, open-source]

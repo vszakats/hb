@@ -48,7 +48,7 @@ pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-icu
 # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{bzip2,expat,libharu,lzo2,sqlite3}
 
 # Dependencies of Harbour core (we use vendored sources instead for now)
-# pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{libpng,libtiff,pcre,zlib}
+# pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{libpng,pcre,zlib}
 
 # debug
 
