@@ -403,7 +403,6 @@ the build. Make sure to adjust them to your own directories:
 
     HB_WITH_CURSES= (on *nix systems and DJGPP, auto-detected on both)
     HB_WITH_GPM= (on Linux only)
-    HB_WITH_JPEG=C:\jpeglib (defaults to locally hosted version if not found)
     HB_WITH_PCRE2=C:\pcre2
     HB_WITH_PCRE=C:\pcre (defaults to locally hosted version if not found)
     HB_WITH_PNG=C:\libpng (defaults to locally hosted version if not found)
@@ -1540,8 +1539,6 @@ Supported shells per host platforms:
 
 * Libraries:
 
-     * HB_WITH_JPEG - jpeglib [multi-platform, free, open-source]
-        * <http://infai.org/jpeg/>
      * HB_WITH_PCRE2, HB_WITH_PCRE - Perl Compatible Regular Expressions [multi-platform, free, open-source]
         * <http://pcre.org/>
      * HB_WITH_PNG - libpng [multi-platform, free, open-source]
