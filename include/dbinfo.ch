@@ -104,10 +104,20 @@
 #define RDDI_DECIMALS            46   /* Get/Set default number of decimal places for numeric fields if it's undefined */
 #define RDDI_SETHEADER           47   /* DBF header updating modes */
 
+/* SQL */
+#define RDDI_CONNECT             61   /* connect to database */
+#define RDDI_DISCONNECT          62   /* disconnect from database */
+#define RDDI_EXECUTE             63   /* execute SQL statement */
+#define RDDI_ERROR               64   /* error number */
+#define RDDI_ERRORNO             65   /* error description */
+#define RDDI_INSERTID            66   /* last auto insert ID */
+#define RDDI_AFFECTEDROWS        67   /* number of affected rows after UPDATE */
+#define RDDI_QUERY               68   /* last executed query */
+
 /* Constants for SELF_ORDINFO() */
-#define DBOI_CONDITION            1   /* The order's conditional expression */
-#define DBOI_EXPRESSION           2   /* The order's key expression */
-#define DBOI_POSITION             3   /* The current key position in scope and filter */
+#define DBOI_CONDITION            1   /* The order's conditional expression     */
+#define DBOI_EXPRESSION           2   /* The order's key expression             */
+#define DBOI_POSITION             3   /* The current key position in scope and filter  */
 #define DBOI_RECNO                4   /* The current key position disregarding filters */
 #define DBOI_NAME                 5   /* The name of the order */
 #define DBOI_NUMBER               6   /* The numeric position in the list of orders */
@@ -299,6 +309,8 @@
 #define DBI_RM_TEST             157  /* test if record is set in WA record map */
 #define DBI_RM_COUNT            158  /* number of records set in record map */
 #define DBI_RM_HANDLE           159  /* get/set record map filter handle */
+
+#define DBI_QUERY               170  /* if area represents result of a query, obtain expression of this query */
 
 /* BLOB support - definitions for internal use by blob.ch */
 #define DBI_BLOB_DIRECT_EXPORT  201
