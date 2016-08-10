@@ -3452,10 +3452,10 @@ static HB_ERRCODE adsOpen( ADSAREAP pArea, LPDBOPENINFO pOpenInfo )
       hTable = pArea->hTable;
       hStatement = pArea->hStatement;
    }
-   else if( szFile && ( ( hb_strnicmp( szFile, "SELECT ", 7 ) == 0 ) || 
+   else if( szFile && ( ( hb_strnicmp( szFile, "SELECT ", 7 ) == 0 ) ||
                         ( hb_strnicmp( szFile, "SQL:", 4 ) == 0 ) ) )
    {
-      if( hb_strnicmp( szFile, "SQL:", 4 ) == 0 ) 
+      if( hb_strnicmp( szFile, "SQL:", 4 ) == 0 )
          szFile += 4;
 
       pArea->szQuery = hb_strdup( szFile );
@@ -5318,7 +5318,7 @@ static HB_ERRCODE adsRddInfo( LPRDDNODE pRDD, HB_USHORT uiIndex, HB_ULONG ulConn
          }
          else
          {
-            UNSIGNED16 usLen = ERROR_BUFFER_LEN;
+            UNSIGNED16 usLen = sizeof( pData->szError ) - 1;
 
             pData->ulError = u32RetVal;
             AdsGetLastError( &u32RetVal, pData->szError, &usLen );
@@ -5335,7 +5335,7 @@ static HB_ERRCODE adsRddInfo( LPRDDNODE pRDD, HB_USHORT uiIndex, HB_ULONG ulConn
          /* NOTE: Only allow disconnect of 0 if explicitly passed.
                   The thread default connection handle might be 0 if caller
                   accidentally disconnects twice. */
-    
+
          if( ( hConnect != 0 || HB_IS_NUMERIC( pItem ) ) &&
              AdsDisconnect( hConnect ) == AE_SUCCESS )
          {
@@ -5415,7 +5415,6 @@ static HB_ERRCODE adsRddInfo( LPRDDNODE pRDD, HB_USHORT uiIndex, HB_ULONG ulConn
 
       case RDDI_EXECUTE:
       {
-
          LPRDDADSDATA pData = RDDADSNODE_DATA( pRDD );
          ADSHANDLE hConnect = ulConnect ? ( ADSHANDLE ) ulConnect : hb_ads_getConnection();
          ADSHANDLE hStatement = 0;
@@ -5432,7 +5431,7 @@ static HB_ERRCODE adsRddInfo( LPRDDNODE pRDD, HB_USHORT uiIndex, HB_ULONG ulConn
             AdsStmtSetTableType( hStatement, adsGetFileType( pRDD->rddID ) );
 
             u32RetVal = AdsExecuteSQLDirect( hStatement, ( UNSIGNED8 * ) hb_itemGetCPtr( pItem ), &hCursor );
-            if( u32RetVal == AE_SUCCESS ) 
+            if( u32RetVal == AE_SUCCESS )
             {
                if( AdsGetLastAutoinc( hStatement, &u32RetVal ) == AE_SUCCESS )
                   pData->ulInsertID = u32RetVal;
@@ -5447,18 +5446,18 @@ static HB_ERRCODE adsRddInfo( LPRDDNODE pRDD, HB_USHORT uiIndex, HB_ULONG ulConn
             }
             else
             {
-               UNSIGNED16 usLen = ERROR_BUFFER_LEN;
+               UNSIGNED16 usLen = sizeof( pData->szError ) - 1;
 
                pData->ulError = u32RetVal;
                AdsGetLastError( &u32RetVal, pData->szError, &usLen );
                pData->szError[ usLen ] = '\0';
-
             }
+
             AdsCloseSQLStatement( hStatement );
          }
          else
          {
-            UNSIGNED16 usLen = ERROR_BUFFER_LEN;
+            UNSIGNED16 usLen = sizeof( pData->szError ) - 1;
 
             pData->ulError = u32RetVal;
             AdsGetLastError( &u32RetVal, pData->szError, &usLen );
