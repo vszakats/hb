@@ -8,11 +8,9 @@ set PO=
 set LX=rtlink fi
 set LO=out hbtest52
 
-if "%1" == "53" goto C53
-if "%1" == "xpp" goto XPP
-goto OK
+if "%1"=="xpp" goto XPP
+if not "%1"=="53" goto OK
 
-:C53
 set CO=/FPi
 set PO=/DHB_COMPAT_C53
 set LX=exospace fi
@@ -32,6 +30,6 @@ set PO=%PO% /DRT_HAS_C
 set LO=%LO% fi hbtestc
 :SC
 
-%PX% hbtest /w /n %PO%
+%PX% hbtest /n/w %PO%
 %LX% hbtest %LO%
 del *.obj

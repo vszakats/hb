@@ -7,7 +7,7 @@ set P2=
 set LX=rtlink lib dbfcdx fi
 
 :: 5.3
-if not "%1" == "53" goto DO
+if not "%1"=="53" goto DO
 set C=53
 set P1=/d_TEST_SCOPE_
 set P2=/d_TEST_DESCEND_ /d_TEST_UNIQUE_
