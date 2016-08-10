@@ -128,7 +128,7 @@ if [ "${_BRANC4}" != 'msvc' ] ; then
    #
 
    # Disable picking MSYS2 packages for now
-   export HB_BUILD_3RDEXT=no
+   export HB_BUILD_3RDEXT='no'
 
    export HB_WITH_CURL="${HB_DIR_CURL_32}include"
    export HB_WITH_OPENSSL="${HB_DIR_OPENSSL_32}include"
