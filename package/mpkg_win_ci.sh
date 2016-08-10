@@ -29,26 +29,9 @@ export CURL_HASH_32='6d4a77c5c8026cf07be46382aeb8088310b1836b2ccca63789269f67cda
 export CURL_HASH_64='904822c0de991903e9c5f4579745615bec8aa7e3c9948d42d217570f4a817e40'
 #hashend
 
-# Update/install MSYS2 pacman packages
+# Install/update MSYS2 packages required for completing the build
 
 pacman --noconfirm --noprogressbar -S --needed p7zip mingw-w64-{i686,x86_64}-{jq,osslsigncode}
-
-# Dependencies of the default (full) list of contribs
-if [ "${_BRANCH#*prod*}" = "${_BRANCH}" ] ; then
-   pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{cairo,freeimage,gd,ghostscript,libmariadbclient,postgresql}
-#  pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-qt5
-fi
-
-pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-icu
-
-# Dependencies of 'prod' builds (we use our own builds instead for now)
-# pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{curl,openssl}
-
-# Dependencies of 'prod' builds (we use vendored sources instead for now)
-# pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{bzip2,expat,libharu,lzo2,sqlite3}
-
-# Dependencies of Harbour core (we use vendored sources instead for now)
-# pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{libpng,pcre,zlib}
 
 # debug
 

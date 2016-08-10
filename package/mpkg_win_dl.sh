@@ -9,6 +9,27 @@
 
 _BRANCH="${APPVEYOR_REPO_BRANCH}${TRAVIS_BRANCH}${CI_BUILD_REF_NAME}${GIT_BRANCH}"
 
+# Update/install MSYS2 pacman packages to fullfill dependencies
+
+# Dependencies of the default (full) list of contribs
+if [ "${_BRANCH#*prod*}" = "${_BRANCH}" ] ; then
+   pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{cairo,freeimage,gd,ghostscript,libmariadbclient,postgresql}
+#  pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-qt5
+fi
+
+pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-icu
+
+# Dependencies of 'prod' builds (we use our own builds instead for now)
+# pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{curl,openssl}
+
+# Dependencies of 'prod' builds (we use vendored sources instead for now)
+# pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{bzip2,expat,libharu,lzo2,sqlite3}
+
+# Dependencies of Harbour core (we use vendored sources instead for now)
+# pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{libpng,pcre,zlib}
+
+# Install packages manually
+
 set | grep '_VER='
 
 # Quit if any of the lines fail
