@@ -3,7 +3,7 @@
 Source archives and Windows binaries
 are available for download:
 
-  <_HB_VER_ORIGIN_URL_/releases>
+  <_HB_VER_ORIGIN_URL_releases>
 
 ## Release Notes
 
