@@ -289,7 +289,9 @@ if [ "${HB_VF}" != "${HB_VF_DEF}" ] ; then
 fi
 
 _vcs_id="$(git rev-parse --short HEAD)"
-sed -e "s/_VCS_ID_/${_vcs_id}/g" \
+_vcs_url="$(echo $(git ls-remote --get-url | sed -e 's|.git$||g')/)"
+sed -e "s/_HB_VER_COMMIT_ID_/${_vcs_id}/g" \
+    -e "s/_HB_VER_ORIGIN_URL_/${_vcs_url}/g" \
     -e "s/_HB_VERSION_/${_hb_ver}/g" 'RELNOTES.txt' > "${HB_ABSROOT}RELNOTES.txt"
 touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}RELNOTES.txt"
 
@@ -302,7 +304,7 @@ echo "{\"sha\":\"$(git rev-parse --verify HEAD)\",\"force\":true}" > "${_ROOT}/g
 
 (
    "${HB_ABSROOT}bin/harbour" -build 2>&1 | grep -Ev '^(Version:|Platform:|Extra )'
-   echo "Source archive URL: https://github.com/vszakats/harbour-core/archive/${_vcs_id}.zip"
+   echo "Source archive URL: ${_vcs_url}archive/${_vcs_id}.zip"
    echo ---------------------------
    set | grep '_VER=' | grep -v '^_'
    echo ---------------------------

@@ -48,6 +48,8 @@
 
 #include "hbapi.h"
 
+#define _DEFAULT_ORIGIN_URL  "https://github.com/vszakats/harbour-core/"
+
 int hb_verCommitRev( void )
 {
    return 0;
@@ -323,7 +325,7 @@ static char * hb_pp_escapeString( char * szString )
    return szResult;
 }
 
-static int hb_pp_generateVerInfo( char * szVerFile, int iCommitRev, char * szCommitInfo, char * szCommitID )
+static int hb_pp_generateVerInfo( char * szVerFile, int iCommitRev, char * szCommitInfo, char * szCommitID, char * szURL )
 {
    int iResult = 0;
    FILE * fout;
@@ -349,6 +351,13 @@ static int hb_pp_generateVerInfo( char * szVerFile, int iCommitRev, char * szCom
                " * This file is generated automatically by Harbour preprocessor\n"
                " * and is covered by the same license as Harbour PP\n"
                " */\n\n" );
+
+      if( szURL )
+      {
+         pszEscaped = hb_pp_escapeString( szURL );
+         fprintf( fout, "#define HB_VER_ORIGIN_URL        \"%s\"\n", pszEscaped );
+         hb_xfree( pszEscaped );
+      }
 
       if( szCommitID )
       {
@@ -635,7 +644,8 @@ static int hb_pp_parseChangelog( PHB_PP_STATE pState, const char * pszFileName,
 #define _VALUE_SIZE  128
 
 static int hb_pp_parseRepoVer( PHB_PP_STATE pState, const char * pszFileName,
-                               int iQuiet, char ** pszCommitID, int * piCommitRev, char ** pszCommitInfo )
+                               int iQuiet, char ** pszCommitID, int * piCommitRev, char ** pszCommitInfo,
+                               char ** pszURL )
 {
    FILE * file_in;
 
@@ -644,10 +654,13 @@ static int hb_pp_parseRepoVer( PHB_PP_STATE pState, const char * pszFileName,
    char szName[ _VALUE_SIZE ];
    char szMail[ _VALUE_SIZE ];
    char szCommitInfo[ _VALUE_SIZE ];
+   char szCommitCount[ _VALUE_SIZE ];
+   char szURL[ _VALUE_SIZE ];
 
    int iLen;
 
-   *szId = *szDate = *szName = *szMail = *szCommitInfo = '\0';
+   *szId = *szDate = *szName = *szMail = *szCommitInfo =
+      *szCommitCount = *szURL = '\0';
 
    file_in = hb_fopen( pszFileName, "r" );
    if( ! file_in )
@@ -676,6 +689,10 @@ static int hb_pp_parseRepoVer( PHB_PP_STATE pState, const char * pszFileName,
             pszValue = szName;
          else if( ! *szMail )
             pszValue = szMail;
+         else if( ! *szCommitCount )
+            pszValue = szCommitCount;
+         else if( ! *szURL )
+            pszValue = szURL;
          else
             break;
 
@@ -690,12 +707,24 @@ static int hb_pp_parseRepoVer( PHB_PP_STATE pState, const char * pszFileName,
       fclose( file_in );
    }
 
+   /* Default value if not building from Git source */
+   if( ! *szURL )
+      hb_strncpy( szURL, _DEFAULT_ORIGIN_URL, sizeof( szURL ) - 1 );
+   /* Strip .git suffix from URL, if any */
+   if( strlen( szURL ) >= 4 && strncmp( szURL + strlen( szURL ) - 4, ".git", 4 ) == 0 )
+      szURL[ strlen( szURL ) - 4 ] = '\0';
+   /* Make sure to end with a slash */
+   if( strlen( szURL ) >= 1 && szURL[ strlen( szURL ) - 1 ] != '/' )
+      hb_strncat( szURL, "/", sizeof( szURL ) - 1 );
+
    hb_pp_addDefine( pState, "HB_VER_COMMIT_ID", szId );
+   hb_pp_addDefine( pState, "HB_VER_ORIGIN_URL", szURL );
 #if defined( HB_LEGACY_LEVEL4 )
    hb_pp_addDefine( pState, "HB_VER_CHLID", szId );
 #endif
 
    *pszCommitID = hb_strdup( szId );
+   *pszURL = hb_strdup( szURL );
 
    if( szDate[ 0 ] && szName[ 0 ] && szMail[ 0 ] )
    {
@@ -752,7 +781,7 @@ int main( int argc, char * argv[] )
    char * szFile = NULL, * szRuleFile = NULL, * szVerFile = NULL;
    char * szStdCh = NULL, * szLogFile = NULL, * szRepoVerFile = NULL;
    HB_BOOL fWrite = HB_FALSE, fChgLog = HB_FALSE, fRepoVer = HB_FALSE;
-   char * szCommitID = NULL, * szCommitInfo = NULL;
+   char * szCommitID = NULL, * szCommitInfo = NULL, * szURL = NULL;
    int iCommitRev = 0, iResult = 0, iQuiet = 0;
    char * szPPRuleFuncName = NULL;
    PHB_PP_STATE pState;
@@ -874,7 +903,7 @@ int main( int argc, char * argv[] )
    {
       printf( "Harbour Preprocessor %d.%d.%d%s\n",
               HB_VER_MAJOR, HB_VER_MINOR, HB_VER_RELEASE, HB_VER_STATUS );
-      printf( "Copyright (c) 1999-2016, https://github.com/vszakats/harbour-core/\n" );
+      printf( "Copyright (c) 1999-2016, %s\n", _DEFAULT_ORIGIN_URL );
    }
 
    if( szFile )
@@ -917,13 +946,13 @@ int main( int argc, char * argv[] )
                                             &iCommitRev, &szCommitInfo );
          if( fRepoVer )
             iResult = hb_pp_parseRepoVer( pState, szRepoVerFile, iQuiet,
-                                          &szCommitID, &iCommitRev, &szCommitInfo );
+                                          &szCommitID, &iCommitRev, &szCommitInfo, &szURL );
 
          if( iResult == 0 )
             iResult = hb_pp_preprocesfile( pState, szRuleFile, szPPRuleFuncName );
 
          if( iResult == 0 && szVerFile && szRepoVerFile )
-            iResult = hb_pp_generateVerInfo( szVerFile, iCommitRev, szCommitInfo, szCommitID );
+            iResult = hb_pp_generateVerInfo( szVerFile, iCommitRev, szCommitInfo, szCommitID, szURL );
 
          if( iResult == 0 && hb_pp_errorCount( pState ) > 0 )
             iResult = 1;
@@ -941,6 +970,8 @@ int main( int argc, char * argv[] )
       hb_xfree( szCommitID );
    if( szCommitInfo )
       hb_xfree( szCommitInfo );
+   if( szURL )
+      hb_xfree( szURL );
 
    hb_pp_free( pState );
 

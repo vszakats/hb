@@ -27,6 +27,7 @@
 #pragma -ko+
 
 #include "hblang.ch"
+#include "hbver.ch"
 
 PROCEDURE Main_lang2po()
 
@@ -106,7 +107,7 @@ STATIC FUNCTION Meta()
 
    hMeta := { => }
    hMeta[ "Project-Id-Version:"        ] := "core-lang"
-   hMeta[ "Report-Msgid-Bugs-To:"      ] := "https://github.com/vszakats/harbour-core/issues"
+   hMeta[ "Report-Msgid-Bugs-To:"      ] := hb_Version( HB_VERSION_URL_BASE ) + "issues"
    hMeta[ "POT-Creation-Date:"         ] := cISO_TimeStamp
    hMeta[ "PO-Revision-Date:"          ] := cISO_TimeStamp
    hMeta[ "Last-Translator:"           ] := "foo bar <foo.bar@example.org>"

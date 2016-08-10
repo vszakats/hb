@@ -45,6 +45,7 @@
  */
 
 #include "hbcomp.h"
+#include "hbverbld.h"
 
 void hb_compPrintUsage( HB_COMP_DECL, const char * szSelf )
 {
@@ -259,7 +260,8 @@ void hb_compPrintLogo( HB_COMP_DECL )
    char * szVer = hb_verHarbour();
 
    hb_compOutStd( HB_COMP_PARAM, szVer );
-   hb_compOutStd( HB_COMP_PARAM,
-                  "\nCopyright (c) 1999-2016, https://github.com/vszakats/harbour-core/\n" );
+   hb_compOutStd( HB_COMP_PARAM, "\nCopyright (c) 1999-2016, " );
+   hb_compOutStd( HB_COMP_PARAM, HB_VER_ORIGIN_URL );
+   hb_compOutStd( HB_COMP_PARAM, "\n" );
    hb_xfree( szVer );
 }

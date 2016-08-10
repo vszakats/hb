@@ -50,6 +50,7 @@
 #include "hbdate.h"
 
 #include "hbver.ch"
+#include "hbverbld.h"
 
 HB_FUNC( OS )
 {
@@ -65,11 +66,10 @@ HB_FUNC( HB_VERSION )
 {
    switch( hb_parni( 1 ) )
    {
-      case HB_VERSION_URL_BASE:       hb_retc_const( "https://github.com/vszakats/harbour-core/" ); break;
+      case HB_VERSION_URL_BASE:       hb_retc_const( HB_VER_ORIGIN_URL ); break;
       case HB_VERSION_URL_SOURCE:
       {
-         char * pszVersion = hb_xstrcpy( NULL,
-            "https://github.com/vszakats/harbour-core/",
+         char * pszVersion = hb_xstrcpy( NULL, HB_VER_ORIGIN_URL,
             strlen( hb_verCommitID() ) ? "commit/" : NULL, hb_verCommitID(), NULL );
 
          hb_retclen_buffer( pszVersion, strlen( pszVersion ) );
