@@ -289,7 +289,7 @@ if [ "${HB_VF}" != "${HB_VF_DEF}" ] ; then
 fi
 
 _vcs_id="$(git rev-parse --short HEAD)"
-_vcs_url="$(echo $(git ls-remote --get-url | sed -e 's|.git$||g')/)"
+_vcs_url="$(echo $(git ls-remote --get-url | sed 's|.git$||')/)"
 sed -e "s/_HB_VER_COMMIT_ID_/${_vcs_id}/g" \
     -e "s/_HB_VER_ORIGIN_URL_/${_vcs_url}/g" \
     -e "s/_HB_VERSION_/${_hb_ver}/g" 'RELNOTES.txt' > "${HB_ABSROOT}RELNOTES.txt"
