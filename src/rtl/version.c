@@ -277,6 +277,11 @@ HB_FUNC( HB_OSISWINVISTA )
    hb_retl( hb_iswinvista() );
 }
 
+HB_FUNC( HB_OSISWIN7 )
+{
+   hb_retl( hb_iswin7() );
+}
+
 HB_FUNC( HB_OSISWINCE )
 {
    hb_retl( hb_iswince() );
