@@ -34,7 +34,7 @@ ifeq ($(filter $(HB_COMPILER_VER),1200 1300 1310 1400 1500 1600),)
       LDFLAGS += -highentropyva
       DFLAGS += -highentropyva
    endif
-   #CFLAGS += -sdl
+   CFLAGS += -sdl
 endif
 # enable this only for users of MSVS 2013 and upper
 ifeq ($(filter $(HB_COMPILER_VER),1200 1300 1310 1400 1500 1600 1700),)

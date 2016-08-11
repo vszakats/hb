@@ -19,7 +19,6 @@
 # code signing
 "{win&HB_CODESIGN_KEY_PASS}-sign=${HB_CODESIGN_KEY}"
 "{win&HB_CODESIGN_KEY_PASS}-signpw=${HB_CODESIGN_KEY_PASS}"
-"{win&HB_CODESIGN_KEY_PASS}-signflag=-h sha256"
 
 # disable .hbx updates unless requested
 {!(HB_REBUILD_EXTERN='yes')}-hbx-

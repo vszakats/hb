@@ -8416,6 +8416,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
                   IF AScan( hbmk[ _HBMK_aOPTS ], {| tmp | HBMK_IS_IN( Lower( tmp ), "-v|/v" ) } ) == 0
                      AAdd( hbmk[ _HBMK_aOPTS ], "-q" )
                   ENDIF
+                  cOpt_SignID := hb_DirSepToOS( cOpt_SignID )
                #if defined( __PLATFORM__UNIX )
                CASE ( cBin_Sign := FindInPath( "osslsigncode" ) ) != NIL
                #else
@@ -8427,6 +8428,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
                   CASE "rfc3161"      ; AAdd( hbmk[ _HBMK_aOPTS ], "-ts " + signts_split_arg( hbmk[ _HBMK_cSignTime ], .T. ) ) ; EXIT
                   CASE "authenticode" ; AAdd( hbmk[ _HBMK_aOPTS ], "-t " + signts_split_arg( hbmk[ _HBMK_cSignTime ], .T. ) ) ; EXIT
                   ENDSWITCH
+                  cOpt_SignID := hb_DirSepToOS( cOpt_SignID )
                CASE ( cBin_Sign := FindInPath( "posign.exe" ) ) != NIL /* in Pelles C 7.00.0 or newer */
                   cOpt_Sign := "{FS} -pfx:{ID} -pwd:{PW} {OB}"
                   DO CASE
@@ -8439,6 +8441,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
                      _hbmk_OutErr( hbmk, hb_StrFormat( I_( "Warning: Code signing skipped, because the signing tool found (%1$s) does not support the timestamping standard (%2$s)." ), cBin_Sign, signts_split_arg( hbmk[ _HBMK_cSignTime ] ) ) )
                      cBin_Sign := ""
                   ENDCASE
+                  cOpt_SignID := hb_DirSepToOS( cOpt_SignID )
                OTHERWISE
                   _hbmk_OutErr( hbmk, I_( "Warning: Code signing skipped, because no supported code signing tool could be found." ) )
                ENDCASE

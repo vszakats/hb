@@ -41,9 +41,9 @@ ifneq ($(HB_HAS_PCRE_LOCAL),)
       endif
    endif
 
-#   ifneq ($(filter $(HB_COMPILER),mingw mingw64 msvc mvc64)$(filter $(HB_PLATFORM),darwin linux),)
-#      HB_CFLAGS += -DSUPPORT_JIT
-#   endif
+#  ifneq ($(filter $(HB_COMPILER),mingw mingw64 msvc mvc64)$(filter $(HB_PLATFORM),darwin linux),)
+#     HB_CFLAGS += -DSUPPORT_JIT
+#  endif
 
    HB_CFLAGS += -DHAVE_CONFIG_H
 
@@ -55,6 +55,12 @@ ifneq ($(HB_HAS_PCRE_LOCAL),)
          endif
       else
          HB_CFLAGS += -xbuiltin=%none
+      endif
+   endif
+
+   ifneq ($(filter $(HB_COMPILER),msvc msvc64 msvcia64 msvcarm),)
+      ifeq ($(filter $(HB_COMPILER_VER),1200 1300 1310 1400 1500 1600),)
+         HB_CFLAGS += -sdl-
       endif
    endif
 
