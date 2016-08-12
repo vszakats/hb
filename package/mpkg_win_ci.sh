@@ -31,7 +31,11 @@ export CURL_HASH_64='904822c0de991903e9c5f4579745615bec8aa7e3c9948d42d217570f4a8
 
 # Install/update MSYS2 packages required for completing the build
 
-pacman --noconfirm --noprogressbar -S --needed p7zip mingw-w64-{i686,x86_64}-{jq,osslsigncode}
+pacman --noconfirm --noprogressbar -S --needed p7zip mingw-w64-{i686,x86_64}-{jq,oniguruma,osslsigncode}
+
+# Workaround jq packaging issue: https://github.com/Alexpux/MINGW-packages/issues/1503
+cp /mingw32/bin/libonig-3.dll /mingw32/bin/libonig-2.dll
+cp /mingw64/bin/libonig-3.dll /mingw64/bin/libonig-2.dll
 
 # debug
 
