@@ -454,8 +454,7 @@ cd - || exit
             --form "file=@${_pkgname}")"
          echo "${out}"
          echo "VirusTotal URL for '${_pkgname}':"
-         # echo "${out}" | jq '.permalink'
-         echo "${out}" | grep -o 'https://[a-zA-Z0-9./]*'
+         echo "${out}" | jq '.permalink'
       else
          echo "! File too large for VirusTotal Public API. Upload skipped."
       fi
