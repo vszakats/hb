@@ -298,7 +298,7 @@ touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}RELNOTES.txt"
 # Create tag update JSON request
 # https://developer.github.com/v3/git/refs/#update-a-reference
 
-echo "{\"sha\":\"$(git rev-parse --verify HEAD)\",\"force\":true}" > "${_ROOT}/git_tag_commit.json"
+jq -nc ".sha = \"$(git rev-parse --verify HEAD)\" | .force = true" > "${_ROOT}/git_tag_commit.json"
 
 # Register build information
 
