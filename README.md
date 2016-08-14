@@ -436,7 +436,7 @@ See contrib-specific dependencies and build notes in the projects'
         $ brew install valgrind pcre pcre2 s-lang upx uncrustify ack optipng jpegoptim eg
         $ brew tap caskroom/cask
 
-3. Install [X11](https://www.xquartz.org/) (optional, for gtxwc)
+3. Install [X11](https://www.xquartz.org/) (optional, for `gtxwc`)
 
         $ brew cask install xquartz
 
@@ -498,10 +498,10 @@ Packages for optional core Harbour features:
 
 ## FreeBSD
 
-If you want to use the gtsln library instead of gtstd or gtcrs,
-then you also need to install libslang. If you installed the ports
-collection, then all you need to do to install libslang is to run
-the following commands, which may require that you run su first to
+If you want to use the `gtsln` library instead of `gtstd` or `gtcrs`,
+then you also need to install `libslang`. If you installed the ports
+collection, then all you need to do to install `libslang` is to run
+the following commands, which may require that you run `su` first to
 get the correct permissions:
 
     $ cd /usr/ports/devel/libslang
