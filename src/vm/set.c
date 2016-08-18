@@ -310,6 +310,9 @@ static void open_handle( PHB_SET_STRUCT pSet, const char * file_name,
          {
             szFileName = hb_strdup( szDevice );
             def_ext = NULL;
+#if defined( HB_OS_WIN ) || defined( HB_OS_DOS )
+            fAppend = HB_TRUE;
+#endif
          }
          else
             szFileName = hb_strdup( file_name );
