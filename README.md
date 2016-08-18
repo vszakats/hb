@@ -983,17 +983,6 @@ win-make
 ```
 
 ```batchfile
-:: Symbian OS
-:: (requires preceding build for Windows target)
-set PATH=C:\Symbian\CSL Arm Toolchain\bin;%PATH%
-set HB_PLATFORM=symbian
-set HB_COMPILER=gcc
-set HB_CCPREFIX=arm-none-symbianelf-
-set HB_USER_CFLAGS=-IC:\Symbian\SDK\S60\devices\S60_5th_Edition_SDK_v1.0\epoc32\include\stdapis -IC:\Symbian\SDK\S60\devices\S60_5th_Edition_SDK_v1.0\epoc32\include -D__GCC32__ -D__SYMBIAN32__
-win-make
-```
-
-```batchfile
 :: Cygwin GCC using Cygwin shell
 set PATH=C:\cygwin\bin
 sh -c make
