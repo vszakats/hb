@@ -1,6 +1,7 @@
 class Harbour < Formula
   desc "Portable, xBase-compatible programming language and environment"
   homepage "https://github.com/vszakats/harbour-core/"
+  head "https://github.com/vszakats/harbour-core.git"
 
   stable do
     url "https://github.com/vszakats/harbour-core/archive/v3.0.0.tar.gz"
@@ -16,8 +17,6 @@ class Harbour < Formula
     sha256 "959469eb09104e4210e3380347d618e7e6d00dbd4427a3156a3e5f4524a3d174"
     version "3.4.0"
   end
-
-  head "https://github.com/vszakats/harbour-core.git"
 
   # This one is "vendored", but it is used when found on the system
   depends_on "pcre"
