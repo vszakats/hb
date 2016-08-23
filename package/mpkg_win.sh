@@ -441,17 +441,17 @@ cd - || exit
       [ -n "${GITHUB_TOKEN}" ] ; then
       curl -sS \
          -H "Authorization: token ${GITHUB_TOKEN}" \
-         -X PATCH "https://api.github.com/repos/vszakats/harbour-core/git/refs/tags/v${HB_VF_DEF}" \
-         -d "@${_ROOT}/git_tag_commit.json"
+         -d "@${_ROOT}/git_tag_commit.json" \
+         -X PATCH "https://api.github.com/repos/vszakats/harbour-core/git/refs/tags/v${HB_VF_DEF}"
    fi
 
    if [ -n "${VIRUSTOTAL_APIKEY}" ] ; then
       # https://www.virustotal.com/en/documentation/public-api/#scanning-files
       if [ "$(wc -c < "${_pkgname}")" -lt 32000000 ] ; then
          out="$(curl -sS \
-            -X POST https://www.virustotal.com/vtapi/v2/file/scan \
             --form-string "apikey=${VIRUSTOTAL_APIKEY}" \
-            --form "file=@${_pkgname}")"
+            --form "file=@${_pkgname}")" \
+            -X POST https://www.virustotal.com/vtapi/v2/file/scan
          echo "${out}"
          echo "VirusTotal URL for '${_pkgname}':"
          echo "${out}" | jq '.permalink'
