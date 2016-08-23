@@ -91,7 +91,7 @@ ENDCLASS
 METHOD New( nType, cName, hAttributes, cData ) CLASS TXmlNode
 
    ::nType := hb_defaultValue( nType, HBXML_TYPE_TAG )
-   ::aAttributes := hb_defaultValue( aAttributes, { => } )
+   ::aAttributes := hb_defaultValue( hAttributes, { => } )
    ::cName := cName
    ::cData := cData
 
