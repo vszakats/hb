@@ -10,13 +10,13 @@ PROCEDURE Main()
    LOCAL cString := MemoRead( hb_DirBase() + "test.xml" )
 
    IF HB_ISNULL( cString )
-      ? "xml file unavailable"
+      ? "XML file unavailable"
       RETURN
    ENDIF
 
    oDoc := TXMLDocument():New( cString, HBXML_STYLE_NOESCAPE )
    IF oDoc:nError != HBXML_ERROR_NONE
-      ? "xml file parsing error", hb_ntos( oDoc:nError )
+      ? "XML file parsing error", hb_ntos( oDoc:nError )
       RETURN
    ENDIF
 
@@ -24,6 +24,8 @@ PROCEDURE Main()
       ? "no books found"
       RETURN
    ENDIF
+
+   ? "cloned:", oBook:CloneTree():ToString( HBXML_STYLE_THREESPACES )
 
    DO WHILE .T.
 
