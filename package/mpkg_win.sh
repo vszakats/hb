@@ -450,8 +450,8 @@ cd - || exit
       if [ "$(wc -c < "${_pkgname}")" -lt 32000000 ] ; then
          out="$(curl -sS \
             --form-string "apikey=${VIRUSTOTAL_APIKEY}" \
-            --form "file=@${_pkgname}")" \
-            -X POST https://www.virustotal.com/vtapi/v2/file/scan
+            --form "file=@${_pkgname}" \
+            -X POST https://www.virustotal.com/vtapi/v2/file/scan)"
          echo "${out}"
          echo "VirusTotal URL for '${_pkgname}':"
          echo "${out}" | jq '.permalink'
