@@ -33,10 +33,6 @@ export CURL_HASH_64='7f2c5fa8d90028ef91d45e87f4a356bff99d14f63a620c6198d2c4dd218
 
 pacman --noconfirm --noprogressbar -S --needed p7zip mingw-w64-{i686,x86_64}-{jq,oniguruma,osslsigncode}
 
-# Workaround jq packaging issue: https://github.com/Alexpux/MINGW-packages/issues/1503
-cp /mingw32/bin/libonig-3.dll /mingw32/bin/libonig-2.dll
-cp /mingw64/bin/libonig-3.dll /mingw64/bin/libonig-2.dll
-
 # debug
 
 # export HB_BUILD_CONTRIBS='no'
