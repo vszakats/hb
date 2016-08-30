@@ -104,9 +104,17 @@ static HB_BOOL hb_BIO_METHOD_is( int iParam )
    return HB_ISCHAR( iParam );
 }
 
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+static const BIO_METHOD * hb_BIO_METHOD_par( int iParam )
+#else
 static BIO_METHOD * hb_BIO_METHOD_par( int iParam )
+#endif
 {
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+   const BIO_METHOD * p;
+#else
    BIO_METHOD * p;
+#endif
 
    switch( hb_parni( iParam ) )
    {

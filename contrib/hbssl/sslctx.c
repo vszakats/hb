@@ -94,14 +94,14 @@ const SSL_METHOD * hb_ssl_method_id_to_ptr( int n )
 
    switch( n )
    {
-      case HB_SSL_CTX_NEW_METHOD_TLSV1:         p = TLSv1_method();         break;
-      case HB_SSL_CTX_NEW_METHOD_TLSV1_SERVER:  p = TLSv1_server_method();  break;
-      case HB_SSL_CTX_NEW_METHOD_TLSV1_CLIENT:  p = TLSv1_client_method();  break;
 #if OPENSSL_VERSION_NUMBER >= 0x10100000L
       case HB_SSL_CTX_NEW_METHOD_TLS:           p = TLS_method();           break;
       case HB_SSL_CTX_NEW_METHOD_TLS_SERVER:    p = TLS_server_method();    break;
       case HB_SSL_CTX_NEW_METHOD_TLS_CLIENT:    p = TLS_client_method();    break;
 #else
+      case HB_SSL_CTX_NEW_METHOD_TLSV1:         p = TLSv1_method();         break;
+      case HB_SSL_CTX_NEW_METHOD_TLSV1_SERVER:  p = TLSv1_server_method();  break;
+      case HB_SSL_CTX_NEW_METHOD_TLSV1_CLIENT:  p = TLSv1_client_method();  break;
       case HB_SSL_CTX_NEW_METHOD_TLS:           p = SSLv23_method();        break;
       case HB_SSL_CTX_NEW_METHOD_TLS_SERVER:    p = SSLv23_server_method(); break;
       case HB_SSL_CTX_NEW_METHOD_TLS_CLIENT:    p = SSLv23_client_method(); break;

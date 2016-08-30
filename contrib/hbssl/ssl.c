@@ -335,18 +335,9 @@ HB_FUNC( SSL_CLEAR )
       hb_errRT_BASE( EG_ARG, 2010, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
-HB_FUNC( SSL_STATE )
-{
-   if( hb_SSL_is( 1 ) )
-   {
-      SSL * ssl = hb_SSL_par( 1 );
-
-      if( ssl )
-         hb_retni( SSL_state( ssl ) );
-   }
-   else
-      hb_errRT_BASE( EG_ARG, 2010, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
-}
+#if defined( HB_LEGACY_LEVEL5 )
+HB_FUNC_TRANSLATE( SSL_STATE, SSL_GET_STATE )
+#endif
 
 HB_FUNC( SSL_PENDING )
 {
@@ -742,14 +733,14 @@ HB_FUNC( SSL_GET_SSL_METHOD )
 #endif
          int n;
 
-         if(      p == TLSv1_method()         ) n = HB_SSL_CTX_NEW_METHOD_TLSV1;
-         else if( p == TLSv1_server_method()  ) n = HB_SSL_CTX_NEW_METHOD_TLSV1_SERVER;
-         else if( p == TLSv1_client_method()  ) n = HB_SSL_CTX_NEW_METHOD_TLSV1_CLIENT;
 #if OPENSSL_VERSION_NUMBER >= 0x10100000L
-         else if( p == TLS_method()           ) n = HB_SSL_CTX_NEW_METHOD_TLS;
+         if(      p == TLS_method()           ) n = HB_SSL_CTX_NEW_METHOD_TLS;
          else if( p == TLS_server_method()    ) n = HB_SSL_CTX_NEW_METHOD_TLS_SERVER;
          else if( p == TLS_client_method()    ) n = HB_SSL_CTX_NEW_METHOD_TLS_CLIENT;
 #else
+         if(      p == TLSv1_method()         ) n = HB_SSL_CTX_NEW_METHOD_TLSV1;
+         else if( p == TLSv1_server_method()  ) n = HB_SSL_CTX_NEW_METHOD_TLSV1_SERVER;
+         else if( p == TLSv1_client_method()  ) n = HB_SSL_CTX_NEW_METHOD_TLSV1_CLIENT;
          else if( p == SSLv23_method()        ) n = HB_SSL_CTX_NEW_METHOD_TLS;
          else if( p == SSLv23_server_method() ) n = HB_SSL_CTX_NEW_METHOD_TLS_SERVER;
          else if( p == SSLv23_client_method() ) n = HB_SSL_CTX_NEW_METHOD_TLS_CLIENT;
@@ -1516,7 +1507,7 @@ HB_FUNC( SSL_GET_CIPHERS )
             int      tmp;
 
             for( tmp = 0; tmp < len; tmp++ )
-               hb_arraySetPtr( pArray, tmp + 1, sk_SSL_CIPHER_value( stack, tmp ) );
+               hb_arraySetPtr( pArray, tmp + 1, HB_UNCONST( sk_SSL_CIPHER_value( stack, tmp ) ) );
 
             hb_itemReturnRelease( pArray );
          }

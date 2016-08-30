@@ -335,7 +335,6 @@ DYNAMIC SSL_set_tlsext_host_name
 DYNAMIC SSL_set_verify_result
 DYNAMIC SSL_set_wfd
 DYNAMIC SSL_shutdown
-DYNAMIC SSL_state
 DYNAMIC SSL_state_string
 DYNAMIC SSL_state_string_long
 DYNAMIC SSL_total_renegotiations
