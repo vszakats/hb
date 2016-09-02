@@ -743,7 +743,7 @@ HB_FUNC( PQESCAPESTRING )
    hb_retc_buffer( dest );
 }
 
-HB_FUNC( PQESCAPEBYTEA ) /* deprecated */
+HB_FUNC( PQESCAPEBYTEA )  /* deprecated */
 {
    if( HB_ISCHAR( 1 ) )
    {
@@ -1188,6 +1188,15 @@ HB_FUNC( PQPUTCOPYEND )
       hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 #else
    hb_retc_null();
+#endif
+}
+
+HB_FUNC( PQLIBVERSION )
+{
+#if PG_VERSION_NUM >= 90100
+   hb_retni( PQlibVersion() );
+#else
+   hb_retni( 0 );
 #endif
 }
 

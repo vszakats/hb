@@ -58,6 +58,7 @@ DYNAMIC PQhost
 DYNAMIC PQisBusy
 DYNAMIC PQisnonblocking
 DYNAMIC PQlastrec
+DYNAMIC PQlibVersion
 DYNAMIC PQmetadata
 DYNAMIC PQnfields
 DYNAMIC PQntuples
