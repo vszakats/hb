@@ -140,7 +140,7 @@ if [ "${_BRANC4}" != 'msvc' ] ; then
    export HB_WITH_MYSQL="${_inc}/mysql"
    export HB_WITH_PGSQL="${_inc}"
    export HB_USER_CFLAGS="${_HB_USER_CFLAGS}"
-   [ "${HB_BUILD_MODE}" != 'cpp' ] && export HB_USER_CFLAGS="${HB_USER_CFLAGS} -fno-asynchronous-unwind-tables -fno-unwind-tables"
+   [ "${HB_BUILD_MODE}" != 'cpp' ] && export HB_USER_CFLAGS="${HB_USER_CFLAGS} -fno-asynchronous-unwind-tables"
    export PATH="${HB_DIR_MINGW_32}/bin:${_ori_path}"
    gcc -v 2> "${_build_info_32}"
    # shellcheck disable=SC2086
