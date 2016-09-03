@@ -94,7 +94,7 @@ export HB_CODESIGN_KEY="$(realpath './package/vszakats.p12')"
 if [ "${_BRANC4}" != 'msvc' ] ; then
 
    # LTO is broken as of mingw 6.1.0
-#  [ "${_BRANCH#*prod*}" != "${_BRANCH}" ] && export HB_USER_CFLAGS="${HB_USER_CFLAGS} -flto -ffat-lto-objects"
+#  [ "${_BRANCH#*prod*}" != "${_BRANCH}" ] && _HB_USER_CFLAGS="${_HB_USER_CFLAGS} -flto -ffat-lto-objects"
    [ "${HB_BUILD_MODE}" = 'cpp' ] && export HB_USER_LDFLAGS="${HB_USER_LDFLAGS} -static-libstdc++"
 
    readonly _msys_mingw32='/mingw32'
@@ -141,6 +141,8 @@ if [ "${_BRANC4}" != 'msvc' ] ; then
    export HB_WITH_ICU="${_inc}"
    export HB_WITH_MYSQL="${_inc}/mysql"
    export HB_WITH_PGSQL="${_inc}"
+   export HB_USER_CFLAGS="${_HB_USER_CFLAGS}"
+   [ "${HB_BUILD_MODE}" != 'cpp' ] && export HB_USER_CFLAGS="${HB_USER_CFLAGS} -fno-asynchronous-unwind-tables"
    export PATH="${HB_DIR_MINGW_32}/bin:${_ori_path}"
    gcc -v 2> "${_build_info_32}"
    # shellcheck disable=SC2086
@@ -157,6 +159,7 @@ if [ "${_BRANC4}" != 'msvc' ] ; then
    export HB_WITH_ICU="${_inc}"
    export HB_WITH_MYSQL="${_inc}/mysql"
    export HB_WITH_PGSQL="${_inc}"
+   export HB_USER_CFLAGS="${_HB_USER_CFLAGS}"
    export PATH="${HB_DIR_MINGW_64}/bin:${_ori_path}"
    gcc -v 2> "${_build_info_64}"
    # shellcheck disable=SC2086
