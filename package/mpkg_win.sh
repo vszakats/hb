@@ -12,7 +12,6 @@ cd "$(dirname "$0")" || exit
 # - Adjust target dir, MinGW dirs,
 #   set HB_DIR_UPX, HB_DIR_7Z, HB_DIR_MINGW, HB_DIR_MINGW_32, HB_DIR_MINGW_64
 #   create required packages beforehand.
-# - Optional HB_SFX_7Z envvar pointed to 7z SFX module
 # - Run this from vanilla official source tree only.
 
 # TOFIX: hbmk2.exe invocations break cross-builds.
@@ -321,15 +320,6 @@ if ls       ../BUILD*.txt > /dev/null 2>&1 ; then
    cp -f -p ../BUILD*.txt "${HB_ABSROOT}"
 fi
 
-# Convert EOLs
-
-if [ "${_BRANCH#*prod*}" = "${_BRANCH}" ] ; then
-   "${HB_ABSROOT}bin/hbmk2.exe" "${_SCRIPT}" nl "${HB_ABSROOT}*.md"
-   "${HB_ABSROOT}bin/hbmk2.exe" "${_SCRIPT}" nl "${HB_ABSROOT}*.txt"
-   "${HB_ABSROOT}bin/hbmk2.exe" "${_SCRIPT}" nl "${HB_ABSROOT}addons/*.txt"
-   "${HB_ABSROOT}bin/hbmk2.exe" "${_SCRIPT}" nl "${HB_ABSROOT}doc/*.txt"
-fi
-
 # Reset Windows attributes
 
 case "$(uname)" in
@@ -374,37 +364,6 @@ rm -f "${_pkgname}"
    # NOTE: add -stl option after updating to 15.12 or upper
    7z a -bd -r -mx "${_pkgname}" "@${_ROOT}/_hbfiles" > /dev/null
 )
-
-if [ -f "${HB_SFX_7Z}" ] ; then
-
-   cat << EOF > "_7zconf"
-;!@Install@!UTF-8!
-Title="Harbour ${HB_VF}"
-BeginPrompt="Do you want to install Harbour ${HB_VF}?"
-CancelPrompt="Do you want to cancel installation?"
-ExtractPathText="Select destination path"
-ExtractPathTitle="Harbour ${HB_VF}"
-ExtractTitle="Extracting"
-ExtractDialogText="Please wait..."
-ExtractCancelText="Abort"
-Progress="yes"
-GUIFlags="8+64+256+4096"
-GUIMode="1"
-OverwriteMode="0"
-InstallPath="C:\hb${HB_VS}"
-Shortcut="Du,{cmd.exe},{/k cd /d \"%%T\\\\bin\\\\\"},{},{},{Harbour Shell},{%%T\\\\bin\\\\},{%%T\\\\bin\\\\hbmk2.exe},{0}"
-RunProgram="nowait:notepad.exe \"%%T\\\\RELNOTES.txt\""
-;RunProgram="hbmk2.exe \"%%T\"\\\\install.hb"
-;Delete=""
-;!@InstallEnd@!
-EOF
-
-   cat "${HB_SFX_7Z}" _7zconf "${_pkgname}" > "${_pkgname}.exe"
-
-   rm "${_pkgname}"
-
-   _pkgname="${_pkgname}.exe"
-fi
 
 rm "${_ROOT}/_hbfiles"
 

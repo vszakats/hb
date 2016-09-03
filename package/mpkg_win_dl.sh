@@ -55,10 +55,6 @@ gpg --version | grep gpg
 #  openssl dgst -sha256 pack.bin | grep -q f6c412e8bc45e4a88e675976024c21ed7a23eeb7eb0af452aa7a9b9a97843aa2
 #  7z x -y -o7z pack.bin > /dev/null
 
-#  curl -o pack.bin 'http://7zsfx.info/files/7zsd_extra_160_2712.7z'
-#  openssl dgst -sha256 pack.bin | grep -q eadee3f1fb5a8e3d4cede8a8a4c2eec7687a3b3ee5856216fdb69f4124709605
-#  7z x -y -o7zsfx pack.bin > /dev/null
-
 #  curl -o pack.bin -L --proto-redir =https 'https://fossies.org/windows/misc/upx391w.zip'
 #  openssl dgst -sha256 pack.bin | grep -q d7d4817f46d2616c209c46fb8bce44e4bec93ab5adef5e4dfc93ee879527be1b
 #  7z e -y -oupx pack.bin > /dev/null

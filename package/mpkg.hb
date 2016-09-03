@@ -25,18 +25,6 @@ PROCEDURE Main( cMode )
    _DEBUG( "BEGIN" )
 
    SWITCH Lower( cMode := hb_defaultValue( cMode, "" ) )
-   CASE "nl"
-
-      tmp := hb_DirSepToOS( hb_defaultValue( hb_PValue( 2 ), "" ) )
-
-      OutStd( "! mpkg.hb: Converting newlines in", tmp + hb_eol() )
-
-      FOR EACH file IN hb_vfDirectory( tmp )
-         FileConvEOL( hb_FNameDir( tmp ) + file[ F_NAME ] )
-      NEXT
-
-      EXIT
-
    CASE "pe"
 
       tmp := hb_DirSepToOS( hb_defaultValue( hb_PValue( 3 ), "" ) )
