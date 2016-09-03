@@ -128,6 +128,8 @@ if [ "${_BRANC4}" != 'msvc' ] ; then
    #
 
    export HB_USER_CFLAGS="${HB_USER_CFLAGS} -fno-exceptions"
+   export HB_USER_DFLAGS="${HB_USER_DFLAGS} -fno-exceptions"
+   export HB_USER_LDFLAGS="${HB_USER_LDFLAGS} -fno-exceptions"
 
    # Disable picking MSYS2 packages for now
    export HB_BUILD_3RDEXT='no'
