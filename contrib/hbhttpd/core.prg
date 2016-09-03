@@ -1571,7 +1571,7 @@ STATIC FUNCTION compile_file( cFileName, hConfig )
 
    hb_default( @cFileName, MEMVAR->server[ "SCRIPT_NAME" ] )
 
-   cFileName := UOsFileName( hb_DirBase() + "tpl/" + cFileName + ".tpl" )
+   cFileName := UOsFileName( hb_DirBase() + "tpl/" + cFileName + ".html" )
    IF hb_vfExists( cFileName )
       cTpl := hb_MemoRead( cFileName )
       BEGIN SEQUENCE

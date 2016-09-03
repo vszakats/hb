@@ -33,7 +33,6 @@
 *.sfc     text
 *.spec    text
 *.svg     text
-*.tpl     text
 *.txt     text
 *.ucf     text
 *.vbs     text
