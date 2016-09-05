@@ -618,7 +618,7 @@ HB_FUNC( PQCONNECTIONNEEDSPASSWORD )
 
    if( conn )
 #if PG_VERSION_NUM >= 80300
-      hb_retl( PQconnectionNeedsPassword( conn ) );
+      hb_retl( PQconnectionNeedsPassword( conn ) ? HB_TRUE : HB_FALSE );
 #else
       hb_ret();
 #endif
@@ -632,7 +632,7 @@ HB_FUNC( PQCONNECTIONUSEDPASSWORD )
 
    if( conn )
 #if PG_VERSION_NUM >= 80300
-      hb_retl( PQconnectionUsedPassword( conn ) );
+      hb_retl( PQconnectionUsedPassword( conn ) ? HB_TRUE : HB_FALSE );
 #else
       hb_ret();
 #endif
@@ -646,7 +646,7 @@ HB_FUNC( PQSSLINUSE )
 
    if( conn )
 #if PG_VERSION_NUM >= 90100
-      hb_retl( PQsslInUse( conn ) );
+      hb_retl( PQsslInUse( conn ) ? HB_TRUE : HB_FALSE );
 #else
       hb_ret();
 #endif
@@ -1052,7 +1052,7 @@ HB_FUNC( PQBINARYTUPLES )
    PGresult * res = hb_PGresult_par( 1 );
 
    if( res )
-      hb_retl( PQbinaryTuples( res ) );
+      hb_retl( PQbinaryTuples( res ) ? HB_TRUE : HB_FALSE );
    else
       hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
@@ -1112,7 +1112,7 @@ HB_FUNC( PQGETISNULL )
    PGresult * res = hb_PGresult_par( 1 );
 
    if( res )
-      hb_retl( PQgetisnull( res, hb_parni( 2 ) - 1, hb_parni( 3 ) - 1 ) );
+      hb_retl( PQgetisnull( res, hb_parni( 2 ) - 1, hb_parni( 3 ) - 1 ) ? HB_TRUE : HB_FALSE );
    else
       hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
@@ -1174,7 +1174,7 @@ HB_FUNC( PQCONSUMEINPUT )
    PGconn * conn = hb_PGconn_par( 1 );
 
    if( conn )
-      hb_retl( PQconsumeInput( conn ) );
+      hb_retl( PQconsumeInput( conn ) ? HB_TRUE : HB_FALSE );
    else
       hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
@@ -1216,7 +1216,7 @@ HB_FUNC( PQSETNONBLOCKING )
    PGconn * conn = hb_PGconn_par( 1 );
 
    if( conn )
-      hb_retl( PQsetnonblocking( conn, hb_parl( 2 ) ) );
+      hb_retl( PQsetnonblocking( conn, hb_parl( 2 ) ) ? HB_TRUE : HB_FALSE );
    else
       hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
@@ -1226,7 +1226,7 @@ HB_FUNC( PQISNONBLOCKING )
    PGconn * conn = hb_PGconn_par( 1 );
 
    if( conn )
-      hb_retl( PQisnonblocking( conn ) );
+      hb_retl( PQisnonblocking( conn ) ? HB_TRUE : HB_FALSE );
    else
       hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
@@ -1336,7 +1336,7 @@ HB_FUNC( PQCANCEL )
 
       errbuf[ 0 ] = '\0';
 
-      hb_retl( PQcancel( cancel, errbuf, sizeof( errbuf ) - 1 ) == 1 );
+      hb_retl( PQcancel( cancel, errbuf, sizeof( errbuf ) - 1 ) ? HB_TRUE : HB_FALSE );
 
       hb_storc( errbuf, 2 );
    }
@@ -1440,7 +1440,7 @@ HB_FUNC( PG_ENCODING_TO_CHAR )
 HB_FUNC( PQISTHREADSAFE )
 {
 #if PG_VERSION_NUM >= 80200
-   hb_retl( PQisthreadsafe() );
+   hb_retl( PQisthreadsafe() ? HB_TRUE : HB_FALSE );
 #else
    hb_retl( HB_FALSE );
 #endif
