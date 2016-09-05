@@ -26,12 +26,19 @@ DYNAMIC lo_export
 DYNAMIC lo_import
 DYNAMIC lo_unlink
 DYNAMIC pg_encoding_to_char
+DYNAMIC PQbackendPID
 DYNAMIC PQbinaryTuples
 DYNAMIC PQcancel
 DYNAMIC PQclientEncoding
 DYNAMIC PQcmdStatus
 DYNAMIC PQcmdTuples
 DYNAMIC PQconnectdb
+DYNAMIC PQconnectdbparams
+DYNAMIC PQconnectionNeedsPassword
+DYNAMIC PQconnectionUsedPassword
+DYNAMIC PQconnectPoll
+DYNAMIC PQconnectStart
+DYNAMIC PQconnectStartParams
 DYNAMIC PQconsumeInput
 DYNAMIC PQdb
 DYNAMIC PQerrorMessage
@@ -57,6 +64,7 @@ DYNAMIC PQgetvalue
 DYNAMIC PQhost
 DYNAMIC PQisBusy
 DYNAMIC PQisnonblocking
+DYNAMIC PQisthreadsafe
 DYNAMIC PQlastrec
 DYNAMIC PQlibVersion
 DYNAMIC PQmetadata
@@ -65,7 +73,10 @@ DYNAMIC PQntuples
 DYNAMIC PQoidStatus
 DYNAMIC PQoidValue
 DYNAMIC PQoptions
+DYNAMIC PQparameterStatus
 DYNAMIC PQpass
+DYNAMIC PQping
+DYNAMIC PQpingParams
 DYNAMIC PQport
 DYNAMIC PQprepare
 DYNAMIC PQprotocolVersion
@@ -73,6 +84,8 @@ DYNAMIC PQputCopyData
 DYNAMIC PQputCopyEnd
 DYNAMIC PQrequestCancel
 DYNAMIC PQreset
+DYNAMIC PQresetPoll
+DYNAMIC PQresetStart
 DYNAMIC PQresStatus
 DYNAMIC PQresult2array
 DYNAMIC PQresultErrorField
@@ -84,6 +97,9 @@ DYNAMIC PQsetClientEncoding
 DYNAMIC PQsetdbLogin
 DYNAMIC PQsetErrorVerbosity
 DYNAMIC PQsetnonblocking
+DYNAMIC PQsocket
+DYNAMIC PQsslAttribute
+DYNAMIC PQsslInUse
 DYNAMIC PQstatus
 DYNAMIC PQtrace
 DYNAMIC PQtracecreate

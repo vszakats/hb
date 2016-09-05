@@ -1,7 +1,8 @@
 /*
  * PostgreSQL RDBMS low level (client api) interface code.
  *
- * Copyright 2010 Viktor Szakats (vszakats.net/harbour) (GC support)
+ * Copyright 2016 P.Chornyj <myorg63@mail.ru>
+ * Copyright 2010-2016 Viktor Szakats (vszakats.net/harbour) (GC support, etc)
  * Copyright 2003 Rodrigo Moreno rodrigo_moreno@yahoo.com
  *
  * This program is free software; you can redistribute it and/or modify
@@ -226,9 +227,51 @@ static FILE * hb_FILE_par( int iParam )
 
 #endif
 
-/*
- * Connection handling functions
- */
+/* Get the version of the libpq library in use */
+
+HB_FUNC( PQLIBVERSION )
+{
+#if PG_VERSION_NUM >= 90100
+   hb_retni( PQlibVersion() );
+#else
+   hb_retni( 0 );
+#endif
+}
+
+/* Connection handling functions */
+
+/* 31.1. Database Connection Control Functions
+   The following functions deal with making a connection to a PostgreSQL backend server. */
+
+HB_FUNC( PQCONNECTDBPARAMS )
+{
+   PHB_ITEM pParam = hb_param( 1, HB_IT_HASH );
+   int len;
+
+   if( pParam && ( len = ( int ) hb_hashLen( pParam ) ) > 0 )
+   {
+#if PG_VERSION_NUM >= 90000
+      const char ** paramKeyValues = ( const char ** ) hb_xgrab( sizeof( char * ) * len );
+      const char ** paramValValues = ( const char ** ) hb_xgrab( sizeof( char * ) * len );
+      int pos;
+
+      for( pos = 0; pos < len; ++pos )
+      {
+         paramKeyValues[ pos ] = hb_itemGetCPtr( hb_hashGetKeyAt( pParam, pos + 1 ) );
+         paramValValues[ pos ] = hb_itemGetCPtr( hb_hashGetValueAt( pParam, pos + 1 ) );
+      }
+
+      hb_PGconn_ret( PQconnectdbParams( paramKeyValues, paramValValues, hb_parl( 2 ) ) );
+
+      hb_xfree( ( void * ) paramKeyValues );
+      hb_xfree( ( void * ) paramValValues );
+#else
+      hb_retptr( NULL );
+#endif
+   }
+   else
+      hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
 
 HB_FUNC( PQCONNECTDB )
 {
@@ -250,6 +293,54 @@ HB_FUNC( PQSETDBLOGIN )
                                 hb_parcx( 7 ) /* pwd */ ) );
 }
 
+HB_FUNC( PQCONNECTSTARTPARAMS )
+{
+   PHB_ITEM pParam = hb_param( 1, HB_IT_HASH );
+   int len;
+
+   if( pParam && ( len = ( int ) hb_hashLen( pParam ) ) > 0 )
+   {
+#if PG_VERSION_NUM >= 90000
+      const char ** paramKeyValues = ( const char ** ) hb_xgrab( sizeof( char * ) * len );
+      const char ** paramValValues = ( const char ** ) hb_xgrab( sizeof( char * ) * len );
+      int pos;
+
+      for( pos = 0; pos < len; ++pos )
+      {
+         paramKeyValues[ pos ] = hb_itemGetCPtr( hb_hashGetKeyAt( pParam, pos + 1 ) );
+         paramValValues[ pos ] = hb_itemGetCPtr( hb_hashGetValueAt( pParam, pos + 1 ) );
+      }
+
+      hb_PGconn_ret( PQconnectStartParams( paramKeyValues, paramValValues, hb_parl( 2 ) ) );
+
+      hb_xfree( ( void * ) paramKeyValues );
+      hb_xfree( ( void * ) paramValValues );
+#else
+      hb_retptr( NULL );
+#endif
+   }
+   else
+      hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+HB_FUNC( PQCONNECTSTART )
+{
+   if( HB_ISCHAR( 1 ) )
+      hb_PGconn_ret( PQconnectStart( hb_parc( 1 ) ) );
+   else
+      hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+HB_FUNC( PQCONNECTPOLL )
+{
+   PGconn * conn = hb_PGconn_par( 1 );
+
+   if( conn )
+      hb_retni( PQconnectPoll( conn ) );
+   else
+      hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
 HB_FUNC( PQRESET )
 {
    PGconn * conn = hb_PGconn_par( 1 );
@@ -260,15 +351,70 @@ HB_FUNC( PQRESET )
       hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
-HB_FUNC( PQPROTOCOLVERSION )
+HB_FUNC( PQRESETSTART )
 {
    PGconn * conn = hb_PGconn_par( 1 );
 
    if( conn )
-      hb_retni( PQprotocolVersion( conn ) );
+      PQresetStart( conn );
    else
       hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
+
+HB_FUNC( PQRESETPOLL )
+{
+   PGconn * conn = hb_PGconn_par( 1 );
+
+   if( conn )
+      hb_retni( PQresetPoll( conn ) );
+   else
+      hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+HB_FUNC( PQPINGPARAMS )
+{
+   PHB_ITEM pParam = hb_param( 1, HB_IT_HASH );
+   int len;
+
+   if( pParam && ( len = ( int ) hb_hashLen( pParam ) ) > 0 )
+   {
+#if PG_VERSION_NUM >= 90100
+      const char ** paramKeyValues = ( const char ** ) hb_xgrab( sizeof( char * ) * len );
+      const char ** paramValValues = ( const char ** ) hb_xgrab( sizeof( char * ) * len );
+      int pos;
+
+      for( pos = 0; pos < len; ++pos )
+      {
+         paramKeyValues[ pos ] = hb_itemGetCPtr( hb_hashGetKeyAt( pParam, pos + 1 ) );
+         paramValValues[ pos ] = hb_itemGetCPtr( hb_hashGetValueAt( pParam, pos + 1 ) );
+      }
+
+      hb_retni( PQpingParams( paramKeyValues, paramValValues, hb_parl( 3 ) ) );
+
+      hb_xfree( ( void * ) paramKeyValues );
+      hb_xfree( ( void * ) paramValValues );
+#else
+      hb_retptr( NULL );
+#endif
+   }
+   else
+      hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+HB_FUNC( PQPING )
+{
+   if( HB_ISCHAR( 1 ) )
+#if PG_VERSION_NUM >= 90100
+      hb_retni( PQping( hb_parc( 1 ) ) );
+#else
+      hb_ret();
+#endif
+   else
+      hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+/* 31.2. Connection Status Functions.
+   These functions can be used to interrogate the status of an existing database connection object. */
 
 HB_FUNC( PQCLIENTENCODING )
 {
@@ -360,12 +506,78 @@ HB_FUNC( PQOPTIONS )
       hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
+HB_FUNC( PQRESULTERRORFIELD )
+{
+   PGresult * res = hb_PGresult_par( 1 );
+
+   if( res )
+#if PG_VERSION_NUM >= 70400
+      hb_retc( PQresultErrorField( res, hb_parni( 2 ) ) );
+#else
+      hb_retc_null();
+#endif
+   else
+      hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+HB_FUNC( PQRESSTATUS )
+{
+   hb_retc( PQresStatus( ( ExecStatusType ) hb_parnl( 1 ) ) );
+}
+
+/* 31.2. Connection Status Functions.
+   These functions can be used to interrogate the status of an existing database connection object. */
+
+HB_FUNC( PQSTATUS )
+{
+   PGconn * conn = hb_PGconn_par( 1 );
+
+   if( conn )
+      hb_retni( PQstatus( conn ) );
+   else
+      hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
 HB_FUNC( PQTRANSACTIONSTATUS )
 {
    PGconn * conn = hb_PGconn_par( 1 );
 
    if( conn )
       hb_retni( PQtransactionStatus( conn ) );
+   else
+      hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+HB_FUNC( PQPARAMETERSTATUS )
+{
+   PGconn * conn = hb_PGconn_par( 1 );
+
+   if( conn )
+      hb_retc( PQparameterStatus( conn, hb_parcx( 2 ) ) );
+   else
+      hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+HB_FUNC( PQPROTOCOLVERSION )
+{
+   PGconn * conn = hb_PGconn_par( 1 );
+
+   if( conn )
+      hb_retni( PQprotocolVersion( conn ) );
+   else
+      hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+HB_FUNC( PQSERVERVERSION )
+{
+   PGconn * conn = hb_PGconn_par( 1 );
+
+   if( conn )
+#if PG_VERSION_NUM >= 80000
+      hb_retni( PQserverVersion( conn ) );
+#else
+      hb_retni( 0 );
+#endif
    else
       hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
@@ -380,38 +592,83 @@ HB_FUNC( PQERRORMESSAGE )
       hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
-HB_FUNC( PQRESULTERRORFIELD )
-{
-#if PG_VERSION_NUM >= 70400
-   PGresult * res = hb_PGresult_par( 1 );
-
-   if( res )
-      hb_retc( PQresultErrorField( res, hb_parni( 2 ) ) );
-   else
-      hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
-#else
-   hb_retc_null();
-#endif
-}
-
-HB_FUNC( PQRESSTATUS )
-{
-   hb_retc( PQresStatus( ( ExecStatusType ) hb_parnl( 1 ) ) );
-}
-
-HB_FUNC( PQSTATUS )
+HB_FUNC( PQSOCKET )
 {
    PGconn * conn = hb_PGconn_par( 1 );
 
    if( conn )
-      hb_retni( PQstatus( conn ) );
+      hb_retni( PQsocket( conn ) );
    else
       hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
-/*
- * Query handling functions
- */
+HB_FUNC( PQBACKENDPID )
+{
+   PGconn * conn = hb_PGconn_par( 1 );
+
+   if( conn )
+      hb_retni( PQbackendPID( conn ) );
+   else
+      hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+HB_FUNC( PQCONNECTIONNEEDSPASSWORD )
+{
+   PGconn * conn = hb_PGconn_par( 1 );
+
+   if( conn )
+#if PG_VERSION_NUM >= 80300
+      hb_retl( PQconnectionNeedsPassword( conn ) );
+#else
+      hb_ret();
+#endif
+   else
+      hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+HB_FUNC( PQCONNECTIONUSEDPASSWORD )
+{
+   PGconn * conn = hb_PGconn_par( 1 );
+
+   if( conn )
+#if PG_VERSION_NUM >= 80300
+      hb_retl( PQconnectionUsedPassword( conn ) );
+#else
+      hb_ret();
+#endif
+   else
+      hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+HB_FUNC( PQSSLINUSE )
+{
+   PGconn * conn = hb_PGconn_par( 1 );
+
+   if( conn )
+#if PG_VERSION_NUM >= 90100
+      hb_retl( PQsslInUse( conn ) );
+#else
+      hb_ret();
+#endif
+   else
+      hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+HB_FUNC( PQSSLATTRIBUTE )
+{
+   PGconn * conn = hb_PGconn_par( 1 );
+
+   if( conn )
+#if PG_VERSION_NUM >= 90100
+      hb_retc( PQsslAttribute( conn, hb_parcx( 2 ) ) );
+#else
+      hb_retc_null();
+#endif
+   else
+      hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+/* Query handling functions */
 
 HB_FUNC( PQEXEC )
 {
@@ -890,9 +1147,7 @@ HB_FUNC( PQNFIELDS )
       hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
-/*
- * Asynchronous functions
- */
+/* Asynchronous functions */
 
 HB_FUNC( PQSENDQUERY )
 {
@@ -954,6 +1209,8 @@ HB_FUNC( PQFLUSH )
       hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
+/* Set blocking/nonblocking connection to the backend */
+
 HB_FUNC( PQSETNONBLOCKING )
 {
    PGconn * conn = hb_PGconn_par( 1 );
@@ -974,9 +1231,7 @@ HB_FUNC( PQISNONBLOCKING )
       hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
-/*
- * Trace Connection handling functions
- */
+/* Trace Connection handling functions */
 
 HB_FUNC( PQTRACECREATE )  /* not a direct wrapper */
 {
@@ -1024,9 +1279,7 @@ HB_FUNC( PQSETERRORVERBOSITY )
       hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
-/*
- * Large Object functions
- */
+/* Large Object functions */
 
 HB_FUNC( LO_IMPORT )
 {
@@ -1056,20 +1309,6 @@ HB_FUNC( LO_UNLINK )
       hb_retl( lo_unlink( conn, ( Oid ) hb_parnl( 2 ) ) == 1 );
    else
       hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
-}
-
-HB_FUNC( PQSERVERVERSION )
-{
-#if PG_VERSION_NUM >= 80000
-   PGconn * conn = hb_PGconn_par( 1 );
-
-   if( conn )
-      hb_retni( PQserverVersion( conn ) );
-   else
-      hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
-#else
-   hb_retni( 0 );
-#endif
 }
 
 HB_FUNC( PQGETCANCEL )
@@ -1191,18 +1430,20 @@ HB_FUNC( PQPUTCOPYEND )
 #endif
 }
 
-HB_FUNC( PQLIBVERSION )
-{
-#if PG_VERSION_NUM >= 90100
-   hb_retni( PQlibVersion() );
-#else
-   hb_retni( 0 );
-#endif
-}
-
 HB_FUNC( PG_ENCODING_TO_CHAR )
 {
    hb_retc( pg_encoding_to_char( hb_parni( 1 ) ) );
+}
+
+/* 31.19 Behavior in Threaded Programs */
+
+HB_FUNC( PQISTHREADSAFE )
+{
+#if PG_VERSION_NUM >= 80200
+   hb_retl( PQisthreadsafe() );
+#else
+   hb_retl( HB_FALSE );
+#endif
 }
 
 #if 0
