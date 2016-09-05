@@ -82,7 +82,7 @@ export HB_CODESIGN_KEY="$(realpath './package/vszakats.p12')"
 (
    set +x
    if [ -n "${HB_CODESIGN_GPG_PASS}" ] ; then
-      gpg --batch --passphrase "${HB_CODESIGN_GPG_PASS}" -o "${HB_CODESIGN_KEY}" -d "${HB_CODESIGN_KEY}.gpg"
+      gpg --batch --passphrase "${HB_CODESIGN_GPG_PASS}" -o "${HB_CODESIGN_KEY}" -d "${HB_CODESIGN_KEY}.asc"
    fi
 )
 [ -f "${HB_CODESIGN_KEY}" ] || unset HB_CODESIGN_KEY
