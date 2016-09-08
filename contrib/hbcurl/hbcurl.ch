@@ -509,7 +509,8 @@
 #define HB_CURLE_COULDNT_RESOLVE_PROXY        5  /* */
 #define HB_CURLE_COULDNT_RESOLVE_HOST         6  /* */
 #define HB_CURLE_COULDNT_CONNECT              7  /* */
-#define HB_CURLE_FTP_WEIRD_SERVER_REPLY       8  /* */
+#define HB_CURLE_WEIRD_SERVER_REPLY           8  /* */
+#define HB_CURLE_FTP_WEIRD_SERVER_REPLY       HB_CURLE_WEIRD_SERVER_REPLY
 #define HB_CURLE_REMOTE_ACCESS_DENIED         9  /* a service was denied by the server due to lack of access - when login fails this is not returned. */
 #define HB_CURLE_OBSOLETE10                   10 /* NOT USED */
 #define HB_CURLE_FTP_WEIRD_PASS_REPLY         11 /* */
