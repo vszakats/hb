@@ -8,6 +8,11 @@
 -depimplibs=openssl:../lib/libcrypto.dll.a:libeay32{allmingw}
 -depimplibs=openssl:../lib/libssl.dll.a:ssleay32{allmingw}
 
+-instfile=depimplibsrc:${HBMK_DIR_OPENSSL}/../libcrypto-1_1.dll{hbdyn&mingw}
+-instfile=depimplibsrc:${HBMK_DIR_OPENSSL}/../libssl-1_1.dll{hbdyn&mingw}
+-instfile=depimplibsrc:${HBMK_DIR_OPENSSL}/../libcrypto-1_1-x64.dll{hbdyn&mingw64}
+-instfile=depimplibsrc:${HBMK_DIR_OPENSSL}/../libssl-1_1-x64.dll{hbdyn&mingw64}
+
 hbssl.hbm
 
 -hbx=${hb_name}
