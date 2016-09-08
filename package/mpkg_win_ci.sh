@@ -31,7 +31,7 @@ export CURL_HASH_64='acbba7a45860136fa4e1b212e5032f9ec40ca96477d0874167d986ea0f1
 
 # Install/update MSYS2 packages required for completing the build
 
-pacman --noconfirm --noprogressbar -S --needed p7zip mingw-w64-{i686,x86_64}-{jq,oniguruma,osslsigncode}
+pacman --noconfirm --noprogressbar -S --needed p7zip mingw-w64-{i686,x86_64}-{jq,osslsigncode}
 
 # debug
 
