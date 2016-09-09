@@ -8,8 +8,8 @@ headers=${hb_name}.ch
 
 skip={dos}
 
-{!HB_DYNBIND_OPENSSL&!(HB_STATIC_OPENSSL&!hbdyn)}libs=${_HB_DYNPREF}${hb_name}${_HB_DYNSUFF}
-{!HB_DYNBIND_OPENSSL& (HB_STATIC_OPENSSL&!hbdyn)}libs=${_HB_DYNPREF}${hb_name}s${_HB_DYNSUFF}
+{!HB_DYNBIND_OPENSSL&!(allwin&HB_STATIC_OPENSSL&!hbdyn)}libs=${_HB_DYNPREF}${hb_name}${_HB_DYNSUFF}
+{!HB_DYNBIND_OPENSSL& (allwin&HB_STATIC_OPENSSL&!hbdyn)}libs=${_HB_DYNPREF}${hb_name}s${_HB_DYNSUFF}
 
 libpaths=/usr/local/opt/openssl/lib{darwin}
 libpaths=/usr/local/opt/libressl/lib{darwin}
