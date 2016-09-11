@@ -1,6 +1,6 @@
 1. Download PageScript32 package and unzip it:
 
-   <https://web.archive.org/web/20150201213531/http://abeelabs.com/downloads/PS32.zip>
+   <https://web.archive.org/web/abeelabs.com/downloads/PS32.zip>
 
    sha256: `c9a9fb6d81054468d2884a913275184a318be8a5c830bc901376ae88e720849d`
 

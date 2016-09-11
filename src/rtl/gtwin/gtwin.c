@@ -1197,7 +1197,7 @@ static int hb_gt_win_ReadKey( PHB_GT pGT, int iEventMask )
       {
 #if defined( UNICODE )
          /* Workaround for UNICOWS bug:
-               https://web.archive.org/http://blogs.msdn.com/michkap/archive/2007/01/13/1460724.aspx
+               https://web.archive.org/web/blogs.msdn.com/michkap/archive/2007/01/13/1460724.aspx
             [vszakats] */
 
          if( s_fWin9x )
