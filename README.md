@@ -1567,21 +1567,19 @@ Supported shells per host platforms:
         * <https://duckduckgo.com/?q=upx>
      * 7-Zip [multi-platform, free, open-source]
         * <http://7-zip.org/>
-     * 7-Zip SFX modules [win, free, open-source]
-        * <http://7zsfx.info/en/>
      * GNU Make
 
         Windows binary + source:
 
-         * <https://www.mirrorservice.org/sites/dl.sourceforge.net/pub/sourceforge/m/mi/mingw/MinGW/Extension/make/make-3.82-mingw32/make-3.82-5-mingw32-bin.tar.lzma>
-         * <https://www.mirrorservice.org/sites/dl.sourceforge.net/pub/sourceforge/m/mi/mingw/MinGW/Extension/make/make-3.82-mingw32/make-3.82-5-mingw32-src.tar.lzma>
+         * <https://mirrorservice.org/sites/dl.sourceforge.net/pub/sourceforge/m/mi/mingw/MinGW/Extension/make/make-3.82-mingw32/make-3.82-5-mingw32-bin.tar.lzma>
+         * <https://mirrorservice.org/sites/dl.sourceforge.net/pub/sourceforge/m/mi/mingw/MinGW/Extension/make/make-3.82-mingw32/make-3.82-5-mingw32-src.tar.lzma>
          * `git clone ssh://git.sv.gnu.org/srv/git/make.git`
           <br />(included in Harbour as [win-make.exe](win-make.exe))
 
         MS-DOS binary + source:
 
-         * <https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/beta/v2gnu/mak381b.zip>
-         * <https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/beta/v2gnu/mak381s.zip>
+         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/beta/v2gnu/mak381b.zip>
+         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/beta/v2gnu/mak381s.zip>
           <br />(included in Harbour as [dos-make.exe](dos-make.exe))
 
         OS/2 binary + source (3.81r3 or upper):
@@ -1593,12 +1591,12 @@ Supported shells per host platforms:
 
         MS-DOS binary + source:
 
-         * <https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/fil41b.zip>
-         * <https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/fil41s.zip>
-         * <https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/shl2011b.zip>
-         * <https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/shtl208s.zip>
-         * <https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/djdev203.zip>
-         * <https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/djlsr203.zip>
+         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/fil41b.zip>
+         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/fil41s.zip>
+         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/shl2011b.zip>
+         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/shtl208s.zip>
+         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/djdev203.zip>
+         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/djlsr203.zip>
           <br />(included in Harbour as [dosmkdir.exe](config/dosmkdir.exe), [dosrm.exe](config/dosrm.exe), [doscp.exe](config/doscp.exe), [dosecho.exe](config/dosecho.exe))
 
         OS/2 binary:
