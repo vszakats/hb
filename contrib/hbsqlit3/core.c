@@ -1754,13 +1754,15 @@ HB_FUNC( SQLITE3_ENABLE_SHARED_CACHE )
    hb_retni( sqlite3_enable_shared_cache( hb_parl( 1 ) ) );
 }
 
+/* TODO: implement sqlite3_trace_v2(), that replaces both of these deprecated functions */
+
+#if defined( HB_LEGACY_LEVEL4 )
 /**
    Tracing And Profiling Functions
 
    sqlite3_trace( db, lOnOff )
    sqlite3_profile( db, lOnOff )
  */
-
 static void SQL3ProfileLog( void * sFile, const char * sProfileMsg, sqlite3_uint64 uint64 )
 {
    if( sProfileMsg )
@@ -1789,8 +1791,6 @@ static void SQL3TraceLog( void * sFile, const char * sTraceMsg )
    }
 }
 
-/* TODO: implement sqlite3_trace_v2(), that replaces both of these deprecated functions */
-#if defined( HB_LEGACY_LEVEL4 )
 HB_FUNC( SQLITE3_PROFILE )
 {
    HB_SQLITE3 * pHbSqlite3 = ( HB_SQLITE3 * ) hb_sqlite3_param( 1, HB_SQLITE3_DB, HB_TRUE );
