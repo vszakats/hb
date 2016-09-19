@@ -667,8 +667,6 @@ STATIC FUNCTION CheckFile( cName, /* @ */ aErr, lApplyFixes, cLocalRoot, lRebase
       "*.yyc", ;
       "*.cs", ;
       "*.dif", ;
-      "*.htm", ;
-      "*.html", ;
       "*.plist", ;
       "*.xml", ;
       "*.xsd", ;
@@ -676,8 +674,7 @@ STATIC FUNCTION CheckFile( cName, /* @ */ aErr, lApplyFixes, cLocalRoot, lRebase
       "*.java", ;
       "*.js", ;
       "*.svg", ;
-      "*.vbs", ;
-      "*.css" }
+      "*.vbs" }
 
    LOCAL aAnyIdent := { ;
       hb_osFileMask() }

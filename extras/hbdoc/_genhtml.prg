@@ -106,24 +106,20 @@ METHOD NewFile() CLASS GenerateHTML
    hb_vfWrite( ::hFile, "<!DOCTYPE html>" + hb_eol() )
 
    ::OpenTag( "html", "lang", "en" )
-   ::OpenTag( "head" )
-   ::OpenTag( "meta", "charset", "UTF-8" )
-   ::CloseTag( "meta" )
-   ::Append( ::cTitle /* + iif( Empty( ::cDescription ), "", " - " + ::cDescription ) */, "title" )
-   ::OpenTag( "meta", "name", "generator", "content", "Harbour examples/hbdoc" )
-   ::CloseTag( "meta" )
-   ::OpenTag( "meta", "name", "keywords", "content", "Harbour Project, Clipper, xBase, database, Free Software, GNU, compiler, cross platform, 32-bit, 64-bit" )
-   ::CloseTag( "meta" )
+
+   ::OpenTag( "meta", "charset", "utf-8" )
+   ::OpenTag( "meta", "name", "generator", "content", "hbdoc" )
+   ::OpenTag( "meta", "name", "keywords", "content", "Harbour, Clipper, xBase, database, Free Software, GPL, compiler, cross platform, 32-bit, 64-bit" )
 
    IF ::lCreateStyleDocument
       ::lCreateStyleDocument := .F.
       ::RecreateStyleDocument( STYLEFILE )
    ENDIF
-   ::OpenTag( "link", "rel", "stylesheet", "type", "text/css", "href", STYLEFILE )
-   ::CloseTag( "link" )
 
-   ::CloseTag( "head" )
-   ::OpenTag( "body" )
+   ::OpenTag( "link", "rel", "stylesheet", "type", "text/css", "href", STYLEFILE )
+
+   ::Append( ::cTitle /* + iif( Empty( ::cDescription ), "", " - " + ::cDescription ) */, "title" )
+
    ::Append( ::cTitle, "h1" )
 
    RETURN self
@@ -195,12 +191,6 @@ METHOD AddEntry( oEntry ) CLASS GenerateHTML
    RETURN self
 
 METHOD Generate() CLASS GenerateHTML
-
-   IF ::hFile != NIL
-      ::CloseTag( "body" )
-      ::CloseTag( "html" )
-   ENDIF
-
    RETURN self
 
 METHOD PROCEDURE WriteEntry( cField, oEntry, lPreformatted ) CLASS GenerateHTML
