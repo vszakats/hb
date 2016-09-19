@@ -246,7 +246,7 @@ function ShowProgress()
 		a.style.verticalAlign = "bottom";
 		a.style.backgroundColor="#9FCDFF";
 
-		a.innerHTML = "<img style='vertical-align:bottom' src='" + path + "ajax-loader.gif?a'>&nbsp;please wait...";
+		a.innerHTML = "<img style='vertical-align:bottom' alt='progress' src='" + path + "ajax-loader.gif?a'>&nbsp;please wait...";
 		document.body.appendChild(a);
 
 	}

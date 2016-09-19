@@ -18,8 +18,8 @@
     var qstr = getquerystring();
     if ( force || qstr.length > 4 )
     {
-//      qstr = 'w1=' + escape(qstr);  // NOTE: no '?' before querystring
-//      xmlPost('/cgi-bin/showcounter.hrb', qstr + "&sid=" + Math.random(), tableResponseHandler);
+//    qstr = 'w1=' + escape(qstr);  // NOTE: no '?' before querystring
+//    xmlPost('/cgi-bin/showcounter.hrb', qstr + "&sid=" + Math.random(), tableResponseHandler);
       divpart = 'result';
       updatepage( escape( qstr ) );
     }
@@ -30,14 +30,14 @@
   {
     var form = document.forms[ 'f1' ];
     var word = form.word.value;
-//    alert( 'qstr: ' + qstr );
+//  alert( 'qstr: ' + qstr );
     return word;
   }
 
   function updatepage( str )
   {
-//    document.getElementById( divpart ).innerHTML = str; /* "<img src='/counter/" + str + "' />"; */
-    document.getElementById( divpart ).innerHTML = "<img src='/cgi-bin/showcounter.hrb?w=" + str + "' />";
+//  document.getElementById( divpart ).innerHTML = str; /* "<img src='/counter/" + str + "' alt='counter'>"; */
+    document.getElementById( divpart ).innerHTML = "<img src='/cgi-bin/showcounter.hrb?w=" + str + "' alt='counter'>";
   }
 
   /**

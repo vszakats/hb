@@ -82,7 +82,7 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    METHOD Tagged( cText, cTag, ... )
    METHOD CloseTag( cText )
    METHOD Append( cText, cFormat )
-   METHOD Newline() INLINE hb_vfWrite( ::hFile, "<br />" + hb_eol() ), self
+   METHOD Newline() INLINE hb_vfWrite( ::hFile, "<br>" + hb_eol() ), self
 
    CLASS VAR lCreateStyleDocument AS LOGICAL INIT .T.
    VAR TargetFilename AS STRING INIT ""
@@ -142,12 +142,12 @@ METHOD BeginSection( cSection, cFilename ) CLASS  GenerateHTML
 
    IF ::IsIndex()
       IF cFilename == ::cFilename
-         ::OpenTag( "div", "id", cSection ):Append( cSection, "h" + hb_ntos( ::Depth + 2 ) ):CloseTag( "div" )// :Newline()
+         ::OpenTag( "div", "id", cSection ):Append( cSection, "h" + hb_ntos( ::Depth + 2 ) ):CloseTag( "div" )
       ELSE
-         ::OpenTag( "a", "href", cFilename + ::cExtension + "#" + cSection ):Append( cSection, "h" + hb_ntos( ::Depth + 2 ) ):CloseTag( "a" )// :Newline()
+         ::OpenTag( "a", "href", cFilename + ::cExtension + "#" + cSection ):Append( cSection, "h" + hb_ntos( ::Depth + 2 ) ):CloseTag( "a" )
       ENDIF
    ELSE
-      ::OpenTag( "div", "id", cSection ):Append( cSection, "h" + hb_ntos( ::Depth + 2 ) ):CloseTag( "div" )// :Newline()
+      ::OpenTag( "div", "id", cSection ):Append( cSection, "h" + hb_ntos( ::Depth + 2 ) ):CloseTag( "div" )
    ENDIF
    ::TargetFilename := cFilename
    ::Depth++
