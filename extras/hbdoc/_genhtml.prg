@@ -116,7 +116,7 @@ METHOD NewFile() CLASS GenerateHTML
       ::RecreateStyleDocument( STYLEFILE )
    ENDIF
 
-   ::OpenTag( "link", "rel", "stylesheet", "type", "text/css", "href", STYLEFILE )
+   ::OpenTag( "link", "rel", "stylesheet", "href", STYLEFILE )
 
    ::Append( ::cTitle /* + iif( Empty( ::cDescription ), "", " - " + ::cDescription ) */, "title" )
 
@@ -139,6 +139,8 @@ METHOD NewIndex( cDir, cFilename, cTitle ) CLASS GenerateHTML
    RETURN self
 
 METHOD BeginSection( cSection, cFilename ) CLASS  GenerateHTML
+
+   cSection := SymbolToHTMLID( cSection )
 
    IF ::IsIndex()
       IF cFilename == ::cFilename
@@ -182,7 +184,7 @@ METHOD AddEntry( oEntry ) CLASS GenerateHTML
 
    FOR EACH item IN oEntry:Fields
       IF item[ 1 ] == "NAME"
-         ::OpenTag( "div", "id", oEntry:filename ):OpenTag( "h4" ):Append( oEntry:Name ):CloseTag( "h4" ):CloseTag( "div" )
+         ::OpenTag( "div", "id", SymbolToHTMLID( oEntry:filename ) ):OpenTag( "h4" ):Append( oEntry:Name ):CloseTag( "h4" ):CloseTag( "div" )
       ELSEIF oEntry:IsField( item[ 1 ] ) .AND. oEntry:IsOutput( item[ 1 ] ) .AND. Len( oEntry:&( item[ 1 ] ) ) > 0
          ::WriteEntry( item[ 1 ], oEntry, oEntry:IsPreformatted( item[ 1 ] ) )
       ENDIF
@@ -316,3 +318,6 @@ METHOD RecreateStyleDocument( cStyleFile ) CLASS GenerateHTML
    ENDIF
 
    RETURN self
+
+STATIC FUNCTION SymbolToHTMLID( cID )
+   RETURN Lower( hb_StrReplace( cID, "_ ", "--" ) )
