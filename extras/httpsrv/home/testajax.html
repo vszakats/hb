@@ -3,54 +3,14 @@
 
 <meta charset="utf-8">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-
-<script language="Javascript">
-  function xmlhttpPost(strURL)
-  {
-    var xmlHttpReq = false;
-    var self = this;
-    // Mozilla/Safari
-    if ( window.XMLHttpRequest )
-    {
-      self.xmlHttpReq = new XMLHttpRequest();
-    }
-    // IE
-    else if ( window.ActiveXObject )
-    {
-      self.xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-    self.xmlHttpReq.open('POST', strURL, true);
-    self.xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    self.xmlHttpReq.onreadystatechange = function()
-    {
-      if ( self.xmlHttpReq.readyState == 4 )
-      {
-        updatepage( self.xmlHttpReq.responseText );
-      }
-    }
-    self.xmlHttpReq.send( getquerystring() );
-  }
-
-  function getquerystring()
-  {
-    var form = document.forms[ 'f1' ];
-    var word = form.word.value;
-    qstr = 'w=' + escape(word);  // NOTE: no '?' before querystring
-    return qstr;
-  }
-
-  function updatepage( str )
-  {
-    document.getElementById( "result" ).innerHTML = str;
-  }
-</script>
+<script src="/js/testajax.js"></script>
 
 <title>Simple Ajax Example</title>
 
 This is a simple ajax test. Please type a string in input field and press GO button.
 <form name="f1">
   <p>word: <input name="word" type="text">
-  <input value="Go" type="button" onclick='JavaScript:xmlhttpPost("/cgi-bin/testajax.hrb")'></p>
+  <input value="Go" type="button" onclick="xmlhttpPost('/cgi-bin/testajax.hrb')">
   <div id="result"></div>
 </form>
 Return to <a href="/">Main Page</a>
