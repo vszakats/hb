@@ -395,7 +395,7 @@ static HB_BYTE hb_ntxItemType( PHB_ITEM pItem )
    switch( hb_itemType( pItem ) )
    {
       case HB_IT_STRING:
-      case HB_IT_STRING | HB_IT_MEMO:
+      case HB_IT_MEMO:
          return 'C';
 
       case HB_IT_INTEGER:
@@ -809,7 +809,7 @@ static void hb_ntxTagSetScope( LPTAGINFO pTag, HB_USHORT nScope, PHB_ITEM pItem 
    if( pArea->dbfarea.lpdbPendingRel && pArea->dbfarea.lpdbPendingRel->isScoped )
       SELF_FORCEREL( &pArea->dbfarea.area );
 
-   pScopeVal = ( hb_itemType( pItem ) == HB_IT_BLOCK ) ?
+   pScopeVal = ( hb_itemType( pItem ) & HB_IT_BLOCK ) ?
                            hb_vmEvalBlock( pItem ) : pItem;
 
    if( hb_ntxItemTypeCmp( pTag->KeyType ) == hb_ntxItemTypeCmp( hb_ntxItemType( pScopeVal ) ) )
@@ -873,13 +873,13 @@ static void hb_ntxTagRefreshScope( LPTAGINFO pTag )
        pTag->pIndex->pArea->dbfarea.lpdbPendingRel->isScoped )
       SELF_FORCEREL( &pTag->pIndex->pArea->dbfarea.area );
 
-   if( hb_itemType( pTag->top.scopeItem ) == HB_IT_BLOCK )
+   if( hb_itemType( pTag->top.scopeItem ) & HB_IT_BLOCK )
    {
       pItem = hb_vmEvalBlock( pTag->top.scopeItem );
       pTag->top.scopeKey = hb_ntxKeyPutItem( pTag->top.scopeKey, pItem,
                pTag->top.scopeKey->Xtra, pTag, HB_TRUE, &pTag->top.scopeKeyLen );
    }
-   if( hb_itemType( pTag->bottom.scopeItem ) == HB_IT_BLOCK )
+   if( hb_itemType( pTag->bottom.scopeItem ) & HB_IT_BLOCK )
    {
       pItem = hb_vmEvalBlock( pTag->bottom.scopeItem );
       pTag->bottom.scopeKey = hb_ntxKeyPutItem( pTag->bottom.scopeKey, pItem,
@@ -4178,7 +4178,7 @@ static HB_BOOL hb_ntxOrdSkipEval( LPTAGINFO pTag, HB_BOOL fForward, PHB_ITEM pEv
 
    HB_TRACE( HB_TR_DEBUG, ( "hb_ntxOrdSkipEval(%p, %d, %p)", pTag, fForward, pEval ) );
 
-   if( hb_itemType( pEval ) != HB_IT_BLOCK )
+   if( ( hb_itemType( pEval ) & HB_IT_BLOCK ) == 0 )
    {
       if( SELF_SKIP( &pArea->dbfarea.area, fForward ? 1 : -1 ) != HB_SUCCESS )
          return HB_FALSE;
@@ -5501,7 +5501,7 @@ static HB_ERRCODE hb_ntxTagCreate( LPTAGINFO pTag, HB_BOOL fReindex )
             switch( hb_itemType( pItem ) )
             {
                case HB_IT_STRING:
-               case HB_IT_STRING | HB_IT_MEMO:
+               case HB_IT_MEMO:
                   hb_ntxSortKeyAdd( pSort, pArea->dbfarea.ulRecNo,
                                     hb_itemGetCPtr( pItem ),
                                     ( HB_INTCAST ) hb_itemGetCLen( pItem ) );
@@ -6385,7 +6385,7 @@ static HB_ERRCODE hb_ntxOrderCreate( NTXAREAP pArea, LPDBORDERCREATEINFO pOrderI
          SELF_GOTO( &pArea->dbfarea.area, ulRecNo );
          return errCode;
       }
-      fOK = hb_itemType( pArea->dbfarea.area.valResult ) == HB_IT_LOGICAL;
+      fOK = hb_itemType( pArea->dbfarea.area.valResult ) & HB_IT_LOGICAL;
       hb_itemRelease( pArea->dbfarea.area.valResult );
       pArea->dbfarea.area.valResult = NULL;
       if( ! fOK )
@@ -6913,7 +6913,7 @@ static HB_ERRCODE hb_ntxOrderInfo( NTXAREAP pArea, HB_USHORT uiIndex, LPDBORDERI
                         pArea->dbfarea.area.valResult = NULL;
                         if( SELF_EVALBLOCK( &pArea->dbfarea.area, pForItem ) == HB_SUCCESS )
                         {
-                           fOK = hb_itemType( pArea->dbfarea.area.valResult ) == HB_IT_LOGICAL;
+                           fOK = hb_itemType( pArea->dbfarea.area.valResult ) & HB_IT_LOGICAL;
                            hb_itemRelease( pArea->dbfarea.area.valResult );
                            pArea->dbfarea.area.valResult = NULL;
                         }
@@ -6993,7 +6993,7 @@ static HB_ERRCODE hb_ntxOrderInfo( NTXAREAP pArea, HB_USHORT uiIndex, LPDBORDERI
             break;
          case DBOI_ISDESC:
             pInfo->itmResult = hb_itemPutL( pInfo->itmResult, pTag->fUsrDescend );
-            if( hb_itemType( pInfo->itmNewVal ) == HB_IT_LOGICAL )
+            if( hb_itemType( pInfo->itmNewVal ) & HB_IT_LOGICAL )
                pTag->fUsrDescend = hb_itemGetL( pInfo->itmNewVal );
             break;
          case DBOI_UNIQUE:
@@ -7001,7 +7001,7 @@ static HB_ERRCODE hb_ntxOrderInfo( NTXAREAP pArea, HB_USHORT uiIndex, LPDBORDERI
             break;
          case DBOI_CUSTOM:
             if( ! pTag->Template &&
-                hb_itemType( pInfo->itmNewVal ) == HB_IT_LOGICAL )
+                hb_itemType( pInfo->itmNewVal ) & HB_IT_LOGICAL )
             {
                HB_BOOL fNewVal = hb_itemGetL( pInfo->itmNewVal );
                if( pTag->Custom ? ! fNewVal : fNewVal )
@@ -7023,7 +7023,7 @@ static HB_ERRCODE hb_ntxOrderInfo( NTXAREAP pArea, HB_USHORT uiIndex, LPDBORDERI
             break;
          case DBOI_CHGONLY:
             if( ! pTag->Custom &&
-                hb_itemType( pInfo->itmNewVal ) == HB_IT_LOGICAL )
+                hb_itemType( pInfo->itmNewVal ) & HB_IT_LOGICAL )
             {
                HB_BOOL fNewVal = hb_itemGetL( pInfo->itmNewVal );
                if( pTag->ChgOnly ? ! fNewVal : fNewVal )
@@ -7203,7 +7203,7 @@ static HB_ERRCODE hb_ntxOrderInfo( NTXAREAP pArea, HB_USHORT uiIndex, LPDBORDERI
                                  uiIndex == DBOI_FINDRECCONT ) );
             break;
          case DBOI_SCOPEEVAL:
-            if( hb_itemType( pInfo->itmNewVal ) == HB_IT_ARRAY &&
+            if( ( hb_itemType( pInfo->itmNewVal ) & HB_IT_ARRAY ) &&
                 hb_arrayLen( pInfo->itmNewVal ) == DBRMI_SIZE &&
                 hb_arrayGetPtr( pInfo->itmNewVal, DBRMI_FUNCTION ) != NULL )
             {
@@ -7224,7 +7224,7 @@ static HB_ERRCODE hb_ntxOrderInfo( NTXAREAP pArea, HB_USHORT uiIndex, LPDBORDERI
             pInfo->itmResult = hb_itemPutNInt( pInfo->itmResult, pTag->pIndex->Version );
             break;
          case DBOI_READLOCK:
-            if( hb_itemType( pInfo->itmNewVal ) == HB_IT_LOGICAL )
+            if( hb_itemType( pInfo->itmNewVal ) & HB_IT_LOGICAL )
                pInfo->itmResult = hb_itemPutL( pInfo->itmResult,
                             hb_itemGetL( pInfo->itmNewVal ) ?
                                  hb_ntxIndexLockRead( pTag->pIndex ) :
@@ -7233,7 +7233,7 @@ static HB_ERRCODE hb_ntxOrderInfo( NTXAREAP pArea, HB_USHORT uiIndex, LPDBORDERI
                pInfo->itmResult = hb_itemPutL( pInfo->itmResult, pTag->pIndex->lockRead > 0 );
             break;
          case DBOI_WRITELOCK:
-            if( hb_itemType( pInfo->itmNewVal ) == HB_IT_LOGICAL )
+            if( hb_itemType( pInfo->itmNewVal ) & HB_IT_LOGICAL )
                pInfo->itmResult = hb_itemPutL( pInfo->itmResult,
                             hb_itemGetL( pInfo->itmNewVal ) ?
                                  hb_ntxIndexLockWrite( pTag->pIndex, HB_TRUE ) :
@@ -7256,7 +7256,7 @@ static HB_ERRCODE hb_ntxOrderInfo( NTXAREAP pArea, HB_USHORT uiIndex, LPDBORDERI
             break;
          case DBOI_SHARED:
             pInfo->itmResult = hb_itemPutL( pInfo->itmResult, pTag->pIndex->fShared );
-            if( hb_itemType( pInfo->itmNewVal ) == HB_IT_LOGICAL )
+            if( hb_itemType( pInfo->itmNewVal ) & HB_IT_LOGICAL )
                pTag->pIndex->fShared = hb_itemGetL( pInfo->itmNewVal );
             break;
          case DBOI_ISREADONLY:
@@ -7738,7 +7738,7 @@ static HB_ERRCODE hb_ntxRddInfo( LPRDDNODE pRDD, HB_USHORT uiIndex, HB_ULONG ulC
          hb_itemPutL( pItem, HB_FALSE );
 #else
          HB_BOOL fMultiTag = pData->fMultiTag;
-         if( hb_itemType( pItem ) == HB_IT_LOGICAL )
+         if( hb_itemType( pItem ) & HB_IT_LOGICAL )
             pData->fMultiTag = hb_itemGetL( pItem );
          hb_itemPutL( pItem, fMultiTag );
 #endif
@@ -7748,7 +7748,7 @@ static HB_ERRCODE hb_ntxRddInfo( LPRDDNODE pRDD, HB_USHORT uiIndex, HB_ULONG ulC
       case RDDI_SORTRECNO:
       {
          HB_BOOL fSortRecNo = pData->fSortRecNo;
-         if( hb_itemType( pItem ) == HB_IT_LOGICAL )
+         if( hb_itemType( pItem ) & HB_IT_LOGICAL )
             pData->fSortRecNo = hb_itemGetL( pItem );
          hb_itemPutL( pItem, fSortRecNo );
          break;
@@ -7757,7 +7757,7 @@ static HB_ERRCODE hb_ntxRddInfo( LPRDDNODE pRDD, HB_USHORT uiIndex, HB_ULONG ulC
       case RDDI_STRUCTORD:
       {
          HB_BOOL fStruct = pData->fStruct;
-         if( hb_itemType( pItem ) == HB_IT_LOGICAL )
+         if( hb_itemType( pItem ) & HB_IT_LOGICAL )
             pData->fStruct = hb_itemGetL( pItem );
          hb_itemPutL( pItem, fStruct );
          break;
@@ -7766,7 +7766,7 @@ static HB_ERRCODE hb_ntxRddInfo( LPRDDNODE pRDD, HB_USHORT uiIndex, HB_ULONG ulC
       case RDDI_STRICTSTRUCT:
       {
          HB_BOOL fStrictStruct = pData->fStrictStruct;
-         if( hb_itemType( pItem ) == HB_IT_LOGICAL )
+         if( hb_itemType( pItem ) & HB_IT_LOGICAL )
             pData->fStrictStruct = hb_itemGetL( pItem );
          hb_itemPutL( pItem, fStrictStruct );
          break;
@@ -7775,7 +7775,7 @@ static HB_ERRCODE hb_ntxRddInfo( LPRDDNODE pRDD, HB_USHORT uiIndex, HB_ULONG ulC
       case RDDI_MULTIKEY:
       {
          HB_BOOL fMultiKey = pData->fMultiKey;
-         if( hb_itemType( pItem ) == HB_IT_LOGICAL )
+         if( hb_itemType( pItem ) & HB_IT_LOGICAL )
             pData->fMultiKey = hb_itemGetL( pItem );
          hb_itemPutL( pItem, fMultiKey );
          break;
