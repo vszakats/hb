@@ -839,6 +839,12 @@ HB_FUNC( CURL_EASY_SETOPT )
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_FAILONERROR, HB_CURL_OPT_BOOL( 3 ) );
                break;
 
+#if LIBCURL_VERSION_NUM >= 0x073300
+            case HB_CURLOPT_KEEP_SENDING_ON_ERROR:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_KEEP_SENDING_ON_ERROR, HB_CURL_OPT_BOOL( 3 ) );
+               break;
+#endif
+
             /* Network */
 
             /* This is the only option that must be set before curl_easy_perform() is called. */
