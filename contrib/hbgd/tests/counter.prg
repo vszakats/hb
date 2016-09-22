@@ -9,7 +9,7 @@
 #require "hbgd"
 
 /* Some digit images from:
-   https://web.archive.org/web/20140701090819/http://www.digitmania.holowww.com/all.html */
+   https://web.archive.org/web/www.digitmania.holowww.com/all.html */
 
 #define IMAGES_IN   "imgs_in" + hb_ps()
 #define IMAGES_OUT  "imgs_out" + hb_ps()

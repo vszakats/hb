@@ -21,7 +21,6 @@
 -depincpath=curl:/usr/local/include
 
 -cflag=-DCURL_NO_OLDIES
--cflag=-DCURL_STRICTER
 
 date.c
 easy.c

@@ -65,29 +65,29 @@ PROCEDURE Main( ... )
    ELSEIF cPhoto != NIL
       StartHTML()
 #if 0
-      WRITE hb_ValToExp( hParams ) + "<br />"
-      WRITE hb_ValToExp( cParams ) + "<br />"
-      WRITE hb_ValToExp( cQuery ) + "<br />"
-      WRITE "<img src='test_out.exe?img=" + cPhoto + "&width=" + hb_ntos( nWidth ) + "&height=" + hb_ntos( nHeight ) + "'>" + "<br />"
+      WRITE hb_ValToExp( hParams ) + "<br>"
+      WRITE hb_ValToExp( cParams ) + "<br>"
+      WRITE hb_ValToExp( cQuery ) + "<br>"
+      WRITE '<img src="test_out.exe?img=' + cPhoto + "&width=" + hb_ntos( nWidth ) + "&height=" + hb_ntos( nHeight ) + '" alt="pic">' + "<br>"
 #endif
       WRITE "<table border=1>"
       WRITE "<tr><td align='center'>"
-      WRITE "<img src='test_out.exe?img=" + cPhoto + "'>" + "<br />"
+      WRITE '<img src="test_out.exe?img=' + cPhoto + '" alt="pic">' + "<br>"
       WRITE "</td></tr>"
       WRITE "<tr><td align='center'>"
-      WRITE "<img src='test_out.exe?img=" + cPhoto + ;
+      WRITE '<img src="test_out.exe?img=' + cPhoto + ;
          iif( HB_ISNUMERIC( nWidth ), "&width=" + hb_ntos( nWidth ), "" ) + ;
          iif( HB_ISNUMERIC( nHeight ), "&height=" + hb_ntos( nHeight ), "" ) + ;
-         "'>" + "<br />"
+         '" alt="pic">' + "<br>"
       WRITE "</td></tr>"
       WRITE "<tr><td align='center'>"
       WRITE cPhoto
       WRITE "</td></tr>"
       WRITE "</table>"
-      WRITE "<br />"
+      WRITE "<br>"
 #if 0
-      WRITE "<img src='test_out.exe?img=" + cText + "_2&pt=" + hb_ntos( nPt ) + "'>" + "<br />"
-      WRITE OS() + "<br />"
+      WRITE '<img src="test_out.exe?img=' + cText + "_2&pt=" + hb_ntos( nPt ) + '" alt="pic">' + "<br>"
+      WRITE OS() + "<br>"
 #endif
       EndHTML()
    ELSE
@@ -102,19 +102,14 @@ STATIC PROCEDURE StartHTML( cTitle )
    WRITE "content-type: text/html"
    WRITE "Pragma: no-cache"
    WRITE hb_eol()
-   WRITE "<html>"
-   WRITE "<head>"
+   WRITE "<!DOCTYPE html>"
+   WRITE '<html lang="en">'
+   WRITE '<meta charset="utf-8">'
    WRITE "<title>" + hb_defaultValue( cTitle, "" ) + "</title>"
-   WRITE "</head>"
-   WRITE "<body>"
 
    RETURN
 
 STATIC PROCEDURE EndHTML()
-
-   WRITE "</body>"
-   WRITE "</html>"
-
    RETURN
 
 STATIC PROCEDURE OutPhoto( cPhoto, nWidth, nHeight )

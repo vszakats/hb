@@ -82,7 +82,7 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    METHOD Tagged( cText, cTag, ... )
    METHOD CloseTag( cText )
    METHOD Append( cText, cFormat )
-   METHOD Newline() INLINE hb_vfWrite( ::hFile, "<br />" + hb_eol() ), self
+   METHOD Newline() INLINE hb_vfWrite( ::hFile, "<br>" + hb_eol() ), self
 
    CLASS VAR lCreateStyleDocument AS LOGICAL INIT .T.
    VAR TargetFilename AS STRING INIT ""
@@ -106,24 +106,20 @@ METHOD NewFile() CLASS GenerateHTML
    hb_vfWrite( ::hFile, "<!DOCTYPE html>" + hb_eol() )
 
    ::OpenTag( "html", "lang", "en" )
-   ::OpenTag( "head" )
-   ::OpenTag( "meta", "charset", "UTF-8" )
-   ::CloseTag( "meta" )
-   ::Append( ::cTitle /* + iif( Empty( ::cDescription ), "", " - " + ::cDescription ) */, "title" )
-   ::OpenTag( "meta", "name", "generator", "content", "Harbour examples/hbdoc" )
-   ::CloseTag( "meta" )
-   ::OpenTag( "meta", "name", "keywords", "content", "Harbour Project, Clipper, xBase, database, Free Software, GNU, compiler, cross platform, 32-bit, 64-bit" )
-   ::CloseTag( "meta" )
+
+   ::OpenTag( "meta", "charset", "utf-8" )
+   ::OpenTag( "meta", "name", "generator", "content", "hbdoc" )
+   ::OpenTag( "meta", "name", "keywords", "content", "Harbour, Clipper, xBase, database, Free Software, GPL, compiler, cross platform, 32-bit, 64-bit" )
 
    IF ::lCreateStyleDocument
       ::lCreateStyleDocument := .F.
       ::RecreateStyleDocument( STYLEFILE )
    ENDIF
-   ::OpenTag( "link", "rel", "stylesheet", "type", "text/css", "href", STYLEFILE )
-   ::CloseTag( "link" )
 
-   ::CloseTag( "head" )
-   ::OpenTag( "body" )
+   ::OpenTag( "link", "rel", "stylesheet", "href", STYLEFILE )
+
+   ::Append( ::cTitle /* + iif( Empty( ::cDescription ), "", " - " + ::cDescription ) */, "title" )
+
    ::Append( ::cTitle, "h1" )
 
    RETURN self
@@ -144,14 +140,16 @@ METHOD NewIndex( cDir, cFilename, cTitle ) CLASS GenerateHTML
 
 METHOD BeginSection( cSection, cFilename ) CLASS  GenerateHTML
 
+   cSection := SymbolToHTMLID( cSection )
+
    IF ::IsIndex()
       IF cFilename == ::cFilename
-         ::OpenTag( "div", "id", cSection ):Append( cSection, "h" + hb_ntos( ::Depth + 2 ) ):CloseTag( "div" )// :Newline()
+         ::OpenTag( "div", "id", cSection ):Append( cSection, "h" + hb_ntos( ::Depth + 2 ) ):CloseTag( "div" )
       ELSE
-         ::OpenTag( "a", "href", cFilename + ::cExtension + "#" + cSection ):Append( cSection, "h" + hb_ntos( ::Depth + 2 ) ):CloseTag( "a" )// :Newline()
+         ::OpenTag( "a", "href", cFilename + ::cExtension + "#" + cSection ):Append( cSection, "h" + hb_ntos( ::Depth + 2 ) ):CloseTag( "a" )
       ENDIF
    ELSE
-      ::OpenTag( "div", "id", cSection ):Append( cSection, "h" + hb_ntos( ::Depth + 2 ) ):CloseTag( "div" )// :Newline()
+      ::OpenTag( "div", "id", cSection ):Append( cSection, "h" + hb_ntos( ::Depth + 2 ) ):CloseTag( "div" )
    ENDIF
    ::TargetFilename := cFilename
    ::Depth++
@@ -186,7 +184,7 @@ METHOD AddEntry( oEntry ) CLASS GenerateHTML
 
    FOR EACH item IN oEntry:Fields
       IF item[ 1 ] == "NAME"
-         ::OpenTag( "div", "id", oEntry:filename ):OpenTag( "h4" ):Append( oEntry:Name ):CloseTag( "h4" ):CloseTag( "div" )
+         ::OpenTag( "div", "id", SymbolToHTMLID( oEntry:filename ) ):OpenTag( "h4" ):Append( oEntry:Name ):CloseTag( "h4" ):CloseTag( "div" )
       ELSEIF oEntry:IsField( item[ 1 ] ) .AND. oEntry:IsOutput( item[ 1 ] ) .AND. Len( oEntry:&( item[ 1 ] ) ) > 0
          ::WriteEntry( item[ 1 ], oEntry, oEntry:IsPreformatted( item[ 1 ] ) )
       ENDIF
@@ -195,12 +193,6 @@ METHOD AddEntry( oEntry ) CLASS GenerateHTML
    RETURN self
 
 METHOD Generate() CLASS GenerateHTML
-
-   IF ::hFile != NIL
-      ::CloseTag( "body" )
-      ::CloseTag( "html" )
-   ENDIF
-
    RETURN self
 
 METHOD PROCEDURE WriteEntry( cField, oEntry, lPreformatted ) CLASS GenerateHTML
@@ -326,3 +318,6 @@ METHOD RecreateStyleDocument( cStyleFile ) CLASS GenerateHTML
    ENDIF
 
    RETURN self
+
+STATIC FUNCTION SymbolToHTMLID( cID )
+   RETURN Lower( hb_StrReplace( cID, "_ ", "--" ) )
