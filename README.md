@@ -1629,16 +1629,14 @@ Supported shells per host platforms:
      * [Facebook](https://www.facebook.com/groups/harbour.project/)
      * [Twitter](https://twitter.com/harbourproject)
 
-  * Product-specific:
+  * Product-oriented:
      * [Harbour mainline development](https://groups.google.com/forum/#!forum/harbour-devel)
-     * [HMG](http://hmgforum.com/viewforum.php?f=7)
-     * [hbqt](https://groups.google.com/forum/#!forum/qtcontribs)
-     * [hwgui](https://sourceforge.net/p/hwgui/mailman/hwgui-developers/)
-     * [FiveWin](http://forums.fivetechsupport.com/viewforum.php?f=3)
-     * [xHarbour](https://groups.google.com/forum/#!forum/comp.lang.xharbour)
+     * [HMG (GUI)](http://hmgforum.com/viewforum.php?f=7)
+     * [hbqt (GUI)](https://groups.google.com/forum/#!forum/qtcontribs)
+     * [hwgui (GUI)](https://sourceforge.net/p/hwgui/mailman/hwgui-developers/)
+     * [xHarbour fork](https://groups.google.com/forum/#!forum/comp.lang.xharbour)
 
   * Translators:
-
      * [Bing Translator](https://www.bing.com/translator/)
      * [Google Translate](https://translate.google.com)
 

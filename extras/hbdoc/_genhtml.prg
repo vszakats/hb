@@ -116,9 +116,9 @@ METHOD NewFile() CLASS GenerateHTML
       ::RecreateStyleDocument( STYLEFILE )
    ENDIF
 
-   ::OpenTag( "link", "rel", "stylesheet", "href", STYLEFILE )
-
    ::Append( ::cTitle /* + iif( Empty( ::cDescription ), "", " - " + ::cDescription ) */, "title" )
+
+   ::OpenTag( "link", "rel", "stylesheet", "href", STYLEFILE )
 
    ::Append( ::cTitle, "h1" )
 
