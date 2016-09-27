@@ -1,6 +1,6 @@
 repo_slug: vszakats/harbour-core
 site_slug: vszakats/harbour-core
-site_branch_and_root: master/docs
+site_branch_and_root: master/docs/
 
 sample_categories:
   - basic
