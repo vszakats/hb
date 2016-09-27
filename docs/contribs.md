@@ -17,12 +17,6 @@ distribution folder._
 
 See respective authors inside the [source code](https://github.com/{{ site.repo_slug }}/tree/master/contrib).
 
-## gtalleg
-
-Allegro based virtual GT with graphic extensions. This GT driver uses the
-powerful Allegro library to create windows also Allegro library is mostly
-used for game programming.
-
 ## gtwvg
 
 This library can be used for pure console applications instead of `gtwvt`.
