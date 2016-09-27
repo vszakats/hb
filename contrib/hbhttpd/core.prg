@@ -493,7 +493,7 @@ STATIC FUNCTION ProcessConnection( oServer )
          ENDDO
 
          IF nErr != 0
-            Eval( oServer:hConfig[ "Trace" ], "Close connection1", hSocket )
+            Eval( oServer:hConfig[ "Trace" ], "Close connection", hSocket )
             hb_socketShutdown( hSocket )
             hb_socketClose( hSocket )
             LOOP
