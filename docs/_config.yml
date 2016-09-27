@@ -1,0 +1,20 @@
+repo_slug: vszakats/harbour-core
+site_slug: vszakats/harbour-core
+site_branch_and_root: master/docs
+
+sample_categories:
+  - basic
+  - arrays
+  - database
+  - extensions
+  - web
+collections:
+  samples:
+    output: true
+defaults:
+  - scope:
+      path: ""
+      type: samples
+    values:
+      layout: sample
+      _topdir: ../

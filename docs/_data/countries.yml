@@ -1,0 +1,36 @@
+au:
+  name: Australia
+be:
+  name: Belgium
+br:
+  name: Brazil
+ca:
+  name: Canada
+cl:
+  name: Chile
+earth:
+  name: Earth
+de:
+  name: Germany
+in:
+  name: India
+id:
+  name: Indonesia
+il:
+  name: Israel
+it:
+  name: Italy
+kr:
+  name: Korea
+nl:
+  name: Netherlands
+pl:
+  name: Poland
+ru:
+  name: Russia
+uk-scotland:
+  name: Scotland
+es:
+  name: Spain
+us:
+  name: USA

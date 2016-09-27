@@ -1,0 +1,83 @@
+- date: 2016-09-20
+  title: Website refresh
+  text: Continuing with the refactor, the site is now fully vector-based,
+    sources have been cleaned up and further minimised, the look refreshed.
+    The crew page and code examples are now automatically generated, thus
+    much easier to update. Several pages have been converted to Markdown.
+    Source size is now 64 kB (was 624 kB). Also added en edit button to
+    each page.
+    <a href="https://github.com/vszakats">@vszakats</a>
+- date: 2016-09-12
+  title: Website refactor
+  text: Website refactored to use Jekyll, use pure HTML5, drop table based
+    layout, drop JavaScript for a CSS menu, remove anything unused, fix things
+    broken, use vector images instead of bitmaps where possible, deduplicate
+    markup and content. This means 7.5x size reduction of page sources.<br>
+    Content and design remained the same, but much easier to update now.
+    <a href="https://github.com/vszakats">@vszakats</a>
+- date: 2013-03-20
+  title: Migration to Git and GitHub
+  text: <a href="https://github.com/harbour/"><img src="images/3rd_github.svg" alt="GitHub Logo" class="img-right" width="90"></a>
+    The source repositories, website hosting, issue tracker, daily source
+    snapshots, links and every other related facilities have been transferred
+    to GitHub.
+- date: 2011-07-17
+  title: Release 3.0.0
+  text: After 1.5 years of strong development and 3600 commits, new stable
+    version 3.0.0 is released. Sources are available for download, prebuilt
+    binaries will follow shortly.
+- date: 2010-08-02
+  title: Successful port to VxWorks RTOS
+  text: In 2010 July with few days of development effort, Harbour has been
+    ported successfully to VxWorks 6.8 Real-Time Operating System (x86 CPU
+    target for now) for both GNU GCC and Wind River C Compiler. Thanks to Wind
+    River Inc. for making their development package available to our open source
+    project. This means Harbour can now run on cars, planes, rockets and robots
+    :) Details in the
+    <a href="https://github.com/harbour/core/commit/302211f9af601ed63dff84558e075be0ed3ffe45">commit</a>.
+- date: 2010-06-03
+  title: Mailing list address changes
+  text: Thanking Phil Barnett for providing the Harbour community a great
+    mailing list for so many years, today, due to server problems, we have
+    migrated the mailing lists to Google Groups in agreement with Phil and
+    Harbour admins.<br>
+    Make sure to revise your subscription settings, because digest, nomail
+    options and readable name were lost along the migration.
+- date: 2009-12-23
+  title: Release 2.0.0 unified Windows binaries
+  text: Harbour 2.0.0 (Revision 13372) source archives and Windows binary
+    releases are available for download.
+- date: 2009-12-22
+  title: Release 2.0.0
+  text: After 16 months of intensive development the final version 2.0.0 is
+    finally released. There are many highlights and news in this new release,
+    check out some details and download your copy free today.
+- date: 2009-05-13
+  title: SourceForge Community Choice Awards
+  text: <i class="fa fa-trophy large-icon trophy" aria-hidden="true"></i>
+    SourceForge.net announced the opening of nominations for the fourth annual
+    SourceForge Community Choice Awards. Harbour is a candidate — nominate us!
+- date: 2009-02-15
+  title: New website
+  text: Released the new layout for our site. This includes details about the
+    project, several examples and will soon include some tutorials.
+- date: 2008-09-17
+  title: Release 1.0.1
+  text: Many deployment fixes into General, Core and Contrib sections. All users
+    should upgrade to receive the latest fixes.
+- date: 2008-08-10
+  title: Release 1.0.0
+  text: Many deployment fixes into General, Core and Contrib sections. All users
+    should upgrade to receive the latest fixes.
+- date: 2008-07-01
+  title: Release 1.0.0 RC 2
+- date: 2008-06-04
+  title: Release 1.0.0 RC 1
+- date: 2007-05-01
+  title: Release 0.99.3 Beta 3
+- date: 2007-03-28
+  title: Release 0.99.2 Beta 2
+- date: 2007-01-22
+  title: Release 0.99.1 Beta 1
+- date: 2006-06-05
+  title: Release Alpha build 46

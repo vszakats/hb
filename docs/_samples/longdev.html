@@ -1,0 +1,20 @@
+---
+category: basic
+title_long: "Testing long string handling support"
+description: "Testing Harbour long string handling with device output."
+---
+
+<div class="shot-window"><div class="shot-toolbar"></div><div class="shot-screen"><pre>
+$ hbrun longdev.prg
+
+The length of the long string is correct
+The length of a copy of the long string is correct
+The copy of the long string is equal to the long string
+Original: 81920
+From file: 81920
+The strings are equal
+</pre></div></div>
+
+<p>Clipper limited the size of a string to 65535 bytes (64 KiB).<br>
+In Harbour, this limit is 2 GiB for 32-bit builds and in practice
+limited by the available memory for 64-bit builds.

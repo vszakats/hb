@@ -1,0 +1,60 @@
+---
+layout: default
+title: "The Crew"
+---
+
+<div class="crew-layout">
+  <div>
+    <h1>The Harbour Crew</h1>
+    <p><a href="https://github.com/{{ site.site_slug }}/edit/{{ site.site_branch_and_root }}_data/members.yml"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;Edit/Add your info</a>
+    <p>Per country in alphabetical order:
+
+    <div>
+{% assign last_country = "" %}
+{% for member in site.data.members %}
+{% if last_country != member.country %}{% assign last_country = member.country %}
+      <h4 id="{{ last_country }}">{{ site.data.countries[last_country].name }}</h4>
+{% endif %}
+      <div>
+        <p>
+{% if member.url != nil %}
+        <a href="{{ member.url }}" class="crew-person-name crew-mail" id="{{ member.name | slugify }}">{{ member.name }}</a>
+{% else %}
+        <span class="crew-person-name" id="{{ member.name | slugify }}">{{ member.name }}</span>
+{% endif %}
+{% for pic in member.photos %}
+        <a href="https://harbour.github.io/images/crew_{{ pic }}"><i class="fa fa-camera"></i></a>
+{% endfor %}
+{% if member.photos.size > 0 %}
+        <br>
+{% endif %}
+{{ member.title }}
+      </div>
+{% endfor %}
+    </div>
+    <br>
+  </div>
+
+  <div class="crew-content">
+    <div>
+      <h1>Countries</h1>
+      <hr>
+      <ul class="crew-country-list">
+{% for country in site.data.countries %}
+        <li><a href="#{{ country[0] }}"><img src="images/flag-{{ country[0] }}.svg" alt="flag" width="31" height="16">{{ country[1].name }}</a>
+{% endfor %}
+      </ul>
+    </div>
+
+    <div>
+      <h1>First Name Alphabetical</h1>
+      <hr>
+      <ul class="crew-alphalist">
+{% assign members_sorted = site.data.members | sort: 'name' %}
+{% for member in members_sorted %}
+        <li><a href="#{{ member.name | slugify }}">{{ member.name }}</a>
+{% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>

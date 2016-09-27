@@ -1,0 +1,110 @@
+<body class="hbsite">
+
+<a class="github-fork-ribbon right-top screen-only" href="https://github.com/{{ site.repo_slug }}" title="Fork me on GitHub">Fork me on GitHub</a>
+
+<div class="container">
+  <div class="header">
+    <div class="banner">
+      <div class="header-version">Version 3.0</div>
+      <div class="header-logo">
+        <img src="{{ page._topdir }}images/harbour-full.svg" alt="Harbour logo/title" width="287" height="164">
+      </div>
+      <div class="header-text">
+        <span class="header-text-headline">A 32/64-bit xBase compiler</span><br>
+        <br>
+        <span class="header-mark">✓</span>Free software&nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="header-mark">✓</span>Open-source&nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="header-mark">✓</span>Cross-platform<br>
+        <span class="header-mark">✓</span>SQL, XML, TCP/IP, Multi-threads, Multi-GT<br>
+        <span class="header-text-alt">and much more!</span><br>
+      </div>
+    </div>
+
+    <div class="menu">
+
+      <div class="dropdown">
+        <a class="dropbtn" href="{{ page._topdir }}index.html">
+        <i class="fa fa-home" aria-hidden="true"></i><br><span class="menu-text">Home</span></a>
+      </div>
+
+      <div class="dropdown">
+        <a class="dropbtn" href="{{ page._topdir }}about.html">
+        <i class="fa fa-comment-o" aria-hidden="true"></i><br><span class="menu-text">About</span></a>
+        <div class="dropdown-content">
+          <a href="{{ page._topdir }}about.html">About Harbour</a>
+          <a href="https://raw.githubusercontent.com/{{ site.repo_slug }}/master/COPYING.txt">License</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <a class="dropbtn" href="{{ page._topdir }}doc/index.html">
+        <i class="fa fa-book" aria-hidden="true"></i><br><span class="menu-text">Docs</span></a>
+        <div class="dropdown-content">
+          <a href="https://github.com/{{ site.repo_slug }}/#readme">README</a>
+          <a href="https://raw.githubusercontent.com/{{ site.repo_slug }}/master/ChangeLog.txt">ChangeLog</a>
+          <a href="https://harbour.github.io/ng/c53g01c/menu.html">Clipper 5.3 Guide</a>
+          <a href="https://harbour.github.io/doc/index.html">Harbour Guide</a>
+          <a href="https://harbour.github.io/faq/index.html">FAQ (archive)</a>
+          <a href="{{ page._topdir }}samples.html">Code Examples</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <a class="dropbtn" href="https://sourceforge.net/projects/harbour-project/files/">
+        <i class="fa fa-download" aria-hidden="true"></i><br><span class="menu-text">Downloads</span></a>
+        <div class="dropdown-content">
+          <a href="https://sourceforge.net/projects/harbour-project/files/">Source and Binaries</a>
+          <a href="{{ page._topdir }}snapshot.html">Nightly Builds</a>
+          <a href="{{ page._topdir }}contribs.html">Contribs</a>
+          <a href="https://harbour.github.io/the-oasis/">The Oasis (archive)</a>
+          <a href="{{ page._topdir }}thirdparty.html">Third-parties</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <a class="dropbtn" href="{{ page._topdir }}mailing.html">
+        <i class="fa fa-wrench" aria-hidden="true"></i><br><span class="menu-text">Development</span></a>
+        <div class="dropdown-content">
+          <a href="{{ page._topdir }}mailing.html">Mailing Lists</a>
+          <a href="https://github.com/{{ site.repo_slug }}/issues">Report Issues</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <a class="dropbtn" href="{{ page._topdir }}news.html">
+        <i class="fa fa-newspaper-o" aria-hidden="true"></i><br><span class="menu-text">News</span></a>
+        <div class="dropdown-content">
+          <a href="{{ page._topdir }}news.html">News</a>
+          <a href="{{ page._topdir }}changelog.html">ChangeLog</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <a class="dropbtn" href="{{ page._topdir }}crew.html">
+        <i class="fa fa-globe" aria-hidden="true"></i><br><span class="menu-text">The Crew</span></a>
+      </div>
+
+      <div class="dropdown">
+        <a class="dropbtn" href="{{ page._topdir }}logos.html">
+        <i class="fa fa-paint-brush" aria-hidden="true"></i><br><span class="menu-text">Logos</span></a>
+        <div class="dropdown-content">
+          <a href="{{ page._topdir }}logos.html">Official Logos</a>
+          <a href="{{ page._topdir }}tshirts.html">T-Shirts (archive)</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <a class="dropbtn">
+        <i class="fa fa-language" aria-hidden="true"></i><br><span class="menu-text">Language</span></a>
+        <div class="dropdown-content">
+          <a href="{{ page._topdir }}index.html">English</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+{% if page.layout != 'sample' %}
+    <a class="text-right" href="https://github.com/{{ site.site_slug }}/edit/{{ site.site_branch_and_root }}{{ page.path }}">
+    <i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;Improve this page</a>
+{% endif %}
