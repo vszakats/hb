@@ -1424,7 +1424,7 @@ STATIC PROCEDURE WriteToLog( cRequest )
       // hb_ToOutDebug( "tip_TimeStamp(): %s \n\r", tip_TimeStamp() )
 
       tDate    := hb_DateTime()
-      nSize    := Len( t_cResult )
+      nSize    := hb_BLen( t_cResult )
       cReferer := _SERVER[ "HTTP_REFERER" ]
 
       cAccess := _SERVER[ "REMOTE_ADDR" ] + " - - [" + ;

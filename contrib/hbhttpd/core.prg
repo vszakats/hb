@@ -209,7 +209,7 @@ METHOD PROCEDURE LogAccess() CLASS UHttpd
       server[ "REMOTE_ADDR" ] + " - - [" + StrZero( Day( tDate ), 2 ) + "/" + ;
       { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" }[ Month( tDate ) ] + ;
       "/" + StrZero( Year( tDate ), 4 ) + ":" + hb_TToC( tDate, "", "hh:mm:ss" ) + " +0000] " + '"' + server[ "REQUEST_ALL" ] + '"' + " " + ;
-      hb_ntos( t_nStatusCode ) + " " + hb_ntos( Len( t_cResult ) ) + ;
+      hb_ntos( t_nStatusCode ) + " " + hb_ntos( hb_BLen( t_cResult ) ) + ;
       " " + '"' + server[ "HTTP_REFERER" ] + '"' + " " + '"' + server[ "HTTP_USER_AGENT" ] + ;
       '"' )
    hb_mutexUnlock( ::hmtxLog )
@@ -575,7 +575,7 @@ STATIC FUNCTION ProcessConnection( oServer )
             nLen := 1
             nTime := hb_MilliSeconds()
             cBuf := Space( 4096 )
-            DO WHILE Len( cRequest ) < nReqLen
+            DO WHILE hb_BLen( cRequest ) < nReqLen
                IF oServer:lHasSSL .AND. oServer:hConfig[ "SSL" ]
                   nLen := MY_SSL_READ( oServer:hConfig, hSSL, hSocket, @cBuf, 1000, @nErr )
                ELSE
@@ -908,7 +908,7 @@ STATIC FUNCTION MakeResponse( hConfig )
    IF t_nStatusCode != 200
       t_cResult := "<html><body><h1>" + cStatus + "</h1></body></html>"
    ENDIF
-   UAddHeader( "Content-Length", hb_ntos( Len( t_cResult ) ) )
+   UAddHeader( "Content-Length", hb_ntos( hb_BLen( t_cResult ) ) )
    AEval( t_aHeader, {| x | cRet += x[ 1 ] + ": " + x[ 2 ] + CR_LF } )
    cRet += CR_LF
    Eval( hConfig[ "Trace" ], cRet )
