@@ -17,8 +17,8 @@ div.container {
   width: 738px;
 }
 
-div.header,
-div.footer {
+header,
+footer {
   clear: left;
 }
 
@@ -29,7 +29,7 @@ div.left {
   width: 160px;
 }
 
-div.content {
+main {
   background-color: #fff;
   border: 0;
   border-spacing: 0;
@@ -161,7 +161,7 @@ hr {
   font-size: 180%;
 }
 
-.header {
+header {
   margin: 0;
   padding: 0;
 }
@@ -227,7 +227,7 @@ hr {
   box-shadow: 0 4px 6px -6px #095fa8;
 }
 
-.footer {
+footer {
   background: #09397f;
   color: #ddd;
   font-size: 75%;
@@ -235,41 +235,41 @@ hr {
   padding: .1em 1em;
 }
 
-.footer a {
+footer a {
   color: #ddd;
   text-decoration: none;
 }
 
-.footer a:hover {
+footer a:hover {
   color: #fff;
   transition: color .25s;
 }
 
-.footer div {
+footer div {
   float: left;
   padding-top: 1.3em;
   width: 33.3%;
 }
 
-.footer div:nth-child(1) {
+footer div:nth-child(1) {
   text-align: left;
 }
 
-.footer div:nth-child(2) {
+footer div:nth-child(2) {
   text-align: center;
 }
 
-.footer div:nth-child(3) {
+footer div:nth-child(3) {
   text-align: right;
 }
 
-.crew-layout > div:nth-child(1) {
+.crew-layout > section {
   float: left;
   text-align: center;
   width: 75%;
 }
 
-.crew-layout > div:nth-child(2) {
+.crew-layout > aside {
   float: right;
   width: 23%;
 }
