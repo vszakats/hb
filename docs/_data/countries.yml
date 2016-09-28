@@ -1,36 +1,36 @@
-au:
+- id: au
   name: Australia
-be:
+- id: be
   name: Belgium
-br:
+- id: br
   name: Brazil
-ca:
+- id: ca
   name: Canada
-cl:
+- id: cl
   name: Chile
-earth:
+- id: earth
   name: Earth
-de:
+- id: de
   name: Germany
-in:
+- id: in
   name: India
-id:
+- id: id
   name: Indonesia
-il:
+- id: il
   name: Israel
-it:
+- id: it
   name: Italy
-kr:
+- id: kr
   name: Korea
-nl:
+- id: nl
   name: Netherlands
-pl:
+- id: pl
   name: Poland
-ru:
+- id: ru
   name: Russia
-uk-scotland:
+- id: uk-scotland
   name: Scotland
-es:
+- id: es
   name: Spain
-us:
+- id: us
   name: USA

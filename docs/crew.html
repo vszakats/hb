@@ -10,10 +10,13 @@ title: "The Crew"
     <p>Per country in alphabetical order:
 
     <div>
-{% assign members_per_countries = site.data.members | group_by: 'country' | sort: 'name' %}
-{% for country in members_per_countries %}
-      <h4 id="{{ country.name }}">{{ site.data.countries[country.name].name }}</h4>
-{% for member in country.items %}
+{% assign countries_sorted = site.data.countries | sort: 'name' %}
+{% assign members_sorted = site.data.members | sort: 'name' %}
+
+{% for country in countries_sorted %}
+      <h4 id="{{ country.id }}">{{ country.name }}</h4>
+{% for member in members_sorted %}
+{% if member.country == country.id %}
       <div>
         <p>
 {% if member.url != nil %}
@@ -29,6 +32,7 @@ title: "The Crew"
 {% endif %}
 {{ member.title }}
       </div>
+{% endif %}
 {% endfor %}
 {% endfor %}
     </div>
@@ -40,8 +44,8 @@ title: "The Crew"
       <h1>Countries</h1>
       <hr>
       <ul class="crew-country-list">
-{% for country in site.data.countries %}
-        <li><a href="#{{ country[0] }}"><img src="images/flag-{{ country[0] }}.svg" alt="flag" width="31" height="16">{{ country[1].name }}</a>
+{% for country in countries_sorted %}
+        <li><a href="#{{ country.id }}"><img src="images/flag-{{ country.id }}.svg" alt="flag" width="31" height="16">{{ country.name }}</a>
 {% endfor %}
       </ul>
     </div>
@@ -50,7 +54,6 @@ title: "The Crew"
       <h1>First Name Alphabetical</h1>
       <hr>
       <ul class="crew-alphalist">
-{% assign members_sorted = site.data.members | sort: 'name' %}
 {% for member in members_sorted %}
         <li><a href="#{{ member.name | slugify }}">{{ member.name }}</a>
 {% endfor %}
