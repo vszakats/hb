@@ -8,13 +8,13 @@ title: "Official Logos"
 Below offer several images containing reference to the Harbour project for
 use in its software and its website.
 
-<a href="images/harbour-full.svg"><img src="images/harbour-full.svg" alt="logo" width="423" height="256"></a>
+<a href="images/harbour-full.svg"><img src="images/harbour-full.svg" alt="logo" height="256"></a>
 
 The Harbour logo was created by Patrick Mast.<br>
 Download the original
 [Harbour logo](https://harbour.github.io/art/harbour-logo-2001.zip) in SVG, EPS and AI vector formats (854 kB).
 
-<a href="https://harbour.github.io/art/harbour-logo-2011.zip"><img src="images/harbour.svg" alt="icon" height="256"></a>
+<a href="https://harbour.github.io/art/harbour-logo-2011.zip"><img src="images/harbour-noborder.svg" alt="icon" height="256"></a>
 
 Harbour logo in
 [Windows](https://raw.githubusercontent.com/vszakats/harbour-core/master/package/harbour.ico) or
