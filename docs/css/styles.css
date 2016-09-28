@@ -193,8 +193,10 @@ header {
   top: 76px;
   width: 80px;
   background-color: #015173;
+  background-color: #ff0;
   border: 0;
   color: #eee;
+  color: #222;
   height: 18px;
   z-index: 100;
 }
