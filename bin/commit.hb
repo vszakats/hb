@@ -630,6 +630,7 @@ STATIC FUNCTION CheckFile( cName, /* @ */ aErr, lApplyFixes, cLocalRoot, lRebase
       "*.md" }
 
    LOCAL aCanBeDot := { ;
+      ".appveyor.yml", ;
       ".travis.yml", ;
       ".git*", ;
       ".clang*", ;
@@ -639,6 +640,7 @@ STATIC FUNCTION CheckFile( cName, /* @ */ aErr, lApplyFixes, cLocalRoot, lRebase
    /* TOFIX: Harbour repo specific */
    LOCAL aCanBeLong := { ;
       "ChangeLog.txt", ;
+      ".appveyor.yml", ;
       ".git*", ;
       ".clang*", ;
       ".editorconfig", ;

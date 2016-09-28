@@ -15,6 +15,9 @@ branches:
   - msvc2015
   - msvc15
 skip_tags: true
+skip_commits:
+  files:
+    - docs/*
 image: Windows Server 2012 R2
 clone_depth: 8
 clone_folder: C:\w\
