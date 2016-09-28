@@ -10,11 +10,10 @@ title: "The Crew"
     <p>Per country in alphabetical order:
 
     <div>
-{% assign last_country = "" %}
-{% for member in site.data.members %}
-{% if last_country != member.country %}{% assign last_country = member.country %}
-      <h4 id="{{ last_country }}">{{ site.data.countries[last_country].name }}</h4>
-{% endif %}
+{% assign members_per_countries = site.data.members | group_by: 'country' | sort: 'name' %}
+{% for country in members_per_countries %}
+      <h4 id="{{ country.name }}">{{ site.data.countries[country.name].name }}</h4>
+{% for member in country.items %}
       <div>
         <p>
 {% if member.url != nil %}
@@ -30,6 +29,7 @@ title: "The Crew"
 {% endif %}
 {{ member.title }}
       </div>
+{% endfor %}
 {% endfor %}
     </div>
     <br>
