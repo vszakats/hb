@@ -1666,7 +1666,10 @@ static int hb_socketSelectRD( HB_SOCKET sd, HB_MAXINT timeout )
             {
                timeout -= timecurr - timer;
                if( timeout > 0 )
+               {
+                  timer = timecurr;
                   continue;
+               }
             }
          }
       }
@@ -1777,7 +1780,10 @@ static int hb_socketSelectWR( HB_SOCKET sd, HB_MAXINT timeout )
             {
                timeout -= timecurr - timer;
                if( timeout > 0 )
+               {
+                  timer = timecurr;
                   continue;
+               }
             }
          }
       }
@@ -1888,7 +1894,10 @@ static int hb_socketSelectWRE( HB_SOCKET sd, HB_MAXINT timeout )
             {
                timeout -= timecurr - timer;
                if( timeout > 0 )
+               {
+                  timer = timecurr;
                   continue;
+               }
             }
          }
       }
@@ -3207,7 +3216,10 @@ int hb_socketSelect( PHB_ITEM pArrayRD, HB_BOOL fSetRD,
                {
                   timeout -= timecurr - timer;
                   if( timeout > 0 )
+                  {
+                     timer = timecurr;
                      continue;
+                  }
                }
             }
          }

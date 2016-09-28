@@ -55,17 +55,13 @@ extern HB_EXPORT PHB_SYMB hb_vmProcessSymbols( PHB_SYMB pSymbols, HB_USHORT uiSy
 
 #define HB_INIT_SYMBOLS_END( func ) HB_INIT_SYMBOLS_EX_END( func, "", 0L, 0x0000 )
 
-/* By default in all C++ builds use static vars initialization as startup code */
+/* By default in all C++ builds use static variable initialization as startup
+   code with the exception for GCC which new versions show warning about
+   defined but not used static variable initialized with this method. */
 #if defined( __cplusplus ) && ! defined( HB_STATIC_STARTUP ) && \
     ! defined( HB_PRAGMA_STARTUP ) && ! defined( HB_GNUC_STARTUP ) && \
-    ! defined( HB_INITSEG_STARTUP ) && ! defined( HB_DATASEG_STARTUP )
-
-   /* GCC 5.x will show 'defined but not used [Wunused-variable]' warning
-      for the static variable initialized with the init function, so we're
-      using the native GCC method instead. */
-   #if !( defined( __GNUC__ ) && ( __GNUC__ - 0 >= 5 ) )
-      #define HB_STATIC_STARTUP
-   #endif
+    ! defined( __GNUC__ )
+   #define HB_STATIC_STARTUP
 #endif
 
 #define HB_INIT_SYMBOLS_COUNT ( sizeof( symbols_table ) / sizeof( HB_SYMB ) )
