@@ -7,8 +7,7 @@ title: "News Archive"
 
 This page gives you some of the main changes introduced in recent versions of
 Harbour. To view the latest [`ChangeLog.txt`](changelog.html) or
-[download](https://github.com/vszakats/harbour-core/releases) lastest
-stable release of Harbour.
+[download]({{ site.dl_url }}) lastest stable release of Harbour.
 
 You can find the detailed list of changes
 [here](https://raw.githubusercontent.com/{{ site.repo_slug }}/master/doc/oldnews.txt).

@@ -22,4 +22,4 @@ source repository.
 
 To download latest development sources go to our [main page](index.html) and
 find them in the "Project Status" section. To download lastest stable release
-of Harbour, visit [here](https://github.com/vszakats/harbour-core/releases).
+of Harbour, visit [here]({{ site.dl_url }}).
