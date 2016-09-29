@@ -51,10 +51,6 @@ gpg --version | grep gpg
 (
    set -x
 
-#  curl -o pack.bin -L 'http://www.7-zip.org/a/7z1603-extra.7z'
-#  openssl dgst -sha256 pack.bin | grep -q 4657d1ed8b1787451b8387932e5eb567313fd40ffebfc76d96ae874f1a11f749
-#  7z x -y -o7z pack.bin > /dev/null
-
 #  curl -o pack.bin -L --proto-redir =https 'https://fossies.org/windows/misc/upx391w.zip'
 #  openssl dgst -sha256 pack.bin | grep -q d7d4817f46d2616c209c46fb8bce44e4bec93ab5adef5e4dfc93ee879527be1b
 #  7z e -y -oupx pack.bin > /dev/null

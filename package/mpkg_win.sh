@@ -10,7 +10,7 @@ cd "$(dirname "$0")" || exit
 # - Requires MSYS2 or Git for Windows to run on Windows
 # - Requires 7z in PATH
 # - Adjust target dir, MinGW dirs,
-#   set HB_DIR_UPX, HB_DIR_7Z, HB_DIR_MINGW, HB_DIR_MINGW_32, HB_DIR_MINGW_64
+#   set HB_DIR_UPX, HB_DIR_MINGW, HB_DIR_MINGW_32, HB_DIR_MINGW_64
 #   create required packages beforehand.
 # - Run this from vanilla official source tree only.
 
@@ -187,17 +187,6 @@ done
 if [ -n "${HB_DIR_UPX}" ] ; then
    cp -f -p "${HB_DIR_UPX}upx.exe" "${HB_ABSROOT}bin/"
    cp -f -p "${HB_DIR_UPX}LICENSE" "${HB_ABSROOT}LICENSE_upx.txt"
-fi
-
-# Copy 7z
-
-if [ -n "${HB_DIR_7Z}" ] ; then
-   if [ "${_lib_target}" = '64' ] ; then
-      cp -f -p "${HB_DIR_7Z}x64/7za.exe" "${HB_ABSROOT}bin/"
-   else
-      cp -f -p "${HB_DIR_7Z}7za.exe"     "${HB_ABSROOT}bin/"
-   fi
-   cp -f -p "${HB_DIR_7Z}License.txt" "${HB_ABSROOT}LICENSE_7z.txt"
 fi
 
 # Copy curl
