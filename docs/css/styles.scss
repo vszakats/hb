@@ -70,27 +70,30 @@ hr {
 }
 
 .why-box {
+  display: inline-block;
   background-color: #ececec;
   border-radius: 4px;
   margin: auto;
   margin-bottom: 1em;
   padding: 1em;
   padding-top: .2em;
+  padding-bottom: .2em;
 }
 
-.why-box > div:nth-child(1) {
+.why-items {
   float: left;
   padding-right: 1em;
   width: 66%;
 }
 
-.why-box > div:nth-child(2) {
-  padding-left: 0;
-}
-
-.why-box > div > ul {
+.why-items ul {
   padding-left: 2em;
   text-indent: 0;
+}
+
+.status-box {
+  float: left;
+  padding-left: 0;
 }
 
 .dl-button {
@@ -100,9 +103,11 @@ hr {
 }
 
 .feature-box {
+  display: inline-block;
   background-color: #e6eff9;
   border-radius: 4px;
   height: 16em;
+  margin: auto;
   margin-bottom: 1em;
   padding: .1em;
   padding-left: .4em;
@@ -120,10 +125,12 @@ hr {
 }
 
 .license-box {
+  display: inline-block;
   background-color: #e6eff9;
   border-radius: 4px;
-  padding: .4em;
+  margin: auto;
   margin-bottom: 1em;
+  padding: .4em;
 }
 
 .sshot {
