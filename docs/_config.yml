@@ -4,7 +4,7 @@ site_branch_and_root: master/docs/
 dl_url: https://github.com/vszakats/harbour-core/releases
 
 sass:
-    style: compressed
+  style: compressed
 sample_categories:
   - basic
   - arrays
