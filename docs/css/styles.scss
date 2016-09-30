@@ -198,11 +198,14 @@ header {
   right: -649px;
   top: 76px;
   width: 80px;
-  background-color: #015173;
-  background-color: #f8981D;
   border: 0;
-  color: #eee;
+{% if site.badge_version >= '3.4' %}
+  background-color: #f8981D;
   color: #fff;
+{% else %}
+  background-color: #015173;
+  color: #eee;
+{% endif %}
   height: 18px;
   z-index: 100;
 }
