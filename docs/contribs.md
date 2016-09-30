@@ -1,7 +1,6 @@
 ---
 layout: default
 title: "Contribs"
-permalink: /contrib
 ---
 <div markdown="1" class="contribs">
 

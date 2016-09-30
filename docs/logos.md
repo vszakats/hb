@@ -1,7 +1,6 @@
 ---
 layout: default
 title: "Official Logos"
-permalink: /logos
 ---
 # Official Logos
 
