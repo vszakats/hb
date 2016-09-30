@@ -609,8 +609,8 @@ STATIC FUNCTION ProcessConnection( oServer )
             ENDIF
 
             Eval( oServer:hConfig[ "Trace" ], cRequest )
-            ParseRequestBody( Left( cRequest, nReqLen ) )
-            cRequest := SubStr( cRequest, nReqLen + 1 )
+            ParseRequestBody( hb_BLeft( cRequest, nReqLen ) )
+            cRequest := hb_BSubStr( cRequest, nReqLen + 1 )
 
             /* Deal with supported protocols and methods */
             IF ! hb_LeftEq( server[ "SERVER_PROTOCOL" ], "HTTP/" )
