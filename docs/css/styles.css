@@ -456,7 +456,7 @@ h4:before,
 h4:after {
   border: 0;
   border-bottom: 1px solid rgba(0, 0, 0, .4);
-  content: "";
+  content: '';
   display: inline-block;
   height: 1px;
   position: relative;
@@ -519,7 +519,7 @@ pre {
 }
 
 code {
-  font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  font-family: Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation Mono', 'Oxygen Mono', 'Andale Mono', monospace;
 }
 
 .screen-only {
@@ -581,7 +581,7 @@ code {
   text-align: left;
   background-color: #000;
   color: #0d0 !important;
-  font-family: Consolas, "Source Code Pro", "Oxygen Mono", "Droid Sans Mono", "Menlo", "Andale Mono", "Fira Mono", "Anonymous Pro", monospace;
+  font-family: Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation Mono', 'Oxygen Mono', 'Andale Mono', monospace;
   font-size: 12px;
   line-height: 12px;
   margin-top: 0;
