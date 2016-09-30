@@ -6,6 +6,7 @@
 *.html    text
 *.md      text
 *.svg     text
+*.scss    text
 *.txt     text
 *.yml     text
 

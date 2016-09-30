@@ -1,3 +1,7 @@
+---
+---
+$code-fonts: Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation Mono', 'Oxygen Mono', 'Andale Mono', monospace;
+
 .banner {
   background: #0974c5;
   background-image: radial-gradient(rgba(255, 255, 255, 1) 0%, rgba(253, 253, 255, 1) 30%, rgba(9, 116, 197, 1) 80%);
@@ -183,10 +187,10 @@ header {
   font: 15px Arial, Helvetica, sans-serif;
   text-align: center;
   -webkit-transform: rotate(-11deg);
-  -moz-transform:    rotate(-15deg);
-  -ms-transform:     rotate(-15deg);
-  -o-transform:      rotate(-15deg);
-  transform:         rotate(-15deg);
+  -moz-transform:    rotate(-11deg);
+  -ms-transform:     rotate(-11deg);
+  -o-transform:      rotate(-11deg);
+  transform:         rotate(-11deg);
   position: relative;
   padding: 2px;
   right: -649px;
@@ -519,7 +523,7 @@ pre {
 }
 
 code {
-  font-family: Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation Mono', 'Oxygen Mono', 'Andale Mono', monospace;
+  font-family: $code-fonts;
 }
 
 .screen-only {
@@ -581,7 +585,7 @@ code {
   text-align: left;
   background-color: #000;
   color: #0d0 !important;
-  font-family: Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation Mono', 'Oxygen Mono', 'Andale Mono', monospace;
+  font-family: $code-fonts;
   font-size: 12px;
   line-height: 12px;
   margin-top: 0;
