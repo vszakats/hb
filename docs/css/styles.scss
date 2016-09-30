@@ -370,6 +370,7 @@ footer div:nth-child(3) {
 
 .news-box {
   float: left;
+  margin-bottom: 1em;
   padding-right: 18px;
   width: 68%;
 }
@@ -721,6 +722,14 @@ code {
   }
 
   .news-full dd {
+    width: auto;
+  }
+
+  .news dt {
+    width: auto;
+  }
+
+  .news dd {
     width: auto;
   }
 
