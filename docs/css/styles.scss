@@ -530,12 +530,6 @@ code {
   display: block;
 }
 
-@media screen and (max-width: 480px) {
-  .screen-only {
-    display: none;
-  }
-}
-
 .github-fork-ribbon.right-top::before {
   background-color: #333;
 }
@@ -697,4 +691,77 @@ code {
 .dropdown:hover .dropbtn {
   color: #000;
   transition: color .5s;
+}
+
+@media screen and (max-width: 480px) {
+  .screen-only {
+    display: none;
+  }
+
+  div.container {
+    width: auto;
+  }
+
+  main {
+    padding-left: 1em;
+    padding-right: 1em;
+    margin: 0;
+  }
+
+  aside {
+    display: none; }
+
+  .news-box {
+    width: 100%;
+  }
+
+  .news-full dt {
+    width: 6em;
+  }
+
+  .news-full dd {
+    width: auto;
+  }
+
+  .banner {
+    background: rgba(207, 235, 242, 1);
+  }
+
+  footer {
+    height: 9em;
+  }
+
+  .header-logo {
+    margin-left: -40px;
+    margin-top: 11px;
+  }
+
+  .header-text {
+    display: none;
+  }
+
+  .header-version {
+    right: -280px;
+  }
+
+  .crew-layout > section {
+    text-align: left;
+    width: 100%;
+  }
+
+  .feature-box {
+    display: none;
+  }
+
+  .menu-text {
+    display: none;
+  }
+
+  .dropbtn {
+    font-size: 2em;
+  }
+
+  .menu {
+    height: 3em;
+  }
 }
