@@ -1,6 +1,7 @@
 ---
 layout: default
 title: "Third-parties"
+permalink: /3rd
 ---
 # Third-parties
 
