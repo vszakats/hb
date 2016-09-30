@@ -1,6 +1,7 @@
 ---
 layout: default
 title: "News Archive"
+permalink: /news
 ---
 # News Archive
 

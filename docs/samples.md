@@ -1,6 +1,7 @@
 ---
 layout: default
 title: "Code Examples"
+permalink: /examples
 ---
 # Code Examples
 
