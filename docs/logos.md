@@ -2,7 +2,6 @@
 layout: default
 title: "Official Logos"
 ---
-
 # Official Logos
 
 Below offer several images containing reference to the Harbour project for

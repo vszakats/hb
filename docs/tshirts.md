@@ -2,7 +2,6 @@
 layout: default
 title: "T-Shirts"
 ---
-
 # The Harbour-Project T-Shirt!
 
 You can order the Harbour-Project T-Shirt for 20 USD per piece (exclusive mail

@@ -2,7 +2,6 @@
 layout: default
 title: "Legal Notes and Terms of Service"
 ---
-
 # Legal Notes
 
 ## Copyright

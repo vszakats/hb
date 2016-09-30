@@ -2,7 +2,6 @@
 layout: default
 title: "ChangeLog"
 ---
-
 # ChangeLog
 
 Through `ChangeLog.txt` you can get the details of the updates that were added

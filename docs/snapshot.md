@@ -2,7 +2,6 @@
 layout: default
 title: "Nightly Builds"
 ---
-
 # Nightly Builds
 
 You can find the latest development sources for Harbour directly on our website.

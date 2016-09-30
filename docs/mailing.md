@@ -2,7 +2,6 @@
 layout: default
 title: "Mailing Lists"
 ---
-
 # Mailing Lists
 
 <div markdown="1" class="list-bubble">

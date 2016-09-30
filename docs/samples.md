@@ -2,7 +2,6 @@
 layout: default
 title: "Code Examples"
 ---
-
 # Code Examples
 
 This is the list of some examples in Harbour's test directory.

@@ -2,7 +2,6 @@
 layout: default
 title: "Contribs"
 ---
-
 <div markdown="1" class="contribs">
 
 # Harbour Contribs

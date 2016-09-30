@@ -2,7 +2,6 @@
 layout: default
 title: "About"
 ---
-
 # About Harbour
 
 Harbour is a compiler for the xBase superset language often referred to as

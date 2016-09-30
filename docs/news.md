@@ -2,7 +2,6 @@
 layout: default
 title: "News Archive"
 ---
-
 # News Archive
 
 This page gives you some of the main changes introduced in recent versions of
