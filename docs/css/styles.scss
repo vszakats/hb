@@ -26,13 +26,6 @@ footer {
   clear: left;
 }
 
-div.left {
-  float: left;
-  margin: 0;
-  padding: 1em;
-  width: 160px;
-}
-
 main {
   background-color: #fff;
   border: 0;
@@ -712,8 +705,7 @@ code {
   }
 
   main {
-    padding-left: 1em;
-    padding-right: 1em;
+    padding-left: .8em;
     margin: 0;
   }
 
@@ -755,6 +747,10 @@ code {
 
   .crew-layout > section {
     width: 100%;
+  }
+
+  .why-items {
+    width: auto;
   }
 
   .feature-box {
