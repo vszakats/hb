@@ -69,7 +69,7 @@ Foundation; either version 2 of the License, or (at your option) any later
 version. This program is distributed in the hope that it will be useful, but
 WITHOUT ANY WARRANTY or SUPPORT; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-<span class="smaller">[Read more ➔](https://raw.githubusercontent.com/{{ site.repo_slug }}/master/COPYING.txt)</span>
+<span class="smaller">[Read more ⇢](https://raw.githubusercontent.com/{{ site.repo_slug }}/master/COPYING.txt)</span>
 
 </div>
 </div>

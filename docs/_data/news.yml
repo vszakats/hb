@@ -32,8 +32,8 @@
     ported successfully to VxWorks 6.8 Real-Time Operating System (x86 CPU
     target for now) for both GNU GCC and Wind River C Compiler. Thanks to Wind
     River Inc. for making their development package available to our open source
-    project. This means Harbour can now run on cars, planes, rockets and robots
-    :) Details in the
+    project. This means Harbour can now run on cars, planes, rockets and robots!
+    Details in the
     <a href="https://github.com/harbour/core/commit/302211f9af601ed63dff84558e075be0ed3ffe45">commit</a>.
 - date: 2010-06-03
   title: Mailing list address changes

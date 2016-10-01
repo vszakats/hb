@@ -199,7 +199,7 @@ header {
   top: 76px;
   width: 80px;
   border: 0;
-{% if site.badge_version >= '3.4' %}
+{% if site.fork %}
   background-color: #f8981D;
   color: #fff;
 {% else %}
