@@ -19,6 +19,6 @@ source repository.
 
 # Download Links
 
-To download latest development sources go to our [main page](index.html) and
-find them in the "Project Status" section. To download lastest stable release
-of Harbour, visit [here]({{ site.dl_url }}).
+To download latest development sources go to our [main page]({{ site.baseurl }}/index.html)
+and find them in the "Project Status" section. To download lastest stable
+release of Harbour, visit [here]({{ site.dl_url }}).

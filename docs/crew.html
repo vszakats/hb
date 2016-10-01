@@ -44,7 +44,7 @@ title: "The Crew"
       <hr>
       <ul class="crew-country-list">
 {% for country in countries_sorted %}
-        <li><a href="#{{ country.id }}"><img src="images/flag-{{ country.id }}.svg" alt="flag" width="31" height="16">{{ country.name }}</a>
+        <li><a href="#{{ country.id }}"><img src="{{ site.baseurl }}/images/flag-{{ country.id }}.svg" alt="flag" width="31" height="16">{{ country.name }}</a>
 {% endfor %}
       </ul>
     </div>

@@ -20,7 +20,6 @@ defaults:
       type: samples
     values:
       layout: sample
-      _topdir: ../
 
 incremental: true
 exclude: ["node_modules"]

@@ -9,7 +9,7 @@ title: "Home"
   compatible with xBase languages. Harbour consists of a compiler and runtime
   libraries with multiple UI and database backends, its own make system and
   a large collection of libraries and interfaces to popular APIs.
-  <a href="about.html" class="smaller">Read more ➔</a>
+  <a href="{{ site.baseurl }}/about.html" class="smaller">Read more ➔</a>
 </div>
 
 <h1>This Fork</h1>
@@ -25,7 +25,8 @@ title: "Home"
       <li>Harbour is <strong>free software</strong>, 100% compatible with Clipper compilers.
       <li>Harbour is proven to be <strong>stable</strong>, <strong>robust</strong> and <strong>efficient</strong>.
       <li>Harbour is <strong>portable</strong> across multiple operating systems with the same code base.
-      <li>You can use it to develop either open source or commercial applications. <a href="about.html#why-use-it" class="smaller">Read more ➔</a>
+      <li>You can use it to develop either open source or commercial applications.
+        <a href="{{ site.baseurl }}/about.html#why-use-it" class="smaller">Read more ➔</a>
     </ul>
   </div>
   <div class="status-box">
@@ -99,7 +100,7 @@ title: "Home"
         <p>{{ story.text }}
 {% endif %}
 {% endfor %}
-      <dd>See the <a href="news.html">news archive</a> for past articles.
+      <dd>See the <a href="{{ site.baseurl }}/news.html">news archive</a> for past articles.
     </dl>
   </div>
 
@@ -112,7 +113,7 @@ title: "Home"
 {% for selected_sample in selection %}
 {% for sample in samples_sorted %}
 {% if sample.slug == selected_sample %}
-      <dt><a href="samples/{{ sample.slug }}.html">{{ sample.title_long }}</a>
+      <dt><a href="{{ site.baseurl }}/samples/{{ sample.slug }}.html">{{ sample.title_long }}</a>
       <dd>{{ sample.description }}
 {% endif %}
 {% endfor %}
