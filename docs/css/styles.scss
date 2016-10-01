@@ -208,6 +208,7 @@ header {
 {% endif %}
   height: 18px;
   z-index: 100;
+  white-space: nowrap;
 }
 
 .header-version > * {
