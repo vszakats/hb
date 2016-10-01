@@ -162,7 +162,7 @@ hr {
   font-size: 425% !important;
 }
 
-.samples-list {
+.example-list {
   color: #333;
   font-size: 180%;
 }
@@ -378,36 +378,36 @@ footer div:nth-child(3) {
   width: 68%;
 }
 
-.minisamples-box {
+.miniexample-box {
   background-color: #ececec;
   border-radius: 4px;
   overflow: hidden;
   padding: 0 8px;
 }
 
-.minisamples > dl {
+.miniexample > dl {
   margin: 0;
   padding: 0;
 }
 
-.minisamples > dt {
+.miniexample > dt {
   float: left;
   margin: 0;
   padding: 0;
 }
 
-.minisamples dt a {
+.miniexample dt a {
   font-weight: bold;
 }
 
-.minisamples > dd {
+.miniexample > dd {
   float: left;
   margin: 0;
   margin-bottom: 11px;
   padding: 0;
 }
 
-.minisamples dd {
+.miniexample dd {
   font-size: 75%;
 }
 

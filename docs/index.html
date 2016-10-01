@@ -104,10 +104,10 @@ title: "Home"
     </dl>
   </div>
 
-  <aside class="minisamples-box">
+  <aside class="miniexample-box">
     <h2>Code Examples</h2>
     <hr>
-    <dl class="minisamples">
+    <dl class="miniexample">
 {% assign selection = "hello|foreach|parseini|tbrowse|onidle" | split: "|" %}
 {% assign examples_sorted = site.example | sort: 'slug' %}
 {% for selected_example in selection %}
