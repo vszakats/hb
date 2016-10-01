@@ -17,7 +17,7 @@ The examples demonstrate Harbour features in small programs.
 {% for cat in site.example_categories %}
 ## {{ cat | capitalize }}
 
-{% for example in site.example %}{% if example.category == cat %}* [{{ example.title_long }}]({{ site.baseurl }}/example/{{ example.slug }}.html)
+{% for example in site.example %}{% if example.category == cat %}* [{{ example.title_long }}]({{ site.baseurl }}/example/{{ example.slug }}/)
 {% endif %}{% endfor %}
 {% endfor %}
 
