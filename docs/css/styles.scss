@@ -62,7 +62,7 @@ hr {
   margin-right: .5em;
 }
 
-.why-box div:nth-child(1) {
+.why-box div:first-child {
   margin-right: 1em;
 }
 
@@ -264,7 +264,7 @@ footer div {
   width: 33.3%;
 }
 
-footer div:nth-child(1) {
+footer div:first-child {
   text-align: left;
 }
 
@@ -272,7 +272,7 @@ footer div:nth-child(2) {
   text-align: center;
 }
 
-footer div:nth-child(3) {
+footer div:last-child {
   text-align: right;
 }
 
