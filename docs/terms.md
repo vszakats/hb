@@ -71,4 +71,4 @@ viruses or other defects that result from, or are associated with the use of
 this website.
 
 Any doubts about the content on this site, please post a topic in our
-[mailing list]({{ site.baseurl }}/mailing/) that we will assist you.
+[mailing list]({{ site.baseurl }}/mailing) that we will assist you.

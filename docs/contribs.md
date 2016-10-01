@@ -11,7 +11,7 @@ but bundled with the main Harbour distribution. These components are part of
 the Harbour source package.
 
 _Important: Common to all contribs is that you can download them freely, but
-please note the [licensing terms]({{ site.baseurl }}/about/), which are
+please note the [licensing terms]({{ site.baseurl }}/about), which are
 included in the distribution folder._
 
 See respective authors inside the [source code](https://github.com/{{ site.repo_slug }}/tree/master/contrib).

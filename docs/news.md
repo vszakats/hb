@@ -5,7 +5,7 @@ title: "News Archive"
 # News Archive
 
 This page gives you some of the main changes introduced in recent versions of
-Harbour. To view the latest [`ChangeLog.txt`]({{ site.baseurl }}/changelog/)
+Harbour. To view the latest [`ChangeLog.txt`]({{ site.baseurl }}/changelog)
 or [download]({{ site.dl_url }}) lastest stable release of Harbour.
 
 You can find the detailed list of changes
