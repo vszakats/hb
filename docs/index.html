@@ -109,12 +109,12 @@ title: "Home"
     <hr>
     <dl class="minisamples">
 {% assign selection = "hello|foreach|parseini|tbrowse|onidle" | split: "|" %}
-{% assign samples_sorted = site.samples | sort: 'slug' %}
-{% for selected_sample in selection %}
-{% for sample in samples_sorted %}
-{% if sample.slug == selected_sample %}
-      <dt><a href="{{ site.baseurl }}/samples/{{ sample.slug }}.html">{{ sample.title_long }}</a>
-      <dd>{{ sample.description }}
+{% assign examples_sorted = site.example | sort: 'slug' %}
+{% for selected_example in selection %}
+{% for example in examples_sorted %}
+{% if example.slug == selected_example %}
+      <dt><a href="{{ site.baseurl }}/example/{{ example.slug }}.html">{{ example.title_long }}</a>
+      <dd>{{ example.description }}
 {% endif %}
 {% endfor %}
 {% endfor %}

@@ -9,15 +9,15 @@ The examples demonstrate Harbour features in small programs.
 
 ## Categories
 
-{% for cat in site.sample_categories %}* [{{ cat | capitalize }}](#{{ cat }})
+{% for cat in site.example_categories %}* [{{ cat | capitalize }}](#{{ cat }})
 {% endfor %}* [How to build/run applications](#how-to-buildrun-applications)
 
 ---
 
-{% for cat in site.sample_categories %}
+{% for cat in site.example_categories %}
 ## {{ cat | capitalize }}
 
-{% for sample in site.samples %}{% if sample.category == cat %}* [{{ sample.title_long }}]({{ site.baseurl }}/samples/{{ sample.slug }}.html)
+{% for example in site.example %}{% if example.category == cat %}* [{{ example.title_long }}]({{ site.baseurl }}/example/{{ example.slug }}.html)
 {% endif %}{% endfor %}
 {% endfor %}
 
