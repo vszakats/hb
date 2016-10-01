@@ -531,10 +531,6 @@ code {
   font-family: $code-fonts;
 }
 
-.screen-only {
-  display: block;
-}
-
 .github-fork-ribbon.right-top::before {
   background-color: #333;
 }
@@ -698,11 +694,13 @@ code {
   transition: color .5s;
 }
 
-@media screen and (max-width: 480px) {
-  .screen-only {
+@media screen and (max-width: 900px) {
+  .github-fork-ribbon {
     display: none;
   }
+}
 
+@media screen and (max-width: 735px) {
   div.container {
     width: auto;
   }
@@ -778,5 +776,11 @@ code {
 
   .menu {
     height: 3em;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .header-version {
+    visibility: hidden;
   }
 }
