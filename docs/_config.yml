@@ -4,8 +4,6 @@ site_branch_and_root: master/docs/
 dl_url: https://github.com/vszakats/harbour-core/releases
 badge_version: "3.4"
 
-sass:
-  -style: compressed
 sample_categories:
   - basic
   - arrays
@@ -22,3 +20,8 @@ defaults:
     values:
       layout: sample
       _topdir: ../
+
+incremental: true
+exclude: ["node_modules"]
+sass:
+  style: compressed
