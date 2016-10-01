@@ -62,31 +62,32 @@ hr {
   margin-right: .5em;
 }
 
-.why-box {
+.why-box div:nth-child(1) {
+  margin-right: 1em;
+}
+
+.why-items,
+.status-box {
   display: inline-block;
   background-color: #ececec;
   border-radius: 4px;
   margin: auto;
   margin-bottom: 1em;
-  padding: 1em;
-  padding-top: .2em;
-  padding-bottom: .2em;
+  padding: .2em 1em;
 }
 
 .why-items {
   float: left;
-  padding-right: 1em;
-  width: 66%;
+  width: 60%;
 }
 
 .why-items ul {
-  padding-left: 2em;
+  padding-left: 1.5em;
   text-indent: 0;
 }
 
 .status-box {
   float: left;
-  padding-left: 0;
 }
 
 .dl-button {
@@ -94,7 +95,7 @@ hr {
   border-radius: 3px;
   display: inline-block;
   padding: .1em .4em;
-  margin-bottom: .5em;
+  margin-bottom: 1em;
 }
 
 .feature-box {
@@ -758,7 +759,12 @@ code {
     width: 100%;
   }
 
+  .why-box div:nth-child(1) {
+    margin-right: 0;
+  }
+
   .why-items {
+    display: block;
     width: auto;
   }
 
