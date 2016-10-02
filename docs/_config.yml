@@ -1,4 +1,5 @@
 fork: true
+real_host: https://vszakats.github.io
 repo_slug: vszakats/harbour-core
 site_slug: vszakats/harbour-core
 site_branch_and_root: master/docs/
