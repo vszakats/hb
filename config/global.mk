@@ -1077,7 +1077,7 @@ ifneq ($(HB_CC_DET),)
 
       ifeq ($(wildcard $(HB_CCPATH)$(HB_CCPREFIX)gcc$(HB_HOST_BIN_EXT)),)
          ifeq ($(HB_CCPATH),)
-            ifeq ($(call find_in_path $(HB_CCPREFIX)gcc),)
+            ifeq ($(call find_in_path,$(HB_CCPREFIX)gcc),)
                HB_CCPREFIX :=
             endif
          else
@@ -1114,7 +1114,7 @@ ifneq ($(HB_CC_DET),)
 
       ifeq ($(wildcard $(HB_CCPATH)$(HB_CCPREFIX)gcc$(HB_HOST_BIN_EXT)),)
          ifeq ($(HB_CCPATH),)
-            ifeq ($(call find_in_path $(HB_CCPREFIX)gcc),)
+            ifeq ($(call find_in_path,$(HB_CCPREFIX)gcc),)
                HB_CCPREFIX :=
             endif
          else
