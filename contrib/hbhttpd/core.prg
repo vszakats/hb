@@ -72,7 +72,7 @@ METHOD Read( hSocket, hSSL, /* @ */ cRequest, nReqLen, nTimeout ) CLASS UHttpd
    LOCAL nTime := hb_MilliSeconds() + hb_defaultValue( nTimeout, 1 ) * 1000
    LOCAL cBuf := Space( 4096 ), nLen := 1, nErr
 
-   hb_default( nReqLen, 0 )  // Zero will read till the first double-CRLF
+   hb_default( @nReqLen, 0 )  // Zero will read till the first double-CRLF
 
    cRequest := ""
    DO WHILE iif( nReqLen == 0, !( CR_LF + CR_LF $ cRequest ), hb_BLen( cRequest ) < nReqLen )
