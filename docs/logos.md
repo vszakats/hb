@@ -22,7 +22,7 @@ Harbour logo in
 
 # Historical Buttons
 
-* Still (1.5 kB):<br>
+* Still (1.5 kB)<br>
   [![button](https://harbour.github.io/art/harbour-button.png)](https://harbour.github.io/art/harbour-button.png)
-* Animated (116 kB):<br>
+* Animated (116 kB)<br>
   [harbour-animgif.zip](https://harbour.github.io/art/harbour-animgif.zip)
