@@ -24,7 +24,7 @@ title: "The Crew"
         <span class="crew-person-name" id="{{ member.name | slugify }}">{{ member.name }}</span>
 {% endif %}
 {% for pic in member.photos %}
-        <a href="https://harbour.github.io/images/crew_{{ pic }}"><i class="fa fa-camera"></i></a>
+        <a href="https://harbour.github.io/images/crew_{{ pic }}"><img src="https://harbour.github.io/images/crew_{{ pic }}" height="40" alt="photo"></a>
 {% endfor %}
 {% if member.photos.size > 0 %}
         <br>
