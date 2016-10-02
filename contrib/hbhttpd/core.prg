@@ -70,12 +70,21 @@ FUNCTION UHttpdNew()
 METHOD Read( hSocket, hSSL, /* @ */ cRequest, nReqLen, nTimeout ) CLASS UHttpd
 
    LOCAL nTime := hb_MilliSeconds() + hb_defaultValue( nTimeout, 1 ) * 1000
-   LOCAL cBuf := Space( 4096 ), nLen := 1, nErr
+   LOCAL cBuf, nLen := 1, nErr
 
-   hb_default( @nReqLen, 0 )  // Zero will read till the first double-CRLF
+   hb_default( @nReqLen, -1 )  // Non-numeric or negative value will read till the first double-CRLF
+
+   IF nReqLen < 0
+      cBuf := Space( 4096 )
+   ENDIF
 
    cRequest := ""
-   DO WHILE iif( nReqLen == 0, !( CR_LF + CR_LF $ cRequest ), hb_BLen( cRequest ) < nReqLen )
+   DO WHILE iif( nReqLen >= 0, hb_BLen( cRequest ) < nReqLen, !( CR_LF + CR_LF $ cRequest ) )
+
+      IF nReqLen >= 0
+         cBuf := Space( nReqLen - hb_BLen( cRequest ) )
+      ENDIF
+
       IF hSSL != NIL
          nLen := MY_SSL_READ( ::hConfig, hSSL, hSocket, @cBuf, 1000, @nErr )
       ELSEIF ( nLen := hb_socketRecv( hSocket, @cBuf,,, 1000 ) ) < 0
