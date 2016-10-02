@@ -21,13 +21,13 @@ privout() {
 readonly pass='pass:test'
 
 # Private
-privout 'privkey.pem' \
+privout 'private.pem' \
 openssl genpkey -algorithm RSA -aes-256-cbc -pkeyopt rsa_keygen_bits:2048 -pass "${pass}"
 # human-readable
-privout 'privkey.pem.asn1.txt' \
-openssl asn1parse             -in 'privkey.pem'
+privout 'private.pem.asn1.txt' \
+openssl asn1parse             -in 'private.pem'
 
 # Public
-openssl rsa -passin "${pass}" -in 'privkey.pem' -pubout > pubkey.pem
+openssl rsa -passin "${pass}" -in 'private.pem' -pubout > public.pem
 # human-readable
-openssl rsa -pubin            -in 'pubkey.pem'  -text -noout > pubkey.pem.txt
+openssl rsa -pubin            -in 'public.pem'  -text -noout > public.pem.txt

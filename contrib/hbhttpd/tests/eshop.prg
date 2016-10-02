@@ -9,7 +9,7 @@ REQUEST DBFCDX
 
 MEMVAR server, get, post, cookie, session
 
-#define _FN_PKEY  "privkey.pem"
+#define _FN_PKEY  "private.pem"
 #define _FN_CERT  "example.crt"
 
 PROCEDURE Main()
