@@ -127,7 +127,6 @@ $dl-button-transition-time: .4s;
 
 .feature-box > div {
   display: table-row;
-  padding-top: 0;
 }
 
 .feature-box > div > div {
@@ -185,6 +184,7 @@ $dl-button-transition-time: .4s;
 }
 
 header {
+  border-bottom: 1px solid #f2f2f2;
   font: 14px 'Open Sans', sans-serif;
   line-height: 150%;
   margin: 0;
@@ -626,10 +626,9 @@ code {
 /* drop-down menu magic --------------------------------------------------- */
 
 .menu-text {
-  font-size: 13px;
+  font-size: 40%;
   margin-top: -10px;
   text-align: center;
-  width: 20px;
 }
 
 /* Dropdown Button */
@@ -647,21 +646,32 @@ code {
 
 .menu {
   background-color: #fcfdff;
-  border-bottom: 1px solid #f2f2f2;
-  height: 68px;
+  margin: auto;
   padding-top: 12px;
+  display: table;
 }
 
 .menu > nav {
-  float: left;
-  padding: 2px 0;
+  padding: 2px 1.1em;
   text-align: center;
-  width: 11%;
+  display: table-row;
+}
+
+.menu > nav > nav {
+  display: table-cell;
+}
+
+.menu nav:first-child {
+  padding-left: 0;
+}
+
+.menu nav:last-child {
+  padding-right: 0;
 }
 
 /* The container <nav> - needed to position the dropdown content */
 .dropdown {
-  display: inline-block;
+  display: inline-block !important;
   position: relative;
 }
 
@@ -669,8 +679,9 @@ code {
 .dropdown-content {
   background-color: #fcfdff;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, .2);
-  display: none;
+  display: none !important;
   margin-top: 1px;
+  margin-left: -4px;
   min-width: 160px;
   position: absolute;
   z-index: 100;
@@ -680,7 +691,7 @@ code {
 .dropdown-content a {
   border: 0;
   color: #000;
-  display: block;
+  display: block !important;
   font-size: 100%;
   font-weight: bold;
   padding: 4px;
@@ -698,7 +709,7 @@ code {
 
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
-  display: block;
+  display: block !important;
 }
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
@@ -788,12 +799,16 @@ code {
     display: none;
   }
 
-  .dropbtn {
-    font-size: 2em;
-  }
-
   .menu {
     height: 3em;
+  }
+
+  .menu > nav {
+    padding: 2px .5em;
+  }
+
+  .dropbtn {
+    font-size: 2em;
   }
 }
 
@@ -801,5 +816,9 @@ code {
   .header-version {
     right: -225px;
     top: 25px;
+  }
+
+  .menu {
+    font-size: 85%;
   }
 }
