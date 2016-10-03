@@ -738,6 +738,10 @@ code {
 }
 
 @media screen and (max-width: 735px) {
+  .banner {
+    width: 100%;
+  }
+
   div.container {
     width: auto;
   }
