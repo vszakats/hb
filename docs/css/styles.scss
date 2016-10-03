@@ -42,6 +42,7 @@ main {
   font: 14px 'Open Sans', sans-serif;
   line-height: 150%;
   margin: 0;
+  padding: 0;
 }
 
 .faq { font: 12pt serif; line-height: 120%; margin: 2em .1em; }
@@ -124,7 +125,7 @@ $dl-button-transition-time: .4s;
   margin: auto;
   margin-bottom: 1em;
   padding: .2em 1em;
-  width: 96%;
+  width: auto;
 }
 
 .feature-box > div {
@@ -145,7 +146,7 @@ $dl-button-transition-time: .4s;
   margin: auto;
   margin-bottom: 1em;
   padding: .2em 1em;
-  width: 96%;
+  width: auto;
 }
 
 .sshot {
@@ -389,7 +390,7 @@ footer div:last-child {
   float: left;
   margin: auto;
   padding: 0;
-  width: 100%;
+  width: auto;
 }
 
 .news-box {
