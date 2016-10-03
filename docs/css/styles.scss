@@ -14,10 +14,6 @@ $code-fonts: Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation 
   width: 738px;
 }
 
-.banner-spacer {
-  height: 164px;
-}
-
 div.container {
   background-color: #fff;
   border: 0;
@@ -662,7 +658,7 @@ code {
 .menu {
   background-color: #fcfdff;
   margin: auto;
-  padding-top: 12px;
+  padding-top: 174px;
   display: table;
 }
 
@@ -828,11 +824,8 @@ code {
     top: 25px;
   }
 
-  .banner-spacer {
-    height: 158px;
-  }
-
   .menu {
     font-size: 85%;
+    padding-top: 170px;
   }
 }
