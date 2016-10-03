@@ -5,7 +5,7 @@ $code-fonts: Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation 
 .banner {
   position: absolute;
   background: #0974c5;
-  background-image: radial-gradient(rgba(255, 255, 255, 1) 0%, rgba(253, 253, 255, 1) 38%, rgba(9, 116, 197, 1) 80%);
+  background-image: radial-gradient(#fff 0%, #fdfdff 38%, #0974c5 80%);
   background-position: -750px -100px;
   background-size: 220% 700%;
   display: flex;
