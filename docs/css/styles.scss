@@ -386,8 +386,10 @@ footer div:last-child {
 }
 
 .lower-box {
+  float: left;
   margin: auto;
-  width: 96%;
+  padding: 0;
+  width: 100%;
 }
 
 .news-box {
@@ -400,8 +402,10 @@ footer div:last-child {
 .miniexample-box {
   background-color: #ececec;
   border-radius: 4px;
+  float: right;
   overflow: hidden;
   padding: 0 8px;
+  width: 26%;
 }
 
 .miniexample > dl {
