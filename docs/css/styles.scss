@@ -200,18 +200,27 @@ header {
 }
 
 .header-logo {
-  margin-left: -89px;
+  margin-left: -5px;
   margin-top: 5px;
 }
 
 .header-text {
+  position: absolute;
+  top: 35px;
+  left: 300px;
+  width: 54.8%;
+}
+
+.header-text-content {
   color: #fff;
-  margin-left: 20px;
-  margin-top: 35px;
+  margin-left: auto;
+  margin-right: auto;
   text-shadow: 2px 1px #095fa8;
+  width: 401px;
 }
 
 .header-version {
+  border: 0;
   border-radius: 4px;
   font: 15px Arial, Helvetica, sans-serif;
   line-height: 120%;
@@ -219,23 +228,32 @@ header {
   transform: rotate(-11deg);
   position: relative;
   padding: 2px 4.5px;
-  right: -649px;
-  top: 76px;
-  border: 0;
 {% if site.fork %}
-  background-color: #f8981D;
+  background-color: #f84373;
   color: #fff;
 {% else %}
   background-color: #015173;
   color: #eee;
 {% endif %}
   height: 18px;
+  text-shadow: none;
   z-index: 100;
   white-space: nowrap;
 }
 
-.header-version > * {
+.header-version-narrow {
   position: absolute;
+  top: 25px;
+  right: 15px;
+  display: none;
+}
+
+.header-version-full {
+  position: relative;
+  top: -75px;
+  right: -346px;
+  width: 75px;
+  margin: 0;
 }
 
 .header-mark {
@@ -779,8 +797,8 @@ code {
     display: none;
   }
 
-  .header-version {
-    right: -280px;
+  .header-version-narrow {
+    display: inline;
   }
 
   .crew-layout > section {
@@ -822,11 +840,6 @@ code {
 }
 
 @media screen and (max-width: 320px) {
-  .header-version {
-    right: -225px;
-    top: 25px;
-  }
-
   .menu {
     font-size: 85%;
     padding-top: 170px;
