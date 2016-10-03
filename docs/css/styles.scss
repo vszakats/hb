@@ -12,6 +12,7 @@ $code-fonts: Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation 
   font-size: 14px;
   height: 163px;
   width: 738px;
+  -width: 100%;
 }
 
 div.container {
@@ -19,6 +20,7 @@ div.container {
   border: 0;
   margin: auto;
   width: 738px;
+  -width: auto;
 }
 
 header,
@@ -91,7 +93,7 @@ hr {
 }
 
 .status-box {
-  float: left;
+  float: right;
 }
 
 $dl-button-transition-time: .4s;
@@ -791,6 +793,10 @@ code {
   .why-items {
     display: block;
     width: auto;
+  }
+
+  .status-box {
+    float: left;
   }
 
   .feature-box {
