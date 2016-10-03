@@ -3,14 +3,19 @@
 $code-fonts: Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation Mono', 'Oxygen Mono', 'Andale Mono', monospace;
 
 .banner {
+  position: absolute;
   background: #0974c5;
-  background-image: radial-gradient(rgba(255, 255, 255, 1) 0%, rgba(253, 253, 255, 1) 30%, rgba(9, 116, 197, 1) 80%);
+  background-image: radial-gradient(rgba(255, 255, 255, 1) 0%, rgba(253, 253, 255, 1) 38%, rgba(9, 116, 197, 1) 80%);
   background-position: -750px -100px;
-  background-size: 220% 500%;
+  background-size: 220% 700%;
   display: flex;
   font-size: 14px;
+  height: 163px;
+  width: 738px;
+}
+
+.banner-spacer {
   height: 164px;
-  padding: 0 0 3px;
 }
 
 div.container {
@@ -40,6 +45,8 @@ main {
 .hbsite {
   background-color: #333;
   font: 14px 'Open Sans', sans-serif;
+  /* original site: */
+  /* font: 12px 'Verdana', sans-serif; */
   line-height: 150%;
   margin: 0;
   padding: 0;
@@ -773,11 +780,6 @@ code {
     height: 9em;
   }
 
-  .header-logo {
-    margin-left: -40px;
-    margin-top: 11px;
-  }
-
   .header-text {
     display: none;
   }
@@ -824,6 +826,10 @@ code {
   .header-version {
     right: -225px;
     top: 25px;
+  }
+
+  .banner-spacer {
+    height: 158px;
   }
 
   .menu {
