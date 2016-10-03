@@ -17,7 +17,7 @@
     <a href="https://github.com/vszakats">vszakats</a>
 - date: 2013-03-20
   title: Migration to Git and GitHub
-  text: <a href="https://github.com/harbour/"><i class="fa fa-git large-icon" aria-hidden="true"></i></a>
+  text: <a href="https://git-scm.com/"><img src="images/3rd_git.svg" alt="Git Logo" class="img-right" height="48"></a>
     The source repositories, website hosting, issue tracker, daily source
     snapshots, links and every other related facilities have been transferred
     to GitHub.

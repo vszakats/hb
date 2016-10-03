@@ -120,9 +120,11 @@ $dl-button-transition-time: .4s;
   background-color: #e6eff9;
   border-radius: 4px;
   display: table;
+  float: left;
   margin: auto;
   margin-bottom: 1em;
-  padding: .2em .2em .2em .8em;
+  padding: .2em 1em;
+  width: 96%;
 }
 
 .feature-box > div {
@@ -139,9 +141,11 @@ $dl-button-transition-time: .4s;
   background-color: #e6eff9;
   border-radius: 4px;
   display: inline-block;
+  float: left;
   margin: auto;
   margin-bottom: 1em;
   padding: .2em 1em;
+  width: 96%;
 }
 
 .sshot {
@@ -383,6 +387,7 @@ footer div:last-child {
 
 .lower-box {
   margin: auto;
+  width: 96%;
 }
 
 .news-box {
@@ -405,7 +410,6 @@ footer div:last-child {
 }
 
 .miniexample > dt {
-  float: left;
   margin: 0;
   padding: 0;
 }
@@ -415,7 +419,6 @@ footer div:last-child {
 }
 
 .miniexample > dd {
-  float: left;
   margin: 0;
   margin-bottom: 11px;
   padding: 0;
