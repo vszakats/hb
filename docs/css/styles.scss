@@ -16,7 +16,6 @@ $code-fonts: Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation 
 div.container {
   background-color: #fff;
   border: 0;
-  line-height: 150%;
   margin: auto;
   width: 738px;
 }
@@ -41,6 +40,7 @@ main {
 .hbsite {
   background-color: #333;
   font: 14px 'Open Sans', sans-serif;
+  line-height: 150%;
   margin: 0;
 }
 
@@ -117,30 +117,29 @@ $dl-button-transition-time: .4s;
 }
 
 .feature-box {
-  display: inline-block;
   background-color: #e6eff9;
   border-radius: 4px;
-  height: 16em;
+  display: table;
   margin: auto;
   margin-bottom: 1em;
   padding: .2em .2em .2em .8em;
 }
 
 .feature-box > div {
+  display: table-row;
   padding-top: 0;
 }
 
 .feature-box > div > div {
-  float: left;
-  padding: 0 .6em;
+  display: table-cell;
+  padding: .1em .3em .6em .3em;
   text-align: center;
-  width: 14%;
 }
 
 .license-box {
-  display: inline-block;
   background-color: #e6eff9;
   border-radius: 4px;
+  display: inline-block;
   margin: auto;
   margin-bottom: 1em;
   padding: .2em 1em;
@@ -186,6 +185,8 @@ $dl-button-transition-time: .4s;
 }
 
 header {
+  font: 14px 'Open Sans', sans-serif;
+  line-height: 150%;
   margin: 0;
   padding: 0;
 }
@@ -205,13 +206,13 @@ header {
 .header-version {
   border-radius: 4px;
   font: 15px Arial, Helvetica, sans-serif;
+  line-height: 120%;
   text-align: center;
   transform: rotate(-11deg);
   position: relative;
-  padding: 2px;
+  padding: 2px 4.5px;
   right: -649px;
   top: 76px;
-  width: 80px;
   border: 0;
 {% if site.fork %}
   background-color: #f8981D;
@@ -798,6 +799,7 @@ code {
 
 @media screen and (max-width: 320px) {
   .header-version {
-    visibility: hidden;
+    right: -225px;
+    top: 25px;
   }
 }
