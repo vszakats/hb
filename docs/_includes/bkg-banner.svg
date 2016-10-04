@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1" preserveAspectRatio="none">
- <radialGradient id="a" gradientUnits="userSpaceOnUse" cx="0%" cy="100%" r="130%">
-  <stop stop-color="#fdfdff" offset="0"/>
-  <stop stop-color="#0974c5" offset="1"/>
- </radialGradient>
- <path fill="url(#a)" d="M-50-50H51V51H-50z"/>
-</svg>

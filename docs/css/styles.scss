@@ -9,9 +9,8 @@ $code-fonts: Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation 
   /* average/dominant color of background-image:
      https://github.com/lokesh/color-thief */
   background: #569fd7;
-  {% capture svg %}{% include bkg-banner.svg %}{% endcapture %}
-  background-image: url('data:image/svg+xml,{{ svg | strip_newlines }}');  /* SVG must use double quotes */
-  display: flex;
+  background-color: #83b9e2;
+  background-image: radial-gradient(ellipse farthest-corner at left bottom, #fdfdff 0%, #0974C5 100%);
   font-size: 14px;
   height: 163px;
   width: 738px;
