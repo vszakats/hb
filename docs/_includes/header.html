@@ -45,8 +45,8 @@
         <nav class="dropdown-content">
           <a href="https://github.com/{{ site.repo_slug }}/#readme">README</a>
           <a href="https://raw.githubusercontent.com/{{ site.repo_slug }}/master/ChangeLog.txt">ChangeLog</a>
-          <a href="https://harbour.github.io/ng/c53g01c/menu.html">Clipper 5.3 Guide</a>
           <a href="https://harbour.github.io/doc/index.html">Harbour Guide</a>
+          <a href="https://harbour.github.io/ng/c53g01c/menu.html">Clipper 5.3 Guide</a>
           <a href="https://harbour.github.io/faq/index.html">FAQ (archive)</a>
           <a href="{{ site.baseurl }}/examples">Code Examples</a>
         </nav>
@@ -57,10 +57,14 @@
         <i class="fa fa-download" aria-hidden="true"></i><br><span class="menu-text">Downloads</span></a>
         <nav class="dropdown-content">
           <a href="{{ site.dl_url }}">Source and Binaries</a>
+{% if site.fork %}
+          <a href="{{ site.baseurl }}/snapshot">Snapshot Builds</a>
+{% else %}
           <a href="{{ site.baseurl }}/snapshot">Nightly Builds</a>
+{% endif %}
           <a href="{{ site.baseurl }}/contribs">Contribs</a>
-          <a href="https://harbour.github.io/the-oasis/">The Oasis (archive)</a>
           <a href="{{ site.baseurl }}/thirdparty">Third-parties</a>
+          <a href="https://harbour.github.io/the-oasis/">The Oasis (archive)</a>
         </nav>
       </nav>
 
@@ -68,8 +72,15 @@
         <a class="dropbtn" href="{{ site.baseurl }}/mailing">
         <i class="fa fa-wrench" aria-hidden="true"></i><br><span class="menu-text">Development</span></a>
         <nav class="dropdown-content">
+{% unless site.fork %}
           <a href="{{ site.baseurl }}/mailing">Mailing Lists</a>
+{% endunless %}
+          <a href="https://github.com/{{ site.repo_slug }}">Repository</a>
+          <a href="https://github.com/{{ site.repo_slug }}/commits">Commits</a>
           <a href="https://github.com/{{ site.repo_slug }}/issues">Report Issues</a>
+{% if site.fork %}
+          <a href="{{ site.baseurl }}/mailing">Mailing Lists (mainline)</a>
+{% endif %}
         </nav>
       </nav>
 
