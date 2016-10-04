@@ -307,15 +307,14 @@ header {
 }
 
 footer {
-  background: #09397f;
-  color: #ddd;
+  background: #333;
+  color: #bbb;
   font-size: 75%;
-  height: 5em;
   padding: .1em 1em;
 }
 
 footer a {
-  color: #ddd;
+  color: #bbb;
   text-decoration: none;
 }
 
@@ -327,6 +326,7 @@ footer a:hover {
 footer div {
   float: left;
   padding-top: .5em;
+  padding-bottom: .5em;
   width: 33.3%;
 }
 
@@ -814,10 +814,6 @@ code {
 
   .news dd {
     width: auto;
-  }
-
-  footer {
-    height: 9em;
   }
 
   .header-text {
