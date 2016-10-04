@@ -4,8 +4,9 @@ $code-fonts: Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation 
 
 .banner {
   position: absolute;
-  background: #4c90df;
-  background-image:url({{ site.baseurl }}/images/bkg-banner.svg);
+  /* averge/dominant color of background-image. https://github.com/lokesh/color-thief */
+  background: #569fd7;
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxIDEiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPgogPHJhZGlhbEdyYWRpZW50IGlkPSJhIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgY3g9IjAlIiBjeT0iMTAwJSIgcj0iMTMwJSI+CiAgPHN0b3Agc3RvcC1jb2xvcj0iI2ZkZmRmZiIgb2Zmc2V0PSIwIi8+CiAgPHN0b3Agc3RvcC1jb2xvcj0iIzA5NzRjNSIgb2Zmc2V0PSIxIi8+CiA8L3JhZGlhbEdyYWRpZW50PgogPHBhdGggZmlsbD0idXJsKCNhKSIgZD0iTS01MC01MEg1MVY1MUgtNTB6Ii8+Cjwvc3ZnPgo=);
   display: flex;
   font-size: 14px;
   height: 163px;
@@ -730,7 +731,8 @@ code {
 
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {
-  background-color: #09397f;
+  -background-color: #09397f;
+  background-color: #4c90df;
   color: #fff;
   transition: none;
 }
