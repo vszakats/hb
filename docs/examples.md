@@ -24,14 +24,14 @@ The examples demonstrate Harbour features in small programs.
 ## More examples
 
 More examples can be provided with the installation package of the Harbour.
-Look the [`/tests`](https://github.com/{{ site.repo_slug }}/tree/master/tests) and
-[`/extras`](https://github.com/{{ site.repo_slug }}/tree/master/extras) folders to
-find other examples, but the best example is the source code of Harbour
-itself.
+Look into the [`tests`](https://github.com/{{ site.repo_slug }}/tree/master/tests)
+and [`extras`](https://github.com/{{ site.repo_slug }}/tree/master/extras)
+folders to find other examples, but the best example is the source code of
+Harbour itself.
 
 ---
 
-## How to build/run applications
+## How to [build](https://github.com/{{ site.repo_slug }}/blob/master/utils/hbmk2/doc/hbmk2.en.md)/[run](https://github.com/{{ site.repo_slug }}/blob/master/contrib/hbrun/doc/hbrun.en.md) applications
 
 ```
 $ hbmk2 app.prg
