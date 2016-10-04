@@ -70,7 +70,7 @@
       </nav>
 
       <nav class="dropdown">
-        <a class="dropbtn" href="{{ site.baseurl }}/mailing">
+        <a class="dropbtn" href="https://github.com/{{ site.repo_slug }}">
         <i class="fa fa-wrench" aria-hidden="true"></i><br><span class="menu-text">Development</span></a>
         <nav class="dropdown-content">
 {% unless site.fork %}
@@ -80,7 +80,7 @@
           <a href="https://github.com/{{ site.repo_slug }}/commits">Commits</a>
           <a href="https://github.com/{{ site.repo_slug }}/issues">Report an Issue</a>
 {% if site.fork %}
-          <a href="{{ site.baseurl }}/mailing">Mailing Lists (mainline)</a>
+          <a href="{{ site.baseurl }}/mailing">Community</a>
 {% endif %}
         </nav>
       </nav>
