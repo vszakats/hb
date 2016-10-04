@@ -63,13 +63,12 @@ Please read the following guidelines before posting to the list.
 <div markdown="1">
 **Important**
 
-This program is free software; you can redistribute it and/or modify it under
-the terms of the GNU General Public License as published by the Free Software
-Foundation; either version 2 of the License, or (at your option) any later
-version. This program is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY or SUPPORT; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-<span class="smaller">[Read more ⇢](https://raw.githubusercontent.com/{{ site.repo_slug }}/master/COPYING.txt)</span>
+This website and all other parts of Harbour are distributed in the
+hope they will be useful, but WITHOUT GUARANTEE that they are complete,
+accurate, non-infringing or usable for any purpose whatsoever.
+Contributors are NOT LIABLE for any damages that result from using
+Harbour in any ways. For more legal details, see
+[LICENSE](https://raw.githubusercontent.com/{{ site.repo_slug }}/master/COPYING.txt).
 
 </div>
 </div>

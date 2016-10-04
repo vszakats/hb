@@ -223,6 +223,7 @@ header {
   margin-right: auto;
   text-shadow: 2px 1px #095fa8;
   width: 415px;
+  white-space: nowrap;
 {% if old_design %}
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -268,7 +269,7 @@ header {
   position: relative;
   top: -75px;
   right: -346px;
-  width: 75px;
+  width: 5em;
   margin: 0;
 }
 
@@ -369,7 +370,11 @@ footer div:last-child {
 }
 
 .list-bubble {
+{% if old_design %}
   background-color: #faffd2;
+{% else %}
+  background-color: #eee;
+{% endif %}
   border-radius: 4px;
   margin: auto;
   margin-bottom: 18px;
@@ -377,27 +382,34 @@ footer div:last-child {
   width: 65%;
 }
 
-.bubble-alt {
-  background-color: #fef1f1;
-  border-radius: 0;
-  width: 90%;
-  padding: 0 15px;
+.list-bubble a {
+  white-space: nowrap;
 }
 
-.bubble-alt > div:nth-child(1) {
-  color: #c00000;
+.bubble-alt {
+{% if old_design %}
+  background-color: #fef1f1;
+{% endif %}
+  width: 90%;
 }
 
 .list-bubble div:nth-child(1) {
   float: left;
   font-size: 280%;
   padding-top: 15px;
+  text-align: center;
+  width: 12.5%;
 }
 
 .list-bubble div:nth-child(2) {
   overflow: hidden;
   padding-left: 1em;
   padding-right: .5em;
+}
+
+.bubble-alt div:nth-child(1) {
+  color: #c00000;
+  width: auto;
 }
 
 .news dl {
