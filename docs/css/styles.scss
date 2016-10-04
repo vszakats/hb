@@ -1,5 +1,7 @@
 ---
 ---
+{% assign old_design = false %}
+
 $code-fonts: Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation Mono', 'Oxygen Mono', 'Andale Mono', monospace;
 
 .banner {
@@ -44,11 +46,13 @@ main {
 .hbsite {
   background-color: #333;
   font: 14px 'Open Sans', sans-serif;
-  /* original site: */
-  /* font: 12px 'Verdana', sans-serif; */
   line-height: 150%;
   margin: 0;
   padding: 0;
+{% if old_design %}
+  font: 12px 'Verdana', sans-serif;
+  line-height: 130%;
+{% endif %}
 }
 
 .faq { font: 12pt serif; line-height: 120%; margin: 2em .1em; }
@@ -211,7 +215,7 @@ header {
   position: absolute;
   top: 35px;
   left: 300px;
-  width: 54.8%;
+  width: 57%;
 }
 
 .header-text-content {
@@ -219,7 +223,13 @@ header {
   margin-left: auto;
   margin-right: auto;
   text-shadow: 2px 1px #095fa8;
-  width: 401px;
+  width: 415px;
+{% if old_design %}
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: Verdana, sans-serif;
+  font-size: 90%;
+{% endif %}
 }
 
 .header-version {
@@ -242,6 +252,10 @@ header {
   text-shadow: none;
   z-index: 100;
   white-space: nowrap;
+{% if old_design %}
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+{% endif %}
 }
 
 .header-version-narrow {
@@ -269,6 +283,10 @@ header {
   font-size: 240%;
   font-style: italic;
   transform: scale(1, 1.5);
+{% if old_design %}
+  font-size: 230%;
+  transform: scale(1, 1.8);
+{% endif %}
 }
 
 .header-text-alt {
@@ -277,10 +295,16 @@ header {
   font-style: italic;
   transform: scale(1, 1.5);
   margin-top: -12px;
-  margin-right: -12px;
+  margin-right: 2px;
   padding-bottom: 3px;
   border-bottom: 2px solid rgba(255, 255, 255, 1);
   box-shadow: 0 4px 6px -6px #095fa8;
+{% if old_design %}
+  font-size: 180%;
+  font-family: 'Variane Script', 'Open Sans', cursive;
+  letter-spacing: 2px;
+  transform: scale(1, 1.6);
+{% endif %}
 }
 
 footer {
