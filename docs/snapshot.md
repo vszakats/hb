@@ -2,7 +2,11 @@
 layout: default
 title: "Nightly Builds"
 ---
+{% if site.fork %}
+# Snapshot Build
+{% else %}
 # Nightly Builds
+{% endif %}
 
 You can find the latest development sources for Harbour directly on our website.
 Source code is checked out of version repository and packaged every night and
