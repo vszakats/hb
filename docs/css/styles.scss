@@ -4,10 +4,11 @@ $code-fonts: Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation 
 
 .banner {
   position: absolute;
-  /* average/dominant color of background-image. https://github.com/lokesh/color-thief */
+  /* average/dominant color of background-image:
+     https://github.com/lokesh/color-thief */
   background: #569fd7;
   {% capture svg %}{% include bkg-banner.svg %}{% endcapture %}
-  background-image: url('data:image/svg+xml,{{ svg | strip_newlines }}');
+  background-image: url('data:image/svg+xml,{{ svg | strip_newlines }}');  /* SVG must use double quotes */
   display: flex;
   font-size: 14px;
   height: 163px;
