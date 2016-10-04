@@ -54,12 +54,11 @@ typedef enum
    HB_IT_C,
    HB_IT_L,
    HB_IT_T,
-   HB_IT_B,
+   HB_IT_E,
    HB_IT_H,
    HB_IT_A,
    HB_IT_O,
    HB_IT_P,
-   HB_IT_S
 } HB_IT_BASIC;
 
 static HB_IT_BASIC s_hb_itemTypeBasic( PHB_ITEM pItem )
@@ -70,7 +69,8 @@ static HB_IT_BASIC s_hb_itemTypeBasic( PHB_ITEM pItem )
          return hb_arrayIsObject( pItem ) ? HB_IT_O : HB_IT_A;
 
       case HB_IT_BLOCK:
-         return HB_IT_B;
+      case HB_IT_SYMBOL:
+         return HB_IT_E;
 
       case HB_IT_DATE:
       case HB_IT_TIMESTAMP:
@@ -93,9 +93,6 @@ static HB_IT_BASIC s_hb_itemTypeBasic( PHB_ITEM pItem )
 
       case HB_IT_POINTER:
          return HB_IT_P;
-
-      case HB_IT_SYMBOL:
-         return HB_IT_S;
    }
 
    return HB_IT_U;

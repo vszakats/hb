@@ -859,7 +859,7 @@ static void hb_macroSetGetBlock( PHB_DYNS pVarSym, PHB_ITEM pItem,
       bPushPcode = HB_P_MPUSHALIASEDFIELD;
       bPopPcode  = HB_P_MPOPALIASEDFIELD;
    }
-   else if( !fMemVar )
+   else if( ! fMemVar )
    {
       bPushPcode = HB_P_MPUSHFIELD;
       bPopPcode  = HB_P_MPOPFIELD;
