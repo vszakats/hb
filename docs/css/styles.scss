@@ -122,23 +122,20 @@ $donate-button-transition-time: .3s;
   margin: 1em .5em;
   margin-top: 0;
   margin-right: 0;
-  transition: background-color $donate-button-transition-time;
+  transition: color $donate-button-transition-time, background-color $donate-button-transition-time;
   white-space: nowrap;
 }
 
 .donate-button a {
   color: #fff;
-  transition: color $donate-button-transition-time;
 }
 
 .donate-button:hover {
   background-color: #fff;
-  transition: background-color $donate-button-transition-time;
 }
 
 .donate-button:hover a {
   color: $fork-color;
-  transition: color $donate-button-transition-time;
 }
 
 .feature-box {
@@ -255,7 +252,6 @@ header {
   line-height: 120%;
   text-align: center;
   transform: rotate(-11deg);
-  position: relative;
   padding: 2px 4.5px;
 {% if site.fork %}
   background-color: $fork-color;
@@ -272,10 +268,10 @@ header {
   -webkit-font-smoothing: auto;
   -moz-osx-font-smoothing: auto;
 {% endif %}
-  transition: all .2s ease-in-out;
+  transition: transform .2s ease-in-out;
 }
 
-.header-version:hover {
+.header-text:hover .header-version {
   transform: rotate(-11deg) scale(1.1);
 }
 
