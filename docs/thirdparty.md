@@ -15,6 +15,20 @@ These are some links to Harbour related 3rd party tools and libraries.
 
 # Free and Open Source
 
+## [hbgi](https://github.com/tuffnatty/hbgi)
+
+<img class="img-right" src="{{ site.baseurl }}/images/3rd_gtk.svg" height="48" alt="logo">
+Continuation of former project [xbGTK](https://sourceforge.net/projects/xbgtk/),
+this project is an open source library for Linux and Windows. It allows to use
+GTK+ in programs written in xBase-like languages. The library is written by Phil
+Krylov. It is based on the PyGTK — Project by James Henstridge. Some files are
+modified, though, to generate proper xBase code (instead of Python).
+
+## [hbqt](https://sourceforge.net/projects/qtcontribs/)
+
+<img class="img-right" src="{{ site.baseurl }}/images/3rd_qt.svg" height="48" alt="logo">
+QT5 wrapper layer and IDE.
+
 ## [HwGUI](https://sourceforge.net/projects/hwgui/)
 
 Is a cross-platform GUI library for Harbour, it is written in C and Harbour.
@@ -39,11 +53,6 @@ distribution who include all needed components for your work.
 [Project page](https://sourceforge.net/projects/harbourminigui/).<br>
 MiniGUI [unofficial build](http://www.hmgextended.com/) with _extended_ features.
 
-## [hbqt](https://sourceforge.net/projects/qtcontribs/)
-
-<img class="img-right" src="{{ site.baseurl }}/images/3rd_qt.svg" height="48" alt="logo">
-QT5 wrapper layer and IDE.
-
 ## [ooHG](https://sourceforge.net/projects/oohg/)
 
 Object-Oriented Harbour Graphical interface. This is an object-oriented style
@@ -53,6 +62,12 @@ and powerful advantages of the object oriented programming.
 It offers a great flexibility for the well-know MiniGUI functionality, and an
 easy way to add new features with the lesser affectation to working code (anyone
 can subclass any control and add its own features to it).
+
+## [T-Gtk](https://sourceforge.net/projects/t-gtk/)
+
+<img class="img-right" src="{{ site.baseurl }}/images/3rd_gtk.svg" height="48" alt="logo">
+GUI for Harbour toolkit for GTK+. This library allows to give the compilers of
+Harbour from the full power of GTK + Cross-platform.
 
 ## [wxHarbour](https://sourceforge.net/projects/wxharbour/)
 
@@ -66,26 +81,13 @@ wxWidgets applications look and feel native. This is because wxWidgets uses
 the platform's own native controls rather than emulating them. It's also
 extensive, free, open-source, and mature.
 
-## [hbgi](https://github.com/tuffnatty/hbgi)
-
-<img class="img-right" src="{{ site.baseurl }}/images/3rd_gtk.svg" height="48" alt="logo">
-Continuation of former project [xbGTK](https://sourceforge.net/projects/xbgtk/),
-this project is an open source library for Linux and Windows. It allows to use
-GTK+ in programs written in xBase-like languages. The library is written by Phil
-Krylov. It is based on the PyGTK — Project by James Henstridge. Some files are
-modified, though, to generate proper xBase code (instead of Python).
-
 ## [xHGtk](https://sourceforge.net/projects/xhgtk/)
 
+<img class="img-right" src="{{ site.baseurl }}/images/3rd_gtk.svg" height="48" alt="logo">
 xHGtk is an multiplataform GUI library for Harbour. Use GTK+ to create programs
 that can run in Windows and Linux. It provides a library of commands, functions
 and classes for multiplatform development using Harbour, MinGW graphics library
 and GTK + 2.10 or higher.
-
-## [T-Gtk](https://sourceforge.net/projects/t-gtk/)
-
-GUI for Harbour toolkit for GTK+. This library allows to give the compilers of
-Harbour from the full power of GTK + Cross-platform.
 
 ---
 
