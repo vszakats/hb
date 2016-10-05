@@ -254,6 +254,7 @@ header {
   transform: rotate(-11deg);
   padding: 2px 4.5px;
 {% if site.fork %}
+  transition: transform .2s ease-in-out;
   background-color: $fork-color;
   color: #fff;
 {% else %}
@@ -268,12 +269,13 @@ header {
   -webkit-font-smoothing: auto;
   -moz-osx-font-smoothing: auto;
 {% endif %}
-  transition: transform .2s ease-in-out;
 }
 
+{% if site.fork %}
 .header-text:hover .header-version {
   transform: rotate(-11deg) scale(1.1);
 }
+{% endif %}
 
 .header-version-narrow {
   position: absolute;
