@@ -271,6 +271,11 @@ header {
   -webkit-font-smoothing: auto;
   -moz-osx-font-smoothing: auto;
 {% endif %}
+  transition: all .2s ease-in-out;
+}
+
+.header-version:hover {
+  transform: rotate(-11deg) scale(1.1);
 }
 
 .header-version-narrow {
