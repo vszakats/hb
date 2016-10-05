@@ -254,6 +254,8 @@ header {
   transform: rotate(-11deg);
   padding: 2px 4.5px;
 {% if site.fork %}
+  -webkit-font-smoothing: subpixel-antialiased;
+  -webkit-backface-visibility: hidden;
   transition: transform .2s ease-in-out;
   background-color: $fork-color;
   color: #fff;
