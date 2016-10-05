@@ -66,24 +66,6 @@ wxWidgets applications look and feel native. This is because wxWidgets uses
 the platform's own native controls rather than emulating them. It's also
 extensive, free, open-source, and mature.
 
-## [HBwxW](http://harbour.fm.interia.pl/)
-
-HBwxW is a multiplatform GUI library for Harbour. It is built on top of
-wxWidgets platform GUI library, available on Unix like systems, Windows,
-macOS operating systems. wxWidgets is "An open source C++ GUI framework to make
-cross-platform programming child's play".
-
-The main goal of HBwxW is to provide an easy to use GUI library, which can be
-utilized on all platforms Harbour currently supports. That's why it is based on
-a library which gives you a single, easy-to-use API for writing GUI applications
-on multiple platforms.
-
-HBwxW, like its underlying GUI library, is powerful and efficient enough to
-realize the most common tasks, as expected by the average and advanced
-programmers. Its main advantage over other GUI libraries is the 'native look and
-feel' on all supported platforms, simplyfying application usage and giving users
-the same sense of comfort they are already used to.
-
 ## [hbgi](https://github.com/tuffnatty/hbgi)
 
 <img class="img-right" src="{{ site.baseurl }}/images/3rd_gtk.svg" height="48" alt="logo">
