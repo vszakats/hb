@@ -145,7 +145,6 @@ CREATE CLASS UHttpd MODULE FRIENDLY
    METHOD IsStopped() INLINE ::lStop
 
    VAR cError INIT ""
-   VAR bNoop INIT {|| NIL } READONLY
 
    HIDDEN:
 
@@ -187,14 +186,14 @@ METHOD Run( hConfig ) CLASS UHttpd
       "Port"                 => 80, ;
       "BindAddress"          => "0.0.0.0", ;
       "SocketReuse"          => .F., ;
-      "LogAccess"            => ::bNoop, ;
-      "LogError"             => ::bNoop, ;
-      "Trace"                => ::bNoop, ;
-      "Idle"                 => ::bNoop, ;
+      "LogAccess"            => hb_noop(), ;
+      "LogError"             => hb_noop(), ;
+      "Trace"                => hb_noop(), ;
+      "Idle"                 => hb_noop(), ;
       "Mount"                => { => }, ;
       "PrivateKeyFilename"   => "", ;
       "CertificateFilename"  => "", ;
-      "RequestFilter"        => ::bNoop, ;
+      "RequestFilter"        => hb_noop(), ;
       "FirewallFilter"       => "0.0.0.0/0" }
 
    FOR EACH xValue IN hConfig
@@ -548,7 +547,7 @@ STATIC FUNCTION ProcessConnection( oServer )
    LOCAL hSocket, cRequest, aI, nLen, nErr, nTime, nReqLen, cBuf, aServer
    LOCAL hSSL, oConnection
 
-   LOCAL lRequestFilter := !( oServer:hConfig[ "RequestFilter" ] == oServer:bNoop )
+   LOCAL lRequestFilter := !( oServer:hConfig[ "RequestFilter" ] == hb_noop() )
 
    ErrorBlock( {| o | UErrorHandler( o, oServer ) } )
 
@@ -700,7 +699,7 @@ STATIC FUNCTION ProcessConnection( oServer )
             ENDIF
          ENDIF /* request header ok */
 
-         // Send response (unless the custom processor formed one already)
+         // Send response (unless the request filter formed one already)
          IF cBuf == NIL
             cBuf := MakeResponse( oServer:hConfig )
          ENDIF
