@@ -30,15 +30,125 @@ THREAD STATIC t_cResult, t_nStatusCode, t_aHeader, t_aSessionData
 
 MEMVAR server, get, post, cookie, session, httpd
 
+CREATE CLASS UHttpdConnection
+
+   EXPORTED:
+
+   VAR hSocket
+   VAR hSSL
+   VAR bTrace
+   VAR cRequest
+
+   METHOD Read( /* @ */ cRequest, nReqLen, nTimeout )
+   METHOD Write( cBuffer )
+
+   METHOD New( hSocket, hSSL, bTrace )
+
+   HIDDEN:
+
+   VAR cBuffer INIT ""
+
+ENDCLASS
+
+METHOD New( hSocket, hSSL, bTrace ) CLASS UHttpdConnection
+
+   ::hSocket := hSocket
+   ::hSSL    := hSSL
+   ::bTrace  := bTrace
+
+   RETURN Self
+
+METHOD Read( /* @ */ cRequest, nReqLen, nTimeout ) CLASS UHttpdConnection
+
+   LOCAL nTime := hb_MilliSeconds() + hb_defaultValue( nTimeout, 1 ) * 1000
+   LOCAL cBuf := Space( 4096 ), nLen := 1, nErr
+
+   hb_default( @nReqLen, -1 )  // Non-numeric or negative value will read till the first double-CRLF
+
+   DO WHILE iif( nReqLen >= 0, hb_BLen( ::cBuffer ) < nReqLen, !( CR_LF + CR_LF $ ::cBuffer ) ) .AND. ! httpd:IsStopped()
+
+      IF ::hSSL != NIL
+         nLen := MY_SSL_READ( ::bTrace, ::hSSL, ::hSocket, @cBuf, 1000, @nErr )
+      ELSEIF ( nLen := hb_socketRecv( ::hSocket, @cBuf,,, 1000 ) ) < 0
+         nErr := hb_socketGetError()
+      ENDIF
+
+      DO CASE
+      CASE nLen > 0
+         ::cBuffer += hb_BLeft( cBuf, nLen )
+      CASE nLen == 0
+         /* connection closed */
+         nLen := -1
+         EXIT
+      OTHERWISE
+         /* nLen == -1  socket error */
+         IF nErr == HB_SOCKET_ERR_TIMEOUT
+            IF hb_MilliSeconds() > nTime .OR. httpd:IsStopped()
+               Eval( ::bTrace, "receive timeout", ::hSocket )
+               nLen := 0
+               EXIT
+            ENDIF
+         ELSE
+            Eval( ::bTrace, "receive error:", nErr, hb_socketErrorString( nErr ) )
+            nLen := -1
+            EXIT
+         ENDIF
+      ENDCASE
+   ENDDO
+
+   DO CASE
+   CASE nLen <= 0
+      cRequest := ""
+   CASE nReqLen > 0
+      cRequest := hb_BLeft( ::cBuffer, nReqLen )
+      ::cBuffer := hb_BSubStr( ::cBuffer, nReqLen + 1 )
+      nLen := nReqLen
+   CASE nReqLen == 0
+      cRequest := ""
+      nLen := 1
+   OTHERWISE
+      nLen := hb_BAt( CR_LF + CR_LF, ::cBuffer ) + 3
+      cRequest := hb_BLeft( ::cBuffer, nLen )
+      ::cBuffer := hb_BSubStr( ::cBuffer, nLen + 1 )
+   ENDCASE
+
+   RETURN nLen
+
+METHOD Write( cBuffer ) CLASS UHttpdConnection
+
+   LOCAL nLen := 0, nErr
+
+   DO WHILE ! HB_ISNULL( cBuffer ) .AND. ! httpd:IsStopped()
+      IF ::hSSL != NIL
+         nLen := MY_SSL_WRITE( ::bTrace, ::hSSL, ::hSocket, cBuffer, 1000, @nErr )
+      ELSEIF ( nLen := hb_socketSend( ::hSocket, cBuffer,,, 1000 ) ) < 0
+         nErr := hb_socketGetError()
+      ENDIF
+
+      DO CASE
+      CASE nLen < 0
+         Eval( ::bTrace, "send error:", nErr, hb_socketErrorString( nErr ) )
+         EXIT
+      CASE nLen > 0
+         cBuffer := hb_BSubStr( cBuffer, nLen + 1 )
+      ENDCASE
+   ENDDO
+
+   RETURN nLen
+
 CREATE CLASS UHttpd MODULE FRIENDLY
 
    EXPORTED:
+
    METHOD Run( hConfig )
    METHOD Stop()
+   METHOD IsStopped() INLINE ::lStop
 
    VAR cError INIT ""
+   VAR bNoop INIT {|| NIL } READONLY
 
    HIDDEN:
+
    VAR hConfig
 
    VAR aFirewallFilter
@@ -76,13 +186,15 @@ METHOD Run( hConfig ) CLASS UHttpd
       "SSL"                  => .F., ;
       "Port"                 => 80, ;
       "BindAddress"          => "0.0.0.0", ;
-      "LogAccess"            => {|| NIL }, ;
-      "LogError"             => {|| NIL }, ;
-      "Trace"                => {|| NIL }, ;
-      "Idle"                 => {|| NIL }, ;
+      "SocketReuse"          => .F., ;
+      "LogAccess"            => ::bNoop, ;
+      "LogError"             => ::bNoop, ;
+      "Trace"                => ::bNoop, ;
+      "Idle"                 => ::bNoop, ;
       "Mount"                => { => }, ;
       "PrivateKeyFilename"   => "", ;
       "CertificateFilename"  => "", ;
+      "RequestFilter"        => ::bNoop, ;
       "FirewallFilter"       => "0.0.0.0/0" }
 
    FOR EACH xValue IN hConfig
@@ -135,6 +247,10 @@ METHOD Run( hConfig ) CLASS UHttpd
    IF Empty( ::hListen := hb_socketOpen() )
       ::cError := "Socket create error: " + hb_socketErrorString()
       RETURN .F.
+   ENDIF
+
+   IF ::hConfig[ "SocketReuse" ]
+      hb_socketSetReuseAddr( ::hListen, .T. )
    ENDIF
 
    IF ! hb_socketBind( ::hListen, { HB_SOCKET_AF_INET, ::hConfig[ "BindAddress" ], ::hConfig[ "Port" ] } )
@@ -325,7 +441,7 @@ STATIC FUNCTION ParseFirewallFilter( cFilter, aFilter )
 
    RETURN .T.
 
-STATIC FUNCTION MY_SSL_READ( hConfig, hSSL, hSocket, cBuf, nTimeout, nError )
+STATIC FUNCTION MY_SSL_READ( bTrace, hSSL, hSocket, cBuf, nTimeout, nError )
 
    LOCAL nErr, nLen
 
@@ -349,7 +465,7 @@ STATIC FUNCTION MY_SSL_READ( hConfig, hSSL, hSocket, cBuf, nTimeout, nError )
          ENDIF
          RETURN -1
       OTHERWISE
-         Eval( hConfig[ "Trace" ], "SSL_read() error", nErr )
+         Eval( bTrace, "SSL_read() error", nErr )
          nError := 1000 + nErr
          RETURN -1
       ENDSWITCH
@@ -357,7 +473,7 @@ STATIC FUNCTION MY_SSL_READ( hConfig, hSSL, hSocket, cBuf, nTimeout, nError )
 
    RETURN nLen
 
-STATIC FUNCTION MY_SSL_WRITE( hConfig, hSSL, hSocket, cBuf, nTimeout, nError )
+STATIC FUNCTION MY_SSL_WRITE( bTrace, hSSL, hSocket, cBuf, nTimeout, nError )
 
    LOCAL nErr, nLen
 
@@ -381,7 +497,7 @@ STATIC FUNCTION MY_SSL_WRITE( hConfig, hSSL, hSocket, cBuf, nTimeout, nError )
             RETURN 0
          ENDIF
       OTHERWISE
-         Eval( hConfig[ "Trace" ], "SSL_write() error", nErr )
+         Eval( bTrace, "SSL_write() error", nErr )
          nError := 1000 + nErr
          RETURN -1
       ENDSWITCH
@@ -389,7 +505,7 @@ STATIC FUNCTION MY_SSL_WRITE( hConfig, hSSL, hSocket, cBuf, nTimeout, nError )
 
    RETURN nLen
 
-STATIC FUNCTION MY_SSL_ACCEPT( hConfig, hSSL, hSocket, nTimeout )
+STATIC FUNCTION MY_SSL_ACCEPT( bTrace, hSSL, hSocket, nTimeout )
 
    LOCAL nErr
 
@@ -416,12 +532,12 @@ STATIC FUNCTION MY_SSL_ACCEPT( hConfig, hSSL, hSocket, nTimeout )
          ENDIF
          EXIT
       OTHERWISE
-         Eval( hConfig[ "Trace" ], "SSL_accept() error", nErr )
+         Eval( bTrace, "SSL_accept() error", nErr )
          nErr := 1000 + nErr
       ENDSWITCH
    OTHERWISE  /* nErr == 0 */
       nErr := SSL_get_error( hSSL, nErr )
-      Eval( hConfig[ "Trace" ], "SSL_accept() shutdown error", nErr )
+      Eval( bTrace, "SSL_accept() shutdown error", nErr )
       nErr := 1000 + nErr
    ENDCASE
 
@@ -430,7 +546,9 @@ STATIC FUNCTION MY_SSL_ACCEPT( hConfig, hSSL, hSocket, nTimeout )
 STATIC FUNCTION ProcessConnection( oServer )
 
    LOCAL hSocket, cRequest, aI, nLen, nErr, nTime, nReqLen, cBuf, aServer
-   LOCAL hSSL
+   LOCAL hSSL, oConnection
+
+   LOCAL lRequestFilter := !( oServer:hConfig[ "RequestFilter" ] == oServer:bNoop )
 
    ErrorBlock( {| o | UErrorHandler( o, oServer ) } )
 
@@ -477,7 +595,7 @@ STATIC FUNCTION ProcessConnection( oServer )
 
          nTime := hb_MilliSeconds()
          DO WHILE .T.
-            IF ( nErr := MY_SSL_ACCEPT( oServer:hConfig, hSSL, hSocket, 1000 ) ) == 0
+            IF ( nErr := MY_SSL_ACCEPT( oServer:hConfig[ "Trace" ], hSSL, hSocket, 1000 ) ) == 0
                EXIT
             ELSE
                IF nErr == HB_SOCKET_ERR_TIMEOUT
@@ -510,42 +628,14 @@ STATIC FUNCTION ProcessConnection( oServer )
 
       /* loop for processing connection */
 
+      oConnection := UHttpdConnection():New( hSocket, hSSL, oServer:hConfig[ "Trace" ] )
+
       /* Set cRequest to empty string here. This enables request pipelining */
       cRequest := ""
       DO WHILE ! oServer:lStop
 
          /* receive query header */
-         nLen := 1
-         nTime := hb_MilliSeconds()
-         cBuf := Space( 4096 )
-         DO WHILE !( CR_LF + CR_LF $ cRequest )
-            IF oServer:lHasSSL .AND. oServer:hConfig[ "SSL" ]
-               nLen := MY_SSL_READ( oServer:hConfig, hSSL, hSocket, @cBuf, 1000, @nErr )
-            ELSE
-               IF ( nLen := hb_socketRecv( hSocket, @cBuf,,, 1000 ) ) < 0
-                  nErr := hb_socketGetError()
-               ENDIF
-            ENDIF
-
-            DO CASE
-            CASE nLen > 0
-               cRequest += hb_BLeft( cBuf, nLen )
-            CASE nLen == 0
-               /* connection closed */
-               EXIT
-            OTHERWISE
-               /* nLen == -1  socket error */
-               IF nErr == HB_SOCKET_ERR_TIMEOUT
-                  IF ( hb_MilliSeconds() - nTime ) > 1000 * 30 .OR. oServer:lStop
-                     Eval( oServer:hConfig[ "Trace" ], "receive timeout", hSocket )
-                     EXIT
-                  ENDIF
-               ELSE
-                  Eval( oServer:hConfig[ "Trace" ], "receive error:", nErr, hb_socketErrorString( nErr ) )
-                  EXIT
-               ENDIF
-            ENDCASE
-         ENDDO
+         nLen := oConnection:Read( @cRequest,, 30 )
 
          IF nLen <= 0 .OR. oServer:lStop
             EXIT
@@ -565,6 +655,8 @@ STATIC FUNCTION ProcessConnection( oServer )
 
          Eval( oServer:hConfig[ "Trace" ], Left( cRequest, At( CR_LF + CR_LF, cRequest ) + 1 ) )
 
+         cBuf := NIL
+
          nReqLen := ParseRequestHeader( @cRequest )
          IF nReqLen == NIL
             USetStatusCode( 400 )
@@ -572,37 +664,7 @@ STATIC FUNCTION ProcessConnection( oServer )
          ELSE
 
             /* receive query body */
-            nLen := 1
-            nTime := hb_MilliSeconds()
-            cBuf := Space( 4096 )
-            DO WHILE hb_BLen( cRequest ) < nReqLen
-               IF oServer:lHasSSL .AND. oServer:hConfig[ "SSL" ]
-                  nLen := MY_SSL_READ( oServer:hConfig, hSSL, hSocket, @cBuf, 1000, @nErr )
-               ELSE
-                  IF ( nLen := hb_socketRecv( hSocket, @cBuf,,, 1000 ) ) < 0
-                     nErr := hb_socketGetError()
-                  ENDIF
-               ENDIF
-
-               DO CASE
-               CASE nLen > 0
-                  cRequest += hb_BLeft( cBuf, nLen )
-               CASE nLen == 0
-                  /* connection closed */
-                  EXIT
-               OTHERWISE
-                  /* nLen == -1  socket error */
-                  IF nErr == HB_SOCKET_ERR_TIMEOUT
-                     IF ( hb_MilliSeconds() - nTime ) > 1000 * 120 .OR. oServer:lStop
-                        Eval( oServer:hConfig[ "Trace" ], "receive timeout", hSocket )
-                        EXIT
-                     ENDIF
-                  ELSE
-                     Eval( oServer:hConfig[ "Trace" ], "receive error:", nErr, hb_socketErrorString( nErr ) )
-                     EXIT
-                  ENDIF
-               ENDCASE
-            ENDDO
+            nLen := oConnection:Read( @cRequest, nReqLen, 120 )
 
             IF nLen <= 0 .OR. oServer:lStop
                EXIT
@@ -630,32 +692,20 @@ STATIC FUNCTION ProcessConnection( oServer )
                ENDIF
 
                /* Do the job */
+               IF lRequestFilter
+                  cBuf := Eval( oServer:hConfig[ "RequestFilter" ], oConnection, cRequest )
+               ENDIF
                ProcessRequest( oServer )
                dbCloseAll()
             ENDIF
          ENDIF /* request header ok */
 
-         // Send response
-         cBuf := MakeResponse( oServer:hConfig )
+         // Send response (unless the custom processor formed one already)
+         IF cBuf == NIL
+            cBuf := MakeResponse( oServer:hConfig )
+         ENDIF
 
-         DO WHILE ! HB_ISNULL( cBuf ) .AND. ! oServer:lStop
-            IF oServer:lHasSSL .AND. oServer:hConfig[ "SSL" ]
-               nLen := MY_SSL_WRITE( oServer:hConfig, hSSL, hSocket, cBuf, 1000, @nErr )
-            ELSE
-               nLen := hb_socketSend( hSocket, cBuf,,, 1000 )
-               IF nLen < 0
-                  nErr := hb_socketGetError()
-               ENDIF
-            ENDIF
-
-            DO CASE
-            CASE nLen < 0
-               Eval( oServer:hConfig[ "Trace" ], "send error:", nErr, hb_socketErrorString( nErr ) )
-               EXIT
-            CASE nLen > 0
-               cBuf := hb_BSubStr( cBuf, nLen + 1 )
-            ENDCASE
-         ENDDO
+         oConnection:Write( cBuf )
 
          IF oServer:lStop
             EXIT
@@ -711,7 +761,7 @@ STATIC PROCEDURE ProcessRequest( oServer )
          CASE HB_ISSTRING( xRet )
             UWrite( xRet )
          CASE HB_ISHASH( xRet )
-            UWrite( UParse( xRet ) )
+            UWrite( UParse( xRet,, oServer:hConfig[ "Trace" ] ) )
          ENDCASE
       RECOVER
          USetStatusCode( 500 )
@@ -1475,10 +1525,10 @@ PROCEDURE UProcInfo()
 
    RETURN
 
-FUNCTION UParse( aData, cFileName, hConfig )
-   RETURN parse_data( aData, compile_file( cFileName, hConfig ), hConfig )
+FUNCTION UParse( aData, cFileName, bTrace )
+   RETURN parse_data( aData, compile_file( cFileName, bTrace ), bTrace )
 
-STATIC FUNCTION parse_data( aData, aCode, hConfig )
+STATIC FUNCTION parse_data( aData, aCode, bTrace )
 
    LOCAL aInstr, aData2, cRet, xValue, aValue, cExtend := ""
 
@@ -1501,10 +1551,10 @@ STATIC FUNCTION parse_data( aData, aCode, hConfig )
                CASE HB_ISTIMESTAMP( xValue ) ; cRet += UHtmlEncode( hb_TToC( xValue ) )
                CASE HB_ISOBJECT( xValue )    ; cRet += UHtmlEncode( xValue:Output() )
                OTHERWISE
-                  Eval( hConfig[ "Trace" ], hb_StrFormat( "Template error: invalid type '%1$s'", ValType( xValue ) ) )
+                  Eval( bTrace, hb_StrFormat( "Template error: invalid type '%1$s'", ValType( xValue ) ) )
                ENDCASE
             ELSE
-               Eval( hConfig[ "Trace" ], hb_StrFormat( "Template error: variable '%1$s' not found", aInstr[ 2 ] ) )
+               Eval( bTrace, hb_StrFormat( "Template error: variable '%1$s' not found", aInstr[ 2 ] ) )
             ENDIF
             EXIT
 
@@ -1518,18 +1568,18 @@ STATIC FUNCTION parse_data( aData, aCode, hConfig )
                CASE HB_ISTIMESTAMP( xValue ) ; cRet += hb_TToC( xValue )
                CASE HB_ISOBJECT( xValue )    ; cRet += xValue:Output()
                OTHERWISE
-                  Eval( hConfig[ "Trace" ], hb_StrFormat( "Template error: invalid type '%1$s'", ValType( xValue ) ) )
+                  Eval( bTrace, hb_StrFormat( "Template error: invalid type '%1$s'", ValType( xValue ) ) )
                ENDCASE
             ELSE
-               Eval( hConfig[ "Trace" ], hb_StrFormat( "Template error: variable '%1$s' not found", aInstr[ 2 ] ) )
+               Eval( bTrace, hb_StrFormat( "Template error: variable '%1$s' not found", aInstr[ 2 ] ) )
             ENDIF
             EXIT
 
          CASE "if"
             IF Empty( iif( aInstr[ 2 ] $ aData, aData[ aInstr[ 2 ] ], NIL ) )
-               cRet += parse_data( aData, aInstr[ 4 ], hConfig )
+               cRet += parse_data( aData, aInstr[ 4 ], bTrace )
             ELSE
-               cRet += parse_data( aData, aInstr[ 3 ], hConfig )
+               cRet += parse_data( aData, aInstr[ 3 ], bTrace )
             ENDIF
             EXIT
 
@@ -1539,11 +1589,11 @@ STATIC FUNCTION parse_data( aData, aCode, hConfig )
                   aData2 := hb_HClone( aData )
                   hb_HEval( xValue, {| k, v | aData2[ aInstr[ 2 ] + "." + k ] := v } )
                   aData2[ aInstr[ 2 ] + ".__index" ] := xValue:__enumIndex
-                  cRet += parse_data( aData2, aInstr[ 3 ], hConfig )
+                  cRet += parse_data( aData2, aInstr[ 3 ], bTrace )
                   aData2 := NIL
                NEXT
             ELSE
-               Eval( hConfig[ "Trace" ], hb_StrFormat( "Template error: loop variable '%1$s' not found", aInstr[ 2 ] ) )
+               Eval( bTrace, hb_StrFormat( "Template error: loop variable '%1$s' not found", aInstr[ 2 ] ) )
             ENDIF
             EXIT
 
@@ -1552,20 +1602,20 @@ STATIC FUNCTION parse_data( aData, aCode, hConfig )
             EXIT
 
          CASE "include"
-            cRet += parse_data( aData, compile_file( aInstr[ 2 ], hConfig ), hConfig )
+            cRet += parse_data( aData, compile_file( aInstr[ 2 ], bTrace ), bTrace )
             EXIT
          ENDSWITCH
       NEXT
       IF cExtend != NIL
          aData[ "" ] := cRet
          cRet := ""
-         aCode := compile_file( cExtend, hConfig )
+         aCode := compile_file( cExtend, bTrace )
       ENDIF
    ENDDO
 
    RETURN cRet
 
-STATIC FUNCTION compile_file( cFileName, hConfig )
+STATIC FUNCTION compile_file( cFileName, bTrace )
 
    LOCAL nPos, cTpl, aCode := {}
 
@@ -1579,11 +1629,11 @@ STATIC FUNCTION compile_file( cFileName, hConfig )
             Break( nPos )
          ENDIF
       RECOVER USING nPos
-         Eval( hConfig[ "Trace" ], hb_StrFormat( "Template error: syntax at %1$s(%2$d,%3$d)", cFileName, SubStrCount( Chr( 10 ), cTpl,, nPos ) + 1, nPos - hb_RAt( Chr( 10 ), cTpl,, nPos - 1 ) ) )
+         Eval( bTrace, hb_StrFormat( "Template error: syntax at %1$s(%2$d,%3$d)", cFileName, SubStrCount( Chr( 10 ), cTpl,, nPos ) + 1, nPos - hb_RAt( Chr( 10 ), cTpl,, nPos - 1 ) ) )
          aCode := {}
       END SEQUENCE
    ELSE
-      Eval( hConfig[ "Trace" ], hb_StrFormat( "Template error: file '%1$s' not found", cFileName ) )
+      Eval( bTrace, hb_StrFormat( "Template error: file '%1$s' not found", cFileName ) )
    ENDIF
 
    RETURN aCode
