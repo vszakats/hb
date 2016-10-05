@@ -17,7 +17,6 @@ These are some links to Harbour related 3rd party tools and libraries.
 
 ## [HwGUI](https://sourceforge.net/projects/hwgui/)
 
-<i class="fa fa-desktop large-icon" aria-hidden="true"></i>
 Is a cross-platform GUI library for Harbour, it is written in C and Harbour.
 
 HwGUI includes two versions: Windows and Linux. Windows version is based on
