@@ -1671,16 +1671,14 @@ Supported shells per host platforms:
    If you feel you can make Harbour better: contribute.
    [See how](.github/CONTRIBUTING.md).
 
-   The information this document is subject to change without notice
-   and does not represent any future commitment by the participants
-   of the project.
+   Information in this document is subject to change without notice and does
+   not represent any future commitment by the participants of the project.
 
-   This and related documents use the term "recommended" for practices
-   and tools *tested most*, *focused on*, *used and deployed* by
-   the maintainer/developer of this fork. While this is strongly believed
-   to result in the best Harbour experience for most situations, it's
-   ultimately a subjective decision. If you don't like it, use anything
-   you feel the best.
+   This and related documents use the term "recommended" for practices and
+   tools *tested most*, *focused on*, *used and deployed* by the
+   maintainer/developer of this fork. While this is strongly believed to result
+   in the best Harbour experience for most situations, it's ultimately
+   a subjective decision. If you don't like it, use what you feel the best.
 
 ---
 This document Copyright &copy;&nbsp;2009&ndash;2016 Viktor Szakáts (vszakats.net/harbour)<br />
