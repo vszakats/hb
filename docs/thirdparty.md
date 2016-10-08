@@ -29,6 +29,11 @@ modified, though, to generate proper xBase code (instead of Python).
 <img class="img-right" src="{{ site.baseurl }}/images/3rd_qt.svg" height="48" alt="logo">
 QT5 wrapper layer and IDE.
 
+## [hbui](https://github.com/RJopek/HBUI)
+
+Graphical user interface library for Harbour. This is a wrapper library around
+[libui](https://github.com/andlabs/libui), a portable, lightweight, GUI library.
+
 ## [HwGUI](https://sourceforge.net/projects/hwgui/)
 
 Is a cross-platform GUI library for Harbour, it is written in C and Harbour.
