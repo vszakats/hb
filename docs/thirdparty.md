@@ -31,7 +31,7 @@ QT5 wrapper layer and IDE.
 
 ## [hbui](https://github.com/RJopek/HBUI)
 
-Graphical user interface library for Harbour. This is a wrapper library around
+Graphical user interface library for Harbour. This is a wrapper around
 [libui](https://github.com/andlabs/libui), a portable, lightweight, GUI library.
 
 ## [HwGUI](https://sourceforge.net/projects/hwgui/)
