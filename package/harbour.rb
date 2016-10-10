@@ -1,15 +1,15 @@
 class Harbour < Formula
   desc "Portable, xBase-compatible programming language and environment"
   homepage "https://github.com/vszakats/harbour-core/"
+
   head "https://github.com/vszakats/harbour-core.git"
 
+  # Fix missing header that was deprecated by libcurl @ version 7.12.0
+  # and deleted sometime after Harbour 3.0.0 release.
   stable do
+    patch :DATA
     url "https://github.com/vszakats/harbour-core/archive/v3.0.0.tar.gz"
     sha256 "34196df52c5f9994b57936fd231f09b7307462a63cfdaa42fe8d3e1a8a388dfd"
-
-    # Fix missing header that was deprecated by libcurl @ version 7.12.0
-    # and deleted sometime after Harbour 3.0.0 release.
-    patch :DATA
   end
 
   devel do
