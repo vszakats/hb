@@ -535,6 +535,10 @@ h2 {
   font-size: 75%;
 }
 
+.readmore:after {
+  content: ' ⇢';
+}
+
 a {
   color: #0974c5;
   text-decoration: none;
