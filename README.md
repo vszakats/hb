@@ -1564,7 +1564,7 @@ Supported shells per host platforms:
      * Uncrustify (source formatter) [multi-platform, free, open-source]
         * <https://github.com/uncrustify/uncrustify>
      * UPX (executable compressor) [win, dos, \*nix, free, open-source]
-        * <https://duckduckgo.com/?q=upx>
+        * <https://upx.github.io/>
      * 7-Zip [multi-platform, free, open-source]
         * <http://7-zip.org/>
      * GNU Make
