@@ -18,7 +18,6 @@ Download the original
 Harbour logo in
 [Windows](https://raw.githubusercontent.com/vszakats/harbour-core/master/package/harbour.ico) or
 [Apple](https://raw.githubusercontent.com/vszakats/harbour-core/master/package/harbour.icns) icon format.<br>
-<span class="smaller">Created using ImageMagick, GraphicMagick, svg2png, pngquant, ImageOptim, iconutil.</span>
 
 # Historical Buttons
 
