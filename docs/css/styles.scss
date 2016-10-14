@@ -13,20 +13,32 @@ $color-base2: #095fa8;
 $color-base3: #09397f;
 
 $color-menu-bk: #fcfdff;
-$color-menu-hi: $color-base1;
+$color-menu-text: #666;
+$color-menu-text-hover: #000;
+$color-menu-text-drop-hover: $color-menu-bk;
+$color-menu-text-drop-hover-bk: $color-base1;
 
-$color-a-hover: #09a8e8;
+$color-main: #000;
+$color-a: $color-base1;
+$color-a-hover: lighten($color-a, 25%);
+$color-border: #bbb;
 
+$color-version: {% if site.fork %}#fff{% else %}#eee{% endif %};
+$color-version-bk: {% if site.fork %}$fork-color{% else %}#015173{% endif %};
+
+$color-bk-main: #fff;
 $color-bk-border: #333;
 $color-bk-head-def: #83b9e2;
 $color-bk-code: #f2f2f2;
-$color-bk-version: #015173;
 $color-bk-box1: #ececec;
 $color-bk-box2: #e6eff9;
 
 $color-warn: #c00000;
 $color-gold: #ffd700;
 $color-icons: #444;
+
+$color-donate-reverse: #fff;
+$color-donate-normal: $fork-color;
 
 .banner {
   position: absolute;
@@ -39,7 +51,8 @@ $color-icons: #444;
 }
 
 div.container {
-  background-color: #fff;
+  background-color: $color-bk-main;
+  color: $color-main;
   border: 0;
   margin: auto;
   width: 738px;
@@ -52,7 +65,6 @@ footer {
 }
 
 main {
-  background-color: #fff;
   border: 0;
   border-spacing: 0;
   margin: auto;
@@ -122,7 +134,7 @@ hr {
 }
 
 .dl-button {
-  background-color: #ccc;
+  background-color: darken($color-bk-box1, 13%);
   border-radius: 3px;
   display: inline-block;
   padding: .1em .4em;
@@ -132,9 +144,9 @@ hr {
 $donate-button-transition-time: .3s;
 
 .donate-button {
-  border: 2px solid $fork-color;
+  border: 2px solid $color-donate-normal;
   border-radius: 4px;
-  background-color: #fff;
+  background-color: $color-donate-reverse;
   display: inline-block;
   float: right;
   font-size: 125%;
@@ -147,15 +159,15 @@ $donate-button-transition-time: .3s;
 }
 
 .donate-button a {
-  color: $fork-color;
+  color: $color-donate-normal;
 }
 
 .donate-button:hover {
-  background-color: $fork-color;
+  background-color: $color-donate-normal;
 }
 
 .donate-button:hover a {
-  color: #fff;
+  color: $color-donate-reverse;
 }
 
 .feature-box {
@@ -230,6 +242,7 @@ $donate-button-transition-time: .3s;
 }
 
 header {
+  background-color: $color-menu-bk;
   border-bottom: 1px solid #f2f2f2;
   cursor: default;
   font: 14px 'Open Sans', sans-serif;
@@ -273,15 +286,12 @@ header {
   text-align: center;
   transform: rotate(-11deg);
   padding: 2px 4.5px;
+  background-color: $color-version-bk;
+  color: $color-version;
 {% if site.fork %}
   -webkit-font-smoothing: subpixel-antialiased;
   -webkit-backface-visibility: hidden;
   transition: transform .2s ease-in-out;
-  background-color: $fork-color;
-  color: #fff;
-{% else %}
-  background-color: $color-bk-version;
-  color: #eee;
 {% endif %}
   height: 18px;
   text-shadow: none;
@@ -357,18 +367,18 @@ header {
 
 footer {
   background: $color-bk-border;
-  color: #bbb;
+  color: $color-border;
   font-size: 75%;
   padding: .1em 1em;
 }
 
 footer a {
-  color: #bbb;
+  color: $color-border;
   text-decoration: none;
 }
 
 footer a:hover {
-  color: #fff;
+  color: lighten($color-border, 30%);
   transition: color .25s;
 }
 
@@ -560,7 +570,7 @@ h2 {
 }
 
 a {
-  color: $color-base1;
+  color: $color-a;
   text-decoration: none;
   transition: color .2s;
 }
@@ -748,7 +758,7 @@ code {
 /* Dropdown Button */
 .dropbtn {
   border: none;
-  color: #666;
+  color: $color-menu-text;
   cursor: pointer;
   font-size: 32px;
   margin: 0;
@@ -804,7 +814,7 @@ code {
 /* Links inside the dropdown */
 .dropdown-content a {
   border: 0;
-  color: #000;
+  color: $color-menu-text-hover;
   display: block !important;
   font-size: 100%;
   font-weight: bold;
@@ -817,8 +827,8 @@ code {
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {
   -background-color: $color-base3;
-  background-color: $color-menu-hi;
-  color: #fff;
+  background-color: $color-menu-text-drop-hover-bk;
+  color: $color-menu-text-drop-hover;
   transition: none;
 }
 
@@ -829,7 +839,7 @@ code {
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
-  color: #000;
+  color: $color-menu-text-hover;
   transition: color .5s;
 }
 
