@@ -12,6 +12,8 @@ $color-base1: #0974c5;
 $color-base2: #095fa8;
 $color-base3: #09397f;
 
+//$color-base1: hsl(random(360), random(100), random(50));
+
 $color-menu-bk: #fcfdff;
 $color-menu-text: #666;
 $color-menu-text-hover: #000;
@@ -28,10 +30,10 @@ $color-version-bk: {% if site.fork %}$fork-color{% else %}#015173{% endif %};
 
 $color-bk-main: #fff;
 $color-bk-border: #333;
-$color-bk-head-def: #83b9e2;
+$color-bk-head-def: mix($color-menu-bk, $color-base1);
 $color-bk-code: #f2f2f2;
-$color-bk-box1: #ececec;
-$color-bk-box2: #e6eff9;
+$color-bk-box1: darken($color-bk-main, 7%);
+$color-bk-box2: mix($color-bk-main, $color-base1, 90%);
 
 $color-warn: #c00000;
 $color-gold: #ffd700;
@@ -263,11 +265,13 @@ header {
   width: 57%;
 }
 
+$color-header-text-shadow: darken($color-base1, 7%);
+
 .header-text-content {
   color: #fff;
   margin-left: auto;
   margin-right: auto;
-  text-shadow: 2px 1px $color-base2;
+  text-shadow: 2px 1px $color-header-text-shadow;
   width: 415px;
   white-space: nowrap;
 {% if old_design %}
@@ -356,7 +360,7 @@ header {
   margin-right: 2px;
   padding-bottom: 3px;
   border-bottom: 2px solid rgba(255, 255, 255, 1);
-  box-shadow: 0 4px 6px -6px $color-base2;
+  box-shadow: 0 4px 6px -6px $color-header-text-shadow;
 {% if old_design %}
   font-size: 180%;
   font-family: 'Variane Script', 'Open Sans', cursive;
@@ -826,7 +830,6 @@ code {
 
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {
-  -background-color: $color-base3;
   background-color: $color-menu-text-drop-hover-bk;
   color: $color-menu-text-drop-hover;
   transition: none;
