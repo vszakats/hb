@@ -1515,10 +1515,12 @@ Supported shells per host platforms:
          ([7.x](https://www.microsoft.com/en-us/download/details.aspx?id=8279) includes compilers for x86, x86-64 and IA-64)
      * MS Windows Mobile SDK [wce, free]
         * <https://www.microsoft.com/en-us/download/details.aspx?id=42>
-     * MS Visual Studio Express [win, free, closed-source]
-        * <https://www.visualstudio.com/en-US/products/visual-studio-express-vs>
+     * MS Visual C++ Build Tools [win, free, closed-source]
+        * <https://go.microsoft.com/fwlink/?LinkId=691126>
+     * MS Visual Studio Community [win, free, closed-source]
+        * <https://www.visualstudio.com/vs/visual-studio-express/>
      * MS Visual Studio [win, commercial, closed-source]
-        * <https://www.visualstudio.com/en-us>
+        * <https://www.visualstudio.com/>
      * Pelles C [win, wce, free, closed-source]
         * <http://smorgasbordet.com/pellesc/>
      * Borland/CodeGear/Embarcadero Compiler [win, free, closed-source]
