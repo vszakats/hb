@@ -50,7 +50,7 @@
 -hbx=${hb_name}
 
 # Required for 5.7.0 or upper
--cflag=-std=gnu++11{HBMK_HAS_QT5}
+-cpp=iso11{HBMK_HAS_QT5}
 
 gtqtc1.cpp
 gtqtc.h

@@ -4449,8 +4449,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             cBin_CompC := iif( hbmk[ _HBMK_lCPP ] != NIL .AND. hbmk[ _HBMK_lCPP ], cBin_CompCPP, "icc" )
             AAdd( hbmk[ _HBMK_aOPTC ], "-D_GNU_SOURCE" )
          CASE hbmk[ _HBMK_cCOMP ] == "clang"
-            cBin_CompC := hbmk[ _HBMK_cCCPREFIX ] + "clang" + hbmk[ _HBMK_cCCSUFFIX ]
-            cBin_CompCPP := cBin_CompC
+            cBin_CompCPP := hbmk[ _HBMK_cCCPREFIX ] + "clang++" + hbmk[ _HBMK_cCCSUFFIX ]
+            cBin_CompC := iif( hbmk[ _HBMK_lCPP ] != NIL .AND. hbmk[ _HBMK_lCPP ], cBin_CompCPP, hbmk[ _HBMK_cCCPREFIX ] + "clang" + hbmk[ _HBMK_cCCSUFFIX ] )
          CASE hbmk[ _HBMK_cCOMP ] == "pcc"
             cBin_CompC := hbmk[ _HBMK_cCCPREFIX ] + "pcc" + hbmk[ _HBMK_cCCSUFFIX ]
          CASE hbmk[ _HBMK_cCOMP ] == "open64"
@@ -8894,7 +8894,7 @@ STATIC FUNCTION gcc_opt_lngc_fill( hbmk )
 STATIC FUNCTION gcc_opt_lngcpp_fill( hbmk )
 
    DO CASE
-   CASE HBMK_ISCOMP( "gcc|gccarm|gccomf|mingw|mingw64|mingwarm|djgpp" )
+   CASE HBMK_ISCOMP( "gcc|gccarm|gccomf|mingw|mingw64|mingwarm|djgpp|clang" )
 
       SWITCH hbmk[ _HBMK_cCPP ]
       CASE "iso98" ; RETURN "-std=c++98" /* ~aka c++03, ~aka ansi */
