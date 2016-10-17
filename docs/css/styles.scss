@@ -34,6 +34,7 @@ $color-bk-head-def: mix($color-menu-bk, $color-base1);
 $color-bk-code: #f2f2f2;
 $color-bk-box1: darken($color-bk-main, 7%);
 $color-bk-box2: mix($color-bk-main, $color-base1, 90%);
+$color-bk-boxs: $color-bk-box1;
 
 $color-warn: #c00000;
 $color-gold: #ffd700;
@@ -42,12 +43,14 @@ $color-icons: #444;
 $color-donate-reverse: #fff;
 $color-donate-normal: $fork-color;
 
+$header-height: 163px;
+
 .banner {
   position: absolute;
   background-color: $color-bk-head-def;
   background-image: radial-gradient(ellipse farthest-side at left bottom, $color-menu-bk 0%, $color-base1 130%);
   font-size: 14px;
-  height: 163px;
+  height: $header-height;
   width: 738px;
   -width: 100%;
 }
@@ -114,7 +117,6 @@ hr {
 .why-items,
 .status-box {
   display: inline-block;
-  background-color: $color-bk-box1;
   border-radius: 4px;
   margin: auto;
   margin-bottom: 1em;
@@ -122,6 +124,7 @@ hr {
 }
 
 .why-items {
+  background-color: $color-bk-box1;
   float: left;
   width: 59%;
 }
@@ -132,11 +135,12 @@ hr {
 }
 
 .status-box {
+  background-color: $color-bk-boxs;
   float: right;
 }
 
 .dl-button {
-  background-color: darken($color-bk-box1, 13%);
+  background-color: darken($color-bk-boxs, 10%);
   border-radius: 3px;
   display: inline-block;
   padding: .1em .4em;
@@ -285,7 +289,7 @@ $color-header-text-shadow: darken($color-base1, 7%);
 .header-version {
   border: 0;
   border-radius: 4px;
-  font: 15px Arial, Helvetica, sans-serif;
+  font: 15px 'Helvetica Neu', Helvetica, Arial, sans-serif;
   line-height: 120%;
   text-align: center;
   transform: rotate(-11deg);
@@ -774,8 +778,10 @@ code {
 
 .menu {
   background-color: $color-menu-bk;
+  font: 14px 'Open Sans', sans-serif;
+  line-height: 150%;
   margin: auto;
-  padding-top: 174px;
+  padding-top: ($header-height + 11px);
   display: table;
 }
 
