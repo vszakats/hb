@@ -1,10 +1,6 @@
 <body class="hbsite">
 
-{% if site.fork %}
-{% assign forktext = 'Fork more on GitHub' %}
-{% else %}
 {% assign forktext = 'Fork me on GitHub' %}
-{% endif %}
 
 <a class="github-fork-ribbon right-top" href="https://github.com/{{ site.repo_slug }}" title="{{ forktext }}">{{ forktext }}</a>
 
