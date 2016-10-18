@@ -241,7 +241,7 @@ header {
   background-color: $color-menu-bk;
   border-bottom: 1px solid desaturate(darken($color-menu-bk, 5%), 100%);
   cursor: default;
-  font: 14px 'Helvetica Neu', Helvetica, Arial, sans-serif;
+  font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
   line-height: 280%;
   margin: 0;
   padding: 0;
@@ -279,7 +279,7 @@ $color-header-text-shadow: darken($color-base1, 7%);
 .header-version {
   border: 0;
   border-radius: 4px;
-  font: 15px 'Helvetica Neu', Helvetica, Arial, sans-serif;
+  font: 15px 'Helvetica Neue', Helvetica, Arial, sans-serif;
   line-height: 120%;
   text-align: center;
   transform: rotate(10deg);
