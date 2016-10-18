@@ -8,18 +8,13 @@
       <div class="header-version header-version-narrow">{{ site.badge_version }}</div>
       <div class="header-logo">
         <a href="{{ site.baseurl }}/">
-          <img src="{{ site.baseurl }}/images/harbour-full.svg" alt="Harbour logo/title" width="287" height="164">
+          <img src="{{ site.baseurl }}/images/harbour-full15.svg" alt="Harbour logo/title" width="auto" height="122">
         </a>
       </div>
       <div class="header-text">
          <div class="header-text-content">
-           <span class="header-text-headline">A 32/64-bit xBase compiler</span><br>
-           <br>
-           <span class="header-mark">✓</span>Free software&nbsp;&nbsp;&nbsp;&nbsp;
-           <span class="header-mark">✓</span>Open-source&nbsp;&nbsp;&nbsp;&nbsp;
-           <span class="header-mark">✓</span>Cross-platform<br>
-           <span class="header-mark">✓</span>SQL, XML, TCP/IP, Multi-threads, Multi-GT<br>
-           <span class="header-text-alt">and much more!</span><br>
+           <span class="header-text-headline">Harbour.</span><br>
+           The Cross-Platform xBase.
            <div class="header-version header-version-full">{{ site.badge_version }}</div>
          </div>
       </div>
@@ -110,6 +105,13 @@
         </nav>
       </nav>
 
+{% if site.fork %}
+{% assign ppurl = 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=BPSZQYKXMQJYG' %}
+      <nav class="dropdown donate-button">
+        <a class="dropbtn" href="{{ ppurl }}">
+        <i class="fa fa-paypal" aria-hidden="true"></i><br><span class="menu-text">Donate Now</span></a>
+      </nav>
+{% else %}
       <nav class="dropdown">
         <a class="dropbtn">
         <i class="fa fa-language" aria-hidden="true"></i><br><span class="menu-text">Language</span></a>
@@ -117,6 +119,7 @@
           <a href="{{ site.baseurl }}/">English</a>
         </nav>
       </nav>
+{% endif %}
     </nav>
   </header>
 

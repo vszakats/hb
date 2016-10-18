@@ -4,7 +4,7 @@
 
 $code-fonts: Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation Mono', 'Oxygen Mono', 'Andale Mono', monospace;
 
-$fork-color: #f84373;
+$fork-color: orangered;
 
 $color-contr: #9f0e22;
 $color-base0: #4997d9;
@@ -34,7 +34,7 @@ $color-bk-head-def: mix($color-menu-bk, $color-base1);
 $color-bk-code: #f2f2f2;
 $color-bk-box1: darken($color-bk-main, 7%);
 $color-bk-box2: mix($color-bk-main, $color-base1, 90%);
-$color-bk-boxs: $color-bk-box1;
+$color-bk-boxs: darken(gold, 2%);
 
 $color-warn: #c00000;
 $color-gold: #ffd700;
@@ -43,16 +43,15 @@ $color-icons: #444;
 $color-donate-reverse: #fff;
 $color-donate-normal: $fork-color;
 
-$header-height: 163px;
+$header-height: 119px;
 
 .banner {
   position: absolute;
   background-color: $color-bk-head-def;
-  background-image: radial-gradient(ellipse farthest-side at left bottom, $color-menu-bk 0%, $color-base1 130%);
+  background-image: radial-gradient(ellipse farthest-side at left bottom, $color-menu-bk 0%, lighten($color-base1, 20%) 40%, $color-base1 115%);
   font-size: 14px;
   height: $header-height;
-  width: 738px;
-  -width: 100%;
+  width: 100%;
 }
 
 div.container {
@@ -60,8 +59,7 @@ div.container {
   color: $color-main;
   border: 0;
   margin: auto;
-  width: 738px;
-  -width: auto;
+  width: auto;
 }
 
 header,
@@ -124,7 +122,7 @@ hr {
 }
 
 .why-items {
-  background-color: $color-bk-box1;
+  border-top: 1px solid rgba(0, 0, 0, .1);
   float: left;
   width: 59%;
 }
@@ -150,22 +148,15 @@ hr {
 $donate-button-transition-time: .3s;
 
 .donate-button {
-  border: 2px solid $color-donate-normal;
   border-radius: 4px;
-  background-color: $color-donate-reverse;
-  display: inline-block;
-  float: right;
-  font-size: 125%;
-  padding: .4em .6em;
-  margin: 1em .5em;
-  margin-top: 0;
-  margin-right: 0;
+  color: $fork-color;
+  fon-t-size: 125%;
   transition: color $donate-button-transition-time, background-color $donate-button-transition-time;
   white-space: nowrap;
 }
 
 .donate-button a {
-  color: $color-donate-normal;
+  color: $color-donate-normal !important;
 }
 
 .donate-button:hover {
@@ -173,7 +164,7 @@ $donate-button-transition-time: .3s;
 }
 
 .donate-button:hover a {
-  color: $color-donate-reverse;
+  color: $color-donate-reverse !important;
 }
 
 .feature-box {
@@ -198,7 +189,6 @@ $donate-button-transition-time: .3s;
 }
 
 .license-box {
-  background-color: $color-bk-box2;
   border-radius: 4px;
   display: inline-block;
   float: left;
@@ -251,38 +241,38 @@ header {
   background-color: $color-menu-bk;
   border-bottom: 1px solid desaturate(darken($color-menu-bk, 5%), 100%);
   cursor: default;
-  font: 14px 'Open Sans', sans-serif;
-  line-height: 150%;
+  font: 14px 'Helvetica Neu', Helvetica, Arial, sans-serif;
+  line-height: 280%;
   margin: 0;
   padding: 0;
 }
 
 .header-logo {
-  margin-left: -5px;
-  margin-top: 5px;
+  margin-left: 2px;
+  margin-top: 2px;
 }
 
 .header-text {
   position: absolute;
-  top: 35px;
-  left: 300px;
-  width: 57%;
+  top: 22px;
+  left: 108px;
 }
 
 $color-header-text-shadow: darken($color-base1, 7%);
 
 .header-text-content {
+  color: $color-menu-bk;
   color: #fff;
+  font-weight: 300;
   margin-left: auto;
   margin-right: auto;
-  text-shadow: 2px 1px $color-header-text-shadow;
-  width: 415px;
-  white-space: nowrap;
 {% if old_design %}
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: Verdana, sans-serif;
   font-size: 90%;
+{% else %}
+  font-size: 220%;
 {% endif %}
 }
 
@@ -292,7 +282,7 @@ $color-header-text-shadow: darken($color-base1, 7%);
   font: 15px 'Helvetica Neu', Helvetica, Arial, sans-serif;
   line-height: 120%;
   text-align: center;
-  transform: rotate(-11deg);
+  transform: rotate(10deg);
   padding: 2px 4.5px;
   background-color: $color-version-bk;
   color: $color-version;
@@ -314,19 +304,19 @@ $color-header-text-shadow: darken($color-base1, 7%);
 {% if site.fork %}
 .header-text:hover .header-version {
   animation: bounce .5s .1s;
-  transform: rotate(-11deg) scale(1.1);
+  transform: rotate(10deg) scale(1.1);
 }
 {% endif %}
 
 @keyframes bounce {
-  0% { transform: rotate(-11deg) scale(1); }
-  50% { transform: rotate(-11deg) scale(1.3); }
-  100% { transform: rotate(-11deg) scale(1.1) }
+  0% { transform: rotate(10deg) scale(1); }
+  50% { transform: rotate(10deg) scale(1.3); }
+  100% { transform: rotate(10deg) scale(1.1) }
 }
 
 .header-version-narrow {
   position: absolute;
-  top: 25px;
+  top: 20px;
   right: 15px;
   display: none;
 }
@@ -334,7 +324,7 @@ $color-header-text-shadow: darken($color-base1, 7%);
 .header-version-full {
   position: relative;
   top: -75px;
-  right: -346px;
+  right: -170px;
   width: 5em;
   margin: 0;
 }
@@ -346,9 +336,8 @@ $color-header-text-shadow: darken($color-base1, 7%);
 
 .header-text-headline {
   display: inline-block;
-  font-size: 240%;
-  font-style: italic;
-  transform: scale(1, 1.5);
+  font-size: 120%;
+  font-weight: normal !important;
 {% if old_design %}
   font-size: 230%;
   transform: scale(1, 1.8);
@@ -378,6 +367,7 @@ footer {
   color: $color-border;
   font-size: 75%;
   padding: .1em 1em;
+  height: 70px;
 }
 
 footer a {
@@ -759,7 +749,7 @@ code {
 /* drop-down menu magic --------------------------------------------------- */
 
 .menu-text {
-  font-size: 40%;
+  font: 14px 'Open Sans', sans-serif;
   margin-top: -10px;
   text-align: center;
 }
@@ -773,21 +763,20 @@ code {
   margin: 0;
   text-decoration: none;
   text-align: center;
-  width: 20px;
   transition: color .25s;
 }
 
 .menu {
   background-color: $color-menu-bk;
   font: 14px 'Open Sans', sans-serif;
-  line-height: 150%;
   margin: auto;
-  padding-top: ($header-height + 11px);
+  padding-top: ($header-height + 1px);
+  padding-bottom: 1px;
   display: table;
 }
 
 .menu > nav {
-  padding: 2px 1em;
+  line-height: 120%;
   text-align: center;
   display: table-row;
 }
@@ -796,17 +785,10 @@ code {
   display: table-cell;
 }
 
-.menu nav:first-child {
-  padding-left: 0;
-}
-
-.menu nav:last-child {
-  padding-right: 0;
-}
-
 /* The container <nav> - needed to position the dropdown content */
 .dropdown {
   display: inline-block !important;
+  padding: 8px .9em 6px .9em;
   position: relative;
 }
 
@@ -815,6 +797,7 @@ code {
   background-color: $color-menu-bk;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, .2);
   display: none !important;
+  line-height: 150%;
   margin-top: 1px;
   margin-left: -4px;
   min-width: 160px;
@@ -859,7 +842,25 @@ code {
   }
 }
 
-@media screen and (max-width: 735px) {
+@media screen and (max-width: 760px) {
+  .menu-text {
+    display: none;
+  }
+
+  .menu {
+    height: 2.1em;
+  }
+
+  .menu > nav {
+    padding: 4px .5em 6px .5em;
+  }
+
+  .dropbtn {
+    font-size: 2em;
+  }
+}
+
+@media screen and (max-width: 750px) {
   .banner {
     width: 100%;
   }
@@ -874,7 +875,8 @@ code {
   }
 
   aside {
-    display: none; }
+    display: none;
+  }
 
   .news-box {
     width: 100%;
@@ -896,7 +898,16 @@ code {
     width: auto;
   }
 
+  header {
+    line-height: 200%;
+  }
+
   .header-text {
+    font-size: 70%;
+    top: 17px;
+  }
+
+  .header-version-full {
     display: none;
   }
 
@@ -924,27 +935,15 @@ code {
   .feature-box {
     display: none;
   }
-
-  .menu-text {
-    display: none;
-  }
-
-  .menu {
-    height: 3em;
-  }
-
-  .menu > nav {
-    padding: 2px .5em;
-  }
-
-  .dropbtn {
-    font-size: 2em;
-  }
 }
 
 @media screen and (max-width: 320px) {
   .menu {
-    font-size: 85%;
+    font-size: 95%;
     padding-top: ($header-height + 7px);
+  }
+
+  .dropbtn {
+    font-size: 1.7em;
   }
 }

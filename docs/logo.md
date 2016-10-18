@@ -13,7 +13,7 @@ The Harbour logo was created by Patrick Mast.<br>
 Download the original
 [Harbour logo](https://harbour.github.io/art/harbour-logo-2001.zip) in SVG, EPS and AI vector formats (854 kB).
 
-<a href="https://harbour.github.io/art/harbour-logo-2011.zip"><img src="{{ site.baseurl }}/images/harbour-noborder.svg" alt="icon" height="256"></a>
+<a href="{{ site.baseurl }}/art/harbour-logo-2016.zip"><img src="{{ site.baseurl }}/images/harbour-2016.svg" alt="icon" height="256"></a>
 
 Harbour logo in
 [Windows](https://raw.githubusercontent.com/vszakats/harbour-core/master/package/harbour.ico) or
