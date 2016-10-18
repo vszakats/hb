@@ -1,6 +1,12 @@
 <body class="hbsite">
 
-<a class="github-fork-ribbon right-top" href="https://github.com/{{ site.repo_slug }}" title="Fork me on GitHub">Fork me on GitHub</a>
+{% if site.fork %}
+{% assign forktext = 'Fork more on GitHub' %}
+{% else %}
+{% assign forktext = 'Fork me on GitHub' %}
+{% endif %}
+
+<a class="github-fork-ribbon right-top" href="https://github.com/{{ site.repo_slug }}" title="{{ forktext }}">{{ forktext }}</a>
 
 <div class="container">
   <header>
