@@ -23,7 +23,7 @@ $color-menu-text-drop-hover-bk: $color-base1;
 $color-main: #000;
 $color-a: $color-base1;
 $color-a-hover: lighten($color-a, 25%);
-$color-border: #bbb;
+$color-footer: #bbb;
 
 $color-version: {% if site.fork %}#fff{% else %}#eee{% endif %};
 $color-version-bk: {% if site.fork %}$fork-color{% else %}#015173{% endif %};
@@ -137,12 +137,30 @@ hr {
   float: right;
 }
 
+$dl-button-transition-time: .3s;
+$dl-button-bk-color: darken($color-bk-boxs, 10%);
+$dl-button-color: $color-bk-border;
+
 .dl-button {
-  background-color: darken($color-bk-boxs, 10%);
+  background-color: $dl-button-bk-color;
   border-radius: 3px;
   display: inline-block;
+  font-weight: bold;
   padding: .1em .4em;
   margin-bottom: 1em;
+  transition: background-color $dl-button-transition-time;
+}
+
+.dl-button:hover {
+  background-color: $dl-button-color;
+}
+
+.dl-button a {
+  transition: color $dl-button-transition-time;
+}
+
+.dl-button:hover a {
+  color: $dl-button-bk-color;
 }
 
 $donate-button-transition-time: .3s;
@@ -150,7 +168,6 @@ $donate-button-transition-time: .3s;
 .donate-button {
   border-radius: 4px;
   color: $fork-color;
-  fon-t-size: 125%;
   transition: color $donate-button-transition-time, background-color $donate-button-transition-time;
   white-space: nowrap;
 }
@@ -364,19 +381,19 @@ $color-header-text-shadow: darken($color-base1, 7%);
 
 footer {
   background: $color-bk-border;
-  color: $color-border;
+  color: $color-footer;
   font-size: 75%;
   padding: .1em 1em;
   height: 70px;
 }
 
 footer a {
-  color: $color-border;
+  color: $color-footer;
   text-decoration: none;
 }
 
 footer a:hover {
-  color: lighten($color-border, 30%);
+  color: lighten($color-footer, 30%);
   transition: color .25s;
 }
 
@@ -559,13 +576,32 @@ h2 {
   font-weight: bolder;
 }
 
+$readmore-char: ' ⋯';
+
 .readmore {
   font-size: 75%;
   white-space: nowrap;
 }
 
 .readmore:after {
-  content: ' ⇢';
+  content: $readmore-char;
+}
+
+.readmore-md {
+  font-size: 75%;
+  white-space: nowrap;
+}
+
+.readmore-md a:after {
+  content: $readmore-char;
+}
+
+.readmore-norm {
+  white-space: nowrap;
+}
+
+.readmore-norm:after {
+  content: $readmore-char;
 }
 
 a {
