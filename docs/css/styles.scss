@@ -51,7 +51,8 @@ $header-height: 119px;
   background-image: radial-gradient(ellipse farthest-side at left bottom, $color-menu-bk 0%, lighten($color-base1, 20%) 40%, $color-base1 115%);
   font-size: 14px;
   height: $header-height;
-  width: 100%;
+  width: 738px;
+  -width: 100%;
 }
 
 div.container {
@@ -59,7 +60,8 @@ div.container {
   color: $color-main;
   border: 0;
   margin: auto;
-  width: auto;
+  width: 738px;
+  -width: auto;
 }
 
 header,
@@ -828,7 +830,7 @@ code {
 /* The container <nav> - needed to position the dropdown content */
 .dropdown {
   display: inline-block !important;
-  padding: 8px .9em 6px .9em;
+  padding: 8px .8em 6px .8em;
   position: relative;
 }
 
@@ -883,6 +885,9 @@ code {
 }
 
 @media screen and (max-width: 760px) {
+}
+
+@media screen and (max-width: 735px) {
   .menu-text {
     display: none;
   }
@@ -898,9 +903,7 @@ code {
   .dropbtn {
     font-size: 2em;
   }
-}
 
-@media screen and (max-width: 750px) {
   .banner {
     width: 100%;
   }
