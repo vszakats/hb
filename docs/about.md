@@ -11,9 +11,10 @@ Harbour is a cross-platform compiler and is known to compile and run on:
 * GNU/Linux
 * Windows (32/64-bit, CE)
 * macOS
-* *NIX
-* *BSD
+* iOS
 * Android
+* *BSD
+* *NIX
 * OS/2
 * MS-DOS
 
