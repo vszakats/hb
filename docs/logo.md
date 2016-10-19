@@ -13,9 +13,9 @@ App icons for
 # Previous versions
 
 * 2011 update<br>
-  <a href="https://harbour.github.io/art/harbour-logo-2011.zip"><img src="{{ site.baseurl }}/images/harbour-noborder.svg" alt="logo" height="256"></a>
+  <a href="https://harbour.github.io/art/harbour-logo-2011.zip"><img src="{{ site.baseurl }}/images/harbour-2011.svg" alt="logo" height="256"></a>
 * Original, created by Patrick Mast<br>
-  <a href="https://harbour.github.io/art/harbour-logo-2001.zip"><img src="{{ site.baseurl }}/images/harbour-full.svg" alt="logo" height="256"></a>
+  <a href="https://harbour.github.io/art/harbour-logo-2001.zip"><img src="{{ site.baseurl }}/images/harbour-2001.svg" alt="logo" height="256"></a>
 {% unless site.fork %}
 * Legacy button<br>
   [![button](https://harbour.github.io/art/harbour-button.png)](https://harbour.github.io/art/harbour-button.png)
