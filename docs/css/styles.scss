@@ -583,6 +583,10 @@ h2 {
   font-weight: bolder;
 }
 
+.edit-page {
+  font-size: 100%;
+}
+
 $readmore-char: ' ⋯';
 
 .readmore {
@@ -831,7 +835,7 @@ code {
 /* The container <nav> - needed to position the dropdown content */
 .dropdown {
   display: inline-block !important;
-  padding: 8px .8em 6px .8em;
+  padding: 8px 11px 6px 11px;
   position: relative;
 }
 
@@ -898,7 +902,7 @@ code {
   }
 
   .menu > nav {
-    padding: 4px .5em 6px .5em;
+    padding: 4px 5px 6px 5px;
   }
 
   .dropbtn {
@@ -988,6 +992,6 @@ code {
   }
 
   .dropbtn {
-    font-size: 1.7em;
+    font-size: 25px;
   }
 }
