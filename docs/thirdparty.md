@@ -76,7 +76,7 @@ Harbour from the full power of GTK + Cross-platform.
 
 ## [wxHarbour](https://sourceforge.net/projects/wxharbour/)
 
-<img class="img-right" src="{{ site.baseurl }}/images/3rd_wxwidgets.svg" alt="logo">
+<img class="img-right" src="{{ site.baseurl }}/images/3rd_wxwidgets.svg" height="48" alt="logo">
 wxHarbour is a set of Harbour language bindings for wxWidgets. Providing
 a portable multi-platform GUI toolkit for Harbour.
 
