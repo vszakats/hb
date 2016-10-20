@@ -83,13 +83,18 @@ main {
   width: $content-fill;
 }
 
+body {
+  background: $color-bk-footer;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
 .hbsite {
   background-color: $color-bk-border;
   font: 16px 'Open Sans', sans-serif;
   line-height: 150%;
   -webkit-font-smoothing: antialiased;
-  margin: 0;
-  padding: 0;
 {% if old_design %}
   font: 12px 'Verdana', sans-serif;
   line-height: 130%;
