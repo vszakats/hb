@@ -46,6 +46,7 @@ $color-donate-normal: $fork-color;
 
 $header-height: 119px;
 $content-width: 738px;
+$content-fill: 94%;
 
 .banner {
   position: absolute;
@@ -79,13 +80,14 @@ main {
   margin-left: 21px;
   margin-bottom: 15px;
   padding: 0;
-  width: 94%;
+  width: $content-fill;
 }
 
 .hbsite {
   background-color: $color-bk-border;
   font: 16px 'Open Sans', sans-serif;
   line-height: 150%;
+  -webkit-font-smoothing: antialiased;
   margin: 0;
   padding: 0;
 {% if old_design %}
@@ -420,7 +422,7 @@ footer a:hover {
 
 .footer-content {
   margin: auto;
-  width: $content-width;
+  width: (($content-width / 100%) * $content-fill);
 }
 
 .footer-content div {
@@ -793,6 +795,7 @@ code {
   line-height: 12px;
   margin-top: 0;
   margin-bottom: 0;
+  -webkit-font-smoothing: auto;
 }
 
 .shot-shrink pre {
