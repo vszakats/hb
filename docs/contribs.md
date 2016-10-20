@@ -10,9 +10,8 @@ Contribs are libraries or tools, which are independent from the language core,
 but bundled with the main Harbour distribution. These components are part of
 the Harbour source package.
 
-_Important: Common to all contribs is that you can download them freely, but
-please note the [licensing terms]({{ site.baseurl }}/about), which are
-included in the distribution folder._
+Common to all contribs is that you can download them freely, but please note
+that [licensing terms]({{ site.baseurl }}/about) may vary for each contrib.
 
 See respective authors inside the [source code](https://github.com/{{ site.repo_slug }}/tree/master/contrib).
 
