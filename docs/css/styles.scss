@@ -30,6 +30,7 @@ $color-version-bk: {% if site.fork %}$fork-color{% else %}#015173{% endif %};
 
 $color-bk-main: #fff;
 $color-bk-border: #333;
+$color-bk-footer: $color-bk-border;
 $color-bk-head-def: mix($color-menu-bk, $color-base1);
 $color-bk-code: #f2f2f2;
 $color-bk-box1: darken($color-bk-main, 7%);
@@ -44,6 +45,7 @@ $color-donate-reverse: #fff;
 $color-donate-normal: $fork-color;
 
 $header-height: 119px;
+$content-width: 738px;
 
 .banner {
   position: absolute;
@@ -51,7 +53,7 @@ $header-height: 119px;
   background-image: radial-gradient(ellipse farthest-side at left bottom, $color-menu-bk 0%, lighten($color-base1, 20%) 40%, $color-base1 115%);
   font-size: 14px;
   height: $header-height;
-  width: 738px;
+  width: $content-width;
   -width: 100%;
 }
 
@@ -60,7 +62,7 @@ div.container {
   color: $color-main;
   border: 0;
   margin: auto;
-  width: 738px;
+  width: $content-width;
   -width: auto;
 }
 
@@ -141,7 +143,7 @@ hr {
 
 $dl-button-transition-time: .3s;
 $dl-button-bk-color: darken($color-bk-boxs, 10%);
-$dl-button-color: $color-bk-border;
+$dl-button-color: $color-bk-footer;
 
 .dl-button {
   background-color: $dl-button-bk-color;
@@ -382,7 +384,7 @@ $color-header-text-shadow: darken($color-base1, 7%);
 }
 
 footer {
-  background: $color-bk-border;
+  background: $color-bk-footer;
   color: $color-footer;
   font-size: 75%;
   padding: .1em 1em;
@@ -892,7 +894,7 @@ code {
 @media screen and (max-width: 760px) {
 }
 
-@media screen and (max-width: 735px) {
+@media screen and (max-width: ($content-width - 1px)) {
   .menu-text {
     display: none;
   }
