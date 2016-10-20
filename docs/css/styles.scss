@@ -432,9 +432,15 @@ footer a:hover {
   width: 33.3%;
 }
 
+.cc {
+  font-size: smaller;
+  text-transform: uppercase;
+}
+
 footer svg {
   fill: currentColor;
-  height: 20px;
+  height: 14px;
+  vertical-align: middle;
 }
 
 .footer-content div:first-child {
