@@ -9,7 +9,6 @@ $font-main: 'Noto Sans', sans-serif;
 $fork-color: #f8981d;
 $fork-color: orangered;
 
-$color-contr: #9f0e22;
 $color-base0: #4997d9;
 $color-base1: #0974c5;
 $color-base2: #095fa8;
@@ -26,6 +25,7 @@ $color-menu-text-drop-hover-bk: $color-base1;
 $color-main: #000;
 $color-a: $color-base1;
 $color-a-hover: lighten($color-a, 25%);
+$color-a-active: $color-a-hover;
 $color-footer: #bbb;
 
 $color-version: {% if site.fork %}#fff{% else %}#eee{% endif %};
@@ -34,6 +34,7 @@ $color-version-bk: {% if site.fork %}$fork-color{% else %}#015173{% endif %};
 $color-bk-main: #fff;
 $color-bk-border: #fff;
 $color-bk-footer: #333;
+$color-bk-tooltip: $color-bk-footer;
 $color-bk-head-def: mix($color-menu-bk, $color-base1);
 $color-bk-code: #f2f2f2;
 $color-bk-box1: darken($color-bk-main, 7%);
@@ -153,6 +154,39 @@ hr {
 .status-box {
   background-color: $color-bk-boxs;
   float: right;
+}
+
+.tooltip {
+  display: inline;
+  position: relative;
+}
+
+$tooltip-pin-size: 6px;
+$tooltip-above-text: 20px;
+
+.tooltip:hover:after {
+  background: $color-bk-tooltip;
+  background: rgba(0, 0, 0, .8);
+  border-radius: 4px;
+  bottom: ($tooltip-above-text + $tooltip-pin-size);
+  color: #fff;
+  content: attr(tooltip-text);
+  left: -220px;
+  padding: .3em .9em;
+  position: absolute;
+  z-index: 98;
+  width: 220px;
+}
+
+.tooltip:hover:before {
+  border: solid;
+  border-color: $color-bk-tooltip transparent;
+  border-width: $tooltip-pin-size $tooltip-pin-size 0 $tooltip-pin-size;
+  bottom: $tooltip-above-text;
+  content: "";
+  left: 10%;
+  position: absolute;
+  z-index: 99;
 }
 
 $dl-button-transition-time: .3s;
@@ -674,7 +708,7 @@ a:hover {
 }
 
 a:active {
-  color: $color-contr;
+  color: $color-a-active;
 }
 
 .contribs h2 {
