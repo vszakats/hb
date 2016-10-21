@@ -2,7 +2,9 @@
 ---
 {% assign old_design = false %}
 
-$code-fonts: Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation Mono', 'Oxygen Mono', 'Andale Mono', monospace;
+$font-code: Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation Mono', 'Oxygen Mono', 'Andale Mono', monospace;
+$font-copy: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-main: 'Noto Sans', sans-serif;
 
 $fork-color: #f8981d;
 $fork-color: orangered;
@@ -44,9 +46,6 @@ $color-icons: #444;
 
 $color-donate-reverse: #fff;
 $color-donate-normal: $fork-color;
-
-$font-copy: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-$font-main: 'Noto Sans', sans-serif;
 
 $header-border: 0;  /* 3px */
 $header-height: 119px;
@@ -756,7 +755,7 @@ pre {
 }
 
 code {
-  font-family: $code-fonts;
+  font-family: $font-code;
 }
 
 .github-fork-ribbon.right-top::before {
@@ -789,7 +788,6 @@ code {
   top: 4px;
   width: 50%;
   left: 50%;
-  font-family: sans-serif;
   font-size: 14px;
   text-shadow: 0px 1px 0px rgba(255, 255, 255, .5);
   line-height: 14px;
@@ -807,7 +805,7 @@ code {
   text-align: left;
   background-color: #000;
   color: #0d0 !important;
-  font-family: $code-fonts;
+  font-family: $font-code;
   font-size: 12px;
   line-height: 12px;
   margin-top: 0;
