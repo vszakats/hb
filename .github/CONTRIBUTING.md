@@ -4,7 +4,7 @@
 
 1. [How to Donate](#how-to-donate)
 2. [How to Share](#how-to-share)
-3. [How to Participate](#how-to-participate)
+3. [How to Get Involved](#how-to-get-involved)
 4. [Troubleshooting](#troubleshooting)
 
 ---
@@ -39,7 +39,7 @@
   * [source - specific revision .zip archive](https://github.com/vszakats/harbour-core/archive/e46f2fdb75c493ff5b4c777f5a0963d2e7d6f65b.zip)
 
 
-# How to Participate
+# How to Get Involved
 
 - You can give feedback/suggestions by submitting an [issue](https://github.com/vszakats/harbour-core/issues/new).
 - Submit a patch:
