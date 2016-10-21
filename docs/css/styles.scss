@@ -918,13 +918,15 @@ pre, code {
 .dropdown-content {
   background-color: $color-menu-bk;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, .2);
+  border-radius: 3px;
   display: none !important;
   line-height: 150%;
   margin-top: 1px;
-  margin-left: -4px;
+  margin-left: -9px;
   min-width: 12em;
   position: absolute;
   z-index: 100;
+  padding: 5px 5px;
 }
 
 /* Links inside the dropdown */
@@ -933,7 +935,7 @@ pre, code {
   color: $color-menu-text-hover;
   display: block !important;
   font-size: 100%;
-  font-weight: bold;
+  -font-weight: bold;
   padding: 4px;
   text-align: left;
   text-decoration: none;
