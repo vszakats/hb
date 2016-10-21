@@ -10,11 +10,11 @@
 [![Average time to resolve an Issue](https://isitmaintained.com/badge/resolution/vszakats/harbour-core.svg)](https://isitmaintained.com/project/vszakats/harbour-core "Average time to resolve an Issue")
 [![Percentage of Issues still open](https://isitmaintained.com/badge/open/vszakats/harbour-core.svg)](https://isitmaintained.com/project/vszakats/harbour-core "Percentage of Issues still open")
 
-Harbour is the open/free software implementation of a multi-platform,
+Harbour is the open/free software implementation of a cross-platform,
 multi-threading, object-oriented, scriptable programming language,
 backwards compatible with xBase languages. Harbour consists of
 a compiler and runtime libraries with multiple UI and database
-backends, its own make system and a large collection of libraries
+backends, its own build system and a large collection of libraries
 and interfaces to popular APIs.
 
 # Table of Content

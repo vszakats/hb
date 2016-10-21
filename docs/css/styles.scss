@@ -44,6 +44,9 @@ $color-icons: #444;
 $color-donate-reverse: #fff;
 $color-donate-normal: $fork-color;
 
+$main-font: 'Noto Sans', sans-serif;
+
+$header-border: 0;  /* 3px */
 $header-height: 119px;
 $content-width: 738px;
 $content-fill: 94%;
@@ -56,6 +59,7 @@ $content-fill: 94%;
   height: $header-height;
   width: $content-width;
   width: 100%;
+  border-top: $header-border solid $color-bk-boxs;
 }
 
 div.container {
@@ -92,7 +96,7 @@ body {
 
 .hbsite {
   background-color: $color-bk-border;
-  font: 16px 'Open Sans', sans-serif;
+  font: 16px $main-font;
   line-height: 150%;
   -webkit-font-smoothing: antialiased;
 {% if old_design %}
@@ -399,7 +403,7 @@ $color-header-text-shadow: darken($color-base1, 7%);
   box-shadow: 0 4px 6px -6px $color-header-text-shadow;
 {% if old_design %}
   font-size: 180%;
-  font-family: 'Variane Script', 'Open Sans', cursive;
+  font-family: 'Variane Script', 'Noto Sans', cursive;
   letter-spacing: 2px;
   transform: scale(1, 1.6);
 {% endif %}
@@ -834,7 +838,7 @@ code {
 /* drop-down menu magic --------------------------------------------------- */
 
 .menu-text {
-  font: 14px 'Open Sans', sans-serif;
+  font: 14px $main-font;
   margin-top: -10px;
   text-align: center;
 }
@@ -853,9 +857,9 @@ code {
 
 .menu {
   background-color: $color-menu-bk;
-  font: 16px 'Open Sans', sans-serif;
+  font: 16px $main-font;
   margin: auto;
-  padding-top: ($header-height + 1px);
+  padding-top: ($header-border + $header-height + 1px);
   padding-bottom: 1px;
   display: table;
 }
@@ -1030,7 +1034,7 @@ code {
 @media screen and (max-width: 320px) {
   .menu {
     font-size: 95%;
-    padding-top: ($header-height + 7px);
+    padding-top: ($header-border + $header-height + 7px);
   }
 
   .dropbtn {
