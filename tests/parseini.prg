@@ -22,13 +22,11 @@ PROCEDURE Main( cName )
       @ nRow++, 5 SAY "Using default parseini.ini file"
    ENDIF
 
-   hIni := hb_iniRead( cName )
-
    @ nRow, 0
 
    ? "Content of", cName
 
-   IF Empty( hIni )
+   IF Empty( hIni := hb_iniRead( cName ) )
       ? "Not a valid .ini file!"
    ELSE
       FOR EACH cSection IN hIni:Keys
@@ -61,14 +59,11 @@ PROCEDURE Main( cName )
    ?
    ? "REPEATING TESTS WITHOUT AUTOMATIC MAIN SECTION"
    ?
-
-   hIni := hb_iniRead( cName, ; /* default case */
-                       , ; /* default key indicators */
-                       , .F. )
-
    ? "Content of", cName
 
-   IF Empty( hIni )
+   IF Empty( hIni := hb_iniRead( cName, ;
+                                 /* default case */, ;
+                                 /* default key indicators */, .F. ) )
       ? "Not a valid .ini file!"
    ELSE
       FOR EACH cSection IN hIni:Keys
@@ -125,14 +120,11 @@ PROCEDURE Main( cName )
    ?
    ? "READING INI FILE FROM A STRING"
    ?
-
-   hIni := hb_iniReadStr( cIni, ; /* default case */
-            , ; /* default key indicators */
-            , .F. )
-
    ? "Content:"
 
-   IF Empty( hIni )
+   IF Empty( hIni := hb_iniReadStr( cIni, ;
+                                    /* default case */, ;
+                                    /* default key indicators */, .F. ) )
       ? "Not a valid .ini file!"
    ELSE
       FOR EACH cSection IN hIni:Keys
