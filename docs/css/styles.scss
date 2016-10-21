@@ -2,7 +2,7 @@
 ---
 {% assign old_design = false %}
 
-$font-code: Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation Mono', 'Oxygen Mono', 'Andale Mono', monospace;
+$font-code: Hack, Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation Mono', 'Oxygen Mono', 'Andale Mono', monospace;
 $font-copy: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $font-main: 'Noto Sans', sans-serif;
 
@@ -754,7 +754,7 @@ pre {
   padding: 16px;
 }
 
-code {
+pre, code {
   font-family: $font-code;
 }
 
@@ -805,7 +805,6 @@ code {
   text-align: left;
   background-color: #000;
   color: #0d0 !important;
-  font-family: $font-code;
   font-size: 12px;
   line-height: 12px;
   margin-top: 0;
