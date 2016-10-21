@@ -4,6 +4,7 @@
 
 $code-fonts: Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation Mono', 'Oxygen Mono', 'Andale Mono', monospace;
 
+$fork-color: #f8981d;
 $fork-color: orangered;
 
 $color-contr: #9f0e22;
@@ -44,7 +45,8 @@ $color-icons: #444;
 $color-donate-reverse: #fff;
 $color-donate-normal: $fork-color;
 
-$main-font: 'Noto Sans', sans-serif;
+$font-copy: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-main: 'Noto Sans', sans-serif;
 
 $header-border: 0;  /* 3px */
 $header-height: 119px;
@@ -96,7 +98,7 @@ body {
 
 .hbsite {
   background-color: $color-bk-border;
-  font: 16px $main-font;
+  font: 16px $font-main;
   line-height: 150%;
   -webkit-font-smoothing: antialiased;
 {% if old_design %}
@@ -276,7 +278,7 @@ header {
   background-color: $color-menu-bk;
   border-bottom: 1px solid desaturate(darken($color-menu-bk, 5%), 100%);
   cursor: default;
-  font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font: 14px $font-copy;
   line-height: 280%;
   margin: 0;
   padding: 0;
@@ -326,7 +328,7 @@ $color-header-text-shadow: darken($color-base1, 7%);
 .header-version {
   border: 0;
   border-radius: 4px;
-  font: 15px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font: 15px $font-copy;
   line-height: 120%;
   text-align: center;
   transform: rotate(10deg);
@@ -838,7 +840,7 @@ code {
 /* drop-down menu magic --------------------------------------------------- */
 
 .menu-text {
-  font: 14px $main-font;
+  font: 14px $font-main;
   margin-top: -10px;
   text-align: center;
 }
@@ -857,7 +859,7 @@ code {
 
 .menu {
   background-color: $color-menu-bk;
-  font: 16px $main-font;
+  font: 16px $font-main;
   margin: auto;
   padding-top: ($header-border + $header-height + 1px);
   padding-bottom: 1px;
