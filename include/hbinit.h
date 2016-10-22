@@ -60,6 +60,7 @@ extern HB_EXPORT PHB_SYMB hb_vmProcessSymbols( PHB_SYMB pSymbols, HB_USHORT uiSy
    defined but not used static variable initialized with this method. */
 #if defined( __cplusplus ) && ! defined( HB_STATIC_STARTUP ) && \
     ! defined( HB_PRAGMA_STARTUP ) && ! defined( HB_GNUC_STARTUP ) && \
+    ! defined( HB_INITSEG_STARTUP ) && ! defined( HB_DATASEG_STARTUP ) && \
     ! defined( __GNUC__ )
    #define HB_STATIC_STARTUP
 #endif
