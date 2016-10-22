@@ -2,7 +2,6 @@
 layout: default
 title: "Third-parties"
 ---
-
 # Third-parties
 
 These are some links to Harbour related 3rd party tools and libraries.

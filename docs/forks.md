@@ -41,6 +41,7 @@ focus on the Windows platform along with commercial offerings.
 Technical details on how this fork differs from the other variations,
 [here](https://raw.githubusercontent.com/vszakats/harbour-core/master/doc/xhb-diff.txt).
 
+{% if site.fork %}
 ## Mainline (non-fork) Harbour
 
 This is the non-fork, original version of Harbour, started in 1999.
@@ -48,5 +49,6 @@ This is the non-fork, original version of Harbour, started in 1999.
 * [Homepage](https://harbour.github.io/)
 * [Repository](https://github.com/harbour/core)
 * [Community](https://groups.google.com/group/harbour-users/)
+{% endif %}
 
 </div>
