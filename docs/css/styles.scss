@@ -515,14 +515,14 @@ footer svg {
 .crew-content > div:nth-child(1) {
   background-color: $color-bk-box1;
   border-radius: 4px;
+  padding: 2px .8em;
   margin-bottom: 12px;
-  padding: 2px .6em;
 }
 
 .crew-content > div:nth-child(2) {
   background-color: $color-bk-box2;
   border-radius: 4px;
-  padding: 2px .6em;
+  padding: 2px .8em;
 }
 
 .list-bubble {
@@ -756,7 +756,7 @@ h4:after {
 
 .crew-country-list {
   list-style: none;
-  padding-left: .5em;
+  padding-left: 0;
   text-indent: 0;
 }
 
@@ -771,7 +771,7 @@ h4:after {
 
 .crew-alphalist {
   list-style: none;
-  padding-left: .4em;
+  padding-left: 0;
   text-indent: 0;
   font-size: 80%;
   line-height: 125%;
