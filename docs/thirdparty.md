@@ -75,6 +75,10 @@ GUI for Harbour toolkit for GTK+. This library gives Harbour the full power
 of GTK+ in a cross-platform fashion.
 <br><br>
 
+## [WebSocket](https://github.com/foldiii/websocket)
+
+WebSocket implementation built on top of `hbhttps` contrib.
+
 ## [wxHarbour](https://sourceforge.net/projects/wxharbour/)
 
 <img class="img-right" src="{{ site.baseurl }}/images/3rd_wxwidgets.svg" height="48" alt="logo">

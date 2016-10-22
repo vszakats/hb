@@ -32,7 +32,7 @@ CA-Clipper (`CT.LIB`).
 
 ## hbcurl
 
-Harbour wrappers for libcurl. libcurl is a free and easy-to-use client-side
+libcurl bindings for Harbour. libcurl is a free and easy-to-use client-side
 URL transfer library, supporting SSL, HTTP GET/PUT/POST/forms, HTTP2, SCP,
 FTPS, SFTP, FTP, LDAP, LDAPS, SMTP, SMTPS, IMAP, IMAPS, POP3, POP3S, TFTP,
 TELNET, FILE/SMB, proxies, cookies, authentication (Basic, Digest, NTLM,
@@ -41,12 +41,12 @@ Negotiate, Kerberos), file transfer resume, http proxy tunneling and more.
 
 ## hbfbird
 
-Harbour Low Level API for Firebird/Interbase RDBMS, including classes and
+Firebird/Interbase RDBMS API bindings for Harbour, including classes and
 functions to work with these RDBMS.
 
 ## hbfimage
 
-FreeImage graphic library wrapper for Harbour.
+FreeImage graphic library bindings for Harbour.
 FreeImage is an Open Source library project for developers who would like to
 support popular graphics image formats like PNG, BMP, JPEG, TIFF and others
 as needed by today's multimedia applications.
@@ -56,10 +56,10 @@ FreeImage is easy to use, fast, multithreading safe and cross-platform
 
 ## hbgd
 
-`hbgd` is a Harbour wrapper for Thomas Boutell's GD Library version 2.x.
-The GD Library is a powerful graphic library, useful expecially under CGI
-environment. `hbgd` supports almost all GD functions, plus a set of
-functions and classes that extend and make it easier to work with this library.
+Thomas Boutell's GD 2.x library bindings for Harbour. GD Library is a powerful
+graphic library, useful expecially under CGI environment. `hbgd` supports
+almost all GD functions, plus a set of extra functions and classes that extend
+and make it easier to work with this library.
 <span class="readmore-md">[Read more](https://libgd.github.io/)</span>
 
 ## hbgt
@@ -68,7 +68,7 @@ Miscellaneous functions for manipulating strings.
 
 ## hbhpdf
 
-HaruLib wrappers for Harbour. Haru is a free, cross platform, open-sourced
+Libharu bindings for Harbour. Haru is a free, cross platform, open-sourced
 software library for generating PDF written in ANSI C.
 <span class="readmore-md">[Read more](https://github.com/libharu/libharu)</span>
 
@@ -79,12 +79,12 @@ etc.
 
 ## hbmysql
 
-Harbour MariaDB/MySQL client API wrappers and helper classes. Includes
+MariaDB/MySQL client API bindings and helper classes for Harbour. Includes
 a `dbf2mysql.prg` utility to convert `.dbf` files into MariaDB/MySQL tables.
 
 ## hbmzip
 
-Harbour wrappers for the minizip API, allowing to read and write `.zip` files.
+Minizip API bindings for Harbour, allowing to read and write `.zip` files.
 
 ## hbnf
 
@@ -92,8 +92,8 @@ A port to Harbour of the Nanforum Library for Clipper.
 
 ## hbodbc
 
-Harbour ODBC Library. Includes wrappers and helper classes to work with
-various RDBMS.
+ODBC library for Harbour. Includes bindings and helper classes to work with
+various RDBMS via ODBC.
 
 ## hbpgsql
 
@@ -102,12 +102,12 @@ convert a `.dbf` file into a PostgreSQL table.
 
 ## hbsqlit3
 
-Harbour wrapper for SQLite version 3. This library allow access an SQLite
-database using Harbour.
+SQLite3 bindings for Harbour. This library allow access an SQLite3
+databases using Harbour.
 
 ## hbssl
 
-Harbour wrappers for OpenSSL. Supports SSL, SSL_CIPHER, SSL_CTX, RAND,
+OpenSSL bindings for Harbour. Supports SSL, SSL_CIPHER, SSL_CTX, RAND,
 SSL_SESSION (and more) modules.
 
 ## hbtip
