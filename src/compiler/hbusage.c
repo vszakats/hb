@@ -208,6 +208,7 @@ void hb_compPrintCredits( HB_COMP_DECL )
          "Jon Berg (jmberg pnh10.med.navy.mil)\n"
          "Jorge A. Giraldo (jorgeagiraldo emtelsa.multi.net.co)\n"
          "Jose Lalin (dezac corevia.com)\n"
+         "Klas Engwall (harbour engwall.com)\n"
          "Kwon, Oh-Chul (ohchul fivetech.net)\n"
          "Leslee Griffith (les.griffith vantagesystems.ca)\n"
          "Lorenzo Fiorini (lorenzo.fiorini gmail com)\n"

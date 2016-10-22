@@ -41,4 +41,4 @@ visit [here](https://raw.githubusercontent.com/{{ site.repo_slug }}/master/COPYI
   developers.
 
 Most importantly, try Harbour for yourself, decide for yourself why it has
-advantages for _you_. This product will be an harbour for Clipper.
+advantages for _you_. This product will be a harbour for Clipper.

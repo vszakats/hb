@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Nightly Builds"
+title: "Snapshot Builds"
 ---
 {% if site.fork %}
 # Snapshot Build

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Harbour Logos"
+title: "Logos"
 ---
 # Harbour Logos
 
