@@ -77,7 +77,7 @@ of GTK+ in a cross-platform fashion.
 
 ## [WebSocket](https://github.com/foldiii/websocket)
 
-WebSocket implementation built on top of `hbhttps` contrib.
+WebSocket implementation built on top of `hbhttpd` contrib.
 
 ## [wxHarbour](https://sourceforge.net/projects/wxharbour/)
 

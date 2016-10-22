@@ -136,7 +136,7 @@ library for generating PDF, written in ANSI C.
 
 ## hbhttpd
 
-HTTP server
+HTTP/HTTPS server
 
 ## hbicu
 
