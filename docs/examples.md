@@ -4,8 +4,7 @@ title: "Code Examples"
 ---
 # Code Examples
 
-This is the list of some examples in Harbour's test directory.
-The examples demonstrate Harbour features in small programs.
+This is a small collection of short examples from Harbour's test directory.
 
 ## Categories
 
@@ -23,10 +22,10 @@ The examples demonstrate Harbour features in small programs.
 
 ## More examples
 
-More examples can be provided with the installation package of the Harbour.
+You can find many more examples in the source package of Harbour.
 Look into the [`tests`](https://github.com/{{ site.repo_slug }}/tree/master/tests)
 and [`extras`](https://github.com/{{ site.repo_slug }}/tree/master/extras)
-directory to find other examples, but the best example is the source code of
+directories to find them, but the best example is the source code of
 Harbour itself.
 
 ---

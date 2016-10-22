@@ -516,15 +516,13 @@ footer svg {
   background-color: $color-bk-box1;
   border-radius: 4px;
   margin-bottom: 12px;
-  padding: 2px;
-  padding-left: .6em;
+  padding: 2px .6em;
 }
 
 .crew-content > div:nth-child(2) {
   background-color: $color-bk-box2;
   border-radius: 4px;
-  padding: 2px;
-  padding-left: .6em;
+  padding: 2px .6em;
 }
 
 .list-bubble {
@@ -763,21 +761,24 @@ h4:after {
 }
 
 .crew-country-list > li {
-  margin: 0 0 5px;
+  margin-bottom: 5px;
 }
 
 .crew-country-list > li > a > img {
   margin: 0 5px 0 0;
+  vertical-align: middle;
 }
 
 .crew-alphalist {
   list-style: none;
   padding-left: .4em;
   text-indent: 0;
+  font-size: 80%;
+  line-height: 125%;
 }
 
 .crew-alphalist > li {
-  margin: 0 0 5px;
+  margin-bottom: 5px;
 }
 
 pre {
