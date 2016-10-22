@@ -713,6 +713,13 @@ a:active {
   padding-top: 1em;
 }
 
+.components h3 {
+  border-top: 1px solid rgba(0, 0, 0, .1);
+  font-weight: bold;
+  font-size: 115%;
+  padding-top: 1em;
+}
+
 h4 {
   color: $color-base3;
   font-size: 115%;
