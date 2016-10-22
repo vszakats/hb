@@ -143,7 +143,7 @@ hr {
   -border-top: 1px solid rgba(0, 0, 0, .1);
   -border-radius: 0;
   float: left;
-  width: 54%;
+  width: 53%;
 }
 
 .why-items ul {
@@ -694,11 +694,6 @@ $readmore-char: ' ⋯';
 a {
   color: $color-a;
   text-decoration: none;
-  transition: color .2s;
-}
-
-a.smaller {
-  white-space: nowrap;
   transition: color .2s;
 }
 

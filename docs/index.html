@@ -45,10 +45,10 @@ layout: default
       <a href="https://travis-ci.org/harbour/core"><img src="https://travis-ci.org/harbour/core.svg?branch=master" height="20" alt="Build status"></a>&thinsp;
 {% endif %}
       <br>
-      Latest release:&nbsp;
-      <strong>3.0.0</strong><br>
-      Release date:&nbsp;
-      <strong>2011-07-17</strong><br>
+      Latest stable:&nbsp;
+      <strong>3.0.0</strong> (2010-07-17)<br>
+      Latest snapshot:&nbsp;
+      <strong>3.4.0dev</strong><br>
       Source snapshot:&nbsp;
       <a href="https://github.com/{{ site.repo_slug }}/archive/master.zip"><strong>ZIP</strong></a>&nbsp;
       <a href="https://github.com/{{ site.repo_slug }}/archive/master.tar.gz"><strong>TAR.GZ</strong></a><br>
@@ -109,11 +109,16 @@ layout: default
     <hr>
 
     <dl class="news">
+{% assign time_range = 8 | times: 365 | times: 86400 %}
+{% capture limit %}{{ site.time | date: '%s' | minus: time_range | date: '%F' }}{% endcapture %}
 {% for story in site.data.news %}
+{% capture itemd %}{{ story.date | date: '%F' }}{% endcapture %}
+{% if itemd >= limit %}
 {% if story.text %}
       <dt>{{ story.date }}
       <dd><strong>{{ story.title }}</strong>
         <p>{{ story.text }}
+{% endif %}
 {% endif %}
 {% endfor %}
       <dd>See the <a href="{{ site.baseurl }}/news">news archive</a> for past articles.
