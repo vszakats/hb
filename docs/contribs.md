@@ -11,7 +11,7 @@ but bundled with the main Harbour distribution. These components are part of
 the Harbour source package.
 
 Common to all contribs is that you can download them freely, but please note
-that [licensing terms]({{ site.baseurl }}/about) may vary for each contrib.
+that [licensing terms]({{ site.baseurl }}/terms) may vary for each contrib.
 
 See respective authors inside the [source code](https://github.com/{{ site.repo_slug }}/tree/master/contrib).
 
@@ -36,8 +36,8 @@ Harbour wrappers for libcurl. libcurl is a free and easy-to-use client-side
 URL transfer library, supporting SSL, HTTP GET/PUT/POST/forms, HTTP2, SCP,
 FTPS, SFTP, FTP, LDAP, LDAPS, SMTP, SMTPS, IMAP, IMAPS, POP3, POP3S, TFTP,
 TELNET, FILE/SMB, proxies, cookies, authentication (Basic, Digest, NTLM,
-Negotiate, Kerberos), file transfer resume, http proxy tunneling and more.<br>
-[More info](https://curl.haxx.se/libcurl/).
+Negotiate, Kerberos), file transfer resume, http proxy tunneling and more.
+<span class="readmore-md">[Read more](https://curl.haxx.se/libcurl/)</span>
 
 ## hbfbird
 
@@ -59,8 +59,8 @@ FreeImage is easy to use, fast, multithreading safe and cross-platform
 `hbgd` is a Harbour wrapper for Thomas Boutell's GD Library version 2.x.
 The GD Library is a powerful graphic library, useful expecially under CGI
 environment. `hbgd` supports almost all GD functions, plus a set of
-functions and classes that extend and make it easier to work with this library.<br>
-[More info](https://libgd.github.io/).
+functions and classes that extend and make it easier to work with this library.
+<span class="readmore-md">[Read more](https://libgd.github.io/)</span>
 
 ## hbgt
 
@@ -69,8 +69,8 @@ Miscellaneous functions for manipulating strings.
 ## hbhpdf
 
 HaruLib wrappers for Harbour. Haru is a free, cross platform, open-sourced
-software library for generating PDF written in ANSI C.<br>
-[More info](https://github.com/libharu/libharu).
+software library for generating PDF written in ANSI C.
+<span class="readmore-md">[Read more](https://github.com/libharu/libharu)</span>
 
 ## hbmisc
 
@@ -144,8 +144,8 @@ these features are:
 Extended Systems. With this library your Harbour application can access
 a remote database server for a true client/server architecture, or it can use
 the "local server" `adsloc32.dll` for stand-alone or even small network
-installations.<br>
-[More info](https://www.sap.com/pc/tech/database/software/advantage-database-server/index.html).
+installations.
+<span class="readmore-md">[Read more](https://www.sap.com/pc/tech/database/software/advantage-database-server/index.html)</span>
 
 ## rddbm
 

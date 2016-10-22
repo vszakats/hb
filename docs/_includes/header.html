@@ -25,7 +25,10 @@
         <i class="fa fa-comment-o" aria-hidden="true"></i><br><span class="menu-text">About</span></a>
         <nav class="dropdown-content">
           <a href="{{ site.baseurl }}/about">About Harbour</a>
+          <hr>
           <a href="https://raw.githubusercontent.com/{{ site.repo_slug }}/master/COPYING.txt">License</a>
+          <a href="{{ site.baseurl }}/terms">Terms of Service</a>
+          <a href="{{ site.baseurl }}/contact">Contact</a>
         </nav>
       </nav>
 
@@ -34,11 +37,13 @@
         <i class="fa fa-book" aria-hidden="true"></i><br><span class="menu-text">Documentation</span></a>
         <nav class="dropdown-content">
           <a href="https://github.com/{{ site.repo_slug }}/#readme">README</a>
-          <a href="https://raw.githubusercontent.com/{{ site.repo_slug }}/master/ChangeLog.txt">ChangeLog</a>
+          <a href="{{ site.baseurl }}/changelog">ChangeLog</a>
           <a href="https://github.com/{{ site.repo_slug }}/blob/master/utils/hbmk2/doc/hbmk2.en.md">Build Tool · hbmk2</a>
+          <hr>
           <a href="https://harbour.github.io/doc/">Harbour Guide</a>
           <a href="https://harbour.github.io/ng/c53g01c/menu.html">Clipper Guide</a>
           <a href="https://harbour.github.io/faq/">FAQ (archive)</a>
+          <hr>
           <a href="{{ site.baseurl }}/examples">Code Examples</a>
         </nav>
       </nav>
@@ -53,6 +58,7 @@
 {% else %}
           <a href="{{ site.baseurl }}/snapshot">Nightly Builds</a>
 {% endif %}
+          <hr>
           <a href="{{ site.baseurl }}/contribs">Contribs</a>
           <a href="{{ site.baseurl }}/thirdparty">Third-party</a>
           <a href="https://harbour.github.io/the-oasis/">The Oasis (archive)</a>
@@ -70,6 +76,7 @@
           <a href="https://github.com/{{ site.repo_slug }}/commits">Commits</a>
           <a href="https://github.com/{{ site.repo_slug }}/issues">Report an Issue</a>
 {% if site.fork %}
+          <a href="https://github.com/vszakats/harbour-core/blob/master/.github/CONTRIBUTING.md">Contributing</a>
           <a href="{{ site.baseurl }}/mailing">Community</a>
 {% endif %}
         </nav>
@@ -78,10 +85,6 @@
       <nav class="dropdown">
         <a class="dropbtn" href="{{ site.baseurl }}/news">
         <i class="fa fa-newspaper-o" aria-hidden="true"></i><br><span class="menu-text">News</span></a>
-        <nav class="dropdown-content">
-          <a href="{{ site.baseurl }}/news">News</a>
-          <a href="{{ site.baseurl }}/changelog">ChangeLog</a>
-        </nav>
       </nav>
 
       <nav class="dropdown">
@@ -93,7 +96,8 @@
         <a class="dropbtn" href="{{ site.baseurl }}/logo">
         <i class="fa fa-paint-brush" aria-hidden="true"></i><br><span class="menu-text">Logo</span></a>
         <nav class="dropdown-content">
-          <a href="{{ site.baseurl }}/logo">Official Logos</a>
+          <a href="{{ site.baseurl }}/logo">Harbour Logos</a>
+          <hr>
           <a href="{{ site.baseurl }}/tshirt">T-Shirt (archive)</a>
         </nav>
       </nav>

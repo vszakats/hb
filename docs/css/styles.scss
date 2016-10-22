@@ -121,8 +121,10 @@ body {
 hr {
   border: 0;
   border-bottom: 1px solid rgba(0, 0, 0, .1);
-  height: 1px;
-  margin-right: .5em;
+}
+
+nav hr {
+  margin: 6px 2px;
 }
 
 .why-box div:first-child {

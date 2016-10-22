@@ -7,7 +7,7 @@ layout: default
   multi-threading, object-oriented, scriptable programming language, backwards
   compatible with xBase languages. Harbour consists of a compiler and runtime
   libraries with multiple UI, database and file system backends, its own build
-  system and a collection of libraries and wrappers for popular APIs.
+  system and a collection of libraries and bindings for popular APIs.
   With Harbour, you can build apps running on GNU/Linux, Windows (32/64-bit),
   macOS, iOS, Android, *BSD, *NIX, and more.
   <a href="{{ site.baseurl }}/about" class="readmore">Read more</a>
@@ -46,9 +46,11 @@ layout: default
 {% endif %}
       <br>
       Latest stable:&nbsp;
-      <strong>3.0.0</strong> (2010-07-17)<br>
+      <strong>3.0.0</strong>&nbsp;(2010-07-17)<br>
+{% if site.fork %}
       Latest snapshot:&nbsp;
       <strong>3.4.0dev</strong><br>
+{% endif %}
       Source snapshot:&nbsp;
       <a href="https://github.com/{{ site.repo_slug }}/archive/master.zip"><strong>ZIP</strong></a>&nbsp;
       <a href="https://github.com/{{ site.repo_slug }}/archive/master.tar.gz"><strong>TAR.GZ</strong></a><br>
