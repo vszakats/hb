@@ -12,7 +12,7 @@ These are some links to Harbour related 3rd party tools and libraries.
 * [Free and Open Source](#free-and-open-source)
 * [Commercial](#commercial)
 
-<div markdown="1" class="contribs">
+<div markdown="1" class="components">
 
 # Free and Open Source
 
