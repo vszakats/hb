@@ -277,9 +277,6 @@ METHOD PROCEDURE WriteEntry( cField, oEntry, lPreformatted ) CLASS GenerateHTML
                cEntry := ""
                EXIT
             OTHERWISE
-               IF "<URL" $ cEntry
-                  ? "|" + cEntry + "|"
-               ENDIF
                ::OpenTag( "div", "class", cTagClass )
                ::Append( Indent( Parse( @cEntry, hb_eol() ), 0, 70 ), "" )
             ENDSWITCH
