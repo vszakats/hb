@@ -46,14 +46,14 @@
    $FILES$
       Library is hbct.
    $SEEALSO$
-      AddAscii()   Blank()       CharAdd()
-      CharAnd()    CharMirr()    CharNot()
-      CharOr()     CharRelRep()  CharRepl()
-      CharSort()   CharSwap()    CharXor()
-      Crypt()      JustLeft()    JustRight()
-      PosChar()    PosRepl()     RangeRepl()
-      ReplAll()    ReplLeft()    ReplRight()
-      TokenLower() TokenUpper()  WordRepl()
+      AddAscii(),   Blank(),       CharAdd(),
+      CharAnd(),    CharMirr(),    CharNot(),
+      CharOr(),     CharRelRep(),  CharRepl(),
+      CharSort(),   CharSwap(),    CharXor(),
+      Crypt(),      JustLeft(),    JustRight(),
+      PosChar(),    PosRepl(),     RangeRepl(),
+      ReplAll(),    ReplLeft(),    ReplRight(),
+      TokenLower(), TokenUpper(),  WordRepl(),
       WordSwap()
    $END$
  */
@@ -94,9 +94,9 @@
    $FILES$
       Library is hbct.
    $SEEALSO$
-      AtNum()       AfterAtNum()  BeforAtNum()
-      AtRepl()      NumAt()       AtAdjust()
-      WordToChar()  WordRepl()
+      AtNum(),      AfterAtNum(),  BeforAtNum(),
+      AtRepl(),     NumAt(),       AtAdjust(),
+      WordToChar(), WordRepl()
    $END$
  */
 

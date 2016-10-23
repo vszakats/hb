@@ -575,7 +575,7 @@
    $EXAMPLES$
       cFlags := gt_NewFlag( 20 )   // Create a bit flag string for 20 logical values.
    $SEEALSO$
-      gt_SetFlag() gt_ClrFlag() gt_IsFlag()
+      gt_SetFlag(), gt_ClrFlag(), gt_IsFlag()
    $END$
  */
 
@@ -616,7 +616,7 @@
 
       cFlags := gt_SetFlag( cFlags )
    $SEEALSO$
-      gt_NewFlag() gt_ClrFlag() gt_IsFlag()
+      gt_NewFlag(), gt_ClrFlag(), gt_IsFlag()
    $END$
  */
 
@@ -661,7 +661,7 @@
 
       cFlags := gt_ClrFlag( cFlags )
    $SEEALSO$
-      gt_NewFlag() gt_SetFlag() gt_IsFlag()
+      gt_NewFlag(), gt_SetFlag(), gt_IsFlag()
    $END$
  */
 
@@ -690,6 +690,6 @@
          ? "Flag number", nFlag, "==", gt_IsFlag( cDave, nFlag )
       NEXT
    $SEEALSO$
-      gt_NewFlag() gt_SetFlag() gt_ClrFlag()
+      gt_NewFlag(), gt_SetFlag(), gt_ClrFlag()
    $END$
  */

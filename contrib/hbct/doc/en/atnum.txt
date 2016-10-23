@@ -98,7 +98,7 @@
    $FILES$
       Library is hbct.
    $SEEALSO$
-      AtNum()  AfterAtNum()  CSetAtMupa()  SetAtLike()
+      AtNum(), AfterAtNum(), CSetAtMupa(), SetAtLike()
    $END$
  */
 
@@ -149,6 +149,6 @@
    $FILES$
       Library is hbct.
    $SEEALSO$
-      AtNum()  AfterAtNum()  CSetAtMupa()  SetAtLike()
+      AtNum(), AfterAtNum(), CSetAtMupa(), SetAtLike()
    $END$
  */
