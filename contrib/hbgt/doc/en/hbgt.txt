@@ -4,16 +4,16 @@
    $CATEGORY$
       String Tools
    $ONELINER$
-      Return the ascii value of a specified character in a string
+      Return the ASCII value of a specified character in a string
    $SYNTAX$
       gt_AscPos( <cStr>, <nPos> ) --> nAscVal
    $ARGUMENTS$
       <cStr>  - The string
       <nPos>  - The position in <cStr>
    $RETURNS$
-      <nAscVal> - The ascii value of hb_BSubStr( <cStr>, <nPos>, 1 )
+      <nAscVal> - The ASCII value of hb_BSubStr( <cStr>, <nPos>, 1 )
    $DESCRIPTION$
-      Return the ascii value of a specified character in a string
+      Return the ASCII value of a specified character in a string
       Equivalent (but much faster) to
           hb_BCode( hb_BSubStr( cStr, nPos, 1 ) )
 
@@ -43,15 +43,15 @@
    $CATEGORY$
       String Tools
    $ONELINER$
-      Sum the ascii values in a string.
+      Sum the ASCII values in a string.
    $SYNTAX$
       gt_AsciiSum( <cStr> ) --> nSum
    $ARGUMENTS$
       <cStr>  - The string to sum
    $RETURNS$
-      <nSum>    - The sum of all ascii values in <cStr>.
+      <nSum>    - The sum of all ASCII values in <cStr>.
    $DESCRIPTION$
-      Sum the ascii value of every character in the passed string
+      Sum the ASCII value of every character in the passed string
       and return the result.
    $EXAMPLES$
 
@@ -251,7 +251,7 @@
       <nAsc>     - The ASCII value of the first character in <cChars>
                  which appears first in <cStr>
    $DESCRIPTION$
-      Return the ascii value of a character in <cChars>
+      Return the ASCII value of a character in <cChars>
       which appears first in <cStr>.
    $EXAMPLES$
       ? hb_BChar( gt_ChrFirst( "sa ", "This is a test" ) )  // prints "s"

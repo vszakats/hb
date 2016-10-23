@@ -5,6 +5,18 @@ body {
   padding: 0 10px;
 }
 
+a {
+  text-decoration: none;
+  border-style: none none solid;
+  border-width: 0 0 1px;
+  border-color: #000088;
+  border-color: rgba(0, 0, 255, .4);
+}
+
+a:hover {
+  border-color: rgba(0, 0, 255, .95);
+}
+
 h1 {
   color: #095fa8;
   font-size: 130%;
@@ -14,7 +26,7 @@ h4 {
   border-top: 1px solid rgba(0, 0, 0, .1);
   color: #095fa8;
   font-size: 115%;
-  margin-bottom: 0;
+  margin-bottom: 14px;
   padding-top: .8em;
 }
 
@@ -40,7 +52,7 @@ pre, code {
   font-weight: bold;
   font-size: 115%;
   margin-left: 10px;
-  margin-top: 14px;
+  margin-top: 0px;
   margin-bottom: 14px;
 }
 
