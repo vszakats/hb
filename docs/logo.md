@@ -12,10 +12,13 @@ App icons for
 
 # Former versions
 
-* 2011 update<br>
-  <a href="https://harbour.github.io/art/harbour-logo-2011.zip"><img src="{{ site.baseurl }}/images/harbour-2011.svg" alt="logo" height="256"></a>
-* Original, created by Patrick Mast<br>
-  <a href="https://harbour.github.io/art/harbour-logo-2001.zip"><img src="{{ site.baseurl }}/images/harbour-2001.svg" alt="logo" height="256"></a>
+## 2011 update
+
+<a href="https://harbour.github.io/art/harbour-logo-2011.zip"><img src="{{ site.baseurl }}/images/harbour-2011.svg" alt="logo" height="256"></a>
+
+## Original<br><span class="smaller">by Patrick Mast</span>
+
+<a href="https://harbour.github.io/art/harbour-logo-2001.zip"><img src="{{ site.baseurl }}/images/harbour-2001.svg" alt="logo" height="256"></a>
 
 {% unless site.fork %}
 # Historical
