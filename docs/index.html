@@ -112,7 +112,7 @@ layout: default
     <hr>
 
     <dl class="news">
-{% assign time_range = 8 | times: 365 | times: 86400 %}
+{% assign time_range = 7 | times: 365 | times: 86400 %}
 {% capture limit %}{{ site.time | date: '%s' | minus: time_range | date: '%F' }}{% endcapture %}
 {% for story in site.data.news %}
 {% capture itemd %}{{ story.date | date: '%F' }}{% endcapture %}
