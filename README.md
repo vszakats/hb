@@ -1655,7 +1655,7 @@ Supported shells per host platforms:
      * [ChangeLog](ChangeLog.txt?raw=true)
      * Comparing [Harbour with xHarbour](doc/xhb-diff.txt?raw=true)
      * CA-Cl*pper 5.3 [online documentation](https://harbour.github.io/ng/c53g01c/menu.html)
-     * Harbour [online documentation](https://vszakats.github.io/harbour-core/harbour.html)
+     * Harbour [online documentation](https://harbour.github.io/doc/)
      * Harbour [internal documents](doc/)
      * [Wikipedia](https://en.wikipedia.org/wiki/Harbour_compiler)
      * [Stack Overflow](https://stackoverflow.com/questions/tagged/clipper)

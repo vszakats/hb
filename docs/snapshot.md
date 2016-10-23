@@ -9,15 +9,15 @@ title: "Snapshot Builds"
 {% endif %}
 
 {% if site.fork %}
-Latest source code can be downloaded from the repository page or directly from
-our homepage. Snapshot binaries for the Windows platform are also built after
-each commit and are made available from the releases page and the homepage.
-These Windows binaries require a 64-bit OS to run and able to produce both
-32-bit and 64-bit applications. The C compiler used in these snapshot builds
-is the latest release of MinGW.
+Latest source code can be downloaded from the repository page and it's also
+linked from the homepage. Snapshot binaries for the Windows platform are also
+built after each commit and are made available from the releases page and the
+homepage. These Windows binaries require a 64-bit OS to run and able to produce
+both 32-bit and 64-bit applications. The C compiler used in these snapshot
+builds is the latest release of MinGW.
 
 Binary builds for other platforms can be built directly from source. See more
-on how to that in the [README](https://github.com/{{ site.repo_slug }}/#readme).
+on how to do that in the [README](https://github.com/{{ site.repo_slug }}/#readme).
 
 While these packages are _not_ intended for production use; they are most of
 the time solid to use in production. It's worth to keep an eye on the latest

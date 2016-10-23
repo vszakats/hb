@@ -24,7 +24,11 @@ Most Harbour developers are lurking on this list to assist Harbour users.
 <div><i class="fa fa-cog" aria-hidden="true"></i></div>
 <div markdown="1">
 
+{% if site.fork %}
+## for Developing Harbour<br>(mainline/non-fork-only)
+{% else %}
 ## for Developing Harbour
+{% endif %}
 
 Harbour Devel list is a place to discuss topics related to the development
 of Harbour itself. It can be technical and advanced.
