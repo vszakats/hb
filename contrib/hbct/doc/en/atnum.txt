@@ -110,7 +110,7 @@
    $ONELINER$
       Returns the start position of the nth occurence of a substring in a string
    $SYNTAX$
-      ATNUM (<cStringToMatch>, <cString>, [<nCounter>],
+      AtNum( <cStringToMatch>, <cString>, [<nCounter>],
              [<nIgnore>] ) --> nPosition
    $ARGUMENTS$
       <cStringToMatch>    is the substring scanned for

@@ -142,7 +142,7 @@
    $STATUS$
       Started
    $COMPLIANCE$
-      AddMonth() is compatible with CT3's ADDMOTH().
+      AddMonth() is compatible with CT3's AddMonth().
    $PLATFORMS$
       All
    $FILES$
@@ -254,7 +254,7 @@
    $ONELINER$
       Returns the number of days in month
    $SYNTAX$
-      DAYSINMONTH (<nMonth>, <lLeapYear>) -> nDaysInMonth
+      DaysInMonth( <nMonth>, <lLeapYear> ) -> nDaysInMonth
    $ARGUMENTS$
 
    $RETURNS$

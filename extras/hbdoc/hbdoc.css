@@ -7,14 +7,13 @@ body {
 
 a {
   text-decoration: none;
+}
+
+a:hover {
   border-style: none none solid;
   border-width: 0 0 1px;
   border-color: #000088;
   border-color: rgba(0, 0, 255, .4);
-}
-
-a:hover {
-  border-color: rgba(0, 0, 255, .95);
 }
 
 h1 {
