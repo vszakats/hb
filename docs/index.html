@@ -14,13 +14,14 @@ layout: default
 </div>
 
 {% if site.fork %}
+{% assign ppurl = 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=BPSZQYKXMQJYG' %}
 <h1>This Fork</h1>
 <div><p>
   This fork contains all <a href="https://harbour.github.io/">mainline</a>
   updates as well as local fixes, additions, extra contribs, better tooling
-  and maintenance. <strong>Donations are welcome and appreciated</strong>
-  to support this effort. Fork modifications often get retrofitted into
-  the mainline version, making the benefits mutual.
+  and maintenance. <strong><a href="{{ ppurl }}">Donations</a> are welcome
+  and appreciated</strong> to support this effort. Fork modifications often
+  get retrofitted into the mainline version, making the benefits mutual.
   <a href="{{ site.baseurl }}/forks" class="readmore">Read more</a>
 </div>
 {% endif %}
