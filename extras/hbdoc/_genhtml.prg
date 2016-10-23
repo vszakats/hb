@@ -259,7 +259,6 @@ METHOD PROCEDURE WriteEntry( cField, oEntry, lPreformatted ) CLASS GenerateHTML
                ::AppendInline( Indent( Parse( @cEntry, hb_eol() ), 0, 70 ), "" )
                EXIT
             CASE "seealso"
-? "|" + cEntry + "|"
                ::OpenTag( "div", "class", cTagClass )
                lFirst := .T.
                FOR EACH tmp IN hb_ATokens( cEntry, "," )
