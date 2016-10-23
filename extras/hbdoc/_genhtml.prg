@@ -348,8 +348,6 @@ METHOD CloseTag( cText ) CLASS GenerateHTML
 METHOD AppendInline( cText, cFormat, lCode ) CLASS GenerateHTML
 
    STATIC s_html := { ;
-      "==>" => "&rarr;", ;
-      "-->" => "&rarr;", ;
       "&" => "&amp;", ;
       '"' => "&quot;", ;
       "<" => "&lt;", ;
