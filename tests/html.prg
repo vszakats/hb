@@ -1,4 +1,4 @@
-/* Harbour Test of a HTML-Generator class.
+/* Harbour Test of a HTML generator class.
  *
  * Tips: - Use ShowResults to make dynamic html (to test dynamic
  *         results, put the exe file on CGI-BIN dir or equivalent);
