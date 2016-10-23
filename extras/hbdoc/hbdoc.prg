@@ -1062,11 +1062,7 @@ STATIC FUNCTION Filename( cFile, cFormat, nLength )
    LOCAL idx
    LOCAL char
 
-#ifdef __PLATFORM__DOS
-   hb_default( @nLength, 8 )
-#else
    hb_default( @nLength, 0 )
-#endif
 
    IF Lower( hb_defaultValue( cFormat, "alnum" ) ) == "alnum"
       FOR idx := 1 TO Len( cFile )
@@ -1085,9 +1081,6 @@ STATIC FUNCTION Filename( cFile, cFormat, nLength )
    IF hb_AScan( s_aFiles, cResult, , , .T. ) == 0
       AAdd( s_aFiles, cResult )
    ELSE
-#ifdef __PLATFORM__DOS
-      cResult := hb_StrShrink( cResult, 3 )
-#endif
       idx := 0
       DO WHILE hb_AScan( s_aFiles, cResult + StrZero( ++idx, 3 ), , , .T. ) > 0
       ENDDO

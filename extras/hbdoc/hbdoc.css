@@ -1,23 +1,51 @@
 body {
-  font-family: Arial, sans-serif;
-  font-size: 14px;
-  line-height: 18px;
+  font-family: 'Source Sans Pro', Arial, sans-serif;
+  font-size: 14pt;
+  line-height: 150%;
+  padding: 0 10px;
+}
+
+h1 {
+  color: #095fa8;
+  font-size: 130%;
+}
+
+h4 {
+  border-top: 1px solid rgba(0, 0, 0, .1);
+  color: #095fa8;
+  font-size: 115%;
+  margin-bottom: 0;
+  padding-top: .8em;
+}
+
+pre {
+  background-color: #f2f2f2;
+  padding: 16px;
+  overflow: scroll;
+}
+
+pre, code {
+  font-family: Hack, Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation Mono', 'Oxygen Mono', 'Andale Mono', monospace;
+  font-size: 12pt;
 }
 
 .name {
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 100%;
   margin-left: 0;
   padding-top: 0;
   padding-bottom: 4px;
 }
 
 .oneliner {
-  font-style: italic;
-  margin-bottom: 12px;
+  font-weight: bold;
+  font-size: 115%;
+  margin-left: 10px;
+  margin-top: 14px;
+  margin-bottom: 14px;
 }
 
 .itemtitle {
+  color: #095fa8;
   font-weight: bold;
   margin-left: 0;
   padding-top: 0;
@@ -31,7 +59,7 @@ body {
 
 .examples {
   margin-left: 10px;
-  padding-bottom: 4px;
+  margin-right: 10px;
 }
 
 .tests {

@@ -47,11 +47,7 @@
 
 #include "hbclass.ch"
 
-#ifdef __PLATFORM__DOS
-   #define EXTENSION ".htm"
-#else
-   #define EXTENSION ".html"
-#endif
+#define EXTENSION ".html"
 
 #define STYLEFILE "hbdoc.css"
 
@@ -184,7 +180,7 @@ METHOD AddEntry( oEntry ) CLASS GenerateHTML
 
    FOR EACH item IN oEntry:Fields
       IF item[ 1 ] == "NAME"
-         ::OpenTag( "div", "id", SymbolToHTMLID( oEntry:filename ) ):OpenTag( "h4" ):Append( oEntry:Name ):CloseTag( "h4" ):CloseTag( "div" )
+         ::OpenTag( "h4", "id", SymbolToHTMLID( oEntry:filename ) ):Append( oEntry:Name ):CloseTag( "h4" )
       ELSEIF oEntry:IsField( item[ 1 ] ) .AND. oEntry:IsOutput( item[ 1 ] ) .AND. Len( oEntry:&( item[ 1 ] ) ) > 0
          ::WriteEntry( item[ 1 ], oEntry, oEntry:IsPreformatted( item[ 1 ] ) )
       ENDIF
@@ -286,6 +282,9 @@ METHOD Append( cText, cFormat ) CLASS GenerateHTML
    IF ! HB_ISNULL( cText )
 
       cText := hb_StrReplace( cText, { ;
+         "==>" => "&rarr;", ;
+         "-->" => "&rarr;", ;
+         "->" => "&rarr;", ;
          "&" => "&amp;", ;
          '"' => "&quot;", ;
          "<" => "&lt;", ;

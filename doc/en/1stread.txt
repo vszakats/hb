@@ -46,17 +46,14 @@
    $TEMPLATE$
       Document
    $NAME$
-      1st document to read
+      Welcome to Harbour
    $CATEGORY$
       Document
    $SUBCATEGORY$
 
    $ONELINER$
-      A starters guide to Harbour
+      A starters guide
    $DESCRIPTION$
-      Welcome to Harbour
-      ==================
-
       Clipper is a trademark of Computer Associates and will often be
       referred to as CA-Cl*pper within Harbour documents. Regardless of this
       variant, Clipper is recognized as Computer Associates' trademark.
@@ -78,7 +75,6 @@
       100% of all Clipper 5.2x or 5.3 code. Most Clipper S'87 code will also
       compile and run fine, but may require some modifications to run well.
    $PLATFORMS$
-      All
    $FILES$
 
    $SEEALSO$
