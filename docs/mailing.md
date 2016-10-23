@@ -68,7 +68,7 @@ hope they will be useful, but WITHOUT GUARANTEE that they are complete,
 accurate, non-infringing or usable for any purpose whatsoever.
 Contributors are NOT LIABLE for any damages that result from using
 Harbour in any ways. For more legal details, see
-[LICENSE](https://raw.githubusercontent.com/{{ site.repo_slug }}/master/COPYING.txt).
+[LICENSE](https://raw.githubusercontent.com/{{ site.repo_slug }}/master/{{ site.license_file }}).
 
 </div>
 </div>

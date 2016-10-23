@@ -1,8 +1,8 @@
 ---
 layout: default
-title: "Logos"
+title: "Logo"
 ---
-# Harbour Logos
+# Harbour Logo
 
 <a href="{{ site.baseurl }}/art/harbour-logo-2016.zip"><img src="{{ site.baseurl }}/images/harbour.svg" alt="icon" height="256"></a>
 
