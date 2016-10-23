@@ -73,6 +73,7 @@ METHOD NewIndex( cDir, cFilename, cTitle ) CLASS GenerateHTML2
 CREATE CLASS GenerateHTML INHERIT TPLGenerate
 
    HIDDEN:
+
    METHOD RecreateStyleDocument( cStyleFile )
    METHOD OpenTagInline( cText, ... )
    METHOD OpenTag( cText, ... )
@@ -81,7 +82,7 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    METHOD CloseTag( cText )
    METHOD AppendInline( cText, cFormat, lCode )
    METHOD Append( cText, cFormat, lCode )
-   METHOD Space() INLINE hb_vfWrite( ::hFile, ",&ensp;" ), self
+   METHOD Space() INLINE hb_vfWrite( ::hFile, ", " ), self
    METHOD Spacer() INLINE hb_vfWrite( ::hFile, hb_eol() ), self
    METHOD Newline() INLINE hb_vfWrite( ::hFile, "<br>" + hb_eol() ), self
 
@@ -89,6 +90,7 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    VAR TargetFilename AS STRING INIT ""
 
    EXPORTED:
+
    METHOD NewFile() HIDDEN
    METHOD NewIndex( cDir, cFilename, cTitle )
    METHOD NewDocument( cDir, cFilename, cTitle )
