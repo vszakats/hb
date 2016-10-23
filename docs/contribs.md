@@ -56,7 +56,11 @@ HBCOMM (xhb.com, MiniGUI) compatibility (serial communication)
 {% if site.fork %}
 ## hbcrypto
 
-Crypto functions
+Collection of crypto functions supporting [bcrypt](https://en.wikipedia.org/wiki/Bcrypt)
+and [scrypt](https://en.wikipedia.org/wiki/Scrypt) password hashing functions,
+[BLAKE2](https://en.wikipedia.org/wiki/BLAKE_(hash_function)#BLAKE2) cryptographic
+hash functions, [SHA-3](https://en.wikipedia.org/wiki/SHA-3) secure hash
+functions, [ed25519](https://en.wikipedia.org/wiki/EdDSA) digital signature functions.
 
 {% endif %}
 ## hbct
@@ -64,9 +68,9 @@ Crypto functions
 This library provides functions compatible with the famous Clipper Tools for
 CA-Clipper (`CT.LIB`).
 
-## hbcups (*NIX-only)
+## hbcups (*nix-only)
 
-Cups bindings (printing)
+CUPS bindings (printing)
 
 ## hbcurl
 
@@ -150,7 +154,7 @@ LZF bindings (compression)
 
 Apple Mac specific functions
 
-## hbmagic (*NIX-only)
+## hbmagic (*nix-only)
 
 libmagic bindings (file identification)
 
@@ -223,7 +227,7 @@ Telepath(y) emulation library. Telepath(y) is the best serial communication
 library for Nantucket/CA-Clipper and this library has a significant
 amount of the functionality contained in Telepath(y) in this Harbour port.
 
-## hbunix (*NIX-only)
+## hbunix (*nix-only)
 
 Unix specific functions
 
