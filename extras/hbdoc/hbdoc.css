@@ -21,11 +21,27 @@ footer {
   background: #333;
   color: #bbb;
   font-size: 75%;
+  line-height: 150%;
   margin: auto;
-  padding: .1em 1em;
+  padding: .6em 1em;
   height: 90px;
   text-align: center;
   width: auto;
+}
+
+footer a {
+  color: #ddd;
+  text-decoration: none;
+}
+
+footer a:hover {
+  border: none;
+  color: #f8f8f8;
+  transition: color .25s;
+}
+
+footer a:active {
+  color: #f8f8f8;
 }
 
 main {
