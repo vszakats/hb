@@ -150,7 +150,6 @@
 #define HB_GTI_RESIZESTEP       73  /* Enable/Disable window resizing steps */
 #define HB_GTI_CLOSEMODE        74  /* Close event: 0 terminate application, >=1 generate HB_K_CLOSE, 2 disable close button */
 #define HB_GTI_MINIMIZED        75  /* Get/Set Window's Minimized status (supported by: GTQTC, GTXWC) */
-#define HB_GTI_QUICKEDIT        76  /* Enable/Disable quick edit mode (supported by: GTWVT) */
 
 #define HB_GTI_QUICKEDIT        76  /* Enable/Disable quick edit mode (supported by: GTWVT) */
 
@@ -175,20 +174,24 @@
 #define HB_GTI_KBD_SHIFT        0x000001
 #define HB_GTI_KBD_CTRL         0x000002
 #define HB_GTI_KBD_ALT          0x000004
-#define HB_GTI_KBD_KEYPAD       0x000008
-#define HB_GTI_KBD_SCROLOCK     0x000010
-#define HB_GTI_KBD_NUMLOCK      0x000020
-#define HB_GTI_KBD_CAPSLOCK     0x000040
+#define HB_GTI_KBD_LWIN         0x000008
+#define HB_GTI_KBD_RWIN         0x000010
+#define HB_GTI_KBD_MENU         0x000020
 #define HB_GTI_KBD_INSERT       0x000080
-#define HB_GTI_KBD_LSHIFT       0x000100
-#define HB_GTI_KBD_RSHIFT       0x000200
-#define HB_GTI_KBD_LCTRL        0x000400
-#define HB_GTI_KBD_RCTRL        0x000800
-#define HB_GTI_KBD_LALT         0x001000
-#define HB_GTI_KBD_RALT         0x002000
-#define HB_GTI_KBD_LWIN         0x004000
-#define HB_GTI_KBD_RWIN         0x008000
-#define HB_GTI_KBD_MENU         0x010000
+#define HB_GTI_KBD_SCROLOCK     0x000100
+#define HB_GTI_KBD_NUMLOCK      0x000200
+#define HB_GTI_KBD_CAPSLOCK     0x000400
+#define HB_GTI_KBD_INALTSEQ     0x000800
+#define HB_GTI_KBD_ACCENT1      0x001000
+#define HB_GTI_KBD_ACCENT2      0x002000
+#define HB_GTI_KBD_ACCENT3      0x004000
+#define HB_GTI_KBD_ACCENT4      0x008000
+#define HB_GTI_KBD_LSHIFT       0x010000
+#define HB_GTI_KBD_RSHIFT       0x020000
+#define HB_GTI_KBD_LCTRL        0x040000
+#define HB_GTI_KBD_RCTRL        0x080000
+#define HB_GTI_KBD_LALT         0x100000
+#define HB_GTI_KBD_RALT         0x200000
 
 #ifdef HB_LEGACY_LEVEL4
 /* Harbour GT callback events - WORK IN PROGRESS */
