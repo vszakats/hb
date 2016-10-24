@@ -63,6 +63,8 @@ CREATE CLASS TPLGenerate
    METHOD Generate() INLINE NIL
    METHOD IsIndex() INLINE ::nType == INDEX_
 
+   VAR cFilename AS STRING
+
    PROTECTED:
 
    METHOD New( cDir, cFilename, cTitle, cExtension, nType ) HIDDEN
@@ -72,7 +74,6 @@ CREATE CLASS TPLGenerate
 
    VAR hFile
    VAR cDir AS STRING
-   VAR cFilename AS STRING
    VAR cTitle AS STRING
    VAR cExtension AS STRING
 

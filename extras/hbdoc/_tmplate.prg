@@ -117,6 +117,7 @@ CREATE CLASS Entry
    VAR filename AS STRING
    VAR type_ AS STRING
    VAR sourcefile_ AS STRING
+   VAR module_ AS STRING
    VAR sourcefileversion_ AS STRING
    VAR uid_ AS STRING
    VAR hConstraint AS HASH

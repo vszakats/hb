@@ -51,25 +51,6 @@
 
 #define STYLEFILE  "hbdoc.css"
 
-CREATE CLASS GenerateHTML2 INHERIT GenerateHTML
-
-   METHOD NewIndex( cDir, cFilename, cTitle )
-   METHOD NewDocument( cDir, cFilename, cTitle )
-
-ENDCLASS
-
-METHOD NewDocument( cDir, cFilename, cTitle ) CLASS GenerateHTML2
-
-   ::super:NewDocument( cDir, cFilename, cTitle, EXTENSION )
-
-   RETURN self
-
-METHOD NewIndex( cDir, cFilename, cTitle ) CLASS GenerateHTML2
-
-   ::super:NewIndex( cDir, cFilename, cTitle, EXTENSION )
-
-   RETURN self
-
 CREATE CLASS GenerateHTML INHERIT TPLGenerate
 
    HIDDEN:
