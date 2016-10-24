@@ -466,6 +466,10 @@ footer a:hover {
   transition: color .25s;
 }
 
+footer a:active {
+  color: lighten($color-footer, 30%);
+}
+
 .footer-content {
   margin: auto;
   width: (($content-width / 100%) * $content-fill);
