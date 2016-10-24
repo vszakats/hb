@@ -54,8 +54,8 @@
 
 CREATE CLASS TPLGenerate
 
-   METHOD NewIndex( cDir, cFilename, cTitle, cExtension )
-   METHOD NewDocument( cDir, cFilename, cTitle, cExtension )
+   METHOD NewIndex( cDir, cFilename, cTitle, cExtension, cLang )
+   METHOD NewDocument( cDir, cFilename, cTitle, cExtension, cLang )
    METHOD AddEntry( oEntry ) INLINE HB_SYMBOL_UNUSED( oEntry ), NIL
    METHOD AddReference( oEntry ) INLINE HB_SYMBOL_UNUSED( oEntry ), NIL
    METHOD BeginSection( cSection, cFilename ) INLINE HB_SYMBOL_UNUSED( cSection ), HB_SYMBOL_UNUSED( cFilename ), ::Depth++
@@ -65,9 +65,11 @@ CREATE CLASS TPLGenerate
 
    VAR cFilename AS STRING
 
-   PROTECTED:
+   HIDDEN:
 
-   METHOD New( cDir, cFilename, cTitle, cExtension, nType ) HIDDEN
+   METHOD New( cDir, cFilename, cTitle, cExtension, cLang, nType )
+
+   PROTECTED:
 
    VAR nType AS INTEGER
    VAR Depth AS INTEGER INIT 0
@@ -76,27 +78,29 @@ CREATE CLASS TPLGenerate
    VAR cDir AS STRING
    VAR cTitle AS STRING
    VAR cExtension AS STRING
+   VAR cLang AS STRING
 
 ENDCLASS
 
-METHOD NewIndex( cDir, cFilename, cTitle, cExtension ) CLASS TPLGenerate
+METHOD NewIndex( cDir, cFilename, cTitle, cExtension, cLang ) CLASS TPLGenerate
 
-   ::New( cDir, cFilename, cTitle, cExtension, INDEX_ )
-
-   RETURN self
-
-METHOD NewDocument( cDir, cFilename, cTitle, cExtension ) CLASS TPLGenerate
-
-   ::New( cDir, cFilename, cTitle, cExtension, DOCUMENT_ )
+   ::New( cDir, cFilename, cTitle, cExtension, cLang, INDEX_ )
 
    RETURN self
 
-METHOD New( cDir, cFilename, cTitle, cExtension, nType ) CLASS TPLGenerate
+METHOD NewDocument( cDir, cFilename, cTitle, cExtension, cLang ) CLASS TPLGenerate
+
+   ::New( cDir, cFilename, cTitle, cExtension, cLang, DOCUMENT_ )
+
+   RETURN self
+
+METHOD New( cDir, cFilename, cTitle, cExtension, cLang, nType ) CLASS TPLGenerate
 
    ::cDir := cDir
    ::cFilename := cFilename
    ::cTitle := cTitle
    ::cExtension := cExtension
+   ::cLang := hb_defaultValue( cLang, "en" )
    ::nType := nType
 
    IF ! hb_vfDirExists( ::cDir )
@@ -104,6 +108,11 @@ METHOD New( cDir, cFilename, cTitle, cExtension, nType ) CLASS TPLGenerate
       hb_vfDirMake( ::cDir )
    ENDIF
 
-   ::hFile := hb_vfOpen( ::cDir + hb_ps() + ::cFilename + ::cExtension, FO_CREAT + FO_TRUNC + FO_WRITE )
+   ::hFile := hb_vfOpen( ;
+      ::cDir + hb_ps() + ;
+      ::cFilename + ;
+      iif( Lower( ::cLang ) == "en", "", "." + ::cLang ) + ;
+      ::cExtension, ;
+      FO_CREAT + FO_TRUNC + FO_WRITE )
 
    RETURN self

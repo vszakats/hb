@@ -49,34 +49,33 @@
 
 CREATE CLASS GenerateXML INHERIT TPLGenerate
 
-   HIDDEN:
-
-   PROTECTED:
-
    EXPORTED:
-   METHOD NewIndex( cDir, cFilename, cTitle )
-   METHOD NewDocument( cDir, cFilename, cTitle )
+
+   METHOD NewIndex( cDir, cFilename, cTitle, cLang )
+   METHOD NewDocument( cDir, cFilename, cTitle, cLang )
    METHOD AddEntry( oEntry )
    METHOD AddIndex( oEntry ) HIDDEN
    METHOD BeginSection( cSection, cFilename )
    METHOD EndSection( cSection, cFilename )
    METHOD Generate()
 
-   METHOD WriteEntry( cCaption, cEntry, lPreformatted ) HIDDEN
+   HIDDEN:
+
+   METHOD WriteEntry( cCaption, cEntry, lPreformatted )
 
 ENDCLASS
 
-METHOD NewDocument( cDir, cFilename, cTitle ) CLASS GenerateXML
+METHOD NewDocument( cDir, cFilename, cTitle, cLang ) CLASS GenerateXML
 
-   ::super:NewDocument( cDir, cFilename, cTitle, ".xml" )
+   ::super:NewDocument( cDir, cFilename, cTitle, ".xml", cLang )
    hb_vfWrite( ::hFile, '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' + hb_eol() )
    hb_vfWrite( ::hFile, '<HarbourReference>' + hb_eol() )
 
    RETURN self
 
-METHOD NewIndex( cDir, cFilename, cTitle ) CLASS GenerateXML
+METHOD NewIndex( cDir, cFilename, cTitle, cLang ) CLASS GenerateXML
 
-   ::super:NewIndex( cDir, cFilename, cTitle, ".xml" )
+   ::super:NewIndex( cDir, cFilename, cTitle, ".xml", cLang )
    hb_vfWrite( ::hFile, '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' + hb_eol() )
    hb_vfWrite( ::hFile, '<HarbourReference>' + hb_eol() )
 

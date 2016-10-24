@@ -67,15 +67,15 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    METHOD Space() INLINE hb_vfWrite( ::hFile, ", " ), self
    METHOD Spacer() INLINE hb_vfWrite( ::hFile, hb_eol() ), self
    METHOD Newline() INLINE hb_vfWrite( ::hFile, "<br>" + hb_eol() ), self
+   METHOD NewFile()
 
    CLASS VAR lCreateStyleDocument AS LOGICAL INIT .T.
    VAR TargetFilename AS STRING INIT ""
 
    EXPORTED:
 
-   METHOD NewFile() HIDDEN
-   METHOD NewIndex( cDir, cFilename, cTitle )
-   METHOD NewDocument( cDir, cFilename, cTitle )
+   METHOD NewIndex( cDir, cFilename, cTitle, cLang )
+   METHOD NewDocument( cDir, cFilename, cTitle, cLang )
    METHOD AddEntry( oEntry )
    METHOD AddReference( oEntry, cReference, cSubReference )
    METHOD BeginSection( cSection, cFilename )
@@ -90,12 +90,17 @@ METHOD NewFile() CLASS GenerateHTML
 
    hb_vfWrite( ::hFile, "<!DOCTYPE html>" + hb_eol() )
 
-   ::OpenTag( "html", "lang", "en" )
+   ::OpenTag( "html", "lang", StrTran( ::cLang, "_", "-" ) )
    ::Spacer()
 
    ::OpenTag( "meta", "charset", "utf-8" )
+   ::OpenTag( "meta", "name", "referrer", "content", "origin" )
+   ::OpenTag( "meta", "name", "viewport", "content", "initial-scale=1" )
+   ::Spacer()
+
    ::OpenTag( "meta", "name", "generator", "content", "hbdoc" )
-   ::OpenTag( "meta", "name", "keywords", "content", "Harbour, Clipper, xBase, database, Free Software, GPL, compiler, cross platform, 32-bit, 64-bit" )
+   ::OpenTag( "meta", "name", "keywords", "content", ;
+      "Harbour, Clipper, xBase, database, Free Software, GPL, compiler, cross-platform, 32-bit, 64-bit" )
    ::Spacer()
 
    IF ::lCreateStyleDocument
@@ -103,7 +108,7 @@ METHOD NewFile() CLASS GenerateHTML
       ::RecreateStyleDocument( STYLEFILE )
    ENDIF
 
-   ::Append( ::cTitle /* + iif( Empty( ::cDescription ), "", " - " + ::cDescription ) */, "title" )
+   ::Append( ::cTitle, "title" )
    ::Spacer()
 
    ::OpenTag( "link", "rel", "stylesheet", "href", STYLEFILE )
@@ -155,16 +160,16 @@ METHOD Generate() CLASS GenerateHTML
 
    RETURN self
 
-METHOD NewDocument( cDir, cFilename, cTitle ) CLASS GenerateHTML
+METHOD NewDocument( cDir, cFilename, cTitle, cLang ) CLASS GenerateHTML
 
-   ::super:NewDocument( cDir, cFilename, cTitle, EXTENSION )
+   ::super:NewDocument( cDir, cFilename, cTitle, EXTENSION, cLang )
    ::NewFile()
 
    RETURN self
 
-METHOD NewIndex( cDir, cFilename, cTitle ) CLASS GenerateHTML
+METHOD NewIndex( cDir, cFilename, cTitle, cLang ) CLASS GenerateHTML
 
-   ::super:NewIndex( cDir, cFilename, cTitle, EXTENSION )
+   ::super:NewIndex( cDir, cFilename, cTitle, EXTENSION, cLang )
    ::NewFile()
 
    RETURN self

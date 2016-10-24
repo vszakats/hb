@@ -103,10 +103,11 @@ PROCEDURE Main( ... )
 
    LOCAL generatorClass
    LOCAL generators := { ;
-      "all"  =>, ;
-      "html" => @GenerateHTML(), ;
-      "text" => @GenerateText(), ;
-      "xml"  => @GenerateXML() }
+      "all"   =>, ;
+      "html"  => @GenerateHTML(), ;
+      "ascii" => @GenerateAscii(), ;
+      "text"  => @GenerateText(), ;
+      "xml"   => @GenerateXML() }
 
    /* Setup input CP of the translation */
    hb_cdpSelect( "UTF8EX" )
@@ -212,8 +213,9 @@ PROCEDURE Main( ... )
          DO CASE
          CASE s_hSwitches[ "output" ] == "single"
 
-            oDocument := Eval( generatorClass ):NewDocument( cFormat, "harbour", "Harbour Reference Guide" )
+            oDocument := Eval( generatorClass ):NewDocument( cFormat, "harbour", "Harbour Reference Guide", s_hSwitches[ "lang" ] )
 
+            // 1. harbour - readme
             FOR EACH item IN aContent
                IF Right( item:sourcefile_, Len( "1stread.txt" ) ) == "1stread.txt"
                   oDocument:AddEntry( item )
@@ -221,9 +223,22 @@ PROCEDURE Main( ... )
                ENDIF
             NEXT
 
+            // 2. harbour - rest
             FOR EACH item IN aContent
-               IF !( Right( item:sourcefile_, Len( "1stread.txt" ) ) == "1stread.txt" )
+               IF item:type_ == "harbour" .AND. ;
+                  !( Right( item:sourcefile_, Len( "1stread.txt" ) ) == "1stread.txt" )
                   oDocument:AddEntry( item )
+               ENDIF
+            NEXT
+
+            // 3. contribs in alphabetical order
+            FOR EACH tmp IN ASort( hb_HKeys( s_hComponent ) )
+               IF !( tmp == "harbour" )
+                  FOR EACH item IN aContent
+                     IF item:type_ == tmp .AND. ;
+                        oDocument:AddEntry( item )
+                     ENDIF
+                  NEXT
                ENDIF
             NEXT
 
@@ -232,7 +247,7 @@ PROCEDURE Main( ... )
 
          CASE s_hSwitches[ "output" ] == "component"
 
-            oDocument := Eval( generatorClass ):NewDocument( cFormat, "harbour", "Harbour Reference Guide" )
+            oDocument := Eval( generatorClass ):NewDocument( cFormat, "harbour", "Harbour Reference Guide", s_hSwitches[ "lang" ] )
 
             FOR EACH item IN aContent
                IF item:type_ == "harbour" .AND. ;
@@ -251,9 +266,9 @@ PROCEDURE Main( ... )
 
             oDocument:Generate()
 
-            FOR EACH tmp IN hb_HKeys( s_hComponent )
+            FOR EACH tmp IN ASort( hb_HKeys( s_hComponent ) )
                IF !( tmp == "harbour" )
-                  oDocument := Eval( generatorClass ):NewDocument( cFormat, tmp, hb_StrFormat( "Harbour Reference Guide (%1$s)", tmp ) )
+                  oDocument := Eval( generatorClass ):NewDocument( cFormat, tmp, hb_StrFormat( "Harbour Reference Guide — %1$s", tmp ), s_hSwitches[ "lang" ] )
 
                   FOR EACH item IN aContent
                      IF item:type_ == tmp .AND. ;
@@ -288,7 +303,7 @@ PROCEDURE Main( ... )
 
             FOR EACH item IN sc_hConstraint[ "categories" ]
                IF ! Empty( item )
-                  oDocument := Eval( generatorClass ):NewDocument( cFormat, item[ 4 ], "Harbour Reference Guide - " + item[ 1 ] )
+                  oDocument := Eval( generatorClass ):NewDocument( cFormat, item[ 4 ], hb_StrFormat( "Harbour Reference Guide — %1$s", item[ 1 ] ), s_hSwitches[ "lang" ] )
 
                   IF oIndex != NIL
                      oIndex:BeginSection( item[ 1 ], oDocument:cFilename )
@@ -338,7 +353,7 @@ PROCEDURE Main( ... )
          CASE s_hSwitches[ "output" ] == "entry"
 
             FOR EACH item IN aContent
-               oDocument := Eval( generatorClass ):NewDocument( cFormat, item:filename, "Harbour Reference Guide" )
+               oDocument := Eval( generatorClass ):NewDocument( cFormat, item:filename, "Harbour Reference Guide", s_hSwitches[ "lang" ] )
                IF oIndex != NIL
                   oIndex:AddEntry( item )
                ENDIF

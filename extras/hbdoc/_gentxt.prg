@@ -49,22 +49,22 @@
 
 CREATE CLASS GenerateAscii INHERIT GenerateText
 
-   METHOD NewIndex( cDir, cFilename, cTitle, cDescription )
-   METHOD NewDocument( cDir, cFilename, cTitle, cDescription )
+   METHOD NewIndex( cDir, cFilename, cTitle, cLang )
+   METHOD NewDocument( cDir, cFilename, cTitle, cLang )
 
 ENDCLASS
 
-METHOD NewDocument( cDir, cFilename, cTitle, cDescription ) CLASS GenerateAscii
+METHOD NewDocument( cDir, cFilename, cTitle, cLang ) CLASS GenerateAscii
 
    ::lContinuous := .T.
-   ::super:NewDocument( cDir, cFilename, cTitle, cDescription )
+   ::super:NewDocument( cDir, cFilename, cTitle,, cLang )
 
    RETURN self
 
-METHOD NewIndex( cDir, cFilename, cTitle, cDescription ) CLASS GenerateAscii
+METHOD NewIndex( cDir, cFilename, cTitle, cLang ) CLASS GenerateAscii
 
    ::lContinuous := .T.
-   ::super:NewIndex( cDir, cFilename, cTitle, cDescription )
+   ::super:NewIndex( cDir, cFilename, cTitle,, cLang )
 
    RETURN self
 
@@ -72,34 +72,36 @@ CREATE CLASS GenerateText INHERIT TPLGenerate
 
    HIDDEN:
 
+   METHOD WriteEntry( cCaption, cEntry, lPreformatted )
+   METHOD AddIndex( oEntry )
+
    PROTECTED:
+
    VAR lContinuous AS LOGICAL INIT .F.
 
    EXPORTED:
-   METHOD NewIndex( cDir, cFilename, cTitle )
-   METHOD NewDocument( cDir, cFilename, cTitle )
+
+   METHOD NewIndex( cDir, cFilename, cTitle, cLang )
+   METHOD NewDocument( cDir, cFilename, cTitle, cLang )
    METHOD AddEntry( oEntry )
-   METHOD AddIndex( oEntry ) HIDDEN
    METHOD BeginSection( cSection, cFilename )
 #if 0
    METHOD EndSection( cSection, cFilename )  /* will use inherited method */
 #endif
    METHOD Generate()
 
-   METHOD WriteEntry( cCaption, cEntry, lPreformatted ) HIDDEN
-
 ENDCLASS
 
-METHOD NewDocument( cDir, cFilename, cTitle ) CLASS GenerateText
+METHOD NewDocument( cDir, cFilename, cTitle, cLang ) CLASS GenerateText
 
-   ::super:NewDocument( cDir, cFilename, cTitle, ".txt" )
+   ::super:NewDocument( cDir, cFilename, cTitle, ".txt", cLang )
    ::WriteEntry( "", cTitle + hb_eol(), .F. )
 
    RETURN self
 
-METHOD NewIndex( cDir, cFilename, cTitle ) CLASS GenerateText
+METHOD NewIndex( cDir, cFilename, cTitle, cLang ) CLASS GenerateText
 
-   ::super:NewIndex( cDir, cFilename, cTitle, ".txt" )
+   ::super:NewIndex( cDir, cFilename, cTitle, ".txt", cLang )
    ::WriteEntry( "", cTitle + hb_eol(), .F. )
 
    RETURN self
