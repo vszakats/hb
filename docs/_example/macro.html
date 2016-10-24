@@ -1,0 +1,45 @@
+---
+category: basic
+title_long: "Dynamic code evalutation example"
+description: "This example demonstrates how you can use the macro feature
+  present in Harbour in the same manner as was done in Clipper."
+---
+<div class="shot-window"><div class="shot-toolbar"></div><div class="shot-screen"><pre>
+$ hbrun macro.prg
+
+Simple Macro
+Aliased Macro
+Concatenated Macro (Numeric)
+Concatenated Macro (String)
+Array Macro
+Class Macro
+"cVar_1" == [Class Macro] BEFORE SubFun() PRIVATE
+.F.
+I am a Var named PRIVATE I am a Var named PRIVATE
+I am a Var named PRIVATE I am a Var named PRIVATE
+I was born in Run Time
+"cVar_1" == [In SubFun()] in SubFun() PRIVATE
+"cVar_1" == [Class Macro] AFTER SubFun() PRIVATE
+Still Alive because I am PUBLIC
+
+=== Type() function ===
+Test for Type('UDF()')        - should be 'UI': UI
+Test for Type('UDF_STATIC()') - should be 'U': U
+Test for &'UDF()'  - should print 'udf': udf
+Test for &'UDF_STATIC()'  - should print 'ERROR: undefined function':
+ERROR: Undefined function
+Test for Type('UDF')        - should be 'U': U
+Test for Type('UDF_STATIC') - should be 'U': U
+Test for Type('UDF := 1')        - should be 'N': N
+Test for Type('UDF_STATIC := 1') - should be 'N': N
+=== after the assignment ===
+Test for Type('UDF')        - should be 'N': N
+Test for Type('UDF_STATIC') - should be 'N': N
+Test for Type('UDF()')        - should be 'UI': UI
+Test for Type('UDF_STATIC()') - should be 'U': U
+=== declared public variable ===
+Test for Type('UDF2()')        - should be 'UI': UI
+Test for Type('UDF2_STATIC()') - should be 'U': U
+Test for Type('UDF')        - should be 'L': L
+Test for Type('UDF_STATIC') - should be 'L': L
+</pre></div></div>

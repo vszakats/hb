@@ -266,21 +266,24 @@ FUNCTION __hbdoc_ToSource( aEntry )
    LOCAL cLine
    LOCAL cLineOut
 
+   LOCAL cEOL
+
    IF HB_ISARRAY( aEntry )
+      cEOL := Set( _SET_EOL )
       FOR EACH hEntry IN aEntry
-         cSource += hb_eol()
-         cSource += "/* $DOC$" + hb_eol()
+         cSource += cEOL
+         cSource += "/* $DOC$" + cEOL
          FOR EACH item IN hEntry
             IF HB_ISSTRING( item ) .AND. ! hb_LeftEq( item:__enumKey(), "_" )
-               cSource += "   $" + item:__enumKey() + "$" + hb_eol()
+               cSource += "   $" + item:__enumKey() + "$" + cEOL
                FOR EACH cLine IN hb_ATokens( item, .T. )
-                  cLineOut := iif( hb_BLen( cLine ) == 0, "", Space( 4 ) + cLine )
-                  cSource += iif( Empty( cLineOut ), "", "  " + cLineOut ) + hb_eol()
+                  cLineOut := iif( HB_ISNULL( cLine ), "", Space( 4 ) + cLine )
+                  cSource += iif( Empty( cLineOut ), "", "  " + cLineOut ) + cEOL
                NEXT
             ENDIF
          NEXT
-         cSource += "   $END$" + hb_eol()
-         cSource += " */" + hb_eol()
+         cSource += "   $END$" + cEOL
+         cSource += " */" + cEOL
       NEXT
    ENDIF
 
@@ -317,7 +320,7 @@ FUNCTION __hbdoc_FilterOut( cFile )
                IF nEmpty < 2
                   cOK += cLine
                   IF ! cLine:__enumIsLast()
-                     cOK += hb_eol()
+                     cOK += Set( _SET_EOL )
                   ENDIF
                ENDIF
             ENDIF
@@ -384,7 +387,7 @@ FUNCTION __hbdoc_LoadHBD( cFileName )
          cFileName := hb_FNameExtSetDef( cFileName, _HBDOC_EXT )
       ENDIF
 
-      IF ( hFile := hb_vfOpen( cFileName ) ) != NIL
+      IF ( hFile := hb_vfOpen( cFileName, FO_READ ) ) != NIL
 
          IF hb_vfReadLen( hFile, _HBDOC_SIG_LEN ) == _HBDOC_SIGNATURE
 

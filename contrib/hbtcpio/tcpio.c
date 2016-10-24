@@ -55,7 +55,7 @@
 
 #include "hbsocket.h"
 
-#define FILE_PREFIX      "tcp:"
+#define FILE_PREFIX      "TCP:"
 #define FILE_PREFIX_LEN  strlen( FILE_PREFIX )
 
 typedef struct _HB_FILE
@@ -63,10 +63,11 @@ typedef struct _HB_FILE
    const HB_FILE_FUNCS * pFuncs;
    PHB_SOCKEX            sock;
    HB_BOOL               fEof;
-   int                   timeout;
-} HB_FILE;
+   HB_MAXINT             timeout;
+}
+HB_FILE;
 
-static PHB_FILE s_fileNew( PHB_SOCKEX sock, int timeout );
+static PHB_FILE s_fileNew( PHB_SOCKEX sock, HB_MAXINT timeout );
 
 static HB_BOOL s_fileAccept( PHB_FILE_FUNCS pFuncs, const char * pszFileName )
 {
@@ -84,7 +85,7 @@ static PHB_FILE s_fileOpen( PHB_FILE_FUNCS pFuncs, const char * pszName,
    HB_ERRCODE errcode = 0;
    HB_SIZE nLen = 0;
    int iPort = 0;
-   int timeout = -1;
+   HB_MAXINT timeout = -1;
 
    HB_SYMBOL_UNUSED( pFuncs );
    HB_SYMBOL_UNUSED( pszDefExt );
@@ -227,17 +228,28 @@ static HB_SIZE s_fileRead( PHB_FILE pFile, void * data,
 static HB_SIZE s_fileWrite( PHB_FILE pFile, const void * data,
                             HB_SIZE nSize, HB_MAXINT timeout )
 {
-   long lSend = nSize > LONG_MAX ? LONG_MAX : ( long ) nSize;
+   long lSent = nSize > LONG_MAX ? LONG_MAX : ( long ) nSize;
+   HB_ERRCODE errcode;
 
    if( timeout == -1 )
       timeout = pFile->timeout;
-   lSend = hb_sockexWrite( pFile->sock, data, lSend, timeout );
-   hb_fsSetError( hb_socketGetError() );
+   lSent = hb_sockexWrite( pFile->sock, data, lSent, timeout );
+   errcode = hb_socketGetError();
+   hb_fsSetError( errcode );
 
-   if( lSend < 0 )
-      lSend = 0;
+   if( lSent < 0 )
+   {
+      switch( errcode )
+      {
+         case HB_SOCKET_ERR_TIMEOUT:
+         case HB_SOCKET_ERR_AGAIN:
+         case HB_SOCKET_ERR_TRYAGAIN:
+            lSent = 0;
+            break;
+      }
+   }
 
-   return lSend;
+   return lSent;
 }
 
 static HB_BOOL s_fileEof( PHB_FILE pFile )
@@ -292,6 +304,10 @@ static HB_BOOL s_fileConfigure( PHB_FILE pFile, int iIndex, PHB_ITEM pValue )
       case HB_VF_WRHANDLE:
          hb_itemPutNInt( pValue, ( HB_NHANDLE ) hb_sockexGetHandle( pFile->sock ) );
          return HB_TRUE;
+
+      case HB_VF_IONAME:
+         hb_itemPutC( pValue, FILE_PREFIX );
+         return HB_TRUE;
    }
 
    return HB_FALSE;
@@ -344,7 +360,7 @@ static HB_FILE_FUNCS s_fileFuncs =
    s_fileHandle
 };
 
-static PHB_FILE s_fileNew( PHB_SOCKEX sock, int timeout )
+static PHB_FILE s_fileNew( PHB_SOCKEX sock, HB_MAXINT timeout )
 {
    PHB_FILE pFile = ( PHB_FILE ) hb_xgrab( sizeof( HB_FILE ) );
 

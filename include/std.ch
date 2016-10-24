@@ -74,6 +74,8 @@
 #command NEXT <v> [TO <x>] [STEP <s>]  => next
 
 #command DO <proc>.prg [WITH <p,...>]  => do <proc> [ WITH <p>]
+/* Harbour extension */
+#command DO <proc>.hb [WITH <p,...>]  => do <proc> [ WITH <p>]
 #command CALL <proc>() [WITH <p,...>]  => call <proc> [ WITH <p>]
 #command STORE <v> TO <v1> [,<vN>]     => <v1> := [ <vN> :=] <v>
 
@@ -395,7 +397,7 @@
 #command COPY [TO <(f)>] [FIELDS <fields,...>] ;
               [FOR <for>] [WHILE <while>] [NEXT <next>] ;
               [RECORD <rec>] [<rest:REST>] [ALL] ;
-              [DELIMITED [WITH <*delim*>]] [CODEPAGE <cp>] => ;
+              [CODEPAGE <cp>] [DELIMITED [WITH <*delim*>]] => ;
          __dbDelim( .T., <(f)>, <(delim)>, { <(fields)> }, ;
                     <{for}>, <{while}>, <next>, <rec>, <.rest.>, <cp> )
 
@@ -414,7 +416,7 @@
 #command APPEND [FROM <(f)>] [FIELDS <fields,...>] ;
                 [FOR <for>] [WHILE <while>] [NEXT <next>] ;
                 [RECORD <rec>] [<rest:REST>] [ALL] ;
-                [DELIMITED [WITH <*delim*>]] [CODEPAGE <cp>] => ;
+                [CODEPAGE <cp>] [DELIMITED [WITH <*delim*>]] => ;
          __dbDelim( .F., <(f)>, <(delim)>, { <(fields)> }, ;
                     <{for}>, <{while}>, <next>, <rec>, <.rest.>, <cp> )
 
@@ -450,9 +452,10 @@
          __dbUpdate( <(alias)>, <{key}>, <.rand.>, ;
                      {|| _FIELD-><f1> := <x1>[, _FIELD-><fN> := <xN>] } )
 
-#command JOIN [WITH <(alias)>] [TO <f>] [FIELDS <fields,...>] [FOR <for>] => ;
+#command JOIN [WITH <(alias)>] [TO <f>] [FIELDS <fields,...>] [FOR <for>] ;
+         [VIA <rdd>] [CODEPAGE <cp>] => ;
          __dbJoin( <(alias)>, <(f)>, { <(fields)> }, ;
-                   iif( Empty( #<for> ), {|| .T. }, <{for}> ) )
+                   iif( Empty( #<for> ), {|| .T. }, <{for}> ), <rdd>,, <cp> )
 
 #command COUNT [TO <v>] ;
                [FOR <for>] [WHILE <while>] [NEXT <next>] ;

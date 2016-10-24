@@ -6,15 +6,21 @@
 
 -w3 -es2
 
--depurlbase=curl:http://curl.haxx.se/
+-depurlbase=curl:https://curl.haxx.se/
 -deppkgname=curl:libcurl4-openssl-dev{deb}
 -deppkgname=curl:curl-devel{rpm}
+-deppkgname=curl:mingw-w64-i686-curl{msys2&mingw}
+-deppkgname=curl:mingw-w64-x86_64-curl{msys2&mingw64}
+-deppkgname=curl:curl{pacman}
 -deppkgname=curl:curl{homebrew}
 -depkeyhead=curl:curl/curl.h
 -depcontrol=curl:no{HB_BUILD_3RDEXT='no'}
 -depcontrol=curl:${HB_WITH_CURL}
+-depincpath=curl:/usr/local/opt/curl/include
 -depincpath=curl:/usr/include
 -depincpath=curl:/usr/local/include
+
+-cflag=-DCURL_NO_OLDIES
 
 date.c
 easy.c

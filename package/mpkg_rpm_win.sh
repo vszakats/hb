@@ -14,22 +14,20 @@ test_reqrpm()
 
 get_rpmmacro()
 {
-   local R X Y
-
-   R=$(rpm --showrc|sed -e "/^-14:.${1}[^a-z0-9A-Z_]/ !d" -e "s/^-14: ${1}.//")
-   X=$(echo "${R}"|sed -e "s/.*\(%{\([^}]*\)}\).*/\2/")
-   while [ "${X}" != "${R}" ]
+   _R=$(rpm --showrc|sed -e "/^-14:.${1}[^a-z0-9A-Z_]/ !d" -e "s/^-14: ${1}.//")
+   _X=$(echo "${_R}"|sed -e "s/.*\(%{\([^}]*\)}\).*/\2/")
+   while [ "${_X}" != "${_R}" ]
    do
-      Y=$(get_rpmmacro "$X")
-      if [ -n "${Y}" ]
+      _Y=$(get_rpmmacro "$_X")
+      if [ -n "${_Y}" ]
       then
-         R=$(echo "${R}"|sed -e "s!%{${X}}!${Y}!g")
-         X=$(echo "${R}"|sed -e "s/.*\(%{\([^}]*\)}\).*/\2/")
+         _R=$(echo "${_R}"|sed -e "s!%{${_X}}!${_Y}!g")
+         _X=$(echo "${_R}"|sed -e "s/.*\(%{\([^}]*\)}\).*/\2/")
       else
-         X="${R}"
+         _X="${_R}"
       fi
    done
-   printf %s "${R}"
+   printf %s "${_R}"
 }
 
 for d in /usr /usr/local /usr/local/mingw32 /opt/xmingw /opt/cross
@@ -53,7 +51,7 @@ fi
 HB_CCPREFIX="$TARGET-"
 HB_CCPATH="$MINGW_DIR/bin"
 
-cd "$(dirname "$0")"
+cd "$(dirname "$0")" || exit
 . ./mpkg_ver.sh
 hb_ver=$(get_hbver)
 hb_verstat=$(get_hbverstat)
@@ -115,7 +113,8 @@ then
       else
          RPMBLD='rpm'
       fi
-      cd "${RPMDIR}/SPECS"
+      cd "${RPMDIR}/SPECS" || exit
+      # shellcheck disable=SC2086
       ${RPMBLD} -ba harbour-win.spec ${INST_PARAM}
    else
       echo "Cannot find archive file: ${hb_filename}"

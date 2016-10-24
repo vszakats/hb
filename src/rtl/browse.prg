@@ -52,7 +52,7 @@ FUNCTION Browse( nTop, nLeft, nBottom, nRight )
 
    LOCAL oBrw
    LOCAL lContinue, lAppend, lKeyPressed, lRefresh
-   LOCAL n, nOldCursor, nKey
+   LOCAL n, nOldCursor, nKey, nKeyStd
    LOCAL cOldScreen
    LOCAL bAction
 
@@ -96,7 +96,7 @@ FUNCTION Browse( nTop, nLeft, nBottom, nRight )
    DispEnd()
 
    IF LastRec() == 0
-      nKey := K_DOWN
+      nKey := hb_keyNew( HB_KX_DOWN )
       lKeyPressed := .T.
    ENDIF
 
@@ -105,11 +105,12 @@ FUNCTION Browse( nTop, nLeft, nBottom, nRight )
    DO WHILE lContinue
 
       DO WHILE ! lKeyPressed .AND. ! oBrw:Stabilize()
-         lKeyPressed := ( nKey := Inkey() ) != 0
+         lKeyPressed := ( nKey := Inkey(, hb_bitOr( Set( _SET_EVENTMASK ), HB_INKEY_EXT ) ) ) != 0
       ENDDO
 
       IF lKeyPressed
          lKeyPressed := .F.
+         nKeyStd := hb_keyStd( nKey )
       ELSE
          IF oBrw:HitBottom .AND. ( ! lAppend .OR. RecNo() != LastRec() + 1 )
             IF lAppend
@@ -130,14 +131,15 @@ FUNCTION Browse( nTop, nLeft, nBottom, nRight )
 
          oBrw:ForceStable()
 
-         nKey := Inkey( 0 )
-         IF ( bAction := SetKey( nKey ) ) != NIL
+         nKeyStd := hb_keyStd( nKey := Inkey( 0, hb_bitOr( Set( _SET_EVENTMASK ), HB_INKEY_EXT ) ) )
+         IF ( bAction := SetKey( nKey ) ) != NIL .OR. ;
+            ( bAction := SetKey( nKeyStd ) ) != NIL
             Eval( bAction, ProcName( 1 ), ProcLine( 1 ), "" )
             LOOP
          ENDIF
       ENDIF
 
-      SWITCH nKey
+      SWITCH nKeyStd
 
 #ifdef HB_COMPAT_C53
       CASE K_LBUTTONDOWN
@@ -252,7 +254,7 @@ FUNCTION Browse( nTop, nLeft, nBottom, nRight )
          IF lAppend .OR. RecNo() != LastRec() + 1
             lKeyPressed := ( nKey := DoGet( oBrw, lAppend ) ) != 0
          ELSE
-            nKey := K_DOWN
+            nKey := hb_keyNew( HB_KX_DOWN )
             lKeyPressed := .T.
          ENDIF
          EXIT
@@ -264,7 +266,7 @@ FUNCTION Browse( nTop, nLeft, nBottom, nRight )
       OTHERWISE
          IF ! hb_keyChar( nKey ) == ""
             hb_keyIns( nKey )
-            nKey := K_ENTER
+            nKey := hb_keyNew( HB_KX_ENTER )
             lKeyPressed := .T.
          ENDIF
       ENDSWITCH
@@ -370,19 +372,16 @@ STATIC FUNCTION DoGet( oBrw, lAppend )
 
 STATIC FUNCTION ExitKey( lAppend )
 
-   LOCAL nKey
+   LOCAL nKeyStd
 
-   SWITCH nKey := LastKey()
-   CASE K_PGDN
-      RETURN iif( lAppend, 0, K_DOWN )
-   CASE K_PGUP
-      RETURN iif( lAppend, 0, K_UP )
-   CASE K_DOWN
-   CASE K_UP
-      RETURN nKey
+   SWITCH nKeyStd := LastKey()
+   CASE K_PGDN ; RETURN iif( lAppend, 0, hb_keyNew( HB_KX_DOWN ) )
+   CASE K_PGUP ; RETURN iif( lAppend, 0, hb_keyNew( HB_KX_UP ) )
+   CASE K_DOWN ; RETURN hb_keyNew( HB_KX_DOWN )
+   CASE K_UP   ; RETURN hb_keyNew( HB_KX_UP )
    ENDSWITCH
 
-   RETURN iif( nKey == K_ENTER .OR. !( hb_keyChar( nKey ) == "" ), K_RIGHT, 0 )
+   RETURN iif( nKeyStd != K_ENTER .AND. hb_keyChar( nKeyStd ) == "", 0, hb_keyNew( HB_KX_RIGHT ) )
 
 STATIC PROCEDURE FreshOrder( oBrw )
 

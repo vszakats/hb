@@ -1,3 +1,5 @@
+{__HB_MT='no'}-stop
+
 hbnetio.hbc
 -mt
 
@@ -8,6 +10,8 @@ hbnetio.hbc
 hbnetio.prg
 _console.prg
 netiomgm.hb
+
+../../../../package/harbour.hbc
 
 _winsvc.prg{win}
 -main=WinMain{win}

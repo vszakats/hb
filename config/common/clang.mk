@@ -19,24 +19,29 @@ ifneq ($(HB_PLATFORM),darwin)
 endif
 
 CC := $(HB_CCACHE) $(HB_CCPREFIX)$(HB_CMP)$(HB_CCSUFFIX)
-ifneq ($(filter --analyze, $(HB_USER_CFLAGS)),)
-   CC_IN :=
-else
-   CC_IN := -c
-endif
+CC_IN :=
 CC_OUT := -o
 
 CFLAGS += -I. -I$(HB_HOST_INC)
+ifeq ($(filter --analyze, $(HB_USER_CFLAGS)),)
+   CFLAGS += -c
+endif
 
 ifneq ($(HB_BUILD_WARN),no)
    CFLAGS += -W -Weverything
    CFLAGS += -Wno-padded -Wno-cast-align -Wno-float-equal -Wno-missing-prototypes
    CFLAGS += -Wno-disabled-macro-expansion -Wno-undef -Wno-unused-macros -Wno-variadic-macros -Wno-documentation
-   ifneq ($(HB_PLATFORM),darwin)
-      ifeq ($(filter $(HB_COMPILER_VER),0305),)
+   CFLAGS += -Wno-switch-enum
+   ifeq ($(HB_PLATFORM),darwin)
+      ifeq ($(filter $(HB_COMPILER_VER),0304 0305 0306),)
+         CFLAGS += -Wno-reserved-id-macro
+      endif
+   else
+      ifeq ($(filter $(HB_COMPILER_VER),0304 0305),)
          CFLAGS += -Wno-reserved-id-macro
       endif
    endif
+   CFLAGS += -Wno-empty-translation-unit
    # These are potentially useful. -Wsign-conversion would require proper HB_SIZE/HB_ISIZ cleanup.
    CFLAGS += -Wno-sign-conversion -Wno-shorten-64-to-32 -Wno-conversion -Wno-bad-function-cast
 else
@@ -45,6 +50,8 @@ else
       CFLAGS += -Wimplicit-int -Wimplicit-function-declaration
    endif
 endif
+
+#CFLAGS += -D_FORTIFY_SOURCE=2
 
 ifneq ($(HB_BUILD_OPTIM),no)
    CFLAGS += -O3
@@ -64,7 +71,7 @@ LDFLAGS += $(LIBPATHS)
 
 ifeq ($(HB_PLATFORM),darwin)
    AR := libtool
-   AR_RULE = ( $(AR) -static $(ARFLAGS) $(HB_AFLAGS) $(HB_USER_AFLAGS) -o $(LIB_DIR)/$@ $(^F) $(ARSTRIP) ) || ( $(RM) $(LIB_DIR)/$@ && $(FALSE) )
+   AR_RULE = ( $(AR) -static -no_warning_for_no_symbols $(ARFLAGS) $(HB_AFLAGS) $(HB_USER_AFLAGS) -o $(LIB_DIR)/$@ $(^F) $(ARSTRIP) ) || ( $(RM) $(LIB_DIR)/$@ && $(FALSE) )
 
    DY := $(AR)
    DFLAGS += -dynamic -flat_namespace -undefined warning -multiply_defined suppress -single_module $(LIBPATHS)

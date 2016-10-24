@@ -51,14 +51,23 @@
    #include "hbapistr.h"
 #endif
 
-#if defined( HB_OS_WIN ) && ! defined( _Windows )
-   #define _Windows
+#if defined( HB_OS_WIN )
+   #if ! defined( _Windows )
+      #define _Windows
+   #endif
    #include <windows.h>
    #define GSDLLEXPORT  __declspec( dllimport )
+   /* Some binary build may need the line below to be commented */
+   #define GSDLLAPI
 #endif
 
 #include "ierrors.h"
 #include "iapi.h"
+
+/* Workaround to build with pre-9.18 versions */
+#if defined( e_Quit )
+   #define gs_error_Quit  e_Quit
+#endif
 
 HB_FUNC( HB_GS )
 {
@@ -86,7 +95,7 @@ HB_FUNC( HB_GS )
          #else
          pszParam = hb_arrayGetCPtr( pParam, pos );
          #endif
-         gsargv[ pos ] = ( char * ) ( pszParam ? pszParam : "" );
+         gsargv[ pos ] = ( char * ) HB_UNCONST( pszParam ? pszParam : "" );
       }
 
       if( gsapi_new_instance( &minst, NULL ) >= 0 )
@@ -100,12 +109,12 @@ HB_FUNC( HB_GS )
          code  = gsapi_init_with_args( minst, gsargc, gsargv );
          code1 = gsapi_exit( minst );
 
-         if( code == 0 || code == e_Quit )
+         if( code == 0 || code == gs_error_Quit )
             code = code1;
 
          gsapi_delete_instance( minst );
 
-         bResult = ( code == 0 || code == e_Quit );
+         bResult = ( code == 0 || code == gs_error_Quit );
       }
 
       #if defined( HB_GS_UTF8_SUPPORT )

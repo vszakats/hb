@@ -62,8 +62,8 @@ CREATE CLASS WvgStatic INHERIT WvgWindow
    VAR    caption                               INIT ""
    VAR    clipParent                            INIT .T.
    VAR    clipSiblings                          INIT .F.
-   VAR    options                               INIT -1 /* WVGSTATIC_TEXT_LEFT */
-   VAR    TYPE                                  INIT -1 /* WVGSTATIC_TYPE_TEXT */
+   VAR    options                               INIT 0
+   VAR    TYPE                                  INIT 0
 
    VAR    hBitmap
 
@@ -108,21 +108,21 @@ METHOD WvgStatic:create( oParent, oOwner, aPos, aSize, aPresParams, lVisible )
 
    SWITCH ::type
    CASE WVGSTATIC_TYPE_TEXT
-      IF hb_bitAnd( ::options, WVGSTATIC_TEXT_LEFT ) != 0
-         ::style += SS_LEFT /* + SS_LEFTNOWORDWRAP */
-      ENDIF
-      IF hb_bitAnd( ::options, WVGSTATIC_TEXT_RIGHT ) != 0
-         ::style += SS_RIGHT
-      ENDIF
-      IF hb_bitAnd( ::options, WVGSTATIC_TEXT_CENTER ) != 0
-         ::style += SS_CENTER
-      ENDIF
-      IF hb_bitAnd( ::options, WVGSTATIC_TEXT_WORDBREAK ) != 0
+      DO CASE
+      CASE hb_bitAnd( ::options, WVGSTATIC_TEXT_WORDBREAK ) != 0
          ::style -= SS_LEFTNOWORDWRAP
-      ENDIF
+      CASE hb_bitAnd( ::options, WVGSTATIC_TEXT_CENTER ) != 0
+         ::style += SS_CENTER
+      CASE hb_bitAnd( ::options, WVGSTATIC_TEXT_RIGHT ) != 0
+         ::style += SS_RIGHT
+      OTHERWISE
+         ::style += SS_LEFT
+      ENDCASE
       EXIT
 
    CASE WVGSTATIC_TYPE_GROUPBOX
+      ::Style += WIN_WS_GROUP + BS_GROUPBOX + WIN_WS_EX_TRANSPARENT
+      ::className := "BUTTON"
       EXIT
    CASE WVGSTATIC_TYPE_ICON
       ::style += SS_ICON
@@ -269,8 +269,8 @@ METHOD WvgStatic:setCaption( xCaption, cDll )
    ::caption := xCaption
 
    DO CASE
-   CASE ::type == WVGSTATIC_TYPE_TEXT
-      wapi_SendMessage( ::hWnd, WIN_WM_SETTEXT, 0, ::caption )
+   CASE ::type == WVGSTATIC_TYPE_TEXT .OR. ::type == WVGSTATIC_TYPE_GROUPBOX
+      ::sendMessage( WIN_WM_SETTEXT, 0, ::caption )
 
    CASE ::type == WVGSTATIC_TYPE_BITMAP
       IF ::hBitmap != NIL
@@ -279,7 +279,7 @@ METHOD WvgStatic:setCaption( xCaption, cDll )
 
       ::hBitmap := wvg_LoadImage( ::caption, iif( HB_ISNUMERIC( ::caption ), 1, 2 ) )
 
-      wapi_SendMessage( ::hWnd, STM_SETIMAGE, WIN_IMAGE_BITMAP, ::hBitmap )
+      ::sendMessage( STM_SETIMAGE, WIN_IMAGE_BITMAP, ::hBitmap )
 
    ENDCASE
 

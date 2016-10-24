@@ -86,7 +86,7 @@ double hb_secondsCPU( int n )
 {
    double d = 0.0;
 
-#if defined( HB_OS_WIN ) && ! defined( HB_OS_UNIX )
+#if defined( HB_OS_WIN ) && ! defined( HB_OS_WIN_CE ) && ! defined( HB_OS_UNIX )
    FILETIME Create, Exit, Kernel, User;
 #endif
 
@@ -125,7 +125,7 @@ double hb_secondsCPU( int n )
 #else
    if( n > 10 )
       n -= 10;
-#if defined( HB_OS_WIN )
+#if defined( HB_OS_WIN ) && ! defined( HB_OS_WIN_CE )
    if( hb_iswinnt() &&
        GetProcessTimes( GetCurrentProcess(), &Create, &Exit, &Kernel, &User ) )
    {

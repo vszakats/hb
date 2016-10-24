@@ -1,5 +1,5 @@
 /*
- * hb_sprintf() function
+ * hb_snprintf() function.
  *
  * Copyright 2008 Przemyslaw Czerpak <druzus / at / priv.onet.pl>
  *
@@ -96,6 +96,18 @@
 #include <sys/param.h>
 #endif
 
+/* mingw-w64 6.1.0 x64-hosted multilib will crash hbpp.exe
+   inside this function if built in LTO mode for x86 target.
+   Working-around the problem by disabling LTO in this
+   specific case for this specific function. The setting
+   is applied to the whole file, regardless of where it's
+   placed. [vszakats] */
+#if defined( HB_GCC_HAS_OPTIMIZE ) && ( HB_GCC_VER == 601 ) \
+    && defined( __MINGW32__ ) && defined( HB_CPU_X86_64 )
+#  pragma GCC push_options
+#  pragma GCC optimize ("-fno-lto")
+#endif
+
 #if defined( HB_LONG_DOUBLE_OFF ) && ! defined( __NO_LONGDOUBLE__ )
 #  define __NO_LONGDOUBLE__
 #endif
@@ -159,9 +171,11 @@
 #ifndef __NO_DOUBLE__
 #  ifdef __NO_LONGDOUBLE__
 #     define _x_long_dbl      double
+#     define _FL_FIX          0.0078125
 #     define _MODFD( x, p )   modf( x, p )
 #  else
 #     define _x_long_dbl      long double
+#     define _FL_FIX          0.0078125L
 #     if defined( HB_NO_MODFL ) || \
          defined( __WATCOMC__ ) || defined( __MINGW32CE__ ) || defined( HB_OS_CYGWIN ) || \
          defined( HB_OS_BEOS ) || defined( HB_OS_SYMBIAN ) || \
@@ -562,7 +576,7 @@ static size_t put_dbl( char *buffer, size_t bufsize, size_t size,
    do
    {
       ++nums;
-      _MODFD( value / 10 + 0.01, &value );
+      _MODFD( value / 10 + _FL_FIX, &value );
    }
    while( value >= 1 );
    width -= nums;
@@ -595,8 +609,8 @@ static size_t put_dbl( char *buffer, size_t bufsize, size_t size,
    n = nums;
    do
    {
-      value = _MODFD( dInt / 10 + 0.01, &dInt ) * 10;
-      c = '0' + ( char ) ( value + 0.01 );
+      value = _MODFD( dInt / 10 + _FL_FIX, &dInt ) * 10;
+      c = '0' + ( char ) ( value + _FL_FIX );
       --n;
       if( size + n < bufsize )
          buffer[ size + n ] = c;
@@ -612,7 +626,7 @@ static size_t put_dbl( char *buffer, size_t bufsize, size_t size,
       while( precision > 0 )
       {
          dFract = _MODFD( dFract * 10, &dInt );
-         c = '0' + ( char ) ( dInt + 0.01 );
+         c = '0' + ( char ) ( dInt + _FL_FIX );
          if( size < bufsize )
             buffer[ size ] = c;
          ++size;
@@ -1222,8 +1236,8 @@ int hb_vsnprintf( char * buffer, size_t bufsize, const char * format, va_list ap
                      {
                         double d = va_arg_n( args, _x_double, param );
                         HB_NUMTYPE( value, d );
-                        argval.value.as_x_long_dbl =
-                           ( value & ( _HB_NUM_NAN | _HB_NUM_PINF | _HB_NUM_NINF ) ) == 0 ? d : 0;
+                        argval.value.as_x_long_dbl = ( _x_long_dbl )
+                           ( ( value & ( _HB_NUM_NAN | _HB_NUM_PINF | _HB_NUM_NINF ) ) == 0 ? d : 0 );
                      }
                      if( value & _HB_NUM_NAN )
                         size = put_str( buffer, bufsize, size,
@@ -1442,3 +1456,8 @@ int hb_snprintf( char * buffer, size_t bufsize, const char * format, ... )
 
    return iResult;
 }
+
+#if defined( HB_GCC_HAS_OPTIMIZE ) && ( HB_GCC_VER == 601 ) \
+    && defined( __MINGW32__ ) && defined( HB_CPU_X86_64 )
+#  pragma GCC pop_options
+#endif

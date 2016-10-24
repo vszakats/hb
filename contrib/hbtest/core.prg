@@ -1,7 +1,7 @@
 /*
  * Regression tests for the runtime library
  *
- * Copyright 1999-2013 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 1999-2015 Viktor Szakats (vszakats.net/harbour)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -107,7 +107,7 @@ EXIT PROCEDURE __hbtest_Exit()
 
 PROCEDURE hbtest_Setup( cName, xValue )
 
-   IF HB_ISSTRING( cName ) .AND. hb_BLen( cName ) > 0
+   IF HB_ISSTRING( cName ) .AND. ! HB_ISNULL( cName )
       IF PCount() >= 2
          t_hParams[ cName ] := xValue
       ELSEIF cName $ t_hParams
@@ -218,7 +218,7 @@ STATIC FUNCTION ErrorMessage( oError )
    IF ! Empty( oError:operation )
       cMessage += "(" + oError:operation + ") "
    ENDIF
-   IF ! Empty( oError:filename )
+   IF ! HB_ISNULL( oError:filename )
       cMessage += "<" + oError:filename + "> "
    ENDIF
    IF HB_ISNUMERIC( oError:osCode )
@@ -313,11 +313,11 @@ FUNCTION hbtest_AllValues()
       10, ;
       65, ;
       100000, ;
-      10.567, ; /* Use different number of decimals than the default */
+      10.567, ;  /* Use different number of decimals than the default */
       -10, ;
       -100000, ;
-      -10.567, ; /* Use different number of decimals than the default */
-      1234567890123, ;
+      -10.567, ;  /* Use different number of decimals than the default */
+      1234567654321, ;
       hb_SToD( "19840325" ), ;
       hb_SToD(), ;
       hb_SToT( "19850325123456789" ), ;

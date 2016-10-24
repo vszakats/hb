@@ -267,11 +267,11 @@ METHOD Reader( oMenu, aMsg ) CLASS HBGetList
          DO WHILE oGet:exitState == GE_NOEXIT .AND. ! ::lKillRead
 #ifdef HB_COMPAT_C53
             SetCursor( iif( ::nSaveCursor == SC_NONE, SC_NORMAL, ::nSaveCursor ) )
-            nKey := Inkey( 0 )
+            nKey := Inkey( 0, hb_bitOr( Set( _SET_EVENTMASK ), HB_INKEY_EXT ) )
             SetCursor( SC_NONE )
             ::GetApplyKey( nKey, oGet, oMenu, aMsg )
 #else
-            ::GetApplyKey( Inkey( 0 ), oGet, oMenu, aMsg )
+            ::GetApplyKey( nKey := Inkey( 0, hb_bitOr( Set( _SET_EVENTMASK ), HB_INKEY_EXT ) ), oGet, oMenu, aMsg )
 #endif
             nRow := Row()
             nCol := Col()
@@ -318,9 +318,12 @@ METHOD GetApplyKey( nKey, oGet, oMenu, aMsg ) CLASS HBGetList
    LOCAL nHotItem
 #endif
 
+   LOCAL nKeyStd := hb_keyStd( nKey )
+
    hb_default( @oGet, ::oGet )
 
-   IF ( bKeyBlock := SetKey( nKey ) ) != NIL
+   IF ( bKeyBlock := SetKey( nKey ) ) != NIL .OR. ;
+      ( bKeyBlock := SetKey( nKeyStd ) ) != NIL
       IF ::GetDoSetKey( bKeyBlock, oGet )
          RETURN Self
       ENDIF
@@ -335,16 +338,16 @@ METHOD GetApplyKey( nKey, oGet, oMenu, aMsg ) CLASS HBGetList
    ELSEIF ! HB_ISOBJECT( oMenu )
    ELSEIF ( nHotItem := oMenu:getAccel( nKey ) ) != 0
       ::nMenuID := MenuModal( oMenu, nHotItem, aMsg[ MSGROW ], aMsg[ MSGLEFT ], aMsg[ MSGRIGHT ], aMsg[ MSGCOLOR ] )
-      nKey := 0
+      nKeyStd := 0
    ELSEIF IsShortcut( oMenu, nKey )
-      nKey := 0
+      nKeyStd := 0
    ENDIF
 #else
    HB_SYMBOL_UNUSED( oMenu )
    HB_SYMBOL_UNUSED( aMsg )
 #endif
 
-   SWITCH nKey
+   SWITCH nKeyStd
    CASE K_UP
       oGet:exitState := GE_UP
       EXIT
@@ -502,7 +505,7 @@ METHOD GetApplyKey( nKey, oGet, oMenu, aMsg ) CLASS HBGetList
 
    OTHERWISE
 
-      IF ! ( cKey := hb_keyChar( nKey ) ) == ""
+      IF ! ( cKey := hb_keyChar( nKeyStd ) ) == ""
          IF oGet:type == "N" .AND. ( cKey == "." .OR. cKey == "," )
             oGet:toDecPos()
          ELSE
@@ -807,7 +810,7 @@ METHOD DateMsg() CLASS HBGetList
 
       hb_DispOutAt( SCORE_ROW, SCORE_COL, __natMsg( _GET_INVD_DATE ) )
 
-      DO WHILE ( nKey := Inkey( 0 ) ) == 0
+      DO WHILE ( nKey := Inkey( 0, hb_bitOr( Set( _SET_EVENTMASK ), HB_INKEY_EXT ) ) ) == 0
       ENDDO
       hb_keyIns( nKey )
 
@@ -842,6 +845,7 @@ METHOD ReadUpdated( lUpdated ) CLASS HBGetList
 METHOD GUIReader( oGet, oMenu, aMsg ) CLASS HBGetList
 
    LOCAL oGUI
+   LOCAL nKey
 
    IF HB_ISOBJECT( oGet:control ) .AND. ;
       ::nLastExitState == GE_SHORTCUT .OR. ;
@@ -884,7 +888,9 @@ METHOD GUIReader( oGet, oMenu, aMsg ) CLASS HBGetList
 
          // Apply keystrokes until exit
          DO WHILE oGet:exitState == GE_NOEXIT .AND. ! ::lKillRead
-            ::GUIApplyKey( oGet, oGUI, Inkey( 0 ), oMenu, aMsg )
+            nKey := Inkey( 0, hb_bitOr( Set( _SET_EVENTMASK ), HB_INKEY_EXT ) )
+
+            ::GUIApplyKey( oGet, oGUI, nKey, oMenu, aMsg )
 
             ::ShowGetMsg( oGet, aMsg )
          ENDDO
@@ -934,8 +940,11 @@ METHOD GUIApplyKey( oGet, oGUI, nKey, oMenu, aMsg ) CLASS HBGetList
    LOCAL nButton
    LOCAL cKey
 
+   LOCAL nKeyStd := hb_keyStd( nKey )
+
    // Check for SET KEY first
-   IF ( bKeyBlock := SetKey( nKey ) ) != NIL
+   IF ( bKeyBlock := SetKey( nKey ) ) != NIL .OR. ;
+      ( bKeyBlock := SetKey( nKeyStd ) ) != NIL
       IF ::GetDoSetKey( bKeyBlock, oGet )
          RETURN Self
       ENDIF
@@ -947,20 +956,20 @@ METHOD GUIApplyKey( oGet, oGUI, nKey, oMenu, aMsg ) CLASS HBGetList
    ELSEIF ! HB_ISOBJECT( oMenu )
    ELSEIF ( nHotItem := oMenu:getAccel( nKey ) ) != 0
       ::nMenuID := MenuModal( oMenu, nHotItem, aMsg[ MSGROW ], aMsg[ MSGLEFT ], aMsg[ MSGRIGHT ], aMsg[ MSGCOLOR ] )
-      nKey := 0
+      nKeyStd := 0
    ELSEIF IsShortcut( oMenu, nKey )
-      nKey := 0
+      nKeyStd := 0
    ENDIF
 
-   IF nKey == 0
+   IF nKeyStd == 0
    ELSEIF ( oTheClass := oGUI:ClassName() ) == "RADIOGROUP"
-      IF nKey == K_UP
+      IF nKeyStd == K_UP
          oGUI:PrevItem()
-         nKey := 0
+         nKeyStd := 0
 
-      ELSEIF nKey == K_DOWN
+      ELSEIF nKeyStd == K_DOWN
          oGUI:NextItem()
-         nKey := 0
+         nKeyStd := 0
 
       ELSEIF ( nHotItem := oGUI:getAccel( nKey ) ) != 0
          oGUI:Select( nHotItem )
@@ -972,37 +981,37 @@ METHOD GUIApplyKey( oGet, oGUI, nKey, oMenu, aMsg ) CLASS HBGetList
       ENDIF
 
    ELSEIF oTheClass == "CHECKBOX"
-      IF nKey == K_SPACE
+      IF nKeyStd == K_SPACE
          oGUI:Select()
       ENDIF
 
    ELSEIF oTheClass == "PUSHBUTTON"
-      IF nKey == K_SPACE
+      IF nKeyStd == K_SPACE
          oGUI:Select( K_SPACE )
 
-      ELSEIF nKey == K_ENTER
+      ELSEIF nKeyStd == K_ENTER
          oGUI:Select()
-         nKey := 0
+         nKeyStd := 0
 
       ENDIF
 
    ELSEIF oTheClass == "LISTBOX"
-      IF nKey == K_UP
+      IF nKeyStd == K_UP
          oGUI:PrevItem()
-         nKey := 0
+         nKeyStd := 0
 
-      ELSEIF nKey == K_DOWN
+      ELSEIF nKeyStd == K_DOWN
          oGUI:NextItem()
-         nKey := 0
+         nKeyStd := 0
 
-      ELSEIF nKey == K_SPACE
+      ELSEIF nKeyStd == K_SPACE
          IF ! oGUI:DropDown
          ELSEIF ! oGUI:IsOpen
             oGUI:Open()
-            nKey := 0
+            nKeyStd := 0
          ENDIF
 
-      ELSEIF !( ( cKey := hb_keyChar( nKey ) ) == "" ) .AND. ;
+      ELSEIF !( ( cKey := hb_keyChar( nKeyStd ) ) == "" ) .AND. ;
              ( nButton := oGUI:FindText( cKey, oGUI:Value + 1, .F., .F. ) ) != 0
          oGUI:Select( nButton )
 
@@ -1014,7 +1023,7 @@ METHOD GUIApplyKey( oGet, oGUI, nKey, oMenu, aMsg ) CLASS HBGetList
 
    ENDIF
 
-   SWITCH nKey
+   SWITCH nKeyStd
    CASE K_UP
       oGet:exitState := GE_UP
       EXIT
@@ -1228,8 +1237,11 @@ METHOD TBApplyKey( oGet, oTB, nKey, oMenu, aMsg ) CLASS HBGetList
    LOCAL nButton
    LOCAL nHotItem
 
+   LOCAL nKeyStd := hb_keyStd( nKey )
+
    // Check for SET KEY first
-   IF ( bKeyBlock := SetKey( nKey ) ) != NIL
+   IF ( bKeyBlock := SetKey( nKey ) ) != NIL .OR. ;
+      ( bKeyBlock := SetKey( nKeyStd ) ) != NIL
       IF ::GetDoSetKey( bKeyBlock, oGet )
          RETURN Self
       ENDIF
@@ -1241,12 +1253,12 @@ METHOD TBApplyKey( oGet, oTB, nKey, oMenu, aMsg ) CLASS HBGetList
    ELSEIF ! HB_ISOBJECT( oMenu )
    ELSEIF ( nHotItem := oMenu:getAccel( nKey ) ) != 0
       ::nMenuID := MenuModal( oMenu, nHotItem, aMsg[ MSGROW ], aMsg[ MSGLEFT ], aMsg[ MSGRIGHT ], aMsg[ MSGCOLOR ] )
-      nKey := 0
+      nKeyStd := 0
    ELSEIF IsShortcut( oMenu, nKey )
-      nKey := 0
+      nKeyStd := 0
    ENDIF
 
-   SWITCH nKey
+   SWITCH nKeyStd
    CASE K_TAB
       oGet:exitState := GE_DOWN
       EXIT
@@ -1362,11 +1374,11 @@ METHOD TBReader( oGet, oMenu, aMsg ) CLASS HBGetList
             nKey := 0
 
             DO WHILE ! oTB:Stabilize() .AND. nKey == 0
-               nKey := Inkey()
+               nKey := Inkey(, hb_bitOr( Set( _SET_EVENTMASK ), HB_INKEY_EXT ) )
             ENDDO
 
             IF nKey == 0
-               nKey := Inkey( 0 )
+               nKey := Inkey( 0, hb_bitOr( Set( _SET_EVENTMASK ), HB_INKEY_EXT ) )
             ENDIF
 
             nProcessed := oTB:ApplyKey( nKey )
@@ -1415,14 +1427,21 @@ METHOD Accelerator( nKey, aMsg ) CLASS HBGetList
    LOCAL nIteration
    LOCAL lGUI
 
-   DO CASE
-   CASE nKey >= K_ALT_Q .AND. nKey <= K_ALT_P ; cKey := hb_BSubStr( "qwertyuiop", nKey - K_ALT_Q + 1, 1 )
-   CASE nKey >= K_ALT_A .AND. nKey <= K_ALT_L ; cKey := hb_BSubStr( "asdfghjkl", nKey - K_ALT_A + 1, 1 )
-   CASE nKey >= K_ALT_Z .AND. nKey <= K_ALT_M ; cKey := hb_BSubStr( "zxcvbnm", nKey - K_ALT_Z + 1, 1 )
-   CASE nKey >= K_ALT_1 .AND. nKey <= K_ALT_0 ; cKey := hb_BSubStr( "1234567890", nKey - K_ALT_1 + 1, 1 )
-   OTHERWISE
-      RETURN 0
-   ENDCASE
+   LOCAL nKeyStd
+
+   IF hb_bitAnd( hb_keyMod( nKey ), HB_KF_CTRL ) != 0 .AND. ! HB_ISNULL( hb_keyChar( nKey ) )
+      cKey := hb_keyChar( nKey )
+   ELSE
+      nKeyStd := hb_keyStd( nKey )
+      DO CASE
+      CASE nKeyStd >= K_ALT_Q .AND. nKey <= K_ALT_P ; cKey := hb_BSubStr( "qwertyuiop", nKey - K_ALT_Q + 1, 1 )
+      CASE nKeyStd >= K_ALT_A .AND. nKey <= K_ALT_L ; cKey := hb_BSubStr( "asdfghjkl", nKey - K_ALT_A + 1, 1 )
+      CASE nKeyStd >= K_ALT_Z .AND. nKey <= K_ALT_M ; cKey := hb_BSubStr( "zxcvbnm", nKey - K_ALT_Z + 1, 1 )
+      CASE nKeyStd >= K_ALT_1 .AND. nKey <= K_ALT_0 ; cKey := hb_BSubStr( "1234567890", nKey - K_ALT_1 + 1, 1 )
+      OTHERWISE
+         RETURN 0
+      ENDCASE
+   ENDIF
 
    nStart := ::nPos + 1
    nEnd   := Len( ::aGetList )

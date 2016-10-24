@@ -487,7 +487,7 @@ HPDF_Page_CreateURILinkAnnot  (HPDF_Page     page,
                                const char   *uri);
 
 
-HPDF_EXPORT(HPDF_Annotation)
+HPDF_Annotation
 HPDF_Page_CreateTextMarkupAnnot (HPDF_Page     page,
 								HPDF_Rect      rect,
 								const char     *text,

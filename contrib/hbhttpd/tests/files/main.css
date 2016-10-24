@@ -1,36 +1,34 @@
-@charset "UTF-8";
-
 body, td {
-	font-size: 13px;
-	font-family: Arial, sans-serif;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
 }
 
 table.ubr {
-	font-size: 13px;
-	font-family: Arial, sans-serif;
-	border-width: 1px;
+  border-width: 1px;
+  font-size: 13px;
+  font-family: Arial, sans-serif;
 }
 
 table.ubr th {
-	padding: 0px 4px 0px 4px;
-	background-color: #c0c0c0;
+  background-color: #c0c0c0;
+  padding: 0px 4px 0px 4px;
 }
 
 table.ubr tr {
-	background-color: #f0f0f0;
+  background-color: #f0f0f0;
 }
 
 table.ubr tr:hover {
-	background-color: #d0d0ff;
+  background-color: #d0d0ff;
 }
 
 tr.ubrr div {
-	overflow: hidden;
-	width: auto;
-	white-space: nowrap;
+  overflow: hidden;
+  width: auto;
+  white-space: nowrap;
 }
 
 ulnk {
-	text-decoration: underline;
-	text-color: blue;
+  text-color: blue;
+  text-decoration: underline;
 }

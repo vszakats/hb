@@ -3,6 +3,8 @@ ROOT := ../../
 PRG_SOURCES := \
    hbi18n.prg \
 
+RC_SOURCES := harbour.rc
+
 PRG_MAIN := hbi18n.prg
 
 LIBS = $(HB_LIBS_ST_NORDD)

@@ -68,7 +68,7 @@ METHOD New( cFileName, cMode, nBlock ) CLASS TTextFile
 
    SWITCH ::cMode := hb_defaultValue( cMode, "R" )
    CASE "R"
-      ::hFile := hb_vfOpen( cFileName )
+      ::hFile := hb_vfOpen( cFileName, FO_READ )
       EXIT
    CASE "W"
       ::hFile := hb_vfOpen( cFileName, FO_CREAT + FO_TRUNC + FO_WRITE )
@@ -109,8 +109,8 @@ METHOD Read() CLASS TTextFile
       ? "File", ::cFileName, "not open for reading"
    ELSEIF ! ::lEoF
 
-      IF hb_BLen( ::cBlock ) == 0               // Read new block
-         IF hb_BLen( cBlock := hb_vfReadLen( ::hFile, ::nBlockSize ) ) == 0
+      IF HB_ISNULL( ::cBlock )                  // Read new block
+         IF HB_ISNULL( cBlock := hb_vfReadLen( ::hFile, ::nBlockSize ) )
             ::nError := FError()                // Error or EOF
             ::lEoF   := .T.
          ELSE

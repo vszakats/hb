@@ -57,7 +57,7 @@ Status...: Open.
 ***
 
 Assign to: Ryszard
-Detail...: Real strong typing in the compiler.
+Detail...: Static/gradual ("strong") typing in the compiler.
 Status...: Open.
 
 ***

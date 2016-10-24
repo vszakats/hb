@@ -62,7 +62,7 @@ CREATE CLASS TXMLNode
    VAR oParent
    VAR oChild
 
-   METHOD New( nType, cName, aAttributes, cData ) CONSTRUCTOR
+   METHOD New( nType, cName, hAttributes, cData ) CONSTRUCTOR
    METHOD Clone()                      INLINE hbxml_node_clone( Self )
    METHOD CloneTree()                  INLINE hbxml_node_clone_tree( Self )
 
@@ -88,10 +88,10 @@ CREATE CLASS TXMLNode
 
 ENDCLASS
 
-METHOD New( nType, cName, aAttributes, cData ) CLASS TXmlNode
+METHOD New( nType, cName, hAttributes, cData ) CLASS TXmlNode
 
    ::nType := hb_defaultValue( nType, HBXML_TYPE_TAG )
-   ::aAttributes := hb_defaultValue( aAttributes, { => } )
+   ::aAttributes := hb_defaultValue( hAttributes, { => } )
    ::cName := cName
    ::cData := cData
 

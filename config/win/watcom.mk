@@ -2,7 +2,7 @@ OBJ_EXT := .obj
 LIB_PREF :=
 LIB_EXT := .lib
 
-HB_DYN_COPT := -DHB_DYNLIB
+HB_DYN_COPT := -DHB_DYNLIB -bd
 
 ifeq ($(HB_BUILD_MODE),cpp)
    CC := wpp386
@@ -60,7 +60,6 @@ LDFLAGS += SYS nt
 
 LDLIBS := $(foreach lib,$(HB_USER_LIBS),$(lib))
 LDLIBS += $(foreach lib,$(LIBS),$(LIB_DIR)/$(lib))
-LDLIBS += $(foreach lib,$(3RDLIBS),$(3RDLIB_DIR)/$(lib))
 LDLIBS += $(foreach lib,$(SYSLIBS),$(lib))
 
 DY := $(LD)
@@ -68,7 +67,6 @@ DFLAGS += OP quiet SYS nt_dll
 DY_OUT :=
 DLIBS := $(foreach lib,$(HB_USER_LIBS),$(lib))
 DLIBS += $(foreach lib,$(LIBS),$(LIB_DIR)/$(lib))
-DLIBS += $(foreach lib,$(3RDLIBS),$(3RDLIB_DIR)/$(lib))
 DLIBS += $(foreach lib,$(SYSLIBS),$(lib))
 DLIBS := $(strip $(DLIBS))
 
@@ -79,7 +77,7 @@ else
    DLIBS_COMMA :=
 endif
 
-# NOTE: The empty line directly before 'endef' HAVE TO exist!
+# NOTE: The empty line directly before 'endef' HAS TO exist!
 define dynlib_object
    @$(ECHO) $(ECHOQUOTE)FILE '$(file)'$(ECHOQUOTE) >> __dyn__.tmp
 

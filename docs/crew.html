@@ -1,0 +1,72 @@
+---
+layout: default
+title: "Crew"
+---
+<div class="crew-layout">
+  <section>
+    <h1>The Harbour Crew
+      &nbsp;<a title="Edit/Add your info" href="https://github.com/{{ site.site_slug }}/edit/{{ site.site_branch_and_root }}_data/members.yml"><i class="fa fa-pencil" aria-hidden="true"></i></a></h1>
+
+    <div class="list-bubble bubble-alt">
+      Please note this list mostly reflects the initial development years of
+      Harbour. You can find a somewhat more up-to-date list
+      <a href="https://github.com/{{ site.site_slug }}/blob/master/src/compiler/hbusage.c">here</a>,
+      the list of active committers
+      <a href="https://github.com/{{ site.site_slug }}/graphs/contributors">here</a>,
+      more contributors and past committers in <a href="{{ site.baseurl }}/changelog">ChangeLog</a>.
+    </div>
+
+    <p>Per country in alphabetical order:
+
+    <div>
+{% assign countries_sorted = site.data.countries | sort: 'name' %}
+{% assign members_sorted = site.data.members | sort: 'name' %}
+
+{% for country in countries_sorted %}
+      <h4 id="{{ country.id }}">{{ country.name }}</h4>
+{% for member in members_sorted %}
+{% if member.country == country.id %}
+      <div>
+        <p>
+{% if member.url != nil %}
+        <a href="{{ member.url }}" class="crew-person-name crew-mail" id="{{ member.name | slugify }}">{{ member.name }}</a>
+{% else %}
+        <span class="crew-person-name" id="{{ member.name | slugify }}">{{ member.name }}</span>
+{% endif %}
+{% for pic in member.photos %}
+        <a href="https://harbour.github.io/images/crew_{{ pic }}"><img src="https://harbour.github.io/images/crew_{{ pic }}" height="40" alt="photo"></a>
+{% endfor %}
+{% if member.photos.size > 0 %}
+        <br>
+{% endif %}
+{{ member.title }}
+      </div>
+{% endif %}
+{% endfor %}
+{% endfor %}
+    </div>
+    <br>
+  </section>
+
+  <aside class="crew-content">
+    <div>
+      <h1>Countries</h1>
+      <hr>
+      <ul class="crew-country-list">
+{% for country in countries_sorted %}
+        <li><a href="#{{ country.id }}"><img src="{{ site.baseurl }}/images/flag-{{ country.id }}.svg" alt="flag" width="31" height="16">{{ country.name }}</a>
+{% endfor %}
+      </ul>
+    </div>
+
+    <div>
+      <h1>First Name Alphabetical</h1>
+      <hr>
+      <ul class="crew-alphalist">
+{% for member in members_sorted %}
+        <li><a href="#{{ member.name | slugify }}">{{ member.name }}</a>
+{% endfor %}
+      </ul>
+    </div>
+  </aside>
+</div>

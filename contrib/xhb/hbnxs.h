@@ -1,5 +1,5 @@
 /*
- * Cryptography for xharbour
+ * Cryptography for xHarbour
  *
  * Copyright 2003 Giancarlo Niccolai <giancarlo@niccolai.ws>
  * SEE ALSO COPYRIGHT NOTICE FOR NXS BELOW.

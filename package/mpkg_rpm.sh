@@ -31,7 +31,6 @@ do
          [ "$1" = 'pgsql' ] && NEED_RPM="${NEED_RPM} postgresql-devel"
          [ "$1" = 'firebird' ] && NEED_RPM="${NEED_RPM} firebird-devel"
          [ "$1" = 'freeimage' ] && NEED_RPM="${NEED_RPM} freeimage-devel"
-         [ "$1" = 'allegro' ] && NEED_RPM="${NEED_RPM} allegro-devel"
       fi
    fi
    LAST="$1"
@@ -46,10 +45,6 @@ then
    then
       INST_PARAM="${INST_PARAM} --with ads"
    fi
-fi
-if test_reqrpm 'allegro-devel' && [ "$HB_WITH_ALLEGRO" != 'no' ]
-then
-   INST_PARAM="${INST_PARAM} --with allegro"
 fi
 if test_reqrpm 'cairo-devel' && [ "$HB_WITH_CAIRO" != 'no' ]
 then
@@ -152,7 +147,7 @@ done
 
 if [ -z "${TOINST_LST}" ] || [ "${FORCE}" = 'yes' ]
 then
-   cd "$(dirname "$0")"
+   cd "$(dirname "$0")" || exit
    . ./mpkg_src.sh
    stat="$?"
    if [ -z "${hb_filename}" ]
@@ -184,7 +179,8 @@ then
       else
          RPMBLD='rpm'
       fi
-      cd "${RPMDIR}/SPECS"
+      cd "${RPMDIR}/SPECS" || exit
+      # shellcheck disable=SC2086
       ${RPMBLD} -ba harbour.spec ${INST_PARAM}
    else
       echo "Cannot find archive file: ${hb_filename}"

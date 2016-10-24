@@ -30,7 +30,7 @@ STATIC PROCEDURE fillscreen()
    wvw_nOpenWindow( "Win2", 10, 10, 19, 69 )
    wvw_nOpenWindow( "Win3", 15, 15, 22, 75 )
    DevPos( 0, 0 )
-   ?? "I'm gonna fill this (" + hb_ntos( MaxRow() + 1 ) + "x" + hb_ntos( MaxCol() + 1 ) + ") screen"
+   ?? "I'm going to fill this (" + hb_ntos( MaxRow() + 1 ) + "x" + hb_ntos( MaxCol() + 1 ) + ") screen"
    DevPos( 1, 0 )
    FOR i := 1 TO MaxRow() - 1
       FOR j := 0 TO MaxCol()
@@ -38,7 +38,7 @@ STATIC PROCEDURE fillscreen()
       NEXT
    NEXT
    ?? "Done. Press ESC to exit."
-   DO WHILE Inkey( 0 ) != K_ESC
+   DO WHILE hb_keyStd( Inkey( 0 ) ) != K_ESC
    ENDDO
    wvw_lCloseWindow()
    wvw_lCloseWindow()

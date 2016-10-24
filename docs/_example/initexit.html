@@ -1,0 +1,21 @@
+---
+category: basic
+title_long: "<code>INIT</code>/<code>EXIT PROCEDURE</code> support"
+description: "Testing <code>INIT</code>/<code>EXIT PROCEDURE</code> and
+  initialization of static variables."
+---
+<div class="shot-window"><div class="shot-toolbar"></div><div class="shot-screen"><pre>
+$ hbrun initexit.prg
+
+Hello from: Third()
+global static=      10001.15
+Hello from: SecondOne()
+global static=      10002.15
+Hello from: Main()
+global static=      10003.15
+PUBLIC variable created in INIT PROCEDURE= p_initStatics
+Hello from: Fifth()
+global static=      10002.15
+Hello from: Sixth()
+global static=      10001.15
+</pre></div></div>

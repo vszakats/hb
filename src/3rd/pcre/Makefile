@@ -2,6 +2,8 @@ ROOT := ../../../
 
 include $(TOP)$(ROOT)config/global.mk
 
+LIBNAME := hbpcre
+
 HB_BUILD_WARN := no
 HB_BUILD_MODE := c
 
@@ -27,23 +29,21 @@ C_SOURCES := \
    pcrevutf.c \
    pcrexcls.c \
 
-LIBNAME := hbpcre
-
 ifneq ($(HB_HAS_PCRE_LOCAL),)
 
    HB_CFLAGS += -DSUPPORT_UTF -DSUPPORT_UCP
    # only needed for win/wce, for other platforms this is noop
    HB_CFLAGS_STA := -DPCRE_STATIC
 
-   ifneq ($(filter $(HB_COMPILER),clang gcc mingw mingw64),)
-      ifneq ($(filter $(PLATFORM)-$(HB_COMPILER),win-clang),)
+   ifneq ($(filter $(HB_COMPILER),clang gcc mingw mingw64 sunpro),)
+      ifeq ($(filter $(HB_PLATFORM)-$(HB_COMPILER),win-clang),)
          HB_CFLAGS += -DHAVE_INTTYPES_H
       endif
    endif
 
-#   ifneq ($(filter $(HB_COMPILER),mingw mingw64 msvc mvc64)$(filter $(HB_PLATFORM),darwin linux),)
-#      HB_CFLAGS += -DSUPPORT_JIT
-#   endif
+#  ifneq ($(filter $(HB_COMPILER),mingw mingw64 msvc mvc64)$(filter $(HB_PLATFORM),darwin linux),)
+#     HB_CFLAGS += -DSUPPORT_JIT
+#  endif
 
    HB_CFLAGS += -DHAVE_CONFIG_H
 
@@ -58,6 +58,12 @@ ifneq ($(HB_HAS_PCRE_LOCAL),)
       endif
    endif
 
+   ifneq ($(filter $(HB_COMPILER),msvc msvc64 msvcia64 msvcarm),)
+      ifeq ($(filter $(HB_COMPILER_VER),1200 1300 1310 1400 1500 1600),)
+         HB_CFLAGS += -sdl-
+      endif
+   endif
+
    # suppress bcc warnings
    ifeq ($(HB_COMPILER),bcc)
       HB_CFLAGS += -w-use -w-csu -w-aus -w-sig
@@ -65,12 +71,12 @@ ifneq ($(HB_HAS_PCRE_LOCAL),)
 
    include $(TOP)$(ROOT)config/lib.mk
 else
-   HB_SKIP_REASON := unused
+   HB_SKIP_REASON := local copy unused
    include $(TOP)$(ROOT)config/none.mk
 endif
 
 # ORIGIN http://pcre.org/
-# URL    https://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.37.tar.bz2
+# URL    https://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.39.tar.bz2
 # DIFF   pcre.dif
 #
 # MAP    LICENCE                           LICENSE.txt

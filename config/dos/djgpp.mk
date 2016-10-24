@@ -10,10 +10,10 @@ LIB_EXT := .a
 DYN_EXT := .dxe
 
 CC := $(HB_CCPATH)$(HB_CCPREFIX)$(HB_CMP)$(HB_CCSUFFIX)
-CC_IN := -c
+CC_IN :=
 CC_OUT := -o
 
-CFLAGS += -I. -I$(HB_HOST_INC)
+CFLAGS += -I. -I$(HB_HOST_INC) -c
 
 ifneq ($(HB_BUILD_WARN),no)
    CFLAGS += -W -Wall
@@ -58,7 +58,7 @@ ifneq ($(HB_LINKING_RTL),)
       SYSLIBPATHS += $(HB_LIB_WATT)
       SYSLIBS += watt
    endif
-   SYSLIBS += hbpmcom
+   SYSLIBS += hbdossrl
 endif
 
 SYSLIBS += m
@@ -69,7 +69,7 @@ LD_OUT := -o
 LIBPATHS := $(foreach dir,$(LIB_DIR) $(SYSLIBPATHS),-L$(dir))
 LDLIBS := $(foreach lib,$(HB_USER_LIBS) $(LIBS) $(SYSLIBS),-l$(lib))
 
-# NOTE: The empty line directly before 'endef' HAVE TO exist!
+# NOTE: The empty line directly before 'endef' HAS TO exist!
 #       It causes that every command will be separated by LF
 define lib_object
    @$(ECHO) $(ECHOQUOTE)ADDMOD $(file)$(ECHOQUOTE) >> __lib__.tmp
@@ -88,7 +88,7 @@ define create_library
    $(ARSTRIP)
 endef
 
-# NOTE: The empty line directly before 'endef' HAVE TO exist!
+# NOTE: The empty line directly before 'endef' HAS TO exist!
 define link_file
    @$(ECHO) $(ECHOQUOTE)$(file)$(ECHOQUOTE) >> __link__.tmp
 
@@ -120,7 +120,7 @@ ifeq ($(HB_BUILD_DYN),dostest)
    DFLAGS += --whole-archive
    DLIBS :=
 
-   # NOTE: The empty line directly before 'endef' HAVE TO exist!
+   # NOTE: The empty line directly before 'endef' HAS TO exist!
    define dynlib_object
       @$(ECHO) $(ECHOQUOTE)$(subst \,/,$(file))$(ECHOQUOTE) >> __dyn__.tmp
 

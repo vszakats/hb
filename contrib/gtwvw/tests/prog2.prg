@@ -62,7 +62,7 @@ STATIC PROCEDURE xGet1()
    LOCAL cAddr  := PadR( "Address", 25 )
    LOCAL cPhone := PadR( "Phone", 15 )
    LOCAL cFax   := PadR( "Fax", 15 )
-   LOCAL cEmail := PadR( "E-mail", 15 )
+   LOCAL cEmail := PadR( "Email", 15 )
 
    LOCAL nWin := znewwindow( hb_UTF8ToStrBox( "┌─┐│┘─└│" ), 10, 20, 22, 59, "Some Window" )
    LOCAL GetList := {}
@@ -143,7 +143,7 @@ STATIC PROCEDURE xBrowse1()
 
       lMessage( "Record #" + hb_ntos( RecNo() ) )
 
-      nKey := Inkey( 0 )
+      nKey := hb_keyStd( Inkey( 0 ) )
 
       DO CASE
       CASE nKey == K_ESC .OR. nKey == K_ENTER

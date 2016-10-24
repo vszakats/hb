@@ -295,6 +295,7 @@ extern HB_EXPORT void       hb_inkeyExit( void );           /* reset inkey pool 
 
 extern HB_EXPORT HB_SIZE    hb_inkeyKeyString( int iKey, char * buffer, HB_SIZE nSize ); /* convert key value to string */
 extern HB_EXPORT int        hb_inkeyKeyStd( int iKey );     /* convert Harbour extended key code to cl*pper inkey code */
+extern HB_EXPORT int        hb_inkeyKeyExt( int iKey );     /* extract function/edit key code value HB_KX_* from Harbour extended key code */
 extern HB_EXPORT int        hb_inkeyKeyMod( int iKey );     /* extract keyboard modifiers HB_KF_* from Harbour extended key code */
 extern HB_EXPORT int        hb_inkeyKeyVal( int iKey );     /* extract key/character code from Harbour extended key code */
 
@@ -336,6 +337,7 @@ extern HB_EXPORT int        hb_inkeyKeyVal( int iKey );     /* extract key/chara
 #define HB_INKEY_NEW_MPOS( x, y )   ( ( ( ( y ) & HB_INKEY_EXT_POSMASK ) << HB_INKEY_EXT_POSBITS ) | \
                                       ( ( x ) & HB_INKEY_EXT_POSMASK ) | \
                                       ( HB_INKEY_EXT_BIT | HB_INKEY_EXT_MOUSEPOS ) )
+#define HB_INKEY_NEW_EVENT( e )      ( ( e ) | ( HB_INKEY_EXT_BIT | HB_INKEY_EXT_EVENT ) )
 
 #define HB_INKEY_MOUSEPOSX( n )     ( ( n ) & HB_INKEY_EXT_POSMASK )
 #define HB_INKEY_MOUSEPOSY( n )     ( ( ( n ) >> HB_INKEY_EXT_POSBITS ) & HB_INKEY_EXT_POSMASK )

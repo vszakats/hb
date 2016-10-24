@@ -120,10 +120,7 @@ PHB_ITEM hb_strFormat( PHB_ITEM pItemReturn, PHB_ITEM pItemFormat, int iCount, P
          continue;
       }
 
-      pFmtSave = pFmt;
-
-      if( ++pFmt >= pFmtEnd )
-         continue;
+      pFmtSave = pFmt++;
 
       if( *pFmt == '%' )
       {
@@ -479,7 +476,10 @@ PHB_ITEM hb_strFormat( PHB_ITEM pItemReturn, PHB_ITEM pItemFormat, int iCount, P
          }
 
          default:
-            bufadd( &buffer, pFmtSave, pFmt - pFmtSave + 1 );
+         {
+            bufadd( &buffer, pFmtSave, pFmt - pFmtSave );
+            continue;
+         }
       }
       pFmt++;
    }

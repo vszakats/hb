@@ -44,11 +44,6 @@
  *
  */
 
-#include "rt_main.ch"
-
-/* Don't change the position of this #include. */
-#include "rt_vars.ch"
-
 PROCEDURE Main_TRANS()
 
    LOCAL cOldDate  := Set( _SET_DATEFORMAT )
@@ -783,6 +778,3 @@ PROCEDURE Main_TRANS()
    Set( _SET_DATEFORMAT, cOldDate )
 
    RETURN
-
-/* Don't change the position of this #include. */
-#include "rt_init.ch"

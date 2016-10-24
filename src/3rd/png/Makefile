@@ -55,7 +55,7 @@ ifeq ($(filter $(HB_COMPILER),poccarm xcc tcc),)
          include $(TOP)$(ROOT)config/none.mk
       endif
    else
-      HB_SKIP_REASON := unused
+      HB_SKIP_REASON := local copy unused
       include $(TOP)$(ROOT)config/none.mk
    endif
 else
@@ -64,7 +64,7 @@ else
 endif
 
 # ORIGIN http://libpng.org/pub/png/libpng.html
-# URL    https://github.com/glennrp/libpng/archive/v1.6.18.tar.gz
+# URL    https://github.com/glennrp/libpng/archive/v1.6.26.tar.gz
 # DIFF   png.dif
 #
 # MAP    LICENSE                        LICENSE.txt

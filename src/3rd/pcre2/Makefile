@@ -2,6 +2,8 @@ ROOT := ../../../
 
 include $(TOP)$(ROOT)config/global.mk
 
+LIBNAME := hbpcre2
+
 HB_BUILD_WARN := no
 HB_BUILD_MODE := c
 
@@ -30,16 +32,14 @@ C_SOURCES := \
    p2validu.c \
    p2xclass.c \
 
-LIBNAME := hbpcre2
-
 ifneq ($(HB_HAS_PCRE2_LOCAL),)
 
    HB_CFLAGS += -DPCRE2_CODE_UNIT_WIDTH=8
    # only needed for win/wce, for other platforms this is noop
    HB_CFLAGS_STA := -DPCRE2_STATIC
 
-   ifneq ($(filter $(HB_COMPILER),clang gcc mingw mingw64),)
-      ifneq ($(filter $(PLATFORM)-$(HB_COMPILER),win-clang),)
+   ifneq ($(filter $(HB_COMPILER),clang gcc mingw mingw64 sunpro),)
+      ifeq ($(filter $(HB_PLATFORM)-$(HB_COMPILER),win-clang),)
          HB_CFLAGS += -DHAVE_INTTYPES_H
       endif
    endif
@@ -68,12 +68,12 @@ ifneq ($(HB_HAS_PCRE2_LOCAL),)
 
    include $(TOP)$(ROOT)config/lib.mk
 else
-   HB_SKIP_REASON := unused
+   HB_SKIP_REASON := local copy unused
    include $(TOP)$(ROOT)config/none.mk
 endif
 
 # ORIGIN http://pcre.org/
-# URL    https://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre2-10.20.tar.bz2
+# URL    https://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre2-10.22.tar.bz2
 # DIFF   pcre2.dif
 #
 # MAP    LICENCE                               LICENSE.txt

@@ -40,6 +40,8 @@ DYNAMIC CStrToVal
 DYNAMIC CToT
 DYNAMIC CurDirX
 DYNAMIC DateTime
+DYNAMIC DaysInMonth
+DYNAMIC DaysToMonth
 DYNAMIC Dbf2Text
 DYNAMIC dbImport
 DYNAMIC dbMerge
@@ -437,6 +439,9 @@ DYNAMIC XHBEditor
 DYNAMIC xhb_ADel
 DYNAMIC xhb_AIns
 DYNAMIC xhb_AllTrim
+DYNAMIC xhb_bitAnd
+DYNAMIC xhb_bitOr
+DYNAMIC xhb_bitXor
 DYNAMIC xhb_CopyFile
 DYNAMIC xhb_Dec
 DYNAMIC xhb_Div

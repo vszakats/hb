@@ -1,4 +1,4 @@
-/* Harbour Test of a HTML-Generator class.
+/* Harbour Test of a HTML generator class.
  *
  * Tips: - Use ShowResults to make dynamic html (to test dynamic
  *         results, put the exe file on CGI-BIN dir or equivalent);
@@ -13,15 +13,15 @@ PROCEDURE Main()
 
    oHTML:SetTitle( "Harbour Power Demonstration" )
    oHTML:AddHead( "Harbour" )
-   oHTML:AddPara( "<b>Harbour</b> is xBase at its best. Have a taste today!", "left" )
-   oHTML:AddPara( "<b>Links</b>", "center" )
+   oHTML:AddPara( "<strong>Harbour</strong> is xBase at its best. Have a taste today!" )
+   oHTML:AddPara( "<strong>Links</strong>" )
    oHTML:AddLink( "https://example.org", "Meet the Harbour power!" )
    oHTML:Generate()
 
 #if 0
    // Uncomment the following if you don't have a Web Server to test
    // this sample
-   oHTML:SaveToFile( "test.htm" )
+   oHTML:SaveToFile( "test.html" )
 #endif
 
    // If the above is uncommented, you may comment this line:
@@ -66,40 +66,32 @@ METHOD AddLink( cLinkTo, cLinkName ) CLASS THTML
 
 METHOD AddHead( cDescr ) CLASS THTML
 
-   // Why this doesn't work?
-   // ::cBody += ...
-   // ???
-
    ::cBody += "<h1>" + cDescr + "</h1>"
 
    RETURN Self
 
 METHOD AddPara( cPara, cAlign ) CLASS THTML
 
-   ::cBody += ;
-      "<p align='" + hb_defaultValue( cAlign, "Left" ) + "'>" + hb_eol() + ;
-      cPara + hb_eol() + ;
-      "</p>"
+   ::cBody += "<p>" + cPara + "</p>"
 
    RETURN Self
 
 METHOD Generate() CLASS THTML
 
    ::cContent := ;
-      "<html><head>"                                          + hb_eol() + ;
-      "<title>" + ::cTitle + "</title>"                       + hb_eol() + ;
-      "<body link='" + ::cLinkColor + "' " +                               ;
-      "vlink='" + ::cvLinkColor + "'>" +                      + hb_eol() + ;
-      ::cBody                                                 + hb_eol() + ;
-      "</body></html>"
+      "<!DOCTYPE html>" + hb_eol() + ;
+      '<html lang="en">' + hb_eol() + ;
+      '<meta charset="utf-8">' + hb_eol() + ;
+      "<title>" + ::cTitle + "</title>" + hb_eol() + ;
+      ::cBody + hb_eol()
 
    RETURN Self
 
 METHOD ShowResult() CLASS THTML
 
    OutStd( ;
-;//      "HTTP/1.0 200 OK"                                     + hb_eol() + ;
-      "CONTENT-TYPE: TEXT/HTML"                     + hb_eol() + hb_eol() + ;
+;//   "HTTP/1.1 200 OK" + hb_eol() + ;
+      "Content-Type: text/html" + hb_eol() + hb_eol() + ;
       ::cContent )
 
    RETURN Self

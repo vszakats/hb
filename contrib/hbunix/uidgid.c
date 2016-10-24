@@ -89,7 +89,7 @@ HB_FUNC( POSIX_SETEUID )
 HB_FUNC( POSIX_SETGID )
 {
    if( HB_ISNUM( 1 ) )
-      hb_posix_result( setgid( hb_par_uid( 1 ) ) );
+      hb_posix_result( setgid( hb_par_gid( 1 ) ) );
    else
       hb_posix_param_error();
 }
@@ -97,12 +97,13 @@ HB_FUNC( POSIX_SETGID )
 HB_FUNC( POSIX_SETEGID )
 {
    if( HB_ISNUM( 1 ) )
-      hb_posix_result( setegid( hb_par_uid( 1 ) ) );
+      hb_posix_result( setegid( hb_par_gid( 1 ) ) );
    else
       hb_posix_param_error();
 }
 
-/* http://man7.org/linux/man-pages/man3/getgrnam.3.html */
+/* https://linux.die.net/man/3/getgrnam
+   http://man7.org/linux/man-pages/man3/getgrnam.3.html */
 HB_FUNC( POSIX_GETGRNAM )
 {
    if( HB_ISCHAR( 1 ) )
@@ -138,7 +139,8 @@ HB_FUNC( POSIX_GETGRNAM )
       hb_posix_param_error();
 }
 
-/* http://man7.org/linux/man-pages/man3/getpwnam.3.html */
+/* https://linux.die.net/man/3/getpwnam
+   http://man7.org/linux/man-pages/man3/getpwnam.3.html */
 HB_FUNC( POSIX_GETPWNAM )
 {
    if( HB_ISCHAR( 1 ) )
@@ -146,6 +148,7 @@ HB_FUNC( POSIX_GETPWNAM )
 #if ( defined( _POSIX_C_SOURCE ) && _POSIX_C_SOURCE >= 1 ) || \
       defined( _XOPEN_SOURCE ) || defined( _BSD_SOURCE ) || \
       defined( _SVID_SOURCE ) || defined( _POSIX_SOURCE )  /* adjust as needed */
+
       struct passwd   pwd;
       struct passwd * result = NULL;
       char *          buf;

@@ -56,10 +56,6 @@
 #include "hbapiitm.h"
 #include "hbvm.h"
 
-#ifdef _HB_OLD_ASORT  /* Allow to fall back to old sort code to avoid compiler bug in mingw64 in LTO mode */
-#define HB_CLP_STRICT
-#endif
-
 static HB_BOOL hb_itemIsLess( PHB_BASEARRAY pBaseArray, PHB_ITEM pBlock,
                               HB_SIZE nItem1, HB_SIZE nItem2 )
 {
@@ -283,13 +279,7 @@ static void hb_arraySortStart( PHB_BASEARRAY pBaseArray, PHB_ITEM pBlock,
 
    pBuffer = ( HB_SIZE * ) hb_xgrab( sizeof( HB_SIZE ) * 2 * nCount );
    for( nPos = 0; nPos < nCount; ++nPos )
-   {
-#ifdef __MINGW64__
-      /* added dummy function call to disable buggy optimization in MinGW64 */
-      hb_gcDummyMark( NULL );
-#endif
       pBuffer[ nPos ] = nStart + nPos;
-   }
 
    if( hb_arraySortDO( pBaseArray, pBlock, pBuffer, &pBuffer[ nCount ], nCount ) )
       pPos = ( pDest = pBuffer ) + nCount;

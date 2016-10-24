@@ -44,11 +44,6 @@
  *
  */
 
-#include "rt_main.ch"
-
-/* Don't change the position of this #include. */
-#include "rt_vars.ch"
-
 #undef HB_CLP_STRICT_OFF
 #ifdef __HARBOUR__
    #ifndef HB_CLP_STRICT
@@ -115,7 +110,7 @@ PROCEDURE Main_MISC()
    HBTEST Set( _SET_MARGIN    , -1 )   IS "E 1 BASE 2020 Argument error (SET) OS:0 #:0 A:2:N:25;N:-1 "
 
 #ifdef HB_COMPAT_C53
-   HBTEST Set( _SET_EVENTMASK  )       IS 128
+   HBTEST Set( _SET_EVENTMASK  )       IS 128  /* INKEY_KEYBOARD */
 #ifdef HB_CLP_STRICT
    HBTEST Set( _SET_VIDEOMODE  )       IS NIL
 #else
@@ -603,7 +598,7 @@ PROCEDURE Main_MISC()
       }
    */
 
-#ifndef RT_NO_C
+#ifdef RT_HAS_C
 #ifndef __XPP__
    HBTEST hb_SToD()                       IS hb_SToD( "        " )
 #endif
@@ -846,7 +841,7 @@ PROCEDURE Main_MISC()
    HBTEST __CopyFile( "$$COPYFR.TMP" )                 IS "E 1 BASE 2010 Argument error (__COPYFILE) OS:0 #:0 A:1:C:$$COPYFR.TMP "
    HBTEST __CopyFile( "$$COPYFR.TMP", "$$COPYTO.TMP" ) IS NIL
    HBTEST __CopyFile( "NOT_HERE.$$$", "$$COPYTO.TMP" ) IS "E 21 BASE 2012 Open error <NOT_HERE.$$$> OS:2 #:1 F:DR"
-   HBTEST __CopyFile( "$$COPYFR.TMP", BADFNAME() )     IS "E 20 BASE 2012 Create error <" + BADFNAME() + "> OS:2 #:1 F:DR"
+   HBTEST __CopyFile( "$$COPYFR.TMP", BADFNAME1() )    IS "E 20 BASE 2012 Create error <" + BADFNAME1() + "> OS:2 #:1 F:DR"
 
    FErase( "$$COPYFR.TMP" )
    FErase( "$$COPYTO.TMP" )
@@ -1259,7 +1254,7 @@ STATIC FUNCTION TESTFNAME( cFull )
 
 #endif
 
-STATIC FUNCTION BADFNAME()
+STATIC FUNCTION BADFNAME1()
    /* NOTE: The dot in the "*INVALID*." filename is intentional and serves
             to hide different path handling, since Harbour is platform
             independent. */
@@ -1434,7 +1429,7 @@ STATIC PROCEDURE Test_SHA2_HMAC()
          HBTEST Lower( hb_HMAC_SHA384( aMsg[ tmp ], keys[ tmp ] ) ) IS results[ tmp + 14 ]
          HBTEST Lower( hb_HMAC_SHA512( aMsg[ tmp ], keys[ tmp ] ) ) IS results[ tmp + 21 ]
 /* We don't support these MAC sizes */
-#if 0
+#ifdef COMMENT  /* Using this instead of '#if 0' to make it compile with Cl*pper */
       ELSE
          mac_224_size := 128 / 8
          mac_256_size := 128 / 8
@@ -1469,6 +1464,3 @@ STATIC PROCEDURE Test_Base64()
    RETURN
 
 #endif
-
-/* Don't change the position of this #include. */
-#include "rt_init.ch"

@@ -1287,7 +1287,7 @@
       <nThick> Specifies the width of the pen, in logical units. If zero, the pen is
       a single pixel wide, regardless of the current transformation. Default is zero
       (width of one pixel). <nColor> Specifies a color reference for the pen color (
-      a 32 bit value from RGB color). <aOffset> Array of four row/column. elements
+      a 32-bit value from RGB color). <aOffset> Array of four row/column. elements
       with top/left, bottom/right of coordinates to align line with
    $DESCRIPTION$
       Draws a line.
@@ -1369,7 +1369,7 @@
       <nWinNum> Window number. Default is current window. <nTop, nLeft, nBottom,
       nRight> Coordinates to draw a box. <nThick> Style of pen. See wingdi.ch file
       for definitions (PS_SOLID, PS_DOT, etc.). <nShape> Ignored. <nRGBColor>
-      Specifies color reference for pen (a 32 bit RGB color value).
+      Specifies color reference for pen (a 32-bit RGB color value).
    $DESCRIPTION$
       Draws a outline arguments. box in <nTop, nLeft, nBottom, nRight> coordinates,
       with style and color
@@ -1794,7 +1794,7 @@
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nTop, nLeft, nBottom,
       nRight> Coordinates to fill a rectangle. <nRGBColor/hBrush> Rectangle filling
-      color (a 32 bits value with RGB color). <lTight> Filling patern will be
+      color (a 32-bit value with RGB color). <lTight> Filling patern will be
       adjusted in all coordinates area. <lUseBrush> If .T., <nRGBColor/hBrush>
       argument is interpreted as a handle to a pen model. Otherwise, is used as a
       RGB color.

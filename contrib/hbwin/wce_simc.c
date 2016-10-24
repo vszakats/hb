@@ -100,7 +100,7 @@ HB_FUNC( WCE_SIMREADPHONEBOOKENTRY ) /* hSim, nLocation, nPos, @aEntry */
    SIMPHONEBOOKENTRY PhoneEntry;
    PHB_ITEM pArray;
 
-   PhoneEntry.cbSize = sizeof( SIMPHONEBOOKENTRY );
+   PhoneEntry.cbSize = sizeof( PhoneEntry );
    hb_retnint( SimReadPhonebookEntry( hSim, ( DWORD ) hb_parnl( 2 ) /* dwLocation */, dwIndex, &PhoneEntry ) );
 
    pArray = hb_itemArrayNew( 5 );
@@ -126,7 +126,7 @@ HB_FUNC( WCE_SIMWRITEPHONEBOOKENTRY ) /* hSim, nLocation, nPos, cNumber, cName, 
    void * hAddress;
    void * hText;
 
-   PhoneEntry.cbSize   = sizeof( SIMPHONEBOOKENTRY );
+   PhoneEntry.cbSize   = sizeof( PhoneEntry );
    PhoneEntry.dwParams = SIM_PARAM_PBE_ALL;
    wcsncpy( PhoneEntry.lpszAddress, HB_PARSTRDEF( 4, &hAddress, NULL ), MAX_LENGTH_ADDRESS );
    wcsncpy( PhoneEntry.lpszText   , HB_PARSTRDEF( 5, &hText   , NULL ), MAX_LENGTH_PHONEBOOKENTRYTEXT );

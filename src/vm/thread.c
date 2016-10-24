@@ -47,7 +47,7 @@
 /*
   Harbour level API:
 
-  hb_threadStart( [<nThreadAttrs> ,] <@sStart()> | <bStart> | <cStart> [, <params,...> ] ) -> <pThID>
+  hb_threadStart( [ <nThreadAttrs>, ] <@sStart()> | <bStart> | <cStart> [, <params,...> ] ) -> <pThID>
   hb_threadSelf() -> <pThID> | NIL
   hb_threadID( [ <pThID> ] ) -> <nThNo>
   hb_threadJoin( <pThID> [, @<xRetCode> ] ) -> <lOK>
@@ -57,7 +57,7 @@
   hb_threadWaitForAll() -> NIL
   hb_threadWait( <pThID> | <apThID>, [ <nTimeOut> ] [, <lAll> ] ) => <nThInd> | <nThCount> | 0
   hb_threadOnce( @<onceControl> [, <bAction> | <@sAction()> ] ) -> <lFirstCall>
-  hb_threadOnceInit( @<item> <value> ) -> <lInitialized>
+  hb_threadOnceInit( @<item>, <value> ) -> <lInitialized>
   hb_mutexCreate() -> <pMtx>
   hb_mutexLock( <pMtx> [, <nTimeOut> ] ) -> <lLocked>
   hb_mutexUnlock( <pMtx> ) -> <lOK>
@@ -755,10 +755,6 @@ HB_BOOL hb_threadCondTimedWait( HB_COND_T * cond, HB_CRITICAL_T * mutex, HB_ULON
 
    return HB_COND_TIMEDWAIT( cond, mutex, ulMilliSec ) != 0;
 
-#elif defined( HB_TASK_THREAD )
-
-   return HB_COND_WAIT( cond, mutex ) != 0;
-
 #elif defined( HB_PTHREAD_API )
    struct timespec ts;
 
@@ -991,21 +987,26 @@ HB_CARGO_FUNC( hb_threadStartVM )
    {
       PHB_ITEM pStart = hb_arrayGetItemPtr( pThread->pParams, 1 );
 
-      if( HB_IS_BLOCK( pStart ) )
+      if( pStart )
       {
-         hb_vmPushEvalSym();
-         hb_vmPush( pStart );
-         fSend = HB_TRUE;
-      }
-      else if( HB_IS_SYMBOL( pStart ) )
-      {
-         hb_vmPush( pStart );
-         hb_vmPushNil();
-      }
-      else if( HB_IS_STRING( pStart ) )
-      {
-         hb_vmPushDynSym( hb_dynsymGet( hb_itemGetCPtr( pStart ) ) );
-         hb_vmPushNil();
+         if( HB_IS_BLOCK( pStart ) )
+         {
+            hb_vmPushEvalSym();
+            hb_vmPush( pStart );
+            fSend = HB_TRUE;
+         }
+         else if( HB_IS_SYMBOL( pStart ) )
+         {
+            hb_vmPush( pStart );
+            hb_vmPushNil();
+         }
+         else if( HB_IS_STRING( pStart ) )
+         {
+            hb_vmPushDynSym( hb_dynsymGet( hb_itemGetCPtr( pStart ) ) );
+            hb_vmPushNil();
+         }
+         else
+            ulPCount = 0;
       }
       else
          ulPCount = 0;
@@ -1127,7 +1128,7 @@ PHB_THREADSTATE hb_threadStateClone( HB_ULONG ulAttr, PHB_ITEM pParams )
          for( nParam = 1; nParam <= nPCount; ++nParam )
          {
             PHB_ITEM pParam = hb_arrayGetItemPtr( pParams, nParam );
-            if( HB_IS_BYREF( pParam ) )
+            if( pParam && HB_IS_BYREF( pParam ) )
                hb_memvarDetachLocal( pParam );
          }
       }
@@ -1249,7 +1250,7 @@ HB_FUNC( HB_THREADSTART )
       else
       {
          PHB_ITEM pParam = hb_arrayGetItemPtr( pParams, 1 );
-         if( HB_IS_BYREF( pParam ) )
+         if( pParam && HB_IS_BYREF( pParam ) )
             hb_itemCopy( pParam, hb_itemUnRef( pParam ) );
       }
 
@@ -1619,13 +1620,13 @@ HB_FUNC( HB_THREADONCE )
       hb_errRT_BASE_SubstR( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
-/* hb_threadOnceInit( @<item> <value> ) -> <lInitialized>
+/* hb_threadOnceInit( @<item>, <value> ) -> <lInitialized>
  * assign <value> to @<item> only if <item> is NIL
  */
 HB_FUNC( HB_THREADONCEINIT )
 {
    PHB_ITEM pItem = hb_param( 1, HB_IT_ANY );
-   PHB_ITEM pValue = hb_param( 1, HB_IT_ANY );
+   PHB_ITEM pValue = hb_param( 2, HB_IT_ANY );
 
    if( pItem && pValue && HB_ISBYREF( 1 ) && ! HB_ISBYREF( 2 ) )
    {

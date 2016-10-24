@@ -4,12 +4,20 @@ include $(TOP)$(ROOT)config/global.mk
 
 ifneq ($(DYNDIRLIST_BASE),)
 
+   RC_SOURCES := harbour.rc
+
+   ifeq ($(__HB_MT),no)
+      __HB_BUILD_DYN_ST := yes
+   endif
+
    ifeq ($(__HB_BUILD_DYN_ST),yes)
       DYNDIRLIST := $(DYNDIRLIST_BASE) src/vm
    else
       DYNDIRLIST := $(DYNDIRLIST_BASE) src/vm/vmmt
    endif
    DYNNAME := $(HB_DYNLIB_BASE)
+   IMPNAME := $(HB_IMPLIB_BASE)
+   DEFNAME := $(TOP)$(ROOT)src/harbour.def
 
    include $(TOP)$(ROOT)config/dyn.mk
 

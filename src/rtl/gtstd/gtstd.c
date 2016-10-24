@@ -189,7 +189,7 @@ static void hb_gt_std_Init( PHB_GT pGT, HB_FHANDLE hFilenoStdin, HB_FHANDLE hFil
 {
    PHB_GTSTD pGTSTD;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_std_Init(%p,%p,%p,%p)", pGT, ( void * ) ( HB_PTRDIFF ) hFilenoStdin, ( void * ) ( HB_PTRDIFF ) hFilenoStdout, ( void * ) ( HB_PTRDIFF ) hFilenoStderr ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_std_Init(%p,%p,%p,%p)", pGT, ( void * ) ( HB_PTRUINT ) hFilenoStdin, ( void * ) ( HB_PTRUINT ) hFilenoStdout, ( void * ) ( HB_PTRUINT ) hFilenoStderr ) );
 
    HB_GTLOCAL( pGT ) = pGTSTD = ( PHB_GTSTD ) hb_xgrabz( sizeof( HB_GTSTD ) );
 
@@ -238,7 +238,14 @@ static void hb_gt_std_Init( PHB_GT pGT, HB_FHANDLE hFilenoStdin, HB_FHANDLE hFil
       /* atexit( restore_input_mode ); */
       pGTSTD->curr_TIO.c_lflag &= ~( ICANON | ECHO );
       pGTSTD->curr_TIO.c_iflag &= ~ICRNL;
+#if 0
       pGTSTD->curr_TIO.c_cc[ VMIN ] = 0;
+#else
+      /* workaround for bug in some Linux kernels (i.e. 3.13.0-64-generic
+         *buntu) in which select() unconditionally accepts stdin for
+         reading if c_cc[ VMIN ] = 0 [druzus] */
+      pGTSTD->curr_TIO.c_cc[ VMIN ] = 1;
+#endif
       pGTSTD->curr_TIO.c_cc[ VTIME ] = 0;
       tcsetattr( pGTSTD->hStdin, TCSAFLUSH, &pGTSTD->curr_TIO );
 
@@ -347,9 +354,11 @@ static int hb_gt_std_ReadKey( PHB_GT pGT, int iEventMask )
          {
             /* It was a function key lead-in code, so read the actual
                function key and then offset it by 256 */
-            ch = _getch() + 256;
+            ch = _getch();
+            if( ch != -1 )
+               ch += 256;
          }
-         ch = hb_gt_dos_keyCodeTranslate( ch );
+         ch = hb_gt_dos_keyCodeTranslate( ch, 0, HB_GTSELF_CPIN( pGT ) );
       }
    }
    else if( ! _eof( ( int ) pGTSTD->hStdin ) )
@@ -393,13 +402,15 @@ static int hb_gt_std_ReadKey( PHB_GT pGT, int iEventMask )
       if( kbhit() )
       {
          ch = getch();
-         if( ( ch == 0 || ch == 224 ) && kbhit() )
+         if( ch == 0 && kbhit() )
          {
             /* It was a function key lead-in code, so read the actual
                function key and then offset it by 256 */
-            ch = getch() + 256;
+            ch = getch();
+            if( ch != -1 )
+               ch += 256;
          }
-         ch = hb_gt_dos_keyCodeTranslate( ch );
+         ch = hb_gt_dos_keyCodeTranslate( ch, 0, HB_GTSELF_CPIN( pGT ) );
       }
    }
    else if( ! eof( pGTSTD->hStdin ) )

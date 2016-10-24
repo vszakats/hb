@@ -1,0 +1,227 @@
+- country: au
+  name: Matt Hamilton
+  photos:
+  - matt_hamilton.jpg
+  title: Captain of <code>strings.c</code> and <code>math.c</code><br>A VIP shipmaster!
+    A Admiral actual!
+- country: au
+  name: Peter Townsend
+  url: mailto:cephas/at/tpgi.com.au
+- country: be
+  name: Patrick Mast
+  url: mailto:eMail/at/PatrickMast.com
+  photos:
+  - patrick_mast_1.jpg
+  - patrick_mast_2.jpg
+  - patrick_mast_3.jpg
+  title: Harbour WebMaster<br>Harbour public relations and<br>real-life application
+    tester
+- country: be
+  name: Jean-Francois Lefebvre
+  url: mailto:jfl/at/mafact.com
+  photos:
+  - jean_francois_lefebvre.jpg
+  title: 1st Classes Master
+- country: be
+  name: Richard-Alexandre Cuylen
+  url: mailto:racuylen/at/altern.org
+  photos:
+  - richard_alexandre_cuylen.jpg
+  title: 2nd Classes Master
+- country: br
+  name: Felipe Coury
+  url: mailto:fcoury/at/creation.com.br
+  photos:
+  - felipe_coury.jpg
+  title: Harbour Internet Integration Captain Radio operator<br>and Brazilian Harbour
+    Community Informant
+- country: br
+  name: Luiz Rafael Culik
+  url: mailto:culik/at/sl.conex.net
+  photos:
+  - luiz_culik.jpg
+  title: Harbour Norton Guide Captain
+- country: br
+  name: Vailton Renato
+  url: mailto:vailtom/at/gmail.com
+  photos:
+  - vailton_renato_1.jpg
+  - vailton_renato_2.jpg
+  title: Trainee for Webdesigner
+- country: ca
+  name: April White
+  url: mailto:awhite/at/mail.rosecom.ca
+- country: ca
+  name: Bil Simser
+  url: mailto:bsimser/at/home.com
+  title: Pascal Captain<br>The Dread Pirate Pascal
+- country: ca
+  name: Leslee Griffith
+  url: mailto:les.griffith/at/vantagesystems.ca
+- country: ca
+  name: Luis Krause Mantilla
+  url: mailto:lkrausem/at/shaw.ca
+- country: ca
+  name: Paul Tucker
+  url: mailto:ptucker/at/sympatico.ca
+  photos:
+  - paul_tucker.jpg
+  title: MSVC and GTAPI Master
+- country: cl
+  name: Gonzalo Diethelm
+  url: mailto:gonzalo.diethelm/at/iname.com
+  title: GNU Tools Pusher<br>Harbour standard GNU tools pusher
+- country: earth
+  name: Janica Lubos
+  url: mailto:janica/at/fornax.elf.stuba.sk
+- country: earth
+  name: Ross Presser
+  title: Captain Boy<br>Unreliable Yet Sometimes Helpful Cabin Boy
+- country: earth
+  name: Viktor Szakats
+  url: https://vszakats.net/harbour
+  title: Former Tech Lead, hbmk2 author, etc.
+- country: de
+  name: Martin Vogel
+  url: mailto:vogel/at/inttec.de
+  photos:
+  - martin_vogel.jpg
+  title: Cl*pper Tools Captain
+- country: in
+  name: Pritpal Bedi
+  url: mailto:pritpal/at/vouchcac.com
+  title: A student of software<br>analysis and design
+- country: id
+  name: Andi Jahja
+  url: mailto:andij/at/aonlippo.co.id
+  title: The Janitor
+- country: il
+  name: Chen Kedem
+  url: mailto:niki/at/synel.co.il
+  photos:
+  - chen_kedem.jpg
+  title: The Documentor<br>Harbour documentation writer
+- country: it
+  name: Francesco Saverio Giudice
+  url: mailto:info/at/fsgiudice.com
+  title: Contrib Developer
+- country: it
+  name: Matteo Baccan
+  url: mailto:baccan/at/isanet.it
+  photos:
+  - matteo_baccan.jpg
+  title: Tester and Java interface developer
+- country: it
+  name: Massimo Belgrano
+  url: mailto:massimo.belgrano/at/gmail.com
+  title: Fleet Admiral of Newsgroup, Lieutenant of<br>application tester, and Half
+    soldier developer
+- country: it
+  name: Maurilio Longo
+  url: mailto:maurilio.longo/at/libero.it
+  photos:
+  - maurilio_longo.jpg
+  title: OS/2 Pirate and Harbour sailor
+- country: kr
+  name: Kwon, Oh-Chul
+  url: mailto:ohchul/at/fivetech.net
+  photos:
+  - kwon_oh_chul.jpg
+  title: Asian Harbour Captain
+- country: nl
+  name: Eddie Runia
+  url: mailto:eddie/at/runia.com
+  title: Resident Medic<br>Debug doctor with a bought fake diploma
+- country: pl
+  name: Przemysław Czerpak
+  url: mailto:druzus/at/priv.onet.pl
+  title: Harbour Master
+- country: pl
+  name: Robert Arseniuk
+  url: mailto:roberta/at/jmpolska.com
+  title: Arrays Captain<br>Captain of the Harbour Arrays
+- country: pl
+  name: Ryszard Glab
+  url: mailto:rglab/at/imid.med.pl
+  title: 2nd Harbour Master<br>Nearest to the Harbour Master!
+- country: ru
+  name: Alexander S. Kresin
+  url: mailto:alex/at/belacy.belgorod.su
+  title: Preprocessor Captain
+- country: ru
+  name: Vladimir Kazimirchik
+  url: mailto:v_kazimirchik/at/yahoo.com
+  photos:
+  - vladimir_kazimirchik.jpg
+  title: Harbour for OS/2 fanatic
+- country: uk-scotland
+  name: Rab Thomson
+  title: Ship's Rat<br>Gnawing/at/the leftovers, and did someone<br>say something
+    about sinking ships?
+- country: es
+  name: Antonio Linares
+  url: mailto:alinares/at/fivetech.com
+  photos:
+  - antonio_linares_1.jpg
+  - antonio_linares_2.jpg
+  title: Harbour Starter<br>The Great Man who started the engines!
+- country: es
+  name: Ignacio Ortiz de Zuniga
+  url: mailto:ignacio/at/fivetech.com
+  photos:
+  - ignacio_ortiz.jpg
+  title: Harbour <code>GET</code> Captain
+- country: es
+  name: Bruno Cantero
+  url: mailto:bruno/at/issnet.net
+  photos:
+  - bruno_cantero.jpg
+  title: RDD Captain<br>Happy C and Clipper developer
+- country: es
+  name: Jose Lalin
+  title: Towboat Skipper<br>Helping ships to come alongside
+- country: es
+  name: Manuel Ruiz
+  url: mailto:mrt/at/joca.es
+- country: es
+  name: Nicolas del Pozo
+  url: mailto:niko/at/geroa.com
+- country: us
+  name: Brian Hays
+  url: mailto:bhays/at/abacuslaw.com
+  title: Ship's Carpenter<br>Roving Editor, Barnacle Scraper and Window Cleaner
+- country: us
+  name: David G. Holm
+  url: mailto:dholm/at/jsd-llc.com
+  photos:
+  - davig_holm_1.jpg
+  - david_holm_2.jpg
+  - david_holm_3.jpg
+  title: Set Captain<br>The Clipper Compatibility Fanatic
+- country: us
+  name: Mark W. Schumann
+  title: Animal Trainer<br>Trainer of the Harbour Animal
+- country: us
+  name: Phil Barnett
+  url: mailto:philb/at/philb.us
+  photos:
+  - phil_barnett.jpg
+  title: Harbour Manager<br>Keeper of Pieces and Parts
+- country: us
+  name: Ron Pinkas
+  url: mailto:ron/at/profit-master.com
+  photos:
+  - ron_pinkas.jpg
+  title: Clipper-Head<br>The Clipper-Head who doesn't mind becoming<br>a 'c'-man to
+    keep Clipper sailing into the future
+- country: us
+  name: Tim Stone
+  url: mailto:timstone/at/mstrlink.com
+  photos:
+  - tim_stone.jpg
+  title: List House Keeper and Manual Captain
+- country: us
+  name: Jon Berg
+  title: Stoker<br>Just keep shoveling coal into the Harbour engine. (Tester)<br>Held
+    a higher rank on the old Clipper ships before I got<br>busted with the advent
+    of steam engines

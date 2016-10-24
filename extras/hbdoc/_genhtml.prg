@@ -47,13 +47,9 @@
 
 #include "hbclass.ch"
 
-#ifdef __PLATFORM__DOS
-   #define EXTENSION ".htm"
-#else
-   #define EXTENSION ".html"
-#endif
+#define EXTENSION  ".html"
 
-#define STYLEFILE "hbdoc.css"
+#define STYLEFILE  "hbdoc.css"
 
 CREATE CLASS GenerateHTML2 INHERIT GenerateHTML
 
@@ -77,17 +73,24 @@ METHOD NewIndex( cDir, cFilename, cTitle ) CLASS GenerateHTML2
 CREATE CLASS GenerateHTML INHERIT TPLGenerate
 
    HIDDEN:
+
    METHOD RecreateStyleDocument( cStyleFile )
+   METHOD OpenTagInline( cText, ... )
    METHOD OpenTag( cText, ... )
    METHOD Tagged( cText, cTag, ... )
+   METHOD CloseTagInline( cText )
    METHOD CloseTag( cText )
-   METHOD Append( cText, cFormat )
-   METHOD Newline() INLINE hb_vfWrite( ::hFile, "<br />" + hb_eol() ), self
+   METHOD AppendInline( cText, cFormat, lCode )
+   METHOD Append( cText, cFormat, lCode )
+   METHOD Space() INLINE hb_vfWrite( ::hFile, ", " ), self
+   METHOD Spacer() INLINE hb_vfWrite( ::hFile, hb_eol() ), self
+   METHOD Newline() INLINE hb_vfWrite( ::hFile, "<br>" + hb_eol() ), self
 
    CLASS VAR lCreateStyleDocument AS LOGICAL INIT .T.
    VAR TargetFilename AS STRING INIT ""
 
    EXPORTED:
+
    METHOD NewFile() HIDDEN
    METHOD NewIndex( cDir, cFilename, cTitle )
    METHOD NewDocument( cDir, cFilename, cTitle )
@@ -106,25 +109,40 @@ METHOD NewFile() CLASS GenerateHTML
    hb_vfWrite( ::hFile, "<!DOCTYPE html>" + hb_eol() )
 
    ::OpenTag( "html", "lang", "en" )
-   ::OpenTag( "head" )
-   ::OpenTag( "meta", "charset", "UTF-8" )
-   ::CloseTag( "meta" )
-   ::Append( ::cTitle /* + iif( Empty( ::cDescription ), "", " - " + ::cDescription ) */, "title" )
-   ::OpenTag( "meta", "name", "generator", "content", "Harbour examples/hbdoc" )
-   ::CloseTag( "meta" )
-   ::OpenTag( "meta", "name", "keywords", "content", "Harbour Project, Clipper, xBase, database, Free Software, GNU, compiler, cross platform, 32-bit, 64-bit" )
-   ::CloseTag( "meta" )
+   ::Spacer()
+
+   ::OpenTag( "meta", "charset", "utf-8" )
+   ::OpenTag( "meta", "name", "generator", "content", "hbdoc" )
+   ::OpenTag( "meta", "name", "keywords", "content", "Harbour, Clipper, xBase, database, Free Software, GPL, compiler, cross platform, 32-bit, 64-bit" )
+   ::Spacer()
 
    IF ::lCreateStyleDocument
       ::lCreateStyleDocument := .F.
       ::RecreateStyleDocument( STYLEFILE )
    ENDIF
-   ::OpenTag( "link", "rel", "stylesheet", "type", "text/css", "href", STYLEFILE )
-   ::CloseTag( "link" )
 
-   ::CloseTag( "head" )
+   ::Append( ::cTitle /* + iif( Empty( ::cDescription ), "", " - " + ::cDescription ) */, "title" )
+   ::Spacer()
+
+   ::OpenTag( "link", "rel", "stylesheet", "href", STYLEFILE )
+   ::Spacer()
+
    ::OpenTag( "body" )
+   ::Spacer()
+
+   ::OpenTag( "header" )
    ::Append( ::cTitle, "h1" )
+   ::CloseTag( "header" )
+   ::Spacer()
+
+   ::OpenTag( "main" )
+
+   RETURN self
+
+METHOD Generate() CLASS GenerateHTML
+
+   ::Spacer()
+   ::CloseTag( "main" )
 
    RETURN self
 
@@ -142,23 +160,25 @@ METHOD NewIndex( cDir, cFilename, cTitle ) CLASS GenerateHTML
 
    RETURN self
 
-METHOD BeginSection( cSection, cFilename ) CLASS  GenerateHTML
+METHOD BeginSection( cSection, cFilename ) CLASS GenerateHTML
+
+   cSection := SymbolToHTMLID( cSection )
 
    IF ::IsIndex()
       IF cFilename == ::cFilename
-         ::OpenTag( "div", "id", cSection ):Append( cSection, "h" + hb_ntos( ::Depth + 2 ) ):CloseTag( "div" )// :Newline()
+         ::OpenTagInline( "div", "id", cSection ):AppendInline( cSection, "h" + hb_ntos( ::Depth + 2 ) ):CloseTag( "div" )
       ELSE
-         ::OpenTag( "a", "href", cFilename + ::cExtension + "#" + cSection ):Append( cSection, "h" + hb_ntos( ::Depth + 2 ) ):CloseTag( "a" )// :Newline()
+         ::OpenTag( "a", "href", cFilename + ::cExtension + "#" + cSection ):Append( cSection, "h" + hb_ntos( ::Depth + 2 ) ):CloseTag( "a" )
       ENDIF
    ELSE
-      ::OpenTag( "div", "id", cSection ):Append( cSection, "h" + hb_ntos( ::Depth + 2 ) ):CloseTag( "div" )// :Newline()
+      ::OpenTagInline( "div", "id", cSection ):AppendInline( cSection, "h" + hb_ntos( ::Depth + 2 ) ):CloseTag( "div" )
    ENDIF
    ::TargetFilename := cFilename
    ::Depth++
 
    RETURN self
 
-METHOD EndSection( cSection, cFilename ) CLASS  GenerateHTML
+METHOD EndSection( cSection, cFilename ) CLASS GenerateHTML
 
    HB_SYMBOL_UNUSED( cSection )
    HB_SYMBOL_UNUSED( cFilename )
@@ -183,65 +203,108 @@ METHOD AddReference( oEntry, cReference, cSubReference ) CLASS GenerateHTML
 METHOD AddEntry( oEntry ) CLASS GenerateHTML
 
    LOCAL item
+   LOCAL cEntry
+
+   ::Spacer()
+   ::OpenTag( "section", "id", SymbolToHTMLID( oEntry:filename ) )
 
    FOR EACH item IN oEntry:Fields
       IF item[ 1 ] == "NAME"
-         ::OpenTag( "div", "id", oEntry:filename ):OpenTag( "h4" ):Append( oEntry:Name ):CloseTag( "h4" ):CloseTag( "div" )
+         cEntry := oEntry:Name
+         IF "(" $ cEntry .OR. Upper( cEntry ) == cEntry  // guess if it's code
+            ::OpenTagInline( "h4" ):OpenTagInline( "code" ):AppendInline( cEntry ):CloseTagInline( "code" ):CloseTag( "h4" )
+         ELSE
+            ::OpenTagInline( "h4" ):AppendInline( cEntry ):CloseTag( "h4" )
+         ENDIF
       ELSEIF oEntry:IsField( item[ 1 ] ) .AND. oEntry:IsOutput( item[ 1 ] ) .AND. Len( oEntry:&( item[ 1 ] ) ) > 0
          ::WriteEntry( item[ 1 ], oEntry, oEntry:IsPreformatted( item[ 1 ] ) )
       ENDIF
    NEXT
 
-   RETURN self
-
-METHOD Generate() CLASS GenerateHTML
-
-   IF ::hFile != NIL
-      ::CloseTag( "body" )
-      ::CloseTag( "html" )
-   ENDIF
+   ::CloseTag( "section" )
 
    RETURN self
 
 METHOD PROCEDURE WriteEntry( cField, oEntry, lPreformatted ) CLASS GenerateHTML
 
+   STATIC s_class := { ;
+      "name"     => "d-na", ;
+      "oneliner" => "d-ol", ;
+      "examples" => "d-ex", ;
+      "tests"    => "d-te" }
+
    LOCAL cCaption := oEntry:FieldName( cField )
    LOCAL cEntry := oEntry:&( cField )
+   LOCAL lFirst
+   LOCAL tmp, tmp1
 
    /* TODO: change this to search the CSS document itself */
-   LOCAL cTagClass := iif( Lower( cField ) + "|" $ "name|oneliner|examples|tests|", Lower( cField ), "itemtext" )
+   LOCAL cTagClass := hb_HGetDef( s_class, Lower( cField ), "d-it" )
 
    IF ! Empty( cEntry )
 
 #if 0
       hb_default( @lPreformatted, .F. )
-      hb_default( @cTagClass, "itemtext" )
+      hb_default( @cTagClass, "d-it" )
 #endif
 
       hb_default( @cCaption, "" )
-      IF hb_BLen( cCaption ) > 0
-         ::Tagged( cCaption, "div", "class", "itemtitle" )
+      IF ! HB_ISNULL( cCaption )
+         ::Tagged( cCaption, "div", "class", "d-d" )
       ENDIF
 
       IF lPreformatted
          ::OpenTag( "pre", "class", cTagClass )
-         DO WHILE hb_BLen( cEntry ) > 0
+         DO WHILE ! HB_ISNULL( cEntry )
             IF Lower( cField ) + "|" $ "examples|tests|"
-               ::Append( SubStr( Parse( @cEntry, hb_eol() ), 5 ), "" )
+               ::Append( SubStr( Parse( @cEntry, hb_eol() ), 5 ), "", .T. )
             ELSE
-               ::Append( Indent( Parse( @cEntry, hb_eol() ), 0, , .T. ), "" )
+               ::Append( Indent( Parse( @cEntry, hb_eol() ), 0, , .T. ), "", .T. )
             ENDIF
 #if 0
-            IF hb_BLen( cEntry ) > 0 .AND. ! lPreformatted
+            IF ! HB_ISNULL( cEntry ) .AND. ! lPreformatted
                hb_vfWrite( ::hFile, hb_eol() )
             ENDIF
 #endif
          ENDDO
          ::CloseTag( "pre" )
       ELSE
-         DO WHILE hb_BLen( cEntry ) > 0
-            ::OpenTag( "div", "class", cTagClass )
-            ::Append( Indent( Parse( @cEntry, hb_eol() ), 0, 70 ), "" ):Newline()
+         DO WHILE ! HB_ISNULL( cEntry )
+
+            SWITCH Lower( cField )
+            CASE "syntax"
+               ::OpenTagInline( "div", "class", cTagClass )
+               ::OpenTagInline( "code" )
+               ::AppendInline( Indent( Parse( @cEntry, hb_eol() ), 0, 70,, .T. ), "", .F. )
+               ::CloseTagInline( "code" )
+               EXIT
+            CASE "oneliner"
+               ::OpenTagInline( "div", "class", cTagClass )
+               ::AppendInline( Indent( Parse( @cEntry, hb_eol() ), 0, 70,, .T. ), "" )
+               EXIT
+            CASE "seealso"
+               ::OpenTagInline( "div", "class", cTagClass )
+               lFirst := .T.
+               FOR EACH tmp IN hb_ATokens( cEntry, "," )
+                  tmp := AllTrim( tmp )
+                  IF ! HB_ISNULL( tmp )
+                     // TOFIX: for multi-file output
+                     tmp1 := Parse( tmp, "(" )
+                     IF lFirst
+                        lFirst := .F.
+                     ELSE
+                        ::Space()
+                     ENDIF
+                     ::OpenTagInline( "code" ):OpenTagInline( "a", "href", "#" + SymbolToHTMLID( tmp1 ) ):AppendInline( tmp ):CloseTagInline( "a" ):CloseTagInline( "code" )
+                  ENDIF
+               NEXT
+               cEntry := ""
+               EXIT
+            OTHERWISE
+               ::OpenTagInline( "div", "class", cTagClass )
+               ::AppendInline( Indent( Parse( @cEntry, hb_eol() ), 0, 70,, .T. ), "" )
+            ENDSWITCH
+
             ::CloseTag( "div" )
          ENDDO
       ENDIF
@@ -249,7 +312,7 @@ METHOD PROCEDURE WriteEntry( cField, oEntry, lPreformatted ) CLASS GenerateHTML
 
    RETURN
 
-METHOD OpenTag( cText, ... ) CLASS GenerateHTML
+METHOD OpenTagInline( cText, ... ) CLASS GenerateHTML
 
    LOCAL aArgs := hb_AParams()
    LOCAL idx
@@ -258,7 +321,15 @@ METHOD OpenTag( cText, ... ) CLASS GenerateHTML
       cText += " " + aArgs[ idx ] + "=" + '"' + aArgs[ idx + 1 ] + '"'
    NEXT
 
-   hb_vfWrite( ::hFile, "<" + cText + ">" + hb_eol() )
+   hb_vfWrite( ::hFile, "<" + cText + ">" )
+
+   RETURN self
+
+METHOD OpenTag( cText, ... ) CLASS GenerateHTML
+
+   ::OpenTagInline( cText, ... )
+
+   hb_vfWrite( ::hFile, hb_eol() )
 
    RETURN self
 
@@ -276,6 +347,17 @@ METHOD Tagged( cText, cTag, ... ) CLASS GenerateHTML
 
    RETURN self
 
+METHOD CloseTagInline( cText ) CLASS GenerateHTML
+
+   hb_vfWrite( ::hFile, "</" + cText + ">" )
+
+   IF cText == "html"
+      hb_vfClose( ::hFile )
+      ::hFile := NIL
+   ENDIF
+
+   RETURN self
+
 METHOD CloseTag( cText ) CLASS GenerateHTML
 
    hb_vfWrite( ::hFile, "</" + cText + ">" + hb_eol() )
@@ -287,17 +369,32 @@ METHOD CloseTag( cText ) CLASS GenerateHTML
 
    RETURN self
 
-METHOD Append( cText, cFormat ) CLASS GenerateHTML
+METHOD AppendInline( cText, cFormat, lCode ) CLASS GenerateHTML
+
+   STATIC s_html := { ;
+      "&" => "&amp;", ;
+      '"' => "&quot;", ;
+      "<" => "&lt;", ;
+      ">" => "&gt;" }
+
+   STATIC s_htmlall := { ;
+      "==>" => "&rarr;", ;
+      "-->" => "&rarr;", ;
+      "->" => "&rarr;", ;  /* valid Harbour code */
+      "&" => "&amp;", ;
+      '"' => "&quot;", ;
+      "<" => "&lt;", ;
+      ">" => "&gt;" }
 
    LOCAL idx
 
-   IF hb_BLen( cText ) > 0
+   IF ! HB_ISNULL( cText )
 
-      cText := hb_StrReplace( cText, { ;
-         "&" => "&amp;", ;
-         '"' => "&quot;", ;
-         "<" => "&lt;", ;
-         ">" => "&gt;" } )
+      IF hb_defaultValue( lCode, .F. )
+         cText := hb_StrReplace( cText, s_html )
+      ELSE
+         cText := hb_StrReplace( cText, s_htmlall )
+      ENDIF
 
       FOR EACH idx IN hb_ATokens( hb_defaultValue( cFormat, "" ), "," ) DESCEND
          IF ! Empty( idx )
@@ -309,9 +406,15 @@ METHOD Append( cText, cFormat ) CLASS GenerateHTML
          cText := hb_StrShrink( cText, Len( hb_eol() ) )
       ENDDO
 
-      hb_vfWrite( ::hFile, cText + hb_eol() )
-
+      hb_vfWrite( ::hFile, cText )
    ENDIF
+
+   RETURN self
+
+METHOD Append( cText, cFormat, lCode ) CLASS GenerateHTML
+
+   ::AppendInline( cText, cFormat, lCode )
+   hb_vfWrite( ::hFile, hb_eol() )
 
    RETURN self
 
@@ -326,3 +429,9 @@ METHOD RecreateStyleDocument( cStyleFile ) CLASS GenerateHTML
    ENDIF
 
    RETURN self
+
+STATIC FUNCTION SymbolToHTMLID( cID )
+   RETURN Lower( hb_StrReplace( cID, { ;
+     "%" => "pct", ;
+     "_" => "-", ;
+     " " => "-" } ) )

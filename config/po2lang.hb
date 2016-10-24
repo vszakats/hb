@@ -1,3 +1,5 @@
+#!/usr/bin/env hbmk2
+
 /*
  * Converts .po files to core lang modules
  *
@@ -16,7 +18,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA (or visit
- * their web site at https://www.gnu.org/).
+ * their website at https://www.gnu.org/).
  *
  */
 
@@ -102,7 +104,7 @@ STATIC PROCEDURE ProcessTrs( /* @ */ cContent, cTrs, cOri, /* @ */ cTranslator, 
       cContent += Space( 2 * 3 ) + ConvToC( cLang ) + "," + hb_eol()
       ++nPos
    ELSE
-      IF hb_BLen( cTrs ) == 0
+      IF HB_ISNULL( cTrs )
          cTrs := cOri
       ENDIF
       cContent += Space( 2 * 3 ) + ConvToC( cTrs ) + "," + hb_eol()

@@ -1,0 +1,25 @@
+---
+category: extensions
+title_long: "<code>FOR EACH</code> example"
+description: "Demonstrating how to use the <code>FOR EACH</code> command.
+  <code>FOR EACH</code> iterates with elements of data types that can be
+  seen as a collection such as arrays, strings or objects."
+---
+<div class="shot-window"><div class="shot-toolbar"></div><div class="shot-screen"><pre>
+$ hbrun foreach.prg
+
+========================================================
+before loop: ENUM= b
+before loop: a[1]= one   a[2]= two   a[3]= three
+start: ENUM= one
+end:   ENUM= one   | index:          1 | value: one   | base: A | isfirst: .T. | islast: .F.
+start: ENUM= two
+end:   ENUM= TWO   | index:          2 | value: TWO   | base: A | isfirst: .F. | islast: .F.
+start: ENUM= three
+end:   ENUM= three | index:          3 | value: three | base: A | isfirst: .F. | islast: .T.
+after loop ENUM= b
+after loop: a[1]= one   a[2]= TWO   a[3]= three
+---
+
+Press any key to continue...
+</pre></div></div>

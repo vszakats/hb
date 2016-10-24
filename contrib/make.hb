@@ -1,4 +1,4 @@
-#!/usr/bin/hbmk2
+#!/usr/bin/env hbmk2
 /*
  * Package build orchestrator script
  *
@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA (or visit
- * their web site at https://www.gnu.org/).
+ * their website at https://www.gnu.org/).
  *
  */
 
@@ -57,7 +57,7 @@ PROCEDURE Main( ... )
 
    s_cBase := ""
    s_cReBase := ""
-   IF Empty( GetEnv( "HB_HOST_BIN_DIR" ) )
+   IF HB_ISNULL( GetEnv( "HB_HOST_BIN_DIR" ) )
       s_cHome := StrTran( hb_DirBase(), hb_ps(), "/" )
       s_cRoot := s_cHome + "../"
    ELSE
@@ -87,7 +87,7 @@ PROCEDURE Main( ... )
    ENDIF
 
    /* Build */
-   IF Empty( GetEnv( "HB_HOST_BIN_DIR" ) )
+   IF HB_ISNULL( GetEnv( "HB_HOST_BIN_DIR" ) )
       Standalone( aParams, hProjectList )
    ELSE
       GNUMake( aParams, hProjectList )
@@ -196,7 +196,7 @@ STATIC PROCEDURE Standalone( aParams, hProjectList )
 
    build_projects( nAction, hProjectList, hProjectReqList, cOptionsUser, .T. )
 
-   IF ! Empty( cCustomDir )
+   IF HB_ISSTRING( cCustomDir ) .AND. ! HB_ISNULL( cCustomDir )
       hb_cwd( cCustomDir )
    ENDIF
 
@@ -233,7 +233,7 @@ STATIC PROCEDURE GNUMake( aParams, hProjectList )
 
    IF Empty( GetEnv( "HB_PLATFORM" ) ) .OR. ;
       Empty( GetEnv( "HB_COMPILER" ) ) .OR. ;
-      Empty( GetEnv( "HB_HOST_BIN_DIR" ) )
+      HB_ISNULL( GetEnv( "HB_HOST_BIN_DIR" ) )
       ErrorLevel( 9 )
       RETURN
    ENDIF
@@ -336,6 +336,7 @@ STATIC PROCEDURE GNUMake( aParams, hProjectList )
    hb_SetEnv( "_HB_INSTALL_MAN", GetEnv( "HB_INSTALL_MAN" ) )
    hb_SetEnv( "_HB_INSTALL_ETC", GetEnv( "HB_INSTALL_ETC" ) )
    hb_SetEnv( "_HB_INSTALL_CONTRIB", GetEnv( "HB_INSTALL_CONTRIB" ) )
+   hb_SetEnv( "_HB_COMPILER_VER", GetEnv( "HB_COMPILER_VER" ) )
 
    /* Override hbmk2 auto-detection. WARNING: Must be in sync with global.mk logic */
    hb_SetEnv( "HB_INSTALL_PREFIX", s_cRoot )
@@ -451,11 +452,7 @@ STATIC PROCEDURE build_projects( nAction, hProjectList, hProjectReqList, cOption
             IF GetEnv( "HB_BUILD_CONTRIB_DYN" ) == "yes" .AND. hProjectList[ cProject ][ "cType" ] == "hblib"
                /* Is this a platform where import libs are used? */
                IF "|" + hProjectList[ cProject ][ "cPlatform" ] + "|" $ "|win|dos|os2|"
-                  IF Empty( hProjectList[ cProject ][ "cDynSuffix" ] )
-                     cDynSuffix := "_dll"
-                  ELSE
-                     cDynSuffix := hProjectList[ cProject ][ "cDynSuffix" ]
-                  ENDIF
+                  cDynSuffix := "_dll"
                ELSE
                   cDynSuffix := hb_libExt()
                ENDIF
@@ -486,7 +483,7 @@ STATIC PROCEDURE build_projects( nAction, hProjectList, hProjectReqList, cOption
 STATIC PROCEDURE call_hbmk2_hbinfo( cProjectPath, hProject )
 
    LOCAL cStdOut
-   LOCAL tmp, tmp1
+   LOCAL tmp, tmp1, tmp2
    LOCAL hInfo
 
    LOCAL nErrorLevel
@@ -516,12 +513,23 @@ STATIC PROCEDURE call_hbmk2_hbinfo( cProjectPath, hProject )
                LOOP
             ENDIF
 #endif
+            /* Convert .hbc reference to an .hbp one */
             tmp1 := hb_FNameExtSet( hb_DirSepToOS( LTrim( tmp ) ), ".hbp" )
+            /* Calculate its full path */
+            tmp2 := hb_PathNormalize( hb_PathJoin( hb_DirSepToOS( hb_cwd() ), tmp1 ) )
+            /* Rebase its full path onto the contrib root */
             tmp1 := hb_PathNormalize( hb_PathRelativize( ;
                hb_PathNormalize( hb_PathJoin( hb_DirSepToOS( hb_cwd() ), hb_DirSepToOS( hb_DirBase() ) ) ), ;
-               hb_PathNormalize( hb_PathJoin( hb_DirSepToOS( hb_cwd() ), tmp1 ) ) ) )
-            AAdd( hProject[ "aDept" ], { "nDepth" => Len( tmp ) - Len( LTrim( tmp ) ), ;
-               "cFileName_HBP" => StrTran( tmp1, "\", "/" ) } )
+               tmp2 ) )
+
+            /* Do not add any .hbc reference that resides outside the
+               'contrib' directory tree. This case can be detected by
+               verifying if the full path remained unchanged after
+               rebasing to contrib root. */
+            IF !( tmp1 == tmp2 )
+               AAdd( hProject[ "aDept" ], { "nDepth" => Len( tmp ) - Len( LTrim( tmp ) ), ;
+                  "cFileName_HBP" => StrTran( tmp1, "\", "/" ) } )
+            ENDIF
          ENDIF
       NEXT
    ELSE
@@ -593,7 +601,7 @@ STATIC FUNCTION mk_hbd( cDir )
    LOCAL aErrMsg
    LOCAL aEntry
 
-   IF ! Empty( cDocDir := GetEnv( "HB_INSTALL_DOC" ) ) .AND. ! cDocDir == "no"
+   IF ! HB_ISNULL( cDocDir := GetEnv( "HB_INSTALL_DOC" ) ) .AND. ! cDocDir == "no"
 
       IF Empty( cName := DirGetName( cDir ) )
          cName := "harbour"
@@ -624,7 +632,7 @@ STATIC FUNCTION DirGetName( cDir )
 
    LOCAL cName := hb_FNameName( hb_DirSepDel( cDir ) )
 
-   IF Empty( cName ) .OR. cName == "." .OR. cName == ".."
+   IF HB_ISNULL( cName ) .OR. cName == "." .OR. cName == ".."
       RETURN ""
    ENDIF
 
@@ -717,17 +725,18 @@ STATIC FUNCTION AddProject( hProjectList, cFileName )
    LOCAL cName
    LOCAL cExt
 
-   IF ! Empty( cFileName )
+   IF ! HB_ISNULL( cFileName )
 
       cFileName := hb_DirSepToOS( AllTrim( cFileName ) )
 
       hb_FNameSplit( cFileName, @cDir, @cName, @cExt )
 
-      IF Empty( cName )
+      DO CASE
+      CASE HB_ISNULL( cName )
          cName := DirGetName( cDir )
-      ELSEIF Empty( cDir )
+      CASE HB_ISNULL( cDir )
          cDir := cName
-      ENDIF
+      ENDCASE
       IF Empty( cExt )
          cExt := ".hbp"
       ENDIF
@@ -765,7 +774,7 @@ STATIC PROCEDURE LoadProjectListAutomatic( hProjectList, cDir )
          ENDIF
          IF hb_vfExists( tmp := ( cDir + aFile[ F_NAME ] + hb_ps() + "makesub.txt" ) )
             FOR EACH tmp IN hb_ATokens( hb_MemoRead( tmp ), .T. )
-               IF ! Empty( tmp )
+               IF ! HB_ISNULL( tmp )
                   AddProject( hProjectList, aFile[ F_NAME ] + hb_ps() + hb_DirSepToOS( tmp ) )
                ENDIF
             NEXT

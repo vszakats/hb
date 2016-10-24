@@ -304,7 +304,7 @@ HB_BOOL hb_md5file( const char * pszFileName, char * digest )
       HB_BYTE * readbuf = ( HB_BYTE * ) hb_xgrab( MAX_FBUF );
 
       hb_md5accinit( md5.accum );
-      n = hb_fileRead( pFile, readbuf, MAX_FBUF, -1 );
+      n = hb_fileResult( hb_fileRead( pFile, readbuf, MAX_FBUF, -1 ) );
       flen += n;
       while( n == MAX_FBUF )
       {
@@ -313,7 +313,7 @@ HB_BOOL hb_md5file( const char * pszFileName, char * digest )
             memcpy( md5.buf, readbuf + ( i << 6 ), 64 );
             hb_md5go( &md5 );
          }
-         n = hb_fileRead( pFile, readbuf, MAX_FBUF, -1 );
+         n = hb_fileResult( hb_fileRead( pFile, readbuf, MAX_FBUF, -1 ) );
          flen += n;
       }
       hb_fileClose( pFile );
@@ -353,7 +353,7 @@ HB_BOOL hb_md5file( const char * pszFileName, char * digest )
    return HB_FALSE;
 }
 
-HB_FUNC( HB_MD5 )
+HB_FUNC( HB_MD5 )  /* Considered insecure. Use SHA256 or higher instead. */
 {
    const char * pszStr = hb_parc( 1 );
 
@@ -377,7 +377,7 @@ HB_FUNC( HB_MD5 )
       hb_retc_null();  /* return empty string on wrong call */
 }
 
-HB_FUNC( HB_MD5FILE )
+HB_FUNC( HB_MD5FILE )  /* Considered insecure. Use SHA256 or higher instead. */
 {
    const char * pszFileName = hb_parc( 1 );
    char dststr[ 16 ];

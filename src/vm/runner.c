@@ -378,7 +378,7 @@ static PHRB_BODY hb_hrbLoad( const char * szHrbBody, HB_SIZE nBodySize, HB_USHOR
          }
          while( ch );
          pSymRead[ ul ].scope.value = ( HB_BYTE ) szHrbBody[ nBodyOffset++ ];
-         pSymRead[ ul ].value.pCodeFunc = ( PHB_PCODEFUNC ) ( HB_PTRDIFF ) szHrbBody[ nBodyOffset++ ];
+         pSymRead[ ul ].value.pCodeFunc = ( PHB_PCODEFUNC ) ( HB_PTRUINT ) szHrbBody[ nBodyOffset++ ];
          pSymRead[ ul ].pDynSym = NULL;
 
          if( pHrbBody->lSymStart == -1 &&
@@ -581,20 +581,18 @@ static PHRB_BODY hb_hrbLoadFromFile( const char * szHrb, HB_USHORT usMode )
 
    if( pFile != NULL )
    {
-      HB_SIZE nBodySize = ( HB_SIZE ) hb_fileSize( pFile );
+      HB_SIZE nBodySize;
+      HB_BYTE * pBuffer = hb_fileLoadData( pFile, 0, &nBodySize );
 
-      if( nBodySize )
-      {
-         char * pbyBuffer;
-
-         pbyBuffer = ( char * ) hb_xgrab( nBodySize + sizeof( char ) + 1 );
-         hb_fileReadAt( pFile, pbyBuffer, nBodySize, 0 );
-         pbyBuffer[ nBodySize ] = '\0';
-
-         pHrbBody = hb_hrbLoad( ( const char * ) pbyBuffer, nBodySize, usMode, szHrb );
-         hb_xfree( pbyBuffer );
-      }
       hb_fileClose( pFile );
+
+      if( pBuffer )
+      {
+         pHrbBody = hb_hrbLoad( ( const char * ) pBuffer, nBodySize, usMode, szHrb );
+         hb_xfree( pBuffer );
+      }
+      else
+         hb_errRT_BASE( EG_CORRUPTION, 9998, NULL, HB_ERR_FUNCNAME, 0 );
    }
 
    return pHrbBody;

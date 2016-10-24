@@ -448,7 +448,7 @@ STATIC PROCEDURE ProcessBlock( aHandle, aContent, cFile, cType, cVersion, o )
             EXIT
          ENDIF
 
-      ELSEIF hb_BLen( cSectionName ) == 0
+      ELSEIF HB_ISNULL( cSectionName )
 
       ELSEIF o:IsField( cSectionName )
 
@@ -730,7 +730,7 @@ STATIC FUNCTION FReadLn( aHandle, /* @ */ cBuffer, nMaxLine )
 
    aHandle[ 2 ]++
 
-   RETURN nNumRead != 0
+   RETURN nNumRead > 0
 
 STATIC FUNCTION Decode( cType, hsBlock, cKey )
 
@@ -748,7 +748,7 @@ STATIC FUNCTION Decode( cType, hsBlock, cKey )
    CASE "STATUS"
       IF "," $ cCode .AND. hb_AScan( sc_hConstraint[ "status" ], Parse( cCode, "," ), , , .T. ) > 0
          cResult := ""
-         DO WHILE hb_BLen( cCode ) > 0
+         DO WHILE ! HB_ISNULL( cCode )
             cResult += hb_eol() + Decode( cType, hsBlock, Parse( @cCode, "," ) )
          ENDDO
          RETURN SubStr( cResult, Len( hb_eol() ) + 1 )
@@ -758,7 +758,7 @@ STATIC FUNCTION Decode( cType, hsBlock, cKey )
          RETURN sc_hConstraint[ "status" ][ idx ][ 2 ]
       ELSEIF Len( cCode ) > 1
          RETURN cCode
-      ELSEIF hb_BLen( cCode ) > 0
+      ELSEIF ! HB_ISNULL( cCode )
          RETURN "Unrecognized 'STATUS' code: '" + cCode + "'"
       ELSE
          RETURN ATail( sc_hConstraint[ "status" ] )[ 2 ]
@@ -767,7 +767,7 @@ STATIC FUNCTION Decode( cType, hsBlock, cKey )
    CASE "PLATFORMS"
       IF "," $ cCode .AND. hb_AScan( sc_hConstraint[ "platforms" ], Parse( cCode, "," ), , , .T. ) > 0
          cResult := ""
-         DO WHILE hb_BLen( cCode ) > 0
+         DO WHILE ! HB_ISNULL( cCode )
             cResult += hb_eol() + Decode( cType, hsBlock, Parse( @cCode, "," ) )
          ENDDO
          RETURN SubStr( cResult, Len( hb_eol() ) + 1 )
@@ -782,7 +782,7 @@ STATIC FUNCTION Decode( cType, hsBlock, cKey )
    CASE "COMPLIANCE"
       IF "," $ cCode .AND. hb_AScan( sc_hConstraint[ "compliance" ], Parse( cCode, "," ), , , .T. ) > 0
          cResult := ""
-         DO WHILE hb_BLen( cCode ) > 0
+         DO WHILE ! HB_ISNULL( cCode )
             cResult += hb_eol() + Decode( cType, hsBlock, Parse( @cCode, "," ) )
          ENDDO
          RETURN SubStr( cResult, Len( hb_eol() ) + 1 )
@@ -886,7 +886,7 @@ STATIC PROCEDURE ShowHelp( cExtraMessage, aArgs )
       aHelp := { ;
          cExtraMessage, ;
          "Harbour Document Compiler (hbdoc) " + HBRawVersion(), ;
-         "Copyright (c) 1999-2015, " + hb_Version( HB_VERSION_URL_BASE ), ;
+         "Copyright (c) 1999-2016, " + hb_Version( HB_VERSION_URL_BASE ), ;
          "", ;
          "Syntax:", ;
          "", ;
@@ -977,7 +977,7 @@ STATIC PROCEDURE AddErrorCondition( cFile, cMessage, nLine )
 
    RETURN
 
-FUNCTION Indent( cText, nLeftMargin, nWidth, lRaw )
+FUNCTION Indent( cText, nLeftMargin, nWidth, lRaw, lForceRaw )
 
    LOCAL cResult := ""
    LOCAL idx
@@ -986,6 +986,7 @@ FUNCTION Indent( cText, nLeftMargin, nWidth, lRaw )
    LOCAL aText := hb_ATokens( cText, .T. )
 
    hb_default( @lRaw, .F. )
+   hb_default( @lForceRaw, .F. )
 
    IF nWidth == 0 .OR. lRaw
       idx := 99999
@@ -999,7 +1000,7 @@ FUNCTION Indent( cText, nLeftMargin, nWidth, lRaw )
          ELSEIF cLine == "</table>"
             cResult += hb_eol()
             lRaw := .F.
-         ELSEIF lRaw
+         ELSEIF lRaw .OR. lForceRaw
             cResult += Space( nLeftMargin ) + LTrim( cLine ) + hb_eol()
          ELSE
             DO WHILE Len( cLine ) > nWidth
@@ -1043,7 +1044,7 @@ FUNCTION Indent( cText, nLeftMargin, nWidth, lRaw )
                cLine := LTrim( SubStr( cLine, idx + 1 ) )
             ENDDO
 
-            IF hb_BLen( cLine ) > 0
+            IF ! HB_ISNULL( cLine )
                cResult += Space( nLeftMargin ) + cLine + hb_eol()
             ENDIF
 
@@ -1062,11 +1063,7 @@ STATIC FUNCTION Filename( cFile, cFormat, nLength )
    LOCAL idx
    LOCAL char
 
-#ifdef __PLATFORM__DOS
-   hb_default( @nLength, 8 )
-#else
    hb_default( @nLength, 0 )
-#endif
 
    IF Lower( hb_defaultValue( cFormat, "alnum" ) ) == "alnum"
       FOR idx := 1 TO Len( cFile )
@@ -1085,9 +1082,6 @@ STATIC FUNCTION Filename( cFile, cFormat, nLength )
    IF hb_AScan( s_aFiles, cResult, , , .T. ) == 0
       AAdd( s_aFiles, cResult )
    ELSE
-#ifdef __PLATFORM__DOS
-      cResult := hb_StrShrink( cResult, 3 )
-#endif
       idx := 0
       DO WHILE hb_AScan( s_aFiles, cResult + StrZero( ++idx, 3 ), , , .T. ) > 0
       ENDDO

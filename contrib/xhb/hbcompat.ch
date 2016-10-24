@@ -275,13 +275,15 @@
    #xtranslate NextKey( [<x>] )                => hb_keyNext( <x> )
    #xtranslate Alert( [<x,...>] )              => hb_Alert( <x> )
 
-   #xtranslate Str( <x>, [<y>], [<y>], <z> )   => iif( <z>, hb_ntos( <x> ), Str( <x> ) )
+   #xtranslate Str( <x>, <n>, <d>, <l> )       => iif( <l>, LTrim( Str( <x>, <n>, <d> ) ), Str( <x>, <n>, <d> ) )
+   #xtranslate Str( <x>, <n>,, <l> )           => iif( <l>, LTrim( Str( <x>, <n> ) ), Str( <x>, <n> ) )
+   #xtranslate Str( <x>,,, <l> )               => iif( <l>, hb_ntos( <x> ), Str( <x> ) )
 
    #xuntranslate NetName(                      =>
    #xuntranslate MemoWrit(                     =>
 
    #xtranslate NetName( <n> )                  => iif( hb_defaultValue( <n>, 0 ) == 1, hb_UserName(), NetName() )
-   #xtranslate MemoWrit( <x>, <y>, <z> )       => iif( hb_defaultValue( <z>, T. ), MemoWrit( <x>, <y> ), hb_MemoWrit( <x>, <y> ) )
+   #xtranslate MemoWrit( <x>, <y>, <z> )       => iif( hb_defaultValue( <z>, .T. ), MemoWrit( <x>, <y> ), hb_MemoWrit( <x>, <y> ) )
 
    #xuntranslate AIns(                         =>
    #xuntranslate ADel(                         =>
@@ -325,9 +327,9 @@
             They are optimized by Harbour compiler the same way (and even
             more) as these C-like operators, without any bad side-effects. */
    #if defined( XHB_BITOP )
-      #translate ( <exp1> | <exp2> )      => hb_bitOr( <exp1>, <exp2> )
-      #translate ( <exp1> & <exp2> )      => hb_bitAnd( <exp1>, <exp2> )
-      #translate ( <exp1> ^^ <exp2> )     => hb_bitXor( <exp1>, <exp2> )
+      #translate ( <exp1> | <exp2> )      => xhb_bitOr( <exp1>, <exp2> )
+      #translate ( <exp1> & <exp2> )      => xhb_bitAnd( <exp1>, <exp2> )
+      #translate ( <exp1> ^^ <exp2> )     => xhb_bitXor( <exp1>, <exp2> )
    #endif
 
    #command @ <row>, <col> PROMPT <prompt> [ MESSAGE <msg> ] [ COLOR <color> ] => ;

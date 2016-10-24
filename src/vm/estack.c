@@ -534,11 +534,22 @@ PHB_SET_STRUCT hb_stackSetStruct( void )
 #undef hb_stackId
 void * hb_stackId( void )
 {
-   HB_STACK_TLS_PRELOAD
-
    HB_TRACE( HB_TR_DEBUG, ( "hb_stackId()" ) );
 
-   return ( void * ) &hb_stack;
+#if defined( HB_MT_VM )
+   if( hb_stack_ready() )
+   {
+      HB_STACK_TLS_PRELOAD
+      return ( void * ) &hb_stack;
+   }
+   else
+      return NULL;
+#else
+   {
+      HB_STACK_TLS_PRELOAD
+      return ( void * ) &hb_stack;
+   }
+#endif
 }
 
 #undef hb_stackPop
@@ -1199,6 +1210,23 @@ HB_ISIZ hb_stackBaseProcOffset( int iLevel )
       return nOffset;
    else
       return -1;
+}
+
+HB_ISIZ hb_stackBaseSymbolOffset( PHB_SYMB pSymbol )
+{
+   HB_STACK_TLS_PRELOAD
+   HB_ISIZ nOffset = hb_stack.pBase - hb_stack.pItems;
+
+   while( nOffset > 0 )
+   {
+      PHB_ITEM pItem = hb_stack.pItems[ nOffset ];
+      if( pItem->item.asSymbol.value == pSymbol ||
+          ( pSymbol->pDynSym != NULL &&
+            pItem->item.asSymbol.value->pDynSym == pSymbol->pDynSym ) )
+         return nOffset;
+      nOffset = pItem->item.asSymbol.stackstate->nBaseItem;
+   }
+   return -1;
 }
 
 void hb_stackBaseProcInfo( char * szProcName, HB_USHORT * puiProcLine )

@@ -1,0 +1,148 @@
+---
+layout: default
+---
+<h1>Overview</h1>
+<div>
+  <p>Harbour is the open/free software implementation of a cross-platform,
+  multi-threading, object-oriented, scriptable programming language, backwards
+  compatible with xBase languages. Harbour consists of a compiler and runtime
+  libraries with multiple UI, database and I/O backends, its own build system
+  and a collection of libraries and bindings for popular APIs.
+  With Harbour, you can build apps running on GNU/Linux, Windows (32/64-bit),
+  macOS, iOS, Android, *BSD, *nix, and more.
+  <a href="{{ site.baseurl }}/about" class="readmore">Read more</a>
+</div>
+
+{% if site.fork %}
+{% assign ppurl = 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=BPSZQYKXMQJYG' %}
+<h1 id="this-fork">This Fork</h1>
+<div><p>
+  This fork contains all <a href="https://harbour.github.io/">mainline</a>
+  updates as well as local fixes, additions, extra contribs, better tooling
+  and maintenance. <strong><a href="{{ ppurl }}">Donations</a> are welcome
+  and appreciated</strong> to support this effort. Fork modifications often
+  get retrofitted into the mainline version, making the benefits mutual.
+  <a href="{{ site.baseurl }}/forks" class="readmore">Read more</a>
+</div>
+{% endif %}
+
+<div class="why-box">
+  <div class="why-items">
+    <h1>Why use it?</h1>
+    <ul>
+      <li>Harbour is <strong>free software</strong>, 100% compatible with Clipper compilers.
+      <li>Harbour is proven to be <strong>stable</strong>, <strong>robust</strong> and <strong>efficient</strong>.
+      <li>Harbour is <strong>portable</strong> across multiple operating systems with the same code base.
+      <li>You can use it to develop either open source or commercial applications.
+        <a href="{{ site.baseurl }}/about#why-use-it" class="readmore">Read more</a>
+    </ul>
+  </div>
+  <div class="status-box">
+    <h1 id="project-status">Project Status</h1>
+    <p>
+{% if site.fork %}
+      <a href="https://travis-ci.org/vszakats/harbour-core"><img src="https://api.travis-ci.org/vszakats/harbour-core.svg?branch=master" height="20" alt="Build status"></a>&thinsp;
+      <a href="https://ci.appveyor.com/project/vsz/harbour-core/branch/master"><img src="https://ci.appveyor.com/api/projects/status/1kx6w3y6qasymah3/branch/master?svg=true" height="20" alt="Build Status"></a>
+{% else %}
+      <a href="https://travis-ci.org/harbour/core"><img src="https://travis-ci.org/harbour/core.svg?branch=master" height="20" alt="Build status"></a>&thinsp;
+{% endif %}
+      <br>
+      Latest stable:&nbsp;
+      <strong>3.0.0</strong>&nbsp;(2011-07-17)<br>
+{% if site.fork %}
+      Latest snapshot:&nbsp;
+      <strong>3.4.0dev</strong><br>
+{% endif %}
+      Source snapshot:&nbsp;
+      <a href="https://github.com/{{ site.repo_slug }}/archive/master.zip"><strong>ZIP</strong></a>&nbsp;
+      <a href="https://github.com/{{ site.repo_slug }}/archive/master.tar.gz"><strong>TAR.GZ</strong></a><br>
+{% if site.fork %}
+      Binary snapshot (Windows):&nbsp;
+      <a href="{{ site.dl_url }}/download/v3.4.0dev/harbour-snapshot-win.7z" tooltip-text="MinGW, 64-bit hosted, 32/64-bit targets, bundled with latest curl and OpenSSL libraries." class="tooltip"><strong>7Z</strong></a>
+{% else %}
+      Nightly binary (Win):&nbsp;
+      <a href="{{ site.dl_url }}binaries-windows/nightly/harbour-nightly-win.7z/download"><strong>7Z</strong></a>&nbsp;
+      <a href="{{ site.dl_url }}binaries-windows/nightly/harbour-nightly-win.exe/download"><strong>EXE</strong></a><br>
+{% endif %}
+    </p>
+    <span class="dl-button"><a href="{{ site.dl_url }}" class="readmore-norm">More downloads</a></span>
+  </div>
+</div>
+
+<div class="feature-box">
+  <h1>Features</h1>
+  <div>
+    <div>
+      <i class="fa fa-database feature-icon" aria-hidden="true"></i>
+      Native RDDs, SQL, ODBC
+    </div>
+    <div>
+      <i class="fa fa-cogs feature-icon" aria-hidden="true"></i>
+      Support for modern standards: JSON, SSL, TCP/IP, XML, …
+    </div>
+    <div>
+      <i class="fa fa-mobile feature-icon" aria-hidden="true"></i>
+      Cross-platform: 64-bit, mobile, Mac, Linux, BSD, ARM, …
+    </div>
+    <div>
+      <i class="fa fa-laptop feature-icon" aria-hidden="true"></i>
+      Console, TUI, GUI, service/daemon, web apps
+    </div>
+    <div>
+      <i class="fa fa-cubes feature-icon" aria-hidden="true"></i>
+      Third-party libs with additional features
+    </div>
+    <div>
+      <i class="fa fa-lightbulb-o feature-icon" aria-hidden="true"></i>
+      Team of experienced and capable developers
+    </div>
+  </div>
+</div>
+
+<div class="license-box">
+  <h1>License</h1>
+  <p>Harbour is a free and open-source project. It can be used to make open source
+  applications, free or commercial products.
+  <a href="https://raw.githubusercontent.com/{{ site.repo_slug }}/master/{{ site.license_file }}" class="readmore">Read more</a>
+</div>
+
+<div class="lower-box">
+  <div class="news-box">
+    <h1>Development News
+      &nbsp;<a href="https://github.com/{{ site.site_slug }}/edit/{{ site.site_branch_and_root }}_data/news.yml"><i class="fa fa-pencil" aria-hidden="true"></i></a></h1>
+    <hr>
+
+    <dl class="news">
+{% assign time_range = 7 | times: 365 | times: 86400 %}
+{% capture limit %}{{ site.time | date: '%s' | minus: time_range | date: '%F' }}{% endcapture %}
+{% for story in site.data.news %}
+{% capture itemd %}{{ story.date | date: '%F' }}{% endcapture %}
+{% if itemd >= limit %}
+{% if story.text %}
+      <dt>{{ story.date }}
+      <dd><strong>{{ story.title }}</strong>
+        <p>{{ story.text }}
+{% endif %}
+{% endif %}
+{% endfor %}
+      <dd>See the <a href="{{ site.baseurl }}/news">news archive</a> for past articles.
+    </dl>
+  </div>
+
+  <aside class="miniexample-box">
+    <h2>Code Examples</h2>
+    <hr>
+    <dl class="miniexample">
+{% assign selection = "hello|foreach|parseini|tbrowse|onidle" | split: "|" %}
+{% assign examples_sorted = site.example | sort: 'slug' %}
+{% for selected_example in selection %}
+{% for example in examples_sorted %}
+{% if example.slug == selected_example %}
+      <dt><a href="{{ site.baseurl }}/example/{{ example.slug }}">{{ example.title_long }}</a>
+      <dd>{{ example.description }}
+{% endif %}
+{% endfor %}
+{% endfor %}
+    </dl>
+  </aside>
+</div>

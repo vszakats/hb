@@ -112,8 +112,7 @@ REQUEST gdImageChar
 #endif
 
 #define APP_NAME      "uhttpd"
-#define APP_VER_NUM   "0.4.4"
-#define APP_VERSION   APP_VER_NUM + APP_GD_SUPPORT + APP_DT_SUPPORT
+#define APP_VERSION   hb_Version() + APP_GD_SUPPORT + APP_DT_SUPPORT
 
 // default values - they can changes using line command switch or ini file
 
@@ -166,8 +165,8 @@ STATIC s_hActions := { ;
    "server-status"   => @Handler_ServerStatus() }
 
 STATIC s_hHandlers := { ;
-   "hrb"            => "hrb-script", ;
-   "exe"            => "cgi-script", ;
+   ".hrb"           => "hrb-script", ;
+   ".exe"           => "cgi-script", ;
    "/serverstatus"  => "server-status" }
 
 // STATIC s_lAcceptPathInfo   := .T.
@@ -395,7 +394,7 @@ PROCEDURE Main( ... )
    ENDIF
 
    IF HB_ISSTRING( cApplicationRoot )
-      IF Empty( cApplicationRoot )
+      IF HB_ISNULL( cApplicationRoot )
          cApplicationRoot := "." + hb_ps()
       ENDIF
       cI := cApplicationRoot
@@ -541,7 +540,7 @@ PROCEDURE Main( ... )
       WriteToConsole( "Starting main loop" )
 
       IF s_lConsole
-         hb_DispOutAt( 1, 5, hb_StrFormat( "%1$s - web server - v. %2$s", APP_NAME, APP_VERSION ) )
+         hb_DispOutAt( 1, 5, hb_StrFormat( "%1$s - web server - %2$s", APP_NAME, APP_VERSION ) )
          hb_DispOutAt( 4, 5, hb_StrFormat( "Server listening (Port: %1$d): ...", nPort ) )
          hb_DispOutAt( 10, 9, "Waiting." )
       ENDIF
@@ -1425,7 +1424,7 @@ STATIC PROCEDURE WriteToLog( cRequest )
       // hb_ToOutDebug( "tip_TimeStamp(): %s \n\r", tip_TimeStamp() )
 
       tDate    := hb_DateTime()
-      nSize    := Len( t_cResult )
+      nSize    := hb_BLen( t_cResult )
       cReferer := _SERVER[ "HTTP_REFERER" ]
 
       cAccess := _SERVER[ "REMOTE_ADDR" ] + " - - [" + ;
@@ -1728,7 +1727,7 @@ STATIC FUNCTION sendReply( hSocket, cSend )
    LOCAL nError := 0
    LOCAL nLen
 
-   DO WHILE hb_BLen( cSend ) > 0
+   DO WHILE ! HB_ISNULL( cSend )
       IF ( nLen := hb_socketSend( hSocket, cSend ) ) == -1
          ? "send() error:", hb_socketGetError()
          WriteToConsole( hb_StrFormat( "ServiceConnection() - send() error: %s, cSend: %s, hSocket: %s", hb_socketGetError(), cSend, hSocket ) )
@@ -1928,7 +1927,7 @@ STATIC FUNCTION uproc_default()
                ENDIF
             ENDDO
 
-            // hb_ToOutDebug( "Uscita: cBaseFile: %s, cPathInfo: %s\n\r", cBaseFile, cPathInfo )
+            // hb_ToOutDebug( "Output: cBaseFile: %s, cPathInfo: %s\n\r", cBaseFile, cPathInfo )
 
             // Found a script file name
             IF lFound .AND. ! Empty( cPathInfo )
@@ -2098,7 +2097,7 @@ STATIC FUNCTION HRB_LoadFromFileEncrypted( cFile, cKey )
 // Reverse function to save is:
 PROCEDURE HRB_SaveToFileEncrypted( cHrbBody, cKey, cEncFileName )
 
-   IF ! Empty( cHrbBody )
+   IF ! HB_ISNULL( cHrbBody )
       hb_MemoWrit( cEncFileName, sx_Encrypt( hb_ZCompress( cHrbBody ), cKey ) )
    ENDIF
 
@@ -2111,9 +2110,9 @@ STATIC FUNCTION HRB_LoadFromFile( cFile )
 STATIC PROCEDURE Help()
 
    ?
-   ? "(C) 2009 Francesco Saverio Giudice <info@fsgiudice.com>"
+   ? "Copyright (c) 2009, Francesco Saverio Giudice <info@fsgiudice.com>"
    ?
-   ? APP_NAME + " - web server - v. " + APP_VERSION
+   ? APP_NAME, "- web server -", APP_VERSION
    ? "Based on original work of Mindaugas Kavaliauskas <dbtopas@dbtopas.lt>"
    ?
    ? "Parameters: (all optionals)"
@@ -2494,7 +2493,7 @@ STATIC FUNCTION ErrorMessage( oError )
 
    // add either filename or operation
    DO CASE
-   CASE ! Empty( oError:filename )
+   CASE ! HB_ISNULL( oError:filename )
       cMessage += ": " + oError:filename
    CASE ! Empty( oError:operation )
       cMessage += ": " + oError:operation

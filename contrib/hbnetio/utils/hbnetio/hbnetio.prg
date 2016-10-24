@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA (or visit
- * their web site at https://www.gnu.org/).
+ * their website at https://www.gnu.org/).
  *
  */
 
@@ -29,6 +29,7 @@
          - sort out console UI from server side output
          - add support for subnet masks in allow/block lists, f.e. 172.16.0.0/12, and same for IPv6 */
 
+#include "fileio.ch"
 #include "inkey.ch"
 
 #include "hbhrb.ch"
@@ -220,7 +221,7 @@ PROCEDURE netiosrv_Main( lUI, ... )
       NIL, ;
       {| pConnectionSocket | netiosrv_callback( netiomgm, netiosrv, pConnectionSocket, .F. ) } )
 
-   netiosrv[ _NETIOSRV_lEncryption ] := ( cPassword != NIL .AND. hb_BLen( cPassword ) > 0 )
+   netiosrv[ _NETIOSRV_lEncryption ] := ( cPassword != NIL .AND. ! HB_ISNULL( cPassword ) )
    cPassword := NIL
 
    IF Empty( netiosrv[ _NETIOSRV_pListenSocket ] )
@@ -228,7 +229,7 @@ PROCEDURE netiosrv_Main( lUI, ... )
    ELSE
       netiosrv_LogEvent( "Ready to accept connections." )
 
-      IF cPasswordManagement != NIL .AND. hb_BLen( cPasswordManagement ) > 0
+      IF cPasswordManagement != NIL .AND. ! HB_ISNULL( cPasswordManagement )
 
          netiomgm[ _NETIOSRV_pListenSocket ] := netio_MTServer( ;
             netiomgm[ _NETIOSRV_nPort ], ;
@@ -283,7 +284,7 @@ PROCEDURE netiosrv_Main( lUI, ... )
       ENDIF
 
       /* Command prompt */
-      DO WHILE ! netiosrv[ _NETIOSRV_lQuit ] .AND. Inkey() != K_ESC
+      DO WHILE ! netiosrv[ _NETIOSRV_lQuit ] .AND. hb_keyStd( Inkey() ) != K_ESC
          hb_idleSleep( 5 )
       ENDDO
 
@@ -809,7 +810,7 @@ STATIC FUNCTION FileSig( cFile )
    LOCAL cBuff, cExt
 
    cExt := ".prg"
-   IF ( hFile := hb_vfOpen( cFile ) ) != NIL
+   IF ( hFile := hb_vfOpen( cFile, FO_READ ) ) != NIL
       cBuff := hb_vfReadLen( hFile, hb_BLen( hb_hrbSignature() ) )
       hb_vfClose( hFile )
       IF cBuff == hb_hrbSignature()
@@ -829,7 +830,7 @@ STATIC PROCEDURE HB_Logo()
 
    OutStd( ;
       "Harbour NETIO Server " + HBRawVersion() + hb_eol() + ;
-      "Copyright (c) 2009-2015, Przemyslaw Czerpak, Viktor Szakats" + hb_eol() + ;
+      "Copyright (c) 2009-2016, Przemyslaw Czerpak, Viktor Szakats" + hb_eol() + ;
       hb_Version( HB_VERSION_URL_BASE ) + hb_eol() + ;
       hb_eol() )
 

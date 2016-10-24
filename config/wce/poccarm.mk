@@ -5,10 +5,10 @@ LIB_EXT := .lib
 HB_DYN_COPT := -DHB_DYNLIB
 
 CC := pocc.exe
-CC_IN := -c
+CC_IN :=
 CC_OUT := -Fo
 
-CFLAGS += -I. -I$(HB_HOST_INC)
+CFLAGS += -I. -I$(HB_HOST_INC) -c
 # Required by pocc Windows headers
 CFLAGS += -D_WINCE
 
@@ -53,7 +53,7 @@ DFLAGS += -nologo -dll $(LIBPATHS)
 DY_OUT := $(LD_OUT)
 DLIBS := $(foreach lib,$(HB_USER_LIBS) $(LIBS) $(SYSLIBS),$(lib)$(LIB_EXT))
 
-# NOTE: The empty line directly before 'endef' HAVE TO exist!
+# NOTE: The empty line directly before 'endef' HAS TO exist!
 define dynlib_object
    @$(ECHO) $(ECHOQUOTE)$(file)$(ECHOQUOTE) >> __dyn__.tmp
 

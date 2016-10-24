@@ -268,6 +268,9 @@
 #define HB_CURLOPT_SERVICE_NAME               221
 #define HB_CURLOPT_PIPEWAIT                   222
 #define HB_CURLOPT_DEFAULT_PROTOCOL           223
+#define HB_CURLOPT_CONNECT_TO                 224
+#define HB_CURLOPT_TCP_FASTOPEN               225
+#define HB_CURLOPT_KEEP_SENDING_ON_ERROR      226
 #define HB_CURLOPT_DOWNLOAD                   1001  /* Harbour special ones */
 #define HB_CURLOPT_XFERINFOBLOCK              1002
 #define HB_CURLOPT_UL_FILE_SETUP              1003
@@ -280,7 +283,7 @@
 #define HB_CURLOPT_UL_NULL_SETUP              1010
 #define HB_CURLOPT_HTTPPOST_CONTENT           1013
 #define HB_CURLOPT_HTTPPOST_FORM              1014
-#define HB_CURLOPT_PROGRESSBLOCK              HB_CURLOPT_XFERINFOBLOCK
+#define HB_CURLOPT_DEBUGBLOCK                 1015
 /* Compatibility ones. Please don't use these. */
 #define HB_CURLOPT_UL_FHANDLE_SETUP           HB_CURLOPT_UL_FILE_SETUP
 #define HB_CURLOPT_SETUPLOADFILE              HB_CURLOPT_UL_FILE_SETUP
@@ -288,7 +291,8 @@
 #define HB_CURLOPT_DL_FHANDLE_SETUP           HB_CURLOPT_DL_FILE_SETUP
 #define HB_CURLOPT_SETDOWNLOADFILE            HB_CURLOPT_DL_FILE_SETUP
 #define HB_CURLOPT_CLOSEDOWNLOADFILE          HB_CURLOPT_DL_FILE_CLOSE
-#define HB_CURLOPT_SETPROGRESS                HB_CURLOPT_PROGRESSBLOCK
+#define HB_CURLOPT_SETPROGRESS                HB_CURLOPT_XFERINFOBLOCK
+#define HB_CURLOPT_PROGRESSBLOCK              HB_CURLOPT_XFERINFOBLOCK
 
 /* HB_CURLOPT_PROXYTYPE option */
 #define HB_CURLPROXY_HTTP                     0  /* added in 7.10 */
@@ -322,11 +326,13 @@
 #define HB_CURLAUTH_GSSNEGOTIATE              HB_CURLAUTH_NEGOTIATE
 
 /* HB_CURLOPT_HTTP_VERSION option */
-#define HB_CURL_HTTP_VERSION_NONE             0  /* setting this means we don't care, and that we'd like the library to choose the best possible for us! */
-#define HB_CURL_HTTP_VERSION_1_0              1  /* please use HTTP 1.0 in the request */
-#define HB_CURL_HTTP_VERSION_1_1              2  /* please use HTTP 1.1 in the request */
-#define HB_CURL_HTTP_VERSION_2_0              3  /* please use HTTP 2.0 in the request */
-#define HB_CURL_HTTP_VERSION_2                HB_CURL_HTTP_VERSION_2_0
+#define HB_CURL_HTTP_VERSION_NONE               0  /* setting this means we don't care, and that we'd like the library to choose the best possible for us! */
+#define HB_CURL_HTTP_VERSION_1_0                1  /* please use HTTP 1.0 in the request */
+#define HB_CURL_HTTP_VERSION_1_1                2  /* please use HTTP 1.1 in the request */
+#define HB_CURL_HTTP_VERSION_2_0                3  /* please use HTTP 2.0 in the request */
+#define HB_CURL_HTTP_VERSION_2                  HB_CURL_HTTP_VERSION_2_0
+#define HB_CURL_HTTP_VERSION_2TLS               4
+#define HB_CURL_HTTP_VERSION_2_PRIOR_KNOWLEDGE  5
 
 /* HB_CURLOPT_USE_SSL option */
 #define HB_CURLUSESSL_NONE                    0  /* do not attempt to use SSL */
@@ -491,6 +497,7 @@
 #define HB_CURLINFO_LOCAL_IP                  41
 #define HB_CURLINFO_LOCAL_PORT                42
 #define HB_CURLINFO_ACTIVESOCKET              43
+#define HB_CURLINFO_HTTP_VERSION              44
 
 /* curl result codes. */
 
@@ -503,7 +510,8 @@
 #define HB_CURLE_COULDNT_RESOLVE_PROXY        5  /* */
 #define HB_CURLE_COULDNT_RESOLVE_HOST         6  /* */
 #define HB_CURLE_COULDNT_CONNECT              7  /* */
-#define HB_CURLE_FTP_WEIRD_SERVER_REPLY       8  /* */
+#define HB_CURLE_WEIRD_SERVER_REPLY           8  /* */
+#define HB_CURLE_FTP_WEIRD_SERVER_REPLY       HB_CURLE_WEIRD_SERVER_REPLY
 #define HB_CURLE_REMOTE_ACCESS_DENIED         9  /* a service was denied by the server due to lack of access - when login fails this is not returned. */
 #define HB_CURLE_OBSOLETE10                   10 /* NOT USED */
 #define HB_CURLE_FTP_WEIRD_PASS_REPLY         11 /* */
@@ -609,5 +617,14 @@
 /* HB_CURLOPT_HTTPPOST_FORM type */
 #define HB_CURLOPT_HTTPPOST_FORM_CONTENT      1
 #define HB_CURLOPT_HTTPPOST_FORM_FILE         2
+
+/* HB_CURLOPT_DEBUGBLOCK callback modes */
+#define HB_CURLINFO_TEXT                      0
+#define HB_CURLINFO_HEADER_IN                 1
+#define HB_CURLINFO_HEADER_OUT                2
+#define HB_CURLINFO_DATA_IN                   3
+#define HB_CURLINFO_DATA_OUT                  4
+#define HB_CURLINFO_SSL_DATA_IN               5
+#define HB_CURLINFO_SSL_DATA_OUT              6
 
 #endif /* HBCURL_CH_ */

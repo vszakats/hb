@@ -45,7 +45,7 @@
  */
 
 /* Class(y) documentation is located at:
-   http://www.x-hacker.org/ng/classy/ngdebc.html */
+   https://harbour.github.io/ng/classy/menu.html */
 
 #include "hbclass.ch"
 

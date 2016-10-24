@@ -21,7 +21,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA (or visit
- * their web site at https://www.gnu.org/).
+ * their website at https://www.gnu.org/).
  *
  */
 
@@ -273,7 +273,7 @@ extern void yyerror( HB_COMP_DECL, const char * );     /* parsing error manageme
    We cannot use destructors for expressions. The internal bison logic cannot
    detect properly if the expression was used or not in our grammar definition
    so it's possible that destructors will never be executed or executed for
-   expressions which we freed ourself.
+   expressions which we freed ourselves.
 
 %destructor {
                HB_COMP_EXPR_FREE( $$ );
@@ -467,7 +467,7 @@ Statement  : ExecFlow CrlfStmnt
 CompTimeStr : LITERAL {
                if( $1.dealloc )
                {
-                  $1.string = ( char * ) hb_compIdentifierNew( HB_COMP_PARAM, $1.string, HB_IDENT_FREE );
+                  $1.string = ( char * ) HB_UNCONST( hb_compIdentifierNew( HB_COMP_PARAM, $1.string, HB_IDENT_FREE ) );
                   $1.dealloc = HB_FALSE;
                }
                hb_compModuleAdd( HB_COMP_PARAM, $1.string, HB_FALSE );

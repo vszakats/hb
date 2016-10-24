@@ -7,7 +7,7 @@
 
 -cflag=-Zm200{wce&allmsvc}
 
--mt
+{!__HB_MT='no'}-mt
 
 hbmk2.prg
 
@@ -19,12 +19,13 @@ hbmk2.prg
 
 -DHBMK_WITH_BUILTIN_HEADERS_ALL
 
--lhbpmcom{dos}
+-lhbdossrl{dos}
 
 # not using these together with .rc input, because some compilers (mingw)
 # do not support multiple .rc inputs
 #-icon={allwin}../../package/harbour.ico
-hbmk2.rc{!HBMK_GENERIC}
+-resflag=-D_HB_INCLUDE_ICON
+../../package/harbour.hbc{!HBMK_GENERIC}
 
 # localization
 po/hbmk2.%{hb_lng}.po

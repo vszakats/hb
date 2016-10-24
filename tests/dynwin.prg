@@ -17,8 +17,7 @@ PROCEDURE Main()
 
    ? "MsgBox:", hb_DynCall( { "MessageBoxA", "user32.dll", HB_DYN_CALLCONV_STDCALL }, 0, "Hello world!", "Harbour sez", 0 /* MB_OK */ )
 
-   hLib := hb_libLoad( "libcurl.dll" )
-   IF ! Empty( hLib )
+   IF ! Empty( hLib := hb_libLoad( "libcurl.dll" ) )
       ? hb_DynCall( { "curl_version", hLib, HB_DYN_CTYPE_CHAR_PTR } )
       hb_libFree( hLib )
       ? hb_DynCall( { "curl_version", "libcurl.dll", HB_DYN_CTYPE_CHAR_PTR } )
@@ -45,31 +44,31 @@ PROCEDURE Main()
    ? "ValType( hLib ):", ValType( hLib )
    ? "---"
    cData := Space( MAX_PATH )
-   ? "HB_DYNCALL (BOOL retval):", hb_DynCall( { "SHGetSpecialFolderPathA", hLib, hb_bitOr( HB_DYN_CALLCONV_STDCALL, HB_DYN_CTYPE_BOOL ) }, 0, @cData, CSIDL_APPDATA, 0 )
+   ? "hb_DynCall()  (BOOL retval):", hb_DynCall( { "SHGetSpecialFolderPathA", hLib, hb_bitOr( HB_DYN_CALLCONV_STDCALL, HB_DYN_CTYPE_BOOL ) }, 0, @cData, CSIDL_APPDATA, 0 )
    ? "@cData:", cData, "<"
    ? "---"
    ? "HB_DYNCALL:", hb_DynCall( { "SHGetFolderPathA", hLib, HB_DYN_CALLCONV_STDCALL }, 0, CSIDL_ADMINTOOLS, 0, 0, cData ) // WRONG
    ? "cData:", cData, "<"
    ? "---"
    cData := Space( MAX_PATH )
-   ? "HB_DYNCALL (PARAMS):", hb_DynCall( { "SHGetSpecialFolderPathA", hLib, HB_DYN_CALLCONV_STDCALL, NIL, NIL, NIL, HB_DYN_CTYPE_BOOL }, 0, @cData, CSIDL_APPDATA, 0 )
+   ? "hb_DynCall()  (PARAMS):", hb_DynCall( { "SHGetSpecialFolderPathA", hLib, HB_DYN_CALLCONV_STDCALL, NIL, NIL, NIL, HB_DYN_CTYPE_BOOL }, 0, @cData, CSIDL_APPDATA, 0 )
    ? "@cData:", cData, "<"
    ? "---"
    cData := Space( MAX_PATH )
-   ? "HB_DYNCALL @ASCII:", hb_DynCall( { "SHGetFolderPathA", hLib, HB_DYN_CALLCONV_STDCALL }, 0, CSIDL_ADMINTOOLS, 0, 0, @cData )
+   ? "hb_DynCall()  @ASCII:", hb_DynCall( { "SHGetFolderPathA", hLib, HB_DYN_CALLCONV_STDCALL }, 0, CSIDL_ADMINTOOLS, 0, 0, @cData )
    ? "@cData:", cData, "<"
    ? "---"
    cData := Space( MAX_PATH )
-   ? "HB_DYNCALL @UTF16:", hb_DynCall( { "SHGetFolderPathW", hLib, HB_DYN_CALLCONV_STDCALL + HB_DYN_ENC_UTF16 }, 0, CSIDL_ADMINTOOLS, 0, 0, @cData )
+   ? "hb_DynCall()  @UTF16:", hb_DynCall( { "SHGetFolderPathW", hLib, HB_DYN_CALLCONV_STDCALL + HB_DYN_ENC_UTF16 }, 0, CSIDL_ADMINTOOLS, 0, 0, @cData )
    ? "@cData:", cData, "<"
    ? "---"
    cData := Space( MAX_PATH )
-   ? "HB_DYNCALL @UTF16 + psz:", hb_DynCall( { "SHGetFolderPathW", hLib, HB_DYN_CALLCONV_STDCALL + HB_DYN_ENC_UTF16 + HB_DYC_OPT_NULLTERM }, 0, CSIDL_ADMINTOOLS, 0, 0, @cData )
+   ? "hb_DynCall()  @UTF16 + psz:", hb_DynCall( { "SHGetFolderPathW", hLib, HB_DYN_CALLCONV_STDCALL + HB_DYN_ENC_UTF16 + HB_DYC_OPT_NULLTERM }, 0, CSIDL_ADMINTOOLS, 0, 0, @cData )
    ? "@cData:", cData, "<"
    ? "---"
    cData := Space( MAX_PATH )
    ? "cData BEFORE:", cData, "<"
-   ? "HB_DYNCALL (MISSING @):", hb_DynCall( { "SHGetFolderPathA", hLib, HB_DYN_CALLCONV_STDCALL }, 0, CSIDL_ADMINTOOLS, 0, 0, cData )
+   ? "hb_DynCall()  (MISSING @):", hb_DynCall( { "SHGetFolderPathA", hLib, HB_DYN_CALLCONV_STDCALL }, 0, CSIDL_ADMINTOOLS, 0, 0, cData )
    ? "cData AFTER:", cData, "<"
    ? "---"
    hb_libFree( hLib )

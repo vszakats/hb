@@ -50,7 +50,7 @@
 #include "hbgtwvw.h"
 
 /* wvw_pbCreate( [nWinNum], nTop, nLeft, nBottom, nRight, cText, cImage/nImage, bBlock, aOffset, ;
- *               nStretchBitmap, lMap3Dcolors )
+ *               nStretchBitmap, lMap3Dcolors, @hControl, nStyle )
  * create pushbutton for window nWinNum
  * nTop: row of top/left corner (in character unit)
  * nLeft: col of top/left corner (in character unit)
@@ -116,7 +116,7 @@ HB_FUNC( WVW_PBCREATE )
                                         iOffTop, iOffLeft, iOffBottom, iOffRight,
                                         HB_ISNUM( 10 ) ? hb_parnd( 10 ) : 1 /* dStretch */,
                                         hb_parl( 11 ) /* bMap3Dcolors */,
-                                        BS_PUSHBUTTON, &hWnd ) );
+                                        BS_PUSHBUTTON | hb_parni( 13 ) /* nStyle */, &hWnd ) );
 
       hb_strfree( hCaption );
    }

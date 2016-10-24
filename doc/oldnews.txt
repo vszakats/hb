@@ -282,7 +282,7 @@ Core
   Harbour help screen.
 - Added support for reading FoxPro .mem files - Clipper compatibility.
 - Fixed very old bug which disabled writing to .mem files strings
-  longer then 32Kb.
+  longer then 32 KiB.
 - hbrun now accepts .dbf file as paramater, which it will open after startup.
 - hbrun now accepts -v option which makes it display its own version after
   startup.
@@ -884,7 +884,7 @@ Portability
 - added support for shared libraries (.sl) in HPUX builds
 - added large file support (64-bit) in HPUX builds
 - disabled in default BSD* builds DOS/Windows DENY_* flags emulation
-  implemented by BSD locks - tests on FreeBSD 6.2 and MacOSX shows
+  implemented by BSD locks - tests on FreeBSD 6.2 and OS X shows
   that it badly interacts with POSIX locks and it's possible to create
   deadlock.
 
@@ -1454,7 +1454,7 @@ RDD
 - Rewritten DBFNTX, now it supports in practice all CDX features with
   multi tags and many others. With rddInfo() some important new
   features in DBFNTX can be enabled like increased maximum NTX file
-  size up to 4TB, support structural/autoopen indexes, bounding record
+  size up to 4 TiB, support structural/autoopen indexes, bounding record
   number with index key (like in CDX format what resaolves the
   performance problem with indexes which have a lot of non unique
   keys, etc.)
@@ -1504,7 +1504,7 @@ Contrib
 - ADS: Added ADSCDX, ADSNTX and ADT RDDs. ADS RDD should not be longer
   used, it's only for backward compatibility.
 - ADS: Call AdsFlushFileBuffers() only when _SET_HARDCOMMIT is set.
-- ADS: Added possibility to save memo fields > 64K.
+- ADS: Added possibility to save memo fields > 64 KiB.
 - ADS: Added support for relations in ADS* RDDs which are not
   supported directly by ADS or are for other non ADS* tables.
 - ADS: Synced base RDD with xHarbour.
@@ -1602,7 +1602,7 @@ The runtime modules
 - Added Spanish Modern codepage
 - Synced HB CDP API with xHarbour - added basic Unicode support
 - Added functions hb_fsLockLarge() and hb_fsSeekLarge() which uses 64-bit
-  offsets in filesys.c for files larger than 2Gb
+  offsets in filesys.c for files larger than 2GB
 
 RDD
 ---
@@ -1621,7 +1621,7 @@ General
 -------
 - Updated build process for Debian Linux distribution (.deb) packages.
   Now hb* scripts and shared libs are created by standard make install
-- Added support for Solaris (SunOS) and Darwin (Mac OS X).
+- Added support for Solaris (SunOS) and Darwin (OS X).
 - Added support for Hewlett Packard Unix (HP_UX) and ALPHA DEC.
 - Many adds and fix in compilation scripts on all platforms.
 - Fixed some error messages
@@ -2236,7 +2236,7 @@ Version 0.23 Alpha Build 23 (1999-05-19)
 ----------------------------------------------------------------------
 Version 0.21-2 Alpha Build 21-2 (1999-05-13)
 
-- 32 bits OBJ's generation
+- 32-bit OBJ's generation
 - More Clipper language compatibility
 - New object oriented features
 
@@ -2320,7 +2320,7 @@ OpenClipper #9 Alpha build 9 (1999-04-01)
 - Bison 1.24 is used now instead of byacc as byacc were returning
   a 'Out of space' error (parser execution is faster now!)
 - We are linking using huge memory model now cause DGROUP was already
-  over 64Kb
+  over 64 KiB
 
 ----------------------------------------------------------------------
 OpenClipper #8 Alpha build 8 (1999-03-29)

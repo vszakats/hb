@@ -88,6 +88,7 @@
  * hb_socketWrite( hSocket, cBuffer, [ nLen = Len( cBuffer ) ], [ nTimeout = FOREVER ] ) --> nBytesWritten
  * hb_socketFlush( hSocket, [ nTimeout = FOREVER ], [ lSync ] ) --> nBytesLeft
  * hb_socketAutoFlush( hSocket, [ nNewSetting ] ) --> nPrevSetting
+ * hb_socketAutoShutdown( hSocket, [ lNewSetting ] ) --> lPrevSetting
  */
 
 /* this has to be declared before hbsocket.h is included */
@@ -443,6 +444,20 @@ void hb_sockexItemClear( PHB_ITEM pItem )
       *pSockPtr = NULL;
 }
 
+HB_BOOL hb_sockexItemReplace( PHB_ITEM pItem, PHB_SOCKEX pSock )
+{
+   PHB_SOCKEX * pSockPtr = ( PHB_SOCKEX * ) hb_itemGetPtrGC( pItem, &s_gcSocketFuncs );
+
+   if( pSockPtr )
+   {
+      if( *pSockPtr )
+         hb_sockexClose( *pSockPtr, HB_FALSE );
+      *pSockPtr = pSock;
+      return HB_TRUE;
+   }
+   return HB_FALSE;
+}
+
 HB_BOOL hb_sockexItemSetFilter( PHB_ITEM pItem, const char * pszFilter, PHB_ITEM pParams )
 {
    PHB_SOCKEX * pSockPtr = ( PHB_SOCKEX * ) hb_itemGetPtrGC( pItem, &s_gcSocketFuncs );
@@ -565,8 +580,11 @@ PHB_SOCKEX hb_sockexNew( HB_SOCKET sd, const char * pszFilter, PHB_ITEM pParams 
                                pFilters[ i ]->Next( pSock, pParams );
          if( pSockNew == NULL )
          {
-            hb_sockexClose( pSock, HB_FALSE );
-            pSock = NULL;
+            if( pSock )
+            {
+               hb_sockexClose( pSock, HB_FALSE );
+               pSock = NULL;
+            }
             break;
          }
          pSock = pSockNew;
@@ -781,21 +799,21 @@ void hb_socekxParamsGetStd( PHB_ITEM pParams,
           HB_IS_STRING( pItem ) )
       {
          *pKeydata = hb_itemGetCPtr( pItem );
-         *pKeylen  = hb_itemGetCLen( pItem );
+         *pKeylen  = ( int ) hb_itemGetCLen( pItem );
       }
       else if( pKeydata && pKeylen &&
                ( pItem = hb_hashGetCItemPtr( pParams, "pass" ) ) != NULL &&
                HB_IS_STRING( pItem ) )
       {
          *pKeydata = hb_itemGetCPtr( pItem );
-         *pKeylen  = hb_itemGetCLen( pItem );
+         *pKeylen  = ( int ) hb_itemGetCLen( pItem );
       }
       if( pIV && pIVlen &&
           ( pItem = hb_hashGetCItemPtr( pParams, "iv" ) ) != NULL &&
           HB_IS_STRING( pItem ) )
       {
          *pIV    = hb_itemGetCPtr( pItem );
-         *pIVlen = hb_itemGetCLen( pItem );
+         *pIVlen = ( int ) hb_itemGetCLen( pItem );
       }
       if( pLevel &&
           ( pItem = hb_hashGetCItemPtr( pParams, "zlib" ) ) != NULL &&
@@ -1479,5 +1497,17 @@ HB_FUNC( HB_SOCKETAUTOFLUSH )
       hb_retni( hb_sockexGetAutoFlush( pSock ) );
       if( HB_ISNUM( 2 ) )
          hb_sockexSetAutoFlush( pSock, hb_parni( 2 ) );
+   }
+}
+
+HB_FUNC( HB_SOCKETAUTOSHUTDOWN )
+{
+   PHB_SOCKEX pSock = hb_sockexParam( 1 );
+
+   if( pSock )
+   {
+      hb_retl( hb_sockexGetShutDown( pSock ) );
+      if( HB_ISLOG( 2 ) )
+         hb_sockexSetShutDown( pSock, hb_parl( 2 ) );
    }
 }

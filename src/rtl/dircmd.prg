@@ -47,6 +47,7 @@
 #pragma -gc0
 
 #include "directry.ch"
+#include "fileio.ch"
 
 #define _DIR_HEADER  1
 
@@ -60,7 +61,7 @@ PROCEDURE __Dir( cFileMask )
       cFileMask := AllTrim( cFileMask )
    ENDIF
 
-   IF hb_BLen( cFileMask ) == 0
+   IF HB_ISNULL( cFileMask )
 
       /* NOTE: Although Cl*pper has this string in the national language
                module, it will not use it from there.
@@ -77,7 +78,7 @@ PROCEDURE __Dir( cFileMask )
              {| aDirEntry | PutDbf( aDirEntry ) } )
    ELSE
       hb_FNameSplit( cFileMask, @cPath, @cName, @cExt )
-      IF hb_BLen( cPath ) == 0
+      IF HB_ISNULL( cPath )
          cPath := Set( _SET_DEFAULT )
       ENDIF
 
@@ -102,7 +103,7 @@ STATIC PROCEDURE PutDBF( aDirEntry )
    LOCAL nRecCount := 0
    LOCAL dLastUpdate := hb_SToD()
 
-   IF ( hFile := hb_vfOpen( aDirEntry[ F_NAME ] ) ) != NIL
+   IF ( hFile := hb_vfOpen( aDirEntry[ F_NAME ], FO_READ ) ) != NIL
 
       buffer := hb_vfReadLen( hFile, 8 )
 

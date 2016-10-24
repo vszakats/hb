@@ -93,7 +93,7 @@ static int s_macroFlags = HB_SM_DEFAULT;
 
 #define HB_SM_ISUSERCP()         ( HB_CDP_ISCHARUNI( hb_vmCDP() ) ? HB_COMPFLAG_USERCP : 0 )
 
-/* ************************************************************************* */
+/* - */
 
 /* Compile passed string into a pcode buffer
  *
@@ -269,7 +269,7 @@ static char * hb_macroTextSubst( const char * szString, HB_SIZE * pnStringLen )
 
    pHead = ( char * ) memchr( szString, '&', *pnStringLen );
    if( pHead == NULL )
-      return ( char * ) szString;  /* no more processing is required */
+      return ( char * ) HB_UNCONST( szString );  /* no more processing is required */
 
    /* initial length of the string and the result buffer (it can contain null bytes) */
    nResBufLen = nResStrLen = *pnStringLen;
@@ -707,7 +707,7 @@ char * hb_macroExpandString( const char * szString, HB_SIZE nLength, HB_BOOL * p
    if( szString )
       szResultString = hb_macroTextSubst( szString, &nLength );
    else
-      szResultString = ( char * ) szString;
+      szResultString = ( char * ) HB_UNCONST( szString );
    *pfNewString = ( szString != szResultString );
    return szResultString;
 }
@@ -859,7 +859,7 @@ static void hb_macroSetGetBlock( PHB_DYNS pVarSym, PHB_ITEM pItem,
       bPushPcode = HB_P_MPUSHALIASEDFIELD;
       bPopPcode  = HB_P_MPOPALIASEDFIELD;
    }
-   else if( !fMemVar )
+   else if( ! fMemVar )
    {
       bPushPcode = HB_P_MPUSHFIELD;
       bPopPcode  = HB_P_MPOPFIELD;
@@ -1238,7 +1238,7 @@ HB_FUNC( HB_SETMACRO )
       hb_ret();    /* return NIL */
 }
 
-/* ************************************************************************* */
+/* - */
 
 /* returns the order + 1 of a variable if defined or zero */
 int hb_macroLocalVarGetPos( const char * szVarName, HB_COMP_DECL )
@@ -1788,7 +1788,7 @@ void hb_macroGenPCodeN( const HB_BYTE * pBuffer, HB_SIZE nSize, HB_COMP_DECL )
    pFunc->nPCodePos += nSize;
 }
 
-/* ************************************************************************* */
+/* - */
 
 void hb_macroError( int iError, HB_COMP_DECL )
 {
@@ -1796,9 +1796,7 @@ void hb_macroError( int iError, HB_COMP_DECL )
    HB_MACRO_DATA->status &= ~HB_MACRO_CONT;  /* clear CONT bit */
 }
 
-/*
- * Start a new pcode buffer for a codeblock
- */
+/* Start a new pcode buffer for a codeblock */
 void hb_macroCodeBlockStart( HB_COMP_DECL )
 {
    PHB_PCODE_INFO pCB;

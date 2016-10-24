@@ -48,21 +48,21 @@
 
 #include "gtqtc.h"
 
-static  int             s_GtId;
-static  HB_GT_FUNCS     SuperTable;
-#define HB_GTSUPER      (&SuperTable)
-#define HB_GTID_PTR     (&s_GtId)
+static  int                   s_GtId;
+static  HB_GT_FUNCS           SuperTable;
+#define HB_GTSUPER            ( &SuperTable )
+#define HB_GTID_PTR           ( &s_GtId )
 
-#define HB_GTQTC_GET(p) ( ( PHB_GTQTC ) HB_GTLOCAL( p ) )
+#define HB_GTQTC_GET( p )     ( static_cast< PHB_GTQTC >( HB_GTLOCAL( p ) ) )
 
 
 #if defined( HB_OS_UNIX )
-   #if ! defined( HB_QT_NEEDLOCKS )
-      #define HB_QT_NEEDLOCKS
-   #endif
-   #if ! defined( HB_XLIB_NEEDLOCKS )
-/*    #define HB_XLIB_NEEDLOCKS */
-   #endif
+#  if ! defined( HB_QT_NEEDLOCKS )
+#     define HB_QT_NEEDLOCKS
+#  endif
+#  if ! defined( HB_XLIB_NEEDLOCKS )
+/* #     define HB_XLIB_NEEDLOCKS */
+#  endif
 #endif
 
 #ifdef HB_QT_NEEDLOCKS
@@ -95,16 +95,25 @@ static void hb_gt_qtc_itemGetQString( PHB_ITEM pItem, QString * pqStr )
 
    if( ( wStr = hb_itemGetStrU16( pItem, HB_CDP_ENDIAN_NATIVE, &hStr, &nSize ) ) != NULL )
    {
-      * pqStr = QString::fromUtf16( ( const ushort * ) wStr, nSize );
+#if defined( HB_OS_WIN )
+      * pqStr = QString::fromWCharArray( wStr, nSize );
+#else
+      * pqStr = QString::fromUtf16( wStr, nSize );
+#endif
       hb_strfree( hStr );
    }
 }
 
 static PHB_ITEM hb_gt_qtc_itemPutQString( PHB_ITEM pItem, const QString * pqStr )
 {
+#if defined( HB_OS_WIN )
    return hb_itemPutStrLenU16( pItem, HB_CDP_ENDIAN_NATIVE,
-                               ( const HB_WCHAR * ) pqStr->constData(),
+                               reinterpret_cast< const HB_WCHAR * >( pqStr->utf16() ),
                                pqStr->size() );
+#else
+   return hb_itemPutStrLenU16( pItem, HB_CDP_ENDIAN_NATIVE,
+                               pqStr->utf16(), pqStr->size() );
+#endif
 }
 
 /* --- */
@@ -1330,7 +1339,7 @@ static PHB_GTQTC hb_gt_qtc_new( PHB_GT pGT )
 {
    PHB_GTQTC pQTC;
 
-   pQTC = ( PHB_GTQTC ) hb_xgrabz( sizeof( HB_GTQTC ) );
+   pQTC = static_cast< PHB_GTQTC >( hb_xgrabz( sizeof( HB_GTQTC ) ) );
    pQTC->pGT = pGT;
 
    pQTC->colors[  0 ] = BLACK;
@@ -1353,7 +1362,7 @@ static PHB_GTQTC hb_gt_qtc_new( PHB_GT pGT )
    pQTC->iRows         = QTC_DEFAULT_ROWS;
    pQTC->iCols         = QTC_DEFAULT_COLS;
 
-   pQTC->textLine      = ( QChar * ) hb_xgrab( pQTC->iCols * sizeof( QChar ) );
+   pQTC->textLine      = static_cast< QChar * >( hb_xgrab( pQTC->iCols * sizeof( QChar ) ) );
 
    pQTC->iNewPosX      = -1;
    pQTC->iNewPosY      = -1;
@@ -1545,8 +1554,8 @@ static HB_BOOL hb_gt_qtc_setWindowSize( PHB_GTQTC pQTC, int iRows, int iCols )
    if( HB_GTSELF_RESIZE( pQTC->pGT, iRows, iCols ) )
    {
       if( pQTC->iCols != iCols )
-         pQTC->textLine = ( QChar * ) hb_xrealloc( pQTC->textLine,
-                                                   iCols * sizeof( QChar ) );
+         pQTC->textLine = static_cast< QChar * >( hb_xrealloc( pQTC->textLine,
+                                                               iCols * sizeof( QChar ) ) );
 
       if( pQTC->qWnd && ( iRows != pQTC->iRows || iCols != pQTC->iCols ) )
          hb_gt_qtc_addKeyToInputQueue( pQTC, HB_K_RESIZE );
@@ -1636,7 +1645,7 @@ static void hb_gt_qtc_Init( PHB_GT pGT, HB_FHANDLE hFilenoStdin, HB_FHANDLE hFil
 {
    PHB_GTQTC pQTC;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_qtc_Init(%p,%p,%p,%p)", pGT, ( void * ) ( HB_PTRDIFF ) hFilenoStdin, ( void * ) ( HB_PTRDIFF ) hFilenoStdout, ( void * ) ( HB_PTRDIFF ) hFilenoStderr ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_qtc_Init(%p,%p,%p,%p)", pGT, ( void * ) ( HB_PTRUINT ) hFilenoStdin, ( void * ) ( HB_PTRUINT ) hFilenoStdout, ( void * ) ( HB_PTRUINT ) hFilenoStderr ) );
 
    if( ! s_qtapp )
    {
@@ -1664,7 +1673,7 @@ static void hb_gt_qtc_Init( PHB_GT pGT, HB_FHANDLE hFilenoStdin, HB_FHANDLE hFil
    }
 
    pQTC = hb_gt_qtc_new( pGT );
-   HB_GTLOCAL( pGT ) = ( void * ) pQTC;
+   HB_GTLOCAL( pGT ) = static_cast< void * >( pQTC );
 
    if( ! pQTC->qEventLoop )
       pQTC->qEventLoop = new QEventLoop();
@@ -1948,14 +1957,14 @@ static HB_BOOL hb_gt_qtc_Info( PHB_GT pGT, int iType, PHB_GT_INFO pInfo )
          pInfo->pResult = hb_itemPutNI( pInfo->pResult, pQTC->cellY * pQTC->iRows );
          iVal = hb_itemGetNI( pInfo->pNewVal );
          if( iVal > 0 )
-            HB_GTSELF_SETMODE( pGT, ( HB_USHORT ) ( iVal / pQTC->cellY ), pQTC->iCols );
+            HB_GTSELF_SETMODE( pGT, static_cast< HB_USHORT >( iVal / pQTC->cellY ), pQTC->iCols );
          break;
 
       case HB_GTI_SCREENWIDTH:
          pInfo->pResult = hb_itemPutNI( pInfo->pResult, pQTC->cellX * pQTC->iCols );
          iVal = hb_itemGetNI( pInfo->pNewVal );
          if( iVal > 0 )
-            HB_GTSELF_SETMODE( pGT, pQTC->iRows, ( HB_USHORT ) ( iVal / pQTC->cellX ) );
+            HB_GTSELF_SETMODE( pGT, pQTC->iRows, static_cast< HB_USHORT >( iVal / pQTC->cellX ) );
          break;
 
       case HB_GTI_DESKTOPWIDTH:
@@ -2287,7 +2296,7 @@ static HB_BOOL hb_gt_qtc_Info( PHB_GT pGT, int iType, PHB_GT_INFO pInfo )
                hb_gt_qtc_itemGetQString( pInfo->pNewVal, &qStr );
                qImg = QImage( qStr );
             }
-            else if( hb_arrayLen( pInfo->pNewVal ) == ( HB_SIZE )
+            else if( hb_arrayLen( pInfo->pNewVal ) == static_cast< HB_SIZE >
                      ( ( hb_arrayGetType( pInfo->pNewVal, 4 ) & HB_IT_NUMERIC ) ? 4 : 3 ) &&
                      ( hb_arrayGetType( pInfo->pNewVal, 1 ) & ( HB_IT_POINTER | HB_IT_STRING ) ) &&
                      ( hb_arrayGetType( pInfo->pNewVal, 2 ) & HB_IT_NUMERIC ) &&
@@ -2327,14 +2336,14 @@ static HB_BOOL hb_gt_qtc_Info( PHB_GT pGT, int iType, PHB_GT_INFO pInfo )
                      while( data == NULL && iPad >= 8 )
                      {
                         iPitch = ( iWidth * iDepth + iPad - 1 ) / iPad;
-                        if( nSize == ( HB_SIZE ) ( iHeight * iPitch ) )
-                           data = ( const uchar * ) hb_arrayGetCPtr( pInfo->pNewVal, 1 );
+                        if( nSize == static_cast< HB_SIZE >( iHeight * iPitch ) )
+                           data = reinterpret_cast< const uchar * >( hb_arrayGetCPtr( pInfo->pNewVal, 1 ) );
                         else
                            iPad >>= 1;
                      }
                   }
                   else
-                     data = ( const uchar * ) hb_arrayGetPtr( pInfo->pNewVal, 1 );
+                     data = reinterpret_cast< const uchar * >( hb_arrayGetPtr( pInfo->pNewVal, 1 ) );
                }
                if( data != NULL )
                {
@@ -2550,7 +2559,7 @@ HB_CALL_ON_STARTUP_END( _hb_startup_gt_Init_ )
 
 /* --- */
 
-QTConsole::QTConsole( PHB_GTQTC pStructQTC, QWidget *parent ) : QWidget( parent )
+QTConsole::QTConsole( PHB_GTQTC pStructQTC, QWidget *parnt ) : QWidget( parnt )
 {
    pQTC = pStructQTC;
 
@@ -2569,7 +2578,7 @@ QTConsole::QTConsole( PHB_GTQTC pStructQTC, QWidget *parent ) : QWidget( parent 
 
    /* Qt::WA_InputMethodEnabled disables support for
     * national characters in few European countries
-    * (f.e. Polish characters with ALT in MacOSX)
+    * (f.e. Polish characters with ALT in macOS)
     * If some Asian users needs it then we will have
     * to enable it optionally [druzus]
     */
@@ -2726,7 +2735,7 @@ void QTConsole::setImageSize( void )
    }
 }
 
-void QTConsole::resizeEvent( QResizeEvent * event )
+void QTConsole::resizeEvent( QResizeEvent * evt )
 {
    int iWidth  = width();
    int iHeight = height();
@@ -2749,7 +2758,7 @@ void QTConsole::resizeEvent( QResizeEvent * event )
       update();
    }
    else
-      QWidget::resizeEvent( event );
+      QWidget::resizeEvent( evt );
 }
 
 static QRect hb_gt_qtc_cellToPixel( PHB_GTQTC pQTC, const QRect & rc )
@@ -2806,7 +2815,7 @@ void QTConsole::copySelection( void )
 
          if( ! HB_GTSELF_GETSCRCHAR( pQTC->pGT, iRow, iCol, &iColor, &bAttr, &usChar ) )
             break;
-         qStr += ( QChar ) usChar;
+         qStr += QChar( usChar );
       }
       if( rc.height() > 1 )
          qStr += qStrEol;
@@ -2901,10 +2910,10 @@ void QTConsole::repaintChars( const QRect & rx )
    update( rx.translated( pQTC->marginLeft, pQTC->marginTop ) );
 }
 
-void QTConsole::paintEvent( QPaintEvent * event )
+void QTConsole::paintEvent( QPaintEvent * evt )
 {
    QPainter painter( this );
-   QRect rEvt = event->rect();
+   QRect rEvt = evt->rect();
 
    if( rEvt.left() < pQTC->marginLeft )
    {
@@ -2944,7 +2953,7 @@ void QTConsole::paintEvent( QPaintEvent * event )
       if( rSel.intersects( rEvt ) )
       {
 #if defined( HB_OS_DARWIN )
-         /* RasterOp operations are not supported in MacOSX */
+         /* RasterOp operations are not supported in macOS */
          rEvt &= rSel;
          image->invertPixels();
          painter.drawImage( rEvt, *image, rEvt.translated( -pQTC->marginLeft, -pQTC->marginTop ) );
@@ -2964,7 +2973,7 @@ void QTConsole::paintEvent( QPaintEvent * event )
       if( rEvt.intersects( rCrs ) )
       {
 #if defined( HB_OS_DARWIN )
-         /* RasterOp operations are not supported in MacOSX,
+         /* RasterOp operations are not supported in macOS,
           * use foreground cell color like hardware VGA cursor
           */
          HB_BYTE   bAttr;
@@ -2985,9 +2994,9 @@ void QTConsole::paintEvent( QPaintEvent * event )
    }
 }
 
-void QTConsole::timerEvent( QTimerEvent * event )
+void QTConsole::timerEvent( QTimerEvent * evt )
 {
-   if( event->timerId() == timer->timerId() )
+   if( evt->timerId() == timer->timerId() )
    {
       if( hasFocus() )
       {
@@ -2996,58 +3005,58 @@ void QTConsole::timerEvent( QTimerEvent * event )
       }
    }
    else
-      QWidget::timerEvent( event );
+      QWidget::timerEvent( evt );
 }
 
-void QTConsole::focusInEvent( QFocusEvent * event )
+void QTConsole::focusInEvent( QFocusEvent * evt )
 {
    hb_gt_qtc_addKeyToInputQueue( pQTC, HB_K_GOTFOCUS );
-   QWidget::focusInEvent( event );
+   QWidget::focusInEvent( evt );
 #if defined( HB_OS_ANDROID ) || defined( HB_OS_IOS ) || defined( HB_OS_WIN_CE )
    QEvent reqSIPevent( QEvent::RequestSoftwareInputPanel );
    QApplication::sendEvent( pQTC->qWnd, &reqSIPevent );
 #endif
 }
 
-void QTConsole::focusOutEvent( QFocusEvent * event )
+void QTConsole::focusOutEvent( QFocusEvent * evt )
 {
    hb_gt_qtc_addKeyToInputQueue( pQTC, HB_K_LOSTFOCUS );
-   QWidget::focusOutEvent( event );
+   QWidget::focusOutEvent( evt );
 }
 
-void QTConsole::mouseMoveEvent( QMouseEvent * event )
+void QTConsole::mouseMoveEvent( QMouseEvent * evt )
 {
    if( pQTC->fSelectCopy &&
-       ( event->buttons() & Qt::LeftButton ) &&
-       ( event->modifiers() & Qt::ShiftModifier ) )
+       ( evt->buttons() & Qt::LeftButton ) &&
+       ( evt->modifiers() & Qt::ShiftModifier ) )
    {
       if( ! selectMode )
       {
          selectMode = true;
-         selectRect.setCoords( event->x(), event->y(), event->x(), event->y() );
+         selectRect.setCoords( evt->x(), evt->y(), evt->x(), evt->y() );
          update( hb_gt_qtc_unmapRect( pQTC, hb_gt_qtc_mapRect( pQTC, image, selectRect ) ) );
       }
       else
       {
          QRect rSel1 = hb_gt_qtc_unmapRect( pQTC, hb_gt_qtc_mapRect( pQTC, image, selectRect ) );
-         selectRect.setBottomRight( event->pos() );
+         selectRect.setBottomRight( evt->pos() );
          QRect rSel2 = hb_gt_qtc_unmapRect( pQTC, hb_gt_qtc_mapRect( pQTC, image, selectRect ) );
          if( rSel1 != rSel2 )
             update( QRegion( rSel1 ).xored( QRegion( rSel2 ) ) );
       }
    }
 
-   hb_gt_qtc_setMouseKey( pQTC, event->x(), event->y(), 0, event->modifiers() );
+   hb_gt_qtc_setMouseKey( pQTC, evt->x(), evt->y(), 0, evt->modifiers() );
 }
 
-void QTConsole::wheelEvent( QWheelEvent * event )
+void QTConsole::wheelEvent( QWheelEvent * evt )
 {
    int iKey;
 
-   switch( event->orientation() )
+   switch( evt->orientation() )
    {
       case Qt::Vertical:
-         if( event->delta() < 0 )
+         if( evt->delta() < 0 )
             iKey = K_MWBACKWARD;
          else
             iKey = K_MWFORWARD;
@@ -3056,18 +3065,18 @@ void QTConsole::wheelEvent( QWheelEvent * event )
       case Qt::Horizontal:
          /* TODO? add support for horizontal wheels */
       default:
-         QWidget::wheelEvent( event );
+         QWidget::wheelEvent( evt );
          return;
    }
 
-   hb_gt_qtc_setMouseKey( pQTC, event->x(), event->y(), iKey, event->modifiers() );
+   hb_gt_qtc_setMouseKey( pQTC, evt->x(), evt->y(), iKey, evt->modifiers() );
 }
 
-void QTConsole::mouseDoubleClickEvent( QMouseEvent * event )
+void QTConsole::mouseDoubleClickEvent( QMouseEvent * evt )
 {
    int iKey;
 
-   switch( event->button() )
+   switch( evt->button() )
    {
       case Qt::LeftButton:
 #if defined( HB_OS_ANDROID ) || defined( HB_OS_IOS ) || defined( HB_OS_WIN_CE )
@@ -3080,26 +3089,26 @@ void QTConsole::mouseDoubleClickEvent( QMouseEvent * event )
          break;
 
       case Qt::RightButton:
-         iKey = K_RDBLCLK;;
+         iKey = K_RDBLCLK;
          break;
 
       case Qt::MidButton:
-         iKey = K_MDBLCLK;;
+         iKey = K_MDBLCLK;
          break;
 
       default:
-         QWidget::mouseDoubleClickEvent( event );
+         QWidget::mouseDoubleClickEvent( evt );
          return;
    }
 
-   hb_gt_qtc_setMouseKey( pQTC, event->x(), event->y(), iKey, event->modifiers() );
+   hb_gt_qtc_setMouseKey( pQTC, evt->x(), evt->y(), iKey, evt->modifiers() );
 }
 
-void QTConsole::mousePressEvent( QMouseEvent * event )
+void QTConsole::mousePressEvent( QMouseEvent * evt )
 {
    int iKey;
 
-   switch( event->button() )
+   switch( evt->button() )
    {
       case Qt::LeftButton:
          iKey = K_LBUTTONDOWN;
@@ -3114,18 +3123,18 @@ void QTConsole::mousePressEvent( QMouseEvent * event )
          break;
 
       default:
-         QWidget::mousePressEvent( event );
+         QWidget::mousePressEvent( evt );
          return;
    }
 
-   hb_gt_qtc_setMouseKey( pQTC, event->x(), event->y(), iKey, event->modifiers() );
+   hb_gt_qtc_setMouseKey( pQTC, evt->x(), evt->y(), iKey, evt->modifiers() );
 }
 
-void QTConsole::mouseReleaseEvent( QMouseEvent * event )
+void QTConsole::mouseReleaseEvent( QMouseEvent * evt )
 {
    int iKey;
 
-   switch( event->button() )
+   switch( evt->button() )
    {
       case Qt::LeftButton:
          iKey = K_LBUTTONUP;
@@ -3140,18 +3149,18 @@ void QTConsole::mouseReleaseEvent( QMouseEvent * event )
          break;
 
       default:
-         QWidget::mouseReleaseEvent( event );
+         QWidget::mouseReleaseEvent( evt );
          return;
    }
 
-   hb_gt_qtc_setMouseKey( pQTC, event->x(), event->y(), iKey, event->modifiers() );
+   hb_gt_qtc_setMouseKey( pQTC, evt->x(), evt->y(), iKey, evt->modifiers() );
 }
 
-bool QTConsole::event( QEvent * event )
+bool QTConsole::event( QEvent * evt )
 {
    if( resizeMode )
    {
-      switch( event->type() )
+      switch( evt->type() )
       {
          case QEvent::Enter:
          case QEvent::Leave:
@@ -3169,14 +3178,14 @@ bool QTConsole::event( QEvent * event )
       }
    }
 
-   return QWidget::event( event );
+   return QWidget::event( evt );
 }
 
-void QTConsole::inputMethodEvent( QInputMethodEvent * event )
+void QTConsole::inputMethodEvent( QInputMethodEvent * evt )
 {
    /* It's for SoftwareInputPanel in Andorid. */
 
-   QString qStr = event->commitString();
+   QString qStr = evt->commitString();
 
    if( qStr.size() > 0 )
    {
@@ -3185,28 +3194,29 @@ void QTConsole::inputMethodEvent( QInputMethodEvent * event )
          HB_WCHAR wc = qStr[ i ].unicode();
          hb_gt_qtc_addKeyToInputQueue( pQTC, HB_INKEY_NEW_UNICODE( wc ) );
       }
-      event->accept();
+      evt->accept();
    }
    else
-      QWidget::inputMethodEvent( event );
+      QWidget::inputMethodEvent( evt );
 }
 
-void QTConsole::keyReleaseEvent( QKeyEvent * event )
+void QTConsole::keyReleaseEvent( QKeyEvent * evt )
 {
-   if( selectMode && ( event->modifiers() & Qt::ShiftModifier ) == 0 )
+   if( selectMode && ( evt->modifiers() & Qt::ShiftModifier ) == 0 )
       copySelection();
 
-   QWidget::keyReleaseEvent( event );
+   QWidget::keyReleaseEvent( evt );
 }
 
-void QTConsole::keyPressEvent( QKeyEvent * event )
+void QTConsole::keyPressEvent( QKeyEvent * evt )
 {
-   int iKey = 0, iFlags = hb_gt_qtc_getKeyFlags( event->modifiers() ), iSize;
+   int iKey = 0, iFlags = hb_gt_qtc_getKeyFlags( evt->modifiers() ),
+       iSize;
 
    /* support for national characters */
-   if( ( iSize = event->text().size() ) > 0 )
+   if( ( iSize = evt->text().size() ) > 0 )
    {
-      QString qStr = event->text();
+      QString qStr = evt->text();
       HB_WCHAR wc = qStr[ 0 ].unicode();
 
       if( iSize > 1 || ( wc >= 32 && wc != 127 ) )
@@ -3220,13 +3230,17 @@ void QTConsole::keyPressEvent( QKeyEvent * event )
          for( i = 0; i < iSize; ++i )
          {
             wc = qStr[ i ].unicode();
-            hb_gt_qtc_addKeyToInputQueue( pQTC, HB_INKEY_NEW_UNICODEF( wc, iFlags ) );
+            hb_gt_qtc_addKeyToInputQueue( pQTC,
+                                          wc < 127 &&
+                                          ( iFlags & ( HB_KF_CTRL | HB_KF_ALT ) ) ?
+                                          HB_INKEY_NEW_KEY( wc, iFlags ) :
+                                          HB_INKEY_NEW_UNICODEF( wc, iFlags ) );
          }
          return;
       }
    }
 
-   switch( event->key() )
+   switch( evt->key() )
    {
       case Qt::Key_F1:
          iKey = HB_KX_F1;
@@ -3544,7 +3558,7 @@ void QTConsole::keyPressEvent( QKeyEvent * event )
    if( iKey != 0 )
       hb_gt_qtc_addKeyToInputQueue( pQTC, HB_INKEY_NEW_KEY( iKey, iFlags ) );
    else
-      QWidget::keyPressEvent( event );
+      QWidget::keyPressEvent( evt );
 }
 
 /* --- */
@@ -3595,14 +3609,14 @@ QTCWindow::~QTCWindow( void )
    delete qConsole;
 }
 
-void QTCWindow::closeEvent( QCloseEvent * event )
+void QTCWindow::closeEvent( QCloseEvent * evt )
 {
    if( qConsole->pQTC->iCloseMode == 0 )
       hb_vmRequestQuit();
    else
       hb_gt_qtc_addKeyToInputQueue( qConsole->pQTC, HB_K_CLOSE );
 
-   event->ignore();
+   evt->ignore();
 }
 
 void QTCWindow::setWindowSize( void )

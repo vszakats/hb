@@ -284,6 +284,7 @@
    Visual Studio 2012, version 11.0        1700
    Visual Studio 2013, version 12.0        1800
    Visual Studio 2015, version 14.0        1900
+   Visual Studio "15", version 15.0        2000
 */
 
 /* ***********************************************************************
@@ -527,6 +528,22 @@
    #define HB_EXTERN_C
    #define HB_EXTERN_BEGIN
    #define HB_EXTERN_END
+#endif
+
+#if defined( __GNUC__ )
+   #define HB_GCC_VER  ( ( ( __GNUC__ - 0 ) * 100 ) + ( __GNUC_MINOR__ - 0 ) )
+#  if HB_GCC_VER >= 406
+      #define HB_GCC_HAS_DIAG
+#  else
+      #undef HB_GCC_HAS_DIAG
+#  endif
+#  if HB_GCC_VER >= 404
+      #define HB_GCC_HAS_OPTIMIZE
+#  else
+      #undef HB_GCC_HAS_OPTIMIZE
+#  endif
+#else
+   #define HB_GCC_VER  0
 #endif
 
 #if defined( __GNUC__ ) && ( __GNUC__ - 0 >= 3 )

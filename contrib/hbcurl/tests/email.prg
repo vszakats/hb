@@ -1,4 +1,4 @@
-/* Copyright 2014 Viktor Szakats (vszakats.net/harbour) */
+/* Copyright 2014-2016 Viktor Szakats (vszakats.net/harbour) */
 
 #require "hbcurl"
 #require "hbtip"
@@ -36,7 +36,7 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
    CASE cHost == "apple" .OR. "@icloud.com" $ cFrom .OR. "@mac.com" $ cFrom .OR. "@me.com" $ cFrom
       cHost := "smtp://smtp.mail.me.com:587"; lSTARTTLS_force := .T.
    CASE cHost == "fastmail" .OR. "@fastmail.com" $ cFrom .OR. "@fastmail.fm" $ cFrom
-      cHost := "smtps://mail.messagingengine.com"
+      cHost := "smtps://smtp.fastmail.com"
    CASE cHost == "gmx.net" .OR. "@gmx.net" $ cFrom .OR. "@gmx.ch" $ cFrom .OR. "@gmx.de" $ cFrom
       cHost := "smtp://mail.gmx.net:587"; lSTARTTLS_force := .T.
    CASE cHost == "google" .OR. "@gmail.com" $ cFrom .OR. "@googlemail.com" $ cFrom
@@ -75,12 +75,15 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
 
    curl_global_init()
 
-   IF ! Empty( curl := curl_easy_init() )
+   IF Empty( curl := curl_easy_init() )
+      ? "Failed to init"
+   ELSE
       #if ! defined( __PLATFORM__UNIX )
          IF ! hb_vfExists( _CA_FN_ )
             ? "Downloading", _CA_FN_
             curl_easy_setopt( curl, HB_CURLOPT_DOWNLOAD )
-            curl_easy_setopt( curl, HB_CURLOPT_URL, "http://curl.haxx.se/ca/cacert.pem" )
+            curl_easy_setopt( curl, HB_CURLOPT_SSL_VERIFYPEER, 0 )  /* we don't have a CA database yet, so skip checking */
+            curl_easy_setopt( curl, HB_CURLOPT_URL, "https://curl.haxx.se/ca/cacert.pem" )
             curl_easy_setopt( curl, HB_CURLOPT_DL_FILE_SETUP, _CA_FN_ )
             curl_easy_perform( curl )
             curl_easy_reset( curl )
@@ -103,8 +106,6 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
       ? "Result:", curl_easy_perform( curl )
 
       curl_easy_cleanup( curl )
-   ELSE
-      ? "Failed to init"
    ENDIF
 
    RETURN

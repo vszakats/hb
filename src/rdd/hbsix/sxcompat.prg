@@ -349,7 +349,7 @@ FUNCTION sx_KillTag( xTag, xIndex )
          ENDCASE
          IF ! Empty( cIndex )
             IF ordBagClear( cIndex )
-               lRet := hb_dbDrop( cIndex )
+               lRet := hb_dbDrop( dbInfo( DBI_FULLPATH ), cIndex )
             ENDIF
          ENDIF
       ENDIF
@@ -419,7 +419,7 @@ FUNCTION rdd_Info( xID )
 
    DO CASE
    CASE HB_ISNUMERIC( xID )
-      IF ! Empty( Alias( xID ) )
+      IF ! HB_ISNULL( Alias( xID ) )
          ( xID )->( rddName() )
       ENDIF
    CASE HB_ISSTRING( xID )

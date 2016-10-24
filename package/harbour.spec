@@ -77,7 +77,7 @@
 %define hb_blds   export HB_BUILD_STRIP=all
 %define hb_bldsh  export HB_BUILD_SHARED=%{!?_with_static:yes}
 %define hb_cmrc   export HB_BUILD_NOGPLLIB=%{?_without_gpllib:yes}
-%define hb_ctrb   export HB_BUILD_CONTRIBS="hbblink hbct hbgt hbmisc hbmzip hbbz2 hbnetio hbtip hbtpathy hbcomm hbhpdf hbziparc hbfoxpro hbsms hbfship hbxpp xhb rddbm rddsql hbsqlit3 sddsqlt3 hbnf hbhttpd hbformat hbunix hbzebra hblzf hbmemio hbmlzo hbmxml hbexpat %{?_with_allegro:gtalleg} %{?_with_cairo:hbcairo} %{?_with_cups:hbcups} %{?_with_curl:hbcurl} %{?_with_freeimage:hbfimage} %{?_with_gd:hbgd} %{?_with_firebird:hbfbird sddfb} %{?_with_mysql:hbmysql sddmy} %{?_with_odbc:hbodbc sddodbc} %{?_with_pgsql:hbpgsql sddpg} %{?_with_ads:rddads} hbrun"
+%define hb_ctrb   export HB_BUILD_CONTRIBS="hbblink hbct hbgt hbmisc hbmzip hbbz2 hbtip hbtpathy hbcomm hbhpdf hbziparc hbfoxpro hbsms hbfship hbxpp xhb rddbm rddsql hbsqlit3 sddsqlt3 hbnf hbhttpd hbformat hbunix hbzebra hblzf hbcomio hbmemio hbnetio hbpipeio hbtcpio hbmlzo hbmxml hbexpat %{?_with_cairo:hbcairo} %{?_with_cups:hbcups} %{?_with_curl:hbcurl} %{?_with_freeimage:hbfimage} %{?_with_gd:hbgd} %{?_with_firebird:hbfbird sddfb} %{?_with_mysql:hbmysql sddmy} %{?_with_odbc:hbodbc sddodbc} %{?_with_pgsql:hbpgsql sddpg} %{?_with_ads:rddads} hbrun"
 %define hb_env    %{hb_plat} ; %{hb_cc} ; %{hb_cflag} ; %{hb_lflag} ; %{hb_dflag} ; %{shl_path} ; %{hb_gpm} ; %{hb_crs} ; %{hb_sln} ; %{hb_x11} ; %{hb_ssl} ; %{hb_local} ; %{hb_proot} ; %{hb_bdir} ; %{hb_idir} ; %{hb_ldir} ; %{hb_ddir} ; %{hb_edir} ; %{hb_cdir} ; %{hb_mdir} ; %{hb_tdir} ; %{hb_ctrb} ; %{hb_cmrc} ; %{hb_blds} ; %{hb_bldsh}
 ######################################################################
 ## Preamble.
@@ -217,21 +217,6 @@ statikus szerkesztéshez.
 %{?_with_ads:%description -l pl ads}
 %{?_with_ads:%{dname} to kompatybilny z językiem CA-Cl*pper kompilator.}
 %{?_with_ads:Ten pakiet udostępnia sterowniki (RDD) ADS dla kompilatora %{dname}.}
-
-## allegro library
-%{?_with_allegro:%package allegro}
-%{?_with_allegro:Summary:        Allegro GT for %{dname} compiler}
-%{?_with_allegro:Summary(pl):    Allegro GT dla kompilatora %{dname}}
-%{?_with_allegro:Group:          Development/Languages}
-%{?_with_allegro:Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}}
-
-%{?_with_allegro:%description allegro}
-%{?_with_allegro:%{dname} is a Clipper compatible compiler.}
-%{?_with_allegro:This package provides %{dname} Allegro GT library for program linking.}
-
-%{?_with_allegro:%description -l pl allegro}
-%{?_with_allegro:%{dname} to kompatybilny z językiem CA-Cl*pper kompilator.}
-%{?_with_allegro:Ten pakiet udostępnia statyczn+ biliotekę Allegro GT dla kompilatora %{dname}.}
 
 ## cairo library
 %{?_with_cairo:%package cairo}
@@ -406,17 +391,14 @@ make install %{?_smp_mflags}
 rm -fR %{!?hb_ldconf:$HB_INSTALL_ETC/ld.so.conf.d}
 rm -f %{?hb_ldconf:$RPM_BUILD_ROOT/%{_libdir}/*.so*}
 rm -f $RPM_BUILD_ROOT/%{_bindir}/{3rdpatch.hb,check.hb,commit.hb,harbour.ucf}
-rm -f $HB_INSTALL_LIB/libjpeg.a \
-      $HB_INSTALL_LIB/libpng.a \
-      $HB_INSTALL_LIB/libtiff.a \
+rm -f $HB_INSTALL_LIB/libpng.a \
       $HB_INSTALL_LIB/libbz2.a \
       $HB_INSTALL_LIB/liblibhpdf.a \
       $HB_INSTALL_LIB/libsqlite3.a \
       $HB_INSTALL_LIB/libexpat.a \
       $HB_INSTALL_LIB/liblzf.a \
       $HB_INSTALL_LIB/libminilzo.a \
-      $HB_INSTALL_LIB/libmxml.a \
-      $HB_INSTALL_LIB/libtiff.a
+      $HB_INSTALL_LIB/libmxml.a
 
 ######################################################################
 ## Post install/uninstall scripts
@@ -531,12 +513,21 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/%{name}/contrib/hbcomm
 %{_datadir}/%{name}/contrib/hbcomm/*
 %{_libdir}/%{name}/libhbcomm.a
+%dir %{_datadir}/%{name}/contrib/hbcomio
+%{_datadir}/%{name}/contrib/hbcomio/*
+%{_libdir}/%{name}/libhbcomio.a
 %dir %{_datadir}/%{name}/contrib/hbmemio
 %{_datadir}/%{name}/contrib/hbmemio/*
 %{_libdir}/%{name}/libhbmemio.a
 %dir %{_datadir}/%{name}/contrib/hbnetio
 %{_datadir}/%{name}/contrib/hbnetio/*
 %{_libdir}/%{name}/libhbnetio.a
+%dir %{_datadir}/%{name}/contrib/hbpipeio
+%{_datadir}/%{name}/contrib/hbpipeio/*
+%{_libdir}/%{name}/libhbpipeio.a
+%dir %{_datadir}/%{name}/contrib/hbtcpio
+%{_datadir}/%{name}/contrib/hbtcpio/*
+%{_libdir}/%{name}/libhbtcpio.a
 %dir %{_datadir}/%{name}/contrib/hbct
 %{_datadir}/%{name}/contrib/hbct/*
 %{_libdir}/%{name}/libhbct.a
@@ -607,15 +598,6 @@ rm -rf $RPM_BUILD_ROOT
 %{?_with_ads:%dir %{_datadir}/%{name}/contrib/rddads}
 %{?_with_ads:%{_datadir}/%{name}/contrib/rddads/*}
 %{?_with_ads:%{_libdir}/%{name}/librddads.a}
-
-%{?_with_allegro:%files allegro}
-%{?_with_allegro:%defattr(644,root,root,755)}
-%{?_with_allegro:%dir %{_libdir}/%{name}}
-%{?_with_allegro:%dir %{_datadir}/%{name}}
-%{?_with_allegro:%dir %{_datadir}/%{name}/contrib}
-%{?_with_allegro:%dir %{_datadir}/%{name}/contrib/gtalleg}
-%{?_with_allegro:%{_datadir}/%{name}/contrib/gtalleg/*}
-%{?_with_allegro:%{_libdir}/%{name}/libgtalleg.a}
 
 %{?_with_cairo:%files cairo}
 %{?_with_cairo:%defattr(644,root,root,755)}

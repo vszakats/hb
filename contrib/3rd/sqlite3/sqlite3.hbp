@@ -20,6 +20,8 @@
 
 -cflag=-DSQLITE_ENABLE_FTS3=1
 -cflag=-DSQLITE_ENABLE_FTS3_PARENTHESIS=1
+-cflag=-DSQLITE_ENABLE_FTS5=1
+-cflag=-DSQLITE_ENABLE_JSON1=1
 
 -cflag=-DSQLITE_OMIT_DEPRECATED=1
 -cflag=-DSQLITE_ENABLE_COLUMN_METADATA=1
@@ -42,11 +44,11 @@
 
 hbicu.hbc
 
-{HBMK_HAS_ICU}-cflag=-DSQLITE_ENABLE_ICU
+{HBMK_HAS_ICU}-cflag=-DSQLITE_ENABLE_ICU=1
 
 sqlite3.c
 
-# URL    https://sqlite.org/2015/sqlite-amalgamation-3081101.zip
+# URL    https://sqlite.org/2016/sqlite-autoconf-3150000.tar.gz
 # DIFF   sqlite3.dif
 #
 # MAP    sqlite3.c

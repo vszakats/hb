@@ -6,7 +6,7 @@
  * just demostrating it is working
  *
  * With the filename, data will be stored to the file or
- * retrieved from the file and sent to Internet.
+ * retrieved from the file and sent to internet.
  *
  * Usage of URI.
  * HTTP[S] Protocol
@@ -119,10 +119,10 @@ PROCEDURE Main( cURL, cFile )
       ELSE
          IF HB_ISSTRING( cFile )
             cData := oClient:Read()
-            IF hb_BLen( cData ) > 0
-               ? "First 80 characters:", hb_ValToExp( hb_BLeft( cData, 80 ) ) )
-            ELSE
+            IF HB_ISNULL( cData )
                ? "Error: file could not be retrieved", oClient:lastErrorMessage()
+            ELSE
+               ? "First 80 characters:", hb_ValToExp( hb_BLeft( cData, 80 ) ) )
             ENDIF
          ELSEIF oClient:ReadToFile( cFile )
             ? "File", cFile, "written."
@@ -148,4 +148,4 @@ STATIC FUNCTION ShowGauge( nSent, nSize )
    SetPos( Row(), 0 )
    ?? "Sending:", nSent, "/", nSize
 
-   RETURN Inkey() != K_ESC
+   RETURN hb_keyStd( Inkey() ) != K_ESC

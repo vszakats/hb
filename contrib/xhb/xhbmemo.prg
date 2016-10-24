@@ -57,7 +57,7 @@ CREATE CLASS xhb_TMemoEditor INHERIT XHBEditor
    VAR aEditKeys
    VAR aConfigurableKeys
    VAR aMouseKeys
-   VAR aExtKeys                                    // Extended keys. For HB_EXT_INKEY use only.
+   VAR aExtKeys
 
    METHOD MemoInit( xUDF )                         // This method is called after ::New() returns to perform ME_INIT actions
    METHOD Edit()                                   // Calls ::Super:Edit( nKey ) but is needed to handle configurable keys
@@ -101,18 +101,33 @@ METHOD MemoInit( xUDF ) CLASS xhb_TMemoEditor
    ::xUserFunction := xUDF
 
    // NOTE: K_ALT_W is not compatible with Cl*pper exit memo and save key,
-   //       but I cannot discriminate K_CTRL_W and K_CTRL_END from harbour
-   //       code.
+   //       it's used as an alternative for K_CTRL_W with GT's without
+   //       extended keycode support
 
-#ifdef HB_EXT_INKEY
-   /* CTRL_V in not same as K_INS, this works as paste selected text to clipboard. */
-   ::aConfigurableKeys := { K_CTRL_N, K_CTRL_Y, K_CTRL_T, K_CTRL_B, K_CTRL_W, K_CTRL_RET }
-   ::aExtKeys := { K_ALT_W, K_CTRL_A, K_CTRL_C, K_CTRL_V, K_SH_INS, K_CTRL_X, K_SH_DOWN, K_SH_UP, K_SH_DEL, K_SH_RIGHT, K_SH_LEFT, K_SH_END, K_SH_HOME }
-#else
-   /* CTRL_V is same as K_INS, so it has special treatment in memoedit. */
-   ::aConfigurableKeys := { K_CTRL_N, K_CTRL_Y, K_CTRL_T, K_CTRL_B, K_CTRL_W }
-   ::aExtKeys := {}
-#endif
+   /* CTRL_V in not same as K_INS when extended keycodes are available, this works as paste selected text to clipboard. */
+   /* CTRL_V is same as K_INS when extended keycodes are not available, so it has special treatment in memoedit. */
+   ::aConfigurableKeys := { ;
+      K_CTRL_N, ;
+      K_CTRL_Y, ;
+      K_CTRL_T, ;
+      K_CTRL_B, ;
+      K_CTRL_W, ;
+      K_CTRL_RETURN }
+   ::aExtKeys := { ;
+      hb_keyNew( "W", HB_KF_ALT  ), ;
+      hb_keyNew( "A", HB_KF_CTRL ), ;
+      hb_keyNew( "B", HB_KF_CTRL ), ;
+      hb_keyNew( "C", HB_KF_CTRL ), ;
+      hb_keyNew( "V", HB_KF_CTRL ), ;
+      hb_keyNew( "X", HB_KF_CTRL ), ;
+      hb_keyNew( HB_KX_INS   , HB_KF_SHIFT ), ;
+      hb_keyNew( HB_KX_DOWN  , HB_KF_SHIFT ), ;
+      hb_keyNew( HB_KX_UP    , HB_KF_SHIFT ), ;
+      hb_keyNew( HB_KX_DEL   , HB_KF_SHIFT ), ;
+      hb_keyNew( HB_KX_RIGHT , HB_KF_SHIFT ), ;
+      hb_keyNew( HB_KX_LEFT  , HB_KF_SHIFT ), ;
+      hb_keyNew( HB_KX_END   , HB_KF_SHIFT ), ;
+      hb_keyNew( HB_KX_HOME  , HB_KF_SHIFT ) }
 
    ::aMouseKeys := { K_LBUTTONUP, K_MWFORWARD, K_MWBACKWARD }
 
@@ -134,7 +149,7 @@ METHOD MemoInit( xUDF ) CLASS xhb_TMemoEditor
 
 METHOD Edit() CLASS xhb_TMemoEditor
 
-   LOCAL nKey, nUdfReturn, nNextKey
+   LOCAL nKey, nKeyStd, nUdfReturn, nNextKey
 
    // If I have an user function I need to trap configurable keys and ask to
    // user function if handle them the standard way or not
@@ -148,20 +163,23 @@ METHOD Edit() CLASS xhb_TMemoEditor
    DO WHILE ! ::lExitEdit
 
       IF nNextKey == 0
-         nKey := Inkey( 0 )
+         nKey := Inkey( 0, hb_bitOr( Set( _SET_EVENTMASK ), HB_INKEY_EXT ) )
       ELSE
          nKey := nNextKey
          nNextKey := 0
       ENDIF
+      nKeyStd := hb_keyStd( nKey )
 
-      IF nNextKey == 0 .AND. ( ::bKeyBlock := SetKey( nKey ) ) != NIL
+      IF nNextKey == 0 .AND. ;
+         ( ( ::bKeyBlock := SetKey( nKey ) ) != NIL .OR. ;
+           ( ::bKeyBlock := SetKey( nKeyStd ) ) != NIL )
 
          Eval( ::bKeyBlock, ::ProcName, ::ProcLine, ReadVar() )
 
          /* 2006-09-15 - E.F. - After SetKey() is executed, if exist nextkey,
                                 I need trap this nextkey to memoedit process
                                 <nKey> first and the <nNextKey> on the next loop. */
-         nNextKey := NextKey()
+         nNextKey := hb_keyNext( hb_bitOr( Set( _SET_EVENTMASK ), HB_INKEY_EXT ) )
 
          IF nNextKey != 0
             Inkey()
@@ -191,20 +209,20 @@ METHOD Edit() CLASS xhb_TMemoEditor
 
       IF ::bKeyBlock == NIL
 
-         IF ( hb_BLen( hb_keyChar( nKey ) ) > 0 .OR. ;
-              AScan( ::aEditKeys, nKey ) > 0 .OR. ;
-              AScan( ::aConfigurableKeys, nKey ) > 0 .OR. ;
+         IF ( ! HB_ISNULL( hb_keyChar( nKey ) ) .OR. ;
+              AScan( ::aEditKeys, nKeyStd ) > 0 .OR. ;
+              AScan( ::aConfigurableKeys, nKeyStd ) > 0 .OR. ;
               AScan( ::aExtKeys, nKey ) > 0 .OR. ;
-              ( nKey == K_INS .AND. ! ::ExistUdf() ) .OR. ;
-              ( nKey == K_ESC .AND. ! ::ExistUdf() ) )
+              ( nKeyStd == K_INS .AND. ! ::ExistUdf() ) .OR. ;
+              ( nKeyStd == K_ESC .AND. ! ::ExistUdf() ) )
 
             ::Super:Edit( nKey )
 
-         ELSEIF AScan( ::aConfigurableKeys, nKey ) == 0 .AND. ;
+         ELSEIF AScan( ::aConfigurableKeys, nKeyStd ) == 0 .AND. ;
                 AScan( ::aExtKeys, nKey ) == 0 .AND. ;
-                ( nKey > 255 .OR. nKey < 0 ) .OR. ;
-                ( nKey == K_INS .AND. ::lEditAllow .AND. ::ExistUdf() ) .OR. ;
-                ( nKey == K_ESC .AND. ::ExistUdf() )
+                ( nKeyStd > 255 .OR. nKeyStd < 0 ) .OR. ;
+                ( nKeyStd == K_INS .AND. ::lEditAllow .AND. ::ExistUdf() ) .OR. ;
+                ( nKeyStd == K_ESC .AND. ::ExistUdf() )
 
             ::KeyboardHook( nKey )
          ENDIF
@@ -212,18 +230,18 @@ METHOD Edit() CLASS xhb_TMemoEditor
 
       IF ::ExistUdf()
 
-         IF hb_BLen( hb_keyChar( nKey ) ) > 0 .OR. ;
-            AScan( ::aEditKeys, nKey ) > 0 .OR. ;
-            AScan( ::aConfigurableKeys, nKey ) > 0 .OR. ;
+         IF ! HB_ISNULL( hb_keyChar( nKey ) ) .OR. ;
+            AScan( ::aEditKeys, nKeyStd ) > 0 .OR. ;
+            AScan( ::aConfigurableKeys, nKeyStd ) > 0 .OR. ;
             AScan( ::aExtKeys, nKey ) > 0 .OR. ;
-            nKey == K_F1
+            nKeyStd == K_F1
 
             IF NextKey() == 0 .AND. ;
-               AScan( ::aConfigurableKeys, nKey ) == 0 .AND. nKey != K_F1
+               AScan( ::aConfigurableKeys, nKeyStd ) == 0 .AND. nKeyStd != K_F1
 
                nUdfReturn := ::CallUdf( ME_IDLE )
             ELSE
-               IF AScan( ::aConfigurableKeys, nKey ) == 0
+               IF AScan( ::aConfigurableKeys, nKeyStd ) == 0
                   nUdfReturn := ::CallUdf( iif( ::lChanged, ME_UNKEYX, ME_UNKEY ) )
                ELSE
                   nUdfReturn := ::CallUdf( ME_UNKEY )
@@ -252,10 +270,13 @@ METHOD KeyboardHook( nKey ) CLASS xhb_TMemoEditor
 
 METHOD HandleUdf( nKey, nUdfReturn, lEdited ) CLASS xhb_TMemoEditor
 
+   LOCAL nKeyStd
+
    /* 2004-08-05 - <maurilio.longo@libero.it>
                    A little trick to be able to handle a nUdfReturn with value of NIL
                    like it had a value of ME_DEFAULT */
 
+   hb_default( @nKey, 0 )
    hb_default( @nUdfReturn, ME_DEFAULT )
    hb_default( @lEdited, .F. )
 
@@ -267,15 +288,17 @@ METHOD HandleUdf( nKey, nUdfReturn, lEdited ) CLASS xhb_TMemoEditor
 
       // HBEditor is not able to handle keys with a value higher than 256 or lower than 1
 
-      IF ! lEdited .AND. ;
-         ( hb_BLen( hb_keyChar( nKey ) ) > 0 .OR. ;
-           AScan( { K_ALT_W, K_CTRL_W }, nKey ) > 0 .OR. ;
-           AScan( ::aExtKeys, nKey ) > 0 .OR. ;
-           nKey == K_ESC .OR. ;
-           nKey == K_INS .OR. ;
-           AScan( ::aMouseKeys, nKey ) > 0 )
+      IF ! lEdited
+         nKeyStd := hb_keyStd( nKey )
+         IF ! HB_ISNULL( hb_keyChar( nKey ) ) .OR. ;
+            AScan( { K_ALT_W, K_CTRL_W }, nKeyStd ) > 0 .OR. ;
+            AScan( ::aExtKeys, nKey ) > 0 .OR. ;
+            nKeyStd == K_ESC .OR. ;
+            nKeyStd == K_INS .OR. ;
+            AScan( ::aMouseKeys, nKeyStd ) > 0
 
-         ::Super:Edit( nKey )
+            ::Super:Edit( nKey )
+         ENDIF
       ENDIF
       EXIT
 
@@ -287,13 +310,15 @@ METHOD HandleUdf( nKey, nUdfReturn, lEdited ) CLASS xhb_TMemoEditor
 
    CASE ME_DATA
 
-      IF ! lEdited .AND. ;
-         ( hb_BLen( hb_keyChar( nKey ) ) > 0 .OR. ;
-           AScan( ::aExtKeys, nKey ) > 0 .OR. ;
-           nKey == K_ESC .OR. ;
-           nKey == K_INS )
+      IF ! lEdited
+         nKeyStd := hb_keyStd( nKey )
+         IF ! HB_ISNULL( hb_keyChar( nKey ) ) .OR. ;
+            AScan( ::aExtKeys, nKey ) > 0 .OR. ;
+            nKeyStd == K_ESC .OR. ;
+            nKeyStd == K_INS
 
-         ::Super:Edit( nKey )
+            ::Super:Edit( nKey )
+         ENDIF
       ENDIF
       EXIT
 
@@ -320,21 +345,16 @@ METHOD HandleUdf( nKey, nUdfReturn, lEdited ) CLASS xhb_TMemoEditor
 
    OTHERWISE            // ME_UNKEY
 
-      /* 2006-08-02 - E.F. - (NG) Process requested action corresponding to key value. */
-      nKey := nUdfReturn
+      IF ! lEdited
+         /* 2006-08-02 - E.F. - (NG) Process requested action corresponding to key value. */
+         nKeyStd := hb_keyStd( nUdfReturn )
+         IF ( nKeyStd >= 1 .AND. nKeyStd <= 31 ) .OR. ;
+            AScan( ::aExtKeys, nKey ) > 0
 
-#ifdef HB_EXT_INKEY
-      IF ! lEdited .AND. ( ( nKey >= 1 .AND. nKey <= 31 ) .OR.;
-         ( nKey >= 513 .AND. nKey <= 538 ) .OR. AScan( ::aExtKeys, nKey ) > 0 )
-         ::Super:Edit( nKey )
+            ::Super:Edit( nKey )
+         ENDIF
       ENDIF
       EXIT
-#else
-      IF ! lEdited .AND. nKey >= 1 .AND. nKey <= 31
-         ::Super:Edit( nKey )
-      ENDIF
-      EXIT
-#endif
 
    ENDSWITCH
 

@@ -257,7 +257,14 @@ static void hb_memvarAddPrivate( PHB_DYNS pDynSym, PHB_ITEM pValue )
       pPrivateStack->stack[ pPrivateStack->count ].pDynSym = pDynSym;
       pPrivateStack->stack[ pPrivateStack->count++ ].pPrevMemvar = hb_dynsymGetMemvar( pDynSym );
 
-      pMemvar = hb_memvarValueNew();
+      if( pValue && HB_IS_MEMVAR( pValue ) )
+      {
+         pMemvar = pValue->item.asMemvar.value;
+         hb_xRefInc( pMemvar );
+         pValue = NULL;
+      }
+      else
+         pMemvar = hb_memvarValueNew();
       hb_dynsymSetMemvar( pDynSym, pMemvar );
    }
 
@@ -600,7 +607,7 @@ char * hb_memvarGetStrValuePtr( char * szVarName, HB_SIZE * pnLen )
  *
  * pMemvar - an item that stores the name of variable - it can be either
  *          the HB_IT_SYMBOL (if created by PUBLIC statement) or HB_IT_STRING
- *          (if created by direct call to __MVPUBLIC function)
+ *          (if created by direct call to __mvPublic() function)
  * iScope - the scope of created variable - if a variable with the same name
  *          exists already then it's value is hidden by new variable with
  *          passed scope
@@ -614,10 +621,13 @@ void hb_memvarCreateFromItem( PHB_ITEM pMemvar, int iScope, PHB_ITEM pValue )
 
    HB_TRACE( HB_TR_DEBUG, ( "hb_memvarCreateFromItem(%p, %d, %p)", pMemvar, iScope, pValue ) );
 
-   /* find dynamic symbol or creeate one */
+   /* find dynamic symbol or create one */
    if( HB_IS_SYMBOL( pMemvar ) )
-      /* pDynVar = hb_dynsymGet( pMemvar->item.asSymbol.value->szName ); */
+#if 0
+      pDynVar = hb_dynsymGet( pMemvar->item.asSymbol.value->szName );
+#else
       pDynVar = pMemvar->item.asSymbol.value->pDynSym;
+#endif
    else if( HB_IS_STRING( pMemvar ) )
       pDynVar = hb_dynsymGet( pMemvar->item.asString.value );
 
@@ -999,22 +1009,25 @@ PHB_ITEM hb_memvarSaveInArray( int iScope, HB_BOOL fCopy )
       do
       {
          PHB_ITEM pItem = hb_arrayGetItemPtr( pArray, MVInfo.nCount );
-         PHB_DYNS pDynSymbol = MVInfo.pDyns[ --MVInfo.nCount ];
-         PHB_ITEM pMemvar = hb_dynsymGetMemvar( pDynSymbol );
+         if( pItem )
+         {
+            PHB_DYNS pDynSymbol = MVInfo.pDyns[ --MVInfo.nCount ];
+            PHB_ITEM pMemvar = hb_dynsymGetMemvar( pDynSymbol );
 
-         hb_arrayNew( pItem, 2 );
-         hb_arraySetSymbol( pItem, 1, pDynSymbol->pSymbol );
-         pItem = hb_arrayGetItemPtr( pItem, 2 );
-         if( fCopy )
-         {
-            hb_itemCopy( pItem, pMemvar );
-            hb_memvarDetachLocal( pItem );
-         }
-         else
-         {
-            pItem->type = HB_IT_BYREF | HB_IT_MEMVAR;
-            pItem->item.asMemvar.value = pMemvar;
-            hb_xRefInc( pMemvar );
+            hb_arrayNew( pItem, 2 );
+            hb_arraySetSymbol( pItem, 1, pDynSymbol->pSymbol );
+            pItem = hb_arrayGetItemPtr( pItem, 2 );
+            if( fCopy )
+            {
+               hb_itemCopy( pItem, pMemvar );
+               hb_memvarDetachLocal( pItem );
+            }
+            else
+            {
+               pItem->type = HB_IT_BYREF | HB_IT_MEMVAR;
+               pItem->item.asMemvar.value = pMemvar;
+               hb_xRefInc( pMemvar );
+            }
          }
       }
       while( MVInfo.nCount );
@@ -1032,17 +1045,25 @@ void hb_memvarRestoreFromArray( PHB_ITEM pArray )
    for( nPos = 1; nPos <= nCount; ++nPos )
    {
       PHB_ITEM pItem = hb_arrayGetItemPtr( pArray, nPos );
-      PHB_DYNS pDynSym = hb_arrayGetSymbol( pItem, 1 )->pDynSym;
-      PHB_ITEM pMemvar = hb_arrayGetItemPtr( pItem, 2 )->item.asMemvar.value;
-      hb_memvarValueIncRef( pMemvar );
-      if( hb_dynsymGetMemvar( pDynSym ) )
-         hb_memvarDetachDynSym( pDynSym, pMemvar );
-      else
-         hb_dynsymSetMemvar( pDynSym, pMemvar );
+      if( pItem )
+      {
+         PHB_SYMB pSymbol = hb_arrayGetSymbol( pItem, 1 );
+         PHB_ITEM pMemRef = hb_arrayGetItemPtr( pItem, 2 );
+         if( pSymbol && pMemRef )
+         {
+            PHB_DYNS pDynSym = pSymbol->pDynSym;
+            PHB_ITEM pMemvar = pMemRef->item.asMemvar.value;
+            hb_memvarValueIncRef( pMemvar );
+            if( hb_dynsymGetMemvar( pDynSym ) )
+               hb_memvarDetachDynSym( pDynSym, pMemvar );
+            else
+               hb_dynsymSetMemvar( pDynSym, pMemvar );
+         }
+      }
    }
 }
 
-/* ************************************************************************** */
+/* - */
 
 static const char * hb_memvarGetMask( int iParam )
 {
@@ -1075,7 +1096,11 @@ HB_FUNC( __MVPUBLIC )
                HB_SIZE n, nLen = hb_arrayLen( pMemvar );
 
                for( n = 1; n <= nLen; n++ )
-                  hb_memvarCreateFromItem( hb_arrayGetItemPtr( pMemvar, n ), HB_VSCOMP_PUBLIC, NULL );
+               {
+                  PHB_ITEM pItem = hb_arrayGetItemPtr( pMemvar, n );
+                  if( pItem )
+                     hb_memvarCreateFromItem( pItem, HB_VSCOMP_PUBLIC, NULL );
+               }
             }
             else
                hb_memvarCreateFromItem( pMemvar, HB_VSCOMP_PUBLIC, NULL );
@@ -1107,7 +1132,11 @@ HB_FUNC( __MVPRIVATE )
                HB_SIZE n, nLen = hb_arrayLen( pMemvar );
 
                for( n = 1; n <= nLen; n++ )
-                  hb_memvarCreateFromItem( hb_arrayGetItemPtr( pMemvar, n ), HB_VSCOMP_PRIVATE, NULL );
+               {
+                  PHB_ITEM pItem = hb_arrayGetItemPtr( pMemvar, n );
+                  if( pItem )
+                     hb_memvarCreateFromItem( pItem, HB_VSCOMP_PRIVATE, NULL );
+               }
             }
             else
                hb_memvarCreateFromItem( pMemvar, HB_VSCOMP_PRIVATE, NULL );
@@ -1139,7 +1168,11 @@ HB_FUNC( __MVXRELEASE )
                HB_SIZE n, nLen = hb_arrayLen( pMemvar );
 
                for( n = 1; n <= nLen; n++ )
-                  hb_memvarRelease( hb_arrayGetItemPtr( pMemvar, n ) );
+               {
+                  PHB_ITEM pItem = hb_arrayGetItemPtr( pMemvar, n );
+                  if( pItem )
+                     hb_memvarRelease( pItem );
+               }
             }
             else
                hb_memvarRelease( pMemvar );
@@ -1205,7 +1238,7 @@ HB_FUNC( __MVDBGINFO )
       if( pValue )   /* the requested variable was found */
       {
          hb_storc( szName, 3 );
-         hb_itemReturn( pValue );
+         hb_itemCopyFromRef( hb_stackReturnItem(), pValue );
       }
       else
       {
@@ -1366,7 +1399,7 @@ static HB_DYNS_FUNC( hb_memvarSave )
             HB_SIZE nLen = hb_itemGetCLen( pMemvar ) + 1;
             int iOverFlow = 0;
 
-            /* Clipper supports only 64KB strings */
+            /* Clipper supports only 64 KiB strings */
             if( nLen > USHRT_MAX )
             {
                nLen = USHRT_MAX;
@@ -1448,7 +1481,7 @@ HB_FUNC( __MVSAVE )
       {
          fhnd = hb_fileExtOpen( pszFileName,
                                 hb_stackSetStruct()->HB_SET_DEFEXTENSIONS ? ".mem" : NULL,
-                                FXO_TRUNCATE | FO_READWRITE | FO_EXCLUSIVE |
+                                FXO_TRUNCATE | FO_WRITE | FO_EXCLUSIVE |
                                 FXO_DEFAULTS | FXO_SHARELOCK,
                                 NULL, pError );
          if( fhnd == NULL )

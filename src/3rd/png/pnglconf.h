@@ -1,10 +1,10 @@
-/* libpng 1.6.18 STANDARD API DEFINITION */
+/* libpng 1.6.26 STANDARD API DEFINITION */
 
 /* pnglibconf.h - library build configuration */
 
-/* Libpng version 1.6.18 - July 23, 2015 */
+/* Libpng version 1.6.26 - October 20, 2016 */
 
-/* Copyright (c) 1998-2014 Glenn Randers-Pehrson */
+/* Copyright (c) 1998-2015 Glenn Randers-Pehrson */
 
 /* This code is released under the libpng license. */
 /* For conditions of distribution and use, see the disclaimer */
@@ -109,6 +109,9 @@
 #define PNG_SIMPLIFIED_READ_SUPPORTED
 #define PNG_SIMPLIFIED_WRITE_AFIRST_SUPPORTED
 #define PNG_SIMPLIFIED_WRITE_BGR_SUPPORTED
+#ifndef PNG_NO_STDIO
+#define PNG_SIMPLIFIED_WRITE_STDIO_SUPPORTED
+#endif
 #define PNG_SIMPLIFIED_WRITE_SUPPORTED
 #ifndef PNG_NO_STDIO
 #define PNG_STDIO_SUPPORTED
@@ -191,7 +194,6 @@
 #else
 #  define PNG_API_RULE 0
 #endif
-#define PNG_COST_SHIFT 3
 #define PNG_DEFAULT_READ_MACROS 1
 #define PNG_GAMMA_THRESHOLD_FIXED 5000
 #define PNG_IDAT_READ_SIZE PNG_ZBUF_SIZE
@@ -210,7 +212,6 @@
 #define PNG_USER_CHUNK_MALLOC_MAX 8000000
 #define PNG_USER_HEIGHT_MAX 1000000
 #define PNG_USER_WIDTH_MAX 1000000
-#define PNG_WEIGHT_SHIFT 8
 #define PNG_ZBUF_SIZE 8192
 #define PNG_ZLIB_VERNUM 0 /* unknown */
 #define PNG_Z_DEFAULT_COMPRESSION (-1)

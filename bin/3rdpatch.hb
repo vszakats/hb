@@ -1,4 +1,4 @@
-#!/usr/bin/hbmk2
+#!/usr/bin/env hbmk2
 /*
  * 3rdpatch - a tool to help update 3rd party components while keeping local fixes
  *
@@ -230,6 +230,7 @@
 
 #include "directry.ch"
 #include "fileio.ch"
+#include "hbver.ch"
 
 #if defined( _TRACE )
    #define TRACE( str )   OutStd( "T: " + str + hb_eol() )
@@ -285,6 +286,7 @@ PROCEDURE Main( ... )
    LOCAL cArg
    LOCAL cRoot := NIL
    LOCAL hFile
+   LOCAL nStatus
 
    LOCAL hRegexTake1Line := hb_regexComp( "^#[[:blank:]]*(ORIGIN|VER|URL|DIFF)[[:blank:]]+(.+?)[[:blank:]]*$" )
    LOCAL hRegexTake2Line := hb_regexComp( "^#[[:blank:]]*(MAP)[[:blank:]]+(.+?)[[:blank:]]+(.+?)[[:blank:]]*$" )
@@ -500,7 +502,7 @@ PROCEDURE Main( ... )
    IF cDiffFile != NIL
 
       IF ! lRediff /* If we have a local diff, and are not to re-create it, apply */
-         cCommand := hb_StrFormat( "%1$s --no-backup-if-mismatch -d %2$s -p 1 -i %3$s", ;
+         cCommand := hb_StrFormat( "%1$s -l --no-backup-if-mismatch -d %2$s -p 1 -i %3$s", ;
             s_aTools[ "patch" ], ;
             CombinePath( s_cTempDir, cThisComponent ), ;
             CombinePath( cCWD, cDiffFile ) )
@@ -514,25 +516,32 @@ PROCEDURE Main( ... )
       ENDIF
 
       /* Re-create the diff */
-      cCommand := hb_StrFormat( "%1$s -urN %2$s %3$s", ;
+      cCommand := hb_StrFormat( "%1$s --strip-trailing-cr -urN %2$s %3$s", ;
          s_aTools[ "diff" ], cThisComponent + ".orig", cThisComponent )
 
       DirChange( s_cTempDir )
       TRACE( "Running " + cCommand )
-      hb_processRun( cCommand, , @cDiffText, @cStdErr, .F. )
+      nStatus := hb_processRun( cCommand, , @cDiffText, @cStdErr, .F. )
       hb_cwd( cCWD )
+
+      IF nStatus != 0 .AND. nStatus != 1
+         OutStd( hb_StrFormat( "E: `diff' command failed with exit status %1$d.", nStatus ) + hb_eol() )
+         OutStd( hb_StrFormat( "   Inspect `%1$s' for further clues.", s_cTempDir ) + hb_eol() )
+         ErrorLevel( 2 )
+         RETURN
+      ENDIF
 
       SaveLog( "diff", NIL, cStdErr )
 
-      IF hb_BLen( cDiffText ) > 0
-         hb_MemoWrit( cDiffFile, cDiffText )
-         OutStd( hb_StrFormat( "Local changes saved to `%1$s'; you may need to adjust `DIFF'.", cDiffFile ) + hb_eol() )
-      ELSE
+      IF HB_ISNULL( cDiffText )
          OutStd( "No local changes; you may need to adjust `DIFF'." + hb_eol() )
          IF hb_vfExists( cDiffFile )
             hb_vfErase( cDiffFile )
             OutStd( hb_StrFormat( "Removed existing `%1$s'.", cDiffFile ) + hb_eol() )
          ENDIF
+      ELSE
+         hb_MemoWrit( cDiffFile, cDiffText )
+         OutStd( hb_StrFormat( "Local changes saved to `%1$s'; you may need to adjust `DIFF'.", cDiffFile ) + hb_eol() )
       ENDIF
 
    ENDIF
@@ -711,6 +720,10 @@ STATIC FUNCTION FetchAndExtract( cArchiveURL )
                                        aActionMap[ cPattern ][ "ExtractedFile" ] )
             cArchiver := aActionMap[ cPattern ][ "Archiver" ]
             cArchiverArgs := aActionMap[ cPattern ][ "ArchiverArgs" ]
+            IF hb_Version( HB_VERSION_PLATFORM ) $ "|DARWIN|BSD|" .AND. cArchiver == "tar"
+               /* Not supported by BSD tar */
+               cArchiverArgs := StrTran( cArchiverArgs, "--force-local" )
+            ENDIF
             EXIT
          ENDIF
       NEXT
@@ -818,8 +831,6 @@ STATIC FUNCTION URL_GetFileName( cURL )
    ENDIF
 
    cName := aComponents[ nIdx ]
-   cName := iif( "?" $ cName, Left( cName, At( "?", cName ) - 1 ), cName ) /* strip params */
-
    DO WHILE !( "." $ cName )
       cName := aComponents[ --nIdx ]
       IF nIdx < 4  /* don't drain all components */
@@ -897,29 +908,26 @@ STATIC PROCEDURE DOSToUnixPathSep( cFileName )
 
    DO WHILE .T.
 
-      IF ( nEnd := At( cLookFor, SubStr( cFile, nStart ) ) - 1 ) == -1
+      IF ( nEnd := hb_BAt( cLookFor, cFile, nStart ) ) == 0
          /* If anything is left in the input string, stick it to the end
           * of the output string. No path searching as that would be
           * an invalid diff anyway */
-         IF hb_BLen( SubStr( cFile, nStart ) ) > 0
-            cNewFile := SubStr( cFile, nStart )
-         ENDIF
+         cNewFile += hb_BSubStr( cFile, nStart )
          EXIT
       ENDIF
 
-      cMemoLine := SubStr( cFile, nStart, nEnd )
+      cMemoLine := hb_BSubStr( cFile, nStart, nEnd - nStart + hb_BLen( cLookFor ) )
 
       IF ( hb_LeftEq( cMemoLine, "diff " ) .OR. ;
            hb_LeftEq( cMemoLine, "+++ " ) .OR. ;
            hb_LeftEq( cMemoLine, "--- " ) ) .AND. "\" $ cMemoLine
 
-         cNewFile += StrTran( cMemoLine, "\", "/" ) + cLookFor
+         cMemoLine := StrTran( cMemoLine, "\", "/" )
          s_nErrors++
-      ELSE
-         cNewFile += cMemoLine + cLookFor
       ENDIF
 
-      nStart += nEnd + Len( cLookFor )
+      cNewFile += cMemoLine
+      nStart := hb_BLen( cNewFile ) + 1
 
    ENDDO
 

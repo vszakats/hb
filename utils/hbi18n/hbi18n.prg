@@ -95,7 +95,7 @@ PROCEDURE Main( ... )
                nMode := _HB_I18N_TRANS
             ENDIF
          CASE hb_LeftEq( cParam, "o" )
-            IF hb_BLen( cParam := SubStr( cParam, 2 ) ) > 0
+            IF ! HB_ISNULL( cParam := SubStr( cParam, 2 ) )
                cFileOut := cParam
             ELSEIF n < Len( aParams ) .AND. ! hb_LeftEq( aParams[ n + 1 ], "-" )
                cFileOut := aParams[ ++n ]
@@ -165,7 +165,7 @@ STATIC PROCEDURE Logo()
 
    OutStd( ;
       "Harbour i18n .pot/.hbl file manager " + HBRawVersion() + hb_eol() + ;
-      "Copyright (c) 2009-2015, Przemyslaw Czerpak" + hb_eol() + ;
+      "Copyright (c) 2009-2016, Przemyslaw Czerpak" + hb_eol() + ;
       hb_Version( HB_VERSION_URL_BASE ) + hb_eol() + ;
       hb_eol() )
 
@@ -288,7 +288,7 @@ STATIC PROCEDURE Merge( aFiles, cFileOut )
 
    LOCAL cErrorMsg
 
-   IF Empty( cFileOut )
+   IF ! HB_ISSTRING( cFileOut ) .OR. HB_ISNULL( cFileOut )
       cFileOut := hb_FNameExtSet( aFiles[ 1 ], ".po" )
    ELSE
       cFileOut := hb_FNameExtSetDef( cFileOut, ".po" )
@@ -302,7 +302,7 @@ STATIC PROCEDURE Merge( aFiles, cFileOut )
 
 STATIC PROCEDURE GenHBL( aFiles, cFileOut, lEmpty )
 
-   IF Empty( cFileOut )
+   IF ! HB_ISSTRING( cFileOut ) .OR. HB_ISNULL( cFileOut )
       cFileOut := hb_FNameExtSet( aFiles[ 1 ], ".hbl" )
    ELSE
       cFileOut := hb_FNameExtSetDef( cFileOut, ".hbl" )
@@ -320,7 +320,7 @@ STATIC PROCEDURE AutoTrans( cFileIn, aFiles, cFileOut )
 
    LOCAL cErrorMsg
 
-   IF Empty( cFileOut )
+   IF ! HB_ISSTRING( cFileOut ) .OR. HB_ISNULL( cFileOut )
       cFileOut := hb_FNameExtSet( cFileIn, ".po" )
    ELSE
       cFileOut := hb_FNameExtSetDef( cFileOut, ".po" )

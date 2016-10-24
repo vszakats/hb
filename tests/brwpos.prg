@@ -39,7 +39,7 @@ STATIC FUNCTION TestBrw( nRowIni )
    oBrw:rowPos := nRowIni
    DO WHILE .T.
       oBrw:forceStable()
-      nKey := Inkey( 0 )
+      nKey := hb_keyStd( Inkey( 0 ) )
       DO CASE
       CASE nKey == K_ESC .OR. nKey == K_ENTER
          EXIT

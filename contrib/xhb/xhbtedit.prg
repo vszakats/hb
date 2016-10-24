@@ -544,7 +544,7 @@ METHOD MoveCursor( nKey ) CLASS XHBEditor
 
    // Modified to handle cursor movements inside text array without crashing!
    // Modified to allow line wrapping, and to track cursor to line ends.
-   SWITCH nKey
+   SWITCH hb_keyStd( nKey )
    // TODO: for optimization, change this with relativie GOTOCOL, GOTOPOS and GOTOROW
    CASE K_DOWN
       ::ClrTextSelection()
@@ -627,7 +627,7 @@ METHOD MoveCursor( nKey ) CLASS XHBEditor
 // Editing
 METHOD Edit( nPassedKey ) CLASS XHBEditor
 
-   LOCAL nKey
+   LOCAL nKey, nKeyStd
    LOCAL lSingleKeyProcess := .F.
 
    // If user pressed an exiting key (K_ESC or K_ALT_W) or I've received
@@ -639,88 +639,79 @@ METHOD Edit( nPassedKey ) CLASS XHBEditor
       // this key and then exit.
       IF nPassedKey == NIL
 
-         IF ( nKey := Inkey( , INKEY_ALL ) ) == 0
+         IF ( nKey := Inkey(, hb_bitOr( INKEY_ALL, HB_INKEY_EXT ) ) ) == 0
             ::IdleHook()
-            nKey := Inkey( 0, INKEY_ALL )
+            nKey := Inkey( 0, hb_bitOr( INKEY_ALL, HB_INKEY_EXT ) )
          ENDIF
       ELSE
          lSingleKeyProcess := .T.
          nKey := nPassedKey
       ENDIF
+      nKeyStd := hb_keyStd( nKey )
 
       /* 2006-08-12 - E.F. Trap Set key only if nKey is NIL. */
       IF nPassedKey == NIL
-         IF ( ::bKeyBlock := SetKey( nKey ) ) != NIL
+         IF ( ::bKeyBlock := SetKey( nKey ) ) != NIL .OR. ;
+            ( ::bKeyBlock := SetKey( nKeyStd ) ) != NIL
             Eval( ::bKeyBlock, ::ProcName, ::ProcLine, "", Self )
             LOOP
          ENDIF
       ENDIF
 
-      SWITCH nKey
-      CASE K_LBUTTONUP
-      CASE K_MWFORWARD
-      CASE K_MWBACKWARD
+      DO CASE
+      CASE nKeyStd == K_LBUTTONUP
+      CASE nKeyStd == K_MWFORWARD
+      CASE nKeyStd == K_MWBACKWARD
          ::K_Mouse( nKey )
-         EXIT
 
-#ifdef HB_EXT_INKEY
+      CASE hb_bitAnd( hb_keyMod( nKey ), HB_KF_CTRL ) != 0 .AND. Upper( hb_keyChar( hb_keyVal( nKey ) ) ) == "A"
+         ::SetTextSelection( "ALL" )  // Select all
 
-      CASE K_CTRL_A      // Select all
-         ::SetTextSelection( "ALL" )
-         EXIT
-
-      CASE K_CTRL_C      // Copy
-         hb_gtInfo( HB_GTI_CLIPBOARDDATA, ::GetTextSelection() )
-#if 0
+      CASE hb_bitAnd( hb_keyMod( nKey ), HB_KF_CTRL ) != 0 .AND. Upper( hb_keyChar( hb_keyVal( nKey ) ) ) == "C"
+         hb_gtInfo( HB_GTI_CLIPBOARDDATA, ::GetTextSelection() )  // Copy
+         #if 0
          ::ClrTextSelection()
-#endif
-         EXIT
+         #endif
 
-      CASE K_CTRL_X      // Cut
-         hb_gtInfo( HB_GTI_CLIPBOARDDATA, ::GetTextSelection() )
+      CASE hb_bitAnd( hb_keyMod( nKey ), HB_KF_CTRL ) != 0 .AND. Upper( hb_keyChar( hb_keyVal( nKey ) ) ) == "X"
+         hb_gtInfo( HB_GTI_CLIPBOARDDATA, ::GetTextSelection() )  // Cut
          IF ::lEditAllow
             ::DelTextSelection()
          ENDIF
-         EXIT
 
-      CASE K_CTRL_V      // Paste
+      CASE hb_bitAnd( hb_keyMod( nKey ), HB_KF_CTRL ) != 0 .AND. Upper( hb_keyChar( hb_keyVal( nKey ) ) ) == "V"
          IF ::lEditAllow
-            ::AddText( StrTran( hb_gtInfo( HB_GTI_CLIPBOARDDATA ), Chr( 0 ), " " ), .T. )
+            ::AddText( StrTran( hb_gtInfo( HB_GTI_CLIPBOARDDATA ), Chr( 0 ), " " ), .T. )  // Paste
             ::ClrTextSelection()
          ENDIF
-         EXIT
 
-      CASE K_ALT_W       // Exit and return text buffer content.
-      CASE K_CTRL_W      // idem
+      CASE ( hb_bitAnd( hb_keyMod( nKey ), HB_KF_CTRL ) != 0 .AND. Upper( hb_keyChar( hb_keyVal( nKey ) ) ) == "W" ) .OR. ;
+           nKeyStd == K_ALT_W
+         // Exit and return text buffer content.
          ::lSaved := .T.
          ::lExitEdit := .T.
          SetCursor( ::nOrigCursor )   // restore original cursor saved at startup
-         EXIT
 
-      CASE K_CTRL_END
-         ::ClrTextSelection()
-         ::Bottom()
-         ::End()
-         EXIT
-
-      CASE K_CTRL_B      // Reformat paragraph
+      CASE hb_bitAnd( hb_keyMod( nKey ), HB_KF_CTRL ) != 0 .AND. Upper( hb_keyChar( hb_keyVal( nKey ) ) ) == "B"
+         // Reformat paragraph
          IF ::lEditAllow
             ::ClrTextSelection()
             ::ReformParagraph() // 2006-07-29 - E.F. Added.
          ENDIF
-         EXIT
-#else
-      CASE K_ALT_W
-         EXIT
 
-      CASE K_CTRL_W
-         ::lSaved := .T.
-         ::lExitEdit := .T.
-         SetCursor( ::nOrigCursor )   // restore original cursor saved at startup
-         EXIT
-#endif
+      CASE hb_keyVal( nKey ) == HB_KX_DEL
+         IF ::lSelActive .AND. ::lEditAllow
+            ::DelTextSelection()
+         ELSEIF ::lEditAllow  // Cl*pper compatibility
+            ::K_Del()
+         ENDIF
 
-      CASE K_CTRL_N
+      CASE nKeyStd == K_CTRL_END
+         ::ClrTextSelection()
+         ::Bottom()
+         ::End()
+
+      CASE nKeyStd == K_CTRL_N
          IF ::lEditAllow  // Cl*pper compatibility
             ::ClrTextSelection()
             ::lChanged := .T.
@@ -729,18 +720,16 @@ METHOD Edit( nPassedKey ) CLASS XHBEditor
             ::RefreshLine()
             ::RefreshWindow()
          ENDIF
-         EXIT
 
-      CASE K_CTRL_T
+      CASE nKeyStd == K_CTRL_T
          IF ::lEditAllow
             ::ClrTextSelection()
             ::lChanged := .T.
             ::DelWordRight()
             ::RefreshLine()
          ENDIF
-         EXIT
 
-      CASE K_CTRL_Y
+      CASE nKeyStd == K_CTRL_Y
          IF ::lEditAllow  // Cl*pper compatibility
             ::lChanged := .T.
             ::ClrTextSelection()
@@ -758,10 +747,9 @@ METHOD Edit( nPassedKey ) CLASS XHBEditor
                ::RefreshLine()
             ENDIF
          ENDIF
-         EXIT
 
-      CASE K_DOWN
-         IF hb_bitAnd( hb_gtInfo( HB_GTI_KBDSHIFTS ), HB_GTI_KBD_SHIFT ) != 0
+      CASE nKeyStd == K_DOWN
+         IF hb_bitAnd( hb_keyMod( nKey ), HB_KF_SHIFT ) != 0
             IF ::nRow <= ::LastRow()
                ::SetTextSelection( "ROW", + 1 )
             ENDIF
@@ -769,20 +757,17 @@ METHOD Edit( nPassedKey ) CLASS XHBEditor
             ::ClrTextSelection()
             ::Down()
          ENDIF
-         EXIT
 
-      CASE K_PGDN
+      CASE nKeyStd == K_PGDN
          ::ClrTextSelection()
          ::PageDown()
-         EXIT
 
-      CASE K_CTRL_PGDN
+      CASE nKeyStd == K_CTRL_PGDN
          ::ClrTextSelection()
          ::GoBottom()
-         EXIT
 
-      CASE K_UP
-         IF hb_bitAnd( hb_gtInfo( HB_GTI_KBDSHIFTS ), HB_GTI_KBD_SHIFT ) != 0
+      CASE nKeyStd == K_UP
+         IF hb_bitAnd( hb_keyMod( nKey ), HB_KF_SHIFT ) != 0
             IF ::nRow > 1
                ::SetTextSelection( "ROW", -1 )
             ENDIF
@@ -790,20 +775,17 @@ METHOD Edit( nPassedKey ) CLASS XHBEditor
             ::ClrTextSelection()
             ::Up()
          ENDIF
-         EXIT
 
-      CASE K_PGUP
+      CASE nKeyStd == K_PGUP
          ::ClrTextSelection()
          ::PageUp()
-         EXIT
 
-      CASE K_CTRL_PGUP
+      CASE nKeyStd == K_CTRL_PGUP
          ::ClrTextSelection()
          ::GoTop()
-         EXIT
 
-      CASE K_RIGHT
-         IF hb_bitAnd( hb_gtInfo( HB_GTI_KBDSHIFTS ), HB_GTI_KBD_SHIFT ) != 0
+      CASE nKeyStd == K_RIGHT
+         IF hb_bitAnd( hb_keyMod( nKey ), HB_KF_SHIFT ) != 0
             IF ::nCol < ::nWordWrapCol + 1
                ::SetTextSelection( "COL", + 1 )
             ENDIF
@@ -811,15 +793,13 @@ METHOD Edit( nPassedKey ) CLASS XHBEditor
             ::ClrTextSelection()
             ::Right()
          ENDIF
-         EXIT
 
-      CASE K_CTRL_RIGHT
+      CASE nKeyStd == K_CTRL_RIGHT
          ::ClrTextSelection()
          ::WordRight()
-         EXIT
 
-      CASE K_LEFT
-         IF hb_bitAnd( hb_gtInfo( HB_GTI_KBDSHIFTS ), HB_GTI_KBD_SHIFT ) != 0
+      CASE nKeyStd == K_LEFT
+         IF hb_bitAnd( hb_keyMod( nKey ), HB_KF_SHIFT ) != 0
             IF ::nCol > 1
                ::SetTextSelection( "COL", -1 )
             ENDIF
@@ -827,15 +807,13 @@ METHOD Edit( nPassedKey ) CLASS XHBEditor
             ::ClrTextSelection()
             ::Left()
          ENDIF
-         EXIT
 
-      CASE K_CTRL_LEFT
+      CASE nKeyStd == K_CTRL_LEFT
          ::ClrTextSelection()
          ::WordLeft()
-         EXIT
 
-      CASE K_HOME
-         IF hb_bitAnd( hb_gtInfo( HB_GTI_KBDSHIFTS ), HB_GTI_KBD_SHIFT ) != 0
+      CASE nKeyStd == K_HOME
+         IF hb_bitAnd( hb_keyMod( nKey ), HB_KF_SHIFT ) != 0
             IF ::nCol > 1
                ::SetTextSelection( "HOME" )
             ENDIF
@@ -843,15 +821,13 @@ METHOD Edit( nPassedKey ) CLASS XHBEditor
             ::ClrTextSelection()
             ::Home()
          ENDIF
-         EXIT
 
-      CASE K_CTRL_HOME
+      CASE nKeyStd == K_CTRL_HOME
          ::ClrTextSelection()
          ::Top()
-         EXIT
 
-      CASE K_END
-         IF hb_bitAnd( hb_gtInfo( HB_GTI_KBDSHIFTS ), HB_GTI_KBD_SHIFT ) != 0
+      CASE nKeyStd == K_END
+         IF hb_bitAnd( hb_keyMod( nKey ), HB_KF_SHIFT ) != 0
             IF ::nCol < ::nWordWrapCol + 1
                ::SetTextSelection( "END" )
             ENDIF
@@ -859,20 +835,17 @@ METHOD Edit( nPassedKey ) CLASS XHBEditor
             ::ClrTextSelection()
             ::End()
          ENDIF
-         EXIT
 
-      CASE K_ESC
+      CASE nKeyStd == K_ESC
          ::ClrTextSelection()
          ::K_Esc()
-         EXIT
 
-      CASE K_ENTER
+      CASE nKeyStd == K_ENTER
          ::ClrTextSelection()
          ::K_Return()
-         EXIT
 
-      CASE K_INS
-         IF hb_bitAnd( hb_gtInfo( HB_GTI_KBDSHIFTS ), HB_GTI_KBD_SHIFT ) != 0
+      CASE nKeyStd == K_INS
+         IF hb_bitAnd( hb_keyMod( nKey ), HB_KF_SHIFT ) != 0
             IF ::lEditAllow
                ::AddText( StrTran( hb_gtInfo( HB_GTI_CLIPBOARDDATA ), Chr( 0 ), " " ), .T. )
                ::ClrTextSelection()
@@ -884,19 +857,9 @@ METHOD Edit( nPassedKey ) CLASS XHBEditor
                ::InsertState( ! ::lInsert )
             ENDIF
          ENDIF
-         EXIT
 
-#ifdef HB_EXT_INKEY
-      CASE K_DEL
-         IF ::lSelActive .AND. ::lEditAllow
-            ::DelTextSelection()
-         ELSEIF ::lEditAllow  // Cl*pper compatibility
-            ::K_Del()
-         ENDIF
-         EXIT
-#else
-      CASE K_DEL
-         IF hb_bitAnd( hb_gtInfo( HB_GTI_KBDSHIFTS ), HB_GTI_KBD_SHIFT ) != 0
+      CASE nKeyStd == K_DEL
+         IF hb_bitAnd( hb_keyMod( nKey ), HB_KF_SHIFT ) != 0
             hb_gtInfo( HB_GTI_CLIPBOARDDATA, ::GetTextSelection() )
             IF ::lEditAllow
                ::DelTextSelection()
@@ -906,16 +869,14 @@ METHOD Edit( nPassedKey ) CLASS XHBEditor
                ::K_Del()
             ENDIF
          ENDIF
-         EXIT
-#endif
-      CASE K_TAB
+
+      CASE nKeyStd == K_TAB
          IF ::lEditAllow  // Cl*pper compatibility
             ::ClrTextSelection()
             ::K_Tab()
          ENDIF
-         EXIT
 
-      CASE K_BS
+      CASE nKeyStd == K_BS
          ::ClrTextSelection()
          IF ::lEditAllow  // Cl*pper compatibility
             ::K_Bs()
@@ -923,15 +884,13 @@ METHOD Edit( nPassedKey ) CLASS XHBEditor
             // 2006-07-22 - E.F. - Cl*pper backspace in read only is same as left movement.
             ::Left()
          ENDIF
-         EXIT
 
-      CASE K_CTRL_BS         // block Chr( 127 ), a printable character in windows
+      CASE nKeyStd == K_CTRL_BS         // block Chr( 127 ), a printable character in windows
          ::ClrTextSelection()
-         EXIT
 
       OTHERWISE
 
-         IF hb_BLen( hb_keyChar( nKey ) ) > 0
+         IF ! HB_ISNULL( hb_keyChar( nKey ) )
             IF ::lEditAllow
                ::ClrTextSelection()
                ::K_Ascii( nKey )
@@ -943,7 +902,7 @@ METHOD Edit( nPassedKey ) CLASS XHBEditor
             ::KeyboardHook( nKey )
          ENDIF
 
-      ENDSWITCH
+      ENDCASE
 
    ENDDO
 
@@ -1285,7 +1244,7 @@ METHOD K_Mouse( nKey ) CLASS XHBEditor
 
    LOCAL nRow, nCol, nJump
 
-   SWITCH nKey
+   SWITCH hb_keyStd( nKey )
    CASE K_LBUTTONUP
 
       nRow := MRow()
@@ -1335,7 +1294,7 @@ METHOD K_Ascii( nKey ) CLASS XHBEditor
    ENDIF
 
    // insert char if in insert mode or at end of current line
-   IF ::lInsert .OR. ( ::nCol > ::LineLen( ::nRow ) )
+   IF ::lInsert .OR. ::nCol > ::LineLen( ::nRow )
       ::aText[ ::nRow ]:cText := Stuff( ::aText[ ::nRow ]:cText, ::nCol, 0, hb_keyChar( nKey ) )
       ::lChanged := .T.
    ELSE
@@ -1613,7 +1572,7 @@ METHOD K_Return() CLASS XHBEditor
 
 METHOD K_Esc() CLASS XHBEditor
 
-   LOCAL cScreenMsg, nCurRow, nCurCol, nCursor, nKey
+   LOCAL cScreenMsg, nCurRow, nCurCol, nCursor, nKeyStd
 
    ::lExitEdit := .T.
 
@@ -1624,14 +1583,14 @@ METHOD K_Esc() CLASS XHBEditor
       nCursor := SetCursor( SC_NORMAL )
       hb_DispOutAt( 0, MaxCol() - 18, "Abort Edit? (Y/N)" )
       SetPos( 0, MaxCol() - 1 )
-      nKey := Inkey( 0 )
+      nKeyStd := Inkey( 0 )
       Inkey()
       RestScreen( 0, MaxCol() - 18, 0, MaxCol(), cScreenMsg )
       SetCursor( nCursor )
       SetPos( nCurRow, nCurCol )
 
       // 2006-07-21 - E.F - Exit only if "Y" is pressed.
-      IF ( ::lExitEdit := ( Upper( hb_keyChar( nKey ) ) == "Y" ) )
+      IF ( ::lExitEdit := ( Upper( hb_keyChar( nKeyStd ) ) == "Y" ) )
          hb_keySetLast( K_ESC ) /* Cl*pper compatibility */
       ENDIF
    ENDIF
@@ -1658,7 +1617,7 @@ METHOD InsertLine( cLine, lSoftCR, nRow ) CLASS XHBEditor
    __defaultNIL( @lSoftCR, .F. )
 
    IF nRow > ::LastRow()
-      IF hb_BLen( cLine ) == 0
+      IF HB_ISNULL( cLine )
          lSoftCR := .F.
       ENDIF
       ::AddLine( cLine, lSoftCR )
@@ -1725,7 +1684,7 @@ METHOD DelWordRight() CLASS XHBEditor
       cText := SubStr( ::aText[ ::nRow ]:cText, nCol )
 
       DO WHILE .T.
-         IF hb_LeftEq( cText, " " ) .AND. hb_BLen( cText ) > 0
+         IF hb_LeftEq( cText, " " ) .AND. ! HB_ISNULL( cText )
             cText := SubStr( cText, 2 )
             nSpacesPre++
          ELSE
@@ -1896,7 +1855,7 @@ STATIC FUNCTION GetParagraph( oSelf, nRow )
       // I don't need to increment nRow since I'm removing lines, ie line n is
       // a different line each time I add it to cLine
       oSelf:RemoveLine( nRow )
-      IF hb_BLen( cLine ) > 0 .AND. !( Right( cLine, 1 ) == " " )
+      IF ! HB_ISNULL( cLine ) .AND. !( Right( cLine, 1 ) == " " )
          cLine += " "
       ENDIF
    ENDDO
@@ -1921,7 +1880,7 @@ STATIC FUNCTION GetParagraph( oSelf, nRow )
       ENDIF
       // This is not needed and will corrupt long lines that do not have any spaces with wordwrap on. [GAD]
 #if 0
-      IF hb_BLen( cLine ) > 0 .AND. !( Right( cLine, 1 ) == " " )
+      IF ! HB_ISNULL( cLine ) .AND. !( Right( cLine, 1 ) == " " )
          cLine += " "
       ENDIF
 #endif
@@ -2025,7 +1984,7 @@ METHOD SplitLine( nRow ) CLASS XHBEditor
 
    // 2006-07-21 - E.F. Only insert a line in any circunstancies.
    IF nStartRow + 1 <= ::LastRow()
-      IF ::LineLen( nStartRow + 1 ) == 0 .OR. hb_BLen( AllTrim( cLine ) ) > 0
+      IF ::LineLen( nStartRow + 1 ) == 0 .OR. ! HB_ISNULL( AllTrim( cLine ) )
          ::InsertLine( RTrim( cLine ), .F., nStartRow )
       ENDIF
    ELSE
@@ -2514,7 +2473,7 @@ METHOD DelText() CLASS XHBEditor
 
 #if 0
       // 2006-07-22 - E.F. - There is no need to add line here.
-      //                     See K_ASCII() method.
+      //                     See K_Ascii() method.
       AAdd( ::aText, HBTextLine():New() )
 #endif
 
@@ -2698,7 +2657,7 @@ METHOD LoadFile( cFileName ) CLASS XHBEditor
 // Saves file being edited, if there is no file name does nothing, returns .T. if OK
 METHOD SaveFile() CLASS XHBEditor
 
-   IF ! HB_ISSTRING( ::cFile ) .OR. hb_BLen( ::cFile ) == 0
+   IF ! HB_ISSTRING( ::cFile ) .OR. HB_ISNULL( ::cFile )
       RETURN .F.
    ENDIF
 
@@ -2750,7 +2709,7 @@ STATIC FUNCTION Text2Array( cString, nWordWrapCol )
             ELSE
                // remainder of line is shorter than split point
                // 2006-07-21 - E.F. Only add a new line if cLine is not empty.
-               IF hb_BLen( cLine ) > 0
+               IF ! HB_ISNULL( cLine )
                   AAdd( aArray, HBTextLine():New( cLine, .F. ) )
                ENDIF
                EXIT  // Done
@@ -2767,7 +2726,7 @@ STATIC FUNCTION Text2Array( cString, nWordWrapCol )
 // handles only movement keys and discards all the others
 METHOD PROCEDURE BrowseText( nPassedKey, lHandleOneKey ) CLASS XHBEditor
 
-   LOCAL nKey, bKeyBlock
+   LOCAL nKey, nKeyStd, bKeyBlock
 
    hb_default( @lHandleOneKey, .F. )
 
@@ -2776,22 +2735,23 @@ METHOD PROCEDURE BrowseText( nPassedKey, lHandleOneKey ) CLASS XHBEditor
       // If I haven't been called with a key already preset, evaluate this key and then exit
       IF nPassedKey == NIL
 
-         IF ( nKey := Inkey() ) == 0
+         IF ( nKey := Inkey(, hb_bitOr( Set( _SET_EVENTMASK ), HB_INKEY_EXT ) ) ) == 0
             ::IdleHook()
-            nKey := Inkey( 0 )
+            nKey := Inkey( 0, hb_bitOr( Set( _SET_EVENTMASK ), HB_INKEY_EXT ) )
          ENDIF
-
       ELSE
          nKey := nPassedKey
       ENDIF
+      nKeyStd := hb_keyStd( nKey )
 
-      IF ( bKeyBlock := SetKey( nKey ) ) != NIL
+      IF ( bKeyBlock := SetKey( nKey ) ) != NIL .OR. ;
+         ( bKeyBlock := SetKey( nKeyStd ) ) != NIL
          Eval( bKeyBlock, ::ProcName, ::ProcLine, "", Self )
          LOOP
       ENDIF
 
       // modified to add exit with K_LEFT when in non-edit mode
-      IF nKey == K_ESC .OR. nkey == K_CTRL_W
+      IF nKeyStd == K_ESC .OR. nKeyStd == K_CTRL_W
          ::lExitEdit := .T.
       ELSE
          ::MoveCursor( nKey )

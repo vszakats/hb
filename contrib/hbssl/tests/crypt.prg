@@ -1,4 +1,4 @@
-/* Copyright 2009 Viktor Szakats (vszakats.net/harbour) */
+/* Copyright 2009-2016 Viktor Szakats (vszakats.net/harbour) */
 
 #require "hbssl"
 
@@ -37,8 +37,7 @@ PROCEDURE Main()
 
    ? "encrypt"
 
-   ctx := hb_EVP_CIPHER_ctx_create()
-   EVP_CIPHER_CTX_init( ctx )
+   ctx := EVP_CIPHER_CTX_new()
 
    ? EVP_EncryptInit( ctx, "AES256", cKey, hb_rand32( 40 ) )
    ? EVP_CIPHER_CTX_cipher( ctx )
@@ -51,11 +50,10 @@ PROCEDURE Main()
    ? EVP_EncryptFinal( ctx, @result )
    encrypted += result
    ? "ENCRYPTED", ">" + hb_StrToHex( encrypted ) + "<"
-   ? ">" + encrypted + "<"
 
    ? "decrypt"
 
-   ctx := hb_EVP_CIPHER_ctx_create()
+   ctx := EVP_CIPHER_CTX_new()
 
    ? EVP_DecryptInit( ctx, "AES256", cKey )
 
@@ -71,23 +69,23 @@ PROCEDURE Main()
    ? ERR_load_PEM_strings()
    ? OpenSSL_add_all_algorithms()
 
-   ctx := hb_EVP_CIPHER_ctx_create()
+   ctx := EVP_CIPHER_CTX_new()
 
    ? Replicate( "=", 15 )
-   bioe := BIO_new_fd( 1, HB_BIO_NOCLOSE )
+   bioe := BIO_new_fd( hb_GetStdOut(), HB_BIO_NOCLOSE )
    FOR EACH tmp IN all
-      ? tmp:__enumIndex(), pub := tmp:exec( "pubkey.pem", "test" )
+      ? tmp:__enumIndex(), pub := tmp:exec( "public.pem", "test" )
       IF ! Empty( pub )
          ? "EVP_PKEY_free()", EVP_PKEY_free( pub )
       ENDIF
       ? ; ERR_print_errors( bioe )
    NEXT
-   BIO_free( bioe )
+   bioe := NIL
 
-   ? pub := PEM_READ_BIO_PUBKEY( "pubkey.pem", "test" )
+   ? pub := PEM_READ_BIO_PUBKEY( "public.pem", "test" )
 
    ? "EVP_SealInit()", EVP_SealInit( ctx, "AES256", @a, @iv, { pub } )
-   ? ValType( a ), hb_BLen( a )
+   ? ValType( a ), iif( HB_ISSTRING( a ), hb_BLen( a ), NIL )
    ? ValType( a[ 1 ] ), ">" + hb_StrToHex( a[ 1 ] ) + "<"
    ? ValType( iv ), ">" + hb_StrToHex( iv ) + "<"
 

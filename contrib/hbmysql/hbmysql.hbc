@@ -6,7 +6,7 @@ headers=mysql.ch
 
 libs=${_HB_DYNPREF}${hb_name}${_HB_DYNSUFF}
 
-{unix}libs=mysqlclient
-{darwin}libpaths=/opt/local/lib/mysql5/mysql
-{win|dos}libs=libmysql
-{os2}libs=mysqlclient
+{!dos}libs=mysqlclient
+{dos}libs=libmysql
+{darwin}libpaths=/usr/local/opt/mariadb/lib
+{darwin}libpaths=/usr/local/opt/mysql/lib

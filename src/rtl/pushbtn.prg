@@ -77,7 +77,7 @@ CREATE CLASS PushButton FUNCTION HBPushButton
    METHOD display()
    METHOD hitTest( nMRow, nMCol )
    METHOD killFocus()
-   METHOD select( nPos )
+   METHOD select( nKey )
    METHOD setFocus()
 
    METHOD bitmap( cBitmap ) SETGET
@@ -125,24 +125,24 @@ METHOD setFocus() CLASS PushButton
 
    RETURN Self
 
-METHOD select( nPos ) CLASS PushButton
+METHOD select( nKey ) CLASS PushButton
 
-   LOCAL nCurPos := nPos
+   LOCAL nKeyGot
 
    IF ::lHasFocus
       ::lbuffer := .T.
       ::display()
 
-      IF HB_ISNUMERIC( nPos )
+      IF HB_ISNUMERIC( nKey )
 
-         IF nPos == 32
-
+         IF hb_keyChar( nKey ) == " "
             Inkey( 0.4 )
-            DO WHILE nCurPos == 32
-               nCurPos := Inkey( 0.1 )
+            DO WHILE hb_keyChar( nKey ) == " "
+               nKey := Inkey( 0.1 )
             ENDDO
          ELSE
-            DO WHILE nPos == Inkey( 0 )
+            DO WHILE nKey == hb_keyStd( nKeyGot := Inkey( 0 ) ) .OR. ;
+                     nKey == nKeyGot
             ENDDO
          ENDIF
       ENDIF
@@ -328,7 +328,7 @@ METHOD typeOut() CLASS PushButton
 METHOD style( cStyle ) CLASS PushButton
 
    IF cStyle != NIL
-      ::cStyle := __eInstVar53( Self, "STYLE", cStyle, "C", 1001, {|| hb_BLen( cStyle ) == 0 .OR. hb_ULen( cStyle ) == 2 .OR. hb_ULen( cStyle ) == 8 } )
+      ::cStyle := __eInstVar53( Self, "STYLE", cStyle, "C", 1001, {|| HB_ISNULL( cStyle ) .OR. hb_ULen( cStyle ) == 2 .OR. hb_ULen( cStyle ) == 8 } )
    ENDIF
 
    RETURN ::cStyle

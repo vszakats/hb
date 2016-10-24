@@ -134,7 +134,7 @@ METHOD New( cFile, nMode ) CLASS TStreamFileReader
 
    ::cFile := cFile
 
-   IF ( ::hFile := hb_vfOpen( cFile, nMode ) ) == NIL
+   IF ( ::hFile := hb_vfOpen( cFile, hb_defaultValue( nMode, FO_READ ) ) ) == NIL
       Throw( xhb_ErrorNew( "Stream", 0, 1004, ProcName(), "Open Error: " + hb_ntos( FError() ), hb_AParams() ) )
    ENDIF
 
@@ -158,15 +158,19 @@ METHOD Read( sBuffer, nOffset, nCount ) CLASS TStreamFileReader
 
    IF HB_ISNUMERIC( nOffset ) .AND. nOffset >= 1
       cBuffer := Space( nCount )
-      nRead := hb_vfRead( ::hFile, @cBuffer, nCount )
-      sBuffer := Stuff( sBuffer, nOffSet + 1, nRead, hb_BLeft( cBuffer, nRead ) )  /* TOFIX: use hb_BStuff() */
+      IF ( nRead := hb_vfRead( ::hFile, @cBuffer, nCount ) ) > 0
+         sBuffer := Stuff( sBuffer, nOffSet + 1, nRead, hb_BLeft( cBuffer, nRead ) )  /* TOFIX: use hb_BStuff() */
+      ENDIF
    ELSE
       nRead := hb_vfRead( ::hFile, @sBuffer, nCount )
    ENDIF
 
-   ::nPosition += nRead
+   IF nRead > 0
+      ::nPosition += nRead
+      RETURN nRead
+   ENDIF
 
-   RETURN nRead
+   RETURN 0
 
 METHOD ReadByte() CLASS TStreamFileReader
 
@@ -199,29 +203,20 @@ ENDCLASS
 
 METHOD New( cFile, nMode, nAttr ) CLASS TStreamFileWriter
 
-   ::lCanWrite := .T.
+   LOCAL lExisting := hb_vfExists( cFile )
 
+   ::lCanWrite := .T.
    ::cFile := cFile
 
-   hb_default( @nMode, FO_READWRITE )
-
-   IF hb_vfExists( cFile )
-      IF ( ::hFile := hb_vfOpen( cFile, nMode ) ) == NIL
-         Throw( xhb_ErrorNew( "Stream", 0, 1004, ProcName(), "Open Error: " + hb_ntos( FError() ), hb_AParams() ) )
-      ENDIF
-
-      ::nLength := hb_vfSize( ::hFile )
-      ::nPosition := ::nLength
-   ELSE
-      IF ( ::hFile := hb_vfOpen( cFile, hb_bitOr( FO_CREAT + FO_TRUNC + FO_WRITE, nMode ) ) ) == NIL
-         Throw( xhb_ErrorNew( "Stream", 0, 1004, ProcName(), "Create Error: " + hb_ntos( FError() ), hb_AParams() ) )
-      ENDIF
-
-      hb_vfAttrSet( cFile, nAttr )
-
-      ::nPosition := 0
-      ::nLength := 0
+   IF ( ::hFile := hb_vfOpen( cFile, hb_bitOr( FO_CREAT, hb_defaultValue( nMode, FO_READWRITE ) ) ) ) == NIL
+      Throw( xhb_ErrorNew( "Stream", 0, 1004, ProcName(), "Open/Create Error: " + hb_ntos( FError() ), hb_AParams() ) )
    ENDIF
+
+   IF ! lExisting
+      hb_vfAttrSet( cFile, nAttr )
+   ENDIF
+
+   ::nPosition := ::nLength := hb_vfSeek( ::hFile, 0, FS_END )
 
    RETURN Self
 
@@ -242,21 +237,23 @@ METHOD Write( sBuffer, nOffset, nCount ) CLASS TStreamFileWriter
       sBuffer := hb_BSubStr( sBuffer, nOffSet + 1 )
    ENDIF
 
-   nWritten := hb_vfWrite( ::hFile, sBuffer, nCount )
-
-   ::nPosition += nWritten
+   IF ( nWritten := hb_vfWrite( ::hFile, sBuffer, nCount ) ) > 0
+      ::nPosition += nWritten
+   ENDIF
 
    IF nWritten != nCount
       Throw( xhb_ErrorNew( "Stream", 0, 1003, ProcName(), "Write failed - written: " + hb_ntos( nWritten ) + " bytes", hb_AParams() ) )
    ENDIF
 
-   RETURN nWritten
+   RETURN Max( nWritten, 0 )
 
 METHOD PROCEDURE WriteByte( cByte ) CLASS TStreamFileWriter
 
-   LOCAL nWritten := hb_vfWrite( ::hFile, cByte, 1 )
+   LOCAL nWritten
 
-   ::nPosition += nWritten
+   IF ( nWritten := hb_vfWrite( ::hFile, cByte, 1 ) ) > 0
+      ::nPosition += nWritten
+   ENDIF
 
    IF nWritten != 1
       Throw( xhb_ErrorNew( "Stream", 0, 1006, ProcName(), "Write failed", hb_AParams() ) )

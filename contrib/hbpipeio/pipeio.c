@@ -161,7 +161,7 @@ static HB_SIZE s_fileRead( PHB_FILE pFile, void * data,
 static HB_SIZE s_fileWrite( PHB_FILE pFile, const void * data,
                             HB_SIZE nSize, HB_MAXINT timeout )
 {
-   HB_SIZE nWritten = 0;
+   HB_SIZE nWritten = ( HB_SIZE ) -1;
 
    if( pFile->hPipeWR == FS_ERROR )
       hb_fsSetError( 6 );
@@ -229,6 +229,10 @@ static HB_BOOL s_fileConfigure( PHB_FILE pFile, int iIndex, PHB_ITEM pValue )
 
       case HB_VF_WRHANDLE:
          hb_itemPutNInt( pValue, ( HB_NHANDLE ) pFile->hPipeWR );
+         return HB_TRUE;
+
+      case HB_VF_IONAME:
+         hb_itemPutC( pValue, FILE_PREFIX );
          return HB_TRUE;
    }
 
@@ -323,8 +327,6 @@ static PHB_FILE hb_fileProcessOpen( const char * pszCommand, HB_FATTR nMode,
          return NULL;
    }
 
-   printf( "\nOPEN( '%s', %p, %p ), nMode=%ld\n", pszCommand, phStdIn, phStdOut, ( long ) nMode ); fflush( stdout );
-
    hProcess = hb_fsProcessOpen( pszCommand, phStdIn, phStdOut, NULL,
                                 fDetach, NULL );
    return hProcess != FS_ERROR ? s_fileNew( hProcess, hPipeRD, hPipeWR, timeout ) : NULL;
@@ -354,7 +356,7 @@ HB_FUNC( HB_VFFROMPIPES )
 HB_FUNC( HB_VFOPENPROCESS )
 {
    const char * pszCommand = hb_parc( 1 );
-   HB_FATTR nMode = hb_parnintdef( 2, FO_READ );
+   HB_FATTR nMode = hb_parnldef( 2, FO_READ );
    HB_MAXINT timeout = hb_parnintdef( 3, -1 );
    HB_BOOL fDetach = hb_parl( 4 );
    PHB_FILE pFile;

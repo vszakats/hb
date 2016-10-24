@@ -95,7 +95,7 @@ PROCEDURE Main( ... )
          OutErr( I_( "Wrong mask" ) + hb_eol() )
       ELSE
          cInitDir := hb_FNameDir( cFileName )
-         IF hb_BLen( cInitDir ) == 0
+         IF HB_ISNULL( cInitDir )
             cInitDir := "." + hb_ps()
          ENDIF
          DirEval( cInitDir, hb_FNameNameExt( cFileName ), lRecursive, {| name | Reformat( oRef, name ) } )
@@ -159,7 +159,7 @@ STATIC PROCEDURE About()
 
    OutStd( ;
       "Harbour Source Formatter " + HBRawVersion() + hb_eol() + ;
-      "Copyright (c) 2009-2015, Alexander S.Kresin" + hb_eol() + ;
+      "Copyright (c) 2009-2016, Alexander S.Kresin" + hb_eol() + ;
       hb_Version( HB_VERSION_URL_BASE ) + hb_eol() + ;
       hb_eol() )
 

@@ -1067,12 +1067,24 @@
 #define WIN_SERVICE_PAUSE_PENDING          6
 #define WIN_SERVICE_PAUSED                 7
 
-/* win_serviceInstall() start type */
+/* win_serviceInstall() start types */
 #define WIN_SERVICE_AUTO_START             0x00000002
 #define WIN_SERVICE_BOOT_START             0x00000000
 #define WIN_SERVICE_DEMAND_START           0x00000003
 #define WIN_SERVICE_DISABLED               0x00000004
 #define WIN_SERVICE_SYSTEM_START           0x00000001
+
+/* win_serviceControl() control codes */
+#define WIN_SERVICE_CONTROL_STOP           0x00000001
+#define WIN_SERVICE_CONTROL_PAUSE          0x00000002
+#define WIN_SERVICE_CONTROL_CONTINUE       0x00000003
+#define WIN_SERVICE_CONTROL_INTERROGATE    0x00000004
+#define WIN_SERVICE_CONTROL_SHUTDOWN       0x00000005
+#define WIN_SERVICE_CONTROL_PARAMCHANGE    0x00000006
+#define WIN_SERVICE_CONTROL_NETBINDADD     0x00000007
+#define WIN_SERVICE_CONTROL_NETBINDREMOVE  0x00000008
+#define WIN_SERVICE_CONTROL_NETBINDENABLE  0x00000009
+#define WIN_SERVICE_CONTROL_NETBINDDISABLE 0x0000000A
 
 /* wapi_MessageBox()/wapi_MessageBeep() flags */
 #define WIN_MB_OK                          0x00000000
@@ -1502,5 +1514,63 @@
 #define WIN_LOAD_LIBRARY_SEARCH_USER_DIRS        0x0400
 #define WIN_LOAD_LIBRARY_SEARCH_SYSTEM32         0x0800
 #define WIN_LOAD_LIBRARY_SEARCH_DEFAULT_DIRS     0x1000
+
+/* win_PrintDlgDC() flags */
+#define WIN_PD_ALLPAGES                          0x00000000
+#define WIN_PD_SELECTION                         0x00000001
+#define WIN_PD_PAGENUMS                          0x00000002
+#define WIN_PD_NOSELECTION                       0x00000004
+#define WIN_PD_NOPAGENUMS                        0x00000008
+#define WIN_PD_COLLATE                           0x00000010
+#define WIN_PD_PRINTTOFILE                       0x00000020
+#define WIN_PD_PRINTSETUP                        0x00000040
+#define WIN_PD_NOWARNING                         0x00000080
+#define WIN_PD_RETURNDC                          0x00000100
+#define WIN_PD_RETURNIC                          0x00000200
+#define WIN_PD_RETURNDEFAULT                     0x00000400
+#define WIN_PD_SHOWHELP                          0x00000800
+#define WIN_PD_ENABLEPRINTHOOK                   0x00001000
+#define WIN_PD_ENABLESETUPHOOK                   0x00002000
+#define WIN_PD_ENABLEPRINTTEMPLATE               0x00004000
+#define WIN_PD_ENABLESETUPTEMPLATE               0x00008000
+#define WIN_PD_ENABLEPRINTTEMPLATEHANDLE         0x00010000
+#define WIN_PD_ENABLESETUPTEMPLATEHANDLE         0x00020000
+#define WIN_PD_USEDEVMODECOPIES                  0x00040000
+#define WIN_PD_USEDEVMODECOPIESANDCOLLATE        0x00040000
+#define WIN_PD_DISABLEPRINTTOFILE                0x00080000
+#define WIN_PD_HIDEPRINTTOFILE                   0x00100000
+#define WIN_PD_NONETWORKBUTTON                   0x00200000
+#define WIN_PD_CURRENTPAGE                       0x00400000
+#define WIN_PD_NOCURRENTPAGE                     0x00800000
+#define WIN_PD_EXCLUSIONFLAGS                    0x01000000
+#define WIN_PD_USELARGETEMPLATE                  0x10000000
+
+/* win_PrinterStatus() return values */
+#define HB_WIN_PRINTER_STATUS_ERROR              ( -1 )
+#define WIN_PRINTER_STATUS_PAUSED                0x00000001
+#define WIN_PRINTER_STATUS_ERROR                 0x00000002
+#define WIN_PRINTER_STATUS_PENDING_DELETION      0x00000004
+#define WIN_PRINTER_STATUS_PAPER_JAM             0x00000008
+#define WIN_PRINTER_STATUS_PAPER_OUT             0x00000010
+#define WIN_PRINTER_STATUS_MANUAL_FEED           0x00000020
+#define WIN_PRINTER_STATUS_PAPER_PROBLEM         0x00000040
+#define WIN_PRINTER_STATUS_OFFLINE               0x00000080
+#define WIN_PRINTER_STATUS_IO_ACTIVE             0x00000100
+#define WIN_PRINTER_STATUS_BUSY                  0x00000200
+#define WIN_PRINTER_STATUS_PRINTING              0x00000400
+#define WIN_PRINTER_STATUS_OUTPUT_BIN_FULL       0x00000800
+#define WIN_PRINTER_STATUS_NOT_AVAILABLE         0x00001000
+#define WIN_PRINTER_STATUS_WAITING               0x00002000
+#define WIN_PRINTER_STATUS_PROCESSING            0x00004000
+#define WIN_PRINTER_STATUS_INITIALIZING          0x00008000
+#define WIN_PRINTER_STATUS_WARMING_UP            0x00010000
+#define WIN_PRINTER_STATUS_TONER_LOW             0x00020000
+#define WIN_PRINTER_STATUS_NO_TONER              0x00040000
+#define WIN_PRINTER_STATUS_PAGE_PUNT             0x00080000
+#define WIN_PRINTER_STATUS_USER_INTERVENTION     0x00100000
+#define WIN_PRINTER_STATUS_OUT_OF_MEMORY         0x00200000
+#define WIN_PRINTER_STATUS_DOOR_OPEN             0x00400000
+#define WIN_PRINTER_STATUS_SERVER_UNKNOWN        0x00800000
+#define WIN_PRINTER_STATUS_POWER_SAVE            0x01000000
 
 #endif /* HBWIN_CH_ */

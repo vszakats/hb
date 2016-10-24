@@ -122,7 +122,7 @@ HB_FUNC( WIN_COMOPEN )
          return;
       }
 
-      NewDCB.DCBlength = sizeof( DCB );
+      NewDCB.DCBlength = sizeof( NewDCB );
       if( ! GetCommState( hCommPort, &NewDCB ) )
       {
          s_PortData[ iPort ].dwError = GetLastError();
@@ -454,7 +454,7 @@ HB_FUNC( WIN_COMRTSFLOW )
 
       s_PortData[ iPort ].iFunction = HB_WIN_COM_FUN_GETCOMMSTATE;
       s_PortData[ iPort ].dwError = 0;
-      CurDCB.DCBlength = sizeof( DCB );
+      CurDCB.DCBlength = sizeof( CurDCB );
       if( ! GetCommState( hCommPort, &CurDCB ) )
       {
          s_PortData[ iPort ].dwError = GetLastError();
@@ -509,7 +509,7 @@ HB_FUNC( WIN_COMDTRFLOW )
 
       s_PortData[ iPort ].iFunction = HB_WIN_COM_FUN_GETCOMMSTATE;
       s_PortData[ iPort ].dwError = 0;
-      CurDCB.DCBlength = sizeof( DCB );
+      CurDCB.DCBlength = sizeof( CurDCB );
       if( ! GetCommState( hCommPort, &CurDCB ) )
       {
          s_PortData[ iPort ].dwError = GetLastError();
@@ -563,7 +563,7 @@ HB_FUNC( WIN_COMXONXOFFFLOW )
 
       s_PortData[ iPort ].iFunction = HB_WIN_COM_FUN_GETCOMMSTATE;
       s_PortData[ iPort ].dwError = 0;
-      CurDCB.DCBlength = sizeof( DCB );
+      CurDCB.DCBlength = sizeof( CurDCB );
       if( ! GetCommState( hCommPort, &CurDCB ) )
       {
          s_PortData[ iPort ].dwError = GetLastError();
@@ -668,7 +668,7 @@ HB_FUNC( WIN_COMSETTIMEOUTS )
       s_PortData[ iPort ].iFunction = HB_WIN_COM_FUN_GETCOMMSTATE;
       s_PortData[ iPort ].dwError = 0;
 
-      CurDCB.DCBlength = sizeof( DCB );
+      CurDCB.DCBlength = sizeof( CurDCB );
       if( ! GetCommState( hCommPort, &CurDCB ) )
       {
          s_PortData[ iPort ].dwError = GetLastError();
@@ -767,7 +767,7 @@ HB_FUNC( WIN_COMDEBUGDCB )
 
       s_PortData[ iPort ].iFunction = HB_WIN_COM_FUN_GETCOMMSTATE;
       s_PortData[ iPort ].dwError = 0;
-      CurDCB.DCBlength = sizeof( DCB );
+      CurDCB.DCBlength = sizeof( CurDCB );
       if( GetCommState( hCommPort, &CurDCB ) )
       {
          if( iDebugLevel & HB_WIN_COM_DBGBASIC )

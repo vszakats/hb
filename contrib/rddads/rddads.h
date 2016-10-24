@@ -146,6 +146,7 @@ typedef struct _ADSAREA_
    ADSHANDLE hTable;
    ADSHANDLE hOrdCurrent;
    ADSHANDLE hStatement;
+   char *    szQuery;
 } ADSAREA;
 
 typedef ADSAREA * ADSAREAP;
@@ -183,6 +184,7 @@ extern HB_BOOL hb_ads_bTestRecLocks;
 
 extern ADSHANDLE  hb_ads_getConnection( void );
 extern ADSHANDLE  hb_ads_defConnection( ADSHANDLE hConnect, const char * szName );
+extern void       hb_ads_clrConnection( ADSHANDLE hConnect );
 extern void       hb_ads_setConnection( ADSHANDLE hConnect );
 extern int        hb_ads_getIndexPageSize( void );
 extern void       hb_ads_setIndexPageSize( int iIndexPageSize );
@@ -209,8 +211,8 @@ extern ADSAREAP   hb_adsGetWorkAreaPointer( void );
                                          UNSIGNED32 * pulLen );
 
 #else
-   #define hb_adsOemToAnsi( s, l )  ( ( char * ) ( s ) )
-   #define hb_adsAnsiToOem( s, l )  ( ( char * ) ( s ) )
+   #define hb_adsOemToAnsi( s, l )  ( ( char * ) HB_UNCONST( s ) )
+   #define hb_adsAnsiToOem( s, l )  ( ( char * ) HB_UNCONST( s ) )
    #define hb_adsOemAnsiFree( s )
 #endif
 

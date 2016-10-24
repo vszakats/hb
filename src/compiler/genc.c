@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA (or visit
- * their web site at https://www.gnu.org/).
+ * their website at https://www.gnu.org/).
  *
  */
 
@@ -427,7 +427,10 @@ void hb_compGenCCode( HB_COMP_DECL, PHB_FNAME pFileName )       /* generates the
          pInline = pInline->pNext;
       }
       if( ! fHasHbInline )
+      {
          fprintf( yyc, "\n/* Empty source file */\n" );
+         fprintf( yyc, "\nstatic void * dummy = &dummy;\n" );
+      }
    }
 
    fclose( yyc );

@@ -806,6 +806,9 @@ typedef struct _RDDNODE
 
 typedef RDDNODE * LPRDDNODE;
 
+/* RDD file/table name redirector function */
+typedef LPRDDNODE ( * HB_RDDACCEPT )( LPRDDNODE pRddNode, const char * szFileName );
+
 
 /*--------------------* SELF Methods *------------------------*/
 
@@ -1177,8 +1180,11 @@ extern HB_EXPORT HB_ERRCODE   hb_rddInheritEx( RDDFUNCS * pTable, const RDDFUNCS
 extern HB_EXPORT HB_BOOL      hb_rddIsDerivedFrom( HB_USHORT uiRddID, HB_USHORT uiSuperRddID );
 extern HB_EXPORT LPRDDNODE    hb_rddGetNode( HB_USHORT uiNode );
 extern HB_EXPORT LPRDDNODE    hb_rddFindNode( const char * szDriver, HB_USHORT * uiIndex );
+extern HB_EXPORT LPRDDNODE    hb_rddFindFileNode( LPRDDNODE pRddNode, const char * szFileName );
+extern HB_EXPORT void         hb_rddSetFileRedirector( HB_RDDACCEPT funcAccept, HB_BOOL fEnable );
 extern HB_EXPORT HB_USHORT    hb_rddFieldIndex( AREAP pArea, const char * szName );
 extern HB_EXPORT HB_USHORT    hb_rddFieldExpIndex( AREAP pArea, const char * szField );
+extern HB_EXPORT const char * hb_rddFindDrv( const char * szDriver, const char * szFileName );
 extern HB_EXPORT const char * hb_rddDefaultDrv( const char * szDriver );
 extern HB_EXPORT HB_ERRCODE   hb_rddSelectFirstAvailable( void );
 extern HB_EXPORT HB_ERRCODE   hb_rddVerifyAliasName( const char * szAlias );
@@ -1232,7 +1238,7 @@ extern HB_EXPORT HB_ERRCODE   hb_rddEvalWA( PHB_ITEM pBlock );
 
 extern HB_EXPORT HB_ERRCODE   hb_rddDetachArea( AREAP pArea, PHB_ITEM pCargo );
 extern HB_EXPORT AREAP        hb_rddRequestArea( const char * szAlias, PHB_ITEM pCargo,
-                                                 HB_BOOL fNewArea, HB_BOOL fWait );
+                                                 HB_BOOL fNewArea, HB_ULONG ulMilliSec );
 extern HB_EXPORT PHB_ITEM     hb_rddDetachedList( void );
 
 typedef HB_ERRCODE ( * WACALLBACK )( AREAP, void * );

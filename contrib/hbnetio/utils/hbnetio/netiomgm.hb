@@ -1,7 +1,7 @@
 /*
  * Harbour NETIO server management client engine
  *
- * Copyright 2009-2014 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2009-2016 Viktor Szakats (vszakats.net/harbour)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA (or visit
- * their web site at https://www.gnu.org/).
+ * their website at https://www.gnu.org/).
  *
  */
 
@@ -112,7 +112,7 @@ STATIC FUNCTION hbnetiocon_init( hConIO, aParam )
       "shutdown"      => { ""               , "Stop server."                                   , {| netiocli | cmdShutdown( netiocli ) } }, ;
       "help"          => { ""               , "Display this help."                             , {| netiocli | cmdHelp( netiocli ) } } }
 
-   IF hb_BLen( cPassword ) > 0
+   IF ! HB_ISNULL( cPassword )
       ConnectLow( netiocli, cIP, nPort, cPassword )
    ENDIF
 
@@ -325,7 +325,7 @@ STATIC FUNCTION XToStrX( xValue )
 STATIC PROCEDURE cmdAbout( netiocli )
 
    hbnetiocon_dispevent( netiocli, "Harbour NETIO Server Management Console " + HBRawVersionMgmnt() )
-   hbnetiocon_dispevent( netiocli, "Copyright (c) 2009-2015, Viktor Szakats" )
+   hbnetiocon_dispevent( netiocli, "Copyright (c) 2009-2016, Viktor Szakats" )
    hbnetiocon_dispevent( netiocli, hb_Version( HB_VERSION_URL_BASE ) )
 
    RETURN

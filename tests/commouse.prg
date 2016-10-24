@@ -52,11 +52,11 @@ PROCEDURE Main( cParam )
    ENDIF
 
    ? "Press any key to exit..."
-   DO WHILE ( nLen := Inkey() ) == 0
+   DO WHILE Inkey() == 0
       IF ( nLen := hb_comRecv( nPort, @cBuf ) ) > 0
          cBuffer += hb_BLeft( cBuf, nLen )
       ENDIF
-      IF hb_BLen( cBuffer ) == 0
+      IF HB_ISNULL( cBuffer )
          hb_idleSleep( 0.05 )
          LOOP
       ENDIF

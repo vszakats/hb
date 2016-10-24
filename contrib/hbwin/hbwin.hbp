@@ -14,7 +14,7 @@
 -depcontrol=png:local{HB_BUILD_3RDEXT='no'}
 -depcontrol=png:${HB_WITH_PNG}
 -depincpath=png:/usr/include
--depincpath=png:/opt/local/include
+-depincpath=png:/usr/local/include
 -depincpathlocal=png:../../src/3rd/png
 
 -instfile=contrib:hbwapi.h
@@ -65,7 +65,8 @@ win_proxyc.c
 win_regc.c
 win_rpc.c
 win_shell.c
-win_svc.c
+win_svc_1.c
+win_svc_2.c
 
 oleauto.prg
 axfunc.prg

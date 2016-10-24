@@ -13,6 +13,9 @@
 -deppkgname=mysql:MySQL-devel{rpm}
 -deppkgname=mysql:libmariadb-client-lgpl-dev{deb}
 -deppkgname=mysql:libmysqlclient-dev{deb}
+-deppkgname=mysql:mingw-w64-i686-libmariadbclient{msys2&mingw}
+-deppkgname=mysql:mingw-w64-x86_64-libmariadbclient{msys2&mingw64}
+-deppkgname=mysql:libmariadbclient{pacman}
 -deppkgname=mysql:mariadb{homebrew}
 -deppkgname=mysql:mysql{homebrew}
 -depkeyhead=mysql:mysql.h
@@ -20,11 +23,14 @@
 -depcontrol=mysql:${HB_WITH_MYSQL}
 -depincpath=mysql:/usr/include/mysql
 -depincpath=mysql:/usr/local/include/mysql
--depincpath=mysql:/opt/local/include/mysql5/mysql
+-depincpath=mysql:/usr/local/opt/mariadb/include
+-depincpath=mysql:/usr/local/opt/mysql/include
 -depimplibs=mysql:../lib/opt/libmySQL.dll
 -depimplibs=mysql:../lib/libmySQL.dll
 -depimplibs=mysql:../../lib/libmysql.dll
 -depimplibs=mysql:../../lib/libmysql.def{x86_64}
+-depimplibs=mysql:../../lib/libmysqlclient.dll.a
+-depimplibd=mysql:mysqlclient
 
 -hbx=${hb_name}
 

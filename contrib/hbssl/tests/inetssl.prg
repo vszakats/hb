@@ -13,7 +13,7 @@ STATIC s_lDelaySrv := .F.
 STATIC s_lDelayCli := .F.
 
 #if ! defined( __HBSCRIPT__HBSHELL )
-REQUEST HB_MT
+REQUEST HB_MT  /* Require this to be built with '-mt' option */
 #endif
 
 PROCEDURE Main( delay )
@@ -61,7 +61,7 @@ STATIC PROCEDURE Client()
    hb_inetTimeout( sock, 5000 )
 
    ? "CLIENT: connecting..."
-   IF Empty( hb_inetConnectIP( "127.0.0.1", N_PORT, sock ) )
+   IF Empty( hb_inetConnectIP( "localhost", N_PORT, sock ) )
       ? "CLIENT: cannot connect to server."
    ELSE
       ? "CLIENT: connected to the server."
@@ -83,7 +83,7 @@ STATIC PROCEDURE Client()
          DispCertInfo( ssl, "CLIENT:" )
 
          hb_inetSendAll( sock, hb_TSToStr( hb_DateTime() ) + EOL )
-         DO WHILE hb_BLen( cLine := hb_inetRecvLine( sock ) ) > 0
+         DO WHILE ! HB_ISNULL( cLine := hb_inetRecvLine( sock ) )
             ? "CLIENT: RECV:", hb_ValToExp( cLine )
          ENDDO
       ENDIF
@@ -151,13 +151,13 @@ STATIC PROCEDURE LoadCertificates( ssl_ctx, cCertFile, cKeyFile )
 
    /* Server using hb_inetSSL_ACCEPT() needs certificates,
       they can be generated using the following command:
-         openssl req -x509 -nodes -days 365 -newkey rsa:1024 \
-                 -out <cCertFile> -keyout <cKeyFile>
+         openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+                 -sha256 -out <cCertFile> -keyout <cKeyFile>
     */
    IF ! hb_vfExists( cCertFile ) .AND. ! hb_vfExists( cKeyFile )
       ? "SERVER: generating certificates..."
-      hb_run( "openssl req -x509 -nodes -days 365 -newkey rsa:1024 " + ;
-              "-out " + cCertFile + " -keyout " + cKeyFile )
+      hb_run( "openssl req -x509 -nodes -days 365 -newkey rsa:2048 " + ;
+              "-sha256 -out " + cCertFile + " -keyout " + cKeyFile )
    ENDIF
 
    /* set the local certificate from CertFile */

@@ -1,5 +1,5 @@
 /*
- * hb_DirScan()
+ * hb_DirScan(), hb_DirRemoveAll(), hb_FileDelete()
  *
  * Copyright 2008 Przemyslaw Czerpak <druzus / at / priv.onet.pl>
  *
@@ -45,6 +45,7 @@
  */
 
 #include "directry.ch"
+#include "fileio.ch"
 
 STATIC FUNCTION hb_doScan( cPath, cMask, cAttr, cPathSep )
 
@@ -75,3 +76,52 @@ FUNCTION hb_DirScan( cPath, cFileMask, cAttr )
       iif( HB_ISSTRING( cFileMask ), cFileMask, hb_osFileMask() ), ;
       hb_defaultValue( cAttr, "" ), ;
       hb_ps() )
+
+FUNCTION hb_DirRemoveAll( cDir )
+
+   LOCAL aFile, cPath, cFile, nAttr
+
+   IF hb_vfDirExists( cDir )
+      cPath := hb_DirSepAdd( cDir )
+      FOR EACH aFile IN hb_vfDirectory( cPath + hb_osFileMask(), "HSDL" )
+         IF "D" $ aFile[ F_ATTR ] .AND. ! "L" $ aFile[ F_ATTR ]
+            IF !( aFile[ F_NAME ] == "." .OR. aFile[ F_NAME ] == ".." .OR. aFile[ F_NAME ] == "" )
+               IF ! hb_DirRemoveAll( cPath + aFile[ F_NAME ] )
+                  RETURN .F.
+               ENDIF
+            ENDIF
+         ELSE
+            cFile := cPath + aFile[ F_NAME ]
+            IF "R" $ aFile[ F_ATTR ] .AND. hb_vfAttrGet( cFile, @nAttr )
+               hb_vfAttrSet( cFile, hb_bitAnd( nAttr, hb_bitNot( HB_FA_READONLY ) ) )
+            ENDIF
+            IF ! hb_vfErase( cFile ) == 0
+               RETURN .F.
+            ENDIF
+         ENDIF
+      NEXT
+      RETURN hb_vfDirRemove( cDir ) == 0
+   ENDIF
+
+   RETURN .F.
+
+FUNCTION hb_FileDelete( cFileMask, cAttr )
+
+   LOCAL lAny := .F., aFile, cPath, cFile, cAttrMask, nAttr
+
+   IF HB_ISSTRING( cFileMask ) .AND. ! HB_ISNULL( cFileMask ) .AND. ;
+      ! hb_vfDirExists( cFileMask )
+      cPath := hb_FNameDir( cFileMask )
+      cAttrMask := StrTran( hb_defaultValue( cAttr, "" ), "D" ) + "L"
+      FOR EACH aFile IN hb_vfDirectory( cFileMask, cAttrMask )
+         cFile := cPath + aFile[ F_NAME ]
+         IF "R" $ aFile[ F_ATTR ] .AND. hb_vfAttrGet( cFile, @nAttr )
+            hb_vfAttrSet( cFile, hb_bitAnd( nAttr, hb_bitNot( HB_FA_READONLY ) ) )
+         ENDIF
+         IF hb_vfErase( cFile ) == 0
+            lAny := .T.
+         ENDIF
+      NEXT
+   ENDIF
+
+   RETURN lAny

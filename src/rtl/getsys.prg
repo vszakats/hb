@@ -47,6 +47,8 @@
 
 #ifdef HB_COMPAT_C53
 
+#include "inkey.ch"
+
 #define SLUPDATED       1
 #define SOACTIVEGET     8
 #define SXREADVAR       9
@@ -315,7 +317,7 @@ FUNCTION RangeCheck( oGet, xDummy, xLow, xHigh )
 
       hb_DispOutAt( SCORE_ROW, Min( 60, MaxCol() - hb_ULen( cMessage ) ), cMessage )
 
-      DO WHILE ( nKey := Inkey( 0 ) ) == 0
+      DO WHILE ( nKey := Inkey( 0, hb_bitOr( Set( _SET_EVENTMASK ), HB_INKEY_EXT ) ) ) == 0
       ENDDO
       hb_keyIns( nKey )
 

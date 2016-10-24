@@ -582,7 +582,10 @@ HB_FUNC( HB_VFREAD )
          uiError = hb_fsError();
       }
 
-      hb_retns( nRead );
+      if( nRead == ( HB_SIZE ) FS_ERROR )
+         hb_retni( FS_ERROR );
+      else
+         hb_retns( nRead );
       hb_fsSetFError( uiError );
    }
 }
@@ -605,6 +608,8 @@ HB_FUNC( HB_VFREADLEN )
          nRead = hb_fileRead( pFile, buffer, nToRead, hb_parnintdef( 3, -1 ) );
          uiError = hb_fsError();
 
+         if( nRead == ( HB_SIZE ) FS_ERROR )
+            nRead = 0;
          hb_retclen_buffer( buffer, nRead );
       }
       else
@@ -634,8 +639,12 @@ HB_FUNC( HB_VFWRITE )
                nLen = nWrite;
          }
 
-         hb_retns( hb_fileWrite( pFile, hb_parc( 2 ), nLen,
-                                 hb_parnintdef( 4, -1 ) ) );
+         nLen = hb_fileWrite( pFile, hb_parc( 2 ), nLen,
+                              hb_parnintdef( 4, -1 ) );
+         if( nLen == ( HB_SIZE ) FS_ERROR )
+            hb_retni( FS_ERROR );
+         else
+            hb_retns( nLen );
          uiError = hb_fsError();
       }
       else
@@ -672,7 +681,10 @@ HB_FUNC( HB_VFREADAT )
          uiError = hb_fsError();
       }
 
-      hb_retns( nRead );
+      if( nRead == ( HB_SIZE ) FS_ERROR )
+         hb_retni( FS_ERROR );
+      else
+         hb_retns( nRead );
       hb_fsSetFError( uiError );
    }
 }
@@ -698,8 +710,12 @@ HB_FUNC( HB_VFWRITEAT )
                nLen = nWrite;
          }
 
-         hb_retns( hb_fileWriteAt( pFile, pszData, nLen,
-                                   ( HB_FOFFSET ) hb_parnintdef( 4, -1 ) ) );
+         nLen = hb_fileWriteAt( pFile, pszData, nLen,
+                                ( HB_FOFFSET ) hb_parnintdef( 4, -1 ) );
+         if( nLen == ( HB_SIZE ) FS_ERROR )
+            hb_retni( FS_ERROR );
+         else
+            hb_retns( nLen );
          uiError = hb_fsError();
       }
       else
@@ -749,7 +765,10 @@ HB_FUNC( HB_VFSIZE )
    const char * pszFile = hb_parc( 1 );
 
    if( pszFile )
+   {
       hb_retnint( hb_fileSizeGet( pszFile, hb_parldef( 2, 1 ) ) );
+      hb_fsSetFError( hb_fsError() );
+   }
    else
    {
       PHB_FILE pFile = hb_fileParam( 1 );
@@ -837,4 +856,20 @@ HB_FUNC( HB_VFTEMPFILE )
                                        ( HB_FATTR ) hb_parnldef( 5, FC_NORMAL ) ) );
    hb_fsSetFError( hb_fsError() );
    hb_storc( szName, 1 );
+}
+
+/* hb_vfLoad( <cFileName>, [ <nMaxSize> ] ) -> <cFileBody> | NIL */
+HB_FUNC( HB_VFLOAD )
+{
+   const char * pszFileName = hb_parc( 1 );
+
+   if( pszFileName )
+   {
+      HB_SIZE nSize;
+      char * pBuffer = ( char * ) hb_fileLoad( pszFileName, hb_parns( 2 ), &nSize );
+      if( pBuffer )
+         hb_retclen_buffer( pBuffer, nSize );
+   }
+   else
+      hb_errRT_BASE_SubstR( EG_ARG, 2021, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }

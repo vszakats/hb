@@ -1,4 +1,4 @@
-description=Cups wrapper (*nix printing)
+description=CUPS bindings (*nix printing)
 
 incpaths=.
 

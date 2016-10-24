@@ -82,7 +82,7 @@ POINT * hbwapi_par_POINT( POINT * p, int iParam, HB_BOOL bMandatory )
 {
    PHB_ITEM pStru = hb_param( iParam, HB_IT_ANY );
 
-   memset( p, 0, sizeof( POINT ) );
+   memset( p, 0, sizeof( *p ) );
 
    if( pStru && HB_IS_HASH( pStru ) )
    {
@@ -418,7 +418,7 @@ HB_FUNC( __WAPI_DEVMODE_NEW )
 
       if( lSize > 0 )
       {
-         PDEVMODE pDevMode = ( PDEVMODE ) hb_xgrab( lSize );
+         PDEVMODE pDevMode = ( PDEVMODE ) hb_xgrabz( lSize );
 
          if( DocumentProperties( 0, hPrinter, ( LPTSTR ) lpDeviceName, pDevMode, pDevMode, DM_OUT_BUFFER ) == IDOK )
             hbwapi_ret_PDEVMODE( pDevMode );
@@ -910,7 +910,7 @@ HB_FUNC( WAPI_SELECTOBJECT )
 #if _TODO_REGION
       /* TODO: Solve reference counting to 'h' handle. Also for returned one. */
       if( bRegion )
-         hb_retnint( ( HB_PTRDIFF ) SelectObject( hDC, h ) );
+         hb_retnint( ( HB_PTRUINT ) SelectObject( hDC, h ) );
       else
 #endif
          hb_retl( SelectObject( hDC, h ) != NULL );  /* NOTE: We don't return a raw pointer. */

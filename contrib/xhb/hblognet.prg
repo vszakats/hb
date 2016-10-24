@@ -1,5 +1,5 @@
 /*
- * Versatile logging system - Logger sending log message to e-mail
+ * Versatile logging system - Logger sending log message to email
  *
  * Copyright 2003 Giancarlo Niccolai [gian@niccolai.ws]
  *
@@ -51,9 +51,9 @@ CREATE CLASS HB_LogEmail INHERIT HB_LogChannel
 
    VAR cServer
    VAR cAddress        INIT "log@example.org"
-   VAR cSubject        INIT "Log message from xharbour application"
+   VAR cSubject        INIT "Log message from xHarbour application"
    VAR cSendTo
-   VAR cHelo           INIT "XHarbour E-mail Logger"
+   VAR cHelo           INIT "xHarbour Email Logger"
    VAR nPort           INIT 25
 
    VAR cPrefix
@@ -114,7 +114,7 @@ METHOD Close( cName ) CLASS HB_LogEmail
 
    RETURN .T.
 
-/* Sends the real message in e-mail */
+/* Sends the real message in email */
 METHOD Send( nStyle, cMessage, cName, nPriority ) CLASS HB_LogEmail
 
    LOCAL skCon := hb_inetCreate()

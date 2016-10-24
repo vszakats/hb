@@ -16,10 +16,4 @@ HB_GT_LIBS += gtwvt gtgui gtwin
 # advapi32: GetUserName()
 # gdi32: gtwvt
 
-# unicows lib must come after user libs and before Windows system libs
-ifneq ($(wildcard $(TOP)$(ROOT)lib/3rd/$(HB_PLATFORM)/$(HB_COMPILER)),)
-   3RDLIB_DIR := $(TOP)$(ROOT)lib/3rd/$(HB_PLATFORM)/$(HB_COMPILER)
-   3RDLIBS := unicows
-endif
-
 SYSLIBS += kernel32 user32 ws2_32 iphlpapi advapi32 gdi32

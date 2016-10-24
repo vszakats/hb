@@ -111,6 +111,9 @@ CREATE CLASS TIPClient
    VAR nProxyPort        INIT 0
    VAR cProxyUser
    VAR cProxyPassword
+   VAR lProxyXferSSL     INIT .F.  /* SSL should only be enabled after proxy connection
+                                      NOTE: I've only checked HTTP POST / GET, unsure if
+                                      there are other funtions with this issue. */
 
    METHOD New( oUrl, xTrace, oCredentials )
    METHOD Open( cUrl )
@@ -259,6 +262,8 @@ METHOD EnableSSL( lEnable ) CLASS TIPClient
       RETURN .T.
    ENDIF
 
+   ::lProxyXferSSL := .F.
+
    IF lEnable
       IF ::lHasSSL
          ::ssl_ctx := SSL_CTX_new()
@@ -291,10 +296,10 @@ METHOD OpenProxy( cServer, nPort, cProxy, nProxyPort, cResp, cUserName, cPasswor
       cRequest := ;
          "CONNECT " + cServer + ":" + hb_ntos( nPort ) + " HTTP/1.1" + Chr( 13 ) + Chr( 10 ) + ;
          "Proxy-Connection: Keep-Alive" + Chr( 13 ) + Chr( 10 )
-      IF HB_ISSTRING( cUserAgent ) .AND. hb_BLen( cUserAgent ) > 0
+      IF HB_ISSTRING( cUserAgent ) .AND. ! HB_ISNULL( cUserAgent )
          cRequest += "User-Agent: " + cUserAgent + Chr( 13 ) + Chr( 10 )
       ENDIF
-      IF HB_ISSTRING( cUserName ) .AND. hb_BLen( cUserName ) > 0
+      IF HB_ISSTRING( cUserName ) .AND. ! HB_ISNULL( cUserName )
          cRequest += "Proxy-Authorization: Basic " + hb_base64Encode( cUserName + ":" + hb_defaultValue( cPassword, "" ) ) + Chr( 13 ) + Chr( 10 )
       ENDIF
       cRequest += Chr( 13 ) + Chr( 10 )
@@ -309,6 +314,14 @@ METHOD OpenProxy( cServer, nPort, cProxy, nProxyPort, cResp, cUserName, cPasswor
       ENDIF
    ELSE
       cResp := hb_ntos( tmp )
+   ENDIF
+
+   /* Enable SSL after proxy connection is OK */
+   IF lRet .AND. ::lSSL .AND. ::lHasSSL
+      __tip_SSLConnectFD( ::ssl, ::SocketCon )
+      ::lProxyXferSSL := .T.
+   ELSE
+      ::lProxyXferSSL := .F.
    ENDIF
 
    RETURN lRet
@@ -347,6 +360,7 @@ METHOD Close() CLASS TIPClient
 
       ::SocketCon := NIL
       ::isOpen := .F.
+      ::lProxyXferSSL := .F.
    ENDIF
 
    IF HB_ISEVALITEM( ::bTrace )
@@ -493,7 +507,7 @@ METHOD WriteFromFile( cFile ) CLASS TIPClient
 
    ::nWrite  := 0
    ::nStatus := 0
-   IF ( nFIn := hb_vfOpen( cFile ) ) == NIL
+   IF ( nFIn := hb_vfOpen( cFile, FO_READ ) ) == NIL
       RETURN .F.
    ENDIF
    nSize := hb_vfSize( nFIn )
@@ -559,7 +573,7 @@ METHOD inetSendAll( SocketCon, cData, nLen ) CLASS TIPClient
       nLen := hb_BLen( cData )
    ENDIF
 
-   IF ::lSSL
+   IF ::lSSL .AND. ::lProxyXferSSL
       IF ::lHasSSL
 #if defined( _SSL_DEBUG_TEMP )
          ? "SSL_write()", cData
@@ -593,7 +607,7 @@ METHOD inetRecv( SocketCon, cStr1, len ) CLASS TIPClient
 
    LOCAL nRet
 
-   IF ::lSSL
+   IF ::lSSL .AND. ::lProxyXferSSL
       IF ::lHasSSL
 #if defined( _SSL_DEBUG_TEMP )
          ? "SSL_read()"
@@ -623,7 +637,7 @@ METHOD inetRecvLine( SocketCon, nRet, size ) CLASS TIPClient
 #if defined( _SSL_DEBUG_TEMP )
          ? "hb_SSL_read_line()", cRet
 #endif
-         IF nRet == 0 .OR. hb_BLen( cRet ) == 0
+         IF nRet == 0 .OR. HB_ISNULL( cRet )
             cRet := NIL
          ENDIF
          ::nSSLError := iif( nRet < 0, nRet, 0 )
@@ -651,7 +665,7 @@ METHOD inetRecvAll( SocketCon, cRet, size ) CLASS TIPClient
 #if defined( _SSL_DEBUG_TEMP )
          ? "hb_SSL_read_all()", cRet
 #endif
-         IF nRet == 0 .OR. hb_BLen( cRet ) == 0
+         IF nRet == 0 .OR. HB_ISNULL( cRet )
             cRet := NIL
          ENDIF
          ::nSSLError := iif( nRet < 0, nRet, 0 )
@@ -727,8 +741,11 @@ METHOD PROCEDURE inetConnect( cServer, nPort, SocketCon ) CLASS TIPClient
       ::InetRcvBufSize( SocketCon, ::nDefaultRcvBuffSize )
    ENDIF
 
-   IF ::lSSL .AND. ::lHasSSL
-      __tip_SSLConnectFD( ::ssl, SocketCon )
+   IF ::lSSL .AND. ::lHasSSL .AND. Empty( ::cProxyHost )
+      __tip_SSLConnectFD( ::ssl, SocketCon )  /* Proxy will do this in OpenProxy() */
+      ::lProxyXferSSL := .T.
+   ELSE
+      ::lProxyXferSSL := .F.
    ENDIF
 
    IF HB_ISEVALITEM( ::bTrace )

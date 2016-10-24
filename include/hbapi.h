@@ -66,37 +66,37 @@ HB_EXTERN_BEGIN
 
 
 /* items types and type checking macros */
-#define HB_IT_NIL       ( ( HB_TYPE ) 0x00000 )
-#define HB_IT_POINTER   ( ( HB_TYPE ) 0x00001 )
-#define HB_IT_INTEGER   ( ( HB_TYPE ) 0x00002 )
-#define HB_IT_HASH      ( ( HB_TYPE ) 0x00004 )
-#define HB_IT_LONG      ( ( HB_TYPE ) 0x00008 )
-#define HB_IT_DOUBLE    ( ( HB_TYPE ) 0x00010 )
-#define HB_IT_DATE      ( ( HB_TYPE ) 0x00020 )
-#define HB_IT_TIMESTAMP ( ( HB_TYPE ) 0x00040 )
-#define HB_IT_LOGICAL   ( ( HB_TYPE ) 0x00080 )
-#define HB_IT_SYMBOL    ( ( HB_TYPE ) 0x00100 )
-#define HB_IT_ALIAS     ( ( HB_TYPE ) 0x00200 )
-#define HB_IT_STRING    ( ( HB_TYPE ) 0x00400 )
-#define HB_IT_MEMOFLAG  ( ( HB_TYPE ) 0x00800 )
+#define HB_IT_NIL       0x00000
+#define HB_IT_POINTER   0x00001
+#define HB_IT_INTEGER   0x00002
+#define HB_IT_HASH      0x00004
+#define HB_IT_LONG      0x00008
+#define HB_IT_DOUBLE    0x00010
+#define HB_IT_DATE      0x00020
+#define HB_IT_TIMESTAMP 0x00040
+#define HB_IT_LOGICAL   0x00080
+#define HB_IT_SYMBOL    0x00100
+#define HB_IT_ALIAS     0x00200
+#define HB_IT_STRING    0x00400
+#define HB_IT_MEMOFLAG  0x00800
 #define HB_IT_MEMO      ( HB_IT_MEMOFLAG | HB_IT_STRING )
-#define HB_IT_BLOCK     ( ( HB_TYPE ) 0x01000 )
-#define HB_IT_BYREF     ( ( HB_TYPE ) 0x02000 )
-#define HB_IT_MEMVAR    ( ( HB_TYPE ) 0x04000 )
-#define HB_IT_ARRAY     ( ( HB_TYPE ) 0x08000 )
-#define HB_IT_ENUM      ( ( HB_TYPE ) 0x10000 )
-#define HB_IT_EXTREF    ( ( HB_TYPE ) 0x20000 )
-#define HB_IT_DEFAULT   ( ( HB_TYPE ) 0x40000 )
-#define HB_IT_RECOVER   ( ( HB_TYPE ) 0x80000 )
+#define HB_IT_BLOCK     0x01000
+#define HB_IT_BYREF     0x02000
+#define HB_IT_MEMVAR    0x04000
+#define HB_IT_ARRAY     0x08000
+#define HB_IT_ENUM      0x10000
+#define HB_IT_EXTREF    0x20000
+#define HB_IT_DEFAULT   0x40000
+#define HB_IT_RECOVER   0x80000
 #define HB_IT_OBJECT    HB_IT_ARRAY
-#define HB_IT_NUMERIC   ( ( HB_TYPE ) ( HB_IT_INTEGER | HB_IT_LONG | HB_IT_DOUBLE ) )
-#define HB_IT_NUMINT    ( ( HB_TYPE ) ( HB_IT_INTEGER | HB_IT_LONG ) )
-#define HB_IT_DATETIME  ( ( HB_TYPE ) ( HB_IT_DATE | HB_IT_TIMESTAMP ) )
-#define HB_IT_ANY       ( ( HB_TYPE ) 0xFFFFFFFF )
-#define HB_IT_COMPLEX   ( ( HB_TYPE ) ( HB_IT_BLOCK | HB_IT_ARRAY | HB_IT_HASH | HB_IT_POINTER | /* HB_IT_MEMVAR | HB_IT_ENUM | HB_IT_EXTREF |*/ HB_IT_BYREF | HB_IT_STRING ) )
-#define HB_IT_GCITEM    ( ( HB_TYPE ) ( HB_IT_BLOCK | HB_IT_ARRAY | HB_IT_HASH | HB_IT_POINTER | HB_IT_BYREF ) )
-#define HB_IT_EVALITEM  ( ( HB_TYPE ) ( HB_IT_BLOCK | HB_IT_SYMBOL ) )
-#define HB_IT_HASHKEY   ( ( HB_TYPE ) ( HB_IT_INTEGER | HB_IT_LONG | HB_IT_DOUBLE | HB_IT_DATE | HB_IT_TIMESTAMP | HB_IT_STRING | HB_IT_POINTER ) )
+#define HB_IT_NUMERIC   ( HB_IT_INTEGER | HB_IT_LONG | HB_IT_DOUBLE )
+#define HB_IT_NUMINT    ( HB_IT_INTEGER | HB_IT_LONG )
+#define HB_IT_DATETIME  ( HB_IT_DATE | HB_IT_TIMESTAMP )
+#define HB_IT_ANY       0xFFFFFFFF
+#define HB_IT_COMPLEX   ( HB_IT_BLOCK | HB_IT_ARRAY | HB_IT_HASH | HB_IT_POINTER | /* HB_IT_MEMVAR | HB_IT_ENUM | HB_IT_EXTREF |*/ HB_IT_BYREF | HB_IT_STRING )
+#define HB_IT_GCITEM    ( HB_IT_BLOCK | HB_IT_ARRAY | HB_IT_HASH | HB_IT_POINTER | HB_IT_BYREF )
+#define HB_IT_EVALITEM  ( HB_IT_BLOCK | HB_IT_SYMBOL )
+#define HB_IT_HASHKEY   ( HB_IT_INTEGER | HB_IT_LONG | HB_IT_DOUBLE | HB_IT_DATE | HB_IT_TIMESTAMP | HB_IT_STRING | HB_IT_POINTER )
 
 #if 0
 
@@ -545,9 +545,9 @@ extern void *     hb_xRefResize( void * pMem, HB_SIZE nSave, HB_SIZE nSize, HB_S
 #define hb_xreallocz( p, n )  memset( hb_xrealloc( ( p ), ( n ) ), 0, ( n ) )
 
 /* #if UINT_MAX == ULONG_MAX */
-/* it fails on 64bit platforms where int has 32 bit and long has 64 bit.
+/* it fails on 64-bit platforms where int has 32 bits and long has 64 bits.
    we need these functions only when max(size_t) < max(long)
-   and only on 16bit platforms, so the below condition seems to be
+   and only on 16-bit platforms, so the below condition seems to be
    more reasonable. */
 #if UINT_MAX > USHRT_MAX
    /* NOTE: memcpy/memset can work with HB_SIZE data blocks */
@@ -556,7 +556,7 @@ extern void *     hb_xRefResize( void * pMem, HB_SIZE nSave, HB_SIZE nSize, HB_S
 #else
    /* NOTE: otherwise, the hb_xmemcpy and hb_xmemset functions
             will be used to copy and/or set HB_SIZE data blocks */
-extern HB_EXPORT void * hb_xmemcpy( void * pDestArg, void * pSourceArg, HB_SIZE nLen ); /* copy more than memcpy() can */
+extern HB_EXPORT void * hb_xmemcpy( void * pDestArg, const void * pSourceArg, HB_SIZE nLen ); /* copy more than memcpy() can */
 extern HB_EXPORT void * hb_xmemset( void * pDestArg, int iFill, HB_SIZE nLen ); /* set more than memset() can */
 #endif
 
@@ -996,6 +996,7 @@ extern HB_EXPORT double    hb_strVal( const char * szText, HB_SIZE nLen ); /* re
 extern HB_EXPORT HB_MAXINT hb_strValInt( const char * szText, int * iOverflow );
 extern HB_EXPORT char *    hb_strRemEscSeq( char * szText, HB_SIZE * nLen ); /* remove C ESC sequences and converts them to Clipper chars */
 extern HB_EXPORT char *    hb_numToStr( char * szBuf, HB_SIZE nSize, HB_MAXINT nNumber );
+extern HB_EXPORT char *    hb_dblToStr( char * szBuf, HB_SIZE nSize, double dNumber, int iMaxDec );
 extern HB_EXPORT double    hb_numRound( double dResult, int iDec ); /* round a number to a specific number of digits */
 extern HB_EXPORT double    hb_numInt( double dNum ); /* take the integer part of the number */
 extern HB_EXPORT void      hb_random_seed( HB_I32 seed );
@@ -1204,11 +1205,13 @@ extern HB_EXPORT const char * hb_verFlagsPRG( void );        /* retrieves a stat
 extern HB_EXPORT const char * hb_verHB_PLAT( void );         /* retrieves a static buffer containing build time HB_PLATFORM setting */
 extern HB_EXPORT const char * hb_verHB_COMP( void );         /* retrieves a static buffer containing build time HB_COMPILER setting */
 
+extern HB_EXPORT int     hb_iswine( void );     /* return non-zero if OS == Wine */
 extern HB_EXPORT int     hb_iswin9x( void );    /* return non-zero if OS == Windows 9x, ME */
 extern HB_EXPORT int     hb_iswinnt( void );    /* return non-zero if OS == Windows NT or newer */
 extern HB_EXPORT HB_BOOL hb_iswin2k( void );    /* return HB_TRUE if OS == Windows 2000 or newer */
 extern HB_EXPORT HB_BOOL hb_iswin2k3( void );   /* return HB_TRUE if OS == Windows 2003 Server or newer */
 extern HB_EXPORT HB_BOOL hb_iswinvista( void ); /* return HB_TRUE if OS == Windows Vista or newer */
+extern HB_EXPORT HB_BOOL hb_iswin7( void );     /* return HB_TRUE if OS == Windows 7 or newer */
 extern HB_EXPORT HB_BOOL hb_iswin8( void );     /* return HB_TRUE if OS == Windows 8 or newer */
 extern HB_EXPORT HB_BOOL hb_iswin81( void );    /* return HB_TRUE if OS == Windows 8.1 or newer */
 extern HB_EXPORT HB_BOOL hb_iswin10( void );    /* return HB_TRUE if OS == Windows 10 or newer */

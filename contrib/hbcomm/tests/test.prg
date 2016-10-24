@@ -9,7 +9,7 @@ STATIC s_lConnected := .F.
 
 PROCEDURE Main()
 
-   LOCAL nOption
+   LOCAL cOption
 
    DO WHILE .T.
       ?
@@ -21,10 +21,9 @@ PROCEDURE Main()
       ? "Q) Quit"
       ? ">", ""
 
-      nOption := Inkey( 0 )
-      ?? hb_keyChar( nOption )
+      ?? cOption := hb_keyChar( Inkey( 0 ) )
 
-      SWITCH Upper( hb_keyChar( nOption ) )
+      SWITCH Upper( cOption )
       CASE "O" ; FConnect() ; EXIT
       CASE "C" ; FDisconnect() ; EXIT
       CASE "S" ; FSend() ; EXIT
@@ -68,7 +67,7 @@ STATIC PROCEDURE FSend()
 
    ACCEPT "Enter string to send: " TO cToSend
 
-   IF s_lConnected .AND. hb_BLen( cToSend ) > 0 .AND. ISWORKING( s_nHandle )
+   IF s_lConnected .AND. ! HB_ISNULL( cToSend ) .AND. ISWORKING( s_nHandle )
       OUTCHR( s_nHandle, cToSend )
    ELSE
       ? "Cannot send data"

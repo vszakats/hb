@@ -8,10 +8,12 @@
 -w3 -es2
 
 -depurlbase=lzf:http://oldhome.schmorp.de/marc/liblzf.html
+-deppkgname=lzf:liblzf{homebrew}
 -depkeyhead=lzf:lzf.h
 -depcontrol=lzf:local{HB_BUILD_3RDEXT='no'}
 -depcontrol=lzf:${HB_WITH_LZF}
 -depincpath=lzf:/usr/include
+-depincpath=lzf:/usr/local/include
 -depincpathlocal=lzf:3rd/liblzf
 -depfinish=lzf
 

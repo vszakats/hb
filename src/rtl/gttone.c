@@ -51,9 +51,7 @@
  *
  */
 
-
 /* NOTE: User programs should never call this layer directly! */
-
 
 #include "hbgtcore.h"
 
@@ -67,9 +65,9 @@
 #undef HB_HAS_WIN9X_TONE
 
 #if defined( HB_CPU_X86 ) && \
-    ( defined( __BORLANDC__ ) || defined( _MSC_VER ) || \
-      defined( __WATCOMC__ ) || defined( __MINGW32__ ) ) && \
-    !( defined( _MSC_VER ) && _MSC_VER >= 1900 )
+    ( ( defined( _MSC_VER ) && _MSC_VER < 1900 ) || \
+      defined( __BORLANDC__ ) || defined( __WATCOMC__ ) || \
+      defined( __MINGW32__ ) )
 
 #define HB_HAS_WIN9X_TONE
 
@@ -83,14 +81,14 @@ static int hb_Inp9x( unsigned short int usPort )
 
    HB_TRACE( HB_TR_DEBUG, ( "hb_Inp9x(%hu)", usPort ) );
 
-   #if defined( __BORLANDC__ ) || defined( __DMC__ )
+   #if defined( __DMC__ ) || ( defined( __BORLANDC__ ) && ! defined( __clang__ ) )
 
       _DX = usPort;
       __emit__(0xEC);         /* ASM  IN AL, DX */
       __emit__(0x32,0xE4);    /* ASM XOR AH, AH */
       usVal = _AX;
 
-   #elif defined( __XCC__ ) || defined( __POCC__ )
+   #elif defined( __BORLANDC__ ) || defined( __POCC__ ) || defined( __XCC__ )
 
       __asm {
                mov   dx, usPort
@@ -100,6 +98,7 @@ static int hb_Inp9x( unsigned short int usPort )
             }
 
    #elif defined( __MINGW32__ )
+
       __asm__ __volatile__ ("inb %w1,%b0":"=a" (usVal):"Nd" (usPort));
 
    #elif defined( __WATCOMC__ )
@@ -115,19 +114,17 @@ static int hb_Inp9x( unsigned short int usPort )
    return usVal;
 }
 
-/* *********************************************************************** */
-
 static int hb_Outp9x( unsigned short int usPort, unsigned short int usVal )
 {
    HB_TRACE( HB_TR_DEBUG, ( "hb_Outp9x(%hu, %hu)", usPort, usVal ) );
 
-   #if defined( __BORLANDC__ ) || defined( __DMC__ )
+   #if defined( __DMC__ ) || ( defined( __BORLANDC__ ) && ! defined( __clang__ ) )
 
       _DX = usPort;
       _AL = usVal;
       __emit__(0xEE);        /* ASM OUT DX, AL */
 
-   #elif defined( __XCC__ ) || defined( __POCC__ )
+   #elif defined( __BORLANDC__ ) || defined( __POCC__ ) || defined( __XCC__ )
 
       __asm {
                mov   dx, usPort
@@ -152,7 +149,6 @@ static int hb_Outp9x( unsigned short int usPort, unsigned short int usVal )
    return usVal;
 }
 
-/* *********************************************************************** */
 /* dDurat is in seconds */
 static void hb_gt_w9xTone( double dFreq, double dDurat )
 {
@@ -211,7 +207,6 @@ static void hb_gt_w9xTone( double dFreq, double dDurat )
 
 #endif
 
-/* *********************************************************************** */
 /* dDurat is in seconds */
 static void hb_gt_wNtTone( double dFreq, double dDurat )
 {
@@ -226,7 +221,6 @@ static void hb_gt_wNtTone( double dFreq, double dDurat )
       hb_idleSleep( dDurat );
 }
 
-/* *********************************************************************** */
 /* dDuration is in 'Ticks' (18.2 per second) */
 void hb_gt_winapi_tone( double dFrequency, double dDuration )
 {

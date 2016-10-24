@@ -227,8 +227,20 @@ static HB_BOOL hb_wvt_gtRenderPicture( int x, int y, int wd, int ht, IPicture * 
 
          if( bDoNotScale )
          {
-            int iHt = ( int ) ( ( float ) wd * nHeight / nWidth );
-            int iWd = ( int ) ( ( float ) iHt * nWidth / nHeight );
+            int iHt;
+            int iWd;
+            if( nHeight > nWidth )
+            {
+               iWd = ( int ) ( ( double ) ht * nWidth / nHeight );
+               iWd = HB_MIN( iWd, wd );
+               iHt = ( int ) ( ( double ) iWd * nHeight / nWidth );
+            }
+            else
+            {
+               iHt = ( int ) ( ( double ) wd * nHeight / nWidth );
+               iHt = HB_MIN( iHt, ht );
+               iWd = ( int ) ( ( double ) iHt * nWidth / nHeight );
+            }
             x  += abs( ( iWd - wd ) / 2 );
             y  += abs( ( iHt - ht ) / 2 );
             wd  = iWd;
@@ -350,8 +362,20 @@ static HB_BOOL hb_wvt_DrawImage( HDC hdc, int x, int y, int wd, int ht, LPCTSTR 
 
                      if( bDoNotScale )
                      {
-                        int iHt = ( int ) ( ( float ) wd * nHeight / nWidth );
-                        int iWd = ( int ) ( ( float ) iHt * nWidth / nHeight );
+                        int iHt;
+                        int iWd;
+                        if( nHeight > nWidth )
+                        {
+                           iWd = ( int ) ( ( double ) ht * nWidth / nHeight );
+                           iWd = HB_MIN( iWd, wd );
+                           iHt = ( int ) ( ( double ) iWd * nHeight / nWidth );
+                        }
+                        else
+                        {
+                           iHt = ( int ) ( ( double ) wd * nHeight / nWidth );
+                           iHt = HB_MIN( iHt, ht );
+                           iWd = ( int ) ( ( double ) iHt * nWidth / nHeight );
+                        }
                         x  += abs( ( iWd - wd ) / 2 );
                         y  += abs( ( iHt - ht ) / 2 );
                         wd  = iWd;

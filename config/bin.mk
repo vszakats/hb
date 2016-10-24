@@ -37,12 +37,16 @@ ifeq ($(BUILD_SHARED),yes)
       else
          HB_LIBS_TPL += hbmainstd
       endif
+   else
+   ifeq ($(HB_PLATFORM)-$(HB_COMPILER),dos-watcom)
+      HB_LDFLAGS += FILE $(LIB_DIR)/hbmainstd.lib
+   endif
    endif
    endif
    endif
 
-   HB_LIBS_ST_RDD := $(HB_LIBS_TPL) $(HB_DYNLIB_BASE)
-   HB_LIBS_MT_RDD := $(HB_LIBS_TPL) $(HB_DYNLIB_BASE)
+   HB_LIBS_ST_RDD := $(HB_LIBS_TPL) $(HB_IMPLIB_BASE)
+   HB_LIBS_MT_RDD := $(HB_LIBS_TPL) $(HB_IMPLIB_BASE)
    HB_LIBS_ST_NORDD := $(HB_LIBS_ST_RDD)
    HB_LIBS_MT_NORDD := $(HB_LIBS_ST_RDD)
 

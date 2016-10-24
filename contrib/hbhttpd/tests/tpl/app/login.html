@@ -1,0 +1,12 @@
+{{extend _main}}
+<h1>Login</h1>
+{{if errtext}}<span style="color:red; font-weight:bold; border:2px solid red; padding:5px; background-color:#fcc;">{{= errtext}}</span><p>{{endif}}
+<form method="POST">
+  <table style="layoutgrid">
+    <tr><td>User<td><input type="text" name="user">
+    <tr><td>Password<td><input type="password" name="password">
+    <tr><td><td><input type="submit" name="login" value="Login">
+  </table>
+</form>
+<p>
+<a href="/app/register">Create new account</a>

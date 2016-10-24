@@ -1577,7 +1577,7 @@ static void hb_gt_def_BoxW( PHB_GT pGT, int iTop, int iLeft, int iBottom, int iR
       HB_WCHAR szBoxW[ 10 ];
       HB_WCHAR wcPadCh = ( HB_WCHAR ) HB_GTSELF_GETCLEARCHAR( pGT );
 
-      if( szFrame )
+      if( szFrame && *szFrame )
       {
          for( i = 0; *szFrame && i < 9; ++i )
             wcPadCh = szBoxW[ i ] = *szFrame++;
@@ -3405,7 +3405,7 @@ static void hb_gt_def_WhoCares( PHB_GT pGT, void * pCargo )
    HB_SYMBOL_UNUSED( pCargo );
 }
 
-/* ************************************************************************* */
+/* - */
 
 #if defined( __GNUC__ ) && 0
 static const HB_GT_FUNCS s_gtCoreFunc =
@@ -3667,7 +3667,7 @@ static const HB_GT_FUNCS s_gtCoreFunc =
 };
 #endif
 
-/* ************************************************************************* */
+/* - */
 
 static char s_gtNameBuf[ HB_GT_NAME_MAX_ + 1 ];
 
@@ -3923,7 +3923,7 @@ static HB_BOOL hb_gtTryInit( const char * szGtName, HB_BOOL fFree )
       }
 
       if( fFree )
-         hb_xfree( ( void * ) szGtName );
+         hb_xfree( HB_UNCONST( szGtName ) );
    }
 
    return hb_stackGetGT() != NULL;

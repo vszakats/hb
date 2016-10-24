@@ -53,11 +53,12 @@
 HB_FUNC( FI_WINCONVTODIB )
 {
 #if defined( HB_OS_WIN )
-   if( hb_FIBITMAP_is( 1 ) )
+   FIBITMAP * dib = hb_FIBITMAP_par( 1 );
+
+   if( dib )
    {
 #if ! defined( HB_OS_WIN_CE )
-      FIBITMAP * dib = hb_FIBITMAP_par( 1 );
-      HDC        hDC = GetDC( NULL );
+      HDC hDC = GetDC( NULL );
 
       /* run function */
       hb_retptr( CreateDIBitmap( hDC,
@@ -84,36 +85,33 @@ HB_FUNC( FI_WINCONVFROMDIB )
 #if defined( HB_OS_WIN )
    if( HB_ISPOINTER( 1 ) )
    {
+      FIBITMAP * dib = NULL;
+
 #if ! defined( HB_OS_WIN_CE )
-      HBITMAP bitmap = ( HBITMAP ) hb_parptr( 1 );
-
-      if( bitmap )
       {
-         FIBITMAP * dib;
+         HBITMAP bitmap = ( HBITMAP ) hb_parptr( 1 );
 
-         BITMAP bm;
-         HDC    hDC;
-
-         GetObject( bitmap, sizeof( BITMAP ), ( LPSTR ) &bm );
-         dib = FreeImage_Allocate( bm.bmWidth, bm.bmHeight, bm.bmBitsPixel, 0, 0, 0 );
-         hDC = GetDC( NULL );
-         GetDIBits( hDC,
-                    bitmap,
-                    0,
-                    FreeImage_GetHeight( dib ),
-                    FreeImage_GetBits( dib ),
-                    FreeImage_GetInfo( dib ),
-                    DIB_RGB_COLORS );
-         ReleaseDC( NULL, hDC );
-
-         if( dib )
+         if( bitmap )
          {
-            hb_FIBITMAP_ret( dib, HB_TRUE );
-            return;
+            BITMAP bm;
+            HDC    hDC;
+
+            GetObject( bitmap, sizeof( BITMAP ), ( LPSTR ) &bm );
+            dib = FreeImage_Allocate( bm.bmWidth, bm.bmHeight, bm.bmBitsPixel, 0, 0, 0 );
+            hDC = GetDC( NULL );
+            GetDIBits( hDC,
+                       bitmap,
+                       0,
+                       FreeImage_GetHeight( dib ),
+                       FreeImage_GetBits( dib ),
+                       FreeImage_GetInfo( dib ),
+                       DIB_RGB_COLORS );
+            ReleaseDC( NULL, hDC );
          }
       }
 #endif
-      hb_retptr( NULL );
+
+      hb_FIBITMAP_ret( dib, HB_TRUE );
    }
    else
       hb_errRT_BASE_SubstR( EG_ARG, 0, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
@@ -125,18 +123,15 @@ HB_FUNC( FI_WINCONVFROMDIB )
 HB_FUNC( FI_WINDRAW )
 {
 #if defined( HB_OS_WIN )
-   if( hb_FIBITMAP_is( 1 ) &&
-       HB_ISNUM( 3 ) &&
-       HB_ISNUM( 4 ) &&
-       HB_ISNUM( 5 ) &&
-       HB_ISNUM( 6 ) )
+   FIBITMAP * dib = hb_FIBITMAP_par( 1 );
+
+   if( dib && HB_ISNUM( 3 ) && HB_ISNUM( 4 ) && HB_ISNUM( 5 ) && HB_ISNUM( 6 ) )
    {
       HDC hDC = hbwapi_par_HDC( 2 );
 
       if( hDC )
       {
-         FIBITMAP * dib = hb_FIBITMAP_par( 1 );
-         RECT       rcDest;
+         RECT rcDest;
 
          rcDest.top    = hb_parni( 3 );
          rcDest.left   = hb_parni( 4 );

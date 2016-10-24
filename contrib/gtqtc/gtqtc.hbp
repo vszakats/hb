@@ -5,6 +5,9 @@
 
 -w3 -es2
 
+# Tone down warnings for both QT4 and QT5
+-warn=low{darwin&clang}
+
 -stop{dos|watcom|bcc|pocc|pocc64|poccarm|msvcia64|pcc}
 
 -pic
@@ -16,7 +19,7 @@
 #       HB_QTPATH=/opt/qt5/bin/
 #       HB_QTPOSTFIX=
 
--plugin=hbmk2_qtmoc.hb
+-plugin=hbmk2_qtgt.hb
 
 -deppkgname=qt5:libqt5-dev{deb}
 -deppkgname=qt5:qt5-devel{rpm}
@@ -25,6 +28,7 @@
 -depkeyhead=qt5:QtCore/QJsonObject
 -depoptional=qt5:yes
 -depincpath=qt5:/usr/local/opt/qt5/include{darwin}
+-depincpath=qt5:/usr/local/include/qt5{bsd}
 -depfinish=qt5
 
 {!HBMK_HAS_QT5}-depurlbase=qt:https://www.qt.io/developers/
@@ -44,6 +48,9 @@
 {!HBMK_HAS_QT5&darwin}-depincpath=qt:/usr/local/include
 
 -hbx=${hb_name}
+
+# Required for 5.7.0 or upper
+-cpp=iso11{HBMK_HAS_QT5}
 
 gtqtc1.cpp
 gtqtc.h

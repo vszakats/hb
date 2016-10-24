@@ -243,7 +243,12 @@ static PHB_MEMFS_FILE memfsFileAlloc( PHB_MEMFS_INODE pInode )
    pFile->pInode = pInode;
    pFile->llPos = 0;
 
-   pInode->uiCount++;
+   /* TODO: Recheck if this `if` condition is still required to avoid
+            'potential null pointer dereference' warning with gcc 6.1.0
+            or upper, after marking hb_errInternal() as non-returning */
+   if( pInode )
+      pInode->uiCount++;
+
    return pFile;
 }
 
@@ -768,7 +773,7 @@ HB_MEMFS_EXPORT int hb_memfsLockTest( HB_FHANDLE hFile, HB_FOFFSET ulStart, HB_F
 
 /* --- I/O Driver for Memory file system --- */
 
-#define FILE_PREFIX      "mem:"
+#define FILE_PREFIX      "MEM:"
 #define FILE_PREFIX_LEN  strlen( FILE_PREFIX )
 
 typedef struct _HB_FILE
@@ -1083,8 +1088,13 @@ static void s_fileCommit( PHB_FILE pFile )
 static HB_BOOL s_fileConfigure( PHB_FILE pFile, int iIndex, PHB_ITEM pValue )
 {
    HB_SYMBOL_UNUSED( pFile );
-   HB_SYMBOL_UNUSED( iIndex );
-   HB_SYMBOL_UNUSED( pValue );
+
+   switch( iIndex )
+   {
+      case HB_VF_IONAME:
+         hb_itemPutC( pValue, FILE_PREFIX );
+         return HB_TRUE;
+   }
 
    return HB_FALSE;
 }

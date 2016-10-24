@@ -46,10 +46,10 @@
 
 /*
  * A simple RDD which adds automatically update HSX indexes to DBFCDX
- * To create new HSX index for current work area use: HSX_CREATE()
- * To open already existing one use HSX_OPEN(),
- * To close use: HSX_CLOSE()
- * To retieve an handle use: HSX_HANDLE()
+ * To create new HSX index for current work area use: hsx_Create()
+ * To open already existing one use hsx_Open(),
+ * To close use: hsx_Close()
+ * To retieve an handle use: hsx_Handle()
  */
 
 #include "dbinfo.ch"
@@ -151,7 +151,7 @@ STATIC FUNCTION _HSX_APPEND( nWA, lUnlockAll )
  * with current work are and automatically updated.
  */
 
-FUNCTION HSX_CREATE( cFile, cExpr, nKeySize, nBufSize, lCase, nFiltSet )
+FUNCTION hsx_Create( cFile, cExpr, nKeySize, nBufSize, lCase, nFiltSet )
 
    LOCAL aWData, nHsx := -1, nOpenMode
 
@@ -169,7 +169,7 @@ FUNCTION HSX_CREATE( cFile, cExpr, nKeySize, nBufSize, lCase, nFiltSet )
 
    RETURN nHsx
 
-PROCEDURE HSX_OPEN( cFile, nBufSize )
+PROCEDURE hsx_Open( cFile, nBufSize )
 
    LOCAL aWData, nHsx, nOpenMode
 
@@ -187,7 +187,7 @@ PROCEDURE HSX_OPEN( cFile, nBufSize )
 
    RETURN
 
-PROCEDURE HSX_CLOSE( xHSX )
+PROCEDURE hsx_Close( xHSX )
 
    LOCAL aWData, nSlot
 
@@ -209,7 +209,7 @@ PROCEDURE HSX_CLOSE( xHSX )
 
    RETURN
 
-FUNCTION HSX_HANDLE( cFile )
+FUNCTION hsx_Handle( cFile )
 
    LOCAL aWData, nSlot
 
@@ -222,7 +222,7 @@ FUNCTION HSX_HANDLE( cFile )
 
    RETURN -1
 
-FUNCTION HSX_FILE( nHsx )
+FUNCTION hsx_File( nHsx )
 
    LOCAL aWData, nSlot
 
@@ -235,7 +235,7 @@ FUNCTION HSX_FILE( nHsx )
 
    RETURN ""
 
-FUNCTION HSX_GET( nSlot )
+FUNCTION hsx_Get( nSlot )
 
    LOCAL aWData
 

@@ -56,9 +56,14 @@ ifneq ($(HB_HAS_ZLIB_LOCAL),)
          HB_CFLAGS += -DHAVE_UNISTD_H
       endif
    endif
+   ifneq ($(filter $(HB_COMPILER),msvc msvc64 msvcia64 msvcarm),)
+      ifeq ($(filter $(HB_COMPILER_VER),1200 1300 1310 1400 1500 1600),)
+         HB_CFLAGS += -sdl-
+      endif
+   endif
    include $(TOP)$(ROOT)config/lib.mk
 else
-   HB_SKIP_REASON := unused
+   HB_SKIP_REASON := local copy unused
    include $(TOP)$(ROOT)config/none.mk
 endif
 

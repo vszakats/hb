@@ -108,8 +108,8 @@ static struct arc4_stream rs;
 static HB_I32 arc4_count;
 
 static HB_CRITICAL_NEW( arc4_lock );
-#define _ARC4_LOCK()    hb_threadEnterCriticalSection( &arc4_lock )
-#define _ARC4_UNLOCK()  hb_threadLeaveCriticalSection( &arc4_lock )
+#define ARC4_LOCK()    hb_threadEnterCriticalSection( &arc4_lock )
+#define ARC4_UNLOCK()  hb_threadLeaveCriticalSection( &arc4_lock )
 
 #if defined( __BORLANDC__ ) && defined( _HB_INLINE_ )
 #undef _HB_INLINE_
@@ -500,7 +500,7 @@ static void arc4_stir( void )
     * Discard early keystream, as per recommendations in
     * "Weaknesses in the Key Scheduling Algorithm of RC4" by
     * Scott Fluhrer, Itsik Mantin, and Adi Shamir.
-    * https://web.archive.org/http://www.wisdom.weizmann.ac.il/~itsik/RC4/Papers/Rc4_ksa.ps
+    * https://web.archive.org/web/www.wisdom.weizmann.ac.il/~itsik/RC4/Papers/Rc4_ksa.ps
     *
     * Ilya Mironov's "(Not So) Random Shuffles of RC4" suggests that
     * we drop at least 2*256 bytes, with 12*256 as a conservative
@@ -569,16 +569,16 @@ static _HB_INLINE_ HB_U32 arc4_getword( void )
  */
 void arc4random_stir( void )
 {
-   _ARC4_LOCK();
+   ARC4_LOCK();
    arc4_stir();
-   _ARC4_UNLOCK();
+   ARC4_UNLOCK();
 }
 
 void arc4random_addrandom( const unsigned char * dat, int datlen )
 {
    int j;
 
-   _ARC4_LOCK();
+   ARC4_LOCK();
    if( ! rs_initialized )
       arc4_stir();
 
@@ -592,7 +592,7 @@ void arc4random_addrandom( const unsigned char * dat, int datlen )
        */
       arc4_addrandom( dat + j, datlen - j );
    }
-   _ARC4_UNLOCK();
+   ARC4_UNLOCK();
 }
 #endif
 
@@ -600,13 +600,13 @@ HB_U32 hb_arc4random( void )
 {
    HB_U32 val;
 
-   _ARC4_LOCK();
+   ARC4_LOCK();
 
    arc4_count -= 4;
    arc4_stir_if_needed();
    val = arc4_getword();
 
-   _ARC4_UNLOCK();
+   ARC4_UNLOCK();
 
    return val;
 }
@@ -615,7 +615,7 @@ void hb_arc4random_buf( void * _buf, HB_SIZE n )
 {
    HB_U8 * buf = ( HB_U8 * ) _buf;
 
-   _ARC4_LOCK();
+   ARC4_LOCK();
 
    arc4_stir_if_needed();
 
@@ -627,7 +627,7 @@ void hb_arc4random_buf( void * _buf, HB_SIZE n )
       buf[ n ] = arc4_getbyte();
    }
 
-   _ARC4_UNLOCK();
+   ARC4_UNLOCK();
 }
 
 /*

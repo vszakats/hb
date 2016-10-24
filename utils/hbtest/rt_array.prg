@@ -44,11 +44,6 @@
  *
  */
 
-#include "rt_main.ch"
-
-/* Don't change the position of this #include. */
-#include "rt_vars.ch"
-
 PROCEDURE Main_ARRAY()
 
    /* ARRAY function error conditions. */
@@ -517,6 +512,3 @@ STATIC FUNCTION TAStr( aArray )
    NEXT
 
    RETURN cString
-
-/* Don't change the position of this #include. */
-#include "rt_init.ch"

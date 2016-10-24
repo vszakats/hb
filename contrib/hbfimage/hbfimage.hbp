@@ -12,14 +12,22 @@ hbwin.hbc{allwin}
 -depurlbase=freeimage:https://duckduckgo.com/?q=freeimage+library
 -deppkgname=freeimage:libfreeimage-dev{deb}
 -deppkgname=freeimage:freeimage-devel{rpm}
+-deppkgname=freeimage:mingw-w64-i686-freeimage{msys2&mingw}
+-deppkgname=freeimage:mingw-w64-x86_64-freeimage{msys2&mingw64}
+-deppkgname=freeimage:freeimage{pacman}
 -deppkgname=freeimage:freeimage{homebrew}
 -depkeyhead=freeimage:FreeImage.h
 -depcontrol=freeimage:no{HB_BUILD_3RDEXT='no'}
 -depcontrol=freeimage:${HB_WITH_FREEIMAGE}
 -depincpath=freeimage:/usr/include
 -depincpath=freeimage:/usr/local/include
--depincpath=freeimage:/opt/local/include
+-depincpath=freeimage:/usr/local/opt/freeimage/include
 -depimplibs=freeimage:FreeImage.dll
+-depimplibs=freeimage:../lib/libfreeimage.dll.a{allmingw}
+-depimplibd=freeimage:freeimage
+-depfinish=freeimage
+
+{hbdyn&allmingw}-instfile=depimplibsrc:${HBMK_DIR_FREEIMAGE}/../bin/libfreeimage-3.dll
 
 # For FreeImage headers
 #-c=gnu90

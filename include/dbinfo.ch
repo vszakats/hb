@@ -66,7 +66,7 @@
 #define RDDI_CONNECTION          12   /* Get/Set default connection */
 #define RDDI_TABLETYPE           13   /* Type of table file */
 #define RDDI_MEMOTYPE            14   /* Type of MEMO file DB_MEMO_*: DBT, SMT, FPT(FP,SIX3,FLEXIII) */
-#define RDDI_LARGEFILE           15   /* Is large file size (>=4GB) supported */
+#define RDDI_LARGEFILE           15   /* Is large file size (>= 4 GiB) supported */
 #define RDDI_LOCKSCHEME          16   /* Locking scheme used by RDD */
 #define RDDI_RECORDMAP           17   /* Does RDD support record map functionality? */
 #define RDDI_ENCRYPTION          18   /* Does RDD support encryption */
@@ -102,6 +102,17 @@
 #define RDDI_DIRTYREAD           44   /* Get/Set index dirty read flag */
 #define RDDI_INDEXPAGESIZE       45   /* Get/Set default index page size */
 #define RDDI_DECIMALS            46   /* Get/Set default number of decimal places for numeric fields if it's undefined */
+#define RDDI_SETHEADER           47   /* DBF header updating modes */
+
+/* SQL */
+#define RDDI_CONNECT             61   /* connect to database */
+#define RDDI_DISCONNECT          62   /* disconnect from database */
+#define RDDI_EXECUTE             63   /* execute SQL statement */
+#define RDDI_ERROR               64   /* error number */
+#define RDDI_ERRORNO             65   /* error description */
+#define RDDI_INSERTID            66   /* last auto insert ID */
+#define RDDI_AFFECTEDROWS        67   /* number of affected rows after UPDATE */
+#define RDDI_QUERY               68   /* last executed query */
 
 /* Constants for SELF_ORDINFO() */
 #define DBOI_CONDITION            1   /* The order's conditional expression */
@@ -177,7 +188,7 @@
 
 #define DBOI_ISMULTITAG         114  /* does RDD support multi tag in index file */
 #define DBOI_ISSORTRECNO        115  /* is record number part of key in sorting */
-#define DBOI_LARGEFILE          116  /* is large file size (>=4GB) supported */
+#define DBOI_LARGEFILE          116  /* is large file size (>= 4 GiB) supported */
 #define DBOI_TEMPLATE           117  /* order with free user keys */
 #define DBOI_MULTIKEY           118  /* custom order with multikeys */
 #define DBOI_CHGONLY            119  /* update only existing keys */
@@ -285,6 +296,7 @@
 #define DBI_LOCKTEST            146  /* record / file lock test */
 #define DBI_CODEPAGE            147  /* Codepage used */
 #define DBI_TRANSREC            148  /* Is it destination table of currently processed COPY TO or APPEND FROM operation? */
+#define DBI_SETHEADER           149  /* DBF header updating modes */
 
 /* RECORD MAP (RM) support */
 #define DBI_RM_SUPPORTED        150  /* has WA RDD record map support? */
@@ -297,6 +309,8 @@
 #define DBI_RM_TEST             157  /* test if record is set in WA record map */
 #define DBI_RM_COUNT            158  /* number of records set in record map */
 #define DBI_RM_HANDLE           159  /* get/set record map filter handle */
+
+#define DBI_QUERY               170  /* if area represents result of a query, obtain expression of this query */
 
 /* BLOB support - definitions for internal use by blob.ch */
 #define DBI_BLOB_DIRECT_EXPORT  201
@@ -339,17 +353,17 @@
 #define FILEPUT_COMPRESS        BLOB_IMPORT_COMPRESS
 #define FILEPUT_ENCRYPT         BLOB_IMPORT_ENCRYPT
 
-/* DBF TYPES */
+/* DBF TYPES: RDDI_TABLETYPE, DBI_TABLETYPE */
 #define DB_DBF_STD              1
 #define DB_DBF_VFP              2
 
-/* MEMO TYPES */
+/* MEMO TYPES: RDDI_MEMOTYPE, DBI_MEMOTYPE */
 #define DB_MEMO_NONE            0
 #define DB_MEMO_DBT             1
 #define DB_MEMO_FPT             2
 #define DB_MEMO_SMT             3
 
-/* MEMO EXTENDED TYPES */
+/* MEMO EXTENDED TYPES: RDDI_MEMOVERSION, DBI_MEMOVERSION */
 #define DB_MEMOVER_STD          1
 #define DB_MEMOVER_SIX          2
 #define DB_MEMOVER_FLEX         3
@@ -359,7 +373,7 @@
 #define DB_CRYPT_NONE           0
 #define DB_CRYPT_SIX            1
 
-/* LOCK SCHEMES */
+/* LOCK SCHEMES: RDDI_LOCKSCHEME, DBI_LOCKSCHEME */
 #define DB_DBFLOCK_DEFAULT      0
 #define DB_DBFLOCK_CLIPPER      1   /* default Cl*pper locking scheme */
 #define DB_DBFLOCK_COMIX        2   /* COMIX and CL53 DBFCDX hyper locking scheme */
@@ -374,5 +388,26 @@
    #define DB_DBFLOCK_CL53         DB_DBFLOCK_COMIX
    #define DB_DBFLOCK_CL53EXT      DB_DBFLOCK_HB32
 #endif
+
+/* DBF HEADER UPDATING */
+#define DB_SETHEADER_CLOSE    0  /* update in CLOSE method - it always happens if necessary */
+#define DB_SETHEADER_COMMIT   1  /* update in FLUSH method */
+#define DB_SETHEADER_WRITE    2  /* update in GOCOLD method */
+#define DB_SETHEADER_APPEND   0  /* record append sets update header flag (always enabled) */
+#define DB_SETHEADER_REPLACE  4  /* record modification sets update header flag */
+#define DB_SETHEADER_YYEAR    16 /* store year() % 100 instead of year - 1900, FoxPro compatibility */
+
+/* update in CLOSE after append only */
+#define DB_SETHEADER_MINIMAL     DB_SETHEADER_CLOSE
+/* update in COMMIT and CLOSE after append only */
+#define DB_SETHEADER_COMMITSYNC  DB_SETHEADER_COMMIT
+/* update in GOCOLD after append only - default */
+#define DB_SETHEADER_APPENDSYNC  DB_SETHEADER_WRITE
+/* update in CLOSE after any record modification */
+#define DB_SETHEADER_CHANGE      ( DB_SETHEADER_CLOSE + DB_SETHEADER_REPLACE )
+/* update in COMMIT and CLOSE after any record modification - Cl*pper compatible */
+#define DB_SETHEADER_CLIPPER     ( DB_SETHEADER_COMMIT + DB_SETHEADER_REPLACE )
+/* update in GOCOLD after any record modification */
+#define DB_SETHEADER_FULL        ( DB_SETHEADER_WRITE + DB_SETHEADER_REPLACE )
 
 #endif /* HB_DBINFO_CH_ */

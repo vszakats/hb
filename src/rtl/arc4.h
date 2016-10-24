@@ -49,8 +49,8 @@
  * /dev/random-variants.
  */
 
-#ifndef __ARC4_H__
-#define __ARC4_H__
+#ifndef ARC4_H
+#define ARC4_H
 
 #include "hbdefs.h"
 
@@ -66,4 +66,4 @@ HB_U32 hb_arc4random_uniform( HB_U32 upper_bound );
 }
 #endif
 
-#endif /* __ARC4_H__ */
+#endif /* ARC4_H */

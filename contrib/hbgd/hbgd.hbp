@@ -11,15 +11,19 @@ hbct.hbc
 -deppkgname=gd:gd-devel{rpm}
 -deppkgname=gd:libgd2-xpm-dev{deb}
 -deppkgname=gd:libgd-xpm-dev{deb}
+-deppkgname=gd:mingw-w64-i686-gd{msys2&mingw}
+-deppkgname=gd:mingw-w64-x86_64-gd{msys2&mingw64}
+-deppkgname=gd:gd{pacman}
 -deppkgname=gd:gd{homebrew}
 -depkeyhead=gd:gd.h
 -depcontrol=gd:no{HB_BUILD_3RDEXT='no'}
 -depcontrol=gd:${HB_WITH_GD}
 -depincpath=gd:/usr/include
 -depincpath=gd:/usr/local/include
--depincpath=gd:/opt/local/include
+-depincpath=gd:/usr/local/opt/gd/include
 -depimplibs=gd:../bin/bgd.dll{!(msvc|pocc|mingw)|hbdyn}
 -depimplibs=gd:../lib/bgd.lib{(msvc|pocc|mingw)&!hbdyn}
+-depimplibs=gd:../lib/libgd.dll.a:bgd
 
 -hbx=${hb_name}
 

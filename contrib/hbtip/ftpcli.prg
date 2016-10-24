@@ -134,8 +134,8 @@ METHOD Open( cUrl ) CLASS TIPClientFTP
       ::oUrl := TUrl():New( cUrl )
    ENDIF
 
-   IF hb_BLen( ::oUrl:cUserid ) > 0 .AND. ;
-      hb_BLen( ::oUrl:cPassword ) > 0
+   IF ! HB_ISNULL( ::oUrl:cUserid ) .AND. ;
+      ! HB_ISNULL( ::oUrl:cPassword )
 
       IF ::super:Open()
          IF ::GetReply()
@@ -229,7 +229,7 @@ METHOD TransferStart() CLASS TIPClientFTP
       ENDIF
    ENDIF
 
-   /* Set internal socket send buffer to 64kB, this should
+   /* Set internal socket send buffer to 64 KiB, this should
       resolve the speed problems some users have reported */
    IF HB_ISNUMERIC( ::nDefaultSndBuffSize )
       ::InetSndBufSize( ::SocketCon, ::nDefaultSndBuffSize )
@@ -473,7 +473,7 @@ METHOD ReadAuxPort() CLASS TIPClientFTP
    IF ::TransferStart()
 
       cList := ""
-      DO WHILE ( cRet := ::super:Read( 512 ) ) != NIL .AND. hb_BLen( cRet ) > 0
+      DO WHILE ( cRet := ::super:Read( 512 ) ) != NIL .AND. ! HB_ISNULL( cRet )
          cList += cRet
       ENDDO
 
@@ -559,7 +559,7 @@ METHOD MGet( cSpec, cLocalPath ) CLASS TIPClientFTP
    IF ( cStr := ::ReadAuxPort() ) != NIL
       FOR EACH cFile IN hb_ATokens( cStr, .T. )
          cFile := RTrim( cFile )
-         IF hb_BLen( cFile ) > 0
+         IF ! HB_ISNULL( cFile )
             ::Downloadfile( cLocalPath + cFile, cFile )
          ENDIF
       NEXT
@@ -656,7 +656,7 @@ METHOD FileSize( cFileSpec ) CLASS TIPClientFTP
    RETURN nSize
 
 /* Listing formats (from libcurl)
-   https://github.com/bagder/curl/blob/master/lib/ftplistparser.c
+   https://github.com/curl/curl/blob/master/lib/ftplistparser.c
    UNIX version 1: drwxr-xr-x 1 user01 ftp  512 Jan 29 23:32 prog
    UNIX version 2: drwxr-xr-x 1 user01 ftp  512 Jan 29 1997  prog
    UNIX version 3: drwxr-xr-x 1      1   1  512 Jan 29 23:32 prog

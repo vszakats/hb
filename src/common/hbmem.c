@@ -49,7 +49,7 @@
 /* hb_xmemcpy() and hb_xmemset() are only needed when
    unsigned int and unsigned long differ in length */
 
-/* unfortunately it's not true - on 64bit platforms int is 32 bit
+/* unfortunately it's not true - on 64-bit platforms int is 32 bits
    and long is 64.
    we need these functions only when max(size_t) < max(long)
    what could be detected and set in header files. Here check
@@ -58,17 +58,17 @@
    #if UINT_MAX != ULONG_MAX
  */
 #ifndef hb_xmemcpy
-void * hb_xmemcpy( void * pDestArg, void * pSourceArg, HB_SIZE nLen )
+void * hb_xmemcpy( void * pDestArg, const void * pSourceArg, HB_SIZE nLen )
 {
    HB_BYTE * pDest;
-   HB_BYTE * pSource;
-   HB_SIZE   nRemaining;
-   int       iCopySize;
+   const HB_BYTE * pSource;
+   HB_SIZE nRemaining;
+   int iCopySize;
 
    HB_TRACE( HB_TR_DEBUG, ( "hb_xmemcpy(%p, %p, %" HB_PFS "u)", pDestArg, pSourceArg, nLen ) );
 
    pDest = ( HB_BYTE * ) pDestArg;
-   pSource = ( HB_BYTE * ) pSourceArg;
+   pSource = ( const HB_BYTE * ) pSourceArg;
    nRemaining = nLen;
 
    while( nRemaining )
@@ -97,8 +97,8 @@ void * hb_xmemcpy( void * pDestArg, void * pSourceArg, HB_SIZE nLen )
 void * hb_xmemset( void * pDestArg, int iFill, HB_SIZE nLen )
 {
    HB_BYTE * pDest;
-   HB_SIZE   nRemaining;
-   int       iSetSize;
+   HB_SIZE nRemaining;
+   int iSetSize;
 
    HB_TRACE( HB_TR_DEBUG, ( "hb_xmemset(%p, %d, %" HB_PFS "u)", pDestArg, iFill, nLen ) );
 

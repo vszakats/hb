@@ -711,7 +711,7 @@ STATIC PROCEDURE pdfClosePage()
          t_aReport[ DOCLEN ] += hb_BLen( cTemp )
          hb_vfWrite( t_aReport[ HANDLE ], cTemp )
 
-         hFileImage := hb_vfOpen( nI[ 1 ] )
+         hFileImage := hb_vfOpen( nI[ 1 ], FO_READ )
          hb_vfSeek( hFileImage, nI[ 3 ][ IMAGE_FROM ] )
 
          nBuffer := 8192
@@ -1859,7 +1859,7 @@ FUNCTION pdfTIFFInfo( cFile )
 
    LOCAL nWidth := 0, nHeight := 0, nBits := 0, nFrom := 0, nLength := 0, xRes := 0, yRes := 0
 
-   LOCAL hFile := hb_vfOpen( cFile )
+   LOCAL hFile := hb_vfOpen( cFile, FO_READ )
 
    c2 := Space( 2 )
    hb_vfRead( hFile, @c2, 2 )
@@ -2446,7 +2446,7 @@ FUNCTION pdfJPEGInfo( cFile )
    LOCAL nWidth, nHeight, nBits := 8, nFrom := 0, nLength, xRes, yRes
    LOCAL nSpace  // := 3 // 3 - RGB, 1 - GREY, 4 - CMYK
 
-   LOCAL hFile := hb_vfOpen( cFile )
+   LOCAL hFile := hb_vfOpen( cFile, FO_READ )
 
    c255 := Space( 20000 )
    hb_vfRead( hFile, @c255, hb_BLen( c255 ) )
@@ -2594,7 +2594,7 @@ STATIC FUNCTION WriteData( hFile, xData )
    OTHERWISE ; cData += I2Bin( 0 )  // NIL
    ENDSWITCH
 
-   RETURN hb_vfWrite( hFile, cData )
+   RETURN Max( hb_vfWrite( hFile, cData ), 0 )
 
 // written by Peter Kulek
 STATIC FUNCTION File2Array( cFile, nLen, hFile )  /* TODO: replace with hb_Deserialize() */
@@ -2604,7 +2604,7 @@ STATIC FUNCTION File2Array( cFile, nLen, hFile )  /* TODO: replace with hb_Deser
    LOCAL aRay   := {}
 
    IF PCount() < 3
-      IF ( hFile := hb_vfOpen( cFile ) ) == NIL
+      IF ( hFile := hb_vfOpen( cFile, FO_READ ) ) == NIL
          RETURN aRay
       ENDIF
       cData := Space( 3 )

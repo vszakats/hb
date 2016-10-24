@@ -14,6 +14,6 @@
 
    `hbmk2 rl.hbp`
 
-5. You're done.
+5. Done.
 
 [vszakats]

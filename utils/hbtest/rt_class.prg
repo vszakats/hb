@@ -44,14 +44,9 @@
  *
  */
 
-#include "rt_main.ch"
-
-/* Don't change the position of this #include. */
-#include "rt_vars.ch"
-
+#ifdef __HARBOUR__
 #include "hbclass.ch"
-
-MEMVAR objHolder, cDtorResult
+#endif
 
 PROCEDURE Main_CLASS()
 
@@ -1248,7 +1243,6 @@ EXPORTED:
 ENDCLASS
 
 METHOD m1 CLASS NVCLASS1
-
    RETURN "NVCLASS1:M1 " + ;
           hb_CStr( ::a ) + " " + ;
           hb_CStr( ::b ) + " " + ;
@@ -1262,7 +1256,6 @@ METHOD m1 CLASS NVCLASS1
          ::z()
 
 METHOD x CLASS NVCLASS1
-
    RETURN "NVCLASS1:X  " + ;
           hb_CStr( ::a ) + " " + ;
           hb_CStr( ::b ) + " " + ;
@@ -1273,7 +1266,6 @@ METHOD x CLASS NVCLASS1
           hb_CStr( ::v )
 
 METHOD y CLASS NVCLASS1
-
    RETURN "NVCLASS1:Y  " + ;
           hb_CStr( ::a ) + " " + ;
           hb_CStr( ::b ) + " " + ;
@@ -1284,7 +1276,6 @@ METHOD y CLASS NVCLASS1
           hb_CStr( ::v )
 
 METHOD z CLASS NVCLASS1
-
    RETURN "NVCLASS1:Z  " + ;
           hb_CStr( ::a ) + " " + ;
           hb_CStr( ::b ) + " " + ;
@@ -1315,7 +1306,6 @@ EXPORTED:
 ENDCLASS
 
 METHOD m2 CLASS NVCLASS2
-
    RETURN "NVCLASS2:M2 " + ;
           hb_CStr( ::a ) + " " + ;
           hb_CStr( ::b ) + " " + ;
@@ -1329,7 +1319,6 @@ METHOD m2 CLASS NVCLASS2
          ::z()
 
 METHOD x CLASS NVCLASS2
-
    RETURN "NVCLASS2:X  " + ;
           hb_CStr( ::a ) + " " + ;
           hb_CStr( ::b ) + " " + ;
@@ -1340,7 +1329,6 @@ METHOD x CLASS NVCLASS2
           hb_CStr( ::v )
 
 METHOD y CLASS NVCLASS2
-
    RETURN "NVCLASS2:Y  " + ;
           hb_CStr( ::a ) + " " + ;
           hb_CStr( ::b ) + " " + ;
@@ -1351,7 +1339,6 @@ METHOD y CLASS NVCLASS2
           hb_CStr( ::v )
 
 METHOD z CLASS NVCLASS2
-
    RETURN "NVCLASS2:Z  " + ;
           hb_CStr( ::a ) + " " + ;
           hb_CStr( ::b ) + " " + ;
@@ -1383,7 +1370,6 @@ EXPORTED:
 ENDCLASS
 
 METHOD m3 CLASS NVCLASS3
-
    RETURN "NVCLASS3:M3 " + ;
           hb_CStr( ::a ) + " " + ;
           hb_CStr( ::b ) + " " + ;
@@ -1397,7 +1383,6 @@ METHOD m3 CLASS NVCLASS3
          ::z()
 
 METHOD x CLASS NVCLASS3
-
    RETURN "NVCLASS3:X  " + ;
           hb_CStr( ::a ) + " " + ;
           hb_CStr( ::b ) + " " + ;
@@ -1408,7 +1393,6 @@ METHOD x CLASS NVCLASS3
           hb_CStr( ::v )
 
 METHOD y CLASS NVCLASS3
-
    RETURN "NVCLASS3:Y  " + ;
           hb_CStr( ::a ) + " " + ;
           hb_CStr( ::b ) + " " + ;
@@ -1419,7 +1403,6 @@ METHOD y CLASS NVCLASS3
           hb_CStr( ::v )
 
 METHOD z CLASS NVCLASS3
-
    RETURN "NVCLASS3:Z  " + ;
           hb_CStr( ::a ) + " " + ;
           hb_CStr( ::b ) + " " + ;
@@ -1435,7 +1418,6 @@ CREATE CLASS NVCLASS4 INHERIT NVCLASS3
 ENDCLASS
 
 METHOD m4 CLASS NVCLASS4
-
    RETURN "NVCLASS4:M4 " + ;
           hb_CStr( ::a ) + " " + ;
           hb_CStr( ::b ) + " " + ;
@@ -1449,7 +1431,3 @@ METHOD m4 CLASS NVCLASS4
          ::z()
 
 #endif
-
-
-/* Don't change the position of this #include. */
-#include "rt_init.ch"

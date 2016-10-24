@@ -282,11 +282,13 @@ static HB_BOOL s_fWinVerInit = HB_FALSE;
 static HB_BOOL s_fWin10    = HB_FALSE;
 static HB_BOOL s_fWin81    = HB_FALSE;
 static HB_BOOL s_fWin8     = HB_FALSE;
+static HB_BOOL s_fWin7     = HB_FALSE;
 static HB_BOOL s_fWinVista = HB_FALSE;
 static HB_BOOL s_fWin2K3   = HB_FALSE;
 static HB_BOOL s_fWin2K    = HB_FALSE;
 static int     s_iWinNT    = 0;
 static int     s_iWin9x    = 0;
+static int     s_iWine     = 0;
 
 #if ! defined( HB_OS_WIN_CE )
 
@@ -341,6 +343,7 @@ static void s_hb_winVerInit( void )
    s_fWin10    = hb_iswinver( 10, 0, 0, HB_TRUE );
    s_fWin81    = hb_iswinver( 6, 3, 0, HB_TRUE );
    s_fWin8     = hb_iswinver( 6, 2, 0, HB_TRUE );
+   s_fWin7     = hb_iswinver( 6, 1, 0, HB_TRUE );
    s_fWinVista = hb_iswinver( 6, 0, 0, HB_TRUE );
    s_fWin2K3   = hb_iswinver( 5, 2, VER_NT_SERVER, HB_TRUE ) || hb_iswinver( 5, 2, VER_NT_DOMAIN_CONTROLLER, HB_TRUE );
    s_fWin2K    = hb_iswinver( 5, 0, 0, HB_TRUE );
@@ -373,6 +376,14 @@ static void s_hb_winVerInit( void )
    }
 #endif
 
+   {
+      /* NOTE: Unofficial Wine detection.
+               https://www.mail-archive.com/wine-devel@winehq.org/msg48659.html */
+      HMODULE hntdll = GetModuleHandle( TEXT( "ntdll.dll" ) );
+      if( hntdll && HB_WINAPI_GETPROCADDRESS( hntdll, "wine_get_version" ) )
+         s_iWine = 1;
+   }
+
    if( s_fWin2K )
       s_iWinNT = 5;
 #endif
@@ -387,11 +398,13 @@ static HB_BOOL s_fWinVerInit = HB_FALSE;
 static HB_BOOL s_fWin10    = HB_FALSE;
 static HB_BOOL s_fWin81    = HB_FALSE;
 static HB_BOOL s_fWin8     = HB_FALSE;
+static HB_BOOL s_fWin7     = HB_FALSE;
 static HB_BOOL s_fWinVista = HB_FALSE;
 static HB_BOOL s_fWin2K3   = HB_FALSE;
 static HB_BOOL s_fWin2K    = HB_FALSE;
 static int     s_iWinNT    = 0;
 static int     s_iWin9x    = 0;
+static int     s_iWine     = 0;
 
 static void s_hb_winVerInit( void )
 {
@@ -401,6 +414,7 @@ static void s_hb_winVerInit( void )
    s_fWin10    = HB_FALSE;
    s_fWin81    = HB_FALSE;
    s_fWin8     = HB_FALSE;
+   s_fWin7     = HB_FALSE;
    s_fWinVista = HB_FALSE;
    s_fWin2K3   = s_fWinVista;
    s_fWin2K    = HB_FALSE;
@@ -508,19 +522,15 @@ char * hb_verPlatform( void )
 
    {
       unsigned long aulQSV[ QSV_MAX ] = { 0 };
-      APIRET rc;
-
-      rc = DosQuerySysInfo( 1L, QSV_MAX, ( void * ) aulQSV, sizeof( ULONG ) * QSV_MAX );
+      APIRET rc = DosQuerySysInfo( 1L, QSV_MAX, ( void * ) aulQSV, sizeof( ULONG ) * QSV_MAX );
 
       if( rc == 0 )
       {
          /* is this OS/2 2.x ? */
          if( aulQSV[ QSV_VERSION_MINOR - 1 ] < 30 )
-         {
             hb_snprintf( pszPlatform, PLATFORM_BUF_SIZE + 1, "OS/2 %ld.%02ld",
                          aulQSV[ QSV_VERSION_MAJOR - 1 ] / 10,
                          aulQSV[ QSV_VERSION_MINOR - 1 ] );
-         }
          else
             hb_snprintf( pszPlatform, PLATFORM_BUF_SIZE + 1, "OS/2 %2.2f",
                          ( float ) aulQSV[ QSV_VERSION_MINOR - 1 ] / 10 );
@@ -533,7 +543,6 @@ char * hb_verPlatform( void )
 
    {
       const char * pszName = "";
-      const char * pszWine = "";
 
       OSVERSIONINFO osvi;
 
@@ -562,14 +571,6 @@ char * hb_verPlatform( void )
             osvi.dwMinorVersion = 90;
             pszName = " ME";
             break;
-      }
-
-      {
-         /* NOTE: Unofficial Wine detection.
-                  https://www.mail-archive.com/wine-devel@winehq.org/msg48659.html */
-         HMODULE hntdll = GetModuleHandle( TEXT( "ntdll.dll" ) );
-         if( hntdll && HB_WINAPI_GETPROCADDRESS( hntdll, "wine_get_version" ) )
-            pszWine = " (Wine)";
       }
 #endif
 
@@ -602,7 +603,7 @@ char * hb_verPlatform( void )
             else
                pszName = " Server 2012 R2";
          }
-         else if( hb_iswinver( 6, 0, 0, HB_TRUE ) )
+         else if( hb_iswinvista() )
          {
             if( hb_iswin8() )
             {
@@ -622,7 +623,7 @@ char * hb_verPlatform( void )
                else
                   pszName = " Server 2008 R2";
             }
-            else if( hb_iswinvista() )
+            else
             {
                osvi.dwMajorVersion = 6;
                osvi.dwMinorVersion = 0;
@@ -636,7 +637,7 @@ char * hb_verPlatform( void )
          {
             osvi.dwMajorVersion = 5;
             osvi.dwMinorVersion = 2;
-            if( hb_iswinver( 5, 2, VER_NT_WORKSTATION, HB_TRUE ) )
+            if( hb_iswinver( 5, 2, VER_NT_WORKSTATION, HB_FALSE ) )
                pszName = " XP x64";
             else if( GetSystemMetrics( SM_SERVERR2 ) != 0 )
                pszName = " Server 2003 R2";
@@ -662,7 +663,7 @@ char * hb_verPlatform( void )
 
       hb_snprintf( pszPlatform, PLATFORM_BUF_SIZE + 1, "Windows%s%s %lu.%lu",
                    pszName,
-                   pszWine,
+                   s_iWine ? " (Wine)" : "",
                    osvi.dwMajorVersion,
                    osvi.dwMinorVersion );
 
@@ -743,7 +744,7 @@ HB_BOOL hb_iswinver( int iMajor, int iMinor, int iType, HB_BOOL fOrUpper )
    if( s_hb_winVerifyVersionInit() )
    {
       OSVERSIONINFOEXW ver;
-      DWORD dwTypeMask = VER_MAJORVERSION | VER_MINORVERSION | VER_SERVICEPACKMAJOR | VER_SERVICEPACKMINOR;
+      DWORD dwTypeMask = VER_MAJORVERSION | VER_MINORVERSION;
       DWORDLONG dwlConditionMask = 0;
 
       memset( &ver, 0, sizeof( ver ) );
@@ -753,8 +754,25 @@ HB_BOOL hb_iswinver( int iMajor, int iMinor, int iType, HB_BOOL fOrUpper )
 
       dwlConditionMask = s_pVerSetConditionMask( dwlConditionMask, VER_MAJORVERSION, fOrUpper ? VER_GREATER_EQUAL : VER_EQUAL );
       dwlConditionMask = s_pVerSetConditionMask( dwlConditionMask, VER_MINORVERSION, fOrUpper ? VER_GREATER_EQUAL : VER_EQUAL );
+
+      /* MSDN says <https://msdn.microsoft.com/en-us/library/windows/desktop/ms725492.aspx>:
+           "If you are testing the major version, you must also test the
+            minor version and the service pack major and minor versions."
+         However, Wine (as of 1.7.53) breaks on this. Since native Windows
+         apparently doesn't care, we're not doing it for now.
+         Wine (emulating Windows 7) will erroneously return HB_FALSE from
+         these calls:
+           hb_iswinver( 6, 1, 0, HB_FALSE );
+           hb_iswinver( 6, 1, VER_NT_WORKSTATION, HB_FALSE );
+         Removing the Service Pack check, or changing HB_FALSE to HB_TRUE
+         in above calls, both fixes the problem. [vszakats] */
+#if defined( __HB_DISABLE_WINE_VERIFYVERSIONINFO_BUG_WORKAROUND )
+      ver.wServicePackMajor =
+      ver.wServicePackMinor = ( WORD ) 0;
+      dwTypeMask |= VER_SERVICEPACKMAJOR | VER_SERVICEPACKMINOR;
       dwlConditionMask = s_pVerSetConditionMask( dwlConditionMask, VER_SERVICEPACKMAJOR, VER_GREATER_EQUAL );
       dwlConditionMask = s_pVerSetConditionMask( dwlConditionMask, VER_SERVICEPACKMINOR, VER_GREATER_EQUAL );
+#endif
 
       if( iType )
       {
@@ -797,6 +815,17 @@ HB_BOOL hb_iswinsp( int iServicePackMajor, HB_BOOL fOrUpper )
    return HB_FALSE;
 }
 
+int hb_iswine( void )
+{
+#if defined( HB_OS_WIN ) || defined( HB_OS_DOS )
+   if( ! s_fWinVerInit )
+      s_hb_winVerInit();
+   return s_iWine;
+#else
+   return 0;
+#endif
+}
+
 HB_BOOL hb_iswin10( void )
 {
 #if defined( HB_OS_WIN ) || defined( HB_OS_DOS )
@@ -825,6 +854,17 @@ HB_BOOL hb_iswin8( void )
    if( ! s_fWinVerInit )
       s_hb_winVerInit();
    return s_fWin8;
+#else
+   return HB_FALSE;
+#endif
+}
+
+HB_BOOL hb_iswin7( void )
+{
+#if defined( HB_OS_WIN ) || defined( HB_OS_DOS )
+   if( ! s_fWinVerInit )
+      s_hb_winVerInit();
+   return s_fWin7;
 #else
    return HB_FALSE;
 #endif

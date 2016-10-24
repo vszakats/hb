@@ -72,7 +72,7 @@
    wanted to reduce memory overhead in used algorithm for finding the
    longest match? The SIX was written for 16-bit DOS and the memory
    consumption was important though it should not be too much. They
-   documented ~9KB increasing the ring buffer size should be linear to
+   documented ~9 KiB increasing the ring buffer size should be linear to
    other used (helper) structures.
    The next interesting thing is that it dynamically overwrites the ring
    buffer with stream data and does not use any separate look ahead buffers.
@@ -81,7 +81,7 @@
    Our algorithm has to make the same with the ring buffer to be compatible.
    UPDATE: Using smaller ring buffer without increasing the match pointer
    suggested me that it is possible that someone didn't understand it fully
-   and modified already existing algorithm. I spend a while on the Internet
+   and modified already existing algorithm. I spend a while on the internet
    looking for old LZSS implementations and I've found it. IMHO in 99%
    this code is used in SIX. This is lzss.c file written by Haruhiko Okumura
    with the following note in header:
@@ -205,7 +205,7 @@ static void hb_LZSSxExit( PHB_LZSSX_COMPR pCompr )
 }
 
 static PHB_LZSSX_COMPR hb_LZSSxInit(
-                        PHB_FILE pInput, HB_BYTE * pSrcBuf, HB_SIZE nSrcBuf,
+                        PHB_FILE pInput, const HB_BYTE * pSrcBuf, HB_SIZE nSrcBuf,
                         PHB_FILE pOutput, HB_BYTE * pDstBuf, HB_SIZE nDstBuf )
 {
    PHB_LZSSX_COMPR pCompr = ( PHB_LZSSX_COMPR ) hb_xgrab( sizeof( HB_LZSSX_COMPR ) );
@@ -216,7 +216,7 @@ static PHB_LZSSX_COMPR hb_LZSSxInit(
       nDstBuf = LZSS_IOBUFLEN;
 
    pCompr->pInput      = pInput;
-   pCompr->inBuffer    = pSrcBuf;
+   pCompr->inBuffer    = ( HB_BYTE * ) HB_UNCONST( pSrcBuf );
    pCompr->inBuffSize  = nSrcBuf;
    pCompr->inBuffPos   = 0;
    pCompr->inBuffRead  = ( pInput == NULL ) ? nSrcBuf : 0;
@@ -285,8 +285,8 @@ static int hb_LZSSxRead( PHB_LZSSX_COMPR pCompr )
 
    if( pCompr->pInput != NULL )
    {
-      pCompr->inBuffRead = hb_fileRead( pCompr->pInput, pCompr->inBuffer,
-                                        pCompr->inBuffSize, -1 );
+      pCompr->inBuffRead = hb_fileResult( hb_fileRead( pCompr->pInput, pCompr->inBuffer,
+                                                       pCompr->inBuffSize, -1 ) );
       pCompr->inBuffPos = 0;
       if( pCompr->inBuffPos < pCompr->inBuffRead )
          return ( HB_UCHAR ) pCompr->inBuffer[ pCompr->inBuffPos++ ];
@@ -563,7 +563,7 @@ HB_BOOL hb_LZSSxCompressMem( const char * pSrcBuf, HB_SIZE nSrcLen,
    PHB_LZSSX_COMPR pCompr;
    HB_SIZE nSize;
 
-   pCompr = hb_LZSSxInit( NULL, ( HB_BYTE * ) pSrcBuf, nSrcLen,
+   pCompr = hb_LZSSxInit( NULL, ( const HB_BYTE * ) pSrcBuf, nSrcLen,
                           NULL, ( HB_BYTE * ) pDstBuf, nDstLen );
    nSize = hb_LZSSxEncode( pCompr );
    hb_LZSSxExit( pCompr );
@@ -578,7 +578,7 @@ HB_BOOL hb_LZSSxDecompressMem( const char * pSrcBuf, HB_SIZE nSrcLen,
    PHB_LZSSX_COMPR pCompr;
    HB_BOOL fResult;
 
-   pCompr = hb_LZSSxInit( NULL, ( HB_BYTE * ) pSrcBuf, nSrcLen,
+   pCompr = hb_LZSSxInit( NULL, ( const HB_BYTE * ) pSrcBuf, nSrcLen,
                           NULL, ( HB_BYTE * ) pDstBuf, nDstLen );
    fResult = hb_LZSSxDecode( pCompr );
    hb_LZSSxExit( pCompr );
@@ -620,7 +620,7 @@ HB_FUNC( SX_FCOMPRESS )
                                         FXO_DEFAULTS | FXO_SHARELOCK, NULL, NULL );
       if( pInput != NULL )
       {
-         PHB_FILE pOutput = hb_fileExtOpen( szDestin, NULL, FO_READWRITE |
+         PHB_FILE pOutput = hb_fileExtOpen( szDestin, NULL, FO_WRITE |
                                             FO_EXCLUSIVE | FXO_TRUNCATE |
                                             FXO_DEFAULTS | FXO_SHARELOCK, NULL, NULL );
          if( pOutput != NULL )
@@ -655,7 +655,7 @@ HB_FUNC( SX_FDECOMPRESS )
                                         FXO_DEFAULTS | FXO_SHARELOCK, NULL, NULL );
       if( pInput != NULL )
       {
-         PHB_FILE pOutput = hb_fileExtOpen( szDestin, NULL, FO_READWRITE |
+         PHB_FILE pOutput = hb_fileExtOpen( szDestin, NULL, FO_WRITE |
                                             FO_EXCLUSIVE | FXO_TRUNCATE |
                                             FXO_DEFAULTS | FXO_SHARELOCK, NULL, NULL );
          if( pOutput != NULL )

@@ -44,11 +44,6 @@
  *
  */
 
-#include "rt_main.ch"
-
-/* Don't change the position of this #include. */
-#include "rt_vars.ch"
-
 #define N_THREADS 5
 #define N_JOBS    1000
 
@@ -117,6 +112,3 @@ STATIC PROCEDURE thFunc( mtxJobs, mtxResults )
    RETURN
 
 #endif /* __HARBOUR__ */
-
-/* Don't change the position of this #include. */
-#include "rt_init.ch"

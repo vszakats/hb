@@ -1,42 +1,109 @@
-@charset "UTF-8";
-
 body {
-	font-size: 14px;
-	font-family: Arial;
-	line-height: 18px;
+  background-color: #f8f8f8;
+  font-family: 'Source Sans Pro', Arial, sans-serif;
+  font-size: 14pt;
+  line-height: 150%;
+  margin: 0;
+  padding: 0;
 }
 
-.name {
-	margin-left: 0;
-	padding-top: 0;
-	padding-bottom: 4px;
-	font-weight: bold;
-	font-size: 18px;
+header {
+  -position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #0974c5;
+  color: #f0f0f0;
+  border: none;
+  padding: 0 20px;
+  margin: 0;
 }
 
-.oneliner {
-	margin-bottom: 12px;
-	font-style: italic;
+main {
+  margin: 0 10px;
 }
 
-.itemtitle {
-	margin-left: 0;
-	padding-top: 0;
-	padding-bottom: 4px;
-	font-weight: bold;
+main section:first-child {
+  -margin-top: 60px;
+  border-top: 0;
 }
 
-.itemtext {
-	margin-left: 10px;
-	padding-bottom: 4px;
+a {
+  text-decoration: none;
 }
 
-.examples {
-	margin-left: 10px;
-	padding-bottom: 4px;
+a:hover {
+  border-style: none none solid;
+  border-width: 0 0 1px;
+  border-color: #000088;
+  border-color: rgba(0, 0, 255, .4);
 }
 
-.tests {
-	margin-left: 10px;
-	padding-bottom: 4px;
+h1 {
+  font-size: 130%;
+  font-weight: normal;
+  padding: 14px 0;
+  margin: 0;
+}
+
+section {
+  border-top: 1px solid rgba(0, 0, 0, .1);
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 1em .6em;
+}
+
+h4 {
+  color: #095fa8;
+  font-size: 115%;
+  margin-top: 0;
+  margin-bottom: 14px;
+}
+
+pre {
+  background-color: #f2f2f2;
+  padding: 16px;
+  overflow: scroll;
+}
+
+pre, code {
+  font-family: Hack, Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation Mono', 'Oxygen Mono', 'Andale Mono', monospace;
+  font-size: 12pt;
+}
+
+.d-na {
+  font-size: 100%;
+  margin-left: 0;
+  padding-top: 0;
+  padding-bottom: 4px;
+}
+
+.d-ol {
+  font-weight: bold;
+  font-size: 115%;
+  margin-left: 10px;
+  margin-top: 0px;
+  margin-bottom: 14px;
+}
+
+.d-d {
+  color: #095fa8;
+  font-weight: bold;
+  margin-left: 0;
+  padding-top: 0;
+  padding-bottom: 4px;
+}
+
+.d-it {
+  margin-left: 10px;
+  padding-bottom: 4px;
+}
+
+.d-ex {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.d-te {
+  margin-left: 10px;
+  padding-bottom: 4px;
 }

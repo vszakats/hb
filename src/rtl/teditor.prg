@@ -217,7 +217,7 @@ METHOD LoadText( cText ) CLASS HBEditor
 
 // Saves file being edited, if there is no file name does nothing, returns .T. if OK
 METHOD SaveFile() CLASS HBEditor
-   RETURN hb_BLen( ::cFile ) > 0 .AND. ;
+   RETURN ! HB_ISNULL( ::cFile ) .AND. ;
           ! ::lDirty := ! hb_MemoWrit( ::cFile, ::GetText() )
 
 // Add a new Line of text at end of current text
@@ -366,10 +366,10 @@ METHOD MoveCursor( nKey ) CLASS HBEditor
 
    SWITCH hb_keyStd( nKey )
    CASE K_DOWN
-      IF ! ::lEditAllow
-         ::Goto( ::nFirstRow + ::nNumRows, ::nCol )
-      ELSE
+      IF ::lEditAllow
          ::Goto( ::nRow + 1, ::nCol )
+      ELSE
+         ::Goto( ::nFirstRow + ::nNumRows, ::nCol )
       ENDIF
       EXIT
 
@@ -382,10 +382,10 @@ METHOD MoveCursor( nKey ) CLASS HBEditor
       EXIT
 
    CASE K_UP
-      IF ! ::lEditAllow
-         ::Goto( ::nFirstRow - 1, ::nCol )
-      ELSE
+      IF ::lEditAllow
          ::Goto( ::nRow - 1, ::nCol )
+      ELSE
+         ::Goto( ::nFirstRow - 1, ::nCol )
       ENDIF
       EXIT
 
@@ -477,16 +477,17 @@ METHOD Edit( nPassedKey ) CLASS HBEditor
       nKeyStd := hb_keyStd( nKey )
 
       DO CASE
-      CASE ( bKeyBlock := SetKey( nKeyStd ) ) != NIL
+      CASE ( bKeyBlock := SetKey( nKey ) ) != NIL .OR. ;
+           ( bKeyBlock := SetKey( nKeyStd ) ) != NIL
          Eval( bKeyBlock )
 
-      CASE hb_BLen( cKey := iif( nKeyStd == K_TAB .AND. Set( _SET_INSERT ), ;
-                             Space( TabCount( ::nTabWidth, ::nCol ) ), ;
-                             hb_keyChar( nKey ) ) ) > 0
+      CASE ! HB_ISNULL( cKey := iif( nKeyStd == K_TAB .AND. Set( _SET_INSERT ), ;
+                                     Space( TabCount( ::nTabWidth, ::nCol ) ), ;
+                                     hb_keyChar( nKey ) ) )
          ::lDirty := .T.
          oLine := ::aText[ ::nRow ]
-         IF ::nCol > hb_ULen( oLine:cText ) + 1
-            oLine:cText += Space( ::nCol - hb_ULen( oLine:cText ) - 1 )
+         IF ( nPos := ::nCol - hb_ULen( oLine:cText ) - 1 ) > 0
+            oLine:cText += Space( nPos )
          ENDIF
          oLine:cText := hb_UStuff( oLine:cText, ::nCol, ;
                                iif( Set( _SET_INSERT ), 0, 1 ), cKey )
@@ -565,18 +566,12 @@ METHOD Edit( nPassedKey ) CLASS HBEditor
       CASE ::MoveCursor( nKey )
          // if it's a movement key ::MoveCursor() handles it
 
-      CASE nKeyStd == K_CTRL_B .OR. nKeyStd == K_ALT_B
-         /* TOFIX: K_ALT_B is not Cl*pper compatible, added as workaround
-                   for missing in some GTs extended keycodes which are
-                   necessary to resolve K_CTRL_B and K_CTRL_RIGHT keycode
-                   conflict */
+      CASE ( hb_bitAnd( hb_keyMod( nKey ), HB_KF_CTRL ) != 0 .AND. Upper( hb_keyChar( hb_keyVal( nKey ) ) ) == "B" ) .OR. ;
+           nKeyStd == K_ALT_B  /* K_ALT_B is not Cl*pper compatible */
          ::ReformParagraph()
 
-      CASE nKeyStd == K_CTRL_W .OR. nKeyStd == K_ALT_W
-         /* TOFIX: K_ALT_W is not Cl*pper compatible, added as workaround
-                   for missing in some GTs extended keycodes which are
-                   necessary to resolve K_CTRL_W and K_CTRL_END keycode
-                   conflict */
+      CASE ( hb_bitAnd( hb_keyMod( nKey ), HB_KF_CTRL ) != 0 .AND. Upper( hb_keyChar( hb_keyVal( nKey ) ) ) == "W" ) .OR. ;
+           nKeyStd == K_ALT_W  /* K_ALT_W is not Cl*pper compatible */
          ::lSaved := .T.
          ::lExitEdit := .T.
 
@@ -602,16 +597,17 @@ METHOD BrowseText( nPassedKey ) CLASS HBEditor
 
    DO WHILE ! ::lExitEdit
       IF nPassedKey == NIL
-         IF ( nKey := Inkey() ) == 0
+         IF ( nKey := Inkey(, hb_bitOr( Set( _SET_EVENTMASK ), HB_INKEY_EXT ) ) ) == 0
             ::IdleHook()
-            nKey := Inkey( 0 )
+            nKey := Inkey( 0, hb_bitOr( Set( _SET_EVENTMASK ), HB_INKEY_EXT ) )
          ENDIF
       ELSE
          nKey := nPassedKey
       ENDIF
-
       nKeyStd := hb_keyStd( nKey )
-      IF ( bKeyBlock := SetKey( nKeyStd ) ) != NIL
+
+      IF ( bKeyBlock := SetKey( nKey ) ) != NIL .OR. ;
+         ( bKeyBlock := SetKey( nKeyStd ) ) != NIL
          Eval( bKeyBlock )
       ELSEIF nKeyStd == K_ESC
          ::lExitEdit := .T.
@@ -644,27 +640,25 @@ METHOD IdleHook() CLASS HBEditor
 METHOD ReformParagraph() CLASS HBEditor
 
    LOCAL lNext := .T.
-   LOCAL cLine := ""
-   LOCAL nLine
-   LOCAL nLines
-   LOCAL aPos
+   LOCAL cText := ""
+   LOCAL nLine, nRow, nCol
 
+   nCol := Min( hb_ULen( ::aText[ ::nRow ]:cText ) + 1, ::nCol )
    DO WHILE lNext .AND. ::nRow <= Len( ::aText )
-      cLine += ::aText[ ::nRow ]:cText
+      cText += ::aText[ ::nRow ]:cText
       lNext := ::aText[ ::nRow ]:lSoftCR
       ::RemoveLine( ::nRow )
    ENDDO
-   nLines := MLCount( cLine, ::nWordWrapCol + 1, ::nTabWidth )
-   aPos := MPosToLC( cLine, ::nWordWrapCol + 1, ::nCol, ::nTabWidth )
-   IF ::nRow + aPos[ 1 ] - 1 > ::LineCount + nLines
-      ++nLines
-   ENDIF
-   FOR nLine := 1 TO nLines
-      ::InsertLine( MemoLine( cLine, ::nWordWrapCol + 1, nLine, ::nTabWidth,,, .F. ), ;
-                    nLine < nLines, ::nRow + nLine - 1 )
-   NEXT
 
-   RETURN ::GoTo( ::nRow + aPos[ 1 ] - 1, aPos[ 2 ] + 1, _REFRESH_ALL )
+   nLine := ::nRow
+   hb_MLEval( cText, {| cLine, lSoftCR | ::InsertLine( cLine, lSoftCR, nLine++ ) }, ;
+              ::nWordWrapCol + 1, ::nTabWidth,, nCol, @nRow, @nCol )
+   IF nRow > 0
+      ::nRow += nRow - 1
+      ::nCol := nCol + 1
+   ENDIF
+
+   RETURN ::GoTo( ::nRow, ::nCol, _REFRESH_ALL )
 
 // Changes insert state and insertion / overstrike mode of editor
 METHOD InsertState( lInsState ) CLASS HBEditor
@@ -744,21 +738,11 @@ METHOD hitTest( nMRow, nMCol ) CLASS HBEditor
 STATIC FUNCTION Text2Array( cText, nWordWrapCol, nTabWidth )
 
    LOCAL aArray := {}
-   LOCAL cLine
-   LOCAL nLines
-   LOCAL nLine
 
-   FOR EACH cLine IN hb_ATokens( cText, .T. )
-      IF nWordWrapCol != NIL .AND. hb_ULen( cLine ) > nWordWrapCol
-         nLines := MLCount( cLine, nWordWrapCol + 1, nTabWidth )
-         FOR nLine := 1 TO nLines
-            AAdd( aArray, HBTextLine():New( MemoLine( cLine, nWordWrapCol + 1, nLine, nTabWidth,,, .F. ), ;
-                                            nLine < nLines ) )
-         NEXT
-      ELSE
-         AAdd( aArray, HBTextLine():New( cLine, .F. ) )
-      ENDIF
-   NEXT
+   hb_MLEval( cText, {| cLine, lSoftCR | AAdd( aArray, HBTextLine():New( cLine, lSoftCR ) ) }, ;
+              iif( nWordWrapCol != NIL, nWordWrapCol + 1, 0xFFFF ), ;
+              nTabWidth, nWordWrapCol != NIL )
+
    IF Empty( aArray )
       AAdd( aArray, HBTextLine():New() )
    ENDIF

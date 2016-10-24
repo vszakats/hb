@@ -1754,13 +1754,15 @@ HB_FUNC( SQLITE3_ENABLE_SHARED_CACHE )
    hb_retni( sqlite3_enable_shared_cache( hb_parl( 1 ) ) );
 }
 
+/* TODO: implement sqlite3_trace_v2(), that replaces both of these deprecated functions */
+
+#if defined( HB_LEGACY_LEVEL4 )
 /**
    Tracing And Profiling Functions
 
    sqlite3_trace( db, lOnOff )
    sqlite3_profile( db, lOnOff )
  */
-
 static void SQL3ProfileLog( void * sFile, const char * sProfileMsg, sqlite3_uint64 uint64 )
 {
    if( sProfileMsg )
@@ -1794,7 +1796,8 @@ HB_FUNC( SQLITE3_PROFILE )
    HB_SQLITE3 * pHbSqlite3 = ( HB_SQLITE3 * ) hb_sqlite3_param( 1, HB_SQLITE3_DB, HB_TRUE );
 
    if( pHbSqlite3 && pHbSqlite3->db )
-      sqlite3_profile( pHbSqlite3->db, hb_parl( 2 ) ? SQL3ProfileLog : NULL, ( void * ) hb_parc( 3 ) );
+      sqlite3_profile( pHbSqlite3->db, hb_parl( 2 ) ? SQL3ProfileLog : NULL,
+                       HB_ISCHAR( 3 ) ? HB_UNCONST( hb_parc( 3 ) ) : NULL );
    else
       hb_errRT_BASE_SubstR( EG_ARG, 0, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
@@ -1804,10 +1807,12 @@ HB_FUNC( SQLITE3_TRACE )
    HB_SQLITE3 * pHbSqlite3 = ( HB_SQLITE3 * ) hb_sqlite3_param( 1, HB_SQLITE3_DB, HB_TRUE );
 
    if( pHbSqlite3 && pHbSqlite3->db )
-      sqlite3_trace( pHbSqlite3->db, hb_parl( 2 ) ? SQL3TraceLog : NULL, ( void * ) hb_parc( 3 ) );
+      sqlite3_trace( pHbSqlite3->db, hb_parl( 2 ) ? SQL3TraceLog : NULL,
+                     HB_ISCHAR( 3 ) ? HB_UNCONST( hb_parc( 3 ) ) : NULL );
    else
       hb_errRT_BASE_SubstR( EG_ARG, 0, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
+#endif
 
 /**
    BLOB Import/export
@@ -1815,21 +1820,11 @@ HB_FUNC( SQLITE3_TRACE )
 
 HB_FUNC( SQLITE3_FILE_TO_BUFF )
 {
-   PHB_FILE handle = hb_fileExtOpen( hb_parcx( 1 ), NULL, FO_READ | FO_SHARED | FO_PRIVATE | FXO_SHARELOCK, NULL, NULL );
+   HB_SIZE nSize;
+   char * pBuffer = ( char * ) hb_fileLoad( hb_parcx( 1 ), 0, &nSize );
 
-   if( handle )
-   {
-      char *  buffer;
-      HB_SIZE nSize;
-
-      nSize  = ( HB_SIZE ) hb_fileSize( handle );
-      buffer = ( char * ) hb_xgrab( nSize + 1 );
-      nSize  = ( HB_SIZE ) hb_fileReadAt( handle, buffer, nSize, 0 );
-      buffer[ nSize ] = '\0';
-      hb_fileClose( handle );
-
-      hb_retclen_buffer( buffer, nSize );
-   }
+   if( pBuffer )
+      hb_retclen_buffer( pBuffer, nSize );
    else
       hb_retc_null();
 }

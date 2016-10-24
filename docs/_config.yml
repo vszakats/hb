@@ -1,0 +1,30 @@
+fork: true
+real_host: https://vszakats.github.io
+repo_slug: vszakats/harbour-core
+site_slug: vszakats/harbour-core
+site_branch_and_root: master/docs/
+dl_url: https://github.com/vszakats/harbour-core/releases
+badge_version: "Fork 3.4"
+license_file: LICENSE.txt
+baseurl: /harbour-core
+
+example_categories:
+  - basic
+  - arrays
+  - database
+  - extensions
+  - web
+collections:
+  example:
+    output: true
+defaults:
+  - scope:
+      path: ""
+      type: example
+    values:
+      layout: example
+
+incremental: true
+exclude: ["node_modules"]
+sass:
+  style: compressed

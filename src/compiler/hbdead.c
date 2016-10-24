@@ -111,7 +111,8 @@ static HB_SIZE hb_compCodeTraceNextPos( PHB_CODETRACE_INFO pInfo, HB_SIZE nPCode
 
 static void hb_compCodeTraceMark( PHB_CODETRACE_INFO pInfo, HB_SIZE nPCodePos, HB_SIZE nSize )
 {
-   memset( &pInfo->pCodeMark[ nPCodePos ], 2, nSize );
+   if( nSize > 0 )
+      memset( &pInfo->pCodeMark[ nPCodePos ], 2, nSize );
 }
 
 /*

@@ -381,7 +381,7 @@ long hb_znetFlush( PHB_ZNETSTREAM pStream, HB_SOCKET sd, HB_MAXINT timeout,
       if( hb_znetStreamWrite( pStream, sd, timeout ) <= 0 )
          break;
 
-      if( pStream->err == Z_OK )
+      if( pStream->err == Z_OK || pStream->err == Z_BUF_ERROR )
          pStream->err = deflate( &pStream->wr,
                                  fSync ? Z_FULL_FLUSH : Z_PARTIAL_FLUSH );
    }
@@ -401,7 +401,7 @@ long hb_znetWrite( PHB_ZNETSTREAM pStream, HB_SOCKET sd, const void * buffer, lo
 {
    long snd = 0;
 
-   pStream->wr.next_in = ( Bytef * ) buffer;
+   pStream->wr.next_in = ( Bytef * ) HB_UNCONST( buffer );
    pStream->wr.avail_in = ( uInt ) len;
    pStream->err = Z_OK;
 

@@ -105,10 +105,10 @@ typedef struct _HB_EXPAT
 #define HB_EXPAT_SETHANDLER( _nameu_, _name_ ) \
    HB_FUNC( XML_SET##_nameu_ ) \
    { \
-      if( PHB_EXPAT_is( 1 ) ) \
-      { \
-         PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 ); \
+      PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 ); \
          \
+      if( hb_expat ) \
+      { \
          hb_expat_setvar( hb_expat, _VAR_b##_name_, hb_param( 2, HB_IT_EVALITEM ) ); \
          \
          XML_Set##_name_/* do not delete this */ ( hb_expat->parser, hb_expat->pVar[ _VAR_b##_name_ ] ? hb_expat_##_name_ : NULL ); \
@@ -697,11 +697,6 @@ static const HB_GC_FUNCS s_gcEXPATFuncs =
    PHB_EXPAT_mark
 };
 
-static void * PHB_EXPAT_is( int iParam )
-{
-   return hb_parptrGC( &s_gcEXPATFuncs, iParam );
-}
-
 static PHB_EXPAT PHB_EXPAT_par( int iParam )
 {
    void ** ph = ( void ** ) hb_parptrGC( &s_gcEXPATFuncs, iParam );
@@ -766,51 +761,35 @@ HB_FUNC( XML_PARSERCREATE )
 
 HB_FUNC( XML_PARSERRESET )
 {
-   if( PHB_EXPAT_is( 1 ) )
+   PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
+
+   if( hb_expat )
    {
-      PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
+      void * hEncoding;
 
-      if( hb_expat )
-      {
-         void * hEncoding;
+      PHB_EXPAT_free( hb_expat, HB_FALSE );
 
-         PHB_EXPAT_free( hb_expat, HB_FALSE );
+      XML_ParserReset( hb_expat->parser,
+                       hb_parstr_utf8( 1, &hEncoding, NULL ) );
 
-         XML_ParserReset( hb_expat->parser,
-                          hb_parstr_utf8( 1, &hEncoding, NULL ) );
-
-         hb_strfree( hEncoding );
-      }
+      hb_strfree( hEncoding );
    }
    else
       hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
+#if defined( HB_LEGACY_LEVEL5 )
 HB_FUNC( XML_PARSERFREE )
 {
-   if( PHB_EXPAT_is( 1 ) )
-   {
-      void ** ph = ( void ** ) hb_parptrGC( &s_gcEXPATFuncs, 1 );
-
-      if( ph && *ph )
-      {
-         PHB_EXPAT hb_expat = ( PHB_EXPAT ) *ph;
-
-         /* Destroy the object */
-         PHB_EXPAT_free( hb_expat, HB_TRUE );
-         *ph = NULL;
-      }
-   }
-   else
-      hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
+#endif
 
 HB_FUNC( XML_SETUSERDATA )
 {
-   if( PHB_EXPAT_is( 1 ) )
-   {
-      PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
+   PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
 
+   if( hb_expat )
+   {
       hb_expat_setvar( hb_expat, _VAR_xUserData, hb_param( 2, HB_IT_ANY ) );
 
       hb_ret();
@@ -821,22 +800,20 @@ HB_FUNC( XML_SETUSERDATA )
 
 HB_FUNC( XML_GETUSERDATA )
 {
-   if( PHB_EXPAT_is( 1 ) )
-   {
-      PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
+   PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
 
+   if( hb_expat )
       hb_itemReturnRelease( hb_itemNew( hb_expat->pVar[ _VAR_xUserData ] ) );
-   }
    else
       hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
 HB_FUNC( XML_SETELEMENTHANDLER )
 {
-   if( PHB_EXPAT_is( 1 ) )
-   {
-      PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
+   PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
 
+   if( hb_expat )
+   {
       hb_expat_setvar( hb_expat, _VAR_bStartElementHandler, hb_param( 2, HB_IT_EVALITEM ) );
       hb_expat_setvar( hb_expat, _VAR_bEndElementHandler, hb_param( 3, HB_IT_EVALITEM ) );
 
@@ -852,10 +829,10 @@ HB_FUNC( XML_SETELEMENTHANDLER )
 
 HB_FUNC( XML_SETCDATASECTIONHANDLER )
 {
-   if( PHB_EXPAT_is( 1 ) )
-   {
-      PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
+   PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
 
+   if( hb_expat )
+   {
       hb_expat_setvar( hb_expat, _VAR_bStartCdataSectionHandler, hb_param( 2, HB_IT_EVALITEM ) );
       hb_expat_setvar( hb_expat, _VAR_bEndCdataSectionHandler, hb_param( 3, HB_IT_EVALITEM ) );
 
@@ -871,10 +848,10 @@ HB_FUNC( XML_SETCDATASECTIONHANDLER )
 
 HB_FUNC( XML_SETNAMESPACEDECLHANDLER )
 {
-   if( PHB_EXPAT_is( 1 ) )
-   {
-      PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
+   PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
 
+   if( hb_expat )
+   {
       hb_expat_setvar( hb_expat, _VAR_bStartNamespaceDeclHandler, hb_param( 2, HB_IT_EVALITEM ) );
       hb_expat_setvar( hb_expat, _VAR_bEndNamespaceDeclHandler, hb_param( 3, HB_IT_EVALITEM ) );
 
@@ -890,10 +867,10 @@ HB_FUNC( XML_SETNAMESPACEDECLHANDLER )
 
 HB_FUNC( XML_SETUNKNOWNENCODINGHANDLER )
 {
-   if( PHB_EXPAT_is( 1 ) )
-   {
-      PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
+   PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
 
+   if( hb_expat )
+   {
       hb_expat_setvar( hb_expat, _VAR_bUnknownEncodingHandler, hb_param( 2, HB_IT_EVALITEM ) );
       hb_expat_setvar( hb_expat, _VAR_xEncodingHandlerData, hb_param( 3, HB_IT_ANY ) );
 
@@ -909,24 +886,20 @@ HB_FUNC( XML_SETUNKNOWNENCODINGHANDLER )
 
 HB_FUNC( XML_PARSE )
 {
-   if( PHB_EXPAT_is( 1 ) )
-   {
-      PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
+   PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
 
+   if( hb_expat )
       hb_retni( XML_Parse( hb_expat->parser, hb_parcx( 2 ), ( int ) hb_parclen( 2 ), ( int ) hb_parl( 3 ) ) );
-   }
    else
       hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
 HB_FUNC( XML_GETERRORCODE )
 {
-   if( PHB_EXPAT_is( 1 ) )
-   {
-      PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
+   PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
 
+   if( hb_expat )
       hb_retni( ( int ) XML_GetErrorCode( hb_expat->parser ) );
-   }
    else
       hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
@@ -938,58 +911,51 @@ HB_FUNC( XML_ERRORSTRING )
 
 HB_FUNC( XML_GETCURRENTBYTEINDEX )
 {
-   if( PHB_EXPAT_is( 1 ) )
-   {
-      PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
+   PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
 
+   if( hb_expat )
       hb_retns( XML_GetCurrentByteIndex( hb_expat->parser ) );
-   }
    else
       hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
 HB_FUNC( XML_GETCURRENTLINENUMBER )
 {
-   if( PHB_EXPAT_is( 1 ) )
-   {
-      PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
+   PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
 
+   if( hb_expat )
       hb_retns( XML_GetCurrentLineNumber( hb_expat->parser ) );
-   }
    else
       hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
 HB_FUNC( XML_GETCURRENTCOLUMNNUMBER )
 {
-   if( PHB_EXPAT_is( 1 ) )
-   {
-      PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
+   PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
 
+   if( hb_expat )
       hb_retns( XML_GetCurrentColumnNumber( hb_expat->parser ) );
-   }
    else
       hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
 HB_FUNC( XML_GETCURRENTBYTECOUNT )
 {
-   if( PHB_EXPAT_is( 1 ) )
-   {
-      PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
+   PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
 
+   if( hb_expat )
       hb_retni( XML_GetCurrentByteCount( hb_expat->parser ) );
-   }
    else
       hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
 HB_FUNC( XML_SETBASE )
 {
-   if( PHB_EXPAT_is( 1 ) )
+   PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
+
+   if( hb_expat )
    {
-      PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
-      void *    hBase;
+      void * hBase;
 
       hb_retni( ( int ) XML_SetBase( hb_expat->parser, hb_parstr_utf8( 1, &hBase, NULL ) ) );
 
@@ -1001,46 +967,41 @@ HB_FUNC( XML_SETBASE )
 
 HB_FUNC( XML_GETBASE )
 {
-   if( PHB_EXPAT_is( 1 ) )
-   {
-      PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
+   PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
 
+   if( hb_expat )
       hb_retstr_utf8( XML_GetBase( hb_expat->parser ) );
-   }
    else
       hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
 HB_FUNC( XML_GETSPECIFIEDATTRIBUTECOUNT )
 {
-   if( PHB_EXPAT_is( 1 ) )
-   {
-      PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
+   PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
 
+   if( hb_expat )
       hb_retni( XML_GetSpecifiedAttributeCount( hb_expat->parser ) );
-   }
    else
       hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
 HB_FUNC( XML_GETIDATTRIBUTEINDEX )
 {
-   if( PHB_EXPAT_is( 1 ) )
-   {
-      PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
+   PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
 
+   if( hb_expat )
       hb_retni( XML_GetIdAttributeIndex( hb_expat->parser ) );
-   }
    else
       hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
 HB_FUNC( XML_SETENCODING )
 {
-   if( PHB_EXPAT_is( 1 ) )
+   PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
+
+   if( hb_expat )
    {
-      PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
-      void *    hEncoding;
+      void * hEncoding;
 
       hb_retni( ( int ) XML_SetEncoding( hb_expat->parser,
                                          hb_parstr_utf8( 1, &hEncoding, NULL ) ) );
@@ -1053,34 +1014,30 @@ HB_FUNC( XML_SETENCODING )
 
 HB_FUNC( XML_SETPARAMENTITYPARSING )
 {
-   if( PHB_EXPAT_is( 1 ) )
-   {
-      PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
+   PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
 
+   if( hb_expat )
       hb_retni( XML_SetParamEntityParsing( hb_expat->parser, ( enum XML_ParamEntityParsing ) hb_parni( 2 ) ) );
-   }
    else
       hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
 HB_FUNC( XML_USEFOREIGNDTD )
 {
-   if( PHB_EXPAT_is( 1 ) )
-   {
-      PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
+   PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
 
+   if( hb_expat )
       hb_retni( ( int ) XML_UseForeignDTD( hb_expat->parser, ( XML_Bool ) hb_parl( 2 ) ) );
-   }
    else
       hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
 HB_FUNC( XML_SETRETURNNSTRIPLET )
 {
-   if( PHB_EXPAT_is( 1 ) )
-   {
-      PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
+   PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
 
+   if( hb_expat )
+   {
       XML_SetReturnNSTriplet( hb_expat->parser, hb_parni( 2 ) );
 
       hb_ret();
@@ -1091,10 +1048,10 @@ HB_FUNC( XML_SETRETURNNSTRIPLET )
 
 HB_FUNC( XML_DEFAULTCURRENT )
 {
-   if( PHB_EXPAT_is( 1 ) )
-   {
-      PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
+   PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
 
+   if( hb_expat )
+   {
       XML_DefaultCurrent( hb_expat->parser );
 
       hb_ret();
@@ -1105,11 +1062,11 @@ HB_FUNC( XML_DEFAULTCURRENT )
 
 HB_FUNC( XML_STOPPARSER )
 {
-   if( PHB_EXPAT_is( 1 ) )
+   PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
+
+   if( hb_expat )
    {
 #if HB_EXPAT_VERS( 1, 95, 8 )
-      PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
-
       hb_retni( ( int ) XML_StopParser( hb_expat->parser, ( XML_Bool ) hb_parl( 2 ) ) );
 #else
       hb_retni( HB_XML_ERROR_NOT_IMPLEMENTED_ );
@@ -1121,11 +1078,11 @@ HB_FUNC( XML_STOPPARSER )
 
 HB_FUNC( XML_RESUMEPARSER )
 {
-   if( PHB_EXPAT_is( 1 ) )
+   PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
+
+   if( hb_expat )
    {
 #if HB_EXPAT_VERS( 1, 95, 8 )
-      PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
-
       hb_retni( ( int ) XML_ResumeParser( hb_expat->parser ) );
 #else
       hb_retni( HB_XML_ERROR_NOT_IMPLEMENTED_ );
@@ -1137,10 +1094,11 @@ HB_FUNC( XML_RESUMEPARSER )
 
 HB_FUNC( XML_GETPARSINGSTATUS )
 {
-   if( PHB_EXPAT_is( 1 ) )
+   PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
+
+   if( hb_expat )
    {
 #if HB_EXPAT_VERS( 1, 95, 8 )
-      PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
       XML_ParsingStatus status;
 
       XML_GetParsingStatus( hb_expat->parser, &status );
@@ -1158,11 +1116,11 @@ HB_FUNC( XML_GETPARSINGSTATUS )
 
 HB_FUNC( XML_SETHASHSALT )
 {
-   if( PHB_EXPAT_is( 1 ) )
+   PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
+
+   if( hb_expat )
    {
 #if HB_EXPAT_VERS( 2, 1, 0 )
-      PHB_EXPAT hb_expat = PHB_EXPAT_par( 1 );
-
       hb_retni( XML_SetHashSalt( hb_expat->parser, ( unsigned long ) hb_parnint( 2 ) ) );
 #else
       hb_retni( 0 );

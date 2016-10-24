@@ -22,6 +22,7 @@ endif
 include $(TOP)$(ROOT)config/$(HB_PLATFORM)/$(HB_COMPILER).mk
 include $(TOP)$(ROOT)config/c.mk
 include $(TOP)$(ROOT)config/prg.mk
+include $(TOP)$(ROOT)config/res.mk
 
 ifeq ($(HB_LINKING_VMMT),yes)
    _HB_VM := hbvmmt
@@ -52,6 +53,7 @@ HB_DYN_LIBS := \
    gtgui \
    gtwin \
    gtos2 \
+   gtdos \
    gttrm \
    gtcrs \
    gtsln \
@@ -69,20 +71,17 @@ endif
 ifneq ($(HB_HAS_ZLIB_LOCAL),)
    HB_DYN_LIBS += hbzlib
 endif
+ifeq ($(HB_PLATFORM),dos)
+   HB_DYN_LIBS += hbdossrl
+endif
 
 #   hbcplr \
 #   hbdebug \
 
-ifneq ($(HB_HAS_PCRE_LOCAL),)
-   HB_DYN_LIBS += hbpcre
-endif
-ifneq ($(HB_HAS_ZLIB_LOCAL),)
-   HB_DYN_LIBS += hbzlib
-endif
-
 
 DYN_FILE :=
 IMP_FILE :=
+DEF_FILE := $(DEFNAME)
 
 ifneq ($(HB_BUILD_DYN),no)
 ifneq ($(DY_RULE),)
@@ -96,7 +95,7 @@ DYN_FILE_NVR := $(DYN_DIR)/$(DYN_NAME_NVR)
 DYN_FILE_CPT := $(DYN_DIR)/$(DYN_NAME_CPT)
 
 ifneq ($(IMP_DIR),)
-   IMP_NAME := $(LIB_PREF)$(DYNNAME)$(HB_DYNLIB_POST)$(LIB_EXT)$(HB_DYNLIB_PEXT)
+   IMP_NAME := $(LIB_PREF)$(IMPNAME)$(HB_DYNLIB_POST)$(LIB_EXT)$(HB_DYNLIB_PEXT)
    IMP_FILE := $(IMP_DIR)/$(IMP_NAME)
 endif
 
@@ -104,6 +103,9 @@ ifeq ($(HB_DYN_FROM_LIBS),yes)
    ALL_OBJS := $(subst /,$(DIRSEP),$(foreach lib,$(HB_DYN_LIBS),$(wildcard $(LIB_DIR)/$(LIB_PREF)$(lib)$(LIB_EXT))))
 else
    ALL_OBJS := $(subst /,$(DIRSEP),$(foreach dir,$(DYNDIRLIST),$(wildcard $(TOP)$(ROOT)$(dir)/$(OBJ_DIR)/*$(OBJ_DYN_POSTFIX)$(OBJ_EXT))))
+endif
+ifneq ($(RC),)
+   ALL_OBJS += $(ALL_RC_OBJS)
 endif
 
 first:: dirbase descend

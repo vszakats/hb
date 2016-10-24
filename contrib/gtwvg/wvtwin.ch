@@ -513,7 +513,7 @@
 #define LBS_DISABLENOSCROLL                       4096
 #define LBS_NODATA                                8192
 #define LBS_NOSEL                                 16384
-#define LBS_STANDARD                              ( LBS_NOTIFY + LBS_SORT + WS_VSCROLL + WS_BORDER )
+#define LBS_STANDARD                              ( LBS_NOTIFY + LBS_SORT + WIN_WS_VSCROLL + WIN_WS_BORDER )
 
 /* Listbox Notification Codes */
 #define LBN_ERRSPACE                              -2
@@ -1240,6 +1240,7 @@
 #define PBM_DELTAPOS                              ( WIN_WM_USER + 3 )
 #define PBM_SETSTEP                               ( WIN_WM_USER + 4 )
 #define PBM_STEPIT                                ( WIN_WM_USER + 5 )
+#define PBM_SETMARQUEE                            ( WIN_WM_USER + 10 )
 #define PBM_SETRANGE32                            1030
 #define PBM_GETRANGE                              1031
 #define PBM_GETPOS                                1032
@@ -1248,6 +1249,8 @@
 
 #define PBS_SMOOTH                                1
 #define PBS_VERTICAL                              4
+#define PBS_MARQUEE                               8
+#define PBS_SMOOTHREVERSE                         16
 
 #define OUT_DEFAULT_PRECIS                        0
 #define OUT_STRING_PRECIS                         1

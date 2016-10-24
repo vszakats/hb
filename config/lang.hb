@@ -1,4 +1,4 @@
-#!/usr/bin/hbmk2
+#!/usr/bin/env hbmk2
 /*
  * Manage translations and automatic doc generation
  *
@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA (or visit
- * their web site at https://www.gnu.org/).
+ * their website at https://www.gnu.org/).
  *
  */
 
@@ -365,10 +365,10 @@ STATIC FUNCTION StrUnspace( cString )
 STATIC FUNCTION PO_Clean( cFNSource, cFNTarget, ... )
 
    LOCAL aTrans
-   LOCAL cErrorMsg
+   LOCAL cErrorMsg, cEOL
 
-   IF ( aTrans := __i18n_potArrayLoad( cFNSource, @cErrorMsg ) ) != NIL .AND. ;
-      __i18n_potArraySave( cFNTarget, __i18n_potArrayClean( aTrans, ... ), @cErrorMsg, .F. )
+   IF ( aTrans := __i18n_potArrayLoad( cFNSource, @cErrorMsg, @cEOL ) ) != NIL .AND. ;
+      __i18n_potArraySave( cFNTarget, __i18n_potArrayClean( aTrans, ... ), @cErrorMsg, .F.,, cEOL )
       RETURN .T.
    ENDIF
 

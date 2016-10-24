@@ -47,7 +47,7 @@ extern HB_BOOL hbamf_is_cls_externalizable( HB_USHORT uiClass );
 static void _ref_realItemPtr( PHB_ITEM pKey, PHB_ITEM pItem )
 {
    if( HB_IS_STRING( pItem ) )
-      hb_itemPutPtr( pKey, ( void * ) hb_itemGetCPtr( pItem ) );
+      hb_itemPutPtr( pKey, HB_UNCONST( hb_itemGetCPtr( pItem ) ) );
    else if( HB_IS_ARRAY( pItem ) )
       hb_itemPutPtr( pKey, hb_arrayId( pItem ) );
    else if( HB_IS_HASH( pItem ) )
@@ -151,7 +151,7 @@ static HB_BOOL amf3_encode_int( amfContext * context, int value )
     *
     * The int is negative if the 1st bit of the 29 int is set.
     */
-   value &= 0x1fffffff; /* Ignore 1st 3 bits of 32 bit int, since we're encoding to 29 bit. */
+   value &= 0x1fffffff; /* Ignore 1st 3 bits of 32-bit int, since we're encoding to 29 bit. */
    if( value < 0x80 )
    {
       tmp_size = 1;

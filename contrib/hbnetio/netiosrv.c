@@ -197,7 +197,7 @@ static int s_srvFileNew( PHB_CONSRV conn, PHB_FILE pFile )
          {
             conn->filesCount++;
             conn->fileTable[ conn->firstFree ] = pFile;
-            return conn->firstFree;
+            return conn->firstFree++;
          }
          conn->firstFree++;
       }
@@ -960,11 +960,8 @@ HB_FUNC( NETIO_SERVER )
                      errCode = NETIO_ERR_READ;
                   else
                   {
-                     char * szOldName = NULL;
                      const char * szFile = s_consrvFilePath( ( char * ) msg, conn, uiMsg == NETIO_LINKSYM );
-
-                     if( szFile )
-                        szOldName = hb_strdup( szFile );
+                     char * szOldName = szFile ? hb_strdup( szFile ) : NULL;
 
                      msg[ size2 ] = '\0';
                      if( ! s_srvRecvAll( conn, msg, size2 ) )
@@ -1095,6 +1092,7 @@ HB_FUNC( NETIO_SERVER )
                         errCode = NETIO_ERR_WRONG_FILE_PATH;
                      else
                      {
+                        nFlags &= ~ ( HB_FATTR ) FXO_COPYNAME;
                         pFile = hb_fileExtOpen( szFile, szExt, nFlags, NULL, NULL );
                         if( ! pFile )
                            errCode = s_srvFsError();
@@ -1128,7 +1126,7 @@ HB_FUNC( NETIO_SERVER )
                   errCode = NETIO_ERR_WRONG_PARAM;
                else
                {
-                  if( size >= ( long ) ( sizeof( buffer ) - NETIO_MSGLEN ) )
+                  if( size > ( long ) ( sizeof( buffer ) - NETIO_MSGLEN ) )
                      ptr = msg = ( HB_BYTE * ) hb_xgrab( size + NETIO_MSGLEN );
                   if( ! s_srvRecvAll( conn, msg, size ) )
                      errCode = NETIO_ERR_READ;
@@ -1209,7 +1207,7 @@ HB_FUNC( NETIO_SERVER )
                   errCode = NETIO_ERR_WRONG_PARAM;
                else
                {
-                  if( size >= ( long ) ( sizeof( buffer ) - NETIO_MSGLEN ) )
+                  if( size > ( long ) ( sizeof( buffer ) - NETIO_MSGLEN ) )
                      ptr = msg = ( HB_BYTE * ) hb_xgrab( size + NETIO_MSGLEN );
                   pFile = s_srvFileGet( conn, iFileNo );
                   if( pFile == NULL )
@@ -1225,6 +1223,8 @@ HB_FUNC( NETIO_SERVER )
                      HB_PUT_LE_UINT32( &msg[ 4 ], len );
                      HB_PUT_LE_UINT32( &msg[ 8 ], errFsCode );
                      memset( msg + 12, '\0', NETIO_MSGLEN - 12 );
+                     if( len == FS_ERROR )
+                        len = 0;
                   }
                }
                break;
@@ -1247,7 +1247,7 @@ HB_FUNC( NETIO_SERVER )
                   errCode = NETIO_ERR_WRONG_PARAM;
                else
                {
-                  if( size >= ( long ) sizeof( buffer ) )
+                  if( size > ( long ) sizeof( buffer ) )
                      ptr = msg = ( HB_BYTE * ) hb_xgrab( size );
                   if( ! s_srvRecvAll( conn, msg, size ) )
                      errCode = NETIO_ERR_READ;
@@ -1395,15 +1395,16 @@ HB_FUNC( NETIO_SERVER )
                   while( *pStreamPtr )
                   {
                      if( ( *pStreamPtr )->id == iStreamID )
-                     {
-                        PHB_CONSTREAM stream = *pStreamPtr;
-                        *pStreamPtr = stream->next;
-                        hb_xfree( stream );
                         break;
-                     }
                      pStreamPtr = &( *pStreamPtr )->next;
                   }
-                  if( *pStreamPtr == NULL )
+                  if( *pStreamPtr != NULL )
+                  {
+                     PHB_CONSTREAM stream = *pStreamPtr;
+                     *pStreamPtr = stream->next;
+                     hb_xfree( stream );
+                  }
+                  else
                      iStreamID = 0;
                   hb_threadMutexUnlock( conn->mutex );
                }
@@ -1430,7 +1431,7 @@ HB_FUNC( NETIO_SERVER )
                   errCode = NETIO_ERR_WRONG_PARAM;
                else
                {
-                  if( size >= ( long ) sizeof( buffer ) )
+                  if( size > ( long ) sizeof( buffer ) )
                      ptr = msg = ( HB_BYTE * ) hb_xgrab( size );
                   if( ! s_srvRecvAll( conn, msg, size ) )
                      errCode = NETIO_ERR_READ;
@@ -1502,17 +1503,22 @@ HB_FUNC( NETIO_SERVER )
                                     iStreamID = 0;
                                  if( iStreamID )
                                  {
-                                    PHB_CONSTREAM stream = ( PHB_CONSTREAM )
-                                            hb_xgrab( sizeof( HB_CONSTREAM ) );
-                                    stream->id = iStreamID;
-                                    stream->type = iStreamType;
-                                    stream->next = conn->streams;
-                                    conn->streams = stream;
-
                                     if( conn->mutex == NULL )
                                        conn->mutex = hb_threadMutexCreate();
-                                    if( ! hb_threadMutexLock( conn->mutex ) )
+                                    if( hb_threadMutexLock( conn->mutex ) )
+                                    {
+                                       PHB_CONSTREAM stream = ( PHB_CONSTREAM )
+                                               hb_xgrab( sizeof( HB_CONSTREAM ) );
+                                       stream->id = iStreamID;
+                                       stream->type = iStreamType;
+                                       stream->next = conn->streams;
+                                       conn->streams = stream;
+                                    }
+                                    else
+                                    {
                                        errCode = NETIO_ERR_REFUSED;
+                                       iStreamID = 0;
+                                    }
                                  }
                                  else
                                     errCode = NETIO_ERR_WRONG_PARAM;
@@ -1626,6 +1632,29 @@ HB_FUNC( NETIO_SERVER )
 
          if( errCode )
             break;
+      }
+   }
+}
+
+/* netio_ServedConnection() -> <pConnectionSocket>
+ */
+HB_FUNC( NETIO_SERVEDCONNECTION )
+{
+   static PHB_DYNS s_pDyns_netio_server = NULL;
+
+   if( s_pDyns_netio_server == NULL )
+      s_pDyns_netio_server = hb_dynsymGetCase( "NETIO_SERVER" );
+
+   if( s_pDyns_netio_server != NULL )
+   {
+      HB_ISIZ nOffset = hb_stackBaseSymbolOffset( hb_dynsymSymbol( s_pDyns_netio_server ) );
+
+      if( nOffset > 0 )
+      {
+         PHB_ITEM pItem = hb_stackItem( nOffset + 2 );
+
+         if( hb_itemGetPtrGC( pItem, &s_gcConSrvFuncs ) != NULL )
+            hb_itemReturn( pItem );
       }
    }
 }

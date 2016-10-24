@@ -91,7 +91,6 @@ DYNAMIC sqlite3_memory_used
 DYNAMIC sqlite3_open
 DYNAMIC sqlite3_open_v2
 DYNAMIC sqlite3_prepare
-DYNAMIC sqlite3_profile
 DYNAMIC sqlite3_progress_handler
 DYNAMIC sqlite3_reset
 DYNAMIC sqlite3_reset_auto_extension
@@ -110,7 +109,6 @@ DYNAMIC sqlite3_table_column_metadata
 DYNAMIC sqlite3_temp_directory
 DYNAMIC sqlite3_threadsafe
 DYNAMIC sqlite3_total_changes
-DYNAMIC sqlite3_trace
 
 #if defined( __HBEXTREQ__ ) .OR. defined( __HBEXTERN__HBSQLIT3__REQUEST )
    #uncommand DYNAMIC <fncs,...> => EXTERNAL <fncs>

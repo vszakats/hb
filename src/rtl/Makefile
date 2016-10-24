@@ -253,6 +253,7 @@ PRG_SOURCES := \
    memvarhb.prg \
    menuto.prg \
    menusys.prg \
+   noop.prg \
    objfunc.prg \
    perfuncs.prg \
    profiler.prg \

@@ -153,6 +153,7 @@ CREATE CLASS win_Prn
    VAR BinNumber        INIT 0
    VAR Landscape        INIT .F.
    VAR Copies           INIT 1
+   VAR Collate          INIT .F.
    VAR PaperLength      INIT 0                           // Value is * 1/10 of mm   1000 == 10cm
    VAR PaperWidth       INIT 0                           //   "    "    "     "       "     "
 
@@ -223,7 +224,7 @@ METHOD Create() CLASS win_Prn
    IF ! Empty( ::hPrinterDC := wapi_CreateDC( , ::PrinterName ) )
 
       // Set Form Type
-      // Set Number of Copies
+      // Set Number of Copies, optionally enable collation
       // Set Orientation
       // Set Duplex mode
       // Set PrintQuality
@@ -233,13 +234,15 @@ METHOD Create() CLASS win_Prn
             @::FormType, @::Landscape, ;
             @::Copies, @::BinNumber, ;
             @::fDuplexType, @::fPrintQuality, ;
-            @::PaperLength, @::PaperWidth )
+            @::PaperLength, @::PaperWidth, ;
+            @::Collate )
       ELSE
          lResult := win_SetDocumentProperties( ::hPrinterDC, ::PrinterName, ;
             ::FormType, ::Landscape, ;
             ::Copies, ::BinNumber, ;
             ::fDuplexType, ::fPrintQuality, ;
-            ::PaperLength, ::PaperWidth )
+            ::PaperLength, ::PaperWidth, ;
+            ::Collate )
       ENDIF
 
       IF lResult
@@ -255,12 +258,12 @@ METHOD Create() CLASS win_Prn
          ::PageWidth        := wapi_GetDeviceCaps( ::hPrinterDC, WIN_PHYSICALWIDTH )
          ::PageHeight       := wapi_GetDeviceCaps( ::hPrinterDC, WIN_PHYSICALHEIGHT )
          ::LeftMargin       := wapi_GetDeviceCaps( ::hPrinterDC, WIN_PHYSICALOFFSETX )
-         ::RightMargin      := ( ::PageWidth - ::LeftMargin ) + 1
+         ::RightMargin      := wapi_GetDeviceCaps( ::hPrinterDC, WIN_HORZRES )
          ::PixelsPerInchY   := wapi_GetDeviceCaps( ::hPrinterDC, WIN_LOGPIXELSY )
          ::PixelsPerInchX   := wapi_GetDeviceCaps( ::hPrinterDC, WIN_LOGPIXELSX )
          ::LineHeight       := Int( ::PixelsPerInchY / 6 )  // Default 6 lines per inch == # of pixels per line
          ::TopMargin        := wapi_GetDeviceCaps( ::hPrinterDC, WIN_PHYSICALOFFSETY )
-         ::BottomMargin     := ( ::PageHeight - ::TopMargin ) + 1
+         ::BottomMargin     := wapi_GetDeviceCaps( ::hPrinterDC, WIN_VERTRES )
 
          // Set .T. if can print bitmaps
          ::BitMapsOk := hb_bitAnd( wapi_GetDeviceCaps( ::hPrinterDC, WIN_RASTERCAPS ), WIN_RC_STRETCHDIB ) != 0
@@ -457,7 +460,8 @@ METHOD GetDocumentProperties() CLASS win_Prn
       @::FormType, @::Landscape, ;
       @::Copies, @::BinNumber, ;
       @::fDuplexType, @::fPrintQuality, ;
-      @::PaperLength, @::PaperWidth )
+      @::PaperLength, @::PaperWidth, ;
+      @::Collate )
 
 // If font width is specified it is in "characters per inch" to emulate DotMatrix
 // An array { nMul, nDiv } is used to get precise size such a the Dot Matric equivalent
@@ -659,7 +663,7 @@ METHOD TextOut( cString, lNewLine, lUpdatePosX, nAlign ) CLASS win_Prn
    LOCAL nPosX
 
    IF ! Empty( ::hPrinterDc ) .AND. ;
-      HB_ISSTRING( cString ) .AND. hb_BLen( cString ) > 0 .AND. ;
+      HB_ISSTRING( cString ) .AND. ! HB_ISNULL( cString ) .AND. ;
       ::CheckPage()
 
       wapi_SetTextAlign( ::hPrinterDC, hb_bitOr( WIN_TA_NOUPDATECP, hb_defaultValue( nAlign, hb_bitOr( WIN_TA_BOTTOM, WIN_TA_LEFT ) ) ) )

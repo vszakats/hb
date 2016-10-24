@@ -90,7 +90,7 @@
 
 /* holder of memory block information */
 /* NOTE: HB_USHORT is used intentionally to fill up the structure to
- * full 16 bytes (on 16/32 bit environment)
+ * full 16 bytes (on 16/32-bit environment)
  */
 typedef struct HB_GARBAGE_
 {

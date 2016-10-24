@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------
-# Copyright 2009 Viktor Szakats (vszakats.net/harbour)
+# Copyright 2009-2015 Viktor Szakats (vszakats.net/harbour)
 # See LICENSE.txt for licensing terms.
 # ---------------------------------------------------------------
 
@@ -79,13 +79,13 @@ ifeq ($($(_DET_VAR_HAS_)),)
                   endif
                   ifeq ($($(_DET_VAR_HAS_)),)
                      ifneq ($(HB_BUILD_3RDEXT),no)
-                        $(_DET_VAR_HAS_) := $(_DET_INC_DEFP)
+                        $(_DET_VAR_HAS_) := $(subst $(subst x, ,x),$(PTHSEP),$(_DET_INC_DEFP))
                      endif
-                     $(_DET_VAR_HAS_) += $(_DET_INC_LOCL)
+                     $(_DET_VAR_HAS_) := $($(_DET_VAR_HAS_))$(PTHSEP)$(_DET_INC_LOCL)
                   else
                      ifeq ($($(_DET_VAR_HAS_)),nolocal)
                         ifneq ($(HB_BUILD_3RDEXT),no)
-                           $(_DET_VAR_HAS_) := $(_DET_INC_DEFP)
+                           $(_DET_VAR_HAS_) := $(subst $(subst x, ,x),$(PTHSEP),$(_DET_INC_DEFP))
                         endif
                      endif
                   endif
@@ -94,7 +94,7 @@ ifeq ($($(_DET_VAR_HAS_)),)
                   endif
                   ifneq ($($(_DET_VAR_HAS_)),)
                      ifneq ($($(_DET_VAR_HAS_)),.)
-                        $(_DET_VAR_HAS_) := $(strip $(firstword $(foreach d,$($(_DET_VAR_HAS_)),$(if $(wildcard $(d)$(_DET_INC_HEAD)),$(d),))))
+                        $(_DET_VAR_HAS_) := $(call find_in_path_prw,$(_DET_INC_HEAD),$($(_DET_VAR_HAS_)))
                         ifeq ($($(_DET_VAR_HAS_)),)
                            _DET_RES_TEXT := '$(_DET_DSP_NAME)' not found
                            ifneq ($(HB_HOST_PLAT_UNIX),yes)
@@ -102,6 +102,7 @@ ifeq ($($(_DET_VAR_HAS_)),)
                            endif
                            $(call do_info,$(_DET_RES_TEXT))
                         else
+                           $(_DET_VAR_HAS_) := $(subst $(_DET_INC_HEAD),,$($(_DET_VAR_HAS_)))
                            # detect if the component was found in locally hosted dir
                            ifneq ($(_DET_INC_LOCL),)
                               ifneq ($(filter $(_DET_INC_LOCL),$($(_DET_VAR_HAS_))),)

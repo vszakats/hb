@@ -186,7 +186,7 @@ ifeq ($(HB_SHELL),dos)
 
 # NOTE: MS-DOS command-line length has a limit of 126 characters.
 #       When using DJGPP GNU Make to invoke other DJGPP tools this limit
-#       is about 13KB, as they do special trick to overcome it.
+#       is about 13 kB, as they do special trick to overcome it.
 #       See these DJGPP FAQs:
 #          http://www.delorie.com/djgpp/v2faq/faq16_4.html
 #          http://www.delorie.com/djgpp/v2faq/faq16_5.html
