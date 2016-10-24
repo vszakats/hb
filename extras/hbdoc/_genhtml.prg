@@ -238,7 +238,7 @@ METHOD PROCEDURE WriteEntry( cField, oEntry, lPreformatted ) CLASS GenerateHTML
          ::OpenTag( "pre", "class", cTagClass )
          DO WHILE ! HB_ISNULL( cEntry )
             IF Lower( cField ) + "|" $ "examples|tests|"
-               ::Append( SubStr( Parse( @cEntry, hb_eol() ), 5 ), "", .T. )
+               ::Append(         Parse( @cEntry, hb_eol() )            , "", .T. )
             ELSE
                ::Append( Indent( Parse( @cEntry, hb_eol() ), 0, , .T. ), "", .T. )
             ENDIF

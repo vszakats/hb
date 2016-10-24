@@ -10,7 +10,6 @@ body {
 header {
   -position: fixed;
   top: 0;
-  width: 100%;
   background-color: #0974c5;
   color: #f0f0f0;
   border: none;
@@ -54,20 +53,24 @@ section {
 
 h4 {
   color: #095fa8;
-  font-size: 115%;
+  font-size: 125%;
   margin-top: 0;
   margin-bottom: 14px;
 }
 
 pre {
   background-color: #f2f2f2;
+  font-size: 12pt;
   padding: 16px;
   overflow: scroll;
 }
 
 pre, code {
   font-family: Hack, Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation Mono', 'Oxygen Mono', 'Andale Mono', monospace;
-  font-size: 12pt;
+}
+
+code {
+  font-size: 95%;
 }
 
 .d-na {
@@ -80,7 +83,7 @@ pre, code {
 .d-ol {
   font-weight: bold;
   font-size: 115%;
-  margin-left: 10px;
+  margin-left: 1em;
   margin-top: 0px;
   margin-bottom: 14px;
 }
@@ -94,16 +97,16 @@ pre, code {
 }
 
 .d-it {
-  margin-left: 10px;
+  margin-left: 1em;
   padding-bottom: 4px;
 }
 
 .d-ex {
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 1em;
+  margin-right: 1em;
 }
 
 .d-te {
-  margin-left: 10px;
+  margin-left: 1em;
   padding-bottom: 4px;
 }

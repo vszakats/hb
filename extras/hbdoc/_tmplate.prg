@@ -211,7 +211,8 @@ METHOD IsComplete( cIncompleteFielsList ) CLASS Entry
    RETURN lResult
 
 METHOD IsPreformatted( cField ) CLASS Entry
-   RETURN hb_bitAnd( ::Group[ AScan( ::Fields, {| a | a[ 1 ] == cField } ) ], TPL_PREFORMATTED ) != 0
+   LOCAL nGroup := AScan( ::Fields, {| a | a[ 1 ] == cField } )
+   RETURN nGroup > 0 .AND. hb_bitAnd( ::Group[ nGroup ], TPL_PREFORMATTED ) != 0
 
 METHOD IsRequired( cField ) CLASS Entry
    RETURN hb_bitAnd( ::Group[ AScan( ::Fields, {| a | a[ 1 ] == cField } ) ], TPL_REQUIRED ) != 0
