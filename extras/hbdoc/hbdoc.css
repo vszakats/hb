@@ -17,6 +17,17 @@ header {
   margin: 0;
 }
 
+footer {
+  background: #333;
+  color: #bbb;
+  font-size: 75%;
+  margin: auto;
+  padding: .1em 1em;
+  height: 90px;
+  text-align: center;
+  width: auto;
+}
+
 main {
   margin: 0 10px;
 }
