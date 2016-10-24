@@ -52,7 +52,7 @@
    $SUBCATEGORY$
 
    $ONELINER$
-      A starters guide
+      A starter's guide
    $DESCRIPTION$
       Clipper is a trademark of Computer Associates and will often be
       referred to as CA-Cl*pper within Harbour documents. Regardless of this
