@@ -4,7 +4,7 @@ title: "Contribs"
 ---
 <div markdown="1" class="components">
 
-# Harbour Contribs
+# Harbour contrib packages
 
 Contribs are libraries or tools, which are independent from the language core,
 but bundled with the main Harbour distribution. These components are part of
