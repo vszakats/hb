@@ -8,7 +8,7 @@ body {
 }
 
 header {
-  position: fixed;
+  -position: fixed;
   top: 0;
   width: 100%;
   background-color: #0974c5;
@@ -23,7 +23,7 @@ main {
 }
 
 main section:first-child {
-  margin-top: 60px;
+  -margin-top: 60px;
   border-top: 0;
 }
 
