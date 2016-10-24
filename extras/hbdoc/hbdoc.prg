@@ -977,7 +977,7 @@ STATIC PROCEDURE AddErrorCondition( cFile, cMessage, nLine )
 
    RETURN
 
-FUNCTION Indent( cText, nLeftMargin, nWidth, lRaw )
+FUNCTION Indent( cText, nLeftMargin, nWidth, lRaw, lForceRaw )
 
    LOCAL cResult := ""
    LOCAL idx
@@ -986,6 +986,7 @@ FUNCTION Indent( cText, nLeftMargin, nWidth, lRaw )
    LOCAL aText := hb_ATokens( cText, .T. )
 
    hb_default( @lRaw, .F. )
+   hb_default( @lForceRaw, .F. )
 
    IF nWidth == 0 .OR. lRaw
       idx := 99999
@@ -999,7 +1000,7 @@ FUNCTION Indent( cText, nLeftMargin, nWidth, lRaw )
          ELSEIF cLine == "</table>"
             cResult += hb_eol()
             lRaw := .F.
-         ELSEIF lRaw
+         ELSEIF lRaw .OR. lForceRaw
             cResult += Space( nLeftMargin ) + LTrim( cLine ) + hb_eol()
          ELSE
             DO WHILE Len( cLine ) > nWidth

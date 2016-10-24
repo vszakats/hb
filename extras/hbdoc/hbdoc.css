@@ -1,8 +1,30 @@
 body {
+  background-color: #f8f8f8;
   font-family: 'Source Sans Pro', Arial, sans-serif;
   font-size: 14pt;
   line-height: 150%;
-  padding: 0 10px;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #0974c5;
+  color: #f0f0f0;
+  border: none;
+  padding: 0 20px;
+  margin: 0;
+}
+
+main {
+  margin: 0 10px;
+}
+
+main section:first-child {
+  margin-top: 60px;
+  border-top: 0;
 }
 
 a {
@@ -17,16 +39,24 @@ a:hover {
 }
 
 h1 {
-  color: #095fa8;
   font-size: 130%;
+  font-weight: normal;
+  padding: 14px 0;
+  margin: 0;
+}
+
+section {
+  border-top: 1px solid rgba(0, 0, 0, .1);
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 1em .6em;
 }
 
 h4 {
-  border-top: 1px solid rgba(0, 0, 0, .1);
   color: #095fa8;
   font-size: 115%;
+  margin-top: 0;
   margin-bottom: 14px;
-  padding-top: .8em;
 }
 
 pre {
@@ -40,14 +70,14 @@ pre, code {
   font-size: 12pt;
 }
 
-.name {
+.d-na {
   font-size: 100%;
   margin-left: 0;
   padding-top: 0;
   padding-bottom: 4px;
 }
 
-.oneliner {
+.d-ol {
   font-weight: bold;
   font-size: 115%;
   margin-left: 10px;
@@ -55,7 +85,7 @@ pre, code {
   margin-bottom: 14px;
 }
 
-.itemtitle {
+.d-d {
   color: #095fa8;
   font-weight: bold;
   margin-left: 0;
@@ -63,17 +93,17 @@ pre, code {
   padding-bottom: 4px;
 }
 
-.itemtext {
+.d-it {
   margin-left: 10px;
   padding-bottom: 4px;
 }
 
-.examples {
+.d-ex {
   margin-left: 10px;
   margin-right: 10px;
 }
 
-.tests {
+.d-te {
   margin-left: 10px;
   padding-bottom: 4px;
 }

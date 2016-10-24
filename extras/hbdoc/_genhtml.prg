@@ -47,9 +47,9 @@
 
 #include "hbclass.ch"
 
-#define EXTENSION ".html"
+#define EXTENSION  ".html"
 
-#define STYLEFILE "hbdoc.css"
+#define STYLEFILE  "hbdoc.css"
 
 CREATE CLASS GenerateHTML2 INHERIT GenerateHTML
 
@@ -127,7 +127,22 @@ METHOD NewFile() CLASS GenerateHTML
    ::OpenTag( "link", "rel", "stylesheet", "href", STYLEFILE )
    ::Spacer()
 
+   ::OpenTag( "body" )
+   ::Spacer()
+
+   ::OpenTag( "header" )
    ::Append( ::cTitle, "h1" )
+   ::CloseTag( "header" )
+   ::Spacer()
+
+   ::OpenTag( "main" )
+
+   RETURN self
+
+METHOD Generate() CLASS GenerateHTML
+
+   ::Spacer()
+   ::CloseTag( "main" )
 
    RETURN self
 
@@ -190,26 +205,33 @@ METHOD AddEntry( oEntry ) CLASS GenerateHTML
    LOCAL item
    LOCAL cEntry
 
+   ::Spacer()
+   ::OpenTag( "section", "id", SymbolToHTMLID( oEntry:filename ) )
+
    FOR EACH item IN oEntry:Fields
       IF item[ 1 ] == "NAME"
-         ::Spacer()
          cEntry := oEntry:Name
          IF "(" $ cEntry .OR. Upper( cEntry ) == cEntry  // guess if it's code
-            ::OpenTagInline( "h4", "id", SymbolToHTMLID( oEntry:filename ) ):OpenTagInline( "code" ):AppendInline( cEntry ):CloseTagInline( "code" ):CloseTag( "h4" )
+            ::OpenTagInline( "h4" ):OpenTagInline( "code" ):AppendInline( cEntry ):CloseTagInline( "code" ):CloseTag( "h4" )
          ELSE
-            ::OpenTagInline( "h4", "id", SymbolToHTMLID( oEntry:filename ) ):AppendInline( cEntry ):CloseTag( "h4" )
+            ::OpenTagInline( "h4" ):AppendInline( cEntry ):CloseTag( "h4" )
          ENDIF
       ELSEIF oEntry:IsField( item[ 1 ] ) .AND. oEntry:IsOutput( item[ 1 ] ) .AND. Len( oEntry:&( item[ 1 ] ) ) > 0
          ::WriteEntry( item[ 1 ], oEntry, oEntry:IsPreformatted( item[ 1 ] ) )
       ENDIF
    NEXT
 
-   RETURN self
+   ::CloseTag( "section" )
 
-METHOD Generate() CLASS GenerateHTML
    RETURN self
 
 METHOD PROCEDURE WriteEntry( cField, oEntry, lPreformatted ) CLASS GenerateHTML
+
+   STATIC s_class := { ;
+      "name"     => "d-na", ;
+      "oneliner" => "d-ol", ;
+      "examples" => "d-ex", ;
+      "tests"    => "d-te" }
 
    LOCAL cCaption := oEntry:FieldName( cField )
    LOCAL cEntry := oEntry:&( cField )
@@ -217,18 +239,18 @@ METHOD PROCEDURE WriteEntry( cField, oEntry, lPreformatted ) CLASS GenerateHTML
    LOCAL tmp, tmp1
 
    /* TODO: change this to search the CSS document itself */
-   LOCAL cTagClass := iif( Lower( cField ) + "|" $ "name|oneliner|examples|tests|", Lower( cField ), "itemtext" )
+   LOCAL cTagClass := hb_HGetDef( s_class, Lower( cField ), "d-it" )
 
    IF ! Empty( cEntry )
 
 #if 0
       hb_default( @lPreformatted, .F. )
-      hb_default( @cTagClass, "itemtext" )
+      hb_default( @cTagClass, "d-it" )
 #endif
 
       hb_default( @cCaption, "" )
       IF ! HB_ISNULL( cCaption )
-         ::Tagged( cCaption, "div", "class", "itemtitle" )
+         ::Tagged( cCaption, "div", "class", "d-d" )
       ENDIF
 
       IF lPreformatted
@@ -253,15 +275,15 @@ METHOD PROCEDURE WriteEntry( cField, oEntry, lPreformatted ) CLASS GenerateHTML
             CASE "syntax"
                ::OpenTagInline( "div", "class", cTagClass )
                ::OpenTagInline( "code" )
-               ::AppendInline( Indent( Parse( @cEntry, hb_eol() ), 0, 70 ), "", .F. )
+               ::AppendInline( Indent( Parse( @cEntry, hb_eol() ), 0, 70,, .T. ), "", .F. )
                ::CloseTagInline( "code" )
                EXIT
             CASE "oneliner"
                ::OpenTagInline( "div", "class", cTagClass )
-               ::AppendInline( Indent( Parse( @cEntry, hb_eol() ), 0, 70 ), "" )
+               ::AppendInline( Indent( Parse( @cEntry, hb_eol() ), 0, 70,, .T. ), "" )
                EXIT
             CASE "seealso"
-               ::OpenTag( "div", "class", cTagClass )
+               ::OpenTagInline( "div", "class", cTagClass )
                lFirst := .T.
                FOR EACH tmp IN hb_ATokens( cEntry, "," )
                   tmp := AllTrim( tmp )
@@ -279,8 +301,8 @@ METHOD PROCEDURE WriteEntry( cField, oEntry, lPreformatted ) CLASS GenerateHTML
                cEntry := ""
                EXIT
             OTHERWISE
-               ::OpenTag( "div", "class", cTagClass )
-               ::Append( Indent( Parse( @cEntry, hb_eol() ), 0, 70 ), "" )
+               ::OpenTagInline( "div", "class", cTagClass )
+               ::AppendInline( Indent( Parse( @cEntry, hb_eol() ), 0, 70,, .T. ), "" )
             ENDSWITCH
 
             ::CloseTag( "div" )
@@ -409,4 +431,7 @@ METHOD RecreateStyleDocument( cStyleFile ) CLASS GenerateHTML
    RETURN self
 
 STATIC FUNCTION SymbolToHTMLID( cID )
-   RETURN Lower( hb_StrReplace( cID, "_ ", "--" ) )
+   RETURN Lower( hb_StrReplace( cID, { ;
+     "%" => "pct", ;
+     "_" => "-", ;
+     " " => "-" } ) )
