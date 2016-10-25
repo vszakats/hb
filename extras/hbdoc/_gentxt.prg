@@ -119,7 +119,7 @@ METHOD BeginSection( cSection, cFilename ) CLASS GenerateText
 
 METHOD AddIndex( oEntry ) CLASS GenerateText
 
-   ::WriteEntry( oEntry:FieldName( "NAME" ), oEntry:Name + " - " + oEntry:OneLiner, .F. )
+   ::WriteEntry( oEntry:FieldName( "NAME" ), oEntry:fld[ "NAME" ] + " - " + oEntry:fld[ "ONELINER" ], .F. )
 
    RETURN self
 
@@ -131,8 +131,8 @@ METHOD AddEntry( oEntry ) CLASS GenerateText
       ::AddIndex( oEntry )
    ELSE
       FOR EACH item IN hb_HKeys( oEntry:Fields )
-         IF oEntry:IsField( item ) .AND. oEntry:IsOutput( item ) .AND. Len( oEntry:&( item ) ) > 0
-            ::WriteEntry( oEntry:FieldName( item ), oEntry:&( item ), oEntry:IsPreformatted( item ) )
+         IF oEntry:IsField( item ) .AND. oEntry:IsOutput( item ) .AND. Len( oEntry:fld[ item ] ) > 0
+            ::WriteEntry( oEntry:FieldName( item ), oEntry:fld[ item ], oEntry:IsPreformatted( item ) )
          ENDIF
       NEXT
 

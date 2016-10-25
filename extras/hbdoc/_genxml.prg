@@ -103,7 +103,7 @@ METHOD EndSection( cSection, cFilename ) CLASS GenerateXML
 
 METHOD AddIndex( oEntry ) CLASS GenerateXML
 
-   ::WriteEntry( "ENTRY", oEntry:Name + " - " + oEntry:OneLiner, .F. )
+   ::WriteEntry( "ENTRY", oEntry:fld[ "NAME" ] + " - " + oEntry:fld[ "ONELINER" ], .F. )
 
    RETURN self
 
@@ -117,7 +117,7 @@ METHOD AddEntry( oEntry ) CLASS GenerateXML
       hb_vfWrite( ::hFile, '<Entry>' + hb_eol() )
       ::Depth++
       FOR EACH item IN hb_HKeys( oEntry:Fields )
-         ::WriteEntry( item, oEntry:&( item ), oEntry:IsPreformatted( item ) )
+         ::WriteEntry( item, oEntry:fld[ item ], oEntry:IsPreformatted( item ) )
       NEXT
       ::Depth--
       hb_vfWrite( ::hFile, '</Entry>' + hb_eol() )

@@ -210,13 +210,13 @@ PROCEDURE Main( ... )
    OutStd( hb_eol() )
 
    ASort( aContent,,, {| oL, oR | ;
-         PadR( SortWeight( oL:Category ), 20 ) + ;
-         PadR( SortWeight( oL:Subcategory ), 20 ) + ;
-         PadR( oL:Name, 50 ) ;
+         PadR( SortWeight( oL:fld[ "CATEGORY" ] ), 20 ) + ;
+         PadR( SortWeight( oL:fld[ "SUBCATEGORY" ] ), 20 ) + ;
+         PadR( oL:fld[ "NAME" ], 50 ) ;
       <= ;
-         PadR( SortWeight( oR:Category ), 20 ) + ;
-         PadR( SortWeight( oR:Subcategory ), 20 ) + ;
-         PadR( oR:Name, 50 ) ;
+         PadR( SortWeight( oR:fld[ "CATEGORY" ] ), 20 ) + ;
+         PadR( SortWeight( oR:fld[ "SUBCATEGORY" ] ), 20 ) + ;
+         PadR( oR:fld[ "NAME" ], 50 ) ;
       } )
 
    FOR EACH cFormat IN s_hSwitches[ "format" ]
@@ -305,7 +305,7 @@ PROCEDURE Main( ... )
 
                FOR idx := 1 TO Len( item[ 2 ] )
                   IF ! Empty( item[ 2 ][ idx ] )
-                     ASort( item[ 2 ][ idx ], , , {| oL, oR | oL:Name <= oR:Name } )
+                     ASort( item[ 2 ][ idx ], , , {| oL, oR | oL:fld[ "NAME" ] <= oR:fld[ "NAME" ] } )
                      IF Len( item[ 1 ][ idx ] ) > 0
                         IF oIndex != NIL
                            oIndex:BeginSection( item[ 1 ][ idx ], oDocument:cFilename )
@@ -514,7 +514,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, aContent )
    o:type_ := cComponent
    o:sourcefile_ := cSourceFile
    o:sourcefileversion_ := ""
-   o:Name := "?NAME?"
+   o:fld[ "NAME" ] := "?NAME?"
    o:SetTemplate( "Function" )
 
    /* Merge category/subcategory into tag list */
@@ -540,7 +540,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, aContent )
       IF hEntry[ "CATEGORY" ] $ sc_hConstraint[ "categories" ]
          idxCategory := hEntry[ "CATEGORY" ]
       ELSE
-         AddErrorCondition( cFile, "Unrecognized CATEGORY '" + hEntry[ "CATEGORY" ] + "' for template '" + o:Template )
+         AddErrorCondition( cFile, "Unrecognized CATEGORY '" + hEntry[ "CATEGORY" ] + "' for template '" + o:fld[ "TEMPLATE" ] )
       ENDIF
    ENDIF
 
@@ -584,7 +584,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, aContent )
 
             EXIT
 
-         CASE ! Empty( o:&cSectionName )
+         CASE ! Empty( o:fld[ cSectionName ] )
 
             AddErrorCondition( cFile, "Duplicate " + cSectionName, .T. )
             lAccepted := .F.
@@ -602,7 +602,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, aContent )
                Lower( cSection ) == "none" .OR. ;
                Lower( cSection ) == "none." )
 
-            AddErrorCondition( cFile, "'" + o:Name + "' is identified as template " + o:Template + " but has no RETURNS value (" + cSection + ")" )
+            AddErrorCondition( cFile, "'" + o:fld[ "NAME" ] + "' is identified as template " + o:fld[ "TEMPLATE" ] + " but has no RETURNS value (" + cSection + ")" )
 
          CASE ! o:IsConstraint( cSectionName, cSection )
 
@@ -618,10 +618,10 @@ STATIC PROCEDURE ProcessBlock( hEntry, aContent )
          ENDCASE
 
          IF lAccepted
-            o:&cSectionName := Decode( cSectionName, , cSection )
+            o:fld[ cSectionName ] := Decode( cSectionName, , cSection )
          ENDIF
       ELSE
-         AddErrorCondition( cFile, "Using template '" + o:Template + "' encountered an unexpected section '" + cSectionName + "'", .T. )
+         AddErrorCondition( cFile, "Using template '" + o:fld[ "TEMPLATE" ] + "' encountered an unexpected section '" + cSectionName + "'", .T. )
          lAccepted := .F.
       ENDIF
    NEXT
@@ -635,13 +635,13 @@ STATIC PROCEDURE ProcessBlock( hEntry, aContent )
 #if 0
          lAccepted := .F.
 #endif
-      CASE o:Template == "Function" .AND. ( ;
-         Empty( o:Returns ) .OR. ;
-         Lower( o:Returns ) == "nil" .OR. ;
-         Lower( o:Returns ) == "none" .OR. ;
-         Lower( o:Returns ) == "none." )
+      CASE o:fld[ "TEMPLATE" ] == "Function" .AND. ( ;
+         Empty( o:fld[ "RETURNS" ] ) .OR. ;
+         Lower( o:fld[ "RETURNS" ] ) == "nil" .OR. ;
+         Lower( o:fld[ "RETURNS" ] ) == "none" .OR. ;
+         Lower( o:fld[ "RETURNS" ] ) == "none." )
 
-         AddErrorCondition( cFile, "'" + o:Name + "' is identified as template " + o:Template + " but has no RETURNS value (" + o:Returns + ")" )
+         AddErrorCondition( cFile, "'" + o:fld[ "NAME" ] + "' is identified as template " + o:fld[ "TEMPLATE" ] + " but has no RETURNS value (" + o:fld[ "RETURNS" ] + ")" )
 #if 0
          lAccepted := .F.
 #endif
@@ -651,7 +651,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, aContent )
    IF lAccepted
 
       IF !( Lower( hEntry[ "CATEGORY" ] ) == "document" )
-         cSectionName := Parse( o:Name, "(" )
+         cSectionName := Parse( o:fld[ "NAME" ], "(" )
          IF ! cSectionName $ s_hSwitches[ "hHBX" ]
             AddErrorCondition( cFile, "Not found in HBX: " + cSectionName + " " + cComponent )
          ENDIF
@@ -661,7 +661,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, aContent )
          o:Files += hb_eol() + o:sourcefile_ + iif( s_hSwitches[ "include-doc-version" ], " (" + o:sourcefileversion_ + ")", "" )
       ENDIF
 
-      o:filename := Filename( o:Name )
+      o:filename := Filename( o:fld[ "NAME" ] )
 
       AAdd( aContent, o )
 
@@ -671,7 +671,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, aContent )
 
       IF idxCategory != NIL
          IF idxSubCategory == -1 .AND. ( ! o:IsField( "SUBCATEGORY" ) .OR. ! o:IsRequired( "SUBCATEGORY" ) )
-            idxSubCategory := o:SubcategoryIndex( o:Category, "" )
+            idxSubCategory := o:SubcategoryIndex( o:fld[ "CATEGORY" ], "" )
          ENDIF
          IF idxSubCategory > 0
             AAdd( sc_hConstraint[ "categories" ][ idxCategory ][ 2 ][ idxSubCategory ], o )
@@ -1051,15 +1051,14 @@ CREATE CLASS Entry
    METHOD FieldName( cField )
    METHOD SubcategoryIndex( cCategory, cSubcategory )
 
+   VAR fld AS HASH
+
    VAR Group AS ARRAY
    VAR filename AS STRING
    VAR type_ AS STRING
    VAR sourcefile_ AS STRING
    VAR sourcefileversion_ AS STRING
-   VAR uid_ AS STRING
    VAR tags_ AS HASH
-
-   CLASS VAR uid__ AS INTEGER INIT 0
 
 ENDCLASS
 
@@ -1067,10 +1066,10 @@ METHOD New( cType ) CLASS Entry
 
    hb_HCaseMatch( ::Fields, .F. )
 
-   ::uid_ := hb_ntos( ++::uid__ )
-   IF ! __objHasData( self, hb_HKeyAt( ::Fields, 1 ) )
-      hb_HEval( ::Fields, {| k | __objAddData( self, k ) } )
-   ENDIF
+   ::fld := { => }
+   hb_HCaseMatch( ::fld, .F. )
+   hb_HEval( ::Fields, {| k | ::fld[ k ] := "" } )
+
    IF HB_ISSTRING( cType )
       ::Group := sc_hTemplates[ cType ]
    ENDIF
@@ -1096,15 +1095,15 @@ METHOD IsTemplate( cType ) CLASS Entry
 
 METHOD SetTemplate( cTemplate ) CLASS Entry
 
-   LOCAL aData := Array( Len( ::Fields ) )
-   LOCAL idx, key
+   LOCAL item, key, idx
 
    ::Group := sc_hTemplates[ cTemplate ]
-   FOR idx := 1 TO Len( aData )
-      key := hb_HKeyAt( ::Fields, idx )
-      aData[ idx ] := { key, iif( key == "TEMPLATE", cTemplate, iif( ::Group[ idx ] == TPL_REQUIRED,, "" ) ) }
+
+   FOR EACH item IN ::Fields
+      key := item:__enumKey()
+      idx := item:__enumIndex()
+      ::fld[ key ] := iif( key == "TEMPLATE", cTemplate, iif( ::Group[ idx ] == TPL_REQUIRED,, "" ) )
    NEXT
-   __objSetValueList( self, aData )
 
    RETURN self
 
@@ -1131,7 +1130,7 @@ METHOD IsComplete( cIncompleteFieldsList ) CLASS Entry
 
    FOR idx := 1 TO Len( ::Fields )
       key := hb_HKeyAt( ::Fields, idx )
-      IF hb_bitAnd( ::Group[ idx ], TPL_REQUIRED ) != 0 .AND. Empty( ::&( key ) )
+      IF hb_bitAnd( ::Group[ idx ], TPL_REQUIRED ) != 0 .AND. Empty( ::fld[ key ] )
          cIncompleteFieldsList += "," + key
          lResult := .F.
       ENDIF
@@ -1278,7 +1277,7 @@ STATIC PROCEDURE init_Templates()
 
 STATIC PROCEDURE ShowTemplatesHelp( cTemplate, cDelimiter )
 
-   LOCAL o := Entry():New( , sc_hConstraint )
+   LOCAL o := Entry():New()
    LOCAL idxTemplates, nFrom := 1, nTo := Len( sc_hTemplates )
    LOCAL idx, key, fldkey
 
@@ -1310,7 +1309,7 @@ STATIC PROCEDURE ShowTemplatesHelp( cTemplate, cDelimiter )
             IF o:Group[ idx ] != 0
                ShowSubHelp( iif( idx == 1, "/", " " ) + "*  " + cDelimiter + fldkey + cDelimiter, 1, 0 )
                IF fldkey == "TEMPLATE"
-                  ShowSubHelp( " *      " + o:Template, 1, 0 )
+                  ShowSubHelp( " *      " + o:fld[ "TEMPLATE" ], 1, 0 )
                ELSEIF o:Group[ idx ] != TPL_START .AND. o:Group[ idx ] != TPL_END .AND. .T.
                   ShowSubHelp( " *      " + iif( o:IsRequired( fldkey ), "<required>", "<optional>" ), 1, 0 )
                ENDIF

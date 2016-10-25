@@ -203,7 +203,7 @@ METHOD EndSection( cSection, cFilename ) CLASS GenerateHTML
 METHOD AddReference( oEntry, cReference, cSubReference ) CLASS GenerateHTML
 
    IF HB_ISOBJECT( oEntry ) .AND. oEntry:ClassName() == "ENTRY"
-      ::OpenTag( "a", "href", ::TargetFilename + ::cExtension + "#" + oEntry:Filename ):Append( oEntry:Name ):CloseTag( "a" ):Append( oEntry:OneLiner ):Newline()
+      ::OpenTag( "a", "href", ::TargetFilename + ::cExtension + "#" + oEntry:Filename ):Append( oEntry:fld[ "NAME" ] ):CloseTag( "a" ):Append( oEntry:fld[ "ONELINER" ] ):Newline()
    ELSE
       IF HB_ISSTRING( cSubReference )
          ::OpenTag( "a", "href", cReference + ::cExtension + "#" + cSubReference ):Append( oEntry ):CloseTag( "a" ):Newline()
@@ -224,13 +224,13 @@ METHOD AddEntry( oEntry ) CLASS GenerateHTML
 
    FOR EACH item IN hb_HKeys( oEntry:Fields )
       IF item == "NAME"
-         cEntry := oEntry:Name
+         cEntry := oEntry:fld[ "NAME" ]
          IF "(" $ cEntry .OR. Upper( cEntry ) == cEntry  // guess if it's code
             ::OpenTagInline( "h4" ):OpenTagInline( "code" ):AppendInline( cEntry ):CloseTagInline( "code" ):CloseTag( "h4" )
          ELSE
             ::OpenTagInline( "h4" ):AppendInline( cEntry ):CloseTag( "h4" )
          ENDIF
-      ELSEIF oEntry:IsField( item ) .AND. oEntry:IsOutput( item ) .AND. Len( oEntry:&( item ) ) > 0
+      ELSEIF oEntry:IsField( item ) .AND. oEntry:IsOutput( item ) .AND. Len( oEntry:fld[ item ] ) > 0
          ::WriteEntry( item, oEntry, oEntry:IsPreformatted( item ) )
       ENDIF
    NEXT
@@ -248,7 +248,7 @@ METHOD PROCEDURE WriteEntry( cField, oEntry, lPreformatted ) CLASS GenerateHTML
       "tests"    => "d-te" }
 
    LOCAL cCaption := oEntry:FieldName( cField )
-   LOCAL cEntry := oEntry:&( cField )
+   LOCAL cEntry := oEntry:fld[ cField ]
    LOCAL lFirst
    LOCAL tmp, tmp1
 
