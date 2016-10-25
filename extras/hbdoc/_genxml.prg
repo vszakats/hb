@@ -116,7 +116,7 @@ METHOD AddEntry( oEntry ) CLASS GenerateXML
    ELSE
       hb_vfWrite( ::hFile, '<Entry>' + hb_eol() )
       ::Depth++
-      FOR EACH item IN hb_HKeys( oEntry:Fields )
+      FOR EACH item IN FieldIDList()
          ::WriteEntry( item, oEntry:fld[ item ], oEntry:IsPreformatted( item ) )
       NEXT
       ::Depth--

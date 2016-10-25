@@ -129,8 +129,8 @@ PROCEDURE Main( ... )
 
    init_Templates()
 
+   /* configuration settings, values, etc */ ;
    s_hSwitches := { ;
-      /* configuration settings, values, etc */ ;
       "basedir"             => BASE_DIR, ;
       "lang"                => "en", ;
       "doc"                 => .T., ;
@@ -139,14 +139,12 @@ PROCEDURE Main( ... )
       "format"              => {}, ;
       "output"              => "category", ;
       "include-doc-source"  => .F., ;
-      "include-doc-version" => .F., ;
       "immediate-errors"    => .F., ;
       /* internal settings, values, etc */ ;
       "DELIMITER"           => "$", ;
       "hHBX"                => {}, ;
       "in hbextern"         => {}, ;
-      "not in hbextern"     => {}, ;
-      "<eol>"               => NIL }
+      "not in hbextern"     => {} }
 
    IF Empty( aArgs ) .OR. ;
       aArgs[ 1 ] == "-?" .OR. ;
@@ -181,7 +179,6 @@ PROCEDURE Main( ... )
          CASE hb_LeftEq( cArgName, "-output-" )
             s_hSwitches[ "output" ] := SubStr( cArgName, Len( "-output-" ) + 1 )
          CASE cArgName == "-include-doc-source" ;     s_hSwitches[ "include-doc-source" ] := .T.
-         CASE cArgName == "-include-doc-version" ;    s_hSwitches[ "include-doc-version" ] := .T.
          OTHERWISE
             IF SubStr( cArgName, 2 ) $ s_generators
                IF SubStr( cArgName, 2 ) == "all"
@@ -231,7 +228,7 @@ PROCEDURE Main( ... )
             oDocument := Eval( generatorClass ):NewDocument( cFormat, "harbour", "Harbour Reference Guide", s_hSwitches[ "lang" ] )
 
             FOR EACH item IN aContent
-               IF item:type_ == "harbour"
+               IF item:_type == "harbour"
                   oDocument:AddEntry( item )
                ENDIF
             NEXT
@@ -239,7 +236,7 @@ PROCEDURE Main( ... )
             FOR EACH tmp IN ASort( hb_HKeys( s_hComponent ) )
                IF !( tmp == "harbour" )
                   FOR EACH item IN aContent
-                     IF item:type_ == tmp .AND. ;
+                     IF item:_type == tmp .AND. ;
                         oDocument:AddEntry( item )
                      ENDIF
                   NEXT
@@ -254,7 +251,7 @@ PROCEDURE Main( ... )
             oDocument := Eval( generatorClass ):NewDocument( cFormat, "harbour", "Harbour Reference Guide", s_hSwitches[ "lang" ] )
 
             FOR EACH item IN aContent
-               IF item:type_ == "harbour"
+               IF item:_type == "harbour"
                   oDocument:AddEntry( item )
                ENDIF
             NEXT
@@ -266,7 +263,7 @@ PROCEDURE Main( ... )
                   oDocument := Eval( generatorClass ):NewDocument( cFormat, tmp, hb_StrFormat( "Harbour Reference Guide — %1$s", tmp ), s_hSwitches[ "lang" ] )
 
                   FOR EACH item IN aContent
-                     IF item:type_ == tmp .AND. ;
+                     IF item:_type == tmp .AND. ;
                         oDocument:AddEntry( item )
                      ENDIF
                   NEXT
@@ -282,7 +279,7 @@ PROCEDURE Main( ... )
             oIndex := Eval( generatorClass ):NewIndex( cFormat, "harbour", "Harbour Reference Guide" )
 
             FOR EACH item IN aContent
-               IF Right( item:sourcefile_, Len( "1stread.txt" ) ) == "1stread.txt"
+               IF Right( item:_sourcefile, Len( "1stread.txt" ) ) == "1stread.txt"
                   IF oIndex != NIL
                      oIndex:AddEntry( item )
                   ENDIF
@@ -314,7 +311,7 @@ PROCEDURE Main( ... )
                      ENDIF
                      FOR EACH item4 IN item[ 2 ][ idx ]
                         IF ! Empty( item4 )
-                           IF !( Right( item4:sourcefile_, Len( "1stread.txt" ) ) == "1stread.txt" )
+                           IF !( Right( item4:_sourcefile, Len( "1stread.txt" ) ) == "1stread.txt" )
                               IF oIndex != NIL
                                  oIndex:AddReference( item4 )
                               ENDIF
@@ -345,7 +342,7 @@ PROCEDURE Main( ... )
          CASE s_hSwitches[ "output" ] == "entry"
 
             FOR EACH item IN aContent
-               oDocument := Eval( generatorClass ):NewDocument( cFormat, item:filename, "Harbour Reference Guide", s_hSwitches[ "lang" ] )
+               oDocument := Eval( generatorClass ):NewDocument( cFormat, item:_filename, "Harbour Reference Guide", s_hSwitches[ "lang" ] )
                IF oIndex != NIL
                   oIndex:AddEntry( item )
                ENDIF
@@ -511,25 +508,24 @@ STATIC PROCEDURE ProcessBlock( hEntry, aContent )
 
    LOCAL o := Entry():New( "Template" )
 
-   o:type_ := cComponent
-   o:sourcefile_ := cSourceFile
-   o:sourcefileversion_ := ""
+   o:_type := cComponent
+   o:_sourcefile := cSourceFile
    o:fld[ "NAME" ] := "?NAME?"
    o:SetTemplate( "Function" )
 
    /* Merge category/subcategory into tag list */
-   o:tags_ := { => }
+   o:_tags := { => }
    FOR EACH item IN hb_ATokens( ;
       hb_HGetDef( hEntry, "TAGS", "" ) + ;
       ", " + hb_HGetDef( hEntry, "CATEGORY", "" ) + ;
       ", " + hb_HGetDef( hEntry, "SUBCATEGORY", "" ), "," )
 
       IF ! HB_ISNULL( item := AllTrim( item ) )
-         o:tags_[ item ] := NIL
+         o:_tags[ item ] := NIL
       ENDIF
    NEXT
    hEntry[ "TAGS" ] := ""
-   FOR EACH item IN hb_HKeys( o:tags_ )
+   FOR EACH item IN hb_HKeys( o:_tags )
       hEntry[ "TAGS" ] += item
       IF ! item:__enumIsLast()
          hEntry[ "TAGS" ] += ", "
@@ -658,10 +654,10 @@ STATIC PROCEDURE ProcessBlock( hEntry, aContent )
       ENDIF
 
       IF s_hSwitches[ "include-doc-source" ]
-         o:Files += hb_eol() + o:sourcefile_ + iif( s_hSwitches[ "include-doc-version" ], " (" + o:sourcefileversion_ + ")", "" )
+         o:Files += hb_eol() + o:_sourcefile
       ENDIF
 
-      o:filename := Filename( o:fld[ "NAME" ] )
+      o:_filename := Filename( o:fld[ "NAME" ] )
 
       AAdd( aContent, o )
 
@@ -834,7 +830,6 @@ STATIC PROCEDURE ShowHelp( cExtraMessage, aArgs )
             "-output-entry                   output is one file per entry (function, command, etc)" + IsDefault( s_hSwitches[ "output" ] == "entry" ), ;
             "-source=<directory>             source directory, default is .." + hb_ps() + "..", ;
             "-include-doc-source             output is to indicate the document source file name", ;
-            "-include-doc-version            output is to indicate the document source file version" ;
          } }
 
    CASE aArgs[ 2 ] == "Categories"
@@ -1011,33 +1006,6 @@ STATIC FUNCTION Filename( cFile )
 /* a class that will hold one entry */
 CREATE CLASS Entry
 
-   EXPORTED:
-
-   CLASS VAR Fields AS HASH INIT { ;
-      "DOC"           => "Doc", ;
-      "TEMPLATE"      => "Template", ;
-      "NAME"          => "", ;
-      "ONELINER"      => "", ;
-      "CATEGORY"      => "Category", ;
-      "SUBCATEGORY"   => "Sub category", ;
-      "SYNTAX"        => "Syntax", ;
-      "ARGUMENTS"     => "Argument(s)", ;
-      "RETURNS"       => "Returns", ;
-      "DESCRIPTION"   => "Description", ;
-      "DATALINK"      => "Data link", ;
-      "DATANOLINK"    => "Data no link", ;
-      "METHODSLINK"   => "Methods link", ;
-      "METHODSNOLINK" => "Methods no link", ;
-      "EXAMPLES"      => "Example(s)", ;
-      "TESTS"         => "Test(s)", ;
-      "STATUS"        => "Status", ;       /* sc_hConstraint[ "status" ] is the constraint list */
-      "COMPLIANCE"    => "Compliance", ;   /* sc_hConstraint[ "compliance" ] is the constraint list */
-      "PLATFORMS"     => "Platform(s)", ;  /* sc_hConstraint[ "platforms" ] is the constraint list */
-      "FILES"         => "File(s)", ;
-      "TAGS"          => "Tag(s)", ;
-      "SEEALSO"       => "See also", ;
-      "END"           => "End" }
-
    METHOD New( cType )
    METHOD IsField( c, nType )
    METHOD IsTemplate( cType )
@@ -1053,25 +1021,22 @@ CREATE CLASS Entry
 
    VAR fld AS HASH
 
-   VAR Group AS ARRAY
-   VAR filename AS STRING
-   VAR type_ AS STRING
-   VAR sourcefile_ AS STRING
-   VAR sourcefileversion_ AS STRING
-   VAR tags_ AS HASH
+   VAR _group AS ARRAY
+   VAR _filename AS STRING
+   VAR _type AS STRING
+   VAR _sourcefile AS STRING
+   VAR _tags AS HASH
 
 ENDCLASS
 
 METHOD New( cType ) CLASS Entry
 
-   hb_HCaseMatch( ::Fields, .F. )
-
    ::fld := { => }
    hb_HCaseMatch( ::fld, .F. )
-   hb_HEval( ::Fields, {| k | ::fld[ k ] := "" } )
+   hb_HEval( sc_hFields, {| k | ::fld[ k ] := "" } )
 
    IF HB_ISSTRING( cType )
-      ::Group := sc_hTemplates[ cType ]
+      ::_group := sc_hTemplates[ cType ]
    ENDIF
 
    RETURN self
@@ -1080,9 +1045,9 @@ METHOD IsField( c, nType ) CLASS Entry
 
    LOCAL idx
 
-   IF ( idx := hb_HPos( ::Fields, c ) ) > 0
-      IF ::Group[ idx ] == 0
-      ELSEIF HB_ISNUMERIC( nType ) .AND. hb_bitAnd( ::Group[ idx ], nType ) != nType
+   IF ( idx := hb_HPos( sc_hFields, c ) ) > 0
+      IF ::_group[ idx ] == 0
+      ELSEIF HB_ISNUMERIC( nType ) .AND. hb_bitAnd( ::_group[ idx ], nType ) != nType
       ELSE
          RETURN .T.
       ENDIF
@@ -1097,21 +1062,21 @@ METHOD SetTemplate( cTemplate ) CLASS Entry
 
    LOCAL item, key, idx
 
-   ::Group := sc_hTemplates[ cTemplate ]
+   ::_group := sc_hTemplates[ cTemplate ]
 
-   FOR EACH item IN ::Fields
+   FOR EACH item IN sc_hFields
       key := item:__enumKey()
       idx := item:__enumIndex()
-      ::fld[ key ] := iif( key == "TEMPLATE", cTemplate, iif( ::Group[ idx ] == TPL_REQUIRED,, "" ) )
+      ::fld[ key ] := iif( key == "TEMPLATE", cTemplate, iif( ::_group[ idx ] == TPL_REQUIRED,, "" ) )
    NEXT
 
    RETURN self
 
 METHOD IsConstraint( cSectionName, cSection ) CLASS Entry
 
-   LOCAL idx := hb_HPos( ::Fields, cSectionName )
+   LOCAL idx := hb_HPos( sc_hFields, cSectionName )
 
-   IF hb_bitAnd( ::Group[ idx ], hb_bitAnd( TPL_REQUIRED, TPL_OPTIONAL ) ) == 0
+   IF hb_bitAnd( ::_group[ idx ], hb_bitAnd( TPL_REQUIRED, TPL_OPTIONAL ) ) == 0
       RETURN .T.
    ELSEIF cSectionName $ sc_hConstraint
       RETURN ;
@@ -1128,9 +1093,9 @@ METHOD IsComplete( cIncompleteFieldsList ) CLASS Entry
 
    cIncompleteFieldsList := ""
 
-   FOR idx := 1 TO Len( ::Fields )
-      key := hb_HKeyAt( ::Fields, idx )
-      IF hb_bitAnd( ::Group[ idx ], TPL_REQUIRED ) != 0 .AND. Empty( ::fld[ key ] )
+   FOR idx := 1 TO Len( sc_hFields )
+      key := hb_HKeyAt( sc_hFields, idx )
+      IF hb_bitAnd( ::_group[ idx ], TPL_REQUIRED ) != 0 .AND. Empty( ::fld[ key ] )
          cIncompleteFieldsList += "," + key
          lResult := .F.
       ENDIF
@@ -1141,25 +1106,28 @@ METHOD IsComplete( cIncompleteFieldsList ) CLASS Entry
    RETURN lResult
 
 METHOD IsPreformatted( cField ) CLASS Entry
-   LOCAL nGroup := hb_HPos( ::Fields, cField )
-   RETURN nGroup > 0 .AND. hb_bitAnd( ::Group[ nGroup ], TPL_PREFORMATTED ) != 0
+   LOCAL nGroup := hb_HPos( sc_hFields, cField )
+   RETURN nGroup > 0 .AND. hb_bitAnd( ::_group[ nGroup ], TPL_PREFORMATTED ) != 0
 
 METHOD IsRequired( cField ) CLASS Entry
-   RETURN hb_bitAnd( ::Group[ hb_HPos( ::Fields, cField ) ], TPL_REQUIRED ) != 0
+   RETURN hb_bitAnd( ::_group[ hb_HPos( sc_hFields, cField ) ], TPL_REQUIRED ) != 0
 
 METHOD IsOptional( cField ) CLASS Entry
-   RETURN hb_bitAnd( ::Group[ hb_HPos( ::Fields, cField ) ], TPL_OPTIONAL ) != 0
+   RETURN hb_bitAnd( ::_group[ hb_HPos( sc_hFields, cField ) ], TPL_OPTIONAL ) != 0
 
 METHOD IsOutput( cField ) CLASS Entry
-   RETURN hb_bitAnd( ::Group[ hb_HPos( ::Fields, cField ) ], TPL_OUTPUT ) != 0
+   RETURN hb_bitAnd( ::_group[ hb_HPos( sc_hFields, cField ) ], TPL_OUTPUT ) != 0
 
 METHOD FieldName( cField ) CLASS Entry
-   RETURN ::Fields[ cField ]
+   RETURN sc_hFields[ cField ]
 
 METHOD SubcategoryIndex( cCategory, cSubcategory ) CLASS Entry
    RETURN iif( cCategory $ sc_hConstraint[ "categories" ], ;
       hb_AScan( sc_hConstraint[ "categories" ][ cCategory ][ 1 ], cSubcategory, , , .T. ), ;
       0 )
+
+FUNCTION FieldIDList()
+   RETURN hb_HKeys( sc_hFields )
 
 STATIC PROCEDURE init_Templates()
 
@@ -1252,6 +1220,33 @@ STATIC PROCEDURE init_Templates()
       "S" => "Started", ;
       "N" => "Not started" }
 
+   sc_hFields := { ;
+      "DOC"           => "Doc", ;
+      "TEMPLATE"      => "Template", ;
+      "NAME"          => "", ;
+      "ONELINER"      => "", ;
+      "CATEGORY"      => "Category", ;
+      "SUBCATEGORY"   => "Sub category", ;
+      "SYNTAX"        => "Syntax", ;
+      "ARGUMENTS"     => "Argument(s)", ;
+      "RETURNS"       => "Returns", ;
+      "DESCRIPTION"   => "Description", ;
+      "DATALINK"      => "Data link", ;
+      "DATANOLINK"    => "Data no link", ;
+      "METHODSLINK"   => "Methods link", ;
+      "METHODSNOLINK" => "Methods no link", ;
+      "EXAMPLES"      => "Example(s)", ;
+      "TESTS"         => "Test(s)", ;
+      "STATUS"        => "Status", ;       /* sc_hConstraint[ "status" ] is the constraint list */
+      "COMPLIANCE"    => "Compliance", ;   /* sc_hConstraint[ "compliance" ] is the constraint list */
+      "PLATFORMS"     => "Platform(s)", ;  /* sc_hConstraint[ "platforms" ] is the constraint list */
+      "FILES"         => "File(s)", ;
+      "TAGS"          => "Tag(s)", ;
+      "SEEALSO"       => "See also", ;
+      "END"           => "End" }
+
+   hb_HCaseMatch( sc_hFields, .F. )
+
    #define _S TPL_START
    #define _E TPL_END
    #define _T TPL_TEMPLATE
@@ -1304,13 +1299,13 @@ STATIC PROCEDURE ShowTemplatesHelp( cTemplate, cDelimiter )
 
          o:SetTemplate( key )
 
-         FOR idx := 1 TO Len( o:Fields )
-            fldkey := hb_HKeyAt( o:Fields, idx )
-            IF o:Group[ idx ] != 0
+         FOR idx := 1 TO Len( sc_hFields )
+            fldkey := hb_HKeyAt( sc_hFields, idx )
+            IF o:_group[ idx ] != 0
                ShowSubHelp( iif( idx == 1, "/", " " ) + "*  " + cDelimiter + fldkey + cDelimiter, 1, 0 )
                IF fldkey == "TEMPLATE"
                   ShowSubHelp( " *      " + o:fld[ "TEMPLATE" ], 1, 0 )
-               ELSEIF o:Group[ idx ] != TPL_START .AND. o:Group[ idx ] != TPL_END .AND. .T.
+               ELSEIF o:_group[ idx ] != TPL_START .AND. o:_group[ idx ] != TPL_END .AND. .T.
                   ShowSubHelp( " *      " + iif( o:IsRequired( fldkey ), "<required>", "<optional>" ), 1, 0 )
                ENDIF
             ENDIF

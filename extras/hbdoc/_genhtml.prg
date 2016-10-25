@@ -203,12 +203,12 @@ METHOD EndSection( cSection, cFilename ) CLASS GenerateHTML
 METHOD AddReference( oEntry, cReference, cSubReference ) CLASS GenerateHTML
 
    IF HB_ISOBJECT( oEntry ) .AND. oEntry:ClassName() == "ENTRY"
-      ::OpenTag( "a", "href", ::TargetFilename + ::cExtension + "#" + oEntry:Filename ):Append( oEntry:fld[ "NAME" ] ):CloseTag( "a" ):Append( oEntry:fld[ "ONELINER" ] ):Newline()
+      ::OpenTag( "a", "href", ::TargetFilename + ::cExtension + "#" + oEntry:_filename ):Append( oEntry:fld[ "NAME" ] ):CloseTag( "a" ):Append( oEntry:fld[ "ONELINER" ] ):Newline()
    ELSE
       IF HB_ISSTRING( cSubReference )
          ::OpenTag( "a", "href", cReference + ::cExtension + "#" + cSubReference ):Append( oEntry ):CloseTag( "a" ):Newline()
       ELSE
-         ::OpenTag( "a", "href", cReference + ::cExtension /* + "#" + oEntry:Filename */ ):Append( oEntry ):CloseTag( "a" ):Newline()
+         ::OpenTag( "a", "href", cReference + ::cExtension /* + "#" + oEntry:_filename */ ):Append( oEntry ):CloseTag( "a" ):Newline()
       ENDIF
    ENDIF
 
@@ -220,9 +220,9 @@ METHOD AddEntry( oEntry ) CLASS GenerateHTML
    LOCAL cEntry
 
    ::Spacer()
-   ::OpenTag( "section", "id", SymbolToHTMLID( oEntry:filename ) )
+   ::OpenTag( "section", "id", SymbolToHTMLID( oEntry:_filename ) )
 
-   FOR EACH item IN hb_HKeys( oEntry:Fields )
+   FOR EACH item IN FieldIDList()
       IF item == "NAME"
          cEntry := oEntry:fld[ "NAME" ]
          IF "(" $ cEntry .OR. Upper( cEntry ) == cEntry  // guess if it's code
