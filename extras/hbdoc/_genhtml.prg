@@ -277,18 +277,7 @@ METHOD PROCEDURE WriteEntry( cField, oEntry, lPreformatted ) CLASS GenerateHTML
 
       IF lPreformatted
          ::OpenTag( "pre", "class", cTagClass )
-         DO WHILE ! HB_ISNULL( cEntry )
-            IF Lower( cField ) + "|" $ "examples|tests|"
-               ::Append(         Parse( @cEntry, hb_eol() )            , "", .T. )
-            ELSE
-               ::Append( Indent( Parse( @cEntry, hb_eol() ), 0, , .T. ), "", .T. )
-            ENDIF
-#if 0
-            IF ! HB_ISNULL( cEntry ) .AND. ! lPreformatted
-               ::cFile += hb_eol()
-            ENDIF
-#endif
-         ENDDO
+         ::Append( cEntry,, .T. )
          ::CloseTag( "pre" )
       ELSE
          DO WHILE ! HB_ISNULL( cEntry )

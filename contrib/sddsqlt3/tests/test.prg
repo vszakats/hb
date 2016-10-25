@@ -1,6 +1,7 @@
 #require "rddsql"
 #require "sddsqlt3"
 
+#include "dbinfo.ch"
 #include "simpleio.ch"
 
 REQUEST SDDSQLITE3
