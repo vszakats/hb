@@ -64,9 +64,9 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    METHOD CloseTag( cText )
    METHOD AppendInline( cText, cFormat, lCode )
    METHOD Append( cText, cFormat, lCode )
-   METHOD Space() INLINE hb_vfWrite( ::hFile, ", " ), self
-   METHOD Spacer() INLINE hb_vfWrite( ::hFile, hb_eol() ), self
-   METHOD Newline() INLINE hb_vfWrite( ::hFile, "<br>" + hb_eol() ), self
+   METHOD Space() INLINE ::cFile += ", ", self
+   METHOD Spacer() INLINE ::cFile += hb_eol(), self
+   METHOD Newline() INLINE ::cFile += "<br>" + hb_eol(), self
    METHOD NewFile()
 
    CLASS VAR lCreateStyleDocument AS LOGICAL INIT .T.
@@ -84,11 +84,13 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
 
    METHOD WriteEntry( cField, oEntry, lPreformatted ) HIDDEN
 
+   VAR nStart INIT hb_MilliSeconds()
+
 ENDCLASS
 
 METHOD NewFile() CLASS GenerateHTML
 
-   hb_vfWrite( ::hFile, "<!DOCTYPE html>" + hb_eol() )
+   ::cFile += "<!DOCTYPE html>" + hb_eol()
 
    ::OpenTag( "html", "lang", StrTran( ::cLang, "_", "-" ) )
    ::Spacer()
@@ -157,6 +159,12 @@ METHOD Generate() CLASS GenerateHTML
    ::CloseTag( "div" )
 
    ::CloseTag( "footer" )
+
+   ::super:Generate()
+
+#if 0
+   ? Round( ( hb_MilliSeconds() - ::nStart ) / 1000, 3 )
+#endif
 
    RETURN self
 
@@ -277,7 +285,7 @@ METHOD PROCEDURE WriteEntry( cField, oEntry, lPreformatted ) CLASS GenerateHTML
             ENDIF
 #if 0
             IF ! HB_ISNULL( cEntry ) .AND. ! lPreformatted
-               hb_vfWrite( ::hFile, hb_eol() )
+               ::cFile += hb_eol()
             ENDIF
 #endif
          ENDDO
@@ -335,7 +343,7 @@ METHOD OpenTagInline( cText, ... ) CLASS GenerateHTML
       cText += " " + aArgs[ idx ] + "=" + '"' + aArgs[ idx + 1 ] + '"'
    NEXT
 
-   hb_vfWrite( ::hFile, "<" + cText + ">" )
+   ::cFile += "<" + cText + ">"
 
    RETURN self
 
@@ -343,7 +351,7 @@ METHOD OpenTag( cText, ... ) CLASS GenerateHTML
 
    ::OpenTagInline( cText, ... )
 
-   hb_vfWrite( ::hFile, hb_eol() )
+   ::cFile += hb_eol()
 
    RETURN self
 
@@ -357,29 +365,19 @@ METHOD Tagged( cText, cTag, ... ) CLASS GenerateHTML
       cResult += " " + aArgs[ idx ] + "=" + '"' + aArgs[ idx + 1 ] + '"'
    NEXT
 
-   hb_vfWrite( ::hFile, "<" + cTag + cResult + ">" + cText + "</" + cTag + ">" + hb_eol() )
+   ::cFile += "<" + cTag + cResult + ">" + cText + "</" + cTag + ">" + hb_eol()
 
    RETURN self
 
 METHOD CloseTagInline( cText ) CLASS GenerateHTML
 
-   hb_vfWrite( ::hFile, "</" + cText + ">" )
-
-   IF cText == "html"
-      hb_vfClose( ::hFile )
-      ::hFile := NIL
-   ENDIF
+   ::cFile += "</" + cText + ">"
 
    RETURN self
 
 METHOD CloseTag( cText ) CLASS GenerateHTML
 
-   hb_vfWrite( ::hFile, "</" + cText + ">" + hb_eol() )
-
-   IF cText == "html"
-      hb_vfClose( ::hFile )
-      ::hFile := NIL
-   ENDIF
+   ::cFile += "</" + cText + ">" + hb_eol()
 
    RETURN self
 
@@ -420,7 +418,7 @@ METHOD AppendInline( cText, cFormat, lCode ) CLASS GenerateHTML
          cText := hb_StrShrink( cText, Len( hb_eol() ) )
       ENDDO
 
-      hb_vfWrite( ::hFile, cText )
+      ::cFile += cText
    ENDIF
 
    RETURN self
@@ -428,7 +426,7 @@ METHOD AppendInline( cText, cFormat, lCode ) CLASS GenerateHTML
 METHOD Append( cText, cFormat, lCode ) CLASS GenerateHTML
 
    ::AppendInline( cText, cFormat, lCode )
-   hb_vfWrite( ::hFile, hb_eol() )
+   ::cFile += hb_eol()
 
    RETURN self
 

@@ -47,8 +47,6 @@
 
 #include "hbclass.ch"
 
-#include "fileio.ch"
-
 #define DOCUMENT_  1
 #define INDEX_     2
 
@@ -60,7 +58,7 @@ CREATE CLASS TPLGenerate
    METHOD AddReference( oEntry ) INLINE HB_SYMBOL_UNUSED( oEntry ), NIL
    METHOD BeginSection( cSection, cFilename ) INLINE HB_SYMBOL_UNUSED( cSection ), HB_SYMBOL_UNUSED( cFilename ), ::Depth++
    METHOD EndSection( cSection, cFilename ) INLINE HB_SYMBOL_UNUSED( cSection ), HB_SYMBOL_UNUSED( cFilename ), ::Depth--
-   METHOD Generate() INLINE NIL
+   METHOD Generate()
    METHOD IsIndex() INLINE ::nType == INDEX_
 
    VAR cFilename AS STRING
@@ -74,11 +72,12 @@ CREATE CLASS TPLGenerate
    VAR nType AS INTEGER
    VAR Depth AS INTEGER INIT 0
 
-   VAR hFile
+   VAR cFile AS STRING INIT ""
    VAR cDir AS STRING
    VAR cTitle AS STRING
    VAR cExtension AS STRING
    VAR cLang AS STRING
+   VAR cOutFileName AS STRING
 
 ENDCLASS
 
@@ -103,16 +102,23 @@ METHOD New( cDir, cFilename, cTitle, cExtension, cLang, nType ) CLASS TPLGenerat
    ::cLang := hb_defaultValue( cLang, "en" )
    ::nType := nType
 
-   IF ! hb_vfDirExists( ::cDir )
-      OutStd( hb_eol() + "Creating directory", "'" + ::cDir + "'" )
-      hb_vfDirMake( ::cDir )
-   ENDIF
-
-   ::hFile := hb_vfOpen( ;
+   ::cOutFileName := ;
       ::cDir + hb_ps() + ;
       ::cFilename + ;
       iif( Lower( ::cLang ) == "en", "", "." + ::cLang ) + ;
-      ::cExtension, ;
-      FO_CREAT + FO_TRUNC + FO_WRITE )
+      ::cExtension
+
+   RETURN self
+
+METHOD Generate() CLASS TPLGenerate
+
+   LOCAL cDir := hb_FNameDir( ::cOutFileName )
+
+   IF ! hb_vfDirExists( cDir )
+      OutStd( hb_eol() + "Creating directory", "'" + cDir + "'" )
+      hb_vfDirMake( cDir )
+   ENDIF
+
+   hb_MemoWrit( ::cOutFileName, ::cFile )
 
    RETURN self
