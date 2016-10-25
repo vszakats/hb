@@ -73,8 +73,6 @@
 #include "hbclass.ch"
 #include "hbver.ch"
 
-#include "hbdoc.ch"
-
 ANNOUNCE HB_GTSYS
 REQUEST HB_GT_CGI_DEFAULT
 
@@ -85,6 +83,15 @@ REQUEST HB_CODEPAGE_UTF8EX
 #define OnOrOff( b )    iif( b, "excluded", "included" )
 #define YesOrNo( b )    iif( b, "yes", "no" )
 #define IsDefault( b )  iif( b, "; default", "" )
+
+#define TPL_START            1
+#define TPL_END              2
+#define TPL_REQUIRED         4  // intentionally has a 'required' and 'optional' flag
+#define TPL_OPTIONAL         8
+#define TPL_PREFORMATTED     16
+#define TPL_CONSTRAINTLIST   32
+#define TPL_TEMPLATE         64
+#define TPL_OUTPUT           128
 
 STATIC sc_aExclusions := { "class_tp.txt", "hdr_tpl.txt" }
 STATIC sc_hConstraint
