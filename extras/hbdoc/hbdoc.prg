@@ -506,12 +506,22 @@ STATIC PROCEDURE ProcessBlock( hEntry, aContent )
 
    LOCAL cSourceFile := StrTran( ".." + hb_ps() + cFile, iif( hb_ps() == "\", "/", "\" ), hb_ps() )
 
-   LOCAL o := Entry():New( "Template" )
+   LOCAL o := Entry():New()
 
    o:_type := cComponent
    o:_sourcefile := cSourceFile
    o:fld[ "NAME" ] := "?NAME?"
-   o:SetTemplate( "Function" )
+
+   /* Set template */
+   IF ! "TEMPLATE" $ hEntry
+      hEntry[ "TEMPLATE" ] := "Function"
+   ENDIF
+   IF o:IsTemplate( hEntry[ "TEMPLATE" ] )
+      o:SetTemplate( hEntry[ "TEMPLATE" ] )
+   ELSE
+      AddErrorCondition( cFile, "Unrecognized TEMPLATE '" + hEntry[ "TEMPLATE" ] + "'", .T. )
+      lAccepted := .F.
+   ENDIF
 
    /* Merge category/subcategory into tag list */
    o:_tags := { => }
@@ -553,19 +563,10 @@ STATIC PROCEDURE ProcessBlock( hEntry, aContent )
 
       cSection := StrTran( cSection, hb_eol(), Chr( 10 ) )
 
-      IF hb_LeftEq( cSectionName, "_" )
+      IF hb_LeftEq( cSectionName, "_" ) .OR. ;
+         cSectionName == "TEMPLATE"
 
          /* do nothing */
-
-      ELSEIF cSectionName == "TEMPLATE"
-
-         IF o:IsTemplate( cSection )
-            o:SetTemplate( cSection )
-         ELSE
-            AddErrorCondition( cFile, "Unrecognized TEMPLATE '" + cSection + "'", .T. )
-            lAccepted := .F.
-            EXIT
-         ENDIF
 
       ELSEIF o:IsField( cSectionName )
 
@@ -598,7 +599,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, aContent )
                Lower( cSection ) == "none" .OR. ;
                Lower( cSection ) == "none." )
 
-            AddErrorCondition( cFile, "'" + o:fld[ "NAME" ] + "' is identified as template " + o:fld[ "TEMPLATE" ] + " but has no RETURNS value (" + cSection + ")" )
+            AddErrorCondition( cFile, "'" + o:fld[ "NAME" ] + "' is identified as template " + hEntry[ "TEMPLATE" ] + " but has no RETURNS value (" + cSection + ")" )
 
          CASE ! o:IsConstraint( cSectionName, cSection )
 
@@ -617,7 +618,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, aContent )
             o:fld[ cSectionName ] := Decode( cSectionName, , cSection )
          ENDIF
       ELSE
-         AddErrorCondition( cFile, "Using template '" + o:fld[ "TEMPLATE" ] + "' encountered an unexpected section '" + cSectionName + "'", .T. )
+         AddErrorCondition( cFile, "Using template '" + hEntry[ "TEMPLATE" ] + "' encountered an unexpected section '" + cSectionName + "'", .T. )
          lAccepted := .F.
       ENDIF
    NEXT
@@ -631,13 +632,13 @@ STATIC PROCEDURE ProcessBlock( hEntry, aContent )
 #if 0
          lAccepted := .F.
 #endif
-      CASE o:fld[ "TEMPLATE" ] == "Function" .AND. ( ;
+      CASE hEntry[ "TEMPLATE" ] == "Function" .AND. ( ;
          Empty( o:fld[ "RETURNS" ] ) .OR. ;
          Lower( o:fld[ "RETURNS" ] ) == "nil" .OR. ;
          Lower( o:fld[ "RETURNS" ] ) == "none" .OR. ;
          Lower( o:fld[ "RETURNS" ] ) == "none." )
 
-         AddErrorCondition( cFile, "'" + o:fld[ "NAME" ] + "' is identified as template " + o:fld[ "TEMPLATE" ] + " but has no RETURNS value (" + o:fld[ "RETURNS" ] + ")" )
+         AddErrorCondition( cFile, "'" + o:fld[ "NAME" ] + "' is identified as template " + hEntry[ "TEMPLATE" ] + " but has no RETURNS value (" + o:fld[ "RETURNS" ] + ")" )
 #if 0
          lAccepted := .F.
 #endif
@@ -1006,10 +1007,10 @@ STATIC FUNCTION Filename( cFile )
 /* a class that will hold one entry */
 CREATE CLASS Entry
 
-   METHOD New( cType )
-   METHOD IsField( c, nType )
-   METHOD IsTemplate( cType )
+   METHOD New()
+   METHOD IsTemplate( cTemplate )
    METHOD SetTemplate( cTemplate )
+   METHOD IsField( c, nType )
    METHOD IsConstraint( cSectionName, cSection )
    METHOD IsComplete( cIncompleteFieldsList )
    METHOD IsPreformatted( cField )
@@ -1029,15 +1030,28 @@ CREATE CLASS Entry
 
 ENDCLASS
 
-METHOD New( cType ) CLASS Entry
+METHOD New() CLASS Entry
 
    ::fld := { => }
    hb_HCaseMatch( ::fld, .F. )
    hb_HEval( sc_hFields, {| k | ::fld[ k ] := "" } )
 
-   IF HB_ISSTRING( cType )
-      ::_group := sc_hTemplates[ cType ]
-   ENDIF
+   RETURN self
+
+METHOD IsTemplate( cTemplate ) CLASS Entry
+   RETURN cTemplate $ sc_hTemplates
+
+METHOD SetTemplate( cTemplate ) CLASS Entry
+
+   LOCAL item, key, idx
+
+   ::_group := sc_hTemplates[ cTemplate ]
+
+   FOR EACH item IN sc_hFields
+      key := item:__enumKey()
+      idx := item:__enumIndex()
+      ::fld[ key ] := iif( key == "TEMPLATE", cTemplate, iif( ::_group[ idx ] == TPL_REQUIRED,, "" ) )
+   NEXT
 
    RETURN self
 
@@ -1054,23 +1068,6 @@ METHOD IsField( c, nType ) CLASS Entry
    ENDIF
 
    RETURN .F.
-
-METHOD IsTemplate( cType ) CLASS Entry
-   RETURN cType $ sc_hTemplates
-
-METHOD SetTemplate( cTemplate ) CLASS Entry
-
-   LOCAL item, key, idx
-
-   ::_group := sc_hTemplates[ cTemplate ]
-
-   FOR EACH item IN sc_hFields
-      key := item:__enumKey()
-      idx := item:__enumIndex()
-      ::fld[ key ] := iif( key == "TEMPLATE", cTemplate, iif( ::_group[ idx ] == TPL_REQUIRED,, "" ) )
-   NEXT
-
-   RETURN self
 
 METHOD IsConstraint( cSectionName, cSection ) CLASS Entry
 
