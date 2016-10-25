@@ -130,9 +130,9 @@ METHOD AddEntry( oEntry ) CLASS GenerateText
    IF ::IsIndex()
       ::AddIndex( oEntry )
    ELSE
-      FOR EACH item IN oEntry:Fields
-         IF oEntry:IsField( item[ 1 ] ) .AND. oEntry:IsOutput( item[ 1 ] ) .AND. Len( oEntry:&( item[ 1 ] ) ) > 0
-            ::WriteEntry( oEntry:FieldName( item[ 1 ] ), oEntry:&( item[ 1 ] ), oEntry:IsPreformatted( item[ 1 ] ) )
+      FOR EACH item IN hb_HKeys( oEntry:Fields )
+         IF oEntry:IsField( item ) .AND. oEntry:IsOutput( item ) .AND. Len( oEntry:&( item ) ) > 0
+            ::WriteEntry( oEntry:FieldName( item ), oEntry:&( item ), oEntry:IsPreformatted( item ) )
          ENDIF
       NEXT
 

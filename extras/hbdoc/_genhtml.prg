@@ -222,16 +222,16 @@ METHOD AddEntry( oEntry ) CLASS GenerateHTML
    ::Spacer()
    ::OpenTag( "section", "id", SymbolToHTMLID( oEntry:filename ) )
 
-   FOR EACH item IN oEntry:Fields
-      IF item[ 1 ] == "NAME"
+   FOR EACH item IN hb_HKeys( oEntry:Fields )
+      IF item == "NAME"
          cEntry := oEntry:Name
          IF "(" $ cEntry .OR. Upper( cEntry ) == cEntry  // guess if it's code
             ::OpenTagInline( "h4" ):OpenTagInline( "code" ):AppendInline( cEntry ):CloseTagInline( "code" ):CloseTag( "h4" )
          ELSE
             ::OpenTagInline( "h4" ):AppendInline( cEntry ):CloseTag( "h4" )
          ENDIF
-      ELSEIF oEntry:IsField( item[ 1 ] ) .AND. oEntry:IsOutput( item[ 1 ] ) .AND. Len( oEntry:&( item[ 1 ] ) ) > 0
-         ::WriteEntry( item[ 1 ], oEntry, oEntry:IsPreformatted( item[ 1 ] ) )
+      ELSEIF oEntry:IsField( item ) .AND. oEntry:IsOutput( item ) .AND. Len( oEntry:&( item ) ) > 0
+         ::WriteEntry( item, oEntry, oEntry:IsPreformatted( item ) )
       ENDIF
    NEXT
 

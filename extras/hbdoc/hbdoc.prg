@@ -94,6 +94,8 @@ REQUEST HB_CODEPAGE_UTF8EX
 #define TPL_OUTPUT           128
 
 STATIC sc_aExclusions := { "class_tp.txt", "hdr_tpl.txt" }
+STATIC sc_hFields
+STATIC sc_hTemplates
 STATIC sc_hConstraint
 STATIC s_hSwitches
 STATIC s_hComponent := { => }
@@ -1011,58 +1013,37 @@ CREATE CLASS Entry
 
    EXPORTED:
 
-   CLASS VAR Fields AS ARRAY INIT { ;
-      { "DOC",          "Doc" }, ;
-      { "TEMPLATE",     "Template" }, ;
-      { "NAME",         "" }, ;
-      { "ONELINER",     "" }, ;
-      { "CATEGORY",     "Category" }, ;
-      { "SUBCATEGORY",  "Sub category" }, ;
-      { "SYNTAX",       "Syntax" }, ;
-      { "ARGUMENTS",    "Argument(s)" }, ;
-      { "RETURNS",      "Returns" }, ;
-      { "DESCRIPTION",  "Description" }, ;
-      { "DATALINK",     "Data link" }, ;
-      { "DATANOLINK",   "Data no link" }, ;
-      { "METHODSLINK",  "Methods link" }, ;
-      { "METHODSNOLINK","Methods no link" }, ;
-      { "EXAMPLES",     "Example(s)" }, ;
-      { "TESTS",        "Test(s)" }, ;
-      { "STATUS",       "Status" }, ;       /* sc_hConstraint[ "status" ] is the constraint list */
-      { "COMPLIANCE",   "Compliance" }, ;   /* sc_hConstraint[ "compliance" ] is the constraint list */
-      { "PLATFORMS",    "Platform(s)" }, ;  /* sc_hConstraint[ "platforms" ] is the constraint list */
-      { "FILES",        "File(s)" }, ;
-      { "TAGS",         "Tag(s)" }, ;
-      { "SEEALSO",      "See also" }, ;
-      { "END",          "End" } }
+   CLASS VAR Fields AS HASH INIT { ;
+      "DOC"           => "Doc", ;
+      "TEMPLATE"      => "Template", ;
+      "NAME"          => "", ;
+      "ONELINER"      => "", ;
+      "CATEGORY"      => "Category", ;
+      "SUBCATEGORY"   => "Sub category", ;
+      "SYNTAX"        => "Syntax", ;
+      "ARGUMENTS"     => "Argument(s)", ;
+      "RETURNS"       => "Returns", ;
+      "DESCRIPTION"   => "Description", ;
+      "DATALINK"      => "Data link", ;
+      "DATANOLINK"    => "Data no link", ;
+      "METHODSLINK"   => "Methods link", ;
+      "METHODSNOLINK" => "Methods no link", ;
+      "EXAMPLES"      => "Example(s)", ;
+      "TESTS"         => "Test(s)", ;
+      "STATUS"        => "Status", ;       /* sc_hConstraint[ "status" ] is the constraint list */
+      "COMPLIANCE"    => "Compliance", ;   /* sc_hConstraint[ "compliance" ] is the constraint list */
+      "PLATFORMS"     => "Platform(s)", ;  /* sc_hConstraint[ "platforms" ] is the constraint list */
+      "FILES"         => "File(s)", ;
+      "TAGS"          => "Tag(s)", ;
+      "SEEALSO"       => "See also", ;
+      "END"           => "End" }
 
-   #define _S TPL_START
-   #define _E TPL_END
-   #define _T TPL_TEMPLATE
-   #define _R TPL_REQUIRED
-   #define _O TPL_OPTIONAL
-   #define _P TPL_PREFORMATTED
-   #define _U TPL_OUTPUT
-
-   /* the columns of this array correspond to the elements of Fields */
-   CLASS VAR Templates AS ARRAY INIT { ;
-      { "Template"      , { _S, _T,  0+_U,  0+_U,  0, _O,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0   +_U,  0   +_U,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U, _E } }, ;
-      { "Document"      , { _S, _T, _R+_U, _O+_U, _R, _O,  0+_U,  0+_U,  0+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0   +_U,  0   +_U,  0+_U,  0+_U, _O+_U, _O+_U, _O+_U, _O+_U, _E } }, ;
-      { "Function"      , { _S, _T, _R+_U, _O+_U, _R, _R, _O+_U, _O+_U, _O+_U, _O+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _E } }, ;
-      { "C Function"    , { _S, _T, _R+_U, _O+_U, _R, _R, _O+_U, _O+_U, _O+_U, _O+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _E } }, ;
-      { "Procedure"     , { _S, _T, _R+_U, _O+_U, _R, _R, _O+_U, _O+_U,     0, _O+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _E } }, ;
-      { "Command"       , { _S, _T, _R+_U, _O+_U, _R, _R, _R+_U, _R+_U,  0+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _E } }, ;
-      { "Class"         , { _S, _T, _R+_U, _O+_U, _R, _R, _R+_U, _R+_U, _R+_U, _R+_U, _O+_U, _O+_U, _O+_U, _O+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _E } }, ;
-      { "Class method"  , { _S, _T, _R+_U, _O+_U, _R, _R, _R+_U, _R+_U, _R+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U,  0   +_U,  0+_U,  0+_U,  0+_U,  0+_U, _O+_U, _O+_U, _E } }, ;
-      { "Class data"    , { _S, _T, _R+_U, _O+_U, _R, _R, _R+_U,  0+_U,  0+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U,  0   +_U,  0+_U,  0+_U,  0+_U,  0+_U, _O+_U, _O+_U, _E } }, ;
-      { "Run time error", { _S, _T, _R+_U, _O+_U, _R,  0,  0+_U,  0+_U,  0+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U,  0   +_U,  0+_U, _O+_U,  0+_U,  0+_U, _O+_U, _O+_U, _E } } }
-
-   METHOD New( cType ) CONSTRUCTOR
+   METHOD New( cType )
    METHOD IsField( c, nType )
    METHOD IsTemplate( cType )
    METHOD SetTemplate( cTemplate )
    METHOD IsConstraint( cSectionName, cSection )
-   METHOD IsComplete( cIncompleteFielsList )
+   METHOD IsComplete( cIncompleteFieldsList )
    METHOD IsPreformatted( cField )
    METHOD IsRequired( cField )
    METHOD IsOptional( cField )
@@ -1084,12 +1065,14 @@ ENDCLASS
 
 METHOD New( cType ) CLASS Entry
 
+   hb_HCaseMatch( ::Fields, .F. )
+
    ::uid_ := hb_ntos( ++::uid__ )
-   IF ! __objHasData( self, ::Fields[ 1 ][ 1 ] )
-      AEval( ::Fields, {| a | __objAddData( self, a[ 1 ] ) } )
+   IF ! __objHasData( self, hb_HKeyAt( ::Fields, 1 ) )
+      hb_HEval( ::Fields, {| k | __objAddData( self, k ) } )
    ENDIF
    IF HB_ISSTRING( cType )
-      ::Group := ::Templates[ AScan( ::Templates, {| a | Upper( a[ 1 ] ) == Upper( cType ) } ) ][ 2 ]
+      ::Group := sc_hTemplates[ cType ]
    ENDIF
 
    RETURN self
@@ -1097,33 +1080,29 @@ METHOD New( cType ) CLASS Entry
 METHOD IsField( c, nType ) CLASS Entry
 
    LOCAL idx
-   LOCAL lResult
 
-   IF ( lResult := ( idx := AScan( ::Fields, {| a | Upper( a[ 1 ] ) == Upper( c ) } ) ) > 0 )
+   IF ( idx := hb_HPos( ::Fields, c ) ) > 0
       IF ::Group[ idx ] == 0
-         lResult := .F.
       ELSEIF HB_ISNUMERIC( nType ) .AND. hb_bitAnd( ::Group[ idx ], nType ) != nType
-         lResult := .F.
+      ELSE
+         RETURN .T.
       ENDIF
    ENDIF
 
-   RETURN lResult
+   RETURN .F.
 
 METHOD IsTemplate( cType ) CLASS Entry
-   RETURN AScan( ::Templates, {| a | Upper( a[ 1 ] ) == Upper( cType ) } ) > 0
+   RETURN cType $ sc_hTemplates
 
 METHOD SetTemplate( cTemplate ) CLASS Entry
 
    LOCAL aData := Array( Len( ::Fields ) )
-   LOCAL idx
+   LOCAL idx, key
 
-   ::Group := ::Templates[ AScan( ::Templates, {| a | Upper( a[ 1 ] ) == Upper( cTemplate ) } ) ][ 2 ]
+   ::Group := sc_hTemplates[ cTemplate ]
    FOR idx := 1 TO Len( aData )
-      IF ::Fields[ idx ][ 1 ] == "TEMPLATE"
-         aData[ idx ] := { ::Fields[ idx ][ 1 ], cTemplate }
-      ELSE
-         aData[ idx ] := { ::Fields[ idx ][ 1 ], iif( ::Group[ idx ] == TPL_REQUIRED, NIL, "" ) }
-      ENDIF
+      key := hb_HKeyAt( ::Fields, idx )
+      aData[ idx ] := { key, iif( key == "TEMPLATE", cTemplate, iif( ::Group[ idx ] == TPL_REQUIRED,, "" ) ) }
    NEXT
    __objSetValueList( self, aData )
 
@@ -1131,54 +1110,52 @@ METHOD SetTemplate( cTemplate ) CLASS Entry
 
 METHOD IsConstraint( cSectionName, cSection ) CLASS Entry
 
-   LOCAL lResult
-   LOCAL idx := AScan( ::Fields, {| a | a[ 1 ] == cSectionName } )
+   LOCAL idx := hb_HPos( ::Fields, cSectionName )
 
    IF hb_bitAnd( ::Group[ idx ], hb_bitAnd( TPL_REQUIRED, TPL_OPTIONAL ) ) == 0
-      lResult := .T.
+      RETURN .T.
    ELSEIF cSectionName $ sc_hConstraint
-      lResult := ;
-         hb_AScan( sc_hConstraint[ cSectionName ], cSection, , , .T. ) .OR. ;
-         hb_AScan( sc_hConstraint[ cSectionName ], Parse( cSection, "," ), , , .T. )
-   ELSE
-      lResult := .T.
+      RETURN ;
+         cSection $ sc_hConstraint[ cSectionName ] .OR. ;
+         Parse( cSection, "," ) $ sc_hConstraint[ cSectionName ]
    ENDIF
 
-   RETURN lResult
+   RETURN .T.
 
-METHOD IsComplete( cIncompleteFielsList ) CLASS Entry
+METHOD IsComplete( cIncompleteFieldsList ) CLASS Entry
 
    LOCAL lResult := .T.
-   LOCAL idx
+   LOCAL idx, key
 
-   cIncompleteFielsList := ""
+   cIncompleteFieldsList := ""
 
    FOR idx := 1 TO Len( ::Fields )
-      IF hb_bitAnd( ::Group[ idx ], TPL_REQUIRED ) != 0 .AND. Empty( ::&( ::Fields[ idx ][ 1 ] ) )
-         cIncompleteFielsList += "," + ::Fields[ idx ][ 1 ]
+      key := hb_HKeyAt( ::Fields, idx )
+      IF hb_bitAnd( ::Group[ idx ], TPL_REQUIRED ) != 0 .AND. Empty( ::&( key ) )
+         cIncompleteFieldsList += "," + key
          lResult := .F.
       ENDIF
    NEXT
 
-   cIncompleteFielsList := SubStr( cIncompleteFielsList, 2 )
+   cIncompleteFieldsList := SubStr( cIncompleteFieldsList, 2 )
 
    RETURN lResult
 
 METHOD IsPreformatted( cField ) CLASS Entry
-   LOCAL nGroup := AScan( ::Fields, {| a | a[ 1 ] == cField } )
+   LOCAL nGroup := hb_HPos( ::Fields, cField )
    RETURN nGroup > 0 .AND. hb_bitAnd( ::Group[ nGroup ], TPL_PREFORMATTED ) != 0
 
 METHOD IsRequired( cField ) CLASS Entry
-   RETURN hb_bitAnd( ::Group[ AScan( ::Fields, {| a | a[ 1 ] == cField } ) ], TPL_REQUIRED ) != 0
+   RETURN hb_bitAnd( ::Group[ hb_HPos( ::Fields, cField ) ], TPL_REQUIRED ) != 0
 
 METHOD IsOptional( cField ) CLASS Entry
-   RETURN hb_bitAnd( ::Group[ AScan( ::Fields, {| a | a[ 1 ] == cField } ) ], TPL_OPTIONAL ) != 0
+   RETURN hb_bitAnd( ::Group[ hb_HPos( ::Fields, cField ) ], TPL_OPTIONAL ) != 0
 
 METHOD IsOutput( cField ) CLASS Entry
-   RETURN hb_bitAnd( ::Group[ AScan( ::Fields, {| a | a[ 1 ] == cField } ) ], TPL_OUTPUT ) != 0
+   RETURN hb_bitAnd( ::Group[ hb_HPos( ::Fields, cField ) ], TPL_OUTPUT ) != 0
 
 METHOD FieldName( cField ) CLASS Entry
-   RETURN ::Fields[ AScan( ::Fields, {| a | a[ 1 ] == cField } ) ][ 2 ]
+   RETURN ::Fields[ cField ]
 
 METHOD SubcategoryIndex( cCategory, cSubcategory ) CLASS Entry
    RETURN iif( cCategory $ sc_hConstraint[ "categories" ], ;
@@ -1247,6 +1224,14 @@ STATIC PROCEDURE init_Templates()
 
    hb_HCaseMatch( sc_hConstraint[ "categories" ], .F. )
 
+   FOR EACH item IN sc_hConstraint[ "categories" ]
+      AAdd( item, Array( Len( item[ 1 ] ) ) )  /* holder array of sub-category entries */
+      FOR EACH tmp IN ATail( item )
+         tmp := {}
+      NEXT
+      AAdd( item, "" )  /* holder for sub-category file name */
+   NEXT
+
    sc_hConstraint[ "compliance" ] := { ;
       "C"       => "CA-Cl*pper v5.x compatible", ;
       "C52S"    => "CA-Cl*pper v5.x compatible in builds with HB_CLP_STRICT option enabled", ;
@@ -1268,25 +1253,38 @@ STATIC PROCEDURE init_Templates()
       "S" => "Started", ;
       "N" => "Not started" }
 
-   FOR EACH item IN sc_hConstraint[ "categories" ]
-      AAdd( item, Array( Len( item[ 1 ] ) ) )  /* holder array of sub-category entries */
-      FOR EACH tmp IN ATail( item )
-         tmp := {}
-      NEXT
-      AAdd( item, "" )  /* holder for sub-category file name */
-   NEXT
+   #define _S TPL_START
+   #define _E TPL_END
+   #define _T TPL_TEMPLATE
+   #define _R TPL_REQUIRED
+   #define _O TPL_OPTIONAL
+   #define _P TPL_PREFORMATTED
+   #define _U TPL_OUTPUT
+
+   /* The columns of this array correspond to the elements of sc_hFields */
+   sc_hTemplates := { ;
+      "Template"       => { _S, _T,  0+_U,  0+_U,  0, _O,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0   +_U,  0   +_U,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U, _E }, ;
+      "Document"       => { _S, _T, _R+_U, _O+_U, _R, _O,  0+_U,  0+_U,  0+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0   +_U,  0   +_U,  0+_U,  0+_U, _O+_U, _O+_U, _O+_U, _O+_U, _E }, ;
+      "Function"       => { _S, _T, _R+_U, _O+_U, _R, _R, _O+_U, _O+_U, _O+_U, _O+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _E }, ;
+      "C Function"     => { _S, _T, _R+_U, _O+_U, _R, _R, _O+_U, _O+_U, _O+_U, _O+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _E }, ;
+      "Procedure"      => { _S, _T, _R+_U, _O+_U, _R, _R, _O+_U, _O+_U,     0, _O+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _E }, ;
+      "Command"        => { _S, _T, _R+_U, _O+_U, _R, _R, _R+_U, _R+_U,  0+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _E }, ;
+      "Class"          => { _S, _T, _R+_U, _O+_U, _R, _R, _R+_U, _R+_U, _R+_U, _R+_U, _O+_U, _O+_U, _O+_U, _O+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _E }, ;
+      "Class method"   => { _S, _T, _R+_U, _O+_U, _R, _R, _R+_U, _R+_U, _R+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U,  0   +_U,  0+_U,  0+_U,  0+_U,  0+_U, _O+_U, _O+_U, _E }, ;
+      "Class data"     => { _S, _T, _R+_U, _O+_U, _R, _R, _R+_U,  0+_U,  0+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U,  0   +_U,  0+_U,  0+_U,  0+_U,  0+_U, _O+_U, _O+_U, _E }, ;
+      "Run time error" => { _S, _T, _R+_U, _O+_U, _R,  0,  0+_U,  0+_U,  0+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U,  0   +_U,  0+_U, _O+_U,  0+_U,  0+_U, _O+_U, _O+_U, _E } }
 
    RETURN
 
 STATIC PROCEDURE ShowTemplatesHelp( cTemplate, cDelimiter )
 
    LOCAL o := Entry():New( , sc_hConstraint )
-   LOCAL idxTemplates, nFrom := 1, nTo := Len( o:Templates )
-   LOCAL idx
+   LOCAL idxTemplates, nFrom := 1, nTo := Len( sc_hTemplates )
+   LOCAL idx, key, fldkey
 
    IF ! Empty( cTemplate ) .AND. !( cTemplate == "Template" )
       IF o:IsTemplate( cTemplate )
-         nFrom := nTo := AScan( o:Templates, {| a | Upper( a[ 1 ] ) == Upper( cTemplate ) } )
+         nFrom := nTo := hb_HPos( sc_hTemplates, cTemplate )
       ELSE
          ShowHelp( "Unrecognized template '" + cTemplate + "'" )
          RETURN
@@ -1294,25 +1292,27 @@ STATIC PROCEDURE ShowTemplatesHelp( cTemplate, cDelimiter )
    ENDIF
 
    FOR idxTemplates := nFrom TO nTo
-      IF ! Empty( o:Templates[ idxTemplates ] ) .AND. ;
-         ! Empty( o:Templates[ idxTemplates ][ 1 ] ) .AND. ;
-         !( o:Templates[ idxTemplates ][ 1 ] == "Template" )
+
+      key := hb_HKeyAt( sc_hTemplates, idxTemplates )
+
+      IF !( key == "Template" )
 
 #if 0
          IF nFrom != nTo
-            ShowSubHelp( o:Templates[ idxTemplates ][ 1 ], 1, 0 )
+            ShowSubHelp( key, 1, 0 )
          ENDIF
 #endif
 
-         o:SetTemplate( o:Templates[ idxTemplates ][ 1 ] )
+         o:SetTemplate( key )
 
          FOR idx := 1 TO Len( o:Fields )
+            fldkey := hb_HKeyAt( o:Fields, idx )
             IF o:Group[ idx ] != 0
-               ShowSubHelp( iif( idx == 1, "/", " " ) + "*  " + cDelimiter + o:Fields[ idx ][ 1 ] + cDelimiter, 1, 0 )
-               IF o:Fields[ idx ][ 1 ] == "TEMPLATE"
+               ShowSubHelp( iif( idx == 1, "/", " " ) + "*  " + cDelimiter + fldkey + cDelimiter, 1, 0 )
+               IF fldkey == "TEMPLATE"
                   ShowSubHelp( " *      " + o:Template, 1, 0 )
                ELSEIF o:Group[ idx ] != TPL_START .AND. o:Group[ idx ] != TPL_END .AND. .T.
-                  ShowSubHelp( " *      " + iif( o:IsRequired( o:Fields[ idx ][ 1 ] ), "<required>", "<optional>" ), 1, 0 )
+                  ShowSubHelp( " *      " + iif( o:IsRequired( fldkey ), "<required>", "<optional>" ), 1, 0 )
                ENDIF
             ENDIF
          NEXT
