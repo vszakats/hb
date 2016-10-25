@@ -71,7 +71,7 @@
    $COMPLIANCE$
       Some of these modes are not availables in CA-Cl*pper
    $PLATFORMS$
-      DOS, Win
+      All
    $SEEALSO$
       MaxCol(), MaxRow()
    $END$

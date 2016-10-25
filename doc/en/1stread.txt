@@ -50,7 +50,7 @@
    $CATEGORY$
       Document
    $SUBCATEGORY$
-
+      Intro
    $ONELINER$
       A starter's guide
    $DESCRIPTION$
