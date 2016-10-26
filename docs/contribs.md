@@ -29,10 +29,12 @@ sacrificing the Clipper syntax. Additionally `GTWVG` has a nice set of
 You can create high performance dialogs with multiple TBrowser, Reads,
 Bitmaps, Buttons, i.e. all GUI elements you can think of.
 
+{% if site.fork %}
 ## gtwvw (Windows-only)
 
 A `GTWVG` alternative with multi-window support.
 
+{% endif %}
 ## hbamf
 
 AMF file format handling
