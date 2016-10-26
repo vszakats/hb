@@ -371,6 +371,9 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
                ::AppendInline( iif( lTable, StrTran( tmp1, " ", hb_UChar( 160 ) ), tmp1 ),, .T. )
             OTHERWISE
                ::OpenTagInline( "div" )
+               IF cField $ "DESCRIPTION|"
+                  ::OpenTagInline( "p" )
+               ENDIF
                ::AppendInline( iif( lTable, StrTran( tmp1, " ", hb_UChar( 160 ) ), tmp1 ),, .F. )
             ENDCASE
             IF lCode

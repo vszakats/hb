@@ -107,6 +107,14 @@ code, .d-t {
   font-size: 95%;
 }
 
+.d-it div:first-child p {
+  margin-top: 0;
+}
+
+.d-it div:last-child p {
+  margin-bottom: 0;
+}
+
 .d-t {
   border-top: 1px solid rgba(0, 0, 0, .1);
   border-bottom: 1px solid rgba(0, 0, 0, .1);
