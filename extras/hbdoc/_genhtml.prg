@@ -339,11 +339,11 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
                   ENDIF
                CASE hb_LeftEq( cLine, "<table" )
                   lTable := .T.
-                  DO CASE
-                  CASE cLine == "<table-noheader>"     ; cHeaderClass := ""
-                  CASE cLine == "<table-doubleheader>" ; cHeaderClass := "d-t1 d-t2"
-                  OTHERWISE                            ; cHeaderClass := "d-t1"
-                  ENDCASE
+                  SWITCH cLine
+                  CASE "<table-noheader>"     ; cHeaderClass := "" ; EXIT
+                  CASE "<table-doubleheader>" ; cHeaderClass := "d-t1 d-t2" ; EXIT
+                  OTHERWISE                   ; cHeaderClass := "d-t1"
+                  ENDSWITCH
                CASE cLine == "</table>"
                   lTable := .F.
                OTHERWISE
