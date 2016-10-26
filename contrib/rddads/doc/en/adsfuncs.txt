@@ -958,7 +958,7 @@
    $RETURNS$
       <lActiveIndex>
    $DESCRIPTION$
-      Equivalent to <b>Empty( ordSetFocus() )<\b>, but faster.
+      Equivalent to <b>Empty( ordSetFocus() )</b>, but faster.
    $EXAMPLES$
 
    $STATUS$

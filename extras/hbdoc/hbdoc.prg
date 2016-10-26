@@ -967,8 +967,8 @@ STATIC FUNCTION Filename( cFile )
 CREATE CLASS Entry
 
    METHOD New( cTemplate )
-   METHOD IsField( c, nType )
-   METHOD IsConstraint( cSectionName, cSection )
+   METHOD IsField( cField, nType )
+   METHOD IsConstraint( cField, cSection )
    METHOD IsComplete( cIncompleteFieldsList )
    METHOD IsPreformatted( cField )
    METHOD IsRequired( cField )
@@ -1004,11 +1004,11 @@ METHOD New( cTemplate ) CLASS Entry
 
    RETURN self
 
-METHOD IsField( c, nType ) CLASS Entry
+METHOD IsField( cField, nType ) CLASS Entry
 
    LOCAL idx
 
-   IF ( idx := hb_HPos( sc_hFields, c ) ) > 0
+   IF ( idx := hb_HPos( sc_hFields, cField ) ) > 0
       IF ::_group[ idx ] == 0
       ELSEIF HB_ISNUMERIC( nType ) .AND. hb_bitAnd( ::_group[ idx ], nType ) != nType
       ELSE
@@ -1018,16 +1018,14 @@ METHOD IsField( c, nType ) CLASS Entry
 
    RETURN .F.
 
-METHOD IsConstraint( cSectionName, cSection ) CLASS Entry
+METHOD IsConstraint( cField, cSection ) CLASS Entry
 
-   LOCAL idx := hb_HPos( sc_hFields, cSectionName )
-
-   IF hb_bitAnd( ::_group[ idx ], hb_bitAnd( TPL_REQUIRED, TPL_OPTIONAL ) ) == 0
+   IF hb_bitAnd( ::_group[ hb_HPos( sc_hFields, cField ) ], hb_bitAnd( TPL_REQUIRED, TPL_OPTIONAL ) ) == 0
       RETURN .T.
-   ELSEIF cSectionName $ sc_hConstraint
+   ELSEIF cField $ sc_hConstraint
       RETURN ;
-         cSection $ sc_hConstraint[ cSectionName ] .OR. ;
-         Parse( cSection, "," ) $ sc_hConstraint[ cSectionName ]
+         cSection $ sc_hConstraint[ cField ] .OR. ;
+         Parse( cSection, "," ) $ sc_hConstraint[ cField ]
    ENDIF
 
    RETURN .T.
