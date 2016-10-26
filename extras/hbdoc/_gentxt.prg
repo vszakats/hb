@@ -72,7 +72,7 @@ CREATE CLASS GenerateText INHERIT TPLGenerate
 
    HIDDEN:
 
-   METHOD WriteEntry( cCaption, cEntry, lPreformatted )
+   METHOD WriteEntry( cCaption, cContent, lPreformatted )
    METHOD AddIndex( oEntry )
 
    PROTECTED:
@@ -119,7 +119,7 @@ METHOD BeginSection( cSection, cFilename ) CLASS GenerateText
 
 METHOD AddIndex( oEntry ) CLASS GenerateText
 
-   ::WriteEntry( oEntry:FieldName( "NAME" ), oEntry:fld[ "NAME" ] + " - " + oEntry:fld[ "ONELINER" ], .F. )
+   ::WriteEntry( FieldCaption( "NAME" ), oEntry:fld[ "NAME" ] + " - " + oEntry:fld[ "ONELINER" ], .F. )
 
    RETURN self
 
@@ -132,7 +132,7 @@ METHOD AddEntry( oEntry ) CLASS GenerateText
    ELSE
       FOR EACH item IN FieldIDList()
          IF oEntry:IsField( item ) .AND. oEntry:IsOutput( item ) .AND. Len( oEntry:fld[ item ] ) > 0
-            ::WriteEntry( oEntry:FieldName( item ), oEntry:fld[ item ], oEntry:IsPreformatted( item ) )
+            ::WriteEntry( FieldCaption( item ), oEntry:fld[ item ], oEntry:IsPreformatted( item ) )
          ENDIF
       NEXT
 
@@ -143,18 +143,18 @@ METHOD AddEntry( oEntry ) CLASS GenerateText
 
    RETURN self
 
-METHOD PROCEDURE WriteEntry( cCaption, cEntry, lPreformatted ) CLASS GenerateText
+METHOD PROCEDURE WriteEntry( cCaption, cContent, lPreformatted ) CLASS GenerateText
 
    LOCAL nIndent
 
-   IF ! Empty( cEntry )
+   IF ! Empty( cContent )
       nIndent := iif( HB_ISNULL( cCaption ), 0, 6 )
       IF ! HB_ISNULL( cCaption ) .AND. nIndent > 0
          ::cFile += Space( ::Depth * 6 ) + cCaption + ": " + hb_eol()
       ENDIF
       nIndent += ::Depth * 6
-      DO WHILE ! HB_ISNULL( cEntry )
-         ::cFile += Indent( Parse( @cEntry, hb_eol() ), nIndent, 70, lPreformatted )
+      DO WHILE ! HB_ISNULL( cContent )
+         ::cFile += Indent( Parse( @cContent, hb_eol() ), nIndent, 70, lPreformatted )
       ENDDO
    ENDIF
 

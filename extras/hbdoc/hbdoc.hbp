@@ -18,7 +18,6 @@ _genxml.prg
 
 # default -run params useful to update the online docs
 # on the Harbour website
--runflag=-format=html
--runflag=-output-single
+-runflag=-html
 
 {allgcc}-ldflag=-fno-lto

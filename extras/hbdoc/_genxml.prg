@@ -61,7 +61,7 @@ CREATE CLASS GenerateXML INHERIT TPLGenerate
 
    HIDDEN:
 
-   METHOD WriteEntry( cCaption, cEntry, lPreformatted )
+   METHOD WriteEntry( cCaption, cContent, lPreformatted )
 
 ENDCLASS
 
@@ -135,17 +135,17 @@ METHOD Generate() CLASS GenerateXML
 
    RETURN self
 
-METHOD PROCEDURE WriteEntry( cCaption, cEntry, lPreformatted ) CLASS GenerateXML
+METHOD PROCEDURE WriteEntry( cCaption, cContent, lPreformatted ) CLASS GenerateXML
 
-   IF ! Empty( cEntry )
+   IF ! Empty( cContent )
 
-      IF hb_eol() $ cEntry
-         cEntry := hb_eol() + cEntry
+      IF hb_eol() $ cContent
+         cContent := hb_eol() + cContent
       ENDIF
 
       ::cFile += ;
          Replicate( Chr( 9 ), ::Depth ) + "<" + cCaption + iif( lPreformatted, ' preformatted="yes"', "" ) + ">" + ;
-         hb_StrReplace( cEntry, { ;
+         hb_StrReplace( cContent, { ;
             "&" => "&amp;", ;
             '"' => "&quot;", ;
             "<" => "&lt;", ;

@@ -82,7 +82,7 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    METHOD EndSection( cSection, cFilename )
    METHOD Generate()
 
-   METHOD WriteEntry( cField, oEntry, lPreformatted ) HIDDEN
+   METHOD WriteEntry( cField, cContent, lPreformatted ) HIDDEN
 
    VAR nStart INIT hb_MilliSeconds()
 
@@ -239,7 +239,7 @@ METHOD AddEntry( oEntry ) CLASS GenerateHTML
             ::OpenTagInline( "h4" ):AppendInline( cEntry ):CloseTag( "h4" )
          ENDIF
       ELSEIF oEntry:IsField( item ) .AND. oEntry:IsOutput( item ) .AND. Len( oEntry:fld[ item ] ) > 0
-         ::WriteEntry( item, oEntry, oEntry:IsPreformatted( item ) )
+         ::WriteEntry( item, oEntry:fld[ item ], oEntry:IsPreformatted( item ) )
       ENDIF
    NEXT
 
@@ -247,78 +247,114 @@ METHOD AddEntry( oEntry ) CLASS GenerateHTML
 
    RETURN self
 
-METHOD PROCEDURE WriteEntry( cField, oEntry, lPreformatted ) CLASS GenerateHTML
+METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTML
 
    STATIC s_class := { ;
-      "name"     => "d-na", ;
-      "oneliner" => "d-ol", ;
-      "examples" => "d-ex", ;
-      "tests"    => "d-te" }
+      "NAME"     => "d-na", ;
+      "ONELINER" => "d-ol", ;
+      "EXAMPLES" => "d-ex", ;
+      "TESTS"    => "d-te" }
 
-   LOCAL cCaption := oEntry:FieldName( cField )
-   LOCAL cEntry := oEntry:fld[ cField ]
+   LOCAL cTagClass
+   LOCAL cCaption
    LOCAL lFirst
    LOCAL tmp, tmp1
+   LOCAL cLine
+   LOCAL lCode, lTable
 
-   /* TODO: change this to search the CSS document itself */
-   LOCAL cTagClass := hb_HGetDef( s_class, Lower( cField ), "d-it" )
+   IF ! Empty( cContent )
 
-   IF ! Empty( cEntry )
+      cTagClass := hb_HGetDef( s_class, cField, "d-it" )
 
-#if 0
-      hb_default( @lPreformatted, .F. )
-      hb_default( @cTagClass, "d-it" )
-#endif
-
-      hb_default( @cCaption, "" )
-      IF ! HB_ISNULL( cCaption )
+      IF ! HB_ISNULL( cCaption := FieldCaption( cField ) )
          ::Tagged( cCaption, "div", "class", "d-d" )
       ENDIF
 
-      IF lPreformatted
+      DO CASE
+      CASE lPreformatted  /* EXAMPLES, TESTS */
+
          ::OpenTag( "pre", "class", cTagClass )
-         ::Append( cEntry,, .T. )
+         ::Append( cContent,, .T. )
          ::CloseTag( "pre" )
-      ELSE
-         DO WHILE ! HB_ISNULL( cEntry )
 
-            SWITCH Lower( cField )
-            CASE "syntax"
-               ::OpenTagInline( "div", "class", cTagClass )
-               ::OpenTagInline( "code" )
-               ::AppendInline( Indent( Parse( @cEntry, hb_eol() ), 0, 70,, .T. ), "", .F. )
-               ::CloseTagInline( "code" )
-               EXIT
-            CASE "oneliner"
-               ::OpenTagInline( "div", "class", cTagClass )
-               ::AppendInline( Indent( Parse( @cEntry, hb_eol() ), 0, 70,, .T. ), "" )
-               EXIT
-            CASE "seealso"
-               ::OpenTagInline( "div", "class", cTagClass )
-               lFirst := .T.
-               FOR EACH tmp IN hb_ATokens( cEntry, "," )
-                  tmp := AllTrim( tmp )
-                  IF ! HB_ISNULL( tmp )
-                     // TOFIX: for multi-file output
-                     tmp1 := Parse( tmp, "(" )
-                     IF lFirst
-                        lFirst := .F.
-                     ELSE
-                        ::Space()
-                     ENDIF
-                     ::OpenTagInline( "code" ):OpenTagInline( "a", "href", "#" + SymbolToHTMLID( tmp1 ) ):AppendInline( tmp ):CloseTagInline( "a" ):CloseTagInline( "code" )
-                  ENDIF
-               NEXT
-               cEntry := ""
-               EXIT
-            OTHERWISE
-               ::OpenTagInline( "div", "class", cTagClass )
-               ::AppendInline( Indent( Parse( @cEntry, hb_eol() ), 0, 70,, .T. ), "" )
-            ENDSWITCH
+      CASE cField == "SEEALSO"
 
-            ::CloseTag( "div" )
+         ::OpenTagInline( "div", "class", cTagClass )
+         lFirst := .T.
+         FOR EACH tmp IN hb_ATokens( cContent, "," )
+            tmp := AllTrim( tmp )
+            IF ! HB_ISNULL( tmp )
+               // TOFIX: for multi-file output
+               tmp1 := Parse( tmp, "(" )
+               IF lFirst
+                  lFirst := .F.
+               ELSE
+                  ::Space()
+               ENDIF
+               ::OpenTagInline( "code" ):OpenTagInline( "a", "href", "#" + SymbolToHTMLID( tmp1 ) ):AppendInline( tmp ):CloseTagInline( "a" ):CloseTagInline( "code" )
+            ENDIF
+         NEXT
+         ::CloseTag( "div" )
+
+      CASE cField == "SYNTAX"
+
+         DO WHILE ! HB_ISNULL( cContent )
+            ::OpenTagInline( "div", "class", cTagClass ):OpenTagInline( "code" )
+            ::AppendInline( Indent( Parse( @cContent, hb_eol() ), 0, -1,, .T. ),, .F. )
+            ::CloseTagInline( "code" ):CloseTag( "div" )
          ENDDO
-      ENDIF
+
+      OTHERWISE
+
+         lTable := .F.
+
+         DO WHILE ! HB_ISNULL( cContent )
+
+            lCode := .F.
+
+            tmp1 := ""
+            DO WHILE ! HB_ISNULL( cContent )
+               cLine := Parse( @cContent, hb_eol() )
+               DO CASE
+               CASE hb_LeftEq( LTrim( cLine ), "```" )
+                  IF lCode
+                     EXIT
+                  ELSE
+                     lCode := .T.
+                  ENDIF
+               CASE cLine == "<fixed>"
+                  lCode := .T.
+               CASE cLine == "</fixed>"
+                  IF lCode
+                     EXIT
+                  ENDIF
+               CASE cLine == "<table>"
+                  lTable := .T.
+               CASE cLine == "</table>"
+                  lTable := .F.
+               OTHERWISE
+                  tmp1 += cLine + hb_eol()
+                  IF ! lCode
+                     EXIT
+                  ENDIF
+               ENDCASE
+            ENDDO
+
+            IF lCode
+               ::OpenTag( "pre", "class", cTagClass )
+               ::Append( tmp1,, .T. )
+            ELSE
+               ::OpenTagInline( "div", "class", cTagClass + iif( lTable, " " + "d-t", "" ) )
+               ::AppendInline( iif( lTable, StrTran( tmp1, " ", hb_UChar( 160 ) ), tmp1 ),, lTable )
+            ENDIF
+            IF lCode
+               ::CloseTag( "pre" )
+            ELSE
+               ::CloseTag( "div" )
+            ENDIF
+         ENDDO
+
+      ENDCASE
    ENDIF
 
    RETURN
@@ -370,7 +406,7 @@ METHOD CloseTag( cText ) CLASS GenerateHTML
 
    RETURN self
 
-METHOD AppendInline( cText, cFormat, lCode ) CLASS GenerateHTML
+STATIC FUNCTION StrEsc( cString )
 
    STATIC s_html := { ;
       "&" => "&amp;", ;
@@ -378,23 +414,114 @@ METHOD AppendInline( cText, cFormat, lCode ) CLASS GenerateHTML
       "<" => "&lt;", ;
       ">" => "&gt;" }
 
-   STATIC s_htmlall := { ;
-      "==>" => "&rarr;", ;
-      "-->" => "&rarr;", ;
-      "->" => "&rarr;", ;  /* valid Harbour code */
-      "&" => "&amp;", ;
-      '"' => "&quot;", ;
-      "<" => "&lt;", ;
-      ">" => "&gt;" }
+   RETURN hb_StrReplace( cString, s_html )
+
+METHOD AppendInline( cText, cFormat, lCode ) CLASS GenerateHTML
 
    LOCAL idx
 
+   LOCAL cChar, cPrev, cNext, cOut, tmp, tmp1, nLen
+   LOCAL lEM, lIT, lPR
+   LOCAL nEM, nIT, nPR
+   LOCAL cdp
+
    IF ! HB_ISNULL( cText )
 
-      IF hb_defaultValue( lCode, .F. )
-         cText := hb_StrReplace( cText, s_html )
+      hb_default( @lCode, .F. )
+
+      IF lCode
+         cText := StrEsc( cText )
       ELSE
-         cText := hb_StrReplace( cText, s_htmlall )
+         cdp := hb_cdpSelect( "EN" )  /* make processing loop much faster */
+
+         lEM := lIT := lPR := .F.
+         cOut := ""
+         nLen := Len( cText )
+         FOR tmp := 1 TO nLen
+
+            cPrev := iif( tmp > 1, SubStr( cText, tmp - 1, 1 ), "" )
+            cChar := SubStr( cText, tmp, 1 )
+            cNext := SubStr( cText, tmp + 1, 1 )
+
+            DO CASE
+            CASE ! lPR .AND. cChar == "\" .AND. tmp < Len( cText )
+               tmp++
+               cChar := cNext
+            CASE ! lPR .AND. cChar == "*" .AND. ! lIT .AND. ;
+                 iif( lEM, ! Empty( cPrev ) .AND. Empty( cNext ), Empty( cPrev ) .AND. ! Empty( cNext ) )
+               lEM := ! lEM
+               IF lEM
+                  nEM := Len( cOut ) + 1
+               ENDIF
+               cChar := iif( lEM, "<strong>", "</strong>" )
+            CASE ! lPR .AND. cChar == "_" .AND. ! lEM .AND. ;
+                 ( ( ! lIT .AND. Empty( cPrev ) .AND. ! Empty( cNext ) ) .OR. ;
+                   (   lIT .AND. ! Empty( cPrev ) .AND. Empty( cNext ) ) )
+               lIT := ! lIT
+               IF lIT
+                  nIT := Len( cOut ) + 1
+               ENDIF
+               cChar := iif( lIT, "<i>", "</i>" )
+            CASE cChar == "`" .AND. ;
+                 ( ( ! lPR .AND. Empty( cPrev ) .AND. ! Empty( cNext ) ) .OR. ;
+                   (   lPR .AND. ! Empty( cPrev ) .AND. Empty( cNext ) ) )
+               lPR := ! lPR
+               IF lPR
+                  nPR := Len( cOut ) + 1
+               ENDIF
+               cChar := iif( lPR, "<code>", "</code>" )
+            CASE ! lPR .AND. SubStr( cText, tmp, 3 ) == "<b>"
+               tmp += 2
+               cChar := "<strong>"
+            CASE ! lPR .AND. SubStr( cText, tmp, 4 ) == "</b>"
+               tmp += 3
+               cChar := "</strong>"
+            CASE ! lPR .AND. ;
+               ( SubStr( cText, tmp, 3 ) == "===" .OR. SubStr( cText, tmp, 3 ) == "---" )
+               DO WHILE tmp < nLen .AND. SubStr( cText, tmp, 1 ) == cChar
+                  tmp++
+               ENDDO
+               cChar := "<hr>"
+            CASE ! lPR .AND. ;
+               ( SubStr( cText, tmp, 5 ) == "<URL:" .AND. ( tmp1 := hb_At( ">", cText, tmp + 6 ) ) > 0 )
+               tmp1 := SubStr( cText, tmp + 5, tmp1 - tmp - 5 )
+               tmp += Len( tmp1 ) + 5
+               cChar := "<a href=" + '"' + tmp1 + '"' + ">" + tmp1 + "</a>"
+            CASE ! lPR .AND. ;
+               ( SubStr( cText, tmp, 3 ) == "==>" .OR. SubStr( cText, tmp, 3 ) == "-->" )
+               tmp += 2
+               cChar := "&rarr;"
+            CASE ! lPR .AND. ;
+               ( SubStr( cText, tmp, 2 ) == "->" )
+               tmp += 1
+               cChar := "&rarr;"
+            CASE cChar == "&"
+               cChar := "&amp;"
+            CASE cChar == '"'
+               cChar := "&quot;"
+            CASE cChar == "<"
+               cChar := "&lt;"
+            CASE cChar == ">"
+               cChar := "&gt;"
+            ENDCASE
+
+            cOut += cChar
+         NEXT
+
+         /* Remove these tags if they weren't closed */
+         IF lPR
+            cOut := Stuff( cOut, nPR, Len( "<code>" ), "`" )
+         ENDIF
+         IF lEM
+            cOut := Stuff( cOut, nEM, Len( "<strong>" ), "*" )
+         ENDIF
+         IF lIT
+            cOut := Stuff( cOut, nIT, Len( "<i>" ), "_" )
+         ENDIF
+
+         cText := cOut
+
+         hb_cdpSelect( cdp )
       ENDIF
 
       FOR EACH idx IN hb_ATokens( hb_defaultValue( cFormat, "" ), "," ) DESCEND
