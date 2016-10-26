@@ -148,11 +148,7 @@ STATIC PROCEDURE __hbdoc__read_langdir( aEntry, cDir, hMeta, aErrMsg )
    hMeta[ "_LANG" ] := hb_FNameName( hb_DirSepDel( cDir ) )
 
    nCount := 0
-<<<<<<< HEAD
    FOR EACH aFile IN hb_vfDirectory( cDir + hb_ps() + "*" + _HBDOC_SRC_EXT )
-=======
-   FOR EACH aFile IN Directory( cDir + hb_ps() + "*" + _HBDOC_SRC_EXT )
->>>>>>> c1bde054956ba044641860a6c105e8a30d3d8a17
       __hbdoc__read_file( aEntry, cDir + hb_ps() + aFile[ F_NAME ], hMeta, aErrMsg )
       ++nCount
    NEXT
