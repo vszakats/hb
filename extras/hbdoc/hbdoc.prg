@@ -455,7 +455,7 @@ STATIC FUNCTION NewLineVoodoo( cSectionIn )
             cSection += hb_eol()
          ENDIF
          nLastIndent := -1
-      ELSEIF AllTrim( cLine ) == "<table>" .OR. AllTrim( cLine ) == "<fixed>" .OR. hb_LeftEq( AllTrim( cLine ), '```' )
+      ELSEIF hb_LeftEq( AllTrim( cLine ), "<table" ) .OR. AllTrim( cLine ) == "<fixed>" .OR. hb_LeftEq( AllTrim( cLine ), '```' )
          IF !( Right( cSection, Len( hb_eol() ) ) == hb_eol() ) .OR. lPreformatted
             cSection += hb_eol()
          ENDIF
@@ -876,7 +876,7 @@ FUNCTION Indent( cText, nLeftMargin, nWidth, lRaw, lForceRaw )
       cResult := Join( aText, hb_eol() ) + hb_eol() + hb_eol()
    ELSE
       FOR EACH cLine IN aText
-         IF cLine == "<table>" .OR. cLine == "<fixed>"
+         IF hb_LeftEq( cLine, "<table" ) .OR. cLine == "<fixed>"
             lRaw := .T.
          ELSEIF cLine == "</table>" .OR. cLine == "</fixed>"
             cResult += hb_eol()

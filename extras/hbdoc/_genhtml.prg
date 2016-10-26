@@ -85,6 +85,7 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    METHOD WriteEntry( cField, cContent, lPreformatted ) HIDDEN
 
    VAR nStart INIT hb_MilliSeconds()
+   VAR nIndent INIT 0
 
 ENDCLASS
 
@@ -260,7 +261,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
    LOCAL lFirst
    LOCAL tmp, tmp1
    LOCAL cLine
-   LOCAL lCode, lTable
+   LOCAL lCode, lTable, lTablePrev, cHeaderClass
 
    IF ! Empty( cContent )
 
@@ -298,23 +299,31 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
 
       CASE cField == "SYNTAX"
 
+         ::OpenTagInline( "div", "class", cTagClass )
          DO WHILE ! HB_ISNULL( cContent )
-            ::OpenTagInline( "div", "class", cTagClass ):OpenTagInline( "code" )
+            ::OpenTagInline( "code" )
             ::AppendInline( Indent( Parse( @cContent, hb_eol() ), 0, -1,, .T. ),, .F. )
-            ::CloseTagInline( "code" ):CloseTag( "div" )
+            ::CloseTagInline( "code" )
          ENDDO
+         ::CloseTag( "div" )
 
       OTHERWISE
+
+         ::OpenTag( "div", "class", cTagClass )
+         ::nIndent++
 
          lTable := .F.
 
          DO WHILE ! HB_ISNULL( cContent )
 
             lCode := .F.
+            lTablePrev := lTable
 
             tmp1 := ""
             DO WHILE ! HB_ISNULL( cContent )
+
                cLine := Parse( @cContent, hb_eol() )
+
                DO CASE
                CASE hb_LeftEq( LTrim( cLine ), "```" )
                   IF lCode
@@ -328,8 +337,13 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
                   IF lCode
                      EXIT
                   ENDIF
-               CASE cLine == "<table>"
+               CASE hb_LeftEq( cLine, "<table" )
                   lTable := .T.
+                  DO CASE
+                  CASE cLine == "<table-noheader>"     ; cHeaderClass := ""
+                  CASE cLine == "<table-doubleheader>" ; cHeaderClass := "d-t1 d-t2"
+                  OTHERWISE                            ; cHeaderClass := "d-t1"
+                  ENDCASE
                CASE cLine == "</table>"
                   lTable := .F.
                OTHERWISE
@@ -340,19 +354,34 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
                ENDCASE
             ENDDO
 
-            IF lCode
-               ::OpenTag( "pre", "class", cTagClass )
-               ::Append( tmp1,, .T. )
-            ELSE
-               ::OpenTagInline( "div", "class", cTagClass + iif( lTable, " " + "d-t", "" ) )
-               ::AppendInline( iif( lTable, StrTran( tmp1, " ", hb_UChar( 160 ) ), tmp1 ),, lTable )
+            IF lTable != lTablePrev
+               IF lTable
+                  ::OpenTag( "div", "class", "d-t" + iif( HB_ISNULL( cHeaderClass ), "", " " + cHeaderClass ) )
+               ELSE
+                  ::CloseTag( "div" )
+               ENDIF
             ENDIF
+
+            DO CASE
+            CASE lCode
+               ::OpenTag( "pre" )
+               ::Append( tmp1,, .T. )
+            CASE lTable
+               ::OpenTagInline( "div" )
+               ::AppendInline( iif( lTable, StrTran( tmp1, " ", hb_UChar( 160 ) ), tmp1 ),, .T. )
+            OTHERWISE
+               ::OpenTagInline( "div" )
+               ::AppendInline( iif( lTable, StrTran( tmp1, " ", hb_UChar( 160 ) ), tmp1 ),, .F. )
+            ENDCASE
             IF lCode
                ::CloseTag( "pre" )
             ELSE
                ::CloseTag( "div" )
             ENDIF
          ENDDO
+
+         ::nIndent--
+         ::CloseTag( "div" )
 
       ENDCASE
    ENDIF
@@ -368,6 +397,9 @@ METHOD OpenTagInline( cText, ... ) CLASS GenerateHTML
       cText += " " + aArgs[ idx ] + "=" + '"' + aArgs[ idx + 1 ] + '"'
    NEXT
 
+   IF ! cText $ "pre"
+      ::cFile += Replicate( "  ", ::nIndent )
+   ENDIF
    ::cFile += "<" + cText + ">"
 
    RETURN self

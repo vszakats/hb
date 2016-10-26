@@ -121,7 +121,7 @@
 
       <nType>   The type of operation:
 
-      <table>
+      <table-noheader>
       ADS_AOF_ADD_RECORD      Add the record to the AOF (set the bit). This is the default operation.
       ADS_AOF_REMOVE_RECORD   Remove the record from the AOF (clear the bit).
       ADS_AOF_TOGGLE_RECORD   Switch the record into or out of the AOF.
@@ -507,7 +507,7 @@
 
       Options are defined in ads.ch:
 
-      <table>
+      <table-noheader>
          ADS_RESPECTFILTERS   Respect filters and scopes
          ADS_IGNOREFILTERS    Ignore filters and scopes
          ADS_RESPECTSCOPES    Respect scopes only
@@ -554,8 +554,8 @@
 
       <nFilterOption> Indicates if filters and/or scopes are to be respected if set.
 
-      <table>
       Options are defined in ads.ch:
+      <table-noheader>
          ADS_RESPECTFILTERS   Respect filters and scopes
          ADS_IGNOREFILTERS    Ignore filters and scopes
          ADS_RESPECTSCOPES    Respect scopes only
