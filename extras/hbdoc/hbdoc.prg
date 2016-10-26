@@ -112,6 +112,7 @@ PROCEDURE Main( ... )
    LOCAL aContent
    LOCAL cCat1, cCat1Prev
    LOCAL cCat2, cCat2Prev
+   LOCAL cName
 
    LOCAL generatorClass
 
@@ -226,18 +227,19 @@ PROCEDURE Main( ... )
          SWITCH s_hSwitches[ "output" ]
          CASE "single"
 
-            oDocument := Eval( generatorClass ):NewDocument( cFormat, "harbour", "Harbour Reference Guide", s_hSwitches[ "lang" ] )
-
-            oIndex := Eval( generatorClass ):NewIndex( cFormat, "index", hb_StrFormat( "Harbour Reference Guide — %1$s", "Index" ) )
+            oIndex := Eval( generatorClass ):NewIndex( cFormat, "index", hb_StrFormat( "Harbour Reference Guide — %1$s", "Index" ), s_hSwitches[ "lang" ] )
 
             FOR EACH tmp IN ASort( hb_HKeys( s_hComponent ),,, {| x, y | SortWrightPkg( x ) < SortWrightPkg( y ) } )
 
                cCat1Prev := cCat2Prev := NIL
 
-               oIndex:BeginSection( ;
-                  iif( tmp == "harbour", ;
-                     "Harbour core", ;
-                     hb_StrFormat( "%1$s contrib", tmp ) ), oDocument:cFilename )
+               cName := iif( tmp == "harbour", ;
+                  "Harbour core", ;
+                  hb_StrFormat( "%1$s contrib", tmp ) )
+
+               oDocument := Eval( generatorClass ):NewDocument( cFormat, tmp, hb_StrFormat( "Harbour Reference Guide — %1$s", cName ), s_hSwitches[ "lang" ] )
+
+               oIndex:BeginSection( cName, oDocument:cFilename )
 
                FOR EACH item IN aContent
                   IF item:_type == tmp
@@ -282,12 +284,13 @@ PROCEDURE Main( ... )
                ENDIF
 
                oIndex:EndSection()
+
+               oDocument:Generate()
             NEXT
 
             oIndex:Generate()
             oIndex := NIL
 
-            oDocument:Generate()
             oDocument := NIL
 
             EXIT

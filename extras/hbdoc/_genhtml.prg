@@ -247,7 +247,7 @@ METHOD AddReference( oEntry, cReference, cSubReference ) CLASS GenerateHTML
    DO CASE
    CASE HB_ISOBJECT( oEntry )
       ::OpenTagInline( "li" )
-      ::OpenTagInline( "a", "href", ::TargetFilename + ::cExtension + "#" + oEntry:_filename )
+      ::OpenTagInline( "a", "href", ::TargetFilename + ::cExtension + "#" + SymbolToHTMLID( oEntry:_filename ) )
       ::AppendInline( oEntry:fld[ "NAME" ] )
       ::CloseTagInline( "a" )
       ::OpenTagInline( "div", "class", "d-r" )
