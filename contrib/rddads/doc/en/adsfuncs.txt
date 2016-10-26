@@ -1375,37 +1375,3 @@
       AdsCacheOpenTables(), AdsCacheOpenCursors()
    $END$
  */
-
-/* $DOC$
-   $NAME$
-      xxx()
-   $CATEGORY$
-      Advantage Database RDD
-   $ONELINER$
-      xxx
-   $SYNTAX$
-      xxx( <lMode> ) --> lPriorSetting
-   $ARGUMENTS$
-      <lMode>    xxx
-      xxx
-
-   $RETURNS$
-      <lPriorSetting>
-   $DESCRIPTION$
-      See ace.hlp for full details about the Advantage Database Server.
-      AdsRightsCheck() is a Get/Set function for the "rights checking" mode.
-   $EXAMPLES$
-
-   $STATUS$
-      R
-   $COMPLIANCE$
-      Harbour extension
-   $PLATFORMS$
-      Windows, Linux
-   $FILES$
-      Library is rddads
-      Header is ads.ch
-   $SEEALSO$
-      xxx()
-   $END$
- */

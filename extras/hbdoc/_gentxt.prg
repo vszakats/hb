@@ -59,14 +59,14 @@ METHOD NewDocument( cDir, cFilename, cTitle, cLang ) CLASS GenerateAscii
    ::lContinuous := .T.
    ::super:NewDocument( cDir, cFilename, cTitle,, cLang )
 
-   RETURN self
+   RETURN Self
 
 METHOD NewIndex( cDir, cFilename, cTitle, cLang ) CLASS GenerateAscii
 
    ::lContinuous := .T.
    ::super:NewIndex( cDir, cFilename, cTitle,, cLang )
 
-   RETURN self
+   RETURN Self
 
 CREATE CLASS GenerateText INHERIT TPLGenerate
 
@@ -97,31 +97,31 @@ METHOD NewDocument( cDir, cFilename, cTitle, cLang ) CLASS GenerateText
    ::super:NewDocument( cDir, cFilename, cTitle, ".txt", cLang )
    ::WriteEntry( "", cTitle + hb_eol(), .F. )
 
-   RETURN self
+   RETURN Self
 
 METHOD NewIndex( cDir, cFilename, cTitle, cLang ) CLASS GenerateText
 
    ::super:NewIndex( cDir, cFilename, cTitle, ".txt", cLang )
    ::WriteEntry( "", cTitle + hb_eol(), .F. )
 
-   RETURN self
+   RETURN Self
 
 METHOD BeginSection( cSection, cFilename ) CLASS GenerateText
 
-   IF ::Depth == 0
+   IF ::nDepth == 0
       ::WriteEntry( "", cSection + " (see " + cFilename + ::cExtension + "):", .F. )
    ELSE
       ::WriteEntry( "", cSection + ":", .F. )
    ENDIF
-   ::Depth++
+   ::nDepth++
 
-   RETURN self
+   RETURN Self
 
 METHOD AddIndex( oEntry ) CLASS GenerateText
 
    ::WriteEntry( FieldCaption( "NAME" ), oEntry:fld[ "NAME" ] + " - " + oEntry:fld[ "ONELINER" ], .F. )
 
-   RETURN self
+   RETURN Self
 
 METHOD AddEntry( oEntry ) CLASS GenerateText
 
@@ -141,7 +141,7 @@ METHOD AddEntry( oEntry ) CLASS GenerateText
       ENDIF
    ENDIF
 
-   RETURN self
+   RETURN Self
 
 METHOD PROCEDURE WriteEntry( cCaption, cContent, lPreformatted ) CLASS GenerateText
 
@@ -150,9 +150,9 @@ METHOD PROCEDURE WriteEntry( cCaption, cContent, lPreformatted ) CLASS GenerateT
    IF ! Empty( cContent )
       nIndent := iif( HB_ISNULL( cCaption ), 0, 6 )
       IF ! HB_ISNULL( cCaption ) .AND. nIndent > 0
-         ::cFile += Space( ::Depth * 6 ) + cCaption + ": " + hb_eol()
+         ::cFile += Space( ::nDepth * 6 ) + cCaption + ": " + hb_eol()
       ENDIF
-      nIndent += ::Depth * 6
+      nIndent += ::nDepth * 6
       DO WHILE ! HB_ISNULL( cContent )
          ::cFile += Indent( Parse( @cContent, hb_eol() ), nIndent, 70, lPreformatted )
       ENDDO
@@ -166,4 +166,4 @@ METHOD Generate() CLASS GenerateText
 
    ::super:Generate()
 
-   RETURN self
+   RETURN Self

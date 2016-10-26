@@ -56,8 +56,8 @@ CREATE CLASS TPLGenerate
    METHOD NewDocument( cDir, cFilename, cTitle, cExtension, cLang )
    METHOD AddEntry( oEntry ) INLINE HB_SYMBOL_UNUSED( oEntry ), NIL
    METHOD AddReference( oEntry ) INLINE HB_SYMBOL_UNUSED( oEntry ), NIL
-   METHOD BeginSection( cSection, cFilename ) INLINE HB_SYMBOL_UNUSED( cSection ), HB_SYMBOL_UNUSED( cFilename ), ::Depth++
-   METHOD EndSection( cSection, cFilename ) INLINE HB_SYMBOL_UNUSED( cSection ), HB_SYMBOL_UNUSED( cFilename ), ::Depth--
+   METHOD BeginSection( cSection, cFilename ) INLINE HB_SYMBOL_UNUSED( cSection ), HB_SYMBOL_UNUSED( cFilename ), ::nDepth++
+   METHOD EndSection( cSection, cFilename ) INLINE HB_SYMBOL_UNUSED( cSection ), HB_SYMBOL_UNUSED( cFilename ), ::nDepth--
    METHOD Generate()
    METHOD IsIndex() INLINE ::nType == INDEX_
 
@@ -70,7 +70,7 @@ CREATE CLASS TPLGenerate
    PROTECTED:
 
    VAR nType AS INTEGER
-   VAR Depth AS INTEGER INIT 0
+   VAR nDepth AS INTEGER INIT 0
 
    VAR cFile AS STRING INIT ""
    VAR cDir AS STRING
@@ -85,13 +85,13 @@ METHOD NewIndex( cDir, cFilename, cTitle, cExtension, cLang ) CLASS TPLGenerate
 
    ::New( cDir, cFilename, cTitle, cExtension, cLang, INDEX_ )
 
-   RETURN self
+   RETURN Self
 
 METHOD NewDocument( cDir, cFilename, cTitle, cExtension, cLang ) CLASS TPLGenerate
 
    ::New( cDir, cFilename, cTitle, cExtension, cLang, DOCUMENT_ )
 
-   RETURN self
+   RETURN Self
 
 METHOD New( cDir, cFilename, cTitle, cExtension, cLang, nType ) CLASS TPLGenerate
 
@@ -108,7 +108,7 @@ METHOD New( cDir, cFilename, cTitle, cExtension, cLang, nType ) CLASS TPLGenerat
       iif( Lower( ::cLang ) == "en", "", "." + ::cLang ) + ;
       ::cExtension
 
-   RETURN self
+   RETURN Self
 
 METHOD Generate() CLASS TPLGenerate
 
@@ -121,4 +121,4 @@ METHOD Generate() CLASS TPLGenerate
 
    hb_MemoWrit( ::cOutFileName, ::cFile )
 
-   RETURN self
+   RETURN Self

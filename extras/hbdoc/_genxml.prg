@@ -72,7 +72,7 @@ METHOD NewDocument( cDir, cFilename, cTitle, cLang ) CLASS GenerateXML
      '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' + hb_eol() + ;
      '<HarbourReference>' + hb_eol()
 
-   RETURN self
+   RETURN Self
 
 METHOD NewIndex( cDir, cFilename, cTitle, cLang ) CLASS GenerateXML
 
@@ -81,33 +81,33 @@ METHOD NewIndex( cDir, cFilename, cTitle, cLang ) CLASS GenerateXML
      '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' + hb_eol() + ;
      '<HarbourReference>' + hb_eol()
 
-   RETURN self
+   RETURN Self
 
 METHOD BeginSection( cSection, cFilename ) CLASS GenerateXML
 
-   IF ::Depth == 0
-      ::cFile += Replicate( Chr( 9 ), ::Depth ) + '<Section name="' + cSection + '" file="' + cFilename + ::cExtension + '">' + hb_eol()
+   IF ::nDepth == 0
+      ::cFile += Replicate( Chr( 9 ), ::nDepth ) + '<Section name="' + cSection + '" file="' + cFilename + ::cExtension + '">' + hb_eol()
    ELSE
-      ::cFile += Replicate( Chr( 9 ), ::Depth ) + '<Section name="' + cSection + '">' + hb_eol()
+      ::cFile += Replicate( Chr( 9 ), ::nDepth ) + '<Section name="' + cSection + '">' + hb_eol()
    ENDIF
-   ::Depth++
+   ::nDepth++
 
-   RETURN self
+   RETURN Self
 
 METHOD EndSection( cSection, cFilename ) CLASS GenerateXML
 
    HB_SYMBOL_UNUSED( cSection )
    HB_SYMBOL_UNUSED( cFilename )
-   ::Depth--
-   ::cFile += Replicate( Chr( 9 ), ::Depth ) + '</Section>' + hb_eol()
+   ::nDepth--
+   ::cFile += Replicate( Chr( 9 ), ::nDepth ) + '</Section>' + hb_eol()
 
-   RETURN self
+   RETURN Self
 
 METHOD AddIndex( oEntry ) CLASS GenerateXML
 
    ::WriteEntry( "ENTRY", oEntry:fld[ "NAME" ] + " - " + oEntry:fld[ "ONELINER" ], .F. )
 
-   RETURN self
+   RETURN Self
 
 METHOD AddEntry( oEntry ) CLASS GenerateXML
 
@@ -117,15 +117,15 @@ METHOD AddEntry( oEntry ) CLASS GenerateXML
       ::AddIndex( oEntry )
    ELSE
       ::cFile += '<Entry>' + hb_eol()
-      ::Depth++
+      ::nDepth++
       FOR EACH item IN FieldIDList()
          ::WriteEntry( item, oEntry:fld[ item ], oEntry:IsPreformatted( item ) )
       NEXT
-      ::Depth--
+      ::nDepth--
       ::cFile += '</Entry>' + hb_eol()
    ENDIF
 
-   RETURN self
+   RETURN Self
 
 METHOD Generate() CLASS GenerateXML
 
@@ -133,7 +133,7 @@ METHOD Generate() CLASS GenerateXML
 
    ::super:Generate()
 
-   RETURN self
+   RETURN Self
 
 METHOD PROCEDURE WriteEntry( cCaption, cContent, lPreformatted ) CLASS GenerateXML
 
@@ -144,7 +144,7 @@ METHOD PROCEDURE WriteEntry( cCaption, cContent, lPreformatted ) CLASS GenerateX
       ENDIF
 
       ::cFile += ;
-         Replicate( Chr( 9 ), ::Depth ) + "<" + cCaption + iif( lPreformatted, ' preformatted="yes"', "" ) + ">" + ;
+         Replicate( Chr( 9 ), ::nDepth ) + "<" + cCaption + iif( lPreformatted, ' preformatted="yes"', "" ) + ">" + ;
          hb_StrReplace( cContent, { ;
             "&" => "&amp;", ;
             '"' => "&quot;", ;

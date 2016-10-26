@@ -6,7 +6,7 @@
    $CATEGORY$
       Document
    $ONELINER$
-      Read me file for Idle States
+      Readme file for Idle States
    $DESCRIPTION$
       The idle state is the state of the Harbour virtual machine when it
       waits for the user input from the keyboard or the mouse. The idle

@@ -24,7 +24,7 @@ footer {
   line-height: 150%;
   margin: auto;
   padding: .6em 1em;
-  height: 90px;
+  height: 60px;
   text-align: center;
   width: auto;
 }
@@ -45,7 +45,7 @@ footer a:active {
 }
 
 main {
-  margin: 0 10px;
+  margin: 0 20px;
 }
 
 main section:first-child {
@@ -67,7 +67,6 @@ a:hover {
 hr {
   border: 0;
   border-bottom: 1px dotted rgba(0, 0, 0, .1);
-  width: 75%;
   margin-left: 0;
 }
 
@@ -78,11 +77,18 @@ h1 {
   margin: 0;
 }
 
+h2 {
+  font-size: 150%;
+  font-weight: bold;
+  padding: 14px 0;
+  margin: 0;
+}
+
 section {
   border-top: 1px solid rgba(0, 0, 0, .1);
   margin-top: 0;
   margin-bottom: 0;
-  padding: 1em .6em;
+  padding: 1em 0;
 }
 
 h4 {
@@ -110,6 +116,19 @@ code, .d-t {
 p {
   margin-top: 1em;
   margin-bottom: 1em;
+}
+
+.d-x {
+  border-top: 1px solid rgba(0, 0, 0, .1);
+  margin-top: 20px;
+  padding: 0;
+}
+
+.d-r {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  padding-left: 10px;
 }
 
 .d-it div:first-child p {
@@ -175,4 +194,33 @@ p {
 .d-te {
   margin-left: 1em;
   padding-bottom: 8px;
+}
+
+.d-sc {
+  color: #333;
+  font-size: 100%;
+  overflow: hidden;
+  text-align: center;
+}
+
+.d-sc:before,
+.d-sc:after {
+  border: 0;
+  border-bottom: 1px dotted rgba(0, 0, 0, .1);
+  content: '';
+  display: inline-block;
+  height: 1px;
+  position: relative;
+  vertical-align: middle;
+  width: 50%;
+}
+
+.d-sc:before {
+  right: .5em;
+  margin-left: -50%;
+}
+
+.d-sc:after {
+  left: .5em;
+  margin-right: -50%;
 }

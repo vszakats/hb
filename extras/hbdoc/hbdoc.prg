@@ -110,6 +110,8 @@ PROCEDURE Main( ... )
    LOCAL cFormat
    LOCAL oDocument, oIndex
    LOCAL aContent
+   LOCAL cCat1, cCat1Prev
+   LOCAL cCat2, cCat2Prev
 
    LOCAL generatorClass
 
@@ -221,41 +223,87 @@ PROCEDURE Main( ... )
 
          OutStd( "Output as", cFormat + hb_eol() )
 
-         DO CASE
-         CASE s_hSwitches[ "output" ] == "single"
+         SWITCH s_hSwitches[ "output" ]
+         CASE "single"
+
+            oDocument := Eval( generatorClass ):NewDocument( cFormat, "harbour", "Harbour Reference Guide", s_hSwitches[ "lang" ] )
+
+            oIndex := Eval( generatorClass ):NewIndex( cFormat, "index", hb_StrFormat( "Harbour Reference Guide — %1$s", "Index" ) )
+
+            FOR EACH tmp IN ASort( hb_HKeys( s_hComponent ),,, {| x, y | SortWrightPkg( x ) < SortWrightPkg( y ) } )
+
+               cCat1Prev := cCat2Prev := NIL
+
+               oIndex:BeginSection( ;
+                  iif( tmp == "harbour", ;
+                     "Harbour core", ;
+                     hb_StrFormat( "%1$s contrib", tmp ) ), oDocument:cFilename )
+
+               FOR EACH item IN aContent
+                  IF item:_type == tmp
+                     oDocument:AddEntry( item )
+
+                     cCat1 := item:fld[ "CATEGORY" ]
+                     IF cCat1Prev == NIL .OR. !( cCat1 == cCat1Prev )
+                        IF cCat1Prev != NIL
+                           oIndex:EndSection()
+                        ENDIF
+                        oIndex:BeginSection( cCat1 )
+                        cCat1Prev := cCat1
+                     ENDIF
+
+                     cCat2 := hb_defaultValue( item:fld[ "SUBCATEGORY" ], "" )
+                     IF cCat2Prev == NIL .OR. !( cCat2 == cCat2Prev )
+// #define SUBCAT_INDENT
+#ifdef SUBCAT_INDENT
+                        IF cCat2Prev != NIL
+                           oIndex:EndSection()
+                        ENDIF
+                        oIndex:BeginSection( cCat2 )
+#else
+                        IF cCat2Prev != NIL
+                           oIndex:SubCategory( cCat2 )
+                        ENDIF
+#endif
+                        cCat2Prev := cCat2
+                     ENDIF
+
+                     oIndex:AddReference( item )
+                  ENDIF
+               NEXT
+
+#ifdef SUBCAT_INDENT
+               IF cCat2Prev != NIL
+                  oIndex:EndSection()
+               ENDIF
+#endif
+               IF cCat1Prev != NIL
+                  oIndex:EndSection()
+               ENDIF
+
+               oIndex:EndSection()
+            NEXT
+
+            oIndex:Generate()
+            oIndex := NIL
+
+            oDocument:Generate()
+            oDocument := NIL
+
+            EXIT
+
+         CASE "component"
 
             oDocument := Eval( generatorClass ):NewDocument( cFormat, "harbour", "Harbour Reference Guide", s_hSwitches[ "lang" ] )
 
             FOR EACH item IN aContent
                IF item:_type == "harbour"
                   oDocument:AddEntry( item )
-               ENDIF
-            NEXT
-
-            FOR EACH tmp IN ASort( hb_HKeys( s_hComponent ) )
-               IF !( tmp == "harbour" )
-                  FOR EACH item IN aContent
-                     IF item:_type == tmp .AND. ;
-                        oDocument:AddEntry( item )
-                     ENDIF
-                  NEXT
                ENDIF
             NEXT
 
             oDocument:Generate()
             oDocument := NIL
-
-         CASE s_hSwitches[ "output" ] == "component"
-
-            oDocument := Eval( generatorClass ):NewDocument( cFormat, "harbour", "Harbour Reference Guide", s_hSwitches[ "lang" ] )
-
-            FOR EACH item IN aContent
-               IF item:_type == "harbour"
-                  oDocument:AddEntry( item )
-               ENDIF
-            NEXT
-
-            oDocument:Generate()
 
             FOR EACH tmp IN ASort( hb_HKeys( s_hComponent ) )
                IF !( tmp == "harbour" )
@@ -273,15 +321,15 @@ PROCEDURE Main( ... )
 
             oDocument := NIL
 
-         CASE s_hSwitches[ "output" ] == "category"
+            EXIT
+
+         CASE "category"
 
             oIndex := Eval( generatorClass ):NewIndex( cFormat, "harbour", "Harbour Reference Guide" )
 
             FOR EACH item IN aContent
                IF Right( item:_sourcefile, Len( "1stread.txt" ) ) == "1stread.txt"
-                  IF oIndex != NIL
-                     oIndex:AddEntry( item )
-                  ENDIF
+                  oIndex:AddEntry( item )
                   EXIT
                ENDIF
             NEXT
@@ -294,76 +342,67 @@ PROCEDURE Main( ... )
 
                oDocument := Eval( generatorClass ):NewDocument( cFormat, item[ 3 ], hb_StrFormat( "Harbour Reference Guide — %1$s", item:__enumKey() ), s_hSwitches[ "lang" ] )
 
-               IF oIndex != NIL
-                  oIndex:BeginSection( item:__enumKey(), oDocument:cFilename )
-               ENDIF
+               oIndex:BeginSection( item:__enumKey(), oDocument:cFilename )
                oDocument:BeginSection( item:__enumKey(), oDocument:cFilename )
 
                FOR idx := 1 TO Len( item[ 2 ] )
                   IF ! Empty( item[ 2 ][ idx ] )
                      ASort( item[ 2 ][ idx ], , , {| oL, oR | oL:fld[ "NAME" ] <= oR:fld[ "NAME" ] } )
                      IF Len( item[ 1 ][ idx ] ) > 0
-                        IF oIndex != NIL
-                           oIndex:BeginSection( item[ 1 ][ idx ], oDocument:cFilename )
-                        ENDIF
+                        oIndex:BeginSection( item[ 1 ][ idx ], oDocument:cFilename )
                         oDocument:BeginSection( item[ 1 ][ idx ], oDocument:cFilename )
                      ENDIF
                      FOR EACH item4 IN item[ 2 ][ idx ]
                         IF ! Empty( item4 )
                            IF !( Right( item4:_sourcefile, Len( "1stread.txt" ) ) == "1stread.txt" )
-                              IF oIndex != NIL
-                                 oIndex:AddReference( item4 )
-                              ENDIF
+                              oIndex:AddReference( item4 )
                               oDocument:AddEntry( item4 )
-                              IF oIndex != NIL
-                                 oDocument:AddReference( "Index", oIndex:cFilename )
-                                 /* this kind of works; the reference is outputed but it is not what I meant */
-                                 oDocument:AddReference( item:__enumKey(), oIndex:cFilename, item[ 3 ] )
-                              ENDIF
+
+                              oDocument:AddReference( "Index", oIndex:cFilename )
+                              /* this kind of works; the reference is outputed but it is not what I meant */
+                              oDocument:AddReference( item:__enumKey(), oIndex:cFilename, item[ 3 ] )
                            ENDIF
                         ENDIF
                      NEXT
                      IF Len( item[ 1 ][ idx ] ) > 0
-                        IF oIndex != NIL
-                           oIndex:EndSection( item[ 1 ][ idx ], oDocument:cFilename )
-                        ENDIF
-                        oDocument:EndSection( item[ 1 ][ idx ], oDocument:cFilename )
+                        oIndex:EndSection()
+                        oDocument:EndSection()
                      ENDIF
                   ENDIF
                NEXT
-               IF oIndex != NIL
-                  oIndex:EndSection( item:__enumKey(), oDocument:cFilename )
-               ENDIF
-               oDocument:EndSection( item:__enumKey(), oDocument:cFilename )
+               oIndex:EndSection()
+               oDocument:EndSection()
                oDocument:Generate()
+               oDocument := NIL
             NEXT
 
-         CASE s_hSwitches[ "output" ] == "entry"
+            oIndex:Generate()
+            oIndex := NIL
+
+            EXIT
+
+         CASE "entry"
 
             FOR EACH item IN aContent
                oDocument := Eval( generatorClass ):NewDocument( cFormat, item:_filename, "Harbour Reference Guide", s_hSwitches[ "lang" ] )
-               IF oIndex != NIL
-                  oIndex:AddEntry( item )
-               ENDIF
                oDocument:AddEntry( item )
                oDocument:Generate()
+               oDocument := NIL
             NEXT
 
-         ENDCASE
+            EXIT
 
-         oDocument := NIL
-
-         IF oIndex != NIL
-            oIndex:Generate()
-            oIndex := NIL
-         ENDIF
-
+         ENDSWITCH
       ENDIF
    NEXT
 
    OutStd( hb_eol() )
 
    RETURN
+
+/* Begin with Harbour core section */
+STATIC FUNCTION SortWrightPkg( cString )
+   RETURN iif( cString == "harbour", "A", "B" ) + cString
 
 STATIC FUNCTION SortWeight( cString )
 
@@ -1002,7 +1041,7 @@ METHOD New( cTemplate ) CLASS Entry
       ::fld[ key ] := iif( key == "TEMPLATE", cTemplate, iif( ::_group[ idx ] == TPL_REQUIRED,, "" ) )
    NEXT
 
-   RETURN self
+   RETURN Self
 
 METHOD IsField( cField, nType ) CLASS Entry
 
