@@ -5,7 +5,7 @@ title: "Mailing Lists"
 # Mailing Lists
 
 <div markdown="1" class="list-bubble">
-<div><i class="fa fa-user" aria-hidden="true"></i></div>
+<div><i class="fa fa-user-circle-o" aria-hidden="true"></i></div>
 <div markdown="1">
 
 ## for Using Harbour
