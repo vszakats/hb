@@ -30,7 +30,7 @@ You can create high performance dialogs with multiple TBrowser, Reads,
 Bitmaps, Buttons, i.e. all GUI elements you can think of.
 
 {% if site.fork %}
-## gtwvw (Windows-only)
+## [gtwvw](https://harbour.github.io/doc/gtwvw.html) (Windows-only)
 
 A `GTWVG` alternative with multi-window support.
 
@@ -65,7 +65,7 @@ hash functions, [SHA-3](https://en.wikipedia.org/wiki/SHA-3) secure hash
 functions, [ed25519](https://en.wikipedia.org/wiki/EdDSA) digital signature functions.
 
 {% endif %}
-## hbct
+## [hbct](https://harbour.github.io/doc/hbct.html)
 
 This library provides functions compatible with the famous Clipper Tools for
 CA-Clipper (`CT.LIB`).
@@ -113,7 +113,7 @@ FoxPro compatibility
 
 FlagShip compatibility
 
-## hbgd
+## [hbgd](https://harbour.github.io/doc/hbgd.html)
 
 Thomas Boutell's GD 2.x library bindings. GD Library is a powerful graphic
 library, useful expecially under CGI environment. `hbgd` supports almost all
@@ -121,17 +121,13 @@ GD functions, plus a set of extra functions and classes that extend and make
 it easier to work with this library.
 <span class="readmore-md">[Read more](https://libgd.github.io/)</span>
 
-## hbgt
-
-Miscellaneous functions for manipulating strings.
-
 ## hbgs
 
 Ghostscript bindings (imaging)
 
-## hbgt
+## [hbgt](https://harbour.github.io/doc/hbgt.html)
 
-GT library (string functions)
+Miscellaneous functions for manipulating strings.
 
 ## hbhpdf
 
@@ -159,7 +155,7 @@ Apple Mac specific functions
 
 libmagic bindings (file identification)
 
-## hbmisc
+## [hbmisc](https://harbour.github.io/doc/hbmisc.html)
 
 Miscellaneous functions for manipulating strings, numbers, type conversions,
 etc.
@@ -181,7 +177,7 @@ utility to convert `.dbf` files into MariaDB/MySQL tables.
 
 Minizip API bindings, allowing to read and write `.zip` files.
 
-## hbnf
+## [hbnf](https://harbour.github.io/doc/hbnf.html)
 
 A port of the Nanforum Library for Clipper.
 
@@ -247,7 +243,7 @@ these features are:
 
 libxdiff bindings (diffing)
 
-## hbxpp
+## [hbxpp](https://harbour.github.io/doc/hbxpp.html)
 
 Xbase++ compatibility
 
@@ -255,7 +251,7 @@ Xbase++ compatibility
 
 Barcode creating functions
 
-## hbziparc
+## [hbziparc](https://harbour.github.io/doc/hbziparc.html)
 
 `HBZIPARC` compatibility (zip compression)
 
@@ -263,7 +259,7 @@ Barcode creating functions
 
 Provides a compatibility layer with the xHarbour fork.
 
-## rddads
+## [rddads](https://harbour.github.io/doc/rddads.html)
 
 `rddads` is an RDD for the Advantage Database Server, an xBase data server by
 Extended Systems. With this library your Harbour application can access
