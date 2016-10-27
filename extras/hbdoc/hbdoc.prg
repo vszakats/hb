@@ -414,19 +414,23 @@ STATIC FUNCTION NewLineVoodoo( cSectionIn )
 
    FOR EACH cLine IN hb_ATokens( cSectionIn, .T. )
 
-      IF Len( AllTrim( cLine ) ) == 0
-         IF !( Right( cSection, Len( hb_eol() ) ) == hb_eol() )
-            cSection += hb_eol()
+      IF Empty( cLine )
+         IF lPreformatted
+            cSection += hb_eol() + hb_eol()
+         ELSE
+            IF !( Right( cSection, Len( hb_eol() ) ) == hb_eol() )
+               cSection += hb_eol()
+            ENDIF
+            nLastIndent := -1
          ENDIF
-         nLastIndent := -1
-      ELSEIF hb_LeftEq( AllTrim( cLine ), "<table" ) .OR. AllTrim( cLine ) == "<fixed>" .OR. hb_LeftEq( AllTrim( cLine ), '```' )
+      ELSEIF hb_LeftEq( AllTrim( cLine ), "<table" ) .OR. AllTrim( cLine ) == "<fixed>" .OR. ( hb_LeftEq( AllTrim( cLine ), '```' ) .AND. ! lPreformatted )
          IF !( Right( cSection, Len( hb_eol() ) ) == hb_eol() ) .OR. lPreformatted
             cSection += hb_eol()
          ENDIF
          cSection += AllTrim( cLine )  // + hb_eol()
          lLastPreformatted := lPreformatted
          lPreformatted := .T.
-      ELSEIF AllTrim( cLine ) == "</table>" .OR. AllTrim( cLine ) == "</fixed>"
+      ELSEIF AllTrim( cLine ) == "</table>" .OR. AllTrim( cLine ) == "</fixed>" .OR. ( hb_LeftEq( AllTrim( cLine ), '```' ) .AND. lPreformatted )
          IF !( Right( cSection, Len( hb_eol() ) ) == hb_eol() ) .OR. lPreformatted
             cSection += hb_eol()
          ENDIF

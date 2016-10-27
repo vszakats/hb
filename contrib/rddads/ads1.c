@@ -123,17 +123,15 @@ static void adsSetListener_callback( HB_set_enum setting, HB_set_listener_enum w
             AdsSetDecimals( ( UNSIGNED16 ) hb_setGetNI( HB_SET_DECIMALS ) );
             break;
 
-/* Possible TODO?
-         case HB_SET_MFILEEXT   :
+#if 0  /* Possible TODO? */
+         case HB_SET_MFILEEXT:
             if( hb_setGetCPtr( HB_SET_MFILEEXT ) )
-            {
                hb_retc( hb_setGetCPtr( HB_SET_MFILEEXT ) );
-            }
             break;
-         case HB_SET_STRICTREAD :
+         case HB_SET_STRICTREAD:
             hb_retl( hb_setGetL( HB_SET_STRICTREAD ) );
             break;
- */
+#endif
          default:
             break;
       }
