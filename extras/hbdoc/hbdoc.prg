@@ -46,6 +46,9 @@
  *
  */
 
+/* TODO: hEntry in Entry objects directly, or eliminate the object
+         altogether. */
+
 #include "directry.ch"
 #include "hbclass.ch"
 #include "hbver.ch"
@@ -75,7 +78,7 @@ STATIC sc_hFields
 STATIC sc_hTemplates
 STATIC sc_hConstraint
 STATIC s_hSwitches
-STATIC s_hComponent := { => }
+STATIC s_hTree := { => }  /* component / category / subcategory */
 STATIC s_generators
 
 PROCEDURE Main( ... )
@@ -179,7 +182,7 @@ PROCEDURE Main( ... )
 
 #if 0
    hb_MemoWrit( "hbx.json", hb_jsonEncode( s_hSwitches[ "hHBX" ], .T. ) )
-   hb_MemoWrit( "cats.json", hb_jsonencode( sc_hConstraint[ "categories" ], .T. ) )
+   hb_MemoWrit( "tree.json", hb_jsonEncode( s_hTree, .T. ) )
 #endif
 
    OutStd( hb_ntos( Len( aContent ) ), "items found" + hb_eol() )
@@ -206,7 +209,7 @@ PROCEDURE Main( ... )
          SWITCH s_hSwitches[ "output" ]
          CASE "single"
 
-            aComponent := ASort( hb_HKeys( s_hComponent ),,, {| x, y | SortWrightPkg( x ) < SortWrightPkg( y ) } )
+            aComponent := ASort( hb_HKeys( s_hTree ),,, {| x, y | SortWeightPkg( x ) < SortWeightPkg( y ) } )
 
             oIndex := Eval( generatorClass ):NewIndex( cFormat, "index", hb_StrFormat( "Harbour Reference Guide · %1$s", "Index" ), s_hSwitches[ "lang" ] )
 
@@ -224,17 +227,11 @@ PROCEDURE Main( ... )
                cCat1Prev := NIL
 
                oIndex:BeginTOCItem( cName, cID )
-               FOR EACH item IN aContent
-                  IF item:_type == tmp
-                     cCat1 := item:fld[ "CATEGORY" ]
-                     IF cCat1Prev == NIL .OR. !( cCat1 == cCat1Prev )
-                        IF cCat1Prev != NIL
-//                         oIndex:AddReference( cCat1, "", cID + "-" + Lower( cCat1 ) )
-                        ENDIF
-                        cCat1Prev := cCat1
-                     ENDIF
-                  ENDIF
+#if 0
+               FOR EACH item IN ASort( hb_HKeys( s_hTree[ tmp ] ),,, {| x, y | SortWeight( x ) < SortWeight( y ) } )
+                  oIndex:AddReference( cCat1, "", cID + "-" + Lower( cCat1 ) )
                NEXT
+#endif
                oIndex:EndTOCItem()
             NEXT
             oIndex:EndTOC()
@@ -329,7 +326,7 @@ PROCEDURE Main( ... )
    RETURN
 
 /* Begin with Harbour core section */
-STATIC FUNCTION SortWrightPkg( cString )
+STATIC FUNCTION SortWeightPkg( cString )
    RETURN iif( cString == "harbour", "A", "B" ) + cString
 
 STATIC FUNCTION SortWeight( cString )
@@ -468,7 +465,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, aContent )
    LOCAL lAccepted := .T.
    LOCAL cSource
    LOCAL idxCategory := NIL
-   LOCAL item
+   LOCAL item, cCat
 
    LOCAL o
 
@@ -591,7 +588,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, aContent )
 
    IF lAccepted
 
-      IF !( Lower( hEntry[ "CATEGORY" ] ) == "document" )
+      IF "(" $ o:fld[ "NAME" ]
          cSectionName := Parse( o:fld[ "NAME" ], "(" )
          IF ! cSectionName $ s_hSwitches[ "hHBX" ]
             AddErrorCondition( cFile, "Not found in HBX: " + cSectionName + " " + cComponent )
@@ -602,8 +599,21 @@ STATIC PROCEDURE ProcessBlock( hEntry, aContent )
 
       AAdd( aContent, o )
 
-      IF ! cComponent $ s_hComponent
-         s_hComponent[ cComponent ] := NIL
+      IF ! cComponent $ s_hTree
+         s_hTree[ cComponent ] := { => }
+         hb_HCaseMatch( s_hTree[ cComponent ], .F. )
+      ENDIF
+      IF "CATEGORY" $ hEntry
+         cCat := hEntry[ "CATEGORY" ]
+         IF ! cCat $ s_hTree[ cComponent ]
+            s_hTree[ cComponent ][ cCat ] := { => }
+            hb_HCaseMatch( s_hTree[ cComponent ][ cCat ], .F. )
+         ENDIF
+         IF "SUBCATEGORY" $ hEntry
+            IF ! hEntry[ "SUBCATEGORY" ] $ s_hTree[ cComponent ]
+               s_hTree[ cComponent ][ cCat ][ hEntry[ "SUBCATEGORY" ] ] := NIL
+            ENDIF
+         ENDIF
       ENDIF
    ENDIF
 
