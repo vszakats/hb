@@ -563,6 +563,9 @@ STATIC FUNCTION StrEsc( cString )
 
    RETURN hb_StrReplace( cString, s_html )
 
+STATIC FUNCTION MDSpace( cChar )
+   RETURN cChar $ " .,:;?!"
+
 METHOD AppendInline( cText, cFormat, lCode ) CLASS GenerateHTML
 
    LOCAL idx
@@ -594,24 +597,26 @@ METHOD AppendInline( cText, cFormat, lCode ) CLASS GenerateHTML
             CASE ! lPR .AND. cChar == "\" .AND. tmp < Len( cText )
                tmp++
                cChar := cNext
+            CASE ! lPR .AND. cChar == "`" .AND. cNext == "`"  // `` -> `
+               tmp++
             CASE ! lPR .AND. cChar == "*" .AND. ! lIT .AND. ;
-                 iif( lEM, ! Empty( cPrev ) .AND. Empty( cNext ), Empty( cPrev ) .AND. ! Empty( cNext ) )
+                 iif( lEM, ! MDSpace( cPrev ) .AND. MDSpace( cNext ), MDSpace( cPrev ) .AND. ! MDSpace( cNext ) )
                lEM := ! lEM
                IF lEM
                   nEM := Len( cOut ) + 1
                ENDIF
                cChar := iif( lEM, "<strong>", "</strong>" )
             CASE ! lPR .AND. cChar == "_" .AND. ! lEM .AND. ;
-                 ( ( ! lIT .AND. Empty( cPrev ) .AND. ! Empty( cNext ) ) .OR. ;
-                   (   lIT .AND. ! Empty( cPrev ) .AND. Empty( cNext ) ) )
+                 ( ( ! lIT .AND. MDSpace( cPrev ) .AND. ! MDSpace( cNext ) ) .OR. ;
+                   (   lIT .AND. ! MDSpace( cPrev ) .AND. MDSpace( cNext ) ) )
                lIT := ! lIT
                IF lIT
                   nIT := Len( cOut ) + 1
                ENDIF
                cChar := iif( lIT, "<i>", "</i>" )
             CASE cChar == "`" .AND. ;
-                 ( ( ! lPR .AND. Empty( cPrev ) .AND. ! Empty( cNext ) ) .OR. ;
-                   (   lPR .AND. ! Empty( cPrev ) .AND. Empty( cNext ) ) )
+                 ( ( ! lPR .AND. MDSpace( cPrev ) .AND. ! MDSpace( cNext ) ) .OR. ;
+                   (   lPR .AND. ! MDSpace( cPrev ) .AND. MDSpace( cNext ) ) )
                lPR := ! lPR
                IF lPR
                   nPR := Len( cOut ) + 1
@@ -630,9 +635,9 @@ METHOD AppendInline( cText, cFormat, lCode ) CLASS GenerateHTML
                ENDDO
                cChar := "<hr>"
             CASE ! lPR .AND. ;
-               ( SubStr( cText, tmp, 5 ) == "<URL:" .AND. ( tmp1 := hb_At( ">", cText, tmp + 6 ) ) > 0 )
-               tmp1 := SubStr( cText, tmp + 5, tmp1 - tmp - 5 )
-               tmp += Len( tmp1 ) + 5
+               ( SubStr( cText, tmp, 5 ) == "<http" .AND. ( tmp1 := hb_At( ">", cText, tmp + 1 ) ) > 0 )
+               tmp1 := SubStr( cText, tmp + 1, tmp1 - tmp - 1 )
+               tmp += Len( tmp1 ) + 1
                cChar := "<a href=" + '"' + tmp1 + '"' + ">" + tmp1 + "</a>"
             CASE ! lPR .AND. ;
                ( SubStr( cText, tmp, 3 ) == "==>" .OR. SubStr( cText, tmp, 3 ) == "-->" )

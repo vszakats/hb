@@ -26,7 +26,7 @@
       Clipper). The goal of Harbour is to produce a cross platform CA-Cl*pper
       compatible compiler.
 
-      The Harbour website is at <URL:https://vszakats.github.io/harbour-core/>.
+      The Harbour website is at <https://vszakats.github.io/harbour-core/>.
       If you have any problem with this copy of Harbour please visit our web
       site and ensure that you are using the latest release.
 
