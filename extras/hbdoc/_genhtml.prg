@@ -334,6 +334,8 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
       "EXAMPLES" => "d-ex", ;
       "TESTS"    => "d-te" }
 
+   STATIC s_cAddP := "DESCRIPTION|"
+
    LOCAL cTagClass
    LOCAL cCaption
    LOCAL lFirst
@@ -383,6 +385,12 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
             ::AppendInline( Indent( Parse( @cContent, hb_eol() ), 0, -1,, .T. ),, .F. )
             ::CloseTagInline( "code" )
          ENDDO
+         ::CloseTag( "div" )
+
+      CASE ! Chr( 10 ) $ cContent
+
+         ::OpenTagInline( "div", "class", cTagClass )
+         ::AppendInline( cContent,, .F. )
          ::CloseTag( "div" )
 
       OTHERWISE
@@ -449,7 +457,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
                ::AppendInline( iif( lTable, StrTran( tmp1, " ", hb_UChar( 160 ) ), tmp1 ),, .T. )
             OTHERWISE
                ::OpenTagInline( "div" )
-               IF cField $ "DESCRIPTION|"
+               IF cField $ s_cAddP
                   ::OpenTagInline( "p" )
                ENDIF
                ::AppendInline( iif( lTable, StrTran( tmp1, " ", hb_UChar( 160 ) ), tmp1 ),, .F. )
