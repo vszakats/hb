@@ -407,7 +407,7 @@ STATIC FUNCTION NewLineVoodoo( cSectionIn )
 
    LOCAL cSection := ""
    LOCAL lPreformatted := .F.
-   LOCAL lTable
+   LOCAL lTable := .F.
    LOCAL lLastPreformatted := .F.
    LOCAL nLastIndent := -1
    LOCAL lLastTable := .F.
