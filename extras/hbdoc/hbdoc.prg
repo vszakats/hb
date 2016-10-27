@@ -233,7 +233,7 @@ PROCEDURE Main( ... )
 
             aComponent := ASort( hb_HKeys( s_hComponent ),,, {| x, y | SortWrightPkg( x ) < SortWrightPkg( y ) } )
 
-            oIndex := Eval( generatorClass ):NewIndex( cFormat, "index", hb_StrFormat( "Harbour Reference Guide — %1$s", "Index" ), s_hSwitches[ "lang" ] )
+            oIndex := Eval( generatorClass ):NewIndex( cFormat, "index", hb_StrFormat( "Harbour Reference Guide · %1$s", "Index" ), s_hSwitches[ "lang" ] )
 
             oIndex:BeginTOC()
             FOR EACH tmp IN aComponent
@@ -276,7 +276,7 @@ PROCEDURE Main( ... )
                   cName := hb_StrFormat( "%1$s contrib", tmp )
                ENDIF
 
-               oDocument := Eval( generatorClass ):NewDocument( cFormat, tmp, hb_StrFormat( "Harbour Reference Guide — %1$s", cName ), s_hSwitches[ "lang" ] )
+               oDocument := Eval( generatorClass ):NewDocument( cFormat, tmp, hb_StrFormat( "Harbour Reference Guide · %1$s", cName ), s_hSwitches[ "lang" ] )
 
                oIndex:BeginSection( cName, oDocument:cFilename, cID )
 
@@ -351,7 +351,7 @@ PROCEDURE Main( ... )
 
             FOR EACH item IN sc_hConstraint[ "categories" ]
 
-               oDocument := Eval( generatorClass ):NewDocument( cFormat, item[ 3 ], hb_StrFormat( "Harbour Reference Guide — %1$s", item:__enumKey() ), s_hSwitches[ "lang" ] )
+               oDocument := Eval( generatorClass ):NewDocument( cFormat, item[ 3 ], hb_StrFormat( "Harbour Reference Guide · %1$s", item:__enumKey() ), s_hSwitches[ "lang" ] )
 
                oIndex:BeginSection( item:__enumKey(), oDocument:cFilename )
                oDocument:BeginSection( item:__enumKey(), oDocument:cFilename )
