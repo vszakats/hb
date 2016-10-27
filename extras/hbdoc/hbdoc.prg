@@ -112,7 +112,9 @@ PROCEDURE Main( ... )
    LOCAL aContent
    LOCAL cCat1, cCat1Prev
    LOCAL cCat2, cCat2Prev
-   LOCAL cName
+   LOCAL aComponent
+   LOCAL cID, cName
+   LOCAL nStart
 
    LOCAL generatorClass
 
@@ -218,6 +220,8 @@ PROCEDURE Main( ... )
          PadR( oR:fld[ "NAME" ], 50 ) ;
       } )
 
+   nStart := hb_MilliSeconds()
+
    FOR EACH cFormat IN s_hSwitches[ "format" ]
 
       IF HB_ISEVALITEM( generatorClass := hb_HGetDef( s_generators, Lower( cFormat ) ) )
@@ -227,19 +231,54 @@ PROCEDURE Main( ... )
          SWITCH s_hSwitches[ "output" ]
          CASE "single"
 
+            aComponent := ASort( hb_HKeys( s_hComponent ),,, {| x, y | SortWrightPkg( x ) < SortWrightPkg( y ) } )
+
             oIndex := Eval( generatorClass ):NewIndex( cFormat, "index", hb_StrFormat( "Harbour Reference Guide — %1$s", "Index" ), s_hSwitches[ "lang" ] )
 
-            FOR EACH tmp IN ASort( hb_HKeys( s_hComponent ),,, {| x, y | SortWrightPkg( x ) < SortWrightPkg( y ) } )
+            oIndex:BeginTOC()
+            FOR EACH tmp IN aComponent
+
+               IF tmp == "harbour"
+                  cID := "core"
+                  cName := "Harbour core"
+               ELSE
+                  cID := tmp
+                  cName := hb_StrFormat( "%1$s contrib", tmp )
+               ENDIF
+
+               cCat1Prev := NIL
+
+               oIndex:BeginTOCItem( cName, cID )
+               FOR EACH item IN aContent
+                  IF item:_type == tmp
+                     cCat1 := item:fld[ "CATEGORY" ]
+                     IF cCat1Prev == NIL .OR. !( cCat1 == cCat1Prev )
+                        IF cCat1Prev != NIL
+//                         oIndex:AddReference( cCat1, "", cID + "-" + Lower( cCat1 ) )
+                        ENDIF
+                        cCat1Prev := cCat1
+                     ENDIF
+                  ENDIF
+               NEXT
+               oIndex:EndTOCItem()
+            NEXT
+            oIndex:EndTOC()
+
+            FOR EACH tmp IN aComponent
 
                cCat1Prev := cCat2Prev := NIL
 
-               cName := iif( tmp == "harbour", ;
-                  "Harbour core", ;
-                  hb_StrFormat( "%1$s contrib", tmp ) )
+               IF tmp == "harbour"
+                  cID := "core"
+                  cName := "Harbour core"
+               ELSE
+                  cID := tmp
+                  cName := hb_StrFormat( "%1$s contrib", tmp )
+               ENDIF
 
                oDocument := Eval( generatorClass ):NewDocument( cFormat, tmp, hb_StrFormat( "Harbour Reference Guide — %1$s", cName ), s_hSwitches[ "lang" ] )
 
-               oIndex:BeginSection( cName, oDocument:cFilename )
+               oIndex:BeginSection( cName, oDocument:cFilename, cID )
 
                FOR EACH item IN aContent
                   IF item:_type == tmp
@@ -250,7 +289,7 @@ PROCEDURE Main( ... )
                         IF cCat1Prev != NIL
                            oIndex:EndSection()
                         ENDIF
-                        oIndex:BeginSection( cCat1 )
+                        oIndex:BeginSection( cCat1,, cID + "-" + Lower( cCat1 ) )
                         cCat1Prev := cCat1
                      ENDIF
 
@@ -261,10 +300,10 @@ PROCEDURE Main( ... )
                         IF cCat2Prev != NIL
                            oIndex:EndSection()
                         ENDIF
-                        oIndex:BeginSection( cCat2 )
+                        oIndex:BeginSection( cCat2,, iif( Empty( cCat2 ), NIL, cID + "-" + Lower( cCat1 ) + "-" + Lower( cCat2 ) ) )
 #else
                         IF cCat2Prev != NIL
-                           oIndex:SubCategory( cCat2 )
+                           oIndex:SubCategory( cCat2, iif( Empty( cCat2 ), NIL, cID + "-" + Lower( cCat1 ) + "-" + Lower( cCat2 ) ) )
                         ENDIF
 #endif
                         cCat2Prev := cCat2
@@ -290,37 +329,6 @@ PROCEDURE Main( ... )
 
             oIndex:Generate()
             oIndex := NIL
-
-            oDocument := NIL
-
-            EXIT
-
-         CASE "component"
-
-            oDocument := Eval( generatorClass ):NewDocument( cFormat, "harbour", "Harbour Reference Guide", s_hSwitches[ "lang" ] )
-
-            FOR EACH item IN aContent
-               IF item:_type == "harbour"
-                  oDocument:AddEntry( item )
-               ENDIF
-            NEXT
-
-            oDocument:Generate()
-            oDocument := NIL
-
-            FOR EACH tmp IN ASort( hb_HKeys( s_hComponent ) )
-               IF !( tmp == "harbour" )
-                  oDocument := Eval( generatorClass ):NewDocument( cFormat, tmp, hb_StrFormat( "Harbour Reference Guide — %1$s", tmp ), s_hSwitches[ "lang" ] )
-
-                  FOR EACH item IN aContent
-                     IF item:_type == tmp .AND. ;
-                        oDocument:AddEntry( item )
-                     ENDIF
-                  NEXT
-
-                  oDocument:Generate()
-               ENDIF
-            NEXT
 
             oDocument := NIL
 
@@ -399,7 +407,7 @@ PROCEDURE Main( ... )
       ENDIF
    NEXT
 
-   OutStd( hb_eol() )
+   OutStd( hb_StrFormat( "Done in %1$s seconds", hb_ntos( Round( ( hb_MilliSeconds() - nStart ) / 1000, 2 ) ) ) + hb_eol() )
 
    RETURN
 
@@ -546,8 +554,6 @@ STATIC PROCEDURE ProcessBlock( hEntry, aContent )
    LOCAL idxSubCategory := -1
    LOCAL item
 
-   LOCAL cSourceFile := StrTran( ".." + hb_ps() + cFile, iif( hb_ps() == "\", "/", "\" ), hb_ps() )
-
    LOCAL o
 
    /* Set template */
@@ -562,7 +568,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, aContent )
 
    o := Entry():New( hEntry[ "TEMPLATE" ] )
    o:_type := cComponent
-   o:_sourcefile := cSourceFile
+   o:_sourcefile := StrTran( cFile, "\", hb_ps() )
 
    /* Merge category/subcategory into tag list */
    o:_tags := { => }
@@ -1160,7 +1166,7 @@ STATIC PROCEDURE init_Templates()
       "Document"                  => { { "License", "Compiler", "" } }, ;
       "API"                       => { AClone( aSubCategories ) }, ;
       "C level API"               => { AClone( aSubCategories ) }, ;
-      "C level API compatability" => { AClone( aSubCategories ) }, ;
+      "C level API compatibility" => { AClone( aSubCategories ) }, ;
       "Class"                     => { { ;
           "", ;
           "Access", ;

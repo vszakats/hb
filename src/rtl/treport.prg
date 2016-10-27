@@ -993,7 +993,7 @@ METHOD LoadReportFile( cFrmFile AS STRING ) CLASS HBReportForm
             ENDIF
 
             // Process columns
-            nFieldOffset := 12      // dBASE skips first 12 byte fields block.
+            nFieldOffset := 12      // dBase skips first 12 byte fields block.
             FOR nCount := 1 TO nColCount
                AAdd( aReport[ RPT_COLUMNS ], ::GetColumn( cFieldsBuff, @nFieldOffset ) )
             NEXT
@@ -1018,11 +1018,11 @@ METHOD GetExpr( nPointer AS NUMERIC ) CLASS HBReportForm
    LOCAL nOffsetOffset := 0
    LOCAL cString := ""
 
-   // Stuff for dBASE compatability.
+   // Stuff for dBase compatibility.
 
    IF nPointer != 65535
 
-      // Convert FILE offset to CLIPPER string offset
+      // Convert FILE offset to Cl*pper string offset
       nPointer++
 
       // Calculate offset into OFFSETS_BUFF
@@ -1042,7 +1042,7 @@ METHOD GetExpr( nPointer AS NUMERIC ) CLASS HBReportForm
       // Extract string
       cString := hb_BSubStr( ::cExprBuff, nExprOffset, nExprLength )
 
-      // dBASE does this so we must do it too
+      // dBase does this so we must do it too
       // Character following character pointed to by pointer is NULL
       IF hb_BLeft( cString, 1 ) == hb_BChar( 0 )
          cString := ""

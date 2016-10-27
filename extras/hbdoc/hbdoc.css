@@ -64,6 +64,12 @@ a:hover {
   border-color: rgba(0, 0, 255, .4);
 }
 
+.edit-page {
+  font-size: 75%;
+  float: right;
+  margin-bottom: 1em;
+}
+
 hr {
   border: 0;
   border-bottom: 1px dotted rgba(0, 0, 0, .1);

@@ -47,7 +47,7 @@
    $NAME$
       gdImageCreate()
    $CATEGORY$
-      HBGD
+      hbgd
    $ONELINER$
       Create a palette-based image in memory with no more that 256 colors.
    $SYNTAX$
@@ -85,7 +85,7 @@
    $NAME$
       gdImageCreateTrueColor()
    $CATEGORY$
-      HBGD
+      hbgd
    $ONELINER$
       Create a true color image in memory.
    $SYNTAX$
@@ -123,7 +123,7 @@
    $NAME$
       gdImageCreateFromJpeg()
    $CATEGORY$
-      HBGD
+      hbgd
    $ONELINER$
       Load a JPEG image file.
    $SYNTAX$
@@ -177,7 +177,7 @@
    $NAME$
       gdImageCreateFromGif()
    $CATEGORY$
-      HBGD
+      hbgd
    $ONELINER$
       Load a Gif image file.
    $SYNTAX$
@@ -231,7 +231,7 @@
    $NAME$
       gdImageCreateFromPng()
    $CATEGORY$
-      HBGD
+      hbgd
    $ONELINER$
       Load a PNG image file.
    $SYNTAX$
@@ -285,7 +285,7 @@
    $NAME$
       gdImageCreateFromGD()
    $CATEGORY$
-      HBGD
+      hbgd
    $ONELINER$
       Load a GD image file.
    $SYNTAX$
@@ -339,7 +339,7 @@
    $NAME$
       gdImageCreateFromWBmp()
    $CATEGORY$
-      HBGD
+      hbgd
    $ONELINER$
       Load a WBmp image file.
    $SYNTAX$
@@ -393,7 +393,7 @@
    $NAME$
       gdImageJpeg()
    $CATEGORY$
-      HBGD
+      hbgd
    $ONELINER$
       Save a JPEG image.
    $SYNTAX$
@@ -440,7 +440,7 @@
    $NAME$
       gdImageGif()
    $CATEGORY$
-      HBGD
+      hbgd
    $ONELINER$
       Save a GIF image.
    $SYNTAX$
@@ -485,7 +485,7 @@
    $NAME$
       gdImagePng()
    $CATEGORY$
-      HBGD
+      hbgd
    $ONELINER$
       Save a PNG image.
    $SYNTAX$
@@ -532,7 +532,7 @@
    $NAME$
       gdImageGD()
    $CATEGORY$
-      HBGD
+      hbgd
    $ONELINER$
       Save a GD image.
    $SYNTAX$
@@ -577,7 +577,7 @@
    $NAME$
       gdImageWBmp()
    $CATEGORY$
-      HBGD
+      hbgd
    $ONELINER$
       Save a WBMP image.
    $SYNTAX$
@@ -636,7 +636,7 @@
    $NAME$
       gdImageSetPixel()
    $CATEGORY$
-      HBGD
+      hbgd
    $ONELINER$
       Set a pixel to a particular color index.
    $SYNTAX$
@@ -686,7 +686,7 @@
    $NAME$
       gdImageLine()
    $CATEGORY$
-      HBGD
+      hbgd
    $ONELINER$
       Draws a line between two end points (x1, y1 and x2, y2) with a particular color index.
    $SYNTAX$
@@ -739,7 +739,7 @@
    $NAME$
       gdImageDashedLine()
    $CATEGORY$
-      HBGD
+      hbgd
    $ONELINER$
       Draws a dashed line between two end points (x1, y1 and x2, y2) with a particular color index.
    $SYNTAX$
@@ -792,7 +792,7 @@
    $NAME$
       gdImagePolygon()
    $CATEGORY$
-      HBGD
+      hbgd
    $ONELINER$
       Draws a closed polygon with verticies (at least 3) with a particular color index.
    $SYNTAX$
@@ -848,7 +848,7 @@
    $NAME$
       gdImageOpenPolygon()
    $CATEGORY$
-      HBGD
+      hbgd
    $ONELINER$
       Draws an open polygon with verticies (at least 3) with a particular color index.
    $SYNTAX$
@@ -905,7 +905,7 @@
    $NAME$
       gdImageRectangle()
    $CATEGORY$
-      HBGD
+      hbgd
    $ONELINER$
       Draws a rectangle with a particular color index.
    $SYNTAX$
@@ -958,7 +958,7 @@
    $NAME$
       gdImageFilledPolygon()
    $CATEGORY$
-      HBGD
+      hbgd
    $ONELINER$
       Draws a filled polygon with verticies (at least 3) with a particular color index.
    $SYNTAX$
@@ -1014,7 +1014,7 @@
    $NAME$
       gdImageFilledRectangle()
    $CATEGORY$
-      HBGD
+      hbgd
    $ONELINER$
       Draws a filled rectangle with a particular color index.
    $SYNTAX$
@@ -1067,7 +1067,7 @@
    $NAME$
       gdImageArc()
    $CATEGORY$
-      HBGD
+      hbgd
    $ONELINER$
       Draws a partial ellipse centered at a given point.
    $SYNTAX$
@@ -1126,7 +1126,7 @@
    $NAME$
       gdImageFilledArc()
    $CATEGORY$
-      HBGD
+      hbgd
    $ONELINER$
       Draws a partial filled ellipse centered at a given point.
    $SYNTAX$
@@ -1205,7 +1205,7 @@
    $NAME$
       gdImageFilledEllipse()
    $CATEGORY$
-      HBGD
+      hbgd
    $ONELINER$
       Draws a filled ellipse centered at a given point.
    $SYNTAX$
@@ -1258,7 +1258,7 @@
    $NAME$
       gdImageFillToBorder()
    $CATEGORY$
-      HBGD
+      hbgd
    $ONELINER$
       floods a portion of the image with the specified color.
    $SYNTAX$
@@ -1315,7 +1315,7 @@
    $NAME$
       gdImageFill()
    $CATEGORY$
-      HBGD
+      hbgd
    $ONELINER$
       floods a portion of the image with the specified color.
    $SYNTAX$
@@ -1376,7 +1376,7 @@
    $NAME$
       gdImageSetAntiAliased()
    $CATEGORY$
-      HBGD
+      hbgd
    $ONELINER$
       specify the actual foreground color to be used when drawing antialiased lines.
    $SYNTAX$
@@ -1447,7 +1447,7 @@
    $NAME$
       gdImageSetAntiAliasedDontBlend()
    $CATEGORY$
-      HBGD
+      hbgd
    $ONELINER$
       indicate the special color that the foreground should stand out more clearly against.
    $SYNTAX$
@@ -1509,7 +1509,7 @@
    $NAME$
       gdImageSetBrush()
    $CATEGORY$
-      HBGD
+      hbgd
    $ONELINER$
       A "brush" is an image used to draw wide, shaped strokes in another image.
    $SYNTAX$
@@ -1581,7 +1581,7 @@
    $NAME$
       gdImageSetTile()
    $CATEGORY$
-      HBGD
+      hbgd
    $ONELINER$
       A "tile" is an image used to fill an area with a repeated pattern.
    $SYNTAX$
@@ -1653,7 +1653,7 @@
    $NAME$
       gdImageSetStyle()
    $CATEGORY$
-      HBGD
+      hbgd
    $ONELINER$
       set any desired series of colors to be repeated during the drawing of a line.
    $SYNTAX$
@@ -1741,7 +1741,7 @@
    $NAME$
       gdImageSetThickness()
    $CATEGORY$
-      HBGD
+      hbgd
    $ONELINER$
       determines the width of lines drawn in pixels.
    $SYNTAX$

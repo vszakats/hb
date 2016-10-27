@@ -79,14 +79,17 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    METHOD NewDocument( cDir, cFilename, cTitle, cLang )
    METHOD AddEntry( oEntry )
    METHOD AddReference( oEntry, cReference, cSubReference )
-   METHOD BeginSection( cSection, cFilename )
+   METHOD BeginSection( cSection, cFilename, cID )
    METHOD EndSection()
    METHOD Generate()
-   METHOD SubCategory( cCategory )
+   METHOD SubCategory( cCategory, cID )
+   METHOD BeginTOC()
+   METHOD EndTOC()
+   METHOD BeginTOCItem( cName, cID )
+   METHOD EndTOCItem() INLINE ::cFile += "</ul>" + hb_eol()
 
    METHOD WriteEntry( cField, cContent, lPreformatted ) HIDDEN
 
-   VAR nStart INIT hb_MilliSeconds()
    VAR nIndent INIT 0
 
 ENDCLASS
@@ -165,10 +168,6 @@ METHOD Generate() CLASS GenerateHTML
 
    ::super:Generate()
 
-#if 0
-   ? Round( ( hb_MilliSeconds() - ::nStart ) / 1000, 3 )
-#endif
-
    RETURN Self
 
 METHOD NewDocument( cDir, cFilename, cTitle, cLang ) CLASS GenerateHTML
@@ -185,21 +184,45 @@ METHOD NewIndex( cDir, cFilename, cTitle, cLang ) CLASS GenerateHTML
 
    RETURN Self
 
-METHOD BeginSection( cSection, cFilename ) CLASS GenerateHTML
+METHOD BeginTOC() CLASS GenerateHTML
 
-   LOCAL cID := SymbolToHTMLID( cSection )
+   ::Spacer()
+   ::OpenTag( "section", "id", "toc" )
+   ::OpenTag( "ul" )
+
+   RETURN Self
+
+METHOD EndTOC() CLASS GenerateHTML
+
+   ::CloseTag( "ul" )
+   ::CloseTag( "section" )
+
+   RETURN Self
+
+METHOD BeginTOCItem( cName, cID ) CLASS GenerateHTML
+
+   ::OpenTagInline( "li" )
+   ::OpenTagInline( "a", "href", "#" + SymbolToHTMLID( cID ) )
+   ::AppendInline( cName )
+   ::CloseTag( "a" )
+   ::OpenTag( "ul" )
+
+   RETURN Self
+
+METHOD BeginSection( cSection, cFilename, cID ) CLASS GenerateHTML
+
    LOCAL cH
+
+   cID := SymbolToHTMLID( hb_defaultValue( cID, cSection ) )
 
    IF ::IsIndex()
       cH := "h" + hb_ntos( ::nDepth + 2 )
       ::Spacer()
       ::OpenTag( "section", "id", cID, "class", "d-x" )
       IF ! HB_ISSTRING( cFileName ) .OR. cFilename == ::cFilename
-         ::OpenTagInline( "div", "id", cID )
-         ::OpenTagInline( cH )
+         ::OpenTagInline( cH, "id", cID )
          ::AppendInline( cSection )
-         ::CloseTagInline( cH )
-         ::CloseTag( "div" )
+         ::CloseTag( cH )
       ELSE
          ::OpenTagInline( "a", "href", cFilename + ::cExtension + "#" + cID )
          ::OpenTagInline( cH )
@@ -232,10 +255,14 @@ METHOD EndSection() CLASS GenerateHTML
 
    RETURN Self
 
-METHOD SubCategory( cCategory )
+METHOD SubCategory( cCategory, cID )
 
    IF HB_ISSTRING( cCategory ) .AND. ! HB_ISNULL( cCategory )
-      ::Tagged( cCategory, "h5", "class", "d-sc" )
+      IF Empty( cID )
+         ::Tagged( cCategory, "h5", "class", "d-sc" )
+      ELSE
+         ::Tagged( cCategory, "h5", "class", "d-sc", "id", SymbolToHTMLID( cID ) )
+      ENDIF
    ELSE
       ::HorizLine()
    ENDIF
@@ -250,15 +277,16 @@ METHOD AddReference( oEntry, cReference, cSubReference ) CLASS GenerateHTML
       ::OpenTagInline( "a", "href", ::TargetFilename + ::cExtension + "#" + SymbolToHTMLID( oEntry:_filename ) )
       ::AppendInline( oEntry:fld[ "NAME" ] )
       ::CloseTagInline( "a" )
-      ::OpenTagInline( "div", "class", "d-r" )
-      ::AppendInline( oEntry:fld[ "ONELINER" ] )
-      ::CloseTagInline( "div" )
+      // ::OpenTagInline( "div", "class", "d-r" )
+      ::AppendInline( hb_UChar( 160 ) + hb_UChar( 160 ) + hb_UChar( 160 ) + oEntry:fld[ "ONELINER" ] )
+      // ::CloseTagInline( "div" )
    CASE HB_ISSTRING( cSubReference )
-      ::OpenTagInline( "a", "href", cReference + ::cExtension + "#" + cSubReference )
+      ::OpenTagInline( "li" )
+      ::OpenTagInline( "a", "href", cReference + "#" + SymbolToHTMLID( cSubReference ) )
       ::AppendInline( oEntry )
       ::CloseTagInline( "a" )
    OTHERWISE
-      ::OpenTagInline( "a", "href", cReference + ::cExtension /* + "#" + oEntry:_filename */ )
+      ::OpenTagInline( "a", "href", cReference )
       ::AppendInline( oEntry )
       ::CloseTagInline( "a" )
    ENDCASE
@@ -274,6 +302,12 @@ METHOD AddEntry( oEntry ) CLASS GenerateHTML
 
    ::Spacer()
    ::OpenTag( "section", "id", SymbolToHTMLID( oEntry:_filename ) )
+
+   #if defined( HB_VERSION_URL_BASE )
+      ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "edit/master" + SubStr( oEntry:_sourcefile, Len( "../.." ) + 1 ), "class", "edit-page" )
+      ::AppendInline( hb_UChar( 160 ) + "Improve this doc" )
+      ::CloseTagInline( "a" )
+   #endif
 
    FOR EACH item IN FieldIDList()
       IF item == "NAME"
@@ -638,7 +672,7 @@ METHOD RecreateStyleDocument( cStyleFile ) CLASS GenerateHTML
    RETURN Self
 
 STATIC FUNCTION SymbolToHTMLID( cID )
-   RETURN Lower( hb_StrReplace( cID, { ;
-     "%" => "pct", ;
-     "_" => "-", ;
-     " " => "-" } ) )
+   RETURN hb_StrReplace( cID, { ;
+      "%" => "pct", ;
+      "#" => "-", ;
+      " " => "-" } )

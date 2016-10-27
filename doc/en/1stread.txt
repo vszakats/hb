@@ -27,7 +27,7 @@
       compatible compiler.
 
       The Harbour website is at <URL:https://vszakats.github.io/harbour-core/>.
-      If you have any problems with this copy of Harbour please visit our web
+      If you have any problem with this copy of Harbour please visit our web
       site and ensure that you are using the latest release.
 
       If you are reading this file as part of a source distribution of Harbour you
