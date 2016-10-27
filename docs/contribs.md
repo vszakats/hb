@@ -81,7 +81,7 @@ library, supporting SSL, HTTP GET/PUT/POST/forms, HTTP2, SCP, FTPS, SFTP, FTP,
 LDAP, LDAPS, SMTP, SMTPS, IMAP, IMAPS, POP3, POP3S, TFTP, TELNET, FILE/SMB,
 proxies, cookies, authentication (Basic, Digest, NTLM, Negotiate, Kerberos),
 file transfer resume, http proxy tunneling and more.
-<span class="readmore-md">[Read more](https://curl.haxx.se/libcurl/)</span>
+<span class="readmore-md">[Learn more](https://curl.haxx.se/libcurl/)</span>
 
 ## hbexpat
 
@@ -119,7 +119,7 @@ Thomas Boutell's GD 2.x library bindings. GD Library is a powerful graphic
 library, useful expecially under CGI environment. `hbgd` supports almost all
 GD functions, plus a set of extra functions and classes that extend and make
 it easier to work with this library.
-<span class="readmore-md">[Read more](https://libgd.github.io/)</span>
+<span class="readmore-md">[Learn more](https://libgd.github.io/)</span>
 
 ## hbgs
 
@@ -133,7 +133,7 @@ Miscellaneous functions for manipulating strings.
 
 Libharu bindings. Haru is a free, cross platform, open-source library for
 generating PDF, written in ANSI C.
-<span class="readmore-md">[Read more](https://github.com/libharu/libharu)</span>
+<span class="readmore-md">[Learn more](https://github.com/libharu/libharu)</span>
 
 ## hbhttpd
 

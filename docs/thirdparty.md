@@ -53,7 +53,7 @@ Harbour MiniGUI (HMG) is an xBase Windows / GUI Development System based
 on Harbour MiniGUI library, Harbour MiniGUI IDE, Harbour compiler and
 a supported C compiler. This implements a semi-OOP model and is a ready to use
 Harbour distribution that includes all needed components for your work.
-<span class="readmore-md">[Read more](https://sourceforge.net/projects/harbourminigui/)</span>
+<span class="readmore-md">[Learn more](https://sourceforge.net/projects/harbourminigui/)</span>
 
 MiniGUI [fork](http://www.hmgextended.com/) with extended features.
 
