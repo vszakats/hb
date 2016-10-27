@@ -216,7 +216,7 @@ METHOD BeginSection( cSection, cFilename, cID ) CLASS GenerateHTML
    cID := SymbolToHTMLID( hb_defaultValue( cID, cSection ) )
 
    IF ::IsIndex()
-      cH := "h" + hb_ntos( ::nDepth + 2 )
+      cH := "h" + hb_ntos( ::nDepth + 1 )
       ::Spacer()
       ::OpenTag( "section", "id", cID, "class", "d-x" )
       IF ! HB_ISSTRING( cFileName ) .OR. cFilename == ::cFilename
@@ -233,7 +233,7 @@ METHOD BeginSection( cSection, cFilename, cID ) CLASS GenerateHTML
       ::OpenTag( "ul" )
    ELSE
       ::OpenTagInline( "div", "id", cID )
-      ::AppendInline( cSection, "h" + hb_ntos( ::nDepth + 2 ) )
+      ::AppendInline( cSection, "h" + hb_ntos( ::nDepth + 1 ) )
       ::CloseTag( "div" )
    ENDIF
 
@@ -259,9 +259,9 @@ METHOD SubCategory( cCategory, cID )
 
    IF HB_ISSTRING( cCategory ) .AND. ! HB_ISNULL( cCategory )
       IF Empty( cID )
-         ::Tagged( cCategory, "h5", "class", "d-sc" )
+         ::Tagged( cCategory, "h3", "class", "d-sc" )
       ELSE
-         ::Tagged( cCategory, "h5", "class", "d-sc", "id", SymbolToHTMLID( cID ) )
+         ::Tagged( cCategory, "h3", "class", "d-sc", "id", SymbolToHTMLID( cID ) )
       ENDIF
    ELSE
       ::HorizLine()

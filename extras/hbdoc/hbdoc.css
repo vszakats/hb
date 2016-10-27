@@ -17,6 +17,10 @@ header {
   margin: 0;
 }
 
+header h1 {
+  font-weight: normal;
+}
+
 footer {
   background: #333;
   color: #bbb;
@@ -78,15 +82,19 @@ hr {
 
 h1 {
   font-size: 130%;
-  font-weight: normal;
+  font-weight: bold;
   padding: 14px 0;
   margin: 0;
 }
 
 h2 {
-  font-size: 150%;
+  font-size: 128%;
   font-weight: bold;
-  padding: 14px 0;
+}
+
+h3 {
+  font-weight: bold;
+  padding: 0;
   margin: 0;
 }
 
@@ -203,7 +211,7 @@ p {
 }
 
 .d-sc {
-  color: #333;
+  color: #000;
   font-size: 100%;
   overflow: hidden;
   text-align: center;
