@@ -118,7 +118,7 @@ PROCEDURE Main( ... )
       "doc"                 => .T., ;
       "source"              => .F., ;
       "contribs"            => .T., ;
-      "format"              => {}, ;
+      "format"              => { "html" }, ;
       "output"              => "single", ;
       "immediate-errors"    => .F., ;
       /* internal settings, values, etc */ ;
@@ -127,9 +127,9 @@ PROCEDURE Main( ... )
       "in hbextern"         => {}, ;
       "not in hbextern"     => {} }
 
-   IF Empty( aArgs ) .OR. ;
-      aArgs[ 1 ] == "-h" .OR. ;
-      aArgs[ 1 ] == "--help"
+   IF Len( aArgs ) >= 1 .AND. ;
+      ( aArgs[ 1 ] == "-h" .OR. ;
+        aArgs[ 1 ] == "--help" )
       ShowHelp( , aArgs )
       RETURN
    ENDIF
