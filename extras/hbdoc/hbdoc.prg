@@ -384,7 +384,7 @@ STATIC FUNCTION ProcessDocDir( cDir, cComponent, aContent )
 
    IF ! Empty( aEntry )
 
-#if 1
+#if 0
       hb_MemoWrit( "_" + aEntry[ 1 ][ "_COMPONENT" ] + ".json", hb_jsonEncode( aEntry, .t. ) )
 #endif
 

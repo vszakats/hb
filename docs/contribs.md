@@ -266,7 +266,6 @@ Extended Systems. With this library your Harbour application can access
 a remote database server for a true client/server architecture, or it can use
 the "local server" `adsloc32.dll` for stand-alone or even small network
 installations.
-<span class="readmore-md">[Read more](https://www.sap.com/pc/tech/database/software/advantage-database-server/index.html)</span>
 
 ## rddbm
 

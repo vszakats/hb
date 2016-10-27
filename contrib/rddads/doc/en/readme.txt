@@ -9,7 +9,7 @@
       Advantage Database Server RDD
    $DESCRIPTION$
       rddads is an RDD for the Advantage Database Server, an xBase data
-      server by Extended Systems <www.advantagedatabase.com>.
+      server by Extended Systems <https://devzone.advantagedatabase.com/>.
       The RDD was written by Alexander Kresin <alex/at/belacy.belgorod.su>
       Additional code and documentation was added by
       Brian Hays <bhays/at/abacuslaw.com>.
