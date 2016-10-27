@@ -64,29 +64,20 @@ $content-fill: 94%;
   border-top: $header-border solid $color-bk-boxs;
 }
 
-div.container {
-  background-color: $color-bk-main;
-  color: $color-main;
-  border: 0;
-  margin: auto;
-  width: $content-width;
-  -width: auto;
-}
-
 header,
 footer {
   clear: left;
 }
 
 main {
+  background-color: $color-bk-main;
+  color: $color-main;
   border: 0;
   border-spacing: 0;
   margin: auto;
   margin-top: 15px;
-  margin-left: 21px;
-  margin-bottom: 15px;
   padding: 0;
-  width: $content-fill;
+  width: (($content-width / 100%) * $content-fill);
 }
 
 body {
@@ -1006,17 +997,13 @@ pre, code {
     width: 100%;
   }
 
-  div.container {
-    width: auto;
-  }
-
   .footer-content {
     width: auto;
   }
 
   main {
-    padding-left: .8em;
-    margin: 0;
+    margin: 15px;
+    width: auto;
   }
 
   aside {
