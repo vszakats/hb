@@ -1,6 +1,7 @@
 /*
  * Document generator - HTML output
  *
+ * Copyright 2016 Viktor Szakats (vszakats.net/harbour)
  * Copyright 2009 April White <bright.tigra gmail.com>
  * Copyright 1999-2003 Luiz Rafael Culik <culikr@uol.com.br> (Portions of this project are based on hbdoc)
  *
@@ -119,7 +120,16 @@ METHOD NewFile() CLASS GenerateHTML
    ::Append( ::cTitle, "title" )
    ::Spacer()
 
-   ::OpenTag( "link", "rel", "stylesheet", "href", STYLEFILE )
+#if 0
+   ::OpenTag( "link", ;
+      "rel", "stylesheet", ;
+      "crossorigin", "anonymous", ;
+      "referrerpolicy", "no-referrer", ;
+      "href", "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" )
+#endif
+   ::OpenTag( "link", ;
+      "rel", "stylesheet", ;
+      "href", STYLEFILE )
    ::Spacer()
 
    ::OpenTag( "body" )
@@ -278,7 +288,9 @@ METHOD AddReference( oEntry, cReference, cSubReference ) CLASS GenerateHTML
       ::AppendInline( oEntry:fld[ "NAME" ] )
       ::CloseTagInline( "a" )
       // ::OpenTagInline( "div", "class", "d-r" )
-      ::AppendInline( hb_UChar( 160 ) + hb_UChar( 160 ) + hb_UChar( 160 ) + oEntry:fld[ "ONELINER" ] )
+      IF ! Empty( oEntry:fld[ "ONELINER" ] )
+         ::AppendInline( hb_UChar( 160 ) + hb_UChar( 160 ) + hb_UChar( 160 ) + oEntry:fld[ "ONELINER" ] )
+      ENDIF
       // ::CloseTagInline( "div" )
    CASE HB_ISSTRING( cSubReference )
       ::OpenTagInline( "li" )
@@ -303,11 +315,25 @@ METHOD AddEntry( oEntry ) CLASS GenerateHTML
    ::Spacer()
    ::OpenTag( "section", "id", SymbolToHTMLID( oEntry:_filename ) )
 
+   ::OpenTagInline( "span", "class", "entry-button" )
+
+   ::OpenTagInline( "a", "href", "#" )
+   ::AppendInline( "Top" )
+   ::CloseTagInline( "a" )
+
+   ::AppendInline( hb_UChar( 160 ) + "|" + hb_UChar( 160 ) )
+   ::OpenTagInline( "a", "href", "index.html" )
+   ::AppendInline( "Index" )
+   ::CloseTagInline( "a" )
+
    #if defined( HB_VERSION_URL_BASE )
-      ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "edit/master" + SubStr( oEntry:_sourcefile, Len( "../.." ) + 1 ), "class", "edit-page" )
-      ::AppendInline( hb_UChar( 160 ) + "Improve this doc" )
+      ::AppendInline( hb_UChar( 160 ) + "|" + hb_UChar( 160 ) )
+      ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "edit/master" + SubStr( oEntry:_sourcefile, Len( "../.." ) + 1 ) )
+      ::AppendInline( "Improve this doc" )
       ::CloseTagInline( "a" )
    #endif
+
+   ::CloseTag( "span" )
 
    FOR EACH item IN FieldIDList()
       IF item == "NAME"
@@ -372,7 +398,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
                ELSE
                   ::Space()
                ENDIF
-               ::OpenTagInline( "code" ):OpenTagInline( "a", "href", "#" + SymbolToHTMLID( tmp1 ) ):AppendInline( tmp ):CloseTagInline( "a" ):CloseTagInline( "code" )
+               ::OpenTagInline( "code" ):OpenTagInline( "a", "href", "#" + SymbolToHTMLID( Lower( tmp1 ) ) ):AppendInline( tmp ):CloseTagInline( "a" ):CloseTagInline( "code" )
             ENDIF
          NEXT
          ::CloseTag( "div" )

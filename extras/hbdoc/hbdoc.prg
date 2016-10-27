@@ -1,6 +1,7 @@
 /*
  * Document generator
  *
+ * Copyright 2016 Viktor Szakats (vszakats.net/harbour)
  * Copyright 2009 April White <bright.tigra gmail.com>
  * Copyright 1999-2003 Luiz Rafael Culik <culikr@uol.com.br> (Portions of this project are based on hbdoc)
  *
@@ -45,30 +46,6 @@
  *
  */
 
-/* TODO:
-   - handle preformatted text / code / etc
-   - include links back to index
-   - include jumps to 'top'
-   - 'coverage' to have links to corresponding file
-   - 'Filename' must return the same file name all of the time for the same source
-      - one method to retrieve, one to add?
-      - key-value pair [hash table?]
-
-   TODO: - treat '<fixed>' / </fixed> as an non-conformance condition
-   ntf: this may be okay for EXAMPLES and TESTS but this is also used
-        within other sections, much like <table>
-
-   TODO: - look for embedded 'fixed'
-
-   done - recognize and accept </par>; see macro.txt output esp. hb_SetMacro()
-   done - list 'compliance' and 'platforms' within help
-   done - list 'category' and 'subcategory' types on help screen
-   done - load into memory (class and) method template
-   done - minimize these to the barest
-   done - build a list of 'categories' and validate against; see what 'classdoc' uses
-   done - validate sources against these templates
-*/
-
 #include "directry.ch"
 #include "hbclass.ch"
 #include "hbver.ch"
@@ -104,7 +81,7 @@ STATIC s_generators
 PROCEDURE Main( ... )
 
    LOCAL aArgs := hb_AParams()
-   LOCAL idx, item, item4
+   LOCAL idx, item
    LOCAL arg, tmp
    LOCAL cArgName
    LOCAL cFormat
@@ -143,7 +120,6 @@ PROCEDURE Main( ... )
       "contribs"            => .T., ;
       "format"              => {}, ;
       "output"              => "single", ;
-      "include-doc-source"  => .F., ;
       "immediate-errors"    => .F., ;
       /* internal settings, values, etc */ ;
       "DELIMITER"           => "$", ;
@@ -182,7 +158,6 @@ PROCEDURE Main( ... )
             ENDIF
          CASE hb_LeftEq( cArgName, "-output-" )
             s_hSwitches[ "output" ] := SubStr( cArgName, Len( "-output-" ) + 1 )
-         CASE cArgName == "-include-doc-source" ;     s_hSwitches[ "include-doc-source" ] := .T.
          OTHERWISE
             IF SubStr( cArgName, 2 ) $ s_generators
                IF SubStr( cArgName, 2 ) == "all"
@@ -331,64 +306,6 @@ PROCEDURE Main( ... )
             oIndex := NIL
 
             oDocument := NIL
-
-            EXIT
-
-         CASE "category"
-
-            oIndex := Eval( generatorClass ):NewIndex( cFormat, "harbour", "Harbour Reference Guide" )
-
-            FOR EACH item IN aContent
-               IF Right( item:_sourcefile, Len( "1stread.txt" ) ) == "1stread.txt"
-                  oIndex:AddEntry( item )
-                  EXIT
-               ENDIF
-            NEXT
-
-            FOR EACH item IN sc_hConstraint[ "categories" ]
-               item[ 3 ] := Filename( item:__enumKey() )
-            NEXT
-
-            FOR EACH item IN sc_hConstraint[ "categories" ]
-
-               oDocument := Eval( generatorClass ):NewDocument( cFormat, item[ 3 ], hb_StrFormat( "Harbour Reference Guide · %1$s", item:__enumKey() ), s_hSwitches[ "lang" ] )
-
-               oIndex:BeginSection( item:__enumKey(), oDocument:cFilename )
-               oDocument:BeginSection( item:__enumKey(), oDocument:cFilename )
-
-               FOR idx := 1 TO Len( item[ 2 ] )
-                  IF ! Empty( item[ 2 ][ idx ] )
-                     ASort( item[ 2 ][ idx ], , , {| oL, oR | oL:fld[ "NAME" ] <= oR:fld[ "NAME" ] } )
-                     IF Len( item[ 1 ][ idx ] ) > 0
-                        oIndex:BeginSection( item[ 1 ][ idx ], oDocument:cFilename )
-                        oDocument:BeginSection( item[ 1 ][ idx ], oDocument:cFilename )
-                     ENDIF
-                     FOR EACH item4 IN item[ 2 ][ idx ]
-                        IF ! Empty( item4 )
-                           IF !( Right( item4:_sourcefile, Len( "1stread.txt" ) ) == "1stread.txt" )
-                              oIndex:AddReference( item4 )
-                              oDocument:AddEntry( item4 )
-
-                              oDocument:AddReference( "Index", oIndex:cFilename )
-                              /* this kind of works; the reference is outputed but it is not what I meant */
-                              oDocument:AddReference( item:__enumKey(), oIndex:cFilename, item[ 3 ] )
-                           ENDIF
-                        ENDIF
-                     NEXT
-                     IF Len( item[ 1 ][ idx ] ) > 0
-                        oIndex:EndSection()
-                        oDocument:EndSection()
-                     ENDIF
-                  ENDIF
-               NEXT
-               oIndex:EndSection()
-               oDocument:EndSection()
-               oDocument:Generate()
-               oDocument := NIL
-            NEXT
-
-            oIndex:Generate()
-            oIndex := NIL
 
             EXIT
 
@@ -551,7 +468,6 @@ STATIC PROCEDURE ProcessBlock( hEntry, aContent )
    LOCAL lAccepted := .T.
    LOCAL cSource
    LOCAL idxCategory := NIL
-   LOCAL idxSubCategory := -1
    LOCAL item
 
    LOCAL o
@@ -617,25 +533,9 @@ STATIC PROCEDURE ProcessBlock( hEntry, aContent )
       ELSEIF o:IsField( cSectionName )
 
          DO CASE
-         CASE o:IsField( cSectionName, TPL_START )
-
-            AddErrorCondition( cFile, "Encountered another section '" + cSection, .T. )
-            lAccepted := .F.
-            EXIT
-
-         CASE o:IsField( cSectionName, TPL_END )
-
-            EXIT
-
-         CASE ! Empty( o:fld[ cSectionName ] )
-
-            AddErrorCondition( cFile, "Duplicate " + cSectionName, .T. )
-            lAccepted := .F.
-
          CASE cSectionName == "SUBCATEGORY" .AND. o:IsField( "SUBCATEGORY" )
 
-            IF idxCategory != NIL .AND. ;
-               ( idxSubCategory := AScan( sc_hConstraint[ "categories" ][ idxCategory ][ 1 ], {| c | c != NIL .AND. iif( HB_ISSTRING( c ), Lower( c ) == Lower( cSection ), Lower( c[ 1 ] ) == Lower( cSection ) ) } ) ) == 0
+            IF idxCategory != NIL .AND. ! cSection $ sc_hConstraint[ "categories" ][ idxCategory ]
                AddErrorCondition( cFile, "Unrecognized SUBCATEGORY '" + idxCategory + "'-" + cSection )
             ENDIF
 
@@ -698,25 +598,12 @@ STATIC PROCEDURE ProcessBlock( hEntry, aContent )
          ENDIF
       ENDIF
 
-      IF s_hSwitches[ "include-doc-source" ]
-         o:Files += hb_eol() + o:_sourcefile
-      ENDIF
-
       o:_filename := Filename( o:fld[ "NAME" ] )
 
       AAdd( aContent, o )
 
       IF ! cComponent $ s_hComponent
          s_hComponent[ cComponent ] := NIL
-      ENDIF
-
-      IF idxCategory != NIL
-         IF idxSubCategory == -1 .AND. ( ! o:IsField( "SUBCATEGORY" ) .OR. ! o:IsRequired( "SUBCATEGORY" ) )
-            idxSubCategory := o:SubcategoryIndex( o:fld[ "CATEGORY" ], "" )
-         ENDIF
-         IF idxSubCategory > 0
-            AAdd( sc_hConstraint[ "categories" ][ idxCategory ][ 2 ][ idxSubCategory ], o )
-         ENDIF
       ENDIF
    ENDIF
 
@@ -824,20 +711,18 @@ STATIC PROCEDURE ShowHelp( cExtraMessage, aArgs )
          "", ;
          "Options:", ;
          { ;
-            "-h or --help                    this screen", ;
-            "-h <option> or --help <option>  help on <option>, <option> is one of:", ;
+            "-h                   this screen", ;
+            "-h <option>          help on <option>, <option> is one of:", ;
             2, ;
             { "Categories", "Templates", "Compliance", "Platforms" }, ;
             1, ;
-            "-[format=]<type>                output type, default is text, or one of:", ;
+            "-[format=]<type>     output type, default is text, or one of:", ;
             2, ;
             hb_HKeys( s_generators ), ;
             1, ;
-            "-output-single                  output is one file" + IsDefault( s_hSwitches[ "output" ] == "single" ), ;
-            "-output-category                output is one file per category" + IsDefault( s_hSwitches[ "output" ] == "category" ), ;
-            "-output-entry                   output is one file per entry (function, command, etc)" + IsDefault( s_hSwitches[ "output" ] == "entry" ), ;
-            "-source=<directory>             source directory, default is .." + hb_ps() + "..", ;
-            "-include-doc-source             output is to indicate the document source file name", ;
+            "-output-single       output is one file" + IsDefault( s_hSwitches[ "output" ] == "single" ), ;
+            "-output-entry        output is one file per entry (function, command, etc)" + IsDefault( s_hSwitches[ "output" ] == "entry" ), ;
+            "-source=<directory>  source directory, default is .." + hb_ps() + "..", ;
          } }
 
    CASE aArgs[ 2 ] == "Categories"
@@ -1022,7 +907,6 @@ CREATE CLASS Entry
    METHOD IsRequired( cField )
    METHOD IsOptional( cField )
    METHOD IsOutput( cField )
-   METHOD SubcategoryIndex( cCategory, cSubcategory )
 
    VAR fld AS HASH
 
@@ -1110,11 +994,6 @@ METHOD IsOptional( cField ) CLASS Entry
 METHOD IsOutput( cField ) CLASS Entry
    RETURN hb_bitAnd( ::_group[ hb_HPos( sc_hFields, cField ) ], TPL_OUTPUT ) != 0
 
-METHOD SubcategoryIndex( cCategory, cSubcategory ) CLASS Entry
-   RETURN iif( cCategory $ sc_hConstraint[ "categories" ], ;
-      hb_AScan( sc_hConstraint[ "categories" ][ cCategory ][ 1 ], cSubcategory, , , .T. ), ;
-      0 )
-
 FUNCTION FieldIDList()
    RETURN hb_HKeys( sc_hFields )
 
@@ -1123,73 +1002,66 @@ FUNCTION FieldCaption( cName )
 
 STATIC PROCEDURE init_Templates()
 
-   LOCAL item, tmp
-   LOCAL aSubCategories := { ;
-      "", ;
-      "Application", ;
-      "Array", ;
-      "Classes", ;
-      "Conversion", ;
-      "Database", ;
-      "Date/Time", ;
-      "Environment", ;
-      "Error", ;
-      "Events", ;
-      "Execute and execution", ;  /* replace w/ "Environment"? */
-      "Extend", ;
-      "FileSys", ;
-      "Fixed memory", ;
-      "Garbage collector", ;
-      "Hash table", ;
-      "Idle states", ;
-      "INET", ;
-      "Internal", ;
-      "Item", ;
-      "Language and Nation", ;
-      "Legacy", ;
-      "Macro", ;
-      "Math", ;
-      "Objects", ;
-      "Printer", ;
-      "RDD", ;
-      "Strings", ;
-      "Terminal", ;
-      "Undocumented", ;
-      "User interface", ;
-      "Variable management", ;
-      "Virtual machine" }
+   LOCAL hSubCategories := { ;
+      "" =>, ;
+      "Application" =>, ;
+      "Array" =>, ;
+      "Classes" =>, ;
+      "Conversion" =>, ;
+      "Database" =>, ;
+      "Date/Time" =>, ;
+      "Environment" =>, ;
+      "Error" =>, ;
+      "Events" =>, ;
+      "Execute and execution" =>, ;  /* replace w/ "Environment"? */
+      "Extend" =>, ;
+      "FileSys" =>, ;
+      "Fixed memory" =>, ;
+      "Garbage collector" =>, ;
+      "Hash table" =>, ;
+      "Idle states" =>, ;
+      "INET" =>, ;
+      "Internal" =>, ;
+      "Item" =>, ;
+      "Language and Nation" =>, ;
+      "Legacy" =>, ;
+      "Macro" =>, ;
+      "Math" =>, ;
+      "Objects" =>, ;
+      "Printer" =>, ;
+      "RDD" =>, ;
+      "Strings" =>, ;
+      "Terminal" =>, ;
+      "Undocumented" =>, ;
+      "User interface" =>, ;
+      "Variable management" =>, ;
+      "Virtual machine" => }
+
+   hb_HCaseMatch( hSubCategories, .F. )
 
    sc_hConstraint := { => }
    hb_HCaseMatch( sc_hConstraint, .F. )
 
    sc_hConstraint[ "categories" ] := { ;
-      "Document"                  => { { "License", "Compiler", "" } }, ;
-      "API"                       => { AClone( aSubCategories ) }, ;
-      "C level API"               => { AClone( aSubCategories ) }, ;
-      "C level API compatibility" => { AClone( aSubCategories ) }, ;
-      "Class"                     => { { ;
-          "", ;
-          "Access", ;
-          "Assign", ;
-          "Constructor", ;
-          "Data", ;
-          "Definition", ;
-          "Destructor", ;
-          "Method", ;
-          "Var" } }, ;
-      "Command"                   => { AClone( aSubCategories ) }, ;
-      /* "Compile time errors"    => { { "" } }, */ ;
-      "Run time errors"           => { { "" } } }
+      "Document"                  => { "License" =>, "Compiler" =>, "" => }, ;
+      "API"                       => hSubCategories, ;
+      "C level API"               => hSubCategories, ;
+      "C level API compatibility" => hSubCategories, ;
+      "Class"                     => { ;
+          "" =>, ;
+          "Access" =>, ;
+          "Assign" =>, ;
+          "Constructor" =>, ;
+          "Data" =>, ;
+          "Definition" =>, ;
+          "Destructor" =>, ;
+          "Method" =>, ;
+          "Var" => }, ;
+      "Command"                   => hSubCategories, ;
+      /* "Compile time errors"    => { "" => }, */ ;
+      "Run time errors"           => { "" => } }
 
    hb_HCaseMatch( sc_hConstraint[ "categories" ], .F. )
-
-   FOR EACH item IN sc_hConstraint[ "categories" ]
-      AAdd( item, Array( Len( item[ 1 ] ) ) )  /* holder array of sub-category entries */
-      FOR EACH tmp IN ATail( item )
-         tmp := {}
-      NEXT
-      AAdd( item, "" )  /* holder for sub-category file name */
-   NEXT
 
    sc_hConstraint[ "compliance" ] := { ;
       "C"       => "CA-Cl*pper v5.x compatible", ;
