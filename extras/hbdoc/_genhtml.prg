@@ -564,7 +564,7 @@ STATIC FUNCTION StrEsc( cString )
    RETURN hb_StrReplace( cString, s_html )
 
 STATIC FUNCTION MDSpace( cChar )
-   RETURN cChar $ " .,:;?!"
+   RETURN Empty( cChar ) .OR. cChar $ ".,:;?!"
 
 METHOD AppendInline( cText, cFormat, lCode ) CLASS GenerateHTML
 
