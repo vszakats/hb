@@ -37,8 +37,8 @@ $color-bk-footer: #333;
 $color-bk-tooltip: $color-bk-footer;
 $color-bk-head-def: mix($color-menu-bk, $color-base1);
 $color-bk-code: #f2f2f2;
-$color-bk-box1: darken($color-bk-main, 7%);
-$color-bk-box2: mix($color-bk-main, $color-base1, 90%);
+$color-bk-box1: #f6f6ee;
+$color-bk-box2: mix($color-bk-main, $color-base1, 91%);
 $color-bk-boxs: darken(gold, 2%);
 
 $color-warn: #c00000;
@@ -291,10 +291,6 @@ $donate-button-transition-time: .3s;
   border: none;
   float: right;
   margin: 1em;
-}
-
-.trophy {
-  color: $color-gold !important;
 }
 
 .large-icon {
