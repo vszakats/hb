@@ -407,15 +407,17 @@ STATIC FUNCTION NewLineVoodoo( cSectionIn )
 
    LOCAL cSection := ""
    LOCAL lPreformatted := .F.
+   LOCAL lTable
    LOCAL lLastPreformatted := .F.
    LOCAL nLastIndent := -1
+   LOCAL lLastTable := .F.
 
    LOCAL cLine
 
    FOR EACH cLine IN hb_ATokens( cSectionIn, .T. )
 
       IF Empty( cLine )
-         IF lPreformatted
+         IF lPreformatted .AND. ! lTable
             cSection += hb_eol() + hb_eol()
          ELSE
             IF !( Right( cSection, Len( hb_eol() ) ) == hb_eol() )
@@ -429,13 +431,16 @@ STATIC FUNCTION NewLineVoodoo( cSectionIn )
          ENDIF
          cSection += AllTrim( cLine )  // + hb_eol()
          lLastPreformatted := lPreformatted
+         lLastTable := lTable
          lPreformatted := .T.
+         lTable := hb_LeftEq( AllTrim( cLine ), "<table" )
       ELSEIF AllTrim( cLine ) == "</table>" .OR. AllTrim( cLine ) == "</fixed>" .OR. ( hb_LeftEq( AllTrim( cLine ), '```' ) .AND. lPreformatted )
          IF !( Right( cSection, Len( hb_eol() ) ) == hb_eol() ) .OR. lPreformatted
             cSection += hb_eol()
          ENDIF
          cSection += AllTrim( cLine ) + hb_eol()
          lPreformatted := lLastPreformatted
+         lTable := lLastTable
       ELSEIF nLastIndent != ( Len( cLine ) - Len( LTrim( cLine ) ) ) .OR. lPreformatted .OR. Right( cLine, Len( "</par>" ) ) == "</par>"
          IF Right( cLine, Len( "</par>" ) ) == "</par>"
             cLine := hb_StrShrink( cLine, Len( "</par>" ) )
