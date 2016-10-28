@@ -289,14 +289,14 @@ METHOD SubCategory( cCategory, cID )
 METHOD AddReference( oEntry, cReference, cSubReference ) CLASS GenerateHTML
 
    DO CASE
-   CASE HB_ISOBJECT( oEntry )
+   CASE HB_ISHASH( oEntry )
       ::OpenTagInline( "li" )
-      ::OpenTagInline( "a", "href", ::TargetFilename + ::cExtension + "#" + SymbolToHTMLID( oEntry:_filename ) )
-      ::AppendInline( oEntry:fld[ "NAME" ] )
+      ::OpenTagInline( "a", "href", ::TargetFilename + ::cExtension + "#" + SymbolToHTMLID( oEntry[ "_filename" ] ) )
+      ::AppendInline( oEntry[ "NAME" ] )
       ::CloseTagInline( "a" )
       // ::OpenTagInline( "div", "class", "d-r" )
-      IF ! Empty( oEntry:fld[ "ONELINER" ] )
-         ::AppendInline( hb_UChar( 160 ) + hb_UChar( 160 ) + hb_UChar( 160 ) + oEntry:fld[ "ONELINER" ] )
+      IF ! Empty( oEntry[ "ONELINER" ] )
+         ::AppendInline( hb_UChar( 160 ) + hb_UChar( 160 ) + hb_UChar( 160 ) + oEntry[ "ONELINER" ] )
       ENDIF
       // ::CloseTagInline( "div" )
    CASE HB_ISSTRING( cSubReference )
@@ -320,7 +320,7 @@ METHOD AddEntry( oEntry ) CLASS GenerateHTML
    LOCAL cEntry
 
    ::Spacer()
-   ::OpenTag( "section", "id", SymbolToHTMLID( oEntry:_filename ) )
+   ::OpenTag( "section", "id", SymbolToHTMLID( oEntry[ "_filename" ] ) )
 
    ::OpenTagInline( "span", "class", "entry-button" )
 
@@ -334,7 +334,7 @@ METHOD AddEntry( oEntry ) CLASS GenerateHTML
    ::CloseTagInline( "a" )
 
    ::AppendInline( hb_UChar( 160 ) + "|" + hb_UChar( 160 ) )
-   ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "edit/master/" + SubStr( oEntry:_sourcefile, Len( hbdoc_dir_in() ) + 1 ) )
+   ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "edit/master/" + SubStr( oEntry[ "_sourcefile" ], Len( hbdoc_dir_in() ) + 1 ) )
    ::AppendInline( "Improve this doc" )
    ::CloseTagInline( "a" )
 
@@ -342,14 +342,14 @@ METHOD AddEntry( oEntry ) CLASS GenerateHTML
 
    FOR EACH item IN FieldIDList()
       IF item == "NAME"
-         cEntry := oEntry:fld[ "NAME" ]
+         cEntry := oEntry[ "NAME" ]
          IF "(" $ cEntry .OR. Upper( cEntry ) == cEntry  // guess if it's code
             ::OpenTagInline( "h4" ):OpenTagInline( "code" ):AppendInline( cEntry ):CloseTagInline( "code" ):CloseTag( "h4" )
          ELSE
             ::OpenTagInline( "h4" ):AppendInline( cEntry ):CloseTag( "h4" )
          ENDIF
-      ELSEIF oEntry:IsField( item ) .AND. oEntry:IsOutput( item ) .AND. Len( oEntry:fld[ item ] ) > 0
-         ::WriteEntry( item, oEntry:fld[ item ], oEntry:IsPreformatted( item ) )
+      ELSEIF IsField( oEntry, item ) .AND. IsOutput( oEntry, item ) .AND. ! HB_ISNULL( oEntry[ item ] )
+         ::WriteEntry( item, oEntry[ item ], IsPreformatted( oEntry, item ) )
       ENDIF
    NEXT
 

@@ -123,7 +123,7 @@ METHOD BeginSection( cSection, cFilename ) CLASS GenerateText
 
 METHOD AddIndex( oEntry ) CLASS GenerateText
 
-   ::WriteEntry( FieldCaption( "NAME" ), oEntry:fld[ "NAME" ] + " - " + oEntry:fld[ "ONELINER" ], .F. )
+   ::WriteEntry( FieldCaption( "NAME" ), oEntry[ "NAME" ] + " - " + oEntry[ "ONELINER" ], .F. )
 
    RETURN Self
 
@@ -135,8 +135,8 @@ METHOD AddEntry( oEntry ) CLASS GenerateText
       ::AddIndex( oEntry )
    ELSE
       FOR EACH item IN FieldIDList()
-         IF oEntry:IsField( item ) .AND. oEntry:IsOutput( item ) .AND. Len( oEntry:fld[ item ] ) > 0
-            ::WriteEntry( FieldCaption( item ), oEntry:fld[ item ], oEntry:IsPreformatted( item ) )
+         IF IsField( oEntry, item ) .AND. IsOutput( oEntry, item ) .AND. ! HB_ISNULL( oEntry[ item ] )
+            ::WriteEntry( FieldCaption( item ), oEntry[ item ], IsPreformatted( oEntry, item ) )
          ENDIF
       NEXT
 
