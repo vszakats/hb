@@ -107,6 +107,7 @@ CREATE CLASS HBFormatCode
                              { "do"    , "case"    , { "case", "otherwise" }, { "endcase" }        }, ;
                              { "with"  , "object"  , { "" }                 , { "end" }            }, ;
                              { "begin" , "sequence", { "recover", "always" }, { "end" }            }, ;
+                             { "try" , "",           { "catch", "finally" },  { "end" }            }, ;
                              { "switch", ""        , { "case", "otherwise" }, { "endswitch" }      } }
 
    VAR bCallback
