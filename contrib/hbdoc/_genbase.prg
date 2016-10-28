@@ -50,6 +50,7 @@
 #pragma -ko+
 
 #include "hbclass.ch"
+#include "hbver.ch"
 
 #define DOCUMENT_  1
 #define INDEX_     2
