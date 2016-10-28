@@ -57,8 +57,8 @@ CREATE CLASS GenerateXML INHERIT TPLGenerate
 
    METHOD NewIndex( cDir, cFilename, cTitle, cLang )
    METHOD NewDocument( cDir, cFilename, cTitle, cLang )
-   METHOD AddEntry( oEntry )
-   METHOD AddIndex( oEntry ) HIDDEN
+   METHOD AddEntry( hEntry )
+   METHOD AddIndex( hEntry ) HIDDEN
    METHOD BeginSection( cSection, cFilename )
    METHOD EndSection( cSection, cFilename )
    METHOD Generate()
@@ -107,23 +107,23 @@ METHOD EndSection( cSection, cFilename ) CLASS GenerateXML
 
    RETURN Self
 
-METHOD AddIndex( oEntry ) CLASS GenerateXML
+METHOD AddIndex( hEntry ) CLASS GenerateXML
 
-   ::WriteEntry( "ENTRY", oEntry[ "NAME" ] + " - " + oEntry[ "ONELINER" ], .F. )
+   ::WriteEntry( "ENTRY", hEntry[ "NAME" ] + " - " + hEntry[ "ONELINER" ], .F. )
 
    RETURN Self
 
-METHOD AddEntry( oEntry ) CLASS GenerateXML
+METHOD AddEntry( hEntry ) CLASS GenerateXML
 
    LOCAL item
 
    IF ::IsIndex()
-      ::AddIndex( oEntry )
+      ::AddIndex( hEntry )
    ELSE
       ::cFile += '<Entry>' + hb_eol()
       ::nDepth++
       FOR EACH item IN FieldIDList()
-         ::WriteEntry( item, oEntry[ item ], IsPreformatted( oEntry, item ) )
+         ::WriteEntry( item, hEntry[ item ], IsPreformatted( hEntry, item ) )
       NEXT
       ::nDepth--
       ::cFile += '</Entry>' + hb_eol()

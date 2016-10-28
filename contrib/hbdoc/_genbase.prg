@@ -58,8 +58,8 @@ CREATE CLASS TPLGenerate
 
    METHOD NewIndex( cDir, cFilename, cTitle, cExtension, cLang )
    METHOD NewDocument( cDir, cFilename, cTitle, cExtension, cLang )
-   METHOD AddEntry( oEntry ) INLINE HB_SYMBOL_UNUSED( oEntry ), NIL
-   METHOD AddReference( oEntry ) INLINE HB_SYMBOL_UNUSED( oEntry ), NIL
+   METHOD AddEntry( hEntry ) INLINE HB_SYMBOL_UNUSED( hEntry ), NIL
+   METHOD AddReference( hEntry ) INLINE HB_SYMBOL_UNUSED( hEntry ), NIL
    METHOD BeginSection( cSection, cFilename ) INLINE HB_SYMBOL_UNUSED( cSection ), HB_SYMBOL_UNUSED( cFilename ), ::nDepth++
    METHOD EndSection( cSection, cFilename ) INLINE HB_SYMBOL_UNUSED( cSection ), HB_SYMBOL_UNUSED( cFilename ), ::nDepth--
    METHOD Generate()

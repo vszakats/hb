@@ -77,7 +77,7 @@ CREATE CLASS GenerateText INHERIT TPLGenerate
    HIDDEN:
 
    METHOD WriteEntry( cCaption, cContent, lPreformatted )
-   METHOD AddIndex( oEntry )
+   METHOD AddIndex( hEntry )
 
    PROTECTED:
 
@@ -87,7 +87,7 @@ CREATE CLASS GenerateText INHERIT TPLGenerate
 
    METHOD NewIndex( cDir, cFilename, cTitle, cLang )
    METHOD NewDocument( cDir, cFilename, cTitle, cLang )
-   METHOD AddEntry( oEntry )
+   METHOD AddEntry( hEntry )
    METHOD BeginSection( cSection, cFilename )
 #if 0
    METHOD EndSection( cSection, cFilename )  /* will use inherited method */
@@ -121,22 +121,22 @@ METHOD BeginSection( cSection, cFilename ) CLASS GenerateText
 
    RETURN Self
 
-METHOD AddIndex( oEntry ) CLASS GenerateText
+METHOD AddIndex( hEntry ) CLASS GenerateText
 
-   ::WriteEntry( FieldCaption( "NAME" ), oEntry[ "NAME" ] + " - " + oEntry[ "ONELINER" ], .F. )
+   ::WriteEntry( FieldCaption( "NAME" ), hEntry[ "NAME" ] + " - " + hEntry[ "ONELINER" ], .F. )
 
    RETURN Self
 
-METHOD AddEntry( oEntry ) CLASS GenerateText
+METHOD AddEntry( hEntry ) CLASS GenerateText
 
    LOCAL item
 
    IF ::IsIndex()
-      ::AddIndex( oEntry )
+      ::AddIndex( hEntry )
    ELSE
       FOR EACH item IN FieldIDList()
-         IF IsField( oEntry, item ) .AND. IsOutput( oEntry, item ) .AND. ! HB_ISNULL( oEntry[ item ] )
-            ::WriteEntry( FieldCaption( item ), oEntry[ item ], IsPreformatted( oEntry, item ) )
+         IF IsField( hEntry, item ) .AND. IsOutput( hEntry, item ) .AND. ! HB_ISNULL( hEntry[ item ] )
+            ::WriteEntry( FieldCaption( item ), hEntry[ item ], IsPreformatted( hEntry, item ) )
          ENDIF
       NEXT
 

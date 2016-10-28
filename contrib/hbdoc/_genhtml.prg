@@ -82,8 +82,8 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
 
    METHOD NewIndex( cDir, cFilename, cTitle, cLang )
    METHOD NewDocument( cDir, cFilename, cTitle, cLang )
-   METHOD AddEntry( oEntry )
-   METHOD AddReference( oEntry, cReference, cSubReference )
+   METHOD AddEntry( hEntry )
+   METHOD AddReference( hEntry, cReference, cSubReference )
    METHOD BeginSection( cSection, cFilename, cID )
    METHOD EndSection()
    METHOD Generate()
@@ -286,27 +286,27 @@ METHOD SubCategory( cCategory, cID )
 
    RETURN Self
 
-METHOD AddReference( oEntry, cReference, cSubReference ) CLASS GenerateHTML
+METHOD AddReference( hEntry, cReference, cSubReference ) CLASS GenerateHTML
 
    DO CASE
-   CASE HB_ISHASH( oEntry )
+   CASE HB_ISHASH( hEntry )
       ::OpenTagInline( "li" )
-      ::OpenTagInline( "a", "href", ::TargetFilename + ::cExtension + "#" + SymbolToHTMLID( oEntry[ "_filename" ] ) )
-      ::AppendInline( oEntry[ "NAME" ] )
+      ::OpenTagInline( "a", "href", ::TargetFilename + ::cExtension + "#" + SymbolToHTMLID( hEntry[ "_filename" ] ) )
+      ::AppendInline( hEntry[ "NAME" ] )
       ::CloseTagInline( "a" )
       // ::OpenTagInline( "div", "class", "d-r" )
-      IF ! Empty( oEntry[ "ONELINER" ] )
-         ::AppendInline( hb_UChar( 160 ) + hb_UChar( 160 ) + hb_UChar( 160 ) + oEntry[ "ONELINER" ] )
+      IF ! Empty( hEntry[ "ONELINER" ] )
+         ::AppendInline( hb_UChar( 160 ) + hb_UChar( 160 ) + hb_UChar( 160 ) + hEntry[ "ONELINER" ] )
       ENDIF
       // ::CloseTagInline( "div" )
    CASE HB_ISSTRING( cSubReference )
       ::OpenTagInline( "li" )
       ::OpenTagInline( "a", "href", cReference + "#" + SymbolToHTMLID( cSubReference ) )
-      ::AppendInline( oEntry )
+      ::AppendInline( hEntry )
       ::CloseTagInline( "a" )
    OTHERWISE
       ::OpenTagInline( "a", "href", cReference )
-      ::AppendInline( oEntry )
+      ::AppendInline( hEntry )
       ::CloseTagInline( "a" )
    ENDCASE
 
@@ -314,13 +314,13 @@ METHOD AddReference( oEntry, cReference, cSubReference ) CLASS GenerateHTML
 
    RETURN Self
 
-METHOD AddEntry( oEntry ) CLASS GenerateHTML
+METHOD AddEntry( hEntry ) CLASS GenerateHTML
 
    LOCAL item
    LOCAL cEntry
 
    ::Spacer()
-   ::OpenTag( "section", "id", SymbolToHTMLID( oEntry[ "_filename" ] ) )
+   ::OpenTag( "section", "id", SymbolToHTMLID( hEntry[ "_filename" ] ) )
 
    ::OpenTagInline( "span", "class", "entry-button" )
 
@@ -334,7 +334,7 @@ METHOD AddEntry( oEntry ) CLASS GenerateHTML
    ::CloseTagInline( "a" )
 
    ::AppendInline( hb_UChar( 160 ) + "|" + hb_UChar( 160 ) )
-   ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "edit/master/" + SubStr( oEntry[ "_sourcefile" ], Len( hbdoc_dir_in() ) + 1 ) )
+   ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "edit/master/" + SubStr( hEntry[ "_sourcefile" ], Len( hbdoc_dir_in() ) + 1 ) )
    ::AppendInline( "Improve this doc" )
    ::CloseTagInline( "a" )
 
@@ -342,14 +342,14 @@ METHOD AddEntry( oEntry ) CLASS GenerateHTML
 
    FOR EACH item IN FieldIDList()
       IF item == "NAME"
-         cEntry := oEntry[ "NAME" ]
+         cEntry := hEntry[ "NAME" ]
          IF "(" $ cEntry .OR. Upper( cEntry ) == cEntry  // guess if it's code
             ::OpenTagInline( "h4" ):OpenTagInline( "code" ):AppendInline( cEntry ):CloseTagInline( "code" ):CloseTag( "h4" )
          ELSE
             ::OpenTagInline( "h4" ):AppendInline( cEntry ):CloseTag( "h4" )
          ENDIF
-      ELSEIF IsField( oEntry, item ) .AND. IsOutput( oEntry, item ) .AND. ! HB_ISNULL( oEntry[ item ] )
-         ::WriteEntry( item, oEntry[ item ], IsPreformatted( oEntry, item ) )
+      ELSEIF IsField( hEntry, item ) .AND. IsOutput( hEntry, item ) .AND. ! HB_ISNULL( hEntry[ item ] )
+         ::WriteEntry( item, hEntry[ item ], IsPreformatted( hEntry, item ) )
       ENDIF
    NEXT
 
