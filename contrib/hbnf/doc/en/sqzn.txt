@@ -24,8 +24,6 @@
       TRANS->amount  := ft_Sqzn( mamount, 12, 2 )
    $SEEALSO$
       ft_Unsqzn()
-   $INCLUDE$
-
    $END$
  */
 
@@ -60,7 +58,5 @@
       ? ft_Unsqzn( field->amount, 12, 2 )
    $SEEALSO$
       ft_Sqzn()
-   $INCLUDE$
-
    $END$
  */

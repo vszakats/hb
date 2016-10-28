@@ -100,6 +100,7 @@ PROCEDURE Main()
    LOCAL aComponent
    LOCAL cID, cName
    LOCAL nStart
+   LOCAL cDir
 
    LOCAL generatorClass
 
@@ -112,15 +113,21 @@ PROCEDURE Main()
 
    init_Templates()
 
-   /* configuration settings, values, etc */ ;
+   /* Configuration settings */
    s_hSwitches := { ;
-      "basedir"          => hb_DirBase() + hb_DirSepToOS( "../../" ), ;
-      "lang"             => "en", ;
-      "contribs"         => .T., ;
-      "format"           => { "html" }, ;
-      "output"           => "component", ;
-      "immediate-errors" => .F., ;
-      "hHBX"             => {} }
+      "lang"      => "en", ;
+      "contribs"  => .T., ;
+      "format"    => { "html" }, ;
+      "output"    => "component", ;
+      "dir_out"    => hb_DirSepToOS( "./" ), ;
+      "verbosity" => 1, ;
+      "hHBX"      => {} }
+
+   /* Find project root */
+   nCount := 4
+   DO WHILE nCount-- > 0 .AND. ! hb_DirExists( ( tmp := hb_DirBase() + hb_DirSepToOS( Replicate( "../", nCount ) ) ) + "doc" )
+   ENDDO
+   s_hSwitches[ "dir_in" ] := iif( nCount == 0, "./", hb_PathNormalize( tmp ) )
 
    IF Len( aArgs ) >= 1 .AND. ;
       ( aArgs[ 1 ] == "-h" .OR. ;
@@ -140,7 +147,9 @@ PROCEDURE Main()
          ENDIF
 
          DO CASE
-         CASE cArgName == "-source" ; s_hSwitches[ "basedir" ] := hb_DirSepAdd( arg )
+         CASE hb_LeftEq( cArgName, "-v" ) ; s_hSwitches[ "verbosity" ] := Val( SubStr( cArgName, Len( "-v" ) + 1 ) )
+         CASE cArgName == "-input" ; s_hSwitches[ "dir_in" ] := hb_DirSepAdd( arg )
+         CASE cArgName == "-output" ; s_hSwitches[ "dir_out" ] := hb_DirSepAdd( arg )
          CASE cArgName == "-lang" ; s_hSwitches[ "lang" ] := Lower( arg )
          CASE cArgName == "-format"
             IF arg == "" .OR. ! arg $ s_generators
@@ -168,6 +177,8 @@ PROCEDURE Main()
       ENDIF
    NEXT
 
+   OutStd( "! Input directory:", s_hSwitches[ "dir_in" ] + hb_eol() )
+
    s_hHBX := { => }
    hb_HCaseMatch( s_hHBX, .F. )
    aContent := ProcessDirs( s_hHBX )
@@ -177,8 +188,7 @@ PROCEDURE Main()
    hb_MemoWrit( "tree.json", hb_jsonEncode( s_hTree, .T. ) )
 #endif
 
-   OutStd( hb_ntos( Len( aContent ) ), "items found" + hb_eol() )
-   OutStd( hb_eol() )
+   OutStd( "!", hb_ntos( Len( aContent ) ), "entries found" + hb_eol() )
 
    ASort( aContent,,, {| oL, oR | ;
          PadR( SortWeight( oL:fld[ "CATEGORY" ] ), 20 ) + ;
@@ -196,14 +206,16 @@ PROCEDURE Main()
 
       IF HB_ISEVALITEM( generatorClass := hb_HGetDef( s_generators, Lower( cFormat ) ) )
 
-         OutStd( "Output as", cFormat + hb_eol() )
+         cDir := s_hSwitches[ "dir_out" ] + cFormat
+
+         OutStd( "! Output directory:", hb_PathNormalize( hb_PathJoin( hb_DirBase(), cDir ) ) + hb_eol() )
 
          SWITCH s_hSwitches[ "output" ]
          CASE "component"
 
             aComponent := ASort( hb_HKeys( s_hTree ),,, {| x, y | SortWeightPkg( x ) < SortWeightPkg( y ) } )
 
-            oIndex := Eval( generatorClass ):NewIndex( cFormat, "index", "Index", s_hSwitches[ "lang" ] )
+            oIndex := Eval( generatorClass ):NewIndex( cDir, "index", "Index", s_hSwitches[ "lang" ] )
 
             oIndex:BeginTOC()
             FOR EACH tmp IN aComponent
@@ -232,7 +244,7 @@ PROCEDURE Main()
 
                Get_ID_Name( tmp, @cID, @cName )
 
-               oDocument := Eval( generatorClass ):NewDocument( cFormat, tmp, cName, s_hSwitches[ "lang" ] )
+               oDocument := Eval( generatorClass ):NewDocument( cDir, tmp, cName, s_hSwitches[ "lang" ] )
 
                oIndex:BeginSection( cName, oDocument:cFilename, cID )
 
@@ -240,7 +252,7 @@ PROCEDURE Main()
 
                   IF item:_type == tmp
 
-                     IF ++nCount / 10 == Int( nCount / 10 )
+                     IF ++nCount / 10 == Int( nCount / 10 ) .AND. s_hSwitches[ "verbosity" ] >= 1
                         OutStd( Chr( 13 ) + Str( Int( nCount / nLen * 100 ), 3 ) + "%" )
                      ENDIF
 
@@ -298,7 +310,7 @@ PROCEDURE Main()
          CASE "entry"
 
             FOR EACH item IN aContent
-               oDocument := Eval( generatorClass ):NewDocument( cFormat, item:_filename, item:fld[ "NAME" ], s_hSwitches[ "lang" ] )
+               oDocument := Eval( generatorClass ):NewDocument( cDir, item:_filename, item:fld[ "NAME" ], s_hSwitches[ "lang" ] )
                oDocument:AddEntry( item )
                oDocument:Generate()
             NEXT
@@ -309,12 +321,12 @@ PROCEDURE Main()
       ENDIF
    NEXT
 
-   OutStd( hb_StrFormat( "Done in %1$s seconds", hb_ntos( Round( ( hb_MilliSeconds() - nStart ) / 1000, 2 ) ) ) + hb_eol() )
+   OutStd( hb_StrFormat( "! Done in %1$s seconds", hb_ntos( Round( ( hb_MilliSeconds() - nStart ) / 1000, 2 ) ) ) + hb_eol() )
 
    RETURN
 
-FUNCTION hbdoc_BaseDir()
-   RETURN s_hSwitches[ "basedir" ]
+FUNCTION hbdoc_dir_in()
+   RETURN s_hSwitches[ "dir_in" ]
 
 STATIC PROCEDURE Get_ID_Name( cComponent, /* @ */ cID, /* @ */ cName )
 
@@ -349,13 +361,13 @@ STATIC FUNCTION ProcessDirs( hAll )
    LOCAL cDir
    LOCAL file
 
-   DirLoadHBX( s_hSwitches[ "basedir" ] + "include", hAll )
+   DirLoadHBX( s_hSwitches[ "dir_in" ] + "include", hAll )
 
-   ProcessDocDir( s_hSwitches[ "basedir" ], "harbour", @aContent )
+   ProcessDocDir( s_hSwitches[ "dir_in" ], "harbour", @aContent )
 
    IF s_hSwitches[ "contribs" ]
 
-      cDir := s_hSwitches[ "basedir" ] + "contrib"
+      cDir := s_hSwitches[ "dir_in" ] + "contrib"
 
       FOR EACH file IN hb_DirScan( cDir,, "D" )
          IF file[ F_ATTR ] == "D" .AND. ;
@@ -400,7 +412,7 @@ STATIC FUNCTION ProcessDocDir( cDir, cComponent, aContent )
       NEXT
 
       IF Len( aContent ) > nOldContentLen
-         OutStd( ">", cDir, "(" + hb_ntos( Len( aContent ) - nOldContentLen ), "items)" + hb_eol() )
+         OutStd( "!", cDir, "(" + hb_ntos( Len( aContent ) - nOldContentLen ), "entries)" + hb_eol() )
       ENDIF
    ENDIF
 
@@ -739,13 +751,16 @@ STATIC PROCEDURE ShowHelp( cExtraMessage, aArgs )
             2, ;
             { "categories", "templates", "compliance", "platforms" }, ;
             1, ;
-            "-[format=]<type>     output type, default is text, or one of:", ;
+            "-[format=]<type>     output type, default is html, or one of:", ;
             2, ;
             hb_HKeys( s_generators ), ;
             1, ;
+            "-v<n>                verbosity level, default: 1", ;
+            "-lang=<lang>         language to process, default: " + s_hSwitches[ "lang" ], ;
+            "-input=<directory>   input directory, default: " + s_hSwitches[ "dir_in" ], ;
+            "-output=<directory>  output directory, default: " + s_hSwitches[ "dir_out" ], ;
             "-output-component    output is one file for each component and a central index (default)", ;
             "-output-entry        output is one file per entry", ;
-            "-source=<directory>  source directory, default is " + s_hSwitches[ "basedir" ], ;
          } }
 
    CASE aArgs[ 2 ] == "categories"
@@ -807,8 +822,10 @@ STATIC FUNCTION Join( aVar, cDelimiter )
 
 STATIC PROCEDURE AddErrorCondition( cFile, cMessage, lFatal )
 
-   IF s_hSwitches[ "immediate-errors" ] .OR. hb_defaultValue( lFatal, .F. )
-      OutStd( cFile + ":", cMessage + hb_eol() )
+   hb_default( @lFatal, .F. )
+
+   IF s_hSwitches[ "verbosity" ] >= 2 .OR. lFatal
+      OutStd( "! " + iif( lFatal, "Error:", "Warning" ), cFile + ":", cMessage + hb_eol() )
    ENDIF
 
    RETURN

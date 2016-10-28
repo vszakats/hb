@@ -7,7 +7,7 @@
       TBrowse class
    $ONELINER$
       Create a Browse Object
-   $CONSTRUCTOR$
+   $SYNTAX$
       TBrowseNew( <nTop>, <nLeft>, <nBottom>, <nRight> ) --> <oBrowse>
    $ARGUMENTS$
       <nTop>    Top Row
@@ -184,8 +184,8 @@
 /* $DOC$
    $TEMPLATE$
       Class
-   $METHOD$
-      SetKey()
+   $SYNTAX$
+      :SetKey()
    $CATEGORY$
       TBrowse Method
    $ONELINER$
@@ -248,8 +248,8 @@
 /* $DOC$
    $TEMPLATE$
       Class
-   $METHOD$
-      Applykey()
+   $SYNTAX$
+      :Applykey()
    $CATEGORY$
       TBrowse Method
    $ONELINER$
@@ -284,8 +284,8 @@
 /* $DOC$
    $TEMPLATE$
       Class
-   $METHOD$
-      AddColumn()
+   $SYNTAX$
+      :AddColumn()
    $CATEGORY$
       TBrowse Method
    $ONELINER$
