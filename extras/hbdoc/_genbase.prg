@@ -62,6 +62,7 @@ CREATE CLASS TPLGenerate
    METHOD IsIndex() INLINE ::nType == INDEX_
 
    VAR cFilename AS STRING
+   VAR cBaseTitle AS STRING INIT "Harbour Reference Guide"
 
    HIDDEN:
 

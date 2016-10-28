@@ -74,11 +74,11 @@
       call
 
       ```
-         Set( _SET_OPTIMIZE, .T. )
+      Set( _SET_OPTIMIZE, .T. )
       ```
 
       or its command equivalent.  rddads will use an AOF whenever
-      dbSetFilter is called *if it can*.
+      dbSetFilter() is called *if it can*.
 
       Second, make sure the filter is one ADS can understand. UDFs are out,
       as are references to public or private variables. It's also best to
@@ -87,12 +87,12 @@
       You can call
 
       ```
-         ? AdsIsExprValid( cFilter )
+      ? AdsIsExprValid( cFilter )
       ```
 
       to check.  If this returns False, neither the Local Server nor the
       Remote Server can process it, so optimization will never occur (but
-      the Harbour RDD will process the filtering locally by eval'ing the
+      the Harbour RDD will process the filtering locally by evaluating the
       codeblock and testing each record). The only way to speed it up is to
       fix the filter so ADS understands it.
 
@@ -100,8 +100,8 @@
       filter is optimized or not. COMIX users can use:
 
       ```
-         FUNCTION rlOptLevel()
-            RETURN dbOrderInfo( DBOI_OPTLEVEL )
+      FUNCTION rlOptLevel()
+         RETURN dbOrderInfo( DBOI_OPTLEVEL )
       ```
 
       This returns the Clipper/COMIX values (not ADS-defined values) because
@@ -109,7 +109,7 @@
 
    $COMPLIANCE$
       Every attempt has been made to make the RDD compliant with the
-      standard dbfcdx RDD at the .prg level.
+      standard DBFCDX RDD at the .prg level.
       One important difference is the handling of structural indexes.
       ACE will <b>always</b> automatically open an index with the same
       name as the data file.  There is no way to turn this feature off.
@@ -125,29 +125,29 @@
       Harbour expressions or codeblocks. Even with Local Server it's the
       DLLs doing all the indexing. So to do progress meters
       you need to implement <b>AdsRegCallback( bEval )</b>.
-      It lets you set a codeblock that is eval'ed every 2 seconds.
+      It lets you set a codeblock that is evaluated every 2 seconds.
       A numeric value of the "percent completed" is passed to the
       codeblock by the ADS server.
 
       ```
-       #include "inkey.ch"
-       PROCEDURE Main()
-          ...
-          AdsRegCallback( {| nPercent | outputstuff( nPercent ) }  )
-          /* The above codeblock will be called approximately
-             every 2 seconds while indexing.
-             The codeblock can return .T. to abort. */
-          INDEX ON FIRST + LAST + LABEL1 + LABEL2 TAG First
-          AdsClrCallback()
-          RETURN
+      #include "inkey.ch"
+      PROCEDURE Main()
+         ...
+         AdsRegCallback( {| nPercent | outputstuff( nPercent ) }  )
+         /* The above codeblock will be called approximately
+            every 2 seconds while indexing.
+            The codeblock can return .T. to abort. */
+         INDEX ON FIRST + LAST + LABEL1 + LABEL2 TAG First
+         AdsClrCallback()
+         RETURN
 
-       STATIC FUNCTION outputstuff( nPercent )  /* The "callback" function */
-          ? "output stuff", nPercent
-          RETURN hb_keyStd( Inkey() ) == K_ESC  /* If press ESC, returns .T. to abort. */
+      STATIC FUNCTION outputstuff( nPercent )  /* The "callback" function */
+         ? "output stuff", nPercent
+         RETURN hb_keyStd( Inkey() ) == K_ESC  /* If <Esc> pressed, returns .T. to abort. */
       ```
 
       For programmers who are already familiar with the ACE engine,
-      Harbour's compatibility with dbfcdx means there are some differences
+      Harbour's compatibility with DBFCDX means there are some differences
       between the rddads in Harbour and the parallel ACE documentation:
 
       1) In ACE, skipping backwards to BOF goes to the phantom record and

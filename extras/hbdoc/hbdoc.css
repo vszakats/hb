@@ -14,11 +14,16 @@ header {
   color: #f0f0f0;
   border: none;
   padding: 0 20px;
-  margin: 0;
 }
 
 header h1 {
   font-weight: normal;
+  margin: auto;
+  width: 693.71875px;  /* 94% */
+}
+
+header h1 div:last-child {
+  float: right;
 }
 
 footer {
@@ -49,7 +54,11 @@ footer a:active {
 }
 
 main {
-  margin: 0 20px;
+  border: 0;
+  border-spacing: 0;
+  margin: auto;
+  padding: 0;
+  width: 693.71875px;  /* 94% */
 }
 
 main section:first-child {
@@ -114,16 +123,16 @@ h4 {
 
 pre {
   background-color: #f2f2f2;
-  font-size: 12pt;
   padding: 16px;
   overflow: scroll;
 }
 
 pre, code, .d-t {
   font-family: Hack, Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation Mono', 'Oxygen Mono', 'Andale Mono', monospace;
+  font-size: 12pt;
 }
 
-code, .d-t {
+h4 code {
   font-size: 95%;
 }
 
@@ -237,4 +246,15 @@ p {
 .d-sc:after {
   left: .5em;
   margin-right: -50%;
+}
+
+@media screen and (max-width: 737px) {
+  header h1 {
+    width: auto;
+  }
+
+  main {
+    margin: 0 15px;
+    width: auto;
+  }
 }

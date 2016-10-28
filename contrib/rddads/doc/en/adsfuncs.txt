@@ -564,7 +564,7 @@
       <nKeyNo>   The logical key number of the current record in the given index.
    $DESCRIPTION$
       See ace.hlp for full details about the Advantage Database Server.
-      Wrapper for AdsGetKeyNum.
+      Wrapper for AdsGetKeyNum().
       This function may be slow on a large database with
       ADS_RESPECTFILTERS set because it walks through the keys to get the
       current position.  Compare to AdsGetRelKeyPos().
@@ -709,7 +709,7 @@
 
       STATIC FUNCTION outputstuff( nPercent )  /* The "callback" function */
          ? "output stuff", nPercent
-         RETURN hb_keyStd( Inkey() ) == K_ESC  /* If press ESC, returns .T. to abort. */
+         RETURN hb_keyStd( Inkey() ) == K_ESC  /* If <Esc> pressed, returns .T. to abort. */
    $STATUS$
       R
    $COMPLIANCE$

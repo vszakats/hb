@@ -68,7 +68,7 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    METHOD Space() INLINE ::cFile += ", ", Self
    METHOD Spacer() INLINE ::cFile += hb_eol(), Self
    METHOD HorizLine() INLINE ::cFile += "<hr>" + hb_eol(), Self
-   METHOD Newline() INLINE ::cFile += "<br>" + hb_eol(), Self
+   METHOD NewLine() INLINE ::cFile += "<br>" + hb_eol(), Self
    METHOD NewFile()
 
    CLASS VAR lCreateStyleDocument AS LOGICAL INIT .T.
@@ -117,7 +117,7 @@ METHOD NewFile() CLASS GenerateHTML
       ::RecreateStyleDocument( STYLEFILE )
    ENDIF
 
-   ::Append( ::cTitle, "title" )
+   ::Append( hb_StrFormat( "%1$s · %2$s", ::cBaseTitle, ::cTitle ), "title" )
    ::Spacer()
 
 #if 0
@@ -136,7 +136,10 @@ METHOD NewFile() CLASS GenerateHTML
    ::Spacer()
 
    ::OpenTag( "header" )
-   ::Append( ::cTitle, "h1" )
+   ::OpenTagInline( "h1" )
+   ::AppendInline( ::cBaseTitle )
+   ::AppendInline( ::cTitle, "div" )
+   ::CloseTag( "h1" )
    ::CloseTag( "header" )
    ::Spacer()
 
@@ -303,7 +306,7 @@ METHOD AddReference( oEntry, cReference, cSubReference ) CLASS GenerateHTML
       ::CloseTagInline( "a" )
    ENDCASE
 
-   ::Newline()
+   ::NewLine()
 
    RETURN Self
 

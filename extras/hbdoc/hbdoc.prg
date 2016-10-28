@@ -211,18 +211,12 @@ PROCEDURE Main( ... )
 
             aComponent := ASort( hb_HKeys( s_hTree ),,, {| x, y | SortWeightPkg( x ) < SortWeightPkg( y ) } )
 
-            oIndex := Eval( generatorClass ):NewIndex( cFormat, "index", hb_StrFormat( "Harbour Reference Guide · %1$s", "Index" ), s_hSwitches[ "lang" ] )
+            oIndex := Eval( generatorClass ):NewIndex( cFormat, "index", "Index", s_hSwitches[ "lang" ] )
 
             oIndex:BeginTOC()
             FOR EACH tmp IN aComponent
 
-               IF tmp == "harbour"
-                  cID := "core"
-                  cName := "Harbour core"
-               ELSE
-                  cID := tmp
-                  cName := hb_StrFormat( "%1$s contrib", tmp )
-               ENDIF
+               Get_ID_Name( tmp, @cID, @cName )
 
                cCat1Prev := NIL
 
@@ -240,15 +234,9 @@ PROCEDURE Main( ... )
 
                cCat1Prev := cCat2Prev := NIL
 
-               IF tmp == "harbour"
-                  cID := "core"
-                  cName := "Harbour core"
-               ELSE
-                  cID := tmp
-                  cName := hb_StrFormat( "%1$s contrib", tmp )
-               ENDIF
+               Get_ID_Name( tmp, @cID, @cName )
 
-               oDocument := Eval( generatorClass ):NewDocument( cFormat, tmp, hb_StrFormat( "Harbour Reference Guide · %1$s", cName ), s_hSwitches[ "lang" ] )
+               oDocument := Eval( generatorClass ):NewDocument( cFormat, tmp, cName, s_hSwitches[ "lang" ] )
 
                oIndex:BeginSection( cName, oDocument:cFilename, cID )
 
@@ -300,19 +288,15 @@ PROCEDURE Main( ... )
             NEXT
 
             oIndex:Generate()
-            oIndex := NIL
-
-            oDocument := NIL
 
             EXIT
 
          CASE "entry"
 
             FOR EACH item IN aContent
-               oDocument := Eval( generatorClass ):NewDocument( cFormat, item:_filename, "Harbour Reference Guide", s_hSwitches[ "lang" ] )
+               oDocument := Eval( generatorClass ):NewDocument( cFormat, item:_filename, item:fld[ "NAME" ], s_hSwitches[ "lang" ] )
                oDocument:AddEntry( item )
                oDocument:Generate()
-               oDocument := NIL
             NEXT
 
             EXIT
@@ -322,6 +306,18 @@ PROCEDURE Main( ... )
    NEXT
 
    OutStd( hb_StrFormat( "Done in %1$s seconds", hb_ntos( Round( ( hb_MilliSeconds() - nStart ) / 1000, 2 ) ) ) + hb_eol() )
+
+   RETURN
+
+STATIC PROCEDURE Get_ID_Name( cComponent, /* @ */ cID, /* @ */ cName )
+
+   IF cComponent == "harbour"
+      cID := "core"
+      cName := "Harbour core"
+   ELSE
+      cID := cComponent
+      cName := hb_StrFormat( "%1$s contrib", cComponent )
+   ENDIF
 
    RETURN
 
