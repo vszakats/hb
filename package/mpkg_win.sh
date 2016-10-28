@@ -82,8 +82,10 @@ mkdir -p "${HB_ABSROOT}"
    cp -f -p --parents $(find 'tests'  -type f -name '*')     "${HB_ABSROOT}"
 
    mkdir -p "${HB_ABSROOT}manual/"
-   # shellcheck disable=SC2046
-   cp -f -p ./manual/html/* "${HB_ABSROOT}manual/"
+   if ls ./manual/html/* > /dev/null 2>&1 ; then
+      # shellcheck disable=SC2046
+      cp -f -p ./manual/html/* "${HB_ABSROOT}manual/"
+   fi
 )
 
 mkdir -p "${HB_ABSROOT}bin/"
@@ -281,7 +283,7 @@ if [ "${HB_VF}" != "${HB_VF_DEF}" ] ; then
 fi
 
 _vcs_id="$(git rev-parse --short HEAD)"
-_vcs_url="$(echo $(git ls-remote --get-url | sed 's|.git$||')/)"
+_vcs_url="$(git ls-remote --get-url | sed 's|.git$||')/"
 sed -e "s|_HB_VER_COMMIT_ID_|${_vcs_id}|g" \
     -e "s|_HB_VER_ORIGIN_URL_|${_vcs_url}|g" \
     -e "s|_HB_VERSION_|${_hb_ver}|g" 'RELNOTES.txt' > "${HB_ABSROOT}RELNOTES.txt"

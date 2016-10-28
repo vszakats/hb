@@ -33,13 +33,6 @@ export CURL_HASH_64='004a71d5b784a669849c0526307c2c7e7eec8aafe1d9ad2f81dc2dd61b1
 
 pacman --noconfirm --noprogressbar -S --needed p7zip mingw-w64-{i686,x86_64}-{jq,osslsigncode}
 
-# debug
-
-# export HB_BUILD_CONTRIBS='no'
-# export HB_MKFLAGS="${HB_MKFLAGS} HB_BUILD_OPTIM=no"
-# export HB_BUILD_VERBOSE='yes'
-# export _HB_BUNDLE_3RDLIB='yes'
-
 [ "${_BRANC4}" = 'msvc' ] || "$(dirname "$0")/mpkg_win_dl.sh" || exit
 
 export HB_VF='snapshot'

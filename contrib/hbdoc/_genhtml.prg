@@ -712,16 +712,12 @@ METHOD Append( cText, cFormat, lCode ) CLASS GenerateHTML
 METHOD RecreateStyleDocument( cStyleFile ) CLASS GenerateHTML
 
    LOCAL cString
-   LOCAL tDate
 
    #pragma __streaminclude "hbdoc.css" | cString := %s
 
-   IF hb_MemoWrit( cStyleFile := hb_DirSepAdd( ::cDir ) + cStyleFile, cString )
-      IF hbdoc_reproducible()
-         tDate := hb_Version( HB_VERSION_BUILD_TIMESTAMP_UTC )
-         hb_vfTimeSet( cStyleFile, tDate )
-         hb_vfTimeSet( ::cDir, tDate )
-      ENDIF
+   IF hb_MemoWrit( cStyleFile := hb_DirSepAdd( ::cDir ) + cStyleFile, cString ) .AND. ;
+      hbdoc_reproducible()
+      hb_vfTimeSet( cStyleFile, hb_Version( HB_VERSION_BUILD_TIMESTAMP_UTC ) )
    ELSE
       /* TODO: raise an error, could not create style file */
    ENDIF

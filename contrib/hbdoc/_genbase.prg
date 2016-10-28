@@ -119,18 +119,14 @@ METHOD New( cDir, cFilename, cTitle, cExtension, cLang, nType ) CLASS TPLGenerat
 METHOD Generate() CLASS TPLGenerate
 
    LOCAL cDir := hb_FNameDir( ::cOutFileName )
-   LOCAL tDate
 
    IF ! hb_vfDirExists( cDir )
-      hb_vfDirMake( cDir )
+      hb_DirBuild( cDir )
    ENDIF
 
-   IF hb_MemoWrit( ::cOutFileName, ::cFile )
-      IF hbdoc_reproducible()
-         tDate := hb_Version( HB_VERSION_BUILD_TIMESTAMP_UTC )
-         hb_vfTimeSet( ::cOutFileName, tDate )
-         hb_vfTimeSet( cDir, tDate )
-      ENDIF
+   IF hb_MemoWrit( ::cOutFileName, ::cFile ) .AND. ;
+      hbdoc_reproducible()
+      hb_vfTimeSet( ::cOutFileName, hb_Version( HB_VERSION_BUILD_TIMESTAMP_UTC ) )
    ENDIF
 
    RETURN Self
