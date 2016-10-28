@@ -80,6 +80,10 @@ mkdir -p "${HB_ABSROOT}"
    cp -f -p --parents $(find 'extras' -type f -name '*')     "${HB_ABSROOT}"
    # shellcheck disable=SC2046
    cp -f -p --parents $(find 'tests'  -type f -name '*')     "${HB_ABSROOT}"
+
+   mkdir -p "${HB_ABSROOT}manual/"
+   # shellcheck disable=SC2046
+   cp -f -p ./manual/html/* "${HB_ABSROOT}manual/"
 )
 
 mkdir -p "${HB_ABSROOT}bin/"
@@ -329,11 +333,12 @@ cd "${HB_RT}" || exit
    echo 'include/*'
    echo 'lib/*'
    echo 'src/*'
-   echo 'doc/*'
-   echo 'contrib/*'
-   echo 'extras/*'
-   echo 'tests/*'
    echo 'addons/*.txt'
+   echo 'contrib/*'
+   echo 'doc/*'
+   echo 'extras/*'
+   echo 'manual/*'
+   echo 'tests/*'
 ) >> "${_ROOT}/_hbfiles"
 
 _pkgdate=

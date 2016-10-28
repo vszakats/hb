@@ -145,32 +145,32 @@ PROCEDURE Main()
 
          DO CASE
          CASE hb_LeftEq( cArgName, "-v" ) ; s_hSwitches[ "verbosity" ] := Val( SubStr( cArgName, Len( "-v" ) + 1 ) )
-         CASE cArgName == "-input" ; s_hSwitches[ "dir_in" ] := hb_DirSepAdd( arg )
-         CASE cArgName == "-output" ; s_hSwitches[ "dir_out" ] := hb_DirSepAdd( arg )
+         CASE cArgName == "-input" ; s_hSwitches[ "dir_in" ] := hb_DirSepAdd( hb_DirSepToOS( arg ) )
+         CASE cArgName == "-output" ; s_hSwitches[ "dir_out" ] := hb_DirSepAdd( hb_DirSepToOS( arg ) )
          CASE cArgName == "-lang" ; s_hSwitches[ "lang" ] := Lower( arg )
          CASE cArgName == "-repr" ; s_hSwitches[ "repr" ] := .T.
          CASE cArgName == "-format"
-            IF arg == "" .OR. ! arg $ s_generators
+            DO CASE
+            CASE arg == "" .OR. ! arg $ s_generators
                ShowHelp( "Unrecognized format option '" + arg + "'" )
                RETURN
-            ELSEIF arg == "all"
+            CASE arg == "all"
                s_hSwitches[ "format" ] := hb_HKeys( s_generators )
-            ELSE
+            OTHERWISE
                AAdd( s_hSwitches[ "format" ], arg )
-            ENDIF
+            ENDCASE
          CASE hb_LeftEq( cArgName, "-output-" )
             s_hSwitches[ "output" ] := SubStr( cArgName, Len( "-output-" ) + 1 )
          OTHERWISE
-            IF SubStr( cArgName, 2 ) $ s_generators
-               IF SubStr( cArgName, 2 ) == "all"
-                  s_hSwitches[ "format" ] := hb_HKeys( s_generators )
-               ELSE
-                  AAdd( s_hSwitches[ "format" ], SubStr( cArgName, 2 ) )
-               ENDIF
-            ELSE
+            DO CASE
+            CASE ! SubStr( cArgName, 2 ) $ s_generators
                ShowHelp( "Unrecognized option:" + cArgName + iif( Len( arg ) > 0, "=" + arg, "" ) )
                RETURN
-            ENDIF
+            CASE SubStr( cArgName, 2 ) == "all"
+               s_hSwitches[ "format" ] := hb_HKeys( s_generators )
+            OTHERWISE
+               AAdd( s_hSwitches[ "format" ], SubStr( cArgName, 2 ) )
+            ENDCASE
          ENDCASE
       ENDIF
    NEXT
