@@ -1,3 +1,4 @@
+#!/usr/bin/env hbrun
 /*
  * Document generator
  *
@@ -58,12 +59,6 @@ REQUEST HB_GT_CGI_DEFAULT
 
 REQUEST HB_CODEPAGE_UTF8EX
 
-#define BASE_DIR        ".." + hb_ps() + ".." + hb_ps()
-
-#define OnOrOff( b )    iif( b, "excluded", "included" )
-#define YesOrNo( b )    iif( b, "yes", "no" )
-#define IsDefault( b )  iif( b, "; default", "" )
-
 #define TPL_START            1
 #define TPL_END              2
 #define TPL_REQUIRED         4  // intentionally has a 'required' and 'optional' flag
@@ -73,19 +68,25 @@ REQUEST HB_CODEPAGE_UTF8EX
 #define TPL_TEMPLATE         64
 #define TPL_OUTPUT           128
 
-STATIC sc_aExclusions := { "class_tp.txt", "hdr_tpl.txt" }
 STATIC sc_hFields
 STATIC sc_hTemplates
 STATIC sc_hConstraint
 STATIC s_hSwitches
+STATIC s_hHBX
 STATIC s_hTree := { => }  /* component / category / subcategory */
-STATIC s_generators
 
-PROCEDURE Main( ... )
+STATIC s_generators := { ;
+   "all"   =>, ;
+   "html"  => @GenerateHTML(), ;
+   "ascii" => @GenerateAscii(), ;
+   "text"  => @GenerateText(), ;
+   "xml"   => @GenerateXML() }
+
+PROCEDURE Main()
 
    LOCAL aArgs := hb_AParams()
    LOCAL idx, item
-   LOCAL arg, tmp
+   LOCAL arg, tmp, nLen, nCount
    LOCAL cArgName
    LOCAL cFormat
    LOCAL oDocument, oIndex
@@ -98,13 +99,6 @@ PROCEDURE Main( ... )
 
    LOCAL generatorClass
 
-   s_generators := { ;
-      "all"   =>, ;
-      "html"  => @GenerateHTML(), ;
-      "ascii" => @GenerateAscii(), ;
-      "text"  => @GenerateText(), ;
-      "xml"   => @GenerateXML() }
-
    /* Setup input CP of the translation */
    hb_cdpSelect( "UTF8EX" )
 
@@ -116,19 +110,13 @@ PROCEDURE Main( ... )
 
    /* configuration settings, values, etc */ ;
    s_hSwitches := { ;
-      "basedir"             => BASE_DIR, ;
-      "lang"                => "en", ;
-      "doc"                 => .T., ;
-      "source"              => .F., ;
-      "contribs"            => .T., ;
-      "format"              => { "html" }, ;
-      "output"              => "single", ;
-      "immediate-errors"    => .F., ;
-      /* internal settings, values, etc */ ;
-      "DELIMITER"           => "$", ;
-      "hHBX"                => {}, ;
-      "in hbextern"         => {}, ;
-      "not in hbextern"     => {} }
+      "basedir"          => hb_DirBase() + hb_DirSepToOS( "../../" ), ;
+      "lang"             => "en", ;
+      "contribs"         => .T., ;
+      "format"           => { "html" }, ;
+      "output"           => "component", ;
+      "immediate-errors" => .F., ;
+      "hHBX"             => {} }
 
    IF Len( aArgs ) >= 1 .AND. ;
       ( aArgs[ 1 ] == "-h" .OR. ;
@@ -176,12 +164,12 @@ PROCEDURE Main( ... )
       ENDIF
    NEXT
 
-   s_hSwitches[ "hHBX" ] := { => }
-   hb_HCaseMatch( s_hSwitches[ "hHBX" ], .F. )
-   aContent := ProcessDirs( s_hSwitches[ "hHBX" ] )
+   s_hHBX := { => }
+   hb_HCaseMatch( s_hHBX, .F. )
+   aContent := ProcessDirs( s_hHBX )
 
 #if 0
-   hb_MemoWrit( "hbx.json", hb_jsonEncode( s_hSwitches[ "hHBX" ], .T. ) )
+   hb_MemoWrit( "hbx.json", hb_jsonEncode( s_hHBX, .T. ) )
    hb_MemoWrit( "tree.json", hb_jsonEncode( s_hTree, .T. ) )
 #endif
 
@@ -207,7 +195,7 @@ PROCEDURE Main( ... )
          OutStd( "Output as", cFormat + hb_eol() )
 
          SWITCH s_hSwitches[ "output" ]
-         CASE "single"
+         CASE "component"
 
             aComponent := ASort( hb_HKeys( s_hTree ),,, {| x, y | SortWeightPkg( x ) < SortWeightPkg( y ) } )
 
@@ -230,6 +218,10 @@ PROCEDURE Main( ... )
             NEXT
             oIndex:EndTOC()
 
+            OutStd( Chr( 13 ) )
+
+            nLen := Len( aContent )
+            nCount := 0
             FOR EACH tmp IN aComponent
 
                cCat1Prev := cCat2Prev := NIL
@@ -241,7 +233,13 @@ PROCEDURE Main( ... )
                oIndex:BeginSection( cName, oDocument:cFilename, cID )
 
                FOR EACH item IN aContent
+
                   IF item:_type == tmp
+
+                     IF ++nCount / 10 == Int( nCount / 10 )
+                        OutStd( Chr( 13 ) + Str( Int( nCount / nLen * 100 ), 3 ) + "%" )
+                     ENDIF
+
                      oDocument:AddEntry( item )
 
                      cCat1 := item:fld[ "CATEGORY" ]
@@ -288,6 +286,8 @@ PROCEDURE Main( ... )
             NEXT
 
             oIndex:Generate()
+
+            OutStd( Chr( 13 ) + Str( 100, 3 ) + "%" + hb_eol() )
 
             EXIT
 
@@ -402,6 +402,7 @@ STATIC FUNCTION ProcessDocDir( cDir, cComponent, aContent )
 STATIC FUNCTION NewLineVoodoo( cSectionIn )
 
    LOCAL cSection := ""
+
    LOCAL lPreformatted := .F.
    LOCAL lTable := .F.
    LOCAL lLastPreformatted := .F.
@@ -595,7 +596,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, aContent )
 
       IF "(" $ o:fld[ "NAME" ]
          cSectionName := Parse( o:fld[ "NAME" ], "(" )
-         IF ! cSectionName $ s_hSwitches[ "hHBX" ]
+         IF ! cSectionName $ s_hHBX
             AddErrorCondition( cFile, "Not found in HBX: " + cSectionName + " " + cComponent )
          ENDIF
       ENDIF
@@ -729,35 +730,34 @@ STATIC PROCEDURE ShowHelp( cExtraMessage, aArgs )
             "-h                   this screen", ;
             "-h <option>          help on <option>, <option> is one of:", ;
             2, ;
-            { "Categories", "Templates", "Compliance", "Platforms" }, ;
+            { "categories", "templates", "compliance", "platforms" }, ;
             1, ;
             "-[format=]<type>     output type, default is text, or one of:", ;
             2, ;
             hb_HKeys( s_generators ), ;
             1, ;
-            "-output-single       output is one file" + IsDefault( s_hSwitches[ "output" ] == "single" ), ;
-            "-output-entry        output is one file per entry (function, command, etc)" + IsDefault( s_hSwitches[ "output" ] == "entry" ), ;
+            "-output-component    output is one file for each component and a central index (default)", ;
+            "-output-entry        output is one file per entry", ;
             "-source=<directory>  source directory, default is .." + hb_ps() + "..", ;
          } }
 
-   CASE aArgs[ 2 ] == "Categories"
+   CASE aArgs[ 2 ] == "categories"
       aHelp := { ;
          "Defined categories and sub-categories are:", ;
          sc_hConstraint[ "categories" ] }
 
-   CASE aArgs[ 2 ] == "Templates"
+   CASE aArgs[ 2 ] == "templates"
       aHelp := { ;
          iif( Len( aArgs ) >= 3, aArgs[ 3 ] + " template is:", "Defined templates are:" ), ;
-         "", ;
-         {|| ShowTemplatesHelp( iif( Len( aArgs ) >= 3, aArgs[ 3 ], NIL ), s_hSwitches[ "DELIMITER" ] ) } }
+         {|| ShowTemplatesHelp( iif( Len( aArgs ) >= 3, aArgs[ 3 ], NIL ) ) } }
 
-   CASE aArgs[ 2 ] == "Compliance"
+   CASE aArgs[ 2 ] == "compliance"
       aHelp := { ;
          "Defined 'COMPLIANCE' are:", ;
          "", ;
          {|| ShowComplianceHelp() } }
 
-   CASE aArgs[ 2 ] == "Platforms"
+   CASE aArgs[ 2 ] == "platforms"
       aHelp := { ;
          "Defined 'PLATFORMS' are:", ;
          "", ;
@@ -775,14 +775,14 @@ STATIC PROCEDURE ShowHelp( cExtraMessage, aArgs )
 
    RETURN
 
-FUNCTION Parse( /* @ */ cVar, xDelimiter )
+FUNCTION Parse( /* @ */ cVar, cDelimiter )
 
    LOCAL cResult
    LOCAL idx
 
-   IF ( idx := At( xDelimiter, cVar ) ) > 0
+   IF ( idx := At( cDelimiter, cVar ) ) > 0
       cResult := Left( cVar, idx - 1 )
-      cVar := SubStr( cVar, idx + Len( xDelimiter ) )
+      cVar := SubStr( cVar, idx + Len( cDelimiter ) )
    ELSE
       cResult := cVar
       cVar := ""
@@ -1149,10 +1149,11 @@ STATIC PROCEDURE init_Templates()
 
    RETURN
 
-STATIC PROCEDURE ShowTemplatesHelp( cTemplate, cDelimiter )
+STATIC PROCEDURE ShowTemplatesHelp( cTemplate )
 
    LOCAL idxTemplates, nFrom := 1, nTo := Len( sc_hTemplates )
    LOCAL idx, key, fldkey, o
+   LOCAL aEntry, hEntry
 
    IF ! Empty( cTemplate ) .AND. !( cTemplate == "Template" )
       nFrom := nTo := hb_HPos( sc_hTemplates, cTemplate )
@@ -1162,35 +1163,29 @@ STATIC PROCEDURE ShowTemplatesHelp( cTemplate, cDelimiter )
       ENDIF
    ENDIF
 
+   aEntry := {}
+
    FOR idxTemplates := nFrom TO nTo
 
       key := hb_HKeyAt( sc_hTemplates, idxTemplates )
-
       IF !( key == "Template" )
-
-#if 0
-         IF nFrom != nTo
-            ShowSubHelp( key, 1, 0 )
-         ENDIF
-#endif
-
          o := Entry():New( key )
 
+         hEntry := { => }
          FOR idx := 1 TO Len( sc_hFields )
             fldkey := hb_HKeyAt( sc_hFields, idx )
-            IF o:_group[ idx ] != 0
-               ShowSubHelp( iif( idx == 1, "/", " " ) + "*  " + cDelimiter + fldkey + cDelimiter, 1, 0 )
-               IF fldkey == "TEMPLATE"
-                  ShowSubHelp( " *      " + o:fld[ "TEMPLATE" ], 1, 0 )
-               ELSEIF o:_group[ idx ] != TPL_START .AND. o:_group[ idx ] != TPL_END .AND. .T.
-                  ShowSubHelp( " *      " + iif( o:IsRequired( fldkey ), "<required>", "<optional>" ), 1, 0 )
-               ENDIF
+            IF o:_group[ idx ] != TPL_START .AND. ;
+               o:_group[ idx ] != TPL_END .AND. ;
+               o:_group[ idx ] != 0
+               hEntry[ fldkey ] := iif( fldkey == "TEMPLATE", key, iif( o:IsRequired( fldkey ), "<required>", "<optional>" ) )
             ENDIF
          NEXT
-         ShowSubHelp( " */", 1, 0 )
-         ShowSubHelp( "", 1, 0 )
+
+         AAdd( aEntry, hEntry )
       ENDIF
    NEXT
+
+   OutStd( __hbdoc_ToSource( aEntry ) )
 
    RETURN
 
