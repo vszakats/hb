@@ -47,9 +47,6 @@
  *
  */
 
-/* TODO: hEntry in Entry objects directly, or eliminate the object
-         altogether. */
-
 /* Optimizations */
 #pragma -km+
 #pragma -ko+
