@@ -115,7 +115,8 @@ PROCEDURE Main()
       "contribs"  => .T., ;
       "format"    => { "html" }, ;
       "output"    => "component", ;
-      "dir_out"    => hb_DirSepToOS( "./" ), ;
+      "dir_out"   => hb_DirSepToOS( "./" ), ;
+      "repr"      => .F., ;
       "verbosity" => 1, ;
       "hHBX"      => {} }
 
@@ -147,6 +148,7 @@ PROCEDURE Main()
          CASE cArgName == "-input" ; s_hSwitches[ "dir_in" ] := hb_DirSepAdd( arg )
          CASE cArgName == "-output" ; s_hSwitches[ "dir_out" ] := hb_DirSepAdd( arg )
          CASE cArgName == "-lang" ; s_hSwitches[ "lang" ] := Lower( arg )
+         CASE cArgName == "-repr" ; s_hSwitches[ "repr" ] := .T.
          CASE cArgName == "-format"
             IF arg == "" .OR. ! arg $ s_generators
                ShowHelp( "Unrecognized format option '" + arg + "'" )
@@ -320,6 +322,9 @@ PROCEDURE Main()
    OutStd( hb_StrFormat( "! Done in %1$s seconds", hb_ntos( Round( ( hb_MilliSeconds() - nStart ) / 1000, 2 ) ) ) + hb_eol() )
 
    RETURN
+
+FUNCTION hbdoc_reproducible()
+   RETURN s_hSwitches[ "repr" ] .AND. ! Empty( hb_Version( HB_VERSION_BUILD_TIMESTAMP_UTC ) )
 
 FUNCTION hbdoc_dir_in()
    RETURN s_hSwitches[ "dir_in" ]
@@ -752,6 +757,7 @@ STATIC PROCEDURE ShowHelp( cExtraMessage, aArgs )
             hb_HKeys( s_generators ), ;
             1, ;
             "-v<n>                verbosity level, default: 1", ;
+            "-repr                create reproducible output, default: false", ;
             "-lang=<lang>         language to process, default: " + s_hSwitches[ "lang" ], ;
             "-input=<directory>   input directory, default: " + s_hSwitches[ "dir_in" ], ;
             "-output=<directory>  output directory, default: " + s_hSwitches[ "dir_out" ], ;
