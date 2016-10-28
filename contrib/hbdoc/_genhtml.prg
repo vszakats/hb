@@ -720,7 +720,7 @@ METHOD RecreateStyleDocument( cStyleFile ) CLASS GenerateHTML
       IF hbdoc_reproducible()
          tDate := hb_Version( HB_VERSION_BUILD_TIMESTAMP_UTC )
          hb_vfTimeSet( cStyleFile, tDate )
-         hb_vfTimeSet( cDir, tDate )
+         hb_vfTimeSet( ::cDir, tDate )
       ENDIF
    ELSE
       /* TODO: raise an error, could not create style file */
