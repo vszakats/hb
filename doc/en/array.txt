@@ -73,20 +73,18 @@
    $ONELINER$
       Dynamically add an element to an array
    $SYNTAX$
-      AAdd( <aArray>[, <xValue>] ) --> Value
+      AAdd( <aArray>, [<xValue>] ) --> xValue
    $ARGUMENTS$
       <aArray> The name of an array
-
       <xValue> Element to add to array <aArray>
    $RETURNS$
-      <Value> if specified <xValue>, <xValue> will return , otherwise this
+      <xValue> if specified <xValue>, <xValue> will return , otherwise this
       function returns a NIL value.
    $DESCRIPTION$
-      This function dynamically increases the length of the array named
-      <aArray> by one element and stores the value of <xValue> to that
-      newly created element.
-
-      <xValue> may be an array reference pointer, which in turn may be
+      This function dynamically increases the length of the <aArray> 
+      by adding one new element to the end of the array and optionally 
+      stores the value <xValue> to that newlly created element.
+      <xValue> may be of an data type, including an array reference pointer, which in turn may be
       stored to an array's subscript position.
    $EXAMPLES$
       LOCAL aArray := {}
@@ -119,21 +117,19 @@
    $ONELINER$
       Adjust the size of an array
    $SYNTAX$
-      ASize( <aArray>, <nLen> ) --> aTarget
+      ASize( <aArray>, <nLen> ) --> aArray
    $ARGUMENTS$
       <aArray> Name of array to be dynamically altered
-
-      <nLen> Numeric value representing the new size of <aArray>
+      <nLen> Numeric value representing the new size (i.e. the number of elements) of <aArray>
    $RETURNS$
-      <aTarget> an array pointer reference to <aTarget>.
+      The function returns a reference to <aArray>.
    $DESCRIPTION$
       This function will dynamically increase or decrease the size of
       <aArray> by adjusting the length of the array to <nLen> subscript
       positions.
-
-      If the length of the array <aArray> is shortened, those former
-      subscript positions are lost. If the length of the array is
-      lengthened a NIL value is assigned to the new subscript position.
+      If the length of the array <aArray> is shortened, the redundant elements are removed 
+      from the end of array. If the length of the array is lengthened the new elements are added
+      to the end of array and they are assigned a NIL value.
    $EXAMPLES$
       LOCAL aArray := { 1 }      // Result: aArray is { 1 }
       ASize( aArray, 3 )         // Result: aArray is { 1, NIL, NIL }
@@ -160,17 +156,16 @@
    $SUBCATEGORY$
       Array
    $ONELINER$
-      Returns the rightmost element of an array
+      Returns the last element of an array
    $SYNTAX$
-      ATail( <aArray> ) --> Element
+      ATail( <aArray> ) --> xValue
    $ARGUMENTS$
       <aArray> is the array.
    $RETURNS$
-      <Element> the expression of the last element in the array.
+      <xValue> the value of the last element in the array.
    $DESCRIPTION$
       This function return the value of the last element in the array
-      named <aArray>. This function does not alter the size of the
-      array or any of the subscript values.
+      named <aArray>. Same as xValue := aArray[ Len( aArray ) ]
    $EXAMPLES$
       LOCAL aArray := { "Harbour", "is", "Supreme", "Power" }
       ? ATail( aArray ) // Result is "Power"
@@ -200,21 +195,21 @@
       AIns( <aArray>, <nPos> ) --> aTarget
    $ARGUMENTS$
       <aArray> Array name.
-
       <nPos> Subscript position in <aArray>
    $RETURNS$
       <aTarget> an array pointer reference.
    $DESCRIPTION$
       This function inserts a NIL value in the array named <aArray>
       at the <nPos>th position.
-
       All array elements starting with the <nPos>th position will be
       shifted down one subscript position in the array list and the
       last item in the array will be removed completely. In other words,
       if an array element were to be inserted at the fifth subscript
       position, the element previously in the fifth position would now
       be located at the sixth position. The length of the array <aArray>
-      will remain unchanged.
+      will remain unchanged. 
+      Note: To avoid loosing last element, you can use hb_AIns() which supports
+      autosizing of array.
    $EXAMPLES$
       LOCAL aArray := { "Harbour", "is", "Power!", "!!!" }
       AIns( aArray, 4 )
@@ -244,7 +239,6 @@
       ADel( <aArray>, <nPos> ) --> aTarget
    $ARGUMENTS$
       <aArray> Name of array from which an element is to be removed.
-
       <nPos>   Subscript of the element to be removed.
    $RETURNS$
       <aTarget> an array pointer reference.
@@ -256,6 +250,8 @@
       will become the fifth subscript position. The length of the array
       <aArray> will remain unchanged, as the last element in the array will
       become a NIL data type.
+      Note: To completely remove an element and decrease the length of array
+      you can use hb_ADel() that supports autosizing.
    $EXAMPLES$
       LOCAL aArray := { "Harbour", "is", "Power" }
       ADel( aArray, 2 ) // Result: aArray is { "Harbour", "Power" }
@@ -282,26 +278,22 @@
    $ONELINER$
       Fill an array with a specified value
    $SYNTAX$
-      AFill( <aArray>, <xValue>, [<nStart>], [<nCount>] ) --> aTarget
+      AFill( <aArray>, <xValue>, [<nStart>], [<nCount>] ) --> aArray
    $ARGUMENTS$
       <aArray> Name of array to be filled.
-
       <xValue> Expression to be globally filled in <aArray>
-
       <nStart> Subscript starting position
-
       <nCount> Number of subscript to be filled
    $RETURNS$
-      <aTarget> an array pointer.
+      <aArray> pointer to the array.
    $DESCRIPTION$
       This function will fill each element of an array named <aArray> with
       the value <xValue>. If specified, <nStart> denotes the beginning
       element to be filled and the array elements will continue to be
-      filled for <nCount> positions. If Not specified, the value of
-      <nStart> will be 1, and the value of <nCount> will be the value
+      filled for <nCount> positions. If neither <nStart>/<nCount> specified, 
+      the value of <nStart> will be 1, and the value of <nCount> will be the value
       of Len( <aArray> ); thus, all subscript positions in the array
       <aArray> will be filled with the value of <xValue>.
-
       This function will work on only a single dimension of <aArray>.
       If there are array pointer references within a subscript <aArray>,
       those values will be lost, since this function will overwrite those
@@ -332,32 +324,25 @@
    $ONELINER$
       Scan array elements for a specified condition
    $SYNTAX$
-      AScan( <aTarget>, <xSearch>, [<nStart>], [<nCount>] ) --> nStoppedAt
+      AScan( <aArray>, <xSearch>, [<nStart>], [<nCount>] ) --> nStoppedAt
    $ARGUMENTS$
-      <aTarget>   Array to be scanned.
-
+      <aArray>    Array to be scanned.
       <xSearch>   Expression to search for in <aTarget>
-
       <nStart>    Beginning subscript position at which to start the search.
-
       <nCount>    Number of elements to scan with <aTarget>.
    $RETURNS$
       <nStoppedAt> A numeric value of subscript position where <xSearch>
       was found, or 0 if <xSearch> is not found.
    $DESCRIPTION$
-      This function scan the content of array named <aTarget> for the
+      This function scan the content of array named <aArray> for the
       value of <xSearch>. The return value is the position in the array
-      <aTarget> in which <xSearch> was found. If it was not found, the
+      <aArray> in which <xSearch> was found. If it was not found, the
       return value will be 0.
-
-      If specified, the beginning subscript position at which to start
-      scanning may be set with the value passed as <nStart>. The default
-      is 1.
-
-      If specified, the number of array elements to scan may be set with
-      the value passed as <nCount>. The default is the number of elements
-      in the array <aTarget>.
-
+      <nStart> is the position from which to start scanning. The default 
+      is 1. (1st element)
+      <nCount>, if specified, is the number of array elements to be scanned.
+      The default is all elements in the array <aArray>.
+      
       If <xSearch> is a code block, the operation of the function is
       slightly different. Each array subscript pointer reference is
       passed to the code block to be evaluated. The scanning routine
@@ -392,11 +377,8 @@
       AEval( <aArray>, <bBlock>, [<nStart>], [<nCount>] ) --> aArray
    $ARGUMENTS$
       <aArray> Is the array to be evaluated.
-
       <bBlock> Is a code block to evaluate for each element processed.
-
       <nStart> The beginning array element index to evaluate.
-
       <nCount> The number of elements to process.
    $RETURNS$
       <aArray> an array pointer reference.
@@ -441,31 +423,23 @@
       ACopy( <aSource>, <aTarget>, [<nStart>], [<nCount>], [<nTargetPos>] ) --> aTarget
    $ARGUMENTS$
       <aSource> is the array to copy elements from.
-
       <aTarget> is the array to copy elements to.
-
       <nStart>  is the beginning subscript position to copy from <aSource>
-
       <nCount>  the number of subscript elements to copy from <aSource>.
-
       <nTargetPos> the starting subscript position in <aTarget> to copy
       elements to.
    $RETURNS$
       <aTarget> an array pointer reference
    $DESCRIPTION$
       This function copies array elements from <aSource> to <aTarget>.
-
       <nStart> is the beginning element to be copied from <aSource>;
       the default is 1.
-
       <nCount> is the number of elements to be copied from <aSource>;
       the default is the entire array.
-
       <nTargetPos> is the subscript number in the target array, <aTarget>,
-       to which array elements are to be copied; the default is 1
-
+      to which array elements are to be copied; the default is 1.
+       
       This function will copy all data types in <aSource> to <aTarget>.
-
       If an array element in <aSource> is a pointer reference to another
       array, that array pointer will be copied to <aTarget>; not all
       subdimensions will be copied from one array to the next. This must
@@ -550,12 +524,9 @@
       ASort( <aArray>, [<nStart>], [<nCount>], [<bSort>] ) --> aArray
    $ARGUMENTS$
       <aArray> Array to be sorted.
-
       <nStart> The first element to start the sort from, default is 1.
-
       <nCount> Number of elements starting from <nStart> to sort, default
-      is all elements.
-
+               is all elements.
       <bSort> Code block for sorting order, default is ascending order
       {| x, y | x < y }. The code block should accept two parameters and
       must return .T. if the sort is in order, .F. if not.
