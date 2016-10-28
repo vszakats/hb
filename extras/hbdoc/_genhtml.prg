@@ -331,7 +331,7 @@ METHOD AddEntry( oEntry ) CLASS GenerateHTML
 
    #if defined( HB_VERSION_URL_BASE )
       ::AppendInline( hb_UChar( 160 ) + "|" + hb_UChar( 160 ) )
-      ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "edit/master" + SubStr( oEntry:_sourcefile, Len( "../.." ) + 1 ) )
+      ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "edit/master/" + SubStr( oEntry:_sourcefile, Len( hbdoc_BaseDir() ) + 1 ) )
       ::AppendInline( "Improve this doc" )
       ::CloseTagInline( "a" )
    #endif

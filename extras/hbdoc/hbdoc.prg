@@ -309,6 +309,9 @@ PROCEDURE Main()
 
    RETURN
 
+FUNCTION hbdoc_BaseDir()
+   RETURN s_hSwitches[ "basedir" ]
+
 STATIC PROCEDURE Get_ID_Name( cComponent, /* @ */ cID, /* @ */ cName )
 
    IF cComponent == "harbour"
