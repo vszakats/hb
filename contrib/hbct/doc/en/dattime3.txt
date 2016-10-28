@@ -2,7 +2,7 @@
    $NAME$
       WaitPeriod()
    $CATEGORY$
-      hbct date and time functions
+      CT3 date and time functions
    $ONELINER$
       Pauses a specified time in increments of 1/100 seconds
    $SYNTAX$
@@ -52,7 +52,7 @@
    $NAME$
       TimeValid()
    $CATEGORY$
-      hbct Date and Time Functions
+      CT3 date and time functions
    $ONELINER$
       Determines whether a specIFied time is valid
    $SYNTAX$
@@ -112,7 +112,7 @@
    $NAME$
       SetTime()
    $CATEGORY$
-      hbct Date and Time Functions
+      CT3 date and time functions
    $ONELINER$
       Sets the system clock
    $SYNTAX$
@@ -162,7 +162,7 @@
    $NAME$
       SetDate()
    $CATEGORY$
-      hbct Date and Time Functions
+      CT3 date and time functions
    $ONELINER$
       Sets the system date
    $SYNTAX$

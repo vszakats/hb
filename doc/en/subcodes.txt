@@ -1150,7 +1150,7 @@
       The passed argument is not an object. Only data of type OBJECT
       can be cloned by this function
    $EXAMPLES$
-      OCLONE()
+      __objClone()
    $COMPLIANCE$
       H
    $SEEALSO$

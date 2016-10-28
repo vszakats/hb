@@ -121,7 +121,7 @@
 
       <nType>   The type of operation:
 
-      <table>
+      <table-noheader>
       ADS_AOF_ADD_RECORD      Add the record to the AOF (set the bit). This is the default operation.
       ADS_AOF_REMOVE_RECORD   Remove the record from the AOF (clear the bit).
       ADS_AOF_TOGGLE_RECORD   Switch the record into or out of the AOF.
@@ -507,7 +507,7 @@
 
       Options are defined in ads.ch:
 
-      <table>
+      <table-noheader>
          ADS_RESPECTFILTERS   Respect filters and scopes
          ADS_IGNOREFILTERS    Ignore filters and scopes
          ADS_RESPECTSCOPES    Respect scopes only
@@ -554,8 +554,8 @@
 
       <nFilterOption> Indicates if filters and/or scopes are to be respected if set.
 
-      <table>
       Options are defined in ads.ch:
+      <table-noheader>
          ADS_RESPECTFILTERS   Respect filters and scopes
          ADS_IGNOREFILTERS    Ignore filters and scopes
          ADS_RESPECTSCOPES    Respect scopes only
@@ -564,7 +564,7 @@
       <nKeyNo>   The logical key number of the current record in the given index.
    $DESCRIPTION$
       See ace.hlp for full details about the Advantage Database Server.
-      Wrapper for AdsGetKeyNum.
+      Wrapper for AdsGetKeyNum().
       This function may be slow on a large database with
       ADS_RESPECTFILTERS set because it walks through the keys to get the
       current position.  Compare to AdsGetRelKeyPos().
@@ -709,7 +709,7 @@
 
       STATIC FUNCTION outputstuff( nPercent )  /* The "callback" function */
          ? "output stuff", nPercent
-         RETURN hb_keyStd( Inkey() ) == K_ESC  /* If press ESC, returns .T. to abort. */
+         RETURN hb_keyStd( Inkey() ) == K_ESC  /* If <Esc> pressed, returns .T. to abort. */
    $STATUS$
       R
    $COMPLIANCE$
@@ -958,7 +958,7 @@
    $RETURNS$
       <lActiveIndex>
    $DESCRIPTION$
-      Equivalent to <b>Empty( ordSetFocus() )<\b>, but faster.
+      Equivalent to <b>Empty( ordSetFocus() )</b>, but faster.
    $EXAMPLES$
 
    $STATUS$
@@ -1373,39 +1373,5 @@
       Header is ads.ch
    $SEEALSO$
       AdsCacheOpenTables(), AdsCacheOpenCursors()
-   $END$
- */
-
-/* $DOC$
-   $NAME$
-      xxx()
-   $CATEGORY$
-      Advantage Database RDD
-   $ONELINER$
-      xxx
-   $SYNTAX$
-      xxx( <lMode> ) --> lPriorSetting
-   $ARGUMENTS$
-      <lMode>    xxx
-      xxx
-
-   $RETURNS$
-      <lPriorSetting>
-   $DESCRIPTION$
-      See ace.hlp for full details about the Advantage Database Server.
-      AdsRightsCheck() is a Get/Set function for the "rights checking" mode.
-   $EXAMPLES$
-
-   $STATUS$
-      R
-   $COMPLIANCE$
-      Harbour extension
-   $PLATFORMS$
-      Windows, Linux
-   $FILES$
-      Library is rddads
-      Header is ads.ch
-   $SEEALSO$
-      xxx()
    $END$
  */

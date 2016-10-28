@@ -2,7 +2,7 @@
    $NAME$
       TFileRead()
    $CATEGORY$
-      Harbour Tools
+      File
    $ONELINER$
       Read a file one line at a time
    $SYNTAX$
@@ -66,7 +66,6 @@
    $STATUS$
       R
    $COMPLIANCE$
-      This is a new Harbour Tools class
    $FILES$
       Library is hbmisc
    $SEEALSO$

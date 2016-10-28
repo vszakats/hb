@@ -32,7 +32,7 @@
    $NAME$
       JustRight()
    $CATEGORY$
-      Harbour Tools string functions
+      CT3 string functions
    $ONELINER$
       Move characters from the end to the beginning of a string
    $SYNTAX$

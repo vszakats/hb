@@ -629,7 +629,7 @@ INIT PROCEDURE _tpinit()
 
 #if 0
 
-// you can uncomment the following section for compatability with TP code... I figured
+// you can uncomment the following section for compatibility with TP code... I figured
 // you'd probably want them commented so it won't compile so that you would see where
 // you have potential incomplete port problems
 FUNCTION tp_mstat()

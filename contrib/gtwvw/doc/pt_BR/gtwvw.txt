@@ -4791,29 +4791,6 @@
    $TEMPLATE$
       Function
    $NAME$
-      wvw_xbShow()
-   $CATEGORY$
-      API
-   $SUBCATEGORY$
-      GTWVW
-   $SYNTAX$
-      wvw_xbShow( nWinNum, nXBId, lShow )
-   $ARGUMENTS$
-      nWinNum Número da janela. O default é a janela atual. nXBId Identificador da
-      scrollbar. lShow .T. apresenta a scrollbar (default) .F. esconde a scrollbar
-   $DESCRIPTION$
-      Apresenta ou esconde uma scrollbar na janela atual.
-   $RETURNS$
-      .T. se a operação foi realizada com sucesso, .F. caso contrário.
-   $PLATFORMS$
-      Windows
-   $END$
- */
-
-/* $DOC$
-   $TEMPLATE$
-      Function
-   $NAME$
       wvw_xbUpdate()
    $CATEGORY$
       API

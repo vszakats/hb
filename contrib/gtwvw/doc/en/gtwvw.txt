@@ -4679,29 +4679,6 @@
    $TEMPLATE$
       Function
    $NAME$
-      wvw_xbShow()
-   $CATEGORY$
-      API
-   $SUBCATEGORY$
-      GTWVW
-   $SYNTAX$
-      wvw_xbShow( nWinNum, nXBId, lShow )
-   $ARGUMENTS$
-      <nWinNum> Window number. Default is current window. <nXBId> ID of scrollbar.
-      <lShow> .T. show scrollbar (default) .F. hide scrollbar
-   $DESCRIPTION$
-      Show/hide scrollbar in current window.
-   $RETURNS$
-      .T. if successful, .F. otherwise.
-   $PLATFORMS$
-      Windows
-   $END$
- */
-
-/* $DOC$
-   $TEMPLATE$
-      Function
-   $NAME$
       wvw_xbUpdate()
    $CATEGORY$
       API

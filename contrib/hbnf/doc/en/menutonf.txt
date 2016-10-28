@@ -139,8 +139,6 @@
 
       // Prompt with right and left arrow keys disabled
       @ 15, 1 PROMPT "Menu Choice #8" RIGHT 8 LEFT 8
-   $INCLUDE$
-      ftmenuto.ch
    $SEEALSO$
 
    $END$
@@ -182,8 +180,6 @@
 
       // Simple command
       MENU TO memvar
-   $INCLUDE$
-      ftmenuto.ch
    $SEEALSO$
       ft_Prompt()
    $END$

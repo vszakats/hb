@@ -270,7 +270,7 @@
    $NAME$
       ScreenText()
    $CATEGORY$
-      CT video functions (Harbour extension)
+      CT3 video functions (Harbour extension)
    $ONELINER$
 
    $SYNTAX$

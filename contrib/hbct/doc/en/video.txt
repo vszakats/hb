@@ -2,7 +2,7 @@
    $NAME$
       CharPix()
    $CATEGORY$
-      hbct video functions
+      CT3 video functions
    $ONELINER$
       Gets the number of scan lines per character.
    $SYNTAX$
@@ -32,7 +32,7 @@
    $NAME$
       VGAPalette()
    $CATEGORY$
-      hbct video functions
+      CT3 video functions
    $ONELINER$
       Changes VGA palette colors
    $SYNTAX$
@@ -70,7 +70,7 @@
    $NAME$
       VideoType()
    $CATEGORY$
-      hbct video functions
+      CT3 video functions
    $ONELINER$
       Detects supported video adapter modes
    $SYNTAX$
@@ -100,7 +100,7 @@
    $NAME$
       SetFont()
    $CATEGORY$
-      hbct video functions
+      CT3 video functions
    $ONELINER$
       Loads font from a string.
    $SYNTAX$

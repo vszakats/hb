@@ -2,7 +2,7 @@
 layout: default
 title: "Third-parties"
 ---
-# Third-parties
+# Third-party packages
 
 These are some links to Harbour related 3rd party tools and libraries.
 
@@ -38,10 +38,10 @@ Graphical user interface library for Harbour. This is a wrapper around
 
 ## [HwGUI](https://sourceforge.net/projects/hwgui/)
 
-Is a cross-platform GUI library for Harbour, it is written in C and Harbour.
+Is a cross-platform GUI library for Harbour. It is written in C and Harbour.
 
 HwGUI includes two versions: Windows and Linux. Windows version is based on
-direct calls of win32 API — this allows to keep it quite fast and compact.
+direct calls to the win32 API — this allows to keep it fast and compact.
 Linux version is based on GTK, it supports the same set of classes, commands
 and functions as the Windows version, though not all yet. Thus, using some
 base subset of HwGUI, you can create cross-platform GUI applications.
@@ -53,9 +53,9 @@ Harbour MiniGUI (HMG) is an xBase Windows / GUI Development System based
 on Harbour MiniGUI library, Harbour MiniGUI IDE, Harbour compiler and
 a supported C compiler. This implements a semi-OOP model and is a ready to use
 Harbour distribution that includes all needed components for your work.
-<span class="readmore-md">[Read more](https://sourceforge.net/projects/harbourminigui/)</span>
+<span class="readmore-md">[Learn more](https://sourceforge.net/projects/harbourminigui/)</span>
 
-MiniGUI [unofficial build](http://www.hmgextended.com/) with _extended_ features.
+MiniGUI [fork](http://www.hmgextended.com/) with extended features.
 
 ## [ooHG](https://sourceforge.net/projects/oohg/)
 
@@ -76,7 +76,7 @@ of GTK+ in a cross-platform fashion.
 
 ## [WebSocket](https://github.com/foldiii/websocket)
 
-WebSocket implementation built on top of `hbhttpd` contrib.
+WebSocket implementation built on top of [`hbhttpd`]({{ site.baseurl }}/contribs#hbhttpd) contrib.
 
 ## [wxHarbour](https://sourceforge.net/projects/wxharbour/)
 
@@ -106,7 +106,7 @@ and classes for multi-platform development using Harbour and GTK+ 2.10 or higher
 * OTC Mediator — client–server RDD for SQL backends
 * Xailer — Visual IDE (Windows)
 
-Please use a search engine for up-to-date information and details about these
-products.
+Please use your favourite search engine to find up-to-date information and
+details about these products.
 
 </div>

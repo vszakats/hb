@@ -70,7 +70,5 @@
 
    $SEEALSO$
 
-   $INCLUDE$
-      inkey.ch, setcurs.ch, achoice.ch
    $END$
  */

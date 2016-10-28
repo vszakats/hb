@@ -4,7 +4,7 @@ title: "Contribs"
 ---
 <div markdown="1" class="components">
 
-# Harbour Contribs
+# Harbour contrib packages
 
 Contribs are libraries or tools, which are independent from the language core,
 but bundled with the main Harbour distribution. These components are part of
@@ -29,10 +29,12 @@ sacrificing the Clipper syntax. Additionally `GTWVG` has a nice set of
 You can create high performance dialogs with multiple TBrowser, Reads,
 Bitmaps, Buttons, i.e. all GUI elements you can think of.
 
-## gtwvw (Windows-only)
+{% if site.fork %}
+## [gtwvw](https://harbour.github.io/doc/gtwvw.html) (Windows-only)
 
 A `GTWVG` alternative with multi-window support.
 
+{% endif %}
 ## hbamf
 
 AMF file format handling
@@ -63,7 +65,7 @@ hash functions, [SHA-3](https://en.wikipedia.org/wiki/SHA-3) secure hash
 functions, [ed25519](https://en.wikipedia.org/wiki/EdDSA) digital signature functions.
 
 {% endif %}
-## hbct
+## [hbct](https://harbour.github.io/doc/hbct.html)
 
 This library provides functions compatible with the famous Clipper Tools for
 CA-Clipper (`CT.LIB`).
@@ -74,12 +76,12 @@ CUPS bindings (printing)
 
 ## hbcurl
 
-libcurl bindings for Harbour. libcurl is a free and easy-to-use client-side
-URL transfer library, supporting SSL, HTTP GET/PUT/POST/forms, HTTP2, SCP,
-FTPS, SFTP, FTP, LDAP, LDAPS, SMTP, SMTPS, IMAP, IMAPS, POP3, POP3S, TFTP,
-TELNET, FILE/SMB, proxies, cookies, authentication (Basic, Digest, NTLM,
-Negotiate, Kerberos), file transfer resume, http proxy tunneling and more.
-<span class="readmore-md">[Read more](https://curl.haxx.se/libcurl/)</span>
+libcurl bindings. libcurl is a free and easy-to-use client-side URL transfer
+library, supporting SSL, HTTP GET/PUT/POST/forms, HTTP2, SCP, FTPS, SFTP, FTP,
+LDAP, LDAPS, SMTP, SMTPS, IMAP, IMAPS, POP3, POP3S, TFTP, TELNET, FILE/SMB,
+proxies, cookies, authentication (Basic, Digest, NTLM, Negotiate, Kerberos),
+file transfer resume, http proxy tunneling and more.
+<span class="readmore-md">[Learn more](https://curl.haxx.se/libcurl/)</span>
 
 ## hbexpat
 
@@ -87,22 +89,21 @@ libexpat bindings (XML parser)
 
 ## hbfbird
 
-Firebird/Interbase RDBMS API bindings for Harbour, including classes and
-functions to work with these RDBMS.
+Firebird/Interbase RDBMS API bindings, including classes and functions to work
+with these RDBMS.
 
 ## hbfimage
 
-FreeImage graphic library bindings for Harbour.
-FreeImage is an Open Source library project for developers who would like to
-support popular graphics image formats like PNG, BMP, JPEG, TIFF and others
-as needed by today's multimedia applications.
+FreeImage graphic library bindings. FreeImage is an Open Source library project
+for developers who would like to support popular graphics image formats like
+PNG, BMP, JPEG, TIFF and others as needed by today's multimedia applications.
 
-FreeImage is easy to use, fast, multithreading safe and cross-platform
-(works on Windows, Linux and Mac).
+FreeImage is easy to use, fast, multithreading safe and cross-platform (works
+on Windows, Linux and Mac).
 
 ## hbformat
 
-Harbour source code formatter
+Harbour source code formatter.
 
 ## hbfoxpro
 
@@ -112,31 +113,27 @@ FoxPro compatibility
 
 FlagShip compatibility
 
-## hbgd
+## [hbgd](https://harbour.github.io/doc/hbgd.html)
 
-Thomas Boutell's GD 2.x library bindings for Harbour. GD Library is a powerful
-graphic library, useful expecially under CGI environment. `hbgd` supports
-almost all GD functions, plus a set of extra functions and classes that extend
-and make it easier to work with this library.
-<span class="readmore-md">[Read more](https://libgd.github.io/)</span>
-
-## hbgt
-
-Miscellaneous functions for manipulating strings.
+Thomas Boutell's GD 2.x library bindings. GD Library is a powerful graphic
+library, useful expecially under CGI environment. `hbgd` supports almost all
+GD functions, plus a set of extra functions and classes that extend and make
+it easier to work with this library.
+<span class="readmore-md">[Learn more](https://libgd.github.io/)</span>
 
 ## hbgs
 
 Ghostscript bindings (imaging)
 
-## hbgt
+## [hbgt](https://harbour.github.io/doc/hbgt.html)
 
-GT library (string functions)
+Miscellaneous functions for manipulating strings.
 
 ## hbhpdf
 
-Libharu bindings for Harbour. Haru is a free, cross platform, open-source
-library for generating PDF, written in ANSI C.
-<span class="readmore-md">[Read more](https://github.com/libharu/libharu)</span>
+Libharu bindings. Haru is a free, cross platform, open-source library for
+generating PDF, written in ANSI C.
+<span class="readmore-md">[Learn more](https://github.com/libharu/libharu)</span>
 
 ## hbhttpd
 
@@ -158,7 +155,7 @@ Apple Mac specific functions
 
 libmagic bindings (file identification)
 
-## hbmisc
+## [hbmisc](https://harbour.github.io/doc/hbmisc.html)
 
 Miscellaneous functions for manipulating strings, numbers, type conversions,
 etc.
@@ -173,21 +170,21 @@ minixml bindings (XML parser/generator)
 
 ## hbmysql
 
-MariaDB/MySQL client API bindings and helper classes for Harbour. Includes
-a `dbf2mysql.prg` utility to convert `.dbf` files into MariaDB/MySQL tables.
+MariaDB/MySQL client API bindings and helper classes. Includes a `dbf2mysql.prg`
+utility to convert `.dbf` files into MariaDB/MySQL tables.
 
 ## hbmzip
 
-Minizip API bindings for Harbour, allowing to read and write `.zip` files.
+Minizip API bindings, allowing to read and write `.zip` files.
 
-## hbnf
+## [hbnf](https://harbour.github.io/doc/hbnf.html)
 
 A port of the Nanforum Library for Clipper.
 
 ## hbodbc
 
-ODBC library for Harbour. Includes bindings and helper classes to work with
-various RDBMS via ODBC.
+ODBC library. Includes bindings and helper classes to work with various RDBMS
+via ODBC.
 
 ## hboslib
 
@@ -195,13 +192,12 @@ OSLib (Dave Pearson's) compatibility
 
 ## hbpgsql
 
-Harbour Low Level API for PostgreSQL RDBMS. Includes a `dbf2pg.prg` utility to
+Low Level API bindings for PostgreSQL RDBMS. Includes a `dbf2pg.prg` utility to
 convert a `.dbf` file into a PostgreSQL table.
 
 ## hbsqlit3
 
-SQLite3 bindings for Harbour. This library allow access an SQLite3
-databases using Harbour.
+SQLite3 bindings. This library allow access an SQLite3 databases using Harbour.
 
 ## hbsms
 
@@ -209,8 +205,8 @@ SMS handling functions
 
 ## hbssl
 
-OpenSSL bindings for Harbour. Supports SSL, SSL_CIPHER, SSL_CTX, RAND,
-SSL_SESSION (and more) modules.
+OpenSSL bindings. Supports SSL, SSL_CIPHER, SSL_CTX, RAND, SSL_SESSION (and
+more) modules.
 
 ## hbtest
 
@@ -218,8 +214,8 @@ Regression test framework
 
 ## hbtip
 
-Class-oriented internet protocol library for Harbour. Supports HTTP, HTTPS,
-SMTP, SMTPS, POP3, FTP and more.
+Object-oriented internet protocol library, written in Harbour. Supports HTTP,
+HTTPS, SMTP, SMTPS, POP3, FTP and more.
 
 ## hbtpathy
 
@@ -247,7 +243,7 @@ these features are:
 
 libxdiff bindings (diffing)
 
-## hbxpp
+## [hbxpp](https://harbour.github.io/doc/hbxpp.html)
 
 Xbase++ compatibility
 
@@ -255,27 +251,25 @@ Xbase++ compatibility
 
 Barcode creating functions
 
-## hbziparc
+## [hbziparc](https://harbour.github.io/doc/hbziparc.html)
 
 `HBZIPARC` compatibility (zip compression)
 
 ## xhb
 
-xHarbour compatibility
+Provides a compatibility layer with the xHarbour fork.
 
-## rddads
+## [rddads](https://harbour.github.io/doc/rddads.html)
 
 `rddads` is an RDD for the Advantage Database Server, an xBase data server by
 Extended Systems. With this library your Harbour application can access
 a remote database server for a true client/server architecture, or it can use
 the "local server" `adsloc32.dll` for stand-alone or even small network
 installations.
-<span class="readmore-md">[Read more](https://www.sap.com/pc/tech/database/software/advantage-database-server/index.html)</span>
 
 ## rddbm
 
-Compatible with core RDDs of Harbour, with bitmap filters and other
-extensions.
+Raw bitmap filters for Harbour RDDs.
 
 ## rddsql
 
@@ -283,10 +277,6 @@ SQL MIX (Memory Index) Database Driver. This library provides access to
 PostgreSQL (via `sddpg`), SQLite3 (via `sddsqlt3`), Oracle (via `sddoci`),
 MariaDB/MySQL (via `sddmy`), Firebird (via `sddfb`) and ODBC servers
 (via `sddodbc`).
-
-## xhb
-
-Provides a compatibility layer with the xHarbour fork.
 
 ## hbbz2io
 

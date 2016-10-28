@@ -9,10 +9,10 @@
       Advantage Database Server RDD
    $DESCRIPTION$
       rddads is an RDD for the Advantage Database Server, an xBase data
-      server by Extended Systems <www.advantagedatabase.com>.
-      The RDD was written by Alexander Kresin <alex@belacy.belgorod.su>
+      server by Extended Systems <https://devzone.advantagedatabase.com/>.
+      The RDD was written by Alexander Kresin <alex/at/belacy.belgorod.su>
       Additional code and documentation was added by
-      Brian Hays <bhays@abacuslaw.com>.
+      Brian Hays <bhays/at/abacuslaw.com>.
 
       Your Harbour application can access a remote database server for a
       true client/server architecture, or it can use the "local server"
@@ -21,27 +21,31 @@
       For using this RDD you need to have all required dynamic libraries
       installed on your system.
 
-      For building executables don't forget to include rddads.hbc in your
+      For building executables don't forget to include `rddads.hbc` in your
       hbmk2 project.
 
       You also need to include in your prg file following lines:
 
+      ```
       REQUEST ADS
       rddRegister( "ADS", 1 )
       rddSetDefault( "ADS" )
+      ```
 
       By default rddads is tuned for remote server and cdx indexes. To
-      change this you may use these commands defined in ads.ch:
+      change this you may use these commands defined in `ads.ch`:
 
+      ```
       SET SERVER LOCAL
       SET SERVER REMOTE
 
       SET FILETYPE TO NTX
       SET FILETYPE TO ADT
       SET FILETYPE TO CDX
+      ```
 
       or functions AdsSetServerType(), AdsSetFileType().
-      See the header file ads.ch for details.
+      See the header file `ads.ch` for details.
 
       Note that the default local server is useable for
       file sharing on a small network.  The default DLL is limited to
@@ -49,13 +53,13 @@
 
       MAX OPEN TABLES: The server (even local) has its own setting for
       Max Tables allowed open.  For the Local Server, it can be set in
-      adslocal.cfg.  The default is only 50!
+      `adslocal.cfg`.  The default is only 50!
       For the Windows Remote Servers, use the Configuration Utility, or
       increase the setting for the TABLES configuration value in the Advantage
       Database Server configuration registry key using the Registry Editor.
-      For NetWare, edit the configuration file ads.cfg.
+      For NetWare, edit the configuration file `ads.cfg`.
 
-      See ace.hlp under adslocal.cfg, or the Advantage Error Guide for
+      See `ace.hlp` under `adslocal.cfg`, or the Advantage Error Guide for
       error 7005.
 
       SPEED AND PERFORMANCE ISSUES
@@ -69,10 +73,12 @@
       First, optimization is not on by default, so at the top of the app
       call
 
-         Set( _SET_OPTIMIZE, .T. )
+      ```
+      Set( _SET_OPTIMIZE, .T. )
+      ```
 
       or its command equivalent.  rddads will use an AOF whenever
-      dbSetFilter is called *if it can*.
+      dbSetFilter() is called *if it can*.
 
       Second, make sure the filter is one ADS can understand. UDFs are out,
       as are references to public or private variables. It's also best to
@@ -80,26 +86,30 @@
       related tables, so they're superfluous.
       You can call
 
-         ? AdsIsExprValid( cFilter )
+      ```
+      ? AdsIsExprValid( cFilter )
+      ```
 
       to check.  If this returns False, neither the Local Server nor the
       Remote Server can process it, so optimization will never occur (but
-      the Harbour RDD will process the filtering locally by eval'ing the
+      the Harbour RDD will process the filtering locally by evaluating the
       codeblock and testing each record). The only way to speed it up is to
       fix the filter so ADS understands it.
 
-      You can also use dbOrderInfo(DBOI_OPTLEVEL) to see if the current
+      You can also use dbOrderInfo( DBOI_OPTLEVEL ) to see if the current
       filter is optimized or not. COMIX users can use:
 
-            FUNCTION rlOptLevel()
-               RETURN dbOrderInfo( DBOI_OPTLEVEL )
+      ```
+      FUNCTION rlOptLevel()
+         RETURN dbOrderInfo( DBOI_OPTLEVEL )
+      ```
 
       This returns the Clipper/COMIX values (not ADS-defined values) because
       this is an RDD call, not just a wrapper to the ADS call, which uses different numbers).
 
    $COMPLIANCE$
       Every attempt has been made to make the RDD compliant with the
-      standard dbfcdx RDD at the .prg level.
+      standard DBFCDX RDD at the .prg level.
       One important difference is the handling of structural indexes.
       ACE will <b>always</b> automatically open an index with the same
       name as the data file.  There is no way to turn this feature off.
@@ -115,29 +125,29 @@
       Harbour expressions or codeblocks. Even with Local Server it's the
       DLLs doing all the indexing. So to do progress meters
       you need to implement <b>AdsRegCallback( bEval )</b>.
-      It lets you set a codeblock that is eval'ed every 2 seconds.
+      It lets you set a codeblock that is evaluated every 2 seconds.
       A numeric value of the "percent completed" is passed to the
       codeblock by the ADS server.
 
-       <table>
-       #include "inkey.ch"
-       PROCEDURE Main()
-          ...
-          AdsRegCallback( {| nPercent | outputstuff( nPercent ) }  )
-          /* The above codeblock will be called approximately
-             every 2 seconds while indexing.
-             The codeblock can return .T. to abort. */
-          INDEX ON FIRST + LAST + LABEL1 + LABEL2 TAG First
-          AdsClrCallback()
-          RETURN
+      ```
+      #include "inkey.ch"
+      PROCEDURE Main()
+         ...
+         AdsRegCallback( {| nPercent | outputstuff( nPercent ) }  )
+         /* The above codeblock will be called approximately
+            every 2 seconds while indexing.
+            The codeblock can return .T. to abort. */
+         INDEX ON FIRST + LAST + LABEL1 + LABEL2 TAG First
+         AdsClrCallback()
+         RETURN
 
-       STATIC FUNCTION outputstuff( nPercent )  /* The "callback" function */
-          ? "output stuff", nPercent
-          RETURN hb_keyStd( Inkey() ) == K_ESC  /* If press ESC, returns .T. to abort. */
-      </table>
+      STATIC FUNCTION outputstuff( nPercent )  /* The "callback" function */
+         ? "output stuff", nPercent
+         RETURN hb_keyStd( Inkey() ) == K_ESC  /* If <Esc> pressed, returns .T. to abort. */
+      ```
 
       For programmers who are already familiar with the ACE engine,
-      Harbour's compatibility with dbfcdx means there are some differences
+      Harbour's compatibility with DBFCDX means there are some differences
       between the rddads in Harbour and the parallel ACE documentation:
 
       1) In ACE, skipping backwards to BOF goes to the phantom record and

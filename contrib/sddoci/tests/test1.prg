@@ -3,6 +3,7 @@
 #require "rddsql"
 #require "sddoci"
 
+#include "dbinfo.ch"
 #include "simpleio.ch"
 
 REQUEST SDDOCI

@@ -353,7 +353,7 @@
       key pressed. If the GET buffer was updated during READ, 256 is added
       to the return code.
 
-      <table>
+      <table-doubleheader>
       Exit               Return code     Return code
       Key                (not updated)   (updated)
 

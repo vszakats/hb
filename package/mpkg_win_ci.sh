@@ -15,18 +15,18 @@ _ROOT="$(realpath '.')"
 
 # Don't remove these markers.
 #hashbegin
-export NGHTTP2_VER='1.15.0'
-export NGHTTP2_HASH_32='e42aaab59f77f3f96c4b605e2a2556c567bd1fb742916f41412e976adc953bc4'
-export NGHTTP2_HASH_64='b7c80f9f1b31f18f21bca75cb43c432b1b6d7fa471c18f87f807359853c79176'
+export NGHTTP2_VER='1.16.0'
+export NGHTTP2_HASH_32='148af2a59a894070878497013a42c2180228867a66799b107e702026b541817d'
+export NGHTTP2_HASH_64='eb5904fc65ffd0570229dcb3f76f6551876f2c1341e26735d273b69ac4bfecf6'
 export OPENSSL_VER='1.1.0b'
 export OPENSSL_HASH_32='134f36d6e4dabdfe2256290022461dd773cd477288b958e43d09152c469a218c'
 export OPENSSL_HASH_64='cf2d985edac9af32e24fc6d75bb388df54f5a2b40bcb54a04620c0f9974ce056'
-export LIBSSH2_VER='1.7.0'
-export LIBSSH2_HASH_32='922a3791562c3c1f96c49648b867d395576cd73f4379c7efa6d0dfc9e876d8c6'
-export LIBSSH2_HASH_64='81a3ea5b0ef06e2705dc8998717324e01c2cc559f2fe83fd61e69ad6b5503f09'
+export LIBSSH2_VER='1.8.0'
+export LIBSSH2_HASH_32='709808363ec05c0eb25abb4b86b8ef0c6c996e5bd94e6fa9e8aed4a89ef0141e'
+export LIBSSH2_HASH_64='f7b6090167da441bebdbf6cca7e8041341d8c977dcc6485965debe444e25eb96'
 export CURL_VER='7.50.3'
-export CURL_HASH_32='6974ceecf38a43bc808074f8af8ba6a85df7dde96e686a01b9faa5c3c891c063'
-export CURL_HASH_64='7c80bd0e92df1216b13f29c1e02dc25ba156f039167dc36c4885e936745d84eb'
+export CURL_HASH_32='3d7719018af7bb27e44f013346b3d389c43225c303b2e0d668f13412bae01718'
+export CURL_HASH_64='004a71d5b784a669849c0526307c2c7e7eec8aafe1d9ad2f81dc2dd61b1bdc4e'
 #hashend
 
 # Install/update MSYS2 packages required for completing the build
@@ -55,7 +55,7 @@ fi
 
 # common settings
 
-[ "${_BRANCH#*prod*}" != "${_BRANCH}" ] && export HB_BUILD_CONTRIBS='hbrun hbformat/utils hbct hbcurl hbhpdf hbmzip hbwin hbtip hbssl hbexpat hbmemio rddsql hbzebra sddodbc hbunix hbmisc hbcups hbtest hbtcpio hbcomio hbcrypto hbnetio hbpipeio hbgzio hbbz2io hbicu'
+[ "${_BRANCH#*prod*}" != "${_BRANCH}" ] && export HB_BUILD_CONTRIBS='hbrun hbdoc hbformat/utils hbct hbcurl hbhpdf hbmzip hbwin hbtip hbssl hbexpat hbmemio rddsql hbzebra sddodbc hbunix hbmisc hbcups hbtest hbtcpio hbcomio hbcrypto hbnetio hbpipeio hbgzio hbbz2io hbicu'
 export HB_BUILD_STRIP='bin'
 export HB_BUILD_PKG='yes'
 export _HB_BUILD_PKG_ARCHIVE='no'
@@ -65,7 +65,7 @@ export _HB_BUILD_PKG_ARCHIVE='no'
 [ "${_BRANC4}" = 'msvc' ] || export _HB_BUNDLE_3RDLIB='yes'
 export HB_INSTALL_3RDDYN='yes'
 export HB_BUILD_CONTRIB_DYN='yes'
-export HB_BUILD_POSTRUN='"./hbmk2 --version" "./hbtest -noenv" "./hbspeed --noenv --stdout"'
+export HB_BUILD_POSTRUN='"./hbmk2 --version" "./hbtest -noenv" "./hbdoc -v0 -repr -output=${HB_RT}/manual/" "./hbspeed --noenv --stdout"'
 
 # debug
 

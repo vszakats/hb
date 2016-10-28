@@ -132,9 +132,9 @@
       written to the disk.
 
       Under a networking enviroment, dbAppend() performs an additional
-      operation: It attrmps to lock the newly added record. If
+      operation: It attempts to lock the newly added record. If
       the database file is currently locked or if a locking assignment
-      if made to LastRec() + 1, NetErr() will return a logical true (.T.)
+      is made to LastRec() + 1, NetErr() will return a logical true (.T.)
       immediately after the dbAppend() function. This function does
       not unlock the locked records.
 
@@ -378,19 +378,19 @@
    $ONELINER$
       Creates an empty database from a array.
    $SYNTAX$
-      dbCreate( <cDatabase>, <aStruct>, [<cDriver>], [<lOpen>],
-                [<cAlias>] )
+      dbCreate( <cFile>, <aStruct>, [<cRDD>], [<lKeepOpen>], [<cAlias>], 
+                [<cDelimArg>], [<cCodePage>], [<nConnection>] )
    $ARGUMENTS$
-      <cDatabase> Name of database to be create
+      <cFile>     Name of database file to be create
 
       <aStruct>   Name of a multidimensional array that contains the
                   database structure
 
-      <cDriver>   Name of the RDD
+      <cRDD>      Name of the RDD
 
-      <lOpenNew>  3-way toggle to Open the file in New or Current workarea:
+      <lKeepOpen> 3-way toggle to Open the file in New or Current workarea:
 
-                       <table>
+                  <table-noheader>
                        NIL     The file is not opened.
                        True    It is opened in a New area.
                        False   It is opened in the current area.
@@ -422,12 +422,12 @@
       database was created via this function. However, a file containing
       fields longer than 256 bytes is not compatible with any interpreter.
 
-      The <cDriver> parameter specifies the name of the Replaceable
+      The <cRDD> parameter specifies the name of the Replaceable
       Database Driver to use to create the database. If it is not
       specified, then the Replaceable Database Driver in the current work
       area is used.
 
-      The <lOpenNew> parameter specifies if the already created database is
+      The <lKeepOpen> parameter specifies if the already created database is
       to be opened, and where.  If NIL, the file is not opened. If True,
       it is opened in a New area, and if False it is opened in the current
       area (closing any file already occupying that area).
@@ -920,7 +920,7 @@
       select the work area with the alias name.
 
       dbSelectArea( 0 ) will select the next avaliable and unused work area.
-      Up to 255 work areas are supported. Each work area has its own alias
+      Up to 65534 work areas are supported. Each work area has its own alias
       and record pointer, as well as its own Found(), dbFilter(),
       dbRSelect() and dbRelation() function values.
    $EXAMPLES$

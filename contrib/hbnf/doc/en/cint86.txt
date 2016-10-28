@@ -141,7 +141,5 @@
 
       aRegs[ AX ] := 16          // Choose hi-res graphics
       ft_int86( 16, aRegs )
-   $INCLUDE$
-      ftint86.ch
    $END$
  */

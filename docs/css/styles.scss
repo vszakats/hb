@@ -37,8 +37,8 @@ $color-bk-footer: #333;
 $color-bk-tooltip: $color-bk-footer;
 $color-bk-head-def: mix($color-menu-bk, $color-base1);
 $color-bk-code: #f2f2f2;
-$color-bk-box1: darken($color-bk-main, 7%);
-$color-bk-box2: mix($color-bk-main, $color-base1, 90%);
+$color-bk-box1: #f6f6ee;
+$color-bk-box2: mix($color-bk-main, $color-base1, 91%);
 $color-bk-boxs: darken(gold, 2%);
 
 $color-warn: #c00000;
@@ -64,29 +64,20 @@ $content-fill: 94%;
   border-top: $header-border solid $color-bk-boxs;
 }
 
-div.container {
-  background-color: $color-bk-main;
-  color: $color-main;
-  border: 0;
-  margin: auto;
-  width: $content-width;
-  -width: auto;
-}
-
 header,
 footer {
   clear: left;
 }
 
 main {
+  background-color: $color-bk-main;
+  color: $color-main;
   border: 0;
   border-spacing: 0;
   margin: auto;
   margin-top: 15px;
-  margin-left: 21px;
-  margin-bottom: 15px;
   padding: 0;
-  width: $content-fill;
+  width: (($content-width / 100%) * $content-fill);
 }
 
 body {
@@ -284,17 +275,13 @@ $donate-button-transition-time: .3s;
 
 .text-right {
   float: right;
-  padding-bottom: 1em;
+  margin-bottom: 1em;
 }
 
 .img-right {
   border: none;
   float: right;
   margin: 1em;
-}
-
-.trophy {
-  color: $color-gold !important;
 }
 
 .large-icon {
@@ -454,6 +441,7 @@ footer {
   padding: .1em 1em;
   height: 90px;
   width: auto;
+  -webkit-font-smoothing: auto;
 }
 
 footer a {
@@ -671,6 +659,7 @@ h2 {
   font-size: 100%;
 }
 
+$readmore-char: ' ›';
 $readmore-char: ' ⋯';
 
 .readmore {
@@ -1009,17 +998,13 @@ pre, code {
     width: 100%;
   }
 
-  div.container {
-    width: auto;
-  }
-
   .footer-content {
     width: auto;
   }
 
   main {
-    padding-left: .8em;
-    margin: 0;
+    margin: 15px;
+    width: auto;
   }
 
   aside {
