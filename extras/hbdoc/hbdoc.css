@@ -253,6 +253,10 @@ p {
     width: auto;
   }
 
+  header h1 div:last-child {
+    float: none;
+  }
+
   main {
     margin: 0 15px;
     width: auto;

@@ -741,7 +741,7 @@ STATIC PROCEDURE ShowHelp( cExtraMessage, aArgs )
             1, ;
             "-output-component    output is one file for each component and a central index (default)", ;
             "-output-entry        output is one file per entry", ;
-            "-source=<directory>  source directory, default is .." + hb_ps() + "..", ;
+            "-source=<directory>  source directory, default is " + s_hSwitches[ "basedir" ], ;
          } }
 
    CASE aArgs[ 2 ] == "categories"
