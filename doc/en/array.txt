@@ -6,6 +6,9 @@
  *    Documentation for: Array(), AAdd(), AClone(), ACopy(), ASize(),
  *                       ATail(), AIns(), ADel(), AFill(), AScan(), AEval()
  *
+ * (ↄ) 2016 Pete D. <pete_westg@yahoo.gr>
+ *   Documentation for: hb_ADel(), hb_AIns(), hb_AScan()
+ *
  * See COPYING.txt for licensing terms.
  *
  */
@@ -220,10 +223,52 @@
    $FILES$
       Library is core
    $SEEALSO$
-      AAdd(), ACopy(), ADel(), AEval(), AFill(), ASize()
+      hb_AIns(), AAdd(), ACopy(), ADel(), AEval(), AFill(), ASize()
    $END$
  */
-
+ 
+/* $DOC$
+   $TEMPLATE$
+      Function
+   $NAME$
+      hb_AIns()
+   $CATEGORY$
+      API
+   $SUBCATEGORY$
+      Array
+   $ONELINER$
+      Inserts a value at an array subscript position and optionally increases the length of array.
+   $SYNTAX$
+      hb_AIns( <aArray> , [<nPos>], [<xValue>], [<lAutoSize>] ) --> <aArray>
+   $ARGUMENTS$
+      <aArray> The array name into which the value <xValue> will be inserted.
+      <nPos> Subscript position in <aArray>. Default: 1st prosition
+      <xValue> Value to be inserted
+      <lAutoSize> Boolean flag to increase or not the size of <aArray>. Default: .F.
+   $RETURNS$
+      A refference to array <aArray>
+   $DESCRIPTION$
+      This function inserts <xValue> in the <nPos> position of the array, moving all the items 
+      one position down in the array list.
+      If <lAutoSize> is .T., a new element will be added at the end of array, making room for the previous last element, 
+      which means the length of array will be increased by 1. 
+      If <lAutoSize> is .F. (or is not passed) the function behaves like AIns(), that is, the size of <aArray> 
+      won't change and the last item of <aArray> will be lost.
+   $EXAMPLES$
+      LOCAL aArray := { "Harbour", "Power!" }
+      hb_AIns( aArray, 2,  "is", .F. ) // --> { "Harbour", "is" } 
+      hb_AIns( aArray, 2,  "is", .T. ) // --> { "Harbour", "is", "Power!" } 
+   $STATUS$
+      R
+   $COMPLIANCE$
+      H
+   $FILES$
+      Library is core
+   $SEEALSO$
+      AIns(), AAdd(), ADel(), AFill(), ASize()
+   $END$
+ */
+ 
 /* $DOC$
    $TEMPLATE$
       Function
@@ -236,12 +281,12 @@
    $ONELINER$
       Delete an element form an array.
    $SYNTAX$
-      ADel( <aArray>, <nPos> ) --> aTarget
+      ADel( <aArray>, <nPos> ) --> aArray
    $ARGUMENTS$
       <aArray> Name of array from which an element is to be removed.
       <nPos>   Subscript of the element to be removed.
    $RETURNS$
-      <aTarget> an array pointer reference.
+      <aArray> an array pointer reference.
    $DESCRIPTION$
       This function deletes the element found at <nPos> subscript position
       in the array <aArray>. All elements in the array <aArray> below the
@@ -254,7 +299,7 @@
       you can use hb_ADel() that supports autosizing.
    $EXAMPLES$
       LOCAL aArray := { "Harbour", "is", "Power" }
-      ADel( aArray, 2 ) // Result: aArray is { "Harbour", "Power" }
+      ADel( aArray, 2 ) // Result: aArray is { "Harbour", "Power", NIL }
    $STATUS$
       R
    $COMPLIANCE$
@@ -262,7 +307,46 @@
    $FILES$
       Library is core
    $SEEALSO$
-      ACopy(), AIns(), AFill()
+      hb_ADel(), ACopy(), AIns(), AFill()
+   $END$
+ */
+
+/* $DOC$
+   $TEMPLATE$
+      Function
+   $NAME$
+      hb_ADel()
+   $CATEGORY$
+      API
+   $SUBCATEGORY$
+      Array
+   $ONELINER$
+      Delete an element form an array.
+   $SYNTAX$
+      hb_ADel( <aArray>, [<nPos>], [<lAutoSize>] ) -> <aArray> 
+   $ARGUMENTS$
+      <aArray> Name of array from which an element is to be removed.
+      <nPos>   Subscript of the element to be removed. Default value is 1.
+      <lAutoSize> Boolean flag specifying if the array will be resized or not. Default .F. (no resize).
+   $RETURNS$
+      <aArray> an array pointer reference.
+   $DESCRIPTION$
+      This function deletes the value at position <nPos> and moves all the following values one position up.
+      If <lAutoSize> is .T., then the last element is removed and the size of the array is decreased by one, 
+      otherwise the length of the array will remain unchanged and a NIL value will be stored in the last 
+      element, just like in ADel().
+   $EXAMPLES$
+      LOCAL aArray := { "Harbour", "is", "Power" }
+      hb_ADel( aArray, 2 ) // Result: aArray is { "Harbour", "Power", NIL } - array length: 3 (unchanged)
+      hb_ADel( aArray, 2, .T. ) // Result: aArray is { "Harbour", "Power" } - array length: 2 (decreased)
+   $STATUS$
+      R
+   $COMPLIANCE$
+      H
+   $FILES$
+      Library is core
+   $SEEALSO$
+      ADel(), ACopy(), AIns(), AFill()
    $END$
  */
 
@@ -366,6 +450,50 @@
    $TEMPLATE$
       Function
    $NAME$
+      hb_AScan()
+   $CATEGORY$
+      API
+   $SUBCATEGORY$
+      Array
+   $ONELINER$
+      Scan array elements for a specified condition
+   $SYNTAX$
+      hb_AScan( <aArray>, <xSearch>, [<nStart>], [<nCount>], [<lExact>] ) --> <nPosition>
+   $ARGUMENTS$
+      <aArray>    Array to be scanned.
+      <xSearch>   Expression to search for in <aTarget>
+      <nStart>    Beginning subscript position at which to start the search. Default: 1
+      <nCount>    Number of elements to be scanned within <aArray>. Default: All elements.
+      <lExact>    Boolean flag specifying if an "Exact" search will be performed or not. Default: .F.
+   $RETURNS$
+      <nPosition> A numeric value of subscript position where <xSearch> was found, or 0 if nothing found.
+   $DESCRIPTION$
+      The function scans (left to right) for <xSearch> into <aArray> and returns <nPosition> of <aArray> in which <xSearch>
+      was found or 0 (zero) if nothing found. 
+      If <lExact> is .T., then an exact search will be performed.
+      When <xSearch> is a code block, the operation of the function is slightly different. See Ascan() for details.
+   $EXAMPLES$
+      proc main
+         local a := { "there", "here" }
+         ? AScan( a, "he" ) // --> 2
+         ? hb_AScan( a, "he",,,.F.) // --> 2
+         ? hb_AScan( a, "he",,,.T.) // --> 0 
+         wait
+   $STATUS$
+      R
+   $COMPLIANCE$
+      H
+   $FILES$
+      Library is core
+   $SEEALSO$
+      AScan(), AEVal()
+   $END$
+ */
+
+/* $DOC$
+   $TEMPLATE$
+      Function
+   $NAME$
       AEval()
    $CATEGORY$
       API
@@ -388,11 +516,9 @@
       to be executed on each element of the array. All elements in <aArray>
       will be evaluated unless specified by a beginning subscript position
       in <nStart> for <nCount> elements.
-
       Two parameters are passed to the code block <bBlock>. The individual
       elements in an array are the first parameter and the subscript position
       is the second.
-
       AEval() does not replace a FOR...NEXT loop for processing arrays. If
       an array is an autonomous unit, AEval() is appropriate. If the array
       is to be altered or if elements are to be reevaluated, a FOR...NEXT
@@ -438,13 +564,11 @@
       the default is the entire array.
       <nTargetPos> is the subscript number in the target array, <aTarget>,
       to which array elements are to be copied; the default is 1.
-       
       This function will copy all data types in <aSource> to <aTarget>.
       If an array element in <aSource> is a pointer reference to another
       array, that array pointer will be copied to <aTarget>; not all
       subdimensions will be copied from one array to the next. This must
       be accomplished via the AClone() function.
-
       Note:
       If array <aSource> is larger then <aTarget>, array elements will
       start copying at <nTargetPos> and continue copying until the end
@@ -548,7 +672,6 @@
       can sort multidimensional array, descending orders or even (but why
       would you want to do that) sort array that contain different data
       type.
-
       Codeblock calling frequency and order differs from CA-Cl*pper, since
       Harbour uses a different (faster) sorting algorithm (quicksort).
    $EXAMPLES$
