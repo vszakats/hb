@@ -5,7 +5,7 @@
  * Copyright 1999 Luiz Rafael Culik <culik@sl.conex.net>
  *    Documentation for: Array(), AAdd(), AClone(), ACopy(), ASize(),
  *                       ATail(), AIns(), ADel(), AFill(), AScan(), AEval()
- *
+ * 
  * Copyright 2016 Pete D. <pete_westg@yahoo.gr>
  *   Documentation for: hb_ADel(), hb_AIns(), hb_AScan()
  *
