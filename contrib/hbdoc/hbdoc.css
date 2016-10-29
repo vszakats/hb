@@ -30,6 +30,7 @@ header > div > div:first-child {
 
 header > div > div:last-child {
   float: right;
+  padding-left: 15px;
 }
 
 header a {
@@ -385,6 +386,7 @@ p {
 
 @media screen and (max-width: 737px) {
   header > div {
+    height: 70px;
     width: auto;
   }
 
