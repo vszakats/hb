@@ -6,7 +6,7 @@
  *    Documentation for: Array(), AAdd(), AClone(), ACopy(), ASize(),
  *                       ATail(), AIns(), ADel(), AFill(), AScan(), AEval()
  *
- * (ↄ) 2016 Pete D. <pete_westg@yahoo.gr>
+ * Copyright 2016 Pete D. <pete_westg@yahoo.gr>
  *   Documentation for: hb_ADel(), hb_AIns(), hb_AScan()
  *
  * See COPYING.txt for licensing terms.
