@@ -377,7 +377,7 @@ p {
   }
 }
 
-@media screen and (max-width: 1075px) {
+@media screen and (max-width: 975px) {
   aside {
     display: none;
   }
