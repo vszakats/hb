@@ -306,7 +306,9 @@ METHOD BeginSection( cSection, cFilename, cID ) CLASS GenerateHTML
          ::CloseTagInline( cH ):CloseTag( "a" )
       ENDIF
       ::OpenTag( "div" )
-      ::OpenTag( "ul" )
+      IF ::nDepth + 1 > 1
+         ::OpenTag( "ul" )
+      ENDIF
    ELSE
       ::OpenTagInline( "div", "id", cID )
       ::AppendInline( cSection, "h" + hb_ntos( ::nDepth + 1 ) )
@@ -323,15 +325,19 @@ METHOD BeginSection( cSection, cFilename, cID ) CLASS GenerateHTML
 
 METHOD EndSection() CLASS GenerateHTML
 
-   ::CloseTag( "ul" )
+   --::nDepth
+
+   IF ::nDepth + 1 > 1
+      ::CloseTag( "ul" )
+   ENDIF
    ::CloseTag( "div" )
    ::CloseTag( "section" )
-
-   --::nDepth
 
    RETURN Self
 
 METHOD SubCategory( cCategory, cID )
+
+   ::OpenTagInline( "li" )
 
    IF HB_ISSTRING( cCategory ) .AND. ! HB_ISNULL( cCategory )
       IF Empty( cID )
@@ -369,7 +375,7 @@ METHOD AddReference( hEntry, cReference, cSubReference ) CLASS GenerateHTML
       ::CloseTagInline( "a" )
    ENDCASE
 
-   ::NewLine()
+   ::cFile += hb_eol()
 
    RETURN Self
 

@@ -189,12 +189,12 @@ PROCEDURE Main()
    OutStd( hb_StrFormat( "! %1$d entries found", Len( aContent ) ) + hb_eol() )
 
    ASort( aContent,,, {| oL, oR | ;
-         PadR( SortWeight( oL[ "CATEGORY" ] ), 20 ) + ;
-         PadR( SortWeight( oL[ "SUBCATEGORY" ] ), 20 ) + ;
+         PadR( SortWeight( oL[ "CATEGORY" ] ), 30 ) + ;
+         PadR( SortWeight( oL[ "SUBCATEGORY" ] ), 60 ) + ;
          PadR( oL[ "NAME" ], 50 ) ;
       < ;
-         PadR( SortWeight( oR[ "CATEGORY" ] ), 20 ) + ;
-         PadR( SortWeight( oR[ "SUBCATEGORY" ] ), 20 ) + ;
+         PadR( SortWeight( oR[ "CATEGORY" ] ), 30 ) + ;
+         PadR( SortWeight( oR[ "SUBCATEGORY" ] ), 60 ) + ;
          PadR( oR[ "NAME" ], 50 ) ;
       } )
 
