@@ -65,6 +65,11 @@ CREATE CLASS TPLGenerate
    METHOD EndSection( cSection, cFilename ) INLINE HB_SYMBOL_UNUSED( cSection ), HB_SYMBOL_UNUSED( cFilename ), ::nDepth--
    METHOD Generate()
    METHOD IsIndex() INLINE ::nType == INDEX_
+   METHOD BeginTOC() INLINE Self
+   METHOD EndTOC() INLINE Self
+   METHOD BeginTOCItem( cName, cID ) INLINE Self
+   METHOD EndTOCItem() INLINE Self
+   METHOD SubCategory( cCategory, cID ) INLINE Self
 
    VAR cFilename AS STRING
    VAR cBaseTitle AS STRING INIT "Harbour Reference Guide"

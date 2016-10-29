@@ -89,9 +89,6 @@ CREATE CLASS GenerateText INHERIT TPLGenerate
    METHOD NewDocument( cDir, cFilename, cTitle, cLang )
    METHOD AddEntry( hEntry )
    METHOD BeginSection( cSection, cFilename )
-#if 0
-   METHOD EndSection( cSection, cFilename )  /* will use inherited method */
-#endif
    METHOD Generate()
 
 ENDCLASS
@@ -154,7 +151,7 @@ METHOD PROCEDURE WriteEntry( cCaption, cContent, lPreformatted ) CLASS GenerateT
    IF ! Empty( cContent )
       nIndent := iif( HB_ISNULL( cCaption ), 0, 6 )
       IF ! HB_ISNULL( cCaption ) .AND. nIndent > 0
-         ::cFile += Space( ::nDepth * 6 ) + cCaption + ": " + hb_eol()
+         ::cFile += Space( ::nDepth * 6 ) + cCaption + ":" + hb_eol()
       ENDIF
       nIndent += ::nDepth * 6
       DO WHILE ! HB_ISNULL( cContent )

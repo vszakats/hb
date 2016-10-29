@@ -84,7 +84,7 @@ mkdir -p "${HB_ABSROOT}"
    mkdir -p "${HB_ABSROOT}manual/"
    if ls ./manual/html/* > /dev/null 2>&1 ; then
       # shellcheck disable=SC2046
-      cp -v -f -p ./manual/html/* "${HB_ABSROOT}manual/"
+      cp -f -p ./manual/html/* "${HB_ABSROOT}manual/"
    fi
 )
 
@@ -324,9 +324,6 @@ esac
 # Create installer/archive
 
 cd "${HB_RT}" || exit
-
-ls -lA
-ls -lA manual/*
 
 (
    echo '*.md'

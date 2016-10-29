@@ -91,7 +91,7 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    METHOD BeginTOC()
    METHOD EndTOC()
    METHOD BeginTOCItem( cName, cID )
-   METHOD EndTOCItem() INLINE ::cFile += "</ul>" + hb_eol()
+   METHOD EndTOCItem() INLINE ::cFile += "</ul>" + hb_eol(), Self
 
    METHOD WriteEntry( cField, cContent, lPreformatted ) HIDDEN
 

@@ -134,7 +134,7 @@ PROCEDURE Main()
    ENDIF
 
    FOR EACH arg IN aArgs
-      IF ! Empty( arg )
+      IF ! HB_ISNULL( arg )
          IF ( idx := At( "=", arg ) ) == 0
             cArgName := arg
             arg := ""
@@ -164,7 +164,7 @@ PROCEDURE Main()
          OTHERWISE
             DO CASE
             CASE ! SubStr( cArgName, 2 ) $ s_generators
-               ShowHelp( "Unrecognized option:" + cArgName + iif( Len( arg ) > 0, "=" + arg, "" ) )
+               ShowHelp( "Unrecognized option: " + cArgName + iif( Len( arg ) > 0, "=" + arg, "" ) )
                RETURN
             CASE SubStr( cArgName, 2 ) == "all"
                s_hSwitches[ "format" ] := hb_HKeys( s_generators )
@@ -215,22 +215,25 @@ PROCEDURE Main()
 
             oIndex := Eval( generatorClass ):NewIndex( cDir, "index", "Index", s_hSwitches[ "lang" ] )
 
-            oIndex:BeginTOC()
-            FOR EACH tmp IN aComponent
+            IF oIndex != NIL
 
-               Get_ID_Name( tmp, @cID, @cName )
+               oIndex:BeginTOC()
+               FOR EACH tmp IN aComponent
 
-               cCat1Prev := NIL
+                  Get_ID_Name( tmp, @cID, @cName )
 
-               oIndex:BeginTOCItem( cName, cID )
+                  cCat1Prev := NIL
+
+                  oIndex:BeginTOCItem( cName, cID )
 #if 0
-               FOR EACH item IN ASort( hb_HKeys( s_hTree[ tmp ] ),,, {| x, y | SortWeight( x ) < SortWeight( y ) } )
-                  oIndex:AddReference( cCat1, "", cID + "-" + Lower( cCat1 ) )
-               NEXT
+                  FOR EACH item IN ASort( hb_HKeys( s_hTree[ tmp ] ),,, {| x, y | SortWeight( x ) < SortWeight( y ) } )
+                     oIndex:AddReference( cCat1, "", cID + "-" + Lower( cCat1 ) )
+                  NEXT
 #endif
-               oIndex:EndTOCItem()
-            NEXT
-            oIndex:EndTOC()
+                  oIndex:EndTOCItem()
+               NEXT
+               oIndex:EndTOC()
+            ENDIF
 
             OutStd( Chr( 13 ) )
 
@@ -244,7 +247,9 @@ PROCEDURE Main()
 
                oDocument := Eval( generatorClass ):NewDocument( cDir, tmp, cName, s_hSwitches[ "lang" ] )
 
-               oIndex:BeginSection( cName, oDocument:cFilename, cID )
+               IF oIndex != NIL
+                  oIndex:BeginSection( cName, oDocument:cFilename, cID )
+               ENDIF
 
                FOR EACH item IN aContent
 
@@ -256,32 +261,34 @@ PROCEDURE Main()
 
                      oDocument:AddEntry( item )
 
-                     cCat1 := item[ "CATEGORY" ]
-                     IF cCat1Prev == NIL .OR. !( cCat1 == cCat1Prev )
-                        IF cCat1Prev != NIL
-                           oIndex:EndSection()
+                     IF oIndex != NIL
+                        cCat1 := item[ "CATEGORY" ]
+                        IF cCat1Prev == NIL .OR. !( cCat1 == cCat1Prev )
+                           IF cCat1Prev != NIL
+                              oIndex:EndSection()
+                           ENDIF
+                           oIndex:BeginSection( cCat1,, cID + "-" + Lower( cCat1 ) )
+                           cCat1Prev := cCat1
                         ENDIF
-                        oIndex:BeginSection( cCat1,, cID + "-" + Lower( cCat1 ) )
-                        cCat1Prev := cCat1
-                     ENDIF
 
-                     cCat2 := hb_defaultValue( item[ "SUBCATEGORY" ], "" )
-                     IF cCat2Prev == NIL .OR. !( cCat2 == cCat2Prev )
+                        cCat2 := hb_defaultValue( item[ "SUBCATEGORY" ], "" )
+                        IF cCat2Prev == NIL .OR. !( cCat2 == cCat2Prev )
 // #define SUBCAT_INDENT
 #ifdef SUBCAT_INDENT
-                        IF cCat2Prev != NIL
-                           oIndex:EndSection()
-                        ENDIF
-                        oIndex:BeginSection( cCat2,, iif( Empty( cCat2 ), NIL, cID + "-" + Lower( cCat1 ) + "-" + Lower( cCat2 ) ) )
+                           IF cCat2Prev != NIL
+                              oIndex:EndSection()
+                           ENDIF
+                           oIndex:BeginSection( cCat2,, iif( Empty( cCat2 ), NIL, cID + "-" + Lower( cCat1 ) + "-" + Lower( cCat2 ) ) )
 #else
-                        IF cCat2Prev != NIL
-                           oIndex:SubCategory( cCat2, iif( Empty( cCat2 ), NIL, cID + "-" + Lower( cCat1 ) + "-" + Lower( cCat2 ) ) )
-                        ENDIF
+                           IF cCat2Prev != NIL
+                              oIndex:SubCategory( cCat2, iif( Empty( cCat2 ), NIL, cID + "-" + Lower( cCat1 ) + "-" + Lower( cCat2 ) ) )
+                           ENDIF
 #endif
-                        cCat2Prev := cCat2
-                     ENDIF
+                           cCat2Prev := cCat2
+                        ENDIF
 
-                     oIndex:AddReference( item )
+                        oIndex:AddReference( item )
+                     ENDIF
                   ENDIF
                NEXT
 
@@ -294,12 +301,16 @@ PROCEDURE Main()
                   oIndex:EndSection()
                ENDIF
 
-               oIndex:EndSection()
+               IF oIndex != NIL
+                  oIndex:EndSection()
+               ENDIF
 
                oDocument:Generate()
             NEXT
 
-            oIndex:Generate()
+            IF oIndex != NIL
+               oIndex:Generate()
+            ENDIF
 
             OutStd( Chr( 13 ) + Str( 100, 3 ) + "%" + hb_eol() )
 
@@ -735,7 +746,7 @@ STATIC PROCEDURE ShowHelp( cExtraMessage, aArgs )
    LOCAL aHelp
 
    DO CASE
-   CASE Empty( aArgs ) .OR. Len( aArgs ) <= 1 .OR. Empty( aArgs[ 1 ] )
+   CASE Empty( aArgs ) .OR. Len( aArgs ) <= 1 .OR. HB_ISNULL( aArgs[ 1 ] )
       aHelp := { ;
          cExtraMessage, ;
          "Harbour Document Compiler (hbdoc) " + HBRawVersion(), ;
@@ -752,7 +763,7 @@ STATIC PROCEDURE ShowHelp( cExtraMessage, aArgs )
             2, ;
             { "categories", "templates", "compliance", "platforms" }, ;
             1, ;
-            "-[format=]<type>     output type, default is html, or one of:", ;
+            "-[format=]<type>     output type, default: html. <type> is one of:", ;
             2, ;
             hb_HKeys( s_generators ), ;
             1, ;
