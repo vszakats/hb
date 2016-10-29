@@ -86,7 +86,7 @@ PROCEDURE Main()
 
    LOCAL aArgs := hb_AParams()
    LOCAL idx, item
-   LOCAL arg, tmp, nLen, nCount
+   LOCAL arg, tmp, nLen, nCount, aList
    LOCAL cArgName
    LOCAL cFormat
    LOCAL oDocument, oIndex
@@ -192,7 +192,7 @@ PROCEDURE Main()
          PadR( SortWeight( oL[ "CATEGORY" ] ), 20 ) + ;
          PadR( SortWeight( oL[ "SUBCATEGORY" ] ), 20 ) + ;
          PadR( oL[ "NAME" ], 50 ) ;
-      <= ;
+      < ;
          PadR( SortWeight( oR[ "CATEGORY" ] ), 20 ) + ;
          PadR( SortWeight( oR[ "SUBCATEGORY" ] ), 20 ) + ;
          PadR( oR[ "NAME" ], 50 ) ;
@@ -215,7 +215,9 @@ PROCEDURE Main()
 
             oIndex := Eval( generatorClass ):NewIndex( cDir, "index", "Index", s_hSwitches[ "lang" ] )
 
+            /* index TOC */
             IF oIndex != NIL
+               oIndex:BeginContent()
 
                oIndex:BeginTOC()
                FOR EACH tmp IN aComponent
@@ -241,16 +243,36 @@ PROCEDURE Main()
             nCount := 0
             FOR EACH tmp IN aComponent
 
-               cCat1Prev := cCat2Prev := NIL
-
                Get_ID_Name( tmp, @cID, @cName )
 
                oDocument := Eval( generatorClass ):NewDocument( cDir, tmp, cName, s_hSwitches[ "lang" ] )
+
+               /* content TOC */
+
+               aList := {}
+               FOR EACH item IN aContent
+                  IF item[ "_type" ] == tmp
+                     AAdd( aList, item )
+                  ENDIF
+               NEXT
+
+               oDocument:BeginIndex()
+               FOR EACH item IN ASort( aList,,, {| oL, oR | ;
+                     SortWeightTOC( oL[ "CATEGORY" ] ) + PadR( oL[ "NAME" ], 50 ) < ;
+                     SortWeightTOC( oR[ "CATEGORY" ] ) + PadR( oR[ "NAME" ], 50 ) } )
+                  oDocument:AddIndexItem( item[ "NAME" ], item[ "_filename" ] )
+               NEXT
+               oDocument:EndIndex()
 
                IF oIndex != NIL
                   oIndex:BeginSection( cName, oDocument:cFilename, cID )
                ENDIF
 
+               /* content */
+
+               cCat1Prev := cCat2Prev := NIL
+
+               oDocument:BeginContent()
                FOR EACH item IN aContent
 
                   IF item[ "_type" ] == tmp
@@ -291,6 +313,7 @@ PROCEDURE Main()
                      ENDIF
                   ENDIF
                NEXT
+               oDocument:EndContent()
 
 #ifdef SUBCAT_INDENT
                IF cCat2Prev != NIL
@@ -309,6 +332,7 @@ PROCEDURE Main()
             NEXT
 
             IF oIndex != NIL
+               oIndex:EndContent()
                oIndex:Generate()
             ENDIF
 
@@ -355,6 +379,9 @@ STATIC PROCEDURE Get_ID_Name( cComponent, /* @ */ cID, /* @ */ cName )
 /* Begin with Harbour core section */
 STATIC FUNCTION SortWeightPkg( cString )
    RETURN iif( cString == "harbour", "A", "B" ) + cString
+
+STATIC FUNCTION SortWeightTOC( cString )
+   RETURN iif( cString == "Document", "A", "B" )
 
 STATIC FUNCTION SortWeight( cString )
 
@@ -648,8 +675,9 @@ STATIC PROCEDURE ProcessBlock( hEntry, aContent )
          ENDIF
          IF "SUBCATEGORY" $ hEntry
             IF ! hEntry[ "SUBCATEGORY" ] $ s_hTree[ cComponent ]
-               s_hTree[ cComponent ][ cCat ][ hEntry[ "SUBCATEGORY" ] ] := NIL
+               s_hTree[ cComponent ][ cCat ][ hEntry[ "SUBCATEGORY" ] ] := {}
             ENDIF
+//          AAdd( s_hTree[ cComponent ][ cCat ][ hEntry[ "SUBCATEGORY" ] ], hE )
          ENDIF
       ENDIF
    ENDIF
@@ -857,7 +885,7 @@ FUNCTION Indent( cText, nLeftMargin, nWidth, lRaw, lForceRaw )
    IF nWidth == 0 .OR. lRaw
       idx := 99999
       AEval( aText, {| c | iif( Empty( c ), , idx := Min( idx, Len( c ) - Len( LTrim( c ) ) ) ) } )
-      AEval( aText, {| c, n | aText[ n ] := Space( nLeftMargin ) + SubStr( c, idx + 1 ) } )
+      AEval( aText, {| c, n | aText[ n ] := RTrim( Space( nLeftMargin ) + SubStr( c, idx + 1 ) ) } )
       cResult := Join( aText, hb_eol() ) + hb_eol() + hb_eol()
    ELSE
       FOR EACH cLine IN aText

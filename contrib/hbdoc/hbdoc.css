@@ -107,6 +107,42 @@ h3 {
   margin: 0;
 }
 
+aside {
+  float: left;
+  font-size: 9pt;
+  background-color: #f2f2f2;
+  -background-color: #444;
+  width: 180px;
+  border-radius: 0 0 4px 0;
+  line-height: 135%;
+  overflow: scroll;
+  padding: 10px 0;
+}
+
+aside hr {
+  width: 95%;
+}
+
+aside ul {
+  list-style: none;
+  text-indent: 0;
+  padding: 0;
+  margin: 0;
+  margin-left: 8px;
+}
+
+aside ul a {
+  color: #333;
+  -color: #ddd;
+  padding: 1px 3px;
+}
+
+aside ul a:hover {
+  border-style: none;
+  background-color: #0974c5;
+  color: #fdfdfd;
+}
+
 section {
   border-top: 1px solid rgba(0, 0, 0, .1);
   margin-top: 0;
@@ -136,6 +172,10 @@ h4 code {
   font-size: 95%;
 }
 
+aside code {
+  font-size: 80%;
+}
+
 p {
   margin-top: 1em;
   margin-bottom: 1em;
@@ -163,11 +203,14 @@ p {
 }
 
 .d-t {
-  border-top: 1px solid rgba(0, 0, 0, .1);
   border-bottom: 1px solid rgba(0, 0, 0, .1);
   overflow: scroll;
   margin: 16px;
   width: 80%;
+}
+
+.d-t0 div:first-child {
+  border-top: 1px solid rgba(0, 0, 0, .1);
 }
 
 .d-t1 div:first-child {
@@ -246,6 +289,18 @@ p {
 .d-sc:after {
   left: .5em;
   margin-right: -50%;
+}
+
+@media only screen {
+  aside {
+    width: calc(((100% - 694px) / 2) - 15px);
+  }
+}
+
+@media screen and (max-width: 1075px) {
+  aside {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 737px) {

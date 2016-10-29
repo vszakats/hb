@@ -70,6 +70,11 @@ CREATE CLASS TPLGenerate
    METHOD BeginTOCItem( cName, cID ) INLINE HB_SYMBOL_UNUSED( cName ), HB_SYMBOL_UNUSED( cID ), Self
    METHOD EndTOCItem() INLINE Self
    METHOD SubCategory( cCategory, cID ) INLINE HB_SYMBOL_UNUSED( cCategory ), HB_SYMBOL_UNUSED( cID ), Self
+   METHOD BeginContent() INLINE Self
+   METHOD EndContent() INLINE Self
+   METHOD BeginIndex() INLINE Self
+   METHOD EndIndex() INLINE Self
+   METHOD AddIndexItem( cName, cID ) INLINE HB_SYMBOL_UNUSED( cName ), HB_SYMBOL_UNUSED( cID ), Self
 
    VAR cFilename AS STRING
    VAR cBaseTitle AS STRING INIT "Harbour Reference Guide"

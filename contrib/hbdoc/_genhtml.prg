@@ -92,6 +92,11 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    METHOD EndTOC()
    METHOD BeginTOCItem( cName, cID )
    METHOD EndTOCItem() INLINE ::cFile += "</ul>" + hb_eol(), Self
+   METHOD BeginContent() INLINE ::OpenTag( "main" ), Self
+   METHOD EndContent() INLINE ::Spacer():CloseTag( "main" ), Self
+   METHOD BeginIndex() INLINE ::OpenTag( "aside" ):OpenTag( "ul" ), Self
+   METHOD EndIndex() INLINE ::CloseTag( "ul" ):CloseTag( "aside" ):Spacer(), Self
+   METHOD AddIndexItem( cName, cID )
 
    METHOD WriteEntry( cField, cContent, lPreformatted ) HIDDEN
 
@@ -147,8 +152,6 @@ METHOD NewFile() CLASS GenerateHTML
    ::CloseTag( "header" )
    ::Spacer()
 
-   ::OpenTag( "main" )
-
    RETURN Self
 
 STATIC FUNCTION GitRev()
@@ -163,9 +166,6 @@ METHOD Generate() CLASS GenerateHTML
 
    LOCAL tDate
    LOCAL cRevision
-
-   ::Spacer()
-   ::CloseTag( "main" )
 
    IF hbdoc_reproducible()
       tDate := hb_Version( HB_VERSION_BUILD_TIMESTAMP_UTC )
@@ -229,6 +229,17 @@ METHOD BeginTOCItem( cName, cID ) CLASS GenerateHTML
    ::AppendInline( cName )
    ::CloseTag( "a" )
    ::OpenTag( "ul" )
+
+   RETURN Self
+
+METHOD AddIndexItem( cName, cID ) CLASS GenerateHTML
+
+   ::OpenTagInline( "li" )
+   ::OpenTagInline( "a", "href", "#" + SymbolToHTMLID( cID ) )
+   ::OpenTagInline( "code" )
+   ::AppendInline( cName )
+   ::CloseTagInline( "code" )
+   ::CloseTag( "a" )
 
    RETURN Self
 
@@ -463,7 +474,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
                CASE hb_LeftEq( cLine, "<table" )
                   lTable := .T.
                   SWITCH cLine
-                  CASE "<table-noheader>"     ; cHeaderClass := "" ; EXIT
+                  CASE "<table-noheader>"     ; cHeaderClass := "d-t0" ; EXIT
                   CASE "<table-doubleheader>" ; cHeaderClass := "d-t1 d-t2" ; EXIT
                   OTHERWISE                   ; cHeaderClass := "d-t1"
                   ENDSWITCH
