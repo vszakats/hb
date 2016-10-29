@@ -93,7 +93,7 @@ PROCEDURE Main()
    LOCAL aContent
    LOCAL cCat1, cCat1Prev
    LOCAL cCat2, cCat2Prev
-   LOCAL aComponent
+   LOCAL aComponent, hComponents
    LOCAL cID, cName
    LOCAL nStart
    LOCAL cDir
@@ -208,17 +208,31 @@ PROCEDURE Main()
 
          OutStd( hb_StrFormat( "! Output directory: %1$s", hb_PathNormalize( hb_PathJoin( hb_DirBase(), cDir ) ) ) + hb_eol() )
 
+         aComponent := ASort( hb_HKeys( s_hTree ),,, {| x, y | SortWeightPkg( x ) < SortWeightPkg( y ) } )
+
+         hComponents := { => }
+         hb_HKeepOrder( hComponents, .T. )
+         FOR EACH tmp IN aComponent
+            Get_ID_Name( tmp, @cID, @cName )
+            hComponents[ tmp ] := { "id" => cID, "name" => cName }
+         NEXT
+
          SWITCH s_hSwitches[ "output" ]
          CASE "component"
 
-            aComponent := ASort( hb_HKeys( s_hTree ),,, {| x, y | SortWeightPkg( x ) < SortWeightPkg( y ) } )
-
-            oIndex := Eval( generatorClass ):NewIndex( cDir, "index", "Index", s_hSwitches[ "lang" ] )
+            oIndex := Eval( generatorClass ):NewIndex( cDir, "index", "Index", s_hSwitches[ "lang" ], hComponents )
 
             /* index TOC */
-            IF oIndex != NIL
-               oIndex:BeginContent()
 
+            IF oIndex != NIL
+#if 1
+               oIndex:BeginIndex()
+               FOR EACH tmp IN aComponent
+                  Get_ID_Name( tmp, @cID, @cName )
+                  oIndex:AddIndexItem( cName, cID )
+               NEXT
+               oIndex:EndIndex()
+#else
                oIndex:BeginTOC()
                FOR EACH tmp IN aComponent
 
@@ -235,6 +249,9 @@ PROCEDURE Main()
                   oIndex:EndTOCItem()
                NEXT
                oIndex:EndTOC()
+#endif
+
+               oIndex:BeginContent()
             ENDIF
 
             OutStd( Chr( 13 ) )
@@ -245,7 +262,7 @@ PROCEDURE Main()
 
                Get_ID_Name( tmp, @cID, @cName )
 
-               oDocument := Eval( generatorClass ):NewDocument( cDir, tmp, cName, s_hSwitches[ "lang" ] )
+               oDocument := Eval( generatorClass ):NewDocument( cDir, tmp, cName, s_hSwitches[ "lang" ], hComponents )
 
                /* content TOC */
 

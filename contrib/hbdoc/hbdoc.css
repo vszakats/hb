@@ -26,11 +26,25 @@ header > div {
 
 header > div > div:first-child {
   float: left;
-  font-weight: normal;
 }
 
 header > div > div:last-child {
   float: right;
+}
+
+header a {
+  color: #f0f0f0;
+  text-decoration: none;
+}
+
+header a:hover {
+  border: none;
+  color: #fff;
+  transition: color .25s;
+}
+
+header a:active {
+  color: #fff;
 }
 
 footer {
@@ -190,7 +204,7 @@ p {
 
 .d-x {
   border-top: 1px solid rgba(0, 0, 0, .1);
-  margin-top: 20px;
+  margin-bottom: 20px;
   padding: 0;
 }
 
@@ -302,27 +316,13 @@ p {
 
 /* Dropdown Button */
 .dropbtn {
-  border: none;
   cursor: pointer;
-  margin: 0;
-  text-decoration: none;
   transition: color .25s;
 }
 
 .menu hr {
   border: 0;
   border-bottom: 1px dotted rgba(250, 240, 240, .8);
-}
-
-.menu a {
-  color: inherit;
-  border: 0;
-}
-
-/* The container <nav> - needed to position the dropdown content */
-.dropdown {
-  display: inline-block !important;
-  position: relative;
 }
 
 /* Dropdown Content (Hidden by Default) */

@@ -81,8 +81,8 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
 
    EXPORTED:
 
-   METHOD NewIndex( cDir, cFilename, cTitle, cLang )
-   METHOD NewDocument( cDir, cFilename, cTitle, cLang )
+   METHOD NewIndex( cDir, cFilename, cTitle, cLang, hComponents )
+   METHOD NewDocument( cDir, cFilename, cTitle, cLang, hComponents )
    METHOD AddEntry( hEntry )
    METHOD AddReference( hEntry, cReference, cSubReference )
    METHOD BeginSection( cSection, cFilename, cID )
@@ -149,33 +149,46 @@ METHOD NewFile() CLASS GenerateHTML
 
    ::OpenTag( "header" )
    ::OpenTag( "div" )
+
    ::OpenTagInline( "div" )
+   ::OpenTagInline( "a", "href", "index.html" )
    ::AppendInline( ::cBaseTitle )
-   ::CloseTagInline( "div" )
-
-   ::OpenTag( "div" )
-   ::OpenTag( "nav", "class", "menu" )
-   ::OpenTag( "nav", "class", "dropdown" )
-
-   ::OpenTagInline( "a", "class", "dropbtn" )
-   ::TaggedInline( ::cTitle, "span", "class", "menu-text" )
-   ::CloseTag( "a" )
-
-   ::OpenTag( "nav", "class", "dropdown-content" )
-   // TOFIX: add menu to index.html
-   FOR EACH tmp IN { "harbour", "hbct", "hbgd", "hbgt", "hbmisc", "hbnf", "hbxpp", "hbziparc", "rddads" }  // TOFIX
-      ::OpenTagInline( "a", "href", tmp + ".html" )  // TOFIX
-      ::AppendInline( tmp )  // TOFIX
-      ::CloseTag( "a" )
-      IF tmp:__enumIndex() == 1  // TOFIX
-         ::HorizLine()
-      ENDIF
-   NEXT
-   ::CloseTag( "nav" )
-
-   ::CloseTag( "nav" )
-   ::CloseTag( "nav" )
+   ::CloseTagInline( "a" )
    ::CloseTag( "div" )
+
+   IF HB_ISHASH( ::hComponents )
+
+      ::OpenTag( "div" )
+      ::OpenTag( "nav", "class", "menu" )
+      ::OpenTag( "nav", "class", "dropdown" )
+
+      ::OpenTagInline( "a", "class", "dropbtn" )
+      ::AppendInline( ::cTitle )
+      ::CloseTag( "a" )
+
+      ::OpenTag( "nav", "class", "dropdown-content" )
+#if 0
+      ::OpenTagInline( "a", "href", "index.html" )
+      ::AppendInline( "Index" )
+      ::CloseTag( "a" )
+      ::HorizLine()
+#endif
+      FOR EACH tmp IN ::hComponents
+         ::OpenTagInline( "a", "href", tmp:__enumKey() + ".html" )
+         ::AppendInline( tmp[ "name" ] )
+         ::CloseTag( "a" )
+         /* This assumes that this item is first on the list */
+         IF tmp:__enumKey() == "harbour"
+            ::HorizLine()
+         ENDIF
+      NEXT
+      ::CloseTag( "nav" )
+
+      ::CloseTag( "nav" )
+      ::CloseTag( "nav" )
+      ::CloseTag( "div" )
+
+   ENDIF
 
    ::CloseTag( "div" )
    ::CloseTag( "header" )
@@ -222,16 +235,16 @@ METHOD Generate() CLASS GenerateHTML
 
    RETURN Self
 
-METHOD NewDocument( cDir, cFilename, cTitle, cLang ) CLASS GenerateHTML
+METHOD NewDocument( cDir, cFilename, cTitle, cLang, hComponents ) CLASS GenerateHTML
 
-   ::super:NewDocument( cDir, cFilename, cTitle, EXTENSION, cLang )
+   ::super:NewDocument( cDir, cFilename, cTitle, EXTENSION, cLang, hComponents )
    ::NewFile()
 
    RETURN Self
 
-METHOD NewIndex( cDir, cFilename, cTitle, cLang ) CLASS GenerateHTML
+METHOD NewIndex( cDir, cFilename, cTitle, cLang, hComponents ) CLASS GenerateHTML
 
-   ::super:NewIndex( cDir, cFilename, cTitle, EXTENSION, cLang )
+   ::super:NewIndex( cDir, cFilename, cTitle, EXTENSION, cLang, hComponents )
    ::NewFile()
 
    RETURN Self

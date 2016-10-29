@@ -57,8 +57,8 @@
 
 CREATE CLASS TPLGenerate
 
-   METHOD NewIndex( cDir, cFilename, cTitle, cExtension, cLang )
-   METHOD NewDocument( cDir, cFilename, cTitle, cExtension, cLang )
+   METHOD NewIndex( cDir, cFilename, cTitle, cExtension, cLang, hComponents )
+   METHOD NewDocument( cDir, cFilename, cTitle, cExtension, cLang, hComponents )
    METHOD AddEntry( hEntry ) INLINE HB_SYMBOL_UNUSED( hEntry ), NIL
    METHOD AddReference( hEntry ) INLINE HB_SYMBOL_UNUSED( hEntry ), NIL
    METHOD BeginSection( cSection, cFilename ) INLINE HB_SYMBOL_UNUSED( cSection ), HB_SYMBOL_UNUSED( cFilename ), ::nDepth++
@@ -81,7 +81,7 @@ CREATE CLASS TPLGenerate
 
    HIDDEN:
 
-   METHOD New( cDir, cFilename, cTitle, cExtension, cLang, nType )
+   METHOD New( cDir, cFilename, cTitle, cExtension, cLang, nType, hComponents )
 
    PROTECTED:
 
@@ -95,21 +95,23 @@ CREATE CLASS TPLGenerate
    VAR cLang AS STRING
    VAR cOutFileName AS STRING
 
+   VAR hComponents AS HASH
+
 ENDCLASS
 
-METHOD NewIndex( cDir, cFilename, cTitle, cExtension, cLang ) CLASS TPLGenerate
+METHOD NewIndex( cDir, cFilename, cTitle, cExtension, cLang, hComponents ) CLASS TPLGenerate
 
-   ::New( cDir, cFilename, cTitle, cExtension, cLang, INDEX_ )
-
-   RETURN Self
-
-METHOD NewDocument( cDir, cFilename, cTitle, cExtension, cLang ) CLASS TPLGenerate
-
-   ::New( cDir, cFilename, cTitle, cExtension, cLang, DOCUMENT_ )
+   ::New( cDir, cFilename, cTitle, cExtension, cLang, INDEX_, hComponents )
 
    RETURN Self
 
-METHOD New( cDir, cFilename, cTitle, cExtension, cLang, nType ) CLASS TPLGenerate
+METHOD NewDocument( cDir, cFilename, cTitle, cExtension, cLang, hComponents ) CLASS TPLGenerate
+
+   ::New( cDir, cFilename, cTitle, cExtension, cLang, DOCUMENT_, hComponents )
+
+   RETURN Self
+
+METHOD New( cDir, cFilename, cTitle, cExtension, cLang, nType, hComponents ) CLASS TPLGenerate
 
    ::cDir := cDir
    ::cFilename := cFilename
@@ -117,6 +119,7 @@ METHOD New( cDir, cFilename, cTitle, cExtension, cLang, nType ) CLASS TPLGenerat
    ::cExtension := cExtension
    ::cLang := hb_defaultValue( cLang, "en" )
    ::nType := nType
+   ::hComponents := hComponents
 
    ::cOutFileName := ;
       ::cDir + hb_ps() + ;
