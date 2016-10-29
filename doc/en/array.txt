@@ -195,12 +195,12 @@
    $ONELINER$
       Insert a NIL value at an array subscript position.
    $SYNTAX$
-      AIns( <aArray>, <nPos> ) --> aTarget
+      AIns( <aArray>, <nPos> ) --> <aArray>
    $ARGUMENTS$
       <aArray> Array name.
       <nPos> Subscript position in <aArray>
    $RETURNS$
-      <aTarget> an array pointer reference.
+      a reference to <aArray>.
    $DESCRIPTION$
       This function inserts a NIL value in the array named <aArray>
       at the <nPos>th position.
@@ -321,7 +321,7 @@
    $SUBCATEGORY$
       Array
    $ONELINER$
-      Delete an element form an array.
+      Delete an element from an array.
    $SYNTAX$
       hb_ADel( <aArray>, [<nPos>], [<lAutoSize>] ) -> <aArray> 
    $ARGUMENTS$
