@@ -175,7 +175,7 @@ PROCEDURE Main()
       ENDIF
    NEXT
 
-   OutStd( "! Input directory:", s_hSwitches[ "dir_in" ] + hb_eol() )
+   OutStd( hb_StrFormat( "! Input directory: %1$s", s_hSwitches[ "dir_in" ] ) + hb_eol() )
 
    s_hHBX := { => }
    hb_HCaseMatch( s_hHBX, .F. )
@@ -186,7 +186,7 @@ PROCEDURE Main()
    hb_MemoWrit( "tree.json", hb_jsonEncode( s_hTree, .T. ) )
 #endif
 
-   OutStd( "!", hb_ntos( Len( aContent ) ), "entries found" + hb_eol() )
+   OutStd( hb_StrFormat( "! %1$d entries found", Len( aContent ) ) + hb_eol() )
 
    ASort( aContent,,, {| oL, oR | ;
          PadR( SortWeight( oL[ "CATEGORY" ] ), 20 ) + ;
@@ -206,7 +206,7 @@ PROCEDURE Main()
 
          cDir := s_hSwitches[ "dir_out" ] + cFormat
 
-         OutStd( "! Output directory:", hb_PathNormalize( hb_PathJoin( hb_DirBase(), cDir ) ) + hb_eol() )
+         OutStd( hb_StrFormat( "! Output directory: %1$s", hb_PathNormalize( hb_PathJoin( hb_DirBase(), cDir ) ) ) + hb_eol() )
 
          SWITCH s_hSwitches[ "output" ]
          CASE "component"
@@ -319,7 +319,7 @@ PROCEDURE Main()
       ENDIF
    NEXT
 
-   OutStd( hb_StrFormat( "! Done in %1$s seconds", hb_ntos( Round( ( hb_MilliSeconds() - nStart ) / 1000, 2 ) ) ) + hb_eol() )
+   OutStd( hb_StrFormat( "! Done in %1$d seconds", Round( ( hb_MilliSeconds() - nStart ) / 1000, 2 ) ) + hb_eol() )
 
    RETURN
 
@@ -413,7 +413,7 @@ STATIC FUNCTION ProcessDocDir( cDir, cComponent, aContent )
       NEXT
 
       IF Len( aContent ) > nOldContentLen
-         OutStd( "!", cDir, "(" + hb_ntos( Len( aContent ) - nOldContentLen ), "entries)" + hb_eol() )
+         OutStd( hb_StrFormat( "! %1$s (%2$d entries)", cDir, Len( aContent ) - nOldContentLen ) + hb_eol() )
       ENDIF
    ENDIF
 
@@ -827,7 +827,7 @@ STATIC PROCEDURE AddErrorCondition( cFile, cMessage, lFatal )
    hb_default( @lFatal, .F. )
 
    IF s_hSwitches[ "verbosity" ] >= 2 .OR. lFatal
-      OutStd( "! " + iif( lFatal, "Error:", "Warning" ), cFile + ":", cMessage + hb_eol() )
+      OutStd( hb_StrFormat( "! %1$s: %2$s: %3$s", iif( lFatal, "Error", "Warning" ), cFile, cMessage ) + hb_eol() )
    ENDIF
 
    RETURN

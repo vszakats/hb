@@ -124,8 +124,9 @@ METHOD Generate() CLASS TPLGenerate
       hb_DirBuild( cDir )
    ENDIF
 
-   IF hb_MemoWrit( ::cOutFileName, ::cFile ) .AND. ;
-      hbdoc_reproducible()
+   IF ! hb_MemoWrit( ::cOutFileName, ::cFile )
+      OutErr( hb_StrFormat( "! Error: Cannot create file '%1$s'", ::cOutFileName ) + hb_eol() )
+   ELSEIF hbdoc_reproducible()
       hb_vfTimeSet( ::cOutFileName, hb_Version( HB_VERSION_BUILD_TIMESTAMP_UTC ) )
    ENDIF
 

@@ -717,11 +717,10 @@ METHOD RecreateStyleDocument( cStyleFile ) CLASS GenerateHTML
       hb_DirBuild( ::cDir )
    ENDIF
 
-   IF hb_MemoWrit( cStyleFile := hb_DirSepAdd( ::cDir ) + cStyleFile, cString ) .AND. ;
-      hbdoc_reproducible()
+   IF ! hb_MemoWrit( cStyleFile := hb_DirSepAdd( ::cDir ) + cStyleFile, cString )
+      OutErr( hb_StrFormat( "! Error: Cannot create file '%1$s'", cStyleFile ) + hb_eol() )
+   ELSEIF hbdoc_reproducible()
       hb_vfTimeSet( cStyleFile, hb_Version( HB_VERSION_BUILD_TIMESTAMP_UTC ) )
-   ELSE
-      /* TODO: raise an error, could not create style file */
    ENDIF
 
    RETURN Self
