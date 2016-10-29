@@ -711,9 +711,11 @@ METHOD Append( cText, cFormat, lCode ) CLASS GenerateHTML
 
 METHOD RecreateStyleDocument( cStyleFile ) CLASS GenerateHTML
 
-   LOCAL cString
+   #pragma __streaminclude "hbdoc.css" | LOCAL cString := %s
 
-   #pragma __streaminclude "hbdoc.css" | cString := %s
+   IF ! hb_vfDirExists( ::cDir )
+      hb_DirBuild( ::cDir )
+   ENDIF
 
    IF hb_MemoWrit( cStyleFile := hb_DirSepAdd( ::cDir ) + cStyleFile, cString ) .AND. ;
       hbdoc_reproducible()

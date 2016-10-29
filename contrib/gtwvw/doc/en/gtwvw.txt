@@ -1935,9 +1935,9 @@
    $DESCRIPTION$
       Gets coordinates of screen with pending paint.
    $RETURNS$
-      Returns array of paint pending rect {top, left, bottom, right}. Warning:
+      Returns array of paint pending rect { top, left, bottom, right }. Warning:
       unlike WVT, top maybe > bottom or left maybe > right. in these cases, no paint
-      request is pending (in WVT these is reflected in {0,0,0,0}).
+      request is pending (in WVT these is reflected in { 0, 0, 0, 0 }).
    $PLATFORMS$
       Windows
    $END$
@@ -3302,10 +3302,10 @@
    $SYNTAX$
       wvw_SetAltF4Close( lOn )
    $ARGUMENTS$
-      <lOn> .T. if application can be finished using ALT F4 key. .F. if application
-      can not be finished usgin ALT F4 key.
+      <lOn> .T. if application can be finished using <Alt F4> key. .F. if application
+      cannot be finished using <Alt F4> key.
    $DESCRIPTION$
-      Identify if the application can be finished using ALT F4 key.
+      Identify if the application can be finished using <Alt F4> key.
    $RETURNS$
       Old configuration.
    $PLATFORMS$
@@ -4303,7 +4303,7 @@
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nCommand> ID of action to
       be executed when user press button. <xBitmap> ID of bitmap resource in .RC
-      file (in this case, the image can not have more than 256 colors) or full
+      file (in this case, the image cannot have more than 256 colors) or full
       path to a file name. <cLabel> Text of button. If passed <lDisplayText> (in
       function wvw_tbCreate()) to .T., the text will be showed below image,
       otherwise will be used as a tooltip. <nBitmapType> Bitmap type. Can be: 0 1 2

@@ -50,7 +50,7 @@
             ? "Length of DBF header in bytes:", Bin2W( cBuffer )
             hb_vfClose( hFile )
          ELSE
-            ? "Can not open file"
+            ? "Cannot open file"
          ENDIF
          RETURN
    $STATUS$
@@ -108,7 +108,7 @@
             ? "Number of records in file:", Bin2U( cBuffer )
             hb_vfClose( hFile )
          ELSE
-            ? "Can not open file"
+            ? "Cannot open file"
          ENDIF
          RETURN
    $STATUS$

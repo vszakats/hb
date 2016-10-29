@@ -118,9 +118,9 @@ METHOD New( cDir, cFilename, cTitle, cExtension, cLang, nType ) CLASS TPLGenerat
 
 METHOD Generate() CLASS TPLGenerate
 
-   LOCAL cDir := hb_FNameDir( ::cOutFileName )
+   LOCAL cDir
 
-   IF ! hb_vfDirExists( cDir )
+   IF ! hb_vfDirExists( cDir := hb_FNameDir( ::cOutFileName ) )
       hb_DirBuild( cDir )
    ENDIF
 

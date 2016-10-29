@@ -187,7 +187,7 @@
       <lTokenEnd>              .T., if additional tokens are available
    $DESCRIPTION$
       The TokenEnd() function can be used to check whether the next
-      call to TokenNext() would return a new token. This can not be
+      call to TokenNext() would return a new token. This cannot be
       decided with TokenNext() alone, since an empty token cannot be
       distinguished from a "no more" tokens.
       If the parameter <@cTokenEnvironment> is supplied (must be by

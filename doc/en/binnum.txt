@@ -53,7 +53,7 @@
             ? "Last update:", Bin2I( cYear ), Bin2I( cMonth ), Bin2I( cDay )
             hb_vfClose( hFile )
          ELSE
-            ? "Can not open file"
+            ? "Cannot open file"
          ENDIF
          RETURN
    $STATUS$
@@ -111,7 +111,7 @@
             ? "Number of records in file:", Bin2L( cBuffer )
             hb_vfClose( hFile )
          ELSE
-            ? "Can not open file"
+            ? "Cannot open file"
          ENDIF
          RETURN
    $STATUS$
@@ -177,7 +177,7 @@
             ? "New update date is:", LUpdate()
             dbCloseArea()
          ELSE
-            ? "Can not open file"
+            ? "Cannot open file"
          ENDIF
          RETURN
    $STATUS$
