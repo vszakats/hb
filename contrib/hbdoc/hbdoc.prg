@@ -258,8 +258,8 @@ PROCEDURE Main()
 
                oDocument:BeginIndex()
                FOR EACH item IN ASort( aList,,, {| oL, oR | ;
-                     SortWeightTOC( oL[ "CATEGORY" ] ) + PadR( oL[ "NAME" ], 50 ) < ;
-                     SortWeightTOC( oR[ "CATEGORY" ] ) + PadR( oR[ "NAME" ], 50 ) } )
+                     SortWeightTOC( oL[ "CATEGORY" ] ) + SortWeightTOC( oL[ "SUBCATEGORY" ] ) + PadR( oL[ "NAME" ], 50 ) < ;
+                     SortWeightTOC( oR[ "CATEGORY" ] ) + SortWeightTOC( oR[ "SUBCATEGORY" ] ) + PadR( oR[ "NAME" ], 50 ) } )
                   oDocument:AddIndexItem( item[ "NAME" ], item[ "_filename" ] )
                NEXT
                oDocument:EndIndex()
@@ -381,7 +381,7 @@ STATIC FUNCTION SortWeightPkg( cString )
    RETURN iif( cString == "harbour", "A", "B" ) + cString
 
 STATIC FUNCTION SortWeightTOC( cString )
-   RETURN iif( cString == "Document", "A", "B" )
+   RETURN iif( cString == "Document" .OR. cString == "Intro", "A", "B" )
 
 STATIC FUNCTION SortWeight( cString )
 
