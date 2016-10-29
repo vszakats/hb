@@ -621,7 +621,7 @@
       source (see Str() for detail).
 
       OutStd() is similar to QQOut() with the different that QQOut() send
-      its output to the Harbour console stream, which can or can not be
+      its output to the Harbour console stream, which can or cannot be
       redirected according with the screen driver, and OutStd() send its
       output to the standard output device (STDOUT) and can be redirected.
    $EXAMPLES$

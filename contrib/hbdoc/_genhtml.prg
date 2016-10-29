@@ -91,7 +91,7 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    METHOD BeginTOC()
    METHOD EndTOC()
    METHOD BeginTOCItem( cName, cID )
-   METHOD EndTOCItem() INLINE ::cFile += "</ul>" + hb_eol()
+   METHOD EndTOCItem() INLINE ::cFile += "</ul>" + hb_eol(), Self
 
    METHOD WriteEntry( cField, cContent, lPreformatted ) HIDDEN
 
@@ -711,19 +711,16 @@ METHOD Append( cText, cFormat, lCode ) CLASS GenerateHTML
 
 METHOD RecreateStyleDocument( cStyleFile ) CLASS GenerateHTML
 
-   LOCAL cString
-   LOCAL tDate
+   #pragma __streaminclude "hbdoc.css" | LOCAL cString := %s
 
-   #pragma __streaminclude "hbdoc.css" | cString := %s
+   IF ! hb_vfDirExists( ::cDir )
+      hb_DirBuild( ::cDir )
+   ENDIF
 
-   IF hb_MemoWrit( cStyleFile := hb_DirSepAdd( ::cDir ) + cStyleFile, cString )
-      IF hbdoc_reproducible()
-         tDate := hb_Version( HB_VERSION_BUILD_TIMESTAMP_UTC )
-         hb_vfTimeSet( cStyleFile, tDate )
-         hb_vfTimeSet( ::cDir, tDate )
-      ENDIF
-   ELSE
-      /* TODO: raise an error, could not create style file */
+   IF ! hb_MemoWrit( cStyleFile := hb_DirSepAdd( ::cDir ) + cStyleFile, cString )
+      OutErr( hb_StrFormat( "! Error: Cannot create file '%1$s'", cStyleFile ) + hb_eol() )
+   ELSEIF hbdoc_reproducible()
+      hb_vfTimeSet( cStyleFile, hb_Version( HB_VERSION_BUILD_TIMESTAMP_UTC ) )
    ENDIF
 
    RETURN Self
