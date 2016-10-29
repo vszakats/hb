@@ -67,9 +67,9 @@ CREATE CLASS TPLGenerate
    METHOD IsIndex() INLINE ::nType == INDEX_
    METHOD BeginTOC() INLINE Self
    METHOD EndTOC() INLINE Self
-   METHOD BeginTOCItem( cName, cID ) INLINE Self
+   METHOD BeginTOCItem( cName, cID ) INLINE HB_SYMBOL_UNUSED( cName ), HB_SYMBOL_UNUSED( cID ), Self
    METHOD EndTOCItem() INLINE Self
-   METHOD SubCategory( cCategory, cID ) INLINE Self
+   METHOD SubCategory( cCategory, cID ) INLINE HB_SYMBOL_UNUSED( cCategory ), HB_SYMBOL_UNUSED( cID ), Self
 
    VAR cFilename AS STRING
    VAR cBaseTitle AS STRING INIT "Harbour Reference Guide"
