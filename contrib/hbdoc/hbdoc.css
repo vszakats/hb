@@ -16,13 +16,20 @@ header {
   padding: 0 20px;
 }
 
-header h1 {
-  font-weight: normal;
+header > div {
+  font-size: 130%;
   margin: auto;
   width: 693.71875px;  /* 94% */
+  padding-top: 14px;
+  height: 42px;
 }
 
-header h1 div:last-child {
+header > div > div:first-child {
+  float: left;
+  font-weight: normal;
+}
+
+header > div > div:last-child {
   float: right;
 }
 
@@ -291,6 +298,79 @@ p {
   margin-right: -50%;
 }
 
+/* drop-down menu magic --------------------------------------------------- */
+
+/* Dropdown Button */
+.dropbtn {
+  border: none;
+  cursor: pointer;
+  margin: 0;
+  text-decoration: none;
+  transition: color .25s;
+}
+
+.menu hr {
+  border: 0;
+  border-bottom: 1px dotted rgba(250, 240, 240, .8);
+}
+
+.menu a {
+  color: inherit;
+  border: 0;
+}
+
+/* The container <nav> - needed to position the dropdown content */
+.dropdown {
+  display: inline-block !important;
+  position: relative;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  font-size: 80%;
+  background-color: #0974c5;
+  -box-shadow: 0 8px 16px 0 rgba(0, 0, 0, .2);
+  -border-radius: 3px;
+  display: none !important;
+  line-height: 130%;
+  margin-top: 0px;
+  margin-left: -9px;
+  min-width: 9em;
+  position: absolute;
+  z-index: 100;
+  padding: 5px 5px;
+  padding-top: 14px;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  border: 0;
+  color: #f0f0f0;
+  display: block !important;
+  padding: 4px;
+  text-align: left;
+  text-decoration: none;
+  transition: none;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #f0f0f0;
+  color: #0974c5;
+  transition: none;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block !important;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  color: #fff;
+  transition: color .5s;
+}
+
 @media only screen {
   aside {
     width: calc(((100% - 694px) / 2) - 15px);
@@ -304,12 +384,8 @@ p {
 }
 
 @media screen and (max-width: 737px) {
-  header h1 {
+  header > div {
     width: auto;
-  }
-
-  header h1 div:last-child {
-    float: none;
   }
 
   main {
