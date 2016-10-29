@@ -394,7 +394,7 @@
       IF FErase( "test.txt" ) != F_ERROR
          ? "File successfully erased"
       ELSE
-         ? "File can not be deleted"
+         ? "File cannot be deleted"
       ENDIF
    $STATUS$
       R
@@ -774,7 +774,7 @@
 
       If <cFile> contain no path, __TypeFile() try to find the file first
       in the SET DEFAULT directory and then in search all of the SET PATH
-      directories. If <cFile> can not be found a run-time error occur.
+      directories. If <cFile> cannot be found a run-time error occur.
 
       Use SET CONSOLE OFF to suppress screen output.
       You can pause the output using Ctrl-S, press any key to resume.
@@ -840,7 +840,7 @@
 
       If <xcFile> contain no path, TYPE try to find the file first in the
       SET DEFAULT directory and then in search all of the SET PATH
-      directories. If <xcFile> can not be found a run-time error occur.
+      directories. If <xcFile> cannot be found a run-time error occur.
 
       If <xcDestFile> contain no path it is created in the SET DEFAULT
       directory.

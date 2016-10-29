@@ -64,6 +64,7 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    METHOD RecreateStyleDocument( cStyleFile )
    METHOD OpenTagInline( cText, ... )
    METHOD OpenTag( cText, ... )
+   METHOD TaggedInline( cText, cTag, ... )
    METHOD Tagged( cText, cTag, ... )
    METHOD CloseTagInline( cText )
    METHOD CloseTag( cText )
@@ -91,7 +92,12 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    METHOD BeginTOC()
    METHOD EndTOC()
    METHOD BeginTOCItem( cName, cID )
-   METHOD EndTOCItem() INLINE ::cFile += "</ul>" + hb_eol()
+   METHOD EndTOCItem() INLINE ::cFile += "</ul>" + hb_eol(), Self
+   METHOD BeginContent() INLINE ::OpenTag( "main" ), Self
+   METHOD EndContent() INLINE ::Spacer():CloseTag( "main" ), Self
+   METHOD BeginIndex() INLINE ::OpenTag( "aside" ):OpenTag( "ul" ), Self
+   METHOD EndIndex() INLINE ::CloseTag( "ul" ):CloseTag( "aside" ):Spacer(), Self
+   METHOD AddIndexItem( cName, cID )
 
    METHOD WriteEntry( cField, cContent, lPreformatted ) HIDDEN
 
@@ -100,6 +106,8 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
 ENDCLASS
 
 METHOD NewFile() CLASS GenerateHTML
+
+   LOCAL tmp
 
    ::cFile += "<!DOCTYPE html>" + hb_eol()
 
@@ -140,14 +148,38 @@ METHOD NewFile() CLASS GenerateHTML
    ::Spacer()
 
    ::OpenTag( "header" )
-   ::OpenTagInline( "h1" )
+   ::OpenTag( "div" )
+   ::OpenTagInline( "div" )
    ::AppendInline( ::cBaseTitle )
-   ::AppendInline( ::cTitle, "div" )
-   ::CloseTag( "h1" )
+   ::CloseTagInline( "div" )
+
+   ::OpenTag( "div" )
+   ::OpenTag( "nav", "class", "menu" )
+   ::OpenTag( "nav", "class", "dropdown" )
+
+   ::OpenTagInline( "a", "class", "dropbtn" )
+   ::TaggedInline( ::cTitle, "span", "class", "menu-text" )
+   ::CloseTag( "a" )
+
+   ::OpenTag( "nav", "class", "dropdown-content" )
+   // TOFIX: add menu to index.html
+   FOR EACH tmp IN { "harbour", "hbct", "hbgd", "hbgt", "hbmisc", "hbnf", "hbxpp", "hbziparc", "rddads" }  // TOFIX
+      ::OpenTagInline( "a", "href", tmp + ".html" )  // TOFIX
+      ::AppendInline( tmp )  // TOFIX
+      ::CloseTag( "a" )
+      IF tmp:__enumIndex() == 1  // TOFIX
+         ::HorizLine()
+      ENDIF
+   NEXT
+   ::CloseTag( "nav" )
+
+   ::CloseTag( "nav" )
+   ::CloseTag( "nav" )
+   ::CloseTag( "div" )
+
+   ::CloseTag( "div" )
    ::CloseTag( "header" )
    ::Spacer()
-
-   ::OpenTag( "main" )
 
    RETURN Self
 
@@ -163,9 +195,6 @@ METHOD Generate() CLASS GenerateHTML
 
    LOCAL tDate
    LOCAL cRevision
-
-   ::Spacer()
-   ::CloseTag( "main" )
 
    IF hbdoc_reproducible()
       tDate := hb_Version( HB_VERSION_BUILD_TIMESTAMP_UTC )
@@ -232,6 +261,17 @@ METHOD BeginTOCItem( cName, cID ) CLASS GenerateHTML
 
    RETURN Self
 
+METHOD AddIndexItem( cName, cID ) CLASS GenerateHTML
+
+   ::OpenTagInline( "li" )
+   ::OpenTagInline( "a", "href", "#" + SymbolToHTMLID( cID ) )
+   ::OpenTagInline( "code" )
+   ::AppendInline( cName )
+   ::CloseTagInline( "code" )
+   ::CloseTag( "a" )
+
+   RETURN Self
+
 METHOD BeginSection( cSection, cFilename, cID ) CLASS GenerateHTML
 
    LOCAL cH
@@ -243,7 +283,7 @@ METHOD BeginSection( cSection, cFilename, cID ) CLASS GenerateHTML
       ::Spacer()
       ::OpenTag( "section", "id", cID, "class", "d-x" )
       IF ! HB_ISSTRING( cFileName ) .OR. cFilename == ::cFilename
-         ::OpenTagInline( cH, "id", cID )
+         ::OpenTagInline( cH )
          ::AppendInline( cSection )
          ::CloseTag( cH )
       ELSE
@@ -463,7 +503,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
                CASE hb_LeftEq( cLine, "<table" )
                   lTable := .T.
                   SWITCH cLine
-                  CASE "<table-noheader>"     ; cHeaderClass := "" ; EXIT
+                  CASE "<table-noheader>"     ; cHeaderClass := "d-t0" ; EXIT
                   CASE "<table-doubleheader>" ; cHeaderClass := "d-t1 d-t2" ; EXIT
                   OTHERWISE                   ; cHeaderClass := "d-t1"
                   ENDSWITCH
@@ -538,7 +578,7 @@ METHOD OpenTag( cText, ... ) CLASS GenerateHTML
 
    RETURN Self
 
-METHOD Tagged( cText, cTag, ... ) CLASS GenerateHTML
+METHOD TaggedInline( cText, cTag, ... ) CLASS GenerateHTML
 
    LOCAL aArgs := hb_AParams()
    LOCAL cResult := ""
@@ -548,7 +588,15 @@ METHOD Tagged( cText, cTag, ... ) CLASS GenerateHTML
       cResult += " " + aArgs[ idx ] + "=" + '"' + aArgs[ idx + 1 ] + '"'
    NEXT
 
-   ::cFile += "<" + cTag + cResult + ">" + cText + "</" + cTag + ">" + hb_eol()
+   ::cFile += "<" + cTag + cResult + ">" + cText + "</" + cTag + ">"
+
+   RETURN Self
+
+METHOD Tagged( cText, cTag, ... ) CLASS GenerateHTML
+
+   ::TaggedInline( cText, cTag, ... )
+
+   ::cFile += hb_eol()
 
    RETURN Self
 
@@ -711,19 +759,16 @@ METHOD Append( cText, cFormat, lCode ) CLASS GenerateHTML
 
 METHOD RecreateStyleDocument( cStyleFile ) CLASS GenerateHTML
 
-   LOCAL cString
-   LOCAL tDate
+   #pragma __streaminclude "hbdoc.css" | LOCAL cString := %s
 
-   #pragma __streaminclude "hbdoc.css" | cString := %s
+   IF ! hb_vfDirExists( ::cDir )
+      hb_DirBuild( ::cDir )
+   ENDIF
 
-   IF hb_MemoWrit( cStyleFile := hb_DirSepAdd( ::cDir ) + cStyleFile, cString )
-      IF hbdoc_reproducible()
-         tDate := hb_Version( HB_VERSION_BUILD_TIMESTAMP_UTC )
-         hb_vfTimeSet( cStyleFile, tDate )
-         hb_vfTimeSet( ::cDir, tDate )
-      ENDIF
-   ELSE
-      /* TODO: raise an error, could not create style file */
+   IF ! hb_MemoWrit( cStyleFile := hb_DirSepAdd( ::cDir ) + cStyleFile, cString )
+      OutErr( hb_StrFormat( "! Error: Cannot create file '%1$s'", cStyleFile ) + hb_eol() )
+   ELSEIF hbdoc_reproducible()
+      hb_vfTimeSet( cStyleFile, hb_Version( HB_VERSION_BUILD_TIMESTAMP_UTC ) )
    ENDIF
 
    RETURN Self

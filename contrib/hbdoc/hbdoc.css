@@ -16,13 +16,20 @@ header {
   padding: 0 20px;
 }
 
-header h1 {
-  font-weight: normal;
+header > div {
+  font-size: 130%;
   margin: auto;
   width: 693.71875px;  /* 94% */
+  padding-top: 14px;
+  height: 42px;
 }
 
-header h1 div:last-child {
+header > div > div:first-child {
+  float: left;
+  font-weight: normal;
+}
+
+header > div > div:last-child {
   float: right;
 }
 
@@ -107,6 +114,42 @@ h3 {
   margin: 0;
 }
 
+aside {
+  float: left;
+  font-size: 9pt;
+  background-color: #f2f2f2;
+  -background-color: #444;
+  width: 180px;
+  border-radius: 0 0 4px 0;
+  line-height: 135%;
+  overflow: scroll;
+  padding: 10px 0;
+}
+
+aside hr {
+  width: 95%;
+}
+
+aside ul {
+  list-style: none;
+  text-indent: 0;
+  padding: 0;
+  margin: 0;
+  margin-left: 8px;
+}
+
+aside ul a {
+  color: #333;
+  -color: #ddd;
+  padding: 1px 3px;
+}
+
+aside ul a:hover {
+  border-style: none;
+  background-color: #0974c5;
+  color: #fdfdfd;
+}
+
 section {
   border-top: 1px solid rgba(0, 0, 0, .1);
   margin-top: 0;
@@ -136,6 +179,10 @@ h4 code {
   font-size: 95%;
 }
 
+aside code {
+  font-size: 80%;
+}
+
 p {
   margin-top: 1em;
   margin-bottom: 1em;
@@ -163,11 +210,14 @@ p {
 }
 
 .d-t {
-  border-top: 1px solid rgba(0, 0, 0, .1);
   border-bottom: 1px solid rgba(0, 0, 0, .1);
   overflow: scroll;
   margin: 16px;
   width: 80%;
+}
+
+.d-t0 div:first-child {
+  border-top: 1px solid rgba(0, 0, 0, .1);
 }
 
 .d-t1 div:first-child {
@@ -248,13 +298,94 @@ p {
   margin-right: -50%;
 }
 
-@media screen and (max-width: 737px) {
-  header h1 {
-    width: auto;
-  }
+/* drop-down menu magic --------------------------------------------------- */
 
-  header h1 div:last-child {
-    float: none;
+/* Dropdown Button */
+.dropbtn {
+  border: none;
+  cursor: pointer;
+  margin: 0;
+  text-decoration: none;
+  transition: color .25s;
+}
+
+.menu hr {
+  border: 0;
+  border-bottom: 1px dotted rgba(250, 240, 240, .8);
+}
+
+.menu a {
+  color: inherit;
+  border: 0;
+}
+
+/* The container <nav> - needed to position the dropdown content */
+.dropdown {
+  display: inline-block !important;
+  position: relative;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  font-size: 80%;
+  background-color: #0974c5;
+  -box-shadow: 0 8px 16px 0 rgba(0, 0, 0, .2);
+  -border-radius: 3px;
+  display: none !important;
+  line-height: 130%;
+  margin-top: 0px;
+  margin-left: -9px;
+  min-width: 9em;
+  position: absolute;
+  z-index: 100;
+  padding: 5px 5px;
+  padding-top: 14px;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  border: 0;
+  color: #f0f0f0;
+  display: block !important;
+  padding: 4px;
+  text-align: left;
+  text-decoration: none;
+  transition: none;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #f0f0f0;
+  color: #0974c5;
+  transition: none;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block !important;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  color: #fff;
+  transition: color .5s;
+}
+
+@media only screen {
+  aside {
+    width: calc(((100% - 694px) / 2) - 15px);
+  }
+}
+
+@media screen and (max-width: 975px) {
+  aside {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 737px) {
+  header > div {
+    width: auto;
   }
 
   main {

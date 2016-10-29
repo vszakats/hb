@@ -395,7 +395,7 @@
       language.
 
       NOTE: If the source code page and target code page does not have
-      the same number of characters, a translation can not be done and
+      the same number of characters, a translation cannot be done and
       the destination string is a copy of the source string.
 
       NOTE: You must REQUEST every code page module you intend to use.

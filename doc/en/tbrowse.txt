@@ -184,14 +184,14 @@
 /* $DOC$
    $TEMPLATE$
       Class
-   $SYNTAX$
-      :SetKey()
+   $NAME$
+      TBrowse():SetKey()
    $CATEGORY$
       TBrowse Method
    $ONELINER$
       Get an optionaly Set an new Code block associated to a inkey value
    $SYNTAX$
-      SetKey( <nKey>[, <bBlock>] ) --> bOldBlock
+      :SetKey( <nKey>[, <bBlock>] ) --> bOldBlock
    $ARGUMENTS$
       <nKey> An valid inkey Code
 
@@ -248,14 +248,14 @@
 /* $DOC$
    $TEMPLATE$
       Class
-   $SYNTAX$
-      :Applykey()
+   $NAME$
+      TBrowse():ApplyKey()
    $CATEGORY$
       TBrowse Method
    $ONELINER$
       Evaluates an code block associated with an specific key
    $SYNTAX$
-      ApplyKey( <nKey> ) --> nResult
+      :ApplyKey( <nKey> ) --> nResult
    $ARGUMENTS$
       <nKey>      An valid Inkey code
    $RETURNS$
@@ -284,14 +284,14 @@
 /* $DOC$
    $TEMPLATE$
       Class
-   $SYNTAX$
-      :AddColumn()
+   $NAME$
+      TBrowse():AddColumn()
    $CATEGORY$
       TBrowse Method
    $ONELINER$
       Add an New Column to an TBrowse Object
    $SYNTAX$
-      AddColumn( <oCol> ) --> Self
+      :AddColumn( <oCol> ) --> Self
    $ARGUMENTS$
       <oCol>  Is an TbColumn object
    $RETURNS$

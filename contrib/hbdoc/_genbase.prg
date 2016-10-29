@@ -65,6 +65,16 @@ CREATE CLASS TPLGenerate
    METHOD EndSection( cSection, cFilename ) INLINE HB_SYMBOL_UNUSED( cSection ), HB_SYMBOL_UNUSED( cFilename ), ::nDepth--
    METHOD Generate()
    METHOD IsIndex() INLINE ::nType == INDEX_
+   METHOD BeginTOC() INLINE Self
+   METHOD EndTOC() INLINE Self
+   METHOD BeginTOCItem( cName, cID ) INLINE HB_SYMBOL_UNUSED( cName ), HB_SYMBOL_UNUSED( cID ), Self
+   METHOD EndTOCItem() INLINE Self
+   METHOD SubCategory( cCategory, cID ) INLINE HB_SYMBOL_UNUSED( cCategory ), HB_SYMBOL_UNUSED( cID ), Self
+   METHOD BeginContent() INLINE Self
+   METHOD EndContent() INLINE Self
+   METHOD BeginIndex() INLINE Self
+   METHOD EndIndex() INLINE Self
+   METHOD AddIndexItem( cName, cID ) INLINE HB_SYMBOL_UNUSED( cName ), HB_SYMBOL_UNUSED( cID ), Self
 
    VAR cFilename AS STRING
    VAR cBaseTitle AS STRING INIT "Harbour Reference Guide"
@@ -118,19 +128,16 @@ METHOD New( cDir, cFilename, cTitle, cExtension, cLang, nType ) CLASS TPLGenerat
 
 METHOD Generate() CLASS TPLGenerate
 
-   LOCAL cDir := hb_FNameDir( ::cOutFileName )
-   LOCAL tDate
+   LOCAL cDir
 
-   IF ! hb_vfDirExists( cDir )
-      hb_vfDirMake( cDir )
+   IF ! hb_vfDirExists( cDir := hb_FNameDir( ::cOutFileName ) )
+      hb_DirBuild( cDir )
    ENDIF
 
-   IF hb_MemoWrit( ::cOutFileName, ::cFile )
-      IF hbdoc_reproducible()
-         tDate := hb_Version( HB_VERSION_BUILD_TIMESTAMP_UTC )
-         hb_vfTimeSet( ::cOutFileName, tDate )
-         hb_vfTimeSet( cDir, tDate )
-      ENDIF
+   IF ! hb_MemoWrit( ::cOutFileName, ::cFile )
+      OutErr( hb_StrFormat( "! Error: Cannot create file '%1$s'", ::cOutFileName ) + hb_eol() )
+   ELSEIF hbdoc_reproducible()
+      hb_vfTimeSet( ::cOutFileName, hb_Version( HB_VERSION_BUILD_TIMESTAMP_UTC ) )
    ENDIF
 
    RETURN Self
