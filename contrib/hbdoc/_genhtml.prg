@@ -95,8 +95,8 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    METHOD EndTOCItem() INLINE ::cFile += "</ul>" + hb_eol(), Self
    METHOD BeginContent() INLINE ::OpenTag( "main" ), Self
    METHOD EndContent() INLINE ::Spacer():CloseTag( "main" ), Self
-   METHOD BeginIndex() INLINE ::OpenTag( "aside" ):OpenTag( "ul" ), Self
-   METHOD EndIndex() INLINE ::CloseTag( "ul" ):CloseTag( "aside" ):Spacer(), Self
+   METHOD BeginIndex() INLINE ::OpenTag( "aside" ), Self
+   METHOD EndIndex() INLINE ::CloseTag( "aside" ):Spacer(), Self
    METHOD AddIndexItem( cName, cID )
 
    METHOD WriteEntry( cField, cContent, lPreformatted ) HIDDEN
@@ -276,8 +276,7 @@ METHOD BeginTOCItem( cName, cID ) CLASS GenerateHTML
 
 METHOD AddIndexItem( cName, cID ) CLASS GenerateHTML
 
-   ::OpenTagInline( "li" )
-   ::OpenTagInline( "a", "href", "#" + SymbolToHTMLID( cID ) )
+   ::OpenTagInline( "a", "href", "#" + SymbolToHTMLID( cID ), "title", cName )
    ::OpenTagInline( "code" )
    ::AppendInline( cName )
    ::CloseTagInline( "code" )
@@ -300,10 +299,10 @@ METHOD BeginSection( cSection, cFilename, cID ) CLASS GenerateHTML
          ::AppendInline( cSection )
          ::CloseTag( cH )
       ELSE
-         ::OpenTagInline( "a", "href", cFilename + ::cExtension + "#" + cID )
          ::OpenTagInline( cH )
+         ::OpenTagInline( "a", "href", cFilename + ::cExtension + "#" + cID )
          ::AppendInline( cSection )
-         ::CloseTagInline( cH ):CloseTag( "a" )
+         ::CloseTagInline( "a" ):CloseTag( cH )
       ENDIF
       ::OpenTag( "div" )
       IF ::nDepth + 1 > 1
@@ -337,9 +336,8 @@ METHOD EndSection() CLASS GenerateHTML
 
 METHOD SubCategory( cCategory, cID )
 
-   ::OpenTagInline( "li" )
-
    IF HB_ISSTRING( cCategory ) .AND. ! HB_ISNULL( cCategory )
+      ::OpenTagInline( "li" )
       IF Empty( cID )
          ::Tagged( cCategory, "h3", "class", "d-sc" )
       ELSE
@@ -476,11 +474,15 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
       CASE cField == "SYNTAX"
 
          ::OpenTagInline( "div", "class", cTagClass )
-         DO WHILE ! HB_ISNULL( cContent )
+         IF hb_eol() $ cContent
+            ::OpenTag( "pre" )
+            ::Append( cContent,, .F. )
+            ::CloseTag( "pre" )
+         ELSE
             ::OpenTagInline( "code" )
-            ::AppendInline( Indent( Parse( @cContent, hb_eol() ), 0, -1,, .T. ),, .F. )
+            ::AppendInline( cContent,, .F. )
             ::CloseTagInline( "code" )
-         ENDDO
+         ENDIF
          ::CloseTag( "div" )
 
       CASE ! Chr( 10 ) $ cContent

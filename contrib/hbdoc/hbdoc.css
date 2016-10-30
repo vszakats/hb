@@ -9,18 +9,19 @@ body {
 
 header {
   -position: fixed;
+  z-index: 10;
   top: 0;
+  width: 100%;
   background-color: #0974c5;
   color: #f0f0f0;
   border: none;
-  padding: 0 20px;
 }
 
 header > div {
   font-size: 130%;
   margin: auto;
   width: 693.71875px;  /* 94% */
-  padding-top: 14px;
+  padding: 14px 20px 0 20px;
   height: 42px;
 }
 
@@ -30,12 +31,15 @@ header > div > div:first-child {
 
 header > div > div:last-child {
   float: right;
-  padding-left: 15px;
 }
 
 header a {
   color: #f0f0f0;
   text-decoration: none;
+}
+
+header a:visited {
+  color: #f0f0f0;
 }
 
 header a:hover {
@@ -65,6 +69,10 @@ footer a {
   text-decoration: none;
 }
 
+footer a:visited {
+  color: #ddd;
+}
+
 footer a:hover {
   border: none;
   color: #f8f8f8;
@@ -89,14 +97,14 @@ main section:first-child {
 }
 
 a {
+  color: #0d51e0;
   text-decoration: none;
 }
 
 a:hover {
-  border-style: none none solid;
+  border-style: none none dotted;
   border-width: 0 0 1px;
-  border-color: #000088;
-  border-color: rgba(0, 0, 255, .4);
+  color: #0d81ff;
 }
 
 .entry-button {
@@ -114,8 +122,6 @@ hr {
 h1 {
   font-size: 130%;
   font-weight: bold;
-  padding: 14px 0;
-  margin: 0;
 }
 
 h2 {
@@ -137,7 +143,7 @@ aside {
   width: 180px;
   border-radius: 0 0 4px 0;
   line-height: 135%;
-  overflow: scroll;
+  overflow: hidden;
   padding: 10px 0;
 }
 
@@ -145,21 +151,25 @@ aside hr {
   width: 95%;
 }
 
-aside ul {
+aside a {
+  display: block;
   list-style: none;
   text-indent: 0;
   padding: 0;
   margin: 0;
-  margin-left: 8px;
-}
-
-aside ul a {
+  padding-left: 8px;
   color: #333;
   -color: #ddd;
-  padding: 1px 3px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  white-space: nowrap;
 }
 
-aside ul a:hover {
+aside a:visited {
+  color: #556acb;
+}
+
+aside a:hover {
   border-style: none;
   background-color: #0974c5;
   color: #fdfdfd;
@@ -196,6 +206,29 @@ h4 code {
 
 aside code {
   font-size: 80%;
+}
+
+.d-it code {
+  background-color: #f2f2f2;
+  border: none;
+  border-radius: .2em;
+  padding: 2px 3px;
+}
+
+.d-it .d-key {
+  display: inline-block;
+  min-width: .7em;
+  text-align: center;
+
+  font-weight: normal;
+  padding: 3px 8px;
+  border-radius: 5px;
+  background-color: #333;
+  color: #f8f8f8;
+  text-transform: capitalize;
+  font-size: 94%;
+  line-height: 120%;
+  margin: 0 1px;
 }
 
 p {
@@ -318,12 +351,17 @@ p {
 /* Dropdown Button */
 .dropbtn {
   cursor: pointer;
+  margin-left: 15px;
   transition: color .25s;
 }
 
 .menu hr {
   border: 0;
-  border-bottom: 1px dotted rgba(250, 240, 240, .8);
+  border-bottom: 1px solid rgba(250, 240, 240, .6);
+  margin: auto;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  width: 92%;
 }
 
 /* Dropdown Content (Hidden by Default) */
@@ -335,7 +373,7 @@ p {
   display: none !important;
   line-height: 130%;
   margin-top: 0px;
-  margin-left: -9px;
+  margin-left: 6px;
   min-width: 9em;
   position: absolute;
   z-index: 100;
@@ -356,7 +394,7 @@ p {
 
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {
-  background-color: #f0f0f0;
+  background-color: #fff;
   color: #0974c5;
   transition: none;
 }
@@ -386,7 +424,6 @@ p {
 
 @media screen and (max-width: 737px) {
   header > div {
-    height: 70px;
     width: auto;
   }
 
@@ -398,5 +435,11 @@ p {
   .dropdown-content {
     position: absolute;
     right: 4px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  header > div {
+    height: 70px;
   }
 }

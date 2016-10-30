@@ -596,8 +596,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, aContent )
       cSectionName := item:__enumKey()
       cSection := StrTran( item, Chr( 13 ) + Chr( 10 ), hb_eol() )
 
-      IF !( cSectionName == "EXAMPLES" ) .AND. ;
-         !( cSectionName == "TESTS" )
+      IF !( cSectionName $ "SYNTAX|EXAMPLES|TESTS|" )
          cSection := NewLineVoodoo( cSection )  /* Decides which EOLs to keep and which to drop */
       ENDIF
 

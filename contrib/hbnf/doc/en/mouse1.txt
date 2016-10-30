@@ -59,7 +59,7 @@
    $ONELINER$
       Return true if a double click was detected
    $SYNTAX$
-      ft_MDblClk( [ <nClick> [, <nButton> [, <nInterval> [, <nRow> [, <nCol>;
+      ft_MDblClk( [ <nClick> [, <nButton> [, <nInterval> [, <nRow> [, <nCol> ;
                   [, <nTime> ] ] ] ] ] ] ) -> lIsDoubleClk
    $ARGUMENTS$
       <nClick> is a numeric value.  If it is zero ft_MDblClk() will not
