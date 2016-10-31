@@ -93,6 +93,7 @@ CREATE CLASS HBFormatCode
    VAR nBr4Comma      INIT   8      // Max level of nesting in brackets, while space is added after a comma
    VAR nBr4Brac       INIT   8      // Max level of nesting in brackets, while space is added after/before a bracket
    VAR cHBXList       INIT ""
+   VAR cIndentKeywords  INIT ""
 
    VAR cExtSave       INIT ""       // Extension for a formatted file ( "" - replace original )
    VAR cExtBack       INIT ".bak"   // Extension for a backup file
@@ -107,7 +108,6 @@ CREATE CLASS HBFormatCode
                              { "do"    , "case"    , { "case", "otherwise" }, { "endcase" }        }, ;
                              { "with"  , "object"  , { "" }                 , { "end" }            }, ;
                              { "begin" , "sequence", { "recover", "always" }, { "end" }            }, ;
-                             { "try"   , "",         { "catch", "finally" },  { "end" }            }, ;
                              { "switch", ""        , { "case", "otherwise" }, { "endswitch" }      } }
 
    VAR bCallback
@@ -188,6 +188,17 @@ METHOD New( aParams, cIniName ) CLASS HBFormatCode
    CASE ::nEol == 0
       ::cEol := hb_eol()
    ENDCASE
+
+   IF ! Empty( ::cIndentKeywords )
+
+      AAdd( ::aContr,  { ;
+         Lower( hb_tokenGet( ::cIndentKeywords, 1, "|" ) ) ,;
+         Lower( hb_tokenGet( ::cIndentKeywords, 2, "|" ) ) ,;
+         hb_ATokens( Lower( hb_tokenGet( ::cIndentKeywords, 3, "|" ) ), "," ) ,;
+         hb_ATokens( Lower( hb_tokenGet( ::cIndentKeywords, 4, "|" ) ), "," ) ;
+         } )
+
+   ENDIF
 
    RETURN Self
 
