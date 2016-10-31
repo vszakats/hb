@@ -134,7 +134,7 @@
       This function will dynamically increase or decrease the size of
       <aArray> by adjusting the length of the array to <nLen> subscript
       positions.
-      
+
       If the length of the array <aArray> is shortened, the redundant elements
       are removed from the end of array. If the length of the array is lengthened
       the new elements are added to the end of array and they are assigned a NIL value.
@@ -748,7 +748,7 @@
       can sort multidimensional array, descending orders or even (but why
       would you want to do that) sort array that contain different data
       type.
-      
+
       Codeblock calling frequency and order differs from CA-Cl*pper, since
       Harbour uses a different (faster) sorting algorithm (quicksort).
    $EXAMPLES$
