@@ -105,18 +105,18 @@
    $CATEGORY$
       Zip Functions
    $ONELINER$
-      Set an codeblock for disk changes
+      Set a codeblock for disk changes
    $SYNTAX$
       hb_SetDiskZip( <bBlock> ) --> .T.
    $ARGUMENTS$
-      <bBlock> an Code block that contains an function that will be performed
+      <bBlock> a codeblock that contains an function that will be performed
       when the need of changing disk are need.
    $RETURNS$
       It always returns True
    $DESCRIPTION$
-      This function will set an codeblock that will be evaluated every time
+      This function will set a codeblock that will be evaluated every time
       that an changedisk event is necessary. <bBlock> receives nDisk as a
-      code block param that corresponds to the diskette number to be processed.
+      codeblock param that corresponds to the diskette number to be processed.
 
       Set this function before opening archives that are in removable media.
       This block will be released, when the caller finish it job.
@@ -193,7 +193,7 @@
 
       <nLevel>  Compression level ranging from 0 to 9
 
-      <bBlock>  Code block to execute while compressing
+      <bBlock>  Codeblock to execute while compressing
 
       <lOverWrite>  Toggle to overwrite the file if exists
 
@@ -205,7 +205,7 @@
 
       <lWithDrive> Toggle to store the Drive letter and path or not
 
-      <pFileProgress> Code block for File Progress
+      <pFileProgress> Codeblock for File Progress
    $RETURNS$
       <lCompress>  .T. if file was create, otherwise .F.
    $DESCRIPTION$
@@ -231,9 +231,9 @@
       If <lWithDrive> is used, it tells thats the Drive and path should also
       be stored with the file name. Default is false.
 
-      If <pFileProgress> is used, an Code block is evaluated, showing the total
+      If <pFileProgress> is used, a codeblock is evaluated, `showing` the total
       of that file has being processed.
-      The codeblock must be defined as follow {| nPos, nTotal | GaugeUpdate( aGauge1, nPos / nTotal ) }
+      The codeblock must be defined as `{| nPos, nTotal | GaugeUpdate( aGauge1, nPos / nTotal ) }`
    $EXAMPLES$
       PROCEDURE Main()
 
@@ -288,7 +288,7 @@
 
       <nLevel>  Compression level ranging from 0 to 9
 
-      <bBlock>  Code block to execute while compressing
+      <bBlock>  Codeblock to execute while compressing
 
       <lOverWrite>  Toggle to overwrite the file if exists
 
@@ -298,7 +298,7 @@
 
       <lWithDrive> Toggle to store the Drive letter and path or not
 
-      <pFileProgress> Code block for File Progress
+      <pFileProgress> Codeblock for File Progress
    $RETURNS$
       <lCompress>  .T. if file was create, otherwise .F.
    $DESCRIPTION$
@@ -328,9 +328,9 @@
       If <lWithDrive> is used, it tells thats the Drive and path should also be stored
       with the file name. Default is false.
 
-      If <pFileProgress> is used, an Code block is evaluated, showing the total
+      If <pFileProgress> is used, a codeblock is evaluated, showing the total
       of that file has being processed.
-      The codeblock must be defined as follow {| nPos, nTotal | GaugeUpdate( aGauge1, nPos / nTotal ) }
+      The codeblock must be defined as `{| nPos, nTotal | GaugeUpdate( aGauge1, nPos / nTotal ) }`
 
       Before calling this function, Set an Changedisk codeblock by calling
       the hb_SetDiskZip().
@@ -390,7 +390,7 @@
 
       <nLevel>  Compression level ranging from 0 to 9
 
-      <bBlock>  Code block to execute while compressing
+      <bBlock>  Codeblock to execute while compressing
 
       <lOverWrite>  Toggle to overwrite the file if exists
 
@@ -400,7 +400,7 @@
 
       <lWithDrive> Toggle to store the Drive letter and path or not
 
-      <pFileProgress> Code block for File Progress
+      <pFileProgress> Codeblock for File Progress
    $RETURNS$
       <lCompress>  .T. if file was create, otherwise .F.
    $DESCRIPTION$
@@ -429,9 +429,9 @@
       If <lWithDrive> is used, it tells thats the Drive and path should also be stored
       with the file name. Default is false.
 
-      If <pFileProgress> is used, an Code block is evaluated, showing the total
+      If <pFileProgress> is used, a codeblock is evaluated, showing the total
       of that file has being processed.
-      The codeblock must be defined as follow {| nPos, nTotal | GaugeUpdate( aGauge1, nPos / nTotal ) }
+      The codeblock must be defined as `{| nPos, nTotal | GaugeUpdate( aGauge1, nPos / nTotal ) }`
 
    $EXAMPLES$
       PROCEDURE Main()
@@ -478,7 +478,7 @@
    $ARGUMENTS$
       <cFile>   Name of the zip file to extract
 
-      <bBlock>  Code block to execute while extracting
+      <bBlock>  Codeblock to execute while extracting
 
       <lWithPath> Toggle to create directory if needed
 
@@ -488,7 +488,7 @@
 
       <cFile> | <aFiles> A File or Array of files to extract - mandatory
 
-      <pFileProgress> Code block for File Progress
+      <pFileProgress> Codeblock for File Progress
    $RETURNS$
       <lCompress>  .T. if all file was successfully restored, otherwise .F.
    $DESCRIPTION$
@@ -505,9 +505,9 @@
       If <cFile> or <aFiles> are not provided, no files will be extracted!
       Make sure you provide the file or files you want extracted
 
-      If <pFileProgress> is used, an Code block is evaluated, showing the total
+      If <pFileProgress> is used, a codeblock is evaluated, showing the total
       of that file has being processed.
-      The codeblock must be defined as follow {| nPos, nTotal | GaugeUpdate( aGauge1, nPos / nTotal ) }
+      The codeblock must be defined as `{| nPos, nTotal | GaugeUpdate( aGauge1, nPos / nTotal ) }`
    $EXAMPLES$
       PROCEDURE Main()
 

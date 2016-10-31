@@ -137,8 +137,8 @@
       nTask1 := hb_idleAdd( {|| SayTime() } )
       nTask2 := hb_idleAdd( {|| SaveScreen() } )
       DO WHILE ! bFinished
-        bFinished := DoSomethingVeryImportant()
-        hb_idleState()
+         bFinished := DoSomethingVeryImportant()
+         hb_idleState()
       ENDDO
       cbAction := hb_idleDel( nTask1 )
       hb_idleDel( nTask2 )

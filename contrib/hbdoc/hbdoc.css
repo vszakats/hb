@@ -1,3 +1,8 @@
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%
+}
+
 body {
   background-color: #f8f8f8;
   font-family: 'Source Sans Pro', Arial, sans-serif;
@@ -8,21 +13,25 @@ body {
 }
 
 header {
+  position: absolute;
   -position: fixed;
-  z-index: 10;
+  --webkit-font-smoothing: antialiased;
+  -backface-visibility: hidden;
+  z-index: 2;
   top: 0;
   width: 100%;
   background-color: #0974c5;
   color: #f0f0f0;
   border: none;
+  height: 44px;
+  line-height: 44px;
 }
 
 header > div {
   font-size: 130%;
   margin: auto;
   width: 693.71875px;  /* 94% */
-  padding: 14px 20px 0 20px;
-  height: 42px;
+  padding: 0 15px;
 }
 
 header > div > div:first-child {
@@ -89,10 +98,10 @@ main {
   margin: auto;
   padding: 0;
   width: 693.71875px;  /* 94% */
+  padding-top: 44px;
 }
 
 main section:first-child {
-  -margin-top: 60px;
   border-top: 0;
 }
 
@@ -104,7 +113,7 @@ a {
 a:hover {
   border-style: none none dotted;
   border-width: 0 0 1px;
-  color: #0d81ff;
+  color: #ff6800;
 }
 
 .entry-button {
@@ -137,14 +146,16 @@ h3 {
 
 aside {
   float: left;
-  font-size: 9pt;
+  font-size: 9pt !important;
   background-color: #f2f2f2;
   -background-color: #444;
   width: 180px;
   border-radius: 0 0 4px 0;
   line-height: 135%;
   overflow: hidden;
-  padding: 10px 0;
+  padding-top: 44px;
+  margin-top: 10px;
+  padding-bottom: 10px;
 }
 
 aside hr {
@@ -175,6 +186,20 @@ aside a:hover {
   color: #fdfdfd;
 }
 
+aside a[title]:hover:after {
+  content: attr(title);
+  font-size: 7.5pt !important;
+  position: absolute;
+  left: 8px;
+  background-color: #0974c5;
+  color: #fdfdfd;
+  height: inherit;
+  margin-top: -1px;
+  padding-top: 2px;
+  padding-bottom: 1px;
+  padding-right: 8px;
+}
+
 section {
   border-top: 1px solid rgba(0, 0, 0, .1);
   margin-top: 0;
@@ -191,13 +216,16 @@ h4 {
 
 pre {
   background-color: #f2f2f2;
-  padding: 16px;
+  color: #2e2a24;
+  border: none;
+  border-left: 4px solid #aaaaaa;
+  padding: 8px 16px;
   overflow: scroll;
 }
 
-pre, code, .d-t {
+pre, code, .d-t, aside {
   font-family: Hack, Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation Mono', 'Oxygen Mono', 'Andale Mono', monospace;
-  font-size: 12pt;
+  font-size: 85%;
 }
 
 h4 code {
@@ -209,10 +237,21 @@ aside code {
 }
 
 .d-it code {
-  background-color: #f2f2f2;
+  color: #606060;
   border: none;
-  border-radius: .2em;
+  border-radius: 3px;
   padding: 2px 3px;
+}
+
+.d-sy pre {
+  background-color: inherit;
+  border: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+.d-sy code {
+  padding: 0;
 }
 
 .d-it .d-key {
@@ -235,6 +274,21 @@ p {
   margin-top: 1em;
   margin-bottom: 1em;
 }
+
+.d-y > div, hr, h3 {
+  margin-left: 1em;
+}
+
+/*
+.d-y > div, hr, h3 {
+  margin-left: 32px;
+  text-indent: -12px;
+}
+
+.d-y > div:before {
+  content: "•\00a0\00a0";
+}
+*/
 
 .d-x {
   border-top: 1px solid rgba(0, 0, 0, .1);
@@ -368,17 +422,14 @@ p {
 .dropdown-content {
   font-size: 80%;
   background-color: #0974c5;
-  -box-shadow: 0 8px 16px 0 rgba(0, 0, 0, .2);
-  -border-radius: 3px;
   display: none !important;
   line-height: 130%;
-  margin-top: 0px;
+  margin-top: -5px;
   margin-left: 6px;
   min-width: 9em;
   position: absolute;
-  z-index: 100;
+  z-index: 2;
   padding: 5px 5px;
-  padding-top: 14px;
 }
 
 /* Links inside the dropdown */
@@ -439,7 +490,21 @@ p {
 }
 
 @media screen and (max-width: 450px) {
-  header > div {
-    height: 70px;
+  body {
+    -font-size: 12pt;
+  }
+
+  header {
+    position: absolute;
+    height: 74px;
+    line-height: 36px;
+  }
+
+  aside {
+    padding-top: 74px;
+  }
+
+  main {
+    padding-top: 74px;
   }
 }

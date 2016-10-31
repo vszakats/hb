@@ -72,7 +72,6 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    METHOD Append( cText, cFormat, lCode )
    METHOD Space() INLINE ::cFile += ", ", Self
    METHOD Spacer() INLINE ::cFile += hb_eol(), Self
-   METHOD HorizLine() INLINE ::cFile += "<hr>" + hb_eol(), Self
    METHOD NewLine() INLINE ::cFile += "<br>" + hb_eol(), Self
    METHOD NewFile()
 
@@ -171,7 +170,7 @@ METHOD NewFile() CLASS GenerateHTML
       ::OpenTagInline( "a", "href", "index.html" )
       ::AppendInline( "Index" )
       ::CloseTag( "a" )
-      ::HorizLine()
+      ::OpenTag( "hr" )
 #endif
       FOR EACH tmp IN ::hComponents
          ::OpenTagInline( "a", "href", tmp:__enumKey() + ".html" )
@@ -179,7 +178,7 @@ METHOD NewFile() CLASS GenerateHTML
          ::CloseTag( "a" )
          /* This assumes that this item is first on the list */
          IF tmp:__enumKey() == "harbour"
-            ::HorizLine()
+            ::OpenTag( "hr" )
          ENDIF
       NEXT
       ::CloseTag( "nav" )
@@ -304,10 +303,7 @@ METHOD BeginSection( cSection, cFilename, cID ) CLASS GenerateHTML
          ::AppendInline( cSection )
          ::CloseTagInline( "a" ):CloseTag( cH )
       ENDIF
-      ::OpenTag( "div" )
-      IF ::nDepth + 1 > 1
-         ::OpenTag( "ul" )
-      ENDIF
+      ::OpenTag( "div", "class", "d-y" )
    ELSE
       ::OpenTagInline( "div", "id", cID )
       ::AppendInline( cSection, "h" + hb_ntos( ::nDepth + 1 ) )
@@ -326,9 +322,6 @@ METHOD EndSection() CLASS GenerateHTML
 
    --::nDepth
 
-   IF ::nDepth + 1 > 1
-      ::CloseTag( "ul" )
-   ENDIF
    ::CloseTag( "div" )
    ::CloseTag( "section" )
 
@@ -337,14 +330,13 @@ METHOD EndSection() CLASS GenerateHTML
 METHOD SubCategory( cCategory, cID )
 
    IF HB_ISSTRING( cCategory ) .AND. ! HB_ISNULL( cCategory )
-      ::OpenTagInline( "li" )
       IF Empty( cID )
-         ::Tagged( cCategory, "h3", "class", "d-sc" )
+         ::TaggedInline( cCategory, "h3", "class", "d-sc" )
       ELSE
-         ::Tagged( cCategory, "h3", "class", "d-sc", "id", SymbolToHTMLID( cID ) )
+         ::TaggedInline( cCategory, "h3", "class", "d-sc", "id", SymbolToHTMLID( cID ) )
       ENDIF
    ELSE
-      ::HorizLine()
+      ::OpenTagInline( "hr" )
    ENDIF
 
    RETURN Self
@@ -353,7 +345,7 @@ METHOD AddReference( hEntry, cReference, cSubReference ) CLASS GenerateHTML
 
    DO CASE
    CASE HB_ISHASH( hEntry )
-      ::OpenTagInline( "li" )
+      ::OpenTagInline( "div" )
       ::OpenTagInline( "a", "href", ::TargetFilename + ::cExtension + "#" + SymbolToHTMLID( hEntry[ "_filename" ] ) )
       ::AppendInline( hEntry[ "NAME" ] )
       ::CloseTagInline( "a" )
@@ -362,11 +354,13 @@ METHOD AddReference( hEntry, cReference, cSubReference ) CLASS GenerateHTML
          ::AppendInline( hb_UChar( 160 ) + hb_UChar( 160 ) + hb_UChar( 160 ) + hEntry[ "ONELINER" ] )
       ENDIF
       // ::CloseTagInline( "div" )
+      ::CloseTagInline( "div" )
    CASE HB_ISSTRING( cSubReference )
-      ::OpenTagInline( "li" )
+      ::OpenTagInline( "div" )
       ::OpenTagInline( "a", "href", cReference + "#" + SymbolToHTMLID( cSubReference ) )
       ::AppendInline( hEntry )
       ::CloseTagInline( "a" )
+      ::CloseTagInline( "div" )
    OTHERWISE
       ::OpenTagInline( "a", "href", cReference )
       ::AppendInline( hEntry )
@@ -473,14 +467,14 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
 
       CASE cField == "SYNTAX"
 
-         ::OpenTagInline( "div", "class", cTagClass )
+         ::OpenTag( "div", "class", cTagClass + " d-sy" )
          IF hb_eol() $ cContent
             ::OpenTag( "pre" )
-            ::Append( cContent,, .F. )
+            ::Append( StrSYNTAX( cContent ),, .T. )
             ::CloseTag( "pre" )
          ELSE
             ::OpenTagInline( "code" )
-            ::AppendInline( cContent,, .F. )
+            ::AppendInline( StrSYNTAX( cContent ),, .T. )
             ::CloseTagInline( "code" )
          ENDIF
          ::CloseTag( "div" )
@@ -633,6 +627,17 @@ METHOD CloseTag( cText ) CLASS GenerateHTML
 
    RETURN Self
 
+#define _RESULT_ARROW  "→"
+
+STATIC FUNCTION StrSYNTAX( cString )
+
+   STATIC s_html := { ;
+      "==>" => _RESULT_ARROW, ;
+      "-->" => _RESULT_ARROW, ;
+      "->"  => _RESULT_ARROW }
+
+   RETURN hb_StrReplace( cString, s_html )
+
 STATIC FUNCTION StrEsc( cString )
 
    STATIC s_html := { ;
@@ -679,6 +684,17 @@ METHOD AppendInline( cText, cFormat, lCode ) CLASS GenerateHTML
                cChar := cNext
             CASE ! lPR .AND. cChar == "`" .AND. cNext == "`"  // `` -> `
                tmp++
+            CASE ! lPR .AND. SubStr( cText, tmp, 3 ) == "<b>"
+               tmp += 2
+               cChar := "<strong>"
+            CASE ! lPR .AND. SubStr( cText, tmp, 4 ) == "</b>"
+               tmp += 3
+               cChar := "</strong>"
+            CASE ! lPR .AND. ;
+               ( SubStr( cText, tmp, 5 ) == "<http" .AND. ( tmp1 := hb_At( ">", cText, tmp + 1 ) ) > 0 )
+               tmp1 := SubStr( cText, tmp + 1, tmp1 - tmp - 1 )
+               tmp += Len( tmp1 ) + 1
+               cChar := "<a href=" + '"' + tmp1 + '"' + ">" + tmp1 + "</a>"
             CASE ! lPR .AND. cChar == "*" .AND. ! lIT .AND. ;
                  iif( lEM, ! MDSpace( cPrev ) .AND. MDSpace( cNext ), MDSpace( cPrev ) .AND. ! MDSpace( cNext ) )
                lEM := ! lEM
@@ -694,20 +710,24 @@ METHOD AppendInline( cText, cFormat, lCode ) CLASS GenerateHTML
                   nIT := Len( cOut ) + 1
                ENDIF
                cChar := iif( lIT, "<i>", "</i>" )
-            CASE cChar == "`" .AND. ;
-                 ( ( ! lPR .AND. MDSpace( cPrev ) .AND. ! MDSpace( cNext ) ) .OR. ;
-                   (   lPR .AND. ! MDSpace( cPrev ) .AND. MDSpace( cNext ) ) )
+            CASE cChar == "`" .OR. ;
+                 ( cChar == "." .AND. ( cNext $ "TF" .OR. cPrev $ "TF" ) ) .OR. ;
+                 ( cChar == "<" .AND. ! lPR ) .OR. ( cChar == ">" .AND. lPR )
                lPR := ! lPR
                IF lPR
                   nPR := Len( cOut ) + 1
                ENDIF
-               cChar := iif( lPR, "<code>", "</code>" )
-            CASE ! lPR .AND. SubStr( cText, tmp, 3 ) == "<b>"
-               tmp += 2
-               cChar := "<strong>"
-            CASE ! lPR .AND. SubStr( cText, tmp, 4 ) == "</b>"
-               tmp += 3
-               cChar := "</strong>"
+               SWITCH cChar
+               CASE "<"
+               CASE ">"
+                  cChar := iif( lPR, "<code>", "</code>" )
+                  EXIT
+               CASE "."
+                  cChar := iif( lPR, "<code>.", ".</code>" )
+                  EXIT
+               OTHERWISE
+                  cChar := iif( lPR, "<code>", "</code>" )
+               ENDSWITCH
             CASE ! lPR .AND. ;
                ( SubStr( cText, tmp, 3 ) == "===" .OR. SubStr( cText, tmp, 3 ) == "---" )
                DO WHILE tmp < nLen .AND. SubStr( cText, tmp, 1 ) == cChar
@@ -715,18 +735,13 @@ METHOD AppendInline( cText, cFormat, lCode ) CLASS GenerateHTML
                ENDDO
                cChar := "<hr>"
             CASE ! lPR .AND. ;
-               ( SubStr( cText, tmp, 5 ) == "<http" .AND. ( tmp1 := hb_At( ">", cText, tmp + 1 ) ) > 0 )
-               tmp1 := SubStr( cText, tmp + 1, tmp1 - tmp - 1 )
-               tmp += Len( tmp1 ) + 1
-               cChar := "<a href=" + '"' + tmp1 + '"' + ">" + tmp1 + "</a>"
-            CASE ! lPR .AND. ;
                ( SubStr( cText, tmp, 3 ) == "==>" .OR. SubStr( cText, tmp, 3 ) == "-->" )
                tmp += 2
-               cChar := "&rarr;"
+               cChar := _RESULT_ARROW
             CASE ! lPR .AND. ;
                ( SubStr( cText, tmp, 2 ) == "->" )
                tmp += 1
-               cChar := "&rarr;"
+               cChar := _RESULT_ARROW
             CASE cChar == "&"
                cChar := "&amp;"
             CASE cChar == '"'
