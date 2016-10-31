@@ -499,7 +499,7 @@
    $ARGUMENTS$
       <aArray>    Array to be scanned.
       
-      <xSearch>   Expression to search for in <aTarget>
+      <xSearch>   Expression to search for in <aArray>
       
       <nStart>    Beginning subscript position at which to start the search. 
                   Default value: 1
