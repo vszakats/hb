@@ -5,7 +5,7 @@
  * Copyright 1999 Luiz Rafael Culik <culik@sl.conex.net>
  *    Documentation for: Array(), AAdd(), AClone(), ACopy(), ASize(),
  *                       ATail(), AIns(), ADel(), AFill(), AScan(), AEval()
- * 
+ *
  * 2016 Pete D. <pete_westg@yahoo.gr>
  *    Documentation for: hb_ADel(), hb_AIns(), hb_AScan()
  *
@@ -82,14 +82,14 @@
 
       <xValue> Element to add to array <aArray>
    $RETURNS$
-      <xValue> if specified <xValue>, <xValue> will be returned, 
+      <xValue> if specified <xValue>, <xValue> will be returned,
       otherwise this function returns a NIL value.
    $DESCRIPTION$
-      This function dynamically increases the length of the <aArray> 
-      by adding one new element to the end of the array and optionally 
+      This function dynamically increases the length of the <aArray>
+      by adding one new element to the end of the array and optionally
       stores the value <xValue> to that newlly created element.
 
-      <xValue> may be of an data type, including an array reference pointer, 
+      <xValue> may be of an data type, including an array reference pointer,
       which in turn may be stored to an array's subscript position.
    $EXAMPLES$
       LOCAL aArray := {}
@@ -217,9 +217,9 @@
       if an array element were to be inserted at the fifth subscript
       position, the element previously in the fifth position would now
       be located at the sixth position. The length of the array <aArray>
-      will remain unchanged. 
+      will remain unchanged.
 
-      Note: To avoid loosing last element, you can use hb_AIns() 
+      Note: To avoid loosing last element, you can use hb_AIns()
       which supports autosizing of array.
    $EXAMPLES$
       LOCAL aArray := { "Harbour", "is", "Power!", "!!!" }
@@ -234,7 +234,7 @@
       hb_AIns(), AAdd(), ACopy(), ADel(), AEval(), AFill(), ASize()
    $END$
  */
- 
+
 /* $DOC$
    $TEMPLATE$
       Function
@@ -245,7 +245,7 @@
    $SUBCATEGORY$
       Array
    $ONELINER$
-      Inserts a value at an array subscript position and optionally increases 
+      Inserts a value at an array subscript position and optionally increases
       the length of array.
    $SYNTAX$
       hb_AIns( <aArray>, [<nPos>], [<xValue>], [<lAutoSize>] ) --> <aArray>
@@ -256,24 +256,24 @@
 
       <xValue> Value to be inserted
 
-      <lAutoSize> Boolean flag to increase or not the size of <aArray>. 
+      <lAutoSize> Boolean flag to increase or not the size of <aArray>.
                   Default value: .F.
    $RETURNS$
       A refference to array <aArray>
    $DESCRIPTION$
-      This function inserts <xValue> in the <nPos> position of the array, 
+      This function inserts <xValue> in the <nPos> position of the array,
       moving all the items one position down in the array list.
-      If <lAutoSize> is .T., a new element will be added at the end of array, 
-      making room for the previous last element, which means the length of array 
-      will be increased by 1. 
+      If <lAutoSize> is .T., a new element will be added at the end of array,
+      making room for the previous last element, which means the length of array
+      will be increased by 1.
 
-      If <lAutoSize> is .F. (or is not passed) the function behaves like AIns(), 
-      that is, the size of <aArray> won't change and the last item of <aArray> 
+      If <lAutoSize> is .F. (or is not passed) the function behaves like AIns(),
+      that is, the size of <aArray> won't change and the last item of <aArray>
       will be lost.
    $EXAMPLES$
       LOCAL aArray := { "Harbour", "Power!" }
-      hb_AIns( aArray, 2,  "is", .F. ) // --> { "Harbour", "is" } 
-      hb_AIns( aArray, 2,  "is", .T. ) // --> { "Harbour", "is", "Power!" } 
+      hb_AIns( aArray, 2,  "is", .F. ) // --> { "Harbour", "is" }
+      hb_AIns( aArray, 2,  "is", .T. ) // --> { "Harbour", "is", "Power!" }
    $STATUS$
       R
    $COMPLIANCE$
@@ -284,7 +284,7 @@
       AIns(), AAdd(), ADel(), AFill(), ASize()
    $END$
  */
- 
+
 /* $DOC$
    $TEMPLATE$
       Function
@@ -307,7 +307,7 @@
    $DESCRIPTION$
       This function deletes the element found at <nPos> subscript position
       in the array <aArray>. All elements in the array <aArray> below the
-      given subscript position <nPos> will move up one position in the array. 
+      given subscript position <nPos> will move up one position in the array.
 
       In other words, what was formerly the sixth subscript position
       will become the fifth subscript position. The length of the array
@@ -342,24 +342,24 @@
    $ONELINER$
       Delete an element from an array.
    $SYNTAX$
-      hb_ADel( <aArray>, [<nPos>], [<lAutoSize>] ) -> <aArray> 
+      hb_ADel( <aArray>, [<nPos>], [<lAutoSize>] ) -> <aArray>
    $ARGUMENTS$
       <aArray> Name of array from which an element is to be removed.
 
       <nPos>  Subscript of the element to be removed. Default value: 1.
 
-      <lAutoSize> Boolean flag specifying if the array will be resized or not. 
+      <lAutoSize> Boolean flag specifying if the array will be resized or not.
                   Default value: .F. (no resize).
    $RETURNS$
       <aArray> an array pointer reference.
    $DESCRIPTION$
-      This function deletes the element value (not the element itself!) 
-      stored in position <nPos> and shifts all the following values, 
+      This function deletes the element value (not the element itself!)
+      stored in position <nPos> and shifts all the following values,
       one position up.
 
-      If <lAutoSize> is .T., then the last element is removed and the size 
-      of the array is decreased by one, otherwise the length of the array 
-      remains unchanged and a NIL value will be stored in the last element, 
+      If <lAutoSize> is .T., then the last element is removed and the size
+      of the array is decreased by one, otherwise the length of the array
+      remains unchanged and a NIL value will be stored in the last element,
       just like in ADel().
    $EXAMPLES$
       LOCAL aArray := { "Harbour", "is", "Power" }
@@ -403,11 +403,11 @@
       This function will fill each element of an array named <aArray> with
       the value <xValue>. If specified, <nStart> denotes the beginning
       element to be filled and the array elements will continue to be
-      filled for <nCount> positions. 
+      filled for <nCount> positions.
 
       If neither <nStart>/<nCount> specified, the value of <nStart> will be 1,
-      and the value of <nCount> will be the value of Len( <aArray> ); 
-      thus, all subscript positions in the array <aArray> will be filled 
+      and the value of <nCount> will be the value of Len( <aArray> );
+      thus, all subscript positions in the array <aArray> will be filled
       with the value of <xValue>.
 
       This function will work on only a single dimension of <aArray>.
@@ -458,7 +458,7 @@
       <aArray> in which <xSearch> was found. If it was not found, the
       return value will be 0.
 
-      <nStart> is the position from which to start scanning. The default 
+      <nStart> is the position from which to start scanning. The default
       is 1. (1st element)
       <nCount>, if specified, is the number of array elements to be scanned.
       The default is all elements in the array <aArray>.
@@ -474,7 +474,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-      This function is not CA-Cl*pper compatible.      
+      This function is not CA-Cl*pper compatible.
       CA-Cl*pper AScan() is affected by the SET EXACT ON/OFF Condition
    $FILES$
       Library is core
@@ -501,31 +501,31 @@
 
       <xSearch>   Expression to search for in <aArray>
 
-      <nStart>    Beginning subscript position at which to start the search. 
+      <nStart>    Beginning subscript position at which to start the search.
                   Default value: 1
 
-      <nCount>    Number of elements to be scanned within <aArray>. 
+      <nCount>    Number of elements to be scanned within <aArray>.
                   Default value: All elements.
 
-      <lExact>    Boolean flag specifying if an "Exact" search will be 
+      <lExact>    Boolean flag specifying if an "Exact" search will be
                   performed or not. Default value: .F.
    $RETURNS$
-      <nPosition> A numeric value > 0 indicating the array position 
+      <nPosition> A numeric value > 0 indicating the array position
       where <xSearch> was found, or 0 if nothing found.
    $DESCRIPTION$
-      The function scans (left to right) for <xSearch> into <aArray> 
+      The function scans (left to right) for <xSearch> into <aArray>
       and returns <nPosition> of <aArray> in which <xSearch>
-      was found or 0 (zero) if nothing found. 
+      was found or 0 (zero) if nothing found.
 
       If <lExact> is .T., then an exact search will be performed.
-      When <xSearch> is a code block, the operation of the function 
+      When <xSearch> is a code block, the operation of the function
       is slightly different. See AScan() for details.
    $EXAMPLES$
       PROCEDURE Main()
          LOCAL a := { "there", "here" }
          ? AScan( a, "he" ) // --> 2
          ? hb_AScan( a, "he",,,.F.) // --> 2
-         ? hb_AScan( a, "he",,,.T.) // --> 0 
+         ? hb_AScan( a, "he",,,.T.) // --> 0
          WAIT
          RETURN
    $STATUS$
@@ -564,29 +564,29 @@
       <aArray> an array pointer reference.
    $DESCRIPTION$
       This function evaluates the elements of <aArray>, and executes for each
-      of them the processing that's defined with <bBlock>. 
+      of them the processing that's defined with <bBlock>.
       By default, all the elements of array are being processed, starting from
-      1st and up to the last element. 
+      1st and up to the last element.
 
-      If  <nStart> and/or <nCount> parameters are given, then the processing 
-      starts from <nStart> element and continues for the next <nCount> elements 
+      If  <nStart> and/or <nCount> parameters are given, then the processing
+      starts from <nStart> element and continues for the next <nCount> elements
       (if defined) or up to the last element of the array.
 
-      The <bBlock> code block receives two parameters: the element value and 
+      The <bBlock> code block receives two parameters: the element value and
       element's index (position) into the array. i.e. {|xValue, nIndex| ... }
-      Worth to note that elements are passed to code block 'by value', 
-      thus any change being made to this value doesn't  affects the value of 
+      Worth to note that elements are passed to code block 'by value',
+      thus any change being made to this value doesn't  affects the value of
       element in the array.
-   $EXAMPLES$   
+   $EXAMPLES$
       PROCEDURE Main()
          LOCAL a := { 10, 20, 30 }
          AEval( a, {| e, n | QOut( e * n + 1 , a[ n ] ) } )
          QOut( a[ 1 ], a[ 2 ], a[ 3 ] )  // array elements unchanged
          ? "----"
          AEval( a, {| e, n | QOut( e * n + 1, a[ n ] *= n + 1 ) }, 2, 1 )
-         // here the 2nd element been changed, because we've explicitly used 
+         // here the 2nd element been changed, because we've explicitly used
          // its pointer 'a[ n ] *= ...' into array.
-         QOut( a[ 1 ], a[ 2 ], a[ 3 ] ) 
+         QOut( a[ 1 ], a[ 2 ], a[ 3 ] )
          WAIT
          RETURN
    $STATUS$
