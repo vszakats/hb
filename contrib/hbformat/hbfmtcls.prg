@@ -64,51 +64,51 @@ CREATE CLASS HBFormatCode
    VAR cEol
    VAR nLineErr, nErr, cLineErr
 
-   VAR nEol           INIT  0       // Eol: -1 - no change, 0 - OS default, 1 - DOS, 2 - UNIX
-   VAR lFCaseLow      INIT .F.      // If true, convert file name to lower case
-   VAR lIndent        INIT .T.      // If true, indent code
-   VAR lCase          INIT .T.      // If true, make case conversion
-   VAR lSpaces        INIT .T.      // If true, reformat spaces
-   VAR lIndFunc       INIT .F.      // If true, indent "Function", "Procedure", "Class", "Method"
-   VAR lIndVar        INIT .T.      // If true, indent "Local", "Private", etc. in a function beginning
-   VAR lIndDrt        INIT .F.      // If true, indent  directives
-   VAR lIndRet        INIT .T.      // If true, indent  "Return"
-   VAR nIndLeft       INIT   3      // Leftmost indent - amount of spaces
-   VAR nIndNext       INIT   3      // indent - amount of spaces
-   VAR nIndCont       INIT   3      // Indent for continuation ( after ';' ) lines - amount of spaces
-   VAR lCnvAst        INIT .T.      // If true, convert asterisk '*' to '//'
-   VAR lCnvAmp        INIT .T.      // If true, convert '&&' to '//'
-   VAR nSpaceComment  INIT   1      // Number of spaces after '//' and '/*' comments ( -1 - no change )
-   VAR lCnvNot        INIT .T.      // If true, convert .NOT. TO !
-   VAR nCaseCmd       INIT   1      // Case of commands ( -1 - no change, 1 - upper, 2 - lower, 3 - title )
-   VAR nCaseBoo       INIT   1      // Case of boolean operators ( -1 - no change, 1 - upper, 2 - lower, 3 - title )
-   VAR nCaseFnc       INIT   4      // Case of functions ( -1 - no change, 1 - upper, 2 - lower, 3 - title, 4 - as in pattern )
-   VAR nCaseUnk       INIT  -1      // Case of functions ( -1 - no change, 1 - upper, 2 - lower, 3 - title )
-   VAR nCaseDrt       INIT   2      // Case of directives ( -1 - no change, 1 - upper, 2 - lower, 3 - title )
-   VAR nSpaceDrt      INIT   0      // Number of spaces after # in directives ( -1 - no change )
-   VAR nLineFnc       INIT   1      // -1 - no change, 1 - insert empty line before a function ( procedure, class ) declaration, 2 - remove it
-   VAR nLineRet       INIT   1      // -1 - no change, 1 - insert empty line before return, 2 - remove it
-   VAR nLineVar       INIT   1      // -1 - no change, 1 - insert empty line before variables declaration, 2 - remove it
-   VAR nLineCode      INIT   1      // -1 - no change, 1 - insert empty line before code in function, 2 - remove it
-   VAR nBr4Comma      INIT   8      // Max level of nesting in brackets, while space is added after a comma
-   VAR nBr4Brac       INIT   8      // Max level of nesting in brackets, while space is added after/before a bracket
-   VAR cHBXList       INIT ""
-   VAR cIndentKeywords  INIT ""
+   VAR nEol            INIT  0      // Eol: -1 - no change, 0 - OS default, 1 - DOS, 2 - UNIX
+   VAR lFCaseLow       INIT .F.     // If true, convert file name to lower case
+   VAR lIndent         INIT .T.     // If true, indent code
+   VAR lCase           INIT .T.     // If true, make case conversion
+   VAR lSpaces         INIT .T.     // If true, reformat spaces
+   VAR lIndFunc        INIT .F.     // If true, indent "Function", "Procedure", "Class", "Method"
+   VAR lIndVar         INIT .T.     // If true, indent "Local", "Private", etc. in a function beginning
+   VAR lIndDrt         INIT .F.     // If true, indent  directives
+   VAR lIndRet         INIT .T.     // If true, indent  "Return"
+   VAR nIndLeft        INIT   3     // Leftmost indent - amount of spaces
+   VAR nIndNext        INIT   3     // indent - amount of spaces
+   VAR nIndCont        INIT   3     // Indent for continuation ( after ';' ) lines - amount of spaces
+   VAR lCnvAst         INIT .T.     // If true, convert asterisk '*' to '//'
+   VAR lCnvAmp         INIT .T.     // If true, convert '&&' to '//'
+   VAR nSpaceComment   INIT   1     // Number of spaces after '//' and '/*' comments ( -1 - no change )
+   VAR lCnvNot         INIT .T.     // If true, convert .NOT. TO !
+   VAR nCaseCmd        INIT   1     // Case of commands ( -1 - no change, 1 - upper, 2 - lower, 3 - title )
+   VAR nCaseBoo        INIT   1     // Case of boolean operators ( -1 - no change, 1 - upper, 2 - lower, 3 - title )
+   VAR nCaseFnc        INIT   4     // Case of functions ( -1 - no change, 1 - upper, 2 - lower, 3 - title, 4 - as in pattern )
+   VAR nCaseUnk        INIT  -1     // Case of functions ( -1 - no change, 1 - upper, 2 - lower, 3 - title )
+   VAR nCaseDrt        INIT   2     // Case of directives ( -1 - no change, 1 - upper, 2 - lower, 3 - title )
+   VAR nSpaceDrt       INIT   0     // Number of spaces after # in directives ( -1 - no change )
+   VAR nLineFnc        INIT   1     // -1 - no change, 1 - insert empty line before a function ( procedure, class ) declaration, 2 - remove it
+   VAR nLineRet        INIT   1     // -1 - no change, 1 - insert empty line before return, 2 - remove it
+   VAR nLineVar        INIT   1     // -1 - no change, 1 - insert empty line before variables declaration, 2 - remove it
+   VAR nLineCode       INIT   1     // -1 - no change, 1 - insert empty line before code in function, 2 - remove it
+   VAR nBr4Comma       INIT   8     // Max level of nesting in brackets, while space is added after a comma
+   VAR nBr4Brac        INIT   8     // Max level of nesting in brackets, while space is added after/before a bracket
+   VAR cHBXList        INIT ""
+   VAR cIndentKeywords INIT ""
 
-   VAR cExtSave       INIT ""       // Extension for a formatted file ( "" - replace original )
-   VAR cExtBack       INIT ".bak"   // Extension for a backup file
+   VAR cExtSave        INIT ""      // Extension for a formatted file ( "" - replace original )
+   VAR cExtBack        INIT ".bak"  // Extension for a backup file
 
-   VAR cCommands      INIT ","
-   VAR cClauses       INIT ","
-   VAR cFunctions     INIT ","
-   VAR aContr         INIT { { "if"    , ""        , { "else", "elseif" }   , { "endif" }          }, ;
-                             { "do"    , "while"   , { "" }                 , { "enddo" }          }, ;
-                             { "while" , ""        , { "" }                 , { "enddo" }          }, ;
-                             { "for"   , ""        , { "" }                 , { "next", "endfor" } }, ;
-                             { "do"    , "case"    , { "case", "otherwise" }, { "endcase" }        }, ;
-                             { "with"  , "object"  , { "" }                 , { "end" }            }, ;
-                             { "begin" , "sequence", { "recover", "always" }, { "end" }            }, ;
-                             { "switch", ""        , { "case", "otherwise" }, { "endswitch" }      } }
+   VAR cCommands       INIT ","
+   VAR cClauses        INIT ","
+   VAR cFunctions      INIT ","
+   VAR aContr          INIT { { "if"    , ""        , { "else", "elseif" }   , { "endif" }          }, ;
+                              { "do"    , "while"   , { "" }                 , { "enddo" }          }, ;
+                              { "while" , ""        , { "" }                 , { "enddo" }          }, ;
+                              { "for"   , ""        , { "" }                 , { "next", "endfor" } }, ;
+                              { "do"    , "case"    , { "case", "otherwise" }, { "endcase" }        }, ;
+                              { "with"  , "object"  , { "" }                 , { "end" }            }, ;
+                              { "begin" , "sequence", { "recover", "always" }, { "end" }            }, ;
+                              { "switch", ""        , { "case", "otherwise" }, { "endswitch" }      } }
 
    VAR bCallback
 
@@ -190,14 +190,11 @@ METHOD New( aParams, cIniName ) CLASS HBFormatCode
    ENDCASE
 
    IF ! Empty( ::cIndentKeywords )
-
-      AAdd( ::aContr,  { ;
-         Lower( hb_tokenGet( ::cIndentKeywords, 1, "|" ) ) ,;
-         Lower( hb_tokenGet( ::cIndentKeywords, 2, "|" ) ) ,;
-         hb_ATokens( Lower( hb_tokenGet( ::cIndentKeywords, 3, "|" ) ), "," ) ,;
-         hb_ATokens( Lower( hb_tokenGet( ::cIndentKeywords, 4, "|" ) ), "," ) ;
-         } )
-
+      AAdd( ::aContr, { ;
+         Lower( hb_tokenGet( ::cIndentKeywords, 1, "|" ) ), ;
+         Lower( hb_tokenGet( ::cIndentKeywords, 2, "|" ) ), ;
+         hb_ATokens( Lower( hb_tokenGet( ::cIndentKeywords, 3, "|" ) ), "," ), ;
+         hb_ATokens( Lower( hb_tokenGet( ::cIndentKeywords, 4, "|" ) ), "," ) } )
    ENDIF
 
    RETURN Self
