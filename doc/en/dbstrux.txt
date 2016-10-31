@@ -588,7 +588,6 @@
       aList := { "NOTEXIST" }
       aRet := __FLedit( aStruct, aList )   // {}
 
-
       // Create a new file that contain part of the original structure
       LOCAL aStruct, aList, aRet
       USE test
@@ -679,7 +678,6 @@
 
       aList := { "NOTEXIST" }
       aRet := __dbStructFilter( aStruct, aList )   // {}
-
 
       // Create a new file that contain part of the original structure
       LOCAL aStruct, aList, aRet

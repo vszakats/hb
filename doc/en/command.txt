@@ -227,19 +227,12 @@
       Declare a METHOD for a class in the class header
    $SYNTAX$
       METHOD <MethodName>( [<params,...>] ) [CONSTRUCTOR]
-
       METHOD <MethodName>( [<params,...>] ) INLINE <Code,...>
-
       METHOD <MethodName>( [<params,...>] ) BLOCK  <CodeBlock>
-
       METHOD <MethodName>( [<params,...>] ) EXTERN <NAME>( [<args,...>] )
-
       METHOD <MethodName>( [<params,...>] ) SETGET
-
       METHOD <MethodName>( [<params,...>] ) VIRTUAL
-
       METHOD <MethodName>( [<param>] )      OPERATOR <op>
-
       METHOD <MethodName>( [<params,...>] ) CLASS <ClassName>
    $ARGUMENTS$
       <MethodName>  Name of the method to define
@@ -336,7 +329,6 @@
       Route a method call to another Method
    $SYNTAX$
       MESSAGE <MessageName>   METHOD <MethodName>( [<params,...>] )
-
       MESSAGE <MessageName>() METHOD <MethodName>( [<params,...>] )
    $ARGUMENTS$
       <MessageName>  The pseudo-method name to define

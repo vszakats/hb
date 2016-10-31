@@ -1,3 +1,8 @@
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%
+}
+
 body {
   background-color: #f8f8f8;
   font-family: 'Source Sans Pro', Arial, sans-serif;
@@ -8,29 +13,52 @@ body {
 }
 
 header {
+  position: absolute;
   -position: fixed;
+  --webkit-font-smoothing: antialiased;
+  -backface-visibility: hidden;
+  z-index: 2;
   top: 0;
+  width: 100%;
   background-color: #0974c5;
   color: #f0f0f0;
   border: none;
-  padding: 0 20px;
+  height: 44px;
+  line-height: 44px;
 }
 
 header > div {
   font-size: 130%;
   margin: auto;
   width: 693.71875px;  /* 94% */
-  padding-top: 14px;
-  height: 42px;
+  padding: 0 15px;
 }
 
 header > div > div:first-child {
   float: left;
-  font-weight: normal;
 }
 
 header > div > div:last-child {
   float: right;
+}
+
+header a {
+  color: #f0f0f0;
+  text-decoration: none;
+}
+
+header a:visited {
+  color: #f0f0f0;
+}
+
+header a:hover {
+  border: none;
+  color: #fff;
+  transition: color .25s;
+}
+
+header a:active {
+  color: #fff;
 }
 
 footer {
@@ -50,6 +78,10 @@ footer a {
   text-decoration: none;
 }
 
+footer a:visited {
+  color: #ddd;
+}
+
 footer a:hover {
   border: none;
   color: #f8f8f8;
@@ -66,22 +98,22 @@ main {
   margin: auto;
   padding: 0;
   width: 693.71875px;  /* 94% */
+  padding-top: 44px;
 }
 
 main section:first-child {
-  -margin-top: 60px;
   border-top: 0;
 }
 
 a {
+  color: #0d51e0;
   text-decoration: none;
 }
 
 a:hover {
-  border-style: none none solid;
+  border-style: none none dotted;
   border-width: 0 0 1px;
-  border-color: #000088;
-  border-color: rgba(0, 0, 255, .4);
+  color: #ff6800;
 }
 
 .entry-button {
@@ -99,8 +131,6 @@ hr {
 h1 {
   font-size: 130%;
   font-weight: bold;
-  padding: 14px 0;
-  margin: 0;
 }
 
 h2 {
@@ -116,38 +146,58 @@ h3 {
 
 aside {
   float: left;
-  font-size: 9pt;
+  font-size: 9pt !important;
   background-color: #f2f2f2;
   -background-color: #444;
   width: 180px;
   border-radius: 0 0 4px 0;
   line-height: 135%;
-  overflow: scroll;
-  padding: 10px 0;
+  overflow: hidden;
+  padding-top: 44px;
+  margin-top: 10px;
+  padding-bottom: 10px;
 }
 
 aside hr {
   width: 95%;
 }
 
-aside ul {
+aside a {
+  display: block;
   list-style: none;
   text-indent: 0;
   padding: 0;
   margin: 0;
-  margin-left: 8px;
-}
-
-aside ul a {
+  padding-left: 8px;
   color: #333;
   -color: #ddd;
-  padding: 1px 3px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  white-space: nowrap;
 }
 
-aside ul a:hover {
+aside a:visited {
+  color: #556acb;
+}
+
+aside a:hover {
   border-style: none;
   background-color: #0974c5;
   color: #fdfdfd;
+}
+
+aside a[title]:hover:after {
+  content: attr(title);
+  font-size: 7.5pt !important;
+  position: absolute;
+  left: 8px;
+  background-color: #0974c5;
+  color: #fdfdfd;
+  height: inherit;
+  margin-top: -1px;
+  padding-top: 2px;
+  padding-bottom: 1px;
+  padding-right: 8px;
 }
 
 section {
@@ -166,13 +216,16 @@ h4 {
 
 pre {
   background-color: #f2f2f2;
-  padding: 16px;
+  color: #2e2a24;
+  border: none;
+  border-left: 4px solid #aaaaaa;
+  padding: 8px 16px;
   overflow: scroll;
 }
 
-pre, code, .d-t {
+pre, code, .d-t, aside {
   font-family: Hack, Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation Mono', 'Oxygen Mono', 'Andale Mono', monospace;
-  font-size: 12pt;
+  font-size: 85%;
 }
 
 h4 code {
@@ -183,14 +236,63 @@ aside code {
   font-size: 80%;
 }
 
+.d-it code {
+  color: #606060;
+  border: none;
+  border-radius: 3px;
+  padding: 2px 3px;
+}
+
+.d-sy pre {
+  background-color: inherit;
+  border: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+.d-sy code {
+  padding: 0;
+}
+
+.d-it .d-key {
+  display: inline-block;
+  min-width: .7em;
+  text-align: center;
+
+  font-weight: normal;
+  padding: 3px 8px;
+  border-radius: 5px;
+  background-color: #333;
+  color: #f8f8f8;
+  text-transform: capitalize;
+  font-size: 94%;
+  line-height: 120%;
+  margin: 0 1px;
+}
+
 p {
   margin-top: 1em;
   margin-bottom: 1em;
 }
 
+.d-y > div, hr, h3 {
+  margin-left: 1em;
+}
+
+/*
+.d-y > div, hr, h3 {
+  margin-left: 32px;
+  text-indent: -12px;
+}
+
+.d-y > div:before {
+  content: "•\00a0\00a0";
+}
+*/
+
 .d-x {
   border-top: 1px solid rgba(0, 0, 0, .1);
-  margin-top: 20px;
+  margin-bottom: 20px;
   padding: 0;
 }
 
@@ -302,44 +404,32 @@ p {
 
 /* Dropdown Button */
 .dropbtn {
-  border: none;
   cursor: pointer;
-  margin: 0;
-  text-decoration: none;
+  margin-left: 15px;
   transition: color .25s;
 }
 
 .menu hr {
   border: 0;
-  border-bottom: 1px dotted rgba(250, 240, 240, .8);
-}
-
-.menu a {
-  color: inherit;
-  border: 0;
-}
-
-/* The container <nav> - needed to position the dropdown content */
-.dropdown {
-  display: inline-block !important;
-  position: relative;
+  border-bottom: 1px solid rgba(250, 240, 240, .6);
+  margin: auto;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  width: 92%;
 }
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
   font-size: 80%;
   background-color: #0974c5;
-  -box-shadow: 0 8px 16px 0 rgba(0, 0, 0, .2);
-  -border-radius: 3px;
   display: none !important;
   line-height: 130%;
-  margin-top: 0px;
-  margin-left: -9px;
+  margin-top: -5px;
+  margin-left: 6px;
   min-width: 9em;
   position: absolute;
-  z-index: 100;
+  z-index: 2;
   padding: 5px 5px;
-  padding-top: 14px;
 }
 
 /* Links inside the dropdown */
@@ -355,7 +445,7 @@ p {
 
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {
-  background-color: #f0f0f0;
+  background-color: #fff;
   color: #0974c5;
   transition: none;
 }
@@ -391,5 +481,30 @@ p {
   main {
     margin: 0 15px;
     width: auto;
+  }
+
+  .dropdown-content {
+    position: absolute;
+    right: 4px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  body {
+    -font-size: 12pt;
+  }
+
+  header {
+    position: absolute;
+    height: 74px;
+    line-height: 36px;
+  }
+
+  aside {
+    padding-top: 74px;
+  }
+
+  main {
+    padding-top: 74px;
   }
 }
