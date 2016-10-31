@@ -868,7 +868,6 @@ STATIC FUNCTION AutoLink( cFile, cComponent, cRevision, hNameID )
                   cTag := ""
                ELSE
                   cTag := hb_FNameName( hAll[ cName ] ) + ".html"
-                  ? hb_FNameName( hAll[ cName ] ), cComponent, cName
                ENDIF
                IF cProper $ hNameID
                   cAnchor := hNameID[ cProper ][ "id" ]
