@@ -519,7 +519,7 @@
 
       If <lExact> is .T., then an exact search will be performed.
       When <xSearch> is a code block, the operation of the function 
-      is slightly different. See Ascan() for details.
+      is slightly different. See AScan() for details.
    $EXAMPLES$
       PROCEDURE Main()
          LOCAL a := { "there", "here" }
@@ -535,7 +535,7 @@
    $FILES$
       Library is core
    $SEEALSO$
-      AScan(), AEVal()
+      AScan(), AEval()
    $END$
  */
 
