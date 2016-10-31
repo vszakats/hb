@@ -8,9 +8,9 @@
    $SYNTAX$
       IsBin( <cN> ) --> <cNr>
    $ARGUMENTS$
-      <cN> STRING TO BE CHECKED
+      <cN> String to be checked
    $RETURNS$
-      <cNr> .T. IF THE STRING IS BYNARY, otherwise .F.
+      <cNr> .T. if the string is binary, otherwise .F.
    $DESCRIPTION$
       check if the passed string is a bynary number or not
    $FILES$
@@ -30,9 +30,9 @@
    $SYNTAX$
       IsOctal( <cN> ) --> <cNr>
    $ARGUMENTS$
-      <cN> STRING TO BE CHECKED
+      <cN> String to be checked
    $RETURNS$
-      <cNr> .T. IF THE STRING IS OCTAL;otherwise .F.
+      <cNr> .T. if the string is octal; otherwise .F.
    $DESCRIPTION$
       check if the passed string is a octal number or not
    $FILES$
@@ -52,9 +52,9 @@
    $SYNTAX$
       IsDec( <cN> ) --> <cNr>
    $ARGUMENTS$
-      <cN> STRING TO BE CHECKED
+      <cN> String to be checked
    $RETURNS$
-      <cNr> .T. IF THE STRING IS DECIMAL;otherwise .F.
+      <cNr> .T. if the string is decimal; otherwise .F.
    $DESCRIPTION$
       check if the passed string is a decimal number or not
    $FILES$
@@ -74,9 +74,9 @@
    $SYNTAX$
       IsHexa( <cN> ) --> <cNr>
    $ARGUMENTS$
-      <cN> STRING TO BE CHECKED
+      <cN> String to be checked
    $RETURNS$
-      <cNr> .T. IF THE STRING IS HEXA;otherwise .F.
+      <cNr> .T. if the string is hexa; otherwise .F.
    $DESCRIPTION$
       check if the passed string is a hexa number or not
    $FILES$
@@ -96,9 +96,9 @@
    $SYNTAX$
       DecToBin( <cN> ) --> <cNr>
    $ARGUMENTS$
-      <cN> NUMBER TO BE CONVERTED
+      <cN> Number to be converted
    $RETURNS$
-      <cNr>  NUMBER CONVERTED
+      <cNr>  Number converted
    $DESCRIPTION$
       This function converts a string <cN> from an decimal value
       to an binary value.
@@ -119,9 +119,9 @@
    $SYNTAX$
       DecToOctal( <cN> ) --> <cNr>
    $ARGUMENTS$
-      <cN> NUMBER TO BE CONVERTED
+      <cN> Number to be converted
    $RETURNS$
-      <cNr>  NUMBER CONVERTED
+      <cNr>  Number converted
    $DESCRIPTION$
       This function converts a string <cN> from an decimal value
       to an octal value.
@@ -142,9 +142,9 @@
    $SYNTAX$
       DecToHexa( <cN> ) --> <cNr>
    $ARGUMENTS$
-      <cN> NUMBER TO BE CONVERTED
+      <cN> Number to be converted
    $RETURNS$
-      <cNr>  NUMBER CONVERTED
+      <cNr>  Number converted
    $DESCRIPTION$
       This function converts a string <cN> from an decimal value
       to an hexadecimal value.
@@ -165,9 +165,9 @@
    $SYNTAX$
       BinToDec( <cN> ) --> <cNr>
    $ARGUMENTS$
-      <cN> NUMBER TO BE CONVERTED
+      <cN> Number to be converted
    $RETURNS$
-      <cNr>  NUMBER CONVERTED
+      <cNr>  Number converted
    $DESCRIPTION$
       This function converts a string <cN> from an binary value
       to a numeric decimal value.
@@ -188,9 +188,9 @@
    $SYNTAX$
       OctalToDec( <cN> ) --> <cNr>
    $ARGUMENTS$
-      <cN> NUMBER TO BE CONVERTED
+      <cN> Number to be converted
    $RETURNS$
-      <cNr>  NUMBER CONVERTED
+      <cNr>  Number converted
    $DESCRIPTION$
       This function converts a string <cN> from an octal value
       to a numeric decimal value.
@@ -211,9 +211,9 @@
    $SYNTAX$
       HexaToDec( <cN> ) --> <cNr>
    $ARGUMENTS$
-      <cN> NUMBER TO BE CONVERTED
+      <cN> Number to be converted
    $RETURNS$
-      <cNr>  NUMBER CONVERTED
+      <cNr>  Number converted
    $DESCRIPTION$
       This function converts a string <cN> from an hexadecimal value
       to a numeric decimal value.

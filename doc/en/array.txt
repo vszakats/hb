@@ -573,7 +573,7 @@
       (if defined) or up to the last element of the array.
 
       The <bBlock> code block receives two parameters: the element value and
-      element's index (position) into the array. i.e. {|xValue, nIndex| ... }
+      element's index (position) into the array. i.e. {| xValue, nIndex | ... }
       Worth to note that elements are passed to code block 'by value',
       thus any change being made to this value doesn't  affects the value of
       element in the array.

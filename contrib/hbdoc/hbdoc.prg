@@ -70,10 +70,11 @@ REQUEST HB_CODEPAGE_UTF8EX
 
 STATIC sc_hFields
 STATIC sc_hTemplates
-STATIC sc_hConstraint
+STATIC sc_hConstraint := { => }
 STATIC s_hSwitches
 STATIC s_hHBX
 STATIC s_hTree := { => }  /* component / category / subcategory */
+STATIC s_hNameID := { => }
 
 STATIC s_generators := { ;
    "all"   =>, ;
@@ -374,6 +375,15 @@ PROCEDURE Main()
    OutStd( hb_StrFormat( "! Done in %1$d seconds", Round( ( hb_MilliSeconds() - nStart ) / 1000, 2 ) ) + hb_eol() )
 
    RETURN
+
+FUNCTION hbdoc_NameID()
+   RETURN s_hNameID
+
+FUNCTION hbdoc_RootDir()
+   RETURN s_hSwitches[ "dir_in" ]
+
+FUNCTION hbdoc_HBX()
+   RETURN s_hHBX
 
 FUNCTION hbdoc_reproducible()
    RETURN s_hSwitches[ "repr" ] .AND. ! Empty( hb_Version( HB_VERSION_BUILD_TIMESTAMP_UTC ) )
@@ -676,6 +686,8 @@ STATIC PROCEDURE ProcessBlock( hEntry, aContent )
       ENDIF
 
       hE[ "_filename" ] := Filename( hE[ "NAME" ] )
+
+      s_hNameID[ hE[ "NAME" ] ] := { "id" => hE[ "_filename" ], "component" => cComponent }
 
       AAdd( aContent, hE )
 
@@ -1112,7 +1124,7 @@ STATIC PROCEDURE init_Templates()
 
    hb_HCaseMatch( hSubCategories, .F. )
 
-   sc_hConstraint := { => }
+   hb_HCaseMatch( s_hNameID, .F. )
    hb_HCaseMatch( sc_hConstraint, .F. )
 
    sc_hConstraint[ "categories" ] := { ;
@@ -1304,11 +1316,15 @@ STATIC FUNCTION LoadHBX( cFileName, hAll )
 
          IF ! Empty( pRegex := hb_regexComp( cFilter, .T., .T. ) )
             FOR EACH tmp IN hb_regexAll( pRegex, StrTran( cFile, Chr( 13 ) ),,,,, .T. )
+#if 0
                IF tmp[ 2 ] $ hAll
                   hAll[ tmp[ 2 ] ] += "," + cName
                ELSE
+#endif
                   hAll[ tmp[ 2 ] ] := cName
+#if 0
                ENDIF
+#endif
             NEXT
          ENDIF
       NEXT

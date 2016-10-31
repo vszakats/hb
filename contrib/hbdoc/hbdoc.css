@@ -316,6 +316,7 @@ p {
   overflow: scroll;
   margin: 16px;
   width: 80%;
+  white-space: nowrap;
 }
 
 .d-t0 div:first-child {
