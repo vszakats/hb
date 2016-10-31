@@ -154,6 +154,8 @@ METHOD NewFile() CLASS GenerateHTML
       "href", STYLEFILE )
    ::Spacer()
 
+   ::cFile += hb_MemoRead( "hbdoc_head.html" )
+
    ::OpenTag( "body" )
    ::Spacer()
 
