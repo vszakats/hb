@@ -110,7 +110,7 @@ ENDCLASS
 
 METHOD NewFile() CLASS GenerateHTML
 
-   LOCAL tmp
+   LOCAL tmp, tmp1
 
    IF ! hbdoc_reproducible()
       ::tDate := hb_DateTime() - ( hb_UTCOffset() / 86400 )
@@ -217,7 +217,20 @@ METHOD NewFile() CLASS GenerateHTML
       IF Len( hbdoc_LangList() ) > 1
          ::OpenTag( "nav", "class", "dropdown-content lang" )
          FOR EACH tmp IN ASort( hb_HKeys( hbdoc_LangList() ) )
-            ::OpenTagInline( "a", "href", iif( ::cLang == "en", StrTran( tmp, "_", "-" ), ".." ) + "/" + "index.html" )
+
+            DO CASE
+            CASE ::cLang == tmp
+               tmp1 := ""
+            CASE ::cLang == "en"
+               tmp1 := StrTran( tmp, "_", "-" ) + "/"
+            OTHERWISE
+               tmp1 := ".." + "/"
+            ENDCASE
+
+            ::OpenTagInline( "a", "href", tmp1 + ;
+               iif( ::cLang == tmp .OR. tmp == "en", ;
+                  ::cFilename, ;
+                  "index" ) + ".html" )
             ::OpenTagInline( "img", "src", flag_for_lang( tmp ), "width", "24" )
             ::CloseTag( "a" )
          NEXT
