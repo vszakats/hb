@@ -181,31 +181,50 @@ METHOD NewFile() CLASS GenerateHTML
 
       ::OpenTag( "div" )
       ::OpenTag( "nav", "class", "menu" )
-      ::OpenTag( "nav", "class", "dropdown" )
 
-      ::OpenTagInline( "a", "class", "dropbtn" )
-      ::AppendInline( ::cTitle )
-      ::CloseTag( "a" )
+      IF HB_ISHASH( ::hComponents )
+         ::OpenTag( "nav", "class", "dropdown" )
 
-      ::OpenTag( "nav", "class", "dropdown-content" )
-#if 0
-      ::OpenTagInline( "a", "href", "index.html" )
-      ::AppendInline( "Index" )
-      ::CloseTag( "a" )
-      ::OpenTag( "hr" )
-#endif
-      FOR EACH tmp IN ::hComponents
-         ::OpenTagInline( "a", "href", tmp:__enumKey() + ".html" )
-         ::AppendInline( tmp[ "name" ] )
+         ::OpenTagInline( "a", "class", "dropbtn" )
+         ::AppendInline( ::cTitle )
          ::CloseTag( "a" )
-         /* This assumes that this item is first on the list */
-         IF tmp:__enumKey() == "harbour"
-            ::OpenTag( "hr" )
-         ENDIF
-      NEXT
+
+         ::OpenTag( "nav", "class", "dropdown-content" )
+#if 0
+         ::OpenTagInline( "a", "href", "index.html" )
+         ::AppendInline( "Index" )
+         ::CloseTag( "a" )
+         ::OpenTag( "hr" )
+#endif
+         FOR EACH tmp IN ::hComponents
+            ::OpenTagInline( "a", "href", tmp:__enumKey() + ".html" )
+            ::AppendInline( tmp[ "name" ] )
+            ::CloseTag( "a" )
+            /* This assumes that this item is first on the list */
+            IF tmp:__enumKey() == "harbour"
+               ::OpenTag( "hr" )
+            ENDIF
+         NEXT
+         ::CloseTag( "nav" )
+         ::CloseTag( "nav" )
+      ENDIF
+
+      ::OpenTag( "nav", "class", "dropdown lang" )
+      ::OpenTagInline( "span", "class", "dropbtn flag" )
+      ::OpenTag( "img", "src", flag_for_lang( ::cLang ), "width", "18" )
+      ::CloseTag( "span" )
+
+      IF Len( hbdoc_LangList() ) > 1
+         ::OpenTag( "nav", "class", "dropdown-content lang" )
+         FOR EACH tmp IN ASort( hb_HKeys( hbdoc_LangList() ) )
+            ::OpenTagInline( "a", "href", iif( ::cLang == "en", StrTran( tmp, "_", "-" ), ".." ) + "/" + "index.html" )
+            ::OpenTagInline( "img", "src", flag_for_lang( tmp ), "width", "24" )
+            ::CloseTag( "a" )
+         NEXT
+         ::CloseTag( "nav" )
+      ENDIF
       ::CloseTag( "nav" )
 
-      ::CloseTag( "nav" )
       ::CloseTag( "nav" )
       ::CloseTag( "div" )
 
@@ -216,6 +235,21 @@ METHOD NewFile() CLASS GenerateHTML
    ::Spacer()
 
    RETURN Self
+
+STATIC FUNCTION flag_for_lang( cLang )
+
+   LOCAL cSrc := ""
+
+   SWITCH cLang
+   CASE "en"    ; cSrc := "flag-gb.svg" ; EXIT
+   CASE "pt_br" ; cSrc := "flag-br.svg" ; EXIT
+   ENDSWITCH
+
+   IF ! HB_ISNULL( cSrc )
+      cSrc := "data:image/svg+xml;base64," + hb_base64Encode( hb_MemoRead( hbdoc_RootDir() + hb_DirSepToOS( "docs/images/" + cSrc ) ) )
+   ENDIF
+
+   RETURN cSrc
 
 STATIC FUNCTION GitRev()
 

@@ -410,6 +410,24 @@ p {
 
 /* drop-down menu magic --------------------------------------------------- */
 
+.menu {
+  display: table;
+}
+
+.menu > nav {
+  display: table-row;
+}
+
+.menu > nav > nav {
+  display: table-cell;
+}
+
+/* The container <nav> - needed to position the dropdown content */
+.dropdown {
+  display: inline-block !important;
+  position: relative;
+}
+
 /* Dropdown Button */
 .dropbtn {
   cursor: pointer;
@@ -451,6 +469,19 @@ p {
   transition: none;
 }
 
+.lang .dropbtn {
+  cursor: default;
+}
+
+.lang .dropdown-content {
+  min-width: 10px !important;
+}
+
+.lang .dropdown-content a {
+  margin: 0;
+  padding: 3px 4px 0px 4px;
+}
+
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {
   background-color: #fff;
@@ -471,7 +502,7 @@ p {
 
 @media only screen {
   aside {
-    width: calc(((100% - 694px) / 2) - 15px);
+    width: calc(((100% - 700px) / 2) - 15px);
   }
 }
 

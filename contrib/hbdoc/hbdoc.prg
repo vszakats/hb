@@ -75,6 +75,7 @@ STATIC s_hSwitches
 STATIC s_hHBX
 STATIC s_hTree := { => }  /* component / category / subcategory */
 STATIC s_hNameID := { => }
+STATIC s_hLang := { => }
 
 STATIC s_generators := { ;
    "all"   =>, ;
@@ -380,6 +381,9 @@ PROCEDURE Main()
 
    RETURN
 
+FUNCTION hbdoc_LangList()
+   RETURN s_hLang
+
 FUNCTION hbdoc_NameID()
    RETURN s_hNameID
 
@@ -476,6 +480,9 @@ STATIC FUNCTION ProcessDocDir( cDir, cComponent, aContent )
       nOldContentLen := Len( aContent )
 
       FOR EACH hEntry IN aEntry
+
+         s_hLang[ Lower( hEntry[ "_LANG" ] ) ] := NIL
+
          IF Lower( hEntry[ "_LANG" ] ) == s_hSwitches[ "lang" ]
             ProcessBlock( hEntry, aContent )
          ENDIF
@@ -1134,6 +1141,7 @@ STATIC PROCEDURE init_Templates()
 
    hb_HCaseMatch( hSubCategories, .F. )
 
+   hb_HCaseMatch( s_hLang, .F. )
    hb_HCaseMatch( s_hNameID, .F. )
    hb_HCaseMatch( sc_hConstraint, .F. )
 
