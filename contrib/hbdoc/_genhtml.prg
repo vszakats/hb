@@ -160,7 +160,7 @@ METHOD NewFile() CLASS GenerateHTML
 
    ::OpenTag( "link", ;
       "rel", "stylesheet", ;
-      "href", STYLEFILE )
+      "href", iif( ::cLang == "en", "", "../" ) + STYLEFILE )
    ::Spacer()
 
    ::cFile += hb_MemoRead( "hbdoc_head.html" )
@@ -891,14 +891,16 @@ METHOD RecreateStyleDocument( cStyleFile ) CLASS GenerateHTML
 
    #pragma __streaminclude "hbdoc.css" | LOCAL cString := %s
 
-   IF ! hb_vfDirExists( ::cDir )
-      hb_DirBuild( ::cDir )
-   ENDIF
+   IF ::cLang == "en"
+      IF ! hb_vfDirExists( ::cDir )
+         hb_DirBuild( ::cDir )
+      ENDIF
 
-   IF ! hb_MemoWrit( cStyleFile := hb_DirSepAdd( ::cDir ) + cStyleFile, cString )
-      OutErr( hb_StrFormat( "! Error: Cannot create file '%1$s'", cStyleFile ) + hb_eol() )
-   ELSEIF hbdoc_reproducible()
-      hb_vfTimeSet( cStyleFile, hb_Version( HB_VERSION_BUILD_TIMESTAMP_UTC ) )
+      IF ! hb_MemoWrit( cStyleFile := hb_DirSepAdd( ::cDir ) + cStyleFile, cString )
+         OutErr( hb_StrFormat( "! Error: Cannot create file '%1$s'", cStyleFile ) + hb_eol() )
+      ELSEIF hbdoc_reproducible()
+         hb_vfTimeSet( cStyleFile, hb_Version( HB_VERSION_BUILD_TIMESTAMP_UTC ) )
+      ENDIF
    ENDIF
 
    RETURN Self
