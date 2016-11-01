@@ -9182,7 +9182,7 @@ STATIC FUNCTION hbmk_MemoRead( cFileName )
    LOCAL cFile := MemoRead( cFileName ) /* NOTE: Intentionally using MemoRead() which handles EOF char. */
 
    IF hb_LeftEq( cFile, hbmk_UTF8_BOM() )
-      cFile := SubStr( cFile, Len( hbmk_UTF8_BOM() ) + 1 )
+      cFile := hb_BSubStr( cFile, hb_BLen( hbmk_UTF8_BOM() ) + 1 )
    ENDIF
 
    RETURN hb_UTF8ToStr( cFile )
@@ -17704,14 +17704,32 @@ STATIC FUNCTION GetCComments( cFile )
 
 STATIC PROCEDURE FixSanitize( cFileName )
 
-   LOCAL cFile := StrTran( StrTran( MemoRead( cFileName ), Chr( 13 ) ), Chr( 10 ), hb_eol() )
+   LOCAL cFile := MemoRead( cFileName )
+
+   /* Remove BOM */
+   IF hb_LeftEq( cFile, hbmk_UTF8_BOM() )
+      cFile := hb_BSubStr( cFile, hb_BLen( hbmk_UTF8_BOM() ) + 1 )
+   ENDIF
+
+   /* Remove ending whitespace and convert to native EOL */
+   cFile := RemoveEndingWhitespace( cFile )
+
+   /* Remove duplicate ending EOLs */
+   DO WHILE hb_BRight( cFile, hb_BLen( hb_eol() ) * 2 ) == Replicate( hb_eol(), 2 )
+      cFile := hb_StrShrink( cFile, hb_BLen( hb_eol() ) )
+   ENDDO
+
+   /* Add ending EOL if missing */
+   IF ! HB_ISNULL( cFile ) .AND. ;
+      ! hb_BRight( cFile, hb_BLen( hb_eol() ) ) == hb_eol()
+      cFile += hb_eol()
+   ENDIF
 
    hb_vfErase( cFileName )
    hb_MemoWrit( hb_asciiLower( cFileName ), cFile )
 
    RETURN
 
-#if 0
 STATIC FUNCTION RemoveEndingWhitespace( cFile )
 
    LOCAL cResult := ""
@@ -17725,7 +17743,6 @@ STATIC FUNCTION RemoveEndingWhitespace( cFile )
    NEXT
 
    RETURN cResult
-#endif
 
 #endif
 

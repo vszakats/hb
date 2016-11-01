@@ -780,9 +780,10 @@
       - Incompatibility with CA-Cl*pper:
         In the following code:
 
+          ```
           PRIVATE lCond := 0
           ? Type( "iof( lCond, 'true', MyUDF() )" )
-
+          ```
         CA-Cl*pper will print "UE" - in Harbour the output will be "UI"
 
       - If "UI" is returned then the syntax of the expression is

@@ -60,7 +60,7 @@
 
                 SetKey( K_ALT_A, {|| ft_Adder() } )
 
-         This will make <ALT-A> a key "Hot" and permit you to
+         This will make <ALT+A> a key "Hot" and permit you to
          Pop - Up the adder from anywhere in the application.
 
       6. If you use ft_SInkey(), you can even have active hotkeys

@@ -25,12 +25,12 @@
       ReadVar() return the old variable name. If no variable previously
       was set, ReadVar() return "".
    $DESCRIPTION$
-      ReadVar() is set inside a READ or MENU TO command to hold the
-      uppercase name of the GET / MENU TO variable, and re-set back to old
+      ReadVar() is set inside a READ or `MENU TO` command to hold the
+      uppercase name of the GET / `MENU TO` variable, and re-set back to old
       value when those commands finished. You should not normally set a
       variable name but rather use it to retrieve the name of a GET
-      variable when executing a VALID or WHEN clause, or during SET KEY
-      execution and you are inside a READ or MENU TO.
+      variable when executing a VALID or WHEN clause, or during `SET KEY`
+      execution and you are inside a READ or `MENU TO`.
    $EXAMPLES$
       #include "inkey.ch"
       // display a menu, press F1 to view the MENU TO variable name
