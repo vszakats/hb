@@ -148,7 +148,7 @@ PROCEDURE Main()
          CASE hb_LeftEq( cArgName, "-v" ) ; s_hSwitches[ "verbosity" ] := Val( SubStr( cArgName, Len( "-v" ) + 1 ) )
          CASE cArgName == "-input" ; s_hSwitches[ "dir_in" ] := hb_DirSepAdd( hb_DirSepToOS( arg ) )
          CASE cArgName == "-output" ; s_hSwitches[ "dir_out" ] := hb_DirSepAdd( hb_DirSepToOS( arg ) )
-         CASE cArgName == "-lang" ; s_hSwitches[ "lang" ] := Lower( arg )
+         CASE cArgName == "-lang" ; s_hSwitches[ "lang" ] := Lower( StrTran( arg, "-", "_" ) )
          CASE cArgName == "-repr" ; s_hSwitches[ "repr" ] := .T.
          CASE cArgName == "-format"
             DO CASE

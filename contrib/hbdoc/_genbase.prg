@@ -113,19 +113,15 @@ METHOD NewDocument( cDir, cFilename, cTitle, cExtension, cLang, hComponents ) CL
 
 METHOD New( cDir, cFilename, cTitle, cExtension, cLang, nType, hComponents ) CLASS TPLGenerate
 
-   ::cDir := cDir
+   ::cLang := hb_defaultValue( cLang, "en" )
+   ::cDir := hb_DirSepAdd( cDir ) + iif( Lower( ::cLang ) == "en", "", StrTran( ::cLang, "_", "-" ) + hb_ps() )
    ::cFilename := cFilename
    ::cTitle := cTitle
    ::cExtension := cExtension
-   ::cLang := hb_defaultValue( cLang, "en" )
    ::nType := nType
    ::hComponents := hComponents
 
-   ::cOutFileName := ;
-      ::cDir + hb_ps() + ;
-      ::cFilename + ;
-      iif( Lower( ::cLang ) == "en", "", "." + ::cLang ) + ;
-      ::cExtension
+   ::cOutFileName := ::cDir + ::cFilename + ::cExtension
 
    RETURN Self
 
