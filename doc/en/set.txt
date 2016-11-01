@@ -112,7 +112,7 @@
 
                    When enabled, which is the default, pressing Alt+C or
                    Ctrl+Break terminates the program. When disabled, both
-                   keystrokes can be read by Inkey(). Note: SET KEY has
+                   keystrokes can be read by Inkey(). Note: `SET KEY` has
                    precedence over SET CANCEL.
 
               _SET_COLOR       <cColorSet>
@@ -231,7 +231,7 @@
                    When enabled, which is the default, pressing Esc will
                    exit a READ. When disabled, pressing Esc during a READ
                    is ignored, unless the Esc key has been assigned to a
-                   function using SET KEY.
+                   function using `SET KEY`.
 
               _SET_EVENTMASK   <nEventCodes>
 
@@ -480,8 +480,8 @@
    $STATUS$
       R
    $COMPLIANCE$
-      Harbour use 11 and 12 to represent F11 and F12, while CA-Cl*pper use
-      11 and 12 to represent Shift-F1 and Shift-F2.
+      Harbour use 11 and 12 to represent <F11> and <F12>, while CA-Cl*pper use
+      11 and 12 to represent <Shift+F1> and <Shift+F2>.
    $PLATFORMS$
       All
    $FILES$
@@ -752,7 +752,7 @@
 
       <bCondition> is an optional condition code-block
    $DESCRIPTION$
-      The Set Key Command function is translated to the SetKey() function
+      The `SET KEY` Command function is translated to the SetKey() function
       witch returns the current code-block assigned to a
       key when called with only the key value.  If the action block (and
       optionally the condition block) are passed, the current block is
@@ -774,7 +774,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-      SET KEY is mostly CA-Cl*pper compliant. The only difference is the
+      `SET KEY` is mostly CA-Cl*pper compliant. The only difference is the
       addition of the condition code-block parameter, allowing set-keys to
       be conditionally turned off or on.  This condition-block cannot be
       returned once set - see SetKeyGet()

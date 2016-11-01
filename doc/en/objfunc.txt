@@ -232,8 +232,8 @@
    $DESCRIPTION$
       __objGetValueList() is a low level class support function that
       return an array with VAR names and value, each array element is a
-      pair of: aData[ i, HB_OO_DATA_SYMBOL ] contain the symbol name
-               aData[ i, HB_OO_DATA_VALUE  ] contain the value of DATA
+      pair of: aData[ i ][ HB_OO_DATA_SYMBOL ] contain the symbol name
+               aData[ i ][ HB_OO_DATA_VALUE  ] contain the value of DATA
    $EXAMPLES$
       // show information about TBrowse class
       oB := TBrowseNew( 0, 0, 24, 79 )
@@ -278,20 +278,20 @@
       __objSetValueList() is a low level class support function that let
       you set a group of instance variables with values. each array
       element in <aData> is a pair of:
-      aData[ i, HB_OO_DATA_SYMBOL ] which contain the variable name to set
-      aData[ i, HB_OO_DATA_VALUE  ] contain the new variable value.
+      aData[ i ][ HB_OO_DATA_SYMBOL ] which contain the variable name to set
+      aData[ i ][ HB_OO_DATA_VALUE  ] contain the new variable value.
    $EXAMPLES$
       // set some TBrowse instance variable
       oB := TBrowse():New()
       aData := Array( 4, 2 )
-      aData[ 1, HB_OO_DATA_SYMBOL ] = "nTop"
-      aData[ 1, HB_OO_DATA_VALUE  ] = 1
-      aData[ 2, HB_OO_DATA_SYMBOL ] = "nLeft"
-      aData[ 2, HB_OO_DATA_VALUE  ] = 10
-      aData[ 3, HB_OO_DATA_SYMBOL ] = "nBottom"
-      aData[ 3, HB_OO_DATA_VALUE  ] = 20
-      aData[ 4, HB_OO_DATA_SYMBOL ] = "nRight"
-      aData[ 4, HB_OO_DATA_VALUE  ] = 70
+      aData[ 1 ][ HB_OO_DATA_SYMBOL ] = "nTop"
+      aData[ 1 ][ HB_OO_DATA_VALUE  ] = 1
+      aData[ 2 ][ HB_OO_DATA_SYMBOL ] = "nLeft"
+      aData[ 2 ][ HB_OO_DATA_VALUE  ] = 10
+      aData[ 3 ][ HB_OO_DATA_SYMBOL ] = "nBottom"
+      aData[ 3 ][ HB_OO_DATA_VALUE  ] = 20
+      aData[ 4 ][ HB_OO_DATA_SYMBOL ] = "nRight"
+      aData[ 4 ][ HB_OO_DATA_VALUE  ] = 70
       __objSetValueList( oB, aData )
       ? oB:nTop      // 1
       ? oB:nLeft     // 10

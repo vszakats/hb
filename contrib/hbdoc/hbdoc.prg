@@ -255,7 +255,9 @@ PROCEDURE Main()
                oIndex:BeginContent()
             ENDIF
 
-            OutStd( Chr( 13 ) )
+            IF s_hSwitches[ "verbosity" ] >= 1
+               OutStd( Chr( 13 ) )
+            ENDIF
 
             nLen := Len( aContent )
             nCount := 0
@@ -354,7 +356,9 @@ PROCEDURE Main()
                oIndex:Generate()
             ENDIF
 
-            OutStd( Chr( 13 ) + Str( 100, 3 ) + "%" + hb_eol() )
+            IF s_hSwitches[ "verbosity" ] >= 1
+               OutStd( Chr( 13 ) + Str( 100, 3 ) + "%" + hb_eol() )
+            ENDIF
 
             EXIT
 
@@ -606,7 +610,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, aContent )
       cSectionName := item:__enumKey()
       cSection := StrTran( item, Chr( 13 ) + Chr( 10 ), hb_eol() )
 
-      IF !( cSectionName $ "SYNTAX|EXAMPLES|TESTS|" )
+      IF !( "|" + cSectionName + "|" $ "|SYNTAX|EXAMPLES|TESTS|" )
          cSection := NewLineVoodoo( cSection )  /* Decides which EOLs to keep and which to drop */
       ENDIF
 

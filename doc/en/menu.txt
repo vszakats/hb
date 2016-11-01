@@ -121,7 +121,7 @@
    $DESCRIPTION$
       With __AtPrompt() you define and display a menu item, each call to
       __AtPrompt() add another item to the menu, to start the menu itself
-      you should call the __MenuTo() function (MENU TO command). You can
+      you should call the __MenuTo() function (`MENU TO` command). You can
       define any row and column combination and they will be displayed at
       the order of definition. After each call to __AtPrompt(), the cursor
       is placed one column to the right of the last text displayed, and
@@ -182,11 +182,11 @@
       is evaluated to a character string. If <xMsg> is not specified or
       of the wrong type, an empty string ("") would be used.
    $DESCRIPTION$
-      With @...Prompt you define and display a menu item, each call to
-      @...Prompt add another item to the menu, to start the menu itself
-      you should call the __MenuTo() function (MENU TO command). You can
+      With @...PROMPT you define and display a menu item, each call to
+      @...PROMPT add another item to the menu, to start the menu itself
+      you should call the __MenuTo() function (`MENU TO` command). You can
       define any row and column combination and they will be displayed at
-      the order of definition. After each call to @...Prompt, the cursor
+      the order of definition. After each call to @...PROMPT, the cursor
       is placed one column to the right of the last text displayed, and
       Row() and Col() are updated.
 
@@ -278,7 +278,7 @@
       upon exit the cursor is placed at MaxRow() - 1, 0
       __MenuTo() can be nested without loosing the previous prompts.
 
-      MENU TO command is preprocessed into __MenuTo() function during
+      `MENU TO` command is preprocessed into __MenuTo() function during
       compile time.
    $EXAMPLES$
       // display menu item on each screen corner and let user select one
@@ -326,7 +326,7 @@
       a PRIVATE variable with the name <cVariable> would be created to
       hold the result.
    $DESCRIPTION$
-      MENU TO invoked the menu define by previous __AtPrompt() call
+      `MENU TO` invoked the menu define by previous __AtPrompt() call
       and display a highlight bar that the user can move to select an
       option from the menu. If <cVariable> does not exist or not visible,
       a PRIVATE variable named <cVariable> is created and hold the current
@@ -343,7 +343,7 @@
       highlighted, if the user press Down arrow while on the last item,
       the first item is highlighted.
 
-      Following are active keys that handled by MENU TO:
+      Following are active keys that handled by `MENU TO`:
 
       <table>
        key            Meaning
@@ -362,9 +362,9 @@
        |              return this item position.
       </table>
       upon exit the cursor is placed at MaxRow() - 1, 0
-      MENU TO can be nested without loosing the previous prompts.
+      `MENU TO` can be nested without loosing the previous prompts.
 
-      MENU TO command is preprocessed into __MenuTo() function during
+      `MENU TO` command is preprocessed into __MenuTo() function during
       compile time.
    $EXAMPLES$
       // display menu item on each screen corner and let user select one

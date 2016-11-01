@@ -55,7 +55,7 @@
       0 in case of timeout with no input event, otherwise returns a value
       in the range -47 to 386 for keyboard events or the range 1001 to 1007
       for mouse events. Mouse events and non-printable keyboard events are
-      represented by the K_<event> values listed in inkey.ch. Keyboard
+      represented by the `K_<event>` values listed in inkey.ch. Keyboard
       event return codes in the range 32 through 127 are equivalent to the
       printable ASCII character set. Keyboard event return codes in the
       range 128 through 255 are assumed to be printable, but results may
@@ -65,14 +65,14 @@
 
       Extended key codes consist of the PC keyboard scan code and one
       or more offset values. If no keyboard modifier was used, then
-      HB_INKEY_NONE is added. The Alt key adds HB_INKEY_ALT, the Ctrl
-      key adds HB_INKEY_CTRL, the Shift key adds HB_INKEY_SHIFT, and
-      enhanced keys (KeyPad+/ and CursorPad keys) add HB_INKEY_ENHANCED.
-      For example, F1 is scan code 59, so if you just press F1, you get
-      key code 315, but Alt+F1 gives 443, Ctrl+F1 gives 571, and Shift+
-      F1 gives 699. And NumPad+/ gives 1077, 1205, 1333, and 1461. At
+      HB_INKEY_NONE is added. The <Alt> key adds HB_INKEY_ALT, the <Ctrl>
+      key adds HB_INKEY_CTRL, the <Shift> key adds HB_INKEY_SHIFT, and
+      enhanced keys (<KeyPad+/> and <CursorPad> keys) add HB_INKEY_ENHANCED.
+      For example, <F1> is scan code 59, so if you just press <F1>, you get
+      key code 315, but <Alt+F1> gives 443, <Ctrl+F1> gives 571, and <Shift+F1>
+      gives 699. And <NumPad+/> gives 1077, 1205, 1333, and 1461. At
       this time, the only value that can combine with other values is
-      HB_INKEY_ENHANCED (i.e., there are no Alt+Ctl combinations, etc.)
+      HB_INKEY_ENHANCED (i.e., there are no <Alt+Ctrl> combinations, etc.)
 
       Note: The extended key code set is larger than the normal key code
       set. As a result, if you switch between the normal and extended
@@ -97,9 +97,9 @@
       Inkey() is compliant with the CA-Cl*pper 5.3 Inkey() function with one
       exception: The Harbour Inkey() function will raise an argument error
       if the first parameter is less than or equal to 0 and the second
-      parameter (or the default mask) is not valid, because otherwise INKEY
+      parameter (or the default mask) is not valid, because otherwise Inkey()
       would never return, because it was, in effect, asked to wait forever
-      for no events (Note: In CA-Cl*pper, this also blocks SET KEY events).
+      for no events (Note: In CA-Cl*pper, this also blocks `SET KEY` events).
    $FILES$
       Library is core
    $SEEALSO$

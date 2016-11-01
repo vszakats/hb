@@ -68,8 +68,8 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    METHOD Tagged( cText, cTag, ... )
    METHOD CloseTagInline( cText )
    METHOD CloseTag( cText )
-   METHOD AppendInline( cText, cFormat, lCode, lAutoLink )
-   METHOD Append( cText, cFormat, lCode, lAutoLink )
+   METHOD AppendInline( cText, cFormat, lCode, cField )
+   METHOD Append( cText, cFormat, lCode, cField )
    METHOD Space() INLINE ::cFile += ", ", Self
    METHOD Spacer() INLINE ::cFile += hb_eol(), Self
    METHOD NewLine() INLINE ::cFile += "<br>" + hb_eol(), Self
@@ -149,6 +149,15 @@ METHOD NewFile() CLASS GenerateHTML
       "referrerpolicy", "no-referrer", ;
       "href", "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" )
 #endif
+#if 0
+   /* https://sourcefoundry.org/hack/ */
+   ::OpenTag( "link", ;
+      "rel", "stylesheet", ;
+      "crossorigin", "anonymous", ;
+      "referrerpolicy", "no-referrer", ;
+      "href", "https://cdn.jsdelivr.net/font-hack/2.020/css/hack-extended.min.css" )
+#endif
+
    ::OpenTag( "link", ;
       "rel", "stylesheet", ;
       "href", STYLEFILE )
@@ -493,7 +502,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
       CASE ! Chr( 10 ) $ cContent
 
          ::OpenTagInline( "div", "class", cTagClass )
-         ::AppendInline( cContent,, .F., .T. )
+         ::AppendInline( cContent,, .F., cField )
          ::CloseTag( "div" )
 
       OTHERWISE
@@ -563,7 +572,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
                IF cField $ s_cAddP
                   ::OpenTagInline( "p" )
                ENDIF
-               ::AppendInline( iif( lTable, StrTran( tmp1, " ", hb_UChar( 160 ) ), tmp1 ),, .F., .T. )
+               ::AppendInline( iif( lTable, StrTran( tmp1, " ", hb_UChar( 160 ) ), tmp1 ),, .F., cField )
             ENDCASE
             IF lCode
                ::CloseTag( "pre" )
@@ -662,12 +671,12 @@ STATIC FUNCTION StrEsc( cString )
 STATIC FUNCTION MDSpace( cChar )
    RETURN Empty( cChar ) .OR. cChar $ ".,:;?!"
 
-METHOD AppendInline( cText, cFormat, lCode, lAutoLink ) CLASS GenerateHTML
+METHOD AppendInline( cText, cFormat, lCode, cField ) CLASS GenerateHTML
 
    LOCAL idx
 
    LOCAL cChar, cPrev, cNext, cOut, tmp, tmp1, nLen
-   LOCAL lEM, lIT, lPR
+   LOCAL lEM, lIT, lPR, cPR
    LOCAL nEM, nIT, nPR
    LOCAL cdp
 
@@ -728,22 +737,37 @@ METHOD AppendInline( cText, cFormat, lCode, lAutoLink ) CLASS GenerateHTML
                tmp += 2
             CASE cChar == "`" .OR. ;
                  ( cChar == "<" .AND. ! lPR ) .OR. ;
-                 ( cChar == ">" .AND.   lPR )
+                 ( cChar == ">" .AND.   lPR .AND. cPR $ "<#" )
                lPR := ! lPR
                IF lPR
                   nPR := Len( cOut ) + 1
+                  cPR := cChar
                ENDIF
                SWITCH cChar
                CASE "<"
                CASE ">"
-                  cChar := iif( lPR, "<code>", "</code>" )
-                  EXIT
-               CASE "."
-                  cChar := iif( lPR, "<code>.", ".</code>" )
+                  IF lPR .AND. ;
+                     ( "|" + hb_asciiUpper( SubStr( cText, tmp + 1, 2 ) ) + "|" $ "|F1|F2|F2|F3|F4|F5|F6|F7|F8|F9|UP|" .OR. ;
+                       "|" + hb_asciiUpper( SubStr( cText, tmp + 1, 3 ) ) + "|" $ "|F10|F11|F12|ESC|INS|DEL|ALT|END|" .OR. ;
+                       "|" + hb_asciiUpper( SubStr( cText, tmp + 1, 4 ) ) + "|" $ "|CTRL|META|DOWN|LEFT|HOME|PGDN|PGUP|" .OR. ;
+                       "|" + hb_asciiUpper( SubStr( cText, tmp + 1, 5 ) ) + "|" $ "|SHIFT|RIGHT|ENTER|" .OR. ;
+                       "|" + hb_asciiUpper( SubStr( cText, tmp + 1, 6 ) ) + "|" $ "|RETURN|KEYPAD|" .OR. ;
+                       hb_LeftEqI( SubStr( cText, tmp + 1, 10 ), "cursorpad" ) .OR. ;
+                       ( hb_asciiIsUpper( cNext ) .AND. SubStr( cText, tmp + 2, 1 ) == ">" ) )
+                     cPR := "#"
+                  ENDIF
+                  IF cPR == "#"
+                     cChar := iif( lPR, "<span class=" + '"' + "d-key" + '"' + ">", "</span>" )
+                  ELSE
+                     cChar := iif( lPR, "<code>", "</code>" )
+                  ENDIF
                   EXIT
                OTHERWISE
                   cChar := iif( lPR, "<code>", "</code>" )
                ENDSWITCH
+               IF ! lPR
+                  cPR := ""
+               ENDIF
             CASE ! lPR .AND. ;
                ( SubStr( cText, tmp, 3 ) == "===" .OR. SubStr( cText, tmp, 3 ) == "---" )
                DO WHILE tmp < nLen .AND. SubStr( cText, tmp, 1 ) == cChar
@@ -790,7 +814,7 @@ METHOD AppendInline( cText, cFormat, lCode, lAutoLink ) CLASS GenerateHTML
          hb_cdpSelect( cdp )
       ENDIF
 
-      IF ! lCode .AND. hb_defaultValue( lAutoLink, .F. )
+      IF ! lCode .AND. !( "|" + hb_defaultValue( cField, "" ) + "|" $ "||ONELINER|" )
          cText := AutoLink( cText, ::cFilename, ::cRevision, ::hNameID )
       ENDIF
 
@@ -809,9 +833,9 @@ METHOD AppendInline( cText, cFormat, lCode, lAutoLink ) CLASS GenerateHTML
 
    RETURN Self
 
-METHOD Append( cText, cFormat, lCode, lAutoLink ) CLASS GenerateHTML
+METHOD Append( cText, cFormat, lCode, cField ) CLASS GenerateHTML
 
-   ::AppendInline( cText, cFormat, lCode, lAutoLink )
+   ::AppendInline( cText, cFormat, lCode, cField )
    ::cFile += hb_eol()
 
    RETURN Self
@@ -844,7 +868,6 @@ STATIC FUNCTION SymbolToHTMLID( cID )
 STATIC FUNCTION AutoLink( cFile, cComponent, cRevision, hNameID )
 
    LOCAL hAll
-   LOCAL cFileStripped
 
    LOCAL match
    LOCAL cProper
@@ -855,14 +878,13 @@ STATIC FUNCTION AutoLink( cFile, cComponent, cRevision, hNameID )
    IF !( cComponent == "index" )
 
       hAll := hbdoc_HBX()
-      cFileStripped := cFile
 
       #define _MATCH_cStr    1
       #define _MATCH_nStart  2
       #define _MATCH_nEnd    3
 
       nShift := 0
-      FOR EACH match IN en_hb_regexAll( R_( "([A-Za-z] |[^A-Za-z_:]|^)([A-Za-z_][A-Za-z0-9_]+\(\))" ), cFileStripped,,,,, .F. )
+      FOR EACH match IN en_hb_regexAll( R_( "([A-Za-z] |[^A-Za-z_:]|^)([A-Za-z_][A-Za-z0-9_]+\(\))" ), cFile,,,,, .F. )
          IF Len( match[ 2 ][ _MATCH_cStr ] ) != 2 .OR. !( Left( match[ 2 ][ _MATCH_cStr ], 1 ) $ "D" /* "METHOD" */ )
             cProper := ProperCase( hAll, cName := hb_StrShrink( match[ 3 ][ _MATCH_cStr ], 2 ), @lFound ) + "()"
             IF lFound
@@ -886,25 +908,42 @@ STATIC FUNCTION AutoLink( cFile, cComponent, cRevision, hNameID )
       NEXT
 
       nShift := 0
-      FOR EACH match IN en_hb_regexAll( R_( " ([A-Za-z0-9_]+\.ch)([^A-Za-z0-9]|$)" ), cFileStripped,,,,, .F. )
+      FOR EACH match IN en_hb_regexAll( R_( " ([A-Za-z0-9_]+\.[a-z]{1,3})([^A-Za-z0-9]|$)" ), cFile,,,,, .F. )
          cName := match[ 2 ][ _MATCH_cStr ]
-         IF cComponent == "harbour"
-            cTag := "include/" + cName
-         ELSE
-            cTag := "contrib/" + cComponent + "/" + cName
-         ENDIF
-         IF hb_FileExists( hbdoc_RootDir() + cTag )
+         cTag := hb_FNameExt( cName )
+         IF hb_BLen( cTag ) >= 3 .OR. cTag == ".h"
+            IF cTag == ".ch"
+               IF cComponent == "harbour"
+                  cTag := "include/" + cName
+               ELSE
+                  cTag := "contrib/" + cComponent + "/" + cName
+               ENDIF
+               IF hb_FileExists( hbdoc_RootDir() + cTag )
 #if 0
-            /* link to the most-recent version */
-            cTag := "<code><a href=" + '"' + hb_Version( HB_VERSION_URL_BASE ) + "tree/master/" + cTag + '"' + ">" + cName + "</a></code>"
+                  /* link to the most-recent version */
+                  cTag := "<code><a href=" + '"' + hb_Version( HB_VERSION_URL_BASE ) + "tree/master/" + cTag + '"' + ">" + cName + "</a></code>"
 #endif
-            /* link to the matching source revision */
-            cTag := "<code><a href=" + '"' + hb_Version( HB_VERSION_URL_BASE ) + "blob/" + cRevision + "/" + cTag + '"' + ">" + cName + "</a></code>"
-         ELSE
-            cTag := "<code>" + cName + "</code>"
+                  /* link to the matching source revision */
+                  cTag := "<code><a href=" + '"' + hb_Version( HB_VERSION_URL_BASE ) + "blob/" + cRevision + "/" + cTag + '"' + ">" + cName + "</a></code>"
+               ELSE
+                  cTag := "<code>" + cName + "</code>"
+               ENDIF
+            ELSE
+               cTag := "<code>" + cName + "</code>"
+            ENDIF
+            cFile := hb_BLeft( cFile, match[ 2 ][ _MATCH_nStart ] - 1 + nShift ) + cTag + hb_BSubStr( cFile, match[ 2 ][ _MATCH_nEnd ] + 1 + nShift )
+            nShift += Len( cTag ) - Len( cName )
          ENDIF
-         cFile := hb_BLeft( cFile, match[ 2 ][ _MATCH_nStart ] - 1 + nShift ) + cTag + hb_BSubStr( cFile, match[ 2 ][ _MATCH_nEnd ] + 1 + nShift )
-         nShift += Len( cTag ) - Len( cName )
+      NEXT
+
+      nShift := 0
+      FOR EACH match IN en_hb_regexAll( R_( "( |^)([A-Z][A-Z0-9_]+)([^A-Z0-9_]|$)" ), cFile,,,,, .F. )
+         cName := match[ 3 ][ _MATCH_cStr ]
+         IF hb_BLen( cName ) > 3 .OR. "|" + cName + "|" $ "|ON|OFF|SET|USE|ZAP|SAY|RUN|NUL|NIL|ALL|TO|"
+            cTag := "<code>" + cName + "</code>"
+            cFile := hb_BLeft( cFile, match[ 3 ][ _MATCH_nStart ] - 1 + nShift ) + cTag + hb_BSubStr( cFile, match[ 3 ][ _MATCH_nEnd ] + 1 + nShift )
+            nShift += Len( cTag ) - Len( cName )
+         ENDIF
       NEXT
    ENDIF
 
