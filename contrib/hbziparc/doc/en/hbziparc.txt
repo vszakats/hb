@@ -45,7 +45,7 @@
       This function receives a valid zip file name as parameter,
       and returns the global comment stored within.
    $EXAMPLES$
-      ? "The comment in test.zip is ", hb_GetZipComment( "test.zip" )
+      ? "The comment in test.zip is:", hb_GetZipComment( "test.zip" )
    $STATUS$
       R
    $COMPLIANCE$
@@ -559,7 +559,7 @@
    $DESCRIPTION$
       This  function removes files from an Zip archive.
    $EXAMPLES$
-      ? "has the file zipnew.i been deleted ", iif( hb_ZipDeleteFiles( "test23.zip", "zipnew.i" ), "Yes", "No" )
+      ? "has the file zipnew.i been deleted:", iif( hb_ZipDeleteFiles( "test23.zip", "zipnew.i" ), "Yes", "No" )
    $STATUS$
       R
    $COMPLIANCE$

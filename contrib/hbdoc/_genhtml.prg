@@ -502,6 +502,50 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
       CASE lPreformatted  /* EXAMPLES, TESTS */
 
          ::OpenTag( "pre", "class", cTagClass )
+#if 1
+         /* logic to remove PROCEDURE Main()/RETURN enclosure
+            to fit more interesting information on the screen.
+            TODO: better do this in the doc sources. */
+
+         IF hb_LeftEqI( cContent, "PROCEDURE Main" ) .OR. ;
+            hb_LeftEqI( cContent, "PROC Main" )
+
+            tmp1 := ""
+            FOR EACH tmp IN hb_ATokens( cContent, .T. )
+               DO CASE
+               CASE tmp:__enumIndex() == 1
+                  /* do nothing */
+               CASE tmp:__enumIndex() == 2
+                  IF ! HB_ISNULL( tmp )
+                     IF ! Empty( Left( tmp, 3 ) )
+                        tmp1 := cContent
+                        EXIT
+                     ENDIF
+                     tmp1 += SubStr( tmp, 4 ) + Chr( 10 )
+                  ENDIF
+               CASE tmp:__enumIsLast()
+                  IF AllTrim( tmp ) == "RETURN"
+                     IF Right( tmp, Len( hb_eol() ) ) == hb_eol()
+                        tmp1 := hb_StrShrink( tmp1, Len( hb_eol() ) )
+                     ENDIF
+                  ELSE
+                     IF ! Empty( Left( tmp, 3 ) )
+                        tmp1 := cContent
+                        EXIT
+                     ENDIF
+                     tmp1 += SubStr( tmp, 4 )
+                  ENDIF
+               OTHERWISE
+                  IF ! Empty( Left( tmp, 3 ) )
+                     tmp1 := cContent
+                     EXIT
+                  ENDIF
+                  tmp1 += SubStr( tmp, 4 ) + Chr( 10 )
+               ENDCASE
+            NEXT
+            cContent := tmp1
+         ENDIF
+#endif
          ::Append( cContent,, .T. )
          ::CloseTag( "pre" )
 
@@ -794,7 +838,8 @@ METHOD AppendInline( cText, cFormat, lCode, cField ) CLASS GenerateHTML
                CASE "<"
                CASE ">"
                   IF lPR .AND. ;
-                     ( "|" + hb_asciiUpper( SubStr( cText, tmp + 1, 2 ) ) + "|" $ "|F1|F2|F2|F3|F4|F5|F6|F7|F8|F9|UP|BS|" .OR. ;
+                     ( "|" + hb_asciiUpper( SubStr( cText, tmp + 1, 2 ) ) + "|" $ "|F1|F2|F2|F3|F4|F5|F6|F7|F8|F9|UP|" .OR. ;
+                       "|" +                SubStr( cText, tmp + 1, 2 )   + "|" $ "|BS|" .OR. ;
                        "|" + hb_asciiUpper( SubStr( cText, tmp + 1, 3 ) ) + "|" $ "|F10|F11|F12|ESC|INS|DEL|ALT|END|TAB|" .OR. ;
                        "|" + hb_asciiUpper( SubStr( cText, tmp + 1, 4 ) ) + "|" $ "|CTRL|META|DOWN|LEFT|HOME|PGDN|PGUP|" .OR. ;
                        "|" + hb_asciiUpper( SubStr( cText, tmp + 1, 5 ) ) + "|" $ "|SHIFT|RIGHT|ENTER|SPACE|" .OR. ;
