@@ -41,8 +41,8 @@
       later be restored by __XRestScreen(). Each call to __XSaveScreen()
       overwrite the internal buffer.
 
-      SAVE SCREEN command is preprocessed into __XSaveScreen() function
-      during compile time. Note that SAVE SCREEN TO is preprocessed into
+      `SAVE SCREEN` command is preprocessed into __XSaveScreen() function
+      during compile time. Note that `SAVE SCREEN TO` is preprocessed into
       SaveScreen() function.
 
       __XSaveScreen() is a compatibility function, it is superseded by
@@ -83,13 +83,13 @@
    $ARGUMENTS$
       none.
    $DESCRIPTION$
-      SAVE SCREEN save the image of the whole screen into an internal
+      `SAVE SCREEN` save the image of the whole screen into an internal
       buffer, it also save current cursor position. The information could
-      later be restored by REST SCREEN. Each call to SAVE SCREEN
+      later be restored by `RESTORE SCREEN`. Each call to `SAVE SCREEN`
       overwrite the internal buffer.
 
-      SAVE SCREEN command is preprocessed into __XSaveScreen() function
-      during compile time. Note that SAVE SCREEN TO is preprocessed into
+      `SAVE SCREEN` command is preprocessed into __XSaveScreen() function
+      during compile time. Note that `SAVE SCREEN TO` is preprocessed into
       SaveScreen() function.
    $EXAMPLES$
       // save the screen, display list of files than restore the screen
@@ -129,8 +129,8 @@
       cursor position. After a call to __XRestScreen() the internal buffer
       is cleared.
 
-      RESTORE SCREEN command is preprocessed into __XRestScreen() function
-      during compile time. Note that RESTORE SCREEN FROM is preprocessed
+      `RESTORE SCREEN` command is preprocessed into __XRestScreen() function
+      during compile time. Note that `RESTORE SCREEN FROM` is preprocessed
       into RestScreen() function.
 
       __XRestScreen() is a compatibility function, it is superseded by
@@ -171,12 +171,12 @@
       none.
    $DESCRIPTION$
       Rest Screen restore saved image of the whole screen from an
-      internal buffer that was saved by Save Screen, it also restore
-      cursor position. After a call to Rest Screen the internal buffer
-      is cleared.
+      internal buffer that was saved by `SAVE SCREEN`, it also restore
+      cursor position. After a call to 'RESTORE SCREEN` the internal
+      buffer is cleared.
 
-      RESTORE SCREEN command is preprocessed into __XRestScreen() function
-      during compile time. Note that RESTORE SCREEN FROM is preprocessed
+      `RESTORE SCREEN` command is preprocessed into __XRestScreen() function
+      during compile time. Note that `RESTORE SCREEN FROM` is preprocessed
       into RestScreen() function.
    $EXAMPLES$
       // save the screen, display list of files than restore the screen
@@ -214,20 +214,20 @@
       If <xMessage> is an array of Character strings, each element would
       be displayed in a new line. If <xMessage> is a Character
       string, you could split the message to several lines by placing
-      a semicolon (;) in the desired places.
+      a semicolon `;` in the desired places.
 
       <aOptions> Array with available response. Each element should be
-      Character string. If omitted, default is { "Ok" }.
+      Character string. If omitted, default is `{ "Ok" }`.
 
       <cColorNorm> Color string to paint the dialog box with.
-      If omitted, default color is "W+/R".
+      If omitted, default color is `"W+/R"`.
 
       <nDelay> Number of seconds to wait to user response before abort.
       Default value is 0, that wait forever.
    $RETURNS$
       Alert() return Numeric value representing option number chosen.
 
-      If ESC was pressed, return value is zero.
+      If <ESC> was pressed, return value is zero.
 
       The return value is NIL
       if Alert() is called with no parameters, or if <xMessage> type is
@@ -239,7 +239,7 @@
       TAB key. To select an option the user can press ENTER, SPACE or the
       first letter of the option.
 
-      If the program is executed with the //NOALERT command-line switch,
+      If the program is executed with the `//NOALERT` command-line switch,
       nothing is displayed and it simply returns NIL. This switch could
       be overridden with __NoNoAlert().
 
@@ -290,7 +290,7 @@
       src/rtl/alert.prg the Left-Mouse button could be used to select
       an option.
 
-      The interpretation of the //NOALERT command-line switch is done only
+      The interpretation of the `//NOALERT` command-line switch is done only
       if HB_CLP_UNDOC was define during compilation of src/rtl/alert.prg
 
       <cColorNorm> is a Harbour extension, or at least un-documented
@@ -314,13 +314,13 @@
    $SUBCATEGORY$
       User interface
    $ONELINER$
-      Override //NOALERT command-line switch
+      Override `//NOALERT` command-line switch
    $SYNTAX$
       __NoNoAlert()
    $ARGUMENTS$
       This function takes no arguments.
    $DESCRIPTION$
-      The //NOALERT command-line switch cause Clipper to ignore calls to
+      The `//NOALERT` command-line switch cause Clipper to ignore calls to
       the Alert() function, this function override this behavior
       and always display Alert() dialog box.
    $EXAMPLES$
@@ -613,7 +613,7 @@
    $DESCRIPTION$
       OutStd() write one or more values into the standard output device.
       Character and Memo values are printed as is, Dates are printed
-      according to the SET DATE FORMAT, Numeric values are converted to
+      according to the `SET DATE FORMAT`, Numeric values are converted to
       strings, Logical values are printed as .T. or .F., NIL are printed
       as NIL, values of any other kind are printed as empty string. There
       is one space separating each two values. Note that Numeric value can
@@ -661,17 +661,17 @@
    $DESCRIPTION$
       OutErr() write one or more values into the standard error device.
       Character and Memo values are printed as is, Dates are printed
-      according to the SET DATE FORMAT, Numeric values are converted to
+      according to the `SET DATE FORMAT`, Numeric values are converted to
       strings, Logical values are printed as .T. or .F., NIL are printed
       as NIL, values of any other kind are printed as empty string. There
       is one space separating each two values. Note that Numeric value can
       take varying length when converted into string depending on its
       source (see Str() for detail).
 
-      There is an undocumented CA-Cl*pper command-line switch //STDERR
+      There is an undocumented CA-Cl*pper command-line switch `//STDERR`
       which can set the file handle to write output from OutErr(). If not
-      specified the default STDERR is used, //STDERR or //STDERR:0 set
-      OutErr() to output to the same file handle as OutStd(), //STDERR:n
+      specified the default STDERR is used, `//STDERR` or `//STDERR:0` set
+      OutErr() to output to the same file handle as OutStd(), `//STDERR:n`
       set output to file handle n. Like other undocumented features this
       switch is available only if src/rtl/console.c was compiled with
       the HB_CLP_UNDOC flag.

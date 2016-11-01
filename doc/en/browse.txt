@@ -51,14 +51,14 @@
       is a character string, all columns would used this value as a
       picture string. If <xColumnSayPictures> is an array, each element
       should be a character string that correspond to a picture string
-      for the column with the same index. Look at the help for @...SAY
+      for the column with the same index. Look at the help for `@...SAY`
       to get more information about picture values.
 
       <xColumnHeaders> contain the header titles for each column, if this
       is a character string, all columns would have that same header, if
       this is an array, each element is a character string that contain
       the header title for one column. Header may be split to more than
-      one line by placing semicolon (;) in places where you want to break
+      one line by placing semicolon `;` in places where you want to break
       line. If omitted, the default value for each column header is taken
       from <acColumns> or field name if <acColumns> was not specified.
 
@@ -82,7 +82,7 @@
       of each column, if this is a character string, all columns would
       have that same footer, if this is an array, each element is a
       character string that contain the footer for one column. Footer may
-      be split to more than one line by placing semicolon (;) in places
+      be split to more than one line by placing semicolon `;` in places
       where you want to break line. If omitted, no footer are displayed.
    $RETURNS$
       dbEdit() return .F. if there is no database in use or if the number
@@ -103,16 +103,16 @@
         Right            Move one column to the right (next field)
         Up               Move up one row (previous record)
         Down             Move down one row (next record)
-        Page-Up          Move to the previous screen
-        Page-Down        Move to the next screen
-        Ctrl Page-Up     Move to the top of the file
-        Ctrl Page-Down   Move to the end of the file
+        PgUp             Move to the previous screen
+        PgDn             Move to the next screen
+        Ctrl+PgUp        Move to the top of the file
+        Ctrl+PgDn        Move to the end of the file
         Home             Move to the leftmost visible column
         End              Move to the rightmost visible column
-        Ctrl Left        Pan one column to the left
-        Ctrl Right       Pan one column to the right
-        Ctrl Home        Move to the leftmost column
-        Ctrl End         Move to the rightmost column
+        Ctrl+Left        Pan one column to the left
+        Ctrl+Right       Pan one column to the right
+        Ctrl+Home        Move to the leftmost column
+        Ctrl+End         Move to the rightmost column
       </table>
 
       When <xUserFunc> is omitted, two more keys are active:
@@ -229,16 +229,16 @@
        Right            Move one column to the right (next field)
        Up               Move up one row (previous record)
        Down             Move down one row (next record)
-       Page-Up          Move to the previous screen
-       Page-Down        Move to the next screen
-       Ctrl Page-Up     Move to the top of the file
-       Ctrl Page-Down   Move to the end of the file
+       PgUp             Move to the previous screen
+       PgDn             Move to the next screen
+       Ctrl+PgUp        Move to the top of the file
+       Ctrl+PgDn        Move to the end of the file
        Home             Move to the leftmost visible column
        End              Move to the rightmost visible column
-       Ctrl Left        Pan one column to the left
-       Ctrl Right       Pan one column to the right
-       Ctrl Home        Move to the leftmost column
-       Ctrl End         Move to the rightmost column
+       Ctrl+Left        Pan one column to the left
+       Ctrl+Right       Pan one column to the right
+       Ctrl+Home        Move to the leftmost column
+       Ctrl+End         Move to the rightmost column
        Esc              Terminate Browse()
       </table>
 
@@ -297,9 +297,9 @@
       and a default :SkipBlock, :GoTopBlock and :GoBottomBlock to browse
       a database file.
    $DESCRIPTION$
-      TBrowseDB() is a quick way to create a TBrowse object along with
+      TBrowseDB() is a quick way to create a TBrowse() object along with
       the minimal support needed to browse a database. Note that the
-      returned TBrowse object contain no TBColumn objects and you need
+      returned TBrowse() object contain no TBColumn() objects and you need
       to add column for each field by your self.
    $EXAMPLES$
       for a good example, look at the source code for Browse() function

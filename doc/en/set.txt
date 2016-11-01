@@ -110,8 +110,8 @@
 
               _SET_CANCEL      <lFlag> | <cOnOff>
 
-                   When enabled, which is the default, pressing Alt+C or
-                   Ctrl+Break terminates the program. When disabled, both
+                   When enabled, which is the default, pressing <Alt+C> or
+                   <Ctrl+Break> terminates the program. When disabled, both
                    keystrokes can be read by Inkey(). Note: `SET KEY` has
                    precedence over SET CANCEL.
 
@@ -151,25 +151,25 @@
               _SET_DATEFORMAT  <cDateFormat>
 
                    Sets the default date format for display, date input, and
-                   date conversion. Defaults to American ("mm/dd/yy"). Other
-                   formats include ANSI ("yy.mm.dd"), British ("dd/mm/yy"),
-                   French ("dd/mm/yy"), German ("dd.mm.yy"), Italian
-                   ("dd-mm-yy"), Japan ("yy/mm/dd"), and USA ("mm-dd-yy").
-                   SET CENTURY modifies the date format. SET CENTURY ON
-                   replaces the "y"s with "YYYY". SET CENTURY OFF replaces
-                   the "y"s with "YY".
+                   date conversion. Defaults to American `mm/dd/yy`. Other
+                   formats include ANSI `yy.mm.dd`, British `dd/mm/yy`,
+                   French `dd/mm/yy`, German `dd.mm.yy`, Italian
+                   `dd-mm-yy`, Japan `yy/mm/dd`, and USA `mm-dd-yy`.
+                   `SET CENTURY` modifies the date format. `SET CENTURY ON`
+                   replaces the `y`s with `YYYY`. `SET CENTURY OFF` replaces
+                   the `y`s with `YY`.
 
               _SET_DEBUG       <lStatus>
 
-                   When set to .T., pressing Alt+D activates the debugger.
-                   When set to .F., which is the default, Alt+D can be read
-                   by Inkey(). (Also affected by AltD(1) and AltD(0))
+                   When set to .T., pressing <Alt+D> activates the debugger.
+                   When set to .F., which is the default, <Alt+D> can be read
+                   by Inkey(). (Also affected by `AltD( 1 )` and `AltD( 0 )`)
 
               _SET_DECIMALS    <nNumberOfDecimals>
 
                    Sets the number of decimal digits to use when displaying
-                   printing numeric values when SET FIXED is ON. Defaults to
-                   2. If SET FIXED is OFF, then SET DECIMALS is only used to
+                   printing numeric values when `SET FIXED` is ON. Defaults to
+                   2. If `SET FIXED` is OFF, then `SET DECIMALS` is only used to
                    determine the number of decimal digits to use after using
                    Exp(), Log(), Sqrt(), or division. Other math operations
                    may adjust the number of decimal digits that the result
@@ -189,7 +189,7 @@
 
               _SET_DELIMCHARS  <cDelimiters>
 
-                   Sets the GET delimiter characters. Defaults to "::".
+                   Sets the GET delimiter characters. Defaults to `"::"`.
 
               _SET_DELIMITERS  <lFlag> | <cOnOff>
 
@@ -199,15 +199,15 @@
               _SET_DEVICE      <cDeviceName>
 
                    Selects the output device for DevOut(). When set to
-                   "PRINTER", all output is sent to the printer device or
+                   `"PRINTER"`, all output is sent to the printer device or
                    file set by _SET_PRINTFILE. When set to anything else,
-                   all output is sent to the screen. Defaults to "SCREEN".
+                   all output is sent to the screen. Defaults to `"SCREEN"`.
 
               _SET_EOF         <lFlag> | <cOnOff>
 
-                   Defaults to FALSE on UN*X, but defaults to TRUE on
-                   everything else. If set to FALSE, then Chr( 26 ) does not
-                   get written when using COPY TO DELIMITED, COPY TO SDF,
+                   Defaults to FALSE on *nix, but defaults to TRUE on
+                   everything else. If set to FALSE, then `Chr( 26 )` does not
+                   get written when using `COPY TO DELIMITED`, `COPY TO SDF`,
                    or when closing any of the various text files that are
                    created using various SET values.
                    [This is a Harbour extension]
@@ -228,9 +228,9 @@
 
               _SET_ESCAPE      <lFlag> | <cOnOff>
 
-                   When enabled, which is the default, pressing Esc will
-                   exit a READ. When disabled, pressing Esc during a READ
-                   is ignored, unless the Esc key has been assigned to a
+                   When enabled, which is the default, pressing <Esc> will
+                   exit a READ. When disabled, pressing <Esc> during a READ
+                   is ignored, unless the <Esc> key has been assigned to a
                    function using `SET KEY`.
 
               _SET_EVENTMASK   <nEventCodes>
@@ -294,18 +294,18 @@
 
                    When enabled, all numeric values will be displayed
                    and printed with the number of decimal digits set
-                   by SET DECIMALS, unless a PICTURE clause is used.
+                   by `SET DECIMALS`, unless a PICTURE clause is used.
                    When disabled, which is the default, the number
                    of decimal digits that are displayed depends upon
                    a variety of factors. See _SET_DECIMALS for more.
 
               _SET_INSERT      <lFlag> | <cOnOff>
 
-                   When enabled, characters typed in a GET or MEMOEDIT
+                   When enabled, characters typed in a GET or MemoEdit()
                    are inserted. When disabled, which is the default,
-                   characters typed in a GET or MEMOEDIT overwrite.
+                   characters typed in a GET or MemoEdit() overwrite.
                    Note: This setting can also be toggled between on and
-                   off by pressing the Insert key during a GET or MEMOEDIT.
+                   off by pressing the Insert key during a GET or MemoEdit().
 
               _SET_INTENSITY   <lFlag> | <cOnOff>
 
@@ -323,8 +323,8 @@
 
                    Sets the left margin for all printed output. The default
                    value is 0. Note: PCol() reflects the printer's column
-                   position including the margin (e.g., SET MARGIN TO 5
-                   followed by DevPos(5, 10) makes PCol() return 15).
+                   position including the margin (e.g., `SET MARGIN TO 5`
+                   followed by `DevPos( 5, 10 )` makes PCol() return 15).
 
               _SET_MBLOCKSIZE <nMemoBlockSize>
 
@@ -381,9 +381,9 @@
 
               _SET_SCOREBOARD  <lFlag> | <cOnOff>
 
-                   When enabled, which is the default, READ and MEMOEDIT
+                   When enabled, which is the default, READ and MemoEdit()
                    display status messages on screen row 0. When disabled,
-                   READ and MEMOEDIT status messages are suppressed.
+                   READ and MemoEdit() status messages are suppressed.
 
               _SET_SCROLLBREAK <lFlag> | <cOnOff>
 
@@ -395,7 +395,7 @@
                    pointer to the first key that is higher than the sought
                    after key or to LastRec() + 1 if there is no higher key.
                    When disabled, which is the default, a SEEK that fails
-                   will position the record pointer to LastRec()+1.
+                   will position the record pointer to LastRec() + 1.
 
               _SET_STRICTREAD  <lFlag> | <cOnOff>
 
@@ -462,9 +462,9 @@
       nFunctionKey    Key to be set
 
          1 .. 12      F1 .. F12
-        13 .. 20      Shift-F3 .. Shift-F10
-        21 .. 30      Ctrl-F1 .. Ctrl-F10
-        31 .. 40      Alt-F1 .. Alt-F10
+        13 .. 20      Shift+F3 .. Shift+F10
+        21 .. 30      Ctrl+F1 .. Ctrl+F10
+        31 .. 40      Alt+F1 .. Alt+F10
       </table>
 
       SET FUNCTION command is preprocessed into __SetFunction() function
@@ -474,7 +474,7 @@
       CLS
       __SetFunction( 1, "I Am Lazy" + Chr( 13 ) )
       cTest := Space( 20 )
-      @ 10, 0 SAY "type something or F1 for lazy mode " GET cTest
+      @ 10, 0 SAY "type something or <F1> for lazy mode " GET cTest
       READ
       ? cTest
    $STATUS$

@@ -747,12 +747,12 @@ METHOD AppendInline( cText, cFormat, lCode, cField ) CLASS GenerateHTML
                CASE "<"
                CASE ">"
                   IF lPR .AND. ;
-                     ( "|" + hb_asciiUpper( SubStr( cText, tmp + 1, 2 ) ) + "|" $ "|F1|F2|F2|F3|F4|F5|F6|F7|F8|F9|UP|" .OR. ;
-                       "|" + hb_asciiUpper( SubStr( cText, tmp + 1, 3 ) ) + "|" $ "|F10|F11|F12|ESC|INS|DEL|ALT|END|" .OR. ;
+                     ( "|" + hb_asciiUpper( SubStr( cText, tmp + 1, 2 ) ) + "|" $ "|F1|F2|F2|F3|F4|F5|F6|F7|F8|F9|UP|BS|" .OR. ;
+                       "|" + hb_asciiUpper( SubStr( cText, tmp + 1, 3 ) ) + "|" $ "|F10|F11|F12|ESC|INS|DEL|ALT|END|TAB|" .OR. ;
                        "|" + hb_asciiUpper( SubStr( cText, tmp + 1, 4 ) ) + "|" $ "|CTRL|META|DOWN|LEFT|HOME|PGDN|PGUP|" .OR. ;
-                       "|" + hb_asciiUpper( SubStr( cText, tmp + 1, 5 ) ) + "|" $ "|SHIFT|RIGHT|ENTER|" .OR. ;
-                       "|" + hb_asciiUpper( SubStr( cText, tmp + 1, 6 ) ) + "|" $ "|RETURN|KEYPAD|" .OR. ;
-                       hb_LeftEqI( SubStr( cText, tmp + 1, 10 ), "cursorpad" ) .OR. ;
+                       "|" + hb_asciiUpper( SubStr( cText, tmp + 1, 5 ) ) + "|" $ "|SHIFT|RIGHT|ENTER|SPACE|" .OR. ;
+                       "|" + hb_asciiUpper( SubStr( cText, tmp + 1, 6 ) ) + "|" $ "|RETURN|KEYPAD|PRTSCR|" .OR. ;
+                       hb_LeftEqI( SubStr( cText, tmp + 1, 10 ), "CURSORPAD" ) .OR. ;
                        ( hb_asciiIsUpper( cNext ) .AND. SubStr( cText, tmp + 2, 1 ) == ">" ) )
                      cPR := "#"
                   ENDIF
@@ -908,13 +908,18 @@ STATIC FUNCTION AutoLink( cFile, cComponent, cRevision, hNameID )
       NEXT
 
       nShift := 0
-      FOR EACH match IN en_hb_regexAll( R_( " ([A-Za-z0-9_]+\.[a-z]{1,3})([^A-Za-z0-9]|$)" ), cFile,,,,, .F. )
+      FOR EACH match IN en_hb_regexAll( R_( " ([A-Za-z0-9_/]+\.[a-z]{1,3})([^A-Za-z0-9]|$)" ), cFile,,,,, .F. )
          cName := match[ 2 ][ _MATCH_cStr ]
-         cTag := hb_FNameExt( cName )
-         IF hb_BLen( cTag ) >= 3 .OR. cTag == ".h"
-            IF cTag == ".ch"
+         cTag := "|" + hb_FNameExt( cName ) + "|"
+         IF hb_BLen( cTag ) >= 2 + 3 .OR. cTag $ "|.c|.h|"
+            IF cTag $ "|.ch|.h|.c|.txt|.prg|"
                IF cComponent == "harbour"
-                  cTag := "include/" + cName
+                  IF cTag $ "|.ch|.h|"
+                     cTag := "include/"
+                  ELSE
+                     cTag := ""
+                  ENDIF
+                  cTag += cName
                ELSE
                   cTag := "contrib/" + cComponent + "/" + cName
                ENDIF
@@ -937,9 +942,10 @@ STATIC FUNCTION AutoLink( cFile, cComponent, cRevision, hNameID )
       NEXT
 
       nShift := 0
-      FOR EACH match IN en_hb_regexAll( R_( "( |^)([A-Z][A-Z0-9_]+)([^A-Z0-9_]|$)" ), cFile,,,,, .F. )
+      FOR EACH match IN en_hb_regexAll( R_( "( |^)([A-Z_][A-Z0-9_]+)([^A-Z0-9_]|$)" ), cFile,,,,, .F. )
          cName := match[ 3 ][ _MATCH_cStr ]
-         IF hb_BLen( cName ) > 3 .OR. "|" + cName + "|" $ "|ON|OFF|SET|USE|ZAP|SAY|RUN|NUL|NIL|ALL|TO|"
+         IF ( hb_BLen( cName ) > 3 .OR. "|" + cName + "|" $ "|ON|OFF|SET|USE|ZAP|SAY|RUN|NUL|NIL|ALL|TO|GET|" ) .AND. ;
+            !( "|" + cName + "|" $ "|ANSI|" )
             cTag := "<code>" + cName + "</code>"
             cFile := hb_BLeft( cFile, match[ 3 ][ _MATCH_nStart ] - 1 + nShift ) + cTag + hb_BSubStr( cFile, match[ 3 ][ _MATCH_nEnd ] + 1 + nShift )
             nShift += Len( cTag ) - Len( cName )

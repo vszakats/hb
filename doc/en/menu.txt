@@ -36,26 +36,25 @@
                          character, it is macro evaluated, and the result
                          is expected to be a logical.  A value of .T. means
                          that the item may be selected, .F. that it may not.
-                         (See next argument: lSelectableItems)
+                         (See next argument: `lSelectableItems`)
 
       <lSelableItems>  - a logical value which is used to apply to all
-                         items in acMenuItems.  If .T., all items may be
+                         items in `acMenuItems`.  If .T., all items may be
                          selected; if .F., none may be selected.
-                         (See previous argument: alSelectableItems)
+                         (See previous argument: `alSelectableItems`)
                          Default .T.
 
       <cUserFunction>  - the name of a function to be called which may
                          affect special processing of keystrokes.  It is
                          specified without parentheses or parameters.
                          When it is called, it will be supplied with the
-                         parameters: nMode, nCurElement, and nRowPos.
+                         parameters: `nMode`, `nCurElement`, and `nRowPos`.
                          Default NIL.
 
       <bUserBlock>     - a codeblock to be called which may
                          affect special processing of keystrokes. It
                          should be specified in the form
-                         {| nMode, nCurElemenet, nRowPos | ;
-                           MyFunc( nMode, nCurElemenet, nRowPos ) }.
+                         `{| nMode, nCurElemenet, nRowPos | MyFunc( nMode, nCurElemenet, nRowPos ) }`.
                          Default NIL.
 
       <nInitialItem>   - the number of the element to be highlighted as
@@ -69,7 +68,7 @@
       selection was aborted.
    $DESCRIPTION$
       Allows selection of an element from an array.
-      Please see standard CA-Cl*pper documentation for ACHOICE for
+      Please see standard CA-Cl*pper documentation for AChoice() for
       additional detail.
    $EXAMPLES$
       aItems := { "One", "Two", "Three" }
@@ -137,7 +136,7 @@
       @ 11, 2 PROMPT "Monday" MESSAGE "Now we're on the 2nd item"
       MENU TO nChoice
       DO CASE
-      CASE nChoice == 0           // user press Esc key
+      CASE nChoice == 0           // user press <Esc> key
          QUIT
       CASE nChoice == 1           // user select 1st menu item
          ? "Guess you don't like Mondays"
@@ -200,7 +199,7 @@
       @ 11, 2 PROMPT "Monday" MESSAGE "Now we're on the 2nd item"
       MENU TO nChoice
       DO CASE
-      CASE nChoice == 0           // user press Esc key
+      CASE nChoice == 0           // user press <Esc> key
          QUIT
       CASE nChoice == 1           // user select 1st menu item
          ? "Guess you don't like Mondays"
@@ -238,7 +237,7 @@
       hold the result.
    $RETURNS$
       __MenuTo() return the number of select menu item, or 0 if there was
-      no item to select from or if the user pressed the Esc key.
+      no item to select from or if the user pressed the <Esc> key.
    $DESCRIPTION$
       __MenuTo() invoked the menu define by previous __AtPrompt() call
       and display a highlight bar that the user can move to select an
@@ -268,8 +267,8 @@
        Right          Move to next item
        Home           Move to the first item
        End            Move to the last item
-       Page-Up        Select menu item, return position
-       Page-Down      Select menu item, return position
+       PgUp           Select menu item, return position
+       PgDn           Select menu item, return position
        Enter          Select menu item, return position
        Esc            Abort selection, return 0
        First letter   Select next menu with the same first letter,
@@ -292,7 +291,7 @@
       MENU TO nChoice
       SetPos( MaxRow() / 2, MaxCol() / 2 - 10 )
       IF nChoice == 0
-         ?? "Esc was pressed"
+         ?? "<Esc> was pressed"
       ELSE
          ?? "Selected option is", nChoice
       ENDIF
@@ -338,7 +337,7 @@
 
       Pressing the arrow keys move the highlighted bar. When a menu item
       is highlighted the message associated with it is displayed on the
-      line specified with SET MESSAGE. If SET WRAP is ON and the user
+      line specified with `SET MESSAGE`. If `SET WRAP` is ON and the user
       press UP arrow while on the first selection the last menu item is
       highlighted, if the user press Down arrow while on the last item,
       the first item is highlighted.
@@ -354,8 +353,8 @@
        Right          Move to next item
        Home           Move to the first item
        End            Move to the last item
-       Page-Up        Select menu item, return position
-       Page-Down      Select menu item, return position
+       PgUp           Select menu item, return position
+       PgDn           Select menu item, return position
        Enter          Select menu item, return position
        Esc            Abort selection, return 0
        First letter   Select next menu with the same first letter,
@@ -378,7 +377,7 @@
       MENU TO nChoice
       SetPos( MaxRow() / 2, MaxCol() / 2 - 10 )
       IF nChoice == 0
-         ?? "Esc was pressed"
+         ?? "<Esc> was pressed"
       ELSE
          ?? "Selected option is", nChoice
       ENDIF

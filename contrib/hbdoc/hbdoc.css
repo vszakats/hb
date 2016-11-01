@@ -254,6 +254,13 @@ aside code {
   padding: 0;
 }
 
+code code {
+  font-size: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none;
+}
+
 .d-it .d-key {
   display: inline-block;
   min-width: .7em;

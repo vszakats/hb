@@ -13,8 +13,8 @@
       - next scan all variables if these memory blocks are still referenced.
 
       Notice that only arrays, objects and codeblocks are collected because
-      these are the only datatypes that can cause self-references ( a[ 1 ] := a )
-      or circular references ( a[ 1 ] := b; b[ 1 ] := c; c[ 1 ] := a ) that
+      these are the only datatypes that can cause self-references `a[ 1 ] := a`
+      or circular references `a[ 1 ] := b; b[ 1 ] := c; c[ 1 ] := a` that
       cannot be properly deallocated by simple reference counting.
 
       Since all variables in Harbour are stored inside some available tables
@@ -33,10 +33,12 @@
       premature deallocation of such memory blocks the static data have to store
       a pointer to the value created with hb_itemNew() function.
       Example:
+        ```c
         static HB_ITEM s_item; /* this item can be released by the GC */
 
         static PHB_ITEM pItem; /* this item will be maintained correctly */
         pItem = hb_itemNew( hb_param( 1, IT_BLOCK ) );
+        ```
 
       However, scanning of all variables can be a time consuming operation. It
       requires that all allocated arrays have to be traversed through all their
@@ -46,7 +48,7 @@
 
       The idle state is a state when there is no real application code
       executed. For example, the user code is stopped for 0.1 of a second
-      during Inkey( 0.1 ) - Harbour is checking the keyboard only
+      during `Inkey( 0.1 )` - Harbour is checking the keyboard only
       during this time. It leaves however quite enough time for
       many other background tasks. One such background task can be looking
       for unreferenced memory blocks.
