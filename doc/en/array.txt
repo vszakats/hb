@@ -295,7 +295,7 @@
    $SUBCATEGORY$
       Array
    $ONELINER$
-      Delete an element form an array.
+      Delete an element from an array.
    $SYNTAX$
       ADel( <aArray>, <nPos> ) --> aArray
    $ARGUMENTS$
