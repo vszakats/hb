@@ -530,13 +530,22 @@ p {
 
   .dropdown-content {
     position: absolute;
-    right: 4px;
+    right: -26px;
+  }
+
+  .lang .dropdown-content {
+    position: absolute;
+    right: -15px;
   }
 }
 
 @media screen and (max-width: 450px) {
   body {
     -font-size: 12pt;
+  }
+
+  header > div > div:first-child > a > svg {
+    display: none;
   }
 
   header {
