@@ -659,8 +659,12 @@ h2 {
   font-size: 100%;
 }
 
-$readmore-char: ' ›';
-$readmore-char: ' ⋯';
+@mixin readmore-char() {
+  // content: ' ›';
+  // content: ' ⋯';
+  content: ' \f105';  /* fa-angle-right */
+  font-family: FontAwesome;
+}
 
 .readmore {
   font-size: 75%;
@@ -668,7 +672,7 @@ $readmore-char: ' ⋯';
 }
 
 .readmore:after {
-  content: $readmore-char;
+  @include readmore-char();
 }
 
 .readmore-md {
@@ -677,7 +681,7 @@ $readmore-char: ' ⋯';
 }
 
 .readmore-md a:after {
-  content: $readmore-char;
+  @include readmore-char();
 }
 
 .readmore-norm {
@@ -685,7 +689,7 @@ $readmore-char: ' ⋯';
 }
 
 .readmore-norm:after {
-  content: $readmore-char;
+  @include readmore-char();
 }
 
 a {

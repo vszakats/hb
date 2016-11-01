@@ -63,7 +63,7 @@ Please read the following guidelines before posting to the list.
   of voluntarily helping users. Use common sense when posting your messages.
 
 <div markdown="1" class="list-bubble bubble-alt">
-<div><i class="fa fa-warning" aria-hidden="true"></i></div>
+<div><i class="fa fa-exclamation-circle" aria-hidden="true"></i></div>
 <div markdown="1">
 **Important**
 
