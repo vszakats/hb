@@ -53,16 +53,16 @@
 
       MAX OPEN TABLES: The server (even local) has its own setting for
       Max Tables allowed open.  For the Local Server, it can be set in
-      `adslocal.cfg`.  The default is only 50!
+      adslocal.cfg.  The default is only 50!
       For the Windows Remote Servers, use the Configuration Utility, or
       increase the setting for the TABLES configuration value in the Advantage
       Database Server configuration registry key using the Registry Editor.
-      For NetWare, edit the configuration file `ads.cfg`.
+      For NetWare, edit the configuration file ads.cfg.
 
-      See `ace.hlp` under `adslocal.cfg`, or the Advantage Error Guide for
+      See ace.hlp under adslocal.cfg, or the Advantage Error Guide for
       error 7005.
 
-      SPEED AND PERFORMANCE ISSUES
+      *Speed and Performance Issues*
 
       If you have sluggish browsers, one issue could be the scrollbar.
       If it's fast with the scrollbar disabled, the browse/scrolling logic
@@ -96,7 +96,7 @@
       codeblock and testing each record). The only way to speed it up is to
       fix the filter so ADS understands it.
 
-      You can also use dbOrderInfo( DBOI_OPTLEVEL ) to see if the current
+      You can also use `dbOrderInfo( DBOI_OPTLEVEL )` to see if the current
       filter is optimized or not. COMIX users can use:
 
       ```
@@ -111,11 +111,11 @@
       Every attempt has been made to make the RDD compliant with the
       standard DBFCDX RDD at the .prg level.
       One important difference is the handling of structural indexes.
-      ACE will <b>always</b> automatically open an index with the same
+      ACE will *always* automatically open an index with the same
       name as the data file.  There is no way to turn this feature off.
 
       You can use the Set() function call as well as the equivalent
-      commands for SET DEFAULT TO, DATEFORMAT, DELETE, and EPOCH.
+      commands for `SET DEFAULT TO`, DATEFORMAT, DELETE, and EPOCH.
       Harbour automatically makes the call to ADS to change its internal
       setting to match Harbour's.
 
@@ -124,7 +124,7 @@
       is an external process doing the indexing that knows nothing of
       Harbour expressions or codeblocks. Even with Local Server it's the
       DLLs doing all the indexing. So to do progress meters
-      you need to implement <b>AdsRegCallback( bEval )</b>.
+      you need to implement `AdsRegCallback( bEval )`.
       It lets you set a codeblock that is evaluated every 2 seconds.
       A numeric value of the "percent completed" is passed to the
       codeblock by the ADS server.
@@ -164,7 +164,7 @@
 
       One problem with this scenario is that index key counting
       functions that are supposed to give an accurate count respecting
-      the filter (e.g. dbOrderInfo( DBOI_KEYCOUNT ) will return the values the
+      the filter (e.g. `dbOrderInfo( DBOI_KEYCOUNT )` will return the values the
       Server knows about, so the counts may be inaccurate.
 
       3) When setting a relation, the expression must be one that can be

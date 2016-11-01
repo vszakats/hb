@@ -497,6 +497,7 @@ STATIC FUNCTION NewLineVoodoo( cSectionIn )
    LOCAL lLastPreformatted := .F.
    LOCAL nLastIndent := -1
    LOCAL lLastTable := .F.
+   LOCAL nFixedIndent := 1
 
    LOCAL cLine
 
@@ -514,6 +515,11 @@ STATIC FUNCTION NewLineVoodoo( cSectionIn )
       ELSEIF hb_LeftEq( AllTrim( cLine ), "<table" ) .OR. AllTrim( cLine ) == "<fixed>" .OR. ( hb_LeftEq( AllTrim( cLine ), '```' ) .AND. ! lPreformatted )
          IF !( Right( cSection, Len( hb_eol() ) ) == hb_eol() ) .OR. lPreformatted
             cSection += hb_eol()
+         ENDIF
+         IF AllTrim( cLine ) == "<fixed>" .OR. hb_LeftEq( AllTrim( cLine ), '```' )
+            nFixedIndent := Len( cLine ) - Len( LTrim( cLine ) ) + 1
+         ELSE
+            nFixedIndent := 1
          ENDIF
          cSection += AllTrim( cLine )  // + hb_eol()
          lLastPreformatted := lPreformatted
@@ -535,7 +541,7 @@ STATIC FUNCTION NewLineVoodoo( cSectionIn )
          IF !( Right( cSection, Len( hb_eol() ) ) == hb_eol() )
             cSection += hb_eol()
          ENDIF
-         cSection += iif( lPreformatted, cLine, AllTrim( cLine ) )
+         cSection += iif( lPreformatted, SubStr( cLine, nFixedIndent ), AllTrim( cLine ) )
       ELSE
          cSection += " " + AllTrim( cLine )
       ENDIF

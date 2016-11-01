@@ -30,7 +30,7 @@ header {
 header > div {
   font-size: 130%;
   margin: auto;
-  width: 693.71875px;  /* 94% */
+  width: 700px;
   padding: 0 15px;
 }
 
@@ -97,7 +97,7 @@ main {
   border-spacing: 0;
   margin: auto;
   padding: 0;
-  width: 693.71875px;  /* 94% */
+  width: 700px;
   padding-top: 44px;
 }
 
