@@ -173,6 +173,7 @@ METHOD NewFile() CLASS GenerateHTML
 
    ::OpenTagInline( "div" )
    ::OpenTagInline( "a", "href", "index.html" )
+   ::cFile += hb_MemoRead( hbdoc_RootDir() + hb_DirSepToOS( "docs/images/" + "harbour-nofill.svg" ) )
    ::AppendInline( ::cBaseTitle )
    ::CloseTagInline( "a" )
    ::CloseTag( "div" )

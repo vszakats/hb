@@ -38,6 +38,12 @@ header > div > div:first-child {
   float: left;
 }
 
+header > div > div:first-child > a > svg {
+  fill: #f8f8f8;
+  height: 46.1px;
+  float: left;
+}
+
 header > div > div:last-child {
   float: right;
 }
