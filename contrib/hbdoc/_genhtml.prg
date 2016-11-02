@@ -110,7 +110,7 @@ ENDCLASS
 
 METHOD NewFile() CLASS GenerateHTML
 
-   LOCAL tmp
+   LOCAL tmp, tmp1
 
    IF ! hbdoc_reproducible()
       ::tDate := hb_DateTime() - ( hb_UTCOffset() / 86400 )
@@ -160,7 +160,7 @@ METHOD NewFile() CLASS GenerateHTML
 
    ::OpenTag( "link", ;
       "rel", "stylesheet", ;
-      "href", STYLEFILE )
+      "href", iif( ::cLang == "en", "", "../" ) + STYLEFILE )
    ::Spacer()
 
    ::cFile += hb_MemoRead( "hbdoc_head.html" )
@@ -173,6 +173,7 @@ METHOD NewFile() CLASS GenerateHTML
 
    ::OpenTagInline( "div" )
    ::OpenTagInline( "a", "href", "index.html" )
+   ::cFile += hb_MemoRead( hbdoc_RootDir() + hb_DirSepToOS( "docs/images/" + "harbour-nofill.svg" ) )
    ::AppendInline( ::cBaseTitle )
    ::CloseTagInline( "a" )
    ::CloseTag( "div" )
@@ -181,31 +182,63 @@ METHOD NewFile() CLASS GenerateHTML
 
       ::OpenTag( "div" )
       ::OpenTag( "nav", "class", "menu" )
-      ::OpenTag( "nav", "class", "dropdown" )
 
-      ::OpenTagInline( "a", "class", "dropbtn" )
-      ::AppendInline( ::cTitle )
-      ::CloseTag( "a" )
+      IF HB_ISHASH( ::hComponents )
+         ::OpenTag( "nav", "class", "dropdown" )
 
-      ::OpenTag( "nav", "class", "dropdown-content" )
-#if 0
-      ::OpenTagInline( "a", "href", "index.html" )
-      ::AppendInline( "Index" )
-      ::CloseTag( "a" )
-      ::OpenTag( "hr" )
-#endif
-      FOR EACH tmp IN ::hComponents
-         ::OpenTagInline( "a", "href", tmp:__enumKey() + ".html" )
-         ::AppendInline( tmp[ "name" ] )
+         ::OpenTagInline( "a", "class", "dropbtn" )
+         ::AppendInline( ::cTitle )
          ::CloseTag( "a" )
-         /* This assumes that this item is first on the list */
-         IF tmp:__enumKey() == "harbour"
-            ::OpenTag( "hr" )
-         ENDIF
-      NEXT
+
+         ::OpenTag( "nav", "class", "dropdown-content" )
+#if 0
+         ::OpenTagInline( "a", "href", "index.html" )
+         ::AppendInline( "Index" )
+         ::CloseTag( "a" )
+         ::OpenTag( "hr" )
+#endif
+         FOR EACH tmp IN ::hComponents
+            ::OpenTagInline( "a", "href", tmp:__enumKey() + ".html" )
+            ::AppendInline( tmp[ "name" ] )
+            ::CloseTag( "a" )
+            /* This assumes that this item is first on the list */
+            IF tmp:__enumKey() == "harbour"
+               ::OpenTag( "hr" )
+            ENDIF
+         NEXT
+         ::CloseTag( "nav" )
+         ::CloseTag( "nav" )
+      ENDIF
+
+      ::OpenTag( "nav", "class", "dropdown lang" )
+      ::OpenTagInline( "span", "class", "dropbtn flag" )
+      ::OpenTag( "img", "src", flag_for_lang( ::cLang ), "width", "18" )
+      ::CloseTag( "span" )
+
+      IF Len( hbdoc_LangList() ) > 1
+         ::OpenTag( "nav", "class", "dropdown-content lang" )
+         FOR EACH tmp IN ASort( hb_HKeys( hbdoc_LangList() ) )
+
+            DO CASE
+            CASE ::cLang == tmp
+               tmp1 := ""
+            CASE ::cLang == "en"
+               tmp1 := StrTran( tmp, "_", "-" ) + "/"
+            OTHERWISE
+               tmp1 := ".." + "/"
+            ENDCASE
+
+            ::OpenTagInline( "a", "href", tmp1 + ;
+               iif( ::cLang == tmp .OR. tmp == "en", ;
+                  ::cFilename, ;
+                  "index" ) + ".html" )
+            ::OpenTagInline( "img", "src", flag_for_lang( tmp ), "width", "24" )
+            ::CloseTag( "a" )
+         NEXT
+         ::CloseTag( "nav" )
+      ENDIF
       ::CloseTag( "nav" )
 
-      ::CloseTag( "nav" )
       ::CloseTag( "nav" )
       ::CloseTag( "div" )
 
@@ -216,6 +249,21 @@ METHOD NewFile() CLASS GenerateHTML
    ::Spacer()
 
    RETURN Self
+
+STATIC FUNCTION flag_for_lang( cLang )
+
+   LOCAL cSrc := ""
+
+   SWITCH cLang
+   CASE "en"    ; cSrc := "flag-gb.svg" ; EXIT
+   CASE "pt_br" ; cSrc := "flag-br.svg" ; EXIT
+   ENDSWITCH
+
+   IF ! HB_ISNULL( cSrc )
+      cSrc := "data:image/svg+xml;base64," + hb_base64Encode( hb_MemoRead( hbdoc_RootDir() + hb_DirSepToOS( "docs/images/" + cSrc ) ) )
+   ENDIF
+
+   RETURN cSrc
 
 STATIC FUNCTION GitRev()
 
@@ -455,6 +503,50 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
       CASE lPreformatted  /* EXAMPLES, TESTS */
 
          ::OpenTag( "pre", "class", cTagClass )
+#if 1
+         /* logic to remove PROCEDURE Main()/RETURN enclosure
+            to fit more interesting information on the screen.
+            TODO: better do this in the doc sources. */
+
+         IF hb_LeftEqI( cContent, "PROCEDURE Main" ) .OR. ;
+            hb_LeftEqI( cContent, "PROC Main" )
+
+            tmp1 := ""
+            FOR EACH tmp IN hb_ATokens( cContent, .T. )
+               DO CASE
+               CASE tmp:__enumIndex() == 1
+                  /* do nothing */
+               CASE tmp:__enumIndex() == 2
+                  IF ! HB_ISNULL( tmp )
+                     IF ! Empty( Left( tmp, 3 ) )
+                        tmp1 := cContent
+                        EXIT
+                     ENDIF
+                     tmp1 += SubStr( tmp, 4 ) + Chr( 10 )
+                  ENDIF
+               CASE tmp:__enumIsLast()
+                  IF AllTrim( tmp ) == "RETURN"
+                     IF Right( tmp, Len( hb_eol() ) ) == hb_eol()
+                        tmp1 := hb_StrShrink( tmp1, Len( hb_eol() ) )
+                     ENDIF
+                  ELSE
+                     IF ! Empty( Left( tmp, 3 ) )
+                        tmp1 := cContent
+                        EXIT
+                     ENDIF
+                     tmp1 += SubStr( tmp, 4 )
+                  ENDIF
+               OTHERWISE
+                  IF ! Empty( Left( tmp, 3 ) )
+                     tmp1 := cContent
+                     EXIT
+                  ENDIF
+                  tmp1 += SubStr( tmp, 4 ) + Chr( 10 )
+               ENDCASE
+            NEXT
+            cContent := tmp1
+         ENDIF
+#endif
          ::Append( cContent,, .T. )
          ::CloseTag( "pre" )
 
@@ -748,11 +840,12 @@ METHOD AppendInline( cText, cFormat, lCode, cField ) CLASS GenerateHTML
                CASE ">"
                   IF lPR .AND. ;
                      ( "|" + hb_asciiUpper( SubStr( cText, tmp + 1, 2 ) ) + "|" $ "|F1|F2|F2|F3|F4|F5|F6|F7|F8|F9|UP|" .OR. ;
-                       "|" + hb_asciiUpper( SubStr( cText, tmp + 1, 3 ) ) + "|" $ "|F10|F11|F12|ESC|INS|DEL|ALT|END|" .OR. ;
+                       "|" +                SubStr( cText, tmp + 1, 2 )   + "|" $ "|BS|" .OR. ;
+                       "|" + hb_asciiUpper( SubStr( cText, tmp + 1, 3 ) ) + "|" $ "|F10|F11|F12|ESC|INS|DEL|ALT|END|TAB|" .OR. ;
                        "|" + hb_asciiUpper( SubStr( cText, tmp + 1, 4 ) ) + "|" $ "|CTRL|META|DOWN|LEFT|HOME|PGDN|PGUP|" .OR. ;
-                       "|" + hb_asciiUpper( SubStr( cText, tmp + 1, 5 ) ) + "|" $ "|SHIFT|RIGHT|ENTER|" .OR. ;
-                       "|" + hb_asciiUpper( SubStr( cText, tmp + 1, 6 ) ) + "|" $ "|RETURN|KEYPAD|" .OR. ;
-                       hb_LeftEqI( SubStr( cText, tmp + 1, 10 ), "cursorpad" ) .OR. ;
+                       "|" + hb_asciiUpper( SubStr( cText, tmp + 1, 5 ) ) + "|" $ "|SHIFT|RIGHT|ENTER|SPACE|" .OR. ;
+                       "|" + hb_asciiUpper( SubStr( cText, tmp + 1, 6 ) ) + "|" $ "|RETURN|KEYPAD|PRTSCR|" .OR. ;
+                       hb_LeftEqI( SubStr( cText, tmp + 1, 10 ), "CURSORPAD" ) .OR. ;
                        ( hb_asciiIsUpper( cNext ) .AND. SubStr( cText, tmp + 2, 1 ) == ">" ) )
                      cPR := "#"
                   ENDIF
@@ -844,14 +937,16 @@ METHOD RecreateStyleDocument( cStyleFile ) CLASS GenerateHTML
 
    #pragma __streaminclude "hbdoc.css" | LOCAL cString := %s
 
-   IF ! hb_vfDirExists( ::cDir )
-      hb_DirBuild( ::cDir )
-   ENDIF
+   IF ::cLang == "en"
+      IF ! hb_vfDirExists( ::cDir )
+         hb_DirBuild( ::cDir )
+      ENDIF
 
-   IF ! hb_MemoWrit( cStyleFile := hb_DirSepAdd( ::cDir ) + cStyleFile, cString )
-      OutErr( hb_StrFormat( "! Error: Cannot create file '%1$s'", cStyleFile ) + hb_eol() )
-   ELSEIF hbdoc_reproducible()
-      hb_vfTimeSet( cStyleFile, hb_Version( HB_VERSION_BUILD_TIMESTAMP_UTC ) )
+      IF ! hb_MemoWrit( cStyleFile := hb_DirSepAdd( ::cDir ) + cStyleFile, cString )
+         OutErr( hb_StrFormat( "! Error: Cannot create file '%1$s'", cStyleFile ) + hb_eol() )
+      ELSEIF hbdoc_reproducible()
+         hb_vfTimeSet( cStyleFile, hb_Version( HB_VERSION_BUILD_TIMESTAMP_UTC ) )
+      ENDIF
    ENDIF
 
    RETURN Self
@@ -908,13 +1003,18 @@ STATIC FUNCTION AutoLink( cFile, cComponent, cRevision, hNameID )
       NEXT
 
       nShift := 0
-      FOR EACH match IN en_hb_regexAll( R_( " ([A-Za-z0-9_]+\.[a-z]{1,3})([^A-Za-z0-9]|$)" ), cFile,,,,, .F. )
+      FOR EACH match IN en_hb_regexAll( R_( " ([A-Za-z0-9_/]+\.[a-z]{1,3})([^A-Za-z0-9]|$)" ), cFile,,,,, .F. )
          cName := match[ 2 ][ _MATCH_cStr ]
-         cTag := hb_FNameExt( cName )
-         IF hb_BLen( cTag ) >= 3 .OR. cTag == ".h"
-            IF cTag == ".ch"
+         cTag := "|" + hb_FNameExt( cName ) + "|"
+         IF hb_BLen( cTag ) >= 2 + 3 .OR. cTag $ "|.c|.h|"
+            IF cTag $ "|.ch|.h|.c|.txt|.prg|"
                IF cComponent == "harbour"
-                  cTag := "include/" + cName
+                  IF cTag $ "|.ch|.h|"
+                     cTag := "include/"
+                  ELSE
+                     cTag := ""
+                  ENDIF
+                  cTag += cName
                ELSE
                   cTag := "contrib/" + cComponent + "/" + cName
                ENDIF
@@ -937,9 +1037,10 @@ STATIC FUNCTION AutoLink( cFile, cComponent, cRevision, hNameID )
       NEXT
 
       nShift := 0
-      FOR EACH match IN en_hb_regexAll( R_( "( |^)([A-Z][A-Z0-9_]+)([^A-Z0-9_]|$)" ), cFile,,,,, .F. )
+      FOR EACH match IN en_hb_regexAll( R_( "( |^)([A-Z_][A-Z0-9_]+)([^A-Z0-9_]|$)" ), cFile,,,,, .F. )
          cName := match[ 3 ][ _MATCH_cStr ]
-         IF hb_BLen( cName ) > 3 .OR. "|" + cName + "|" $ "|ON|OFF|SET|USE|ZAP|SAY|RUN|NUL|NIL|ALL|TO|"
+         IF ( hb_BLen( cName ) > 3 .OR. "|" + cName + "|" $ "|ON|OFF|SET|USE|ZAP|SAY|RUN|NUL|NIL|ALL|TO|GET|" ) .AND. ;
+            !( "|" + cName + "|" $ "|ANSI|" )
             cTag := "<code>" + cName + "</code>"
             cFile := hb_BLeft( cFile, match[ 3 ][ _MATCH_nStart ] - 1 + nShift ) + cTag + hb_BSubStr( cFile, match[ 3 ][ _MATCH_nEnd ] + 1 + nShift )
             nShift += Len( cTag ) - Len( cName )

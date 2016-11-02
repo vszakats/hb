@@ -244,17 +244,17 @@
       <b>Known incompatibilities between Harbour and CA-Cl*pper compilers  </b> </par>
       =============================================================   </par>
 
-      NOTE:   </par>
+      Note:   </par>
 
       If you want a 100% compatible runtime libraries then you have
-      to define HB_CLP_STRICT, using 'HB_USER_CFLAGS=-DHB_CLP_STRICT',
+      to define HB_CLP_STRICT, using `HB_USER_CFLAGS=-DHB_CLP_STRICT`,
       then rebuild.
 
       <b>Passing an undeclared variable by the reference </b>  </par>
       ===============================================   </par>
 
       The CA-Cl*pper compiler uses the special opcode PUSHP to pass a
-      reference to an undeclared variable ( '@' operator ). The type of
+      reference to an undeclared variable ( `@` operator ). The type of
       passed variable is checked at runtime (field or memvar). However,
       field variables cannot be passed by reference. This means that
       CA-Cl*pper checks the memvar variable only and doesn't look for a field.
@@ -271,15 +271,15 @@
 
       For example, the following code:
 
-      a:b( COUNT() ):c += 1
+      `a:b( COUNT() ):c += 1`
 
       will be handled as:
 
-      a:b( COUNT() ):c := a:b( COUNT() ):c + 1
+      `a:b( COUNT() ):c := a:b( COUNT() ):c + 1`
 
       in strict CA-Cl*pper compatibility mode and
 
-      temp := a:b( COUNT() ), temp:c += 1
+      `temp := a:b( COUNT() ), temp:c += 1`
 
       in non-strict mode.
 
@@ -292,7 +292,7 @@
       2) it guarantees that the same instance variable of the same object
       will be changed
 
-      (See also: src/compiler/expropt.c)
+      (See also: include/hbexpra.c, include/hbexprb.c)
 
       <b>Initialization of static variables      </b></par>
       ==================================      </par>
@@ -313,18 +313,18 @@
       </fixed>
 
       The above code compiles fine in CA-Cl*pper, but it generates a
-      runtime error Error/BASE 1132 Bound error: array access
-      Called form (b)STATICS$(0)
+      runtime error `Error/BASE 1132 Bound error: array access
+      Called form (b)STATICS$(0)`
 
       In Harbour this code generates a compile time error:
-      Error E0009 Illegal variable (b) initializer: 'MyLocalVar'
+      `Error E0009 Illegal variable (b) initializer: 'MyLocalVar'`
 
       Both CA-Cl*pper and Harbour are handling all local variables used in a
       codeblock in a special way: they are detached from the local stack
       of function/procedure where they are declared. This allows access to
       these variables after the exit from a function/procedure. However,
       all static variables are initialized in a separate procedure
-      ('STATICS$' in CA-Cl*pper and '(_INITSTATICS)' in Harbour) before the
+      (`STATICS$` in CA-Cl*pper and `(_INITSTATICS)` in Harbour) before the
       main procedure and before all INIT procedures. The local variables
       don't exist on the eval stack when static variables are initialized,
       so they cannot be detached.

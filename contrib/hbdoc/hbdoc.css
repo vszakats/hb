@@ -30,11 +30,17 @@ header {
 header > div {
   font-size: 130%;
   margin: auto;
-  width: 693.71875px;  /* 94% */
+  width: 700px;
   padding: 0 15px;
 }
 
 header > div > div:first-child {
+  float: left;
+}
+
+header > div > div:first-child > a > svg {
+  fill: #f8f8f8;
+  height: 46.1px;
   float: left;
 }
 
@@ -97,7 +103,7 @@ main {
   border-spacing: 0;
   margin: auto;
   padding: 0;
-  width: 693.71875px;  /* 94% */
+  width: 700px;
   padding-top: 44px;
 }
 
@@ -254,6 +260,13 @@ aside code {
   padding: 0;
 }
 
+code code {
+  font-size: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none;
+}
+
 .d-it .d-key {
   display: inline-block;
   min-width: .7em;
@@ -403,6 +416,24 @@ p {
 
 /* drop-down menu magic --------------------------------------------------- */
 
+.menu {
+  display: table;
+}
+
+.menu > nav {
+  display: table-row;
+}
+
+.menu > nav > nav {
+  display: table-cell;
+}
+
+/* The container <nav> - needed to position the dropdown content */
+.dropdown {
+  display: inline-block !important;
+  position: relative;
+}
+
 /* Dropdown Button */
 .dropbtn {
   cursor: pointer;
@@ -444,6 +475,19 @@ p {
   transition: none;
 }
 
+.lang .dropbtn {
+  cursor: default;
+}
+
+.lang .dropdown-content {
+  min-width: 10px !important;
+}
+
+.lang .dropdown-content a {
+  margin: 0;
+  padding: 3px 4px 0px 4px;
+}
+
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {
   background-color: #fff;
@@ -464,7 +508,7 @@ p {
 
 @media only screen {
   aside {
-    width: calc(((100% - 694px) / 2) - 15px);
+    width: calc(((100% - 700px) / 2) - 15px);
   }
 }
 
@@ -486,13 +530,22 @@ p {
 
   .dropdown-content {
     position: absolute;
-    right: 4px;
+    right: -26px;
+  }
+
+  .lang .dropdown-content {
+    position: absolute;
+    right: -15px;
   }
 }
 
 @media screen and (max-width: 450px) {
   body {
     -font-size: 12pt;
+  }
+
+  header > div > div:first-child > a > svg {
+    display: none;
   }
 
   header {

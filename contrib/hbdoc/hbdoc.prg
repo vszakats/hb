@@ -75,6 +75,7 @@ STATIC s_hSwitches
 STATIC s_hHBX
 STATIC s_hTree := { => }  /* component / category / subcategory */
 STATIC s_hNameID := { => }
+STATIC s_hLang := { => }
 
 STATIC s_generators := { ;
    "all"   =>, ;
@@ -148,7 +149,7 @@ PROCEDURE Main()
          CASE hb_LeftEq( cArgName, "-v" ) ; s_hSwitches[ "verbosity" ] := Val( SubStr( cArgName, Len( "-v" ) + 1 ) )
          CASE cArgName == "-input" ; s_hSwitches[ "dir_in" ] := hb_DirSepAdd( hb_DirSepToOS( arg ) )
          CASE cArgName == "-output" ; s_hSwitches[ "dir_out" ] := hb_DirSepAdd( hb_DirSepToOS( arg ) )
-         CASE cArgName == "-lang" ; s_hSwitches[ "lang" ] := Lower( arg )
+         CASE cArgName == "-lang" ; s_hSwitches[ "lang" ] := Lower( StrTran( arg, "-", "_" ) )
          CASE cArgName == "-repr" ; s_hSwitches[ "repr" ] := .T.
          CASE cArgName == "-format"
             DO CASE
@@ -380,6 +381,9 @@ PROCEDURE Main()
 
    RETURN
 
+FUNCTION hbdoc_LangList()
+   RETURN s_hLang
+
 FUNCTION hbdoc_NameID()
    RETURN s_hNameID
 
@@ -476,6 +480,9 @@ STATIC FUNCTION ProcessDocDir( cDir, cComponent, aContent )
       nOldContentLen := Len( aContent )
 
       FOR EACH hEntry IN aEntry
+
+         s_hLang[ Lower( hEntry[ "_LANG" ] ) ] := NIL
+
          IF Lower( hEntry[ "_LANG" ] ) == s_hSwitches[ "lang" ]
             ProcessBlock( hEntry, aContent )
          ENDIF
@@ -497,6 +504,7 @@ STATIC FUNCTION NewLineVoodoo( cSectionIn )
    LOCAL lLastPreformatted := .F.
    LOCAL nLastIndent := -1
    LOCAL lLastTable := .F.
+   LOCAL nFixedIndent := 1
 
    LOCAL cLine
 
@@ -514,6 +522,11 @@ STATIC FUNCTION NewLineVoodoo( cSectionIn )
       ELSEIF hb_LeftEq( AllTrim( cLine ), "<table" ) .OR. AllTrim( cLine ) == "<fixed>" .OR. ( hb_LeftEq( AllTrim( cLine ), '```' ) .AND. ! lPreformatted )
          IF !( Right( cSection, Len( hb_eol() ) ) == hb_eol() ) .OR. lPreformatted
             cSection += hb_eol()
+         ENDIF
+         IF AllTrim( cLine ) == "<fixed>" .OR. hb_LeftEq( AllTrim( cLine ), '```' )
+            nFixedIndent := Len( cLine ) - Len( LTrim( cLine ) ) + 1
+         ELSE
+            nFixedIndent := 1
          ENDIF
          cSection += AllTrim( cLine )  // + hb_eol()
          lLastPreformatted := lPreformatted
@@ -535,7 +548,7 @@ STATIC FUNCTION NewLineVoodoo( cSectionIn )
          IF !( Right( cSection, Len( hb_eol() ) ) == hb_eol() )
             cSection += hb_eol()
          ENDIF
-         cSection += iif( lPreformatted, cLine, AllTrim( cLine ) )
+         cSection += iif( lPreformatted, SubStr( cLine, nFixedIndent ), AllTrim( cLine ) )
       ELSE
          cSection += " " + AllTrim( cLine )
       ENDIF
@@ -1128,6 +1141,7 @@ STATIC PROCEDURE init_Templates()
 
    hb_HCaseMatch( hSubCategories, .F. )
 
+   hb_HCaseMatch( s_hLang, .F. )
    hb_HCaseMatch( s_hNameID, .F. )
    hb_HCaseMatch( sc_hConstraint, .F. )
 

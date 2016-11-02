@@ -126,16 +126,16 @@
       Usuário mudou a seleção (não é executado quando a mudança é feita pelo
       programa) Quando o foco vai para o combobox Quando o foco sai do combobox
 
-      Esse bloco de código será avaliado com os seguintes parâmetros: nWinNum nCBId
-      nType nIndex nListLines Número de itens que serão apresentados no combobox (o
+      Esse bloco de código será avaliado com os seguintes parâmetros: <nWinNum> <nCBId>
+      <nType> <nIndex> <nListLines> Número de itens que serão apresentados no combobox (o
       default é 3). O número será automaticamente ajustado se esse parâmetro for
       maior que a matriz aText. nReserved Reservado para uso futuro (esse parâmetro
-      atualmente é ignorado). nKbdType Especifica o comportamento do combobox. Pode
+      atualmente é ignorado). <nKbdType> Especifica o comportamento do combobox. Pode
       ser um dos seguintes valores: 0: 1: Similar as convenções dos programas para
-      o windows (isto é, ENTER/ESC faz com que o combobox perca o foco) Similar ao
-      Cl*pper (ENTER mostra os itens do combobox, UP/DOWN/TAB/SHIFTTAB/ESC faz o
-      combobox perder o foco) Número da janela atual Identificador do combobox Tipo
-      do evento (apenas os três informados acima são suportados) Índice do item
+      o windows (isto é, <ENTER>/<ESC> faz com que o combobox perca o foco) Similar ao
+      Cl*pper (<ENTER> mostra os itens do combobox, <UP>/<DOWN>/<TAB>/<SHIFT+TAB>/<ESC>
+      faz o combobox perder o foco) Número da janela atual Identificador do combobox
+      Tipo do evento (apenas os três informados acima são suportados) Índice do item
       selecionado (comecando em 0)
 
       O default é 0. aOffset Matriz com quatro elementos com coordenadas dos cantos

@@ -295,7 +295,7 @@
    $SUBCATEGORY$
       Array
    $ONELINER$
-      Delete an element form an array.
+      Delete an element from an array.
    $SYNTAX$
       ADel( <aArray>, <nPos> ) --> aArray
    $ARGUMENTS$
@@ -573,7 +573,7 @@
       (if defined) or up to the last element of the array.
 
       The <bBlock> code block receives two parameters: the element value and
-      element's index (position) into the array. i.e. {| xValue, nIndex | ... }
+      element's index (position) into the array. i.e. `{| xValue, nIndex | ... }`
       Worth to note that elements are passed to code block 'by value',
       thus any change being made to this value doesn't  affects the value of
       element in the array.
@@ -729,7 +729,7 @@
                is all elements.
 
       <bSort> Code block for sorting order, default is ascending order
-      {| x, y | x < y }. The code block should accept two parameters and
+      `{| x, y | x < y }`. The code block should accept two parameters and
       must return .T. if the sort is in order, .F. if not.
    $RETURNS$
       <aArray> reference to the now sorted <aArray> or NIL if the

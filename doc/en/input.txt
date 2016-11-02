@@ -85,8 +85,8 @@
       Inkey() can be used to detect input events, such as keypress, mouse
       movement, or mouse key clicks (up and/or down).
    $EXAMPLES$
-      // Wait for the user to press the Esc key
-      ? "Please press the ESC key."
+      // Wait for the user to press the <Esc> key
+      ? "Please press the <Esc> key."
       DO WHILE Inkey( 0.1 ) != K_ESC
       ENDDO
       //
@@ -214,7 +214,7 @@
       without extracting it.
    $EXAMPLES$
       // Use NextKey() with Inkey() to change display characters, or by
-      // itself to exit the loop, so that the caller can detect the Esc.
+      // itself to exit the loop, so that the caller can detect the <Esc>.
       LOCAL nKey, cChar := "+"
       DO WHILE .T.
          ?? cChar
@@ -265,7 +265,7 @@
       Returns the value of the last key exttracted from the Harbour
       keyboard buffer
    $EXAMPLES$
-      // Continue looping unless the ESC key was pressed in MainFunc()
+      // Continue looping unless the <Esc> key was pressed in MainFunc()
       DO WHILE .T.
          MainFunc()
          IF LastKey() == K_ESC

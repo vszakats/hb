@@ -51,7 +51,7 @@ $color-donate-normal: $fork-color;
 $header-border: 0;  /* 3px */
 $header-height: 119px;
 $content-width: 738px;
-$content-fill: 94%;
+$content-fill: 700px;
 
 .banner {
   position: absolute;
@@ -77,7 +77,7 @@ main {
   margin: auto;
   margin-top: 15px;
   padding: 0;
-  width: (($content-width / 100%) * $content-fill);
+  width: $content-fill;
 }
 
 body {
@@ -460,7 +460,7 @@ footer a:active {
 
 .footer-content {
   margin: auto;
-  width: (($content-width / 100%) * $content-fill);
+  width: $content-fill;
 }
 
 .footer-content div {
@@ -922,7 +922,7 @@ pre, code {
 /* The container <nav> - needed to position the dropdown content */
 .dropdown {
   display: inline-block !important;
-  padding: 8px 15px 6px 15px;
+  padding: 8px 15.6px 6px 15.6px;
   position: relative;
 }
 

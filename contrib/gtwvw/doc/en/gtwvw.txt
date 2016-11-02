@@ -122,23 +122,23 @@
       selection (not executed when made by program itself) When focus go to
       combobox When focus lost from combobox
 
-      This code block will be evaluated with the following arguments: nWinNum nCBId
-      nType nIndex Actual windows number Combobox ID Event type (only the three
+      This code block will be evaluated with the following arguments: <nWinNum> <nCBId>
+      <nType> <nIndex> Actual windows number Combobox ID Event type (only the three
       types above are supported) Index on selected item (start from 0)
 
       <nListLines> Number of lines to list items (default is 3). will be
       automatically truncated if this parameter is greater than Len(aText).
       <nReserved> Reserved for future use. <nKbdType> Specifies the behavior of
       combobox. Can be one of the following values: 0: 1: Similar to standard
-      windows convention (i.e., ENTER/ESC will kill focus from combobox) Similar to
-      CA-Cl*pper (i.e., ENTER shows all combobox's items, UP/DOWN/TAB/SHIFTAB/ESC
-      will kill focus from combobox)
+      windows convention (i.e., <ENTER>/<ESC> will kill focus from combobox) Similar
+      to CA-Cl*pper (i.e., <ENTER> shows all combobox's items,
+      <UP>/<DOWN>/<TAB>/<SHIFT+TAB>/<ESC> will kill focus from combobox)
 
       Default is 0.
 
       <aOffset> Array with four elements containing offsets to corner pixels
-      {x1,y1,x2,y2}, to adjust dimension of combobox. Default is {-2,-2,+2,+2}. The
-      third element (y2) is actually ignored. Height of combobox is always 1 char
+      `{ x1, y1, x2, y2 }`, to adjust dimension of combobox. Default is `{ -2, -2, +2, +2 }`.
+      The third element (y2) is actually ignored. Height of combobox is always 1 char
       height.
    $DESCRIPTION$
       Create a combobox in current window.
