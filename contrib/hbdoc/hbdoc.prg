@@ -96,7 +96,7 @@ PROCEDURE Main()
    LOCAL cCat1, cCat1Prev
    LOCAL cCat2, cCat2Prev
    LOCAL aComponent, hComponents
-   LOCAL cID, cName
+   LOCAL cID, cName, cNameShort
    LOCAL nStart
    LOCAL cDir
 
@@ -215,8 +215,11 @@ PROCEDURE Main()
          hComponents := { => }
          hb_HKeepOrder( hComponents, .T. )
          FOR EACH tmp IN aComponent
-            Get_ID_Name( tmp, @cID, @cName )
-            hComponents[ tmp ] := { "id" => cID, "name" => cName }
+            Get_ID_Name( tmp, @cID, @cName, @cNameShort )
+            hComponents[ tmp ] := { ;
+               "id" => cID, ;
+               "name" => cName, ;
+               "nameshort" => cNameShort }
          NEXT
 
          SWITCH s_hSwitches[ "output" ]
@@ -230,8 +233,8 @@ PROCEDURE Main()
 #if 1
                oIndex:BeginIndex()
                FOR EACH tmp IN aComponent
-                  Get_ID_Name( tmp, @cID, @cName )
-                  oIndex:AddIndexItem( cName, cID )
+                  Get_ID_Name( tmp, @cID,, @cName )
+                  oIndex:AddIndexItem( hb_StrFormat( "%1$s index", cName ), cID )
                NEXT
                oIndex:EndIndex()
 #else
@@ -399,14 +402,16 @@ FUNCTION hbdoc_reproducible()
 FUNCTION hbdoc_dir_in()
    RETURN s_hSwitches[ "dir_in" ]
 
-STATIC PROCEDURE Get_ID_Name( cComponent, /* @ */ cID, /* @ */ cName )
+STATIC PROCEDURE Get_ID_Name( cComponent, /* @ */ cID, /* @ */ cName, /* @ */ cNameShort )
 
    IF cComponent == "harbour"
       cID := "core"
       cName := "Harbour core"
+      cNameShort := cName
    ELSE
       cID := cComponent
       cName := hb_StrFormat( "%1$s contrib", cComponent )
+      cNameShort := cComponent
    ENDIF
 
    RETURN
@@ -663,7 +668,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, aContent )
          ENDCASE
 
          IF lAccepted
-            hE[ cSectionName ] := ExpandAbbrevs( cSectionName, cSection )
+            hE[ cSectionName ] := ExpandAbbrevs( cFile, cSectionName, cSection )
          ENDIF
       ELSE
          AddErrorCondition( cFile, "Using template '" + hEntry[ "TEMPLATE" ] + "' encountered an unexpected section '" + cSectionName + "'", .T. )
@@ -729,33 +734,35 @@ STATIC PROCEDURE ProcessBlock( hEntry, aContent )
 
    RETURN
 
-STATIC FUNCTION ExpandAbbrevs( cSectionName, cCode )
+STATIC FUNCTION ExpandAbbrevs( cFile, cSectionName, cCode )
 
    LOCAL cResult
+   LOCAL tmp
 
    SWITCH cSectionName
    CASE "STATUS"
-      IF "," $ cCode .AND. Parse( cCode, "," ) $ sc_hConstraint[ "status" ]
-         cResult := ""
-         DO WHILE ! HB_ISNULL( cCode )
-            cResult += hb_eol() + ExpandAbbrevs( cSectionName, Parse( @cCode, "," ) )
-         ENDDO
-         RETURN SubStr( cResult, Len( hb_eol() ) + 1 )
+      cResult := ""
+      FOR EACH tmp IN ASort( hb_ATokens( cCode, "," ) )
+         IF ! HB_ISNULL( tmp := AllTrim( tmp ) )
+            IF ! HB_ISNULL( cResult )
+               cResult += hb_eol()
+            ENDIF
+            IF tmp $ sc_hConstraint[ "status" ]
+               tmp := sc_hConstraint[ "status" ][ tmp ]
+            ELSEIF Len( tmp ) == 1
+               AddErrorCondition( cFile, "Unrecognized 'STATUS' code: '" + tmp + "'" )
+            ENDIF
+            cResult += tmp
+         ENDIF
+      NEXT
+      IF HB_ISNULL( cResult )
+         cResult := sc_hConstraint[ "status" ][ "N" ]
       ENDIF
-
-      IF cCode $ sc_hConstraint[ "status" ]
-         RETURN sc_hConstraint[ "status" ][ cCode ]
-      ELSEIF Len( cCode ) > 1
-         RETURN cCode
-      ELSEIF ! HB_ISNULL( cCode )
-         RETURN "Unrecognized 'STATUS' code: '" + cCode + "'"
-      ELSE
-         RETURN sc_hConstraint[ "status" ][ "N" ]
-      ENDIF
+      RETURN cResult
 
    CASE "PLATFORMS"
       cResult := ""
-      FOR EACH cCode IN hb_ATokens( cCode, "," )
+      FOR EACH cCode IN ASort( hb_ATokens( cCode, "," ) )
          IF ! HB_ISNULL( cCode := AllTrim( cCode ) )
             cResult += hb_eol() + hb_HGetDef( sc_hConstraint[ "platforms" ], cCode, cCode )
          ENDIF
@@ -763,11 +770,13 @@ STATIC FUNCTION ExpandAbbrevs( cSectionName, cCode )
       RETURN SubStr( cResult, Len( hb_eol() ) + 1 )
 
    CASE "COMPLIANCE"
-      IF "," $ cCode .AND. Parse( cCode, "," ) $ sc_hConstraint[ "compliance" ]
+      IF "," $ cCode .AND. Parse( cCode, "," ) $ sc_hConstraint[ "compliance" ]  /* Detect if not free text */
          cResult := ""
-         DO WHILE ! HB_ISNULL( cCode )
-            cResult += hb_eol() + ExpandAbbrevs( cSectionName, Parse( @cCode, "," ) )
-         ENDDO
+         FOR EACH tmp IN ASort( hb_ATokens( cCode, "," ) )
+            IF ! HB_ISNULL( tmp := AllTrim( tmp ) )
+               cResult += hb_eol() + hb_HGetDef( sc_hConstraint[ "compliance" ], tmp, tmp )
+            ENDIF
+         NEXT
          RETURN SubStr( cResult, Len( hb_eol() ) + 1 )
       ENDIF
 
@@ -1283,7 +1292,7 @@ STATIC PROCEDURE ShowComplianceHelp()
 
    FOR EACH item IN sc_hConstraint[ "compliance" ]
       ShowSubHelp( item:__enumKey(), 1, 0, item:__enumIndex() )
-      ShowSubHelp( ExpandAbbrevs( "COMPLIANCE", item:__enumKey() ), 1, 6, item:__enumIndex() )
+      ShowSubHelp( ExpandAbbrevs( "", "COMPLIANCE", item:__enumKey() ), 1, 6, item:__enumIndex() )
       ShowSubHelp( "", 1, 0 )
    NEXT
 
@@ -1295,7 +1304,7 @@ STATIC PROCEDURE ShowPlatformsHelp()
 
    FOR EACH item IN sc_hConstraint[ "platforms" ]
       ShowSubHelp( item:__enumKey(), 1, 0, item:__enumIndex() )
-      ShowSubHelp( ExpandAbbrevs( "PLATFORMS", item:__enumKey() ), 1, 6, item:__enumIndex() )
+      ShowSubHelp( ExpandAbbrevs( "", "PLATFORMS", item:__enumKey() ), 1, 6, item:__enumIndex() )
       ShowSubHelp( "", 1, 0 )
    NEXT
 

@@ -54,7 +54,7 @@
 
       If there is an error in opening a file, a F_ERROR will be returned by
       the function. Files handles may be in the range of 0 to 65535. The
-      status of the SET DEFAULT TO and SET PATH TO commands has no effect
+      status of the `SET DEFAULT TO` and `SET PATH TO` commands has no effect
       on this function. Directory names and paths must be specified along
       with the file that is to be opened.
 
@@ -377,7 +377,7 @@
    $DESCRIPTION$
       This function deletes the file specified in <cFile> from the disk.
       No extensions are assumed. The drive and path my be included in
-      <cFile>; neither the SET DEFAULT not the SET PATH command controls
+      <cFile>; neither the `SET DEFAULT` not the `SET PATH` command controls
       the performance of this function. If the drive or path is not used,
       the function will look for the file only on the currently selected
       directory on the logged drive.
@@ -435,11 +435,11 @@
       or (if none is used) the current drive and directory, the function
       will not execute successfully.
 
-      Neither parameter is subject to the control of the SET PATH TO or
-      SET DEFAULT TO commands. In attempting to locate the file to be
+      Neither parameter is subject to the control of the `SET PATH TO` or
+      `SET DEFAULT TO` commands. In attempting to locate the file to be
       renamed, this function will search the default drive and directory
       or the drive and path specified in <cOldFile>. It will not search
-      directories named by the SET PATH TO and SET DEFAULT TO commands
+      directories named by the `SET PATH TO` and `SET DEFAULT TO` commands
       or by the PATH environment variable.
 
       If the file specified in <cNewFile> exists or the file is open,
@@ -569,11 +569,11 @@
 
       Filename skeletons symbols may be used in the filename in <cFileSpec>,
       as may the drive and/or path name. If a path is not explicitly
-      specified, File() will look for the file in the SET DEFAULT path,
-      then in each SET PATH path, until the file is found or there are
+      specified, File() will look for the file in the `SET DEFAULT` path,
+      then in each `SET PATH path`, until the file is found or there are
       no more paths to search. The PATH environment variable is never
       searched and the current drive/directory is only searched if
-      SET DEFAULT is blank.
+      `SET DEFAULT` is blank.
    $EXAMPLES$
       ? File( "C:\hb\doc\pp.txt" )
       ? File( "*.txt" )
@@ -658,7 +658,7 @@
    $DESCRIPTION$
       This command changes the name of <cOldFile> to <cNewFile>. Both
       <cOldFile> and <cNewFile> must include a file extension. This command
-      if not affected by the SET PATH TO or SET DEFAULT TO commands;drive
+      if not affected by the `SET PATH TO` or `SET DEFAULT TO` commands; drive
       and directory designates must be specified if either file is in a
       directory other then the default drive and directory.
 
@@ -693,9 +693,9 @@
    $ARGUMENTS$
       <xcFile> Name of file to remove
    $DESCRIPTION$
-      This command removes a file from the disk. The use of a drive, directo-
-      ry, and wild-card skeleton operator is allowed for the root of the
-      filename. The file extension is required. The SET DEFAULT and SET PATH
+      This command removes a file from the disk. The use of a drive, directory,
+      and wild-card skeleton operator is allowed for the root of the
+      filename. The file extension is required. The `SET DEFAULT` and `SET PATH`
       commands do not affect this command.
 
       The file must be considered closed by the operating system before it
@@ -727,9 +727,9 @@
    $ARGUMENTS$
       <xcFile> Name of file to remove
    $DESCRIPTION$
-      This command removes a file from the disk. The use of a drive, directo-
-      ry, and wild-card skeleton operator is allowed for the root of the
-      filename. The file extension is required. The SET DEFAULT and SET PATH
+      This command removes a file from the disk. The use of a drive, directory,
+      and wild-card skeleton operator is allowed for the root of the
+      filename. The file extension is required. The `SET DEFAULT` and `SET PATH`
       commands do not affect this command.
 
       The file must be considered closed by the operating system before it
@@ -773,11 +773,11 @@
       file is displayed as is without any headings or formatting.
 
       If <cFile> contain no path, __TypeFile() try to find the file first
-      in the SET DEFAULT directory and then in search all of the SET PATH
+      in the `SET DEFAULT` directory and then in search all of the `SET PATH`
       directories. If <cFile> cannot be found a run-time error occur.
 
-      Use SET CONSOLE OFF to suppress screen output.
-      You can pause the output using Ctrl-S, press any key to resume.
+      Use `SET CONSOLE OFF` to suppress screen output.
+      You can pause the output using <Ctrl-S>, press any key to resume.
 
       __TypeFile() function is used in the preprocessing of the TYPE
       command.
@@ -825,11 +825,11 @@
       It can be specified as literal file name or as a character
       expression enclosed in parentheses.
 
-      TO PRINTER is an optional keyword that specifies that the output
+      `TO PRINTER` is an optional keyword that specifies that the output
       should go to both the screen and printer.
 
-      TO FILE <xcDestFile> copy the source <xcFile> also to a file. If no
-      extension is given (.txt) is added to the output file name.
+      `TO FILE` <xcDestFile> copy the source <xcFile> also to a file. If no
+      extension is given `.txt` is added to the output file name.
       <xcDestFile> can be specified as literal file name or as a character
       expression enclosed in parentheses.
    $DESCRIPTION$
@@ -839,14 +839,14 @@
       or formatting.
 
       If <xcFile> contain no path, TYPE try to find the file first in the
-      SET DEFAULT directory and then in search all of the SET PATH
+      `SET DEFAULT` directory and then in search all of the `SET PATH`
       directories. If <xcFile> cannot be found a run-time error occur.
 
-      If <xcDestFile> contain no path it is created in the SET DEFAULT
+      If <xcDestFile> contain no path it is created in the `SET DEFAULT`
       directory.
 
-      Use SET CONSOLE OFF to suppress screen output.
-      You can pause the output using Ctrl-S, press any key to resume.
+      Use `SET CONSOLE OFF` to suppress screen output.
+      You can pause the output using <Ctrl-S>, press any key to resume.
    $EXAMPLES$
       The following examples assume a file name mytext.dat exist in all
       specified paths, a run-time error would displayed if it does not
@@ -937,8 +937,8 @@
       Both files must have the file extension included; the drive and the
       directory names must also be specified if they are different from
       the default drive and/or director. <cFile1> also can refer to a OS
-      device (e.g. LPT1). This command does not observe the SET PATH TO or
-      SET DEFAULT TO settings.
+      device (e.g. `LPT1`). This command does not observe the `SET PATH TO` or
+      `SET DEFAULT TO` settings.
    $EXAMPLES$
       COPY FILE /path/to/adir.prg TO /tmp/adir.prg
       COPY FILE adir.prg TO LPT1

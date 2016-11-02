@@ -126,7 +126,7 @@
       is placed one column to the right of the last text displayed, and
       Row() and Col() are updated.
 
-      @...PROMPT command is preprocessed into __AtPrompt() function during
+      `@...PROMPT` command is preprocessed into __AtPrompt() function during
       compile time.
    $EXAMPLES$
       // display a two line menu with status line at the bottom
@@ -181,15 +181,15 @@
       is evaluated to a character string. If <xMsg> is not specified or
       of the wrong type, an empty string ("") would be used.
    $DESCRIPTION$
-      With @...PROMPT you define and display a menu item, each call to
-      @...PROMPT add another item to the menu, to start the menu itself
+      With `@...PROMPT` you define and display a menu item, each call to
+      `@...PROMPT` add another item to the menu, to start the menu itself
       you should call the __MenuTo() function (`MENU TO` command). You can
       define any row and column combination and they will be displayed at
-      the order of definition. After each call to @...PROMPT, the cursor
+      the order of definition. After each call to `@...PROMPT`, the cursor
       is placed one column to the right of the last text displayed, and
       Row() and Col() are updated.
 
-      @...PROMPT command is preprocessed into __AtPrompt() function during
+      `@...PROMPT` command is preprocessed into __AtPrompt() function during
       compile time.
    $EXAMPLES$
       // display a two line menu with status line at the bottom
@@ -225,7 +225,7 @@
    $SUBCATEGORY$
       User interface
    $ONELINER$
-      Invoked a menu defined by set of @...PROMPT
+      Invoked a menu defined by set of `@...PROMPT`
    $SYNTAX$
       __MenuTo( <bBlock>, <cVariable> ) --> nChoice
    $ARGUMENTS$
@@ -316,7 +316,7 @@
    $SUBCATEGORY$
       User interface
    $ONELINER$
-      Invoked a menu defined by set of @...PROMPT
+      Invoked a menu defined by set of `@...PROMPT`
    $SYNTAX$
       MENU TO <cVariable>
    $ARGUMENTS$

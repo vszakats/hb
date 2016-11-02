@@ -1,0 +1,13 @@
+-shared
+-hbexe
+
+{GESAT_DEBUG}-debug
+
+-mt
+
+-w3 -es2
+
+# Link con con import library  per dll
+
+-env:_HB_DYNSUFF=_dll
+hbhashids.hbc

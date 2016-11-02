@@ -4,7 +4,7 @@ repo_slug: vszakats/harbour-core
 site_slug: vszakats/harbour-core
 site_branch_and_root: master/docs/
 dl_url: https://github.com/vszakats/harbour-core/releases
-badge_version: "Fork 3.4"
+badge_version: "3.4 Fork"
 license_file: LICENSE.txt
 baseurl: /harbour-core
 

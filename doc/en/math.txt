@@ -74,7 +74,7 @@
       <nValue>  The anti-logarithm of <nNumber>
    $DESCRIPTION$
       This function returns the value of e raised to the power of
-      <nNumber>.  It is the inverse of Log().
+      <nNumber>. It is the inverse of Log().
    $EXAMPLES$
       ? Exp( 45 )
    $STATUS$
@@ -386,22 +386,23 @@
       phb_exc     pointer to HB_MATH_EXCEPTION structure, if not NULL,
                   the structure will be filled with information about the
                   last math error:
-
-           typedef struct _HB_MATH_EXCEPTION {
-             int type;        // Math error type, is one of the constants
-                              // HB_MATH_ERR_xxx defined in hbmath.ch
-             char *funcname;  // Pointer to name of the math C RTL routine
-                              // that caused the error.
-             char *error;     // Pointer to error description.
-             double arg1;     // First and
-             double arg2;     // Second double argument to the math routine.
-             double retval;   // Corrected return value for the math routine.
-             int retvalwidth; // Width and
-             int retvaldec;   // Decimals of the corrected return value,
-                              // both default to -1
-             int handled;     // 1, if the math error is already corrected,
-                              // 0 otherwise.
-          } HB_MATH_EXCEPTION;
+      ```c
+      typedef struct _HB_MATH_EXCEPTION {
+        int type;        // Math error type, is one of the constants
+                         // HB_MATH_ERR_xxx defined in hbmath.ch
+        char *funcname;  // Pointer to name of the math C RTL routine
+                         // that caused the error.
+        char *error;     // Pointer to error description.
+        double arg1;     // First and
+        double arg2;     // Second double argument to the math routine.
+        double retval;   // Corrected return value for the math routine.
+        int retvalwidth; // Width and
+        int retvaldec;   // Decimals of the corrected return value,
+                         // both default to -1
+        int handled;     // 1, if the math error is already corrected,
+                         // 0 otherwise.
+      } HB_MATH_EXCEPTION;
+      ```
    $RETURNS$
       <iMathErrorType>
    $DESCRIPTION$
@@ -595,11 +596,13 @@
    $ARGUMENTS$
       imode        math error handling mode, one of the following
                    constants, defined in hbmath.ch:
-                     HB_MATH_ERRMODE_DEFAULT
-                     HB_MATH_ERRMODE_CDEFAULT
-                     HB_MATH_ERRMODE_USER
-                     HB_MATH_ERRMODE_USERDEFAULT
-                     HB_MATH_ERRMODE_USERCDEFAULT
+      <table-noheader>
+      HB_MATH_ERRMODE_DEFAULT
+      HB_MATH_ERRMODE_CDEFAULT
+      HB_MATH_ERRMODE_USER
+      HB_MATH_ERRMODE_USERDEFAULT
+      HB_MATH_ERRMODE_USERCDEFAULT
+      </table>
    $RETURNS$
       ioldmode     old math error handling mode
    $DESCRIPTION$
@@ -674,11 +677,13 @@
    $ARGUMENTS$
       [<nNumber>]   new math error handling mode, one of the following
                     constants, defined in hbmath.ch:
-                     HB_MATH_ERRMODE_DEFAULT
-                     HB_MATH_ERRMODE_CDEFAULT
-                     HB_MATH_ERRMODE_USER
-                     HB_MATH_ERRMODE_USERDEFAULT
-                     HB_MATH_ERRMODE_USERCDEFAULT
+      <table-noheader>
+      HB_MATH_ERRMODE_DEFAULT
+      HB_MATH_ERRMODE_CDEFAULT
+      HB_MATH_ERRMODE_USER
+      HB_MATH_ERRMODE_USERDEFAULT
+      HB_MATH_ERRMODE_USERCDEFAULT
+      </table>
    $RETURNS$
       <nOldMode>    old math error handling mode
    $DESCRIPTION$

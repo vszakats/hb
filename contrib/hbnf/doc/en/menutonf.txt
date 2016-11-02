@@ -42,12 +42,12 @@
 
       <nMsgRow> is optional and is the row at which the message, if any,
       will appear.  If not specified, the default is the current setting
-      of the SET MESSAGE TO command.
+      of the `SET MESSAGE TO` command.
 
       <nMsgCol> is optional and is the column at which the message, if
       any, will appear.  If not specified, the default is either zero or
       centered, depending on the current setting of the CENTER option of
-      the SET MESSAGE TO command.
+      the `SET MESSAGE TO` command.
 
       <cMsgColor> is optional and is the color attribute of the message.
       If not specified, the default is the same as the prompt color.
@@ -79,22 +79,22 @@
       <nDown> is optional and specifies which prompt becomes
       active when the down arrow key is pressed.  If not
       specified, the default is the next prompt.  The current
-      setting of SET WRAP TO is obeyed.
+      setting of `SET WRAP TO` is obeyed.
 
       <nRight> is optional and specifies which prompt becomes
       active when the right arrow key is pressed.  If not
       specified, the default is the next prompt.  The current
-      setting of SET WRAP TO is obeyed.
+      setting of `SET WRAP TO` is obeyed.
 
       <nLeft> is optional and specifies which prompt becomes
       active when the left arrow is pressed.  If not specified,
       the default is the previous prompt.  The current setting of
-      SET WRAP TO is obeyed.
+      `SET WRAP TO` is obeyed.
 
       <bExec> is optional and is a code block to evaluate whenever
       the menu item to which it belongs is selected.
    $DESCRIPTION$
-      Clipper's @...PROMPT and MENU TO commands are fine as far as
+      Clipper's `@...PROMPT` and `MENU TO` commands are fine as far as
       they go.  But many times you need more flexibility.  As
       you'll no doubt notice if you read the argument list, this
       function is almost completely flexible. You can adjust
@@ -108,10 +108,10 @@
       Note that this command can also be called using function-style
       syntax.  See the entry for ft_Prompt() for further details.
 
-      This enhanced version of @...PROMPT requires the inclusion of
+      This enhanced version of `@...PROMPT` requires the inclusion of
       the header file ftmenuto.ch in any source file that uses it.
-      It is may be used in place of the standard Clipper @...PROMPT
-      command.  However, in the interests of functionality it is NOT
+      It is may be used in place of the standard Clipper `@...PROMPT`
+      command.  However, in the interests of functionality it is *not*
       100% compatible.  No whining!  If compatibility is such a big
       deal then use the standard Clipper commands.
 
@@ -150,7 +150,7 @@
    $CATEGORY$
       Menus/Prompts
    $ONELINER$
-      Execute light bar menu using prompts created with @...PROMPT
+      Execute light bar menu using prompts created with `@...PROMPT`
    $SYNTAX$
       #include "ftmenuto.ch"
 
@@ -165,7 +165,7 @@
    $DESCRIPTION$
       This enhanced version of MENU TO requires the inclusion of the header
       file ftmenuto.ch in any source file that uses it.  It may be used in
-      place of the standard Clipper MENU TO command.  However, in the
+      place of the standard Clipper `MENU TO` command.  However, in the
       interests of functionality it is NOT 100% compatible (in particular,
       you should make sure that the target memvar exists before executing
       the menu -- the Clipper version will create a PRIVATE memvar for you

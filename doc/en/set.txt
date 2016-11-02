@@ -113,7 +113,7 @@
                    When enabled, which is the default, pressing <Alt+C> or
                    <Ctrl+Break> terminates the program. When disabled, both
                    keystrokes can be read by Inkey(). Note: `SET KEY` has
-                   precedence over SET CANCEL.
+                   precedence over `SET CANCEL`.
 
               _SET_COLOR       <cColorSet>
 
@@ -467,7 +467,7 @@
         31 .. 40      Alt+F1 .. Alt+F10
       </table>
 
-      SET FUNCTION command is preprocessed into __SetFunction() function
+      `SET FUNCTION` command is preprocessed into __SetFunction() function
       during compile time.
    $EXAMPLES$
       // Set F1 with a string
@@ -526,7 +526,7 @@
         31 .. 40      Alt-F1 .. Alt-F10
       </table>
 
-      SET FUNCTION command is preprocessed into __SetFunction() function
+      `SET FUNCTION` command is preprocessed into __SetFunction() function
       during compile time.
    $EXAMPLES$
       // Set F1 with a string
@@ -895,7 +895,7 @@
    $ARGUMENTS$
       <lWrap> Logical expression for toggle
    $DESCRIPTION$
-      This command toggles the highlighted bars in a @...PROMPT command
+      This command toggles the highlighted bars in a `@...PROMPT` command
       to wrap around in a bottom-to-top and top-to-bottom manner. If the
       value of the logical expression <lWrap> is a logical false (.F.),
       the wrapping mode is set OFF; otherwise, it is set ON.
@@ -920,20 +920,20 @@
    $SUBCATEGORY$
       Environment
    $ONELINER$
-      Establishes a message row for @...PROMPT command
+      Establishes a message row for `@...PROMPT` command
    $SYNTAX$
       SET MESSAGE TO [<nRow> [CENTER]]
    $ARGUMENTS$
       <nRow> Row number to display the message
    $DESCRIPTION$
-      This command is designed to work in conjunction with the MENU TO and
-      @...PROMPT commands. With this command, a row number between 0 and
+      This command is designed to work in conjunction with the `MENU TO` and
+      `@...PROMPT` commands. With this command, a row number between 0 and
       MaxRow() may be specified in <nRow>. This establishes the row on
-      witch any message associated with an @...PROMPT command will appear.
+      witch any message associated with an `@...PROMPT` command will appear.
 
       If the value of <nRow> is 0, all messages will be suppressed.
       All messaged will be left-justifies unless the CENTER clause is
-      used. In this case, the individual messages in each @...PROMPT command
+      used. In this case, the individual messages in each `@...PROMPT` command
       will be centered at the designated row (unless <nRow> is 0). All
       messages are independent; therefore, the screen area is cleared out
       by the centered message will vary based on the length of each
@@ -973,8 +973,8 @@
       commands and functions not found in the current drive and directory.
       This pertains primarily, but not exclusively, to databases, indexes,
       and memo files, as well as to memory, labels and reports files. The
-      search hierarchy is: 1 Current drive and directory, 2 The SET DEFAULT
-      path; 3 The SET PATH path.
+      search hierarchy is: 1 Current drive and directory, 2 The `SET DEFAULT`
+      path; 3 The `SET PATH` path.
    $EXAMPLES$
       SET PATH TO C:\hb\tests
    $STATUS$
@@ -1002,7 +1002,7 @@
    $ARGUMENTS$
       <lInte> Logical expression for toggle command
    $DESCRIPTION$
-      This command set the field input color and @...PROMPT menu color
+      This command set the field input color and `@...PROMPT` menu color
       to either highlighted (inverse video) or normal color. The default
       condition is ON (highlighted).
    $EXAMPLES$
@@ -1041,14 +1041,14 @@
       file extension, .txt will be assumed. The file name may optionally
       have a drive letter and/or directory path. If none is specified, the
       current drive and directory will be used.
-      If the ALTERNATE file is created but no ALTERNATE ON command is
+      If the ALTERNATE file is created but no `ALTERNATE ON` command is
       issued, nothing will be echoed to the file.
       If ADDITIVE clause is used, then the information will be appended
       to the existing alternate file. Otherwise, a new file will be created
       with the specified name (or an existing one will be overwritten) and
       the information will be appended to the file. The default is to create
       a new file.
-      A SET ALTERNATE TO command will close the alternate file
+      A `SET ALTERNATE TO` command will close the alternate file
    $EXAMPLES$
       SET ALTERNATE TO test.txt
       SET ALTERNATE ON
@@ -1083,8 +1083,8 @@
       <lCent> Logical expression for toggle
    $DESCRIPTION$
       This command allows the input and display of dates with the century
-      prefix. It will be in the standart MM/DD/YYYY format unless specified
-      by the SET DATE command or Set() function. If <lCent> is a logical
+      prefix. It will be in the standart `MM/DD/YYYY` format unless specified
+      by the `SET DATE` command or Set() function. If <lCent> is a logical
       true (.T.), the command will be set on; otherwise, the command will
       be set off
    $EXAMPLES$
@@ -1201,7 +1201,7 @@
       a logical true (.T.), FIXED will be turned ON; otherwise it will be
       turned OFF.
 
-      When SET DECIMALS OFF is used, the following rules apply to the number
+      When `SET DECIMALS OFF` is used, the following rules apply to the number
       of decimal placed displayed.
 
       <table-noheader>
@@ -1249,7 +1249,7 @@
       <cPrinter> A device name or an alternate name
    $DESCRIPTION$
       This command can direct all output that is not controlled by the
-      @...SAY command and the DevPos() and DevOut() functions to the
+      `@...SAY` command and the DevPos() and DevOut() functions to the
       printer. If specified, the condition <lPrinter> toggles the printer
       ON if a logical true (.T.) and OFF if a logical false (.F.). If no
       argument is specified in the command, the alternate file (if one
@@ -1302,7 +1302,7 @@
       <lConsole> Logical expression for toggle command
    $DESCRIPTION$
       This command turns the screen display either off or on for all
-      screens display other then direct output via the @...SAY commands
+      screens display other then direct output via the `@...SAY` commands
       or the <-> DevOut() function.
 
       If <lConsole> is a logical true (.T.), the console will be turned
@@ -1340,7 +1340,7 @@
       This command establishes the number of decimal places that Harbour
       will display in mathematical calculations, functions, memory variables,
       and fields. Issuing no parameter with this command will the default
-      number of decimals to 0. For decimals to be seen, the SET FIXED ON
+      number of decimals to 0. For decimals to be seen, the `SET FIXED ON`
       command must be activated.
    $EXAMPLES$
       SET FIXED ON
@@ -1366,21 +1366,21 @@
    $SUBCATEGORY$
       Environment
    $ONELINER$
-      Directs all @...SAY output to a device.
+      Directs all `@...SAY` output to a device.
    $SYNTAX$
       SET DEVICE TO [printer | SCREEN ]
    $ARGUMENTS$
       None.
    $DESCRIPTION$
-      This command determines whether the output from the @...SAY command
+      This command determines whether the output from the `@...SAY` command
       and the DevPos() and DevOut() function will be displayed on the
       printer.
 
-      When the device is set to the PRINTER, the SET MARGIN value adjusts
+      When the device is set to the PRINTER, the `SET MARGIN` value adjusts
       the position of the column values accordingly. Also, an automatic
       page eject will be issued when the current printhead position is
       less than the last printed row. Finally, if used in conjunction with
-      the @...GET commands, the values for the GETs will all be ignored.
+      the `@...GET` commands, the values for the GETs will all be ignored.
    $EXAMPLES$
       SET DEVICE TO SCREEN
       ? 25141251 / 362

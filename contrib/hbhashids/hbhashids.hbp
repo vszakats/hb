@@ -1,0 +1,14 @@
+-hblib
+-inc
+
+-o${hb_targetname}
+
+-w3 -es2
+
+-depurlbase=libhashids:http://hashids.org/
+-depkeyhead=libhashids:hashids.h
+-depcontrol=libhashids:${HB_WITH_HASHIDS}
+-depincpath=libhashids:${HB_WITH_HASHIDS}
+-depfinish=libhashids
+
+hbhashids.hbm

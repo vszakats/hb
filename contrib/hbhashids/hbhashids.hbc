@@ -1,0 +1,7 @@
+description=libhashids wrapper
+
+libpaths=${HB_WITH_HASHIDS}/../lib
+
+libs=${_HB_DYNPREF}${hb_name}${_HB_DYNSUFF}
+
+libs=hashids

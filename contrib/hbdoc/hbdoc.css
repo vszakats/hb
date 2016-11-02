@@ -14,9 +14,9 @@ body {
 
 header {
   position: absolute;
-  -position: fixed;
-  --webkit-font-smoothing: antialiased;
-  -backface-visibility: hidden;
+  position: fixed;
+  -webkit-font-smoothing: antialiased;
+  backface-visibility: hidden;
   z-index: 2;
   top: 0;
   width: 100%;
@@ -99,6 +99,7 @@ footer a:active {
 }
 
 main {
+  -webkit-font-smoothing: antialiased;
   border: 0;
   border-spacing: 0;
   margin: auto;
@@ -154,14 +155,18 @@ aside {
   float: left;
   font-size: 9pt !important;
   background-color: #f2f2f2;
-  -background-color: #444;
+  -background-color: #363636;
   width: 180px;
-  border-radius: 0 0 4px 0;
+  -border-radius: 0 0 4px 0;
   line-height: 135%;
   overflow: hidden;
   padding-top: 44px;
   margin-top: 10px;
   padding-bottom: 10px;
+  padding-bottom: 200px;
+  position: fixed;
+  overflow-y: scroll;
+  height: 80%;
 }
 
 aside hr {
@@ -184,27 +189,33 @@ aside a {
 
 aside a:visited {
   color: #556acb;
+  -color: #859afb;
 }
 
 aside a:hover {
   border-style: none;
   background-color: #0974c5;
+  -background-color: #ff6800;
   color: #fdfdfd;
 }
 
+/*
 aside a[title]:hover:after {
   content: attr(title);
   font-size: 7.5pt !important;
   position: absolute;
   left: 8px;
   background-color: #0974c5;
+  -background-color: #ff6800;
   color: #fdfdfd;
   height: inherit;
   margin-top: -1px;
   padding-top: 2px;
   padding-bottom: 1px;
   padding-right: 8px;
+  position: fixed;
 }
+*/
 
 section {
   border-top: 1px solid rgba(0, 0, 0, .1);
@@ -226,6 +237,7 @@ pre {
   border: none;
   border-left: 4px solid #aaaaaa;
   padding: 8px 16px;
+  margin-left: 16px;
   overflow: scroll;
 }
 
@@ -242,14 +254,23 @@ aside code {
   font-size: 80%;
 }
 
+.d-id:target {
+  padding-top: 62px;  /* 44px + 18px */
+}
+
 .d-it code {
   color: #606060;
+  color: #2e2a24;
+  background-color: #fffff8;
+  font-weight: bold;
   border: none;
   border-radius: 3px;
   padding: 2px 3px;
 }
 
 .d-sy pre {
+  color: #2e2a24;
+  font-weight: bold;
   background-color: inherit;
   border: none;
   margin: 0;
@@ -257,6 +278,9 @@ aside code {
 }
 
 .d-sy code {
+  color: #2e2a24;
+  background-color: inherit;
+  font-weight: bold;
   padding: 0;
 }
 
@@ -376,8 +400,7 @@ p {
 }
 
 .d-ex {
-  margin-left: 1em;
-  margin-right: 1em;
+  margin: 8px 1em 15px 1em;
 }
 
 .d-te {

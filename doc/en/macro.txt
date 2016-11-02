@@ -33,7 +33,7 @@
    $SYNTAX$
       hb_SetMacro( <nOption>, [<lOnOff>] ) --> <lOldSetting>
    $ARGUMENTS$
-      <nOption> One of the HB_SM_* constants defined in set.ch.
+      <nOption> One of the `HB_SM_*` constants defined in set.ch.
 
       <lOnOff> .T. to enable or .F. to disable a feature
    $RETURNS$
@@ -45,17 +45,17 @@
       some of them allows to keep strict CA-Cl*pper compatibility.
 
       Available features are:</par>
-      <b>HB_SM_HARBOUR</b> - enables Harbour extensions:
-            operators: ++, --, +=, -=, *=, /=, ^=
+      `HB_SM_HARBOUR` - enables Harbour extensions:
+            operators: `++`, `--`, `+=`, `-=`, `*=`, `/=`, `^=`
             objects: assigments to an instance variable
 
-      <b>HB_SM_XBASE</b> - enables other Xbase++ dialects extensions:</par>
+      `HB_SM_XBASE` - enables other Xbase++ dialects extensions:</par>
             expanding of expresions lists
 
-      <b>HB_SM_SHORTCUTS</b> - enables optimized evaluation of
-            logical operators (.and., .or.)
+      `HB_SM_SHORTCUTS` - enables optimized evaluation of
+            logical operators (`.AND.`, `.OR.`)
 
-      <b>HB_SM_PREPROC</b> - enables preprocessing of commands
+      `HB_SM_PREPROC` - enables preprocessing of commands
             This is meaningfull if Harbour is compiled with
             HB_MACRO_STATEMENTS flag
 

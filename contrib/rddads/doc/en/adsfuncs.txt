@@ -133,7 +133,7 @@
       the database. If bit 5 is on, record 5 is considered a visible record.
       If bit 5 is off, record 5 is not visible. It does not "pass the test".
       Initially, the bits are set by the Server according to a filter expression
-      from SET FILTER TO or AdsSetAOF(). But by using AdsCustomizeAOF() you can
+      from `SET FILTER TO` or AdsSetAOF(). But by using AdsCustomizeAOF() you can
       add or remove records at will from the visible set.  This is useful for
       tagging records or for refining a result set after the data has been retrieved
       from the server.
@@ -771,9 +771,9 @@
       <cPriorSetting>
    $DESCRIPTION$
       This function is NOT recommended! It allows direct access to the
-      ADS internal equivalent to SET DEFAULT TO. But this setting is
+      ADS internal equivalent to `SET DEFAULT TO`. But this setting is
       automatically maintained by Harbour's Set() function and the
-      SET DEFAULT TO command, so normal programming will not use this.
+      `SET DEFAULT TO` command, so normal programming will not use this.
       It exists primarily for testing purposes.
    $EXAMPLES$
 
@@ -810,9 +810,9 @@
       <lPriorSetting>
    $DESCRIPTION$
       This function is NOT recommended! It allows direct access to the
-      ADS internal equivalent to SET DELETED. But this setting is
+      ADS internal equivalent to `SET DELETED`. But this setting is
       automatically maintained by Harbour's Set() function and the
-      SET DELETED ON/OFF command, so normal programming will not use this.
+      `SET DELETED ON`/`OFF` command, so normal programming will not use this.
       It exists primarily for testing purposes.
    $EXAMPLES$
 
@@ -848,7 +848,7 @@
       This function is NOT recommended! It allows direct access to the
       ADS AdsSetSearchPath() setting. But this setting is
       automatically maintained by Harbour's Set() function and the
-      SET PATH command, so normal programming will not use this.
+      `SET PATH` command, so normal programming will not use this.
       It exists primarily for testing purposes.
    $EXAMPLES$
 
@@ -882,9 +882,9 @@
       <lPriorSetting>
    $DESCRIPTION$
       This function is NOT recommended! It allows direct access to the
-      ADS internal equivalent to SET EXACT. But this setting is
+      ADS internal equivalent to `SET EXACT`. But this setting is
       automatically maintained by Harbour's Set() function and the
-      SET EXACT ON/OFF command, so normal programming will not use this.
+      `SET EXACT ON`/`OFF` command, so normal programming will not use this.
       It exists primarily for testing purposes.
    $EXAMPLES$
 
@@ -1002,10 +1002,10 @@
       is set, we see if the file is open exclusively or locked, and whether
       the record has been explicitly locked already. If not, we throw
       an error so the developer can catch the missing lock condition.
-      For performance reasons, Release code should leave this OFF.
+      For performance reasons, Release code should leave this *off*.
       Although the call to AdsIsRecordLocked() is documented as a client
       call, not a server request, and should be fast, it will be
-      called for EACH FIELD as it is assigned a value.
+      called for *each field* as it is assigned a value.
 
       See ace.hlp for full details about the Advantage Database Server.
    $EXAMPLES$
