@@ -160,13 +160,11 @@ aside {
   -border-radius: 0 0 4px 0;
   line-height: 135%;
   overflow: hidden;
-  padding-top: 44px;
-  margin-top: 10px;
-  padding-bottom: 10px;
-  padding-bottom: 200px;
+  margin-top: 44px;
+  padding-top: 10px;
   position: fixed;
   overflow-y: scroll;
-  height: 80%;
+  height: calc(100% - 44px - 10px);
 }
 
 aside hr {

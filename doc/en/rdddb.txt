@@ -378,7 +378,7 @@
    $ONELINER$
       Creates an empty database from a array.
    $SYNTAX$
-      dbCreate( <cFile>, <aStruct>, [<cRDD>], [<lKeepOpen>], [<cAlias>], 
+      dbCreate( <cFile>, <aStruct>, [<cRDD>], [<lKeepOpen>], [<cAlias>],
                 [<cDelimArg>], [<cCodePage>], [<nConnection>] )
    $ARGUMENTS$
       <cFile>     Name of database file to be create
@@ -515,7 +515,7 @@
    $RETURNS$
       dbFilter() returns the filter expression.
    $DESCRIPTION$
-      This function return the expression of the SET FILTER TO command
+      This function return the expression of the `SET FILTER TO` command
       for the current or designated work area. If no filter condition
       is present, a NULL string will be returned.
    $EXAMPLES$
@@ -599,7 +599,7 @@
       number. In some data formats, for example, the value of <xRecordNumber>
       is a unique primary key while in other formats, <xRecordNumber> could
       be an array offset if the data set was an array.
-
+<
       Issuing a dbGoto( RecNo() ) call in a network enviroment will refresh
       the database and index buffers. This is the same as a dbSkip(0) call.
    $EXAMPLES$

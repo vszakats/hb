@@ -506,9 +506,9 @@
    $ARGUMENTS$
       <cFile> is either "PRINTER" (note the uppercase) in which console
       output is SET to PRINTER, or a name of a text file with a default
-      ".txt" extension, that is used to redirect console output.
+      `.txt` extension, that is used to redirect console output.
    $DESCRIPTION$
-      __TextSave() is used in the preprocessing of the TEXT TO command to
+      __TextSave() is used in the preprocessing of the `TEXT TO` command to
       redirect the console output while saving old settings that can be
       restored later by __TextRestore().
    $STATUS$

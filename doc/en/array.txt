@@ -173,7 +173,7 @@
       <xValue> the value of the last element in the array.
    $DESCRIPTION$
       This function return the value of the last element in the array
-      named <aArray>. Same as xValue := aArray[ Len( aArray ) ]
+      named <aArray>. Same as `xValue := aArray[ Len( aArray ) ]`
    $EXAMPLES$
       LOCAL aArray := { "Harbour", "is", "Supreme", "Power" }
       ? ATail( aArray ) // Result is "Power"
@@ -406,7 +406,7 @@
       filled for <nCount> positions.
 
       If neither <nStart>/<nCount> specified, the value of <nStart> will be 1,
-      and the value of <nCount> will be the value of Len( <aArray> );
+      and the value of <nCount> will be the value of `Len( <aArray> )`;
       thus, all subscript positions in the array <aArray> will be filled
       with the value of <xValue>.
 
