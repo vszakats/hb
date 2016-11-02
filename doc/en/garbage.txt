@@ -53,14 +53,14 @@
       many other background tasks. One such background task can be looking
       for unreferenced memory blocks.
 
-      Allocating memory    </par>
+      Allocating memory
       -----------------
 
       The garbage collector collects memory blocks allocated with hb_gcAlloc()
       function calls. Memory allocated by hb_gcAlloc() should be released with
       hb_gcFree() function.
 
-      The garbage collecting   </par>
+      The garbage collecting
       ----------------------
 
       During scanning of unreferenced memory the GC is using a mark & sweep
@@ -83,7 +83,7 @@
       with the same flag before the sweep step will start.
       See hb_gcCollectAll() and hb_gcItemRef()
 
-      Calling the garbage collector from Harbour code   </par>
+      Calling the garbage collector from Harbour code
       -----------------------------------------------
 
       The garbage collector can be called directly from the Harbour code.

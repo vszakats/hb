@@ -11,15 +11,17 @@
       <cStr>  - The string
       <nPos>  - The position in <cStr>
    $RETURNS$
-      <nAscVal> - The ASCII value of hb_BSubStr( <cStr>, <nPos>, 1 )
+      <nAscVal> - The ASCII value of `hb_BSubStr( <cStr>, <nPos>, 1 )`
    $DESCRIPTION$
       Return the ASCII value of a specified character in a string
       Equivalent (but much faster) to
-          hb_BCode( hb_BSubStr( cStr, nPos, 1 ) )
+      ```
+      hb_BCode( hb_BSubStr( cStr, nPos, 1 ) )
+      ```
 
       NOTE:
          invalid parameters will return -1
-         nPos > hb_BLen( cStr ) will return -2
+         `nPos > hb_BLen( cStr )` will return -2
 
       This last behaviour is different to the Funcky function of the
       same name.  I changed the behaviour because some of the strings
@@ -684,7 +686,7 @@
       gt_IsFlag() is used to test the state of a flag with a bit flag
       string.
    $EXAMPLES$
-      // Print the setting of the flags in a flag string called ``cDave''
+      // Print the setting of the flags in a flag string called `cDave`
 
       FOR nFlag := 1 TO hb_BLen( cDave ) * 8
          ? "Flag number", nFlag, "==", gt_IsFlag( cDave, nFlag )

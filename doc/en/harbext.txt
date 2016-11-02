@@ -6,7 +6,7 @@
    $CATEGORY$
       Document
    $DESCRIPTION$
-      <b>Language extensions:</b>   </par>
+      <b>Language extensions:</b>
       --------------------
 
       * Class generation and management.
@@ -19,7 +19,7 @@
               Entire applications can be designed and coded in Object Oriented
               style.
 
-      * @<FunctionName>()   </par>
+      * `@<FunctionName>()`
 
               Returns the pointer (address) to a function.
 
@@ -28,7 +28,7 @@
               (Internally, a class method is a static function and there is no
               symbol for it, so it is accessed via its address).
 
-      * Class HBGetList
+      * Class HBGetList()
 
               Object oriented support for GetLists management.
 
@@ -46,10 +46,10 @@
 
       * SToD() --> dDate
 
-              New function that converts a yyyymmdd string to a Date value.
+              New function that converts a `yyyymmdd` string to a Date value.
 
-      * Optional Compile Time STRONG TYPE declaration (and compile time TYPE
-        MISMATCH warnings)
+      * Optional Compile Time *strong type* declaration (and compile time
+        *type mismatch* warnings)
 
         Example: LOCAL/STATIC Var AS ...
 
@@ -61,13 +61,13 @@
 
         - Class TDbMenu implement both pulldown and popup menus.
 
-      <b>RTL enhanced functionality:</b>   </par>
+      <b>RTL enhanced functionality:</b>
       ---------------------------
 
-      - hb_vfDirSpace( <nDir>, <nType> )
+      - `hb_vfDirSpace( <nDir>, <nType> )`
 
         The second parameter is a Harbour (optional) parameter and indicates the
-        type of diskinfo being requested.  See doc/en/diskspac.txt for info.
+        type of diskinfo being requested. See doc/en/diskspac.txt for info.
 
    $END$
  */

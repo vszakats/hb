@@ -236,7 +236,7 @@
    $DESCRIPTION$
       Alert() display simple dialog box on screen and let the user select
       one option. The user can move the highlight bar using arrow keys or
-      TAB key. To select an option the user can press ENTER, SPACE or the
+      <Tab> key. To select an option the user can press <Enter>, <Space> or the
       first letter of the option.
 
       If the program is executed with the `//NOALERT` command-line switch,
@@ -359,9 +359,9 @@
       (or thinks it is running on, if an OS emulator is being used).
 
       Under HB_OS_UNIX operating system the return value is the
-      Line-Feed character (0x0a, Chr( 10 ) ); with other operating systems
+      Line-Feed character (0x0a, `Chr( 10 )` ); with other operating systems
       (like DOS) the return value is the Carriage-Return plus Line-Feed
-      characters (0x0d 0x0a, Chr( 13 ) + Chr( 10 )).
+      characters (0x0d 0x0a, `Chr( 13 ) + Chr( 10 )`).
    $EXAMPLES$
       // Get the newline character(s) for the current OS.
       OutStd( "Hello World!" + hb_eol() )

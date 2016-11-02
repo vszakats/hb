@@ -236,6 +236,7 @@ pre {
   color: #2e2a24;
   border: none;
   border-left: 4px solid #aaaaaa;
+  border-radius: 0 3px 3px 0;
   padding: 8px 16px;
   margin-left: 16px;
   overflow: scroll;
@@ -265,6 +266,7 @@ aside code {
   font-weight: bold;
   border: none;
   border-radius: 3px;
+  margin-right: 0;
   padding: 2px 3px;
 }
 
@@ -400,7 +402,7 @@ p {
 }
 
 .d-ex {
-  margin: 8px 1em 15px 1em;
+  margin: 8px 0 15px 1em;
 }
 
 .d-te {

@@ -22,13 +22,13 @@
    $SYNTAX$
       IsAffirm( <cChar> ) --> <lTrueOrFalse>
    $ARGUMENTS$
-      <cChar> is a char or string of chars   </par>
+      <cChar> is a char or string of chars
    $RETURNS$
       <lTrueOrFalse> True if passed char is an affirmation char, otherwise
-      false   </par>
+      false
    $DESCRIPTION$
       This function is used to check if a user's input is true or not
-      according to the msgxxx module used.   </par>
+      according to the msgxxx module used.
    $EXAMPLES$
       // Wait until user enters Y
       DO WHILE ! IsAffirm( cYesNo )
@@ -59,13 +59,13 @@
    $SYNTAX$
       IsNegative( <cChar> ) --> <lTrueOrFalse>
    $ARGUMENTS$
-      <cChar> is a char or string of chars   </par>
+      <cChar> is a char or string of chars
    $RETURNS$
       <lTrueOrFalse> True if passed char is a negation char, otherwise
-      false.   </par>
+      false.
    $DESCRIPTION$
       This function is used to check if a user's input is true or not
-      according to the msgxxx module used.   </par>
+      according to the msgxxx module used.
    $EXAMPLES$
       // Wait until user enters N
       DO WHILE ! IsNegative( cYesNo )
@@ -96,13 +96,13 @@
    $SYNTAX$
       NationMsg( <nMsg> ) --> <cMessage>
    $ARGUMENTS$
-      <nMsg> is the message number you want to get.   </par>
+      <nMsg> is the message number you want to get.
    $RETURNS$
       <cMessage> if <nMsg> is a valid message selector, returns the message.
       If <nMsg> is NIL, it returns "Invalid Argument", and if <nMsg> is any
-      other type it returns an empty string.   </par>
+      other type it returns an empty string.
    $DESCRIPTION$
-      NationMsg() returns international message descriptions.   </par>
+      NationMsg() returns international message descriptions.
    $EXAMPLES$
       // Displays "Sure Y/N: "  and waits until user enters Y
       // Y/N is the string for NationMsg( 12 ) with default natmsg module.

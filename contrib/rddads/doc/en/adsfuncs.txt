@@ -186,8 +186,7 @@
    $ARGUMENTS$
       <cFilter>       Expression to test.
    $RETURNS$
-      <nOptimizationLevel>      </par>
-      Values are defined in ads.ch:
+      <nOptimizationLevel> values are defined in ads.ch:
       ADS_OPTIMIZED_FULL, ADS_OPTIMIZED_PART, ADS_OPTIMIZED_NONE.
       IMPORTANT NOTE: These values are NOT the same as those returned
       by dbOrderInfo().
@@ -221,8 +220,7 @@
    $ARGUMENTS$
       None
    $RETURNS$
-      <nOptimizationLevel>      </par>
-      Values are defined in ads.ch:
+      <nOptimizationLevel> values are defined in ads.ch:
       ADS_OPTIMIZED_FULL, ADS_OPTIMIZED_PART, ADS_OPTIMIZED_NONE.
    $DESCRIPTION$
       See ace.hlp for full details about the Advantage Database Server.

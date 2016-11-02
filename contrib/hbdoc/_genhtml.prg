@@ -1047,7 +1047,7 @@ STATIC FUNCTION AutoLink( cFile, cComponent, cRevision, hNameID, lCodeAlready )
          FOR EACH match IN en_hb_regexAll( R_( "( |^)([A-Z_][A-Z0-9_]+)([^A-Z0-9_]|$)" ), cFile,,,,, .F. )
             cName := match[ 3 ][ _MATCH_cStr ]
             IF ( hb_BLen( cName ) > 3 .OR. "|" + cName + "|" $ "|ON|OFF|SET|USE|ZAP|SAY|RUN|NUL|NIL|ALL|TO|GET|VAR|SUM|DIR|DO|FOR|NEW|" ) .AND. ;
-               !( "|" + cName + "|" $ "|ANSI|JPEG|WBMP|" )
+               !( "|" + cName + "|" $ "|ANSI|JPEG|WBMP|NOTE|" )
                cTag := "<code>" + cName + "</code>"
                cFile := hb_BLeft( cFile, match[ 3 ][ _MATCH_nStart ] - 1 + nShift ) + cTag + hb_BSubStr( cFile, match[ 3 ][ _MATCH_nEnd ] + 1 + nShift )
                nShift += Len( cTag ) - Len( cName )

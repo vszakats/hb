@@ -8,14 +8,18 @@
    $SUBCATEGORY$
       Compiler
    $DESCRIPTION$
-      <b>Invoking the macro compiler:  </b> </par>
-      ==============================   </par>
-
-         &variable                     </par>
-      or                               </par>
-         &( expression )               </par>
-      or                               </par>
-         &variable.text                </par>
+      <b>Invoking the macro compiler:</b>
+      ```
+      &variable
+      ```
+      or
+      ```
+      &( expression )
+      ```
+      or
+      ```
+      &variable.text
+      ```
    $END$
  */
 
@@ -44,12 +48,13 @@
       to an original set available in CA-Cl*pper. Enabling/disabling
       some of them allows to keep strict CA-Cl*pper compatibility.
 
-      Available features are:</par>
+      Available features are:
+
       `HB_SM_HARBOUR` - enables Harbour extensions:
             operators: `++`, `--`, `+=`, `-=`, `*=`, `/=`, `^=`
             objects: assigments to an instance variable
 
-      `HB_SM_XBASE` - enables other Xbase++ dialects extensions:</par>
+      `HB_SM_XBASE` - enables other Xbase++ dialects extensions:
             expanding of expresions lists
 
       `HB_SM_SHORTCUTS` - enables optimized evaluation of
