@@ -18,7 +18,7 @@
       <aCashFlow> is an array of the expected cash receipts each year.
 
       <nNoOfCashFlows> is the number of years cash flows are expected
-      (optional, Len( aCashFlow ) ).
+      (optional, `Len( aCashFlow )` ).
    $RETURNS$
       The difference between the initial investment and the discounted
       cash flow in dollars.
@@ -33,11 +33,12 @@
       The larger the NPV, the more profitable the investment.  See
       also the FutureValue and PresentValue for further explanations.
       The formula to calculate the net present value is:
-
+      ```
       NetPresentValue := SUM( CashFlow[ i ] / ( ( 1 + InterestRate ) ^ i ) )
       FOR i := 1 TO NoOfCashFlows
          //
       NEXT
+      ```
    $EXAMPLES$
       ? ft_NetPV( 10000, 10, { 10000, 15000, 16000, 17000 } )
    $END$

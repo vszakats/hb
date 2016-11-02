@@ -215,15 +215,14 @@
       <cVarName> = a string with a variable name to check
    $RETURNS$
       The symbolic values are defined in hbmemvar.ch
-      HB_MV_NOT_FOUND     =variable is not declared (not found in symbol table)
-      HB_MV_UNKNOWN       =if variable doesn't exist (but found in symbol table)
-      HB_MV_ERROR         =if information cannot be obtained (memory error
-      or argument error)
-      HB_MV_PUBLIC         =for public variables
-      HB_MV_PRIVATE_GLOBAL =for private variables declared outside of current
-      function/procedure
-      HB_MV_PRIVATE_LOCAL  =for private variables declared in current
-      function/procedure
+      <table-noheader>
+      HB_MV_NOT_FOUND      variable is not declared (not found in symbol table)
+      HB_MV_UNKNOWN        if variable doesn't exist (but found in symbol table)
+      HB_MV_ERROR          if information cannot be obtained (memory error or argument error)
+      HB_MV_PUBLIC         for public variables
+      HB_MV_PRIVATE_GLOBAL for private variables declared outside of current function/procedure
+      HB_MV_PRIVATE_LOCAL  for private variables declared in current function/procedure
+      </table>
    $EXAMPLES$
       PROCEDURE Main()
 
@@ -281,7 +280,7 @@
       Nothing
    $DESCRIPTION$
       This function releases all PRIVATE and PUBLIC variables.
-      It is used to implement CLEAR MEMORY statement.
+      It is used to implement `CLEAR MEMORY` statement.
       The memory occupied by all visible variables are released - any
       attempt to access the variable will result in a runtime error.
       You have to reuse PRIVATE or PUBLIC statement to create again

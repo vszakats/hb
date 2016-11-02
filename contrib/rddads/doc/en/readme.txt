@@ -51,7 +51,7 @@
       file sharing on a small network.  The default DLL is limited to
       5 users, but an unlimited version is available from Extended Systems.
 
-      MAX OPEN TABLES: The server (even local) has its own setting for
+      `MAX OPEN TABLES`: The server (even local) has its own setting for
       Max Tables allowed open.  For the Local Server, it can be set in
       adslocal.cfg.  The default is only 50!
       For the Windows Remote Servers, use the Configuration Utility, or

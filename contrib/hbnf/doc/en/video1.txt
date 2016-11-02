@@ -67,8 +67,8 @@
          NEXT
       NEXT
 
-      This example will write the ASCII character 249 TO every location
-      ON SCREEN in every possible COLOR combination.  It will recognize
+      This example will write the ASCII character 249 to every location
+      `ON SCREEN` in every possible COLOR combination.  It will recognize
       the status of SetBlink().  It uses direct video writes FOR speed.
    $END$
  */

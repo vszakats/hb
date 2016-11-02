@@ -102,7 +102,7 @@
       <DataName1>  Name of the VAR
 
       <type>       Optional data type specification from the following:
-                   Character, Numeric, Date, Logical, Codeblock, Nil.
+                   Character, Numeric, Date, Logical, Codeblock, NIL.
 
       <uValue>     Optional initial value when creating a new object.
 
@@ -124,14 +124,14 @@
       VAR elements can also be thought of as the "properties" of an
       object. They can be of any data type, including codeblock.
       Once an object has been created, the VAR elements are referenced
-      with the colon (:) as in  MyObject:Heading := "Last name".
+      with the colon `:` as in `MyObject:Heading := "Last name"`.
       Usually a class also defines methods to manipulate the VAR.
 
-      You can use the "AS <type>" clause to enforce that the VAR is
+      You can use the `AS <type>` clause to enforce that the VAR is
       maintained as a certain type. Otherwise it will take on the type of
       whatever value is first assigned to it.
 
-      Use the "INIT <uValue>" clause to initialize that VAR to <uValue>
+      Use the `INIT <uValue>` clause to initialize that VAR to <uValue>
       whenever a new object is created.
 
       VAR can be a synonym for VAR, or it can use a slightly different
@@ -182,21 +182,21 @@
       <DataName1>  Name of the VAR
 
       <type>       Optional data type specification from the following:
-                      Character, Numeric, Date, Logical, Codeblock, Nil
+                      Character, Numeric, Date, Logical, Codeblock, NIL
 
       <uValue>     Optional initial value at program startup
    $DESCRIPTION$
-      CLASS VAR variables can also be thought of as the "properties" of an
-      entire class. Each CLASS VAR exists only once, no matter how many
+      `CLASS VAR` variables can also be thought of as the "properties" of an
+      entire class. Each `CLASS VAR` exists only once, no matter how many
       objects are created. A common usage is for a counter that is
       incremented whenever an object is created and decremented when one
       is destroyed, thus monitoring the number of objects in existence
       for this class.
 
-      You can use the "AS <type>" clause to enforce that the CLASS VAR is
+      You can use the `AS <type>` clause to enforce that the `CLASS VAR` is
       maintained as a certain type. Otherwise it will take on the type of
       whatever value is first assigned to it.
-      Use the "INIT <uValue>" clause to initialize that VAR to <uValue>
+      Use the `INIT <uValue>` clause to initialize that `VAR` to <uValue>
       whenever the class is first used.
    $EXAMPLES$
       CREATE CLASS TWindow

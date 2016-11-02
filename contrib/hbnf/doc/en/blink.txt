@@ -10,9 +10,9 @@
    $ARGUMENTS$
       <cMsg> is the string to blink.
 
-      <nRow> is an optional screen row for @...SAY, default current.
+      <nRow> is an optional screen row for `@...SAY`, default current.
 
-      <nCol> is an optional screen col for @...SAY, default current.
+      <nCol> is an optional screen col for `@...SAY`, default current.
    $RETURNS$
       NIL
    $DESCRIPTION$
@@ -22,6 +22,6 @@
       ft_Blink( "WAIT", 5, 10 )   // Blinks "WAIT" in current colors @ 5,10
 
       @ 5, 10 SAY "WAIT - Printing Report"
-      ft_Blink( "..." )           //  Blink "..." after wait message...
+      ft_Blink( "..." )           // Blink "..." after wait message...
    $END$
  */

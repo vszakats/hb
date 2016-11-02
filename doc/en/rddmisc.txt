@@ -879,7 +879,7 @@
       On a Network environment the follow command need that the record is
       locked:
 
-      @...GET
+      `@...GET`
 
       DELETE (single record)
 

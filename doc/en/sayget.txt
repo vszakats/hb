@@ -177,7 +177,7 @@
       the screen.
 
       For a complete list of PICTURES templates and functions, see the
-      @...GET command.
+      `@...GET` command.
    $EXAMPLES$
       PROCEDURE Main()
          CLS

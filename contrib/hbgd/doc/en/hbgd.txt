@@ -6,7 +6,7 @@
    $ONELINER$
       Read me file for GD Library
    $DESCRIPTION$
-      HBGD is basically a wrapper of Thomas Boutell's GD Library version 2.0.33.
+      HBGD is basically a wrapper of Thomas Boutell's GD Library version 2.x.
       GD Library is a powerfull graphic library very usefull expecially under CGI environment.
 
       HBGD actually contains almost all GD functions, more a set of functions that extends original
@@ -139,17 +139,17 @@
       gdImageCreateFromJpeg() creates a JPEG image from a file or a handle or another image in memory.
 
       You can use one of 3 syntax:
-
+      ```
       pImage := gdImageCreateFromJpeg( "myimage.jpg" )
-
+      ```
       or
-
+      ```
       pImage := gdImageCreateFromJpeg( nFileHandle, nSize )
-
+      ```
       or
-
+      ```
       pImage := gdImageCreateFromJpeg( pMemoryImagePtr, nSize )
-
+      ```
       the pImage pointer returned will be not NIL if successfull and will contains a memory pointer
       to the jpeg image.
 
@@ -193,17 +193,17 @@
       gdImageCreateFromGif() creates a GIF image from a file or a handle or another image in memory.
 
       You can use one of 3 syntax:
-
+      ```
       pImage := gdImageCreateFromGif( "myimage.gif" )
-
+      ```
       or
-
+      ```
       pImage := gdImageCreateFromGif( nFileHandle, nSize )
-
+      ```
       or
-
+      ```
       pImage := gdImageCreateFromGif( pMemoryImagePtr, nSize )
-
+      ```
       the pImage pointer returned will be not NIL if successfull and will contains a memory pointer
       to the gif image.
 
@@ -247,17 +247,17 @@
       gdImageCreateFromPng() creates a PNG image from a file or a handle or another image in memory.
 
       You can use one of 3 syntax:
-
+      ```
       pImage := gdImageCreateFromPng( "myimage.png" )
-
+      ```
       or
-
+      ```
       pImage := gdImageCreateFromPng( nFileHandle, nSize )
-
+      ```
       or
-
+      ```
       pImage := gdImageCreateFromPng( pMemoryImagePtr, nSize )
-
+      ```
       the pImage pointer returned will be not NIL if successfull and will contains a memory pointer
       to the png image.
 
@@ -301,17 +301,17 @@
       gdImageCreateFromGD() creates a GD image from a file or a handle or another image in memory.
 
       You can use one of 3 syntax:
-
+      ```
       pImage := gdImageCreateFromGD( "myimage.gd" )
-
+      ```
       or
-
+      ```
       pImage := gdImageCreateFromGD( nFileHandle, nSize )
-
+      ```
       or
-
+      ```
       pImage := gdImageCreateFromGD( pMemoryImagePtr, nSize )
-
+      ```
       the pImage pointer returned will be not NIL if successfull and will contains a memory pointer
       to the GD image.
 
@@ -355,17 +355,17 @@
       gdImageCreateFromWBmp() creates a WBmp image from a file or a handle or another image in memory.
 
       You can use one of 3 syntax:
-
+      ```
       pImage := gdImageCreateFromWBmp( "myimage.wbmp" )
-
+      ```
       or
-
+      ```
       pImage := gdImageCreateFromWBmp( nFileHandle, nSize )
-
+      ```
       or
-
+      ```
       pImage := gdImageCreateFromWBmp( pMemoryImagePtr, nSize )
-
+      ```
       the pImage pointer returned will be not NIL if successfull and will contains a memory pointer
       to the WBmp image.
 
@@ -410,13 +410,13 @@
       gdImageJpeg() saves a JPEG image to a file or a handle.
 
       You can use one of 2 syntax:
-
+      ```
       gdImageJpeg( pImage, "myimage.jpg" )
-
+      ```
       or
-
+      ```
       gdImageJpeg( pImage, nFileHandle )
-
+      ```
    $EXAMPLES$
       PROCEDURE Main()
          LOCAL pImage := gdImageCreateFromGif( "myimage.gif" )
@@ -455,13 +455,13 @@
       gdImageGif() saves a GIF image to a file or a handle.
 
       You can use one of 2 syntax:
-
+      ```
       gdImageGif( pImage, "myimage.gif" )
-
+      ```
       or
-
+      ```
       gdImageGif( pImage, nFileHandle )
-
+      ```
    $EXAMPLES$
       PROCEDURE Main()
          LOCAL pImage := gdImageCreateFromJpeg( "myimage.jpg" )
@@ -502,13 +502,13 @@
       gdImagePng() saves a PNG image to a file or a handle.
 
       You can use one of 2 syntax:
-
+      ```
       gdImagePng( pImage, "myimage.png" )
-
+      ```
       or
-
+      ```
       gdImagePng( pImage, nFileHandle )
-
+      ```
    $EXAMPLES$
       PROCEDURE Main()
          LOCAL pImage := gdImageCreateFromGif( "myimage.gif" )
@@ -547,11 +547,11 @@
       gdImageGD() saves a GD image to a file or a handle.
 
       You can use one of 2 syntax:
-
+      ```
       gdImageGD( pImage, "myimage.gd" )
-
+      ```
       or
-
+      ```
       gdImageGD( pImage, nFileHandle )
 
    $EXAMPLES$
@@ -593,13 +593,13 @@
       gdImageWBmp() saves a WBMP image to a file or a handle.
 
       You can use one of 2 syntax:
-
+      ```
       gdImageWBmp( pImage, "myimage.wbmp", nColor )
-
+      ```
       or
-
+      ```
       gdImagePng( pImage, nFileHandle, nColor )
-
+      ```
    $EXAMPLES$
       PROCEDURE Main()
          LOCAL pImage
@@ -1154,17 +1154,20 @@
       To set the color index you have to use gdImageColorAllocate() function.
 
       Last parameter <nStyle> is a bitwise OR of the following possibilities:
+
+      <table-noheader>
       gdArc
       gdChord
       gdPie (synonym for gdArc)
       gdNoFill
       gdEdged
+      </table>
 
-      gdArc and gdChord are mutually exclusive;
-      gdChord just connects the starting and ending angles with a straight line,
-      while gdArc produces a rounded edge. gdPie is a synonym for gdArc.
-      gdNoFill indicates that the arc or chord should be outlined, not filled.
-      gdEdged, used together with gdNoFill, indicates that the beginning and ending
+      `gdArc` and `gdChord` are mutually exclusive;
+      `gdChord` just connects the starting and ending angles with a straight line,
+      while `gdArc` produces a rounded edge. `gdPie` is a synonym for `gdArc`.
+      `gdNoFill` indicates that the arc or chord should be outlined, not filled.
+      `gdEdged`, used together with `gdNoFill`, indicates that the beginning and ending
       angles should be connected to the center; this is a good way to outline
       (rather than fill) a 'pie slice'
 
@@ -1332,9 +1335,9 @@
       specified point and flooding the surrounding region of the same color as the starting point.
       For a way of flooding a region defined by a specific border color rather than by its interior
       color, see gdImageFillToBorder().
-      The fill color can be gdTiled, resulting in a tile fill using another image as the tile.
+      The fill color can be `gdTiled`, resulting in a tile fill using another image as the tile.
       However, the tile image cannot be transparent. If the image you wish to fill with has a
-      transparent color index, call gdImageTransparent on the tile image and set the transparent
+      transparent color index, call gdImageTransparent() on the tile image and set the transparent
       color index to -1 to turn off its transparency.
 
       To set the color index you have to use gdImageColorAllocate() function.
@@ -1392,9 +1395,9 @@
       the background, depending on how much of the pixel in question is actually within
       the boundaries of the line being drawn. All line-drawing functions, such as gdImageLine(),
       gdImageOpenPolygon() and gdImagePolygon(), will draw antialiased lines if the special "color"
-      gdAntiAliased constant is used when calling them.
+      `gdAntiAliased` constant is used when calling them.
 
-      gdImageSetAntiAliased is used to specify the actual foreground color to be used when drawing
+      gdImageSetAntiAliased() is used to specify the actual foreground color to be used when drawing
       antialiased lines. You may set any color to be the foreground, however as of version 2.0.12
       an alpha channel component is not supported.
 
@@ -1458,7 +1461,7 @@
    $RETURNS$
       NIL
    $DESCRIPTION$
-      Normally, when drawing lines with the special gdAntiAliased "color," blending with
+      Normally, when drawing lines with the special `gdAntiAliased` "color," blending with
       the background to reduce jagged edges is the desired behavior. However, when it is
       desired that lines not be blended with one particular color when it is encountered
       in the background, the gdImageSetAntiAliasedDontBlend() function can be used to indicate
@@ -1523,11 +1526,11 @@
       A "brush" is an image used to draw wide, shaped strokes in another image.
       Just as a paintbrush is not a single point, a brush image need not be a single pixel.
       Any gd image can be used as a brush, and by setting the transparent color index of the
-      brush image with gdImageColorTransparent, a brush of any shape can be created.
-      All line-drawing functions, such as gdImageLine, gdImageOpenPolygon and gdImagePolygon,
-      will use the current brush if the special "color" gdBrushed or gdStyledBrushed is used
+      brush image with gdImageColorTransparent(), a brush of any shape can be created.
+      All line-drawing functions, such as gdImageLine(), gdImageOpenPolygon() and gdImagePolygon(),
+      will use the current brush if the special "color" `gdBrushed` or `gdStyledBrushed` is used
       when calling them.
-      gdImageSetBrush is used to specify the brush to be used in a particular image.
+      gdImageSetBrush() is used to specify the brush to be used in a particular image.
       You can set any image to be the brush. If the brush image does not have the same color
       map as the first image, any colors missing from the first image will be allocated.
       If not enough colors can be allocated, the closest colors already available will be used.
@@ -1537,7 +1540,7 @@
       optimal.
 
       You need not take any special action when you are finished with a brush. As for any other image.
-      You must not use the color gdBrushed if the current brush has been destroyed; you can of course
+      You must not use the color `gdBrushed` if the current brush has been destroyed; you can of course
       set a new brush to replace it.
 
    $EXAMPLES$
@@ -1594,12 +1597,12 @@
    $DESCRIPTION$
       A "tile" is an image used to fill an area with a repeated pattern.
       Any gd image can be used as a tile, and by setting the transparent color index of
-      the tile image with gdImageColorTransparent, a tile that allows certain parts of
+      the tile image with gdImageColorTransparent(), a tile that allows certain parts of
       the underlying area to shine through can be created. All region-filling functions,
-      such as gdImageFill and gdImageFilledPolygon, will use the current tile if the special
-      "color" gdTiled is used when calling them.
+      such as gdImageFill() and gdImageFilledPolygon(), will use the current tile if the special
+      "color" `gdTiled` is used when calling them.
 
-      gdImageSetTile is used to specify the tile to be used in a particular image. You can
+      gdImageSetTile() is used to specify the tile to be used in a particular image. You can
       set any image to be the tile. If the tile image does not have the same color map as
       the first image, any colors missing from the first image will be allocated. If not
       enough colors can be allocated, the closest colors already available will be used.
@@ -1608,7 +1611,7 @@
       different tile images, you can quickly fill your color map, and the results will not be optimal.
 
       You need not take any special action when you are finished with a tile. As for any other
-      image. You must not use the color gdTiled if the current tile has been destroyed;
+      image. You must not use the color `gdTiled` if the current tile has been destroyed;
       you can of course set a new tile to replace it.
 
    $EXAMPLES$
@@ -1665,16 +1668,16 @@
       NIL
    $DESCRIPTION$
       It is often desirable to draw dashed lines, dotted lines, and other variations
-      on a broken line. gdImageSetStyle can be used to set any desired series of colors,
+      on a broken line. gdImageSetStyle() can be used to set any desired series of colors,
       including a special color that leaves the background intact, to be repeated during
       the drawing of a line.
-      To use gdImageSetStyle, create an array of integers and assign them the desired series
-      of color values to be repeated. You can assign the special color value gdTransparent
+      To use gdImageSetStyle(), create an array of integers and assign them the desired series
+      of color values to be repeated. You can assign the special color value `gdTransparent`
       to indicate that the existing color should be left unchanged for that particular pixel
       (allowing a dashed line to be attractively drawn over an existing image).
 
-      Then, to draw a line using the style, use the normal gdImageLine function with the
-      special color value gdStyled.
+      Then, to draw a line using the style, use the normal gdImageLine() function with the
+      special color value `gdStyled`.
 
       The style array is copied when you set the style, so you need not be concerned with
       keeping the array around indefinitely. This should not break existing code that assumes
@@ -1684,7 +1687,7 @@
       in a continuous stroke. When creating a style for use with a brush, the style values are
       interpreted differently: zero (0) indicates pixels at which the brush should not be drawn,
       while one (1) indicates pixels at which the brush should be drawn. To draw a styled,
-      brushed line, you must use the special color value gdStyledBrushed.
+      brushed line, you must use the special color value `gdStyledBrushed`.
 
    $EXAMPLES$
       #include "gd.ch"
@@ -1752,8 +1755,8 @@
    $RETURNS$
       NIL
    $DESCRIPTION$
-      gdImageSetThickness determines the width of lines drawn by the gdImageLine,
-      gdImagePolygon, gdImageOpenPolygon and related functions, in pixels.
+      gdImageSetThickness() determines the width of lines drawn by the gdImageLine(),
+      gdImagePolygon(), gdImageOpenPolygon() and related functions, in pixels.
 
    $EXAMPLES$
       #include "gd.ch"
