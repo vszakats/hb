@@ -8,18 +8,21 @@
    $SYNTAX$
       StrFormat( <cMask>[, <cPar1>[, <cParn>[, ...]] ) --> cString
    $ARGUMENTS$
-      <cMask> Holds the mask for the resulting string   </par>
+      <cMask> Holds the mask for the resulting string
+
       <cParn> Holds the strings to be inserted in the mask
-             maximum 9 of them can be specified.   </par>
+             maximum 9 of them can be specified.
    $RETURNS$
-      <cString> Return the mask with all the parameters inserted.   </par>
+      <cString> Return the mask with all the parameters inserted.
    $DESCRIPTION$
       String replacment, can be useful when writing international
       apps. You can separate the constant strings from the variable ones.
-      Each %1 - %9 marks will be replaced with the appropriate parameter
-      from the parameter list.   </par>
-      Marks can be in any order, and can be duplicated.   </par>
-      You can print "%" character with "%%".   </par>
+      Each `%1` - `%9` marks will be replaced with the appropriate parameter
+      from the parameter list.
+
+      Marks can be in any order, and can be duplicated.
+
+      You can print `%` character with `%%`.
    $EXAMPLES$
       StrFormat( "Please insert disk %1 to drive %2", hb_ntos( 2 ), "A:" )
       StrFormat( "This is %1 from %2", "John", "Earth" )

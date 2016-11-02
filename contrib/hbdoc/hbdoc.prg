@@ -545,10 +545,7 @@ STATIC FUNCTION NewLineVoodoo( cSectionIn )
          cSection += AllTrim( cLine ) + hb_eol()
          lPreformatted := lLastPreformatted
          lTable := lLastTable
-      ELSEIF nLastIndent != ( Len( cLine ) - Len( LTrim( cLine ) ) ) .OR. lPreformatted .OR. Right( cLine, Len( "</par>" ) ) == "</par>"
-         IF Right( cLine, Len( "</par>" ) ) == "</par>"
-            cLine := hb_StrShrink( cLine, Len( "</par>" ) )
-         ENDIF
+      ELSEIF nLastIndent != ( Len( cLine ) - Len( LTrim( cLine ) ) ) .OR. lPreformatted
          nLastIndent := Len( cLine ) - Len( LTrim( cLine ) )
          IF !( Right( cSection, Len( hb_eol() ) ) == hb_eol() )
             cSection += hb_eol()

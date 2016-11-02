@@ -8,47 +8,48 @@
    $SYNTAX$
       oFile := TFileRead():New( <cFileName> [, <nReadSize> ] )
    $ARGUMENTS$
-      <cFileName> is the required name of the file to be read.   </par>
+      <cFileName> is the required name of the file to be read.
 
       <nReadSize> is the optional size to use when reading from the file.
       The default value is 4096 and the allowed range is 1 through 65535.
-      Any value outside of this range causes the default value to be used.   </par>
+      Any value outside of this range causes the default value to be used.
    $RETURNS$
-      An instance of the File Reader class   </par>
+      An instance of the File Reader class
    $DESCRIPTION$
       TFileRead() is used to access a file one line at a time. You must
-      specify the name of the file when an instance of the class is created.   </par>
-      The class data should be considered private to the class.   </par>
+      specify the name of the file when an instance of the class is created.
 
-      The class methods are as follows:   </par>
+      The class data should be considered private to the class.
 
-         New()                Creates a new instance of the TFileRead class.   </par>
+      The class methods are as follows:
 
-         Open( [<nFlags>] )   Opens the file for reading. The optional nFlags
-                              parameter can use any of the file open flags from
-                              fileio.ch. The default is FO_READ + FO_SHARED.
-                              Calling this method when the file is already
-                              open causes the next ReadLine() to start over
-                              from the beginning of the file.   </par>
+         `New()`                Creates a new instance of the TFileRead class.
 
-         Close()              Closes the file.   </par>
+         `Open( [<nFlags>] )`   Opens the file for reading. The optional nFlags
+                                parameter can use any of the file open flags from
+                                fileio.ch. The default is FO_READ + FO_SHARED.
+                                Calling this method when the file is already
+                                open causes the next ReadLine() to start over
+                                from the beginning of the file.
 
-         ReadLine()           Returns one line from the file, stripping the
-                              newline characters. The following sequences are
-                              treated as one newline: 1) CR CR LF; 2) CR LF;
-                              3) LF; and 4) CR. Note: LF CR is 2 newlines.   </par>
-         Name()               Returns the name of the file.   </par>
+         `Close()`              Closes the file.
 
-         IsOpen()             Returns .T. if the file is open.   </par>
+         `ReadLine()`           Returns one line from the file, stripping the
+                                newline characters. The following sequences are
+                                treated as one newline: 1) CR CR LF; 2) CR LF;
+                                3) LF; and 4) CR. Note: LF CR is 2 newlines.
+         `Name()`               Returns the name of the file.
 
-         MoreToRead()         Returns .T. if there are more lines to be read
-                              (think of it as an inverse EOF function).
+         `IsOpen()`             Returns .T. if the file is open.
 
-         Error()              Returns .T. if an error has occurred.   </par>
+         `MoreToRead()`         Returns .T. if there are more lines to be read
+                                (think of it as an inverse EOF function).
 
-         ErrorNo()            Returns the current error code.   </par>
+         `Error()`              Returns .T. if an error has occurred.
 
-         ErrorMsg( [<cPre>] ) Returns a formatted error message.   </par>
+         `ErrorNo()`            Returns the current error code.
+
+         `ErrorMsg( [<cPre>] )` Returns a formatted error message.
    $EXAMPLES$
       PROCEDURE Main( cFile )
          LOCAL oFile := TFileRead():New( cFile )

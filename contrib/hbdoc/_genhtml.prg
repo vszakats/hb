@@ -508,8 +508,9 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
             to fit more interesting information on the screen.
             TODO: better do this in the doc sources. */
 
-         IF hb_LeftEqI( cContent, "PROCEDURE Main" ) .OR. ;
-            hb_LeftEqI( cContent, "PROC Main" )
+         IF hb_LeftEqI( cContent, "PROCEDURE Main()" ) .OR. ;
+            Lower( cContent ) == "procedure main" .OR. ;
+            Lower( cContent ) == "proc main"
 
             tmp1 := ""
             FOR EACH tmp IN hb_ATokens( cContent, .T. )
@@ -1021,7 +1022,8 @@ STATIC FUNCTION AutoLink( cFile, cComponent, cRevision, hNameID, lCodeAlready )
                ELSE
                   cTag := "contrib/" + cComponent + "/" + cName
                ENDIF
-               IF hb_FileExists( hbdoc_RootDir() + cTag )
+               IF hb_FileExists( hbdoc_RootDir() + cTag ) .OR. ;
+                  hb_FileExists( hbdoc_RootDir() + ( cTag := "include/" + cName ) )
 #if 0
                   /* link to the most-recent version */
                   cTag := "<a href=" + '"' + hb_Version( HB_VERSION_URL_BASE ) + "tree/master/" + cTag + '"' + ">" + cName + "</a>"
