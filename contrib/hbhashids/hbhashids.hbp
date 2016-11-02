@@ -11,4 +11,4 @@
 -depincpath=libhashids:${HB_WITH_HASHIDS}
 -depfinish=libhashids
 
-hbhashids.hbm
+hbhashids.c
