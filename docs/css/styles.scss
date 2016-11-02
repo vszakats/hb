@@ -659,6 +659,13 @@ h2 {
   font-size: 100%;
 }
 
+.updated:after {
+  margin-left: 6px;
+  content: '\f0a3';  /* fa-certificate */
+  font-family: FontAwesome;
+  color: $fork-color;
+}
+
 @mixin readmore-char() {
   // content: ' ›';
   // content: ' ⋯';
