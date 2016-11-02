@@ -205,23 +205,23 @@
       The table below show the default keypress/Code Block definitions
 
       <table>
-      Inkey Value    Code Block
+       Inkey Value    Code Block
 
-      K_DOWN         {| oB, nKey | oB:Down(), 0 }
-      K_END          {| oB, nKey | oB:End(), 0 }
-      K_CTRL_PGDN    {| oB, nKey | oB:GoBottom(), 0 }
-      K_CTRL_PGUP    {| oB, nKey | oB:GoTop(), 0 }
-      K_HOME         {| oB, nKey | oB:Home(), 0 }
-      K_LEFT         {| oB, nKey | oB:Left(), 0 }
-      K_PGDN         {| oB, nKey | oB:PageDown(), 0 }
-      K_PGUP         {| oB, nKey | oB:PageUp(), 0 }
-      K_CTRL_END     {| oB, nKey | oB:PanEnd(), 0 }
-      K_CTRL_HOME    {| oB, nKey | oB:PanHome(), 0 }
-      K_CTRL_LEFT    {| oB, nKey | oB:PanLeft(), 0 }
-      K_CTRL_RIGHT   {| oB, nKey | oB:PanRight(), 0 }
-      K_RIGHT        {| oB, nKey | oB:Right(), 0 }
-      K_UP           {| oB, nKey | oB:Up(), 0 }
-      K_ESC          {| oB, nKey | -1 }
+       K_DOWN         {| oB, nKey | oB:Down(), 0 }
+       K_END          {| oB, nKey | oB:End(), 0 }
+       K_CTRL_PGDN    {| oB, nKey | oB:GoBottom(), 0 }
+       K_CTRL_PGUP    {| oB, nKey | oB:GoTop(), 0 }
+       K_HOME         {| oB, nKey | oB:Home(), 0 }
+       K_LEFT         {| oB, nKey | oB:Left(), 0 }
+       K_PGDN         {| oB, nKey | oB:PageDown(), 0 }
+       K_PGUP         {| oB, nKey | oB:PageUp(), 0 }
+       K_CTRL_END     {| oB, nKey | oB:PanEnd(), 0 }
+       K_CTRL_HOME    {| oB, nKey | oB:PanHome(), 0 }
+       K_CTRL_LEFT    {| oB, nKey | oB:PanLeft(), 0 }
+       K_CTRL_RIGHT   {| oB, nKey | oB:PanRight(), 0 }
+       K_RIGHT        {| oB, nKey | oB:Right(), 0 }
+       K_UP           {| oB, nKey | oB:Up(), 0 }
+       K_ESC          {| oB, nKey | -1 }
       </table>
 
       The keys handlers can be queried, added and replace an removed from
@@ -266,10 +266,10 @@
       See Table Below
 
       <table>
-      Value    Meaning
-      -1       User request for the browse lost input focus
-      0        Code block associated with <nkey> was evaluated
-      1        Unable to locate <nKey> in the dictionary, Key was not processed
+       Value    Meaning
+       -1       User request for the browse lost input focus
+       0        Code block associated with <nkey> was evaluated
+       1        Unable to locate <nKey> in the dictionary, Key was not processed
       </table>
    $DESCRIPTION$
       This method evaluate an code block associated with <nkey> that is

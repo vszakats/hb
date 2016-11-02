@@ -126,11 +126,11 @@
       that allow you to distinguish between VAR and CLASS VAR:
 
       <table>
-      hboo.ch           Meaning
+       hboo.ch           Meaning
 
-      HB_MSGLISTALL     All types
-      HB_MSGLISTCLASS   CLASS VAR only
-      HB_MSGLISTPURE    VAR only
+       HB_MSGLISTALL     All types
+       HB_MSGLISTCLASS   CLASS VAR only
+       HB_MSGLISTPURE    VAR only
       </table>
 
       VAR are instance variable usable within each object from a class,

@@ -136,14 +136,14 @@
       __dbCopyXStruct() create a new database named <cFileName> with a
       pre-defined structure (also called "structure extended file"):
 
-       <table>
+      <table>
        Field name   Type   Length   Decimals
 
        FIELD_NAME   C      10       0
        FIELD_TYPE   C      1        0
        FIELD_LEN    N      3        0
        FIELD_DEC    N      3        0
-       </table>
+      </table>
 
       Each record in the new file contains information about one field in
       the original file. `CREATE FROM` could be used to create a database
@@ -212,14 +212,14 @@
       `COPY STRUCTURE EXTENDED` create a new database named <cFileName> with
       a pre-defined structure (also called "structure extended file"):
 
-       <table>
+      <table>
        Field name   Type   Length   Decimals
 
        FIELD_NAME   C      10       0
        FIELD_TYPE   C      1        0
        FIELD_LEN    N      3        0
        FIELD_DEC    N      3        0
-       </table>
+      </table>
 
       Each record in the new file contains information about one field in
       the original file. `CREATE FROM` could be used to create a database
@@ -311,14 +311,14 @@
       then opened in the current work-area (<lNew> is ignored). The new
       file has the following structure:
 
-       <table>
+      <table>
        Field name   Type   Length   Decimals
 
        FIELD_NAME   C      10       0
        FIELD_TYPE   C      1        0
        FIELD_LEN    N      3        0
        FIELD_DEC    N      3        0
-       </table>
+      </table>
 
       The CREATE command is preprocessed into the __dbCopyStruct() function
       during compile time and uses this mode.
@@ -409,14 +409,14 @@
       and then open it in the current work-area. The new file has the
       following structure:
 
-       <table>
+      <table>
        Field name   Type   Length   Decimals
 
        FIELD_NAME   C      10       0
        FIELD_TYPE   C      1        0
        FIELD_LEN    N      3        0
        FIELD_DEC    N      3        0
-       </table>
+      </table>
 
       CREATE command is preprocessed into __dbCopyStruct() function during
       compile time and use this mode.
@@ -539,14 +539,14 @@
       structure, which is usually the output from dbStruct(), where each
       array element has the following structure:
 
-       <table>
+      <table>
        Position   Description    dbstruct.ch
 
        1          cFieldName     DBS_NAME
        2          cFieldType     DBS_TYPE
        3          nFieldLength   DBS_LEN
        4          nDecimals      DBS_DEC
-       </table>
+      </table>
 
       <aFieldList> is an array where each element is a field name.
       Names could be specified as uppercase or lowercase.
@@ -633,14 +633,14 @@
       structure, which is usually the output from dbStruct(), where each
       array element has the following structure:
 
-       <table>
+      <table>
        Position   Description    dbstruct.ch
 
        1          cFieldName     DBS_NAME
        2          cFieldType     DBS_TYPE
        3          nFieldLength   DBS_LEN
        4          nDecimals      DBS_DEC
-       </table>
+      </table>
 
       <aFieldList> is an array where each element is a field name.
       Names could be specified as uppercase or lowercase.

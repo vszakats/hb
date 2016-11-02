@@ -49,8 +49,8 @@
       selected current language.
    $EXAMPLES$
       aDays := ADays()
-      ? aDays[ 1 ] // -> Sunday
-      ? aDays[ 1 ] // -> Domingo (if the selected language is Spanish)
+      ? aDays[ 1 ]  // -> Sunday
+      ? aDays[ 1 ]  // -> Domingo (if the selected language is Spanish)
    $STATUS$
       R
    $COMPLIANCE$

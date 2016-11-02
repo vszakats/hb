@@ -459,12 +459,12 @@
       SetKey() previously set to the same function number and vice versa.
 
       <table>
-      nFunctionKey    Key to be set
+       nFunctionKey   Key to be set
 
-         1 .. 12      F1 .. F12
-        13 .. 20      Shift+F3 .. Shift+F10
-        21 .. 30      Ctrl+F1 .. Ctrl+F10
-        31 .. 40      Alt+F1 .. Alt+F10
+        1 .. 12       F1 .. F12
+       13 .. 20       Shift+F3 .. Shift+F10
+       21 .. 30       Ctrl+F1 .. Ctrl+F10
+       31 .. 40       Alt+F1 .. Alt+F10
       </table>
 
       `SET FUNCTION` command is preprocessed into __SetFunction() function
@@ -518,12 +518,12 @@
       SetKey() previously set to the same function number and vice versa.
 
       <table>
-      nFunctionKey    Key to be set
+       nFunctionKey   Key to be set
 
-         1 .. 12      F1 .. F12
-        13 .. 20      Shift-F3 .. Shift-F10
-        21 .. 30      Ctrl-F1 .. Ctrl-F10
-        31 .. 40      Alt-F1 .. Alt-F10
+        1 .. 12       F1 .. F12
+       13 .. 20       Shift+F3 .. Shift+F10
+       21 .. 30       Ctrl+F1 .. Ctrl+F10
+       31 .. 40       Alt+F1 .. Alt+F10
       </table>
 
       `SET FUNCTION` command is preprocessed into __SetFunction() function

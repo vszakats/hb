@@ -178,41 +178,41 @@
       module strings are automatically converted by Harbour.
 
       <table>
-      Language              <cNewLang>
+       Language              <cNewLang>
 
-      Basque                eu
-      Belorussian           be
-      Bulgarian             bg
-      Catalan               ca
-      Chinese Traditional   zh
-      Chinese Simplified    zh_sim
-      Croatian              hr
-      Czech                 cs
-      Dutch                 nl
-      Esperanto             eo
-      French                fr
-      Galician              gl
-      German                de
-      Greek                 el
-      Hebrew                he
-      Hungarian             hu
-      Icelandic             is
-      Indonesian            id
-      Italian               it
-      Korean                ko
-      Lithuanian            lt
-      Polish                pl
-      Portuguese            pt
-      Romanian              ro
-      Russian               ru
-      Serbian (cyrillic)    sr_cyr
-      Serbian (latin)       sr_lat
-      Slovak                sk
-      Slovenian             sl
-      Spanish               es
-      Swedish               sv
-      Turkish               tr
-      Ukrainian             uk
+       Basque                eu
+       Belorussian           be
+       Bulgarian             bg
+       Catalan               ca
+       Chinese Traditional   zh
+       Chinese Simplified    zh_sim
+       Croatian              hr
+       Czech                 cs
+       Dutch                 nl
+       Esperanto             eo
+       French                fr
+       Galician              gl
+       German                de
+       Greek                 el
+       Hebrew                he
+       Hungarian             hu
+       Icelandic             is
+       Indonesian            id
+       Italian               it
+       Korean                ko
+       Lithuanian            lt
+       Polish                pl
+       Portuguese            pt
+       Romanian              ro
+       Russian               ru
+       Serbian (cyrillic)    sr_cyr
+       Serbian (latin)       sr_lat
+       Slovak                sk
+       Slovenian             sl
+       Spanish               es
+       Swedish               sv
+       Turkish               tr
+       Ukrainian             uk
       </table>
    $RETURNS$
       <cOldLang>   The old language indentifier
@@ -272,64 +272,64 @@
       Codepage library, sorted by language.
 
       <table>
-      Language              Codepage       <cNewLang>
+       Language              Codepage       <cNewLang>
 
-      Bulgarian             866            BG866
-      Bulgarian             ISO-8859-5     BGISO
-      Bulgarian             MIK            BGMIK
-      Bulgarian             Windows-1251   BGWIN
-      Croatian              437            HR437
-      Croatian              852            HR852
-      Croatian              Windows-1250   HR1250
-      Czech                 852            CS852
-      Czech                 ISO-8859-2     CSISO
-      Czech                 KAM            CSKAM
-      Czech                 Windoes-1250   CSWIN
-      English               437            EN
-      French                850            FR
-      German                850            DE
-      German                ISO-8859-1     DEWIN
-      Greek                 737            EL
-      Greek                 Windows-1253   ELWIN
-      Hungarian (ntxhu852)  852            HU852C
-      Hungarian (sixhu852)  852            HU852
-      Hungarian (sixhu852)  CWI-2          HUCWI
-      Hungarian             ISO-8859-2     HUISO
-      Hungarian             Windows-1250   HUWIN
-      Italian               437            IT437
-      Italian               850            IT850
-      Italian               ISO-8859-1b    ITISB
-      Italian               ISO-8859-1     ITISO
-      Lithuanian            Windows-1257   LT
-      Polish                852            PL852
-      Polish                ISO-8859-2     PLISO
-      Polish                Mazowia        PLMAZ
-      Polish                Windows-1250   PLWIN
-      Portuguese            850            PT850
-      Portuguese            ISO-8859-1     PTISO
-      Russian               866            RU866
-      Russian               KOI-8          RUKOI8
-      Russian               Windows-1251   RU1251
-      Serbian               Windows-1251   SRWIN
-      Slovak                852            SK852
-      Slovak                ISO-8859-2     SKISO
-      Slovak                Kamenicky      SKKAM
-      Slovak                Windows-1250   SKWIN
-      Slovenian             437            SL437
-      Slovenian             852            SL852
-      Slovenian             ISO-8859-2     SLISO
-      Slovenian             Windows-1250   SLWIN
-      Spanish               850            ES
-      Spanish               ISO-8859-1     ESWIN
-      Spanish Modern        ISO-8859-1     ESMWIN
-      Swedish               850            SV850
-      Swedish (Clipper)     437            SVCLIP
-      Swedish               ISO-8859-1     SVWIN
-      Turkish               857            TR857
-      Turkish               Windows-1254   TRWIN
-      Ukrainian             866            UA866
-      Ukrainian             KOI-8U         UAKOI8
-      Ukrainian             Windows-1251   UA1251
+       Bulgarian             866            BG866
+       Bulgarian             ISO-8859-5     BGISO
+       Bulgarian             MIK            BGMIK
+       Bulgarian             Windows-1251   BGWIN
+       Croatian              437            HR437
+       Croatian              852            HR852
+       Croatian              Windows-1250   HR1250
+       Czech                 852            CS852
+       Czech                 ISO-8859-2     CSISO
+       Czech                 KAM            CSKAM
+       Czech                 Windoes-1250   CSWIN
+       English               437            EN
+       French                850            FR
+       German                850            DE
+       German                ISO-8859-1     DEWIN
+       Greek                 737            EL
+       Greek                 Windows-1253   ELWIN
+       Hungarian (ntxhu852)  852            HU852C
+       Hungarian (sixhu852)  852            HU852
+       Hungarian (sixhu852)  CWI-2          HUCWI
+       Hungarian             ISO-8859-2     HUISO
+       Hungarian             Windows-1250   HUWIN
+       Italian               437            IT437
+       Italian               850            IT850
+       Italian               ISO-8859-1b    ITISB
+       Italian               ISO-8859-1     ITISO
+       Lithuanian            Windows-1257   LT
+       Polish                852            PL852
+       Polish                ISO-8859-2     PLISO
+       Polish                Mazowia        PLMAZ
+       Polish                Windows-1250   PLWIN
+       Portuguese            850            PT850
+       Portuguese            ISO-8859-1     PTISO
+       Russian               866            RU866
+       Russian               KOI-8          RUKOI8
+       Russian               Windows-1251   RU1251
+       Serbian               Windows-1251   SRWIN
+       Slovak                852            SK852
+       Slovak                ISO-8859-2     SKISO
+       Slovak                Kamenicky      SKKAM
+       Slovak                Windows-1250   SKWIN
+       Slovenian             437            SL437
+       Slovenian             852            SL852
+       Slovenian             ISO-8859-2     SLISO
+       Slovenian             Windows-1250   SLWIN
+       Spanish               850            ES
+       Spanish               ISO-8859-1     ESWIN
+       Spanish Modern        ISO-8859-1     ESMWIN
+       Swedish               850            SV850
+       Swedish (Clipper)     437            SVCLIP
+       Swedish               ISO-8859-1     SVWIN
+       Turkish               857            TR857
+       Turkish               Windows-1254   TRWIN
+       Ukrainian             866            UA866
+       Ukrainian             KOI-8U         UAKOI8
+       Ukrainian             Windows-1251   UA1251
       </table>
    $RETURNS$
       <cOldLang>   The old language indentifier

@@ -251,9 +251,9 @@
 
       Pressing the arrow keys move the highlighted bar. When a menu item
       is highlighted the message associated with it is displayed on the
-      line specified with SET MESSAGE. If SET WRAP is ON and the user
-      press UP arrow while on the first selection the last menu item is
-      highlighted, if the user press Down arrow while on the last item,
+      line specified with `SET MESSAGE`. If `SET WRAP` is ON and the user
+      press <up> arrow while on the first selection the last menu item is
+      highlighted, if the user press <Down> arrow while on the last item,
       the first item is highlighted.
 
       Following are active keys that handled by __MenuTo():
@@ -338,8 +338,8 @@
       Pressing the arrow keys move the highlighted bar. When a menu item
       is highlighted the message associated with it is displayed on the
       line specified with `SET MESSAGE`. If `SET WRAP` is ON and the user
-      press UP arrow while on the first selection the last menu item is
-      highlighted, if the user press Down arrow while on the last item,
+      press <Up> arrow while on the first selection the last menu item is
+      highlighted, if the user press <Down> arrow while on the last item,
       the first item is highlighted.
 
       Following are active keys that handled by `MENU TO`:
