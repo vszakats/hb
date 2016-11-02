@@ -1,9 +1,6 @@
 -shared
--hbexe
 
 {GESAT_DEBUG}-debug
-
--mt
 
 -w3 -es2
 
