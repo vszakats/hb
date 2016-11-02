@@ -35,7 +35,9 @@ HB_FUNC( HASHIDS_ENCODE )
          {
             PHB_ITEM pArray = hb_param( 1, HB_IT_ARRAY );
 
-            numbers_count = HB_MIN( hb_arrayLen( hb_param( 1, HB_IT_ARRAY ) ), HB_SIZEOFARRAY( numbers ) );
+            numbers_count = hb_arrayLen( hb_param( 1, HB_IT_ARRAY ) );
+            if( numbers_count > HB_SIZEOFARRAY( numbers ) )
+               numbers_count = HB_SIZEOFARRAY( numbers );
 
             for( size_t i = 0; i < numbers_count; ++i )
                numbers[ i ] = ( HB_ULONGLONG ) hb_arrayGetNLL( pArray, i + 1 );
