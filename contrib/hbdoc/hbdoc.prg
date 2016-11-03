@@ -72,10 +72,10 @@ STATIC sc_hFields
 STATIC sc_hTemplates
 STATIC sc_hConstraint := { => }
 STATIC s_hSwitches
-STATIC s_hHBX
+STATIC s_hHBX := { => }
 STATIC s_hTree := { => }  /* component / category / subcategory */
 STATIC s_hNameID := { => }
-STATIC s_hLang := { => }
+STATIC s_hContent := { => }
 
 STATIC s_generators := { ;
    "all"   =>, ;
@@ -113,7 +113,7 @@ PROCEDURE Main()
 
    /* Configuration settings */
    s_hSwitches := { ;
-      "lang"      => "en", ;
+      "lang"      => {}, ;
       "contribs"  => .T., ;
       "format"    => { "html" }, ;
       "output"    => "component", ;
@@ -146,11 +146,16 @@ PROCEDURE Main()
          ENDIF
 
          DO CASE
-         CASE hb_LeftEq( cArgName, "-v" ) ; s_hSwitches[ "verbosity" ] := Val( SubStr( cArgName, Len( "-v" ) + 1 ) )
-         CASE cArgName == "-input" ; s_hSwitches[ "dir_in" ] := hb_DirSepAdd( hb_DirSepToOS( arg ) )
-         CASE cArgName == "-output" ; s_hSwitches[ "dir_out" ] := hb_DirSepAdd( hb_DirSepToOS( arg ) )
-         CASE cArgName == "-lang" ; s_hSwitches[ "lang" ] := Lower( StrTran( arg, "-", "_" ) )
-         CASE cArgName == "-repr" ; s_hSwitches[ "repr" ] := .T.
+         CASE hb_LeftEq( cArgName, "-v" )
+            s_hSwitches[ "verbosity" ] := Val( SubStr( cArgName, Len( "-v" ) + 1 ) )
+         CASE cArgName == "-input"
+            s_hSwitches[ "dir_in" ] := hb_DirSepAdd( hb_DirSepToOS( arg ) )
+         CASE cArgName == "-output"
+            s_hSwitches[ "dir_out" ] := hb_DirSepAdd( hb_DirSepToOS( arg ) )
+         CASE cArgName == "-repr"
+            s_hSwitches[ "repr" ] := .T.
+         CASE cArgName == "-lang"
+            AAdd( s_hSwitches[ "lang" ], LangToInternal( arg ) )
          CASE cArgName == "-format"
             DO CASE
             CASE arg == "" .OR. ! arg $ s_generators
@@ -179,205 +184,210 @@ PROCEDURE Main()
 
    OutStd( hb_StrFormat( "! Input directory: %1$s", s_hSwitches[ "dir_in" ] ) + hb_eol() )
 
-   s_hHBX := { => }
-   hb_HCaseMatch( s_hHBX, .F. )
-   aContent := ProcessDirs( s_hHBX )
+   ProcessDirs( s_hContent, s_hHBX )
 
 #if 0
    hb_MemoWrit( "hbx.json", hb_jsonEncode( s_hHBX, .T. ) )
    hb_MemoWrit( "tree.json", hb_jsonEncode( s_hTree, .T. ) )
 #endif
 
-   OutStd( hb_StrFormat( "! %1$d entries found", Len( aContent ) ) + hb_eol() )
-
-   ASort( aContent,,, {| oL, oR | ;
-         PadR( SortWeight( oL[ "CATEGORY" ] ), 30 ) + ;
-         PadR( SortWeight( oL[ "SUBCATEGORY" ] ), 60 ) + ;
-         PadR( oL[ "NAME" ], 50 ) ;
-      < ;
-         PadR( SortWeight( oR[ "CATEGORY" ] ), 30 ) + ;
-         PadR( SortWeight( oR[ "SUBCATEGORY" ] ), 60 ) + ;
-         PadR( oR[ "NAME" ], 50 ) ;
-      } )
-
    nStart := hb_MilliSeconds()
 
-   FOR EACH cFormat IN s_hSwitches[ "format" ]
+   FOR EACH aContent IN s_hContent
 
-      IF HB_ISEVALITEM( generatorClass := hb_HGetDef( s_generators, Lower( cFormat ) ) )
+      IF ! Empty( s_hSwitches[ "lang" ] ) .AND. ;
+         hb_AScan( s_hSwitches[ "lang" ], aContent:__enumKey(),,, .T. ) == 0
+         LOOP
+      ENDIF
 
-         cDir := s_hSwitches[ "dir_out" ] + cFormat
+      OutStd( hb_StrFormat( "! %1$s: %2$d entries found", aContent:__enumKey(), Len( aContent ) ) + hb_eol() )
 
-         OutStd( hb_StrFormat( "! Output directory: %1$s", hb_PathNormalize( hb_PathJoin( hb_DirBase(), cDir ) ) ) + hb_eol() )
+      ASort( aContent,,, {| oL, oR | ;
+            PadR( SortWeight( oL[ "CATEGORY" ] ), 30 ) + ;
+            PadR( SortWeight( oL[ "SUBCATEGORY" ] ), 60 ) + ;
+            PadR( oL[ "NAME" ], 50 ) ;
+         < ;
+            PadR( SortWeight( oR[ "CATEGORY" ] ), 30 ) + ;
+            PadR( SortWeight( oR[ "SUBCATEGORY" ] ), 60 ) + ;
+            PadR( oR[ "NAME" ], 50 ) ;
+         } )
 
-         aComponent := ASort( hb_HKeys( s_hTree ),,, {| x, y | SortWeightPkg( x ) < SortWeightPkg( y ) } )
+      FOR EACH cFormat IN s_hSwitches[ "format" ]
 
-         hComponents := { => }
-         hb_HKeepOrder( hComponents, .T. )
-         FOR EACH tmp IN aComponent
-            Get_ID_Name( tmp, @cID, @cName, @cNameShort )
-            hComponents[ tmp ] := { ;
-               "id" => cID, ;
-               "name" => cName, ;
-               "nameshort" => cNameShort }
-         NEXT
+         IF HB_ISEVALITEM( generatorClass := hb_HGetDef( s_generators, Lower( cFormat ) ) )
 
-         SWITCH s_hSwitches[ "output" ]
-         CASE "component"
+            cDir := s_hSwitches[ "dir_out" ] + cFormat
 
-            oIndex := Eval( generatorClass ):NewIndex( cDir, "index", "Index", s_hSwitches[ "lang" ], hComponents )
+            OutStd( hb_StrFormat( "! Output directory: %1$s", hb_PathNormalize( hb_PathJoin( hb_DirBase(), cDir ) ) ) + hb_eol() )
 
-            /* index TOC */
+            aComponent := ASort( hb_HKeys( s_hTree ),,, {| x, y | SortWeightPkg( x ) < SortWeightPkg( y ) } )
 
-            IF oIndex != NIL
+            hComponents := { => }
+            hb_HKeepOrder( hComponents, .T. )
+            FOR EACH tmp IN aComponent
+               Get_ID_Name( tmp, @cID, @cName, @cNameShort )
+               hComponents[ tmp ] := { ;
+                  "id" => cID, ;
+                  "name" => cName, ;
+                  "nameshort" => cNameShort }
+            NEXT
+
+            SWITCH s_hSwitches[ "output" ]
+            CASE "component"
+
+               oIndex := Eval( generatorClass ):NewIndex( cDir, "index", "Index", aContent:__enumKey(), hComponents )
+
+               /* index TOC */
+
+               IF oIndex != NIL
 #if 1
-               oIndex:BeginIndex()
-               FOR EACH tmp IN aComponent
-                  Get_ID_Name( tmp, @cID,, @cName )
-                  oIndex:AddIndexItem( hb_StrFormat( "%1$s index", cName ), cID )
-               NEXT
-               oIndex:EndIndex()
+                  oIndex:BeginIndex()
+                  FOR EACH tmp IN aComponent
+                     Get_ID_Name( tmp, @cID,, @cName )
+                     oIndex:AddIndexItem( hb_StrFormat( "%1$s index", cName ), cID )
+                  NEXT
+                  oIndex:EndIndex()
 #else
-               oIndex:BeginTOC()
+                  oIndex:BeginTOC()
+                  FOR EACH tmp IN aComponent
+
+                     Get_ID_Name( tmp, @cID, @cName )
+
+                     cCat1Prev := NIL
+
+                     oIndex:BeginTOCItem( cName, cID )
+#if 0
+                     FOR EACH item IN ASort( hb_HKeys( s_hTree[ tmp ] ),,, {| x, y | SortWeight( x ) < SortWeight( y ) } )
+                        oIndex:AddReference( cCat1, "", cID + "-" + Lower( cCat1 ) )
+                     NEXT
+#endif
+                     oIndex:EndTOCItem()
+                  NEXT
+                  oIndex:EndTOC()
+#endif
+                  oIndex:BeginContent()
+               ENDIF
+
+               IF s_hSwitches[ "verbosity" ] >= 1
+                  OutStd( Chr( 13 ) )
+               ENDIF
+
+               nLen := Len( aContent )
+               nCount := 0
                FOR EACH tmp IN aComponent
 
                   Get_ID_Name( tmp, @cID, @cName )
 
-                  cCat1Prev := NIL
+                  oDocument := Eval( generatorClass ):NewDocument( cDir, tmp, cName, aContent:__enumKey(), hComponents )
 
-                  oIndex:BeginTOCItem( cName, cID )
-#if 0
-                  FOR EACH item IN ASort( hb_HKeys( s_hTree[ tmp ] ),,, {| x, y | SortWeight( x ) < SortWeight( y ) } )
-                     oIndex:AddReference( cCat1, "", cID + "-" + Lower( cCat1 ) )
-                  NEXT
-#endif
-                  oIndex:EndTOCItem()
-               NEXT
-               oIndex:EndTOC()
-#endif
+                  /* content TOC */
 
-               oIndex:BeginContent()
-            ENDIF
-
-            IF s_hSwitches[ "verbosity" ] >= 1
-               OutStd( Chr( 13 ) )
-            ENDIF
-
-            nLen := Len( aContent )
-            nCount := 0
-            FOR EACH tmp IN aComponent
-
-               Get_ID_Name( tmp, @cID, @cName )
-
-               oDocument := Eval( generatorClass ):NewDocument( cDir, tmp, cName, s_hSwitches[ "lang" ], hComponents )
-
-               /* content TOC */
-
-               aList := {}
-               FOR EACH item IN aContent
-                  IF item[ "_type" ] == tmp
-                     AAdd( aList, item )
-                  ENDIF
-               NEXT
-
-               oDocument:BeginIndex()
-               FOR EACH item IN ASort( aList,,, {| oL, oR | ;
-                     SortWeightTOC( oL[ "CATEGORY" ] ) + SortWeightTOC( oL[ "SUBCATEGORY" ] ) + PadR( oL[ "NAME" ], 50 ) < ;
-                     SortWeightTOC( oR[ "CATEGORY" ] ) + SortWeightTOC( oR[ "SUBCATEGORY" ] ) + PadR( oR[ "NAME" ], 50 ) } )
-                  oDocument:AddIndexItem( item[ "NAME" ], item[ "_filename" ] )
-               NEXT
-               oDocument:EndIndex()
-
-               IF oIndex != NIL
-                  oIndex:BeginSection( cName, oDocument:cFilename, cID )
-               ENDIF
-
-               /* content */
-
-               cCat1Prev := cCat2Prev := NIL
-
-               oDocument:BeginContent()
-               FOR EACH item IN aContent
-
-                  IF item[ "_type" ] == tmp
-
-                     IF ++nCount / 10 == Int( nCount / 10 ) .AND. s_hSwitches[ "verbosity" ] >= 1
-                        OutStd( Chr( 13 ) + Str( Int( nCount / nLen * 100 ), 3 ) + "%" )
+                  aList := {}
+                  FOR EACH item IN aContent
+                     IF item[ "_type" ] == tmp
+                        AAdd( aList, item )
                      ENDIF
+                  NEXT
 
-                     oDocument:AddEntry( item )
+                  oDocument:BeginIndex()
+                  FOR EACH item IN ASort( aList,,, {| oL, oR | ;
+                        SortWeightTOC( oL[ "CATEGORY" ] ) + SortWeightTOC( oL[ "SUBCATEGORY" ] ) + PadR( oL[ "NAME" ], 50 ) < ;
+                        SortWeightTOC( oR[ "CATEGORY" ] ) + SortWeightTOC( oR[ "SUBCATEGORY" ] ) + PadR( oR[ "NAME" ], 50 ) } )
+                     oDocument:AddIndexItem( item[ "NAME" ], item[ "_filename" ] )
+                  NEXT
+                  oDocument:EndIndex()
 
-                     IF oIndex != NIL
-                        cCat1 := item[ "CATEGORY" ]
-                        IF cCat1Prev == NIL .OR. !( cCat1 == cCat1Prev )
-                           IF cCat1Prev != NIL
-                              oIndex:EndSection()
-                           ENDIF
-                           oIndex:BeginSection( cCat1,, cID + "-" + Lower( cCat1 ) )
-                           cCat1Prev := cCat1
+                  IF oIndex != NIL
+                     oIndex:BeginSection( cName, oDocument:cFilename, cID )
+                  ENDIF
+
+                  /* content */
+
+                  cCat1Prev := cCat2Prev := NIL
+
+                  oDocument:BeginContent()
+                  FOR EACH item IN aContent
+
+                     IF item[ "_type" ] == tmp
+
+                        IF ++nCount / 10 == Int( nCount / 10 ) .AND. s_hSwitches[ "verbosity" ] >= 1
+                           OutStd( Chr( 13 ) + Str( Int( nCount / nLen * 100 ), 3 ) + "%" )
                         ENDIF
 
-                        cCat2 := hb_defaultValue( item[ "SUBCATEGORY" ], "" )
-                        IF cCat2Prev == NIL .OR. !( cCat2 == cCat2Prev )
+                        oDocument:AddEntry( item )
+
+                        IF oIndex != NIL
+                           cCat1 := item[ "CATEGORY" ]
+                           IF cCat1Prev == NIL .OR. !( cCat1 == cCat1Prev )
+                              IF cCat1Prev != NIL
+                                 oIndex:EndSection()
+                              ENDIF
+                              oIndex:BeginSection( cCat1,, cID + "-" + Lower( cCat1 ) )
+                              cCat1Prev := cCat1
+                           ENDIF
+
+                           cCat2 := hb_defaultValue( item[ "SUBCATEGORY" ], "" )
+                           IF cCat2Prev == NIL .OR. !( cCat2 == cCat2Prev )
 // #define SUBCAT_INDENT
 #ifdef SUBCAT_INDENT
-                           IF cCat2Prev != NIL
-                              oIndex:EndSection()
-                           ENDIF
-                           oIndex:BeginSection( cCat2,, iif( Empty( cCat2 ), NIL, cID + "-" + Lower( cCat1 ) + "-" + Lower( cCat2 ) ) )
+                              IF cCat2Prev != NIL
+                                 oIndex:EndSection()
+                              ENDIF
+                              oIndex:BeginSection( cCat2,, iif( Empty( cCat2 ), NIL, cID + "-" + Lower( cCat1 ) + "-" + Lower( cCat2 ) ) )
 #else
-                           IF cCat2Prev != NIL
-                              oIndex:SubCategory( cCat2, iif( Empty( cCat2 ), NIL, cID + "-" + Lower( cCat1 ) + "-" + Lower( cCat2 ) ) )
-                           ENDIF
+                              IF cCat2Prev != NIL
+                                 oIndex:SubCategory( cCat2, iif( Empty( cCat2 ), NIL, cID + "-" + Lower( cCat1 ) + "-" + Lower( cCat2 ) ) )
+                              ENDIF
 #endif
-                           cCat2Prev := cCat2
-                        ENDIF
+                              cCat2Prev := cCat2
+                           ENDIF
 
-                        oIndex:AddReference( item )
+                           oIndex:AddReference( item )
+                        ENDIF
                      ENDIF
-                  ENDIF
-               NEXT
-               oDocument:EndContent()
+                  NEXT
+                  oDocument:EndContent()
 
 #ifdef SUBCAT_INDENT
-               IF cCat2Prev != NIL
-                  oIndex:EndSection()
-               ENDIF
+                  IF cCat2Prev != NIL
+                     oIndex:EndSection()
+                  ENDIF
 #endif
-               IF cCat1Prev != NIL
-                  oIndex:EndSection()
-               ENDIF
+                  IF cCat1Prev != NIL
+                     oIndex:EndSection()
+                  ENDIF
+
+                  IF oIndex != NIL
+                     oIndex:EndSection()
+                  ENDIF
+
+                  oDocument:Generate()
+               NEXT
 
                IF oIndex != NIL
-                  oIndex:EndSection()
+                  oIndex:EndContent()
+                  oIndex:Generate()
                ENDIF
 
-               oDocument:Generate()
-            NEXT
+               IF s_hSwitches[ "verbosity" ] >= 1
+                  OutStd( Chr( 13 ) + Str( 100, 3 ) + "%" + hb_eol() )
+               ENDIF
 
-            IF oIndex != NIL
-               oIndex:EndContent()
-               oIndex:Generate()
-            ENDIF
+               EXIT
 
-            IF s_hSwitches[ "verbosity" ] >= 1
-               OutStd( Chr( 13 ) + Str( 100, 3 ) + "%" + hb_eol() )
-            ENDIF
+            CASE "entry"
 
-            EXIT
+               FOR EACH item IN aContent
+                  oDocument := Eval( generatorClass ):NewDocument( cDir, item[ "_filename" ], item[ "NAME" ], aContent:__enumKey() )
+                  oDocument:AddEntry( item )
+                  oDocument:Generate()
+               NEXT
 
-         CASE "entry"
+               EXIT
 
-            FOR EACH item IN aContent
-               oDocument := Eval( generatorClass ):NewDocument( cDir, item[ "_filename" ], item[ "NAME" ], s_hSwitches[ "lang" ] )
-               oDocument:AddEntry( item )
-               oDocument:Generate()
-            NEXT
-
-            EXIT
-
-         ENDSWITCH
-      ENDIF
+            ENDSWITCH
+         ENDIF
+      NEXT
    NEXT
 
    OutStd( hb_StrFormat( "! Done in %1$d seconds", Round( ( hb_MilliSeconds() - nStart ) / 1000, 2 ) ) + hb_eol() )
@@ -385,7 +395,7 @@ PROCEDURE Main()
    RETURN
 
 FUNCTION hbdoc_LangList()
-   RETURN s_hLang
+   RETURN s_hContent
 
 FUNCTION hbdoc_NameID()
    RETURN s_hNameID
@@ -416,6 +426,9 @@ STATIC PROCEDURE Get_ID_Name( cComponent, /* @ */ cID, /* @ */ cName, /* @ */ cN
 
    RETURN
 
+STATIC FUNCTION LangToInternal( cLang )
+   RETURN Lower( StrTran( cLang, "-", "_" ) )
+
 /* Begin with Harbour core section */
 STATIC FUNCTION SortWeightPkg( cString )
    RETURN iif( cString == "harbour", "A", "B" ) + cString
@@ -434,15 +447,14 @@ STATIC FUNCTION SortWeight( cString )
 
    RETURN cString
 
-STATIC FUNCTION ProcessDirs( hAll )
+STATIC PROCEDURE ProcessDirs( hContent, hAll )
 
-   LOCAL aContent := {}
    LOCAL cDir
    LOCAL file
 
    DirLoadHBX( s_hSwitches[ "dir_in" ] + "include", hAll )
 
-   ProcessDocDir( s_hSwitches[ "dir_in" ], "harbour", @aContent )
+   ProcessDocDir( s_hSwitches[ "dir_in" ], "harbour", hContent )
 
    IF s_hSwitches[ "contribs" ]
 
@@ -455,22 +467,22 @@ STATIC FUNCTION ProcessDirs( hAll )
 
             DirLoadHBX( cDir + hb_ps() + file[ F_NAME ], hAll )
 
-            IF ! ProcessDocDir( cDir + hb_ps() + file[ F_NAME ], hb_FNameName( file[ F_NAME ] ), @aContent )
+            IF ! ProcessDocDir( cDir + hb_ps() + file[ F_NAME ], hb_FNameName( file[ F_NAME ] ), hContent )
                EXIT
             ENDIF
          ENDIF
       NEXT
    ENDIF
 
-   RETURN aContent
+   RETURN
 
-STATIC FUNCTION ProcessDocDir( cDir, cComponent, aContent )
+STATIC FUNCTION ProcessDocDir( cDir, cComponent, hContent )
 
    LOCAL aErrMsg := {}
    LOCAL aEntry := __hbdoc_LoadDir( cDir, cComponent, aErrMsg )
 
    LOCAL hEntry
-   LOCAL nOldContentLen, tmp
+   LOCAL nCount, tmp
 
    FOR EACH tmp IN aErrMsg
       AddErrorCondition( cDir, tmp )
@@ -482,19 +494,21 @@ STATIC FUNCTION ProcessDocDir( cDir, cComponent, aContent )
       hb_MemoWrit( "_" + aEntry[ 1 ][ "_COMPONENT" ] + ".json", hb_jsonEncode( aEntry, .t. ) )
 #endif
 
-      nOldContentLen := Len( aContent )
+      nCount := 0
 
       FOR EACH hEntry IN aEntry
 
-         s_hLang[ Lower( hEntry[ "_LANG" ] ) ] := NIL
+         tmp := LangToInternal( hEntry[ "_LANG" ] )
 
-         IF Lower( hEntry[ "_LANG" ] ) == s_hSwitches[ "lang" ]
-            ProcessBlock( hEntry, aContent )
+         IF ! tmp $ hContent
+            hContent[ tmp ] := {}
          ENDIF
+
+         ProcessBlock( hEntry, hContent[ tmp ], @nCount )
       NEXT
 
-      IF Len( aContent ) > nOldContentLen
-         OutStd( hb_StrFormat( "! %1$s (%2$d entries)", cDir, Len( aContent ) - nOldContentLen ) + hb_eol() )
+      IF nCount > 0
+         OutStd( hb_StrFormat( "! %1$s (%2$d entries)", cDir, nCount ) + hb_eol() )
       ENDIF
    ENDIF
 
@@ -565,7 +579,7 @@ STATIC FUNCTION NewLineVoodoo( cSectionIn )
 
    RETURN cSection
 
-STATIC PROCEDURE ProcessBlock( hEntry, aContent )
+STATIC PROCEDURE ProcessBlock( hEntry, aContent, /* @ */ nCount )
 
    LOCAL cFile := hEntry[ "_DOCSOURCE" ]
    LOCAL cComponent := hEntry[ "_COMPONENT" ]
@@ -710,6 +724,8 @@ STATIC PROCEDURE ProcessBlock( hEntry, aContent )
 
       AAdd( aContent, hE )
 
+      ++nCount
+
       IF ! cComponent $ s_hTree
          s_hTree[ cComponent ] := { => }
          hb_HCaseMatch( s_hTree[ cComponent ], .F. )
@@ -848,7 +864,7 @@ STATIC PROCEDURE ShowHelp( cExtraMessage, aArgs )
             1, ;
             "-v<n>                verbosity level, default: 1", ;
             "-repr                create reproducible output, default: false", ;
-            "-lang=<lang>         language to process, default: " + s_hSwitches[ "lang" ], ;
+            "-lang=<lang>         language to process, default: all", ;
             "-input=<directory>   input directory, default: " + s_hSwitches[ "dir_in" ], ;
             "-output=<directory>  output directory, default: " + s_hSwitches[ "dir_out" ], ;
             "-output-component    output is one file for each component and a central index (default)", ;
@@ -1147,7 +1163,8 @@ STATIC PROCEDURE init_Templates()
 
    hb_HCaseMatch( hSubCategories, .F. )
 
-   hb_HCaseMatch( s_hLang, .F. )
+   hb_HCaseMatch( s_hHBX, .F. )
+   hb_HCaseMatch( s_hContent, .F. )
    hb_HCaseMatch( s_hNameID, .F. )
    hb_HCaseMatch( sc_hConstraint, .F. )
 
