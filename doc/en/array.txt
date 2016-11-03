@@ -475,7 +475,7 @@
       R
    $COMPLIANCE$
       This function is not CA-Cl*pper compatible.
-      CA-Cl*pper AScan() is affected by the SET EXACT ON/OFF Condition
+      CA-Cl*pper AScan() is affected by the `SET EXACT ON`/`OFF` Condition
    $FILES$
       Library is core
    $SEEALSO$

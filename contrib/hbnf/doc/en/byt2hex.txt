@@ -11,14 +11,14 @@
       <cByte> is the byte to convert.
    $RETURNS$
       Three-character string, consisting of two digits of hexadecimal
-      notation and letter 'h' to signify hex.  Returns NIL if parameters are
+      notation and letter `h` to signify hex.  Returns NIL if parameters are
       faulty.
    $DESCRIPTION$
       Can be used to show results of bit manipulation, both before and after.
 
       This function is presented to illustrate that bit-wise operations
-      are possible with Clipper code.  For greater speed, write .c or
-      .asm versions and use the Clipper Extend system.
+      are possible with Clipper code.  For greater speed, write `.c`
+      version and use the Clipper Extend system.
    $EXAMPLES$
       // These three code lines perform a bitwise AND on bytes with values of
       // hb_BChar( 20 ) and hb_BChar( 36 ), and deliver the result as a string

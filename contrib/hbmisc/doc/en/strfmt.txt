@@ -33,5 +33,7 @@
       NA
    $FILES$
       Library is hbmisc
+   $SEEALSO$
+      hb_StrFormat()
    $END$
  */

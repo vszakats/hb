@@ -8,7 +8,7 @@
    $SYNTAX$
       ft_ByteXor( <cByte1>, <cByte2> ) -> cNewByte
    $ARGUMENTS$
-      <cByte1> and <cByte2> are characters from hb_BChar( 0 ) to hb_BChar( 255 ).
+      <cByte1> and <cByte2> are characters from `hb_BChar( 0 )` to `hb_BChar( 255 )`.
       May be passed in hb_BChar() form, as character literals, or as expressions
       evaluating to character values.
    $RETURNS$
@@ -19,8 +19,8 @@
       bit-by-bit XOR operation.  Equivalent to XOR assembler instruction.
 
       This function is presented to illustrate that bit-wise operations
-      are possible with Clipper code.  For greater speed, write .c or
-      .asm versions and use the Clipper Extend system.
+      are possible with Clipper code.  For greater speed, write `.c`
+      version and use the Clipper Extend system.
    $EXAMPLES$
       // This code performs a bit-wise XOR on two bytes represented
       // by hb_BChar( 32 ) and hb_BChar( 55 ):

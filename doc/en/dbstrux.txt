@@ -156,7 +156,7 @@
 
       <fixed>
       FIELD->FIELD_DEC := Int( nLength / 256 )
-      FIELD->FIELD_LEN := ( nLength % 256 )
+      FIELD->FIELD_LEN :=      nLength % 256
       </fixed>
 
       Later if you want to calculate the length of a field you can use
@@ -232,7 +232,7 @@
 
       <fixed>
       FIELD->FIELD_DEC := Int( nLength / 256 )
-      FIELD->FIELD_LEN := ( nLength % 256 )
+      FIELD->FIELD_LEN :=      nLength % 256
       </fixed>
 
       Later if you want to calculate the length of a field you can use
@@ -338,7 +338,7 @@
 
       <fixed>
       FIELD->FIELD_DEC := Int( nLength / 256 )
-      FIELD->FIELD_LEN := ( nLength % 256 )
+      FIELD->FIELD_LEN :=      nLength % 256
       </fixed>
 
       `CREATE FROM` command is preprocessed into __dbCopyStruct() function
@@ -503,7 +503,7 @@
 
       <fixed>
       FIELD->FIELD_DEC := Int( nLength / 256 )
-      FIELD->FIELD_LEN := ( nLength % 256 )
+      FIELD->FIELD_LEN :=      nLength % 256
       </fixed>
 
       `CREATE FROM` command is preprocessed into __dbCopyStruct() function

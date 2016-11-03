@@ -8,7 +8,7 @@
    $SYNTAX$
       ft_ByteNeg( <cByte> ) -> cNewByte
    $ARGUMENTS$
-      <cByte> is a character from hb_BChar( 0 ) to hb_BChar( 255 ).
+      <cByte> is a character from `hb_BChar( 0 )` to `hb_BChar( 255 )`.
       May be passed in hb_BChar() form, as character literals, or as expressions
       evaluating to character values.
    $RETURNS$
@@ -20,8 +20,8 @@
       assembler instruction.
 
       This function is presented to illustrate that bit-wise operations
-      are possible with Clipper code.  For greater speed, write .c or
-      .asm versions and use the Clipper Extend system.
+      are possible with Clipper code.  For greater speed, write `.c`
+      version and use the Clipper Extend system.
    $EXAMPLES$
       // This code performs a bit-wise NEG on byte represented by hb_BChar( 32 ):
 

@@ -15,7 +15,7 @@
       99 if invalid parameters passed
    $DESCRIPTION$
       Use this function if you prefer to change the active directory
-      instead of relying on the SET PATH command.
+      instead of relying on the `SET PATH` command.
 
       The source code is written to adhere to Turbo Assembler's IDEAL mode.
       To use another assembler, you will need to rearrange the PROC and

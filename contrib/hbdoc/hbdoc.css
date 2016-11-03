@@ -264,12 +264,12 @@ aside code {
 .d-it code {
   color: #606060;
   color: #2e2a24;
-  background-color: #fffff8;
-  font-weight: bold;
+  background-color: #efeff8;
+  font-weight-: bold;
   border: none;
-  border-radius: 3px;
+  border-radius: 10px;
   margin-right: 0;
-  padding: 2px 3px;
+  padding: 2px 7px;
 }
 
 .d-sy pre {
@@ -380,6 +380,13 @@ p {
   margin-left: 0;
   padding-top: 0;
   padding-bottom: 8px;
+}
+
+.d-so {
+  font-size: 60%;
+  font-weight: normal;
+  margin-left: 5px;
+  vertical-align: super;
 }
 
 .d-ol {

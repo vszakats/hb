@@ -264,7 +264,7 @@
    $RETURNS$
 
    $DESCRIPTION$
-      <dDate|nMonth> can be a date or a month number. If empty uses the
+      `dDate|nMonth` can be a date or a month number. If empty uses the
       system date.  If <nMonth> is a 2, LastDayOM() will not know if it
       is a leap year or not. If <dDate> is invalid, returns 0
 
