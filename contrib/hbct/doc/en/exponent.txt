@@ -25,9 +25,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      Mantissa() is compatible with CT3's Mantissa().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -69,9 +69,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      Exponent() is compatible with CT3's Exponent()
+      C
    $PLATFORMS$
       All
    $FILES$

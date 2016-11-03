@@ -47,9 +47,9 @@
       ? StrDiff( "AXBC", "ABC" ) // 6, one character removed
       ? StrDiff( "AXBC", "ADC" ) // 9, one character removed and one replaced
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      StrDiff() is compatible with CT3's StrDiff().
+      C
    $PLATFORMS$
       All
    $FILES$

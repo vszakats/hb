@@ -32,7 +32,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-
+      NA
    $PLATFORMS$
 
    $FILES$
@@ -61,7 +61,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-
+      NA
    $PLATFORMS$
 
    $FILES$
@@ -98,7 +98,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-
+      NA
    $PLATFORMS$
 
    $FILES$
@@ -130,7 +130,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-
+      NA
    $PLATFORMS$
 
    $FILES$
@@ -167,7 +167,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-
+      NA
    $PLATFORMS$
 
    $FILES$
@@ -199,7 +199,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-
+      NA
    $PLATFORMS$
 
    $FILES$
@@ -233,7 +233,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-
+      NA
    $PLATFORMS$
 
    $FILES$
@@ -266,7 +266,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-
+      NA
    $PLATFORMS$
 
    $FILES$
@@ -305,7 +305,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-
+      NA
    $PLATFORMS$
 
    $FILES$
@@ -343,7 +343,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-
+      NA
    $PLATFORMS$
 
    $FILES$
@@ -375,7 +375,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-
+      NA
    $PLATFORMS$
 
    $FILES$
@@ -413,7 +413,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-
+      NA
    $PLATFORMS$
 
    $FILES$
@@ -451,7 +451,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-
+      NA
    $PLATFORMS$
 
    $FILES$
@@ -488,7 +488,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-
+      NA
    $PLATFORMS$
 
    $FILES$
@@ -521,7 +521,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-
+      NA
    $PLATFORMS$
 
    $FILES$
@@ -558,7 +558,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-
+      NA
    $PLATFORMS$
 
    $FILES$

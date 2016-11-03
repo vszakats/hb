@@ -38,9 +38,9 @@
       ? AfterAtNum( "!", "What is the answer ? 4 ! 5 ?" ) // -> " 5 ?"
       <TODO: add some examples here with CSetAtMupa() and SetAtLike()>
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      AfterAtNum() is compatible with CT3's AfterAtNum().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -90,9 +90,9 @@
       ? BeforAtNum( "!", "What is the answer ? 4 ! 5 ?" ) // -> "What is the answer ? 4 "
       <TODO: add some examples here with CSetAtMupa() and SetAtLike()>
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      BeforAtNum() is compatible with CT3's BeforAtNum().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -141,9 +141,9 @@
       ? AtNum( "!", "What is the answer ? 4 ! 5 ?" ) // -> 24
       <TODO: add some examples here with CSetAtMupa() and SetAtLike()>
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      AtNum() is compatible with CT3's AtNum().
+      C
    $PLATFORMS$
       All
    $FILES$

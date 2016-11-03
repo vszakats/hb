@@ -32,9 +32,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-
+      C
    $PLATFORMS$
       All
    $FILES$

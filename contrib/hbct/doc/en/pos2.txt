@@ -16,9 +16,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      PosChar() is compatible with CT3's PosChar().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -46,9 +46,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      PosDel() is compatible with CT3's PosDel().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -76,9 +76,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      PosIns() is compatible with CT3's PosIns().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -106,9 +106,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      PosRepl() is compatible with CT3's PosRepl().
+      C
    $PLATFORMS$
       All
    $FILES$

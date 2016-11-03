@@ -20,7 +20,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-      This function is a Harbour extension
+      H
    $PLATFORMS$
       All
    $FILES$
@@ -49,7 +49,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-      This function is a Harbour extension
+      H
    $PLATFORMS$
       All
    $FILES$
@@ -91,7 +91,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-      This function is a Harbour extension
+      H
    $PLATFORMS$
       All
    $FILES$
@@ -123,7 +123,7 @@
    $EXAMPLES$
       hb_SetDiskZip( {| nDisk | Alert( "Please insert disk no " + hb_ntos( nDisk ) ) } )
    $COMPLIANCE$
-      This function is a Harbour extension
+      H
    $PLATFORMS$
       All
    $FILES$
@@ -163,7 +163,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-      This function is a Harbour extension
+      H
    $PLATFORMS$
       All
    $FILES$
@@ -258,7 +258,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-      This function is a Harbour extension
+      H
    $PLATFORMS$
       All
    $FILES$
@@ -360,7 +360,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-      This function is a Harbour extension
+      H
    $PLATFORMS$
       All
    $FILES$
@@ -456,7 +456,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-      This function is a Harbour extension
+      H
    $PLATFORMS$
       All
    $FILES$
@@ -526,7 +526,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-      This function is a Harbour extension
+      H
    $PLATFORMS$
       All
    $FILES$
@@ -562,7 +562,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-      This function is a Harbour extension
+      H
    $PLATFORMS$
       All
    $FILES$

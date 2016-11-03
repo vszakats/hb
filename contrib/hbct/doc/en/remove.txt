@@ -16,9 +16,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      RemAll() is compatible with CT3's RemAll().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -46,9 +46,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      RemLeft() is compatible with CT3's RemLeft().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -76,9 +76,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      RemRight() is compatible with CT3's RemRight().
+      C
    $PLATFORMS$
       All
    $FILES$

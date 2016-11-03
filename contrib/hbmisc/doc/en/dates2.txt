@@ -21,7 +21,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-      This function is new in Harbour.
+      H
    $PLATFORMS$
       All
    $FILES$
@@ -54,7 +54,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-      This function is new in Harbour.
+      H
    $PLATFORMS$
       All
    $FILES$
@@ -86,7 +86,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-      This function is new in Harbour.
+      H
    $PLATFORMS$
       All
    $FILES$
@@ -117,7 +117,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-      This function is new in Harbour.
+      H
    $PLATFORMS$
       All
    $FILES$
@@ -151,7 +151,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-      This function is new in Harbour.
+      H
    $PLATFORMS$
       All
    $FILES$

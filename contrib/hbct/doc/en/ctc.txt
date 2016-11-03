@@ -29,9 +29,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      CSetArgErr() is a new function in Harbour's CT3 library.
+      C
    $PLATFORMS$
       All
    $FILES$

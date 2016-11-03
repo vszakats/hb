@@ -36,9 +36,9 @@
          // ...
       ENDDO
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      WaitPeriod() is Clipper Tools compatible.
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -96,9 +96,9 @@
          GET cBegin VALID TimeValid( cBegin )
       READ
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      This function is CA-Cl*pper Tools compatible.
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -146,9 +146,9 @@
 
       SetTime( cNewTime, IsAt() )
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      This function is CA-Cl*pper Tools compatible.
+      C
    $PLATFORMS$
       Windows, Linux
    $FILES$
@@ -194,9 +194,9 @@
 
       SetDate( dNewDate, IsAt() )
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      This function is CA-Cl*pper Tools compatible.
+      C
    $PLATFORMS$
       Windows, Linux
    $FILES$

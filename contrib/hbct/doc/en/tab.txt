@@ -29,7 +29,7 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
       TabExpand() is compatible with CT3's TabExpand(), but there are
       three new parameters for a better fine control of the function's
@@ -74,7 +74,7 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
       TabPack() is compatible with CT3's TabPack(), but there are
       three new parameters for a better fine control of the function's

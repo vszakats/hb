@@ -16,9 +16,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      CountLeft() is compatible with CT3's CountLeft().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -46,9 +46,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      CountRight() is compatible with CT3's CountRight().
+      C
    $PLATFORMS$
       All
    $FILES$

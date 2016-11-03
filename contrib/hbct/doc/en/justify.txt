@@ -16,9 +16,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      JustLeft() is compatible with CT3's JustLeft().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -46,9 +46,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      JustRight() is compatible with CT3's JustRight().
+      C
    $PLATFORMS$
       All
    $FILES$

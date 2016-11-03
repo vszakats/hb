@@ -17,9 +17,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      SetPrec() is compatible with CT3's SetPrec().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -48,9 +48,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      GetPrec() is compatible with CT3's GetPrec().
+      C
    $PLATFORMS$
       All
    $FILES$

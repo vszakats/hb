@@ -29,7 +29,7 @@
       ? CharMix( "HELLO", " " )    //  "H E L L O "
       ? CharMix( "HELLO", "" )     //  "HELLO"
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
       CharMix() is compatible with CT3's CharMix().
       NOTE: CA-Tools version of CharMix() will hang

@@ -28,7 +28,7 @@
    $EXAMPLES$
 
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
       AtAdjust() works like CT3's AtAdjust()
    $PLATFORMS$

@@ -16,9 +16,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-
+      C
    $PLATFORMS$
       DOS
    $FILES$
@@ -46,9 +46,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-
+      C
    $PLATFORMS$
       DOS
    $FILES$
@@ -76,9 +76,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-
+      C
    $PLATFORMS$
       DOS
    $FILES$
@@ -106,9 +106,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-
+      C
    $PLATFORMS$
       DOS
    $FILES$

@@ -67,6 +67,7 @@
    $STATUS$
       R
    $COMPLIANCE$
+      NA
    $FILES$
       Library is hbmisc
    $SEEALSO$

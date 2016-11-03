@@ -44,9 +44,9 @@
       ? WordRepl( "aa", "1aaaa", "ba" )      // "1abaa"
       ? WordRepl( "aa", "1aaaa", "ba", .T. ) // "1bbba"
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      WordRepl() is compatible with CT3's WordRepl().
+      C
    $PLATFORMS$
       All
    $FILES$

@@ -16,9 +16,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      StrSwap() is compatible with CT3's StrSwap().
+      C
    $PLATFORMS$
       All
    $FILES$

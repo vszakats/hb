@@ -16,9 +16,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      CToDoW() is compatible with CT3's CToDoW().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -46,9 +46,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      CToMonth() is compatible with CT3's CToMonth().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -79,9 +79,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      DMY() is compatible with CT3's DMY().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -112,9 +112,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      MDY() is compatible with CT3's MDY().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -142,9 +142,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      AddMonth() is compatible with CT3's AddMonth().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -175,9 +175,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      DoY() is compatible with CT3's DoY().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -205,9 +205,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      IsLeap() is compatible with CT3's IsLeap().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -238,9 +238,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      Quarter() is compatible with CT3's Quarter().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -272,9 +272,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      LastDayOM() is compatible with CT3's LastDayOM().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -302,9 +302,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      NToCDoW() is compatible with CT3's NToCDoW().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -332,9 +332,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      NToCMonth() is compatible with CT3's NToCMonth().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -375,9 +375,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      Week() is compatible with CT3's Week().
+      C
    $PLATFORMS$
       All
    $FILES$

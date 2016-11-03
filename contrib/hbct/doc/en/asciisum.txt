@@ -20,9 +20,9 @@
       ? AsciiSum( "ABC" ) // -->  197
       ? AsciiSum( "ACB" ) // -->  197
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      AsciiSum() is compatible with CT3's AsciiSum().
+      C
    $PLATFORMS$
       All
    $FILES$

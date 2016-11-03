@@ -136,13 +136,10 @@
    $EXAMPLES$
       ? GetE( "PATH" )
       ? GetE( "CONFIG" )
-      ? GetE( "HARBOURCMD", "-n -l -es2" )
    $STATUS$
       R
    $COMPLIANCE$
-      This is CA-Cl*pper compliant.
-
-      The <cDefaultValue> parameter is a Harbour extension.
+      C
    $PLATFORMS$
       All
    $FILES$

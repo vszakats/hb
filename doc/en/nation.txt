@@ -110,7 +110,7 @@
          ACCEPT "Sure " + NationMsg( 12 ) + ": " TO cYesNo
       ENDDO
    $STATUS$
-      C
+      R
    $COMPLIANCE$
       C
    $FILES$

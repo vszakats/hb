@@ -16,7 +16,7 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      S
    $COMPLIANCE$
 
    $PLATFORMS$
@@ -54,7 +54,7 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      S
    $COMPLIANCE$
 
    $PLATFORMS$
@@ -84,7 +84,7 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      S
    $COMPLIANCE$
 
    $PLATFORMS$
@@ -120,7 +120,7 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      S
    $COMPLIANCE$
 
    $PLATFORMS$

@@ -30,7 +30,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -63,7 +63,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -100,7 +100,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -145,7 +145,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -181,7 +181,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -215,7 +215,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -253,7 +253,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -289,7 +289,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -321,7 +321,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -356,7 +356,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -394,7 +394,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -429,7 +429,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -465,7 +465,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -498,7 +498,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -534,7 +534,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -566,7 +566,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -605,7 +605,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -637,7 +637,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -671,7 +671,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -705,7 +705,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -741,7 +741,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -777,7 +777,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -829,7 +829,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -871,7 +871,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -935,7 +935,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -979,7 +979,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -1031,7 +1031,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -1082,7 +1082,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -1121,7 +1121,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -1170,7 +1170,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -1209,7 +1209,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -1267,7 +1267,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -1306,7 +1306,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -1369,7 +1369,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -1422,7 +1422,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -1467,7 +1467,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -1515,7 +1515,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -1576,7 +1576,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -1620,7 +1620,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -1654,7 +1654,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -1688,7 +1688,7 @@
    $EXAMPLES$
 
    $STATUS$
-
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$

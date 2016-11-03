@@ -67,7 +67,7 @@
                                        // not given by reference !!!
       TokenInit( ,,, @cTE1 )           // set counter in TE stored in cTE1 to 1
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
       TokenInit() is compatible with CT3's TokenInit(),
       but there is an additional parameter featuring local token environments.
@@ -123,7 +123,7 @@
       ? TokenNext( cString, 3 )  // get the 3rd token, counter will remain the same
       TokenExit()                // free the memory used for the global TE
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
       TokenNext() is compatible with CT3's TokenNext(),
       but there are two additional parameters featuring local token
@@ -160,7 +160,7 @@
       TokenInit( "a.b.c.d", ".", 1 )  // initialize global TE
       ? TokenNum()  // --> 4
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
       TokenNum() is a new function in Harbour's CT3 library.
    $PLATFORMS$
@@ -201,7 +201,7 @@
          ? TokenNext( "a.b.c.d" )     // get all tokens successivly
       ENDDO
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
       TokenEnd() is compatible with CT3's TokenEnd(),
       but there are is an additional parameter featuring local token environments.
@@ -240,7 +240,7 @@
       ? TokenNext( cString, 3 )  // get the 3rd token, counter will remain the same
       TokenExit()                // free the memory used for the global TE
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
       TokenExit() is a new function in Harbour's CT3 library.
    $PLATFORMS$
@@ -293,7 +293,7 @@
       ? TokenNext( cString, 3 )  // get the 3rd token, counter will remain the same
       TokenExit()                // free the memory used for the global TE
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
       TokenAt() is compatible with CT3's TokenAt(),
       but there are two additional parameters featuring local token
@@ -328,9 +328,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      SaveToken() is compatible with CT3's SaveToken(),
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -361,9 +361,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      RestToken() is compatible with CT3's RestToken(),
+      C
    $PLATFORMS$
       All
    $FILES$

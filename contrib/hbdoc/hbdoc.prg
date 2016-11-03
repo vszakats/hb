@@ -59,14 +59,12 @@ REQUEST HB_GT_CGI_DEFAULT
 
 REQUEST HB_CODEPAGE_UTF8EX
 
-#define TPL_START            1
-#define TPL_END              2
-#define TPL_REQUIRED         4  // intentionally has a 'required' and 'optional' flag
-#define TPL_OPTIONAL         8
-#define TPL_PREFORMATTED     16
-#define TPL_CONSTRAINTLIST   32
-#define TPL_TEMPLATE         64
-#define TPL_OUTPUT           128
+#define TPL_REQUIRED         1  // intentionally has a 'required' and 'optional' flag
+#define TPL_OPTIONAL         2
+#define TPL_PREFORMATTED     4
+#define TPL_CONSTRAINTLIST   8
+#define TPL_TEMPLATE         16
+#define TPL_OUTPUT           32
 
 STATIC sc_hFields
 STATIC sc_hTemplates
@@ -81,7 +79,7 @@ STATIC sc_generators := { ;
 STATIC s_hSwitches
 
 STATIC s_hHBX := { => }
-STATIC s_hDoc := { => }  /* lang / { entries, nameid, tree -> component / category / subcategory } */
+STATIC s_hDoc := { => }  /* lang => { entries => {}, nameid => { => }, tree => { component => category => subcategory } */
 
 STATIC s_hNameID
 
@@ -335,17 +333,17 @@ PROCEDURE Main()
                               cCat1Prev := cCat1
                            ENDIF
 
-                           cCat2 := hb_defaultValue( item[ "SUBCATEGORY" ], "" )
+                           cCat2 := item[ "SUBCATEGORY" ]
                            IF cCat2Prev == NIL .OR. !( cCat2 == cCat2Prev )
 // #define SUBCAT_INDENT
 #ifdef SUBCAT_INDENT
                               IF cCat2Prev != NIL
                                  oIndex:EndSection()
                               ENDIF
-                              oIndex:BeginSection( cCat2,, iif( Empty( cCat2 ), NIL, cID + "-" + Lower( cCat1 ) + "-" + Lower( cCat2 ) ) )
+                              oIndex:BeginSection( cCat2,, iif( Empty( cCat2 ),, cID + "-" + Lower( cCat1 ) + "-" + Lower( cCat2 ) ) )
 #else
                               IF cCat2Prev != NIL
-                                 oIndex:SubCategory( cCat2, iif( Empty( cCat2 ), NIL, cID + "-" + Lower( cCat1 ) + "-" + Lower( cCat2 ) ) )
+                                 oIndex:SubCategory( cCat2, iif( Empty( cCat2 ),, cID + "-" + Lower( cCat1 ) + "-" + Lower( cCat2 ) ) )
                               ENDIF
 #endif
                               cCat2Prev := cCat2
@@ -447,7 +445,7 @@ STATIC FUNCTION SortWeightTOC( cString )
 
 STATIC FUNCTION SortWeight( cString )
 
-   SWITCH hb_defaultValue( cString, "" )
+   SWITCH cString
    CASE "Document" ; RETURN Chr( 31 ) + "001" + cString  /* category */
    CASE "Intro"    ; RETURN Chr( 31 ) + "001" + cString  /* subcategory */
    CASE "License"  ; RETURN Chr( 31 ) + "002" + cString  /* subcategory */
@@ -649,6 +647,10 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, /* @ */ nCount )
       ENDIF
    ENDIF
 
+   IF ! "PLATFORMS" $ hEntry .OR. HB_ISNULL( hEntry[ "PLATFORMS" ] )
+      hEntry[ "PLATFORMS" ] := "All"
+   ENDIF
+
    FOR EACH item IN hEntry
 
       cSectionName := item:__enumKey()
@@ -660,8 +662,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, /* @ */ nCount )
 
       cSection := StrTran( cSection, hb_eol(), Chr( 10 ) )
 
-      IF hb_LeftEq( cSectionName, "_" ) .OR. ;
-         cSectionName == "TEMPLATE"
+      IF hb_LeftEq( cSectionName, "_" ) .OR. cSectionName == "TEMPLATE"
 
          /* do nothing */
 
@@ -676,7 +677,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, /* @ */ nCount )
 
          CASE IsField( hE, "RETURNS" ) .AND. cSectionName == "RETURNS" .AND. ( ;
                Empty( cSection ) .OR. ;
-               Lower( cSection ) == "nil" .OR. ;
+               Upper( cSection ) == "NIL" .OR. ;
                Lower( cSection ) == "none" .OR. ;
                Lower( cSection ) == "none." )
 
@@ -684,11 +685,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, /* @ */ nCount )
 
          CASE ! IsConstraint( hE, cSectionName, cSection )
 
-            cSource := cSectionName + " is '" + iif( Len( cSection ) <= 20, cSection, Left( StrTran( cSection, hb_eol() ), 20 ) + "..." ) + "', should be one of: "
-#if 0
-            cSource := hb_HKeyAt( hsTemplate, idx ) + " should be one of: "
-#endif
-            AEval( sc_hConstraint[ cSectionName ], {| c, n | cSource += iif( n == 1, "", "," ) + c } )
+            cSource := cSectionName + " is '" + iif( Len( cSection ) <= 20, cSection, Left( StrTran( cSection, hb_eol() ), 20 ) + "..." ) + "', should be one of: ..."
             AddErrorCondition( cFile, cSource )
 
          ENDCASE
@@ -713,7 +710,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, /* @ */ nCount )
 #endif
       CASE hEntry[ "TEMPLATE" ] == "Function" .AND. ( ;
          Empty( hE[ "RETURNS" ] ) .OR. ;
-         Lower( hE[ "RETURNS" ] ) == "nil" .OR. ;
+         Upper( hE[ "RETURNS" ] ) == "NIL" .OR. ;
          Lower( hE[ "RETURNS" ] ) == "none" .OR. ;
          Lower( hE[ "RETURNS" ] ) == "none." )
 
@@ -895,7 +892,7 @@ STATIC PROCEDURE ShowHelp( cExtraMessage, aArgs )
    CASE aArgs[ 2 ] == "templates"
       aHelp := { ;
          iif( Len( aArgs ) >= 3, aArgs[ 3 ] + " template is:", "Defined templates are:" ), ;
-         {|| ShowTemplatesHelp( iif( Len( aArgs ) >= 3, aArgs[ 3 ], NIL ) ) } }
+         {|| ShowTemplatesHelp( iif( Len( aArgs ) >= 3, aArgs[ 3 ], ) ) } }
 
    CASE aArgs[ 2 ] == "compliance"
       aHelp := { ;
@@ -1039,14 +1036,14 @@ STATIC FUNCTION GenUniqueID( hNameID, cComponent, cFile )
 
    HB_SYMBOL_UNUSED( cComponent )
 
-   cFile := Lower( cFile )
-
    FOR idx := 1 TO Len( cFile )
       tmp := SubStr( cFile, idx, 1 )
       IF hb_asciiIsDigit( tmp ) .OR. hb_asciiIsAlpha( tmp ) .OR. tmp == "_"
          cResult += tmp
       ENDIF
    NEXT
+
+   cResult := hb_asciiLower( cResult )
 
    IF cResult $ hNameID
       idx := 0
@@ -1062,38 +1059,21 @@ STATIC FUNCTION GenUniqueID( hNameID, cComponent, cFile )
 STATIC FUNCTION EntryNew( cTemplate )
 
    LOCAL hE := { => }
-   LOCAL item, key, idx
 
    hb_HCaseMatch( hE, .F. )
    hb_HEval( sc_hFields, {| k | hE[ k ] := "" } )
 
+   hE[ "TEMPLATE" ] := cTemplate
    hE[ "_group" ] := sc_hTemplates[ cTemplate ]
-
-   FOR EACH item IN sc_hFields
-      key := item:__enumKey()
-      idx := item:__enumIndex()
-      hE[ key ] := iif( key == "TEMPLATE", cTemplate, iif( hE[ "_group" ][ idx ] == TPL_REQUIRED,, "" ) )
-   NEXT
 
    RETURN hE
 
-FUNCTION IsField( hE, cField, nType )
-
-   LOCAL idx
-
-   IF ( idx := hb_HPos( sc_hFields, cField ) ) > 0
-      IF hE[ "_group" ][ idx ] == 0
-      ELSEIF HB_ISNUMERIC( nType ) .AND. hb_bitAnd( hE[ "_group" ][ idx ], nType ) != nType
-      ELSE
-         RETURN .T.
-      ENDIF
-   ENDIF
-
-   RETURN .F.
+FUNCTION IsField( hE, cField )
+   RETURN hE[ "_group" ][ hb_HPos( sc_hFields, cField ) ] != 0
 
 STATIC FUNCTION IsConstraint( hE, cField, cSection )
 
-   IF hb_bitAnd( hE[ "_group" ][ hb_HPos( sc_hFields, cField ) ], hb_bitAnd( TPL_REQUIRED, TPL_OPTIONAL ) ) == 0
+   IF hb_bitAnd( hE[ "_group" ][ hb_HPos( sc_hFields, cField ) ], hb_bitOr( TPL_REQUIRED, TPL_OPTIONAL ) ) == 0
       RETURN .T.
    ELSEIF cField $ sc_hConstraint
       RETURN ;
@@ -1123,10 +1103,7 @@ STATIC FUNCTION IsComplete( hE, cIncompleteFieldsList )
    RETURN lResult
 
 FUNCTION IsPreformatted( hE, cField )
-
-   LOCAL nGroup := hb_HPos( sc_hFields, cField )
-
-   RETURN nGroup > 0 .AND. hb_bitAnd( hE[ "_group" ][ nGroup ], TPL_PREFORMATTED ) != 0
+   RETURN hb_bitAnd( hE[ "_group" ][ hb_HPos( sc_hFields, cField ) ], TPL_PREFORMATTED ) != 0
 
 STATIC FUNCTION IsRequired( hE, cField )
    RETURN hb_bitAnd( hE[ "_group" ][ hb_HPos( sc_hFields, cField ) ], TPL_REQUIRED ) != 0
@@ -1207,8 +1184,8 @@ STATIC PROCEDURE init_Templates()
    sc_hConstraint[ "compliance" ] := { ;
       "C"       => "CA-Cl*pper v5.x compatible", ;
       "C52S"    => "CA-Cl*pper v5.x compatible in builds with HB_CLP_STRICT option enabled", ;
-      "C52U"    => "Undocumented CA-Cl*pper v5.x function only available in builds with HB_CLP_UNDOC option enabled (default)", ;
-      "C53"     => "CA-Cl*pper v5.3 function only available in builds with HB_COMPAT_C53 option enabled (default)", ;
+      "C52U"    => "Undocumented CA-Cl*pper v5.x function available in builds with HB_CLP_UNDOC option enabled (default)", ;
+      "C53"     => "CA-Cl*pper v5.3 function available in builds with HB_COMPAT_C53 option enabled (default)", ;
       "H"       => "Harbour specific", ;
       "NA"      => "Not applicable" }
 
@@ -1226,7 +1203,6 @@ STATIC PROCEDURE init_Templates()
       "N" => "Not started" }
 
    sc_hFields := { ;
-      "DOC"           => "Doc", ;
       "TEMPLATE"      => "Template", ;
       "NAME"          => "", ;
       "ONELINER"      => "", ;
@@ -1247,13 +1223,10 @@ STATIC PROCEDURE init_Templates()
       "PLATFORMS"     => "Platform(s)", ;  /* sc_hConstraint[ "platforms" ] is the constraint list */
       "FILES"         => "File(s)", ;
       "TAGS"          => "Tag(s)", ;
-      "SEEALSO"       => "See also", ;
-      "END"           => "End" }
+      "SEEALSO"       => "See also" }
 
    hb_HCaseMatch( sc_hFields, .F. )
 
-   #define _S TPL_START
-   #define _E TPL_END
    #define _T TPL_TEMPLATE
    #define _R TPL_REQUIRED
    #define _O TPL_OPTIONAL
@@ -1262,16 +1235,16 @@ STATIC PROCEDURE init_Templates()
 
    /* The columns of this array correspond to the elements of sc_hFields */
    sc_hTemplates := { ;
-      "Template"       => { _S, _T,  0+_U,  0+_U,  0, _O,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0   +_U,  0   +_U,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U, _E }, ;
-      "Document"       => { _S, _T, _R+_U, _O+_U, _R, _O,  0+_U,  0+_U,  0+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0   +_U,  0   +_U,  0+_U,  0+_U, _O+_U, _O+_U, _O+_U, _O+_U, _E }, ;
-      "Function"       => { _S, _T, _R+_U, _O+_U, _R, _R, _O+_U, _O+_U, _O+_U, _O+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _E }, ;
-      "C Function"     => { _S, _T, _R+_U, _O+_U, _R, _R, _O+_U, _O+_U, _O+_U, _O+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _E }, ;
-      "Procedure"      => { _S, _T, _R+_U, _O+_U, _R, _R, _O+_U, _O+_U,     0, _O+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _E }, ;
-      "Command"        => { _S, _T, _R+_U, _O+_U, _R, _R, _R+_U, _R+_U,  0+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _E }, ;
-      "Class"          => { _S, _T, _R+_U, _O+_U, _R, _R, _R+_U, _R+_U, _R+_U, _R+_U, _O+_U, _O+_U, _O+_U, _O+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _E }, ;
-      "Class method"   => { _S, _T, _R+_U, _O+_U, _R, _R, _R+_U, _R+_U, _R+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U,  0   +_U,  0+_U,  0+_U,  0+_U,  0+_U, _O+_U, _O+_U, _E }, ;
-      "Class data"     => { _S, _T, _R+_U, _O+_U, _R, _R, _R+_U,  0+_U,  0+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U,  0   +_U,  0+_U,  0+_U,  0+_U,  0+_U, _O+_U, _O+_U, _E }, ;
-      "Runtime error"  => { _S, _T, _R+_U, _O+_U, _R,  0,  0+_U,  0+_U,  0+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U,  0   +_U,  0+_U, _O+_U,  0+_U,  0+_U, _O+_U, _O+_U, _E } }
+      "Template"       => { _T,  0+_U,  0+_U,  0, _O,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0   +_U,  0   +_U,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U }, ;
+      "Document"       => { _T, _R+_U, _O+_U, _R, _O,  0+_U,  0+_U,  0+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0   +_U,  0   +_U,  0+_U,  0+_U, _O+_U, _O+_U, _O+_U, _O+_U }, ;
+      "Function"       => { _T, _R+_U, _O+_U, _R, _R, _O+_U, _O+_U, _O+_U, _O+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U }, ;
+      "C Function"     => { _T, _R+_U, _O+_U, _R, _R, _O+_U, _O+_U, _O+_U, _O+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U }, ;
+      "Procedure"      => { _T, _R+_U, _O+_U, _R, _R, _O+_U, _O+_U,     0, _O+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U }, ;
+      "Command"        => { _T, _R+_U, _O+_U, _R, _R, _R+_U, _R+_U,  0+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U }, ;
+      "Class"          => { _T, _R+_U, _O+_U, _R, _R, _R+_U, _R+_U, _R+_U, _R+_U, _O+_U, _O+_U, _O+_U, _O+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U }, ;
+      "Class method"   => { _T, _R+_U, _O+_U, _R, _R, _R+_U, _R+_U, _R+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U,  0   +_U,  0+_U,  0+_U,  0+_U,  0+_U, _O+_U, _O+_U }, ;
+      "Class data"     => { _T, _R+_U, _O+_U, _R, _R, _R+_U,  0+_U,  0+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U,  0   +_U,  0+_U,  0+_U,  0+_U,  0+_U, _O+_U, _O+_U }, ;
+      "Runtime error"  => { _T, _R+_U, _O+_U, _R,  0,  0+_U,  0+_U,  0+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U,  0   +_U,  0+_U, _O+_U,  0+_U,  0+_U, _O+_U, _O+_U } }
 
    RETURN
 
@@ -1300,9 +1273,7 @@ STATIC PROCEDURE ShowTemplatesHelp( cTemplate )
          hEntry := { => }
          FOR idx := 1 TO Len( sc_hFields )
             fldkey := hb_HKeyAt( sc_hFields, idx )
-            IF hE[ "_group" ][ idx ] != TPL_START .AND. ;
-               hE[ "_group" ][ idx ] != TPL_END .AND. ;
-               hE[ "_group" ][ idx ] != 0
+            IF hE[ "_group" ][ idx ] != 0
                hEntry[ fldkey ] := iif( fldkey == "TEMPLATE", key, iif( IsRequired( hE, fldkey ), "<required>", "<optional>" ) )
             ENDIF
          NEXT

@@ -19,9 +19,9 @@
                                              // and from Chr( 0 ) to "0"
       ? RangeRem( "0", "9", "yearcurr.dbf" ) // "yearcurr.dbf", test leaving string untouched
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      RangeRem() is compatible with CT3's RangeRem().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -53,9 +53,9 @@
                                                    // and from Chr( 0 ) to "0"
       ? RangeRepl( "0", "9", "yearcurr.dbf", "?" ) // "yearcurr.dbf", test leaving string untouched
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      RangeRepl() is compatible with CT3's RangeRepl().
+      C
    $PLATFORMS$
       All
    $FILES$

@@ -142,7 +142,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-      __Keyboard() is compliant with CA-Cl*pper 5.3
+      C
    $FILES$
       Library is core
    $SEEALSO$
@@ -324,7 +324,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-      KEYBOARD is compliant with CA-Cl*pper 5.3
+      C
    $SEEALSO$
       CLEAR TYPEAHEAD, __Keyboard()
    $END$
@@ -377,7 +377,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-      ReadKey() is compliant with CA-Cl*pper 5.3
+      C
    $FILES$
       Library is core
    $SEEALSO$
