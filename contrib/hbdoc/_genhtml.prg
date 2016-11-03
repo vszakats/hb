@@ -291,6 +291,13 @@ METHOD Generate() CLASS GenerateHTML
    ::CloseTagInline( "a" )
    ::CloseTag( "div" )
 
+   ::OpenTagInline( "div" )
+   ::AppendInline( "Content processing, layout & design © " + StrZero( Year( Date() ), 4, 0 ) + " " )
+   ::OpenTagInline( "a", "href", "https://github.com/vszakats" )
+   ::AppendInline( "vszakats" )
+   ::CloseTagInline( "a" )
+   ::CloseTag( "div" )
+
    ::CloseTag( "footer" )
 
    ::super:Generate()

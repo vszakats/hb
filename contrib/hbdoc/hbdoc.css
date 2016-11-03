@@ -74,7 +74,7 @@ footer {
   line-height: 150%;
   margin: auto;
   padding: .6em 1em;
-  height: 60px;
+  height: 64px;
   text-align: center;
   width: auto;
 }
@@ -124,7 +124,7 @@ a:hover {
 }
 
 .entry-button {
-  font-size: 75%;
+  font-size: 14px;
   float: right;
   margin-bottom: 1em;
 }
@@ -194,11 +194,14 @@ aside a:hover {
   border-style: none;
   background-color: #0974c5;
   -background-color: #ff6800;
+  background-color: #f5ce00;
   color: #fff;
+  color: #000;
 }
 
 aside a:hover:visited {
   color: #dde1f5;
+  color: #374584;
 }
 
 /*
@@ -383,7 +386,7 @@ p {
 }
 
 .d-so {
-  font-size: 60%;
+  font-size: 14px;
   font-weight: normal;
   margin-left: 5px;
   vertical-align: super;

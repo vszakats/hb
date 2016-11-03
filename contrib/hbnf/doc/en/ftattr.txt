@@ -18,9 +18,9 @@
       saves the attribute bytes.  This is useful if you want to change the
       screen color without affecting the text.
 
-      *** INTERNALS ALERT ***
+      <b>Internals Alert:</b>
 
-      This function calls the Clipper internal __gtMaxCol to obtain the
+      This function calls the Clipper internal __gtMaxCol() to obtain the
       maximum column value for the current video mode.  If you're too gutless
       to use internals, then this function isn't for you.
    $EXAMPLES$
@@ -56,9 +56,9 @@
       restores the attribute bytes.  This is useful if you want to change the
       screen color without affecting the text.
 
-      *** INTERNALS ALERT ***
+      <b>Internals Alert:</b>
 
-      This function calls the Clipper internals __gtSave and __gtRest to
+      This function calls the Clipper internals __gtSave() and __gtRest() to
       manipulate the the screen image.  If you're too gutless to use
       internals, then this function isn't for you.
    $EXAMPLES$

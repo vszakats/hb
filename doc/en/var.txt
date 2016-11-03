@@ -253,8 +253,6 @@
       H
    $FILES$
       Library is core
-   $SEEALSO$
-      include/hbmemvar.ch
    $END$
  */
 

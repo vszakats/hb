@@ -561,7 +561,7 @@
       based on a given field list.
 
       Note that field names in <aStruct> _must_ be specified in uppercase
-      or else no match would found.
+      or else no match would be found.
 
       `SET EXACT` has no effect on the return value.
 
