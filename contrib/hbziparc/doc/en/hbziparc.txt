@@ -115,7 +115,7 @@
       It always returns True
    $DESCRIPTION$
       This function will set a codeblock that will be evaluated every time
-      that an changedisk event is necessary. <bBlock> receives nDisk as a
+      that an changedisk event is necessary. <bBlock> receives <nDisk> as a
       codeblock param that corresponds to the diskette number to be processed.
 
       Set this function before opening archives that are in removable media.
@@ -181,7 +181,7 @@
    $SYNTAX$
       hb_ZipFileByTDSpan( <cFile>, <cFileToCompress> | <aFiles>, <nLevel>,
       <bBlock>, <lOverWrite>, <cPassword>, <iSize>, <lWithPath>, <lWithDrive>,
-      <pFileProgress>) --> lCompress
+      <pFileProgress>) --> <lCompress>
    $ARGUMENTS$
       <cFile>   Name of the zip file
 
@@ -219,7 +219,7 @@
       no compression and 9 means best compression.
 
       If <bBlock> is used, every time the file is opened to compress it
-      will evaluate bBlock. Parameters of bBlock are cFile and nPos.
+      will evaluate <bBlock>. Parameters of <bBlock> are <cFile> and <nPos>.
 
       If <lOverWrite> is used, it toggles to overwrite or not the existing
       file. Default is to overwrite the file, otherwise if <lOverWrite> is
@@ -233,7 +233,7 @@
 
       If <pFileProgress> is used, a codeblock is evaluated, `showing` the total
       of that file has being processed.
-      The codeblock must be defined as `{| nPos, nTotal | GaugeUpdate( aGauge1, nPos / nTotal ) }`
+      The codeblock must be defined as: `{| nPos, nTotal | GaugeUpdate( aGauge1, nPos / nTotal ) }`
    $EXAMPLES$
       PROCEDURE Main()
 
@@ -276,7 +276,7 @@
    $SYNTAX$
       hb_ZipFileByPKSpan( <cFile>, <cFileToCompress> | <aFiles>, <nLevel>,
       <bBlock>, <lOverWrite>, <cPassword>, <lWithPath>, <lWithDrive>,
-      <pFileProgress> ) --> lCompress
+      <pFileProgress> ) --> <lCompress>
    $ARGUMENTS$
       <cFile>   Name of the zip file
 
@@ -313,7 +313,7 @@
       no compression and 9 means best compression.
 
       If <bBlock> is used, every time the file is opened to compress it
-      will evaluate bBlock. Parameters of bBlock are cFile and nPos.
+      will evaluate <bBlock>. Parameters of <bBlock> are <cFile> and <nPos>.
 
       If <lOverWrite> is used , it toggles to overwrite or not the existing
       file. Default is to overwrite the file, otherwise if <lOverWrite> is false
@@ -330,7 +330,7 @@
 
       If <pFileProgress> is used, a codeblock is evaluated, showing the total
       of that file has being processed.
-      The codeblock must be defined as `{| nPos, nTotal | GaugeUpdate( aGauge1, nPos / nTotal ) }`
+      The codeblock must be defined as: `{| nPos, nTotal | GaugeUpdate( aGauge1, nPos / nTotal ) }`
 
       Before calling this function, Set an Changedisk codeblock by calling
       the hb_SetDiskZip().
@@ -378,7 +378,7 @@
    $SYNTAX$
       hb_ZipFile( <cFile>, <cFileToCompress> | <aFiles>, <nLevel>,
       <bBlock>, <lOverWrite>, <cPassword>, <lWithPath>, <lWithDrive>,
-      <pFileProgress> ) --> lCompress
+      <pFileProgress> ) --> <lCompress>
    $ARGUMENTS$
       <cFile>   Name of the zip file to create
 
@@ -414,7 +414,7 @@
       no compression and 9 means best compression.
 
       If <bBlock> is used, every time the file is opened to compress it
-      will evaluate bBlock. Parameters of bBlock are cFile and nPos.
+      will evaluate <bBlock>. Parameters of <bBlock> are <cFile> and <nPos>.
 
       If <lOverWrite> is used, it toggles to overwrite or not the existing
       file. Default is to overwrite the file, otherwise if <lOverWrite> is false
@@ -431,8 +431,7 @@
 
       If <pFileProgress> is used, a codeblock is evaluated, showing the total
       of that file has being processed.
-      The codeblock must be defined as `{| nPos, nTotal | GaugeUpdate( aGauge1, nPos / nTotal ) }`
-
+      The codeblock must be defined as: `{| nPos, nTotal | GaugeUpdate( aGauge1, nPos / nTotal ) }`
    $EXAMPLES$
       PROCEDURE Main()
 
@@ -474,7 +473,7 @@
       Unzip a compressed file
    $SYNTAX$
       hb_UnzipFile( <cFile>, <bBlock>, <lWithPath>, <cPassword>, <cPath>,
-                    <cFile> | <aFile>, <pFileProgress> ) --> lCompress
+                    <cFile> | <aFile>, <pFileProgress> ) --> <lCompress>
    $ARGUMENTS$
       <cFile>   Name of the zip file to extract
 
@@ -497,17 +496,17 @@
       exists, it will be overwritten.
 
       If <bBlock> is used, every time the file is opened to compress it
-      will evaluate bBlock. Parameters of bBlock are cFile and nPos.
+      will evaluate <bBlock>. Parameters of <bBlock> are <cFile> and <nPos>.
 
-      The <cPath> is a mandatory parameter. Set to ".\" to extract to the
-      current directory
+      The <cPath> is a mandatory parameter. Set to `./` to extract to the
+      current directory.
 
       If <cFile> or <aFiles> are not provided, no files will be extracted!
-      Make sure you provide the file or files you want extracted
+      Make sure you provide the file or files you want extracted.
 
       If <pFileProgress> is used, a codeblock is evaluated, showing the total
       of that file has being processed.
-      The codeblock must be defined as `{| nPos, nTotal | GaugeUpdate( aGauge1, nPos / nTotal ) }`
+      The codeblock must be defined as: `{| nPos, nTotal | GaugeUpdate( aGauge1, nPos / nTotal ) }`
    $EXAMPLES$
       PROCEDURE Main()
 

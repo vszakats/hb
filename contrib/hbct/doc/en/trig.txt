@@ -48,8 +48,8 @@
       <nSine>          the sine of <nRadiant>
    $DESCRIPTION$
       The function Sin() calculates the sine of an angle whose size is
-      given in radiants (full angle equals 2*Pi - see DToR() for angle size
-      given in degress).
+      given in radiants (full angle equals `2 * Pi()` - see DToR() for angle size
+      given in degrees).
       A common geometric interpretation of the Sin() function is the
       counterkathede-hypotenuse-ratio of a right-angled triangle.
    $EXAMPLES$
@@ -83,8 +83,8 @@
       <nCosine>        the cosine of <nRadiant>
    $DESCRIPTION$
       The function Cos() calculates the cosine of an angle whose size is
-      given in radiants (full angle equals 2*Pi - see DToR() for angle size
-      given in degress).
+      given in radiants (full angle equals `2 * Pi()` - see DToR() for angle size
+      given in degrees).
       A common geometric interpretation of the Cos() function is the
       ankathede-hypotenuse-ratio of a right-angled triangle.
    $EXAMPLES$
@@ -118,11 +118,11 @@
       <nTangent>       the tangent of <nRadiant>
    $DESCRIPTION$
       The function Tan() calculates the tangent of an angle whose size is
-      given in radiants (full angle equals 2*Pi - see DToR() for angle size
-      given in degress).
+      given in radiants (full angle equals `2 * Pi()` - see DToR() for angle size
+      given in degrees).
       A common geometric interpretation of the Tan() function is the
       counterkathede-ankathede-ratio of a right-angled triangle, or,
-      Tan(x) = Sin(x)/Cos(x).
+      `Tan( x )` = `Sin( x ) / Cos( x )`.
    $EXAMPLES$
       ? Tan( 0.0 ) // --> 0.0
       ? Tan( 1.0 ) // --> 1.5574...
@@ -154,11 +154,11 @@
       <nCotangent>     the cotangent of <nRadiant>
    $DESCRIPTION$
       The function Cot() calculates the cotangent of an angle whose size is
-      given in radiants (full angle equals 2*Pi - see DToR() for angle size
-      given in degress).
+      given in radiants (full angle equals `2 * Pi()` - see DToR() for angle size
+      given in degrees).
       A common geometric interpretation of the Cot() function is the
       ankathede-counterkathede-ratio of a right-angled triangle, or,
-      Cot(x) = Cos(x)/Sin(x)=1/Tan(x).
+      `Cot( x )` = `Cos( x ) / Sin( x )` = `1 / Tan( x )`.
    $EXAMPLES$
       ? Cot( 1.0 ) // --> 0.6420...
    $STATUS$
@@ -190,10 +190,10 @@
    $DESCRIPTION$
       The function Asin() is the inverse function of Sin(). It takes a
       sine value and returns the smallest(!) angle whose sine equals to the argument.
-      The return value is given in radiants (full angle equals 2*Pi -
-      see DToR() if you need to convert it into degress).
+      The return value is given in radiants (full angle equals `2 * Pi()` -
+      see DToR() if you need to convert it into degrees).
       Note, that <nSine> must be between -1 and 1 and that <nRadiant>
-      is always between -Pi()/2 and Pi()/2.
+      is always between `-Pi() / 2` and `Pi() / 2`.
    $EXAMPLES$
       ? Asin( 0.0 ) // --> 0.0
       ? Asin( 0.5 ) // --> 0.5235...
@@ -226,13 +226,13 @@
    $DESCRIPTION$
       The function Acos() is the inverse function of Cos(). It takes a
       cosine value and returns the smallest(!) angle whose cosine equals to the argument.
-      The return value is given in radiants (full angle equals 2*Pi -
-      see DToR() if you need to convert it into degress).
+      The return value is given in radiants (full angle equals `2 * Pi()` -
+      see DToR() if you need to convert it into degrees).
       Note, that <nCosine> must be between -1 and 1 and that <nRadiant>
       is always between 0 and Pi().
    $EXAMPLES$
-      ? Acos( 0.0 ) // --> Pi() / 2
-      ? Acos( 0.5 ) // --> 1.04719...
+      ? Acos( 0.0 )  // --> Pi() / 2
+      ? Acos( 0.5 )  // --> 1.04719...
    $STATUS$
       Ready
    $COMPLIANCE$
@@ -262,8 +262,8 @@
    $DESCRIPTION$
       The function Atan() is the inverse function of Tan(). It takes a
       tangent value and returns the smallest(!) angle whose tangent equals to the argument.
-      The return value is given in radiants between -Pi()/2 and Pi()/2
-      (full angle equals 2*Pi - see DToR() if you need to convert it into degress).
+      The return value is given in radiants between `-Pi() / 2` and `Pi() / 2`
+      (full angle equals `2 * Pi()` - see DToR() if you need to convert it into degrees).
    $EXAMPLES$
       ? Atan( 0.0 ) // --> 0.0
       ? Atan( 0.5 ) // --> 0.4636...
@@ -296,15 +296,15 @@
       <nRadiant>      the angle whose tangent is <nSine>/<nCosine>
    $DESCRIPTION$
       The function Atn2() is an alternate function for calculating
-      the arcus tangent, Atn2(x,y) = Atan(x/y).
+      the arcus tangent, `Atn2( x, y )` = `Atan( x / y)`.
       It takes two arguments, the sine and the cosine
       of the angle that should be calculated. Thus, in contrast to the Atan()
       function, Atn2() can distinguish whether the sine or the cosine has
       a negative sign (or both being positive or negative), so that
-      the return value can be between -Pi() and Pi() and covers the full
+      the return value can be between `-Pi()` and Pi() and covers the full
       angle.
-      The return value is given in radiants (full angle equals 2*Pi -
-      see DToR() if you need to convert it into degress).
+      The return value is given in radiants (full angle equals `2 * Pi()` -
+      see DToR() if you need to convert it into degrees).
    $EXAMPLES$
       ? Atn2( 0.0, 1.0 ) // --> 0.0
       ? Atn2( Sqrt( 1 / 2 ), Sqrt( 1 / 2 ) ) // --> Pi() / 4

@@ -34,11 +34,11 @@
       characters are combined at most to one token stop. Be aware that
       this can result to empty tokens there the start position is not
       defined clearly. Then, AtToken() returns the position there the
-      token WOULD start if its length is larger than 0. To check for
+      token _would_ start if its length is larger than 0. To check for
       empty tokens, simply look if the character at the returned position
       is within the tokenizer list.
    $EXAMPLES$
-      AtToken( "Hello, World!" ) // --> 8 (empty strings after tokenizer are not a token !)
+      AtToken( "Hello, World!" )  // --> 8 (empty strings after tokenizer are not a token !)
    $STATUS$
       Ready
    $COMPLIANCE$
@@ -184,10 +184,10 @@
       switch to .T., but you must then pass <cString> by reference to get
       the result.
    $EXAMPLES$
-      ? TokenLower( "Hello, World, here I am!" )         // "hello, world, here i am!"
-      ? TokenLower( "Hello, World, here I am!",, 3 )     // "hello, world, here I am!"
-      ? TokenLower( "Hello, World, here I am!", ",", 3 ) // "hello, World, here I am!"
-      ? TokenLower( "Hello, World, here I am!", " W" )   // "hello, World, here i am!"
+      ? TokenLower( "Hello, World, here I am!" )          // "hello, world, here i am!"
+      ? TokenLower( "Hello, World, here I am!",, 3 )      // "hello, world, here I am!"
+      ? TokenLower( "Hello, World, here I am!", ",", 3 )  // "hello, World, here I am!"
+      ? TokenLower( "Hello, World, here I am!", " W" )    // "hello, World, here i am!"
    $STATUS$
       Ready
    $COMPLIANCE$

@@ -194,7 +194,11 @@ aside a:hover {
   border-style: none;
   background-color: #0974c5;
   -background-color: #ff6800;
-  color: #fdfdfd;
+  color: #fff;
+}
+
+aside a:hover:visited {
+  color: #dde1f5;
 }
 
 /*

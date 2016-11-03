@@ -6,7 +6,7 @@
    $ONELINER$
       convert name of day of the week to its ordinal number
    $SYNTAX$
-      CToDoW( <cName> ) -> nOrdinal
+      CToDoW( <cName> ) -> <nOrdinal>
    $ARGUMENTS$
 
    $RETURNS$
@@ -36,7 +36,7 @@
    $ONELINER$
       convert name of month to its ordinal number
    $SYNTAX$
-      CToMonth( <cName> ) -> nOrdinal
+      CToMonth( <cName> ) -> <nOrdinal>
    $ARGUMENTS$
 
    $RETURNS$
@@ -64,16 +64,17 @@
    $CATEGORY$
       CT3 date and time functions
    $ONELINER$
-      Returns the date as a string in DD Month YY format
+      Returns the date as a string in `DD Month YY` format
    $SYNTAX$
-      DMY( [<dDate>][, <lMode>] ) -> cDateString
+      DMY( [<dDate>][, <lMode>] ) -> <cDateString>
    $ARGUMENTS$
 
    $RETURNS$
 
    $DESCRIPTION$
-      Returns the date as a string in DD Month YY format. If lmode
-      is TRUE, a "." is inserted after the DD
+      Returns the date as a string in `DD Month YY` format. If <lMode>
+      is TRUE, a "." is inserted after the `DD`.
+
       TODO: add further documentation
    $EXAMPLES$
 
@@ -96,16 +97,17 @@
    $CATEGORY$
       CT3 date and time functions
    $ONELINER$
-      Returns the date as a string in Month DD, YY or Month DD, YYYY
+      Returns the date as a string in `Month DD, YY` or `Month DD, YYYY`
    $SYNTAX$
-      MDY( [<dDate>] ) -> cDateString
+      MDY( [<dDate>] ) -> <cDateString>
    $ARGUMENTS$
 
    $RETURNS$
 
    $DESCRIPTION$
-      Returns the date as a string in Month DD, YY or Month DD, YYYY
-      If dDate is NULL, the system date is used
+      Returns the date as a string in `Month DD, YY` or `Month DD, YYYY`
+      If <dDate> is NULL, the system date is used.
+
       TODO: add further documentation
    $EXAMPLES$
 
@@ -130,7 +132,7 @@
    $ONELINER$
       add months to a date
    $SYNTAX$
-      AddMonth( [<dDate>,] <nMonths> ) -> dShiftedDate
+      AddMonth( [<dDate>,] <nMonths> ) -> <dShiftedDate>
    $ARGUMENTS$
 
    $RETURNS$
@@ -160,14 +162,15 @@
    $ONELINER$
       Determines the day of the year for a specific date
    $SYNTAX$
-      DMY( [<dDate>] ) -> nDayOfYear
+      DMY( [<dDate>] ) -> <nDayOfYear>
    $ARGUMENTS$
 
    $RETURNS$
 
    $DESCRIPTION$
       Determines the day of the year for a specific date
-      if dDate is invalid, returns 0
+      if <dDate> is invalid, returns 0.
+
       TODO: add further documentation
    $EXAMPLES$
 
@@ -192,7 +195,7 @@
    $ONELINER$
       determines of year of date is a leap year
    $SYNTAX$
-      IsLeap( [<dDate>] ) -> lIsLeap
+      IsLeap( [<dDate>] ) -> <lIsLeap>
    $ARGUMENTS$
 
    $RETURNS$
@@ -222,14 +225,15 @@
    $ONELINER$
       Returns a number equal to the quarter in which a date falls
    $SYNTAX$
-      Quarter( [<dDate>] ) -> nQuarter
+      Quarter( [<dDate>] ) -> <nQuarter>
    $ARGUMENTS$
 
    $RETURNS$
 
    $DESCRIPTION$
-      Returns a number equal to the quarter in which ddate
-      falls. If ddate  is empty, the system date is employed.
+      Returns a number equal to the quarter in which <dDate>
+      falls. If <dDate> is empty, the system date is employed.
+
       TODO: add further documentation
    $EXAMPLES$
 
@@ -254,15 +258,16 @@
    $ONELINER$
       Returns the the number of days in the month.
    $SYNTAX$
-      LastDayOM( [<dDate|nMonth>] ) -> nDaysInMonth
+      LastDayOM( [<dDate|nMonth>] ) -> <nDaysInMonth>
    $ARGUMENTS$
 
    $RETURNS$
 
    $DESCRIPTION$
       <dDate|nMonth> can be a date or a month number. If empty uses the
-      system date.  If nMonth is a 2, LastDayOM() will not know if it
-      is a leap year or not. If dDate is invalid, returns 0
+      system date.  If <nMonth> is a 2, LastDayOM() will not know if it
+      is a leap year or not. If <dDate> is invalid, returns 0
+
       TODO: add further documentation
    $EXAMPLES$
 
@@ -287,7 +292,7 @@
    $ONELINER$
       (num of day) -> day name
    $SYNTAX$
-      NToCDoW( <nDay> ) -> cDay
+      NToCDoW( <nDay> ) -> <cDay>
    $ARGUMENTS$
 
    $RETURNS$
@@ -317,7 +322,7 @@
    $ONELINER$
       (num of month ) -> Month Name
    $SYNTAX$
-      NToCMonth( <nMonth> ) -> cMonth
+      NToCMonth( <nMonth> ) -> <cMonth>
    $ARGUMENTS$
 
    $RETURNS$
@@ -347,22 +352,25 @@
    $ONELINER$
       Returns the calendar week a number
    $SYNTAX$
-      Week( [<dDate>][, <lSWN>] ) -> nWeek
+      Week( [<dDate>][, <lSWN>] ) -> <nWeek>
    $ARGUMENTS$
 
    $RETURNS$
 
    $DESCRIPTION$
       Returns the calendar week a number. If no date is specified,
-      the system date is used. An empty date via hb_SToD("")
+      the system date is used. An empty date via hb_SToD()
       returns 0.
+
       If <lSWN> is .T., Week() will calculate the "simple week number", defined by
          - week #1 starts on January, 1st
          - week #(n+1) starts seven days after start of week #n
-      If <lSWN> is .F. (default), the ISO8601 week number, defined by
+
+      If <lSWN> is .F. (default), the ISO 8601 week number, defined by
          - weeks start on mondays
          - week #1 is the one that includes January, 4
       will be calculated
+
       TODO: add further documentation
    $EXAMPLES$
 

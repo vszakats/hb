@@ -78,7 +78,7 @@
    $ARGUMENTS$
       [<lPlatformIndependant>]   .T., if the function should return
                                  the maximum floating point value
-                                 available (DBL_MAX)
+                                 available (`DBL_MAX`)
                                  .F., function should try to return
                                  the same value as the original CT3 lib did
                                  Default: .F.
