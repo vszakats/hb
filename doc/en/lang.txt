@@ -24,7 +24,7 @@
    $SYNTAX$
       hb_langErrMsg( <nErrorCode> ) --> cErrorMessage
    $ARGUMENTS$
-      <nErrorCode> is one of the generic error codes (EG_...) defined
+      <nErrorCode> is one of the generic error codes (`EG_...`) defined
       in error.ch
    $RETURNS$
       hb_langErrMsg() return the error message string represented by

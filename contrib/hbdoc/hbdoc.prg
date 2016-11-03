@@ -202,7 +202,7 @@ PROCEDURE Main()
       cLang     := docs:__enumKey()
       aEntries  := docs[ "entries" ]
       hTree     := docs[ "tree" ]
-      s_hNameID := docs[ "nameid" ]
+      s_hNameID := docs[ "nameid" ]  /* hack */
 
       IF ! Empty( s_hSwitches[ "lang" ] ) .AND. ;
          hb_AScan( s_hSwitches[ "lang" ], cLang,,, .T. ) == 0
