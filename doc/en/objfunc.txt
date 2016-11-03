@@ -142,16 +142,13 @@
    $EXAMPLES$
       // show information about TBrowse class
       oB := TBrowseNew( 0, 0, 24, 79 )
-      aData      := __objGetMsgList( oB, .T. )
-      aClassData := __objGetMsgList( oB, .T., HB_MSGLISTCLASS )
-      aMethod    := __objGetMsgList( oB, .F. )
-      FOR EACH x IN aData
+      FOR EACH x IN __objGetMsgList( oB, .T. )
          ? "VAR name:", x
       NEXT
-      FOR EACH x IN aClassData
+      FOR EACH x IN __objGetMsgList( oB, .T., HB_MSGLISTCLASS )
          ? "CLASS VAR name:", x
       NEXT
-      FOR EACH x IN aMethod
+      FOR EACH x IN __objGetMsgList( oB, .F. )
          ? "METHOD name:", x
       NEXT
    $STATUS$

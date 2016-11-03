@@ -765,14 +765,13 @@
       work area.
    $EXAMPLES$
       PROCEDURE Main()
-         LOCAL aList, x
+         LOCAL x
          USE test NEW
          dbGoto( 10 )
          RLock()
          dbGoto( 100 )
          RLock()
-         aList := dbRLockList()
-         FOR EACH x IN aList
+         FOR EACH x IN dbRLockList()
             ? x
          NEXT
          RETURN
@@ -1089,10 +1088,9 @@
    $EXAMPLES$
       #include "dbstruct.ch"
       PROCEDURE Main()
-         LOCAL aStru, x
+         LOCAL x
          USE test NEW
-         aStru := dbStruct()
-         FOR EACH x IN aStru
+         FOR EACH x IN dbStruct()
             ? x[ DBS_NAME ]
          NEXT
          RETURN

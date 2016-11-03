@@ -51,6 +51,7 @@ header > div > div:last-child {
 header a {
   color: #f0f0f0;
   text-decoration: none;
+  transition: color .25s;
 }
 
 header a:visited {
@@ -82,6 +83,7 @@ footer {
 footer a {
   color: #ddd;
   text-decoration: none;
+  transition: color .25s;
 }
 
 footer a:visited {
