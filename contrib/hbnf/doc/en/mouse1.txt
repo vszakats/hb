@@ -235,12 +235,12 @@
    $SYNTAX$
       ft_MGetSens( <@nHoriz>, <@nVert>, <@nDouble> ) -> NIL
    $ARGUMENTS$
-      <nHoriz>  is the percentage of maximum horizontal sensitivity. PASSED
-                BY REFERENCE.
-      <nVert>   is the percentage of maximum vertical sensitivity. PASSED BY
-                REFERENCE.
+      <nHoriz>  is the percentage of maximum horizontal sensitivity.
+                *Passed by reference*.
+      <nVert>   is the percentage of maximum vertical sensitivity.
+                *Passed by reference*.
       <nDouble> is the percentage of maximum sensitivity for doubling the
-                mouse cursor's speed on the screen. PASSED BY REFERENCE.
+                mouse cursor's speed on the screen. *Passed by reference*.
    $RETURNS$
       NIL
    $DESCRIPTION$
@@ -266,14 +266,14 @@
    $SYNTAX$
       ft_MVersion( <@nMinor>, <@nType>, <@nIRQ>  ) -> <nMajor>
    $ARGUMENTS$
-      <nMinor>  is the Minor version number. PASSED BY REFERENCE.
-      <nType>   is the Mouse type. PASSED BY REFERENCE.
+      <nMinor>  is the Minor version number. *Passed by reference*.
+      <nType>   is the Mouse type. *Passed by reference*.
                     1 = Bus Mouse
                     2 = Serial Mouse
                     3 = InPort Mouse
                     4 = PS/2 Mouse
                     5 = HP Mouse
-      <nIRQ>    is the IRQ number used for the mouse. PASSED BY REFERENCE.
+      <nIRQ>    is the IRQ number used for the mouse. *Passed by reference*.
                     0 = PS/2
                     2,3,4,5 or 7 = IRQ number
    $RETURNS$
@@ -491,15 +491,16 @@
       screen coordinates.  It must be passed by reference.
    $RETURNS$
       an integer representing button status
-
-            - 0 for no button pressed
-            - 1 for left pressed
-            - 2 for right pressed
-            - 3 for left and right pressed
-            - 4 for middle pressed
-            - 5 for left and middle pressed
-            - 6 for right and middle pressed
-            - 7 for all three buttons pressed
+      <table-noheader>
+       0 - no button pressed
+       1 - left pressed
+       2 - right pressed
+       3 - left and right pressed
+       4 - middle pressed
+       5 - left and middle pressed
+       6 - right and middle pressed
+       7 - all three buttons pressed
+      </table>
    $DESCRIPTION$
       Loads cursor position into x and y coordinates passed by reference and
       returns the button status. The coordinate system in text mode has
@@ -685,23 +686,24 @@
                  2 - Middle Button [if applicable]
 
       <nButPrs> is the number of times the specified button was pressed
-                since the last call to this routine. PASSED BY REFERENCE.
+                since the last call to this routine. *Passed by reference*.
       <nX> is the X position of the cursor when the last press occurred.
-                PASSED BY REFERENCE.
+                *Passed by reference*.
       <nY> is the Y position of the cursor when the last press occurred.
-                PASSED BY REFERENCE.
+                *Passed by reference*.
 
    $RETURNS$
       An integer representing the button status:
-
-                 0 - no buttons pressed
-                 1 - left button pressed
-                 2 - right button pressed
-                 3 - left and right pressed
-                 4 - middle pressed
-                 5 - left and middle pressed
-                 6 - middle and right buttons pressed
-                 7 - all 3 buttons pressed
+      <table-noheader>
+       0 - no buttons pressed
+       1 - left button pressed
+       2 - right button pressed
+       3 - left and right pressed
+       4 - middle pressed
+       5 - left and middle pressed
+       6 - middle and right buttons pressed
+       7 - all 3 buttons pressed
+      </table>
    $DESCRIPTION$
       Retrieves the mouse button status and the position of the cursor when
       a button was last pressed.
@@ -730,13 +732,13 @@
                 2 - Middle Button [if applicable]
 
       <nButRel> is the number of times the specified button was released
-                since the last call to this routine. PASSED BY REFERENCE.
+                since the last call to this routine. *Passed by reference*.
 
       <nX> is the X position of the cursor when the last release occurred.
-                PASSED BY REFERENCE.
+                *Passed by reference*.
 
       <nY> is the Y position of the cursor when the last release occurred.
-                PASSED BY REFERENCE.
+                *Passed by reference*.
    $RETURNS$
       <nBStat>  - an integer representing button release status
                   0 - None
@@ -789,10 +791,10 @@
       high order bits represent the display atributes such as blinking,
       intensity and forground and background colors. The mask is represented in
       the diagram below:
-
+      ```
       Bit:     │15    │14      12│11       │10       8│7       0│
       Function:│blink │background│intensity│foreground│character│
-
+      ```
       Blinking and high intensity are on when the bit is 1. The background and
       foreground indicate which colors are used for each. The software mouse
       cursor uses these two values by taking the mask from the screen cell it
@@ -800,12 +802,12 @@
       value. The result is then logically XOR'ed with the cursor mask value.
       Thus to keep the character the same but invert the foreground and
       background colors the following values would be used:
-
+      ```
       Bit:     │15    │14      12│11       │10       8│7       0│
       Function:│blink │background│intensity│foreground│character│
       screen:  │  0   │   111    │    0    │   111    │11111111 │ =30719
       cursor:  │  0   │   111    │    0    │   111    │00000000 │ =30464
-
+      ```
       The hardware cursor is the text cursor provided by the video board. One
       specifies the range of scan lines which are on using <nScrMask> and
       <nCrsMask>. The range of values is dependant upon the type of monitor.
@@ -830,15 +832,16 @@
       screen coordinates.  It must be passed by reference.
    $RETURNS$
       an integer representing button status
-
-            - 0 for no button pressed
-            - 1 for left pressed
-            - 2 for right pressed
-            - 3 for left and right pressed
-            - 4 for middle pressed
-            - 5 for left and middle pressed
-            - 6 for right and middle pressed
-            - 7 for all three buttons pressed
+      <table-noheader>
+       0 - no button pressed
+       1 - left pressed
+       2 - right pressed
+       3 - left and right pressed
+       4 - middle pressed
+       5 - left and middle pressed
+       6 - right and middle pressed
+       7 - all three buttons pressed
+      </table>
    $DESCRIPTION$
       Loads cursor position into x and y coordinates passed by reference and
       returns the button status.

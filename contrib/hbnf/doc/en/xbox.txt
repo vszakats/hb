@@ -12,30 +12,30 @@
                <cLine4>, <cLine5>, <cLine6>, <cLine7>, <cLine8> ) -> NIL
    $ARGUMENTS$
       <cJustType> is a character indicating the type of text justification.
-      "L" or "l" will cause the text to be left-justified in the box.
+      <L> cause the text to be left-justified in the box.
       Centered text is the default.
 
       <cRetWait> is a character which determines if the function will wait
-      for a keypress after displaying the box.  "W" or "w" will cause the
+      for a keypress after displaying the box.  <W> will cause the
       function to wait for a keypress before returning control to the
       calling routine.  Not waiting is the default
 
       <cBorType> is a character which determines whether a single or double
-      border will be displayed.  "D" or "d" will cause a double border to
+      border will be displayed.  <D> will cause a double border to
       be displayed.  A single border is the default.
 
-      <cBorColor> is a character string denoting the border color.  'N/W' is
+      <cBorColor> is a character string denoting the border color.  `N/W` is
       the default if this parameter is not a string.
 
-      <cBoxColor> is a character string denoting the text color.  'W/N' is
+      <cBoxColor> is a character string denoting the text color.  `W/N` is
       the default if this parameter is not a string.
 
-      <nStartRow> is a number denoting the starting row.  If '99' is passed,
-      the box is centered vertically.  If necessary, nStartRow is decreased
+      <nStartRow> is a number denoting the starting row.  If `99` is passed,
+      the box is centered vertically.  If necessary, <nStartRow> is decreased
       so the entire box can be displayed.
 
-      <nStartCol> is a number denoting the starting column.  If '99' is passed,
-      the box is centered horizontally.  If necessary, nStartCol is decreased
+      <nStartCol> is a number denoting the starting column.  If `99` is passed,
+      the box is centered horizontally.  If necessary, <nStartCol> is decreased
       so the entire box can be displayed.
 
       <cLine1> thru <cLine8> are 1 to 8 character strings to be displayed.

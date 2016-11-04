@@ -27,7 +27,7 @@
 
       This function requires ft_int86() and ft_NWLStat()
 
-      This function does NOT test for the existence of the NetWare shell.
+      This function does _not_ test for the existence of the NetWare shell.
       The behavior is undefined if no shell is loaded. You'll usually get
       garbage.  This function has not been tested on NetWare 386.
    $EXAMPLES$

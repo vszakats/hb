@@ -190,9 +190,9 @@ METHOD NewFile() CLASS GenerateHTML
       IF HB_ISHASH( ::hComponents )
          ::OpenTag( "nav", "class", "dropdown" )
 
-         ::OpenTagInline( "a", "class", "dropbtn" )
+         ::OpenTagInline( "span", "class", "dropbtn", "onclick" /* hack to make menu work on Safari iOS */, "" )
          ::AppendInline( ::cTitle )
-         ::CloseTag( "a" )
+         ::CloseTag( "span" )
 
          ::OpenTag( "nav", "class", "dropdown-content" )
 #if 0
@@ -806,15 +806,15 @@ STATIC FUNCTION StrEsc( cString )
    RETURN hb_StrReplace( cString, s_html )
 
 STATIC FUNCTION MDSpace( cChar )
-   RETURN Empty( cChar ) .OR. cChar $ ".,:;?!"
+   RETURN Empty( cChar ) .OR. cChar $ ".,"
 
 METHOD AppendInline( cText, cFormat, lCode, cField ) CLASS GenerateHTML
 
    LOCAL idx
 
    LOCAL cChar, cPrev, cNext, cOut, tmp, tmp1, nLen
-   LOCAL lEM, lIT, lPR, cPR
-   LOCAL nEM, nIT, nPR
+   LOCAL lST, lEM, lPR, cPR
+   LOCAL nST, nEM, nPR
    LOCAL cdp
 
    IF ! HB_ISNULL( cText )
@@ -826,10 +826,14 @@ METHOD AppendInline( cText, cFormat, lCode, cField ) CLASS GenerateHTML
       ELSE
          cdp := hb_cdpSelect( "EN" )  /* make processing loop much faster */
 
-         lEM := lIT := lPR := .F.
+         lST := lEM := lPR := .F.
          cOut := ""
          nLen := Len( cText )
          FOR tmp := 1 TO nLen
+
+            /* TOFIX: In real Markdown,
+                      *text*   and _text_   both result in <em>text</em>,
+                      **text** and __text__ both result in <strong>text</strong>. */
 
             cPrev := iif( tmp > 1, SubStr( cText, tmp - 1, 1 ), "" )
             cChar := SubStr( cText, tmp, 1 )
@@ -852,21 +856,21 @@ METHOD AppendInline( cText, cFormat, lCode, cField ) CLASS GenerateHTML
                tmp1 := SubStr( cText, tmp + 1, tmp1 - tmp - 1 )
                tmp += Len( tmp1 ) + 1
                cChar := "<a href=" + '"' + tmp1 + '"' + ">" + tmp1 + "</a>"
-            CASE ! lPR .AND. cChar == "*" .AND. ! lIT .AND. ;
-                 iif( lEM, ! MDSpace( cPrev ) .AND. MDSpace( cNext ), MDSpace( cPrev ) .AND. ! MDSpace( cNext ) )
+            CASE ! lPR .AND. cChar == "*" .AND. ! lEM .AND. ;
+                 iif( lST, ! MDSpace( cPrev ) .AND. MDSpace( cNext ), MDSpace( cPrev ) .AND. ! MDSpace( cNext ) )
+               lST := ! lST
+               IF lST
+                  nST := Len( cOut ) + 1
+               ENDIF
+               cChar := iif( lST, "<strong>", "</strong>" )
+            CASE ! lPR .AND. cChar == "_" .AND. ! lST .AND. ;
+                 ( ( ! lEM .AND. MDSpace( cPrev ) .AND. ! MDSpace( cNext ) ) .OR. ;
+                   (   lEM .AND. ! MDSpace( cPrev ) .AND. MDSpace( cNext ) ) )
                lEM := ! lEM
                IF lEM
                   nEM := Len( cOut ) + 1
                ENDIF
-               cChar := iif( lEM, "<strong>", "</strong>" )
-            CASE ! lPR .AND. cChar == "_" .AND. ! lEM .AND. ;
-                 ( ( ! lIT .AND. MDSpace( cPrev ) .AND. ! MDSpace( cNext ) ) .OR. ;
-                   (   lIT .AND. ! MDSpace( cPrev ) .AND. MDSpace( cNext ) ) )
-               lIT := ! lIT
-               IF lIT
-                  nIT := Len( cOut ) + 1
-               ENDIF
-               cChar := iif( lIT, "<i>", "</i>" )
+               cChar := iif( lEM, "<em>", "</em>" )
             CASE ! lPR .AND. ;
                  ( SubStr( cText, tmp, 3 ) == ".T." .OR. ;
                    SubStr( cText, tmp, 3 ) == ".F." )
@@ -891,7 +895,7 @@ METHOD AppendInline( cText, cFormat, lCode, cField ) CLASS GenerateHTML
                        "|" + hb_asciiUpper( SubStr( cText, tmp + 1, 5 ) ) + "|" $ "|SHIFT|RIGHT|ENTER|SPACE|" .OR. ;
                        "|" + hb_asciiUpper( SubStr( cText, tmp + 1, 6 ) ) + "|" $ "|RETURN|KEYPAD|PRTSCR|" .OR. ;
                        hb_LeftEqI( SubStr( cText, tmp + 1, 10 ), "CURSORPAD" ) .OR. ;
-                       ( hb_asciiIsUpper( cNext ) .AND. SubStr( cText, tmp + 2, 1 ) == ">" ) )
+                       ( ( hb_asciiIsUpper( cNext ) .OR. hb_asciiIsDigit( cNext ) ) .AND. SubStr( cText, tmp + 2, 1 ) == ">" ) )
                      cPR := "#"
                   ENDIF
                   IF cPR == "#"
@@ -940,11 +944,11 @@ METHOD AppendInline( cText, cFormat, lCode, cField ) CLASS GenerateHTML
          IF lPR
             cOut := Stuff( cOut, nPR, Len( "<code>" ), "`" )
          ENDIF
-         IF lEM
-            cOut := Stuff( cOut, nEM, Len( "<strong>" ), "*" )
+         IF lST
+            cOut := Stuff( cOut, nST, Len( "<strong>" ), "*" )
          ENDIF
-         IF lIT
-            cOut := Stuff( cOut, nIT, Len( "<i>" ), "_" )
+         IF lEM
+            cOut := Stuff( cOut, nEM, Len( "<i>" ), "_" )
          ENDIF
 
          cText := cOut
@@ -1089,7 +1093,7 @@ STATIC FUNCTION AutoLink( hAll, cFile, cComponent, cRevision, hNameID, lCodeAlre
          FOR EACH match IN en_hb_regexAll( R_( "( |^)([A-Z_][A-Z0-9_]+)([^A-Z0-9_]|$)" ), cFile,,,,, .F. )
             cName := match[ 3 ][ _MATCH_cStr ]
             IF ( hb_BLen( cName ) > 3 .OR. "|" + cName + "|" $ "|ON|OFF|SET|USE|ZAP|SAY|RUN|NUL|NIL|ALL|TO|GET|VAR|SUM|DIR|DO|FOR|NEW|" ) .AND. ;
-               !( "|" + cName + "|" $ "|ANSI|ASCII|JPEG|WBMP|NOTE|INET|TODO|CMOS|ATTENTION|DOUBLE|NUMBER|DATE|CHARACTER|LOGICAL|WARNING|" )
+               !( "|" + cName + "|" $ "|ANSI|ASCII|JPEG|WBMP|NOTE|INET|TODO|CMOS|ATTENTION|DOUBLE|NUMBER|DATE|CHARACTER|LOGICAL|WARNING|TRUE|FALSE|" )
                cTag := "<code>" + cName + "</code>"
                cFile := hb_BLeft( cFile, match[ 3 ][ _MATCH_nStart ] - 1 + nShift ) + cTag + hb_BSubStr( cFile, match[ 3 ][ _MATCH_nEnd ] + 1 + nShift )
                nShift += Len( cTag ) - Len( cName )

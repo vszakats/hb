@@ -12,7 +12,7 @@
 
       <xReceiveVar> can be a character type variable, in which case
       the function will place all environment strings in the variable
-      separated by carriage return/line feeds (Chr( 13 ) + Chr( 10 )).
+      separated by carriage return/line feeds (`Chr( 13 ) + Chr( 10 )`).
 
       <xReceiveVar> can be an array type, in which case the function
       will place each string in an array element.  The array MUST be
@@ -34,7 +34,7 @@
       variables in either a block of text lines or in an array.  It is
       useful for looking at the entire environment at once, or recording
       a snapshot of it to a file for later inspection, such as when a
-      program error occurs.  If the value of ONE SPECIFIC variable is
+      program error occurs.  If the value of _one specific_ variable is
       desired, use Clipper's built-in GetE() function.
    $EXAMPLES$
       // Get the environment in text form and browse it:

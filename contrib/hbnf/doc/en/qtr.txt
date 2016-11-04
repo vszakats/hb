@@ -15,10 +15,11 @@
       Defaults to current quarter if not supplied.
    $RETURNS$
       A three element array containing the following data:
-
+      ```
          aDateInfo[ 1 ] - The year and quarter as a character string "YYYYQQ"
          aDateInfo[ 2 ] - The beginning date of the quarter
          aDateInfo[ 3 ] - The ending date of the quarter
+      ```
    $DESCRIPTION$
       ft_Qtr() returns an array containing data about the quarter
       containing the given date.

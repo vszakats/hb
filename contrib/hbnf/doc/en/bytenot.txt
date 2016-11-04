@@ -16,8 +16,8 @@
       returns NIL.
    $DESCRIPTION$
       Can be used for bitwise byte manipulation.  In effect, this is a
-      bit-by-bit NOT (one's complement) operation.  Equivalent to the
-      NOT assembler instruction.
+      bit-by-bit *not* (one's complement) operation.  Equivalent to the
+      `NOT` assembler instruction.
 
       This function is presented to illustrate that bit-wise operations
       are possible with Clipper code.  For greater speed, write `.c`

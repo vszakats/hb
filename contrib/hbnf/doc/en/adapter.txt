@@ -19,11 +19,6 @@
    $DESCRIPTION$
       This function is valuable if you use a graphics library and need to
       know what type of graphics adapter is installed.
-
-      The source code is written to adhere to Turbo Assembler's IDEAL mode.
-      To use another assembler, you will need to rearrange the PROC and
-      SEGMENT directives, and also the ENDP and ENDS directives (a very
-      minor task).
    $EXAMPLES$
       iVideo := ft_Adapter()
 

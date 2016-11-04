@@ -134,7 +134,7 @@
       Under a networking enviroment, dbAppend() performs an additional
       operation: It attempts to lock the newly added record. If
       the database file is currently locked or if a locking assignment
-      is made to LastRec() + 1, NetErr() will return a logical true (.T.)
+      is made to `LastRec() + 1`, NetErr() will return a logical true (.T.)
       immediately after the dbAppend() function. This function does
       not unlock the locked records.
 

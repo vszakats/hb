@@ -13,13 +13,13 @@
       <nInitVal> is the initial value for the semaphore.  It must start
       as a positive number, to a maximum of 127.
 
-      <@nHandle> is the semaphore handle.  THIS MUST BE PASSED BY
-      REFERENCE!  On exit, <nHandle> will contain a numeric value that
+      <@nHandle> is the semaphore handle.  *This must be passed by
+      reference!*  On exit, <nHandle> will contain a numeric value that
       refers to the opened semaphore.  You will need it to pass to
-      other semaphore functions!  PASS IT BY REFERENCE!
+      other semaphore functions!  *Pass it by reference!*
 
       <@nOpenCnt> is the number of stations that have opened the
-      semaphore.  THIS MUST BE PASSED BY REFERENCE! On exit, <nOpenCnt>
+      semaphore.  *This must be passed by reference!* On exit, <nOpenCnt>
       will contain a numeric value.
    $RETURNS$
       nRc, a numeric result code, as follows:
@@ -103,12 +103,12 @@
       <nHandle> is the semaphore handle, returned from a previous call
       to ft_NWSemOpen().
 
-      <@nValue> will get the current semaphore value.  THIS NUMERIC
-      ARGUMENT MUST BE PASSED BY REFERENCE!
+      <@nValue> will get the current semaphore value.  *This numeric
+      argument must be passed by reference!*
 
       <@nOpenCnt> will get the current number of workstations
-      that have opened the semaphore.  THIS NUMERIC ARGUMENT MUST BE
-      PASSED BY REFERENCE!
+      that have opened the semaphore.  *This numeric argument must be
+      passed by reference!*
    $RETURNS$
       nRc, a numeric, as follows:
 
@@ -252,7 +252,7 @@
    $ARGUMENTS$
       <cSemaphore> is the name of a semaphore you want to "lock."
       <nHandle> is the semaphore's handle, if you get the lock.
-      THIS MUST BE PASSED BY REFERENCE!
+      *This must be passed by reference!*
    $RETURNS$
       lRet == .T. if you get the lock, .T. if you don't.
       If the lock succeeds, <nHandle> will contain the semaphore
@@ -323,7 +323,7 @@
       It is important that you get a valid semaphore handle from
       ft_NWSemLock() before you use this call.  Make sure when you call
       ft_NWSemLock() that you pass a numeric parameter in for the handle
-      BY REFERENCE.
+      *by reference*.
    $EXAMPLES$
       LOCAL nHandle := 0
       IF ft_NWSemLock( "error.log", @nHandle )

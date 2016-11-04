@@ -16,7 +16,7 @@
                  defaults to 1.
 
       <lCaseSens> is a logical value denoting case sensitivity.
-                 If .F., then search is NOT sensitive to case,
+                 If .F., then search is _not_ sensitive to case,
                  defaults to .T.
    $RETURNS$
       The position of the nth occurrence of a substring
@@ -53,7 +53,7 @@
                  defaults to 1.
 
       <lCaseSens> is a logical value denoting case sensitivity.
-                 If .F., then search is NOT sensitive to case,
+                 If .F., then search is _not_ sensitive to case,
                  defaults to .T.
    $RETURNS$
       The position of the nth occurrence of a reversed substring

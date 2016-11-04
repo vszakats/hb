@@ -9,7 +9,7 @@
 
 /* Key constants for d_keyin() routine.
    Some of the values allow for Wordstar-like codes to work for
-   cursor movement.  for example ctrl-x is 0x18 and it's mapped
+   cursor movement.  for example <Ctrl-x> is 0x18 and it's mapped
    to the down arrow. */
 
 #define UP     5    /* Ctrl-e */

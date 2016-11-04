@@ -8,7 +8,7 @@
    $SYNTAX$
       ft_WoY( <dDate> ) -> <nResult>
    $ARGUMENTS$
-      <dDate> is a date in the form "mm/dd/yy" or "mm/dd/yyyy"
+      <dDate> is a date in the form `"mm/dd/yy"` or `"mm/dd/yyyy"`
    $RETURNS$
       Return numeric position of week within the year or NIL if
       parameter does not conform.
@@ -17,7 +17,7 @@
       First week of year (week 1) may start on any day, and thus
         contain any number of days.
       Final week of year (week 53) may contain any number of days.
-      Handles dates with CENTURY ON|OFF, to allow for 21st century.
+      Handles dates with `CENTURY ON`|`OFF`, to allow for 21st century.
       Date validation must be external to this function.
    $EXAMPLES$
       // These code fragments find the week number, given a date.
@@ -50,13 +50,13 @@
    $SYNTAX$
       ft_DoY( <dDate> ) -> <nResult>
    $ARGUMENTS$
-      <dDate> is a date in the form "mm/dd/yy" or "mm/dd/yyyy"
+      <dDate> is a date in the form `"mm/dd/yy"` or `"mm/dd/yyyy"`
    $RETURNS$
       Return numeric position of day within the year.
       Return NIL if parameter does not conform.
    $DESCRIPTION$
       Finds the day number, considering 01/01 as day 1
-      Handles dates with CENTURY ON|OFF, to allow for 21st century.
+      Handles dates with `CENTURY ON`|`OFF`, to allow for 21st century.
       Date validation must be external to this function.
    $EXAMPLES$
       // These code fragments find the day number, given a date.

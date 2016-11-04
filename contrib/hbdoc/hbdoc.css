@@ -475,7 +475,7 @@ p {
 
 /* Dropdown Button */
 .dropbtn {
-  cursor: pointer;
+  cursor: default;
   margin-left: 15px;
   transition: color .25s;
 }
@@ -512,10 +512,6 @@ p {
   text-align: left;
   text-decoration: none;
   transition: none;
-}
-
-.lang .dropbtn {
-  cursor: default;
 }
 
 .lang .dropdown-content {
@@ -588,7 +584,7 @@ p {
   }
 
   header {
-    position: absolute;
+    -position: absolute;
     height: 74px;
     line-height: 36px;
   }
@@ -599,5 +595,9 @@ p {
 
   main {
     padding-top: 74px;
+  }
+
+  .d-id:target {
+    padding-top: 92px;  /* 74px + 18px */
   }
 }

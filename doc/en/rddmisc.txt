@@ -700,8 +700,8 @@
       function.
    $DESCRIPTION$
       This function return a logical true (.T.) is a USE, dbAppend(), or
-      a USE...EXCLUSIVE command is issue and fails in a network environment.
-      In the case of USE and USE...EXCLUSIVE commands, a NetErr() value
+      a `USE...EXCLUSIVE` command is issue and fails in a network environment.
+      In the case of USE and `USE...EXCLUSIVE` commands, a NetErr() value
       of .T. would be returned if another node of the network has the
       exclusive use of a file. And the case of the dbAppend() command,
       NetErr() will return a logical true (.T.) if the file or record

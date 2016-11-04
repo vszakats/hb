@@ -14,16 +14,11 @@
       NIL
    $DESCRIPTION$
       This function is valuable if you need to reboot the PC for some
-      reason; e.g. an installation routine that modifies CONFIG.SYS or
-      AUTOEXEC.BAT.
-
-      The source code is written to adhere to Turbo Assembler's IDEAL mode.
-      To use another assembler, you will need to rearrange the PROC and
-      SEGMENT directives, and also the ENDP and ENDS directives (a very
-      minor task).
+      reason; e.g. an installation routine that modifies `CONFIG.SYS` or
+      `AUTOEXEC.BAT`.
    $EXAMPLES$
-      #define COLD 0
-      #define WARM 1
+      #define COLD  0
+      #define WARM  1
 
       // Issue a warm boot
 

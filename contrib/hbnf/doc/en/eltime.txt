@@ -9,13 +9,13 @@
       ft_ElTime( <cTime1>, <cTime2> ) -> cDiff
    $ARGUMENTS$
       <cTime1, cTime2>  character strings representing times in
-         hh:mm:ss format.
+         `hh:mm:ss` format.
    $RETURNS$
       <cDiff>  character string representing time difference in
-         hh:mm:ss format.
+         `hh:mm:ss` format.
    $DESCRIPTION$
-      Return the absolute difference between two times in hh:mm:ss format
-      in character hours, minutes and seconds (hh:mm:ss).
+      Return the absolute difference between two times in `hh:mm:ss` format
+      in character hours, minutes and seconds (`hh:mm:ss`).
    $EXAMPLES$
       ? ft_ElTime( "22:40:12", "23:55:17" )  // 01:15:05
       ? ft_ElTime( "23:55:17", "22:40:12" )  // 01:15:05

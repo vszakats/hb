@@ -10,15 +10,15 @@
    $ARGUMENTS$
       <cDrive> is the fixed disk to query. If no drive is sent, the
       operation will be performed on the default drive. Send without
-      the ":".
+      the `:`.
    $RETURNS$
       An integer representing the maximum disk capacity in bytes.
    $DESCRIPTION$
       Function utilizing ft_int86() to return Maximum Disk Size.
       Uses ft_int86() through the internal function _ftDiskInfo().
    $EXAMPLES$
-      ? ft_DskSize()      // Maximum capacity for default drive
-      ? ft_DskSize( "D" ) // Maximum capacity for Drive D:
+      ? ft_DskSize()       // Maximum capacity for default drive
+      ? ft_DskSize( "D" )  // Maximum capacity for Drive D:
    $END$
  */
 
@@ -34,7 +34,7 @@
    $ARGUMENTS$
       <cDrive> is the fixed disk to query. If no parameter is passed
       the operation will be performed on the default drive.  Do not
-      include the ":".
+      include the `:`.
    $RETURNS$
       Integer representing the available disk space in bytes.
    $DESCRIPTION$

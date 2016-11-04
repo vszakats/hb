@@ -166,7 +166,7 @@
       This enhanced version of MENU TO requires the inclusion of the header
       file ftmenuto.ch in any source file that uses it.  It may be used in
       place of the standard Clipper `MENU TO` command.  However, in the
-      interests of functionality it is NOT 100% compatible (in particular,
+      interests of functionality it is *not* 100% compatible (in particular,
       you should make sure that the target memvar exists before executing
       the menu -- the Clipper version will create a PRIVATE memvar for you
       if it does not already exist, but this version does not).  No whining!
