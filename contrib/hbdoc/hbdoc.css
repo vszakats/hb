@@ -5,7 +5,7 @@ html {
 
 body {
   background-color: #f8f8f8;
-  font-family: 'Source Sans Pro', Arial, sans-serif;
+  font-family: 'Source Sans Pro', -apple-system, "San Francisco", "Oxygen", "Ubuntu", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
   font-size: 14pt;
   line-height: 150%;
   margin: 0;
