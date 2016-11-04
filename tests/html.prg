@@ -15,13 +15,13 @@ PROCEDURE Main()
    oHTML:AddHead( "Harbour" )
    oHTML:AddPara( "<strong>Harbour</strong> is xBase at its best. Have a taste today!" )
    oHTML:AddPara( "<strong>Links</strong>" )
-   oHTML:AddLink( "https://example.org", "Meet the Harbour power!" )
+   oHTML:AddLink( "https://example.org/", "Meet the Harbour power!" )
    oHTML:Generate()
 
 #if 0
    // Uncomment the following if you don't have a Web Server to test
    // this sample
-   oHTML:SaveToFile( "test.html" )
+   oHTML:SaveToFile( "html_test.html" )
 #endif
 
    // If the above is uncommented, you may comment this line:
@@ -33,9 +33,9 @@ CREATE CLASS THTML STATIC
 
    VAR cTitle      INIT "Untitled"        // Page Title
    VAR cBody       INIT ""                // HTML Body Handler
-   VAR cBGColor    INIT "#FFFFFF"         // Background Color
-   VAR cLinkColor  INIT "#0000FF"         // Link Color
-   VAR cvLinkColor INIT "#FF0000"         // Visited Link Color
+   VAR cBGColor    INIT "#fff"            // Background Color
+   VAR cLinkColor  INIT "#00f"            // Link Color
+   VAR cvLinkColor INIT "#f00"            // Visited Link Color
    VAR cContent    INIT ""                // Page Content Handler
 
    METHOD New()                           // New Method
@@ -60,7 +60,7 @@ METHOD SetTitle( cTitle ) CLASS THTML
 
 METHOD AddLink( cLinkTo, cLinkName ) CLASS THTML
 
-   ::cBody += "<a href='" + cLinkTo + "'>" + cLinkName + "</a>"
+   ::cBody += "<a href=" + '"' + cLinkTo + '"' + ">" + cLinkName + "</a>"
 
    RETURN Self
 
