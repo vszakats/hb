@@ -131,10 +131,10 @@
       order.
 
       <bForCondition> is a code block that defines a FOR condition that
-       each record within the scope must meet in order to be processed. If
-       a record does not meet the specified condition, it is ignored and the
-       next  record is processed.Duplicate keys values are not added to the
-       index file when a FOR condition is Used.
+      each record within the scope must meet in order to be processed. If
+      a record does not meet the specified condition, it is ignored and the
+      next  record is processed. Duplicate keys values are not added to the
+      index file when a FOR condition is Used.
    $DESCRIPTION$
 
    $EXAMPLES$
@@ -190,7 +190,7 @@
       macro expanding the value of <cExpKey>.
 
       If <lUnique> is not specified, then the current internal setting of
-      SET UNIQUE ON or OFF will be observed.
+      `SET UNIQUE ON` or OFF will be observed.
 
       The active RDD driver determines the capacity in the order for a
       specific order bag.
@@ -291,7 +291,7 @@
    $DESCRIPTION$
       This function returns a character string that is the expression for
       the FOR condition for the specified order. The order may be specified
-      if <xOrder> is the name of the order.However, <xOrder> may be an
+      if <xOrder> is the name of the order. However, <xOrder> may be an
       numeric which represent the position in the order list of the desired
       Order.
    $EXAMPLES$
@@ -419,7 +419,7 @@
       index file
 
       The index key is displayed for an index file that is designated by
-      <nOrder>, its position in the USE...INDEX or SET INDEX TO command in
+      <nOrder>, its position in the `USE...INDEX` or `SET INDEX TO` command in
       the currently selected or designated work area. If there is no
       corresnponding index key at the specified order position, a NULL
       byte will be returned.

@@ -5,11 +5,8 @@
  *                       __mvDbgInfo(), __mvGet(), __mvPut(), MemVarBlock(),
  *                       Type()
  *
- * Copyright 1999 Chen Kedem <niki@actcom.co.il>
- *    Documentation for: FieldBlock(), FieldWBlock()
- *
- * Copyright 2001 Chen Kedem <niki@actcom.co.il>
- *    Documentation for: __mvExist()
+ * Copyright 1999-2001 Chen Kedem <niki@actcom.co.il>
+ *    Documentation for: FieldBlock(), FieldWBlock(), __mvExist()
  *
  * Copyright 2002 Walter Negro <anegro@overnet.com.ar>
  *    Documentation for: hb_PIsByRef()
@@ -179,7 +176,7 @@
       Nothing
    $DESCRIPTION$
       This function releases values stored in memory variables. It shouldn't
-      be called directly, it should be placed into RELEASE ALL command.
+      be called directly, it should be placed into `RELEASE ALL` command.
       If the released variable is a PRIVATE variable then previously hidden
       variable with the same name becomes visible after exit from the
       procedure where released variable was created. If you access
@@ -215,15 +212,14 @@
       <cVarName> = a string with a variable name to check
    $RETURNS$
       The symbolic values are defined in hbmemvar.ch
-      HB_MV_NOT_FOUND     =variable is not declared (not found in symbol table)
-      HB_MV_UNKNOWN       =if variable doesn't exist (but found in symbol table)
-      HB_MV_ERROR         =if information cannot be obtained (memory error
-      or argument error)
-      HB_MV_PUBLIC         =for public variables
-      HB_MV_PRIVATE_GLOBAL =for private variables declared outside of current
-      function/procedure
-      HB_MV_PRIVATE_LOCAL  =for private variables declared in current
-      function/procedure
+      <table-noheader>
+       HB_MV_NOT_FOUND      variable is not declared (not found in symbol table)
+       HB_MV_UNKNOWN        if variable doesn't exist (but found in symbol table)
+       HB_MV_ERROR          if information cannot be obtained (memory error or argument error)
+       HB_MV_PUBLIC         for public variables
+       HB_MV_PRIVATE_GLOBAL for private variables declared outside of current function/procedure
+       HB_MV_PRIVATE_LOCAL  for private variables declared in current function/procedure
+      </table>
    $EXAMPLES$
       PROCEDURE Main()
 
@@ -257,8 +253,6 @@
       H
    $FILES$
       Library is core
-   $SEEALSO$
-      include/hbmemvar.ch
    $END$
  */
 
@@ -281,7 +275,7 @@
       Nothing
    $DESCRIPTION$
       This function releases all PRIVATE and PUBLIC variables.
-      It is used to implement CLEAR MEMORY statement.
+      It is used to implement `CLEAR MEMORY` statement.
       The memory occupied by all visible variables are released - any
       attempt to access the variable will result in a runtime error.
       You have to reuse PRIVATE or PUBLIC statement to create again
@@ -312,9 +306,13 @@
       __mvDbgInfo( <nScope> [, <nPosition> [, @<cVarName>] ] )
    $ARGUMENTS$
       <nScope> = the scope of variables for which an information is asked
-           Supported values (defined in hbmemvar.ch)
-           HB_MV_PUBLIC
-           HB_MV_PRIVATE (or any other value)
+
+      Supported values (defined in hbmemvar.ch)
+      <table-noheader>
+       HB_MV_PUBLIC
+       HB_MV_PRIVATE (or any other value)
+      </table>
+
       <nPosition> = the position of asked variable on the list of variables
       with specified scope - it should start from position 1
       <cVarName> = the value is filled with a variable name if passed by
@@ -331,7 +329,7 @@
 
       If requested variable doesn't exist (requested position is
       greater then the number of defined variables) then NIL value is
-      returned and variable name is set to "?"
+      returned and variable name is set to `?`.
 
       The dynamic symbols table is used to find a PUBLIC variable then
       the PUBLIC variables are always sorted alphabetically. The PRIVATE
@@ -340,7 +338,7 @@
       Note:
 
       Due to dynamic nature of memvar variables there is no guarantee that
-      successive calls to retrieve the value of <Nth> PUBLIC variable will
+      successive calls to retrieve the value of Nth PUBLIC variable will
       return the value of the same variable.
    $EXAMPLES$
       #include "hbmemvar.ch"
@@ -441,11 +439,11 @@
       STATIC  TheStatic
       PUBLIC  ThePublic
       PRIVATE ThePrivate
-      ? __mvExist( "NotExist"   )        // .F.
-      ? __mvExist( "TheLocal"   )        // .F.
-      ? __mvExist( "TheStatic"  )        // .F.
-      ? __mvExist( "ThePublic"  )        // .T.
-      ? __mvExist( "ThePrivate" )        // .T.
+      ? __mvExist( "NotExist"   )  // .F.
+      ? __mvExist( "TheLocal"   )  // .F.
+      ? __mvExist( "TheStatic"  )  // .F.
+      ? __mvExist( "ThePublic"  )  // .T.
+      ? __mvExist( "ThePrivate" )  // .T.
    $STATUS$
       R
    $COMPLIANCE$
@@ -718,21 +716,21 @@
       <cRetType> a string indicating the type of the passed expression.
 
       <table>
-        <cRetType>   Meaning
+       <cRetType>   Meaning
 
-        "A"          Array
-        "B"          Block
-        "C"          Character (string)
-        "D"          Date
-        "L"          Logical
-        "M"          Memo
-        "N"          Numeric
-        "O"          Object
-        "P"          Pointer
-        "S"          Symbol
-        "U"          NIL, local or static variable, or not linked-in function
-        "UE"         syntax error in the expression or invalid arguments
-        "UI"         function with non-reserved name was requested
+       "A"          Array
+       "B"          Block
+       "C"          Character (string)
+       "D"          Date
+       "L"          Logical
+       "M"          Memo
+       "N"          Numeric
+       "O"          Object
+       "P"          Pointer
+       "S"          Symbol
+       "U"          NIL, local or static variable, or not linked-in function
+       "UE"         syntax error in the expression or invalid arguments
+       "UI"         function with non-reserved name was requested
       </table>
    $DESCRIPTION$
       This function returns a string which represents the data type
@@ -819,19 +817,19 @@
       <cRetType> a character indicating the type of the passed expression.
 
       <table>
-        <cRetType>   Meaning
+       <cRetType>   Meaning
 
-        "A"          Array
-        "B"          Block
-        "C"          Character (string)
-        "D"          Date
-        "L"          Logical
-        "M"          Memo
-        "N"          Numeric
-        "O"          Object
-        "P"          Pointer
-        "S"          Symbol
-        "U"          NIL
+       "A"          Array
+       "B"          Block
+       "C"          Character (string)
+       "D"          Date
+       "L"          Logical
+       "M"          Memo
+       "N"          Numeric
+       "O"          Object
+       "P"          Pointer
+       "S"          Symbol
+       "U"          NIL
       </table>
    $DESCRIPTION$
       This function returns one character which represents the data type

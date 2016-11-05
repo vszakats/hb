@@ -28,9 +28,9 @@
       ? CharAdd( "123456789", hb_BChar( 255 ) ) // --> "012345678"
       ? CharAdd( "0000", hb_BChar( 0 ) + hb_BChar( 1 ) + hb_BChar( 2 ) + hb_BChar( 3 ) ) // --> "0123"
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      CharAdd() is compatible with CT3's CharAdd().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -74,9 +74,9 @@
       ? CharAnd( "012345678", hb_BChar( 254 ) ) // --> "002244668"
       ? CharAnd( "012345678", hb_BChar( 254 ) + hb_BChar( 252 ) ) // --> "002044648"
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      CharAnd() is compatible with CT3's CharAnd().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -117,9 +117,9 @@
       // -->     hb_BChar( 170 ) + hb_BChar( 127 ) + hb_BChar(  85 ) + hb_BChar( 254 )
       ? CharNot( CharNot( "This is a test!" ) ) // --> "This is a test!"
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      CharNot() is compatible with CT3's CharNot().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -163,9 +163,9 @@
       ? CharOr( "012345678", hb_BChar( 1 ) ) // --> "113355779"
       ? CharOr( "012345678", hb_BChar( 1 ) + hb_BChar( 3 ) ) // --> "133357779"
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      CharOr() is compatible with CT3's CharOr().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -208,9 +208,9 @@
       // easy encryption
       ? CharXor( "This is top secret !", "My Password" ) // --> <encrypted sentence>
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      CharXor() is compatible with CT3's CharXor().
+      C
    $PLATFORMS$
       All
    $FILES$

@@ -17,12 +17,12 @@
       in to a NetWare server, you will need the logical
       station number, also known as a "connection number."  This
       function will return that number.  This will be a number from 1 to 100
-      under NetWare 286, or from 1 to 250 under NetWare 386.  This is *not*
+      under NetWare 286, or from 1 to 250 under NetWare 386.  This is _not_
       the same as a physical station number.
 
       This function requires ft_int86().
 
-      This function does NOT test for the existence of the NetWare shell.
+      This function does _not_ test for the existence of the NetWare shell.
       The behavior is undefined if no shell is loaded.
    $EXAMPLES$
       ? "Logical station:", ft_NWLStat()

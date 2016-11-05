@@ -30,14 +30,16 @@ Harbour itself.
 
 ---
 
-## How to [build](https://github.com/{{ site.repo_slug }}/blob/master/utils/hbmk2/doc/hbmk2.en.md)/[run](https://github.com/{{ site.repo_slug }}/blob/master/contrib/hbrun/doc/hbrun.en.md) applications
+## How to build/run applications
+
+[Build](https://github.com/{{ site.repo_slug }}/blob/master/utils/hbmk2/doc/hbmk2.en.md):
 
 ```
 $ hbmk2 app.prg
 $ ./app
 ```
 
-or run them as scripts:
+or [run](https://github.com/{{ site.repo_slug }}/blob/master/contrib/hbrun/doc/hbrun.en.md) them as scripts:
 
 ```
 $ hbrun app.prg

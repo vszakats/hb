@@ -45,7 +45,7 @@
       ? AtRepl( "ABC", "ABCDABCDABC", "xx", 2 ) // --> "xxDxxDABC"
       ? AtRepl( "ABC", "ABCDABCDABC", "xx", 2, .T. )  // --> "ABCDxxDABC"
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
       AtRepl() is compatible with CT3's AtRepl().
       Note the new, 6th parameter !

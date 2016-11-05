@@ -15,7 +15,7 @@
       This function can be used in conjunction with any bit-wise
       operations.
    $EXAMPLES$
-      ? ft_Dec2Bin( 255 )         // "11111111"
-      ? ft_Dec2Bin( 2 )           // "00000010"
+      ? ft_Dec2Bin( 255 )  // "11111111"
+      ? ft_Dec2Bin( 2 )    // "00000010"
    $END$
  */

@@ -13,7 +13,7 @@
       NIL
    $DESCRIPTION$
       This function "restores" the SET Settings, i.e., it sets them to the
-      values in the array aOldSets.  The following SETs are not currently
+      values in the array aOldSets.  The following `SET`s are not currently
       supported: FILTER, FORMAT, FUNCTION, INDEX, KEYS, MODE, ORDER,
       PROCEDURE, RELATION, TYPEAHEAD
    $EXAMPLES$

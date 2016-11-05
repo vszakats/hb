@@ -43,9 +43,9 @@
       ? CharRepl( "1234", "1234", "234A" )              // "AAAA"
       ? CharRepl( "1234", "1234", "234A", .T. )         // "234A"
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      CharRepl() is compatible with CT3's CharRepl().
+      C
    $PLATFORMS$
       All
    $FILES$

@@ -32,10 +32,6 @@
       Be aware that this function makes use of Clipper's internal event
       handler.  If you don't like using internals, then don't use this
       function, you sniveling coward.
-
-      This function is written to adhere to Turbo Assembler's IDEAL mode.
-      To use another assembler, rearrange the SEGMENT and PROC directives
-      and make any other necessary changes to the source code.
    $EXAMPLES$
       ft_PutKey( -9 )   //  Stuff the F10 key
       ft_PutKey( 276 )  //  Stuff the Alt+T key

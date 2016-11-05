@@ -16,9 +16,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      PosAlpha() is compatible with CT3's PosAlpha().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -46,9 +46,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      PosLower() is compatible with CT3's PosLower().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -77,9 +77,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      PosRange() is compatible with CT3's PosRange().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -107,9 +107,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      PosUpper() is compatible with CT3's PosUpper().
+      C
    $PLATFORMS$
       All
    $FILES$

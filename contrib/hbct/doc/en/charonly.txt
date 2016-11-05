@@ -22,9 +22,9 @@
       ? CharOnly( "0123456789", "0211 - 38 99 77" )  //  "0211389977"
       ? CharOnly( "0123456789", "0211/ 389 977" )    //  "0211389977"
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      CharOnly() is compatible with CT3's CharOnly().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -58,9 +58,9 @@
       ? WordOnly( "AABBCCDD", "XXAAYYBBZZ" )  // "AABB"
       ? WordOnly( "AABBCCDD", "XAAYYYBBZZ" )  // "BB"
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      WordOnly() is compatible with CT3's WordOnly().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -93,9 +93,9 @@
       ? CharRem( " ", " 1  2  " )   // "12"
       ? CharRem( "3y", "xyz123" )   // "xz12"
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      CharRem() is compatible with CT3's CharRem().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -129,7 +129,7 @@
       ? WordRem( "abcd", "0ab1cd" )   // "0ab1"
       ? WordRem( "abcd", "ab0cd1" )   // "0cd1"
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
       WordRem() is a new function available only in Harbour's CT3.
    $PLATFORMS$

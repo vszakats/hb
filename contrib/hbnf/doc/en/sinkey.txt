@@ -4,7 +4,7 @@
    $CATEGORY$
       Keyboard/Mouse
    $ONELINER$
-      Replacement for Inkey() that tests for SET KEY procedures
+      Replacement for Inkey() that tests for `SET KEY` procedures
    $SYNTAX$
       ft_SInkey( [ <nWaitTime> ] ) -> nKey
    $ARGUMENTS$
@@ -19,11 +19,11 @@
       keyboard.prg, with one significant difference: you can pass NIL
       to Inkey(), which will be treated as a zero (i.e., wait indefinitely
       for keypress).  Therefore, it is necessary to differentiate between
-      an explicit NIL and one that is a result of a formal parameter NOT
+      an explicit NIL and one that is a result of a formal parameter _not_
       being received.
 
       ft_SInkey() differs from the standard Inkey() in that it will
-      respond to any keys set with SET KEY TO or SetKey().
+      respond to any keys set with `SET KEY TO` or SetKey().
    $EXAMPLES$
       SetKey( K_F1, {| n, l, r | HELP( n, l, r ) } )
       ? ft_SInkey( 0 )       // HELP() will be called if F1 pressed

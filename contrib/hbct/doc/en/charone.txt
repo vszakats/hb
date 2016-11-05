@@ -25,9 +25,9 @@
       ? CharOne( " ", "A  B  A  B" ) // "A B A B"
       ? CharOne( "o", "122oooB12o" ) // "122oB12o"
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      CharOne() is compatible with CT3's CharOne().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -62,9 +62,9 @@
       ? WordOne( "1AAAA2" )         // "1AAAA2"
       ? WordOne( "12", "1212ABAB" ) // "12ABAB"
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      WordOne() is compatible with CT3's WordOne().
+      C
    $PLATFORMS$
       All
    $FILES$

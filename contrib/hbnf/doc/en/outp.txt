@@ -18,11 +18,6 @@
    $DESCRIPTION$
       It may sometimes be useful to write a byte to a port without having
       to resort to C or assembler.  This function allows you to do so.
-
-      The source code is written to adhere to Turbo Assembler's IDEAL mode.
-      To use another assembler, you will need to rearrange the PROC and
-      SEGMENT directives, and also the ENDP and ENDS directives (a very
-      minor task).
    $EXAMPLES$
       ? ft_outp( 0x64, 0 )  // send a hb_BChar( 0 ) to port 100 (0x64)
    $SEEALSO$

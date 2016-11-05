@@ -21,9 +21,9 @@
    $EXAMPLES$
       ? CharList( "Hello World !" ) // --> "Helo Wrd!"
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      CharList() is compatible with CT3's CharList().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -56,9 +56,9 @@
    $EXAMPLES$
       ? CharNoList( CharNoList( "Hello World !" ) ) // --> " !HWdelor"
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      CharNoList() is compatible with CT3's CharNoList().
+      C
    $PLATFORMS$
       All
    $FILES$

@@ -16,9 +16,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      ReplAll() is compatible with CT3's ReplAll().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -46,9 +46,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      ReplLeft() is compatible with CT3's ReplLeft().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -76,9 +76,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      ReplRight() is compatible with CT3's ReplRight().
+      C
    $PLATFORMS$
       All
    $FILES$

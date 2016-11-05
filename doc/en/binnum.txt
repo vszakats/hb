@@ -159,6 +159,7 @@
       I2Bin() is the opposite of Bin2I()
    $EXAMPLES$
       // Update DBF "last update" date
+      #include "fileio.ch"
       PROCEDURE Main()
          LOCAL hFile, cYear, cMonth, cDay
          USE test

@@ -27,9 +27,9 @@
       ? CharMirr( "racecar  ", .T. ) // "racecar  "
       ? CharMirr( "racecar  ", .F. ) // "  racecar"
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      CharMirr() is compatible with CT3's CharMirr().
+      C
    $PLATFORMS$
       All
    $FILES$

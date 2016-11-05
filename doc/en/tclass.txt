@@ -25,21 +25,21 @@
       HBClass() is usually accessed by defining a class with the commands
       defined in hbclass.ch:
 
-        CREATE CLASS HBGetList    // Calls HBClass() to create the HBGetList class
-           ...
-        ENDCLASS
+      CREATE CLASS HBGetList  // Calls HBClass() to create the HBGetList class
+         ...
+      ENDCLASS
    $ARGUMENTS$
 
    $RETURNS$
-      An instance of the HBClass Class. This special object's :New()
+      An instance of the HBClass Class. This special object's `:New()`
       method can then create the classes you define.
    $DESCRIPTION$
       HBClass is a class that ...
       The class methods are as follows:
 
-        New()                 Create a new instance of the class
+      New()                 Create a new instance of the class
    $EXAMPLES$
-      PROCEDURE TestObject()
+      PROCEDURE Main()
          LOCAL oObject
 
          oObject := HBClass():New( "TMyClass" )

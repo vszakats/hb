@@ -53,14 +53,14 @@
       many other background tasks. One such background task can be looking
       for unreferenced memory blocks.
 
-      Allocating memory    </par>
+      Allocating memory
       -----------------
 
       The garbage collector collects memory blocks allocated with hb_gcAlloc()
       function calls. Memory allocated by hb_gcAlloc() should be released with
       hb_gcFree() function.
 
-      The garbage collecting   </par>
+      The garbage collecting
       ----------------------
 
       During scanning of unreferenced memory the GC is using a mark & sweep
@@ -83,7 +83,7 @@
       with the same flag before the sweep step will start.
       See hb_gcCollectAll() and hb_gcItemRef()
 
-      Calling the garbage collector from Harbour code   </par>
+      Calling the garbage collector from Harbour code
       -----------------------------------------------
 
       The garbage collector can be called directly from the Harbour code.
@@ -134,7 +134,7 @@
       by the GC if it is not locked or if it is not referenced by some
       Harbour level variable.
    $STATUS$
-      C
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -166,7 +166,7 @@
       hb_gcFree() is used to deallocate the memory that was
       allocated with the hb_gcAlloc() function.
    $STATUS$
-      C
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -199,7 +199,7 @@
       memory blocks. After scanning all unused memory blocks and blocks
       that are not locked are released.
    $STATUS$
-      C
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -241,7 +241,7 @@
             passed item can be released prematurely during the closest
             garbage collection).
    $STATUS$
-      C
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$
@@ -270,7 +270,7 @@
       This function releases all memory blocks that are considered
       as the garbage.
    $STATUS$
-      Harbour
+      R
    $COMPLIANCE$
       H
    $PLATFORMS$

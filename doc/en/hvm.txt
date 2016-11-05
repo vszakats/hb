@@ -37,9 +37,9 @@
       executed function if no arguments are passed. Otherwise it returns
       the name of the function or procedure at <nLevel>.
    $EXAMPLES$
-      // This test will show the functions and procedures in stack.
-      // before executing it.
       PROCEDURE Main()
+         // This test will show the functions and procedures in stack.
+         // before executing it.
          LOCAL n := 1
          DO WHILE ! Empty( ProcName( n ) )
             ? ProcName( n++ )
@@ -317,7 +317,7 @@
    $SUBCATEGORY$
       Error
    $ONELINER$
-      Exits from a BEGIN SEQUENCE block
+      Exits from a `BEGIN SEQUENCE` block
    $SYNTAX$
       Break( <xExp> )
    $ARGUMENTS$
@@ -325,7 +325,7 @@
       If do not want to pass any argument, just use NIL.
    $DESCRIPTION$
       This function passes control to the RECOVER statement in a
-      BEGIN SEQUENCE block.
+      `BEGIN SEQUENCE` block.
    $EXAMPLES$
       Break( NIL )
    $STATUS$

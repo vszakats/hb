@@ -8,7 +8,7 @@
    $SYNTAX$
       ft_BitClr( <cByte>, <nBitPos> ) -> cByte
    $ARGUMENTS$
-      <cByte> is a character from hb_BChar( 0 ) to hb_BChar( 255 ).
+      <cByte> is a character from `hb_BChar( 0 )` to `hb_BChar( 255 )`.
 
       <nBitPos> is a number from 0 to 7 conforming to standard
       right-to-left bit numbering convention and representing the
@@ -22,8 +22,8 @@
       Note: Calls ft_IsBit() which is also in this Library.
 
       This function is presented to illustrate that bit-wise operations
-      are possible with Clipper code.  For greater speed, write .c or
-      .asm versions and use the Clipper Extend system.
+      are possible with Clipper code.  For greater speed, write `.c`
+      version and use the Clipper Extend system.
    $EXAMPLES$
       // This code would clear bit 4 in a byte represented by hb_BChar( 115 ):
 

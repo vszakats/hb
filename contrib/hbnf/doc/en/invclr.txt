@@ -13,8 +13,8 @@
    $RETURNS$
       The inverse of the passed color.
    $DESCRIPTION$
-      This function inverts a passed color (in the Clipper format: ??/??),
-      e.g., "W/N" is converted to "N/W".
+      This function inverts a passed color (in the Clipper format: `??/??`),
+      e.g., `"W/N"` is converted to `"N/W"`.
    $EXAMPLES$
       ? ft_InvClr()             // Get Inverse of Current Color
       ? ft_InvClr( cErrColor )  // Get Inverse of cErrorColor

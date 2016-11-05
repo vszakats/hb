@@ -49,7 +49,7 @@
          ar[ 3, i ] := Chr( Asc( "Z" ) - i + 1 ) // "Z" -> "A"  Character
       NEXT
 
-      // SET UP aHeadings Array for column headings
+      // set up aHeadings Array for column headings
 
       aHeadings  := { "Numbers", "Letters", "Reverse" }
 

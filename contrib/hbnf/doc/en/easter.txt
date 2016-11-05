@@ -8,7 +8,7 @@
    $SYNTAX$
       ft_Easter( <xYear> ) -> dEdate
    $ARGUMENTS$
-      xYear can be a character, date or numeric describing the year
+      <xYear> can be a character, date or numeric describing the year
       for which you wish to receive the date of Easter.
    $RETURNS$
       The actual date that Easter occurs.

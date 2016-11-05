@@ -38,7 +38,7 @@
 
       ? AddAscii( "SmitH", 32 ) // --> "Smith"
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
       AddAscii() is compatible with CT3's AddAscii().
       A new, 4th, parameter has been added who defaults to the original

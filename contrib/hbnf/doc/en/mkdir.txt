@@ -18,11 +18,6 @@
       Use this function to create the subdirectories needed by your
       application.  It might be especially useful in an installation
       program.
-
-      The source code is written to adhere to Turbo Assembler's IDEAL mode.
-      To use another assembler, you will need to rearrange the PROC and
-      SEGMENT directives, and also the ENDP and ENDS directives (a very
-      minor task).
    $EXAMPLES$
       ? ft_MkDir( "harbour" )
       ? ft_MkDir( hb_ps() + "example" )

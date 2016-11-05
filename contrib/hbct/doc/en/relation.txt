@@ -17,9 +17,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      CharRelA() is compatible with CT3's CharRelA().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -49,9 +49,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      CharRelRep() is compatible with CT3's CharRelRep().
+      C
    $PLATFORMS$
       All
    $FILES$

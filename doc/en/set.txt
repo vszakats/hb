@@ -38,8 +38,8 @@
       __SetCentury([<lFlag> | <cOnOff> ] ) --> lPreviousValue
    $ARGUMENTS$
       optional <lFlag> or <cOnOff> (not case sensitive)
-              .T. or "ON" to enable the century setting (4-digit years)
-              .F. or "OFF" to disable the century setting (2-digit years)
+              .T. or `"ON"` to enable the century setting (4-digit years)
+              .F. or `"OFF"` to disable the century setting (2-digit years)
    $RETURNS$
       Either the current or previous century setting as a logical value
    $FILES$
@@ -87,7 +87,7 @@
                    of file. Otherwise, the file is created. If a file is
                    already opened, it is closed before the new file is
                    opened or created (even if it is the same file). The
-                   default file extension is ".txt". There is no default
+                   default file extension is `.txt`. There is no default
                    file name. Call with an empty string to close the file.
 
               _SET_AUTOPEN     <lFlag> | <cOnOff>
@@ -113,23 +113,23 @@
                    When enabled, which is the default, pressing <Alt+C> or
                    <Ctrl+Break> terminates the program. When disabled, both
                    keystrokes can be read by Inkey(). Note: `SET KEY` has
-                   precedence over SET CANCEL.
+                   precedence over `SET CANCEL`.
 
               _SET_COLOR       <cColorSet>
 
                    Sets the current color scheme, using color pairs in the
-                   sequence "<standard>, <enhanced>, <border>, <background>,
-                   <unselected>". Each color pair uses the format
-                   "<foreground>/<background>". The color codes are space
-                   or "N" for black, "B" for blue, "G" for green, "BG" for
-                   Cyan, "R" for red, "RB" for magenta, "GR" for brown, "W"
-                   for white, "N+" for gray, "B+" for bright blue, "G+" for
-                   bright green, "BG+" for bright cyan, "R+" for bright red,
-                   "RB+" for bright magenta, "GR+" for yellow, and "W+" for
-                   bright white. Special codes are "I" for inverse video,
-                   "U" for underline on a monochrome monitor (blue on a
-                   color monitor), and "X" for blank. The default color is
-                   "W/N,N/W,N,N,N/W".
+                   sequence `"<standard>, <enhanced>, <border>, <background>,
+                   <unselected>"`. Each color pair uses the format
+                   `"<foreground>/<background>"`. The color codes are space
+                   or `"N"` for black, `"B"` for blue, `"G"` for green, `"BG"` for
+                   Cyan, `"R"` for red, `"RB"` for magenta, `"GR"` for brown, `"W"`
+                   for white, `"N+"` for gray, `"B+"` for bright blue, `"G+"` for
+                   bright green, `"BG+"` for bright cyan, `"R+"` for bright red,
+                   `"RB+"` for bright magenta, `"GR+"` for yellow, and `"W+"` for
+                   bright white. Special codes are `"I"` for inverse video,
+                   `"U"` for underline on a monochrome monitor (blue on a
+                   color monitor), and `"X"` for blank. The default color is
+                   `"W/N,N/W,N,N,N/W"`.
 
               _SET_CONFIRM     <lFlag> | <cOnOff>
 
@@ -243,16 +243,16 @@
                    allows the right mouse button up clock. INKEY_KEYBOARD
                    allows keyboard keystrokes. INKEY_ALL allows all of the
                    preceding events. Events may be combined (e.g., using
-                   INKEY_LDOWN + INKEY_RUP will allow left mouse button
+                   `INKEY_LDOWN + INKEY_RUP` will allow left mouse button
                    down clicks and right mouse button up clicks). The
                    default is INKEY_KEYBOARD.
 
               _SET_EXACT       <lFlag> | <cOnOff>
 
-                   When enabled, all string comparisons other than "=="
+                   When enabled, all string comparisons other than `==`
                    exclude trailing spaces when checking for equality.
                    When disabled, which is the default, all string
-                   comparisons other than "==" treat two strings as
+                   comparisons other than `==` treat two strings as
                    equal if the right hand string is "" or if the right
                    hand string is shorter than or the same length as the
                    left hand string and all of the characters in the right
@@ -287,7 +287,7 @@
                    of file. Otherwise, the file is created. If a file is
                    already opened, it is closed before the new file is
                    opened or created (even if it is the same file). The
-                   default file extension is ".prn". There is no default
+                   default file extension is `.prn`. There is no default
                    file name. Call with an empty string to close the file.
 
               _SET_FIXED       <lFlag> | <cOnOff>
@@ -356,8 +356,8 @@
 
                    Specifies a path of directories to search through to
                    locate a file that can't be located in the DEFAULT
-                   directory. Defaults to no path (""). Directories must
-                   be separated by a semicolon (e.g., "C:\hb\bin;C:\hb\tests").
+                   directory. Defaults to no path `""`. Directories must
+                   be separated by a semicolon (e.g., `C:\hb\bin;C:\hb\tests`).
 
               _SET_PRINTER     <lFlag> | <cOnOff>
 
@@ -375,8 +375,8 @@
                    at end of file. Otherwise, the file is created. If a
                    file is already opened, it is closed before the new file
                    is opened or created (even if it is the same file). The
-                   default file extension is ".prn". The default file name
-                   is "PRN", which maps to the default printer device. Call
+                   default file extension is `.prn`. The default file name
+                   is `PRN`, which maps to the default printer device. Call
                    with an empty string to close the file.
 
               _SET_SCOREBOARD  <lFlag> | <cOnOff>
@@ -393,9 +393,9 @@
 
                    When enabled, a SEEK that fails will position the record
                    pointer to the first key that is higher than the sought
-                   after key or to LastRec() + 1 if there is no higher key.
+                   after key or to `LastRec() + 1` if there is no higher key.
                    When disabled, which is the default, a SEEK that fails
-                   will position the record pointer to LastRec() + 1.
+                   will position the record pointer to `LastRec() + 1`.
 
               _SET_STRICTREAD  <lFlag> | <cOnOff>
 
@@ -459,15 +459,15 @@
       SetKey() previously set to the same function number and vice versa.
 
       <table>
-      nFunctionKey    Key to be set
+       nFunctionKey   Key to be set
 
-         1 .. 12      F1 .. F12
-        13 .. 20      Shift+F3 .. Shift+F10
-        21 .. 30      Ctrl+F1 .. Ctrl+F10
-        31 .. 40      Alt+F1 .. Alt+F10
+        1 .. 12       F1 .. F12
+       13 .. 20       Shift+F3 .. Shift+F10
+       21 .. 30       Ctrl+F1 .. Ctrl+F10
+       31 .. 40       Alt+F1 .. Alt+F10
       </table>
 
-      SET FUNCTION command is preprocessed into __SetFunction() function
+      `SET FUNCTION` command is preprocessed into __SetFunction() function
       during compile time.
    $EXAMPLES$
       // Set F1 with a string
@@ -518,15 +518,15 @@
       SetKey() previously set to the same function number and vice versa.
 
       <table>
-      nFunctionKey    Key to be set
+       nFunctionKey   Key to be set
 
-         1 .. 12      F1 .. F12
-        13 .. 20      Shift-F3 .. Shift-F10
-        21 .. 30      Ctrl-F1 .. Ctrl-F10
-        31 .. 40      Alt-F1 .. Alt-F10
+        1 .. 12       F1 .. F12
+       13 .. 20       Shift+F3 .. Shift+F10
+       21 .. 30       Ctrl+F1 .. Ctrl+F10
+       31 .. 40       Alt+F1 .. Alt+F10
       </table>
 
-      SET FUNCTION command is preprocessed into __SetFunction() function
+      `SET FUNCTION` command is preprocessed into __SetFunction() function
       during compile time.
    $EXAMPLES$
       // Set F1 with a string
@@ -895,7 +895,7 @@
    $ARGUMENTS$
       <lWrap> Logical expression for toggle
    $DESCRIPTION$
-      This command toggles the highlighted bars in a @...PROMPT command
+      This command toggles the highlighted bars in a `@...PROMPT` command
       to wrap around in a bottom-to-top and top-to-bottom manner. If the
       value of the logical expression <lWrap> is a logical false (.F.),
       the wrapping mode is set OFF; otherwise, it is set ON.
@@ -920,20 +920,20 @@
    $SUBCATEGORY$
       Environment
    $ONELINER$
-      Establishes a message row for @...PROMPT command
+      Establishes a message row for `@...PROMPT` command
    $SYNTAX$
       SET MESSAGE TO [<nRow> [CENTER]]
    $ARGUMENTS$
       <nRow> Row number to display the message
    $DESCRIPTION$
-      This command is designed to work in conjunction with the MENU TO and
-      @...PROMPT commands. With this command, a row number between 0 and
+      This command is designed to work in conjunction with the `MENU TO` and
+      `@...PROMPT` commands. With this command, a row number between 0 and
       MaxRow() may be specified in <nRow>. This establishes the row on
-      witch any message associated with an @...PROMPT command will appear.
+      witch any message associated with an `@...PROMPT` command will appear.
 
       If the value of <nRow> is 0, all messages will be suppressed.
       All messaged will be left-justifies unless the CENTER clause is
-      used. In this case, the individual messages in each @...PROMPT command
+      used. In this case, the individual messages in each `@...PROMPT` command
       will be centered at the designated row (unless <nRow> is 0). All
       messages are independent; therefore, the screen area is cleared out
       by the centered message will vary based on the length of each
@@ -973,8 +973,8 @@
       commands and functions not found in the current drive and directory.
       This pertains primarily, but not exclusively, to databases, indexes,
       and memo files, as well as to memory, labels and reports files. The
-      search hierarchy is: 1 Current drive and directory, 2 The SET DEFAULT
-      path; 3 The SET PATH path.
+      search hierarchy is: 1 Current drive and directory, 2 The `SET DEFAULT`
+      path; 3 The `SET PATH` path.
    $EXAMPLES$
       SET PATH TO C:\hb\tests
    $STATUS$
@@ -1002,7 +1002,7 @@
    $ARGUMENTS$
       <lInte> Logical expression for toggle command
    $DESCRIPTION$
-      This command set the field input color and @...PROMPT menu color
+      This command set the field input color and `@...PROMPT` menu color
       to either highlighted (inverse video) or normal color. The default
       condition is ON (highlighted).
    $EXAMPLES$
@@ -1041,14 +1041,14 @@
       file extension, .txt will be assumed. The file name may optionally
       have a drive letter and/or directory path. If none is specified, the
       current drive and directory will be used.
-      If the ALTERNATE file is created but no ALTERNATE ON command is
+      If the ALTERNATE file is created but no `ALTERNATE ON` command is
       issued, nothing will be echoed to the file.
       If ADDITIVE clause is used, then the information will be appended
       to the existing alternate file. Otherwise, a new file will be created
       with the specified name (or an existing one will be overwritten) and
       the information will be appended to the file. The default is to create
       a new file.
-      A SET ALTERNATE TO command will close the alternate file
+      A `SET ALTERNATE TO` command will close the alternate file
    $EXAMPLES$
       SET ALTERNATE TO test.txt
       SET ALTERNATE ON
@@ -1083,8 +1083,8 @@
       <lCent> Logical expression for toggle
    $DESCRIPTION$
       This command allows the input and display of dates with the century
-      prefix. It will be in the standart MM/DD/YYYY format unless specified
-      by the SET DATE command or Set() function. If <lCent> is a logical
+      prefix. It will be in the standart `MM/DD/YYYY` format unless specified
+      by the `SET DATE` command or Set() function. If <lCent> is a logical
       true (.T.), the command will be set on; otherwise, the command will
       be set off
    $EXAMPLES$
@@ -1201,7 +1201,7 @@
       a logical true (.T.), FIXED will be turned ON; otherwise it will be
       turned OFF.
 
-      When SET DECIMALS OFF is used, the following rules apply to the number
+      When `SET DECIMALS OFF` is used, the following rules apply to the number
       of decimal placed displayed.
 
       <table-noheader>
@@ -1249,7 +1249,7 @@
       <cPrinter> A device name or an alternate name
    $DESCRIPTION$
       This command can direct all output that is not controlled by the
-      @...SAY command and the DevPos() and DevOut() functions to the
+      `@...SAY` command and the DevPos() and DevOut() functions to the
       printer. If specified, the condition <lPrinter> toggles the printer
       ON if a logical true (.T.) and OFF if a logical false (.F.). If no
       argument is specified in the command, the alternate file (if one
@@ -1302,7 +1302,7 @@
       <lConsole> Logical expression for toggle command
    $DESCRIPTION$
       This command turns the screen display either off or on for all
-      screens display other then direct output via the @...SAY commands
+      screens display other then direct output via the `@...SAY` commands
       or the <-> DevOut() function.
 
       If <lConsole> is a logical true (.T.), the console will be turned
@@ -1340,7 +1340,7 @@
       This command establishes the number of decimal places that Harbour
       will display in mathematical calculations, functions, memory variables,
       and fields. Issuing no parameter with this command will the default
-      number of decimals to 0. For decimals to be seen, the SET FIXED ON
+      number of decimals to 0. For decimals to be seen, the `SET FIXED ON`
       command must be activated.
    $EXAMPLES$
       SET FIXED ON
@@ -1366,21 +1366,21 @@
    $SUBCATEGORY$
       Environment
    $ONELINER$
-      Directs all @...SAY output to a device.
+      Directs all `@...SAY` output to a device.
    $SYNTAX$
       SET DEVICE TO [printer | SCREEN ]
    $ARGUMENTS$
       None.
    $DESCRIPTION$
-      This command determines whether the output from the @...SAY command
+      This command determines whether the output from the `@...SAY` command
       and the DevPos() and DevOut() function will be displayed on the
       printer.
 
-      When the device is set to the PRINTER, the SET MARGIN value adjusts
+      When the device is set to the PRINTER, the `SET MARGIN` value adjusts
       the position of the column values accordingly. Also, an automatic
       page eject will be issued when the current printhead position is
       less than the last printed row. Finally, if used in conjunction with
-      the @...GET commands, the values for the GETs will all be ignored.
+      the `@...GET` commands, the values for the GETs will all be ignored.
    $EXAMPLES$
       SET DEVICE TO SCREEN
       ? 25141251 / 362
@@ -1432,5 +1432,148 @@
       C
    $SEEALSO$
       Set()
+   $END$
+ */
+
+/* $DOC$
+   $TEMPLATE$
+      Function
+   $NAME$
+      hb_setListenerAdd()
+   $CATEGORY$
+      C level API
+   $SUBCATEGORY$
+      Environment
+   $ONELINER$
+
+   $SYNTAX$
+      C Prototype
+
+      #include "hbset.h"
+      hb_setListenerAdd( PHB_SET_LISTENER_CALLBACK callback ) --> int
+   $ARGUMENTS$
+      <callback>
+      A pointer to a function taking two enum parameters and returning
+      no value. The first parameter identifies the SET parameter that is
+      to be changed and the second parameter identifies whether the call
+      is from before or after the value is changed. The callback function
+      will be called twice whenever a SET parameter is changed using the
+      Harbour SET function. The first call takes place before the SET
+      value is changed and the second one is after the SET parameter has
+      been changed.
+   $RETURNS$
+      An integer value representing the callback handle, in case the
+      caller needs to deactivate the callback function.
+   $DESCRIPTION$
+      This function allows a subsystem that needs to track the status
+      of some SET parameters to be notified whenever a SET parameter gets
+      changed.
+   $EXAMPLES$
+      void callback_function( HB_set_enum set, HB_set_listener_enum when )
+      {
+         printf("\nCalled for SET parameter %d %s changing.",
+            set, (when ? "after" : "before"));
+      }
+      int handle = hb_setListenerAdd( callback_function );
+   $STATUS$
+      R
+   $COMPLIANCE$
+      NA
+   $FILES$
+      Library is core
+   $PLATFORMS$
+      All
+   $SEEALSO$
+      hb_setListenerRemove()
+   $END$
+ */
+
+/* $DOC$
+   $TEMPLATE$
+      Function
+   $NAME$
+      hb_setListenerNotify()
+   $CATEGORY$
+      C level API
+   $SUBCATEGORY$
+      Environment
+   $ONELINER$
+
+   $SYNTAX$
+      C Prototype
+
+      #include "hbset.h"
+      hb_setListenerNotify( HB_set_enum set, HB_set_listener_enum
+      when ) --> int
+   $ARGUMENTS$
+      <set>
+      The number of the SET parameter that is to be or was changed.
+
+      <when>
+      Set to HB_SET_LISTENER_BEFORE when called before the SET parameter
+      is to be changed and set to HB_SET_LISTENER_AFTER when called
+      after the SET parameter has been changed.
+   $RETURNS$
+      <int>
+   $DESCRIPTION$
+      This function notifies all SET listener callback functions. It
+      must be called any time you change the value of a SET parameter
+      directly instead of using the Harbour SET function. Both before
+      and after the change.
+   $EXAMPLES$
+      hb_setListenerNotify( HB_SET_DECIMALS, HB_SET_LISTENER_BEFORE );
+      hb_set.HB_SET_DECIMALS = 3;
+      hb_setListenerNotify( HB_SET_DECIMALS, HB_SET_LISTENER_AFTER );
+   $STATUS$
+      R
+   $COMPLIANCE$
+      NA
+   $FILES$
+      Library is core
+   $PLATFORMS$
+      All
+   $SEEALSO$
+      hb_setListenerAdd()
+   $END$
+ */
+
+/* $DOC$
+   $TEMPLATE$
+      Function
+   $NAME$
+      hb_setListenerRemove()
+   $CATEGORY$
+      C level API
+   $SUBCATEGORY$
+      Environment
+   $ONELINER$
+
+   $SYNTAX$
+      C Prototype
+
+      #include "hbset.h"
+      hb_setListenerRemove( int handle ) --> int
+   $ARGUMENTS$
+      <handle>
+      The handle for the SET listener callback function to be removed.
+   $RETURNS$
+      The handle if the callback function could not be located or the
+      negative value of the handle if the callback function was removed.
+   $DESCRIPTION$
+      This function removes a SET listener callback function.
+   $EXAMPLES$
+      int handle = hb_setListenerAdd( callback_function );
+      ...
+      hb_setListenerRemove( handle );
+   $STATUS$
+      R
+   $COMPLIANCE$
+      NA
+   $FILES$
+      Library is core
+   $PLATFORMS$
+      All
+   $SEEALSO$
+      hb_setListenerAdd()
    $END$
  */

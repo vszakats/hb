@@ -21,9 +21,9 @@
       ? CharSwap( "0123456789" )   // "1032547698"
       ? CharSwap( "ABCDEFGHIJK" )  // "BADCFEHGJIK"
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      CharSwap() is compatible with CT3's CharSwap().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -62,9 +62,9 @@
       ? WordSwap( "1234567890" )       // "3412785690"
       ? WordSwap( "1234567890", .T. )  // "4321876590"
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      WordSwap() is compatible with CT3's WordSwap().
+      C
    $PLATFORMS$
       All
    $FILES$

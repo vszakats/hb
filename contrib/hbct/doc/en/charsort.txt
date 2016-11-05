@@ -59,9 +59,9 @@
       ? CharSort( "384172852", 1, 1, 0, 0, 4 )  // "134872852"
       ? CharSort( "qwert", .T. )                // "wtrqe"
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      CharSort() is compatible with CT3's CharSort().
+      C
    $PLATFORMS$
       All
    $FILES$

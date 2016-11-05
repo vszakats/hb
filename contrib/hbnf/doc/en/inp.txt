@@ -15,11 +15,6 @@
    $DESCRIPTION$
       It may sometimes be useful to read a byte from a port without having
       to resort to C or assembler.  This function allows you to do so.
-
-      The source code is written to adhere to Turbo Assembler's IDEAL mode.
-      To use another assembler, you will need to rearrange the PROC and
-      SEGMENT directives, and also the ENDP and ENDS directives (a very
-      minor task).
    $EXAMPLES$
       ? ft_inp( 100 )   // read a byte from port 100 (064h)
    $SEEALSO$

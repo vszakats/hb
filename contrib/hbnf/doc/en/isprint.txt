@@ -40,11 +40,6 @@
       letter followed by NUL as a parameter.  If DOS is able to open the
       NUL device, then the drive is ready, otherwise the door is open or
       something else is wrong.
-
-      The source code is written to adhere to Turbo Assembler's IDEAL mode.
-      To use another assembler, you will need to rearrange the PROC and
-      SEGMENT directives, and also the ENDP and ENDS directives (a very
-      minor task).
    $EXAMPLES$
       IF ! ft_IsPrint()
          ? "PRN is not ready!"

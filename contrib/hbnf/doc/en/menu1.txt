@@ -25,7 +25,7 @@
       pulldown menu.  If false (.F.), the menu is drawn without
       the shadow.
 
-      All arguments except nTopRow and lShadow are required.
+      All arguments except <nTopRow> and <lShadow> are required.
    $RETURNS$
       NIL
    $DESCRIPTION$
@@ -35,20 +35,21 @@
       control to the calling program.
 
       Valid keystrokes and their corresponding actions:
-
-      Home             -  Activates Pulldown for first item on the menu bar
-      End              -  Activates Pulldown for last item on the menu bar
-      Left Arrow       -  Activates next Pulldown to the left
-      Right Arrow      -  Activates next Pulldown to the right
-      Tab              -  Same as Right Arrow
-      Shift-Tab        -  Same as Left Arrow
-      Page Up          -  Top item on current Pulldown menu
-      Page Down        -  Bottom item on current Pulldown menu
-      Enter            -  Selects current item
-      Alpha Character  -  Moves to closest match and selects
-      Alt-<Key>        -  Moves to corresponding menu bar item
-      Escape           -  Prompts for confirmation and either returns to
-                          the calling routine or resumes
+      <table-noheader>
+       Home             -  Activates Pulldown for first item on the menu bar
+       End              -  Activates Pulldown for last item on the menu bar
+       Left             -  Activates next Pulldown to the left
+       Right            -  Activates next Pulldown to the right
+       Tab              -  Same as Right Arrow
+       Shift-Tab        -  Same as Left Arrow
+       PgUp             -  Top item on current Pulldown menu
+       PgDn             -  Bottom item on current Pulldown menu
+       Enter            -  Selects current item
+       Alpha Character  -  Moves to closest match and selects
+       Alt-<Key>        -  Moves to corresponding menu bar item
+       Esc              -  Prompts for confirmation and either returns to
+                           the calling routine or resumes
+      <table>
    $EXAMPLES$
       // Declare arrays
       LOCAL aColors  := {}
@@ -103,9 +104,9 @@
       // CALL ft_Menu1()
       ft_Menu1( aBar, aOptions, aColors, 0 )
 
-      // NOTE: ft_Menu1() disables Alt-C and Alt-D in order to make them
-      //       available for the menu bar.  It enables Alt-D and resets
-      //       Alt-C to its previous state prior to calling each function.
+      // NOTE: ft_Menu1() disables <Alt-C> and <Alt-D> in order to make them
+      //       available for the menu bar.  It enables <Alt-D> and resets
+      //       <Alt-C> to its previous state prior to calling each function.
    $SEEALSO$
       ft_Fill()
    $END$
@@ -124,7 +125,7 @@
    $ARGUMENTS$
       <aSubArrayName> is a sub-array of <acOptions> in ft_Menu1()
       denoting the group in which to include the selection --
-      e.g., acOptions[ 1 ]
+      e.g., `acOptions[ 1 ]`
 
       <cMenuSelection> is the character string that will appear on
       the menu.
@@ -145,27 +146,29 @@
    $EXAMPLES$
       ft_Fill( aOptions[ 1 ], "A. Execute A Dummy Procedure" , {|| fubar() }, .T. )
 
-      The above would be added to the sub-menu associated with the first menu
-      bar item, would execute the function FUBAR() when that option was
-      selected, and would be selectable.
+      // The above would be added to the sub-menu associated with the
+      // first menu bar item, would execute the function FUBAR() when
+      // that option was selected, and would be selectable.
 
 
       ft_Fill( aOptions[ 3 ], "B. Enter Daily Charges"       , {|| .T. },     .F. )
 
-      The above would be added to the sub-menu associated with the third menu
-      bar item, and would be unselectable.
+      // The above would be added to the sub-menu associated with the
+      // third menu bar item, and would be unselectable.
 
 
       ft_Fill( aOptions[ 2 ], "C. Enter Payments On Accounts", {|| .T. },     .T. )
 
-      The above would be added to the sub-menu associated with the second menu
-      bar item, and would be selectable, but would do nothing when selected.
+      // The above would be added to the sub-menu associated with the
+      // second menu bar item, and would be selectable, but would do
+      // nothing when selected.
 
 
       ft_Fill( aOptions[ 4 ], "C. Exit"                      , {|| .F. },     .T. )
 
-      The above would be added to the sub-menu associated with the fourth menu
-      bar item, and would be selectable, and would exit ft_Menu1() when chosen.
+      // The above would be added to the sub-menu associated with the
+      // fourth menu bar item, and would be selectable, and would exit
+      // ft_Menu1() when chosen.
    $SEEALSO$
       ft_Menu1()
    $END$

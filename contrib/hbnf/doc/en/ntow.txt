@@ -26,7 +26,6 @@
       make a decision how to output it (zero dollars, no dollars, etc).
    $EXAMPLES$
       ? ft_NToW( 999 )        // -> Nine Hundred Ninety Nine
-
       ? ft_NToW( 1000 )       // -> One Thousand
 
       ? ft_NToW( 23 ) + " Dollars and " + ft_NToW( 99 ) + " Cents"

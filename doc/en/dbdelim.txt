@@ -29,7 +29,7 @@
       If a file extension is not specified, ".txt" is used by default.
 
       <xcDelim> Either the character to use as the character field
-      delimiter (only the first character is used). or "BLANK" (not case
+      delimiter (only the first character is used). or `"BLANK"` (not case
       sensitive), which eliminates the character field delimiters and
       sets the field separator to a single space instead of a comma.
 

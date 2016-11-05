@@ -16,9 +16,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      InvertAttr() is compatible with CT3's InvertAttr().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -57,9 +57,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -100,9 +100,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -130,9 +130,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      Enhanced() is compatible with CT3's Enhanced()
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -160,9 +160,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      Standard() is compatible with CT3's Standard()
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -190,9 +190,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      Unselected() is compatible with CT3's Unselected()
+      C
    $PLATFORMS$
       All
    $FILES$

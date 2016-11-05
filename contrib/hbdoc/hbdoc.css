@@ -5,7 +5,7 @@ html {
 
 body {
   background-color: #f8f8f8;
-  font-family: 'Source Sans Pro', Arial, sans-serif;
+  font-family: 'Source Sans Pro', -apple-system, "San Francisco", "Oxygen", "Ubuntu", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
   font-size: 14pt;
   line-height: 150%;
   margin: 0;
@@ -14,9 +14,9 @@ body {
 
 header {
   position: absolute;
-  -position: fixed;
-  --webkit-font-smoothing: antialiased;
-  -backface-visibility: hidden;
+  position: fixed;
+  -webkit-font-smoothing: antialiased;
+  backface-visibility: hidden;
   z-index: 2;
   top: 0;
   width: 100%;
@@ -51,6 +51,7 @@ header > div > div:last-child {
 header a {
   color: #f0f0f0;
   text-decoration: none;
+  transition: color .25s;
 }
 
 header a:visited {
@@ -74,7 +75,7 @@ footer {
   line-height: 150%;
   margin: auto;
   padding: .6em 1em;
-  height: 60px;
+  height: 64px;
   text-align: center;
   width: auto;
 }
@@ -82,6 +83,7 @@ footer {
 footer a {
   color: #ddd;
   text-decoration: none;
+  transition: color .25s;
 }
 
 footer a:visited {
@@ -99,6 +101,7 @@ footer a:active {
 }
 
 main {
+  -webkit-font-smoothing: antialiased;
   border: 0;
   border-spacing: 0;
   margin: auto;
@@ -123,7 +126,7 @@ a:hover {
 }
 
 .entry-button {
-  font-size: 75%;
+  font-size: 14px;
   float: right;
   margin-bottom: 1em;
 }
@@ -154,14 +157,16 @@ aside {
   float: left;
   font-size: 9pt !important;
   background-color: #f2f2f2;
-  -background-color: #444;
+  -background-color: #363636;
   width: 180px;
-  border-radius: 0 0 4px 0;
+  -border-radius: 0 0 4px 0;
   line-height: 135%;
   overflow: hidden;
-  padding-top: 44px;
-  margin-top: 10px;
-  padding-bottom: 10px;
+  margin-top: 44px;
+  padding-top: 10px;
+  position: fixed;
+  overflow-y: scroll;
+  height: calc(100% - 44px - 10px);
 }
 
 aside hr {
@@ -184,27 +189,40 @@ aside a {
 
 aside a:visited {
   color: #556acb;
+  -color: #859afb;
 }
 
 aside a:hover {
   border-style: none;
   background-color: #0974c5;
-  color: #fdfdfd;
+  -background-color: #ff6800;
+  background-color: #f5ce00;
+  color: #fff;
+  color: #000;
 }
 
+aside a:hover:visited {
+  color: #dde1f5;
+  color: #374584;
+}
+
+/*
 aside a[title]:hover:after {
   content: attr(title);
   font-size: 7.5pt !important;
   position: absolute;
   left: 8px;
   background-color: #0974c5;
+  -background-color: #ff6800;
   color: #fdfdfd;
   height: inherit;
   margin-top: -1px;
   padding-top: 2px;
   padding-bottom: 1px;
   padding-right: 8px;
+  position: fixed;
 }
+*/
 
 section {
   border-top: 1px solid rgba(0, 0, 0, .1);
@@ -225,7 +243,9 @@ pre {
   color: #2e2a24;
   border: none;
   border-left: 4px solid #aaaaaa;
+  border-radius: 0 3px 3px 0;
   padding: 8px 16px;
+  margin-left: 16px;
   overflow: scroll;
 }
 
@@ -242,14 +262,24 @@ aside code {
   font-size: 80%;
 }
 
+.d-id:target {
+  padding-top: 62px;  /* 44px + 18px */
+}
+
 .d-it code {
   color: #606060;
+  color: #2e2a24;
+  background-color: #efeff8;
+  font-weight-: bold;
   border: none;
-  border-radius: 3px;
-  padding: 2px 3px;
+  border-radius: 10px;
+  margin-right: 0;
+  padding: 2px 7px;
 }
 
 .d-sy pre {
+  color: #2e2a24;
+  font-weight: bold;
   background-color: inherit;
   border: none;
   margin: 0;
@@ -257,6 +287,9 @@ aside code {
 }
 
 .d-sy code {
+  color: #2e2a24;
+  background-color: inherit;
+  font-weight: bold;
   padding: 0;
 }
 
@@ -354,6 +387,13 @@ p {
   padding-bottom: 8px;
 }
 
+.d-so {
+  font-size: 14px;
+  font-weight: normal;
+  margin-left: 5px;
+  vertical-align: super;
+}
+
 .d-ol {
   font-weight: bold;
   font-size: 115%;
@@ -376,8 +416,7 @@ p {
 }
 
 .d-ex {
-  margin-left: 1em;
-  margin-right: 1em;
+  margin: 8px 0 15px 1em;
 }
 
 .d-te {
@@ -436,7 +475,7 @@ p {
 
 /* Dropdown Button */
 .dropbtn {
-  cursor: pointer;
+  cursor: default;
   margin-left: 15px;
   transition: color .25s;
 }
@@ -473,10 +512,6 @@ p {
   text-align: left;
   text-decoration: none;
   transition: none;
-}
-
-.lang .dropbtn {
-  cursor: default;
 }
 
 .lang .dropdown-content {
@@ -549,7 +584,7 @@ p {
   }
 
   header {
-    position: absolute;
+    -position: absolute;
     height: 74px;
     line-height: 36px;
   }
@@ -560,5 +595,9 @@ p {
 
   main {
     padding-top: 74px;
+  }
+
+  .d-id:target {
+    padding-top: 92px;  /* 74px + 18px */
   }
 }

@@ -11,7 +11,7 @@
       None
    $RETURNS$
       NIL .... but optionally places Total of calculation in active
-               Get variable using oGet:varPut()
+               Get variable using `oGet:varPut()`
    $DESCRIPTION$
       PopAdder() gives you an adding machine inside your Clipper 5.2
       application. It has the basic functions add, subtract, multiply,
@@ -26,20 +26,20 @@
              <T>ape     - turn the Tape Display On or Off
              <S>croll   - the tape display
              <DEL> ---+-- 1st Clear entry
-                      +-- 2nd Clear ADDER
+                      +-- 2nd Clear *adder*
              <ESC>      - Quit
-             <F10>      - return a <TOTAL> to the active get
+             <F10>      - return a *total* to the active get
 
 
       A couple of notes about the adder:
 
 
       1. It was designed to be used on an Enhanced keyboard with
-         separate <DELETE> key. <DELETE> is used to clear the adder.
+         separate <DEL> key. <DEL> is used to clear the adder.
          However, it will still work on a Standard keyboard.
 
       2. You do not have to display the tape. You may turn it on
-         at any time by pressing <T>. You may SCROLL back through
+         at any time by pressing <T>. You may *scroll* back through
          the tape once there are more than 16 entries in the
          adder, by pressing <S>.
 
@@ -58,7 +58,7 @@
       5. To make ft_Adder() a Hot key from inside your application
          at the beginning of your application add the line:
 
-                SetKey( K_ALT_A, {|| ft_Adder() } )
+                `SetKey( K_ALT_A, {|| ft_Adder() } )`
 
          This will make <ALT+A> a key "Hot" and permit you to
          Pop - Up the adder from anywhere in the application.

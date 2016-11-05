@@ -20,9 +20,9 @@
       // boiling point of water in standard conditions
       ? Celsius( 212.0 )     // --> 100.0
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      Celsius() is compatible with CT3's Celsius().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -54,9 +54,9 @@
       // boiling point of water in standard conditions
       ? Fahrenheit( 100.0 )     // --> 212.0
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      Fahrenheit() is compatible with CT3's Fahrenheit().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -78,7 +78,7 @@
    $ARGUMENTS$
       [<lPlatformIndependant>]   .T., if the function should return
                                  the maximum floating point value
-                                 available (DBL_MAX)
+                                 available (`DBL_MAX`)
                                  .F., function should try to return
                                  the same value as the original CT3 lib did
                                  Default: .F.
@@ -90,7 +90,7 @@
    $EXAMPLES$
 
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
       Infinity() must not necessarily return the same number as CT3's Infinity().
    $PLATFORMS$

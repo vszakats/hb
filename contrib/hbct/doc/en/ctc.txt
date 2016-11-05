@@ -17,19 +17,21 @@
       library throw an error with the severity <nNewMode>. It is then
       up to the error handler to substitute the return value.
       <nNewMode> can be one of the severity modes defined in ct.ch:
-           CT_ARGERR_WHOCARES      corresponds to ES_WHOCARES
-           CT_ARGERR_WARNING       corresponds to ES_WARNING
-           CT_ARGERR_ERROR         corresponds to ES_ERROR
-           CT_ARGERR_CATASTROPHIC  corresponds to ES_CATASTROPHIC
-           CT_ARGERR_IGNORE
+      <table-noheader>
+       CT_ARGERR_WHOCARES      corresponds to ES_WHOCARES
+       CT_ARGERR_WARNING       corresponds to ES_WARNING
+       CT_ARGERR_ERROR         corresponds to ES_ERROR
+       CT_ARGERR_CATASTROPHIC  corresponds to ES_CATASTROPHIC
+       CT_ARGERR_IGNORE
+      </table>
       The last is the default behaviour and switches any argument error
       throwing off.
    $EXAMPLES$
 
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      CSetArgErr() is a new function in Harbour's CT3 library.
+      C
    $PLATFORMS$
       All
    $FILES$

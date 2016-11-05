@@ -34,13 +34,13 @@
       characters are combined at most to one token stop. Be aware that
       this can result to empty tokens there the start position is not
       defined clearly. Then, AtToken() returns the position there the
-      token WOULD start if its length is larger than 0. To check for
+      token _would_ start if its length is larger than 0. To check for
       empty tokens, simply look if the character at the returned position
       is within the tokenizer list.
    $EXAMPLES$
-      AtToken( "Hello, World!" ) // --> 8 (empty strings after tokenizer are not a token !)
+      AtToken( "Hello, World!" )  // --> 8 (empty strings after tokenizer are not a token !)
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
       AtToken() is compatible with CT3's ATTOKEN, but has an additional
       4th parameter to let you specify a skip width equal to that in the
@@ -103,7 +103,7 @@
       ? Token( "Hello, World!", ",", 2, 1 ) --> " World!"
       ? Token( "Hello, World!", " ", 2, 1 ) --> "World!"
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
       Token() is compatible with CT3's TOKEN, but two additional
       parameters have been added there the Token() function can store
@@ -135,9 +135,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      NumToken() is compatible with CT3's NumToken().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -184,12 +184,12 @@
       switch to .T., but you must then pass <cString> by reference to get
       the result.
    $EXAMPLES$
-      ? TokenLower( "Hello, World, here I am!" )         // "hello, world, here i am!"
-      ? TokenLower( "Hello, World, here I am!",, 3 )     // "hello, world, here I am!"
-      ? TokenLower( "Hello, World, here I am!", ",", 3 ) // "hello, World, here I am!"
-      ? TokenLower( "Hello, World, here I am!", " W" )   // "hello, World, here i am!"
+      ? TokenLower( "Hello, World, here I am!" )          // "hello, world, here i am!"
+      ? TokenLower( "Hello, World, here I am!",, 3 )      // "hello, world, here I am!"
+      ? TokenLower( "Hello, World, here I am!", ",", 3 )  // "hello, World, here I am!"
+      ? TokenLower( "Hello, World, here I am!", " W" )    // "hello, World, here i am!"
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
       TokenLower() is compatible with CT3's TokenLower(),
       but a new 4th parameter, <nSkipWidth> has been added for
@@ -245,7 +245,7 @@
       ? TokenUpper( "Hello, world, here I am!", ",", 3 ) // "Hello, world, here I am!"
       ? TokenUpper( "Hello, world, here I am!", " w" )   // "Hello, wOrld, Here I Am!"
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
       TokenUpper() is compatible with CT3's TokenUpper(),
       but a new 4th parameter, <nSkipWidth> has been added for
@@ -286,9 +286,9 @@
    $EXAMPLES$
       see Token() function
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      TokenSep() is compatible with CT3's TokenSep().
+      C
    $PLATFORMS$
       All
    $FILES$

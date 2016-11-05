@@ -544,14 +544,14 @@
       Results of Str() with No Optional Arguments
 
       <table>
-      Expression               Return Value Length
+       Expression               Return Value Length
 
-      Field Variable           Field length plus decimals
-      Expressions/constants    Minimum of 10 digits plus decimals
-      Val()                    Minimum of 3 digits
-      Month()/Day()            3 digits
-      Year()                   5 digits
-      RecNo()                  7 digits
+       Field Variable           Field length plus decimals
+       Expressions/constants    Minimum of 10 digits plus decimals
+       Val()                    Minimum of 3 digits
+       Month()/Day()            3 digits
+       Year()                   5 digits
+       RecNo()                  7 digits
       </table>
    $DESCRIPTION$
       Str() is a numeric conversion function that converts numeric values
@@ -618,14 +618,14 @@
       Results of StrZero() with No Optional Arguments
 
       <table>
-      Expression               Return Value Length
+       Expression               Return Value Length
 
-      Field Variable           Field length plus decimals
-      Expressions/constants    Minimum of 10 digits plus decimals
-      Val()                    Minimum of 3 digits
-      Month()/Day()            3 digits
-      Year()                   5 digits
-      RecNo()                  7 digits
+       Field Variable           Field length plus decimals
+       Expressions/constants    Minimum of 10 digits plus decimals
+       Val()                    Minimum of 3 digits
+       Month()/Day()            3 digits
+       Year()                   5 digits
+       RecNo()                  7 digits
       </table>
    $DESCRIPTION$
       StrZero() is a numeric conversion function that converts numeric
@@ -1502,16 +1502,16 @@
       the Transform() function.
 
       <table-noheader>
-      @B   Left justify the string within the format.
-      @C   Issue a CR after format is numbers are positive.
-      @D   Put dates in SET DATE format.
-      @E   Put dates in BRITISH format.
-      @L   Make a zero padded string out of the number.
-      @R   Insert non template characters.
-      @X   Issue a DB after format is numbers are negative.
-      @Z   Display any zero as blank spaces.
-      @(   Quotes around negative numbers
-      @!   Convert alpha characters to uppercased format.
+       @B   Left justify the string within the format.
+       @C   Issue a CR after format is numbers are positive.
+       @D   Put dates in SET DATE format.
+       @E   Put dates in BRITISH format.
+       @L   Make a zero padded string out of the number.
+       @R   Insert non template characters.
+       @X   Issue a DB after format is numbers are negative.
+       @Z   Display any zero as blank spaces.
+       @(   Quotes around negative numbers
+       @!   Convert alpha characters to uppercased format.
       </table>
 
       The second part of <cTemplate> consists of the format string. Each
@@ -1519,14 +1519,14 @@
       characters as template markers for the string.
 
       <table-noheader>
-      A,N,X,9,#   Any data type
-      L           Shows logical as "T" or "F"
-      Y           Shows logical as "Y" or "N"
-      !           Convert to uppercase
-      $           Dollar sing in place of leading spaces in numeric expression
-      *           Asterisks in place of leading spaces in numeric expression
-      ,           Commas position
-      .           Decimal point position
+       A,N,X,9,#   Any data type
+       L           Shows logical as "T" or "F"
+       Y           Shows logical as "Y" or "N"
+       !           Convert to uppercase
+       $           Dollar sing in place of leading spaces in numeric expression
+       *           Asterisks in place of leading spaces in numeric expression
+       ,           Commas position
+       .           Decimal point position
       </table>
    $EXAMPLES$
       LOCAL cString := "This is harbour"

@@ -21,7 +21,7 @@ Most Harbour developers are lurking on this list to assist Harbour users.
 </div>
 
 <div markdown="1" class="list-bubble">
-<div><i class="fa fa-cog" aria-hidden="true"></i></div>
+<div><i class="fa fa-wrench" aria-hidden="true"></i></div>
 <div markdown="1">
 
 {% if site.fork %}

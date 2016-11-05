@@ -41,7 +41,7 @@
                      D = Desktop   Background color and character
                      M = Menu      For ft_MenuTo() style menus
                      W = Window    Windows with radio buttons
-                     G = Get       For use with @ SAY...
+                     G = Get       For use with `@ SAY...`
                      B = Browse    For TBrowse() and *dbEdit()
                      A = aChoice   Pick-lists etc...
 
@@ -67,8 +67,8 @@
       This function allows users to select their own color combinations
       for all the different types of screen I/O in a typical application.
       This facilitates an easy implementation of Ted Means' replacement
-      of the  @..PROMPT/MENU TO found in the NanForum Toolkit.  If you are
-      not using ft_MenuTo(), you can specify "A" for setting type and have
+      of the `@..PROMPT`/`MENU TO` found in the NanForum Toolkit.  If you are
+      not using ft_MenuTo(), you can specify `"A"` for setting type and have
       a normal color string returned.
    $EXAMPLES$
       LOCAL aClrs

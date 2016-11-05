@@ -16,9 +16,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      PadLeft() is compatible with CT3's PadLeft().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -46,9 +46,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      PadRight() is compatible with CT3's PadRight().
+      C
    $PLATFORMS$
       All
    $FILES$

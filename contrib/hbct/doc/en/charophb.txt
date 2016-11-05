@@ -28,9 +28,9 @@
       ? CharSub( "123456789", hb_BChar( 255 ) ) // --> "23456789:"
       ? CharSub( "9999", hb_BChar( 0 ) + hb_BChar( 1 ) + hb_BChar( 2 ) + hb_BChar( 3 ) ) // --> "9876"
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      CharSub() is a new function that is only available in Harbour's CT3 lib.
+      H
    $PLATFORMS$
       All
    $FILES$
@@ -74,7 +74,7 @@
       // -->     hb_BChar(   8 ) + hb_BChar( 16 ) + hb_BChar( 32 ) + hb_BChar(  64 ) + ;
       //         hb_BChar( 128 ) + hb_BChar(  0 ) + hb_BChar(  0 ) + hb_BChar(   0 )
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
       CharShl() is a new function that is only available in Harbour's CT3 lib.
    $PLATFORMS$
@@ -120,7 +120,7 @@
       // -->     hb_BChar(  0 ) + hb_BChar(  0 ) + hb_BChar(  0 ) + hb_BChar(   1 ) + ;
       //         hb_BChar(  2 ) + hb_BChar(  4 ) + hb_BChar(  8 ) + hb_BChar(  16 )
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
       CharShr() is a new function that is only available in Harbour's CT3 lib.
    $PLATFORMS$
@@ -166,7 +166,7 @@
       // -->     hb_BChar(   8 ) + hb_BChar( 16 ) + hb_BChar( 32 ) + hb_BChar(  64 ) + ;
       //         hb_BChar( 128 ) + hb_BChar(  1 ) + hb_BChar(  2 ) + hb_BChar(   4 )
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
       CharRll() is a new function that is only available in Harbour's CT3 lib.
    $PLATFORMS$
@@ -212,7 +212,7 @@
       // -->     hb_BChar( 32 ) + hb_BChar( 64 ) + hb_BChar( 128 ) + hb_BChar(   1 ) + ;
       //         hb_BChar(  2 ) + hb_BChar(  4 ) + hb_BChar(   8 ) + hb_BChar(  16 )
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
       CharRlr() is a new function that is only available in Harbour's CT3 lib.
    $PLATFORMS$

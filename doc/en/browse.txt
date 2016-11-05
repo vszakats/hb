@@ -93,26 +93,25 @@
       and is the equivalent of one field. Each row is equivalent of one
       database record.
 
-      Following are active keys that handled by dbEdit():       </par>
-      ---------------------------------------------------
+      Following are active keys that handled by dbEdit():
 
       <table>
-        Key              Meaning
+       Key              Meaning
 
-        Left             Move one column to the left (previous field)
-        Right            Move one column to the right (next field)
-        Up               Move up one row (previous record)
-        Down             Move down one row (next record)
-        PgUp             Move to the previous screen
-        PgDn             Move to the next screen
-        Ctrl+PgUp        Move to the top of the file
-        Ctrl+PgDn        Move to the end of the file
-        Home             Move to the leftmost visible column
-        End              Move to the rightmost visible column
-        Ctrl+Left        Pan one column to the left
-        Ctrl+Right       Pan one column to the right
-        Ctrl+Home        Move to the leftmost column
-        Ctrl+End         Move to the rightmost column
+       Left             Move one column to the left (previous field)
+       Right            Move one column to the right (next field)
+       Up               Move up one row (previous record)
+       Down             Move down one row (next record)
+       PgUp             Move to the previous screen
+       PgDn             Move to the next screen
+       Ctrl+PgUp        Move to the top of the file
+       Ctrl+PgDn        Move to the end of the file
+       Home             Move to the leftmost visible column
+       End              Move to the rightmost visible column
+       Ctrl+Left        Pan one column to the left
+       Ctrl+Right       Pan one column to the right
+       Ctrl+Home        Move to the leftmost column
+       Ctrl+End         Move to the rightmost column
       </table>
 
       When <xUserFunc> is omitted, two more keys are active:
@@ -129,8 +128,7 @@
       is omitted, the index number is the FIELD() number of the open
       database structure.
 
-      dbEdit() nMode could be one of the following:    </par>
-      ---------------------------------------------
+      dbEdit() nMode could be one of the following:
 
       <table>
        dbedit.ch      Meaning
@@ -145,8 +143,7 @@
       The user define function or code block must return a value that tell
       dbEdit() what to do next.
 
-      User function return codes:    </par>
-      ---------------------------   </par>
+      User function return codes:
 
       <table>
        dbedit.ch    Meaning
@@ -245,7 +242,7 @@
       On top of the screen you see a status line with the following
       indication:
 
-       <table>
+      <table>
        Record ###/###   Current record number / Total number of records.
        <none>           There are no records, the file is empty.
        <new>            You are in append mode at the bottom of file.

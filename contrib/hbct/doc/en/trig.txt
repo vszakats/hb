@@ -19,11 +19,11 @@
       // the diameter of a circle-like swimming pool is 3.4 meters, how
       // long is the perimeter ?
 
-      ? Str( Pi() * 3.4, 5, 3 ) + " meters" // --> 10.681 meters
+      ? Str( Pi() * 3.4, 5, 3 ) + " meters"  // --> 10.681 meters
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      Pi() is compatible with CT3's Pi().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -48,17 +48,17 @@
       <nSine>          the sine of <nRadiant>
    $DESCRIPTION$
       The function Sin() calculates the sine of an angle whose size is
-      given in radiants (full angle equals 2*Pi - see DToR() for angle size
-      given in degress).
+      given in radiants (full angle equals `2 * Pi()` - see DToR() for angle size
+      given in degrees).
       A common geometric interpretation of the Sin() function is the
       counterkathede-hypotenuse-ratio of a right-angled triangle.
    $EXAMPLES$
-      ? Sin( 0.0 ) // --> 0.0
-      ? Sin( 1.0 ) // --> 0.8414...
+      ? Sin( 0.0 )  // --> 0.0
+      ? Sin( 1.0 )  // --> 0.8414...
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      Sin() is compatible with CT3's Sin().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -83,17 +83,17 @@
       <nCosine>        the cosine of <nRadiant>
    $DESCRIPTION$
       The function Cos() calculates the cosine of an angle whose size is
-      given in radiants (full angle equals 2*Pi - see DToR() for angle size
-      given in degress).
+      given in radiants (full angle equals `2 * Pi()` - see DToR() for angle size
+      given in degrees).
       A common geometric interpretation of the Cos() function is the
       ankathede-hypotenuse-ratio of a right-angled triangle.
    $EXAMPLES$
-      ? Cos( 0.0 ) // --> 1.0
-      ? Cos( 1.0 ) // --> 0.5403...
+      ? Cos( 0.0 )  // --> 1.0
+      ? Cos( 1.0 )  // --> 0.5403...
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      Cos() is compatible with CT3's Cos().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -118,18 +118,18 @@
       <nTangent>       the tangent of <nRadiant>
    $DESCRIPTION$
       The function Tan() calculates the tangent of an angle whose size is
-      given in radiants (full angle equals 2*Pi - see DToR() for angle size
-      given in degress).
+      given in radiants (full angle equals `2 * Pi()` - see DToR() for angle size
+      given in degrees).
       A common geometric interpretation of the Tan() function is the
       counterkathede-ankathede-ratio of a right-angled triangle, or,
-      Tan(x) = Sin(x)/Cos(x).
+      `Tan( x )` = `Sin( x ) / Cos( x )`.
    $EXAMPLES$
-      ? Tan( 0.0 ) // --> 0.0
-      ? Tan( 1.0 ) // --> 1.5574...
+      ? Tan( 0.0 )  // --> 0.0
+      ? Tan( 1.0 )  // --> 1.5574...
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      Tan() is compatible with CT3's Tan().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -154,17 +154,17 @@
       <nCotangent>     the cotangent of <nRadiant>
    $DESCRIPTION$
       The function Cot() calculates the cotangent of an angle whose size is
-      given in radiants (full angle equals 2*Pi - see DToR() for angle size
-      given in degress).
+      given in radiants (full angle equals `2 * Pi()` - see DToR() for angle size
+      given in degrees).
       A common geometric interpretation of the Cot() function is the
       ankathede-counterkathede-ratio of a right-angled triangle, or,
-      Cot(x) = Cos(x)/Sin(x)=1/Tan(x).
+      `Cot( x )` = `Cos( x ) / Sin( x )` = `1 / Tan( x )`.
    $EXAMPLES$
-      ? Cot( 1.0 ) // --> 0.6420...
+      ? Cot( 1.0 )  // --> 0.6420...
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      Cot() is compatible with CT3's Cot().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -190,17 +190,17 @@
    $DESCRIPTION$
       The function Asin() is the inverse function of Sin(). It takes a
       sine value and returns the smallest(!) angle whose sine equals to the argument.
-      The return value is given in radiants (full angle equals 2*Pi -
-      see DToR() if you need to convert it into degress).
+      The return value is given in radiants (full angle equals `2 * Pi()` -
+      see DToR() if you need to convert it into degrees).
       Note, that <nSine> must be between -1 and 1 and that <nRadiant>
-      is always between -Pi()/2 and Pi()/2.
+      is always between `-Pi() / 2` and `Pi() / 2`.
    $EXAMPLES$
-      ? Asin( 0.0 ) // --> 0.0
-      ? Asin( 0.5 ) // --> 0.5235...
+      ? Asin( 0.0 )  // --> 0.0
+      ? Asin( 0.5 )  // --> 0.5235...
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      Asin() is compatible with CT3's Asin().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -226,17 +226,17 @@
    $DESCRIPTION$
       The function Acos() is the inverse function of Cos(). It takes a
       cosine value and returns the smallest(!) angle whose cosine equals to the argument.
-      The return value is given in radiants (full angle equals 2*Pi -
-      see DToR() if you need to convert it into degress).
+      The return value is given in radiants (full angle equals `2 * Pi()` -
+      see DToR() if you need to convert it into degrees).
       Note, that <nCosine> must be between -1 and 1 and that <nRadiant>
       is always between 0 and Pi().
    $EXAMPLES$
-      ? Acos( 0.0 ) // --> Pi() / 2
-      ? Acos( 0.5 ) // --> 1.04719...
+      ? Acos( 0.0 )  // --> Pi() / 2
+      ? Acos( 0.5 )  // --> 1.04719...
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      Acos() is compatible with CT3's Acos().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -262,15 +262,15 @@
    $DESCRIPTION$
       The function Atan() is the inverse function of Tan(). It takes a
       tangent value and returns the smallest(!) angle whose tangent equals to the argument.
-      The return value is given in radiants between -Pi()/2 and Pi()/2
-      (full angle equals 2*Pi - see DToR() if you need to convert it into degress).
+      The return value is given in radiants between `-Pi() / 2` and `Pi() / 2`
+      (full angle equals `2 * Pi()` - see DToR() if you need to convert it into degrees).
    $EXAMPLES$
-      ? Atan( 0.0 ) // --> 0.0
-      ? Atan( 0.5 ) // --> 0.4636...
+      ? Atan( 0.0 )  // --> 0.0
+      ? Atan( 0.5 )  // --> 0.4636...
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      Atan() is compatible with CT3's Atan().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -296,22 +296,22 @@
       <nRadiant>      the angle whose tangent is <nSine>/<nCosine>
    $DESCRIPTION$
       The function Atn2() is an alternate function for calculating
-      the arcus tangent, Atn2(x,y) = Atan(x/y).
+      the arcus tangent, `Atn2( x, y )` = `Atan( x / y)`.
       It takes two arguments, the sine and the cosine
       of the angle that should be calculated. Thus, in contrast to the Atan()
       function, Atn2() can distinguish whether the sine or the cosine has
       a negative sign (or both being positive or negative), so that
-      the return value can be between -Pi() and Pi() and covers the full
+      the return value can be between `-Pi()` and Pi() and covers the full
       angle.
-      The return value is given in radiants (full angle equals 2*Pi -
-      see DToR() if you need to convert it into degress).
+      The return value is given in radiants (full angle equals `2 * Pi()` -
+      see DToR() if you need to convert it into degrees).
    $EXAMPLES$
-      ? Atn2( 0.0, 1.0 ) // --> 0.0
-      ? Atn2( Sqrt( 1 / 2 ), Sqrt( 1 / 2 ) ) // --> Pi() / 4
+      ? Atn2( 0.0, 1.0 )  // --> 0.0
+      ? Atn2( Sqrt( 1 / 2 ), Sqrt( 1 / 2 ) )  // --> Pi() / 4
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      Atn2() is compatible with CT3's Atn2().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -336,18 +336,18 @@
       <nHyperbolicSine>  the hyperbolic sine of <nArea>
    $DESCRIPTION$
       The function Sinh() calculates the hyperbolic sine of the argument.
-      In analytical mathematics it is defined as 1/2*(Exp(nArea)-Exp(-nArea)).
+      In analytical mathematics it is defined as `1 / 2 * ( Exp( nArea ) - Exp( -nArea ) )`.
       A common geometric interpretation of the Sinh() function is the
       maximum y value of the points in the area with the given size <nArea>,
       that is bound by the x axis, a straight line through the point of
-      origin (this one is fixed by the area) and the hyperbola x^2-y^2=1.
+      origin (this one is fixed by the area) and the hyperbola `x ^ 2 - y ^ 2 = 1`.
    $EXAMPLES$
-      ? Sinh( 0.0 ) // --> 0.0
-      ? Sinh( 1.0 ) // --> 1.1752...
+      ? Sinh( 0.0 )  // --> 0.0
+      ? Sinh( 1.0 )  // --> 1.1752...
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      Sinh() is new in Harbours CT3's library.
+      H
    $PLATFORMS$
       All
    $FILES$
@@ -378,12 +378,12 @@
       that is bound by the x axis, a straight line through the point of
       origin (this one is fixed by the area) and the hyperbola x^2-y^2=1.
    $EXAMPLES$
-      ? Cosh( 0.0 ) // --> 1.0
-      ? Cosh( 1.0 ) // --> 1.5430...
+      ? Cosh( 0.0 )  // --> 1.0
+      ? Cosh( 1.0 )  // --> 1.5430...
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      Cosh() is new in Harbours CT3's library.
+      H
    $PLATFORMS$
       All
    $FILES$
@@ -410,12 +410,12 @@
       The function Tanh() calculates the hyperbolic tangent of the argument.
       In analytical mathematics it is defined as Sinh(x)/Cosh(x).
    $EXAMPLES$
-      ? Tanh( 0.0 ) // --> 0.0
-      ? Tanh( 1.0 ) // --> 0.7615...
+      ? Tanh( 0.0 )  // --> 0.0
+      ? Tanh( 1.0 )  // --> 0.7615...
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      Tanh() is new in Harbours CT3's library.
+      H
    $PLATFORMS$
       All
    $FILES$
@@ -443,12 +443,12 @@
       in radiant (like those returned by the asin, acos or atan function)
       to degrees that are commonly used geometry and technics.
    $EXAMPLES$
-      ? RToD( Pi() ) // --> 180
-      ? Tanh( Pi() / 3 ) // --> 60
+      ? RToD( Pi() )  // --> 180
+      ? Tanh( Pi() / 3 )  // --> 60
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      RToD() is compatible with CT3's RToD().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -475,12 +475,12 @@
       The function DToR() can be used to convert sizes of angles given
       in degrees to radiant (as expected by sin, cos or tan functions).
    $EXAMPLES$
-      ? DToR( 180 ) // --> Pi()
-      ? DToR( 60 ) // --> Pi() / 3
+      ? DToR( 180 )  // --> Pi()
+      ? DToR( 60 )  // --> Pi() / 3
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      DToR() is compatible with CT3's DToR().
+      C
    $PLATFORMS$
       All
    $FILES$

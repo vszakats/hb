@@ -134,7 +134,7 @@
       Under a networking enviroment, dbAppend() performs an additional
       operation: It attempts to lock the newly added record. If
       the database file is currently locked or if a locking assignment
-      is made to LastRec() + 1, NetErr() will return a logical true (.T.)
+      is made to `LastRec() + 1`, NetErr() will return a logical true (.T.)
       immediately after the dbAppend() function. This function does
       not unlock the locked records.
 
@@ -378,7 +378,7 @@
    $ONELINER$
       Creates an empty database from a array.
    $SYNTAX$
-      dbCreate( <cFile>, <aStruct>, [<cRDD>], [<lKeepOpen>], [<cAlias>], 
+      dbCreate( <cFile>, <aStruct>, [<cRDD>], [<lKeepOpen>], [<cAlias>],
                 [<cDelimArg>], [<cCodePage>], [<nConnection>] )
    $ARGUMENTS$
       <cFile>     Name of database file to be create
@@ -515,7 +515,7 @@
    $RETURNS$
       dbFilter() returns the filter expression.
    $DESCRIPTION$
-      This function return the expression of the SET FILTER TO command
+      This function return the expression of the `SET FILTER TO` command
       for the current or designated work area. If no filter condition
       is present, a NULL string will be returned.
    $EXAMPLES$
@@ -599,7 +599,7 @@
       number. In some data formats, for example, the value of <xRecordNumber>
       is a unique primary key while in other formats, <xRecordNumber> could
       be an array offset if the data set was an array.
-
+<
       Issuing a dbGoto( RecNo() ) call in a network enviroment will refresh
       the database and index buffers. This is the same as a dbSkip(0) call.
    $EXAMPLES$
@@ -765,14 +765,13 @@
       work area.
    $EXAMPLES$
       PROCEDURE Main()
-         LOCAL aList, x
+         LOCAL x
          USE test NEW
          dbGoto( 10 )
          RLock()
          dbGoto( 100 )
          RLock()
-         aList := dbRLockList()
-         FOR EACH x IN aList
+         FOR EACH x IN dbRLockList()
             ? x
          NEXT
          RETURN
@@ -1089,10 +1088,9 @@
    $EXAMPLES$
       #include "dbstruct.ch"
       PROCEDURE Main()
-         LOCAL aStru, x
+         LOCAL x
          USE test NEW
-         aStru := dbStruct()
-         FOR EACH x IN aStru
+         FOR EACH x IN dbStruct()
             ? x[ DBS_NAME ]
          NEXT
          RETURN

@@ -16,9 +16,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      PosDiff() is compatible with CT3's PosDiff().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -46,9 +46,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      PosEqual() is compatible with CT3's PosEqual().
+      C
    $PLATFORMS$
       All
    $FILES$

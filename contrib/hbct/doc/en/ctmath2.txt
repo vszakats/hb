@@ -18,9 +18,9 @@
       ? Floor( 1.1 )  // --> 1.0
       ? Floor( -1.1 ) // --> -2.0
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      Floor() is compatible with CT3's Floor().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -50,9 +50,9 @@
       ? Ceiling( 1.1 )  // --> 2.0
       ? Ceiling( -1.1 ) // --> -1.0
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      Ceiling() is compatible with CT3's Ceiling().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -85,9 +85,9 @@
       ? Sign( -1.1 )  // --> -1
       ? Sign( 0.0 )   // --> 0
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      Sign() is compatible with CT3's Sign().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -117,9 +117,9 @@
       ? Log10( 10.0 )         // --> 1.0
       ? Log10( Sqrt( 10.0 ) ) // --> 0.5
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      Log10() is compatible with CT3's Log10().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -152,9 +152,9 @@
       ? Fact( 1 ) // --> 1
       ? Fact( 4 ) // --> 24
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      Fact() is compatible with CT3's Fact().
+      C
    $PLATFORMS$
       All
    $FILES$

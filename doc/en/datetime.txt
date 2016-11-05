@@ -141,8 +141,8 @@
    $DESCRIPTION$
       This function converts a date that has been entered as a character
       expression to a date expression. The character expression will be in
-      the form "MM/DD/YY" (based on the default value in SET DATE) or in
-      the appropriate format specified by the SET DATE TO command. If an
+      the form `MM/DD/YY` (based on the default value in `SET DATE`) or in
+      the appropriate format specified by the `SET DATE TO` command. If an
       improper character string is passed to the function, an empty date
       value will be returned.
    $EXAMPLES$
@@ -290,8 +290,8 @@
    $DESCRIPTION$
       This function converts any date expression (a field or variable)
       expressed as <dDateString> to a character expression in the default
-      format "MM/DD/YY". The date format expressed by this function is
-      controled in part by the date format specified in the SET DATE
+      format `MM/DD/YY`. The date format expressed by this function is
+      controled in part by the date format specified in the `SET DATE`
       command
    $EXAMPLES$
       ? DToC( Date() )
@@ -327,7 +327,7 @@
       <dDate> String notation of the date
    $DESCRIPTION$
       This function returns the value of <dDateString> as a character
-      string in the format of YYYYMMDD. If the value of <dDateString> is
+      string in the format of `YYYYMMDD`. If the value of <dDateString> is
       an empty date, this function will return eight blank spaces.
    $EXAMPLES$
       ? DToS( Date() )
@@ -408,7 +408,7 @@
        0 to 12
    $DESCRIPTION$
       This function returns a number that represents the month of a given
-      date expression <dDate>. If a NULL date (CToD( "" )) is passed to the
+      date expression <dDate>. If a NULL date (`hb_SToD()`) is passed to the
       function, the value of the function will be 0.
    $EXAMPLES$
       ? Month( Date() )
@@ -518,7 +518,7 @@
       <cTime> Character string representing time
    $DESCRIPTION$
       This function returns the system time represented as a character
-      expression in the format of HH:MM:SS
+      expression in the format of `HH:MM:SS`
    $EXAMPLES$
       ? Time()
    $STATUS$
@@ -554,7 +554,7 @@
    $DESCRIPTION$
       This function returns the numeric value for the year in <dDate>.
       This value will always be a four-digit number and is not affected
-      by the setting of the SET CENTURY and SET DATE commands. Addition
+      by the setting of the `SET CENTURY` and `SET DATE` commands. Addition
       ally, an empty date expression passed to this function will yield
       a zero value.
    $EXAMPLES$

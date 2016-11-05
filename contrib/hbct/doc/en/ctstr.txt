@@ -38,9 +38,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      This function is fully CT3 compatible.
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -86,9 +86,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      This function is fully CT3 compatible.
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -144,7 +144,7 @@
    $EXAMPLES$
 
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
       This function is fully CT3 compatible, but allows to pass the
       second parameter by reference so that the current wildcard character

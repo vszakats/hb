@@ -27,22 +27,22 @@
                    for normal use I recommend 4096 bytes.
 
       Cursor Keys: <Up>, <Down>    - moves the highlight line
-                   <Left>, <Right> - moves the window over nColSkip col's
+                   <Left>, <Right> - moves the window over <nColSkip> col's
                    <Home>          - moves the window to the far left
                    <End>           - moves the window to the nRMargin column
                    <PgUp>, <PgDn>  - moves the highlight one page
-                   <Ctrl-PgUp>     - moves the highlight to the file top
-                   <Ctrl-PgDn>     - moves the highlight to the file bottom
-                   <Ctrl-Right>    - moves the window 16 col's to the right
-                   <Ctrl-Left>     - moves the window 16 col's to the left
+                   <Ctrl+PgUp>     - moves the highlight to the file top
+                   <Ctrl+PgDn>     - moves the highlight to the file bottom
+                   <Ctrl+Right>    - moves the window 16 col's to the right
+                   <Ctrl+Left>     - moves the window 16 col's to the left
 
                    <Esc>, <Return> - terminates the function
 
                    All other keys are ignored unless they are specified
-                   within cExitKeys parameter.  This list will tell the
+                   within <cExitKeys> parameter.  This list will tell the
                    routine what keys terminate the function.  Special
                    keys must be passed by a unique value and that value
-                   can be found by looking in the keys.h file.
+                   can be found by looking in the dhkey.h file.
    $EXAMPLES$
       #include "inkey.ch"
 

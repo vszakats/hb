@@ -12,14 +12,12 @@
    $RETURNS$
       <nDec>    Decimal number
    $DESCRIPTION$
-      Given a string in the format  x.yEz, the decimal
+      Given a string in the format `x.yEz`, the decimal
       equivalent is returned.
    $EXAMPLES$
-      ? ft_E2D( "1.23E1" )   // -> 12.3
-
-      ? ft_E2D( "-1.235E1" ) // -> -12.35
-
-      ? ft_D2E( "5.43E-6" )  // -> 0.0000543
+      ? ft_E2D( "1.23E1" )    // -> 12.3
+      ? ft_E2D( "-1.235E1" )  // -> -12.35
+      ? ft_D2E( "5.43E-6" )   // -> 0.0000543
    $SEEALSO$
       ft_D2E()
    $END$

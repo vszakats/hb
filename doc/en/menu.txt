@@ -126,7 +126,7 @@
       is placed one column to the right of the last text displayed, and
       Row() and Col() are updated.
 
-      @...PROMPT command is preprocessed into __AtPrompt() function during
+      `@...PROMPT` command is preprocessed into __AtPrompt() function during
       compile time.
    $EXAMPLES$
       // display a two line menu with status line at the bottom
@@ -181,15 +181,15 @@
       is evaluated to a character string. If <xMsg> is not specified or
       of the wrong type, an empty string ("") would be used.
    $DESCRIPTION$
-      With @...PROMPT you define and display a menu item, each call to
-      @...PROMPT add another item to the menu, to start the menu itself
+      With `@...PROMPT` you define and display a menu item, each call to
+      `@...PROMPT` add another item to the menu, to start the menu itself
       you should call the __MenuTo() function (`MENU TO` command). You can
       define any row and column combination and they will be displayed at
-      the order of definition. After each call to @...PROMPT, the cursor
+      the order of definition. After each call to `@...PROMPT`, the cursor
       is placed one column to the right of the last text displayed, and
       Row() and Col() are updated.
 
-      @...PROMPT command is preprocessed into __AtPrompt() function during
+      `@...PROMPT` command is preprocessed into __AtPrompt() function during
       compile time.
    $EXAMPLES$
       // display a two line menu with status line at the bottom
@@ -225,7 +225,7 @@
    $SUBCATEGORY$
       User interface
    $ONELINER$
-      Invoked a menu defined by set of @...PROMPT
+      Invoked a menu defined by set of `@...PROMPT`
    $SYNTAX$
       __MenuTo( <bBlock>, <cVariable> ) --> nChoice
    $ARGUMENTS$
@@ -251,9 +251,9 @@
 
       Pressing the arrow keys move the highlighted bar. When a menu item
       is highlighted the message associated with it is displayed on the
-      line specified with SET MESSAGE. If SET WRAP is ON and the user
-      press UP arrow while on the first selection the last menu item is
-      highlighted, if the user press Down arrow while on the last item,
+      line specified with `SET MESSAGE`. If `SET WRAP` is ON and the user
+      press <up> arrow while on the first selection the last menu item is
+      highlighted, if the user press <Down> arrow while on the last item,
       the first item is highlighted.
 
       Following are active keys that handled by __MenuTo():
@@ -272,7 +272,7 @@
        Enter          Select menu item, return position
        Esc            Abort selection, return 0
        First letter   Select next menu with the same first letter,
-       |              return this item position.
+                      return this item position.
       </table>
       upon exit the cursor is placed at MaxRow() - 1, 0
       __MenuTo() can be nested without loosing the previous prompts.
@@ -316,7 +316,7 @@
    $SUBCATEGORY$
       User interface
    $ONELINER$
-      Invoked a menu defined by set of @...PROMPT
+      Invoked a menu defined by set of `@...PROMPT`
    $SYNTAX$
       MENU TO <cVariable>
    $ARGUMENTS$
@@ -338,8 +338,8 @@
       Pressing the arrow keys move the highlighted bar. When a menu item
       is highlighted the message associated with it is displayed on the
       line specified with `SET MESSAGE`. If `SET WRAP` is ON and the user
-      press UP arrow while on the first selection the last menu item is
-      highlighted, if the user press Down arrow while on the last item,
+      press <Up> arrow while on the first selection the last menu item is
+      highlighted, if the user press <Down> arrow while on the last item,
       the first item is highlighted.
 
       Following are active keys that handled by `MENU TO`:
@@ -358,7 +358,7 @@
        Enter          Select menu item, return position
        Esc            Abort selection, return 0
        First letter   Select next menu with the same first letter,
-       |              return this item position.
+                      return this item position.
       </table>
       upon exit the cursor is placed at MaxRow() - 1, 0
       `MENU TO` can be nested without loosing the previous prompts.

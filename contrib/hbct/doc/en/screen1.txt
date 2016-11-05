@@ -26,9 +26,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -56,9 +56,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -89,9 +89,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -119,9 +119,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      InvertWin() is compatible with CT3's InvertWin().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -170,9 +170,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -211,9 +211,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -254,9 +254,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -288,9 +288,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -322,9 +322,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-
+      C
    $PLATFORMS$
       All
    $FILES$
