@@ -747,7 +747,7 @@ METHOD OpenTagInline( cText, ... ) CLASS GenerateHTML
    LOCAL aArgs := hb_AParams()
    LOCAL idx
 
-   IF ! "|" + cText + "|" $ "|pre|code|"
+   IF ! "|" + cText + "|" $ "|p|pre|code|"
       ::cFile += Replicate( "  ", ::nIndent )
    ENDIF
 
