@@ -1247,7 +1247,7 @@ STATIC PROCEDURE init_Templates()
       "DATANOLINK"    => BI_( "Data no link" ), ;
       "METHODSLINK"   => BI_( "Methods link" ), ;
       "METHODSNOLINK" => BI_( "Methods no link" ), ;
-      "EXAMPLES"      => BI_( "Example" ), ;
+      "EXAMPLES"      => BI_( "Examples" ), ;
       "TESTS"         => BI_( "Tests" ), ;
       "STATUS"        => BI_( "Status" ), ;       /* sc_hConstraint[ "status" ] is the constraint list */
       "COMPLIANCE"    => BI_( "Compliance" ), ;   /* sc_hConstraint[ "compliance" ] is the constraint list */

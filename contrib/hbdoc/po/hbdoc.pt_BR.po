@@ -99,8 +99,8 @@ msgid "Description"
 msgstr "Descrição"
 
 #, c-format
-msgid "Example"
-msgstr "Exemplo"
+msgid "Examples"
+msgstr "Exemplos"
 
 #, c-format
 msgid "File"

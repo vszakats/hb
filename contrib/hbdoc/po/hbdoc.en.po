@@ -131,7 +131,7 @@ msgid "Description"
 msgstr ""
 
 #, c-format
-msgid "Example"
+msgid "Examples"
 msgstr ""
 
 #, c-format
