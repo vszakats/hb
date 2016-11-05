@@ -1161,6 +1161,17 @@ STATIC FUNCTION AR_ORDLSTADD( nWA, aOrderInfo )
 
    RETURN HB_SUCCESS
 
+STATIC FUNCTION AR_ORDLSTCLEAR( nWA )
+
+   LOCAL aWAData  := USRRDD_AREADATA( nWA )
+
+   HB_TRACE( HB_TR_DEBUG, hb_StrFormat( "nWA = %1$d", nWA ) )
+
+   aWAData[ WADATA_WAORDINFO ] := {}
+   aWAData[ WADATA_INDEX ] := 0
+
+   RETURN HB_SUCCESS
+
 STATIC FUNCTION AR_ORDLSTFOCUS( nWA, aOrderInfo )
 
    LOCAL aWAData  := USRRDD_AREADATA( nWA )
@@ -1583,6 +1594,7 @@ FUNCTION ARRAYRDD_GETFUNCTABLE( pFuncCount, pFuncTable, pSuperTable, nRddID, pSu
    aMyFunc[ UR_SEEK          ] := @AR_SEEK()
    aMyFunc[ UR_INFO          ] := @AR_INFO()
    aMyFunc[ UR_ORDLSTADD     ] := @AR_ORDLSTADD()
+   aMyFunc[ UR_ORDLSTCLEAR   ] := @AR_ORDLSTCLEAR()
    aMyFunc[ UR_ORDLSTFOCUS   ] := @AR_ORDLSTFOCUS()
    aMyFunc[ UR_ORDLSTREBUILD ] := @AR_ORDLSTREBUILD()
    aMyFunc[ UR_ORDCREATE     ] := @AR_ORDCREATE()
