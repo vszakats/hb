@@ -555,7 +555,7 @@
    $SUBCATEGORY$
       FileSys
    $ONELINER$
-      Tests for the existence of File(s)
+      Tests for the existence of file(s)
    $SYNTAX$
       File( <cFileSpec> ) --> lExists
    $ARGUMENTS$

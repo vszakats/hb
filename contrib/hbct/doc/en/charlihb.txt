@@ -17,7 +17,7 @@
       The CharList() function generates a sorted list of those characters that
       are contained in <cString>. This list can contain each character
       only once, so that its maximum length is 256. The function
-      gives the same result as CharSort(CharList(<cString>))
+      gives the same result as `CharSort( CharList( cString ) )`
    $EXAMPLES$
       ? CharSList( "Hello World !" ) // --> " !HWdelor"
    $STATUS$

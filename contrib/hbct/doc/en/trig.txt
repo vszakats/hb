@@ -372,11 +372,11 @@
       <nHyperbolicCosine>  the hyperbolic cosine of <nArea>
    $DESCRIPTION$
       The function Cosh() calculates the hyperbolic cosine of the argument.
-      In analytical mathematics it is defined as 1/2*(Exp(nArea)+Exp(-nArea)).
+      In analytical mathematics it is defined as `1 / 2 * ( Exp( nArea ) + Exp( -nArea ) )`.
       A common geometric interpretation of the Cosh() function is the
       maximum x value of the points in the area with the given size <nArea>,
       that is bound by the x axis, a straight line through the point of
-      origin (this one is fixed by the area) and the hyperbola x^2-y^2=1.
+      origin (this one is fixed by the area) and the hyperbola `x ^ 2 - y ^ 2 = 1`.
    $EXAMPLES$
       ? Cosh( 0.0 )  // --> 1.0
       ? Cosh( 1.0 )  // --> 1.5430...
@@ -408,7 +408,7 @@
       <nHyperbolicTangent>  the hyperbolic tangent of <nArea>
    $DESCRIPTION$
       The function Tanh() calculates the hyperbolic tangent of the argument.
-      In analytical mathematics it is defined as Sinh(x)/Cosh(x).
+      In analytical mathematics it is defined as `Sinh( x ) / Cosh( x )`.
    $EXAMPLES$
       ? Tanh( 0.0 )  // --> 0.0
       ? Tanh( 1.0 )  // --> 0.7615...
@@ -443,7 +443,7 @@
       in radiant (like those returned by the asin, acos or atan function)
       to degrees that are commonly used geometry and technics.
    $EXAMPLES$
-      ? RToD( Pi() )  // --> 180
+      ? RToD( Pi() )      // --> 180
       ? Tanh( Pi() / 3 )  // --> 60
    $STATUS$
       R
@@ -476,7 +476,7 @@
       in degrees to radiant (as expected by sin, cos or tan functions).
    $EXAMPLES$
       ? DToR( 180 )  // --> Pi()
-      ? DToR( 60 )  // --> Pi() / 3
+      ? DToR( 60 )   // --> Pi() / 3
    $STATUS$
       R
    $COMPLIANCE$

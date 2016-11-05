@@ -245,7 +245,6 @@ pre {
   border-left: 4px solid #aaaaaa !important;
   border-radius: 0 3px 3px 0 !important;
   padding: 8px 16px !important;
-  margin-left: 16px;
   overflow: scroll;
 }
 
@@ -276,18 +275,17 @@ aside code {
   padding: 2px 7px;
 }
 
-.d-sy pre {
-  background-color: inherit;
-  border: none !important;
-  margin: 0 0 0 1em;
-  padding: 0 !important;
+.d-it pre {
+  margin-left: 16px;
 }
 
-.d-sy code {
+.d-sy pre {
   color: #2e2a24;
   background-color: inherit;
+  border: none !important;
   font-weight: bold;
-  padding: 0;
+  margin: 0 0 0 1em;
+  padding: 0 !important;
 }
 
 code code {

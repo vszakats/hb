@@ -41,7 +41,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-      AtToken() is compatible with CT3's ATTOKEN, but has an additional
+      AtToken() is compatible with CT3's AtToken(), but has an additional
       4th parameter to let you specify a skip width equal to that in the
       Token() function.
    $PLATFORMS$
@@ -96,14 +96,14 @@
       Therefore, additional calls to the TokenSep() function are not
       necessary.
    $EXAMPLES$
-      ? Token( "Hello, World!" )            -->  "World"
-      ? Token( "Hello, World!",, 2, 1 )     --> ""
-      ? Token( "Hello, World!", ",", 2, 1 ) --> " World!"
-      ? Token( "Hello, World!", " ", 2, 1 ) --> "World!"
+      ? Token( "Hello, World!" )             //  "World"
+      ? Token( "Hello, World!",, 2, 1 )      // ""
+      ? Token( "Hello, World!", ",", 2, 1 )  // " World!"
+      ? Token( "Hello, World!", " ", 2, 1 )  // "World!"
    $STATUS$
       R
    $COMPLIANCE$
-      Token() is compatible with CT3's TOKEN, but two additional
+      Token() is compatible with CT3's Token(), but two additional
       parameters have been added there the Token() function can store
       the tokenizers before and after the current token.
    $PLATFORMS$
