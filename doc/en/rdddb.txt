@@ -871,21 +871,27 @@
       <lSoftSeek> is a logical false (.F.)
    $EXAMPLES$
       PROCEDURE Main()
+
          USE test NEW INDEX test
          dbGoto( 10 )
          nId := test->nId
-         IF dbSeek( nId ) .AND. RLock()
+         dbGoTop()
+         IF dbSeek( nId )
             ? test->Name
-            dbRUnlock()
          ENDIF
+
          RETURN
 
-      ACCEPT "Employee name: " TO cName
-      IF Employee->( dbSeek( cName ) )
-         Employee->( ViewRecord() )
-      ELSE
-         ? "Not found"
-      ENDIF
+      PROCEDURE EmployeeLookup()
+
+         ACCEPT "Employee name: " TO cName
+         IF Employee->( dbSeek( cName ) )
+            Employee->( ViewRecord() )
+         ELSE
+            ? "Not found"
+         ENDIF
+
+         RETURN
    $STATUS$
       S
    $COMPLIANCE$

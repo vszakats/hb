@@ -51,15 +51,15 @@
       * Optional Compile Time *strong type* declaration (and compile time
         *type mismatch* warnings)
 
-        Example: LOCAL/STATIC Var AS ...
+        Example: LOCAL/STATIC Var `AS` ...
 
       * The Harbour debugger provides new interesting classes:
 
-        - Class TDbWindow could be the foundation for a generic multi-platform
+        - Class HBDbWindow() could be the foundation for a generic multi-platform
 
-        - Class TForm
+        - Class HBDbInput()
 
-        - Class TDbMenu implement both pulldown and popup menus.
+        - Class HBDbMenu() implement both pulldown and popup menus.
 
       <b>RTL enhanced functionality:</b>
       ---------------------------

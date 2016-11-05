@@ -54,7 +54,7 @@
 #include "setcurs.ch"
 
 
-CREATE CLASS HbDbInput
+CREATE CLASS HBDbInput
 
    HIDDEN:
 
@@ -80,7 +80,7 @@ CREATE CLASS HbDbInput
 
 ENDCLASS
 
-METHOD new( nRow, nCol, nWidth, cValue, cColor, nSize ) CLASS HbDbInput
+METHOD new( nRow, nCol, nWidth, cValue, cColor, nSize ) CLASS HBDbInput
 
    ::nRow   := nRow
    ::nCol   := nCol
@@ -92,7 +92,7 @@ METHOD new( nRow, nCol, nWidth, cValue, cColor, nSize ) CLASS HbDbInput
 
    RETURN Self
 
-METHOD SetColor( cColor ) CLASS HbDbInput
+METHOD SetColor( cColor ) CLASS HBDbInput
 
    ::acColor := { hb_ColorIndex( cColor, CLR_STANDARD ), ;
                   hb_ColorIndex( cColor, CLR_ENHANCED ) }
@@ -102,24 +102,24 @@ METHOD SetColor( cColor ) CLASS HbDbInput
 
    RETURN Self
 
-METHOD newPos( nRow, nCol ) CLASS HbDbInput
+METHOD newPos( nRow, nCol ) CLASS HBDbInput
 
    ::nRow := nRow
    ::nCol := nCol
 
    RETURN Self
 
-METHOD getValue() CLASS HbDbInput
+METHOD getValue() CLASS HBDbInput
    RETURN ::cValue
 
-METHOD setValue( cValue ) CLASS HbDbInput
+METHOD setValue( cValue ) CLASS HBDbInput
 
    ::cValue := hb_UPadR( cValue, ::nSize )
    ::nPos := Min( ::nSize, hb_ULen( RTrim( ::cValue ) ) + 1 )
 
    RETURN Self
 
-METHOD display() CLASS HbDbInput
+METHOD display() CLASS HBDbInput
 
    IF ::nPos < ::nFirst
       ::nFirst := ::nPos
@@ -131,14 +131,14 @@ METHOD display() CLASS HbDbInput
 
    RETURN Self
 
-METHOD showCursor() CLASS HbDbInput
+METHOD showCursor() CLASS HBDbInput
 
    SetPos( ::nRow, ::nCol + ::nPos - ::nFirst )
    SetCursor( iif( Set( _SET_INSERT ), SC_INSERT, SC_NORMAL ) )
 
    RETURN Self
 
-METHOD applyKey( nKey ) CLASS HbDbInput
+METHOD applyKey( nKey ) CLASS HBDbInput
 
    LOCAL lUpdate := .T.
 

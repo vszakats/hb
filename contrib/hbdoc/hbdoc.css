@@ -241,16 +241,16 @@ h4 {
 pre {
   background-color: #f2f2f2;
   color: #2e2a24;
-  border: none;
-  border-left: 4px solid #aaaaaa;
-  border-radius: 0 3px 3px 0;
-  padding: 8px 16px;
+  border: none !important;
+  border-left: 4px solid #aaaaaa !important;
+  border-radius: 0 3px 3px 0 !important;
+  padding: 8px 16px !important;
   margin-left: 16px;
   overflow: scroll;
 }
 
-pre, code, .d-t, aside {
-  font-family: Hack, Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation Mono', 'Oxygen Mono', 'Andale Mono', monospace;
+code, .d-t, aside {
+  font-family: Hack, Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation Mono', 'Oxygen Mono', 'Andale Mono', monospace !important;
   font-size: 85%;
 }
 
@@ -266,11 +266,10 @@ aside code {
   padding-top: 62px;  /* 44px + 18px */
 }
 
-.d-it code {
+.d-it code:not(.language-c) {
   color: #606060;
   color: #2e2a24;
   background-color: #efeff8;
-  font-weight-: bold;
   border: none;
   border-radius: 10px;
   margin-right: 0;
@@ -278,10 +277,8 @@ aside code {
 }
 
 .d-sy pre {
-  color: #2e2a24;
-  font-weight: bold;
   background-color: inherit;
-  border: none;
+  border: none !important;
   margin: 0;
   padding-left: 0;
 }
@@ -415,13 +412,8 @@ p {
   padding-bottom: 8px;
 }
 
-.d-ex {
+.d-ex, .d-te {
   margin: 8px 0 15px 1em;
-}
-
-.d-te {
-  margin-left: 1em;
-  padding-bottom: 8px;
 }
 
 .d-sc {

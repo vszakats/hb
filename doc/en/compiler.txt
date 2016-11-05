@@ -26,7 +26,7 @@
       The command-line options have to be separated by at least one space.
       The option can start with either `-` character or `/` character.
 
-      <b>The Harbour command-line options:  </b>
+      <b>The Harbour command-line options:</b>
       =================================
 
       `-a`               automatic memvar declaration
@@ -256,7 +256,7 @@
       to define HB_CLP_STRICT, using `HB_USER_CFLAGS=-DHB_CLP_STRICT`,
       then rebuild.
 
-      <b>Passing an undeclared variable by the reference </b>
+      <b>Passing an undeclared variable by the reference</b>
       ===============================================
 
       The CA-Cl*pper compiler uses the special opcode PUSHP to pass a
@@ -302,7 +302,7 @@
 
       (See also: include/hbexpra.c, include/hbexprb.c)
 
-      <b>Initialization of static variables      </b>
+      <b>Initialization of static variables</b>
       ==================================
 
       There is a difference in the initialization of static
@@ -310,14 +310,11 @@
       a local variable. For example:
 
       <fixed>
-      PROCEDURE Main()
-         LOCAL MyLocalVar
-         STATIC s_MyStaticVar := {|| MyLocalVar }
+      LOCAL MyLocalVar
+      STATIC s_MyStaticVar := {|| MyLocalVar }
 
-         MyLocalVar := 0
-         ? Eval( s_MyStaticVar )
-
-         RETURN
+      MyLocalVar := 0
+      ? Eval( s_MyStaticVar )
       </fixed>
 
       The above code compiles fine in CA-Cl*pper, but it generates a

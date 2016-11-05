@@ -53,9 +53,10 @@
 #include "hbclass.ch"
 #include "hbver.ch"
 
-#define EXTENSION  ".html"
-
-#define STYLEFILE  "hbdoc.css"
+#define EXTENSION   ".html"
+#define STYLEFILE   "hbdoc.css"
+#define CODECLASS   "language-c"
+#define CODEINLINE  "<code>"
 
 CREATE CLASS GenerateHTML INHERIT TPLGenerate
 
@@ -164,7 +165,14 @@ METHOD NewFile() CLASS GenerateHTML
 
    ::OpenTag( "link", ;
       "rel", "stylesheet", ;
+      "crossorigin", "anonymous", ;
+      "referrerpolicy", "no-referrer", ;
+      "href", "https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism-okaidia.min.css" )
+
+   ::OpenTag( "link", ;
+      "rel", "stylesheet", ;
       "href", iif( ::cLang == "en", "", "../" ) + STYLEFILE )
+
    ::Spacer()
 
    ::cFile += hb_MemoRead( "hbdoc_head.html" )
@@ -299,6 +307,14 @@ METHOD Generate() CLASS GenerateHTML
    ::CloseTag( "div" )
 
    ::CloseTag( "footer" )
+
+   ::OpenTagInline( "script", ;
+      "crossorigin", "anonymous", ;
+      "src", "https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js" ):CloseTag( "script" )
+
+   ::OpenTagInline( "script", ;
+      "crossorigin", "anonymous", ;
+      "src", "https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/components/prism-c.min.js" ):CloseTag( "script" )
 
    ::super:Generate()
 
@@ -538,14 +554,14 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
 
       cTagClass := hb_HGetDef( s_class, cField, "d-it" )
 
-      IF ! HB_ISNULL( cCaption := FieldCaption( cField ) )
+      IF ! HB_ISNULL( cCaption := FieldCaption( cField, iif( cField == "TAGS", "," $ cContent, .F. ) ) )
          ::Tagged( cCaption, "div", "class", "d-d" )
       ENDIF
 
       DO CASE
       CASE lPreformatted  /* EXAMPLES, TESTS */
 
-         ::OpenTag( "pre", "class", cTagClass )
+         ::OpenTagInline( "pre", "class", cTagClass ):OpenTagInline( "code", "class", CODECLASS )
 #if 1
          /* logic to remove PROCEDURE Main()/RETURN enclosure
             to fit more interesting information on the screen.
@@ -592,7 +608,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
          ENDIF
 #endif
          ::Append( cContent,, .T., cField )
-         ::CloseTag( "pre" )
+         ::CloseTagInline( "code" ):CloseTag( "pre" )
 
       CASE cField == "SEEALSO"
 
@@ -624,11 +640,11 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
 
       CASE cField == "SYNTAX"
 
-         ::OpenTag( "div", "class", cTagClass + " d-sy" )
+         ::OpenTag( "div", "class", cTagClass + " " + "d-sy" )
          IF hb_eol() $ cContent
-            ::OpenTag( "pre" )
+            ::OpenTagInline( "pre" ):OpenTagInline( "code" )
             ::Append( StrSYNTAX( cContent ),, .T., cField )
-            ::CloseTag( "pre" )
+            ::CloseTagInline( "code" ):CloseTag( "pre" )
          ELSE
             ::OpenTagInline( "code" )
             ::AppendInline( StrSYNTAX( cContent ),, .T., cField )
@@ -699,7 +715,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
 
             DO CASE
             CASE lCode
-               ::OpenTag( "pre" )
+               ::OpenTagInline( "pre" ):OpenTagInline( "code", "class", CODECLASS )
                ::Append( tmp1,, .T., cField )
             CASE lTable
                ::OpenTagInline( "div" )
@@ -712,7 +728,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
                ::AppendInline( iif( lTable, StrTran( tmp1, " ", hb_UChar( 160 ) ), tmp1 ),, .F., cField )
             ENDCASE
             IF lCode
-               ::CloseTag( "pre" )
+               ::CloseTagInline( "code" ):CloseTag( "pre" )
             ELSE
                ::CloseTag( "div" )
             ENDIF
@@ -731,13 +747,14 @@ METHOD OpenTagInline( cText, ... ) CLASS GenerateHTML
    LOCAL aArgs := hb_AParams()
    LOCAL idx
 
+   IF ! "|" + cText + "|" $ "|pre|code|"
+      ::cFile += Replicate( "  ", ::nIndent )
+   ENDIF
+
    FOR idx := 2 TO Len( aArgs ) STEP 2
       cText += " " + aArgs[ idx ] + "=" + '"' + aArgs[ idx + 1 ] + '"'
    NEXT
 
-   IF ! cText $ "pre"
-      ::cFile += Replicate( "  ", ::nIndent )
-   ENDIF
    ::cFile += "<" + cText + ">"
 
    RETURN Self
@@ -845,6 +862,9 @@ METHOD AppendInline( cText, cFormat, lCode, cField ) CLASS GenerateHTML
                cChar := cNext
             CASE ! lPR .AND. cChar == "`" .AND. cNext == "`"  // `` -> `
                tmp++
+            CASE ! lPR .AND. cChar == "_" .AND. cNext == "_"
+               tmp++
+               cChar := "__"
             CASE ! lPR .AND. SubStr( cText, tmp, 3 ) == "<b>"
                tmp += 2
                cChar := "<strong>"
@@ -874,7 +894,7 @@ METHOD AppendInline( cText, cFormat, lCode, cField ) CLASS GenerateHTML
             CASE ! lPR .AND. ;
                  ( SubStr( cText, tmp, 3 ) == ".T." .OR. ;
                    SubStr( cText, tmp, 3 ) == ".F." )
-               cChar := "<code>" + SubStr( cText, tmp, 3 ) + "</code>"
+               cChar := CODEINLINE + SubStr( cText, tmp, 3 ) + "</code>"
                tmp += 2
             CASE cChar == "`" .OR. ;
                  ( cChar == "<" .AND. ! lPR ) .OR. ;
@@ -901,11 +921,11 @@ METHOD AppendInline( cText, cFormat, lCode, cField ) CLASS GenerateHTML
                   IF cPR == "#"
                      cChar := iif( lPR, "<span class=" + '"' + "d-key" + '"' + ">", "</span>" )
                   ELSE
-                     cChar := iif( lPR, "<code>", "</code>" )
+                     cChar := iif( lPR, CODEINLINE, "</code>" )
                   ENDIF
                   EXIT
                OTHERWISE
-                  cChar := iif( lPR, "<code>", "</code>" )
+                  cChar := iif( lPR, CODEINLINE, "</code>" )
                ENDSWITCH
                IF ! lPR
                   cPR := ""
@@ -942,7 +962,7 @@ METHOD AppendInline( cText, cFormat, lCode, cField ) CLASS GenerateHTML
 
          /* Remove these tags if they weren't closed */
          IF lPR
-            cOut := Stuff( cOut, nPR, Len( "<code>" ), "`" )
+            cOut := Stuff( cOut, nPR, Len( CODEINLINE ), "`" )
          ENDIF
          IF lST
             cOut := Stuff( cOut, nST, Len( "<strong>" ), "*" )
@@ -1043,7 +1063,7 @@ STATIC FUNCTION AutoLink( hAll, cFile, cComponent, cRevision, hNameID, lCodeAlre
                ELSE
                   cTag := cProper
                ENDIF
-               cTag := "<code>" + cTag + "</code>"
+               cTag := CODEINLINE + cTag + "</code>"
                cFile := hb_BLeft( cFile, match[ 3 ][ _MATCH_nStart ] - 1 + nShift ) + cTag + hb_BSubStr( cFile, match[ 3 ][ _MATCH_nEnd ] + 1 + nShift )
                nShift += Len( cTag ) - Len( cProper )
             ENDIF
@@ -1081,7 +1101,7 @@ STATIC FUNCTION AutoLink( hAll, cFile, cComponent, cRevision, hNameID, lCodeAlre
                cTag := cName
             ENDIF
             IF ! lCodeAlready
-               cTag := "<code>" + cTag + "</code>"
+               cTag := CODEINLINE + cTag + "</code>"
             ENDIF
             cFile := hb_BLeft( cFile, match[ 2 ][ _MATCH_nStart ] - 1 + nShift ) + cTag + hb_BSubStr( cFile, match[ 2 ][ _MATCH_nEnd ] + 1 + nShift )
             nShift += Len( cTag ) - Len( cName )
@@ -1094,7 +1114,7 @@ STATIC FUNCTION AutoLink( hAll, cFile, cComponent, cRevision, hNameID, lCodeAlre
             cName := match[ 3 ][ _MATCH_cStr ]
             IF ( hb_BLen( cName ) > 3 .OR. "|" + cName + "|" $ "|ON|OFF|SET|USE|ZAP|SAY|RUN|NUL|NIL|ALL|TO|GET|VAR|SUM|DIR|DO|FOR|NEW|" ) .AND. ;
                !( "|" + cName + "|" $ "|ANSI|ASCII|JPEG|WBMP|NOTE|INET|TODO|CMOS|ATTENTION|DOUBLE|NUMBER|DATE|CHARACTER|LOGICAL|WARNING|TRUE|FALSE|" )
-               cTag := "<code>" + cName + "</code>"
+               cTag := CODEINLINE + cName + "</code>"
                cFile := hb_BLeft( cFile, match[ 3 ][ _MATCH_nStart ] - 1 + nShift ) + cTag + hb_BSubStr( cFile, match[ 3 ][ _MATCH_nEnd ] + 1 + nShift )
                nShift += Len( cTag ) - Len( cName )
             ENDIF

@@ -36,7 +36,7 @@
       Nothing
    $DESCRIPTION$
       This function can be called either by the Harbour compiler or by user.
-      The compiler always passes the item of IT_SYMBOL type that stores the
+      The compiler always passes the item of HB_IT_SYMBOL type that stores the
       name of variable.
       If a variable with the same name exists already then the new
       variable is not created - the previous value remains unchanged.
@@ -76,7 +76,7 @@
       Nothing
    $DESCRIPTION$
       This function can be called either by the Harbour compiler or by user.
-      The compiler always passes the item of IT_SYMBOL type that stores the
+      The compiler always passes the item of HB_IT_SYMBOL type that stores the
       name of variable.
       If a variable with the same name exists already then the value of old
       variable is hidden until the new variable is  released. The new variable
@@ -627,7 +627,7 @@
       If the block is evaluate and there is no field with the name
       <cFieldName> in the current work area, the code block return NIL.
 
-      CA-Cl*pper would raise BASE/1003 error if the field does not exist.
+      CA-Cl*pper would raise `BASE/1003` error if the field does not exist.
    $FILES$
       Library is core
    $SEEALSO$
@@ -747,7 +747,7 @@
       This causes that Type() cannot determine a type of local or static
       variables - only symbols visible at runtime can be checked.
 
-      Notice the subtle difference between TYPE and VALTYPE functions.
+      Notice the subtle difference between Type() and ValType() functions.
       ValType() function doesn't call a macro compiler - it simply checks
       the type of passed argument of any type. Type() requires a string
       argument with a valid Harbour expression - the data type of this

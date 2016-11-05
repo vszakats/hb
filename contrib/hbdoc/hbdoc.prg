@@ -1114,8 +1114,11 @@ FUNCTION IsOutput( hE, cField )
 FUNCTION FieldIDList()
    RETURN hb_HKeys( sc_hFields )
 
-FUNCTION FieldCaption( cName )
-   RETURN sc_hFields[ cName ]
+FUNCTION FieldCaption( cName, lPlural )
+
+   LOCAL xResult := sc_hFields[ cName ]
+
+   RETURN iif( HB_ISARRAY( xResult ), iif( lPlural, xResult[ 2 ], xResult[ 1 ] ), xResult )
 
 STATIC PROCEDURE init_Templates()
 
@@ -1207,22 +1210,22 @@ STATIC PROCEDURE init_Templates()
       "NAME"          => "", ;
       "ONELINER"      => "", ;
       "CATEGORY"      => "Category", ;
-      "SUBCATEGORY"   => "Sub category", ;
+      "SUBCATEGORY"   => "Subcategory", ;
       "SYNTAX"        => "Syntax", ;
-      "ARGUMENTS"     => "Argument(s)", ;
+      "ARGUMENTS"     => "Arguments", ;
       "RETURNS"       => "Returns", ;
       "DESCRIPTION"   => "Description", ;
       "DATALINK"      => "Data link", ;
       "DATANOLINK"    => "Data no link", ;
       "METHODSLINK"   => "Methods link", ;
       "METHODSNOLINK" => "Methods no link", ;
-      "EXAMPLES"      => "Example(s)", ;
-      "TESTS"         => "Test(s)", ;
+      "EXAMPLES"      => "Example", ;
+      "TESTS"         => "Tests", ;
       "STATUS"        => "Status", ;       /* sc_hConstraint[ "status" ] is the constraint list */
       "COMPLIANCE"    => "Compliance", ;   /* sc_hConstraint[ "compliance" ] is the constraint list */
-      "PLATFORMS"     => "Platform(s)", ;  /* sc_hConstraint[ "platforms" ] is the constraint list */
-      "FILES"         => "File(s)", ;
-      "TAGS"          => "Tag(s)", ;
+      "PLATFORMS"     => "Platforms", ;    /* sc_hConstraint[ "platforms" ] is the constraint list */
+      "FILES"         => "Files", ;
+      "TAGS"          => { "Tag", "Tags" }, ;
       "SEEALSO"       => "See also" }
 
    hb_HCaseMatch( sc_hFields, .F. )
