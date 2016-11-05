@@ -3,162 +3,6 @@
 #
 
 #, c-format
-msgid "Tags"
-msgstr ""
-
-#, c-format
-msgid "Tag"
-msgstr ""
-
-#, c-format
-msgid "Files"
-msgstr ""
-
-#, c-format
-msgid "Tests"
-msgstr ""
-
-#, c-format
-msgid "File"
-msgstr ""
-
-#, c-format
-msgid "Status"
-msgstr ""
-
-#, c-format
-msgid "Available on all platforms"
-msgstr ""
-
-#, c-format
-msgid "Category"
-msgstr ""
-
-#, c-format
-msgid "Started"
-msgstr ""
-
-#, c-format
-msgid "Subcategory"
-msgstr ""
-
-#, c-format
-msgid "Not applicable"
-msgstr ""
-
-#, c-format
-msgid "Available on Unix platform(s)"
-msgstr ""
-
-#, c-format
-msgid "CA-Cl*pper v5.x compatible"
-msgstr ""
-
-#, c-format
-msgid "Template"
-msgstr ""
-
-#, c-format
-msgid "Available on Windows"
-msgstr ""
-
-#, c-format
-msgid "Not started"
-msgstr ""
-
-#, c-format
-msgid "Returns"
-msgstr ""
-
-#, c-format
-msgid "Description"
-msgstr ""
-
-#, c-format
-msgid "Data link"
-msgstr ""
-
-#, c-format
-msgid "Example"
-msgstr ""
-
-#, c-format
-msgid "Arguments"
-msgstr ""
-
-#, c-format
-msgid "Available on OS/2"
-msgstr ""
-
-#, c-format
-msgid "CA-Cl*pper v5.x compatible in builds with HB_CLP_STRICT option enabled"
-msgstr ""
-
-#, c-format
-msgid "Ready"
-msgstr ""
-
-#, c-format
-msgid "Syntax"
-msgstr ""
-
-#, c-format
-msgid "Undocumented CA-Cl*pper v5.x function available in builds with HB_CLP_UNDOC option enabled (default)"
-msgstr ""
-
-#, c-format
-msgid "Available on Linux"
-msgstr ""
-
-#, c-format
-msgid "CA-Cl*pper v5.3 function available in builds with HB_COMPAT_C53 option enabled (default)"
-msgstr ""
-
-#, c-format
-msgid "Harbour specific"
-msgstr ""
-
-#, c-format
-msgid "Available on MS-DOS"
-msgstr ""
-
-#, c-format
-msgid "Data no link"
-msgstr ""
-
-#, c-format
-msgid "Methods link"
-msgstr ""
-
-#, c-format
-msgid "Methods no link"
-msgstr ""
-
-#, c-format
-msgid "Compliance"
-msgstr ""
-
-#, c-format
-msgid "Platforms"
-msgstr ""
-
-#, c-format
-msgid "See also"
-msgstr ""
-
-#, c-format
-msgid "Index"
-msgstr ""
-
-#, c-format
-msgid "%1$s index"
-msgstr ""
-
-#, c-format
-msgid "%1$s contrib"
-msgstr ""
-
-#, c-format
 msgid "Harbour Reference Guide"
 msgstr ""
 
@@ -183,9 +27,165 @@ msgid "Top"
 msgstr ""
 
 #, c-format
+msgid "Improve this doc"
+msgstr ""
+
+#, c-format
 msgid "Source code"
 msgstr ""
 
 #, c-format
-msgid "Improve this doc"
+msgid "Index"
+msgstr ""
+
+#, c-format
+msgid "%1$s index"
+msgstr ""
+
+#, c-format
+msgid "%1$s contrib"
+msgstr ""
+
+#, c-format
+msgid "CA-Cl*pper v5.3 function available in builds with HB_COMPAT_C53 option enabled (default)"
+msgstr ""
+
+#, c-format
+msgid "CA-Cl*pper v5.x compatible"
+msgstr ""
+
+#, c-format
+msgid "CA-Cl*pper v5.x compatible in builds with HB_CLP_STRICT option enabled"
+msgstr ""
+
+#, c-format
+msgid "Harbour specific"
+msgstr ""
+
+#, c-format
+msgid "Not applicable"
+msgstr ""
+
+#, c-format
+msgid "Undocumented CA-Cl*pper v5.x function available in builds with HB_CLP_UNDOC option enabled (default)"
+msgstr ""
+
+#, c-format
+msgid "Available on all platforms"
+msgstr ""
+
+#, c-format
+msgid "Available on Linux"
+msgstr ""
+
+#, c-format
+msgid "Available on MS-DOS"
+msgstr ""
+
+#, c-format
+msgid "Available on OS/2"
+msgstr ""
+
+#, c-format
+msgid "Available on Unix platform(s)"
+msgstr ""
+
+#, c-format
+msgid "Available on Windows"
+msgstr ""
+
+#, c-format
+msgid "Not started"
+msgstr ""
+
+#, c-format
+msgid "Ready"
+msgstr ""
+
+#, c-format
+msgid "Started"
+msgstr ""
+
+#, c-format
+msgid "Arguments"
+msgstr ""
+
+#, c-format
+msgid "Category"
+msgstr ""
+
+#, c-format
+msgid "Compliance"
+msgstr ""
+
+#, c-format
+msgid "Data link"
+msgstr ""
+
+#, c-format
+msgid "Data no link"
+msgstr ""
+
+#, c-format
+msgid "Description"
+msgstr ""
+
+#, c-format
+msgid "Example"
+msgstr ""
+
+#, c-format
+msgid "File"
+msgstr ""
+
+#, c-format
+msgid "Files"
+msgstr ""
+
+#, c-format
+msgid "Methods link"
+msgstr ""
+
+#, c-format
+msgid "Methods no link"
+msgstr ""
+
+#, c-format
+msgid "Platforms"
+msgstr ""
+
+#, c-format
+msgid "Returns"
+msgstr ""
+
+#, c-format
+msgid "See also"
+msgstr ""
+
+#, c-format
+msgid "Status"
+msgstr ""
+
+#, c-format
+msgid "Subcategory"
+msgstr ""
+
+#, c-format
+msgid "Syntax"
+msgstr ""
+
+#, c-format
+msgid "Tag"
+msgstr ""
+
+#, c-format
+msgid "Tags"
+msgstr ""
+
+#, c-format
+msgid "Template"
+msgstr ""
+
+#, c-format
+msgid "Tests"
 msgstr ""
