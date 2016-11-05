@@ -146,7 +146,7 @@ METHOD NewFile() CLASS GenerateHTML
       ::RecreateStyleDocument( STYLEFILE )
    ENDIF
 
-   ::Append( hb_StrFormat( I_( "%1$s · %2$s" ), ::cBaseTitle, ::cTitle ), "title" )
+   ::Append( hb_StrFormat( I_( "%1$s · %2$s" ), Eval( ::bBaseTitle ), ::cTitle ), "title" )
    ::Spacer()
 
 #if 0
@@ -188,7 +188,7 @@ METHOD NewFile() CLASS GenerateHTML
    ::OpenTagInline( "div" )
    ::OpenTagInline( "a", "href", "index.html" )
    ::cFile += hb_MemoRead( hbdoc_RootDir() + hb_DirSepToOS( "docs/images/" + "harbour-nofill.svg" ) )
-   ::AppendInline( ::cBaseTitle )
+   ::AppendInline( Eval( ::bBaseTitle ) )
    ::CloseTagInline( "a" )
    ::CloseTag( "div" )
 

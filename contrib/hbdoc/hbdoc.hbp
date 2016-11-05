@@ -21,3 +21,4 @@ _genxml.prg
 # localization update
 -po=hbdoc.en.po
 -rebuildpo
+-minipo
