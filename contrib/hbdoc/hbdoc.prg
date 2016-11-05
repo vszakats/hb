@@ -1283,9 +1283,9 @@ STATIC PROCEDURE LoadPO()
 
    /* Command to store files in hash array */
    #xcommand ADD PO TO <hash> FILE <(cFile)> => ;
-             #pragma __streaminclude <(cFile)> | <hash>\[ <(cFile)> \] := %s
+             #pragma __streaminclude <(cFile)> | <hash>\[ hb_FNameNameExt( <(cFile)> ) \] := %s
 
-   ADD PO TO s_hPO FILE "hbdoc.pt_BR.po"
+   ADD PO TO s_hPO FILE "po/hbdoc.pt_BR.po"
 
    RETURN
 
