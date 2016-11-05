@@ -260,7 +260,7 @@
       ===============================================
 
       The CA-Cl*pper compiler uses the special opcode PUSHP to pass a
-      reference to an undeclared variable ( `@` operator ). The type of
+      reference to an undeclared variable (`@` operator). The type of
       passed variable is checked at runtime (field or memvar). However,
       field variables cannot be passed by reference. This means that
       CA-Cl*pper checks the memvar variable only and doesn't look for a field.

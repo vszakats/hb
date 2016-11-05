@@ -12,15 +12,14 @@
       <[@]cString>          is the processed string
       <cTokenizer>          is a list of characters separating the tokens
                             in <cString>
-                            Default: Chr( 0 ) + Chr( 9 ) + Chr( 10 ) + Chr( 13 ) +
-                                     Chr( 26 ) + hb_BChar( 138 ) + hb_BChar( 141 ) +
-                                     Chr( 32 ) + ",.;:!\?/\\<>()#&%+-*"
+                            Default:
+                            `Chr( 0 ) + Chr( 9 ) + Chr( 10 ) + Chr( 13 ) + Chr( 26 ) + hb_BChar( 138 ) + hb_BChar( 141 ) + Chr( 32 ) + ",.;:!\?/\\<>()#&%+-*"`
       <nSkipWidth>          specifies the maximum number of successive
                             tokenizing characters that are combined as
-                            ONE token stop, e.g. specifying 1 can
+                            _one_ token stop, e.g. specifying 1 can
                             yield to empty token
                             Default: 0, any number of successive tokenizing
-                            characters are combined as ONE token stop
+                            characters are combined as _one_ token stop
       <@cTokenEnvironment>  is a token environment stored in a binary
                             encoded string
    $RETURNS$

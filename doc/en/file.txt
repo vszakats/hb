@@ -231,7 +231,7 @@
       The returned value is the number of bytes successfully written to the
       file. If the returned value is 0, an error has occurred (unless
       this is intended). A successful write occurs when the number returned
-      by FWrite() is equal to either Len( <cBuffer> ) or <nBytes>.
+      by FWrite() is equal to either `Len( cBuffer )` or <nBytes>.
 
       The value of <cBuffer> is the string or variable to be written to the
       open file <nHandle>.
@@ -240,7 +240,7 @@
       The disk write begins with the current file position in <nHandle>. If
       this variable is not used, the entire contents of <cBuffer> is written
       to the file.
-      To truncate a file, a call of FWrite( nHandle, "", 0 ) is needed.
+      To truncate a file, a call of `FWrite( nHandle, "", 0 )` is needed.
    $EXAMPLES$
       nHandle := FCreate( "test.txt" )
       FOR x := 1 TO 10

@@ -28,9 +28,9 @@
       TokenLower() TokenUpper()  WordRepl()
       WordSwap()
 
-      Thus, these functions allow to pass the string by reference [@] to
+      Thus, these functions allow to pass the string by reference `@` to
       the function so that it may not be necessary to return the transformed
-      string. By calling CSetRef( .T. ), the above mentioned functions return
+      string. By calling `CSetRef( .T. )`, the above mentioned functions return
       the value .F. instead of the transformed string if the string is
       passed by reference to the function.
       The switch is turned off (.F.) by default.

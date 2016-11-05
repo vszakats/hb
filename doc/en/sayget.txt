@@ -68,7 +68,7 @@
       until the condition in <lValid> evaluates to true (.T.). The name
       of a user-defined function returning a logical true (.T.) or false
       (.F.) or it code block may be specified in <lValid>. This clause is
-      not activated until a READ command or ReadModal( ) function call is
+      not activated until a READ command or ReadModal() function call is
       issued.
 
       If the RANGE clause is specified instead of the VALID clause, the

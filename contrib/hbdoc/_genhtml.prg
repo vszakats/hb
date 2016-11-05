@@ -537,6 +537,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
    STATIC s_class := { ;
       "NAME"     => "d-na", ;
       "ONELINER" => "d-ol", ;
+      "SYNTAX"   => "d-sy", ;
       "EXAMPLES" => "d-ex", ;
       "TESTS"    => "d-te" }
 
@@ -640,15 +641,16 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
 
       CASE cField == "SYNTAX"
 
-         ::OpenTag( "div", "class", cTagClass + " " + "d-sy" )
-         IF hb_eol() $ cContent
+         IF Chr( 10 ) $ cContent
+            ::OpenTag( "div", "class", cTagClass )
             ::OpenTagInline( "pre" ):OpenTagInline( "code" )
             ::Append( StrSYNTAX( cContent ),, .T., cField )
             ::CloseTagInline( "code" ):CloseTag( "pre" )
          ELSE
-            ::OpenTagInline( "code" )
+            ::OpenTagInline( "div", "class", cTagClass )
+            ::OpenTagInline( "pre" ):OpenTagInline( "code" )
             ::AppendInline( StrSYNTAX( cContent ),, .T., cField )
-            ::CloseTagInline( "code" )
+            ::CloseTagInline( "code" ):CloseTagInline( "pre" )
          ENDIF
          ::CloseTag( "div" )
 
@@ -978,6 +980,13 @@ METHOD AppendInline( cText, cFormat, lCode, cField ) CLASS GenerateHTML
 
       IF !( "|" + hb_defaultValue( cField, "" ) + "|" $ "||ONELINER|" )
          cText := AutoLink( ::hHBX, cText, ::cFilename, ::cRevision, ::hNameID, lCode )
+#if 0
+         IF ! lCode .AND. "( " $ cText
+            FOR EACH tmp1 IN en_hb_regexAll( "([a-zA-Z0-9]+)\( ", cText,,,,, .F. )
+               ? ::cFileName, hb_ValToExp( tmp1[ 1 ] )
+            NEXT
+         ENDIF
+#endif
       ENDIF
 
       FOR EACH idx IN hb_ATokens( hb_defaultValue( cFormat, "" ), "," ) DESCEND

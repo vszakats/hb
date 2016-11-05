@@ -279,8 +279,8 @@ aside code {
 .d-sy pre {
   background-color: inherit;
   border: none !important;
-  margin: 0;
-  padding-left: 0;
+  margin: 0 0 0 1em;
+  padding: 0 !important;
 }
 
 .d-sy code {
@@ -412,8 +412,12 @@ p {
   padding-bottom: 8px;
 }
 
+.d-sy {
+  padding-bottom: 8px;
+}
+
 .d-ex, .d-te {
-  margin: 8px 0 15px 1em;
+  margin: 8px 0 15px 1em !important;
 }
 
 .d-sc {

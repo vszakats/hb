@@ -802,7 +802,7 @@
       <nPreviousSize> The previous state of _SET_TYPEAHEAD
    $DESCRIPTION$
       This function sets the typeahead buffer to a valid given size as is
-      Set( _SET_TYPEAHEAD ) where used.
+      `Set( _SET_TYPEAHEAD )` where used.
    $EXAMPLES$
       // Sets typeahead to 12
       SetTypeahead( 12 )

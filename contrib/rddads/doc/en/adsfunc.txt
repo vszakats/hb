@@ -605,7 +605,7 @@
       If a file is opened in the proprietary mode, other applications cannot
       open it in a "write" mode. So if non-Advantage applications need
       concurrent access to the data files, use the Compatibility locking mode
-      by calling AdsLocking( .F. ).
+      by calling `AdsLocking( .F. )`.
 
       AdsLocking() is a Get/Set function for the locking mode. It affects
       files at the time they are opened. So when a data
@@ -995,7 +995,7 @@
       In Harbour internal RDDs, a runtime error occurs if an attempt is made
       to write to a shared file without a proper lock.
 
-      AdsTestRecLocks( .T. ) will turn on a debugging mode to mimic this behavior
+      `AdsTestRecLocks( .T. )` will turn on a debugging mode to mimic this behavior
       and throw an error instead of allowing an implicit lock. Each time a field
       is set, we see if the file is open exclusively or locked, and whether
       the record has been explicitly locked already. If not, we throw
