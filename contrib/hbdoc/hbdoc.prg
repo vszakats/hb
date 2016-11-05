@@ -54,6 +54,9 @@
 #include "directry.ch"
 #include "hbver.ch"
 
+#define I_( x )   hb_UTF8ToStr( hb_i18n_gettext( x /*, _SELF_NAME_ */ ) )
+#define BI_( x )  {|| I_( x ) }
+
 ANNOUNCE HB_GTSYS
 REQUEST HB_GT_CGI_DEFAULT
 
@@ -66,6 +69,7 @@ REQUEST HB_CODEPAGE_UTF8EX
 #define TPL_TEMPLATE         16
 #define TPL_OUTPUT           32
 
+STATIC s_hPO := { => }
 STATIC sc_hFields
 STATIC sc_hTemplates
 STATIC sc_hConstraint := { => }
@@ -82,12 +86,13 @@ STATIC s_hHBX := { => }
 STATIC s_hDoc := { => }  /* lang => { entries => {}, nameid => { => }, tree => { component => category => subcategory } */
 
 STATIC s_hNameID
+STATIC s_cLang := "en"
 
 PROCEDURE Main()
 
    LOCAL aArgs := hb_AParams()
    LOCAL idx, item
-   LOCAL arg, tmp, nLen, nCount, aList
+   LOCAL arg, tmp, tmp1, tmp2, nLen, nCount, aList
    LOCAL cArgName
    LOCAL cFormat
    LOCAL oDocument, oIndex
@@ -203,8 +208,29 @@ PROCEDURE Main()
       s_hNameID := docs[ "nameid" ]  /* hack */
 
       IF ! Empty( s_hSwitches[ "lang" ] ) .AND. ;
-         hb_AScan( s_hSwitches[ "lang" ], cLang,,, .T. ) == 0
+         hb_AScan( s_hSwitches[ "lang" ], Lower( cLang ),,, .T. ) == 0
          LOOP
+      ENDIF
+
+      IF Lower( cLang ) == "en"
+         hb_i18n_Set( NIL )
+      ELSE
+#if 0
+         hb_i18n_Check( tmp := hb_MemoRead( hb_DirBase() + "hbdoc." + cLang + ".hbl" ) )
+#else
+         /* Save in-memory file to disk, because __i18n_*() can only load from there */
+         IF ( tmp2 := hb_vfTempFile( @tmp1,,, ".txt" ) ) != NIL
+            hb_vfWrite( tmp2, hb_HGetDef( s_hPO, "hbdoc." + cLang + ".po", "" ) )
+            hb_vfClose( tmp2 )
+         ENDIF
+         IF ( tmp := __i18n_potArrayLoad( tmp1, @tmp2 ) ) != NIL
+            hb_i18n_Set( __i18n_hashTable( __i18n_potArrayToHash( tmp, .F. ) ) )
+            OutStd( hb_StrFormat( "! .po loaded: %1$s", cLang ) + hb_eol() )
+         ELSE
+            OutErr( hb_StrFormat( "! Error: Cannot load .po: %1$s", tmp2 ) + hb_eol() )
+         ENDIF
+         hb_vfErase( tmp1 )
+#endif
       ENDIF
 
       OutStd( hb_StrFormat( "! %1$d '%2$s' entries found", Len( aEntries ), cLang ) + hb_eol() )
@@ -242,7 +268,7 @@ PROCEDURE Main()
             SWITCH s_hSwitches[ "output" ]
             CASE "component"
 
-               oIndex := Eval( generatorClass ):NewIndex( cDir, "index", "Index", cLang, hComponents )
+               oIndex := Eval( generatorClass ):NewIndex( cDir, "index", I_( "Index" ), Lower( cLang ), hComponents )
 
                /* index TOC */
 
@@ -251,7 +277,7 @@ PROCEDURE Main()
                   oIndex:BeginIndex()
                   FOR EACH tmp IN aComponent
                      Get_ID_Name( tmp, @cID,, @cName )
-                     oIndex:AddIndexItem( hb_StrFormat( "%1$s index", cName ), cID )
+                     oIndex:AddIndexItem( hb_StrFormat( I_( "%1$s index" ), cName ), cID )
                   NEXT
                   oIndex:EndIndex()
 #else
@@ -285,7 +311,7 @@ PROCEDURE Main()
 
                   Get_ID_Name( tmp, @cID, @cName )
 
-                  oDocument := Eval( generatorClass ):NewDocument( cDir, tmp, cName, cLang, hComponents )
+                  oDocument := Eval( generatorClass ):NewDocument( cDir, tmp, cName, Lower( cLang ), hComponents )
 
                   /* content TOC */
 
@@ -385,7 +411,7 @@ PROCEDURE Main()
             CASE "entry"
 
                FOR EACH item IN aEntries
-                  oDocument := Eval( generatorClass ):NewDocument( cDir, item[ "_filename" ], item[ "NAME" ], cLang )
+                  oDocument := Eval( generatorClass ):NewDocument( cDir, item[ "_filename" ], item[ "NAME" ], Lower( cLang ) )
                   oDocument:AddEntry( item )
                   oDocument:Generate()
                NEXT
@@ -427,14 +453,14 @@ STATIC PROCEDURE Get_ID_Name( cComponent, /* @ */ cID, /* @ */ cName, /* @ */ cN
       cNameShort := cName
    ELSE
       cID := cComponent
-      cName := hb_StrFormat( "%1$s contrib", cComponent )
+      cName := hb_StrFormat( I_( "%1$s contrib" ), cComponent )
       cNameShort := cComponent
    ENDIF
 
    RETURN
 
 STATIC FUNCTION LangToInternal( cLang )
-   RETURN Lower( StrTran( cLang, "-", "_" ) )
+   RETURN StrTran( cLang, "-", "_" )
 
 /* Begin with Harbour core section */
 STATIC FUNCTION SortWeightPkg( cString )
@@ -656,7 +682,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, /* @ */ nCount )
       cSectionName := item:__enumKey()
       cSection := StrTran( item, Chr( 13 ) + Chr( 10 ), hb_eol() )
 
-      IF !( "|" + cSectionName + "|" $ "|SYNTAX|EXAMPLES|TESTS|" )
+      IF !( "|" + cSectionName + "|" $ "|SYNTAX|EXAMPLES|TESTS|FILES|" )
          cSection := NewLineVoodoo( cSection )  /* Decides which EOLs to keep and which to drop */
       ENDIF
 
@@ -774,7 +800,7 @@ STATIC FUNCTION ExpandAbbrevs( cFile, cSectionName, cCode )
                cResult += hb_eol()
             ENDIF
             IF tmp $ sc_hConstraint[ "status" ]
-               tmp := sc_hConstraint[ "status" ][ tmp ]
+               tmp := Eval( sc_hConstraint[ "status" ][ tmp ] )
             ELSEIF Len( tmp ) == 1
                AddErrorCondition( cFile, "Unrecognized 'STATUS' code: '" + tmp + "'" )
             ENDIF
@@ -782,7 +808,7 @@ STATIC FUNCTION ExpandAbbrevs( cFile, cSectionName, cCode )
          ENDIF
       NEXT
       IF HB_ISNULL( cResult )
-         cResult := sc_hConstraint[ "status" ][ "N" ]
+         cResult := Eval( sc_hConstraint[ "status" ][ "N" ] )
       ENDIF
       RETURN cResult
 
@@ -790,7 +816,7 @@ STATIC FUNCTION ExpandAbbrevs( cFile, cSectionName, cCode )
       cResult := ""
       FOR EACH cCode IN ASort( hb_ATokens( cCode, "," ) )
          IF ! HB_ISNULL( cCode := AllTrim( cCode ) )
-            cResult += hb_eol() + hb_HGetDef( sc_hConstraint[ "platforms" ], cCode, cCode )
+            cResult += hb_eol() + Eval( hb_HGetDef( sc_hConstraint[ "platforms" ], cCode, {|| cCode } ) )
          ENDIF
       NEXT
       RETURN SubStr( cResult, Len( hb_eol() ) + 1 )
@@ -800,13 +826,13 @@ STATIC FUNCTION ExpandAbbrevs( cFile, cSectionName, cCode )
          cResult := ""
          FOR EACH tmp IN ASort( hb_ATokens( cCode, "," ) )
             IF ! HB_ISNULL( tmp := AllTrim( tmp ) )
-               cResult += hb_eol() + hb_HGetDef( sc_hConstraint[ "compliance" ], tmp, tmp )
+               cResult += hb_eol() + Eval( hb_HGetDef( sc_hConstraint[ "compliance" ], tmp, {|| tmp } ) )
             ENDIF
          NEXT
          RETURN SubStr( cResult, Len( hb_eol() ) + 1 )
       ENDIF
 
-      RETURN hb_HGetDef( sc_hConstraint[ "compliance" ], cCode, cCode )
+      RETURN Eval( hb_HGetDef( sc_hConstraint[ "compliance" ], cCode, {|| cCode } ) )
 
    ENDSWITCH
 
@@ -1118,7 +1144,7 @@ FUNCTION FieldCaption( cName, lPlural )
 
    LOCAL xResult := sc_hFields[ cName ]
 
-   RETURN iif( HB_ISARRAY( xResult ), iif( lPlural, xResult[ 2 ], xResult[ 1 ] ), xResult )
+   RETURN Eval( iif( HB_ISARRAY( xResult ), iif( lPlural, xResult[ 2 ], xResult[ 1 ] ), xResult ) )
 
 STATIC PROCEDURE init_Templates()
 
@@ -1157,6 +1183,8 @@ STATIC PROCEDURE init_Templates()
       "Variable management" =>, ;
       "Virtual machine" => }
 
+   LoadPO()
+
    hb_HCaseMatch( hSubCategories, .F. )
 
    hb_HCaseMatch( s_hHBX, .F. )
@@ -1185,48 +1213,48 @@ STATIC PROCEDURE init_Templates()
    hb_HCaseMatch( sc_hConstraint[ "categories" ], .F. )
 
    sc_hConstraint[ "compliance" ] := { ;
-      "C"       => "CA-Cl*pper v5.x compatible", ;
-      "C52S"    => "CA-Cl*pper v5.x compatible in builds with HB_CLP_STRICT option enabled", ;
-      "C52U"    => "Undocumented CA-Cl*pper v5.x function available in builds with HB_CLP_UNDOC option enabled (default)", ;
-      "C53"     => "CA-Cl*pper v5.3 function available in builds with HB_COMPAT_C53 option enabled (default)", ;
-      "H"       => "Harbour specific", ;
-      "NA"      => "Not applicable" }
+      "C"       => BI_( "CA-Cl*pper v5.x compatible" ), ;
+      "C52S"    => BI_( "CA-Cl*pper v5.x compatible in builds with HB_CLP_STRICT option enabled" ), ;
+      "C52U"    => BI_( "Undocumented CA-Cl*pper v5.x function available in builds with HB_CLP_UNDOC option enabled (default)" ), ;
+      "C53"     => BI_( "CA-Cl*pper v5.3 function available in builds with HB_COMPAT_C53 option enabled (default)" ), ;
+      "H"       => BI_( "Harbour specific" ), ;
+      "NA"      => BI_( "Not applicable" ) }
 
    sc_hConstraint[ "platforms" ] := { ;
-      "All"     => "Available on all platforms", ;
-      "Unix"    => "Available on Unix platform(s)", ;
-      "Linux"   => "Available on Linux", ;
-      "Windows" => "Available on Windows", ;
-      "OS2"     => "Available on OS/2", ;
-      "DOS"     => "Available on MS-DOS" }
+      "All"     => BI_( "Available on all platforms" ), ;
+      "Unix"    => BI_( "Available on Unix platform(s)" ), ;
+      "Linux"   => BI_( "Available on Linux" ), ;
+      "Windows" => BI_( "Available on Windows" ), ;
+      "OS2"     => BI_( "Available on OS/2" ), ;
+      "DOS"     => BI_( "Available on MS-DOS" ) }
 
    sc_hConstraint[ "status" ] := { ;
-      "R" => "Ready", ;
-      "S" => "Started", ;
-      "N" => "Not started" }
+      "R" => BI_( "Ready" ), ;
+      "S" => BI_( "Started" ), ;
+      "N" => BI_( "Not started" ) }
 
    sc_hFields := { ;
-      "TEMPLATE"      => "Template", ;
-      "NAME"          => "", ;
-      "ONELINER"      => "", ;
-      "CATEGORY"      => "Category", ;
-      "SUBCATEGORY"   => "Subcategory", ;
-      "SYNTAX"        => "Syntax", ;
-      "ARGUMENTS"     => "Arguments", ;
-      "RETURNS"       => "Returns", ;
-      "DESCRIPTION"   => "Description", ;
-      "DATALINK"      => "Data link", ;
-      "DATANOLINK"    => "Data no link", ;
-      "METHODSLINK"   => "Methods link", ;
-      "METHODSNOLINK" => "Methods no link", ;
-      "EXAMPLES"      => "Example", ;
-      "TESTS"         => "Tests", ;
-      "STATUS"        => "Status", ;       /* sc_hConstraint[ "status" ] is the constraint list */
-      "COMPLIANCE"    => "Compliance", ;   /* sc_hConstraint[ "compliance" ] is the constraint list */
-      "PLATFORMS"     => "Platforms", ;    /* sc_hConstraint[ "platforms" ] is the constraint list */
-      "FILES"         => "Files", ;
-      "TAGS"          => { "Tag", "Tags" }, ;
-      "SEEALSO"       => "See also" }
+      "TEMPLATE"      => BI_( "Template" ), ;
+      "NAME"          => BI_( "" ), ;
+      "ONELINER"      => BI_( "" ), ;
+      "CATEGORY"      => BI_( "Category" ), ;
+      "SUBCATEGORY"   => BI_( "Subcategory" ), ;
+      "SYNTAX"        => BI_( "Syntax" ), ;
+      "ARGUMENTS"     => BI_( "Arguments" ), ;
+      "RETURNS"       => BI_( "Returns" ), ;
+      "DESCRIPTION"   => BI_( "Description" ), ;
+      "DATALINK"      => BI_( "Data link" ), ;
+      "DATANOLINK"    => BI_( "Data no link" ), ;
+      "METHODSLINK"   => BI_( "Methods link" ), ;
+      "METHODSNOLINK" => BI_( "Methods no link" ), ;
+      "EXAMPLES"      => BI_( "Example" ), ;
+      "TESTS"         => BI_( "Tests" ), ;
+      "STATUS"        => BI_( "Status" ), ;       /* sc_hConstraint[ "status" ] is the constraint list */
+      "COMPLIANCE"    => BI_( "Compliance" ), ;   /* sc_hConstraint[ "compliance" ] is the constraint list */
+      "PLATFORMS"     => BI_( "Platforms" ), ;    /* sc_hConstraint[ "platforms" ] is the constraint list */
+      "FILES"         => { BI_( "File" ), BI_( "Files" ) }, ;
+      "TAGS"          => { BI_( "Tag" ), BI_( "Tags" ) }, ;
+      "SEEALSO"       => BI_( "See also" ) }
 
    hb_HCaseMatch( sc_hFields, .F. )
 
@@ -1248,6 +1276,16 @@ STATIC PROCEDURE init_Templates()
       "Class method"   => { _T, _R+_U, _O+_U, _R, _R, _R+_U, _R+_U, _R+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U,  0   +_U,  0+_U,  0+_U,  0+_U,  0+_U, _O+_U, _O+_U }, ;
       "Class data"     => { _T, _R+_U, _O+_U, _R, _R, _R+_U,  0+_U,  0+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U,  0   +_U,  0+_U,  0+_U,  0+_U,  0+_U, _O+_U, _O+_U }, ;
       "Runtime error"  => { _T, _R+_U, _O+_U, _R,  0,  0+_U,  0+_U,  0+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U,  0   +_U,  0+_U, _O+_U,  0+_U,  0+_U, _O+_U, _O+_U } }
+
+   RETURN
+
+STATIC PROCEDURE LoadPO()
+
+   /* Command to store files in hash array */
+   #xcommand ADD PO TO <hash> FILE <(cFile)> => ;
+             #pragma __streaminclude <(cFile)> | <hash>\[ <(cFile)> \] := %s
+
+   ADD PO TO s_hPO FILE "hbdoc.pt_BR.po"
 
    RETURN
 

@@ -85,10 +85,10 @@
       `:lFooters`       Internal variable which indicates whether there
       are column footers to paint
 
-      `:aRect`          The rectangle specified with ColorRect()
+      `:aRect`          The rectangle specified with `:ColorRect()`
 
       `:aRectColor`     The color positions to use in the rectangle
-      specified with ColorRect()
+      specified with `:ColorRect()`
 
       `:aKeys`        Holds the Default movement keys
    $METHODSLINK$
@@ -98,7 +98,7 @@
 
       `:SetKey()`    Add an New key to the Keyboard dictionary
    $METHODSNOLINK$
-      `New( nTop, nLeft, nBottom, nRight )`  Create an new Browse class and set the
+      `:New( nTop, nLeft, nBottom, nRight )`  Create an new Browse class and set the
       default values
 
       `:Down()`       Moves the cursor down one row
@@ -135,8 +135,8 @@
 
       `:ColWidth( nColumn )`  Returns the display width of a particular column
 
-      `:Configure( nMode )`   Reconfigures the internal settings of the TBrowse
-      object nMode is an undocumented parameter in CA-Cl*pper
+      `:Configure( nMode )`   Reconfigures the internal settings of the TBrowse()
+      object <nMode> is an undocumented parameter in CA-Cl*pper
 
       `:LeftDetermine()`      Determine leftmost unfrozen column in display
 
@@ -146,7 +146,7 @@
 
       `:ForceStable()`        Performs a full stabilization
 
-      `:GetColumn( nColumn )` Gets a specific TBColumn object
+      `:GetColumn( nColumn )` Gets a specific TBColumn() object
 
       `:Hilite()`             Highlights the current cell
 
@@ -160,7 +160,7 @@
       `:RefreshCurrent()`    Causes the current row to be refilled and repainted
       on next stabilize
 
-      `:SetColumn( nColumn, oCol )`   Replaces one TBColumn object with another
+      `:SetColumn( nColumn, oCol )`   Replaces one TBColumn() object with another
 
       `:Stabilize()`          Performs incremental stabilization
 

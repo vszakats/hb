@@ -1077,7 +1077,7 @@
 
       For illustration, consider filter expressions.
       Since Harbour attempts to be as compatible with Clipper as possible,
-      you CAN set a filter that ADS DOES NOT understand, but the filtering
+      you _can_ set a filter that ADS *does not* understand, but the filtering
       will be done by the RDD layer itself and ADS will be unaware of the
       filter setting. This means more data will be sent "across the wire" from
       the server to the client, and the client (in rddads) will be doing the
