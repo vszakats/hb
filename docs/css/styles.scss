@@ -660,10 +660,16 @@ h2 {
 }
 
 .updated:after {
-  margin-left: 6px;
-  content: '\f0a3';  /* fa-certificate */
-  font-family: FontAwesome;
-  color: $fork-color;
+  content: 'Updated';
+  border: 0;
+  border-radius: 4px;
+  font: 15px $font-copy;
+  text-align: center;
+  padding: 2px 4.5px;
+  background-color: $color-version-bk;
+  color: $color-version;
+  position: relative;
+  left: 5px;
 }
 
 @mixin readmore-char() {
