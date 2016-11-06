@@ -25,3 +25,6 @@ _genxml.prg
 -po=po/hbdoc.en.po
 -rebuildpo
 -minipo
+
+# localization (for automatization with config/lang.hb)
+-3rd=_langhb_potgen=no

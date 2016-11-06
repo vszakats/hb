@@ -51,6 +51,10 @@ msgid "%1$s index"
 msgstr "%1$s índice"
 
 #, c-format
+msgid "%1$s contrib"
+msgstr "%1$s contrib"
+
+#, c-format
 msgid "CA-Cl*pper v5.3 function available in builds with HB_COMPAT_C53 option enabled (default)"
 msgstr "Função CA-Cl*pper v5.3 disponível em compilações com a opção HB_COMPAT_C53 ativada (padrão)"
 
@@ -165,6 +169,10 @@ msgstr "Retorna"
 #, c-format
 msgid "See also"
 msgstr "Veja também"
+
+#, c-format
+msgid "Status"
+msgstr "Status"
 
 #, c-format
 msgid "Subcategory"

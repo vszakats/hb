@@ -115,6 +115,8 @@ STATIC PROCEDURE src_push( cMain )
    LOCAL cTempResult
    LOCAL cContent
 
+   LOCAL cPOTName := hPar[ "po" ] + hb_FNameName( hPar[ "entry" ] ) + "." + hPar[ "baselang" ] + ".po"
+
    hb_vfClose( hb_vfTempFile( @cTempContent, , , ".pot" ) )
    hb_vfClose( hb_vfTempFile( @cTempResult ) )
 
@@ -123,11 +125,16 @@ STATIC PROCEDURE src_push( cMain )
    IF Empty( hPar[ "po" ] )
       cContent := LangToPO( LangToCoreLang( hPar[ "baselang" ] ) )
    ELSE
-      lang_hb_run( hb_StrFormat( "%1$s -hbraw -q0 %2$s -j%3$s -s", hbshell_ProgName(), hPar[ "entry" ], cTempContent ) )
+      IF hPar[ "potgen" ]
+         lang_hb_run( hb_StrFormat( "%1$s -hbraw -q0 %2$s -j%3$s -s", hbshell_ProgName(), hPar[ "entry" ], cTempContent ) )
 
-      POT_Sort( cTempContent )
+         POT_Sort( cTempContent )
 
-      cContent := hb_MemoRead( cTempContent )
+         cContent := hb_MemoRead( cTempContent )
+      ELSE
+         ? "loading existing", cPOTName
+         cContent := hb_MemoRead( cPOTName )
+      ENDIF
    ENDIF
 
    IF Empty( hPar[ "po" ] )
@@ -146,8 +153,10 @@ STATIC PROCEDURE src_push( cMain )
          '"Content-Transfer-Encoding: 8bit\n"', hb_FNameName( hPar[ "entry" ] ), hPar[ "baselang" ] ) + hb_eol() + ;
          hb_eol() + ;
          cContent
-      ? hPar[ "name" ], "saving locally"
-      hb_MemoWrit( hPar[ "po" ] + hb_FNameName( hPar[ "entry" ] ) + "." + hPar[ "baselang" ] + ".po", cContent )
+      IF hPar[ "potgen" ]
+         ? hPar[ "name" ], "saving locally to", cPOTName
+         hb_MemoWrit( cPOTName, cContent )
+      ENDIF
    ENDIF
 
    ? hPar[ "name" ], "uploading", "size", hb_ntos( Len( cContent ) )
@@ -535,6 +544,7 @@ STATIC FUNCTION LoadPar( cMain )
 
       hPar[ "langs" ]     := hb_ATokens( _HAGetDef( hb_regexAll( "-lng=([\w,]*)", cConfig,,,,, .T. ), "", 1, 2 ), "," )
       hPar[ "baselang" ]  := _HAGetDef( hb_regexAll( "-3rd=_langhb_base=([\w]*)", cConfig,,,,, .T. ), "en", 1, 2 )
+      hPar[ "potgen" ]    := _HAGetDef( hb_regexAll( "-3rd=_langhb_potgen=([\w]*)", cConfig,,,,, .T. ), "yes", 1, 2 ) == "yes"
 
       hPar[ "po" ]        := hb_FNameDir( hPar[ "entry" ] ) + hb_DirSepToOS( "po/" )
    ENDIF
