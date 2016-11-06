@@ -92,7 +92,7 @@ PROCEDURE Main()
 
    LOCAL aArgs := hb_AParams()
    LOCAL idx, item
-   LOCAL arg, tmp, tmp1, tmp2, nLen, nCount, aList
+   LOCAL arg, tmp, nLen, nCount, aList
    LOCAL cArgName
    LOCAL cFormat
    LOCAL oDocument, oIndex
@@ -212,26 +212,7 @@ PROCEDURE Main()
          LOOP
       ENDIF
 
-      IF Lower( cLang ) == "en"
-         hb_i18n_Set( NIL )
-      ELSE
-#if 0
-         hb_i18n_Check( tmp := hb_MemoRead( hb_DirBase() + "hbdoc." + cLang + ".hbl" ) )
-#else
-         /* Save in-memory file to disk, because __i18n_*() can only load from there */
-         IF ( tmp2 := hb_vfTempFile( @tmp1,,, ".txt" ) ) != NIL
-            hb_vfWrite( tmp2, hb_HGetDef( s_hPO, "hbdoc." + cLang + ".po", "" ) )
-            hb_vfClose( tmp2 )
-         ENDIF
-         IF ( tmp := __i18n_potArrayLoad( tmp1, @tmp2 ) ) != NIL
-            hb_i18n_Set( __i18n_hashTable( __i18n_potArrayToHash( tmp, .F. ) ) )
-            OutStd( hb_StrFormat( "! .po loaded: %1$s", cLang ) + hb_eol() )
-         ELSE
-            OutErr( hb_StrFormat( "! Error: Cannot load .po: %1$s", tmp2 ) + hb_eol() )
-         ENDIF
-         hb_vfErase( tmp1 )
-#endif
-      ENDIF
+      UseLang( cLang )
 
       OutStd( hb_StrFormat( "! %1$d '%2$s' entries found", Len( aEntries ), cLang ) + hb_eol() )
 
@@ -427,6 +408,42 @@ PROCEDURE Main()
 
    RETURN
 
+STATIC PROCEDURE UseLang( cLang )
+
+   STATIC s_hLang := { => }
+   STATIC s_cLangLast := ""
+
+   LOCAL tmp, tmp1, tmp2
+
+   IF !( s_cLangLast == cLang )
+      s_cLangLast := cLang
+      IF Lower( cLang ) == "en"
+         hb_i18n_Set( NIL )
+      ELSE
+         IF ! cLang $ s_hLang
+            /* Save in-memory file to disk, because __i18n_*() can only load from there */
+            IF ( tmp2 := hb_vfTempFile( @tmp1,,, ".txt" ) ) != NIL
+               hb_vfWrite( tmp2, hb_HGetDef( s_hPO, "hbdoc." + cLang + ".po", "" ) )
+               hb_vfClose( tmp2 )
+            ENDIF
+            IF ( tmp := __i18n_potArrayLoad( tmp1, @tmp2 ) ) != NIL
+               s_hLang[ cLang ] := __i18n_hashTable( __i18n_potArrayToHash( tmp, .F. ) )
+               OutStd( hb_StrFormat( "! .po loaded: %1$s", cLang ) + hb_eol() )
+            ELSE
+               OutErr( hb_StrFormat( "! Error: Cannot load .po: %1$s", tmp2 ) + hb_eol() )
+            ENDIF
+            hb_vfErase( tmp1 )
+         ENDIF
+         IF cLang $ s_hLang
+            hb_i18n_Set( s_hLang[ cLang ] )
+         ELSE
+            hb_i18n_Set( NIL )
+         ENDIF
+      ENDIF
+   ENDIF
+
+   RETURN
+
 FUNCTION hbdoc_LangList()
    RETURN s_hDoc
 
@@ -541,6 +558,8 @@ STATIC FUNCTION ProcessDocDir( cDir, cComponent, hDoc )
                "uid"     => { => } }  /* separate for each language. TODO: make it global by matching component+name accross languages */
             hb_HCaseMatch( hDoc[ tmp ][ "nameid" ], .F. )
          ENDIF
+
+         UseLang( tmp )
 
          ProcessBlock( hEntry, hDoc[ tmp ], @nCount )
       NEXT
