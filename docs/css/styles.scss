@@ -201,6 +201,7 @@ $dl-button-color: $color-bk-footer;
 }
 
 .dl-button a {
+  color: $dl-button-color;
   transition: color $dl-button-transition-time;
 }
 
@@ -259,6 +260,14 @@ $donate-button-transition-time: .3s;
   margin-bottom: 1em;
   padding: .2em 1em;
   width: auto;
+}
+
+a.readmore-dark {
+  color: darken($color-a, 15%);
+}
+
+a.readmode-dark:hover {
+  color: $color-a-hover;
 }
 
 .sshot {
