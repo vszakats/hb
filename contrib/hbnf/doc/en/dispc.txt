@@ -29,7 +29,7 @@
       Cursor Keys: <Up>, <Down>    - moves the highlight line
                    <Left>, <Right> - moves the window over <nColSkip> col's
                    <Home>          - moves the window to the far left
-                   <End>           - moves the window to the nRMargin column
+                   <End>           - moves the window to the <nRMargin> column
                    <PgUp>, <PgDn>  - moves the highlight one page
                    <Ctrl+PgUp>     - moves the highlight to the file top
                    <Ctrl+PgDn>     - moves the highlight to the file bottom

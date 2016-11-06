@@ -12,7 +12,7 @@
 
       <cTarget> is the character string to search.
 
-      <nOccurs> is the occurrence of cSearch to look for,
+      <nOccurs> is the occurrence of <cSearch> to look for,
                  defaults to 1.
 
       <lCaseSens> is a logical value denoting case sensitivity.
@@ -49,7 +49,7 @@
 
       <cTarget> is the character string to search.
 
-      <nOccurs> is the occurrence of cSearch to look for,
+      <nOccurs> is the occurrence of <cSearch> to look for,
                  defaults to 1.
 
       <lCaseSens> is a logical value denoting case sensitivity.

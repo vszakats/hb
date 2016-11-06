@@ -42,7 +42,7 @@
       The 1st color is used as SAY/TBrowse() Background and the
       3rd and 4th colors are used as part of `column:defColor := { 3, 4 }`
 
-      Thus if you pass a cColorList, you _must_ pass at least 4 colors.
+      Thus if you pass a <cColorList>, you _must_ pass at least 4 colors.
       Defaults to `N/W, N/BG, B/W, B/BG, B/W, B/BG, R/W, B/R` if not passed.
 
       <cColorShad> is the color of the TBrowse box shadow.  Defaults

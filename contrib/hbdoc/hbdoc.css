@@ -125,12 +125,6 @@ a:hover {
   color: #ff6800;
 }
 
-.entry-button {
-  font-size: 14px;
-  float: right;
-  margin-bottom: 1em;
-}
-
 hr {
   border: 0;
   border-bottom: 1px dotted rgba(0, 0, 0, .1);
@@ -238,6 +232,46 @@ h4 {
   margin-bottom: 14px;
 }
 
+/* Hover permalink
+h4:hover .d-id {
+  visibility: visible;
+}
+
+.d-id {
+  visibility: hidden;
+  color: #000;
+  margin-left: -15px;
+  padding-right: 2px;
+}
+
+a.d-id:hover {
+  border: none;
+  color: #000;
+}
+*/
+
+.d-id:target {
+  padding-top: 62px;  /* 44px + 18px */
+}
+
+.d-id:focus {
+  outline: none;
+}
+
+.d-so {
+  font-size: 14px;
+  font-weight: normal;
+  margin-left: 5px;
+  vertical-align: super;
+}
+
+.d-eb {
+  font-size: 14px;
+  font-weight: normal;
+  float: right;
+  vertical-align: super;
+}
+
 pre {
   background-color: #f2f2f2;
   color: #2e2a24;
@@ -259,10 +293,6 @@ h4 code {
 
 aside code {
   font-size: 80%;
-}
-
-.d-id:target {
-  padding-top: 62px;  /* 44px + 18px */
 }
 
 .d-it code:not(.language-c) {
@@ -380,13 +410,6 @@ p {
   margin-left: 0;
   padding-top: 0;
   padding-bottom: 8px;
-}
-
-.d-so {
-  font-size: 14px;
-  font-weight: normal;
-  margin-left: 5px;
-  vertical-align: super;
 }
 
 .d-ol {

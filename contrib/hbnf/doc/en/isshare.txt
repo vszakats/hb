@@ -10,11 +10,12 @@
    $ARGUMENTS$
       None
    $RETURNS$
-      nRetcode will be set as follows on exit:
-
-          0 if SHARE not loaded but ok to load
-          1 if SHARE not loaded and not ok to load
-        255 if SHARE loaded
+      <nRetcode> will be set as follows on exit:
+      <table-noheader>
+         0 if SHARE not loaded but ok to load
+         1 if SHARE not loaded and not ok to load
+       255 if SHARE loaded
+      </table>
    $DESCRIPTION$
       Uses DOS interrupt 2Fh (MultiPlex interrupt), service 10h
       to determine if DOS SHARE.COM is loaded.

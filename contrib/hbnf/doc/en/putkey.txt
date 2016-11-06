@@ -11,7 +11,7 @@
       <nKeyValue> is the Inkey() value of the keystroke to be stuffed.
    $RETURNS$
       .T. if the keystroke was put into the keyboard buffer.
-      .F. if nKeyValue was invalid or the buffer was full.
+      .F. if <nKeyValue> was invalid or the buffer was full.
    $DESCRIPTION$
       This function is similar to the KEYBOARD command, with a few
       exceptions. First, this function does not clear the keyboard buffer

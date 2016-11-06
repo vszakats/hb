@@ -399,7 +399,7 @@
 
       If <nLines> is omitted, one record is appended.
    $RETURNS$
-      lSuccess.  If FALSE, check ft_FError() for the error code.
+      <lSuccess>.  If FALSE, check ft_FError() for the error code.
    $DESCRIPTION$
       This function appends a line of text to the file in the currently
       selected text file workarea.  Text lines are delimited with a
@@ -446,12 +446,12 @@
        record position.
 
       <lInsert> is a logical indicating whether the contents
-      of the current record are to be preserved, that is, if lInsert
+      of the current record are to be preserved, that is, if <lInsert>
       evaluates to .T., the a new record is inserted at the current
       position.  The current record then is pushed down to ft_FRecNo()+1.
 
-      If lInsert is .F. or omitted, the current record is replaced by
-      cData.
+      If <lInsert> is .F. or omitted, the current record is replaced by
+      <cData>.
    $RETURNS$
       TRUE if successful, otherwise check ft_FError() for error code.
    $DESCRIPTION$

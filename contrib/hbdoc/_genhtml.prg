@@ -227,7 +227,7 @@ METHOD NewFile() CLASS GenerateHTML
       ::OpenTag( "nav", "class", "dropdown lang" )
       ::OpenTagInline( "span", "class", "dropbtn flag" )
       ::OpenTag( "img", "src", flag_for_lang( ::cLang ), "width", "18", "alt", hb_StrFormat( "%1$s flag", ::cLang ) )
-      ::CloseTag( "span" )
+      ::CloseTagInline( "span" )
 
       IF Len( hbdoc_LangList() ) > 1
          ::OpenTag( "nav", "class", "dropdown-content lang" )
@@ -468,27 +468,10 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
    LOCAL tmp
 
    ::Spacer()
-   ::OpenTag( "section", "id", SymbolToHTMLID( hEntry[ "_filename" ] ), "class", "d-id" )
-
-   ::OpenTagInline( "span", "class", "entry-button" )
-
-   ::OpenTagInline( "a", "href", "#" )
-   ::AppendInline( I_( "Top" ) )
-   ::CloseTagInline( "a" )
-
-   ::AppendInline( hb_UChar( 160 ) + "|" + hb_UChar( 160 ) )
-   ::OpenTagInline( "a", "href", "index.html" )
-   ::AppendInline( I_( "Index" ) )
-   ::CloseTagInline( "a" )
-
-   ::AppendInline( hb_UChar( 160 ) + "|" + hb_UChar( 160 ) )
-   ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "edit/master/" + SubStr( hEntry[ "_sourcefile" ], Len( hbdoc_dir_in() ) + 1 ) )
-   ::AppendInline( I_( "Improve this doc" ) )
-   ::CloseTagInline( "a" )
-   ::CloseTag( "span" )
+   ::OpenTag( "section" )
 
    FOR EACH item IN FieldIDList()
-      IF item == "NAME"
+      IF item == "NAME"  // Mandatory section
          cEntry := hEntry[ "NAME" ]
          ::OpenTagInline( "h4" )
          IF "(" $ cEntry .OR. Upper( cEntry ) == cEntry  // guess if it's code
@@ -496,13 +479,44 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
             /* Link to original source code if it could be automatically found based
                on doc source filename */
             IF ! HB_ISNULL( tmp := SourceURL( ::cFilename, ::cRevision, hEntry[ "_sourcefile" ] ) )
-               ::OpenTagInline( "a", "href", tmp, "class", "d-so" )
+               ::OpenTagInline( "a", "href", tmp, ;
+                  "class", "d-so", ;
+                  "title", "❮⋯❯" /* ❮/❯ */ )
                ::AppendInline( I_( "Source code" ) )
                ::CloseTagInline( "a" )
             ENDIF
          ELSE
             ::AppendInline( cEntry )
          ENDIF
+
+         ::OpenTagInline( "span", "class", "d-eb" )
+
+         ::OpenTagInline( "a", "href", "#", ;
+            "title", "⌃" )
+         ::AppendInline( I_( "Top" ) )
+         ::CloseTagInline( "a" )
+
+         ::AppendInline( hb_UChar( 160 ) + "|" + hb_UChar( 160 ) )
+         ::OpenTagInline( "a", "href", "index.html", ;
+            "title", "☰" )
+         ::AppendInline( I_( "Index" ) )
+         ::CloseTagInline( "a" )
+
+         ::AppendInline( hb_UChar( 160 ) + "|" + hb_UChar( 160 ) )
+         ::OpenTagInline( "a", "href", "#" + SymbolToHTMLID( hEntry[ "_filename" ] ), ;
+            "class", "d-id", ;
+            "id", SymbolToHTMLID( hEntry[ "_filename" ] ), ;
+            "title", "∞" )
+         ::AppendInline( I_( "Permalink" ) )
+         ::CloseTagInline( "a" )
+
+         ::AppendInline( hb_UChar( 160 ) + "|" + hb_UChar( 160 ) )
+         ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "edit/master/" + SubStr( hEntry[ "_sourcefile" ], Len( hbdoc_dir_in() ) + 1 ), ;
+            "title", "✎" )
+         ::AppendInline( I_( "Improve this doc" ) )
+         ::CloseTagInline( "a" )
+         ::CloseTagInline( "span" )
+
          ::CloseTag( "h4" )
       ELSEIF IsField( hEntry, item ) .AND. IsOutput( hEntry, item ) .AND. ! HB_ISNULL( hEntry[ item ] )
          ::WriteEntry( item, hEntry[ item ], IsPreformatted( hEntry, item ) )

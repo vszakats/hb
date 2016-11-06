@@ -41,6 +41,6 @@
       // ... intervening code ...
 
       // ft_Sleep( 0.5, nTime ) // Sleep until the sytem clock is
-                                // nTime+0.5 seconds.
+                                // nTime + 0.5 seconds.
    $END$
  */

@@ -23,8 +23,8 @@
    $DESCRIPTION$
       ft_MAdd() adds or subtracts months to/from a given date.
 
-      If MakeEOM is passed and dGivenDate is the last day of a month,
-      it will return the EOM of calculated month.  Otherwise it will
+      If <lMakeEOM> is passed and <dGivenDate> is the last day of a month,
+      it will return the `EOM` of calculated month.  Otherwise it will
       return the same day as the day of the passed date.
    $EXAMPLES$
       dDate := 0d19900915

@@ -45,7 +45,7 @@
 
       3. To Quit the Adder just press <ESC>. To return your Total
          to the application press <F10>. The adder will place the
-         Total in the active GET variable using oGet:varPut(). The
+         Total in the active GET variable using `oGet:varPut()`. The
          adder will only return a Total to a numerical GET!
 
       4. There are many support functions that you might find

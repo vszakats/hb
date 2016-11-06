@@ -22,7 +22,7 @@
       [<nFillChar|cFillChar>] specifies the character that is used for the
                               adjustment
    $RETURNS$
-      cString                 the changed string
+      <cString>               the changed string
    $DESCRIPTION$
       <TODO: add a description, some examples and tests here>
    $EXAMPLES$

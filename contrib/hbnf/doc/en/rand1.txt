@@ -10,7 +10,7 @@
    $ARGUMENTS$
       <nMax>  Maximum limit of value to be produced.
    $RETURNS$
-      nRand is a random number between 0 (inclusive) and <nMax> (exclusive).
+      <nRand> is a random number between 0 (inclusive) and <nMax> (exclusive).
    $DESCRIPTION$
       Generates a non-integer random number based on the Linear
       Congruential Method.

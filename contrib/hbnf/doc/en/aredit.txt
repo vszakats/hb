@@ -32,7 +32,7 @@
 
       // This example will allow you to browse a 2 dimensional array
       // But you can't edit it since there is no GetBlock UDF
-      // It allows the user to hit ENTER to select an element or ESC to
+      // It allows the user to hit <ENTER> to select an element or ESC to
       // return 0
 
       // This second example shows how to edit a 2 dimensional array

@@ -48,7 +48,7 @@
                         Default: "" (empty string)
    $RETURNS$
       <aCharacterCount> an array with 256 elements where the nth element
-                        contains the count of character #(n-1) in cString
+                        contains the count of character #(n-1) in <cString>
    $DESCRIPTION$
       The CharHist() function generates a character histogram of those
       characters that are contained in <cString>. This histogram is stored

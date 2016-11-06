@@ -27,9 +27,9 @@
                   if the F1 key is pressed, default (.F.).
 
    $RETURNS$
-      aRetVal  is an 8 element array containing date, month, day, year,
-               month (in character format), day of the week, julian day
-               and current time.
+      <aRetVal>  is an 8 element array containing date, month, day, year,
+                  month (in character format), day of the week, julian day
+                  and current time.
 
    $DESCRIPTION$
       ft_Calendar() simply displays today's date, time and julian
