@@ -105,7 +105,7 @@
    $RETURNS$
 
    $DESCRIPTION$
-      Returns the date as a string in `Month DD, YY` or `Month DD, YYYY`
+      Returns the date as a string in `Month DD, YY` or `Month DD, YYYY`.
       If <dDate> is NULL, the system date is used.
 
       TODO: add further documentation

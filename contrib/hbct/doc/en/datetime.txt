@@ -4,7 +4,7 @@
    $CATEGORY$
       CT3 date and time functions
    $ONELINER$
-      _B_egin _O_f _M_onth
+      Begin of Month
    $SYNTAX$
       BoM( [<dDate>] ) -> dDateBeginOfMonth
    $ARGUMENTS$
@@ -34,7 +34,7 @@
    $CATEGORY$
       CT3 date and time functions
    $ONELINER$
-      _E_nd _O_f _M_onth
+      End of Month
    $SYNTAX$
       EoM( [<dDate>] ) -> dDateEndOfMonth
    $ARGUMENTS$
@@ -64,7 +64,7 @@
    $CATEGORY$
       CT3 date and time functions
    $ONELINER$
-      _B_egin _O_f _Q_uarter
+      Begin of Quarter
    $SYNTAX$
       BoQ( [<dDate>] ) -> dDateBeginOfQuarter
    $ARGUMENTS$
@@ -94,7 +94,7 @@
    $CATEGORY$
       CT3 date and time functions
    $ONELINER$
-      _E_nd _O_f _Q_uarter
+      End of Quarter
    $SYNTAX$
       EoQ( [<dDate>] ) -> dDateEndOfQuarter
    $ARGUMENTS$
@@ -124,7 +124,7 @@
    $CATEGORY$
       CT3 date and time functions
    $ONELINER$
-      _B_egin _O_f _Y_ear
+      Begin of Year
    $SYNTAX$
       BoY( [<dDate>] ) -> dDateBeginOfYear
    $ARGUMENTS$
@@ -154,7 +154,7 @@
    $CATEGORY$
       CT3 date and time functions
    $ONELINER$
-      _E_nd _O_f _Y_ear
+      End of Year
    $SYNTAX$
       EoY( [<dDate>] ) -> dDateEndOfYear
    $ARGUMENTS$

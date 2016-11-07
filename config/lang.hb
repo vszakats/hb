@@ -188,9 +188,11 @@ STATIC FUNCTION POT_Sort( cFileName )
 
    LOCAL aTrans
    LOCAL cErrorMsg
+   LOCAL cEOL
 
-   IF ( aTrans := __i18n_potArrayLoad( cFileName, @cErrorMsg ) ) != NIL .AND. ;
-      __i18n_potArraySave( cFileName, __i18n_potArraySort( aTrans ), @cErrorMsg, .F. )
+   IF ( aTrans := __i18n_potArrayLoad( cFileName, @cErrorMsg, @cEOL ) ) != NIL .AND. ;
+      __i18n_potArraySave( cFileName, __i18n_potArraySort( aTrans ), @cErrorMsg, .F., .F., cEOL )
+      ? "Sorting done"
       RETURN .T.
    ENDIF
 
@@ -225,16 +227,7 @@ STATIC PROCEDURE trs_pull( cMain )
 
       IF hb_jsonDecode( hb_MemoRead( cTempResult ), @json ) > 0
          hb_MemoWrit( cTempResult, json[ "content" ] )
-         IF ! Empty( hPar[ "po" ] )
-            POT_Sort( cTempResult )
-            /* should only do this if the translation is primarily done
-               on Transifex website. This is encouraged and probably the case
-               in practice. Delete source information, delete empty
-               translations and apply some automatic transformation for
-               common translation mistakes. */
-            PO_Clean( cTempResult, hPar[ "po" ] + hb_FNameName( hPar[ "entry" ] ) + "." + cLang + ".po", ;
-               .F., .F., @DoctorTranslation() )
-         ELSE
+         IF Empty( hPar[ "po" ] )
             PO_Clean( cTempResult, cTempResult, ;
                .F., .T., @DoctorTranslation() )
             POToLang( ;
@@ -244,6 +237,15 @@ STATIC PROCEDURE trs_pull( cMain )
             #ifdef DEBUG
                hb_MemoWrit( cLang + ".po", json[ "content" ] )
             #endif
+         ELSE
+            POT_Sort( cTempResult )
+            /* should only do this if the translation is primarily done
+               on Transifex website. This is encouraged and probably the case
+               in practice. Delete source information, delete empty
+               translations and apply some automatic transformation for
+               common translation mistakes. */
+            PO_Clean( cTempResult, hPar[ "po" ] + hb_FNameName( hPar[ "entry" ] ) + "." + cLang + ".po", ;
+               .F., .F., @DoctorTranslation() )
          ENDIF
       ELSE
          ? "API error"
