@@ -467,13 +467,26 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
    LOCAL cEntry
    LOCAL tmp
 
+   LOCAL hdr := { ;
+      { "❮/❯", I_( "Source code" ) }, ;
+      { "⌃",   I_( "Top" ) }, ;
+      { "☰",   I_( "Index" ) }, ;
+      { "∞",   I_( "Permalink" ) }, ;
+      { "✎",   I_( "Improve this doc" ) } }
+
+   LOCAL nContent := 2, nTitle := 3 - nContent
+
    ::Spacer()
    ::OpenTag( "section" )
 
    FOR EACH item IN FieldIDList()
       IF item == "NAME"  // Mandatory section
          cEntry := hEntry[ "NAME" ]
-         ::OpenTagInline( "h4" )
+         IF nContent == 1
+            ::OpenTagInline( "h4", "class", "d-ebi" )
+         ELSE
+            ::OpenTagInline( "h4" )
+         ENDIF
          IF "(" $ cEntry .OR. Upper( cEntry ) == cEntry  // guess if it's code
             ::OpenTagInline( "code" ):AppendInline( cEntry ):CloseTagInline( "code" )
             /* Link to original source code if it could be automatically found based
@@ -481,8 +494,8 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
             IF ! HB_ISNULL( tmp := SourceURL( ::cFilename, ::cRevision, hEntry[ "_sourcefile" ] ) )
                ::OpenTagInline( "a", "href", tmp, ;
                   "class", "d-so", ;
-                  "title", "❮⋯❯" /* ❮/❯ */ )
-               ::AppendInline( I_( "Source code" ) )
+                  "title", hdr[ 1 ][ nTitle ] )
+               ::AppendInline( hdr[ 1 ][ nContent ] )
                ::CloseTagInline( "a" )
             ENDIF
          ELSE
@@ -492,28 +505,28 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
          ::OpenTagInline( "span", "class", "d-eb" )
 
          ::OpenTagInline( "a", "href", "#", ;
-            "title", "⌃" )
-         ::AppendInline( I_( "Top" ) )
+            "title", hdr[ 2 ][ nTitle ] )
+         ::AppendInline( hdr[ 2 ][ nContent ] )
          ::CloseTagInline( "a" )
 
          ::AppendInline( hb_UChar( 160 ) + "|" + hb_UChar( 160 ) )
          ::OpenTagInline( "a", "href", "index.html", ;
-            "title", "☰" )
-         ::AppendInline( I_( "Index" ) )
+            "title", hdr[ 3 ][ nTitle ] )
+         ::AppendInline( hdr[ 3 ][ nContent ] )
          ::CloseTagInline( "a" )
 
          ::AppendInline( hb_UChar( 160 ) + "|" + hb_UChar( 160 ) )
          ::OpenTagInline( "a", "href", "#" + SymbolToHTMLID( hEntry[ "_filename" ] ), ;
             "class", "d-id", ;
             "id", SymbolToHTMLID( hEntry[ "_filename" ] ), ;
-            "title", "∞" )
-         ::AppendInline( I_( "Permalink" ) )
+            "title", hdr[ 4 ][ nTitle ] )
+         ::AppendInline( hdr[ 4 ][ nContent ] )
          ::CloseTagInline( "a" )
 
          ::AppendInline( hb_UChar( 160 ) + "|" + hb_UChar( 160 ) )
          ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "edit/master/" + SubStr( hEntry[ "_sourcefile" ], Len( hbdoc_dir_in() ) + 1 ), ;
-            "title", "✎" )
-         ::AppendInline( I_( "Improve this doc" ) )
+            "title", hdr[ 5 ][ nTitle ] )
+         ::AppendInline( hdr[ 5 ][ nContent ] )
          ::CloseTagInline( "a" )
          ::CloseTagInline( "span" )
 

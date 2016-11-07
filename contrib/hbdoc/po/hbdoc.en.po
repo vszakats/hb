@@ -23,11 +23,7 @@ msgid "Content processing, layout & design © %1$04d"
 msgstr ""
 
 #, c-format
-msgid "Source code"
-msgstr ""
-
-#, c-format
-msgid "Top"
+msgid "Improve this doc"
 msgstr ""
 
 #, c-format
@@ -35,7 +31,11 @@ msgid "Permalink"
 msgstr ""
 
 #, c-format
-msgid "Improve this doc"
+msgid "Source code"
+msgstr ""
+
+#, c-format
+msgid "Top"
 msgstr ""
 
 #, c-format

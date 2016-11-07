@@ -272,6 +272,10 @@ a.d-id:hover {
   vertical-align: super;
 }
 
+.d-ebi a {
+  border: 0;
+}
+
 pre {
   background-color: #f2f2f2;
   color: #2e2a24;
@@ -416,7 +420,7 @@ p {
   font-weight: bold;
   font-size: 115%;
   margin-left: 1em;
-  margin-top: 0px;
+  margin-top: 0;
   margin-bottom: 14px;
 }
 
@@ -537,7 +541,7 @@ p {
 
 .lang .dropdown-content a {
   margin: 0;
-  padding: 3px 4px 0px 4px;
+  padding: 3px 4px 0 4px;
 }
 
 /* Change color of dropdown links on hover */
@@ -591,7 +595,7 @@ p {
   }
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 520px) {
   body {
     -font-size: 12pt;
   }
@@ -616,5 +620,17 @@ p {
 
   .d-id:target {
     padding-top: 92px;  /* 74px + 18px */
+  }
+}
+
+@media print {
+  .d-eb {
+    display: none;
+  }
+
+  main {
+    margin: 0 15px;
+    padding-top: 0;
+    width: auto;
   }
 }
