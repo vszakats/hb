@@ -6,7 +6,7 @@
    $ONELINER$
       Reduce multiple occurences of a character to one
    $SYNTAX$
-      CharOne( [<cCharactersToReduce>,] <cString> ) -> cReducedString
+      CharOne( [<cCharactersToReduce>,] <cString> ) --> cReducedString
    $ARGUMENTS$
       [<cCharactersToReduce>]    specifies the characters the multiple
                                  occurences of which should be reduced to one
@@ -45,7 +45,7 @@
    $ONELINER$
       Reduce multiple occurences of a double character to one
    $SYNTAX$
-      WordOne( [<cDoubleCharactersToReduce>,] <cString> ) -> cReducedString
+      WordOne( [<cDoubleCharactersToReduce>,] <cString> ) --> cReducedString
    $ARGUMENTS$
       [<cDoubleCharactersToReduce>]  specifies the double characters the multiple
                                      occurences of which should be reduced to one

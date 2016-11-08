@@ -6,7 +6,7 @@
    $ONELINER$
       Return the maximum capacity of a fixed disk
    $SYNTAX$
-      ft_DskSize( [ <cDrive> ] ) -> nMaxCapacity
+      ft_DskSize( [ <cDrive> ] ) --> nMaxCapacity
    $ARGUMENTS$
       <cDrive> is the fixed disk to query. If no drive is sent, the
       operation will be performed on the default drive. Send without
@@ -30,7 +30,7 @@
    $ONELINER$
       Return the amount of available disk space
    $SYNTAX$
-      ft_DskFree( [ <cDrive> ] ) -> nSpaceAvail
+      ft_DskFree( [ <cDrive> ] ) --> nSpaceAvail
    $ARGUMENTS$
       <cDrive> is the fixed disk to query. If no parameter is passed
       the operation will be performed on the default drive.  Do not

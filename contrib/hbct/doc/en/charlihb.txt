@@ -6,7 +6,7 @@
    $ONELINER$
       Generates a sorted list of all characters in a string
    $SYNTAX$
-      CharSList( [<cString>] ) -> cSortedCharacterList
+      CharSList( [<cString>] ) --> cSortedCharacterList
    $ARGUMENTS$
       [<cString>]       is the string for whom the function generates a
                         sorted list of all characters
@@ -41,7 +41,7 @@
    $ONELINER$
       Generates a character histogram of a string
    $SYNTAX$
-      CharHist( [<cString>] ) -> aCharacterCount
+      CharHist( [<cString>] ) --> aCharacterCount
    $ARGUMENTS$
       [<cString>]       is the string for whom the function generates a
                         character histogram

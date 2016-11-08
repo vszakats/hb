@@ -6,7 +6,7 @@
    $ONELINER$
 
    $SYNTAX$
-      PrintStat( [<nPrinter>] ) -> nState
+      PrintStat( [<nPrinter>] ) --> nState
    $ARGUMENTS$
 
    $RETURNS$
@@ -36,7 +36,7 @@
    $ONELINER$
 
    $SYNTAX$
-      PrintReady( [<nPrinter>] ) -> lPrinterReady
+      PrintReady( [<nPrinter>] ) --> lPrinterReady
    $ARGUMENTS$
 
    $RETURNS$

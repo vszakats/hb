@@ -6,7 +6,7 @@
    $ONELINER$
       Set the cursor position on a specified video page
    $SYNTAX$
-      ft_SetVCur( [ <nPage> ], [ <nRow> ], [ <nCol> ] ) -> NIL
+      ft_SetVCur( [ <nPage> ], [ <nRow> ], [ <nCol> ] ) --> NIL
    $ARGUMENTS$
       <nPage> is the video page (defaults to current page, determined
               by ft_GetVPg()
@@ -39,7 +39,7 @@
    $ONELINER$
       Return info about the cursor on a specified video page
    $SYNTAX$
-      ft_GetVCur( [<nPage>] ) -> <aCurInfo>
+      ft_GetVCur( [<nPage>] ) --> <aCurInfo>
    $ARGUMENTS$
       <nPage> is the video page to get the cursor information for.
       Defaults to the current page, as returned by ft_GetVPg().

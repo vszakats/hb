@@ -8,7 +8,7 @@
    $SYNTAX$
       ft_DFSetup( <cInFile>, <nTop>, <nLeft>, <nBottom>, <nRight>, ;
                <nStart>, <nCNormal>, <nCHighlight>, <cExitKeys>,   ;
-               <lBrowse>, <nColSkip>, <nRMargin>, <nBuffSize> ) -> nResult
+               <lBrowse>, <nColSkip>, <nRMargin>, <nBuffSize> ) --> nResult
    $ARGUMENTS$
       <cInFile>     - text file to display (full path and filename)
       <nTop>        - upper row of window
@@ -61,7 +61,7 @@
    $ONELINER$
       Close file displayed by ft_DispFile()
    $SYNTAX$
-      ft_DFClose() -> NIL
+      ft_DFClose() --> NIL
    $ARGUMENTS$
       None
    $RETURNS$

@@ -79,7 +79,7 @@ CREATE CLASS TPLGenerate
    METHOD AddIndexItem( cName, cID ) INLINE HB_SYMBOL_UNUSED( cName ), HB_SYMBOL_UNUSED( cID ), Self
 
    VAR cFilename AS STRING
-   VAR bBaseTitle AS STRING INIT {|| I_( "Harbour Reference Guide" ) }
+   VAR bBaseTitle INIT {|| I_( "%1$s Reference Guide" ) }
 
    HIDDEN:
 

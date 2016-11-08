@@ -6,7 +6,7 @@
    $ONELINER$
       Convert a character string to MetaPhone format
    $SYNTAX$
-      ft_Metaph( <cName> [, <nSize> ] ) -> cMetaPhone
+      ft_Metaph( <cName> [, <nSize> ] ) --> cMetaPhone
    $ARGUMENTS$
       <cName> is the character string to convert
 

@@ -7,7 +7,7 @@
       Character relation of two strings
    $SYNTAX$
       CharRelA( <cStringToMatch1>, <cString1>,
-                <cStringToMatch2>, <cString2> ) -> nPosition
+                <cStringToMatch2>, <cString2> ) --> nPosition
    $ARGUMENTS$
 
    $RETURNS$
@@ -39,7 +39,7 @@
    $SYNTAX$
       CharRelRep( <cStringToMatch1>, <cString1>,
                   <cStringToMatch2>, <[@]cString2>,
-                  <cReplacement> ) -> cString
+                  <cReplacement> ) --> cString
    $ARGUMENTS$
 
    $RETURNS$

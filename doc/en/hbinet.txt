@@ -18,7 +18,7 @@
    $ONELINER$
       Activate Harbour INET support
    $SYNTAX$
-      hb_inetInit() -> <lResult>
+      hb_inetInit() --> <lResult>
    $ARGUMENTS$
       (This function has no arguments)
    $RETURNS$
@@ -87,7 +87,7 @@
    $ONELINER$
       Create an INET socket
    $SYNTAX$
-      hb_inetCreate( [ <nTimeout> ] ) -> <SOCKET>
+      hb_inetCreate( [ <nTimeout> ] ) --> <SOCKET>
    $ARGUMENTS$
       <nTimeout> Socket timeout (optional) TODO: what is the scale (seconds, milliseconds?)
    $RETURNS$
@@ -124,7 +124,7 @@
    $ONELINER$
       Close an INET socket
    $SYNTAX$
-      hb_inetClose( <socket> ) -> <nResult>
+      hb_inetClose( <socket> ) --> <nResult>
    $ARGUMENTS$
       <socket> a socket previously created / opened
    $RETURNS$
@@ -169,7 +169,7 @@
    $ONELINER$
       ?
    $SYNTAX$
-      hb_inetFD( <socket> [, <lNoSocket> ] ) -> <nResult>
+      hb_inetFD( <socket> [, <lNoSocket> ] ) --> <nResult>
    $ARGUMENTS$
       <socket> a socket previously created / opened
 
@@ -205,7 +205,7 @@
    $ONELINER$
       Get the status of a socket
    $SYNTAX$
-      hb_inetstatus( <socket> ) -> <nResult>
+      hb_inetstatus( <socket> ) --> <nResult>
    $ARGUMENTS$
       <socket> a socket previously created / opened
    $RETURNS$
@@ -239,7 +239,7 @@
    $ONELINER$
       Get the last INET error code
    $SYNTAX$
-      hb_inetErrorCode( <socket> ) -> <nResult>
+      hb_inetErrorCode( <socket> ) --> <nResult>
    $ARGUMENTS$
       <socket> a socket previously created / opened
    $RETURNS$
@@ -277,7 +277,7 @@
    $ONELINER$
       Get the last INET error code description
    $SYNTAX$
-      hb_inetErrorDesc( <socket> ) -> <cResult>
+      hb_inetErrorDesc( <socket> ) --> <cResult>
    $ARGUMENTS$
       <socket> a socket previously created / opened
    $RETURNS$
@@ -345,7 +345,7 @@
    $ONELINER$
       Get the number of bytes last read or sent
    $SYNTAX$
-      hb_inetCount( <socket> ) -> <nResult>
+      hb_inetCount( <socket> ) --> <nResult>
    $ARGUMENTS$
       <socket> a socket previously created / opened
    $RETURNS$
@@ -380,7 +380,7 @@
    $ONELINER$
       Get a remote server address
    $SYNTAX$
-      hb_inetAddress( <socket> ) -> <cResult>
+      hb_inetAddress( <socket> ) --> <cResult>
    $ARGUMENTS$
       <socket> a socket previously created / opened
    $RETURNS$
@@ -418,7 +418,7 @@
    $ONELINER$
       Get the port a socket is bound to.
    $SYNTAX$
-      hb_inetPort( <socket> ) -> <cResult>
+      hb_inetPort( <socket> ) --> <cResult>
    $ARGUMENTS$
       <socket> a socket previously created / opened
    $RETURNS$
@@ -453,7 +453,7 @@
    $ONELINER$
       Get or change the timeout value of a socket
    $SYNTAX$
-      hb_inetTimeout( <socket> [, <nTimeout> ] ) -> <nPreviousTimeout>
+      hb_inetTimeout( <socket> [, <nTimeout> ] ) --> <nPreviousTimeout>
    $ARGUMENTS$
       <socket> a socket previously created / opened
 
@@ -522,7 +522,7 @@
    $ONELINER$
       Get or change the time limit value of a socket
    $SYNTAX$
-      hb_inetTimeLimit( <socket> [, <nTimeLimit> ) -> NIL
+      hb_inetTimeLimit( <socket> [, <nTimeLimit> ) --> NIL
    $ARGUMENTS$
       <socket> a socket previously created / opened
 
@@ -590,7 +590,7 @@
    $ONELINER$
       Get or change the periodic callback value of a socket
    $SYNTAX$
-      hb_inetPeriodCallback( <socket> [, <xCallback> ] ) -> <xPreviousCallback>
+      hb_inetPeriodCallback( <socket> [, <xCallback> ] ) --> <xPreviousCallback>
    $ARGUMENTS$
       <socket> a socket previously created / opened
 
@@ -661,7 +661,7 @@
    $ONELINER$
       Get the socket send buffer size
    $SYNTAX$
-      hb_inetGetSndBufSize( <socket> ) -> <nResult>
+      hb_inetGetSndBufSize( <socket> ) --> <nResult>
    $ARGUMENTS$
       <socket> a socket previously created / opened
    $RETURNS$
@@ -695,7 +695,7 @@
    $ONELINER$
       Get the socket receive buffer size
    $SYNTAX$
-      hb_inetGetRcvBufSize( <socket> ) -> <nResult>
+      hb_inetGetRcvBufSize( <socket> ) --> <nResult>
    $ARGUMENTS$
       <socket> a socket previously created / opened
    $RETURNS$
@@ -729,7 +729,7 @@
    $ONELINER$
       Set the send buffer size of a socket
    $SYNTAX$
-      hb_inetSetSndBufSize( <socket>, <nSize> ) -> <nSize>
+      hb_inetSetSndBufSize( <socket>, <nSize> ) --> <nSize>
    $ARGUMENTS$
       <socket> a socket previously created / opened
 
@@ -765,7 +765,7 @@
    $ONELINER$
       Set the receive buffer size of a socket
    $SYNTAX$
-      hb_inetSetRcvBufSize( <socket>, <nSize> ) -> <nSize>
+      hb_inetSetRcvBufSize( <socket>, <nSize> ) --> <nSize>
    $ARGUMENTS$
       <socket> a socket previously created / opened
 
@@ -801,7 +801,7 @@
    $ONELINER$
       Read from a socket
    $SYNTAX$
-      hb_inetRecv( <socket>, @<cResult>, [ <nAmount> ] ) -> <nResult>
+      hb_inetRecv( <socket>, @<cResult>, [ <nAmount> ] ) --> <nResult>
    $ARGUMENTS$
       <socket> a socket previously created / opened
 
@@ -853,7 +853,7 @@
    $ONELINER$
       Read from a socket without blocking
    $SYNTAX$
-      hb_inetRecvAll( <socket>, @<cResult>, [ <nAmount> ] ) -> <nResult>
+      hb_inetRecvAll( <socket>, @<cResult>, [ <nAmount> ] ) --> <nResult>
    $ARGUMENTS$
       <socket> a socket previously created / opened
 
@@ -895,7 +895,7 @@
    $ONELINER$
       Read a line from a socket
    $SYNTAX$
-      hb_inetRecvLine( <socket> [, @<nBytesRead>, [, <nMaxLength> [, <nBufSize> ]]] ) -> <cResult>
+      hb_inetRecvLine( <socket> [, @<nBytesRead>, [, <nMaxLength> [, <nBufSize> ]]] ) --> <cResult>
    $ARGUMENTS$
       <socket> a socket previously created / opened
 
@@ -959,7 +959,7 @@
    $ONELINER$
       Read a block from a socket
    $SYNTAX$
-      hb_inetRecvEndblock( <socket> [, <cBlock >[, @<nBytesRead> [, <nMaxLength> [, <nBufSize> ]]]] ) -> <cResult>
+      hb_inetRecvEndblock( <socket> [, <cBlock >[, @<nBytesRead> [, <nMaxLength> [, <nBufSize> ]]]] ) --> <cResult>
    $ARGUMENTS$
       <socket> a socket previously created / opened
 
@@ -1003,7 +1003,7 @@
    $ONELINER$
       Get whether there is data ready in a socket
    $SYNTAX$
-      hb_inetDataReady( <socket>, [ <nMillisec> ] ) -> <nResult>
+      hb_inetDataReady( <socket>, [ <nMillisec> ] ) --> <nResult>
    $ARGUMENTS$
       <socket> a socket previously created / opened
 
@@ -1055,7 +1055,7 @@
    $ONELINER$
       Sent data through a socket
    $SYNTAX$
-      hb_inetSend( <socket>, <cBuffer> [, <nLength> ] ) -> <nResult>
+      hb_inetSend( <socket>, <cBuffer> [, <nLength> ] ) --> <nResult>
    $ARGUMENTS$
       <socket> a socket previously created / opened
 
@@ -1106,7 +1106,7 @@
    $ONELINER$
       Send data through a socket with blocking
    $SYNTAX$
-      hb_inetSendAll( <socket>, <cBuffer> [, <nLength> ] ) -> <nResult>
+      hb_inetSendAll( <socket>, <cBuffer> [, <nLength> ] ) --> <nResult>
    $ARGUMENTS$
       <socket> a socket previously created / opened
 
@@ -1145,7 +1145,7 @@
    $ONELINER$
       Get an array of IP addresses of a host
    $SYNTAX$
-      hb_inetGetHosts( <cName> ) -> <aHosts>
+      hb_inetGetHosts( <cName> ) --> <aHosts>
    $ARGUMENTS$
       <cName>
    $RETURNS$
@@ -1194,7 +1194,7 @@
    $ONELINER$
       Get an array of aliases of a server
    $SYNTAX$
-      hb_inetGetAlias( <cName> ) -> <aHosts>
+      hb_inetGetAlias( <cName> ) --> <aHosts>
    $ARGUMENTS$
       <cName>
    $RETURNS$
@@ -1233,7 +1233,7 @@
    $ONELINER$
       Create a socket bound to a port
    $SYNTAX$
-      hb_inetServer( <port> [, <cBindAddr> [, <nListenLimit> ]]  ) -> <SOCKET>
+      hb_inetServer( <port> [, <cBindAddr> [, <nListenLimit> ]]  ) --> <SOCKET>
    $ARGUMENTS$
       <port>
 
@@ -1291,7 +1291,7 @@
    $ONELINER$
       Wait until a socket is ready
    $SYNTAX$
-      hb_inetAccept( <socket> ) -> <SOCKET>
+      hb_inetAccept( <socket> ) --> <SOCKET>
    $ARGUMENTS$
       An INET socket
    $RETURNS$
@@ -1330,9 +1330,9 @@
    $ONELINER$
       Connect a socket to a remote server by IP address or name
    $SYNTAX$
-      hb_inetConnect( <cAddress>, <nPort> ) -> <SOCKET>
+      hb_inetConnect( <cAddress>, <nPort> ) --> <SOCKET>
 
-      hb_inetConnect( <cAddress>, <nPort>, <socket> ) -> NIL
+      hb_inetConnect( <cAddress>, <nPort>, <socket> ) --> NIL
    $ARGUMENTS$
       <cAddress>
 
@@ -1393,9 +1393,9 @@
    $ONELINER$
       Connect to a remote server by IP address
    $SYNTAX$
-      hb_inetConnectIP( <cAddress>, <nPort> ) -> <SOCKET>
+      hb_inetConnectIP( <cAddress>, <nPort> ) --> <SOCKET>
 
-      hb_inetConnectIP( <cAddress>, <nPort>, <socket> ) -> NIL
+      hb_inetConnectIP( <cAddress>, <nPort>, <socket> ) --> NIL
    $ARGUMENTS$
       <cAddress>
 
@@ -1446,7 +1446,7 @@
    $ONELINER$
       Create a datagram socket
    $SYNTAX$
-      hb_inetDGram( [<lBroadcast>] ) -> <SOCKET>
+      hb_inetDGram( [<lBroadcast>] ) --> <SOCKET>
    $ARGUMENTS$
       <lBroadcast>
    $RETURNS$
@@ -1491,7 +1491,7 @@
    $ONELINER$
       Create a bound datagram socket
    $SYNTAX$
-      hb_inetDGramBind( <nPort>, [<cAddress> [, <lBroadcast>] ] ) -> <SOCKET>
+      hb_inetDGramBind( <nPort>, [<cAddress> [, <lBroadcast>] ] ) --> <SOCKET>
    $ARGUMENTS$
       <nPort>
 
@@ -1539,7 +1539,7 @@
    $ONELINER$
       Send data to a datagram socket
    $SYNTAX$
-      hb_inetDGramSend( <socket>, <cAddress>, <nPort>, <cBuffer> [, <nSize> ] ) -> <nBytesSent>
+      hb_inetDGramSend( <socket>, <cAddress>, <nPort>, <cBuffer> [, <nSize> ] ) --> <nBytesSent>
    $ARGUMENTS$
       <socket> a socket previously created / opened
 
@@ -1600,7 +1600,7 @@
    $ONELINER$
       Get data from a datagram socket
    $SYNTAX$
-      hb_inetDGramRecv( <socket>, @<cBuffer> [, <nSize> ] ) -> <nBytesRead>
+      hb_inetDGramRecv( <socket>, @<cBuffer> [, <nSize> ] ) --> <nBytesRead>
    $ARGUMENTS$
       <socket> a socket previously created / opened
 
@@ -1644,7 +1644,7 @@
    $ONELINER$
       Get a CRLF sequence for internet protocols
    $SYNTAX$
-      hb_inetCRLF() -> <cResult>
+      hb_inetCRLF() --> <cResult>
    $ARGUMENTS$
       (This function has no arguments)
    $RETURNS$
@@ -1678,7 +1678,7 @@
    $ONELINER$
       Get whether a variable is a socket
    $SYNTAX$
-      hb_inetIsSocket( <socket> ) -> <lResult>
+      hb_inetIsSocket( <socket> ) --> <lResult>
    $ARGUMENTS$
       <socket> a socket previously created / opened
    $RETURNS$

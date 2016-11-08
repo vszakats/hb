@@ -6,7 +6,7 @@
    $ONELINER$
       Determine the state of individual bits in a number
    $SYNTAX$
-      ft_IsBitOn( <nNumber>, <nBit> ) -> lResult
+      ft_IsBitOn( <nNumber>, <nBit> ) --> lResult
    $ARGUMENTS$
       <nNumber> is an integer for which a bit state needs to be checked.
 

@@ -6,7 +6,7 @@
    $ONELINER$
       Display string on screen in specified attribute
    $SYNTAX$
-      ft_VidStr( <nRow>, <nCol>, <cString> [, <nColor> ] ) -> NIL
+      ft_VidStr( <nRow>, <nCol>, <cString> [, <nColor> ] ) --> NIL
    $ARGUMENTS$
       <nRow> and <nCol> are the screen coordinates.
 
@@ -42,7 +42,7 @@
    $ONELINER$
       Display character on screen
    $SYNTAX$
-      ft_WrtChr( <nRow>, <nCol>, <cChar>, <nColor> ) -> NIL
+      ft_WrtChr( <nRow>, <nCol>, <cChar>, <nColor> ) --> NIL
    $ARGUMENTS$
       <nRow> and <nCol> are the screen coordinates.
 
@@ -81,7 +81,7 @@
    $ONELINER$
       Clear screen
    $SYNTAX$
-      ft_CLS( <nTRow>, <nLCol>, <nBRow>, <nRCol>, <nColor> ) -> NIL
+      ft_CLS( <nTRow>, <nLCol>, <nBRow>, <nRCol>, <nColor> ) --> NIL
    $ARGUMENTS$
       <nTRow>, <nLCol>, <nBRow> and  <nRCol> are the screen coordinates
       to clear.
@@ -115,7 +115,7 @@
    $ONELINER$
       Change color attributes of screen region
    $SYNTAX$
-      ft_SetAttr( <nTRow>, <nLCol>, <nBRow>, <nRCol>, <nColor> ) -> NIL
+      ft_SetAttr( <nTRow>, <nLCol>, <nBRow>, <nRCol>, <nColor> ) --> NIL
    $ARGUMENTS$
       <nTRow>, <nLCol>, <nBRow>, and <nRCol> are the coordinates of the
       screen region.
@@ -146,7 +146,7 @@
    $ONELINER$
       Reverse colors of specified screen coordinates
    $SYNTAX$
-      ft_RevAttr( <nTRow>, <nLCol>, <nBRow>, <nRCol> ) -> NIL
+      ft_RevAttr( <nTRow>, <nLCol>, <nBRow>, <nRCol> ) --> NIL
    $ARGUMENTS$
       <nTRow>, <nLCol>, <nBRow>, and <nRCol> are the coordinates of the
       screen region.
@@ -173,7 +173,7 @@
    $ONELINER$
       Reverse the color of a single character on the screen
    $SYNTAX$
-      ft_RevChr( <nTRow>, <nLCol> ) -> NIL
+      ft_RevChr( <nTRow>, <nLCol> ) --> NIL
    $ARGUMENTS$
       <nTRow>, <nLCol> are the screen coordinates of the character.
    $RETURNS$

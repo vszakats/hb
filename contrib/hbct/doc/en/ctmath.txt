@@ -6,7 +6,7 @@
    $ONELINER$
       Set precision of math functions
    $SYNTAX$
-      SetPrec( <nPrecision> ) -> cEmptyString
+      SetPrec( <nPrecision> ) --> cEmptyString
    $ARGUMENTS$
       <nPrecision>    digit count between 1 and 16, defaults to 16
    $RETURNS$
@@ -37,7 +37,7 @@
    $ONELINER$
       Get precision of math functions
    $SYNTAX$
-      GetPrec() -> nDigits
+      GetPrec() --> nDigits
    $ARGUMENTS$
 
    $RETURNS$

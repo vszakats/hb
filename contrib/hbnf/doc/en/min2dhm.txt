@@ -6,7 +6,7 @@
    $ONELINER$
       Convert numeric minutes to days, hours and minutes.
    $SYNTAX$
-      ft_Min2Dhm( <nMinutes> ) -> aDHM_
+      ft_Min2Dhm( <nMinutes> ) --> aDHM_
    $ARGUMENTS$
       <nMinutes>  the number of minutes.
    $RETURNS$

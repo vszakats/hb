@@ -6,7 +6,7 @@
    $ONELINER$
       Swap the contents of two strings
    $SYNTAX$
-      StrSwap( <[@]cString1>, <[@]cString2> ) -> cString
+      StrSwap( <[@]cString1>, <[@]cString2> ) --> cString
    $ARGUMENTS$
 
    $RETURNS$

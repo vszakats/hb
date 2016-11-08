@@ -6,7 +6,7 @@
    $ONELINER$
       Return accounting year data
    $SYNTAX$
-      ft_AcctYear( [ <dGivenDate> ] ) -> aDateInfo
+      ft_AcctYear( [ <dGivenDate> ] ) --> aDateInfo
    $ARGUMENTS$
       <dGivenDate> is any valid date in any date format.  Defaults
       to current system date if not supplied.

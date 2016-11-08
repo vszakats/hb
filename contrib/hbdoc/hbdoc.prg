@@ -464,15 +464,22 @@ FUNCTION hbdoc_dir_in()
 
 STATIC PROCEDURE Get_ID_Name( cComponent, /* @ */ cID, /* @ */ cName, /* @ */ cNameShort )
 
-   IF cComponent == "harbour"
+   DO CASE
+   CASE cComponent == "harbour"
       cID := "core"
       cName := "Harbour core"
       cNameShort := cName
-   ELSE
+   CASE hb_LeftEq( cComponent, "cl" )
+      cID := cComponent
+      cName := hb_HGetDef( { ;
+        "cl53"  => "Clipper 5.3", ;
+        "clct3" => "Clipper Tools 3" }, cComponent, cComponent )
+      cNameShort := cName
+   OTHERWISE
       cID := cComponent
       cName := hb_StrFormat( I_( "%1$s contrib" ), cComponent )
       cNameShort := cComponent
-   ENDIF
+   ENDCASE
 
    RETURN
 
@@ -481,10 +488,18 @@ STATIC FUNCTION LangToInternal( cLang )
 
 /* Begin with Harbour core section */
 STATIC FUNCTION SortWeightPkg( cString )
-   RETURN iif( cString == "harbour", "A", "B" ) + cString
+   RETURN iif( cString == "harbour", "A", iif( hb_LeftEq( cString, "cl" ), "B", "C" ) ) + cString
 
 STATIC FUNCTION SortWeightTOC( cString )
-   RETURN iif( cString == "Document" .OR. cString == "Intro", "A", "B" )
+
+   SWITCH cString
+   CASE "Appendix"  ; RETURN "Z"
+   CASE "Document"
+   CASE "Intro"     ; RETURN "A"
+   CASE "Copyright" ; RETURN "0"
+   ENDSWITCH
+
+   RETURN "B"
 
 STATIC FUNCTION SortWeight( cString )
 
@@ -1114,7 +1129,10 @@ STATIC FUNCTION EntryNew( cTemplate )
    RETURN hE
 
 FUNCTION IsField( hE, cField )
-   RETURN hE[ "_group" ][ hb_HPos( sc_hFields, cField ) ] != 0
+
+   LOCAL idx := hb_HPos( sc_hFields, cField )
+
+   RETURN idx > 0 .AND. hE[ "_group" ][ idx ] != 0
 
 STATIC FUNCTION IsConstraint( hE, cField, cSection )
 
@@ -1262,6 +1280,7 @@ STATIC PROCEDURE init_Templates()
       "ARGUMENTS"     => BI_( "Arguments" ), ;
       "RETURNS"       => BI_( "Returns" ), ;
       "DESCRIPTION"   => BI_( "Description" ), ;
+      "NOTES"         => BI_( "Notes" ), ;
       "DATALINK"      => BI_( "Data link" ), ;
       "DATANOLINK"    => BI_( "Data no link" ), ;
       "METHODSLINK"   => BI_( "Methods link" ), ;
@@ -1285,16 +1304,16 @@ STATIC PROCEDURE init_Templates()
 
    /* The columns of this array correspond to the elements of sc_hFields */
    sc_hTemplates := { ;
-      "Template"       => { _T,  0+_U,  0+_U,  0, _O,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0   +_U,  0   +_U,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U }, ;
-      "Document"       => { _T, _R+_U, _O+_U, _R, _O,  0+_U,  0+_U,  0+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0   +_U,  0   +_U,  0+_U,  0+_U, _O+_U, _O+_U, _O+_U, _O+_U }, ;
-      "Function"       => { _T, _R+_U, _O+_U, _R, _R, _O+_U, _O+_U, _O+_U, _O+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U }, ;
-      "C Function"     => { _T, _R+_U, _O+_U, _R, _R, _O+_U, _O+_U, _O+_U, _O+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U }, ;
-      "Procedure"      => { _T, _R+_U, _O+_U, _R, _R, _O+_U, _O+_U,     0, _O+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U }, ;
-      "Command"        => { _T, _R+_U, _O+_U, _R, _R, _R+_U, _R+_U,  0+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U }, ;
-      "Class"          => { _T, _R+_U, _O+_U, _R, _R, _R+_U, _R+_U, _R+_U, _R+_U, _O+_U, _O+_U, _O+_U, _O+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U }, ;
-      "Class method"   => { _T, _R+_U, _O+_U, _R, _R, _R+_U, _R+_U, _R+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U,  0   +_U,  0+_U,  0+_U,  0+_U,  0+_U, _O+_U, _O+_U }, ;
-      "Class data"     => { _T, _R+_U, _O+_U, _R, _R, _R+_U,  0+_U,  0+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U,  0   +_U,  0+_U,  0+_U,  0+_U,  0+_U, _O+_U, _O+_U }, ;
-      "Runtime error"  => { _T, _R+_U, _O+_U, _R,  0,  0+_U,  0+_U,  0+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U,  0   +_U,  0+_U, _O+_U,  0+_U,  0+_U, _O+_U, _O+_U } }
+      "Template"       => { _T,  0+_U,  0+_U,  0, _O,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0   +_U,  0   +_U,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0+_U }, ;
+      "Document"       => { _T, _R+_U, _O+_U, _R, _O,  0+_U,  0+_U,  0+_U, _R+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U,  0   +_U,  0   +_U,  0+_U,  0+_U, _O+_U, _O+_U, _O+_U, _O+_U }, ;
+      "Function"       => { _T, _R+_U, _O+_U, _R, _R, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U }, ;
+      "C Function"     => { _T, _R+_U, _O+_U, _R, _R, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U }, ;
+      "Procedure"      => { _T, _R+_U, _O+_U, _R, _R, _O+_U, _O+_U,     0, _O+_U, _O+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U }, ;
+      "Command"        => { _T, _R+_U, _O+_U, _R, _R, _R+_U, _R+_U,  0+_U, _R+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U }, ;
+      "Class"          => { _T, _R+_U, _O+_U, _R, _R, _R+_U, _R+_U, _R+_U, _R+_U, _R+_U, _O+_U, _O+_U, _O+_U, _O+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U }, ;
+      "Class method"   => { _T, _R+_U, _O+_U, _R, _R, _R+_U, _R+_U, _R+_U, _R+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U,  0   +_U,  0+_U,  0+_U,  0+_U,  0+_U, _O+_U, _O+_U }, ;
+      "Class data"     => { _T, _R+_U, _O+_U, _R, _R, _R+_U,  0+_U,  0+_U, _R+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U,  0   +_U,  0+_U,  0+_U,  0+_U,  0+_U, _O+_U, _O+_U }, ;
+      "Runtime error"  => { _T, _R+_U, _O+_U, _R,  0,  0+_U,  0+_U,  0+_U, _R+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U,  0   +_U,  0+_U, _O+_U,  0+_U,  0+_U, _O+_U, _O+_U } }
 
    RETURN
 

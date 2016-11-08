@@ -6,7 +6,7 @@
    $ONELINER$
       Determine if DOS "Share" is installed
    $SYNTAX$
-      ft_IsShare() -> nRetCode
+      ft_IsShare() --> nRetCode
    $ARGUMENTS$
       None
    $RETURNS$

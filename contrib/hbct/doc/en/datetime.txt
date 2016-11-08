@@ -6,7 +6,7 @@
    $ONELINER$
       Begin of Month
    $SYNTAX$
-      BoM( [<dDate>] ) -> dDateBeginOfMonth
+      BoM( [<dDate>] ) --> dDateBeginOfMonth
    $ARGUMENTS$
 
    $RETURNS$
@@ -36,7 +36,7 @@
    $ONELINER$
       End of Month
    $SYNTAX$
-      EoM( [<dDate>] ) -> dDateEndOfMonth
+      EoM( [<dDate>] ) --> dDateEndOfMonth
    $ARGUMENTS$
 
    $RETURNS$
@@ -66,7 +66,7 @@
    $ONELINER$
       Begin of Quarter
    $SYNTAX$
-      BoQ( [<dDate>] ) -> dDateBeginOfQuarter
+      BoQ( [<dDate>] ) --> dDateBeginOfQuarter
    $ARGUMENTS$
 
    $RETURNS$
@@ -96,7 +96,7 @@
    $ONELINER$
       End of Quarter
    $SYNTAX$
-      EoQ( [<dDate>] ) -> dDateEndOfQuarter
+      EoQ( [<dDate>] ) --> dDateEndOfQuarter
    $ARGUMENTS$
 
    $RETURNS$
@@ -126,7 +126,7 @@
    $ONELINER$
       Begin of Year
    $SYNTAX$
-      BoY( [<dDate>] ) -> dDateBeginOfYear
+      BoY( [<dDate>] ) --> dDateBeginOfYear
    $ARGUMENTS$
 
    $RETURNS$
@@ -156,7 +156,7 @@
    $ONELINER$
       End of Year
    $SYNTAX$
-      EoY( [<dDate>] ) -> dDateEndOfYear
+      EoY( [<dDate>] ) --> dDateEndOfYear
    $ARGUMENTS$
 
    $RETURNS$

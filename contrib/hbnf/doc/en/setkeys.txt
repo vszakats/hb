@@ -6,7 +6,7 @@
    $ONELINER$
       Force LastKey() to return a programmer-defined value.
    $SYNTAX$
-      ft_LastKey( <nKey> ) -> NIL
+      ft_LastKey( <nKey> ) --> NIL
    $ARGUMENTS$
       <nKey> is the Inkey() value of the desired key.
    $RETURNS$

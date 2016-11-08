@@ -6,7 +6,7 @@
    $ONELINER$
       Set selected bit in a byte
    $SYNTAX$
-      ft_BitSet( <cByte>, <nBitPos> ) -> cByte
+      ft_BitSet( <cByte>, <nBitPos> ) --> cByte
    $ARGUMENTS$
       <cByte> is a character from `hb_BChar( 0 )` to `hb_BChar( 255 )`.
 

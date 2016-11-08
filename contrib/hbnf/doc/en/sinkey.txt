@@ -6,7 +6,7 @@
    $ONELINER$
       Replacement for Inkey() that tests for `SET KEY` procedures
    $SYNTAX$
-      ft_SInkey( [ <nWaitTime> ] ) -> nKey
+      ft_SInkey( [ <nWaitTime> ] ) --> nKey
    $ARGUMENTS$
       <nWaitTime> is the number of seconds to wait.  If zero,
       ft_SInkey() will wait indefinitely for a keypress.  If not

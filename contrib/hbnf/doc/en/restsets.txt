@@ -6,7 +6,7 @@
    $ONELINER$
       Restore status of all SET command settings
    $SYNTAX$
-      ft_RestSets( [ <aOldSets> ] ) -> NIL
+      ft_RestSets( [ <aOldSets> ] ) --> NIL
    $ARGUMENTS$
       <aOldSets> is an array of SET settings created by ft_SaveSets()
    $RETURNS$

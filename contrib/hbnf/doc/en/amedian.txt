@@ -7,7 +7,7 @@
       Find middle value in array, or average of two middle values
    $SYNTAX$
       ft_AMedian( <aArray> [, <nStart> [, <nEnd> ] ] )
-                 -> nMedian
+                 --> nMedian
    $ARGUMENTS$
       <aArray> is the array containing the elements to be averaged.
 

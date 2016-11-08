@@ -6,7 +6,7 @@
    $ONELINER$
       Return status of NumLock key
    $SYNTAX$
-      ft_NumLock( [ <lNewSetting> ] ) -> lCurrentSetting
+      ft_NumLock( [ <lNewSetting> ] ) --> lCurrentSetting
    $ARGUMENTS$
       <lNewSetting> is optional and if supplied is the new setting
       for the CapLock key.  Specify .T. to turn CapLock on, or .F. to

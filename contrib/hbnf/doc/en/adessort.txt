@@ -6,7 +6,7 @@
    $ONELINER$
       Sort an array in descending order
    $SYNTAX$
-      ft_ADesSort( <aArray> [, <nStartIndex> [, <nEndIndex> ] ] ) -> aSorted
+      ft_ADesSort( <aArray> [, <nStartIndex> [, <nEndIndex> ] ] ) --> aSorted
    $ARGUMENTS$
       <aArray> is the array to be sorted
 

@@ -6,7 +6,7 @@
    $ONELINER$
       Retrieve a byte from a specified I/O port
    $SYNTAX$
-      ft_inp( <nPort> ) -> nValue
+      ft_inp( <nPort> ) --> nValue
    $ARGUMENTS$
       <nPort> is the port from which to retrieve the byte.  If it is
       invalid in any way, the function will return zero.

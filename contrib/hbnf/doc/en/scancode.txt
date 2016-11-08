@@ -6,7 +6,7 @@
    $ONELINER$
       Wait for keypress and return keyboard scan code
    $SYNTAX$
-      ft_ScanCode() -> cCode
+      ft_ScanCode() --> cCode
    $ARGUMENTS$
       None
    $RETURNS$

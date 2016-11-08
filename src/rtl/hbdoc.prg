@@ -227,7 +227,7 @@ STATIC PROCEDURE __hbdoc__read_stream( aEntry, cFile, cFileName, hMeta, aErrMsg 
       OTHERWISE
          IF hEntry == NIL
             /* Ignore line outside entry. Don't warn, this is normal. */
-         ELSEIF hb_ULeft( LTrim( cLine ), 1 ) == "$" .AND. hb_URight( RTrim( cLine ), 1 ) == "$"
+         ELSEIF hb_ULeft( LTrim( cLine ), 1 ) == "$" .AND. hb_URight( RTrim( cLine ), 1 ) == "$" .AND. Len( AllTrim( cLine ) ) > 1
             cLine := AllTrim( cLine )
             cSection := hb_USubStr( cLine, 2, hb_ULen( cLine ) - 2 )
             IF Empty( cSection )
@@ -272,7 +272,9 @@ FUNCTION __hbdoc_ToSource( aEntry )
    IF HB_ISARRAY( aEntry )
       cEOL := Set( _SET_EOL )
       FOR EACH hEntry IN aEntry
-         cSource += cEOL
+         IF ! HB_ISNULL( cSource )
+            cSource += cEOL
+         ENDIF
          cSource += "/* $DOC$" + cEOL
          FOR EACH item IN hEntry
             IF HB_ISSTRING( item ) .AND. ! hb_LeftEq( item:__enumKey(), "_" )

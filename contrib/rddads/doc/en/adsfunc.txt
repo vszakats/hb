@@ -1193,7 +1193,7 @@
       <cFileName>  Name of the adt or dbf file name
       <cIndexFileName> Optional name of the index file
    $RETURNS$
-      <lSuccess> -> .T. if file was added, otherwise .F.
+      <lSuccess> - .T. if file was added, otherwise .F.
    $DESCRIPTION$
       See ace.hlp for full details about the Advantage Database Server.
       AdsDDAddTable() adds a new table to an ADS data dictionary.
@@ -1228,7 +1228,7 @@
    $ONELINER$
       Connect to a local/remote/internet server
    $SYNTAX$
-      AdsConnect60( <cFilePath>, <nServertype>, [<cUserName>], [<cUserPass>], [<nOptions>] ) -> lSuccess
+      AdsConnect60( <cFilePath>, <nServertype>, [<cUserName>], [<cUserPass>], [<nOptions>] ) --> lSuccess
    $ARGUMENTS$
       <cFilePath>   Name of data dictionary to connect to.
       <nServertype> The server type to connect (LOCAL, REMOTE, AIS or all together)
@@ -1268,7 +1268,7 @@
    $ONELINER$
       Provides caching of open tables
    $SYNTAX$
-      AdsCacheOpenTables( <nOpen> ) -> nRetVal
+      AdsCacheOpenTables( <nOpen> ) --> nRetVal
    $ARGUMENTS$
       <nOpen>       Number of tables to cache.
 
@@ -1306,7 +1306,7 @@
    $ONELINER$
       Provides caching of open cursors
    $SYNTAX$
-      AdsCacheOpenCursors( <nOpen> ) -> nRetVal
+      AdsCacheOpenCursors( <nOpen> ) --> nRetVal
    $ARGUMENTS$
       <nOpen>       Number of cursors to cache.
 
@@ -1345,7 +1345,7 @@
    $ONELINER$
       Close all cached tables on the given connection
    $SYNTAX$
-      AdsCloseCachedTables( [<hConnection>] ) -> nRetVal
+      AdsCloseCachedTables( [<hConnection>] ) --> nRetVal
    $ARGUMENTS$
       <hConnection>    A connection handle retrieved via AdsConnect()
       or AdsConnect60(). If omitted, the RDD's current connection

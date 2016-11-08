@@ -7,7 +7,7 @@
       Find the number of array elements meeting a condition
    $SYNTAX$
       ft_ANoMatches( <aArray>, <bCompareBlock> ;
-                     [, <nStartIndex> [, <nEndIndex> ] ] ) -> nNoOfMatches
+                     [, <nStartIndex> [, <nEndIndex> ] ] ) --> nNoOfMatches
    $ARGUMENTS$
       <aArray> is the array to be searched
 

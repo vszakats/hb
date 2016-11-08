@@ -6,7 +6,7 @@
    $ONELINER$
       Mirror a string
    $SYNTAX$
-      CharMirr( <[@]cString>, [<lDontMirrorSpaces>] ) -> cMirroredString
+      CharMirr( <[@]cString>, [<lDontMirrorSpaces>] ) --> cMirroredString
    $ARGUMENTS$
       <[@]cString>            is the string that should be mirrored
       [<lDontMirrorSpaces>]   if set to .T., spaces at the end of

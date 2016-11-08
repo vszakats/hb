@@ -7,7 +7,7 @@
       Display date/time calendar, find a date, return calendar data.
    $SYNTAX$
       ft_Calendar( [ <nRow> ], [ <nCol> ], [ <cColor> ], [ <lShadow> ] ,
-                   [ <lShowHelp> ] ) -> aRetVal
+                   [ <lShowHelp> ] ) --> aRetVal
    $ARGUMENTS$
       <nRow> is an optional screen row for calendar display,
              default row 1.

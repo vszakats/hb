@@ -6,7 +6,7 @@
    $ONELINER$
       Return calendar or fiscal week data
    $SYNTAX$
-      ft_Week( [ <dGivenDate> ], [ <nWeekNum> ] ) -> aDateinfo
+      ft_Week( [ <dGivenDate> ], [ <nWeekNum> ] ) --> aDateinfo
    $ARGUMENTS$
       <dGivenDate> is any valid date in any date format.  Defaults
       to current system date if not supplied.

@@ -6,7 +6,7 @@
    $ONELINER$
       Open or close a text file for use by the ft_F*() functions
    $SYNTAX$
-      ft_FUse( [ <cFile> ] [, <nMode> ] ) -> nHandle | 0
+      ft_FUse( [ <cFile> ] [, <nMode> ] ) --> nHandle | 0
    $ARGUMENTS$
       <cFile> is the text file you want to open.  If not specified,
       the file currently open, if any, will be closed.
@@ -58,7 +58,7 @@
    $ONELINER$
       Select a text file workarea
    $SYNTAX$
-      ft_FSelect( [ <nNewArea> ] ) -> nPreviousArea
+      ft_FSelect( [ <nNewArea> ] ) --> nPreviousArea
    $ARGUMENTS$
       <nNewArea> is the text file workarea to select.
    $RETURNS$
@@ -107,7 +107,7 @@
    $ONELINER$
       Go to the first record in a text file
    $SYNTAX$
-      ft_FGoTop() -> NIL
+      ft_FGoTop() --> NIL
    $ARGUMENTS$
       None
    $RETURNS$
@@ -141,7 +141,7 @@
    $ONELINER$
       Return the error code for a text file operation
    $SYNTAX$
-      ft_FError() -> nErrorNo
+      ft_FError() --> nErrorNo
    $ARGUMENTS$
       None
    $RETURNS$
@@ -173,7 +173,7 @@
    $ONELINER$
       Return the current record number of a text file
    $SYNTAX$
-      ft_FRecNo() -> nRecNo
+      ft_FRecNo() --> nRecNo
    $ARGUMENTS$
       None
    $RETURNS$
@@ -207,7 +207,7 @@
    $ONELINER$
       Go to the last record in a text file
    $SYNTAX$
-      ft_FGoBot() -> NIL
+      ft_FGoBot() --> NIL
    $ARGUMENTS$
       None
    $RETURNS$
@@ -239,7 +239,7 @@
    $ONELINER$
       Move the record pointer to a new position in a text file
    $SYNTAX$
-      ft_FSkip( [ <nLines> ] ) -> nLinesSkipped
+      ft_FSkip( [ <nLines> ] ) --> nLinesSkipped
    $ARGUMENTS$
       <nLines> is the number of lines to skip.  Defaults to 1 if
       not specified.
@@ -280,7 +280,7 @@
    $ONELINER$
       Read a line from the currently selected text file
    $SYNTAX$
-      ft_FReadLn() -> cLine
+      ft_FReadLn() --> cLine
    $ARGUMENTS$
       None
    $RETURNS$
@@ -321,7 +321,7 @@
    $ONELINER$
       Deletes a line from the currently selected text file
    $SYNTAX$
-      ft_FDelete( [ <nLines> ] ) -> lSuccess
+      ft_FDelete( [ <nLines> ] ) --> lSuccess
    $ARGUMENTS$
       <nLines> is the number of lines to be eliminated, beginning with
       the current record position.
@@ -354,7 +354,7 @@
    $ONELINER$
       Inserts a line in the currently selected text file
    $SYNTAX$
-      ft_FInsert( [ <nLines> ] ) -> lSuccess
+      ft_FInsert( [ <nLines> ] ) --> lSuccess
    $ARGUMENTS$
       <nLines> is the number of lines that should be inserted at the
       current record position.
@@ -392,7 +392,7 @@
    $ONELINER$
       Appends a line to the currently selected text file
    $SYNTAX$
-      ft_FAppend( [ <nLines> ] ) -> NIL
+      ft_FAppend( [ <nLines> ] ) --> NIL
    $ARGUMENTS$
       <nLines> is the number of lines that should be appended to the
       end of the currently selected text file.
@@ -440,7 +440,7 @@
    $ONELINER$
       Write a line to the currently selected text file
    $SYNTAX$
-      ft_FWriteLn( <cData>, [ <lInsert> ] ) -> lSuccess
+      ft_FWriteLn( <cData>, [ <lInsert> ] ) --> lSuccess
    $ARGUMENTS$
       <cData> is a string of data to write to the file at the current
        record position.
@@ -490,7 +490,7 @@
    $ONELINER$
       Get the no. of records in the currently selected text file
    $SYNTAX$
-      ft_FLastRe() -> nLastRecordNum
+      ft_FLastRe() --> nLastRecordNum
    $ARGUMENTS$
       None
    $RETURNS$
@@ -518,7 +518,7 @@
    $ONELINER$
       Determine if end of text file has been encountered
    $SYNTAX$
-      ft_FEof() -> lResult
+      ft_FEof() --> lResult
    $ARGUMENTS$
       None
    $RETURNS$
@@ -549,7 +549,7 @@
    $ONELINER$
       Determine if attempt to skip past beginning of text file
    $SYNTAX$
-      ft_FBof() -> lResult
+      ft_FBof() --> lResult
    $ARGUMENTS$
       None
    $RETURNS$
@@ -582,7 +582,7 @@
    $ONELINER$
       Move record pointer to specific record in a text file
    $SYNTAX$
-      ft_FGoto( nLine ) -> NIL
+      ft_FGoto( nLine ) --> NIL
    $ARGUMENTS$
       <nLine> is the record number to go to.
    $RETURNS$

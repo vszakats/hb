@@ -6,7 +6,7 @@
    $ONELINER$
       Save current video states on internal stack.
    $SYNTAX$
-      ft_PushVid() -> <nStackSize>
+      ft_PushVid() --> <nStackSize>
    $ARGUMENTS$
       None
    $RETURNS$
@@ -36,7 +36,7 @@
    $ONELINER$
       Restore previously saved video states.
    $SYNTAX$
-      ft_PopVid() -> <nStackSize>
+      ft_PopVid() --> <nStackSize>
    $ARGUMENTS$
       None
    $RETURNS$

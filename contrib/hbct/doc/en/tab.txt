@@ -8,7 +8,7 @@
    $SYNTAX$
       TabExpand( <cString>, [<nTabWidth>], [<cFillChar|nFillChar>],
                  [<cNewLineCharacters>], [<cTabChar|nTabChar>],
-                 [<lIgnore141>] ) -> cExpandedString
+                 [<lIgnore141>] ) --> cExpandedString
    $ARGUMENTS$
       <cString>
       <nTabWidth>
@@ -53,7 +53,7 @@
    $SYNTAX$
       TabPack( <cString>, [<nTabWidth>], [<cFillChar|nFillChar>],
                [<cNewLineCharacters>], [<cTabChar|nTabChar>],
-               [<lIgnore141>] ) -> cPackedString
+               [<lIgnore141>] ) --> cPackedString
    $ARGUMENTS$
       <cString>
       <nTabWidth>

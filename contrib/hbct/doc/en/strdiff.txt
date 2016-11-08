@@ -7,7 +7,7 @@
       Evaluate the "Edit (Levensthein) Distance" of two strings
    $SYNTAX$
       StrDiff( <cString1>, <cString2>, [<nReplacementPenalty>], [<nDeletionPenalty>],
-               [<nInsertionPenalty>] ) -> <nDistance>
+               [<nInsertionPenalty>] ) --> <nDistance>
    $ARGUMENTS$
       <cString1>              string at the "starting point" of the transformation process, default is ""
       <cString2>              string at the "end point" of the transformation process, default is ""

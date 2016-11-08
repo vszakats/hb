@@ -6,7 +6,7 @@
    $ONELINER$
       Draw a non-destructive shadow on the screen
    $SYNTAX$
-      ft_Shadow( <nTop>, <nLeft>, <nBottom>, <nRight> [ ,<nAttr>] ) -> NIL
+      ft_Shadow( <nTop>, <nLeft>, <nBottom>, <nRight> [ ,<nAttr>] ) --> NIL
    $ARGUMENTS$
       <nTop>    is the top row of the shadow area.
       <nLeft>   is the upper left column of the shadow area.

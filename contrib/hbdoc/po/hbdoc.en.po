@@ -3,7 +3,7 @@
 #
 
 #, c-format
-msgid "Harbour Reference Guide"
+msgid "%1$s Reference Guide"
 msgstr ""
 
 #, c-format
@@ -152,6 +152,10 @@ msgstr ""
 
 #, c-format
 msgid "Methods no link"
+msgstr ""
+
+#, c-format
+msgid "Notes"
 msgstr ""
 
 #, c-format

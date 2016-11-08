@@ -342,7 +342,7 @@
    $ONELINER$
       Delete an element from an array.
    $SYNTAX$
-      hb_ADel( <aArray>, [<nPos>], [<lAutoSize>] ) -> <aArray>
+      hb_ADel( <aArray>, [<nPos>], [<lAutoSize>] ) --> <aArray>
    $ARGUMENTS$
       <aArray> Name of array from which an element is to be removed.
 

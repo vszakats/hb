@@ -7,7 +7,7 @@
       Position of a token in a string
    $SYNTAX$
       AtToken( <cString>, [<cTokenizer>],
-               [<nTokenCount>], [<nSkipWidth>] ) -> nPosition
+               [<nTokenCount>], [<nSkipWidth>] ) --> nPosition
    $ARGUMENTS$
       <cString>          is the processed string
       [<cTokenizer>]     is a list of characters separating the tokens
@@ -63,7 +63,7 @@
    $SYNTAX$
       Token( <cString>, [<cTokenizer>],
              [<nTokenCount], [<nSkipWidth>],
-             [<@cPreTokenSep>], [<@cPostTokenSep>] ) -> cToken
+             [<@cPreTokenSep>], [<@cPostTokenSep>] ) --> cToken
    $ARGUMENTS$
       <cString>          is the processed string
       [<cTokenizer>]     is a list of characters separating the tokens
@@ -123,7 +123,7 @@
    $ONELINER$
       Retrieves the number of tokens in a string
    $SYNTAX$
-      NumToken( <cString>, [<cTokenizer>], [<nSkipWidth>] ) -> nTokenCount
+      NumToken( <cString>, [<cTokenizer>], [<nSkipWidth>] ) --> nTokenCount
    $ARGUMENTS$
 
    $RETURNS$
@@ -154,7 +154,7 @@
       Change the first letter of tokens to lower case
    $SYNTAX$
       TokenLower( <[@]cString>, [<cTokenizer>], [<nTokenCount>],
-                  [<nSkipWidth>] ) -> cString
+                  [<nSkipWidth>] ) --> cString
    $ARGUMENTS$
       <[@]cString>      is the processed string
       [<cTokenizer>]    is a list of characters separating the tokens
@@ -209,7 +209,7 @@
       Change the first letter of tokens to upper case
    $SYNTAX$
       TokenUpper( <[@]cString>, [<cTokenizer>], [<nTokenCount>],
-                  [<nSkipWidth>] ) -> cString
+                  [<nSkipWidth>] ) --> cString
    $ARGUMENTS$
       <[@]cString>      is the processed string
       [<cTokenizer>]    is a list of characters separating the tokens
@@ -263,7 +263,7 @@
    $ONELINER$
       Retrieves the token separators of the last Token() call
    $SYNTAX$
-      TokenSep( [<lMode>] ) -> cSeparator
+      TokenSep( [<lMode>] ) --> cSeparator
    $ARGUMENTS$
       [<lMode>]   if set to .T., the token separator BEHIND the token
                   retrieved from the Token() call will be returned.

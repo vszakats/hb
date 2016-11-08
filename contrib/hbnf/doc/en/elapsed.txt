@@ -7,7 +7,7 @@
       Return elapsed time between two days and/or times
    $SYNTAX$
       ft_Elapsed([ <dStart> ], [ <dEnd> ], ;
-                 <cTimeStart>, <cTimeEnd>) -> aTimedata
+                 <cTimeStart>, <cTimeEnd>) --> aTimedata
    $ARGUMENTS$
       <dStart> is any valid date in any date format. Defaults to Date().
 

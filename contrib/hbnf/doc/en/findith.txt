@@ -7,7 +7,7 @@
       Find the "ith" occurrence of a substring within a string
    $SYNTAX$
       ft_FindITh( <cCheckFor>, <cCheckIn>, <nWhichOccurrence> ;
-                  [, <lIgnoreCase> ] ) -> <nStringPosition>
+                  [, <lIgnoreCase> ] ) --> <nStringPosition>
    $ARGUMENTS$
       <cCheckFor> is the string to search for.
 

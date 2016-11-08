@@ -6,7 +6,7 @@
    $ONELINER$
       Return first day of the month
    $SYNTAX$
-      ft_FDay( [ <dDateToChk> ] ) -> dFirstDay
+      ft_FDay( [ <dDateToChk> ] ) --> dFirstDay
    $ARGUMENTS$
       <dDateToChk> is a date within a month for which you want to find
       the first date of that month.  If not passed or is an incorrect type,

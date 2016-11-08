@@ -6,7 +6,7 @@
    $ONELINER$
       Stuff a keystroke into the keyboard buffer
    $SYNTAX$
-      ft_PutKey( <nKeyValue> ) -> lResult
+      ft_PutKey( <nKeyValue> ) --> lResult
    $ARGUMENTS$
       <nKeyValue> is the Inkey() value of the keystroke to be stuffed.
    $RETURNS$

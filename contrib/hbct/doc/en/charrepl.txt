@@ -7,7 +7,7 @@
       Replacement of characters
    $SYNTAX$
       CharRepl( <cSearchString>, <[@]cString>,
-                <cReplaceString>, [<lMode>] ) -> cString
+                <cReplaceString>, [<lMode>] ) --> cString
    $ARGUMENTS$
       <cSearchString>    is a string of characters that should be replaced
       <[@]cString>       is the processed string

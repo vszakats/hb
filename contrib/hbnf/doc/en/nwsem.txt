@@ -6,7 +6,7 @@
    $ONELINER$
       Open or create a NetWare semaphore
    $SYNTAX$
-      ft_NWSemOpen( <cName>, <nInitVal>, <@nHandle>, <@nOpenCnt> ) -> nRc
+      ft_NWSemOpen( <cName>, <nInitVal>, <@nHandle>, <@nOpenCnt> ) --> nRc
    $ARGUMENTS$
       <cName> is the semaphore name, maximum length is 127 characters.
 
@@ -98,7 +98,7 @@
    $ONELINER$
       Examine a NetWare semaphore's value and open count
    $SYNTAX$
-      ft_NWSemEx( <nHandle>, <@nValue>, <@nOpenCnt> ) -> nRc
+      ft_NWSemEx( <nHandle>, <@nValue>, <@nOpenCnt> ) --> nRc
    $ARGUMENTS$
       <nHandle> is the semaphore handle, returned from a previous call
       to ft_NWSemOpen().
@@ -151,7 +151,7 @@
    $ONELINER$
       Wait on a NetWare semaphore (decrement)
    $SYNTAX$
-      ft_NWSemWait( <nHandle> [, nTimeout ] ) -> nRc
+      ft_NWSemWait( <nHandle> [, nTimeout ] ) --> nRc
    $ARGUMENTS$
       <nHandle> is the semaphore handle, returned from a previous call
       to ft_NWSemOpen().
@@ -190,7 +190,7 @@
    $ONELINER$
       Signal a NetWare semaphore (increment)
    $SYNTAX$
-      ft_NWSemSig( nHandle ) -> nRc
+      ft_NWSemSig( nHandle ) --> nRc
    $ARGUMENTS$
       <nHandle> is the semaphore handle, returned from a previous call
       to ft_NWSemOpen().
@@ -222,7 +222,7 @@
    $ONELINER$
       Close a NetWare semaphore
    $SYNTAX$
-      ft_NWSemClose( <nHandle> )  -> nRc
+      ft_NWSemClose( <nHandle> ) --> nRc
    $ARGUMENTS$
       <nHandle> is the semaphore handle, returned from a previous call
       to ft_NWSemOpen().
@@ -251,7 +251,7 @@
    $ONELINER$
       Perform a semaphore "lock"
    $SYNTAX$
-      ft_NWSemLock( <cSemaphore>, <@nHandle> ) -> lRet
+      ft_NWSemLock( <cSemaphore>, <@nHandle> ) --> lRet
    $ARGUMENTS$
       <cSemaphore> is the name of a semaphore you want to "lock."
       <nHandle> is the semaphore's handle, if you get the lock.
@@ -314,7 +314,7 @@
    $ONELINER$
       "Unlock" a semaphore locked by ft_NWSemLock()
    $SYNTAX$
-      ft_NWSemUnlock( <nHandle> ) -> lRet
+      ft_NWSemUnlock( <nHandle> ) --> lRet
    $ARGUMENTS$
       <nHandle> is the semaphore handle returned from ft_NWSemLock()
    $RETURNS$

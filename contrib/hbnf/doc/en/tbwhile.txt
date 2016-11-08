@@ -9,7 +9,7 @@
       ft_BrwsWhl( <aFields>, <bWhileCond>, <cKey>,                  ;
                   [ <nFreeze> ], [ <lSaveScrn> ], [ <cColorList> ], ;
                   [ <cColorShadow> ], [ <nTop> ], [ <nLeft> ],      ;
-                  [ <nBottom> ], [ <nRight> ] -> nRecno
+                  [ <nBottom> ], [ <nRight> ] ) --> nRecno
    $ARGUMENTS$
       <aFields> is array of field blocks of fields you want to display.
          Example to set up last name and first name in array:

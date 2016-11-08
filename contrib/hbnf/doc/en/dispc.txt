@@ -6,7 +6,7 @@
    $ONELINER$
       Browse a text file
    $SYNTAX$
-      ft_DispFile() -> cExitkey
+      ft_DispFile() --> cExitkey
    $ARGUMENTS$
       None
    $RETURNS$

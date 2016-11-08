@@ -6,7 +6,7 @@
    $ONELINER$
       Return difference, in minutes, between two mil format times.
    $SYNTAX$
-      ft_ElapMin( <cTIME1>, <cTIME2> ) -> nMINUTES
+      ft_ElapMin( <cTIME1>, <cTIME2> ) --> nMINUTES
    $ARGUMENTS$
       <cTIME1, cTIME2>  character strings of military form `hhmm`,
           where 0 <= `hh` < 24.

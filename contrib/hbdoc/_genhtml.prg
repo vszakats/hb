@@ -117,6 +117,7 @@ METHOD NewFile() CLASS GenerateHTML
 
    LOCAL tmp, tmp1
    LOCAL hDoc
+   LOCAL cBaseTitle
 
    IF ! hbdoc_reproducible()
       ::tDate := hb_DateTime() - ( hb_UTCOffset() / 86400 )
@@ -146,7 +147,9 @@ METHOD NewFile() CLASS GenerateHTML
       ::RecreateStyleDocument( STYLEFILE )
    ENDIF
 
-   ::Append( hb_StrFormat( I_( "%1$s · %2$s" ), Eval( ::bBaseTitle ), ::cTitle ), "title" )
+   cBaseTitle := hb_StrFormat( Eval( ::bBaseTitle ), iif( hb_LeftEq( ::cFilename, "cl" ), "Clipper", "Harbour" ) )
+
+   ::Append( hb_StrFormat( I_( "%1$s · %2$s" ), cBaseTitle, ::cTitle ), "title" )
    ::Spacer()
 
 #if 0
@@ -188,7 +191,7 @@ METHOD NewFile() CLASS GenerateHTML
    ::OpenTagInline( "div" )
    ::OpenTagInline( "a", "href", "index.html" )
    ::cFile += hb_MemoRead( hbdoc_RootDir() + hb_DirSepToOS( "docs/images/" + "harbour-nofill.svg" ) )
-   ::AppendInline( Eval( ::bBaseTitle ) )
+   ::AppendInline( cBaseTitle )
    ::CloseTagInline( "a" )
    ::CloseTag( "div" )
 
@@ -211,12 +214,17 @@ METHOD NewFile() CLASS GenerateHTML
          ::CloseTag( "a" )
          ::OpenTag( "hr" )
 #endif
+         tmp1 := ""
          FOR EACH tmp IN ::hComponents
+            IF hb_LeftEq( tmp1, "cl" ) .AND. ;
+               ! hb_LeftEq( tmp:__enumKey(), "cl" )
+               ::OpenTag( "hr" )
+            ENDIF
             ::OpenTagInline( "a", "href", tmp:__enumKey() + ".html" )
             ::AppendInline( tmp[ "nameshort" ] )
             ::CloseTag( "a" )
             /* This assumes that this item is first on the list */
-            IF tmp:__enumKey() == "harbour"
+            IF ( tmp1 := tmp:__enumKey() ) == "harbour"
                ::OpenTag( "hr" )
             ENDIF
          NEXT
@@ -523,12 +531,14 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
          ::AppendInline( hdr[ 4 ][ nContent ] )
          ::CloseTagInline( "a" )
 
-         ::AppendInline( hb_UChar( 160 ) + "|" + hb_UChar( 160 ) )
-         ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "edit/master/" + SubStr( hEntry[ "_sourcefile" ], Len( hbdoc_dir_in() ) + 1 ), ;
-            "title", hdr[ 5 ][ nTitle ] )
-         ::AppendInline( hdr[ 5 ][ nContent ] )
-         ::CloseTagInline( "a" )
-         ::CloseTagInline( "span" )
+         IF ! hb_LeftEq( ::cFilename, "cl" )
+            ::AppendInline( hb_UChar( 160 ) + "|" + hb_UChar( 160 ) )
+            ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "edit/master/" + SubStr( hEntry[ "_sourcefile" ], Len( hbdoc_dir_in() ) + 1 ), ;
+               "title", hdr[ 5 ][ nTitle ] )
+            ::AppendInline( hdr[ 5 ][ nContent ] )
+            ::CloseTagInline( "a" )
+            ::CloseTagInline( "span" )
+         ENDIF
 
          ::CloseTag( "h4" )
       ELSEIF IsField( hEntry, item ) .AND. IsOutput( hEntry, item ) .AND. ! HB_ISNULL( hEntry[ item ] )
@@ -842,8 +852,7 @@ STATIC FUNCTION StrSYNTAX( cString )
 
    STATIC s_html := { ;
       "==>" => _RESULT_ARROW, ;
-      "-->" => _RESULT_ARROW, ;
-      "->"  => _RESULT_ARROW }
+      "-->" => _RESULT_ARROW }
 
    RETURN hb_StrReplace( cString, s_html )
 
@@ -892,7 +901,7 @@ METHOD AppendInline( cText, cFormat, lCode, cField ) CLASS GenerateHTML
             cNext := SubStr( cText, tmp + 1, 1 )
 
             DO CASE
-            CASE ! lPR .AND. cChar == "\" .AND. tmp < Len( cText )
+            CASE ! lPR .AND. cChar == "\" .AND. tmp < Len( cText ) .AND. ! hb_asciiIsAlpha( cNext )
                tmp++
                cChar := cNext
             CASE ! lPR .AND. cChar == "`" .AND. cNext == "`"  // `` -> `
@@ -932,8 +941,8 @@ METHOD AppendInline( cText, cFormat, lCode, cField ) CLASS GenerateHTML
                cChar := CODEINLINE + SubStr( cText, tmp, 3 ) + "</code>"
                tmp += 2
             CASE cChar == "`" .OR. ;
-                 ( cChar == "<" .AND. ! lPR ) .OR. ;
-                 ( cChar == ">" .AND.   lPR .AND. cPR $ "<#" )
+                 ( cChar == "<" .AND. !( Empty( cNext ) .OR. cNext $ "=" ) .AND. ! lPR ) .OR. ;
+                 ( cChar == ">" .AND.                                              lPR .AND. cPR $ "<#" )
                lPR := ! lPR
                IF lPR
                   nPR := Len( cOut ) + 1
@@ -974,10 +983,6 @@ METHOD AppendInline( cText, cFormat, lCode, cField ) CLASS GenerateHTML
             CASE ! lPR .AND. ;
                ( SubStr( cText, tmp, 3 ) == "==>" .OR. SubStr( cText, tmp, 3 ) == "-->" )
                tmp += 2
-               cChar := _RESULT_ARROW
-            CASE ! lPR .AND. ;
-               ( SubStr( cText, tmp, 2 ) == "->" )
-               tmp += 1
                cChar := _RESULT_ARROW
             CASE ! lPR .AND. SubStr( cText, tmp, 2 ) == "--"
                tmp += 1
@@ -1132,10 +1137,10 @@ STATIC FUNCTION AutoLink( hAll, cFile, cComponent, cRevision, hNameID, lCodeAlre
                   hb_FileExists( hbdoc_RootDir() + ( cTag := "include/" + cName ) )
 #if 0
                   /* link to the most-recent version */
-                  cTag := "<a href=" + '"' + hb_Version( HB_VERSION_URL_BASE ) + "tree/master/" + cTag + '"' + ">" + cName + "</a>"
+                  cTag := "<a href=" + '"' + hb_Version( HB_VERSION_URL_BASE ) + "tree/master/" + Lower( cTag ) + '"' + ">" + cName + "</a>"
 #endif
                   /* link to the matching source revision */
-                  cTag := "<a href=" + '"' + hb_Version( HB_VERSION_URL_BASE ) + "blob/" + cRevision + "/" + cTag + '"' + ">" + cName + "</a>"
+                  cTag := "<a href=" + '"' + hb_Version( HB_VERSION_URL_BASE ) + "blob/" + cRevision + "/" + Lower( cTag ) + '"' + ">" + cName + "</a>"
                ELSE
                   cTag := cName
                ENDIF
@@ -1155,7 +1160,7 @@ STATIC FUNCTION AutoLink( hAll, cFile, cComponent, cRevision, hNameID, lCodeAlre
          FOR EACH match IN en_hb_regexAll( R_( "( |^)([A-Z_][A-Z0-9_]+)([^A-Z0-9_]|$)" ), cFile,,,,, .F. )
             cName := match[ 3 ][ _MATCH_cStr ]
             IF ( hb_BLen( cName ) > 3 .OR. "|" + cName + "|" $ "|ON|OFF|SET|USE|ZAP|SAY|RUN|NUL|NIL|ALL|TO|GET|VAR|SUM|DIR|DO|FOR|NEW|" ) .AND. ;
-               !( "|" + cName + "|" $ "|ANSI|ASCII|JPEG|WBMP|NOTE|INET|TODO|CMOS|ATTENTION|DOUBLE|NUMBER|DATE|CHARACTER|LOGICAL|WARNING|TRUE|FALSE|" )
+               !( "|" + cName + "|" $ "|ANSI|ASCII|JPEG|WBMP|NOTE|INET|TODO|CMOS|ATTENTION|DOUBLE|NUMBER|DATE|CHARACTER|LOGICAL|WARNING|TRUE|FALSE|PLUS|" )
                cTag := CODEINLINE + cName + "</code>"
                cFile := hb_BLeft( cFile, match[ 3 ][ _MATCH_nStart ] - 1 + nShift ) + cTag + hb_BSubStr( cFile, match[ 3 ][ _MATCH_nEnd ] + 1 + nShift )
                nShift += Len( cTag ) - Len( cName )

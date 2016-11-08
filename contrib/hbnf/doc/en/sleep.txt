@@ -6,7 +6,7 @@
    $ONELINER$
       Wait for a specified amount of time
    $SYNTAX$
-      ft_Sleep( <nSeconds>, [<nInitial>] ) -> NIL
+      ft_Sleep( <nSeconds>, [<nInitial>] ) --> NIL
    $ARGUMENTS$
       <nSeconds> is the number of seconds to pause
 

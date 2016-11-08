@@ -6,7 +6,7 @@
    $ONELINER$
       Save the status of all the SET command settings
    $SYNTAX$
-      ft_SaveSets() -> aOldSets
+      ft_SaveSets() --> aOldSets
    $ARGUMENTS$
       None
    $RETURNS$

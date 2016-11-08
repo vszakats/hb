@@ -165,7 +165,6 @@ HB_FUNC( NUMFKEY )    { ; }
 HB_FUNC( BIOSDATE )   { ; }
 HB_FUNC( BOOTCOLD )   { ; }
 HB_FUNC( BOOTWARM )   { ; }
-HB_FUNC( CPUTYPE )    { ; }
 HB_FUNC( ERRORACT )   { ; }
 HB_FUNC( ERRORBASE )  { ; }
 HB_FUNC( ERRORCODE )  { ; }
@@ -177,7 +176,6 @@ HB_FUNC( MEMSIZE )    { ; }
 HB_FUNC( NUMBUFFERS ) { ; }
 HB_FUNC( NUMFILES )   { ; }
 HB_FUNC( OSVER )      { ; }
-HB_FUNC( PCTYPE )     { ; }
 HB_FUNC( SSETBREAK )  { ; }
 HB_FUNC( SSETVERIFY ) { ; }
 /* Miscellaneous Functions */

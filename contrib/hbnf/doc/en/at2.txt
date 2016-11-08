@@ -6,7 +6,7 @@
    $ONELINER$
       Find position of the nth occurrence of a substring
    $SYNTAX$
-      ft_At2( <cSearch>, <cTarget> [, <nOccurs> [, <lCaseSens> ] ] ) -> nPos
+      ft_At2( <cSearch>, <cTarget> [, <nOccurs> [, <lCaseSens> ] ] ) --> nPos
    $ARGUMENTS$
       <cSearch> is the character substring to search for.
 
@@ -43,7 +43,7 @@
    $ONELINER$
       Find position of the reversed nth occurrence of a substring
    $SYNTAX$
-      ft_RAt2( <cSearch>, <cTarget> [, <nOccurs> [, <lCaseSens> ] ] ) -> nPos
+      ft_RAt2( <cSearch>, <cTarget> [, <nOccurs> [, <lCaseSens> ] ] ) --> nPos
    $ARGUMENTS$
       <cSearch> is the character substring to search for.
 

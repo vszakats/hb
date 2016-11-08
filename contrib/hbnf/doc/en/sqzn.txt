@@ -6,7 +6,7 @@
    $ONELINER$
       Compress a numeric value into a character string
    $SYNTAX$
-      ft_Sqzn( <nValue> [, <nSize> [, <nDecimals> ] ] ) -> cCompressed
+      ft_Sqzn( <nValue> [, <nSize> [, <nDecimals> ] ] ) --> cCompressed
    $ARGUMENTS$
       <nValue>       - The numeric value to be compressed
       <nSize>        - Optional size of numeric field, defaults to 10
@@ -35,7 +35,7 @@
    $ONELINER$
       Uncompress a numeric compressed by ft_Sqzn()
    $SYNTAX$
-      ft_Unsqzn( <cCompressed>, <nSize> [, <nDecimals> ] ) -> nValue
+      ft_Unsqzn( <cCompressed>, <nSize> [, <nDecimals> ] ) --> nValue
    $ARGUMENTS$
       <cCompressed>  - Compressed string, obtained from ft_Sqzn()
 
