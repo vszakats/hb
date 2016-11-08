@@ -8,9 +8,9 @@
  *                       SubStr(), Upper(), Lower(), Asc(), Chr(), PadC(),
  *                       PadL(), PadR(), AllTrim(), Trim(), RTrim(), Space(),
  *                       Replicate(), Val(), Transform(), StrTran()
- * 
- * 2016 Pete D. <pete_westg@yahoo.gr> 
- *   Documentation for: hb_AtI(), hb_ATokens(), hb_LeftEq(), hb_LeftEqI() 
+ *
+ * 2016 Pete D. <pete_westg@yahoo.gr>
+ *   Documentation for: hb_AtI(), hb_ATokens(), hb_LeftEq(), hb_LeftEqI()
  *
  * See COPYING.txt for licensing terms.
  *
@@ -1559,8 +1559,8 @@
       @...SAY, DevOutPict()
    $END$
  */
- 
-/* $DOC$   
+
+/* $DOC$
    $TEMPLATE$
       Function
    $NAME$
@@ -1570,47 +1570,46 @@
    $SUBCATEGORY$
       Strings
    $ONELINER$
-      Locates the position of a substring in a main string.   
+      Locates the position of a substring in a main string.
    $SYNTAX$
-      hb_AtI( <cSearch>, <cString>, [<nStart>], [<nEnd>] ) --> nPos   
+      hb_AtI( <cSearch>, <cString>, [<nStart>], [<nEnd>] ) --> <nPos>
    $ARGUMENTS$
       <cSearch> the sub-string to search for
-      
+
       <cString> The main string to search into, for <cSearch>
-      
+
       <nStart> Beggining search position into cString, default: 1
-      
-      <nEnd> Ending search position, default: Length of cString (i.e. entire cString)   
-      
+
+      <nEnd> Ending search position, default: Length of cString (i.e. entire <cString>)
+
    $RETURNS$
-      hb_AtI() returns the position (if any), into main string, 
-      where first time the substring appears.   
+      hb_AtI() returns the position (if any), into main string,
+      where first time the substring appears.
    $DESCRIPTION$
       This function has same functionality as hb_At() with the significant
-      difference that it's case Insensitive.      
-      
+      difference that it's case Insensitive.
+
       Optionally, with <nStart> can be defined the position into main string
       from where the search of <cSearch> must begin and with <nEnd> the position
       where it must stop. If neither of them is defined, <nStart> is 1st position
-      and <nEnd> the ending of <cString>.   
-   $EXAMPLES$      
+      and <nEnd> the ending of <cString>.
+   $EXAMPLES$
       PROCEDURE Main()
-         ? hb_At( "AS", "as simple as possible",  5 )  // --> 0
-         ? hb_AtI( "AS", "as simple as possible",  5 ) // --> 11
-         WAIT
-         RETURN   
+         ? hb_At( "AS", "as simple as possible",  5 )   // --> 0
+         ? hb_AtI( "AS", "as simple as possible",  5 )  // --> 11
+         RETURN
    $STATUS$
       R
    $COMPLIANCE$
       H
    $PLATFORMS$
-      All   
+      All
    $FILES$
-      Library is core   
+      Library is core
    $SEEALSO$
       hb_At()
-   $END$ 
- */ 
+   $END$
+ */
 
 /* $DOC$
    $TEMPLATE$
@@ -1625,7 +1624,7 @@
       Parses a complex string (e.g. a sentence or multi-line text) into individual
       tokens (words or other string chunks depending on delimiter used).
    $SYNTAX$
-      hb_ATokens(<cString>, [<cDelim>|<lEOL>], [<lSkipStrings>], [<lDoubleQuoteOnly>]) --> aTokens
+      hb_ATokens( <cString>, [<cDelim>|<lEOL>], [<lSkipStrings>], [<lDoubleQuoteOnly>] ) --> <aTokens>
    $ARGUMENTS$
       <cString> Complex string to be parsed.
 
@@ -1633,13 +1632,13 @@
                      If <lEOL> flag defined instead of <cDelim>,
                      then end of line marker(s) will be used as delimiter.
 
-      <lSkipStrings> boolean flag indicating if quoted substrings 
+      <lSkipStrings> boolean flag indicating if quoted substrings
                      will be tokenized or not.
 
       <lDoubleQuoteOnly> boolean flag indicating that only double-quoted
                          substrings will be tokenized.
    $RETURNS$
-      aTokens A character array, filled with the individual tokens found.
+      <aTokens> A character array, filled with the individual tokens found.
    $DESCRIPTION$
       This function analyses the complex string <cString> and splits it
       into separate sub-strings (tokens) that are delimited by <cDelim>
@@ -1653,18 +1652,20 @@
       only the double quote `"` is recognized as a quote sign.
       This argument is meaningful only when <lSkipStrings> is .T.
 
-      NOTES: 1) the tokenization process is case sensitive, in the (rare) case
-                where <cDelim> is an alphabetic character.
-             2) The delimiters are removed (trimmed) from tokens.
+      NOTES:
+
+      1) the tokenization process is case sensitive, in the (rare) case
+         where <cDelim> is an alphabetic character.
+
+      2) The delimiters are removed (trimmed) from tokens.
    $EXAMPLES$
       PROCEDURE Main()
          LOCAL cString := "Harbour is proven to be stable, robust and efficient."
          LOCAL aTokens := hb_ATokens( cString )
-         AEval( aTokens, { | token, n | Qout( hb_ntos(n), token ) } )
+         AEval( aTokens, {| token, n | QOut( hb_ntos(n), token ) } )
          ?
          aTokens := hb_ATokens( cString, "," )
-         AEval( aTokens, { | token, n | Qout( hb_ntos(n), token ) } )
-         WAIT
+         AEval( aTokens, {| token, n | QOut( hb_ntos(n), token ) } )
          RETURN
    $STATUS$
       R
@@ -1691,13 +1692,13 @@
    $ONELINER$
       Checks if a sub-string matches to leftmost part of a string.
    $SYNTAX$
-      hb_LeftEq( <cString>, <cSubString> ) --> lMatch
+      hb_LeftEq( <cString>, <cSubString> ) --> <lMatch>
    $ARGUMENTS$
       <cString> Main string of comparisson.
 
       <cSubString> Sub-string compared to leftmost part of <cString>
    $RETURNS$
-      lMatch Boolean flag indicating if the matching was successful
+      <lMatch> Boolean flag indicating if the matching was successful
    $DESCRIPTION$
       This function checks if all characters (one by one and with the given order)
       of <cSubString> match to leftmost (same length) part of <cString>
@@ -1705,52 +1706,13 @@
       in which case returns .T., otherwise .F.
 
       Basicaly it's equivalent to the expression:
-      Left( <cString>, Len( <cSubString> ) ) == <cSubString>
+      `Left( <cString>, Len( <cSubString> ) ) == <cSubString>`
       but faster and shorter.
 
       NOTE: Case sensitive!
    $EXAMPLES$
-      ? hb_LeftEq( "Harbour", "Ha" ) // --> .T.
-      ? hb_LeftEq( "Harbour", "ha" ) // --> .F.
-   $STATUS$
-      R
-   $COMPLIANCE$
-      H
-   $PLATFORMS$
-      All
-   $FILES$
-      Library is core
-   $SEEALSO$
-      hb_LeftEqI(), Left(), At()
-   $END$ 
- */
- 
-/* $DOC$
-   $TEMPLATE$
-      Function
-   $NAME$
-      hb_LeftEqI()
-   $CATEGORY$
-      API
-   $SUBCATEGORY$
-      Strings
-   $ONELINER$
-      Checks if a sub-string matches to leftmost part of a string.
-   $SYNTAX$
-      hb_LeftEqI( <cString>, <cSubString> ) --> lMatch
-   $ARGUMENTS$
-      <cString> Main string of comparisson.
-
-      <cSubString> Sub-string compared to leftmost part of <cString>.
-   $RETURNS$
-      lMatch Boolean flag indicating if the matching was successful.
-   $DESCRIPTION$
-      This function is identical to hb_LeftEq() (see above for details)
-      but it is case *I*nsensitive!
-   $EXAMPLES$
-      ? hb_LeftEqI( "Harbour", "HA" ) // --> .T.
-      ? hb_LeftEqI( "Harbour", "ha" ) // --> .T.
-      ? hb_LeftEq( "Harbour", "HA" )  // --> .F.
+      ? hb_LeftEq( "Harbour", "Ha" )  // --> .T.
+      ? hb_LeftEq( "Harbour", "ha" )  // --> .F.
    $STATUS$
       R
    $COMPLIANCE$
@@ -1763,5 +1725,42 @@
       hb_LeftEqI(), Left(), At()
    $END$
  */
- 
- 
+
+/* $DOC$
+   $TEMPLATE$
+      Function
+   $NAME$
+      hb_LeftEqI()
+   $CATEGORY$
+      API
+   $SUBCATEGORY$
+      Strings
+   $ONELINER$
+      Checks if a sub-string matches to leftmost part of a string.
+   $SYNTAX$
+      hb_LeftEqI( <cString>, <cSubString> ) --> <lMatch>
+   $ARGUMENTS$
+      <cString> Main string of comparisson.
+
+      <cSubString> Sub-string compared to leftmost part of <cString>.
+   $RETURNS$
+      <lMatch> Boolean flag indicating if the matching was successful.
+   $DESCRIPTION$
+      This function is identical to hb_LeftEq() (see above for details)
+      but it is case *I*nsensitive!
+   $EXAMPLES$
+      ? hb_LeftEqI( "Harbour", "HA" )  // --> .T.
+      ? hb_LeftEqI( "Harbour", "ha" )  // --> .T.
+      ? hb_LeftEq( "Harbour", "HA" )   // --> .F.
+   $STATUS$
+      R
+   $COMPLIANCE$
+      H
+   $PLATFORMS$
+      All
+   $FILES$
+      Library is core
+   $SEEALSO$
+      hb_LeftEqI(), Left(), At()
+   $END$
+ */
