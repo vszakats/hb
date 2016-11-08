@@ -415,7 +415,7 @@
         for 'N'): however, the first letter of this array element must
         be a proper value.
 
-      The dbCreate( ) function does not use the decimal field to
+      The dbCreate() function does not use the decimal field to
       calculate the length of a character held longer than 256. Values
       up to the maximum length of a character field (which is 65519 bytes)
       are stored directly in the database in the length attribute if that
@@ -599,9 +599,9 @@
       number. In some data formats, for example, the value of <xRecordNumber>
       is a unique primary key while in other formats, <xRecordNumber> could
       be an array offset if the data set was an array.
-<
-      Issuing a dbGoto( RecNo() ) call in a network enviroment will refresh
-      the database and index buffers. This is the same as a dbSkip(0) call.
+
+      Issuing a `dbGoto( RecNo() )` call in a network enviroment will refresh
+      the database and index buffers. This is the same as a `dbSkip( 0 )` call.
    $EXAMPLES$
       The following example uses dbGoto() to iteratively process
       every fourth record:
@@ -854,7 +854,7 @@
       return a logical true (.T.), the value of Found() wilI be a logical
       true (.T.), and the value of Eof() wilI be a logical false (.F.). If
       no item is found. then the function will return a logical false, the
-      value of Found( ) will be a logical false (.F.), and the value of
+      value of Found() will be a logical false (.F.), and the value of
       Eof() will be a logical true (.T.).
 
       This function always "rewinds" the database pointer and starts the
@@ -871,21 +871,27 @@
       <lSoftSeek> is a logical false (.F.)
    $EXAMPLES$
       PROCEDURE Main()
+
          USE test NEW INDEX test
          dbGoto( 10 )
          nId := test->nId
-         IF dbSeek( nId ) .AND. RLock()
+         dbGoTop()
+         IF dbSeek( nId )
             ? test->Name
-            dbRUnlock()
          ENDIF
+
          RETURN
 
-      ACCEPT "Employee name: " TO cName
-      IF Employee->( dbSeek( cName ) )
-         Employee->( ViewRecord() )
-      ELSE
-         ? "Not found"
-      ENDIF
+      PROCEDURE EmployeeLookup()
+
+         ACCEPT "Employee name: " TO cName
+         IF Employee->( dbSeek( cName ) )
+            Employee->( ViewRecord() )
+         ELSE
+            ? "Not found"
+         ENDIF
+
+         RETURN
    $STATUS$
       S
    $COMPLIANCE$
@@ -918,7 +924,7 @@
       select the numeric work area; if <xArea> is character, then it will
       select the work area with the alias name.
 
-      dbSelectArea( 0 ) will select the next avaliable and unused work area.
+      `dbSelectArea( 0 )` will select the next avaliable and unused work area.
       Up to 65534 work areas are supported. Each work area has its own alias
       and record pointer, as well as its own Found(), dbFilter(),
       dbRSelect() and dbRelation() function values.
@@ -1000,7 +1006,7 @@
    $DESCRIPTION$
       This function moves the record pointer <nRecords> in the selected or
       aliased work area. The default value for <nRecords> will be 1.
-      A dbSkip( 0 ) will flush and refresh the internal database bufer and
+      A `dbSkip( 0 )` will flush and refresh the internal database bufer and
       make any changes made to the record visible without moving the record
       pointer in either direction.
    $EXAMPLES$
@@ -1083,7 +1089,7 @@
       pointers to other arrays, each of which contains the characteristic
       of a field in the active work area. The length of this array is based
       in the number of fields in that particular work area. In other words,
-      Len( dbStruct() ) is equal to the value obtained from FCount().
+      `Len( dbStruct() )` is equal to the value obtained from FCount().
       Each subscript position
    $EXAMPLES$
       #include "dbstruct.ch"

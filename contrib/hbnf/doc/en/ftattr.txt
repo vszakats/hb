@@ -6,7 +6,7 @@
    $ONELINER$
       Save the attribute bytes of a specified screen region.
    $SYNTAX$
-      ft_SaveAtt( <nTop>, <nLeft>, <nBottom>, <nRight> ) -> cAttributes
+      ft_SaveAtt( <nTop>, <nLeft>, <nBottom>, <nRight> ) --> cAttributes
    $ARGUMENTS$
       <nTop>, <nLeft>, <nBottom>, and <nRight> define the screen region.
    $RETURNS$
@@ -42,7 +42,7 @@
    $ONELINER$
       Restore the attribute bytes of a specified screen region.
    $SYNTAX$
-      ft_RestAtt( <nTop>, <nLeft>, <nBottom>, <nRight>, <cAttributes> ) -> NIL
+      ft_RestAtt( <nTop>, <nLeft>, <nBottom>, <nRight>, <cAttributes> ) --> NIL
    $ARGUMENTS$
       <nTop>, <nLeft>, <nBottom>, and <nRight> define the screen region.
       <cAttributes> is a character string containing the attribute bytes

@@ -6,7 +6,7 @@
    $ONELINER$
       Determine and optionally change the status of CapLock key
    $SYNTAX$
-      ft_CapLock([ <lNewSetting> ]) -> lCurrentSetting
+      ft_CapLock([ <lNewSetting> ]) --> lCurrentSetting
    $ARGUMENTS$
       <lNewSetting> is optional and if supplied is the new setting
       for the CapLock key.  Specify .T. to turn CapLock on, or .F. to

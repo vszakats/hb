@@ -185,7 +185,7 @@
    $DESCRIPTION$
       __objGetMethodList() is a low level class support function that let
       you find all class functions names for a given object.
-      It is equivalent to __objGetMsgList( oObject, .F. ).
+      It is equivalent to `__objGetMsgList( oObject, .F. )`.
    $EXAMPLES$
       // show information about TBrowse class
       oB := TBrowseNew( 0, 0, 24, 79 )
@@ -229,8 +229,8 @@
    $DESCRIPTION$
       __objGetValueList() is a low level class support function that
       return an array with VAR names and value, each array element is a
-      pair of: aData[ i ][ HB_OO_DATA_SYMBOL ] contain the symbol name
-               aData[ i ][ HB_OO_DATA_VALUE  ] contain the value of DATA
+      pair of: `aData[ i ][ HB_OO_DATA_SYMBOL ]` contain the symbol name
+               `aData[ i ][ HB_OO_DATA_VALUE  ]` contain the value of DATA
    $EXAMPLES$
       // show information about TBrowse class
       oB := TBrowseNew( 0, 0, 24, 79 )

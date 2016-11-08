@@ -6,7 +6,7 @@
    $ONELINER$
       Rounds down a number to the next integer
    $SYNTAX$
-      Floor( <nNumber> ) -> nDownRoundedNumber
+      Floor( <nNumber> ) --> nDownRoundedNumber
    $ARGUMENTS$
       <nNumber>             number to round down
    $RETURNS$
@@ -38,7 +38,7 @@
    $ONELINER$
       Rounds up a number to the next integer
    $SYNTAX$
-      Ceiling( <nNumber> ) -> nUpRoundedNumber
+      Ceiling( <nNumber> ) --> nUpRoundedNumber
    $ARGUMENTS$
       <nNumber>             number to round up
    $RETURNS$
@@ -70,7 +70,7 @@
    $ONELINER$
       Sign of a number
    $SYNTAX$
-      Sign( <nNumber> ) -> nSign
+      Sign( <nNumber> ) --> nSign
    $ARGUMENTS$
       <nNumber>             a number
    $RETURNS$
@@ -105,7 +105,7 @@
    $ONELINER$
       Decadic logarithm of a number
    $SYNTAX$
-      Log10( <nNumber> ) -> nLogarithm
+      Log10( <nNumber> ) --> nLogarithm
    $ARGUMENTS$
       <nNumber>             number to logarithm
    $RETURNS$
@@ -137,7 +137,7 @@
    $ONELINER$
       Calculates faculty
    $SYNTAX$
-      Fact( <nNumber> ) -> nFaculty
+      Fact( <nNumber> ) --> nFaculty
    $ARGUMENTS$
       <nNumber>          number between 0 and 21
    $RETURNS$

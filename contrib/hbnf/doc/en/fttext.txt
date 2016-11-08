@@ -6,25 +6,25 @@
    $ONELINER$
       Open or close a text file for use by the ft_F*() functions
    $SYNTAX$
-      ft_FUse( [ <cFile> ] [, <nMode> ] ) -> nHandle | 0
+      ft_FUse( [ <cFile> ] [, <nMode> ] ) --> nHandle | 0
    $ARGUMENTS$
-      ^b<cFile>^n is the text file you want to open.  If not specified,
+      <cFile> is the text file you want to open.  If not specified,
       the file currently open, if any, will be closed.
 
-      ^b<nMode>^n is the open mode for the file.  Please refer to the
+      <nMode> is the open mode for the file.  Please refer to the
       discussion of file open modes in fileio.ch for a list of allowable
       open modes.  If not specified, the file will be opened with a mode
       of FO_READ + FO_SHARED.
    $RETURNS$
-      If ^b<cFile>^n is passed and the file is opened successfully, an
+      If <cFile> is passed and the file is opened successfully, an
       integer containing the text file's workarea.  If the file cannot be
       opened, F_ERROR (-1) will be returned.  In this case, check the
-      return value of ^bft_FError()^n for the cause of the error.
+      return value of ft_FError() for the cause of the error.
 
       If ft_FUse() is called without any arguments, it will close the
       text file in the current "text area" and return 0.
 
-      If a read error occurs ^ft_FError()^n will contain the error code.
+      If a read error occurs ft_FError() will contain the error code.
    $DESCRIPTION$
       The ft_F*() file functions are for reading text files, that is,
       files where each line (record) is delimited by a CRLF/LF.
@@ -58,16 +58,16 @@
    $ONELINER$
       Select a text file workarea
    $SYNTAX$
-      ft_FSelect( [ <nNewArea> ] ) -> nPreviousArea
+      ft_FSelect( [ <nNewArea> ] ) --> nPreviousArea
    $ARGUMENTS$
-      ^b<nNewArea>^n is the text file workarea to select.
+      <nNewArea> is the text file workarea to select.
    $RETURNS$
       The current selected text file area.
    $DESCRIPTION$
       This function selects a text file "workarea" from 1 to 10.  A
       file may or may not be open in the selected area.
 
-      Passing 0 for ^b<nNewArea>^n selects the next available workarea,
+      Passing 0 for <nNewArea> selects the next available workarea,
       similar to Clipper's SELECT 0 command.  If no more workareas are
       available the current workarea is not changed.
 
@@ -107,7 +107,7 @@
    $ONELINER$
       Go to the first record in a text file
    $SYNTAX$
-      ft_FGoTop() -> NIL
+      ft_FGoTop() --> NIL
    $ARGUMENTS$
       None
    $RETURNS$
@@ -141,7 +141,7 @@
    $ONELINER$
       Return the error code for a text file operation
    $SYNTAX$
-      ft_FError() -> nErrorNo
+      ft_FError() --> nErrorNo
    $ARGUMENTS$
       None
    $RETURNS$
@@ -173,7 +173,7 @@
    $ONELINER$
       Return the current record number of a text file
    $SYNTAX$
-      ft_FRecNo() -> nRecNo
+      ft_FRecNo() --> nRecNo
    $ARGUMENTS$
       None
    $RETURNS$
@@ -207,7 +207,7 @@
    $ONELINER$
       Go to the last record in a text file
    $SYNTAX$
-      ft_FGoBot() -> NIL
+      ft_FGoBot() --> NIL
    $ARGUMENTS$
       None
    $RETURNS$
@@ -216,7 +216,7 @@
       This function moves the record pointer to the last record of the
       file in the currently selected text file workarea.
 
-      If a read error occurs ^bft_FError()^n will contain the error code.
+      If a read error occurs ft_FError() will contain the error code.
 
       A text file "record" is a line of text terminated by a CRLF/LF.
    $EXAMPLES$
@@ -239,14 +239,14 @@
    $ONELINER$
       Move the record pointer to a new position in a text file
    $SYNTAX$
-      ft_FSkip( [ <nLines> ] ) -> nLinesSkipped
+      ft_FSkip( [ <nLines> ] ) --> nLinesSkipped
    $ARGUMENTS$
       <nLines> is the number of lines to skip.  Defaults to 1 if
       not specified.
    $RETURNS$
       The number of lines actually skipped.  If the file's EOF or
-      BOF was encountered before ^b<nLines>^n could be skipped, the
-      return value will be less than ^b<nLines>^n.
+      BOF was encountered before <nLines> could be skipped, the
+      return value will be less than <nLines>.
    $DESCRIPTION$
       This function moves the text file record pointer, similar to
       the CLIPPER SKIP command.
@@ -255,7 +255,7 @@
       skipped, for example to write a custom skipper function for
       TBrowse'g text files.
 
-      If a read error occurs ^ft_FError()^n will contain the error code.
+      If a read error occurs ft_FError() will contain the error code.
 
       A text file "record" is a line of text terminated by a CRLF/LF.
    $EXAMPLES$
@@ -280,7 +280,7 @@
    $ONELINER$
       Read a line from the currently selected text file
    $SYNTAX$
-      ft_FReadLn() -> cLine
+      ft_FReadLn() --> cLine
    $ARGUMENTS$
       None
    $RETURNS$
@@ -291,12 +291,12 @@
       with a CRLF/LF.  The record pointer is not moved.
 
       Currently the maximum record size is 4096 characters.  You may
-      increase the maximum record size by changing the value of ^b#define
-      ^bBUFFSIZE^n in the C source and recompiling, however you should
+      increase the maximum record size by changing the value of
+      `#define BUFFSIZE` in the C source and recompiling, however you should
       consider the performance implications if you do (all read and writes
       use this buffer size, including ft_FSkip()'s and ft_FGoto()'s).
 
-      If a read error occurs ^ft_FError()^n will contain the error code.
+      If a read error occurs ft_FError() will contain the error code.
 
       A text file "record" is a line of text terminated by a CRLF/LF.
    $EXAMPLES$
@@ -321,20 +321,20 @@
    $ONELINER$
       Deletes a line from the currently selected text file
    $SYNTAX$
-      ft_FDelete( [ <nLines> ] ) -> lSuccess
+      ft_FDelete( [ <nLines> ] ) --> lSuccess
    $ARGUMENTS$
-      ^b<nLines>^n is the number of lines to be eliminated, beginning with
+      <nLines> is the number of lines to be eliminated, beginning with
       the current record position.
 
-      If ^b<nLines>^n is omitted, the current record is deleted only.
+      If <nLines> is omitted, the current record is deleted only.
    $RETURNS$
-      TRUE if successful, otherwise check ^bft_FError()^n for error code.
+      TRUE if successful, otherwise check ft_FError() for error code.
    $DESCRIPTION$
       This function deletes one or several lines of text from the file
       in the currently selected text file workarea.  Text lines are
       delimited with a CRLF/LF.  The record pointer is not moved,
       unless the deleted lines occur at the end of the file, in which
-      case ^bft_FRecNo()^n will equal ^bft_FLastRe()^n and ^bft_FEof()^n
+      case ft_FRecNo() will equal ft_FLastRe() and ft_FEof()
       will be set to TRUE.
    $EXAMPLES$
       // delete the next 4 lines from a file
@@ -354,15 +354,15 @@
    $ONELINER$
       Inserts a line in the currently selected text file
    $SYNTAX$
-      ft_FInsert( [ <nLines> ] ) -> lSuccess
+      ft_FInsert( [ <nLines> ] ) --> lSuccess
    $ARGUMENTS$
-      ^b<nLines>^n is the number of lines that should be inserted at the
+      <nLines> is the number of lines that should be inserted at the
       current record position.
 
-      If ^b<nLines>^n is omitted, one record is inserted.
+      If <nLines> is omitted, one record is inserted.
    $RETURNS$
-      ^blSuccess^n is TRUE if the insert succeeded, FALSE if not.  If
-      false check the return value of ^bft_FError()^n for the reason.
+      <lSuccess> is TRUE if the insert succeeded, FALSE if not.  If
+      false check the return value of ft_FError() for the reason.
    $DESCRIPTION$
       This function inserts a line of text in the file in the currently
       selected text file workarea.  Text lines are delimited with a
@@ -392,14 +392,14 @@
    $ONELINER$
       Appends a line to the currently selected text file
    $SYNTAX$
-      ft_FAppend( [ <nLines> ] ) -> NIL
+      ft_FAppend( [ <nLines> ] ) --> NIL
    $ARGUMENTS$
       <nLines> is the number of lines that should be appended to the
       end of the currently selected text file.
 
       If <nLines> is omitted, one record is appended.
    $RETURNS$
-      lSuccess.  If FALSE, check ^bft_FError()^n for the error code.
+      <lSuccess>.  If FALSE, check ft_FError() for the error code.
    $DESCRIPTION$
       This function appends a line of text to the file in the currently
       selected text file workarea.  Text lines are delimited with a
@@ -440,20 +440,20 @@
    $ONELINER$
       Write a line to the currently selected text file
    $SYNTAX$
-      ft_FWriteLn( <cData>, [ <lInsert> ] ) -> lSuccess
+      ft_FWriteLn( <cData>, [ <lInsert> ] ) --> lSuccess
    $ARGUMENTS$
       <cData> is a string of data to write to the file at the current
        record position.
 
       <lInsert> is a logical indicating whether the contents
-      of the current record are to be preserved, that is, if lInsert
+      of the current record are to be preserved, that is, if <lInsert>
       evaluates to .T., the a new record is inserted at the current
       position.  The current record then is pushed down to ft_FRecNo()+1.
 
-      If lInsert is .F. or omitted, the current record is replaced by
-      cData.
+      If <lInsert> is .F. or omitted, the current record is replaced by
+      <cData>.
    $RETURNS$
-      TRUE if successful, otherwise check ^ft_FError()^n for error code.
+      TRUE if successful, otherwise check ft_FError() for error code.
    $DESCRIPTION$
       This function writes a line of text to the file in the currently
       selected text file workarea.  Text lines are delimited with a
@@ -490,7 +490,7 @@
    $ONELINER$
       Get the no. of records in the currently selected text file
    $SYNTAX$
-      ft_FLastRe() -> nLastRecordNum
+      ft_FLastRe() --> nLastRecordNum
    $ARGUMENTS$
       None
    $RETURNS$
@@ -518,7 +518,7 @@
    $ONELINER$
       Determine if end of text file has been encountered
    $SYNTAX$
-      ft_FEof() -> lResult
+      ft_FEof() --> lResult
    $ARGUMENTS$
       None
    $RETURNS$
@@ -549,7 +549,7 @@
    $ONELINER$
       Determine if attempt to skip past beginning of text file
    $SYNTAX$
-      ft_FBof() -> lResult
+      ft_FBof() --> lResult
    $ARGUMENTS$
       None
    $RETURNS$
@@ -582,7 +582,7 @@
    $ONELINER$
       Move record pointer to specific record in a text file
    $SYNTAX$
-      ft_FGoto( nLine ) -> NIL
+      ft_FGoto( nLine ) --> NIL
    $ARGUMENTS$
       <nLine> is the record number to go to.
    $RETURNS$
@@ -595,13 +595,13 @@
       record.
 
       Internally, the function operates differently depending on how
-      you invoke it.  Passing a value for ^b<nLine>^n results in what
+      you invoke it.  Passing a value for <nLine> results in what
       is effectively a skip operation, which is fairly quick.  However
-      if you pass 0 for ^b<nLine>^n, e.g. ft_FGoto( 0 ), the function
+      if you pass 0 for <nLine>, e.g. `ft_FGoto( 0 )`, the function
       internally goes to the top of the file, then skips down the
       required number of records.  Hence if your file is relatively
       large and the current record is a high number, you may see some
-      delay as ft_FGoto( 0 ) skips through the file.
+      delay as `ft_FGoto( 0 )` skips through the file.
 
       A text file "record" is a line of text terminated by a CRLF/LF.
    $EXAMPLES$

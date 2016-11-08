@@ -6,7 +6,7 @@
    $ONELINER$
       Create a subdirectory
    $SYNTAX$
-      ft_MkDir(  <cDirName> ) -> nResult
+      ft_MkDir(  <cDirName> ) --> nResult
    $ARGUMENTS$
       <cDirName> is the name of the directory to create.
    $RETURNS$

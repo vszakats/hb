@@ -125,12 +125,6 @@ a:hover {
   color: #ff6800;
 }
 
-.entry-button {
-  font-size: 14px;
-  float: right;
-  margin-bottom: 1em;
-}
-
 hr {
   border: 0;
   border-bottom: 1px dotted rgba(0, 0, 0, .1);
@@ -238,19 +232,62 @@ h4 {
   margin-bottom: 14px;
 }
 
+/* Hover permalink
+h4:hover .d-id {
+  visibility: visible;
+}
+
+.d-id {
+  visibility: hidden;
+  color: #000;
+  margin-left: -15px;
+  padding-right: 2px;
+}
+
+a.d-id:hover {
+  border: none;
+  color: #000;
+}
+*/
+
+.d-id:target {
+  padding-top: 62px;  /* 44px + 18px */
+}
+
+.d-id:focus {
+  outline: none;
+}
+
+.d-so {
+  font-size: 14px;
+  font-weight: normal;
+  margin-left: 5px;
+  vertical-align: super;
+}
+
+.d-eb {
+  font-size: 14px;
+  font-weight: normal;
+  float: right;
+  vertical-align: super;
+}
+
+.d-ebi a {
+  border: 0;
+}
+
 pre {
   background-color: #f2f2f2;
   color: #2e2a24;
-  border: none;
-  border-left: 4px solid #aaaaaa;
-  border-radius: 0 3px 3px 0;
-  padding: 8px 16px;
-  margin-left: 16px;
+  border: none !important;
+  border-left: 4px solid #aaaaaa !important;
+  border-radius: 0 3px 3px 0 !important;
+  padding: 8px 16px !important;
   overflow: scroll;
 }
 
-pre, code, .d-t, aside {
-  font-family: Hack, Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation Mono', 'Oxygen Mono', 'Andale Mono', monospace;
+code, .d-t, aside {
+  font-family: Hack, Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation Mono', 'Oxygen Mono', 'Andale Mono', monospace !important;
   font-size: 85%;
 }
 
@@ -262,35 +299,27 @@ aside code {
   font-size: 80%;
 }
 
-.d-id:target {
-  padding-top: 62px;  /* 44px + 18px */
-}
-
-.d-it code {
+.d-it code:not(.language-c) {
   color: #606060;
   color: #2e2a24;
   background-color: #efeff8;
-  font-weight-: bold;
   border: none;
   border-radius: 10px;
   margin-right: 0;
   padding: 2px 7px;
 }
 
-.d-sy pre {
-  color: #2e2a24;
-  font-weight: bold;
-  background-color: inherit;
-  border: none;
-  margin: 0;
-  padding-left: 0;
+.d-it pre {
+  margin-left: 16px;
 }
 
-.d-sy code {
+.d-sy pre {
   color: #2e2a24;
   background-color: inherit;
+  border: none !important;
   font-weight: bold;
-  padding: 0;
+  margin: 0 0 0 1em;
+  padding: 0 !important;
 }
 
 code code {
@@ -387,18 +416,11 @@ p {
   padding-bottom: 8px;
 }
 
-.d-so {
-  font-size: 14px;
-  font-weight: normal;
-  margin-left: 5px;
-  vertical-align: super;
-}
-
 .d-ol {
   font-weight: bold;
   font-size: 115%;
   margin-left: 1em;
-  margin-top: 0px;
+  margin-top: 0;
   margin-bottom: 14px;
 }
 
@@ -415,13 +437,12 @@ p {
   padding-bottom: 8px;
 }
 
-.d-ex {
-  margin: 8px 0 15px 1em;
+.d-sy {
+  padding-bottom: 8px;
 }
 
-.d-te {
-  margin-left: 1em;
-  padding-bottom: 8px;
+.d-ex, .d-te {
+  margin: 8px 0 15px 1em !important;
 }
 
 .d-sc {
@@ -520,7 +541,7 @@ p {
 
 .lang .dropdown-content a {
   margin: 0;
-  padding: 3px 4px 0px 4px;
+  padding: 3px 4px 0 4px;
 }
 
 /* Change color of dropdown links on hover */
@@ -574,7 +595,7 @@ p {
   }
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 520px) {
   body {
     -font-size: 12pt;
   }
@@ -599,5 +620,17 @@ p {
 
   .d-id:target {
     padding-top: 92px;  /* 74px + 18px */
+  }
+}
+
+@media print {
+  .d-eb {
+    display: none;
+  }
+
+  main {
+    margin: 0 15px;
+    padding-top: 0;
+    width: auto;
   }
 }

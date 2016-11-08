@@ -6,7 +6,7 @@
    $ONELINER$
       Convert decimal to binary
    $SYNTAX$
-      ft_Dec2Bin( <nNum> ) -> cBinaryNumber
+      ft_Dec2Bin( <nNum> ) --> cBinaryNumber
    $ARGUMENTS$
       <nNum> is the numeric expression to be converted.
    $RETURNS$

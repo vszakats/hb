@@ -6,7 +6,7 @@
    $ONELINER$
       Retrieve and optionally change the current default drive
    $SYNTAX$
-      ft_Default( [ <cDrive> ] ) -> cDrive
+      ft_Default( [ <cDrive> ] ) --> cDrive
    $ARGUMENTS$
       <cDrive> is optional, and if specified is the new default drive.
    $RETURNS$

@@ -53,7 +53,7 @@
 
    Open source projects, that implement DataMatrix:
      https://www.datenfreihafen.org/projects/iec16022.html
-     http://www.libdmtx.org/
+     https://web.archive.org/web/20130325083148/www.libdmtx.org/
      https://www.codeproject.com/Articles/66495/DataMatrixNet-ported-to-Compact-Framework.aspx
 
    Online encoder:

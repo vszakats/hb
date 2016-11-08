@@ -7,7 +7,7 @@
       Replace double with single characters
    $SYNTAX$
       WordToChar( <cDoubleCharacterSearchString>, <cString>,
-                  <cSingleCharacterReplaceString> ) -> cString
+                  <cSingleCharacterReplaceString> ) --> cString
    $ARGUMENTS$
 
    $RETURNS$

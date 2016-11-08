@@ -6,7 +6,7 @@
    $ONELINER$
       Change the current directory
    $SYNTAX$
-      ft_ChDir( <cDirName> ) -> nResult
+      ft_ChDir( <cDirName> ) --> nResult
    $ARGUMENTS$
       <cDirName> is the name of the desired directory.
    $RETURNS$

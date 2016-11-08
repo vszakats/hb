@@ -8,7 +8,7 @@
    $SYNTAX$
       AtAdjust( <cStringToMatch>, <cString>, <nAdjustPosition>,
                 [<nCounter>], [<nIgnore>],
-                [<nFillChar|cFillChar>] ) -> cString
+                [<nFillChar|cFillChar>] ) --> cString
    $ARGUMENTS$
       <cStringToMatch>        is the sequence to be adjusted within <cString>
       <cString>               is the string that contains <cStringToMatch>
@@ -22,7 +22,7 @@
       [<nFillChar|cFillChar>] specifies the character that is used for the
                               adjustment
    $RETURNS$
-      cString                 the changed string
+      <cString>               the changed string
    $DESCRIPTION$
       <TODO: add a description, some examples and tests here>
    $EXAMPLES$

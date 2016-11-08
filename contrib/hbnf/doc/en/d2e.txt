@@ -6,7 +6,7 @@
    $ONELINER$
       Convert decimal to scientific notation
    $SYNTAX$
-      ft_D2E( <nDec>, <nPrecision> )  -> <cNumE>
+      ft_D2E( <nDec>, <nPrecision> ) --> <cNumE>
    $ARGUMENTS$
       <nDec>         Decimal number to convert
 

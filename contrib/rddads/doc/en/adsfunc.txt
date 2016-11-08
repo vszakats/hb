@@ -605,7 +605,7 @@
       If a file is opened in the proprietary mode, other applications cannot
       open it in a "write" mode. So if non-Advantage applications need
       concurrent access to the data files, use the Compatibility locking mode
-      by calling AdsLocking( .F. ).
+      by calling `AdsLocking( .F. )`.
 
       AdsLocking() is a Get/Set function for the locking mode. It affects
       files at the time they are opened. So when a data
@@ -995,7 +995,7 @@
       In Harbour internal RDDs, a runtime error occurs if an attempt is made
       to write to a shared file without a proper lock.
 
-      AdsTestRecLocks( .T. ) will turn on a debugging mode to mimic this behavior
+      `AdsTestRecLocks( .T. )` will turn on a debugging mode to mimic this behavior
       and throw an error instead of allowing an implicit lock. Each time a field
       is set, we see if the file is open exclusively or locked, and whether
       the record has been explicitly locked already. If not, we throw
@@ -1077,7 +1077,7 @@
 
       For illustration, consider filter expressions.
       Since Harbour attempts to be as compatible with Clipper as possible,
-      you CAN set a filter that ADS DOES NOT understand, but the filtering
+      you _can_ set a filter that ADS *does not* understand, but the filtering
       will be done by the RDD layer itself and ADS will be unaware of the
       filter setting. This means more data will be sent "across the wire" from
       the server to the client, and the client (in rddads) will be doing the
@@ -1193,7 +1193,7 @@
       <cFileName>  Name of the adt or dbf file name
       <cIndexFileName> Optional name of the index file
    $RETURNS$
-      <lSuccess> -> .T. if file was added, otherwise .F.
+      <lSuccess> - .T. if file was added, otherwise .F.
    $DESCRIPTION$
       See ace.hlp for full details about the Advantage Database Server.
       AdsDDAddTable() adds a new table to an ADS data dictionary.
@@ -1228,7 +1228,7 @@
    $ONELINER$
       Connect to a local/remote/internet server
    $SYNTAX$
-      AdsConnect60( <cFilePath>, <nServertype>, [<cUserName>], [<cUserPass>], [<nOptions>] ) -> lSuccess
+      AdsConnect60( <cFilePath>, <nServertype>, [<cUserName>], [<cUserPass>], [<nOptions>] ) --> lSuccess
    $ARGUMENTS$
       <cFilePath>   Name of data dictionary to connect to.
       <nServertype> The server type to connect (LOCAL, REMOTE, AIS or all together)
@@ -1268,7 +1268,7 @@
    $ONELINER$
       Provides caching of open tables
    $SYNTAX$
-      AdsCacheOpenTables( <nOpen> ) -> nRetVal
+      AdsCacheOpenTables( <nOpen> ) --> nRetVal
    $ARGUMENTS$
       <nOpen>       Number of tables to cache.
 
@@ -1306,7 +1306,7 @@
    $ONELINER$
       Provides caching of open cursors
    $SYNTAX$
-      AdsCacheOpenCursors( <nOpen> ) -> nRetVal
+      AdsCacheOpenCursors( <nOpen> ) --> nRetVal
    $ARGUMENTS$
       <nOpen>       Number of cursors to cache.
 
@@ -1345,7 +1345,7 @@
    $ONELINER$
       Close all cached tables on the given connection
    $SYNTAX$
-      AdsCloseCachedTables( [<hConnection>] ) -> nRetVal
+      AdsCloseCachedTables( [<hConnection>] ) --> nRetVal
    $ARGUMENTS$
       <hConnection>    A connection handle retrieved via AdsConnect()
       or AdsConnect60(). If omitted, the RDD's current connection

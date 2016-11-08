@@ -6,7 +6,7 @@
    $ONELINER$
       Return the current DOS major and minor version as a string
    $SYNTAX$
-      ft_DosVer() -> <cVersion>
+      ft_DosVer() --> <cVersion>
    $ARGUMENTS$
       None
    $RETURNS$

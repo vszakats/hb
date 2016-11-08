@@ -6,7 +6,7 @@
    $ONELINER$
       Adjust beginning or ending fiscal pd. dates to acctg. dates
    $SYNTAX$
-      ft_AcctAdj( [ <dGivenDate> ], [ <lIsEnd> ] ) -> dDate
+      ft_AcctAdj( [ <dGivenDate> ], [ <lIsEnd> ] ) --> dDate
    $ARGUMENTS$
       <dGivenDate> is any valid date in any valid format.
       Defaults to Date() if not supplied.

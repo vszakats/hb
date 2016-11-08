@@ -6,7 +6,7 @@
    $ONELINER$
       Force a warm or cold boot
    $SYNTAX$
-      ft_Reboot( <nBootType> ) -> NIL
+      ft_Reboot( <nBootType> ) --> NIL
    $ARGUMENTS$
       <nBootType> is used to indicate the type of reboot.  A value of zero
       will cause a cold boot, while any other value will cause a warm boot.

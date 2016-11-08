@@ -7,7 +7,7 @@
       Pulldown menu system
    $SYNTAX$
       ft_Menu1( <acBarNames>, <acOptions>, <acAction>,
-                <acColors> [, <nTopRow> ], [ <lShadow> ] ) -> NIL
+                <acColors> [, <nTopRow> ], [ <lShadow> ] ) --> NIL
    $ARGUMENTS$
       <acBarNames> is a character array containing the names to appear
       on the menu bar.
@@ -121,7 +121,7 @@
       Declare menu options for ft_Menu1()
    $SYNTAX$
       ft_Fill( <aSubArrayName>, <cMenuSelection>, <bFunction>,
-               <lSelectable> ) -> NIL
+               <lSelectable> ) --> NIL
    $ARGUMENTS$
       <aSubArrayName> is a sub-array of <acOptions> in ft_Menu1()
       denoting the group in which to include the selection --

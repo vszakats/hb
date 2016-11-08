@@ -6,13 +6,13 @@
    $ONELINER$
       Compress a numeric value into a character string
    $SYNTAX$
-      ft_Sqzn( <nValue> [, <nSize> [, <nDecimals> ] ] ) -> cCompressed
+      ft_Sqzn( <nValue> [, <nSize> [, <nDecimals> ] ] ) --> cCompressed
    $ARGUMENTS$
-      nValue       - The numeric value to be compressed
-      nSize        - Optional size of numeric field, defaults to 10
-      nDecimals    - Optional number of decimal places, defaults to 0
+      <nValue>       - The numeric value to be compressed
+      <nSize>        - Optional size of numeric field, defaults to 10
+      <nDecimals>    - Optional number of decimal places, defaults to 0
    $RETURNS$
-      cCompressed  - Compressed string, 50% the size of nSize
+      <cCompressed>  - Compressed string, 50% the size of <nSize>
    $DESCRIPTION$
       The ft_Sqzn() function allows a numeric value to be compressed when
       stored in the database.  The compression is 50% the storage space
@@ -35,7 +35,7 @@
    $ONELINER$
       Uncompress a numeric compressed by ft_Sqzn()
    $SYNTAX$
-      ft_Unsqzn( <cCompressed>, <nSize> [, <nDecimals> ] ) -> nValue
+      ft_Unsqzn( <cCompressed>, <nSize> [, <nDecimals> ] ) --> nValue
    $ARGUMENTS$
       <cCompressed>  - Compressed string, obtained from ft_Sqzn()
 
@@ -43,7 +43,7 @@
 
       <nDecimals>    - Optional number of decimal places
    $RETURNS$
-      nValue       - Uncompressed numeric value
+      <nValue>       - Uncompressed numeric value
    $DESCRIPTION$
       The ft_Unsqzn() function returns the numeric value from the compressed
       string.  The compression is 50% the storage space of the original

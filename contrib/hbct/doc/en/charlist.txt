@@ -6,7 +6,7 @@
    $ONELINER$
       Generates a list of all characters in a string
    $SYNTAX$
-      CharList( [<cString>] ) -> cCharacterList
+      CharList( [<cString>] ) --> cCharacterList
    $ARGUMENTS$
       [<cString>]       is the string for whom the function generates a list
                         of all characters
@@ -41,7 +41,7 @@
    $ONELINER$
       Generates a list of all characters not contained in a string
    $SYNTAX$
-      CharNoList( [<cString>] ) -> cCharacterList
+      CharNoList( [<cString>] ) --> cCharacterList
    $ARGUMENTS$
       [<cString>]       is the string for whom the function generates a list
                         of all characters not contained in that string

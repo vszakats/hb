@@ -7,7 +7,7 @@
       Display same-line pending messages after a wait.
    $SYNTAX$
       ft_Pending( <cMsg>, [ <nRow> ], [ <nCol> ], ;
-                         [ <nWait> ], [ <cColor> ] ) -> NIL
+                         [ <nWait> ], [ <cColor> ] ) --> NIL
    $ARGUMENTS$
       <cMsg> is the message string to display.
 

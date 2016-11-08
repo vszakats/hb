@@ -6,7 +6,7 @@
    $ONELINER$
       Return the entire current environment
    $SYNTAX$
-      ft_GetE( [ @<xReceiveVar> ] ) -> nNumStrings
+      ft_GetE( [ @<xReceiveVar> ] ) --> nNumStrings
    $ARGUMENTS$
       <xReceiveVar> is the variable to receive the environment data.
 

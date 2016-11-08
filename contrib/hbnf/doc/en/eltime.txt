@@ -6,7 +6,7 @@
    $ONELINER$
       Compute difference between times in hours, minutes, seconds.
    $SYNTAX$
-      ft_ElTime( <cTime1>, <cTime2> ) -> cDiff
+      ft_ElTime( <cTime1>, <cTime2> ) --> cDiff
    $ARGUMENTS$
       <cTime1, cTime2>  character strings representing times in
          `hh:mm:ss` format.

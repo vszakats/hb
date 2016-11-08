@@ -105,7 +105,7 @@
    $RETURNS$
       <cWorkArea> Name of alias
    $DESCRIPTION$
-      This function returns the alias of the work area indicated by <nWorkArea>
+      This function returns the alias of the work area indicated by <nWorkArea>.
       If <nWorkArea> is not provided, the alias of the current work area is
       returned.
    $EXAMPLES$

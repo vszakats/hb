@@ -6,7 +6,7 @@
    $ONELINER$
       Generates a sorted list of all characters in a string
    $SYNTAX$
-      CharSList( [<cString>] ) -> cSortedCharacterList
+      CharSList( [<cString>] ) --> cSortedCharacterList
    $ARGUMENTS$
       [<cString>]       is the string for whom the function generates a
                         sorted list of all characters
@@ -17,7 +17,7 @@
       The CharList() function generates a sorted list of those characters that
       are contained in <cString>. This list can contain each character
       only once, so that its maximum length is 256. The function
-      gives the same result as CharSort(CharList(<cString>))
+      gives the same result as `CharSort( CharList( cString ) )`
    $EXAMPLES$
       ? CharSList( "Hello World !" ) // --> " !HWdelor"
    $STATUS$
@@ -41,14 +41,14 @@
    $ONELINER$
       Generates a character histogram of a string
    $SYNTAX$
-      CharHist( [<cString>] ) -> aCharacterCount
+      CharHist( [<cString>] ) --> aCharacterCount
    $ARGUMENTS$
       [<cString>]       is the string for whom the function generates a
                         character histogram
                         Default: "" (empty string)
    $RETURNS$
       <aCharacterCount> an array with 256 elements where the nth element
-                        contains the count of character #(n-1) in cString
+                        contains the count of character #(n-1) in <cString>
    $DESCRIPTION$
       The CharHist() function generates a character histogram of those
       characters that are contained in <cString>. This histogram is stored

@@ -6,7 +6,7 @@
    $ONELINER$
       Set the keyboard delay and repeat rate on PC/AT & PS/2
    $SYNTAX$
-      ft_SetRate( [ <nDelayTime> ] [, <nRepeatRate> ] ) -> NIL
+      ft_SetRate( [ <nDelayTime> ] [, <nRepeatRate> ] ) --> NIL
    $ARGUMENTS$
       <nDelayTime> is the keyboard delay time.
 

@@ -6,7 +6,7 @@
    $ONELINER$
       Remove characters within a certain ASCII range from a string
    $SYNTAX$
-      RangeRem( <cChar1|nChar1>, <cChar2|nChar2>, <cString> ) -> cString
+      RangeRem( <cChar1|nChar1>, <cChar2|nChar2>, <cString> ) --> cString
    $ARGUMENTS$
 
    $RETURNS$
@@ -40,7 +40,7 @@
       Replace characters within a certain ASCII range from a string
    $SYNTAX$
       RangeRepl( <cChar1|nChar1>, <cChar2|nChar2>,
-                 <[@]cString>, <cReplacementChar|nReplacementChar> ) -> cString
+                 <[@]cString>, <cReplacementChar|nReplacementChar> ) --> cString
    $ARGUMENTS$
 
    $RETURNS$

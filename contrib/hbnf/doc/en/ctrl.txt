@@ -6,7 +6,7 @@
    $ONELINER$
       Determine status of the Ctrl key
    $SYNTAX$
-      ft_Ctrl() -> lValue
+      ft_Ctrl() --> lValue
    $ARGUMENTS$
       None
    $RETURNS$

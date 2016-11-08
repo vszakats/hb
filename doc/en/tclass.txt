@@ -31,13 +31,13 @@
    $ARGUMENTS$
 
    $RETURNS$
-      An instance of the HBClass Class. This special object's `:New()`
+      An instance of the HBClass() Class. This special object's `:New()`
       method can then create the classes you define.
    $DESCRIPTION$
-      HBClass is a class that ...
+      HBClass() is a class that ...
       The class methods are as follows:
 
-      New()                 Create a new instance of the class
+      `:New()`              Create a new instance of the class
    $EXAMPLES$
       PROCEDURE Main()
          LOCAL oObject

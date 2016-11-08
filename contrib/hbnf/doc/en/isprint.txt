@@ -6,7 +6,7 @@
    $ONELINER$
       Check printer status
    $SYNTAX$
-      ft_IsPrint( [ <cDevice> ] ) -> lResult
+      ft_IsPrint( [ <cDevice> ] ) --> lResult
    $ARGUMENTS$
       <cDevice> is optional and is the device to test (LPT2, COM1, etc.).
       If omitted, the function will default to the PRN device.

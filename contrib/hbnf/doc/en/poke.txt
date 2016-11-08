@@ -6,7 +6,7 @@
    $ONELINER$
       Write a byte to a specified memory location
    $SYNTAX$
-      ft_Poke( <nSegment>, <nOffset>, <nValue> ) -> lResult
+      ft_Poke( <nSegment>, <nOffset>, <nValue> ) --> lResult
    $ARGUMENTS$
       <nSegment> is the segment of the desired memory address.
 

@@ -6,7 +6,7 @@
    $ONELINER$
       Wait for keypress and return keyboard scan code
    $SYNTAX$
-      ft_ScanCode() -> cCode
+      ft_ScanCode() --> cCode
    $ARGUMENTS$
       None
    $RETURNS$
@@ -22,9 +22,9 @@
 
       For example, calling ft_ScanCode() and pressing the Grey-minus
       key will return a two character string:
-
-             hb_BChar( 45 ) + hb_BChar( 74 )
-
+      ```
+      hb_BChar( 45 ) + hb_BChar( 74 )
+      ```
       LastKey() is not updated by ft_ScanCode(), so don't try to
       test LastKey() to see what was pressed during an ft_ScanCode()
       call.  Simply assign the return value to a variable and test

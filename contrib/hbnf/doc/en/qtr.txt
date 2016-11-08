@@ -6,7 +6,7 @@
    $ONELINER$
       Return Calendar or Fiscal Quarter Data.
    $SYNTAX$
-      ft_Qtr( [ <dGivenDate> ], [ <nQtrNum> ] ) -> aDateInfo
+      ft_Qtr( [ <dGivenDate> ], [ <nQtrNum> ] ) --> aDateInfo
    $ARGUMENTS$
       <dGivenDate> is any valid date in any date format.  Defaults
       to current system date if not supplied.

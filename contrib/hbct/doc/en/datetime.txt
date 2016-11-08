@@ -4,9 +4,9 @@
    $CATEGORY$
       CT3 date and time functions
    $ONELINER$
-      _B_egin _O_f _M_onth
+      Begin of Month
    $SYNTAX$
-      BoM( [<dDate>] ) -> dDateBeginOfMonth
+      BoM( [<dDate>] ) --> dDateBeginOfMonth
    $ARGUMENTS$
 
    $RETURNS$
@@ -34,9 +34,9 @@
    $CATEGORY$
       CT3 date and time functions
    $ONELINER$
-      _E_nd _O_f _M_onth
+      End of Month
    $SYNTAX$
-      EoM( [<dDate>] ) -> dDateEndOfMonth
+      EoM( [<dDate>] ) --> dDateEndOfMonth
    $ARGUMENTS$
 
    $RETURNS$
@@ -64,9 +64,9 @@
    $CATEGORY$
       CT3 date and time functions
    $ONELINER$
-      _B_egin _O_f _Q_uarter
+      Begin of Quarter
    $SYNTAX$
-      BoQ( [<dDate>] ) -> dDateBeginOfQuarter
+      BoQ( [<dDate>] ) --> dDateBeginOfQuarter
    $ARGUMENTS$
 
    $RETURNS$
@@ -94,9 +94,9 @@
    $CATEGORY$
       CT3 date and time functions
    $ONELINER$
-      _E_nd _O_f _Q_uarter
+      End of Quarter
    $SYNTAX$
-      EoQ( [<dDate>] ) -> dDateEndOfQuarter
+      EoQ( [<dDate>] ) --> dDateEndOfQuarter
    $ARGUMENTS$
 
    $RETURNS$
@@ -124,9 +124,9 @@
    $CATEGORY$
       CT3 date and time functions
    $ONELINER$
-      _B_egin _O_f _Y_ear
+      Begin of Year
    $SYNTAX$
-      BoY( [<dDate>] ) -> dDateBeginOfYear
+      BoY( [<dDate>] ) --> dDateBeginOfYear
    $ARGUMENTS$
 
    $RETURNS$
@@ -154,9 +154,9 @@
    $CATEGORY$
       CT3 date and time functions
    $ONELINER$
-      _E_nd _O_f _Y_ear
+      End of Year
    $SYNTAX$
-      EoY( [<dDate>] ) -> dDateEndOfYear
+      EoY( [<dDate>] ) --> dDateEndOfYear
    $ARGUMENTS$
 
    $RETURNS$

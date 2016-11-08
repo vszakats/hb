@@ -73,8 +73,8 @@
 
       <nUp> is optional and specifies which prompt becomes active
       when the up arrow key is pressed.  If not specified, the
-      default is the previous prompt.  The current setting of SET
-      WRAP TO is obeyed.
+      default is the previous prompt.  The current setting of
+      `SET WRAP TO` is obeyed.
 
       <nDown> is optional and specifies which prompt becomes
       active when the down arrow key is pressed.  If not
@@ -159,11 +159,11 @@
       <var> is the name of the variable to which the result of the menu
       selection should be assigned.
 
-      [COLD] is optional and if specified indicates that trigger characters
+      `COLD` is optional and if specified indicates that trigger characters
       should be treated as "cold," i.e. rather than causing the menu item
       to be selected it only causes the light bar to move to that selection.
    $DESCRIPTION$
-      This enhanced version of MENU TO requires the inclusion of the header
+      This enhanced version of `MENU TO` requires the inclusion of the header
       file ftmenuto.ch in any source file that uses it.  It may be used in
       place of the standard Clipper `MENU TO` command.  However, in the
       interests of functionality it is *not* 100% compatible (in particular,

@@ -6,7 +6,7 @@
    $ONELINER$
       Swap neighbouring characters in a string
    $SYNTAX$
-      CharSwap( <[@]cString> ) -> cSwappedString
+      CharSwap( <[@]cString> ) --> cSwappedString
    $ARGUMENTS$
       <[@]cString>      is the string that should be processed
    $RETURNS$
@@ -41,7 +41,7 @@
    $ONELINER$
       Swap neighbouring double characters in a string
    $SYNTAX$
-      WordSwap( <[@]cString> [, <lSwapCharacters>] ) -> cSwappedString
+      WordSwap( <[@]cString> [, <lSwapCharacters>] ) --> cSwappedString
    $ARGUMENTS$
       <[@]cString>         is the string that should be processed
       [<lSwapCharacters>]  specifies whether an additional swap should be

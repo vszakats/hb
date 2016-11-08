@@ -6,7 +6,7 @@
    $ONELINER$
       Intersectional set of two strings based on characters
    $SYNTAX$
-      CharOnly( <cThisCharactersOnly>, <cString> ) -> cReducedString
+      CharOnly( <cThisCharactersOnly>, <cString> ) --> cReducedString
    $ARGUMENTS$
       <cThisCharactersOnly>   specifies the characters that must not be
                               deleted in <cString>.
@@ -42,7 +42,7 @@
    $ONELINER$
       Intersectional set of two strings based on double characters
    $SYNTAX$
-      WordOnly( <cThisDoubleCharactersOnly>, <cString> ) -> cReducedString
+      WordOnly( <cThisDoubleCharactersOnly>, <cString> ) --> cReducedString
    $ARGUMENTS$
       <cThisDoubleCharactersOnly> specifies the double characters that must
                                   not be deleted in <cString>.
@@ -78,7 +78,7 @@
    $ONELINER$
       Removes characters from a string
    $SYNTAX$
-      CharRem( <cDeleteThisCharacters>, <cString> ) -> cReducedString
+      CharRem( <cDeleteThisCharacters>, <cString> ) --> cReducedString
    $ARGUMENTS$
       <cDeleteThisCharacters>   specifies the characters that should
                                 be deleted in <cString>
@@ -113,7 +113,7 @@
    $ONELINER$
       Removes characters from a string
    $SYNTAX$
-      WordRem( <cDeleteThisDoubleCharacters>, <cString> ) -> cReducedString
+      WordRem( <cDeleteThisDoubleCharacters>, <cString> ) --> cReducedString
    $ARGUMENTS$
       <cDeleteThisDoubleCharacters>   specifies the double characters that
                                       should be deleted in <cString>

@@ -7,7 +7,7 @@
       Add or subtract months to/from a date
    $SYNTAX$
       ft_MAdd( [ <dGivenDate> ], [ <nAddMonths> ], [ <lMakeEOM> ] )
-          -> dDate
+          --> dDate
    $ARGUMENTS$
       <dGivenDate> is any valid date in any date format. Defaults to
       current system date if not supplied.
@@ -23,8 +23,8 @@
    $DESCRIPTION$
       ft_MAdd() adds or subtracts months to/from a given date.
 
-      If MakeEOM is passed and dGivenDate is the last day of a month,
-      it will return the EOM of calculated month.  Otherwise it will
+      If <lMakeEOM> is passed and <dGivenDate> is the last day of a month,
+      it will return the `EOM` of calculated month.  Otherwise it will
       return the same day as the day of the passed date.
    $EXAMPLES$
       dDate := 0d19900915

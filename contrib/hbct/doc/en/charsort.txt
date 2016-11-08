@@ -8,7 +8,7 @@
    $SYNTAX$
       CharSort( <[@]cString>, [<nElementLength>], [<nCompareLength>],
                 [<nIgnoreCharacters>], [<nElemenOffset>], [<nSortLength>],
-                [<lDescending>] ) -> cSortedString
+                [<lDescending>] ) --> cSortedString
    $ARGUMENTS$
       <[@]cString>             is the string that should be processed
       [<nElementLength>]       specifies the length of the elements that
@@ -27,7 +27,7 @@
       [<nSortLength>]          specifies how many characters in <cString>,
                                starting from the <nIgnoreCharacters> position,
                                should be sorted
-                               Default: Len(cString)-nIgnoreCharacters
+                               Default: `Len( cString ) - nIgnoreCharacters`
       [<lDescending>])         specifies whether the process should
                                sort descending or not
    $RETURNS$

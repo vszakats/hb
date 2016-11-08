@@ -201,6 +201,7 @@ $dl-button-color: $color-bk-footer;
 }
 
 .dl-button a {
+  color: $dl-button-color;
   transition: color $dl-button-transition-time;
 }
 
@@ -222,7 +223,7 @@ $donate-button-transition-time: .3s;
 }
 
 .donate-button:hover {
-  background-color: $color-donate-normal;
+  background-color: #00457c;
 }
 
 .donate-button:hover a {
@@ -259,6 +260,14 @@ $donate-button-transition-time: .3s;
   margin-bottom: 1em;
   padding: .2em 1em;
   width: auto;
+}
+
+a.readmore-dark {
+  color: darken($color-a, 15%);
+}
+
+a.readmode-dark:hover {
+  color: $color-a-hover;
 }
 
 .sshot {
@@ -660,10 +669,16 @@ h2 {
 }
 
 .updated:after {
-  margin-left: 6px;
-  content: '\f0a3';  /* fa-certificate */
-  font-family: FontAwesome;
-  color: $fork-color;
+  content: 'Updated';
+  border: 0;
+  border-radius: 4px;
+  font: 15px $font-copy;
+  text-align: center;
+  padding: 2px 4.5px;
+  background-color: $color-version-bk;
+  color: $color-version;
+  position: relative;
+  left: 5px;
 }
 
 @mixin readmore-char() {
@@ -941,7 +956,7 @@ pre, code {
   line-height: 150%;
   margin-top: 1px;
   margin-left: -9px;
-  min-width: 12em;
+  min-width: 13em;
   position: absolute;
   z-index: 100;
   padding: 5px 5px;

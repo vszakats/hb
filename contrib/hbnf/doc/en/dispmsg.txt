@@ -8,7 +8,7 @@
    $SYNTAX$
       ft_DispMsg( <aMessageArray>, [ <cKey2Check> ],
                   [ <nTopBoxRow> ], [ <nLeftBoxColumn> ],
-                  [ <cnBoxType> ], [ <lShadow> ] ) -> lKeyMatch
+                  [ <cnBoxType> ], [ <lShadow> ] ) --> lKeyMatch
    $ARGUMENTS$
       <aMessageArray> is a multidimensional array of messages to be
       displayed and the color attributes for each message.

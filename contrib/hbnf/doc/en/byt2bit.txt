@@ -6,7 +6,7 @@
    $ONELINER$
       Convert byte to string of 1's and 0's
    $SYNTAX$
-      ft_Byt2Bit( <cByte> ) -> cBitPattern
+      ft_Byt2Bit( <cByte> ) --> cBitPattern
    $ARGUMENTS$
       <cByte> is the byte to convert.
    $RETURNS$

@@ -6,7 +6,7 @@
    $ONELINER$
       User Selectable Color Routine
    $SYNTAX$
-      ft_ClrSel( <aClrData>, [ <lClrMode> ], [ <cTestChr> ]  -> aClrData
+      ft_ClrSel( <aClrData>, [ <lClrMode> ], [ <cTestChr> ]  --> aClrData
    $ARGUMENTS$
       <aClrData> is an array of subarrays, with each subarray containing
          information about the color settings.

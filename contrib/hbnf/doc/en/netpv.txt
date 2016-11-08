@@ -7,7 +7,7 @@
       Calculate net present value
    $SYNTAX$
       ft_NetPV( <nInitialInvestment>, <nInterestRate>, <aCashFlow> ;
-                [, <nNoOfCashFlows> ] ) -> nNetPV
+                [, <nNoOfCashFlows> ] ) --> nNetPV
    $ARGUMENTS$
       <nInitialInvestment> is the amount of cash invested for purposes
       of generating the cash flows.

@@ -6,7 +6,7 @@
    $ONELINER$
       Determine the amount of conventional memory installed
    $SYNTAX$
-      ft_SysMem() -> nMemSize
+      ft_SysMem() --> nMemSize
    $ARGUMENTS$
       None
    $RETURNS$

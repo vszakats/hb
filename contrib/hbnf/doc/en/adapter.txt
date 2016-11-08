@@ -6,7 +6,7 @@
    $ONELINER$
       Report the type of video adapter installed
    $SYNTAX$
-      ft_Adapter() -> nResult
+      ft_Adapter() --> nResult
    $ARGUMENTS$
       None
    $RETURNS$

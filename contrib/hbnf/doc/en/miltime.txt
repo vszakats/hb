@@ -6,7 +6,7 @@
    $ONELINER$
       Convert time in military format to number of minute of day.
    $SYNTAX$
-      ft_Mil2Min( <cMILTIME> ) -> nMINUTE
+      ft_Mil2Min( <cMILTIME> ) --> nMINUTE
    $ARGUMENTS$
       <cMILTIME>  character string of form hhmm, where 0<=hh<24.
    $RETURNS$
@@ -28,7 +28,7 @@
    $ONELINER$
       Convert minute of day to military format time.
    $SYNTAX$
-      ft_Min2Mil( <nMINUTE> ) -> cMILTIME
+      ft_Min2Mil( <nMINUTE> ) --> cMILTIME
    $ARGUMENTS$
       <nMINUTE>  numeric integer representing minute of day.
    $RETURNS$
@@ -50,7 +50,7 @@
    $ONELINER$
       Convert time in military format to civilian format.
    $SYNTAX$
-      ft_Mil2Civ( <cCIVTIME> ) -> dMILTIME
+      ft_Mil2Civ( <cCIVTIME> ) --> dMILTIME
    $ARGUMENTS$
       <cMILTIME>  character string of form hhmm, where 0<=hh<24.
    $RETURNS$
@@ -79,7 +79,7 @@
    $ONELINER$
       Convert usual civilian format time to military time.
    $SYNTAX$
-      ft_Civ2Mil( <cCIVTIME> ) -> cMILTIME
+      ft_Civ2Mil( <cCIVTIME> ) --> cMILTIME
    $ARGUMENTS$
       <cCIVTIME>  character string of form hh:mm (am,pm,n or m),
          where 0<hh<12.
@@ -108,7 +108,7 @@
    $ONELINER$
       Convert system time to military time format.
    $SYNTAX$
-      ft_Sys2Mil() -> cMILTIME
+      ft_Sys2Mil() --> cMILTIME
    $ARGUMENTS$
       none
    $RETURNS$

@@ -6,7 +6,7 @@
    $ONELINER$
       Save a screen region for later display
    $SYNTAX$
-      ft_SavRgn( <nTop>, <nLeft>, <nBottom>, <nRight> ) -> cScreen
+      ft_SavRgn( <nTop>, <nLeft>, <nBottom>, <nRight> ) --> cScreen
    $ARGUMENTS$
       <nTop>, <nLeft>, <nBottom>, and <nRight> define the portion of the
       screen to save.  Allowable values are 0 through 255.
@@ -45,7 +45,7 @@
    $ONELINER$
       Restore region of the screen saved with ft_SavRgn()
    $SYNTAX$
-      ft_RstRgn( <cScreen>, [ <nTop> ], [ <nLeft> ] ) -> NIL
+      ft_RstRgn( <cScreen>, [ <nTop> ], [ <nLeft> ] ) --> NIL
    $ARGUMENTS$
       <cScreen> is a screen region previously returned from ft_SavRgn().
 
@@ -92,7 +92,7 @@
       Push or pop a saved screen region on or off the stack
    $SYNTAX$
       ft_RgnStack( <cAction>, [ <nTop> ], [ <nLeft> ], [ <nBottom> ],
-         [ <nRight> ] ) -> NIL
+         [ <nRight> ] ) --> NIL
    $ARGUMENTS$
       <cAction> determines what action ft_RgnStack() will take.  The
       allowable values for this parameter are "push", "pop", and "pop all".

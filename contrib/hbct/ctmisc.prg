@@ -1,7 +1,7 @@
 /*
  * Misc CA-T*ols functions
  *
- * Copyright 1999-2001 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 1999-2016 Viktor Szakats (vszakats.net/harbour)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -150,3 +150,9 @@ FUNCTION DiskTotal( cDrive )
 
 FUNCTION DiskFree( cDrive )
    RETURN hb_vfDirSpace( hb_defaultValue( cDrive, hb_CurDrive() ) + hb_osDriveSeparator(), HB_DISK_FREE )
+
+FUNCTION CPUType()
+   RETURN 8  /* 80486 */
+
+FUNCTION PCType()
+   RETURN 255  /* Normal PC */

@@ -6,7 +6,7 @@
    $ONELINER$
       Returns Pi, the perimeter-to-diameter-ratio of a circle
    $SYNTAX$
-      Pi() -> nPi
+      Pi() --> nPi
    $ARGUMENTS$
 
    $RETURNS$
@@ -41,7 +41,7 @@
    $ONELINER$
       Sine of the argument
    $SYNTAX$
-      SIN (nRadiant) -> nSine
+      SIN (nRadiant) --> nSine
    $ARGUMENTS$
       <nRadiant>       an angle size given in radiants
    $RETURNS$
@@ -76,7 +76,7 @@
    $ONELINER$
       Cosine of the argument
    $SYNTAX$
-      Cos( nRadiant ) -> nCosine
+      Cos( nRadiant ) --> nCosine
    $ARGUMENTS$
       <nRadiant>       an angle size given in radiants
    $RETURNS$
@@ -111,7 +111,7 @@
    $ONELINER$
       Tangent of the argument
    $SYNTAX$
-      Tan( nRadiant ) -> nTangent
+      Tan( nRadiant ) --> nTangent
    $ARGUMENTS$
       <nRadiant>       an angle size given in radiants
    $RETURNS$
@@ -147,7 +147,7 @@
    $ONELINER$
       Cotangent of the argument
    $SYNTAX$
-      Cot( nRadiant ) -> nCotangent
+      Cot( nRadiant ) --> nCotangent
    $ARGUMENTS$
       <nRadiant>       an angle size given in radiants
    $RETURNS$
@@ -182,7 +182,7 @@
    $ONELINER$
       Arcus sine of the argument
    $SYNTAX$
-      Asin( nSine ) -> nRadiant
+      Asin( nSine ) --> nRadiant
    $ARGUMENTS$
       <nSine>         the sine of an angle
    $RETURNS$
@@ -218,7 +218,7 @@
    $ONELINER$
       Arcus cosine of the argument
    $SYNTAX$
-      Acos( nCosine ) -> nRadiant
+      Acos( nCosine ) --> nRadiant
    $ARGUMENTS$
       <nCosine>       the cosine of an angle
    $RETURNS$
@@ -254,7 +254,7 @@
    $ONELINER$
       Arcus tangent of the argument
    $SYNTAX$
-      Acos( nTangent ) -> nRadiant
+      Acos( nTangent ) --> nRadiant
    $ARGUMENTS$
       <nTangent>      the tangent of an angle
    $RETURNS$
@@ -288,7 +288,7 @@
    $ONELINER$
       Arcus tangent a sine and a cosine argument
    $SYNTAX$
-      Atn2( nSine, nCosine ) -> nRadiant
+      Atn2( nSine, nCosine ) --> nRadiant
    $ARGUMENTS$
       <nSine>         the sine of an angle
       <nCosine>       the cosine of an angle
@@ -329,7 +329,7 @@
    $ONELINER$
       Hyperbolic Sine of the argument
    $SYNTAX$
-      Sinh( nArea ) -> nHyperbolicSine
+      Sinh( nArea ) --> nHyperbolicSine
    $ARGUMENTS$
       <nArea>            the size of the area (see below)
    $RETURNS$
@@ -365,18 +365,18 @@
    $ONELINER$
       Hyperbolic Cosine of the argument
    $SYNTAX$
-      Cosh( nArea ) -> nHyperbolicCosine
+      Cosh( nArea ) --> nHyperbolicCosine
    $ARGUMENTS$
       <nArea>              the size of the area (see below)
    $RETURNS$
       <nHyperbolicCosine>  the hyperbolic cosine of <nArea>
    $DESCRIPTION$
       The function Cosh() calculates the hyperbolic cosine of the argument.
-      In analytical mathematics it is defined as 1/2*(Exp(nArea)+Exp(-nArea)).
+      In analytical mathematics it is defined as `1 / 2 * ( Exp( nArea ) + Exp( -nArea ) )`.
       A common geometric interpretation of the Cosh() function is the
       maximum x value of the points in the area with the given size <nArea>,
       that is bound by the x axis, a straight line through the point of
-      origin (this one is fixed by the area) and the hyperbola x^2-y^2=1.
+      origin (this one is fixed by the area) and the hyperbola `x ^ 2 - y ^ 2 = 1`.
    $EXAMPLES$
       ? Cosh( 0.0 )  // --> 1.0
       ? Cosh( 1.0 )  // --> 1.5430...
@@ -401,14 +401,14 @@
    $ONELINER$
       Hyperbolic Tangent of the argument
    $SYNTAX$
-      Tanh( nArea ) -> nHyperbolicTangent
+      Tanh( nArea ) --> nHyperbolicTangent
    $ARGUMENTS$
       <nArea>               the size of the area (see below)
    $RETURNS$
       <nHyperbolicTangent>  the hyperbolic tangent of <nArea>
    $DESCRIPTION$
       The function Tanh() calculates the hyperbolic tangent of the argument.
-      In analytical mathematics it is defined as Sinh(x)/Cosh(x).
+      In analytical mathematics it is defined as `Sinh( x ) / Cosh( x )`.
    $EXAMPLES$
       ? Tanh( 0.0 )  // --> 0.0
       ? Tanh( 1.0 )  // --> 0.7615...
@@ -433,7 +433,7 @@
    $ONELINER$
       Convert radiant to degree
    $SYNTAX$
-      RToD( nRadiant ) -> nDegree
+      RToD( nRadiant ) --> nDegree
    $ARGUMENTS$
       <nRadiant>         the size of an angle in radiant
    $RETURNS$
@@ -443,7 +443,7 @@
       in radiant (like those returned by the asin, acos or atan function)
       to degrees that are commonly used geometry and technics.
    $EXAMPLES$
-      ? RToD( Pi() )  // --> 180
+      ? RToD( Pi() )      // --> 180
       ? Tanh( Pi() / 3 )  // --> 60
    $STATUS$
       R
@@ -466,7 +466,7 @@
    $ONELINER$
       Convert degree to radiant
    $SYNTAX$
-      DToR( nDegree ) -> nRadiant
+      DToR( nDegree ) --> nRadiant
    $ARGUMENTS$
       <nDegree>          the size of that angle in degree
    $RETURNS$
@@ -476,7 +476,7 @@
       in degrees to radiant (as expected by sin, cos or tan functions).
    $EXAMPLES$
       ? DToR( 180 )  // --> Pi()
-      ? DToR( 60 )  // --> Pi() / 3
+      ? DToR( 60 )   // --> Pi() / 3
    $STATUS$
       R
    $COMPLIANCE$

@@ -7,7 +7,7 @@
       Find longest element within an array
    $SYNTAX$
       ft_AEMaxLen( <aArray> [, <nDimension> [, <nStart> [, <nCount> ] ] ] ) ;
-                 -> nMaxlen
+                 --> nMaxlen
    $ARGUMENTS$
       <aArray> is the array containing the elements to be measured.
 

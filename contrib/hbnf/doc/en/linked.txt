@@ -6,7 +6,7 @@
    $ONELINER$
       Determine if a function was linked in
    $SYNTAX$
-      ft_Linked( <cString> ) -> lResult
+      ft_Linked( <cString> ) --> lResult
    $ARGUMENTS$
       <cString> is a character string containing one or more function
                 calls

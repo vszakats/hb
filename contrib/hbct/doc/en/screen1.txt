@@ -6,7 +6,7 @@
    $ONELINER$
 
    $SYNTAX$
-      ScreenAttr( [<nRow>], [<nColumn>] ) -> <nAttr>
+      ScreenAttr( [<nRow>], [<nColumn>] ) --> <nAttr>
    $ARGUMENTS$
       <nRow>     Designates the line from which to determine the attribute.
                  The default is the cursor line.
@@ -46,7 +46,7 @@
    $ONELINER$
 
    $SYNTAX$
-      ScreenMix( <cCharString>, <cAttributeString>, [<nRow>], [<nCol>] ) -> <cEmptyString>
+      ScreenMix( <cCharString>, <cAttributeString>, [<nRow>], [<nCol>] ) --> <cEmptyString>
    $ARGUMENTS$
 
    $RETURNS$
@@ -76,7 +76,7 @@
    $ONELINER$
 
    $SYNTAX$
-      SayScreen( <cString>, [<nRow>], [<nCol>] ) -> <cEmptyString>
+      SayScreen( <cString>, [<nRow>], [<nCol>] ) --> <cEmptyString>
    $ARGUMENTS$
       <cString> - the string to output. Although undocumented, can be NIL.
       <nRow> - row number, defaults to cursor row.

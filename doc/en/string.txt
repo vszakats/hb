@@ -408,8 +408,9 @@
    $DESCRIPTION$
       This functions returns the leftmost <nLen> characters of <cString>.
       It is equivalent to the following expression:
-
+      ```
       SubStr( <cString>, 1, <nLen> )
+      ```
    $EXAMPLES$
       ? Left( "Hello Harbour", 5 )    // Hello
    $STATUS$
@@ -447,10 +448,12 @@
    $DESCRIPTION$
       This functions returns the rightmost <nLen> characters of <cString>.
       It is equivalent to the following expressions:
-
+      ```
       SubStr( <cString>, -<nLen> )
-
+      ```
+      ```
       SubStr( <cString>, Len( <cString> ) - <nLen> + 1, <nLen> )
+      ```
    $EXAMPLES$
       ? Right( "Hello Harbour", 5 )     // rbour
    $STATUS$

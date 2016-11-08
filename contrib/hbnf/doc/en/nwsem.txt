@@ -6,7 +6,7 @@
    $ONELINER$
       Open or create a NetWare semaphore
    $SYNTAX$
-      ft_NWSemOpen( <cName>, <nInitVal>, <@nHandle>, <@nOpenCnt> ) -> nRc
+      ft_NWSemOpen( <cName>, <nInitVal>, <@nHandle>, <@nOpenCnt> ) --> nRc
    $ARGUMENTS$
       <cName> is the semaphore name, maximum length is 127 characters.
 
@@ -22,12 +22,12 @@
       semaphore.  *This must be passed by reference!* On exit, <nOpenCnt>
       will contain a numeric value.
    $RETURNS$
-      nRc, a numeric result code, as follows:
-
-            0 - success
-          254 - Invalid semaphore name length
-          255 - Invalid semaphore value
-
+      <nRc>, a numeric result code, as follows:
+      <table-noheader>
+         0 - success
+       254 - Invalid semaphore name length
+       255 - Invalid semaphore value
+      </table>
       <nHandle> will contain the semaphore handle, and
       <nOpenCnt> will contain the number of stations that have opened
       the semaphore.
@@ -98,25 +98,25 @@
    $ONELINER$
       Examine a NetWare semaphore's value and open count
    $SYNTAX$
-      ft_NWSemEx( <nHandle>, <@nValue>, <@nOpenCnt> ) -> nRc
+      ft_NWSemEx( <nHandle>, <@nValue>, <@nOpenCnt> ) --> nRc
    $ARGUMENTS$
       <nHandle> is the semaphore handle, returned from a previous call
       to ft_NWSemOpen().
 
-      <@nValue> will get the current semaphore value.  *This numeric
-      argument must be passed by reference!*
+      <@nValue> will get the current semaphore value.
+      *This numeric argument must be passed by reference!*
 
       <@nOpenCnt> will get the current number of workstations
-      that have opened the semaphore.  *This numeric argument must be
-      passed by reference!*
+      that have opened the semaphore.
+      *This numeric argument must be passed by reference!*
    $RETURNS$
-      nRc, a numeric, as follows:
-
-            0 - success
-          255 - invalid semaphore handle
-
-      In addition, nValue will be set to the semaphore's current value,
-      and nOpenCnt will be set to the number of stations that have
+      <nRc>, a numeric, as follows:
+      <table-noheader>
+         0 - success
+       255 - invalid semaphore handle
+      </table>
+      In addition, <nValue> will be set to the semaphore's current value,
+      and <nOpenCnt> will be set to the number of stations that have
       opened the semaphore.
    $DESCRIPTION$
       See the description for ft_NWSemOpen().
@@ -151,21 +151,22 @@
    $ONELINER$
       Wait on a NetWare semaphore (decrement)
    $SYNTAX$
-      ft_NWSemWait( <nHandle> [, nTimeout ] ) -> nRc
+      ft_NWSemWait( <nHandle> [, nTimeout ] ) --> nRc
    $ARGUMENTS$
       <nHandle> is the semaphore handle, returned from a previous call
       to ft_NWSemOpen().
 
       <nTimeOut> is an optional parameter telling how long you wish to
       wait on this semaphore.  This is a numeric indicating the number
-      of clock ticks (approx 1/18 sec ) to wait.  A zero (the default)
+      of clock ticks (approx 1/18 sec) to wait.  A zero (the default)
       means "don't wait."
    $RETURNS$
-      nRc, a numeric, as follows:
-
-            0 - success
-          254 - timeout failure
-          255 - invalid semaphore handle
+      <nRc>, a numeric, as follows:
+      <table-noheader>
+         0 - success
+       254 - timeout failure
+       255 - invalid semaphore handle
+      </table>
    $DESCRIPTION$
       See the description for the ft_NWSemOpen() function.
    $EXAMPLES$
@@ -189,16 +190,17 @@
    $ONELINER$
       Signal a NetWare semaphore (increment)
    $SYNTAX$
-      ft_NWSemSig( nHandle ) -> nRc
+      ft_NWSemSig( nHandle ) --> nRc
    $ARGUMENTS$
       <nHandle> is the semaphore handle, returned from a previous call
       to ft_NWSemOpen().
    $RETURNS$
-      nRc, a numeric, as follows
-
-           0 - success
-           1 - semaphore overflow ( value > 127 )
-         255 - invalid semaphore handle
+      <nRc>, a numeric, as follows
+      <table-noheader>
+         0 - success
+         1 - semaphore overflow ( value > 127 )
+       255 - invalid semaphore handle
+      </table>
    $DESCRIPTION$
       Use ft_NWSemSig() when your app has finished with the resource
       locked by a semaphore.  This will increase the value (thus
@@ -220,15 +222,16 @@
    $ONELINER$
       Close a NetWare semaphore
    $SYNTAX$
-      ft_NWSemClose( <nHandle> )  -> nRc
+      ft_NWSemClose( <nHandle> ) --> nRc
    $ARGUMENTS$
       <nHandle> is the semaphore handle, returned from a previous call
       to ft_NWSemOpen().
    $RETURNS$
-      nRc, a numeric, as follows:
-
-             0 - success
-           255 - invalid semaphore handle
+      <nRc>, a numeric, as follows:
+      <table-noheader>
+         0 - success
+       255 - invalid semaphore handle
+      </table>
    $DESCRIPTION$
       Call ft_NWSemClose() when the app is finished.  This decrements
       the open count for the semaphore.  If the open count hits zero,
@@ -248,13 +251,13 @@
    $ONELINER$
       Perform a semaphore "lock"
    $SYNTAX$
-      ft_NWSemLock( <cSemaphore>, <@nHandle> ) -> lRet
+      ft_NWSemLock( <cSemaphore>, <@nHandle> ) --> lRet
    $ARGUMENTS$
       <cSemaphore> is the name of a semaphore you want to "lock."
       <nHandle> is the semaphore's handle, if you get the lock.
       *This must be passed by reference!*
    $RETURNS$
-      lRet == .T. if you get the lock, .T. if you don't.
+      <lRet> == .T. if you get the lock, .T. if you don't.
       If the lock succeeds, <nHandle> will contain the semaphore
       handle.  If it fails, the value of <nHandle> is undefined.
 
@@ -283,7 +286,7 @@
 
       You can use a semaphore lock to control access to anything
       that Clipper's RLock() and FLock() can't help you with, such
-      as text files written with the low level file i/o functions,
+      as text files written with the low level file I/O functions,
       etc.
    $EXAMPLES$
       LOCAL nHandle := 0
@@ -311,11 +314,11 @@
    $ONELINER$
       "Unlock" a semaphore locked by ft_NWSemLock()
    $SYNTAX$
-      ft_NWSemUnlock( <nHandle> ) -> lRet
+      ft_NWSemUnlock( <nHandle> ) --> lRet
    $ARGUMENTS$
       <nHandle> is the semaphore handle returned from ft_NWSemLock()
    $RETURNS$
-      lRet == .T. if you successfully unlock the semaphore, .F. if
+      <lRet> == .T. if you successfully unlock the semaphore, .F. if
       you don't.  If this call fails, it could be that you're passing
       an invalid semaphore handle.
    $DESCRIPTION$

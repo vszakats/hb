@@ -6,7 +6,7 @@
    $ONELINER$
       Execute a software interrupt
    $SYNTAX$
-      ft_int86( <nInterruptNumber>, <aRegisterValues> ) -> lResult
+      ft_int86( <nInterruptNumber>, <aRegisterValues> ) --> lResult
    $ARGUMENTS$
       <nInterruptNumber> is the interrupt to execute.
 

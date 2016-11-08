@@ -6,7 +6,7 @@
    $ONELINER$
       Return the current Novell NetWare logical station number
    $SYNTAX$
-      ft_NWLStat() -> nStatNum
+      ft_NWLStat() --> nStatNum
    $ARGUMENTS$
       None
    $RETURNS$

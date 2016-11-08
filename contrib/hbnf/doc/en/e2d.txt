@@ -6,7 +6,7 @@
    $ONELINER$
       Convert scientific notation string to a decimal
    $SYNTAX$
-      ft_E2D( <cNumE> )  -> <nDec>
+      ft_E2D( <cNumE> ) --> <nDec>
    $ARGUMENTS$
       <cNumE>   Scientific notation string to convert
    $RETURNS$

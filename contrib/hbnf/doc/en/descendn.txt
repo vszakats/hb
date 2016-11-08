@@ -6,7 +6,7 @@
    $ONELINER$
       Create a descending index key value
    $SYNTAX$
-      ft_Descend( <exp> ) -> <value>
+      ft_Descend( <exp> ) --> <value>
    $ARGUMENTS$
       <exp> is any expression of character, numeric, date, or logical type.
    $RETURNS$

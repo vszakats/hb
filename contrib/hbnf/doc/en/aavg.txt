@@ -6,7 +6,7 @@
    $ONELINER$
       Average numeric values in an array
    $SYNTAX$
-      ft_AAvg( <aArray> [, <nStartIndex> [, <nEndIndex> ] ] ) -> nAverage
+      ft_AAvg( <aArray> [, <nStartIndex> [, <nEndIndex> ] ] ) --> nAverage
    $ARGUMENTS$
       <aArray> is the array containing the elements to be averaged.
 

@@ -6,7 +6,7 @@
    $ONELINER$
       Translate numeric value to words
    $SYNTAX$
-      ft_NToW( <nNumber> ) -> cWords
+      ft_NToW( <nNumber> ) --> cWords
    $ARGUMENTS$
       <nNumber>  An integer to translate
    $RETURNS$

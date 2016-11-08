@@ -6,7 +6,7 @@
    $ONELINER$
       Return number of work days between two dates
    $SYNTAX$
-      ft_Workdays( [ <dStart> ], [ <dStop> ] ) -> nDays
+      ft_Workdays( [ <dStart> ], [ <dStop> ] ) --> nDays
    $ARGUMENTS$
       <dStart> is the beginning value for the date range.
 

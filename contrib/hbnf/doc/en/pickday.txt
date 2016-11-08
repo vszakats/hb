@@ -6,7 +6,7 @@
    $ONELINER$
       Picklist of days of week
    $SYNTAX$
-      ft_PickDay() -> cDayOfWeek
+      ft_PickDay() --> cDayOfWeek
    $ARGUMENTS$
       None
    $RETURNS$

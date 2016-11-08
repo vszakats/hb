@@ -6,7 +6,7 @@
    $ONELINER$
       The left-most position there two string differ
    $SYNTAX$
-      PosDiff( <cString1>, <cString2>, [<nIgnore>] ) -> nPosition
+      PosDiff( <cString1>, <cString2>, [<nIgnore>] ) --> nPosition
    $ARGUMENTS$
 
    $RETURNS$
@@ -36,7 +36,7 @@
    $ONELINER$
       The left-most position there two string begin to be equal
    $SYNTAX$
-      PosEqual( <cString1>, <cString2>, [<nCompare>], [<nIgnore>] ) -> nPosition
+      PosEqual( <cString1>, <cString2>, [<nCompare>], [<nIgnore>] ) --> nPosition
    $ARGUMENTS$
 
    $RETURNS$

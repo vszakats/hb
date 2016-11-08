@@ -6,7 +6,7 @@
    $ONELINER$
       Test the status of an individual bit
    $SYNTAX$
-      ft_IsBit( <cByte>, <nBitPos> ) -> lResult
+      ft_IsBit( <cByte>, <nBitPos> ) --> lResult
    $ARGUMENTS$
       <cByte> is a character from `hb_BChar( 0 )` to `hb_BChar( 255 )`.
 

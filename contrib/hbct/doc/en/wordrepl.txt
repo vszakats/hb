@@ -7,7 +7,7 @@
       Replacement of double characters
    $SYNTAX$
       WordRepl( <cDoubleCharacterSearchString>, <[@]cString>,
-                <cDoubleCharacterReplaceString>, [<lMode>] ) -> cString
+                <cDoubleCharacterReplaceString>, [<lMode>] ) --> cString
    $ARGUMENTS$
       <cDoubleCharacterSearchString>   is a string of double characters
                                        that should be replaced
@@ -17,7 +17,7 @@
       [<lMode>]                        sets the replacement method (see description)
                                        Default: .F.
    $RETURNS$
-      cString                          the processed string
+      <cString>                        the processed string
    $DESCRIPTION$
       The WordRepl() takes the double characters of <cDoubleCharacterSearchString>
       one after the other and searches for them in <cString>.

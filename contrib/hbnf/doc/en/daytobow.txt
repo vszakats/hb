@@ -6,7 +6,7 @@
    $ONELINER$
       Calculate no. of days between date and beginning of week
    $SYNTAX$
-      ft_DayToBoW( [ <dGivenDate> ] ) -> nDays
+      ft_DayToBoW( [ <dGivenDate> ] ) --> nDays
    $ARGUMENTS$
       <dGivenDate> is any valid date in any valid date format.
       Defaults to current date if not supplied.

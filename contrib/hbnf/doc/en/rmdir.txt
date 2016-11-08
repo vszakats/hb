@@ -6,7 +6,7 @@
    $ONELINER$
       Delete a subdirectory
    $SYNTAX$
-      ft_RmDir( <cDirName> ) -> nResult
+      ft_RmDir( <cDirName> ) --> nResult
    $ARGUMENTS$
       <cDirName> is the name of the directory to delete.
    $RETURNS$

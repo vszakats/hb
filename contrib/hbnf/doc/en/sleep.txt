@@ -6,7 +6,7 @@
    $ONELINER$
       Wait for a specified amount of time
    $SYNTAX$
-      ft_Sleep( <nSeconds>, [<nInitial>] ) -> NIL
+      ft_Sleep( <nSeconds>, [<nInitial>] ) --> NIL
    $ARGUMENTS$
       <nSeconds> is the number of seconds to pause
 
@@ -41,6 +41,6 @@
       // ... intervening code ...
 
       // ft_Sleep( 0.5, nTime ) // Sleep until the sytem clock is
-                                // nTime+0.5 seconds.
+                                // nTime + 0.5 seconds.
    $END$
  */

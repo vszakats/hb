@@ -6,7 +6,7 @@
    $ONELINER$
       Determine status of the Alt key
    $SYNTAX$
-      ft_Alt() -> lValue
+      ft_Alt() --> lValue
    $ARGUMENTS$
       None
    $RETURNS$

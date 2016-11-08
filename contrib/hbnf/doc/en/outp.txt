@@ -6,7 +6,7 @@
    $ONELINER$
       Write a byte to a specified I/O port
    $SYNTAX$
-      ft_outp( <nPort>, <nValue> ) -> lResult
+      ft_outp( <nPort>, <nValue> ) --> lResult
    $ARGUMENTS$
       <nPort> is the port from which to retrieve the byte.
 

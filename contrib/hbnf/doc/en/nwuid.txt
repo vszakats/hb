@@ -6,7 +6,7 @@
    $ONELINER$
       Return the current Novell NetWare User ID
    $SYNTAX$
-      ft_NWUID( [ <nConnection> ] ) -> cUid
+      ft_NWUID( [ <nConnection> ] ) --> cUid
    $ARGUMENTS$
       <nConnection> is a connection number, or logical station number,
       to find a userid for.  Under NetWare 286, this number can be from

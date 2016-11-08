@@ -6,7 +6,7 @@
    $ONELINER$
       Enable or disable the Print Screen key
    $SYNTAX$
-      ft_PrtScr( [ <lSetStat> ] ) -> lCurStat
+      ft_PrtScr( [ <lSetStat> ] ) --> lCurStat
    $ARGUMENTS$
       <lSetStat> set to .T. will enable the Print Screen key,
       .F. will disable it.  If omitted, leaves status as is.

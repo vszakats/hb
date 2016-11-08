@@ -6,7 +6,7 @@
    $ONELINER$
       Convert byte to hexadecimal version of its binary value
    $SYNTAX$
-      ft_Byt2Hex( cByte ) -> cHexValue
+      ft_Byt2Hex( cByte ) --> cHexValue
    $ARGUMENTS$
       <cByte> is the byte to convert.
    $RETURNS$

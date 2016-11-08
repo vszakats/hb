@@ -8,7 +8,7 @@
    $SYNTAX$
       TabExpand( <cString>, [<nTabWidth>], [<cFillChar|nFillChar>],
                  [<cNewLineCharacters>], [<cTabChar|nTabChar>],
-                 [<lIgnore141>] ) -> cExpandedString
+                 [<lIgnore141>] ) --> cExpandedString
    $ARGUMENTS$
       <cString>
       <nTabWidth>
@@ -17,11 +17,11 @@
                                 default is the string returned by
                                 hb_eol()
       <cTabChar|nTabChar>       character indicating a tab stop,
-                                default is Chr( 9 )
+                                default is `Chr( 9 )`
       <lIgnore141>              .T., if the soft-CR used by MemoEdit()
                                 should be ignored as a newline indicator,
                                 default is .F.
-                                (functions uses hb_BChar( 141 ))
+                                (functions uses `hb_BChar( 141 )`)
    $RETURNS$
 
    $DESCRIPTION$
@@ -53,7 +53,7 @@
    $SYNTAX$
       TabPack( <cString>, [<nTabWidth>], [<cFillChar|nFillChar>],
                [<cNewLineCharacters>], [<cTabChar|nTabChar>],
-               [<lIgnore141>] ) -> cPackedString
+               [<lIgnore141>] ) --> cPackedString
    $ARGUMENTS$
       <cString>
       <nTabWidth>
@@ -62,11 +62,11 @@
                                 default is the string returned by
                                 hb_eol()
       <cTabChar|nTabChar>       character indicating a tab stop,
-                                default is Chr( 9 )
+                                default is `Chr( 9 )`
       <lIgnore141>              .T., if the soft-CR used by MemoEdit()
                                 should be ignored as a newline indicator,
                                 default is .F.
-                                (functions uses hb_BChar( 141 ))
+                                (functions uses `hb_BChar( 141 )`)
    $RETURNS$
 
    $DESCRIPTION$

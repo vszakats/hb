@@ -247,8 +247,8 @@
 
       METHOD <MethodName>( [<params,...>] ) CLASS <ClassName>
 
-      Methods can reference the current object with the keyword "Self:" or
-      its shorthand version "::".
+      Methods can reference the current object with the keyword `Self:` or
+      its shorthand version `::`.
 
       CLAUSES:
 
@@ -261,7 +261,7 @@
                    code for the method immediately within the definition
                    of the Class. Any methods not declared INLINE or BLOCK
                    must be fully defined after the ENDCLASS command.
-                   The <Code,...> following INLINE receives a parameter
+                   The <Code, ...> following INLINE receives a parameter
                    of Self. If you need to receive more parameters, use
                    the BLOCK clause instead.
 
@@ -269,7 +269,7 @@
                    methods that need parameters. The first parameter to
                    <CodeBlock> must be Self, as in:
 
-      METHOD       <MethodName> BLOCK {| Self, <arg1>, <arg2>, ..., <argN> | ... }
+      METHOD       `<MethodName> BLOCK {| Self, <arg1>, <arg2>, ..., <argN> | ... }`
 
       EXTERN       If an external function does what the method needs,
                    use this clause to make an optimized call to that
@@ -291,7 +291,7 @@
    $EXAMPLES$
       CREATE CLASS TWindow
          VAR    hWnd, nOldProc
-         METHOD New( ) CONSTRUCTOR
+         METHOD New() CONSTRUCTOR
          METHOD Capture() INLINE  SetCapture( ::hWnd )
          METHOD End() BLOCK  {| Self, lEnd | iif( lEnd := ::lValid(), ;
             ::PostMsg( WM_CLOSE ), ), lEnd }
@@ -300,7 +300,7 @@
          METHOD Close() VIRTUAL
       ENDCLASS
 
-      METHOD New( ) CLASS TWindow
+      METHOD New() CLASS TWindow
          LOCAL nVar, cStr
          ... <code> ...
          ... <code> ...
@@ -345,19 +345,19 @@
 
       For example, your app may have a public function called BeginPaint()
       that is used in painting windows. It would also be natural to have a
-      Window class method called :BeginPaint() that the application can
+      Window class method called `:BeginPaint()` that the application can
       call. But within the class method you would not be able to call the
       public function because internally methods are based on static
       functions (which hide public functions of the same name).
 
       The MESSAGE command lets you create the true method with a different
-      name (::xBeginPaint()), yet still allow the ::BeginPaint() syntax
-      to call ::xBeginPaint().  This is then free to call the public
+      name (`::xBeginPaint()`), yet still allow the `::BeginPaint()` syntax
+      to call `::xBeginPaint()`.  This is then free to call the public
       function BeginPaint().
    $EXAMPLES$
       CREATE CLASS TWindow
          VAR    hWnd, nOldProc
-         METHOD New( ) CONSTRUCTOR
+         METHOD New() CONSTRUCTOR
          MESSAGE BeginPaint METHOD xBeginPaint()
       ENDCLASS
    $STATUS$
@@ -389,11 +389,11 @@
 
       <params,...>  Optional parameter list
    $DESCRIPTION$
-      ERROR HANDLER names the method that should handle errors for the
+      `ERROR HANDLER` names the method that should handle errors for the
       class being defined.
    $EXAMPLES$
       CREATE CLASS TWindow
-         ERROR HANDLER  MyErrHandler()
+         ERROR HANDLER MyErrHandler()
       ENDCLASS
    $STATUS$
       R
@@ -424,12 +424,12 @@
 
       <params,...>  Optional parameter list
    $DESCRIPTION$
-      ON ERROR is a synonym for ERROR HANDLER.
+      `ON ERROR` is a synonym for `ERROR HANDLER`.
       It names the method that should handle errors for the
       class being defined.
    $EXAMPLES$
       CREATE CLASS TWindow
-         ON ERROR  MyErrHandler()
+         ON ERROR MyErrHandler()
       ENDCLASS
    $STATUS$
       R

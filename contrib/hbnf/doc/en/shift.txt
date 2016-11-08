@@ -6,7 +6,7 @@
    $ONELINER$
       Determine status of shift key
    $SYNTAX$
-      ft_Shift() -> lValue
+      ft_Shift() --> lValue
    $ARGUMENTS$
       None
    $RETURNS$
