@@ -390,7 +390,6 @@ p {
   border-bottom: 1px solid rgba(0, 0, 0, .1);
   overflow: scroll;
   margin: 16px;
-  width: 80%;
   white-space: nowrap;
 }
 

@@ -52,6 +52,7 @@
 #pragma -ko+
 
 #include "directry.ch"
+#include "hbhash.ch"
 #include "hbver.ch"
 
 #define I_( x )   hb_UTF8ToStr( hb_i18n_gettext( x /*, _SELF_NAME_ */ ) )
@@ -83,6 +84,7 @@ STATIC sc_generators := { ;
 STATIC s_hSwitches
 
 STATIC s_hHBX := { => }
+STATIC s_hHBXStat := { => }
 STATIC s_hDoc := { => }  /* lang => { entries => {}, nameid => { => }, tree => { component => category => subcategory } */
 
 STATIC s_hNameID
@@ -493,6 +495,7 @@ STATIC FUNCTION SortWeightPkg( cString )
 STATIC FUNCTION SortWeightTOC( cString )
 
    SWITCH cString
+   CASE "Table"
    CASE "Appendix"  ; RETURN "Z"
    CASE "Document"
    CASE "Intro"     ; RETURN "A"
@@ -547,7 +550,14 @@ STATIC FUNCTION ProcessDocDir( cDir, cComponent, hDoc )
    LOCAL aEntry := __hbdoc_LoadDir( cDir, cComponent, aErrMsg )
 
    LOCAL hEntry
-   LOCAL nCount, tmp
+   LOCAL hCountA := { => }
+   LOCAL hCountF := { => }
+   LOCAL tmp
+
+   hb_HAutoAdd( hCountA, HB_HAUTOADD_ALWAYS )
+   hb_HDefault( hCountA, 0 )
+   hb_HAutoAdd( hCountF, HB_HAUTOADD_ALWAYS )
+   hb_HDefault( hCountF, 0 )
 
    FOR EACH tmp IN aErrMsg
       AddErrorCondition( cDir, tmp )
@@ -558,8 +568,6 @@ STATIC FUNCTION ProcessDocDir( cDir, cComponent, hDoc )
       IF s_hSwitches[ "dump" ]
          hb_MemoWrit( "_" + aEntry[ 1 ][ "_COMPONENT" ] + ".json", hb_jsonEncode( aEntry, .T. ) )
       ENDIF
-
-      nCount := 0
 
       FOR EACH hEntry IN aEntry
 
@@ -576,11 +584,17 @@ STATIC FUNCTION ProcessDocDir( cDir, cComponent, hDoc )
 
          UseLang( tmp )
 
-         ProcessBlock( hEntry, hDoc[ tmp ], @nCount )
+         ProcessBlock( hEntry, hDoc[ tmp ], @hCountA[ tmp ], @hCountF[ tmp ] )
       NEXT
 
-      IF nCount > 0
-         OutStd( hb_StrFormat( "! %1$s (%2$d entries)", cDir, nCount ) + hb_eol() )
+      IF ! Empty( hCountA )
+         FOR EACH tmp IN hCountA
+            IF hb_LeftEq( cComponent, "cl" )
+               s_hHBXStat[ cComponent ] := hCountF[ tmp:__enumKey() ]
+            ENDIF
+            OutStd( hb_StrFormat( "! %1$s %2$s (%3$d entries, %4$.2f%%)", ;
+               cDir, tmp:__enumKey(), tmp, Round( hCountF[ tmp:__enumKey() ] * 100 / s_hHBXStat[ cComponent ], 2 ) ) + hb_eol() )
+         NEXT
       ENDIF
    ENDIF
 
@@ -651,7 +665,7 @@ STATIC FUNCTION NewLineVoodoo( cSectionIn )
 
    RETURN cSection
 
-STATIC PROCEDURE ProcessBlock( hEntry, docs, /* @ */ nCount )
+STATIC PROCEDURE ProcessBlock( hEntry, docs, /* @ */ nCount, /* @ */ nCountFunc )
 
    LOCAL cFile := hEntry[ "_DOCSOURCE" ]
    LOCAL cComponent := hEntry[ "_COMPONENT" ]
@@ -797,6 +811,9 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, /* @ */ nCount )
       AAdd( docs[ "entries" ], hE )
 
       ++nCount
+      IF hEntry[ "TEMPLATE" ] == "Function"
+         ++nCountFunc
+      ENDIF
 
       hTree := docs[ "tree" ]
       IF ! cComponent $ hTree
@@ -1100,6 +1117,10 @@ STATIC FUNCTION GenUniqueID( hNameID, cComponent, cFile )
       cFile := "null"
    ENDIF
 
+   IF Right( cFile, 1 ) == "*" .AND. Len( cFile ) > 1
+      cFile := hb_StrShrink( cFile )
+   ENDIF
+
    cFile := hb_StrReplace( cFile, { ;
       "%" => "pct", ;
       "#" => "-", ;
@@ -1123,7 +1144,7 @@ STATIC FUNCTION GenUniqueID( hNameID, cComponent, cFile )
 
    IF cResult $ hNameID
       idx := 0
-      DO WHILE ( tmp := cResult + "_" + StrZero( ++idx, 3 ) ) $ hNameID
+      DO WHILE ( tmp := cResult + "_" + hb_ntos( ++idx ) ) $ hNameID
       ENDDO
       cResult := tmp
    ENDIF
@@ -1237,6 +1258,9 @@ STATIC PROCEDURE init_Templates()
       "Virtual machine" => }
 
    LoadPO()
+
+   hb_HAutoAdd( s_hHBXStat, HB_HAUTOADD_ALWAYS )
+   hb_HDefault( s_hHBXStat, 0 )
 
    hb_HCaseMatch( hSubCategories, .F. )
 
@@ -1428,27 +1452,15 @@ STATIC FUNCTION LoadHBX( cFileName, hAll )
    LOCAL pRegex
    LOCAL tmp
    LOCAL aDynamic := {}
-   LOCAL cFilter
 
-   IF ! HB_ISNULL( cFile := hb_MemoRead( cFileName ) )
+   LOCAL cID := hb_FNameName( cName )
 
-      FOR EACH cFilter IN { ;
-         "^DYNAMIC ([a-zA-Z0-9_]*)$", ;
-         "ANNOUNCE ([a-zA-Z0-9_]*)$" }
+   IF ! HB_ISNULL( cFile := hb_MemoRead( cFileName ) ) .AND. ;
+      ! Empty( pRegex := hb_regexComp( "^DYNAMIC ([a-zA-Z0-9_]*)$", .T., .T. ) )
 
-         IF ! Empty( pRegex := hb_regexComp( cFilter, .T., .T. ) )
-            FOR EACH tmp IN hb_regexAll( pRegex, StrTran( cFile, Chr( 13 ) ),,,,, .T. )
-#if 0
-               IF tmp[ 2 ] $ hAll
-                  hAll[ tmp[ 2 ] ] += "," + cName
-               ELSE
-#endif
-                  hAll[ tmp[ 2 ] ] := cName
-#if 0
-               ENDIF
-#endif
-            NEXT
-         ENDIF
+      FOR EACH tmp IN hb_regexAll( pRegex, StrTran( cFile, Chr( 13 ) ),,,,, .T. )
+         hAll[ tmp[ 2 ] ] := cName
+         ++s_hHBXStat[ cID ]
       NEXT
    ENDIF
 

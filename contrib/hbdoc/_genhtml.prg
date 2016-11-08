@@ -1073,6 +1073,11 @@ METHOD RecreateStyleDocument( cStyleFile ) CLASS GenerateHTML
    RETURN Self
 
 STATIC FUNCTION SymbolToHTMLID( cID )
+
+   IF Right( cID, 1 ) == "*" .AND. Len( cID ) > 1
+      cID := hb_StrShrink( cID )
+   ENDIF
+
    RETURN hb_StrReplace( cID, { ;
       "%" => "pct", ;
       "#" => "-", ;
