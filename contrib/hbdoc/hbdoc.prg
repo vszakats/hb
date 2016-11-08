@@ -1096,9 +1096,25 @@ STATIC FUNCTION GenUniqueID( hNameID, cComponent, cFile )
 
    HB_SYMBOL_UNUSED( cComponent )
 
+   IF HB_ISNULL( cFile )
+      cFile := "null"
+   ENDIF
+
+   cFile := hb_StrReplace( cFile, { ;
+      "%" => "pct", ;
+      "#" => "-", ;
+      "<" => "lt", ;
+      ">" => "gt", ;
+      "=" => "eq", ;
+      "*" => "as", ;
+      "$" => "do", ;
+      "?" => "qe", ;
+      "|" => "vl", ;
+      " " => "-" } )
+
    FOR idx := 1 TO Len( cFile )
       tmp := SubStr( cFile, idx, 1 )
-      IF hb_asciiIsDigit( tmp ) .OR. hb_asciiIsAlpha( tmp ) .OR. tmp == "_"
+      IF hb_asciiIsDigit( tmp ) .OR. hb_asciiIsAlpha( tmp ) .OR. tmp $ "_-"
          cResult += tmp
       ENDIF
    NEXT
