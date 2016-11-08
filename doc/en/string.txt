@@ -28,7 +28,7 @@
    $ONELINER$
       Checks if leftmost character in a string is an alphabetic character
    $SYNTAX$
-      IsAlpha( <cString> ) --> lAlpha
+      IsAlpha( <cString> ) --> <lAlpha>
    $ARGUMENTS$
       <cString> Any character string
    $RETURNS$
@@ -65,7 +65,7 @@
    $ONELINER$
       Checks if leftmost character is a digit character
    $SYNTAX$
-      IsDigit( <cString> ) --> lDigit
+      IsDigit( <cString> ) --> <lDigit>
    $ARGUMENTS$
       <cString> Any character string
    $RETURNS$
@@ -103,7 +103,7 @@
    $ONELINER$
       Checks if leftmost character is an uppercased letter.
    $SYNTAX$
-      IsUpper( <cString> ) --> lUpper
+      IsUpper( <cString> ) --> <lUpper>
    $ARGUMENTS$
       <cString> Any character string
    $RETURNS$
@@ -141,7 +141,7 @@
    $ONELINER$
       Checks if leftmost character is an lowercased letter.
    $SYNTAX$
-      IsLower( <cString> ) --> lLower
+      IsLower( <cString> ) --> <lLower>
    $ARGUMENTS$
       <cString> Any character string
    $RETURNS$
@@ -179,7 +179,7 @@
    $ONELINER$
       Removes leading spaces from a string
    $SYNTAX$
-      LTrim( <cString> ) --> cReturn
+      LTrim( <cString> ) --> <cReturn>
    $ARGUMENTS$
       <cString>  Character expression with leading spaces
    $RETURNS$
@@ -214,7 +214,7 @@
    $ONELINER$
       Locates the position of a substring in a main string.
    $SYNTAX$
-      At( <cSearch>, <cString> ) --> nPos
+      At( <cSearch>, <cString> ) --> <nPos>
    $ARGUMENTS$
       <cSearch> Substring to search for
 
@@ -253,7 +253,7 @@
    $ONELINER$
       Locates the position of a substring in a main string.
    $SYNTAX$
-      hb_At( <cSearch>, <cString>, [<nStart>], [<nEnd>] ) --> nPos
+      hb_At( <cSearch>, <cString>, [<nStart>], [<nEnd>] ) --> <nPos>
    $ARGUMENTS$
       <cSearch> Substring to search for
 
@@ -301,7 +301,7 @@
    $ONELINER$
       Searches for last occurrence a substring of a string.
    $SYNTAX$
-      RAt( <cSearch>, <cString> ) --> nPos
+      RAt( <cSearch>, <cString> ) --> <nPos>
    $ARGUMENTS$
       <cSearch> Substring to search for
 
@@ -341,7 +341,7 @@
    $ONELINER$
       Searches for last occurrence a substring of a string.
    $SYNTAX$
-      hb_RAt( <cSearch>, <cString>, [<nStart>], [<nEnd>]  ) --> nPos
+      hb_RAt( <cSearch>, <cString>, [<nStart>], [<nEnd>] ) --> <nPos>
    $ARGUMENTS$
       <cSearch> Substring to search for
 
@@ -401,7 +401,7 @@
    $ONELINER$
       Extract the leftmost substring of a character expression
    $SYNTAX$
-      Left( <cString>, <nLen> ) --> cReturn
+      Left( <cString>, <nLen> ) --> <cReturn>
    $ARGUMENTS$
       <cString> Main character to be parsed
 
@@ -441,7 +441,7 @@
    $ONELINER$
       Extract the rightmost substring of a character expression
    $SYNTAX$
-      Right( <cString>, <nLen> ) --> cReturn
+      Right( <cString>, <nLen> ) --> <cReturn>
    $ARGUMENTS$
       <cString> Character expression to be parsed
 
@@ -484,7 +484,7 @@
    $ONELINER$
       Returns a substring from a main string
    $SYNTAX$
-      SubStr( <cString>, <nStart>, [<nLen>] ) --> cReturn
+      SubStr( <cString>, <nStart>, [<nLen>] ) --> <cReturn>
    $ARGUMENTS$
       <cString> Character expression to be parsed
 
@@ -533,7 +533,7 @@
    $ONELINER$
       Convert a numeric expression to a character string.
    $SYNTAX$
-      Str( <nNumber>, [<nLength>], [<nDecimals>] ) --> cNumber
+      Str( <nNumber>, [<nLength>], [<nDecimals>] ) --> <cNumber>
    $ARGUMENTS$
       <nNumber> is the numeric expression to be converted to a character
       string.
@@ -607,7 +607,7 @@
    $ONELINER$
       Convert a numeric expression to a character string, zero padded.
    $SYNTAX$
-      StrZero( <nNumber>, [<nLength>], [<nDecimals>] ) --> cNumber
+      StrZero( <nNumber>, [<nLength>], [<nDecimals>] ) --> <cNumber>
    $ARGUMENTS$
       <nNumber> is the numeric expression to be converted to a character
       string.
@@ -685,7 +685,7 @@
    $ONELINER$
       Converts any scalar type to a string.
    $SYNTAX$
-      hb_ValToStr( <xValue> ) --> cString
+      hb_ValToStr( <xValue> ) --> <cString>
    $ARGUMENTS$
       <xValue> is any scalar argument.
    $RETURNS$
@@ -739,8 +739,8 @@
       PROCEDURE Main()
          LOCAL cName
 
-         ? Len( "Harbour" )          // --> 7
-         ? Len( { "One", "Two" } )   // --> 2
+         ? Len( "Harbour" )         // --> 7
+         ? Len( { "One", "Two" } )  // --> 2
 
          cName := ""
          ACCEPT "Enter your name: " TO cName
@@ -770,7 +770,7 @@
    $ONELINER$
       Checks if the passed argument is empty.
    $SYNTAX$
-      Empty( <xExp> ) --> lIsEmpty
+      Empty( <xExp> ) --> <lIsEmpty>
    $ARGUMENTS$
       <xExp> is any valid expression.
    $RETURNS$
@@ -815,7 +815,7 @@
    $ONELINER$
       Inverts an expression of string, logical, date or numeric type.
    $SYNTAX$
-      Descend( <xExp> ) --> xExpInverted
+      Descend( <xExp> ) --> <xExpInverted>
    $ARGUMENTS$
       <xExp> is any valid expression.
    $RETURNS$
@@ -849,7 +849,7 @@
    $ONELINER$
       Universally lowercases a character string expression.
    $SYNTAX$
-      Lower( <cString> ) --> cLowerString
+      Lower( <cString> ) --> <cLowerString>
    $ARGUMENTS$
       <cString> Any character expression.
    $RETURNS$
@@ -886,7 +886,7 @@
    $ONELINER$
       Converts a character expression to uppercase format
    $SYNTAX$
-      Upper( <cString> ) --> cUpperString
+      Upper( <cString> ) --> <cUpperString>
    $ARGUMENTS$
       <cString> Any character expression.
    $RETURNS$
@@ -922,7 +922,7 @@
    $ONELINER$
       Converts an ASCII value to it character value
    $SYNTAX$
-      Chr( <nAsciiNum> ) --> cReturn
+      Chr( <nAsciiNum> ) --> <cReturn>
    $ARGUMENTS$
       <nAsciiNum> Any ASCII character code.
    $RETURNS$
@@ -963,7 +963,7 @@
    $ONELINER$
       Returns the ASCII value of a character
    $SYNTAX$
-      Asc( <cCharacter> ) --> nAscNumber
+      Asc( <cCharacter> ) --> <nAscNumber>
    $ARGUMENTS$
       <cCharacter> Any character expression
    $RETURNS$
@@ -999,7 +999,7 @@
    $ONELINER$
       Centers an expression for a given width
    $SYNTAX$
-      PadC( <xVal>, <nWidth>, <cFill> ) --> cString
+      PadC( <xVal>, <nWidth>, <cFill> ) --> <cString>
    $ARGUMENTS$
       <xVal> A Number, Character or Date value to pad
 
@@ -1047,7 +1047,7 @@
    $ONELINER$
       Left-justifies an expression for a given width
    $SYNTAX$
-      PadL( <xVal>, <nWidth>, <cFill> ) --> cString
+      PadL( <xVal>, <nWidth>, <cFill> ) --> <cString>
    $ARGUMENTS$
       <xVal> An number, Character or date to pad
 
@@ -1095,7 +1095,7 @@
    $ONELINER$
       Right-justifies an expression for a given width
    $SYNTAX$
-      PadR( <xVal>, <nWidth>, <cFill> ) --> cString
+      PadR( <xVal>, <nWidth>, <cFill> ) --> <cString>
    $ARGUMENTS$
       <xVal> A Number, Character or Date value to pad
 
@@ -1143,7 +1143,7 @@
    $ONELINER$
       Removes leading and trailing blank spaces from a string
    $SYNTAX$
-      AllTrim( <cString> ) --> cExpression
+      AllTrim( <cString> ) --> <cExpression>
    $ARGUMENTS$
       <cString> Any character string
    $RETURNS$
@@ -1181,7 +1181,7 @@
    $ONELINER$
       Remove trailing spaces from a string.
    $SYNTAX$
-      RTrim( <cExpression> ) --> cString
+      RTrim( <cExpression> ) --> <cString>
    $ARGUMENTS$
       <cExpression> Any character expression
    $RETURNS$
@@ -1223,7 +1223,7 @@
    $ONELINER$
       Remove trailing spaces from a string.
    $SYNTAX$
-      Trim( <cExpression> ) --> cString
+      Trim( <cExpression> ) --> <cString>
    $ARGUMENTS$
       <cExpression> Any character expression
    $RETURNS$
@@ -1265,7 +1265,7 @@
    $ONELINER$
       Repeats a single character expression
    $SYNTAX$
-      Replicate( <cString>, <nSize> ) --> cReplicateString
+      Replicate( <cString>, <nSize> ) --> <cReplicateString>
    $ARGUMENTS$
       <cString> Character string to be replicated
 
@@ -1307,7 +1307,7 @@
    $ONELINER$
       Returns a string of blank spaces
    $SYNTAX$
-      Space( <nSize> ) --> cString
+      Space( <nSize> ) --> <cString>
    $ARGUMENTS$
       <nSize> The length of the string
    $RETURNS$
@@ -1385,7 +1385,7 @@
    $ONELINER$
       Convert a number from a character type to numeric
    $SYNTAX$
-      Val( <cNumber> ) --> nNumber
+      Val( <cNumber> ) --> <nNumber>
    $ARGUMENTS$
       <cNumber> Any valid character string of numbers.
    $RETURNS$
@@ -1423,7 +1423,7 @@
       Translate substring value with a main string
    $SYNTAX$
       StrTran( <cString>, <cLocString>, [<cRepString>], [<nPos>],
-               [<nOccurrences>] ) --> cReturn
+               [<nOccurrences>] ) --> <cReturn>
    $ARGUMENTS$
       <cString>     The main string to search
 
@@ -1475,7 +1475,7 @@
    $ONELINER$
       Formats a value based on a specific picture template.
    $SYNTAX$
-      Transform( <xExpression>, <cTemplate> ) --> cFormatted
+      Transform( <xExpression>, <cTemplate> ) --> <cFormatted>
    $ARGUMENTS$
       <xExpression> Any expression to be formated.
 
@@ -1624,7 +1624,8 @@
       Parses a complex string (e.g. a sentence or multi-line text) into individual
       tokens (words or other string chunks depending on delimiter used).
    $SYNTAX$
-      hb_ATokens( <cString>, [<cDelim>|<lEOL>], [<lSkipStrings>], [<lDoubleQuoteOnly>] ) --> <aTokens>
+      hb_ATokens( <cString>, [<cDelim>|<lEOL>], [<lSkipStrings>], ;
+                  [<lDoubleQuoteOnly>] ) --> <aTokens>
    $ARGUMENTS$
       <cString> Complex string to be parsed.
 
