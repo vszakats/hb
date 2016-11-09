@@ -1199,7 +1199,6 @@ STATIC FUNCTION GenUniqueID( hNameID, cName, cTemplate )
    ENDSWITCH
 
    IF cResult $ hNameID
-      ? "COLLISION", cName
       idx := 0
       DO WHILE ( tmp := cResult + "-" + hb_ntos( ++idx ) ) $ hNameID
       ENDDO
