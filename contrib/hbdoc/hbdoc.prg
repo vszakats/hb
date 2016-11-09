@@ -736,7 +736,9 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, /* @ */ nCount, /* @ */ nCountFunc 
 
       cSection := StrTran( cSection, hb_eol(), Chr( 10 ) )
 
-      IF hb_LeftEq( cSectionName, "_" ) .OR. cSectionName == "TEMPLATE"
+      IF hb_LeftEq( cSectionName, "_" ) .OR. ;
+         cSectionName == "TEMPLATE" .OR. ;
+         cSectionName == "AUTHOR"
 
          /* do nothing */
 

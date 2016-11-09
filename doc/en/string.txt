@@ -810,6 +810,7 @@
  */
 
 /* $DOC$
+   $AUTHOR$
       Copyright 1999 Jose Lalin <dezac@corevia.com>
    $TEMPLATE$
       Function

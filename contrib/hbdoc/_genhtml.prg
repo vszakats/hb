@@ -686,7 +686,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
       CASE cField == "SYNTAX"
 
          IF Chr( 10 ) $ cContent
-            ::OpenTag( "div", "class", cTagClass )
+            ::OpenTag( "div", "class", cTagClass + " " + "d-sym" )
             ::OpenTagInline( "pre" ):OpenTagInline( "code" )
             ::Append( StrSYNTAX( cContent ),, .T., cField )
             ::CloseTagInline( "code" ):CloseTag( "pre" )

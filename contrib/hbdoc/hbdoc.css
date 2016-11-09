@@ -320,6 +320,11 @@ aside code {
   font-weight: bold;
   margin: 0 0 0 1em;
   padding: 0 !important;
+  white-space: pre-wrap;
+}
+
+.d-sym pre {
+  white-space: pre;
 }
 
 code code {

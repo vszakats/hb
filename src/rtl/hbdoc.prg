@@ -190,8 +190,8 @@ STATIC PROCEDURE __hbdoc__read_file( aEntry, cFileName, hMeta, aErrMsg )
 STATIC PROCEDURE __hbdoc__read_stream( aEntry, cFile, cFileName, hMeta, aErrMsg )
 
    LOCAL hEntry := NIL
-   LOCAL cLine
    LOCAL cSection
+   LOCAL cLine
    LOCAL tmp
    LOCAL nLine
    LOCAL nStartCol
@@ -210,6 +210,7 @@ STATIC PROCEDURE __hbdoc__read_stream( aEntry, cFile, cFileName, hMeta, aErrMsg 
             AAdd( aEntry, hEntry )
          ENDIF
          hEntry := { => }
+         cSection := NIL
          IF HB_ISHASH( hMeta )
             FOR EACH tmp IN hMeta
                hEntry[ tmp:__enumKey() ] := tmp
@@ -223,6 +224,7 @@ STATIC PROCEDURE __hbdoc__read_stream( aEntry, cFile, cFileName, hMeta, aErrMsg 
             AAdd( aEntry, hEntry )
          ENDIF
          hEntry := NIL
+         cSection := NIL
          EXIT
       OTHERWISE
          IF hEntry == NIL
