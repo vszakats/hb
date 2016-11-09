@@ -617,38 +617,38 @@ STATIC FUNCTION NewLineVoodoo( cSectionIn )
 
       IF Empty( cLine )
          IF lPreformatted .AND. ! lTable
-            cSection += hb_eol() + hb_eol()
+            cSection += Chr( 10 ) + Chr( 10 )
          ELSE
-            IF !( Right( cSection, Len( hb_eol() ) ) == hb_eol() )
-               cSection += hb_eol()
+            IF !( hb_BRight( cSection, 1 ) == Chr( 10 ) )
+               cSection += Chr( 10 )
             ENDIF
             nLastIndent := -1
          ENDIF
       ELSEIF hb_LeftEq( AllTrim( cLine ), "<table" ) .OR. AllTrim( cLine ) == "<fixed>" .OR. ( hb_LeftEq( AllTrim( cLine ), '```' ) .AND. ! lPreformatted )
-         IF !( Right( cSection, Len( hb_eol() ) ) == hb_eol() ) .OR. lPreformatted
-            cSection += hb_eol()
+         IF !( hb_BRight( cSection, 1 ) == Chr( 10 ) ) .OR. lPreformatted
+            cSection += Chr( 10 )
          ENDIF
          IF AllTrim( cLine ) == "<fixed>" .OR. hb_LeftEq( AllTrim( cLine ), '```' )
             nFixedIndent := Len( cLine ) - Len( LTrim( cLine ) ) + 1
          ELSE
             nFixedIndent := 1
          ENDIF
-         cSection += AllTrim( cLine )  // + hb_eol()
+         cSection += AllTrim( cLine )  // + Chr( 10 )
          lLastPreformatted := lPreformatted
          lLastTable := lTable
          lPreformatted := .T.
          lTable := hb_LeftEq( AllTrim( cLine ), "<table" )
       ELSEIF AllTrim( cLine ) == "</table>" .OR. AllTrim( cLine ) == "</fixed>" .OR. ( hb_LeftEq( AllTrim( cLine ), '```' ) .AND. lPreformatted )
-         IF !( Right( cSection, Len( hb_eol() ) ) == hb_eol() ) .OR. lPreformatted
-            cSection += hb_eol()
+         IF !( hb_BRight( cSection, 1 ) == Chr( 10 ) ) .OR. lPreformatted
+            cSection += Chr( 10 )
          ENDIF
-         cSection += AllTrim( cLine ) + hb_eol()
+         cSection += AllTrim( cLine ) + Chr( 10 )
          lPreformatted := lLastPreformatted
          lTable := lLastTable
       ELSEIF nLastIndent != ( Len( cLine ) - Len( LTrim( cLine ) ) ) .OR. lPreformatted
          nLastIndent := Len( cLine ) - Len( LTrim( cLine ) )
-         IF !( Right( cSection, Len( hb_eol() ) ) == hb_eol() )
-            cSection += hb_eol()
+         IF !( hb_BRight( cSection, 1 ) == Chr( 10 ) )
+            cSection += Chr( 10 )
          ENDIF
          cSection += iif( lPreformatted, SubStr( cLine, nFixedIndent ), AllTrim( cLine ) )
       ELSE
@@ -656,11 +656,11 @@ STATIC FUNCTION NewLineVoodoo( cSectionIn )
       ENDIF
    NEXT
 
-   IF hb_LeftEq( cSection, hb_eol() )
-      cSection := SubStr( cSection, Len( hb_eol() ) + 1 )
+   IF hb_LeftEq( cSection, Chr( 10 ) )
+      cSection := SubStr( cSection, 1 + 1 )
    ENDIF
-   IF Right( cSection, Len( hb_eol() ) ) == hb_eol()
-      cSection := hb_StrShrink( cSection, Len( hb_eol() ) )
+   IF hb_BRight( cSection, 1 ) == Chr( 10 )
+      cSection := hb_StrShrink( cSection )
    ENDIF
 
    RETURN cSection
@@ -728,13 +728,20 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, /* @ */ nCount, /* @ */ nCountFunc 
    FOR EACH item IN hEntry
 
       cSectionName := item:__enumKey()
-      cSection := StrTran( item, Chr( 13 ) + Chr( 10 ), hb_eol() )
+      cSection := StrTran( item, Chr( 13 ) + Chr( 10 ), Chr( 10 ) )
 
-      IF !( "|" + cSectionName + "|" $ "|SYNTAX|EXAMPLES|TESTS|FILES|" )
+      IF "|" + cSectionName + "|" $ "|SYNTAX|EXAMPLES|TESTS|FILES|"
+         /* Remove ending EOLs */
+         DO WHILE hb_BRight( cSection, 1 ) == Chr( 10 )
+            cSection := hb_StrShrink( cSection )
+         ENDDO
+         /* Readd one if multi-line */
+         IF Chr( 10 ) $ cSection
+            cSection += Chr( 10 )
+         ENDIF
+      ELSE
          cSection := NewLineVoodoo( cSection )  /* Decides which EOLs to keep and which to drop */
       ENDIF
-
-      cSection := StrTran( cSection, hb_eol(), Chr( 10 ) )
 
       IF hb_LeftEq( cSectionName, "_" ) .OR. ;
          cSectionName == "TEMPLATE" .OR. ;
@@ -761,7 +768,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, /* @ */ nCount, /* @ */ nCountFunc 
 
          CASE ! IsConstraint( hE, cSectionName, cSection )
 
-            cSource := cSectionName + " is '" + iif( Len( cSection ) <= 20, cSection, Left( StrTran( cSection, hb_eol() ), 20 ) + "..." ) + "', should be one of: ..."
+            cSource := cSectionName + " is '" + iif( Len( cSection ) <= 20, cSection, Left( StrTran( cSection, Chr( 10 ) ), 20 ) + "..." ) + "', should be one of: ..."
             AddErrorCondition( cFile, cSource )
 
          ENDCASE
@@ -851,7 +858,7 @@ STATIC FUNCTION ExpandAbbrevs( cFile, cSectionName, cCode )
       FOR EACH tmp IN ASort( hb_ATokens( cCode, "," ) )
          IF ! HB_ISNULL( tmp := AllTrim( tmp ) )
             IF ! HB_ISNULL( cResult )
-               cResult += hb_eol()
+               cResult += Chr( 10 )
             ENDIF
             IF tmp $ sc_hConstraint[ "status" ]
                tmp := Eval( sc_hConstraint[ "status" ][ tmp ] )
@@ -870,20 +877,20 @@ STATIC FUNCTION ExpandAbbrevs( cFile, cSectionName, cCode )
       cResult := ""
       FOR EACH cCode IN ASort( hb_ATokens( cCode, "," ) )
          IF ! HB_ISNULL( cCode := AllTrim( cCode ) )
-            cResult += hb_eol() + Eval( hb_HGetDef( sc_hConstraint[ "platforms" ], cCode, {|| cCode } ) )
+            cResult += Chr( 10 ) + Eval( hb_HGetDef( sc_hConstraint[ "platforms" ], cCode, {|| cCode } ) )
          ENDIF
       NEXT
-      RETURN SubStr( cResult, Len( hb_eol() ) + 1 )
+      RETURN SubStr( cResult, Len( Chr( 10 ) ) + 1 )
 
    CASE "COMPLIANCE"
       IF "," $ cCode .AND. Parse( cCode, "," ) $ sc_hConstraint[ "compliance" ]  /* Detect if not free text */
          cResult := ""
          FOR EACH tmp IN ASort( hb_ATokens( cCode, "," ) )
             IF ! HB_ISNULL( tmp := AllTrim( tmp ) )
-               cResult += hb_eol() + Eval( hb_HGetDef( sc_hConstraint[ "compliance" ], tmp, {|| tmp } ) )
+               cResult += Chr( 10 ) + Eval( hb_HGetDef( sc_hConstraint[ "compliance" ], tmp, {|| tmp } ) )
             ENDIF
          NEXT
-         RETURN SubStr( cResult, Len( hb_eol() ) + 1 )
+         RETURN SubStr( cResult, Len( Chr( 10 ) ) + 1 )
       ENDIF
 
       RETURN Eval( hb_HGetDef( sc_hConstraint[ "compliance" ], cCode, {|| cCode } ) )
@@ -1052,10 +1059,10 @@ FUNCTION Indent( cText, nLeftMargin, nWidth, lRaw, lForceRaw )
          IF hb_LeftEq( cLine, "<table" ) .OR. cLine == "<fixed>"
             lRaw := .T.
          ELSEIF cLine == "</table>" .OR. cLine == "</fixed>"
-            cResult += hb_eol()
+            cResult += Chr( 10 )
             lRaw := .F.
          ELSEIF lRaw .OR. lForceRaw
-            cResult += Space( nLeftMargin ) + LTrim( cLine ) + hb_eol()
+            cResult += Space( nLeftMargin ) + LTrim( cLine ) + Chr( 10 )
          ELSE
             DO WHILE Len( cLine ) > nWidth
                idx := nWidth + 1
@@ -1094,15 +1101,15 @@ FUNCTION Indent( cText, nLeftMargin, nWidth, lRaw, lForceRaw )
                   idx := nWidth
                ENDIF
 
-               cResult += Space( nLeftMargin ) + Left( cLine, idx - iif( SubStr( cLine, idx, 1 ) == " ", 1, 0 ) ) + hb_eol()
+               cResult += Space( nLeftMargin ) + Left( cLine, idx - iif( SubStr( cLine, idx, 1 ) == " ", 1, 0 ) ) + Chr( 10 )
                cLine := LTrim( SubStr( cLine, idx + 1 ) )
             ENDDO
 
             IF ! HB_ISNULL( cLine )
-               cResult += Space( nLeftMargin ) + cLine + hb_eol()
+               cResult += Space( nLeftMargin ) + cLine + Chr( 10 )
             ENDIF
 
-            cResult += hb_eol()
+            cResult += Chr( 10 )
          ENDIF
       NEXT
    ENDIF
