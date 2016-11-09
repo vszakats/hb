@@ -1,14 +1,6 @@
-/*
- * Copyright 1999 Jose Lalin <dezac@corevia.com>
- *    IsAffirm() documentation
- *    IsNegative() documentation
- *    NationMsg() documentation
- *
- * See COPYING.txt for licensing terms.
- *
- */
-
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Jose Lalin <dezac@corevia.com>
    $TEMPLATE$
       Function
    $NAME$
@@ -46,6 +38,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Jose Lalin <dezac@corevia.com>
    $TEMPLATE$
       Function
    $NAME$
@@ -83,6 +77,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Jose Lalin <dezac@corevia.com>
    $TEMPLATE$
       Function
    $NAME$

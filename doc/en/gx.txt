@@ -1,11 +1,6 @@
-/*
- * Copyright 2000 Alejandro de Garate <alex_degarate@hotmail.com>
- *    Documentation for: SetMode()
- *
- * See COPYING.txt for licensing terms.
- */
-
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Alejandro de Garate <alex_degarate@hotmail.com>
    $TEMPLATE$
       Function
    $NAME$

@@ -1,12 +1,6 @@
-/*
- * Copyright 2000 Brian Hays <bhays@abacuslaw.com>
- *    Documentation for the commands
- *
- * See COPYING.txt for licensing terms.
- *
- */
-
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Brian Hays <bhays@abacuslaw.com>
    $TEMPLATE$
       Command
    $NAME$
@@ -85,6 +79,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Brian Hays <bhays@abacuslaw.com>
    $TEMPLATE$
       Command
    $NAME$
@@ -166,6 +162,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Brian Hays <bhays@abacuslaw.com>
    $TEMPLATE$
       Command
    $NAME$
@@ -215,6 +213,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Brian Hays <bhays@abacuslaw.com>
    $TEMPLATE$
       Command
    $NAME$
@@ -317,6 +317,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Brian Hays <bhays@abacuslaw.com>
    $TEMPLATE$
       Command
    $NAME$
@@ -372,6 +374,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Brian Hays <bhays@abacuslaw.com>
    $TEMPLATE$
       Command
    $NAME$
@@ -407,6 +411,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Brian Hays <bhays@abacuslaw.com>
    $TEMPLATE$
       Command
    $NAME$
@@ -443,6 +449,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Brian Hays <bhays@abacuslaw.com>
    $TEMPLATE$
       Command
    $NAME$

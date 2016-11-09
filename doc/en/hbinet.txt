@@ -1,12 +1,6 @@
-/*
- * Copyright (date unknown) Giancarlo Niccolai <gian@niccolai.ws>
- *    Documentation for: Harbour INET API
- *
- * See COPYING.txt for licensing terms.
- *
- */
-
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -43,6 +37,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Procedure
    $NAME$
@@ -76,6 +72,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -113,6 +111,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -158,6 +158,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -194,6 +196,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -228,6 +232,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -266,6 +272,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -302,6 +310,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Procedure
    $NAME$
@@ -334,6 +344,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -369,6 +381,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -407,6 +421,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -442,6 +458,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -478,6 +496,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Procedure
    $NAME$
@@ -511,6 +531,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -547,6 +569,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Procedure
    $NAME$
@@ -579,6 +603,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -618,6 +644,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Procedure
    $NAME$
@@ -650,6 +678,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -684,6 +714,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -718,6 +750,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -754,6 +788,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -790,6 +826,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -842,6 +880,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -884,6 +924,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -948,6 +990,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -992,6 +1036,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -1044,6 +1090,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -1095,6 +1143,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -1134,6 +1184,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -1183,6 +1235,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -1222,6 +1276,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -1280,6 +1336,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -1319,6 +1377,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -1382,6 +1442,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -1435,6 +1497,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -1480,6 +1544,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -1528,6 +1594,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -1589,6 +1657,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -1633,6 +1703,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$
@@ -1667,6 +1739,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright Giancarlo Niccolai <gian@niccolai.ws>
    $TEMPLATE$
       Function
    $NAME$

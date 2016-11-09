@@ -1,11 +1,3 @@
-/*
- * Copyright 1999 Chen Kedem <niki@actcom.co.il>
- *    Documentation for: ReadKey()
- *
- * See COPYING.txt for licensing terms.
- *
- */
-
 /* $DOC$
    $TEMPLATE$
       Function
@@ -331,6 +323,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$

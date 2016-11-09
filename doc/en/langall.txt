@@ -1,16 +1,6 @@
-/*
- * Copyright 2000 Luiz Rafael Culik <culik@sl.conex.net>
- *    Documentation for: hb_langName(), hb_langSelect()
- *
- * Copyright 2004 Chen Kedem <niki@actcom.co.il>
- *    Documentation for: hb_langErrMsg(), hb_langMessage(), hb_cdpSelect(),
- *                       hb_Translate()
- *
- * See COPYING.txt for licensing terms.
- *
- */
-
 /* $DOC$
+   $AUTHOR$
+      Copyright 2004 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -56,6 +46,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2004 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -105,6 +97,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Function
    $NAME$
@@ -158,6 +152,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Function
    $NAME$
@@ -254,6 +250,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2004 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -364,6 +362,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2004 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$

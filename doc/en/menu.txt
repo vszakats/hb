@@ -1,11 +1,3 @@
-/*
- * Copyright 1999 Chen Kedem <niki@actcom.co.il>
- *    Documentation for: __AtPrompt(), @...PROMPT, __MenuTo(), MENU TO
- *
- * See COPYING.txt for licensing terms.
- *
- */
-
 /* $DOC$
    $TEMPLATE$
       Function
@@ -90,6 +82,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -155,6 +149,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Command
    $NAME$
@@ -216,6 +212,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -307,6 +305,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Command
    $NAME$

@@ -1,17 +1,6 @@
-/*
- * Copyright 2000 Luiz Rafael Culik <culik@sl.conex.net>
- *    Documentation for: Abs(), Exp(), Log(), Int(), Max()
- *    Min(), Sqrt(), Round()
- * Copyright 2001 IntTec GmbH, Neunlindenstr 32, 79106 Freiburg, Germany
- *           Author: Martin Vogel <vogel@inttec.de>
- *    Documentation for API
- *  $SUBCATEGORY$
- *      Math functions
- * See COPYING.txt for licensing terms.
- *
- */
-
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Function
    $NAME$
@@ -56,6 +45,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Function
    $NAME$
@@ -91,6 +82,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Function
    $NAME$
@@ -130,6 +123,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Function
    $NAME$
@@ -167,6 +162,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Function
    $NAME$
@@ -209,6 +206,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Function
    $NAME$
@@ -287,6 +286,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Function
    $NAME$
@@ -325,6 +326,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Function
    $NAME$
@@ -366,6 +369,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2001 IntTec GmbH, Martin Vogel <vogel@inttec.de>
    $TEMPLATE$
       Function
    $NAME$
@@ -424,6 +429,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2001 IntTec GmbH, Martin Vogel <vogel@inttec.de>
    $TEMPLATE$
       Procedure
    $NAME$
@@ -460,6 +467,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2001 IntTec GmbH, Martin Vogel <vogel@inttec.de>
    $TEMPLATE$
       Function
    $NAME$
@@ -498,6 +507,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2001 IntTec GmbH, Martin Vogel <vogel@inttec.de>
    $TEMPLATE$
       Function
    $NAME$
@@ -539,6 +550,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2001 IntTec GmbH, Martin Vogel <vogel@inttec.de>
    $TEMPLATE$
       Function
    $NAME$
@@ -578,6 +591,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2001 IntTec GmbH, Martin Vogel <vogel@inttec.de>
    $TEMPLATE$
       Function
    $NAME$
@@ -624,6 +639,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2001 IntTec GmbH, Martin Vogel <vogel@inttec.de>
    $TEMPLATE$
       Function
    $NAME$
@@ -662,6 +679,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2001 IntTec GmbH, Martin Vogel <vogel@inttec.de>
    $TEMPLATE$
       Function
    $NAME$
@@ -705,6 +724,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2001 IntTec GmbH, Martin Vogel <vogel@inttec.de>
    $TEMPLATE$
       Function
    $NAME$

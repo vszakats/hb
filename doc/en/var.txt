@@ -1,21 +1,6 @@
-/*
- * Copyright 1999 Ryszard Glab <rglab@imid.med.pl>
- *    Documentation for: __mvPublic(), __mvPrivate(), __mvXRelease(),
- *                       __mvRelease(), __mvScope(), __mvClear(),
- *                       __mvDbgInfo(), __mvGet(), __mvPut(), MemVarBlock(),
- *                       Type()
- *
- * Copyright 1999-2001 Chen Kedem <niki@actcom.co.il>
- *    Documentation for: FieldBlock(), FieldWBlock(), __mvExist()
- *
- * Copyright 2002 Walter Negro <anegro@overnet.com.ar>
- *    Documentation for: hb_PIsByRef()
- *
- * See COPYING.txt for licensing terms.
- *
- */
-
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Ryszard Glab <rglab@imid.med.pl>
    $TEMPLATE$
       Function
    $NAME$
@@ -56,6 +41,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Ryszard Glab <rglab@imid.med.pl>
    $TEMPLATE$
       Function
    $NAME$
@@ -93,6 +80,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Ryszard Glab <rglab@imid.med.pl>
    $TEMPLATE$
       Function
    $NAME$
@@ -154,6 +143,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Ryszard Glab <rglab@imid.med.pl>
    $TEMPLATE$
       Function
    $NAME$
@@ -196,6 +187,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Ryszard Glab <rglab@imid.med.pl>
    $TEMPLATE$
       Function
    $NAME$
@@ -257,6 +250,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Ryszard Glab <rglab@imid.med.pl>
    $TEMPLATE$
       Function
    $NAME$
@@ -292,6 +287,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Ryszard Glab <rglab@imid.med.pl>
    $TEMPLATE$
       Function
    $NAME$
@@ -415,6 +412,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2001 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -456,6 +455,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Ryszard Glab <rglab@imid.med.pl>
    $TEMPLATE$
       Function
    $NAME$
@@ -494,6 +495,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Ryszard Glab <rglab@imid.med.pl>
    $TEMPLATE$
       Function
    $NAME$
@@ -536,6 +539,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Ryszard Glab <rglab@imid.med.pl>
    $TEMPLATE$
       Function
    $NAME$
@@ -583,6 +588,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2001 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -636,6 +643,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2001 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -698,6 +707,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Ryszard Glab <rglab@imid.med.pl>
    $TEMPLATE$
       Function
    $NAME$
@@ -860,6 +871,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2002 Walter Negro <anegro@overnet.com.ar>
    $TEMPLATE$
       Function
    $NAME$

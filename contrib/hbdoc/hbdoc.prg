@@ -811,7 +811,8 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, /* @ */ nCount, /* @ */ nCountFunc 
       AAdd( docs[ "entries" ], hE )
 
       ++nCount
-      IF hEntry[ "TEMPLATE" ] == "Function"
+      IF hEntry[ "TEMPLATE" ] == "Function" .OR. ;
+         hEntry[ "TEMPLATE" ] == "Procedure"
          ++nCountFunc
       ENDIF
 

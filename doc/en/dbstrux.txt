@@ -1,14 +1,6 @@
-/*
- * Copyright 2000 Chen Kedem <niki@actcom.co.il>
- *    Documentation for: __dbCopyStruct(), COPY STRUCTURE, __dbCopyXStruct(),
- *                       COPY STRUCTURE EXTENDED, __dbCreate(), CREATE,
- *                       CREATE FROM, __FLedit(), __dbStructFilter()
- *
- * See COPYING.txt for licensing terms.
- *
- */
-
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Procedure
    $NAME$
@@ -63,6 +55,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Command
    $NAME$
@@ -113,6 +107,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -191,6 +187,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Command
    $NAME$
@@ -265,6 +263,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -379,6 +379,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Command
    $NAME$
@@ -454,6 +456,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Command
    $NAME$
@@ -522,6 +526,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -616,6 +622,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$

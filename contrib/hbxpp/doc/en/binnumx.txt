@@ -1,12 +1,6 @@
-/*
- * Copyright 2000 Chen Kedem <niki@actcom.co.il>
- *    Documentation for: Bin2W(), Bin2U(), W2Bin(), U2Bin()
- *
- * See COPYING.txt for licensing terms.
- *
- */
-
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -65,6 +59,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -123,6 +119,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -166,6 +164,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$

@@ -1,12 +1,6 @@
-/*
- * Copyright 2000 Paul Tucker <ptucker@sympatico.ca>
- *    Documentation for: DiskSpace() and related functions
- *
- * See COPYING.txt for licensing terms.
- *
- */
-
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Paul Tucker <ptucker@sympatico.ca>
    $TEMPLATE$
       Function
    $NAME$
@@ -50,6 +44,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Paul Tucker <ptucker@sympatico.ca>
    $TEMPLATE$
       Function
    $NAME$

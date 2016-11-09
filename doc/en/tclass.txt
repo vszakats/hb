@@ -1,12 +1,6 @@
-/*
- * Copyright 2000 Brian Hays <bhays@abacuslaw.com>
- *    Documentation
- *
- * See COPYING.txt for licensing terms.
- *
- */
-
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Brian Hays <bhays@abacuslaw.com>
    $TEMPLATE$
       Function
    $NAME$

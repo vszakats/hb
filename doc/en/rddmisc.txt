@@ -1,14 +1,6 @@
-/*
- * Copyright 1999 Luiz Rafael Culik <culik@sl.conex.net>
- *    db*() documentation
- *    ord*() documentation
- *    rdd*() documentation
- *
- * See COPYING.txt for licensing terms.
- *
- */
-
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Function
    $NAME$
