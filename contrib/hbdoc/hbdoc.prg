@@ -429,7 +429,9 @@ STATIC PROCEDURE UseLang( cLang )
             ENDIF
             IF ( tmp := __i18n_potArrayLoad( tmp1, @tmp2 ) ) != NIL
                s_hLang[ cLang ] := __i18n_hashTable( __i18n_potArrayToHash( tmp, .F. ) )
-               OutStd( hb_StrFormat( "! .po loaded: %1$s", cLang ) + hb_eol() )
+               IF s_hSwitches[ "verbosity" ] >= 2
+                  OutStd( hb_StrFormat( "! .po loaded: %1$s", cLang ) + hb_eol() )
+               ENDIF
             ELSE
                OutErr( hb_StrFormat( "! Error: Cannot load .po: %1$s", tmp2 ) + hb_eol() )
             ENDIF
@@ -491,10 +493,10 @@ STATIC FUNCTION SortWeightPkg( cString )
 STATIC FUNCTION SortWeightTOC( cString )
 
    SWITCH cString
-   CASE "Table"
-   CASE "Appendix"  ; RETURN "Z"
    CASE "Document"
    CASE "Intro"     ; RETURN "A"
+   CASE "Table"
+   CASE "Appendix"  ; RETURN "Z"
    CASE "Copyright" ; RETURN "0"
    ENDSWITCH
 
@@ -588,8 +590,11 @@ STATIC FUNCTION ProcessDocDir( cDir, cComponent, hDoc )
             IF hb_LeftEq( cComponent, "cl" )
                s_hHBXStat[ cComponent ] := hCountF[ tmp:__enumKey() ]
             ENDIF
-            OutStd( hb_StrFormat( "! %1$s %2$s (%3$d entries, %4$.2f%%)", ;
-               cDir, tmp:__enumKey(), tmp, Round( hCountF[ tmp:__enumKey() ] * 100 / s_hHBXStat[ cComponent ], 2 ) ) + hb_eol() )
+            OutStd( hb_StrFormat( "! %1$s/%2$s (%3$d entries, %4$.2f%%)", ;
+               cComponent, ;
+               tmp:__enumKey(), ;
+               tmp, ;
+               Round( hCountF[ tmp:__enumKey() ] * 100 / s_hHBXStat[ cComponent ], 2 ) ) + hb_eol() )
          NEXT
       ENDIF
    ENDIF
