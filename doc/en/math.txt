@@ -372,7 +372,7 @@
    $AUTHOR$
       Copyright 2001 IntTec GmbH, Martin Vogel <vogel@inttec.de>
    $TEMPLATE$
-      Function
+      C Function
    $NAME$
       hb_mathGetLastError()
    $CATEGORY$
@@ -432,7 +432,7 @@
    $AUTHOR$
       Copyright 2001 IntTec GmbH, Martin Vogel <vogel@inttec.de>
    $TEMPLATE$
-      Procedure
+      C Function
    $NAME$
       hb_mathResetError()
    $CATEGORY$
@@ -470,7 +470,7 @@
    $AUTHOR$
       Copyright 2001 IntTec GmbH, Martin Vogel <vogel@inttec.de>
    $TEMPLATE$
-      Function
+      C Function
    $NAME$
       hb_mathIsMathErr()
    $CATEGORY$
@@ -510,7 +510,7 @@
    $AUTHOR$
       Copyright 2001 IntTec GmbH, Martin Vogel <vogel@inttec.de>
    $TEMPLATE$
-      Function
+      C Function
    $NAME$
       hb_mathSetHandler()
    $CATEGORY$
@@ -553,7 +553,7 @@
    $AUTHOR$
       Copyright 2001 IntTec GmbH, Martin Vogel <vogel@inttec.de>
    $TEMPLATE$
-      Function
+      C Function
    $NAME$
       hb_mathGetHandler()
    $CATEGORY$
@@ -594,7 +594,7 @@
    $AUTHOR$
       Copyright 2001 IntTec GmbH, Martin Vogel <vogel@inttec.de>
    $TEMPLATE$
-      Function
+      C Function
    $NAME$
       hb_mathSetErrMode()
    $CATEGORY$
@@ -642,7 +642,7 @@
    $AUTHOR$
       Copyright 2001 IntTec GmbH, Martin Vogel <vogel@inttec.de>
    $TEMPLATE$
-      Function
+      C Function
    $NAME$
       hb_mathGetErrMode()
    $CATEGORY$

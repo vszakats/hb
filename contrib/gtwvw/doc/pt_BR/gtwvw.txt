@@ -975,36 +975,6 @@
    $TEMPLATE$
       Function
    $NAME$
-      wvw_DrawBoxRaised()
-   $CATEGORY$
-      API
-   $SUBCATEGORY$
-      GTWVW
-   $SYNTAX$
-      wvw_DrawBoxRaised( nNumWin, nTop, nLeft, nBottom, nRight, lTight/aOffset )
-   $ARGUMENTS$
-      nWinNum Número da janela. O default é a janela atual. nTop, nLeft, nBottom,
-      nRight Coordenadas que serao usadas para desenhar o quadro. lTight/aOffset Se
-      o parametro lTight for usado, o quadro é desenhado dentro da regiao dos
-      caracteres e as linhas da parte superior (topo e esquerdo) serao dois pixels
-      abaixo para ajudar no espaçamento dos caracteres (esse tipo de objeto GUI
-      geralmente é sobrescrito por caracteres). Se o parâmetro aOffset for usado,
-      uma matriz deve ser definida com quatro elementos com coordenadas dos cantos
-      superior, esquerdo, inferior e direito de offset para alinhamento do quadro
-      com as linhas/colunas.
-   $DESCRIPTION$
-      Desenha um quadro em relevo nas coordenadas especificadas.
-   $RETURNS$
-      .T.
-   $PLATFORMS$
-      Windows
-   $END$
- */
-
-/* $DOC$
-   $TEMPLATE$
-      Function
-   $NAME$
       wvw_DrawBoxRecessed()
    $CATEGORY$
       API

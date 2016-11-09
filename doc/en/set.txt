@@ -1460,7 +1460,7 @@
 
 /* $DOC$
    $TEMPLATE$
-      Function
+      C Function
    $NAME$
       hb_setListenerAdd()
    $CATEGORY$
@@ -1513,7 +1513,7 @@
 
 /* $DOC$
    $TEMPLATE$
-      Function
+      C Function
    $NAME$
       hb_setListenerNotify()
    $CATEGORY$
@@ -1562,7 +1562,7 @@
 
 /* $DOC$
    $TEMPLATE$
-      Function
+      C Function
    $NAME$
       hb_setListenerRemove()
    $CATEGORY$

@@ -308,7 +308,7 @@ PROCEDURE Main()
                   FOR EACH item IN ASort( aList,,, {| oL, oR | ;
                         SortWeightTOC( oL[ "CATEGORY" ] ) + SortWeightTOC( oL[ "SUBCATEGORY" ] ) + PadR( oL[ "NAME" ], 50 ) < ;
                         SortWeightTOC( oR[ "CATEGORY" ] ) + SortWeightTOC( oR[ "SUBCATEGORY" ] ) + PadR( oR[ "NAME" ], 50 ) } )
-                     oDocument:AddIndexItem( item[ "NAME" ], item[ "_filename" ] )
+                     oDocument:AddIndexItem( item[ "NAME" ], item[ "_id" ] )
                   NEXT
                   oDocument:EndIndex()
 
@@ -393,7 +393,7 @@ PROCEDURE Main()
             CASE "entry"
 
                FOR EACH item IN aEntries
-                  oDocument := Eval( generatorClass ):NewDocument( cDir, item[ "_component" ] + "_" + item[ "_filename" ], item[ "NAME" ], Lower( cLang ) )
+                  oDocument := Eval( generatorClass ):NewDocument( cDir, item[ "_component" ] + "-" + item[ "_id" ], item[ "NAME" ], Lower( cLang ) )
                   oDocument:AddEntry( item )
                   oDocument:Generate()
                NEXT
@@ -562,6 +562,8 @@ STATIC FUNCTION ProcessDocDir( cDir, cComponent, hDoc )
    NEXT
 
    IF ! Empty( aEntry )
+
+      ASort( aEntry,,, {| oL, oR | hb_HGetDef( oL, "NAME", "" ) < hb_HGetDef( oR, "NAME", "" ) } )
 
       IF s_hSwitches[ "dump" ]
          hb_MemoWrit( "_" + aEntry[ 1 ][ "_COMPONENT" ] + ".json", hb_jsonEncode( aEntry, .T. ) )
@@ -814,9 +816,13 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, /* @ */ nCount, /* @ */ nCountFunc 
          ENDIF
       ENDIF
 
-      hE[ "_filename" ] := GenUniqueID( docs[ "uid" ], cComponent, hE[ "NAME" ] )
+      IF ! cComponent $ docs[ "uid" ]
+         docs[ "uid" ][ cComponent ] := { => }
+      ENDIF
 
-      docs[ "nameid" ][ hE[ "NAME" ] ] := { "id" => hE[ "_filename" ], "component" => cComponent }
+      hE[ "_id" ] := GenUniqueID( docs[ "uid" ][ cComponent ], hE[ "NAME" ], hEntry[ "TEMPLATE" ] )
+
+      docs[ "nameid" ][ hE[ "NAME" ] ] := { "id" => hE[ "_id" ], "component" => cComponent }
 
       AAdd( docs[ "entries" ], hE )
 
@@ -1117,47 +1123,85 @@ FUNCTION Indent( cText, nLeftMargin, nWidth, lRaw, lForceRaw )
 
    RETURN cResult
 
-STATIC FUNCTION GenUniqueID( hNameID, cComponent, cName )
+STATIC FUNCTION GenUniqueID( hNameID, cName, cTemplate )
 
-   LOCAL cResult := ""
-   LOCAL idx, tmp
-
-   HB_SYMBOL_UNUSED( cComponent )
-
-   IF HB_ISNULL( cName )
-      cName := "null"
-   ENDIF
-
-   IF Right( cName, 1 ) == "*" .AND. Len( cName ) > 1
-      cName := hb_StrShrink( cName )
-   ENDIF
-
-   cName := hb_StrReplace( cName, { ;
+   STATIC s_conv := { ;
       "%" => "pc", ;
       "#" => "ha", ;
       "<" => "lt", ;
       ">" => "gt", ;
       "=" => "eq", ;
-      "*" => "as", ;
+      "*" => "ml", ;
+      "-" => "mi", ;
       "+" => "pl", ;
       "/" => "sl", ;
-      "$" => "do", ;
-      "!" => "ex", ;
-      "?" => "qe", ;
-      "|" => "vl", ;
-      " " => "-" } )
+      "$" => "dl", ;
+      "&" => "et", ;
+      "(" => "bo", ;
+      ")" => "bc", ;
+      "[" => "so", ;
+      "]" => "sc", ;
+      "{" => "co", ;
+      "}" => "cc", ;
+      ":" => "co", ;
+      "!" => "no", ;
+      "?" => "qu", ;
+      "|" => "or", ;
+      "@" => "at", ;
+      " " => "-" }
 
-   FOR EACH tmp IN cName
-      IF hb_asciiIsDigit( tmp ) .OR. hb_asciiIsAlpha( tmp ) .OR. tmp $ "_-"
-         cResult += tmp
+   LOCAL cResult
+   LOCAL idx, tmp
+
+   IF HB_ISNULL( cName )
+      cResult := "null"
+   ELSE
+      IF ! Empty( tmp := hb_StrReplace( cName, "()" ) )
+         cName := tmp
       ENDIF
-   NEXT
 
-   cResult := hb_asciiLower( cResult )
+      IF Right( cName, 1 ) == "*" .AND. Len( cName ) > 2
+         cName := hb_StrShrink( cName )
+      ENDIF
+      IF cTemplate == "Runtime error"
+         cName := StrTran( cName, "/", " " )
+      ELSEIF hb_LeftEq( cName, "@" ) .AND. Len( cName ) > 1
+         cName := "at " + SubStr( cName, 2 )
+      ELSEIF ( tmp := At( "#", cName ) ) > 0 .AND. hb_asciiIsAlpha( SubStr( cName, tmp + 1, 1 ) )
+         cName := StrTran( cName, "#", "pp " )
+      ENDIF
+
+      cResult := ""
+      FOR EACH tmp IN hb_StrReplace( cName, s_conv )
+         IF hb_asciiIsDigit( tmp ) .OR. hb_asciiIsAlpha( tmp ) .OR. tmp $ "_-"
+            cResult += tmp
+         ENDIF
+      NEXT
+
+      cResult := hb_asciiLower( cResult )
+   ENDIF
+
+   SWITCH cTemplate
+   CASE "C Function"
+      cResult += "-c"
+      EXIT
+   CASE "Command"
+      IF hb_StrReplace( Lower( cName ), "abcdefghijklmnopqrstuvwxyz" ) == Lower( cName ) .OR. ;
+         "|" + Upper( cName ) + "|" $ "|.AND.|.OR.|.NOT.|"
+         cResult += "-op"
+      ELSE
+         cResult += "-cmd"
+      ENDIF
+      EXIT
+   CASE "Runtime error"
+      cResult := "err-" + cResult
+      EXIT
+   ENDSWITCH
 
    IF cResult $ hNameID
+      ? "COLLISION", cName
       idx := 0
-      DO WHILE ( tmp := cResult + "_" + hb_ntos( ++idx ) ) $ hNameID
+      DO WHILE ( tmp := cResult + "-" + hb_ntos( ++idx ) ) $ hNameID
       ENDDO
       cResult := tmp
    ENDIF

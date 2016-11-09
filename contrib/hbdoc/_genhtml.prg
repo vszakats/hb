@@ -450,8 +450,8 @@ METHOD AddReference( hEntry, cReference, cSubReference ) CLASS GenerateHTML
    DO CASE
    CASE HB_ISHASH( hEntry )
       ::OpenTagInline( "div" )
-      ::OpenTagInline( "a", "href", ::TargetFilename + ::cExtension + "#" + hEntry[ "_filename" ] )
-      ::AppendInline( hEntry[ "NAME" ] )
+      ::OpenTagInline( "a", "href", ::TargetFilename + ::cExtension + "#" + hEntry[ "_id" ] )
+      ::AppendInline( hEntry[ "NAME" ],,, "NAME" )
       ::CloseTagInline( "a" )
       // ::OpenTagInline( "div", "class", "d-r" )
       IF ! Empty( hEntry[ "ONELINER" ] )
@@ -502,7 +502,7 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
             ::OpenTagInline( "h4" )
          ENDIF
          IF "(" $ cEntry .OR. Upper( cEntry ) == cEntry  // guess if it's code
-            ::OpenTagInline( "code" ):AppendInline( cEntry ):CloseTagInline( "code" )
+            ::OpenTagInline( "code" ):AppendInline( cEntry,,, item ):CloseTagInline( "code" )
             /* Link to original source code if it could be automatically found based
                on doc source filename */
             IF ! HB_ISNULL( tmp := SourceURL( ::cFilename, s_cRevision, hEntry[ "_sourcefile" ] ) )
@@ -513,7 +513,7 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
                ::CloseTagInline( "a" )
             ENDIF
          ELSE
-            ::AppendInline( cEntry )
+            ::AppendInline( cEntry,,, item )
          ENDIF
 
          ::OpenTagInline( "span", "class", "d-eb" )
@@ -530,9 +530,9 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
          ::CloseTagInline( "a" )
 
          ::AppendInline( hb_UChar( 160 ) + "|" + hb_UChar( 160 ) )
-         ::OpenTagInline( "a", "href", "#" + hEntry[ "_filename" ], ;
+         ::OpenTagInline( "a", "href", "#" + hEntry[ "_id" ], ;
             "class", "d-id", ;
-            "id", hEntry[ "_filename" ], ;
+            "id", hEntry[ "_id" ], ;
             "title", hdr[ 4 ][ nTitle ] )
          ::AppendInline( hdr[ 4 ][ nContent ] )
          ::CloseTagInline( "a" )
@@ -888,10 +888,13 @@ METHOD AppendInline( cText, cFormat, lCode, cField ) CLASS GenerateHTML
    LOCAL lST, lEM, lPR, cPR
    LOCAL nST, nEM, nPR
    LOCAL cdp
+   LOCAL lNAME
 
    IF ! HB_ISNULL( cText )
 
       hb_default( @lCode, .F. )
+
+      lNAME := ( cField == "NAME" )
 
       IF lCode
          cText := StrEsc( cText )
@@ -931,7 +934,7 @@ METHOD AppendInline( cText, cFormat, lCode, cField ) CLASS GenerateHTML
                tmp1 := SubStr( cText, tmp + 1, tmp1 - tmp - 1 )
                tmp += Len( tmp1 ) + 1
                cChar := "<a href=" + '"' + tmp1 + '"' + ">" + tmp1 + "</a>"
-            CASE ! lPR .AND. cChar == "*" .AND. ! lEM .AND. ;
+            CASE ! lPR .AND. cChar == "*" .AND. !( cNext == "*" ) .AND. ! lEM .AND. ;
                  iif( lST, ! MDSpace( cPrev ) .AND. MDSpace( cNext ), MDSpace( cPrev ) .AND. ! MDSpace( cNext ) )
                lST := ! lST
                IF lST
@@ -995,7 +998,7 @@ METHOD AppendInline( cText, cFormat, lCode, cField ) CLASS GenerateHTML
                ( SubStr( cText, tmp, 3 ) == "==>" .OR. SubStr( cText, tmp, 3 ) == "-->" )
                tmp += 2
                cChar := _RESULT_ARROW
-            CASE ! lPR .AND. SubStr( cText, tmp, 2 ) == "--"
+            CASE ! lPR .AND. SubStr( cText, tmp, 2 ) == "--" .AND. ! lNAME
                tmp += 1
                cChar := "—"  // &emdash;
             CASE cChar == "&"
@@ -1080,24 +1083,36 @@ METHOD RecreateStyleDocument( cStyleFile ) CLASS GenerateHTML
 
 STATIC FUNCTION SymbolToHTMLID( cID )
 
-   IF Right( cID, 1 ) == "*" .AND. Len( cID ) > 1
-      cID := hb_StrShrink( cID )
-   ENDIF
-
-   RETURN hb_StrReplace( cID, { ;
+   STATIC s_conv := { ;
       "%" => "pc", ;
       "#" => "ha", ;
       "<" => "lt", ;
       ">" => "gt", ;
       "=" => "eq", ;
-      "*" => "as", ;
+      "*" => "ml", ;
+      "-" => "mi", ;
       "+" => "pl", ;
       "/" => "sl", ;
-      "$" => "do", ;
-      "!" => "ex", ;
-      "?" => "qe", ;
-      "|" => "vl", ;
-      " " => "-" } )
+      "$" => "dl", ;
+      "&" => "et", ;
+      "(" => "bo", ;
+      ")" => "bc", ;
+      "[" => "so", ;
+      "]" => "sc", ;
+      "{" => "co", ;
+      "}" => "cc", ;
+      ":" => "co", ;
+      "!" => "no", ;
+      "?" => "qu", ;
+      "|" => "or", ;
+      "@" => "at", ;
+      " " => "-" }
+
+   IF Right( cID, 1 ) == "*" .AND. Len( cID ) > 1
+      cID := hb_StrShrink( cID )
+   ENDIF
+
+   RETURN hb_StrReplace( cID, s_conv )
 
 #define R_( x )  ( x )
 
