@@ -299,7 +299,7 @@ PROCEDURE Main()
 
                   aList := {}
                   FOR EACH item IN aEntries
-                     IF item[ "_type" ] == tmp
+                     IF item[ "_component" ] == tmp
                         AAdd( aList, item )
                      ENDIF
                   NEXT
@@ -323,7 +323,7 @@ PROCEDURE Main()
                   oDocument:BeginContent()
                   FOR EACH item IN aEntries
 
-                     IF item[ "_type" ] == tmp
+                     IF item[ "_component" ] == tmp
 
                         IF ++nCount / 10 == Int( nCount / 10 ) .AND. s_hSwitches[ "verbosity" ] >= 1
                            OutStd( Chr( 13 ) + "!" + " " + Str( Int( nCount / nLen * 100 ), 3 ) + "%" )
@@ -393,7 +393,7 @@ PROCEDURE Main()
             CASE "entry"
 
                FOR EACH item IN aEntries
-                  oDocument := Eval( generatorClass ):NewDocument( cDir, item[ "_filename" ], item[ "NAME" ], Lower( cLang ) )
+                  oDocument := Eval( generatorClass ):NewDocument( cDir, item[ "_component" ] + "_" + item[ "_filename" ], item[ "NAME" ], Lower( cLang ) )
                   oDocument:AddEntry( item )
                   oDocument:Generate()
                NEXT
@@ -692,7 +692,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, /* @ */ nCount, /* @ */ nCountFunc 
    ENDIF
 
    hE := EntryNew( hEntry[ "TEMPLATE" ] )
-   hE[ "_type" ] := cComponent
+   hE[ "_component" ] := cComponent
    hE[ "_sourcefile" ] := hb_PathRelativize( s_hSwitches[ "dir_in" ], hb_DirSepToOS( cFile ) )
 
    /* Merge category/subcategory into tag list */
@@ -1117,35 +1117,37 @@ FUNCTION Indent( cText, nLeftMargin, nWidth, lRaw, lForceRaw )
 
    RETURN cResult
 
-STATIC FUNCTION GenUniqueID( hNameID, cComponent, cFile )
+STATIC FUNCTION GenUniqueID( hNameID, cComponent, cName )
 
    LOCAL cResult := ""
    LOCAL idx, tmp
 
    HB_SYMBOL_UNUSED( cComponent )
 
-   IF HB_ISNULL( cFile )
-      cFile := "null"
+   IF HB_ISNULL( cName )
+      cName := "null"
    ENDIF
 
-   IF Right( cFile, 1 ) == "*" .AND. Len( cFile ) > 1
-      cFile := hb_StrShrink( cFile )
+   IF Right( cName, 1 ) == "*" .AND. Len( cName ) > 1
+      cName := hb_StrShrink( cName )
    ENDIF
 
-   cFile := hb_StrReplace( cFile, { ;
-      "%" => "pct", ;
-      "#" => "-", ;
+   cName := hb_StrReplace( cName, { ;
+      "%" => "pc", ;
+      "#" => "ha", ;
       "<" => "lt", ;
       ">" => "gt", ;
       "=" => "eq", ;
       "*" => "as", ;
+      "+" => "pl", ;
+      "/" => "sl", ;
       "$" => "do", ;
+      "!" => "ex", ;
       "?" => "qe", ;
       "|" => "vl", ;
       " " => "-" } )
 
-   FOR idx := 1 TO Len( cFile )
-      tmp := SubStr( cFile, idx, 1 )
+   FOR EACH tmp IN cName
       IF hb_asciiIsDigit( tmp ) .OR. hb_asciiIsAlpha( tmp ) .OR. tmp $ "_-"
          cResult += tmp
       ENDIF

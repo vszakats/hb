@@ -97,7 +97,7 @@ CREATE CLASS TPLGenerate
    VAR cLang AS STRING
    VAR cOutFileName AS STRING
 
-   VAR hComponents AS HASH
+   VAR hComponents
 
 ENDCLASS
 
