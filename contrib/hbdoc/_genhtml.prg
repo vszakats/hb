@@ -444,7 +444,7 @@ METHOD AddReference( hEntry, cReference, cSubReference ) CLASS GenerateHTML
    DO CASE
    CASE HB_ISHASH( hEntry )
       ::OpenTagInline( "div" )
-      ::OpenTagInline( "a", "href", ::TargetFilename + ::cExtension + "#" + SymbolToHTMLID( hEntry[ "_filename" ] ) )
+      ::OpenTagInline( "a", "href", ::TargetFilename + ::cExtension + "#" + hEntry[ "_filename" ] )
       ::AppendInline( hEntry[ "NAME" ] )
       ::CloseTagInline( "a" )
       // ::OpenTagInline( "div", "class", "d-r" )
@@ -524,9 +524,9 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
          ::CloseTagInline( "a" )
 
          ::AppendInline( hb_UChar( 160 ) + "|" + hb_UChar( 160 ) )
-         ::OpenTagInline( "a", "href", "#" + SymbolToHTMLID( hEntry[ "_filename" ] ), ;
+         ::OpenTagInline( "a", "href", "#" + hEntry[ "_filename" ], ;
             "class", "d-id", ;
-            "id", SymbolToHTMLID( hEntry[ "_filename" ] ), ;
+            "id", hEntry[ "_filename" ], ;
             "title", hdr[ 4 ][ nTitle ] )
          ::AppendInline( hdr[ 4 ][ nContent ] )
          ::CloseTagInline( "a" )
@@ -537,8 +537,9 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
                "title", hdr[ 5 ][ nTitle ] )
             ::AppendInline( hdr[ 5 ][ nContent ] )
             ::CloseTagInline( "a" )
-            ::CloseTagInline( "span" )
          ENDIF
+
+         ::CloseTagInline( "span" )
 
          ::CloseTag( "h4" )
       ELSEIF IsField( hEntry, item ) .AND. IsOutput( hEntry, item ) .AND. ! HB_ISNULL( hEntry[ item ] )
@@ -685,7 +686,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
       CASE cField == "SYNTAX"
 
          IF Chr( 10 ) $ cContent
-            ::OpenTag( "div", "class", cTagClass )
+            ::OpenTag( "div", "class", cTagClass + " " + "d-sym" )
             ::OpenTagInline( "pre" ):OpenTagInline( "code" )
             ::Append( StrSYNTAX( cContent ),, .T., cField )
             ::CloseTagInline( "code" ):CloseTag( "pre" )
@@ -778,6 +779,10 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
                ::CloseTag( "div" )
             ENDIF
          ENDDO
+
+         IF lTable
+            ::CloseTag( "div" )
+         ENDIF
 
          ::nIndent--
          ::CloseTag( "div" )
@@ -1068,9 +1073,21 @@ METHOD RecreateStyleDocument( cStyleFile ) CLASS GenerateHTML
    RETURN Self
 
 STATIC FUNCTION SymbolToHTMLID( cID )
+
+   IF Right( cID, 1 ) == "*" .AND. Len( cID ) > 1
+      cID := hb_StrShrink( cID )
+   ENDIF
+
    RETURN hb_StrReplace( cID, { ;
       "%" => "pct", ;
       "#" => "-", ;
+      "<" => "lt", ;
+      ">" => "gt", ;
+      "=" => "eq", ;
+      "*" => "as", ;
+      "$" => "do", ;
+      "?" => "qe", ;
+      "|" => "vl", ;
       " " => "-" } )
 
 #define R_( x )  ( x )

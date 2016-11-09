@@ -1,12 +1,6 @@
-/*
- * Copyright 1999 Luiz Rafael Culik <culik@sl.conex.net>
- *    Documentation
- *
- * See COPYING.txt for licensing terms.
- *
- */
-
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Command
    $NAME$

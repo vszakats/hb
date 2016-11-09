@@ -320,6 +320,11 @@ aside code {
   font-weight: bold;
   margin: 0 0 0 1em;
   padding: 0 !important;
+  white-space: pre-wrap;
+}
+
+.d-sym pre {
+  white-space: pre;
 }
 
 code code {
@@ -390,7 +395,6 @@ p {
   border-bottom: 1px solid rgba(0, 0, 0, .1);
   overflow: scroll;
   margin: 16px;
-  width: 80%;
   white-space: nowrap;
 }
 

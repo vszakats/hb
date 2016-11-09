@@ -1,17 +1,6 @@
-/*
- * Copyright 1999-2000 Chen Kedem <niki@actcom.co.il>
- *    Documentation for: __objHasData(), __objHasMethod(), __objGetMsgList(),
- *                       __objGetMethodList(), __objGetValueList(),
- *                       __objSetValueList(), __objAddMethod(),
- *                       __objAddInline(), __objAddData(), __objModMethod(),
- *                       __objModInline(), __objDelMethod(), __objDelInline(),
- *                       __objDelData(), __objDerivedFrom()
- *
- * See COPYING.txt for licensing terms.
- *
- */
-
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -51,6 +40,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -90,6 +81,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -164,6 +157,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -204,6 +199,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -252,6 +249,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -307,6 +306,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -363,6 +364,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -407,6 +410,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -451,6 +456,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -522,6 +529,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -572,6 +581,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -628,6 +639,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -682,6 +695,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -725,6 +740,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$

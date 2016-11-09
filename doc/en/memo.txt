@@ -1,19 +1,6 @@
-/*
- * Copyright 1999 Jose Lalin <dezac@corevia.com>
- *    MemoTran() documentation
- *    HardCR() documentation
- *
- * Copyright 2003 Alejandro de Garate <alex_degarate@hotmail.com>
- *    MemoRead() documentation
- *    MemoWrit() documentation
- *
- * Documentation for hb_MemoRead(), hb_MemoWrit()
- *
- * See COPYING.txt for licensing terms.
- *
- */
-
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Jose Lalin <dezac@corevia.com>
    $TEMPLATE$
       Function
    $NAME$
@@ -53,6 +40,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Jose Lalin <dezac@corevia.com>
    $TEMPLATE$
       Function
    $NAME$
@@ -86,6 +75,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2003 Alejandro de Garate <alex_degarate@hotmail.com>
    $TEMPLATE$
       Function
    $NAME$
@@ -152,6 +143,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2003 Alejandro de Garate <alex_degarate@hotmail.com>
    $TEMPLATE$
       Function
    $NAME$
@@ -222,6 +215,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2003 Alejandro de Garate <alex_degarate@hotmail.com>
    $TEMPLATE$
       Function
    $NAME$
@@ -279,6 +274,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2003 Alejandro de Garate <alex_degarate@hotmail.com>
    $TEMPLATE$
       Function
    $NAME$

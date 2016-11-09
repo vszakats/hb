@@ -1,21 +1,6 @@
-/*
- * Copyright 1999 Jose Lanin <dezac@corevia.com>
- *    Documentation for: ProcLine(), ProcFile(), ProcName()
- *
- * Copyright 1999 Eddie Ruina
- *   Documentation for: __dbgVMVarLGet()
- *
- * Copyright 1999 Chen Kedem <niki@actcom.co.il>
- *    Documentation for: CLIPINIT(), __SetHelpK()
- *
- * Copyright 1999 Ryszard Glab <rglab@imid.med.pl>
- *    Documentation for: Do()
- *
- * See COPYING.txt for licensing terms.
- *
- */
-
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Jose Lanin <dezac@corevia.com>
    $TEMPLATE$
       Function
    $NAME$
@@ -57,6 +42,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Jose Lanin <dezac@corevia.com>
    $TEMPLATE$
       Function
    $NAME$
@@ -95,6 +82,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Jose Lanin <dezac@corevia.com>
    $TEMPLATE$
       Function
    $NAME$
@@ -244,6 +233,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -279,6 +270,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Procedure
    $NAME$
@@ -340,6 +333,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Ryszard Glab <rglab@imid.med.pl>
    $TEMPLATE$
       Function
    $NAME$

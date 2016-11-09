@@ -1,4 +1,16 @@
-/* Copyright 2008 Manoel N. Angeiras N. (angeiras gmail@com) */
+/* $DOC$
+   $NAME$
+      GTWVW
+   $TEMPLATE$
+      Document
+   $CATEGORY$
+      Copyright
+   $ONELINER$
+      Copyright
+   $DESCRIPTION$
+      Copyright 2008 Manoel N. Angeiras N. (angeiras gmail@com)
+   $END$
+ */
 
 /* $DOC$
    $TEMPLATE$
