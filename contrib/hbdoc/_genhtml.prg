@@ -190,7 +190,7 @@ METHOD NewFile() CLASS GenerateHTML
 
    ::OpenTagInline( "div" )
    ::OpenTagInline( "a", "href", "index.html" )
-   ::cFile += hb_MemoRead( hbdoc_RootDir() + hb_DirSepToOS( "docs/images/" + "harbour-nofill.svg" ) )
+   ::cFile += hb_MemoRead( hbdoc_dir_in() + hb_DirSepToOS( "docs/images/" + "harbour-nofill.svg" ) )
    ::AppendInline( cBaseTitle )
    ::CloseTagInline( "a" )
    ::CloseTag( "div" )
@@ -284,7 +284,7 @@ STATIC FUNCTION flag_for_lang( cLang )
    ENDSWITCH
 
    IF ! HB_ISNULL( cSrc )
-      cSrc := "data:image/svg+xml;base64," + hb_base64Encode( hb_MemoRead( hbdoc_RootDir() + hb_DirSepToOS( "docs/images/" + cSrc ) ) )
+      cSrc := "data:image/svg+xml;base64," + hb_base64Encode( hb_MemoRead( hbdoc_dir_in() + hb_DirSepToOS( "docs/images/" + cSrc ) ) )
    ENDIF
 
    RETURN cSrc
@@ -533,7 +533,7 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
 
          IF ! hb_LeftEq( ::cFilename, "cl" )
             ::AppendInline( hb_UChar( 160 ) + "|" + hb_UChar( 160 ) )
-            ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "edit/master/" + SubStr( hEntry[ "_sourcefile" ], Len( hbdoc_dir_in() ) + 1 ), ;
+            ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "edit/master/" + hEntry[ "_sourcefile" ], ;
                "title", hdr[ 5 ][ nTitle ] )
             ::AppendInline( hdr[ 5 ][ nContent ] )
             ::CloseTagInline( "a" )
@@ -566,7 +566,7 @@ STATIC FUNCTION SourceURL( cComponent, cRevision, cFileName )
            "src/rdd" }, ;
          { "contrib/" + cComponent } )
 
-         IF hb_FileExists( hbdoc_RootDir() + ( tmp := hb_DirSepToOS( cDir + "/" ) + cFileName + cExt ) )
+         IF hb_FileExists( hbdoc_dir_in() + ( tmp := hb_DirSepToOS( cDir + "/" ) + cFileName + cExt ) )
             RETURN hb_Version( HB_VERSION_URL_BASE ) + "blob/" + cRevision + "/" + tmp
          ENDIF
       NEXT
@@ -1093,7 +1093,7 @@ STATIC FUNCTION SymbolToHTMLID( cID )
 #define R_( x )  ( x )
 
 /* Based on FixFuncCase() in hbmk2 */
-STATIC FUNCTION AutoLink( hAll, cFile, cComponent, cRevision, hNameID, lCodeAlready )
+STATIC FUNCTION AutoLink( hHBX, cFile, cComponent, cRevision, hNameID, lCodeAlready )
 
    LOCAL match
    LOCAL cProper
@@ -1111,12 +1111,12 @@ STATIC FUNCTION AutoLink( hAll, cFile, cComponent, cRevision, hNameID, lCodeAlre
          nShift := 0
          FOR EACH match IN en_hb_regexAll( R_( "([A-Za-z] |[^A-Za-z_:]|^)([A-Za-z_][A-Za-z0-9_]+\(\))" ), cFile,,,,, .F. )
             IF Len( match[ 2 ][ _MATCH_cStr ] ) != 2 .OR. !( Left( match[ 2 ][ _MATCH_cStr ], 1 ) $ "D" /* "METHOD" */ )
-               cProper := ProperCase( hAll, cName := hb_StrShrink( match[ 3 ][ _MATCH_cStr ], 2 ), @lFound ) + "()"
+               cProper := ProperCase( hHBX, cName := hb_StrShrink( match[ 3 ][ _MATCH_cStr ], 2 ), @lFound ) + "()"
                IF lFound
-                  IF hb_FNameName( hAll[ cName ] ) == cComponent
+                  IF hb_FNameName( hHBX[ cName ] ) == cComponent
                      cTag := ""
                   ELSE
-                     cTag := hb_FNameName( hAll[ cName ] ) + ".html"
+                     cTag := hb_FNameName( hHBX[ cName ] ) + ".html"
                   ENDIF
                   IF cProper $ hNameID
                      cAnchor := hNameID[ cProper ][ "id" ]
@@ -1150,8 +1150,8 @@ STATIC FUNCTION AutoLink( hAll, cFile, cComponent, cRevision, hNameID, lCodeAlre
                ELSE
                   cTag := "contrib/" + cComponent + "/" + cName
                ENDIF
-               IF hb_FileExists( hbdoc_RootDir() + cTag ) .OR. ;
-                  hb_FileExists( hbdoc_RootDir() + ( cTag := "include/" + cName ) )
+               IF hb_FileExists( hbdoc_dir_in() + cTag ) .OR. ;
+                  hb_FileExists( hbdoc_dir_in() + ( cTag := "include/" + cName ) )
 #if 0
                   /* link to the most-recent version */
                   cTag := "<a href=" + '"' + hb_Version( HB_VERSION_URL_BASE ) + "tree/master/" + Lower( cTag ) + '"' + ">" + cName + "</a>"
@@ -1197,5 +1197,5 @@ STATIC FUNCTION en_hb_regexAll( ... )
 
    RETURN aMatch
 
-STATIC FUNCTION ProperCase( hAll, cName, /* @ */ lFound )
-   RETURN iif( lFound := ( cName $ hAll ), hb_HKeyAt( hAll, hb_HPos( hAll, cName ) ), cName )
+STATIC FUNCTION ProperCase( hHBX, cName, /* @ */ lFound )
+   RETURN iif( lFound := ( cName $ hHBX ), hb_HKeyAt( hHBX, hb_HPos( hHBX, cName ) ), cName )

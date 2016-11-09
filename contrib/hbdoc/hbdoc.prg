@@ -126,8 +126,7 @@ PROCEDURE Main()
       "dir_out"   => hb_DirSepToOS( "./" ), ;
       "repr"      => .F., ;
       "verbosity" => 1, ;
-      "dump"      => .F., ;
-      "hHBX"      => {} }
+      "dump"      => .F. }
 
    /* Find project root */
    nCount := 4
@@ -452,9 +451,6 @@ FUNCTION hbdoc_LangList()
 FUNCTION hbdoc_NameID()
    RETURN s_hNameID
 
-FUNCTION hbdoc_RootDir()
-   RETURN s_hSwitches[ "dir_in" ]
-
 FUNCTION hbdoc_HBX()
    RETURN s_hHBX
 
@@ -692,7 +688,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, /* @ */ nCount, /* @ */ nCountFunc 
 
    hE := EntryNew( hEntry[ "TEMPLATE" ] )
    hE[ "_type" ] := cComponent
-   hE[ "_sourcefile" ] := StrTran( cFile, "\", hb_ps() )
+   hE[ "_sourcefile" ] := hb_PathRelativize( s_hSwitches[ "dir_in" ], hb_DirSepToOS( cFile ) )
 
    /* Merge category/subcategory into tag list */
    hE[ "_tags" ] := { => }
@@ -1456,7 +1452,7 @@ STATIC PROCEDURE DirLoadHBX( cDir, hAll )
 
 STATIC FUNCTION LoadHBX( cFileName, hAll )
 
-   LOCAL cName := StrTran( cFileName, "\", "/" )
+   LOCAL cName := hb_PathRelativize( s_hSwitches[ "dir_in" ], cFileName )
 
    LOCAL cFile
    LOCAL pRegex
