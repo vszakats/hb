@@ -131,10 +131,6 @@ msgid "Not started"
 msgstr "Não começado"
 
 #, c-format
-msgid "Permalink"
-msgstr "Ligação permanente"
-
-#, c-format
 msgid "Notes"
 msgstr "Notas"
 

@@ -489,67 +489,44 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
    LOCAL cEntry
    LOCAL tmp
 
-   LOCAL hdr := { ;
-      { "❮/❯", I_( "Source code" ) }, ;
-      { "⌃",   I_( "Top" ) }, ;
-      { "☰",   I_( "Index" ) }, ;
-      { "∞",   I_( "Permalink" ) }, ;
-      { "✎",   I_( "Improve this doc" ) } }
-
-   LOCAL nContent := 2, nTitle := 3 - nContent
-
    ::Spacer()
    ::OpenTag( "section" )
 
    FOR EACH item IN FieldIDList()
       IF item == "NAME"  // Mandatory section
          cEntry := hEntry[ "NAME" ]
-         IF nContent == 1
-            ::OpenTagInline( "h4", "class", "d-ebi" )
-         ELSE
-            ::OpenTagInline( "h4" )
-         ENDIF
+         ::OpenTagInline( "h4" )
+         ::OpenTagInline( "a", "href", "#" + hEntry[ "_id" ], "class", "d-id", "id", hEntry[ "_id" ], "title", "∞" )
          IF "(" $ cEntry .OR. "#" $ cEntry .OR. Upper( cEntry ) == cEntry  // guess if it's code
             ::OpenTagInline( "code" ):AppendInline( cEntry,,, item ):CloseTagInline( "code" )
+            ::CloseTagInline( "a" )
             /* Link to original source code if it could be automatically found based
                on doc source filename */
             IF ! HB_ISNULL( tmp := SourceURL( ::cFilename, s_cRevision, hEntry[ "_sourcefile" ] ) )
-               ::OpenTagInline( "a", "href", tmp, ;
-                  "class", "d-so", ;
-                  "title", hdr[ 1 ][ nTitle ] )
-               ::AppendInline( hdr[ 1 ][ nContent ] )
+               ::OpenTagInline( "a", "href", tmp, "class", "d-so" )
+               ::AppendInline( I_( "Source code" ) )
                ::CloseTagInline( "a" )
             ENDIF
          ELSE
             ::AppendInline( cEntry,,, item )
+            ::CloseTagInline( "a" )
          ENDIF
 
          ::OpenTagInline( "span", "class", "d-eb" )
 
-         ::OpenTagInline( "a", "href", "#", ;
-            "title", hdr[ 2 ][ nTitle ] )
-         ::AppendInline( hdr[ 2 ][ nContent ] )
+         ::OpenTagInline( "a", "href", "#", "title", I_( "Top" ), "class", "d-ebi" )
+         ::AppendInline( "⌃" )
          ::CloseTagInline( "a" )
 
          ::AppendInline( hb_UChar( 160 ) + "|" + hb_UChar( 160 ) )
-         ::OpenTagInline( "a", "href", "index.html", ;
-            "title", hdr[ 3 ][ nTitle ] )
-         ::AppendInline( hdr[ 3 ][ nContent ] )
-         ::CloseTagInline( "a" )
-
-         ::AppendInline( hb_UChar( 160 ) + "|" + hb_UChar( 160 ) )
-         ::OpenTagInline( "a", "href", "#" + hEntry[ "_id" ], ;
-            "class", "d-id", ;
-            "id", hEntry[ "_id" ], ;
-            "title", hdr[ 4 ][ nTitle ] )
-         ::AppendInline( hdr[ 4 ][ nContent ] )
+         ::OpenTagInline( "a", "href", "index.html", "title", I_( "Index" ), "class", "d-ebi" )
+         ::AppendInline( "☰" )
          ::CloseTagInline( "a" )
 
          IF ! hb_LeftEq( ::cFilename, "cl" )
             ::AppendInline( hb_UChar( 160 ) + "|" + hb_UChar( 160 ) )
-            ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "edit/master/" + hEntry[ "_sourcefile" ], ;
-               "title", hdr[ 5 ][ nTitle ] )
-            ::AppendInline( hdr[ 5 ][ nContent ] )
+            ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "edit/master/" + hEntry[ "_sourcefile" ] )
+            ::AppendInline( I_( "Improve this doc" ) )
             ::CloseTagInline( "a" )
          ENDIF
 
