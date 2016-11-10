@@ -121,7 +121,7 @@ PROCEDURE Main()
    /* Configuration settings */
    s_hSwitches := { ;
       "lang"      => {}, ;
-      "contribs"  => .T., ;
+      "non-core"  => .T., ;
       "format"    => { "html" }, ;
       "output"    => "component", ;
       "dir_out"   => hb_DirSepToOS( "./" ), ;
@@ -489,12 +489,12 @@ STATIC PROCEDURE Get_ID_Name( cComponent, /* @ */ cID, /* @ */ cName, /* @ */ cN
    CASE hb_LeftEq( cComponent, "cl" )
       cID := cComponent
       cName := hb_HGetDef( { ;
-        "cl53"  => "Clipper 5.3", ;
+        "clc53" => "Clipper 5.3", ;
         "clct3" => "Clipper Tools 3" }, cComponent, cComponent )
       cNameShort := cName
    OTHERWISE
       cID := cComponent
-      cName := hb_StrFormat( I_( "%1$s contrib" ), cComponent )
+      cName := hb_StrFormat( I_( "%1$s lib" ), cComponent )
       cNameShort := cComponent
    ENDCASE
 
@@ -532,34 +532,38 @@ STATIC FUNCTION SortWeight( cString )
 
 STATIC PROCEDURE ProcessDirs( hDoc, hAll )
 
+   LOCAL cArea
    LOCAL cDir
    LOCAL file
 
    DirLoadHBX( s_hSwitches[ "dir_in" ] + "include", hAll )
 
-   ProcessDocDir( s_hSwitches[ "dir_in" ], "harbour", hDoc )
+   ProcessDocDir( s_hSwitches[ "dir_in" ], "core", "harbour", hDoc )
 
-   IF s_hSwitches[ "contribs" ]
+   IF s_hSwitches[ "non-core" ]
 
-      cDir := s_hSwitches[ "dir_in" ] + "contrib"
+      FOR EACH cArea IN { "contrib" }
 
-      FOR EACH file IN hb_DirScan( cDir,, "D" )
-         IF file[ F_ATTR ] == "D" .AND. ;
-            !( hb_FNameName( hb_DirSepDel( file[ F_NAME ] ) ) == "." ) .AND. ;
-            !( hb_FNameName( hb_DirSepDel( file[ F_NAME ] ) ) == ".." )
+         cDir := s_hSwitches[ "dir_in" ] + cArea
 
-            DirLoadHBX( cDir + hb_ps() + file[ F_NAME ], hAll )
+         FOR EACH file IN hb_DirScan( cDir,, "D" )
+            IF file[ F_ATTR ] == "D" .AND. ;
+               !( hb_FNameName( hb_DirSepDel( file[ F_NAME ] ) ) == "." ) .AND. ;
+               !( hb_FNameName( hb_DirSepDel( file[ F_NAME ] ) ) == ".." )
 
-            IF ! ProcessDocDir( cDir + hb_ps() + file[ F_NAME ], hb_FNameName( file[ F_NAME ] ), hDoc )
-               EXIT
+               DirLoadHBX( cDir + hb_ps() + file[ F_NAME ], hAll )
+
+               IF ! ProcessDocDir( cDir + hb_ps() + file[ F_NAME ], cArea, hb_FNameName( file[ F_NAME ] ), hDoc )
+                  EXIT
+               ENDIF
             ENDIF
-         ENDIF
+         NEXT
       NEXT
    ENDIF
 
    RETURN
 
-STATIC FUNCTION ProcessDocDir( cDir, cComponent, hDoc )
+STATIC FUNCTION ProcessDocDir( cDir, cArea, cComponent, hDoc )
 
    LOCAL aErrMsg := {}
    LOCAL aEntry := __hbdoc_LoadDir( cDir, cComponent, aErrMsg )
@@ -583,7 +587,7 @@ STATIC FUNCTION ProcessDocDir( cDir, cComponent, hDoc )
       ASort( aEntry,,, {| oL, oR | hb_HGetDef( oL, "NAME", "" ) < hb_HGetDef( oR, "NAME", "" ) } )
 
       IF s_hSwitches[ "dump" ]
-         hb_MemoWrit( "_" + aEntry[ 1 ][ "_COMPONENT" ] + ".json", hb_jsonEncode( aEntry, .T. ) )
+         hb_MemoWrit( "_" + cArea + "_" + cComponent + ".json", hb_jsonEncode( aEntry, .T. ) )
       ENDIF
 
       FOR EACH hEntry IN aEntry
@@ -601,6 +605,8 @@ STATIC FUNCTION ProcessDocDir( cDir, cComponent, hDoc )
             hb_HCaseMatch( hDoc[ tmp ][ "nameidm" ], .F. )
          ENDIF
 
+         hEntry[ "_AREA" ] := cArea
+
          UseLang( tmp )
 
          ProcessBlock( hEntry, hDoc[ tmp ], @hCountA[ tmp ], @hCountF[ tmp ] )
@@ -608,10 +614,11 @@ STATIC FUNCTION ProcessDocDir( cDir, cComponent, hDoc )
 
       IF ! Empty( hCountA )
          FOR EACH tmp IN hCountA
-            IF hb_LeftEq( cComponent, "cl" )
+            IF hb_LeftEq( cComponent, "cl" )  /* Always show 100% coverage for Clipper docs */
                s_hHBXStat[ cComponent ] := hCountF[ tmp:__enumKey() ]
             ENDIF
-            OutStd( hb_StrFormat( "! %1$s/%2$s (%3$d entries, %4$.1f%%)", ;
+            OutStd( hb_StrFormat( "! %1$s/%2$s/%3$s (%4$d entries, %5$.1f%%)", ;
+               cArea, ;
                cComponent, ;
                tmp:__enumKey(), ;
                tmp, ;

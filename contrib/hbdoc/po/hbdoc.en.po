@@ -47,7 +47,7 @@ msgid "%1$s index"
 msgstr ""
 
 #, c-format
-msgid "%1$s contrib"
+msgid "%1$s lib"
 msgstr ""
 
 #, c-format
