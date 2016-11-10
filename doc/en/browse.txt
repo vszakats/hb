@@ -119,7 +119,7 @@
 
       When dbEdit() execute <xUserFunc> it pass the following arguments:
       <nMode> and the index of current record in <acColumns>. If <acColumns>
-      is omitted, the index number is the FIELD() number of the open
+      is omitted, the index number is the FieldName() number of the open
       database structure.
 
       dbEdit() <nMode> could be one of the following:

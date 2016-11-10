@@ -996,6 +996,8 @@ HB_FUNC( FIELDNAME )
    hb_retc_null();
 }
 
+HB_FUNC_TRANSLATE( FIELD, FIELDNAME )
+
 HB_FUNC( FIELDPOS )
 {
    AREAP pArea = ( AREAP ) hb_rddGetCurrentWorkAreaPointer();
