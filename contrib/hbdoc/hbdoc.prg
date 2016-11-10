@@ -1402,8 +1402,8 @@ STATIC PROCEDURE init_Templates()
 
    sc_hFields := { ;
       "TEMPLATE"      => BI_( "Template" ), ;
-      "NAME"          => BI_( "" ), ;
-      "ONELINER"      => BI_( "" ), ;
+      "NAME"          => "", ;
+      "ONELINER"      => "", ;
       "CATEGORY"      => BI_( "Category" ), ;
       "SUBCATEGORY"   => BI_( "Subcategory" ), ;
       "SYNTAX"        => BI_( "Syntax" ), ;
