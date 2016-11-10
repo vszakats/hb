@@ -11,6 +11,10 @@ msgid "%1$s · %2$s"
 msgstr "%1$s · %2$s"
 
 #, c-format
+msgid "%1$s flag"
+msgstr "%1$s bandeira"
+
+#, c-format
 msgid "%1$s index"
 msgstr "%1$s índice"
 

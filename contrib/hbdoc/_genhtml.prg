@@ -240,7 +240,7 @@ METHOD NewFile() CLASS GenerateHTML
 
       ::OpenTag( "nav", "class", "dropdown lang" )
       ::OpenTagInline( "span", "class", "dropbtn flag" )
-      ::OpenTag( "img", "src", flag_for_lang( ::cLang ), "width", "18", "alt", hb_StrFormat( "%1$s flag", ::cLang ) )
+      ::OpenTag( "img", "src", flag_for_lang( ::cLang ), "width", "18", "alt", hb_StrFormat( I_( "%1$s flag" ), ::cLang ) )
       ::CloseTagInline( "span" )
 
       IF Len( hbdoc_LangList() ) > 1
@@ -283,7 +283,7 @@ STATIC FUNCTION flag_for_lang( cLang )
 
    LOCAL cSrc := ""
 
-   SWITCH cLang
+   SWITCH Lower( cLang )
    CASE "en"    ; cSrc := "flag-gb.svg" ; EXIT
    CASE "pt_br" ; cSrc := "flag-br.svg" ; EXIT
    ENDSWITCH
