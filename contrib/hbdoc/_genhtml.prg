@@ -384,9 +384,13 @@ METHOD AddIndexItem( cName, cID, lRawID ) CLASS GenerateHTML
    ENDIF
 
    ::OpenTagInline( "a", "href", "#" + cID, "title", cName )
-   ::OpenTagInline( "code" )
-   ::AppendInline( cName )
-   ::CloseTagInline( "code" )
+   IF "(" $ cName .OR. "#" $ cName .OR. Upper( cName ) == cName  // guess if it's code
+      ::OpenTagInline( "code" )
+      ::AppendInline( cName,,, "NAME" )
+      ::CloseTagInline( "code" )
+   ELSE
+      ::AppendInline( cName,,, "NAME" )
+   ENDIF
    ::CloseTag( "a" )
 
    RETURN Self
@@ -505,7 +509,7 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
          ELSE
             ::OpenTagInline( "h4" )
          ENDIF
-         IF "(" $ cEntry .OR. Upper( cEntry ) == cEntry  // guess if it's code
+         IF "(" $ cEntry .OR. "#" $ cEntry .OR. Upper( cEntry ) == cEntry  // guess if it's code
             ::OpenTagInline( "code" ):AppendInline( cEntry,,, item ):CloseTagInline( "code" )
             /* Link to original source code if it could be automatically found based
                on doc source filename */
@@ -692,10 +696,10 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
                         EXIT
                      ENDIF
                   NEXT
-                  ::OpenTagInline( "code" ):OpenTagInline( "a", "href", cFile + "#" + cAnchor ):AppendInline( tmp ):CloseTagInline( "a" ):CloseTagInline( "code" )
+                  ::OpenTagInline( "code" ):OpenTagInline( "a", "href", cFile + "#" + cAnchor ):AppendInline( tmp,,, "NAME" ):CloseTagInline( "a" ):CloseTagInline( "code" )
                ELSE
 //                ? "broken 'see also' link:", ::cFilename, "|" + cNameCanon + "|"
-                  ::OpenTagInline( "code" ):AppendInline( tmp ):CloseTagInline( "code" )
+                  ::OpenTagInline( "code" ):AppendInline( tmp,,, "NAME" ):CloseTagInline( "code" )
                ENDIF
             ENDIF
          NEXT
@@ -1042,7 +1046,7 @@ METHOD AppendInline( cText, cFormat, lCode, cField ) CLASS GenerateHTML
          hb_cdpSelect( cdp )
       ENDIF
 
-      IF !( "|" + hb_defaultValue( cField, "" ) + "|" $ "||ONELINER|" )
+      IF !( "|" + hb_defaultValue( cField, "" ) + "|" $ "||NAME|ONELINER|" )
          cText := AutoLink( ::hHBX, cText, ::cFilename, s_cRevision, ::hNameIDM, ::cLang, lCode )
 #if 0
          IF ! lCode .AND. "( " $ cText
