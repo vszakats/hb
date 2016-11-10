@@ -105,7 +105,7 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    METHOD EndContent() INLINE ::Spacer():CloseTag( "main" ), Self
    METHOD BeginIndex() INLINE ::OpenTag( "aside" ), Self
    METHOD EndIndex() INLINE ::CloseTag( "aside" ):Spacer(), Self
-   METHOD AddIndexItem( cName, cID )
+   METHOD AddIndexItem( cName, cID, lRawID )
 
    METHOD WriteEntry( cField, cContent, lPreformatted ) HIDDEN
 
@@ -370,16 +370,20 @@ METHOD EndTOC() CLASS GenerateHTML
 METHOD BeginTOCItem( cName, cID ) CLASS GenerateHTML
 
    ::OpenTagInline( "li" )
-   ::OpenTagInline( "a", "href", "#" + SymbolToHTMLID( cID ) )
+   ::OpenTagInline( "a", "href", "#" + SymbolToHTMLID( cID ) )  // OK
    ::AppendInline( cName )
    ::CloseTag( "a" )
    ::OpenTag( "ul" )
 
    RETURN Self
 
-METHOD AddIndexItem( cName, cID ) CLASS GenerateHTML
+METHOD AddIndexItem( cName, cID, lRawID ) CLASS GenerateHTML
 
-   ::OpenTagInline( "a", "href", "#" + SymbolToHTMLID( cID ), "title", cName )
+   IF lRawID
+      cID := SymbolToHTMLID( cID )  // OK
+   ENDIF
+
+   ::OpenTagInline( "a", "href", "#" + cID, "title", cName )
    ::OpenTagInline( "code" )
    ::AppendInline( cName )
    ::CloseTagInline( "code" )
@@ -391,7 +395,7 @@ METHOD BeginSection( cSection, cFilename, cID ) CLASS GenerateHTML
 
    LOCAL cH
 
-   cID := SymbolToHTMLID( hb_defaultValue( cID, cSection ) )
+   cID := SymbolToHTMLID( hb_defaultValue( cID, cSection ) )  // OK
 
    IF ::IsIndex()
       cH := "h" + hb_ntos( ::nDepth + 1 )
@@ -461,7 +465,7 @@ METHOD AddReference( hEntry, cReference, cSubReference ) CLASS GenerateHTML
       ::CloseTagInline( "div" )
    CASE HB_ISSTRING( cSubReference )
       ::OpenTagInline( "div" )
-      ::OpenTagInline( "a", "href", cReference + "#" + SymbolToHTMLID( cSubReference ) )
+      ::OpenTagInline( "a", "href", cReference + "#" + SymbolToHTMLID( cSubReference ) )  // OK
       ::AppendInline( hEntry )
       ::CloseTagInline( "a" )
       ::CloseTagInline( "div" )
@@ -598,6 +602,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
    LOCAL cLine
    LOCAL lCode, lTable, lTablePrev, cHeaderClass
    LOCAL cFile, cAnchor
+   LOCAL cNameCanon
 
    IF ! Empty( cContent )
 
@@ -673,18 +678,18 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
                ELSE
                   ::Space()
                ENDIF
-
                cFile := ""
-               IF tmp $ ::hNameID
-                  cAnchor := ::hNameID[ tmp ][ "id" ]
-                  IF !( ::cFilename == ::hNameID[ tmp ][ "component" ] )
-                     cFile := ::hNameID[ tmp ][ "component" ] + ".html"
+               cNameCanon := NameCanon( tmp )
+               IF cNameCanon $ ::hNameID
+                  cAnchor := ::hNameID[ cNameCanon ][ "id" ]
+                  IF !( ::cFilename == ::hNameID[ cNameCanon ][ "component" ] )
+                     cFile := ::hNameID[ cNameCanon ][ "component" ] + ".html"
                   ENDIF
                ELSE
                   /* TOFIX: Do not create wrong link if the target entry cannot be found. */
-                  cAnchor := Lower( Parse( tmp, "(" ) )
+                  cAnchor := SymbolToHTMLID( Lower( Parse( tmp, "(" ) ) )
                ENDIF
-               ::OpenTagInline( "code" ):OpenTagInline( "a", "href", cFile + "#" + SymbolToHTMLID( cAnchor ) ):AppendInline( tmp ):CloseTagInline( "a" ):CloseTagInline( "code" )
+               ::OpenTagInline( "code" ):OpenTagInline( "a", "href", cFile + "#" + cAnchor ):AppendInline( tmp ):CloseTagInline( "a" ):CloseTagInline( "code" )
             ENDIF
          NEXT
          ::CloseTag( "div" )

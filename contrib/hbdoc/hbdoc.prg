@@ -85,16 +85,17 @@ STATIC s_hSwitches
 
 STATIC s_hHBX := { => }
 STATIC s_hHBXStat := { => }
-STATIC s_hDoc := { => }  /* lang => { entries => {}, nameid => { => }, tree => { component => category => subcategory } */
+STATIC s_hDoc := { => }  /* lang => { entries => {}, nameid => { => }, nameidm => { => {} }, tree => { component => category => subcategory } */
 
 STATIC s_hNameID
+STATIC s_hNameIDM
 STATIC s_cLang := "en"
 
 PROCEDURE Main()
 
    LOCAL aArgs := hb_AParams()
    LOCAL idx, item
-   LOCAL arg, tmp, nLen, nCount, aList
+   LOCAL arg, tmp, tmp1, nLen, nCount, aList
    LOCAL cArgName
    LOCAL cFormat
    LOCAL oDocument, oIndex
@@ -203,10 +204,11 @@ PROCEDURE Main()
 
    FOR EACH docs IN s_hDoc
 
-      cLang     := docs:__enumKey()
-      aEntries  := docs[ "entries" ]
-      hTree     := docs[ "tree" ]
-      s_hNameID := docs[ "nameid" ]  /* hack */
+      cLang      := docs:__enumKey()
+      aEntries   := docs[ "entries" ]
+      hTree      := docs[ "tree" ]
+      s_hNameID  := docs[ "nameid" ]  /* hack */
+      s_hNameIDM := docs[ "nameidm" ]  /* hack */
 
       IF ! Empty( s_hSwitches[ "lang" ] ) .AND. ;
          hb_AScan( s_hSwitches[ "lang" ], Lower( cLang ),,, .T. ) == 0
@@ -215,7 +217,19 @@ PROCEDURE Main()
 
       UseLang( cLang )
 
-      OutStd( hb_StrFormat( "! %1$d '%2$s' entries found", Len( aEntries ), cLang ) + hb_eol() )
+      /* Calculate total coverage */
+      tmp := hb_HClone( s_hHBX )
+      FOR EACH item IN docs[ "entries" ]
+         IF item[ "TEMPLATE" ] $ "Function|Procedure|Class" .AND. ;
+            ( tmp1 := hb_HPos( tmp, Parse( item[ "NAME" ], "(" ) ) ) > 0
+            hb_HDelAt( tmp, tmp1 )
+         ENDIF
+      NEXT
+
+      OutStd( hb_StrFormat( "! %1$d '%2$s' entries found (%3$.1f%%)", ;
+         Len( aEntries ), ;
+         cLang, ;
+         Round( ( Len( s_hHBX ) - Len( tmp ) ) * 100 / Len( s_hHBX ), 1 ) ) + hb_eol() )
 
       ASort( aEntries,,, {| oL, oR | ;
             PadR( SortWeight( oL[ "CATEGORY" ] ), 30 ) + ;
@@ -259,7 +273,7 @@ PROCEDURE Main()
                   oIndex:BeginIndex()
                   FOR EACH tmp IN aComponent
                      Get_ID_Name( tmp, @cID,, @cName )
-                     oIndex:AddIndexItem( hb_StrFormat( I_( "%1$s index" ), cName ), cID )
+                     oIndex:AddIndexItem( hb_StrFormat( I_( "%1$s index" ), cName ), cID, .T. )
                   NEXT
                   oIndex:EndIndex()
 #else
@@ -308,7 +322,7 @@ PROCEDURE Main()
                   FOR EACH item IN ASort( aList,,, {| oL, oR | ;
                         SortWeightTOC( oL[ "CATEGORY" ] ) + SortWeightTOC( oL[ "SUBCATEGORY" ] ) + PadR( oL[ "NAME" ], 50 ) < ;
                         SortWeightTOC( oR[ "CATEGORY" ] ) + SortWeightTOC( oR[ "SUBCATEGORY" ] ) + PadR( oR[ "NAME" ], 50 ) } )
-                     oDocument:AddIndexItem( item[ "NAME" ], item[ "_id" ] )
+                     oDocument:AddIndexItem( item[ "NAME" ], item[ "_id" ], .F. )
                   NEXT
                   oDocument:EndIndex()
 
@@ -453,6 +467,9 @@ FUNCTION hbdoc_LangList()
 FUNCTION hbdoc_NameID()
    RETURN s_hNameID
 
+FUNCTION hbdoc_NameIDM()
+   RETURN s_hNameIDM
+
 FUNCTION hbdoc_HBX()
    RETURN s_hHBX
 
@@ -578,8 +595,10 @@ STATIC FUNCTION ProcessDocDir( cDir, cComponent, hDoc )
                "entries" => {}, ;
                "tree"    => { => }, ;
                "nameid"  => { => }, ;
+               "nameidm" => { => }, ;
                "uid"     => { => } }  /* separate for each language. TODO: make it global by matching component+name accross languages */
             hb_HCaseMatch( hDoc[ tmp ][ "nameid" ], .F. )
+            hb_HCaseMatch( hDoc[ tmp ][ "nameidm" ], .F. )
          ENDIF
 
          UseLang( tmp )
@@ -592,11 +611,11 @@ STATIC FUNCTION ProcessDocDir( cDir, cComponent, hDoc )
             IF hb_LeftEq( cComponent, "cl" )
                s_hHBXStat[ cComponent ] := hCountF[ tmp:__enumKey() ]
             ENDIF
-            OutStd( hb_StrFormat( "! %1$s/%2$s (%3$d entries, %4$.2f%%)", ;
+            OutStd( hb_StrFormat( "! %1$s/%2$s (%3$d entries, %4$.1f%%)", ;
                cComponent, ;
                tmp:__enumKey(), ;
                tmp, ;
-               Round( hCountF[ tmp:__enumKey() ] * 100 / s_hHBXStat[ cComponent ], 2 ) ) + hb_eol() )
+               Round( hCountF[ tmp:__enumKey() ] * 100 / s_hHBXStat[ cComponent ], 1 ) ) + hb_eol() )
          NEXT
       ENDIF
    ENDIF
@@ -668,7 +687,7 @@ STATIC FUNCTION NewLineVoodoo( cSectionIn )
 
    RETURN cSection
 
-STATIC PROCEDURE ProcessBlock( hEntry, docs, /* @ */ nCount, /* @ */ nCountFunc )
+STATIC PROCEDURE ProcessBlock( hEntry, docs, /* @ */ nCount, /* @ */ nCountExport )
 
    LOCAL cFile := hEntry[ "_DOCSOURCE" ]
    LOCAL cComponent := hEntry[ "_COMPONENT" ]
@@ -680,6 +699,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, /* @ */ nCount, /* @ */ nCountFunc 
    LOCAL idxCategory := NIL
    LOCAL item, cCat
    LOCAL hTree
+   LOCAL cNameCanon
 
    LOCAL hE
 
@@ -809,7 +829,12 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, /* @ */ nCount, /* @ */ nCountFunc 
 
    IF lAccepted
 
-      IF "(" $ hE[ "NAME" ]
+      IF hEntry[ "TEMPLATE" ] == "Function" .OR. ;
+         hEntry[ "TEMPLATE" ] == "Procedure" .OR. ;
+         hEntry[ "TEMPLATE" ] == "Class"
+
+         ++nCountExport
+
          cSectionName := Parse( hE[ "NAME" ], "(" )
          IF ! cSectionName $ s_hHBX
             AddErrorCondition( cFile, "Not found in HBX: " + cSectionName + " " + cComponent )
@@ -820,17 +845,20 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, /* @ */ nCount, /* @ */ nCountFunc 
          docs[ "uid" ][ cComponent ] := { => }
       ENDIF
 
-      hE[ "_id" ] := GenUniqueID( docs[ "uid" ][ cComponent ], hE[ "NAME" ], hEntry[ "TEMPLATE" ] )
+      cNameCanon := NameCanon( hE[ "NAME" ] )
 
-      docs[ "nameid" ][ hE[ "NAME" ] ] := { "id" => hE[ "_id" ], "component" => cComponent }
+      hE[ "_id" ] := GenUniqueID( docs[ "uid" ][ cComponent ], cNameCanon, hEntry[ "TEMPLATE" ] )
+
+      docs[ "nameid" ][ cNameCanon ] := { "id" => hE[ "_id" ], "component" => cComponent }
+
+      IF ! cNameCanon $ docs[ "nameidm" ]
+         docs[ "nameidm" ][ cNameCanon ] := {}
+      ENDIF
+      AAdd( docs[ "nameidm" ][ cNameCanon ], { "id" => hE[ "_id" ], "component" => cComponent, "template" => hEntry[ "TEMPLATE" ] } )
 
       AAdd( docs[ "entries" ], hE )
 
       ++nCount
-      IF hEntry[ "TEMPLATE" ] == "Function" .OR. ;
-         hEntry[ "TEMPLATE" ] == "Procedure"
-         ++nCountFunc
-      ENDIF
 
       hTree := docs[ "tree" ]
       IF ! cComponent $ hTree
@@ -1123,6 +1151,16 @@ FUNCTION Indent( cText, nLeftMargin, nWidth, lRaw, lForceRaw )
 
    RETURN cResult
 
+/* Return canonical name. */
+FUNCTION NameCanon( cName )
+
+   /* Remove 'obsolete' marker */
+   IF hb_BRight( cName, 1 ) == "*" .AND. hb_BLen( cName ) > 2
+      cName := hb_StrShrink( cName )
+   ENDIF
+
+   RETURN cName
+
 STATIC FUNCTION GenUniqueID( hNameID, cName, cTemplate )
 
    STATIC s_conv := { ;
@@ -1160,14 +1198,11 @@ STATIC FUNCTION GenUniqueID( hNameID, cName, cTemplate )
          cName := tmp
       ENDIF
 
-      IF Right( cName, 1 ) == "*" .AND. Len( cName ) > 2
-         cName := hb_StrShrink( cName )
-      ENDIF
       IF cTemplate == "Runtime error"
          cName := StrTran( cName, "/", " " )
       ELSEIF hb_LeftEq( cName, "@" ) .AND. Len( cName ) > 1
-         cName := "at " + SubStr( cName, 2 )
-      ELSEIF ( tmp := At( "#", cName ) ) > 0 .AND. hb_asciiIsAlpha( SubStr( cName, tmp + 1, 1 ) )
+         cName := "at " + hb_BSubStr( cName, 2 )
+      ELSEIF ( tmp := hb_BAt( "#", cName ) ) > 0 .AND. hb_asciiIsAlpha( hb_BSubStr( cName, tmp + 1, 1 ) )
          cName := StrTran( cName, "#", "pp " )
       ENDIF
 
@@ -1186,8 +1221,9 @@ STATIC FUNCTION GenUniqueID( hNameID, cName, cTemplate )
       cResult += "-c"
       EXIT
    CASE "Command"
-      IF hb_StrReplace( Lower( cName ), "abcdefghijklmnopqrstuvwxyz" ) == Lower( cName ) .OR. ;
-         "|" + Upper( cName ) + "|" $ "|.AND.|.OR.|.NOT.|"
+      IF hb_StrReplace( hb_asciiLower( cName ), "abcdefghijklmnopqrstuvwxyz" ) == hb_asciiLower( cName ) .OR. ;
+         "|" + Upper( cName ) + "|" $ "|.AND.|.OR.|.NOT.|" .OR. ;
+         hb_LeftEq( cName, "= " )  // f.e. "= (assign)"
          cResult += "-op"
       ELSE
          cResult += "-cmd"

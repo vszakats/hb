@@ -127,6 +127,66 @@
    $TEMPLATE$
       Function
    $NAME$
+      Bin2W()
+   $CATEGORY$
+      API
+   $SUBCATEGORY$
+      Conversion
+   $ONELINER$
+      Convert unsigned short encoded bytes into Harbour numeric
+   $SYNTAX$
+      Bin2W( <cBuffer> ) --> nNumber
+   $ARGUMENTS$
+      <cBuffer> is a character string that contains 16-bit encoded unsigned
+      short integer (least significant byte first). The first two bytes
+      are taken into account, the rest if any are ignored.
+   $RETURNS$
+      Bin2W() return numeric integer (or 0 if <cBuffer> is not a string).
+   $DESCRIPTION$
+      Bin2W() is one of the low level binary conversion functions, those
+      functions convert between Harbour numeric and a character
+      representation of numeric value. Bin2W() take two bytes of encoded
+      16-bit unsigned short integer and convert it into standard Harbour
+      numeric value.
+
+      You might ask what is the need for such functions, well, first of
+      all it allow you to read/write information from/to a binary file
+      (like extracting information from DBF header), it is also a useful
+      way to share information from source other than Harbour (C for
+      instance).
+
+      Bin2W() is the opposite of W2Bin()
+   $EXAMPLES$
+      // Show header length of a DBF
+      #include "fileio.ch"
+      PROCEDURE Main()
+         LOCAL hFile, cBuffer := Space( 2 )
+         IF ( hFile := hb_vfOpen( "test.dbf", FO_READ ) ) != NIL
+            hb_vfSeek( hFile, 8 )
+            hb_vfRead( hFile, @cBuffer, hb_BLen( cBuffer ) )
+            ? "Length of DBF header in bytes:", Bin2W( cBuffer )
+            hb_vfClose( hFile )
+         ELSE
+            ? "Cannot open file"
+         ENDIF
+         RETURN
+   $STATUS$
+      R
+   $COMPLIANCE$
+      C
+   $FILES$
+      Library is core
+   $SEEALSO$
+      Bin2I(), Bin2L(), Bin2U(), I2Bin(), L2Bin(), W2Bin(), Word(), U2Bin()
+   $END$
+ */
+
+/* $DOC$
+   $AUTHOR$
+      Copyright 2000 Chen Kedem <niki@actcom.co.il>
+   $TEMPLATE$
+      Function
+   $NAME$
       I2Bin()
    $CATEGORY$
       API
