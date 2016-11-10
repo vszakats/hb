@@ -115,6 +115,10 @@ msgid "Improve this doc"
 msgstr "Melhorar este documento"
 
 #, c-format
+msgid "%1$s (%2$s)"
+msgstr "%1$s (%2$s)"
+
+#, c-format
 msgid "Index"
 msgstr "Índice"
 

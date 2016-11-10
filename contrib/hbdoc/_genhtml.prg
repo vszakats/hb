@@ -670,7 +670,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS Genera
                         cAnchor := ::hNameIDM[ cLangOK ][ cNameCanon ][ tmp1 ][ "id" ]
                         IF ! tmp1:__enumIsFirst()
                            cFile := GetLangDir( ::cLang, cLangOK ) + tmp1 + ".html"
-                           cTitle := tmp1
+                           cTitle := iif( cLangOK == ::cLang, tmp1, hb_StrFormat( I_( "%1$s (%2$s)" ), tmp1, cLangOK ) )
                         ENDIF
                         EXIT
                      ENDIF
@@ -1164,7 +1164,7 @@ STATIC FUNCTION AutoLink( hHBX, cFile, cComponent, cRevision, hNameIDM, cLang, l
                         cAnchor := hNameIDM[ cLangOK ][ cProper ][ tmp1 ][ "id" ]
                         IF ! tmp1:__enumIsFirst()
                            cTag := GetLangDir( cLang, cLangOK ) + tmp1 + ".html"
-                           cTitle := " " + "title=" + '"' + tmp1 + '"'
+                           cTitle := " " + "title=" + '"' + iif( cLangOK == cLang, tmp1, hb_StrFormat( I_( "%1$s (%2$s)" ), tmp1, cLangOK ) ) + '"'
                         ENDIF
                         EXIT
                      ENDIF

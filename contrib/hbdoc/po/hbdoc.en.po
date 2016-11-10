@@ -39,6 +39,10 @@ msgid "Improve this doc"
 msgstr ""
 
 #, c-format
+msgid "%1$s (%2$s)"
+msgstr ""
+
+#, c-format
 msgid "Index"
 msgstr ""
 
