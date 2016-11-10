@@ -252,7 +252,7 @@ PROCEDURE Main()
             hComponents := { => }
             hb_HKeepOrder( hComponents, .T. )
             FOR EACH tmp IN aComponent
-               Get_ID_Name( tmp, @cID, @cName, @cNameShort )
+               GetComponentInfo( tmp, @cID, @cName, @cNameShort )
                hComponents[ tmp ] := { ;
                   "id" => cID, ;
                   "name" => cName, ;
@@ -270,7 +270,7 @@ PROCEDURE Main()
 #if 1
                   oIndex:BeginIndex()
                   FOR EACH tmp IN aComponent
-                     Get_ID_Name( tmp, @cID,, @cName )
+                     GetComponentInfo( tmp, @cID,, @cName )
                      oIndex:AddIndexItem( hb_StrFormat( I_( "%1$s index" ), cName ), cID, .T. )
                   NEXT
                   oIndex:EndIndex()
@@ -278,7 +278,7 @@ PROCEDURE Main()
                   oIndex:BeginTOC()
                   FOR EACH tmp IN aComponent
 
-                     Get_ID_Name( tmp, @cID, @cName )
+                     GetComponentInfo( tmp, @cID, @cName )
 
                      cCat1Prev := NIL
 
@@ -303,7 +303,7 @@ PROCEDURE Main()
                nCount := 0
                FOR EACH tmp IN aComponent
 
-                  Get_ID_Name( tmp, @cID, @cName )
+                  GetComponentInfo( tmp, @cID, @cName )
 
                   oDocument := Eval( generatorClass ):NewDocument( cDir, tmp, cName, Lower( cLang ), hComponents )
 
@@ -474,7 +474,7 @@ FUNCTION hbdoc_reproducible()
 FUNCTION hbdoc_dir_in()
    RETURN s_hSwitches[ "dir_in" ]
 
-STATIC PROCEDURE Get_ID_Name( cComponent, /* @ */ cID, /* @ */ cName, /* @ */ cNameShort )
+PROCEDURE GetComponentInfo( cComponent, /* @ */ cID, /* @ */ cName, /* @ */ cNameShort )
 
    DO CASE
    CASE cComponent == "harbour"

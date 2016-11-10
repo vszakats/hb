@@ -539,6 +539,10 @@ p {
   transition: none;
 }
 
+.d-dd {
+  margin-top: 0;
+}
+
 .lang .dropdown-content {
   min-width: 10px !important;
 }

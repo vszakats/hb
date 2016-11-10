@@ -674,6 +674,9 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS Genera
                         EXIT
                      ENDIF
                   NEXT
+                  IF Len( ::hNameIDM[ cNameCanon ] ) > 1
+                     ::OpenTagInline( "nav", "class", "dropdown" )
+                  ENDIF
                   ::OpenTagInline( "code" )
                   IF cTitle != NIL
                      ::OpenTagInline( "a", "href", cFile + "#" + cAnchor, "title", cTitle )
@@ -681,6 +684,16 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS Genera
                      ::OpenTagInline( "a", "href", cFile + "#" + cAnchor )
                   ENDIF
                   ::AppendInline( tmp,,, "NAME" ):CloseTagInline( "a" ):CloseTagInline( "code" )
+                  IF Len( ::hNameIDM[ cNameCanon ] ) > 1
+                     ::OpenTagInline( "nav", "class", "dropdown-content" + " " + "d-dd" )
+                     FOR EACH tmp1 IN ASort( hb_HKeys( ::hNameIDM[ cNameCanon ] ) )
+                        GetComponentInfo( tmp1,, @cCaption )
+                        ::OpenTagInline( "a", "href", tmp1 + ".html" + "#" + ::hNameIDM[ cNameCanon ][ tmp1 ][ "id" ] )
+                        ::AppendInline( cCaption ):CloseTagInline( "a" )
+                     NEXT
+                     ::CloseTagInline( "nav" )
+                     ::CloseTagInline( "nav" )
+                  ENDIF
                ELSE
 //                ? "broken 'see also' link:", ::cFilename, "|" + cNameCanon + "|"
                   ::OpenTagInline( "code" ):AppendInline( tmp,,, "NAME" ):CloseTagInline( "code" )
