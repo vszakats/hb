@@ -6,7 +6,7 @@
    $ONELINER$
       Convert printer control codes
    $SYNTAX$
-      ft_PChr( <cString> ) --> <cPrinterFormat>
+      ft_PChr( <cString> ) --> cPrinterFormat
    $ARGUMENTS$
       <cString> is the representation of the printer control codes in
       text, numeric, hexadecimal, Epson command format, or any combination

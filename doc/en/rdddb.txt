@@ -69,7 +69,7 @@
    $ONELINER$
       Alias name of a work area
    $SYNTAX$
-      Dbf() --> <cWorkArea>
+      Dbf() --> cWorkArea
    $RETURNS$
       <cWorkArea> Name of alias
    $DESCRIPTION$

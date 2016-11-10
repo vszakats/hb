@@ -51,7 +51,7 @@
    $ONELINER$
       Create a palette-based image in memory with no more that 256 colors.
    $SYNTAX$
-      gdImageCreate( <nPixelWidth>, <nPixelHeight> ) --> <pImage>
+      gdImageCreate( <nPixelWidth>, <nPixelHeight> ) --> pImage
    $ARGUMENTS$
       <nPixelWidth>  - image width
       <nPixelHeight> - image height
@@ -89,7 +89,7 @@
    $ONELINER$
       Create a true color image in memory.
    $SYNTAX$
-      gdImageCreateTrueColor( <nPixelWidth>, <nPixelHeight> ) --> <pImage>
+      gdImageCreateTrueColor( <nPixelWidth>, <nPixelHeight> ) --> pImage
    $ARGUMENTS$
       <nPixelWidth>  - image width
       <nPixelHeight> - image height
@@ -127,7 +127,7 @@
    $ONELINER$
       Load a JPEG image file.
    $SYNTAX$
-      gdImageCreateFromJpeg( <cFile> | <nHandle> | <pPointer> [, <nSize> ] ) --> <pImage>
+      gdImageCreateFromJpeg( <cFile> | <nHandle> | <pPointer> [, <nSize> ] ) --> pImage
    $ARGUMENTS$
       <cFile>        - Image file name
       <nHandle>      - File handle
@@ -181,7 +181,7 @@
    $ONELINER$
       Load a Gif image file.
    $SYNTAX$
-      gdImageCreateFromGif( <cFile> | <nHandle> | <pPointer> [, <nSize> ] ) --> <pImage>
+      gdImageCreateFromGif( <cFile> | <nHandle> | <pPointer> [, <nSize> ] ) --> pImage
    $ARGUMENTS$
       <cFile>        - Image file name
       <nHandle>      - File handle
@@ -235,7 +235,7 @@
    $ONELINER$
       Load a PNG image file.
    $SYNTAX$
-      gdImageCreateFromPng( <cFile> | <nHandle> | <pPointer> [, <nSize> ] ) --> <pImage>
+      gdImageCreateFromPng( <cFile> | <nHandle> | <pPointer> [, <nSize> ] ) --> pImage
    $ARGUMENTS$
       <cFile>        - Image file name
       <nHandle>      - File handle
@@ -289,7 +289,7 @@
    $ONELINER$
       Load a GD image file.
    $SYNTAX$
-      gdImageCreateFromGD( <cFile> | <nHandle> | <pPointer> [, <nSize> ] ) --> <pImage>
+      gdImageCreateFromGD( <cFile> | <nHandle> | <pPointer> [, <nSize> ] ) --> pImage
    $ARGUMENTS$
       <cFile>        - Image file name
       <nHandle>      - File handle
@@ -343,7 +343,7 @@
    $ONELINER$
       Load a WBmp image file.
    $SYNTAX$
-      gdImageCreateFromWBmp( <cFile> | <nHandle> | <pPointer> [, <nSize> ] ) --> <pImage>
+      gdImageCreateFromWBmp( <cFile> | <nHandle> | <pPointer> [, <nSize> ] ) --> pImage
    $ARGUMENTS$
       <cFile>        - Image file name
       <nHandle>      - File handle

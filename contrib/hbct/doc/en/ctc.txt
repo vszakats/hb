@@ -6,7 +6,7 @@
    $ONELINER$
       Sets argument error behaviour
    $SYNTAX$
-      CSetArgErr( [<nNewMode>] ) --> <nOldMode>
+      CSetArgErr( [<nNewMode>] ) --> nOldMode
    $ARGUMENTS$
       [<nNewMode>]   New argument error throwing mode
    $RETURNS$

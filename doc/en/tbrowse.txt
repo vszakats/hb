@@ -8,7 +8,7 @@
    $ONELINER$
       Create a Browse Object
    $SYNTAX$
-      TBrowseNew( <nTop>, <nLeft>, <nBottom>, <nRight> ) --> <oBrowse>
+      TBrowseNew( <nTop>, <nLeft>, <nBottom>, <nRight> ) --> oBrowse
    $ARGUMENTS$
       <nTop>    Top Row
 
@@ -191,7 +191,7 @@
    $ONELINER$
       Get an optionaly Set an new Code block associated to a inkey value
    $SYNTAX$
-      :SetKey( <nKey>[, <bBlock>] ) --> <bOldBlock>
+      :SetKey( <nKey>[, <bBlock>] ) --> bOldBlock
    $ARGUMENTS$
       <nKey> An valid inkey Code
 

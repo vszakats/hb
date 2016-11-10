@@ -7,7 +7,7 @@
       Find the number of times one string occurs in another
    $SYNTAX$
       ft_NoOccur( <cCheckFor>, <cCheckIn> ;
-                  [, <lIgnoreCase> ] ) --> <nOccurrences>
+                  [, <lIgnoreCase> ] ) --> nOccurrences
    $ARGUMENTS$
       <cCheckFor> is the string to search for
 

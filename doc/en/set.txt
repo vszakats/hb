@@ -790,7 +790,7 @@
    $ONELINER$
       Sets the typeahead buffer to given size.
    $SYNTAX$
-      SetTypeahead( <nSize> ) --> <nPreviousSize>
+      SetTypeahead( <nSize> ) --> nPreviousSize
    $ARGUMENTS$
       <nSize> is a valid typeahead size.
    $RETURNS$
@@ -826,7 +826,7 @@
    $ONELINER$
       Determines whether a HELP() user defined function exists.
    $SYNTAX$
-      __XHelp() --> <xValue>
+      __XHelp() --> xValue
    $ARGUMENTS$
       None
    $RETURNS$

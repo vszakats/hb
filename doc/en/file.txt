@@ -264,7 +264,7 @@
    $ONELINER$
       Reports the error status of low-level file functions
    $SYNTAX$
-      FError() --> <nErrorCode>
+      FError() --> nErrorCode
    $RETURNS$
       <nErrorCode> Value of the OS error last encountered by a
       low-level file function.
@@ -325,7 +325,7 @@
    $ONELINER$
       Closes an open file
    $SYNTAX$
-      FClose( <nHandle> ) --> <lSuccess>
+      FClose( <nHandle> ) --> lSuccess
    $ARGUMENTS$
       <nHandle> File handle
    $RETURNS$

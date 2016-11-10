@@ -12,7 +12,7 @@
    $ONELINER$
       Gets the name of the current function on the stack
    $SYNTAX$
-      ProcName( <nLevel> ) --> <cProcName>
+      ProcName( <nLevel> ) --> cProcName
    $ARGUMENTS$
       <nLevel> is the function level required.
    $RETURNS$
@@ -55,7 +55,7 @@
    $ONELINER$
       Gets the line number of the current function on the stack.
    $SYNTAX$
-      ProcLine( <nLevel> ) --> <nLine>
+      ProcLine( <nLevel> ) --> nLine
    $ARGUMENTS$
       <nLevel> is the function level required.
    $RETURNS$
@@ -95,7 +95,7 @@
    $ONELINER$
       This function allways returns an empty string.
    $SYNTAX$
-      ProcFile( <xExp> ) --> <cEmptyString>
+      ProcFile( <xExp> ) --> cEmptyString
    $ARGUMENTS$
       <xExp> is any valid type.
    $RETURNS$
@@ -132,7 +132,7 @@
    $ONELINER$
       Retrieves the value of an argument.
    $SYNTAX$
-      hb_PValue( <nArg> ) --> <xExp>
+      hb_PValue( <nArg> ) --> xExp
    $ARGUMENTS$
       A number that indicates the argument to check.
    $RETURNS$
@@ -169,7 +169,7 @@
    $ONELINER$
       Retrieves the number of arguments passed to a function.
    $SYNTAX$
-      PCount() --> <nArgs>
+      PCount() --> nArgs
    $ARGUMENTS$
       None
    $RETURNS$
@@ -346,7 +346,7 @@
    $ONELINER$
       Calls a procedure or a function
    $SYNTAX$
-      Do( <xFuncProc> [, <xArguments...>] ) --> <xRetVal>
+      Do( <xFuncProc> [, <xArguments...>] ) --> xRetVal
    $ARGUMENTS$
       <xFuncProc> = Either a string with a function/procedure name to be called
       or a codeblock to evaluate.

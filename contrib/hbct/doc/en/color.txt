@@ -36,7 +36,7 @@
    $ONELINER$
 
    $SYNTAX$
-      ColorToN( <cAttr> ) --> <nAttr>
+      ColorToN( <cAttr> ) --> nAttr
    $ARGUMENTS$
       <cAttr>    Designates the alphanumeric color attribute that is
                  converted in NN/NN or CC/CC form.
@@ -77,7 +77,7 @@
    $ONELINER$
 
    $SYNTAX$
-      NToColor( <nAttr>, [<lColorCode>] ) --> <cAttr>
+      NToColor( <nAttr>, [<lColorCode>] ) --> cAttr
    $ARGUMENTS$
       <nAttr>    Designates the value for the combined numeric color
                  attributes.
@@ -120,7 +120,7 @@
    $ONELINER$
       Select the "ENHANCED" color value for output
    $SYNTAX$
-      Enhanced() --> <cEmptyString>
+      Enhanced() --> cEmptyString
    $ARGUMENTS$
 
    $RETURNS$
@@ -150,7 +150,7 @@
    $ONELINER$
       Select the "STANDARD" color value for output
    $SYNTAX$
-      Standard() --> <cEmptyString>
+      Standard() --> cEmptyString
    $ARGUMENTS$
 
    $RETURNS$
@@ -180,7 +180,7 @@
    $ONELINER$
       Select the "UNSELECTED" color value for output
    $SYNTAX$
-      Unselected() --> <cEmptyString>
+      Unselected() --> cEmptyString
    $ARGUMENTS$
 
    $RETURNS$

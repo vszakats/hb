@@ -12,7 +12,7 @@
    $ONELINER$
       Locates the position of a substring in a main string.
    $SYNTAX$
-      hb_AtI( <cSearch>, <cString>, [<nStart>], [<nEnd>] ) --> <nPos>
+      hb_AtI( <cSearch>, <cString>, [<nStart>], [<nEnd>] ) --> nPos
    $ARGUMENTS$
       <cSearch> the sub-string to search for
 

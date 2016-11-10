@@ -374,7 +374,7 @@
    $ONELINER$
       Returns the file extension of the index module used in an application
    $SYNTAX$
-      IndexExt() --> <cExtension>
+      IndexExt() --> cExtension
    $ARGUMENTS$
       None.
    $RETURNS$
@@ -413,7 +413,7 @@
    $ONELINER$
       Yields the key expression of a specified index file.
    $SYNTAX$
-      IndexKey( <nOrder> ) --> <cIndexKey>
+      IndexKey( <nOrder> ) --> cIndexKey
    $ARGUMENTS$
       <nOrder>  Index order number
    $RETURNS$
@@ -455,7 +455,7 @@
    $ONELINER$
       Returns the numeric position of the controlling index.
    $SYNTAX$
-      IndexOrd() --> <nPosition>
+      IndexOrd() --> nPosition
    $ARGUMENTS$
       None.
    $RETURNS$

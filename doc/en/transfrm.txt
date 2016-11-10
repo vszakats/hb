@@ -12,7 +12,7 @@
    $ONELINER$
       Formats a value based on a specific picture template.
    $SYNTAX$
-      Transform( <xExpression>, <cTemplate> ) --> <cFormatted>
+      Transform( <xExpression>, <cTemplate> ) --> cFormatted
    $ARGUMENTS$
       <xExpression> Any expression to be formated.
 

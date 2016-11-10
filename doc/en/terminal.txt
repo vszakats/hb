@@ -384,7 +384,7 @@
    $ONELINER$
       Extract one color from a full colorspec string.
    $SYNTAX$
-      hb_ColorIndex( <cColorSpec>, <nIndex> ) --> <cColor>
+      hb_ColorIndex( <cColorSpec>, <nIndex> ) --> cColor
    $ARGUMENTS$
       <cColorSpec> is a color list
 
@@ -467,7 +467,7 @@
    $ONELINER$
       Stops application
    $SYNTAX$
-      __Input( <cMessage> ) --> <cString>
+      __Input( <cMessage> ) --> cString
    $ARGUMENTS$
       <cMessage> is any valid expression.
    $RETURNS$
@@ -570,7 +570,7 @@
    $ONELINER$
       Stops the application until a key is pressed.
    $SYNTAX$
-      __Wait( <cMessage> ) --> <cKey>
+      __Wait( <cMessage> ) --> cKey
    $ARGUMENTS$
       <cMessage> is a string.
    $RETURNS$

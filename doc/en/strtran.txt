@@ -13,7 +13,7 @@
       Translate substring value with a main string
    $SYNTAX$
       StrTran( <cString>, <cLocString>, [<cRepString>], [<nPos>],
-               [<nOccurrences>] ) --> <cReturn>
+               [<nOccurrences>] ) --> cReturn
    $ARGUMENTS$
       <cString>     The main string to search
 

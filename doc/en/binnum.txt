@@ -307,7 +307,7 @@
    $ONELINER$
       Converts double to integer values.
    $SYNTAX$
-      Word( <nDouble> ) --> <nInteger>
+      Word( <nDouble> ) --> nInteger
    $ARGUMENTS$
       <nDouble> is a numeric double value.
    $RETURNS$

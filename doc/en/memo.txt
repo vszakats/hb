@@ -12,7 +12,7 @@
    $ONELINER$
       Converts hard and soft carriage returns within strings.
    $SYNTAX$
-      MemoTran( <cString>, <cHard>, <cSoft> ) --> <cConvertedString>
+      MemoTran( <cString>, <cHard>, <cSoft> ) --> cConvertedString
    $ARGUMENTS$
       <cString> is a string of chars to convert.
 
@@ -53,7 +53,7 @@
    $ONELINER$
       Replace all soft carriage returns with hard carriages returns.
    $SYNTAX$
-      HardCR( <cString> ) --> <cConvertedString>
+      HardCR( <cString> ) --> cConvertedString
    $ARGUMENTS$
       <cString> is a string of chars to convert.
    $RETURNS$

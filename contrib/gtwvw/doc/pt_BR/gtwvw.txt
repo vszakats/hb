@@ -25,8 +25,8 @@
       wvw__MakeDlgTemplate( <aDlg>, <aItens1>, <aItens2>, <aItens3>, <aItens4>, <aItens5>, <aItens6>,
       <aItens7>, <aItens8>, <aItens9>, <aItens10> )
    $ARGUMENTS$
-      <aDlg> <aItens1> <aItens2> <aItens3> <aItens4> <aItens5> <aItens6> <aItens7> <aItens8> aItens9
-      aItens10
+      <aDlg> <aItens1> <aItens2> <aItens3> <aItens4> <aItens5> <aItens6> <aItens7> <aItens8> <aItens9>
+      <aItens10>
    $DESCRIPTION$
       Cria um modelo de janela de diálogo (template).
    $RETURNS$
@@ -452,7 +452,7 @@
       wvw_ChooseColor( <nRGBInit>, <aRGB16>, <nFlags> )
    $ARGUMENTS$
       <nRGBInit> Cor inicial. <aRGB16> Matriz com 16 elementos, contendo os índices das
-      cores. O default é uma matriz com o conjunto de cores de um botao. nFlags
+      cores. O default é uma matriz com o conjunto de cores de um botao. <nFlags>
       Flags que indicam a posiçao inicial no diálogo de seleçao de cores. O default
       é a combinaçao das opçoes CC_ANYCOLOR | CC_RGBINIT | CC_FULLOPEN.
    $DESCRIPTION$
@@ -527,10 +527,10 @@
       wvw_CreateDialogDynamic( <cDlgTemplate>|<nResource>, <lHandle>,
       <cDlgProc>|<bDlgProc>|<nDlgProc>, <nFlag> )
    $ARGUMENTS$
-      <cDlgTemplate>|nResource
-      lHandle
-      <cDlgProc>|<bDlgProc>|nDlgProc
-      nFlag
+      <cDlgTemplate>|<nResource>
+      <lHandle>
+      <cDlgProc>|<bDlgProc>|<nDlgProc>
+      <nFlag>
    $DESCRIPTION$
       Cria uma janela de diálogo dinâmicamente.
    $RETURNS$
@@ -553,10 +553,10 @@
       wvw_CreateDialogModal( <cDialog>|<nResource>|<cDlgTemplate>, NIL,
       <bDlgProc>|<cDlgProc>, <nFlag>, <nHandle> )
    $ARGUMENTS$
-      <cDialog>|<nResource>|cDlgTemplate
-      <bDlgProc>|cDlgProc
-      nFlag
-      nHandle
+      <cDialog>|<nResource>|<cDlgTemplate>
+      <bDlgProc>|<cDlgProc>
+      <nFlag>
+      <nHandle>
    $DESCRIPTION$
       Cria uma janela de diálogo modal.
    $RETURNS$
@@ -868,7 +868,7 @@
    $ARGUMENTS$
       <hMenu> Identifica o menu que será destruído.
    $DESCRIPTION$
-      Essa funçao destroi o menu especificado por hMenu
+      Essa funçao destroi o menu especificado por <hMenu>
    $RETURNS$
       Se a função for bem-sucedida, retorna um valor diferente de zero, caso
       contrário retorna zero.
@@ -1285,7 +1285,7 @@
    $ARGUMENTS$
       <nWinNum> Número da janela. O default é a janela atual. <nTop>, <nLeft>, <nBottom>,
       <nRight> Coordenadas para desenhar o label. <cLabel> String que será desenhada.
-      <nAlignHorz> Alinhamento horizontal do label. O default é 0. nAlignVert
+      <nAlignHorz> Alinhamento horizontal do label. O default é 0. <nAlignVert>
       Alinhamento vertical do label. O default é 0. <nTextColor> Indice da cor do
       label. <nBkColor> Índice da cor do fundo do label. <hFont> Fonte que será
       desenhada o label. <aOffSet> Matriz com quatro elementos de alinhamento do label
@@ -1404,7 +1404,7 @@
    $ARGUMENTS$
       <nWinNum> Número da janela. O default é a janela atual. <nTop>, <nLeft>, <nBottom>,
       <nRight> Coordenadas para desenho do quadro. <nThick> Formato do traço. As
-      definiçoes estao no arquivo wingdi.ch (PS_SOLID, PS_DOT, etc.). nShape
+      definiçoes estao no arquivo wingdi.ch (PS_SOLID, PS_DOT, etc.). <nShape>
       Parâmetro ignorado. <nRGBColor> Especifica a referencia de cor para o traço (
       valor com 32 bits de uma cor RGB).
    $DESCRIPTION$
@@ -1737,7 +1737,7 @@
       informadas. Pode ser: 0 1 2 Alinhamento a esquerda Alinhamento a direita
       Alinhamento centralizado esquerdo, inferior e
 
-      O default é alinhamento a esquerda. <nAlignVert> Parâmetro ignorado nTextColor
+      O default é alinhamento a esquerda. <nAlignVert> Parâmetro ignorado <nTextColor>
       Cor do texto. <nBackColor> Cor de fundo. <nBackMode> O modo como a cor de fundo
       será usada. O default é OPAQUE (outras definiçoes no arquivo wingdi.ch)
       <hFont> Fonte usada para o texto.
@@ -2816,7 +2816,7 @@
       arquivo .RC. Se informado como string, deve conter o caminho completo do
       arquivo de imagem. <bBlock> Bloco de código que será executado sempre quando for
       gerado um evento BN_CLICK (ou seja, pressionar e liberar o botão). Sempre
-      será passado os parâmetros: <nWinNum> e o identificador do botão. aOffset
+      será passado os parâmetros: <nWinNum> e o identificador do botão. <aOffset>
       Matriz com quatro elementos com coordenadas dos cantos superior, direito de
       offset para alinhamento do botão com as linhas/colunas. <nStretchBitmap> Um
       número entre 0 e 1 (inclusive) como um fator para "esticar" o bitmap. Por
@@ -3604,7 +3604,7 @@
       wvw_SetFont( <cFontFace>, <nFontHeight>, <nFontWidth>, <nFontWeight>, <nFontQuality> )
    $ARGUMENTS$
       <cFontName> Nome da fonte (por exemplo, MS Sans Serif). <nFontHeight> Altura da
-      fonte. <nFontWidth> Largura da fonte. <nFontWeight> "Peso" da fonte. nFontQuality
+      fonte. <nFontWidth> Largura da fonte. <nFontWeight> "Peso" da fonte. <nFontQuality>
       Qualidade da fonte. Todos os parâmetros sao opicionais. A funçao usa os
       valores que sao atribuidos na criaçao da janela.
    $DESCRIPTION$
@@ -4382,9 +4382,9 @@
       wvw_tbAddButton( <nWinNum>, <nCommand>, <xBitmap>, <cLabel>, <nBitmapType>, <lMap3DColors> )
    $ARGUMENTS$
       <nWinNum> Número da janela. O default é a janela atual. <nCommand> Identificador
-      da ação que será executada quando o usuário pressionar o botão. xBitmap
+      da ação que será executada quando o usuário pressionar o botão. <xBitmap>
       Identificação do RESOURCE do bitmap em um arquivo RC (nesse caso a imagem não
-      pode ter mais que 256 cores) ou caminho completo do arquivo da imagem. cLabel
+      pode ter mais que 256 cores) ou caminho completo do arquivo da imagem. <cLabel>
       Texto do botão. Se o parâmetro <lDisplayText> da função wvw_tbCreate() estiver
       configurado para .T., o texto será apresentado logo abaixo da imagem, caso
       contrário será usado como tooltip. <nBitmapType> Tipo do bitmap. Pode ter os
@@ -4762,7 +4762,7 @@
    $DESCRIPTION$
       Obtém informaçoes de uma scrollbar.
    $RETURNS$
-      Matriz com cinco elementos, contendo as seguintes informações: <nMin> nMax
+      Matriz com cinco elementos, contendo as seguintes informações: <nMin> <nMax>
       <nPageSize> <nPos> <nTrackPos> Valor mínimo de posições para movimentação Valor
       máximo de posições para movimentação Tamanho da página Posicionamento do botão
       de movimentação Posição exata do botão de movimentação quando o usuário
@@ -4790,7 +4790,7 @@
       <nWinNum> Número da janela. O default é a janela atual. <nXBid> Identificador da
       scrollbar. <nPos> Especifica a posiçao do botao de movimentaçao da scrollbar.
       <nPageSize> Tamanho da página. Esse valor é usado pela scrollbar para determinar
-      o tamanho proporcional para o salto de página do botao de movimentaçao. nMin
+      o tamanho proporcional para o salto de página do botao de movimentaçao. <nMin>
       Valor mínimo de posiçoes para movimentaçao. <nMax> Valor máximo de posiçoes para
       movimentaçao.
    $DESCRIPTION$
