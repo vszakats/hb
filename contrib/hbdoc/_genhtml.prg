@@ -74,8 +74,8 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    METHOD Tagged( cText, cTag, ... )
    METHOD CloseTagInline( cText )
    METHOD CloseTag( cText )
-   METHOD AppendInline( cText, cFormat, lCode, cField )
-   METHOD Append( cText, cFormat, lCode, cField )
+   METHOD AppendInline( cText, cFormat, lCode, cField, cID )
+   METHOD Append( cText, cFormat, lCode, cField, cID )
    METHOD Space() INLINE ::cFile += ", ", Self
    METHOD Spacer() INLINE ::cFile += hb_eol(), Self
    METHOD NewLine() INLINE ::cFile += "<br>" + hb_eol(), Self
@@ -107,7 +107,7 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    METHOD EndIndex() INLINE ::CloseTag( "aside" ):Spacer(), Self
    METHOD AddIndexItem( cName, cID, lRawID )
 
-   METHOD WriteEntry( cField, cContent, lPreformatted ) HIDDEN
+   METHOD WriteEntry( cField, cContent, lPreformatted, cID ) HIDDEN
 
    VAR nIndent INIT 0
 
@@ -534,7 +534,7 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
 
          ::CloseTag( "h4" )
       ELSEIF IsField( hEntry, item ) .AND. IsOutput( hEntry, item ) .AND. ! HB_ISNULL( hEntry[ item ] )
-         ::WriteEntry( item, hEntry[ item ], IsPreformatted( hEntry, item ) )
+         ::WriteEntry( item, hEntry[ item ], IsPreformatted( hEntry, item ), hEntry[ "_id" ] )
       ENDIF
    NEXT
 
@@ -565,7 +565,7 @@ STATIC FUNCTION SourceURL( cComponent, cRevision, cFileName )
 
    RETURN ""
 
-METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTML
+METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS GenerateHTML
 
    STATIC s_class := { ;
       "NAME"     => "d-na", ;
@@ -707,7 +707,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
       CASE ! Chr( 10 ) $ cContent
 
          ::OpenTagInline( "div", "class", cTagClass )
-         ::AppendInline( cContent,, .F., cField )
+         ::AppendInline( cContent,, .F., cField, cID )
          ::CloseTag( "div" )
 
       OTHERWISE
@@ -777,7 +777,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
                IF cField $ s_cAddP
                   ::OpenTagInline( "p" )
                ENDIF
-               ::AppendInline( iif( lTable, StrTran( tmp1, " ", hb_UChar( 160 ) ), tmp1 ),, .F., cField )
+               ::AppendInline( iif( lTable, StrTran( tmp1, " ", hb_UChar( 160 ) ), tmp1 ),, .F., cField, cID )
             ENDCASE
             IF lCode
                ::CloseTagInline( "code" ):CloseTag( "pre" )
@@ -880,7 +880,7 @@ STATIC FUNCTION StrEsc( cString )
 STATIC FUNCTION MDSpace( cChar )
    RETURN Empty( cChar ) .OR. cChar $ ".,"
 
-METHOD AppendInline( cText, cFormat, lCode, cField ) CLASS GenerateHTML
+METHOD AppendInline( cText, cFormat, lCode, cField, cID ) CLASS GenerateHTML
 
    LOCAL idx
 
@@ -1031,7 +1031,7 @@ METHOD AppendInline( cText, cFormat, lCode, cField ) CLASS GenerateHTML
       ENDIF
 
       IF !( "|" + hb_defaultValue( cField, "" ) + "|" $ "||NAME|ONELINER|" )
-         cText := AutoLink( ::hHBX, cText, ::cFilename, s_cRevision, ::hNameIDM, ::cLang, lCode )
+         cText := AutoLink( ::hHBX, cText, ::cFilename, s_cRevision, ::hNameIDM, ::cLang, lCode, cID )
 #if 0
          IF ! lCode .AND. "( " $ cText
             FOR EACH tmp1 IN en_hb_regexAll( "([a-zA-Z0-9]+)\( ", cText,,,,, .F. )
@@ -1056,9 +1056,9 @@ METHOD AppendInline( cText, cFormat, lCode, cField ) CLASS GenerateHTML
 
    RETURN Self
 
-METHOD Append( cText, cFormat, lCode, cField ) CLASS GenerateHTML
+METHOD Append( cText, cFormat, lCode, cField, cID ) CLASS GenerateHTML
 
-   ::AppendInline( cText, cFormat, lCode, cField )
+   ::AppendInline( cText, cFormat, lCode, cField, cID )
    ::cFile += hb_eol()
 
    RETURN Self
@@ -1117,7 +1117,7 @@ STATIC FUNCTION SymbolToHTMLID( cID )
 #define R_( x )  ( x )
 
 /* Based on FixFuncCase() in hbmk2 */
-STATIC FUNCTION AutoLink( hHBX, cFile, cComponent, cRevision, hNameIDM, cLang, lCodeAlready )
+STATIC FUNCTION AutoLink( hHBX, cFile, cComponent, cRevision, hNameIDM, cLang, lCodeAlready, cID )
 
    LOCAL match
    LOCAL cProper
@@ -1153,7 +1153,11 @@ STATIC FUNCTION AutoLink( hHBX, cFile, cComponent, cRevision, hNameIDM, cLang, l
                         EXIT
                      ENDIF
                   NEXT
-                  cTag := "<a href=" + '"' + cTag + "#" + cAnchor + '"' + cTitle + ">" + cProper + "</a>"
+                  IF cID != NIL .AND. cAnchor == cID  /* do not link to self */
+                     cTag := cProper
+                  ELSE
+                     cTag := "<a href=" + '"' + cTag + "#" + cAnchor + '"' + cTitle + ">" + cProper + "</a>"
+                  ENDIF
                ELSE
 //                ? "broken 'autodetect' link:", cLang, cComponent, "|" + cProper + "|"
                   cTag := cProper
