@@ -85,9 +85,8 @@ STATIC s_hSwitches
 
 STATIC s_hHBX := { => }
 STATIC s_hHBXStat := { => }
-STATIC s_hDoc := { => }  /* lang => { entries => {}, nameidm => { => {} }, tree => { component => category => subcategory } */
-
-STATIC s_hNameIDM
+STATIC s_hDoc := { => }  /* lang => { entries => {}, tree => { component => category => subcategory } */
+STATIC s_hNameIDM := { => }  /* lang => component => name => { id, template } */
 STATIC s_cLang := "en"
 
 PROCEDURE Main()
@@ -206,7 +205,6 @@ PROCEDURE Main()
       cLang      := docs:__enumKey()
       aEntries   := docs[ "entries" ]
       hTree      := docs[ "tree" ]
-      s_hNameIDM := docs[ "nameidm" ]  /* hack */
 
       IF ! Empty( s_hSwitches[ "lang" ] ) .AND. ;
          hb_AScan( s_hSwitches[ "lang" ], Lower( cLang ),,, .T. ) == 0
@@ -262,7 +260,7 @@ PROCEDURE Main()
             SWITCH s_hSwitches[ "output" ]
             CASE "component"
 
-               oIndex := Eval( generatorClass ):NewIndex( cDir, "index", I_( "Index" ), Lower( cLang ), hComponents )
+               oIndex := Eval( generatorClass ):NewIndex( cDir, "index", I_( "Index" ), cLang, hComponents )
 
                /* index TOC */
 
@@ -305,7 +303,7 @@ PROCEDURE Main()
 
                   GetComponentInfo( tmp, @cID, @cName )
 
-                  oDocument := Eval( generatorClass ):NewDocument( cDir, tmp, cName, Lower( cLang ), hComponents )
+                  oDocument := Eval( generatorClass ):NewDocument( cDir, tmp, cName, cLang, hComponents )
 
                   /* content TOC */
 
@@ -405,7 +403,7 @@ PROCEDURE Main()
             CASE "entry"
 
                FOR EACH item IN aEntries
-                  oDocument := Eval( generatorClass ):NewDocument( cDir, item[ "_component" ] + "-" + item[ "_id" ], item[ "NAME" ], Lower( cLang ) )
+                  oDocument := Eval( generatorClass ):NewDocument( cDir, item[ "_component" ] + "-" + item[ "_id" ], item[ "NAME" ], cLang )
                   oDocument:AddEntry( item )
                   oDocument:Generate()
                NEXT
@@ -593,16 +591,16 @@ STATIC FUNCTION ProcessDocDir( cDir, cArea, cComponent, hDoc )
             hDoc[ tmp ] := { ;
                "entries" => {}, ;
                "tree"    => { => }, ;
-               "nameidm" => { => }, ;
                "uid"     => { => } }  /* separate for each language. TODO: make it global by matching component+name accross languages */
-            hb_HCaseMatch( hDoc[ tmp ][ "nameidm" ], .F. )
+            s_hNameIDM[ tmp ] := { => }
+            hb_HCaseMatch( s_hNameIDM[ tmp ], .F. )
          ENDIF
 
          hEntry[ "_AREA" ] := cArea
 
          UseLang( tmp )
 
-         ProcessBlock( hEntry, hDoc[ tmp ], @hCountA[ tmp ], @hCountF[ tmp ] )
+         ProcessBlock( hEntry, hDoc[ tmp ], s_hNameIDM[ tmp ], @hCountA[ tmp ], @hCountF[ tmp ] )
       NEXT
 
       IF ! Empty( hCountA )
@@ -687,7 +685,7 @@ STATIC FUNCTION NewLineVoodoo( cSectionIn )
 
    RETURN cSection
 
-STATIC PROCEDURE ProcessBlock( hEntry, docs, /* @ */ nCount, /* @ */ nCountExport )
+STATIC PROCEDURE ProcessBlock( hEntry, docs, hNameID, /* @ */ nCount, /* @ */ nCountExport )
 
    LOCAL cFile := hEntry[ "_DOCSOURCE" ]
    LOCAL cComponent := hEntry[ "_COMPONENT" ]
@@ -850,10 +848,10 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, /* @ */ nCount, /* @ */ nCountExpor
       hE[ "_id" ] := GenUniqueID( docs[ "uid" ][ cComponent ], cNameCanon, hEntry[ "TEMPLATE" ] )
 
       IF ! hEntry[ "TEMPLATE" ] == "C Function"
-         IF ! cNameCanon $ docs[ "nameidm" ]
-            docs[ "nameidm" ][ cNameCanon ] := { => }
+         IF ! cNameCanon $ hNameID
+            hNameID[ cNameCanon ] := { => }
          ENDIF
-         docs[ "nameidm" ][ cNameCanon ][ cComponent ] := { "id" => hE[ "_id" ], "template" => hEntry[ "TEMPLATE" ] }
+         hNameID[ cNameCanon ][ cComponent ] := { "id" => hE[ "_id" ], "template" => hEntry[ "TEMPLATE" ] }
       ENDIF
 
       AAdd( docs[ "entries" ], hE )
@@ -1161,7 +1159,7 @@ FUNCTION NameCanon( cName )
 
    RETURN cName
 
-STATIC FUNCTION GenUniqueID( hNameID, cName, cTemplate )
+STATIC FUNCTION GenUniqueID( hUID, cName, cTemplate )
 
    STATIC s_conv := { ;
       "%" => "pc", ;
@@ -1234,14 +1232,14 @@ STATIC FUNCTION GenUniqueID( hNameID, cName, cTemplate )
       EXIT
    ENDSWITCH
 
-   IF cResult $ hNameID
+   IF cResult $ hUID
       idx := 0
-      DO WHILE ( tmp := cResult + "-" + hb_ntos( ++idx ) ) $ hNameID
+      DO WHILE ( tmp := cResult + "-" + hb_ntos( ++idx ) ) $ hUID
       ENDDO
       cResult := tmp
    ENDIF
 
-   hNameID[ cResult ] := NIL
+   hUID[ cResult ] := NIL
 
    RETURN cResult
 

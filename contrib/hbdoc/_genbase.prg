@@ -116,7 +116,7 @@ METHOD NewDocument( cDir, cFilename, cTitle, cExtension, cLang, hComponents ) CL
 METHOD New( cDir, cFilename, cTitle, cExtension, cLang, nType, hComponents ) CLASS TPLGenerate
 
    ::cLang := hb_defaultValue( cLang, "en" )
-   ::cDir := hb_DirSepAdd( cDir ) + iif( Lower( ::cLang ) == "en", "", StrTran( ::cLang, "_", "-" ) + hb_ps() )
+   ::cDir := hb_DirSepAdd( cDir ) + iif( Lower( ::cLang ) == "en", "", Lower( StrTran( ::cLang, "_", "-" ) ) + hb_ps() )
    ::cFilename := cFilename
    ::cTitle := cTitle
    ::cExtension := cExtension

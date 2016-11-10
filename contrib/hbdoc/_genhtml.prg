@@ -246,19 +246,7 @@ METHOD NewFile() CLASS GenerateHTML
       IF Len( hbdoc_LangList() ) > 1
          ::OpenTag( "nav", "class", "dropdown-content lang" )
          FOR EACH tmp IN ASort( hb_HKeys( hDoc := hbdoc_LangList() ) )
-
-            tmp := Lower( tmp )
-
-            DO CASE
-            CASE ::cLang == tmp
-               tmp1 := ""
-            CASE ::cLang == "en"
-               tmp1 := StrTran( tmp, "_", "-" ) + "/"
-            OTHERWISE
-               tmp1 := ".." + "/"
-            ENDCASE
-
-            ::OpenTagInline( "a", "href", tmp1 + ;
+            ::OpenTagInline( "a", "href", GetLangDir( ::cLang, tmp ) + ;
                iif( ::cLang == tmp .OR. tmp == "en" .OR. ( tmp $ hDoc .AND. ::cFileName $ hDoc[ tmp ][ "tree" ] ), ;
                   ::cFilename, ;
                   "index" ) + ".html" )
@@ -279,6 +267,17 @@ METHOD NewFile() CLASS GenerateHTML
    ::Spacer()
 
    RETURN Self
+
+STATIC FUNCTION GetLangDir( cCurLang, cTargetLang )
+
+   DO CASE
+   CASE cCurLang == cTargetLang
+      RETURN ""
+   CASE cCurLang == "en"
+      RETURN Lower( StrTran( cTargetLang, "_", "-" ) ) + "/"
+   ENDCASE
+
+   RETURN ".." + "/"
 
 STATIC FUNCTION flag_for_lang( cLang )
 
@@ -582,7 +581,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS Genera
    LOCAL tmp, tmp1
    LOCAL cLine
    LOCAL lCode, lTable, lTablePrev, cHeaderClass
-   LOCAL cFile, cAnchor, cTitle
+   LOCAL cFile, cAnchor, cTitle, cLangOK
    LOCAL cNameCanon
 
    IF ! Empty( cContent )
@@ -660,21 +659,23 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS Genera
                   ::Space()
                ENDIF
                cNameCanon := NameCanon( tmp )
-               IF cNameCanon $ ::hNameIDM
+               IF cNameCanon $ ::hNameIDM[ cLangOK := ::cLang ] .OR. ;
+                  iif( ::cLang == "en", .F., cNameCanon $ ::hNameIDM[ cLangOK := "en" ] )
+
                   cFile := ""
                   cAnchor := cTitle := NIL
                   /* search order to resolve 'see also' links: self, ... */
-                  FOR EACH tmp1 IN { ::cFilename, "harbour", "clc53", "hbct", "clct3", hb_HKeyAt( ::hNameIDM[ cNameCanon ], 1 ) }
-                     IF tmp1 $ ::hNameIDM[ cNameCanon ]
-                        cAnchor := ::hNameIDM[ cNameCanon ][ tmp1 ][ "id" ]
+                  FOR EACH tmp1 IN { ::cFilename, "harbour", "clc53", "hbct", "clct3", hb_HKeyAt( ::hNameIDM[ cLangOK ][ cNameCanon ], 1 ) }
+                     IF tmp1 $ ::hNameIDM[ cLangOK ][ cNameCanon ]
+                        cAnchor := ::hNameIDM[ cLangOK ][ cNameCanon ][ tmp1 ][ "id" ]
                         IF ! tmp1:__enumIsFirst()
-                           cFile := tmp1 + ".html"
-                           cTitle := " " + "title=" + '"' + tmp1 + '"'
+                           cFile := GetLangDir( ::cLang, cLangOK ) + tmp1 + ".html"
+                           cTitle := tmp1
                         ENDIF
                         EXIT
                      ENDIF
                   NEXT
-                  IF Len( ::hNameIDM[ cNameCanon ] ) > 1
+                  IF Len( ::hNameIDM[ cLangOK ][ cNameCanon ] ) > 1
                      ::OpenTagInline( "nav", "class", "dropdown" )
                   ENDIF
                   ::OpenTagInline( "code" )
@@ -684,11 +685,11 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS Genera
                      ::OpenTagInline( "a", "href", cFile + "#" + cAnchor )
                   ENDIF
                   ::AppendInline( tmp,,, "NAME" ):CloseTagInline( "a" ):CloseTagInline( "code" )
-                  IF Len( ::hNameIDM[ cNameCanon ] ) > 1
+                  IF Len( ::hNameIDM[ cLangOK ][ cNameCanon ] ) > 1
                      ::OpenTagInline( "nav", "class", "dropdown-content" + " " + "d-dd" )
-                     FOR EACH tmp1 IN ASort( hb_HKeys( ::hNameIDM[ cNameCanon ] ) )
+                     FOR EACH tmp1 IN ASort( hb_HKeys( ::hNameIDM[ cLangOK ][ cNameCanon ] ) )
                         GetComponentInfo( tmp1,, @cCaption )
-                        ::OpenTagInline( "a", "href", tmp1 + ".html" + "#" + ::hNameIDM[ cNameCanon ][ tmp1 ][ "id" ] )
+                        ::OpenTagInline( "a", "href", tmp1 + ".html" + "#" + ::hNameIDM[ cLangOK ][ cNameCanon ][ tmp1 ][ "id" ] )
                         ::AppendInline( cCaption ):CloseTagInline( "a" )
                      NEXT
                      ::CloseTagInline( "nav" )
@@ -1135,7 +1136,7 @@ STATIC FUNCTION AutoLink( hHBX, cFile, cComponent, cRevision, hNameIDM, cLang, l
    LOCAL match
    LOCAL cProper
    LOCAL cName, lFound
-   LOCAL cTag, cAnchor, cTitle
+   LOCAL cTag, cAnchor, cTitle, cLangOK
    LOCAL nShift
    LOCAL tmp1
 
@@ -1152,15 +1153,17 @@ STATIC FUNCTION AutoLink( hHBX, cFile, cComponent, cRevision, hNameIDM, cLang, l
          FOR EACH match IN en_hb_regexAll( R_( "([A-Za-z] |[^A-Za-z_:]|^)([A-Za-z_][A-Za-z0-9_]+\(\))" ), cFile,,,,, .F. )
             IF Len( match[ 2 ][ _MATCH_cStr ] ) != 2 .OR. !( Left( match[ 2 ][ _MATCH_cStr ], 1 ) $ "D" /* "METHOD" */ )
                cProper := ProperCase( hHBX, hb_StrShrink( match[ 3 ][ _MATCH_cStr ], 2 ), @lFound ) + "()"
-               IF cProper $ hNameIDM
+               IF cProper $ hNameIDM[ cLangOK := cLang ] .OR. ;
+                  iif( cLang == "en", .F., cProper $ hNameIDM[ cLangOK := "en" ] )
+
                   cTag := cTitle := ""
                   cAnchor := NIL
                   /* search order to resolve 'see also' links: self, ... */
-                  FOR EACH tmp1 IN { cComponent, "harbour", "clc53", "hbct", "clct3", hb_HKeyAt( hNameIDM[ cProper ], 1 ) }
-                     IF tmp1 $ hNameIDM[ cProper ]
-                        cAnchor := hNameIDM[ cProper ][ tmp1 ][ "id" ]
+                  FOR EACH tmp1 IN { cComponent, "harbour", "clc53", "hbct", "clct3", hb_HKeyAt( hNameIDM[ cLangOK ][ cProper ], 1 ) }
+                     IF tmp1 $ hNameIDM[ cLangOK ][ cProper ]
+                        cAnchor := hNameIDM[ cLangOK ][ cProper ][ tmp1 ][ "id" ]
                         IF ! tmp1:__enumIsFirst()
-                           cTag := tmp1 + ".html"
+                           cTag := GetLangDir( cLang, cLangOK ) + tmp1 + ".html"
                            cTitle := " " + "title=" + '"' + tmp1 + '"'
                         ENDIF
                         EXIT
@@ -1172,7 +1175,7 @@ STATIC FUNCTION AutoLink( hHBX, cFile, cComponent, cRevision, hNameIDM, cLang, l
                      cTag := "<a href=" + '"' + cTag + "#" + cAnchor + '"' + cTitle + ">" + cProper + "</a>"
                   ENDIF
                ELSE
-//                ? "broken 'autodetect' link:", cLang, cComponent, "|" + cProper + "|"
+//                ? "broken 'autodetect' link:", cLangOK, cComponent, "|" + cProper + "|"
                   cTag := cProper
                ENDIF
                cTag := CODEINLINE + cTag + "</code>"
