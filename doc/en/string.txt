@@ -16,7 +16,7 @@
    $ARGUMENTS$
       <cString> Any character string
    $RETURNS$
-      lAlpha Logical true (.T.) or false (.F.).
+      <lAlpha> Logical true (.T.) or false (.F.).
    $DESCRIPTION$
       This function return a logical true (.T.) if the first character
       in <cString> is an alphabetic character. If not, the function will
@@ -55,7 +55,7 @@
    $ARGUMENTS$
       <cString> Any character string
    $RETURNS$
-      lDigit Logical true (.T.) or false (.F.).
+      <lDigit> Logical true (.T.) or false (.F.).
    $DESCRIPTION$
       This function takes the character string <cString> and checks to
       see if the leftmost character is a digit, from 1 to 9. If so, the
@@ -95,7 +95,7 @@
    $ARGUMENTS$
       <cString> Any character string
    $RETURNS$
-      lUpper Logical true (.T.) or false (.F.).
+      <lUpper> Logical true (.T.) or false (.F.).
    $DESCRIPTION$
       This function checks to see if the leftmost character
       if <cString> is a uppercased letter. If so, the
@@ -135,7 +135,7 @@
    $ARGUMENTS$
       <cString> Any character string
    $RETURNS$
-      lLower Logical true (.T.) or false (.F.).
+      <lLower> Logical true (.T.) or false (.F.).
    $DESCRIPTION$
       This function takes the character string <cString> and checks to
       see if the leftmost character is a lowercased letter. If so, the
@@ -255,9 +255,9 @@
 
       <cString> Main string
 
-      <nStart> First position to search in cString, by default 1
+      <nStart> First position to search in <cString>, by default 1
 
-      <nEnd> End position to search, by default cString length
+      <nEnd> End position to search, by default <cString> length
    $RETURNS$
       hb_At() return the starting position of the first occurrence of the
       substring in the main string
@@ -347,9 +347,9 @@
 
       <cString> Main string
 
-      <nStart> First position to search in cString, by default 1.
+      <nStart> First position to search in <cString>, by default 1.
 
-      <nEnd> End position to search, by default cString length
+      <nEnd> End position to search, by default <cString> length
    $RETURNS$
       hb_RAt() return the location of beginning position of last occurrence
       a substring of a string.

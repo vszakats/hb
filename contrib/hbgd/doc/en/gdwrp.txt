@@ -150,7 +150,7 @@
       ```
       pImage := gdImageCreateFromJpeg( pMemoryImagePtr, nSize )
       ```
-      the pImage pointer returned will be not NIL if successfull and will contains a memory pointer
+      the <pImage> pointer returned will be not NIL if successfull and will contains a memory pointer
       to the jpeg image.
 
       HBGD uses it's own memory to manage an image, so it is important to use this function.
@@ -204,7 +204,7 @@
       ```
       pImage := gdImageCreateFromGif( pMemoryImagePtr, nSize )
       ```
-      the pImage pointer returned will be not NIL if successfull and will contains a memory pointer
+      the <pImage> pointer returned will be not NIL if successfull and will contains a memory pointer
       to the gif image.
 
       HBGD uses it's own memory to manage an image, so it is important to use this function.
@@ -258,7 +258,7 @@
       ```
       pImage := gdImageCreateFromPng( pMemoryImagePtr, nSize )
       ```
-      the pImage pointer returned will be not NIL if successfull and will contains a memory pointer
+      the <pImage> pointer returned will be not NIL if successfull and will contains a memory pointer
       to the png image.
 
       HBGD uses it's own memory to manage an image, so it is important to use this function.
@@ -312,7 +312,7 @@
       ```
       pImage := gdImageCreateFromGD( pMemoryImagePtr, nSize )
       ```
-      the pImage pointer returned will be not NIL if successfull and will contains a memory pointer
+      the <pImage> pointer returned will be not NIL if successfull and will contains a memory pointer
       to the GD image.
 
       HBGD uses it's own memory to manage an image, so it is important to use this function.
@@ -366,7 +366,7 @@
       ```
       pImage := gdImageCreateFromWBmp( pMemoryImagePtr, nSize )
       ```
-      the pImage pointer returned will be not NIL if successfull and will contains a memory pointer
+      the <pImage> pointer returned will be not NIL if successfull and will contains a memory pointer
       to the WBmp image.
 
       HBGD uses it's own memory to manage an image, so it is important to use this function.

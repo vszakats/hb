@@ -144,7 +144,7 @@
    $DESCRIPTION$
       This function returns the week number of the year for a given date.
       It returns the week number in ISO format (range 0 - 52, by default
-      or passing TRUE as second parameter) or 1 - 52 if lIso is FALSE.
+      or passing TRUE as second parameter) or 1 - 52 if <lIso> is FALSE.
    $EXAMPLES$
       ? WoY( hb_SToD( "20000131" ) )  // -> 3
       ? WoY( hb_SToD( "20000131" ), .F. )  // -> 4

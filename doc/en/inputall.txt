@@ -195,7 +195,7 @@
    $SYNTAX$
       NextKey( [<nInputMask>] ) --> nKey
    $ARGUMENTS$
-      nInputMask is an optional integer value composed of one or more
+      <nInputMask> is an optional integer value composed of one or more
       INKEY_ or HB_INKEY_ constants. The sole purpose of this argument
       is to allow switching between using HB_INKEY_EXTENDED key codes
       and using the normal CA-Cl*pper-compatible key codes
@@ -211,13 +211,12 @@
       DO WHILE .T.
          ?? cChar
          nKey := NextKey()
-         IF nKey == K_ESC
+         DO CASE
+         CASE nKey == K_ESC
             EXIT
-         ELSE
-            IF nKey != 0
-               cChar := hb_keyChar( nKey )
-            ENDIF
-         ENDIF
+         CASE nKey != 0
+            cChar := hb_keyChar( nKey )
+         ENDCASE
       ENDDO
       //
       KEYBOARD "AB"; ? NextKey(), NextKey()  // ->   65   65
@@ -247,7 +246,7 @@
    $SYNTAX$
       LastKey( [<nInputMask>] ) --> nKey
    $ARGUMENTS$
-      nInputMask is an optional integer value composed of one or more
+      <nInputMask> is an optional integer value composed of one or more
       INKEY_ or HB_INKEY_ constants. The sole purpose of this argument
       is to allow switching between using HB_INKEY_EXTENDED key codes
       and using the normal CA-Cl*pper-compatible key codes

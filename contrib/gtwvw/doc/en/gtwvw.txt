@@ -526,7 +526,7 @@
       GTWVW
    $SYNTAX$
       wvw_CreateDialogDynamic(cDlgTemplate|<nResource>, <lHandle>,
-      <cDlgProc>|bDlgProc|<nDlgProc>, nFlag)
+      <cDlgProc>|<bDlgProc>|<nDlgProc>, nFlag)
    $ARGUMENTS$
       <cDlgTemplate|nResource> <lHandle> <cDlgProc|<bDlgProc>|nDlgProc> <nFlag>
    $DESCRIPTION$
@@ -548,8 +548,8 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_CreateDialogModal( <cDialog>|nResource|<cDlgTemplate>, NIL,
-      <bDlgProc>|cDlgProc, <nFlag>, <nHandle> )
+      wvw_CreateDialogModal( <cDialog>|<nResource>|<cDlgTemplate>, NIL,
+      <bDlgProc>|<cDlgProc>, <nFlag>, <nHandle> )
    $ARGUMENTS$
       <cDialog|<nResource>|cDlgTemplate> <bDlgProc|cDlgProc> <nFlag> <nHandle>
    $DESCRIPTION$
@@ -1880,7 +1880,7 @@
       Retrieves current font data.
    $RETURNS$
       Array of seven elements: 1 2 3 4 5 6 7 ­ ­ ­ ­ ­ ­ ­ <cFontFace> cFontHeight
-      <nFontWidth> nFontWeight <cFontQuality> PTEXTSIZE->x PTEXESIZE->y Name Height
+      <nFontWidth> <nFontWeight> <cFontQuality> PTEXTSIZE->x PTEXESIZE->y Name Height
       Width Weight Quality Font's width in pixels Font's size in pixels
    $PLATFORMS$
       Windows

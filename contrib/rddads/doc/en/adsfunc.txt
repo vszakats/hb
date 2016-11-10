@@ -918,7 +918,7 @@
       When usTableType is ADS_ADT, this parameter is ignored and ANSI
       is always used.
       <lOEM> This parameter used for console mode applications, when
-      character data stored in OEM charset. If lOEM is passed as .T.,
+      character data stored in OEM charset. If <lOEM> is passed as .T.,
       rddads doesn't convert character data into ANSI charset.
 
    $RETURNS$

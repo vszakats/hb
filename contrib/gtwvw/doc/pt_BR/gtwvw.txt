@@ -25,7 +25,7 @@
       wvw__MakeDlgTemplate( <aDlg>, <aItens1>, <aItens2>, <aItens3>, <aItens4>, <aItens5>, <aItens6>,
       <aItens7>, <aItens8>, <aItens9>, <aItens10> )
    $ARGUMENTS$
-      <aDlg> <aItens1> aItens2 <aItens3> aItens4 <aItens5> aItens6 <aItens7> aItens8 aItens9
+      <aDlg> <aItens1> <aItens2> <aItens3> <aItens4> <aItens5> <aItens6> <aItens7> <aItens8> aItens9
       aItens10
    $DESCRIPTION$
       Cria um modelo de janela de diálogo (template).
@@ -84,7 +84,7 @@
       apresentada no menu/submenu ou o caminho para o bitmap que será apresentado no
       menu/submenu.
    $DESCRIPTION$
-      Essa funçao, adiciona um novo item de menu para o menu hMenu. Através dessa
+      Essa funçao, adiciona um novo item de menu para o menu <hMenu>. Através dessa
       funçao podemos também especificar o conteúdo, aparencia e o comportamento de
       cada item do menu.
    $RETURNS$
@@ -141,7 +141,7 @@
       Esse bloco de código será avaliado com os seguintes parâmetros: <nWinNum> <nCBId>
       <nType> <nIndex> <nListLines> Número de itens que serão apresentados no combobox (o
       default é 3). O número será automaticamente ajustado se esse parâmetro for
-      maior que a matriz aText. <nReserved> Reservado para uso futuro (esse parâmetro
+      maior que a matriz <aText>. <nReserved> Reservado para uso futuro (esse parâmetro
       atualmente é ignorado). <nKbdType> Especifica o comportamento do combobox. Pode
       ser um dos seguintes valores: 0: 1: Similar as convenções dos programas para
       o windows (isto é, <ENTER>/<ESC> faz com que o combobox perca o foco) Similar ao
@@ -817,7 +817,7 @@
       <nWinNum> Número da janela. O default é a janela atual. <nCXId> Identificador do
       checkbox.
    $DESCRIPTION$
-      Configura o foco para o checkbox nCXId.
+      Configura o foco para o checkbox <nCXId>.
    $RETURNS$
       .T. se a operação foi bem-sucedida, .F. se falhar.
    $PLATFORMS$
@@ -838,7 +838,7 @@
       wvw_DeleteMenu( <hMenu>, <nPosition>, <nFlag> )
    $ARGUMENTS$
       <hMenu> Identifica o menu que será alterado. <nPosition> Especifica o item do menu
-      que será deleteado, como determinado pelo parâmetro nFlag. <nFlag> Especifica
+      que será deleteado, como determinado pelo parâmetro <nFlag>. <nFlag> Especifica
       como o parâmetro <nPosition> será interpretado. Esse parâmetro deve ser apenas
       um desses dois valores: MF_BYCOMMAND MF_BYPOSITION Indica que <nPosition> dá a
       identificação do item do menu (default) Indica que <nPosition> dá a posição
@@ -1188,7 +1188,7 @@
       Se a coordenada <nRight> é NIL, então a largura da imagem será proporcional a
       altura da imagem. Se ambas as coordenadas <nBottom> e <nRight> são NIL, então o
       tamanho original da imagem será usado. cImage/nPictureSlot Se o parâmetro for
-      passado como string, uma imagem será lida no caminho especificado por cImage.
+      passado como string, uma imagem será lida no caminho especificado por <cImage>.
       Se o parâmetro for numérico, será um índice para a lista de imagens já
       carregada pelo aplicativo. Aqui vale um comentário: toda imagem lida é
       colocada em um cache. Portanto é interessante não usar essa função para
@@ -1289,7 +1289,7 @@
       Alinhamento vertical do label. O default é 0. <nTextColor> Indice da cor do
       label. <nBkColor> Índice da cor do fundo do label. <hFont> Fonte que será
       desenhada o label. <aOffSet> Matriz com quatro elementos de alinhamento do label
-      com as coordenadas <nTop>, <nLeft>, <nBottom>, nRight.
+      com as coordenadas <nTop>, <nLeft>, <nBottom>, <nRight>.
    $DESCRIPTION$
       Desenha um label.
    $RETURNS$
@@ -1409,7 +1409,7 @@
       valor com 32 bits de uma cor RGB).
    $DESCRIPTION$
       Desenha um quadro nas coordenadas <nTop>, <nLeft>, <nBottom>, <nRight>, com os parâmetros
-      de estilo e cor especificados em <nThick> e nRGBColor.
+      de estilo e cor especificados em <nThick> e <nRGBColor>.
    $RETURNS$
       .T.
    $PLATFORMS$
@@ -1676,14 +1676,14 @@
       elementos com coordenadas dos cantos superior, esquerdo, direito de offset
       para alinhamento do retângulo com as linhas/colunas. <nHorVert> Especifica o
       modo de desenho e como interpretar a matriz de preenchimento do retângulo ­
-      <aRGBb> e aRGBe. O default é GRADIENT_FILL_RECT_H (as outras definçoes
+      <aRGBb> e <aRGBe>. O default é GRADIENT_FILL_RECT_H (as outras definçoes
       possíveis estao em wingdi.ch). <aRGBb> Matriz com quatro posiçoes de cores (
       Red, Green, Blue, Alpha) da coordenada inicial do retângulo. <aRGBe> Matriz com
       quatro posiçoes de cores (Red, Green, Blue, Alpha) da coordenada final do
       retângulo.
    $DESCRIPTION$
       Desenha um retângulo nas coordenadas indicadas nos parâmetros, com
-      preenchimento de cores de forma gradiente, variando da cor de <aRGBb> a aRGBe.
+      preenchimento de cores de forma gradiente, variando da cor de <aRGBb> a <aRGBe>.
    $RETURNS$
       .T. se conseguiu desenhar, .F. caso contrário. inferior e
    $PLATFORMS$
@@ -1816,7 +1816,7 @@
       wvw_EnableMenuItem( <hMenu>, <nPosition>, <nFlag> )
    $ARGUMENTS$
       <hMenu> Identifica o menu. <nPosition> Especifica o item do menu que será
-      habilitado ou desabilitado, conforme o parâmetro nFlag. <nFlag> Na prática, para
+      habilitado ou desabilitado, conforme o parâmetro <nFlag>. <nFlag> Na prática, para
       o Harbour, deveremos definir os seguintes valores: MF_DISABLE MF_ENABLE
    $DESCRIPTION$
       Habilita ou desabilita itens do menu.
@@ -2055,7 +2055,7 @@
    $ARGUMENTS$
       <nColor> Índice da cor (como definido no Cl*pper).
    $DESCRIPTION$
-      Le o valor RGB do índice da cor passado no parâmetro nColor.
+      Le o valor RGB do índice da cor passado no parâmetro <nColor>.
    $RETURNS$
       Retorna o valor RGB da cor.
    $PLATFORMS$
@@ -3081,7 +3081,7 @@
       progress bar. <nPos> Número da posiçao na progress bar (dentro da faixa do
       mínimo-máximo).
    $DESCRIPTION$
-      Atualiza a progress bar para a posiçao indicada pelo parâmetro nPos.
+      Atualiza a progress bar para a posiçao indicada pelo parâmetro <nPos>.
    $RETURNS$
       .T. se a operação for bem-sucedida, .F. se falhar.
    $PLATFORMS$
@@ -3208,7 +3208,7 @@
       adicionada as anteriores. cIcon/cTooltip Parâmetros ignorados.
    $DESCRIPTION$
       Adiciona uma divisao em uma status bar, com tamanho e estilo especifidados nos
-      parâmetros cMaxText/nWidth e nStyle.
+      parâmetros cMaxText/nWidth e <nStyle>.
    $RETURNS$
       Retorna o número de partes atuais na status bar, se a operação for
       bem-sucedida, ou 0 caso contrário. Recessed (default) Sem bordas Raised
@@ -3299,7 +3299,7 @@
       <nWinNum> Número da janela. O default é a janela atual. <nPart> Número da parte da
       status bar.
    $DESCRIPTION$
-      Le o texto da status bar contido na parte nPart.
+      Le o texto da status bar contido na parte <nPart>.
    $RETURNS$
       String da parte <nPart> da status bar.
    $PLATFORMS$
@@ -3908,7 +3908,7 @@
       Determina o intervalo para a chamada da funçao WVW_PAINT(), responsável pelo
       redesenho da tela.
    $RETURNS$
-      Valor antigo para nPaintRefresh.
+      Valor antigo para <nPaintRefresh>.
    $PLATFORMS$
       Windows
    $END$
@@ -4313,7 +4313,7 @@
       horizontal em pixels. <nYPosition> Posiçao vertical em pixels.
    $DESCRIPTION$
       Muda a posiçao da janela atual, baseado nas coordenadas de <nXPosition> e
-      nYPosition.
+      <nYPosition>.
    $RETURNS$
       nenhum.
    $PLATFORMS$
@@ -4441,7 +4441,7 @@
       <nWinNum> Número da janela. O default é a janela atual. <nCmd> Identificador do
       comando a pesquisar.
    $DESCRIPTION$
-      Obtém o número do botao que está associado o comando nCmd.
+      Obtém o número do botao que está associado o comando <nCmd>.
    $RETURNS$
       Número do botão da toolbar que está associado ao comando <nCmd>, ou -1 se não
       conseguiu encontrar nenhuma associação.
