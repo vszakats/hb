@@ -582,7 +582,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
    LOCAL tmp, tmp1
    LOCAL cLine
    LOCAL lCode, lTable, lTablePrev, cHeaderClass
-   LOCAL cFile, cAnchor
+   LOCAL cFile, cAnchor, cTitle
    LOCAL cNameCanon
 
    IF ! Empty( cContent )
@@ -662,18 +662,25 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
                cNameCanon := NameCanon( tmp )
                IF cNameCanon $ ::hNameIDM
                   cFile := ""
-                  cAnchor := NIL
+                  cAnchor := cTitle := NIL
                   /* search order to resolve 'see also' links: self, ... */
                   FOR EACH tmp1 IN { ::cFilename, "harbour", "clc53", "hbct", "clct3", hb_HKeyAt( ::hNameIDM[ cNameCanon ], 1 ) }
                      IF tmp1 $ ::hNameIDM[ cNameCanon ]
                         cAnchor := ::hNameIDM[ cNameCanon ][ tmp1 ][ "id" ]
                         IF ! tmp1:__enumIsFirst()
                            cFile := tmp1 + ".html"
+                           cTitle := " " + "title=" + '"' + tmp1 + '"'
                         ENDIF
                         EXIT
                      ENDIF
                   NEXT
-                  ::OpenTagInline( "code" ):OpenTagInline( "a", "href", cFile + "#" + cAnchor ):AppendInline( tmp,,, "NAME" ):CloseTagInline( "a" ):CloseTagInline( "code" )
+                  ::OpenTagInline( "code" )
+                  IF cTitle != NIL
+                     ::OpenTagInline( "a", "href", cFile + "#" + cAnchor, "title", cTitle )
+                  ELSE
+                     ::OpenTagInline( "a", "href", cFile + "#" + cAnchor )
+                  ENDIF
+                  ::AppendInline( tmp,,, "NAME" ):CloseTagInline( "a" ):CloseTagInline( "code" )
                ELSE
 //                ? "broken 'see also' link:", ::cFilename, "|" + cNameCanon + "|"
                   ::OpenTagInline( "code" ):AppendInline( tmp,,, "NAME" ):CloseTagInline( "code" )
@@ -1115,7 +1122,7 @@ STATIC FUNCTION AutoLink( hHBX, cFile, cComponent, cRevision, hNameIDM, cLang, l
    LOCAL match
    LOCAL cProper
    LOCAL cName, lFound
-   LOCAL cTag, cAnchor
+   LOCAL cTag, cAnchor, cTitle
    LOCAL nShift
    LOCAL tmp1
 
@@ -1133,7 +1140,7 @@ STATIC FUNCTION AutoLink( hHBX, cFile, cComponent, cRevision, hNameIDM, cLang, l
             IF Len( match[ 2 ][ _MATCH_cStr ] ) != 2 .OR. !( Left( match[ 2 ][ _MATCH_cStr ], 1 ) $ "D" /* "METHOD" */ )
                cProper := ProperCase( hHBX, hb_StrShrink( match[ 3 ][ _MATCH_cStr ], 2 ), @lFound ) + "()"
                IF cProper $ hNameIDM
-                  cTag := ""
+                  cTag := cTitle := ""
                   cAnchor := NIL
                   /* search order to resolve 'see also' links: self, ... */
                   FOR EACH tmp1 IN { cComponent, "harbour", "clc53", "hbct", "clct3", hb_HKeyAt( hNameIDM[ cProper ], 1 ) }
@@ -1141,11 +1148,12 @@ STATIC FUNCTION AutoLink( hHBX, cFile, cComponent, cRevision, hNameIDM, cLang, l
                         cAnchor := hNameIDM[ cProper ][ tmp1 ][ "id" ]
                         IF ! tmp1:__enumIsFirst()
                            cTag := tmp1 + ".html"
+                           cTitle := " " + "title=" + '"' + tmp1 + '"'
                         ENDIF
                         EXIT
                      ENDIF
                   NEXT
-                  cTag := "<a href=" + '"' + cTag + "#" + cAnchor + '"' + ">" + cProper + "</a>"
+                  cTag := "<a href=" + '"' + cTag + "#" + cAnchor + '"' + cTitle + ">" + cProper + "</a>"
                ELSE
 //                ? "broken 'autodetect' link:", cLang, cComponent, "|" + cProper + "|"
                   cTag := cProper

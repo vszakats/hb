@@ -286,7 +286,7 @@ pre {
   overflow: scroll;
 }
 
-code, .d-t, aside {
+code, .d-t {
   font-family: Hack, Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation Mono', 'Oxygen Mono', 'Andale Mono', monospace !important;
   font-size: 85%;
 }
