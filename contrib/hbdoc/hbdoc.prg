@@ -85,9 +85,8 @@ STATIC s_hSwitches
 
 STATIC s_hHBX := { => }
 STATIC s_hHBXStat := { => }
-STATIC s_hDoc := { => }  /* lang => { entries => {}, nameid => { => }, nameidm => { => {} }, tree => { component => category => subcategory } */
+STATIC s_hDoc := { => }  /* lang => { entries => {}, nameidm => { => {} }, tree => { component => category => subcategory } */
 
-STATIC s_hNameID
 STATIC s_hNameIDM
 STATIC s_cLang := "en"
 
@@ -207,7 +206,6 @@ PROCEDURE Main()
       cLang      := docs:__enumKey()
       aEntries   := docs[ "entries" ]
       hTree      := docs[ "tree" ]
-      s_hNameID  := docs[ "nameid" ]  /* hack */
       s_hNameIDM := docs[ "nameidm" ]  /* hack */
 
       IF ! Empty( s_hSwitches[ "lang" ] ) .AND. ;
@@ -464,9 +462,6 @@ STATIC PROCEDURE UseLang( cLang )
 FUNCTION hbdoc_LangList()
    RETURN s_hDoc
 
-FUNCTION hbdoc_NameID()
-   RETURN s_hNameID
-
 FUNCTION hbdoc_NameIDM()
    RETURN s_hNameIDM
 
@@ -598,10 +593,8 @@ STATIC FUNCTION ProcessDocDir( cDir, cArea, cComponent, hDoc )
             hDoc[ tmp ] := { ;
                "entries" => {}, ;
                "tree"    => { => }, ;
-               "nameid"  => { => }, ;
                "nameidm" => { => }, ;
                "uid"     => { => } }  /* separate for each language. TODO: make it global by matching component+name accross languages */
-            hb_HCaseMatch( hDoc[ tmp ][ "nameid" ], .F. )
             hb_HCaseMatch( hDoc[ tmp ][ "nameidm" ], .F. )
          ENDIF
 
@@ -856,12 +849,12 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, /* @ */ nCount, /* @ */ nCountExpor
 
       hE[ "_id" ] := GenUniqueID( docs[ "uid" ][ cComponent ], cNameCanon, hEntry[ "TEMPLATE" ] )
 
-      docs[ "nameid" ][ cNameCanon ] := { "id" => hE[ "_id" ], "component" => cComponent }
-
-      IF ! cNameCanon $ docs[ "nameidm" ]
-         docs[ "nameidm" ][ cNameCanon ] := {}
+      IF ! hEntry[ "TEMPLATE" ] == "C Function"
+         IF ! cNameCanon $ docs[ "nameidm" ]
+            docs[ "nameidm" ][ cNameCanon ] := { => }
+         ENDIF
+         docs[ "nameidm" ][ cNameCanon ][ cComponent ] := { "id" => hE[ "_id" ], "template" => hEntry[ "TEMPLATE" ] }
       ENDIF
-      AAdd( docs[ "nameidm" ][ cNameCanon ], { "id" => hE[ "_id" ], "component" => cComponent, "template" => hEntry[ "TEMPLATE" ] } )
 
       AAdd( docs[ "entries" ], hE )
 

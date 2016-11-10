@@ -84,7 +84,7 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    CLASS VAR lCreateStyleDocument AS LOGICAL INIT .T.
    VAR TargetFilename AS STRING INIT ""
 
-   VAR hNameID
+   VAR hNameIDM
    VAR hHBX
 
    EXPORTED:
@@ -129,7 +129,7 @@ METHOD NewFile() CLASS GenerateHTML
       ENDIF
    ENDIF
 
-   ::hNameID := hbdoc_NameID()
+   ::hNameIDM := hbdoc_NameIDM()
    ::hHBX := hbdoc_HBX()
 
    ::cFile += "<!DOCTYPE html>" + hb_eol()
@@ -678,18 +678,25 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
                ELSE
                   ::Space()
                ENDIF
-               cFile := ""
                cNameCanon := NameCanon( tmp )
-               IF cNameCanon $ ::hNameID
-                  cAnchor := ::hNameID[ cNameCanon ][ "id" ]
-                  IF !( ::cFilename == ::hNameID[ cNameCanon ][ "component" ] )
-                     cFile := ::hNameID[ cNameCanon ][ "component" ] + ".html"
-                  ENDIF
+               IF cNameCanon $ ::hNameIDM
+                  cFile := ""
+                  cAnchor := NIL
+                  /* search order to resolve 'see also' links: self, ... */
+                  FOR EACH tmp1 IN { ::cFilename, "harbour", "clc53", "hbct", "clct3", hb_HKeyAt( ::hNameIDM[ cNameCanon ], 1 ) }
+                     IF tmp1 $ ::hNameIDM[ cNameCanon ]
+                        cAnchor := ::hNameIDM[ cNameCanon ][ tmp1 ][ "id" ]
+                        IF ! tmp1:__enumIsFirst()
+                           cFile := tmp1 + ".html"
+                        ENDIF
+                        EXIT
+                     ENDIF
+                  NEXT
+                  ::OpenTagInline( "code" ):OpenTagInline( "a", "href", cFile + "#" + cAnchor ):AppendInline( tmp ):CloseTagInline( "a" ):CloseTagInline( "code" )
                ELSE
-                  /* TOFIX: Do not create wrong link if the target entry cannot be found. */
-                  cAnchor := SymbolToHTMLID( Lower( Parse( tmp, "(" ) ) )
+//                ? "broken 'see also' link:", ::cFilename, "|" + cNameCanon + "|"
+                  ::OpenTagInline( "code" ):AppendInline( tmp ):CloseTagInline( "code" )
                ENDIF
-               ::OpenTagInline( "code" ):OpenTagInline( "a", "href", cFile + "#" + cAnchor ):AppendInline( tmp ):CloseTagInline( "a" ):CloseTagInline( "code" )
             ENDIF
          NEXT
          ::CloseTag( "div" )
@@ -1036,7 +1043,7 @@ METHOD AppendInline( cText, cFormat, lCode, cField ) CLASS GenerateHTML
       ENDIF
 
       IF !( "|" + hb_defaultValue( cField, "" ) + "|" $ "||ONELINER|" )
-         cText := AutoLink( ::hHBX, cText, ::cFilename, s_cRevision, ::hNameID, lCode )
+         cText := AutoLink( ::hHBX, cText, ::cFilename, s_cRevision, ::hNameIDM, ::cLang, lCode )
 #if 0
          IF ! lCode .AND. "( " $ cText
             FOR EACH tmp1 IN en_hb_regexAll( "([a-zA-Z0-9]+)\( ", cText,,,,, .F. )
@@ -1122,13 +1129,16 @@ STATIC FUNCTION SymbolToHTMLID( cID )
 #define R_( x )  ( x )
 
 /* Based on FixFuncCase() in hbmk2 */
-STATIC FUNCTION AutoLink( hHBX, cFile, cComponent, cRevision, hNameID, lCodeAlready )
+STATIC FUNCTION AutoLink( hHBX, cFile, cComponent, cRevision, hNameIDM, cLang, lCodeAlready )
 
    LOCAL match
    LOCAL cProper
    LOCAL cName, lFound
    LOCAL cTag, cAnchor
    LOCAL nShift
+   LOCAL tmp1
+
+   HB_SYMBOL_UNUSED( cLang )
 
    IF !( cComponent == "index" )
 
@@ -1140,20 +1150,23 @@ STATIC FUNCTION AutoLink( hHBX, cFile, cComponent, cRevision, hNameID, lCodeAlre
          nShift := 0
          FOR EACH match IN en_hb_regexAll( R_( "([A-Za-z] |[^A-Za-z_:]|^)([A-Za-z_][A-Za-z0-9_]+\(\))" ), cFile,,,,, .F. )
             IF Len( match[ 2 ][ _MATCH_cStr ] ) != 2 .OR. !( Left( match[ 2 ][ _MATCH_cStr ], 1 ) $ "D" /* "METHOD" */ )
-               cProper := ProperCase( hHBX, cName := hb_StrShrink( match[ 3 ][ _MATCH_cStr ], 2 ), @lFound ) + "()"
-               IF lFound
-                  IF hb_FNameName( hHBX[ cName ] ) == cComponent
-                     cTag := ""
-                  ELSE
-                     cTag := hb_FNameName( hHBX[ cName ] ) + ".html"
-                  ENDIF
-                  IF cProper $ hNameID
-                     cAnchor := hNameID[ cProper ][ "id" ]
-                  ELSE
-                     cAnchor := Lower( cName )
-                  ENDIF
-                  cTag := "<a href=" + '"' + cTag + "#" + SymbolToHTMLID( cAnchor ) + '"' + ">" + cProper + "</a>"
+               cProper := ProperCase( hHBX, hb_StrShrink( match[ 3 ][ _MATCH_cStr ], 2 ), @lFound ) + "()"
+               IF cProper $ hNameIDM
+                  cTag := ""
+                  cAnchor := NIL
+                  /* search order to resolve 'see also' links: self, ... */
+                  FOR EACH tmp1 IN { cComponent, "harbour", "clc53", "hbct", "clct3", hb_HKeyAt( hNameIDM[ cProper ], 1 ) }
+                     IF tmp1 $ hNameIDM[ cProper ]
+                        cAnchor := hNameIDM[ cProper ][ tmp1 ][ "id" ]
+                        IF ! tmp1:__enumIsFirst()
+                           cTag := tmp1 + ".html"
+                        ENDIF
+                        EXIT
+                     ENDIF
+                  NEXT
+                  cTag := "<a href=" + '"' + cTag + "#" + cAnchor + '"' + ">" + cProper + "</a>"
                ELSE
+//                ? "broken 'autodetect' link:", cLang, cComponent, "|" + cProper + "|"
                   cTag := cProper
                ENDIF
                cTag := CODEINLINE + cTag + "</code>"
