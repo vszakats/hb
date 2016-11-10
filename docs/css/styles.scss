@@ -669,7 +669,7 @@ h2 {
 }
 
 .updated:after {
-  content: 'Updated';
+  content: 'New';
   border: 0;
   border-radius: 4px;
   font: 15px $font-copy;
@@ -956,7 +956,7 @@ pre, code {
   line-height: 150%;
   margin-top: 1px;
   margin-left: -9px;
-  min-width: 13em;
+  min-width: 12em;
   position: absolute;
   z-index: 100;
   padding: 5px 5px;
