@@ -383,7 +383,7 @@ METHOD AddIndexItem( cName, cID, lRawID ) CLASS GenerateHTML
    ENDIF
 
    ::OpenTagInline( "a", "href", "#" + cID, "title", cName )
-   IF "(" $ cName .OR. "#" $ cName .OR. Upper( cName ) == cName  // guess if it's code
+   IF NameIsCode( cName )
       ::OpenTagInline( "code" )
       ::AppendInline( cName,,, "NAME" )
       ::CloseTagInline( "code" )
@@ -496,13 +496,14 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
          cEntry := hEntry[ "NAME" ]
          ::OpenTagInline( "h4" )
          ::OpenTagInline( "a", "href", "#" + hEntry[ "_id" ], "class", "d-id", "id", hEntry[ "_id" ], "title", "∞" )
-         IF "(" $ cEntry .OR. "#" $ cEntry .OR. Upper( cEntry ) == cEntry  // guess if it's code
+         IF NameIsCode( cEntry )
             ::OpenTagInline( "code" ):AppendInline( cEntry,,, item ):CloseTagInline( "code" )
             ::CloseTagInline( "a" )
             /* Link to original source code if it could be automatically found based
                on doc source filename */
-            IF ! HB_ISNULL( tmp := SourceURL( ::cFilename, s_cRevision, hEntry[ "_sourcefile" ] ) )
-               ::OpenTagInline( "a", "href", tmp, "class", "d-so" )
+            IF ! hb_LeftEq( ::cFilename, "cl" ) .AND. ;
+               ! HB_ISNULL( tmp := SourceURL( NameCanon( cEntry ), ::cFilename, hEntry[ "TEMPLATE" ] ) )
+               ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "blob/" + s_cRevision + "/" + tmp, "class", "d-so", "title", tmp )
                ::AppendInline( I_( "Source code" ) )
                ::CloseTagInline( "a" )
             ENDIF
@@ -542,25 +543,21 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
    RETURN Self
 
 /* Try to locate original source code based on the source filename of the doc. */
-STATIC FUNCTION SourceURL( cComponent, cRevision, cFileName )
+STATIC FUNCTION SourceURL( cEntry, cComponent, cTemplate )
 
-   LOCAL cExt, cDir, tmp
+   LOCAL tmp
 
-   cFileName := hb_FNameName( cFileName )
+   IF cComponent == "harbour" .AND. ;
+      cTemplate == "Command" .AND. ;
+      ! NameIsOperator( cEntry ) .AND. ;
+      ! NameIsDirective( cEntry )
+      RETURN "include/std.ch"
+   ENDIF
 
-   FOR EACH cExt IN { ".c", ".prg" }
-
-      FOR EACH cDir IN iif( cComponent == "harbour", ;
-         { "src/rtl", ;
-           "src/vm", ;
-           "src/rdd" }, ;
-         { "contrib/" + cComponent } )
-
-         IF hb_FileExists( hbdoc_dir_in() + ( tmp := hb_DirSepToOS( cDir + "/" ) + cFileName + cExt ) )
-            RETURN hb_Version( HB_VERSION_URL_BASE ) + "blob/" + cRevision + "/" + tmp
-         ENDIF
-      NEXT
-   NEXT
+   IF hb_BRight( cEntry, 2 ) == "()" .AND. ;
+      ! HB_ISNULL( tmp := hbdoc_SymbolSource( iif( cComponent == "harbour", "src", "contrib/" + cComponent ), hb_StrShrink( cEntry, 2 ) ) )
+      RETURN tmp
+   ENDIF
 
    RETURN ""
 

@@ -1159,6 +1159,23 @@ FUNCTION NameCanon( cName )
 
    RETURN cName
 
+/* guess if an entry name is code (command, function, operator) */
+FUNCTION NameIsCode( cName )
+   RETURN "(" $ cName .OR. "#" $ cName .OR. Upper( cName ) == cName
+
+/* guess if an entry name is an operator */
+FUNCTION NameIsOperator( cName )
+   RETURN ;
+      hb_StrReplace( hb_asciiLower( cName ), "abcdefghijklmnopqrstuvwxyz" ) == hb_asciiLower( cName ) .OR. ;
+      "|" + Upper( cName ) + "|" $ "|.AND.|.OR.|.NOT.|" .OR. ;
+      hb_LeftEq( cName, "= " )  // f.e. "= (assign)"
+
+FUNCTION NameIsDirective( cName )
+
+   LOCAL tmp
+
+   RETURN ( tmp := hb_BAt( "#", cName ) ) > 0 .AND. hb_asciiIsAlpha( hb_BSubStr( cName, tmp + 1, 1 ) )
+
 STATIC FUNCTION GenUniqueID( hUID, cName, cTemplate )
 
    STATIC s_conv := { ;
@@ -1200,7 +1217,7 @@ STATIC FUNCTION GenUniqueID( hUID, cName, cTemplate )
          cName := StrTran( cName, "/", " " )
       ELSEIF hb_LeftEq( cName, "@" ) .AND. Len( cName ) > 1
          cName := "at " + hb_BSubStr( cName, 2 )
-      ELSEIF ( tmp := hb_BAt( "#", cName ) ) > 0 .AND. hb_asciiIsAlpha( hb_BSubStr( cName, tmp + 1, 1 ) )
+      ELSEIF NameIsDirective( cName )
          cName := StrTran( cName, "#", "pp " )
       ENDIF
 
@@ -1219,9 +1236,7 @@ STATIC FUNCTION GenUniqueID( hUID, cName, cTemplate )
       cResult += "-c"
       EXIT
    CASE "Command"
-      IF hb_StrReplace( hb_asciiLower( cName ), "abcdefghijklmnopqrstuvwxyz" ) == hb_asciiLower( cName ) .OR. ;
-         "|" + Upper( cName ) + "|" $ "|.AND.|.OR.|.NOT.|" .OR. ;
-         hb_LeftEq( cName, "= " )  // f.e. "= (assign)"
+      IF NameIsOperator( cName )
          cResult += "-op"
       ELSE
          cResult += "-cmd"
@@ -1555,6 +1570,44 @@ STATIC FUNCTION LoadHBX( cFileName, hAll )
    ENDIF
 
    RETURN aDynamic
+
+FUNCTION hbdoc_SymbolSource( cDir, cName )
+
+   STATIC s_hSymb := { => }
+
+   LOCAL pRegex, file, hit, hSymb, cMask
+
+   cDir := hb_DirSepAdd( cDir )
+
+   IF ! cDir $ s_hSymb
+      hSymb := s_hSymb[ cDir ] := { => }
+      IF ! Empty( pRegex := hb_regexComp( "(" + ;
+         "HB_FUNC_TRANSLATE\( ([A-Z_][A-Z0-9_]+)[, ]" + "|" + ;
+         "HB_FUNC\( ([A-Z_][A-Z0-9_]+) \)" + "|" + ;
+         "^(PROCEDURE|FUNCTION) ([A-Za-z_][A-Za-z0-9_]+)\(" + "|" + ;
+         "^(CREATE CLASS) ([A-Za-z_][A-Za-z0-9_]+)" + ")", .T., .T. ) )
+
+         FOR EACH cMask IN { "*.prg", "*.c" }
+            FOR EACH file IN hb_DirScan( s_hSwitches[ "dir_in" ] + cDir, cMask )
+               IF ! "|" + hb_FNameNameExt( file[ F_NAME ] ) + "|" $ '|nulsys.c|tscalar.prg|' .AND. ;
+                  ! "obj" + hb_ps() $ file[ F_NAME ] .AND. ;
+                  ! "tests" + hb_ps() $ file[ F_NAME ]
+                  FOR EACH hit IN hb_regexAll( pRegex, hb_MemoRead( s_hSwitches[ "dir_in" ] + cDir + file[ F_NAME ] ),,,,, .T. )
+                     hit := hb_asciiUpper( ATail( hit ) )
+                     IF ! hit $ s_hSymb
+                        hSymb[ hit ] := cDir + file[ F_NAME ]
+                     ENDIF
+                  NEXT
+               ENDIF
+            NEXT
+         NEXT
+      ENDIF
+#if 0
+      hb_MemoWrit( "_" + StrTran( cDir, hb_ps(), "_" ) + ".json", hb_jsonEncode( hSymb, .T. ) )
+#endif
+   ENDIF
+
+   RETURN hb_HGetDef( s_hSymb[ cDir ], hb_asciiUpper( cName ), "" )
 
 #if defined( __HBSCRIPT__HBSHELL )
 SET PROCEDURE TO "_genbase.prg"
