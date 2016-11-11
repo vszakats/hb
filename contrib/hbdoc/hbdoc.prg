@@ -795,7 +795,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, hNameID, /* @ */ nCount, /* @ */ nC
          ENDCASE
 
          IF lAccepted
-            hE[ cSectionName ] := ExpandAbbrevs( cFile, cSectionName, cSection )
+            hE[ cSectionName ] := RetouchContent( cFile, cSectionName, cSection, hEntry[ "TEMPLATE" ] )
          ENDIF
       ELSE
          AddErrorCondition( cFile, "Using template '" + hEntry[ "TEMPLATE" ] + "' encountered an unexpected section '" + cSectionName + "'", .T. )
@@ -880,15 +880,20 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, hNameID, /* @ */ nCount, /* @ */ nC
 
    RETURN
 
-STATIC FUNCTION ExpandAbbrevs( cFile, cSectionName, cCode )
+STATIC FUNCTION RetouchContent( cFile, cSectionName, cSection, cTemplate )
 
    LOCAL cResult
    LOCAL tmp
 
    SWITCH cSectionName
+   CASE "NAME"
+      IF cTemplate == "Runtime error"
+         RETURN "RTE " + cSection
+      ENDIF
+      EXIT
    CASE "STATUS"
       cResult := ""
-      FOR EACH tmp IN ASort( hb_ATokens( cCode, "," ) )
+      FOR EACH tmp IN ASort( hb_ATokens( cSection, "," ) )
          IF ! HB_ISNULL( tmp := AllTrim( tmp ) )
             IF ! HB_ISNULL( cResult )
                cResult += Chr( 10 )
@@ -908,17 +913,17 @@ STATIC FUNCTION ExpandAbbrevs( cFile, cSectionName, cCode )
 
    CASE "PLATFORMS"
       cResult := ""
-      FOR EACH cCode IN ASort( hb_ATokens( cCode, "," ) )
-         IF ! HB_ISNULL( cCode := AllTrim( cCode ) )
-            cResult += Chr( 10 ) + Eval( hb_HGetDef( sc_hConstraint[ "platforms" ], cCode, {|| cCode } ) )
+      FOR EACH cSection IN ASort( hb_ATokens( cSection, "," ) )
+         IF ! HB_ISNULL( cSection := AllTrim( cSection ) )
+            cResult += Chr( 10 ) + Eval( hb_HGetDef( sc_hConstraint[ "platforms" ], cSection, {|| cSection } ) )
          ENDIF
       NEXT
       RETURN SubStr( cResult, Len( Chr( 10 ) ) + 1 )
 
    CASE "COMPLIANCE"
-      IF "," $ cCode .AND. Parse( cCode, "," ) $ sc_hConstraint[ "compliance" ]  /* Detect if not free text */
+      IF "," $ cSection .AND. Parse( cSection, "," ) $ sc_hConstraint[ "compliance" ]  /* Detect if not free text */
          cResult := ""
-         FOR EACH tmp IN ASort( hb_ATokens( cCode, "," ) )
+         FOR EACH tmp IN ASort( hb_ATokens( cSection, "," ) )
             IF ! HB_ISNULL( tmp := AllTrim( tmp ) )
                cResult += Chr( 10 ) + Eval( hb_HGetDef( sc_hConstraint[ "compliance" ], tmp, {|| tmp } ) )
             ENDIF
@@ -926,11 +931,11 @@ STATIC FUNCTION ExpandAbbrevs( cFile, cSectionName, cCode )
          RETURN SubStr( cResult, Len( Chr( 10 ) ) + 1 )
       ENDIF
 
-      RETURN Eval( hb_HGetDef( sc_hConstraint[ "compliance" ], cCode, {|| cCode } ) )
+      RETURN Eval( hb_HGetDef( sc_hConstraint[ "compliance" ], cSection, {|| cSection } ) )
 
    ENDSWITCH
 
-   RETURN cCode
+   RETURN cSection
 
 STATIC PROCEDURE ShowSubHelp( xLine, /* @ */ nMode, nIndent, n )
 
@@ -1516,7 +1521,7 @@ STATIC PROCEDURE ShowComplianceHelp()
 
    FOR EACH item IN sc_hConstraint[ "compliance" ]
       ShowSubHelp( item:__enumKey(), 1, 0, item:__enumIndex() )
-      ShowSubHelp( ExpandAbbrevs( "", "COMPLIANCE", item:__enumKey() ), 1, 6, item:__enumIndex() )
+      ShowSubHelp( RetouchContent( "", "COMPLIANCE", item:__enumKey() ), 1, 6, item:__enumIndex() )
       ShowSubHelp( "", 1, 0 )
    NEXT
 
@@ -1528,7 +1533,7 @@ STATIC PROCEDURE ShowPlatformsHelp()
 
    FOR EACH item IN sc_hConstraint[ "platforms" ]
       ShowSubHelp( item:__enumKey(), 1, 0, item:__enumIndex() )
-      ShowSubHelp( ExpandAbbrevs( "", "PLATFORMS", item:__enumKey() ), 1, 6, item:__enumIndex() )
+      ShowSubHelp( RetouchContent( "", "PLATFORMS", item:__enumKey() ), 1, 6, item:__enumIndex() )
       ShowSubHelp( "", 1, 0 )
    NEXT
 
