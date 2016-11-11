@@ -50,15 +50,15 @@
 
                 <nSet>            <xNewSetting>          <xOption>
 
-              _SET_ALTERNATE   <lFlag> | <cOnOff>
+              `_SET_ALTERNATE`   <lFlag> | <cOnOff>
 
                    If enabled, QOut() and QQOut() write to the screen and to
                    a file, provided that a file has been opened or created
-                   with _SET_ALTFILE. If disabled, which is the default,
+                   with `_SET_ALTFILE`. If disabled, which is the default,
                    QOut() and QQOut() only write to the screen (and/or to
                    the PRINTFILE). Defaults to disabled.
 
-              _SET_ALTFILE     <cFileName>             <lAdditive>
+              `_SET_ALTFILE`     <cFileName>             <lAdditive>
 
                    When set, creates or opens file to write QOut() and
                    QQOut() output to. If <lAdditive> is TRUE and the file
@@ -69,32 +69,32 @@
                    default file extension is `.txt`. There is no default
                    file name. Call with an empty string to close the file.
 
-              _SET_AUTOPEN     <lFlag> | <cOnOff>
+              `_SET_AUTOPEN`     <lFlag> | <cOnOff>
 
                    TODO: Document
 
-              _SET_AUTORDER    <lFlag> | <cOnOff>
+              `_SET_AUTORDER`    <lFlag> | <cOnOff>
 
                    TODO: Document
 
-              _SET_AUTOSHARE   <lFlag> | <cOnOff>
+              `_SET_AUTOSHARE`   <lFlag> | <cOnOff>
 
                    TODO: Document
 
-              _SET_BELL        <lFlag> | <cOnOff>
+              `_SET_BELL`        <lFlag> | <cOnOff>
 
                    When enabled, the bell sounds when the last position of
                    a GET is reached and/or when a GET validation fails.
                    Disabled by default.
 
-              _SET_CANCEL      <lFlag> | <cOnOff>
+              `_SET_CANCEL`      <lFlag> | <cOnOff>
 
                    When enabled, which is the default, pressing <Alt+C> or
                    <Ctrl+Break> terminates the program. When disabled, both
                    keystrokes can be read by Inkey(). Note: `SET KEY` has
                    precedence over `SET CANCEL`.
 
-              _SET_COLOR       <cColorSet>
+              `_SET_COLOR`       <cColorSet>
 
                    Sets the current color scheme, using color pairs in the
                    sequence `"<standard>, <enhanced>, <border>, <background>,
@@ -110,24 +110,24 @@
                    color monitor), and `"X"` for blank. The default color is
                    `"W/N,N/W,N,N,N/W"`.
 
-              _SET_CONFIRM     <lFlag> | <cOnOff>
+              `_SET_CONFIRM`     <lFlag> | <cOnOff>
 
                    If enabled, an exit key must be pressed to leave a GET.
                    If disabled, which is the default, typing past the end
                    will leave a GET.
 
-              _SET_CONSOLE     <lFlag> | <cOnOff>
+              `_SET_CONSOLE`     <lFlag> | <cOnOff>
 
                    If enabled, which is the default, all screen output goes
                    to the screen. When disabled, screen output is suppressed
                    (Note: This setting does not affect OutStd() or OutErr()).
 
-              _SET_CURSOR      <nCursorType>
+              `_SET_CURSOR`      <nCursorType>
 
                    If enabled, which is the default, the cursor is displayed
                    on screen. If disabled, the screen cursor is hidden.
 
-              _SET_DATEFORMAT  <cDateFormat>
+              `_SET_DATEFORMAT`  <cDateFormat>
 
                    Sets the default date format for display, date input, and
                    date conversion. Defaults to American `mm/dd/yy`. Other
@@ -138,13 +138,13 @@
                    replaces the `y`s with `YYYY`. `SET CENTURY OFF` replaces
                    the `y`s with `YY`.
 
-              _SET_DEBUG       <lStatus>
+              `_SET_DEBUG`       <lStatus>
 
                    When set to .T., pressing <Alt+D> activates the debugger.
                    When set to .F., which is the default, <Alt+D> can be read
                    by Inkey(). (Also affected by `AltD( 1 )` and `AltD( 0 )`)
 
-              _SET_DECIMALS    <nNumberOfDecimals>
+              `_SET_DECIMALS`    <nNumberOfDecimals>
 
                    Sets the number of decimal digits to use when displaying
                    printing numeric values when `SET FIXED` is ON. Defaults to
@@ -155,34 +155,34 @@
                    will display. Note: This never affects the precision of
                    a number. Only the display format is affected.
 
-              _SET_DEFAULT     <cDefaultDirectory>
+              `_SET_DEFAULT`     <cDefaultDirectory>
 
                    Sets the default directory in which to open, create and
                    check for files. Defaults to current directory (blank).
 
-              _SET_DELETED     <lFlag> | <cOnOff>
+              `_SET_DELETED`     <lFlag> | <cOnOff>
 
                    If enabled, deleted records will be processed. If
                    disabled, which is the default, deleted records will
                    be ignored.
 
-              _SET_DELIMCHARS  <cDelimiters>
+              `_SET_DELIMCHARS`  <cDelimiters>
 
                    Sets the GET delimiter characters. Defaults to `"::"`.
 
-              _SET_DELIMITERS  <lFlag> | <cOnOff>
+              `_SET_DELIMITERS`  <lFlag> | <cOnOff>
 
                    If enabled, GETs are delimited on screen. If disabled,
                    which is the default, no GET delimiters are used.
 
-              _SET_DEVICE      <cDeviceName>
+              `_SET_DEVICE`      <cDeviceName>
 
                    Selects the output device for DevOut(). When set to
                    `"PRINTER"`, all output is sent to the printer device or
-                   file set by _SET_PRINTFILE. When set to anything else,
+                   file set by `_SET_PRINTFILE`. When set to anything else,
                    all output is sent to the screen. Defaults to `"SCREEN"`.
 
-              _SET_EOF         <lFlag> | <cOnOff>
+              `_SET_EOF`         <lFlag> | <cOnOff>
 
                    Defaults to FALSE on *nix, but defaults to TRUE on
                    everything else. If set to FALSE, then `Chr( 26 )` does not
@@ -191,7 +191,7 @@
                    created using various SET values.
                    [This is a Harbour extension]
 
-              _SET_EPOCH       <nYear>
+              `_SET_EPOCH`       <nYear>
 
                    Determines how to handle the conversion of 2-digit years
                    to 4 digit years. When a 2-digit year is greater than or
@@ -205,14 +205,14 @@
                    and 2-digit years in the range 00 to 49 get converted
                    to 20xx.
 
-              _SET_ESCAPE      <lFlag> | <cOnOff>
+              `_SET_ESCAPE`      <lFlag> | <cOnOff>
 
                    When enabled, which is the default, pressing <Esc> will
                    exit a READ. When disabled, pressing <Esc> during a READ
                    is ignored, unless the <Esc> key has been assigned to a
                    function using `SET KEY`.
 
-              _SET_EVENTMASK   <nEventCodes>
+              `_SET_EVENTMASK`   <nEventCodes>
 
                    Determines which events Inkey() will respond to.
                    INKEY_MOVE allows mouse movement events. INKEY_LDOWN
@@ -226,7 +226,7 @@
                    down clicks and right mouse button up clicks). The
                    default is INKEY_KEYBOARD.
 
-              _SET_EXACT       <lFlag> | <cOnOff>
+              `_SET_EXACT`       <lFlag> | <cOnOff>
 
                    When enabled, all string comparisons other than `==`
                    exclude trailing spaces when checking for equality.
@@ -238,7 +238,7 @@
                    hand string match the corresponding characters in the
                    left hand string.
 
-              _SET_EXCLUSIVE   <lFlag> | <cOnOff>
+              `_SET_EXCLUSIVE`   <lFlag> | <cOnOff>
 
                    When enabled, which is the default, all database files
                    are opened in exclusive mode. When disabled, all
@@ -246,19 +246,19 @@
                    EXCLUSIVE and SHARED clauses of the USE command can be
                    used to override this setting.
 
-              _SET_EXIT        <lFlag> | <cOnOff>
+              `_SET_EXIT`        <lFlag> | <cOnOff>
 
                    Toggles the use of Uparrow and Dnarrow as READ exit keys.
                    Specifying true (.T.) enables them as exit keys, and
                    false (.F.) disables them. Used internally by the
                    ReadExit() function.
 
-              _SET_EXTRA       <lFlag> | <cOnOff>
+              `_SET_EXTRA`       <lFlag> | <cOnOff>
 
                    QUESTION: What is this for?
-                   It does not affect _SET_EXTRAFILE in CA-Cl*pper!
+                   It does not affect `_SET_EXTRAFILE` in CA-Cl*pper!
 
-              _SET_EXTRAFILE   <cFileName>             <lAdditive>
+              `_SET_EXTRAFILE`   <cFileName>             <lAdditive>
 
                    When set, creates or opens file to write QOut() and
                    QQOut() output to. If <lAdditive> is TRUE and the file
@@ -269,16 +269,16 @@
                    default file extension is `.prn`. There is no default
                    file name. Call with an empty string to close the file.
 
-              _SET_FIXED       <lFlag> | <cOnOff>
+              `_SET_FIXED`       <lFlag> | <cOnOff>
 
                    When enabled, all numeric values will be displayed
                    and printed with the number of decimal digits set
                    by `SET DECIMALS`, unless a PICTURE clause is used.
                    When disabled, which is the default, the number
                    of decimal digits that are displayed depends upon
-                   a variety of factors. See _SET_DECIMALS for more.
+                   a variety of factors. See `_SET_DECIMALS` for more.
 
-              _SET_INSERT      <lFlag> | <cOnOff>
+              `_SET_INSERT`      <lFlag> | <cOnOff>
 
                    When enabled, characters typed in a GET or MemoEdit()
                    are inserted. When disabled, which is the default,
@@ -286,36 +286,36 @@
                    Note: This setting can also be toggled between on and
                    off by pressing the Insert key during a GET or MemoEdit().
 
-              _SET_INTENSITY   <lFlag> | <cOnOff>
+              `_SET_INTENSITY`   <lFlag> | <cOnOff>
 
                    When enabled, which is the default, GETs and PROMPTs
                    are displayed using the enhanced color setting. When
                    disabled, GETs and PROMPTs are displayed using the
                    standard color setting.
 
-              _SET_LANGUAGE    <cLanguageID>
+              `_SET_LANGUAGE`    <cLanguageID>
 
                    Specifies the language to be used for Harbour messages.
                    [This is a Harbour extension]
 
-              _SET_MARGIN      <nColumns>
+              `_SET_MARGIN`      <nColumns>
 
                    Sets the left margin for all printed output. The default
                    value is 0. Note: PCol() reflects the printer's column
                    position including the margin (e.g., `SET MARGIN TO 5`
                    followed by `DevPos( 5, 10 )` makes PCol() return 15).
 
-              _SET_MBLOCKSIZE <nMemoBlockSize>
+              `_SET_MBLOCKSIZE` <nMemoBlockSize>
 
                    TODO: Document
 
-              _SET_MCENTER     <lFlag> | <cOnOff>
+              `_SET_MCENTER`     <lFlag> | <cOnOff>
 
                    If enabled, display PROMPTs centered on the MESSAGE row.
                    If disabled, which is the default, display PROMPTS at
                    column position 0 on the MESSAGE row.
 
-              _SET_MESSAGE     <nRow>
+              `_SET_MESSAGE`     <nRow>
 
                    If set to 0, which is the default, PROMPTs are always
                    suppressed. Otherwise, PROMPTs are displayed on the
@@ -323,30 +323,30 @@
                    on the top-most screen row, because row 0 is reserved
                    for the SCOREBOARD, if enabled.
 
-              _SET_MFILEEXT    <cMemoFileExt>
+              `_SET_MFILEEXT`    <cMemoFileExt>
 
                    TODO: Document
 
-              _SET_OPTIMIZE    <lFlag> | <cOnOff>
+              `_SET_OPTIMIZE`    <lFlag> | <cOnOff>
 
                    TODO: Document
 
-              _SET_PATH        <cDirectories>
+              `_SET_PATH`        <cDirectories>
 
                    Specifies a path of directories to search through to
                    locate a file that can't be located in the DEFAULT
                    directory. Defaults to no path `""`. Directories must
                    be separated by a semicolon (e.g., `C:\hb\bin;C:\hb\tests`).
 
-              _SET_PRINTER     <lFlag> | <cOnOff>
+              `_SET_PRINTER`     <lFlag> | <cOnOff>
 
                    If enabled, QOut() and QQOut() write to the screen and to
                    a file, provided that a file has been opened or created
-                   with _SET_ALTFILE. If disabled, which is the default,
+                   with `_SET_ALTFILE`. If disabled, which is the default,
                    QOut() and QQOut() only write to the screen (and/or to
                    the ALTFILE).
 
-              _SET_PRINTFILE   <cFileName>             <lAdditive>
+              `_SET_PRINTFILE`   <cFileName>             <lAdditive>
 
                    When set, creates or opens file to write QOut(), QQOut()
                    and DevOut() output to. If <lAdditive> is TRUE and the
@@ -358,17 +358,17 @@
                    is `PRN`, which maps to the default printer device. Call
                    with an empty string to close the file.
 
-              _SET_SCOREBOARD  <lFlag> | <cOnOff>
+              `_SET_SCOREBOARD`  <lFlag> | <cOnOff>
 
                    When enabled, which is the default, READ and MemoEdit()
                    display status messages on screen row 0. When disabled,
                    READ and MemoEdit() status messages are suppressed.
 
-              _SET_SCROLLBREAK <lFlag> | <cOnOff>
+              `_SET_SCROLLBREAK` <lFlag> | <cOnOff>
 
                    QUESTION: What is this flag for?
 
-              _SET_SOFTSEEK    <lFlag> | <cOnOff>
+              `_SET_SOFTSEEK`    <lFlag> | <cOnOff>
 
                    When enabled, a SEEK that fails will position the record
                    pointer to the first key that is higher than the sought
@@ -376,25 +376,25 @@
                    When disabled, which is the default, a SEEK that fails
                    will position the record pointer to `LastRec() + 1`.
 
-              _SET_STRICTREAD  <lFlag> | <cOnOff>
+              `_SET_STRICTREAD`  <lFlag> | <cOnOff>
 
                    TODO: Document
 
-              _SET_TYPEAHEAD   <nKeyStrokes>
+              `_SET_TYPEAHEAD`   <nKeyStrokes>
 
                    Sets the size of the keyboard typeahead buffer. Defaults
                    to 50. The minimum is 16 and the maximum is 4096.
 
-              _SET_UNIQUE      <lFlag> | <cOnOff>
+              `_SET_UNIQUE`      <lFlag> | <cOnOff>
 
                    When enabled, indexes are not allowed to have duplicate
                    keys. When disabled, indexes are allowed duplicate keys.
 
-              _SET_VIDEOMODE   <nValue>
+              `_SET_VIDEOMODE`   <nValue>
 
                    TODO: Document
 
-              _SET_WRAP        <lFlag> | <cOnOff>
+              `_SET_WRAP`        <lFlag> | <cOnOff>
 
                    When enabled, lightbar menus can be navigated from the
                    last position to the first and from the first position
@@ -794,7 +794,7 @@
    $ARGUMENTS$
       <nSize> is a valid typeahead size.
    $RETURNS$
-      <nPreviousSize> The previous state of _SET_TYPEAHEAD
+      <nPreviousSize> The previous state of `_SET_TYPEAHEAD`
    $DESCRIPTION$
       This function sets the typeahead buffer to a valid given size as is
       `Set( _SET_TYPEAHEAD )` where used.
