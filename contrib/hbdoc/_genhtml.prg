@@ -674,6 +674,9 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS Genera
                            cFile := GetLangDir( ::cLang, cLangOK ) + tmp1 + ".html"
                            cTitle := iif( cLangOK == ::cLang, tmp1, hb_StrFormat( I_( "%1$s (%2$s)" ), tmp1, cLangOK ) )
                         ENDIF
+                        IF "aliasof" $ ::hNameIDM[ cLangOK ][ cNameCanon ][ tmp1 ]
+                           tmp := ::hNameIDM[ cLangOK ][ cNameCanon ][ tmp1 ][ "aliasof" ]
+                        ENDIF
                         EXIT
                      ENDIF
                   NEXT

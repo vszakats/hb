@@ -196,6 +196,7 @@ PROCEDURE Main()
    IF s_hSwitches[ "dump" ]
       hb_MemoWrit( "__hbx.json", hb_jsonEncode( s_hHBX, .T. ) )
       hb_MemoWrit( "__doc.json", hb_jsonEncode( s_hDoc, .T. ) )
+      hb_MemoWrit( "__idm.json", hb_jsonEncode( s_hNameIDM, .T. ) )
    ENDIF
 
    nStart := hb_MilliSeconds()
@@ -689,6 +690,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, hNameID, /* @ */ nCount, /* @ */ nC
 
    LOCAL cFile := hEntry[ "_DOCSOURCE" ]
    LOCAL cComponent := hEntry[ "_COMPONENT" ]
+   LOCAL cAlias := hb_HGetDef( hEntry, "ALIAS", NIL )
 
    LOCAL cSectionName
    LOCAL cSection
@@ -765,8 +767,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, hNameID, /* @ */ nCount, /* @ */ nC
       ENDIF
 
       IF hb_LeftEq( cSectionName, "_" ) .OR. ;
-         cSectionName == "TEMPLATE" .OR. ;
-         cSectionName == "AUTHOR"
+         "|" + cSectionName + "|" $ "|TEMPLATE|AUTHOR|ALIAS|"
 
          /* do nothing */
 
@@ -852,6 +853,13 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, hNameID, /* @ */ nCount, /* @ */ nC
             hNameID[ cNameCanon ] := { => }
          ENDIF
          hNameID[ cNameCanon ][ cComponent ] := { "id" => hE[ "_id" ], "template" => hEntry[ "TEMPLATE" ] }
+         IF cAlias != NIL
+            cAlias := NameCanon( cAlias )
+            IF ! cAlias $ hNameID
+               hNameID[ cAlias ] := { => }
+            ENDIF
+            hNameID[ cAlias ][ cComponent ] := { "id" => hE[ "_id" ], "template" => hEntry[ "TEMPLATE" ], "aliasof" => cNameCanon }
+         ENDIF
       ENDIF
 
       AAdd( docs[ "entries" ], hE )
@@ -1246,9 +1254,6 @@ STATIC FUNCTION GenUniqueID( hUID, cName, cTemplate )
       ELSE
          cResult += "-cmd"
       ENDIF
-      EXIT
-   CASE "Runtime error"
-      cResult := "err-" + cResult
       EXIT
    ENDSWITCH
 
