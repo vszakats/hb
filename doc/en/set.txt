@@ -579,11 +579,11 @@
       SetKey() is mostly CA-Cl*pper compliant. The only difference is the
       addition of the condition code-block parameter, allowing set-keys to
       be conditionally turned off or on.  This condition-block cannot be
-      returned once set - see SetKeyGet()
+      returned once set - see hb_SetKeyGet()
    $FILES$
       Library is core
    $SEEALSO$
-      hb_SetKeySave()
+      hb_SetKeySave(), hb_SetKeyGet()
    $END$
  */
 
@@ -653,7 +653,7 @@
       returns the current state of an environment setting, and optionally
       assigning a new value.  In this case, the "environment setting" is the
       internal set-key list, and the optional new value is either a value
-      returned from a previous call to SetKeySave() - to restore that list,
+      returned from a previous call to hb_SetKeySave() - to restore that list,
       or the value of NIL to clear the current list.
    $EXAMPLES$
       LOCAL aKeys := hb_SetKeySave( NIL )  // removes all current set=keys
@@ -770,9 +770,9 @@
       `SET KEY` is mostly CA-Cl*pper compliant. The only difference is the
       addition of the condition code-block parameter, allowing set-keys to
       be conditionally turned off or on.  This condition-block cannot be
-      returned once set - see SetKeyGet()
+      returned once set - see hb_SetKeyGet()
    $SEEALSO$
-      hb_SetKeySave()
+      hb_SetKeySave(), hb_SetKeyGet()
    $END$
  */
 

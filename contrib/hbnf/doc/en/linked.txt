@@ -25,7 +25,7 @@
       functions in a macro compiled string as they never exist at
       runtime. ft_Linked() will correctly tell you that they are invalid.
 
-      For instance: there is no function called SORT() in any of the
+      For instance: there is no function called "SORT()" in any of the
       Nantucket Libraries, but it is a valid CLIPPER command because the
       preprocessor will convert it to other function calls.
    $EXAMPLES$

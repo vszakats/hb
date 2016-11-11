@@ -42,7 +42,7 @@
       inheritance can extend to many levels.
 
       A program uses a Class by calling the Class Constructor, usually the
-      New() method, to create an object. That object is usually assigned
+      `:New()` method, to create an object. That object is usually assigned
       to a variable, which is used to access the VAR elements and
       methods.
 

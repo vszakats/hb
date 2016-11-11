@@ -642,7 +642,7 @@
    $FILES$
       Library is core
    $SEEALSO$
-      ?, ??, DevOut(), DevOutPict(), DispOut(), DispOutAt(), OutErr(), QOut(), QQOut(), Str()
+      ?|??, DevOut(), DevOutPict(), DispOut(), DispOutAt(), OutErr(), QOut(), QQOut(), Str()
    $END$
  */
 
@@ -693,7 +693,7 @@
    $FILES$
       Library is core
    $SEEALSO$
-      ?, ??, DevOut(), DevOutPict(), DispOut(), DispOutAt(), OutStd(), QOut(), QQOut(), Str()
+      ?|??, DevOut(), DevOutPict(), DispOut(), DispOutAt(), OutStd(), QOut(), QQOut(), Str()
    $END$
  */
 

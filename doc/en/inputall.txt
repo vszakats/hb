@@ -94,8 +94,8 @@
       for no events (Note: In CA-Cl*pper, this also blocks `SET KEY` events).
    $FILES$
       Library is core
+      Header is inkey.ch
    $SEEALSO$
-      inkey.ch
    $END$
  */
 

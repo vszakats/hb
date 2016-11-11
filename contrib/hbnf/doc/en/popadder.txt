@@ -13,7 +13,7 @@
       NIL .... but optionally places Total of calculation in active
                Get variable using `oGet:varPut()`
    $DESCRIPTION$
-      PopAdder() gives you an adding machine inside your Clipper 5.2
+      ft_Adder() gives you an adding machine inside your Clipper 5.2
       application. It has the basic functions add, subtract, multiply,
       and divide. You may move it from one side of the screen to the
       other. It even displays a scrollable tape, if you want it.
