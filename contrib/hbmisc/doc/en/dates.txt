@@ -92,7 +92,7 @@
    $FILES$
       Library is hbmisc
    $SEEALSO$
-      DaysInMonth()
+      hbmisc_DaysInMonth()
    $END$
  */
 

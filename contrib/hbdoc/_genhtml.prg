@@ -583,6 +583,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS Genera
    LOCAL lCode, lTable, lTablePrev, cHeaderClass
    LOCAL cFile, cAnchor, cTitle, cLangOK
    LOCAL cNameCanon
+   LOCAL aSEEALSO
 
    IF ! Empty( cContent )
 
@@ -650,8 +651,12 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS Genera
 
          ::OpenTagInline( "div", "class", cTagClass )
          lFirst := .T.
-         FOR EACH tmp IN hb_ATokens( cContent, "," )
+
+         FOR EACH tmp IN aSEEALSO := hb_ATokens( cContent, "," )
             tmp := AllTrim( tmp )
+         NEXT
+
+         FOR EACH tmp IN ASort( aSEEALSO )
             IF ! HB_ISNULL( tmp )
                IF lFirst
                   lFirst := .F.

@@ -39,7 +39,7 @@
       NOTE: Not all functions are wrapped.
 
    $SEEALSO$
-      Alphabetical list of functions, Categorized list of functions, GDImage Class, GDChart Class.
+      GDImage Class, GDChart Class
    $END$
  */
 
@@ -628,7 +628,7 @@
    $PLATFORMS$
       All
    $SEEALSO$
-      gdImageCreate(), gdImageRectangle(), gdColorAllocate()
+      gdImageCreate(), gdImageRectangle(), gdImageColorAllocate()
    $END$
  */
 
@@ -1504,7 +1504,7 @@
    $PLATFORMS$
       All
    $SEEALSO$
-      gdImageCreate(), gdImageColorAllocate(), gdImageJpeg(), gdImageLine(), gdAntiAliased, gdImageSetAntiAlias()
+      gdImageCreate(), gdImageColorAllocate(), gdImageJpeg(), gdImageLine(), gdAntiAliased, gdImageSetAntiAliased()
    $END$
  */
 

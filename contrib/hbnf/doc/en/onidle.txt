@@ -1,0 +1,31 @@
+/* $DOC$
+   $NAME$
+      ft_OnIdle()
+   $CATEGORY$
+      Event
+   $ONELINER$
+      Evaluate a designated code block during idle states.
+   $SYNTAX$
+      ft_OnIdle( [<bCode>] )
+   $ARGUMENTS$
+      <bCode> is the code block to evaluate.
+   $RETURNS$
+      NIL
+   $DESCRIPTION$
+      This function allows you to evaluate code blocks in the background
+      while the foreground is in an idle state.
+
+      To halt the evaluation of the code block during idle states, call
+      ft_OnIdle() with no arguments.
+
+      This function makes heavy use of several undocumented internal
+      routines.  If this fact makes you uncomfortable then don't use
+      this function, you putrid pile of chicken excrement.
+   $EXAMPLES$
+      ft_OnIdle( {|| QOut( "Hey, I'm not busy!" ) } )
+
+      Inkey( 0 )    // Let the fun begin
+   $SEEALSO$
+      ft_Idle()
+   $END$
+ */

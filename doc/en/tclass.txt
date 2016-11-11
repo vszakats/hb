@@ -57,6 +57,6 @@
    $FILES$
       Library is core
    $SEEALSO$
-      __objHasData(), Object Oriented Programming, CLASS
+      __objHasData(), CLASS
    $END$
  */
