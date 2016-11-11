@@ -508,7 +508,7 @@
    $ONELINER$
       This function set the value of memory variable
    $SYNTAX$
-      __mvGet( <cVarName> [, <xValue>] ) --> xValue
+      __mvPut( <cVarName> [, <xValue>] ) --> xValue
    $ARGUMENTS$
       <cVarName> - string that specifies the name of variable
       <xValue>   - a value of any type that will be set - if it is not
