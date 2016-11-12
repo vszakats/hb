@@ -504,7 +504,7 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
             IF ! hb_LeftEq( ::cFilename, "cl" ) .AND. ;
                ! HB_ISNULL( tmp := SourceURL( NameCanon( cEntry ), ::cFilename, hEntry[ "TEMPLATE" ] ) )
                ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "blob/" + s_cRevision + "/" + tmp, "class", "d-so", "title", tmp )
-               ::AppendInline( I_( "Source code" ) )
+               ::AppendInline( iif( hb_LeftEq( ::cFilename, "cl" ), hb_StrFormat( I_( "%1$s (%2$s)" ), I_( "Source code" ), "Harbour" ), I_( "Source code" ) ) )
                ::CloseTagInline( "a" )
             ENDIF
          ELSE
@@ -547,12 +547,13 @@ STATIC FUNCTION SourceURL( cEntry, cComponent, cTemplate )
 
    LOCAL tmp
 
-   IF cComponent == "harbour" .AND. ;
-      cTemplate == "Command" .AND. ;
+   IF cTemplate == "Command" .AND. ;
       ! NameIsOperator( cEntry ) .AND. ;
       ! NameIsDirective( cEntry )
       RETURN "include/std.ch"
    ENDIF
+
+   cComponent := hb_HGetDef( { "clc53" => "harbour", "clct3" => "hbct" }, cComponent, cComponent )
 
    IF hb_BRight( cEntry, 2 ) == "()" .AND. ;
       ! HB_ISNULL( tmp := hbdoc_SymbolSource( iif( cComponent == "harbour", "src", "contrib/" + cComponent ), hb_StrShrink( cEntry, 2 ) ) )
