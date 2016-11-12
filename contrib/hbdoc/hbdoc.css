@@ -524,7 +524,6 @@ p {
   margin-left: 6px;
   min-width: 9em;
   position: absolute;
-  z-index: 2;
   padding: 5px 5px;
 }
 

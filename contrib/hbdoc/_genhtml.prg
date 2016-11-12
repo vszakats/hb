@@ -585,7 +585,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS Genera
    LOCAL lFirst
    LOCAL tmp, tmp1
    LOCAL cLine
-   LOCAL lCode, lTable, lTablePrev, cHeaderClass
+   LOCAL lCode, lTable, lTablePrev, cHeaderClass, cComponent
    LOCAL cFile, cAnchor, cTitle, cLangOK
    LOCAL cNameCanon
    LOCAL aSEEALSO
@@ -673,7 +673,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS Genera
                   iif( ::cLang == "en", .F., cNameCanon $ ::hNameIDM[ cLangOK := "en" ] )
 
                   cFile := ""
-                  cAnchor := cTitle := NIL
+                  cAnchor := cTitle := cComponent := NIL
                   /* search order to resolve 'see also' links: self, ... */
                   FOR EACH tmp1 IN { ::cFilename, "harbour", "clc53", "hbct", "clct3", hb_HKeyAt( ::hNameIDM[ cLangOK ][ cNameCanon ], 1 ) }
                      IF tmp1 $ ::hNameIDM[ cLangOK ][ cNameCanon ]
@@ -685,6 +685,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS Genera
                         IF "aliasof" $ ::hNameIDM[ cLangOK ][ cNameCanon ][ tmp1 ]
                            tmp := ::hNameIDM[ cLangOK ][ cNameCanon ][ tmp1 ][ "aliasof" ]
                         ENDIF
+                        cComponent := tmp1
                         EXIT
                      ENDIF
                   NEXT
@@ -701,9 +702,11 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS Genera
                   IF Len( ::hNameIDM[ cLangOK ][ cNameCanon ] ) > 1
                      ::OpenTagInline( "nav", "class", "dropdown-content" + " " + "d-dd" )
                      FOR EACH tmp1 IN ASort( hb_HKeys( ::hNameIDM[ cLangOK ][ cNameCanon ] ) )
-                        GetComponentInfo( tmp1,, @cCaption )
-                        ::OpenTagInline( "a", "href", tmp1 + ".html" + "#" + ::hNameIDM[ cLangOK ][ cNameCanon ][ tmp1 ][ "id" ] )
-                        ::AppendInline( cCaption ):CloseTagInline( "a" )
+                        IF ! tmp1 == cComponent
+                           GetComponentInfo( tmp1,, @cCaption )
+                           ::OpenTagInline( "a", "href", tmp1 + ".html" + "#" + ::hNameIDM[ cLangOK ][ cNameCanon ][ tmp1 ][ "id" ] )
+                           ::AppendInline( cCaption ):CloseTagInline( "a" )
+                        ENDIF
                      NEXT
                      ::CloseTagInline( "nav" )
                      ::CloseTagInline( "nav" )
