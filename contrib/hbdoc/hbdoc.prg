@@ -1583,18 +1583,21 @@ STATIC FUNCTION LoadHBX( cFileName, hAll )
 
    RETURN aDynamic
 
-FUNCTION hbdoc_SymbolSource( cDir, cName )
+FUNCTION ProperCase( cName, /* @ */ lFound )
+   RETURN iif( lFound := ( cName $ s_hHBX ), hb_HKeyAt( s_hHBX, hb_HPos( s_hHBX, cName ) ), cName )
+
+FUNCTION hbdoc_SymbolSource( cDir, cName, /* @ */ cRedir )
 
    STATIC s_hSymb := { => }
 
-   LOCAL pRegex, file, hit, hSymb, cMask
+   LOCAL pRegex, file, hit, hSymb, cMask, result, cAlias
 
    cDir := hb_DirSepAdd( cDir )
 
    IF ! cDir $ s_hSymb
       hSymb := s_hSymb[ cDir ] := { => }
       IF ! Empty( pRegex := hb_regexComp( "(" + ;
-         "HB_FUNC_TRANSLATE\( ([A-Z_][A-Z0-9_]+)[, ]" + "|" + ;
+         "HB_FUNC_TRANSLATE\( ([A-Z_][A-Z0-9_]+)[, ][ \t]*([A-Z_][A-Z0-9_]+)" + "|" + ;
          "HB_FUNC\( ([A-Z_][A-Z0-9_]+) \)" + "|" + ;
          "^(PROCEDURE|FUNCTION) ([A-Za-z_][A-Za-z0-9_]+)\(" + "|" + ;
          "^(CREATE CLASS) ([A-Za-z_][A-Za-z0-9_]+)" + ")", .T., .T. ) )
@@ -1605,21 +1608,38 @@ FUNCTION hbdoc_SymbolSource( cDir, cName )
                   ! "obj" + hb_ps() $ file[ F_NAME ] .AND. ;
                   ! "tests" + hb_ps() $ file[ F_NAME ]
                   FOR EACH hit IN hb_regexAll( pRegex, hb_MemoRead( s_hSwitches[ "dir_in" ] + cDir + file[ F_NAME ] ),,,,, .T. )
-                     hit := hb_asciiUpper( ATail( hit ) )
+                     IF hb_LeftEq( hit[ 1 ], "HB_FUNC_TRANSLATE" )
+                        cAlias := hit[ 4 ]
+                        hit := hb_asciiUpper( hit[ 3 ] )
+                     ELSE
+                        cAlias := NIL
+                        hit := hb_asciiUpper( ATail( hit ) )
+                     ENDIF
                      IF ! hit $ s_hSymb
                         hSymb[ hit ] := cDir + file[ F_NAME ]
+                        IF cAlias != NIL
+                           hSymb[ hit ] := { hSymb[ hit ], cAlias }
+                        ENDIF
                      ENDIF
                   NEXT
                ENDIF
             NEXT
          NEXT
       ENDIF
-#if 0
-      hb_MemoWrit( "_" + StrTran( cDir, hb_ps(), "_" ) + ".json", hb_jsonEncode( hSymb, .T. ) )
-#endif
+
+      IF s_hSwitches[ "dump" ]
+         hb_MemoWrit( "_" + StrTran( cDir, hb_ps(), "_" ) + ".json", hb_jsonEncode( hSymb, .T. ) )
+      ENDIF
    ENDIF
 
-   RETURN hb_HGetDef( s_hSymb[ cDir ], hb_asciiUpper( cName ), "" )
+   IF HB_ISARRAY( result := hb_HGetDef( s_hSymb[ cDir ], hb_asciiUpper( cName ), "" ) )
+      result := hb_HGetDef( s_hSymb[ cDir ], cRedir := result[ 2 ], "" )
+      cRedir := ProperCase( cRedir ) + "()"
+   ELSE
+      cRedir := NIL
+   ENDIF
+
+   RETURN result
 
 #if defined( __HBSCRIPT__HBSHELL )
 SET PROCEDURE TO "_genbase.prg"

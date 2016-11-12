@@ -19,6 +19,7 @@ C_SOURCES := \
    dbnubs.c \
    dbrename.c \
    dbsql.c \
+   dbstruxu.c \
    delim1.c \
    fieldhb.c \
    ordcount.c \
@@ -27,6 +28,7 @@ C_SOURCES := \
    wacore.c \
    wafunc.c \
    rddinfo.c \
+   rddordc.c \
    rddshort.c \
    sdf1.c \
 
@@ -37,7 +39,6 @@ PRG_SOURCES := \
    dbsdf.prg \
    dbsort.prg \
    dbstrux.prg \
-   dbstruxu.prg \
    dbtotal.prg \
    dbupdat.prg \
    rddord.prg \

@@ -60,6 +60,8 @@
 #define CODECLASS   "language-c"
 #define CODEINLINE  "<code>"
 
+#define _RESULT_ARROW  "→"
+
 STATIC s_tDate
 STATIC s_cRevision
 
@@ -85,7 +87,6 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    VAR TargetFilename AS STRING INIT ""
 
    VAR hNameIDM
-   VAR hHBX
 
    EXPORTED:
 
@@ -130,7 +131,6 @@ METHOD NewFile() CLASS GenerateHTML
    ENDIF
 
    ::hNameIDM := hbdoc_NameIDM()
-   ::hHBX := hbdoc_HBX()
 
    ::cFile += "<!DOCTYPE html>" + hb_eol()
 
@@ -485,7 +485,7 @@ METHOD AddReference( hEntry, cReference, cSubReference ) CLASS GenerateHTML
 METHOD AddEntry( hEntry ) CLASS GenerateHTML
 
    LOCAL item
-   LOCAL cEntry
+   LOCAL cEntry, cRedir
    LOCAL tmp
 
    ::Spacer()
@@ -501,10 +501,15 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
             ::CloseTagInline( "a" )
             /* Link to original source code if it could be automatically found based
                on doc source filename */
-            IF ! hb_LeftEq( ::cFilename, "cl" ) .AND. ;
-               ! HB_ISNULL( tmp := SourceURL( NameCanon( cEntry ), ::cFilename, hEntry[ "TEMPLATE" ] ) )
+            IF ! hb_LeftEq( ::cFilename, "--cl" ) .AND. ;
+               ! HB_ISNULL( tmp := SourceURL( NameCanon( cEntry ), ::cFilename, hEntry[ "TEMPLATE" ], @cRedir ) )
+               IF cRedir != NIL
+                  ::OpenTagInline( "code", "class", "d-so" )
+                  ::AppendInline( _RESULT_ARROW + hb_UChar( 160 ) + cRedir )
+                  ::CloseTagInline( "code" )
+               ENDIF
                ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "blob/" + s_cRevision + "/" + tmp, "class", "d-so", "title", tmp )
-               ::AppendInline( iif( hb_LeftEq( ::cFilename, "cl" ), hb_StrFormat( I_( "%1$s (%2$s)" ), I_( "Source code" ), "Harbour" ), I_( "Source code" ) ) )
+               ::AppendInline( iif( hb_LeftEq( ::cFilename, "cl" ), I_( "Harbour implementation" ), I_( "Source code" ) ) )
                ::CloseTagInline( "a" )
             ENDIF
          ELSE
@@ -543,7 +548,7 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
    RETURN Self
 
 /* Try to locate original source code based on the source filename of the doc. */
-STATIC FUNCTION SourceURL( cEntry, cComponent, cTemplate )
+STATIC FUNCTION SourceURL( cEntry, cComponent, cTemplate, /* @ */ cRedir )
 
    LOCAL tmp
 
@@ -556,7 +561,7 @@ STATIC FUNCTION SourceURL( cEntry, cComponent, cTemplate )
    cComponent := hb_HGetDef( { "clc53" => "harbour", "clct3" => "hbct" }, cComponent, cComponent )
 
    IF hb_BRight( cEntry, 2 ) == "()" .AND. ;
-      ! HB_ISNULL( tmp := hbdoc_SymbolSource( iif( cComponent == "harbour", "src", "contrib/" + cComponent ), hb_StrShrink( cEntry, 2 ) ) )
+      ! HB_ISNULL( tmp := hbdoc_SymbolSource( iif( cComponent == "harbour", "src", "contrib/" + cComponent ), hb_StrShrink( cEntry, 2 ), @cRedir ) )
       RETURN tmp
    ENDIF
 
@@ -877,8 +882,6 @@ METHOD CloseTag( cText ) CLASS GenerateHTML
 
    RETURN Self
 
-#define _RESULT_ARROW  "→"
-
 STATIC FUNCTION StrSYNTAX( cString )
 
    STATIC s_html := { ;
@@ -1051,7 +1054,7 @@ METHOD AppendInline( cText, cFormat, lCode, cField, cID ) CLASS GenerateHTML
       ENDIF
 
       IF !( "|" + hb_defaultValue( cField, "" ) + "|" $ "||NAME|ONELINER|" )
-         cText := AutoLink( ::hHBX, cText, ::cFilename, s_cRevision, ::hNameIDM, ::cLang, lCode, cID )
+         cText := AutoLink( cText, ::cFilename, s_cRevision, ::hNameIDM, ::cLang, lCode, cID )
 #if 0
          IF ! lCode .AND. "( " $ cText
             FOR EACH tmp1 IN en_hb_regexAll( "([a-zA-Z0-9]+)\( ", cText,,,,, .F. )
@@ -1137,7 +1140,7 @@ STATIC FUNCTION SymbolToHTMLID( cID )
 #define R_( x )  ( x )
 
 /* Based on FixFuncCase() in hbmk2 */
-STATIC FUNCTION AutoLink( hHBX, cFile, cComponent, cRevision, hNameIDM, cLang, lCodeAlready, cID )
+STATIC FUNCTION AutoLink( cFile, cComponent, cRevision, hNameIDM, cLang, lCodeAlready, cID )
 
    LOCAL match
    LOCAL cProper
@@ -1158,7 +1161,7 @@ STATIC FUNCTION AutoLink( hHBX, cFile, cComponent, cRevision, hNameIDM, cLang, l
          nShift := 0
          FOR EACH match IN en_hb_regexAll( R_( "([A-Za-z] |[^A-Za-z_:]|^)([A-Za-z_][A-Za-z0-9_]+\(\))" ), cFile,,,,, .F. )
             IF Len( match[ 2 ][ _MATCH_cStr ] ) != 2 .OR. !( Left( match[ 2 ][ _MATCH_cStr ], 1 ) $ "D" /* "METHOD" */ )
-               cProper := ProperCase( hHBX, hb_StrShrink( match[ 3 ][ _MATCH_cStr ], 2 ), @lFound ) + "()"
+               cProper := ProperCase( hb_StrShrink( match[ 3 ][ _MATCH_cStr ], 2 ), @lFound ) + "()"
                IF cProper $ hNameIDM[ cLangOK := cLang ] .OR. ;
                   iif( cLang == "en", .F., cProper $ hNameIDM[ cLangOK := "en" ] )
 
@@ -1253,6 +1256,3 @@ STATIC FUNCTION en_hb_regexAll( ... )
    hb_cdpSelect( cOldCP )
 
    RETURN aMatch
-
-STATIC FUNCTION ProperCase( hHBX, cName, /* @ */ lFound )
-   RETURN iif( lFound := ( cName $ hHBX ), hb_HKeyAt( hHBX, hb_HPos( hHBX, cName ) ), cName )

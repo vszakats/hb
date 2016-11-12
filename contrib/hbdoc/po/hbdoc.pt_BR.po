@@ -159,6 +159,10 @@ msgid "%1$s (%2$s)"
 msgstr "%1$s (%2$s)"
 
 #, c-format
+msgid "Harbour implementation"
+msgstr "implementação Harbour"
+
+#, c-format
 msgid "Source code"
 msgstr "Código fonte"
 
