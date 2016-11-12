@@ -1,10 +1,10 @@
 /* $DOC$
    $TEMPLATE$
-      Command
+      Statement
    $NAME$
       FIELD
    $CATEGORY$
-      Command
+      Statement
    $SUBCATEGORY$
       RDD
    $ONELINER$
@@ -53,11 +53,11 @@
 
 /* $DOC$
    $TEMPLATE$
-      Command
+      Statement
    $NAME$
       LOCAL
    $CATEGORY$
-      Command
+      Statement
    $SUBCATEGORY$
       Variable management
    $ONELINER$
@@ -118,11 +118,11 @@
 
 /* $DOC$
    $TEMPLATE$
-      Command
+      Statement
    $NAME$
       MEMVAR
    $CATEGORY$
-      Command
+      Statement
    $SUBCATEGORY$
       Variable management
    $ONELINER$
@@ -134,13 +134,13 @@
    $DESCRIPTION$
       This command tells the compiler to resolve any reference to a memory
       variable designated within this list s if it possessed an explicit
-      memory variable alias with either the M-> or MEMVAR-> prefix.Only
+      memory variable alias with either the `M->` or `MEMVAR->` prefix. Only
       those memory variables that do not contain any such explicit are
       affected by this command. Those memory variabls within macro
       expansions are not affected by this command.
 
       The MEMVAR declaration must apear before any executable commands;it
-      is similat to the LOCAL, STATIC, FIELD, PARAMETERS, FUNCTION, and
+      is similar to the LOCAL, STATIC, FIELD, PARAMETERS, FUNCTION, and
       PROCEDURE commands statements.
    $EXAMPLES$
       MEMVAR y AS NUMERIC

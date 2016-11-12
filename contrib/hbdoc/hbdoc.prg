@@ -1172,7 +1172,7 @@ FUNCTION NameCanon( cName )
 
    RETURN cName
 
-/* guess if an entry name is code (command, function, operator) */
+/* guess if an entry name is code (command, statement, function, operator) */
 FUNCTION NameIsCode( cName )
    RETURN "(" $ cName .OR. "#" $ cName .OR. Upper( cName ) == cName
 
@@ -1251,6 +1251,7 @@ STATIC FUNCTION GenUniqueID( hUID, cName, cTemplate )
       cResult += "-c"
       EXIT
    CASE "Command"
+   CASE "Statement"
       IF NameIsOperator( cName )
          cResult += "-op"
       ELSE
@@ -1401,6 +1402,7 @@ STATIC PROCEDURE init_Templates()
           "Method" =>, ;
           "Var" => }, ;
       "Command"                   => hSubCategories, ;
+      "Statement"                 => hSubCategories, ;
       /* "Compile time errors"    => { "" => }, */ ;
       "Runtime errors"            => { "" => } }
 
@@ -1467,6 +1469,7 @@ STATIC PROCEDURE init_Templates()
       "C Function"     => { _T, _R+_U, _O+_U, _R, _R, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U }, ;
       "Procedure"      => { _T, _R+_U, _O+_U, _R, _R, _O+_U, _O+_U,     0, _O+_U, _O+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U }, ;
       "Command"        => { _T, _R+_U, _O+_U, _R, _R, _R+_U, _R+_U,  0+_U, _R+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U }, ;
+      "Statement"      => { _T, _R+_U, _O+_U, _R, _R, _R+_U, _R+_U,  0+_U, _R+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U }, ;
       "Class"          => { _T, _R+_U, _O+_U, _R, _R, _R+_U, _R+_U, _R+_U, _R+_U, _R+_U, _O+_U, _O+_U, _O+_U, _O+_U, _P+_O+_U, _P+_O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U, _O+_U }, ;
       "Class method"   => { _T, _R+_U, _O+_U, _R, _R, _R+_U, _R+_U, _R+_U, _R+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U,  0   +_U,  0+_U,  0+_U,  0+_U,  0+_U, _O+_U, _O+_U }, ;
       "Class data"     => { _T, _R+_U, _O+_U, _R, _R, _R+_U,  0+_U,  0+_U, _R+_U, _R+_U,  0+_U,  0+_U,  0+_U,  0+_U, _P+_O+_U,  0   +_U,  0+_U,  0+_U,  0+_U,  0+_U, _O+_U, _O+_U }, ;
