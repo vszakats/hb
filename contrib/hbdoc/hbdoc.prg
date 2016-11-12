@@ -1232,6 +1232,8 @@ STATIC FUNCTION GenUniqueID( hUID, cName, cTemplate )
          cName := "at " + hb_BSubStr( cName, 2 )
       ELSEIF NameIsDirective( cName )
          cName := StrTran( cName, "#", "pp " )
+      ELSEIF ! NameIsOperator( cName )
+         cName := hb_StrReplace( StrTran( cName, " / ", "/" ), ":/", "  " )
       ENDIF
 
       cResult := ""
