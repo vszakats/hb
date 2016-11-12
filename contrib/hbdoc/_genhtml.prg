@@ -508,7 +508,7 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
                   ::AppendInline( _RESULT_ARROW + hb_UChar( 160 ) + cRedir )
                   ::CloseTagInline( "code" )
                ENDIF
-               ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "blob/" + s_cRevision + "/" + tmp + "#L" + hb_ntos( nLine ), "class", "d-so", "title", tmp )
+               ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "blob/" + s_cRevision + "/" + tmp + iif( nLine != 0, "#L" + hb_ntos( nLine ), "" ), "class", "d-so", "title", tmp )
                ::AppendInline( iif( hb_LeftEq( ::cFilename, "cl" ), I_( "Harbour implementation" ), I_( "Source code" ) ) )
                ::CloseTagInline( "a" )
             ENDIF
@@ -555,6 +555,8 @@ STATIC FUNCTION SourceURL( cEntry, cComponent, cTemplate, /* @ */ nLine, /* @ */
    IF cTemplate == "Command" .AND. ;
       ! NameIsOperator( cEntry ) .AND. ;
       ! NameIsDirective( cEntry )
+      nLine := 0
+      cRedir := NIL
       RETURN "include/std.ch"
    ENDIF
 
