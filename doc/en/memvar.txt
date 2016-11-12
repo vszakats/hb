@@ -139,7 +139,7 @@
       affected by this command. Those memory variabls within macro
       expansions are not affected by this command.
 
-      The MEMVAR declaration must apear before any executable commands;it
+      The MEMVAR declaration must apear before any executable commands; it
       is similar to the LOCAL, STATIC, FIELD, PARAMETERS, FUNCTION, and
       PROCEDURE commands statements.
    $EXAMPLES$

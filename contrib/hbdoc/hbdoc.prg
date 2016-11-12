@@ -1589,11 +1589,11 @@ STATIC FUNCTION LoadHBX( cFileName, hAll )
 FUNCTION ProperCase( cName, /* @ */ lFound )
    RETURN iif( lFound := ( cName $ s_hHBX ), hb_HKeyAt( s_hHBX, hb_HPos( s_hHBX, cName ) ), cName )
 
-FUNCTION hbdoc_SymbolSource( cDir, cName, /* @ */ cRedir )
+FUNCTION hbdoc_SymbolSource( cDir, cName, /* @ */ nLine, /* @ */ cRedir )
 
    STATIC s_hSymb := { => }
 
-   LOCAL pRegex, file, hit, hSymb, cMask, result, cAlias
+   LOCAL pRegex, file, hit, hSymb, cMask, result, cAlias, cFile, nPos
 
    cDir := hb_DirSepAdd( cDir )
 
@@ -1610,18 +1610,20 @@ FUNCTION hbdoc_SymbolSource( cDir, cName, /* @ */ cRedir )
                IF ! "|" + hb_FNameNameExt( file[ F_NAME ] ) + "|" $ '|nulsys.c|tscalar.prg|' .AND. ;
                   ! "obj" + hb_ps() $ file[ F_NAME ] .AND. ;
                   ! "tests" + hb_ps() $ file[ F_NAME ]
-                  FOR EACH hit IN hb_regexAll( pRegex, hb_MemoRead( s_hSwitches[ "dir_in" ] + cDir + file[ F_NAME ] ),,,,, .T. )
-                     IF hb_LeftEq( hit[ 1 ], "HB_FUNC_TRANSLATE" )
-                        cAlias := hit[ 4 ]
-                        hit := hb_asciiUpper( hit[ 3 ] )
+                  FOR EACH hit IN hb_regexAll( pRegex, cFile := hb_MemoRead( s_hSwitches[ "dir_in" ] + cDir + file[ F_NAME ] ),,,,, .F. )
+                     IF hb_LeftEq( hit[ 1 ][ 1 ], "HB_FUNC_TRANSLATE" )
+                        cAlias := hit[ 4 ][ 1 ]
+                        nPos := hit[ 3 ][ 2 ]
+                        hit := hb_asciiUpper( hit[ 3 ][ 1 ] )
                      ELSE
                         cAlias := NIL
-                        hit := hb_asciiUpper( ATail( hit ) )
+                        nPos := ATail( hit )[ 2 ]
+                        hit := hb_asciiUpper( ATail( hit )[ 1 ] )
                      ENDIF
                      IF ! hit $ s_hSymb
-                        hSymb[ hit ] := cDir + file[ F_NAME ]
+                        hSymb[ hit ] := { cDir + file[ F_NAME ], gt_ChrCount( Chr( 10 ), hb_BLeft( cFile, nPos ) ) + 1 }
                         IF cAlias != NIL
-                           hSymb[ hit ] := { hSymb[ hit ], cAlias }
+                           AAdd( hSymb[ hit ], cAlias )
                         ENDIF
                      ENDIF
                   NEXT
@@ -1635,12 +1637,15 @@ FUNCTION hbdoc_SymbolSource( cDir, cName, /* @ */ cRedir )
       ENDIF
    ENDIF
 
-   IF HB_ISARRAY( result := hb_HGetDef( s_hSymb[ cDir ], hb_asciiUpper( cName ), "" ) )
-      result := hb_HGetDef( s_hSymb[ cDir ], cRedir := result[ 2 ], "" )
+   IF Len( result := hb_HGetDef( s_hSymb[ cDir ], hb_asciiUpper( cName ), { "", 0 } ) ) > 2
+      result := hb_HGetDef( s_hSymb[ cDir ], cRedir := result[ 3 ], { "", 0 } )
       cRedir := ProperCase( cRedir ) + "()"
    ELSE
       cRedir := NIL
    ENDIF
+
+   nLine := result[ 2 ]
+   result := result[ 1 ]
 
    RETURN result
 

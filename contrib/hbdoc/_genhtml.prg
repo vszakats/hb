@@ -485,7 +485,7 @@ METHOD AddReference( hEntry, cReference, cSubReference ) CLASS GenerateHTML
 METHOD AddEntry( hEntry ) CLASS GenerateHTML
 
    LOCAL item
-   LOCAL cEntry, cRedir
+   LOCAL cEntry, nLine, cRedir
    LOCAL tmp
 
    ::Spacer()
@@ -502,13 +502,13 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
             /* Link to original source code if it could be automatically found based
                on doc source filename */
             IF ! hb_LeftEq( ::cFilename, "--cl" ) .AND. ;
-               ! HB_ISNULL( tmp := SourceURL( NameCanon( cEntry ), ::cFilename, hEntry[ "TEMPLATE" ], @cRedir ) )
+               ! HB_ISNULL( tmp := SourceURL( NameCanon( cEntry ), ::cFilename, hEntry[ "TEMPLATE" ], @nLine, @cRedir ) )
                IF cRedir != NIL
                   ::OpenTagInline( "code", "class", "d-so" )
                   ::AppendInline( _RESULT_ARROW + hb_UChar( 160 ) + cRedir )
                   ::CloseTagInline( "code" )
                ENDIF
-               ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "blob/" + s_cRevision + "/" + tmp, "class", "d-so", "title", tmp )
+               ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "blob/" + s_cRevision + "/" + tmp + "#L" + hb_ntos( nLine ), "class", "d-so", "title", tmp )
                ::AppendInline( iif( hb_LeftEq( ::cFilename, "cl" ), I_( "Harbour implementation" ), I_( "Source code" ) ) )
                ::CloseTagInline( "a" )
             ENDIF
@@ -548,7 +548,7 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
    RETURN Self
 
 /* Try to locate original source code based on the source filename of the doc. */
-STATIC FUNCTION SourceURL( cEntry, cComponent, cTemplate, /* @ */ cRedir )
+STATIC FUNCTION SourceURL( cEntry, cComponent, cTemplate, /* @ */ nLine, /* @ */ cRedir )
 
    LOCAL tmp
 
@@ -561,7 +561,7 @@ STATIC FUNCTION SourceURL( cEntry, cComponent, cTemplate, /* @ */ cRedir )
    cComponent := hb_HGetDef( { "clc53" => "harbour", "clct3" => "hbct" }, cComponent, cComponent )
 
    IF hb_BRight( cEntry, 2 ) == "()" .AND. ;
-      ! HB_ISNULL( tmp := hbdoc_SymbolSource( iif( cComponent == "harbour", "src", "contrib/" + cComponent ), hb_StrShrink( cEntry, 2 ), @cRedir ) )
+      ! HB_ISNULL( tmp := hbdoc_SymbolSource( iif( cComponent == "harbour", "src", "contrib/" + cComponent ), hb_StrShrink( cEntry, 2 ), @nLine, @cRedir ) )
       RETURN tmp
    ENDIF
 
