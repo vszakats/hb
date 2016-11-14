@@ -1258,10 +1258,10 @@ STATIC FUNCTION AutoLink( cFile, cComponent, cRevision, hNameIDM, cLang, lCodeAl
             cName := match[ HIT ][ _MATCH_cStr ]
             IF ( hb_BLen( cName ) > 3 .OR. "|" + cName + "|" $ "|ON|OFF|SET|USE|ZAP|SAY|RUN|NUL|NIL|ALL|IF|GO|TO|GET|VAR|SUM|DIR|DO|FOR|NEW|KEY|" ) .AND. ;
                ! "|" + cName + "|" $ "|ANSI|ASCII|JPEG|WBMP|NOTE|INET|TODO|CMOS|ATTENTION|DOUBLE|NUMBER|DATE|CHARACTER|LOGICAL|WARNING|TRUE|FALSE|PLUS|NETBIOS|IPX|SPX|IPX/SPX|III PLUS|I/O|CR/LF|CCITT|ISDN|X.25|BIOS|UDF|IRQ|"
-IF hb_lefteq( ccomponent, "harbour" )
-? "|" + cName + "|"
-endif
 #if 0
+               IF hb_LeftEq( cComponent, "harbour" )
+                  ? "|" + cName + "|"
+               ENDIF
                cTag := "<code style=" + '"' + "background-color: #f00;" + '"' + ">" + cName + "</code>"
 #else
                cTag := CODEINLINE + cName + "</code>"
