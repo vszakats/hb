@@ -1607,7 +1607,7 @@ FUNCTION hbdoc_SymbolSource( cDir, cName, /* @ */ nLine, /* @ */ cRedir )
 
          FOR EACH cMask IN { "*.prg", "*.c" }
             FOR EACH file IN hb_DirScan( s_hSwitches[ "dir_in" ] + cDir, cMask )
-               IF ! "|" + hb_FNameNameExt( file[ F_NAME ] ) + "|" $ '|nulsys.c|tscalar.prg|' .AND. ;
+               IF ! "|" + hb_FNameNameExt( file[ F_NAME ] ) + "|" $ '|nulsys.c|tscalar.prg|dummy.c|' .AND. ;
                   ! "obj" + hb_ps() $ file[ F_NAME ] .AND. ;
                   ! "tests" + hb_ps() $ file[ F_NAME ]
                   FOR EACH hit IN hb_regexAll( pRegex, cFile := hb_MemoRead( s_hSwitches[ "dir_in" ] + cDir + file[ F_NAME ] ),,,,, .F. )
