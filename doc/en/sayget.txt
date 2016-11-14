@@ -80,7 +80,9 @@
       area (row = 0, col = 60). The RANGE message may be turned off it the
       `SET SCOREBOARD` command or Set() function appropriately toggled.
 
-      NOTE       GET functions/formatting rules:
+   $NOTES$
+
+      GET functions/formatting rules:
 
       <table-noheader>
       @A          Allows only alphabetic characters.

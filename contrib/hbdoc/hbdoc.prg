@@ -344,7 +344,7 @@ PROCEDURE Main()
 
                         IF oIndex != NIL
                            cCat1 := item[ "CATEGORY" ]
-                           IF cCat1Prev == NIL .OR. !( cCat1 == cCat1Prev )
+                           IF cCat1Prev == NIL .OR. ! cCat1 == cCat1Prev
                               IF cCat1Prev != NIL
                                  oIndex:EndSection()
                               ENDIF
@@ -353,7 +353,7 @@ PROCEDURE Main()
                            ENDIF
 
                            cCat2 := item[ "SUBCATEGORY" ]
-                           IF cCat2Prev == NIL .OR. !( cCat2 == cCat2Prev )
+                           IF cCat2Prev == NIL .OR. ! cCat2 == cCat2Prev
 // #define SUBCAT_INDENT
 #ifdef SUBCAT_INDENT
                               IF cCat2Prev != NIL
@@ -427,7 +427,7 @@ STATIC PROCEDURE UseLang( cLang )
 
    LOCAL tmp, tmp1, tmp2
 
-   IF !( s_cLangLast == cLang )
+   IF ! s_cLangLast == cLang
       s_cLangLast := cLang
       IF Lower( cLang ) == "en"
          hb_i18n_Set( NIL )
@@ -542,8 +542,8 @@ STATIC PROCEDURE ProcessDirs( hDoc, hAll )
 
          FOR EACH file IN hb_DirScan( cDir,, "D" )
             IF file[ F_ATTR ] == "D" .AND. ;
-               !( hb_FNameName( hb_DirSepDel( file[ F_NAME ] ) ) == "." ) .AND. ;
-               !( hb_FNameName( hb_DirSepDel( file[ F_NAME ] ) ) == ".." )
+               ! hb_FNameName( hb_DirSepDel( file[ F_NAME ] ) ) == "." .AND. ;
+               ! hb_FNameName( hb_DirSepDel( file[ F_NAME ] ) ) == ".."
 
                DirLoadHBX( cDir + hb_ps() + file[ F_NAME ], hAll )
 
@@ -640,13 +640,13 @@ STATIC FUNCTION NewLineVoodoo( cSectionIn )
          IF lPreformatted .AND. ! lTable
             cSection += Chr( 10 ) + Chr( 10 )
          ELSE
-            IF !( hb_BRight( cSection, 1 ) == Chr( 10 ) )
+            IF ! hb_BRight( cSection, 1 ) == Chr( 10 )
                cSection += Chr( 10 )
             ENDIF
             nLastIndent := -1
          ENDIF
       ELSEIF hb_LeftEq( AllTrim( cLine ), "<table" ) .OR. AllTrim( cLine ) == "<fixed>" .OR. ( hb_LeftEq( AllTrim( cLine ), '```' ) .AND. ! lPreformatted )
-         IF !( hb_BRight( cSection, 1 ) == Chr( 10 ) ) .OR. lPreformatted
+         IF ! hb_BRight( cSection, 1 ) == Chr( 10 ) .OR. lPreformatted
             cSection += Chr( 10 )
          ENDIF
          IF AllTrim( cLine ) == "<fixed>" .OR. hb_LeftEq( AllTrim( cLine ), '```' )
@@ -660,7 +660,7 @@ STATIC FUNCTION NewLineVoodoo( cSectionIn )
          lPreformatted := .T.
          lTable := hb_LeftEq( AllTrim( cLine ), "<table" )
       ELSEIF AllTrim( cLine ) == "</table>" .OR. AllTrim( cLine ) == "</fixed>" .OR. ( hb_LeftEq( AllTrim( cLine ), '```' ) .AND. lPreformatted )
-         IF !( hb_BRight( cSection, 1 ) == Chr( 10 ) ) .OR. lPreformatted
+         IF ! hb_BRight( cSection, 1 ) == Chr( 10 ) .OR. lPreformatted
             cSection += Chr( 10 )
          ENDIF
          cSection += AllTrim( cLine ) + Chr( 10 )
@@ -668,7 +668,7 @@ STATIC FUNCTION NewLineVoodoo( cSectionIn )
          lTable := lLastTable
       ELSEIF nLastIndent != ( Len( cLine ) - Len( LTrim( cLine ) ) ) .OR. lPreformatted
          nLastIndent := Len( cLine ) - Len( LTrim( cLine ) )
-         IF !( hb_BRight( cSection, 1 ) == Chr( 10 ) )
+         IF ! hb_BRight( cSection, 1 ) == Chr( 10 )
             cSection += Chr( 10 )
          ENDIF
          cSection += iif( lPreformatted, SubStr( cLine, nFixedIndent ), AllTrim( cLine ) )
@@ -1493,7 +1493,7 @@ STATIC PROCEDURE ShowTemplatesHelp( cTemplate )
    LOCAL idx, key, fldkey, hE
    LOCAL aEntry, hEntry
 
-   IF ! Empty( cTemplate ) .AND. !( cTemplate == "Template" )
+   IF ! Empty( cTemplate ) .AND. ! cTemplate == "Template"
       nFrom := nTo := hb_HPos( sc_hTemplates, cTemplate )
       IF nFrom == 0
          ShowHelp( "Unrecognized template '" + cTemplate + "'" )
@@ -1506,7 +1506,7 @@ STATIC PROCEDURE ShowTemplatesHelp( cTemplate )
    FOR idxTemplates := nFrom TO nTo
 
       key := hb_HKeyAt( sc_hTemplates, idxTemplates )
-      IF !( key == "Template" )
+      IF ! key == "Template"
          hE := EntryNew( key )
 
          hEntry := { => }

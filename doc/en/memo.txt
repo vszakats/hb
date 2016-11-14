@@ -96,7 +96,7 @@
    $RETURNS$
       Returns the contents of a text file as a character string.
 
-      If <cFileName> cannot be found or read MEMOREAD returns an empty
+      If <cFileName> cannot be found or read MemoRead() returns an empty
       string ("").
    $DESCRIPTION$
       MemoRead() is a function that reads the content of a text file (till
@@ -164,7 +164,7 @@
    $RETURNS$
       Returns the contents of a text file as a character string.
 
-      If <cFileName> cannot be found or read HB_MEMOREAD returns an empty
+      If <cFileName> cannot be found or read hb_MemoRead() returns an empty
       string ("").
    $DESCRIPTION$
       hb_MemoRead() is a function that reads the content of a text file

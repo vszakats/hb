@@ -1270,13 +1270,13 @@
       used.
 
       If <lShared> is set to a logical true (.T.) value, the database that
-      is specified in <cName> will be opened by the user EXCLUSIVELY. Thus
+      is specified in <cName> will be opened by the user *exclusively*. Thus
       locking it from all other nodes or users on the network. If <lShared>
       is set to a logical false (.F.) value, then the database will be in
       SHARED mode. If <lShared> is not passed, then the function will turn
       to the internal setting of SET EXCLUSIVE to determine a setting.
 
-      If <lReadOnly> is specified, the file will be set to READ ONLY mode.
+      If <lReadOnly> is specified, the file will be set to *read only* mode.
       If it is not specified, the file will he opened in normal read-write
       mode.
    $EXAMPLES$

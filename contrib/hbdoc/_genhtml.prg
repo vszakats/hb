@@ -62,8 +62,23 @@
 
 #define _RESULT_ARROW  "→"
 
+#define R_( x )  ( x )
+
 STATIC s_tDate
 STATIC s_cRevision
+
+/* https://www.debuggex.com/r/4GiNJeVJ_VALmNDk
+   https://regex101.com/r/aS9RYU/2 */
+STATIC sc_cCode := R_( ;
+   "(\s|^|\()" + ;
+   "(" + ;
+      "([A-Z_]{2,}|@)([A-Z0-9_ ]*|(\.\.\.)|(\.\.)|)([A-Z_\/]{2,}|->|-&gt;)|" + ;
+      "[A-Z_]{3,}|" + ;
+      "\.[A-Z]+\.|" + ;
+      "[A-Z\.\\\/][A-Z0-9\.\\\/]+[A-Z0-9\\\/]{1,3}|" + ;
+      "[A-Z_][A-Z0-9_]+" + ;
+   ")" + ;
+   "([\)\.,:;s']|\s|$" + ")" )
 
 CREATE CLASS GenerateHTML INHERIT TPLGenerate
 
@@ -191,11 +206,11 @@ METHOD NewFile() CLASS GenerateHTML
    ::Spacer()
 
    ::OpenTag( "header" )
+   ::cFile += hb_MemoRead( hbdoc_dir_in() + hb_DirSepToOS( "docs/images/" + "harbour-nofill.svg" ) )
    ::OpenTag( "div" )
 
    ::OpenTagInline( "div" )
    ::OpenTagInline( "a", "href", "index.html" )
-   ::cFile += hb_MemoRead( hbdoc_dir_in() + hb_DirSepToOS( "docs/images/" + "harbour-nofill.svg" ) )
    ::AppendInline( cBaseTitle )
    ::CloseTagInline( "a" )
    ::CloseTag( "div" )
@@ -578,7 +593,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS Genera
       "EXAMPLES" => "d-ex", ;
       "TESTS"    => "d-te" }
 
-   STATIC s_cAddP := "DESCRIPTION|"
+   STATIC s_cAddP := "DESCRIPTION|NOTES|"
 
    LOCAL cTagClass
    LOCAL cCaption
@@ -962,7 +977,7 @@ METHOD AppendInline( cText, cFormat, lCode, cField, cID ) CLASS GenerateHTML
                tmp1 := SubStr( cText, tmp + 1, tmp1 - tmp - 1 )
                tmp += Len( tmp1 ) + 1
                cChar := "<a href=" + '"' + tmp1 + '"' + ">" + tmp1 + "</a>"
-            CASE ! lPR .AND. cChar == "*" .AND. !( cNext == "*" ) .AND. ! lEM .AND. ;
+            CASE ! lPR .AND. cChar == "*" .AND. ! cNext == "*" .AND. ! lEM .AND. ;
                  iif( lST, ! MDSpace( cPrev ) .AND. MDSpace( cNext ), MDSpace( cPrev ) .AND. ! MDSpace( cNext ) )
                lST := ! lST
                IF lST
@@ -1050,7 +1065,7 @@ METHOD AppendInline( cText, cFormat, lCode, cField, cID ) CLASS GenerateHTML
             cOut := Stuff( cOut, nST, Len( "<strong>" ), "*" )
          ENDIF
          IF lEM
-            cOut := Stuff( cOut, nEM, Len( "<i>" ), "_" )
+            cOut := Stuff( cOut, nEM, Len( "<em>" ), "_" )
          ENDIF
 
          cText := cOut
@@ -1058,7 +1073,7 @@ METHOD AppendInline( cText, cFormat, lCode, cField, cID ) CLASS GenerateHTML
          hb_cdpSelect( cdp )
       ENDIF
 
-      IF !( "|" + hb_defaultValue( cField, "" ) + "|" $ "||NAME|ONELINER|" )
+      IF ! "|" + hb_defaultValue( cField, "" ) + "|" $ "||NAME|ONELINER|"
          cText := AutoLink( cText, ::cFilename, s_cRevision, ::hNameIDM, ::cLang, lCode, cID )
 #if 0
          IF ! lCode .AND. "( " $ cText
@@ -1142,8 +1157,6 @@ STATIC FUNCTION SymbolToHTMLID( cID )
 
    RETURN hb_StrReplace( cID, s_conv )
 
-#define R_( x )  ( x )
-
 /* Based on FixFuncCase() in hbmk2 */
 STATIC FUNCTION AutoLink( cFile, cComponent, cRevision, hNameIDM, cLang, lCodeAlready, cID )
 
@@ -1156,7 +1169,7 @@ STATIC FUNCTION AutoLink( cFile, cComponent, cRevision, hNameIDM, cLang, lCodeAl
 
    HB_SYMBOL_UNUSED( cLang )
 
-   IF !( cComponent == "index" )
+   IF ! cComponent == "index"
 
       #define _MATCH_cStr    1
       #define _MATCH_nStart  2
@@ -1165,7 +1178,7 @@ STATIC FUNCTION AutoLink( cFile, cComponent, cRevision, hNameIDM, cLang, lCodeAl
       IF ! lCodeAlready
          nShift := 0
          FOR EACH match IN en_hb_regexAll( R_( "([A-Za-z] |[^A-Za-z_:]|^)([A-Za-z_][A-Za-z0-9_]+\(\))" ), cFile,,,,, .F. )
-            IF Len( match[ 2 ][ _MATCH_cStr ] ) != 2 .OR. !( Left( match[ 2 ][ _MATCH_cStr ], 1 ) $ "D" /* "METHOD" */ )
+            IF Len( match[ 2 ][ _MATCH_cStr ] ) != 2 .OR. ! Left( match[ 2 ][ _MATCH_cStr ], 1 ) $ "D" /* "METHOD" */
                cProper := ProperCase( hb_StrShrink( match[ 3 ][ _MATCH_cStr ], 2 ), @lFound ) + "()"
                IF cProper $ hNameIDM[ cLangOK := cLang ] .OR. ;
                   iif( cLang == "en", .F., cProper $ hNameIDM[ cLangOK := "en" ] )
@@ -1200,9 +1213,9 @@ STATIC FUNCTION AutoLink( cFile, cComponent, cRevision, hNameIDM, cLang, lCodeAl
       ENDIF
 
       nShift := 0
-      FOR EACH match IN en_hb_regexAll( R_( " ([A-Za-z0-9_/]+\.[a-z]{1,3})([^A-Za-z0-9]|$)" ), cFile,,,,, .F. )
+      FOR EACH match IN en_hb_regexAll( R_( " ([A-Za-z0-9_/]+\.[A-Za-z]{1,3})([^A-Za-z0-9]|$)" ), cFile,,,,, .F. )
          cName := match[ 2 ][ _MATCH_cStr ]
-         cTag := "|" + hb_FNameExt( cName ) + "|"
+         cTag := "|" + hb_asciiLower( hb_FNameExt( cName ) ) + "|"
          IF hb_BLen( cTag ) >= 2 + 3 .OR. cTag $ "|.c|.h|"
             IF cTag $ "|.ch|.h|.c|.txt|.prg|"
                IF cComponent == "harbour"
@@ -1211,12 +1224,13 @@ STATIC FUNCTION AutoLink( cFile, cComponent, cRevision, hNameIDM, cLang, lCodeAl
                   ELSE
                      cTag := ""
                   ENDIF
-                  cTag += cName
+                  cTag += hb_asciiLower( cName )
                ELSE
-                  cTag := "contrib/" + cComponent + "/" + cName
+                  cTag := "contrib/" + iif( cComponent == "clct3", "hbct", cComponent ) + "/" + hb_asciiLower( cName )
                ENDIF
                IF hb_FileExists( hbdoc_dir_in() + cTag ) .OR. ;
-                  hb_FileExists( hbdoc_dir_in() + ( cTag := "include/" + cName ) )
+                  hb_FileExists( hbdoc_dir_in() + ( cTag := "include/" + hb_asciiLower( cName ) ) )
+                  cName := hb_asciiLower( cName )
 #if 0
                   /* link to the most-recent version */
                   cTag := "<a href=" + '"' + hb_Version( HB_VERSION_URL_BASE ) + "tree/master/" + Lower( cTag ) + '"' + ">" + cName + "</a>"
@@ -1239,12 +1253,20 @@ STATIC FUNCTION AutoLink( cFile, cComponent, cRevision, hNameIDM, cLang, lCodeAl
 
       IF ! lCodeAlready
          nShift := 0
-         FOR EACH match IN en_hb_regexAll( R_( "( |^)([A-Z_][A-Z0-9_]+)([^A-Z0-9_]|$)" ), cFile,,,,, .F. )
-            cName := match[ 3 ][ _MATCH_cStr ]
-            IF ( hb_BLen( cName ) > 3 .OR. "|" + cName + "|" $ "|ON|OFF|SET|USE|ZAP|SAY|RUN|NUL|NIL|ALL|TO|GET|VAR|SUM|DIR|DO|FOR|NEW|" ) .AND. ;
-               !( "|" + cName + "|" $ "|ANSI|ASCII|JPEG|WBMP|NOTE|INET|TODO|CMOS|ATTENTION|DOUBLE|NUMBER|DATE|CHARACTER|LOGICAL|WARNING|TRUE|FALSE|PLUS|" )
+         FOR EACH match IN en_hb_regexAll( sc_cCode, cFile,,,,, .F. )
+            #define HIT  3
+            cName := match[ HIT ][ _MATCH_cStr ]
+            IF ( hb_BLen( cName ) > 3 .OR. "|" + cName + "|" $ "|ON|OFF|SET|USE|ZAP|SAY|RUN|NUL|NIL|ALL|IF|GO|TO|GET|VAR|SUM|DIR|DO|FOR|NEW|KEY|" ) .AND. ;
+               ! "|" + cName + "|" $ "|ANSI|ASCII|JPEG|WBMP|NOTE|INET|TODO|CMOS|ATTENTION|DOUBLE|NUMBER|DATE|CHARACTER|LOGICAL|WARNING|TRUE|FALSE|PLUS|NETBIOS|IPX|SPX|IPX/SPX|III PLUS|I/O|CR/LF|CCITT|ISDN|X.25|BIOS|UDF|IRQ|"
+IF hb_lefteq( ccomponent, "harbour" )
+? "|" + cName + "|"
+endif
+#if 0
+               cTag := "<code style=" + '"' + "background-color: #f00;" + '"' + ">" + cName + "</code>"
+#else
                cTag := CODEINLINE + cName + "</code>"
-               cFile := hb_BLeft( cFile, match[ 3 ][ _MATCH_nStart ] - 1 + nShift ) + cTag + hb_BSubStr( cFile, match[ 3 ][ _MATCH_nEnd ] + 1 + nShift )
+#endif
+               cFile := hb_BLeft( cFile, match[ HIT ][ _MATCH_nStart ] - 1 + nShift ) + cTag + hb_BSubStr( cFile, match[ HIT ][ _MATCH_nEnd ] + 1 + nShift )
                nShift += Len( cTag ) - Len( cName )
             ENDIF
          NEXT
@@ -1261,3 +1283,40 @@ STATIC FUNCTION en_hb_regexAll( ... )
    hb_cdpSelect( cOldCP )
 
    RETURN aMatch
+
+/*
+abcd ASCII)
+abcd @...SAY abcd
+abcd SET TO abcd
+abcd OFF abcd
+abcd SET DELIM OFF
+abcd SET DELIM OFF abcd
+abcd ASCII 12)
+dkdd GET CLEAR (B) abcd
+abcd dCASE BBB PLUS abcd
+abcd OFF.
+abcd OFF, abcd
+abcd GET's abcd
+abcd MESSAGEs abcd
+abcd ABC_VIDEO_GPU_640_480_16 abcd
+abcd TEXT...ENDTEXT abcd
+abcd @..GET abcd
+abcd HELLO abcd
+abcd MIRROR. Abcd
+abcd A HELLO abcd
+abcd .AND. abcd
+abcd .T. abcd
+abcd NIX Error. Abcd
+abcd (MEMVAR->). abcd
+abcd (MEMVAR-&gt;). abcd
+abcd MEMVAR-&gt; abce
+abcd MEMVAR-> Abcd
+abcd EF.CH abcd
+abcd /EXAMPLE.PRG abcd
+abcd PROD30\INCLUDE abcde
+abcd .BIN abcd
+abcd 100 abcd
+abcd HALLO() abcd
+abcd TO abcd
+abcd AB-Chopper abcd
+*/
