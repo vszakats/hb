@@ -505,10 +505,11 @@ STATIC FUNCTION SortWeightTOC( cString )
 
    SWITCH cString
    CASE "Document"
-   CASE "Intro"     ; RETURN "A"
+   CASE "Intro"
+   CASE "Introduction" ; RETURN "A"
    CASE "Table"
-   CASE "Appendix"  ; RETURN "Z"
-   CASE "Copyright" ; RETURN "0"
+   CASE "Appendix"     ; RETURN "Z"
+   CASE "Copyright"    ; RETURN "0"
    ENDSWITCH
 
    RETURN "B"
@@ -516,10 +517,11 @@ STATIC FUNCTION SortWeightTOC( cString )
 STATIC FUNCTION SortWeight( cString )
 
    SWITCH cString
-   CASE "Document" ; RETURN Chr( 31 ) + "001" + cString  /* category */
-   CASE "Intro"    ; RETURN Chr( 31 ) + "001" + cString  /* subcategory */
-   CASE "License"  ; RETURN Chr( 31 ) + "002" + cString  /* subcategory */
-   CASE "Compiler" ; RETURN Chr( 31 ) + "003" + cString  /* subcategory */
+   CASE "Document"     ; RETURN Chr( 31 ) + "001" + cString  /* category */
+   CASE "Intro"        ; RETURN Chr( 31 ) + "001" + cString  /* subcategory */
+   CASE "Introduction" ; RETURN Chr( 31 ) + "001" + cString  /* subcategory */
+   CASE "License"      ; RETURN Chr( 31 ) + "002" + cString  /* subcategory */
+   CASE "Compiler"     ; RETURN Chr( 31 ) + "003" + cString  /* subcategory */
    ENDSWITCH
 
    RETURN cString
