@@ -212,7 +212,7 @@ more) modules.
 
 Regression test framework
 
-## hbtip
+## hbtip (*deprecated*, use `hbcurl` instead)
 
 Object-oriented internet protocol library, written in Harbour. Supports HTTP,
 HTTPS, SMTP, SMTPS, POP3, FTP and more.
