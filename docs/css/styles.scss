@@ -69,25 +69,11 @@ footer {
   clear: left;
 }
 
-main {
-  background-color: $color-bk-main;
-  color: $color-main;
-  border: 0;
-  border-spacing: 0;
-  margin: auto;
-  margin-top: 15px;
-  padding: 0;
-  width: $content-fill;
-}
-
 body {
   background: $color-bk-footer;
   border: none;
   margin: 0;
   padding: 0;
-}
-
-.hbsite {
   background-color: $color-bk-border;
   font: 16px $font-main;
   line-height: 150%;
@@ -98,7 +84,15 @@ body {
 {% endif %}
 }
 
-body {
+main {
+  background-color: $color-bk-main;
+  color: $color-main;
+  border: 0;
+  border-spacing: 0;
+  margin: auto;
+  margin-top: 15px;
+  padding: 0;
+  width: $content-fill;
 }
 
 hr {

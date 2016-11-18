@@ -1,125 +1,124 @@
 <body>
 
-<div class="hbsite">
-  <header>
-    <div class="banner">
-      <div class="header-version header-version-narrow">{{ site.badge_version }}</div>
-      <div class="header-logo">
-        <a href="{{ site.baseurl }}/">
-          <img src="{{ site.baseurl }}/images/harbour.svg" alt="Harbour Logo" height="122">
-        </a>
-      </div>
-      <div class="header-text">
-         <div class="header-text-content">
-           <span class="header-text-headline">Harbour.</span><br>
-           The Cross-Platform xBase.
-           <div class="header-version header-version-full">{{ site.badge_version }}</div>
-         </div>
-      </div>
+<header>
+  <div class="banner">
+    <div class="header-version header-version-narrow">{{ site.badge_version }}</div>
+    <div class="header-logo">
+      <a href="{{ site.baseurl }}/">
+        <img src="{{ site.baseurl }}/images/harbour.svg" alt="Harbour Logo" height="122">
+      </a>
     </div>
+    <div class="header-text">
+       <div class="header-text-content">
+         <span class="header-text-headline">Harbour.</span><br>
+         The Cross-Platform xBase.
+         <div class="header-version header-version-full">{{ site.badge_version }}</div>
+       </div>
+    </div>
+  </div>
 
-    <nav class="menu">
+  <nav class="menu">
 
-      <nav class="dropdown">
-        <a class="dropbtn" href="{{ site.baseurl }}/about">
-        <i class="fa fa-comment-o" aria-hidden="true"></i><br><span class="menu-text">About</span></a>
-        <nav class="dropdown-content">
-          <a href="{{ site.baseurl }}/about">About Harbour</a>
-          <hr>
-          <a href="https://raw.githubusercontent.com/{{ site.repo_slug }}/master/{{ site.license_file }}">License</a>
-          <a href="{{ site.baseurl }}/terms">Terms of Service</a>
-          <a href="{{ site.baseurl }}/contact">Contact</a>
-        </nav>
+    <nav class="dropdown">
+      <a class="dropbtn" href="{{ site.baseurl }}/about">
+      <i class="fa fa-comment-o" aria-hidden="true"></i><br><span class="menu-text">About</span></a>
+      <nav class="dropdown-content">
+        <a href="{{ site.baseurl }}/about">About Harbour</a>
+        <hr>
+        <a href="https://raw.githubusercontent.com/{{ site.repo_slug }}/master/{{ site.license_file }}">License</a>
+        <a href="{{ site.baseurl }}/terms">Terms of Service</a>
+        <a href="{{ site.baseurl }}/contact">Contact</a>
       </nav>
+    </nav>
 
-      <nav class="dropdown">
-        <a class="dropbtn" href="https://harbour.github.io/doc/">
-        <i class="fa fa-book" aria-hidden="true"></i><br><span class="menu-text">Documentation</span></a>
-        <nav class="dropdown-content">
-          <a href="https://github.com/{{ site.repo_slug }}/#readme">README</a>
-          <a href="{{ site.baseurl }}/changelog">ChangeLog</a>
-          <a href="https://github.com/{{ site.repo_slug }}/blob/master/utils/hbmk2/doc/hbmk2.en.md">Build Tool · hbmk2</a>
-          <a href="https://github.com/{{ site.repo_slug }}/blob/master/contrib/hbrun/doc/hbrun.en.md">Runner · hbrun</a>
-          <a href="https://harbour.github.io/doc/" class="updated">Reference Guides</a>
-          <hr>
-          <a href="{{ site.baseurl }}/faq">FAQ (archive)</a>
-          <hr>
-          <a href="{{ site.baseurl }}/examples">Code Examples</a>
-        </nav>
+    <nav class="dropdown">
+      <a class="dropbtn" href="https://harbour.github.io/doc/">
+      <i class="fa fa-book" aria-hidden="true"></i><br><span class="menu-text">Documentation</span></a>
+      <nav class="dropdown-content">
+        <a href="https://github.com/{{ site.repo_slug }}/#readme">README</a>
+        <a href="{{ site.baseurl }}/changelog">ChangeLog</a>
+        <a href="https://github.com/{{ site.repo_slug }}/blob/master/utils/hbmk2/doc/hbmk2.en.md">Build Tool · hbmk2</a>
+        <a href="https://github.com/{{ site.repo_slug }}/blob/master/contrib/hbrun/doc/hbrun.en.md">Runner · hbrun</a>
+        <a href="https://harbour.github.io/doc/" class="updated">Reference Guides</a>
+        <hr>
+        <a href="{{ site.baseurl }}/faq">FAQ (archive)</a>
+        <hr>
+        <a href="{{ site.baseurl }}/examples">Code Examples</a>
       </nav>
+    </nav>
 
-      <nav class="dropdown">
-        <a class="dropbtn" href="{{ site.dl_url }}">
-        <i class="fa fa-cloud-download" aria-hidden="true"></i><br><span class="menu-text">Download</span></a>
-        <nav class="dropdown-content">
-          <a href="{{ site.dl_url }}">Source and Binaries</a>
+    <nav class="dropdown">
+      <a class="dropbtn" href="{{ site.dl_url }}">
+      <i class="fa fa-cloud-download" aria-hidden="true"></i><br><span class="menu-text">Download</span></a>
+      <nav class="dropdown-content">
+        <a href="{{ site.dl_url }}">Source and Binaries</a>
 {% if site.fork %}
-          <a href="{{ site.baseurl }}/snapshot">Snapshot Build</a>
+        <a href="{{ site.baseurl }}/snapshot">Snapshot Build</a>
 {% else %}
-          <a href="{{ site.baseurl }}/snapshot">Nightly Builds</a>
+        <a href="{{ site.baseurl }}/snapshot">Nightly Builds</a>
 {% endif %}
-          <hr>
-          <a href="{{ site.baseurl }}/contribs">Contrib packages</a>
-          <a href="{{ site.baseurl }}/thirdparty">Third-party packages</a>
-          <hr>
-          <a href="https://harbour.github.io/the-oasis/">The Oasis (archive)</a>
-        </nav>
+        <hr>
+        <a href="{{ site.baseurl }}/contribs">Contrib packages</a>
+        <a href="{{ site.baseurl }}/thirdparty">Third-party packages</a>
+        <hr>
+        <a href="https://harbour.github.io/the-oasis/">The Oasis (archive)</a>
       </nav>
+    </nav>
 
-      <nav class="dropdown">
-        <a class="dropbtn" href="https://github.com/{{ site.repo_slug }}">
-        <i class="fa fa-cog" aria-hidden="true"></i><br><span class="menu-text">Development</span></a>
-        <nav class="dropdown-content">
+    <nav class="dropdown">
+      <a class="dropbtn" href="https://github.com/{{ site.repo_slug }}">
+      <i class="fa fa-cog" aria-hidden="true"></i><br><span class="menu-text">Development</span></a>
+      <nav class="dropdown-content">
 {% unless site.fork %}
-          <a href="{{ site.baseurl }}/mailing">Mailing Lists</a>
+        <a href="{{ site.baseurl }}/mailing">Mailing Lists</a>
 {% endunless %}
-          <a href="https://github.com/{{ site.repo_slug }}">Repository</a>
-          <a href="https://github.com/{{ site.repo_slug }}/commits">Commits</a>
-          <a href="https://github.com/{{ site.repo_slug }}/issues">Report an Issue</a>
+        <a href="https://github.com/{{ site.repo_slug }}">Repository</a>
+        <a href="https://github.com/{{ site.repo_slug }}/commits">Commits</a>
+        <a href="https://github.com/{{ site.repo_slug }}/issues">Report an Issue</a>
 {% if site.fork %}
-          <a href="https://github.com/vszakats/harbour-core/blob/master/.github/CONTRIBUTING.md">How to contribute</a>
-          <a href="{{ site.baseurl }}/mailing">Community</a>
+        <a href="https://github.com/vszakats/harbour-core/blob/master/.github/CONTRIBUTING.md">How to contribute</a>
+        <a href="{{ site.baseurl }}/mailing">Community</a>
 {% endif %}
-          <hr>
-          <a href="{{ site.baseurl }}/forks">Forks</a>
-        </nav>
+        <hr>
+        <a href="{{ site.baseurl }}/forks">Forks</a>
       </nav>
+    </nav>
 
-      <nav class="dropdown">
-        <a class="dropbtn" href="{{ site.baseurl }}/news">
-        <i class="fa fa-newspaper-o" aria-hidden="true"></i><br><span class="menu-text">News</span></a>
-      </nav>
+    <nav class="dropdown">
+      <a class="dropbtn" href="{{ site.baseurl }}/news">
+      <i class="fa fa-newspaper-o" aria-hidden="true"></i><br><span class="menu-text">News</span></a>
+    </nav>
 
-      <nav class="dropdown">
-        <a class="dropbtn" href="{{ site.baseurl }}/crew">
-        <i class="fa fa-globe" aria-hidden="true"></i><br><span class="menu-text">Crew</span></a>
-      </nav>
+    <nav class="dropdown">
+      <a class="dropbtn" href="{{ site.baseurl }}/crew">
+      <i class="fa fa-globe" aria-hidden="true"></i><br><span class="menu-text">Crew</span></a>
+    </nav>
 
-      <nav class="dropdown">
-        <a class="dropbtn" href="{{ site.baseurl }}/logo">
-        <i class="fa fa-paint-brush" aria-hidden="true"></i><br><span class="menu-text">Logo</span></a>
-      </nav>
+    <nav class="dropdown">
+      <a class="dropbtn" href="{{ site.baseurl }}/logo">
+      <i class="fa fa-paint-brush" aria-hidden="true"></i><br><span class="menu-text">Logo</span></a>
+    </nav>
 
 {% if site.fork %}
 {% assign ppurl = 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=BPSZQYKXMQJYG' %}
-      <nav class="dropdown donate-button">
-        <a class="dropbtn" href="{{ ppurl }}">
-        <i class="fa fa-paypal" aria-hidden="true"></i><br><span class="menu-text">Donate Now</span></a>
-      </nav>
-{% else %}
-      <nav class="dropdown">
-        <a class="dropbtn">
-        <i class="fa fa-language" aria-hidden="true"></i><br><span class="menu-text">Language</span></a>
-        <nav class="dropdown-content">
-          <a href="{{ site.baseurl }}/">English</a>
-        </nav>
-      </nav>
-{% endif %}
+    <nav class="dropdown donate-button">
+      <a class="dropbtn" href="{{ ppurl }}">
+      <i class="fa fa-paypal" aria-hidden="true"></i><br><span class="menu-text">Donate Now</span></a>
     </nav>
-  </header>
+{% else %}
+    <nav class="dropdown">
+      <a class="dropbtn">
+      <i class="fa fa-language" aria-hidden="true"></i><br><span class="menu-text">Language</span></a>
+      <nav class="dropdown-content">
+        <a href="{{ site.baseurl }}/">English</a>
+      </nav>
+    </nav>
+{% endif %}
+  </nav>
+</header>
 
-  <main>
+<main>
 {% if page.layout != 'example' %}
-    <a class="text-right edit-page" href="https://github.com/{{ site.site_slug }}/edit/{{ site.site_branch_and_root }}{{ page.path }}">
-    <i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;Improve this page</a>
+  <a class="text-right edit-page" href="https://github.com/{{ site.site_slug }}/edit/{{ site.site_branch_and_root }}{{ page.path }}">
+  <i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;Improve this page</a>
 {% endif %}
