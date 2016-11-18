@@ -10208,101 +10208,101 @@ STATIC FUNCTION dep_try_pkg_detection( hbmk, dep )
 
    FOR EACH cName IN dep[ _HBMKDEP_aPKG ]
 
-      IF ! Empty( cName )
-         IF ! dep[ _HBMKDEP_lFound ]
-            cName := AllTrim( cName )
+      IF ! Empty( cName ) .AND. ;
+         ! dep[ _HBMKDEP_lFound ]
 
-            hb_processRun( "pkg-config --libs --cflags " + cName,, @cStdOut, @cStdErr )
-            hb_processRun( "pkg-config --modversion " + cName,, @cVersion, @cStdErr )
-            IF Empty( cStdOut )
-               hb_processRun( cName + "-config --libs --cflags",, @cStdOut, @cStdErr )
-               hb_processRun( cName + "-config --version",, @cVersion, @cStdErr )
-            ENDIF
+         cName := AllTrim( cName )
+
+         hb_processRun( "pkg-config --libs --cflags " + cName,, @cStdOut, @cStdErr )
+         hb_processRun( "pkg-config --modversion " + cName,, @cVersion, @cStdErr )
+         IF Empty( cStdOut )
+            hb_processRun( cName + "-config --libs --cflags",, @cStdOut, @cStdErr )
+            hb_processRun( cName + "-config --version",, @cVersion, @cStdErr )
+         ENDIF
 #if defined( __PLATFORM__DARWIN )
-            /* Homebrew */
-            IF Empty( cStdOut )
-               IF hb_vfExists( tmp := "/usr/local/bin/pkg-config" )
-                  hb_processRun( tmp + " --libs --cflags " + cName,, @cStdOut, @cStdErr )
-                  hb_processRun( tmp + " --modversion " + cName,, @cVersion, @cStdErr )
-               ENDIF
+         /* Homebrew */
+         IF Empty( cStdOut )
+            IF hb_vfExists( tmp := "/usr/local/bin/pkg-config" )
+               hb_processRun( tmp + " --libs --cflags " + cName,, @cStdOut, @cStdErr )
+               hb_processRun( tmp + " --modversion " + cName,, @cVersion, @cStdErr )
             ENDIF
-            IF Empty( cStdOut )
-               IF hb_vfExists( tmp := "/usr/local/bin/" + cName + "-config" )
-                  hb_processRun( tmp + " --libs --cflags",, @cStdOut, @cStdErr )
-                  hb_processRun( tmp + " --version",, @cVersion, @cStdErr )
-               ENDIF
+         ENDIF
+         IF Empty( cStdOut )
+            IF hb_vfExists( tmp := "/usr/local/bin/" + cName + "-config" )
+               hb_processRun( tmp + " --libs --cflags",, @cStdOut, @cStdErr )
+               hb_processRun( tmp + " --version",, @cVersion, @cStdErr )
             ENDIF
-            /* MacPorts/DarwinPorts */
-            IF Empty( cStdOut )
-               IF hb_vfExists( tmp := "/opt/local/bin/pkg-config" )
-                  hb_processRun( tmp + " --libs --cflags " + cName,, @cStdOut, @cStdErr )
-                  hb_processRun( tmp + " --modversion " + cName,, @cVersion, @cStdErr )
-               ENDIF
+         ENDIF
+         /* MacPorts/DarwinPorts */
+         IF Empty( cStdOut )
+            IF hb_vfExists( tmp := "/opt/local/bin/pkg-config" )
+               hb_processRun( tmp + " --libs --cflags " + cName,, @cStdOut, @cStdErr )
+               hb_processRun( tmp + " --modversion " + cName,, @cVersion, @cStdErr )
             ENDIF
-            IF Empty( cStdOut )
-               IF hb_vfExists( tmp := "/opt/local/bin/" + cName + "-config" )
-                  hb_processRun( tmp + " --libs --cflags",, @cStdOut, @cStdErr )
-                  hb_processRun( tmp + " --version",, @cVersion, @cStdErr )
-               ENDIF
+         ENDIF
+         IF Empty( cStdOut )
+            IF hb_vfExists( tmp := "/opt/local/bin/" + cName + "-config" )
+               hb_processRun( tmp + " --libs --cflags",, @cStdOut, @cStdErr )
+               hb_processRun( tmp + " --version",, @cVersion, @cStdErr )
             ENDIF
+         ENDIF
 #endif
 
-            IF ! Empty( cStdOut )
+         IF ! Empty( cStdOut )
 
-               cVersion := hb_StrReplace( cVersion, Chr( 13 ) + Chr( 10 ) )
-               IF Empty( cVersion )
-                  cVersion := "unrecognized version"
+            cVersion := hb_StrReplace( cVersion, Chr( 13 ) + Chr( 10 ) )
+            IF Empty( cVersion )
+               cVersion := "unrecognized version"
+            ENDIF
+
+            cStdOut := StrTran( StrTran( cStdOut, Chr( 13 ) ), Chr( 10 ), " " )
+
+            FOR EACH cItem IN hb_ATokens( cStdOut,, .T. )
+               IF hb_LeftEq( cItem, "-I" )
+                  dep[ _HBMKDEP_lFound ] := .T.
+                  EXIT
                ENDIF
+            NEXT
 
-               cStdOut := StrTran( StrTran( cStdOut, Chr( 13 ) ), Chr( 10 ), " " )
+            IF dep[ _HBMKDEP_lFound ]
 
                FOR EACH cItem IN hb_ATokens( cStdOut,, .T. )
-                  IF hb_LeftEq( cItem, "-I" )
-                     dep[ _HBMKDEP_lFound ] := .T.
-                     EXIT
-                  ENDIF
+                  DO CASE
+                  CASE hb_LeftEq( cItem, "-l" )
+                     cItem := SubStr( cItem, Len( "-l" ) + 1 )
+                     IF _IS_AUTOLIBSYSPRE( cItem )
+                        AAdd( hbmk[ _HBMK_aLIBUSERSYSPRE ], cItem )
+                     ELSE
+                        AAdd( hbmk[ _HBMK_aLIBUSER ], cItem )
+                     ENDIF
+                  CASE hb_LeftEq( cItem, "-L" )
+                     cItem := SubStr( cItem, Len( "-L" ) + 1 )
+                     AAdd( hbmk[ _HBMK_aLIBPATH ], hb_DirSepDel( hb_DirSepToOS( cItem ) ) )
+                  CASE hb_LeftEq( cItem, "-I" )
+                     cItem := hb_DirSepDel( hb_DirSepToOS( SubStr( cItem, Len( "-I" ) + 1 ) ) )
+                     IF Empty( cIncludeDir )
+                        cIncludeDir := cItem
+                     ENDIF
+                     AAdd( hbmk[ _HBMK_aINCPATH ], cItem )
+                  ENDCASE
                NEXT
 
-               IF dep[ _HBMKDEP_lFound ]
-
-                  FOR EACH cItem IN hb_ATokens( cStdOut,, .T. )
-                     DO CASE
-                     CASE hb_LeftEq( cItem, "-l" )
-                        cItem := SubStr( cItem, Len( "-l" ) + 1 )
-                        IF _IS_AUTOLIBSYSPRE( cItem )
-                           AAdd( hbmk[ _HBMK_aLIBUSERSYSPRE ], cItem )
-                        ELSE
-                           AAdd( hbmk[ _HBMK_aLIBUSER ], cItem )
-                        ENDIF
-                     CASE hb_LeftEq( cItem, "-L" )
-                        cItem := SubStr( cItem, Len( "-L" ) + 1 )
-                        AAdd( hbmk[ _HBMK_aLIBPATH ], hb_DirSepDel( hb_DirSepToOS( cItem ) ) )
-                     CASE hb_LeftEq( cItem, "-I" )
-                        cItem := hb_DirSepDel( hb_DirSepToOS( SubStr( cItem, Len( "-I" ) + 1 ) ) )
-                        IF Empty( cIncludeDir )
-                           cIncludeDir := cItem
-                        ENDIF
-                        AAdd( hbmk[ _HBMK_aINCPATH ], cItem )
-                     ENDCASE
+               dep[ _HBMKDEP_cVersion ] := cVersion
+               dep[ _HBMKDEP_cFound ] := iif( Empty( cIncludeDir ), "(system)", cIncludeDir )
+               IF ! Empty( cIncludeDir )
+                  hbmk[ _HBMK_hDEPTSDIR ][ cIncludeDir ] := NIL
+                  hb_SetEnv( hb_StrFormat( _HBMK_DIR_TPL, StrToDefine( cName ) ), cIncludeDir )
+                  /* Adjust implib source names with component path */
+                  FOR EACH tmp IN dep[ _HBMKDEP_aIMPLIBSRC ]
+                     tmp := hb_PathNormalize( PathMakeAbsolute( tmp, hb_DirSepAdd( cIncludeDir ) ) )
                   NEXT
-
-                  dep[ _HBMKDEP_cVersion ] := cVersion
-                  dep[ _HBMKDEP_cFound ] := iif( Empty( cIncludeDir ), "(system)", cIncludeDir )
-                  IF ! Empty( cIncludeDir )
-                     hbmk[ _HBMK_hDEPTSDIR ][ cIncludeDir ] := NIL
-                     hb_SetEnv( hb_StrFormat( _HBMK_DIR_TPL, StrToDefine( cName ) ), cIncludeDir )
-                     /* Adjust implib source names with component path */
-                     FOR EACH tmp IN dep[ _HBMKDEP_aIMPLIBSRC ]
-                        tmp := hb_PathNormalize( PathMakeAbsolute( tmp, hb_DirSepAdd( cIncludeDir ) ) )
-                     NEXT
-                  ENDIF
-                  IF hbmk[ _HBMK_lDEBUGDEPD ]
-                     _hbmk_OutStd( hbmk, hb_StrFormat( "debugdepd: REQ %1$s: found as pkg at %2$s (%3$s)", dep[ _HBMKDEP_cName ], dep[ _HBMKDEP_cFound ], dep[ _HBMKDEP_cVersion ] ) )
-                  ENDIF
-                  AAdd( hbmk[ _HBMK_aOPTC ], "-D" + hb_StrFormat( _HBMK_HAS_TPL, StrToDefine( cName ) ) )
-                  hbmk[ _HBMK_hDEPTMACRO ][ hb_StrFormat( _HBMK_HAS_TPL, StrToDefine( cName ) ) ] := NIL
-                  RETURN .T.
                ENDIF
+               IF hbmk[ _HBMK_lDEBUGDEPD ]
+                  _hbmk_OutStd( hbmk, hb_StrFormat( "debugdepd: REQ %1$s: found as pkg at %2$s (%3$s)", dep[ _HBMKDEP_cName ], dep[ _HBMKDEP_cFound ], dep[ _HBMKDEP_cVersion ] ) )
+               ENDIF
+               AAdd( hbmk[ _HBMK_aOPTC ], "-D" + hb_StrFormat( _HBMK_HAS_TPL, StrToDefine( cName ) ) )
+               hbmk[ _HBMK_hDEPTMACRO ][ hb_StrFormat( _HBMK_HAS_TPL, StrToDefine( cName ) ) ] := NIL
+               RETURN .T.
             ENDIF
          ENDIF
       ENDIF

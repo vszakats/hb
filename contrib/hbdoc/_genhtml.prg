@@ -46,6 +46,8 @@
  *
  */
 
+/* TODO: add aliases to sidebar and index, and detect them in autolinks */
+
 /* Optimizations */
 #pragma -km+
 #pragma -ko+
