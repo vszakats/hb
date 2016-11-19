@@ -32,12 +32,9 @@ the `--libcurl <targe-source-file>` curl option.
 
 3.4 snapshot binaries for Windows come bundled with all required static and
 dynamic libraries to use hbcurl, including OpenSSL and libssh2, both 32 and
-64-bit. As of this writing, here's the list of supported libcurl features:
+64-bit. See this page about feature support and other details:
 
-Protocols: dict file ftp ftps gopher http https imap imaps ldap ldaps
-           pop3 pop3s rtsp scp sftp smtp smtps telnet tftp
-Features: AsynchDNS IDN IPv6 Largefile SSPI Kerberos SPNEGO NTLM SSL libz
-          TLS-SRP HTTP2
+   https://github.com/vszakats/harbour-deps/
 
 
 If you opt to use hbtip anyway, and find any problem with it (like very common
