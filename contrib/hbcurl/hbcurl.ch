@@ -399,6 +399,7 @@
 #define HB_CURL_SSLVERSION_TLSv1_0            4
 #define HB_CURL_SSLVERSION_TLSv1_1            5
 #define HB_CURL_SSLVERSION_TLSv1_2            6
+#define HB_CURL_SSLVERSION_TLSv1_3            7
 
 /* HB_CURLOPT_SSH_AUTH_TYPES option */
 #define HB_CURL_CURLSSH_AUTH_ANY              hb_bitNot( 0 )      /* all types supported by the server */
