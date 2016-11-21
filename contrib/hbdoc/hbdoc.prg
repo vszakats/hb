@@ -1637,7 +1637,7 @@ FUNCTION hbdoc_SymbolSource( cDir, cName, /* @ */ nLine, /* @ */ cRedir )
       ENDIF
 
       IF s_hSwitches[ "dump" ]
-         hb_MemoWrit( "_" + StrTran( cDir, hb_ps(), "_" ) + ".json", hb_jsonEncode( hSymb, .T. ) )
+         hb_MemoWrit( "_" + StrTran( cDir, hb_ps(), "_" ) + "symb" + ".json", hb_jsonEncode( hSymb, .T. ) )
       ENDIF
    ENDIF
 

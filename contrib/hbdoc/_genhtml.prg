@@ -80,7 +80,7 @@ STATIC sc_cCode := R_( ;
       "[A-Z\.\\\/][A-Z0-9\.\\\/]+[A-Z0-9\\\/]{1,3}|" + ;
       "[A-Z_][A-Z0-9_]+" + ;
    ")" + ;
-   "([\)\.,:;s']|\s|$" + ")" )
+   "([\)\.,:;sdlei']|\s|$" + ")" )
 
 CREATE CLASS GenerateHTML INHERIT TPLGenerate
 
@@ -528,6 +528,21 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
                ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "blob/" + s_cRevision + "/" + tmp + iif( nLine != 0, "#L" + hb_ntos( nLine ), "" ), "class", "d-so", "title", tmp )
                ::AppendInline( iif( hb_LeftEq( ::cFilename, "cl" ), I_( "Harbour implementation" ), I_( "Source code" ) ) )
                ::CloseTagInline( "a" )
+            ENDIF
+            IF hb_BRight( tmp := NameCanon( cEntry ), 2 ) == "()"
+               tmp := hb_StrShrink( tmp, 2 )
+
+               ::OpenTagInline( "span", "class", "d-so" )
+               ::OpenTagInline( "nav", "class", "dropdown d-ebi" )
+               ::AppendInline( "🔎" )
+               ::OpenTagInline( "nav", "class", "dropdown-content" + " " + "d-dd" )
+               ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "search?type=Code&q=" + tmp )
+               ::AppendInline( "in Repository" ):CloseTagInline( "a" )
+               ::OpenTagInline( "a", "href", "https://google.com/search?q=site:groups.google.com/d/msg/harbour+" + tmp )
+               ::AppendInline( "in Discussions" ):CloseTagInline( "a" )
+               ::CloseTagInline( "nav" )
+               ::CloseTagInline( "nav" )
+               ::CloseTag( "span" )
             ENDIF
          ELSE
             ::AppendInline( cEntry,,, item )
