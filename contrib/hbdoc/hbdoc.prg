@@ -507,7 +507,9 @@ STATIC FUNCTION SortWeightTOC( cString )
    CASE "Document"
    CASE "Intro"
    CASE "Introduction" ; RETURN "A"
+   CASE "Tables"
    CASE "Table"
+   CASE "Appendices"
    CASE "Appendix"     ; RETURN "Z"
    CASE "Copyright"    ; RETURN "0"
    ENDSWITCH

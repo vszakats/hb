@@ -286,6 +286,7 @@ pre {
   border-radius: 0 3px 3px 0 !important;
   padding: 8px 16px !important;
   overflow: scroll;
+  line-height: 125% !important;
 }
 
 code, .d-t {
@@ -398,6 +399,7 @@ p {
   overflow: scroll;
   margin: 16px;
   white-space: nowrap;
+  line-height: 125%;
 }
 
 .d-t0 div:first-child {

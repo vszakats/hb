@@ -1639,7 +1639,7 @@ Supported shells per host platforms:
 
   * Translators:
      * [Bing Translator](https://www.bing.com/translator/)
-     * [Google Translate](https://translate.google.com)
+     * [Google Translate](https://translate.google.com/)
 
 
 # Harbour Links

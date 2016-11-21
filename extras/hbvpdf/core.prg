@@ -9,25 +9,21 @@
 
 THREAD STATIC t_aReport
 
-// ---
 FUNCTION pdfInit()
 
    t_aReport := Array( PARAMLEN )
 
    RETURN t_aReport
 
-// ---
 PROCEDURE pdfWidth( _nWidth )
 
    t_aReport[ REPORTWIDTH ] := _nWidth
 
    RETURN
 
-// ---
 FUNCTION pdfTextWidth( cStr )
    RETURN pdfLen( cStr ) / 25.4
 
-// ---
 FUNCTION pdfAtSay( cString, nRow, nCol, cUnits, lExact, cId )
 
    LOCAL _nFont, lReverse, nAt
@@ -104,7 +100,6 @@ FUNCTION pdfAtSay( cString, nRow, nCol, cUnits, lExact, cId )
 
    RETURN NIL
 
-// ---
 PROCEDURE pdfBold()
 
    SWITCH pdfGetFontInfo( "NAME" )
@@ -124,7 +119,6 @@ PROCEDURE pdfBold()
 
    RETURN
 
-// ---
 PROCEDURE pdfBoldItalic()
 
    SWITCH pdfGetFontInfo( "NAME" )
@@ -144,21 +138,18 @@ PROCEDURE pdfBoldItalic()
 
    RETURN
 
-// ---
 PROCEDURE pdfBookAdd( cTitle, nLevel, nPage, nLine )
 
    AAdd( t_aReport[ BOOKMARK ], { nLevel, AllTrim( cTitle ), 0, 0, 0, 0, 0, 0, nPage, iif( nLevel == 1, t_aReport[ PAGEY ], t_aReport[ PAGEY ] - nLine * 72 / t_aReport[ LPI ] ) } )
 
    RETURN
 
-// ---
 PROCEDURE pdfBookClose()
 
    t_aReport[ BOOKMARK ] := nil
 
    RETURN
 
-// ---
 STATIC FUNCTION pdfBookCount( nRecno, nCurLevel )
 
    LOCAL nTempLevel, nCount := 0, nLen := Len( t_aReport[ BOOKMARK ] )
@@ -178,7 +169,6 @@ STATIC FUNCTION pdfBookCount( nRecno, nCurLevel )
 
    RETURN -1 * nCount
 
-// ---
 STATIC FUNCTION pdfBookFirst( nRecno, nCurLevel, nObj )
 
    LOCAL nFirst := 0, nLen := Len( t_aReport[ BOOKMARK ] )
@@ -192,7 +182,6 @@ STATIC FUNCTION pdfBookFirst( nRecno, nCurLevel, nObj )
 
    RETURN iif( nFirst == 0, nFirst, nObj + nFirst )
 
-// ---
 STATIC FUNCTION pdfBookLast( nRecno, nCurLevel, nObj )
 
    LOCAL nLast := 0, nLen := Len( t_aReport[ BOOKMARK ] )
@@ -211,7 +200,6 @@ STATIC FUNCTION pdfBookLast( nRecno, nCurLevel, nObj )
 
    RETURN iif( nLast == 0, nLast, nObj + nLast )
 
-// ---
 STATIC FUNCTION pdfBookNext( nRecno, nCurLevel, nObj )
 
    LOCAL nTempLevel, nNext := 0, nLen := Len( t_aReport[ BOOKMARK ] )
@@ -233,14 +221,12 @@ STATIC FUNCTION pdfBookNext( nRecno, nCurLevel, nObj )
 
    RETURN iif( nNext == 0, nNext, nObj + nNext )
 
-// ---
 PROCEDURE pdfBookOpen()
 
    t_aReport[ BOOKMARK ] := {}
 
    RETURN
 
-// ---
 STATIC FUNCTION pdfBookParent( nRecno, nCurLevel, nObj )
 
    LOCAL nTempLevel
@@ -258,7 +244,6 @@ STATIC FUNCTION pdfBookParent( nRecno, nCurLevel, nObj )
 
    RETURN iif( nParent == 0, nObj - 1, nObj + nParent )
 
-// ---
 STATIC FUNCTION pdfBookPrev( nRecno, nCurLevel, nObj )
 
    LOCAL nTempLevel
@@ -281,7 +266,6 @@ STATIC FUNCTION pdfBookPrev( nRecno, nCurLevel, nObj )
 
    RETURN iif( nPrev == 0, nPrev, nObj + nPrev )
 
-// ---
 FUNCTION pdfBox( x1, y1, x2, y2, nBorder, nShade, cUnits, cColor, cId )
 
    LOCAL cBoxColor
@@ -348,7 +332,6 @@ FUNCTION pdfBox( x1, y1, x2, y2, nBorder, nShade, cUnits, cColor, cId )
 
    RETURN NIL
 
-// ---
 PROCEDURE pdfBox1( nTop, nLeft, nBottom, nRight, nBorderWidth, cBorderColor, cBoxColor )
 
    hb_default( @nBorderWidth, 0.5 )
@@ -375,7 +358,6 @@ PROCEDURE pdfBox1( nTop, nLeft, nBottom, nRight, nBorderWidth, cBorderColor, cBo
 
    RETURN
 
-// ---
 FUNCTION pdfCenter( cString, nRow, nCol, cUnits, lExact, cId )
 
    LOCAL nLen, nAt
@@ -403,7 +385,6 @@ FUNCTION pdfCenter( cString, nRow, nCol, cUnits, lExact, cId )
 
    RETURN NIL
 
-// ---
 STATIC PROCEDURE pdfCheckLine( nRow )
 
    IF nRow + t_aReport[ PDFTOP ] > t_aReport[ PDFBOTTOM ]
@@ -414,7 +395,6 @@ STATIC PROCEDURE pdfCheckLine( nRow )
 
    RETURN
 
-// ---
 PROCEDURE pdfClose()
 
    LOCAL nI, cTemp, nCurLevel, nObj1, nLast, nCount, nFirst, nRecno, nBooklen
@@ -562,7 +542,6 @@ PROCEDURE pdfClose()
 
    RETURN
 
-// ---
 STATIC PROCEDURE pdfClosePage()
 
    LOCAL cTemp, cBuffer, nBuffer, nRead, nI, k, nImage, nFont, hFileImage
@@ -748,7 +727,6 @@ STATIC PROCEDURE pdfClosePage()
 
    RETURN
 
-// ---
 STATIC FUNCTION pdfGetFontInfo( cParam )
 
    IF cParam == "NAME"
@@ -765,7 +743,6 @@ STATIC FUNCTION pdfGetFontInfo( cParam )
    // size
    RETURN Int( ( t_aReport[ FONTNAME ] - 1 ) % 4 )
 
-// ---
 FUNCTION pdfImage( cFile, nRow, nCol, cUnits, nHeight, nWidth, cId )
 
    hb_default( @nRow, t_aReport[ REPORTLINE ] )
@@ -803,7 +780,6 @@ FUNCTION pdfImage( cFile, nRow, nCol, cUnits, nHeight, nWidth, cId )
 
    RETURN NIL
 
-// ---
 PROCEDURE pdfItalic()
 
    SWITCH pdfGetFontInfo( "NAME" )
@@ -823,7 +799,6 @@ PROCEDURE pdfItalic()
 
    RETURN
 
-// ---
 FUNCTION pdfLen( cString )
 
    LOCAL nWidth := 0.00, nI, nLen, nArr, nAdd
@@ -856,19 +831,15 @@ FUNCTION pdfLen( cString )
 
    RETURN nWidth
 
-// ---
 STATIC FUNCTION pdfM2R( mm )
    RETURN Int( t_aReport[ LPI ] * mm / 25.4 )
 
-// ---
 STATIC FUNCTION pdfM2X( n )
    RETURN n * 72 / 25.4
 
-// ---
 STATIC FUNCTION pdfM2Y( n )
    RETURN t_aReport[ PAGEY ] -  n * 72 / 25.4
 
-// ---
 FUNCTION pdfNewLine( n )
 
    hb_default( @n, 1 )
@@ -882,7 +853,6 @@ FUNCTION pdfNewLine( n )
 
    RETURN t_aReport[ REPORTLINE ]
 
-// ---
 PROCEDURE pdfNewPage( _cPageSize, _cPageOrient, _nLpi, _cFontName, _nFontType, _nFontSize )
 
    IF ! Empty( t_aReport[ PAGEBUFFER ] )
@@ -911,7 +881,6 @@ PROCEDURE pdfNewPage( _cPageSize, _cPageOrient, _nLpi, _cFontName, _nFontType, _
 
    RETURN
 
-// ---
 PROCEDURE pdfNormal()
 
    SWITCH pdfGetFontInfo( "NAME" )
@@ -931,7 +900,6 @@ PROCEDURE pdfNormal()
 
    RETURN
 
-// ---
 PROCEDURE pdfOpen( cFile, nLen, lOptimize )
 
    LOCAL cTemp, nI, nJ, n1, n2 := 896, n12
@@ -990,7 +958,6 @@ PROCEDURE pdfOpen( cFile, nLen, lOptimize )
 
    RETURN
 
-// ---
 PROCEDURE pdfPageSize( _cPageSize, _nWidth, _nHeight )
 
    LOCAL nSize, nWidth, nHeight
@@ -1056,7 +1023,6 @@ PROCEDURE pdfPageSize( _cPageSize, _nWidth, _nHeight )
 
    RETURN
 
-// ---
 PROCEDURE pdfPageOrient( _cPageOrient )
 
    t_aReport[ PAGEORIENT ] := hb_defaultValue( _cPageOrient, "P" )
@@ -1064,15 +1030,12 @@ PROCEDURE pdfPageOrient( _cPageOrient )
 
    RETURN
 
-// ---
 STATIC FUNCTION pdfR2D( nRow )
    RETURN t_aReport[ PAGEY ] - nRow * 72 / t_aReport[ LPI ]
 
-// ---
 STATIC FUNCTION pdfR2M( nRow )
    RETURN 25.4 * nRow / t_aReport[ LPI ]
 
-// ---
 FUNCTION pdfPageNumber( n )
 
    hb_default( @n, 0 )
@@ -1083,11 +1046,9 @@ FUNCTION pdfPageNumber( n )
 
    RETURN t_aReport[ REPORTPAGE ]
 
-// ---
 FUNCTION pdfReverse( cString )
    RETURN cString + hb_BChar( 255 )
 
-// ---
 FUNCTION pdfRJust( cString, nRow, nCol, cUnits, lExact, cId )
 
    LOCAL nLen, nAdj := 1.0, nAt
@@ -1114,7 +1075,6 @@ FUNCTION pdfRJust( cString, nRow, nCol, cUnits, lExact, cId )
 
    RETURN NIL
 
-// ---
 FUNCTION pdfSetFont( _cFont, _nType, _nSize, cId )
 
    hb_default( @_cFont, "Times" )
@@ -1146,7 +1106,6 @@ FUNCTION pdfSetFont( _cFont, _nType, _nSize, cId )
 
    RETURN NIL
 
-// ---
 PROCEDURE pdfSetLPI( _nLpi )
 
    LOCAL cLpi := hb_ntos( hb_defaultValue( _nLpi, 6 ) )
@@ -1157,17 +1116,14 @@ PROCEDURE pdfSetLPI( _nLpi )
 
    RETURN
 
-// ---
 FUNCTION pdfStringB( cString )
    RETURN hb_StrReplace( cString, { ;
       "(" => "\(" , ;
       ")" => "\)" } )
 
-// ---
 FUNCTION pdfTextCount( cString, nTop, nLeft, nLength, nTab, nJustify, cUnits )
    RETURN pdfText( cString, nTop, nLeft, nLength, nTab, nJustify, cUnits, .F. )
 
-// ---
 FUNCTION pdfText( cString, nTop, nLeft, nLength, nTab, nJustify, cUnits, cColor, lPrint )
 
    LOCAL cDelim := Chr( 0 ) + Chr( 9 ) + Chr( 10 ) + Chr( 13 ) + Chr( 26 ) + Chr( 32 ) + Chr( 138 ) + Chr( 141 )
@@ -1288,7 +1244,6 @@ FUNCTION pdfText( cString, nTop, nLeft, nLength, nTab, nJustify, cUnits, cColor,
 
    RETURN nLines
 
-// ---
 STATIC PROCEDURE pdfTextPrint( nI, nLeft, lParagraph, nJustify, nSpace, nNew, nLength, nLineLen, nLines, nStart, cString, cDelim, cColor, lPrint )
 
    LOCAL nL, nB, nJ, cToken, nRow
@@ -1334,7 +1289,6 @@ STATIC PROCEDURE pdfTextPrint( nI, nLeft, lParagraph, nJustify, nSpace, nNew, nL
 
    RETURN
 
-// ---
 STATIC FUNCTION pdfTextNextPara( cString, cDelim, nI )
 
    LOCAL nAt, cAt, nCRLF, nNew, nRat, nRet := 0
@@ -1351,15 +1305,12 @@ STATIC FUNCTION pdfTextNextPara( cString, cDelim, nI )
 
    RETURN nRet
 
-// ---
 FUNCTION pdfUnderline( cString )
    RETURN cString + hb_BChar( 254 )
 
-// ---
 STATIC FUNCTION pdfX2M( n )
    RETURN n * 25.4 / 72
 
-// ---
 STATIC FUNCTION TimeAsAMPM( cTime )
 
    DO CASE
