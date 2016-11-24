@@ -2386,9 +2386,9 @@ HB_FUNC( CURL_EASY_ESCAPE )
    {
 #if LIBCURL_VERSION_NUM >= 0x070F04
       PHB_CURL hb_curl = PHB_CURL_par( 1 );
-      int nSrcLen = ( int ) hb_parclen( 2 );
+      int nSrcLen;
 
-      if( hb_curl && nSrcLen > 0 )
+      if( hb_curl && ( nSrcLen = ( int ) hb_parclen( 2 ) ) > 0 )
       {
          char * buffer = curl_easy_escape( hb_curl->curl, hb_parcx( 2 ), nSrcLen );
          hb_retc( buffer );
@@ -2408,9 +2408,9 @@ HB_FUNC( CURL_EASY_UNESCAPE )
    {
 #if LIBCURL_VERSION_NUM >= 0x070F04
       PHB_CURL hb_curl = PHB_CURL_par( 1 );
-      int nSrcLen = ( int ) hb_parclen( 2 );
+      int nSrcLen;
 
-      if( hb_curl && nSrcLen > 0 )
+      if( hb_curl && ( nSrcLen = ( int ) hb_parclen( 2 ) ) > 0 )
       {
          int    nLen   = 0;
          char * buffer = curl_easy_unescape( hb_curl->curl, hb_parcx( 2 ), nSrcLen, &nLen );
