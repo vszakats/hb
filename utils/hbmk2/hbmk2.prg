@@ -13669,7 +13669,7 @@ STATIC PROCEDURE POTMerge( hbmk, aFiles, cFileBase, cFileOut )
    LOCAL aTrans
 
    IF ( aTrans := LoadPOTFiles( hbmk, aFiles, cFileBase, .T., @cEOL ) ) != NIL .AND. ;
-      ! __i18n_potArraySave( cFileOut, iif( hbmk[ _HBMK_lMINIPO ], __i18n_potArraySort( aTrans ), aTrans ), @cErrorMsg, .F., ! hbmk[ _HBMK_lMINIPO ], cEOL )
+      ! __i18n_potArraySave( cFileOut, iif( hbmk[ _HBMK_lREBUILDPO ], __i18n_potArraySort( aTrans ), aTrans ), @cErrorMsg, .F., ! hbmk[ _HBMK_lMINIPO ], cEOL )
       _hbmk_OutErr( hbmk, hb_StrFormat( I_( ".pot merge error: %1$s" ), cErrorMsg ) )
    ENDIF
 
