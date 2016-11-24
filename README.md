@@ -108,12 +108,7 @@ Download source archive from any of these URLs and unpack:
 
 * [Web browser](https://github.com/vszakats/harbour-core/commits/master)
 * [RSS feed](https://github.com/vszakats/harbour-core/commits/master.atom)
-* Apps
-  * [iOctocat](https://ioctocat.com/) on iOS
-  * [CodeHub](https://itunes.apple.com/us/app/codehub-github-for-ios/id707173885) on iOS
-  * [OctoDroid](https://play.google.com/store/apps/details?id=com.gh4a) on Android
-  * [Gitskarios for Github](https://play.google.com/store/apps/details?id=com.alorma.github) on Android
-  * [Committed](https://itunes.apple.com/us/app/committed-source-control-notifications/id881634293) on Mac
+* Any of the Git/GitHub client mobile/desktop apps
 
 # How to Build
 
