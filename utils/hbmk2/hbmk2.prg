@@ -1559,7 +1559,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
    LOCAL l_cCMAIN := NIL
    LOCAL l_cMAIN := NIL
    LOCAL l_cHBSUFFIX := ""
-   LOCAL l_lNOHBLIB := .F.
+   LOCAL l_lNOHBLIB
 #endif
    LOCAL l_lLIBSYSMISC := .T.
    LOCAL l_lTargetSelected := .F.
@@ -4344,6 +4344,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
       ENDIF
 
 #ifdef HARBOUR_SUPPORT
+      hb_default( @l_lNOHBLIB, Empty( hbmk[ _HBMK_aPRG ] ) .AND. Empty( hbmk[ _HBMK_aOBJUSER ] ) )
+
       IF l_lNOHBLIB
 
          aLIB_BASE_EXTERN := {}
@@ -18055,7 +18057,7 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
       { "-ignore[-]"         , I_( "ignore errors when running compiler tools (default: off)" ) }, ;
       { "-hbcppmm[-]"        , H_( "override standard C++ memory management functions with Harbour ones" ) }, ;
       { "-winuni[-]"         , I_( "select between UNICODE (WIDE) and ANSI Windows API usage for C/C++ input files (default: ANSI) (Windows only. For WinCE it is always set to UNICODE)" ) }, ;
-      { "-nohblib[-]"        , H_( "do not use static core Harbour libraries when linking" ) }, ;
+      { "-nohblib[-]"        , H_( "do not use static core Harbour libraries when linking (default in -hbdyn mode or when neither .prg nor object files are specified as input)" ) }, ;
       { "-nodefgt[-]"        , H_( "do not link default GTs (effective in -static mode)" ) }, ;
       { "-nolibgrouping[-]"  , I_( "disable library grouping on gcc based compilers" ) }, ;
       { "-nomiscsyslib[-]"   , I_( "do not add extra list of system libraries to default library list" ) }, ;
