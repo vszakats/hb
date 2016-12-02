@@ -86,6 +86,15 @@ mkdir -p "${HB_ABSROOT}"
       # shellcheck disable=SC2046
       cp -f -p ./manual/html/* "${HB_ABSROOT}manual/"
    fi
+
+   # Remove non-production-ready components
+   rm -f -r "${HB_ABSROOT}/extras/gfspell"
+   rm -f -r "${HB_ABSROOT}/extras/hbdroid"
+   rm -f -r "${HB_ABSROOT}/extras/hbusb"
+   rm -f -r "${HB_ABSROOT}/extras/hbvpdf"
+   rm -f -r "${HB_ABSROOT}/extras/hbxlsxml"
+   rm -f -r "${HB_ABSROOT}/extras/httpsrv"
+   rm -f -r "${HB_ABSROOT}/extras/rddado"
 )
 
 mkdir -p "${HB_ABSROOT}bin/"
