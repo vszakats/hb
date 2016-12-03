@@ -2,7 +2,7 @@
 /*
  * Package build orchestrator script
  *
- * Copyright 2010-2014 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2010-2016 Viktor Szakats (vszakats.net/harbour)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -454,7 +454,7 @@ STATIC PROCEDURE build_projects( nAction, hProjectList, hProjectReqList, cOption
                IF "|" + hProjectList[ cProject ][ "cPlatform" ] + "|" $ "|win|dos|os2|"
                   cDynSuffix := "_dll"
                ELSE
-                  cDynSuffix := hb_libExt()
+                  cDynSuffix := ""
                ENDIF
                call_hbmk2( cProjectPath, iif( lPrimary .OR. lContainer, iif( lContainer, cOptions, cOptions + cOptionsUser ), " -inc" ), cDynSuffix )
             ENDIF
@@ -555,17 +555,20 @@ STATIC FUNCTION call_hbmk2( cProjectPath, cOptionsPre, cDynSuffix, cStdErr, cStd
    hb_SetEnv( "HARBOURCMD" )
    hb_SetEnv( "CLIPPER" )
    hb_SetEnv( "CLIPPERCMD" )
+   hb_SetEnv( "_HB_DYNSUFF" )
 
    IF cDynSuffix != NIL
-      hb_SetEnv( "_HB_DYNSUFF", cDynSuffix )  /* Request dll version of Harbour contrib dependencies (the implibs) to be linked (experimental) */
+      IF ! HB_ISNULL( cDynSuffix )
+         /* Request dll version of Harbour contrib dependencies (the implibs) to
+            be linked, on non-*nix platforms (experimental) */
+         hb_SetEnv( "_HB_DYNSUFF", cDynSuffix )
+      ENDIF
 
       cOptionsPre += " -hbdyn"
 
       IF hb_vfExists( hb_FNameExtSet( cProjectPath, ".hbc" ) )
          cOptionsLibDyn += " " + hb_FNameExtSet( cProjectPath, ".hbc" )
       ENDIF
-   ELSE
-      hb_SetEnv( "_HB_DYNSUFF" )
    ENDIF
 
    hb_SetEnv( "_HB_CONTRIB_SUBDIR", hb_FNameDir( cProjectPath ) )
