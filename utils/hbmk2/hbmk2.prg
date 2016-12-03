@@ -66,7 +66,7 @@
    Markdown syntax:
       https://daringfireball.net/projects/markdown/syntax
       http://spec.commonmark.org/ (CommonMark)
-      http://johnmacfarlane.net/babelmark2/
+      https://johnmacfarlane.net/babelmark2/
 
    Markdown to man page converter:
       https://github.com/sunaku/md2man

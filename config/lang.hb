@@ -25,7 +25,7 @@
  *   - curl (built with SSL)
  *   - hbmk2 and hbi18n in PATH
  *   - the target .prg be runnable as script (for doc_make only)
- * Reference: http://docs.transifex.com/api/index
+ * Reference: https://docs.transifex.com/api/introduction
  */
 
 #pragma -w3
@@ -285,8 +285,7 @@ STATIC FUNCTION DoctorTranslation( cString, cOri )
 
    /* For Transifex: RETURN SYMBOL to real new line */
    cString := hb_StrReplace( cString, { ;
-      hb_UChar( 0x23CE ) => e"\n", ;
-      "http://www.transifex.com/" => "https://www.transifex.com/" } )
+      hb_UChar( 0x23CE ) => e"\n" } )
 
    IF lRightToLeft
       /* Common typos: extra space or punctuation */
