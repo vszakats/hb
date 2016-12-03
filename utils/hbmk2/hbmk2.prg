@@ -14618,7 +14618,7 @@ STATIC FUNCTION hbmk_DYNSUFFIX( hbmk )
 /* Return standard dynamic lib implib name suffix used by Harbour */
 STATIC FUNCTION hbmk_IMPSUFFIX( hbmk, cDL_Version_Alter )
    RETURN iif( hbmk[ _HBMK_nHBMODE ] == _HBMODE_NATIVE, ;
-      "_dll", ;
+      _HBMK_IMPLIB_DLL_SUFF, ;
       cDL_Version_Alter + hbmk_DYNSUFFIX( hbmk ) )
 
 /* Keep this public, it is used from macro. */
