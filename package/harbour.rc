@@ -1,4 +1,4 @@
-/* Copyright 2011-2016 Viktor Szakats (vszakats.net/harbour) */
+/* Copyright 2011-2017 Viktor Szakats (vszakats.net/harbour) */
 
 #if !( defined( OS2 ) || defined( __OS2__ ) || defined( OS_2 ) )
 
@@ -39,7 +39,7 @@ BEGIN
          VALUE "CompanyName",      HB_NAME "\0"
          VALUE "FileDescription",  HB_NAME "\0"
          VALUE "FileVersion",      HB_VER_FILE_STR HB_VER_STATUS "\0"
-         VALUE "LegalCopyright",   "Copyright © 1999-2016 (see application banner)" "\0"
+         VALUE "LegalCopyright",   "Copyright © 1999-2017 (see application banner)" "\0"
          VALUE "ProductName",      HB_NAME "\0"
          VALUE "ProductVersion",   HB_VER_PROD_STR HB_VER_STATUS "\0"
       END
