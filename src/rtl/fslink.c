@@ -155,6 +155,11 @@ HB_BOOL hb_fsLinkSym( const char * pszTarget, const char * pszNewFile )
          #ifndef SYMBOLIC_LINK_FLAG_DIRECTORY
          #define SYMBOLIC_LINK_FLAG_DIRECTORY 0x1
          #endif
+         /* Requires Windows 10 Insiders Build 14972 or newer
+            https://blogs.windows.com/buildingapps/2016/12/02/symlinks-windows-10/ */
+         #ifndef SYMBOLIC_LINK_FLAG_ALLOW_UNPRIVILEGED_CREATE
+         #define SYMBOLIC_LINK_FLAG_ALLOW_UNPRIVILEGED_CREATE 0x2
+         #endif
 
          if( s_pCreateSymbolicLink == ( _HB_CREATESYMBOLICLINK ) -1 )
          {
@@ -180,7 +185,8 @@ HB_BOOL hb_fsLinkSym( const char * pszTarget, const char * pszNewFile )
             fDir = ( dwAttr != INVALID_FILE_ATTRIBUTES ) &&
                    ( dwAttr & FILE_ATTRIBUTE_DIRECTORY );
 
-            fResult = s_pCreateSymbolicLink( lpSymlinkFileName, lpTargetFileName, fDir ? SYMBOLIC_LINK_FLAG_DIRECTORY : 0 ) != 0;
+            fResult = s_pCreateSymbolicLink( lpSymlinkFileName, lpTargetFileName,
+               ( fDir ? SYMBOLIC_LINK_FLAG_DIRECTORY : 0 ) | SYMBOLIC_LINK_FLAG_ALLOW_UNPRIVILEGED_CREATE ) != 0;
             hb_fsSetIOError( fResult, 0 );
 
             if( lpSymlinkFileNameFree )
