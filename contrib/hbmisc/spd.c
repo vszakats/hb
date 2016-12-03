@@ -50,6 +50,8 @@
 #include "hbdate.h"
 #include "hbset.h"
 
+#if defined( HB_LEGACY_LEVEL4 )
+
 static void STAItm( PHB_ITEM pItmPar )
 {
    HB_UINT      i, ulItmPar = ( HB_UINT ) hb_itemGetCLen( pItmPar );
@@ -670,3 +672,5 @@ HB_FUNC( SQL_SPRINTF )
          hb_retclen_buffer( cRes, ulResPos );
    }
 }
+
+#endif
