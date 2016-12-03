@@ -1,4 +1,4 @@
-Harbour Make \(hbmk2\) 3\.4\.0dev \(9dea61d\) \(2016\-03\-09 22:28\)  
+Harbour Make \(hbmk2\) 3\.4\.0dev \(070bae68be\) \(2016\-12\-03 12:21\)  
 Copyright &copy; 1999\-2017, Viktor Szakáts  
 <https://github\.com/vszakats/harbour\-core/>  
 Traduction \(fr\): \(ajoutez votre nom ici\)  
@@ -53,7 +53,7 @@ Options:
  - **\-ignore\[\-\]** ignore errors when running compiler tools \(default: off\)
  - **\-hbcppmm\[\-\]** override standard C\+\+ memory management functions with Harbour ones
  - **\-winuni\[\-\]** select between UNICODE \(WIDE\) and ANSI Windows API usage for C/C\+\+ input files \(default: ANSI\) \(Windows only\. For WinCE it is always set to UNICODE\)
- - **\-nohblib\[\-\]** ne pas utiliser de librairies statiques Harbour lors de l'édition des liens
+ - **\-nohblib\[\-\]** do not use static core Harbour libraries when linking \(default in \-hbdyn mode or when neither \.prg nor object files are specified as input\)
  - **\-nodefgt\[\-\]** ne pas lier GT par défaut \(efficace en mode statique\)
  - **\-nolibgrouping\[\-\]** disable library grouping on gcc based compilers
  - **\-nomiscsyslib\[\-\]** do not add extra list of system libraries to default library list
@@ -72,7 +72,7 @@ Options:
  - **\-manifest=&lt;file&gt;** embed manifest &lt;file&gt; in executable/dynamic lib \(Windows only\)
  - **\-sign=&lt;key&gt;** sign executable with &lt;key&gt; \(Windows and Darwin only\)\. On Windows signtool\.exe is used \(part of MS Windows SDK\) or posign\.exe \(part of Pelles C 7\), in that order, both auto\-detected\.
  - **\-signpw=&lt;pw&gt;** use &lt;pw&gt; as password when signing executable \(Windows and Darwin only\)
- - **\-signts=&lt;\[std:\]url&gt;** use &lt;url&gt; as trusted timestamp server\. Optional &lt;std&gt; might specify the standard as 'rfc3161' or 'authenticode' \(without quotes\)\. The default is 'rfc3161'\. Empty value resets it to the default: http://timestamp\.globalsign\.com/scripts/timstamp\.dll
+ - **\-signts=&lt;\[std:\]url&gt;** use &lt;url&gt; as trusted timestamp server\. Optional &lt;std&gt; might specify the standard as 'rfc3161' or 'authenticode' \(without quotes\)\. The default is 'rfc3161'\. Empty value disables timestamping\. Default: http://timestamp\.digicert\.com
  - **\-instfile=&lt;g:file&gt;** add &lt;file&gt; in to the list of files to be copied to path specified by \-instpath option\. &lt;g&gt; is an optional copy group \(case sensitive\), it must be at least two characters long\. In case you do not specify &lt;file&gt;, the list of files in that group will be emptied\.
  - **\-instpath=&lt;g:path&gt;** copy target file\(s\) to &lt;path&gt;\. if &lt;path&gt; is a directory, it should end with path separator, in this case files specified by \-instfile option will also be copied\. can be specified multiple times\. &lt;g&gt; is an optional copy group, it must be at least two characters long\. Build target will be automatically copied to default \(empty\) copy group\. There exist following built\-in &lt;g&gt; groups: 'depimplib' for import libraries and 'depimplibsrc' for import library source \(\.dll\) files, both belonging to dependencies\.
  - **\-instforce\[\-\]** copy target file\(s\) to install path even if already up to date
@@ -319,7 +319,7 @@ Filters \(you can combine and/or negate them\):
  - **\{&lt;compiler&gt;\}** target C compiler\. Where &lt;compiler&gt; can be any value accepted by \-comp= option\.
  - **\{&lt;cpu&gt;\}** target CPU\. Where &lt;cpu&gt; can be any of: x86, x86\_64, ia64, arm, mips, sh
  - **\{&lt;targettype&gt;\}** build target type\. Where &lt;targettype&gt; is any of the values returned by macro variable $\{hb\_targettype\}\.
- - **\{&lt;package\-manager&gt;\}** package manager\. Where &lt;package\-manager&gt; can be any of: deb, rpm, portage, homebrew, rudix, macports, fink, pkg, cygwin
+ - **\{&lt;package\-manager&gt;\}** package manager\. Where &lt;package\-manager&gt; can be any of: deb, rpm, portage, homebrew, nix, macports, fink, pkg, cygwin
  - **\{mt\}** build target is multi\-threaded \(see \-mt option\)
  - **\{st\}** build target is single\-threaded \(see \-st option\)
  - **\{gui\}** GUI target \(see \-gui option\)

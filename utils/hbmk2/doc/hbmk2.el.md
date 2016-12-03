@@ -1,4 +1,4 @@
-Harbour Make \(hbmk2\) 3\.4\.0dev \(9dea61d\) \(2016\-03\-09 22:28\)  
+Harbour Make \(hbmk2\) 3\.4\.0dev \(070bae68be\) \(2016\-12\-03 12:21\)  
 Copyright &copy; 1999\-2017, Viktor Szakáts  
 <https://github\.com/vszakats/harbour\-core/>  
 Μετάφραση \(el\): Pete D\. \(pete\_westg@yahoo\.gr\)  
@@ -53,7 +53,7 @@ Besides building executables, hbmk2 is able to run Harbour scripts \(both source
  - **\-ignore\[\-\]** αγνόηση λαθών όταν εκτελούνται εργαλεία του μεταγλωττιστή \(προεπιλογή: off\)
  - **\-hbcppmm\[\-\]** αντικατάσταση των πρότυπων C\+\+ συναρτήσεων διαχείρησης μνήμης με εκείνες του Harbour
  - **\-winuni\[\-\]** select between UNICODE \(WIDE\) and ANSI Windows API usage for C/C\+\+ input files \(default: ANSI\) \(Windows only\. For WinCE it is always set to UNICODE\)
- - **\-nohblib\[\-\]** μη χρήση στατικών βιβλιοθηκών πυρήνα Harbour κατά τη διασύνδεση
+ - **\-nohblib\[\-\]** do not use static core Harbour libraries when linking \(default in \-hbdyn mode or when neither \.prg nor object files are specified as input\)
  - **\-nodefgt\[\-\]** μη σύνδεση προεπιλεγμένων GTs \(ισχύει σε \-static μορφή κατασκευής\)
  - **\-nolibgrouping\[\-\]** απενεργοποίηση ομαδοποίησης βιβλιοθηκών σε gcc μεταγλωττιστές
  - **\-nomiscsyslib\[\-\]** μη προσθέτετε επιπλέον λιστα βιβλιοθηκών συστήματος στην προεπιλεγμένη λιστα βιβλιοθηκών
@@ -72,7 +72,7 @@ Besides building executables, hbmk2 is able to run Harbour scripts \(both source
  - **\-manifest=&lt;file&gt;** ενσωμάτωση του μανιφέστου &lt;file&gt; στο εκτελέσιμο/δυναμική βιβλ\. \(μονο σε Windows\)
  - **\-sign=&lt;key&gt;** sign executable with &lt;key&gt; \(Windows and Darwin only\)\. On Windows signtool\.exe is used \(part of MS Windows SDK\) or posign\.exe \(part of Pelles C 7\), in that order, both auto\-detected\.
  - **\-signpw=&lt;pw&gt;** χρήση του &lt;pw&gt; ως συνθηματικού κατά την σήμανση του εκτελέσιμου \(μόνο σε Windows και Darwin\)
- - **\-signts=&lt;\[std:\]url&gt;** use &lt;url&gt; as trusted timestamp server\. Optional &lt;std&gt; might specify the standard as 'rfc3161' or 'authenticode' \(without quotes\)\. The default is 'rfc3161'\. Empty value resets it to the default: http://timestamp\.globalsign\.com/scripts/timstamp\.dll
+ - **\-signts=&lt;\[std:\]url&gt;** use &lt;url&gt; as trusted timestamp server\. Optional &lt;std&gt; might specify the standard as 'rfc3161' or 'authenticode' \(without quotes\)\. The default is 'rfc3161'\. Empty value disables timestamping\. Default: http://timestamp\.digicert\.com
  - **\-instfile=&lt;g:file&gt;** προσθήκη &lt;file&gt; iστη λίστα αρχείων προς αντιγραφή στο μονοπάτι που ορίστηκε από την επιλογή \-instpath\. &lt;g&gt; είναι μια προαιρετική ομάδα αντιγραφής \(πεζά/κεφαλαία ευαίσθητο\), πρέπει να έχει μήκος τουλάχιστον δύο χαρακτήρων\. Σε περίπτωση μη καθορισμού του &lt;file&gt;, η λίστα αρχείων σε αυτή την ομάδα θα εκκενωθεί\.
  - **\-instpath=&lt;g:path&gt;** αντιγραφή των αρχείου\(ων\) στο &lt;path&gt;\. Αν το &lt;path&gt; είναι κατάλογος, πρέπει να τελειώνει με τον διαχωριστή μονοπατιού· σε αυτή την περίπτωση τα αρχεία που καθορίστηκαν με την επιλογή \-instfile θα αντιγραφούν επίσης· μπορεί να οριστεί πολλαπλές φορές\. &lt;g&gt; είναι μια προαιρετική ομάδα αντιγραφής, πρέπει να έχει μήκος τουλάχιστον δύο χαρακτήρων\. Το κατασκευασμένο έργο θα αντιγραφεί αυτόματα σε προεπιλεγμένη \(άδεια\) ομάδα αντιγραφής\. Υπάρχουν οι ακόλουθες ενσωματωμένες &lt;g&gt; ομάδες: 'depimplib' για τις βιβλιοθήκες εισαγωγής και 'depimplibsrc' για πηγαία \(\.dll\) αρχεία βιβλιοθηκών εισαγωγής, αμφότερες ανήκουσες σε εξαρτήσεις\.
  - **\-instforce\[\-\]** αντιγραφή του κατασκευασμένου αρχείου\(ων\) του έργου στο κατάλογο εγκατάστασης έστω κι αν είναι ενήμερο /up to date/
@@ -319,7 +319,7 @@ Special value:
  - **\{&lt;compiler&gt;\}** ο C μεταγλωττιστής\-στόχος\. Οπου &lt;compiler&gt; μπορεί να είναι κάθε τιμή αποδεκτή απο την επιλογή \-comp\.
  - **\{&lt;cpu&gt;\}** τύπος CPU εκτέλεσης του έργου\. Οπου &lt;cpu&gt; μπορεί να είναι κάτι από: x86, x86\_64, ia64, arm, mips, sh
  - **\{&lt;targettype&gt;\}** τύπος κατασκευής έργου\. Οπου &lt;targettype&gt; είναι μια από τις τιμές που επιστρέφονται από την macro μεταβλητή $\{hb\_targettype\}\.
- - **\{&lt;package\-manager&gt;\}** package manager\. Where &lt;package\-manager&gt; can be any of: deb, rpm, portage, homebrew, rudix, macports, fink, pkg, cygwin
+ - **\{&lt;package\-manager&gt;\}** package manager\. Where &lt;package\-manager&gt; can be any of: deb, rpm, portage, homebrew, nix, macports, fink, pkg, cygwin
  - **\{mt\}** το κατασκευαζόμενο έργο είναι πολυ\-νηματικό /multi\-threaded/ \(δες επιλογή \-mt\)
  - **\{st\}** το κατασκευαζόμενο έργο είναι μονό\-νηματικό /single\-threaded/ \(δες επιλογή \-st\)
  - **\{gui\}** στόχος Γραφικού Περιβάλλοντος Χρήστη GUI \(δες επιλογή \-gui\)

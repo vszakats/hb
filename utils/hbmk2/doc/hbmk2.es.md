@@ -1,4 +1,4 @@
-Harbour Make \(hbmk2\) 3\.4\.0dev \(9dea61d\) \(2016\-03\-09 22:28\)  
+Harbour Make \(hbmk2\) 3\.4\.0dev \(070bae68be\) \(2016\-12\-03 12:21\)  
 Copyright &copy; 1999\-2017, Viktor Szakáts  
 <https://github\.com/vszakats/harbour\-core/>  
 Traducción \(es\): Guillermo Varona Silupú &lt;gvaronas@gmail\.com&gt;  
@@ -53,7 +53,7 @@ Opciones:
  - **\-ignore\[\-\]** ignore errores cuando ejecute herramienta de compilador \(por defecto: off\)
  - **\-hbcppmm\[\-\]** sustituye las funciones de administración de memoria estandar de C\+\+ con las de Harbour
  - **\-winuni\[\-\]** select between UNICODE \(WIDE\) and ANSI Windows API usage for C/C\+\+ input files \(default: ANSI\) \(Windows only\. For WinCE it is always set to UNICODE\)
- - **\-nohblib\[\-\]** no use librerías estáticas del núcleo de Harbour al enlazar
+ - **\-nohblib\[\-\]** do not use static core Harbour libraries when linking \(default in \-hbdyn mode or when neither \.prg nor object files are specified as input\)
  - **\-nodefgt\[\-\]** no enlaza a los GT por defecto \(efectivo en modo \-static\)
  - **\-nolibgrouping\[\-\]** desactiva el agrupamiento de bibliotecas en compiladores basados en gcc
  - **\-nomiscsyslib\[\-\]** no se añade la lista adicional de librerías del sistema a la lista de librerías por defecto
@@ -72,7 +72,7 @@ Opciones:
  - **\-manifest=&lt;file&gt;** incrusta el fichero de manifiesto &lt;file&gt; en el ejecutable/biblioteca dinámica \(sólo para Windows\)
  - **\-sign=&lt;key&gt;** sign executable with &lt;key&gt; \(Windows and Darwin only\)\. On Windows signtool\.exe is used \(part of MS Windows SDK\) or posign\.exe \(part of Pelles C 7\), in that order, both auto\-detected\.
  - **\-signpw=&lt;pw&gt;** usa &lt;pw&gt; como contraseña cuando se firma el ejecutable \(sólo para Windows y Darwin\)
- - **\-signts=&lt;\[std:\]url&gt;** use &lt;url&gt; as trusted timestamp server\. Optional &lt;std&gt; might specify the standard as 'rfc3161' or 'authenticode' \(without quotes\)\. The default is 'rfc3161'\. Empty value resets it to the default: http://timestamp\.globalsign\.com/scripts/timstamp\.dll
+ - **\-signts=&lt;\[std:\]url&gt;** use &lt;url&gt; as trusted timestamp server\. Optional &lt;std&gt; might specify the standard as 'rfc3161' or 'authenticode' \(without quotes\)\. The default is 'rfc3161'\. Empty value disables timestamping\. Default: http://timestamp\.digicert\.com
  - **\-instfile=&lt;g:file&gt;** añade &lt;archivo&gt; a la lista de archivos que desea copiar a la ruta especificada por la opción \-instpath\. &lt;g&gt; es un grupo opcional de copia \(distingue mayúsculas y minúsculas\), debe haber al menos dos caracteres\. En caso de que no se especifica &lt;archivo&gt;, la lista de archivos en ese grupo se vaciará\.
  - **\-instpath=&lt;g:path&gt;** copia el/los archivo\(s\) objetivo a la ruta &lt;path&gt;\. Si &lt;path&gt; es un directorio, debería terminar con un separador de rutas, en este caso los archivos especificados en la opción '\-instfile' también son copiados\. Puede ser especificado varias veces\. &lt;g&gt; es grupo de copia opcional, debe tener al menos dos caracteres de largo\. El objetivo final será copiado automaticamente al grupo de copia por defecto \(sin asignación de &lt;g&gt;\)\. Existen los siguientes grupos de copia ya incluidos: 'depimplib' para las bibliotecas importadas y 'depimplibsrc' para los archivos fuente de las bibliotecas importadas \(\.dll\), ambos pertenecientes a las dependencias\.
  - **\-instforce\[\-\]** copia el/los archivo\(s\) objetivos a la ruta de instalación aunque esten al día
@@ -319,7 +319,7 @@ Filtros \(puedes combinarlos y/o negarlos\):
  - **\{&lt;compiler&gt;\}** selecciona el compilador de código fuente en C\. Donde &lt;compiler&gt; puede ser cualquiera de los valores aceptados por la opción '\-comp='\.
  - **\{&lt;cpu&gt;\}** CPU destino\. &lt;cpu&gt; puede ser una de: x86, x86\_64, ia64, arm, mips, sh
  - **\{&lt;targettype&gt;\}** seleciona el tipo del objetivo final\. Donde &lt;targettype&gt; es cualquiera de los valores devueltos por la variable macro $\{hb\_targettype\}\.
- - **\{&lt;package\-manager&gt;\}** package manager\. Where &lt;package\-manager&gt; can be any of: deb, rpm, portage, homebrew, rudix, macports, fink, pkg, cygwin
+ - **\{&lt;package\-manager&gt;\}** package manager\. Where &lt;package\-manager&gt; can be any of: deb, rpm, portage, homebrew, nix, macports, fink, pkg, cygwin
  - **\{mt\}** el objetivo final de la construcción es multihilo \(ver opción \-mt\)
  - **\{st\}** el objetivo final es monohilo \(ver opción \-st\)
  - **\{gui\}** el objetivo final tiene un interfaz gráfico \(ver opción \-gui\)
