@@ -107,7 +107,7 @@ CREATE CLASS TIPClient
    VAR Cargo
 
    /* Data for proxy connection */
-   VAR cProxyHost
+   VAR cProxyHost        INIT ""
    VAR nProxyPort        INIT 0
    VAR cProxyUser
    VAR cProxyPassword
@@ -242,7 +242,7 @@ METHOD Open( cUrl ) CLASS TIPClient
 
    ::InetTimeOut( ::SocketCon )
 
-   IF Empty( ::cProxyHost )
+   IF HB_ISNULL( ::cProxyHost )
       ::inetConnect( ::oUrl:cServer, nPort, ::SocketCon )
       IF ::inetErrorCode( ::SocketCon ) != 0
          RETURN .F.
@@ -573,7 +573,7 @@ METHOD inetSendAll( SocketCon, cData, nLen ) CLASS TIPClient
       nLen := hb_BLen( cData )
    ENDIF
 
-   IF ::lSSL .AND. ( Empty( ::cProxyHost ) .OR. ::lProxyXferSSL )
+   IF ::lSSL .AND. ( HB_ISNULL( ::cProxyHost ) .OR. ::lProxyXferSSL )
       IF ::lHasSSL
 #if defined( _SSL_DEBUG_TEMP )
          ? "SSL_write()", cData
@@ -607,7 +607,7 @@ METHOD inetRecv( SocketCon, cStr1, len ) CLASS TIPClient
 
    LOCAL nRet
 
-   IF ::lSSL .AND. ( Empty( ::cProxyHost ) .OR. ::lProxyXferSSL )
+   IF ::lSSL .AND. ( HB_ISNULL( ::cProxyHost ) .OR. ::lProxyXferSSL )
       IF ::lHasSSL
 #if defined( _SSL_DEBUG_TEMP )
          ? "SSL_read()"
@@ -741,7 +741,7 @@ METHOD PROCEDURE inetConnect( cServer, nPort, SocketCon ) CLASS TIPClient
       ::InetRcvBufSize( SocketCon, ::nDefaultRcvBuffSize )
    ENDIF
 
-   IF ::lSSL .AND. ::lHasSSL .AND. Empty( ::cProxyHost )
+   IF ::lSSL .AND. ::lHasSSL .AND. HB_ISNULL( ::cProxyHost )
       __tip_SSLConnectFD( ::ssl, SocketCon )  /* Proxy will do this in OpenProxy() */
       ::lProxyXferSSL := .T.
    ELSE
