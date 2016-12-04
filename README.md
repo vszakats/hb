@@ -877,38 +877,6 @@ win-make
 ```
 
 ```batchfile
-:: Borland C++ 5.5.1
-set PATH=C:\Borland\BCC55\Bin;%PATH%
-win-make
-```
-
-```batchfile
-:: Pelles C
-set PATH=%ProgramFiles%\PellesC\Bin;%PATH%
-set INCLUDE=%ProgramFiles%\PellesC\Include;%ProgramFiles%\PellesC\Include\Win;%INCLUDE%
-set LIB=%ProgramFiles%\PellesC\Lib;%ProgramFiles%\PellesC\Lib\Win;%LIB%
-win-make
-```
-
-```batchfile
-:: Pelles C for Windows x86-64
-:: (requires preceding build for native target)
-set PATH=%ProgramFiles%\PellesC\Bin;%PATH%
-set INCLUDE=%ProgramFiles%\PellesC\Include;%ProgramFiles%\PellesC\Include\Win;%INCLUDE%
-set LIB=%ProgramFiles%\PellesC\Lib;%ProgramFiles%\PellesC\Lib\Win64;%LIB%
-win-make
-```
-
-```batchfile
-:: Pelles C for Windows CE ARM
-:: (requires preceding build for native target)
-set PATH=%ProgramFiles%\PellesC\Bin;%PATH%
-set INCLUDE=%ProgramFiles%\PellesC\Include\WinCE;%ProgramFiles%\PellesC\Include;%INCLUDE%
-set LIB=%ProgramFiles%\PellesC\Lib;%ProgramFiles%\PellesC\Lib\WinCE;%LIB%
-win-make
-```
-
-```batchfile
 :: Delorie GNU C for MS-DOS (on Intel 32-bit Windows hosts only)
 set DJGPP=C:\djgpp\djgpp.env
 set PATH=C:\djgpp\bin;%PATH%
@@ -1120,15 +1088,6 @@ export HB_BUILD_3RDEXT=no
 make
 ```
 
-```sh
-# Borland C++ 5.5.1
-export PATH=~/.wine/drive_c/Borland/BCC55/Bin:$PATH
-export HB_PLATFORM=win
-export HB_COMPILER=bcc
-export HB_BUILD_3RDEXT=no
-make
-```
-
 ## on Darwin (Mac) hosts
 
 ```sh
@@ -1326,10 +1285,12 @@ Press `<Alt+D>` in the app.
 ### win (partial support, some features may be missing)
 * clang    - Clang
 * watcom   - Open Watcom C/C++
-* bcc      - Borland/CodeGear/Embarcadero C++ 5.5 and above
-* bcc64    - Embarcadero C++ 6.5 and above
 * icc      - Intel(R) C/C++
 * iccia64  - Intel(R) C/C++ IA-64 (Itanium)
+
+### win (deprecated)
+* bcc      - Borland/CodeGear/Embarcadero C++ 5.5 and above
+* bcc64    - Embarcadero C++ 6.5 and above
 * pocc     - Pelles C 4.5 and above
 * pocc64   - Pelles C x86-64 5.0 and above
 * xcc      - Pelles C for xhb
@@ -1515,10 +1476,6 @@ Supported shells per host platforms:
         * <https://www.visualstudio.com/vs/visual-studio-express/>
      * MS Visual Studio [win, commercial, closed-source]
         * <https://www.visualstudio.com/>
-     * Pelles C [win, wce, free, closed-source]
-        * <http://smorgasbordet.com/pellesc/>
-     * Borland/CodeGear/Embarcadero Compiler [win, free, closed-source]
-        * <https://downloads.embarcadero.com/free/c_builder>
      * Intel Compiler [win, linux, darwin, commercial, closed-source]
         * <https://software.intel.com/en-us/c-compilers>
 

@@ -9,6 +9,12 @@
 1 ICON DISCARDABLE "harbour.ico"
 #endif
 
+/* NOTE: BCC 5.5 has a RC preprocessor bug that in certain cases will append
+         a trash byte to the return value of this macro. Such trash bytes
+         will result in a broken manifest record and the executable rejected
+         by the OS (f.e. Windows 10) to run. It can be "fixed" by using
+         a macro name shorter or longer by one character. But, instead of
+         such non-zero-cost hacks, please switch to a modern compiler. */
 #define HB_MACRO2STRING( macro )   HB_MACRO2STRING_( macro )
 #define HB_MACRO2STRING_( macro )  #macro
 
