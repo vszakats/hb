@@ -6,7 +6,7 @@
 
 #if defined( _HB_INCLUDE_ICON ) && \
     ! defined( __BORLANDC__ ) && ! defined( UNDER_CE )
-1 ICON DISCARDABLE "../package/harbour.ico"
+1 ICON DISCARDABLE "harbour.ico"
 #endif
 
 #define HB_MACRO2STRING( macro )   HB_MACRO2STRING_( macro )
