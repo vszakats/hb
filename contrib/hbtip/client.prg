@@ -573,7 +573,7 @@ METHOD inetSendAll( SocketCon, cData, nLen ) CLASS TIPClient
       nLen := hb_BLen( cData )
    ENDIF
 
-   IF ::lSSL .AND. ::lProxyXferSSL
+   IF ::lSSL .AND. ( Empty( ::cProxyHost ) .OR. ::lProxyXferSSL )
       IF ::lHasSSL
 #if defined( _SSL_DEBUG_TEMP )
          ? "SSL_write()", cData
@@ -607,7 +607,7 @@ METHOD inetRecv( SocketCon, cStr1, len ) CLASS TIPClient
 
    LOCAL nRet
 
-   IF ::lSSL .AND. ::lProxyXferSSL
+   IF ::lSSL .AND. ( Empty( ::cProxyHost ) .OR. ::lProxyXferSSL )
       IF ::lHasSSL
 #if defined( _SSL_DEBUG_TEMP )
          ? "SSL_read()"
