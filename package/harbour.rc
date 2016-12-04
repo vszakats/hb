@@ -6,7 +6,7 @@
 
 #if defined( _HB_INCLUDE_ICON ) && \
     ! defined( __BORLANDC__ ) && ! defined( UNDER_CE )
-1 ICON DISCARDABLE "harbour.ico"
+1 ICON DISCARDABLE "../package/harbour.ico"
 #endif
 
 /* NOTE: BCC 5.5 has a RC preprocessor bug that in certain cases will append
