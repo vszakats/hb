@@ -17,7 +17,7 @@ These are some links to Harbour related 3rd party tools and libraries.
 
 ## [hbgi](https://github.com/tuffnatty/hbgi)
 
-<img class="img-right" src="{{ '/images/3rd_gtk.svg' | relative_url }}" height="48" alt="logo">
+<img class="img-right" src="{{ site.baseurl }}/images/3rd_gtk.svg" height="48" alt="logo">
 Continuation of former project [xbGTK](https://sourceforge.net/projects/xbgtk/),
 this project is an open source library for Linux and Windows. It allows to use
 GTK+ in programs written in xBase-like languages. The library is written by Phil
