@@ -173,15 +173,10 @@ then
       mv -f "${hb_filename}" "${RPMDIR}/SOURCES/"
       cp harbour.spec "${RPMDIR}/SPECS/"
 
-      if which rpmbuild >/dev/null 2>&1
-      then
-         RPMBLD='rpmbuild'
-      else
-         RPMBLD='rpm'
-      fi
       cd "${RPMDIR}/SPECS" || exit
+
       # shellcheck disable=SC2086
-      ${RPMBLD} -ba harbour.spec ${INST_PARAM}
+      rpmbuild -ba harbour.spec ${INST_PARAM}
    else
       echo "Cannot find archive file: ${hb_filename}"
       exit 1

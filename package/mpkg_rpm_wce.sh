@@ -80,19 +80,16 @@ then
       else
          RPMDIR=$(get_rpmmacro '_topdir')
       fi
+
       mv "${hb_filename}" "${RPMDIR}/SOURCES/"
       sed -e "s/^%define version .*$/%define version   ${hb_ver}/g" \
           -e "s/^%define releasen .*$/%define releasen  ${hb_verstat}/g" \
          harbour-wce.spec.in > "${RPMDIR}/SPECS/harbour-wce.spec"
-      if which rpmbuild >/dev/null 2>&1
-      then
-         RPMBLD='rpmbuild'
-      else
-         RPMBLD='rpm'
-      fi
+
       cd "${RPMDIR}/SPECS" || exit
+
       # shellcheck disable=SC2086
-      ${RPMBLD} -ba harbour-wce.spec ${INST_PARAM}
+      rpmbuild -ba harbour-wce.spec ${INST_PARAM}
    else
       echo "Cannot find archive file: ${hb_filename}"
       exit 1
