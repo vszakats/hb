@@ -2,8 +2,8 @@
 
 <footer>
   <div class="footer-content">
-    <div><a href="https://raw.githubusercontent.com/{{ site.repo_slug }}/master/{{ site.license_file }}">© {{ site.time | date: '%Y' }}</a> <a href="{{ site.real_host }}{{ site.baseurl }}">Harbour&nbsp;Project</a></div>
-    <div><a href="{{ site.baseurl }}/terms">Terms of Service</a> | <a href="{{ site.baseurl }}/contact">Contact</a><!--<br>
+    <div><a href="https://raw.githubusercontent.com/{{ site.repo_slug }}/master/{{ site.license_file }}">© {{ site.time | date: '%Y' }}</a> <a href="{{ '/' | relative_url }}">Harbour&nbsp;Project</a></div>
+    <div><a href="{{ site.baseurl }}/terms">Terms of Service</a> | <a href="{{ site.baseurl }}/contact">Contact</a>|{{ site.url }}| |{{ site.baseurl }}|<!--<br>
 {% assign url2 = site.real_host | append: site.baseurl | append: '/css/styles.css' %}
       <a href="https://jigsaw.w3.org/css-validator/validator?profile=css3&usermedium=all&warning=1&uri={{ url2 | url_encode }}"><i class="fa fa-css3" aria-hidden="true"></i></a>
 {% assign url1 = site.real_host | append: site.baseurl | append: page.url | append: page_name %}
