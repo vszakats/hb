@@ -90,8 +90,8 @@ gpg --version | grep gpg
 gpg_recv_keys 8756C4F765C9AC3CB6B85D62379CE192D401AB61
 
 # Builder public key
-# curl 'https://bintray.com/user/downloadSubjectPublicKey?username=vszakats' | \
-#    gpg --import
+# curl 'https://bintray.com/user/downloadSubjectPublicKey?username=vszakats' \
+#    | gpg --import
 
 readonly base='https://bintray.com/artifact/download/vszakats/generic/'
 

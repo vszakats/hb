@@ -36,8 +36,7 @@ rm -f "$hb_filename"
 
 hb_collect_all_git()
 {
-   for f in $(git ls-tree HEAD -r --name-only)
-   do
+   for f in $(git ls-tree HEAD -r --name-only); do
       [ -f "$f" ] && echo "$f"
    done
 }
@@ -45,8 +44,7 @@ hb_collect_all_git()
 hb_collect_all_tree()
 {
    _exclude='/obj/|/lib/|/bin/.*/|\.tar|\.zip|\.exe|\.log|/linux/|/win|/config/'
-   for f in $(find -type f | grep -vE "${_exclude}")
-   do
+   for f in $(find . -type f | grep -vE "${_exclude}"); do
       echo "$f" | awk '{ string=substr($0, 2); print string; }'
    done
    find config -type f -exec echo '{}' \;
@@ -54,7 +52,7 @@ hb_collect_all_tree()
 
 hb_rmflst='yes'
 hb_flst='bin/hb_flst.tmp'
-if [ -d "$hb_rootdir/.git" ] ; then
+if [ -d "$hb_rootdir/.git" ]; then
    hb_rmflst='yes'
    (cd "$hb_rootdir" || exit; hb_collect_all_git) > "$hb_rootdir/$hb_flst"
    echo "$hb_flst" >> "$hb_rootdir/$hb_flst"
