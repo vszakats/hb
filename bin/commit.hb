@@ -278,15 +278,20 @@ STATIC FUNCTION GetLastEntry( cLog, /* @ */ nStart, /* @ */ nEnd )
 STATIC FUNCTION MakeEntry( aChanges, cMyName, cLogName, lAllowChangeLog, cEOL )
 
    LOCAL nOffset := hb_UTCOffset()
+   LOCAL tDate := hb_DateTime()
 
-   LOCAL cLog := hb_StrFormat( "%1$s UTC%2$s%3$02d%4$02d %5$s", ;
-      hb_TToC( hb_DateTime(), "yyyy-mm-dd", "hh:mm" ), ;
+   LOCAL cLog
+   LOCAL cLine
+
+   tDate -= ( nOffset / 86400 )
+   nOffset := 0
+
+   cLog := hb_StrFormat( "%1$s UTC%2$s%3$02d%4$02d %5$s", ;
+      hb_TToC( tDate, "yyyy-mm-dd", "hh:mm" ), ;
       iif( nOffset < 0, "-", "+" ), ;
       Int( Abs( nOffset ) / 3600 ), ;
       Int( Abs( nOffset ) % 3600 / 60 ), ;
       cMyName ) + cEOL
-
-   LOCAL cLine
 
    FOR EACH cLine IN aChanges
       IF lAllowChangeLog .OR. !( SubStr( cLine, 5 ) == hb_FNameNameExt( cLogName ) )
