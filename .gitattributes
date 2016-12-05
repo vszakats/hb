@@ -39,7 +39,6 @@
 *.vbs     text
 *.xml     text
 *.xpm     text
-*.xsl     text
 *.y       text
 *.yml     text
 *.yyc     text
@@ -52,7 +51,6 @@
 # Binary files
 *.a       binary
 *.bmp     binary
-*.dat     binary
 *.dbf     binary
 *.exe     binary
 *.frm     binary
@@ -63,13 +61,11 @@
 *.lbl     binary
 *.lib     binary
 *.mdb     binary
-*.ng      binary
 *.odt     binary
 *.pdf     binary
 *.png     binary
 *.sq3     binary
 *.ttf     binary
-*.tif     binary
 
 # TOTEST:
 #*.c       text diff=cpp
