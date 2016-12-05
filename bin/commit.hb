@@ -245,7 +245,7 @@ STATIC FUNCTION FindChangeLog( cVCS )
 
 STATIC FUNCTION GetLastEntry( cLog, /* @ */ nStart, /* @ */ nEnd )
 
-   LOCAL cLogHeaderExp := "\n[1-2][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9] [0-2][0-9]:[0-6][0-9] UTC[\-+][0-1][0-9][0-5][0-9] [\S ]*"
+   LOCAL cLogHeaderExp := "\n[1-2][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9] [0-2][0-9]:[0-6][0-9] [\S ]*"
 
    LOCAL cOldCP := hb_cdpSelect( "cp437" )
    LOCAL cHit
@@ -286,12 +286,18 @@ STATIC FUNCTION MakeEntry( aChanges, cMyName, cLogName, lAllowChangeLog, cEOL )
    tDate -= ( nOffset / 86400 )
    nOffset := 0
 
-   cLog := hb_StrFormat( "%1$s UTC%2$s%3$02d%4$02d %5$s", ;
-      hb_TToC( tDate, "yyyy-mm-dd", "hh:mm" ), ;
-      iif( nOffset < 0, "-", "+" ), ;
-      Int( Abs( nOffset ) / 3600 ), ;
-      Int( Abs( nOffset ) % 3600 / 60 ), ;
-      cMyName ) + cEOL
+   IF nOffset == 0
+      cLog := hb_StrFormat( "%1$s UTC", ;
+         hb_TToC( tDate, "yyyy-mm-dd", "hh:mm" ) )
+   ELSE
+      cLog := hb_StrFormat( "%1$s UTC+%2$s%3$02d%4$02d", ;
+         hb_TToC( tDate, "yyyy-mm-dd", "hh:mm" ), ;
+         iif( nOffset < 0, "-", "+" ), ;
+         Int( Abs( nOffset ) / 3600 ), ;
+         Int( Abs( nOffset ) % 3600 / 60 ) )
+   ENDIF
+
+   cLog += " " + cMyName + cEOL
 
    FOR EACH cLine IN aChanges
       IF lAllowChangeLog .OR. !( SubStr( cLine, 5 ) == hb_FNameNameExt( cLogName ) )
