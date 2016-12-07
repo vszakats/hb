@@ -34,13 +34,13 @@ Harbour itself.
 
 [Build](https://github.com/{{ site.repo_slug }}/blob/master/utils/hbmk2/doc/hbmk2.en.md):
 
-```
+```shell
 $ hbmk2 app.prg
 $ ./app
 ```
 
 or [run](https://github.com/{{ site.repo_slug }}/blob/master/contrib/hbrun/doc/hbrun.en.md) them as scripts:
 
-```
+```shell
 $ hbrun app.prg
 ```
