@@ -1530,8 +1530,8 @@ Supported shells per host platforms:
 
         MS-DOS binary + source:
 
-         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/beta/v2gnu/mak381b.zip>
-         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/beta/v2gnu/mak381s.zip>
+         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/mak421b.zip>
+         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/mak421s.zip>
           <br />(included in Harbour as [dos-make.exe](dos-make.exe))
 
         OS/2 binary + source (3.81r3 or upper):
@@ -1543,12 +1543,12 @@ Supported shells per host platforms:
 
         MS-DOS binary + source:
 
-         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/fil41b.zip>
-         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/fil41s.zip>
-         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/shl2011b.zip>
-         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/shtl208s.zip>
-         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/djdev203.zip>
-         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/djlsr203.zip>
+         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/fil41br2.zip>
+         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/fil41sr2.zip>
+         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/shl2011br2.zip>
+         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/shtl208sr2.zip>
+         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/djdev205.zip>
+         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/djlsr205.zip>
           <br />(included in Harbour as [dosmkdir.exe](config/dosmkdir.exe), [dosrm.exe](config/dosrm.exe), [doscp.exe](config/doscp.exe), [dosecho.exe](config/dosecho.exe))
 
         OS/2 binary:

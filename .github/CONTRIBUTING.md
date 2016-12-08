@@ -65,7 +65,7 @@
   - Keep one (not zero or multiple) newline at the end of file
   - Use platform native newline (CRLF or LF)
 - In the rare case you need to send something large (> 100 kB),
-  use this [free service](https://transfer.sh).
+  use this [free service](https://transfer.sh/).
 - See this good guideline on how to contribute:
   <https://github.com/necolas/issue-guidelines/blob/master/CONTRIBUTING.md>
 - And these:
