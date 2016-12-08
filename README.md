@@ -171,6 +171,11 @@ You should see `Hello, world!` on screen.
 
 Make sure to have your C compiler of choice installed in `PATH`.
 
+To prepare:
+
+    1. Get `curl` tool.
+    2. Execute shell script `config/dl-tools.sh` to download required build tools.
+
 To build:
 
     > dos-make
@@ -184,6 +189,11 @@ To test it, type:
 You should see `Hello, world!` on screen.
 
 ## on OS/2 hosts (possible cross-build targets: MS-DOS, OS/2, Linux)
+
+To prepare:
+
+    1. Get `curl` tool.
+    2. Execute shell script `config/dl-tools.sh` to download required build tools.
 
 To build:
 
@@ -1527,34 +1537,6 @@ Supported shells per host platforms:
          * <https://mirrorservice.org/sites/dl.sourceforge.net/pub/sourceforge/m/mi/mingw/MinGW/Extension/make/make-3.82-mingw32/make-3.82-5-mingw32-src.tar.lzma>
          * `git clone ssh://git.sv.gnu.org/srv/git/make.git`
           <br />(included in Harbour as [win-make.exe](win-make.exe))
-
-        MS-DOS binary + source:
-
-         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/mak421b.zip>
-         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/mak421s.zip>
-          <br />(included in Harbour as [dos-make.exe](dos-make.exe))
-
-        OS/2 binary + source (3.81r3 or upper):
-
-         * <http://hobbes.nmsu.edu/download/pub/os2/dev/util/make-3.81-r3-bin-static.zip>
-         * <http://hobbes.nmsu.edu/h-browse.php?dir=/pub/os2/dev/util>
-          <br />(included in Harbour as [os2-make.exe](os2-make.exe))
-     * GNU core utils (mkdir, rm, cp, echo)
-
-        MS-DOS binary + source:
-
-         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/fil41br2.zip>
-         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/fil41sr2.zip>
-         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/shl2011br2.zip>
-         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/shtl208sr2.zip>
-         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/djdev205.zip>
-         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/djlsr205.zip>
-          <br />(included in Harbour as [dosmkdir.exe](config/dosmkdir.exe), [dosrm.exe](config/dosrm.exe), [doscp.exe](config/doscp.exe), [dosecho.exe](config/dosecho.exe))
-
-        OS/2 binary:
-
-         * <http://os2ports.smedley.id.au/index.php?page=gnu-coreutils>
-          <br />(included in Harbour as [os2mkdir.exe](config/os2mkdir.exe), [os2rm.exe](config/os2rm.exe), [os2cp.exe](config/os2cp.exe))
 
 * Documentation:
 
