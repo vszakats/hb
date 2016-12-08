@@ -30,6 +30,7 @@ for os in dos os2; do
 
     for file in ./*.zip; do
       unzip -o "${file}"
+      rm -f "${file}"
     done
 
     cp -p "${mkprefix}bin/make.exe"  "../../${os}-make.exe"
