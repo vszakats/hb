@@ -14875,9 +14875,7 @@ STATIC PROCEDURE ShowFunctionProviders( hbmk, aFunction, lGenericFind )
          tmp := Upper( cFunction )
          FOR EACH tmp1 IN hAll
             IF Levenshtein( tmp, Upper( tmp1:__enumKey() ) ) <= 1
-               Eval( bAdd, tmp1:__enumKey() )
                AAdd( aTypo, hb_StrFormat( "%1$s() -> %2$s()", cFunction, tmp1:__enumKey() ) )
-               lFound := .T.
             ENDIF
          NEXT
       ENDIF
