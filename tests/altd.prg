@@ -13,6 +13,6 @@ PROCEDURE Main()
 
    Alert( "debugger invoked",, "GR+" )
 
-   Alert( "finished",, "GR+/B,W+/R" )
+   Alert( "finished",, "GR+/B,W+/R" )  // 'W+/R' is ignored for Cl*pper compatibility and placed there for testing purposes only.
 
    RETURN
