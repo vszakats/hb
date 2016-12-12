@@ -123,7 +123,7 @@ PROCEDURE Main()
          "Mount"          => { ;
          "/hello"            => {|| UWrite( "Hello!" ) }, ;
          "/info"             => {|| UProcInfo() }, ;
-         "/files/*"          => {| x | QOut( hb_DirBase() + "/files/" + X ), UProcFiles( hb_DirBase() + "/files/" + X, .F. ) }, ;
+         "/files/*"          => {| x | QOut( hb_DirBase() + "files/" + X ), UProcFiles( hb_DirBase() + "files/" + X, .F. ) }, ;
          "/app/login"        => @proc_login(), ;
          "/app/logout"       => @proc_logout(), ;
          "/app/account"      => @proc_account(), ;

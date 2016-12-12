@@ -395,7 +395,7 @@ STATIC PROCEDURE Exm_CDO()  /* STARTTLS not supported by CDO */
       oCDOConf:Fields:Update()
 
       oCDOMsg:Configuration := oCDOConf
-      oCDOMsg:BodyPart:Charset := "utf-8" // "iso-8859-1" "iso-8859-2"
+      oCDOMsg:BodyPart:Charset := "utf-8"
       oCDOMsg:To := "to@example.com"
       oCDOMsg:From := cFrom
       oCDOMsg:Subject := "Test message"
@@ -434,7 +434,7 @@ STATIC PROCEDURE Exm_ADODB()
    IF ( oRs := win_oleCreateObject( "ADODB.Recordset" ) ) != NIL
 
       oRs:Open( "SELECT * FROM test ORDER BY First", ;
-         "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + hb_DirBase() + "\..\..\hbodbc\tests\test.mdb", ;
+         "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + hb_DirBase() + "..\..\hbodbc\tests\test.mdb", ;
          adOpenForwardOnly, ;
          adLockReadOnly )
 
@@ -486,13 +486,15 @@ STATIC PROCEDURE Exm_PocketSOAP()
 STATIC PROCEDURE Exm_CreateShortcut()
 
    LOCAL oShell, oSC
+   LOCAL cFileName
 
    IF ( oShell := win_oleCreateObject( "WScript.Shell" ) ) != NIL
-      oSC := oShell:CreateShortcut( hb_DirBase() + hb_ps() + "testole.lnk" )
+      oSC := oShell:CreateShortcut( cFileName := hb_DirBase() + hb_FNameExtSet( __FILE__, ".lnk" ) )
       oSC:TargetPath := hb_ProgName()
       oSC:WorkingDirectory := hb_DirBase()
       oSC:IconLocation := '"' + hb_ProgName() + '"' + ",0"
       oSC:Save()
+      ? "Created:", cFileName
    ELSE
       ? "Error: Shell not available. [" + win_oleErrorText() + "]"
    ENDIF
