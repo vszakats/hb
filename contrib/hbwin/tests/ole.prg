@@ -2,9 +2,9 @@
  * OLE demo/test code
  *
  * Copyright 2007 Enrico Maria Giordano e.m.giordano at emagsoftware.it
- * Copyright 2009 Mindaugas Kavaliauskas <dbtopas at dbtopas.lt>
- * Copyright 2008 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2008-2016 Viktor Szakats (vszakats.net/harbour)
  *    Exm_CDO(), Exm_OOOpen(), Exm_CreateShortcut()
+ * Copyright 2009 Mindaugas Kavaliauskas <dbtopas at dbtopas.lt>
  */
 
 #require "hbwin"
@@ -371,27 +371,36 @@ STATIC FUNCTION OO_ConvertToURL( cString )
 
    RETURN "file:" + cString
 
-STATIC PROCEDURE Exm_CDO()
+STATIC PROCEDURE Exm_CDO()  /* STARTTLS not supported by CDO */
 
    LOCAL oCDOMsg
    LOCAL oCDOConf
 
+   LOCAL cFrom
+
    IF ( oCDOMsg := win_oleCreateObject( "CDO.Message" ) ) != NIL
+
+      cFrom := "from@example.com"
 
       oCDOConf := win_oleCreateObject( "CDO.Configuration" )
 
-      oCDOConf:Fields( "http://schemas.microsoft.com/cdo/configuration/sendusing" ):Value := 2 // cdoSendUsingPort
+      oCDOConf:Fields( "http://schemas.microsoft.com/cdo/configuration/sendusing" ):Value := 2  // cdoSendUsingPort: Send the message using SMTP over TCP/IP networking
       oCDOConf:Fields( "http://schemas.microsoft.com/cdo/configuration/smtpserver" ):Value := "smtp.example.com"
-      oCDOConf:Fields( "http://schemas.microsoft.com/cdo/configuration/smtpserverport" ):Value := 25
+      oCDOConf:Fields( "http://schemas.microsoft.com/cdo/configuration/smtpserverport" ):Value := 465
       oCDOConf:Fields( "http://schemas.microsoft.com/cdo/configuration/smtpconnectiontimeout" ):Value := 120
+      oCDOConf:Fields( "http://schemas.microsoft.com/cdo/configuration/smtpauthenticate" ):Value := 1  // cdoBasic: Basic authentication
+      oCDOConf:Fields( "http://schemas.microsoft.com/cdo/configuration/sendusername" ):Value := cFrom
+      oCDOConf:Fields( "http://schemas.microsoft.com/cdo/configuration/sendpassword" ):Value := "password"
+      oCDOConf:Fields( "http://schemas.microsoft.com/cdo/configuration/smtpusessl" ):Value := .T.
       oCDOConf:Fields:Update()
 
       oCDOMsg:Configuration := oCDOConf
       oCDOMsg:BodyPart:Charset := "utf-8" // "iso-8859-1" "iso-8859-2"
       oCDOMsg:To := "to@example.com"
-      oCDOMsg:From := "from@example.com"
+      oCDOMsg:From := cFrom
       oCDOMsg:Subject := "Test message"
       oCDOMsg:TextBody := "Test message body"
+      oCDOMsg:AddAttachment( hb_DirBase() + __FILE__ )
 
       BEGIN SEQUENCE WITH __BreakBlock()
          oCDOMsg:Send()
