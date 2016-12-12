@@ -16020,7 +16020,10 @@ FUNCTION hbshell_ext_load( cName )
             ENDIF
          ENDIF
       ELSE
-         _hbmk_OutErr( hbsh[ _HBSH_hbmk ], hb_StrFormat( I_( "Cannot load '%1$s'. Requires -shared %2$s build." ), cName, hb_FNameName( hbshell_ProgName() ) ) )
+         _hbmk_OutErr( hbsh[ _HBSH_hbmk ], hb_StrFormat( I_( "Cannot load '%1$s'. Requires -shared %2$s build." ), cName, tmp := hb_FNameName( hbshell_ProgName() ) ) )
+         IF ! hb_LeftEqI( tmp, "hbrun" )
+            _hbmk_OutErr( hbsh[ _HBSH_hbmk ], hb_StrFormat( I_( "Hint: Use command 'hbrun' instead of '%1$s'" ), tmp ) )
+         ENDIF
       ENDIF
    ENDIF
 
