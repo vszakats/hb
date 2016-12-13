@@ -76,14 +76,10 @@ void nxs_crypt(
    const unsigned char * key, HB_SIZE keylen,
    unsigned char * cipher )
 {
-
    if( keylen > NXS_MAX_KEYLEN )
       keylen = NXS_MAX_KEYLEN;
    else if( keylen == 0 )
-   {
       keylen = 1;
-      key = ( const unsigned char * ) "";
-   }
 
 #ifdef DEBUG_0
    memcpy( cipher, source, srclen );
@@ -110,10 +106,7 @@ void nxs_decrypt(
    if( keylen > NXS_MAX_KEYLEN )
       keylen = NXS_MAX_KEYLEN;
    else if( keylen == 0 )
-   {
       keylen = 1;
-      key = ( const unsigned char * ) "";
-   }
 
    memcpy( result, cipher, cipherlen );
 
@@ -298,7 +291,7 @@ void nxs_xordecode(
          if( keylen > cipherlen - pos )
             keylen = ( HB_USHORT ) ( cipherlen - pos );
 
-         c_bitleft = ( cipher[ pos + keylen - 1 ] ^ key[ keylen - 1 ] ) << 5;
+         c_bitleft = ( cipher[ pos + keylen - 1 ] ^ ( keylen > 0 ? key[ keylen - 1 ] : '\0' ) ) << 5;
       }
    }
 }
@@ -356,10 +349,9 @@ HB_U32 nxs_cyclic_sequence( HB_U32 input )
 {
    HB_U32 first  = input & 0xffff;
    HB_U32 second = input >> 16;
-   HB_U32 ret    = ( ( second * BASE * BASE ) & 0xffff ) |
-                   ( ( first * BASE * BASE ) & 0xffff0000 );
 
-   return ret;
+   return ( ( second * BASE * BASE ) & 0xffff ) |
+          ( ( first  * BASE * BASE ) & 0xffff0000 );
 }
 
 
