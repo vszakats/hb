@@ -79,6 +79,11 @@ void nxs_crypt(
 
    if( keylen > NXS_MAX_KEYLEN )
       keylen = NXS_MAX_KEYLEN;
+   else if( keylen == 0 )
+   {
+      keylen = 1;
+      key = ( const unsigned char * ) "";
+   }
 
 #ifdef DEBUG_0
    memcpy( cipher, source, srclen );
@@ -104,6 +109,11 @@ void nxs_decrypt(
 {
    if( keylen > NXS_MAX_KEYLEN )
       keylen = NXS_MAX_KEYLEN;
+   else if( keylen == 0 )
+   {
+      keylen = 1;
+      key = ( const unsigned char * ) "";
+   }
 
    memcpy( result, cipher, cipherlen );
 
@@ -388,7 +398,7 @@ HB_FUNC( HB_CRYPT )
    PHB_ITEM pSource = hb_param( 1, HB_IT_ANY );
    PHB_ITEM pKey    = hb_param( 2, HB_IT_ANY );
 
-   unsigned char * cRes = ( unsigned char * ) hb_xgrab( hb_itemGetCLen( pSource ) + 8 );
+   unsigned char * cRes = ( unsigned char * ) hb_xgrabz( hb_itemGetCLen( pSource ) + 8 );
 
    nxs_crypt(
       ( const unsigned char * ) hb_itemGetCPtr( pSource ), hb_itemGetCLen( pSource ),
@@ -407,7 +417,7 @@ HB_FUNC( HB_DECRYPT )
    PHB_ITEM pSource = hb_param( 1, HB_IT_ANY );
    PHB_ITEM pKey    = hb_param( 2, HB_IT_ANY );
 
-   unsigned char * cRes = ( unsigned char * ) hb_xgrab( hb_itemGetCLen( pSource ) + 8 );
+   unsigned char * cRes = ( unsigned char * ) hb_xgrabz( hb_itemGetCLen( pSource ) + 8 );
 
    nxs_decrypt(
       ( const unsigned char * ) hb_itemGetCPtr( pSource ), hb_itemGetCLen( pSource ),

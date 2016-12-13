@@ -53,8 +53,8 @@ gpg --version | grep gpg
 (
    set -x
 
-#  curl -o pack.bin -L --proto-redir =https 'https://github.com/upx/upx/releases/download/v3.91/upx391w.zip'
-#  openssl dgst -sha256 pack.bin | grep -q d7d4817f46d2616c209c46fb8bce44e4bec93ab5adef5e4dfc93ee879527be1b
+#  curl -o pack.bin -L --proto-redir =https 'https://github.com/upx/upx/releases/download/v3.92/upx392w.zip'
+#  openssl dgst -sha256 pack.bin | grep -q 041f9fe5c749a5491db1c902db16b55a6d343030103cb1add2fcc5bb63c6143d
 #  7z e -y -oupx pack.bin > /dev/null
 
    if [ "${_BRANCH#*extmingw*}" != "${_BRANCH}" ] ; then
