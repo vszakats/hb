@@ -14908,7 +14908,9 @@ STATIC PROCEDURE ShowFunctionProviders( hbmk, aFunction, lGenericFind )
          aLib := LibReferenceToOption( hbmk, tmp:__enumKey() )
          _hbmk_OutStd( hbmk, hb_StrFormat( ;
             iif( aLib[ 2 ], ;
-               I_( "Hint: Add input file '%1$s' for missing Harbour function(s): %2$s" ), ;
+               iif( aLib[ 1 ] == "(hbshell)", ;
+                  I_( "Hint: Run this code as script to access function(s): %2$s" ), ;
+                  I_( "Hint: Add input file '%1$s' for missing Harbour function(s): %2$s" ) ), ;
                I_( "Hint: Install package %3$s and input file '%1$s' for missing Harbour function(s): %2$s" ) ), ;
             aLib[ 1 ], ;
             ArrayToList( tmp, ", ",,,, "()" ), ;
@@ -15019,6 +15021,8 @@ STATIC FUNCTION LibReferenceToOption( hbmk, cLib )
    CASE cLib == "(hbcore)"
       cLib := I_( "Harbour core" )
       lInstalled := .T.
+   CASE cLib == "(hbshell)"
+      lInstalled := .T.
    CASE hb_LeftEq( cLib, "(" )
       cLib := "-l" + SubStr( cLib, 1 + 1, Len( cLib ) - 2 )
       lInstalled := .T.
@@ -15092,6 +15096,12 @@ STATIC FUNCTION GetListOfFunctionsKnown( hbmk, lIncludeCore )
    hAll[ "hb_compile" ] := ;
    hAll[ "hb_compileBuf" ] := ;
    hAll[ "hb_compileFromBuff" ] := "(hbcplr)"
+
+   hAll[ "hbshell_DirBase" ] := ;
+   hAll[ "hbshell_ProgName" ] := ;
+   hAll[ "hbshell_ScriptName" ] := ;
+   hAll[ "hbshell_Clipper" ] := ;
+   hAll[ "hbshell_gtSelect" ] := "(hbshell)"
 
    GetListOfFunctionsKnownWalkDir( hbmk[ _HBMK_cHB_INSTALL_CON ], hb_FNameDir( hbmk[ _HBMK_cHB_INSTALL_CON ] ), hAll )
    GetListOfFunctionsKnownWalkDir( hbmk[ _HBMK_cHB_INSTALL_ADD ], hb_FNameDir( hbmk[ _HBMK_cHB_INSTALL_ADD ] ), hAll )
