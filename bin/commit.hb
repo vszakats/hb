@@ -641,32 +641,6 @@ STATIC FUNCTION CheckFile( cName, /* @ */ aErr, lApplyFixes, cLocalRoot, lRebase
       "*.po", ;
       "*.md" }
 
-   LOCAL aCanBeDot := { ;
-      ".appveyor.yml", ;
-      ".travis.yml", ;
-      ".git*", ;
-      ".clang*", ;
-      ".editorconfig", ;
-      ".ackrc" }
-
-   /* TOFIX: Harbour repo specific */
-   LOCAL aCanBeLong := { ;
-      "ChangeLog.txt", ;
-      ".appveyor.yml", ;
-      ".git*", ;
-      ".clang*", ;
-      ".editorconfig", ;
-      "*.po", ;
-      "*.md", ;
-      "*.html", ;
-      "*/hb-charmap.def", ;  /* TOFIX: Use 8.3 name */
-      "debian/*", ;
-      "package/*", ;
-      "contrib/gtqtc/*", ;
-      "contrib/hbwin/*", ;
-      "contrib/rddads/unixutils.h", ;
-      "extras/httpsrv/*" }
-
    /* TOFIX: Harbour repo specific */
    LOCAL aCanHaveNoExtension := { ;
       ".*", ;
@@ -738,14 +712,6 @@ STATIC FUNCTION CheckFile( cName, /* @ */ aErr, lApplyFixes, cLocalRoot, lRebase
       ! FNameExc( cName, LoadGitignore( cLocalRoot + ".gitignore" ) )
 
       /* filename checks */
-
-      IF "msdosfs" $ hFLags .AND. ( Len( hb_FNameName( cName ) ) > 8 .OR. Len( hb_FNameExt( cName ) ) > 4 ) .AND. ! FNameExc( cName, aCanBeLong )
-         AAdd( aErr, "filename: non-8.3" )
-      ENDIF
-
-      IF "msdosfs" $ hFLags .AND. hb_LeftEq( hb_FNameName( cName ), "." ) .AND. ! FNameExc( cName, aCanBeDot )
-         AAdd( aErr, "filename: non MS-DOS compatible" )
-      ENDIF
 
       IF HB_ISNULL( hb_FNameExt( cName ) )
          IF ! FNameExc( cName, aCanHaveNoExtension )

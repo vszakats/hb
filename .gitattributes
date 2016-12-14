@@ -74,5 +74,4 @@
 #*.m       text diff=objc
 #*.rb      text diff=ruby
 
-## msdosfs
 ## casematters
