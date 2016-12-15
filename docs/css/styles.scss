@@ -4,7 +4,7 @@
 
 $font-code: Hack, Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation Mono', 'Oxygen Mono', 'Andale Mono', monospace;
 $font-copy: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-$font-main: 'Noto Sans', sans-serif;
+$font-main: 'Open Sans', sans-serif;
 
 $fork-color: #f8981d;
 $fork-color: orangered;
@@ -422,7 +422,7 @@ $color-header-text-shadow: darken($color-base1, 7%);
   box-shadow: 0 4px 6px -6px $color-header-text-shadow;
 {% if old_design %}
   font-size: 180%;
-  font-family: 'Variane Script', 'Noto Sans', cursive;
+  font-family: 'Variane Script', 'Open Sans', cursive;
   letter-spacing: 2px;
   transform: scale(1, 1.6);
 {% endif %}
