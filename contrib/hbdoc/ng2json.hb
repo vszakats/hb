@@ -26,8 +26,6 @@
  *
  */
 
-#include 'directry.ch'
-
 /* Keeping it tidy */
 #pragma -w3
 #pragma -es2
@@ -35,6 +33,8 @@
 /* Optimizations */
 #pragma -km+
 #pragma -ko+
+
+#include 'directry.ch'
 
 procedure main( name )
 
@@ -156,7 +156,7 @@ static function readentry( a, p )
       p += 6
 
       r := { ;
-        'title' => nil, ;
+        'title' =>, ;
         'id' => p_entry, ;
         'content' => readentrytext( a, @p, ec ) }
 

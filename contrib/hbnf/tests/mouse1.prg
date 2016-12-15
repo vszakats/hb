@@ -63,13 +63,13 @@ PROCEDURE Main( nRow, nCol )
    ft_MSetCoord( 10, 20 )  // just an arbitrary place for demo
 
    // put the unchanging stuff
-   DevPos(  9, 10 ) ; DevOut( "FT_MMICKEYS :" )
-   DevPos( 10, 10 ) ; DevOut( "FT_MGETPOS  :" )
-   DevPos( 11, 10 ) ; DevOut( "FT_MGETX    :" )
-   DevPos( 12, 10 ) ; DevOut( "FT_MGETY    :" )
-   DevPos( 13, 10 ) ; DevOut( "FT_MGETCOORD:" )
-   DevPos( 14, 10 ) ; DevOut( "FT_MBUTPRS  :" )
-   DevPos( 16, 10 ) ; DevOut( "FT_MBUTREL  :" )
+   DevPos(  9, 10 ) ; DevOut( "ft_MMickeys() :" )
+   DevPos( 10, 10 ) ; DevOut( "ft_MGetPos()  :" )
+   DevPos( 11, 10 ) ; DevOut( "ft_MGetX()    :" )
+   DevPos( 12, 10 ) ; DevOut( "ft_MGetY()    :" )
+   DevPos( 13, 10 ) ; DevOut( "ft_MGetCoord():" )
+   DevPos( 14, 10 ) ; DevOut( "ft_MButPrs()  :" )
+   DevPos( 16, 10 ) ; DevOut( "ft_MButRel()  :" )
 
    nX := nY := 1
    DO WHILE .T.
