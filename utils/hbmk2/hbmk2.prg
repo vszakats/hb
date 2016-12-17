@@ -6326,7 +6326,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             hbmk[ _HBMK_nHBMODE ] == _HBMODE_HB10
             AAdd( hbmk[ _HBMK_aOPTC ], "-D__EXPORT__" )
          ELSE
-            AAdd( hbmk[ _HBMK_aOPTC ], "-DHB_DYNLIB" )  /* for compatibility with Harbour sources */
+            AAdd( hbmk[ _HBMK_aOPTC ], "-DHB_DYNLIB" )  /* for compatibility with Harbour sources/headers */
             AAdd( hbmk[ _HBMK_aOPTC ], "-DHBMK_DYNLIB" )
          ENDIF
       ENDIF

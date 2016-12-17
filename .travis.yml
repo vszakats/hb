@@ -48,7 +48,6 @@ addons:
       - gcc-mingw-w64
       - wine
       - p7zip-full
-      - osslsigncode
 before_install:
   - if [ "$TRAVIS_OS_NAME" = "osx" ] ; then
        brew update > /dev/null;
