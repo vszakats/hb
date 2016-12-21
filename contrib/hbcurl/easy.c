@@ -1869,6 +1869,9 @@ HB_FUNC( CURL_EASY_SETOPT )
             case HB_CURLOPT_PROXY_TLSAUTH_USERNAME:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_PROXY_TLSAUTH_USERNAME, hb_parc( 3 ) );
                break;
+            case HB_CURLOPT_PRE_PROXY:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_PRE_PROXY, hb_parc( 3 ) );
+               break;
 #endif
 
                /* SSH options */

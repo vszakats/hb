@@ -288,6 +288,7 @@
 #define HB_CURLOPT_PROXY_TLSAUTH_PASSWORD     241
 #define HB_CURLOPT_PROXY_TLSAUTH_TYPE         242
 #define HB_CURLOPT_PROXY_TLSAUTH_USERNAME     243
+#define HB_CURLOPT_PRE_PROXY                  244
 #define HB_CURLOPT_DOWNLOAD                   1001  /* Harbour special ones */
 #define HB_CURLOPT_XFERINFOBLOCK              1002
 #define HB_CURLOPT_UL_FILE_SETUP              1003
