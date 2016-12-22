@@ -19,7 +19,7 @@ Harbour is a cross-platform compiler and is known to compile and run on:
 * MS-DOS
 
 Harbour is a free and open-source project. It can be used to make open
-source applications, free or commercial products. To learn more about
+source applications, free or nonfree products. To learn more about
 Harbour license,
 visit [here](https://raw.githubusercontent.com/{{ site.repo_slug }}/master/{{ site.license_file }}).
 

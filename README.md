@@ -601,8 +601,8 @@ case-sensitive.
    - `HB_BUILD_NOGPLLIB=yes`
 
      Disable components dependent on GPL 3rd party code,
-     to allow Harbour for commercial (closed source)
-     projects. Default: `no`
+     to allow Harbour for nonfree/proprietary projects.
+     Default: `no`
 
    - `HB_BUILD_3RDEXT=no`
 
@@ -1440,7 +1440,7 @@ Supported shells per host platforms:
 
 * C/C++ Compilers/Shells:
 
-     * MinGW/MinGW-64 [win, \*nix, free, open-source]
+     * MinGW/MinGW-64 [win, \*nix, free software, open-source]
         * <https://mingw-w64.org/>, <https://duckduckgo.com/?q=mingw-w64> (recommended, look for MSYS2 or niXman builds)
           * Dual-target (aka _multilib_) for x86-64 and x86 hosts (select non-native target with `HB_CPU=x86` or `HB_CPU=x86_64`):
             * 32-bit hosted, posix, sjlj
@@ -1449,7 +1449,7 @@ Supported shells per host platforms:
             * 32-bit hosted, posix, dwarf-2
           * x86-64:
             * 64-bit hosted, posix, seh
-     * MinGW CEGCC [win, \*nix, free, open-source]
+     * MinGW CEGCC [win, \*nix, free software, open-source]
         * <https://web.archive.org/web/sourceforge.net/projects/cegcc/files/cegcc/>
           * To use this package, you will also need Cygwin package
             installed and be in `PATH` for the Cygwin runtime (`cygwin1.dll`).
@@ -1459,75 +1459,73 @@ Supported shells per host platforms:
             `tar -xvf cegcc_mingw32ce_cygwin1.7_r1399.tar -h`
 
           * Compiler will be in the `opt\mingw32ce` subdirectory.
-     * MSYS2 [Windows, free, open-source]
+     * MSYS2 [Windows, free software, open-source]
         * <https://msys2.github.io/>
-     * Clang [multi-platform, free, open-source]
+     * Clang [multi-platform, free software, open-source]
         * <http://llvm.org/releases/>
-     * Cygwin [win, free, open-source]
+     * Cygwin [win, free software, open-source]
         * <https://cygwin.com/>
-     * OS/2 GCC [os2, free, open-source]
+     * OS/2 GCC [os2, free software, open-source]
         * <http://os2ports.smedley.id.au/index.php?page=tools-utilities>
-     * DJGPP [dos, \*nix, free, open-source]
+     * DJGPP [dos, \*nix, free software, open-source]
         * <http://www.delorie.com/djgpp/>
-     * Open Watcom [win, dos, os2, linux, free, open-source]
+     * Open Watcom [win, dos, os2, linux, free software, open-source]
         * <https://github.com/open-watcom>, <https://open-watcom.github.io/open-watcom/>
-     * Xcode / Command Line Tools for Xcode [darwin, free, hybrid-source]
+     * Xcode / Command Line Tools for Xcode [darwin, zero price, proprietary with open-source components]
         * <https://itunes.apple.com/us/app/xcode/id497799835>
         * <https://developer.apple.com/downloads/>
-     * MS Windows SDK [win, free, closed-source]
+     * MS Windows SDK [win, zero price, proprietary]
         * <https://msdn.microsoft.com/en-us/windows/desktop/bg162891.aspx><br />
          ([7.x](https://www.microsoft.com/en-us/download/details.aspx?id=8279) includes compilers for x86, x86-64 and IA-64)
-     * MS Windows Mobile SDK [wce, free]
+     * MS Windows Mobile SDK [wce, zero price, proprietary]
         * <https://www.microsoft.com/en-us/download/details.aspx?id=42>
-     * MS Visual C++ Build Tools [win, free, closed-source]
+     * MS Visual C++ Build Tools [win, zero price, proprietary]
         * <https://go.microsoft.com/fwlink/?LinkId=691126>
-     * MS Visual Studio Community [win, free, closed-source]
+     * MS Visual Studio Community [win, zero price, proprietary]
         * <https://www.visualstudio.com/vs/visual-studio-express/>
-     * MS Visual Studio [win, commercial, closed-source]
+     * MS Visual Studio [win, commercial, proprietary]
         * <https://www.visualstudio.com/>
-     * Intel Compiler [win, linux, darwin, commercial, closed-source]
+     * Intel Compiler [win, linux, darwin, commercial, proprietary]
         * <https://software.intel.com/en-us/c-compilers>
 
 * Libraries:
 
-     * HB_WITH_PCRE2, HB_WITH_PCRE - Perl Compatible Regular Expressions [multi-platform, free, open-source]
+     * HB_WITH_PCRE2, HB_WITH_PCRE - Perl Compatible Regular Expressions [multi-platform, free software, open-source]
         * <http://pcre.org/>
-     * HB_WITH_PNG - libpng [multi-platform, free, open-source]
+     * HB_WITH_PNG - libpng [multi-platform, free software, open-source]
         * <https://github.com/glennrp/libpng>
-     * HB_WITH_WATT - Watt-32 (TCP/IP sockets) [dos, free, open-source]
+     * HB_WITH_WATT - Watt-32 (TCP/IP sockets) [dos, free software, open-source]
         * <http://www.watt-32.net/>
-     * HB_WITH_ZLIB - zlib [multi-platform, free, open-source]
+     * HB_WITH_ZLIB - zlib [multi-platform, free software, open-source]
         * <http://zlib.net/>
 
 * Tools:
 
-     * Git (1.7 or upper) [multi-platform, free, open-source]
+     * Git (1.7 or upper) [multi-platform, free software, open-source]
         * <https://git-scm.com/>
         * Windows binaries:
            * <https://git-for-windows.github.io/>
-     * GitHub Client [multi-platform, free]
+     * GitHub Client [multi-platform, zero price, proprietary]
         * <https://windows.github.com/>
         * <https://mac.github.com/>
-     * Travis CI [continuous integration, web service, free plan]
+     * Travis CI [continuous integration, web service, free plan available]
         * <https://travis-ci.org/>
-     * AppVeyor CI [continuous integration, web service, free plan]
+     * AppVeyor CI [continuous integration, web service, free plan available]
         * <https://www.appveyor.com/>
-     * Read the Docs [online documentation creator, web service, free]
+     * Read the Docs [online documentation creator, web service, free software]
         * <https://readthedocs.org/>
-     * ReadMe.io [online documentation creator, web service, free plan]
-        * <https://readme.io/>
-     * GNU Bison (grammar parser generator) [multi-platform, free, open-source]
+     * GNU Bison (grammar parser generator) [multi-platform, free software, open-source]
         * Windows binary:
            * <https://github.com/msysgit/msysgit/releases>
-     * Cppcheck (static analysis) [multi-platform, free, open-source]
+     * Cppcheck (static analysis) [multi-platform, free software, open-source]
         * <https://github.com/danmar/cppcheck>
-     * Valgrind (dynamic executable analysis tool) [linux, darwin-x86, free, open-source]
+     * Valgrind (dynamic executable analysis tool) [linux, darwin-x86, free software, open-source]
         * <http://valgrind.org/>
-     * Uncrustify (source formatter) [multi-platform, free, open-source]
+     * Uncrustify (source formatter) [multi-platform, free software, open-source]
         * <https://github.com/uncrustify/uncrustify>
-     * UPX (executable compressor) [win, dos, \*nix, free, open-source]
+     * UPX (executable compressor) [win, dos, \*nix, free software, open-source]
         * <https://upx.github.io/>
-     * 7-Zip [multi-platform, free, open-source]
+     * 7-Zip [multi-platform, free software, open-source]
         * <http://7-zip.org/>
      * GNU Make
 

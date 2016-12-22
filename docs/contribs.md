@@ -10,7 +10,7 @@ Contribs are libraries or tools, which are independent from the language core,
 but bundled with the main Harbour distribution. These components are part of
 the Harbour source package.
 
-Common to all contribs is that you can download them freely, but please note
+Common to all contribs is that they are open/free software, but please note
 that [licensing terms]({{ site.baseurl }}/terms) may vary for each contrib.
 
 See respective authors inside the [source code](https://github.com/{{ site.repo_slug }}/tree/master/contrib).
@@ -76,11 +76,11 @@ CUPS bindings (printing)
 
 ## hbcurl
 
-libcurl bindings. libcurl is a free and easy-to-use client-side URL transfer
-library, supporting SSL, HTTP GET/PUT/POST/forms, HTTP2, SCP, FTPS, SFTP, FTP,
-LDAP, LDAPS, SMTP, SMTPS, IMAP, IMAPS, POP3, POP3S, TFTP, TELNET, FILE/SMB,
-proxies, cookies, authentication (Basic, Digest, NTLM, Negotiate, Kerberos),
-file transfer resume, http proxy tunneling and more.
+libcurl bindings. libcurl is a open/free software, an easy-to-use client-side
+URL transfer library, supporting SSL, HTTP GET/PUT/POST/forms, HTTP2, SCP, FTPS,
+SFTP, FTP, LDAP, LDAPS, SMTP, SMTPS, IMAP, IMAPS, POP3, POP3S, TFTP, TELNET,
+FILE/SMB, proxies, cookies, authentication (Basic, Digest, NTLM, Negotiate,
+Kerberos), file transfer resume, http proxy tunneling and more.
 <span class="readmore-md">[Learn more](https://curl.haxx.se/libcurl/)</span>
 
 ## hbexpat

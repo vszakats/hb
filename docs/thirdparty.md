@@ -9,7 +9,7 @@ These are some links to Harbour related 3rd party tools and libraries.
 ## Categories:
 
 * [Free and Open Source](#free-and-open-source)
-* [Commercial](#commercial)
+* [Nonfree](#nonfree)
 
 <div markdown="1" class="components">
 
@@ -99,14 +99,13 @@ and classes for multi-platform development using Harbour and GTK+ 2.10 or higher
 
 ---
 
-# Commercial
+# Nonfree
 
 * Advantage Database Server — client–server RDD
 * FiveWin/EasyReport — GUI/Report designer (Windows)
 * OTC Mediator — client–server RDD for SQL backends
 * Xailer — Visual IDE (Windows)
 
-Please use your favourite search engine to find up-to-date information and
-details about these products.
+Please search the web to find up-to-date information and details about them.
 
 </div>

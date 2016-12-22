@@ -9,7 +9,7 @@ PHILOSOPHY
 ==========
 
 This build system is based on GNU-make, the idea being that GNU-make
-is freely available for every platform you can dream up, and it is
+is free software, available for every platform you can dream up, and it is
 usually more powerful than any native make.
 
 Each directory in the project contains one makefile, called Makefile,
