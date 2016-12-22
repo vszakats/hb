@@ -169,6 +169,8 @@ Evaluate these points before reporting an issue:
       * <https://stackoverflow.com/help/mcve>
     * See more on how to report issues in an effective and useful way:
       <http://www.chiark.greenend.org.uk/~sgtatham/bugs.html>
+    * "How To Ask Questions The Smart Way" article by Eric Steven Raymond:
+      <http://www.catb.org/~esr/faqs/smart-questions.html>
 13. <a name="trbl-13"></a> Please do not report warnings or bugs &ndash;
     except of _build errors_ &ndash; in 3rd party component hosted inside
     the Harbour source tree. You can recognize these by their source path,
