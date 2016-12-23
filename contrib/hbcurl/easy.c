@@ -1799,11 +1799,6 @@ HB_FUNC( CURL_EASY_SETOPT )
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_PINNEDPUBLICKEY, hb_parc( 3 ) );
                break;
 #endif
-#if LIBCURL_VERSION_NUM >= 0x073400
-            case HB_CURLOPT_PROXY_PINNEDPUBLICKEY:
-               res = curl_easy_setopt( hb_curl->curl, CURLOPT_PROXY_PINNEDPUBLICKEY, hb_parc( 3 ) );
-               break;
-#endif
 #if LIBCURL_VERSION_NUM >= 0x072900
             case HB_CURLOPT_SSL_VERIFYSTATUS:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_SSL_VERIFYSTATUS, hb_parnl( 3 ) );
