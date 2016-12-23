@@ -9,7 +9,7 @@
 
 -plugin=hbmk2.hb
 
--depurlbase=gs:http://ghostscript.com/
+-depurlbase=gs:https://ghostscript.com/
 -deppkgname=gs:ghostscript-devel{rpm}
 -deppkgname=gs:libgs-dev{deb}
 -deppkgname=gs:mingw-w64-i686-ghostscript{msys2&mingw}

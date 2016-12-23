@@ -1527,7 +1527,7 @@ Supported shells per host platforms:
         * <https://upx.github.io/>
      * 7-Zip [multi-platform, free software, open-source]
         * <http://7-zip.org/>
-     * GNU Make
+     * GNU Make [multi-platform, free software, open-source]
 
         Windows binary + source:
 
