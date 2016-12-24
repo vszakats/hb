@@ -123,6 +123,7 @@ For all platforms you will need:
 Platform specific prerequisites:
 
 1. Windows 7 or upper system is recommended to *build* Harbour.
+   (64-bit edition is also recommended to make things simpler)
 2. Make sure to have your C compiler of choice installed
    in `PATH`. Refer to your C compiler installation and setup
    instructions for details. Make sure no tools in your `PATH`
@@ -730,7 +731,7 @@ executables are required for a cross-build process to succeed.
 
 # Build Examples
 
-## on Windows 32-bit hosts
+## on Windows x86-64 (64-bit) hosts
 
 > NOTES:
 >
@@ -741,6 +742,97 @@ executables are required for a cross-build process to succeed.
 >   make parameters depending on what you want to do.
 > - To redirect all output to a log file, append this after the make
 >   command: `> log.txt 2>&1`
+
+```batchfile
+:: MinGW GCC for Windows x86
+set PATH=C:\mingw\bin;%PATH%
+win-make
+```
+
+```batchfile
+:: MinGW GCC for Windows x86-64
+set PATH=C:\mingw64\bin;%PATH%
+win-make
+```
+
+```batchfile
+:: clang (alpha)
+call "%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
+set PATH=%ProgramFiles(x86)%\LLVM 3.6.svn;%PATH%
+win-make
+```
+
+```batchfile
+:: MSVC 2015 for Windows x86
+call "%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
+win-make
+```
+
+```batchfile
+:: MSVC 2015 for Windows x86-64
+:: (requires preceding build for native target)
+call "%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
+win-make
+```
+
+```batchfile
+:: MSVC 2010 and Windows SDK 7.1 for Windows x86
+call "%ProgramFiles(x86)%\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
+win-make
+```
+
+```batchfile
+:: MSVC 2010 (Professional or above) and Windows SDK 7.1 for Windows x86-64
+call "%ProgramFiles(x86)%\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" amd64
+win-make
+```
+
+```batchfile
+:: Windows SDK 7 for Windows x86
+call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\bin\vcvars32.bat"
+win-make
+```
+
+```batchfile
+:: Windows SDK 7 for Windows x86-64
+call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\bin\vcvars64.bat"
+win-make
+```
+
+```batchfile
+:: MSVC 2008 for Windows x86
+call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat"
+win-make
+```
+
+```batchfile
+:: MSVC 2008 (Standard or above) for Windows x86-64
+call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat" amd64
+win-make
+```
+
+```batchfile
+:: MSVC 2008 (Team Suite) for Windows IA-64 Itanium
+:: (requires preceding build for native target)
+call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat" x86_ia64
+win-make
+```
+
+```batchfile
+:: Open Watcom C/C++
+set WATCOM=C:\watcom
+set PATH=%WATCOM%\BINNT64;%WATCOM%\BINNT;%PATH%
+set INCLUDE=%WATCOM%\H;%WATCOM%\H\NT;%WATCOM%\H\NT\DIRECTX;%WATCOM%\H\NT\DDK;%INCLUDE%
+win-make
+```
+
+## on Windows 32-bit hosts
+
+Same as 64-bit Windows, with the difference that you will have to change
+`%ProgramFiles(x86)%` to `%ProgramFiles%` for 32-bit and mixed tools.
+Building 64-bit targets requires a preceding 32-bit build and to do
+a cross-build. It's recommended to use a 64-bit environment for Windows
+development.
 
 ```batchfile
 :: clang (alpha)
@@ -887,7 +979,7 @@ win-make
 ```
 
 ```batchfile
-:: Delorie GNU C for MS-DOS (on Intel 32-bit Windows hosts only)
+:: Delorie GNU C for MS-DOS
 set DJGPP=C:\djgpp\djgpp.env
 set PATH=C:\djgpp\bin;%PATH%
 win-make
@@ -958,91 +1050,6 @@ win-make
 :: Cygwin GCC using Cygwin shell
 set PATH=C:\cygwin\bin
 sh -c make
-```
-
-## on Windows x86-64 (64-bit) hosts
-
-Same as 32-bit Windows, with the difference that you will have to change
-`%ProgramFiles%` to `%ProgramFiles(x86)%` for 32-bit and mixed tools,
-that you can build for both x86 and x86-64 without building a native
-target first, and potential differences with some compilers in using
-native binaries if they are available.
-
-```batchfile
-:: MinGW GCC for Windows x86-64
-set PATH=C:\mingw64\bin;%PATH%
-win-make
-```
-
-```batchfile
-:: clang (alpha)
-call "%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
-set PATH=%ProgramFiles(x86)%\LLVM 3.6.svn;%PATH%
-win-make
-```
-
-```batchfile
-:: MSVC 2015 for Windows x86
-call "%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
-win-make
-```
-
-```batchfile
-:: MSVC 2015 for Windows x86-64
-:: (requires preceding build for native target)
-call "%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
-win-make
-```
-
-```batchfile
-:: MSVC 2010 and Windows SDK 7.1 for Windows x86
-call "%ProgramFiles(x86)%\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
-win-make
-```
-
-```batchfile
-:: MSVC 2010 (Professional or above) and Windows SDK 7.1 for Windows x86-64
-call "%ProgramFiles(x86)%\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" amd64
-win-make
-```
-
-```batchfile
-:: Windows SDK 7 for Windows x86
-call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\bin\vcvars32.bat"
-win-make
-```
-
-```batchfile
-:: Windows SDK 7 for Windows x86-64
-call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\bin\vcvars64.bat"
-win-make
-```
-
-```batchfile
-:: MSVC 2008 for Windows x86
-call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat"
-win-make
-```
-
-```batchfile
-:: MSVC 2008 (Standard or above) for Windows x86-64
-call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat" amd64
-win-make
-```
-
-```batchfile
-:: MSVC 2008 (Team Suite) for Windows IA-64 Itanium
-:: (requires preceding build for native target)
-call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat" x86_ia64
-win-make
-```
-
-```batchfile
-:: Open Watcom C/C++
-set WATCOM=C:\watcom
-set PATH=%WATCOM%\BINNT64;%WATCOM%\BINNT;%PATH%
-set INCLUDE=%WATCOM%\H;%WATCOM%\H\NT;%WATCOM%\H\NT\DIRECTX;%WATCOM%\H\NT\DDK;%INCLUDE%
-win-make
 ```
 
 ## on MS-DOS hosts
@@ -1609,7 +1616,7 @@ Supported shells per host platforms:
    tools *tested most*, *focused on*, *used and deployed* by the
    maintainer/developer of this fork. While this is strongly believed to result
    in the best Harbour experience for most situations, it's ultimately
-   a subjective decision. If you don't like it, use what you feel the best.
+   a subjective decision. If you don't like it, use what fits you best.
 
 ---
 This document Copyright &copy;&nbsp;2009&ndash;2017 Viktor Szakáts (vszakats.net/harbour)<br />
