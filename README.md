@@ -434,7 +434,7 @@ See contrib-specific dependencies and build notes in the projects'
 
 ## Darwin (Mac)
 
-1. Install [Homebrew :beer:](http://brew.sh/)
+1. Install [Homebrew](http://brew.sh/) :beer:
 2. Install packages:
 
         $ brew install valgrind pcre pcre2 s-lang upx uncrustify ack optipng jpegoptim eg
@@ -1462,7 +1462,7 @@ Supported shells per host platforms:
      * MSYS2 [Windows, free software, open-source]
         * <https://msys2.github.io/>
      * Clang [multi-platform, free software, open-source]
-        * <http://llvm.org/releases/>
+        * <http://releases.llvm.org/>
      * Cygwin [win, free software, open-source]
         * <https://cygwin.com/>
      * OS/2 GCC [os2, free software, open-source]
@@ -1470,12 +1470,12 @@ Supported shells per host platforms:
      * DJGPP [dos, \*nix, free software, open-source]
         * <http://www.delorie.com/djgpp/>
      * Open Watcom [win, dos, os2, linux, free software, open-source]
-        * <https://github.com/open-watcom>, <https://open-watcom.github.io/open-watcom/>
+        * <https://github.com/open-watcom/open-watcom-v2>, <https://open-watcom.github.io/open-watcom/>
      * Xcode / Command Line Tools for Xcode [darwin, zero price, proprietary with open-source components]
         * <https://itunes.apple.com/us/app/xcode/id497799835>
         * <https://developer.apple.com/downloads/>
      * MS Windows SDK [win, zero price, proprietary]
-        * <https://msdn.microsoft.com/en-us/windows/desktop/bg162891.aspx><br />
+        * <https://developer.microsoft.com/en-us/windows/downloads/sdk-archive/><br />
          ([7.x](https://www.microsoft.com/en-us/download/details.aspx?id=8279) includes compilers for x86, x86-64 and IA-64)
      * MS Windows Mobile SDK [wce, zero price, proprietary]
         * <https://www.microsoft.com/en-us/download/details.aspx?id=42>
@@ -1505,9 +1505,8 @@ Supported shells per host platforms:
         * <https://git-scm.com/>
         * Windows binaries:
            * <https://git-for-windows.github.io/>
-     * GitHub Client [multi-platform, zero price, proprietary]
-        * <https://windows.github.com/>
-        * <https://mac.github.com/>
+     * GitHub Desktop [multi-platform, zero price, proprietary]
+        * <https://desktop.github.com/>
      * Travis CI [continuous integration, web service, free plan available]
         * <https://travis-ci.org/>
      * AppVeyor CI [continuous integration, web service, free plan available]
@@ -1516,7 +1515,7 @@ Supported shells per host platforms:
         * <https://readthedocs.org/>
      * GNU Bison (grammar parser generator) [multi-platform, free software, open-source]
         * Windows binary:
-           * <https://github.com/msysgit/msysgit/releases>
+           * <https://git-for-windows.github.io/>
      * Cppcheck (static analysis) [multi-platform, free software, open-source]
         * <https://github.com/danmar/cppcheck>
      * Valgrind (dynamic executable analysis tool) [linux, darwin-x86, free software, open-source]
