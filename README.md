@@ -1331,6 +1331,25 @@ Press `<Alt+D>` in the app.
 
  &nbsp;| host<br />platform | target<br />platform/compiler | target cpu
  :---- | :------- | :---------------- | :---------------------------------------
+       | linux    | linux/gcc         | (CPU cross-builds possible)
+       | linux    | linux/clang       | (CPU cross-builds possible)
+       | linux    | linux/icc         | (CPU cross-builds possible: x86, x86-64, ia64)
+       | linux    | linux/sunpro      | (CPU cross-builds possible: x86, x86-64)
+       | linux    | linux/open64      | (CPU cross-builds possible: x86-64, ia64, ...)
+     x | linux    | wce/mingwarm      | arm
+     x | linux    | wce/mingw         | x86
+     x | linux    | win/mingw         | x86
+     x | linux    | win/mingw64       | x86-64
+     x | linux    | win/watcom        | x86
+     x | linux    | win/bcc           | x86 (requires WINE)
+     x | linux    | win/bcc64         | x86-64 (requires WINE)
+     x | linux    | os2/watcom        | x86
+     x | linux    | dos/watcom        | x86
+     x | linux    | dos/djgpp         | x86
+     x | linux    | android/gcc       | x86
+     x | linux    | android/gccarm    | arm
+     x | linux    | vxworks/gcc       | (CPU cross-builds possible: x86, arm, mips, ppc)
+     x | linux    | vxworks/diab      | (CPU cross-builds possible: x86, arm, mips, ppc, sparc)
        | win      | win/bcc           | x86
        | win      | win/bcc64         | x86-64
        | win      | win/clang         | x86
@@ -1364,42 +1383,16 @@ Press `<Alt+D>` in the app.
      x | win      | vxworks/diab      | (CPU cross-builds possible: x86, arm, mips, ppc, sparc)
      x | win      | symbian/gcc       | arm
      x | win      | cygwin/gcc        | x86
-       | dos      | dos/djgpp         | x86
-       | dos      | dos/watcom        | x86
-     x | dos      | win/watcom        | x86
-     x | dos      | os2/watcom        | x86
-     x | dos      | linux/watcom      | x86
        | os2      | os2/gcc           | x86
        | os2      | os2/watcom        | x86
      x | os2      | win/watcom        | x86
      x | os2      | dos/watcom        | x86
      x | os2      | linux/watcom      | x86
-       | linux    | linux/gcc         | (CPU cross-builds possible)
-       | linux    | linux/clang       | (CPU cross-builds possible)
-       | linux    | linux/icc         | (CPU cross-builds possible: x86, x86-64, ia64)
-       | linux    | linux/sunpro      | (CPU cross-builds possible: x86, x86-64)
-       | linux    | linux/open64      | (CPU cross-builds possible: x86-64, ia64, ...)
-     x | linux    | wce/mingwarm      | arm
-     x | linux    | wce/mingw         | x86
-     x | linux    | win/mingw         | x86
-     x | linux    | win/mingw64       | x86-64
-     x | linux    | win/watcom        | x86
-     x | linux    | win/bcc           | x86 (requires WINE)
-     x | linux    | win/bcc64         | x86-64 (requires WINE)
-     x | linux    | os2/watcom        | x86
-     x | linux    | dos/watcom        | x86
-     x | linux    | dos/djgpp         | x86
-     x | linux    | android/gcc       | x86
-     x | linux    | android/gccarm    | arm
-     x | linux    | vxworks/gcc       | (CPU cross-builds possible: x86, arm, mips, ppc)
-     x | linux    | vxworks/diab      | (CPU cross-builds possible: x86, arm, mips, ppc, sparc)
-       | bsd      | bsd/gcc           | (CPU cross-builds possible)
-       | bsd      | bsd/clang         | (CPU cross-builds possible)
-       | bsd      | bsd/pcc           | (experimental)
-     x | bsd      | wce/mingwarm      | arm
-     x | bsd      | wce/mingw         | x86
-     x | bsd      | win/mingw         | x86
-     x | bsd      | dos/djgpp         | x86
+       | dos      | dos/djgpp         | x86
+       | dos      | dos/watcom        | x86
+     x | dos      | win/watcom        | x86
+     x | dos      | os2/watcom        | x86
+     x | dos      | linux/watcom      | x86
        | darwin   | darwin/clang      | (CPU cross-builds possible: x86, x86-64, unibin)
        | darwin   | darwin/gcc        | (CPU cross-builds possible: x86, x86-64, ppc, ppc64, unibin)
        | darwin   | darwin/icc        | (CPU cross-builds possible: x86, x86-64)
@@ -1410,6 +1403,13 @@ Press `<Alt+D>` in the app.
      x | darwin   | dos/djgpp         | x86
      x | darwin   | android/gcc       | x86
      x | darwin   | android/gccarm    | arm
+       | bsd      | bsd/gcc           | (CPU cross-builds possible)
+       | bsd      | bsd/clang         | (CPU cross-builds possible)
+       | bsd      | bsd/pcc           | (experimental)
+     x | bsd      | wce/mingwarm      | arm
+     x | bsd      | wce/mingw         | x86
+     x | bsd      | win/mingw         | x86
+     x | bsd      | dos/djgpp         | x86
        | hpux     | hpux/gcc          | (CPU cross-builds possible)
        | qnx      | qnx/gcc           | (CPU cross-builds possible - not tested)
        | beos     | beos/gcc          | x86
@@ -1433,6 +1433,7 @@ Press `<Alt+D>` in the app.
 
 Supported shells per host platforms:
 
+* \*nix / POSIX shell
 * win  / NT shell (cmd.exe)
 * win  / POSIX shell (MSYS2 or Cygwin sh.exe)
 * win  / MS-DOS shell (command.com)
@@ -1440,7 +1441,6 @@ Supported shells per host platforms:
 * dos  / POSIX shell (bash.exe)
 * os/2 / OS/2 shell (cmd.exe)
 * os/2 / POSIX shell (bash.exe)
-* \*nix / POSIX shell
 
 
 # External Links
@@ -1466,7 +1466,7 @@ Supported shells per host platforms:
             `tar -xvf cegcc_mingw32ce_cygwin1.7_r1399.tar -h`
 
           * Compiler will be in the `opt\mingw32ce` subdirectory.
-     * MSYS2 [Windows, free software, open-source]
+     * MSYS2 [win, free software, open-source]
         * <https://msys2.github.io/>
      * Clang [multi-platform, free software, open-source]
         * <http://releases.llvm.org/>
@@ -1474,14 +1474,14 @@ Supported shells per host platforms:
         * <https://cygwin.com/>
      * OS/2 GCC [os2, free software, open-source]
         * <http://os2ports.smedley.id.au/index.php?page=tools-utilities>
-     * DJGPP [dos, \*nix, free software, open-source]
+     * DJGPP [\*nix, dos, free software, open-source]
         * <http://www.delorie.com/djgpp/>
-     * Open Watcom [win, dos, os2, linux, free software, open-source]
+     * Open Watcom [multi-platform, free software, open-source]
         * <https://github.com/open-watcom/open-watcom-v2>, <https://open-watcom.github.io/open-watcom/>
      * Xcode / Command Line Tools for Xcode [darwin, zero price, proprietary with open-source components]
         * <https://itunes.apple.com/us/app/xcode/id497799835>
         * <https://developer.apple.com/downloads/>
-     * MS Windows SDK [win, zero price, proprietary]
+     * MS Windows SDK [zero price, proprietary]
         * <https://developer.microsoft.com/en-us/windows/downloads/sdk-archive/><br />
          ([7.x](https://www.microsoft.com/en-us/download/details.aspx?id=8279) includes compilers for x86, x86-64 and IA-64)
      * MS Windows Mobile SDK [wce, zero price, proprietary]
@@ -1492,7 +1492,7 @@ Supported shells per host platforms:
         * <https://www.visualstudio.com/vs/visual-studio-express/>
      * MS Visual Studio [win, commercial, proprietary]
         * <https://www.visualstudio.com/>
-     * Intel Compiler [win, linux, darwin, commercial, proprietary]
+     * Intel Compiler [mult-platform, commercial, proprietary]
         * <https://software.intel.com/en-us/c-compilers>
 
 * Libraries:
@@ -1525,14 +1525,17 @@ Supported shells per host platforms:
            * <https://git-for-windows.github.io/>
      * Cppcheck (static analysis) [multi-platform, free software, open-source]
         * <https://github.com/danmar/cppcheck>
-     * Valgrind (dynamic executable analysis tool) [linux, darwin-x86, free software, open-source]
+     * Valgrind (dynamic executable analysis tool) [linux, darwin, free software, open-source]
         * <http://valgrind.org/>
      * Uncrustify (source formatter) [multi-platform, free software, open-source]
         * <https://github.com/uncrustify/uncrustify>
-     * UPX (executable compressor) [win, dos, \*nix, free software, open-source]
+     * UPX (executable compressor) [multi-platform, free software, open-source]
         * <https://upx.github.io/>
      * 7-Zip [multi-platform, free software, open-source]
         * <http://7-zip.org/>
+     * Chocolatey and NuGet (Windows package managers) [free software, open-source]
+        * <https://chocolatey.org/>
+        * <https://www.nuget.org/>
      * GNU Make [multi-platform, free software, open-source]
 
         Windows binary + source:
