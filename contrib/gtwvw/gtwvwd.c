@@ -3151,7 +3151,6 @@ static LRESULT CALLBACK hb_gt_wvwWndProc( HWND hWnd, UINT message, WPARAM wParam
             reject if not accepting input (topmost window not on focus) */
          if( ! hb_gt_wvw_AcceptingInput() )
          {
-
             hb_gt_wvwInputNotAllowed( nWin, message, wParam, lParam );
 
             return 0;

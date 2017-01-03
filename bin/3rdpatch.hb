@@ -521,7 +521,7 @@ PROCEDURE Main( ... )
 
       DirChange( s_cTempDir )
       TRACE( "Running " + cCommand )
-      nStatus := hb_processRun( cCommand, , @cDiffText, @cStdErr, .F. )
+      nStatus := utc_hb_processRun( cCommand, , @cDiffText, @cStdErr, .F. )
       hb_cwd( cCWD )
 
       IF nStatus != 0 .AND. nStatus != 1
@@ -573,6 +573,17 @@ PROCEDURE Main( ... )
    OutStd( hb_StrFormat( "The temporary directory `%1$s' has not been removed.", s_cTempDir ) + hb_eol() )
 
    RETURN
+
+STATIC FUNCTION utc_hb_processRun( ... )
+
+   LOCAL cTZ := GetEnv( "TZ" )
+   LOCAL retval
+
+   hb_SetEnv( "TZ", "UTC" )
+   retval := hb_processRun( ... )
+   hb_SetEnv( "TZ", cTZ )
+
+   RETURN retval
 
 /* Utility functions */
 

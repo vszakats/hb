@@ -1,6 +1,6 @@
 diff --strip-trailing-cr -urN zlib.orig/crc32.c zlib/crc32.c
---- zlib.orig/crc32.c	2017-01-03 10:17:28.000000000 +0100
-+++ zlib/crc32.c	2017-01-03 10:17:28.000000000 +0100
+--- zlib.orig/crc32.c	2017-01-03 16:00:33.000000000 +0000
++++ zlib/crc32.c	2017-01-03 16:00:33.000000000 +0000
 @@ -21,6 +21,8 @@
    DYNAMIC_CRC_TABLE and MAKECRCH can be #defined to write out crc32.h.
   */
@@ -11,8 +11,8 @@ diff --strip-trailing-cr -urN zlib.orig/crc32.c zlib/crc32.c
  #  include <stdio.h>
  #  ifndef DYNAMIC_CRC_TABLE
 diff --strip-trailing-cr -urN zlib.orig/deflate.c zlib/deflate.c
---- zlib.orig/deflate.c	2017-01-03 10:17:28.000000000 +0100
-+++ zlib/deflate.c	2017-01-03 10:17:28.000000000 +0100
+--- zlib.orig/deflate.c	2017-01-03 16:00:33.000000000 +0000
++++ zlib/deflate.c	2017-01-03 16:00:33.000000000 +0000
 @@ -51,6 +51,10 @@
  
  #include "deflate.h"
@@ -50,8 +50,8 @@ diff --strip-trailing-cr -urN zlib.orig/deflate.c zlib/deflate.c
  
      for (;;) {
 diff --strip-trailing-cr -urN zlib.orig/gzguts.h zlib/gzguts.h
---- zlib.orig/gzguts.h	2017-01-03 10:17:28.000000000 +0100
-+++ zlib/gzguts.h	2017-01-03 10:17:28.000000000 +0100
+--- zlib.orig/gzguts.h	2017-01-03 16:00:33.000000000 +0000
++++ zlib/gzguts.h	2017-01-03 16:00:33.000000000 +0000
 @@ -35,7 +35,8 @@
  #  include <stddef.h>
  #endif
@@ -73,8 +73,8 @@ diff --strip-trailing-cr -urN zlib.orig/gzguts.h zlib/gzguts.h
  #    define HAVE_VSNPRINTF
  #  endif
 diff --strip-trailing-cr -urN zlib.orig/gzlib.c zlib/gzlib.c
---- zlib.orig/gzlib.c	2017-01-03 10:17:28.000000000 +0100
-+++ zlib/gzlib.c	2017-01-03 10:17:28.000000000 +0100
+--- zlib.orig/gzlib.c	2017-01-03 16:00:33.000000000 +0000
++++ zlib/gzlib.c	2017-01-03 16:00:33.000000000 +0000
 @@ -5,7 +5,11 @@
  
  #include "gzguts.h"
@@ -89,8 +89,8 @@ diff --strip-trailing-cr -urN zlib.orig/gzlib.c zlib/gzlib.c
  #else
  #if defined(_LARGEFILE64_SOURCE) && _LFS64_LARGEFILE-0
 diff --strip-trailing-cr -urN zlib.orig/inflate.c zlib/inflate.c
---- zlib.orig/inflate.c	2017-01-03 10:17:28.000000000 +0100
-+++ zlib/inflate.c	2017-01-03 10:17:28.000000000 +0100
+--- zlib.orig/inflate.c	2017-01-03 16:00:33.000000000 +0000
++++ zlib/inflate.c	2017-01-03 16:00:33.000000000 +0000
 @@ -446,6 +446,7 @@
  /* Macros for inflate(): */
  
@@ -100,8 +100,8 @@ diff --strip-trailing-cr -urN zlib.orig/inflate.c zlib/inflate.c
  #  define UPDATE(check, buf, len) \
      (state->flags ? crc32(check, buf, len) : adler32(check, buf, len))
 diff --strip-trailing-cr -urN zlib.orig/zconf.h zlib/zconf.h
---- zlib.orig/zconf.h	2017-01-03 10:17:28.000000000 +0100
-+++ zlib/zconf.h	2017-01-03 10:17:28.000000000 +0100
+--- zlib.orig/zconf.h	2017-01-03 16:00:33.000000000 +0000
++++ zlib/zconf.h	2017-01-03 16:00:33.000000000 +0000
 @@ -174,7 +174,18 @@
  #if defined(_WINDOWS) && !defined(WINDOWS)
  #  define WINDOWS
@@ -140,8 +140,8 @@ diff --strip-trailing-cr -urN zlib.orig/zconf.h zlib/zconf.h
  #  define ZEXTERN extern
  #endif
 diff --strip-trailing-cr -urN zlib.orig/zlib.h zlib/zlib.h
---- zlib.orig/zlib.h	2017-01-03 10:17:28.000000000 +0100
-+++ zlib/zlib.h	2017-01-03 10:17:28.000000000 +0100
+--- zlib.orig/zlib.h	2017-01-03 16:00:33.000000000 +0000
++++ zlib/zlib.h	2017-01-03 16:00:33.000000000 +0000
 @@ -1874,6 +1874,8 @@
     ZEXTERN z_off_t ZEXPORT gzoffset OF((gzFile));
     ZEXTERN uLong ZEXPORT adler32_combine OF((uLong, uLong, z_off_t));
@@ -152,8 +152,8 @@ diff --strip-trailing-cr -urN zlib.orig/zlib.h zlib/zlib.h
  
  #else /* Z_SOLO */
 diff --strip-trailing-cr -urN zlib.orig/zutil.c zlib/zutil.c
---- zlib.orig/zutil.c	2017-01-03 10:17:28.000000000 +0100
-+++ zlib/zutil.c	2017-01-03 10:17:28.000000000 +0100
+--- zlib.orig/zutil.c	2017-01-03 16:00:33.000000000 +0000
++++ zlib/zutil.c	2017-01-03 16:00:33.000000000 +0000
 @@ -136,7 +136,7 @@
      return ERR_MSG(err);
  }
@@ -164,8 +164,8 @@ diff --strip-trailing-cr -urN zlib.orig/zutil.c zlib/zutil.c
       * errno.  We define it as a global variable to simplify porting.
       * Its value is always 0 and should not be used.
 diff --strip-trailing-cr -urN zlib.orig/zutil.h zlib/zutil.h
---- zlib.orig/zutil.h	2017-01-03 10:17:28.000000000 +0100
-+++ zlib/zutil.h	2017-01-03 10:17:28.000000000 +0100
+--- zlib.orig/zutil.h	2017-01-03 16:00:33.000000000 +0000
++++ zlib/zutil.h	2017-01-03 16:00:33.000000000 +0000
 @@ -22,7 +22,7 @@
  #include "zlib.h"
  
