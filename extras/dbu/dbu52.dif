@@ -1,6 +1,6 @@
 diff -u dbu52ori/dbu.prg dbu52pat/dbu.prg
---- dbu52ori/dbu.prg	1993-03-04 04:20:00.000000000 +0100
-+++ dbu52pat/dbu.prg	2016-02-06 15:55:47.000000000 +0100
+--- dbu52ori/dbu.prg	1993-03-04 03:20:00.000000000 +0000
++++ dbu52pat/dbu.prg	2016-02-06 14:55:47.000000000 +0000
 @@ -9,6 +9,10 @@
  *
  */
@@ -222,8 +222,8 @@ diff -u dbu52ori/dbu.prg dbu52pat/dbu.prg
        ENDIF
  
 diff -u dbu52ori/dbucopy.prg dbu52pat/dbucopy.prg
---- dbu52ori/dbucopy.prg	1993-03-04 04:20:00.000000000 +0100
-+++ dbu52pat/dbucopy.prg	2016-02-06 17:26:41.000000000 +0100
+--- dbu52ori/dbucopy.prg	1993-03-04 03:20:00.000000000 +0000
++++ dbu52pat/dbucopy.prg	2016-02-06 16:26:41.000000000 +0000
 @@ -62,8 +62,8 @@
  	filename = ""
  
@@ -347,8 +347,8 @@ diff -u dbu52ori/dbucopy.prg dbu52pat/dbucopy.prg
  
  			ENDIF
 diff -u dbu52ori/dbuedit.prg dbu52pat/dbuedit.prg
---- dbu52ori/dbuedit.prg	1993-03-04 04:20:00.000000000 +0100
-+++ dbu52pat/dbuedit.prg	2013-11-20 21:55:38.000000000 +0100
+--- dbu52ori/dbuedit.prg	1993-03-04 03:20:00.000000000 +0000
++++ dbu52pat/dbuedit.prg	2013-11-20 20:55:38.000000000 +0000
 @@ -47,7 +47,7 @@
  	nHelpSave := help_code
  
@@ -468,8 +468,8 @@ diff -u dbu52ori/dbuedit.prg dbu52pat/dbuedit.prg
  
  	/* refresh flag */
 diff -u dbu52ori/dbuhelp.prg dbu52pat/dbuhelp.prg
---- dbu52ori/dbuhelp.prg	1993-03-04 04:20:00.000000000 +0100
-+++ dbu52pat/dbuhelp.prg	2012-05-02 16:29:55.000000000 +0200
+--- dbu52ori/dbuhelp.prg	1993-03-04 03:20:00.000000000 +0000
++++ dbu52pat/dbuhelp.prg	2012-05-02 14:29:55.000000000 +0000
 @@ -113,11 +113,11 @@
  	FREAD(M->hhandle, @htbuf, 512)
  
@@ -486,8 +486,8 @@ diff -u dbu52ori/dbuhelp.prg dbu52pat/dbuhelp.prg
  	* allocate buffer
  	htbuf = SPACE(M->hlen)
 diff -u dbu52ori/dbuindx.prg dbu52pat/dbuindx.prg
---- dbu52ori/dbuindx.prg	1993-03-04 04:20:00.000000000 +0100
-+++ dbu52pat/dbuindx.prg	2012-05-02 16:48:03.000000000 +0200
+--- dbu52ori/dbuindx.prg	1993-03-04 03:20:00.000000000 +0000
++++ dbu52pat/dbuindx.prg	2012-05-02 14:48:03.000000000 +0000
 @@ -117,7 +117,7 @@
  PARAMETERS sysparam
  
@@ -507,8 +507,8 @@ diff -u dbu52ori/dbuindx.prg dbu52pat/dbuindx.prg
  			* add only .ntx files in the current directory
  
 diff -u dbu52ori/dbunet.prg dbu52pat/dbunet.prg
---- dbu52ori/dbunet.prg	1993-03-04 04:20:00.000000000 +0100
-+++ dbu52pat/dbunet.prg	2014-11-12 01:32:13.000000000 +0100
+--- dbu52ori/dbunet.prg	1993-03-04 03:20:00.000000000 +0000
++++ dbu52pat/dbunet.prg	2014-11-12 00:32:13.000000000 +0000
 @@ -10,6 +10,8 @@
  */
  
@@ -560,8 +560,8 @@ diff -u dbu52ori/dbunet.prg dbu52pat/dbunet.prg
 +
 +   RETURN ""
 diff -u dbu52ori/dbustru.prg dbu52pat/dbustru.prg
---- dbu52ori/dbustru.prg	1993-03-04 04:20:00.000000000 +0100
-+++ dbu52pat/dbustru.prg	2015-09-20 21:04:02.000000000 +0200
+--- dbu52ori/dbustru.prg	1993-03-04 03:20:00.000000000 +0000
++++ dbu52pat/dbustru.prg	2015-09-20 19:04:02.000000000 +0000
 @@ -32,8 +32,8 @@
  * local arrays..constant values
  DECLARE ffield[4]
@@ -939,8 +939,8 @@ diff -u dbu52ori/dbustru.prg dbu52pat/dbustru.prg
  				i = afull(dbf_list) + 1
  
 diff -u dbu52ori/dbuutil.prg dbu52pat/dbuutil.prg
---- dbu52ori/dbuutil.prg	1993-03-04 04:20:00.000000000 +0100
-+++ dbu52pat/dbuutil.prg	2012-05-02 16:48:24.000000000 +0200
+--- dbu52ori/dbuutil.prg	1993-03-04 03:20:00.000000000 +0000
++++ dbu52pat/dbuutil.prg	2012-05-02 14:48:24.000000000 +0000
 @@ -716,9 +716,9 @@
  		BOX M->lframe
  
@@ -1003,8 +1003,8 @@ diff -u dbu52ori/dbuutil.prg dbu52pat/dbuutil.prg
  	ENDIF
  
 diff -u dbu52ori/dbuview.prg dbu52pat/dbuview.prg
---- dbu52ori/dbuview.prg	1993-03-04 04:20:00.000000000 +0100
-+++ dbu52pat/dbuview.prg	2016-02-06 17:23:20.000000000 +0100
+--- dbu52ori/dbuview.prg	1993-03-04 03:20:00.000000000 +0000
++++ dbu52pat/dbuview.prg	2016-02-06 16:23:20.000000000 +0000
 @@ -906,15 +906,15 @@
  ENDIF
  

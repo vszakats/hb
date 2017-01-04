@@ -1,5 +1,6 @@
---- ori\tpscript.prg	Mon Sep 22 08:51:46 2008
-+++ tpscript.prg	Sat Apr 24 10:22:47 2010
+diff -u ps32ori/tpscript.prg ps32pat/tpscript.prg
+--- ps32ori/tpscript.prg	2012-05-03 05:42:04.000000000 +0000
++++ ps32pat/tpscript.prg	2017-01-04 00:22:04.000000000 +0000
 @@ -40,12 +40,12 @@
  #include "PScript.ch"
  #include "FileIO.ch"
@@ -11,11 +12,11 @@
 -   #define DLL_STDCALL NIL
  
     #include "hbclass.ch"
-+   #include "Dll.ch"
++   #include "dll.ch"
  #else
     #include "Xbp.ch"
     #include "Dll.ch"
-@@ -242,7 +242,7 @@
+@@ -255,7 +255,7 @@
  
  ::hDll        := DllLoad("PScript.dll") // Handle of the .DLL
  
