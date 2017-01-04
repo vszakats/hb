@@ -1,6 +1,6 @@
-diff -urN scrypt.orig/c_scrypt.c scrypt/c_scrypt.c
---- scrypt.orig/c_scrypt.c	2015-08-24 19:05:22.620101800 +0200
-+++ scrypt/c_scrypt.c	2015-08-24 19:05:22.620101800 +0200
+diff --strip-trailing-cr -urN scrypt.orig/c_scrypt.c scrypt/c_scrypt.c
+--- scrypt.orig/c_scrypt.c	2010-01-16 20:48:20.000000000 +0000
++++ scrypt/c_scrypt.c	2017-01-04 00:46:35.000000000 +0000
 @@ -26,16 +26,6 @@
   * This file was originally written by Colin Percival as part of the Tarsnap
   * online backup system.
@@ -86,9 +86,9 @@ diff -urN scrypt.orig/c_scrypt.c scrypt/c_scrypt.c
 -	return (-1);
 +	return (fail);
  }
-diff -urN scrypt.orig/c_scrypt.h scrypt/c_scrypt.h
---- scrypt.orig/c_scrypt.h	2015-08-24 19:05:22.620101800 +0200
-+++ scrypt/c_scrypt.h	2015-08-24 19:05:22.620101800 +0200
+diff --strip-trailing-cr -urN scrypt.orig/c_scrypt.h scrypt/c_scrypt.h
+--- scrypt.orig/c_scrypt.h	2010-01-16 20:48:20.000000000 +0000
++++ scrypt/c_scrypt.h	2017-01-04 00:46:35.000000000 +0000
 @@ -29,7 +29,14 @@
  #ifndef _CRYPTO_SCRYPT_H_
  #define _CRYPTO_SCRYPT_H_
@@ -119,9 +119,9 @@ diff -urN scrypt.orig/c_scrypt.h scrypt/c_scrypt.h
 +    uint64_t, uint8_t *, size_t);
 +
  #endif /* !_CRYPTO_SCRYPT_H_ */
-diff -urN scrypt.orig/config.h scrypt/config.h
---- scrypt.orig/config.h	2015-08-24 19:05:22.620101800 +0200
-+++ scrypt/config.h	1970-01-01 01:00:00.000000000 +0100
+diff --strip-trailing-cr -urN scrypt.orig/config.h scrypt/config.h
+--- scrypt.orig/config.h	2010-01-16 20:48:22.000000000 +0000
++++ scrypt/config.h	1970-01-01 00:00:00.000000000 +0000
 @@ -1,98 +0,0 @@
 -/* config.h.in.  Generated from configure.ac by autoheader.  */
 -
@@ -221,9 +221,9 @@ diff -urN scrypt.orig/config.h scrypt/config.h
 -
 -/* Define for large files, on AIX-style hosts. */
 -#undef _LARGE_FILES
-diff -urN scrypt.orig/sha256.c scrypt/sha256.c
---- scrypt.orig/sha256.c	2015-08-24 19:05:22.620101800 +0200
-+++ scrypt/sha256.c	2015-08-24 19:05:22.620101800 +0200
+diff --strip-trailing-cr -urN scrypt.orig/sha256.c scrypt/sha256.c
+--- scrypt.orig/sha256.c	2010-01-16 20:48:20.000000000 +0000
++++ scrypt/sha256.c	2017-01-04 00:46:35.000000000 +0000
 @@ -23,336 +23,8 @@
   * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
   * SUCH DAMAGE.

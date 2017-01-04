@@ -287,6 +287,7 @@ PROCEDURE Main( ... )
    LOCAL cRoot := NIL
    LOCAL hFile
    LOCAL nStatus
+   LOCAL nAttr, tmp
 
    LOCAL hRegexTake1Line := hb_regexComp( "^#[[:blank:]]*(ORIGIN|VER|URL|DIFF)[[:blank:]]+(.+?)[[:blank:]]*$" )
    LOCAL hRegexTake2Line := hb_regexComp( "^#[[:blank:]]*(MAP)[[:blank:]]+(.+?)[[:blank:]]+(.+?)[[:blank:]]*$" )
@@ -474,7 +475,7 @@ PROCEDURE Main( ... )
          s_nErrors++
       ELSE
          /* Create the `pristine tree' */
-         hb_vfCopyFile( ;
+         ts_hb_vfCopyFile( ;
             CombinePath( s_cSourceRoot, aOneMap[ FN_ORIG ] ), ;
             CombinePath( s_cTempDir, cThisComponent + ".orig", aOneMap[ FN_HB ] ) )
 
@@ -485,17 +486,20 @@ PROCEDURE Main( ... )
           * otherwise, duplicate the pristine tree */
 
          IF lRediff
-            hb_vfCopyFile( ;
+            ts_hb_vfCopyFile( ;
                aOneMap[ FN_HB ], ;
                CombinePath( s_cTempDir, cThisComponent, aOneMap[ FN_HB ] ) )
 
          ELSE
             /* Copy it to `our tree' */
-            hb_vfCopyFile( ;
+            ts_hb_vfCopyFile( ;
                CombinePath( s_cTempDir, cThisComponent + ".orig", aOneMap[ FN_HB ] ), ;
-               CombinePath( s_cTempDir, cThisComponent, aOneMap[ FN_HB ] ) )
-         ENDIF
+               tmp := CombinePath( s_cTempDir, cThisComponent, aOneMap[ FN_HB ] ) )
 
+            /* Remove exec attribute */
+            hb_vfAttrGet( tmp, @nAttr )
+            hb_vfAttrSet( tmp, hb_bitAnd( nAttr, hb_bitNot( hb_bitOr( HB_FA_XUSR, HB_FA_XGRP, HB_FA_XOTH ) ) ) )
+         ENDIF
       ENDIF
    NEXT
 
@@ -551,13 +555,13 @@ PROCEDURE Main( ... )
       IF ! lRediff
          /* Only copy the complete new tree back if not in Rediff mode */
          FOR EACH aOneMap IN s_aChangeMap
-            hb_vfCopyFile( CombinePath( s_cTempDir, cThisComponent, aOneMap[ FN_HB ] ), aOneMap[ FN_HB ] )
+            ts_hb_vfCopyFile( CombinePath( s_cTempDir, cThisComponent, aOneMap[ FN_HB ] ), aOneMap[ FN_HB ] )
          NEXT
       ENDIF
 
       IF cDiffFile != NIL
          /* Copy the diff back to the live tree */
-         hb_vfCopyFile( CombinePath( s_cTempDir, cDiffFile ), cDiffFile )
+         ts_hb_vfCopyFile( CombinePath( s_cTempDir, cDiffFile ), cDiffFile )
          /* Convert path separators */
          DOSToUnixPathSep( cDiffFile )
       ENDIF
@@ -573,6 +577,15 @@ PROCEDURE Main( ... )
    OutStd( hb_StrFormat( "The temporary directory `%1$s' has not been removed.", s_cTempDir ) + hb_eol() )
 
    RETURN
+
+STATIC FUNCTION ts_hb_vfCopyFile( cSrc, cDst )
+
+   LOCAL tDate
+
+   RETURN ;
+      hb_vfCopyFile( cSrc, cDst ) != F_ERROR .AND. ;
+      hb_vfTimeGet( cSrc, @tDate ) .AND. ;
+      hb_vfTimeSet( cDst, tDate )
 
 STATIC FUNCTION utc_hb_processRun( ... )
 
@@ -858,6 +871,7 @@ STATIC FUNCTION hb_FileTran( cFileName )
    LOCAL aChange
    LOCAL cChangeFrom
    LOCAL cChangeTo
+   LOCAL tDate
 
    cFileContent := hb_MemoRead( cFileName )
 
@@ -883,10 +897,13 @@ STATIC FUNCTION hb_FileTran( cFileName )
       cTransformedContent := StrTran( cTransformedContent, ;
          "<" + cChangeFrom + ">", ;
          "<" + cChangeTo + ">" )
-
    NEXT
 
-   RETURN hb_MemoWrit( cFileName, cTransformedContent )
+   hb_vfTimeGet( cFileName, @tDate )
+
+   RETURN ;
+      hb_MemoWrit( cFileName, cTransformedContent ) .AND. ;
+      hb_vfTimeSet( cFileName, tDate )
 
 STATIC FUNCTION FNameEscape( cFileName )
 
