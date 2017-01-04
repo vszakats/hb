@@ -1,6 +1,6 @@
-diff -urN minizip.orig/crypt.h minizip/crypt.h
---- minizip.orig/crypt.h	2015-03-23 18:18:35.722710400 +0100
-+++ minizip/crypt.h	2015-03-23 18:18:35.722710400 +0100
+diff --strip-trailing-cr -urN minizip.orig/crypt.h minizip/crypt.h
+--- minizip.orig/crypt.h	2017-01-04 00:11:45.000000000 +0000
++++ minizip/crypt.h	2017-01-04 00:11:45.000000000 +0000
 @@ -38,6 +38,8 @@
                       * unpredictable manner on 16-bit systems; not a problem
                       * with any known compiler so far, though */
@@ -20,9 +20,9 @@ diff -urN minizip.orig/crypt.h minizip/crypt.h
      }
      init_keys(passwd, pkeys, pcrc_32_tab);
      for (n = 0; n < RAND_HEAD_LEN-2; n++)
-diff -urN minizip.orig/ioapi.c minizip/ioapi.c
---- minizip.orig/ioapi.c	2015-03-23 18:18:35.722710400 +0100
-+++ minizip/ioapi.c	2015-03-23 18:18:35.722710400 +0100
+diff --strip-trailing-cr -urN minizip.orig/ioapi.c minizip/ioapi.c
+--- minizip.orig/ioapi.c	2017-01-04 00:11:45.000000000 +0000
++++ minizip/ioapi.c	2017-01-04 00:11:45.000000000 +0000
 @@ -27,6 +27,7 @@
  
  
@@ -143,9 +143,9 @@ diff -urN minizip.orig/ioapi.c minizip/ioapi.c
  {
      pzlib_filefunc_def->zopen_file = fopen_file_func;
      pzlib_filefunc_def->zread_file = fread_file_func;
-diff -urN minizip.orig/ioapi.h minizip/ioapi.h
---- minizip.orig/ioapi.h	2015-03-23 18:18:35.722710400 +0100
-+++ minizip/ioapi.h	2015-03-23 18:18:35.722710400 +0100
+diff --strip-trailing-cr -urN minizip.orig/ioapi.h minizip/ioapi.h
+--- minizip.orig/ioapi.h	2017-01-04 00:11:45.000000000 +0000
++++ minizip/ioapi.h	2017-01-04 00:11:45.000000000 +0000
 @@ -21,30 +21,58 @@
  #ifndef _ZLIBIOAPI64_H
  #define _ZLIBIOAPI64_H
@@ -234,9 +234,9 @@ diff -urN minizip.orig/ioapi.h minizip/ioapi.h
  #define ZCLOSE64(filefunc,filestream)             ((*((filefunc).zfile_func64.zclose_file))  ((filefunc).zfile_func64.opaque,filestream))
  #define ZERROR64(filefunc,filestream)             ((*((filefunc).zfile_func64.zerror_file))  ((filefunc).zfile_func64.opaque,filestream))
  
-diff -urN minizip.orig/unzip.c minizip/unzip.c
---- minizip.orig/unzip.c	2015-03-23 18:18:35.722710400 +0100
-+++ minizip/unzip.c	2015-03-23 18:18:35.738309400 +0100
+diff --strip-trailing-cr -urN minizip.orig/unzip.c minizip/unzip.c
+--- minizip.orig/unzip.c	2017-01-04 00:11:45.000000000 +0000
++++ minizip/unzip.c	2017-01-04 00:11:45.000000000 +0000
 @@ -68,13 +68,21 @@
  #include <stdlib.h>
  #include <string.h>
@@ -336,9 +336,9 @@ diff -urN minizip.orig/unzip.c minizip/unzip.c
  
      pfile_in_zip_read_info->crc32_wait=s->cur_file_info.crc;
      pfile_in_zip_read_info->crc32=0;
-diff -urN minizip.orig/zip.c minizip/zip.c
---- minizip.orig/zip.c	2015-03-23 18:18:35.738309400 +0100
-+++ minizip/zip.c	2015-03-23 18:18:35.738309400 +0100
+diff --strip-trailing-cr -urN minizip.orig/zip.c minizip/zip.c
+--- minizip.orig/zip.c	2017-01-04 00:11:45.000000000 +0000
++++ minizip/zip.c	2017-01-04 00:11:45.000000000 +0000
 @@ -29,16 +29,24 @@
  #include "zlib.h"
  #include "zip.h"
@@ -481,7 +481,7 @@ diff -urN minizip.orig/zip.c minizip/zip.c
  {
 -  int err = ZIP_OK;
 +  int err;
-   ZPOS64_T pos = zip64eocd_pos_inzip - zi->add_position_when_writting_offset;
+   ZPOS64_T pos = zip64eocd_pos_inzip - zi->add_position_when_writing_offset;
  
    err = zip64local_putValue(&zi->z_filefunc,zi->filestream,(uLong)ZIP64ENDLOCHEADERMAGIC,4);
 @@ -1776,7 +1792,7 @@
@@ -520,9 +520,9 @@ diff -urN minizip.orig/zip.c minizip/zip.c
  
    if(pData == NULL || *dataLen < 4)
      return ZIP_PARAMERROR;
-diff -urN minizip.orig/zip.h minizip/zip.h
---- minizip.orig/zip.h	2015-03-23 18:18:35.738309400 +0100
-+++ minizip/zip.h	2015-03-23 18:18:35.738309400 +0100
+diff --strip-trailing-cr -urN minizip.orig/zip.h minizip/zip.h
+--- minizip.orig/zip.h	2017-01-04 00:11:45.000000000 +0000
++++ minizip/zip.h	2017-01-04 00:11:45.000000000 +0000
 @@ -44,7 +44,7 @@
  extern "C" {
  #endif
