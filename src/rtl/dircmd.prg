@@ -138,6 +138,6 @@ STATIC PROCEDURE PutNormal( aDirEntry )
       hb_UPadR( cName, 8 ), ;
       hb_UPadR( hb_USubStr( cExt, 2 ), 3 ), ;
       Str( aDirEntry[ F_SIZE ], 8 ), "", ;
-      aDirEntry[ F_DATE ] )
+      hb_TToD( aDirEntry[ F_DATE ] ) )
 
    RETURN
