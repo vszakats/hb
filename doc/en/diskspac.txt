@@ -73,7 +73,7 @@
 
       There are 4 types of information available:
 
-       HB_DISK_AVAIL    The amount of space available to the user making the
+       HB_DISK_AVAIL  The amount of space available to the user making the
                       request. This value could be less than HB_FS_FREE if
                       disk quotas are supported by the O/S in use at runtime,
                       and disk quotas are in effect. Otherwise, the value
