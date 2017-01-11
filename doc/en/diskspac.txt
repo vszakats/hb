@@ -73,17 +73,17 @@
 
       There are 4 types of information available:
 
-       HB_FS_AVAIL    The amount of space available to the user making the
+       HB_DISK_AVAIL    The amount of space available to the user making the
                       request. This value could be less than HB_FS_FREE if
                       disk quotas are supported by the O/S in use at runtime,
                       and disk quotas are in effect. Otherwise, the value
                       will be equal to that returned for HB_FS_FREE.
 
-       HB_FS_FREE     The actual amount of free diskspace on the drive.
+       HB_DISK_FREE   The actual amount of free diskspace on the drive.
 
-       HB_FS_USED     The number of bytes in use on the disk.
+       HB_DISK_USED   The number of bytes in use on the disk.
 
-       HB_FS_TOTAL    The total amount of space allocated for the user if
+       HB_DISK_TOTAL  The total amount of space allocated for the user if
                       disk quotas are in effect, otherwise, the actual size
                       of the drive.
 
@@ -92,7 +92,7 @@
    $EXAMPLES$
       #include "fileio.ch"
       ? "You can use:", hb_ntos( hb_DiskSpace() ), "bytes", ;
-        "Out of a total of", hb_ntos( hb_DiskSpace( "C:", HB_FS_TOTAL ) )
+        "Out of a total of", hb_ntos( hb_DiskSpace( "C:", HB_DISK_TOTAL ) )
 
       // NOTE: See tests/diskspac.prg for another example
    $STATUS$
