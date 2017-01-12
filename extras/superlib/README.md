@@ -18,7 +18,7 @@
 
 4. Apply supplied patch to the source using GNU Patch:
 
-   `patch -lNi superlib.dif`
+   `patch -lNi superlib.diff`
 
 5. Build it:
 

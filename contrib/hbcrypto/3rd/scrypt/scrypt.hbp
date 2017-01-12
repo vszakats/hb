@@ -14,7 +14,7 @@ sha256.c
 
 # ORIGIN https://www.tarsnap.com/scrypt/
 # URL    https://www.tarsnap.com/scrypt/scrypt-1.1.6.tgz
-# DIFF   scrypt.dif
+# DIFF   scrypt.diff
 #
 # MAP    config.h.in                     config.h
 # MAP    lib/crypto/crypto_scrypt-ref.c  c_scrypt.c

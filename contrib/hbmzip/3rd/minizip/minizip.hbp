@@ -27,7 +27,7 @@ unzip.c
 -depincpathlocal=zlib:../../../../src/3rd/zlib
 
 # URL    https://github.com/madler/zlib/archive/v1.2.10.zip
-# DIFF   minizip.dif
+# DIFF   minizip.diff
 #
 # MAP    README                  README.txt
 # MAP    contrib/minizip/crypt.h crypt.h

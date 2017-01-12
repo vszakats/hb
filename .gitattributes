@@ -12,7 +12,7 @@
 *.cpp     text
 *.css     text
 *.def     text
-*.dif     text
+*.diff    text
 *.h       text
 *.hb      text
 *.hbc     text

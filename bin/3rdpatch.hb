@@ -65,8 +65,8 @@
  * DIFF
  *   Takes one argument, the file name of the diff file containing local changes
  *   needed by Harbour. In `rediff' mode, this parameter is optional; if not
- *   specified, defaults to `$(component).dif'.
- *   Example: for PCRE2, it is `pcre2.dif'.
+ *   specified, defaults to `$(component).diff'.
+ *   Example: for PCRE2, it is `pcre2.diff'.
  *
  * MAP
  *   Takes one or two arguments, specifying the correspondence of the file names
@@ -128,7 +128,7 @@
  * after Harbour-specific modifications have been made to the component's
  * source. In order to help with the initial diff creation, 3rdpatch will proceed
  * even if no `DIFF' is specified amongst the metadata, and defaults to
- * creating a diff named `$(component).dif').
+ * creating a diff named `$(component).diff').
  *
  * If no differences between the original and the Harbour trees were found,
  * a possibly pre-existing diff file is removed. Following this change up
@@ -442,7 +442,7 @@ PROCEDURE Main( ... )
 
    IF lRediff .AND. cDiffFile == NIL
       OutStd( "Requested rediff mode with no existing local diff, attempting to create one." + hb_eol() )
-      cDiffFile := cThisComponent + ".dif"
+      cDiffFile := cThisComponent + ".diff"
    ENDIF
 
    IF ! FetchAndExtract( cArchiveURL )
@@ -547,7 +547,6 @@ PROCEDURE Main( ... )
          hb_MemoWrit( cDiffFile, cDiffText )
          OutStd( hb_StrFormat( "Local changes saved to `%1$s'; you may need to adjust `DIFF'.", cDiffFile ) + hb_eol() )
       ENDIF
-
    ENDIF
 
    /* Only copy files back to the live tree if no errors were encountered */
