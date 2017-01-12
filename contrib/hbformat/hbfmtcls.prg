@@ -230,7 +230,6 @@ METHOD Reformat( aFile ) CLASS HBFormatCode
 
       IF Empty( aFile[ i ] )
          aFile[ i ] := ""
-         lToBeContinued := .F.
          LOOP
       ENDIF
       IF lComment
