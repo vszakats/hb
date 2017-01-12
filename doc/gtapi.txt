@@ -45,11 +45,11 @@ to compile sucessfully!
 There are exceptions for various compilers in the platform implementation
 files so if you're using a compiler that doesn't support certain routines
 or syntax just stick in your changes and surround it with an
-#if defined(__XXX__) call.
+`#if defined( __XXX__ )` call.
 
 This is a complete set of gt functions as defined by Clipper. That is
 there are no new _gt functions added. But this is not a complete
-implementation. I do not know what _gtBegin or _gtEnd will do for
+implementation. I do not know what _gtBegin() or _gtEnd() will do for
 instance. Yes, they buffer the display but what does that really mean
 under the covers? Perhaps someone needs to implement a screen buffer
 to write to in order to achive this but the issue that immediately comes
@@ -68,15 +68,15 @@ that it deserves being put into Harbour I'll leave that up to you.
 
 TODO:
 The following functions are not implemented in gtapi.c:
-_gtPostExt
-_gtPreExt
-_gtScroll
-_gtSetBlink
-_gtSetMode
+_gtPostExt()
+_gtPreExt()
+_gtScroll()
+_gtSetBlink()
+_gtSetMode()
 
 The following functions don't work in gtapi.c:
-_gtSave
-_gtRestore
+_gtSave()
+_gtRestore()
 
 Two Harbour functions are included in the gtapi.c file,
 Row() and Col() to get started.
