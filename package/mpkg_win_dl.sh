@@ -59,20 +59,18 @@ gpg --version | grep gpg
 
    if [ "${_BRANCH#*extmingw*}" != "${_BRANCH}" ] ; then
       readonly mingwbase='https://downloads.sourceforge.net'; readonly option='-L'
-#     curl -o pack.bin "${option}" "${mingwbase}/mingw-w64/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/6.1.0/threads-posix/sjlj/i686-6.1.0-release-posix-sjlj-rt_v5-rev0.7z"
-#     openssl dgst -sha256 pack.bin | grep -q f3ce910465f72b0a6180b7255f3f1c6ae10855454b10939a8608ddb9b1f2aa52
-      curl -o pack.bin "${option}" "${mingwbase}/mingw-w64/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/6.1.0/threads-posix/sjlj/x86_64-6.1.0-release-posix-sjlj-rt_v5-rev0.7z"
-#     curl -o pack.bin "https://transfer.sh/qfRT1/x86-64-6.1.0-release-posix-sjlj-rt-v5-rev0.7z"
-      openssl dgst -sha256 pack.bin | grep -q 39edf7d7938c891b45b06e8f0879aef0b366a63f519725a8af3f5b6a651c2849
-#     curl -o pack.bin "${option}" "${mingwbase}/mingw-w64/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/6.1.0/threads-posix/dwarf/i686-6.1.0-release-posix-dwarf-rt_v5-rev0.7z"
-#     openssl dgst -sha256 pack.bin | grep -q 2b6fae2b7247e7d4ae4e821de1bc126457a74991e991da4c2d55df3595eebbb1
-#     curl -o pack.bin "${option}" "${mingwbase}/mingw-w64/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/6.1.0/threads-posix/seh/x86_64-6.1.0-release-posix-seh-rt_v5-rev0.7z"
-#     openssl dgst -sha256 pack.bin | grep -q 026d119a5fe5db15867cca24894447bf3f0a7b216226af7fb406bf33ed7eb855
+#     curl -o pack.bin "${option}" "${mingwbase}/mingw-w64/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/6.3.0/threads-posix/sjlj/i686-6.3.0-release-posix-sjlj-rt_v5-rev0.7z"
+#     openssl dgst -sha256 pack.bin | grep -q 73af8bd6aa0863e4b8c060e0f2d21fdff6d3d9e39adfa13fd412ddca8c8c6c21
+      curl -o pack.bin "${option}" "${mingwbase}/mingw-w64/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/6.3.0/threads-posix/sjlj/x86_64-6.3.0-release-posix-sjlj-rt_v5-rev0.7z"
+      openssl dgst -sha256 pack.bin | grep -q 41cab7c322058bec6ff02f461cd4327ed68839719c06bfc74112614c4999aae8
+#     curl -o pack.bin "${option}" "${mingwbase}/mingw-w64/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/6.3.0/threads-posix/dwarf/i686-6.3.0-release-posix-dwarf-rt_v5-rev0.7z"
+#     openssl dgst -sha256 pack.bin | grep -q 5ca7dba4cb9719c75faf4c29f78c70ff9bd8b663737ef36f9283c47c27cb6246
+#     curl -o pack.bin "${option}" "${mingwbase}/mingw-w64/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/6.3.0/threads-posix/seh/x86_64-6.3.0-release-posix-seh-rt_v5-rev0.7z"
+#     openssl dgst -sha256 pack.bin | grep -q c6151102368c3fa3a0f316b7cf7775d898dee641aa1ccc3516ff7adeecb2b9e4
       # Will unpack into "./mingw64"
       7z x -y pack.bin > /dev/null
    else
-      # Bad hack to avoid duplicate manifests being linked into slightly
-      # "off" binaries, that are in turn impossible to UPX.
+      # Bad hack to avoid duplicate manifests being linked into slightly "off" binaries.
       #    https://github.com/Alexpux/MSYS2-packages/issues/454
       #    https://gcc.gnu.org/bugzilla/show_bug.cgi?id=69880
       for file in \
