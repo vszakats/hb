@@ -957,6 +957,11 @@ HB_FUNC( CURL_EASY_SETOPT )
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_UNIX_SOCKET_PATH, hb_parc( 3 ) );
                break;
 #endif
+#if LIBCURL_VERSION_NUM >= 0x073500
+            case HB_CURLOPT_ABSTRACT_UNIX_SOCKET:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_ABSTRACT_UNIX_SOCKET, hb_parc( 3 ) );
+               break;
+#endif
 #if LIBCURL_VERSION_NUM >= 0x072A00
             case HB_CURLOPT_PATH_AS_IS:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_PATH_AS_IS, hb_parnl( 3 ) );
