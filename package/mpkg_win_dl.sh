@@ -59,14 +59,14 @@ gpg --version | grep gpg
 
    if [ "${_BRANCH#*extmingw*}" != "${_BRANCH}" ] ; then
       readonly mingwbase='https://downloads.sourceforge.net'; readonly option='-L'
-#     curl -o pack.bin "${option}" "${mingwbase}/mingw-w64/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/6.3.0/threads-posix/sjlj/i686-6.3.0-release-posix-sjlj-rt_v5-rev0.7z"
-#     openssl dgst -sha256 pack.bin | grep -q 73af8bd6aa0863e4b8c060e0f2d21fdff6d3d9e39adfa13fd412ddca8c8c6c21
-      curl -o pack.bin "${option}" "${mingwbase}/mingw-w64/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/6.3.0/threads-posix/sjlj/x86_64-6.3.0-release-posix-sjlj-rt_v5-rev0.7z"
-      openssl dgst -sha256 pack.bin | grep -q 41cab7c322058bec6ff02f461cd4327ed68839719c06bfc74112614c4999aae8
-#     curl -o pack.bin "${option}" "${mingwbase}/mingw-w64/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/6.3.0/threads-posix/dwarf/i686-6.3.0-release-posix-dwarf-rt_v5-rev0.7z"
-#     openssl dgst -sha256 pack.bin | grep -q 5ca7dba4cb9719c75faf4c29f78c70ff9bd8b663737ef36f9283c47c27cb6246
-#     curl -o pack.bin "${option}" "${mingwbase}/mingw-w64/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/6.3.0/threads-posix/seh/x86_64-6.3.0-release-posix-seh-rt_v5-rev0.7z"
-#     openssl dgst -sha256 pack.bin | grep -q c6151102368c3fa3a0f316b7cf7775d898dee641aa1ccc3516ff7adeecb2b9e4
+#     curl -o pack.bin "${option}" "${mingwbase}/mingw-w64/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/6.3.0/threads-posix/sjlj/i686-6.3.0-release-posix-sjlj-rt_v5-rev1.7z"
+#     openssl dgst -sha256 pack.bin | grep -q ce5551a431661f3295a38fcc8563816a34e5cad867b3b35b1e802ef74e2c42f2
+      curl -o pack.bin "${option}" "${mingwbase}/mingw-w64/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/6.3.0/threads-posix/sjlj/x86_64-6.3.0-release-posix-sjlj-rt_v5-rev1.7z"
+      openssl dgst -sha256 pack.bin | grep -q 10c40147b1781d0b915e96967becca99c6ffe2d56695a6830721051fe1b62b1f
+#     curl -o pack.bin "${option}" "${mingwbase}/mingw-w64/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/6.3.0/threads-posix/dwarf/i686-6.3.0-release-posix-dwarf-rt_v5-rev1.7z"
+#     openssl dgst -sha256 pack.bin | grep -q 8f7381e8ed61c438d36d33ae2f514a7ca8065c44dcf6801847fd425f71a9ee1d
+#     curl -o pack.bin "${option}" "${mingwbase}/mingw-w64/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/6.3.0/threads-posix/seh/x86_64-6.3.0-release-posix-seh-rt_v5-rev1.7z"
+#     openssl dgst -sha256 pack.bin | grep -q 2d0e72340ffa14916d4469db25c37889e477f8f1f49ba4f77155830ddc1dca89
       # Will unpack into "./mingw64"
       7z x -y pack.bin > /dev/null
    else
