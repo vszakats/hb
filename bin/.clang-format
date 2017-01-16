@@ -1,6 +1,6 @@
 ---
 # [EXPERIMENTAL - DO NOT USE IT FOR LIVE CODE]
-# http://clang.llvm.org/docs/ClangFormatStyleOptions.html
+# https://clang.llvm.org/docs/ClangFormatStyleOptions.html
 Language:        Cpp
 # BasedOnStyle:  Mozilla
 AccessModifierOffset: -2

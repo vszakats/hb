@@ -47,7 +47,7 @@
 /* Author James Clark:
       http://www.jclark.com/xml/
    Using Expat:
-      http://www.xml.com/pub/a/1999/09/expat/
+      https://www.xml.com/pub/a/1999/09/expat/
  */
 
 /* TODO:
