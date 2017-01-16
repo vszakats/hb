@@ -166,6 +166,9 @@ for name in \
             mv -f "${file}-signed" "${file}"
          )
       fi
+
+      # Set timestamp
+      touch -c -r "${HB_ABSROOT}README.md" "${file}"
    done
 done
 rm -f "${HB_ABSROOT}bin/hbmk2-temp.exe"
