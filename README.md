@@ -1220,22 +1220,22 @@ Press `<Alt+D>` in the app.
 
 * linux    - Linux
 * darwin   - macOS / iOS / tvOS
-* bsd      - FreeBSD / OpenBSD / NetBSD / DragonFly BSD / *BSD
-* beos     - BeOS / Haiku
-* hpux     - HP-UX
-* sunos    - Sun Solaris / OpenSolaris
-* qnx      - QNX
+* bsd      - *BSD
 * android  - Android
-* vxworks  - VxWorks
-* symbian  - Symbian OS (experimental)
-* minix    - Minix 3 (tested on 3.2.1; earlier releases will not work)
-* aix      - IBM AIX
-* win      - MS Windows (all flavors)
-             (see [External Links](#external-links) for Win9x requirements)
+* win      - MS Windows (Win9x deprecated)
 * wce      - MS Windows CE
 * dos      - MS-DOS (32-bit protected mode only)
              (MS-DOS compatible systems also work, like dosemu)
 * os2      - OS/2 Warp 4 / eComStation
+* aix      - IBM AIX
+* hpux     - HP-UX
+* sunos    - Sun Solaris / OpenSolaris
+* beos     - BeOS / Haiku (experimental)
+* qnx      - QNX (experimental)
+* vxworks  - VxWorks (experimental)
+* minix    - Minix 3 (tested on 3.2.1; earlier releases will not work, experimental)
+* symbian  - Symbian OS (deprecated)
+* cygwin   - Cygwin (experimental)
 
 ## You can override C compiler auto-detection with these `HB_COMPILER` values:
 
@@ -1257,39 +1257,9 @@ Press `<Alt+D>` in the app.
 * clang    - Clang
 * pcc      - Portable C Compiler (experimental)
 
-### hpux
-* gcc      - GNU C
-
-### beos
-* gcc      - GNU C
-
-### qnx
-* gcc      - GNU C
-
 ### android
 * gcc      - GNU C x86
 * gccarm   - GNU C ARM
-
-### vxworks
-* gcc      - GNU C
-* diab     - Wind River Compiler
-
-### symbian
-* gcc      - GNU C
-
-### minix
-* clang    - Clang
-* gcc      - GNU C
-
-### aix
-* gcc      - GNU C
-
-### cygwin
-* gcc      - GNU C
-
-### sunos
-* gcc      - GNU C
-* sunpro   - Sun Studio C/C++
 
 ### win
 * mingw    - MinGW GNU C 3.4.2 and above
@@ -1325,6 +1295,36 @@ Press `<Alt+D>` in the app.
 * gcc      - EMX GNU C 3.3.5 or lower
 * gccomf   - EMX GNU C 3.3.5 or upper
 * watcom   - Open Watcom C/C++
+
+### aix
+* gcc      - GNU C
+
+### hpux
+* gcc      - GNU C
+
+### sunos
+* gcc      - GNU C
+* sunpro   - Sun Studio C/C++
+
+### beos (experimental)
+* gcc      - GNU C
+
+### qnx (experimental)
+* gcc      - GNU C
+
+### vxworks (experimental)
+* gcc      - GNU C
+* diab     - Wind River Compiler
+
+### minix (experimental)
+* clang    - Clang
+* gcc      - GNU C
+
+### cygwin (experimental)
+* gcc      - GNU C
+
+### symbian (deprecated)
+* gcc      - GNU C
 
 
 # Platform Matrix
