@@ -67,19 +67,19 @@ before_install:
     fi
 script:
   - if [ "$CC" = "i686-w64-mingw32-gcc" ] ; then
-       export HB_COMPILER=clang && make -j $HB_CI_THREADS HB_BUILD_DYN=no HB_BUILD_CONTRIBS=no;
+       make -j $HB_CI_THREADS HB_COMPILER=clang HB_BUILD_DYN=no HB_BUILD_CONTRIBS=no;
        export HB_BUILD_3RDEXT=no;
        export HB_PLATFORM=win;
+       export HB_COMPILER=mingw;
        export HB_CCPREFIX=i686-w64-mingw32-;
-       ls -lA /usr/bin/${HB_CCPREFIX}*;
-       "${HB_CCPREFIX}gcc" -v;
-       export HB_COMPILER=mingw && make -j $HB_CI_THREADS;
+       ls -lA /usr/bin/${HB_CCPREFIX}*; "${HB_CCPREFIX}gcc" -v;
+       make -j $HB_CI_THREADS;
        wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/hbmk2.exe --version;
        wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/harbour.exe -build;
+       export HB_COMPILER=mingw64;
        export HB_CCPREFIX=x86_64-w64-mingw32-;
-       ls -lA /usr/bin/${HB_CCPREFIX}*;
-       "${HB_CCPREFIX}gcc" -v;
-       export HB_COMPILER=mingw64 && make -j $HB_CI_THREADS;
+       ls -lA /usr/bin/${HB_CCPREFIX}*; "${HB_CCPREFIX}gcc" -v;
+       make -j $HB_CI_THREADS;
        wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/hbmk2.exe --version;
        wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/harbour.exe -build;
     else

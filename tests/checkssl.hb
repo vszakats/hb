@@ -24,6 +24,7 @@ procedure Main( cURLList )
    hb_vfErase( "_cookie" )
 
    if ! hb_vfExists( cURLList )
+      hb_SetEnv( "GREP_OPTIONS" )
       hb_run( 'grep -R -H -I -n -o "http://[a-zA-Z0-9_/\.\~\%\?&\+=@:-]*" * > ' + cURLList )
    endif
 

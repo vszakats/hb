@@ -43,6 +43,7 @@ hb_collect_all_git()
 
 hb_collect_all_tree()
 {
+   unset GREP_OPTIONS
    _exclude='/obj/|/lib/|/bin/.*/|\.tar|\.zip|\.exe|\.log|/linux/|/win|/config/'
    for f in $(find . -type f | grep -vE "${_exclude}"); do
       echo "$f" | awk '{ string=substr($0, 2); print string; }'

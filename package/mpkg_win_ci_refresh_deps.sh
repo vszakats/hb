@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # ---------------------------------------------------------------
-# Copyright 2016 Viktor Szakats (vszakats.net/harbour)
+# Copyright 2016-2017 Viktor Szakats (vszakats.net/harbour)
 # See LICENSE.txt for licensing terms.
 # ---------------------------------------------------------------
 
@@ -12,6 +12,7 @@ jobid="$(curl -fsS 'https://ci.appveyor.com/api/projects/vsz/harbour-deps/branch
 
 if [ -n "${jobid}" ] ; then
 
+   unset GREP_OPTIONS
    f="$(curl -fsS "https://ci.appveyor.com/api/buildjobs/${jobid}/log" | grep 'SHA256(')"
 
    out=
