@@ -3,6 +3,8 @@ include $(TOP)$(ROOT)config/global.mk
 ifneq ($(HB_PLATFORM),)
 ifneq ($(HB_COMPILER),)
 
+HB_RCFLAGS := -DHB_DYNLIB
+
 HB_LINKING_RTL :=
 HB_LINKING_VMMT :=
 

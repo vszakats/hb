@@ -58,7 +58,7 @@ END
 
 /* Manifest */
 
-#if ! defined( HBMK_DYNLIB )
+#if ! defined( HBMK_DYNLIB ) && ! defined( HB_DYNLIB )
 
 /* String escaping rules:
       https://msdn.microsoft.com/library/windows/desktop/aa381050.aspx
