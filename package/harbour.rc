@@ -58,8 +58,12 @@ END
 
 /* Manifest */
 
+#if ! defined( HBMK_DYNLIB )
+
 /* String escaping rules:
-      https://msdn.microsoft.com/library/windows/desktop/aa381050.aspx */
+      https://msdn.microsoft.com/library/windows/desktop/aa381050.aspx
+   Application Manifest doc, including the list of 'supportedOS Id's:
+      https://msdn.microsoft.com/library/aa374191.aspx */
 
 #ifndef CREATEPROCESS_MANIFEST_RESOURCE_ID
 #define CREATEPROCESS_MANIFEST_RESOURCE_ID  1
@@ -67,9 +71,6 @@ END
 #ifndef RT_MANIFEST
 #define RT_MANIFEST  24
 #endif
-
-/* Application Manifest doc, including the list of 'supportedOS Id's:
-      https://msdn.microsoft.com/library/aa374191.aspx */
 
 CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST
 BEGIN
@@ -105,4 +106,5 @@ BEGIN
    "</assembly>"
 END
 
+#endif
 #endif
