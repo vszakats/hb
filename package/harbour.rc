@@ -59,7 +59,7 @@ END
 /* Manifest */
 
 /* String escaping rules:
-      https://msdn.microsoft.com/en-us/library/windows/desktop/aa381050.aspx */
+      https://msdn.microsoft.com/library/windows/desktop/aa381050.aspx */
 
 #ifndef CREATEPROCESS_MANIFEST_RESOURCE_ID
 #define CREATEPROCESS_MANIFEST_RESOURCE_ID  1
@@ -69,7 +69,7 @@ END
 #endif
 
 /* Application Manifest doc, including the list of 'supportedOS Id's:
-      https://msdn.microsoft.com/en-us/library/aa374191.aspx */
+      https://msdn.microsoft.com/library/aa374191.aspx */
 
 CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST
 BEGIN

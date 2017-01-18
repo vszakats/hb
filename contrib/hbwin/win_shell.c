@@ -122,8 +122,8 @@ HB_FUNC( WIN_SHELLNOTIFYICON )
 }
 
 /* Details:
-      https://msdn.microsoft.com/en-us/library/bb762164.aspx
-      https://msdn.microsoft.com/en-us/library/bb759795.aspx
+      https://msdn.microsoft.com/library/bb762164.aspx
+      https://msdn.microsoft.com/library/bb759795.aspx
  */
 
 #if ! defined( HB_OS_WIN_CE )

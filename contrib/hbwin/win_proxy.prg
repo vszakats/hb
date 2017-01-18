@@ -61,7 +61,7 @@ FUNCTION win_ProxyDetect( cURL, /* @ */ cByPass )
 
    cProxy := __win_ProxyDetect( cProtocol + "://" + cHost, @cByPass )
 
-   /* https://msdn.microsoft.com/en-us/library/windows/desktop/aa383912.aspx */
+   /* https://msdn.microsoft.com/library/windows/desktop/aa383912.aspx */
    FOR EACH cProxy IN hb_ATokens( cProxy, ";" )
       IF ( nPos := At( "=", cProxy ) ) > 1
          /* Return first match */

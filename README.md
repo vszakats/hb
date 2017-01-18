@@ -1482,10 +1482,10 @@ Supported shells per host platforms:
         * <https://itunes.apple.com/us/app/xcode/id497799835>
         * <https://developer.apple.com/downloads/>
      * MS Windows SDK [zero price, proprietary]
-        * <https://developer.microsoft.com/en-us/windows/downloads/sdk-archive/><br />
-         ([7.x](https://www.microsoft.com/en-us/download/details.aspx?id=8279) includes compilers for x86, x86-64 and IA-64)
+        * <https://developer.microsoft.com/windows/downloads/sdk-archive/><br />
+         ([7.x](https://www.microsoft.com/download/details.aspx?id=8279) includes compilers for x86, x86-64 and IA-64)
      * MS Windows Mobile SDK [wce, zero price, proprietary]
-        * <https://www.microsoft.com/en-us/download/details.aspx?id=42>
+        * <https://www.microsoft.com/download/details.aspx?id=42>
      * MS Visual C++ Build Tools [win, zero price, proprietary]
         * <https://go.microsoft.com/fwlink/?LinkId=691126>
      * MS Visual Studio Community [win, zero price, proprietary]
@@ -1493,7 +1493,7 @@ Supported shells per host platforms:
      * MS Visual Studio [win, commercial, proprietary]
         * <https://www.visualstudio.com/>
      * Intel Compiler [mult-platform, commercial, proprietary]
-        * <https://software.intel.com/en-us/c-compilers>
+        * <https://software.intel.com/c-compilers>
 
 * Libraries:
 

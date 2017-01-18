@@ -133,7 +133,7 @@ static TCHAR * hbwapi_FileNameAtSystemDir( const TCHAR * pFileName )
 /* LOAD_LIBRARY_SEARCH_SYSTEM32 is supported on Windows 8 or above,
    and on Windows Vista/7/Server 2008/Server 2008 R2
    _with_ this patch installed:
-      https://support.microsoft.com/en-us/kb/2533623 */
+      https://support.microsoft.com/kb/2533623 */
 static HB_BOOL hbwapi_has_search_system32()
 {
    if( hb_iswin8() )
