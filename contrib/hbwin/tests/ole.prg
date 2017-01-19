@@ -384,14 +384,14 @@ STATIC PROCEDURE Exm_CDO()  /* STARTTLS not supported by CDO */
 
       oCDOConf := win_oleCreateObject( "CDO.Configuration" )
 
-      oCDOConf:Fields( "http://schemas.microsoft.com/cdo/configuration/sendusing" ):Value := 2  // cdoSendUsingPort: Send the message using SMTP over TCP/IP networking
-      oCDOConf:Fields( "http://schemas.microsoft.com/cdo/configuration/smtpserver" ):Value := "smtp.example.com"
-      oCDOConf:Fields( "http://schemas.microsoft.com/cdo/configuration/smtpserverport" ):Value := 465
-      oCDOConf:Fields( "http://schemas.microsoft.com/cdo/configuration/smtpconnectiontimeout" ):Value := 120
-      oCDOConf:Fields( "http://schemas.microsoft.com/cdo/configuration/smtpauthenticate" ):Value := 1  // cdoBasic: Basic authentication
-      oCDOConf:Fields( "http://schemas.microsoft.com/cdo/configuration/sendusername" ):Value := cFrom
-      oCDOConf:Fields( "http://schemas.microsoft.com/cdo/configuration/sendpassword" ):Value := "password"
-      oCDOConf:Fields( "http://schemas.microsoft.com/cdo/configuration/smtpusessl" ):Value := .T.
+      oCDOConf:Fields( "http:" + "//schemas.microsoft.com/cdo/configuration/sendusing" ):Value := 2  // cdoSendUsingPort: Send the message using SMTP over TCP/IP networking
+      oCDOConf:Fields( "http:" + "//schemas.microsoft.com/cdo/configuration/smtpserver" ):Value := "smtp.example.com"
+      oCDOConf:Fields( "http:" + "//schemas.microsoft.com/cdo/configuration/smtpserverport" ):Value := 465
+      oCDOConf:Fields( "http:" + "//schemas.microsoft.com/cdo/configuration/smtpconnectiontimeout" ):Value := 120
+      oCDOConf:Fields( "http:" + "//schemas.microsoft.com/cdo/configuration/smtpauthenticate" ):Value := 1  // cdoBasic: Basic authentication
+      oCDOConf:Fields( "http:" + "//schemas.microsoft.com/cdo/configuration/sendusername" ):Value := cFrom
+      oCDOConf:Fields( "http:" + "//schemas.microsoft.com/cdo/configuration/sendpassword" ):Value := "password"
+      oCDOConf:Fields( "http:" + "//schemas.microsoft.com/cdo/configuration/smtpusessl" ):Value := .T.
       oCDOConf:Fields:Update()
 
       oCDOMsg:Configuration := oCDOConf
@@ -471,7 +471,7 @@ STATIC PROCEDURE Exm_PocketSOAP()
    IF oHttp != NIL .AND. oEnvelope != NIL
 
       oEnvelope:EncodingStyle := ""
-      oEnvelope:SetMethod( "InvertStringCase", "http://www.dataaccess.com/webservicesserver/" )
+      oEnvelope:SetMethod( "InvertStringCase", "http:" + "//www.dataaccess.com/webservicesserver/" )
       oEnvelope:Parameters:Create( "sAString", "lower UPPER" )
       oHttp:Send( "https://www.dataaccess.com/webservicesserver/textcasing.wso?WSDL", oEnvelope:Serialize() )
       oEnvelope:Parse( oHttp )

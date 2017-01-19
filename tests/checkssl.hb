@@ -25,7 +25,7 @@ procedure Main( cURLList )
 
    if ! hb_vfExists( cURLList )
       hb_SetEnv( "GREP_OPTIONS" )
-      hb_run( 'grep -R -H -I -n -o "http://[a-zA-Z0-9_/\.\~\%\?&\+=@:-]*" * > ' + cURLList )
+      hb_run( 'grep -R -H -I -n -o "http' + '://[a-zA-Z0-9_/\.\~\%\?&\+=@:-]*" * > ' + cURLList )
    endif
 
    for each url in hb_ATokens( hb_MemoRead( cURLList ), .T. )
