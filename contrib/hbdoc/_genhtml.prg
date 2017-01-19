@@ -140,7 +140,7 @@ METHOD NewFile() CLASS GenerateHTML
    IF s_tDate == NIL
       IF hbdoc_reproducible()
          s_tDate := hb_Version( HB_VERSION_BUILD_TIMESTAMP_UTC )
-         s_cRevision := hb_Version( HB_VERSION_ID )
+         s_cRevision := hb_Version( HB_VERSION_ID_SHORT )
       ELSE
          s_tDate := hb_DateTime() - ( hb_UTCOffset() / 86400 )
          s_cRevision := GitRev()

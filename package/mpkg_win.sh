@@ -272,10 +272,11 @@ if [ "${HB_VF}" != "${HB_VF_DEF}" ] ; then
    _hb_ver="${HB_VF_DEF} ${_hb_ver}"
 fi
 
-_vcs_id="$(git rev-parse --short HEAD)"
+_vcs_id="$(git rev-parse HEAD)"
+_vcs_id_short="$(git rev-parse --short HEAD)"
 _vcs_url="$(git ls-remote --get-url | sed 's|.git$||')/"
 
-sed -e "s|_HB_VER_COMMIT_ID_|${_vcs_id}|g" \
+sed -e "s|_HB_VER_COMMIT_ID_SHORT_|${_vcs_id_short}|g" \
     -e "s|_HB_VER_ORIGIN_URL_|${_vcs_url}|g" \
     -e "s|_HB_VERSION_|${_hb_ver}|g" 'RELNOTES.txt' > "${HB_ABSROOT}RELNOTES.txt"
 touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}RELNOTES.txt"

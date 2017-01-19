@@ -884,6 +884,12 @@ const char * hb_verCommitID( void )
    return HB_VER_COMMIT_ID;
 }
 
+/* Source repository ID string (short) */
+const char * hb_verCommitIDShort( void )
+{
+   return HB_VER_COMMIT_ID_SHORT;
+}
+
 /* Source repository revision number */
 int hb_verCommitRev( void )
 {
@@ -913,13 +919,13 @@ int hb_verSvnID( void )
 /* ChangeLog ID string */
 const char * hb_verChangeLogID( void )
 {
-   return HB_VER_COMMIT_ID;
+   return HB_VER_COMMIT_ID_SHORT;
 }
 
 /* ChangeLog ID string */
 const char * hb_verSvnChangeLogID( void )
 {
-   return HB_VER_COMMIT_ID;
+   return HB_VER_COMMIT_ID_SHORT;
 }
 
 /* ChangeLog last entry string */

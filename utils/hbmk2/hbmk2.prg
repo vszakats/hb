@@ -12910,6 +12910,8 @@ STATIC FUNCTION MacroGet( hbmk, cMacro, cFileName )
       cMacro := hb_Version( HB_VERSION_STATUS ) ; EXIT
    CASE "hb_ver_id"
       cMacro := hb_Version( HB_VERSION_ID ) ; EXIT
+   CASE "hb_ver_id_short"
+      cMacro := hb_Version( HB_VERSION_ID_SHORT ) ; EXIT
    CASE "hb_revision"
       cMacro := hb_ntos( hb_Version( HB_VERSION_REVISION ) ) ; EXIT
    CASE "hb_host_plat"
@@ -17963,7 +17965,7 @@ STATIC FUNCTION HBRawVersion()
       hb_Version( HB_VERSION_MINOR ), ;
       hb_Version( HB_VERSION_RELEASE ), ;
       hb_Version( HB_VERSION_STATUS ), ;
-      hb_Version( HB_VERSION_ID ), ;
+      hb_Version( HB_VERSION_ID_SHORT ), ;
       "20" + Transform( hb_Version( HB_VERSION_REVISION ), "99-99-99 99:99" ) )
 
 STATIC FUNCTION ExitCodeStr( nResult )

@@ -3455,6 +3455,7 @@ hb_valStrnToNum
 hb_verBuildInfo
 hb_verCPU
 hb_verCommitID
+hb_verCommitIDShort
 hb_verCommitInfo
 hb_verCommitRev
 hb_verCompiler
