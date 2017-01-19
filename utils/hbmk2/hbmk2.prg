@@ -18378,6 +18378,7 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
       { "${hb_release}"        , I_( "Harbour release version number" ) }, ;
       { "${hb_status}"         , I_( "Harbour version status" ) }, ;
       { "${hb_ver_id}"         , I_( "Harbour version ID" ) }, ;
+      { "${hb_ver_id_short}"   , I_( "Harbour version ID (short)" ) }, ;
       { "${hb_revision}"       , I_( "Harbour revision" ) }, ;
       { "${hb_host_plat}"      , I_( "Harbour host platform" ) }, ;
       { "${hb_host_plat_unix}" , I_( "returns '1' if Harbour host platform is *nix compatible" ) }, ;
