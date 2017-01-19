@@ -897,7 +897,7 @@ HB_FUNC( WVG_ADDTOOLBARBUTTON )
          tbb.iString   = iNewString;
 
          /* Conversion of LRESULT to HB_BOOL:
-            https://msdn.microsoft.com/library/windows/desktop/bb787291(v=vs.85).aspx */
+            https://msdn.microsoft.com/library/bb787291 */
          hb_retl( ( HB_BOOL ) SendMessage( hWndTB, TB_ADDBUTTONS, ( WPARAM ) 1, ( LPARAM ) ( LPTBBUTTON ) &tbb ) );
 #if ! defined( HB_OS_WIN_CE )
          SendMessage( hWndTB, TB_SETPADDING, 0, ( LPARAM ) MAKELPARAM( 10, 10 ) );
@@ -917,7 +917,7 @@ HB_FUNC( WVG_ADDTOOLBARBUTTON )
          tbb.iString   = 0;
 
          /* Conversion of LRESULT to HB_BOOL:
-            https://msdn.microsoft.com/library/windows/desktop/bb787291.aspx */
+            https://msdn.microsoft.com/library/bb787291 */
          hb_retl( ( HB_BOOL ) SendMessage( hWndTB, TB_ADDBUTTONS, ( WPARAM ) 1, ( LPARAM ) ( LPTBBUTTON ) &tbb ) );
          return;
    }

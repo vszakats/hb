@@ -61,9 +61,9 @@ END
 #if ! defined( HBMK_DYNLIB ) && ! defined( HB_DYNLIB )
 
 /* String escaping rules:
-      https://msdn.microsoft.com/library/windows/desktop/aa381050.aspx
+      https://msdn.microsoft.com/library/aa381050
    Application Manifest doc, including the list of 'supportedOS Id's:
-      https://msdn.microsoft.com/library/aa374191.aspx */
+      https://msdn.microsoft.com/library/aa374191 */
 
 #ifndef CREATEPROCESS_MANIFEST_RESOURCE_ID
 #define CREATEPROCESS_MANIFEST_RESOURCE_ID  1

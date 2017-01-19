@@ -4940,7 +4940,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
                         AAdd( hbmk[ _HBMK_aOPTD ], "-Wl,--high-entropy-va" )
                         /* Unlock even higher entropy ASLR. Safe to do if 64-bit pointers are
                            correctly handled and never truncated to 32-bit.
-                              https://blogs.technet.com/b/srd/archive/2013/12/11/software-defense-mitigating-common-exploitation-techniques.aspx
+                              https://blogs.technet.microsoft.com/srd/2013/12/11/software-defense-mitigating-common-exploitation-techniques/
                               https://lists.ffmpeg.org/pipermail/ffmpeg-devel/2015-September/179243.html */
                         AAdd( hbmk[ _HBMK_aOPTL ], "-Wl,--image-base,0x140000000" )
                         AAdd( hbmk[ _HBMK_aOPTD ], "-Wl,--image-base,0x180000000" )
@@ -11570,7 +11570,7 @@ STATIC FUNCTION FN_Expand( cFileName, lCommandLine )
       /* Partial workaround for Windows filename matching behavior,
          where '*.ext' will match '*.ext*' because 8.3 matches are
          also considered valid by the OS (Thanks Microsoft):
-         https://blogs.msdn.com/b/oldnewthing/archive/2005/07/20/440918.aspx
+         https://blogs.msdn.com/b/oldnewthing/archive/2005/07/20/440918/
          [vszakats] */
       IF FNameHasWildcard( hb_FNameExt( cFileName ) ) .OR. ;
          hb_FileMatch( hb_FNameExt( aFile[ F_NAME ] ), hb_FNameExt( cFileName ) )

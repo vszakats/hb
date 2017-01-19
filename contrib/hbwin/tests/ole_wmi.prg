@@ -1,7 +1,7 @@
 /* Original posted by Bernard Mouille
    https://groups.google.com/d/msg/harbour-users/mI2ehYbLOI8/fw3j75z_RU4J */
 
-/* Complete docs: https://msdn.microsoft.com/library/aa394554.aspx */
+/* Complete docs: https://msdn.microsoft.com/library/aa394554 */
 
 #include "simpleio.ch"
 

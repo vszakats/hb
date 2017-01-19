@@ -2903,7 +2903,7 @@ int hb_socketSetNoDelay( HB_SOCKET sd, HB_BOOL fNoDelay )
 }
 
 /* NOTE: For notes on Windows, see:
-         https://msdn.microsoft.com/library/windows/desktop/ms740621.aspx
+         https://msdn.microsoft.com/library/ms740621
          [vszakats] */
 int hb_socketSetExclusiveAddr( HB_SOCKET sd, HB_BOOL fExclusive )
 {

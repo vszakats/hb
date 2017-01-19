@@ -45,7 +45,7 @@
  */
 
 /* WinCE MSDN documentation:
-      https://msdn.microsoft.com/library/aa923590.aspx
+      https://msdn.microsoft.com/library/aa923590
  */
 
 #include "hbwapi.h"
