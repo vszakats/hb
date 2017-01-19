@@ -285,6 +285,9 @@ sed -e "s|_HB_URL_SRC_|${_vcs_url}archive/${_vcs_id}.zip|g" 'getsrc.sh' > "${HB_
 chmod +x "${HB_ABSROOT}getsrc.sh"
 touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}getsrc.sh"
 
+cp -f -p ../include/_repover.txt "${HB_ABSROOT}include/"
+touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}include/_repover.txt"
+
 # Create tag update JSON request
 # https://developer.github.com/v3/git/refs/#update-a-reference
 
