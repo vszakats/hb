@@ -344,7 +344,7 @@ STATIC FUNCTION BuildActiveXControl( nActiveX, oDA )
 
       // RMChart does not have event interface.
       // Trying to set it generates GPF.
-      // Please download RMChart.ocx from http://www.rmchart.com/ . It is free in every sense.
+      // Please download RMChart.ocx from https://web.archive.org/web/20090205114428/rmchart.com/ . It is free in every sense.
 
       EXIT
 
