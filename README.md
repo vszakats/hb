@@ -59,10 +59,8 @@ and a collection of libraries and bindings for popular APIs.
 
 <https://github.com/vszakats/harbour-core/releases/tag/v3.0.0>
 
-> NOTE: It is identical to the mainline stable release, and
-> not supported or recommended by this fork. It is hosted
-> here because the old service started [bundling](https://helb.github.io/goodbye-sourceforge/)
-> [malware](https://www.howtogeek.com/218764/) into some projects.
+> NOTE: It is identical to the mainline stable release, but
+> not supported or recommended by this fork.
 
 ### Harbour stable source download
 

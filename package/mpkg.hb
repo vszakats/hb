@@ -12,9 +12,9 @@
 // #define DEBUG
 
 #ifdef DEBUG
-   #translate _DEBUG( <x> ) => OutStd( __FILE__ + ": " + <x> + hb_eol() )
+   #translate _DEBUG( <x,...> ) => OutStd( __FILE__ + ":", <x> + hb_eol() )
 #else
-   #translate _DEBUG( <x> ) =>
+   #translate _DEBUG( <x,...> ) =>
 #endif
 
 PROCEDURE Main( cMode )
@@ -43,8 +43,8 @@ PROCEDURE Main( cMode )
       cGitRoot := hb_DirSepAdd( hb_DirSepToOS( hb_defaultValue( hb_PValue( 2 ), "." ) ) ) + ".git"
       IF hb_vfDirExists( cGitRoot )
 
-         _DEBUG( "cwd: " + hb_cwd() )
-         _DEBUG( "git: " + cGitRoot )
+         _DEBUG( "cwd:", hb_cwd() )
+         _DEBUG( "git:", cGitRoot )
 
          hb_processRun( "git" + ;
             " " + FNameEscape( "--git-dir=" + cGitRoot ) + ;
@@ -69,7 +69,7 @@ PROCEDURE Main( cMode )
                                Val( SubStr( cStdOut, 24, 2 ) ) ) ) - hb_UTCOffset() ) / 86400 )
          ENDIF
 
-         _DEBUG( "date HEAD:" + hb_TToC( tDateHEAD ) )
+         _DEBUG( "date HEAD:", hb_TToC( tDateHEAD ) )
 
          IF ! Empty( tDateHEAD ) .OR. ! lShallow
 
