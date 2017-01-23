@@ -55,7 +55,7 @@ static procedure conv_one( name )
   a := hb_bleft( a, 378 ) + hb_strxor( hb_bsubstr( a, 378 + 1 ), 0x1a )  // "decrypt"
 
   if hb_lefteq( a, 'NG' ) .or. ;
-     hb_lefteq( a, 'EH' )
+     hb_lefteq( a, 'EH' )  // untested
 
     mc := bin2w( hb_bsubstr( a, 7, 2 ) )  // menu count
 
