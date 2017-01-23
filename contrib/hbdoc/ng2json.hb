@@ -63,7 +63,7 @@ static procedure conv_one( name )
     for each tmp in r[ 'copy' ] := array( 5 )
       tmp := substrz( a, 0x31 + ( tmp:__enumindex() - 1 ) * 66, 66 )
     next
-    while ! empty( r[ 'copy' ] ) .and. hb_isnull( atail( r[ 'copy' ] ) )
+    while ! empty( r[ 'copy' ] ) .and. atail( r[ 'copy' ] ) == ''
       asize( r[ 'copy' ], len( r[ 'copy' ] ) - 1 )
     enddo
     r[ 'menu' ] := { => }

@@ -615,7 +615,7 @@ STATIC PROCEDURE ProcessCharMask( mnwinnum, mnebid, mcvaltype, mcpict )
       ENDIF
    ENDIF
 
-   IF Len( InBuffer ) > Len( Mask ) .AND. ! HB_ISNULL( Mask )
+   IF Len( InBuffer ) > Len( Mask ) .AND. ! Mask == ""
 
       InBufferLeft := Left( InBuffer, icp )
       InBufferRight := Right( InBuffer, Len( InBuffer ) - icp - 1 )

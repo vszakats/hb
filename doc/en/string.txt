@@ -1372,7 +1372,7 @@
          LOCAL nRecord
          LOCAL xRetValue
 
-         IF ! HB_ISNULL( Alias() )
+         IF ! Alias() == ""
             nRecord := RecNo()
             dbGoto( 0 )
             IF HB_ISSTRING( xField )

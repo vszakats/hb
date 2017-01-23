@@ -195,7 +195,7 @@ METHOD isAccel( xKey ) CLASS RadioButtn
       RETURN .F.
    ENDCASE
 
-   RETURN ! HB_ISNULL( cKey ) .AND. hb_AtI( "&" + cKey, ::cCaption ) > 0  /* TOFIX: Use hb_UAtI() */
+   RETURN ! cKey == "" .AND. hb_AtI( "&" + cKey, ::cCaption ) > 0  /* TOFIX: Use hb_UAtI() */
 
 METHOD hitTest( nMRow, nMCol ) CLASS RadioButtn
 
@@ -312,7 +312,7 @@ METHOD sBlock( bSBlock ) CLASS RadioButtn
 METHOD style( cStyle ) CLASS RadioButtn
 
    IF cStyle != NIL
-      ::cStyle := __eInstVar53( Self, "STYLE", cStyle, "C", 1001, {|| HB_ISNULL( cStyle ) .OR. hb_ULen( cStyle ) == 4 } )
+      ::cStyle := __eInstVar53( Self, "STYLE", cStyle, "C", 1001, {|| cStyle == "" .OR. hb_ULen( cStyle ) == 4 } )
    ENDIF
 
    RETURN ::cStyle

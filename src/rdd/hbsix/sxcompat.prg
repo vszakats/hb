@@ -419,7 +419,7 @@ FUNCTION rdd_Info( xID )
 
    DO CASE
    CASE HB_ISNUMERIC( xID )
-      IF ! HB_ISNULL( Alias( xID ) )
+      IF ! Alias( xID ) == ""
          ( xID )->( rddName() )
       ENDIF
    CASE HB_ISSTRING( xID )

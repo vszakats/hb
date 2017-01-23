@@ -537,7 +537,7 @@ PROCEDURE Main( ... )
 
       SaveLog( "diff", NIL, cStdErr )
 
-      IF HB_ISNULL( cDiffText )
+      IF cDiffText == ""
          OutStd( "No local changes; you may need to adjust `DIFF'." + hb_eol() )
          IF hb_vfExists( cDiffFile )
             hb_vfErase( cDiffFile )

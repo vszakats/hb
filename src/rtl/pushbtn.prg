@@ -328,7 +328,7 @@ METHOD typeOut() CLASS PushButton
 METHOD style( cStyle ) CLASS PushButton
 
    IF cStyle != NIL
-      ::cStyle := __eInstVar53( Self, "STYLE", cStyle, "C", 1001, {|| HB_ISNULL( cStyle ) .OR. hb_ULen( cStyle ) == 2 .OR. hb_ULen( cStyle ) == 8 } )
+      ::cStyle := __eInstVar53( Self, "STYLE", cStyle, "C", 1001, {|| cStyle == "" .OR. hb_ULen( cStyle ) == 2 .OR. hb_ULen( cStyle ) == 8 } )
    ENDIF
 
    RETURN ::cStyle

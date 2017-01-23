@@ -73,7 +73,7 @@ METHOD LoadFromText( cObjectText, lIgnoreErrors ) CLASS HBPersistent
    LOCAL aObjects := { Self }
    LOCAL bError
 
-   IF HB_ISNULL( cObjectText )
+   IF cObjectText == ""
       RETURN .F.
    ENDIF
 

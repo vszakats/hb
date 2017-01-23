@@ -197,7 +197,7 @@ STATIC FUNCTION ErrorMessage( e )
 
    // add either filename or operation
    DO CASE
-   CASE ! HB_ISNULL( e:filename )
+   CASE ! e:filename == ""
       cMessage += ": " + e:filename
    CASE ! Empty( e:operation )
       cMessage += ": " + e:operation

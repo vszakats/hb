@@ -623,7 +623,7 @@ STATIC FUNCTION Ach_Limits( /* @ */ nFrstItem, /* @ */ nLastItem, /* @ */ nItems
    nFrstItem := nLastItem := nItems := 0
 
    FOR nCntr := 1 TO Len( acItems )
-      IF HB_ISSTRING( acItems[ nCntr ] ) .AND. ! HB_ISNULL( acItems[ nCntr ] )
+      IF HB_ISSTRING( acItems[ nCntr ] ) .AND. ! acItems[ nCntr ] == ""
          nItems++
          IF Ach_Select( alSelect, nCntr )
             IF nFrstItem == 0

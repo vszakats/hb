@@ -72,7 +72,7 @@ PROCEDURE Main()
    IF CheckFileList( aFiles, cLocalRoot, .F. ) .OR. "--force" $ cli_Options()
 
       cLogName := FindChangeLog( cVCS )
-      IF HB_ISNULL( cLogName )
+      IF cLogName == ""
          OutStd( hb_ProgName() + ": " + "cannot find ChangeLog file" + hb_eol() )
          ErrorLevel( 2 )
       ENDIF
@@ -87,7 +87,7 @@ PROCEDURE Main()
          ELSE
             IF ! GitIsMerge( cVCSDir )
                cLog := GetLastEntry( MemoRead( cLogName ), @nStart, @nEnd )
-               IF ! HB_ISNULL( cLog )
+               IF ! cLog == ""
                   IF "--prepare-commit" $ cli_Options() .AND. ! Empty( cli_Values() )
                      hb_MemoWrit( cli_Values()[ 1 ], EntryToCommitMsg( cLog ) + hb_MemoRead( cli_Values()[ 1 ] ) )
                   ELSE
@@ -102,11 +102,13 @@ PROCEDURE Main()
                ENDIF
             ENDIF
          ENDIF
-      ELSE
+
+      ELSEIF ! cLogName == ""
+
          IF cVCS == "git"
             cMyName := GitUser()
          ELSE
-            IF ! HB_ISNULL( GetEnv( _CONFIGENV_ ) )
+            IF ! GetEnv( _CONFIGENV_ ) == ""
                cMyName := GetEnv( _CONFIGENV_ )
             ELSEIF hb_vfExists( cLocalRoot + _CONFIGFIL_ )
                cMyName := AllTrim( hb_MemoRead( cLocalRoot + _CONFIGFIL_ ) )
@@ -142,12 +144,10 @@ PROCEDURE Main()
 
          hb_MemoWrit( cLogName, cLog )
 
-         IF ! HB_ISNULL( cLogName )
-            OutStd( hb_ProgName() + ": " + hb_StrFormat( "Edit %1$s and commit", cLogName ) + hb_eol() )
+         OutStd( hb_ProgName() + ": " + hb_StrFormat( "Edit %1$s and commit", cLogName ) + hb_eol() )
 #if 0
-            LaunchCommand( GitEditor(), cLogName )
+         LaunchCommand( GitEditor(), cLogName )
 #endif
-         ENDIF
       ENDIF
 
       ErrorLevel( 0 )
@@ -218,7 +218,7 @@ STATIC FUNCTION InstallHook( cDir, cHookName, cCommand )
       RETURN .T.
    ENDIF
 
-   IF HB_ISNULL( cFile )
+   IF cFile == ""
       cFile += "#!/bin/sh" + Chr( 10 )
    ENDIF
 
@@ -386,7 +386,7 @@ STATIC FUNCTION GitFileList()
    LOCAL cItem
 
    FOR EACH cItem IN aList DESCEND
-      IF HB_ISNULL( cItem )
+      IF cItem == ""
          hb_ADel( aList, cItem:__enumIndex(), .T. )
       ELSE
          cItem := hb_DirSepToOS( cItem )
@@ -450,7 +450,7 @@ STATIC FUNCTION DoctorChanges( cVCS, aChanges, aFiles )
             CASE "X"  ; cStart := "" ; EXIT
             OTHERWISE ; cStart := "?"
             ENDSWITCH
-            IF ! HB_ISNULL( cStart )
+            IF ! cStart == ""
                AAdd( aNew, "  " + cStart + " " + StrTran( SubStr( cLine, 8 + 1 ), "\", "/" ) )
                IF !( cStart == "-" )
                   AAdd( aFiles, SubStr( cLine, 8 + 1 ) )
@@ -480,7 +480,7 @@ STATIC FUNCTION DoctorChanges( cVCS, aChanges, aFiles )
             CASE "D"  ; cStart := "-" ; EXIT
             OTHERWISE ; cStart := "?"
             ENDSWITCH
-            IF ! HB_ISNULL( cStart )
+            IF ! cStart == ""
                AAdd( aNew, "  " + cStart + " " + StrTran( SubStr( cLine, 3 + 1 ), "\", "/" ) )
                IF !( cStart == "-" )
                   cFile := SubStr( cLine, 3 + 1 )
@@ -508,7 +508,7 @@ STATIC FUNCTION Shell()
    cShell := GetEnv( "COMSPEC" )
 #endif
 
-   IF ! HB_ISNULL( cShell )
+   IF ! cShell == ""
 #if defined( __PLATFORM__UNIX )
       cShell += " -c"
 #else
@@ -543,7 +543,7 @@ STATIC FUNCTION Changes( cVCS )
 #if 0
 STATIC FUNCTION LaunchCommand( cCommand, cArg )
 
-   IF HB_ISNULL( cCommand )
+   IF cCommand == ""
       RETURN -1
    ENDIF
 
@@ -600,7 +600,7 @@ STATIC FUNCTION CheckFileList( xName, cLocalRoot, lRebase )
                tmp += file + " "
             ENDIF
          NEXT
-         IF ! HB_ISNULL( tmp )
+         IF ! tmp == ""
             hb_run( hbshell_ProgName() + " -fixcase " + tmp )
          ENDIF
       ELSE
@@ -713,7 +713,7 @@ STATIC FUNCTION CheckFile( cName, /* @ */ aErr, lApplyFixes, cLocalRoot, lRebase
 
       /* filename checks */
 
-      IF HB_ISNULL( hb_FNameExt( cName ) )
+      IF hb_FNameExt( cName ) == ""
          IF ! FNameExc( cName, aCanHaveNoExtension )
             AAdd( aErr, "filename: missing extension" )
          ENDIF
@@ -767,7 +767,7 @@ STATIC FUNCTION CheckFile( cName, /* @ */ aErr, lApplyFixes, cLocalRoot, lRebase
 
             cEOL := EOLDetect( cFile, @nLines )
 
-            IF HB_ISNULL( cEOL )
+            IF cEOL == ""
                AAdd( aErr, "content: has mixed EOL types" )
                IF lApplyFixes
                   lReBuild := .T.
@@ -798,13 +798,13 @@ STATIC FUNCTION CheckFile( cName, /* @ */ aErr, lApplyFixes, cLocalRoot, lRebase
             ENDIF
 
             IF lReBuild
-               cFile := RemoveEndingWhitespace( cFile, iif( HB_ISNULL( cEOL ), hb_eol(), cEOL ), lRemoveEndingWhitespace )
+               cFile := RemoveEndingWhitespace( cFile, iif( cEOL == "", hb_eol(), cEOL ), lRemoveEndingWhitespace )
             ENDIF
 
             IF !( hb_BRight( cFile, Len( Chr( 10 ) ) ) == Chr( 10 ) )
                AAdd( aErr, "content: has no EOL at EOF" )
                IF lApplyFixes
-                  cFile += iif( HB_ISNULL( cEOL ), hb_eol(), cEOL )
+                  cFile += iif( cEOL == "", hb_eol(), cEOL )
                ENDIF
             ENDIF
 
@@ -1104,7 +1104,7 @@ STATIC FUNCTION LoadGitignore( cFileName )
                iif( Left( cLine, 1 ) $ "?*/!", "", "*/" ) + ;
                cLine + ;
                iif( Right( cLine, 1 ) == "/", "*", ;
-               iif( HB_ISNULL( hb_FNameExt( cLine ) ) .AND. !( Right( cLine, 2 ) == "*/" ), "/*", "" ) ) )
+               iif( hb_FNameExt( cLine ) == "" .AND. !( Right( cLine, 2 ) == "*/" ), "/*", "" ) ) )
             IF !( ATail( t_aIgnore ) == cLine )
                IF hb_LeftEq( ATail( t_aIgnore ), "*/" )
                   AAdd( t_aIgnore, SubStr( ATail( t_aIgnore ), 3 ) )
@@ -1185,7 +1185,7 @@ STATIC FUNCTION FixFuncCaseFilter( cFileName )
       "*/3rd/*" }  /* foreign code */
 
    RETURN ;
-      ! HB_ISNULL( hb_FNameExt( cFileName ) ) .AND. ;
+      ! hb_FNameExt( cFileName ) == "" .AND. ;
       ! hb_FNameNameExt( cFileName ) $ sc_hFileExceptions .AND. ;
       AScan( sc_aMaskExceptions, {| tmp | hb_FileMatch( cFileName, hb_DirSepToOS( tmp ) ) } ) == 0
 

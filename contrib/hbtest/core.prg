@@ -107,7 +107,7 @@ EXIT PROCEDURE __hbtest_Exit()
 
 PROCEDURE hbtest_Setup( cName, xValue )
 
-   IF HB_ISSTRING( cName ) .AND. ! HB_ISNULL( cName )
+   IF HB_ISSTRING( cName ) .AND. ! cName == ""
       IF PCount() >= 2
          t_hParams[ cName ] := xValue
       ELSEIF cName $ t_hParams
@@ -218,7 +218,7 @@ STATIC FUNCTION ErrorMessage( oError )
    IF ! Empty( oError:operation )
       cMessage += "(" + oError:operation + ") "
    ENDIF
-   IF ! HB_ISNULL( oError:filename )
+   IF ! oError:filename == ""
       cMessage += "<" + oError:filename + "> "
    ENDIF
    IF HB_ISNUMERIC( oError:osCode )

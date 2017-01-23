@@ -546,7 +546,7 @@ STATIC FUNCTION DeValue( lAdopt )
    AEval( QSelf(), {| xVal | AAdd( aValues, xVal ) }, 1, Len( QSelf() ) - CLASS_PROPERTIES )
 #endif
 
-   IF ! HB_ISSTRING( Buffer ) .OR. HB_ISNULL( Buffer )
+   IF ! HB_ISSTRING( Buffer ) .OR. Buffer == ""
       // TraceLog( "EMPTY Buffer passed to " + ProcName() )
    ELSEIF hb_BLen( Buffer ) < QSelf():SizeOf
       // TraceLog( "Should have been caught at ::Buffer()!!!", Buffer )

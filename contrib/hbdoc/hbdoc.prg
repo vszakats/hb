@@ -141,7 +141,7 @@ PROCEDURE Main()
    ENDIF
 
    FOR EACH arg IN aArgs
-      IF ! HB_ISNULL( arg )
+      IF ! arg == ""
          IF ( idx := At( "=", arg ) ) == 0
             cArgName := arg
             arg := ""
@@ -728,7 +728,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, hNameID, /* @ */ nCount, /* @ */ nC
       ", " + hb_HGetDef( hEntry, "CATEGORY", "" ) + ;
       ", " + hb_HGetDef( hEntry, "SUBCATEGORY", "" ), "," )
 
-      IF ! HB_ISNULL( item := AllTrim( item ) )
+      IF ! ( item := AllTrim( item ) ) == ""
          hE[ "_tags" ][ item ] := NIL
       ENDIF
    NEXT
@@ -748,7 +748,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, hNameID, /* @ */ nCount, /* @ */ nC
       ENDIF
    ENDIF
 
-   IF ! "PLATFORMS" $ hEntry .OR. HB_ISNULL( hEntry[ "PLATFORMS" ] )
+   IF ! "PLATFORMS" $ hEntry .OR. hEntry[ "PLATFORMS" ] == ""
       hEntry[ "PLATFORMS" ] := "All"
    ENDIF
 
@@ -906,8 +906,8 @@ STATIC FUNCTION RetouchContent( cFile, cSectionName, cSection, cTemplate )
    CASE "STATUS"
       cResult := ""
       FOR EACH tmp IN ASort( hb_ATokens( cSection, "," ) )
-         IF ! HB_ISNULL( tmp := AllTrim( tmp ) )
-            IF ! HB_ISNULL( cResult )
+         IF ! ( tmp := AllTrim( tmp ) ) == ""
+            IF ! cResult == ""
                cResult += Chr( 10 )
             ENDIF
             IF tmp $ sc_hConstraint[ "status" ]
@@ -918,7 +918,7 @@ STATIC FUNCTION RetouchContent( cFile, cSectionName, cSection, cTemplate )
             cResult += tmp
          ENDIF
       NEXT
-      IF HB_ISNULL( cResult )
+      IF cResult == ""
          cResult := Eval( sc_hConstraint[ "status" ][ "N" ] )
       ENDIF
       RETURN cResult
@@ -926,7 +926,7 @@ STATIC FUNCTION RetouchContent( cFile, cSectionName, cSection, cTemplate )
    CASE "PLATFORMS"
       cResult := ""
       FOR EACH cSection IN ASort( hb_ATokens( cSection, "," ) )
-         IF ! HB_ISNULL( cSection := AllTrim( cSection ) )
+         IF ! ( cSection := AllTrim( cSection ) ) == ""
             cResult += Chr( 10 ) + Eval( hb_HGetDef( sc_hConstraint[ "platforms" ], cSection, {|| cSection } ) )
          ENDIF
       NEXT
@@ -936,7 +936,7 @@ STATIC FUNCTION RetouchContent( cFile, cSectionName, cSection, cTemplate )
       IF "," $ cSection .AND. Parse( cSection, "," ) $ sc_hConstraint[ "compliance" ]  /* Detect if not free text */
          cResult := ""
          FOR EACH tmp IN ASort( hb_ATokens( cSection, "," ) )
-            IF ! HB_ISNULL( tmp := AllTrim( tmp ) )
+            IF ! ( tmp := AllTrim( tmp ) ) == ""
                cResult += Chr( 10 ) + Eval( hb_HGetDef( sc_hConstraint[ "compliance" ], tmp, {|| tmp } ) )
             ENDIF
          NEXT
@@ -991,7 +991,7 @@ STATIC PROCEDURE ShowHelp( cExtraMessage, aArgs )
    LOCAL aHelp
 
    DO CASE
-   CASE Empty( aArgs ) .OR. Len( aArgs ) <= 1 .OR. HB_ISNULL( aArgs[ 1 ] )
+   CASE Empty( aArgs ) .OR. Len( aArgs ) <= 1 .OR. aArgs[ 1 ] == ""
       aHelp := { ;
          cExtraMessage, ;
          "Harbour Document Compiler (hbdoc) " + HBRawVersion(), ;
@@ -1155,7 +1155,7 @@ FUNCTION Indent( cText, nLeftMargin, nWidth, lRaw, lForceRaw )
                cLine := LTrim( SubStr( cLine, idx + 1 ) )
             ENDDO
 
-            IF ! HB_ISNULL( cLine )
+            IF ! cLine == ""
                cResult += Space( nLeftMargin ) + cLine + Chr( 10 )
             ENDIF
 
@@ -1223,7 +1223,7 @@ STATIC FUNCTION GenUniqueID( hUID, cName, cTemplate )
    LOCAL cResult
    LOCAL idx, tmp
 
-   IF HB_ISNULL( cName )
+   IF cName == ""
       cResult := "null"
    ELSE
       IF ! Empty( tmp := hb_StrReplace( cName, "()" ) )
@@ -1579,7 +1579,7 @@ STATIC FUNCTION LoadHBX( cFileName, hAll )
 
    LOCAL cID := hb_FNameName( cName )
 
-   IF ! HB_ISNULL( cFile := hb_MemoRead( cFileName ) ) .AND. ;
+   IF ! ( cFile := hb_MemoRead( cFileName ) ) == "" .AND. ;
       ! Empty( pRegex := hb_regexComp( "^DYNAMIC ([a-zA-Z0-9_]*)$", .T., .T. ) )
 
       FOR EACH tmp IN hb_regexAll( pRegex, StrTran( cFile, Chr( 13 ) ),,,,, .T. )

@@ -118,7 +118,7 @@ METHOD Write( cBuffer ) CLASS UHttpdConnection
 
    LOCAL nLen := 0, nErr
 
-   DO WHILE ! HB_ISNULL( cBuffer ) .AND. ! httpd:IsStopped()
+   DO WHILE ! cBuffer == "" .AND. ! httpd:IsStopped()
       IF ::hSSL != NIL
          nLen := MY_SSL_WRITE( ::bTrace, ::hSSL, ::hSocket, cBuffer, 1000, @nErr )
       ELSEIF ( nLen := hb_socketSend( ::hSocket, cBuffer,,, 1000 ) ) < 0
@@ -1026,13 +1026,13 @@ STATIC FUNCTION GetErrorDesc( oErr )
       "Error: " + oErr:subsystem + "/" + ErrDescCode( oErr:genCode ) + "(" + hb_ntos( oErr:genCode ) + ") " + ;
       hb_ntos( oErr:subcode ) + cEOL
 
-   IF ! HB_ISNULL( oErr:filename );  cRet += "File: " + oErr:filename + cEOL
+   IF ! oErr:filename == "";       cRet += "File: " + oErr:filename + cEOL
    ENDIF
-   IF ! Empty( oErr:description );   cRet += "Description: " + oErr:description + cEOL
+   IF ! Empty( oErr:description ); cRet += "Description: " + oErr:description + cEOL
    ENDIF
-   IF ! Empty( oErr:operation );     cRet += "Operation: " + oErr:operation + cEOL
+   IF ! Empty( oErr:operation );   cRet += "Operation: " + oErr:operation + cEOL
    ENDIF
-   IF ! Empty( oErr:osCode );        cRet += "OS error: " + hb_ntos( oErr:osCode ) + cEOL
+   IF ! Empty( oErr:osCode );      cRet += "OS error: " + hb_ntos( oErr:osCode ) + cEOL
    ENDIF
    IF HB_ISARRAY( oErr:args )
       cRet += "Arguments:" + cEOL

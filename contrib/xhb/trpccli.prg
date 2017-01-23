@@ -224,7 +224,7 @@ METHOD Destroy() CLASS TRPCClient
 
 METHOD SetEncryption( cKey ) CLASS TRPCClient
 
-   IF HB_ISSTRING( cKey ) .AND. ! HB_ISNULL( cKey )
+   IF HB_ISSTRING( cKey ) .AND. ! cKey == ""
       ::bEncrypted := .T.
       ::cCryptKey := cKey
    ELSE

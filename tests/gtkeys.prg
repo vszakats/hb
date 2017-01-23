@@ -307,7 +307,7 @@ PROCEDURE Main( cTermCP, cHostCP, lBoxChar, lRawKey )
          ENDIF
 #endif
       ELSEIF ( k >= 32 .AND. k <= 126 ) .OR. ( k >= 160 .AND. k <= 255 ) .OR. ;
-             ! HB_ISNULL( hb_keyChar( k ) )
+             ! hb_keyChar( k ) == ""
 #ifdef __HARBOUR__
          ? "char:", iif( k > 256, " U+" + hb_NumToHex( hb_keyVal( k ), 4 ), Str( k, 7 ) ), ;
            " " + hb_keyChar( k )

@@ -74,7 +74,7 @@ static procedure loadngjson( fn, aEntry, savename )
     name := ng[ 'title' ]
     cred := ''
     for each line in ng[ 'copy' ]
-      if ! hb_isnull( cred )
+      if ! cred == ''
         cred += chr( 10 )
       endif
       cred += alltrim( line )
@@ -173,7 +173,7 @@ static function tonf( aEntry, nge, cat, menu, fn, savename )
   elseif hb_isstring( nge[ 'content' ][ 1 ] )
     if hb_isstring( nge[ 'title' ] )
       hEntry[ 'NAME' ] := rtrim( cln( substr( nge[ 'content' ][ 1 ], 2 ) ) )
-      if hb_isnull( nge[ 'title' ] )
+      if nge[ 'title' ] == ''
         hEntry[ 'ONELINER' ] := cat
       else
         title := allTrim( left( nge[ 'title' ], iif( 'tools' $ savename, 13, 16 ) ) )
@@ -230,11 +230,11 @@ static function tonf( aEntry, nge, cat, menu, fn, savename )
   for each nge in container
 
     if cname == 'METHODSLINK' .and. ;
-       ! hb_lefteq( nge[ 'title' ], '────────' ) .and. ! hb_isnull( nge[ 'title' ] )
+       ! hb_lefteq( nge[ 'title' ], '────────' ) .and. ! nge[ 'title' ] == ''
       if ! cName $ hEntry
         hEntry[ cName ] := ''
       endif
-      if ! hb_isnull( hEntry[ cName ] )
+      if ! hEntry[ cName ] == ''
         hEntry[ cName ] += chr( 10 ) + chr( 10 )
       endif
       hEntry[ cName ] += '*' + cln( alltrim( nge[ 'title' ] ) ) + '*' + chr( 10 ) + '---'
@@ -269,7 +269,7 @@ static function tonf( aEntry, nge, cat, menu, fn, savename )
           sectadd( hEntry, cName, tmp )
         elseif ! upper( tmp ) $ '|TEMPLATE|NAME|ONELINER|CATEGORY|SUBCATEGORY|SYNTAX|ARGUMENTS|RETURNS|DESCRIPTION|NOTES|DATALINK|DATANOLINK|METHODSLINK|METHODSNOLINK|EXAMPLES|TESTS|STATUS|COMPLIANCE|PLATFORMS|FILES|TAGS|'
           cName := 'DESCRIPTION'
-          if hb_isnull( tmp )
+          if tmp == ''
             sectadd( hEntry, cName, tmp )
           else
             if nIndent == nil
@@ -319,10 +319,10 @@ static function tonf( aEntry, nge, cat, menu, fn, savename )
             endif
           endif
         endif
-        if ! hb_isnull( hEntry[ cName ] )
+        if ! hEntry[ cName ] == ''
           hEntry[ cName ] += chr( 10 )
         endif
-        if hb_isnull( line )
+        if line == ''
           tmp := ''
         else
           if nIndent == nil
@@ -331,7 +331,7 @@ static function tonf( aEntry, nge, cat, menu, fn, savename )
           tmp := rtrim( substr( line, nIndent + 1 ) )
         endif
         if hb_lefteq( ltrim( tmp ), '────────' )
-          if nTable > 0 .or. ! 'tools' $ savename .or. ! hb_isnull( line:__enumbase()[ line:__enumindex() + 1 ] )
+          if nTable > 0 .or. ! 'tools' $ savename .or. ! line:__enumbase()[ line:__enumindex() + 1 ] == ''
             do case
             case nTable == 0
               tmp := space( len( tmp ) - len( ltrim( tmp ) ) ) + '<table>'
@@ -364,7 +364,7 @@ static function tonf( aEntry, nge, cat, menu, fn, savename )
   if 'seealso' $ container[ 1 ] .and. ! empty( container[ 1 ][ 'seealso' ] )
     hEntry[ 'SEEALSO' ] := ''
     for each line in container[ 1 ][ 'seealso' ]
-      if ! hb_isnull( hEntry[ 'SEEALSO' ] )
+      if ! hEntry[ 'SEEALSO' ] == ''
         hEntry[ 'SEEALSO' ] += ', '
       endif
       hEntry[ 'SEEALSO' ] += line[ 'title' ]
@@ -380,7 +380,7 @@ static procedure sectadd( hEntry, cName, line )
   if ! cName $ hEntry
      hEntry[ cName ] := ''
   endif
-  if ! hb_isnull( hEntry[ cName ] )
+  if ! hEntry[ cName ] == ''
     hEntry[ cName ] += chr( 10 )
   endif
   hEntry[ cName ] += line

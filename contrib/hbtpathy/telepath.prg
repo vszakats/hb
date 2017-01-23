@@ -239,7 +239,7 @@ FUNCTION tp_send( nPort, cString, nTimeout )
 
       hb_default( @cString, "" )
 
-      IF ! HB_ISNULL( cString )
+      IF ! cString == ""
          RETURN hb_comSend( t_aPorts[ nPort ][ TPFP_HANDLE ], cString,, hb_defaultValue( nTimeout, 0 ) )
       ENDIF
    ENDIF
@@ -258,7 +258,7 @@ FUNCTION tp_recvto( nPort, cDelim, nMaxlen, nTimeout )
    LOCAL nStartPos := 1, nFirst := 0
    LOCAL nDone, cRet := ""
 
-   IF isopenport( nPort ) .AND. HB_ISSTRING( cDelim ) .AND. ! HB_ISNULL( cDelim )
+   IF isopenport( nPort ) .AND. HB_ISSTRING( cDelim ) .AND. ! cDelim == ""
 
       hb_default( @nMaxLen, 64999 )  /* MS-DOS telepathy default. In Harbour could be higher. */
       hb_default( @nTimeout, 0 )
@@ -267,7 +267,7 @@ FUNCTION tp_recvto( nPort, cDelim, nMaxlen, nTimeout )
 
       /* Telepathy NG: [...] If nTimeout is omitted or zero, reads until finding the
                        delimiter or the input buffer is empty. */
-      IF nTimeout == 0 .AND. HB_ISNULL( t_aPorts[ nPort ][ TPFP_INBUF ] )
+      IF nTimeout == 0 .AND. t_aPorts[ nPort ][ TPFP_INBUF ] == ""
          RETURN ""
       ENDIF
 

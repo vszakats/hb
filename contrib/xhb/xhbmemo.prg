@@ -209,7 +209,7 @@ METHOD Edit() CLASS xhb_TMemoEditor
 
       IF ::bKeyBlock == NIL
 
-         IF ( ! HB_ISNULL( hb_keyChar( nKey ) ) .OR. ;
+         IF ( ! hb_keyChar( nKey ) == "" .OR. ;
               AScan( ::aEditKeys, nKeyStd ) > 0 .OR. ;
               AScan( ::aConfigurableKeys, nKeyStd ) > 0 .OR. ;
               AScan( ::aExtKeys, nKey ) > 0 .OR. ;
@@ -230,7 +230,7 @@ METHOD Edit() CLASS xhb_TMemoEditor
 
       IF ::ExistUdf()
 
-         IF ! HB_ISNULL( hb_keyChar( nKey ) ) .OR. ;
+         IF ! hb_keyChar( nKey ) == "" .OR. ;
             AScan( ::aEditKeys, nKeyStd ) > 0 .OR. ;
             AScan( ::aConfigurableKeys, nKeyStd ) > 0 .OR. ;
             AScan( ::aExtKeys, nKey ) > 0 .OR. ;
@@ -290,7 +290,7 @@ METHOD HandleUdf( nKey, nUdfReturn, lEdited ) CLASS xhb_TMemoEditor
 
       IF ! lEdited
          nKeyStd := hb_keyStd( nKey )
-         IF ! HB_ISNULL( hb_keyChar( nKey ) ) .OR. ;
+         IF ! hb_keyChar( nKey ) == "" .OR. ;
             AScan( { K_ALT_W, K_CTRL_W }, nKeyStd ) > 0 .OR. ;
             AScan( ::aExtKeys, nKey ) > 0 .OR. ;
             nKeyStd == K_ESC .OR. ;
@@ -312,7 +312,7 @@ METHOD HandleUdf( nKey, nUdfReturn, lEdited ) CLASS xhb_TMemoEditor
 
       IF ! lEdited
          nKeyStd := hb_keyStd( nKey )
-         IF ! HB_ISNULL( hb_keyChar( nKey ) ) .OR. ;
+         IF ! hb_keyChar( nKey ) == "" .OR. ;
             AScan( ::aExtKeys, nKey ) > 0 .OR. ;
             nKeyStd == K_ESC .OR. ;
             nKeyStd == K_INS

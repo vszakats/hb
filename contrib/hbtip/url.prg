@@ -106,7 +106,7 @@ METHOD SetAddress( cUrl ) CLASS TUrl
    ::cFile := ""
    ::nPort := -1
 
-   IF HB_ISNULL( cUrl )
+   IF cUrl == ""
       RETURN .T.
    ENDIF
 
@@ -145,46 +145,46 @@ METHOD BuildAddress() CLASS TUrl
       ::cProto := Lower( ::cProto )
    ENDIF
 
-   IF ! Empty( ::cProto ) .AND. ! HB_ISNULL( ::cServer )
+   IF ! Empty( ::cProto ) .AND. ! ::cServer == ""
       cRet := ::cProto + "://"
    ENDIF
 
-   IF ! HB_ISNULL( ::cUserid )
+   IF ! ::cUserid == ""
       cRet += ::cUserid
-      IF ! HB_ISNULL( ::cPassword )
+      IF ! ::cPassword == ""
          cRet += ":" + ::cPassword
       ENDIF
       cRet += "@"
    ENDIF
 
-   IF ! HB_ISNULL( ::cServer )
+   IF ! ::cServer == ""
       cRet += ::cServer
       IF ::nPort > 0
          cRet += ":" + hb_ntos( ::nPort )
       ENDIF
    ENDIF
 
-   IF HB_ISNULL( ::cPath ) .OR. !( Right( ::cPath, 1 ) == "/" )
+   IF ::cPath == "" .OR. !( Right( ::cPath, 1 ) == "/" )
       ::cPath += "/"
    ENDIF
 
    cRet += ::cPath + ::cFile
-   IF ! HB_ISNULL( ::cQuery )
+   IF ! ::cQuery == ""
       cRet += "?" + ::cQuery
    ENDIF
 
-   RETURN iif( HB_ISNULL( cRet ), NIL, ::cAddress := cRet )
+   RETURN iif( cRet == "", NIL, ::cAddress := cRet )
 
 METHOD BuildQuery() CLASS TUrl
 
    LOCAL cLine
 
-   IF HB_ISNULL( ::cPath ) .OR. !( Right( ::cPath, 1 ) == "/" )
+   IF ::cPath == "" .OR. !( Right( ::cPath, 1 ) == "/" )
       ::cPath += "/"
    ENDIF
 
    cLine := ::cPath + ::cFile
-   IF ! HB_ISNULL( ::cQuery )
+   IF ! ::cQuery == ""
       cLine += "?" + ::cQuery
    ENDIF
 
@@ -218,5 +218,5 @@ METHOD AddGetForm( xPostData ) CLASS TUrl
       cData := xPostData
    ENDCASE
 
-   RETURN iif( HB_ISNULL( cData ), NIL, ;
-      ::cQuery += iif( HB_ISNULL( ::cQuery ), "", "&" ) + cData )
+   RETURN iif( cData == "", NIL, ;
+      ::cQuery += iif( ::cQuery == "", "", "&" ) + cData )

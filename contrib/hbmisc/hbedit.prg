@@ -422,7 +422,7 @@ STATIC FUNCTION EditorSave( oEdit )
    LOCAL hFile, cFile
 
    cFile := EditorCargo( oEdit )
-   IF ! HB_ISSTRING( cFile ) .OR. HB_ISNULL( cFile )
+   IF ! HB_ISSTRING( cFile ) .OR. cFile == ""
       RETURN .F.
    ENDIF
 

@@ -112,7 +112,7 @@ STATIC FUNCTION hbnetiocon_init( hConIO, aParam )
       "shutdown"      => { ""               , "Stop server."                                   , {| netiocli | cmdShutdown( netiocli ) } }, ;
       "help"          => { ""               , "Display this help."                             , {| netiocli | cmdHelp( netiocli ) } } }
 
-   IF ! HB_ISNULL( cPassword )
+   IF ! cPassword == ""
       ConnectLow( netiocli, cIP, nPort, cPassword )
    ENDIF
 

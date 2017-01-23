@@ -305,7 +305,7 @@ STATIC FUNCTION flag_for_lang( cLang )
    CASE "pt_br" ; cSrc := "flag-br.svg" ; EXIT
    ENDSWITCH
 
-   IF ! HB_ISNULL( cSrc )
+   IF ! cSrc == ""
       cSrc := "data:image/svg+xml;base64," + hb_base64Encode( hb_MemoRead( hbdoc_dir_in() + hb_DirSepToOS( "docs/images/" + cSrc ) ) )
    ENDIF
 
@@ -457,7 +457,7 @@ METHOD EndSection() CLASS GenerateHTML
 
 METHOD SubCategory( cCategory, cID )
 
-   IF HB_ISSTRING( cCategory ) .AND. ! HB_ISNULL( cCategory )
+   IF HB_ISSTRING( cCategory ) .AND. ! cCategory == ""
       IF Empty( cID )
          ::TaggedInline( cCategory, "h3", "class", "d-sc" )
       ELSE
@@ -519,7 +519,7 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
             /* Link to original source code if it could be automatically found based
                on doc source filename */
             IF ! hb_LeftEq( ::cFilename, "--cl" ) .AND. ;
-               ! HB_ISNULL( tmp := SourceURL( NameCanon( cEntry ), ::cFilename, hEntry[ "TEMPLATE" ], @nLine, @cRedir ) )
+               ! ( tmp := SourceURL( NameCanon( cEntry ), ::cFilename, hEntry[ "TEMPLATE" ], @nLine, @cRedir ) ) == ""
                IF cRedir != NIL
                   ::OpenTagInline( "code", "class", "d-so" )
                   ::AppendInline( _RESULT_ARROW + hb_UChar( 160 ) + cRedir )
@@ -570,7 +570,7 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
          ::CloseTagInline( "span" )
 
          ::CloseTag( "h4" )
-      ELSEIF IsField( hEntry, item ) .AND. IsOutput( hEntry, item ) .AND. ! HB_ISNULL( hEntry[ item ] )
+      ELSEIF IsField( hEntry, item ) .AND. IsOutput( hEntry, item ) .AND. ! hEntry[ item ] == ""
          ::WriteEntry( item, hEntry[ item ], IsPreformatted( hEntry, item ), hEntry[ "_id" ] )
       ENDIF
    NEXT
@@ -595,7 +595,7 @@ STATIC FUNCTION SourceURL( cEntry, cComponent, cTemplate, /* @ */ nLine, /* @ */
    cComponent := hb_HGetDef( { "clc53" => "harbour", "clct3" => "hbct" }, cComponent, cComponent )
 
    IF hb_BRight( cEntry, 2 ) == "()" .AND. ;
-      ! HB_ISNULL( tmp := hbdoc_SymbolSource( iif( cComponent == "harbour", "src", "contrib/" + cComponent ), hb_StrShrink( cEntry, 2 ), @nLine, @cRedir ) )
+      ! ( tmp := hbdoc_SymbolSource( iif( cComponent == "harbour", "src", "contrib/" + cComponent ), hb_StrShrink( cEntry, 2 ), @nLine, @cRedir ) ) == ""
       RETURN tmp
    ENDIF
 
@@ -626,9 +626,9 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS Genera
 
       cTagClass := hb_HGetDef( s_class, cField, "d-it" )
 
-      IF ! HB_ISNULL( cCaption := FieldCaption( cField, ;
+      IF ! ( cCaption := FieldCaption( cField, ;
          ( cField == "TAGS" .AND. "," $ cContent ) .OR. ;
-         ( cField == "FILES" .AND. Chr( 10 ) $ cContent ) ) )
+         ( cField == "FILES" .AND. Chr( 10 ) $ cContent ) ) ) == ""
          ::Tagged( cCaption, "div", "class", "d-d" )
       ENDIF
 
@@ -651,7 +651,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS Genera
                CASE tmp:__enumIndex() == 1
                   /* do nothing */
                CASE tmp:__enumIndex() == 2
-                  IF ! HB_ISNULL( tmp )
+                  IF ! tmp == ""
                      IF ! Empty( Left( tmp, 3 ) )
                         tmp1 := cContent
                         EXIT
@@ -694,7 +694,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS Genera
          NEXT
 
          FOR EACH tmp IN ASort( aSEEALSO )
-            IF ! HB_ISNULL( tmp )
+            IF ! tmp == ""
                IF lFirst
                   lFirst := .F.
                ELSE
@@ -779,13 +779,13 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS Genera
 
          lTable := .F.
 
-         DO WHILE ! HB_ISNULL( cContent )
+         DO WHILE ! cContent == ""
 
             lCode := .F.
             lTablePrev := lTable
 
             tmp1 := ""
-            DO WHILE ! HB_ISNULL( cContent )
+            DO WHILE ! cContent == ""
 
                cLine := Parse( @cContent, hb_eol() )
 
@@ -821,7 +821,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS Genera
 
             IF lTable != lTablePrev
                IF lTable
-                  ::OpenTag( "div", "class", "d-t" + iif( HB_ISNULL( cHeaderClass ), "", " " + cHeaderClass ) )
+                  ::OpenTag( "div", "class", "d-t" + iif( cHeaderClass == "", "", " " + cHeaderClass ) )
                ELSE
                   ::CloseTag( "div" )
                ENDIF
@@ -950,7 +950,7 @@ METHOD AppendInline( cText, cFormat, lCode, cField, cID ) CLASS GenerateHTML
    LOCAL cdp
    LOCAL lNAME
 
-   IF ! HB_ISNULL( cText )
+   IF ! cText == ""
 
       hb_default( @lCode, .F. )
 

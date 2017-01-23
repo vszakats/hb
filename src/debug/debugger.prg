@@ -351,10 +351,10 @@ METHOD New() CLASS HBDebugger
       that way if the source is in the same directory it will still be found even if the application
       changes the current directory with the SET DEFAULT command. */
    ::cPathForFiles := GetEnv( "HB_DBG_PATH" )
-   IF HB_ISNULL( ::cPathForFiles )
+   IF ::cPathForFiles == ""
       ::cPathForFiles := GetEnv( "PATH" )
    ENDIF
-   IF HB_ISNULL( ::cPathForFiles )
+   IF ::cPathForFiles == ""
       ::cPathForFiles := NIL
    ENDIF
    ::aPathDirs := PathToArray( ::cPathForFiles )
@@ -2049,7 +2049,7 @@ METHOD PROCEDURE Open( cFileName ) CLASS HBDebugger
    LOCAL cRealName
    LOCAL aFiles
 
-   IF ! HB_ISSTRING( cFileName ) .OR. HB_ISNULL( cFileName )
+   IF ! HB_ISSTRING( cFileName ) .OR. cFileName == ""
       aFiles := ::GetSourceFiles()
       ASort( aFiles )
       hb_AIns( aFiles, 1, "(Another file)", .T. )
@@ -2066,7 +2066,7 @@ METHOD PROCEDURE Open( cFileName ) CLASS HBDebugger
       ENDSWITCH
    ENDIF
 
-   IF ! HB_ISNULL( cFileName ) .AND. ;
+   IF ! cFileName == "" .AND. ;
       ( ! HB_ISSTRING( ::cPrgName ) .OR. ! hb_FileMatch( cFileName, ::cPrgName ) )
 
       IF ! hb_vfExists( cFileName ) .AND. ::cPathForFiles != NIL
@@ -2190,7 +2190,7 @@ METHOD PathForFiles( cPathForFiles ) CLASS HBDebugger
    IF ! HB_ISSTRING( cPathForFiles )
       cPathForFiles := ::InputBox( "Search path for source files:", ::cPathForFiles )
    ENDIF
-   IF HB_ISNULL( cPathForFiles )
+   IF cPathForFiles == ""
       cPathForFiles := NIL
    ENDIF
    ::cPathForFiles := cPathForFiles
@@ -2353,7 +2353,7 @@ METHOD PROCEDURE RestoreAppState() CLASS HBDebugger
 
 METHOD PROCEDURE RestoreSettings( cFileName ) CLASS HBDebugger
 
-   IF ! HB_ISSTRING( cFileName ) .OR. HB_ISNULL( cFileName )
+   IF ! HB_ISSTRING( cFileName ) .OR. cFileName == ""
       ::cSettingsFileName := ::InputBox( "File name", ::cSettingsFileName )
       IF LastKey() == K_ESC
          RETURN
@@ -2431,7 +2431,7 @@ METHOD PROCEDURE SaveSettings( cFileName ) CLASS HBDebugger
    LOCAL oWnd
    LOCAL aBreak, aWatch
 
-   IF ! HB_ISSTRING( cFileName ) .OR. HB_ISNULL( cFileName )
+   IF ! HB_ISSTRING( cFileName ) .OR. cFileName == ""
       ::cSettingsFileName := ::InputBox( "File name", ::cSettingsFileName )
       IF LastKey() == K_ESC
          RETURN
@@ -3008,7 +3008,7 @@ METHOD BreakPointDelete( cPos ) CLASS HBDebugger
 
    LOCAL nAt
 
-   IF ! HB_ISSTRING( cPos ) .OR. HB_ISNULL( cPos )
+   IF ! HB_ISSTRING( cPos ) .OR. cPos == ""
       cPos := AllTrim( ::InputBox( "Item number to delete", "0" ) )
       IF LastKey() == K_ESC
          cPos := ""

@@ -95,7 +95,7 @@ PROCEDURE Main( ... )
                nMode := _HB_I18N_TRANS
             ENDIF
          CASE hb_LeftEq( cParam, "o" )
-            IF ! HB_ISNULL( cParam := SubStr( cParam, 2 ) )
+            IF ! ( cParam := SubStr( cParam, 2 ) ) == ""
                cFileOut := cParam
             ELSEIF n < Len( aParams ) .AND. ! hb_LeftEq( aParams[ n + 1 ], "-" )
                cFileOut := aParams[ ++n ]
@@ -288,7 +288,7 @@ STATIC PROCEDURE Merge( aFiles, cFileOut )
 
    LOCAL cErrorMsg
 
-   IF ! HB_ISSTRING( cFileOut ) .OR. HB_ISNULL( cFileOut )
+   IF ! HB_ISSTRING( cFileOut ) .OR. cFileOut == ""
       cFileOut := hb_FNameExtSet( aFiles[ 1 ], ".po" )
    ELSE
       cFileOut := hb_FNameExtSetDef( cFileOut, ".po" )
@@ -302,7 +302,7 @@ STATIC PROCEDURE Merge( aFiles, cFileOut )
 
 STATIC PROCEDURE GenHBL( aFiles, cFileOut, lEmpty )
 
-   IF ! HB_ISSTRING( cFileOut ) .OR. HB_ISNULL( cFileOut )
+   IF ! HB_ISSTRING( cFileOut ) .OR. cFileOut == ""
       cFileOut := hb_FNameExtSet( aFiles[ 1 ], ".hbl" )
    ELSE
       cFileOut := hb_FNameExtSetDef( cFileOut, ".hbl" )
@@ -320,7 +320,7 @@ STATIC PROCEDURE AutoTrans( cFileIn, aFiles, cFileOut )
 
    LOCAL cErrorMsg
 
-   IF ! HB_ISSTRING( cFileOut ) .OR. HB_ISNULL( cFileOut )
+   IF ! HB_ISSTRING( cFileOut ) .OR. cFileOut == ""
       cFileOut := hb_FNameExtSet( cFileIn, ".po" )
    ELSE
       cFileOut := hb_FNameExtSetDef( cFileOut, ".po" )

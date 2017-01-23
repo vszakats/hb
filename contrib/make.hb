@@ -57,7 +57,7 @@ PROCEDURE Main( ... )
 
    s_cBase := ""
    s_cReBase := ""
-   IF HB_ISNULL( GetEnv( "HB_HOST_BIN_DIR" ) )
+   IF GetEnv( "HB_HOST_BIN_DIR" ) == ""
       s_cHome := StrTran( hb_DirBase(), hb_ps(), "/" )
       s_cRoot := s_cHome + "../"
    ELSE
@@ -87,7 +87,7 @@ PROCEDURE Main( ... )
    ENDIF
 
    /* Build */
-   IF HB_ISNULL( GetEnv( "HB_HOST_BIN_DIR" ) )
+   IF GetEnv( "HB_HOST_BIN_DIR" ) == ""
       Standalone( aParams, hProjectList )
    ELSE
       GNUMake( aParams, hProjectList )
@@ -196,7 +196,7 @@ STATIC PROCEDURE Standalone( aParams, hProjectList )
 
    build_projects( nAction, hProjectList, hProjectReqList, cOptionsUser, .T. )
 
-   IF HB_ISSTRING( cCustomDir ) .AND. ! HB_ISNULL( cCustomDir )
+   IF HB_ISSTRING( cCustomDir ) .AND. ! cCustomDir == ""
       hb_cwd( cCustomDir )
    ENDIF
 
@@ -233,7 +233,7 @@ STATIC PROCEDURE GNUMake( aParams, hProjectList )
 
    IF Empty( GetEnv( "HB_PLATFORM" ) ) .OR. ;
       Empty( GetEnv( "HB_COMPILER" ) ) .OR. ;
-      HB_ISNULL( GetEnv( "HB_HOST_BIN_DIR" ) )
+      GetEnv( "HB_HOST_BIN_DIR" ) == ""
       ErrorLevel( 9 )
       RETURN
    ENDIF
@@ -558,7 +558,7 @@ STATIC FUNCTION call_hbmk2( cProjectPath, cOptionsPre, cDynSuffix, cStdErr, cStd
    hb_SetEnv( "_HB_DYNSUFF" )
 
    IF cDynSuffix != NIL
-      IF ! HB_ISNULL( cDynSuffix )
+      IF ! cDynSuffix == ""
          /* Request dll version of Harbour contrib dependencies (the implibs) to
             be linked, on non-*nix platforms (experimental) */
          hb_SetEnv( "_HB_DYNSUFF", cDynSuffix )
@@ -604,7 +604,7 @@ STATIC FUNCTION mk_hbd( cDir )
    LOCAL aErrMsg
    LOCAL aEntry
 
-   IF ! HB_ISNULL( cDocDir := GetEnv( "HB_INSTALL_DOC" ) ) .AND. ! cDocDir == "no"
+   IF ! ( cDocDir := GetEnv( "HB_INSTALL_DOC" ) ) == "" .AND. ! cDocDir == "no"
 
       IF Empty( cName := DirGetName( cDir ) )
          cName := "harbour"
@@ -635,7 +635,7 @@ STATIC FUNCTION DirGetName( cDir )
 
    LOCAL cName := hb_FNameName( hb_DirSepDel( cDir ) )
 
-   IF HB_ISNULL( cName ) .OR. cName == "." .OR. cName == ".."
+   IF cName == "" .OR. cName == "." .OR. cName == ".."
       RETURN ""
    ENDIF
 
@@ -728,16 +728,16 @@ STATIC FUNCTION AddProject( hProjectList, cFileName )
    LOCAL cName
    LOCAL cExt
 
-   IF ! HB_ISNULL( cFileName )
+   IF ! cFileName == ""
 
       cFileName := hb_DirSepToOS( AllTrim( cFileName ) )
 
       hb_FNameSplit( cFileName, @cDir, @cName, @cExt )
 
       DO CASE
-      CASE HB_ISNULL( cName )
+      CASE cName == ""
          cName := DirGetName( cDir )
-      CASE HB_ISNULL( cDir )
+      CASE cDir == ""
          cDir := cName
       ENDCASE
       IF Empty( cExt )
@@ -777,7 +777,7 @@ STATIC PROCEDURE LoadProjectListAutomatic( hProjectList, cDir )
          ENDIF
          IF hb_vfExists( tmp := ( cDir + aFile[ F_NAME ] + hb_ps() + "makesub.txt" ) )
             FOR EACH tmp IN hb_ATokens( hb_MemoRead( tmp ), .T. )
-               IF ! HB_ISNULL( tmp )
+               IF ! tmp == ""
                   AddProject( hProjectList, aFile[ F_NAME ] + hb_ps() + hb_DirSepToOS( tmp ) )
                ENDIF
             NEXT

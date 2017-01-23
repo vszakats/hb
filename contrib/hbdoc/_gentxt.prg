@@ -132,7 +132,7 @@ METHOD AddEntry( hEntry ) CLASS GenerateText
       ::AddIndex( hEntry )
    ELSE
       FOR EACH item IN FieldIDList()
-         IF IsField( hEntry, item ) .AND. IsOutput( hEntry, item ) .AND. ! HB_ISNULL( hEntry[ item ] )
+         IF IsField( hEntry, item ) .AND. IsOutput( hEntry, item ) .AND. ! hEntry[ item ] == ""
             ::WriteEntry( FieldCaption( item ), hEntry[ item ], IsPreformatted( hEntry, item ) )
          ENDIF
       NEXT
@@ -149,12 +149,12 @@ METHOD PROCEDURE WriteEntry( cCaption, cContent, lPreformatted ) CLASS GenerateT
    LOCAL nIndent
 
    IF ! Empty( cContent )
-      nIndent := iif( HB_ISNULL( cCaption ), 0, 6 )
-      IF ! HB_ISNULL( cCaption ) .AND. nIndent > 0
+      nIndent := iif( cCaption == "", 0, 6 )
+      IF ! cCaption == "" .AND. nIndent > 0
          ::cFile += Space( ::nDepth * 6 ) + cCaption + ":" + hb_eol()
       ENDIF
       nIndent += ::nDepth * 6
-      DO WHILE ! HB_ISNULL( cContent )
+      DO WHILE ! cContent == ""
          ::cFile += Indent( Parse( @cContent, hb_eol() ), nIndent, 70, lPreformatted )
       ENDDO
    ENDIF
