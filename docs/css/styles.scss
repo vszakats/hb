@@ -1095,3 +1095,9 @@ pre, code {
     font-size: 25px;
   }
 }
+
+@media (prefers-reduced-motion) {
+  .header-text:hover .header-version {
+    animation: none;
+  }
+}
