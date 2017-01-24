@@ -1,8 +1,4 @@
-/*
- * Test for Ini file reading/writing
- *
- * Giancarlo Niccolai
- */
+/* Test for .ini file reading/writing by Giancarlo Niccolai */
 
 PROCEDURE Main( cName )
 
