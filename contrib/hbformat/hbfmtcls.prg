@@ -758,7 +758,7 @@ METHOD ConvertFnc( cLine, nBegin, nEnd ) CLASS HBFormatCode
          IF ::nCaseUnk > 1
             cToken := iif( ::nCaseUnk == 2, Lower( cToken ), ;
                Left( cToken, 1 ) + Lower( SubStr( cToken, 2 ) ) )
-	 ENDIF
+         ENDIF
          cLine := iif( nBegin == 1, cToken + SubStr( cLine, nEnd ), ;
             Left( cLine, nBegin - 1 ) + cToken + SubStr( cLine, nEnd ) )
       ENDIF
