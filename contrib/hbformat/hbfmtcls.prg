@@ -159,7 +159,7 @@ METHOD New( aParams, cIniName ) CLASS HBFormatCode
       "ACCEPT,APPEND,AVERAGE,CLEAR,CLOSE,COMMIT,CONTINUE,COPY,COUNT,CREATE,DEFAULT," + ;
       "DELETE,DISPLAY,EJECT,ERASE,EXIT,FIND,FOR,GO,GOTO,INDEX,INIT,INPUT,JOIN,KEYBOARD,LABEL,LIST,LOCATE," + ;
       "LOOP,MENU,NEXT,PACK,PRINT,QUIT,READ,RECALL,REINDEX,RELEASE,RENAME,REQUEST,REPLACE,RESTORE," + ;
-      "RUN,SAVE,SEEK,SELECT,SET,SKIP,SORT,STORE,SUM,TEXT,TOTAL,UNLOCK,UPDATE,USE,VAR,WAIT,ZAP,"
+      "RUN,SAVE,SEEK,SELECT,SET,SKIP,SORT,STORE,SUM,SWITCH,ENDSWITCH,TEXT,TOTAL,UNLOCK,UPDATE,USE,VAR,WAIT,ZAP,"
 
    IF !( Right( ::cClauses, 1 ) == "," )
       ::cClauses += ","
@@ -755,8 +755,10 @@ METHOD ConvertFnc( cLine, nBegin, nEnd ) CLASS HBFormatCode
          cLine := iif( nBegin == 1, cToken + SubStr( cLine, nEnd ), ;
             Left( cLine, nBegin - 1 ) + cToken + SubStr( cLine, nEnd ) )
       ELSEIF ::nCaseUnk > 0
-         cToken := iif( ::nCaseUnk == 2, Lower( cToken ), ;
-            Left( cToken, 1 ) + Lower( SubStr( cToken, 2 ) ) )
+         IF ::nCaseUnk > 1
+            cToken := iif( ::nCaseUnk == 2, Lower( cToken ), ;
+               Left( cToken, 1 ) + Lower( SubStr( cToken, 2 ) ) )
+         ENDIF
          cLine := iif( nBegin == 1, cToken + SubStr( cLine, nEnd ), ;
             Left( cLine, nBegin - 1 ) + cToken + SubStr( cLine, nEnd ) )
       ENDIF
