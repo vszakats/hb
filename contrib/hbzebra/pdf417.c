@@ -47,7 +47,7 @@
 /*
    PDF417 is ISO/IEC 15438:2006
 
-   Good shouldrt PDF417 description:
+   Good short PDF417 description:
      https://grandzebu.net/informatique/codbar-en/pdf417.htm
 
    Free PDF417 specification (in Russian):
