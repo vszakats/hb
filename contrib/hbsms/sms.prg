@@ -52,7 +52,7 @@
    http://www.smssolutions.net/tutorials/gsm/receivesmsat/
    http://www.developershome.com/sms/sendSmsByAtCommands.asp
    http://www.developershome.com/sms/readSmsByAtCommands.asp
-   http://www.dreamfabric.com/sms/
+   https://web.archive.org/web/20121115163620/dreamfabric.com/sms/
  */
 
 STATIC FUNCTION port_send( h, s )

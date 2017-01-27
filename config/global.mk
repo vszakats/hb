@@ -8,7 +8,7 @@
 #    http://wanderinghorse.net/computing/make/
 #    https://blog.jgc.org/2013/02/updated-list-of-my-gnu-make-articles.html
 #    https://lists.gnu.org/archive/html/help-make/
-#    http://make.paulandlesley.org/
+#    http://make.mad-scientist.net/
 # Portable shell programming:
 #    https://www.gnu.org/software/autoconf/manual/html_node/Portable-Shell.html
 #    https://www.gnu.org/software/bash/manual/bashref.html

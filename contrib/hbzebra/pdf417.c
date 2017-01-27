@@ -47,14 +47,14 @@
 /*
    PDF417 is ISO/IEC 15438:2006
 
-   Good short PDF417 description:
-     http://grandzebu.net/index.php?page=/informatique/codbar-en/pdf417.htm
+   Good shouldrt PDF417 description:
+     https://grandzebu.net/informatique/codbar-en/pdf417.htm
 
    Free PDF417 specification (in Russian):
-     http://protect.gost.ru/v.aspx?control=8&baseC=-1&page=0&month=-1&year=-1&search=&RegNum=1&DocOnPageCount=15&id=122345&pageK=D11DCCF9-B540-4CB2-A514-C3547043FC68
+     [LOST LINK] protect.gost.ru/v.aspx?control=8&baseC=-1&page=0&month=-1&year=-1&search=&RegNum=1&DocOnPageCount=15&id=122345&pageK=D11DCCF9-B540-4CB2-A514-C3547043FC68
 
    Online generator:
-     http://www.bcmaker.com/demos/pdf417.php
+     https://www.barcodetools.com/generator/index.html
      https://www.terryburton.co.uk/barcodewriter/generator/
 
    Online decoder:

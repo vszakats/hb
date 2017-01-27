@@ -331,9 +331,8 @@ MISCELLANEOUS
 2005-02-24:
   * contrib/gtwvw/hbgtwvw.h
   * contrib/gtwvw/gtwvw.c
-    * changes to enable compilation with DigitalMars C++ (aka
-      Symantec C++ : http://www.digitalmars.com/). Was abandoned
-      by Symantec some time ago and enjoy further development
+    * changes to enable compilation with DigitalMars C++ (aka Symantec C++).
+      Was abandoned by Symantec some time ago and enjoy further development
       from DigitalMars. It is another speedy compiler for xHarbour.
 
 2005-02-22:

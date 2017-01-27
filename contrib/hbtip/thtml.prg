@@ -1621,7 +1621,7 @@ FUNCTION THtmlIsValid( cTagName, cAttrName )
    RETURN lRet
 
 /* HTML Tag data are adopted for Harbour from Tidy
-   http://www.html-tidy.org */
+   http://www.html-tidy.org/ */
 
 STATIC PROCEDURE _Init_Html_TagTypes
 
