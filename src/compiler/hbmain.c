@@ -383,7 +383,7 @@ void hb_compVariableAdd( HB_COMP_DECL, const char * szVarName, PHB_VARTYPE pVarT
    /* check if we are declaring local/static variable after some
     * executable statements
     */
-   if( pFunc->funFlags & HB_FUNF_STATEMENTS )
+ /*  if( pFunc->funFlags & HB_FUNF_STATEMENTS )
    {
       const char * szVarScope;
       switch( HB_COMP_PARAM->iVarScope )
@@ -410,7 +410,7 @@ void hb_compVariableAdd( HB_COMP_DECL, const char * szVarName, PHB_VARTYPE pVarT
          return;
       }
    }
-
+*/
    /* Check if a declaration of duplicated variable name is requested */
    if( pFunc->szName )
    {
