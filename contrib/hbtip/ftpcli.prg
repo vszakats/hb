@@ -657,10 +657,10 @@ METHOD FileSize( cFileSpec ) CLASS TIPClientFTP
 
 /* Listing formats (from libcurl)
    https://github.com/curl/curl/blob/master/lib/ftplistparser.c
-   UNIX version 1: drwxr-xr-x 1 user01 ftp  512 Jan 29 23:32 prog
-   UNIX version 2: drwxr-xr-x 1 user01 ftp  512 Jan 29 1997  prog
-   UNIX version 3: drwxr-xr-x 1      1   1  512 Jan 29 23:32 prog
-   UNIX symlink  : lrwxr-xr-x 1 user01 ftp  512 Jan 29 23:32 prog -> prog2000
+   Unix version 1: drwxr-xr-x 1 user01 ftp  512 Jan 29 23:32 prog
+   Unix version 2: drwxr-xr-x 1 user01 ftp  512 Jan 29 1997  prog
+   Unix version 3: drwxr-xr-x 1      1   1  512 Jan 29 23:32 prog
+   Unix symlink  : lrwxr-xr-x 1 user01 ftp  512 Jan 29 23:32 prog -> prog2000
    DOS style/IIS : 01-29-97 11:32PM <DIR> prog
    DOS style/IIS : 01-29-97 11:32PM    512 prog
    DOS style/IIS : 01-29-2010 11:32PM <DIR> prog
@@ -697,7 +697,7 @@ METHOD ListFiles( cFileSpec ) CLASS TIPClientFTP
 
          IF Val( StrTran( aFile[ F_ATTR ], "-" ) ) == 0
 
-            // continue with UNIX format
+            // continue with Unix format
 
             // # of links
             DO WHILE SubStr( cEntry, ++nStart, 1 ) == " "

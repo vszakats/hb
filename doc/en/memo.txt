@@ -189,7 +189,7 @@
 
       hb_MemoRead() vs MemoRead():
       hb_MemoRead() is identical to MemoRead() except it won't truncate the
-      last byte (on non-UNIX compatible systems) if it's a EOF char.
+      last byte (on non-Unix compatible systems) if it's a EOF char.
    $EXAMPLES$
       //  This example uses hb_MemoRead() to assign the contents of a text
       //  file to a character variable for later search
