@@ -272,8 +272,8 @@ if [ "${HB_VF}" != "${HB_VF_DEF}" ] ; then
    _hb_ver="${HB_VF_DEF} ${_hb_ver}"
 fi
 
-_vcs_id="$(git rev-parse HEAD)"
-_vcs_id_short="$(git rev-parse --short HEAD)"
+_vcs_id="$(git rev-parse --verify HEAD)"
+_vcs_id_short="$(git rev-parse --verify --short HEAD)"
 _vcs_url="$(git ls-remote --get-url | sed 's|.git$||')/"
 
 sed -e "s|_HB_VER_COMMIT_ID_SHORT_|${_vcs_id_short}|g" \
@@ -287,11 +287,6 @@ touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}getsrc.sh"
 
 cp -f -p ../include/_repover.txt "${HB_ABSROOT}include/"
 touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}include/_repover.txt"
-
-# Create tag update JSON request
-# https://developer.github.com/v3/git/refs/#update-a-reference
-
-jq -nc ".sha = \"$(git rev-parse --verify HEAD)\" | .force = true" > "${_ROOT}/git_tag_commit.json"
 
 # Register build information
 
@@ -394,9 +389,13 @@ cd - || exit
 
    if [ "${_BRANCH#*master*}" != "${_BRANCH}" ] && \
       [ -n "${GITHUB_TOKEN}" ] ; then
+
+      # Create tag update JSON request
+      # https://developer.github.com/v3/git/refs/#update-a-reference
+      jq -nc ".sha = \"${_vcs_id}\" | .force = true" | \
       curl -sS \
          -H "Authorization: token ${GITHUB_TOKEN}" \
-         -d "@${_ROOT}/git_tag_commit.json" \
+         -d @- \
          -X PATCH "https://api.github.com/repos/vszakats/harbour-core/git/refs/tags/v${HB_VF_DEF}"
    fi
 
