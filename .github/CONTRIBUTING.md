@@ -79,10 +79,6 @@
      * https://github.com/vszakats/harbour-core/issues?q=label%3A%22help+wanted%22
      * https://github.com/harbour/core/issues?q=label%3A%22help+wanted%22
 
-> Personal/private emails will either be ignored or given a short
-> answer to move the inquiry to somewhere public.<br />
-> Donators can count on my reciprocity even in private.
-
 
 # Troubleshooting
 
@@ -169,8 +165,10 @@ Evaluate these points before reporting an issue:
       * <https://stackoverflow.com/help/mcve>
     * See more on how to report issues in an effective and useful way:
       <http://www.chiark.greenend.org.uk/~sgtatham/bugs.html>
-    * "How To Ask Questions The Smart Way" article by Eric Steven Raymond:
+    * "How To Ask Questions The Smart Way" article by Eric S. Raymond:
       <http://www.catb.org/~esr/faqs/smart-questions.html>
+    * "Does Not Work"
+      <http://importblogkit.com/2015/07/does-not-work/>
 13. <a name="trbl-13"></a> Please do not report warnings or bugs &ndash;
     except of _build errors_ &ndash; in 3rd party component hosted inside
     the Harbour source tree. You can recognize these by their source path,
