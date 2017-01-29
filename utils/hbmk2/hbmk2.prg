@@ -1544,6 +1544,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
    LOCAL l_aLIBSYS
    LOCAL l_aLIBSYSCORE := {}
    LOCAL l_aLIBSYSMISC := {}
+   LOCAL l_aOPTCPRS
    LOCAL l_aOPTRUN
    LOCAL l_cLIBSELF
    LOCAL l_cIMPLIBDIR
@@ -2700,6 +2701,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
 
    hbmk[ _HBMK_lHARDEN ] := HBMK_ISPLAT( "win" ) /* TODO: later enable this for all platforms */
 
+   l_aOPTCPRS := {}
    l_aOPTRUN := {}
    l_aOBJA := {}
    l_cLIBSELF := NIL
@@ -3638,6 +3640,13 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          cParam := MacroProc( hbmk, SubStr( cParam, Len( "-aflag=" ) + 1 ), aParam[ _PAR_cFileName ] )
          IF ! Empty( cParam )
             AAdd( hbmk[ _HBMK_aOPTA ], hbmk_hb_DirSepToOS( cParam, 2 ) )
+         ENDIF
+
+      CASE hb_LeftEq( cParamL, "-comprflag=" )
+
+         cParam := MacroProc( hbmk, SubStr( cParam, Len( "-comprflag=" ) + 1 ), aParam[ _PAR_cFileName ] )
+         IF ! Empty( cParam )
+            AAdd( l_aOPTCPRS, cParam )
          ENDIF
 
       CASE hb_LeftEq( cParamL, "-runflag=" )
@@ -8383,7 +8392,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
                cOpt_Cprs := StrTran( cOpt_Cprs, "{OB}", FNameEscape( hbmk[ _HBMK_cPROGNAME ], nOpt_Esc, nOpt_FNF ) )
                cOpt_Cprs := AllTrim( cOpt_Cprs )
 
-               cCommand := FNameEscape( cBin_Cprs, hbmk[ _HBMK_nCmd_Esc ] ) + " " + cOpt_Cprs
+               cCommand := FNameEscape( cBin_Cprs, hbmk[ _HBMK_nCmd_Esc ] ) + " " + cOpt_Cprs + " " + ArrayToList( l_aOPTCPRS )
 
                IF hbmk[ _HBMK_lTRACE ]
                   IF ! hbmk[ _HBMK_lQuiet ]
@@ -18125,6 +18134,7 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
       { "-aflag=<f>"         , I_( "pass single flag to linker (static library)" ) }, ;
       { "-iflag=<f>"         , I_( "pass single flag to import library creation command" ) }, ;
       { "-signflag=<f>"      , I_( "pass single flag to code sign command" ) }, ;
+      { "-comprflag=<f>"     , I_( "pass single flag to executable compressor" ) }, ;
       { "-runflag=<f>"       , I_( "pass single flag to output executable when -run option is used" ) }, ;
       { "-cflag+=<f>"        , hb_StrFormat( I_( "pass single flag to C compiler overriding C compiler flags added by %1$s itself. Use with caution." ), _SELF_NAME_ ) }, ;
       { "-ldflag+=<f>"       , I_( "pass single raw option to linker (executable) after the library list. Use with caution." ) }, ;
