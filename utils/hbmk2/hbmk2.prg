@@ -8533,14 +8533,18 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
       IF Empty( hb_FNameDir( hbmk[ _HBMK_cPROGNAME ] ) )
          cCommand := "." + hb_ps() + hbmk[ _HBMK_cPROGNAME ]
       ENDIF
-      IF hbmk[ _HBMK_lGUI ] .OR. ( ! hbmk[ _HBMK_lCLI ] .AND. hbmk[ _HBMK_cGT ] != NIL .AND. ! HBMK_IS_IN( Lower( hbmk[ _HBMK_cGT ] ), "gtcgi|gtstd|gtpca" ) )
-         #if defined( __PLATFORM__DARWIN )
-            cCommand := "open -a " + FNameEscape( hb_PathNormalize( PathMakeAbsolute( cCommand + ".app", hb_cwd() ) ), _ESC_NIX ) + " --args"
-         #else
-            cCommand := LaunchCommand( cCommand )
-         #endif
+      IF hb_Version( HB_VERSION_UNIX_COMPAT ) .AND. hbmk[ _HBMK_cPLAT ] == "win"
+         cCommand := "wine " + FNameEscape( cCommand, _ESC_NIX )
       ELSE
-         cCommand := FNameEscape( cCommand, hbmk[ _HBMK_nCmd_Esc ] )
+         IF hbmk[ _HBMK_lGUI ] .OR. ( ! hbmk[ _HBMK_lCLI ] .AND. hbmk[ _HBMK_cGT ] != NIL .AND. ! HBMK_IS_IN( Lower( hbmk[ _HBMK_cGT ] ), "gtcgi|gtstd|gtpca" ) )
+            #if defined( __PLATFORM__DARWIN )
+               cCommand := "open -a " + FNameEscape( hb_PathNormalize( PathMakeAbsolute( cCommand + ".app", hb_cwd() ) ), _ESC_NIX ) + " --args"
+            #else
+               cCommand := LaunchCommand( cCommand )
+            #endif
+         ELSE
+            cCommand := FNameEscape( cCommand, hbmk[ _HBMK_nCmd_Esc ] )
+         ENDIF
       ENDIF
       cCommand := AllTrim( cCommand + " " + ArrayToList( l_aOPTRUN ) )
       #if defined( __PLATFORM__DARWIN )
@@ -12834,6 +12838,8 @@ STATIC FUNCTION MacroGet( hbmk, cMacro, cFileName )
    SWITCH Lower( cMacro )
    CASE "hb_root"
       cMacro := hb_DirSepAdd( hb_DirBase() ) ; EXIT
+   CASE "hb_prefix"
+      cMacro := hb_DirSepAdd( hbmk[ _HBMK_cHB_INSTALL_PFX ] ) ; EXIT
    CASE "hb_dir"
       cMacro := hb_DirSepToOS( hb_FNameDir( cFileName ) ) ; EXIT
    CASE "hb_dirname"
@@ -18353,6 +18359,7 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
    LOCAL aLst_Macro := { ;
       , ;
       { "${hb_root}"           , hb_StrFormat( I_( "directory of %1$s" ), _SELF_NAME_ ) }, ;
+      { "${hb_prefix}"         , I_( "Harbour root directory" ) }, ;
       { "${hb_dir}"            , I_( "directory of the filename it is used in" ) }, ;
       { "${hb_dirname}"        , I_( "top directory of the filename it is used in" ) }, ;
       { "${hb_name}"           , I_( "name of the filename it is used in (without directory and extension)" ) }, ;
