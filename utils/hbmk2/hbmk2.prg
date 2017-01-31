@@ -15780,7 +15780,7 @@ STATIC PROCEDURE __hbshell( cFile, ... )
 
    ELSEIF ! Empty( cFile := FindInPath( cFileOri := cFile,, { ".hb", ".hrb" } ) )
 
-      hbsh[ _HBSH_cScriptName ] := PathMakeAbsolute( cFile, hb_cwd() )
+      hbsh[ _HBSH_cScriptName ] := hb_PathNormalize( PathMakeAbsolute( cFile, hb_cwd() ) )
 
       cExt := Lower( hb_FNameExt( cFile ) )
 
