@@ -120,22 +120,20 @@ For all platforms you will need:
 
 Platform specific prerequisites:
 
-1. Windows 7 or upper system is recommended to *build* Harbour.
-   (64-bit edition is also recommended to make things simpler)
-2. Make sure to have your C compiler of choice installed
-   in `PATH`. Refer to your C compiler installation and setup
-   instructions for details. Make sure no tools in your `PATH`
-   belonging to other C compilers are interfering with
-   your setup. Also avoid to keep multiple copies of the same
-   compiler, or different versions of the same compiler in
-   `PATH` at the same time. For the list of supported compilers,
+1. Windows 7 or upper system is recommended to *build* Harbour. (64-bit
+   edition is also recommended to make things simpler)
+2. Make sure to have your C compiler of choice installed in `PATH`. Refer to
+   your C compiler installation and setup instructions for details. Make sure
+   no tools in your `PATH` belonging to other C compilers are interfering with
+   your setup. Also avoid to keep multiple copies of the same compiler, or
+   different versions of the same compiler in `PATH` at the same time. For the
+   list of supported compilers,
    look up [Supported Platforms and C Compilers](#supported-platforms-and-c-compilers).
-3. GNU Make 3.81 or upper is required. A copy of this tool
-   is included in the source package, so you don't have to do
-   anything.
+3. GNU Make 3.81 or upper is required. A copy of this tool is included in
+   the source package, so you don't have to do anything.
    If you want to get it separately, you can find it [here](#external-links).
-   Unpack it to your `PATH` or Harbour source root directory,
-   and run it as `mingw32-make`.
+   Unpack it to your `PATH` or Harbour source root directory, and run it as
+   `mingw32-make`.
 
 To build:
 
@@ -250,10 +248,9 @@ Platform specific prerequisites:
 
 1. You will need to have the developer tools installed.
 2. Then you will need to install gmake and optionally bison.
-   If you installed the ports collection, then all you need
-   to do to install bison and gmake is to run the following
-   commands, which may require that you run su root first to
-   get the correct permissions:
+   If you installed the ports collection, then all you need to do to install
+   bison and gmake is to run the following commands, which may require that
+   you run su root first to get the correct permissions:
 
         $ cd /usr/ports/devel/gmake
         $ make
@@ -302,20 +299,18 @@ To test it, type:
 You should see `Hello, world!` on screen.
 
 > For sunpro on Solaris:<br />
-> If you have any GNU binutils stuff installed, do make sure
-> `/usr/ccs/bin` (the location of the native Sun C compilation
-> system tools) come *before* the GNU binutils components in
-> your `$PATH`.
+> If you have any GNU binutils stuff installed, do make sure `/usr/ccs/bin`
+> (the location of the native Sun C compilation system tools) come *before*
+> the GNU binutils components in your `$PATH`.
 
 
 # How to Do a Partial Build
 
-If you want to build only a specific part of Harbour, like
-one core library or all core libraries, or all contrib packages,
-you have to do everything the same way as for a full build, the
-only difference is that you first have to go into the specific
-source directory you'd like to build. When starting GNU Make,
-all components under that directory will be built:
+If you want to build only a specific part of Harbour, like one core library
+or all core libraries, or all contrib packages, you have to do everything
+the same way as for a full build, the only difference is that you first
+have to go into the specific source directory you'd like to build. When
+starting GNU Make, all components under that directory will be built:
 
     cd src/rtl
     <make> [clean]
@@ -378,31 +373,28 @@ See: [How to Build](#how-to-build)
 
 # How to Enable Optional Components
 
-Certain Harbour parts &ndash; typically contrib packages &ndash; depend
-on 3rd party components. To make these Harbour parts built, you need
-to tell Harbour where to find the headers for these 3rd party
-components.
+Certain Harbour parts &ndash; typically contrib packages &ndash; depend on
+3rd party components. To make these Harbour parts built, you need to tell
+Harbour where to find the headers for these 3rd party components.
 
-On \*nix systems most of these 3rd party components will
-automatically be used if installed on well-known standard
-system locations.
+On \*nix systems most of these 3rd party components will automatically
+be used if installed on well-known standard system locations.
 
-You only need to use manual setup if the dependency isn't available
-on your platform on a system location, or you wish to use
-a non-standard location. Typically, you need to do this on non-\*nix
-(Windows, MS-DOS, OS/2) systems for all packages and for a few packages
-on \*nix which are not available through official package managers
-(f.e. ADS Client).
+You only need to use manual setup if the dependency isn't available on your
+platform on a system location, or you wish to use a non-standard location.
+Typically, you need to do this on non-\*nix (Windows, MS-DOS, OS/2) systems
+for all packages and for a few packages on \*nix which are not available
+through official package managers (f.e. ADS Client).
 
 Note that Harbour is tuned to use 3rd party **binary** packages in their
 default, unmodified &ndash; "vanilla" &ndash; install layout created by their
-official/mainstream install kits. If you manually move, rename,
-delete, add files under the 3rd party packages' root directory, or
-use a source package, the default Harbour build process (especially
-Windows implib generation) might not work as expected.
+official/mainstream install kits. If you manually move, rename, delete, add
+files under the 3rd party packages' root directory, or use a source package,
+the default Harbour build process (especially Windows implib generation)
+might not work as expected.
 
-You can set these environment variables before starting
-the build. Make sure to adjust them to your own directories:
+You can set these environment variables before starting the build. Make sure
+to adjust them to your own directories:
 
     HB_WITH_CURSES= (on *nix systems and DJGPP, auto-detected on both)
     HB_WITH_GPM= (on Linux only)
@@ -414,15 +406,14 @@ the build. Make sure to adjust them to your own directories:
     HB_WITH_X11= (on *nix systems)
     HB_WITH_ZLIB=C:\zlib (defaults to locally hosted version if not found)
 
-To explicitly disable any given components, use the value `no`.
-This may be useful to avoid auto-detection of installed packages
-on \*nix systems. You may also use the value `local` to force using the
-locally hosted copy (inside Harbour source repository) of these packages,
-where applicable. `nolocal` will explicitly disable using locally hosted
-copy.
+To explicitly disable any given components, use the value `no`. This may be
+useful to avoid auto-detection of installed packages on \*nix systems. You
+may also use the value `local` to force using the locally hosted copy
+(inside Harbour source repository) of these packages, where applicable.
+`nolocal` will explicitly disable using locally hosted copy.
 
-See contrib-specific dependencies and build notes in the projects'
-`.hbp` file and find occasional link notes inside their `.hbc` files.
+See contrib-specific dependencies and build notes in the projects' `.hbp`
+file and find occasional link notes inside their `.hbc` files.
 
 
 > NOTES:
@@ -490,10 +481,10 @@ Packages for optional core Harbour features:
 
 > NOTES:
 >
->   * See [this](https://distrowatch.com/dwres.php?resource=package-management) on
->       package management in various distros.
->   * On openSUSE, if you want to build 32-bit Harbour on a 64-bit host, install
->       above packages with `-32bit` suffix, f.e. `slang-devel-32bit`
+>   * See [this](https://distrowatch.com/dwres.php?resource=package-management)
+>       on package management in various distros.
+>   * On openSUSE, if you want to build 32-bit Harbour on a 64-bit host,
+>       install above packages with `-32bit` suffix, f.e. `slang-devel-32bit`
 
 ## OpenSolaris
 
@@ -501,11 +492,10 @@ Packages for optional core Harbour features:
 
 ## FreeBSD
 
-If you want to use the `gtsln` library instead of `gtstd` or `gtcrs`,
-then you also need to install `libslang`. If you installed the ports
-collection, then all you need to do to install `libslang` is to run
-the following commands, which may require that you run `su` first to
-get the correct permissions:
+If you want to use the `gtsln` library instead of `gtstd` or `gtcrs`, then you
+also need to install `libslang`. If you installed the ports collection, then
+all you need to do to install `libslang` is to run the following commands,
+which may require that you run `su` first to get the correct permissions:
 
     $ cd /usr/ports/devel/libslang
     $ make
@@ -515,11 +505,10 @@ get the correct permissions:
 
 # Build Options
 
-You can fine-tune Harbour builds with below listed
-environment variables. You can add most of these via the
-GNU Make command-line also, using `make VARNAME=value` syntax.
-All of these settings are optional and all settings are
-case-sensitive.
+You can fine-tune Harbour builds with below listed environment variables.
+You can add most of these via the GNU Make command-line also, using
+`make VARNAME=value` syntax. All of these settings are optional and all
+settings are case-sensitive.
 
 ## General
 
@@ -599,26 +588,24 @@ case-sensitive.
 
    - `HB_BUILD_NOGPLLIB=yes`
 
-     Disable components dependent on GPL 3rd party code,
-     to allow Harbour for nonfree/proprietary projects.
-     Default: `no`
+     Disable components dependent on GPL 3rd party code, to allow using
+     Harbour for nonfree/proprietary projects. Default: `no`
 
    - `HB_BUILD_3RDEXT=no`
 
-     Enable auto-detection of 3rd party components
-     on default system locations. Default: `yes`
+     Enable auto-detection of 3rd party components on default system
+     locations. Default: `yes`
 
    - `HB_BUILD_CONTRIBS=no [<l>]`
 
-     Do not build any, or space separated `<l>` list of,
-     contrib packages. Please note it will not prevent
-     building packages which are dependencies of
-     other &ndash; enabled &ndash; packages.
+     Do not build any, or space separated `<l>` list of, contrib packages.
+     Please note it will not prevent building packages which are dependencies
+     of other &ndash; enabled &ndash; packages.
 
    - `HB_BUILD_CONTRIBS=[<l>]`
 
-     Build space separated `<l>` list of contrib
-     libraries. Build all if left empty (default).
+     Build space separated `<l>` list of contrib libraries.
+     Build all if left empty (default).
 
    - `HB_BUILD_ADDONS=<l>`
 
@@ -627,104 +614,93 @@ case-sensitive.
 
    - `HB_BUILD_NAME=[<name>]`
 
-     Create named build. This allows keeping multiple builds in parallel for any
-     given platform/compiler. F.e. debug / release.
+     Create named build. This allows keeping multiple builds in parallel for
+     any given platform/compiler. F.e. debug / release.
 
      > In current implementation it's appended to compiler directory name, so
-     > all filesystem/platform name rules and limits apply. (Back)slashes will be
-     > stripped from the name though.
+     > all filesystem/platform name rules and limits apply. (Back)slashes will
+     > be stripped from the name though.
 
    - `HB_USER_LIBS=[<list>]`
 
      Add space separated `<list>` of libs to link process.
      Lib names should be without extension and path.
-     You only need this in special cases, like CodeGuard
-     build with win/bcc.
+     You only need this in special cases, like CodeGuard build with win/bcc.
 
    - `HB_INSTALL_IMPLIB=no`
 
-     Copy import libraries created for external .dll
-     dependencies to the library install directory in
-     `install` build phase. Default: `yes`<br />
-     For Windows and OS/2 targets only. Please note
-     that this feature doesn't work with all possible
-     binary distributions of 3rd party packages.
-     We test only the official/mainstream ones. Also
-     note that the generated implibs will require .dlls
-     compatible with the ones used at build time.
+     Copy import libraries created for external .dll dependencies to the
+     library install directory in `install` build phase. Default: `yes`<br />
+     For Windows and OS/2 targets only. Please note that this feature doesn't
+     work with all possible binary distributions of 3rd party packages.
+     We test only the official/mainstream ones. Also note that the generated
+     implibs will require .dlls compatible with the ones used at build time.
 
    - `HB_INSTALL_3RDDYN=yes`
 
-     Copy dynamic libraries of external .dll dependencies
-     to the dynamic library directory in `install` build
-     phase. Default: `no`
+     Copy dynamic libraries of external .dll dependencies to the dynamic
+     library directory in `install` build phase. Default: `no`
 
    - `HB_SRC_ROOTPATH=<dir>`
 
-     When using GNU Make older than 3.81, you shall set
-     the root directory of Harbour source tree as an
-     absolute path. If not set, some build functionality
-     may fail, like detection of 3rd party packages with
+     When using GNU Make older than 3.81, you shall set the root directory
+     of Harbour source tree as an absolute path. If not set, some build
+     functionality may fail, like detection of 3rd party packages with
      locally hosted sources.
      With newer make versions, this variable is ignored.
 
    - `HB_REBUILD_EXTERN=yes`
 
-     Rebuild extern headers. It is meant for developers
-     doing Harbour code modifications and releases.
-     Default: `no`
+     Rebuild extern headers. It is meant for developers doing Harbour code
+     modifications and releases. Default: `no`
 
    - `HB_REBUILD_PARSER=yes`
 
-     Rebuild language parser sources. You only need this
-     if your are Harbour core developer modifying grammar
-     rules (.y). Requires GNU Bison 1.28 or upper in `PATH`.
-     Default: `no`
+     Rebuild language parser sources. You only need this if your are Harbour
+     core developer modifying grammar rules (.y). Requires GNU Bison 1.28 or
+     upper in `PATH`. Default: `no`
 
    - `HB_CCPATH=[<dir>/]`
 
-     Used with non-\*nix gcc family compilers (and
-     sunpro) to specify path to compiler/linker/archive
-     tool to help them run from \*nix hosts as cross-build
-     tools. Ending slash must be added.
+     Used with non-\*nix gcc family compilers (and sunpro) to specify path
+     to compiler/linker/archive tool to help them run from \*nix hosts as
+     cross-build tools. Ending slash must be added.
 
    - `HB_CCPREFIX=[<prefix>]`
 
-     Used with gcc compiler family to specify
-     compiler/linker/archive tool name prefix.
+     Used with gcc compiler family to specify compiler/linker/archive tool
+     name prefix.
 
    - `HB_CCSUFFIX=[<suffix>]`
 
-     Used with gcc compiler family to specify
-     compiler/linker tool name suffix &ndash; usually
-     version number.
+     Used with gcc compiler family to specify compiler/linker tool name
+     suffix &ndash; usually version number.
 
    - `HB_BUILD_POSTRUN=[<l>]`
 
-     Run space separated `<l>` list of Harbour
-     commands after successfully finishing a non-cross
-     build. Commands will be run in the target binary
+     Run space separated `<l>` list of Harbour commands after successfully
+     finishing a non-cross build. Commands will be run in the target binary
      directory.
 
 ## Cross-builds
 
-You can build Harbour for target platforms different from host
-platform. F.e. you can create Windows build on \*nix systems, Linux
-builds on Windows systems, etc. It's also possible to build targets
-for different from host CPU architectures. F.e. you can create
-Windows 64-bit build on 32-bit Windows platform, or Linux x86-64
-build on x86 hosts, or Linux MIPS build on x86 host, etc.
+You can build Harbour for target platforms different from host platform. F.e.
+you can create Windows build on \*nix systems, Linux builds on Windows systems,
+etc. It's also possible to build targets for different from host CPU
+architectures. F.e. you can create Windows 64-bit build on 32-bit Windows
+platform, or Linux x86-64 build on x86 hosts, or Linux MIPS build on x86 host,
+etc.
 
-Point this envvar to the directory where native Harbour executables
-for your host platform can be found:
+Point this envvar to the directory where native Harbour executables for your
+host platform can be found:
 
       HB_HOST_BIN=<path-to-harbour-native-build>\bin
 
-If you leave this value empty, the make system will try to auto-detect it,
-so in practice all you have to do is to create a native build first (no
-`install` required), then create the cross-build. If you set this value
-manually, it may be useful to know that `harbour`, `hbpp` and `hbmk2`
-executables are required for a cross-build process to succeed.
+If you leave this value empty, the make system will try to auto-detect it, so
+in practice all you have to do is to create a native build first (no `install`
+required), then create the cross-build. If you set this value manually, it may
+be useful to know that `harbour`, `hbpp` and `hbmk2` executables are required
+for a cross-build process to succeed.
 
 
 # Build Examples
@@ -733,13 +709,12 @@ executables are required for a cross-build process to succeed.
 
 > NOTES:
 >
-> - All code below should be copied to batch files or typed at command
->   line.
+> - All code below should be copied to batch files or typed at command-line.
 > - Naturally, you will need to adapt pathnames to valid ones on your system.
-> - You can use additional `clean`, `install` or `clean install`
->   make parameters depending on what you want to do.
-> - To redirect all output to a log file, append this after the make
->   command: `> log.txt 2>&1`
+> - You can use additional `clean`, `install` or `clean install` make
+>   parameters depending on what you want to do.
+> - To redirect all output to a log file, append this after the make command:
+>   `> log.txt 2>&1`
 
 ```batchfile
 :: MinGW GCC for Windows x86
@@ -1136,21 +1111,19 @@ For all platforms you will need two things:
 
 * Harbour binaries
 
-    Either a Harbour binary distribution or a local Harbour
-    build will be okay. If you're reading this text, it's
-    likely you have one of these already.
+    Either a Harbour binary distribution or a local Harbour build will be okay.
+    If you're reading this text, it's likely you have one of these already.
 
 * Supported ANSI C compiler
 
     Your compiler of choice has to be placed in the `PATH` &ndash; and
     configured appropriately according to instructions.
-    If you use official Harbour binary distribution on Windows,
-    you already have MinGW compiler embedded in the installation,
-    which will automatically be used, so you don't have to
-    make any extra steps here.
+    If you use official Harbour binary distribution on Windows, you already
+    have MinGW compiler embedded in the installation, which will automatically
+    be used, so you don't have to make any extra steps here.
 
-Use `hbmk2` to build your app from source. It's recommended to put
-it in the `PATH` (f.e. by using `set PATH=C:\hb\bin;%PATH%` on Windows).
+Use `hbmk2` to build your app from source. It's recommended to put it in the
+`PATH` (f.e. by using `set PATH=C:\hb\bin;%PATH%` on Windows).
 
 See `hbmk2` [documentation, with examples](utils/hbmk2/doc/hbmk2.en.md).
 
