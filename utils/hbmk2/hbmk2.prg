@@ -11060,10 +11060,9 @@ STATIC FUNCTION FindInPath( cFileName, xPath, aExtDef )
          FOR EACH cExt IN aExt
             /* Check in the PATH. */
             FOR EACH cDir IN xPath
-               IF ! Empty( cDir := StrStripQuote( cDir ) )
-                  IF hb_vfExists( cFileName := hb_FNameMerge( hb_DirSepAdd( cDir ), cName, cExt ) )
-                     RETURN cFileName
-                  ENDIF
+               IF ! ( cDir := StrStripQuote( cDir ) ) == "" .AND. ;
+                  hb_vfExists( cFileName := hb_FNameMerge( hb_DirSepAdd( cDir ), cName, cExt ) )
+                  RETURN cFileName
                ENDIF
             NEXT
          NEXT
@@ -16002,6 +16001,7 @@ FUNCTION hbshell_ext_load( cName )
    LOCAL hbsh := hbsh()
 
    LOCAL cFileName
+   LOCAL cDynPath
    LOCAL hLib
    LOCAL tmp
 
@@ -16029,26 +16029,35 @@ FUNCTION hbshell_ext_load( cName )
 
                IF ! Empty( hbsh[ _HBSH_hbmk ][ _HBMK_aLIBUSER ] ) .OR. ;
                   ! Empty( hbsh[ _HBSH_hbmk ][ _HBMK_aLIBUSERGT ] )
-               /* NOTE: Hack. We detect if the .hbc had defined any libs to load.
-                        (f.e. there will not be any libs if the .hbc was skipped due
-                        to filters)
-                  TODO: In the future the .hbc should specify a list of dynamic libs
-                        to load, and we should load those, if any. */
+                  /* NOTE: Hack. We detect if the .hbc had defined any libs to load.
+                           (f.e. there will not be any libs if the .hbc was skipped due
+                           to filters)
+                     TODO: In the future the .hbc should specify a list of dynamic libs
+                           to load, and we should load those, if any. */
                ENDIF
             ENDIF
 
-            cFileName := FindInPath( tmp := hb_libName( cName + hb_libSuffix() ), ;
-                                     iif( hb_Version( HB_VERSION_UNIX_COMPAT ), GetEnv( "LD_LIBRARY_PATH" ), GetEnv( "PATH" ) ) )
-            IF cFileName == NIL
+            cDynPath := hbsh[ _HBSH_hbmk ][ _HBMK_cHB_INSTALL_DYN ]
+
+            #if defined( __PLATFORM__DARWIN )
+               cDynPath += ;
+                  hb_osPathListSeparator() + GetEnv( "DYLD_LIBRARY_PATH" ) + ;
+                  hb_osPathListSeparator() + GetEnv( "DYLD_FALLBACK_LIBRARY_PATH" )
+            #elif definat( __PLATFORM__UNIX )
+               cDynPath += ;
+                  hb_osPathListSeparator() + GetEnv( "LD_LIBRARY_PATH" )
+            #else
+               cDynPath += ;
+                  hb_osPathListSeparator() + GetEnv( "PATH" )
+            #endif
+
+            IF ( cFileName := FindInPath( tmp := hb_libName( cName + hb_libSuffix() ), cDynPath ) ) == NIL
                _hbmk_OutErr( hbsh[ _HBSH_hbmk ], hb_StrFormat( I_( "'%1$s' (%2$s) not found." ), cName, tmp ) )
+            ELSEIF Empty( hLib := hb_libLoad( cFileName ) )
+               _hbmk_OutErr( hbsh[ _HBSH_hbmk ], hb_StrFormat( I_( "Error loading '%1$s' (%2$s)." ), cName, cFileName ) )
             ELSE
-               hLib := hb_libLoad( cFileName )
-               IF Empty( hLib )
-                  _hbmk_OutErr( hbsh[ _HBSH_hbmk ], hb_StrFormat( I_( "Error loading '%1$s' (%2$s)." ), cName, cFileName ) )
-               ELSE
-                  hbsh[ _HBSH_hLibExt ][ cName ] := hLib
-                  RETURN .T.
-               ENDIF
+               hbsh[ _HBSH_hLibExt ][ cName ] := hLib
+               RETURN .T.
             ENDIF
          ENDIF
       ELSE
