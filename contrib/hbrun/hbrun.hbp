@@ -1,9 +1,8 @@
-# Copyright 2009-2016 Viktor Szakats (vszakats.net/harbour)
+# Copyright 2009-2017 Viktor Szakats (vszakats.net/harbour)
 
-# Build in shared mode for these platforms because
-# it's required for dynamic extension loading. (only
-# do that if HB_BUILD_CONTRIB_DYN is enabled, so there
-# are actual dynamic extensions to load.)
+# Build in shared mode for these platforms because it's required for dynamic
+# extension loading. (only do that if HB_BUILD_CONTRIB_DYN is enabled, so
+# there are actual dynamic extensions to load.)
 # This must come before including hbmk2.hbp.
 {_HB_BUILD_&(!(HB_BUILD_DYN='no')&!(HB_BUILD_CONTRIB_DYN='no')&(win|wce|os2))}-shared
 {shared}-env:__HBMKDYN=yes
@@ -17,12 +16,13 @@
 -DHBMK_WITH_GTXWC{HBMK_WITH_GTXWC='yes'}
 -gtxwc{HBMK_WITH_GTXWC='yes'}
 
-{__HBMKDYN='yes'}-env:_HBMK_WITH_EXTS=hbct|hbexpat|hbmzip|hbtip|hbbz2io|hbcomio|hbgzio|hbmemio|hbnetio|hbpipeio|hbtcpio
+{__HBMKDYN='yes'}-env:_HBMK_WITH_EXTS=hbcrypto|hbct|hbexpat|hbmzip|hbtip|hbbz2io|hbcomio|hbgzio|hbmemio|hbnetio|hbpipeio|hbtcpio
 {__HBMKDYN='yes'&unix}-env:_HBMK_WITH_EXTS+|hbunix
 {__HBMKDYN='yes'&allwin}-env:_HBMK_WITH_EXTS+|hbwin
 {__HBMKDYN='yes'&darwin}-env:_HBMK_WITH_EXTS+|hbmac
 {__HBMKDYN='yes'}-DHBMK_WITH_EXTS=${_HBMK_WITH_EXTS}
 
+{!(__HBMKDYN='yes')}hbcrypto.hbc     {!(__HBMKDYN='yes')}-request=__HBEXTERN__HBCRYPTO__
 {!(__HBMKDYN='yes')}hbct.hbc         {!(__HBMKDYN='yes')}-request=__HBEXTERN__HBCT__
 {!(__HBMKDYN='yes')}hbexpat.hbc      {!(__HBMKDYN='yes')}-request=__HBEXTERN__HBEXPAT__
 {!(__HBMKDYN='yes')}hbmzip.hbc       {!(__HBMKDYN='yes')}-request=__HBEXTERN__HBMZIP__
