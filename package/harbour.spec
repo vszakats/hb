@@ -464,7 +464,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/libhbvm.a
 %{_libdir}/%{name}/libhbvmmt.a
 %{_libdir}/%{name}/libhbusrrdd.a
-%{_libdir}/%{name}/libhbuddall.a
 %{?_with_localzlib:%{_libdir}/%{name}/libhbzlib.a}
 %{?_with_localpcre2:%{_libdir}/%{name}/libhbpcre2.a}
 %{?_with_localpcre:%{_libdir}/%{name}/libhbpcre.a}
@@ -570,6 +569,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/%{name}/contrib/rddbm
 %{_datadir}/%{name}/contrib/rddbm/*
 %{_libdir}/%{name}/librddbm.a
+%dir %{_datadir}/%{name}/contrib/rddmisc
+%{_datadir}/%{name}/contrib/rddmisc/*
+%{_libdir}/%{name}/librddmisc.a
 %dir %{_datadir}/%{name}/contrib/rddsql
 %{_datadir}/%{name}/contrib/rddsql/*
 %{_libdir}/%{name}/librddsql.a

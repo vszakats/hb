@@ -2027,11 +2027,18 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
       aLIB_BASE_GT      := { "gtcgi", "gtstd", "gtpca" }
       aLIB_BASE_NULRDD  := { "hbnulrdd" }
       /* Double 'hbrdd' is required for linkers which otherwise need lib grouping. */
-      IF hbmk[ _HBMK_nHBMODE ] == _HBMODE_HB10
+      SWITCH hbmk[ _HBMK_nHBMODE ]
+      CASE _HBMODE_HB10
          aLIB_BASE_RDD  := { "hbrdd",             "hbusrrdd", "rddntx", "rddcdx",           "rddfpt", "hbrdd", "hbhsx", "hbsix" }
-      ELSE
+         EXIT
+      CASE _HBMODE_HB20
+      CASE _HBMODE_HB30
+      CASE _HBMODE_HB32
          aLIB_BASE_RDD  := { "hbrdd", "hbuddall", "hbusrrdd", "rddntx", "rddcdx", "rddnsx", "rddfpt", "hbrdd", "hbhsx", "hbsix" }
-      ENDIF
+         EXIT
+      OTHERWISE
+         aLIB_BASE_RDD  := { "hbrdd",             "hbusrrdd", "rddntx", "rddcdx", "rddnsx", "rddfpt", "hbrdd", "hbhsx", "hbsix" }
+      ENDSWITCH
       aLIB_BASE_RDD_MT  := aLIB_BASE_RDD
       aLIB_BASE_CPLR    := { "hbcplr" }
       aLIB_BASE_3       := { "hbmacro", "hbcplr", "hbpp", "hbcommon" }
