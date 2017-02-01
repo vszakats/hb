@@ -1508,13 +1508,7 @@ Supported shells per host platforms:
         * <https://chocolatey.org/>
         * <https://www.nuget.org/>
      * GNU Make [multi-platform, free software, open-source]
-
-        Windows binary + source:
-
-         * <https://sourceforge.mirrorservice.org/m/mi/mingw/MinGW/Extension/make/make-3.82-mingw32/make-3.82-5-mingw32-bin.tar.lzma>
-         * <https://sourceforge.mirrorservice.org/m/mi/mingw/MinGW/Extension/make/make-3.82-mingw32/make-3.82-5-mingw32-src.tar.lzma>
-         * `git clone ssh://git.sv.gnu.org/srv/git/make.git`
-          <br />(included in Harbour as [win-make.exe](win-make.exe))
+        * <https://www.gnu.org/software/make/>
 
 * Documentation:
 

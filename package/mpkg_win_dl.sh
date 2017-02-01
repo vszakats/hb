@@ -114,3 +114,5 @@ for plat in '32' '64' ; do
       )
    done
 done
+
+rm -f pack.bin pack.sig
