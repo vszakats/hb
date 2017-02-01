@@ -31,7 +31,7 @@ export CURL_HASH_64='e1c8136819d9424b864d64f6f87e413c41a57257af605d043d32eda9d04
 
 # Install/update MSYS2 packages required for completing the build
 
-pacman --noconfirm --noprogressbar -S --needed p7zip mingw-w64-{i686,x86_64}-{jq,osslsigncode}
+pacman --noconfirm --noprogressbar -S --needed p7zip mingw-w64-{i686,x86_64}-{jq,libgsf,osslsigncode}
 
 [ "${_BRANC4}" = 'msvc' ] || "$(dirname "$0")/mpkg_win_dl.sh" || exit
 
