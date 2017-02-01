@@ -31,7 +31,7 @@
 *.prg     text
 *.rb      text
 *.rc      text
-*.sfc     text
+*.scss    text
 *.spec    text
 *.svg     text
 *.txt     text

@@ -16,12 +16,9 @@ end_of_line = lf
 [*.bat]
 end_of_line = crlf
 
-[{**/3rd/**,*.dif}]
+[{*.css,*.html,*.js,*.json,*.rb,*.scss,*.svg,*.vbs,*.yml,*.xml}]
+indent_size = 2
+
+[{**/3rd/**,*.diff}]
 trim_trailing_whitespace = no
 charset =
-
-[{*.hb*,Makefile}]
-trim_trailing_whitespace = yes
-
-[Makefile,debian/rules,*.mk,*.yyc,*.dif,*.htm*,*.xml,*.js,*.svg,*.vbs,*.css]
-indent_size = tab
