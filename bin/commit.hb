@@ -1041,11 +1041,11 @@ STATIC FUNCTION FNameExc( cName, aList )
 
 STATIC PROCEDURE ProcFile( cFileName )
 
-   /* TOFIX: bin/harbour.ucf is in Harbour dir, not current project */
+   /* TOFIX: bin/hb-uncrustify.cfg is in Harbour's bin dir, not in current project's */
    LOCAL hProc := { ;
       ".png" => { "advpng -z -4 %1$s", "optipng -o7 %1$s" }, ;
       ".jpg" => { "jpegoptim --strip-all %1$s" }, ;
-      ".c"   => { hb_StrFormat( "uncrustify -c %1$s %%1$s", hb_DirSepToOS( _HBROOT_ + "bin/harbour.ucf" ) ), @FixFuncCase() }, ;
+      ".c"   => { hb_StrFormat( "uncrustify -c %1$s %%1$s", hb_DirSepToOS( _HBROOT_ + "bin/hb-uncrustify.cfg" ) ), @FixFuncCase() }, ;
       ".cpp" => ".c", ;
       ".h"   => ".c", ;
       ".api" => ".c", ;

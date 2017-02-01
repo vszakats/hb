@@ -390,7 +390,7 @@ make install %{?_smp_mflags}
 %{!?_with_openssl:rm -f $HB_INSTALL_LIB/libhbssl.a}
 rm -fR %{!?hb_ldconf:$HB_INSTALL_ETC/ld.so.conf.d}
 rm -f %{?hb_ldconf:$RPM_BUILD_ROOT/%{_libdir}/*.so*}
-rm -f $RPM_BUILD_ROOT/%{_bindir}/{3rdpatch.hb,check.hb,commit.hb,harbour.ucf}
+rm -f $RPM_BUILD_ROOT/%{_bindir}/{3rdpatch.hb,check.hb,commit.hb,hb-uncrustify.cfg}
 rm -f $HB_INSTALL_LIB/libpng.a \
       $HB_INSTALL_LIB/libbz2.a \
       $HB_INSTALL_LIB/liblibhpdf.a \
