@@ -4555,7 +4555,6 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          IF !( hbmk[ _HBMK_lCPP ] != NIL .AND. hbmk[ _HBMK_lCPP ] )
             IF !( hbmk[ _HBMK_cPLAT ] == "darwin" )
                AAdd( hbmk[ _HBMK_aOPTL ], "-Wl,--no-demangle" )
-               AAdd( hbmk[ _HBMK_aOPTD ], "-Wl,--no-demangle" )
             ENDIF
          ENDIF
          IF hbmk[ _HBMK_lHARDEN ]
@@ -4629,10 +4628,15 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             l_aLIBHBBASE_2 := iif( hbmk[ _HBMK_lMT ], aLIB_BASE_2_MT, aLIB_BASE_2 )
 #endif
          ENDIF
+         IF hbmk[ _HBMK_cPLAT ] == "darwin"
+            /* Leave space for later modifying .dylib paths using `install_name_tool`.
+               '400' is a hexadecimal value. */
+            AAdd( hbmk[ _HBMK_aOPTL ], "-Wl,-headerpad,400" )
+            AAdd( hbmk[ _HBMK_aOPTD ], "-headerpad 400" )
+         ENDIF
          IF hbmk[ _HBMK_lMAP ]
             IF hbmk[ _HBMK_cPLAT ] == "darwin"
                AAdd( hbmk[ _HBMK_aOPTL ], "-Wl,-map,{OM}" )
-               AAdd( hbmk[ _HBMK_aOPTD ], "-Wl,-map,{OM}" )
             ELSE
                AAdd( hbmk[ _HBMK_aOPTL ], "-Wl,-Map,{OM}" )
                AAdd( hbmk[ _HBMK_aOPTD ], "-Wl,-Map,{OM}" )
@@ -4652,7 +4656,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          ENDIF
          IF hbmk[ _HBMK_cPLAT ] == "vxworks"
             IF hbmk[ _HBMK_lSHARED ]
-               AAdd( hbmk[ _HBMK_aOPTL ], "-shared" ) /* TOFIX: no entry point */
+               AAdd( hbmk[ _HBMK_aOPTL ], "-shared" )  /* TOFIX: no entry point */
             ENDIF
          ENDIF
          IF hbmk[ _HBMK_lSTRIP ]
@@ -6281,7 +6285,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             AAdd( hbmk[ _HBMK_aOPTD ], "-Wl, -Xdynamic" )
          ENDIF
          IF hbmk[ _HBMK_lSHARED ]
-            /* TOFIX: .so is referred by its full link-time search path,
+            /* TOFIX: .so is referred by its full link time search path,
                       there is even a backslash present in the dir formed by
                       the linker */
             AAdd( hbmk[ _HBMK_aOPTL ], "-Wl, -Xdynamic" )
@@ -7943,6 +7947,10 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
                      HintHBC( hbmk )
                   ENDIF
                ELSE
+                  IF hbmk[ _HBMK_cPLAT ] == "darwin" .AND. ! hbmk[ _HBMK_lSysLoc ]
+                     darwin_burn_dylib_path( hbmk, hbmk[ _HBMK_cPROGNAME ] )
+                  ENDIF
+
                   IF hbmk[ _HBMK_lVCSTS ]
                      IF hbmk[ _HBMK_cPLAT ] == "win"
                         win_PESetTimestamp( hbmk[ _HBMK_cPROGNAME ] )
@@ -7975,7 +7983,10 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
                   ENDIF
                   tmp += hb_FNameName( hbmk[ _HBMK_cPROGNAME ] ) + ".app" + hb_ps() + "Contents"
                   IF hb_DirBuild( tmp + hb_ps() + "MacOS" )
-                     hbmk_hb_vfCopyFile( hbmk[ _HBMK_cPROGNAME ], tmp + hb_ps() + "MacOS" + hb_ps() + hb_FNameName( hbmk[ _HBMK_cPROGNAME ] ) )
+                     hbmk_hb_vfCopyFile( hbmk[ _HBMK_cPROGNAME ], tmp1 := tmp + hb_ps() + "MacOS" + hb_ps() + hb_FNameName( hbmk[ _HBMK_cPROGNAME ] ) )
+                     IF ! hbmk[ _HBMK_lSysLoc ]
+                        darwin_burn_dylib_path( hbmk, tmp1 )
+                     ENDIF
                      IF ! hb_vfExists( tmp + hb_ps() + "Info.plist" )
                         hb_MemoWrit( tmp + hb_ps() + "Info.plist", Apple_App_Template_Files( hbmk, "Info.plist", hb_FNameName( hbmk[ _HBMK_cPROGNAME ] ) ) )
                      ENDIF
@@ -8082,6 +8093,10 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
                      HintHBC( hbmk )
                   ENDIF
                ELSE
+                  IF hbmk[ _HBMK_cPLAT ] == "darwin" .AND. ! hbmk[ _HBMK_lSysLoc ]
+                     darwin_burn_dylib_path( hbmk, hbmk[ _HBMK_cPROGNAME ] )
+                  ENDIF
+
                   IF hbmk[ _HBMK_lVCSTS ]
                      IF hbmk[ _HBMK_cPLAT ] == "win"
                         win_PESetTimestamp( hbmk[ _HBMK_cPROGNAME ] )
@@ -9163,8 +9178,20 @@ STATIC PROCEDURE DoInstCopy( hbmk )
                   ELSE
                      IF hbmk_hb_vfCopyFile( cInstFile, cDestFileName ) == F_ERROR
                         _hbmk_OutErr( hbmk, hb_StrFormat( I_( "Warning: Copying %1$s to %2$s failed with %3$d." ), cInstFile, cDestFileName, FError() ) )
-                     ELSEIF hbmk[ _HBMK_lInfo ]
-                        _hbmk_OutStd( hbmk, hb_StrFormat( I_( "Copied %1$s to %2$s" ), cInstFile, cDestFileName ) )
+                     ELSE
+                        /* Detect if a dylib target is being installed to central dylib dir,
+                           then automatically adjust its internal dylib references. */
+                        IF hbmk[ _HBMK_cPLAT ] == "darwin" .AND. ! hbmk[ _HBMK_lSysLoc ] .AND. ;
+                           hbmk[ _HBMK_lCreateDyn ] .AND. ;
+                           aInstFile[ _INST_cGroup ] == "" .AND. ;
+                           aInstFile[ _INST_cData ] == hbmk[ _HBMK_cPROGNAME ]
+
+                           darwin_burn_dylib_path( hbmk, cDestFileName )
+                        ENDIF
+
+                        IF hbmk[ _HBMK_lInfo ]
+                           _hbmk_OutStd( hbmk, hb_StrFormat( I_( "Copied %1$s to %2$s" ), cInstFile, cDestFileName ) )
+                        ENDIF
                      ENDIF
                   ENDIF
                ELSE
@@ -9975,11 +10002,12 @@ STATIC FUNCTION autohbc_split_arg( cParam, /* @ */ cHeader, /* @ */ cHBC )
       cHBC := ""
    ENDIF
 
-   IF Empty( cHeader ) .AND. ! Empty( cHBC )
+   DO CASE
+   CASE Empty( cHeader ) .AND. ! Empty( cHBC )
       cHeader := hb_FNameExtSet( cHBC )
-   ELSEIF Empty( cHBC ) .AND. ! Empty( cHeader )
+   CASE Empty( cHBC ) .AND. ! Empty( cHeader )
       cHBC := hb_FNameExtSet( cHeader )
-   ENDIF
+   ENDCASE
 
    RETURN ! Empty( cHeader ) .AND. ! Empty( cHBC )
 
@@ -10603,12 +10631,11 @@ STATIC PROCEDURE PlugIn_Load( hbmk, cFileName )
                lOK := .T.
             END /* SEQUENCE */
          ENDIF
-         IF ! lOK .AND. !( Lower( cExt ) == ".hrb" ) /* Optimization: Do not try to load it as .prg if the extension is .hrb */
+         IF ! lOK .AND. !( Lower( cExt ) == ".hrb" )  /* Optimization: Do not try to load it as .prg if the extension is .hrb */
 #ifdef HARBOUR_INCLUDE_PURE_GPL_PARTS
             cType := I_( "(source)" )
             /* We can use this function as this is a GPL licenced application */
-            cFile := hb_compileFromBuf( cFile, "-n2", "-w3", "-es2", "-q0", "-i" + hbmk[ _HBMK_cHB_INSTALL_INC ], "-D" + _HBMK_PLUGIN )
-            IF ! Empty( cFile )
+            IF ! Empty( cFile := hb_compileFromBuf( cFile, "-n2", "-w3", "-es2", "-q0", "-i" + hbmk[ _HBMK_cHB_INSTALL_INC ], "-D" + _HBMK_PLUGIN ) )
                hrb := hb_hrbLoad( HB_HRB_BIND_FORCELOCAL, cFile )
             ENDIF
 #else
@@ -14758,6 +14785,76 @@ STATIC PROCEDURE ParseCOMPPLATCPU( hbmk, cString, nMainTarget )
 
    RETURN
 
+/* Fix dylib references in macOS Harbour installations where its dylibs reside
+   in a non-standard (non-system) location. This is required because setting
+   standard envvars (as LD_LIBRARY_PATH, DYLD_LIBRARY_PATH,
+   DYLD_FALLBACK_LIBRARY_PATH) doesn't work if an executable is executed via
+   any executable that is SIP protected (f.e. via the `/usr/bin/env` tool),
+   since El Capitan.
+   Note that by default, in non-standard installations shared executables are
+   not enabled, but with a `HB_BUILD_CONTRIB_DYN=yes` setting, shared libs
+   of contribs are picked at link time by default. */
+
+/* TODO: Verify if `-dylib_file install_name:file_name` could be used instead,
+         at link time. */
+
+STATIC PROCEDURE darwin_burn_dylib_path( hbmk, cTarget )
+
+   LOCAL cStdOut, cDylib, tmp, cOpt, tDate
+
+   LOCAL cRelDir := hb_PathRelativize( ;
+      hb_PathNormalize( hb_PathJoin( hb_cwd(), hb_FNameDir( cTarget ) ) ), ;
+      hb_PathNormalize( hb_PathJoin( hb_cwd(), hb_DirSepAdd( hbmk[ _HBMK_cHB_INSTALL_DYN ] ) ) ) )
+
+   /* Only modify .dylib if it resides in Harbour's dynlib dir.
+      IOW when its relative directory to the dynlib dir is empty. */
+   IF hbmk[ _HBMK_lCreateDyn ] .AND. ! cRelDir == ""
+      RETURN
+   ENDIF
+
+   /* Retrieve list of .dylib references */
+   IF hb_processRun( hb_StrFormat( "otool -L %1$s", ;
+         FNameEscape( cTarget, hbmk[ _HBMK_nCmd_Esc ], hbmk[ _HBMK_nCmd_FNF ] ) ),, @cStdOut ) == 0
+
+      /* Iterate list */
+      cOpt := ""
+      FOR EACH cDylib IN hb_ATokens( cStdOut, .T. )
+
+         /* Filter for .dylibs that have a relative path */
+         cDylib := AllTrim( cDylib )  /* Trim leftside tab */
+         IF ( tmp := At( ".dylib" + " ", cDylib ) ) > 0 .AND. ! hb_LeftEq( cDylib, hb_ps() )
+
+            /* Extract original .dylib name */
+            cDylib := Left( cDylib, tmp + Len( ".dylib" ) - 1 )
+
+            /* Calculate relative path from target to Harbour's dylib directory
+               and generate command-line option to update from existing to new one. */
+            cOpt += hb_StrFormat( " -change '%1$s' '%2$s%3$s'", ;
+               cDylib, ;
+               hb_DirSepAdd( iif( hbmk[ _HBMK_lCreateDyn ], "@loader_path", "@executable_path" ) + hb_ps() + cRelDir ), ;
+               hb_FNameNameExt( cDylib ) )
+         ENDIF
+      NEXT
+
+      IF ! cOpt == ""
+
+         hb_vfTimeGet( cTarget, @tDate )
+
+         /* Burn new dylib paths into executable */
+         hb_processRun( tmp := "install_name_tool" + ;
+            cOpt + ;
+            " " + FNameEscape( cTarget, hbmk[ _HBMK_nCmd_Esc ], hbmk[ _HBMK_nCmd_FNF ] ) )
+
+         hb_vfTimeSet( cTarget, tDate )
+
+         IF hbmk[ _HBMK_lTRACE ]
+            OutStd( tmp + _OUT_EOL )
+         ENDIF
+      ENDIF
+   ENDIF
+
+   RETURN
+
 STATIC FUNCTION Apple_App_Template_Files( hbmk, cFile, cPROGNAME )
 
    LOCAL cString
@@ -15808,7 +15905,7 @@ STATIC PROCEDURE __hbshell( cFile, ... )
                     we use the same <comp> values as was used to build itself.)
           */
 
-         __hbshell_LoadExtFromSource( aExtension, cFile )
+         __hbshell_LoadExtFromSource( aExtension, cFile := hbmk_MemoRead( cFile ) )
 
          /* NOTE: Find .hbc file. Load .hbc file. Process .hbc references.
                   Pick include paths. Load libs. Add include paths to include
@@ -15840,13 +15937,13 @@ STATIC PROCEDURE __hbshell( cFile, ... )
          NEXT
 
          /* We can use this function as this is a GPL licenced application */
-         cFile := hb_compileBuf( ;
+         cFile := hb_compileFromBuf( ;
+            cFile, ;
             hbmk_CoreHeaderFiles(), ;
             hb_ProgName(), ;
             "-n2", "-w", "-es2", "-q0", ;
             hb_ArrayToParams( aOPTPRG ), ;
-            "-D" + _HBMK_SHELL, ;
-            cFile )
+            "-D" + _HBMK_SHELL )
 
          IF cFile == NIL
             ErrorLevel( _EXIT_COMPPRG )
@@ -15939,9 +16036,8 @@ STATIC PROCEDURE __hbshell_LoadExtFromString( aExtension, cString )
 
    RETURN
 
-STATIC PROCEDURE __hbshell_LoadExtFromSource( aExtension, cFileName )
+STATIC PROCEDURE __hbshell_LoadExtFromSource( aExtension, cFile )
 
-   LOCAL cFile := hbmk_MemoRead( cFileName )
    LOCAL pRegex
    LOCAL tmp
 
@@ -16039,17 +16135,18 @@ FUNCTION hbshell_ext_load( cName )
 
             cDynPath := hbsh[ _HBSH_hbmk ][ _HBMK_cHB_INSTALL_DYN ]
 
-            #if defined( __PLATFORM__DARWIN )
-               cDynPath += ;
-                  hb_osPathListSeparator() + GetEnv( "DYLD_LIBRARY_PATH" ) + ;
-                  hb_osPathListSeparator() + GetEnv( "DYLD_FALLBACK_LIBRARY_PATH" )
-            #elif definat( __PLATFORM__UNIX )
+            IF hb_Version( HB_VERSION_UNIX_COMPAT )
                cDynPath += ;
                   hb_osPathListSeparator() + GetEnv( "LD_LIBRARY_PATH" )
-            #else
+               #if defined( __PLATFORM__DARWIN )
+                  cDynPath += ;
+                     hb_osPathListSeparator() + GetEnv( "DYLD_LIBRARY_PATH" ) + ;
+                     hb_osPathListSeparator() + GetEnv( "DYLD_FALLBACK_LIBRARY_PATH" )
+               #endif
+            ELSE
                cDynPath += ;
                   hb_osPathListSeparator() + GetEnv( "PATH" )
-            #endif
+            ENDIF
 
             IF ( cFileName := FindInPath( tmp := hb_libName( cName + hb_libSuffix() ), cDynPath ) ) == NIL
                _hbmk_OutErr( hbsh[ _HBSH_hbmk ], hb_StrFormat( I_( "'%1$s' (%2$s) not found." ), cName, tmp ) )
@@ -16758,12 +16855,10 @@ STATIC PROCEDURE __hbshell_Exec( cCommand )
    BEGIN SEQUENCE WITH {| oError | __hbshell_Err( oError, cCommand ) }
 
       /* We can use this function as this is a GPL licenced application */
-      cHRB := hb_compileFromBuf( cFunc, hbmk_CoreHeaderFiles(), hb_ProgName(), "-n2", "-q2", hb_ArrayToParams( aOPTPRG ) )
-      IF Empty( cHRB )
+      IF Empty( cHRB := hb_compileFromBuf( cFunc, hbmk_CoreHeaderFiles(), hb_ProgName(), "-n2", "-q2", hb_ArrayToParams( aOPTPRG ) ) )
          Eval( ErrorBlock(), I_( "Syntax error." ) )
       ELSE
-         pHRB := hb_hrbLoad( cHRB )
-         IF ! Empty( pHrb )
+         IF ! Empty( pHRB := hb_hrbLoad( cHRB ) )
             bBlock := hb_hrbDo( pHRB )
             Eval( bBlock )
          ENDIF
