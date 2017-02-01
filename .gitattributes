@@ -48,7 +48,6 @@
 *.sh      text eol=lf
 
 # Binary files
-*.a       binary
 *.bmp     binary
 *.dbf     binary
 *.exe     binary
@@ -58,12 +57,11 @@
 *.ico     binary
 *.jpg     binary
 *.lbl     binary
-*.lib     binary
 *.mdb     binary
 *.odt     binary
 *.pdf     binary
 *.png     binary
-*.sq3     binary
+*.sqlite3 binary
 *.ttf     binary
 
 # TOTEST:
