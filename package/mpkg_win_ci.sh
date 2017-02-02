@@ -5,7 +5,7 @@
 # See LICENSE.txt for licensing terms.
 # ---------------------------------------------------------------
 
-[ "${CI}" = 'True' ] || exit
+[ "${CI}" = 'True' ] || [ "$1" = '--force' ] || exit
 
 cd "$(dirname "$0")/.." || exit
 
@@ -17,7 +17,12 @@ case "$(uname)" in
 esac
 
 _BRANCH="${APPVEYOR_REPO_BRANCH}${TRAVIS_BRANCH}${CI_BUILD_REF_NAME}${GIT_BRANCH}"
+[ -n "${_BRANCH}" ] || _BRANCH="$(git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')"
+[ -n "${_BRANCH}" ] || _BRANCH='master'
 _BRANC4="$(echo "${_BRANCH}" | cut -c -4)"
+
+[ -n "${HB_CI_THREADS}" ] || HB_CI_THREADS=4
+
 _ROOT="$(realpath '.')"
 
 # Don't remove these markers.
