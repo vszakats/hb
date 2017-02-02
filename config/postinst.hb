@@ -48,7 +48,7 @@ PROCEDURE Main( ... )
    LOCAL cOwner
    LOCAL cGroup
    LOCAL nAttr
-   LOCAL cCmd
+   LOCAL lWineSupported
 
    LOCAL cDynVersionFull
    LOCAL cDynVersionComp
@@ -345,36 +345,27 @@ PROCEDURE Main( ... )
       mk_extern_core()
    ENDIF
 
+   IF nErrorLevel == 0
+      run_cmds( "host", GetEnvC( "HB_BUILD_POSTRUN_HOST" ), GetEnvC( "HB_HOST_BIN_DIR" ) )
+
+      IF ! Empty( GetEnvC( "HB_INSTALL_BIN" ) )
+
+         lWineSupported := ;
+            GetEnvC( "HB_HOST_PLAT" ) $ "linux|darwin|bsd" .AND. ;
+            GetEnvC( "HB_PLATFORM" ) == "win"
+
+         IF ( Empty( GetEnvC( "HB_HOST_BIN" ) ) .AND. ;
+              GetEnvC( "HB_HOST_PLAT" ) == GetEnvC( "HB_PLATFORM" ) ) .OR. ;
+            lWineSupported
+
+            run_cmds( "target", GetEnvC( "HB_BUILD_POSTRUN" ), GetEnvC( "HB_INSTALL_BIN" ), ;
+               iif( lWineSupported, "wine", "" ) )
+         ENDIF
+      ENDIF
+   ENDIF
+
    IF Empty( GetEnvC( "HB_HOST_BIN" ) ) .AND. ;
       GetEnvC( "HB_HOST_PLAT" ) == GetEnvC( "HB_PLATFORM" )
-
-      IF nErrorLevel == 0
-         FOR EACH tmp IN hb_ATokens( GetEnvC( "HB_BUILD_POSTRUN" ),, .T. )
-            IF ! Empty( tmp )
-               IF Left( tmp, 1 ) + Right( tmp, 1 ) == '""' .OR. ;
-                  Left( tmp, 1 ) + Right( tmp, 1 ) == "''"
-                  tmp := SubStr( tmp, 2, Len( tmp ) - 2 )
-               ENDIF
-
-               cCmd := ""
-               FOR EACH tmp1 IN hb_ATokens( tmp,, .T. )
-                  IF tmp1:__enumIsFirst()
-                     cCmd += FNameEscape( hb_DirSepToOS( tmp1 ) )
-                  ELSE
-                     cCmd += " " + tmp1
-                  ENDIF
-               NEXT
-
-               OutStd( "! Running post command..." + hb_eol() )
-
-               cOldDir := hb_cwd( GetEnvC( "HB_HOST_BIN_DIR" ) )
-               mk_hb_processRun( cCmd )
-               hb_cwd( cOldDir )
-
-               OutStd( hb_eol() )
-            ENDIF
-         NEXT
-      ENDIF
 
       OutStd( hb_StrFormat( "! Built: %1$s using C compiler: %2$s", Version(), hb_Compiler() ) + hb_eol() )
    ENDIF
@@ -386,6 +377,43 @@ PROCEDURE Main( ... )
    ENDIF
 
    ErrorLevel( nErrorLevel )
+
+   RETURN
+
+STATIC PROCEDURE run_cmds( cDesc, cList, cDir, cPrefix )
+
+   LOCAL cOldDir
+   LOCAL cCmd
+   LOCAL tmp, tmp1
+
+   FOR EACH tmp IN hb_ATokens( cList,, .T. )
+      IF ! Empty( tmp )
+         IF Left( tmp, 1 ) + Right( tmp, 1 ) == '""' .OR. ;
+            Left( tmp, 1 ) + Right( tmp, 1 ) == "''"
+            tmp := SubStr( tmp, 2, Len( tmp ) - 2 )
+         ENDIF
+
+         cCmd := hb_defaultValue( cPrefix, "" )
+         IF ! Empty( cCmd )
+            cCmd += " "
+         ENDIF
+         FOR EACH tmp1 IN hb_ATokens( tmp,, .T. )
+            IF tmp1:__enumIsFirst()
+               cCmd += FNameEscape( hb_DirSepToOS( tmp1 ) )
+            ELSE
+               cCmd += " " + tmp1
+            ENDIF
+         NEXT
+
+         OutStd( hb_StrFormat( "! Running post command (%1$s)...", cDesc ) + hb_eol() )
+
+         cOldDir := hb_cwd( cDir )
+         mk_hb_processRun( cCmd )
+         hb_cwd( cOldDir )
+
+         OutStd( hb_eol() )
+      ENDIF
+   NEXT
 
    RETURN
 

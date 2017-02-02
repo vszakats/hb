@@ -1894,7 +1894,7 @@ ifeq ($(HB_INIT_DONE),)
    endif
    ifneq ($(wildcard $(TOP)$(ROOT).git),)
       ifneq ($(call find_in_path,git),)
-         _cmd := git show --summary --format="%H%n%h%n%ci%n%an%n%ae" HEAD
+         _cmd := git show --no-patch --format="%H%n%h%n%ci%n%an%n%ae" HEAD
          ifneq ($(HB_SHELL),sh)
             _cmd := $(subst %,%%,$(_cmd))
          endif

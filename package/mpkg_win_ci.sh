@@ -58,7 +58,7 @@ if [ "${os}" != 'win' ] ; then
    [ "${_BRANC4}" != 'msvc' ] || exit
 
    # Create native build for host OS
-   make -j 2 HB_BUILD_DYN=no HB_BUILD_CONTRIBS=no
+   make -j 2 HB_BUILD_DYN=no HB_BUILD_CONTRIBS=hbdoc
 fi
 
 [ "${_BRANC4}" = 'msvc' ] || "$(dirname "$0")/mpkg_win_dl.sh" || exit
@@ -91,7 +91,8 @@ export _HB_BUILD_PKG_ARCHIVE='no'
 [ "${_BRANC4}" = 'msvc' ] || export _HB_BUNDLE_3RDLIB='yes'
 export HB_INSTALL_3RDDYN='yes'
 export HB_BUILD_CONTRIB_DYN='yes'
-export HB_BUILD_POSTRUN='"./hbmk2 --version" "./hbtest -noenv" "./hbdoc -v0 -repr -output=../../../manual/" "./hbspeed --noenv --stdout"'
+export HB_BUILD_POSTRUN_HOST='"./hbdoc -v0 -repr -output=../../../manual/"'
+export HB_BUILD_POSTRUN='"./hbmk2 --version" "./hbtest -noenv" "./hbspeed --noenv --stdout"'
 
 # debug
 

@@ -29,7 +29,7 @@ PROCEDURE Main( cMode )
 
       tmp := hb_DirSepToOS( hb_defaultValue( hb_PValue( 3 ), "" ) )
 
-      OutStd( "! mpkg.hb: Setting build times in executable headers of", tmp + hb_eol() )
+      OutStd( "! mpkg.hb: Timestamping executable header of", tmp + hb_eol() )
 
       FOR EACH file IN hb_vfDirectory( tmp )
          /* Use a fixed date to change binaries only if their ingredients have changed */

@@ -97,7 +97,7 @@ mkdir -p "${HB_ABSROOT}"
    mkdir -p "${HB_ABSROOT}manual/"
    if ls ./manual/html/* > /dev/null 2>&1 ; then
       # shellcheck disable=SC2046
-      cp -f -p ./manual/html/* "${HB_ABSROOT}manual/"
+      cp -f -p -r ./manual/html/* "${HB_ABSROOT}manual/"
    fi
 )
 
@@ -270,13 +270,14 @@ fi
 _MINGW_DLL_DIR="${HB_DIR_MINGW}"
 if [ -d "${_MINGW_DLL_DIR}" ] ; then
 
+   # Cross-toolchain (check this first)
+   [ "${_lib_target}" = '32' ] && [ -d "${HB_DIR_MINGW}../i686-w64-mingw32/lib/"     ] && _MINGW_DLL_DIR="${HB_DIR_MINGW}../i686-w64-mingw32/lib/"
+   [ "${_lib_target}" = '64' ] && [ -d "${HB_DIR_MINGW}../x86_64-w64-mingw32/lib/"   ] && _MINGW_DLL_DIR="${HB_DIR_MINGW}../x86_64-w64-mingw32/lib/"
+
    # Pick the ones from a multi-target MinGW distro that match the bitness of
    # our base target.
    [ "${_lib_target}" = '32' ] && [ -d "${HB_DIR_MINGW}../x86_64-w64-mingw32/lib32/" ] && _MINGW_DLL_DIR="${HB_DIR_MINGW}../x86_64-w64-mingw32/lib32/"
    [ "${_lib_target}" = '64' ] && [ -d "${HB_DIR_MINGW}../i686-w64-mingw32/lib64/"   ] && _MINGW_DLL_DIR="${HB_DIR_MINGW}../i686-w64-mingw32/lib64/"
-   # Cross-toolchain
-   [ "${_lib_target}" = '32' ] && [ -d "${HB_DIR_MINGW}../i686-w64-mingw32/lib/"     ] && _MINGW_DLL_DIR="${HB_DIR_MINGW}../i686-w64-mingw32/lib/"
-   [ "${_lib_target}" = '64' ] && [ -d "${HB_DIR_MINGW}../x86_64-w64-mingw32/lib/"   ] && _MINGW_DLL_DIR="${HB_DIR_MINGW}../x86_64-w64-mingw32/lib/"
 
    # shellcheck disable=SC2086
    if ls       ${_MINGW_DLL_DIR}libgcc_s_*.dll > /dev/null 2>&1 ; then

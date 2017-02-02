@@ -676,11 +676,16 @@ settings are case-sensitive.
      Used with gcc compiler family to specify compiler/linker tool name
      suffix &ndash; usually version number.
 
+   - `HB_BUILD_POSTRUN_HOST=[<l>]`
+
+     Run space separated `<l>` list of commands after successfully finishing
+     a build. Commands will be run in the host binary directory.
+
    - `HB_BUILD_POSTRUN=[<l>]`
 
-     Run space separated `<l>` list of Harbour commands after successfully
-     finishing a non-cross build. Commands will be run in the target binary
-     directory.
+     Run space separated `<l>` list of commands after successfully finishing
+     a build. Commands will be run in the target binary directory if possible
+     to run on the host platform.
 
 ## Cross-builds
 
