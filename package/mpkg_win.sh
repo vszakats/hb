@@ -92,12 +92,6 @@ mkdir -p "${HB_ABSROOT}"
    cp -f -p --parents $(find 'extras' -type f -name '*')     "${HB_ABSROOT}"
    # shellcheck disable=SC2046
    cp -f -p --parents $(find 'tests'  -type f -name '*')     "${HB_ABSROOT}"
-
-   mkdir -p "${HB_ABSROOT}manual/"
-   if ls ./manual/html/* > /dev/null 2>&1 ; then
-      # shellcheck disable=SC2046
-      cp -f -p -r ./manual/html/* "${HB_ABSROOT}manual/"
-   fi
 )
 
 mkdir -p "${HB_ABSROOT}bin/"
@@ -328,7 +322,6 @@ cd "${HB_RT}" || exit
    echo 'contrib/*'
    echo 'doc/*'
    echo 'extras/*'
-   echo 'manual/*'
    echo 'tests/*'
 ) >> "${_ROOT}/_hbfiles"
 
