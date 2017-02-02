@@ -49,7 +49,7 @@ case "${os}" in
       ;;
    mac)
       # port install mingw-w64
-      # brew install p7zip jq osslsigncode dos2unix
+      # brew install p7zip jq osslsigncode dos2unix gpg
       # for `gcp`. TODO: replace it with `rsync` where `--parents` option is used
       # brew install coreutils
       # for running `harbour.exe` when creating `BUILD.txt` and `HB_BUILD_POSTRUN` tasks
