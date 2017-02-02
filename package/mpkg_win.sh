@@ -140,9 +140,7 @@ done
 # we're patching manually.
 
 if [ "${os}" = 'win' ] ; then
-   # We're going to modify hbmk2.exe, so make a copy and run that instead
-   _bin_hbmk2="${HB_ABSROOT}bin/hbmk2-temp.exe"
-   cp -f -p "${HB_ABSROOT}bin/hbmk2.exe" "${_bin_hbmk2}"
+   _bin_hbmk2="$(find ../bin -type f -name 'hbmk2.exe' | head -n 1)"
 else
    _bin_hbmk2="$(find ../bin -type f -name 'hbmk2' | head -n 1)"
 fi
@@ -184,11 +182,6 @@ for name in \
       touch -c -r "${HB_ABSROOT}README.md" "${file}"
    done
 done
-
-if [ "${os}" = 'win' ] ; then
-   rm -f "${_bin_hbmk2}"
-   _bin_hbmk2="${HB_ABSROOT}bin/hbmk2.exe"
-fi
 
 # Workaround for ld --no-insert-timestamp issue in that it won't remove
 # internal timestamps from generated implibs.
