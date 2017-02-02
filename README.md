@@ -1484,7 +1484,7 @@ Supported shells per host platforms:
 
 * Tools:
 
-     * Git (1.7 or upper) [multi-platform, free software, open-source]
+     * Git (2.2.0 or upper) [multi-platform, free software, open-source]
         * <https://git-scm.com/>
         * Windows binaries:
            * <https://git-for-windows.github.io/>
