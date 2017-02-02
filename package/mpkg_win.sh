@@ -10,7 +10,7 @@ cd "$(dirname "$0")" || exit
 # - Requires MSYS2 or 'Git for Windows' to run on Windows
 # - Requires 7z in PATH
 # - Adjust target dir, MinGW dirs,
-#   set HB_DIR_UPX, HB_DIR_MINGW, HB_DIR_MINGW_32, HB_DIR_MINGW_64
+#   set HB_DIR_UPX, HB_DIR_MINGW_32, HB_DIR_MINGW_64
 #   create required packages beforehand.
 # - Run this from vanilla official source tree only.
 
@@ -37,7 +37,6 @@ readonly HB_RT_DEF=C:/hb
 [ -z "${HB_RT}" ] && HB_RT="${HB_RT_DEF}"
 
 HB_RT="$(echo "${HB_RT}" | sed 's|\\|/|g')"
-HB_DIR_MINGW="$(echo "${HB_DIR_MINGW}" | sed 's|\\|/|g')"
 HB_DIR_MINGW_32="$(echo "${HB_DIR_MINGW_32}" | sed 's|\\|/|g')"
 HB_DIR_MINGW_64="$(echo "${HB_DIR_MINGW_64}" | sed 's|\\|/|g')"
 
@@ -259,40 +258,6 @@ fi
    # shellcheck disable=SC2046
    cp -f -p --parents $(find 'src/3rd' -name '*.h') "${HB_ABSROOT}"
 )
-
-# NOTE: This whole section should only be relevant if the distro is MinGW
-#       based. Much of it is useful only if MinGW _is_ actually bundled with
-#       the package, which is probably something that should be avoided in
-#       the future.
-
-# Copy MinGW runtime .dlls
-
-_MINGW_DLL_DIR="${HB_DIR_MINGW}"
-if [ -d "${_MINGW_DLL_DIR}" ] ; then
-
-   # Cross-toolchain (check this first)
-   [ "${_lib_target}" = '32' ] && [ -d "${HB_DIR_MINGW}../i686-w64-mingw32/lib/"     ] && _MINGW_DLL_DIR="${HB_DIR_MINGW}../i686-w64-mingw32/lib/"
-   [ "${_lib_target}" = '64' ] && [ -d "${HB_DIR_MINGW}../x86_64-w64-mingw32/lib/"   ] && _MINGW_DLL_DIR="${HB_DIR_MINGW}../x86_64-w64-mingw32/lib/"
-
-   # Pick the ones from a multi-target MinGW distro that match the bitness of
-   # our base target.
-   [ "${_lib_target}" = '32' ] && [ -d "${HB_DIR_MINGW}../x86_64-w64-mingw32/lib32/" ] && _MINGW_DLL_DIR="${HB_DIR_MINGW}../x86_64-w64-mingw32/lib32/"
-   [ "${_lib_target}" = '64' ] && [ -d "${HB_DIR_MINGW}../i686-w64-mingw32/lib64/"   ] && _MINGW_DLL_DIR="${HB_DIR_MINGW}../i686-w64-mingw32/lib64/"
-
-   # shellcheck disable=SC2086
-   if ls       ${_MINGW_DLL_DIR}libgcc_s_*.dll > /dev/null 2>&1 ; then
-      cp -f -p ${_MINGW_DLL_DIR}libgcc_s_*.dll "${HB_ABSROOT}bin/"
-   fi
-   # shellcheck disable=SC2086
-   if ls       ${_MINGW_DLL_DIR}libwinpthread-*.dll > /dev/null 2>&1 ; then
-      cp -f -p ${_MINGW_DLL_DIR}libwinpthread-*.dll "${HB_ABSROOT}bin/"
-   fi
-   # Not present anymore in newer (~2013-) mingw distros
-   # shellcheck disable=SC2086
-   if ls       ${_MINGW_DLL_DIR}mingwm*.dll > /dev/null 2>&1 ; then
-      cp -f -p ${_MINGW_DLL_DIR}mingwm*.dll "${HB_ABSROOT}bin/"
-   fi
-fi
 
 # Burn build information into RELNOTES.txt
 
