@@ -1,13 +1,20 @@
 #!/bin/sh
 
 # ---------------------------------------------------------------
-# Copyright 2015-2016 Viktor Szakats (vszakats.net/harbour)
+# Copyright 2015-2017 Viktor Szakats (vszakats.net/harbour)
 # See LICENSE.txt for licensing terms.
 # ---------------------------------------------------------------
 
 [ "${CI}" = 'True' ] || exit
 
 cd "$(dirname "$0")/.." || exit
+
+case "$(uname)" in
+   *_NT*)   readonly os='win';;
+   linux*)  readonly os='linux';;
+   Darwin*) readonly os='mac';;
+   *BSD)    readonly os='bsd';;
+esac
 
 _BRANCH="${APPVEYOR_REPO_BRANCH}${TRAVIS_BRANCH}${CI_BUILD_REF_NAME}${GIT_BRANCH}"
 _BRANC4="$(echo "${_BRANCH}" | cut -c -4)"
@@ -31,7 +38,28 @@ export CURL_HASH_64='e1c8136819d9424b864d64f6f87e413c41a57257af605d043d32eda9d04
 
 # Install/update MSYS2 packages required for completing the build
 
-pacman --noconfirm --noprogressbar -S --needed p7zip mingw-w64-{i686,x86_64}-{jq,libgsf,osslsigncode}
+case "${os}" in
+   win)
+      pacman --noconfirm --noprogressbar -S --needed p7zip mingw-w64-{i686,x86_64}-{jq,osslsigncode}
+      ;;
+   mac)
+      # port install mingw-w64
+      # brew install p7zip jq osslsigncode dos2unix
+      # for `gcp`. TODO: replace it with `rsync` where `--parents` option is used
+      # brew install coreutils
+      # for running `harbour.exe` when creating `BUILD.txt`
+      # Wine from https://wiki.winehq.org/MacOS
+      ;;
+esac
+
+if [ "${os}" != 'win' ] ; then
+
+   # msvc only available on Windows
+   [ "${_BRANC4}" != 'msvc' ] || exit
+
+   # Create native build for host OS
+   make -j 2 HB_BUILD_DYN=no HB_BUILD_CONTRIBS=no
+fi
 
 [ "${_BRANC4}" = 'msvc' ] || "$(dirname "$0")/mpkg_win_dl.sh" || exit
 
@@ -47,6 +75,11 @@ if [ -n "${HB_CI_THREADS}" ] ; then
 fi
 
 # common settings
+
+# Clean slate
+export HB_USER_LDFLAGS=
+export HB_USER_DFLAGS=
+export HB_BUILD_CONTRIBS=
 
 [ "${_BRANCH#*prod*}" != "${_BRANCH}" ] && export HB_BUILD_CONTRIBS='hbrun hbdoc hbformat/utils hbct hbcurl hbhpdf hbmzip hbwin hbtip hbssl hbexpat hbmemio rddsql hbzebra sddodbc hbunix hbmisc hbcups hbtest hbtcpio hbcomio hbcrypto hbnetio hbpipeio hbgzio hbbz2io hbicu'
 export HB_BUILD_STRIP='bin'
@@ -87,23 +120,42 @@ if [ "${_BRANC4}" != 'msvc' ] ; then
 #  [ "${_BRANCH#*prod*}" != "${_BRANCH}" ] && _HB_USER_CFLAGS="${_HB_USER_CFLAGS} -flto -ffat-lto-objects"
    [ "${HB_BUILD_MODE}" = 'cpp' ] && export HB_USER_LDFLAGS="${HB_USER_LDFLAGS} -static-libstdc++"
 
-   readonly _msys_mingw32='/mingw32'
-   readonly _msys_mingw64='/mingw64'
+   if [ "${os}" = 'win' ] ; then
+      readonly _msys_mingw32='/mingw32'
+      readonly _msys_mingw64='/mingw64'
 
-   export HB_DIR_MINGW="${HB_RT}/mingw64"
-   if [ -d "${HB_DIR_MINGW}/bin" ] ; then
-      # Use the same toolchain for both targets
-      export HB_DIR_MINGW_32="${HB_DIR_MINGW}"
-      export HB_DIR_MINGW_64="${HB_DIR_MINGW}"
-      _build_info_32='BUILD-mingw.txt'
-      _build_info_64=/dev/null
+      export HB_DIR_MINGW="${HB_RT}/mingw64/bin/"
+      if [ -d "${HB_DIR_MINGW}" ] ; then
+         # Use the same toolchain for both targets
+         export HB_DIR_MINGW_32="${HB_DIR_MINGW}"
+         export HB_DIR_MINGW_64="${HB_DIR_MINGW}"
+         _build_info_32='BUILD-mingw.txt'
+         _build_info_64=/dev/null
+      else
+         export HB_DIR_MINGW_32="${_msys_mingw32}"
+         export HB_DIR_MINGW_64="${_msys_mingw64}"
+         [ "${HB_BASE}" != '64' ] && HB_DIR_MINGW="${HB_DIR_MINGW_32}"
+         [ "${HB_BASE}"  = '64' ] && HB_DIR_MINGW="${HB_DIR_MINGW_64}"
+         _build_info_32='BUILD-mingw32.txt'
+         _build_info_64='BUILD-mingw64.txt'
+      fi
+      export HB_PFX_MINGW_32=''
+      export HB_PFX_MINGW_64=''
+      _bin_make='mingw32-make'
+
+      # Disable picking MSYS2 packages for now
+      export HB_BUILD_3RDEXT='no'
    else
-      export HB_DIR_MINGW_32="${_msys_mingw32}"
-      export HB_DIR_MINGW_64="${_msys_mingw64}"
-      [ "${HB_BASE}" != '64' ] && HB_DIR_MINGW="${HB_DIR_MINGW_32}"
-      [ "${HB_BASE}"  = '64' ] && HB_DIR_MINGW="${HB_DIR_MINGW_64}"
+      export HB_PFX_MINGW_32='i686-w64-mingw32-'
+      export HB_PFX_MINGW_64='x86_64-w64-mingw32-'
+      export HB_DIR_MINGW_32="$(dirname "$(which ${HB_PFX_MINGW_32}gcc)")"/
+      export HB_DIR_MINGW_64="$(dirname "$(which ${HB_PFX_MINGW_64}gcc)")"/
+      export HB_DIR_MINGW="${HB_DIR_MINGW_32}"
       _build_info_32='BUILD-mingw32.txt'
       _build_info_64='BUILD-mingw64.txt'
+      _bin_make='make'
+
+      export HB_BUILD_3RDEXT='no'
    fi
 
    export HB_DIR_OPENSSL_32="${HB_RT}/openssl-mingw32/"
@@ -116,45 +168,46 @@ if [ "${_BRANC4}" != 'msvc' ] ; then
    export HB_DIR_CURL_64="${HB_RT}/curl-mingw64/"
 
    #
-
-   # Disable picking MSYS2 packages for now
-   export HB_BUILD_3RDEXT='no'
-
    export HB_WITH_CURL="${HB_DIR_CURL_32}include"
    export HB_WITH_OPENSSL="${HB_DIR_OPENSSL_32}include"
-   _inc="${_msys_mingw32}/include"
-   export HB_WITH_CAIRO="${_inc}/cairo"
-   export HB_WITH_FREEIMAGE="${_inc}"
-   export HB_WITH_GD="${_inc}"
-   export HB_WITH_GS="${_inc}/ghostscript"
-   export HB_WITH_GS_BIN="${_inc}/../bin"
-   export HB_WITH_ICU="${_inc}"
-   export HB_WITH_MYSQL="${_inc}/mysql"
-   export HB_WITH_PGSQL="${_inc}"
+   if [ "${os}" = 'win' ] ; then
+      _inc="${_msys_mingw32}/include"
+      export HB_WITH_CAIRO="${_inc}/cairo"
+      export HB_WITH_FREEIMAGE="${_inc}"
+      export HB_WITH_GD="${_inc}"
+      export HB_WITH_GS="${_inc}/ghostscript"
+      export HB_WITH_GS_BIN="${_inc}/../bin"
+      export HB_WITH_ICU="${_inc}"
+      export HB_WITH_MYSQL="${_inc}/mysql"
+      export HB_WITH_PGSQL="${_inc}"
+   fi
    export HB_USER_CFLAGS="${_HB_USER_CFLAGS}"
+   export HB_CCPREFIX="${HB_PFX_MINGW_32}"
    [ "${HB_BUILD_MODE}" != 'cpp' ] && export HB_USER_CFLAGS="${HB_USER_CFLAGS} -fno-asynchronous-unwind-tables"
-   export PATH="${HB_DIR_MINGW_32}/bin:${_ori_path}"
-   gcc -v 2> "${_build_info_32}"
+   [ "${os}" = 'win' ] && export PATH="${HB_DIR_MINGW_32}:${_ori_path}"
+   ${HB_CCPREFIX}gcc -v 2> "${_build_info_32}"
    # shellcheck disable=SC2086
-   mingw32-make install ${HB_MKFLAGS} HB_COMPILER=mingw HB_CPU=x86 || exit 1
+   ${_bin_make} install ${HB_MKFLAGS} HB_COMPILER=mingw HB_CPU=x86 || exit 1
 
    export HB_WITH_CURL="${HB_DIR_CURL_64}include"
    export HB_WITH_OPENSSL="${HB_DIR_OPENSSL_64}include"
-   _inc="${_msys_mingw64}/include"
-   export HB_WITH_CAIRO="${_inc}/cairo"
-   export HB_WITH_FREEIMAGE="${_inc}"
-   export HB_WITH_GD="${_inc}"
-   export HB_WITH_GS="${_inc}/ghostscript"
-   export HB_WITH_GS_BIN="${_inc}/../bin"
-   export HB_WITH_ICU="${_inc}"
-   export HB_WITH_MYSQL="${_inc}/mysql"
-   export HB_WITH_PGSQL="${_inc}"
+   if [ "${os}" = 'win' ] ; then
+      _inc="${_msys_mingw64}/include"
+      export HB_WITH_CAIRO="${_inc}/cairo"
+      export HB_WITH_FREEIMAGE="${_inc}"
+      export HB_WITH_GD="${_inc}"
+      export HB_WITH_GS="${_inc}/ghostscript"
+      export HB_WITH_GS_BIN="${_inc}/../bin"
+      export HB_WITH_ICU="${_inc}"
+      export HB_WITH_MYSQL="${_inc}/mysql"
+      export HB_WITH_PGSQL="${_inc}"
+   fi
    export HB_USER_CFLAGS="${_HB_USER_CFLAGS}"
-   export PATH="${HB_DIR_MINGW_64}/bin:${_ori_path}"
-   gcc -v 2> "${_build_info_64}"
+   export HB_CCPREFIX="${HB_PFX_MINGW_64}"
+   [ "${os}" = 'win' ] && export PATH="${HB_DIR_MINGW_64}:${_ori_path}"
+   ${HB_CCPREFIX}gcc -v 2> "${_build_info_64}"
    # shellcheck disable=SC2086
-   mingw32-make clean ${HB_MKFLAGS} HB_COMPILER=mingw64 HB_CPU=x86_64 || exit 1
-   mingw32-make install ${HB_MKFLAGS} HB_COMPILER=mingw64 HB_CPU=x86_64 || exit 1
+   ${_bin_make} install ${HB_MKFLAGS} HB_COMPILER=mingw64 HB_CPU=x86_64 || exit 1
 fi
 
 # msvc
@@ -164,6 +217,7 @@ if [ "${_BRANC4}" = 'msvc' ] ; then
    export PATH="${_ori_path}"
    export HB_USER_CFLAGS=
    export HB_USER_LDFLAGS=
+   export HB_USER_DFLAGS=
    export HB_WITH_CURL=
    export HB_WITH_OPENSSL=
 
@@ -196,7 +250,6 @@ EOF
    if [ -n "${_VCVARSALL}" ] ; then
       cat << EOF > _make.bat
          call "%_VCVARSALL%" x86_amd64
-         win-make.exe clean %HB_MKFLAGS% HB_COMPILER=msvc64
          win-make.exe install %HB_MKFLAGS% HB_COMPILER=msvc64
 EOF
       ./_make.bat

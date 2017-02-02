@@ -1,34 +1,43 @@
 #!/bin/sh
 
 # ---------------------------------------------------------------
-# Copyright 2015-2016 Viktor Szakats (vszakats.net/harbour)
+# Copyright 2015-2017 Viktor Szakats (vszakats.net/harbour)
 # See LICENSE.txt for licensing terms.
 # ---------------------------------------------------------------
 
 # - Requires '[PACKAGE]_VER' and '[PACKAGE]_HASH_[32|64]' envvars
 
+case "$(uname)" in
+   *_NT*)   readonly os='win';;
+   linux*)  readonly os='linux';;
+   Darwin*) readonly os='mac';;
+   *BSD)    readonly os='bsd';;
+esac
+
 _BRANCH="${APPVEYOR_REPO_BRANCH}${TRAVIS_BRANCH}${CI_BUILD_REF_NAME}${GIT_BRANCH}"
 
 # Update/install MSYS2 pacman packages to fullfill dependencies
 
-# Dependencies of the default (full) list of contribs
-if [ "${_BRANCH#*prod*}" = "${_BRANCH}" ] ; then
-   pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{cairo,freeimage,gd,ghostscript,libmariadbclient,postgresql}
-#  pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-qt5
+if [ "${os}" = 'win' ] ; then
+   # Dependencies of the default (full) list of contribs
+   if [ "${_BRANCH#*prod*}" = "${_BRANCH}" ] ; then
+      pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{cairo,freeimage,gd,ghostscript,libmariadbclient,postgresql}
+   #  pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-qt5
+   fi
+
+   # Skip using this component for test purposes for now in favour
+   # of creating more practical/usable snapshot binaries.
+   # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-icu
+
+   # Dependencies of 'prod' builds (we use our own builds instead for now)
+   # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{curl,openssl}
+
+   # Dependencies of 'prod' builds (we use vendored sources instead for now)
+   # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{bzip2,expat,libharu,lzo2,sqlite3}
+
+   # Dependencies of Harbour core (we use vendored sources instead for now)
+   # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{libpng,pcre,zlib}
 fi
-
-# Skip using this component for test purposes for now in favour
-# of creating more practical/usable snapshot binaries.
-# pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-icu
-
-# Dependencies of 'prod' builds (we use our own builds instead for now)
-# pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{curl,openssl}
-
-# Dependencies of 'prod' builds (we use vendored sources instead for now)
-# pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{bzip2,expat,libharu,lzo2,sqlite3}
-
-# Dependencies of Harbour core (we use vendored sources instead for now)
-# pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{libpng,pcre,zlib}
 
 # Install packages manually
 
@@ -50,6 +59,7 @@ gpg --version | grep gpg
 
 # Dependencies for the Windows distro package
 
+if [ "${os}" = 'win' ] ; then
 (
    set -x
 
@@ -81,6 +91,7 @@ gpg --version | grep gpg
       done
    fi
 )
+fi
 
 # Dependencies for Windows builds
 
@@ -100,18 +111,20 @@ for plat in '32' '64' ; do
       'libssh2' \
       'curl' \
    ; do
-      eval ver="\$$(echo "${name}" | tr '[:lower:]' '[:upper:]' 2> /dev/null)_VER"
-      eval hash="\$$(echo "${name}" | tr '[:lower:]' '[:upper:]' 2> /dev/null)_HASH_${plat}"
-      # shellcheck disable=SC2154
-      (
-         set -x
-         curl -o pack.bin -L --proto-redir =https "${base}${name}-${ver}-win${plat}-mingw.7z"
-         curl -o pack.sig -L --proto-redir =https "${base}${name}-${ver}-win${plat}-mingw.7z.asc"
-         gpg --verify-options show-primary-uid-only --verify pack.sig pack.bin
-         openssl dgst -sha256 pack.bin | grep -q "${hash}"
-         7z x -y pack.bin > /dev/null
-         mv "${name}-${ver}-win${plat}-mingw" "${name}-mingw${plat}"
-      )
+      if [ ! -d "${name}-mingw${plat}" ] ; then
+         eval ver="\$$(echo "${name}" | tr '[:lower:]' '[:upper:]' 2> /dev/null)_VER"
+         eval hash="\$$(echo "${name}" | tr '[:lower:]' '[:upper:]' 2> /dev/null)_HASH_${plat}"
+         # shellcheck disable=SC2154
+         (
+            set -x
+            curl -o pack.bin -L --proto-redir =https "${base}${name}-${ver}-win${plat}-mingw.7z"
+            curl -o pack.sig -L --proto-redir =https "${base}${name}-${ver}-win${plat}-mingw.7z.asc"
+            gpg --verify-options show-primary-uid-only --verify pack.sig pack.bin
+            openssl dgst -sha256 pack.bin | grep -q "${hash}"
+            7z x -y pack.bin > /dev/null
+            mv "${name}-${ver}-win${plat}-mingw" "${name}-mingw${plat}"
+         )
+      fi
    done
 done
 

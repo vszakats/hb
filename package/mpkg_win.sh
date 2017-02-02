@@ -1,23 +1,28 @@
 #!/bin/sh
 
 # ---------------------------------------------------------------
-# Copyright 2009-2016 Viktor Szakats (vszakats.net/harbour)
+# Copyright 2009-2017 Viktor Szakats (vszakats.net/harbour)
 # See LICENSE.txt for licensing terms.
 # ---------------------------------------------------------------
 
 cd "$(dirname "$0")" || exit
 
-# - Requires MSYS2 or Git for Windows to run on Windows
+# - Requires MSYS2 or 'Git for Windows' to run on Windows
 # - Requires 7z in PATH
 # - Adjust target dir, MinGW dirs,
 #   set HB_DIR_UPX, HB_DIR_MINGW, HB_DIR_MINGW_32, HB_DIR_MINGW_64
 #   create required packages beforehand.
 # - Run this from vanilla official source tree only.
 
-# TOFIX: hbmk2.exe invocations break cross-builds.
-#        A native hbmk2 copy would need to be called instead.
+case "$(uname)" in
+   *_NT*)   readonly os='win';;
+   linux*)  readonly os='linux';;
+   Darwin*) readonly os='mac';;
+   *BSD)    readonly os='bsd';;
+esac
 
 echo "! Self: $0"
+echo "! Host OS: ${os}"
 
 readonly HB_VS_DEF=34
 readonly HB_VL_DEF=340
@@ -46,14 +51,22 @@ _ROOT="$(realpath '..')"
 
 echo "! Branch: '${_BRANCH}'"
 
-# Hack for Git for Windows. Windows system paths may override standard tools.
-case "$(uname)" in
-   *_NT*) alias find=/usr/bin/find;;
+case "${os}" in
+   win)
+      # Hack for 'Git for Windows'. Windows system paths may override
+      # standard tools.
+      alias find=/usr/bin/find
+      ;;
+   mac)
+      alias cp=gcp
+      ;;
 esac
 
+[ "${os}" = 'win' ] || win='wine'
+
 if [ -z "${HB_BASE}" ] ; then
-   # Auto-detect the base bitness, by default it will be 32-bit,
-   # and 64-bit if it's the only one available.
+   # Auto-detect the base bitness, by default it will be 32-bit, and 64-bit
+   # if it's the only one available.
    if [ -d "../pkg/win/mingw/harbour-${HB_VF}-win-mingw" ] ; then
       # MinGW 32-bit base system
       _lib_target='32'
@@ -90,8 +103,8 @@ mkdir -p "${HB_ABSROOT}"
 
 mkdir -p "${HB_ABSROOT}bin/"
 
-# Copy these first to let 3rd party .dlls with overlapping names
-# be overwritten by selected native target's binaries.
+# Copy these first to let 3rd party .dlls with overlapping names be
+# overwritten by selected native target's binaries.
 if ls       ../pkg/wce/mingwarm/harbour-${HB_VF}-wce-mingwarm/bin/*.dll > /dev/null 2>&1 ; then
    cp -f -p ../pkg/wce/mingwarm/harbour-${HB_VF}-wce-mingwarm/bin/*.dll "${HB_ABSROOT}bin/"
 fi
@@ -128,13 +141,20 @@ for dir in \
    fi
 done
 
-# Workaround for ld --no-insert-timestamp bug that exist as of
-# binutils 2.25, when the PE build timestamp field is often
-# filled with random bytes instead of zeroes. -s option is not
-# fixing this, 'strip' randomly fails either, so we're
-# patching manually.
-cp -f -p "${HB_ABSROOT}bin/hbmk2.exe" "${HB_ABSROOT}bin/hbmk2-temp.exe"
-# NOTE: do not forget to update the list of binary names created
+# Workaround for ld --no-insert-timestamp bug that exist as of binutils 2.25,
+# when the PE build timestamp field is often filled with random bytes instead
+# of zeroes. -s option is not fixing this, 'strip' randomly fails either, so
+# we're patching manually.
+
+if [ "${os}" = 'win' ] ; then
+   # We're going to modify hbmk2.exe, so make a copy and run that instead
+   _bin_hbmk2="${HB_ABSROOT}bin/hbmk2-temp.exe"
+   cp -f -p "${HB_ABSROOT}bin/hbmk2.exe" "${_bin_hbmk2}"
+else
+   _bin_hbmk2="$(find ../bin -type f -name 'hbmk2' | head -n 1)"
+fi
+
+# NOTE: Do not forget to update the list of binary names created
 #       by the GNU Make process, in case it changes.
 for name in \
    'harbour*.dll' \
@@ -154,7 +174,7 @@ for name in \
       fi
 
       # Remove embedded timestamps
-      "${HB_ABSROOT}bin/hbmk2-temp.exe" "${_SCRIPT}" pe "${_ROOT}" "${file}"
+      "${_bin_hbmk2}" "${_SCRIPT}" pe "${_ROOT}" "${file}"
 
       # Readd code signature
       if [ -f "${HB_CODESIGN_KEY}" ] ; then
@@ -171,22 +191,28 @@ for name in \
       touch -c -r "${HB_ABSROOT}README.md" "${file}"
    done
 done
-rm -f "${HB_ABSROOT}bin/hbmk2-temp.exe"
 
-# Workaround for ld --no-insert-timestamp issue in that it
-# won't remove internal timestamps from generated implibs.
+if [ "${os}" = 'win' ] ; then
+   rm -f "${_bin_hbmk2}"
+   _bin_hbmk2="${HB_ABSROOT}bin/hbmk2.exe"
+fi
+
+# Workaround for ld --no-insert-timestamp issue in that it won't remove
+# internal timestamps from generated implibs.
 # Slow. Requires binutils 2.23 (maybe 2.24/2.25).
 # Short synonym '-D' is not recognized as of binutils 2.25.
 for _cpu in '' '64' ; do
    [ "${_cpu}" != '64' ] && _mingw_dir="${HB_DIR_MINGW_32}"
    [ "${_cpu}"  = '64' ] && _mingw_dir="${HB_DIR_MINGW_64}"
+   [ "${_cpu}" != '64' ] && _mingw_pfx="${HB_PFX_MINGW_32}"
+   [ "${_cpu}"  = '64' ] && _mingw_pfx="${HB_PFX_MINGW_64}"
    for files in \
       "${HB_ABSROOT}lib/win/mingw${_cpu}/*-*.*" \
       "${HB_ABSROOT}lib/win/mingw${_cpu}/*_dll*.*" \
       "${HB_ABSROOT}lib/win/msvc${_cpu}/*.lib" ; do
       # shellcheck disable=SC2086
       if ls ${files} > /dev/null 2>&1 ; then
-         "${_mingw_dir}/bin/strip" -p --enable-deterministic-archives -g "${files}"
+         "${_mingw_dir}${_mingw_pfx}strip" -p --enable-deterministic-archives -g ${files}
       fi
    done
 done
@@ -234,34 +260,36 @@ fi
    cp -f -p --parents $(find 'src/3rd' -name '*.h') "${HB_ABSROOT}"
 )
 
-# NOTE: This whole section should only be relevant
-#       if the distro is MinGW based. Much of it is
-#       useful only if MinGW _is_ actually bundled
-#       with the package, which is probably something
-#       that should be avoided in the future.
+# NOTE: This whole section should only be relevant if the distro is MinGW
+#       based. Much of it is useful only if MinGW _is_ actually bundled with
+#       the package, which is probably something that should be avoided in
+#       the future.
 
 # Copy MinGW runtime .dlls
 
-# Pick the ones from a multi-target MinGW distro
-# that match the bitness of our base target.
-_MINGW_DLL_DIR="${HB_DIR_MINGW}/bin"
+_MINGW_DLL_DIR="${HB_DIR_MINGW}"
 if [ -d "${_MINGW_DLL_DIR}" ] ; then
 
-   [ "${_lib_target}" = '32' ] && [ -d "${HB_DIR_MINGW}/x86_64-w64-mingw32/lib32" ] && _MINGW_DLL_DIR="${HB_DIR_MINGW}/x86_64-w64-mingw32/lib32"
-   [ "${_lib_target}" = '64' ] && [ -d "${HB_DIR_MINGW}/i686-w64-mingw32/lib64"   ] && _MINGW_DLL_DIR="${HB_DIR_MINGW}/i686-w64-mingw32/lib64"
+   # Pick the ones from a multi-target MinGW distro that match the bitness of
+   # our base target.
+   [ "${_lib_target}" = '32' ] && [ -d "${HB_DIR_MINGW}../x86_64-w64-mingw32/lib32/" ] && _MINGW_DLL_DIR="${HB_DIR_MINGW}../x86_64-w64-mingw32/lib32/"
+   [ "${_lib_target}" = '64' ] && [ -d "${HB_DIR_MINGW}../i686-w64-mingw32/lib64/"   ] && _MINGW_DLL_DIR="${HB_DIR_MINGW}../i686-w64-mingw32/lib64/"
+   # Cross-toolchain
+   [ "${_lib_target}" = '32' ] && [ -d "${HB_DIR_MINGW}../i686-w64-mingw32/lib/"     ] && _MINGW_DLL_DIR="${HB_DIR_MINGW}../i686-w64-mingw32/lib/"
+   [ "${_lib_target}" = '64' ] && [ -d "${HB_DIR_MINGW}../x86_64-w64-mingw32/lib/"   ] && _MINGW_DLL_DIR="${HB_DIR_MINGW}../x86_64-w64-mingw32/lib/"
 
    # shellcheck disable=SC2086
-   if ls       ${_MINGW_DLL_DIR}/libgcc_s_*.dll > /dev/null 2>&1 ; then
-      cp -f -p ${_MINGW_DLL_DIR}/libgcc_s_*.dll "${HB_ABSROOT}bin/"
+   if ls       ${_MINGW_DLL_DIR}libgcc_s_*.dll > /dev/null 2>&1 ; then
+      cp -f -p ${_MINGW_DLL_DIR}libgcc_s_*.dll "${HB_ABSROOT}bin/"
    fi
    # shellcheck disable=SC2086
-   if ls       ${_MINGW_DLL_DIR}/libwinpthread-*.dll > /dev/null 2>&1 ; then
-      cp -f -p ${_MINGW_DLL_DIR}/libwinpthread-*.dll "${HB_ABSROOT}bin/"
+   if ls       ${_MINGW_DLL_DIR}libwinpthread-*.dll > /dev/null 2>&1 ; then
+      cp -f -p ${_MINGW_DLL_DIR}libwinpthread-*.dll "${HB_ABSROOT}bin/"
    fi
    # Not present anymore in newer (~2013-) mingw distros
    # shellcheck disable=SC2086
-   if ls       ${_MINGW_DLL_DIR}/mingwm*.dll > /dev/null 2>&1 ; then
-      cp -f -p ${_MINGW_DLL_DIR}/mingwm*.dll "${HB_ABSROOT}bin/"
+   if ls       ${_MINGW_DLL_DIR}mingwm*.dll > /dev/null 2>&1 ; then
+      cp -f -p ${_MINGW_DLL_DIR}mingwm*.dll "${HB_ABSROOT}bin/"
    fi
 fi
 
@@ -281,7 +309,7 @@ sed -e "s|_HB_VER_COMMIT_ID_SHORT_|${_vcs_id_short}|g" \
     -e "s|_HB_VERSION_|${_hb_ver}|g" 'RELNOTES.txt' > "${HB_ABSROOT}RELNOTES.txt"
 touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}RELNOTES.txt"
 
-sed -e "s|_HB_URL_SRC_|${_vcs_url}archive/${_vcs_id}.zip|g" 'getsrc.sh' > "${HB_ABSROOT}getsrc.sh"
+sed "s|_HB_URL_SRC_|${_vcs_url}archive/${_vcs_id}.zip|g" 'getsrc.sh' > "${HB_ABSROOT}getsrc.sh"
 chmod +x "${HB_ABSROOT}getsrc.sh"
 touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}getsrc.sh"
 
@@ -291,12 +319,12 @@ touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}include/_repover.txt"
 # Register build information
 
 (
-   "${HB_ABSROOT}bin/harbour" -build 2>&1 | grep -Ev '^(Version:|Platform:|Extra )'
+   ${win} "${HB_ABSROOT}bin/harbour" -build 2>&1 | dos2unix | grep -Ev '^(Version:|Platform:|Extra )'
    echo "Source archive URL: ${_vcs_url}archive/${_vcs_id}.zip"
    echo ---------------------------
    set | grep '_VER=' | grep -v '^_'
    echo ---------------------------
-   set | grep -E '^(HB_USER_|HB_BUILD_|HB_WITH_|HB_STATIC_)' | grep -Ev '(HB_BUILD_POSTRUN=|HB_BUILD_PKG=)'
+   set | grep -E '^(HB_USER_|HB_BUILD_|HB_WITH_|HB_STATIC_)' | grep -Ev '(HB_BUILD_POSTRUN=|HB_BUILD_PKG=)' | sed "s|${HOME}|~|g"
    echo ---------------------------
    cd "${HB_ABSROOT}lib" || exit
    find . -type d | grep -Eo '\./[a-z]+?/[a-z0-9]+?$' | cut -c 3-
@@ -311,9 +339,9 @@ fi
 
 # Reset Windows attributes
 
-case "$(uname)" in
-   *_NT*) find "${HB_ABSROOT%/}" -exec attrib +A -R {} \;
-esac
+if [ "${os}" = 'win' ] ; then
+   find "${HB_ABSROOT%/}" -exec attrib +A -R {} \;
+fi
 
 # Create installer/archive
 
@@ -340,9 +368,9 @@ cd "${HB_RT}" || exit
 
 _pkgdate=
 if [ "${_BRANCH#*prod*}" != "${_BRANCH}" ] ; then
-   case "$(uname)" in
-      *BSD|Darwin) _pkgdate="$(stat -f '-%Sm' -t '%Y%m%d-%H%M' "${HB_ABSROOT}README.md")";;
-      *)           _pkgdate="$(stat -c '%Y' "${HB_ABSROOT}README.md" | awk '{print "-" strftime("%Y%m%d-%H%M", $1)}')";;
+   case "${os}" in
+      bsd|mac) _pkgdate="$(stat -f '-%Sm' -t '%Y%m%d-%H%M' "${HB_ABSROOT}README.md")";;
+      *)       _pkgdate="$(stat -c '%Y' "${HB_ABSROOT}README.md" | awk '{print "-" strftime("%Y%m%d-%H%M", $1)}')";;
    esac
 fi
 
@@ -351,7 +379,8 @@ _pkgname="${_ROOT}/harbour-${HB_VF}-win${_pkgdate}.7z"
 rm -f "${_pkgname}"
 (
    cd "${HB_DR}" || exit
-   bin/hbmk2.exe "${_SCRIPT}" ts "${_ROOT}"
+   "${_bin_hbmk2}" "${_SCRIPT}" ts "${_ROOT}"
+   rm -f "${_pkgname}"
    # NOTE: add -stl option after updating to 15.12 or upper
    7z a -bd -r -mx "${_pkgname}" "@${_ROOT}/_hbfiles" > /dev/null
 )
@@ -361,9 +390,9 @@ rm "${_ROOT}/_hbfiles"
 touch -c -r "${HB_ABSROOT}README.md" "${_pkgname}"
 
 # <filename>: <size> bytes <YYYY-MM-DD> <HH:MM>
-case "$(uname)" in
-   *BSD|Darwin) stat -f '%N: %z bytes %Sm' -t '%Y-%m-%d %H:%M' "${_pkgname}";;
-   *)           stat -c '%n: %s bytes %y' "${_pkgname}";;
+case "${os}" in
+   bsd|mac) stat -f '%N: %z bytes %Sm' -t '%Y-%m-%d %H:%M' "${_pkgname}";;
+   *)       stat -c '%n: %s bytes %y' "${_pkgname}";;
 esac
 openssl dgst -sha256 "${_pkgname}"
 
