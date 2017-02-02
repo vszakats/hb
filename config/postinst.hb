@@ -351,7 +351,7 @@ PROCEDURE Main( ... )
       IF ! Empty( GetEnvC( "HB_INSTALL_BIN" ) )
 
          lWineSupported := ;
-            GetEnvC( "HB_HOST_PLAT" ) $ "linux|darwin|bsd" .AND. ;
+            "|" + GetEnvC( "HB_HOST_PLAT" ) + "|" $ "|linux|darwin|bsd|" .AND. ;
             GetEnvC( "HB_PLATFORM" ) == "win"
 
          IF ( Empty( GetEnvC( "HB_HOST_BIN" ) ) .AND. ;

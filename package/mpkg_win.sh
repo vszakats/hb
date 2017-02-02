@@ -325,7 +325,7 @@ touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}include/_repover.txt"
    echo ---------------------------
    set | grep '_VER=' | grep -v '^_'
    echo ---------------------------
-   set | grep -E '^(HB_USER_|HB_BUILD_|HB_WITH_|HB_STATIC_)' | grep -Ev '(HB_BUILD_POSTRUN=|HB_BUILD_PKG=)' | sed "s|${HOME}|~|g"
+   set | grep -E '^(HB_USER_|HB_BUILD_|HB_WITH_|HB_STATIC_)' | grep -Ev '(HB_BUILD_POSTRUN_HOST=|HB_BUILD_POSTRUN=|HB_BUILD_PKG=)' | sed "s|${HOME}|~|g"
    echo ---------------------------
    cd "${HB_ABSROOT}lib" || exit
    find . -type d | grep -Eo '\./[a-z]+?/[a-z0-9]+?$' | cut -c 3-

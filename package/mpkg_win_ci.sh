@@ -47,7 +47,7 @@ case "${os}" in
       # brew install p7zip jq osslsigncode dos2unix
       # for `gcp`. TODO: replace it with `rsync` where `--parents` option is used
       # brew install coreutils
-      # for running `harbour.exe` when creating `BUILD.txt`
+      # for running `harbour.exe` when creating `BUILD.txt` and `HB_BUILD_POSTRUN` tasks
       # Wine from https://wiki.winehq.org/MacOS
       ;;
 esac
