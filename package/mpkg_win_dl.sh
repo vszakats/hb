@@ -63,10 +63,6 @@ if [ "${os}" = 'win' ] ; then
 (
    set -x
 
-#  curl -o pack.bin -L --proto-redir =https 'https://github.com/upx/upx/releases/download/v3.92/upx392w.zip'
-#  openssl dgst -sha256 pack.bin | grep -q 041f9fe5c749a5491db1c902db16b55a6d343030103cb1add2fcc5bb63c6143d
-#  7z e -y -oupx pack.bin > /dev/null
-
    if [ "${_BRANCH#*extmingw*}" != "${_BRANCH}" ] ; then
       readonly mingwbase='https://downloads.sourceforge.net'; readonly option='-L'
 #     curl -o pack.bin "${option}" "${mingwbase}/mingw-w64/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/6.3.0/threads-posix/sjlj/i686-6.3.0-release-posix-sjlj-rt_v5-rev1.7z"

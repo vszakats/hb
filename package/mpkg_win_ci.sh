@@ -67,7 +67,6 @@ export HB_VF='snapshot'
 export HB_RT="${_ROOT}"
 export HB_MKFLAGS="HB_VERSION=${HB_VF}"
 export HB_BASE='64'
-# export HB_DIR_UPX="${HB_RT}/upx/"
 _ori_path="${PATH}"
 
 if [ -n "${HB_CI_THREADS}" ] ; then

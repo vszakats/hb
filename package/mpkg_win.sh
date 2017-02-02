@@ -10,7 +10,7 @@ cd "$(dirname "$0")" || exit
 # - Requires MSYS2 or 'Git for Windows' to run on Windows
 # - Requires 7z in PATH
 # - Adjust target dir, MinGW dirs,
-#   set HB_DIR_UPX, HB_DIR_MINGW_32, HB_DIR_MINGW_64
+#   set HB_DIR_MINGW_32, HB_DIR_MINGW_64
 #   create required packages beforehand.
 # - Run this from vanilla official source tree only.
 
@@ -202,13 +202,6 @@ for _cpu in '' '64' ; do
       fi
    done
 done
-
-# Copy upx
-
-if [ -n "${HB_DIR_UPX}" ] ; then
-   cp -f -p "${HB_DIR_UPX}upx.exe" "${HB_ABSROOT}bin/"
-   cp -f -p "${HB_DIR_UPX}LICENSE" "${HB_ABSROOT}LICENSE_upx.txt"
-fi
 
 # Copy 3rd party static libraries
 
