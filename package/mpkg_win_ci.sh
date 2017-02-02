@@ -132,8 +132,8 @@ if [ "${_BRANC4}" != 'msvc' ] ; then
          _build_info_32='BUILD-mingw.txt'
          _build_info_64=/dev/null
       else
-         export HB_DIR_MINGW_32="${_msys_mingw32}"
-         export HB_DIR_MINGW_64="${_msys_mingw64}"
+         export HB_DIR_MINGW_32="${_msys_mingw32}/bin/"
+         export HB_DIR_MINGW_64="${_msys_mingw64}/bin/"
          [ "${HB_BASE}" != '64' ] && HB_DIR_MINGW="${HB_DIR_MINGW_32}"
          [ "${HB_BASE}"  = '64' ] && HB_DIR_MINGW="${HB_DIR_MINGW_64}"
          _build_info_32='BUILD-mingw32.txt'
