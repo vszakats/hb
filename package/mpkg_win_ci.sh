@@ -125,18 +125,15 @@ if [ "${_BRANC4}" != 'msvc' ] ; then
       readonly _msys_mingw32='/mingw32'
       readonly _msys_mingw64='/mingw64'
 
-      export HB_DIR_MINGW="${HB_RT}/mingw64/bin/"
-      if [ -d "${HB_DIR_MINGW}" ] ; then
+      export HB_DIR_MINGW_64="${HB_RT}/mingw64/bin/"
+      if [ -d "${HB_DIR_MINGW_64}" ] ; then
          # Use the same toolchain for both targets
-         export HB_DIR_MINGW_32="${HB_DIR_MINGW}"
-         export HB_DIR_MINGW_64="${HB_DIR_MINGW}"
+         export HB_DIR_MINGW_32="${HB_DIR_MINGW_64}"
          _build_info_32='BUILD-mingw.txt'
          _build_info_64=/dev/null
       else
          export HB_DIR_MINGW_32="${_msys_mingw32}/bin/"
          export HB_DIR_MINGW_64="${_msys_mingw64}/bin/"
-         [ "${HB_BASE}" != '64' ] && HB_DIR_MINGW="${HB_DIR_MINGW_32}"
-         [ "${HB_BASE}"  = '64' ] && HB_DIR_MINGW="${HB_DIR_MINGW_64}"
          _build_info_32='BUILD-mingw32.txt'
          _build_info_64='BUILD-mingw64.txt'
       fi
@@ -151,7 +148,6 @@ if [ "${_BRANC4}" != 'msvc' ] ; then
       export HB_PFX_MINGW_64='x86_64-w64-mingw32-'
       export HB_DIR_MINGW_32="$(dirname "$(which ${HB_PFX_MINGW_32}gcc)")"/
       export HB_DIR_MINGW_64="$(dirname "$(which ${HB_PFX_MINGW_64}gcc)")"/
-      export HB_DIR_MINGW="${HB_DIR_MINGW_32}"
       _build_info_32='BUILD-mingw32.txt'
       _build_info_64='BUILD-mingw64.txt'
       _bin_make='make'
