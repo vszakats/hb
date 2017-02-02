@@ -81,6 +81,7 @@ fi
 # common settings
 
 # Clean slate
+export _HB_USER_CFLAGS=
 export HB_USER_LDFLAGS=
 export HB_USER_DFLAGS=
 export HB_BUILD_CONTRIBS=
@@ -107,7 +108,8 @@ export HB_BUILD_POSTRUN='"./hbmk2 --version" "./hbtest -noenv" "./hbspeed --noen
 
 # decrypt code signing key
 
-export HB_CODESIGN_KEY="$(realpath './package/vszakats.p12')"
+export HB_CODESIGN_KEY=
+HB_CODESIGN_KEY="$(realpath './package/vszakats.p12')"
 (
    set +x
    if [ -n "${HB_CODESIGN_GPG_PASS}" ] ; then
@@ -149,8 +151,10 @@ if [ "${_BRANC4}" != 'msvc' ] ; then
    else
       export HB_PFX_MINGW_32='i686-w64-mingw32-'
       export HB_PFX_MINGW_64='x86_64-w64-mingw32-'
-      export HB_DIR_MINGW_32="$(dirname "$(which ${HB_PFX_MINGW_32}gcc)")"/
-      export HB_DIR_MINGW_64="$(dirname "$(which ${HB_PFX_MINGW_64}gcc)")"/
+      export HB_DIR_MINGW_32=
+      export HB_DIR_MINGW_64=
+      HB_DIR_MINGW_32="$(dirname "$(which ${HB_PFX_MINGW_32}gcc)")"/
+      HB_DIR_MINGW_64="$(dirname "$(which ${HB_PFX_MINGW_64}gcc)")"/
       _build_info_32='BUILD-mingw32.txt'
       _build_info_64='BUILD-mingw64.txt'
       _bin_make='make'

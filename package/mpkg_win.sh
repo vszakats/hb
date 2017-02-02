@@ -327,7 +327,6 @@ rm -f "${_pkgname}"
 (
    cd "${HB_DR}" || exit
    "${_bin_hbmk2}" "${_SCRIPT}" ts "${_ROOT}"
-   rm -f "${_pkgname}"
    # NOTE: add -stl option after updating to 15.12 or upper
    7z a -bd -r -mx "${_pkgname}" "@${_ROOT}/_hbfiles" > /dev/null
 )
