@@ -19,7 +19,7 @@ xmltok.c
 {bcc}-cflag=-w-8008
 {bcc}-cflag=-w-8066
 
-# ORIGIN http://expat.sourceforge.net/
+# ORIGIN https://expat.sourceforge.io/
 # URL    https://fossies.org/linux/www/expat-2.2.0.tar.bz2
 # DIFF   expat.diff
 #
