@@ -61,7 +61,7 @@
       http://nethack4.org/blog/building-c.html
 
    Program Library HOWTO:
-      http://www.dwheeler.com/program-library/Program-Library-HOWTO.pdf
+      https://www.dwheeler.com/program-library/Program-Library-HOWTO.pdf
 
    Markdown syntax:
       https://daringfireball.net/projects/markdown/syntax

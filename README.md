@@ -1523,7 +1523,7 @@ Supported shells per host platforms:
      * [GitHub Training Kit & Multi-language Cheat Sheet](https://training.github.com/kit/)
      * Using gettext (.po files)
        * <https://docs.transifex.com/formats/gettext>
-       * <http://heiner-eichmann.de/autotools/using_gettext.html>
+       * <https://web.archive.org/web/20160427125642/heiner-eichmann.de/autotools/using_gettext.html>
      * [GitHub Guides](https://guides.github.com/)
      * [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown)
      * [A Practical Git Introduction](http://marc.helbling.fr/2014/09/practical-git-introduction)

@@ -1349,7 +1349,7 @@ static LPPAGEINFO hb_ntxPageNew( LPTAGINFO pTag, HB_BOOL fNull )
       /*
          Handling of a pool of empty pages.
          Some sources says that this address is in the first 4 bytes of
-         a page ( http://www.clicketyclick.dk/databases/xbase/format/ ).
+         a page ( https://www.clicketyclick.dk/databases/xbase/format/ ).
          But as I understood, studying dumps of Clipper ntx'es, address of the
          next available page is in the address field of a first key item
          in the page - it is done here now in such a way.

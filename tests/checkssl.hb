@@ -50,11 +50,14 @@ procedure Main( cURLList )
                if lDebug
                   OutErr( "Checking...", hb_StrToExp( "https:" + url[ 4 ] ) + hb_eol() )
                endif
-               hb_processRun( "curl -fsS -v -L --max-redirs 10 --cookie-jar _cookie --connect-timeout 2 " + '"' + "https:" + url[ 4 ] + '"',, @outs, @err )
+               hb_processRun( "curl -fsS -v -L --max-redirs 10 --cookie-jar _cookie --connect-timeout 5 --user-agent Mozilla/5.0 " + '"' + "https:" + url[ 4 ] + '"',, @outs, @err )
+               hb_processRun( "curl -fsS -v -L --max-redirs 10 --cookie-jar _cookie --connect-timeout 5 --user-agent Mozilla/5.0 " + '"' + "http:" + url[ 4 ] + '"',, @outp, @err )
                if Empty( outs )
+                  if Empty( outp )
+                     OutStd( url[ 1 ], "http:" + url[ 4 ], "[Possibly lost link]" + hb_eol() )
+                  endif
                   ++cntp
                else
-                  hb_processRun( "curl -fsS -v -L --max-redirs 10 --cookie-jar _cookie --connect-timeout 2 " + '"' + "http:" + url[ 4 ] + '"',, @outp, @err )
                   OutStd( url[ 1 ], "->", "https:" + url[ 4 ], iif( outs == outp, "[OK]", "[Different content - verify manually]" ) + hb_eol() )
                   if outs == outp
                      ++cnts
