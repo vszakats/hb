@@ -1,6 +1,6 @@
 #!/usr/bin/env hbmk2
 
-/* Copyright 2015 Viktor Szakats (vszakats.net/harbour) */
+/* Copyright 2015-2017 Viktor Szakats (vszakats.net/harbour) */
 
 /* Set timestamps for non-generated (repository) files
    before including them in a distributable package.
