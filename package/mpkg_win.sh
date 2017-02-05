@@ -9,11 +9,12 @@ cd "$(dirname "$0")" || exit
 
 # - Requires MSYS2 or 'Git for Windows' to run on Windows
 # - Requires 7z in PATH
-# - Adjust target dir, MinGW dirs,
-#   set HB_DIR_MINGW_32, HB_DIR_MINGW_64
+# - Adjust target dir, MinGW dirs, set HB_DIR_MINGW_32, HB_DIR_MINGW_64
 #   create required packages beforehand.
 # - Run this from vanilla official source tree only.
 
+# https://en.wikipedia.org/wiki/Uname#Examples
+# http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=HEAD
 case "$(uname)" in
    *_NT*)   readonly os='win';;
    linux*)  readonly os='linux';;
@@ -367,8 +368,8 @@ cd - || exit
 
       # Create tag update JSON request
       # https://developer.github.com/v3/git/refs/#update-a-reference
-      jq -nc ".sha = \"${_vcs_id}\" | .force = true" | \
-      curl -sS \
+      jq -nc ".sha = \"${_vcs_id}\" | .force = true" \
+      | curl -sS \
          -H "Authorization: token ${GITHUB_TOKEN}" \
          -d @- \
          -X PATCH "https://api.github.com/repos/vszakats/harbour-core/git/refs/tags/v${HB_VF_DEF}"

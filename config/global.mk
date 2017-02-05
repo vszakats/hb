@@ -1882,14 +1882,12 @@ ifeq ($(HB_INIT_DONE),)
    ifneq ($(HB_INSTALL_PREFIX_ORI),$(HB_INSTALL_PREFIX))
       $(info ! HB_INSTALL_PREFIX automatically set to: $(HB_INSTALL_PREFIX))
    endif
-   ifeq ($(ROOT),./)
-      ifneq ($(wildcard .git),)
-         ifneq ($(call find_in_path,git),)
-            ifneq ($(shell git diff --name-only --quiet),)
-               $(info ! === WARNING: Locally modified source code ===)
-            endif
-            $(info ! Git revision: $(shell git rev-parse --short HEAD))
+   ifneq ($(wildcard $(TOP)$(ROOT).git),)
+      ifneq ($(call find_in_path,git),)
+         ifneq ($(shell git diff --name-only --quiet),)
+            $(info ! === WARNING: Locally modified source code ===)
          endif
+         $(info ! Source revision: Git $(shell git rev-parse HEAD))
       endif
    endif
    ifneq ($(wildcard $(TOP)$(ROOT).git),)

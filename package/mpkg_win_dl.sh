@@ -27,8 +27,8 @@ if [ "${os}" = 'win' ] ; then
    #  pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-qt5
    fi
 
-   # Skip using this component for test purposes for now in favour
-   # of creating more practical/usable snapshot binaries.
+   # Skip using this component for test purposes for now in favour of creating
+   # more practical/usable snapshot binaries.
    # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-icu
 
    # Dependencies of 'prod' builds (we use our own builds instead for now)
@@ -78,7 +78,8 @@ if [ "${os}" = 'win' ] ; then
       # Will unpack into "./mingw64"
       7z x -y pack.bin > /dev/null
    else
-      # Bad hack to avoid duplicate manifests being linked into slightly "off" binaries.
+      # Bad hack to avoid duplicate manifests being linked into slightly
+      # "off" binaries.
       #    https://github.com/Alexpux/MSYS2-packages/issues/454
       #    https://gcc.gnu.org/bugzilla/show_bug.cgi?id=69880
       for file in \
