@@ -36,7 +36,7 @@ if [ -n "${os}" ]; then
         ;;
       os2)
         curl -f -O https://dl.dropboxusercontent.com/u/76425158/coreutils-8.8-os2-20101223.zip
-        curl -f -O http://hobbes.nmsu.edu/download/pub/os2/dev/util/make-3.81-r3-bin-static.zip
+        curl -f -O https://sunsite.icm.edu.pl/pub/hobbes/os2/dev/util/make-3.81-r3-bin-static.zip
         mkprefix='usr/'
         tlprefix='coreutils/'
         ;;
