@@ -1530,7 +1530,7 @@ Supported shells per host platforms:
 
 * Community forums:
 
-  * Generic:
+  * General:
      * [English](https://groups.google.com/forum/#!forum/harbour-users)
      * [Italian](https://groups.google.com/forum/#!forum/harbourita)
      * [Portuguese](http://pctoledo.com.br/forum/viewforum.php?f=4)
@@ -1569,6 +1569,7 @@ Supported shells per host platforms:
      * Harbour [internal documents](doc/)
      * [Wikipedia](https://en.wikipedia.org/wiki/Harbour_compiler)
      * [Stack Overflow](https://stackoverflow.com/questions/tagged/clipper)
+     * [Medium](https://medium.com/harbour-magazine)
 
 
 # Guarantees and Liability
