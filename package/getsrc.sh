@@ -11,7 +11,7 @@
 cd "$(dirname "$0")" || exit
 
 curl -fsS -L --proto-redir =https \
-   '_HB_URL_SRC_TGZ_' \
+   '_HB_URL_SRC_' \
 | tar --strip-components 1 -x
 
 echo "Sources downloaded and merged into the Harbour directory:"

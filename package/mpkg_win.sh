@@ -259,7 +259,7 @@ sed -e "s|_HB_VER_COMMIT_ID_SHORT_|${_vcs_id_short}|g" \
     'RELNOTES.txt' > "${HB_ABSROOT}RELNOTES.txt"
 touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}RELNOTES.txt"
 
-sed "s|_HB_URL_SRC_TGZ_|${_vcs_url}archive/${_vcs_id}.tar.gz|g" \
+sed "s|_HB_URL_SRC_|${_vcs_url}archive/${_vcs_id}.tar.gz|g" \
     'getsrc.sh' > "${HB_ABSROOT}getsrc.sh"
 chmod +x "${HB_ABSROOT}getsrc.sh"
 touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}getsrc.sh"
