@@ -5,7 +5,7 @@
 # See LICENSE.txt for licensing terms.
 # ---------------------------------------------------------------
 
-# Downloads binaries required to build Harbour on non-*nix platforms
+# Download binaries required to build Harbour on non-*nix platforms.
 # Requires: curl, 7z, unzip
 # Usage: ./gettools.sh [win|os2|dos]
 
@@ -31,9 +31,8 @@ if [ -n "${os}" ]; then
       win)
         curl -f -o pack.bin 'https://sourceforge.mirrorservice.org/m/mi/mingw-w64/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/6.3.0/threads-posix/dwarf/i686-6.3.0-release-posix-dwarf-rt_v5-rev1.7z'
         7z e -y pack.bin mingw32/bin/mingw32-make.exe > /dev/null
-        mv -f mingw32-make.exe ../win-make.exe
-        chmod -x ../win-make.exe
         rm -f pack.bin
+        mv -f mingw32-make.exe ../win-make.exe
         ;;
       os2)
         curl -f -O https://dl.dropboxusercontent.com/u/76425158/coreutils-8.8-os2-20101223.zip
