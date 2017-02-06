@@ -156,11 +156,11 @@ PROCEDURE hbtest_Call( cBlock, bBlock, xResultExpected )
    hb_langSelect( cLangOld )
 
    IF lRTE
-      lFailed := !( XToStr( xResult ) == XToStr( xResultExpected ) )
+      lFailed := ! XToStr( xResult ) == XToStr( xResultExpected )
    ELSEIF ValType( xResult ) == ValType( xResultExpected )
-      lFailed := !( xResult == xResultExpected )
+      lFailed := ! xResult == xResultExpected
    ELSEIF HB_ISSTRING( xResultExpected ) .AND. ValType( xResult ) $ "ABOHPS"
-      lFailed := !( XToStr( xResult ) == xResultExpected )
+      lFailed := ! XToStr( xResult ) == xResultExpected
    ELSE
       lFailed := .T.
    ENDIF

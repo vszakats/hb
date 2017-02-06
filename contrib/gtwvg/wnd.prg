@@ -288,7 +288,7 @@ METHOD WvgWindow:create( oParent, oOwner, aPos, aSize, aPresParams, lVisible )
    ::visible     := lVisible
 
    IF Empty( ::oParent )
-      IF !( ::ClassName() $ "WVGCRT,WVGDIALOG" )
+      IF ! ::ClassName() $ "WVGCRT,WVGDIALOG"
          ::oParent := WvgSetAppWindow()
       ENDIF
    ENDIF

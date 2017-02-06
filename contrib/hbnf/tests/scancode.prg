@@ -8,7 +8,7 @@ PROCEDURE Main()
 
    ? "Press any key, ESCape to exit:"
 
-   DO WHILE !( ( cKey := ft_ScanCode() ) == SCANCODE_ESCAPE )
+   DO WHILE ! ( cKey := ft_ScanCode() ) == SCANCODE_ESCAPE
       ? ;
          Str( hb_BPeek( cKey, 1 ), 3 ), ;
          Str( hb_BPeek( cKey, 2 ), 3 )

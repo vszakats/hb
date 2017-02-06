@@ -142,8 +142,8 @@ STATIC PROCEDURE DirEval( cInitDir, cMask, lRecur, bCode )
 
    FOR EACH file IN hb_vfDirectory( cInitDir + cMask, "HSD" )
       IF "D" $ file[ F_ATTR ]
-         IF !( "." == file[ F_NAME ] ) .AND. ;
-            !( ".." == file[ F_NAME ] ) .AND. lRecur
+         IF ! "." == file[ F_NAME ] .AND. ;
+            ! ".." == file[ F_NAME ] .AND. lRecur
             DirEval( cInitDir + file[ F_NAME ], cMask, lRecur, bCode )
          ENDIF
       ELSE

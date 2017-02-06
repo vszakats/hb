@@ -86,7 +86,7 @@ PROCEDURE Main( cInputFile )
       hWas := { => }
 
       FOR EACH tmp IN hb_regexAll( pRegex, StrTran( cFile, Chr( 13 ) ),,,,, .T. )
-         IF !( Val( tmp[ 3 ] ) $ hWas )
+         IF ! Val( tmp[ 3 ] ) $ hWas
             hWas[ Val( tmp[ 3 ] ) ] := NIL
             cOutput += "   CASE " + PadR( tmp[ 3 ], 5 ) + " ; RETURN " + '"' + tmp[ 2 ] + '"' + hb_eol()
          ENDIF

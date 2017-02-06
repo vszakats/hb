@@ -45,7 +45,7 @@ HB_DR="hb${HB_VS}/"
 HB_ABSROOT="${HB_RT}/${HB_DR}"
 
 _BRANCH="${APPVEYOR_REPO_BRANCH}${TRAVIS_BRANCH}${CI_BUILD_REF_NAME}${GIT_BRANCH}"
-[ -n "${_BRANCH}" ] || _BRANCH="$(git symbolic-ref --short -q HEAD)"
+[ -n "${_BRANCH}" ] || _BRANCH="$(git symbolic-ref --short --quiet HEAD)"
 [ -n "${_BRANCH}" ] || _BRANCH='master'
 
 _SCRIPT="$(realpath 'mpkg.hb')"

@@ -322,7 +322,7 @@ METHOD CheckTypes( aParams ) CLASS TRPCFunction
    i := 0
    FOR EACH oElem in ::aParameters
       i++
-      IF !( ValType( aParams[ i ] ) == oElem[ 1 ] )
+      IF ! ValType( aParams[ i ] ) == oElem[ 1 ]
          RETURN .F.
       ENDIF
    NEXT

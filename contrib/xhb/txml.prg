@@ -260,7 +260,7 @@ METHOD New( oNodeTop ) CLASS TXmlIteratorScan
 
 METHOD MatchCriteria( oFound ) CLASS TXmlIteratorScan
 
-   IF ::cName != NIL .AND. ( oFound:cName == NIL .OR. !( ::cName == oFound:cName ) )
+   IF ::cName != NIL .AND. ( oFound:cName == NIL .OR. ! ::cName == oFound:cName )
       RETURN .F.
    ENDIF
 
@@ -273,7 +273,7 @@ METHOD MatchCriteria( oFound ) CLASS TXmlIteratorScan
       RETURN .F.
    ENDIF
 
-   IF ::cData != NIL .AND. ( oFound:cData == NIL .OR. !( ::cData == oFound:cData ) )
+   IF ::cData != NIL .AND. ( oFound:cData == NIL .OR. ! ::cData == oFound:cData )
       RETURN .F.
    ENDIF
 
@@ -388,7 +388,7 @@ METHOD Write( hFile, nStyle ) CLASS TXMLDocument
 
    IF HB_ISSTRING( hFile )  // It's a filename
       IF ( hFile := hb_vfOpen( hFile, FO_CREAT + FO_TRUNC + FO_WRITE ) ) != NIL
-         IF Empty( ::oRoot:oChild ) .OR. !( ::oRoot:oChild:cName == "xml" )
+         IF Empty( ::oRoot:oChild ) .OR. ! ::oRoot:oChild:cName == "xml"
             hb_vfWrite( hFile, hb_defaultValue( ::cHeader, '<?xml version="1.0"?>' ) + hb_eol() )
          ENDIF
          nResult := ::oRoot:Write( hFile, nStyle )

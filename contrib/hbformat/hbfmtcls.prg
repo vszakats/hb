@@ -149,7 +149,7 @@ METHOD New( aParams, cIniName ) CLASS HBFormatCode
       NEXT
    ENDIF
 
-   IF !( Right( ::cCommands, 1 ) == "," )
+   IF ! Right( ::cCommands, 1 ) == ","
       ::cCommands += ","
    ENDIF
 
@@ -161,7 +161,7 @@ METHOD New( aParams, cIniName ) CLASS HBFormatCode
       "LOOP,MENU,NEXT,PACK,PRINT,QUIT,READ,RECALL,REINDEX,RELEASE,RENAME,REQUEST,REPLACE,RESTORE," + ;
       "RUN,SAVE,SEEK,SELECT,SET,SKIP,SORT,STORE,SUM,SWITCH,ENDSWITCH,TEXT,TOTAL,UNLOCK,UPDATE,USE,VAR,WAIT,ZAP,"
 
-   IF !( Right( ::cClauses, 1 ) == "," )
+   IF ! Right( ::cClauses, 1 ) == ","
       ::cClauses += ","
    ENDIF
 
@@ -175,10 +175,10 @@ METHOD New( aParams, cIniName ) CLASS HBFormatCode
       "EVENTMASK,VIDEOMODE,SCOPE,SCOPETOP,SCOPEBOTTOM,AUTORDER,AUTOSHARE,MBLOCKSIZE,MEMOBLOCK,MFILEEXT,STRICTREAD,OPTIMIZE,AUTOPEN,TIME," + ;
       "AMERICAN,ANSI,BRITISH,FRENCH,GERMAN,ITALIAN,JAPANESE,USA,SAFETY,STATUS,TALK,HEADING,ECHO,SDF,HBV,"
 
-   IF !( Right( ::cFunctions, 1 ) == "," )
+   IF ! Right( ::cFunctions, 1 ) == ","
       ::cFunctions += ","
    ENDIF
-   IF !( ",STR," $ Upper( ::cFunctions ) )
+   IF ! ",STR," $ Upper( ::cFunctions )
       ::cFunctions += "iif,ISNIL,ISARRAY,ISBLOCK,ISCHARACTER,ISDATE,ISLOGICAL,ISMEMO,ISNUMBER,ISOBJECT,Main"
       __hbformat_BuildListOfFunctions( @::cFunctions, ::cHBXList )
    ENDIF
@@ -585,7 +585,7 @@ METHOD FormatLine( cLine, lContinued ) CLASS HBFormatCode
                   ENDIF
                ENDIF
                IF ::lSpaces .AND. aBrackets[ iif( c == "(", 1, 2 ) ] <= ::nBr4Brac .AND. ;
-                     i < nLen .AND. !( SubStr( cLine, i + 1, 1 ) $ iif( c == "(", " )", " |}" ) )
+                     i < nLen .AND. ! SubStr( cLine, i + 1, 1 ) $ iif( c == "(", " )", " |}" )
                   nA := i
                ENDIF
                nState := FL_STATE_ANY
@@ -614,7 +614,7 @@ METHOD FormatLine( cLine, lContinued ) CLASS HBFormatCode
                   nA := i
                ENDIF
                nState := FL_STATE_ANY
-            ELSEIF c == "!" .AND. !( SubStr( cLine, i + 1, 1 ) == "=" )
+            ELSEIF c == "!" .AND. ! SubStr( cLine, i + 1, 1 ) == "="
                IF nState == FL_STATE_STRING
                   IF nEnd == nBegin
                      nEnd := i
@@ -656,7 +656,7 @@ METHOD FormatLine( cLine, lContinued ) CLASS HBFormatCode
                ENDIF
             ELSEIF c == ")" .OR. c == "}" .OR. c == "]"
                IF ::lSpaces .AND. aBrackets[ iif( c == "(", 1, 2 ) ] <= ::nBr4Brac .AND. ;
-                     i > 1 .AND. !( SubStr( cLine, i - 1, 1 ) $ " ({" )
+                     i > 1 .AND. ! SubStr( cLine, i - 1, 1 ) $ " ({"
                   nB := i
                ENDIF
                aBrackets[ iif( c == ")", 1, 2 ) ]--
@@ -667,13 +667,13 @@ METHOD FormatLine( cLine, lContinued ) CLASS HBFormatCode
             IF lFirst .AND. nState != FL_STATE_STRING
                lFirst := .F.
             ENDIF
-            IF !( "|" + SubStr( cLine, nB, 2 ) + "|" $ "|--|++|->|" )
-               IF nA != 0 .AND. ::lSpaces .AND. nA < nLen .AND. !( SubStr( cLine, nA + 1, 1 ) $ " ," )
+            IF ! "|" + SubStr( cLine, nB, 2 ) + "|" $ "|--|++|->|"
+               IF nA != 0 .AND. ::lSpaces .AND. nA < nLen .AND. ! SubStr( cLine, nA + 1, 1 ) $ " ,"
                   cLine := Left( cLine, nA ) + " " + SubStr( cLine, nA + 1 )
                   nLen++
                   i++
                ENDIF
-               IF nB != 0 .AND. ::lSpaces .AND. nB > 1 .AND. !( SubStr( cLine, nB - 1, 1 ) == " " )
+               IF nB != 0 .AND. ::lSpaces .AND. nB > 1 .AND. ! SubStr( cLine, nB - 1, 1 ) == " "
                   cLine := Left( cLine, nB - 1 ) + " " + SubStr( cLine, nB )
                   nLen++
                   i++
@@ -829,7 +829,7 @@ METHOD SetOption( cLine, i, aIni ) CLASS HBFormatCode
                ENDIF
             ENDIF
          ENDIF
-         IF ::nErr == 0 .AND. !( ValType( xRes ) == Left( cToken1, 1 ) )
+         IF ::nErr == 0 .AND. ! ValType( xRes ) == Left( cToken1, 1 )
             ::nErr := 4
          ENDIF
       ELSE
@@ -856,7 +856,7 @@ METHOD ReadIni( cIniName ) CLASS HBFormatCode
       nLen := Len( aIni )
       FOR i := 1 TO nLen
          IF ! ( aIni[ i ] := AllTrim( aIni[ i ] ) ) == "" .AND. ;
-               !( ( c := Left( aIni[ i ], 1 ) ) == ";" ) .AND. !( c == "#" )
+               ! ( c := Left( aIni[ i ], 1 ) ) == ";" .AND. ! c == "#"
             IF ! ::SetOption( aIni[ i ], @i, aIni )
                EXIT
             ENDIF

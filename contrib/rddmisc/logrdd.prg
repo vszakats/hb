@@ -184,9 +184,9 @@ STATIC FUNCTION LOGRDD_PUTVALUE( nWA, nField, xValue )
    LOCAL xOldValue := FieldGet( nField )
    LOCAL nResult   := UR_SUPER_PUTVALUE( nWA, nField, xValue )
 
-   // Log Only Changes
+   // Log changes only
 
-   IF !( xOldValue == xValue )
+   IF ! xOldValue == xValue
       ToLog( "PUTVALUE", nWA, nField, xValue, xOldValue )
    ENDIF
 

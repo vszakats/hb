@@ -197,7 +197,7 @@ METHOD StandardFields() CLASS TIPClientHTTP
    ENDIF
 
    // Perform a basic authentication request
-   IF ::cAuthMode == "Basic" .AND. !( "Authorization" $ ::hFields )
+   IF ::cAuthMode == "Basic" .AND. ! "Authorization" $ ::hFields
       oEncoder := TIPEncoderBase64():New()
       oEncoder:bHttpExcept := .T.
       ::inetSendAll( ::SocketCon, "Authorization: Basic " + ;
@@ -410,10 +410,10 @@ METHOD PROCEDURE setCookie( cLine ) CLASS TIPClientHTTP
    IF ! Empty( cName )
       // cookies are stored in hashes as host.path.name
       // check if we have a host hash yet
-      IF !( cHost $ ::hCookies )
+      IF ! cHost $ ::hCookies
          ::hCookies[ cHost ] := { => }
       ENDIF
-      IF !( cPath $ ::hCookies[ cHost ] )
+      IF ! cPath $ ::hCookies[ cHost ]
          ::hCookies[ cHost ][ cPath ] := { => }
       ENDIF
       ::hCookies[ cHost ][ cPath ][ cName ] := cValue

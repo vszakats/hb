@@ -888,7 +888,7 @@ STATIC FUNCTION _ftStuffComma( cStrToStuff, lTrimStuffedStr )
 
    LOCAL nDecPosit, x
 
-   IF !( "." $ cStrToStuff )
+   IF ! "." $ cStrToStuff
       cStrToStuff := Stuff( cStrToStuff, iif( ;
          "C" $ cStrToStuff .OR. "E" $ cStrToStuff .OR. "+" $ cStrToStuff .OR. ;
          "-" $ cStrToStuff .OR. "X" $ cStrToStuff .OR. "*" $ cStrToStuff .OR. ;

@@ -1416,7 +1416,7 @@ METHOD K_Del() CLASS XHBEditor
 
          // in case of softcr, reparse the paragraph.
          IF ::aText[ ::nRow ]:lSoftCR
-            IF !( Right( ::aText[ ::nRow ]:cText, 1 ) == " " )
+            IF ! Right( ::aText[ ::nRow ]:cText, 1 ) == " "
                ::aText[ ::nRow ]:cText += " "
             ENDIF
 
@@ -1855,7 +1855,7 @@ STATIC FUNCTION GetParagraph( oSelf, nRow )
       // I don't need to increment nRow since I'm removing lines, ie line n is
       // a different line each time I add it to cLine
       oSelf:RemoveLine( nRow )
-      IF ! cLine == "" .AND. !( Right( cLine, 1 ) == " " )
+      IF ! cLine == "" .AND. ! Right( cLine, 1 ) == " "
          cLine += " "
       ENDIF
    ENDDO
@@ -1880,7 +1880,7 @@ STATIC FUNCTION GetParagraph( oSelf, nRow )
       ENDIF
       // This is not needed and will corrupt long lines that do not have any spaces with wordwrap on. [GAD]
 #if 0
-      IF ! cLine == "" .AND. !( Right( cLine, 1 ) == " " )
+      IF ! cLine == "" .AND. ! Right( cLine, 1 ) == " "
          cLine += " "
       ENDIF
 #endif
@@ -1940,7 +1940,7 @@ METHOD SplitLine( nRow ) CLASS XHBEditor
       nFirstSpace := ::nWordWrapCol + 1
 
       // Split line at fist space before current position
-      DO WHILE nFirstSpace > 1 .AND. !( SubStr( cLine, nFirstSpace, 1 ) == " " )
+      DO WHILE nFirstSpace > 1 .AND. ! SubStr( cLine, nFirstSpace, 1 ) == " "
          nFirstSpace--
       ENDDO
 
@@ -1968,7 +1968,7 @@ METHOD SplitLine( nRow ) CLASS XHBEditor
       // A necessity because xHarbour does not insert the SoftCarriage and
       // then we are unable to keep trace of where the line break was while
       // reformatting [GAD]
-      IF !( Right( cSplittedLine, 1 ) == " " ) .AND. nFirstSpace > 1
+      IF ! Right( cSplittedLine, 1 ) == " " .AND. nFirstSpace > 1
          // 2006-07-21 - E.F. - Added condition to not stay out of max columns.
          IF Len( cSplittedLine ) < ::nNumCols
             cSplittedLine += " "

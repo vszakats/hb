@@ -164,7 +164,7 @@ METHOD BuildAddress() CLASS TUrl
       ENDIF
    ENDIF
 
-   IF ::cPath == "" .OR. !( Right( ::cPath, 1 ) == "/" )
+   IF ::cPath == "" .OR. ! Right( ::cPath, 1 ) == "/"
       ::cPath += "/"
    ENDIF
 
@@ -179,7 +179,7 @@ METHOD BuildQuery() CLASS TUrl
 
    LOCAL cLine
 
-   IF ::cPath == "" .OR. !( Right( ::cPath, 1 ) == "/" )
+   IF ::cPath == "" .OR. ! Right( ::cPath, 1 ) == "/"
       ::cPath += "/"
    ENDIF
 

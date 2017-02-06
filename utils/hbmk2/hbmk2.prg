@@ -14518,7 +14518,7 @@ STATIC FUNCTION VCSID( hbmk, cDir, cVCSHEAD, /* @ */ cType, /* @ */ hCustom )
             hCustom[ "COMMIT_MAIL" ] := aResult[ 5 ] /* UTF-8 */
 
             /* Use Git commit timestamp only if there are no local changes */
-            IF hb_processRun( cGitBase + "diff --name-only -q",, @cStdOut ) == 0
+            IF hb_processRun( cGitBase + "diff --name-only --quiet",, @cStdOut ) == 0
                hbmk[ _HBMK_tVCSTS ] := tmp - ( ( nOffset - hb_UTCOffset() ) / 86400 )
             ELSE
                hbmk[ _HBMK_tVCSTS ] := hb_DateTime()

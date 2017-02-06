@@ -488,7 +488,7 @@ METHOD PROCEDURE Put() CLASS HBRecord
    LOCAL xField
 
    FOR EACH xField IN ::aFields
-      IF !( xField:Value == ::buffer[ xField:__enumIndex() ] )
+      IF ! xField:Value == ::buffer[ xField:__enumIndex() ]
          xField:Put( ::buffer[ xField:__enumIndex() ] )
          ::buffer[ xField:__enumIndex() ] := xField:value
       ENDIF

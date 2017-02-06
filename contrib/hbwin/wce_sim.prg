@@ -81,7 +81,7 @@ METHOD lDeInitialize() CLASS wce_Sim
 
    IF ::lInitialized
       ::nLastError := wce_SimDeInitialize( ::hSim )
-      ::lInitialized := !( ::nLastError == SIM_E_OK )
+      ::lInitialized := ::nLastError != SIM_E_OK
    ELSE
       ::nLastError := SIM_E_HB_NOTINITIALIZED
    ENDIF

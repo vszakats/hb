@@ -440,7 +440,7 @@ FUNCTION ClearStatusMsg()
 PROCEDURE WvtPictures( nSlot, cFilePic )
 
    IF HB_ISNUMERIC( nSlot ) .AND. nSlot <= 20 .AND. hb_vfExists( cFilePic )
-      IF !( t_pic_[ nSlot ] == cFilePic )
+      IF ! t_pic_[ nSlot ] == cFilePic
          IF wvt_LoadPicture( cFilePic, nSlot )
             t_pic_[ nSlot ] := cFilePic
          ENDIF

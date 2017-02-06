@@ -162,7 +162,7 @@ METHOD List() CLASS TIPClientPOP
    ENDIF
 
    cRet := ""
-   DO WHILE !( cStr == "." ) .AND. ::inetErrorCode( ::SocketCon ) == 0
+   DO WHILE ! cStr == "." .AND. ::inetErrorCode( ::SocketCon ) == 0
       cStr := ::inetRecvLine( ::SocketCon, @nPos, 256 )
       IF ! HB_ISSTRING( cStr ) .OR. cStr == "."
          ::bEof := .T.
@@ -262,7 +262,7 @@ METHOD Top( nMsgId ) CLASS TIPClientPOP
    ENDIF
 
    cRet := ""
-   DO WHILE !( cStr == "." ) .AND. ::inetErrorCode( ::SocketCon ) == 0
+   DO WHILE ! cStr == "." .AND. ::inetErrorCode( ::SocketCon ) == 0
       cStr := ::inetRecvLine( ::SocketCon, @nPos, 512 )
       IF ! HB_ISSTRING( cStr ) .OR. cStr == "."
          ::bEof := .T.
@@ -300,7 +300,7 @@ METHOD UIDL( nMsgId ) CLASS TIPClientPOP
 
    IF Empty( nMsgId )
       cRet := ""
-      DO WHILE !( cStr == "." ) .AND. ::inetErrorCode( ::SocketCon ) == 0
+      DO WHILE ! cStr == "." .AND. ::inetErrorCode( ::SocketCon ) == 0
          cStr := ::inetRecvLine( ::SocketCon, @nPos, 256 )
          IF ! HB_ISSTRING( cStr ) .OR. cStr == "."
             ::bEof := .T.
@@ -386,9 +386,9 @@ METHOD getTop( nMsgId ) CLASS TIPClientPOP
    ENDIF
 
    xRet := cStr := ""
-   DO WHILE !( cStr == "." ) .AND. ::inetErrorCode( ::SocketCon ) == 0
+   DO WHILE ! cStr == "." .AND. ::inetErrorCode( ::SocketCon ) == 0
       cStr := ::inetRecvLine( ::SocketCon, @nPos, 1024 )
-      IF HB_ISSTRING( cStr ) .AND. !( cStr == "." )
+      IF HB_ISSTRING( cStr ) .AND. ! cStr == "."
          xRet += cStr + ::cCRLF
       ENDIF
    ENDDO

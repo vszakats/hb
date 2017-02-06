@@ -645,7 +645,7 @@ STATIC FUNCTION AR_SKIPFILTER( nWA, nRecords )
       DO WHILE ! aWAData[ WADATA_BOF ] .AND. ! aWAData[ WADATA_EOF ]
          IF ( Set( _SET_DELETED ) .AND. aRecInfo[ aWAData[ WADATA_RECNO ] ][ RECDATA_DELETED ] ) .OR. ;
                ( aWAData[ WADATA_FILTERINFO ] != NIL .AND. ! Eval( aWAData[ WADATA_FILTERINFO ][ UR_FRI_BEXPR ] ) )
-            IF !( AR_SKIPRAW( nWA, nToSkip ) == HB_SUCCESS )
+            IF AR_SKIPRAW( nWA, nToSkip ) != HB_SUCCESS
                RETURN HB_FAILURE
             ENDIF
             IF nToSkip < 0 .AND. aWAData[ WADATA_BOF ]

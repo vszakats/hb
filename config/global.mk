@@ -1887,7 +1887,7 @@ ifeq ($(HB_INIT_DONE),)
          ifneq ($(shell git diff --name-only --quiet),)
             $(info ! === WARNING: Locally modified source code ===)
          endif
-         $(info ! Source code: $(shell git rev-parse --short -q HEAD) $(shell git symbolic-ref --short -q HEAD) $(shell git ls-remote --get-url))
+         $(info ! Source code: $(shell git rev-parse --short --quiet HEAD) $(shell git symbolic-ref --short --quiet HEAD) $(shell git ls-remote --get-url))
          _cmd := git show --no-patch --format="%H%n%h%n%ci%n%an%n%ae" HEAD
          ifneq ($(HB_SHELL),sh)
             _cmd := $(subst %,%%,$(_cmd))

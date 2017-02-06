@@ -423,7 +423,7 @@ STATIC FUNCTION netiosrv_callback( netiomgm, netiosrv, pConnectionSocket, lManag
       /* Handle positive filter */
       IF ! Empty( netiosrv[ _NETIOSRV_hAllow ] )
          hb_mutexLock( netiosrv[ _NETIOSRV_mtxFilters ] )
-         IF !( cAddressPeer $ netiosrv[ _NETIOSRV_hAllow ] )
+         IF ! cAddressPeer $ netiosrv[ _NETIOSRV_hAllow ]
             IF hb_HScan( netiosrv[ _NETIOSRV_hAllow ], {| tmp | hb_WildMatch( tmp, cAddressPeer ) } ) == 0
                lBlocked := .T.
             ENDIF
@@ -493,7 +493,7 @@ STATIC PROCEDURE netiosrv_conn_register( netiosrv, pConnectionSocket )
 
    hb_mutexLock( netiosrv[ _NETIOSRV_mtxConnection ] )
 
-   IF !( pConnectionSocket $ netiosrv[ _NETIOSRV_hConnection ] )
+   IF ! pConnectionSocket $ netiosrv[ _NETIOSRV_hConnection ]
       netiosrv[ _NETIOSRV_hConnection ][ pConnectionSocket ] := nconn
    ENDIF
 
@@ -733,7 +733,7 @@ STATIC FUNCTION netiomgm_rpc_filtermod( netiosrv, hList, lAdd, cAddress )
    hb_mutexLock( netiosrv[ _NETIOSRV_mtxFilters ] )
 
    IF lAdd
-      IF !( cAddress $ hList )
+      IF ! cAddress $ hList
          hList[ cAddress ] := NIL
       ELSE
          lSuccess := .F.

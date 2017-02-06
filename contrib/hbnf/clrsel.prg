@@ -138,7 +138,7 @@ STATIC FUNCTION _ftColors( aOpt, aClrPal, lColor )
    OTHERWISE ; aPrompt := { " Standard ", " Selected ", " Border ", " Unselected " }
    ENDSWITCH
 
-   IF !( aOpt[ C_TYPE ] == "T" )  // no prompt for titles
+   IF ! aOpt[ C_TYPE ] == "T"  // no prompt for titles
       // we need to know top,left,bottom,right for the prompt window
       AEval( aPrompt, {| cPrompt | nLen := Max( nLen, Len( cPrompt ) ) } )
       nLen := Max( nLen, Len( aOpt[ C_NAME ] ) + 2 )
@@ -157,7 +157,7 @@ STATIC FUNCTION _ftColors( aOpt, aClrPal, lColor )
       // show sample window
       _ftShowIt( aOpt )
 
-      IF !( aOpt[ C_TYPE ] == "T" )  // no prompt for titles
+      IF ! aOpt[ C_TYPE ] == "T"  // no prompt for titles
          SetColor( iif( lColor, "N/W,W+/R,,,N/W", "N/W,W+/N,,,N/W" ) )
          Double( nT, nL + 1, nB, nR - 1 )
          hb_DispOutAt( nT, nL + 2, PadC( " " + aOpt[ C_NAME ] + " ", nR - nL - 3, hb_UTF8ToStr( "═" ) ) )
@@ -173,7 +173,7 @@ STATIC FUNCTION _ftColors( aOpt, aClrPal, lColor )
             //  desktop character
             aOpt := _ftDeskChar( aOpt )
             LOOP
-         CASE nChoice == 4 .AND. !( aOpt[ C_TYPE ] == "M" )
+         CASE nChoice == 4 .AND. ! aOpt[ C_TYPE ] == "M"
             nChoice := 5      // 4th color param is unused
          ENDCASE
       ENDIF
@@ -191,7 +191,7 @@ STATIC FUNCTION _ftColors( aOpt, aClrPal, lColor )
       cClr := aClrs[ nChoice ]    // selected color
 
       // allow change to specific part of color string
-      IF !( aOpt[ C_TYPE ] == "T" )
+      IF ! aOpt[ C_TYPE ] == "T"
          Single( nT, nL + 1, nB, nR - 1 )
          hb_DispOutAt( nT, nL + 2, PadC( " " + aOpt[ C_NAME ] + " ", nR - nL - 3, hb_UTF8ToStr( "─" ) ) )
       ENDIF
@@ -215,7 +215,7 @@ STATIC PROCEDURE _ftShowIt( aOpt )
 
    LOCAL aClr := _ftChr2Arr( aOpt[ C_CLR ] )
 
-   IF !( aOpt[ C_TYPE ] == "M" ) // no borders in menu color selection
+   IF ! aOpt[ C_TYPE ] == "M"  // no borders in menu color selection
       SetColor( aOpt[ C_CLR ] )  // this will set the border on VGA
    ENDIF
 

@@ -591,7 +591,7 @@ STATIC PROCEDURE ProcessCharMask( mnwinnum, mnebid, mcvaltype, mcpict )
 
          // Find First Non-Blank Position
          FOR x := 1 TO Len( InBuffer )
-            IF !( SubStr( InBuffer, x, 1 ) == " " )
+            IF ! SubStr( InBuffer, x, 1 ) == " "
                fnb := x
                EXIT
             ENDIF
@@ -689,7 +689,7 @@ STATIC PROCEDURE ProcessCharMask( mnwinnum, mnebid, mcvaltype, mcpict )
    NEXT
 
    // Replace Content
-   IF !( BackInBuffer == OutBuffer )
+   IF ! BackInBuffer == OutBuffer
       wvw_ebSetText( mnwinnum, mnebid, OutBuffer )
    ENDIF
 
@@ -730,7 +730,7 @@ STATIC PROCEDURE ProcessCharMask( mnwinnum, mnebid, mcvaltype, mcpict )
             CM := SubStr( Mask, icp + x, 1 )
 
             IF ! IsDigit( CB ) .AND. ! IsAlpha( CB ) .AND. ;
-               ( !( CB == " " ) .OR. ( CB == " " .AND. CM == " " ) )
+               ( ! CB == " " .OR. ( CB == " " .AND. CM == " " ) )
                wvw_ebSetSel( mnwinnum, mnebid, icp + x, icp + x )
             ELSE
                EXIT

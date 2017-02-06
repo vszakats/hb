@@ -65,7 +65,7 @@ METHOD Read( /* @ */ cRequest, nReqLen, nTimeout ) CLASS UHttpdConnection
 
    hb_default( @nReqLen, -1 )  // Non-numeric or negative value will read till the first double-CRLF
 
-   DO WHILE iif( nReqLen >= 0, hb_BLen( ::cBuffer ) < nReqLen, !( CR_LF + CR_LF $ ::cBuffer ) ) .AND. ! httpd:IsStopped()
+   DO WHILE iif( nReqLen >= 0, hb_BLen( ::cBuffer ) < nReqLen, ! CR_LF + CR_LF $ ::cBuffer ) .AND. ! httpd:IsStopped()
 
       IF ::hSSL != NIL
          nLen := MY_SSL_READ( ::bTrace, ::hSSL, ::hSocket, @cBuf, 1000, @nErr )
@@ -197,7 +197,7 @@ METHOD Run( hConfig ) CLASS UHttpd
       "FirewallFilter"       => "0.0.0.0/0" }
 
    FOR EACH xValue IN hConfig
-      IF !( xValue:__enumKey $ ::hConfig ) .OR. !( ValType( xValue ) == ValType( ::hConfig[ xValue:__enumKey ] ) )
+      IF ! xValue:__enumKey $ ::hConfig .OR. ! ValType( xValue ) == ValType( ::hConfig[ xValue:__enumKey ] )
          ::cError := "Invalid config option '" + xValue:__enumKey + "'"
          RETURN .F.
       ENDIF
@@ -375,7 +375,7 @@ STATIC FUNCTION ParseFirewallFilter( cFilter, aFilter )
                ENDIF
             ELSE
                nPrefix := Val( cI )
-               IF nPrefix < 0 .OR. nPrefix > 32 .OR. !( hb_ntos( nPrefix ) == cI )
+               IF nPrefix < 0 .OR. nPrefix > 32 .OR. ! hb_ntos( nPrefix ) == cI
                   RETURN .F.
                ENDIF
             ENDIF
@@ -547,7 +547,7 @@ STATIC FUNCTION ProcessConnection( oServer )
    LOCAL hSocket, cRequest, aI, nLen, nErr, nTime, nReqLen, cBuf, aServer
    LOCAL hSSL, oConnection
 
-   LOCAL lRequestFilter := !( oServer:hConfig[ "RequestFilter" ] == hb_noop() )
+   LOCAL lRequestFilter := ! oServer:hConfig[ "RequestFilter" ] == hb_noop()
 
    ErrorBlock( {| o | UErrorHandler( o, oServer ) } )
 
@@ -677,9 +677,9 @@ STATIC FUNCTION ProcessConnection( oServer )
             IF ! hb_LeftEq( server[ "SERVER_PROTOCOL" ], "HTTP/" )
                USetStatusCode( 400 ) /* Bad request */
                UAddHeader( "Connection", "close" )
-            ELSEIF !( SubStr( server[ "SERVER_PROTOCOL" ], 6 ) $ "1.0 1.1" )
+            ELSEIF ! SubStr( server[ "SERVER_PROTOCOL" ], 6 ) $ "1.0 1.1"
                USetStatusCode( 505 ) /* HTTP version not supported */
-            ELSEIF !( server[ "REQUEST_METHOD" ] $ "GET POST" )
+            ELSEIF ! server[ "REQUEST_METHOD" ] $ "GET POST"
                USetStatusCode( 501 ) /* Not implemented */
             ELSE
                IF server[ "SERVER_PROTOCOL" ] == "HTTP/1.1"
@@ -854,7 +854,7 @@ STATIC FUNCTION ParseRequestHeader( cRequest )
          ENDSWITCH
       ENDIF
    NEXT
-   IF !( server[ "QUERY_STRING" ] == "" )
+   IF ! server[ "QUERY_STRING" ] == ""
       FOR EACH cI IN hb_ATokens( server[ "QUERY_STRING" ], "&" )
          IF ( nI := At( "=", cI ) ) > 0
             get[ UUrlDecode( Left( cI, nI - 1 ) ) ] := UUrlDecode( SubStr( cI, nI + 1 ) )
@@ -876,7 +876,7 @@ STATIC PROCEDURE ParseRequestBody( cRequest )
       IF ( nI := At( "CHARSET=", Upper( server[ "CONTENT_TYPE" ] ) ) ) > 0
          cEncoding := Upper( SubStr( server[ "CONTENT_TYPE" ], nI + 8 ) )
       ENDIF
-      IF !( cRequest == "" )
+      IF ! cRequest == ""
          IF cEncoding == "UTF-8"
             FOR EACH cPart IN hb_ATokens( cRequest, "&" )
                IF ( nI := At( "=", cPart ) ) > 0
@@ -1256,7 +1256,7 @@ PROCEDURE USessionStart()
    ENDIF
 
    hb_mutexLock( httpd:hmtxSession )
-   IF cSID == NIL .OR. !( cSID $ httpd:hSession )
+   IF cSID == NIL .OR. ! cSID $ httpd:hSession
       // Session does not exist
       USessionCreateInternal()
    ELSE
@@ -1424,7 +1424,7 @@ PROCEDURE UProcFiles( cFileName, lIndex )
          UWrite( hb_MemoRead( UOsFileName( cFileName ) ) )
       ENDIF
    ELSEIF hb_vfDirExists( UOsFileName( cFileName ) )
-      IF !( Right( cFileName, 1 ) == "/" )
+      IF ! Right( cFileName, 1 ) == "/"
          URedirect( iif( server[ "HTTPS" ], "https", "http" ) + "://" + server[ "HTTP_HOST" ] + server[ "SCRIPT_NAME" ] + "/" )
          RETURN
       ENDIF
