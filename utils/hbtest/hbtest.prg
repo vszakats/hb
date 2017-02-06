@@ -441,11 +441,11 @@ PROCEDURE TEST_CALL( cBlock, bBlock, xResultExpected )
       ErrorBlock( bOldError )
 
       IF lRTE
-         lFailed := !( XToStr( xResult ) == XToStr( xResultExpected ) )
+         lFailed := ! XToStr( xResult ) == XToStr( xResultExpected )
       ELSEIF ValType( xResult ) == ValType( xResultExpected )
-         lFailed := !( xResult == xResultExpected )
+         lFailed := ! xResult == xResultExpected
       ELSEIF ValType( xResultExpected ) == "C" .AND. ValType( xResult ) $ "ABMO"
-         lFailed := !( XToStr( xResult ) == xResultExpected )
+         lFailed := ! XToStr( xResult ) == xResultExpected
       ELSE
          lFailed := .T.
       ENDIF

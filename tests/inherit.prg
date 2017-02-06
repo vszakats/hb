@@ -138,7 +138,7 @@ METHOD Read() CLASS TTextFile
 
    IF ::hFile == NIL
       ? "File:Read: No file open"
-   ELSEIF !( ::cMode == "R" )
+   ELSEIF ! ::cMode == "R"
       ? "File", ::cFileName, "not open for reading"
    ELSEIF ! ::lEoF
 
@@ -186,7 +186,7 @@ METHOD WriteLn( xTxt, lCRLF ) CLASS TTextFile
 
    IF ::hFile == NIL
       ? "File:Write: No file open"
-   ELSEIF !( ::cMode == "W" )
+   ELSEIF ! ::cMode == "W"
       ? "File", ::cFileName, "not opened for writing"
    ELSE
       cBlock := hb_ValToExp( xTxt )             // Convert to string
@@ -208,7 +208,7 @@ METHOD Goto( nLine ) CLASS TTextFile
 
    IF ::hFile == NIL
       ? "File:Goto: No file open"
-   ELSEIF !( ::cMode == "R" )
+   ELSEIF ! ::cMode == "R"
       ? "File", ::cFileName, "not open for reading"
    ELSE
       ::lEoF   := .F.                           // Clear (old) End of file

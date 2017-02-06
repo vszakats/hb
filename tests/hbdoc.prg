@@ -42,8 +42,8 @@ PROCEDURE Main( cRoot )
 
    FOR EACH aFile IN hb_vfDirectory( cRoot + "contrib" + hb_ps() + hb_osFileMask(), "D" )
       IF "D" $ aFile[ F_ATTR ] .AND. ;
-         !( aFile[ F_NAME ] == "." ) .AND. ;
-         !( aFile[ F_NAME ] == ".." )
+         ! aFile[ F_NAME ] == "." .AND. ;
+         ! aFile[ F_NAME ] == ".."
          AAdd( aDir, cRoot + "contrib" + hb_ps() + aFile[ F_NAME ] )
       ENDIF
    NEXT
