@@ -94,7 +94,7 @@ PROCEDURE Main( ... )
 
       /* Installing some misc files */
       tmp := GetEnvC( "HB_INSTALL_DOC" )
-      IF !( tmp == "no" )
+      IF ! tmp == "no"
          IF GetEnvC( "HB_PLATFORM" ) $ "win|wce|os2|dos"
             tmp := GetEnvC( "HB_INSTALL_PREFIX" )
          ENDIF
@@ -174,7 +174,7 @@ PROCEDURE Main( ... )
          ENDIF
       ENDIF
 
-      IF !( GetEnvC( "HB_PLATFORM" ) $ "win|wce|os2|dos|cygwin" ) .AND. ;
+      IF ! GetEnvC( "HB_PLATFORM" ) $ "win|wce|os2|dos|cygwin" .AND. ;
          ! Empty( GetEnvC( "HB_INSTALL_DYN" ) ) .AND. ;
          hb_vfExists( hb_DirSepToOS( GetEnvC( "HB_DYNLIB_DIR" ) ) + hb_ps() + GetEnvC( "HB_DYNLIB_PREF" ) + GetEnvC( "HB_DYNLIB_BASE" ) + GetEnvC( "HB_DYNLIB_POST" ) + GetEnvC( "HB_DYNLIB_EXT" ) + GetEnvC( "HB_DYNLIB_PEXT" ) )
 
@@ -218,7 +218,7 @@ PROCEDURE Main( ... )
          OutStd( "! Creating core translation (.hbl) files..." + hb_eol() )
 
          FOR EACH tmp IN hb_vfDirectory( "utils" + hb_ps() + hb_osFileMask(), "D" )
-            IF "D" $ tmp[ F_ATTR ] .AND. !( tmp[ F_NAME ] == "." ) .AND. !( tmp[ F_NAME ] == ".." )
+            IF "D" $ tmp[ F_ATTR ] .AND. ! tmp[ F_NAME ] == "." .AND. ! tmp[ F_NAME ] == ".."
                FOR EACH aFile IN hb_vfDirectory( hb_DirSepToOS( "utils/" + tmp[ F_NAME ] + "/po/*.po" ) )
                   mk_hbl( hb_DirSepToOS( "utils/" + tmp[ F_NAME ] + "/po/" + aFile[ F_NAME ] ), ;
                      hb_DirSepToOS( GetEnvC( "HB_INSTALL_DOC" ) ) + hb_ps() + hb_FNameExtSet( aFile[ F_NAME ], ".hbl" ) )
@@ -229,7 +229,7 @@ PROCEDURE Main( ... )
 
       /* Creating docs for core */
 
-      IF ! Empty( tmp := GetEnvC( "HB_INSTALL_DOC" ) ) .AND. !( tmp == "no" )
+      IF ! Empty( tmp := GetEnvC( "HB_INSTALL_DOC" ) ) .AND. ! tmp == "no"
 
          OutStd( "! Compiling core documentation (.hbd)..." + hb_eol() )
 
@@ -249,7 +249,7 @@ PROCEDURE Main( ... )
 
       IF GetEnvC( "HB_BUILD_PKG" ) == "yes" .AND. ;
          ! Empty( GetEnvC( "HB_TOP" ) ) .AND. ;
-         !( GetEnvC( "_HB_BUILD_PKG_ARCHIVE" ) == "no" )
+         ! GetEnvC( "_HB_BUILD_PKG_ARCHIVE" ) == "no"
 
          IF GetEnvC( "HB_PLATFORM" ) $ "win|wce|os2|dos"
 
@@ -310,7 +310,7 @@ PROCEDURE Main( ... )
 
                hb_cwd( cOldDir )
 
-               IF !( GetEnvC( "HB_PLATFORM" ) == "dos" )
+               IF ! GetEnvC( "HB_PLATFORM" ) == "dos"
 
                   tmp := GetEnvC( "HB_TOP" ) + hb_ps() + cTar_Name + ".inst.sh"
 
@@ -443,7 +443,7 @@ STATIC FUNCTION mk_hb_vfTimeSet( cFileName )
 
    RETURN ;
       ! HB_ISSTRING( cFileName ) .OR. ;
-      !( GetEnvC( "HB_BUILD_PKG" ) == "yes" ) .OR. ;
+      ! GetEnvC( "HB_BUILD_PKG" ) == "yes" .OR. ;
       Empty( s_tVCS ) .OR. ;
       hb_vfTimeSet( cFileName, s_tVCS )
 
@@ -804,7 +804,7 @@ STATIC FUNCTION __hb_extern_get_list( cInputName )
                hExtern := { => }
                FOR EACH tmp IN aResult
                   tmp[ 2 ] := hb_asciiUpper( tmp[ 2 ] )
-                  IF !( tmp[ 2 ] $ hExtern )
+                  IF ! tmp[ 2 ] $ hExtern
                      AAdd( aExtern, tmp[ 2 ] )
                      hExtern[ tmp[ 2 ] ] := NIL
                   ENDIF

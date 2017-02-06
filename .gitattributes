@@ -1,52 +1,6 @@
 # Default
 *         text=auto
 
-# These files are text and should be normalized (convert CRLF => LF)
-*.1       text
-*.api     text
-*.asc     text
-*.bas     text
-*.c       text
-*.cfg     text
-*.ch      text
-*.cpp     text
-*.css     text
-*.def     text
-*.diff    text
-*.h       text
-*.hb      text
-*.hbc     text
-*.hbm     text
-*.hbp     text
-*.hbx     text
-*.html    text
-*.in      text
-*.ini     text
-*.js      text
-*.m       text
-*.md      text
-*.mk      text
-*.pem     text
-*.po      text
-*.prg     text
-*.rb      text
-*.rc      text
-*.scss    text
-*.spec    text
-*.svg     text
-*.txt     text
-*.vbs     text
-*.xml     text
-*.xpm     text
-*.y       text
-*.yml     text
-*.yyc     text
-*.yyh     text
-
-# Text files with fixed EOL requirements
-*.bat     text eol=crlf
-*.sh      text eol=lf
-
 # Binary files
 *.bmp     binary
 *.dbf     binary
@@ -64,11 +18,5 @@
 *.sqlite3 binary
 *.ttf     binary
 
-# TOTEST:
-#*.c       text diff=cpp
-#*.h       text diff=cpp
-#*.html    text diff=html
-#*.m       text diff=objc
-#*.rb      text diff=ruby
-
-## casematters
+# Legacy files
+*.bat     text eol=crlf

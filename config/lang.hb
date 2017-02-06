@@ -363,7 +363,7 @@ STATIC FUNCTION StrUnspace( cString )
 
       cChar := SubStr( cString, tmp, 1 )
 
-      IF !( cChar == " " ) .OR. !( cCharPrev == " " )
+      IF ! cChar == " " .OR. ! cCharPrev == " "
          cResult += cChar
       ENDIF
 

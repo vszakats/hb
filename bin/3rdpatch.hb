@@ -656,14 +656,14 @@ STATIC FUNCTION WalkAndFind( cTop, cLookFor )
 
    cTop := hb_DirSepAdd( cTop )
 
-   FOR EACH aDirEntry IN ASort( hb_vfDirectory( cTop + hb_osFileMask(), "D" ),,, {| aLeft | !( "D" $ aLeft[ F_ATTR ] ) } )  /* Files first */
-      IF !( "D" $ aDirEntry[ F_ATTR ] )
+   FOR EACH aDirEntry IN ASort( hb_vfDirectory( cTop + hb_osFileMask(), "D" ),,, {| aLeft | ! "D" $ aLeft[ F_ATTR ] } )  /* Files first */
+      IF ! "D" $ aDirEntry[ F_ATTR ]
          IF aDirEntry[ F_NAME ] == cLookFor
             cRetVal := cTop
             EXIT
          ENDIF
-      ELSEIF !( aDirEntry[ F_NAME ] == "." ) .AND. ;
-             !( aDirEntry[ F_NAME ] == ".." )
+      ELSEIF ! aDirEntry[ F_NAME ] == "." .AND. ;
+             ! aDirEntry[ F_NAME ] == ".."
          cRetVal := WalkAndFind( cTop + aDirEntry[ F_NAME ], cLookFor )
          IF ! Empty( cRetVal )
             EXIT
@@ -854,7 +854,7 @@ STATIC FUNCTION URL_GetFileName( cURL )
    ENDIF
 
    cName := aComponents[ nIdx ]
-   DO WHILE !( "." $ cName )
+   DO WHILE ! "." $ cName
       cName := aComponents[ --nIdx ]
       IF nIdx < 4  /* don't drain all components */
          RETURN ""

@@ -34,8 +34,4 @@ obj
 *.bak
 
 # exceptions
-!libunicows.a
-!unicows.lib
-!lib/3rd
-!config/*.exe
 !/*.exe

@@ -143,12 +143,12 @@ STATIC PROCEDURE Standalone( aParams, hProjectList )
    cOptionsUser := ""
    lCustom := .F.
    FOR EACH tmp IN aParams
-      IF !( Lower( tmp ) == "install" ) .AND. ;
-         !( Lower( tmp ) == "clean" ) .AND. ;
-         !( Lower( tmp ) == "all" ) .AND. ;
-         !( Lower( tmp ) == "first" ) .AND. ;
-         !( Lower( tmp ) == "rebuild" ) .AND. ;
-         !( Lower( tmp ) == "verbose" )
+      IF ! Lower( tmp ) == "install" .AND. ;
+         ! Lower( tmp ) == "clean" .AND. ;
+         ! Lower( tmp ) == "all" .AND. ;
+         ! Lower( tmp ) == "first" .AND. ;
+         ! Lower( tmp ) == "rebuild" .AND. ;
+         ! Lower( tmp ) == "verbose"
 
          cOptionsUser += " " + tmp
 
@@ -403,9 +403,9 @@ STATIC PROCEDURE build_projects( nAction, hProjectList, hProjectReqList, cOption
       (we need "cType" to decide about dynamic build) */
    IF GetEnv( "HB_BUILD_CONTRIB_DYN" ) == "yes"
       FOR EACH cProject IN aSortedList
-         IF !( cProject $ hProjectReqList ) .AND. ;
+         IF ! cProject $ hProjectReqList .AND. ;
             cProject $ hProjectList .AND. ;
-            !( "lChecked" $ hProjectList[ cProject ] )
+            ! "lChecked" $ hProjectList[ cProject ]
             call_hbmk2_hbinfo( s_cBase + s_cHome + cProject, hProjectList[ cProject ] )
          ENDIF
       NEXT
@@ -526,7 +526,7 @@ STATIC PROCEDURE call_hbmk2_hbinfo( cProjectPath, hProject )
                'contrib' directory tree. This case can be detected by
                verifying if the full path remained unchanged after
                rebasing to contrib root. */
-            IF !( tmp1 == tmp2 )
+            IF ! tmp1 == tmp2
                AAdd( hProject[ "aDept" ], { "nDepth" => Len( tmp ) - Len( LTrim( tmp ) ), ;
                   "cFileName_HBP" => StrTran( tmp1, "\", "/" ) } )
             ENDIF
@@ -771,7 +771,7 @@ STATIC PROCEDURE LoadProjectListAutomatic( hProjectList, cDir )
    cDir := hb_DirSepAdd( hb_DirSepToOS( cDir ) )
 
    FOR EACH aFile IN hb_vfDirectory( cDir, "D" )
-      IF "D" $ aFile[ F_ATTR ] .AND. !( aFile[ F_NAME ] == "." ) .AND. !( aFile[ F_NAME ] == ".." )
+      IF "D" $ aFile[ F_ATTR ] .AND. ! aFile[ F_NAME ] == "." .AND. ! aFile[ F_NAME ] == ".."
          IF hb_vfExists( cDir + ( tmp := aFile[ F_NAME ] + hb_ps() + hb_FNameExtSet( aFile[ F_NAME ], ".hbp" ) ) )
             AddProject( hProjectList, tmp )
          ENDIF

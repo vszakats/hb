@@ -164,7 +164,7 @@ STATIC FUNCTION win_PESetTimestamp( cFileName, tDateHdr )
             Bin2W( hb_vfReadLen( hFile, 2 ) ) + ;
             Bin2W( hb_vfReadLen( hFile, 2 ) ) * 0x10000
          hb_vfSeek( hFile, nPEPos, FS_SET )
-         IF !( hb_vfReadLen( hFile, 4 ) == "PE" + hb_BChar( 0 ) + hb_BChar( 0 ) )
+         IF ! hb_vfReadLen( hFile, 4 ) == "PE" + hb_BChar( 0 ) + hb_BChar( 0 )
             nPEPos := NIL
          ENDIF
       ELSEIF cSignature + hb_vfReadLen( hFile, 2 ) == "PE" + hb_BChar( 0 ) + hb_BChar( 0 )
@@ -189,7 +189,7 @@ STATIC FUNCTION win_PESetTimestamp( cFileName, tDateHdr )
                hb_BChar( nDWORD % 0x100 ) + ;
                hb_BChar( nDWORD / 0x100 )
 
-            IF !( hb_vfReadLen( hFile, 4 ) == cDWORD ) .AND. ;
+            IF ! hb_vfReadLen( hFile, 4 ) == cDWORD .AND. ;
                hb_vfSeek( hFile, nPEPos + 0x0008, FS_SET ) == nPEPos + 0x0008 .AND. ;
                hb_vfWrite( hFile, cDWORD ) == hb_BLen( cDWORD )
                lModified := .T.
@@ -225,7 +225,7 @@ STATIC FUNCTION win_PESetTimestamp( cFileName, tDateHdr )
                   NEXT
                   IF nPEPos != NIL .AND. ;
                      hb_vfSeek( hFile, nPEPos + 0x0004, FS_SET ) == nPEPos + 0x0004
-                     IF !( hb_vfReadLen( hFile, 4 ) == cDWORD ) .AND. ;
+                     IF ! hb_vfReadLen( hFile, 4 ) == cDWORD .AND. ;
                         hb_vfSeek( hFile, nPEPos + 0x0004, FS_SET ) == nPEPos + 0x0004 .AND. ;
                         hb_vfWrite( hFile, cDWORD ) == hb_BLen( cDWORD )
                         lModified := .T.

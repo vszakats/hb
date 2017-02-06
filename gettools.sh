@@ -15,8 +15,8 @@ os="$1"
 if [ -z "${os}" ]; then
   case "$(uname)" in
     *_NT*)    readonly os='win';;
-    *OS/2*)   readonly os='os2';;  # untested
-    *MS-DOS*) readonly os='dos';;  # untested
+    *OS/2*)   readonly os='os2';;
+    *MS-DOS*) readonly os='dos';;
   esac
 fi
 
