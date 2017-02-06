@@ -406,7 +406,7 @@ METHOD GetApplyKey( nKey, oGet, oMenu, aMsg ) CLASS HBGetList
 
       IF ! HB_ISOBJECT( oMenu )
          nButton := 0
-      ELSEIF !( oMenu:ClassName() == "TOPBARMENU" )
+      ELSEIF ! oMenu:ClassName() == "TOPBARMENU"
          nButton := 0
       ELSEIF ( nButton := oMenu:hitTest( nMRow, nMCol ) ) != 0
          ::nMenuID := MenuModal( oMenu, nHotItem, aMsg[ MSGROW ], aMsg[ MSGLEFT ], aMsg[ MSGRIGHT ], aMsg[ MSGCOLOR ] )
@@ -1011,7 +1011,7 @@ METHOD GUIApplyKey( oGet, oGUI, nKey, oMenu, aMsg ) CLASS HBGetList
             nKeyStd := 0
          ENDIF
 
-      ELSEIF !( ( cKey := hb_keyChar( nKeyStd ) ) == "" ) .AND. ;
+      ELSEIF ! ( cKey := hb_keyChar( nKeyStd ) ) == "" .AND. ;
              ( nButton := oGUI:FindText( cKey, oGUI:Value + 1, .F., .F. ) ) != 0
          oGUI:Select( nButton )
 
@@ -1087,7 +1087,7 @@ METHOD GUIApplyKey( oGet, oGUI, nKey, oMenu, aMsg ) CLASS HBGetList
 
       IF ! HB_ISOBJECT( oMenu )
          nButton := 0
-      ELSEIF !( oMenu:ClassName() == "TOPBARMENU" )
+      ELSEIF ! oMenu:ClassName() == "TOPBARMENU"
          nButton := 0
       ELSEIF ( nButton := oMenu:hitTest( nMRow, nMCol ) ) != 0
          ::nMenuID := MenuModal( oMenu, nHotItem, aMsg[ MSGROW ], aMsg[ MSGLEFT ], aMsg[ MSGRIGHT ], aMsg[ MSGCOLOR ] )
@@ -1147,7 +1147,7 @@ METHOD GUIPreValidate( oGet, oGUI, aMsg ) CLASS HBGetList
 
       lWhen := Eval( oGet:preBlock, oGet, aMsg )
 
-      IF !( oGUI:ClassName() == "TBROWSE" )
+      IF ! oGUI:ClassName() == "TBROWSE"
          oGet:display()
       ENDIF
 
@@ -1181,7 +1181,7 @@ METHOD GUIPostValidate( oGet, oGUI, aMsg ) CLASS HBGetList
       RETURN .T.                   // NOTE
    ENDIF
 
-   IF !( oGUI:ClassName() == "TBROWSE" )
+   IF ! oGUI:ClassName() == "TBROWSE"
       xOldValue := oGet:varGet()
       SWITCH oGUI:ClassName()
       CASE "LISTBOX"
@@ -1196,7 +1196,7 @@ METHOD GUIPostValidate( oGet, oGUI, aMsg ) CLASS HBGetList
       ENDSWITCH
    ENDIF
 
-   IF !( xOldValue == xNewValue )
+   IF ! xOldValue == xNewValue
       oGet:varPut( xNewValue )
       ::lUpdated := .T.
    ENDIF
@@ -1212,7 +1212,7 @@ METHOD GUIPostValidate( oGet, oGUI, aMsg ) CLASS HBGetList
       SetPos( oGet:row, oGet:col )
 
       ::ShowScoreBoard()
-      IF !( oGUI:ClassName() == "TBROWSE" )
+      IF ! oGUI:ClassName() == "TBROWSE"
          oGUI:Select( oGet:varGet() )
       ENDIF
 
@@ -1306,7 +1306,7 @@ METHOD TBApplyKey( oGet, oTB, nKey, oMenu, aMsg ) CLASS HBGetList
 
       IF ! HB_ISOBJECT( oMenu )
          nButton := 0
-      ELSEIF !( oMenu:ClassName() == "TOPBARMENU" )
+      ELSEIF ! oMenu:ClassName() == "TOPBARMENU"
          nButton := 0
       ELSEIF ( nButton := oMenu:hitTest( nMRow, nMCol ) ) != 0
          ::nMenuID := MenuModal( oMenu, nHotItem, aMsg[ MSGROW ], aMsg[ MSGLEFT ], aMsg[ MSGRIGHT ], aMsg[ MSGCOLOR ] )
@@ -1452,7 +1452,7 @@ METHOD Accelerator( nKey, aMsg ) CLASS HBGetList
          oGet  := ::aGetList[ nGet ]
 
          IF HB_ISOBJECT( oGet:control ) .AND. ;
-            !( oGet:Control:ClassName() == "TBROWSE" )
+            ! oGet:Control:ClassName() == "TBROWSE"
 
             cCaption := oGet:control:caption
          ELSE

@@ -688,14 +688,14 @@ METHOD select( xPos ) CLASS ListBox
    DO CASE
    CASE cType == "C"
       nPos := ::findData( xPos )
-      IF !( ValType( ::xBuffer ) $ "CU" )
+      IF ! ValType( ::xBuffer ) $ "CU"
          ::xBuffer := nPos
       ELSEIF ::nValue == 0
          ::xBuffer := xPos
       ELSE
          ::xBuffer := _LISTBOX_ITEMDATA( ::aItems[ nPos ] )
       ENDIF
-   CASE !( cType == "N" )
+   CASE ! cType == "N"
       RETURN ::nValue
    CASE xPos < 1
       RETURN ::nValue

@@ -70,7 +70,7 @@ FUNCTION hb_PathNormalize( cPath )
 
             hb_ADel( aDir, cDir:__enumIndex(), .T. )
 
-         ELSEIF !( cDir == ".." ) .AND. ;
+         ELSEIF ! cDir == ".." .AND. ;
             ! cDir == "" .AND. ;
             ! _ISDRIVESPEC( cDir )
 
@@ -226,7 +226,7 @@ FUNCTION hb_DirSepAdd( cDir )
 
    IF ! cDir == "" .AND. ;
       ! _ISDRIVESPEC( cDir ) .AND. ;
-      !( Right( cDir, 1 ) == hb_ps() )
+      ! Right( cDir, 1 ) == hb_ps()
 
       cDir += hb_ps()
    ENDIF
@@ -241,14 +241,14 @@ FUNCTION hb_DirSepDel( cDir )
 
    IF hb_osDriveSeparator() == ""
       DO WHILE Len( cDir ) > 1 .AND. Right( cDir, 1 ) == hb_ps() .AND. ;
-         !( cDir == hb_ps() + hb_ps() )
+         ! cDir == hb_ps() + hb_ps()
 
          cDir := hb_StrShrink( cDir )
       ENDDO
    ELSE
       DO WHILE Len( cDir ) > 1 .AND. Right( cDir, 1 ) == hb_ps() .AND. ;
-         !( cDir == hb_ps() + hb_ps() ) .AND. ;
-         !( Right( cDir, Len( hb_osDriveSeparator() ) + 1 ) == hb_osDriveSeparator() + hb_ps() )
+         ! cDir == hb_ps() + hb_ps() .AND. ;
+         ! Right( cDir, Len( hb_osDriveSeparator() ) + 1 ) == hb_osDriveSeparator() + hb_ps()
 
          cDir := hb_StrShrink( cDir )
       ENDDO
@@ -292,7 +292,7 @@ FUNCTION hb_DirBuild( cDir )
       ENDIF
 
       FOR EACH cDirItem IN hb_ATokens( cDir, hb_ps() )
-         IF !( Right( cDirTemp, 1 ) == hb_ps() ) .AND. ! cDirTemp == ""
+         IF ! Right( cDirTemp, 1 ) == hb_ps() .AND. ! cDirTemp == ""
             cDirTemp += hb_ps()
          ENDIF
          IF ! cDirItem == ""  /* Skip root path, if any */

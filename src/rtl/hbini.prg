@@ -280,7 +280,7 @@ FUNCTION hb_iniWriteStr( hIni, cCommentBegin, cCommentEnd, lAutoMain )
    hb_default( @lAutoMain, .T. )
 
    // Fix if lAutoMain is .T. but I haven't a MAIN section
-   IF lAutoMain .AND. !( "MAIN" $ hIni )
+   IF lAutoMain .AND. ! "MAIN" $ hIni
       lAutoMain := .F.
    ENDIF
 

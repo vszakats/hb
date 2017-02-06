@@ -347,7 +347,7 @@ FUNCTION __i18n_potArrayClean( aTrans, lKeepSource, lKeepVoidTranslations, bTran
       FOR EACH item IN aTrans DESCEND
          lVoid := .T.
          FOR EACH cString IN item[ _I18N_MSGSTR ]
-            IF ! Empty( cString ) .AND. !( cString == item[ _I18N_MSGID, cString:__enumIndex() ] )
+            IF ! Empty( cString ) .AND. ! cString == item[ _I18N_MSGID, cString:__enumIndex() ]
                lVoid := .F.
                EXIT
             ENDIF
