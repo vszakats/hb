@@ -546,8 +546,8 @@ STATIC PROCEDURE ProcessDirs( hDoc, hAll )
 
          FOR EACH file IN hb_DirScan( cDir,, "D" )
             IF file[ F_ATTR ] == "D" .AND. ;
-               ! hb_FNameName( hb_DirSepDel( file[ F_NAME ] ) ) == "." .AND. ;
-               ! hb_FNameName( hb_DirSepDel( file[ F_NAME ] ) ) == ".."
+               !( hb_FNameName( hb_DirSepDel( file[ F_NAME ] ) ) == "." .OR. ;
+                  hb_FNameName( hb_DirSepDel( file[ F_NAME ] ) ) == ".." )
 
                DirLoadHBX( cDir + hb_ps() + file[ F_NAME ], hAll )
 

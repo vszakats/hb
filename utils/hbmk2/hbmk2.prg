@@ -11654,7 +11654,7 @@ STATIC FUNCTION HBC_FindStd( hbmk, /* @ */ cFile )
 
       IF ! Empty( cDir )
          FOR EACH aFile IN hb_vfDirectory( hb_DirSepAdd( cDir ), "D" )
-            IF "D" $ aFile[ F_ATTR ] .AND. ! aFile[ F_NAME ] == "." .AND. ! aFile[ F_NAME ] == ".." .AND. ;
+            IF "D" $ aFile[ F_ATTR ] .AND. !( aFile[ F_NAME ] == "." .OR. aFile[ F_NAME ] == ".." ) .AND. ;
                hb_vfExists( tmp := hb_DirSepAdd( cDir ) + aFile[ F_NAME ] + hb_ps() + hb_FNameNameExt( cFile ) )
                cFile := tmp
                RETURN .T.

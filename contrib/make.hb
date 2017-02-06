@@ -771,7 +771,7 @@ STATIC PROCEDURE LoadProjectListAutomatic( hProjectList, cDir )
    cDir := hb_DirSepAdd( hb_DirSepToOS( cDir ) )
 
    FOR EACH aFile IN hb_vfDirectory( cDir, "D" )
-      IF "D" $ aFile[ F_ATTR ] .AND. ! aFile[ F_NAME ] == "." .AND. ! aFile[ F_NAME ] == ".."
+      IF "D" $ aFile[ F_ATTR ] .AND. !( aFile[ F_NAME ] == "." .OR. aFile[ F_NAME ] == ".." )
          IF hb_vfExists( cDir + ( tmp := aFile[ F_NAME ] + hb_ps() + hb_FNameExtSet( aFile[ F_NAME ], ".hbp" ) ) )
             AddProject( hProjectList, tmp )
          ENDIF

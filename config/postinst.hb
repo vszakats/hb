@@ -218,7 +218,7 @@ PROCEDURE Main( ... )
          OutStd( "! Creating core translation (.hbl) files..." + hb_eol() )
 
          FOR EACH tmp IN hb_vfDirectory( "utils" + hb_ps() + hb_osFileMask(), "D" )
-            IF "D" $ tmp[ F_ATTR ] .AND. ! tmp[ F_NAME ] == "." .AND. ! tmp[ F_NAME ] == ".."
+            IF "D" $ tmp[ F_ATTR ] .AND. !( tmp[ F_NAME ] == "." .OR. tmp[ F_NAME ] == ".." )
                FOR EACH aFile IN hb_vfDirectory( hb_DirSepToOS( "utils/" + tmp[ F_NAME ] + "/po/*.po" ) )
                   mk_hbl( hb_DirSepToOS( "utils/" + tmp[ F_NAME ] + "/po/" + aFile[ F_NAME ] ), ;
                      hb_DirSepToOS( GetEnvC( "HB_INSTALL_DOC" ) ) + hb_ps() + hb_FNameExtSet( aFile[ F_NAME ], ".hbl" ) )

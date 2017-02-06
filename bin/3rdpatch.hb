@@ -662,8 +662,7 @@ STATIC FUNCTION WalkAndFind( cTop, cLookFor )
             cRetVal := cTop
             EXIT
          ENDIF
-      ELSEIF ! aDirEntry[ F_NAME ] == "." .AND. ;
-             ! aDirEntry[ F_NAME ] == ".."
+      ELSEIF !( aDirEntry[ F_NAME ] == "." .OR. aDirEntry[ F_NAME ] == ".." )
          cRetVal := WalkAndFind( cTop + aDirEntry[ F_NAME ], cLookFor )
          IF ! Empty( cRetVal )
             EXIT
