@@ -1884,14 +1884,10 @@ ifeq ($(HB_INIT_DONE),)
    endif
    ifneq ($(wildcard $(TOP)$(ROOT).git),)
       ifneq ($(call find_in_path,git),)
-         ifneq ($(shell git diff --name-only --quiet),)
+         ifneq ($(shell git diff --name-only -q),)
             $(info ! === WARNING: Locally modified source code ===)
          endif
-         $(info ! Source revision: Git $(shell git rev-parse HEAD))
-      endif
-   endif
-   ifneq ($(wildcard $(TOP)$(ROOT).git),)
-      ifneq ($(call find_in_path,git),)
+         $(info ! Source code: $(shell git rev-parse --short -q HEAD) $(shell git symbolic-ref --short -q HEAD) $(shell git ls-remote --get-url))
          _cmd := git show --no-patch --format="%H%n%h%n%ci%n%an%n%ae" HEAD
          ifneq ($(HB_SHELL),sh)
             _cmd := $(subst %,%%,$(_cmd))

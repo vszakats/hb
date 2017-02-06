@@ -45,7 +45,7 @@ HB_DR="hb${HB_VS}/"
 HB_ABSROOT="${HB_RT}/${HB_DR}"
 
 _BRANCH="${APPVEYOR_REPO_BRANCH}${TRAVIS_BRANCH}${CI_BUILD_REF_NAME}${GIT_BRANCH}"
-[ -n "${_BRANCH}" ] || _BRANCH="$(git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')"
+[ -n "${_BRANCH}" ] || _BRANCH="$(git symbolic-ref --short -q HEAD)"
 [ -n "${_BRANCH}" ] || _BRANCH='master'
 
 _SCRIPT="$(realpath 'mpkg.hb')"
@@ -255,10 +255,12 @@ _vcs_url="$(git ls-remote --get-url | sed 's|.git$||')/"
 
 sed -e "s|_HB_VER_COMMIT_ID_SHORT_|${_vcs_id_short}|g" \
     -e "s|_HB_VER_ORIGIN_URL_|${_vcs_url}|g" \
-    -e "s|_HB_VERSION_|${_hb_ver}|g" 'RELNOTES.txt' > "${HB_ABSROOT}RELNOTES.txt"
+    -e "s|_HB_VERSION_|${_hb_ver}|g" \
+    'RELNOTES.txt' > "${HB_ABSROOT}RELNOTES.txt"
 touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}RELNOTES.txt"
 
-sed "s|_HB_URL_SRC_|${_vcs_url}archive/${_vcs_id}.zip|g" 'getsrc.sh' > "${HB_ABSROOT}getsrc.sh"
+sed "s|_HB_URL_SRC_TGZ_|${_vcs_url}archive/${_vcs_id}.tar.gz|g" \
+    'getsrc.sh' > "${HB_ABSROOT}getsrc.sh"
 chmod +x "${HB_ABSROOT}getsrc.sh"
 touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}getsrc.sh"
 
