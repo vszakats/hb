@@ -8,9 +8,9 @@
 
 -w3 -es2
 
--depurlbase=openssl:https://github.com/vszakats/harbour-deps
--depurlbase=openssl:https://www.openssl.org/community/binaries.html
 -depurlbase=openssl:https://www.openssl.org/
+-depurlbase=openssl:https://github.com/vszakats/harbour-deps{mingw|mingw64}
+-depurlbase=openssl:https://www.openssl.org/community/binaries.html
 -deppkgname=openssl:libssl-dev{deb}
 -deppkgname=openssl:openssl-devel{rpm}
 -deppkgname=openssl:mingw-w64-i686-openssl{msys2&mingw}

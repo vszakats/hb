@@ -7,6 +7,7 @@
 -w3 -es2
 
 -depurlbase=curl:https://curl.haxx.se/
+-depurlbase=curl:https://github.com/vszakats/harbour-deps{mingw|mingw64}
 -deppkgname=curl:libcurl4-openssl-dev{deb}
 -deppkgname=curl:curl-devel{rpm}
 -deppkgname=curl:mingw-w64-i686-curl{msys2&mingw}
