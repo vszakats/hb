@@ -11,7 +11,7 @@ cd "$(dirname "$0")/.." || exit
 
 case "$(uname)" in
    *_NT*)   readonly os='win';;
-   linux*)  readonly os='linux';;
+   Linux*)  readonly os='linux';;
    Darwin*) readonly os='mac';;
    *BSD)    readonly os='bsd';;
 esac
