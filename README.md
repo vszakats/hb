@@ -895,27 +895,6 @@ win-make
 ```
 
 ```batchfile
-:: MSVC 2005
-call "%ProgramFiles%\Microsoft Visual Studio 8\VC\vcvarsall.bat"
-win-make
-```
-
-```batchfile
-:: MSVC 2005 for Windows CE ARM
-:: (requires preceding build for native target)
-set INCLUDE=%ProgramFiles%\Microsoft Visual Studio 8\VC\ce\include;%ProgramFiles%\Windows Mobile 5.0 SDK R2\PocketPC\Include\Armv4i
-set LIB=%ProgramFiles%\Microsoft Visual Studio 8\VC\ce\lib\armv4i;%ProgramFiles%\Windows Mobile 5.0 SDK R2\PocketPC\Lib\ARMV4I
-set PATH=%ProgramFiles%\Microsoft Visual Studio 8\VC\ce\bin\x86_arm;%ProgramFiles%\Microsoft Visual Studio 8\Common7\IDE;%PATH%
-win-make
-```
-
-```batchfile
-:: MSVC .NET 2003 (untested)
-call "%ProgramFiles%\Microsoft Visual Studio .NET 2003\VC7\vcvarsall.bat"
-win-make
-```
-
-```batchfile
 :: MinGW GCC
 set PATH=C:\mingw\bin;%PATH%
 mingw32-make
@@ -940,7 +919,7 @@ mingw32-make
 set PATH=C:\mingwce\opt\mingw32ce\bin;C:\cygwin\bin;%PATH%
 :: optional:
 set CYGWIN=nodosfilewarning
-mingw32-make
+win-make
 ```
 
 ```batchfile
