@@ -66,13 +66,13 @@ esac
 
 [ "${os}" = 'win' ] || win='wine'
 
-if [ -z "${HB_BASE}" ] ; then
+if [ -z "${HB_BASE}" ]; then
    # Auto-detect the base bitness, by default it will be 32-bit, and 64-bit
    # if it's the only one available.
-   if [ -d "../pkg/win/mingw/harbour-${HB_VF}-win-mingw" ] ; then
+   if [ -d "../pkg/win/mingw/harbour-${HB_VF}-win-mingw" ]; then
       # MinGW 32-bit base system
       _lib_target='32'
-   elif [ -d "../pkg/win/mingw64/harbour-${HB_VF}-win-mingw64" ] ; then
+   elif [ -d "../pkg/win/mingw64/harbour-${HB_VF}-win-mingw64" ]; then
       # MinGW 64-bit base system
       _lib_target='64'
    fi
@@ -101,17 +101,17 @@ mkdir -p "${HB_ABSROOT}bin/"
 
 # Copy these first to let 3rd party .dlls with overlapping names be
 # overwritten by selected native target's binaries.
-if ls       ../pkg/wce/mingwarm/harbour-${HB_VF}-wce-mingwarm/bin/*.dll > /dev/null 2>&1 ; then
+if ls       ../pkg/wce/mingwarm/harbour-${HB_VF}-wce-mingwarm/bin/*.dll > /dev/null 2>&1; then
    cp -f -p ../pkg/wce/mingwarm/harbour-${HB_VF}-wce-mingwarm/bin/*.dll "${HB_ABSROOT}bin/"
 fi
 
-if [ "${_lib_target}" = '32' ] ; then
-   if ls       ../pkg/win/mingw64/harbour-${HB_VF}-win-mingw64/bin/*.dll > /dev/null 2>&1 ; then
+if [ "${_lib_target}" = '32' ]; then
+   if ls       ../pkg/win/mingw64/harbour-${HB_VF}-win-mingw64/bin/*.dll > /dev/null 2>&1; then
       cp -f -p ../pkg/win/mingw64/harbour-${HB_VF}-win-mingw64/bin/*.dll "${HB_ABSROOT}bin/"
    fi
    ( cd "../pkg/win/mingw/harbour-${HB_VF}-win-mingw" && cp -f -p -R ./* "${HB_ABSROOT}" )
-elif [ "${_lib_target}" = '64' ] ; then
-   if ls       ../pkg/win/mingw/harbour-${HB_VF}-win-mingw/bin/*.dll > /dev/null 2>&1 ; then
+elif [ "${_lib_target}" = '64' ]; then
+   if ls       ../pkg/win/mingw/harbour-${HB_VF}-win-mingw/bin/*.dll > /dev/null 2>&1; then
       cp -f -p ../pkg/win/mingw/harbour-${HB_VF}-win-mingw/bin/*.dll "${HB_ABSROOT}bin/"
    fi
    ( cd "../pkg/win/mingw64/harbour-${HB_VF}-win-mingw64" && cp -f -p -R ./* "${HB_ABSROOT}" )
@@ -127,8 +127,8 @@ for dir in \
    "../pkg/win/mingw64/harbour-${HB_VF}-win-mingw64" \
    "../pkg/win/msvc/harbour-${HB_VF}-win-msvc" \
    "../pkg/win/msvc64/harbour-${HB_VF}-win-msvc64" \
-   "../pkg/win/watcom/harbour-${HB_VF}-win-watcom" ; do
-   if [ -d "${dir}" ] ; then
+   "../pkg/win/watcom/harbour-${HB_VF}-win-watcom"; do
+   if [ -d "${dir}" ]; then
       (
          cd "${dir}" || exit
          # shellcheck disable=SC2046
@@ -142,7 +142,7 @@ done
 # of zeroes. -s option is not fixing this, 'strip' randomly fails either, so
 # we're patching manually.
 
-if [ "${os}" = 'win' ] ; then
+if [ "${os}" = 'win' ]; then
    _bin_hbmk2="$(find ../bin -type f -name 'hbmk2.exe' | head -n 1)"
 else
    _bin_hbmk2="$(find ../bin -type f -name 'hbmk2' | head -n 1)"
@@ -157,11 +157,11 @@ for name in \
    'hbmk2.exe' \
    'hbpp.exe' \
    'hbspeed.exe' \
-   'hbtest.exe' ; do
+   'hbtest.exe'; do
    for file in ${HB_ABSROOT}bin/${name} ; do
 
       # Remove code signature first
-      if [ -f "${HB_CODESIGN_KEY}" ] ; then
+      if [ -f "${HB_CODESIGN_KEY}" ]; then
          # 'strip' would also work, but this is cleaner
          osslsigncode remove-signature -in "${file}" -out "${file}-unsigned"
          mv -f "${file}-unsigned" "${file}"
@@ -171,7 +171,7 @@ for name in \
       "${_bin_hbmk2}" "${_SCRIPT}" pe "${_ROOT}" "${file}"
 
       # Readd code signature
-      if [ -f "${HB_CODESIGN_KEY}" ] ; then
+      if [ -f "${HB_CODESIGN_KEY}" ]; then
          (
             set +x
             osslsigncode sign -h sha256 -in "${file}" -out "${file}-signed" \
@@ -190,7 +190,7 @@ done
 # internal timestamps from generated implibs.
 # Slow. Requires binutils 2.23 (maybe 2.24/2.25).
 # Short synonym '-D' is not recognized as of binutils 2.25.
-for _cpu in '' '64' ; do
+for _cpu in '' '64'; do
    [ "${_cpu}" != '64' ] && _mingw_dir="${HB_DIR_MINGW_32}"
    [ "${_cpu}"  = '64' ] && _mingw_dir="${HB_DIR_MINGW_64}"
    [ "${_cpu}" != '64' ] && _mingw_pfx="${HB_PFX_MINGW_32}"
@@ -198,9 +198,9 @@ for _cpu in '' '64' ; do
    for files in \
       "${HB_ABSROOT}lib/win/mingw${_cpu}/*-*.*" \
       "${HB_ABSROOT}lib/win/mingw${_cpu}/*_dll*.*" \
-      "${HB_ABSROOT}lib/win/msvc${_cpu}/*.lib" ; do
+      "${HB_ABSROOT}lib/win/msvc${_cpu}/*.lib"; do
       # shellcheck disable=SC2086
-      if ls ${files} > /dev/null 2>&1 ; then
+      if ls ${files} > /dev/null 2>&1; then
          "${_mingw_dir}${_mingw_pfx}strip" -p --enable-deterministic-archives -g ${files}
       fi
    done
@@ -208,7 +208,7 @@ done
 
 # Copy 3rd party static libraries
 
-if [ "${_HB_BUNDLE_3RDLIB}" = 'yes' ] ; then
+if [ "${_HB_BUNDLE_3RDLIB}" = 'yes' ]; then
    for name in \
          'openssl' \
          'libssh2' \
@@ -220,12 +220,12 @@ if [ "${_HB_BUNDLE_3RDLIB}" = 'yes' ] ; then
       eval dir_64="\$$(echo "HB_DIR_${name}_64" | tr '[:lower:]' '[:upper:]' 2> /dev/null)"
       dir_64=$(echo "${dir_64}" | sed 's|\\|/|g')
       for file in ${dir_32}lib/*.a ; do
-         if [ -f "${file}" ] && echo "${file}" | grep -v 'dll' > /dev/null 2>&1 ; then
+         if [ -f "${file}" ] && echo "${file}" | grep -v 'dll' > /dev/null 2>&1; then
             cp -f -p "${file}" "${HB_ABSROOT}lib/win/mingw/"
          fi
       done
       for file in ${dir_64}lib/*.a ; do
-         if [ -f "${file}" ] && echo "${file}" | grep -v 'dll' > /dev/null 2>&1 ; then
+         if [ -f "${file}" ] && echo "${file}" | grep -v 'dll' > /dev/null 2>&1; then
             cp -f -p "${file}" "${HB_ABSROOT}lib/win/mingw64/"
          fi
       done
@@ -245,7 +245,7 @@ fi
 # Burn build information into RELNOTES.txt
 
 _hb_ver="${HB_VF}"
-if [ "${HB_VF}" != "${HB_VF_DEF}" ] ; then
+if [ "${HB_VF}" != "${HB_VF_DEF}" ]; then
    _hb_ver="${HB_VF_DEF} ${_hb_ver}"
 fi
 
@@ -284,13 +284,13 @@ touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}BUILD.txt"
 
 # Copy optional text files containing compiler details
 
-if ls       ../BUILD*.txt > /dev/null 2>&1 ; then
+if ls       ../BUILD*.txt > /dev/null 2>&1; then
    cp -f -p ../BUILD*.txt "${HB_ABSROOT}"
 fi
 
 # Reset Windows attributes
 
-if [ "${os}" = 'win' ] ; then
+if [ "${os}" = 'win' ]; then
    find "${HB_ABSROOT%/}" -exec attrib +A -R {} \;
 fi
 
@@ -317,7 +317,7 @@ cd "${HB_RT}" || exit
 ) >> "${_ROOT}/_hbfiles"
 
 _pkgdate=
-if [ "${_BRANCH#*prod*}" != "${_BRANCH}" ] ; then
+if [ "${_BRANCH#*prod*}" != "${_BRANCH}" ]; then
    case "${os}" in
       bsd|mac) _pkgdate="$(stat -f '-%Sm' -t '%Y%m%d-%H%M' "${HB_ABSROOT}README.md")";;
       *)       _pkgdate="$(stat -c '%Y' "${HB_ABSROOT}README.md" | awk '{print "-" strftime("%Y%m%d-%H%M", $1)}')";;
@@ -351,7 +351,7 @@ cd - || exit
    set +x
    if [ "${_BRANCH#*prod*}" != "${_BRANCH}" ] && \
       [ -n "${PUSHOVER_USER}" ] && \
-      [ -n "${PUSHOVER_TOKEN}" ] ; then
+      [ -n "${PUSHOVER_TOKEN}" ]; then
       # https://pushover.net/api
       curl -sS \
          --form-string "user=${PUSHOVER_USER}" \
@@ -366,7 +366,7 @@ cd - || exit
    fi
 
    if [ "${_BRANCH#*master*}" != "${_BRANCH}" ] && \
-      [ -n "${GITHUB_TOKEN}" ] ; then
+      [ -n "${GITHUB_TOKEN}" ]; then
 
       # Create tag update JSON request
       # https://developer.github.com/v3/git/refs/#update-a-reference
@@ -377,9 +377,9 @@ cd - || exit
          -X PATCH "https://api.github.com/repos/vszakats/harbour-core/git/refs/tags/v${HB_VF_DEF}"
    fi
 
-   if [ -n "${VIRUSTOTAL_APIKEY}" ] ; then
+   if [ -n "${VIRUSTOTAL_APIKEY}" ]; then
       # https://www.virustotal.com/en/documentation/public-api/#scanning-files
-      if [ "$(wc -c < "${_pkgname}")" -lt 32000000 ] ; then
+      if [ "$(wc -c < "${_pkgname}")" -lt 32000000 ]; then
          out="$(curl -sS \
             --form-string "apikey=${VIRUSTOTAL_APIKEY}" \
             --form "file=@${_pkgname}" \

@@ -2,9 +2,8 @@
 
 /* Copyright 2015-2017 Viktor Szakats (vszakats.net/harbour) */
 
-/* Set timestamps for non-generated (repository) files
-   before including them in a distributable package.
-   For reproducible builds. */
+/* Set timestamps for non-generated (repository) files before including them
+   in a distributable package. For reproducible builds. */
 
 #include "directry.ch"
 #include "fileio.ch"

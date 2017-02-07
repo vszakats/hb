@@ -57,7 +57,7 @@ case "${os}" in
       ;;
 esac
 
-if [ "${os}" != 'win' ] ; then
+if [ "${os}" != 'win' ]; then
 
    # msvc only available on Windows
    [ "${_BRANC4}" != 'msvc' ] || exit
@@ -74,7 +74,7 @@ export HB_MKFLAGS="HB_VERSION=${HB_VF}"
 export HB_BASE='64'
 _ori_path="${PATH}"
 
-if [ -n "${HB_CI_THREADS}" ] ; then
+if [ -n "${HB_CI_THREADS}" ]; then
    export HB_MKFLAGS="${HB_MKFLAGS} -j ${HB_CI_THREADS}"
 fi
 
@@ -112,7 +112,7 @@ export HB_CODESIGN_KEY=
 HB_CODESIGN_KEY="$(realpath './package/vszakats.p12')"
 (
    set +x
-   if [ -n "${HB_CODESIGN_GPG_PASS}" ] ; then
+   if [ -n "${HB_CODESIGN_GPG_PASS}" ]; then
       gpg --batch --passphrase "${HB_CODESIGN_GPG_PASS}" -o "${HB_CODESIGN_KEY}" -d "${HB_CODESIGN_KEY}.asc"
    fi
 )
@@ -120,18 +120,18 @@ HB_CODESIGN_KEY="$(realpath './package/vszakats.p12')"
 
 # mingw
 
-if [ "${_BRANC4}" != 'msvc' ] ; then
+if [ "${_BRANC4}" != 'msvc' ]; then
 
    # LTO is broken as of mingw 6.1.0
 #  [ "${_BRANCH#*prod*}" != "${_BRANCH}" ] && _HB_USER_CFLAGS="${_HB_USER_CFLAGS} -flto -ffat-lto-objects"
    [ "${HB_BUILD_MODE}" = 'cpp' ] && export HB_USER_LDFLAGS="${HB_USER_LDFLAGS} -static-libstdc++"
 
-   if [ "${os}" = 'win' ] ; then
+   if [ "${os}" = 'win' ]; then
       readonly _msys_mingw32='/mingw32'
       readonly _msys_mingw64='/mingw64'
 
       export HB_DIR_MINGW_64="${HB_RT}/mingw64/bin/"
-      if [ -d "${HB_DIR_MINGW_64}" ] ; then
+      if [ -d "${HB_DIR_MINGW_64}" ]; then
          # Use the same toolchain for both targets
          export HB_DIR_MINGW_32="${HB_DIR_MINGW_64}"
          _build_info_32='BUILD-mingw.txt'
@@ -174,7 +174,7 @@ if [ "${_BRANC4}" != 'msvc' ] ; then
    #
    export HB_WITH_CURL="${HB_DIR_CURL_32}include"
    export HB_WITH_OPENSSL="${HB_DIR_OPENSSL_32}include"
-   if [ "${os}" = 'win' ] ; then
+   if [ "${os}" = 'win' ]; then
       _inc="${_msys_mingw32}/include"
       export HB_WITH_CAIRO="${_inc}/cairo"
       export HB_WITH_FREEIMAGE="${_inc}"
@@ -195,7 +195,7 @@ if [ "${_BRANC4}" != 'msvc' ] ; then
 
    export HB_WITH_CURL="${HB_DIR_CURL_64}include"
    export HB_WITH_OPENSSL="${HB_DIR_OPENSSL_64}include"
-   if [ "${os}" = 'win' ] ; then
+   if [ "${os}" = 'win' ]; then
       _inc="${_msys_mingw64}/include"
       export HB_WITH_CAIRO="${_inc}/cairo"
       export HB_WITH_FREEIMAGE="${_inc}"
@@ -216,7 +216,7 @@ fi
 
 # msvc
 
-if [ "${_BRANC4}" = 'msvc' ] ; then
+if [ "${_BRANC4}" = 'msvc' ]; then
 
    export PATH="${_ori_path}"
    export HB_USER_CFLAGS=
@@ -238,7 +238,7 @@ if [ "${_BRANC4}" = 'msvc' ] ; then
 
    export _VCVARSALL="%ProgramFiles(x86)%\Microsoft Visual Studio ${_VCVARSALL}\VC\vcvarsall.bat"
 
-   if [ -n "${_VCVARSALL}" ] ; then
+   if [ -n "${_VCVARSALL}" ]; then
       cat << EOF > _make.bat
          call "%_VCVARSALL%" x86
          win-make.exe install %HB_MKFLAGS% HB_COMPILER=msvc
@@ -251,7 +251,7 @@ EOF
    [ "${_BRANCH}" = 'msvc2008' ] && _VCVARSALL=
    [ "${_BRANCH}" = 'msvc2010' ] && _VCVARSALL=
 
-   if [ -n "${_VCVARSALL}" ] ; then
+   if [ -n "${_VCVARSALL}" ]; then
       cat << EOF > _make.bat
          call "%_VCVARSALL%" x86_amd64
          win-make.exe install %HB_MKFLAGS% HB_COMPILER=msvc64

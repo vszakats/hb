@@ -20,9 +20,9 @@ _BRANCH="${APPVEYOR_REPO_BRANCH}${TRAVIS_BRANCH}${CI_BUILD_REF_NAME}${GIT_BRANCH
 
 # Update/install MSYS2 pacman packages to fullfill dependencies
 
-if [ "${os}" = 'win' ] ; then
+if [ "${os}" = 'win' ]; then
    # Dependencies of the default (full) list of contribs
-   if [ "${_BRANCH#*prod*}" = "${_BRANCH}" ] ; then
+   if [ "${_BRANCH#*prod*}" = "${_BRANCH}" ]; then
       pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{cairo,freeimage,gd,ghostscript,libmariadbclient,postgresql}
    #  pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-qt5
    fi
@@ -52,7 +52,7 @@ alias curl='curl -fsS --connect-timeout 10 --retry 3'
 alias gpg='gpg --batch --keyserver-options timeout=10 --keyid-format LONG'
 
 gpg_recv_keys() {
-   if ! gpg --keyserver hkps://pgp.mit.edu --recv-keys "$@" ; then
+   if ! gpg --keyserver hkps://pgp.mit.edu --recv-keys "$@"; then
       gpg --keyserver hkps://sks-keyservers.net --recv-keys "$@"
    fi
 }
@@ -61,11 +61,11 @@ gpg --version | grep gpg
 
 # Dependencies for the Windows distro package
 
-if [ "${os}" = 'win' ] ; then
+if [ "${os}" = 'win' ]; then
 (
    set -x
 
-   if [ "${_BRANCH#*extmingw*}" != "${_BRANCH}" ] ; then
+   if [ "${_BRANCH#*extmingw*}" != "${_BRANCH}" ]; then
       readonly mingwbase='https://downloads.sourceforge.net'; readonly option='-L'
 #     curl -o pack.bin "${option}" "${mingwbase}/mingw-w64/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/6.3.0/threads-posix/sjlj/i686-6.3.0-release-posix-sjlj-rt_v5-rev1.7z"
 #     openssl dgst -sha256 pack.bin | grep -q ce5551a431661f3295a38fcc8563816a34e5cad867b3b35b1e802ef74e2c42f2
@@ -83,9 +83,9 @@ if [ "${os}" = 'win' ] ; then
       #    https://github.com/Alexpux/MSYS2-packages/issues/454
       #    https://gcc.gnu.org/bugzilla/show_bug.cgi?id=69880
       for file in \
-         /usr/lib/default-manifest.o \
-         /mingw32/i686-w64-mingw32/lib/default-manifest.o \
-         /mingw64/x86_64-w64-mingw32/lib/default-manifest.o ; do
+         '/usr/lib/default-manifest.o' \
+         '/mingw32/i686-w64-mingw32/lib/default-manifest.o' \
+         '/mingw64/x86_64-w64-mingw32/lib/default-manifest.o'; do
          [ -f "${file}" ] && mv -f "${file}" "${file}-ORI"
       done
    fi
@@ -103,14 +103,14 @@ gpg_recv_keys 8756C4F765C9AC3CB6B85D62379CE192D401AB61
 
 readonly base='https://bintray.com/artifact/download/vszakats/generic/'
 
-for plat in '32' '64' ; do
+for plat in '32' '64'; do
    for name in \
       'nghttp2' \
       'openssl' \
       'libssh2' \
       'curl' \
    ; do
-      if [ ! -d "${name}-mingw${plat}" ] ; then
+      if [ ! -d "${name}-mingw${plat}" ]; then
          eval ver="\$$(echo "${name}" | tr '[:lower:]' '[:upper:]' 2> /dev/null)_VER"
          eval hash="\$$(echo "${name}" | tr '[:lower:]' '[:upper:]' 2> /dev/null)_HASH_${plat}"
          # shellcheck disable=SC2154
