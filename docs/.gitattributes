@@ -1,15 +1,5 @@
 # Default
 *         text=auto
 
-# These files are text and should be normalized (convert CRLF => LF)
-*.css     text
-*.html    text
-*.md      text
-*.svg     text
-*.scss    text
-*.txt     text
-*.yml     text
-
 # Binary files
 *.ico     binary
-*.png     binary

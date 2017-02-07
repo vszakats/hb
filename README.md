@@ -171,7 +171,7 @@ Make sure to have your C compiler of choice installed in `PATH`.
 To prepare:
 
     1. Get `curl` tool.
-    2. Execute shell script `config/dl-tools.sh` to download required build tools.
+    2. Execute shell script `gettools.sh` to download required build tools.
 
 To build:
 
@@ -190,7 +190,7 @@ You should see `Hello, world!` on screen.
 To prepare:
 
     1. Get `curl` tool.
-    2. Execute shell script `config/dl-tools.sh` to download required build tools.
+    2. Execute shell script `gettools.sh` to download required build tools.
 
 To build:
 
@@ -724,13 +724,13 @@ for a cross-build process to succeed.
 ```batchfile
 :: MinGW GCC for Windows x86
 set PATH=C:\mingw\bin;%PATH%
-win-make
+mingw32-make
 ```
 
 ```batchfile
 :: MinGW GCC for Windows x86-64
 set PATH=C:\mingw64\bin;%PATH%
-win-make
+mingw32-make
 ```
 
 ```batchfile
@@ -918,7 +918,7 @@ win-make
 ```batchfile
 :: MinGW GCC
 set PATH=C:\mingw\bin;%PATH%
-win-make
+mingw32-make
 ```
 
 ```batchfile
@@ -931,7 +931,7 @@ sh -c make
 :: MinGW GCC for Windows x86-64
 :: (requires preceding build for native target)
 set PATH=C:\mingw64\bin;%PATH%
-win-make
+mingw32-make
 ```
 
 ```batchfile
@@ -940,7 +940,7 @@ win-make
 set PATH=C:\mingwce\opt\mingw32ce\bin;C:\cygwin\bin;%PATH%
 :: optional:
 set CYGWIN=nodosfilewarning
-win-make
+mingw32-make
 ```
 
 ```batchfile
