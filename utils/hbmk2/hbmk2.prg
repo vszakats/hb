@@ -18047,11 +18047,11 @@ STATIC PROCEDURE ShowHeader( hbmk )
 #endif
 
    IF hbmk[ _HBMK_lMarkdown ]
-      hb_SetTermCP( "UTF8EX" )  /* UTF-8 output for Markdown */
+      hb_SetTermCP( "UTF8" )  /* UTF-8 output for Markdown */
       cText := ToMarkdown( cText )
    ELSE
       IF ! hb_FIsDevice( hb_GetStdOut() ) .OR. HB_ISEVALITEM( hbmk[ _HBMK_bOut ] )
-         hb_SetTermCP( "UTF8EX" )  /* UTF-8 output when redirected or directly writing to file */
+         hb_SetTermCP( "UTF8" )  /* UTF-8 output when redirected or directly writing to file */
       ENDIF
       cText := StrTran( cText, e"\n", _OUT_EOL )
    ENDIF
