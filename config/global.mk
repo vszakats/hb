@@ -16,7 +16,7 @@
 # GNU coding standards:
 #    https://www.gnu.org/prep/standards/standards.html
 # GNU Make NEWS:
-#    http://git.savannah.gnu.org/cgit/make.git/tree/NEWS
+#    https://git.savannah.gnu.org/cgit/make.git/tree/NEWS
 
 # NOTE: $(realpath/abspath) need GNU Make 3.81 or upper
 # NOTE: $(eval) needs GNU Make 3.80 or upper

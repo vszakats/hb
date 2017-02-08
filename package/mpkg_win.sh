@@ -14,7 +14,7 @@ cd "$(dirname "$0")" || exit
 # - Run this from vanilla official source tree only.
 
 # https://en.wikipedia.org/wiki/Uname#Examples
-# http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=HEAD
+# https://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=HEAD
 case "$(uname)" in
    *_NT*)   readonly os='win';;
    Linux*)  readonly os='linux';;
