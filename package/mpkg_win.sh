@@ -158,7 +158,7 @@ for name in \
    'hbpp.exe' \
    'hbspeed.exe' \
    'hbtest.exe'; do
-   for file in ${HB_ABSROOT}bin/${name} ; do
+   for file in ${HB_ABSROOT}bin/${name}; do
 
       # Remove code signature first
       if [ -f "${HB_CODESIGN_KEY}" ]; then
@@ -219,12 +219,12 @@ if [ "${_HB_BUNDLE_3RDLIB}" = 'yes' ]; then
       dir_32=$(echo "${dir_32}" | sed 's|\\|/|g')
       eval dir_64="\$$(echo "HB_DIR_${name}_64" | tr '[:lower:]' '[:upper:]' 2> /dev/null)"
       dir_64=$(echo "${dir_64}" | sed 's|\\|/|g')
-      for file in ${dir_32}lib/*.a ; do
+      for file in ${dir_32}lib/*.a; do
          if [ -f "${file}" ] && echo "${file}" | grep -v 'dll' > /dev/null 2>&1; then
             cp -f -p "${file}" "${HB_ABSROOT}lib/win/mingw/"
          fi
       done
-      for file in ${dir_64}lib/*.a ; do
+      for file in ${dir_64}lib/*.a; do
          if [ -f "${file}" ] && echo "${file}" | grep -v 'dll' > /dev/null 2>&1; then
             cp -f -p "${file}" "${HB_ABSROOT}lib/win/mingw64/"
          fi
