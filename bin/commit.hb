@@ -630,40 +630,28 @@ STATIC FUNCTION CheckFile( cName, /* @ */ aErr, lApplyFixes, cLocalRoot, lRebase
    /* TOFIX: Harbour repo specific */
    LOCAL aCanBeUpper := { ;
       "Makefile", ;
-      "CONTRIBUTING.md", ;
-      "README.md", ;
-      "LICENSE.txt", ;
-      "*/RELNOTES.txt", ;
-      "README.txt", ;
-      "WARNING.txt", ;
-      "DEPRECATED.txt", ;
-      "ChangeLog.txt", ;
+      "ChangeLog.*", ;
+      "CONTRIBUTING.*", ;
+      "DEPRECATED.*", ;
+      "LICENSE.*", ;
+      "README.*", ;
+      "WARNING.*", ;
+      "*/RELNOTES.*", ;
       "*/doc/*/*.txt", ;
       "*.po", ;
       "*.md" }
 
-   /* TOFIX: Harbour repo specific */
    LOCAL aCanHaveNoExtension := { ;
       ".*", ;
       "Makefile", ;
       "debian/*" }
 
-   /* TOFIX: Harbour repo specific */
    LOCAL aCanHaveTab := { ;
       "Makefile", ;
       "debian/rules", ;
       "*.mk", ;
-      "*.yyc", ;
-      "*.cs", ;
-      "*.dif", ;
-      "*.plist", ;
-      "*.xml", ;
-      "*.xsd", ;
-      "*.xsl", ;
-      "*.java", ;
-      "*.js", ;
-      "*.svg", ;
-      "*.vbs" }
+      "*.go", ;
+      "*.dif" }
 
    LOCAL aCanHaveSpaceAtEol := { ;
       "*.dif", ;
@@ -685,7 +673,7 @@ STATIC FUNCTION CheckFile( cName, /* @ */ aErr, lApplyFixes, cLocalRoot, lRebase
    /* TOFIX: Harbour repo specific */
    LOCAL aNoCopyrightOk := { ;
       "tests/*", ;
-      "*/tests/*", ;
+      "*/*/tests/*", ;
       "src/codepage/*", ;
       "src/lang/*" }
 
