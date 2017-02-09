@@ -147,54 +147,11 @@ To test it, type:
 
 You should see `Hello, world!` on screen.
 
-## on Windows hosts with POSIX shells (MSYS2/Cygwin)
-
-> Though you can use these alternative shells to build Harbour on Windows,
-> it's recommended to use the native one.
+## on Windows hosts with POSIX shells (MSYS2/Cygwin) (possible cross-build targets: Windows CE, MS-DOS, OS/2, Linux)
 
 To build:
 
     > sh -c make
-
-To test it, type:
-
-    > cd tests
-    > ..\bin\<plat>\<comp>\hbmk2 hello.prg
-    > hello
-
-You should see `Hello, world!` on screen.
-
-## on MS-DOS hosts (possible cross-build targets: Windows, OS/2, Linux)
-
-Make sure to have your C compiler of choice installed in `PATH`.
-
-To prepare:
-
-    1. Get `curl` tool.
-    2. Execute shell script `gettools.sh` to download required build tools.
-
-To build:
-
-    > dos-make
-
-To test it, type:
-
-    > cd tests
-    > ..\bin\<plat>\<comp>\hbmk2 hello.prg
-    > hello
-
-You should see `Hello, world!` on screen.
-
-## on OS/2 hosts (possible cross-build targets: MS-DOS, OS/2, Linux)
-
-To prepare:
-
-    1. Get `curl` tool.
-    2. Execute shell script `gettools.sh` to download required build tools.
-
-To build:
-
-    > os2-make
 
 To test it, type:
 
@@ -270,6 +227,65 @@ To test it, type:
     $ cd tests
     $ ../bin/<plat>/<comp>/hbmk2 hello.prg
     $ ./hello
+
+You should see `Hello, world!` on screen.
+
+## on MS-DOS hosts (possible cross-build targets: Windows, OS/2, Linux)
+
+Make sure to have your C compiler of choice installed in `PATH`.
+
+To prepare:
+
+    1. Get `curl` tool.
+    2. Execute shell script `gettools.sh` to download required build tools.
+
+To build:
+
+    > dos-make
+
+To test it, type:
+
+    > cd tests
+    > ..\bin\<plat>\<comp>\hbmk2 hello.prg
+    > hello
+
+You should see `Hello, world!` on screen.
+
+## on OS/2 hosts (possible cross-build targets: MS-DOS, OS/2, Linux)
+
+To prepare:
+
+    1. Get `curl` tool.
+    2. Execute shell script `gettools.sh` to download required build tools.
+
+To build:
+
+    > os2-make
+
+To test it, type:
+
+    > cd tests
+    > ..\bin\<plat>\<comp>\hbmk2 hello.prg
+    > hello
+
+You should see `Hello, world!` on screen.
+
+## on OS/2 hosts (possible cross-build targets: MS-DOS, OS/2, Linux)
+
+To prepare:
+
+    1. Get `curl` tool.
+    2. Execute shell script `gettools.sh` to download required build tools.
+
+To build:
+
+    > os2-make
+
+To test it, type:
+
+    > cd tests
+    > ..\bin\<plat>\<comp>\hbmk2 hello.prg
+    > hello
 
 You should see `Hello, world!` on screen.
 
@@ -1188,7 +1204,7 @@ Press `<Alt+D>` in the app.
 * beos     - BeOS / Haiku (experimental)
 * qnx      - QNX (experimental)
 * vxworks  - VxWorks (experimental)
-* minix    - Minix 3 (tested on 3.2.1; earlier releases will not work, experimental)
+* minix    - Minix 3 (experimental, tested on 3.2.1; earlier releases will not work)
 * symbian  - Symbian OS (deprecated)
 * cygwin   - Cygwin (experimental)
 
