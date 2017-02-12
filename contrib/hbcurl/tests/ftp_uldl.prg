@@ -125,7 +125,7 @@ PROCEDURE Main( cDL, cUL )
 
       WAIT
 
-      #if ! defined( __PLATFORM__UNIX )
+      #if ! defined( __PLATFORM__UNIX ) .OR. defined( __PLATFORM__DARWIN )
          IF ! hb_vfExists( _CA_FN_ )
             ? "Downloading", _CA_FN_
             curl_easy_setopt( curl, HB_CURLOPT_DOWNLOAD )
@@ -139,13 +139,14 @@ PROCEDURE Main( cDL, cUL )
          curl_easy_setopt( curl, HB_CURLOPT_CAINFO, _CA_FN_ )
       #endif
 
-      hb_default( @cDL, "https://www.mozilla.org/README" )
+      hb_default( @cDL, "https://www.example.org/index.html" )
 
       /* Now let's download to a file */
 
       ? curl_easy_setopt( curl, HB_CURLOPT_DOWNLOAD )
       ? curl_easy_setopt( curl, HB_CURLOPT_URL, cDL )
       ? curl_easy_setopt( curl, HB_CURLOPT_DL_FILE_SETUP, "test_dl.bin" )
+      ? curl_easy_setopt( curl, HB_CURLOPT_FILETIME, .T. )
       ? curl_easy_setopt( curl, HB_CURLOPT_FAILONERROR, .T. )
       ? curl_easy_setopt( curl, HB_CURLOPT_XFERINFOBLOCK, {| nPos, nLen | hb_DispOutAt( 11, 10, Str( ( nPos / nLen ) * 100, 6, 2 ) + "%" ) } )
       ? curl_easy_setopt( curl, HB_CURLOPT_NOPROGRESS, 0 )
@@ -154,6 +155,8 @@ PROCEDURE Main( cDL, cUL )
       ? curl_easy_setopt( curl, HB_CURLOPT_CAINFO, _CA_FN_ )
 
       ? "DOWNLOAD FILE (FILENAME):", curl_easy_perform( curl )
+
+      hb_vfTimeSet( "test_dl.bin", hb_SToT( "19700101000000" ) + curl_easy_getinfo( curl, HB_CURLINFO_FILETIME ) / 86400 )
 
       curl_easy_reset( curl )
 
@@ -221,27 +224,6 @@ PROCEDURE Main( cDL, cUL )
       curl_easy_reset( curl )
 
       WAIT
-
-      /* Now let's download a dirlist to memory */
-
-      ? curl_easy_setopt( curl, HB_CURLOPT_DOWNLOAD )
-      ? curl_easy_setopt( curl, HB_CURLOPT_DIRLISTONLY )
-      ? curl_easy_setopt( curl, HB_CURLOPT_URL, "ftp://ftp.mozilla.org/" )
-      ? curl_easy_setopt( curl, HB_CURLOPT_DL_BUFF_SETUP )
-      ? curl_easy_setopt( curl, HB_CURLOPT_XFERINFOBLOCK, {| nPos, nLen | hb_DispOutAt( 11, 10, Str( ( nPos / nLen ) * 100, 6, 2 ) + "%" ) } )
-      ? curl_easy_setopt( curl, HB_CURLOPT_NOPROGRESS, 0 )
-      ? curl_easy_setopt( curl, HB_CURLOPT_VERBOSE, lVerbose )
-      ? curl_easy_setopt( curl, HB_CURLOPT_DEBUGBLOCK, {| ... | QOut( "DEBUG:", ... ) } )
-
-      ? "DOWNLOAD DIRLIST TO STRING:", curl_easy_perform( curl )
-
-      ? "RESULT 1:"
-      ? curl_easy_dl_buff_get( curl )
-
-      ? curl_easy_setopt( curl, HB_CURLOPT_DL_BUFF_GET, @tmp )
-
-      ? "RESULT 2:"
-      ? tmp
 
       /* Cleanup session */
 

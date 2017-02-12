@@ -78,7 +78,7 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
    IF Empty( curl := curl_easy_init() )
       ? "Failed to init"
    ELSE
-      #if ! defined( __PLATFORM__UNIX )
+      #if ! defined( __PLATFORM__UNIX ) .OR. defined( __PLATFORM__DARWIN )
          IF ! hb_vfExists( _CA_FN_ )
             ? "Downloading", _CA_FN_
             curl_easy_setopt( curl, HB_CURLOPT_DOWNLOAD )
