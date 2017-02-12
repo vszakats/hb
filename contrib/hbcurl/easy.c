@@ -1585,7 +1585,7 @@ HB_FUNC( CURL_EASY_SETOPT )
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_CUSTOMREQUEST, hb_curl_StrHash( hb_curl, hb_parc( 3 ) ) );
                break;
             case HB_CURLOPT_FILETIME:
-               res = curl_easy_setopt( hb_curl->curl, CURLOPT_FILETIME, hb_parnl( 3 ) );
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_FILETIME, HB_CURL_OPT_BOOL( 3 ) );
                break;
             case HB_CURLOPT_NOBODY:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_NOBODY, HB_CURL_OPT_BOOL( 3 ) );
