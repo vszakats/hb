@@ -21,6 +21,9 @@ PROCEDURE Main( cDL, cUL )
    LOCAL tmp
    LOCAL tmp1
 
+   LOCAL tDate
+   LOCAL cFileName
+
    LOCAL lVerbose := .F.
 
    ? curl_version()
@@ -145,9 +148,9 @@ PROCEDURE Main( cDL, cUL )
 
       ? curl_easy_setopt( curl, HB_CURLOPT_DOWNLOAD )
       ? curl_easy_setopt( curl, HB_CURLOPT_URL, cDL )
-      ? curl_easy_setopt( curl, HB_CURLOPT_DL_FILE_SETUP, "test_dl.bin" )
-      ? curl_easy_setopt( curl, HB_CURLOPT_FILETIME, .T. )
+      ? curl_easy_setopt( curl, HB_CURLOPT_DL_FILE_SETUP, cFileName := "test_dl.bin" )
       ? curl_easy_setopt( curl, HB_CURLOPT_FAILONERROR, .T. )
+      ? curl_easy_setopt( curl, HB_CURLOPT_FILETIME, .T. )
       ? curl_easy_setopt( curl, HB_CURLOPT_XFERINFOBLOCK, {| nPos, nLen | hb_DispOutAt( 11, 10, Str( ( nPos / nLen ) * 100, 6, 2 ) + "%" ) } )
       ? curl_easy_setopt( curl, HB_CURLOPT_NOPROGRESS, 0 )
       ? curl_easy_setopt( curl, HB_CURLOPT_VERBOSE, lVerbose )
@@ -155,10 +158,11 @@ PROCEDURE Main( cDL, cUL )
       ? curl_easy_setopt( curl, HB_CURLOPT_CAINFO, _CA_FN_ )
 
       ? "DOWNLOAD FILE (FILENAME):", curl_easy_perform( curl )
-
-      hb_vfTimeSet( "test_dl.bin", hb_SToT( "19700101000000" ) + curl_easy_getinfo( curl, HB_CURLINFO_FILETIME ) / 86400 )
+      ? "SERVER TIMESTAMP:", tDate := UnixTimeToT( curl_easy_getinfo( curl, HB_CURLINFO_FILETIME ) )
 
       curl_easy_reset( curl )
+
+      hb_vfTimeSet( cFileName, tDate )
 
       WAIT
 
@@ -166,8 +170,9 @@ PROCEDURE Main( cDL, cUL )
 
       ? curl_easy_setopt( curl, HB_CURLOPT_DOWNLOAD )
       ? curl_easy_setopt( curl, HB_CURLOPT_URL, cDL )
-      ? curl_easy_setopt( curl, HB_CURLOPT_DL_FILE_SETUP, tmp1 := hb_vfOpen( "test_dlh.bin", FO_CREAT + FO_TRUNC + FO_WRITE ) )
+      ? curl_easy_setopt( curl, HB_CURLOPT_DL_FILE_SETUP, tmp1 := hb_vfOpen( cFileName := "test_dlh.bin", FO_CREAT + FO_TRUNC + FO_WRITE ) )
       ? curl_easy_setopt( curl, HB_CURLOPT_FAILONERROR, .T. )
+      ? curl_easy_setopt( curl, HB_CURLOPT_FILETIME, .T. )
       ? curl_easy_setopt( curl, HB_CURLOPT_XFERINFOBLOCK, {| nPos, nLen | hb_DispOutAt( 11, 10, Str( ( nPos / nLen ) * 100, 6, 2 ) + "%" ) } )
       ? curl_easy_setopt( curl, HB_CURLOPT_NOPROGRESS, 0 )
       ? curl_easy_setopt( curl, HB_CURLOPT_VERBOSE, lVerbose )
@@ -175,10 +180,13 @@ PROCEDURE Main( cDL, cUL )
       ? curl_easy_setopt( curl, HB_CURLOPT_CAINFO, _CA_FN_ )
 
       ? "DOWNLOAD FILE (FILE HANDLE):", curl_easy_perform( curl )
+      ? "SERVER TIMESTAMP:", tDate := UnixTimeToT( curl_easy_getinfo( curl, HB_CURLINFO_FILETIME ) )
 
       curl_easy_reset( curl )
 
       ? hb_vfClose( tmp1 )
+
+      hb_vfTimeSet( cFileName, tDate )
 
       WAIT
 
@@ -186,8 +194,9 @@ PROCEDURE Main( cDL, cUL )
 
       ? curl_easy_setopt( curl, HB_CURLOPT_DOWNLOAD )
       ? curl_easy_setopt( curl, HB_CURLOPT_URL, cDL )
-      ? curl_easy_setopt( curl, HB_CURLOPT_DL_FILE_SETUP, tmp1 := FCreate( "test_dlo.bin" ) )
+      ? curl_easy_setopt( curl, HB_CURLOPT_DL_FILE_SETUP, tmp1 := FCreate( cFileName := "test_dlo.bin" ) )
       ? curl_easy_setopt( curl, HB_CURLOPT_FAILONERROR, .T. )
+      ? curl_easy_setopt( curl, HB_CURLOPT_FILETIME, .T. )
       ? curl_easy_setopt( curl, HB_CURLOPT_XFERINFOBLOCK, {| nPos, nLen | hb_DispOutAt( 11, 10, Str( ( nPos / nLen ) * 100, 6, 2 ) + "%" ) } )
       ? curl_easy_setopt( curl, HB_CURLOPT_NOPROGRESS, 0 )
       ? curl_easy_setopt( curl, HB_CURLOPT_VERBOSE, lVerbose )
@@ -195,10 +204,13 @@ PROCEDURE Main( cDL, cUL )
       ? curl_easy_setopt( curl, HB_CURLOPT_CAINFO, _CA_FN_ )
 
       ? "DOWNLOAD FILE (FS HANDLE):", curl_easy_perform( curl )
+      ? "SERVER TIMESTAMP:", tDate := UnixTimeToT( curl_easy_getinfo( curl, HB_CURLINFO_FILETIME ) )
 
       curl_easy_reset( curl )
 
       ? FClose( tmp1 )
+
+      hb_vfTimeSet( cFileName, tDate )
 
       WAIT
 
@@ -208,6 +220,7 @@ PROCEDURE Main( cDL, cUL )
       ? curl_easy_setopt( curl, HB_CURLOPT_URL, cDL )
       ? curl_easy_setopt( curl, HB_CURLOPT_DL_BUFF_SETUP )
       ? curl_easy_setopt( curl, HB_CURLOPT_FAILONERROR, .T. )
+      ? curl_easy_setopt( curl, HB_CURLOPT_FILETIME, .T. )
       ? curl_easy_setopt( curl, HB_CURLOPT_XFERINFOBLOCK, {| nPos, nLen | hb_DispOutAt( 11, 10, Str( ( nPos / nLen ) * 100, 6, 2 ) + "%" ) } )
       ? curl_easy_setopt( curl, HB_CURLOPT_NOPROGRESS, 0 )
       ? curl_easy_setopt( curl, HB_CURLOPT_VERBOSE, lVerbose )
@@ -215,11 +228,13 @@ PROCEDURE Main( cDL, cUL )
       ? curl_easy_setopt( curl, HB_CURLOPT_CAINFO, _CA_FN_ )
 
       ? "DOWNLOAD FILE TO MEM:", curl_easy_perform( curl )
+      ? "SERVER TIMESTAMP:", tDate := UnixTimeToT( curl_easy_getinfo( curl, HB_CURLINFO_FILETIME ) )
 
-      tmp := "test_dlm.bin"
-      ? "WRITING TO FILE:", tmp
+      cFileName := "test_dlm.bin"
+      ? "WRITING TO FILE:", cFileName
 
-      hb_MemoWrit( tmp, curl_easy_dl_buff_get( curl ) )
+      hb_MemoWrit( cFileName, curl_easy_dl_buff_get( curl ) )
+      hb_vfTimeSet( cFileName, tDate )
 
       curl_easy_reset( curl )
 
@@ -233,3 +248,6 @@ PROCEDURE Main( cDL, cUL )
    curl_global_cleanup()
 
    RETURN
+
+STATIC FUNCTION UnixTimeToT( nUnixTime )
+   RETURN hb_SToT( "19700101000000" ) + nUnixTime / 86400
