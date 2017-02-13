@@ -70,8 +70,7 @@
  *
  * MAP
  *   Takes one or two arguments, specifying the correspondence of the file names
- *   between the original sources and the Harbour sources (which are reduced to
- *   8+3 format, in order to stay compatible with DOS).
+ *   between the original sources and the Harbour sources.
  *   If a particular file name is the same both in the upstream and the Harbour
  *   trees, it is sufficient to specify it only once, but every file that needs
  *   to be brought over to the Harbour tree must be specified.
@@ -365,15 +364,6 @@ PROCEDURE Main( ... )
              * path separator to native. The HB tree is always flattened. */
             IF "/" $ aRegexMatch[ TWOARG_ARG1 ]
                aRegexMatch[ TWOARG_ARG1 ] := StrTran( aRegexMatch[ TWOARG_ARG1 ], "/", hb_ps() )
-            ENDIF
-            /* The destination argument must fit in the 8+3 scheme */
-            IF Len( hb_FNameName( aRegexMatch[ TWOARG_ARG2 ] ) ) > 8 .OR. ;
-               Len( hb_FNameExt( aRegexMatch[ TWOARG_ARG2 ] ) ) > 4
-               OutStd( hb_StrFormat( "E: Destination does not fit 8+3, " + ;
-                  "offending line %1$d:", nMemoLine ) + hb_eol() )
-               OutStd( aRegexMatch[ 1 ] + hb_eol() )
-               ErrorLevel( 2 )
-               RETURN
             ENDIF
             /* In case the priginal and the HB file names are identical, the
              * second argument to `MAP' is optional. Due to the way the regex is
