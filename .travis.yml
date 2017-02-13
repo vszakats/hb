@@ -47,25 +47,27 @@ addons:
       - wine
       - p7zip-full
 before_install:
-  - if [ "$TRAVIS_OS_NAME" = "osx" ] ; then
-       brew update > /dev/null;
-       brew install cairo;
-       brew install curl;
-       brew install freeimage;
-       brew install gd;
-       brew install ghostscript;
-       brew install icu4c;
-       brew install libmagic;
-       brew install mariadb;
-       brew install openssl;
-       brew install qt5;
-       brew install s-lang;
-       brew install unixodbc;
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then
        brew install p7zip;
-       brew install mingw-w64;
+       if [ "$CC" = "i686-w64-mingw32-gcc" ]; then
+          brew install mingw-w64;
+       else
+          brew install cairo;
+          brew install curl;
+          brew install freeimage;
+          brew install gd;
+          brew install ghostscript;
+          brew install icu4c;
+          brew install libmagic;
+          brew install mariadb;
+          brew install openssl;
+          brew install qt5;
+          brew install s-lang;
+          brew install unixodbc;
+       fi;
     fi
 script:
-  - if [ "$CC" = "i686-w64-mingw32-gcc" ] ; then
+  - if [ "$CC" = "i686-w64-mingw32-gcc" ]; then
        make -j $HB_CI_THREADS HB_COMPILER=clang HB_BUILD_DYN=no HB_BUILD_CONTRIBS=no;
        export HB_BUILD_3RDEXT=no;
        export HB_PLATFORM=win;
@@ -73,17 +75,21 @@ script:
        export HB_CCPREFIX=i686-w64-mingw32-;
        ls -lA /usr/bin/${HB_CCPREFIX}*; "${HB_CCPREFIX}gcc" -v;
        make -j $HB_CI_THREADS;
-       wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/hbmk2.exe --version;
-       wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/harbour.exe -build;
+       if [ "$TRAVIS_OS_NAME" = "linux" ]; then
+          wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/hbmk2.exe --version;
+          wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/harbour.exe -build;
+       fi;
        export HB_COMPILER=mingw64;
        export HB_CCPREFIX=x86_64-w64-mingw32-;
        ls -lA /usr/bin/${HB_CCPREFIX}*; "${HB_CCPREFIX}gcc" -v;
        make -j $HB_CI_THREADS;
-       wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/hbmk2.exe --version;
-       wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/harbour.exe -build;
+       if [ "$TRAVIS_OS_NAME" = "linux" ]; then
+          wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/hbmk2.exe --version;
+          wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/harbour.exe -build;
+       fi;
     else
-       if [ "$TRAVIS_OS_NAME" = "linux" ] ; then
-          if [ "$CC" = "gcc" ] ; then
+       if [ "$TRAVIS_OS_NAME" = "linux" ]; then
+          if [ "$CC" = "gcc" ]; then
              export HB_CCSUFFIX=-6;
           else
              export HB_CCSUFFIX=-3.8;
