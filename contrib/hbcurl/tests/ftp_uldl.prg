@@ -230,8 +230,7 @@ PROCEDURE Main( cDL, cUL )
       ? "DOWNLOAD FILE TO MEM:", curl_easy_perform( curl )
       ? "SERVER TIMESTAMP:", tDate := UnixTimeToT( curl_easy_getinfo( curl, HB_CURLINFO_FILETIME ) )
 
-      cFileName := "test_dlm.bin"
-      ? "WRITING TO FILE:", cFileName
+      ? "WRITING TO FILE:", cFileName := "test_dlm.bin"
 
       hb_MemoWrit( cFileName, curl_easy_dl_buff_get( curl ) )
       hb_vfTimeSet( cFileName, tDate )
