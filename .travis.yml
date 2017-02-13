@@ -70,7 +70,7 @@ before_install:
     fi
 script:
   - if [ "$CC" = "i686-w64-mingw32-gcc" ]; then
-       echo "PATH: ${PATH}";
+       echo "${PATH}";
        make -j $HB_CI_THREADS HB_COMPILER=clang HB_BUILD_DYN=no HB_BUILD_CONTRIBS=no;
        export HB_BUILD_3RDEXT=no;
        export HB_PLATFORM=win;
