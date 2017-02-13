@@ -17,8 +17,6 @@ matrix:
   exclude:
     - os: osx
       compiler: gcc
-    - os: osx
-      compiler: i686-w64-mingw32-gcc
 sudo: false
 addons:
   apt:
@@ -64,6 +62,7 @@ before_install:
        brew install s-lang;
        brew install unixodbc;
        brew install p7zip;
+       brew install mingw-w64;
     fi
 script:
   - if [ "$CC" = "i686-w64-mingw32-gcc" ] ; then
