@@ -51,6 +51,8 @@ before_install:
        brew install p7zip;
        if [ "$CC" = "i686-w64-mingw32-gcc" ]; then
           brew install mingw-w64;
+          brew cask install wine-staging;
+          export PATH="/Applications/Wine Staging.app/Contents/Resources/wine/bin:${PATH}";
        else
           brew install cairo;
           brew install curl;
@@ -68,6 +70,7 @@ before_install:
     fi
 script:
   - if [ "$CC" = "i686-w64-mingw32-gcc" ]; then
+       echo "PATH: ${PATH}";
        make -j $HB_CI_THREADS HB_COMPILER=clang HB_BUILD_DYN=no HB_BUILD_CONTRIBS=no;
        export HB_BUILD_3RDEXT=no;
        export HB_PLATFORM=win;
@@ -75,7 +78,7 @@ script:
        export HB_CCPREFIX=i686-w64-mingw32-;
        ls -lA /usr/bin/${HB_CCPREFIX}*; "${HB_CCPREFIX}gcc" -v;
        make -j $HB_CI_THREADS;
-       if [ "$TRAVIS_OS_NAME" = "linux" ]; then
+       if which wine > /dev/null; then
           wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/hbmk2.exe --version;
           wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/harbour.exe -build;
        fi;
@@ -83,7 +86,7 @@ script:
        export HB_CCPREFIX=x86_64-w64-mingw32-;
        ls -lA /usr/bin/${HB_CCPREFIX}*; "${HB_CCPREFIX}gcc" -v;
        make -j $HB_CI_THREADS;
-       if [ "$TRAVIS_OS_NAME" = "linux" ]; then
+       if which wine > /dev/null; then
           wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/hbmk2.exe --version;
           wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/harbour.exe -build;
        fi;
