@@ -48,12 +48,11 @@ case "${os}" in
       pacman --noconfirm --noprogressbar -S --needed p7zip mingw-w64-{i686,x86_64}-{jq,osslsigncode}
       ;;
    mac)
-      # port install mingw-w64
-      # brew install p7zip jq osslsigncode dos2unix gpg
+      # brew install mingw-w64 p7zip jq osslsigncode dos2unix gpg
       # for `gcp`. TODO: replace it with `rsync` where `--parents` option is used
       # brew install coreutils
       # for running `harbour.exe` when creating `BUILD.txt` and `HB_BUILD_POSTRUN` tasks
-      # Wine from https://wiki.winehq.org/MacOS
+      # Wine from https://dl.winehq.org/wine-builds/macosx/download.html
       ;;
 esac
 

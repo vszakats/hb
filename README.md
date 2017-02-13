@@ -443,7 +443,7 @@ file and find occasional link notes inside their `.hbc` files.
 1. Install [Homebrew](https://brew.sh/) :beer:
 2. Install packages:
 
-        $ brew install valgrind pcre pcre2 s-lang upx uncrustify ack optipng jpegoptim eg
+        $ brew install valgrind pcre pcre2 s-lang mingw-w64 upx uncrustify optipng jpegoptim
         $ brew tap caskroom/cask
 
 3. Install [X11](https://www.xquartz.org/) (optional, for `gtxwc`)
