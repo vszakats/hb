@@ -440,7 +440,7 @@ file and find occasional link notes inside their `.hbc` files.
 
 ## Darwin (Mac)
 
-1. Install [Homebrew](http://brew.sh/) :beer:
+1. Install [Homebrew](https://brew.sh/) :beer:
 2. Install packages:
 
         $ brew install valgrind pcre pcre2 s-lang upx uncrustify ack optipng jpegoptim eg
