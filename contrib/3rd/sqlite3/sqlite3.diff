@@ -1,7 +1,7 @@
 diff --strip-trailing-cr -urN sqlite3.orig/sqlite3.c sqlite3/sqlite3.c
---- sqlite3.orig/sqlite3.c	2017-01-06 16:52:16.000000000 +0000
-+++ sqlite3/sqlite3.c	2017-01-06 22:01:35.000000000 +0000
-@@ -33394,7 +33394,11 @@
+--- sqlite3.orig/sqlite3.c	2017-02-13 16:25:44.000000000 +0000
++++ sqlite3/sqlite3.c	2017-02-13 21:54:23.000000000 +0000
+@@ -33497,7 +33497,11 @@
        ** This is a similar technique to that used by glibc on systems
        ** that do not have a real fallocate() call.
        */
@@ -13,7 +13,7 @@ diff --strip-trailing-cr -urN sqlite3.orig/sqlite3.c sqlite3/sqlite3.c
        int nWrite = 0;             /* Number of bytes written by seekAndWrite */
        i64 iWrite;                 /* Next offset to write to */
  
-@@ -39638,6 +39642,11 @@
+@@ -39741,6 +39745,11 @@
  ** So define a substitute.
  */
  /* #  include <time.h> */
@@ -25,7 +25,7 @@ diff --strip-trailing-cr -urN sqlite3.orig/sqlite3.c sqlite3/sqlite3.c
  struct tm *__cdecl localtime(const time_t *t)
  {
    static struct tm y;
-@@ -39645,7 +39654,7 @@
+@@ -39748,7 +39757,7 @@
    SYSTEMTIME pTm;
    sqlite3_int64 t64;
    t64 = *t;
