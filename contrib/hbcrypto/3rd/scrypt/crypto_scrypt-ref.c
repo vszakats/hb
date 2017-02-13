@@ -26,6 +26,9 @@
  * This file was originally written by Colin Percival as part of the Tarsnap
  * online backup system.
  */
+
+#include "sha256.h"
+
 #include "crypto_scrypt.h"
 
 static void blkcpy(uint8_t *, uint8_t *, size_t);
