@@ -17,7 +17,7 @@ cd "$(dirname "$0")/.." || exit
 
 # Verify if the last commit updated any HBDOC files. This requires
 # a repository with a history of at least the last commit.
-if git diff-index --name-only HEAD~1 | grep 'doc/en' /dev/null; then
+if git diff-index --name-only HEAD~1 | grep 'doc/en' > /dev/null; then
 
   case "$(uname)" in
     *_NT*)   readonly os='win';;

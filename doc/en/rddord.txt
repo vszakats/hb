@@ -69,7 +69,7 @@
       work area. If <nOrder> is specidied, it will represent the position
       in the order list of the target order. If <cOrderName> is specified,
       it will represent the name of the target order. In essence, it will
-      tell the name of the database (if That Rdd is in use) for a given
+      tell the name of the database (if That RDD is in use) for a given
       index name or index order number. If <cOrderName> is not specified
       or <nOrder> is 0, the Current active order will be used.
    $EXAMPLES$
