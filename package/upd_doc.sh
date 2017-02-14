@@ -15,9 +15,9 @@ cd "$(dirname "$0")/.." || exit
 
 [ -n "${GITHUB_TOKEN}" ] || exit
 
-# Verify if the last commit updated any HBDOC files. This requires
-# a repository with a history of at least the last commit.
-if git diff-index --name-only HEAD~1 | grep 'doc/en' > /dev/null; then
+# Verify if the last commit updated any HBDOC files or the hbdoc tool itself.
+# This requires a repository with a history of at least the last commit.
+if git diff-index --name-only HEAD~1 | grep -E '(doc/[a-zA-Z0-9\-]+/|contrib/hbdoc)' > /dev/null; then
 
   case "$(uname)" in
     *_NT*)   readonly os='win';;

@@ -51,6 +51,8 @@
 
 #include "hbclass.ch"
 
+#define _FIL_EOL  Chr( 10 )
+
 CREATE CLASS GenerateAscii INHERIT GenerateText
 
    METHOD NewIndex( cDir, cFilename, cTitle, cLang )
@@ -96,14 +98,14 @@ ENDCLASS
 METHOD NewDocument( cDir, cFilename, cTitle, cLang ) CLASS GenerateText
 
    ::super:NewDocument( cDir, cFilename, cTitle, ".txt", cLang )
-   ::WriteEntry( "", cTitle + hb_eol(), .F. )
+   ::WriteEntry( "", cTitle + _FIL_EOL, .F. )
 
    RETURN Self
 
 METHOD NewIndex( cDir, cFilename, cTitle, cLang ) CLASS GenerateText
 
    ::super:NewIndex( cDir, cFilename, cTitle, ".txt", cLang )
-   ::WriteEntry( "", cTitle + hb_eol(), .F. )
+   ::WriteEntry( "", cTitle + _FIL_EOL, .F. )
 
    RETURN Self
 
@@ -138,7 +140,7 @@ METHOD AddEntry( hEntry ) CLASS GenerateText
       NEXT
 
       IF ! ::lContinuous
-         ::cFile += hb_BChar( 12 ) + hb_eol()
+         ::cFile += hb_BChar( 12 ) + _FIL_EOL
       ENDIF
    ENDIF
 
@@ -151,18 +153,18 @@ METHOD PROCEDURE WriteEntry( cCaption, cContent, lPreformatted ) CLASS GenerateT
    IF ! Empty( cContent )
       nIndent := iif( cCaption == "", 0, 6 )
       IF ! cCaption == "" .AND. nIndent > 0
-         ::cFile += Space( ::nDepth * 6 ) + cCaption + ":" + hb_eol()
+         ::cFile += Space( ::nDepth * 6 ) + cCaption + ":" + _FIL_EOL
       ENDIF
       nIndent += ::nDepth * 6
       DO WHILE ! cContent == ""
-         ::cFile += Indent( Parse( @cContent, hb_eol() ), nIndent, 70, lPreformatted )
+         ::cFile += Indent( Parse( @cContent, _FIL_EOL ), nIndent, 70, lPreformatted )
       ENDDO
    ENDIF
 
 METHOD Generate() CLASS GenerateText
 
    IF ::IsIndex() .AND. ! ::lContinuous
-      ::cFile += hb_BChar( 12 ) + hb_eol()
+      ::cFile += hb_BChar( 12 ) + _FIL_EOL
    ENDIF
 
    ::super:Generate()

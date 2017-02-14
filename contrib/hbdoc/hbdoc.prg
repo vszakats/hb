@@ -55,6 +55,10 @@
 #include "hbhash.ch"
 #include "hbver.ch"
 
+#define _OUT_EOL  hb_eol()   /* used for displaying text */
+#define _FIL_EOL  Chr( 10 )  /* used for creating output */
+#define _DOC_EOL  Chr( 10 )  /* used for processing HBDOC input */
+
 #define I_( x )   hb_UTF8ToStr( hb_i18n_gettext( x /*, _SELF_NAME_ */ ) )
 #define BI_( x )  {|| I_( x ) }
 
@@ -189,7 +193,7 @@ PROCEDURE Main()
       ENDIF
    NEXT
 
-   OutStd( hb_StrFormat( "! Input directory: %1$s", s_hSwitches[ "dir_in" ] ) + hb_eol() )
+   OutStd( hb_StrFormat( "! Input directory: %1$s", s_hSwitches[ "dir_in" ] ) + _OUT_EOL )
 
    ProcessDirs( s_hDoc, s_hHBX )
 
@@ -226,7 +230,7 @@ PROCEDURE Main()
       OutStd( hb_StrFormat( "! %1$d '%2$s' entries found (%3$.1f%%)", ;
          Len( aEntries ), ;
          cLang, ;
-         Round( ( Len( s_hHBX ) - Len( tmp ) ) * 100 / Len( s_hHBX ), 1 ) ) + hb_eol() )
+         Round( ( Len( s_hHBX ) - Len( tmp ) ) * 100 / Len( s_hHBX ), 1 ) ) + _OUT_EOL )
 
       ASort( aEntries,,, {| oL, oR | ;
             PadR( SortWeight( oL[ "CATEGORY" ] ), 30 ) + ;
@@ -244,7 +248,7 @@ PROCEDURE Main()
 
             cDir := s_hSwitches[ "dir_out" ] + cFormat
 
-            OutStd( hb_StrFormat( "! Output directory: %1$s", hb_PathNormalize( hb_PathJoin( hb_cwd(), cDir ) ) ) + hb_eol() )
+            OutStd( hb_StrFormat( "! Output directory: %1$s", hb_PathNormalize( hb_PathJoin( hb_cwd(), cDir ) ) ) + _OUT_EOL )
 
             aComponent := ASort( hb_HKeys( hTree ),,, {| x, y | SortWeightPkg( x ) < SortWeightPkg( y ) } )
 
@@ -396,7 +400,7 @@ PROCEDURE Main()
                ENDIF
 
                IF s_hSwitches[ "verbosity" ] >= 1
-                  OutStd( Chr( 13 ) + "!" + " " + Str( 100, 3 ) + "%" + hb_eol() )
+                  OutStd( Chr( 13 ) + "!" + " " + Str( 100, 3 ) + "%" + _OUT_EOL )
                ENDIF
 
                EXIT
@@ -416,7 +420,7 @@ PROCEDURE Main()
       NEXT
    NEXT
 
-   OutStd( hb_StrFormat( "! Done in %1$.2f seconds", Round( ( hb_MilliSeconds() - nStart ) / 1000, 2 ) ) + hb_eol() )
+   OutStd( hb_StrFormat( "! Done in %1$.2f seconds", Round( ( hb_MilliSeconds() - nStart ) / 1000, 2 ) ) + _OUT_EOL )
 
    RETURN
 
@@ -441,10 +445,10 @@ STATIC PROCEDURE UseLang( cLang )
             IF ( tmp := __i18n_potArrayLoad( tmp1, @tmp2 ) ) != NIL
                s_hLang[ cLang ] := __i18n_hashTable( __i18n_potArrayToHash( tmp, .F. ) )
                IF s_hSwitches[ "verbosity" ] >= 2
-                  OutStd( hb_StrFormat( "! .po loaded: %1$s", cLang ) + hb_eol() )
+                  OutStd( hb_StrFormat( "! .po loaded: %1$s", cLang ) + _OUT_EOL )
                ENDIF
             ELSE
-               OutErr( hb_StrFormat( "! Error: Cannot load .po: %1$s", tmp2 ) + hb_eol() )
+               OutErr( hb_StrFormat( "! Error: Cannot load .po: %1$s", tmp2 ) + _OUT_EOL )
             ENDIF
             hb_vfErase( tmp1 )
          ENDIF
@@ -618,7 +622,7 @@ STATIC FUNCTION ProcessDocDir( cDir, cArea, cComponent, hDoc )
                cComponent, ;
                tmp:__enumKey(), ;
                tmp, ;
-               Round( hCountF[ tmp:__enumKey() ] * 100 / s_hHBXStat[ cComponent ], 1 ) ) + hb_eol() )
+               Round( hCountF[ tmp:__enumKey() ] * 100 / s_hHBXStat[ cComponent ], 1 ) ) + _OUT_EOL )
          NEXT
       ENDIF
    ENDIF
@@ -642,38 +646,38 @@ STATIC FUNCTION NewLineVoodoo( cSectionIn )
 
       IF Empty( cLine )
          IF lPreformatted .AND. ! lTable
-            cSection += Chr( 10 ) + Chr( 10 )
+            cSection += _DOC_EOL + _DOC_EOL
          ELSE
-            IF ! hb_BRight( cSection, 1 ) == Chr( 10 )
-               cSection += Chr( 10 )
+            IF ! hb_BRight( cSection, hb_BLen( _DOC_EOL ) ) == _DOC_EOL
+               cSection += _DOC_EOL
             ENDIF
             nLastIndent := -1
          ENDIF
       ELSEIF hb_LeftEq( AllTrim( cLine ), "<table" ) .OR. AllTrim( cLine ) == "<fixed>" .OR. ( hb_LeftEq( AllTrim( cLine ), '```' ) .AND. ! lPreformatted )
-         IF ! hb_BRight( cSection, 1 ) == Chr( 10 ) .OR. lPreformatted
-            cSection += Chr( 10 )
+         IF ! hb_BRight( cSection, hb_BLen( _DOC_EOL ) ) == _DOC_EOL .OR. lPreformatted
+            cSection += _DOC_EOL
          ENDIF
          IF AllTrim( cLine ) == "<fixed>" .OR. hb_LeftEq( AllTrim( cLine ), '```' )
             nFixedIndent := Len( cLine ) - Len( LTrim( cLine ) ) + 1
          ELSE
             nFixedIndent := 1
          ENDIF
-         cSection += AllTrim( cLine )  // + Chr( 10 )
+         cSection += AllTrim( cLine )  // + _DOC_EOL
          lLastPreformatted := lPreformatted
          lLastTable := lTable
          lPreformatted := .T.
          lTable := hb_LeftEq( AllTrim( cLine ), "<table" )
       ELSEIF AllTrim( cLine ) == "</table>" .OR. AllTrim( cLine ) == "</fixed>" .OR. ( hb_LeftEq( AllTrim( cLine ), '```' ) .AND. lPreformatted )
-         IF ! hb_BRight( cSection, 1 ) == Chr( 10 ) .OR. lPreformatted
-            cSection += Chr( 10 )
+         IF ! hb_BRight( cSection, hb_BLen( _DOC_EOL ) ) == _DOC_EOL .OR. lPreformatted
+            cSection += _DOC_EOL
          ENDIF
-         cSection += AllTrim( cLine ) + Chr( 10 )
+         cSection += AllTrim( cLine ) + _DOC_EOL
          lPreformatted := lLastPreformatted
          lTable := lLastTable
       ELSEIF nLastIndent != ( Len( cLine ) - Len( LTrim( cLine ) ) ) .OR. lPreformatted
          nLastIndent := Len( cLine ) - Len( LTrim( cLine ) )
-         IF ! hb_BRight( cSection, 1 ) == Chr( 10 )
-            cSection += Chr( 10 )
+         IF ! hb_BRight( cSection, hb_BLen( _DOC_EOL ) ) == _DOC_EOL
+            cSection += _DOC_EOL
          ENDIF
          cSection += iif( lPreformatted, SubStr( cLine, nFixedIndent ), AllTrim( cLine ) )
       ELSE
@@ -681,11 +685,11 @@ STATIC FUNCTION NewLineVoodoo( cSectionIn )
       ENDIF
    NEXT
 
-   IF hb_LeftEq( cSection, Chr( 10 ) )
-      cSection := SubStr( cSection, 1 + 1 )
+   IF hb_LeftEq( cSection, _DOC_EOL )
+      cSection := hb_BSubStr( cSection, hb_BLen( _DOC_EOL ) + 1 )
    ENDIF
-   IF hb_BRight( cSection, 1 ) == Chr( 10 )
-      cSection := hb_StrShrink( cSection )
+   IF hb_BRight( cSection, hb_BLen( _DOC_EOL ) ) == _DOC_EOL
+      cSection := hb_StrShrink( cSection, Len( _DOC_EOL ) )
    ENDIF
 
    RETURN cSection
@@ -752,19 +756,18 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, hNameID, /* @ */ nCount, /* @ */ nC
       hEntry[ "PLATFORMS" ] := "All"
    ENDIF
 
-   FOR EACH item IN hEntry
+   FOR EACH cSection IN hEntry
 
-      cSectionName := item:__enumKey()
-      cSection := StrTran( item, Chr( 13 ) + Chr( 10 ), Chr( 10 ) )
+      cSectionName := cSection:__enumKey()
 
       IF "|" + cSectionName + "|" $ "|SYNTAX|EXAMPLES|TESTS|FILES|"
          /* Remove ending EOLs */
-         DO WHILE hb_BRight( cSection, 1 ) == Chr( 10 )
-            cSection := hb_StrShrink( cSection )
+         DO WHILE hb_BRight( cSection, hb_BLen( _DOC_EOL ) ) == _DOC_EOL
+            cSection := hb_StrShrink( cSection, Len( _DOC_EOL ) )
          ENDDO
          /* Readd one if multi-line */
-         IF Chr( 10 ) $ cSection
-            cSection += Chr( 10 )
+         IF _DOC_EOL $ cSection
+            cSection += _DOC_EOL
          ENDIF
       ELSE
          cSection := NewLineVoodoo( cSection )  /* Decides which EOLs to keep and which to drop */
@@ -794,7 +797,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, hNameID, /* @ */ nCount, /* @ */ nC
 
          CASE ! IsConstraint( hE, cSectionName, cSection )
 
-            cSource := cSectionName + " is '" + iif( Len( cSection ) <= 20, cSection, Left( StrTran( cSection, Chr( 10 ) ), 20 ) + "..." ) + "', should be one of: ..."
+            cSource := cSectionName + " is '" + iif( Len( cSection ) <= 20, cSection, Left( StrTran( cSection, _DOC_EOL ), 20 ) + "..." ) + "', should be one of: ..."
             AddErrorCondition( cFile, cSource )
 
          ENDCASE
@@ -908,7 +911,7 @@ STATIC FUNCTION RetouchContent( cFile, cSectionName, cSection, cTemplate )
       FOR EACH tmp IN ASort( hb_ATokens( cSection, "," ) )
          IF ! ( tmp := AllTrim( tmp ) ) == ""
             IF ! cResult == ""
-               cResult += Chr( 10 )
+               cResult += _DOC_EOL
             ENDIF
             IF tmp $ sc_hConstraint[ "status" ]
                tmp := Eval( sc_hConstraint[ "status" ][ tmp ] )
@@ -927,20 +930,20 @@ STATIC FUNCTION RetouchContent( cFile, cSectionName, cSection, cTemplate )
       cResult := ""
       FOR EACH cSection IN ASort( hb_ATokens( cSection, "," ) )
          IF ! ( cSection := AllTrim( cSection ) ) == ""
-            cResult += Chr( 10 ) + Eval( hb_HGetDef( sc_hConstraint[ "platforms" ], cSection, {|| cSection } ) )
+            cResult += _DOC_EOL + Eval( hb_HGetDef( sc_hConstraint[ "platforms" ], cSection, {|| cSection } ) )
          ENDIF
       NEXT
-      RETURN SubStr( cResult, Len( Chr( 10 ) ) + 1 )
+      RETURN SubStr( cResult, Len( _DOC_EOL ) + 1 )
 
    CASE "COMPLIANCE"
       IF "," $ cSection .AND. Parse( cSection, "," ) $ sc_hConstraint[ "compliance" ]  /* Detect if not free text */
          cResult := ""
          FOR EACH tmp IN ASort( hb_ATokens( cSection, "," ) )
             IF ! ( tmp := AllTrim( tmp ) ) == ""
-               cResult += Chr( 10 ) + Eval( hb_HGetDef( sc_hConstraint[ "compliance" ], tmp, {|| tmp } ) )
+               cResult += _DOC_EOL + Eval( hb_HGetDef( sc_hConstraint[ "compliance" ], tmp, {|| tmp } ) )
             ENDIF
          NEXT
-         RETURN SubStr( cResult, Len( Chr( 10 ) ) + 1 )
+         RETURN SubStr( cResult, Len( _DOC_EOL ) + 1 )
       ENDIF
 
       RETURN Eval( hb_HGetDef( sc_hConstraint[ "compliance" ], cSection, {|| cSection } ) )
@@ -963,13 +966,13 @@ STATIC PROCEDURE ShowSubHelp( xLine, /* @ */ nMode, nIndent, n )
       ENDIF
       AEval( xLine, {| x, n | ShowSubHelp( x, @nMode, nIndent + 2, n ) } )
       IF nMode == 2
-         OutStd( hb_eol() )
+         OutStd( _OUT_EOL )
       ENDIF
    OTHERWISE
       DO CASE
-      CASE nMode == 1 ; OutStd( Space( nIndent ) + xLine + hb_eol() )
+      CASE nMode == 1 ; OutStd( Space( nIndent ) + xLine + _OUT_EOL )
       CASE nMode == 2 ; OutStd( iif( n > 1, ", ", "" ) + xLine )
-      OTHERWISE       ; OutStd( "(" + hb_ntos( nMode ) + ") " + xLine + hb_eol() )
+      OTHERWISE       ; OutStd( "(" + hb_ntos( nMode ) + ") " + xLine + _OUT_EOL )
       ENDCASE
    ENDCASE
 
@@ -1083,7 +1086,7 @@ STATIC PROCEDURE AddErrorCondition( cFile, cMessage, lFatal )
    hb_default( @lFatal, .F. )
 
    IF s_hSwitches[ "verbosity" ] >= 2 .OR. lFatal
-      OutStd( hb_StrFormat( "! %1$s: %2$s: %3$s", iif( lFatal, "Error", "Warning" ), cFile, cMessage ) + hb_eol() )
+      OutStd( hb_StrFormat( "! %1$s: %2$s: %3$s", iif( lFatal, "Error", "Warning" ), cFile, cMessage ) + _OUT_EOL )
    ENDIF
 
    RETURN
@@ -1103,16 +1106,16 @@ FUNCTION Indent( cText, nLeftMargin, nWidth, lRaw, lForceRaw )
       idx := 99999
       AEval( aText, {| c | iif( Empty( c ), , idx := Min( idx, Len( c ) - Len( LTrim( c ) ) ) ) } )
       AEval( aText, {| c, n | aText[ n ] := RTrim( Space( nLeftMargin ) + SubStr( c, idx + 1 ) ) } )
-      cResult := Join( aText, hb_eol() ) + hb_eol() + hb_eol()
+      cResult := Join( aText, _FIL_EOL ) + _FIL_EOL + _FIL_EOL
    ELSE
       FOR EACH cLine IN aText
          IF hb_LeftEq( cLine, "<table" ) .OR. cLine == "<fixed>"
             lRaw := .T.
          ELSEIF cLine == "</table>" .OR. cLine == "</fixed>"
-            cResult += Chr( 10 )
+            cResult += _DOC_EOL
             lRaw := .F.
          ELSEIF lRaw .OR. lForceRaw
-            cResult += Space( nLeftMargin ) + LTrim( cLine ) + Chr( 10 )
+            cResult += Space( nLeftMargin ) + LTrim( cLine ) + _DOC_EOL
          ELSE
             DO WHILE Len( cLine ) > nWidth
                idx := nWidth + 1
@@ -1151,15 +1154,15 @@ FUNCTION Indent( cText, nLeftMargin, nWidth, lRaw, lForceRaw )
                   idx := nWidth
                ENDIF
 
-               cResult += Space( nLeftMargin ) + Left( cLine, idx - iif( SubStr( cLine, idx, 1 ) == " ", 1, 0 ) ) + Chr( 10 )
+               cResult += Space( nLeftMargin ) + Left( cLine, idx - iif( SubStr( cLine, idx, 1 ) == " ", 1, 0 ) ) + _DOC_EOL
                cLine := LTrim( SubStr( cLine, idx + 1 ) )
             ENDDO
 
             IF ! cLine == ""
-               cResult += Space( nLeftMargin ) + cLine + Chr( 10 )
+               cResult += Space( nLeftMargin ) + cLine + _DOC_EOL
             ENDIF
 
-            cResult += Chr( 10 )
+            cResult += _DOC_EOL
          ENDIF
       NEXT
    ENDIF
@@ -1170,8 +1173,8 @@ FUNCTION Indent( cText, nLeftMargin, nWidth, lRaw, lForceRaw )
 FUNCTION NameCanon( cName )
 
    /* Remove 'obsolete' marker */
-   IF hb_BRight( cName, 1 ) == "*" .AND. hb_BLen( cName ) > 2
-      cName := hb_StrShrink( cName )
+   IF hb_BRight( cName, hb_BLen( "*" ) ) == "*" .AND. hb_BLen( cName ) > hb_BLen( "*" ) + 1
+      cName := hb_StrShrink( cName, Len( "*" ) )
    ENDIF
 
    RETURN cName
@@ -1599,7 +1602,7 @@ FUNCTION hbdoc_SymbolSource( cDir, cName, /* @ */ nLine, /* @ */ cRedir )
 
    LOCAL pRegex, file, hit, hSymb, cMask, result, cAlias, cFile, nPos
 
-   cDir := hb_DirSepAdd( cDir )
+   cDir := hb_DirSepAdd( hb_DirSepToOS( cDir ) )
 
    IF ! cDir $ s_hSymb
       hSymb := s_hSymb[ cDir ] := { => }
@@ -1649,9 +1652,8 @@ FUNCTION hbdoc_SymbolSource( cDir, cName, /* @ */ nLine, /* @ */ cRedir )
    ENDIF
 
    nLine := result[ 2 ]
-   result := result[ 1 ]
 
-   RETURN result
+   RETURN result[ 1 ]
 
 #if defined( __HBSCRIPT__HBSHELL )
 SET PROCEDURE TO "_genbase.prg"

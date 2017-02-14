@@ -51,6 +51,8 @@
 
 #include "hbclass.ch"
 
+#define _FIL_EOL  Chr( 10 )
+
 CREATE CLASS GenerateXML INHERIT TPLGenerate
 
    EXPORTED:
@@ -73,8 +75,8 @@ METHOD NewDocument( cDir, cFilename, cTitle, cLang ) CLASS GenerateXML
 
    ::super:NewDocument( cDir, cFilename, cTitle, ".xml", cLang )
    ::cFile += ;
-     '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' + hb_eol() + ;
-     '<HarbourReference>' + hb_eol()
+     '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' + _FIL_EOL + ;
+     '<HarbourReference>' + _FIL_EOL
 
    RETURN Self
 
@@ -82,17 +84,17 @@ METHOD NewIndex( cDir, cFilename, cTitle, cLang ) CLASS GenerateXML
 
    ::super:NewIndex( cDir, cFilename, cTitle, ".xml", cLang )
    ::cFile += ;
-     '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' + hb_eol() + ;
-     '<HarbourReference>' + hb_eol()
+     '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' + _FIL_EOL + ;
+     '<HarbourReference>' + _FIL_EOL
 
    RETURN Self
 
 METHOD BeginSection( cSection, cFilename ) CLASS GenerateXML
 
    IF ::nDepth == 0
-      ::cFile += Replicate( Chr( 9 ), ::nDepth ) + '<Section name="' + cSection + '" file="' + cFilename + ::cExtension + '">' + hb_eol()
+      ::cFile += Replicate( Chr( 9 ), ::nDepth ) + '<Section name="' + cSection + '" file="' + cFilename + ::cExtension + '">' + _FIL_EOL
    ELSE
-      ::cFile += Replicate( Chr( 9 ), ::nDepth ) + '<Section name="' + cSection + '">' + hb_eol()
+      ::cFile += Replicate( Chr( 9 ), ::nDepth ) + '<Section name="' + cSection + '">' + _FIL_EOL
    ENDIF
    ::nDepth++
 
@@ -103,7 +105,7 @@ METHOD EndSection( cSection, cFilename ) CLASS GenerateXML
    HB_SYMBOL_UNUSED( cSection )
    HB_SYMBOL_UNUSED( cFilename )
    ::nDepth--
-   ::cFile += Replicate( Chr( 9 ), ::nDepth ) + '</Section>' + hb_eol()
+   ::cFile += Replicate( Chr( 9 ), ::nDepth ) + '</Section>' + _FIL_EOL
 
    RETURN Self
 
@@ -120,20 +122,20 @@ METHOD AddEntry( hEntry ) CLASS GenerateXML
    IF ::IsIndex()
       ::AddIndex( hEntry )
    ELSE
-      ::cFile += '<Entry>' + hb_eol()
+      ::cFile += '<Entry>' + _FIL_EOL
       ::nDepth++
       FOR EACH item IN FieldIDList()
          ::WriteEntry( item, hEntry[ item ], IsPreformatted( hEntry, item ) )
       NEXT
       ::nDepth--
-      ::cFile += '</Entry>' + hb_eol()
+      ::cFile += '</Entry>' + _FIL_EOL
    ENDIF
 
    RETURN Self
 
 METHOD Generate() CLASS GenerateXML
 
-   ::cFile += '</HarbourReference>' + hb_eol()
+   ::cFile += '</HarbourReference>' + _FIL_EOL
 
    ::super:Generate()
 
@@ -143,8 +145,8 @@ METHOD PROCEDURE WriteEntry( cCaption, cContent, lPreformatted ) CLASS GenerateX
 
    IF ! Empty( cContent )
 
-      IF hb_eol() $ cContent
-         cContent := hb_eol() + cContent
+      IF _FIL_EOL $ cContent
+         cContent := _FIL_EOL + cContent
       ENDIF
 
       ::cFile += ;
@@ -154,7 +156,7 @@ METHOD PROCEDURE WriteEntry( cCaption, cContent, lPreformatted ) CLASS GenerateX
             '"' => "&quot;", ;
             "<" => "&lt;", ;
             ">" => "&gt;" } ) + ;
-         "</" + cCaption + ">" + hb_eol()
+         "</" + cCaption + ">" + _FIL_EOL
    ENDIF
 
    RETURN
