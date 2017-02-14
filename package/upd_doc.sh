@@ -51,9 +51,9 @@ if git diff-index --name-only HEAD~1 | grep -E '(doc/[a-zA-Z0-9\-]+/|contrib/hbd
     | tar --strip-components 1 -zx --exclude README.txt
   )
 
-  # Make a clone of the GitHub Pages repo for publishing results
+  # Make a clone of the GitHub Pages repository for publishing results
   url="https://github.com/${slug_doc_pages}.git"
-  echo "! Cloning GitHub Pages repo '${url}'..."
+  echo "! Cloning GitHub Pages repository '${url}'..."
   git clone --depth 2 "${url}" "${hbdoc_fmt}"
 
   # Generate docs
@@ -63,7 +63,7 @@ if git diff-index --name-only HEAD~1 | grep -E '(doc/[a-zA-Z0-9\-]+/|contrib/hbd
   (
     cd "${hbdoc_fmt}" || exit
 
-    echo "! Updating GitHub Pages repo..."
+    echo "! Updating GitHub Pages repository..."
 
     git remote rm origin
     (
@@ -83,5 +83,5 @@ Based on ${url_source}"
     echo "! Update finished."
   )
 else
-  echo '! upd_doc: No doc changes detected, skip updating GitHub Pages repo.'
+  echo '! upd_doc: No doc changes detected, skip updating GitHub Pages repository.'
 fi
