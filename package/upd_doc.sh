@@ -46,7 +46,7 @@ if git diff-index --name-only HEAD~1 | grep 'doc/en' > /dev/null; then
     url="https://github.com/${slug_3rd_hbdoc}/archive/master.tar.gz"
     echo "! Downloading 3rd party docs '${url}'..."
     curl -fsS -L --proto-redir =https "${url}" \
-    | tar --strip-components 1 -x --exclude README.txt
+    | tar --strip-components 1 -zx --exclude README.txt
   )
 
   # Make a clone of the GitHub Pages repo for publishing results
@@ -55,7 +55,7 @@ if git diff-index --name-only HEAD~1 | grep 'doc/en' > /dev/null; then
   git clone --depth 2 "${url}" "${hbdoc_fmt}"
 
   # Generate docs
-  ${_bin_hbdoc} -repr "-format=${hbdoc_fmt}"
+  ${_bin_hbdoc} -v0 -repr "-format=${hbdoc_fmt}"
 
   # Update origin
   (
@@ -74,7 +74,7 @@ if git diff-index --name-only HEAD~1 | grep 'doc/en' > /dev/null; then
 
     # Update repository
     git commit -a -m 'update hbdoc generated guide'
-    git push
+    git push origin master
 
     echo "! Update finished."
   )

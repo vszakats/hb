@@ -39,7 +39,7 @@
       <cGetColor> Color string to be used for the GET expression.
    $DESCRIPTION$
       This command adds a GET object to the reserved array variable
-      named `GetList[]` and displays it to the screen. The field or variable
+      named `GetList` and displays it to the screen. The field or variable
       to be added to the GET object is specified in <xVar> and is displayed
       at row, column coordinate <nRow>, <nCol>.
 
