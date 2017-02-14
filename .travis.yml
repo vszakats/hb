@@ -74,23 +74,23 @@ script:
           export PATH="/Applications/Wine Staging.app/Contents/Resources/wine/bin:${PATH}";
           export DISPLAY=:88.0; wineboot;
        fi;
-       make -j $HB_CI_THREADS HB_COMPILER=clang HB_BUILD_DYN=no HB_BUILD_CONTRIBS=no;
+       make -j "$HB_CI_THREADS" HB_COMPILER=clang HB_BUILD_DYN=no HB_BUILD_CONTRIBS=no;
        export HB_BUILD_3RDEXT=no;
        export HB_PLATFORM=win;
        export HB_COMPILER=mingw;
        export HB_CCPREFIX=i686-w64-mingw32-;
-       ls -lA "$(dirname "$(which ${HB_CCPREFIX}gcc)")"/${HB_CCPREFIX}*;
+       ls -lA "$(dirname "$(which "${HB_CCPREFIX}gcc")")/${HB_CCPREFIX}"*;
        "${HB_CCPREFIX}gcc" -v;
-       make -j $HB_CI_THREADS;
+       make -j "$HB_CI_THREADS";
        if which wine > /dev/null; then
           wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/hbmk2.exe --version;
           wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/harbour.exe -build;
        fi;
        export HB_COMPILER=mingw64;
        export HB_CCPREFIX=x86_64-w64-mingw32-;
-       ls -lA "$(dirname "$(which ${HB_CCPREFIX}gcc)")"/${HB_CCPREFIX}*;
+       ls -lA "$(dirname "$(which "${HB_CCPREFIX}gcc")")/${HB_CCPREFIX}"*;
        "${HB_CCPREFIX}gcc" -v;
-       make -j $HB_CI_THREADS;
+       make -j "$HB_CI_THREADS";
        if which wine > /dev/null; then
           wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/hbmk2.exe --version;
           wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/harbour.exe -build;
@@ -105,9 +105,9 @@ script:
           export HB_USER_CFLAGS="${HB_USER_CFLAGS} -fstack-protector-strong";
        fi;
        export HB_USER_CFLAGS="${HB_USER_CFLAGS} -D_FORTIFY_SOURCE=2";
-       ls -lA "$(dirname "$(which ${CC})")"/${CC}*;
-       "${CC}" -v;
-       export HB_COMPILER=$CC && make -j $HB_CI_THREADS;
+       ls -lA "$(dirname "$(which "${CC}${HB_CCSUFFIX}")")/${CC}${HB_CCSUFFIX}"*;
+       "${CC}${HB_CCSUFFIX}" -v;
+       export HB_COMPILER=$CC && make -j "$HB_CI_THREADS";
     fi;
 notifications:
   email: false
