@@ -70,7 +70,7 @@ if git diff-index --name-only HEAD~1 | grep -E '(doc/[a-zA-Z0-9\-]+/|contrib/hbd
       set +x
       readonly GITHUB_USER='vszakats'
       git remote add origin "https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${slug_doc_pages}.git"
-      git config user.name "${GITHUB_USER}"
+      git config user.name "${GITHUB_USER}-auto"
       git config user.email "${GITHUB_USER}@users.noreply.github.com"
     )
 

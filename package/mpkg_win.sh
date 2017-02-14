@@ -250,7 +250,6 @@ if [ "${HB_VF}" != "${HB_VF_DEF}" ]; then
 fi
 
 GITHUB_SLUG="$(git config remote.origin.url | sed -e 's/.git$//' | grep -o -E '[^/]+/[^/]+$')"
-echo "! SLUG: ${GITHUB_SLUG}"
 _vcs_id="$(git rev-parse --verify HEAD)"
 _vcs_id_short="$(git rev-parse --verify --short HEAD)"
 _vcs_url="$(git ls-remote --get-url | sed 's|.git$||')/"
