@@ -249,6 +249,8 @@ if [ "${HB_VF}" != "${HB_VF_DEF}" ]; then
    _hb_ver="${HB_VF_DEF} ${_hb_ver}"
 fi
 
+GITHUB_SLUG="$(git config remote.origin.url | sed -e 's/.git$//' | grep -o -E '[^/]+/[^/]+$')"
+echo "! SLUG: ${GITHUB_SLUG}"
 _vcs_id="$(git rev-parse --verify HEAD)"
 _vcs_id_short="$(git rev-parse --verify --short HEAD)"
 _vcs_url="$(git ls-remote --get-url | sed 's|.git$||')/"
@@ -367,8 +369,6 @@ cd - || exit
 
    if [ "${_BRANCH#*master*}" != "${_BRANCH}" ] && \
       [ -n "${GITHUB_TOKEN}" ]; then
-
-      readonly GITHUB_SLUG='vszakats/harbour-core'
 
       # Create tag update JSON request
       # https://developer.github.com/v3/git/refs/#update-a-reference

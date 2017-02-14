@@ -105,7 +105,7 @@ script:
           export HB_USER_CFLAGS="${HB_USER_CFLAGS} -fstack-protector-strong";
        fi;
        export HB_USER_CFLAGS="${HB_USER_CFLAGS} -D_FORTIFY_SOURCE=2";
-       ls -lA "$(dirname "$(which "${CC}${HB_CCSUFFIX}")")/${CC}${HB_CCSUFFIX}"*;
+       ls -lA "$(dirname "$(which "${CC}${HB_CCSUFFIX}")")/${CC}"*;
        "${CC}${HB_CCSUFFIX}" -v;
        export HB_COMPILER=$CC && make -j "$HB_CI_THREADS";
     fi;

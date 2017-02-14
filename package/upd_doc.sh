@@ -32,6 +32,8 @@ if git diff-index --name-only HEAD~1 | grep -E '(doc/[a-zA-Z0-9\-]+/|contrib/hbd
     _bin_hbdoc="$(find bin -type f -name 'hbdoc' | head -n 1)"
   fi
 
+  readonly url_source="$(git config remote.origin.url | sed -e 's/.git$//')/commit/$(git rev-parse --verify HEAD)"
+
   echo "! hbdoc binary: ${_bin_hbdoc}"
 
   # Constants
@@ -68,12 +70,14 @@ if git diff-index --name-only HEAD~1 | grep -E '(doc/[a-zA-Z0-9\-]+/|contrib/hbd
       set +x
       readonly GITHUB_USER='vszakats'
       git remote add origin "https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${slug_doc_pages}.git"
-      git config user.name 'hbdoc-bot'
+      git config user.name "${GITHUB_USER}"
       git config user.email "${GITHUB_USER}@users.noreply.github.com"
     )
 
     # Update repository
-    git commit -a -m 'update hbdoc generated guide'
+    git commit -a -m "update guide html
+
+Based on ${url_source}"
     git push origin master
 
     echo "! Update finished."
