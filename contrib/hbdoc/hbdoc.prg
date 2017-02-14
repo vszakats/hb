@@ -244,7 +244,7 @@ PROCEDURE Main()
 
             cDir := s_hSwitches[ "dir_out" ] + cFormat
 
-            OutStd( hb_StrFormat( "! Output directory: %1$s", hb_PathNormalize( hb_PathJoin( hb_DirBase(), cDir ) ) ) + hb_eol() )
+            OutStd( hb_StrFormat( "! Output directory: %1$s", hb_PathNormalize( hb_PathJoin( hb_cwd(), cDir ) ) ) + hb_eol() )
 
             aComponent := ASort( hb_HKeys( hTree ),,, {| x, y | SortWeightPkg( x ) < SortWeightPkg( y ) } )
 

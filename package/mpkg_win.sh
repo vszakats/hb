@@ -368,13 +368,15 @@ cd - || exit
    if [ "${_BRANCH#*master*}" != "${_BRANCH}" ] && \
       [ -n "${GITHUB_TOKEN}" ]; then
 
+      readonly GITHUB_SLUG='vszakats/harbour-core'
+
       # Create tag update JSON request
       # https://developer.github.com/v3/git/refs/#update-a-reference
       jq -nc ".sha = \"${_vcs_id}\" | .force = true" \
       | curl -sS \
          -H "Authorization: token ${GITHUB_TOKEN}" \
          -d @- \
-         -X PATCH "https://api.github.com/repos/vszakats/harbour-core/git/refs/tags/v${HB_VF_DEF}"
+         -X PATCH "https://api.github.com/repos/${GITHUB_SLUG}/git/refs/tags/v${HB_VF_DEF}"
    fi
 
    if [ -n "${VIRUSTOTAL_APIKEY}" ]; then

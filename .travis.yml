@@ -48,6 +48,7 @@ addons:
       - p7zip-full
 before_install:
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then
+       brew update > /dev/null;
        brew install p7zip;
        if [ "$CC" = "i686-w64-mingw32-gcc" ]; then
           brew install mingw-w64;

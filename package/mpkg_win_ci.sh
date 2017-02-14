@@ -53,7 +53,7 @@ case "${os}" in
       #    brew install p7zip mingw-w64 jq osslsigncode dos2unix gpg coreutils
       # For running `harbour.exe` when creating `BUILD.txt` and
       # `HB_BUILD_POSTRUN` tasks:
-      #    Wine from https://dl.winehq.org/wine-builds/macosx/download.html
+      #    brew cask install wine-staging
       ;;
 esac
 
@@ -264,3 +264,9 @@ fi
 # packaging
 
 [ "${_BRANC4}" = 'msvc' ] || "$(dirname "$0")/mpkg_win.sh"
+
+# update doc repository
+
+if [ "${_BRANCH#*master*}" != "${_BRANCH}" ]; then
+   "$(dirname "$0")/upd_doc.sh"
+fi
