@@ -52,7 +52,6 @@ before_install:
        if [ "$CC" = "i686-w64-mingw32-gcc" ]; then
           brew install mingw-w64;
           brew cask install wine-staging;
-          export PATH="/Applications/Wine Staging.app/Contents/Resources/wine/bin:${PATH}";
        else
           brew install cairo;
           brew install curl;
@@ -70,7 +69,9 @@ before_install:
     fi
 script:
   - if [ "$CC" = "i686-w64-mingw32-gcc" ]; then
-       echo "${PATH}";
+       if [ "$TRAVIS_OS_NAME" = "osx" ]; then
+          export PATH="/Applications/Wine Staging.app/Contents/Resources/wine/bin:${PATH}";
+       fi;
        make -j $HB_CI_THREADS HB_COMPILER=clang HB_BUILD_DYN=no HB_BUILD_CONTRIBS=no;
        export HB_BUILD_3RDEXT=no;
        export HB_PLATFORM=win;

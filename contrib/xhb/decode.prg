@@ -47,13 +47,13 @@
 /**
  * Function .......: hb_Decode( <var>, [ <case1,ret1 [,...,caseN,retN] ] [, <def> ]> ) ---> <xRet>
  * Date of creation: 1991-01-25
- * Last revision ..: 2006-01-24 1.13 - rewritten for xHarbour and renamed in hb_Decode()
+ * Last revision ..: 2006-01-24 1.13 - rewritten for xHarbour and renamed to hb_Decode()
  *
  *                   Decode a value from a list.
  */
 FUNCTION hb_Decode( ... )
 
-   LOCAL xVal, cKey, xRet
+   LOCAL xVal, xRet, tmp
    LOCAL aValues, aResults, n, i, nPos, nLen
 
    LOCAL aParams  := hb_AParams()
@@ -61,10 +61,10 @@ FUNCTION hb_Decode( ... )
    LOCAL xDefault := NIL
 
    DO CASE
-   CASE nParams > 1     /* More parameters, real case */
+   CASE nParams > 1  /* More parameters, real case */
       xVal := aParams[ 1 ]
 
-      hb_ADel( aParams, 1, .T. ) /* Resize params */
+      hb_ADel( aParams, 1, .T. )  /* Resize params */
       nParams := Len( aParams )
 
       /* if I have a odd number of members, last is default */
@@ -89,7 +89,7 @@ FUNCTION hb_Decode( ... )
             /* couples of values */
             IF HB_ISARRAY( xDefault[ 1 ] )
                /* If i have an array as default, this contains couples of key / value */
-               /* so I have to convert in a linear array */
+               /* so I have to convert to a linear array */
 
                nLen := Len( xDefault )
 
@@ -120,28 +120,28 @@ FUNCTION hb_Decode( ... )
                aParams := xDefault
             ENDIF
 
-         ELSEIF HB_ISHASH( xDefault ) /* If it is an hash, translate it in an array */
+         ELSEIF HB_ISHASH( xDefault )  /* If it is a hash, translate it to an array */
 
             aParams := Array( Len( xDefault ) * 2 )
 
             i := 1
-            FOR EACH cKey IN xDefault:Keys
-               aParams[ i++ ] := cKey
-               aParams[ i++ ] := xDefault[ cKey ]
+            FOR EACH tmp IN xDefault
+               aParams[ i++ ] := tmp:__enumKey()
+               aParams[ i++ ] := tmp
             NEXT
 
          ENDIF
 
-         /* Then add Decoding value at beginning */
+         /* Then add decoding value at beginning */
          hb_AIns( aParams, 1, xVal, .T. )
 
          /* And run decode() again */
          xRet := hb_ExecFromArray( @hb_Decode(), aParams )
 
       ELSE
-         /* Ok let's go ahead with real function */
+         /* Ok, let's go ahead with real function */
 
-         /* Combine in 2 lists having elements as { value } and { decode } */
+         /* Combine 2 lists having elements as { value } and { decode } */
          aValues  := Array( nParams / 2 )
          aResults := Array( nParams / 2 )
 
