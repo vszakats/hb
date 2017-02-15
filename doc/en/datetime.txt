@@ -576,7 +576,7 @@
    $DESCRIPTION$
       This function returns the numeric value for the year in <dDate>.
       The returned value is not affected by the `SET CENTURY` and `SET DATE`
-      settings and will always be a four-digit year number, unless the <dDate> 
+      settings and will always be a four-digit year number, unless the <dDate>
       is an empty date expression, in which case it will be zero.
    $EXAMPLES$
       ? Year( Date() )
