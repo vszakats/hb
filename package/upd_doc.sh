@@ -15,9 +15,16 @@ cd "$(dirname "$0")/.." || exit
 
 [ -n "${GITHUB_TOKEN}" ] || exit
 
+# DEBUG
+echo '!'
+git diff-index --name-only HEAD~1
+echo '!'
+git diff-index --name-only HEAD~1 | grep -E '(doc/[a-zA-Z0-9\-]+/|contrib/hbdoc)'
+echo '!'
+
 # Verify if the last commit updated any HBDOC files or the hbdoc tool itself.
 # This requires a repository with a history of at least the last commit.
-if git diff-index --name-only HEAD~1 | grep -E '(doc/[a-zA-Z0-9\-]+/|contrib/hbdoc)' > /dev/null; then
+if git diff-index --name-only HEAD~1 | grep -E '(doc/[a-zA-Z0-9\-]+/|contrib/hbdoc)'; then
 
   case "$(uname)" in
     *_NT*)   readonly os='win';;
@@ -75,7 +82,7 @@ if git diff-index --name-only HEAD~1 | grep -E '(doc/[a-zA-Z0-9\-]+/|contrib/hbd
     )
 
     # Update repository
-    git commit -a -m "update guide html
+    git commit -a -m "update content
 
 Based on ${url_source}"
     git push origin master
