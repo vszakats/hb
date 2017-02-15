@@ -16864,11 +16864,9 @@ STATIC PROCEDURE __hbshell_Exec( cCommand )
       /* We can use this function as this is a GPL licenced application */
       IF Empty( cHRB := hb_compileFromBuf( cFunc, hbmk_CoreHeaderFiles(), hb_ProgName(), "-n2", "-q2", hb_ArrayToParams( aOPTPRG ) ) )
          Eval( ErrorBlock(), I_( "Syntax error." ) )
-      ELSE
-         IF ! Empty( pHRB := hb_hrbLoad( cHRB ) )
-            bBlock := hb_hrbDo( pHRB )
-            Eval( bBlock )
-         ENDIF
+      ELSEIF ! Empty( pHRB := hb_hrbLoad( cHRB ) )
+         bBlock := hb_hrbDo( pHRB )
+         Eval( bBlock )
       ENDIF
 
    END /* SEQUENCE */
@@ -17005,6 +17003,7 @@ STATIC FUNCTION __hbshell_detect_CUI_extern_positive()
    RETURN { ;
       "BROWSE"           =>, ;
       "COL"              =>, ;
+      "DBEDIT"           =>, ;
       "DISPBEGIN"        =>, ;
       "DISPBOX"          =>, ;
       "DISPCOUNT"        =>, ;
