@@ -13,8 +13,8 @@ PROCEDURE Main()
    HBTEST BubbleBabbleEncode( "Pineapple" )      IS "xigak-nyryk-humil-bosek-sonax"
    HBTEST BubbleBabbleEncode_prg( "hello" )      IS "xipak-herek-serix"
    HBTEST BubbleBabbleEncode( "hello" )          IS "xipak-herek-serix"
-   HBTEST BubbleBabbleEncode_prg( "vszakats" )   IS "xitil-fyvok-capek-citol-fixix"
-   HBTEST BubbleBabbleEncode( "vszakats" )       IS "xitil-fyvok-capek-citol-fixix"
+   HBTEST BubbleBabbleEncode_prg( "example" )    IS "xinel-mymek-tysik-senex"
+   HBTEST BubbleBabbleEncode( "example" )        IS "xinel-mymek-tysik-senex"
 
    RETURN
 

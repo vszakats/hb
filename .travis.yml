@@ -52,7 +52,7 @@ before_install:
        brew install p7zip;
        if [ "$CC" = "i686-w64-mingw32-gcc" ]; then
           brew install mingw-w64;
-          brew cask install wine-staging;
+          brew cask install wine-devel;
        else
           brew install cairo;
           brew install curl;
