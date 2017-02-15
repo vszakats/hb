@@ -566,19 +566,18 @@
    $SUBCATEGORY$
       Date/Time
    $ONELINER$
-      Converts the year portion of a date into a numeric value
+      Extracts the year designator of a given date as a numeric value
    $SYNTAX$
-      Year( <cDate> ) --> nYear
+      Year( <dDate> ) --> nYear
    $ARGUMENTS$
       <dDate> Any valid date expression
    $RETURNS$
       <nYear> The year portion of the date.
    $DESCRIPTION$
       This function returns the numeric value for the year in <dDate>.
-      This value will always be a four-digit number and is not affected
-      by the setting of the `SET CENTURY` and `SET DATE` commands. Addition
-      ally, an empty date expression passed to this function will yield
-      a zero value.
+      The returned value is not affected by the `SET CENTURY` and `SET DATE`
+      settings and will always be a four-digit year number, unless the <dDate> 
+      is an empty date expression, in which case it will be zero.
    $EXAMPLES$
       ? Year( Date() )
       ? Year( hb_SToD( "32510125" ) )
