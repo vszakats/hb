@@ -645,7 +645,7 @@ HB_FUNC( PQSSLINUSE )
    PGconn * conn = hb_PGconn_par( 1 );
 
    if( conn )
-#if PG_VERSION_NUM >= 90100
+#if PG_VERSION_NUM >= 90500
       hb_retl( PQsslInUse( conn ) ? HB_TRUE : HB_FALSE );
 #else
       hb_ret();
@@ -659,7 +659,7 @@ HB_FUNC( PQSSLATTRIBUTE )
    PGconn * conn = hb_PGconn_par( 1 );
 
    if( conn )
-#if PG_VERSION_NUM >= 90100
+#if PG_VERSION_NUM >= 90500
       hb_retc( PQsslAttribute( conn, hb_parcx( 2 ) ) );
 #else
       hb_retc_null();
