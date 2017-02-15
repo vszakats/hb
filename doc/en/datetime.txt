@@ -418,21 +418,22 @@
    $ARGUMENTS$
       <dDate> Any valid date expression.
 
-		<nYear>, <nDayOfWeek> Optional parameters to obtain the year and day number of week.
+		<nYear>, <nDayOfWeek> Optional parameters to obtain the year and 
+                            day number of week.
    $RETURNS$
       <nWeek> The ordinal week number (of the year) into which falls the given <dDate>.
    $DESCRIPTION$
       This function returns the week number of year for the given <dDate>.
-		The returned value is an ISO 8601 compliant week number.
+      The returned value is an ISO 8601 compliant week number.
       Optionally, can also obtained the year and week day number
-		into <nYear> and/or <nDayOfWeek> parameters if they are passed by reference.
-		Note: new function available after 2017-02-08 19:36 UTC+0100 commit,
-		      not found in earlier versions.
+      into <nYear> and/or <nDayOfWeek> parameters if they are passed by reference.
+      Note: new function available after 2017-02-08 19:36 UTC+0100 commit,
+            not found in earlier versions.
    $EXAMPLES$
-		PROC Main
+		PROCEDURE Main
 		LOCAL nYear, nDayOfWeek
       ? hb_Week( CtoD( "02/15/2017" ), @nYear, @nDayOfWeek ), nYear, nDayOfWeek
-		// output: 7, 2017, 3
+      // output: 7, 2017, 3
    $STATUS$
       R
    $COMPLIANCE$
