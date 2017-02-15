@@ -32,7 +32,7 @@ echo '---'
 #   - contrib/hbdoc/po/file.po
 #   - src/dir/file.ext
 if git diff-index --name-only HEAD~1 \
-   | grep -E '((^|\/)doc\/[a-zA-Z0-9_]+\/|^contrib\/hbdoc\/[a-z0-9_]+\.[a-z]+)'; then
+   | grep -E '((^|\/)doc\/[a-zA-Z0-9_]+\/|^contrib\/hbdoc\/[a-z0-9_]+\.[a-z]+)' > /dev/null; then
 
   case "$(uname)" in
     *_NT*)   readonly os='win';;
