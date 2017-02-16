@@ -13,7 +13,7 @@
 
 cd "$(dirname "$0")/.." || exit
 
-[ -n "${GITHUB_TOKEN}" ] || exit
+[ -n "${GITHUB_TOKEN}" ] || exit 0
 
 # DEBUG
 echo '---'
