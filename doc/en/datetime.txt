@@ -402,6 +402,59 @@
 
 /* $DOC$
    $AUTHOR$
+      2017 Pete D. <pete_westg@yahoo.gr>
+   $TEMPLATE$
+      Function
+   $NAME$
+      hb_Week()
+   $CATEGORY$
+      API
+   $SUBCATEGORY$
+      Date/Time
+   $ONELINER$
+      Returns the week number of year.
+   $SYNTAX$
+      hb_Week( <dDate>, [@<nYear>], [@<nDayOfWeek>] ) --> nWeekNumber
+   $ARGUMENTS$
+      <dDate> Any valid date expression.
+
+      <nYear> Optional parameter to hold the year of the given date.
+
+      <nDayOfWeek> Optional parameter to hold the day number of week.
+   $RETURNS$
+      <nWeekNumber> The ordinal week number of the year into which falls
+                    the given <dDate>.
+   $DESCRIPTION$
+      This function returns the week number of year for the given <dDate>.
+      The returned value is an ISO 8601 compliant week number.
+      Optionally, can also be obtained the year and/or the day number of
+      the week of the given <dDate>, if the <nYear> and/or <nDayOfWeek>
+      parameters have been passed by reference.
+      If <dDate> is an empty date expression, the function returns zero(s).
+      Note: new function available after 2017-02-08 19:36 UTC+0100 commit,
+            not found in earlier versions.
+   $EXAMPLES$
+      PROCEDURE Main()
+         LOCAL nYear, nDayOfWeek
+         ? hb_Week( 0d20170215, @nYear, @nDayOfWeek ), nYear, nDayOfWeek
+         // output: 7, 2017, 3
+         ? hb_Week( 0d00000000, @nYear, @nDayOfWeek ), nYear, nDayOfWeek
+         // output: 0, 0, 0
+   $STATUS$
+      R
+   $COMPLIANCE$
+      H
+   $PLATFORMS$
+      All
+   $FILES$
+      Library is core
+   $SEEALSO$
+      Year(), Month(), Day()
+   $END$
+ */
+
+/* $DOC$
+   $AUTHOR$
       Copyright 2000 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Function
