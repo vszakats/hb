@@ -62,7 +62,7 @@ before_install:
           brew install icu4c;
           brew install libmagic;
           brew install mariadb;
-          brew install openssl;
+          brew install openssl@1.1;
           brew install qt5;
           brew install s-lang;
           brew install unixodbc;
