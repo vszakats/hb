@@ -25,8 +25,6 @@ PROCEDURE Main()
    hb_rddADSRegister()
 #endif
 
-   CLS
-
    rddSetDefault( "ADSADT" )
    AdsSetServerType( 7 )
    SET FILETYPE TO ADT

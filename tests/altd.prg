@@ -3,8 +3,6 @@
 
 PROCEDURE Main()
 
-   CLS
-
    AltD( 1 )   // Enables the debugger. Press <F5> to go
 
    Alert( "debugger enabled",, "GR+/B" )

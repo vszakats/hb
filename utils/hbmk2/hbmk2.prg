@@ -11729,11 +11729,11 @@ STATIC FUNCTION AutoConfPathList( hbmk, lCWD, lForDocOutput )
 #if defined( __PLATFORM__UNIX )
    AAdd( aPath, "/etc/" + _CONFDIR_UNIX_ )
    IF lForDocOutput
-      AAdd( aPath, hb_StrFormat( I_( "<%1$s directory>" ), SELF_NAME() ) + hb_ps() + "../etc/" + _CONFDIR_UNIX_ )
-      AAdd( aPath, hb_StrFormat( I_( "<%1$s directory>" ), SELF_NAME() ) + hb_ps() + "../etc" )
+      AAdd( aPath, hb_PathNormalize( hb_StrFormat( I_( "<%1$s directory>" ), SELF_NAME() ) + hb_ps() + "../etc/" + _CONFDIR_UNIX_ ) )
+      AAdd( aPath, hb_PathNormalize( hb_StrFormat( I_( "<%1$s directory>" ), SELF_NAME() ) + hb_ps() + "../etc" ) )
    ELSE
-      AAdd( aPath, hb_DirSepAdd( hb_DirBase() ) + "../etc/" + _CONFDIR_UNIX_ )
-      AAdd( aPath, hb_DirSepAdd( hb_DirBase() ) + "../etc" )
+      AAdd( aPath, hb_PathNormalize( hb_DirSepAdd( hb_DirBase() ) + "../etc/" + _CONFDIR_UNIX_ ) )
+      AAdd( aPath, hb_PathNormalize( hb_DirSepAdd( hb_DirBase() ) + "../etc" ) )
    ENDIF
 #endif
 
@@ -17001,6 +17001,8 @@ STATIC FUNCTION __hbshell_win_reg_app( lRegister, lAllUser, cAppPath )
    a full-screen CUI ("interactive") app */
 STATIC FUNCTION __hbshell_detect_CUI_extern_positive()
    RETURN { ;
+      "ACHOICE"          =>, ;
+      "ALERT"            =>, ;  /* Supports command-line mode as well, but typically, it's used for CUI */
       "BROWSE"           =>, ;
       "COL"              =>, ;
       "DBEDIT"           =>, ;
@@ -17010,6 +17012,7 @@ STATIC FUNCTION __hbshell_detect_CUI_extern_positive()
       "DISPEND"          =>, ;
       "DISPOUT"          =>, ;
       "DISPOUTAT"        =>, ;
+      "HB_ALERT"         =>, ;  /* Supports command-line mode as well, but typically, it's used for CUI */
       "HB_CLRAREA"       =>, ;
       "HB_DISPBOX"       =>, ;
       "HB_DISPOUTAT"     =>, ;
@@ -17058,6 +17061,8 @@ STATIC FUNCTION __hbshell_detect_CUI_extern_positive()
       "SETPOS"           =>, ;
       "SETPOSBS"         =>, ;
       "__ACCEPT"         =>, ;
+      "__ATPROMPT"       =>, ;
+      "__MENUTO"         =>, ;
       "__WAIT"           => }
 
 STATIC FUNCTION __hbshell_detect_CUI_extern_negative()
