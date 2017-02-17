@@ -31,13 +31,13 @@ if [ "${os}" = 'win' ]; then
    # more practical/usable snapshot binaries.
    # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-icu
 
-   # Dependencies of 'prod' builds (we use our own builds instead for now)
+   # Dependencies of 'prod' builds (our own builds are used instead for now)
    # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{curl,openssl}
 
-   # Dependencies of 'prod' builds (we use vendored sources instead for now)
+   # Dependencies of 'prod' builds (vendored sources are used instead for now)
    # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{bzip2,expat,libharu,lzo2,sqlite3}
 
-   # Dependencies of Harbour core (we use vendored sources instead for now)
+   # Core dependencies (vendored sources are used instead for now)
    # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{libpng,pcre,zlib}
 fi
 

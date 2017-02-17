@@ -357,7 +357,7 @@ cd - || exit
       curl -sS \
          --form-string "user=${PUSHOVER_USER}" \
          --form-string "token=${PUSHOVER_TOKEN}" \
-         --form-string 'title=Harbour' \
+         --form-string "title=${GITHUB_SLUG}" \
          --form-string "message=Build ready: ${_BRANCH}" \
          --form-string 'html=1' \
          --form-string 'priority=1' \
