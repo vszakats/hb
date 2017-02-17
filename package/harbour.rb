@@ -13,8 +13,8 @@ class Harbour < Formula
   end
 
   devel do
-    url "https://github.com/vszakats/harbour-core/archive/141a288ab7ece839bda123b7008dcc60140ef9e5.tar.gz"
-    sha256 "959469eb09104e4210e3380347d618e7e6d00dbd4427a3156a3e5f4524a3d174"
+    url "https://github.com/vszakats/harbour-core/archive/4dd7c9b22d452986a350a5d1b2652b19e85d69b5.tar.gz"
+    sha256 "88a34c65e0ebd1383a51552e817d2672da8a9de87e8c239d398a5ca1354e82a7"
     version "3.4.0"
   end
 
@@ -30,7 +30,8 @@ class Harbour < Formula
   depends_on "mariadb" => :optional
   depends_on :mysql => :optional
   depends_on "ncurses" => :optional
-  depends_on "openssl" => :optional
+  depends_on "openssl" => :optional if build.stable?
+  depends_on "openssl@1.1" => :optional unless build.stable?
   depends_on :postgresql => :optional
   depends_on "qt5" => :optional
   depends_on "s-lang" => :optional
