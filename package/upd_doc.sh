@@ -7,9 +7,9 @@
 
 # Rebuild html docs and commit it to their repository.
 #
-# To be run after each Harbour repository commit, where Harbour HBDOC sources
-# are maintained. If `ng-hbdoc` repository gets an update, it won't have an
-# effect until a subsequent Harbour repository update is made.
+# To be run after each source repository commit, where HBDOC sources are
+# maintained. If `ng-hbdoc` repository gets an update (which stored 3rd
+# party docs), it won't have an effect until the next core HBDOC update.
 
 cd "$(dirname "$0")/.." || exit
 
@@ -66,10 +66,10 @@ if git diff-index --name-only HEAD~1 \
     | tar --strip-components 1 -zx --exclude README.txt
   )
 
-  # Make a clone of the Harbour Reference Guide repository for publishing
+  # Make a clone of the Reference Guide repository for publishing
   # results
   url="https://github.com/${slug_doc_pages}.git"
-  echo "! Cloning Harbour Reference Guide repository '${url}'..."
+  echo "! Cloning Reference Guide repository '${url}'..."
   git clone --depth 2 "${url}" "${hbdoc_fmt}"
 
   # Generate docs
@@ -79,7 +79,7 @@ if git diff-index --name-only HEAD~1 \
   (
     cd "${hbdoc_fmt}" || exit
 
-    echo "! Updating Harbour Reference Guide repository..."
+    echo "! Updating Reference Guide repository..."
 
     git remote rm origin
     (
@@ -99,5 +99,5 @@ Based on ${url_source}"
     echo "! Update finished."
   )
 else
-  echo '! upd_doc: No doc changes detected, skip updating Harbour Reference Guide repository.'
+  echo '! upd_doc: No doc changes detected, skip updating Reference Guide repository.'
 fi
