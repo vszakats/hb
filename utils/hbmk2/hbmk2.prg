@@ -9592,7 +9592,7 @@ STATIC FUNCTION s_getIncludedFiles( hbmk, cFile, cParentDir, lCMode )
                      "stdlib.h"       =>, ;
                      "string.h"       =>, ;
                      "time.h"         =>, ;
-                     "iso646.h"       =>, ; /* ISO C NA1 */
+                     "iso646.h"       =>, ; /* ISO C "AM1"/"C93" */
                      "wchar.h"        =>, ;
                      "wctype.h"       =>, ;
                      "complex.h"      =>, ; /* ISO C C99 */
