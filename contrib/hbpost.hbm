@@ -23,12 +23,12 @@
 # disable .hbx updates unless requested
 {!(HB_REBUILD_EXTERN='yes')}-hbx-
 
-#{win&allmsvc&HB_COMP_VER>'1600'}-cflag=-sdl
-{win&allmsvc&HB_COMP_VER>'1700'&_HB_MSVC_ANALYZE='yes'}-cflag=-analyze
-{win&allmingw&HB_COMP_VER>'0407'}-ldflag=-static-libgcc
-{win&allmingw&HB_COMP_VER>'0407'}-dflag=-static-libgcc
-#{win&allmingw&HB_COMP_VER>'0407'&lngcpp}-ldflag=-static-libstdc++
-#{win&allmingw&HB_COMP_VER>'0401'}-cflag=-Wstrict-overflow=4
+#{win&allmsvc&hb_comp_ver>'1600'}-cflag=-sdl
+{win&allmsvc&hb_comp_ver>'1700'&_HB_MSVC_ANALYZE='yes'}-cflag=-analyze
+{win&allmingw&hb_comp_ver>'0407'}-ldflag=-static-libgcc
+{win&allmingw&hb_comp_ver>'0407'}-dflag=-static-libgcc
+#{win&allmingw&hb_comp_ver>'0407'&lngcpp}-ldflag=-static-libstdc++
+#{win&allmingw&hb_comp_ver>'0401'}-cflag=-Wstrict-overflow=4
 
 {allwin}-winuni
 
