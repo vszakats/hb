@@ -66,9 +66,10 @@ if git diff-index --name-only HEAD~1 \
     | tar --strip-components 1 -zx --exclude README.txt
   )
 
-  # Make a clone of the GitHub Pages repository for publishing results
+  # Make a clone of the Harbour Reference Guide repository for publishing
+  # results
   url="https://github.com/${slug_doc_pages}.git"
-  echo "! Cloning GitHub Pages repository '${url}'..."
+  echo "! Cloning Harbour Reference Guide repository '${url}'..."
   git clone --depth 2 "${url}" "${hbdoc_fmt}"
 
   # Generate docs
@@ -78,7 +79,7 @@ if git diff-index --name-only HEAD~1 \
   (
     cd "${hbdoc_fmt}" || exit
 
-    echo "! Updating GitHub Pages repository..."
+    echo "! Updating Harbour Reference Guide repository..."
 
     git remote rm origin
     (
@@ -98,5 +99,5 @@ Based on ${url_source}"
     echo "! Update finished."
   )
 else
-  echo '! upd_doc: No doc changes detected, skip updating GitHub Pages repository.'
+  echo '! upd_doc: No doc changes detected, skip updating Harbour Reference Guide repository.'
 fi
