@@ -1,6 +1,6 @@
 diff --strip-trailing-cr -urN ed25519.orig/ed25519.h ed25519/ed25519.h
---- ed25519.orig/ed25519.h	2015-08-08 11:53:20.000000000 +0000
-+++ ed25519/ed25519.h	2017-01-04 00:46:14.000000000 +0000
+--- ed25519.orig/ed25519.h	2017-02-10 19:47:44.000000000 +0000
++++ ed25519/ed25519.h	2017-02-17 17:39:24.000000000 +0000
 @@ -25,6 +25,7 @@
  #endif
  
@@ -10,8 +10,8 @@ diff --strip-trailing-cr -urN ed25519.orig/ed25519.h ed25519/ed25519.h
  int ED25519_DECLSPEC ed25519_verify(const unsigned char *signature, const unsigned char *message, size_t message_len, const unsigned char *public_key);
  void ED25519_DECLSPEC ed25519_add_scalar(unsigned char *public_key, unsigned char *private_key, const unsigned char *scalar);
 diff --strip-trailing-cr -urN ed25519.orig/fixedint.h ed25519/fixedint.h
---- ed25519.orig/fixedint.h	2015-08-08 11:53:20.000000000 +0000
-+++ ed25519/fixedint.h	2017-01-04 00:46:14.000000000 +0000
+--- ed25519.orig/fixedint.h	2017-02-10 19:47:44.000000000 +0000
++++ ed25519/fixedint.h	2017-02-17 17:39:24.000000000 +0000
 @@ -4,7 +4,7 @@
      Not a compatible replacement for <stdint.h>, do not blindly use it as such.
  */
@@ -34,8 +34,8 @@ diff --strip-trailing-cr -urN ed25519.orig/fixedint.h ed25519/fixedint.h
      #endif
  #endif
 diff --strip-trailing-cr -urN ed25519.orig/sha512.h ed25519/sha512.h
---- ed25519.orig/sha512.h	2015-08-08 11:53:20.000000000 +0000
-+++ ed25519/sha512.h	2017-01-04 00:46:14.000000000 +0000
+--- ed25519.orig/sha512.h	2017-02-10 19:47:44.000000000 +0000
++++ ed25519/sha512.h	2017-02-17 17:39:24.000000000 +0000
 @@ -1,21 +1,15 @@
  #ifndef SHA512_H
  #define SHA512_H
@@ -65,8 +65,8 @@ diff --strip-trailing-cr -urN ed25519.orig/sha512.h ed25519/sha512.h
  
  #endif
 diff --strip-trailing-cr -urN ed25519.orig/sign.c ed25519/sign.c
---- ed25519.orig/sign.c	2015-08-08 11:53:20.000000000 +0000
-+++ ed25519/sign.c	2017-01-04 00:46:14.000000000 +0000
+--- ed25519.orig/sign.c	2017-02-10 19:47:44.000000000 +0000
++++ ed25519/sign.c	2017-02-17 17:39:24.000000000 +0000
 @@ -3,6 +3,12 @@
  #include "ge.h"
  #include "sc.h"
