@@ -1,5 +1,3 @@
-"{win&allmsvc&hb_comp_ver<'1600'}-stop=! Skipped. MSVC 2010 or newer is required for scrypt dependency."
-
 -hblib
 -inc
 

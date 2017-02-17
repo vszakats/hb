@@ -2,7 +2,11 @@
 #define _SHA256_H_
 
 #include <stddef.h>
-#include <stdint.h>
+
+#include "hbdefs.h"
+#define uint8_t   HB_U8
+#define uint32_t  HB_U32
+#define uint64_t  HB_U64
 
 /*
  * Use #defines in order to avoid namespace collisions with anyone else's

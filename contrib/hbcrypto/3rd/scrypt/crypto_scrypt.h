@@ -29,8 +29,7 @@
 #ifndef _CRYPTO_SCRYPT_H_
 #define _CRYPTO_SCRYPT_H_
 
-#include "hbcrypto.h"
-
+#include "hbdefs.h"
 #define uint8_t   HB_U8
 #define uint32_t  HB_U32
 #define uint64_t  HB_U64

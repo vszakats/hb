@@ -190,15 +190,14 @@ diff --strip-trailing-cr -urN scrypt.orig/crypto_scrypt-ref.c scrypt/crypto_scry
  }
 diff --strip-trailing-cr -urN scrypt.orig/crypto_scrypt.h scrypt/crypto_scrypt.h
 --- scrypt.orig/crypto_scrypt.h	2017-02-11 07:29:13.000000000 +0000
-+++ scrypt/crypto_scrypt.h	2017-02-13 15:20:18.000000000 +0000
-@@ -29,8 +29,14 @@
++++ scrypt/crypto_scrypt.h	2017-02-17 12:21:25.000000000 +0000
+@@ -29,8 +29,13 @@
  #ifndef _CRYPTO_SCRYPT_H_
  #define _CRYPTO_SCRYPT_H_
  
 -#include <stdint.h>
 -#include <unistd.h>
-+#include "hbcrypto.h"
-+
++#include "hbdefs.h"
 +#define uint8_t   HB_U8
 +#define uint32_t  HB_U32
 +#define uint64_t  HB_U64
@@ -210,8 +209,10 @@ diff --strip-trailing-cr -urN scrypt.orig/crypto_scrypt.h scrypt/crypto_scrypt.h
   * crypto_scrypt(passwd, passwdlen, salt, saltlen, N, r, p, buf, buflen):
 diff --strip-trailing-cr -urN scrypt.orig/sha256.c scrypt/sha256.c
 --- scrypt.orig/sha256.c	2017-02-11 07:29:13.000000000 +0000
-+++ scrypt/sha256.c	2017-02-15 22:20:02.000000000 +0000
-@@ -3,7 +3,7 @@
++++ scrypt/sha256.c	2017-02-17 12:09:11.000000000 +0000
+@@ -1,9 +1,8 @@
+ #include <assert.h>
+-#include <stdint.h>
  #include <string.h>
  
  #include "insecure_memzero.h"
@@ -220,7 +221,7 @@ diff --strip-trailing-cr -urN scrypt.orig/sha256.c scrypt/sha256.c
  
  #include "sha256.h"
  
-@@ -21,7 +21,7 @@
+@@ -21,7 +20,7 @@
  
  	/* Encode vector, one word at a time. */
  	for (i = 0; i < len / 4; i++)
@@ -229,7 +230,7 @@ diff --strip-trailing-cr -urN scrypt.orig/sha256.c scrypt/sha256.c
  }
  
  /*
-@@ -38,7 +38,7 @@
+@@ -38,7 +37,7 @@
  
  	/* Decode vector, one word at a time. */
  	for (i = 0; i < len / 4; i++)
@@ -238,7 +239,7 @@ diff --strip-trailing-cr -urN scrypt.orig/sha256.c scrypt/sha256.c
  }
  
  /* SHA256 round constants. */
-@@ -94,9 +94,9 @@
+@@ -94,9 +93,9 @@
   * the 512-bit input block to produce a new state.
   */
  static void
@@ -251,7 +252,7 @@ diff --strip-trailing-cr -urN scrypt.orig/sha256.c scrypt/sha256.c
  {
  	int i;
  
-@@ -159,7 +159,7 @@
+@@ -159,7 +158,7 @@
  
  /* Add padding and terminating bit-count. */
  static void
@@ -260,7 +261,7 @@ diff --strip-trailing-cr -urN scrypt.orig/sha256.c scrypt/sha256.c
  {
  	size_t r;
  
-@@ -180,7 +180,7 @@
+@@ -180,7 +179,7 @@
  	}
  
  	/* Add the terminating bit-count. */
@@ -269,7 +270,7 @@ diff --strip-trailing-cr -urN scrypt.orig/sha256.c scrypt/sha256.c
  
  	/* Mix in the final block. */
  	SHA256_Transform(ctx->state, ctx->buf, &tmp32[0], &tmp32[64]);
-@@ -213,7 +213,7 @@
+@@ -213,7 +212,7 @@
   */
  static void
  _SHA256_Update(SHA256_CTX * ctx, const void * in, size_t len,
@@ -278,7 +279,7 @@ diff --strip-trailing-cr -urN scrypt.orig/sha256.c scrypt/sha256.c
  {
  	uint32_t r;
  	const uint8_t * src = in;
-@@ -271,7 +271,7 @@
+@@ -271,7 +270,7 @@
   */
  static void
  _SHA256_Final(uint8_t digest[32], SHA256_CTX * ctx,
@@ -287,7 +288,7 @@ diff --strip-trailing-cr -urN scrypt.orig/sha256.c scrypt/sha256.c
  {
  
  	/* Add padding. */
-@@ -323,8 +323,8 @@
+@@ -323,8 +322,8 @@
   */
  static void
  _HMAC_SHA256_Init(HMAC_SHA256_CTX * ctx, const void * _K, size_t Klen,
@@ -298,7 +299,7 @@ diff --strip-trailing-cr -urN scrypt.orig/sha256.c scrypt/sha256.c
  {
  	const uint8_t * K = _K;
  	size_t i;
-@@ -376,7 +376,7 @@
+@@ -376,7 +375,7 @@
   */
  static void
  _HMAC_SHA256_Update(HMAC_SHA256_CTX * ctx, const void * in, size_t len,
@@ -307,7 +308,7 @@ diff --strip-trailing-cr -urN scrypt.orig/sha256.c scrypt/sha256.c
  {
  
  	/* Feed data to the inner SHA256 operation. */
-@@ -403,7 +403,7 @@
+@@ -403,7 +402,7 @@
   */
  static void
  _HMAC_SHA256_Final(uint8_t digest[32], HMAC_SHA256_CTX * ctx,
@@ -316,7 +317,7 @@ diff --strip-trailing-cr -urN scrypt.orig/sha256.c scrypt/sha256.c
  {
  
  	/* Finish the inner SHA256 operation. */
-@@ -488,7 +488,7 @@
+@@ -488,7 +487,7 @@
  	/* Iterate through the blocks. */
  	for (i = 0; i * 32 < dkLen; i++) {
  		/* Generate INT(i + 1). */
@@ -325,3 +326,19 @@ diff --strip-trailing-cr -urN scrypt.orig/sha256.c scrypt/sha256.c
  
  		/* Compute U_1 = PRF(P, S || INT(i)). */
  		memcpy(&hctx, &PShctx, sizeof(HMAC_SHA256_CTX));
+diff --strip-trailing-cr -urN scrypt.orig/sha256.h scrypt/sha256.h
+--- scrypt.orig/sha256.h	2017-02-11 07:29:13.000000000 +0000
++++ scrypt/sha256.h	2017-02-17 12:23:36.000000000 +0000
+@@ -2,7 +2,11 @@
+ #define _SHA256_H_
+ 
+ #include <stddef.h>
+-#include <stdint.h>
++
++#include "hbdefs.h"
++#define uint8_t   HB_U8
++#define uint32_t  HB_U32
++#define uint64_t  HB_U64
+ 
+ /*
+  * Use #defines in order to avoid namespace collisions with anyone else's
