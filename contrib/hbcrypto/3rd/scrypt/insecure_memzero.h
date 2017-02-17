@@ -27,7 +27,11 @@ extern void (* volatile insecure_memzero_ptr)(volatile void *, size_t);
  * http://www.daemonology.net/blog/2014-09-04-how-to-zero-a-buffer.html
  * http://www.daemonology.net/blog/2014-09-06-zeroing-buffers-is-insufficient.html
  */
+#if defined(_MSC_VER) && _MSC_VER<1600
+static void
+#else
 static inline void
+#endif
 insecure_memzero(volatile void * buf, size_t len)
 {
 

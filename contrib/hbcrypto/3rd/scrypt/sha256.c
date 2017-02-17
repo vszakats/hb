@@ -1,5 +1,9 @@
 #include <assert.h>
+#if defined(_MSC_VER) && _MSC_VER<1600
+#include "pstdint.h"
+#else
 #include <stdint.h>
+#endif
 #include <string.h>
 
 #include "insecure_memzero.h"
@@ -475,7 +479,14 @@ PBKDF2_SHA256(const uint8_t * passwd, size_t passwdlen, const uint8_t * salt,
 	size_t clen;
 
 	/* Sanity-check. */
-	assert(dkLen <= 32 * (size_t)(UINT32_MAX));
+#if defined(_MSC_VER) && _MSC_VER<1600
+#pragma warning( push )
+#pragma warning( disable : 4307)
+#endif
+    assert(dkLen <= 32 * (size_t)(UINT32_MAX));
+#if defined(_MSC_VER) && _MSC_VER<1600
+#pragma warning( pop )
+#endif
 
 	/* Compute HMAC state after processing P. */
 	_HMAC_SHA256_Init(&Phctx, passwd, passwdlen,

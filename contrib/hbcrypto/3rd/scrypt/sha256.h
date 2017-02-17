@@ -2,7 +2,11 @@
 #define _SHA256_H_
 
 #include <stddef.h>
+#if defined(_MSC_VER) && _MSC_VER<1600
+#include "pstdint.h"
+#else
 #include <stdint.h>
+#endif
 
 /*
  * Use #defines in order to avoid namespace collisions with anyone else's
