@@ -1,4 +1,4 @@
-"{win&allmsvc&hb_comp_ver<'1700'}-stop=! Skipped. MSVC 2012 or newer is required for scrypt dependency."
+"{win&allmsvc&hb_comp_ver<'1600'}-stop=! Skipped. MSVC 2010 or newer is required for scrypt dependency."
 
 -hblib
 -inc
