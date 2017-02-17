@@ -27,6 +27,9 @@
  * online backup system.
  */
 
+#include <stdlib.h>
+#include <string.h>
+
 #include "sha256.h"
 
 #include "crypto_scrypt.h"
@@ -69,7 +72,7 @@ salsa20_8(uint8_t B[64])
 
 	/* Convert little-endian values in. */
 	for (i = 0; i < 16; i++)
-		B32[i] = HB_GET_LE_UINT32(&B[i * 4]);
+		B32[i] = le32dec(&B[i * 4]);
 
 	/* Compute x = doubleround^4(B32). */
 	for (i = 0; i < 16; i++)
@@ -110,7 +113,7 @@ salsa20_8(uint8_t B[64])
 
 	/* Convert little-endian values out. */
 	for (i = 0; i < 16; i++)
-		HB_PUT_LE_UINT32(&B[4 * i], B32[i]);
+		le32enc(&B[4 * i], B32[i]);
 }
 
 /**
@@ -153,7 +156,7 @@ integerify(uint8_t * B, size_t r)
 {
 	uint8_t * X = &B[(2 * r - 1) * 64];
 
-	return (HB_GET_LE_UINT64(X));
+	return (le64dec(X));
 }
 
 /**

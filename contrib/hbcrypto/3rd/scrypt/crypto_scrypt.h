@@ -29,14 +29,6 @@
 #ifndef _CRYPTO_SCRYPT_H_
 #define _CRYPTO_SCRYPT_H_
 
-#include "hbdefs.h"
-#define uint8_t   HB_U8
-#define uint32_t  HB_U32
-#define uint64_t  HB_U64
-#ifndef SIZE_MAX
-#define SIZE_MAX  HB_SIZE_MAX
-#endif
-
 /**
  * crypto_scrypt(passwd, passwdlen, salt, saltlen, N, r, p, buf, buflen):
  * Compute scrypt(passwd[0 .. passwdlen - 1], salt[0 .. saltlen - 1], N, r,
