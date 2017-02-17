@@ -5,7 +5,7 @@
 
 -w3 -es2
 
--depurlbase=expat:http://www.libexpat.org
+-depurlbase=expat:https://expat.sourceforge.io/
 -deppkgname=expat:libexpat1-dev{deb}
 -deppkgname=expat:mingw-w64-i686-expat{msys2&mingw}
 -deppkgname=expat:mingw-w64-x86_64-expat{msys2&mingw64}

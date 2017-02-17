@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # ---------------------------------------------------------------
-# Copyright 2016 Viktor Szakats (vszakats.net/harbour)
+# Copyright 2016-2017 Viktor Szakats (vszakats.net/harbour)
 # See LICENSE.txt for licensing terms.
 # ---------------------------------------------------------------
 
@@ -10,8 +10,9 @@
 
 jobid="$(curl -fsS 'https://ci.appveyor.com/api/projects/vsz/harbour-deps/branch/master' | jq -r '.build.jobs[0].jobId')"
 
-if [ -n "${jobid}" ] ; then
+if [ -n "${jobid}" ]; then
 
+   unset GREP_OPTIONS
    f="$(curl -fsS "https://ci.appveyor.com/api/buildjobs/${jobid}/log" | grep 'SHA256(')"
 
    out=
@@ -23,9 +24,9 @@ if [ -n "${jobid}" ] ; then
       'curl' \
    ; do
       nameu="$(echo "${name}" | tr '[:lower:]' '[:upper:]' 2> /dev/null)"
-      for plat in '32' '64' ; do
-         if [[ "${f}" =~ ${name}-([0-9a-zA-Z.\-]+)-win${plat}-mingw.7z\)=\ ([0-9a-z]{64}) ]] ; then
-            if [ "${plat}" = '32' ] ; then
+      for plat in '32' '64'; do
+         if [[ "${f}" =~ ${name}-([0-9a-zA-Z.\-]+)-win${plat}-mingw.7z\)=\ ([0-9a-z]{64}) ]]; then
+            if [ "${plat}" = '32' ]; then
                out="${out}export ${nameu}_VER='${BASH_REMATCH[1]}'"$'\n'
             fi
             out="${out}export ${nameu}_HASH_${plat}='${BASH_REMATCH[2]}'"$'\n'
@@ -33,7 +34,7 @@ if [ -n "${jobid}" ] ; then
       done
    done
 
-   if [ -n "${out}" ] ; then
+   if [ -n "${out}" ]; then
       # remove ending EOL
       # shellcheck disable=SC2116
       out="$(echo "${out}")"

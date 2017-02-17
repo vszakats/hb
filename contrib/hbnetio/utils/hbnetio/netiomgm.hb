@@ -1,7 +1,7 @@
 /*
  * Harbour NETIO server management client engine
  *
- * Copyright 2009-2016 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2009-2017 Viktor Szakats (vszakats.net/harbour)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -112,7 +112,7 @@ STATIC FUNCTION hbnetiocon_init( hConIO, aParam )
       "shutdown"      => { ""               , "Stop server."                                   , {| netiocli | cmdShutdown( netiocli ) } }, ;
       "help"          => { ""               , "Display this help."                             , {| netiocli | cmdHelp( netiocli ) } } }
 
-   IF ! HB_ISNULL( cPassword )
+   IF ! cPassword == ""
       ConnectLow( netiocli, cIP, nPort, cPassword )
    ENDIF
 
@@ -325,7 +325,7 @@ STATIC FUNCTION XToStrX( xValue )
 STATIC PROCEDURE cmdAbout( netiocli )
 
    hbnetiocon_dispevent( netiocli, "Harbour NETIO Server Management Console " + HBRawVersionMgmnt() )
-   hbnetiocon_dispevent( netiocli, "Copyright (c) 2009-2016, Viktor Szakats" )
+   hbnetiocon_dispevent( netiocli, "Copyright (c) 2009-2017, Viktor Szakats" )
    hbnetiocon_dispevent( netiocli, hb_Version( HB_VERSION_URL_BASE ) )
 
    RETURN
@@ -336,7 +336,7 @@ STATIC FUNCTION HBRawVersionMgmnt()
       hb_Version( HB_VERSION_MINOR ), ;
       hb_Version( HB_VERSION_RELEASE ), ;
       hb_Version( HB_VERSION_STATUS ), ;
-      hb_Version( HB_VERSION_ID ), ;
+      hb_Version( HB_VERSION_ID_SHORT ), ;
       "20" + Transform( hb_Version( HB_VERSION_REVISION ), "99-99-99 99:99" ) )
 
 STATIC PROCEDURE cmdHelp( netiocli )

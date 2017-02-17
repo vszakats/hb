@@ -46,12 +46,21 @@
  *
  */
 
+/* TODO: add aliases to sidebar and index, and detect them in autolinks */
+
 /* Optimizations */
 #pragma -km+
 #pragma -ko+
 
 #include "hbclass.ch"
 #include "hbver.ch"
+
+#define _OUT_EOL  hb_eol()   /* used for displaying text */
+#define _FIL_EOL  Chr( 10 )  /* used for creating output */
+#define _DOC_EOL  Chr( 10 )  /* used for processing HBDOC input */
+
+#define _TO_LF( s )         StrTran( s, Chr( 13 ) )
+#define _TO_DIRSEPFWD( d )  StrTran( d, "\", "/" )
 
 #define I_( x )  hb_UTF8ToStr( hb_i18n_gettext( x /*, _SELF_NAME_ */ ) )
 
@@ -78,7 +87,7 @@ STATIC sc_cCode := R_( ;
       "[A-Z\.\\\/][A-Z0-9\.\\\/]+[A-Z0-9\\\/]{1,3}|" + ;
       "[A-Z_][A-Z0-9_]+" + ;
    ")" + ;
-   "([\)\.,:;s']|\s|$" + ")" )
+   "([\)\.,:;sdlei']|\s|$" + ")" )
 
 CREATE CLASS GenerateHTML INHERIT TPLGenerate
 
@@ -94,8 +103,8 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    METHOD AppendInline( cText, cFormat, lCode, cField, cID )
    METHOD Append( cText, cFormat, lCode, cField, cID )
    METHOD Space() INLINE ::cFile += ", ", Self
-   METHOD Spacer() INLINE ::cFile += hb_eol(), Self
-   METHOD NewLine() INLINE ::cFile += "<br>" + hb_eol(), Self
+   METHOD Spacer() INLINE ::cFile += _FIL_EOL, Self
+   METHOD NewLine() INLINE ::cFile += "<br>" + _FIL_EOL, Self
    METHOD NewFile()
 
    CLASS VAR lCreateStyleDocument AS LOGICAL INIT .T.
@@ -116,7 +125,7 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    METHOD BeginTOC()
    METHOD EndTOC()
    METHOD BeginTOCItem( cName, cID )
-   METHOD EndTOCItem() INLINE ::cFile += "</ul>" + hb_eol(), Self
+   METHOD EndTOCItem() INLINE ::cFile += "</ul>" + _FIL_EOL, Self
    METHOD BeginContent() INLINE ::OpenTag( "main" ), Self
    METHOD EndContent() INLINE ::Spacer():CloseTag( "main" ), Self
    METHOD BeginIndex() INLINE ::OpenTag( "aside" ), Self
@@ -138,7 +147,7 @@ METHOD NewFile() CLASS GenerateHTML
    IF s_tDate == NIL
       IF hbdoc_reproducible()
          s_tDate := hb_Version( HB_VERSION_BUILD_TIMESTAMP_UTC )
-         s_cRevision := hb_Version( HB_VERSION_ID )
+         s_cRevision := hb_Version( HB_VERSION_ID_SHORT )
       ELSE
          s_tDate := hb_DateTime() - ( hb_UTCOffset() / 86400 )
          s_cRevision := GitRev()
@@ -147,7 +156,7 @@ METHOD NewFile() CLASS GenerateHTML
 
    ::hNameIDM := hbdoc_NameIDM()
 
-   ::cFile += "<!DOCTYPE html>" + hb_eol()
+   ::cFile += "<!DOCTYPE html>" + _FIL_EOL
 
    ::OpenTag( "html", "lang", StrTran( ::cLang, "_", "-" ) )
    ::Spacer()
@@ -200,13 +209,13 @@ METHOD NewFile() CLASS GenerateHTML
 
    ::Spacer()
 
-   ::cFile += hb_MemoRead( "hbdoc_head.html" )
+   ::cFile += hbdoc_head_html()
 
    ::OpenTag( "body" )
    ::Spacer()
 
    ::OpenTag( "header" )
-   ::cFile += hb_MemoRead( hbdoc_dir_in() + hb_DirSepToOS( "docs/images/" + "harbour-nofill.svg" ) )
+   ::cFile += _TO_LF( hb_MemoRead( hbdoc_dir_in() + hb_DirSepToOS( "docs/images/" + "harbour-nofill.svg" ) ) )
    ::OpenTag( "div" )
 
    ::OpenTagInline( "div" )
@@ -303,8 +312,8 @@ STATIC FUNCTION flag_for_lang( cLang )
    CASE "pt_br" ; cSrc := "flag-br.svg" ; EXIT
    ENDSWITCH
 
-   IF ! HB_ISNULL( cSrc )
-      cSrc := "data:image/svg+xml;base64," + hb_base64Encode( hb_MemoRead( hbdoc_dir_in() + hb_DirSepToOS( "docs/images/" + cSrc ) ) )
+   IF ! cSrc == ""
+      cSrc := "data:image/svg+xml;base64," + hb_base64Encode( _TO_LF( hb_MemoRead( hbdoc_dir_in() + hb_DirSepToOS( "docs/images/" + cSrc ) ) ) )
    ENDIF
 
    RETURN cSrc
@@ -455,7 +464,7 @@ METHOD EndSection() CLASS GenerateHTML
 
 METHOD SubCategory( cCategory, cID )
 
-   IF HB_ISSTRING( cCategory ) .AND. ! HB_ISNULL( cCategory )
+   IF HB_ISSTRING( cCategory ) .AND. ! cCategory == ""
       IF Empty( cID )
          ::TaggedInline( cCategory, "h3", "class", "d-sc" )
       ELSE
@@ -493,7 +502,7 @@ METHOD AddReference( hEntry, cReference, cSubReference ) CLASS GenerateHTML
       ::CloseTagInline( "a" )
    ENDCASE
 
-   ::cFile += hb_eol()
+   ::cFile += _FIL_EOL
 
    RETURN Self
 
@@ -517,7 +526,7 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
             /* Link to original source code if it could be automatically found based
                on doc source filename */
             IF ! hb_LeftEq( ::cFilename, "--cl" ) .AND. ;
-               ! HB_ISNULL( tmp := SourceURL( NameCanon( cEntry ), ::cFilename, hEntry[ "TEMPLATE" ], @nLine, @cRedir ) )
+               ! ( tmp := SourceURL( NameCanon( cEntry ), ::cFilename, hEntry[ "TEMPLATE" ], @nLine, @cRedir ) ) == ""
                IF cRedir != NIL
                   ::OpenTagInline( "code", "class", "d-so" )
                   ::AppendInline( _RESULT_ARROW + hb_UChar( 160 ) + cRedir )
@@ -526,6 +535,21 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
                ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "blob/" + s_cRevision + "/" + tmp + iif( nLine != 0, "#L" + hb_ntos( nLine ), "" ), "class", "d-so", "title", tmp )
                ::AppendInline( iif( hb_LeftEq( ::cFilename, "cl" ), I_( "Harbour implementation" ), I_( "Source code" ) ) )
                ::CloseTagInline( "a" )
+            ENDIF
+            IF hb_BRight( tmp := NameCanon( cEntry ), hb_BLen( "()" ) ) == "()"
+               tmp := hb_StrShrink( tmp, Len( "()" ) )
+
+               ::OpenTagInline( "span", "class", "d-so" )
+               ::OpenTagInline( "nav", "class", "dropdown d-ebi" )
+               ::AppendInline( "🔎" )
+               ::OpenTagInline( "nav", "class", "dropdown-content" + " " + "d-dd" )
+               ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "search?type=Code&q=" + tmp )
+               ::AppendInline( "in Repository" ):CloseTagInline( "a" )
+               ::OpenTagInline( "a", "href", "https://google.com/search?q=site:groups.google.com/d/msg/harbour+" + tmp )
+               ::AppendInline( "in Discussions" ):CloseTagInline( "a" )
+               ::CloseTagInline( "nav" )
+               ::CloseTagInline( "nav" )
+               ::CloseTag( "span" )
             ENDIF
          ELSE
             ::AppendInline( cEntry,,, item )
@@ -545,7 +569,7 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
 
          IF ! hb_LeftEq( ::cFilename, "cl" )
             ::AppendInline( hb_UChar( 160 ) + "|" + hb_UChar( 160 ) )
-            ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "edit/master/" + hEntry[ "_sourcefile" ] )
+            ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "edit/master/" + _TO_DIRSEPFWD( hEntry[ "_sourcefile" ] ) )
             ::AppendInline( I_( "Improve this doc" ) )
             ::CloseTagInline( "a" )
          ENDIF
@@ -553,7 +577,7 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
          ::CloseTagInline( "span" )
 
          ::CloseTag( "h4" )
-      ELSEIF IsField( hEntry, item ) .AND. IsOutput( hEntry, item ) .AND. ! HB_ISNULL( hEntry[ item ] )
+      ELSEIF IsField( hEntry, item ) .AND. IsOutput( hEntry, item ) .AND. ! hEntry[ item ] == ""
          ::WriteEntry( item, hEntry[ item ], IsPreformatted( hEntry, item ), hEntry[ "_id" ] )
       ENDIF
    NEXT
@@ -577,9 +601,9 @@ STATIC FUNCTION SourceURL( cEntry, cComponent, cTemplate, /* @ */ nLine, /* @ */
 
    cComponent := hb_HGetDef( { "clc53" => "harbour", "clct3" => "hbct" }, cComponent, cComponent )
 
-   IF hb_BRight( cEntry, 2 ) == "()" .AND. ;
-      ! HB_ISNULL( tmp := hbdoc_SymbolSource( iif( cComponent == "harbour", "src", "contrib/" + cComponent ), hb_StrShrink( cEntry, 2 ), @nLine, @cRedir ) )
-      RETURN tmp
+   IF hb_BRight( cEntry, hb_BLen( "()" ) ) == "()" .AND. ;
+      ! ( tmp := hbdoc_SymbolSource( iif( cComponent == "harbour", "src", "contrib/" + cComponent ), hb_StrShrink( cEntry, Len( "()" ) ), @nLine, @cRedir ) ) == ""
+      RETURN _TO_DIRSEPFWD( tmp )
    ENDIF
 
    RETURN ""
@@ -609,9 +633,9 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS Genera
 
       cTagClass := hb_HGetDef( s_class, cField, "d-it" )
 
-      IF ! HB_ISNULL( cCaption := FieldCaption( cField, ;
+      IF ! ( cCaption := FieldCaption( cField, ;
          ( cField == "TAGS" .AND. "," $ cContent ) .OR. ;
-         ( cField == "FILES" .AND. Chr( 10 ) $ cContent ) ) )
+         ( cField == "FILES" .AND. _DOC_EOL $ cContent ) ) ) == ""
          ::Tagged( cCaption, "div", "class", "d-d" )
       ENDIF
 
@@ -634,17 +658,17 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS Genera
                CASE tmp:__enumIndex() == 1
                   /* do nothing */
                CASE tmp:__enumIndex() == 2
-                  IF ! HB_ISNULL( tmp )
+                  IF ! tmp == ""
                      IF ! Empty( Left( tmp, 3 ) )
                         tmp1 := cContent
                         EXIT
                      ENDIF
-                     tmp1 += SubStr( tmp, 4 ) + Chr( 10 )
+                     tmp1 += SubStr( tmp, 4 ) + _FIL_EOL
                   ENDIF
                CASE tmp:__enumIsLast()
                   IF AllTrim( tmp ) == "RETURN"
-                     IF Right( tmp, Len( hb_eol() ) ) == hb_eol()
-                        tmp1 := hb_StrShrink( tmp1, Len( hb_eol() ) )
+                     IF hb_BRight( tmp, hb_BLen( _FIL_EOL ) ) == _FIL_EOL
+                        tmp1 := hb_StrShrink( tmp1, Len( _FIL_EOL ) )
                      ENDIF
                   ELSE
                      IF ! Empty( Left( tmp, 3 ) )
@@ -658,7 +682,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS Genera
                      tmp1 := cContent
                      EXIT
                   ENDIF
-                  tmp1 += SubStr( tmp, 4 ) + Chr( 10 )
+                  tmp1 += SubStr( tmp, 4 ) + _FIL_EOL
                ENDCASE
             NEXT
             cContent := tmp1
@@ -677,7 +701,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS Genera
          NEXT
 
          FOR EACH tmp IN ASort( aSEEALSO )
-            IF ! HB_ISNULL( tmp )
+            IF ! tmp == ""
                IF lFirst
                   lFirst := .F.
                ELSE
@@ -736,7 +760,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS Genera
 
       CASE cField == "SYNTAX"
 
-         IF Chr( 10 ) $ cContent
+         IF _DOC_EOL $ cContent
             ::OpenTag( "div", "class", cTagClass + " " + "d-sym" )
             ::OpenTagInline( "pre" ):OpenTagInline( "code" )
             ::Append( StrSYNTAX( cContent ),, .T., cField )
@@ -749,7 +773,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS Genera
          ENDIF
          ::CloseTag( "div" )
 
-      CASE ! Chr( 10 ) $ cContent
+      CASE ! _DOC_EOL $ cContent
 
          ::OpenTagInline( "div", "class", cTagClass )
          ::AppendInline( cContent,, .F., cField, cID )
@@ -762,15 +786,15 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS Genera
 
          lTable := .F.
 
-         DO WHILE ! HB_ISNULL( cContent )
+         DO WHILE ! cContent == ""
 
             lCode := .F.
             lTablePrev := lTable
 
             tmp1 := ""
-            DO WHILE ! HB_ISNULL( cContent )
+            DO WHILE ! cContent == ""
 
-               cLine := Parse( @cContent, hb_eol() )
+               cLine := Parse( @cContent, _FIL_EOL )
 
                DO CASE
                CASE hb_LeftEq( LTrim( cLine ), "```" )
@@ -795,7 +819,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS Genera
                CASE cLine == "</table>"
                   lTable := .F.
                OTHERWISE
-                  tmp1 += cLine + hb_eol()
+                  tmp1 += cLine + _FIL_EOL
                   IF ! lCode
                      EXIT
                   ENDIF
@@ -804,7 +828,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS Genera
 
             IF lTable != lTablePrev
                IF lTable
-                  ::OpenTag( "div", "class", "d-t" + iif( HB_ISNULL( cHeaderClass ), "", " " + cHeaderClass ) )
+                  ::OpenTag( "div", "class", "d-t" + iif( cHeaderClass == "", "", " " + cHeaderClass ) )
                ELSE
                   ::CloseTag( "div" )
                ENDIF
@@ -864,7 +888,7 @@ METHOD OpenTag( cText, ... ) CLASS GenerateHTML
 
    ::OpenTagInline( cText, ... )
 
-   ::cFile += hb_eol()
+   ::cFile += _FIL_EOL
 
    RETURN Self
 
@@ -886,7 +910,7 @@ METHOD Tagged( cText, cTag, ... ) CLASS GenerateHTML
 
    ::TaggedInline( cText, cTag, ... )
 
-   ::cFile += hb_eol()
+   ::cFile += _FIL_EOL
 
    RETURN Self
 
@@ -898,7 +922,7 @@ METHOD CloseTagInline( cText ) CLASS GenerateHTML
 
 METHOD CloseTag( cText ) CLASS GenerateHTML
 
-   ::cFile += "</" + cText + ">" + hb_eol()
+   ::cFile += "</" + cText + ">" + _FIL_EOL
 
    RETURN Self
 
@@ -933,7 +957,7 @@ METHOD AppendInline( cText, cFormat, lCode, cField, cID ) CLASS GenerateHTML
    LOCAL cdp
    LOCAL lNAME
 
-   IF ! HB_ISNULL( cText )
+   IF ! cText == ""
 
       hb_default( @lCode, .F. )
 
@@ -1090,8 +1114,8 @@ METHOD AppendInline( cText, cFormat, lCode, cField, cID ) CLASS GenerateHTML
          ENDIF
       NEXT
 
-      DO WHILE Right( cText, Len( hb_eol() ) ) == hb_eol()
-         cText := hb_StrShrink( cText, Len( hb_eol() ) )
+      DO WHILE hb_BRight( cText, hb_BLen( _FIL_EOL ) ) == _FIL_EOL
+         cText := hb_StrShrink( cText, Len( _FIL_EOL ) )
       ENDDO
 
       ::cFile += cText
@@ -1102,9 +1126,12 @@ METHOD AppendInline( cText, cFormat, lCode, cField, cID ) CLASS GenerateHTML
 METHOD Append( cText, cFormat, lCode, cField, cID ) CLASS GenerateHTML
 
    ::AppendInline( cText, cFormat, lCode, cField, cID )
-   ::cFile += hb_eol()
+   ::cFile += _FIL_EOL
 
    RETURN Self
+
+STATIC FUNCTION hbdoc_head_html()
+   #pragma __streaminclude "hbdoc_head.html" | RETURN _TO_LF( %s )
 
 METHOD RecreateStyleDocument( cStyleFile ) CLASS GenerateHTML
 
@@ -1115,8 +1142,8 @@ METHOD RecreateStyleDocument( cStyleFile ) CLASS GenerateHTML
          hb_DirBuild( ::cDir )
       ENDIF
 
-      IF ! hb_MemoWrit( cStyleFile := hb_DirSepAdd( ::cDir ) + cStyleFile, cString )
-         OutErr( hb_StrFormat( "! Error: Cannot create file '%1$s'", cStyleFile ) + hb_eol() )
+      IF ! hb_MemoWrit( cStyleFile := hb_DirSepAdd( ::cDir ) + cStyleFile, _TO_LF( cString ) )
+         OutErr( hb_StrFormat( "! Error: Cannot create file '%1$s'", cStyleFile ) + _OUT_EOL )
       ELSEIF hbdoc_reproducible()
          hb_vfTimeSet( cStyleFile, hb_Version( HB_VERSION_BUILD_TIMESTAMP_UTC ) )
       ENDIF
@@ -1151,8 +1178,8 @@ STATIC FUNCTION SymbolToHTMLID( cID )
       "@" => "at", ;
       " " => "-" }
 
-   IF Right( cID, 1 ) == "*" .AND. Len( cID ) > 1
-      cID := hb_StrShrink( cID )
+   IF hb_BRight( cID, hb_BLen( "*" ) ) == "*" .AND. hb_BLen( cID ) > hb_BLen( "*" )
+      cID := hb_StrShrink( cID, Len( "*" ) )
    ENDIF
 
    RETURN hb_StrReplace( cID, s_conv )

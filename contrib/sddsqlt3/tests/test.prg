@@ -24,7 +24,7 @@ PROCEDURE Main( cFileName )
 
    cTable := iif( HB_ISSTRING( cFileName ), "attachment", "t1" )
 
-   ? "Connect:", hb_ntos( tmp := rddInfo( RDDI_CONNECT, { "SQLITE3", hb_defaultValue( cFileName, hb_DirBase() + "test.sq3" ) } ) )
+   ? "Connect:", hb_ntos( tmp := rddInfo( RDDI_CONNECT, { "SQLITE3", hb_defaultValue( cFileName, hb_DirBase() + "test.sqlite3" ) } ) )
    IF tmp == 0
       ? "Error connecting"
       RETURN
@@ -55,14 +55,13 @@ PROCEDURE Main( cFileName )
    ENDDO
    Inkey( 0 )
 
-   /* NOTE: TBrowse() will automatically set column widths (if not
-            explicitly set by the caller) according to the width of
-            the value received when displaying the first row/record.
-            In classic .dbf tables, data has the same width for every
-            row of a column/field, so above method works reliably.
-            In SQLite3 though, data can have any width for each row,
-            thus the legacy automatism won't work well. IOW you'll
-            need to use some UI method that sets metrics independely
+   /* NOTE: TBrowse() will automatically set column widths (if not explicitly
+            set by the caller) according to the width of the value received
+            when displaying the first row/record. In classic .dbf tables, data
+            has the same width for every row of a column/field, so above
+            method works reliably. In SQLite3 though, data can have any width
+            for each row, thus the legacy automatism won't work well. IOW,
+            you'll need to use some UI method that sets metrics independently
             of one specific value coming from the database. [vszakats] */
    CLS
    Browse()

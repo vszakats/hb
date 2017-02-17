@@ -2,22 +2,23 @@
 
 PROCEDURE Main( cPar1 )
 
+   LOCAL aPrn
    LOCAL nPrn := 1
    LOCAL cBMPFile := Space( 256 )
    LOCAL GetList := {}
 
-   LOCAL aPrn := win_printerList()
-
-   IF Empty( aPrn )
+   IF Empty( aPrn := win_printerList() )
       Alert( "No printers installed - Cannot continue" )
    ELSE
-      DO WHILE nPrn != 0
+      DO WHILE nPrn > 0
+
          CLS
          @ 0, 0 SAY "win_Prn() Class test program. Choose a printer to test"
          @ 1, 0 SAY "Bitmap file name:" GET cBMPFile PICTURE "@KS40"
          READ
          @ 2, 0 TO MaxRow(), MaxCol()
-         IF ( nPrn := AChoice( 3, 1, MaxRow() - 1, MaxCol() - 1, aPrn, .T.,, nPrn ) ) != 0
+
+         IF ( nPrn := AChoice( 3, 1, MaxRow() - 1, MaxCol() - 1, aPrn, .T.,, nPrn ) ) > 0
             PrnTest( aPrn[ nPrn ], cBMPFile, iif( HB_ISSTRING( cPar1 ) .AND. Lower( cPar1 ) == "ask", .T., ) )
          ENDIF
       ENDDO

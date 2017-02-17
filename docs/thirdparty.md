@@ -9,7 +9,7 @@ These are some links to Harbour related 3rd party tools and libraries.
 ## Categories:
 
 * [Free and Open Source](#free-and-open-source)
-* [Commercial](#commercial)
+* [Nonfree](#nonfree)
 
 <div markdown="1" class="components">
 
@@ -17,7 +17,6 @@ These are some links to Harbour related 3rd party tools and libraries.
 
 ## [hbgi](https://github.com/tuffnatty/hbgi)
 
-<img class="img-right" src="{{ site.baseurl }}/images/3rd_gtk.svg" height="48" alt="logo">
 Continuation of former project [xbGTK](https://sourceforge.net/projects/xbgtk/),
 this project is an open source library for Linux and Windows. It allows to use
 GTK+ in programs written in xBase-like languages. The library is written by Phil
@@ -27,7 +26,6 @@ code (instead of Python).
 
 ## [hbqt](https://sourceforge.net/projects/qtcontribs/)
 
-<img class="img-right" src="{{ site.baseurl }}/images/3rd_qt.svg" height="48" alt="logo">
 QT5 wrapper layer and IDE.
 <br><br><br>
 
@@ -48,7 +46,6 @@ base subset of HwGUI, you can create cross-platform GUI applications.
 
 ## [MiniGUI](https://sites.google.com/site/hmgweb/)
 
-<img class="img-right" src="{{ site.baseurl }}/images/3rd_minigui.svg" height="48" alt="logo">
 Harbour MiniGUI (HMG) is an xBase Windows / GUI Development System based
 on Harbour MiniGUI library, Harbour MiniGUI IDE, Harbour compiler and
 a supported C compiler. This implements a semi-OOP model and is a ready to use
@@ -69,7 +66,6 @@ easy way to add new features with the lesser modifications to working code
 
 ## [T-Gtk](https://sourceforge.net/projects/t-gtk/)
 
-<img class="img-right" src="{{ site.baseurl }}/images/3rd_gtk.svg" height="48" alt="logo">
 GUI for Harbour toolkit for GTK+. This library gives Harbour the full power
 of GTK+ in a cross-platform fashion.
 <br><br>
@@ -80,7 +76,6 @@ WebSocket implementation built on top of [`hbhttpd`]({{ site.baseurl }}/contribs
 
 ## [wxHarbour](https://sourceforge.net/projects/wxharbour/)
 
-<img class="img-right" src="{{ site.baseurl }}/images/3rd_wxwidgets.svg" height="48" alt="logo">
 wxHarbour is a set of Harbour language bindings for wxWidgets. Providing
 a portable multi-platform GUI toolkit for Harbour.
 
@@ -92,21 +87,19 @@ extensive, free, open-source, and mature.
 
 ## [xHGtk](https://sourceforge.net/projects/xhgtk/)
 
-<img class="img-right" src="{{ site.baseurl }}/images/3rd_gtk.svg" height="48" alt="logo">
 xHGtk is an multi-platform GUI library for Harbour. Uses GTK+ to create programs
 that can run on Windows and Linux. It provides a library of commands, functions
 and classes for multi-platform development using Harbour and GTK+ 2.10 or higher.
 
 ---
 
-# Commercial
+# Nonfree
 
 * Advantage Database Server — client–server RDD
 * FiveWin/EasyReport — GUI/Report designer (Windows)
 * OTC Mediator — client–server RDD for SQL backends
 * Xailer — Visual IDE (Windows)
 
-Please use your favourite search engine to find up-to-date information and
-details about these products.
+Please search the web to find up-to-date information and details about them.
 
 </div>

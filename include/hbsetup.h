@@ -48,12 +48,12 @@
 #ifndef HB_SETUP_H_
 #define HB_SETUP_H_
 
-/* ***********************************************************************
+/*
  * Include settings common for .prg and .c files
  */
 #include "hbsetup.ch"
 
-/* ***********************************************************************
+/*
  * Define PCODE version number
  * HB_PCODE_VER_MIN define minimum supported PCODE by HVM
  */
@@ -61,7 +61,7 @@
 #define HB_PCODE_VER          0x0003
 #define HB_PCODE_VER_MIN      0x0002
 
-/* ***********************************************************************
+/*
  * NOTE: You can select the default language modul used by Harbour, by
  *       defining this to a valid language modul identifier.
  */
@@ -70,7 +70,7 @@
    #define HB_LANG_DEFAULT       EN
 #endif
 
-/* ***********************************************************************
+/*
  * NOTE: You can select the default codepage used by Harbour, by
  *       defining this to a valid codepage modul identifier.
  */
@@ -79,7 +79,7 @@
    #define HB_CODEPAGE_DEFAULT   EN
 #endif
 
-/* ***********************************************************************
+/*
  * Enable profiler support in HVM
  * By default this is turned off. Define HB_USE_PROFILER to turn it on.
  */
@@ -88,7 +88,7 @@
    #define HB_NO_PROFILER
 #endif
 
-/* ***********************************************************************
+/*
  * This symbol defines if Harbour is compiled using C compiler
  * that support strict ANSI C only
  *
@@ -107,7 +107,7 @@
  */
 /* #define HB_STRICT_ANSI_C */
 
-/* ***********************************************************************
+/*
  * Define this option if you want the /y YACC trace option to be available
  * in the Harbour compiler.
  *
@@ -117,7 +117,7 @@
  */
 /* #define HB_YYDEBUG */
 
-/* ***********************************************************************
+/*
  * Use native Windows memory allocation functions (HB_OS_WIN)
  * This option can disable compiler memory allocation optimization
  * so you should really have a good reason to enable it
@@ -125,13 +125,13 @@
 
 /* #define HB_FM_WIN_ALLOC */
 
-/* ***********************************************************************
+/*
  * CPU detection
  */
 
 /* Partially based on:
       https://duckduckgo.com/?q=pre-defined+compiler+macros
-      http://poshlib.hookatooka.com/poshlib/trac.cgi/browser/posh.h
+      http://guest:guest123@poshlib.hookatooka.com/poshlib/trac.cgi/browser/posh.h
       [vszakats]
  */
 
@@ -255,7 +255,7 @@
 
 #endif
 
-/* ***********************************************************************
+/*
  * You can select here, what type of main entry will be used in the
  * application (main() or WinMain()).
  *
@@ -284,11 +284,13 @@
    Visual Studio 2012, version 11.0        1700
    Visual Studio 2013, version 12.0        1800
    Visual Studio 2015, version 14.0        1900
-   Visual Studio "15", version 15.0        2000
+   Visual Studio 2017, version 15.0        2000
 */
 
-/* ***********************************************************************
+/*
  * Platform detection
+ *
+ * Ref: http://nadeausoftware.com/articles/2012/01/c_c_tip_how_use_compiler_predefined_macros_detect_operating_system
  */
 
 #if defined( __WATCOMC__ )
@@ -465,7 +467,7 @@
    #define HB_NO_FNMATCH
 #endif
 
-/* ***********************************************************************
+/*
  * Operating system specific definitions
  */
 #if defined( HB_OS_UNIX )
@@ -499,7 +501,7 @@
 
 #define HB_PATH_MAX     264 /* with trailing 0 byte */
 
-/* ***********************************************************************
+/*
  * Here you can force the EOL string to be CRLF
  *
  * By default, the EOL string depends upon the detected platform.
@@ -510,13 +512,13 @@
    #define HB_OS_EOL_LEN 2
 #endif
 
-/* ***********************************************************************
+/*
  * See also the following files for task specific definitions/settings
  *
  * hbmather.h    - math errors handling
  */
 
-/* ***********************************************************************
+/*
  * Extern "C" detection
  */
 

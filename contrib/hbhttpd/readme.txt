@@ -12,10 +12,10 @@ I want to share some more ideas (and code) about uhttpd development.
 All pro and cons, and any brainstorming is very welcome.
 
 Sources can be obtained from:
-http://www.dbtopas.lt/hrb/uhttpd-0.2.zip
+https://dbtopas.lt/hrb/uhttpd-0.2.zip
 
 You can test running demo application at (I'll try to keep it running
-for some time): http://www.dbtopas.lt:8001/
+for some time): https://dbtopas.lt:8001/
 
 
 I also want to add answer about one question. uhttpd support and

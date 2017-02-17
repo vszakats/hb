@@ -422,11 +422,11 @@ METHOD reset() CLASS Get
       ::xVarGet  := ::original
       ::cType    := ValType( ::xVarGet )
       ::pos      := ::FirstEditable() /* Simple 0 in CA-Cl*pper [vszakats] */
-      ::lClear   := ( "K" $ ::cPicFunc .OR. ::cType == "N" )
+      ::lClear   := "K" $ ::cPicFunc .OR. ::cType == "N"
       ::lEdit    := .F.
       ::lMinus   := .F.
       ::rejected := .F.
-      ::typeOut  := !( ::type $ "CNDTL" ) .OR. ( ::nPos == 0 ) /* Simple .F. in CA-Cl*pper [vszakats] */
+      ::typeOut  := ! ::type $ "CNDTL" .OR. ::nPos == 0  /* Simple .F. in CA-Cl*pper [vszakats] */
       ::display()
    ENDIF
 
@@ -729,7 +729,7 @@ METHOD wordLeft() CLASS Get
          DO WHILE nPos > 1 .AND. hb_USubStr( ::cBuffer, nPos, 1 ) == " "
             nPos--
          ENDDO
-         DO WHILE nPos > 1 .AND. !( hb_USubStr( ::cBuffer, nPos, 1 ) == " " )
+         DO WHILE nPos > 1 .AND. ! hb_USubStr( ::cBuffer, nPos, 1 ) == " "
             nPos--
          ENDDO
 
@@ -757,7 +757,7 @@ METHOD wordRight() CLASS Get
 
          nPos := ::nPos
 
-         DO WHILE nPos < ::nMaxEdit .AND. !( hb_USubStr( ::cBuffer, nPos, 1 ) == " " )
+         DO WHILE nPos < ::nMaxEdit .AND. ! hb_USubStr( ::cBuffer, nPos, 1 ) == " "
             nPos++
          ENDDO
          DO WHILE nPos < ::nMaxEdit .AND. hb_USubStr( ::cBuffer, nPos, 1 ) == " "
@@ -856,7 +856,7 @@ METHOD delWordLeft() CLASS Get
 
    IF ::hasFocus
 
-      IF !( hb_USubStr( ::cBuffer, ::nPos, 1 ) == " " )
+      IF ! hb_USubStr( ::cBuffer, ::nPos, 1 ) == " "
          IF hb_USubStr( ::cBuffer, ::nPos - 1, 1 ) == " "
             ::backSpaceLow()
          ELSE
@@ -869,7 +869,7 @@ METHOD delWordLeft() CLASS Get
          ::deleteLow()
       ENDIF
 
-      DO WHILE ::nPos > 1 .AND. !( hb_USubStr( ::cBuffer, ::nPos - 1, 1 ) == " " )
+      DO WHILE ::nPos > 1 .AND. ! hb_USubStr( ::cBuffer, ::nPos - 1, 1 ) == " "
          ::backSpaceLow()
       ENDDO
 
@@ -889,7 +889,7 @@ METHOD delWordRight() CLASS Get
       ELSE
          ::typeOut := .F.
 
-         DO WHILE ::nPos <= ::nMaxEdit .AND. !( hb_USubStr( ::cBuffer, ::nPos, 1 ) == " " )
+         DO WHILE ::nPos <= ::nMaxEdit .AND. ! hb_USubStr( ::cBuffer, ::nPos, 1 ) == " "
             ::deleteLow()
          ENDDO
 
@@ -1150,7 +1150,7 @@ METHOD picture( cPicture ) CLASS Get
       ::lPicComplex := .F.
       IF ! Empty( ::cPicMask )
          FOR EACH cChar IN hb_asciiUpper( ::cPicMask )
-            IF !( cChar $ "!ANX9#" )
+            IF ! cChar $ "!ANX9#"
                ::lPicComplex := .T.
                EXIT
             ENDIF
@@ -1170,7 +1170,7 @@ METHOD PutMask( xValue, lEdit ) CLASS Get
 
    hb_default( @lEdit, ::hasFocus )
 
-   IF !( ValType( xValue ) $ "CNDTL" )
+   IF ! ValType( xValue ) $ "CNDTL"
       xValue := ""
    ENDIF
 
@@ -1283,7 +1283,7 @@ METHOD unTransform() CLASS Get
                   IF ::IsEditable( nFor ) .AND. IsDigit( hb_USubStr( cBuffer, nFor, 1 ) )
                      EXIT
                   ENDIF
-                  IF hb_USubStr( cBuffer, nFor, 1 ) $ "-(" .AND. !( hb_USubStr( cBuffer, nFor, 1 ) == hb_USubStr( ::cPicMask, nFor, 1 ) )
+                  IF hb_USubStr( cBuffer, nFor, 1 ) $ "-(" .AND. ! hb_USubStr( cBuffer, nFor, 1 ) == hb_USubStr( ::cPicMask, nFor, 1 )
                      lMinus := .T.
                      EXIT
                   ENDIF
@@ -1459,11 +1459,11 @@ METHOD badDate() CLASS Get
       CASE "D"
          RETURN ;
             ( xValue := ::unTransform() ) == hb_SToD() .AND. ;
-            !( ::cBuffer == Transform( xValue, ::cPicture ) )
+            ! ::cBuffer == Transform( xValue, ::cPicture )
       CASE "T"
          RETURN ;
             ( xValue := ::unTransform() ) == hb_SToT() .AND. ;
-            !( ::cBuffer == Transform( xValue, ::cPicture ) )
+            ! ::cBuffer == Transform( xValue, ::cPicture )
       ENDSWITCH
    ENDIF
 
@@ -1609,7 +1609,7 @@ METHOD backSpaceLow() CLASS Get
       /* To delete the parenthesis (negative indicator) in a non editable position */
 
       IF ( nMinus := hb_UAt( "(", hb_ULeft( ::cBuffer, nPos - 1 ) ) ) > 0 .AND. ;
-         !( hb_USubStr( ::cPicMask, nMinus, 1 ) == "(" )
+         ! hb_USubStr( ::cPicMask, nMinus, 1 ) == "("
 
          ::cBuffer := hb_UStuff( ::cBuffer, nMinus, 1, " " )
 
@@ -1737,28 +1737,28 @@ METHOD Input( cChar ) CLASS Get
             ::toDecPos()
             RETURN ""
 
-         CASE !( cChar $ "0123456789+" )
+         CASE ! cChar $ "0123456789+"
             RETURN ""
          ENDCASE
          EXIT
 
       CASE "D"
 
-         IF !( cChar $ "0123456789" )
+         IF ! cChar $ "0123456789"
             RETURN ""
          ENDIF
          EXIT
 
       CASE "T"
 
-         IF !( cChar $ "0123456789" )
+         IF ! cChar $ "0123456789"
             RETURN ""
          ENDIF
          EXIT
 
       CASE "L"
 
-         IF !( Upper( cChar ) $ "YNTF" )
+         IF ! Upper( cChar ) $ "YNTF"
             RETURN ""
          ENDIF
          EXIT
@@ -1792,31 +1792,31 @@ METHOD Input( cChar ) CLASS Get
          IF ! IsDigit( cChar ) .AND. ! cChar $ "-+"
             cChar := ""
          ENDIF
-         IF !( ::cType == "N" ) .AND. cChar $ "-+"
+         IF ! ::cType == "N" .AND. cChar $ "-+"
             cChar := ""
          ENDIF
 
       /* Clipper 5.2 undocumented: # allow T,F,Y,N for Logical [ckedem] */
       CASE cPic == "L" .OR. ( cPic == "#" .AND. ::cType == "L" )
-         IF !( Upper( cChar ) $ "YNTF" + ;
-                                hb_langMessage( HB_LANG_ITEM_BASE_TEXT + 1 ) + ;
-                                hb_langMessage( HB_LANG_ITEM_BASE_TEXT + 2 ) )
+         IF ! Upper( cChar ) $ "YNTF" + ;
+                               hb_langMessage( HB_LANG_ITEM_BASE_TEXT + 1 ) + ;
+                               hb_langMessage( HB_LANG_ITEM_BASE_TEXT + 2 )
             cChar := ""
          ENDIF
 
       CASE cPic == "#"
-         IF ! IsDigit( cChar ) .AND. !( cChar == " " ) .AND. !( cChar $ ".+-" )
+         IF ! IsDigit( cChar ) .AND. ! cChar == " " .AND. ! cChar $ ".+-"
             cChar := ""
          ENDIF
 
       CASE cPic == "Y"
          cChar := Upper( cChar )
-         IF !( cChar $ "YN" )
+         IF ! cChar $ "YN"
             cChar := ""
          ENDIF
 
       CASE ( cPic == "$" .OR. cPic == "*" ) .AND. ::cType == "N"
-         IF ! IsDigit( cChar ) .AND. !( cChar == "-" )
+         IF ! IsDigit( cChar ) .AND. ! cChar == "-"
             cChar := ""
          ENDIF
       OTHERWISE

@@ -1010,7 +1010,7 @@ HB_FUNC( WAPI_SETWINDOWTEXT )
    hb_strfree( hText );
 }
 
-/* https://blogs.msdn.com/b/oldnewthing/archive/2003/08/21/54675.aspx */
+/* https://blogs.msdn.com/b/oldnewthing/archive/2003/08/21/54675/ */
 HB_FUNC( WAPI_GETWINDOWTEXT )
 {
    HWND hWnd = hbwapi_par_raw_HWND( 1 );

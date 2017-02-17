@@ -166,7 +166,7 @@ STATIC FUNCTION PrepareDB( cFile )
    ENDIF
 
    ? cSQLTEXT := "CREATE TABLE person( name TEXT, age INTEGER )"
-   IF !( cErrorMsg( sqlite3_exec( pDb, cSQLTEXT ) ) == "SQLITE_OK" )
+   IF ! cErrorMsg( sqlite3_exec( pDb, cSQLTEXT ) ) == "SQLITE_OK"
       ? "Could not create table:", "person"
       pDb := NIL // close database
       RETURN NIL

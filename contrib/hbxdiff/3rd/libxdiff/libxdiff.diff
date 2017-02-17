@@ -1,0 +1,13 @@
+diff --strip-trailing-cr -urN libxdiff.orig/xinclude.h libxdiff/xinclude.h
+--- libxdiff.orig/xinclude.h	2008-11-12 21:29:12.000000000 +0000
++++ libxdiff/xinclude.h	2017-01-04 00:49:27.000000000 +0000
+@@ -23,6 +23,9 @@
+ #if !defined(XINCLUDE_H)
+ #define XINCLUDE_H
+ 
++#if defined(HAVE_HBCONFIG_H)
++#include "_hbconf.h"
++#endif /* #if defined(HAVE_HBCONFIG_H) */
+ 
+ #if defined(HAVE_WINCONFIG_H)
+ #include "winconf.h"

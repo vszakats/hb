@@ -68,14 +68,12 @@
 {hbdyn&!unix&!allwin}-o${hb_outputname}${hb_dynsuffix}
 
 # output dir (in sync with GNU Make)
-{hblib}-o../lib/${hb_plat}/${hb_comp}${hb_build}/
-{hbexe}-o../bin/${hb_plat}/${hb_comp}${hb_build}/
-{hbdyn}-o../bin/${hb_plat}/${hb_comp}${hb_build}/
+{hblib|(hbdyn&unix)}-o../lib/${hb_plat}/${hb_comp}${hb_build}/
+{hbexe|(hbdyn&!unix)}-o../bin/${hb_plat}/${hb_comp}${hb_build}/
 
 # workdir (in sync with GNU Make)
-{hblib}-workdir=../lib/${hb_plat}/${hb_comp}${hb_build}/${hb_work}/${hb_outputname}${hb_workdynsub}
-{hbexe}-workdir=../bin/${hb_plat}/${hb_comp}${hb_build}/${hb_work}/${hb_outputname}${hb_workdynsub}
-{hbdyn}-workdir=../bin/${hb_plat}/${hb_comp}${hb_build}/${hb_work}/${hb_outputname}${hb_workdynsub}
+{hblib|(hbdyn&unix)}-workdir=../lib/${hb_plat}/${hb_comp}${hb_build}/${hb_work}/${hb_outputname}${hb_workdynsub}
+{hbexe|(hbdyn&!unix)}-workdir=../bin/${hb_plat}/${hb_comp}${hb_build}/${hb_work}/${hb_outputname}${hb_workdynsub}
 
 # copy contrib-specific public files
 -instfile=contrib:${_HB_CONTRIB_SUBDIR}*.hb

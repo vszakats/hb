@@ -1,7 +1,7 @@
 /*
  * Compile help & info related functions
  *
- * Copyright 1999-2016 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 1999-2017 Viktor Szakats (vszakats.net/harbour)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -261,7 +261,7 @@ void hb_compPrintLogo( HB_COMP_DECL )
    char * szVer = hb_verHarbour();
 
    hb_compOutStd( HB_COMP_PARAM, szVer );
-   hb_compOutStd( HB_COMP_PARAM, "\nCopyright (c) 1999-2016, " );
+   hb_compOutStd( HB_COMP_PARAM, "\nCopyright (c) 1999-2017, " );
    hb_compOutStd( HB_COMP_PARAM, HB_VER_ORIGIN_URL );
    hb_compOutStd( HB_COMP_PARAM, "\n" );
    hb_xfree( szVer );

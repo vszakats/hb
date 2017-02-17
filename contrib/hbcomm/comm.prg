@@ -111,7 +111,7 @@ FUNCTION OUTCHR( nPort, cData )
 
    LOCAL nLen
 
-   DO WHILE ! HB_ISNULL( cData )
+   DO WHILE ! cData == ""
 
       /* I expect at least some data to be sent in a second */
       IF ( nLen := hb_comSend( nPort, cData,, 1000 ) ) <= 0

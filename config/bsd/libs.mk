@@ -27,7 +27,7 @@ ifneq ($(HB_LINKING_RTL),)
 
    ifneq ($(HB_HAS_PCRE2),)
       ifeq ($(HB_HAS_PCRE2_LOCAL),)
-         SYSLIBS += pcre2
+         SYSLIBS += pcre2-8
       endif
    else
    ifneq ($(HB_HAS_PCRE),)

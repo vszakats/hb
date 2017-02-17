@@ -70,6 +70,7 @@ HB_FUNC( MAC_MOVETOTRASH )
       else
 #endif
       {
+#if defined( HB_LEGACY_LEVEL4 )
          NSString * path;
 
          FSRef ref;
@@ -91,6 +92,9 @@ HB_FUNC( MAC_MOVETOTRASH )
                kFSFileOperationDefaultOptions
                );
          }
+#else
+         hFileName = NULL;
+#endif
       }
 
       hb_strfree( hFileName );

@@ -1,0 +1,44 @@
+## Harbour _HB_VERSION_ (_HB_VER_COMMIT_ID_SHORT_)
+
+Source archives and Windows binaries are available for download:
+
+  <_HB_VER_ORIGIN_URL_releases>
+
+## Release Notes
+
+Package content:
+
+* Harbour tools, static/shared libraries, sample sources
+* x86 hosted executables
+
+Usage:
+
+1. Install/unpack to any directory.
+2. Launch a Command Prompt.
+3. Add Harbour to `PATH`: `set PATH=<path-to-harbour>\bin;%PATH%`
+4. Install MSYS2: <https://msys2.github.io/>
+5. Install mingw using this command on the MSYS2 console:
+   `pacman -S VCS base-devel msys2-devel mingw-w64-{i686,x86_64}-toolchain`
+6. Build test x86 executable:
+   ```
+   set PATH=<path-to-msys2>\mingw32\bin;%PATH%
+   hbmk2 <path-to-harbour>/tests/hello.prg -cpu=x86
+   ```
+7. Build test x64 executable:
+   ```
+   set PATH=<path-to-msys2>\mingw64\bin;%PATH%
+   hbmk2 <path-to-harbour>/tests/hello.prg -cpu=x64
+   ```
+8. Further hints in section **Build Your Own Harbour App**
+   of `README.md`.
+
+## Tool/Library Dependencies
+
+See `BUILD.txt`
+
+## Changes since previous (3.0.0) release
+
+[TODO]
+
+---
+Viktor Szakats

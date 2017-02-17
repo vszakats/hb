@@ -16,7 +16,7 @@
 
 PROCEDURE Main( cDisk )
 
-   hb_default( @cDisk, hb_DirBase() + hb_ps() )
+   hb_default( @cDisk, hb_DirBase() )
 
    ? "Bytes available on disk:", Transform( hb_vfDirSpace( cDisk, HB_DISK_FREE ), "999,999,999,999" )
    ? "Bytes available for use:", Transform( hb_vfDirSpace( cDisk, HB_DISK_AVAIL ), "999,999,999,999" )

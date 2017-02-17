@@ -1,7 +1,7 @@
 /*
  * curl_escape()/curl_unescape()
  *
- * Copyright 2008-2010 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2008-2016 Viktor Szakats (vszakats.net/harbour)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -44,42 +44,7 @@
  *
  */
 
-#ifndef CURL_STRICTER
-#define CURL_STRICTER
-#endif
-
-#include <curl/curl.h>
-#if LIBCURL_VERSION_NUM < 0x070C00
-   #include <curl/types.h>
-#endif
-
 #include "hbapi.h"
-#include "hbapierr.h"
 
-/* Harbour interface (session independent) */
-
-/* NOTE: Obsolete, superceded by curl_easy_escape() */
-HB_FUNC( CURL_ESCAPE )
-{
-   if( HB_ISCHAR( 1 ) )
-   {
-      char * buffer = curl_escape( hb_parc( 1 ), ( int ) hb_parclen( 1 ) );
-      hb_retc( buffer );
-      curl_free( buffer );
-   }
-   else
-      hb_errRT_BASE( EG_ARG, 2010, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
-}
-
-/* NOTE: Obsolete, superceded by curl_easy_unescape() */
-HB_FUNC( CURL_UNESCAPE )
-{
-   if( HB_ISCHAR( 1 ) )
-   {
-      char * buffer = curl_unescape( hb_parc( 1 ), ( int ) hb_parclen( 1 ) );
-      hb_retc( buffer );
-      curl_free( buffer );
-   }
-   else
-      hb_errRT_BASE( EG_ARG, 2010, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
-}
+HB_FUNC_TRANSLATE( CURL_ESCAPE   , CURL_EASY_ESCAPE )
+HB_FUNC_TRANSLATE( CURL_UNESCAPE , CURL_EASY_UNESCAPE )

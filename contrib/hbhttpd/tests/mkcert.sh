@@ -1,7 +1,7 @@
 #!/bin/sh
 
 case "$(uname)" in
-   *Darwin*) alias openssl=/usr/local/opt/openssl/bin/openssl;;
+   Darwin*) alias openssl=/usr/local/opt/openssl/bin/openssl;;
 esac
 
 openssl req -new -subj "/O=Example/CN=localhost" -sha256 -newkey rsa:2048 -nodes -keyout private.pem -out example.csr

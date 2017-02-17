@@ -56,7 +56,6 @@ DIRS = \
    hbsix \
    hsx \
    usrrdd \
-   usrrdd/rdds \
 
 include $(TOP)$(ROOT)config/lib.mk
 include $(TOP)$(ROOT)config/dir.mk

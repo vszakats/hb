@@ -32,7 +32,7 @@ PROCEDURE Main()
             ENDDO
          NEXT
 
-         IF !( tmp == tmp1 )
+         IF ! tmp == tmp1
             ? "saved", aFile[ F_NAME ], Len( tmp1 ) - Len( tmp )
             hb_MemoWrit( aFile[ F_NAME ], tmp )
          ENDIF

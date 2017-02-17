@@ -295,7 +295,7 @@ STATIC FUNCTION URLDecode( cStr )
       ENDCASE
 
 #if 0
-      IF ( SubStr( cRet, i, 1 ) > "9" .OR. SubStr( cRet, i, 1 ) < "0" ) .AND. !( SubStr( cRet, i, 1 ) == "." )
+      IF ( SubStr( cRet, i, 1 ) > "9" .OR. SubStr( cRet, i, 1 ) < "0" ) .AND. ! SubStr( cRet, i, 1 ) == "."
          lNumeric := .F.
       ENDIF
 #endif

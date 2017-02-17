@@ -1,6 +1,5 @@
-// Test for regular expression functions
-// This allows to use a fine tune regex to use them in programs
-// Giancarlo Niccolai
+/* Test for regular expression functions by Giancarlo Niccolai
+   This allows to use a fine tune regex to use them in programs */
 
 #include "inkey.ch"
 

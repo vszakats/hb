@@ -1,7 +1,7 @@
 /*
  * Harbour interface to PBKDF2 password hashing
  *
- * Copyright 2013 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2013-2017 Viktor Szakats (vszakats.net/harbour)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -47,11 +47,9 @@
 #include "hbapi.h"
 #include "hbapierr.h"
 
-#if defined( HBSCRYPT_VANILLA )
-   #include "sha256.h"
-#else
-   #include "c_scrypt.h"
-#endif
+HB_EXTERN_BEGIN
+#include "sha256.h"
+HB_EXTERN_END
 
 /* hb_pbkdf2_sha256( <cPassword>, <cSalt>, <nCount>, <nKeyLen> ) -> <cKey> */
 HB_FUNC( HB_PBKDF2_SHA256 )

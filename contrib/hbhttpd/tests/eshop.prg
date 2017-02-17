@@ -123,7 +123,7 @@ PROCEDURE Main()
          "Mount"          => { ;
          "/hello"            => {|| UWrite( "Hello!" ) }, ;
          "/info"             => {|| UProcInfo() }, ;
-         "/files/*"          => {| x | QOut( hb_DirBase() + "/files/" + X ), UProcFiles( hb_DirBase() + "/files/" + X, .F. ) }, ;
+         "/files/*"          => {| x | QOut( hb_DirBase() + "files/" + X ), UProcFiles( hb_DirBase() + "files/" + X, .F. ) }, ;
          "/app/login"        => @proc_login(), ;
          "/app/logout"       => @proc_logout(), ;
          "/app/account"      => @proc_account(), ;
@@ -182,7 +182,7 @@ STATIC FUNCTION proc_logout()
 STATIC FUNCTION proc_main()
 
    USessionStart()
-   IF !( "user" $ session )
+   IF ! "user" $ session
       URedirect( "/app/login" )
       RETURN NIL
    ENDIF
@@ -194,7 +194,7 @@ STATIC FUNCTION proc_shopping()
    LOCAL oW, nT, cCode
 
    USessionStart()
-   IF !( "user" $ session )
+   IF ! "user" $ session
       URedirect( "/app/login" )
       RETURN NIL
    ENDIF
@@ -243,7 +243,7 @@ STATIC FUNCTION proc_cart()
    LOCAL oW, nT, cCode
 
    USessionStart()
-   IF !( "user" $ session )
+   IF ! "user" $ session
       URedirect( "/app/login" )
       RETURN NIL
    ENDIF
@@ -288,7 +288,7 @@ STATIC FUNCTION proc_cart()
 STATIC FUNCTION proc_account()
 
    USessionStart()
-   IF !( "user" $ session )
+   IF ! "user" $ session
       URedirect( "/app/login" )
       RETURN NIL
    ENDIF
@@ -303,7 +303,7 @@ STATIC FUNCTION proc_account_edit()
    LOCAL cName, cPassword1, cPassword2, aRet
 
    USessionStart()
-   IF !( "user" $ session )
+   IF ! "user" $ session
       URedirect( "/app/login" )
       RETURN NIL
    ENDIF
@@ -322,7 +322,7 @@ STATIC FUNCTION proc_account_edit()
       IF Empty( cName )
          session[ "formdata_account/edit" ] := { "name" => cName }
          URedirect( "?err=1" )
-      ELSEIF ( ! Empty( cPassword1 ) .OR. ! Empty( cPassword2 ) ) .AND. !( cPassword1 == cPassword2 )
+      ELSEIF ( ! Empty( cPassword1 ) .OR. ! Empty( cPassword2 ) ) .AND. ! cPassword1 == cPassword2
          session[ "formdata_account/edit" ] := { "name" => cName }
          URedirect( "?err=2" )
       ELSE
@@ -376,7 +376,7 @@ STATIC FUNCTION proc_register()
       IF Empty( cUser ) .OR. Empty( cName ) .OR. Empty( cPassword1 ) .OR. Empty( cPassword2 )
          session[ "formdata_register" ] := { "user" => cUser, "name" => cName }
          URedirect( "?err=1" )
-      ELSEIF !( cPassword1 == cPassword2 )
+      ELSEIF ! cPassword1 == cPassword2
          session[ "formdata_register" ] := { "user" => cUser, "name" => cName }
          URedirect( "?err=2" )
       ELSEIF dbSeek( cUser, .F. )

@@ -312,7 +312,7 @@ METHOD sBlock( bSBlock ) CLASS CheckBox
 METHOD style( cStyle ) CLASS CheckBox
 
    IF cStyle != NIL
-      ::cStyle := __eInstVar53( Self, "STYLE", cStyle, "C", 1001, {|| HB_ISNULL( cStyle ) .OR. hb_ULen( cStyle ) == 4 } )
+      ::cStyle := __eInstVar53( Self, "STYLE", cStyle, "C", 1001, {|| cStyle == "" .OR. hb_ULen( cStyle ) == 4 } )
    ENDIF
 
    RETURN ::cStyle

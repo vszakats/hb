@@ -134,8 +134,8 @@ METHOD Open( cUrl ) CLASS TIPClientFTP
       ::oUrl := TUrl():New( cUrl )
    ENDIF
 
-   IF ! HB_ISNULL( ::oUrl:cUserid ) .AND. ;
-      ! HB_ISNULL( ::oUrl:cPassword )
+   IF ! ::oUrl:cUserid == "" .AND. ;
+      ! ::oUrl:cPassword == ""
 
       IF ::super:Open()
          IF ::GetReply()
@@ -473,7 +473,7 @@ METHOD ReadAuxPort() CLASS TIPClientFTP
    IF ::TransferStart()
 
       cList := ""
-      DO WHILE ( cRet := ::super:Read( 512 ) ) != NIL .AND. ! HB_ISNULL( cRet )
+      DO WHILE ( cRet := ::super:Read( 512 ) ) != NIL .AND. ! cRet == ""
          cList += cRet
       ENDDO
 
@@ -559,7 +559,7 @@ METHOD MGet( cSpec, cLocalPath ) CLASS TIPClientFTP
    IF ( cStr := ::ReadAuxPort() ) != NIL
       FOR EACH cFile IN hb_ATokens( cStr, .T. )
          cFile := RTrim( cFile )
-         IF ! HB_ISNULL( cFile )
+         IF ! cFile == ""
             ::Downloadfile( cLocalPath + cFile, cFile )
          ENDIF
       NEXT
@@ -657,10 +657,10 @@ METHOD FileSize( cFileSpec ) CLASS TIPClientFTP
 
 /* Listing formats (from libcurl)
    https://github.com/curl/curl/blob/master/lib/ftplistparser.c
-   UNIX version 1: drwxr-xr-x 1 user01 ftp  512 Jan 29 23:32 prog
-   UNIX version 2: drwxr-xr-x 1 user01 ftp  512 Jan 29 1997  prog
-   UNIX version 3: drwxr-xr-x 1      1   1  512 Jan 29 23:32 prog
-   UNIX symlink  : lrwxr-xr-x 1 user01 ftp  512 Jan 29 23:32 prog -> prog2000
+   Unix version 1: drwxr-xr-x 1 user01 ftp  512 Jan 29 23:32 prog
+   Unix version 2: drwxr-xr-x 1 user01 ftp  512 Jan 29 1997  prog
+   Unix version 3: drwxr-xr-x 1      1   1  512 Jan 29 23:32 prog
+   Unix symlink  : lrwxr-xr-x 1 user01 ftp  512 Jan 29 23:32 prog -> prog2000
    DOS style/IIS : 01-29-97 11:32PM <DIR> prog
    DOS style/IIS : 01-29-97 11:32PM    512 prog
    DOS style/IIS : 01-29-2010 11:32PM <DIR> prog
@@ -697,7 +697,7 @@ METHOD ListFiles( cFileSpec ) CLASS TIPClientFTP
 
          IF Val( StrTran( aFile[ F_ATTR ], "-" ) ) == 0
 
-            // continue with UNIX format
+            // continue with Unix format
 
             // # of links
             DO WHILE SubStr( cEntry, ++nStart, 1 ) == " "

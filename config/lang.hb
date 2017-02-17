@@ -2,7 +2,7 @@
 /*
  * Manage translations and automatic doc generation
  *
- * Copyright 2013 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2013-2017 Viktor Szakats (vszakats.net/harbour)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@
  *   - curl (built with SSL)
  *   - hbmk2 and hbi18n in PATH
  *   - the target .prg be runnable as script (for doc_make only)
- * Reference: http://docs.transifex.com/api/index
+ * Reference: https://docs.transifex.com/api/introduction
  */
 
 #pragma -w3
@@ -285,8 +285,7 @@ STATIC FUNCTION DoctorTranslation( cString, cOri )
 
    /* For Transifex: RETURN SYMBOL to real new line */
    cString := hb_StrReplace( cString, { ;
-      hb_UChar( 0x23CE ) => e"\n", ;
-      "http://www.transifex.com/" => "https://www.transifex.com/" } )
+      hb_UChar( 0x23CE ) => e"\n" } )
 
    IF lRightToLeft
       /* Common typos: extra space or punctuation */
@@ -364,7 +363,7 @@ STATIC FUNCTION StrUnspace( cString )
 
       cChar := SubStr( cString, tmp, 1 )
 
-      IF !( cChar == " " ) .OR. !( cCharPrev == " " )
+      IF ! cChar == " " .OR. ! cCharPrev == " "
          cResult += cChar
       ENDIF
 

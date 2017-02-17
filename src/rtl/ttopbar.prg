@@ -276,7 +276,7 @@ METHOD getAccel( nKey ) CLASS TopBarMenu
    LOCAL item
 
    DO CASE
-   CASE hb_bitAnd( hb_keyMod( nKey ), HB_KF_CTRL ) != 0 .AND. ! HB_ISNULL( hb_keyChar( nKey ) )
+   CASE hb_bitAnd( hb_keyMod( nKey ), HB_KF_CTRL ) != 0 .AND. ! hb_keyChar( nKey ) == ""
 
       cKey := hb_keyChar( nKey )
 

@@ -1,0 +1,27 @@
+diff -u ps32ori/tpscript.prg ps32pat/tpscript.prg
+--- ps32ori/tpscript.prg	2012-05-03 05:42:04.000000000 +0000
++++ ps32pat/tpscript.prg	2017-01-04 00:22:04.000000000 +0000
+@@ -40,12 +40,12 @@
+ #include "PScript.ch"
+ #include "FileIO.ch"
+ 
+-#ifdef __XHARBOUR__
++#ifdef __HARBOUR__
+    // 02.06.2005 - IBTC - changed for xHarbour Builder:
+    #xtranslate Method <Classname>:<x> => Method <x>
+-   #define DLL_STDCALL NIL
+ 
+    #include "hbclass.ch"
++   #include "dll.ch"
+ #else
+    #include "Xbp.ch"
+    #include "Dll.ch"
+@@ -255,7 +255,7 @@
+ 
+ ::hDll        := DllLoad("PScript.dll") // Handle of the .DLL
+ 
+-if ::hDll == 0
++if Empty( ::hDll )
+    ::nError := PSE_DLLNOTLOADED        // DLL not loaded error
+ else
+    ::nError := DllCall(::hDll, DLL_STDCALL, "PSInit")

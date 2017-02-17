@@ -310,7 +310,7 @@ FUNCTION EditorEdit( oEdit, lEdit, lFrame )
       nKeyStd := hb_keyStd( nKey := Inkey( 0, hb_bitOr( Set( _SET_EVENTMASK ), HB_INKEY_EXT ) ) )
 
       DO CASE
-      CASE !( hb_keyChar( nKeyStd ) == "" )
+      CASE ! hb_keyChar( nKeyStd ) == ""
          IF oEdit[ E_MODE ]
             ed_PutChar( oEdit[ E_EDIT ], Asc( hb_keyChar( nKeyStd ) ), oEdit[ E_INSERT ] )
          ENDIF
@@ -422,7 +422,7 @@ STATIC FUNCTION EditorSave( oEdit )
    LOCAL hFile, cFile
 
    cFile := EditorCargo( oEdit )
-   IF ! HB_ISSTRING( cFile ) .OR. HB_ISNULL( cFile )
+   IF ! HB_ISSTRING( cFile ) .OR. cFile == ""
       RETURN .F.
    ENDIF
 

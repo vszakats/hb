@@ -3118,6 +3118,10 @@ static LRESULT CALLBACK hb_gt_wvt_WndProc( HWND hWnd, UINT message, WPARAM wPara
          }
          return 0;
 
+      case WM_DPICHANGED:
+         /* TODO: implement */
+         break;
+
       case WM_SYSCOMMAND:
          switch( wParam )
          {

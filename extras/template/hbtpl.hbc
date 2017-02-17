@@ -6,7 +6,7 @@ incpaths=.
 headers=${hb_name}.ch
 libpaths=lib/${hb_plat}/${hb_comp}
 
-libs=${hb_name}
+libs=${_HB_DYNPREF}${hb_name}${_HB_DYNSUFF}
 
 # NOTE: Extend as needed with other Harbour lib dependencies
 libs=hbct.hbc

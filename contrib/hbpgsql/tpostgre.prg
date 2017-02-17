@@ -351,7 +351,7 @@ METHOD TableStruct( cTable ) CLASS TPQserver
 
          ENDCASE
 
-         IF !( cType == "U" )
+         IF ! cType == "U"
             AAdd( result, { cField, cType, nSize, nDec } )
          ENDIF
       NEXT
@@ -491,7 +491,7 @@ CREATE CLASS TPQQuery
    METHOD Append( oRow )
    METHOD SetKey()
 
-   METHOD Changed( nField )  INLINE !( ::aRow[ nField ] == ::aOld[ nField ] )
+   METHOD Changed( nField )  INLINE ! ::aRow[ nField ] == ::aOld[ nField ]
    METHOD Blank()            INLINE ::GetBlankRow()
 
    METHOD Struct()
@@ -834,7 +834,7 @@ METHOD Delete( oRow ) CLASS TPQquery
          ENDIF
       NEXT
 
-      IF !( cWhere == "" )
+      IF ! cWhere == ""
 
          res := PQexecParams( ::pDB, ;
             "DELETE FROM " + ::Schema + "." + ::Tablename + " WHERE " + cWhere, aParams )
@@ -947,7 +947,7 @@ METHOD Update( oRow ) CLASS TPQquery
          ENDIF
       NEXT
 
-      IF !( cWhere == "" ) .AND. lChanged
+      IF ! cWhere == "" .AND. lChanged
 
          cQuery := hb_StrShrink( cQuery ) + " WHERE " + cWhere
 
@@ -1178,7 +1178,7 @@ CREATE CLASS TPQRow
    METHOD FieldLen( nField )
    METHOD FieldDec( nField )
    METHOD FieldType( nField )
-   METHOD Changed( nField )     INLINE !( ::aRow[ nField ] == ::aOld[ nField ] )
+   METHOD Changed( nField )     INLINE ! ::aRow[ nField ] == ::aOld[ nField ]
    METHOD FieldGetOld( nField ) INLINE ::aOld[ nField ]
 
 ENDCLASS

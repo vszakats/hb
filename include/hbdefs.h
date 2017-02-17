@@ -1474,7 +1474,7 @@ typedef HB_U32 HB_FATTR;
 
 #define HB_SOURCE_FILE_UNUSED()  static void * dummy = &dummy
 
-/* ***********************************************************************
+/*
  * The name of starting procedure
  * Note: You have to define it in case when Harbour cannot find the proper
  * starting procedure (due to unknown order of static data initialization)

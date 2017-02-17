@@ -9,7 +9,7 @@ REQUEST __HBEXTERN__HBSSL__
 
 PROCEDURE Main()
 
-   LOCAL cURL := iif( tip_SSL(), "https://", "http://" ) + "duckduckgo.com/html/"
+   LOCAL cURL := iif( tip_SSL(), "https", "http" ) + "://duckduckgo.com/html/"
    LOCAL oHTTP := TIPClientHTTP():New( cURL )
    LOCAL cHtml, oNode, oDoc, tmp
 

@@ -230,7 +230,7 @@ METHOD PROCEDURE New( cFrmName AS STRING, ;
 
    ::lFormFeeds := lPrinter
 
-   IF HB_ISSTRING( cAltFile ) .AND. ! HB_ISNULL( cAltFile )   // To file
+   IF HB_ISSTRING( cAltFile ) .AND. ! cAltFile == ""   // To file
       lExtraState := Set( _SET_EXTRA, .T. )
       cExtraFile := Set( _SET_EXTRAFILE, cAltFile )
    ENDIF
@@ -413,7 +413,7 @@ METHOD PROCEDURE New( cFrmName AS STRING, ;
    Set( _SET_PRINTER, lPrintOn )    // Set the printer back to prior state
    Set( _SET_CONSOLE, lConsoleOn )  // Set the console back to prior state
 
-   IF HB_ISSTRING( cAltFile ) .AND. ! HB_ISNULL( cAltFile )       // Set extrafile back
+   IF HB_ISSTRING( cAltFile ) .AND. ! cAltFile == ""       // Set extrafile back
       Set( _SET_EXTRAFILE, cExtraFile )
       Set( _SET_EXTRA, lExtraState )
    ENDIF

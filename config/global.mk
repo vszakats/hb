@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------
-# Copyright 2009 Viktor Szakats (vszakats.net/harbour)
+# Copyright 2009-2017 Viktor Szakats (vszakats.net/harbour)
 # See LICENSE.txt for licensing terms.
 # ---------------------------------------------------------------
 
@@ -8,7 +8,7 @@
 #    http://wanderinghorse.net/computing/make/
 #    https://blog.jgc.org/2013/02/updated-list-of-my-gnu-make-articles.html
 #    https://lists.gnu.org/archive/html/help-make/
-#    http://make.paulandlesley.org/
+#    http://make.mad-scientist.net/
 # Portable shell programming:
 #    https://www.gnu.org/software/autoconf/manual/html_node/Portable-Shell.html
 #    https://www.gnu.org/software/bash/manual/bashref.html
@@ -16,7 +16,7 @@
 # GNU coding standards:
 #    https://www.gnu.org/prep/standards/standards.html
 # GNU Make NEWS:
-#    http://git.savannah.gnu.org/cgit/make.git/tree/NEWS
+#    https://git.savannah.gnu.org/cgit/make.git/tree/NEWS
 
 # NOTE: $(realpath/abspath) need GNU Make 3.81 or upper
 # NOTE: $(eval) needs GNU Make 3.80 or upper
@@ -950,6 +950,9 @@ ifeq ($(HB_COMPILER_VER),)
          HB_COMP_PATH_VER_DET := $(HB_CCPREFIX)gcc$(HB_CCSUFFIX)
       endif
       _C_VER := $(shell "$(HB_COMP_PATH_VER_DET)" -v 2>&1)
+      ifneq ($(findstring version 6.3.,$(_C_VER)),)
+         HB_COMPILER_VER := 0603
+      else
       ifneq ($(findstring version 6.2.,$(_C_VER)),)
          HB_COMPILER_VER := 0602
       else
@@ -990,6 +993,7 @@ ifeq ($(HB_COMPILER_VER),)
          HB_COMPILER_VER := 0403
       else
          HB_COMPILER_VER := 0304
+      endif
       endif
       endif
       endif
@@ -1878,19 +1882,13 @@ ifeq ($(HB_INIT_DONE),)
    ifneq ($(HB_INSTALL_PREFIX_ORI),$(HB_INSTALL_PREFIX))
       $(info ! HB_INSTALL_PREFIX automatically set to: $(HB_INSTALL_PREFIX))
    endif
-   ifeq ($(ROOT),./)
-      ifneq ($(wildcard .git),)
-         ifneq ($(call find_in_path,git),)
-            ifneq ($(shell git diff --name-only --quiet),)
-               $(info ! === WARNING: Locally modified source code ===)
-            endif
-            $(info ! Git revision: $(shell git rev-parse --short HEAD))
-         endif
-      endif
-   endif
    ifneq ($(wildcard $(TOP)$(ROOT).git),)
       ifneq ($(call find_in_path,git),)
-         _cmd := git show --summary --format="%h%n%ci%n%an%n%ae" HEAD
+         ifneq ($(shell git diff --name-only --quiet),)
+            $(info ! === WARNING: Locally modified source code ===)
+         endif
+         $(info ! Source code: $(shell git rev-parse --short --quiet HEAD) $(shell git symbolic-ref --short --quiet HEAD) $(shell git ls-remote --get-url))
+         _cmd := git show --no-patch --format="%H%n%h%n%ci%n%an%n%ae" HEAD
          ifneq ($(HB_SHELL),sh)
             _cmd := $(subst %,%%,$(_cmd))
          endif

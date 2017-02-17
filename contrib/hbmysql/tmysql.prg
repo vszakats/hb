@@ -647,7 +647,7 @@ METHOD Update( oRow, lOldRecord, lRefresh ) CLASS TMySQLTable
    IF oRow == NIL // default Current row
 
       FOR i := 1 TO  ::nNumFields
-         IF !( ::aOldValue[ i ] == ::FieldGet( i ) )
+         IF ! ::aOldValue[ i ] == ::FieldGet( i )
             cUpdateQuery += ::aFieldStruct[ i ][ MYSQL_FS_NAME ] + "=" + HarbValueToSQL( ::FieldGet( i ) ) + ","
          ENDIF
       NEXT
@@ -1314,14 +1314,14 @@ METHOD Query( cQuery ) CLASS TMySQLServer
    i := 1
    nNumTables := 1
 
-   DO WHILE !( ( cToken := hb_tokenGet( cUpperQuery, i++, " " ) ) == "FROM" ) .AND. ! Empty( cToken )
+   DO WHILE ! ( cToken := hb_tokenGet( cUpperQuery, i++, " " ) ) == "FROM" .AND. ! Empty( cToken )
    ENDDO
 
    // first token after "FROM" is a table name
    // NOTE: SubSelects ?
    cTableName := hb_tokenGet( cUpperQuery, i++, " " )
 
-   DO WHILE !( ( cToken := hb_tokenGet( cUpperQuery, i++, " " ) ) == "WHERE" ) .AND. ! Empty( cToken )
+   DO WHILE ! ( cToken := hb_tokenGet( cUpperQuery, i++, " " ) ) == "WHERE" .AND. ! Empty( cToken )
       // do we have more than one table referenced ?
       IF cToken == "," .OR. cToken == "JOIN"
          nNumTables++

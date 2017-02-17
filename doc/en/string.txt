@@ -549,7 +549,7 @@
 
       <nDecimals> is the number of decimal places to return.
    $RETURNS$
-      Str() returns <nNumber> formatted as a character string.  If the
+      Str() returns <nNumber> formatted as a character string. If the
       optional length and decimal arguments are not specified, Str()
       returns the character string according to the following rules:
 
@@ -623,7 +623,7 @@
 
       <nDecimals> is the number of decimal places to return.
    $RETURNS$
-      StrZero() returns <nNumber> formatted as a character string.  If the
+      StrZero() returns <nNumber> formatted as a character string. If the
       optional length and decimal arguments are not specified, StrZero()
       returns the character string according to the following rules:
 
@@ -1372,7 +1372,7 @@
          LOCAL nRecord
          LOCAL xRetValue
 
-         IF ! HB_ISNULL( Alias() )
+         IF ! Alias() == ""
             nRecord := RecNo()
             dbGoto( 0 )
             IF HB_ISSTRING( xField )

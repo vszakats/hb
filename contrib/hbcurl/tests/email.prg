@@ -1,4 +1,4 @@
-/* Copyright 2014-2016 Viktor Szakats (vszakats.net/harbour) */
+/* Copyright 2014-2017 Viktor Szakats (vszakats.net/harbour) */
 
 #require "hbcurl"
 #require "hbtip"
@@ -78,13 +78,14 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
    IF Empty( curl := curl_easy_init() )
       ? "Failed to init"
    ELSE
-      #if ! defined( __PLATFORM__UNIX )
+      #if ! defined( __PLATFORM__UNIX ) .OR. defined( __PLATFORM__DARWIN )
          IF ! hb_vfExists( _CA_FN_ )
             ? "Downloading", _CA_FN_
             curl_easy_setopt( curl, HB_CURLOPT_DOWNLOAD )
             curl_easy_setopt( curl, HB_CURLOPT_SSL_VERIFYPEER, 0 )  /* we don't have a CA database yet, so skip checking */
             curl_easy_setopt( curl, HB_CURLOPT_URL, "https://curl.haxx.se/ca/cacert.pem" )
             curl_easy_setopt( curl, HB_CURLOPT_DL_FILE_SETUP, _CA_FN_ )
+            curl_easy_setopt( curl, HB_CURLOPT_FAILONERROR, .T. )
             curl_easy_perform( curl )
             curl_easy_reset( curl )
          ENDIF

@@ -59,10 +59,8 @@ and a collection of libraries and bindings for popular APIs.
 
 <https://github.com/vszakats/harbour-core/releases/tag/v3.0.0>
 
-> NOTE: It is identical to the mainline stable release, and
-> not supported or recommended by this fork. It is hosted
-> here because the old service started [bundling](https://helb.github.io/goodbye-sourceforge/)
-> [malware](https://www.howtogeek.com/218764/) into some projects.
+> NOTE: It is identical to the mainline stable release, but
+> not supported or recommended by this fork.
 
 ### Harbour stable source download
 
@@ -108,12 +106,7 @@ Download source archive from any of these URLs and unpack:
 
 * [Web browser](https://github.com/vszakats/harbour-core/commits/master)
 * [RSS feed](https://github.com/vszakats/harbour-core/commits/master.atom)
-* Apps
-  * [iOctocat](https://ioctocat.com/) on iOS
-  * [CodeHub](https://itunes.apple.com/us/app/codehub-github-for-ios/id707173885) on iOS
-  * [OctoDroid](https://play.google.com/store/apps/details?id=com.gh4a) on Android
-  * [Gitskarios for Github](https://play.google.com/store/apps/details?id=com.alorma.github) on Android
-  * [Committed](https://itunes.apple.com/us/app/committed-source-control-notifications/id881634293) on Mac
+* Any of the Git/GitHub client mobile/desktop apps
 
 # How to Build
 
@@ -127,21 +120,20 @@ For all platforms you will need:
 
 Platform specific prerequisites:
 
-1. Windows 7 or upper system is recommended to *build* Harbour.
-2. Make sure to have your C compiler of choice installed
-   in `PATH`. Refer to your C compiler installation and setup
-   instructions for details. Make sure no tools in your `PATH`
-   belonging to other C compilers are interfering with
-   your setup. Also avoid to keep multiple copies of the same
-   compiler, or different versions of the same compiler in
-   `PATH` at the same time. For the list of supported compilers,
+1. Windows 7 or upper system is recommended to *build* Harbour. (64-bit
+   edition is also recommended to make things simpler)
+2. Make sure to have your C compiler of choice installed in `PATH`. Refer to
+   your C compiler installation and setup instructions for details. Make sure
+   no tools in your `PATH` belonging to other C compilers are interfering with
+   your setup. Also avoid to keep multiple copies of the same compiler, or
+   different versions of the same compiler in `PATH` at the same time. For the
+   list of supported compilers,
    look up [Supported Platforms and C Compilers](#supported-platforms-and-c-compilers).
-3. GNU Make 3.81 or upper is required. A copy of this tool
-   is included in the source package, so you don't have to do
-   anything.
+3. GNU Make 3.81 or upper is required. A copy of this tool is included in
+   the source package, so you don't have to do anything.
    If you want to get it separately, you can find it [here](#external-links).
-   Unpack it to your `PATH` or Harbour source root directory,
-   and run it as `mingw32-make`.
+   Unpack it to your `PATH` or Harbour source root directory, and run it as
+   `mingw32-make`.
 
 To build:
 
@@ -155,44 +147,11 @@ To test it, type:
 
 You should see `Hello, world!` on screen.
 
-## on Windows hosts with POSIX shells (MSYS2/Cygwin)
-
-> Though you can use these alternative shells to build Harbour on Windows,
-> it's recommended to use the native one.
+## on Windows hosts with POSIX shells (MSYS2/Cygwin) (possible cross-build targets: Windows CE, MS-DOS, OS/2, Linux)
 
 To build:
 
     > sh -c make
-
-To test it, type:
-
-    > cd tests
-    > ..\bin\<plat>\<comp>\hbmk2 hello.prg
-    > hello
-
-You should see `Hello, world!` on screen.
-
-## on MS-DOS hosts (possible cross-build targets: Windows, OS/2, Linux)
-
-Make sure to have your C compiler of choice installed in `PATH`.
-
-To build:
-
-    > dos-make
-
-To test it, type:
-
-    > cd tests
-    > ..\bin\<plat>\<comp>\hbmk2 hello.prg
-    > hello
-
-You should see `Hello, world!` on screen.
-
-## on OS/2 hosts (possible cross-build targets: MS-DOS, OS/2, Linux)
-
-To build:
-
-    > os2-make
 
 To test it, type:
 
@@ -246,10 +205,9 @@ Platform specific prerequisites:
 
 1. You will need to have the developer tools installed.
 2. Then you will need to install gmake and optionally bison.
-   If you installed the ports collection, then all you need
-   to do to install bison and gmake is to run the following
-   commands, which may require that you run su root first to
-   get the correct permissions:
+   If you installed the ports collection, then all you need to do to install
+   bison and gmake is to run the following commands, which may require that
+   you run su root first to get the correct permissions:
 
         $ cd /usr/ports/devel/gmake
         $ make
@@ -269,6 +227,65 @@ To test it, type:
     $ cd tests
     $ ../bin/<plat>/<comp>/hbmk2 hello.prg
     $ ./hello
+
+You should see `Hello, world!` on screen.
+
+## on MS-DOS hosts (possible cross-build targets: Windows, OS/2, Linux)
+
+Make sure to have your C compiler of choice installed in `PATH`.
+
+To prepare:
+
+    1. Get `curl` tool.
+    2. Execute shell script `gettools.sh` to download required build tools.
+
+To build:
+
+    > dos-make
+
+To test it, type:
+
+    > cd tests
+    > ..\bin\<plat>\<comp>\hbmk2 hello.prg
+    > hello
+
+You should see `Hello, world!` on screen.
+
+## on OS/2 hosts (possible cross-build targets: MS-DOS, OS/2, Linux)
+
+To prepare:
+
+    1. Get `curl` tool.
+    2. Execute shell script `gettools.sh` to download required build tools.
+
+To build:
+
+    > os2-make
+
+To test it, type:
+
+    > cd tests
+    > ..\bin\<plat>\<comp>\hbmk2 hello.prg
+    > hello
+
+You should see `Hello, world!` on screen.
+
+## on OS/2 hosts (possible cross-build targets: MS-DOS, OS/2, Linux)
+
+To prepare:
+
+    1. Get `curl` tool.
+    2. Execute shell script `gettools.sh` to download required build tools.
+
+To build:
+
+    > os2-make
+
+To test it, type:
+
+    > cd tests
+    > ..\bin\<plat>\<comp>\hbmk2 hello.prg
+    > hello
 
 You should see `Hello, world!` on screen.
 
@@ -298,20 +315,18 @@ To test it, type:
 You should see `Hello, world!` on screen.
 
 > For sunpro on Solaris:<br />
-> If you have any GNU binutils stuff installed, do make sure
-> `/usr/ccs/bin` (the location of the native Sun C compilation
-> system tools) come *before* the GNU binutils components in
-> your `$PATH`.
+> If you have any GNU binutils stuff installed, do make sure `/usr/ccs/bin`
+> (the location of the native Sun C compilation system tools) come *before*
+> the GNU binutils components in your `$PATH`.
 
 
 # How to Do a Partial Build
 
-If you want to build only a specific part of Harbour, like
-one core library or all core libraries, or all contrib packages,
-you have to do everything the same way as for a full build, the
-only difference is that you first have to go into the specific
-source directory you'd like to build. When starting GNU Make,
-all components under that directory will be built:
+If you want to build only a specific part of Harbour, like one core library
+or all core libraries, or all contrib packages, you have to do everything
+the same way as for a full build, the only difference is that you first
+have to go into the specific source directory you'd like to build. When
+starting GNU Make, all components under that directory will be built:
 
     cd src/rtl
     <make> [clean]
@@ -374,31 +389,28 @@ See: [How to Build](#how-to-build)
 
 # How to Enable Optional Components
 
-Certain Harbour parts &ndash; typically contrib packages &ndash; depend
-on 3rd party components. To make these Harbour parts built, you need
-to tell Harbour where to find the headers for these 3rd party
-components.
+Certain Harbour parts &ndash; typically contrib packages &ndash; depend on
+3rd party components. To make these Harbour parts built, you need to tell
+Harbour where to find the headers for these 3rd party components.
 
-On \*nix systems most of these 3rd party components will
-automatically be used if installed on well-known standard
-system locations.
+On \*nix systems most of these 3rd party components will automatically
+be used if installed on well-known standard system locations.
 
-You only need to use manual setup if the dependency isn't available
-on your platform on a system location, or you wish to use
-a non-standard location. Typically, you need to do this on non-\*nix
-(Windows, MS-DOS, OS/2) systems for all packages and for a few packages
-on \*nix which are not available through official package managers
-(f.e. ADS Client).
+You only need to use manual setup if the dependency isn't available on your
+platform on a system location, or you wish to use a non-standard location.
+Typically, you need to do this on non-\*nix (Windows, MS-DOS, OS/2) systems
+for all packages and for a few packages on \*nix which are not available
+through official package managers (f.e. ADS Client).
 
 Note that Harbour is tuned to use 3rd party **binary** packages in their
 default, unmodified &ndash; "vanilla" &ndash; install layout created by their
-official/mainstream install kits. If you manually move, rename,
-delete, add files under the 3rd party packages' root directory, or
-use a source package, the default Harbour build process (especially
-Windows implib generation) might not work as expected.
+official/mainstream install kits. If you manually move, rename, delete, add
+files under the 3rd party packages' root directory, or use a source package,
+the default Harbour build process (especially Windows implib generation)
+might not work as expected.
 
-You can set these environment variables before starting
-the build. Make sure to adjust them to your own directories:
+You can set these environment variables before starting the build. Make sure
+to adjust them to your own directories:
 
     HB_WITH_CURSES= (on *nix systems and DJGPP, auto-detected on both)
     HB_WITH_GPM= (on Linux only)
@@ -410,15 +422,14 @@ the build. Make sure to adjust them to your own directories:
     HB_WITH_X11= (on *nix systems)
     HB_WITH_ZLIB=C:\zlib (defaults to locally hosted version if not found)
 
-To explicitly disable any given components, use the value `no`.
-This may be useful to avoid auto-detection of installed packages
-on \*nix systems. You may also use the value `local` to force using the
-locally hosted copy (inside Harbour source repository) of these packages,
-where applicable. `nolocal` will explicitly disable using locally hosted
-copy.
+To explicitly disable any given components, use the value `no`. This may be
+useful to avoid auto-detection of installed packages on \*nix systems. You
+may also use the value `local` to force using the locally hosted copy
+(inside Harbour source repository) of these packages, where applicable.
+`nolocal` will explicitly disable using locally hosted copy.
 
-See contrib-specific dependencies and build notes in the projects'
-`.hbp` file and find occasional link notes inside their `.hbc` files.
+See contrib-specific dependencies and build notes in the projects' `.hbp`
+file and find occasional link notes inside their `.hbc` files.
 
 
 > NOTES:
@@ -429,10 +440,10 @@ See contrib-specific dependencies and build notes in the projects'
 
 ## Darwin (Mac)
 
-1. Install [Homebrew :beer:](http://brew.sh/)
+1. Install [Homebrew](https://brew.sh/) :beer:
 2. Install packages:
 
-        $ brew install valgrind pcre pcre2 s-lang upx uncrustify ack optipng jpegoptim eg
+        $ brew install valgrind pcre pcre2 s-lang mingw-w64 upx uncrustify optipng jpegoptim
         $ brew tap caskroom/cask
 
 3. Install [X11](https://www.xquartz.org/) (optional, for `gtxwc`)
@@ -486,10 +497,10 @@ Packages for optional core Harbour features:
 
 > NOTES:
 >
->   * See [this](https://distrowatch.com/dwres.php?resource=package-management) on
->       package management in various distros.
->   * On openSUSE, if you want to build 32-bit Harbour on a 64-bit host, install
->       above packages with `-32bit` suffix, f.e. `slang-devel-32bit`
+>   * See [this](https://distrowatch.com/dwres.php?resource=package-management)
+>       on package management in various distros.
+>   * On openSUSE, if you want to build 32-bit Harbour on a 64-bit host,
+>       install above packages with `-32bit` suffix, f.e. `slang-devel-32bit`
 
 ## OpenSolaris
 
@@ -497,11 +508,10 @@ Packages for optional core Harbour features:
 
 ## FreeBSD
 
-If you want to use the `gtsln` library instead of `gtstd` or `gtcrs`,
-then you also need to install `libslang`. If you installed the ports
-collection, then all you need to do to install `libslang` is to run
-the following commands, which may require that you run `su` first to
-get the correct permissions:
+If you want to use the `gtsln` library instead of `gtstd` or `gtcrs`, then you
+also need to install `libslang`. If you installed the ports collection, then
+all you need to do to install `libslang` is to run the following commands,
+which may require that you run `su` first to get the correct permissions:
 
     $ cd /usr/ports/devel/libslang
     $ make
@@ -511,11 +521,10 @@ get the correct permissions:
 
 # Build Options
 
-You can fine-tune Harbour builds with below listed
-environment variables. You can add most of these via the
-GNU Make command-line also, using `make VARNAME=value` syntax.
-All of these settings are optional and all settings are
-case-sensitive.
+You can fine-tune Harbour builds with below listed environment variables.
+You can add most of these via the GNU Make command-line also, using
+`make VARNAME=value` syntax. All of these settings are optional and all
+settings are case-sensitive.
 
 ## General
 
@@ -595,26 +604,24 @@ case-sensitive.
 
    - `HB_BUILD_NOGPLLIB=yes`
 
-     Disable components dependent on GPL 3rd party code,
-     to allow Harbour for commercial (closed source)
-     projects. Default: `no`
+     Disable components dependent on GPL 3rd party code, to allow using
+     Harbour for nonfree/proprietary projects. Default: `no`
 
    - `HB_BUILD_3RDEXT=no`
 
-     Enable auto-detection of 3rd party components
-     on default system locations. Default: `yes`
+     Enable auto-detection of 3rd party components on default system
+     locations. Default: `yes`
 
    - `HB_BUILD_CONTRIBS=no [<l>]`
 
-     Do not build any, or space separated `<l>` list of,
-     contrib packages. Please note it will not prevent
-     building packages which are dependencies of
-     other &ndash; enabled &ndash; packages.
+     Do not build any, or space separated `<l>` list of, contrib packages.
+     Please note it will not prevent building packages which are dependencies
+     of other &ndash; enabled &ndash; packages.
 
    - `HB_BUILD_CONTRIBS=[<l>]`
 
-     Build space separated `<l>` list of contrib
-     libraries. Build all if left empty (default).
+     Build space separated `<l>` list of contrib libraries.
+     Build all if left empty (default).
 
    - `HB_BUILD_ADDONS=<l>`
 
@@ -623,119 +630,203 @@ case-sensitive.
 
    - `HB_BUILD_NAME=[<name>]`
 
-     Create named build. This allows keeping multiple builds in parallel for any
-     given platform/compiler. F.e. debug / release.
+     Create named build. This allows keeping multiple builds in parallel for
+     any given platform/compiler. F.e. debug / release.
 
      > In current implementation it's appended to compiler directory name, so
-     > all filesystem/platform name rules and limits apply. (Back)slashes will be
-     > stripped from the name though.
+     > all filesystem/platform name rules and limits apply. (Back)slashes will
+     > be stripped from the name though.
 
    - `HB_USER_LIBS=[<list>]`
 
      Add space separated `<list>` of libs to link process.
      Lib names should be without extension and path.
-     You only need this in special cases, like CodeGuard
-     build with win/bcc.
+     You only need this in special cases, like CodeGuard build with win/bcc.
 
    - `HB_INSTALL_IMPLIB=no`
 
-     Copy import libraries created for external .dll
-     dependencies to the library install directory in
-     `install` build phase. Default: `yes`<br />
-     For Windows and OS/2 targets only. Please note
-     that this feature doesn't work with all possible
-     binary distributions of 3rd party packages.
-     We test only the official/mainstream ones. Also
-     note that the generated implibs will require .dlls
-     compatible with the ones used at build time.
+     Copy import libraries created for external .dll dependencies to the
+     library install directory in `install` build phase. Default: `yes`<br />
+     For Windows and OS/2 targets only. Please note that this feature doesn't
+     work with all possible binary distributions of 3rd party packages.
+     We test only the official/mainstream ones. Also note that the generated
+     implibs will require .dlls compatible with the ones used at build time.
 
    - `HB_INSTALL_3RDDYN=yes`
 
-     Copy dynamic libraries of external .dll dependencies
-     to the dynamic library directory in `install` build
-     phase. Default: `no`
+     Copy dynamic libraries of external .dll dependencies to the dynamic
+     library directory in `install` build phase. Default: `no`
 
    - `HB_SRC_ROOTPATH=<dir>`
 
-     When using GNU Make older than 3.81, you shall set
-     the root directory of Harbour source tree as an
-     absolute path. If not set, some build functionality
-     may fail, like detection of 3rd party packages with
+     When using GNU Make older than 3.81, you shall set the root directory
+     of Harbour source tree as an absolute path. If not set, some build
+     functionality may fail, like detection of 3rd party packages with
      locally hosted sources.
      With newer make versions, this variable is ignored.
 
    - `HB_REBUILD_EXTERN=yes`
 
-     Rebuild extern headers. It is meant for developers
-     doing Harbour code modifications and releases.
-     Default: `no`
+     Rebuild extern headers. It is meant for developers doing Harbour code
+     modifications and releases. Default: `no`
 
    - `HB_REBUILD_PARSER=yes`
 
-     Rebuild language parser sources. You only need this
-     if your are Harbour core developer modifying grammar
-     rules (.y). Requires GNU Bison 1.28 or upper in `PATH`.
-     Default: `no`
+     Rebuild language parser sources. You only need this if your are Harbour
+     core developer modifying grammar rules (.y). Requires GNU Bison 1.28 or
+     upper in `PATH`. Default: `no`
 
    - `HB_CCPATH=[<dir>/]`
 
-     Used with non-\*nix gcc family compilers (and
-     sunpro) to specify path to compiler/linker/archive
-     tool to help them run from \*nix hosts as cross-build
-     tools. Ending slash must be added.
+     Used with non-\*nix gcc family compilers (and sunpro) to specify path
+     to compiler/linker/archive tool to help them run from \*nix hosts as
+     cross-build tools. Ending slash must be added.
 
    - `HB_CCPREFIX=[<prefix>]`
 
-     Used with gcc compiler family to specify
-     compiler/linker/archive tool name prefix.
+     Used with gcc compiler family to specify compiler/linker/archive tool
+     name prefix.
 
    - `HB_CCSUFFIX=[<suffix>]`
 
-     Used with gcc compiler family to specify
-     compiler/linker tool name suffix &ndash; usually
-     version number.
+     Used with gcc compiler family to specify compiler/linker tool name
+     suffix &ndash; usually version number.
+
+   - `HB_BUILD_POSTRUN_HOST=[<l>]`
+
+     Run space separated `<l>` list of commands after successfully finishing
+     a build. Commands will be run in the host binary directory.
 
    - `HB_BUILD_POSTRUN=[<l>]`
 
-     Run space separated `<l>` list of Harbour
-     commands after successfully finishing a non-cross
-     build. Commands will be run in the target binary
-     directory.
+     Run space separated `<l>` list of commands after successfully finishing
+     a build. Commands will be run in the target binary directory if possible
+     to run on the host platform.
 
 ## Cross-builds
 
-You can build Harbour for target platforms different from host
-platform. F.e. you can create Windows build on \*nix systems, Linux
-builds on Windows systems, etc. It's also possible to build targets
-for different from host CPU architectures. F.e. you can create
-Windows 64-bit build on 32-bit Windows platform, or Linux x86-64
-build on x86 hosts, or Linux MIPS build on x86 host, etc.
+You can build Harbour for target platforms different from host platform. F.e.
+you can create Windows build on \*nix systems, Linux builds on Windows systems,
+etc. It's also possible to build targets for different from host CPU
+architectures. F.e. you can create Windows 64-bit build on 32-bit Windows
+platform, or Linux x86-64 build on x86 hosts, or Linux MIPS build on x86 host,
+etc.
 
-Point this envvar to the directory where native Harbour executables
-for your host platform can be found:
+Point this envvar to the directory where native Harbour executables for your
+host platform can be found:
 
       HB_HOST_BIN=<path-to-harbour-native-build>\bin
 
-If you leave this value empty, the make system will try to auto-detect it,
-so in practice all you have to do is to create a native build first (no
-`install` required), then create the cross-build. If you set this value
-manually, it may be useful to know that `harbour`, `hbpp` and `hbmk2`
-executables are required for a cross-build process to succeed.
+If you leave this value empty, the make system will try to auto-detect it, so
+in practice all you have to do is to create a native build first (no `install`
+required), then create the cross-build. If you set this value manually, it may
+be useful to know that `harbour`, `hbpp` and `hbmk2` executables are required
+for a cross-build process to succeed.
 
 
 # Build Examples
 
-## on Windows 32-bit hosts
+## on Windows x86-64 (64-bit) hosts
 
 > NOTES:
 >
-> - All code below should be copied to batch files or typed at command
->   line.
+> - All code below should be copied to batch files or typed at command-line.
 > - Naturally, you will need to adapt pathnames to valid ones on your system.
-> - You can use additional `clean`, `install` or `clean install`
->   make parameters depending on what you want to do.
-> - To redirect all output to a log file, append this after the make
->   command: `> log.txt 2>&1`
+> - You can use additional `clean`, `install` or `clean install` make
+>   parameters depending on what you want to do.
+> - To redirect all output to a log file, append this after the make command:
+>   `> log.txt 2>&1`
+
+```batchfile
+:: MinGW GCC for Windows x86
+set PATH=C:\mingw\bin;%PATH%
+mingw32-make
+```
+
+```batchfile
+:: MinGW GCC for Windows x86-64
+set PATH=C:\mingw64\bin;%PATH%
+mingw32-make
+```
+
+```batchfile
+:: clang (alpha)
+call "%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
+set PATH=%ProgramFiles(x86)%\LLVM 3.6.svn;%PATH%
+win-make
+```
+
+```batchfile
+:: MSVC 2015 for Windows x86
+call "%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
+win-make
+```
+
+```batchfile
+:: MSVC 2015 for Windows x86-64
+:: (requires preceding build for native target)
+call "%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
+win-make
+```
+
+```batchfile
+:: MSVC 2010 and Windows SDK 7.1 for Windows x86
+call "%ProgramFiles(x86)%\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
+win-make
+```
+
+```batchfile
+:: MSVC 2010 (Professional or above) and Windows SDK 7.1 for Windows x86-64
+call "%ProgramFiles(x86)%\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" amd64
+win-make
+```
+
+```batchfile
+:: Windows SDK 7 for Windows x86
+call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\bin\vcvars32.bat"
+win-make
+```
+
+```batchfile
+:: Windows SDK 7 for Windows x86-64
+call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\bin\vcvars64.bat"
+win-make
+```
+
+```batchfile
+:: MSVC 2008 for Windows x86
+call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat"
+win-make
+```
+
+```batchfile
+:: MSVC 2008 (Standard or above) for Windows x86-64
+call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat" amd64
+win-make
+```
+
+```batchfile
+:: MSVC 2008 (Team Suite) for Windows IA-64 Itanium
+:: (requires preceding build for native target)
+call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat" x86_ia64
+win-make
+```
+
+```batchfile
+:: Open Watcom C/C++
+set WATCOM=C:\watcom
+set PATH=%WATCOM%\BINNT64;%WATCOM%\BINNT;%PATH%
+set INCLUDE=%WATCOM%\H;%WATCOM%\H\NT;%WATCOM%\H\NT\DIRECTX;%WATCOM%\H\NT\DDK;%INCLUDE%
+win-make
+```
+
+## on Windows 32-bit hosts
+
+Same as 64-bit Windows, with the difference that you will have to change
+`%ProgramFiles(x86)%` to `%ProgramFiles%` for 32-bit and mixed tools.
+Building 64-bit targets requires a preceding 32-bit build and to do
+a cross-build. It's recommended to use a 64-bit environment for Windows
+development.
 
 ```batchfile
 :: clang (alpha)
@@ -820,30 +911,9 @@ win-make
 ```
 
 ```batchfile
-:: MSVC 2005
-call "%ProgramFiles%\Microsoft Visual Studio 8\VC\vcvarsall.bat"
-win-make
-```
-
-```batchfile
-:: MSVC 2005 for Windows CE ARM
-:: (requires preceding build for native target)
-set INCLUDE=%ProgramFiles%\Microsoft Visual Studio 8\VC\ce\include;%ProgramFiles%\Windows Mobile 5.0 SDK R2\PocketPC\Include\Armv4i
-set LIB=%ProgramFiles%\Microsoft Visual Studio 8\VC\ce\lib\armv4i;%ProgramFiles%\Windows Mobile 5.0 SDK R2\PocketPC\Lib\ARMV4I
-set PATH=%ProgramFiles%\Microsoft Visual Studio 8\VC\ce\bin\x86_arm;%ProgramFiles%\Microsoft Visual Studio 8\Common7\IDE;%PATH%
-win-make
-```
-
-```batchfile
-:: MSVC .NET 2003 (untested)
-call "%ProgramFiles%\Microsoft Visual Studio .NET 2003\VC7\vcvarsall.bat"
-win-make
-```
-
-```batchfile
 :: MinGW GCC
 set PATH=C:\mingw\bin;%PATH%
-win-make
+mingw32-make
 ```
 
 ```batchfile
@@ -856,7 +926,7 @@ sh -c make
 :: MinGW GCC for Windows x86-64
 :: (requires preceding build for native target)
 set PATH=C:\mingw64\bin;%PATH%
-win-make
+mingw32-make
 ```
 
 ```batchfile
@@ -882,39 +952,7 @@ win-make
 ```
 
 ```batchfile
-:: Borland C++ 5.5.1
-set PATH=C:\Borland\BCC55\Bin;%PATH%
-win-make
-```
-
-```batchfile
-:: Pelles C
-set PATH=%ProgramFiles%\PellesC\Bin;%PATH%
-set INCLUDE=%ProgramFiles%\PellesC\Include;%ProgramFiles%\PellesC\Include\Win;%INCLUDE%
-set LIB=%ProgramFiles%\PellesC\Lib;%ProgramFiles%\PellesC\Lib\Win;%LIB%
-win-make
-```
-
-```batchfile
-:: Pelles C for Windows x86-64
-:: (requires preceding build for native target)
-set PATH=%ProgramFiles%\PellesC\Bin;%PATH%
-set INCLUDE=%ProgramFiles%\PellesC\Include;%ProgramFiles%\PellesC\Include\Win;%INCLUDE%
-set LIB=%ProgramFiles%\PellesC\Lib;%ProgramFiles%\PellesC\Lib\Win64;%LIB%
-win-make
-```
-
-```batchfile
-:: Pelles C for Windows CE ARM
-:: (requires preceding build for native target)
-set PATH=%ProgramFiles%\PellesC\Bin;%PATH%
-set INCLUDE=%ProgramFiles%\PellesC\Include\WinCE;%ProgramFiles%\PellesC\Include;%INCLUDE%
-set LIB=%ProgramFiles%\PellesC\Lib;%ProgramFiles%\PellesC\Lib\WinCE;%LIB%
-win-make
-```
-
-```batchfile
-:: Delorie GNU C for MS-DOS (on Intel 32-bit Windows hosts only)
+:: Delorie GNU C for MS-DOS
 set DJGPP=C:\djgpp\djgpp.env
 set PATH=C:\djgpp\bin;%PATH%
 win-make
@@ -987,91 +1025,6 @@ set PATH=C:\cygwin\bin
 sh -c make
 ```
 
-## on Windows x86-64 (64-bit) hosts
-
-Same as 32-bit Windows, with the difference that you will have to change
-`%ProgramFiles%` to `%ProgramFiles(x86)%` for 32-bit and mixed tools,
-that you can build for both x86 and x86-64 without building a native
-target first, and potential differences with some compilers in using
-native binaries if they are available.
-
-```batchfile
-:: MinGW GCC for Windows x86-64
-set PATH=C:\mingw64\bin;%PATH%
-win-make
-```
-
-```batchfile
-:: clang (alpha)
-call "%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
-set PATH=%ProgramFiles(x86)%\LLVM 3.6.svn;%PATH%
-win-make
-```
-
-```batchfile
-:: MSVC 2015 for Windows x86
-call "%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
-win-make
-```
-
-```batchfile
-:: MSVC 2015 for Windows x86-64
-:: (requires preceding build for native target)
-call "%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
-win-make
-```
-
-```batchfile
-:: MSVC 2010 and Windows SDK 7.1 for Windows x86
-call "%ProgramFiles(x86)%\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
-win-make
-```
-
-```batchfile
-:: MSVC 2010 (Professional or above) and Windows SDK 7.1 for Windows x86-64
-call "%ProgramFiles(x86)%\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" amd64
-win-make
-```
-
-```batchfile
-:: Windows SDK 7 for Windows x86
-call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\bin\vcvars32.bat"
-win-make
-```
-
-```batchfile
-:: Windows SDK 7 for Windows x86-64
-call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\bin\vcvars64.bat"
-win-make
-```
-
-```batchfile
-:: MSVC 2008 for Windows x86
-call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat"
-win-make
-```
-
-```batchfile
-:: MSVC 2008 (Standard or above) for Windows x86-64
-call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat" amd64
-win-make
-```
-
-```batchfile
-:: MSVC 2008 (Team Suite) for Windows IA-64 Itanium
-:: (requires preceding build for native target)
-call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat" x86_ia64
-win-make
-```
-
-```batchfile
-:: Open Watcom C/C++
-set WATCOM=C:\watcom
-set PATH=%WATCOM%\BINNT64;%WATCOM%\BINNT;%PATH%
-set INCLUDE=%WATCOM%\H;%WATCOM%\H\NT;%WATCOM%\H\NT\DIRECTX;%WATCOM%\H\NT\DDK;%INCLUDE%
-win-make
-```
-
 ## on MS-DOS hosts
 
 ```batchfile
@@ -1125,15 +1078,6 @@ export HB_BUILD_3RDEXT=no
 make
 ```
 
-```sh
-# Borland C++ 5.5.1
-export PATH=~/.wine/drive_c/Borland/BCC55/Bin:$PATH
-export HB_PLATFORM=win
-export HB_COMPILER=bcc
-export HB_BUILD_3RDEXT=no
-make
-```
-
 ## on Darwin (Mac) hosts
 
 ```sh
@@ -1167,21 +1111,19 @@ For all platforms you will need two things:
 
 * Harbour binaries
 
-    Either a Harbour binary distribution or a local Harbour
-    build will be okay. If you're reading this text, it's
-    likely you have one of these already.
+    Either a Harbour binary distribution or a local Harbour build will be okay.
+    If you're reading this text, it's likely you have one of these already.
 
 * Supported ANSI C compiler
 
     Your compiler of choice has to be placed in the `PATH` &ndash; and
     configured appropriately according to instructions.
-    If you use official Harbour binary distribution on Windows,
-    you already have MinGW compiler embedded in the installation,
-    which will automatically be used, so you don't have to
-    make any extra steps here.
+    If you use official Harbour binary distribution on Windows, you already
+    have MinGW compiler embedded in the installation, which will automatically
+    be used, so you don't have to make any extra steps here.
 
-Use `hbmk2` to build your app from source. It's recommended to put
-it in the `PATH` (f.e. by using `set PATH=C:\hb\bin;%PATH%` on Windows).
+Use `hbmk2` to build your app from source. It's recommended to put it in the
+`PATH` (f.e. by using `set PATH=C:\hb\bin;%PATH%` on Windows).
 
 See `hbmk2` [documentation, with examples](utils/hbmk2/doc/hbmk2.en.md).
 
@@ -1249,22 +1191,22 @@ Press `<Alt+D>` in the app.
 
 * linux    - Linux
 * darwin   - macOS / iOS / tvOS
-* bsd      - FreeBSD / OpenBSD / NetBSD / DragonFly BSD / *BSD
-* beos     - BeOS / Haiku
-* hpux     - HP-UX
-* sunos    - Sun Solaris / OpenSolaris
-* qnx      - QNX
+* bsd      - *BSD
 * android  - Android
-* vxworks  - VxWorks
-* symbian  - Symbian OS (experimental)
-* minix    - Minix 3 (tested on 3.2.1; earlier releases will not work)
-* aix      - IBM AIX
-* win      - MS Windows (all flavors)
-             (see [External Links](#external-links) for Win9x requirements)
+* win      - MS Windows (Win9x deprecated)
 * wce      - MS Windows CE
 * dos      - MS-DOS (32-bit protected mode only)
              (MS-DOS compatible systems also work, like dosemu)
 * os2      - OS/2 Warp 4 / eComStation
+* aix      - IBM AIX
+* hpux     - HP-UX
+* sunos    - Sun Solaris / OpenSolaris
+* beos     - BeOS / Haiku (experimental)
+* qnx      - QNX (experimental)
+* vxworks  - VxWorks (experimental)
+* minix    - Minix 3 (experimental, tested on 3.2.1; earlier releases will not work)
+* symbian  - Symbian OS (deprecated)
+* cygwin   - Cygwin (experimental)
 
 ## You can override C compiler auto-detection with these `HB_COMPILER` values:
 
@@ -1286,42 +1228,11 @@ Press `<Alt+D>` in the app.
 * clang    - Clang
 * pcc      - Portable C Compiler (experimental)
 
-### hpux
-* gcc      - GNU C
-
-### beos
-* gcc      - GNU C
-
-### qnx
-* gcc      - GNU C
-
 ### android
 * gcc      - GNU C x86
 * gccarm   - GNU C ARM
 
-### vxworks
-* gcc      - GNU C
-* diab     - Wind River Compiler
-
-### symbian
-* gcc      - GNU C
-
-### minix
-* clang    - Clang
-* gcc      - GNU C
-
-### aix
-* gcc      - GNU C
-
-### cygwin
-* gcc      - GNU C
-
-### sunos
-* gcc      - GNU C
-* sunpro   - Sun Studio C/C++
-
 ### win
-* clang    - Clang
 * mingw    - MinGW GNU C 3.4.2 and above
 * mingw64  - MinGW GNU C x86-64
 * msvc     - Microsoft Visual C++
@@ -1331,10 +1242,12 @@ Press `<Alt+D>` in the app.
 ### win (partial support, some features may be missing)
 * clang    - Clang
 * watcom   - Open Watcom C/C++
-* bcc      - Borland/CodeGear/Embarcadero C++ 5.5 and above
-* bcc64    - Embarcadero C++ 6.5 and above
 * icc      - Intel(R) C/C++
 * iccia64  - Intel(R) C/C++ IA-64 (Itanium)
+
+### win (deprecated)
+* bcc      - Borland/CodeGear/Embarcadero C++ 5.5 and above
+* bcc64    - Embarcadero C++ 6.5 and above
 * pocc     - Pelles C 4.5 and above
 * pocc64   - Pelles C x86-64 5.0 and above
 * xcc      - Pelles C for xhb
@@ -1354,11 +1267,60 @@ Press `<Alt+D>` in the app.
 * gccomf   - EMX GNU C 3.3.5 or upper
 * watcom   - Open Watcom C/C++
 
+### aix
+* gcc      - GNU C
+
+### hpux
+* gcc      - GNU C
+
+### sunos
+* gcc      - GNU C
+* sunpro   - Sun Studio C/C++
+
+### beos (experimental)
+* gcc      - GNU C
+
+### qnx (experimental)
+* gcc      - GNU C
+
+### vxworks (experimental)
+* gcc      - GNU C
+* diab     - Wind River Compiler
+
+### minix (experimental)
+* clang    - Clang
+* gcc      - GNU C
+
+### cygwin (experimental)
+* gcc      - GNU C
+
+### symbian (deprecated)
+* gcc      - GNU C
+
 
 # Platform Matrix
 
  &nbsp;| host<br />platform | target<br />platform/compiler | target cpu
  :---- | :------- | :---------------- | :---------------------------------------
+       | linux    | linux/gcc         | (CPU cross-builds possible)
+       | linux    | linux/clang       | (CPU cross-builds possible)
+       | linux    | linux/icc         | (CPU cross-builds possible: x86, x86-64, ia64)
+       | linux    | linux/sunpro      | (CPU cross-builds possible: x86, x86-64)
+       | linux    | linux/open64      | (CPU cross-builds possible: x86-64, ia64, ...)
+     x | linux    | wce/mingwarm      | arm
+     x | linux    | wce/mingw         | x86
+     x | linux    | win/mingw         | x86
+     x | linux    | win/mingw64       | x86-64
+     x | linux    | win/watcom        | x86
+     x | linux    | win/bcc           | x86 (requires WINE)
+     x | linux    | win/bcc64         | x86-64 (requires WINE)
+     x | linux    | os2/watcom        | x86
+     x | linux    | dos/watcom        | x86
+     x | linux    | dos/djgpp         | x86
+     x | linux    | android/gcc       | x86
+     x | linux    | android/gccarm    | arm
+     x | linux    | vxworks/gcc       | (CPU cross-builds possible: x86, arm, mips, ppc)
+     x | linux    | vxworks/diab      | (CPU cross-builds possible: x86, arm, mips, ppc, sparc)
        | win      | win/bcc           | x86
        | win      | win/bcc64         | x86-64
        | win      | win/clang         | x86
@@ -1392,42 +1354,16 @@ Press `<Alt+D>` in the app.
      x | win      | vxworks/diab      | (CPU cross-builds possible: x86, arm, mips, ppc, sparc)
      x | win      | symbian/gcc       | arm
      x | win      | cygwin/gcc        | x86
-       | dos      | dos/djgpp         | x86
-       | dos      | dos/watcom        | x86
-     x | dos      | win/watcom        | x86
-     x | dos      | os2/watcom        | x86
-     x | dos      | linux/watcom      | x86
        | os2      | os2/gcc           | x86
        | os2      | os2/watcom        | x86
      x | os2      | win/watcom        | x86
      x | os2      | dos/watcom        | x86
      x | os2      | linux/watcom      | x86
-       | linux    | linux/gcc         | (CPU cross-builds possible)
-       | linux    | linux/clang       | (CPU cross-builds possible)
-       | linux    | linux/icc         | (CPU cross-builds possible: x86, x86-64, ia64)
-       | linux    | linux/sunpro      | (CPU cross-builds possible: x86, x86-64)
-       | linux    | linux/open64      | (CPU cross-builds possible: x86-64, ia64, ...)
-     x | linux    | wce/mingwarm      | arm
-     x | linux    | wce/mingw         | x86
-     x | linux    | win/mingw         | x86
-     x | linux    | win/mingw64       | x86-64
-     x | linux    | win/watcom        | x86
-     x | linux    | win/bcc           | x86 (requires WINE)
-     x | linux    | win/bcc64         | x86-64 (requires WINE)
-     x | linux    | os2/watcom        | x86
-     x | linux    | dos/watcom        | x86
-     x | linux    | dos/djgpp         | x86
-     x | linux    | android/gcc       | x86
-     x | linux    | android/gccarm    | arm
-     x | linux    | vxworks/gcc       | (CPU cross-builds possible: x86, arm, mips, ppc)
-     x | linux    | vxworks/diab      | (CPU cross-builds possible: x86, arm, mips, ppc, sparc)
-       | bsd      | bsd/gcc           | (CPU cross-builds possible)
-       | bsd      | bsd/clang         | (CPU cross-builds possible)
-       | bsd      | bsd/pcc           | (experimental)
-     x | bsd      | wce/mingwarm      | arm
-     x | bsd      | wce/mingw         | x86
-     x | bsd      | win/mingw         | x86
-     x | bsd      | dos/djgpp         | x86
+       | dos      | dos/djgpp         | x86
+       | dos      | dos/watcom        | x86
+     x | dos      | win/watcom        | x86
+     x | dos      | os2/watcom        | x86
+     x | dos      | linux/watcom      | x86
        | darwin   | darwin/clang      | (CPU cross-builds possible: x86, x86-64, unibin)
        | darwin   | darwin/gcc        | (CPU cross-builds possible: x86, x86-64, ppc, ppc64, unibin)
        | darwin   | darwin/icc        | (CPU cross-builds possible: x86, x86-64)
@@ -1438,6 +1374,13 @@ Press `<Alt+D>` in the app.
      x | darwin   | dos/djgpp         | x86
      x | darwin   | android/gcc       | x86
      x | darwin   | android/gccarm    | arm
+       | bsd      | bsd/gcc           | (CPU cross-builds possible)
+       | bsd      | bsd/clang         | (CPU cross-builds possible)
+       | bsd      | bsd/pcc           | (experimental)
+     x | bsd      | wce/mingwarm      | arm
+     x | bsd      | wce/mingw         | x86
+     x | bsd      | win/mingw         | x86
+     x | bsd      | dos/djgpp         | x86
        | hpux     | hpux/gcc          | (CPU cross-builds possible)
        | qnx      | qnx/gcc           | (CPU cross-builds possible - not tested)
        | beos     | beos/gcc          | x86
@@ -1461,6 +1404,7 @@ Press `<Alt+D>` in the app.
 
 Supported shells per host platforms:
 
+* \*nix / POSIX shell
 * win  / NT shell (cmd.exe)
 * win  / POSIX shell (MSYS2 or Cygwin sh.exe)
 * win  / MS-DOS shell (command.com)
@@ -1468,14 +1412,13 @@ Supported shells per host platforms:
 * dos  / POSIX shell (bash.exe)
 * os/2 / OS/2 shell (cmd.exe)
 * os/2 / POSIX shell (bash.exe)
-* \*nix / POSIX shell
 
 
 # External Links
 
 * C/C++ Compilers/Shells:
 
-     * MinGW/MinGW-64 [win, \*nix, free, open-source]
+     * MinGW/MinGW-64 [win, \*nix, free software, open-source]
         * <https://mingw-w64.org/>, <https://duckduckgo.com/?q=mingw-w64> (recommended, look for MSYS2 or niXman builds)
           * Dual-target (aka _multilib_) for x86-64 and x86 hosts (select non-native target with `HB_CPU=x86` or `HB_CPU=x86_64`):
             * 32-bit hosted, posix, sjlj
@@ -1484,7 +1427,7 @@ Supported shells per host platforms:
             * 32-bit hosted, posix, dwarf-2
           * x86-64:
             * 64-bit hosted, posix, seh
-     * MinGW CEGCC [win, \*nix, free, open-source]
+     * MinGW CEGCC [win, \*nix, free software, open-source]
         * <https://web.archive.org/web/sourceforge.net/projects/cegcc/files/cegcc/>
           * To use this package, you will also need Cygwin package
             installed and be in `PATH` for the Cygwin runtime (`cygwin1.dll`).
@@ -1494,116 +1437,78 @@ Supported shells per host platforms:
             `tar -xvf cegcc_mingw32ce_cygwin1.7_r1399.tar -h`
 
           * Compiler will be in the `opt\mingw32ce` subdirectory.
-     * MSYS2 [Windows, free, open-source]
+     * MSYS2 [win, free software, open-source]
         * <https://msys2.github.io/>
-     * Clang [multi-platform, free, open-source]
-        * <http://llvm.org/releases/>
-     * Cygwin [win, free, open-source]
+     * Clang [multi-platform, free software, open-source]
+        * <http://releases.llvm.org/>
+     * Cygwin [win, free software, open-source]
         * <https://cygwin.com/>
-     * OS/2 GCC [os2, free, open-source]
+     * OS/2 GCC [os2, free software, open-source]
         * <http://os2ports.smedley.id.au/index.php?page=tools-utilities>
-     * DJGPP [dos, \*nix, free, open-source]
+     * DJGPP [\*nix, dos, free software, open-source]
         * <http://www.delorie.com/djgpp/>
-     * Open Watcom [win, dos, os2, linux, free, open-source]
-        * <https://github.com/open-watcom>, <https://open-watcom.github.io/open-watcom/>
-     * Xcode / Command Line Tools for Xcode [darwin, free, hybrid-source]
+     * Open Watcom [multi-platform, free software, open-source]
+        * <https://github.com/open-watcom/open-watcom-v2>, <https://open-watcom.github.io/open-watcom/>
+     * Xcode / Command Line Tools for Xcode [darwin, zero price, proprietary with open-source components]
         * <https://itunes.apple.com/us/app/xcode/id497799835>
         * <https://developer.apple.com/downloads/>
-     * MS Windows SDK [win, free, closed-source]
-        * <https://msdn.microsoft.com/en-us/windows/desktop/bg162891.aspx><br />
-         ([7.x](https://www.microsoft.com/en-us/download/details.aspx?id=8279) includes compilers for x86, x86-64 and IA-64)
-     * MS Windows Mobile SDK [wce, free]
-        * <https://www.microsoft.com/en-us/download/details.aspx?id=42>
-     * MS Visual C++ Build Tools [win, free, closed-source]
+     * MS Windows SDK [zero price, proprietary]
+        * <https://developer.microsoft.com/windows/downloads/sdk-archive/><br />
+         ([7.x](https://www.microsoft.com/download/details.aspx?id=8279) includes compilers for x86, x86-64 and IA-64)
+     * MS Windows Mobile SDK [wce, zero price, proprietary]
+        * <https://www.microsoft.com/download/details.aspx?id=42>
+     * MS Visual C++ Build Tools [win, zero price, proprietary]
         * <https://go.microsoft.com/fwlink/?LinkId=691126>
-     * MS Visual Studio Community [win, free, closed-source]
+     * MS Visual Studio Community [win, zero price, proprietary]
         * <https://www.visualstudio.com/vs/visual-studio-express/>
-     * MS Visual Studio [win, commercial, closed-source]
+     * MS Visual Studio [win, commercial, proprietary]
         * <https://www.visualstudio.com/>
-     * Pelles C [win, wce, free, closed-source]
-        * <http://smorgasbordet.com/pellesc/>
-     * Borland/CodeGear/Embarcadero Compiler [win, free, closed-source]
-        * <https://downloads.embarcadero.com/free/c_builder>
-     * Intel Compiler [win, linux, darwin, commercial, closed-source]
-        * <https://software.intel.com/en-us/c-compilers>
+     * Intel Compiler [mult-platform, commercial, proprietary]
+        * <https://software.intel.com/c-compilers>
 
 * Libraries:
 
-     * HB_WITH_PCRE2, HB_WITH_PCRE - Perl Compatible Regular Expressions [multi-platform, free, open-source]
+     * HB_WITH_PCRE2, HB_WITH_PCRE - Perl Compatible Regular Expressions [multi-platform, free software, open-source]
         * <http://pcre.org/>
-     * HB_WITH_PNG - libpng [multi-platform, free, open-source]
+     * HB_WITH_PNG - libpng [multi-platform, free software, open-source]
         * <https://github.com/glennrp/libpng>
-     * HB_WITH_WATT - Watt-32 (TCP/IP sockets) [dos, free, open-source]
+     * HB_WITH_WATT - Watt-32 (TCP/IP sockets) [dos, free software, open-source]
         * <http://www.watt-32.net/>
-     * HB_WITH_ZLIB - zlib [multi-platform, free, open-source]
+     * HB_WITH_ZLIB - zlib [multi-platform, free software, open-source]
         * <http://zlib.net/>
 
 * Tools:
 
-     * Git (1.7 or upper) [multi-platform, free, open-source]
+     * Git (2.2.0 or upper) [multi-platform, free software, open-source]
         * <https://git-scm.com/>
         * Windows binaries:
            * <https://git-for-windows.github.io/>
-     * GitHub Client [multi-platform, free]
-        * <https://windows.github.com/>
-        * <https://mac.github.com/>
-     * Travis CI [continuous integration, web service, free plan]
+     * GitHub Desktop [multi-platform, zero price, proprietary]
+        * <https://desktop.github.com/>
+     * Travis CI [continuous integration, web service, free plan available]
         * <https://travis-ci.org/>
-     * AppVeyor CI [continuous integration, web service, free plan]
+     * AppVeyor CI [continuous integration, web service, free plan available]
         * <https://www.appveyor.com/>
-     * Read the Docs [online documentation creator, web service, free]
+     * Read the Docs [online documentation creator, web service, free software]
         * <https://readthedocs.org/>
-     * ReadMe.io [online documentation creator, web service, free plan]
-        * <https://readme.io/>
-     * GNU Bison (grammar parser generator) [multi-platform, free, open-source]
+     * GNU Bison (grammar parser generator) [multi-platform, free software, open-source]
         * Windows binary:
-           * <https://github.com/msysgit/msysgit/releases>
-     * Cppcheck (static analysis) [multi-platform, free, open-source]
+           * <https://git-for-windows.github.io/>
+     * Cppcheck (static analysis) [multi-platform, free software, open-source]
         * <https://github.com/danmar/cppcheck>
-     * Valgrind (dynamic executable analysis tool) [linux, darwin-x86, free, open-source]
+     * Valgrind (dynamic executable analysis tool) [linux, darwin, free software, open-source]
         * <http://valgrind.org/>
-     * Uncrustify (source formatter) [multi-platform, free, open-source]
+     * Uncrustify (source formatter) [multi-platform, free software, open-source]
         * <https://github.com/uncrustify/uncrustify>
-     * UPX (executable compressor) [win, dos, \*nix, free, open-source]
+     * UPX (executable compressor) [multi-platform, free software, open-source]
         * <https://upx.github.io/>
-     * 7-Zip [multi-platform, free, open-source]
+     * 7-Zip [multi-platform, free software, open-source]
         * <http://7-zip.org/>
-     * GNU Make
-
-        Windows binary + source:
-
-         * <https://mirrorservice.org/sites/dl.sourceforge.net/pub/sourceforge/m/mi/mingw/MinGW/Extension/make/make-3.82-mingw32/make-3.82-5-mingw32-bin.tar.lzma>
-         * <https://mirrorservice.org/sites/dl.sourceforge.net/pub/sourceforge/m/mi/mingw/MinGW/Extension/make/make-3.82-mingw32/make-3.82-5-mingw32-src.tar.lzma>
-         * `git clone ssh://git.sv.gnu.org/srv/git/make.git`
-          <br />(included in Harbour as [win-make.exe](win-make.exe))
-
-        MS-DOS binary + source:
-
-         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/beta/v2gnu/mak381b.zip>
-         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/beta/v2gnu/mak381s.zip>
-          <br />(included in Harbour as [dos-make.exe](dos-make.exe))
-
-        OS/2 binary + source (3.81r3 or upper):
-
-         * <http://hobbes.nmsu.edu/download/pub/os2/dev/util/make-3.81-r3-bin-static.zip>
-         * <http://hobbes.nmsu.edu/h-browse.php?dir=/pub/os2/dev/util>
-          <br />(included in Harbour as [os2-make.exe](os2-make.exe))
-     * GNU core utils (mkdir, rm, cp, echo)
-
-        MS-DOS binary + source:
-
-         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/fil41b.zip>
-         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/fil41s.zip>
-         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/shl2011b.zip>
-         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/shtl208s.zip>
-         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/djdev203.zip>
-         * <https://mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/djlsr203.zip>
-          <br />(included in Harbour as [dosmkdir.exe](config/dosmkdir.exe), [dosrm.exe](config/dosrm.exe), [doscp.exe](config/doscp.exe), [dosecho.exe](config/dosecho.exe))
-
-        OS/2 binary:
-
-         * <http://os2ports.smedley.id.au/index.php?page=gnu-coreutils>
-          <br />(included in Harbour as [os2mkdir.exe](config/os2mkdir.exe), [os2rm.exe](config/os2rm.exe), [os2cp.exe](config/os2cp.exe))
+     * Chocolatey and NuGet (Windows package managers) [free software, open-source]
+        * <https://chocolatey.org/>
+        * <https://www.nuget.org/>
+     * GNU Make [multi-platform, free software, open-source]
+        * <https://www.gnu.org/software/make/>
 
 * Documentation:
 
@@ -1612,15 +1517,15 @@ Supported shells per host platforms:
      * [Pro Git](https://git-scm.com/book) [free book]
      * [GitHub Training Kit & Multi-language Cheat Sheet](https://training.github.com/kit/)
      * Using gettext (.po files)
-       * <http://docs.transifex.com/formats/gettext>
-       * <http://heiner-eichmann.de/autotools/using_gettext.html>
+       * <https://docs.transifex.com/formats/gettext>
+       * <https://web.archive.org/web/20160427125642/heiner-eichmann.de/autotools/using_gettext.html>
      * [GitHub Guides](https://guides.github.com/)
      * [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown)
      * [A Practical Git Introduction](http://marc.helbling.fr/2014/09/practical-git-introduction)
 
 * Community forums:
 
-  * Generic:
+  * General:
      * [English](https://groups.google.com/forum/#!forum/harbour-users)
      * [Italian](https://groups.google.com/forum/#!forum/harbourita)
      * [Portuguese](http://pctoledo.com.br/forum/viewforum.php?f=4)
@@ -1639,7 +1544,7 @@ Supported shells per host platforms:
 
   * Translators:
      * [Bing Translator](https://www.bing.com/translator/)
-     * [Google Translate](https://translate.google.com)
+     * [Google Translate](https://translate.google.com/)
 
 
 # Harbour Links
@@ -1659,6 +1564,7 @@ Supported shells per host platforms:
      * Harbour [internal documents](doc/)
      * [Wikipedia](https://en.wikipedia.org/wiki/Harbour_compiler)
      * [Stack Overflow](https://stackoverflow.com/questions/tagged/clipper)
+     * [Medium](https://medium.com/harbour-magazine)
 
 
 # Guarantees and Liability
@@ -1679,8 +1585,8 @@ Supported shells per host platforms:
    tools *tested most*, *focused on*, *used and deployed* by the
    maintainer/developer of this fork. While this is strongly believed to result
    in the best Harbour experience for most situations, it's ultimately
-   a subjective decision. If you don't like it, use what you feel the best.
+   a subjective decision. If you don't like it, use what fits you best.
 
 ---
 This document Copyright &copy;&nbsp;2009&ndash;2017 Viktor Szakáts (vszakats.net/harbour)<br />
-[![Creative Commons Attribution-ShareAlike 4.0](https://cdn.rawgit.com/cc-icons/cc-icons/master/fonts/cc-icons-svg/small.by-sa.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
+[![Creative Commons Attribution-ShareAlike 4.0](https://mirrors.creativecommons.org/presskit/buttons/80x15/svg/by-sa.svg)](https://creativecommons.org/licenses/by-sa/4.0/)

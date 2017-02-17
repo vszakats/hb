@@ -1,6 +1,9 @@
 /*
  * Cryptography for xHarbour
  *
+ * WARNING: Non-standard, unsecure crypto. Use core hb_blowfish*()
+ *          functions or other _standard_ alternatives instead.
+ *
  * Copyright 2003 Giancarlo Niccolai <giancarlo@niccolai.ws>
  * SEE ALSO COPYRIGHT NOTICE FOR NXS BELOW.
  *
@@ -76,9 +79,10 @@ void nxs_crypt(
    const unsigned char * key, HB_SIZE keylen,
    unsigned char * cipher )
 {
-
    if( keylen > NXS_MAX_KEYLEN )
       keylen = NXS_MAX_KEYLEN;
+   else if( keylen == 0 )
+      keylen = 1;
 
 #ifdef DEBUG_0
    memcpy( cipher, source, srclen );
@@ -104,6 +108,8 @@ void nxs_decrypt(
 {
    if( keylen > NXS_MAX_KEYLEN )
       keylen = NXS_MAX_KEYLEN;
+   else if( keylen == 0 )
+      keylen = 1;
 
    memcpy( result, cipher, cipherlen );
 
@@ -288,7 +294,7 @@ void nxs_xordecode(
          if( keylen > cipherlen - pos )
             keylen = ( HB_USHORT ) ( cipherlen - pos );
 
-         c_bitleft = ( cipher[ pos + keylen - 1 ] ^ key[ keylen - 1 ] ) << 5;
+         c_bitleft = ( cipher[ pos + keylen - 1 ] ^ ( keylen > 0 ? key[ keylen - 1 ] : '\0' ) ) << 5;
       }
    }
 }
@@ -346,10 +352,9 @@ HB_U32 nxs_cyclic_sequence( HB_U32 input )
 {
    HB_U32 first  = input & 0xffff;
    HB_U32 second = input >> 16;
-   HB_U32 ret    = ( ( second * BASE * BASE ) & 0xffff ) |
-                   ( ( first * BASE * BASE ) & 0xffff0000 );
 
-   return ret;
+   return ( ( second * BASE * BASE ) & 0xffff ) |
+          ( ( first  * BASE * BASE ) & 0xffff0000 );
 }
 
 
@@ -388,7 +393,7 @@ HB_FUNC( HB_CRYPT )
    PHB_ITEM pSource = hb_param( 1, HB_IT_ANY );
    PHB_ITEM pKey    = hb_param( 2, HB_IT_ANY );
 
-   unsigned char * cRes = ( unsigned char * ) hb_xgrab( hb_itemGetCLen( pSource ) + 8 );
+   unsigned char * cRes = ( unsigned char * ) hb_xgrabz( hb_itemGetCLen( pSource ) + 8 );
 
    nxs_crypt(
       ( const unsigned char * ) hb_itemGetCPtr( pSource ), hb_itemGetCLen( pSource ),
@@ -407,7 +412,7 @@ HB_FUNC( HB_DECRYPT )
    PHB_ITEM pSource = hb_param( 1, HB_IT_ANY );
    PHB_ITEM pKey    = hb_param( 2, HB_IT_ANY );
 
-   unsigned char * cRes = ( unsigned char * ) hb_xgrab( hb_itemGetCLen( pSource ) + 8 );
+   unsigned char * cRes = ( unsigned char * ) hb_xgrabz( hb_itemGetCLen( pSource ) + 8 );
 
    nxs_decrypt(
       ( const unsigned char * ) hb_itemGetCPtr( pSource ), hb_itemGetCLen( pSource ),

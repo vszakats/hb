@@ -45,7 +45,7 @@
 
 /*
  * Bit of a guesswork; possibly needs to be extended to other platforms,
- * but on UNIX-ish systems, seeding will fall back to using the
+ * but on Unix-ish systems, seeding will fall back to using the
  * /dev/random-variants.
  */
 

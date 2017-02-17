@@ -107,7 +107,7 @@ EXIT PROCEDURE __hbtest_Exit()
 
 PROCEDURE hbtest_Setup( cName, xValue )
 
-   IF HB_ISSTRING( cName ) .AND. ! HB_ISNULL( cName )
+   IF HB_ISSTRING( cName ) .AND. ! cName == ""
       IF PCount() >= 2
          t_hParams[ cName ] := xValue
       ELSEIF cName $ t_hParams
@@ -156,11 +156,11 @@ PROCEDURE hbtest_Call( cBlock, bBlock, xResultExpected )
    hb_langSelect( cLangOld )
 
    IF lRTE
-      lFailed := !( XToStr( xResult ) == XToStr( xResultExpected ) )
+      lFailed := ! XToStr( xResult ) == XToStr( xResultExpected )
    ELSEIF ValType( xResult ) == ValType( xResultExpected )
-      lFailed := !( xResult == xResultExpected )
+      lFailed := ! xResult == xResultExpected
    ELSEIF HB_ISSTRING( xResultExpected ) .AND. ValType( xResult ) $ "ABOHPS"
-      lFailed := !( XToStr( xResult ) == xResultExpected )
+      lFailed := ! XToStr( xResult ) == xResultExpected
    ELSE
       lFailed := .T.
    ENDIF
@@ -218,7 +218,7 @@ STATIC FUNCTION ErrorMessage( oError )
    IF ! Empty( oError:operation )
       cMessage += "(" + oError:operation + ") "
    ENDIF
-   IF ! HB_ISNULL( oError:filename )
+   IF ! oError:filename == ""
       cMessage += "<" + oError:filename + "> "
    ENDIF
    IF HB_ISNUMERIC( oError:osCode )

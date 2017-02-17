@@ -146,7 +146,7 @@
       <lSuccess>  .T. is the drive is ready, otherwise .F.
    $DESCRIPTION$
       This function attempts to access a drive. If the access to the drive
-      was successful, it will return true (.T.), otherwise false(.F.). This
+      was successful, it will return true (.T.), otherwise false (.F.). This
       function is usefull for backup function, so you can determine if the
       drive that will receive the backup data is ready or not.
    $EXAMPLES$

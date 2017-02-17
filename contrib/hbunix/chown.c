@@ -1,5 +1,5 @@
 /*
- * UNIX function wrappers (chown)
+ * Unix function wrappers (chown)
  *
  * Copyright 2016 Viktor Szakats (vszakats.net/harbour)
  *

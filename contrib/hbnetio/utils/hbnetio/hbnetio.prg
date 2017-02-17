@@ -221,7 +221,7 @@ PROCEDURE netiosrv_Main( lUI, ... )
       NIL, ;
       {| pConnectionSocket | netiosrv_callback( netiomgm, netiosrv, pConnectionSocket, .F. ) } )
 
-   netiosrv[ _NETIOSRV_lEncryption ] := ( cPassword != NIL .AND. ! HB_ISNULL( cPassword ) )
+   netiosrv[ _NETIOSRV_lEncryption ] := ( cPassword != NIL .AND. ! cPassword ) == ""
    cPassword := NIL
 
    IF Empty( netiosrv[ _NETIOSRV_pListenSocket ] )
@@ -229,7 +229,7 @@ PROCEDURE netiosrv_Main( lUI, ... )
    ELSE
       netiosrv_LogEvent( "Ready to accept connections." )
 
-      IF cPasswordManagement != NIL .AND. ! HB_ISNULL( cPasswordManagement )
+      IF cPasswordManagement != NIL .AND. ! cPasswordManagement == ""
 
          netiomgm[ _NETIOSRV_pListenSocket ] := netio_MTServer( ;
             netiomgm[ _NETIOSRV_nPort ], ;
@@ -423,7 +423,7 @@ STATIC FUNCTION netiosrv_callback( netiomgm, netiosrv, pConnectionSocket, lManag
       /* Handle positive filter */
       IF ! Empty( netiosrv[ _NETIOSRV_hAllow ] )
          hb_mutexLock( netiosrv[ _NETIOSRV_mtxFilters ] )
-         IF !( cAddressPeer $ netiosrv[ _NETIOSRV_hAllow ] )
+         IF ! cAddressPeer $ netiosrv[ _NETIOSRV_hAllow ]
             IF hb_HScan( netiosrv[ _NETIOSRV_hAllow ], {| tmp | hb_WildMatch( tmp, cAddressPeer ) } ) == 0
                lBlocked := .T.
             ENDIF
@@ -493,7 +493,7 @@ STATIC PROCEDURE netiosrv_conn_register( netiosrv, pConnectionSocket )
 
    hb_mutexLock( netiosrv[ _NETIOSRV_mtxConnection ] )
 
-   IF !( pConnectionSocket $ netiosrv[ _NETIOSRV_hConnection ] )
+   IF ! pConnectionSocket $ netiosrv[ _NETIOSRV_hConnection ]
       netiosrv[ _NETIOSRV_hConnection ][ pConnectionSocket ] := nconn
    ENDIF
 
@@ -733,7 +733,7 @@ STATIC FUNCTION netiomgm_rpc_filtermod( netiosrv, hList, lAdd, cAddress )
    hb_mutexLock( netiosrv[ _NETIOSRV_mtxFilters ] )
 
    IF lAdd
-      IF !( cAddress $ hList )
+      IF ! cAddress $ hList
          hList[ cAddress ] := NIL
       ELSE
          lSuccess := .F.
@@ -830,7 +830,7 @@ STATIC PROCEDURE HB_Logo()
 
    OutStd( ;
       "Harbour NETIO Server " + HBRawVersion() + hb_eol() + ;
-      "Copyright (c) 2009-2016, Przemyslaw Czerpak, Viktor Szakats" + hb_eol() + ;
+      "Copyright (c) 2009-2017, Przemyslaw Czerpak, Viktor Szakats" + hb_eol() + ;
       hb_Version( HB_VERSION_URL_BASE ) + hb_eol() + ;
       hb_eol() )
 
@@ -842,7 +842,7 @@ STATIC FUNCTION HBRawVersion()
       hb_Version( HB_VERSION_MINOR ), ;
       hb_Version( HB_VERSION_RELEASE ), ;
       hb_Version( HB_VERSION_STATUS ), ;
-      hb_Version( HB_VERSION_ID ), ;
+      hb_Version( HB_VERSION_ID_SHORT ), ;
       "20" + Transform( hb_Version( HB_VERSION_REVISION ), "99-99-99 99:99" ) )
 
 STATIC PROCEDURE HB_Usage()

@@ -1,5 +1,5 @@
-Harbour Make \(hbmk2\) 3\.4\.0dev \(9dea61d\) \(2016\-03\-09 22:28\)  
-Copyright &copy; 1999\-2016, Viktor Szakáts  
+Harbour Make \(hbmk2\) 3\.4\.0dev \(070bae68be\) \(2016\-12\-03 12:21\)  
+Copyright &copy; 1999\-2017, Viktor Szakáts  
 <https://github\.com/vszakats/harbour\-core/>  
 Traducción \(gl\): JLalín  
 
@@ -53,7 +53,7 @@ Opcións:
  - **\-ignore\[\-\]** ignorar erros ao executar ferramentas do compilador \(predeterminado: off\)
  - **\-hbcppmm\[\-\]** substituír as funcións estándar de xestión de memoria de C\+\+ coas propias de Harbour
  - **\-winuni\[\-\]** select between UNICODE \(WIDE\) and ANSI Windows API usage for C/C\+\+ input files \(default: ANSI\) \(Windows only\. For WinCE it is always set to UNICODE\)
- - **\-nohblib\[\-\]** Non usar as bibliotecas estáticas de Harbour ao enlazar
+ - **\-nohblib\[\-\]** do not use static core Harbour libraries when linking \(default in \-hbdyn mode or when neither \.prg nor object files are specified as input\)
  - **\-nodefgt\[\-\]** Non enlazar GTs predeterminados \(eficaz en modo \-static\)
  - **\-nolibgrouping\[\-\]** desactivar agrupamento de bibliotecas para compiladores basados en gcc
  - **\-nomiscsyslib\[\-\]** non engadir lista extra de bibliotecas do sistema á lista predeterminada de bibliotecas
@@ -73,7 +73,7 @@ Opcións:
  - **\-manifest=&lt;file&gt;** Incrustar arquivo de manifesto &lt;file&gt; en executable/biblioteca dinámica \(só Windows\)
  - **\-sign=&lt;key&gt;** sign executable with &lt;key&gt; \(Windows and Darwin only\)\. On Windows signtool\.exe is used \(part of MS Windows SDK\) or posign\.exe \(part of Pelles C 7\), in that order, both auto\-detected\.
  - **\-signpw=&lt;pw&gt;** Use &lt;pw&gt; como chave de acceso ao asinar executables \(só en Windows e Darwin\)
- - **\-signts=&lt;\[std:\]url&gt;** use &lt;url&gt; as trusted timestamp server\. Optional &lt;std&gt; might specify the standard as 'rfc3161' or 'authenticode' \(without quotes\)\. The default is 'rfc3161'\. Empty value resets it to the default: http://timestamp\.globalsign\.com/scripts/timstamp\.dll
+ - **\-signts=&lt;\[std:\]url&gt;** use &lt;url&gt; as trusted timestamp server\. Optional &lt;std&gt; might specify the standard as 'rfc3161' or 'authenticode' \(without quotes\)\. The default is 'rfc3161'\. Empty value disables timestamping\. Default: http://timestamp\.digicert\.com
  - **\-instfile=&lt;g:file&gt;** engadir &lt;file&gt; á lista de arquivos para copiar indicados na opción \-instpath=\. &lt;g&gt; é un grupo opcional de copia \(distínguense maiúsculas/minúsculas\) e debe ter polo menos dous caracteres\. Cando non se indica &lt;file&gt; a lista de arquivos nese grupo será vaciada\.
  - **\-instpath=&lt;g:path&gt;** copia arquivo\(s\) de saída a &lt;path&gt;\. Se &lt;path&gt; é un diretorio, debería incluir un caracter separador de rutas ao final, neste caso os arquivos indicados na opción \-instfile tamén serán copiados\. Pode usarse varias veces\. &lt;g&gt; é un grupo opcional de copia e debe ter polo menos dous caracteres\. O arquivo de saída será copiado automáticamente ao grupo \(vacío\) predeterminado\. Existen grupos predefinidos: 'depimplib' para bibliotecas de importación e 'depimplibsrc' para os arquivos \(\.dll\) de bibliotecas de importación, ambos pertencen ás dependencias\.
  - **\-instforce\[\-\]** copiar arquivos xenerados na ruta de instalación aínda que estivesen actualizados
@@ -325,7 +325,7 @@ Filtros \(poden combinarse e/ou negarse\):
  - **\{&lt;compiler&gt;\}** compilador C de destino\. Donde &lt;compiler&gt; pode ser calquera valor aceptado pola opción \-comp=\.
  - **\{&lt;cpu&gt;\}** CPU destino\. Onde &lt;cpu&gt; pode ser: x86, x86\_64, ia64, arm, mips, sh
  - **\{&lt;targettype&gt;\}** tipo de arquivo de saída\. Donde &lt;targettype&gt; e algún dos valores posibles da macro variable $\{hb\_targettype\}\.
- - **\{&lt;package\-manager&gt;\}** package manager\. Where &lt;package\-manager&gt; can be any of: deb, rpm, portage, homebrew, rudix, macports, fink, pkg, cygwin
+ - **\{&lt;package\-manager&gt;\}** package manager\. Where &lt;package\-manager&gt; can be any of: deb, rpm, portage, homebrew, nix, macports, fink, pkg, cygwin
  - **\{mt\}** Destino da construcción é de multifío/proceso \(ver opción \-mt\)
  - **\{st\}** Destino da construcción é de único fío/proceso \(ver opción \-st\)
  - **\{gui\}** Destino GUI \(ver opción \-gui\)

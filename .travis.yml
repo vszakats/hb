@@ -8,7 +8,7 @@ env:
 os:
   - linux
   - osx
-osx_image: xcode7.3
+osx_image: xcode8.2
 compiler:
   - clang
   - gcc
@@ -17,8 +17,6 @@ matrix:
   exclude:
     - os: osx
       compiler: gcc
-    - os: osx
-      compiler: i686-w64-mingw32-gcc
 sudo: false
 addons:
   apt:
@@ -48,45 +46,58 @@ addons:
       - gcc-mingw-w64
       - wine
       - p7zip-full
-      - osslsigncode
 before_install:
-  - if [ "$TRAVIS_OS_NAME" = "osx" ] ; then
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then
        brew update > /dev/null;
-       brew install cairo;
-       brew install curl;
-       brew install freeimage;
-       brew install gd;
-       brew install ghostscript;
-       brew install icu4c;
-       brew install libmagic;
-       brew install mariadb;
-       brew install openssl;
-       brew install qt5;
-       brew install s-lang;
-       brew install unixodbc;
        brew install p7zip;
+       if [ "$CC" = "i686-w64-mingw32-gcc" ]; then
+          brew install mingw-w64;
+          brew cask install wine-devel;
+       else
+          brew install cairo;
+          brew install curl;
+          brew install freeimage;
+          brew install gd;
+          brew install ghostscript;
+          brew install icu4c;
+          brew install libmagic;
+          brew install mariadb;
+          brew install openssl@1.1;
+          brew install qt5;
+          brew install s-lang;
+          brew install unixodbc;
+       fi;
     fi
 script:
-  - if [ "$CC" = "i686-w64-mingw32-gcc" ] ; then
-       export HB_COMPILER=clang && make -j $HB_CI_THREADS HB_BUILD_DYN=no HB_BUILD_CONTRIBS=no;
-       export __HB_HARBOUR_DLL_UNICOWS=no;
+  - if [ "$CC" = "i686-w64-mingw32-gcc" ]; then
+       if [ "$TRAVIS_OS_NAME" = "osx" ]; then
+          export PATH="/Applications/Wine Devel.app/Contents/Resources/wine/bin:${PATH}";
+          export DISPLAY=:88.0; wineboot;
+       fi;
+       make -j "$HB_CI_THREADS" HB_COMPILER=clang HB_BUILD_DYN=no HB_BUILD_CONTRIBS=no;
        export HB_BUILD_3RDEXT=no;
        export HB_PLATFORM=win;
+       export HB_COMPILER=mingw;
        export HB_CCPREFIX=i686-w64-mingw32-;
-       ls -lA /usr/bin/${HB_CCPREFIX}*;
+       ls -lA "$(dirname "$(which "${HB_CCPREFIX}gcc")")/${HB_CCPREFIX}"*;
        "${HB_CCPREFIX}gcc" -v;
-       export HB_COMPILER=mingw && make -j $HB_CI_THREADS;
-       wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/hbmk2.exe --version;
-       wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/harbour.exe -build;
+       make -j "$HB_CI_THREADS";
+       if which wine > /dev/null; then
+          wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/hbmk2.exe --version;
+          wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/harbour.exe -build;
+       fi;
+       export HB_COMPILER=mingw64;
        export HB_CCPREFIX=x86_64-w64-mingw32-;
-       ls -lA /usr/bin/${HB_CCPREFIX}*;
+       ls -lA "$(dirname "$(which "${HB_CCPREFIX}gcc")")/${HB_CCPREFIX}"*;
        "${HB_CCPREFIX}gcc" -v;
-       export HB_COMPILER=mingw64 && make -j $HB_CI_THREADS;
-       wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/hbmk2.exe --version;
-       wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/harbour.exe -build;
+       make -j "$HB_CI_THREADS";
+       if which wine > /dev/null; then
+          wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/hbmk2.exe --version;
+          wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/harbour.exe -build;
+       fi;
     else
-       if [ "$TRAVIS_OS_NAME" = "linux" ] ; then
-          if [ "$CC" = "gcc" ] ; then
+       if [ "$TRAVIS_OS_NAME" = "linux" ]; then
+          if [ "$CC" = "gcc" ]; then
              export HB_CCSUFFIX=-6;
           else
              export HB_CCSUFFIX=-3.8;
@@ -94,8 +105,9 @@ script:
           export HB_USER_CFLAGS="${HB_USER_CFLAGS} -fstack-protector-strong";
        fi;
        export HB_USER_CFLAGS="${HB_USER_CFLAGS} -D_FORTIFY_SOURCE=2";
-       ls -lA /usr/bin/$CC*;
-       export HB_COMPILER=$CC && make -j $HB_CI_THREADS;
+       ls -lA "$(dirname "$(which "${CC}${HB_CCSUFFIX}")")/${CC}"*;
+       "${CC}${HB_CCSUFFIX}" -v;
+       export HB_COMPILER=$CC && make -j "$HB_CI_THREADS";
     fi;
 notifications:
   email: false

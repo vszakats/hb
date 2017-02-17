@@ -343,7 +343,7 @@ PROCEDURE NetCommitAll()
    LOCAL n
 
    FOR n := 1 TO MAX_TABLE_AREAS
-      IF ! HB_ISNULL( Alias( n ) )
+      IF ! Alias( n ) == ""
          ( Alias( n ) )->( dbCommit(), dbUnlock() )
       ENDIF
    NEXT
@@ -488,7 +488,7 @@ METHOD PROCEDURE Put() CLASS HBRecord
    LOCAL xField
 
    FOR EACH xField IN ::aFields
-      IF !( xField:Value == ::buffer[ xField:__enumIndex() ] )
+      IF ! xField:Value == ::buffer[ xField:__enumIndex() ]
          xField:Put( ::buffer[ xField:__enumIndex() ] )
          ::buffer[ xField:__enumIndex() ] := xField:value
       ENDIF

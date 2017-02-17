@@ -89,8 +89,7 @@ else
       rddfpt \
       hbsix \
       hbhsx \
-      hbusrrdd \
-      hbuddall
+      hbusrrdd
 
    _HB_VM := hbvm
    HB_LIBS_ST_RDD := $(HB_LIBS_TPL)

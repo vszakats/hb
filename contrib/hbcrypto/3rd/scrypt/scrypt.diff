@@ -1,0 +1,327 @@
+diff --strip-trailing-cr -urN scrypt.orig/config.h scrypt/config.h
+--- scrypt.orig/config.h	2017-02-11 07:29:20.000000000 +0000
++++ scrypt/config.h	2017-02-13 03:33:22.000000000 +0000
+@@ -1,99 +1 @@
+ /* config.h.in.  Generated from configure.ac by autoheader.  */
+-
+-/* Define to 1 if you have the `clock_gettime' function. */
+-#undef HAVE_CLOCK_GETTIME
+-
+-/* Define to 1 if you have the <inttypes.h> header file. */
+-#undef HAVE_INTTYPES_H
+-
+-/* Define to 1 if you have the <memory.h> header file. */
+-#undef HAVE_MEMORY_H
+-
+-/* Define to 1 if you have the `mmap' function. */
+-#undef HAVE_MMAP
+-
+-/* Define to 1 if you have the <openssl/aes.h> header file. */
+-#undef HAVE_OPENSSL_AES_H
+-
+-/* Define to 1 if you have the `posix_memalign' function. */
+-#undef HAVE_POSIX_MEMALIGN
+-
+-/* Define to 1 if you have the <stdint.h> header file. */
+-#undef HAVE_STDINT_H
+-
+-/* Define to 1 if you have the <stdlib.h> header file. */
+-#undef HAVE_STDLIB_H
+-
+-/* Define to 1 if you have the <strings.h> header file. */
+-#undef HAVE_STRINGS_H
+-
+-/* Define to 1 if you have the <string.h> header file. */
+-#undef HAVE_STRING_H
+-
+-/* Define to 1 if the system has the type `struct sysinfo'. */
+-#undef HAVE_STRUCT_SYSINFO
+-
+-/* Define to 1 if `mem_unit' is a member of `struct sysinfo'. */
+-#undef HAVE_STRUCT_SYSINFO_MEM_UNIT
+-
+-/* Define to 1 if `totalram' is a member of `struct sysinfo'. */
+-#undef HAVE_STRUCT_SYSINFO_TOTALRAM
+-
+-/* Define to 1 if you have the `sysinfo' function. */
+-#undef HAVE_SYSINFO
+-
+-/* Define to 1 if you have the <sys/param.h> header file. */
+-#undef HAVE_SYS_PARAM_H
+-
+-/* Define to 1 if you have the <sys/stat.h> header file. */
+-#undef HAVE_SYS_STAT_H
+-
+-/* Define to 1 if you have the <sys/sysctl.h> header file. */
+-#undef HAVE_SYS_SYSCTL_H
+-
+-/* Define to 1 if you have the <sys/sysinfo.h> header file. */
+-#undef HAVE_SYS_SYSINFO_H
+-
+-/* Define to 1 if you have the <sys/types.h> header file. */
+-#undef HAVE_SYS_TYPES_H
+-
+-/* Define to 1 if you have the <unistd.h> header file. */
+-#undef HAVE_UNISTD_H
+-
+-/* Name of package */
+-#undef PACKAGE
+-
+-/* Define to the address where bug reports for this package should be sent. */
+-#undef PACKAGE_BUGREPORT
+-
+-/* Define to the full name of this package. */
+-#undef PACKAGE_NAME
+-
+-/* Define to the full name and version of this package. */
+-#undef PACKAGE_STRING
+-
+-/* Define to the one symbol short name of this package. */
+-#undef PACKAGE_TARNAME
+-
+-/* Define to the home page for this package. */
+-#undef PACKAGE_URL
+-
+-/* Define to the version of this package. */
+-#undef PACKAGE_VERSION
+-
+-/* Define to 1 if you have the ANSI C header files. */
+-#undef STDC_HEADERS
+-
+-/* Version number of package */
+-#undef VERSION
+-
+-/* Enable large inode numbers on Mac OS X 10.5.  */
+-#ifndef _DARWIN_USE_64_BIT_INODE
+-# define _DARWIN_USE_64_BIT_INODE 1
+-#endif
+-
+-/* Number of bits in a file offset, on hosts where this is settable. */
+-#undef _FILE_OFFSET_BITS
+-
+-/* Define for large files, on AIX-style hosts. */
+-#undef _LARGE_FILES
+diff --strip-trailing-cr -urN scrypt.orig/crypto_scrypt-ref.c scrypt/crypto_scrypt-ref.c
+--- scrypt.orig/crypto_scrypt-ref.c	2017-02-11 07:29:13.000000000 +0000
++++ scrypt/crypto_scrypt-ref.c	2017-02-13 15:22:32.000000000 +0000
+@@ -26,15 +26,8 @@
+  * This file was originally written by Colin Percival as part of the Tarsnap
+  * online backup system.
+  */
+-#include "scrypt_platform.h"
+-
+-#include <errno.h>
+-#include <stdint.h>
+-#include <stdlib.h>
+-#include <string.h>
+ 
+ #include "sha256.h"
+-#include "sysendian.h"
+ 
+ #include "crypto_scrypt.h"
+ 
+@@ -76,7 +69,7 @@
+ 
+ 	/* Convert little-endian values in. */
+ 	for (i = 0; i < 16; i++)
+-		B32[i] = le32dec(&B[i * 4]);
++		B32[i] = HB_GET_LE_UINT32(&B[i * 4]);
+ 
+ 	/* Compute x = doubleround^4(B32). */
+ 	for (i = 0; i < 16; i++)
+@@ -117,7 +110,7 @@
+ 
+ 	/* Convert little-endian values out. */
+ 	for (i = 0; i < 16; i++)
+-		le32enc(&B[4 * i], B32[i]);
++		HB_PUT_LE_UINT32(&B[4 * i], B32[i]);
+ }
+ 
+ /**
+@@ -160,7 +153,7 @@
+ {
+ 	uint8_t * X = &B[(2 * r - 1) * 64];
+ 
+-	return (le64dec(X));
++	return (HB_GET_LE_UINT64(X));
+ }
+ 
+ /**
+@@ -223,19 +216,21 @@
+ 	size_t r = _r, p = _p;
+ 	uint32_t i;
+ 
++	int fail = -1;
++
+ 	/* Sanity-check parameters. */
+ #if SIZE_MAX > UINT32_MAX
+ 	if (buflen > (((uint64_t)(1) << 32) - 1) * 32) {
+-		errno = EFBIG;
++		fail = -2 /* EFBIG */;
+ 		goto err0;
+ 	}
+ #endif
+ 	if ((uint64_t)(r) * (uint64_t)(p) >= (1 << 30)) {
+-		errno = EFBIG;
++		fail = -2 /* EFBIG */;
+ 		goto err0;
+ 	}
+ 	if (((N & (N - 1)) != 0) || (N == 0)) {
+-		errno = EINVAL;
++		fail = -3 /* EINVAL */;
+ 		goto err0;
+ 	}
+ 	if ((r > SIZE_MAX / 128 / p) ||
+@@ -243,7 +238,7 @@
+ 	    (r > SIZE_MAX / 256) ||
+ #endif
+ 	    (N > SIZE_MAX / 128 / r)) {
+-		errno = ENOMEM;
++		fail = -4 /* ENOMEM */;
+ 		goto err0;
+ 	}
+ 
+@@ -281,5 +276,5 @@
+ 	free(B);
+ err0:
+ 	/* Failure! */
+-	return (-1);
++	return (fail);
+ }
+diff --strip-trailing-cr -urN scrypt.orig/crypto_scrypt.h scrypt/crypto_scrypt.h
+--- scrypt.orig/crypto_scrypt.h	2017-02-11 07:29:13.000000000 +0000
++++ scrypt/crypto_scrypt.h	2017-02-13 15:20:18.000000000 +0000
+@@ -29,8 +29,14 @@
+ #ifndef _CRYPTO_SCRYPT_H_
+ #define _CRYPTO_SCRYPT_H_
+ 
+-#include <stdint.h>
+-#include <unistd.h>
++#include "hbcrypto.h"
++
++#define uint8_t   HB_U8
++#define uint32_t  HB_U32
++#define uint64_t  HB_U64
++#ifndef SIZE_MAX
++#define SIZE_MAX  HB_SIZE_MAX
++#endif
+ 
+ /**
+  * crypto_scrypt(passwd, passwdlen, salt, saltlen, N, r, p, buf, buflen):
+diff --strip-trailing-cr -urN scrypt.orig/sha256.c scrypt/sha256.c
+--- scrypt.orig/sha256.c	2017-02-11 07:29:13.000000000 +0000
++++ scrypt/sha256.c	2017-02-15 22:20:02.000000000 +0000
+@@ -3,7 +3,7 @@
+ #include <string.h>
+ 
+ #include "insecure_memzero.h"
+-#include "sysendian.h"
++#include "hbcrypto.h"
+ 
+ #include "sha256.h"
+ 
+@@ -21,7 +21,7 @@
+ 
+ 	/* Encode vector, one word at a time. */
+ 	for (i = 0; i < len / 4; i++)
+-		be32enc(dst + i * 4, src[i]);
++		HB_PUT_BE_UINT32(dst + i * 4, src[i]);
+ }
+ 
+ /*
+@@ -38,7 +38,7 @@
+ 
+ 	/* Decode vector, one word at a time. */
+ 	for (i = 0; i < len / 4; i++)
+-		dst[i] = be32dec(src + i * 4);
++		dst[i] = HB_GET_BE_UINT32(src + i * 4);
+ }
+ 
+ /* SHA256 round constants. */
+@@ -94,9 +94,9 @@
+  * the 512-bit input block to produce a new state.
+  */
+ static void
+-SHA256_Transform(uint32_t state[static restrict 8],
+-    const uint8_t block[static restrict 64],
+-    uint32_t W[static restrict 64], uint32_t S[static restrict 8])
++SHA256_Transform(uint32_t state[8],
++    const uint8_t block[64],
++    uint32_t W[64], uint32_t S[8])
+ {
+ 	int i;
+ 
+@@ -159,7 +159,7 @@
+ 
+ /* Add padding and terminating bit-count. */
+ static void
+-SHA256_Pad(SHA256_CTX * ctx, uint32_t tmp32[static restrict 72])
++SHA256_Pad(SHA256_CTX * ctx, uint32_t tmp32[72])
+ {
+ 	size_t r;
+ 
+@@ -180,7 +180,7 @@
+ 	}
+ 
+ 	/* Add the terminating bit-count. */
+-	be64enc(&ctx->buf[56], ctx->count);
++	HB_PUT_BE_UINT64(&ctx->buf[56], ctx->count);
+ 
+ 	/* Mix in the final block. */
+ 	SHA256_Transform(ctx->state, ctx->buf, &tmp32[0], &tmp32[64]);
+@@ -213,7 +213,7 @@
+  */
+ static void
+ _SHA256_Update(SHA256_CTX * ctx, const void * in, size_t len,
+-    uint32_t tmp32[static restrict 72])
++    uint32_t tmp32[72])
+ {
+ 	uint32_t r;
+ 	const uint8_t * src = in;
+@@ -271,7 +271,7 @@
+  */
+ static void
+ _SHA256_Final(uint8_t digest[32], SHA256_CTX * ctx,
+-    uint32_t tmp32[static restrict 72])
++    uint32_t tmp32[72])
+ {
+ 
+ 	/* Add padding. */
+@@ -323,8 +323,8 @@
+  */
+ static void
+ _HMAC_SHA256_Init(HMAC_SHA256_CTX * ctx, const void * _K, size_t Klen,
+-    uint32_t tmp32[static restrict 72], uint8_t pad[static restrict 64],
+-    uint8_t khash[static restrict 32])
++    uint32_t tmp32[72], uint8_t pad[64],
++    uint8_t khash[32])
+ {
+ 	const uint8_t * K = _K;
+ 	size_t i;
+@@ -376,7 +376,7 @@
+  */
+ static void
+ _HMAC_SHA256_Update(HMAC_SHA256_CTX * ctx, const void * in, size_t len,
+-    uint32_t tmp32[static restrict 72])
++    uint32_t tmp32[72])
+ {
+ 
+ 	/* Feed data to the inner SHA256 operation. */
+@@ -403,7 +403,7 @@
+  */
+ static void
+ _HMAC_SHA256_Final(uint8_t digest[32], HMAC_SHA256_CTX * ctx,
+-    uint32_t tmp32[static restrict 72], uint8_t ihash[static restrict 32])
++    uint32_t tmp32[72], uint8_t ihash[32])
+ {
+ 
+ 	/* Finish the inner SHA256 operation. */
+@@ -488,7 +488,7 @@
+ 	/* Iterate through the blocks. */
+ 	for (i = 0; i * 32 < dkLen; i++) {
+ 		/* Generate INT(i + 1). */
+-		be32enc(ivec, (uint32_t)(i + 1));
++		HB_PUT_BE_UINT32(ivec, (uint32_t)(i + 1));
+ 
+ 		/* Compute U_1 = PRF(P, S || INT(i)). */
+ 		memcpy(&hctx, &PShctx, sizeof(HMAC_SHA256_CTX));

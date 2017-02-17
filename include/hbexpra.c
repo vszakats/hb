@@ -44,10 +44,7 @@
  *
  */
 
-
 #include "hbcomp.h"
-
-/* ************************************************************************ */
 
 #ifndef HB_MACRO_SUPPORT
 HB_SIZE hb_compExprListEval( HB_COMP_DECL, PHB_EXPR pExpr, PHB_COMP_CARGO_FUNC pEval )
@@ -559,8 +556,7 @@ PHB_EXPR hb_compExprNewArrayAt( PHB_EXPR pArray, PHB_EXPR pIndex, HB_COMP_DECL )
    return pExpr;
 }
 
-
-/* ************************************************************************* */
+/* === */
 
 #ifndef HB_MACRO_SUPPORT
 

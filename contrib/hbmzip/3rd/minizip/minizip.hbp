@@ -26,8 +26,8 @@ unzip.c
 -depincpath=zlib:/boot/develop/headers/3rdparty
 -depincpathlocal=zlib:../../../../src/3rd/zlib
 
-# URL    https://github.com/madler/zlib/archive/v1.2.8.zip
-# DIFF   minizip.dif
+# URL    https://github.com/madler/zlib/archive/v1.2.11.zip
+# DIFF   minizip.diff
 #
 # MAP    README                  README.txt
 # MAP    contrib/minizip/crypt.h crypt.h

@@ -95,7 +95,7 @@ PROCEDURE Main( ... )
          OutErr( I_( "Wrong mask" ) + hb_eol() )
       ELSE
          cInitDir := hb_FNameDir( cFileName )
-         IF HB_ISNULL( cInitDir )
+         IF cInitDir == ""
             cInitDir := "." + hb_ps()
          ENDIF
          DirEval( cInitDir, hb_FNameNameExt( cFileName ), lRecursive, {| name | Reformat( oRef, name ) } )
@@ -142,8 +142,8 @@ STATIC PROCEDURE DirEval( cInitDir, cMask, lRecur, bCode )
 
    FOR EACH file IN hb_vfDirectory( cInitDir + cMask, "HSD" )
       IF "D" $ file[ F_ATTR ]
-         IF !( "." == file[ F_NAME ] ) .AND. ;
-            !( ".." == file[ F_NAME ] ) .AND. lRecur
+         IF ! "." == file[ F_NAME ] .AND. ;
+            ! ".." == file[ F_NAME ] .AND. lRecur
             DirEval( cInitDir + file[ F_NAME ], cMask, lRecur, bCode )
          ENDIF
       ELSE
@@ -159,7 +159,7 @@ STATIC PROCEDURE About()
 
    OutStd( ;
       "Harbour Source Formatter " + HBRawVersion() + hb_eol() + ;
-      "Copyright (c) 2009-2016, Alexander S.Kresin" + hb_eol() + ;
+      "Copyright (c) 2009-2017, Alexander S.Kresin" + hb_eol() + ;
       hb_Version( HB_VERSION_URL_BASE ) + hb_eol() + ;
       hb_eol() )
 
@@ -175,5 +175,5 @@ STATIC FUNCTION HBRawVersion()
       hb_Version( HB_VERSION_MINOR ), ;
       hb_Version( HB_VERSION_RELEASE ), ;
       hb_Version( HB_VERSION_STATUS ), ;
-      hb_Version( HB_VERSION_ID ), ;
+      hb_Version( HB_VERSION_ID_SHORT ), ;
       "20" + Transform( hb_Version( HB_VERSION_REVISION ), "99-99-99 99:99" ) )

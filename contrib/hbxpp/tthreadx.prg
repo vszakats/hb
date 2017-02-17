@@ -244,7 +244,7 @@ METHOD start( xAction, ... ) CLASS Thread
                      ENDIF
                   ALWAYS
                      __QuitCancel()
-                  ENDSEQUENCE
+                  END SEQUENCE
 
                   nTime := Int( ( hb_MilliSeconds() - nTime ) / 10 )
                   ::deltaTime := nTime

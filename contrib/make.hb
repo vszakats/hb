@@ -2,7 +2,7 @@
 /*
  * Package build orchestrator script
  *
- * Copyright 2010-2014 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2010-2016 Viktor Szakats (vszakats.net/harbour)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -57,7 +57,7 @@ PROCEDURE Main( ... )
 
    s_cBase := ""
    s_cReBase := ""
-   IF HB_ISNULL( GetEnv( "HB_HOST_BIN_DIR" ) )
+   IF GetEnv( "HB_HOST_BIN_DIR" ) == ""
       s_cHome := StrTran( hb_DirBase(), hb_ps(), "/" )
       s_cRoot := s_cHome + "../"
    ELSE
@@ -87,7 +87,7 @@ PROCEDURE Main( ... )
    ENDIF
 
    /* Build */
-   IF HB_ISNULL( GetEnv( "HB_HOST_BIN_DIR" ) )
+   IF GetEnv( "HB_HOST_BIN_DIR" ) == ""
       Standalone( aParams, hProjectList )
    ELSE
       GNUMake( aParams, hProjectList )
@@ -143,12 +143,12 @@ STATIC PROCEDURE Standalone( aParams, hProjectList )
    cOptionsUser := ""
    lCustom := .F.
    FOR EACH tmp IN aParams
-      IF !( Lower( tmp ) == "install" ) .AND. ;
-         !( Lower( tmp ) == "clean" ) .AND. ;
-         !( Lower( tmp ) == "all" ) .AND. ;
-         !( Lower( tmp ) == "first" ) .AND. ;
-         !( Lower( tmp ) == "rebuild" ) .AND. ;
-         !( Lower( tmp ) == "verbose" )
+      IF ! Lower( tmp ) == "install" .AND. ;
+         ! Lower( tmp ) == "clean" .AND. ;
+         ! Lower( tmp ) == "all" .AND. ;
+         ! Lower( tmp ) == "first" .AND. ;
+         ! Lower( tmp ) == "rebuild" .AND. ;
+         ! Lower( tmp ) == "verbose"
 
          cOptionsUser += " " + tmp
 
@@ -196,7 +196,7 @@ STATIC PROCEDURE Standalone( aParams, hProjectList )
 
    build_projects( nAction, hProjectList, hProjectReqList, cOptionsUser, .T. )
 
-   IF HB_ISSTRING( cCustomDir ) .AND. ! HB_ISNULL( cCustomDir )
+   IF HB_ISSTRING( cCustomDir ) .AND. ! cCustomDir == ""
       hb_cwd( cCustomDir )
    ENDIF
 
@@ -233,7 +233,7 @@ STATIC PROCEDURE GNUMake( aParams, hProjectList )
 
    IF Empty( GetEnv( "HB_PLATFORM" ) ) .OR. ;
       Empty( GetEnv( "HB_COMPILER" ) ) .OR. ;
-      HB_ISNULL( GetEnv( "HB_HOST_BIN_DIR" ) )
+      GetEnv( "HB_HOST_BIN_DIR" ) == ""
       ErrorLevel( 9 )
       RETURN
    ENDIF
@@ -403,9 +403,9 @@ STATIC PROCEDURE build_projects( nAction, hProjectList, hProjectReqList, cOption
       (we need "cType" to decide about dynamic build) */
    IF GetEnv( "HB_BUILD_CONTRIB_DYN" ) == "yes"
       FOR EACH cProject IN aSortedList
-         IF !( cProject $ hProjectReqList ) .AND. ;
+         IF ! cProject $ hProjectReqList .AND. ;
             cProject $ hProjectList .AND. ;
-            !( "lChecked" $ hProjectList[ cProject ] )
+            ! "lChecked" $ hProjectList[ cProject ]
             call_hbmk2_hbinfo( s_cBase + s_cHome + cProject, hProjectList[ cProject ] )
          ENDIF
       NEXT
@@ -454,7 +454,7 @@ STATIC PROCEDURE build_projects( nAction, hProjectList, hProjectReqList, cOption
                IF "|" + hProjectList[ cProject ][ "cPlatform" ] + "|" $ "|win|dos|os2|"
                   cDynSuffix := "_dll"
                ELSE
-                  cDynSuffix := hb_libExt()
+                  cDynSuffix := ""
                ENDIF
                call_hbmk2( cProjectPath, iif( lPrimary .OR. lContainer, iif( lContainer, cOptions, cOptions + cOptionsUser ), " -inc" ), cDynSuffix )
             ENDIF
@@ -526,7 +526,7 @@ STATIC PROCEDURE call_hbmk2_hbinfo( cProjectPath, hProject )
                'contrib' directory tree. This case can be detected by
                verifying if the full path remained unchanged after
                rebasing to contrib root. */
-            IF !( tmp1 == tmp2 )
+            IF ! tmp1 == tmp2
                AAdd( hProject[ "aDept" ], { "nDepth" => Len( tmp ) - Len( LTrim( tmp ) ), ;
                   "cFileName_HBP" => StrTran( tmp1, "\", "/" ) } )
             ENDIF
@@ -555,17 +555,20 @@ STATIC FUNCTION call_hbmk2( cProjectPath, cOptionsPre, cDynSuffix, cStdErr, cStd
    hb_SetEnv( "HARBOURCMD" )
    hb_SetEnv( "CLIPPER" )
    hb_SetEnv( "CLIPPERCMD" )
+   hb_SetEnv( "_HB_DYNSUFF" )
 
    IF cDynSuffix != NIL
-      hb_SetEnv( "_HB_DYNSUFF", cDynSuffix )  /* Request dll version of Harbour contrib dependencies (the implibs) to be linked (experimental) */
+      IF ! cDynSuffix == ""
+         /* Request dll version of Harbour contrib dependencies (the implibs) to
+            be linked, on non-*nix platforms (experimental) */
+         hb_SetEnv( "_HB_DYNSUFF", cDynSuffix )
+      ENDIF
 
       cOptionsPre += " -hbdyn"
 
       IF hb_vfExists( hb_FNameExtSet( cProjectPath, ".hbc" ) )
          cOptionsLibDyn += " " + hb_FNameExtSet( cProjectPath, ".hbc" )
       ENDIF
-   ELSE
-      hb_SetEnv( "_HB_DYNSUFF" )
    ENDIF
 
    hb_SetEnv( "_HB_CONTRIB_SUBDIR", hb_FNameDir( cProjectPath ) )
@@ -601,7 +604,7 @@ STATIC FUNCTION mk_hbd( cDir )
    LOCAL aErrMsg
    LOCAL aEntry
 
-   IF ! HB_ISNULL( cDocDir := GetEnv( "HB_INSTALL_DOC" ) ) .AND. ! cDocDir == "no"
+   IF ! ( cDocDir := GetEnv( "HB_INSTALL_DOC" ) ) == "" .AND. ! cDocDir == "no"
 
       IF Empty( cName := DirGetName( cDir ) )
          cName := "harbour"
@@ -632,7 +635,7 @@ STATIC FUNCTION DirGetName( cDir )
 
    LOCAL cName := hb_FNameName( hb_DirSepDel( cDir ) )
 
-   IF HB_ISNULL( cName ) .OR. cName == "." .OR. cName == ".."
+   IF cName == "" .OR. cName == "." .OR. cName == ".."
       RETURN ""
    ENDIF
 
@@ -725,16 +728,16 @@ STATIC FUNCTION AddProject( hProjectList, cFileName )
    LOCAL cName
    LOCAL cExt
 
-   IF ! HB_ISNULL( cFileName )
+   IF ! cFileName == ""
 
       cFileName := hb_DirSepToOS( AllTrim( cFileName ) )
 
       hb_FNameSplit( cFileName, @cDir, @cName, @cExt )
 
       DO CASE
-      CASE HB_ISNULL( cName )
+      CASE cName == ""
          cName := DirGetName( cDir )
-      CASE HB_ISNULL( cDir )
+      CASE cDir == ""
          cDir := cName
       ENDCASE
       IF Empty( cExt )
@@ -768,13 +771,13 @@ STATIC PROCEDURE LoadProjectListAutomatic( hProjectList, cDir )
    cDir := hb_DirSepAdd( hb_DirSepToOS( cDir ) )
 
    FOR EACH aFile IN hb_vfDirectory( cDir, "D" )
-      IF "D" $ aFile[ F_ATTR ] .AND. !( aFile[ F_NAME ] == "." ) .AND. !( aFile[ F_NAME ] == ".." )
+      IF "D" $ aFile[ F_ATTR ] .AND. !( aFile[ F_NAME ] == "." .OR. aFile[ F_NAME ] == ".." )
          IF hb_vfExists( cDir + ( tmp := aFile[ F_NAME ] + hb_ps() + hb_FNameExtSet( aFile[ F_NAME ], ".hbp" ) ) )
             AddProject( hProjectList, tmp )
          ENDIF
          IF hb_vfExists( tmp := ( cDir + aFile[ F_NAME ] + hb_ps() + "makesub.txt" ) )
             FOR EACH tmp IN hb_ATokens( hb_MemoRead( tmp ), .T. )
-               IF ! HB_ISNULL( tmp )
+               IF ! tmp == ""
                   AddProject( hProjectList, aFile[ F_NAME ] + hb_ps() + hb_DirSepToOS( tmp ) )
                ENDIF
             NEXT

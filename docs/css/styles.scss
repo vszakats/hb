@@ -4,7 +4,7 @@
 
 $font-code: Hack, Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation Mono', 'Oxygen Mono', 'Andale Mono', monospace;
 $font-copy: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-$font-main: 'Noto Sans', sans-serif;
+$font-main: 'Open Sans', sans-serif;
 
 $fork-color: #f8981d;
 $fork-color: orangered;
@@ -69,25 +69,11 @@ footer {
   clear: left;
 }
 
-main {
-  background-color: $color-bk-main;
-  color: $color-main;
-  border: 0;
-  border-spacing: 0;
-  margin: auto;
-  margin-top: 15px;
-  padding: 0;
-  width: $content-fill;
-}
-
 body {
   background: $color-bk-footer;
   border: none;
   margin: 0;
   padding: 0;
-}
-
-.hbsite {
   background-color: $color-bk-border;
   font: 16px $font-main;
   line-height: 150%;
@@ -98,15 +84,15 @@ body {
 {% endif %}
 }
 
-.faq { font: 12pt serif; line-height: 120%; margin: 2em .1em; }
-.faq a { color: #00f; text-decoration: underline; }
-.faq a:hover { color: #88f; text-decoration: underline; transition: none; }
-.faq a:active { color: #f00; text-decoration: underline; transition: none; }
-.faq h1 { font-size: 200%; color: #000; }
-.faq h2 { font-size: 150%; color: #000; }
-.faq h3 {}
-
-body {
+main {
+  background-color: $color-bk-main;
+  color: $color-main;
+  border: 0;
+  border-spacing: 0;
+  margin: auto;
+  margin-top: 15px;
+  padding: 0;
+  width: $content-fill;
 }
 
 hr {
@@ -136,7 +122,7 @@ nav hr {
   -border-top: 1px solid rgba(0, 0, 0, .1);
   -border-radius: 0;
   float: left;
-  width: 53%;
+  width: 49%;
 }
 
 .why-items ul {
@@ -436,7 +422,7 @@ $color-header-text-shadow: darken($color-base1, 7%);
   box-shadow: 0 4px 6px -6px $color-header-text-shadow;
 {% if old_design %}
   font-size: 180%;
-  font-family: 'Variane Script', 'Noto Sans', cursive;
+  font-family: 'Variane Script', 'Open Sans', cursive;
   letter-spacing: 2px;
   transform: scale(1, 1.6);
 {% endif %}
@@ -1101,7 +1087,17 @@ pre, code {
     padding-top: ($header-border + $header-height + 7px);
   }
 
+  .menu > nav {
+    padding: 3px 7px 7px 7px;
+  }
+
   .dropbtn {
     font-size: 25px;
+  }
+}
+
+@media (prefers-reduced-motion) {
+  .header-text:hover .header-version {
+    animation: none;
   }
 }

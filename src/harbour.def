@@ -843,7 +843,11 @@ HB_FUN_HB_MVSAVE
 HB_FUN_HB_NOOP
 HB_FUN_HB_NTOC
 HB_FUN_HB_NTOCOLOR
+HB_FUN_HB_NTOHOUR
+HB_FUN_HB_NTOMIN
+HB_FUN_HB_NTOMSEC
 HB_FUN_HB_NTOS
+HB_FUN_HB_NTOSEC
 HB_FUN_HB_NTOT
 HB_FUN_HB_NUMTOHEX
 HB_FUN_HB_OSCPU
@@ -1009,8 +1013,12 @@ HB_FUN_HB_TSTOSTR
 HB_FUN_HB_TSTOUTC
 HB_FUN_HB_TTOC
 HB_FUN_HB_TTOD
+HB_FUN_HB_TTOHOUR
+HB_FUN_HB_TTOMIN
+HB_FUN_HB_TTOMSEC
 HB_FUN_HB_TTON
 HB_FUN_HB_TTOS
+HB_FUN_HB_TTOSEC
 HB_FUN_HB_UAT
 HB_FUN_HB_UCHAR
 HB_FUN_HB_UCODE
@@ -1082,6 +1090,7 @@ HB_FUN_HB_VFUNLOCK
 HB_FUN_HB_VFWRITE
 HB_FUN_HB_VFWRITEAT
 HB_FUN_HB_WAEVAL
+HB_FUN_HB_WEEK
 HB_FUN_HB_WILDMATCH
 HB_FUN_HB_WILDMATCHI
 HB_FUN_HB_ZCOMPRESS
@@ -1865,16 +1874,19 @@ HB_FUN___XSAVESCREEN
 adler32
 adler32_combine
 adler32_combine64
+adler32_z
 compress
 compress2
 compressBound
 crc32
 crc32_combine
 crc32_combine64
+crc32_z
 deflate
 deflateBound
 deflateCopy
 deflateEnd
+deflateGetDictionary
 deflateInit2_
 deflateInit_
 deflateParams
@@ -1896,6 +1908,8 @@ gzdopen
 gzeof
 gzerror
 gzflush
+gzfread
+gzfwrite
 gzgetc
 gzgetc_
 gzgets
@@ -2252,8 +2266,10 @@ hb_dateCDOW
 hb_dateCMonth
 hb_dateDOW
 hb_dateDecStr
+hb_dateDecWeek
 hb_dateDecode
 hb_dateEncStr
+hb_dateEncWeek
 hb_dateEncode
 hb_dateFormat
 hb_dateJulianDOW
@@ -3442,6 +3458,7 @@ hb_valStrnToNum
 hb_verBuildInfo
 hb_verCPU
 hb_verCommitID
+hb_verCommitIDShort
 hb_verCommitInfo
 hb_verCommitRev
 hb_verCompiler
@@ -3750,6 +3767,7 @@ inflate
 inflateBack
 inflateBackEnd
 inflateBackInit_
+inflateCodesUsed
 inflateCopy
 inflateEnd
 inflateGetDictionary
@@ -3765,6 +3783,7 @@ inflateSetDictionary
 inflateSync
 inflateSyncPoint
 inflateUndermine
+inflateValidate
 pcre_assign_jit_stack
 pcre_callout
 pcre_compile
@@ -3797,6 +3816,7 @@ pcre_stack_malloc
 pcre_study
 pcre_version
 uncompress
+uncompress2
 zError
 zlibCompileFlags
 zlibVersion

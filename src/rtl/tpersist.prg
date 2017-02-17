@@ -73,7 +73,7 @@ METHOD LoadFromText( cObjectText, lIgnoreErrors ) CLASS HBPersistent
    LOCAL aObjects := { Self }
    LOCAL bError
 
-   IF HB_ISNULL( cObjectText )
+   IF cObjectText == ""
       RETURN .F.
    ENDIF
 
@@ -166,8 +166,8 @@ METHOD SaveToText( cObjectName, nIndent ) CLASS HBPersistent
       uValue := Self:&cProp
       uNewValue := oNew:&cProp
 
-      IF !( ( cType := ValType( uValue ) ) == ValType( uNewValue ) ) .OR. ;
-         !( uValue == uNewValue )
+      IF ! ( cType := ValType( uValue ) ) == ValType( uNewValue ) .OR. ;
+         ! uValue == uNewValue
 
          SWITCH cType
          CASE "A"

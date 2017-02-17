@@ -25,7 +25,7 @@ randtabl.c
 -cflag=-DBZ_NO_STDIO
 
 # URL    http://bzip.org/1.0.6/bzip2-1.0.6.tar.gz
-# DIFF   bz2.dif
+# DIFF   bz2.diff
 #
 # MAP    LICENSE         LICENSE.txt
 # MAP    blocksort.c     blocksor.c

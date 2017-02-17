@@ -2,7 +2,7 @@
 /*
  * Commit preparer and source checker/fixer
  *
- * Copyright 2012-2016 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2012-2017 Viktor Szakats (vszakats.net/harbour)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -72,7 +72,7 @@ PROCEDURE Main()
    IF CheckFileList( aFiles, cLocalRoot, .F. ) .OR. "--force" $ cli_Options()
 
       cLogName := FindChangeLog( cVCS )
-      IF HB_ISNULL( cLogName )
+      IF cLogName == ""
          OutStd( hb_ProgName() + ": " + "cannot find ChangeLog file" + hb_eol() )
          ErrorLevel( 2 )
       ENDIF
@@ -87,7 +87,7 @@ PROCEDURE Main()
          ELSE
             IF ! GitIsMerge( cVCSDir )
                cLog := GetLastEntry( MemoRead( cLogName ), @nStart, @nEnd )
-               IF ! HB_ISNULL( cLog )
+               IF ! cLog == ""
                   IF "--prepare-commit" $ cli_Options() .AND. ! Empty( cli_Values() )
                      hb_MemoWrit( cli_Values()[ 1 ], EntryToCommitMsg( cLog ) + hb_MemoRead( cli_Values()[ 1 ] ) )
                   ELSE
@@ -102,11 +102,13 @@ PROCEDURE Main()
                ENDIF
             ENDIF
          ENDIF
-      ELSE
+
+      ELSEIF ! cLogName == ""
+
          IF cVCS == "git"
             cMyName := GitUser()
          ELSE
-            IF ! HB_ISNULL( GetEnv( _CONFIGENV_ ) )
+            IF ! GetEnv( _CONFIGENV_ ) == ""
                cMyName := GetEnv( _CONFIGENV_ )
             ELSEIF hb_vfExists( cLocalRoot + _CONFIGFIL_ )
                cMyName := AllTrim( hb_MemoRead( cLocalRoot + _CONFIGFIL_ ) )
@@ -142,12 +144,10 @@ PROCEDURE Main()
 
          hb_MemoWrit( cLogName, cLog )
 
-         IF ! HB_ISNULL( cLogName )
-            OutStd( hb_ProgName() + ": " + hb_StrFormat( "Edit %1$s and commit", cLogName ) + hb_eol() )
+         OutStd( hb_ProgName() + ": " + hb_StrFormat( "Edit %1$s and commit", cLogName ) + hb_eol() )
 #if 0
-            LaunchCommand( GitEditor(), cLogName )
+         LaunchCommand( GitEditor(), cLogName )
 #endif
-         ENDIF
       ENDIF
 
       ErrorLevel( 0 )
@@ -218,7 +218,7 @@ STATIC FUNCTION InstallHook( cDir, cHookName, cCommand )
       RETURN .T.
    ENDIF
 
-   IF HB_ISNULL( cFile )
+   IF cFile == ""
       cFile += "#!/bin/sh" + Chr( 10 )
    ENDIF
 
@@ -245,7 +245,7 @@ STATIC FUNCTION FindChangeLog( cVCS )
 
 STATIC FUNCTION GetLastEntry( cLog, /* @ */ nStart, /* @ */ nEnd )
 
-   LOCAL cLogHeaderExp := "\n[1-2][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9] [0-2][0-9]:[0-6][0-9] UTC[\-+][0-1][0-9][0-5][0-9] [\S ]*"
+   LOCAL cLogHeaderExp := "\n[1-2][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9] [0-2][0-9]:[0-6][0-9] [\S ]*"
 
    LOCAL cOldCP := hb_cdpSelect( "cp437" )
    LOCAL cHit
@@ -278,18 +278,29 @@ STATIC FUNCTION GetLastEntry( cLog, /* @ */ nStart, /* @ */ nEnd )
 STATIC FUNCTION MakeEntry( aChanges, cMyName, cLogName, lAllowChangeLog, cEOL )
 
    LOCAL nOffset := hb_UTCOffset()
+   LOCAL tDate := hb_DateTime()
 
-   LOCAL cLog := hb_StrFormat( "%1$s UTC%2$s%3$02d%4$02d %5$s", ;
-      hb_TToC( hb_DateTime(), "yyyy-mm-dd", "hh:mm" ), ;
-      iif( nOffset < 0, "-", "+" ), ;
-      Int( Abs( nOffset ) / 3600 ), ;
-      Int( Abs( nOffset ) % 3600 / 60 ), ;
-      cMyName ) + cEOL
-
+   LOCAL cLog
    LOCAL cLine
 
+   tDate -= ( nOffset / 86400 )
+   nOffset := 0
+
+   IF nOffset == 0
+      cLog := hb_StrFormat( "%1$s UTC", ;
+         hb_TToC( tDate, "yyyy-mm-dd", "hh:mm" ) )
+   ELSE
+      cLog := hb_StrFormat( "%1$s UTC+%2$s%3$02d%4$02d", ;
+         hb_TToC( tDate, "yyyy-mm-dd", "hh:mm" ), ;
+         iif( nOffset < 0, "-", "+" ), ;
+         Int( Abs( nOffset ) / 3600 ), ;
+         Int( Abs( nOffset ) % 3600 / 60 ) )
+   ENDIF
+
+   cLog += " " + cMyName + cEOL
+
    FOR EACH cLine IN aChanges
-      IF lAllowChangeLog .OR. !( SubStr( cLine, 5 ) == hb_FNameNameExt( cLogName ) )
+      IF lAllowChangeLog .OR. ! SubStr( cLine, 5 ) == hb_FNameNameExt( cLogName )
          cLog += cLine + cEOL
       ENDIF
    NEXT
@@ -375,7 +386,7 @@ STATIC FUNCTION GitFileList()
    LOCAL cItem
 
    FOR EACH cItem IN aList DESCEND
-      IF HB_ISNULL( cItem )
+      IF cItem == ""
          hb_ADel( aList, cItem:__enumIndex(), .T. )
       ELSE
          cItem := hb_DirSepToOS( cItem )
@@ -439,9 +450,9 @@ STATIC FUNCTION DoctorChanges( cVCS, aChanges, aFiles )
             CASE "X"  ; cStart := "" ; EXIT
             OTHERWISE ; cStart := "?"
             ENDSWITCH
-            IF ! HB_ISNULL( cStart )
+            IF ! cStart == ""
                AAdd( aNew, "  " + cStart + " " + StrTran( SubStr( cLine, 8 + 1 ), "\", "/" ) )
-               IF !( cStart == "-" )
+               IF ! cStart == "-"
                   AAdd( aFiles, SubStr( cLine, 8 + 1 ) )
                ENDIF
             ENDIF
@@ -469,9 +480,9 @@ STATIC FUNCTION DoctorChanges( cVCS, aChanges, aFiles )
             CASE "D"  ; cStart := "-" ; EXIT
             OTHERWISE ; cStart := "?"
             ENDSWITCH
-            IF ! HB_ISNULL( cStart )
+            IF ! cStart == ""
                AAdd( aNew, "  " + cStart + " " + StrTran( SubStr( cLine, 3 + 1 ), "\", "/" ) )
-               IF !( cStart == "-" )
+               IF ! cStart == "-"
                   cFile := SubStr( cLine, 3 + 1 )
                   IF ( tmp := At( " -> ", cFile ) ) > 0
                      cFile := SubStr( cFile, tmp + Len( " -> " ) )
@@ -497,7 +508,7 @@ STATIC FUNCTION Shell()
    cShell := GetEnv( "COMSPEC" )
 #endif
 
-   IF ! HB_ISNULL( cShell )
+   IF ! cShell == ""
 #if defined( __PLATFORM__UNIX )
       cShell += " -c"
 #else
@@ -532,7 +543,7 @@ STATIC FUNCTION Changes( cVCS )
 #if 0
 STATIC FUNCTION LaunchCommand( cCommand, cArg )
 
-   IF HB_ISNULL( cCommand )
+   IF cCommand == ""
       RETURN -1
    ENDIF
 
@@ -589,7 +600,7 @@ STATIC FUNCTION CheckFileList( xName, cLocalRoot, lRebase )
                tmp += file + " "
             ENDIF
          NEXT
-         IF ! HB_ISNULL( tmp )
+         IF ! tmp == ""
             hb_run( hbshell_ProgName() + " -fixcase " + tmp )
          ENDIF
       ELSE
@@ -619,67 +630,28 @@ STATIC FUNCTION CheckFile( cName, /* @ */ aErr, lApplyFixes, cLocalRoot, lRebase
    /* TOFIX: Harbour repo specific */
    LOCAL aCanBeUpper := { ;
       "Makefile", ;
-      "CONTRIBUTING.md", ;
-      "README.md", ;
-      "LICENSE.txt", ;
-      "*/RELNOTES.txt", ;
-      "README.txt", ;
-      "ChangeLog.txt", ;
+      "ChangeLog.*", ;
+      "CONTRIBUTING.*", ;
+      "DEPRECATED.*", ;
+      "LICENSE.*", ;
+      "README.*", ;
+      "WARNING.*", ;
+      "*/RELNOTES.*", ;
       "*/doc/*/*.txt", ;
       "*.po", ;
       "*.md" }
 
-   LOCAL aCanBeDot := { ;
-      ".appveyor.yml", ;
-      ".travis.yml", ;
-      ".git*", ;
-      ".clang*", ;
-      ".editorconfig", ;
-      ".ackrc" }
-
-   /* TOFIX: Harbour repo specific */
-   LOCAL aCanBeLong := { ;
-      "ChangeLog.txt", ;
-      ".appveyor.yml", ;
-      ".git*", ;
-      ".clang*", ;
-      ".editorconfig", ;
-      "*.po", ;
-      "*.md", ;
-      "*.html", ;
-      "*/hb-charmap.def", ;  /* TOFIX: Use 8.3 name */
-      "debian/*", ;
-      "package/*", ;
-      "contrib/gtqtc/*", ;
-      "contrib/hbwin/*", ;
-      "contrib/rddads/unixutils.h", ;
-      "extras/httpsrv/*" }
-
-   /* TOFIX: Harbour repo specific */
    LOCAL aCanHaveNoExtension := { ;
       ".*", ;
       "Makefile", ;
       "debian/*" }
 
-   /* TOFIX: Harbour repo specific */
    LOCAL aCanHaveTab := { ;
       "Makefile", ;
       "debian/rules", ;
       "*.mk", ;
-      "*.yyc", ;
-      "*.cs", ;
-      "*.dif", ;
-      "*.plist", ;
-      "*.xml", ;
-      "*.xsd", ;
-      "*.xsl", ;
-      "*.java", ;
-      "*.js", ;
-      "*.svg", ;
-      "*.vbs" }
-
-   LOCAL aAnyIdent := { ;
-      hb_osFileMask() }
+      "*.go", ;
+      "*.dif" }
 
    LOCAL aCanHaveSpaceAtEol := { ;
       "*.dif", ;
@@ -701,13 +673,10 @@ STATIC FUNCTION CheckFile( cName, /* @ */ aErr, lApplyFixes, cLocalRoot, lRebase
    /* TOFIX: Harbour repo specific */
    LOCAL aNoCopyrightOk := { ;
       "tests/*", ;
-      "*/tests/*", ;
+      "*/*/tests/*", ;
       "src/codepage/*", ;
       "src/lang/*" }
 
-   LOCAL hFlags
-   LOCAL aCanHaveIdent
-   LOCAL hAllowedExt := LoadGitattributes( cLocalRoot + ".gitattributes", @aCanHaveIdent, @hFlags )
    LOCAL nLines
 
    /* TODO: extend as you go */
@@ -727,23 +696,11 @@ STATIC FUNCTION CheckFile( cName, /* @ */ aErr, lApplyFixes, cLocalRoot, lRebase
 
       /* filename checks */
 
-      IF "msdosfs" $ hFLags .AND. ( Len( hb_FNameName( cName ) ) > 8 .OR. Len( hb_FNameExt( cName ) ) > 4 ) .AND. ! FNameExc( cName, aCanBeLong )
-         AAdd( aErr, "filename: non-8.3" )
+      IF hb_FNameExt( cName ) == "" .AND. ! FNameExc( cName, aCanHaveNoExtension )
+         AAdd( aErr, "filename: missing extension" )
       ENDIF
 
-      IF "msdosfs" $ hFLags .AND. hb_LeftEq( hb_FNameName( cName ), "." ) .AND. ! FNameExc( cName, aCanBeDot )
-         AAdd( aErr, "filename: non MS-DOS compatible" )
-      ENDIF
-
-      IF HB_ISNULL( hb_FNameExt( cName ) )
-         IF ! FNameExc( cName, aCanHaveNoExtension )
-            AAdd( aErr, "filename: missing extension" )
-         ENDIF
-      ELSEIF ! Empty( hAllowedExt ) .AND. ! hb_FNameExt( cName ) $ hAllowedExt
-         AAdd( aErr, "filename: unrecognized extension. Either change it or update .gitattributes." )
-      ENDIF
-
-      IF "casematters" $ hFLags .AND. !( cName == Lower( cName ) ) .AND. ! FNameExc( cName, aCanBeUpper )
+      IF ! cName == Lower( cName ) .AND. ! FNameExc( cName, aCanBeUpper )
          AAdd( aErr, "filename: non-lowercase" )
       ENDIF
 
@@ -762,7 +719,7 @@ STATIC FUNCTION CheckFile( cName, /* @ */ aErr, lApplyFixes, cLocalRoot, lRebase
          lReBuild := .F.
 
          /* TOFIX: Harbour repo specific */
-         IF !( hb_DirSepToOS( "/3rd/" ) $ cName ) .OR. ;
+         IF ! hb_DirSepToOS( "/3rd/" ) $ cName .OR. ;
             hb_FNameName( cName ) == "Makefile" .OR. ;
             hb_FNameExt( cName ) == ".hbc" .OR. ;
             hb_FNameExt( cName ) == ".hbp"
@@ -789,21 +746,21 @@ STATIC FUNCTION CheckFile( cName, /* @ */ aErr, lApplyFixes, cLocalRoot, lRebase
 
             cEOL := EOLDetect( cFile, @nLines )
 
-            IF HB_ISNULL( cEOL )
+            IF cEOL == ""
                AAdd( aErr, "content: has mixed EOL types" )
                IF lApplyFixes
                   lReBuild := .T.
                ENDIF
             ENDIF
 
-            IF FNameExc( cName, aForcedCRLF ) .AND. !( cEOL == Chr( 13 ) + Chr( 10 ) )
+            IF FNameExc( cName, aForcedCRLF ) .AND. ! cEOL == Chr( 13 ) + Chr( 10 )
                AAdd( aErr, "content: must use CRLF EOL for file type" )
                IF lApplyFixes
                   cFile := StrTran( StrTran( cFile, Chr( 13 ) ), Chr( 10 ), cEOL := Chr( 13 ) + Chr( 10 ) )
                ENDIF
             ENDIF
 
-            IF FNameExc( cName, aForcedLF ) .AND. !( cEOL == Chr( 10 ) )
+            IF FNameExc( cName, aForcedLF ) .AND. ! cEOL == Chr( 10 )
                AAdd( aErr, "content: must use LF EOL for file type" )
                IF lApplyFixes
                   cFile := StrTran( cFile, Chr( 13 ) )
@@ -820,13 +777,13 @@ STATIC FUNCTION CheckFile( cName, /* @ */ aErr, lApplyFixes, cLocalRoot, lRebase
             ENDIF
 
             IF lReBuild
-               cFile := RemoveEndingWhitespace( cFile, iif( HB_ISNULL( cEOL ), hb_eol(), cEOL ), lRemoveEndingWhitespace )
+               cFile := RemoveEndingWhitespace( cFile, iif( cEOL == "", hb_eol(), cEOL ), lRemoveEndingWhitespace )
             ENDIF
 
-            IF !( hb_BRight( cFile, Len( Chr( 10 ) ) ) == Chr( 10 ) )
+            IF ! hb_BRight( cFile, Len( Chr( 10 ) ) ) == Chr( 10 )
                AAdd( aErr, "content: has no EOL at EOF" )
                IF lApplyFixes
-                  cFile += iif( HB_ISNULL( cEOL ), hb_eol(), cEOL )
+                  cFile += iif( cEOL == "", hb_eol(), cEOL )
                ENDIF
             ENDIF
 
@@ -853,13 +810,8 @@ STATIC FUNCTION CheckFile( cName, /* @ */ aErr, lApplyFixes, cLocalRoot, lRebase
                ENDIF
             ENDIF
 
-            IF ! FNameExc( cName, aAnyIdent ) .AND. ;
-               ( tmp := ( ( "$" + "Id" ) $ cFile ) ) != FNameExc( cName, aCanHaveIdent )
-               IF tmp
-                  AAdd( aErr, "content: has " + "$" + "Id" )
-               ELSE
-                  AAdd( aErr, "content: missing " + "$" + "Id" )
-               ENDIF
+            IF "$" + "Id" $ cFile
+               AAdd( aErr, "content: has " + "$" + "Id" )
             ENDIF
 
             /* TOFIX: Harbour repo specific */
@@ -898,7 +850,7 @@ STATIC FUNCTION CheckFile( cName, /* @ */ aErr, lApplyFixes, cLocalRoot, lRebase
    RETURN Empty( aErr )
 
 STATIC FUNCTION IsBinary( cFile )
-   RETURN Chr( 0 ) $ cFile .OR. !( Chr( 10 ) $ cFile )
+   RETURN Chr( 0 ) $ cFile .OR. ! Chr( 10 ) $ cFile
 
 STATIC FUNCTION RTrimEOL( cFile )
 
@@ -993,9 +945,9 @@ STATIC FUNCTION StripCStrings( cFile )
 
    DO WHILE ( tmp := hb_BAt( '"', cFile, nPos ) ) > 0
       /* TOFIX: imprecise escaped char detection */
-      IF ( !( hb_BSubStr( cFile, tmp - 1, 1 ) == "\" ) .OR. ;
+      IF ( ! hb_BSubStr( cFile, tmp - 1, 1 ) == "\" .OR. ;
          hb_BSubStr( cFile, tmp - 2, 2 ) == "\\" ) .AND. ;
-         !( hb_BSubStr( cFile, tmp - 1, 1 ) + hb_BSubStr( cFile, tmp + 1, 1 ) == "''" )
+         ! hb_BSubStr( cFile, tmp - 1, 1 ) + hb_BSubStr( cFile, tmp + 1, 1 ) == "''"
          AAdd( aHits, tmp )
       ENDIF
       nPos := tmp + 1
@@ -1063,11 +1015,11 @@ STATIC FUNCTION FNameExc( cName, aList )
 
 STATIC PROCEDURE ProcFile( cFileName )
 
-   /* TOFIX: bin/harbour.ucf is in Harbour dir, not current project */
+   /* TOFIX: bin/hb-uncrustify.cfg is in Harbour's bin dir, not in current project's */
    LOCAL hProc := { ;
       ".png" => { "advpng -z -4 %1$s", "optipng -o7 %1$s" }, ;
       ".jpg" => { "jpegoptim --strip-all %1$s" }, ;
-      ".c"   => { hb_StrFormat( "uncrustify -c %1$s %%1$s", hb_DirSepToOS( _HBROOT_ + "bin/harbour.ucf" ) ), @FixFuncCase() }, ;
+      ".c"   => { hb_StrFormat( "uncrustify -c %1$s %%1$s", hb_DirSepToOS( _HBROOT_ + "bin/hb-uncrustify.cfg" ) ), @FixFuncCase() }, ;
       ".cpp" => ".c", ;
       ".h"   => ".c", ;
       ".api" => ".c", ;
@@ -1126,8 +1078,8 @@ STATIC FUNCTION LoadGitignore( cFileName )
                iif( Left( cLine, 1 ) $ "?*/!", "", "*/" ) + ;
                cLine + ;
                iif( Right( cLine, 1 ) == "/", "*", ;
-               iif( HB_ISNULL( hb_FNameExt( cLine ) ) .AND. !( Right( cLine, 2 ) == "*/" ), "/*", "" ) ) )
-            IF !( ATail( t_aIgnore ) == cLine )
+               iif( hb_FNameExt( cLine ) == "" .AND. ! Right( cLine, 2 ) == "*/", "/*", "" ) ) )
+            IF ! ATail( t_aIgnore ) == cLine
                IF hb_LeftEq( ATail( t_aIgnore ), "*/" )
                   AAdd( t_aIgnore, SubStr( ATail( t_aIgnore ), 3 ) )
                ENDIF
@@ -1138,40 +1090,6 @@ STATIC FUNCTION LoadGitignore( cFileName )
    ENDIF
 
    RETURN t_aIgnore
-
-STATIC FUNCTION LoadGitattributes( cFileName, /* @ */ aIdent, /* @ */ hFlags )
-
-   THREAD STATIC t_hExt
-   THREAD STATIC t_aIdent
-   THREAD STATIC t_hFlags
-
-   LOCAL cLine
-   LOCAL tmp
-
-   IF t_hExt == NIL
-      t_hExt := { => }
-      t_aIdent := {}
-      t_hFlags := { => }
-      FOR EACH cLine IN hb_ATokens( hb_MemoRead( cFileName ), .T. )
-         IF hb_LeftEq( cLine, "*." )
-             cLine := SubStr( cLine, 2 )
-             IF ( tmp := At( " ", cLine ) ) > 0
-                t_hExt[ RTrim( Left( cLine, tmp - 1 ) ) ] := NIL
-             ENDIF
-         ENDIF
-         IF ( tmp := At( " ", cLine ) ) > 0 .AND. "ident" $ SubStr( cLine, tmp + 1 )
-            AAdd( t_aIdent, RTrim( Left( cLine, tmp - 1 ) ) )
-         ENDIF
-         IF hb_LeftEq( cLine, "## " )
-            t_hFlags[ Lower( SubStr( cLine, 4 ) ) ] := NIL
-         ENDIF
-      NEXT
-   ENDIF
-
-   aIdent := t_aIdent
-   hFlags := t_hFlags
-
-   RETURN t_hExt
 
 STATIC FUNCTION my_DirScan( cMask )
    RETURN my_DirScanWorker( cMask, {} )
@@ -1207,7 +1125,7 @@ STATIC FUNCTION FixFuncCaseFilter( cFileName )
       "*/3rd/*" }  /* foreign code */
 
    RETURN ;
-      ! HB_ISNULL( hb_FNameExt( cFileName ) ) .AND. ;
+      ! hb_FNameExt( cFileName ) == "" .AND. ;
       ! hb_FNameNameExt( cFileName ) $ sc_hFileExceptions .AND. ;
       AScan( sc_aMaskExceptions, {| tmp | hb_FileMatch( cFileName, hb_DirSepToOS( tmp ) ) } ) == 0
 

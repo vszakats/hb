@@ -99,10 +99,10 @@ METHOD WvgProgressBar:new( oParent, oOwner, aPos, aSize, aPresParams, lVisible )
 
    RETURN Self
 
-/* https://msdn.microsoft.com/en-us/library/windows/desktop/bb760820.aspx
+/* https://msdn.microsoft.com/library/bb760820
    Smooth style is supported only in the Windows Classic theme.
 
-   https://msdn.microsoft.com/en-us/library/windows/desktop/bb760838.aspx
+   https://msdn.microsoft.com/library/bb760838
    When visual styles are enabled, color messages has no effect. */
 
 METHOD WvgProgressBar:create( oParent, oOwner, aPos, aSize, aPresParams, lVisible )

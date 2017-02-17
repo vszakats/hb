@@ -4,7 +4,7 @@
  * This Harbour script is part of the GNU Make-based build system.
  * WARNING: Running it separately is not supported.
  *
- * Copyright 2009-2010 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2009-2017 Viktor Szakats (vszakats.net/harbour)
  * Copyright 2003 Przemyslaw Czerpak (druzus/at/priv.onet.pl) (embedded autoinstall bash script)
  *
  * This program is free software; you can redistribute it and/or modify
@@ -48,7 +48,7 @@ PROCEDURE Main( ... )
    LOCAL cOwner
    LOCAL cGroup
    LOCAL nAttr
-   LOCAL cCmd
+   LOCAL lWineSupported
 
    LOCAL cDynVersionFull
    LOCAL cDynVersionComp
@@ -94,7 +94,7 @@ PROCEDURE Main( ... )
 
       /* Installing some misc files */
       tmp := GetEnvC( "HB_INSTALL_DOC" )
-      IF !( tmp == "no" )
+      IF ! tmp == "no"
          IF GetEnvC( "HB_PLATFORM" ) $ "win|wce|os2|dos"
             tmp := GetEnvC( "HB_INSTALL_PREFIX" )
          ENDIF
@@ -174,7 +174,7 @@ PROCEDURE Main( ... )
          ENDIF
       ENDIF
 
-      IF !( GetEnvC( "HB_PLATFORM" ) $ "win|wce|os2|dos|cygwin" ) .AND. ;
+      IF ! GetEnvC( "HB_PLATFORM" ) $ "win|wce|os2|dos|cygwin" .AND. ;
          ! Empty( GetEnvC( "HB_INSTALL_DYN" ) ) .AND. ;
          hb_vfExists( hb_DirSepToOS( GetEnvC( "HB_DYNLIB_DIR" ) ) + hb_ps() + GetEnvC( "HB_DYNLIB_PREF" ) + GetEnvC( "HB_DYNLIB_BASE" ) + GetEnvC( "HB_DYNLIB_POST" ) + GetEnvC( "HB_DYNLIB_EXT" ) + GetEnvC( "HB_DYNLIB_PEXT" ) )
 
@@ -218,7 +218,7 @@ PROCEDURE Main( ... )
          OutStd( "! Creating core translation (.hbl) files..." + hb_eol() )
 
          FOR EACH tmp IN hb_vfDirectory( "utils" + hb_ps() + hb_osFileMask(), "D" )
-            IF "D" $ tmp[ F_ATTR ] .AND. !( tmp[ F_NAME ] == "." ) .AND. !( tmp[ F_NAME ] == ".." )
+            IF "D" $ tmp[ F_ATTR ] .AND. !( tmp[ F_NAME ] == "." .OR. tmp[ F_NAME ] == ".." )
                FOR EACH aFile IN hb_vfDirectory( hb_DirSepToOS( "utils/" + tmp[ F_NAME ] + "/po/*.po" ) )
                   mk_hbl( hb_DirSepToOS( "utils/" + tmp[ F_NAME ] + "/po/" + aFile[ F_NAME ] ), ;
                      hb_DirSepToOS( GetEnvC( "HB_INSTALL_DOC" ) ) + hb_ps() + hb_FNameExtSet( aFile[ F_NAME ], ".hbl" ) )
@@ -229,7 +229,7 @@ PROCEDURE Main( ... )
 
       /* Creating docs for core */
 
-      IF ! Empty( tmp := GetEnvC( "HB_INSTALL_DOC" ) ) .AND. !( tmp == "no" )
+      IF ! Empty( tmp := GetEnvC( "HB_INSTALL_DOC" ) ) .AND. ! tmp == "no"
 
          OutStd( "! Compiling core documentation (.hbd)..." + hb_eol() )
 
@@ -249,7 +249,7 @@ PROCEDURE Main( ... )
 
       IF GetEnvC( "HB_BUILD_PKG" ) == "yes" .AND. ;
          ! Empty( GetEnvC( "HB_TOP" ) ) .AND. ;
-         !( GetEnvC( "_HB_BUILD_PKG_ARCHIVE" ) == "no" )
+         ! GetEnvC( "_HB_BUILD_PKG_ARCHIVE" ) == "no"
 
          IF GetEnvC( "HB_PLATFORM" ) $ "win|wce|os2|dos"
 
@@ -310,7 +310,7 @@ PROCEDURE Main( ... )
 
                hb_cwd( cOldDir )
 
-               IF !( GetEnvC( "HB_PLATFORM" ) == "dos" )
+               IF ! GetEnvC( "HB_PLATFORM" ) == "dos"
 
                   tmp := GetEnvC( "HB_TOP" ) + hb_ps() + cTar_Name + ".inst.sh"
 
@@ -345,36 +345,27 @@ PROCEDURE Main( ... )
       mk_extern_core()
    ENDIF
 
+   IF nErrorLevel == 0
+      run_cmds( "host", GetEnvC( "HB_BUILD_POSTRUN_HOST" ), GetEnvC( "HB_HOST_BIN_DIR" ) )
+
+      IF ! Empty( GetEnvC( "HB_INSTALL_BIN" ) )
+
+         lWineSupported := ;
+            "|" + GetEnvC( "HB_HOST_PLAT" ) + "|" $ "|linux|darwin|bsd|" .AND. ;
+            GetEnvC( "HB_PLATFORM" ) == "win"
+
+         IF ( Empty( GetEnvC( "HB_HOST_BIN" ) ) .AND. ;
+              GetEnvC( "HB_HOST_PLAT" ) == GetEnvC( "HB_PLATFORM" ) ) .OR. ;
+            lWineSupported
+
+            run_cmds( "target", GetEnvC( "HB_BUILD_POSTRUN" ), GetEnvC( "HB_INSTALL_BIN" ), ;
+               iif( lWineSupported, "wine", "" ) )
+         ENDIF
+      ENDIF
+   ENDIF
+
    IF Empty( GetEnvC( "HB_HOST_BIN" ) ) .AND. ;
       GetEnvC( "HB_HOST_PLAT" ) == GetEnvC( "HB_PLATFORM" )
-
-      IF nErrorLevel == 0
-         FOR EACH tmp IN hb_ATokens( GetEnvC( "HB_BUILD_POSTRUN" ),, .T. )
-            IF ! Empty( tmp )
-               IF Left( tmp, 1 ) + Right( tmp, 1 ) == '""' .OR. ;
-                  Left( tmp, 1 ) + Right( tmp, 1 ) == "''"
-                  tmp := SubStr( tmp, 2, Len( tmp ) - 2 )
-               ENDIF
-
-               cCmd := ""
-               FOR EACH tmp1 IN hb_ATokens( tmp,, .T. )
-                  IF tmp1:__enumIsFirst()
-                     cCmd += FNameEscape( hb_DirSepToOS( tmp1 ) )
-                  ELSE
-                     cCmd += " " + tmp1
-                  ENDIF
-               NEXT
-
-               OutStd( "! Running post command..." + hb_eol() )
-
-               cOldDir := hb_cwd( GetEnvC( "HB_HOST_BIN_DIR" ) )
-               mk_hb_processRun( cCmd )
-               hb_cwd( cOldDir )
-
-               OutStd( hb_eol() )
-            ENDIF
-         NEXT
-      ENDIF
 
       OutStd( hb_StrFormat( "! Built: %1$s using C compiler: %2$s", Version(), hb_Compiler() ) + hb_eol() )
    ENDIF
@@ -386,6 +377,43 @@ PROCEDURE Main( ... )
    ENDIF
 
    ErrorLevel( nErrorLevel )
+
+   RETURN
+
+STATIC PROCEDURE run_cmds( cDesc, cList, cDir, cPrefix )
+
+   LOCAL cOldDir
+   LOCAL cCmd
+   LOCAL tmp, tmp1
+
+   FOR EACH tmp IN hb_ATokens( cList,, .T. )
+      IF ! Empty( tmp )
+         IF Left( tmp, 1 ) + Right( tmp, 1 ) == '""' .OR. ;
+            Left( tmp, 1 ) + Right( tmp, 1 ) == "''"
+            tmp := SubStr( tmp, 2, Len( tmp ) - 2 )
+         ENDIF
+
+         cCmd := hb_defaultValue( cPrefix, "" )
+         IF ! Empty( cCmd )
+            cCmd += " "
+         ENDIF
+         FOR EACH tmp1 IN hb_ATokens( tmp,, .T. )
+            IF tmp1:__enumIsFirst()
+               cCmd += FNameEscape( hb_DirSepToOS( tmp1 ) )
+            ELSE
+               cCmd += " " + tmp1
+            ENDIF
+         NEXT
+
+         OutStd( hb_StrFormat( "! Running post command (%1$s)...", cDesc ) + hb_eol() )
+
+         cOldDir := hb_cwd( cDir )
+         mk_hb_processRun( cCmd )
+         hb_cwd( cOldDir )
+
+         OutStd( hb_eol() )
+      ENDIF
+   NEXT
 
    RETURN
 
@@ -415,7 +443,7 @@ STATIC FUNCTION mk_hb_vfTimeSet( cFileName )
 
    RETURN ;
       ! HB_ISSTRING( cFileName ) .OR. ;
-      !( GetEnvC( "HB_BUILD_PKG" ) == "yes" ) .OR. ;
+      ! GetEnvC( "HB_BUILD_PKG" ) == "yes" .OR. ;
       Empty( s_tVCS ) .OR. ;
       hb_vfTimeSet( cFileName, s_tVCS )
 
@@ -531,7 +559,7 @@ STATIC PROCEDURE mk_hb_vfCopyFile( cSrc, cDst, lEOL, l644, lTS )
    ENDIF
    cDst := hb_FNameMerge( cDir, cName, cExt )
 
-   IF ! HB_ISNULL( cFile := hb_MemoRead( cSrc ) ) .AND. ;
+   IF ! ( cFile := hb_MemoRead( cSrc ) ) == "" .AND. ;
       hb_MemoWrit( cDst, iif( hb_defaultValue( lEOL, .F. ), EOLConv( cFile ), cFile ) )
 
       IF hb_defaultValue( lTS, .F. )
@@ -690,7 +718,7 @@ STATIC FUNCTION LoadHBX( cFileName, hAll )
    LOCAL aDynamic := {}
    LOCAL cFilter
 
-   IF ! HB_ISNULL( cFile := hb_MemoRead( cFileName ) )
+   IF ! ( cFile := hb_MemoRead( cFileName ) ) == ""
 
       FOR EACH cFilter IN { ;
          "^DYNAMIC ([a-zA-Z0-9_]*)$", ;
@@ -767,7 +795,7 @@ STATIC FUNCTION __hb_extern_get_list( cInputName )
          ENDIF
 
          IF hb_processRun( cCommand,, @cStdOut, @cStdErr ) == 0
-            IF ! HB_ISNULL( cTempFile )
+            IF ! cTempFile == ""
                cStdOut := MemoRead( cTempFile )
             ENDIF
             IF ! Empty( pRegex := hb_regexComp( cRegex, .T., .T. ) )
@@ -776,7 +804,7 @@ STATIC FUNCTION __hb_extern_get_list( cInputName )
                hExtern := { => }
                FOR EACH tmp IN aResult
                   tmp[ 2 ] := hb_asciiUpper( tmp[ 2 ] )
-                  IF !( tmp[ 2 ] $ hExtern )
+                  IF ! tmp[ 2 ] $ hExtern
                      AAdd( aExtern, tmp[ 2 ] )
                      hExtern[ tmp[ 2 ] ] := NIL
                   ENDIF
@@ -797,7 +825,7 @@ STATIC FUNCTION __hb_extern_get_list( cInputName )
                NEXT
             ENDIF
          ENDIF
-         IF ! HB_ISNULL( cTempFile )
+         IF ! cTempFile == ""
             hb_vfErase( cTempFile )
          ENDIF
       ENDIF
@@ -814,7 +842,7 @@ STATIC PROCEDURE __hb_extern_get_exception_list( cFile, /* @ */ aInclude, /* @ *
    aExclude := {}
    hDynamic := { => }
 
-   IF ! HB_ISNULL( cFile )
+   IF ! cFile == ""
       IF ! Empty( pRegex := hb_regexComp( "[\s]" + _HB_FUNC_INCLUDE_ + "[\s]([a-zA-Z0-9_].[^ \t\n\r]*)", .T., .T. ) )
          FOR EACH tmp IN hb_regexAll( pRegex, StrTran( cFile, Chr( 13 ) ),,,,, .T. )
             AAdd( aInclude, tmp[ 2 ] )

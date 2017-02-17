@@ -1,5 +1,4 @@
-// Test for regular expression functions
-// Giancarlo Niccolai
+/* Test for regular expression functions by Giancarlo Niccolai */
 
 PROCEDURE Main()
 

@@ -1,7 +1,7 @@
 /*
  * libcurl 'easy' API - Harbour interface.
  *
- * Copyright 2008-2015 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2008-2016 Viktor Szakats (vszakats.net/harbour)
  * originally based on:
  * Copyright 2005 Luiz Rafael Culik Guimaraes <luiz at xharbour.com.br>
  *
@@ -957,6 +957,11 @@ HB_FUNC( CURL_EASY_SETOPT )
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_UNIX_SOCKET_PATH, hb_parc( 3 ) );
                break;
 #endif
+#if LIBCURL_VERSION_NUM >= 0x073500
+            case HB_CURLOPT_ABSTRACT_UNIX_SOCKET:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_ABSTRACT_UNIX_SOCKET, hb_parc( 3 ) );
+               break;
+#endif
 #if LIBCURL_VERSION_NUM >= 0x072A00
             case HB_CURLOPT_PATH_AS_IS:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_PATH_AS_IS, hb_parnl( 3 ) );
@@ -1580,7 +1585,7 @@ HB_FUNC( CURL_EASY_SETOPT )
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_CUSTOMREQUEST, hb_curl_StrHash( hb_curl, hb_parc( 3 ) ) );
                break;
             case HB_CURLOPT_FILETIME:
-               res = curl_easy_setopt( hb_curl->curl, CURLOPT_FILETIME, hb_parnl( 3 ) );
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_FILETIME, HB_CURL_OPT_BOOL( 3 ) );
                break;
             case HB_CURLOPT_NOBODY:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_NOBODY, HB_CURL_OPT_BOOL( 3 ) );
@@ -1807,6 +1812,65 @@ HB_FUNC( CURL_EASY_SETOPT )
 #if LIBCURL_VERSION_NUM >= 0x072A00
             case HB_CURLOPT_SSL_FALSESTART:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_SSL_FALSESTART, hb_parnl( 3 ) );
+               break;
+#endif
+
+            /* SSL proxy */
+
+#if LIBCURL_VERSION_NUM >= 0x073400
+            case HB_CURLOPT_PROXY_SSLCERT:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_PROXY_SSLCERT, hb_curl_StrHash( hb_curl, hb_parc( 3 ) ) );
+               break;
+            case HB_CURLOPT_PROXY_SSLCERTTYPE:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_PROXY_SSLCERTTYPE, hb_curl_StrHash( hb_curl, hb_parc( 3 ) ) );
+               break;
+            case HB_CURLOPT_PROXY_SSLKEY:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_PROXY_SSLKEY, hb_curl_StrHash( hb_curl, hb_parc( 3 ) ) );
+               break;
+            case HB_CURLOPT_PROXY_SSLKEYTYPE:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_PROXY_SSLKEYTYPE, hb_curl_StrHash( hb_curl, hb_parc( 3 ) ) );
+               break;
+            case HB_CURLOPT_PROXY_KEYPASSWD:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_PROXY_KEYPASSWD, hb_curl_StrHash( hb_curl, hb_parc( 3 ) ) );
+               break;
+            case HB_CURLOPT_PROXY_SSLVERSION:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_PROXY_SSLVERSION, hb_parnl( 3 ) );
+               break;
+            case HB_CURLOPT_PROXY_SSL_VERIFYPEER:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_PROXY_SSL_VERIFYPEER, HB_CURL_OPT_BOOL( 3 ) );
+               break;
+            case HB_CURLOPT_PROXY_CAINFO:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_PROXY_CAINFO, hb_curl_StrHash( hb_curl, hb_parc( 3 ) ) );
+               break;
+            case HB_CURLOPT_PROXY_CAPATH:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_PROXY_CAPATH, hb_curl_StrHash( hb_curl, hb_parc( 3 ) ) );
+               break;
+            case HB_CURLOPT_PROXY_SSL_VERIFYHOST:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_PROXY_SSL_VERIFYHOST, hb_parnl( 3 ) );
+               break;
+            case HB_CURLOPT_PROXY_SSL_CIPHER_LIST:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_PROXY_SSL_CIPHER_LIST, hb_curl_StrHash( hb_curl, hb_parc( 3 ) ) );
+               break;
+            case HB_CURLOPT_PROXY_CRLFILE:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_PROXY_CRLFILE, hb_parc( 3 ) );
+               break;
+            case HB_CURLOPT_PROXY_SSL_OPTIONS:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_PROXY_SSL_OPTIONS, hb_parnl( 3 ) );
+               break;
+            case HB_CURLOPT_PROXY_PINNEDPUBLICKEY:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_PROXY_PINNEDPUBLICKEY, hb_parc( 3 ) );
+               break;
+            case HB_CURLOPT_PROXY_TLSAUTH_PASSWORD:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_PROXY_TLSAUTH_PASSWORD, hb_parc( 3 ) );
+               break;
+            case HB_CURLOPT_PROXY_TLSAUTH_TYPE:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_PROXY_TLSAUTH_TYPE, hb_parc( 3 ) );
+               break;
+            case HB_CURLOPT_PROXY_TLSAUTH_USERNAME:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_PROXY_TLSAUTH_USERNAME, hb_parc( 3 ) );
+               break;
+            case HB_CURLOPT_PRE_PROXY:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_PRE_PROXY, hb_parc( 3 ) );
                break;
 #endif
 
@@ -2184,6 +2248,12 @@ HB_FUNC( CURL_EASY_GETINFO )
             res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_SSL_VERIFYRESULT, &ret_long );
             type = HB_CURL_INFO_TYPE_LONG;
             break;
+         case HB_CURLINFO_PROXY_SSL_VERIFYRESULT:
+#if LIBCURL_VERSION_NUM >= 0x073400
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_PROXY_SSL_VERIFYRESULT, &ret_long );
+#endif
+            type = HB_CURL_INFO_TYPE_LONG;
+            break;
          case HB_CURLINFO_SSL_ENGINES:
 #if LIBCURL_VERSION_NUM >= 0x071203
             res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_SSL_ENGINES, &ret_slist );
@@ -2328,6 +2398,18 @@ HB_FUNC( CURL_EASY_GETINFO )
 #endif
             type = HB_CURL_INFO_TYPE_LONG;
             break;
+         case HB_CURLINFO_PROTOCOL:
+#if LIBCURL_VERSION_NUM >= 0x073400
+            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_PROTOCOL, &ret_long );
+#endif
+            type = HB_CURL_INFO_TYPE_LONG;
+            break;
+         case HB_CURLINFO_SCHEME:
+#if LIBCURL_VERSION_NUM >= 0x073400
+            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_SCHEME, &ret_string );
+#endif
+            type = HB_CURL_INFO_TYPE_STR;
+            break;
       }
 
       switch( type )
@@ -2386,10 +2468,11 @@ HB_FUNC( CURL_EASY_ESCAPE )
    {
 #if LIBCURL_VERSION_NUM >= 0x070F04
       PHB_CURL hb_curl = PHB_CURL_par( 1 );
+      int nSrcLen;
 
-      if( hb_curl )
+      if( hb_curl && ( nSrcLen = ( int ) hb_parclen( 2 ) ) > 0 )
       {
-         char * buffer = curl_easy_escape( hb_curl->curl, hb_parcx( 2 ), ( int ) hb_parclen( 2 ) );
+         char * buffer = curl_easy_escape( hb_curl->curl, hb_parcx( 2 ), nSrcLen );
          hb_retc( buffer );
          curl_free( buffer );
       }
@@ -2407,11 +2490,12 @@ HB_FUNC( CURL_EASY_UNESCAPE )
    {
 #if LIBCURL_VERSION_NUM >= 0x070F04
       PHB_CURL hb_curl = PHB_CURL_par( 1 );
+      int nSrcLen;
 
-      if( hb_curl )
+      if( hb_curl && ( nSrcLen = ( int ) hb_parclen( 2 ) ) > 0 )
       {
          int    nLen   = 0;
-         char * buffer = curl_easy_unescape( hb_curl->curl, hb_parcx( 2 ), ( int ) hb_parclen( 2 ), &nLen );
+         char * buffer = curl_easy_unescape( hb_curl->curl, hb_parcx( 2 ), nSrcLen, &nLen );
          hb_retclen( buffer, nLen );
          curl_free( buffer );
       }

@@ -33,18 +33,16 @@ layout: default
       <li>Harbour is <strong>free software</strong>, 100% compatible with Clipper compilers.
       <li>Harbour is proven to be <strong>stable</strong>, <strong>robust</strong> and <strong>efficient</strong>.
       <li>Harbour is <strong>portable</strong> across multiple operating systems with the same code base.
-      <li>You can use it to develop either open source or commercial applications.
+      <li>You can use it to develop either free/open source or nonfree applications.
         <a href="{{ site.baseurl }}/about#why-use-it" class="readmore readmore-dark">Learn more</a>
     </ul>
   </div>
   <div class="status-box">
     <h1 id="project-status">Project Status</h1>
     <p>
+      <a href="https://travis-ci.org/{{ site.repo_slug }}"><img src="https://api.travis-ci.org/{{ site.repo_slug }}.svg?branch=master" height="20" alt="Build status"></a>&thinsp;
 {% if site.fork %}
-      <a href="https://travis-ci.org/vszakats/harbour-core"><img src="https://api.travis-ci.org/vszakats/harbour-core.svg?branch=master" height="20" alt="Build status"></a>&thinsp;
       <a href="https://ci.appveyor.com/project/vsz/harbour-core/branch/master"><img src="https://ci.appveyor.com/api/projects/status/1kx6w3y6qasymah3/branch/master?svg=true" height="20" alt="Build Status"></a>
-{% else %}
-      <a href="https://travis-ci.org/harbour/core"><img src="https://travis-ci.org/harbour/core.svg?branch=master" height="20" alt="Build status"></a>&thinsp;
 {% endif %}
       <br>
       Latest stable:&nbsp;
@@ -102,7 +100,7 @@ layout: default
 <div class="license-box">
   <h1>License</h1>
   <p>Harbour is a free and open-source project. It can be used to make open source
-  applications, free or commercial products.
+  applications, free or nonfree products.
   <a href="https://raw.githubusercontent.com/{{ site.repo_slug }}/master/{{ site.license_file }}" class="readmore readmore-dark">Learn more</a>
 </div>
 

@@ -30,6 +30,9 @@
    #endif
 #else
    #pragma -w1
+
+   ANNOUNCE HB_GTSYS
+   REQUEST HB_GT_CGI_DEFAULT
 #endif
 
 

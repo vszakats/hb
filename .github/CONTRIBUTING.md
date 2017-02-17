@@ -18,11 +18,11 @@
 
 # How to Share
 
-  Share by **linking** to this project from your forum, blog or Twitter.
-  Link to commits, issues or source files, or whatever else you find worthy
-  to pass to someone. This is the easiest, most useful and self-updating
-  way of referring to this project. It's also the best form of crediting
-  and appreciating this work without donating or participating directly.
+  Share by **linking** to this project from your forum, blog or Twitter. Link
+  to commits, issues or source files, or whatever else you find worthy to pass
+  to someone. This is the easiest, most useful and self-updating way of
+  referring to this project. It's also the best form of crediting and
+  appreciating this work without donating or participating directly.
 
   Examples:
 
@@ -49,23 +49,24 @@
   4. Commit your changes: `git commit -am "Add this feature to that module"`
   5. Push to the branch: `git push origin mypatch`
   6. Open a Pull Request
-- Make sure to use the same coding/formatting style as you find in
-  the files you're modifying. The easiest way to achieve this
-  is to use these commands to format the sources (use this
-  with care - most existing sources are well-formatted, so make
-  sure to only apply it to newly added or modified code sections)
+- Make sure to use the same coding/formatting style as you find in the files
+  you're modifying. The easiest way to achieve this is to use these commands
+  to format the sources (use this with care - most existing sources are
+  well-formatted, so make sure to only apply it to newly added or modified
+  code sections)
 
         $ uncrustify -c <harbour-dir>/bin/harbour.ucf <source{.c|.h}>
         $ <harbour-dir>/bin/hbformat <source{.prg|.hb|.ch}>
 
 - Text editor setting for Harbour files
-  - Encoding is either 7-bit ASCII or [UTF-8](http://utf8everywhere.org/), without [BOM](https://en.wikipedia.org/wiki/Byte_order_mark)
+  - Encoding is either 7-bit ASCII or [UTF-8](http://utf8everywhere.org/),
+    without [BOM](https://en.wikipedia.org/wiki/Byte_order_mark)
   - Use spaces, never tabs
   - Remove trailing spaces from lines
   - Keep one (not zero or multiple) newline at the end of file
   - Use platform native newline (CRLF or LF)
-- In the rare case you need to send something large (> 100 kB),
-  use this [free service](https://transfer.sh).
+- In the rare case you need to send something large (> 100 kB), use this
+  [free service](https://transfer.sh/).
 - See this good guideline on how to contribute:
   <https://github.com/necolas/issue-guidelines/blob/master/CONTRIBUTING.md>
 - And these:
@@ -73,15 +74,11 @@
   - <https://github.com/blog/1943-how-to-write-the-perfect-pull-request>
 - You can also participate in localization:<br />
   [![Localization Status](https://chart.googleapis.com/chart?chxt=y%2Cr&chd=e%3A....8J4T4T4To8UeP.AAAAAAAAAA&chco=84CCFF%2CBFE4FF%2CF4F6FB&chbh=9&chs=350x196&cht=bhs&chxl=0%3A%7CSerbian+%28Latin%29%7CLithuanian%7CChinese+%28China%29+%28GB2312%29%7CIndonesian%7CRussian%7CHungarian%7CFrench%7CItalian%7CSpanish+%28Latin+America%29%7CSpanish%7CGalician%7CGreek%7CPortuguese+%28Brazil%29%7CEnglish%7C1%3A%7C0%25%7C0%25%7C0%25%7C0%25%7C0%25%7C25%25%7C32%25%7C64%25%7C88%25%7C88%25%7C88%25%7C94%25%7C100%25%7C100%25%7C)](https://www.transifex.com/projects/p/harbour/)
-- If looking for known pending issues to work on, look for `TODO`
-  and `TOFIX` markers in the source code/ChangeLog or see this list
-  of issues that need further input/contribution:
+- If looking for known pending issues to work on, look for `TODO` and `TOFIX`
+  markers in the source code/ChangeLog or see this list of issues that need
+  further input/contribution:
      * https://github.com/vszakats/harbour-core/issues?q=label%3A%22help+wanted%22
      * https://github.com/harbour/core/issues?q=label%3A%22help+wanted%22
-
-> Personal/private emails will either be ignored or given a short
-> answer to move the inquiry to somewhere public.<br />
-> Donators can count on my reciprocity even in private.
 
 
 # Troubleshooting
@@ -94,13 +91,13 @@ Evaluate these points before reporting an issue:
 3.  <a name="trbl-3"></a> If that still fails, make sure to install fresh
     source tree in a new local directory and start over. See
     [How to Get](../README.md#how-to-get) for instructions to get the source.
-    In case you installed Harbour into system locations (this used to be
-    the case with some \*nix users, albeit mostly completely unnecessarily
-    or wrongly - f.e. for unstable versions), you will need to remember
-    cleaning off Harbour from all of these locations, too.
+    In case you installed Harbour into system locations (this used to be the
+    case with some \*nix users, albeit mostly completely unnecessarily or
+    wrongly - f.e. for unstable versions), you will need to remember cleaning
+    off Harbour from all of these locations, too.
     Hint: Never install unstable Harbour versions to system locations.
-4.  <a name="trbl-4"></a> If you are doing a cross-build, make sure to
-    have rebuilt the native Harbour executables for your host platform.
+4.  <a name="trbl-4"></a> If you are doing a cross-build, make sure to have
+    rebuilt the native Harbour executables for your host platform.
     See `HB_HOST_BIN` build messages to find their location.
 5.  <a name="trbl-5"></a> Keep your `PATH` clean from old, mixed compiler
     tools or other Harbour versions when building Harbour. The surest way
@@ -150,30 +147,34 @@ Evaluate these points before reporting an issue:
     your configuration. If you need to, the problem is most probably
     elsewhere. It's also good idea to try with the latest Harbour revision
     or Harbour's mainline branch first.
-12. <a name="trbl-12"></a> If you are to report a problem with Harbour
-    itself, provide self-contained, minimal source code example. Do not use
-    `xhb` contrib library (including `hbcompat.ch`), nor any 3rd party Harbour
+12. <a name="trbl-12"></a> If you are to report a problem with Harbour itself,
+    provide self-contained, minimal source code example. Do not use `xhb`
+    contrib library (including `hbcompat.ch`), nor any 3rd party Harbour
     libraries.
     The example shall reproduce the problem using the latest Harbour revision
-    (with _no_ local commits or pending local modifications)
-    at the time of the report. Do not post links to executables and other
-    binary files. If your source contains non-ASCII and non-UTF-8 national,
-    accented, special chars, make sure to mark the codepage/encoding used
-    and use `Chr()`/`hb_BCode()` calls to form the strings. Use UTF-8 if
-    possible. Notice that code examples are likely to be executed as
-    `hbrun` scripts for testing, so it's a good idea to make them work this
-    way.<br />
-    Also make sure not to report multiple issues under a single GitHub Issue.<br />
+    (with _no_ local commits or pending local modifications) at the time of
+    the report. Do not post links to executables and other binary files. If
+    your source contains non-ASCII and non-UTF-8 national, accented, special
+    chars, make sure to mark the codepage/encoding used and use
+    `Chr()`/`hb_BCode()` calls to form the strings. Use UTF-8 if possible.
+    Notice that code examples are likely to be executed as `hbrun` scripts
+    for testing, so it's a good idea to make them work this way.<br />
+    Also make sure not to report multiple issues under a single
+    GitHub Issue.<br />
     * See more on self-contained examples:
       * <http://sscce.org/>
       * <https://stackoverflow.com/help/mcve>
     * See more on how to report issues in an effective and useful way:
       <http://www.chiark.greenend.org.uk/~sgtatham/bugs.html>
-13. <a name="trbl-13"></a> Please do not report warnings or bugs &ndash;
-    except of _build errors_ &ndash; in 3rd party component hosted inside
-    the Harbour source tree. You can recognize these by their source path,
-    which always contains a subdirectory named `/3rd/`. Report
-    these to the maintainer(s) of the respective component instead.
+    * "How To Ask Questions The Smart Way" article by Eric S. Raymond:
+      <http://www.catb.org/~esr/faqs/smart-questions.html>
+    * "Does Not Work"
+      <http://importblogkit.com/2015/07/does-not-work/>
+13. <a name="trbl-13"></a> Please do not report warnings or bugs &ndash; except
+    of _build errors_ &ndash; in 3rd party component hosted inside the Harbour
+    source tree. You can recognize these by their source path, which always
+    contains a subdirectory named `/3rd/`. Report these to the maintainer(s)
+    of the respective component instead.
 14. <a name="trbl-14"></a> If your example or report contains human readable
     text, use English only.
 15. <a name="trbl-15"></a> If your example involves compatibility components,
@@ -182,10 +183,10 @@ Evaluate these points before reporting an issue:
     5.3b, or `hbct` functions against CT3 library, etc)
     Notice that Harbour is Cl\*pper Summer '87 compatible exactly as
     much as Cl\*pper 5.2e/5.3b is, meaning: almost, but not completely.
-    For Cl\*pper testing,
-    use this nice and free [MS-DOS emulator](https://www.vdos.info/) (for Windows).
+    For Cl\*pper testing, use this free, open-source
+    [MS-DOS emulator](https://www.vdos.info/) (for Windows/Wine).
 
 
 ---
-This document Copyright &copy;&nbsp;2009&ndash;2016 Viktor Szakáts (vszakats.net/harbour)<br />
-[![Creative Commons Attribution-ShareAlike 4.0](https://cdn.rawgit.com/cc-icons/cc-icons/master/fonts/cc-icons-svg/small.by-sa.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
+This document Copyright &copy;&nbsp;2009&ndash;2017 Viktor Szakáts (vszakats.net/harbour)<br />
+[![Creative Commons Attribution-ShareAlike 4.0](https://mirrors.creativecommons.org/presskit/buttons/80x15/svg/by-sa.svg)](https://creativecommons.org/licenses/by-sa/4.0/)

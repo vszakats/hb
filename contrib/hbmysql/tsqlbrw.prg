@@ -352,7 +352,7 @@ METHOD BrowseTable( lCanEdit, aExitKeys ) CLASS TBrowseSQL
       CASE nKeyStd == K_DEL
          IF lCanEdit
             IF ! ::oQuery:Delete( ::oCurRow )
-               Alert( "not deleted " + ::oQuery:Error() )
+               Alert( hb_StrFormat( "not deleted %1$s", ::oQuery:Error() ) )
             ENDIF
             IF ! ::oQuery:Refresh()
                Alert( ::oQuery:Error() )

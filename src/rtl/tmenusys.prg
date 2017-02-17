@@ -241,7 +241,7 @@ METHOD Modal( nSelection, nMsgRow, nMsgLeft, nMsgRight, cMsgColor, GetList ) CLA
 
       CASE nKeyStd == K_UP
 
-         IF !( ::oMenu:ClassName() == "TOPBARMENU" )
+         IF ! ::oMenu:ClassName() == "TOPBARMENU"
             nTemp := ::oMenu:getPrev()
             IF nTemp == 0
                nTemp := ::oMenu:getLast()

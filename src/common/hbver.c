@@ -755,7 +755,7 @@ HB_BOOL hb_iswinver( int iMajor, int iMinor, int iType, HB_BOOL fOrUpper )
       dwlConditionMask = s_pVerSetConditionMask( dwlConditionMask, VER_MAJORVERSION, fOrUpper ? VER_GREATER_EQUAL : VER_EQUAL );
       dwlConditionMask = s_pVerSetConditionMask( dwlConditionMask, VER_MINORVERSION, fOrUpper ? VER_GREATER_EQUAL : VER_EQUAL );
 
-      /* MSDN says <https://msdn.microsoft.com/en-us/library/windows/desktop/ms725492.aspx>:
+      /* MSDN says in https://msdn.microsoft.com/library/ms725492
            "If you are testing the major version, you must also test the
             minor version and the service pack major and minor versions."
          However, Wine (as of 1.7.53) breaks on this. Since native Windows
@@ -1363,7 +1363,7 @@ char * hb_verHarbour( void )
    pszVersion = ( char * ) hb_xgrab( 80 );
    hb_snprintf( pszVersion, 80, "Harbour %d.%d.%d%s (%s) (%s)",
                 HB_VER_MAJOR, HB_VER_MINOR, HB_VER_RELEASE, HB_VER_STATUS,
-                hb_verCommitID(), szDate );
+                hb_verCommitIDShort(), szDate );
 
    return pszVersion;
 }

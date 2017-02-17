@@ -6,8 +6,6 @@ PROCEDURE Main()
 
    LOCAL o := Test()
 
-   CLS
-
    // "Another" message is not defined for Class Test, but
    // it will invoke ON ERROR MyErrorManager() method
    o:Another( "Hello" )

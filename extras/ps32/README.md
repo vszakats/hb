@@ -16,7 +16,7 @@
 
 3. Apply supplied patch to the source using GNU Patch:
 
-   `patch -lNi ps32.dif`
+   `patch -lNi ps32.diff`
 
 4. Build it:
 

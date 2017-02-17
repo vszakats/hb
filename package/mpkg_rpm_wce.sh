@@ -16,11 +16,9 @@ get_rpmmacro()
 {
    _R=$(rpm --showrc|sed -e "/^-14:.${1}[^a-z0-9A-Z_]/ !d" -e "s/^-14: ${1}.//")
    _X=$(echo "${_R}"|sed -e "s/.*\(%{\([^}]*\)}\).*/\2/")
-   while [ "${_X}" != "${_R}" ]
-   do
+   while [ "${_X}" != "${_R}" ]; do
       _Y=$(get_rpmmacro "$_X")
-      if [ -n "${_Y}" ]
-      then
+      if [ -n "${_Y}" ]; then
          _R=$(echo "${_R}"|sed -e "s!%{${_X}}!${_Y}!g")
          _X=$(echo "${_R}"|sed -e "s/.*\(%{\([^}]*\)}\).*/\2/")
       else
@@ -40,10 +38,8 @@ NEED_RPM='make gcc binutils cegcc-mingw32ce'
 
 FORCE=''
 
-while [ $# -gt 0 ]
-do
-   if [ "$1" = '--force' ]
-   then
+while [ $# -gt 0 ]; do
+   if [ "$1" = '--force' ]; then
       FORCE='yes'
    else
       INST_PARAM="${INST_PARAM} $1"
@@ -52,27 +48,21 @@ do
 done
 
 TOINST_LST=''
-for i in ${NEED_RPM}
-do
+for i in ${NEED_RPM}; do
    test_reqrpm "$i" || TOINST_LST="${TOINST_LST} $i"
 done
 
-if [ -z "${TOINST_LST}" ] || [ "${FORCE}" = 'yes' ]
-then
+if [ -z "${TOINST_LST}" ] || [ "${FORCE}" = 'yes' ]; then
    . ./mpkg_src.sh
    stat="$?"
-   if [ -z "${hb_filename}" ]
-   then
+   if [ -z "${hb_filename}" ]; then
       echo "The script ./mpkg_src.sh doesn't set archive name to \${hb_filename}"
       exit 1
-   elif [ "${stat}" != 0 ]
-   then
+   elif [ "${stat}" != 0 ]; then
       echo 'Error during packing the sources in ./mpkg_src.sh'
       exit 1
-   elif [ -f "${hb_filename}" ]
-   then
-      if [ "$(id -u)" != 0 ] && [ ! -f "${HOME}/.rpmmacros" ]
-      then
+   elif [ -f "${hb_filename}" ]; then
+      if [ "$(id -u)" != 0 ] && [ ! -f "${HOME}/.rpmmacros" ]; then
          RPMDIR="${HOME}/RPM"
          mkdir -p "${RPMDIR}/SOURCES" "${RPMDIR}/RPMS" "${RPMDIR}/SRPMS" \
                   "${RPMDIR}/BUILD" "${RPMDIR}/SPECS"
@@ -80,19 +70,16 @@ then
       else
          RPMDIR=$(get_rpmmacro '_topdir')
       fi
+
       mv "${hb_filename}" "${RPMDIR}/SOURCES/"
       sed -e "s/^%define version .*$/%define version   ${hb_ver}/g" \
           -e "s/^%define releasen .*$/%define releasen  ${hb_verstat}/g" \
          harbour-wce.spec.in > "${RPMDIR}/SPECS/harbour-wce.spec"
-      if which rpmbuild >/dev/null 2>&1
-      then
-         RPMBLD='rpmbuild'
-      else
-         RPMBLD='rpm'
-      fi
+
       cd "${RPMDIR}/SPECS" || exit
+
       # shellcheck disable=SC2086
-      ${RPMBLD} -ba harbour-wce.spec ${INST_PARAM}
+      rpmbuild -ba harbour-wce.spec ${INST_PARAM}
    else
       echo "Cannot find archive file: ${hb_filename}"
       exit 1

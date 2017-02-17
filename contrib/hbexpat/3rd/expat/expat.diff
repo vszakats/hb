@@ -1,0 +1,42 @@
+diff --strip-trailing-cr -urN expat.orig/xmlparse.c expat/xmlparse.c
+--- expat.orig/xmlparse.c	2016-06-21 12:58:38.000000000 +0000
++++ expat/xmlparse.c	2017-01-04 00:46:58.000000000 +0000
+@@ -17,7 +17,9 @@
+ 
+ #define XML_BUILDING_EXPAT 1
+ 
+-#ifdef WIN32
++#if defined(HARBOUR_CONF)
++#include "_hbconf.h"
++#elif defined(WIN32)
+ #include "winconfi.h"
+ #elif defined(MACOS_CLASSIC)
+ #include "macconfi.h"
+diff --strip-trailing-cr -urN expat.orig/xmlrole.c expat/xmlrole.c
+--- expat.orig/xmlrole.c	2016-06-21 12:58:38.000000000 +0000
++++ expat/xmlrole.c	2017-01-04 00:46:58.000000000 +0000
+@@ -4,7 +4,9 @@
+ 
+ #include <stddef.h>
+ 
+-#ifdef WIN32
++#if defined(HARBOUR_CONF)
++#include "_hbconf.h"
++#elif defined(WIN32)
+ #include "winconfi.h"
+ #elif defined(MACOS_CLASSIC)
+ #include "macconfi.h"
+diff --strip-trailing-cr -urN expat.orig/xmltok.c expat/xmltok.c
+--- expat.orig/xmltok.c	2016-06-21 12:58:38.000000000 +0000
++++ expat/xmltok.c	2017-01-04 00:46:58.000000000 +0000
+@@ -4,7 +4,9 @@
+ 
+ #include <stddef.h>
+ 
+-#ifdef WIN32
++#if defined(HARBOUR_CONF)
++#include "_hbconf.h"
++#elif defined(WIN32)
+ #include "winconfi.h"
+ #elif defined(MACOS_CLASSIC)
+ #include "macconfi.h"

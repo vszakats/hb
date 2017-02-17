@@ -95,7 +95,7 @@ PROCEDURE Main( ... )
                nMode := _HB_I18N_TRANS
             ENDIF
          CASE hb_LeftEq( cParam, "o" )
-            IF ! HB_ISNULL( cParam := SubStr( cParam, 2 ) )
+            IF ! ( cParam := SubStr( cParam, 2 ) ) == ""
                cFileOut := cParam
             ELSEIF n < Len( aParams ) .AND. ! hb_LeftEq( aParams[ n + 1 ], "-" )
                cFileOut := aParams[ ++n ]
@@ -158,14 +158,14 @@ STATIC FUNCTION HBRawVersion()
       hb_Version( HB_VERSION_MINOR ), ;
       hb_Version( HB_VERSION_RELEASE ), ;
       hb_Version( HB_VERSION_STATUS ), ;
-      hb_Version( HB_VERSION_ID ), ;
+      hb_Version( HB_VERSION_ID_SHORT ), ;
       "20" + Transform( hb_Version( HB_VERSION_REVISION ), "99-99-99 99:99" ) )
 
 STATIC PROCEDURE Logo()
 
    OutStd( ;
       "Harbour i18n .pot/.hbl file manager " + HBRawVersion() + hb_eol() + ;
-      "Copyright (c) 2009-2016, Przemyslaw Czerpak" + hb_eol() + ;
+      "Copyright (c) 2009-2017, Przemyslaw Czerpak" + hb_eol() + ;
       hb_Version( HB_VERSION_URL_BASE ) + hb_eol() + ;
       hb_eol() )
 
@@ -288,7 +288,7 @@ STATIC PROCEDURE Merge( aFiles, cFileOut )
 
    LOCAL cErrorMsg
 
-   IF ! HB_ISSTRING( cFileOut ) .OR. HB_ISNULL( cFileOut )
+   IF ! HB_ISSTRING( cFileOut ) .OR. cFileOut == ""
       cFileOut := hb_FNameExtSet( aFiles[ 1 ], ".po" )
    ELSE
       cFileOut := hb_FNameExtSetDef( cFileOut, ".po" )
@@ -302,7 +302,7 @@ STATIC PROCEDURE Merge( aFiles, cFileOut )
 
 STATIC PROCEDURE GenHBL( aFiles, cFileOut, lEmpty )
 
-   IF ! HB_ISSTRING( cFileOut ) .OR. HB_ISNULL( cFileOut )
+   IF ! HB_ISSTRING( cFileOut ) .OR. cFileOut == ""
       cFileOut := hb_FNameExtSet( aFiles[ 1 ], ".hbl" )
    ELSE
       cFileOut := hb_FNameExtSetDef( cFileOut, ".hbl" )
@@ -320,7 +320,7 @@ STATIC PROCEDURE AutoTrans( cFileIn, aFiles, cFileOut )
 
    LOCAL cErrorMsg
 
-   IF ! HB_ISSTRING( cFileOut ) .OR. HB_ISNULL( cFileOut )
+   IF ! HB_ISSTRING( cFileOut ) .OR. cFileOut == ""
       cFileOut := hb_FNameExtSet( cFileIn, ".po" )
    ELSE
       cFileOut := hb_FNameExtSetDef( cFileOut, ".po" )

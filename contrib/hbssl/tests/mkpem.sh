@@ -8,7 +8,7 @@
 #           (install with `brew install openssl` on Mac)
 
 case "$(uname)" in
-   *Darwin*)
+   Darwin*)
       openssl() {
          /usr/local/opt/openssl/bin/openssl "$@"
       };;

@@ -142,7 +142,7 @@ PROCEDURE Main()
    ASize( aPermits, Len( aPrompts ) )
 
    FOR x := 1 TO Len( aPrompts )
-      aPermits[ x ] := !( "V" $ aPrompts[ x ] )
+      aPermits[ x ] := ! "V" $ aPrompts[ x ]
    NEXT
 
 #define TEST1

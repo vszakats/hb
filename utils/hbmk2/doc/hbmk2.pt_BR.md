@@ -1,5 +1,5 @@
-Harbour Make \(hbmk2\) 3\.4\.0dev \(9dea61d\) \(2016\-03\-09 22:28\)  
-Copyright &copy; 1999\-2016, Viktor Szakáts  
+Harbour Make \(hbmk2\) 3\.4\.0dev \(070bae68be\) \(2016\-12\-03 12:21\)  
+Copyright &copy; 1999\-2017, Viktor Szakáts  
 <https://github\.com/vszakats/harbour\-core/>  
 Tradução \(pt\_BR\): Sami Laham &lt;sami@laham\.com\.br&gt; / Vailton Renato &lt;vailtom@gmail\.com&gt;  
 
@@ -53,7 +53,7 @@ Opções:
  - **\-ignore\[\-\]** ignore erros quando executar as ferramentas de compilação \(padrão: off\)
  - **\-hbcppmm\[\-\]** sobrepor o as funções padrão C\+\+ de gerenciamento de memoria pelas do Harbour
  - **\-winuni\[\-\]** seleciona entre UNICODE \(WIDE\) and ANSI no uso da API Windows para arquivos de entrada C/C\+\+ \(padrão: ANSI\) \(Somente Windows\. Para WinCE ele é sempre colocado em UNICODE\)
- - **\-nohblib\[\-\]** não usar biblioteca estática do núcleo do Harbour quando linkar
+ - **\-nohblib\[\-\]** do not use static core Harbour libraries when linking \(default in \-hbdyn mode or when neither \.prg nor object files are specified as input\)
  - **\-nodefgt\[\-\]** Não link GTs padrão \(o modo \-static é mais eficaz\)
  - **\-nolibgrouping\[\-\]** desativar agrupamento de LIBs em compiladores baseados no gcc\.
  - **\-nomiscsyslib\[\-\]** não adicione bibliotecas extras do sistema à lista padrão de bibliotecas
@@ -72,7 +72,7 @@ Opções:
  - **\-manifest=&lt;file&gt;** incorporar arquivo manifest &lt;file&gt; no executável / lib dinâmica \(somente para Windows\)
  - **\-sign=&lt;key&gt;** sign executable with &lt;key&gt; \(Windows and Darwin only\)\. On Windows signtool\.exe is used \(part of MS Windows SDK\) or posign\.exe \(part of Pelles C 7\), in that order, both auto\-detected\.
  - **\-signpw=&lt;pw&gt;** usar &lt;pw&gt; como senha ao assinar executável \(somente Windows e Darwin\)
- - **\-signts=&lt;\[std:\]url&gt;** usar &lt;url&gt; como servidor data e hora "timestamp" confiável\. Opcional &lt;std&gt; pode especificar o padrão como 'rfc3161' ou 'authenticode' \(sem aspas\)\. O padrão é 'rfc3161'\. Valor vazio redefine para o padrão: http://timestamp\.globalsign\.com/scripts/timstamp\.dll
+ - **\-signts=&lt;\[std:\]url&gt;** use &lt;url&gt; as trusted timestamp server\. Optional &lt;std&gt; might specify the standard as 'rfc3161' or 'authenticode' \(without quotes\)\. The default is 'rfc3161'\. Empty value disables timestamping\. Default: http://timestamp\.digicert\.com
  - **\-instfile=&lt;g:file&gt;** adicionar &lt;file&gt; para a lista de arquivos a serem copiados para caminho especificado pela opção \-instpath\. &lt;g&gt; é um grupo de cópias opcional \(case sensitive\), deve ser de pelo menos dois caracteres\.No caso de você não especificar &lt;file&gt;, a lista de arquivos naquele grupo será esvaziado\.
  - **\-instpath=&lt;g:path&gt;** cópia de arquivo alvo \(s\) para &lt;path&gt;\. Se &lt;path&gt; é um diretório, ele deve terminar com o separador de path, neste caso, os arquivos especificados pela opção \-instfile também serão copiados\. pode ser especificado várias vezes\. &lt;g&gt; é um grupo de cópias opcional, ele deve ser de pelo menos dois caracteres\. A construção alvo será automaticamente copiada para o grupo padrão \(vazio\)\. Que existem após grupos internos &lt;g&gt;: 'depimplib' para fonte de bibliotecas de importação e 'depimplibsrc' para fonte de bibliotecas de importação de arquivos \(\.dll\), ambos pertencentes as dependências\.
  - **\-instforce\[\-\]** copie os arquivo\(s\) para o destino do caminho de instalação mesmo que já atualizados
@@ -322,7 +322,7 @@ Filtros \(você pode combinar e/ou negá\-los\):
  - **\{&lt;compiler&gt;\}** Compilador alvo C \. Onde &lt;compiler&gt; pode ser qualquer valor aceito pela opção \-comp=\.
  - **\{&lt;cpu&gt;\}** CPU alvo\. Onde &lt;cpu&gt; pode ser qualquer uma dessas: x86, x86\_64, ia64, arm, mips, sh
  - **\{&lt;targettype&gt;\}** tipo de construção alvo\. Onde &lt;targettype&gt; é qualquer um dos valores retornados por macro variável $\{hb\_targettype\}\.
- - **\{&lt;package\-manager&gt;\}** gerenciador de pacote\.Onde&lt;package\-manager&gt; pode ser qualquer um de: deb, rpm, portage, homebrew, rudix, macports, fink, pkg, cygwin
+ - **\{&lt;package\-manager&gt;\}** package manager\. Where &lt;package\-manager&gt; can be any of: deb, rpm, portage, homebrew, nix, macports, fink, pkg, cygwin
  - **\{mt\}** construção alvo é "multi\-threaded" \(veja opção \-mt\)
  - **\{st\}** construção o alvo é "single\-threaded" \(veja opção \-st\)
  - **\{gui\}** GUI alvo \(veja opção \-gui\)

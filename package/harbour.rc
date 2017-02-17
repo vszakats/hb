@@ -1,4 +1,4 @@
-/* Copyright 2011-2016 Viktor Szakats (vszakats.net/harbour) */
+/* Copyright 2011-2017 Viktor Szakats (vszakats.net/harbour) */
 
 #if !( defined( OS2 ) || defined( __OS2__ ) || defined( OS_2 ) )
 
@@ -9,6 +9,12 @@
 1 ICON DISCARDABLE "../package/harbour.ico"
 #endif
 
+/* NOTE: BCC 5.5 has a RC preprocessor bug that in certain cases will append
+         a trash byte to the return value of this macro. Such trash bytes
+         will result in a broken manifest record and the executable rejected
+         by the OS (f.e. Windows 10) to run. It can be "fixed" by using
+         a macro name shorter or longer by one character. But, instead of
+         such non-zero-cost hacks, please switch to a modern compiler. */
 #define HB_MACRO2STRING( macro )   HB_MACRO2STRING_( macro )
 #define HB_MACRO2STRING_( macro )  #macro
 
@@ -39,7 +45,7 @@ BEGIN
          VALUE "CompanyName",      HB_NAME "\0"
          VALUE "FileDescription",  HB_NAME "\0"
          VALUE "FileVersion",      HB_VER_FILE_STR HB_VER_STATUS "\0"
-         VALUE "LegalCopyright",   "Copyright © 1999-2016 (see application banner)" "\0"
+         VALUE "LegalCopyright",   "Copyright © 1999-2017 (see application banner)" "\0"
          VALUE "ProductName",      HB_NAME "\0"
          VALUE "ProductVersion",   HB_VER_PROD_STR HB_VER_STATUS "\0"
       END
@@ -52,8 +58,12 @@ END
 
 /* Manifest */
 
+#if ! defined( HBMK_DYNLIB ) && ! defined( HB_DYNLIB )
+
 /* String escaping rules:
-      https://msdn.microsoft.com/en-us/library/windows/desktop/aa381050.aspx */
+      https://msdn.microsoft.com/library/aa381050
+   Application Manifest doc, including the list of 'supportedOS Id's:
+      https://msdn.microsoft.com/library/aa374191 */
 
 #ifndef CREATEPROCESS_MANIFEST_RESOURCE_ID
 #define CREATEPROCESS_MANIFEST_RESOURCE_ID  1
@@ -62,14 +72,16 @@ END
 #define RT_MANIFEST  24
 #endif
 
-/* Application Manifest doc, including the list of 'supportedOS Id's:
-      https://msdn.microsoft.com/en-us/library/aa374191.aspx */
-
 CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST
 BEGIN
    "<?xml version=""1.0"" encoding=""UTF-8"" standalone=""yes""?>"
    "<assembly xmlns=""urn:schemas-microsoft-com:asm.v1"" manifestVersion=""1.0"">"
       "<assemblyIdentity name=""" HB_NAME """ version=""" HB_VER_PROD_STR ".0"" type=""win32""/>"
+      "<application xmlns=""urn:schemas-microsoft-com:asm.v3"">"
+         "<windowsSettings>"
+            "<dpiAware xmlns=""http:" "//schemas.microsoft.com/SMI/2005/WindowsSettings"">true</dpiAware>"
+         "</windowsSettings>"
+      "</application>"
       "<trustInfo xmlns=""urn:schemas-microsoft-com:asm.v3"">"
          "<security>"
             "<requestedPrivileges>"
@@ -94,4 +106,5 @@ BEGIN
    "</assembly>"
 END
 
+#endif
 #endif

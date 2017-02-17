@@ -131,10 +131,10 @@ FUNCTION TraceLog( ... )
          hb_vfWrite( hFile, "[" + ProcFile( 1 ) + "->" + ProcName( 1 ) + "] (" + hb_ntos( ProcLine( 1 ) ) + ")" )
       ENDIF
 
-      IF nLevel > 1 .AND. !( ProcName( 2 ) == "" )
+      IF nLevel > 1 .AND. ! ProcName( 2 ) == ""
          hb_vfWrite( hFile, " Called from:" + hb_eol() )
          nLevel := 1
-         DO WHILE !( ( ProcName := ProcName( ++nLevel ) ) == "" )
+         DO WHILE ! ( ProcName := ProcName( ++nLevel ) ) == ""
             hb_vfWrite( hFile, Space( 30 ) + ProcFile( nLevel ) + "->" + ProcName + "(" + hb_ntos( ProcLine( nLevel ) ) + ")" + hb_eol() )
          ENDDO
       ELSE

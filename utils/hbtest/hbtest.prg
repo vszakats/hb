@@ -1,7 +1,7 @@
 /*
  * Regression tests for the runtime library (main)
  *
- * Copyright 1999-2016 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 1999-2017 Viktor Szakats (vszakats.net/harbour)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -172,7 +172,7 @@ STATIC s_lNoEnv
 PROCEDURE Main( cPar1, cPar2, cPar3 )
 
    OutStd( "Harbour Compatibility and Regression Test Suite" + hb_eol() + ;
-           "Copyright (c) 1999-2016, Viktor Szakats" + hb_eol() )
+           "Copyright (c) 1999-2017, Viktor Szakats" + hb_eol() )
 
    IF cPar1 == NIL
       cPar1 := ""
@@ -441,11 +441,11 @@ PROCEDURE TEST_CALL( cBlock, bBlock, xResultExpected )
       ErrorBlock( bOldError )
 
       IF lRTE
-         lFailed := !( XToStr( xResult ) == XToStr( xResultExpected ) )
+         lFailed := ! XToStr( xResult ) == XToStr( xResultExpected )
       ELSEIF ValType( xResult ) == ValType( xResultExpected )
-         lFailed := !( xResult == xResultExpected )
+         lFailed := ! xResult == xResultExpected
       ELSEIF ValType( xResultExpected ) == "C" .AND. ValType( xResult ) $ "ABMO"
-         lFailed := !( XToStr( xResult ) == xResultExpected )
+         lFailed := ! XToStr( xResult ) == xResultExpected
       ELSE
          lFailed := .T.
       ENDIF

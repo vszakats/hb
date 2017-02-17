@@ -71,7 +71,7 @@ FUNCTION ADir( cFileMask, aName, aSize, aDate, aTime, aAttr )
 
    hb_FNameSplit( cFileMask, @cDir, @cName, @cExt )
 
-   IF HB_ISNULL( cDir )
+   IF cDir == ""
       cFileMask := hb_FNameMerge( __DefPath(), cName, cExt )
    ENDIF
 
@@ -109,7 +109,7 @@ FUNCTION ADir( cFileMask, aName, aSize, aDate, aTime, aAttr )
          aSize[ nDirPos ] := aFileInfo[ F_SIZE ]
       ENDIF
       IF nDateLen != NIL .AND. nDateLen >= nDirPos
-         aDate[ nDirPos ] := aFileInfo[ F_DATE ]
+         aDate[ nDirPos ] := hb_TToD( aFileInfo[ F_DATE ] )
       ENDIF
       IF nTimeLen != NIL .AND. nTimeLen >= nDirPos
          aTime[ nDirPos ] := aFileInfo[ F_TIME ]

@@ -278,6 +278,10 @@ a.d-id:hover {
   border: 0;
 }
 
+.d-so .d-ebi {
+  border: 0;
+}
+
 pre {
   background-color: #f2f2f2;
   color: #2e2a24;
@@ -286,6 +290,7 @@ pre {
   border-radius: 0 3px 3px 0 !important;
   padding: 8px 16px !important;
   overflow: scroll;
+  line-height: 125% !important;
 }
 
 code, .d-t {
@@ -398,6 +403,7 @@ p {
   overflow: scroll;
   margin: 16px;
   white-space: nowrap;
+  line-height: 130%;
 }
 
 .d-t0 div:first-child {
@@ -542,6 +548,12 @@ p {
 
 .d-dd {
   margin-top: 0;
+}
+
+.d-so .dropdown-content {
+  margin-top: 0;
+  margin-left: -5px;
+  font-size: 14px;
 }
 
 .lang .dropdown-content {

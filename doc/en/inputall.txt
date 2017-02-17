@@ -22,7 +22,7 @@
       treated as if it were not present.
 
       <nEvents> is an optional mask of input events that are to be enabled.
-      If omitted, defaults to hb_set.HB_SET_EVENTMASK. Valid input masks are
+      If omitted, defaults to `hb_set.HB_SET_EVENTMASK`. Valid input masks are
       in inkey.ch and are explained below. It is recommended that the mask
       names be used rather than their numeric values, in case the numeric
       values change in future releases of Harbour. To allow more than one
@@ -42,7 +42,7 @@
       </table>
 
       If the parameter is not numeric, it will be treated as if it were set
-      to hb_set.HB_SET_EVENTMASK.
+      to `hb_set.HB_SET_EVENTMASK`.
    $RETURNS$
       0 in case of timeout with no input event, otherwise returns a value
       in the range -47 to 386 for keyboard events or the range 1001 to 1007
@@ -303,7 +303,7 @@
 
       None of the extended keys may be stuffed into the keyboard buffer.
 
-      Issuing a KEYBOARD " " will clear the keyboard buffer.
+      Issuing a `KEYBOARD " "` will clear the keyboard buffer.
    $EXAMPLES$
       // Stuff an Enter key into the keyboard buffer
       KEYBOARD Chr( 13 )

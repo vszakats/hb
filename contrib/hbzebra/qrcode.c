@@ -52,20 +52,20 @@
 
    https://en.wikipedia.org/wiki/QR_Code
    http://www.qrcode.com/en/
-   http://www.itsc.org.sg/pdf/synthesis08/Three_QR_Code.pdf
-   http://www.qrme.co.uk/qr-code-resources/understanding-a-qr-code.html
+   https://foxdesignsstudio.com/uploads/pdf/Three_QR_Code.pdf
+   https://web.archive.org/web/www.qrme.co.uk/qr-code-resources/understanding-a-qr-code.html
    http://www.swetake.com/qr/index-e.html
    https://www.codeproject.com/Articles/20574/Open-Source-QRCode-Library
    https://osdn.jp/projects/reedsolomon/
-   http://twit88.com/home/
-   https://qrcode.osdn.jp
+   https://web.archive.org/web/twit88.com/platform/projects/show/mt-qrcode
+   https://qrcode.osdn.jp/
    https://zxing.org/w/decode.jspx                         Online decoder
    http://blog.qr4.nl/Online-QR-Code_Decoder.aspx          Online decoder (not all codes are decoded)
    http://www.thonky.com/qr-code-tutorial/                 Tutorial
    https://github.com/zxing/zxing                          Java library
    http://goqr.me/                                         Online encode
    http://www.pclviewer.com/rs2/calculator.html            Reed-solomon ECC calculator
-   http://raidenii.net/files/datasheets/misc/qr_code.pdf
+   https://web.archive.org/web/raidenii.net/files/datasheets/misc/qr_code.pdf
 
  */
 

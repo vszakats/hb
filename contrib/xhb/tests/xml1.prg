@@ -9,7 +9,7 @@ PROCEDURE Main()
 
    LOCAL cString := MemoRead( hb_DirBase() + "test.xml" )
 
-   IF HB_ISNULL( cString )
+   IF cString == ""
       ? "XML file unavailable"
       RETURN
    ENDIF
