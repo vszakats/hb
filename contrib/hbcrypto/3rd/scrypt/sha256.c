@@ -93,9 +93,9 @@ static const uint32_t Krnd[64] = {
  * the 512-bit input block to produce a new state.
  */
 static void
-SHA256_Transform(uint32_t state[8],
-    const uint8_t block[64],
-    uint32_t W[64], uint32_t S[8])
+SHA256_Transform(uint32_t state[HB_C99_STATIC HB_C99_RESTRICT 8],
+    const uint8_t block[HB_C99_STATIC HB_C99_RESTRICT 64],
+    uint32_t W[HB_C99_STATIC HB_C99_RESTRICT 64], uint32_t S[HB_C99_STATIC HB_C99_RESTRICT 8])
 {
 	int i;
 
@@ -158,7 +158,7 @@ static const uint8_t PAD[64] = {
 
 /* Add padding and terminating bit-count. */
 static void
-SHA256_Pad(SHA256_CTX * ctx, uint32_t tmp32[72])
+SHA256_Pad(SHA256_CTX * ctx, uint32_t tmp32[HB_C99_STATIC HB_C99_RESTRICT 72])
 {
 	size_t r;
 
@@ -212,7 +212,7 @@ SHA256_Init(SHA256_CTX * ctx)
  */
 static void
 _SHA256_Update(SHA256_CTX * ctx, const void * in, size_t len,
-    uint32_t tmp32[72])
+    uint32_t tmp32[HB_C99_STATIC HB_C99_RESTRICT 72])
 {
 	uint32_t r;
 	const uint8_t * src = in;
@@ -270,7 +270,7 @@ SHA256_Update(SHA256_CTX * ctx, const void * in, size_t len)
  */
 static void
 _SHA256_Final(uint8_t digest[32], SHA256_CTX * ctx,
-    uint32_t tmp32[72])
+    uint32_t tmp32[HB_C99_STATIC HB_C99_RESTRICT 72])
 {
 
 	/* Add padding. */
@@ -322,8 +322,8 @@ SHA256_Buf(const void * in, size_t len, uint8_t digest[32])
  */
 static void
 _HMAC_SHA256_Init(HMAC_SHA256_CTX * ctx, const void * _K, size_t Klen,
-    uint32_t tmp32[72], uint8_t pad[64],
-    uint8_t khash[32])
+    uint32_t tmp32[HB_C99_STATIC HB_C99_RESTRICT 72], uint8_t pad[HB_C99_STATIC HB_C99_RESTRICT 64],
+    uint8_t khash[HB_C99_STATIC HB_C99_RESTRICT 32])
 {
 	const uint8_t * K = _K;
 	size_t i;
@@ -375,7 +375,7 @@ HMAC_SHA256_Init(HMAC_SHA256_CTX * ctx, const void * _K, size_t Klen)
  */
 static void
 _HMAC_SHA256_Update(HMAC_SHA256_CTX * ctx, const void * in, size_t len,
-    uint32_t tmp32[72])
+    uint32_t tmp32[HB_C99_STATIC HB_C99_RESTRICT 72])
 {
 
 	/* Feed data to the inner SHA256 operation. */
@@ -402,7 +402,7 @@ HMAC_SHA256_Update(HMAC_SHA256_CTX * ctx, const void * in, size_t len)
  */
 static void
 _HMAC_SHA256_Final(uint8_t digest[32], HMAC_SHA256_CTX * ctx,
-    uint32_t tmp32[72], uint8_t ihash[32])
+    uint32_t tmp32[HB_C99_STATIC HB_C99_RESTRICT 72], uint8_t ihash[HB_C99_STATIC HB_C99_RESTRICT 32])
 {
 
 	/* Finish the inner SHA256 operation. */

@@ -88,6 +88,13 @@
    #endif
 #endif
 
+#if ( defined( __GNUC__ ) || defined( __SUNPRO_C ) || defined( __SUNPRO_CC ) ) && \
+    ( defined( _ISOC99_SOURCE ) || defined( _STDC_C99 ) || \
+      ( defined( __STDC_VERSION__ ) && __STDC_VERSION__ >= 199901L ) )
+   #define HB_C99_STATIC    static
+   #define HB_C99_RESTRICT  restrict
+#endif
+
 #if 0
 #define HB_CLIPPER_INT_ITEMS
 #define HB_LONG_LONG_OFF
