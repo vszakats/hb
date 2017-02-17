@@ -1,109 +1,6 @@
-diff --strip-trailing-cr -urN scrypt.orig/config.h scrypt/config.h
---- scrypt.orig/config.h	2017-02-11 07:29:20.000000000 +0000
-+++ scrypt/config.h	2017-02-13 03:33:22.000000000 +0000
-@@ -1,99 +1 @@
- /* config.h.in.  Generated from configure.ac by autoheader.  */
--
--/* Define to 1 if you have the `clock_gettime' function. */
--#undef HAVE_CLOCK_GETTIME
--
--/* Define to 1 if you have the <inttypes.h> header file. */
--#undef HAVE_INTTYPES_H
--
--/* Define to 1 if you have the <memory.h> header file. */
--#undef HAVE_MEMORY_H
--
--/* Define to 1 if you have the `mmap' function. */
--#undef HAVE_MMAP
--
--/* Define to 1 if you have the <openssl/aes.h> header file. */
--#undef HAVE_OPENSSL_AES_H
--
--/* Define to 1 if you have the `posix_memalign' function. */
--#undef HAVE_POSIX_MEMALIGN
--
--/* Define to 1 if you have the <stdint.h> header file. */
--#undef HAVE_STDINT_H
--
--/* Define to 1 if you have the <stdlib.h> header file. */
--#undef HAVE_STDLIB_H
--
--/* Define to 1 if you have the <strings.h> header file. */
--#undef HAVE_STRINGS_H
--
--/* Define to 1 if you have the <string.h> header file. */
--#undef HAVE_STRING_H
--
--/* Define to 1 if the system has the type `struct sysinfo'. */
--#undef HAVE_STRUCT_SYSINFO
--
--/* Define to 1 if `mem_unit' is a member of `struct sysinfo'. */
--#undef HAVE_STRUCT_SYSINFO_MEM_UNIT
--
--/* Define to 1 if `totalram' is a member of `struct sysinfo'. */
--#undef HAVE_STRUCT_SYSINFO_TOTALRAM
--
--/* Define to 1 if you have the `sysinfo' function. */
--#undef HAVE_SYSINFO
--
--/* Define to 1 if you have the <sys/param.h> header file. */
--#undef HAVE_SYS_PARAM_H
--
--/* Define to 1 if you have the <sys/stat.h> header file. */
--#undef HAVE_SYS_STAT_H
--
--/* Define to 1 if you have the <sys/sysctl.h> header file. */
--#undef HAVE_SYS_SYSCTL_H
--
--/* Define to 1 if you have the <sys/sysinfo.h> header file. */
--#undef HAVE_SYS_SYSINFO_H
--
--/* Define to 1 if you have the <sys/types.h> header file. */
--#undef HAVE_SYS_TYPES_H
--
--/* Define to 1 if you have the <unistd.h> header file. */
--#undef HAVE_UNISTD_H
--
--/* Name of package */
--#undef PACKAGE
--
--/* Define to the address where bug reports for this package should be sent. */
--#undef PACKAGE_BUGREPORT
--
--/* Define to the full name of this package. */
--#undef PACKAGE_NAME
--
--/* Define to the full name and version of this package. */
--#undef PACKAGE_STRING
--
--/* Define to the one symbol short name of this package. */
--#undef PACKAGE_TARNAME
--
--/* Define to the home page for this package. */
--#undef PACKAGE_URL
--
--/* Define to the version of this package. */
--#undef PACKAGE_VERSION
--
--/* Define to 1 if you have the ANSI C header files. */
--#undef STDC_HEADERS
--
--/* Version number of package */
--#undef VERSION
--
--/* Enable large inode numbers on Mac OS X 10.5.  */
--#ifndef _DARWIN_USE_64_BIT_INODE
--# define _DARWIN_USE_64_BIT_INODE 1
--#endif
--
--/* Number of bits in a file offset, on hosts where this is settable. */
--#undef _FILE_OFFSET_BITS
--
--/* Define for large files, on AIX-style hosts. */
--#undef _LARGE_FILES
 diff --strip-trailing-cr -urN scrypt.orig/crypto_scrypt-ref.c scrypt/crypto_scrypt-ref.c
 --- scrypt.orig/crypto_scrypt-ref.c	2017-02-11 07:29:13.000000000 +0000
-+++ scrypt/crypto_scrypt-ref.c	2017-02-17 14:54:03.000000000 +0000
++++ scrypt/crypto_scrypt-ref.c	2017-02-17 17:34:57.000000000 +0000
 @@ -26,15 +26,11 @@
   * This file was originally written by Colin Percival as part of the Tarsnap
   * online backup system.
@@ -120,12 +17,12 @@ diff --strip-trailing-cr -urN scrypt.orig/crypto_scrypt-ref.c scrypt/crypto_scry
  
  #include "crypto_scrypt.h"
  
-@@ -223,19 +219,21 @@
+@@ -222,20 +218,21 @@
+ 	uint8_t * XY;
  	size_t r = _r, p = _p;
  	uint32_t i;
- 
 +	int fail = -1;
-+
+ 
  	/* Sanity-check parameters. */
  #if SIZE_MAX > UINT32_MAX
  	if (buflen > (((uint64_t)(1) << 32) - 1) * 32) {
@@ -145,7 +42,7 @@ diff --strip-trailing-cr -urN scrypt.orig/crypto_scrypt-ref.c scrypt/crypto_scry
  		goto err0;
  	}
  	if ((r > SIZE_MAX / 128 / p) ||
-@@ -243,7 +241,7 @@
+@@ -243,7 +240,7 @@
  	    (r > SIZE_MAX / 256) ||
  #endif
  	    (N > SIZE_MAX / 128 / r)) {
@@ -154,7 +51,7 @@ diff --strip-trailing-cr -urN scrypt.orig/crypto_scrypt-ref.c scrypt/crypto_scry
  		goto err0;
  	}
  
-@@ -281,5 +279,5 @@
+@@ -281,5 +278,5 @@
  	free(B);
  err0:
  	/* Failure! */
@@ -163,20 +60,19 @@ diff --strip-trailing-cr -urN scrypt.orig/crypto_scrypt-ref.c scrypt/crypto_scry
  }
 diff --strip-trailing-cr -urN scrypt.orig/crypto_scrypt.h scrypt/crypto_scrypt.h
 --- scrypt.orig/crypto_scrypt.h	2017-02-11 07:29:13.000000000 +0000
-+++ scrypt/crypto_scrypt.h	2017-02-17 14:44:19.000000000 +0000
-@@ -29,9 +29,6 @@
++++ scrypt/crypto_scrypt.h	2017-02-17 17:32:18.000000000 +0000
+@@ -29,8 +29,6 @@
  #ifndef _CRYPTO_SCRYPT_H_
  #define _CRYPTO_SCRYPT_H_
  
 -#include <stdint.h>
 -#include <unistd.h>
--
+ 
  /**
   * crypto_scrypt(passwd, passwdlen, salt, saltlen, N, r, p, buf, buflen):
-  * Compute scrypt(passwd[0 .. passwdlen - 1], salt[0 .. saltlen - 1], N, r,
 diff --strip-trailing-cr -urN scrypt.orig/sha256.c scrypt/sha256.c
 --- scrypt.orig/sha256.c	2017-02-11 07:29:13.000000000 +0000
-+++ scrypt/sha256.c	2017-02-17 14:52:50.000000000 +0000
++++ scrypt/sha256.c	2017-02-17 17:27:40.000000000 +0000
 @@ -1,9 +1,7 @@
  #include <assert.h>
 -#include <stdint.h>
@@ -258,13 +154,12 @@ diff --strip-trailing-cr -urN scrypt.orig/sha256.c scrypt/sha256.c
  	/* Finish the inner SHA256 operation. */
 diff --strip-trailing-cr -urN scrypt.orig/sha256.h scrypt/sha256.h
 --- scrypt.orig/sha256.h	2017-02-11 07:29:13.000000000 +0000
-+++ scrypt/sha256.h	2017-02-17 14:52:16.000000000 +0000
-@@ -2,7 +2,19 @@
++++ scrypt/sha256.h	2017-02-17 17:32:18.000000000 +0000
+@@ -2,7 +2,18 @@
  #define _SHA256_H_
  
  #include <stddef.h>
 -#include <stdint.h>
-+
 +#include "hbdefs.h"
 +#define uint8_t       HB_U8
 +#define uint32_t      HB_U32

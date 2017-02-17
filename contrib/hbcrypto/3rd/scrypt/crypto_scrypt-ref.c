@@ -218,7 +218,6 @@ crypto_scrypt(const uint8_t * passwd, size_t passwdlen,
 	uint8_t * XY;
 	size_t r = _r, p = _p;
 	uint32_t i;
-
 	int fail = -1;
 
 	/* Sanity-check parameters. */

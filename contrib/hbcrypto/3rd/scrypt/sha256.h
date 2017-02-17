@@ -2,7 +2,6 @@
 #define _SHA256_H_
 
 #include <stddef.h>
-
 #include "hbdefs.h"
 #define uint8_t       HB_U8
 #define uint32_t      HB_U32
