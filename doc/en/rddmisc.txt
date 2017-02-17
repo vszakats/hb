@@ -12,7 +12,7 @@
    $ONELINER$
       Fills referenced arrays with database field information
    $SYNTAX$
-      AFields( <aNames>, [<aTypes>], [<aLen>], [<aDecs>] ) --> <nFields>
+      AFields( <aNames>, [<aTypes>], [<aLen>], [<aDecs>] ) --> nFields
    $ARGUMENTS$
       <aNames>  Array of field names
 
@@ -91,7 +91,7 @@
    $ONELINER$
       Returns the alias name of a work area
    $SYNTAX$
-      Alias( [<nWorkArea>] ) --> <cWorkArea>
+      Alias( [<nWorkArea>] ) --> cWorkArea
    $ARGUMENTS$
       <nWorkArea> Number of a work area
    $RETURNS$
@@ -133,7 +133,7 @@
    $ONELINER$
       Test for the beginning-of-file condition
    $SYNTAX$
-      Bof() --> <lBegin>
+      Bof() --> lBegin
    $RETURNS$
       Bof() Logical true (.T.) or false (.F.)
    $DESCRIPTION$
@@ -252,7 +252,7 @@
    $ONELINER$
       Test for end-of-file condition.
    $SYNTAX$
-      Eof() --> <lEnd>
+      Eof() --> lEnd
    $ARGUMENTS$
       (This command has no arguments)
    $RETURNS$

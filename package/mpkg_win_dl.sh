@@ -17,7 +17,9 @@ if [ "${_BRANCH#*prod*}" = "${_BRANCH}" ] ; then
 #  pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-qt5
 fi
 
-pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-icu
+# Skip using this component for test purposes for now in favour
+# of creating more practical/usable snapshot binaries.
+# pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-icu
 
 # Dependencies of 'prod' builds (we use our own builds instead for now)
 # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{curl,openssl}

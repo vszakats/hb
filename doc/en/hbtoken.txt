@@ -14,7 +14,7 @@
       tokens (words or other string chunks depending on delimiter used).
    $SYNTAX$
       hb_ATokens( <cString>, [<cDelim>|<lEOL>], [<lSkipStrings>], ;
-                  [<lDoubleQuoteOnly>] ) --> <aTokens>
+                  [<lDoubleQuoteOnly>] ) --> aTokens
    $ARGUMENTS$
       <cString> Complex string to be parsed.
 
@@ -42,8 +42,7 @@
       only the double quote `"` is recognized as a quote sign.
       This argument is meaningful only when <lSkipStrings> is .T.
 
-      NOTES:
-
+   $NOTES$
       1) the tokenization process is case sensitive, in the (rare) case
          where <cDelim> is an alphabetic character.
 

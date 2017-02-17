@@ -25,11 +25,11 @@
 
       `:New()`                Creates a new instance of the TFileRead() class.
 
-      `:Open( [<nFlags>] )`   Opens the file for reading. The optional nFlags
+      `:Open( [<nFlags>] )`   Opens the file for reading. The optional <nFlags>
                               parameter can use any of the file open flags from
                               fileio.ch. The default is `FO_READ + FO_SHARED`.
                               Calling this method when the file is already
-                              open causes the next ReadLine() to start over
+                              open causes the next `:ReadLine()` to start over
                               from the beginning of the file.
 
       `:Close()`              Closes the file.
@@ -70,7 +70,5 @@
       NA
    $FILES$
       Library is hbmisc
-   $SEEALSO$
-      TClass()
    $END$
  */

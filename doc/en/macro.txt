@@ -35,7 +35,7 @@
    $ONELINER$
       Enable/disable the macro compiler runtime features.
    $SYNTAX$
-      hb_SetMacro( <nOption>, [<lOnOff>] ) --> <lOldSetting>
+      hb_SetMacro( <nOption>, [<lOnOff>] ) --> lOldSetting
    $ARGUMENTS$
       <nOption> One of the `HB_SM_*` constants defined in set.ch.
 

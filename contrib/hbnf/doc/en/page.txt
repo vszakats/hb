@@ -34,7 +34,7 @@
    $ONELINER$
       Get the currently selected video page
    $SYNTAX$
-      ft_GetVPg() --> <nPage>
+      ft_GetVPg() --> nPage
    $ARGUMENTS$
       None.
    $RETURNS$

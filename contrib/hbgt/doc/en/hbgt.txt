@@ -6,7 +6,7 @@
    $ONELINER$
       Return the ASCII value of a specified character in a string
    $SYNTAX$
-      gt_AscPos( <cStr>, <nPos> ) --> <nAscVal>
+      gt_AscPos( <cStr>, <nPos> ) --> nAscVal
    $ARGUMENTS$
       <cStr>    - The string
 
@@ -48,7 +48,7 @@
    $ONELINER$
       Sum the ASCII values in a string.
    $SYNTAX$
-      gt_AsciiSum( <cStr> ) --> <nSum>
+      gt_AsciiSum( <cStr> ) --> nSum
    $ARGUMENTS$
       <cStr> - The string to sum
    $RETURNS$
@@ -77,7 +77,7 @@
    $ONELINER$
       Return the position where two strings begin to differ
    $SYNTAX$
-      gt_AtDiff( <cStr1>, <cStr2> ) --> <nPos>
+      gt_AtDiff( <cStr1>, <cStr2> ) --> nPos
    $ARGUMENTS$
       <cStr1> - A character string to compare
 
@@ -114,7 +114,7 @@
    $ONELINER$
       Return a string of all the characters in even positions
    $SYNTAX$
-      gt_CharEven( <cStr> ) --> <cRet>
+      gt_CharEven( <cStr> ) --> cRet
    $ARGUMENTS$
       <cStr> - A character string to extract chars from
    $RETURNS$
@@ -146,7 +146,7 @@
    $ONELINER$
       Amalgamate two strings to form the return value
    $SYNTAX$
-      gt_CharMix( <cStr1>, <cStr2> ) --> <cRet>
+      gt_CharMix( <cStr1>, <cStr2> ) --> cRet
    $ARGUMENTS$
       <cStr1> - A character string to mix
 
@@ -183,7 +183,7 @@
    $ONELINER$
       Return a string of all the characters in odd positions
    $SYNTAX$
-      gt_CharOdd( <cStr> ) --> <cRet>
+      gt_CharOdd( <cStr> ) --> cRet
    $ARGUMENTS$
       <cStr> - A character string to extract chars from
    $RETURNS$
@@ -215,7 +215,7 @@
    $ONELINER$
       Count the number of times a character appears in a string
    $SYNTAX$
-      gt_ChrCount( <cChr>, <cStr> ) --> <nFreq>
+      gt_ChrCount( <cChr>, <cStr> ) --> nFreq
    $ARGUMENTS$
       <cChr>  - The character to find the frequence of
 
@@ -249,7 +249,7 @@
    $ONELINER$
       Find which character occurs first in a string
    $SYNTAX$
-      gt_ChrFirst( <cChars>, <cStr> ) --> <nAsc>
+      gt_ChrFirst( <cChars>, <cStr> ) --> nAsc
    $ARGUMENTS$
       <cChars> - The set of characters to find
 
@@ -282,7 +282,7 @@
    $ONELINER$
       Find number of times a set of characters appears in a string
    $SYNTAX$
-      gt_ChrTotal( <cChrs>, <cStr> ) --> <nTotOcc>
+      gt_ChrTotal( <cChrs>, <cStr> ) --> nTotOcc
    $ARGUMENTS$
       <cChrs>   - The set of characters
 
@@ -321,7 +321,7 @@
    $ONELINER$
       Count the number of times a substring appears in a string
    $SYNTAX$
-      gt_StrCount( <cChrs>, <cStr> ) --> <nFreq>
+      gt_StrCount( <cChrs>, <cStr> ) --> nFreq
    $ARGUMENTS$
       <cChrs> - The substring to find the frequence of
 
@@ -359,7 +359,7 @@
    $ONELINER$
       Return length of prefix in string of chars NOT in set.
    $SYNTAX$
-      gt_StrCSPN( <cString>, <cSet> ) --> <nLength>
+      gt_StrCSPN( <cString>, <cSet> ) --> nLength
    $ARGUMENTS$
       <cString> - The string to find the prefix in
 
@@ -391,7 +391,7 @@
    $ONELINER$
       Return a string where it begins to differ from another
    $SYNTAX$
-      gt_StrDiff( <cStr1>, <cStr2> ) --> <cRet>
+      gt_StrDiff( <cStr1>, <cStr2> ) --> cRet
    $ARGUMENTS$
       <cStr1>  - A character string to compare
 
@@ -429,7 +429,7 @@
    $ONELINER$
       Insert fillers between characters in a passed string
    $SYNTAX$
-      gt_StrExpand( <cStr>, [<nNum>], [<cChar>] ) --> <cRet>
+      gt_StrExpand( <cStr>, [<nNum>], [<cChar>] ) --> cRet
    $ARGUMENTS$
       <cStr1> - A character string to insert chars into
 
@@ -467,7 +467,7 @@
    $ONELINER$
       Find length of prefix of a string
    $SYNTAX$
-      gt_StrLeft( <cStr>, <cChars> ) --> <nLen>
+      gt_StrLeft( <cStr>, <cChars> ) --> nLen
    $ARGUMENTS$
       <cStr>   - The input string
 
@@ -504,7 +504,7 @@
    $ONELINER$
       Return string after 1st char from a set
    $SYNTAX$
-      gt_StrPBRK( <cStr>, <cSet> ) --> <cString>
+      gt_StrPBRK( <cStr>, <cSet> ) --> cString
    $ARGUMENTS$
       <cStr>    - The input string
 
@@ -537,7 +537,7 @@
    $ONELINER$
       Find length of a suffix of a string
    $SYNTAX$
-      gt_StrRight( <cStr>, <cChars> ) --> <nLen>
+      gt_StrRight( <cStr>, <cChars> ) --> nLen
    $ARGUMENTS$
       <cStr>   - The input string
 
@@ -574,7 +574,7 @@
    $ONELINER$
       Create a new bit flag string.
    $SYNTAX$
-      gt_NewFlag( <nFlagCount> ) --> <cFlagString>
+      gt_NewFlag( <nFlagCount> ) --> cFlagString
    $ARGUMENTS$
       <nFlagCount> is the number of flags you wish to store.
    $RETURNS$
@@ -603,7 +603,7 @@
    $ONELINER$
       Set a number of flags to TRUE in a bit flag string.
    $SYNTAX$
-      gt_SetFlag( <cFlagString>, [<nStart>], [<nEnd>] ) --> <cFlagString>
+      gt_SetFlag( <cFlagString>, [<nStart>], [<nEnd>] ) --> cFlagString
    $ARGUMENTS$
       <cFlagString> is a bit flag string created with gt_NewFlag()
 
@@ -641,7 +641,7 @@
    $ONELINER$
       Set a number of flags to FALSE in a bit flag string.
    $SYNTAX$
-      gt_ClrFlag( <cFlagString>, [<nStart>], [<nEnd>] ) --> <cFlagString>
+      gt_ClrFlag( <cFlagString>, [<nStart>], [<nEnd>] ) --> cFlagString
    $ARGUMENTS$
       <cFlagString> is a bit flag string created with gt_NewFlag()
 
@@ -682,7 +682,7 @@
    $ONELINER$
       Test the setting of a flag in a bit flag string.
    $SYNTAX$
-      gt_IsFlag( <cFlagString>, [<nFlag>] ) --> <lSetting>
+      gt_IsFlag( <cFlagString>, [<nFlag>] ) --> lSetting
    $ARGUMENTS$
       <cFlagString> is a bit flag string created with gt_NewFlag()
 

@@ -65,7 +65,7 @@
    $ONELINER$
       Test pkSpanned zip files
    $SYNTAX$
-      hb_ZipTestPK( <cFile> ) --> <nReturnCode>
+      hb_ZipTestPK( <cFile> ) --> nReturnCode
    $ARGUMENTS$
       <cFile>  File to be tested.
    $RETURNS$
@@ -181,7 +181,7 @@
    $SYNTAX$
       hb_ZipFileByTDSpan( <cFile>, <cFileToCompress> | <aFiles>, <nLevel>,
       <bBlock>, <lOverWrite>, <cPassword>, <iSize>, <lWithPath>, <lWithDrive>,
-      <pFileProgress>) --> <lCompress>
+      <pFileProgress>) --> lCompress
    $ARGUMENTS$
       <cFile>   Name of the zip file
 
@@ -276,7 +276,7 @@
    $SYNTAX$
       hb_ZipFileByPKSpan( <cFile>, <cFileToCompress> | <aFiles>, <nLevel>,
       <bBlock>, <lOverWrite>, <cPassword>, <lWithPath>, <lWithDrive>,
-      <pFileProgress> ) --> <lCompress>
+      <pFileProgress> ) --> lCompress
    $ARGUMENTS$
       <cFile>   Name of the zip file
 
@@ -378,7 +378,7 @@
    $SYNTAX$
       hb_ZipFile( <cFile>, <cFileToCompress> | <aFiles>, <nLevel>,
       <bBlock>, <lOverWrite>, <cPassword>, <lWithPath>, <lWithDrive>,
-      <pFileProgress> ) --> <lCompress>
+      <pFileProgress> ) --> lCompress
    $ARGUMENTS$
       <cFile>   Name of the zip file to create
 
@@ -473,7 +473,7 @@
       Unzip a compressed file
    $SYNTAX$
       hb_UnzipFile( <cFile>, <bBlock>, <lWithPath>, <cPassword>, <cPath>,
-                    <cFile> | <aFile>, <pFileProgress> ) --> <lCompress>
+                    <cFile> | <aFile>, <pFileProgress> ) --> lCompress
    $ARGUMENTS$
       <cFile>   Name of the zip file to extract
 
@@ -542,7 +542,7 @@
    $ONELINER$
       Delete files from an zip archive
    $SYNTAX$
-      hb_ZipDeleteFiles( <cFile>, <cFiletoDelete> | <aFiles> | <nFilePos> ) --> <lDeleted>
+      hb_ZipDeleteFiles( <cFile>, <cFiletoDelete> | <aFiles> | <nFilePos> ) --> lDeleted
    $ARGUMENTS$
       <cFile>  The name of the zip files from where the files will be deleted
 

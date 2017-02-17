@@ -60,6 +60,26 @@
 #define CODECLASS   "language-c"
 #define CODEINLINE  "<code>"
 
+#define _RESULT_ARROW  "→"
+
+#define R_( x )  ( x )
+
+STATIC s_tDate
+STATIC s_cRevision
+
+/* https://www.debuggex.com/r/4GiNJeVJ_VALmNDk
+   https://regex101.com/r/aS9RYU/2 */
+STATIC sc_cCode := R_( ;
+   "(\s|^|\()" + ;
+   "(" + ;
+      "([A-Z_]{2,}|@)([A-Z0-9_ ]*|(\.\.\.)|(\.\.)|)([A-Z_\/]{2,}|->|-&gt;)|" + ;
+      "[A-Z_]{3,}|" + ;
+      "\.[A-Z]+\.|" + ;
+      "[A-Z\.\\\/][A-Z0-9\.\\\/]+[A-Z0-9\\\/]{1,3}|" + ;
+      "[A-Z_][A-Z0-9_]+" + ;
+   ")" + ;
+   "([\)\.,:;s']|\s|$" + ")" )
+
 CREATE CLASS GenerateHTML INHERIT TPLGenerate
 
    HIDDEN:
@@ -71,8 +91,8 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    METHOD Tagged( cText, cTag, ... )
    METHOD CloseTagInline( cText )
    METHOD CloseTag( cText )
-   METHOD AppendInline( cText, cFormat, lCode, cField )
-   METHOD Append( cText, cFormat, lCode, cField )
+   METHOD AppendInline( cText, cFormat, lCode, cField, cID )
+   METHOD Append( cText, cFormat, lCode, cField, cID )
    METHOD Space() INLINE ::cFile += ", ", Self
    METHOD Spacer() INLINE ::cFile += hb_eol(), Self
    METHOD NewLine() INLINE ::cFile += "<br>" + hb_eol(), Self
@@ -81,11 +101,7 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    CLASS VAR lCreateStyleDocument AS LOGICAL INIT .T.
    VAR TargetFilename AS STRING INIT ""
 
-   VAR tDate INIT hb_Version( HB_VERSION_BUILD_TIMESTAMP_UTC )
-   VAR cRevision AS STRING INIT hb_Version( HB_VERSION_ID )
-
-   VAR hNameID
-   VAR hHBX
+   VAR hNameIDM
 
    EXPORTED:
 
@@ -105,9 +121,9 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    METHOD EndContent() INLINE ::Spacer():CloseTag( "main" ), Self
    METHOD BeginIndex() INLINE ::OpenTag( "aside" ), Self
    METHOD EndIndex() INLINE ::CloseTag( "aside" ):Spacer(), Self
-   METHOD AddIndexItem( cName, cID )
+   METHOD AddIndexItem( cName, cID, lRawID )
 
-   METHOD WriteEntry( cField, cContent, lPreformatted ) HIDDEN
+   METHOD WriteEntry( cField, cContent, lPreformatted, cID ) HIDDEN
 
    VAR nIndent INIT 0
 
@@ -119,13 +135,17 @@ METHOD NewFile() CLASS GenerateHTML
    LOCAL hDoc
    LOCAL cBaseTitle
 
-   IF ! hbdoc_reproducible()
-      ::tDate := hb_DateTime() - ( hb_UTCOffset() / 86400 )
-      ::cRevision := GitRev()
+   IF s_tDate == NIL
+      IF hbdoc_reproducible()
+         s_tDate := hb_Version( HB_VERSION_BUILD_TIMESTAMP_UTC )
+         s_cRevision := hb_Version( HB_VERSION_ID )
+      ELSE
+         s_tDate := hb_DateTime() - ( hb_UTCOffset() / 86400 )
+         s_cRevision := GitRev()
+      ENDIF
    ENDIF
 
-   ::hNameID := hbdoc_NameID()
-   ::hHBX := hbdoc_HBX()
+   ::hNameIDM := hbdoc_NameIDM()
 
    ::cFile += "<!DOCTYPE html>" + hb_eol()
 
@@ -186,16 +206,17 @@ METHOD NewFile() CLASS GenerateHTML
    ::Spacer()
 
    ::OpenTag( "header" )
+   ::cFile += hb_MemoRead( hbdoc_dir_in() + hb_DirSepToOS( "docs/images/" + "harbour-nofill.svg" ) )
    ::OpenTag( "div" )
 
    ::OpenTagInline( "div" )
    ::OpenTagInline( "a", "href", "index.html" )
-   ::cFile += hb_MemoRead( hbdoc_RootDir() + hb_DirSepToOS( "docs/images/" + "harbour-nofill.svg" ) )
    ::AppendInline( cBaseTitle )
    ::CloseTagInline( "a" )
    ::CloseTag( "div" )
 
-   IF HB_ISHASH( ::hComponents )
+   IF HB_ISHASH( ::hComponents ) .OR. ;
+      Len( hbdoc_LangList() ) > 1
 
       ::OpenTag( "div" )
       ::OpenTag( "nav", "class", "menu" )
@@ -234,25 +255,13 @@ METHOD NewFile() CLASS GenerateHTML
 
       ::OpenTag( "nav", "class", "dropdown lang" )
       ::OpenTagInline( "span", "class", "dropbtn flag" )
-      ::OpenTag( "img", "src", flag_for_lang( ::cLang ), "width", "18", "alt", hb_StrFormat( "%1$s flag", ::cLang ) )
+      ::OpenTag( "img", "src", flag_for_lang( ::cLang ), "width", "18", "alt", hb_StrFormat( I_( "%1$s flag" ), ::cLang ) )
       ::CloseTagInline( "span" )
 
       IF Len( hbdoc_LangList() ) > 1
          ::OpenTag( "nav", "class", "dropdown-content lang" )
          FOR EACH tmp IN ASort( hb_HKeys( hDoc := hbdoc_LangList() ) )
-
-            tmp := Lower( tmp )
-
-            DO CASE
-            CASE ::cLang == tmp
-               tmp1 := ""
-            CASE ::cLang == "en"
-               tmp1 := StrTran( tmp, "_", "-" ) + "/"
-            OTHERWISE
-               tmp1 := ".." + "/"
-            ENDCASE
-
-            ::OpenTagInline( "a", "href", tmp1 + ;
+            ::OpenTagInline( "a", "href", GetLangDir( ::cLang, tmp ) + ;
                iif( ::cLang == tmp .OR. tmp == "en" .OR. ( tmp $ hDoc .AND. ::cFileName $ hDoc[ tmp ][ "tree" ] ), ;
                   ::cFilename, ;
                   "index" ) + ".html" )
@@ -274,17 +283,28 @@ METHOD NewFile() CLASS GenerateHTML
 
    RETURN Self
 
+STATIC FUNCTION GetLangDir( cCurLang, cTargetLang )
+
+   DO CASE
+   CASE cCurLang == cTargetLang
+      RETURN ""
+   CASE cCurLang == "en"
+      RETURN Lower( StrTran( cTargetLang, "_", "-" ) ) + "/"
+   ENDCASE
+
+   RETURN ".." + "/"
+
 STATIC FUNCTION flag_for_lang( cLang )
 
    LOCAL cSrc := ""
 
-   SWITCH cLang
+   SWITCH Lower( cLang )
    CASE "en"    ; cSrc := "flag-gb.svg" ; EXIT
    CASE "pt_br" ; cSrc := "flag-br.svg" ; EXIT
    ENDSWITCH
 
    IF ! HB_ISNULL( cSrc )
-      cSrc := "data:image/svg+xml;base64," + hb_base64Encode( hb_MemoRead( hbdoc_RootDir() + hb_DirSepToOS( "docs/images/" + cSrc ) ) )
+      cSrc := "data:image/svg+xml;base64," + hb_base64Encode( hb_MemoRead( hbdoc_dir_in() + hb_DirSepToOS( "docs/images/" + cSrc ) ) )
    ENDIF
 
    RETURN cSrc
@@ -302,12 +322,12 @@ METHOD Generate() CLASS GenerateHTML
    ::Spacer()
    ::OpenTag( "footer" )
 
-   ::Append( hb_StrFormat( I_( "Generated by hbdoc on %1$s" ), hb_TToC( ::tDate, "yyyy-mm-dd", "hh:mm" ) + " " + "UTC" ), "div" )
+   ::Append( hb_StrFormat( I_( "Generated by hbdoc on %1$s" ), hb_TToC( s_tDate, "yyyy-mm-dd", "hh:mm" ) + " " + "UTC" ), "div" )
 
    ::OpenTagInline( "div" )
    ::AppendInline( I_( "Based on revision" ) + " " )
-   ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "tree/" + ::cRevision )
-   ::AppendInline( ::cRevision )
+   ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "tree/" + s_cRevision )
+   ::AppendInline( s_cRevision )
    ::CloseTagInline( "a" )
    ::CloseTag( "div" )
 
@@ -364,19 +384,27 @@ METHOD EndTOC() CLASS GenerateHTML
 METHOD BeginTOCItem( cName, cID ) CLASS GenerateHTML
 
    ::OpenTagInline( "li" )
-   ::OpenTagInline( "a", "href", "#" + SymbolToHTMLID( cID ) )
+   ::OpenTagInline( "a", "href", "#" + SymbolToHTMLID( cID ) )  // OK
    ::AppendInline( cName )
    ::CloseTag( "a" )
    ::OpenTag( "ul" )
 
    RETURN Self
 
-METHOD AddIndexItem( cName, cID ) CLASS GenerateHTML
+METHOD AddIndexItem( cName, cID, lRawID ) CLASS GenerateHTML
 
-   ::OpenTagInline( "a", "href", "#" + SymbolToHTMLID( cID ), "title", cName )
-   ::OpenTagInline( "code" )
-   ::AppendInline( cName )
-   ::CloseTagInline( "code" )
+   IF lRawID
+      cID := SymbolToHTMLID( cID )  // OK
+   ENDIF
+
+   ::OpenTagInline( "a", "href", "#" + cID, "title", cName )
+   IF NameIsCode( cName )
+      ::OpenTagInline( "code" )
+      ::AppendInline( cName,,, "NAME" )
+      ::CloseTagInline( "code" )
+   ELSE
+      ::AppendInline( cName,,, "NAME" )
+   ENDIF
    ::CloseTag( "a" )
 
    RETURN Self
@@ -385,7 +413,7 @@ METHOD BeginSection( cSection, cFilename, cID ) CLASS GenerateHTML
 
    LOCAL cH
 
-   cID := SymbolToHTMLID( hb_defaultValue( cID, cSection ) )
+   cID := SymbolToHTMLID( hb_defaultValue( cID, cSection ) )  // OK
 
    IF ::IsIndex()
       cH := "h" + hb_ntos( ::nDepth + 1 )
@@ -444,8 +472,8 @@ METHOD AddReference( hEntry, cReference, cSubReference ) CLASS GenerateHTML
    DO CASE
    CASE HB_ISHASH( hEntry )
       ::OpenTagInline( "div" )
-      ::OpenTagInline( "a", "href", ::TargetFilename + ::cExtension + "#" + hEntry[ "_filename" ] )
-      ::AppendInline( hEntry[ "NAME" ] )
+      ::OpenTagInline( "a", "href", ::TargetFilename + ::cExtension + "#" + hEntry[ "_id" ] )
+      ::AppendInline( hEntry[ "NAME" ],,, "NAME" )
       ::CloseTagInline( "a" )
       // ::OpenTagInline( "div", "class", "d-r" )
       IF ! Empty( hEntry[ "ONELINER" ] )
@@ -455,7 +483,7 @@ METHOD AddReference( hEntry, cReference, cSubReference ) CLASS GenerateHTML
       ::CloseTagInline( "div" )
    CASE HB_ISSTRING( cSubReference )
       ::OpenTagInline( "div" )
-      ::OpenTagInline( "a", "href", cReference + "#" + SymbolToHTMLID( cSubReference ) )
+      ::OpenTagInline( "a", "href", cReference + "#" + SymbolToHTMLID( cSubReference ) )  // OK
       ::AppendInline( hEntry )
       ::CloseTagInline( "a" )
       ::CloseTagInline( "div" )
@@ -472,17 +500,8 @@ METHOD AddReference( hEntry, cReference, cSubReference ) CLASS GenerateHTML
 METHOD AddEntry( hEntry ) CLASS GenerateHTML
 
    LOCAL item
-   LOCAL cEntry
+   LOCAL cEntry, nLine, cRedir
    LOCAL tmp
-
-   LOCAL hdr := { ;
-      { "❮/❯", I_( "Source code" ) }, ;
-      { "⌃",   I_( "Top" ) }, ;
-      { "☰",   I_( "Index" ) }, ;
-      { "∞",   I_( "Permalink" ) }, ;
-      { "✎",   I_( "Improve this doc" ) } }
-
-   LOCAL nContent := 2, nTitle := 3 - nContent
 
    ::Spacer()
    ::OpenTag( "section" )
@@ -490,52 +509,44 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
    FOR EACH item IN FieldIDList()
       IF item == "NAME"  // Mandatory section
          cEntry := hEntry[ "NAME" ]
-         IF nContent == 1
-            ::OpenTagInline( "h4", "class", "d-ebi" )
-         ELSE
-            ::OpenTagInline( "h4" )
-         ENDIF
-         IF "(" $ cEntry .OR. Upper( cEntry ) == cEntry  // guess if it's code
-            ::OpenTagInline( "code" ):AppendInline( cEntry ):CloseTagInline( "code" )
+         ::OpenTagInline( "h4" )
+         ::OpenTagInline( "a", "href", "#" + hEntry[ "_id" ], "class", "d-id", "id", hEntry[ "_id" ], "title", "∞" )
+         IF NameIsCode( cEntry )
+            ::OpenTagInline( "code" ):AppendInline( cEntry,,, item ):CloseTagInline( "code" )
+            ::CloseTagInline( "a" )
             /* Link to original source code if it could be automatically found based
                on doc source filename */
-            IF ! HB_ISNULL( tmp := SourceURL( ::cFilename, ::cRevision, hEntry[ "_sourcefile" ] ) )
-               ::OpenTagInline( "a", "href", tmp, ;
-                  "class", "d-so", ;
-                  "title", hdr[ 1 ][ nTitle ] )
-               ::AppendInline( hdr[ 1 ][ nContent ] )
+            IF ! hb_LeftEq( ::cFilename, "--cl" ) .AND. ;
+               ! HB_ISNULL( tmp := SourceURL( NameCanon( cEntry ), ::cFilename, hEntry[ "TEMPLATE" ], @nLine, @cRedir ) )
+               IF cRedir != NIL
+                  ::OpenTagInline( "code", "class", "d-so" )
+                  ::AppendInline( _RESULT_ARROW + hb_UChar( 160 ) + cRedir )
+                  ::CloseTagInline( "code" )
+               ENDIF
+               ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "blob/" + s_cRevision + "/" + tmp + iif( nLine != 0, "#L" + hb_ntos( nLine ), "" ), "class", "d-so", "title", tmp )
+               ::AppendInline( iif( hb_LeftEq( ::cFilename, "cl" ), I_( "Harbour implementation" ), I_( "Source code" ) ) )
                ::CloseTagInline( "a" )
             ENDIF
          ELSE
-            ::AppendInline( cEntry )
+            ::AppendInline( cEntry,,, item )
+            ::CloseTagInline( "a" )
          ENDIF
 
          ::OpenTagInline( "span", "class", "d-eb" )
 
-         ::OpenTagInline( "a", "href", "#", ;
-            "title", hdr[ 2 ][ nTitle ] )
-         ::AppendInline( hdr[ 2 ][ nContent ] )
+         ::OpenTagInline( "a", "href", "#", "title", I_( "Top" ), "class", "d-ebi" )
+         ::AppendInline( "⌃" )
          ::CloseTagInline( "a" )
 
          ::AppendInline( hb_UChar( 160 ) + "|" + hb_UChar( 160 ) )
-         ::OpenTagInline( "a", "href", "index.html", ;
-            "title", hdr[ 3 ][ nTitle ] )
-         ::AppendInline( hdr[ 3 ][ nContent ] )
-         ::CloseTagInline( "a" )
-
-         ::AppendInline( hb_UChar( 160 ) + "|" + hb_UChar( 160 ) )
-         ::OpenTagInline( "a", "href", "#" + hEntry[ "_filename" ], ;
-            "class", "d-id", ;
-            "id", hEntry[ "_filename" ], ;
-            "title", hdr[ 4 ][ nTitle ] )
-         ::AppendInline( hdr[ 4 ][ nContent ] )
+         ::OpenTagInline( "a", "href", "index.html", "title", I_( "Index" ), "class", "d-ebi" )
+         ::AppendInline( "☰" )
          ::CloseTagInline( "a" )
 
          IF ! hb_LeftEq( ::cFilename, "cl" )
             ::AppendInline( hb_UChar( 160 ) + "|" + hb_UChar( 160 ) )
-            ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "edit/master/" + SubStr( hEntry[ "_sourcefile" ], Len( hbdoc_dir_in() ) + 1 ), ;
-               "title", hdr[ 5 ][ nTitle ] )
-            ::AppendInline( hdr[ 5 ][ nContent ] )
+            ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "edit/master/" + hEntry[ "_sourcefile" ] )
+            ::AppendInline( I_( "Improve this doc" ) )
             ::CloseTagInline( "a" )
          ENDIF
 
@@ -543,7 +554,7 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
 
          ::CloseTag( "h4" )
       ELSEIF IsField( hEntry, item ) .AND. IsOutput( hEntry, item ) .AND. ! HB_ISNULL( hEntry[ item ] )
-         ::WriteEntry( item, hEntry[ item ], IsPreformatted( hEntry, item ) )
+         ::WriteEntry( item, hEntry[ item ], IsPreformatted( hEntry, item ), hEntry[ "_id" ] )
       ENDIF
    NEXT
 
@@ -552,29 +563,28 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
    RETURN Self
 
 /* Try to locate original source code based on the source filename of the doc. */
-STATIC FUNCTION SourceURL( cComponent, cRevision, cFileName )
+STATIC FUNCTION SourceURL( cEntry, cComponent, cTemplate, /* @ */ nLine, /* @ */ cRedir )
 
-   LOCAL cExt, cDir, tmp
+   LOCAL tmp
 
-   cFileName := hb_FNameName( cFileName )
+   IF cTemplate == "Command" .AND. ;
+      ! NameIsOperator( cEntry ) .AND. ;
+      ! NameIsDirective( cEntry )
+      nLine := 0
+      cRedir := NIL
+      RETURN "include/std.ch"
+   ENDIF
 
-   FOR EACH cExt IN { ".c", ".prg" }
+   cComponent := hb_HGetDef( { "clc53" => "harbour", "clct3" => "hbct" }, cComponent, cComponent )
 
-      FOR EACH cDir IN iif( cComponent == "harbour", ;
-         { "src/rtl", ;
-           "src/vm", ;
-           "src/rdd" }, ;
-         { "contrib/" + cComponent } )
-
-         IF hb_FileExists( hbdoc_RootDir() + ( tmp := hb_DirSepToOS( cDir + "/" ) + cFileName + cExt ) )
-            RETURN hb_Version( HB_VERSION_URL_BASE ) + "blob/" + cRevision + "/" + tmp
-         ENDIF
-      NEXT
-   NEXT
+   IF hb_BRight( cEntry, 2 ) == "()" .AND. ;
+      ! HB_ISNULL( tmp := hbdoc_SymbolSource( iif( cComponent == "harbour", "src", "contrib/" + cComponent ), hb_StrShrink( cEntry, 2 ), @nLine, @cRedir ) )
+      RETURN tmp
+   ENDIF
 
    RETURN ""
 
-METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTML
+METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS GenerateHTML
 
    STATIC s_class := { ;
       "NAME"     => "d-na", ;
@@ -583,15 +593,17 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
       "EXAMPLES" => "d-ex", ;
       "TESTS"    => "d-te" }
 
-   STATIC s_cAddP := "DESCRIPTION|"
+   STATIC s_cAddP := "DESCRIPTION|NOTES|"
 
    LOCAL cTagClass
    LOCAL cCaption
    LOCAL lFirst
    LOCAL tmp, tmp1
    LOCAL cLine
-   LOCAL lCode, lTable, lTablePrev, cHeaderClass
-   LOCAL cFile, cAnchor
+   LOCAL lCode, lTable, lTablePrev, cHeaderClass, cComponent
+   LOCAL cFile, cAnchor, cTitle, cLangOK
+   LOCAL cNameCanon
+   LOCAL aSEEALSO
 
    IF ! Empty( cContent )
 
@@ -659,26 +671,65 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
 
          ::OpenTagInline( "div", "class", cTagClass )
          lFirst := .T.
-         FOR EACH tmp IN hb_ATokens( cContent, "," )
+
+         FOR EACH tmp IN aSEEALSO := hb_ATokens( cContent, "," )
             tmp := AllTrim( tmp )
+         NEXT
+
+         FOR EACH tmp IN ASort( aSEEALSO )
             IF ! HB_ISNULL( tmp )
                IF lFirst
                   lFirst := .F.
                ELSE
                   ::Space()
                ENDIF
+               cNameCanon := NameCanon( tmp )
+               IF cNameCanon $ ::hNameIDM[ cLangOK := ::cLang ] .OR. ;
+                  iif( ::cLang == "en", .F., cNameCanon $ ::hNameIDM[ cLangOK := "en" ] )
 
-               cFile := ""
-               IF tmp $ ::hNameID
-                  cAnchor := ::hNameID[ tmp ][ "id" ]
-                  IF !( ::cFilename == ::hNameID[ tmp ][ "component" ] )
-                     cFile := ::hNameID[ tmp ][ "component" ] + ".html"
+                  cFile := ""
+                  cAnchor := cTitle := cComponent := NIL
+                  /* search order to resolve 'see also' links: self, ... */
+                  FOR EACH tmp1 IN { ::cFilename, "harbour", "clc53", "hbct", "clct3", hb_HKeyAt( ::hNameIDM[ cLangOK ][ cNameCanon ], 1 ) }
+                     IF tmp1 $ ::hNameIDM[ cLangOK ][ cNameCanon ]
+                        cAnchor := ::hNameIDM[ cLangOK ][ cNameCanon ][ tmp1 ][ "id" ]
+                        IF ! tmp1:__enumIsFirst()
+                           cFile := GetLangDir( ::cLang, cLangOK ) + tmp1 + ".html"
+                           cTitle := iif( cLangOK == ::cLang, tmp1, hb_StrFormat( I_( "%1$s (%2$s)" ), tmp1, cLangOK ) )
+                        ENDIF
+                        IF "aliasof" $ ::hNameIDM[ cLangOK ][ cNameCanon ][ tmp1 ]
+                           tmp := ::hNameIDM[ cLangOK ][ cNameCanon ][ tmp1 ][ "aliasof" ]
+                        ENDIF
+                        cComponent := tmp1
+                        EXIT
+                     ENDIF
+                  NEXT
+                  IF Len( ::hNameIDM[ cLangOK ][ cNameCanon ] ) > 1
+                     ::OpenTagInline( "nav", "class", "dropdown" )
+                  ENDIF
+                  ::OpenTagInline( "code" )
+                  IF cTitle != NIL
+                     ::OpenTagInline( "a", "href", cFile + "#" + cAnchor, "title", cTitle )
+                  ELSE
+                     ::OpenTagInline( "a", "href", cFile + "#" + cAnchor )
+                  ENDIF
+                  ::AppendInline( tmp,,, "NAME" ):CloseTagInline( "a" ):CloseTagInline( "code" )
+                  IF Len( ::hNameIDM[ cLangOK ][ cNameCanon ] ) > 1
+                     ::OpenTagInline( "nav", "class", "dropdown-content" + " " + "d-dd" )
+                     FOR EACH tmp1 IN ASort( hb_HKeys( ::hNameIDM[ cLangOK ][ cNameCanon ] ) )
+                        IF ! tmp1 == cComponent
+                           GetComponentInfo( tmp1,, @cCaption )
+                           ::OpenTagInline( "a", "href", tmp1 + ".html" + "#" + ::hNameIDM[ cLangOK ][ cNameCanon ][ tmp1 ][ "id" ] )
+                           ::AppendInline( cCaption ):CloseTagInline( "a" )
+                        ENDIF
+                     NEXT
+                     ::CloseTagInline( "nav" )
+                     ::CloseTagInline( "nav" )
                   ENDIF
                ELSE
-                  /* TOFIX: Do not create wrong link if the target entry cannot be found. */
-                  cAnchor := Lower( Parse( tmp, "(" ) )
+//                ? "broken 'see also' link:", ::cFilename, "|" + cNameCanon + "|"
+                  ::OpenTagInline( "code" ):AppendInline( tmp,,, "NAME" ):CloseTagInline( "code" )
                ENDIF
-               ::OpenTagInline( "code" ):OpenTagInline( "a", "href", cFile + "#" + SymbolToHTMLID( cAnchor ) ):AppendInline( tmp ):CloseTagInline( "a" ):CloseTagInline( "code" )
             ENDIF
          NEXT
          ::CloseTag( "div" )
@@ -701,7 +752,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
       CASE ! Chr( 10 ) $ cContent
 
          ::OpenTagInline( "div", "class", cTagClass )
-         ::AppendInline( cContent,, .F., cField )
+         ::AppendInline( cContent,, .F., cField, cID )
          ::CloseTag( "div" )
 
       OTHERWISE
@@ -771,7 +822,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted ) CLASS GenerateHTM
                IF cField $ s_cAddP
                   ::OpenTagInline( "p" )
                ENDIF
-               ::AppendInline( iif( lTable, StrTran( tmp1, " ", hb_UChar( 160 ) ), tmp1 ),, .F., cField )
+               ::AppendInline( iif( lTable, StrTran( tmp1, " ", hb_UChar( 160 ) ), tmp1 ),, .F., cField, cID )
             ENDCASE
             IF lCode
                ::CloseTagInline( "code" ):CloseTag( "pre" )
@@ -851,8 +902,6 @@ METHOD CloseTag( cText ) CLASS GenerateHTML
 
    RETURN Self
 
-#define _RESULT_ARROW  "→"
-
 STATIC FUNCTION StrSYNTAX( cString )
 
    STATIC s_html := { ;
@@ -874,7 +923,7 @@ STATIC FUNCTION StrEsc( cString )
 STATIC FUNCTION MDSpace( cChar )
    RETURN Empty( cChar ) .OR. cChar $ ".,"
 
-METHOD AppendInline( cText, cFormat, lCode, cField ) CLASS GenerateHTML
+METHOD AppendInline( cText, cFormat, lCode, cField, cID ) CLASS GenerateHTML
 
    LOCAL idx
 
@@ -882,10 +931,13 @@ METHOD AppendInline( cText, cFormat, lCode, cField ) CLASS GenerateHTML
    LOCAL lST, lEM, lPR, cPR
    LOCAL nST, nEM, nPR
    LOCAL cdp
+   LOCAL lNAME
 
    IF ! HB_ISNULL( cText )
 
       hb_default( @lCode, .F. )
+
+      lNAME := ( cField == "NAME" )
 
       IF lCode
          cText := StrEsc( cText )
@@ -925,7 +977,7 @@ METHOD AppendInline( cText, cFormat, lCode, cField ) CLASS GenerateHTML
                tmp1 := SubStr( cText, tmp + 1, tmp1 - tmp - 1 )
                tmp += Len( tmp1 ) + 1
                cChar := "<a href=" + '"' + tmp1 + '"' + ">" + tmp1 + "</a>"
-            CASE ! lPR .AND. cChar == "*" .AND. ! lEM .AND. ;
+            CASE ! lPR .AND. cChar == "*" .AND. ! cNext == "*" .AND. ! lEM .AND. ;
                  iif( lST, ! MDSpace( cPrev ) .AND. MDSpace( cNext ), MDSpace( cPrev ) .AND. ! MDSpace( cNext ) )
                lST := ! lST
                IF lST
@@ -946,8 +998,8 @@ METHOD AppendInline( cText, cFormat, lCode, cField ) CLASS GenerateHTML
                cChar := CODEINLINE + SubStr( cText, tmp, 3 ) + "</code>"
                tmp += 2
             CASE cChar == "`" .OR. ;
-                 ( cChar == "<" .AND. !( Empty( cNext ) .OR. cNext $ "=" ) .AND. ! lPR ) .OR. ;
-                 ( cChar == ">" .AND.                                              lPR .AND. cPR $ "<#" )
+                 ( cChar == "<" .AND. !( Empty( cNext ) .OR. cNext $ ">=" ) .AND. ! lPR ) .OR. ;
+                 ( cChar == ">" .AND.                                               lPR .AND. cPR $ "<#" )
                lPR := ! lPR
                IF lPR
                   nPR := Len( cOut ) + 1
@@ -989,7 +1041,7 @@ METHOD AppendInline( cText, cFormat, lCode, cField ) CLASS GenerateHTML
                ( SubStr( cText, tmp, 3 ) == "==>" .OR. SubStr( cText, tmp, 3 ) == "-->" )
                tmp += 2
                cChar := _RESULT_ARROW
-            CASE ! lPR .AND. SubStr( cText, tmp, 2 ) == "--"
+            CASE ! lPR .AND. SubStr( cText, tmp, 2 ) == "--" .AND. ! lNAME
                tmp += 1
                cChar := "—"  // &emdash;
             CASE cChar == "&"
@@ -1013,7 +1065,7 @@ METHOD AppendInline( cText, cFormat, lCode, cField ) CLASS GenerateHTML
             cOut := Stuff( cOut, nST, Len( "<strong>" ), "*" )
          ENDIF
          IF lEM
-            cOut := Stuff( cOut, nEM, Len( "<i>" ), "_" )
+            cOut := Stuff( cOut, nEM, Len( "<em>" ), "_" )
          ENDIF
 
          cText := cOut
@@ -1021,8 +1073,8 @@ METHOD AppendInline( cText, cFormat, lCode, cField ) CLASS GenerateHTML
          hb_cdpSelect( cdp )
       ENDIF
 
-      IF !( "|" + hb_defaultValue( cField, "" ) + "|" $ "||ONELINER|" )
-         cText := AutoLink( ::hHBX, cText, ::cFilename, ::cRevision, ::hNameID, lCode )
+      IF ! "|" + hb_defaultValue( cField, "" ) + "|" $ "||NAME|ONELINER|"
+         cText := AutoLink( cText, ::cFilename, s_cRevision, ::hNameIDM, ::cLang, lCode, cID )
 #if 0
          IF ! lCode .AND. "( " $ cText
             FOR EACH tmp1 IN en_hb_regexAll( "([a-zA-Z0-9]+)\( ", cText,,,,, .F. )
@@ -1047,9 +1099,9 @@ METHOD AppendInline( cText, cFormat, lCode, cField ) CLASS GenerateHTML
 
    RETURN Self
 
-METHOD Append( cText, cFormat, lCode, cField ) CLASS GenerateHTML
+METHOD Append( cText, cFormat, lCode, cField, cID ) CLASS GenerateHTML
 
-   ::AppendInline( cText, cFormat, lCode, cField )
+   ::AppendInline( cText, cFormat, lCode, cField, cID )
    ::cFile += hb_eol()
 
    RETURN Self
@@ -1074,34 +1126,50 @@ METHOD RecreateStyleDocument( cStyleFile ) CLASS GenerateHTML
 
 STATIC FUNCTION SymbolToHTMLID( cID )
 
+   STATIC s_conv := { ;
+      "%" => "pc", ;
+      "#" => "ha", ;
+      "<" => "lt", ;
+      ">" => "gt", ;
+      "=" => "eq", ;
+      "*" => "ml", ;
+      "-" => "mi", ;
+      "+" => "pl", ;
+      "/" => "sl", ;
+      "$" => "dl", ;
+      "&" => "et", ;
+      "(" => "bo", ;
+      ")" => "bc", ;
+      "[" => "so", ;
+      "]" => "sc", ;
+      "{" => "co", ;
+      "}" => "cc", ;
+      ":" => "co", ;
+      "!" => "no", ;
+      "?" => "qu", ;
+      "|" => "or", ;
+      "@" => "at", ;
+      " " => "-" }
+
    IF Right( cID, 1 ) == "*" .AND. Len( cID ) > 1
       cID := hb_StrShrink( cID )
    ENDIF
 
-   RETURN hb_StrReplace( cID, { ;
-      "%" => "pct", ;
-      "#" => "-", ;
-      "<" => "lt", ;
-      ">" => "gt", ;
-      "=" => "eq", ;
-      "*" => "as", ;
-      "$" => "do", ;
-      "?" => "qe", ;
-      "|" => "vl", ;
-      " " => "-" } )
-
-#define R_( x )  ( x )
+   RETURN hb_StrReplace( cID, s_conv )
 
 /* Based on FixFuncCase() in hbmk2 */
-STATIC FUNCTION AutoLink( hAll, cFile, cComponent, cRevision, hNameID, lCodeAlready )
+STATIC FUNCTION AutoLink( cFile, cComponent, cRevision, hNameIDM, cLang, lCodeAlready, cID )
 
    LOCAL match
    LOCAL cProper
    LOCAL cName, lFound
-   LOCAL cTag, cAnchor
+   LOCAL cTag, cAnchor, cTitle, cLangOK
    LOCAL nShift
+   LOCAL tmp1
 
-   IF !( cComponent == "index" )
+   HB_SYMBOL_UNUSED( cLang )
+
+   IF ! cComponent == "index"
 
       #define _MATCH_cStr    1
       #define _MATCH_nStart  2
@@ -1110,21 +1178,31 @@ STATIC FUNCTION AutoLink( hAll, cFile, cComponent, cRevision, hNameID, lCodeAlre
       IF ! lCodeAlready
          nShift := 0
          FOR EACH match IN en_hb_regexAll( R_( "([A-Za-z] |[^A-Za-z_:]|^)([A-Za-z_][A-Za-z0-9_]+\(\))" ), cFile,,,,, .F. )
-            IF Len( match[ 2 ][ _MATCH_cStr ] ) != 2 .OR. !( Left( match[ 2 ][ _MATCH_cStr ], 1 ) $ "D" /* "METHOD" */ )
-               cProper := ProperCase( hAll, cName := hb_StrShrink( match[ 3 ][ _MATCH_cStr ], 2 ), @lFound ) + "()"
-               IF lFound
-                  IF hb_FNameName( hAll[ cName ] ) == cComponent
-                     cTag := ""
+            IF Len( match[ 2 ][ _MATCH_cStr ] ) != 2 .OR. ! Left( match[ 2 ][ _MATCH_cStr ], 1 ) $ "D" /* "METHOD" */
+               cProper := ProperCase( hb_StrShrink( match[ 3 ][ _MATCH_cStr ], 2 ), @lFound ) + "()"
+               IF cProper $ hNameIDM[ cLangOK := cLang ] .OR. ;
+                  iif( cLang == "en", .F., cProper $ hNameIDM[ cLangOK := "en" ] )
+
+                  cTag := cTitle := ""
+                  cAnchor := NIL
+                  /* search order to resolve 'see also' links: self, ... */
+                  FOR EACH tmp1 IN { cComponent, "harbour", "clc53", "hbct", "clct3", hb_HKeyAt( hNameIDM[ cLangOK ][ cProper ], 1 ) }
+                     IF tmp1 $ hNameIDM[ cLangOK ][ cProper ]
+                        cAnchor := hNameIDM[ cLangOK ][ cProper ][ tmp1 ][ "id" ]
+                        IF ! tmp1:__enumIsFirst()
+                           cTag := GetLangDir( cLang, cLangOK ) + tmp1 + ".html"
+                           cTitle := " " + "title=" + '"' + iif( cLangOK == cLang, tmp1, hb_StrFormat( I_( "%1$s (%2$s)" ), tmp1, cLangOK ) ) + '"'
+                        ENDIF
+                        EXIT
+                     ENDIF
+                  NEXT
+                  IF cID != NIL .AND. cAnchor == cID  /* do not link to self */
+                     cTag := cProper
                   ELSE
-                     cTag := hb_FNameName( hAll[ cName ] ) + ".html"
+                     cTag := "<a href=" + '"' + cTag + "#" + cAnchor + '"' + cTitle + ">" + cProper + "</a>"
                   ENDIF
-                  IF cProper $ hNameID
-                     cAnchor := hNameID[ cProper ][ "id" ]
-                  ELSE
-                     cAnchor := Lower( cName )
-                  ENDIF
-                  cTag := "<a href=" + '"' + cTag + "#" + SymbolToHTMLID( cAnchor ) + '"' + ">" + cProper + "</a>"
                ELSE
+//                ? "broken 'autodetect' link:", cLangOK, cComponent, "|" + cProper + "|"
                   cTag := cProper
                ENDIF
                cTag := CODEINLINE + cTag + "</code>"
@@ -1135,9 +1213,9 @@ STATIC FUNCTION AutoLink( hAll, cFile, cComponent, cRevision, hNameID, lCodeAlre
       ENDIF
 
       nShift := 0
-      FOR EACH match IN en_hb_regexAll( R_( " ([A-Za-z0-9_/]+\.[a-z]{1,3})([^A-Za-z0-9]|$)" ), cFile,,,,, .F. )
+      FOR EACH match IN en_hb_regexAll( R_( " ([A-Za-z0-9_/]+\.[A-Za-z]{1,3})([^A-Za-z0-9]|$)" ), cFile,,,,, .F. )
          cName := match[ 2 ][ _MATCH_cStr ]
-         cTag := "|" + hb_FNameExt( cName ) + "|"
+         cTag := "|" + hb_asciiLower( hb_FNameExt( cName ) ) + "|"
          IF hb_BLen( cTag ) >= 2 + 3 .OR. cTag $ "|.c|.h|"
             IF cTag $ "|.ch|.h|.c|.txt|.prg|"
                IF cComponent == "harbour"
@@ -1146,12 +1224,13 @@ STATIC FUNCTION AutoLink( hAll, cFile, cComponent, cRevision, hNameID, lCodeAlre
                   ELSE
                      cTag := ""
                   ENDIF
-                  cTag += cName
+                  cTag += hb_asciiLower( cName )
                ELSE
-                  cTag := "contrib/" + cComponent + "/" + cName
+                  cTag := "contrib/" + iif( cComponent == "clct3", "hbct", cComponent ) + "/" + hb_asciiLower( cName )
                ENDIF
-               IF hb_FileExists( hbdoc_RootDir() + cTag ) .OR. ;
-                  hb_FileExists( hbdoc_RootDir() + ( cTag := "include/" + cName ) )
+               IF hb_FileExists( hbdoc_dir_in() + cTag ) .OR. ;
+                  hb_FileExists( hbdoc_dir_in() + ( cTag := "include/" + hb_asciiLower( cName ) ) )
+                  cName := hb_asciiLower( cName )
 #if 0
                   /* link to the most-recent version */
                   cTag := "<a href=" + '"' + hb_Version( HB_VERSION_URL_BASE ) + "tree/master/" + Lower( cTag ) + '"' + ">" + cName + "</a>"
@@ -1174,12 +1253,20 @@ STATIC FUNCTION AutoLink( hAll, cFile, cComponent, cRevision, hNameID, lCodeAlre
 
       IF ! lCodeAlready
          nShift := 0
-         FOR EACH match IN en_hb_regexAll( R_( "( |^)([A-Z_][A-Z0-9_]+)([^A-Z0-9_]|$)" ), cFile,,,,, .F. )
-            cName := match[ 3 ][ _MATCH_cStr ]
-            IF ( hb_BLen( cName ) > 3 .OR. "|" + cName + "|" $ "|ON|OFF|SET|USE|ZAP|SAY|RUN|NUL|NIL|ALL|TO|GET|VAR|SUM|DIR|DO|FOR|NEW|" ) .AND. ;
-               !( "|" + cName + "|" $ "|ANSI|ASCII|JPEG|WBMP|NOTE|INET|TODO|CMOS|ATTENTION|DOUBLE|NUMBER|DATE|CHARACTER|LOGICAL|WARNING|TRUE|FALSE|PLUS|" )
+         FOR EACH match IN en_hb_regexAll( sc_cCode, cFile,,,,, .F. )
+            #define HIT  3
+            cName := match[ HIT ][ _MATCH_cStr ]
+            IF ( hb_BLen( cName ) > 3 .OR. "|" + cName + "|" $ "|ON|OFF|SET|USE|ZAP|SAY|RUN|NUL|NIL|ALL|IF|GO|TO|GET|VAR|SUM|DIR|DO|FOR|NEW|KEY|" ) .AND. ;
+               ! "|" + cName + "|" $ "|ANSI|ASCII|JPEG|WBMP|NOTE|INET|TODO|CMOS|ATTENTION|DOUBLE|NUMBER|DATE|CHARACTER|LOGICAL|WARNING|TRUE|FALSE|PLUS|NETBIOS|IPX|SPX|IPX/SPX|III PLUS|I/O|CR/LF|CCITT|ISDN|X.25|BIOS|UDF|IRQ|"
+#if 0
+               IF hb_LeftEq( cComponent, "harbour" )
+                  ? "|" + cName + "|"
+               ENDIF
+               cTag := "<code style=" + '"' + "background-color: #f00;" + '"' + ">" + cName + "</code>"
+#else
                cTag := CODEINLINE + cName + "</code>"
-               cFile := hb_BLeft( cFile, match[ 3 ][ _MATCH_nStart ] - 1 + nShift ) + cTag + hb_BSubStr( cFile, match[ 3 ][ _MATCH_nEnd ] + 1 + nShift )
+#endif
+               cFile := hb_BLeft( cFile, match[ HIT ][ _MATCH_nStart ] - 1 + nShift ) + cTag + hb_BSubStr( cFile, match[ HIT ][ _MATCH_nEnd ] + 1 + nShift )
                nShift += Len( cTag ) - Len( cName )
             ENDIF
          NEXT
@@ -1197,5 +1284,39 @@ STATIC FUNCTION en_hb_regexAll( ... )
 
    RETURN aMatch
 
-STATIC FUNCTION ProperCase( hAll, cName, /* @ */ lFound )
-   RETURN iif( lFound := ( cName $ hAll ), hb_HKeyAt( hAll, hb_HPos( hAll, cName ) ), cName )
+/*
+abcd ASCII)
+abcd @...SAY abcd
+abcd SET TO abcd
+abcd OFF abcd
+abcd SET DELIM OFF
+abcd SET DELIM OFF abcd
+abcd ASCII 12)
+dkdd GET CLEAR (B) abcd
+abcd dCASE BBB PLUS abcd
+abcd OFF.
+abcd OFF, abcd
+abcd GET's abcd
+abcd MESSAGEs abcd
+abcd ABC_VIDEO_GPU_640_480_16 abcd
+abcd TEXT...ENDTEXT abcd
+abcd @..GET abcd
+abcd HELLO abcd
+abcd MIRROR. Abcd
+abcd A HELLO abcd
+abcd .AND. abcd
+abcd .T. abcd
+abcd NIX Error. Abcd
+abcd (MEMVAR->). abcd
+abcd (MEMVAR-&gt;). abcd
+abcd MEMVAR-&gt; abce
+abcd MEMVAR-> Abcd
+abcd EF.CH abcd
+abcd /EXAMPLE.PRG abcd
+abcd PROD30\INCLUDE abcde
+abcd .BIN abcd
+abcd 100 abcd
+abcd HALLO() abcd
+abcd TO abcd
+abcd AB-Chopper abcd
+*/

@@ -22,8 +22,8 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw__MakeDlgTemplate( Dlg, aItens1, aItens2, aItens3, aItens4, aItens5,
-      aItens6, aItens7, aItens8, aItens9, aItens10 )
+      wvw__MakeDlgTemplate( <aDlg>, <aItens1>, <aItens2>, <aItens3>, <aItens4>, <aItens5>,
+      <aItens6>, <aItens7>, <aItens8>, <aItens9>, <aItens10> )
    $ARGUMENTS$
       <aDlg> <aItens1> <aItens2> <aItens3> <aItens4> <aItens5> <aItens6> <aItens7>
       <aItens8> <aItens9> <aItens10>
@@ -46,10 +46,10 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_AddRows( nWinNum, nRows )
+      wvw_AddRows( <nWinNum>, <nRows> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nRows> Number of lines to
-      add or reduce (if nRows < 0).
+      add or reduce (if <nRows> < 0).
    $DESCRIPTION$
       Adds or reduces lines from window. The new lines will be colored from column
       zero color, from prior line. There's no checking to determine if the window is
@@ -72,13 +72,13 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_AppendMenu( hMenu, nFlags, nMenuItemId, cCaption )
+      wvw_AppendMenu( <hMenu>, <nFlags>, <nMenuItemId>, <cCaption> )
    $ARGUMENTS$
       <hMenu> Identifies the menu to be changed. <nFlags> Specifies flags to control
       the appearance and behavior of the new menu item. This parameter can be a
       combination of values (all flags can be viewed in winuser.ch file).
       <nMenuItemId> Specifies either the identifier of the new menu item or, if the
-      uFlags parameter is set to MF_POPUP, the handle to the drop-down menu or
+      <uFlags> parameter is set to MF_POPUP, the handle to the drop-down menu or
       submenu. <cCaption> Specifies the string content of the new menu item or full
       path to a bitmap to the new menu item.
    $DESCRIPTION$
@@ -101,7 +101,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_cbAddString( nHandleDialog, nIDComboBox, cItem )
+      wvw_cbAddString( <nHandleDialog>, <nIDComboBox>, <cItem> )
    $ARGUMENTS$
       <nHandleDialog> Dialog handle of window. <nIdComboBox> ID of Combobox. <cItem>
       Item to be included in Combobox.
@@ -124,8 +124,8 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_cbCreate( nWinNum, nTop, nLeft, nWidth, aText, bBlock,
-      nListLines, nReserved, nKbdType, aOffset )
+      wvw_cbCreate( <nWinNum>, <nTop>, <nLeft>, <nWidth>, <aText>, <bBlock>,
+      <nListLines>, <nReserved>, <nKbdType>, <aOffset> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nTop>, <nLeft>
       Coordinates of combobox. <nWidth> Width of combobox. <aText> Array with all
@@ -171,7 +171,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_cbDestroy( nWinNum, nCBId )
+      wvw_cbDestroy( <nWinNum>, <nCBId> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nCBId> ID of Combobox.
    $DESCRIPTION$
@@ -193,7 +193,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_cbEnable( nWinNum, nCBId, lEnable )
+      wvw_cbEnable( <nWinNum>, <nCBId>, <lEnable> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nCBId> ID of Combobox.
       <lEnable> Enable (.T.) or disable (.F.) combobox button in current window.
@@ -218,7 +218,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_cbFindString( nWinNum, nCBId, cString )
+      wvw_cbFindString( <nWinNum>, <nCBId>, <cString> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nCBId> ID of combobox.
       <cString> String to find.
@@ -226,7 +226,7 @@
       Find index of string in combobox in current window. This function is case
       insensitive.
    $RETURNS$
-      Index of string, or ­1 if failed (or can't find).
+      Index of string, or -1 if failed (or can't find).
    $PLATFORMS$
       Windows
    $END$
@@ -242,7 +242,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_cbGetCurText( nWinNum, nCBId )
+      wvw_cbGetCurText( <nWinNum>, <nCBId> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nCBId> ID of combobox.
    $DESCRIPTION$
@@ -264,13 +264,13 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_cbGetIndex( nWinNum, nCBId )
+      wvw_cbGetIndex( <nWinNum>, <nCBId> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nCBId> ID of combobox.
    $DESCRIPTION$
       Get current selection in combobox (start from zero).
    $RETURNS$
-      Current position in combobox or ­1 if failed.
+      Current position in combobox or -1 if failed.
    $PLATFORMS$
       Windows
    $END$
@@ -286,7 +286,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_cbIsDropped( nWinNum, nCBId )
+      wvw_cbIsDropped( <nWinNum>, <nCBId> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nCBId> ID of combobox.
    $DESCRIPTION$
@@ -309,7 +309,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_cbIsFocused( nWinNum, nCBId )
+      wvw_cbIsFocused( <nWinNum>, <nCBId> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nCBId> ID of combobox.
    $DESCRIPTION$
@@ -331,7 +331,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_cbSetCodeblock( nWinNum, nCBId, bBlock )
+      wvw_cbSetCodeblock( <nWinNum>, <nCBId>, <bBlock> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nCBId> ID of combobox.
       <bBlock> New code block to assign to combobox.
@@ -354,10 +354,10 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_cbSetCurSel( nHandleDialog, nIDCombobox, nIndex )
+      wvw_cbSetCurSel( <nHandleDialog>, <nIDCombobox>, <nIndex> )
    $ARGUMENTS$
       <nHandleDialog> Handle of window dialog. <nIDCombobox> ID of combobox.
-      <nIndex> Index of item (start from zero). If ­1, remove current selection
+      <nIndex> Index of item (start from zero). If 1, remove current selection
       and clean edit control of combobox.
    $DESCRIPTION$
       Select na item of combobox list.
@@ -378,8 +378,8 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_cbSetFont( nWinNum, cFontFace, nHeight, nWidth, nWeight,
-      nQuality, lItalic, lUnderline, lStrikeout )
+      wvw_cbSetFont( <nWinNum>, <cFontFace>, <nHeight>, <nWidth>, <nWeight>,
+      <nQuality>, <lItalic>, <lUnderline>, <lStrikeout> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <cFontName> Name of the
       font. <nHeight> Height of the font's character. <nWidth> Specifies average
@@ -408,7 +408,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_cbSetIndex( nWinNum, nCBId, nIndex )
+      wvw_cbSetIndex( <nWinNum>, <nCBId>, <nIndex> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nCBId> ID of combobox.
       <nIndex> Item index on combobox (start from 0).
@@ -431,7 +431,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_CenterWindow( nWinNum, lCenter, lPaint )
+      wvw_CenterWindow( <nWinNum>, <lCenter>, <lPaint> )
 
       See function wvw_SetWindowCentre().
    $END$
@@ -447,7 +447,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_ChooseColor( nRGBInit, aRGB16, nFlags )
+      wvw_ChooseColor( <nRGBInit>, <aRGB16>, <nFlags> )
    $ARGUMENTS$
       <nRGBInit> Initial color. <aRGB16> Array of 16 elements, with color index.
       Default is an array with color set of button. <nFlags> A set of bit flags that
@@ -474,7 +474,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_ChooseFont( cFontName, nHeight, nWidth, nWeight, nQuality, lItalic, lUnderline, lStrikeout )
+      wvw_ChooseFont( <cFontName>, <nHeight>, <nWidth>, <nWeight>, <nQuality>, <lItalic>, <lUnderline>, <lStrikeout> )
    $ARGUMENTS$
       <cFontName> Name of the font. <nHeight> Height of the font's character.
       <nWidth> Specifies average width of character in the font. <nWeight> Specifies
@@ -502,7 +502,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_ClientToScreen( nWinNum, nRow, nCol )
+      wvw_ClientToScreen( <nWinNum>, <nRow>, <nCol> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nRow>, <nCol> Row/Column
       in current windows to be converted.
@@ -525,10 +525,10 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_CreateDialogDynamic(cDlgTemplate|nResource, lHandle,
-      cDlgProc|bDlgProc|nDlgProc, nFlag)
+      wvw_CreateDialogDynamic(cDlgTemplate|<nResource>, <lHandle>,
+      <cDlgProc>|<bDlgProc>|<nDlgProc>, nFlag)
    $ARGUMENTS$
-      <cDlgTemplate|nResource> <lHandle> <cDlgProc|bDlgProc|nDlgProc> <nFlag>
+      <cDlgTemplate|nResource> <lHandle> <cDlgProc|<bDlgProc>|nDlgProc> <nFlag>
    $DESCRIPTION$
       Creates a dialog window dynamically.
    $RETURNS$
@@ -548,10 +548,10 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_CreateDialogModal( cDialog|nResource|cDlgTemplate, NIL,
-      bDlgProc|cDlgProc, nFlag, nHandle )
+      wvw_CreateDialogModal( <cDialog>|<nResource>|<cDlgTemplate>, NIL,
+      <bDlgProc>|<cDlgProc>, <nFlag>, <nHandle> )
    $ARGUMENTS$
-      <cDialog|nResource|cDlgTemplate> <bDlgProc|cDlgProc> <nFlag> <nHandle>
+      <cDialog|<nResource>|cDlgTemplate> <bDlgProc|cDlgProc> <nFlag> <nHandle>
    $DESCRIPTION$
       Creates a modal dialog window.
    $RETURNS$
@@ -571,8 +571,8 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_CreateFont(cFontFace, nHeight, nWidth, nWeight, lItalic,
-      lUnderline, lStrikeout, nCharset, nQuality, nEscapement )
+      wvw_CreateFont(cFontFace, <nHeight>, <nWidth>, <nWeight>, <lItalic>,
+      <lUnderline>, <lStrikeout>, <nCharset>, <nQuality>, <nEscapement> )
    $ARGUMENTS$
       <cFontFace> Name of the font. <nHeight> Height of the font's character.
       <nWidth> Specifies average width of character in the font. <nWeight> Specifies
@@ -651,8 +651,8 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_cxCreate( nWinNum, nTop, nLeft, nBottom, nRight, cText,
-      cImage/nImage, bBlock, aOffset, nStretchBitmap, lMap3DColors )
+      wvw_cxCreate( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>, <cText>,
+      cImage/nImage, <bBlock>, <aOffset>, <nStretchBitmap>, <lMap3DColors> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nTop, nLeft> Row/column
       of top/left corner. <nBottom, nRight> Row/column of bottom/right corner.
@@ -688,7 +688,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_cxDestroy( nWinNum, nCXId )
+      wvw_cxDestroy( <nWinNum>, <nCXId> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nCXId> ID of checkbox.
    $DESCRIPTION$
@@ -710,7 +710,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_cxEnable( nWinNum, nCXId, lToggle )
+      wvw_cxEnable( <nWinNum>, <nCXId>, <lToggle> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nCXId> ID of checkbox.
       <lToggle> If .T., Enable, otherwisie disable. Default is .T.
@@ -734,7 +734,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_cxGetCheck( nWinNum, nCXId )
+      wvw_cxGetCheck( <nWinNum>, <nCXId> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nCXId> ID of checkbox.
    $DESCRIPTION$
@@ -757,7 +757,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_cxSetCheck( nWinNum, nCXId, nCheckState )
+      wvw_cxSetCheck( <nWinNum>, <nCXId>, <nCheckState> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nCXId> ID of checkbox.
       <nCheckState> 0 1 2 Not selected Selected Indeterminate
@@ -780,7 +780,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_cxSetCodeblock( nWinNum, nCXId, bBlock )
+      wvw_cxSetCodeblock( <nWinNum>, <nCXId>, <bBlock> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nCXId> ID of checkbox.
       <bBlock> Code block
@@ -803,7 +803,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_cxSetFocus( nWinNum, nCXId )
+      wvw_cxSetFocus( <nWinNum>, <nCXId> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nCXId> ID of checkbox.
    $DESCRIPTION$
@@ -825,7 +825,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DeleteMenu( hMenu, nPosition, nFlag )
+      wvw_DeleteMenu( <hMenu>, <nPosition>, <nFlag> )
    $ARGUMENTS$
       <hMenu> Identifies the menu to be changed. <nPosition> Specifies a menu item
       to be changed. <nFlag> Specifies how <nPosition> will be interpreted. This
@@ -856,7 +856,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DestroyMenu( hMenu )
+      wvw_DestroyMenu( <hMenu> )
    $ARGUMENTS$
       <hMenu> Identifies the menu to be destroyed.
    $DESCRIPTION$
@@ -881,7 +881,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DlgSetIcon( nHandleDialog, ncIcon )
+      wvw_DlgSetIcon( <nHandleDialog>, ncIcon )
    $ARGUMENTS$
       <nHandleDialog> Handle of dialog window. <ncIcon> If numeric, identifies a
       RESOURCE in a RC file. If string, identifies an icon file name.
@@ -904,7 +904,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DrawBoxGet( nWinNum, nRow, nCol, nWidth, aOffset )
+      wvw_DrawBoxGet( <nWinNum>, <nRow>, <nCol>, <nWidth>, <aOffset> )
    $DESCRIPTION$
       Draws a box to an input get. Unlike GTWVT, GTWVW draw white lines on outer
       right and outer bottom. Besides, scope is the same as DRAWBOXRECESSED, ie.,
@@ -926,9 +926,9 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DrawBoxGroup( nWinNum, nTop, nLeft, nBottom, nRight, aOffset )
+      wvw_DrawBoxGroup( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>, <aOffset> )
    $ARGUMENTS$
-      <nWinNum> Window number. Default is current window. <nTop, nLeft, nBottom,
+      <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Coordinates to draw a box. <aOffset> Array of four elements with
       top/left and bottom/right corner coordinates to align the box with row/column.
    $DESCRIPTION$
@@ -950,9 +950,9 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DrawBoxRaised( nNumWin, nTop, nLeft, nBottom, nRight, lTight/aOffset )
+      wvw_DrawBoxRaised( <nNumWin>, <nTop>, <nLeft>, <nBottom>, <nRight>, lTight/aOffset )
    $ARGUMENTS$
-      <nWinNum> Window number. Default is current window. <nTop, nLeft, nBottom,
+      <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Coordinates to draw a box. <lTight/aOffset> If <lTight>, box is draw
       inside the character region and top and left lines are lower two pixel down to
       make room for above/left object. If <aOffset>, an array of four elements is
@@ -976,9 +976,9 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DrawBoxRecessed( nWinNum, nTop, nLeft, nBottom, nRight, lTight/aOffset )
+      wvw_DrawBoxRecessed( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>, lTight/aOffset )
    $ARGUMENTS$
-      <nWinNum> Window number. Default is current window. <nTop, nLeft, nBottom,
+      <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Coordinates to draw a box. <lTight/aOffset> If <lTight>, box is drawn
       inside the character region and top and left lines are lower two pixel down to
       make room for above/left object. If <aOffset>, an array of four elements is
@@ -1002,10 +1002,10 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DrawButton( nWinNum, nTop, nLEft, nBottom, nRight, cText,
-      cImage/nImage, nFormat, nTextColor, nBkClor, nImageAt )
+      wvw_DrawButton( <nWinNum>, <nTop>, <nLEft>, <nBottom>, <nRight>, <cText>,
+      cImage/nImage, <nFormat>, <nTextColor>, <nBkClor>, <nImageAt> )
    $ARGUMENTS$
-      <nWinNum> Window number. Default is current window. <nTop, nLeft, nButtom,
+      <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nButtom>,
       nRight> Coordinates to draws a button. <cText> Text of button. <cImage/nImage>
       If string, specifies a bitmap filename (full path is required). If numeric,
       specifies the position of image in application image cache. <nFormat>
@@ -1032,10 +1032,10 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DrawColorRect( nWinNum, nTop, nLeft, nBottom, nRight, aOffPixels,
-      nRGBColor )
+      wvw_DrawColorRect( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>, <aOffPixels>,
+      <nRGBColor> )
    $ARGUMENTS$
-      <nWinNum> Window number. Default is current window. <nTop, nLeft, nBottom,
+      <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Coordinates to draw a rectangle. <aOffPixels> Array of four elements
       with top/left and bottom/right coordinates to align the rectangle with
       row/column. <nRGBColor> Color to fill the rectangle.
@@ -1059,9 +1059,9 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DrawEllipse( nWinNum, nTop, nLeft, nBottom, nRight, aOffset )
+      wvw_DrawEllipse( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>, <aOffset> )
    $ARGUMENTS$
-      <nWinNum> Window number. Default is current window. <nTop, nLeft, nBottom,
+      <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Coordinates to draw an ellipse. <aOffset> Array of four elements with
       top/left and bottom/right coordinates to align the ellipse with row/column.
    $DESCRIPTION$
@@ -1083,9 +1083,9 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DrawFocusRect( nWinNum, nTop, nLeft, nBottom, nRight, aOffSet )
+      wvw_DrawFocusRect( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>, <aOffSet> )
    $ARGUMENTS$
-      <nWinNum> Window number. Default is current window. <nTop, nLeft, nBottom,
+      <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Coordinates to draw a rectangle. <aOffset> Array of four elements with
       top/left and bottom/right coordinates to align the rectangle with row/column.
    $DESCRIPTION$
@@ -1107,9 +1107,9 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DrawGridHorz( nWinNum, nTop, nLeft, nBottom, nRight, nRows )
+      wvw_DrawGridHorz( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>, <nRows> )
    $ARGUMENTS$
-      <nWinNum> Window number. Default is current window. <nTop, nLeft, nBottom,
+      <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Coordinates to draw horizontal grid. <nRows> Number of lines to
       horizontal grid.
    $DESCRIPTION$
@@ -1131,7 +1131,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DrawGridVert( nWinNum, nTop, nBottom, aCols, nCols, aOffset )
+      wvw_DrawGridVert( <nWinNum>, <nTop>, <nBottom>, <aCols>, <nCols>, <aOffset> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nTop, nBottom>
       Initial/final line to draw vertical grid. <aCols> Array with sizes of columns
@@ -1157,11 +1157,11 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DrawImage( nWinNum, nTop, nLeft, nBottom, nRight,
-      cImage/nPictureSlot, lTight/aOffset, lTransparent )
+      wvw_DrawImage( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>,
+      cImage/nPictureSlot, lTight/aOffset, <lTransparent> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window.
-      <nTop, nLeft, nBottom, nRight> Coordinates to draw an image. If <nBottom> is NIL,
+      <nTop, <nLeft>, <nBottom>, nRight> Coordinates to draw an image. If <nBottom> is NIL,
       so image's height will be proportional to image's width. If <nRight> is NIL,
       so image's width will be proportional to image's height. If both <nbottom> and
       <nRight> are NIL, so original size of image will be used.
@@ -1191,9 +1191,9 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DrawLabel( nWinNum, nRow, nCol, cLabel, nAlign, nEscapement,
-      nTextColor, nBkColor, cFontFace, nHeight, nWidth, nWeight,
-      nQuality, nCharSet, lItalic, lUnderline, lStrikeOut )
+      wvw_DrawLabel( <nWinNum>, <nRow>, <nCol>, <cLabel>, <nAlign>, <nEscapement>,
+      <nTextColor>, <nBkColor>, <cFontFace>, <nHeight>, <nWidth>, <nWeight>,
+      <nQuality>, <nCharSet>, <lItalic>, <lUnderline>, <lStrikeOut> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nRow, nCol> Row/column to
       draw a label. <cLabel> String to be draw. <nAlign> String alignment. Default
@@ -1226,8 +1226,8 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DrawLabelEx( nWinNum, nRow, nCol, cLabel, nAlign, cTextColor, nBkColor,
-      nSlotFont )
+      wvw_DrawLabelEx( <nWinNum>, <nRow>, <nCol>, <cLabel>, <nAlign>, <cTextColor>, <nBkColor>,
+      <nSlotFont> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nRow, nCol> Row/column to
       draw a label. <cLabel> String to be draw. <nAlign> Text alignment. Default is
@@ -1255,16 +1255,16 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DrawLabelObj( nWinNum, nTop, nLeft, nBottom, nRight, cLabel,
-      nAlignHorz, nAlignVert, nTextColor, nBkColor, hFont, aOffset )
+      wvw_DrawLabelObj( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>, <cLabel>,
+      <nAlignHorz>, <nAlignVert>, <nTextColor>, <nBkColor>, <hFont>, <aOffset> )
    $ARGUMENTS$
-      <nWinNum> Window number. Default is current window. <nTop, nLeft, nBottom,
+      <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Coordinates to draw a label. <cLabel> String to be draw. <nAlignHorz>
       Horizontal align of the label. Default is zero. <nAlignVert> Vertical align.
       Default is zero. <nTextColor> Index color of the label. <nBkColor> Index
       backgroud color of the label. <hFont> Specifies which font will be used to
       draw a label. <aOffSet> String of four elements to align label with
-      coordinates <nTop, nLeft, nBottom, nRight>.
+      coordinates <nTop, <nLeft>, <nBottom>, nRight>.
    $DESCRIPTION$
       Draws a label.
    $RETURNS$
@@ -1284,10 +1284,10 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DrawLine( nWinNum, nTop, nLeft, nBottom, nRight, nOrient,
-      nFormat, nAlign, nStyle, nThick, nColor, aOffset )
+      wvw_DrawLine( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>, <nOrient>,
+      <nFormat>, <nAlign>, <nStyle>, <nThick>, <nColor>, <aOffset> )
    $ARGUMENTS$
-      <nWinNum> Window number. Default is current window. <nTop, nLeft, nBottom,
+      <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Coordinates to draw a line. <nOrient> Line orientation: 0 1
       Horizontal Vertical
 
@@ -1320,10 +1320,10 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DrawLineEx( nWinNum, nTop, nLeft, nBottom, nRight, nOrient, nFormat,
-      nAlign, nSlotPen )
+      wvw_DrawLineEx( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>, <nOrient>, <nFormat>,
+      <nAlign>, <nSlotPen> )
    $ARGUMENTS$
-      <nWinNum> Window number. Default is current window. <nTop, nLeft, nBottom,
+      <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Coordinates to draw a line. <nOrient> Line orientation: 0 1
       Horizontal Vertical
 
@@ -1375,15 +1375,15 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DrawOutline( nWinNum, nTop, nLeft, nBottom, nRight, nThick, nShape,
-      nRGBColor )
+      wvw_DrawOutline( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>, <nThick>, <nShape>,
+      <nRGBColor> )
    $ARGUMENTS$
-      <nWinNum> Window number. Default is current window. <nTop, nLeft, nBottom,
+      <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Coordinates to draw a box. <nThick> Style of pen. See wingdi.ch file
       for definitions (PS_SOLID, PS_DOT, etc.). <nShape> Ignored. <nRGBColor>
       Specifies color reference for pen (a 32-bit RGB color value).
    $DESCRIPTION$
-      Draws a outline arguments. box in <nTop, nLeft, nBottom, nRight> coordinates,
+      Draws a outline arguments. box in <nTop, <nLeft>, <nBottom>, nRight> coordinates,
       with style and color
    $RETURNS$
       Always .T.
@@ -1402,9 +1402,9 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DrawOutlineEx( nWinNum, nTop, nLeft, nBottom, nRight, nSlotPen )
+      wvw_DrawOutlineEx( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>, <nSlotPen> )
    $ARGUMENTS$
-      <nWinNum> Window number. Default is current window. <nTop, nLeft, nBottom,
+      <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Coordinates to draw a box. <nSlotPen> Index on pen's cache.
    $DESCRIPTION$
       Draws an outlined box (using an index of pen's cache).
@@ -1425,9 +1425,9 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DrawPicture( nWinNum, nTop, nLeft, nBottom, nRight, nSlot, lTight/aOffset )
+      wvw_DrawPicture( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>, <nSlot>, lTight/aOffset )
    $ARGUMENTS$
-      <nWinNum> Window number. Default is current window. <nTop, nLeft, nBottom,
+      <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Coordinates to draw an image. <nSlot> index on image's cache.
       <lTight/aOffset> Array with four row/column. elements with top/left,
       bottom/right coordinates to align image with
@@ -1450,12 +1450,12 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DrawProgressBar( nWinNum, nTop, nLeft, nBottom, nRight,
-      aOffPixels, nPercent, nBackColor, nBarColor, cImage, lVertical,
-      nDirection )
+      wvw_DrawProgressBar( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>,
+      <aOffPixels>, <nPercent>, <nBackColor>, <nBarColor>, <cImage>, <lVertical>,
+      <nDirection> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window.
-      <nTop, nLeft, nBottom, nRight> Coordinates to draw a progress bar. <aOffPixels>
+      <nTop, <nLeft>, <nBottom>, nRight> Coordinates to draw a progress bar. <aOffPixels>
       Array with four elemets with top/left, bottom/right coordinates to align
       progress bar with row/column. <nPercent> Maximum range value. <nBackColor>
       Background color. <nBarColor> Progress bar color. <cImage> An image to show
@@ -1481,9 +1481,9 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DrawRectangle( nWinNum, nTop, nLeft, nBottom, nRight, aOffset )
+      wvw_DrawRectangle( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>, <aOffset> )
    $ARGUMENTS$
-      <nWinNum> Window number. Default is current window. <nTop, nLeft, nBottom,
+      <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Coordinates to draw a rectangle. <aOffset> Array with four elements
       with top/left, bottom/right coordinates to align rectangle with row/column.
    $DESCRIPTION$
@@ -1505,10 +1505,10 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DrawRoundRect(nWinNum, nTop, nLeft, nBottom, nRight, aOffset,
-      nRoundHeight, nRoundWidth)
+      wvw_DrawRoundRect(nWinNum, <nTop>, <nLeft>, <nBottom>, <nRight>, <aOffset>,
+      <nRoundHeight>, nRoundWidth)
    $ARGUMENTS$
-      <nWinNum> Window number. Default is current window. <nTop, nLeft, nBottom,
+      <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Coordinates to draw a rectangle. <aOffset> Array with four elements
       with top/left, bottom/right coordinates to align rectangle with row/column.
       <nRoundHeight> Width of ellipse to round rectangle's corner. <nRoundWidth>
@@ -1532,10 +1532,10 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DrawScrollButton( nWinNum, nTop, nLeft, nBotton, nRight, aOffPixels,
-      nTLBR, lDepressed )
+      wvw_DrawScrollButton( <nWinNum>, <nTop>, <nLeft>, <nBotton>, <nRight>, <aOffPixels>,
+      <nTLBR>, <lDepressed> )
    $ARGUMENTS$
-      <nWinNum> Window number. Default is current window. <nTop, nLeft, nBottom,
+      <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Coordinates to draw a scrollbutton. <aOffPixels> Array with four
       elements with top/left, bottom/right coordinates to align scrollbutton with
       row/column. <nTLBR> Specifies scrollbutton direction: 1 2 3 4 Up arrow button
@@ -1562,10 +1562,10 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DrawScrollThumbHorz( nWinNum, nTop, nLeft, nBottom, nRight, aOffPixels,
-      nThumbPos )
+      wvw_DrawScrollThumbHorz( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>, <aOffPixels>,
+      <nThumbPos> )
    $ARGUMENTS$
-      <nWinNum> Window number. Default is current window. <nTop, nLeft, nBottom,
+      <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Coordinates to draw scrollbar movement button. <aOffPixels> Array of
       four elements with top/left, bottom/right coordinates to align scrollbar
       movement button with row/column. <nThumbPos> Initial column position.
@@ -1589,10 +1589,10 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DrawScrollThumbVert( nWinNum, nTop, nLeft, nBottom, nRight, aOffPixels,
-      nThumbPos )
+      wvw_DrawScrollThumbVert( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>, <aOffPixels>,
+      <nThumbPos> )
    $ARGUMENTS$
-      <nWinNum> Window number. Default is current window. <nTop, nLeft, nBottom,
+      <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Coordinates to draw scrollbar movement button. <aOffPixels> Array of
       four elements with top/left, bottom/right coordinates to align scrollbar
       movement button with row/column. <nThumbPos> Initital line position.
@@ -1616,9 +1616,9 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DrawShadedRect( nWinNum, nTop, nLeft, nBottom, nRight, aOffPixels, nHorVert, aRGBb, aRGBe )
+      wvw_DrawShadedRect( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>, <aOffPixels>, <nHorVert>, <aRGBb>, <aRGBe> )
    $ARGUMENTS$
-      <nWinNum> Window number. Default is current window. <nTop, nLeft, nBottom,
+      <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Coordinates to draw a rectangle. <aOffPixels> Array of four elements
       with top/left, bottom/right coordinates to align rectangle with row/column.
       <nHorVert> Specifies draws method and how to interpret rectangle fill array (
@@ -1646,7 +1646,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DrawStatusBar( nWinNum, nPanels, aPos )
+      wvw_DrawStatusBar( <nWinNum>, <nPanels>, <aPos> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nPanels> Number of parts
       in a status bar. <aPos> Array with row/column positions to divide status bar.
@@ -1670,11 +1670,11 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DrawTextBox( nWinNum, nTop, nLeft, nBottom, nRight, aOffPixels,
-      cText, nAlignHorz, nAlignVert, nTextColor, nBackColor, nBackMode,
-      hFont )
+      wvw_DrawTextBox( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>, <aOffPixels>,
+      <cText>, <nAlignHorz>, <nAlignVert>, <nTextColor>, <nBackColor>, <nBackMode>,
+      <hFont> )
    $ARGUMENTS$
-      <nWinNum> Window number. Default is current window. <nTop, nLeft, nBottom,
+      <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Coordinates to draw text. <aOffPixels> Array of four row/column.
       <cText> Text to be draw. <nAlignHorz> Specifies text alignment inside
       coordinates: 0 1 2 Left (default) Right Centralized elements with top/left,
@@ -1702,10 +1702,10 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DrawToolButtonState( nWinNum, nTop, nLeft, nBottom, nRight, aOffPixels,
-      nState )
+      wvw_DrawToolButtonState( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>, <aOffPixels>,
+      <nState> )
    $ARGUMENTS$
-      <nWinNum> Windwow number. Default is current window. <nTop, nLeft, nBottom,
+      <nWinNum> Windwow number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Coordinates to draw toolbutton. <aOffPixels> Array of four elements
       with top/left, bottom/right coordinates to align toolbutton with row/column.
       <nState> Button state: 0 1 2 Flat Raised Recessed
@@ -1728,7 +1728,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_EnableMaximize( nWinNum, lEnable )
+      wvw_EnableMaximize( <nWinNum>, <lEnable> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <lEnable> If .T., enable
       maximize button, .F. disable.
@@ -1752,7 +1752,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_EnableMenuItem( hMenu, nPosition, nFlag )
+      wvw_EnableMenuItem( <hMenu>, <nPosition>, <nFlag> )
    $ARGUMENTS$
       <hMenu> ID of menu. <nPosition> Specifies position of item to be
       enabled/disabled (see <nFlag> argument). <nFlag> For Harbour, in practice,
@@ -1777,7 +1777,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_EnableShortcuts( nWinNum, lEnable )
+      wvw_EnableShortcuts( <nWinNum>, <lEnable> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <lEnable> If .T., enable
       shortcut keys. .F. disable shortcut keys.
@@ -1801,10 +1801,10 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_FillRectangle( nWinNum, nTop, nLeft, nBottom, nRight,
-      nRGBColor/hBrush, lTight, lUseBrush )
+      wvw_FillRectangle( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>,
+      nRGBColor/hBrush, <lTight>, <lUseBrush> )
    $ARGUMENTS$
-      <nWinNum> Window number. Default is current window. <nTop, nLeft, nBottom,
+      <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Coordinates to fill a rectangle. <nRGBColor/hBrush> Rectangle filling
       color (a 32-bit value with RGB color). <lTight> Filling patern will be
       adjusted in all coordinates area. <lUseBrush> If .T., <nRGBColor/hBrush>
@@ -1879,8 +1879,8 @@
    $DESCRIPTION$
       Retrieves current font data.
    $RETURNS$
-      Array of seven elements: 1 2 3 4 5 6 7 ­ ­ ­ ­ ­ ­ ­ cFontFace cFontHeight
-      nFontWidth nFontWeight cFontQuality PTEXTSIZE->x PTEXESIZE->y Name Height
+      Array of seven elements: 1 2 3 4 5 6 7 <cFontFace> <cFontHeight>
+      <nFontWidth> <nFontWeight> <cFontQuality> PTEXTSIZE->x PTEXESIZE->y Name Height
       Width Weight Quality Font's width in pixels Font's size in pixels
    $PLATFORMS$
       Windows
@@ -1941,7 +1941,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_GetPaintRect( nWinNum )
+      wvw_GetPaintRect( <nWinNum> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window.
    $DESCRIPTION$
@@ -1987,7 +1987,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_GetRGBColor( nColor )
+      wvw_GetRGBColor( <nColor> )
    $ARGUMENTS$
       <nColor> Color index (as defined in CA-Cl*pper).
    $DESCRIPTION$
@@ -2009,7 +2009,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_GetRowColFromXY( nWinNum, nX, nY )
+      wvw_GetRowColFromXY( <nWinNum>, nX, nY )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nX> X coordinate in
       pixels. <nY> Y coordinate in pixels.
@@ -2186,7 +2186,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_GetXYFromRowCol( nWinNum, nRow, nCol )
+      wvw_GetXYFromRowCol( <nWinNum>, <nRow>, <nCol> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nRow> Line number. <nCol>
       Column number.
@@ -2253,7 +2253,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_KillTimer( nWinNum )
+      wvw_KillTimer( <nWinNum> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window.
    $DESCRIPTION$
@@ -2275,7 +2275,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_lbAddString( nHandleDialog, nIDListBox, cItem )
+      wvw_lbAddString( <nHandleDialog>, <nIDListBox>, <cItem> )
    $ARGUMENTS$
       <nHandleDialog> Handle of dialog window. <nIDListBox> ID of listbox. <cItem>
       Item to add in listbox.
@@ -2298,7 +2298,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_lbSetCurSel( nHandleDialog, nIDListBox, nItem )
+      wvw_lbSetCurSel( <nHandleDialog>, <nIDListBox>, <nItem> )
    $ARGUMENTS$
       <nHandleDialog> Handle of dialog window. <nIDListBox> ID of listbox. <nItem>
       Item index (start from zero).
@@ -2343,8 +2343,8 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_LoadFont( nSlotFont, cFontName, nHeight, nWidth, nWeight,
-      lItalic, lUnderline, lStrikeout, nCharSet, nQuality, nEscapement )
+      wvw_LoadFont( <nSlotFont>, <cFontName>, <nHeight>, <nWidth>, <nWeight>,
+      <lItalic>, <lUnderline>, <lStrikeout>, <nCharSet>, <nQuality>, <nEscapement> )
    $ARGUMENTS$
       <nSlotFont> Index of font cache. <cFontName> Name of the font. <nHeight>
       Height of the font's character. <nWidth> Specifies average width of character
@@ -2374,10 +2374,10 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_LoadPen( nSlot, nStyle, nWidth, nRGBColor )
+      wvw_LoadPen( <nSlot>, <nStyle>, <nWidth>, <nRGBColor> )
    $ARGUMENTS$
       <nSlot> Index of cache of pen, defined by the user. <nStyle> Style of the pen.
-      <nWidth> Specifies the width of the pen, in logical units. If nWidth is zero,
+      <nWidth> Specifies the width of the pen, in logical units. If <nWidth> is zero,
       the pen is a single pixel wide, regardless of the current transformation.
       <nRGBColor> Specifies a color reference for the pen color.
    $DESCRIPTION$
@@ -2399,7 +2399,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_LoadPicture( nSlot, cFilePicture )
+      wvw_LoadPicture( <nSlot>, <cFilePicture> )
    $ARGUMENTS$
       <nSlot> Position of the cache where the image will be loaded. If there is any
       image in this position, will be replaced. <cFilePicture> Image to be loaded in
@@ -2424,7 +2424,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_Maximize( nWinNum )
+      wvw_Maximize( <nWinNum> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window.
    $DESCRIPTION$
@@ -2448,7 +2448,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_MaxMaxCol( nWinNum )
+      wvw_MaxMaxCol( <nWinNum> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window.
    $DESCRIPTION$
@@ -2471,7 +2471,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_MaxMaxRow( nWinNum )
+      wvw_MaxMaxRow( <nWinNum> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window.
    $DESCRIPTION$
@@ -2494,7 +2494,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_MessageBox( nWinNum, cMessage, cTitle, nOption )
+      wvw_MessageBox( <nWinNum>, <cMessage>, <cTitle>, <nOption> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <cMessage> Message to be
       displayed. <cTitle> Dialog box title. <nOption> Specifies a set of buttons
@@ -2544,7 +2544,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_nColOfs( nWinNum )
+      wvw_nColOfs( <nWinNum> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window.
    $DESCRIPTION$
@@ -2589,7 +2589,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_NoClose( nWinNum )
+      wvw_NoClose( <nWinNum> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window.
    $DESCRIPTION$
@@ -2611,8 +2611,8 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_nOpenWindow( cWinName, row1, col1, row2, col2, nStyle, nParentWin,
-      nExStyle )
+      wvw_nOpenWindow( <cWinName>, row1, col1, row2, col2, <nStyle>, <nParentWin>,
+      <nExStyle> )
    $ARGUMENTS$
       <cWinName > Title of window. If omitted, the name of executable will be used.
       <row1, col1, row2, col2 > Specifies initial row/column and final row/column of
@@ -2648,7 +2648,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_NoStartupSubWindow( lOn )
+      wvw_NoStartupSubWindow( <lOn> )
    $ARGUMENTS$
       <lOn> .T. when open window, will be displayed (default). .F. when open
       window, remains invisible.
@@ -2673,7 +2673,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_nRowOfs( nWinNum )
+      wvw_nRowOfs( <nWinNum> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window.
    $DESCRIPTION$
@@ -2695,7 +2695,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_nSetCurWindow( nWinNum )
+      wvw_nSetCurWindow( <nWinNum> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window.
    $DESCRIPTION$
@@ -2762,10 +2762,10 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_pbCreate( nWinNum, nTop, nLeft, nBottom, nRight, cText,
-      cImage/nImage, bBlock, aOffset, nStretchBitmap, lMap3DColors )
+      wvw_pbCreate( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>, <cText>,
+      cImage/nImage, <bBlock>, <aOffset>, <nStretchBitmap>, <lMap3DColors> )
    $ARGUMENTS$
-      <nWinNum> Window number. Default is current window. <nTop, nLeft, nBottom,
+      <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Coordinates to create the button. <cText> Text of the button. Default
       is "". <cImage/nImage> If specified as numeric, identify ID from Resource in a
       .RC file. If specified as string, must have a full path to an image file.
@@ -2799,7 +2799,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_pbDestroy( nWinNum, nPBId )
+      wvw_pbDestroy( <nWinNum>, <nPBId> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nPBId> ID of the
       pushbutton.
@@ -2822,7 +2822,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_pbEnable( nWinNum, nPBId, lToggle )
+      wvw_pbEnable( <nWinNum>, <nPBId>, <lToggle> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nPBId> ID of the
       pushbutton. <lToggle> .T. Enable pushbutton (default). .F. Disable
@@ -2847,7 +2847,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_pbSetCodeblock( nWinNum, nPBId, bBlock )
+      wvw_pbSetCodeblock( <nWinNum>, <nPBId>, <bBlock> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nPBId> ID of the
       pushbutton. <bBlock> Code block.
@@ -2870,7 +2870,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_pbSetFocus( nWinNum, nPBId )
+      wvw_pbSetFocus( <nWinNum>, <nPBId> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nPBId> ID of the
       pushbutton.
@@ -2893,8 +2893,8 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_pbSetFont( nWinNum, cFontFace, nHeight, nWidth, nWeight,
-      nQuality, lItalic, lUnderline, lStrikeout )
+      wvw_pbSetFont( <nWinNum>, <cFontFace>, <nHeight>, <nWidth>, <nWeight>,
+      <nQuality>, <lItalic>, <lUnderline>, <lStrikeout> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <cFontName> Name of the
       font. <nHeight> Height of the font's character. <nWidth> Specifies average
@@ -2923,7 +2923,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_pbSetStyle( nWinNum, nPBId, nStyle )
+      wvw_pbSetStyle( <nWinNum>, <nPBId>, <nStyle> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nPBId> ID of pushbutton.
       <nStyle> Define style of pushbutton. You can see all possibilities
@@ -2951,10 +2951,10 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_pgCreate( nWinNum, nTop, nLeft, nBottom, nRight, aOffset,
-      nBackColor, nBarColor, lSmooth, lVertical )
+      wvw_pgCreate( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>, <aOffset>,
+      <nBackColor>, <nBarColor>, <lSmooth>, <lVertical> )
    $ARGUMENTS$
-      <nWinNum> Window number. Default is current window. <nTop, nLeft, nBottom,
+      <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Coordinates to create a progress bar. <aOffset> Array of four elements
       with top/left, bottom/right coordinates to align progress bar with row/column.
       <nBackColor> Background color. <nBarColor> Progress bar color. <lSmooth> .T.
@@ -2981,7 +2981,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_pgDestroy( nWinNum, nPGId )
+      wvw_pgDestroy( <nWinNum>, <nPGId> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nPGId> ID of progress
       bar.
@@ -3004,7 +3004,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_pgGetPos( nWinNum, nPGId )
+      wvw_pgGetPos( <nWinNum>, <nPGId> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nPGId> ID of progress
       bar.
@@ -3027,7 +3027,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_pgSetPos( nWinNum, nPGId, nPos )
+      wvw_pgSetPos( <nWinNum>, <nPGId>, <nPos> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nPGId> ID of progress
       bar. <nPos> A number in range of current range.
@@ -3050,7 +3050,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_ProcessMessages( nWinNum )
+      wvw_ProcessMessages( <nWinNum> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. NOTE: Despite the
       parameter, the following will actually process messages for all windows
@@ -3073,7 +3073,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_Restore( nWinNum )
+      wvw_Restore( <nWinNum> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window.
    $DESCRIPTION$
@@ -3097,9 +3097,9 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_RestScreen( nWinNum, nTop, nLeft, nBottom, nRight, aScr, lDoNotDestroyBMP )
+      wvw_RestScreen( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>, <aScr>, <lDoNotDestroyBMP> )
    $ARGUMENTS$
-      <nWinNum> Window number. Default is current window. <nTop, nLeft, nBottom,
+      <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Screen coordinates to display data saved by function wvw_SaveScreen().
       <aScr> Array with three elements (height, width and handle of bitmap).
       <lDoNotDestroyBMP> If .T., after restore screen, delete the bitmap used to
@@ -3123,9 +3123,9 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SaveScreen( nWinNum, nTop, nLeft, nBottom, nRight )
+      wvw_SaveScreen( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight> )
    $ARGUMENTS$
-      <nWinNum> Window number. Default is current window. <nTop, nLeft, nBottom,
+      <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Screen coordinates to save screen (always from current window,
       because argument <nWinNum> is ignored).
    $DESCRIPTION$
@@ -3147,7 +3147,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_sbAddPart( nWinNum, cMaxText, nWidth, nStyle, lResetParts, cIcon, cTooltip )
+      wvw_sbAddPart( <nWinNum>, <cMaxText>, <nWidth>, <nStyle>, <lResetParts>, <cIcon>, <cTooltip> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <cMaxText> If present, the
       width of status bar will be the width of this text. <nWidth> Width of status
@@ -3177,7 +3177,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_sbCreate( nWinNum )
+      wvw_sbCreate( <nWinNum> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window.
    $DESCRIPTION$
@@ -3200,7 +3200,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_sbDestroy( nWinNum )
+      wvw_sbDestroy( <nWinNum> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window.
    $DESCRIPTION$
@@ -3244,7 +3244,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_sbGetText( nWinNum, nPart )
+      wvw_sbGetText( <nWinNum>, <nPart> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nPart> Number of part in
       status bar.
@@ -3289,7 +3289,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_sbSetText( nWinNum, nPart, cText )
+      wvw_sbSetText( <nWinNum>, <nPart>, <cText> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nPart> Number of part in
       status bar. <cText> Text to be configured.
@@ -3312,7 +3312,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetAltF4Close( lOn )
+      wvw_SetAltF4Close( <lOn> )
    $ARGUMENTS$
       <lOn> .T. if application can be finished using <Alt F4> key. .F. if application
       cannot be finished using <Alt F4> key.
@@ -3357,7 +3357,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetBrush( nStyle, nColor, nHatch )
+      wvw_SetBrush( <nStyle>, <nColor>, <nHatch> )
    $ARGUMENTS$
       <nStyle> Identify pen style. All definitions can be viewed in file wingdi.ch (
       BS_SOLID, BS_NULL, etc.). <nColor> Index color to pen draw. <nHatch> Define
@@ -3382,7 +3382,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetClipboard( cText )
+      wvw_SetClipboard( <cText> )
    $ARGUMENTS$
       <cText> Text to be inserted in the clipboard.
    $DESCRIPTION$
@@ -3404,7 +3404,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetCodepage( nWinNum, nCodePage )
+      wvw_SetCodepage( <nWinNum>, <nCodePage> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nCodePage> Sets the code
       page.
@@ -3427,7 +3427,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetDefCentreWindow( lCentre )
+      wvw_SetDefCentreWindow( <lCentre> )
    $ARGUMENTS$
       <lCentre> If .T., config all newly opened windows, to be centralized
       horizontally and vertically.
@@ -3451,7 +3451,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetDefHCentreWindow( lCentre )
+      wvw_SetDefHCentreWindow( <lCentre> )
    $ARGUMENTS$
       <lCentre> If .T., config all newly opened windows, to be centralized
       horizontally.
@@ -3475,7 +3475,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetDefLineSpacing( nLineSpacing )
+      wvw_SetDefLineSpacing( <nLineSpacing> )
    $ARGUMENTS$
       <nLineSpacing> Number of line spacing. Must be even, positive number <= 40,
       otherwise it will be ignored.
@@ -3498,7 +3498,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetDefLSpaceColor( nColorIndex )
+      wvw_SetDefLSpaceColor( <nColorIndex> )
    $ARGUMENTS$
       <nColorIndex> Index color to line spacing. Must be between 0 and 15, or ­1
       meaning line spacing has no color.
@@ -3522,7 +3522,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetDefVCentreWindow( lCentre )
+      wvw_SetDefVCentreWindow( <lCentre> )
    $ARGUMENTS$
       <lCentre> If .T., config all newly opened windows, to be centralized
       vertically.
@@ -3546,7 +3546,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetFont( cFontFace, nFontHeight, nFontWidth, nFontWeight, nFontQuality )
+      wvw_SetFont( <cFontFace>, <nFontHeight>, <nFontWidth>, <nFontWeight>, <nFontQuality> )
    $ARGUMENTS$
       <cFontName> Name of the font. (e.g., MS Sans Serif). <nFontHeight> Height of
       the font's character. <nFontWidth> Specifies average width of character in the
@@ -3574,7 +3574,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetIcon( nWinNum, nIcon, cIcon )
+      wvw_SetIcon( <nWinNum>, <nIcon>, <cIcon> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nIcon> Identify an icon
       in a resource file. <cIcon> Icon's file name.
@@ -3597,7 +3597,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetLastMenuEvent( nWinNum, nMenuEvent )
+      wvw_SetLastMenuEvent( <nWinNum>, <nMenuEvent> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nMenuEvent> Menu's item.
    $DESCRIPTION$
@@ -3619,7 +3619,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetLineSpacing( nWinNum, nLineSpacing )
+      wvw_SetLineSpacing( <nWinNum>, <nLineSpacing> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nLineSpacing> If passed,
       change line spacing in current window, otherwise read actual configuration.
@@ -3645,7 +3645,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetLSpaceColor( nWinNum, nColorIndex )
+      wvw_SetLSpaceColor( <nWinNum>, <nColorIndex> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nColorIndex> Color index
       to line spacing. Must be between 0 and 15, or ­1, meaning has no color.
@@ -3670,7 +3670,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetMainCoord( lMainCoord )
+      wvw_SetMainCoord( <lMainCoord> )
    $ARGUMENTS$
       <lMainCoord> If passed, change the display mode of windows. Otherwise, read
       actual configuration.
@@ -3694,7 +3694,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetMaxBMCache( nMaxCache )
+      wvw_SetMaxBMCache( <nMaxCache> )
    $ARGUMENTS$
       <nMaxCache> Limit of cache bitmaps. Default is 20, minimum is 1.
    $DESCRIPTION$
@@ -3721,7 +3721,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetMenu( nWinWin, hMenu )
+      wvw_SetMenu( <nWinWin>, <hMenu> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <hMenu> Contains menu
       information.
@@ -3745,7 +3745,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetMenuKeyEvent( nWinNum, nKeyEvent )
+      wvw_SetMenuKeyEvent( <nWinNum>, <nKeyEvent> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nKeyEvent> Number of
       event defined by the user to command menu of the window.
@@ -3768,7 +3768,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetMouseMove( nWinNum, lMouseMove )
+      wvw_SetMouseMove( <nWinNum>, <lMouseMove> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <lMouseMove> .T. recognize
       mouse in application .F. do not recognize mouse in application If not passed,
@@ -3793,7 +3793,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetMousePos( nWinNum, nRow, nCol )
+      wvw_SetMousePos( <nWinNum>, <nRow>, <nCol> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nRow, nCol> Row/Column to
       position mouse cursor.
@@ -3840,7 +3840,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetPaintRefresh( nPaintRefresh )
+      wvw_SetPaintRefresh( <nPaintRefresh> )
    $ARGUMENTS$
       <nPaintRefresh> Interval in milliseconds to call WVW_PAINT(). Must be >= 50,
       or == 0, causing repaint to execute immediately.
@@ -3864,7 +3864,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetPalette( aRGBValues )
+      wvw_SetPalette( <aRGBValues> )
    $ARGUMENTS$
       <aRGBValues> Array of 16 elements with RGB values.
    $DESCRIPTION$
@@ -3886,7 +3886,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetPen( nPenStyle, nWidth, nColor )
+      wvw_SetPen( <nPenStyle>, <nWidth>, <nColor> )
    $ARGUMENTS$
       <nPenStyle> Defines pen style. All definition are in file wingdi.ch (
       PS_SOLID, PS_DOT, etc.). <nWidth> Specifies width of the pen. <nColor> Index
@@ -3910,7 +3910,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetPointer( nWinNum, nIcon )
+      wvw_SetPointer( <nWinNum>, <nIcon> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nIcon> Model of icon to
       be read. May be a string which identify a resource in a RC file or may be a
@@ -3935,7 +3935,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetPopupMenu( nWinNum, hPopUp )
+      wvw_SetPopupMenu( <nWinNum>, <hPopUp> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <hPopUp> Include all
       information of a popup menu.
@@ -3958,7 +3958,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetTimer( nWinNum, nInterval )
+      wvw_SetTimer( <nWinNum>, <nInterval> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nInterval> Interval, in
       milliseconds.
@@ -3982,7 +3982,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetTitle( nWinNum, cTitle )
+      wvw_SetTitle( <nWinNum>, <cTitle> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <cTitle> Title of window.
    $DESCRIPTION$
@@ -4004,9 +4004,9 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetToolTip( nWinNum, nTop, nLeft, nBottom, nRight, cToolText )
+      wvw_SetToolTip( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>, <cToolText> )
    $ARGUMENTS$
-      <nWinNum> Window number. Default is current window. <nTop, nLeft, nBottom,
+      <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Coordinates to show tooltip. <cToolText> Tooltip text.
    $DESCRIPTION$
       Defines a tooltip.
@@ -4027,7 +4027,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetToolTipActive( nWinNum, lToggle )
+      wvw_SetToolTipActive( <nWinNum>, <lToggle> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <lToggle> .T. enable
       tooltip. .F. disable tooltip. If not passed, returns actual configuration.
@@ -4050,7 +4050,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetToolTipBkColor( nWinNum, nColor )
+      wvw_SetToolTipBkColor( <nWinNum>, <nColor> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nColor> Color index of
       tooltip.
@@ -4074,9 +4074,9 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetToolTipMargin( nWinNum, nTop, nLeft, nBottom, nRight )
+      wvw_SetToolTipMargin( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight> )
    $ARGUMENTS$
-      <nWinNum> Window number. Default is current window. <nTop, nLeft, nBottom,
+      <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Coordinates to draw tooltip.
    $DESCRIPTION$
       Define the borders of tooltip. The border is the distance (in pixels)
@@ -4098,7 +4098,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetToolTipText( nWinNum, cText )
+      wvw_SetToolTipText( <nWinNum>, <cText> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <cText> Text of tooltip.
    $DESCRIPTION$
@@ -4120,7 +4120,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetToolTipTextColor( nWinNum, nColor )
+      wvw_SetToolTipTextColor( <nWinNum>, <nColor> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nColor> Color index to
       text in tooltip.
@@ -4144,7 +4144,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetToolTipTitle( nWinNum, nIcon, cTitle )
+      wvw_SetToolTipTitle( <nWinNum>, <nIcon>, <cTitle> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nIcon> Identify if it
       will be displayed an icon with text in tooltip. Is allowed one of the
@@ -4166,7 +4166,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetToolTipWidth( nWinNum, nWidth )
+      wvw_SetToolTipWidth( <nWinNum>, <nWidth> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nWidth> Width of tooltip
       area.
@@ -4190,7 +4190,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetVertCaret( lOn )
+      wvw_SetVertCaret( <lOn> )
    $ARGUMENTS$
       <lOn> .T. turn caret into vertical caret .F. turn caret into horizontal caret
    $DESCRIPTION$
@@ -4213,7 +4213,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetWindowCentre( nWinNum, lCentre, lPaintIt )
+      wvw_SetWindowCentre( <nWinNum>, <lCentre>, <lPaintIt> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <lCentre> .T. centralize
       window .F. not centralize window <lPaintIt> .T. Repaint all windows immediate.
@@ -4238,7 +4238,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetWindowPos( nWinNum, nXPosition, nYPosition )
+      wvw_SetWindowPos( <nWinNum>, <nXPosition>, <nYPosition> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nXPosition> Horizontal
       position in pixels. <nYPosition> Vertical posititon in pixels.
@@ -4262,7 +4262,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_SetWinStyle( nWinNum, nStyle )
+      wvw_SetWinStyle( <nWinNum>, <nStyle> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nStyle> New windows
       style. If the windows has any control (PUSHBUTTON, SCROLLBAR, etc.), must be
@@ -4287,7 +4287,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_ShowWindow( nWinNum, nMode )
+      wvw_ShowWindow( <nWinNum>, <nMode> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nMode> Points out how
       window will be showed. Default is SW_SHOWNORMAL (another definitions in file
@@ -4311,7 +4311,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_tbAddButton( nWinNum, nCommand, xBitmap, cLabel, nBitmapType, lMap3DColors )
+      wvw_tbAddButton( <nWinNum>, <nCommand>, <xBitmap>, <cLabel>, <nBitmapType>, <lMap3DColors> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nCommand> ID of action to
       be executed when user press button. <xBitmap> ID of bitmap resource in .RC
@@ -4365,7 +4365,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_tbCmd2Index( nWinNum, nCmd )
+      wvw_tbCmd2Index( <nWinNum>, <nCmd> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nCmd> ID of command to
       search (zero based).
@@ -4388,8 +4388,8 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_tbCreate( nWinNum, lDisplayText, nStyle, nSystemBitmap, nImageWidth,
-      nImageHeight )
+      wvw_tbCreate( <nWinNum>, <lDisplayText>, <nStyle>, <nSystemBitmap>, <nImageWidth>,
+      <nImageHeight> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <lDIsplayText> .T. Text of
       button will be showed with the image .F. Text will be showed as a tooltip (
@@ -4420,7 +4420,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_tbDelButton( nWinNum, nButton )
+      wvw_tbDelButton( <nWinNum>, <nButton> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nButton> Number of button
       do delete. The separator button count as a button, and can be deleted. This
@@ -4466,7 +4466,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_tbEnableButton( nWinNum. nButton, lToggle )
+      wvw_tbEnableButton( <nWinNum>. <nButton>, <lToggle> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nButton> Number of button
       in a toolbar (zero based list). <lToggle> .T. Enable the button .F. Disable
@@ -4490,7 +4490,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_tbIndex2Cmd( nWinNum, nButton )
+      wvw_tbIndex2Cmd( <nWinNum>, <nButton> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nButton> Number of button
       in a toolbar (zero based list).
@@ -4513,7 +4513,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_TrackPopupMenu( nWinNum, nHandle )
+      wvw_TrackPopupMenu( <nWinNum>, <nHandle> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nHandle> Popup menu
       handle.
@@ -4536,7 +4536,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_UnreachedBr( nWinNum, nBottomPixels, nRightPixels )
+      wvw_UnreachedBr( <nWinNum>, <nBottomPixels>, <nRightPixels> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nBottomPixels> Passed by
       reference, to keep the number of lines (in pixels). <nRightPixels> Passed by
@@ -4583,13 +4583,13 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_xbCreate( nWinNum, nStyle, nTop, nLeft, nLength, bBlock, aOffset )
+      wvw_xbCreate( <nWinNum>, <nStyle>, <nTop>, <nLeft>, <nLength>, <bBlock>, <aOffset> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nStyle> 0 Horizontal 1
       Vertical <nTop, nLeft> Intital row/column of scrollbar (in characters).
       <nLength> Length of scrollbar (in characters). <bBlock> Code block to
       execute on every VM_VSCROLL/VM_HSCROLL. This code block will be evaluated with
-      these parameters: nWinNum nXBid nXBmsg window number scrollbar ID scrollbar
+      these parameters: <nWinNum> <nXBid> <nXBmsg> window number scrollbar ID scrollbar
       message. Can be divided in two categories:
 
       The "must be handled" messages: SB_LINEUP/SB_LINELEFT
@@ -4598,8 +4598,8 @@
       clicked lower/right shaft clicked
 
       The "may not be handled" messages: SB_TUMBPOSITION SB_THUMBTRACK SB_ENDSCROLL
-      nXBPos 4: scroll thumb is released at position nXBpos 5: scroll thumb is being
-      dragged at position nXBpos 8: end of scroll
+      <nXBPos> 4: scroll thumb is released at position <nXBpos> 5: scroll thumb is being
+      dragged at position <nXBpos> 8: end of scroll
 
       scrollthumb position (only if message = SB_THUMBPOSITION or SB_THUMBTRACK)
 
@@ -4624,7 +4624,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_xbDestroy( nWinNum, nXBId )
+      wvw_xbDestroy( <nWinNum>, <nXBid> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nXBId> ID of scrollbar.
    $DESCRIPTION$
@@ -4646,7 +4646,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_xbEnable( nWinNum, nXBId, nFlags )
+      wvw_xbEnable( <nWinNum>, <nXBid>, <nFlags> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nXBId> ID of scrollbar.
       <nFlags> The following values are allowed: 0 1 2 3 enable both arrows disable
@@ -4670,14 +4670,14 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_xbInfo( nWinNum, nXBId )
+      wvw_xbInfo( <nWinNum>, <nXBid> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nXBId> ID of scrollbar.
    $DESCRIPTION$
       Get information about scrollbar.
    $RETURNS$
-      Array with five elements (if successful): nMin nMax nPageSize nPos
-      nTrackPos Minimum positions to scrolling Maximum positions to scrolling Page
+      Array with five elements (if successful): <nMin> <nMax> <nPageSize> <nPos>
+      <nTrackPos> Minimum positions to scrolling Maximum positions to scrolling Page
       size Position of scrolling button Exact position of the scrolling button, when
       the user beginning a drag-and-drop operation.
 
@@ -4697,7 +4697,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_xbUpdate( nWinNum, nXBId, nPos, nPageSize, nMin, nMax )
+      wvw_xbUpdate( <nWinNum>, <nXBid>, <nPos>, <nPageSize>, <nMin>, <nMax> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nXBId> ID of scrollbar.
       <nPos> Specifies the position of scrolling button. <nPageSize> Page size. This
@@ -4708,7 +4708,7 @@
       <nMin> and <nMax> are optional, however, both <nMin> and <nMax> must be
       supplied, or not at all.
    $RETURNS$
-      Returns current position of scroll thumb, if successful. ­1 if failed.
+      Returns current position of scroll thumb, if successful. -1 if failed.
    $PLATFORMS$
       Windows
    $END$
@@ -4724,7 +4724,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_XReposWindow( lAnchored )
+      wvw_XReposWindow( <lAnchored> )
    $ARGUMENTS$
       <lAnchored> If .T., all subwindows are positioned according to their
       respective coordinate If .F., all subwindows are positioned according to

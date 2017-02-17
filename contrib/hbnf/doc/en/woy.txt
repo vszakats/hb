@@ -6,7 +6,7 @@
    $ONELINER$
       Find number of week within year
    $SYNTAX$
-      ft_WoY( <dDate> ) --> <nResult>
+      ft_WoY( <dDate> ) --> nResult
    $ARGUMENTS$
       <dDate> is a date in the form `"mm/dd/yy"` or `"mm/dd/yyyy"`
    $RETURNS$
@@ -48,7 +48,7 @@
    $ONELINER$
       Find number of day within year
    $SYNTAX$
-      ft_DoY( <dDate> ) --> <nResult>
+      ft_DoY( <dDate> ) --> nResult
    $ARGUMENTS$
       <dDate> is a date in the form `"mm/dd/yy"` or `"mm/dd/yyyy"`
    $RETURNS$

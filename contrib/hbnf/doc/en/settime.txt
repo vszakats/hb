@@ -6,7 +6,7 @@
    $ONELINER$
       Set the DOS system time
    $SYNTAX$
-      ft_SetTime( <cTime> ) --> <lResult>
+      ft_SetTime( <cTime> ) --> lResult
    $ARGUMENTS$
       <cTime> is a string in the form <hh:mm:ss> that you want to set
       the current DOS system time to.

@@ -37,9 +37,9 @@
       into idle mode. If <xUserFunc> is a character string, it must
       contain root name of a valid user define function without
       parentheses. Both the user define function or the code block should
-      accept two parameters: nMode, nCurrentColumn. Both should return
+      accept two parameters: <nMode>, <nCurrentColumn>. Both should return
       a numeric value that correspond to one of the expected return codes
-      (see table below for a list of nMode and return codes).
+      (see table below for a list of <nMode> and return codes).
 
       <xColumnSayPictures> is an optional picture. If <xColumnSayPictures>
       is a character string, all columns would used this value as a
@@ -118,11 +118,11 @@
       </table>
 
       When dbEdit() execute <xUserFunc> it pass the following arguments:
-      nMode and the index of current record in <acColumns>. If <acColumns>
-      is omitted, the index number is the FIELD() number of the open
+      <nMode> and the index of current record in <acColumns>. If <acColumns>
+      is omitted, the index number is the FieldName() number of the open
       database structure.
 
-      dbEdit() nMode could be one of the following:
+      dbEdit() <nMode> could be one of the following:
 
       <table>
        dbedit.ch      Meaning

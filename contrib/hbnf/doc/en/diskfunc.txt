@@ -15,7 +15,7 @@
       An integer representing the maximum disk capacity in bytes.
    $DESCRIPTION$
       Function utilizing ft_int86() to return Maximum Disk Size.
-      Uses ft_int86() through the internal function _ftDiskInfo().
+      Uses ft_int86() through the internal function `_ftDiskInfo()`.
    $EXAMPLES$
       ? ft_DskSize()       // Maximum capacity for default drive
       ? ft_DskSize( "D" )  // Maximum capacity for Drive D:
@@ -41,7 +41,7 @@
       Function to return the available space on the passed
       drive letter or the default drive if no drive is passed.
 
-      Uses ft_int86() through the internal function _ftDiskInfo().
+      Uses ft_int86() through the internal function `_ftDiskInfo()`.
    $EXAMPLES$
       ? ft_DskFree()  // Returns free space on default drive.
    $END$

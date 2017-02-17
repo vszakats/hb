@@ -12,7 +12,7 @@
    $ONELINER$
       Checks if passed char is an affirmation char
    $SYNTAX$
-      IsAffirm( <cChar> ) --> <lTrueOrFalse>
+      IsAffirm( <cChar> ) --> lTrueOrFalse
    $ARGUMENTS$
       <cChar> is a char or string of chars
    $RETURNS$
@@ -51,7 +51,7 @@
    $ONELINER$
       Checks if passed char is a negation char.
    $SYNTAX$
-      IsNegative( <cChar> ) --> <lTrueOrFalse>
+      IsNegative( <cChar> ) --> lTrueOrFalse
    $ARGUMENTS$
       <cChar> is a char or string of chars
    $RETURNS$
@@ -90,7 +90,7 @@
    $ONELINER$
       Returns international strings messages.
    $SYNTAX$
-      NationMsg( <nMsg> ) --> <cMessage>
+      NationMsg( <nMsg> ) --> cMessage
    $ARGUMENTS$
       <nMsg> is the message number you want to get.
    $RETURNS$

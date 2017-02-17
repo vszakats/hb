@@ -11,6 +11,10 @@ msgid "%1$s · %2$s"
 msgstr "%1$s · %2$s"
 
 #, c-format
+msgid "%1$s flag"
+msgstr "%1$s bandeira"
+
+#, c-format
 msgid "%1$s index"
 msgstr "%1$s índice"
 
@@ -131,10 +135,6 @@ msgid "Not started"
 msgstr "Não começado"
 
 #, c-format
-msgid "Permalink"
-msgstr "Ligação permanente"
-
-#, c-format
 msgid "Notes"
 msgstr "Notas"
 
@@ -153,6 +153,14 @@ msgstr "Retorna"
 #, c-format
 msgid "See also"
 msgstr "Veja também"
+
+#, c-format
+msgid "%1$s (%2$s)"
+msgstr "%1$s (%2$s)"
+
+#, c-format
+msgid "Harbour implementation"
+msgstr "implementação Harbour"
 
 #, c-format
 msgid "Source code"

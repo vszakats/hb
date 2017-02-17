@@ -29,24 +29,6 @@
    $CATEGORY$
       Runtime errors
    $ONELINER$
-      Invalid type of argument
-   $DESCRIPTION$
-      The used data is not of logical type.
-   $COMPLIANCE$
-      C
-   $SEEALSO$
-
-   $END$
- */
-
-/* $DOC$
-   $TEMPLATE$
-      Runtime error
-   $NAME$
-      BASE/1068
-   $CATEGORY$
-      Runtime errors
-   $ONELINER$
       Bound error in array access
    $DESCRIPTION$
       The attempt to retrieve data from non-array value.
@@ -79,7 +61,7 @@
    $TEMPLATE$
       Runtime error
    $NAME$
-      BASE/1078
+      BASE/1070
    $CATEGORY$
       Runtime errors
    $ONELINER$
@@ -260,26 +242,6 @@
    $TEMPLATE$
       Runtime error
    $NAME$
-      BASE/1076
-   $CATEGORY$
-      Runtime errors
-   $ONELINER$
-      Invalid type of arguments
-   $DESCRIPTION$
-      The value of argument cannot be incremented.
-   $EXAMPLES$
-      ++
-   $COMPLIANCE$
-      C
-   $SEEALSO$
-
-   $END$
- */
-
-/* $DOC$
-   $TEMPLATE$
-      Runtime error
-   $NAME$
       BASE/1081
    $CATEGORY$
       Runtime errors
@@ -309,6 +271,257 @@
       The minus operation is not allowed for used arguments.
    $EXAMPLES$
       -
+   $COMPLIANCE$
+      C
+   $SEEALSO$
+
+   $END$
+ */
+
+/* $DOC$
+   $TEMPLATE$
+      Runtime error
+   $NAME$
+      BASE/1086
+   $CATEGORY$
+      Runtime errors
+   $ONELINER$
+      Invalid type of arguments
+   $DESCRIPTION$
+      The value of argument cannot be incremented.
+   $EXAMPLES$
+      ++
+   $COMPLIANCE$
+      C
+   $SEEALSO$
+
+   $END$
+ */
+
+/* $DOC$
+   $TEMPLATE$
+      Runtime error
+   $NAME$
+      BASE/1085
+   $CATEGORY$
+      Runtime errors
+   $ONELINER$
+      Invalid argument passed to function
+   $DESCRIPTION$
+      The argument (or arguments) passed to a function is not an numeric
+      value
+   $EXAMPLES$
+      Mod()
+   $COMPLIANCE$
+      C
+   $SEEALSO$
+
+   $END$
+ */
+
+/* $DOC$
+   $TEMPLATE$
+      Runtime error
+   $NAME$
+      BASE/1089
+   $CATEGORY$
+      Runtime errors
+   $ONELINER$
+      Invalid argument passed to function
+   $DESCRIPTION$
+      The argument (or arguments) passed to a function is not an numeric
+      value
+   $EXAMPLES$
+      Abs()
+   $COMPLIANCE$
+      C
+   $SEEALSO$
+
+   $END$
+ */
+
+/* $DOC$
+   $TEMPLATE$
+      Runtime error
+   $NAME$
+      BASE/1090
+   $CATEGORY$
+      Runtime errors
+   $ONELINER$
+      Invalid argument passed to function
+   $DESCRIPTION$
+      The argument (or arguments) passed to a function is not an numeric
+      value
+   $EXAMPLES$
+      INT()
+   $COMPLIANCE$
+      C
+   $SEEALSO$
+
+   $END$
+ */
+
+/* $DOC$
+   $TEMPLATE$
+      Runtime error
+   $NAME$
+      BASE/1092
+   $CATEGORY$
+      Runtime errors
+   $ONELINER$
+      Invalid argument passed to function
+   $DESCRIPTION$
+      The argument (or arguments) passed to a function is not an numeric
+      value
+   $EXAMPLES$
+      Min()
+   $COMPLIANCE$
+      C
+   $SEEALSO$
+
+   $END$
+ */
+
+/* $DOC$
+   $TEMPLATE$
+      Runtime error
+   $NAME$
+      BASE/1093
+   $CATEGORY$
+      Runtime errors
+   $ONELINER$
+      Invalid argument passed to function
+   $DESCRIPTION$
+      The argument (or arguments) passed to a function is not an numeric
+      value
+   $EXAMPLES$
+      Max()
+   $COMPLIANCE$
+      C
+   $SEEALSO$
+
+   $END$
+ */
+
+/* $DOC$
+   $TEMPLATE$
+      Runtime error
+   $NAME$
+      BASE/1094
+   $CATEGORY$
+      Runtime errors
+   $ONELINER$
+      Invalid argument passed to function
+   $DESCRIPTION$
+      The argument (or arguments) passed to a function is not an numeric
+      value
+   $EXAMPLES$
+      Round()
+   $COMPLIANCE$
+      C
+   $SEEALSO$
+
+   $END$
+ */
+
+/* $DOC$
+   $TEMPLATE$
+      Runtime error
+   $NAME$
+      BASE/1095
+   $CATEGORY$
+      Runtime errors
+   $ONELINER$
+      Invalid argument passed to function
+   $DESCRIPTION$
+      The argument (or arguments) passed to a function is not an numeric
+      value
+   $EXAMPLES$
+      Log()
+   $COMPLIANCE$
+      C
+   $SEEALSO$
+
+   $END$
+ */
+
+/* $DOC$
+   $TEMPLATE$
+      Runtime error
+   $NAME$
+      BASE/1096
+   $CATEGORY$
+      Runtime errors
+   $ONELINER$
+      Invalid argument passed to function
+   $DESCRIPTION$
+      The argument (or arguments) passed to a function is not an numeric
+      value
+   $EXAMPLES$
+      Exp()
+   $COMPLIANCE$
+      C
+   $SEEALSO$
+
+   $END$
+ */
+
+/* $DOC$
+   $TEMPLATE$
+      Runtime error
+   $NAME$
+      BASE/1097
+   $CATEGORY$
+      Runtime errors
+   $ONELINER$
+      Invalid argument passed to function
+   $DESCRIPTION$
+      The argument (or arguments) passed to a function is not an numeric
+      value
+   $EXAMPLES$
+      Sqrt()
+   $COMPLIANCE$
+      C
+   $SEEALSO$
+
+   $END$
+ */
+
+/* $DOC$
+   $TEMPLATE$
+      Runtime error
+   $NAME$
+      BASE/1098
+   $CATEGORY$
+      Runtime errors
+   $ONELINER$
+      Invalid argument passed to function
+   $DESCRIPTION$
+      The argument (or arguments) passed to a function is not a string
+      value
+   $EXAMPLES$
+      Val()
+   $COMPLIANCE$
+      C
+   $SEEALSO$
+
+   $END$
+ */
+
+/* $DOC$
+   $TEMPLATE$
+      Runtime error
+   $NAME$
+      BASE/1099
+   $CATEGORY$
+      Runtime errors
+   $ONELINER$
+      Invalid argument passed to function
+   $DESCRIPTION$
+      The argument (or arguments) passed to a function is not a numeric
+      value
+   $EXAMPLES$
+      Str()
    $COMPLIANCE$
       C
    $SEEALSO$
@@ -500,7 +713,7 @@
    $TEMPLATE$
       Runtime error
    $NAME$
-      BASE/1076
+      BASE/1109
    $CATEGORY$
       Runtime errors
    $ONELINER$
@@ -540,7 +753,7 @@
    $TEMPLATE$
       Runtime error
    $NAME$
-      BASE/1110
+      BASE/1111
    $CATEGORY$
       Runtime errors
    $ONELINER$
@@ -791,260 +1004,10 @@
    $CATEGORY$
       Runtime errors
    $ONELINER$
-      Bound error in array assignment
-   $DESCRIPTION$
-      The specified index into an array was greater then the number of
-      elements in the array.
-   $COMPLIANCE$
-      C
-   $SEEALSO$
-
-   $END$
- */
-
-/* $DOC$
-   $TEMPLATE$
-      Runtime error
-   $NAME$
-      BASE/1068
-   $CATEGORY$
-      Runtime errors
-   $ONELINER$
       Bound error in array element assignment
    $DESCRIPTION$
       The specified index into an array was greater then the number of
       elements in the array.
-   $COMPLIANCE$
-      C
-   $SEEALSO$
-
-   $END$
- */
-
-/* $DOC$
-   $TEMPLATE$
-      Runtime error
-   $NAME$
-      BASE/1085
-   $CATEGORY$
-      Runtime errors
-   $ONELINER$
-      Invalid argument passed to function
-   $DESCRIPTION$
-      The argument (or arguments) passed to a function is not an numeric
-      value
-   $EXAMPLES$
-      Mod()
-   $COMPLIANCE$
-      C
-   $SEEALSO$
-
-   $END$
- */
-
-/* $DOC$
-   $TEMPLATE$
-      Runtime error
-   $NAME$
-      BASE/1089
-   $CATEGORY$
-      Runtime errors
-   $ONELINER$
-      Invalid argument passed to function
-   $DESCRIPTION$
-      The argument (or arguments) passed to a function is not an numeric
-      value
-   $EXAMPLES$
-      Abs()
-   $COMPLIANCE$
-      C
-   $SEEALSO$
-
-   $END$
- */
-
-/* $DOC$
-   $TEMPLATE$
-      Runtime error
-   $NAME$
-      BASE/1090
-   $CATEGORY$
-      Runtime errors
-   $ONELINER$
-      Invalid argument passed to function
-   $DESCRIPTION$
-      The argument (or arguments) passed to a function is not an numeric
-      value
-   $EXAMPLES$
-      INT()
-   $COMPLIANCE$
-      C
-   $SEEALSO$
-
-   $END$
- */
-
-/* $DOC$
-   $TEMPLATE$
-      Runtime error
-   $NAME$
-      BASE/1092
-   $CATEGORY$
-      Runtime errors
-   $ONELINER$
-      Invalid argument passed to function
-   $DESCRIPTION$
-      The argument (or arguments) passed to a function is not an numeric
-      value
-   $EXAMPLES$
-      Min()
-   $COMPLIANCE$
-      C
-   $SEEALSO$
-
-   $END$
- */
-
-/* $DOC$
-   $TEMPLATE$
-      Runtime error
-   $NAME$
-      BASE/1093
-   $CATEGORY$
-      Runtime errors
-   $ONELINER$
-      Invalid argument passed to function
-   $DESCRIPTION$
-      The argument (or arguments) passed to a function is not an numeric
-      value
-   $EXAMPLES$
-      Max()
-   $COMPLIANCE$
-      C
-   $SEEALSO$
-
-   $END$
- */
-
-/* $DOC$
-   $TEMPLATE$
-      Runtime error
-   $NAME$
-      BASE/1094
-   $CATEGORY$
-      Runtime errors
-   $ONELINER$
-      Invalid argument passed to function
-   $DESCRIPTION$
-      The argument (or arguments) passed to a function is not an numeric
-      value
-   $EXAMPLES$
-      Round()
-   $COMPLIANCE$
-      C
-   $SEEALSO$
-
-   $END$
- */
-
-/* $DOC$
-   $TEMPLATE$
-      Runtime error
-   $NAME$
-      BASE/1095
-   $CATEGORY$
-      Runtime errors
-   $ONELINER$
-      Invalid argument passed to function
-   $DESCRIPTION$
-      The argument (or arguments) passed to a function is not an numeric
-      value
-   $EXAMPLES$
-      Log()
-   $COMPLIANCE$
-      C
-   $SEEALSO$
-
-   $END$
- */
-
-/* $DOC$
-   $TEMPLATE$
-      Runtime error
-   $NAME$
-      BASE/1096
-   $CATEGORY$
-      Runtime errors
-   $ONELINER$
-      Invalid argument passed to function
-   $DESCRIPTION$
-      The argument (or arguments) passed to a function is not an numeric
-      value
-   $EXAMPLES$
-      Exp()
-   $COMPLIANCE$
-      C
-   $SEEALSO$
-
-   $END$
- */
-
-/* $DOC$
-   $TEMPLATE$
-      Runtime error
-   $NAME$
-      BASE/1097
-   $CATEGORY$
-      Runtime errors
-   $ONELINER$
-      Invalid argument passed to function
-   $DESCRIPTION$
-      The argument (or arguments) passed to a function is not an numeric
-      value
-   $EXAMPLES$
-      Sqrt()
-   $COMPLIANCE$
-      C
-   $SEEALSO$
-
-   $END$
- */
-
-/* $DOC$
-   $TEMPLATE$
-      Runtime error
-   $NAME$
-      BASE/1098
-   $CATEGORY$
-      Runtime errors
-   $ONELINER$
-      Invalid argument passed to function
-   $DESCRIPTION$
-      The argument (or arguments) passed to a function is not a string
-      value
-   $EXAMPLES$
-      Val()
-   $COMPLIANCE$
-      C
-   $SEEALSO$
-
-   $END$
- */
-
-/* $DOC$
-   $TEMPLATE$
-      Runtime error
-   $NAME$
-      BASE/1099
-   $CATEGORY$
-      Runtime errors
-   $ONELINER$
-      Invalid argument passed to function
-   $DESCRIPTION$
-      The argument (or arguments) passed to a function is not a numeric
-      value
-   $EXAMPLES$
-      Str()
    $COMPLIANCE$
       C
    $SEEALSO$

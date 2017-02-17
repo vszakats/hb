@@ -38,10 +38,12 @@ header > div > div:first-child {
   float: left;
 }
 
-header > div > div:first-child > a > svg {
+header > svg {
   fill: #f8f8f8;
   height: 46.1px;
   float: left;
+  margin-left: 2px;
+  margin-right: 2px;
 }
 
 header > div > div:last-child {
@@ -272,7 +274,7 @@ a.d-id:hover {
   vertical-align: super;
 }
 
-.d-ebi a {
+.d-eb .d-ebi {
   border: 0;
 }
 
@@ -286,7 +288,7 @@ pre {
   overflow: scroll;
 }
 
-code, .d-t, aside {
+code, .d-t {
   font-family: Hack, Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Liberation Mono', 'Oxygen Mono', 'Andale Mono', monospace !important;
   font-size: 85%;
 }
@@ -524,7 +526,6 @@ p {
   margin-left: 6px;
   min-width: 9em;
   position: absolute;
-  z-index: 2;
   padding: 5px 5px;
 }
 
@@ -537,6 +538,10 @@ p {
   text-align: left;
   text-decoration: none;
   transition: none;
+}
+
+.d-dd {
+  margin-top: 0;
 }
 
 .lang .dropdown-content {

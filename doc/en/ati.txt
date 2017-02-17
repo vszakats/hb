@@ -12,15 +12,15 @@
    $ONELINER$
       Locates the position of a substring in a main string.
    $SYNTAX$
-      hb_AtI( <cSearch>, <cString>, [<nStart>], [<nEnd>] ) --> <nPos>
+      hb_AtI( <cSearch>, <cString>, [<nStart>], [<nEnd>] ) --> nPos
    $ARGUMENTS$
       <cSearch> the sub-string to search for
 
       <cString> The main string to search into, for <cSearch>
 
-      <nStart> Beggining search position into cString, default: 1
+      <nStart> Beggining search position into <cString>, default: 1
 
-      <nEnd> Ending search position, default: Length of cString (i.e. entire <cString>)
+      <nEnd> Ending search position, default: Length of <cString> (i.e. entire <cString>)
 
    $RETURNS$
       hb_AtI() returns the position (if any), into main string,

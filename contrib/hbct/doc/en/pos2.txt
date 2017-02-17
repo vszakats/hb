@@ -84,7 +84,7 @@
    $FILES$
       Library is hbct.
    $SEEALSO$
-      POSCHAR, PosDel(), PosRepl()
+      PosChar(), PosDel(), PosRepl()
    $END$
  */
 

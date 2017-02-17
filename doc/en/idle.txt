@@ -80,7 +80,7 @@
    $ONELINER$
       Removes the background task from the list of tasks.
    $SYNTAX$
-      hb_idleDel( <nHandle> ) --> <bAction>
+      hb_idleDel( <nHandle> ) --> bAction
    $ARGUMENTS$
       <nHandle> is the identifier of the task returned by the
       hb_idleAdd() function.
@@ -156,7 +156,7 @@
 
 /* $DOC$
    $TEMPLATE$
-      Procedure
+      C Function
    $NAME$
       hb_idleState()
    $CATEGORY$

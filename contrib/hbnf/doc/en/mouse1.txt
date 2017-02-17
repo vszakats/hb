@@ -264,7 +264,7 @@
    $ONELINER$
       Get the mouse driver version
    $SYNTAX$
-      ft_MVersion( <@nMinor>, <@nType>, <@nIRQ>  ) --> <nMajor>
+      ft_MVersion( <@nMinor>, <@nType>, <@nIRQ>  ) --> nMajor
    $ARGUMENTS$
       <nMinor>  is the Minor version number. *Passed by reference*.
       <nType>   is the Mouse type. *Passed by reference*.
@@ -331,7 +331,7 @@
    $ONELINER$
       Get the display page for the mouse pointer
    $SYNTAX$
-      ft_MGetPage() --> <nPage>
+      ft_MGetPage() --> nPage
    $ARGUMENTS$
       None
    $RETURNS$

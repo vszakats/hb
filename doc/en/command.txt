@@ -42,7 +42,7 @@
       inheritance can extend to many levels.
 
       A program uses a Class by calling the Class Constructor, usually the
-      New() method, to create an object. That object is usually assigned
+      `:New()` method, to create an object. That object is usually assigned
       to a variable, which is used to access the VAR elements and
       methods.
 
@@ -74,7 +74,7 @@
    $PLATFORMS$
       All
    $SEEALSO$
-      HBClass(), Object Oriented Programming, VAR, METHOD
+      HBClass(), VAR, METHOD
    $END$
  */
 
@@ -157,7 +157,7 @@
    $PLATFORMS$
       All
    $SEEALSO$
-      Object Oriented Programming, CLASS, METHOD, CLASS VAR, VAR
+      CLASS, METHOD, CLASS VAR, VAR
    $END$
  */
 
@@ -208,7 +208,7 @@
    $PLATFORMS$
       All
    $SEEALSO$
-      Object Oriented Programming, CLASS, METHOD, VAR
+      CLASS, METHOD, VAR
    $END$
  */
 
@@ -312,7 +312,7 @@
    $PLATFORMS$
       All
    $SEEALSO$
-      HBClass(), Object Oriented Programming, VAR, CLASS
+      HBClass(), VAR, CLASS
    $END$
  */
 
@@ -369,7 +369,7 @@
    $PLATFORMS$
       All
    $SEEALSO$
-      METHOD, VAR, CLASS, Object Oriented Programming
+      METHOD, VAR, CLASS
    $END$
  */
 
@@ -406,7 +406,7 @@
    $PLATFORMS$
       All
    $SEEALSO$
-      Object Oriented Programming, ON ERROR, CLASS, METHOD, VAR
+      ON ERROR, CLASS, METHOD, VAR
    $END$
  */
 
@@ -444,7 +444,7 @@
    $PLATFORMS$
       All
    $SEEALSO$
-      Object Oriented Programming, ERROR HANDLER, CLASS, METHOD, VAR
+      ERROR HANDLER, CLASS, METHOD, VAR
    $END$
  */
 
@@ -479,6 +479,6 @@
    $PLATFORMS$
       All
    $SEEALSO$
-      Object Oriented Programming, CLASS, METHOD, VAR
+      CLASS, METHOD, VAR
    $END$
  */

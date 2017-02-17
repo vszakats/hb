@@ -10,6 +10,8 @@ _genhtml.prg
 _gentxt.prg
 _genxml.prg
 
+hbgt.hbc
+
 ../../package/harbour.hbc
 
 {allgcc}-ldflag=-fno-lto

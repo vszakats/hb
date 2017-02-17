@@ -6,7 +6,7 @@
    $ONELINER$
       Check if the value is a Binary  Number
    $SYNTAX$
-      IsBin( <cN> ) --> <cNr>
+      IsBin( <cN> ) --> cNr
    $ARGUMENTS$
       <cN> String to be checked
    $RETURNS$
@@ -28,7 +28,7 @@
    $ONELINER$
       Check if the value is a Octal  Number
    $SYNTAX$
-      IsOctal( <cN> ) --> <cNr>
+      IsOctal( <cN> ) --> cNr
    $ARGUMENTS$
       <cN> String to be checked
    $RETURNS$
@@ -50,7 +50,7 @@
    $ONELINER$
       Check if the value is a Decimal  Number
    $SYNTAX$
-      IsDec( <cN> ) --> <cNr>
+      IsDec( <cN> ) --> cNr
    $ARGUMENTS$
       <cN> String to be checked
    $RETURNS$
@@ -72,7 +72,7 @@
    $ONELINER$
       Check if the value is a Hexal  Number
    $SYNTAX$
-      IsHexa( <cN> ) --> <cNr>
+      IsHexa( <cN> ) --> cNr
    $ARGUMENTS$
       <cN> String to be checked
    $RETURNS$
@@ -94,7 +94,7 @@
    $ONELINER$
       Converts a Decimal Value to Binary
    $SYNTAX$
-      DecToBin( <cN> ) --> <cNr>
+      DecToBin( <cN> ) --> cNr
    $ARGUMENTS$
       <cN> Number to be converted
    $RETURNS$
@@ -117,7 +117,7 @@
    $ONELINER$
       Converts a Decimal Value to Octal
    $SYNTAX$
-      DecToOctal( <cN> ) --> <cNr>
+      DecToOctal( <cN> ) --> cNr
    $ARGUMENTS$
       <cN> Number to be converted
    $RETURNS$
@@ -140,7 +140,7 @@
    $ONELINER$
       Converts a Decimal Value to Hexa
    $SYNTAX$
-      DecToHexa( <cN> ) --> <cNr>
+      DecToHexa( <cN> ) --> cNr
    $ARGUMENTS$
       <cN> Number to be converted
    $RETURNS$
@@ -163,7 +163,7 @@
    $ONELINER$
       Converts a Binary Value to Decimal
    $SYNTAX$
-      BinToDec( <cN> ) --> <cNr>
+      BinToDec( <cN> ) --> cNr
    $ARGUMENTS$
       <cN> Number to be converted
    $RETURNS$
@@ -186,7 +186,7 @@
    $ONELINER$
       Converts a Octal Value to Decimal
    $SYNTAX$
-      OctalToDec( <cN> ) --> <cNr>
+      OctalToDec( <cN> ) --> cNr
    $ARGUMENTS$
       <cN> Number to be converted
    $RETURNS$
@@ -209,7 +209,7 @@
    $ONELINER$
       Converts a Hexa Value to Decimal
    $SYNTAX$
-      HexaToDec( <cN> ) --> <cNr>
+      HexaToDec( <cN> ) --> cNr
    $ARGUMENTS$
       <cN> Number to be converted
    $RETURNS$

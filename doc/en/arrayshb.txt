@@ -195,7 +195,7 @@
    $ONELINER$
       Insert a NIL value at an array subscript position.
    $SYNTAX$
-      AIns( <aArray>, <nPos> ) --> <aArray>
+      AIns( <aArray>, <nPos> ) --> aArray
    $ARGUMENTS$
       <aArray> Array name.
 
@@ -245,7 +245,7 @@
       Inserts a value at an array subscript position and optionally increases
       the length of array.
    $SYNTAX$
-      hb_AIns( <aArray>, [<nPos>], [<xValue>], [<lAutoSize>] ) --> <aArray>
+      hb_AIns( <aArray>, [<nPos>], [<xValue>], [<lAutoSize>] ) --> aArray
    $ARGUMENTS$
       <aArray> The array name into which the value <xValue> will be inserted.
 
@@ -343,7 +343,7 @@
    $ONELINER$
       Delete an element from an array.
    $SYNTAX$
-      hb_ADel( <aArray>, [<nPos>], [<lAutoSize>] ) --> <aArray>
+      hb_ADel( <aArray>, [<nPos>], [<lAutoSize>] ) --> aArray
    $ARGUMENTS$
       <aArray> Name of array from which an element is to be removed.
 
@@ -502,7 +502,7 @@
    $ONELINER$
       Scan array elements for a specified condition
    $SYNTAX$
-      hb_AScan( <aArray>, <xSearch>, [<nStart>], [<nCount>], [<lExact>] ) --> <nPosition>
+      hb_AScan( <aArray>, <xSearch>, [<nStart>], [<nCount>], [<lExact>] ) --> nPosition
    $ARGUMENTS$
       <aArray>    Array to be scanned.
 

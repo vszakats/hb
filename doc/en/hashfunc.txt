@@ -1006,6 +1006,6 @@
    $FILES$
 
    $SEEALSO$
-      TODO: locate and list those methods that use this feature
+
    $END$
  */

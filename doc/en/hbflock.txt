@@ -11,7 +11,7 @@
       Locks part or all of any file
    $SYNTAX$
       hb_FLock( <nHandle>, <nOffset>, <nBytes> [, <nType ] )
-                --> <lSuccess>
+                --> lSuccess
    $ARGUMENTS$
       <nHandle>  Dos file handle
 
@@ -69,7 +69,7 @@
    $ONELINER$
       Unlocks part or all of any file
    $SYNTAX$
-      hb_FUnlock( <nHandle>, <nOffset>, <nBytes> ) --> <lSuccess>
+      hb_FUnlock( <nHandle>, <nOffset>, <nBytes> ) --> lSuccess
    $ARGUMENTS$
       <nHandle>  Dos file handle
 
