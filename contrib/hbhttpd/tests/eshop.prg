@@ -41,7 +41,6 @@ PROCEDURE Main()
 
       ? "Certificate and/or private key missing."
       ? "Create them by running ./mkcert.sh"
-      ? "(rename to .bat if your platform doesn't support POSIX shell)"
       RETURN
    ENDIF
 
