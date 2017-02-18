@@ -94,7 +94,7 @@ Download source archive from any of these URLs and unpack:
 
 ### Harbour unstable binaries (updated after each commit)
 
-#### Windows (mingw, 64-bit hosted, 32/64-bit targets, 7-zip archive)
+#### Windows (MinGW, 64-bit hosted, 32/64-bit targets, 7-zip archive)
 
 * <https://github.com/vszakats/harbour-core/releases/download/v3.4.0dev/harbour-snapshot-win.7z>
 

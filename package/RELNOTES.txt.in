@@ -8,8 +8,10 @@ Source archives and Windows binaries are available for download:
 
 Package content:
 
-* Harbour tools, static/shared libraries, sample sources
-* x86 hosted executables
+* Harbour tools (x64)
+* static/shared libraries for x86
+* static/shared libraries for x64
+* example/test sources
 
 Usage:
 
@@ -17,7 +19,7 @@ Usage:
 2. Launch a Command Prompt.
 3. Add Harbour to `PATH`: `set PATH=<path-to-harbour>\bin;%PATH%`
 4. Install MSYS2: <https://msys2.github.io/>
-5. Install mingw using this command on the MSYS2 console:
+5. Install MinGW using this command on the MSYS2 console:
    `pacman -S VCS base-devel msys2-devel mingw-w64-{i686,x86_64}-toolchain`
 6. Build test x86 executable:
    ```
