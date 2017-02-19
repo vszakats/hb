@@ -93,6 +93,9 @@
       ( defined( __STDC_VERSION__ ) && __STDC_VERSION__ >= 199901L ) )
    #define HB_C99_STATIC    static
    #define HB_C99_RESTRICT  restrict
+#else
+   #define HB_C99_STATIC
+   #define HB_C99_RESTRICT
 #endif
 
 #if 0
