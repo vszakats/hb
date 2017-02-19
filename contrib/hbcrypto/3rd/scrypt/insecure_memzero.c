@@ -1,5 +1,5 @@
 #include <stddef.h>
-#include <stdint.h>
+#include "hbdefs.h"
 
 #include "insecure_memzero.h"
 

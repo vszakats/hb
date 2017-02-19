@@ -1,6 +1,6 @@
 diff --strip-trailing-cr -urN scrypt.orig/crypto_scrypt-ref.c scrypt/crypto_scrypt-ref.c
 --- scrypt.orig/crypto_scrypt-ref.c	2017-02-11 07:29:13.000000000 +0000
-+++ scrypt/crypto_scrypt-ref.c	2017-02-17 17:34:57.000000000 +0000
++++ scrypt/crypto_scrypt-ref.c	2017-02-17 17:35:13.000000000 +0000
 @@ -26,15 +26,11 @@
   * This file was originally written by Colin Percival as part of the Tarsnap
   * online backup system.
@@ -70,12 +70,35 @@ diff --strip-trailing-cr -urN scrypt.orig/crypto_scrypt.h scrypt/crypto_scrypt.h
  
  /**
   * crypto_scrypt(passwd, passwdlen, salt, saltlen, N, r, p, buf, buflen):
+diff --strip-trailing-cr -urN scrypt.orig/insecure_memzero.c scrypt/insecure_memzero.c
+--- scrypt.orig/insecure_memzero.c	2017-02-11 07:29:13.000000000 +0000
++++ scrypt/insecure_memzero.c	2017-02-19 14:09:35.000000000 +0000
+@@ -1,5 +1,5 @@
+ #include <stddef.h>
+-#include <stdint.h>
++#include "hbdefs.h"
+ 
+ #include "insecure_memzero.h"
+ 
+diff --strip-trailing-cr -urN scrypt.orig/insecure_memzero.h scrypt/insecure_memzero.h
+--- scrypt.orig/insecure_memzero.h	2017-02-11 07:29:13.000000000 +0000
++++ scrypt/insecure_memzero.h	2017-02-19 14:08:39.000000000 +0000
+@@ -27,7 +27,7 @@
+  * http://www.daemonology.net/blog/2014-09-04-how-to-zero-a-buffer.html
+  * http://www.daemonology.net/blog/2014-09-06-zeroing-buffers-is-insufficient.html
+  */
+-static inline void
++static _HB_INLINE_ void
+ insecure_memzero(volatile void * buf, size_t len)
+ {
+ 
 diff --strip-trailing-cr -urN scrypt.orig/sha256.c scrypt/sha256.c
 --- scrypt.orig/sha256.c	2017-02-11 07:29:13.000000000 +0000
-+++ scrypt/sha256.c	2017-02-17 17:27:40.000000000 +0000
-@@ -1,9 +1,7 @@
++++ scrypt/sha256.c	2017-02-19 14:10:50.000000000 +0000
+@@ -1,9 +1,8 @@
  #include <assert.h>
 -#include <stdint.h>
++#include "hbdefs.h"
  #include <string.h>
  
  #include "insecure_memzero.h"
@@ -83,7 +106,7 @@ diff --strip-trailing-cr -urN scrypt.orig/sha256.c scrypt/sha256.c
  
  #include "sha256.h"
  
-@@ -94,9 +92,9 @@
+@@ -94,9 +93,9 @@
   * the 512-bit input block to produce a new state.
   */
  static void
@@ -96,7 +119,7 @@ diff --strip-trailing-cr -urN scrypt.orig/sha256.c scrypt/sha256.c
  {
  	int i;
  
-@@ -159,7 +157,7 @@
+@@ -159,7 +158,7 @@
  
  /* Add padding and terminating bit-count. */
  static void
@@ -105,7 +128,7 @@ diff --strip-trailing-cr -urN scrypt.orig/sha256.c scrypt/sha256.c
  {
  	size_t r;
  
-@@ -213,7 +211,7 @@
+@@ -213,7 +212,7 @@
   */
  static void
  _SHA256_Update(SHA256_CTX * ctx, const void * in, size_t len,
@@ -114,7 +137,7 @@ diff --strip-trailing-cr -urN scrypt.orig/sha256.c scrypt/sha256.c
  {
  	uint32_t r;
  	const uint8_t * src = in;
-@@ -271,7 +269,7 @@
+@@ -271,7 +270,7 @@
   */
  static void
  _SHA256_Final(uint8_t digest[32], SHA256_CTX * ctx,
@@ -123,7 +146,7 @@ diff --strip-trailing-cr -urN scrypt.orig/sha256.c scrypt/sha256.c
  {
  
  	/* Add padding. */
-@@ -323,8 +321,8 @@
+@@ -323,8 +322,8 @@
   */
  static void
  _HMAC_SHA256_Init(HMAC_SHA256_CTX * ctx, const void * _K, size_t Klen,
@@ -134,7 +157,7 @@ diff --strip-trailing-cr -urN scrypt.orig/sha256.c scrypt/sha256.c
  {
  	const uint8_t * K = _K;
  	size_t i;
-@@ -376,7 +374,7 @@
+@@ -376,7 +375,7 @@
   */
  static void
  _HMAC_SHA256_Update(HMAC_SHA256_CTX * ctx, const void * in, size_t len,
@@ -143,7 +166,7 @@ diff --strip-trailing-cr -urN scrypt.orig/sha256.c scrypt/sha256.c
  {
  
  	/* Feed data to the inner SHA256 operation. */
-@@ -403,7 +401,7 @@
+@@ -403,7 +402,7 @@
   */
  static void
  _HMAC_SHA256_Final(uint8_t digest[32], HMAC_SHA256_CTX * ctx,
