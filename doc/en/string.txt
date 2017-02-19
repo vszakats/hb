@@ -1306,7 +1306,7 @@
       <cString>. The length of the character string returned by this
       function is limited to the memory available.
 
-      A value of 0 for <nSize> will return a NULL string.
+      A value of 0 for <nSize> will return a null string.
    $EXAMPLES$
       ? Replicate( "a", 10 )      // aaaaaaaaaa
       ? Replicate( "b", 100000 )
@@ -1344,7 +1344,7 @@
       <cString> A string containing blank spaces
    $DESCRIPTION$
       This function returns a string consisting of <nSize> blank spaces.
-      If the value of <nSize> is 0, a NULL string ( "" ) will be returned.
+      If the value of <nSize> is 0, a null string ("") will be returned.
 
       This function is useful to declare the length of a character memory
       variable.

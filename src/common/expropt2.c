@@ -1053,7 +1053,7 @@ PHB_EXPR hb_compExprReduceNE( PHB_EXPR pSelf, HB_COMP_DECL )
 
          case HB_ET_STRING:
             /* NOTE: the result depends on SET EXACT setting then it
-             * cannot be optimized except the case when NULL string are
+             * cannot be optimized except the case when null strings are
              * compared - "" != "" is always HB_FALSE regardless of EXACT
              * setting
              */
@@ -1573,7 +1573,7 @@ PHB_EXPR hb_compExprReduceEQ( PHB_EXPR pSelf, HB_COMP_DECL )
          case HB_ET_STRING:
             /* NOTE: when not exact comparison (==) is used
              * the result depends on SET EXACT setting then it
-             * cannot be optimized except the case when NULL string are
+             * cannot be optimized except the case when null strings are
              * compared - "" = "" is always TRUE regardless of EXACT
              * setting.
              * If macro substitiution is not didabled (-kM compiler

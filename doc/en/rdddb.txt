@@ -527,7 +527,7 @@
    $DESCRIPTION$
       This function return the expression of the `SET FILTER TO` command
       for the current or designated work area. If no filter condition
-      is present, a NULL string will be returned.
+      is present, a null string will be returned.
    $EXAMPLES$
       USE test INDEX test NEW
       SET FILTER TO Name == "Harbour"
