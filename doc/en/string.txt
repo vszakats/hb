@@ -1500,7 +1500,7 @@
         ? "--- pass non numeric / NIL value ----"
         ? hb_ntoc( "42" ) // --> NULL string
         ? hb_ntoc()       // --> NULL string
-        ? Str( "42" )     // -->  RTE
+        ? Str( "42" )     // --> RTE
 
         RETURN
    $STATUS$
