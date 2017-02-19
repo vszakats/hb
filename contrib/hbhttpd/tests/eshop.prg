@@ -1,5 +1,3 @@
-/* Requirement: Create certificate with ./mkcert.sh (rename to .bat as needed) */
-
 #require "hbssl"
 #require "hbhttpd"
 
@@ -126,7 +124,9 @@ PROCEDURE Main()
    ELSE
       ? "Certificate and/or private key missing."
       ? "Create them by running ./mkcert.sh"
+      ?
       ? "WARNING: Continuing with unsecure/cleartext communication."
+      ?
    ENDIF
 
    ? "Listening on port:", hConfig[ "Port" ]
