@@ -1441,3 +1441,121 @@
       Str(), Transform()
    $END$
  */
+
+/* $DOC$
+   $AUTHOR$
+      2017 Pete D. <pete_westg@yahoo.gr>
+   $TEMPLATE$
+      Function
+   $NAME$
+      hb_ntoc()
+   $CATEGORY$
+      API
+   $SUBCATEGORY$
+      Strings
+   $ONELINER$
+      Converts a numeric value to string
+   $SYNTAX$
+      hb_ntoc( <nValue>, [<nDecs>] ) --> cValue
+   $ARGUMENTS$
+      <nValue> is the numeric value to convert.
+
+      <nDecs> decimal digits to retain (if any).
+   $RETURNS$
+      <cValue> A string representation of <nValue>
+   $DESCRIPTION$
+      This function converts the given <nValue> numeric value
+      to a string value, while (trying to) keep all or at least `nDecs`
+      significant digits in double numbers, unless `<nDecs>` is lesser
+      than actual decimal digits of <nValue>, in which case the result
+      will be rounded.
+
+      SET DECIMAL setting has no effect on the returned value (ignored),
+      which means that, unlike f.e. Str(), all non-sginficant digits
+      (e.g.: trailing decimal zeros) will be removed. Likewise, all
+      leading empty spaces will be trimmed.
+
+      Returns stringified value of `<nValue>`, preserving all (or at least
+      `<nDecs>`) significant digits, if any.
+      Interestingly, if `<nValue>` is NIL or not numeric, this function
+      will return a null string and, unlike Str(), will NOT cause an RTE.
+      NOTE: new function, available after 2016-06-20 21:59 UTC+0200 commit,
+            (it is not available in earlier versions).
+   $EXAMPLES$
+      PROCEDURE Main()
+
+         LOCAL n := ( 5 / 2 ) + 0.009
+
+         ? hb_ntoc( n )    // --> 2.509
+         ? Str( n )        // -->          2.51
+         ? hb_ntoc( n, 2 ) // --> 2.51
+         ? Str( n, 5, 2 )  // -->  2.51
+         ? hb_ntos( n )    // --> 2.51
+         ? "--- decimals set to 7 ----"
+         SET DECIMALS TO 7
+         ? Str( n )        // -->          2.51
+         ? hb_ntoc( n )    // --> 2.509
+         ? Str( n, 10, 7 ) // -->  2.5090000
+         ? hb_ntoc( n, 7 ) // --> 2.509
+         ? "--- pass non numeric / NIL value ----"
+         ? hb_ntoc( "42" ) // --> null string
+         ? hb_ntoc()       // --> null string
+         ? Str( "42" )     // --> RTE
+
+         RETURN
+   $STATUS$
+      R
+   $COMPLIANCE$
+      H
+   $FILES$
+      Library is core
+   $SEEALSO$
+      Str(), hb_ntos()
+   $END$
+ */
+
+/* $DOC$
+   $AUTHOR$
+      2017 Pete D. <pete_westg@yahoo.gr>
+   $TEMPLATE$
+      Function
+   $NAME$
+      hb_ntos()
+   $CATEGORY$
+      API
+   $SUBCATEGORY$
+      Strings
+   $ONELINER$
+      Converts a numeric value to string.
+   $SYNTAX$
+      hb_ntos( <nValue> ) --> cValue
+   $ARGUMENTS$
+      <nValue> is the numeric value to convert.
+   $RETURNS$
+      <cValue> A string representation of <nValue>
+   $DESCRIPTION$
+      This function converts any numeric value to a string,
+      trimming all the leading empty spaces. If `<nValue>` is NIL
+      or not numeric, this function will return a null string.
+
+      Essentially, `hb_ntos()` function is equivalent to
+      `LTrim( Str( <nValue> ) )` but quite simpler and faster.
+   $EXAMPLES$
+      PROCEDURE Main()
+
+         LOCAL n := ( 5 / 2 ) + 0.009
+
+         ? Str( n )        // -->          2.51
+         ? hb_ntos( n )    // --> 2.51
+
+         RETURN
+   $STATUS$
+      R
+   $COMPLIANCE$
+      H
+   $FILES$
+      Library is core
+   $SEEALSO$
+      Str(), hb_ntoc(), LTrim()
+   $END$
+ */
