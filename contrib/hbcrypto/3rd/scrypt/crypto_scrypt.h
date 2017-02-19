@@ -29,6 +29,7 @@
 #ifndef _CRYPTO_SCRYPT_H_
 #define _CRYPTO_SCRYPT_H_
 
+#include "_compat.h"
 
 /**
  * crypto_scrypt(passwd, passwdlen, salt, saltlen, N, r, p, buf, buflen):

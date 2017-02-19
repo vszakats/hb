@@ -135,7 +135,7 @@ PROCEDURE Main()
 
    /* Find project root */
    nCount := 4
-   DO WHILE nCount-- > 0 .AND. ! hb_DirExists( ( tmp := hb_DirBase() + hb_DirSepToOS( Replicate( "../", nCount ) ) ) + "doc" )
+   DO WHILE nCount-- > 0 .AND. ! hb_vfDirExists( ( tmp := hb_DirBase() + hb_DirSepToOS( Replicate( "../", nCount ) ) ) + "doc" )
    ENDDO
    s_hSwitches[ "dir_in" ] := iif( nCount == 0, "./", hb_PathNormalize( tmp ) )
 

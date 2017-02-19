@@ -1,6 +1,6 @@
 diff --strip-trailing-cr -urN scrypt.orig/crypto_scrypt-ref.c scrypt/crypto_scrypt-ref.c
 --- scrypt.orig/crypto_scrypt-ref.c	2017-02-11 07:29:13.000000000 +0000
-+++ scrypt/crypto_scrypt-ref.c	2017-02-17 17:35:13.000000000 +0000
++++ scrypt/crypto_scrypt-ref.c	2017-02-19 21:18:33.000000000 +0000
 @@ -26,15 +26,11 @@
   * This file was originally written by Colin Percival as part of the Tarsnap
   * online backup system.
@@ -60,19 +60,20 @@ diff --strip-trailing-cr -urN scrypt.orig/crypto_scrypt-ref.c scrypt/crypto_scry
  }
 diff --strip-trailing-cr -urN scrypt.orig/crypto_scrypt.h scrypt/crypto_scrypt.h
 --- scrypt.orig/crypto_scrypt.h	2017-02-11 07:29:13.000000000 +0000
-+++ scrypt/crypto_scrypt.h	2017-02-17 17:32:18.000000000 +0000
-@@ -29,8 +29,6 @@
++++ scrypt/crypto_scrypt.h	2017-02-19 21:18:37.000000000 +0000
+@@ -29,8 +29,7 @@
  #ifndef _CRYPTO_SCRYPT_H_
  #define _CRYPTO_SCRYPT_H_
  
 -#include <stdint.h>
 -#include <unistd.h>
++#include "_compat.h"
  
  /**
   * crypto_scrypt(passwd, passwdlen, salt, saltlen, N, r, p, buf, buflen):
 diff --strip-trailing-cr -urN scrypt.orig/insecure_memzero.c scrypt/insecure_memzero.c
 --- scrypt.orig/insecure_memzero.c	2017-02-11 07:29:13.000000000 +0000
-+++ scrypt/insecure_memzero.c	2017-02-19 17:37:42.000000000 +0000
++++ scrypt/insecure_memzero.c	2017-02-19 21:18:33.000000000 +0000
 @@ -1,5 +1,5 @@
  #include <stddef.h>
 -#include <stdint.h>
@@ -82,7 +83,7 @@ diff --strip-trailing-cr -urN scrypt.orig/insecure_memzero.c scrypt/insecure_mem
  
 diff --strip-trailing-cr -urN scrypt.orig/insecure_memzero.h scrypt/insecure_memzero.h
 --- scrypt.orig/insecure_memzero.h	2017-02-11 07:29:13.000000000 +0000
-+++ scrypt/insecure_memzero.h	2017-02-19 14:08:39.000000000 +0000
++++ scrypt/insecure_memzero.h	2017-02-19 21:18:33.000000000 +0000
 @@ -27,7 +27,7 @@
   * http://www.daemonology.net/blog/2014-09-04-how-to-zero-a-buffer.html
   * http://www.daemonology.net/blog/2014-09-06-zeroing-buffers-is-insufficient.html
@@ -94,7 +95,7 @@ diff --strip-trailing-cr -urN scrypt.orig/insecure_memzero.h scrypt/insecure_mem
  
 diff --strip-trailing-cr -urN scrypt.orig/sha256.c scrypt/sha256.c
 --- scrypt.orig/sha256.c	2017-02-11 07:29:13.000000000 +0000
-+++ scrypt/sha256.c	2017-02-19 17:37:30.000000000 +0000
++++ scrypt/sha256.c	2017-02-19 21:18:33.000000000 +0000
 @@ -1,9 +1,8 @@
  #include <assert.h>
 -#include <stdint.h>
@@ -177,7 +178,7 @@ diff --strip-trailing-cr -urN scrypt.orig/sha256.c scrypt/sha256.c
  	/* Finish the inner SHA256 operation. */
 diff --strip-trailing-cr -urN scrypt.orig/sha256.h scrypt/sha256.h
 --- scrypt.orig/sha256.h	2017-02-11 07:29:13.000000000 +0000
-+++ scrypt/sha256.h	2017-02-19 17:37:24.000000000 +0000
++++ scrypt/sha256.h	2017-02-19 21:18:33.000000000 +0000
 @@ -2,7 +2,7 @@
  #define _SHA256_H_
  

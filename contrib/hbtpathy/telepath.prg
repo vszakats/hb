@@ -54,21 +54,18 @@
 
 #include "hbcom.ch"
 
-
-#define TPFP_NAME          1               /* Structure of ports array */
+#define TPFP_NAME          1  /* Structure of ports array */
 #define TPFP_HANDLE        2
 #define TPFP_BAUD          3
 #define TPFP_DBITS         4
 #define TPFP_PARITY        5
 #define TPFP_SBITS         6
-#define TPFP_OC            7               /* Open/Close Flag */
+#define TPFP_OC            7  /* Open/Close Flag */
 #define TPFP_INBUF         8
-#define TPFP_INBUF_SIZE    9               /* Size of input buffer */
+#define TPFP_INBUF_SIZE    9  /* Size of input buffer */
 
-
-THREAD STATIC t_aPorts               // Array with port info
-THREAD STATIC t_nErrorCode := 0      // Error code from last operation, 0 if no error
-
+THREAD STATIC t_aPorts           // Array with port info
+THREAD STATIC t_nErrorCode := 0  // Error code from last operation, 0 if no error
 
 FUNCTION tp_baud( nPort, nNewBaud )
 
@@ -372,15 +369,18 @@ PROCEDURE tp_clrkbd()
    RETURN
 
 FUNCTION tp_crc16( cString )
-   RETURN hb_ByteSwapW( hb_CRCCT( cString ) )   /* swap lo and hi bytes */
+   RETURN hb_ByteSwapW( hb_CRCCT( cString ) )  /* swap lo and hi bytes */
 
 FUNCTION tp_crc32( cString )
    RETURN hb_CRC32( cString )
 
-FUNCTION tp_waitfor( ... ) /* nPort, nTimeout, acList|cString..., lIgnorecase */
+FUNCTION tp_waitfor( ... )  /* nPort, nTimeout, acList|cString..., lIgnorecase */
 
    LOCAL aParam := hb_AParams()
-   LOCAL nPort // , nTimeout, lIgnorecase
+   LOCAL nPort
+#if 0
+   LOCAL nTimeout, lIgnorecase
+#endif
 
    nPort := aParam[ 1 ]
 
@@ -620,7 +620,7 @@ INIT PROCEDURE _tpinit()
    IF t_aPorts == NIL
       t_aPorts := Array( TP_MAXPORTS )
       FOR EACH x IN t_aPorts
-         // / port name, file handle, baud, data bits, parity, stop bits, Open?, input buffer, input buff.size
+         // port name, file handle, baud, data bits, parity, stop bits, Open?, input buffer, input buff.size
          x := { "", -1, 1200, 8, "N", 1, .F., "", 0 }
       NEXT
    ENDIF

@@ -2,7 +2,7 @@
 /*
  * Package build orchestrator script
  *
- * Copyright 2010-2016 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2010-2017 Viktor Szakats (vszakats.net/harbour)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -53,7 +53,7 @@ PROCEDURE Main( ... )
    LOCAL hProjectList
    LOCAL aParams
 
-   hb_cdpSelect( "UTF8EX" )
+   hb_cdpSelect( "UTF8" )
 
    s_cBase := ""
    s_cReBase := ""
@@ -115,7 +115,7 @@ STATIC PROCEDURE Standalone( aParams, hProjectList )
    LOCAL tmp
 
    LOCAL lCustom
-   LOCAL cCustomDir
+   LOCAL cOldDir
 
    /* Processing cmdline options */
 
@@ -160,12 +160,13 @@ STATIC PROCEDURE Standalone( aParams, hProjectList )
       ENDIF
    NEXT
 
-   /* Assemble list of primary targets (registered projects in or under current directory) */
+   /* Assemble list of primary targets (registered projects in or under
+      current directory) */
 
    hProjectReqList := { => }
 
    IF hb_vfDirExists( AllTrim( cOptionsUser ) )
-      cCustomDir := hb_cwd( AllTrim( cOptionsUser ) )
+      cOldDir := hb_cwd( AllTrim( cOptionsUser ) )
       cOptionsUser := ""
       lCustom := .F.
       s_cHome += "../"
@@ -173,7 +174,8 @@ STATIC PROCEDURE Standalone( aParams, hProjectList )
    ENDIF
 
    IF ! lCustom
-      /* Find out which projects are in current dir, these will be our primary targets */
+      /* Find out which projects are in current dir, these will be our
+         primary targets */
       FOR EACH tmp IN hProjectList
          IF hb_LeftEq( hb_DirSepToOS( tmp:__enumKey() ) + hb_ps(), hb_FNameNameExt( hb_DirSepDel( hb_cwd() ) ) )  /* Not ultimate solution */
             hProjectReqList[ tmp:__enumKey() ] := tmp:__enumKey()
@@ -196,8 +198,8 @@ STATIC PROCEDURE Standalone( aParams, hProjectList )
 
    build_projects( nAction, hProjectList, hProjectReqList, cOptionsUser, .T. )
 
-   IF HB_ISSTRING( cCustomDir ) .AND. ! cCustomDir == ""
-      hb_cwd( cCustomDir )
+   IF HB_ISSTRING( cOldDir )
+      hb_cwd( cOldDir )
    ENDIF
 
    RETURN
@@ -255,11 +257,10 @@ STATIC PROCEDURE GNUMake( aParams, hProjectList )
       IF AScanL( aGNUMakeParams, "clean" ) > 0 .AND. ;
          AScanL( aGNUMakeParams, "install" ) > 0 .AND. ;
          AScanL( aGNUMakeParams, "install" ) > AScanL( aGNUMakeParams, "clean" )
-         /* Use rebuild mode. This is needed because the clean phase
-            might not have been called previously by GNU Make, f.e.
-            because hbrun or hbmk2 wasn't available. -rebuildall is
-            costless, so we do it to make sure to build cleanly.
-            [vszakats] */
+         /* Use rebuild mode. This is needed because the clean phase might not
+            have been called previously by GNU Make, f.e. because hbrun or
+            hbmk2 wasn't available. -rebuildall is costless, so we do it to
+            make sure to build cleanly. [vszakats] */
          nAction := _ACT_INC_REBUILD_INST
       ELSE
          nAction := _ACT_INC_INST
@@ -391,7 +392,8 @@ STATIC PROCEDURE build_projects( nAction, hProjectList, hProjectReqList, cOption
 
    aSortedList := TopoSort( aPairList )
 
-   /* Add referenced project not present in our list and featuring an .hbp file */
+   /* Add referenced project not present in our list and featuring an .hbp
+      file */
    FOR EACH cProject IN aSortedList
       IF AddProject( hProjectList, @cProject )
          call_hbmk2_hbinfo( s_cBase + s_cHome + cProject, hProjectList[ cProject ] )
@@ -509,7 +511,7 @@ STATIC PROCEDURE call_hbmk2_hbinfo( cProjectPath, hProject )
          IF ! Empty( tmp )
 #ifdef __PLATFORM__DOS
             /* Ignore long filenames on MS-DOS hosts */
-            IF Len( hb_FNameName( LTrim( tmp ) ) ) > 8
+            IF hb_BLen( hb_FNameName( LTrim( tmp ) ) ) > 8
                LOOP
             ENDIF
 #endif
@@ -522,10 +524,9 @@ STATIC PROCEDURE call_hbmk2_hbinfo( cProjectPath, hProject )
                hb_PathNormalize( hb_PathJoin( hb_DirSepToOS( hb_cwd() ), hb_DirSepToOS( hb_DirBase() ) ) ), ;
                tmp2 ) )
 
-            /* Do not add any .hbc reference that resides outside the
-               'contrib' directory tree. This case can be detected by
-               verifying if the full path remained unchanged after
-               rebasing to contrib root. */
+            /* Do not add any .hbc reference that resides outside the 'contrib'
+               directory tree. This case can be detected by verifying if the
+               full path remained unchanged after rebasing to contrib root. */
             IF ! tmp1 == tmp2
                AAdd( hProject[ "aDept" ], { "nDepth" => Len( tmp ) - Len( LTrim( tmp ) ), ;
                   "cFileName_HBP" => StrTran( tmp1, "\", "/" ) } )
@@ -559,8 +560,8 @@ STATIC FUNCTION call_hbmk2( cProjectPath, cOptionsPre, cDynSuffix, cStdErr, cStd
 
    IF cDynSuffix != NIL
       IF ! cDynSuffix == ""
-         /* Request dll version of Harbour contrib dependencies (the implibs) to
-            be linked, on non-*nix platforms (experimental) */
+         /* Request dll version of Harbour contrib dependencies (the implibs)
+            to be linked, on non-*nix platforms (experimental) */
          hb_SetEnv( "_HB_DYNSUFF", cDynSuffix )
       ENDIF
 
@@ -759,10 +760,9 @@ STATIC FUNCTION AddProject( hProjectList, cFileName )
 
    RETURN .F.
 
-/* Build all contribs that have a .hbp file matching the
-   name of its contrib subdir. Also support contribs
-   with multiple subprojects if it has a 'makesub.txt'
-   text file with a list of those subprojects. */
+/* Build all contribs that have a .hbp file matching the name of its
+   contrib subdir. Also support contribs with multiple subprojects if
+   it has a 'makesub.txt' text file with a list of those subprojects. */
 STATIC PROCEDURE LoadProjectListAutomatic( hProjectList, cDir )
 
    LOCAL aFile
