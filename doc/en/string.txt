@@ -1484,25 +1484,25 @@
    $EXAMPLES$
       PROCEDURE Main()
 
-        LOCAL n := (5 / 2) + 0.009
+         LOCAL n := ( 5 / 2 ) + 0.009
 
-        ? hb_ntoc( n )    // --> 2.509
-        ? Str( n )        // -->          2.51
-        ? hb_ntoc( n, 2 ) // --> 2.51
-        ? Str( n, 5, 2 )  // -->  2.51
-        ? hb_ntos( n )    // --> 2.51
-        ? "--- decimals set to 7 ----"
-        SET DECIMALS TO 7
-        ? Str( n )        // -->          2.51
-        ? hb_ntoc( n )    // --> 2.509
-        ? Str( n, 10, 7 ) // -->  2.5090000
-        ? hb_ntoc( n, 7 ) // --> 2.509
-        ? "--- pass non numeric / NIL value ----"
-        ? hb_ntoc( "42" ) // --> null string
-        ? hb_ntoc()       // --> null string
-        ? Str( "42" )     // --> RTE
+         ? hb_ntoc( n )    // --> 2.509
+         ? Str( n )        // -->          2.51
+         ? hb_ntoc( n, 2 ) // --> 2.51
+         ? Str( n, 5, 2 )  // -->  2.51
+         ? hb_ntos( n )    // --> 2.51
+         ? "--- decimals set to 7 ----"
+         SET DECIMALS TO 7
+         ? Str( n )        // -->          2.51
+         ? hb_ntoc( n )    // --> 2.509
+         ? Str( n, 10, 7 ) // -->  2.5090000
+         ? hb_ntoc( n, 7 ) // --> 2.509
+         ? "--- pass non numeric / NIL value ----"
+         ? hb_ntoc( "42" ) // --> null string
+         ? hb_ntoc()       // --> null string
+         ? Str( "42" )     // --> RTE
 
-        RETURN
+         RETURN
    $STATUS$
       R
    $COMPLIANCE$
@@ -1543,12 +1543,12 @@
    $EXAMPLES$
       PROCEDURE Main()
 
-        LOCAL n := (5 / 2) + 0.009
+         LOCAL n := ( 5 / 2 ) + 0.009
 
-        ? Str( n )        // -->          2.51
-        ? hb_ntos( n )    // --> 2.51
+         ? Str( n )        // -->          2.51
+         ? hb_ntos( n )    // --> 2.51
 
-        RETURN
+         RETURN
    $STATUS$
       R
    $COMPLIANCE$
