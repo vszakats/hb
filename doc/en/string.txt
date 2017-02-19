@@ -1478,7 +1478,7 @@
       Returns stringified value of `<nValue>`, preserving all (or at least
       `<nDecs>`) significant digits, if any.
       Interestingly, if `<nValue>` is NIL or not numeric, this function
-      will return a NULL string and, unlike Str(), will NOT cause an RTE.
+      will return a null string and, unlike Str(), will NOT cause an RTE.
       NOTE: new function, available after 2016-06-20 21:59 UTC+0200 commit,
             (it is not available in earlier versions).
    $EXAMPLES$
@@ -1498,8 +1498,8 @@
         ? Str( n, 10, 7 ) // -->  2.5090000
         ? hb_ntoc( n, 7 ) // --> 2.509
         ? "--- pass non numeric / NIL value ----"
-        ? hb_ntoc( "42" ) // --> NULL string
-        ? hb_ntoc()       // --> NULL string
+        ? hb_ntoc( "42" ) // --> null string
+        ? hb_ntoc()       // --> null string
         ? Str( "42" )     // --> RTE
 
         RETURN
@@ -1536,7 +1536,7 @@
    $DESCRIPTION$
       This function converts any numeric value to a string,
       trimming all the leading empty spaces. If `<nValue>` is NIL
-      or not numeric, this function will return a NULL string.
+      or not numeric, this function will return a null string.
 
       Essentially, `hb_ntos()` function is equivalent to
       `LTrim( Str( <nValue> ) )` but quite simpler and faster.
