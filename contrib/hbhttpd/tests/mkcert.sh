@@ -1,18 +1,42 @@
 #!/bin/sh
 
-# Create a self-signed certificate
+# Create a self-signed certificate for localhost/loopback
 
 case "$(uname)" in
    Darwin*) alias openssl=/usr/local/opt/openssl/bin/openssl;;
 esac
 
+tmp="$(mktemp -t XXXXXX)"
+
+cat << EOF > "${tmp}"
+[req]
+encrypt_key = no
+prompt = no
+distinguished_name = dn
+req_extensions = v3_req
+
+[dn]
+O = Example
+CN = localhost
+
+[v3_req]
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = localhost
+DNS.2 = ::1
+DNS.3 = 127.0.0.1
+EOF
+
 openssl req -new -sha256 \
-  -subj '/O=Example/CN=localhost' \
+  -config "${tmp}" \
   -newkey rsa:2048 -nodes -keyout private.pem -out example.csr
 chmod 600 private.pem
 
 openssl x509 -req -sha256 -days 730 \
+  -extfile "${tmp}" -extensions v3_req \
   -in example.csr -signkey private.pem -out example.crt
+rm "${tmp}"
 
 # Human-readable
 openssl req       -in example.csr -text -noout > example.csr.txt
