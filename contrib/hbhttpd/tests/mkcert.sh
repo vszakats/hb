@@ -1,11 +1,14 @@
 #!/bin/sh
 
+# Create a self-signed certificate
+
 case "$(uname)" in
    Darwin*) alias openssl=/usr/local/opt/openssl/bin/openssl;;
 esac
 
-openssl req -new -subj '/O=Example/CN=localhost' \
-  -sha256 -newkey rsa:2048 -nodes -keyout private.pem -out example.csr
+openssl req -new -sha256 \
+  -subj '/O=Example/CN=localhost' \
+  -newkey rsa:2048 -nodes -keyout private.pem -out example.csr
 chmod 600 private.pem
 
 openssl x509 -req -sha256 -days 730 \
