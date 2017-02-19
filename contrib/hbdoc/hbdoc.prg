@@ -47,6 +47,8 @@
  *
  */
 
+#require "hbgt"
+
 /* Optimizations */
 #pragma -km+
 #pragma -ko+
