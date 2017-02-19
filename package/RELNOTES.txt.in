@@ -12,6 +12,7 @@ Package content:
 * static/shared libraries for x86
 * static/shared libraries for x64
 * example/test sources
+* script to download matching full source code
 
 Usage:
 
@@ -33,6 +34,9 @@ Usage:
    ```
 8. Further hints in section **Build Your Own Harbour App**
    of `README.md`.
+9. To customize/build/rebuild Harbour components as you like,
+   download sources using `getsrc.sh` and continue as described
+   in section **How to Do a Partial Build** of `README.md`."
 
 ## Tool/Library Dependencies
 
