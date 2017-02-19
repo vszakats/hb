@@ -1,7 +1,7 @@
 /*
  * HBDOC reader
  *
- * Copyright 2010 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2010-2017 Viktor Szakats (vszakats.net/harbour)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -103,7 +103,6 @@ FUNCTION __hbdoc_DirLastModified( cDir )
 FUNCTION __hbdoc_LoadDir( cDir, cName, aErrMsg )
 
    LOCAL hMeta
-   LOCAL nCount
    LOCAL aFile
    LOCAL aEntry
 
@@ -120,19 +119,13 @@ FUNCTION __hbdoc_LoadDir( cDir, cName, aErrMsg )
             hMeta[ "_COMPONENT" ] := cName
          ENDIF
 
-         nCount := 0
          FOR EACH aFile IN hb_vfDirectory( cDir + _HBDOC_SRC_SUBDIR + hb_ps() + hb_osFileMask(), "D" )
             IF "D" $ aFile[ F_ATTR ] .AND. ;
                !( aFile[ F_NAME ] == "." .OR. aFile[ F_NAME ] == ".." )
 
                __hbdoc__read_langdir( aEntry, cDir + _HBDOC_SRC_SUBDIR + hb_ps() + aFile[ F_NAME ], hMeta, aErrMsg )
-               ++nCount
             ENDIF
          NEXT
-
-         IF nCount == 0
-            _HBDOC_ADD_MSG( aErrMsg, hb_StrFormat( "Warning: Component (%1$s) has no language subdirs", cDir ) )
-         ENDIF
       ENDIF
    ENDIF
 
@@ -194,8 +187,13 @@ STATIC PROCEDURE __hbdoc__read_stream( aEntry, cFile, cFileName, hMeta, aErrMsg 
    LOCAL nLine
    LOCAL nStartCol
 
+   IF hb_UChar( 9 ) $ cFile .OR. ;
+      hb_UChar( 160 ) $ cFile
+      _HBDOC_ADD_MSG( aErrMsg, hb_StrFormat( "Warning: %1$s: Tab/non-breaking space found. Use normal space instead.", cFileName ) )
+   ENDIF
+
    nLine := 0
-   FOR EACH cLine IN hb_ATokens( StrTran( cFile, Chr( 9 ), " " ), .T. )
+   FOR EACH cLine IN hb_ATokens( cFile, .T. )
 
       cLine := hb_USubStr( cLine, 4 )
       ++nLine
@@ -300,7 +298,7 @@ FUNCTION __hbdoc_FilterOut( cFile )
    LOCAL nToSkip := 0
    LOCAL nEmpty := 0
 
-   FOR EACH cLine IN hb_ATokens( StrTran( cFile, Chr( 9 ), " " ), .T. )
+   FOR EACH cLine IN hb_ATokens( cFile, .T. )
 
       SWITCH AllTrim( hb_USubStr( cLine, 4 ) )
       CASE "$DOC$"

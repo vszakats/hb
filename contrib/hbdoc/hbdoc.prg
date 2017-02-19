@@ -197,7 +197,11 @@ PROCEDURE Main()
 
    OutStd( hb_StrFormat( "! Input directory: %1$s", s_hSwitches[ "dir_in" ] ) + _OUT_EOL )
 
-   ProcessDirs( s_hDoc, s_hHBX )
+   IF ! ProcessDirs( s_hDoc, s_hHBX )
+      OutStd( "! Issues detected while reading documentation source." + _OUT_EOL )
+      ErrorLevel( 1 )
+      RETURN
+   ENDIF
 
    IF s_hSwitches[ "dump" ]
       hb_MemoWrit( "__hbx.json", hb_jsonEncode( s_hHBX, .T. ) )
@@ -534,17 +538,19 @@ STATIC FUNCTION SortWeight( cString )
 
    RETURN cString
 
-STATIC PROCEDURE ProcessDirs( hDoc, hAll )
+STATIC FUNCTION ProcessDirs( hDoc, hAll )
 
+   LOCAL lSuccess
    LOCAL cArea
    LOCAL cDir
    LOCAL file
 
    DirLoadHBX( s_hSwitches[ "dir_in" ] + "include", hAll )
 
-   ProcessDocDir( s_hSwitches[ "dir_in" ], "core", "harbour", hDoc )
+   lSuccess := ProcessDocDir( s_hSwitches[ "dir_in" ], "core", "harbour", hDoc )
 
-   IF s_hSwitches[ "non-core" ]
+   IF lSuccess .AND. ;
+      s_hSwitches[ "non-core" ]
 
       FOR EACH cArea IN { "contrib" }
 
@@ -558,6 +564,7 @@ STATIC PROCEDURE ProcessDirs( hDoc, hAll )
                DirLoadHBX( cDir + hb_ps() + file[ F_NAME ], hAll )
 
                IF ! ProcessDocDir( cDir + hb_ps() + file[ F_NAME ], cArea, hb_FNameName( file[ F_NAME ] ), hDoc )
+                  lSuccess := .F.
                   EXIT
                ENDIF
             ENDIF
@@ -565,7 +572,7 @@ STATIC PROCEDURE ProcessDirs( hDoc, hAll )
       NEXT
    ENDIF
 
-   RETURN
+   RETURN lSuccess
 
 STATIC FUNCTION ProcessDocDir( cDir, cArea, cComponent, hDoc )
 
@@ -582,9 +589,12 @@ STATIC FUNCTION ProcessDocDir( cDir, cArea, cComponent, hDoc )
    hb_HAutoAdd( hCountF, HB_HAUTOADD_ALWAYS )
    hb_HDefault( hCountF, 0 )
 
-   FOR EACH tmp IN aErrMsg
-      AddErrorCondition( cDir, tmp )
-   NEXT
+   IF ! Empty( aErrMsg )
+      FOR EACH tmp IN aErrMsg
+         ShowError( cDir, tmp, .T. )
+      NEXT
+      RETURN .F.
+   ENDIF
 
    IF ! Empty( aEntry )
 
@@ -719,7 +729,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, hNameID, /* @ */ nCount, /* @ */ nC
    ENDIF
    IF ! hEntry[ "TEMPLATE" ] $ sc_hTemplates
       hEntry[ "TEMPLATE" ] := "Function"
-      AddErrorCondition( cFile, "Unrecognized TEMPLATE '" + hEntry[ "TEMPLATE" ] + "'", .T. )
+      ShowError( cFile, "Unrecognized TEMPLATE '" + hEntry[ "TEMPLATE" ] + "'", .T. )
       lAccepted := .F.
    ENDIF
 
@@ -750,7 +760,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, hNameID, /* @ */ nCount, /* @ */ nC
       IF hEntry[ "CATEGORY" ] $ sc_hConstraint[ "categories" ]
          idxCategory := hEntry[ "CATEGORY" ]
       ELSE
-         AddErrorCondition( cFile, "Unrecognized CATEGORY '" + hEntry[ "CATEGORY" ] + "' for template '" + hE[ "TEMPLATE" ] )
+         ShowError( cFile, "Unrecognized CATEGORY '" + hEntry[ "CATEGORY" ] + "' for template '" + hE[ "TEMPLATE" ] )
       ENDIF
    ENDIF
 
@@ -786,7 +796,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, hNameID, /* @ */ nCount, /* @ */ nC
          CASE cSectionName == "SUBCATEGORY" .AND. IsField( hE, "SUBCATEGORY" )
 
             IF idxCategory != NIL .AND. ! cSection $ sc_hConstraint[ "categories" ][ idxCategory ]
-               AddErrorCondition( cFile, "Unrecognized SUBCATEGORY '" + idxCategory + "'-" + cSection )
+               ShowError( cFile, "Unrecognized SUBCATEGORY '" + idxCategory + "'-" + cSection )
             ENDIF
 
          CASE IsField( hE, "RETURNS" ) .AND. cSectionName == "RETURNS" .AND. ( ;
@@ -795,12 +805,12 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, hNameID, /* @ */ nCount, /* @ */ nC
                Lower( cSection ) == "none" .OR. ;
                Lower( cSection ) == "none." )
 
-            AddErrorCondition( cFile, "'" + hE[ "NAME" ] + "' is identified as template " + hEntry[ "TEMPLATE" ] + " but has no RETURNS value (" + cSection + ")" )
+            ShowError( cFile, "'" + hE[ "NAME" ] + "' is identified as template " + hEntry[ "TEMPLATE" ] + " but has no RETURNS value (" + cSection + ")" )
 
          CASE ! IsConstraint( hE, cSectionName, cSection )
 
             cSource := cSectionName + " is '" + iif( Len( cSection ) <= 20, cSection, Left( StrTran( cSection, _DOC_EOL ), 20 ) + "..." ) + "', should be one of: ..."
-            AddErrorCondition( cFile, cSource )
+            ShowError( cFile, cSource )
 
          ENDCASE
 
@@ -808,7 +818,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, hNameID, /* @ */ nCount, /* @ */ nC
             hE[ cSectionName ] := RetouchContent( cFile, cSectionName, cSection, hEntry[ "TEMPLATE" ] )
          ENDIF
       ELSE
-         AddErrorCondition( cFile, "Using template '" + hEntry[ "TEMPLATE" ] + "' encountered an unexpected section '" + cSectionName + "'", .T. )
+         ShowError( cFile, "Using template '" + hEntry[ "TEMPLATE" ] + "' encountered an unexpected section '" + cSectionName + "'", .T. )
          lAccepted := .F.
       ENDIF
    NEXT
@@ -818,7 +828,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, hNameID, /* @ */ nCount, /* @ */ nC
 
       DO CASE
       CASE ! IsComplete( hE, @cSource )
-         AddErrorCondition( cFile, "Missing sections: '" + cSource + "'" )
+         ShowError( cFile, "Missing sections: '" + cSource + "'" )
 #if 0
          lAccepted := .F.
 #endif
@@ -828,7 +838,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, hNameID, /* @ */ nCount, /* @ */ nC
          Lower( hE[ "RETURNS" ] ) == "none" .OR. ;
          Lower( hE[ "RETURNS" ] ) == "none." )
 
-         AddErrorCondition( cFile, "'" + hE[ "NAME" ] + "' is identified as template " + hEntry[ "TEMPLATE" ] + " but has no RETURNS value (" + hE[ "RETURNS" ] + ")" )
+         ShowError( cFile, "'" + hE[ "NAME" ] + "' is identified as template " + hEntry[ "TEMPLATE" ] + " but has no RETURNS value (" + hE[ "RETURNS" ] + ")" )
 #if 0
          lAccepted := .F.
 #endif
@@ -845,7 +855,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, hNameID, /* @ */ nCount, /* @ */ nC
 
          cSectionName := Parse( hE[ "NAME" ], "(" )
          IF ! cSectionName $ s_hHBX
-            AddErrorCondition( cFile, "Not found in HBX: " + cSectionName + " " + cComponent )
+            ShowError( cFile, "Not found in HBX: " + cSectionName + " " + cComponent )
          ENDIF
       ENDIF
 
@@ -918,7 +928,7 @@ STATIC FUNCTION RetouchContent( cFile, cSectionName, cSection, cTemplate )
             IF tmp $ sc_hConstraint[ "status" ]
                tmp := Eval( sc_hConstraint[ "status" ][ tmp ] )
             ELSEIF Len( tmp ) == 1
-               AddErrorCondition( cFile, "Unrecognized 'STATUS' code: '" + tmp + "'" )
+               ShowError( cFile, "Unrecognized 'STATUS' code: '" + tmp + "'" )
             ENDIF
             cResult += tmp
          ENDIF
@@ -1083,7 +1093,7 @@ STATIC FUNCTION Join( aVar, cDelimiter )
 
    RETURN cResult
 
-STATIC PROCEDURE AddErrorCondition( cFile, cMessage, lFatal )
+STATIC PROCEDURE ShowError( cFile, cMessage, lFatal )
 
    hb_default( @lFatal, .F. )
 

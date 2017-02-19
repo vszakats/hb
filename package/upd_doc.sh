@@ -73,7 +73,7 @@ if git diff-index --name-only HEAD~1 \
   git clone --depth 2 "${url}" "${hbdoc_fmt}"
 
   # Generate docs
-  ${_bin_hbdoc} -v0 -repr "-format=${hbdoc_fmt}"
+  ${_bin_hbdoc} -v0 -repr "-format=${hbdoc_fmt}" || exit
 
   # Update origin
   (
