@@ -1,5 +1,5 @@
 #include <assert.h>
-#include "hbdefs.h"
+#include "_compat.h"
 #include <string.h>
 
 #include "insecure_memzero.h"

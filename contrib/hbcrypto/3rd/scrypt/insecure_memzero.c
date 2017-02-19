@@ -1,5 +1,5 @@
 #include <stddef.h>
-#include "hbdefs.h"
+#include "_compat.h"
 
 #include "insecure_memzero.h"
 
