@@ -265,8 +265,6 @@ fi
 
 [ "${_BRANC4}" = 'msvc' ] || "$(dirname "$0")/mpkg_win.sh"
 
-# update doc repository
+# documentation
 
-if [ "${_BRANCH#*master*}" != "${_BRANCH}" ]; then
-   "$(dirname "$0")/upd_doc.sh"
-fi
+"$(dirname "$0")/upd_doc.sh" "${_BRANCH}"

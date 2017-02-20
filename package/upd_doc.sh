@@ -13,7 +13,7 @@
 
 cd "$(dirname "$0")/.." || exit
 
-[ -n "${GITHUB_TOKEN}" ] || exit 0
+_BRANCH="$1"
 
 # DEBUG
 echo '---'
@@ -66,8 +66,7 @@ if git diff-index --name-only HEAD~1 \
     | tar --strip-components 1 -zx --exclude README.txt
   )
 
-  # Make a clone of the Reference Guide repository for publishing
-  # results
+  # Make a clone of the Reference Guide repository for publishing results
   url="https://github.com/${slug_doc_pages}.git"
   echo "! Cloning Reference Guide repository '${url}'..."
   git clone --depth 2 "${url}" "${hbdoc_fmt}"
@@ -76,28 +75,33 @@ if git diff-index --name-only HEAD~1 \
   ${_bin_hbdoc} -v0 -repr "-format=${hbdoc_fmt}" || exit
 
   # Update origin
-  (
-    cd "${hbdoc_fmt}" || exit
 
-    echo "! Updating Reference Guide repository..."
-
-    git remote rm origin
+  if [ "${_BRANCH#*master*}" != "${_BRANCH}" ] && \
+     [ -n "${GITHUB_TOKEN}" ]; then
     (
-      set +x
-      readonly GITHUB_USER='vszakats'
-      git remote add origin "https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${slug_doc_pages}.git"
-      git config user.name "${GITHUB_USER}-auto"
-      git config user.email "${GITHUB_USER}@users.noreply.github.com"
-    )
+      cd "${hbdoc_fmt}" || exit
 
-    # Update repository
-    git commit -a -m "update content
+      echo "! Updating Reference Guide repository..."
+
+      git remote rm origin
+      (
+        set +x
+        readonly GITHUB_USER='vszakats'
+        git remote add origin "https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${slug_doc_pages}.git"
+        git config user.name "${GITHUB_USER}-auto"
+        git config user.email "${GITHUB_USER}@users.noreply.github.com"
+      )
+
+      git commit -a -m "update content
 
 Based on ${url_source}"
-    git push origin master
+      git push origin master
 
-    echo "! Update finished."
-  )
+      echo "! Update finished."
+    )
+  else
+    echo '! upd_doc: Not master branch or credentials missing, skip updating docs.'
+  fi
 else
-  echo '! upd_doc: No doc changes detected, skip updating Reference Guide repository.'
+  echo '! upd_doc: No changes detected, skip regenerating docs.'
 fi

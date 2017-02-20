@@ -570,7 +570,7 @@ STATIC FUNCTION call_hbmk2( cProjectPath, cOptionsPre, cDynSuffix, cStdErr, cStd
 
    cCommand := s_cBinDir + "hbmk2" + ;
       " -lang=en -quiet -width=0 -autohbm-" + ;
-      " @" + StrTran( s_cHome + "hbpre", "\", "/" ) + ;
+      " @" + StrTran( s_cHome, "\", "/" ) + "hbpre" + ;
       cOptionsPre + ;
       " " + StrTran( cProjectPath, "\", "/" ) + ;
       " @" + StrTran( s_cHome, "\", "/" ) + "hbpost" + ;
