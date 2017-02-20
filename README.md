@@ -333,7 +333,7 @@ starting GNU Make, all components under that directory will be built:
 
 If you want to rebuild one specific contrib package, use this:
 
-## On *nix systems:
+## On \*nix systems:
 
     cd contrib/<name>
     make.hb [clean] [custom hbmk2 options]
@@ -420,14 +420,14 @@ might not work as expected.
 You can set these environment variables before starting the build. Make sure
 to adjust them to your own directories:
 
-    HB_WITH_CURSES= (on *nix systems and DJGPP, auto-detected on both)
+    HB_WITH_CURSES= (on \*nix systems and DJGPP, auto-detected on both)
     HB_WITH_GPM= (on Linux only)
     HB_WITH_PCRE2=C:\pcre2
     HB_WITH_PCRE=C:\pcre (defaults to locally hosted version if not found)
     HB_WITH_PNG=C:\libpng (defaults to locally hosted version if not found)
-    HB_WITH_SLANG= (on *nix systems)
+    HB_WITH_SLANG= (on \*nix systems)
     HB_WITH_WATT= (on MS-DOS systems)
-    HB_WITH_X11= (on *nix systems)
+    HB_WITH_X11= (on \*nix systems)
     HB_WITH_ZLIB=C:\zlib (defaults to locally hosted version if not found)
 
 To explicitly disable any given components, use the value `no`. This may be
@@ -459,7 +459,7 @@ file and find occasional link notes inside their `.hbc` files.
         $ brew cask install xquartz
 
 
-## Linux (.deb based distros: Debian, *buntu)
+## Linux (.deb based distros: Debian, \*buntu)
 
 You will need these base packages to build/package/test/use Harbour:
 
@@ -1150,7 +1150,7 @@ Run app with:
     # to override default stderr output:
     HB_TR_OUTPUT=<filename>
     # to enable additional system specific logging output,
-    # OutputDebugString() on Windows, syslog() on *nix systems:
+    # OutputDebugString() on Windows, syslog() on \*nix systems:
     HB_TR_SYSOUT=yes
 
 ## Memory statistics/tracking
@@ -1199,7 +1199,7 @@ Press `<Alt+D>` in the app.
 
 * linux    - Linux
 * darwin   - macOS / iOS / tvOS
-* bsd      - *BSD
+* bsd      - \*BSD
 * android  - Android
 * win      - MS Windows (Win9x deprecated)
 * wce      - MS Windows CE
