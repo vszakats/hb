@@ -333,15 +333,15 @@ starting GNU Make, all components under that directory will be built:
 
 If you want to rebuild one specific contrib package, use this:
 
-## On \*nix systems:
+## On \*nix systems
 
-    cd contrib/<name>
-    make.hb [clean] [custom hbmk2 options]
+    $ cd contrib/<name>
+    $ make.hb [clean] [custom hbmk2 options]
 
-## On Windows:
+## On Windows
 
-    cd contrib/<name>
-    hbmk2 make.hb [clean] [custom hbmk2 options]
+    > cd contrib/<name>
+    > hbmk2 make.hb [clean] [custom hbmk2 options]
 
 > Where `make.hb` and `hbmk2` must be in `PATH`.
 
@@ -378,11 +378,11 @@ You can fine-tune the build with these options:
 
 ## Binary .rpm on Linux (cross-builds)
 
-### for Windows:
+### for Windows
 
     $ package/mpkg_rpm_win.sh
 
-### for Windows CE:
+### for Windows CE
 
     $ package/mpkg_rpm_wce.sh
 
