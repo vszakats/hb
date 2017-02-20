@@ -61,7 +61,7 @@
 - Text editor setting for Harbour files
   - Encoding is either 7-bit ASCII or [UTF-8](http://utf8everywhere.org/),
     without [BOM](https://en.wikipedia.org/wiki/Byte_order_mark)
-  - Use spaces, never tabs
+  - Use spaces (U+0020), never tabs or non-breaking spaces
   - Remove trailing spaces from lines
   - Keep one (not zero or multiple) newline at the end of file
   - Use platform native newline (CRLF or LF)
