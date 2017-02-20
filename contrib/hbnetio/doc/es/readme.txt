@@ -34,26 +34,26 @@ Funciones del lado del cliente:
       hilo llama a netio_Connect() se crea una sola conexión. También
       significa que netio_Disconnect() no tiene que ser llamado por
       el mismo hilo que llama a netio_Connect().
-      A la salida de aplicación todas las conexiones se cierran
+      A la salida de aplicación todas las conexiones se cierran
       automáticamente.
-      Es posible abrir muchas conexiones diferentes y mantenerlas
+      Es posible abrir muchas conexiones diferentes y mantenerlas
       abiertas.
       En las operaciones de IO RDD y llamadas RPC es posible especificar
       la dirección del servidor como parte del nombre del archivo
       o procedimiento / función, es decir,
          USE net:example.org:2942:path/to/file
          netio_ProcExec( "example.org:2942:procname" )
-      o el uso de rutas UNC:
+      o el uso de rutas UNC:
          USE net://example.org:2942/path/to/file
          netio_ProcExec( "//example.org:2942/procname" )
-      También es posible especificar la contrasena. La cadena de
-      conexión está en formato:
-         <server>[:<port>[:<passwd>]]:<filepath|funcname>
-      o:
-         //<server>:<port>:<passwd>:<filepath|funcname>
-      o:
-         //<server>[:<port>]/<filepath|funcname>
-      Las barras invertidas '\' también son compatibles y se puede
+      También es posible especificar la contrasena. La cadena de
+      conexión está en formato:
+         <server>[:<port>[:<passwd>]]:<filepath|funcname>
+      o:
+         //<server>:<port>:<passwd>:<filepath|funcname>
+      o:
+         //<server>[:<port>]/<filepath|funcname>
+      Las barras invertidas '\' también son compatibles y se puede
       utilizar en lugar de '/'.
       Contrasena siempre termina en ":" y toda la cadena de conexión
       termina en Chr(0) asi que no es posible utilizar estos dos caracteres
@@ -82,8 +82,8 @@ Funciones del lado del cliente:
          -> <lDecoded>
       Decodifica los parámetros de conexión desde <cFullName> y los
       valores de la configuración predeterminada.
-      Retorna .T. si <cFullName> contiene la configuración de conexión.
-      <cFullName> no debe contener el prefijo "net:".
+      Retorna .T. si <cFullName> contiene la configuración de conexión.
+      <cFullName> no debe contener el prefijo "net:".
 
 
    netio_TimeOut( <pConnection> [, <nTimeOut>] ) -> [<nTimeOut>]
@@ -116,9 +116,9 @@ Funciones del lado del cliente:
          -> <nStreamID>
       Abre un flujo / canal de comunicación que permite enviar datos
       de forma asíncrona del servidor al cliente.
-      Ésto se ejecuta en el lado del servidor:
-          <cStreamFuncName> (<pConnSock>, <nStreamID> [, <params, ...>])
-      y luego se comprueba el valor devuelto por la función anterior.
+      Ésto se ejecuta en el lado del servidor:
+          <cStreamFuncName> (<pConnSock>, <nStreamID> [, <params, ...>])
+      y luego se comprueba el valor devuelto por la función anterior.
       Si es igual a <nStreamID> entonces el flujo de la comunicación
       es abierta y <nStreamID> se devuelve al cliente.
       La función devuelve un nuevo ID del flujo o -1 si el flujo
