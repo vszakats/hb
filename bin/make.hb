@@ -1,6 +1,8 @@
 #!/usr/bin/env hbmk2
 /*
- * Package build orchestrator script
+ * This script will build or rebuild a single contrib library along with
+ * its dependencies when run in standalone mode. And it will build/rebuild
+ * all (selected) contrib libraries as part of the GNU Make build process.
  *
  * Copyright 2010-2017 Viktor Szakats (vszakats.net/harbour)
  *
