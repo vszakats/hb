@@ -334,7 +334,7 @@ starting GNU Make, all components under that directory will be built:
 If you want to rebuild one specific contrib package, use this:
 
     cd contrib
-    hbmk2 make.hb <name> [clean] [custom hbmk2 options]
+    hbmk2 ../make.hb <name> [clean] [custom hbmk2 options]
 
 
 # How to Create Packages for Distribution

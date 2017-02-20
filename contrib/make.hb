@@ -40,11 +40,9 @@ STATIC sc_hActions := { ;
    _ACT_INC_REBUILD      => "rebuild", ;
    _ACT_INC_REBUILD_INST => "rebuild and install" }
 
-STATIC s_cBase
-STATIC s_cHome
-STATIC s_cRoot
-STATIC s_cBinDir
-STATIC s_cReBase
+STATIC s_cRoot    /* source tree root directory */
+STATIC s_cHome    /* project store root directory (f.e. 'contrib/') */
+STATIC s_cBinDir  /* directory where the hbmk2 executing this script resides */
 
 #define AScanL( aArray, cString )  hb_AScanI( aArray, cString,,, .T. )
 
@@ -53,31 +51,38 @@ PROCEDURE Main( ... )
    LOCAL hProjectList
    LOCAL aParams
 
-   hb_cdpSelect( "UTF8" )
+   LOCAL nCount
 
-   s_cBase := ""
-   s_cReBase := ""
-   IF GetEnv( "HB_HOST_BIN_DIR" ) == ""
-      s_cHome := StrTran( hb_DirBase(), hb_ps(), "/" )
-      s_cRoot := s_cHome + "../"
-   ELSE
-      s_cHome := ""
-      s_cRoot := "../"
-   ENDIF
+   hb_cdpSelect( "UTF8" )
 
 #if defined( __HBSCRIPT__HBSHELL )
    s_cBinDir := hbshell_DirBase()
 #else
    s_cBinDir := hb_DirBase()
 #endif
-   /* For *nixes */
-   s_cBinDir := hb_PathNormalize( s_cBinDir )
+   s_cBinDir := hb_PathNormalize( s_cBinDir )  /* For *nixes */
+
+   /* Find source tree root */
+   nCount := 4
+   DO WHILE nCount-- > 0 .AND. ! hb_vfExists( ( s_cRoot := hb_DirSepToOS( Replicate( "../", nCount ) ) ) + "include" + hb_ps() + "hbvm.h" )
+   ENDDO
+
+   /* Determine project store root. Make an effort to normalize (shorten)
+      the directory while keeping it relative. */
+   s_cHome := StrTran( hb_PathNormalize( hb_PathRelativize( hb_cwd(), hb_PathNormalize( hb_PathJoin( hb_DirSepToOS( hb_cwd() ), hb_DirSepToOS( s_cRoot + "contrib" + "/" ) ) ) ) ), "\", "/" )
+   IF s_cHome == ""
+      s_cHome := "."
+   ENDIF
+   s_cHome += "/"
+
+   OutStd( hb_StrFormat( "! Harbour source root: %1$s", s_cRoot ) + hb_eol() )
+   OutStd( hb_StrFormat( "! Project store root: %1$s", s_cHome ) + hb_eol() )
 
    /* Load list of projects */
 
    hProjectList := { => }
 
-   LoadProjectListAutomatic( hProjectList, s_cHome )
+   LoadProjectListAutomatic( hProjectList )
    LoadProjectListFromString( hProjectList, GetEnv( "HB_BUILD_ADDONS" ) )
 
    aParams := hb_AParams()
@@ -115,7 +120,6 @@ STATIC PROCEDURE Standalone( aParams, hProjectList )
    LOCAL tmp
 
    LOCAL lCustom
-   LOCAL cOldDir
 
    /* Processing cmdline options */
 
@@ -165,21 +169,12 @@ STATIC PROCEDURE Standalone( aParams, hProjectList )
 
    hProjectReqList := { => }
 
-   IF hb_vfDirExists( AllTrim( cOptionsUser ) )
-      cOldDir := hb_cwd( AllTrim( cOptionsUser ) )
-      cOptionsUser := ""
-      lCustom := .F.
-      s_cHome += "../"
-      s_cRoot += "../"
-   ENDIF
-
    IF ! lCustom
       /* Find out which projects are in current dir, these will be our
          primary targets */
       FOR EACH tmp IN hProjectList
          IF hb_LeftEq( hb_DirSepToOS( tmp:__enumKey() ) + hb_ps(), hb_FNameNameExt( hb_DirSepDel( hb_cwd() ) ) )  /* Not ultimate solution */
             hProjectReqList[ tmp:__enumKey() ] := tmp:__enumKey()
-            s_cReBase := hb_FNameDir( hb_DirSepToOS( tmp:__enumKey() ) )
          ENDIF
       NEXT
       IF Empty( hProjectReqList )
@@ -197,10 +192,6 @@ STATIC PROCEDURE Standalone( aParams, hProjectList )
    /* Start building */
 
    build_projects( nAction, hProjectList, hProjectReqList, cOptionsUser, .T. )
-
-   IF HB_ISSTRING( cOldDir )
-      hb_cwd( cOldDir )
-   ENDIF
 
    RETURN
 
@@ -386,7 +377,7 @@ STATIC PROCEDURE build_projects( nAction, hProjectList, hProjectReqList, cOption
    aPairList := {}
 
    FOR EACH cProject IN hProjectReqList
-      call_hbmk2_hbinfo( s_cBase + s_cHome + cProject, hProjectList[ cProject ] )
+      call_hbmk2_hbinfo( s_cHome + cProject, hProjectList[ cProject ] )
       DeptLinesToDeptPairList( aPairList, cProject, hProjectList[ cProject ][ "aDept" ] )
    NEXT
 
@@ -396,7 +387,7 @@ STATIC PROCEDURE build_projects( nAction, hProjectList, hProjectReqList, cOption
       file */
    FOR EACH cProject IN aSortedList
       IF AddProject( hProjectList, @cProject )
-         call_hbmk2_hbinfo( s_cBase + s_cHome + cProject, hProjectList[ cProject ] )
+         call_hbmk2_hbinfo( s_cHome + cProject, hProjectList[ cProject ] )
          hProjectList[ cProject ][ "lFromContainer" ] := NIL
       ENDIF
    NEXT
@@ -408,7 +399,7 @@ STATIC PROCEDURE build_projects( nAction, hProjectList, hProjectReqList, cOption
          IF ! cProject $ hProjectReqList .AND. ;
             cProject $ hProjectList .AND. ;
             ! "lChecked" $ hProjectList[ cProject ]
-            call_hbmk2_hbinfo( s_cBase + s_cHome + cProject, hProjectList[ cProject ] )
+            call_hbmk2_hbinfo( s_cHome + cProject, hProjectList[ cProject ] )
          ENDIF
       NEXT
    ENDIF
@@ -444,7 +435,7 @@ STATIC PROCEDURE build_projects( nAction, hProjectList, hProjectReqList, cOption
    FOR EACH cProject IN aSortedList DESCEND
       IF cProject $ hProjectList
 
-         cProjectPath := s_cBase + s_cHome + cProject
+         cProjectPath := s_cHome + cProject
          lPrimary := cProject $ hProjectReqList
          lContainer := "lFromContainer" $ hProjectList[ cProject ]
 
@@ -519,14 +510,15 @@ STATIC PROCEDURE call_hbmk2_hbinfo( cProjectPath, hProject )
             tmp1 := hb_FNameExtSet( hb_DirSepToOS( LTrim( tmp ) ), ".hbp" )
             /* Calculate its full path */
             tmp2 := hb_PathNormalize( hb_PathJoin( hb_DirSepToOS( hb_cwd() ), tmp1 ) )
-            /* Rebase its full path onto the contrib root */
+            /* Rebase its full path onto the project store root */
             tmp1 := hb_PathNormalize( hb_PathRelativize( ;
                hb_PathNormalize( hb_PathJoin( hb_DirSepToOS( hb_cwd() ), hb_DirSepToOS( s_cHome ) ) ), ;
                tmp2 ) )
 
-            /* Do not add any .hbc reference that resides outside the 'contrib'
-               directory tree. This case can be detected by verifying if the
-               full path remained unchanged after rebasing to contrib root. */
+            /* Do not add any .hbc reference that resides outside the project
+               store directory tree. This case can be detected by verifying if
+               the full path remained unchanged after rebasing to project store
+               root. */
             IF ! tmp1 == tmp2
                AAdd( hProject[ "aDept" ], { "nDepth" => Len( tmp ) - Len( LTrim( tmp ) ), ;
                   "cFileName_HBP" => StrTran( tmp1, "\", "/" ) } )
@@ -560,8 +552,8 @@ STATIC FUNCTION call_hbmk2( cProjectPath, cOptionsPre, cDynSuffix, cStdErr, cStd
 
    IF cDynSuffix != NIL
       IF ! cDynSuffix == ""
-         /* Request dll version of Harbour contrib dependencies (the implibs)
-            to be linked, on non-*nix platforms (experimental) */
+         /* Request dll version of project dependencies (the implibs) to be
+            linked, on non-*nix platforms (experimental) */
          hb_SetEnv( "_HB_DYNSUFF", cDynSuffix )
       ENDIF
 
@@ -747,28 +739,28 @@ STATIC FUNCTION AddProject( hProjectList, cFileName )
 
       cFileName := hb_FNameMerge( cDir, cName, cExt )
 
-      IF hb_vfExists( hb_DirSepToOS( s_cBase + s_cHome + cFileName ) )
+      IF hb_vfExists( hb_DirSepToOS( s_cHome + cFileName ) )
          cFileName := StrTran( cFileName, "\", "/" )
          IF ! cFileName $ hProjectList
             hProjectList[ cFileName ] := { => }
             RETURN .T.
          ENDIF
       ELSE
-         OutStd( hb_StrFormat( "! Warning: Project not found, cannot be added: %1$s", hb_DirSepToOS( s_cBase + s_cHome + cFileName ) ) + hb_eol() )
+         OutStd( hb_StrFormat( "! Warning: Project not found, cannot be added: %1$s", hb_DirSepToOS( s_cHome + cFileName ) ) + hb_eol() )
       ENDIF
    ENDIF
 
    RETURN .F.
 
-/* Build all contribs that have a .hbp file matching the name of its
-   contrib subdir. Also support contribs with multiple subprojects if
-   it has a 'makesub.txt' text file with a list of those subprojects. */
-STATIC PROCEDURE LoadProjectListAutomatic( hProjectList, cDir )
+/* Build all projects that have a .hbp file matching the name of its project
+   store subdir. Also support contribs with multiple subprojects if it has
+   a 'makesub.txt' text file with a list of those subprojects. */
+STATIC PROCEDURE LoadProjectListAutomatic( hProjectList )
 
    LOCAL aFile
    LOCAL tmp
 
-   cDir := hb_DirSepAdd( hb_DirSepToOS( cDir ) )
+   LOCAL cDir := hb_DirSepAdd( hb_DirSepToOS( s_cHome ) )
 
    FOR EACH aFile IN hb_vfDirectory( cDir, "D" )
       IF "D" $ aFile[ F_ATTR ] .AND. !( aFile[ F_NAME ] == "." .OR. aFile[ F_NAME ] == ".." )
