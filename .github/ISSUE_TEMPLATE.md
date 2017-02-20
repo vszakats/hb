@@ -24,7 +24,7 @@ version details.
 
 ### Notes:
 
-In case of enquires, questions, usage issues and general or feature specific
+In case of inquiries, questions, usage issues and general or feature specific
 discussion, please use available public forums. Popular ones are listed in
 the [README](../README.md#external-links).
 
