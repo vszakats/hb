@@ -521,7 +521,7 @@ STATIC PROCEDURE call_hbmk2_hbinfo( cProjectPath, hProject )
             tmp2 := hb_PathNormalize( hb_PathJoin( hb_DirSepToOS( hb_cwd() ), tmp1 ) )
             /* Rebase its full path onto the contrib root */
             tmp1 := hb_PathNormalize( hb_PathRelativize( ;
-               hb_PathNormalize( hb_PathJoin( hb_DirSepToOS( hb_cwd() ), hb_DirSepToOS( hb_DirBase() ) ) ), ;
+               hb_PathNormalize( hb_PathJoin( hb_DirSepToOS( hb_cwd() ), hb_DirSepToOS( s_cHome ) ) ), ;
                tmp2 ) )
 
             /* Do not add any .hbc reference that resides outside the 'contrib'

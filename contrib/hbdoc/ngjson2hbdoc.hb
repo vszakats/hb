@@ -501,7 +501,8 @@ static function cln( s )  /* strip formatting markers */
     hb_bchar( 0x1d ) => '?', ;
     hb_bchar( 0x1e ) => '?', ;
     hb_bchar( 0x1f ) => '?', ;
-    hb_bchar( 0x7f ) => '?' }
+    hb_bchar( 0x7f ) => '?', ;
+    hb_bchar( 0xa0 ) => ' ' }
 
   local tmp
 
@@ -554,7 +555,8 @@ static function conv( s )  /* convert formatting markers to HBDOC ones */
     hb_bchar( 0x1d ) => '?', ;
     hb_bchar( 0x1e ) => '?', ;
     hb_bchar( 0x1f ) => '?', ;
-    hb_bchar( 0x7f ) => '?' }
+    hb_bchar( 0x7f ) => '?', ;
+    hb_bchar( 0xa0 ) => ' ' }
 
   local tmp, flag := .f.
 
