@@ -906,6 +906,8 @@ ifeq ($(HB_COMPILER_VER),)
       HB_COMP_PATH_VER_DET := $(HB_COMP_PATH)
    endif
 
+   # Apple clang version vs. official LLVM/clang version: See in hbmk2 source code
+
    ifneq ($(filter $(HB_COMPILER),clang clang64),)
       ifeq ($(HB_COMP_PATH_VER_DET),)
          HB_COMP_PATH_VER_DET := $(HB_CCPREFIX)clang$(HB_CCSUFFIX)
