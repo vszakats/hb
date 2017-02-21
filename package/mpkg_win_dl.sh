@@ -84,17 +84,6 @@ if [ "${os}" = 'win' ]; then
 #   openssl dgst -sha256 pack.bin | grep -q 2d0e72340ffa14916d4469db25c37889e477f8f1f49ba4f77155830ddc1dca89
     # Will unpack into "./mingw64"
     7z x -y pack.bin > /dev/null
-  else
-    # Bad hack to avoid duplicate manifests being linked into slightly
-    # "off" binaries.
-    #    https://github.com/Alexpux/MSYS2-packages/issues/454
-    #    https://gcc.gnu.org/bugzilla/show_bug.cgi?id=69880
-    for file in \
-      '/usr/lib/default-manifest.o' \
-      '/mingw32/i686-w64-mingw32/lib/default-manifest.o' \
-      '/mingw64/x86_64-w64-mingw32/lib/default-manifest.o'; do
-      [ -f "${file}" ] && mv -f "${file}" "${file}-ORI"
-    done
   fi
 )
 fi
