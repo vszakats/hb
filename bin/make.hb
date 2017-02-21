@@ -1,8 +1,8 @@
 #!/usr/bin/env hbmk2
 /*
- * This script will build or rebuild a single contrib library along with
- * its dependencies when run in standalone mode. And it will build/rebuild
- * all (selected) contrib libraries as part of the GNU Make build process.
+ * This script will build or rebuild a single project (contrib) along with
+ * its dependencies when run in standalone mode. It will build/rebuild all
+ * (selected) projects (contribs) as part of the GNU Make build process.
  *
  * Copyright 2010-2017 Viktor Szakats (vszakats.net/harbour)
  *
@@ -50,10 +50,10 @@ STATIC s_cBinDir  /* directory where the hbmk2 executing this script resides */
 
 PROCEDURE Main( ... )
 
-   LOCAL hProjectList
+   LOCAL hProjectList := { => }
    LOCAL aParams
 
-   LOCAL nCount
+   LOCAL nCount, tmp
 
    hb_cdpSelect( "UTF8" )
 
@@ -64,24 +64,32 @@ PROCEDURE Main( ... )
 #endif
    s_cBinDir := hb_PathNormalize( s_cBinDir )  /* For *nixes */
 
-   /* Find source tree root */
-   nCount := 4
-   DO WHILE nCount-- > 0 .AND. ! hb_vfExists( ( s_cRoot := hb_DirSepToOS( Replicate( "../", nCount ) ) ) + "include" + hb_ps() + "hbvm.h" )
-   ENDDO
+   /* Find source tree root.
+      Check current up-level dirs, then start again from hbmk2's directory */
+   FOR EACH tmp IN { "", s_cBinDir }
+      nCount := 5
+      DO WHILE nCount-- > 0 .AND. ! hb_vfExists( ( s_cRoot := hb_DirSepToOS( tmp + Replicate( "../", nCount ) ) ) + "include" + hb_ps() + "hbvm.h" )
+      ENDDO
+      IF nCount > -1
+         EXIT
+      ELSEIF tmp:__enumIsLast()
+         OutErr( hb_StrFormat( "! Could not determine Harbour source root directory" ) + hb_eol() )
+         RETURN
+      ENDIF
+   NEXT
 
-   /* Determine project store root. Make an effort to normalize (shorten)
-      the directory while keeping it relative. */
-   s_cHome := StrTran( hb_PathNormalize( hb_PathRelativize( hb_cwd(), hb_PathNormalize( hb_PathJoin( hb_DirSepToOS( hb_cwd() ), hb_DirSepToOS( s_cRoot + "contrib" + "/" ) ) ) ) ), "\", "/" )
-   IF s_cHome == ""
-      s_cHome := "."
+   s_cRoot := StrTran( hb_PathNormalize( s_cRoot ), "\", "/" )
+
+   /* Project store root */
+   IF GetEnv( "HB_HOST_BIN_DIR" ) == ""
+      s_cHome := "../"  /* Assume it to be one level up when run in standalone mode */
+   ELSE
+      s_cHome := "./"   /* Current directory in GNU Make mode */
    ENDIF
-   s_cHome += "/"
 
    OutStd( hb_StrFormat( "! Harbour root: '%1$s'  Project store: '%2$s'", s_cRoot, s_cHome ) + hb_eol() )
 
    /* Load list of projects */
-
-   hProjectList := { => }
 
    LoadProjectListAutomatic( hProjectList )
    LoadProjectListFromString( hProjectList, GetEnv( "HB_BUILD_ADDONS" ) )
@@ -181,7 +189,7 @@ STATIC PROCEDURE Standalone( aParams, hProjectList )
       IF Empty( hProjectReqList )
          lCustom := .T.
       ELSE
-         OutStd( hb_StrFormat( "! Package %1$s... %2$d project(s)", sc_hActions[ nAction ], Len( hProjectReqList ) ) + hb_eol() )
+         OutStd( hb_StrFormat( "! Initiating %1$s... %2$d project(s)", sc_hActions[ nAction ], Len( hProjectReqList ) ) + hb_eol() )
       ENDIF
    ENDIF
 
@@ -340,11 +348,11 @@ STATIC PROCEDURE GNUMake( aParams, hProjectList )
 
    /* Start building */
 
-   OutStd( hb_StrFormat( "! Started package %1$s...", sc_hActions[ nAction ] ) + hb_eol() )
+   OutStd( hb_StrFormat( "! Started %1$s...", sc_hActions[ nAction ] ) + hb_eol() )
 
    build_projects( nAction, hProjectList, hProjectReqList, "", .F. )
 
-   OutStd( hb_StrFormat( "! Finished package %1$s...", sc_hActions[ nAction ] ) + hb_eol() )
+   OutStd( hb_StrFormat( "! Finished %1$s...", sc_hActions[ nAction ] ) + hb_eol() )
 
    RETURN
 
@@ -569,10 +577,10 @@ STATIC FUNCTION call_hbmk2( cProjectPath, cOptionsPre, cDynSuffix, cStdErr, cStd
 
    cCommand := s_cBinDir + "hbmk2" + ;
       " -lang=en -quiet -width=0 -autohbm-" + ;
-      " @" + StrTran( s_cHome, "\", "/" ) + "hbpre" + ;
+      " @" + StrTran( s_cRoot + "config/hbpre", "\", "/" ) + ;
       cOptionsPre + ;
       " " + StrTran( cProjectPath, "\", "/" ) + ;
-      " @" + StrTran( s_cHome, "\", "/" ) + "hbpost" + ;
+      " @" + StrTran( s_cRoot + "config/hbpost", "\", "/" ) + ;
       StrTran( cOptionsLibDyn, "\", "/" )
 
    IF PCount() >= 4
@@ -754,7 +762,7 @@ STATIC FUNCTION AddProject( hProjectList, cFileName )
    RETURN .F.
 
 /* Build all projects that have a .hbp file matching the name of its project
-   store subdir. Also support contribs with multiple subprojects if it has
+   store subdir. Also support projects with multiple subprojects if it has
    a 'makesub.txt' text file with a list of those subprojects. */
 STATIC PROCEDURE LoadProjectListAutomatic( hProjectList )
 
