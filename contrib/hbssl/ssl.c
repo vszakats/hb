@@ -1,7 +1,7 @@
 /*
  * OpenSSL API (SSL) - Harbour interface.
  *
- * Copyright 2009-2016 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2009-2017 Viktor Szakats (vszakats.net/harbour)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -78,7 +78,8 @@ typedef struct _HB_SSL
    PHB_ITEM pCallbackArg;
 } HB_SSL, * PHB_SSL;
 
-#if defined( HB_OS_WIN ) && \
+#if ! defined( HB_OPENSSL_NO_APPLINK ) && \
+    defined( HB_OS_WIN ) && \
     defined( HB_CPU_X86 ) && \
     OPENSSL_VERSION_NUMBER >= 0x00908000L
    /* Enable this to add support for various scenarios when

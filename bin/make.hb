@@ -77,8 +77,7 @@ PROCEDURE Main( ... )
    ENDIF
    s_cHome += "/"
 
-   OutStd( hb_StrFormat( "! Harbour source root: %1$s", s_cRoot ) + hb_eol() )
-   OutStd( hb_StrFormat( "! Project store root: %1$s", s_cHome ) + hb_eol() )
+   OutStd( hb_StrFormat( "! Harbour root: '%1$s'  Project store: '%2$s'", s_cRoot, s_cHome ) + hb_eol() )
 
    /* Load list of projects */
 
