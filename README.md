@@ -1489,8 +1489,9 @@ Supported shells per host platforms:
 
      * Git (2.2.0 or upper) [multi-platform, free software, open-source]
         * <https://git-scm.com/>
-        * Windows binaries:
+        * on Windows:
            * <https://git-for-windows.github.io/>
+           * via Windows Subsystem for Linux on Windows 10 Anniversary Update
      * GitHub Desktop [multi-platform, zero price, proprietary]
         * <https://desktop.github.com/>
      * Travis CI [continuous integration, web service, free plan available]
