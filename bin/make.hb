@@ -204,7 +204,7 @@ STATIC PROCEDURE BuildSingle( aParams, hProjectList )
 
    /* Start building */
 
-   build_projects( nAction, hProjectList, hProjectReqList, cOptionsUser, .T. )
+   build_projects( nAction, hProjectList, hProjectReqList, cOptionsUser )
 
    RETURN
 
@@ -355,7 +355,7 @@ STATIC PROCEDURE BuildAll( aParams, hProjectList )
 
    OutStd( hb_StrFormat( "! Started %1$s...", sc_hActions[ nAction ] ) + hb_eol() )
 
-   build_projects( nAction, hProjectList, hProjectReqList, "", .F. )
+   build_projects( nAction, hProjectList, hProjectReqList, "" )
 
    OutStd( hb_StrFormat( "! Finished %1$s...", sc_hActions[ nAction ] ) + hb_eol() )
 

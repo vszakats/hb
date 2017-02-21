@@ -84,6 +84,7 @@ script:
        make -j "$HB_CI_THREADS";
        if which wine > /dev/null; then
           wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/hbmk2.exe --version;
+          wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/hbrun.exe --version;
           wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/harbour.exe -build;
        fi;
        export HB_COMPILER=mingw64;
@@ -93,6 +94,7 @@ script:
        make -j "$HB_CI_THREADS";
        if which wine > /dev/null; then
           wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/hbmk2.exe --version;
+          wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/hbrun.exe --version;
           wine ./bin/${HB_PLATFORM}/${HB_COMPILER}/harbour.exe -build;
        fi;
     else

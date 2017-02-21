@@ -15841,6 +15841,12 @@ STATIC PROCEDURE __hbshell( cFile, ... )
          ShowHelp( hbmk, .T., .T. )
          RETURN
 
+      CASE cParamL == "-version" .OR. ;
+           cParamL == "--version"
+
+         ShowHeader( hbmk )
+         RETURN
+
       ENDCASE
    ENDIF
 
@@ -18365,7 +18371,8 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
       { "-help"              , I_( "this help" ) }, ;
       { "-viewhelp"          , I_( "full help in text viewer" ) }, ;
       { "-fullhelp"          , I_( "full help" ) }, ;
-      { "-fullhelpmd"        , I_( "full help in Markdown format" ) } }
+      { "-fullhelpmd"        , I_( "full help in Markdown format" ) }, ;
+      { "-version"           , I_( "display version header only" ) } }
 
    LOCAL aHdr_Opt_Internal := { ;
       "", ;
