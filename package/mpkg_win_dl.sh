@@ -17,10 +17,12 @@ esac
 _BRANCH="${APPVEYOR_REPO_BRANCH}${TRAVIS_BRANCH}${CI_BUILD_REF_NAME}${GIT_BRANCH}"
 [ -n "${_BRANCH}" ] || _BRANCH="$(git symbolic-ref --short --quiet HEAD)"
 [ -n "${_BRANCH}" ] || _BRANCH='master'
+_BRANC4="$(echo "${_BRANCH}" | cut -c -4)"
 
 # Update/install MSYS2 pacman packages to fullfill dependencies
 
 if [ "${os}" = 'win' ]; then
+
    # Dependencies of the default (full) list of contribs
    if [ "${_BRANCH#*prod*}" = "${_BRANCH}" ]; then
       pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{cairo,freeimage,gd,ghostscript,libmariadbclient,postgresql}
@@ -39,6 +41,11 @@ if [ "${os}" = 'win' ]; then
 
    # Core dependencies (vendored sources are used instead for now)
    # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{libpng,pcre,zlib}
+
+   if [ "${_BRANC4}" = 'msvc' ]; then
+      # https://github.com/Microsoft/vcpkg
+      # vcpkg install curl
+   fi
 fi
 
 # Install packages manually
