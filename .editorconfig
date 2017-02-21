@@ -16,7 +16,7 @@ end_of_line = lf
 [*.bat]
 end_of_line = crlf
 
-[{*.css,*.html,*.js,*.json,*.rb,*.scss,*.vbs,*.yml,*.xml}]
+[{*.css,*.html,*.js,*.json,*.rb,*.scss,*.sh,*.vbs,*.yml,*.xml}]
 indent_size = 2
 
 [{*.svg}]
