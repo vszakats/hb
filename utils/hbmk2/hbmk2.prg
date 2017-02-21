@@ -14292,11 +14292,11 @@ STATIC FUNCTION CompVersionDetect( hbmk, cPath_CompC )
             tmp1 := hb_ATokens( SubStr( tmp1, Len( "Apple LLVM version " ) + 1 ), "." )
             nVer := Val( StrZero( Val( tmp1[ 1 ] ), 2 ) + StrZero( Val( tmp1[ 2 ] ), 2 ) )
 
-            # Apple clang version vs. official LLVM/clang version:
-            #   https://opensource.apple.com/source/clang/ -> clang-*/src/CMakeLists.txt
-            #   https://opensource.apple.com//source/clang/clang-800.0.38/src/CMakeLists.txt
-            # NOTE: It's an interim SVN revision with possible differences in features.
-            # [vszakats]
+            /* Apple clang version vs. official LLVM/clang version:
+                 https://opensource.apple.com/source/clang/ -> clang-<version>/src/CMakeLists.txt
+                 https://opensource.apple.com//source/clang/clang-800.0.38/src/CMakeLists.txt
+              NOTE: It's an interim SVN revision with possible differences in features.
+              [vszakats] */
 
             DO CASE
             CASE nVer == 700 ; nVer := 0307
