@@ -42,10 +42,10 @@ if [ "${os}" = 'win' ]; then
   # Core dependencies (vendored sources are used instead for now)
   # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{libpng,pcre,zlib}
 
-  if [ "${_BRANC4}" = 'msvc' ]; then
-    # https://github.com/Microsoft/vcpkg
-    # vcpkg install curl
-  fi
+# if [ "${_BRANC4}" = 'msvc' ]; then
+#   # https://github.com/Microsoft/vcpkg
+#   vcpkg install curl
+# fi
 fi
 
 # Install packages manually
