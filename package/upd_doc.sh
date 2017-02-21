@@ -78,27 +78,27 @@ if git diff-index --name-only HEAD~1 \
 
   if [ "${_BRANCH#*master*}" != "${_BRANCH}" ] && \
      [ -n "${GITHUB_TOKEN}" ]; then
+  (
+    cd "${hbdoc_fmt}" || exit
+
+    echo "! Updating Reference Guide repository..."
+
+    git remote rm origin
     (
-      cd "${hbdoc_fmt}" || exit
+      set +x
+      readonly GITHUB_USER='vszakats'
+      git remote add origin "https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${slug_doc_pages}.git"
+      git config user.name "${GITHUB_USER}-auto"
+      git config user.email "${GITHUB_USER}@users.noreply.github.com"
+    )
 
-      echo "! Updating Reference Guide repository..."
-
-      git remote rm origin
-      (
-        set +x
-        readonly GITHUB_USER='vszakats'
-        git remote add origin "https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${slug_doc_pages}.git"
-        git config user.name "${GITHUB_USER}-auto"
-        git config user.email "${GITHUB_USER}@users.noreply.github.com"
-      )
-
-      git commit -a -m "update content
+    git commit -a -m "update content
 
 Based on ${url_source}"
-      git push origin master
+    git push origin master
 
-      echo "! Update finished."
-    )
+    echo "! Update finished."
+  )
   else
     echo '! upd_doc: Not master branch or credentials missing, skip updating docs.'
   fi

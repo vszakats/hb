@@ -3,7 +3,7 @@
 # Create a self-signed certificate for localhost/loopback
 
 case "$(uname)" in
-   Darwin*) alias openssl=/usr/local/opt/openssl/bin/openssl;;
+  Darwin*) alias openssl=/usr/local/opt/openssl/bin/openssl;;
 esac
 
 tmp="$(mktemp -t XXXXXX)"

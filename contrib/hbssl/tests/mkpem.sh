@@ -8,14 +8,15 @@
 #           (install with `brew install openssl` on Mac)
 
 case "$(uname)" in
-   Darwin*)
-      openssl() {
-         /usr/local/opt/openssl/bin/openssl "$@"
-      };;
+  Darwin*)
+    openssl() {
+      /usr/local/opt/openssl/bin/openssl "$@"
+    }
+    ;;
 esac
 
 privout() {
-   o="$1"; rm -f "$o"; touch "$o"; chmod 0600 "$o"; shift; "$@" >> "$o"
+  o="$1"; rm -f "$o"; touch "$o"; chmod 0600 "$o"; shift; "$@" >> "$o"
 }
 
 readonly pass='pass:test'
