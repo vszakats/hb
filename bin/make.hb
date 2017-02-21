@@ -1,8 +1,10 @@
 #!/usr/bin/env hbmk2
 /*
- * This script will build or rebuild a single project (contrib) along with
- * its dependencies when run in standalone mode. It will build/rebuild all
- * (selected) projects (contribs) as part of the GNU Make build process.
+ * When started in a project (contrib) directory, this script will build
+ * that single project along with its dependencies in the same project
+ * store. When started in a project store root and passed "." as a parameter,
+ * it will rebuild _all_ projects. Build order is determined according to
+ * the dependency graph of involved projects.
  *
  * Copyright 2010-2017 Viktor Szakats (vszakats.net/harbour)
  *
@@ -46,12 +48,14 @@ STATIC s_cRoot    /* source tree root directory */
 STATIC s_cHome    /* project store root directory (f.e. 'contrib/') */
 STATIC s_cBinDir  /* directory where the hbmk2 executing this script resides */
 
+STATIC s_lCoreBuild
+
 #define AScanL( aArray, cString )  hb_AScanI( aArray, cString,,, .T. )
 
 PROCEDURE Main( ... )
 
    LOCAL hProjectList := { => }
-   LOCAL aParams
+   LOCAL aParams := hb_AParams()
 
    LOCAL nCount, tmp
 
@@ -80,11 +84,14 @@ PROCEDURE Main( ... )
 
    s_cRoot := StrTran( hb_PathNormalize( s_cRoot ), "\", "/" )
 
+   /* Running as part of the core GNU Make build process? */
+   s_lCoreBuild := ! GetEnv( "HB_HOST_BIN_DIR" ) == ""
+
    /* Project store root */
-   IF GetEnv( "HB_HOST_BIN_DIR" ) == ""
-      s_cHome := "../"  /* Assume it to be one level up when run in standalone mode */
+   IF AScanL( aParams, "." ) > 0
+      s_cHome := "./"   /* Current directory in all-project mode */
    ELSE
-      s_cHome := "./"   /* Current directory in GNU Make mode */
+      s_cHome := "../"  /* Assume it to be one level up when run for a single-project (default) */
    ENDIF
 
    OutStd( hb_StrFormat( "! Harbour root: '%1$s'  Project store: '%2$s'", s_cRoot, s_cHome ) + hb_eol() )
@@ -94,22 +101,20 @@ PROCEDURE Main( ... )
    LoadProjectListAutomatic( hProjectList )
    LoadProjectListFromString( hProjectList, GetEnv( "HB_BUILD_ADDONS" ) )
 
-   aParams := hb_AParams()
-
    IF AScanL( aParams, "verbose" ) > 0
       hb_SetEnv( "HB_BUILD_VERBOSE", "yes" )
    ENDIF
 
    /* Build */
-   IF GetEnv( "HB_HOST_BIN_DIR" ) == ""
-      Standalone( aParams, hProjectList )
+   IF AScanL( aParams, "." ) > 0
+      BuildAll( aParams, hProjectList )
    ELSE
-      GNUMake( aParams, hProjectList )
+      BuildSingle( aParams, hProjectList )
    ENDIF
 
    RETURN
 
-/* Workflow translation for standalone operation:
+/* Workflow translation in single-project mode:
 
       GNU Make       parameter      nAction                hbmk2 options
    -- -------------- -------------- ---------------------- -------------------------
@@ -119,7 +124,7 @@ PROCEDURE Main( ... )
    #4 install        install        _ACT_INC_INST          -inc -instpath=
    #5 clean install  clean install  _ACT_INC_REBUILD_INST  -inc -rebuildall -instpath=
  */
-STATIC PROCEDURE Standalone( aParams, hProjectList )
+STATIC PROCEDURE BuildSingle( aParams, hProjectList )
 
    LOCAL hProjectReqList
 
@@ -128,7 +133,7 @@ STATIC PROCEDURE Standalone( aParams, hProjectList )
    LOCAL nAction
    LOCAL tmp
 
-   LOCAL lCustom
+   LOCAL lPassThrough_hbmk2 := .F.
 
    /* Processing cmdline options */
 
@@ -154,7 +159,6 @@ STATIC PROCEDURE Standalone( aParams, hProjectList )
    /* Processing user options */
 
    cOptionsUser := ""
-   lCustom := .F.
    FOR EACH tmp IN aParams
       IF ! Lower( tmp ) == "install" .AND. ;
          ! Lower( tmp ) == "clean" .AND. ;
@@ -166,9 +170,9 @@ STATIC PROCEDURE Standalone( aParams, hProjectList )
          cOptionsUser += " " + tmp
 
          /* If anything else is passed than options or GNU Make keywords,
-            consider it a custom project build, f.e. in tests */
+            switch to hbmk2 pass-through mode, f.e. in tests */
          IF ! hb_LeftEq( tmp, "-" )
-            lCustom := .T.
+            lPassThrough_hbmk2 := .T.
          ENDIF
       ENDIF
    NEXT
@@ -178,7 +182,7 @@ STATIC PROCEDURE Standalone( aParams, hProjectList )
 
    hProjectReqList := { => }
 
-   IF ! lCustom
+   IF ! lPassThrough_hbmk2
       /* Find out which projects are in current dir, these will be our
          primary targets */
       FOR EACH tmp IN hProjectList
@@ -187,13 +191,13 @@ STATIC PROCEDURE Standalone( aParams, hProjectList )
          ENDIF
       NEXT
       IF Empty( hProjectReqList )
-         lCustom := .T.
+         lPassThrough_hbmk2 := .T.
       ELSE
          OutStd( hb_StrFormat( "! Initiating %1$s... %2$d project(s)", sc_hActions[ nAction ], Len( hProjectReqList ) ) + hb_eol() )
       ENDIF
    ENDIF
 
-   IF lCustom
+   IF lPassThrough_hbmk2  /* pass request to hbmk2 as-is */
       mk_hb_processRun( s_cBinDir + "hbmk2" + cOptionsUser )
       RETURN
    ENDIF
@@ -218,7 +222,7 @@ STATIC PROCEDURE Standalone( aParams, hProjectList )
    #6 install clean  install    install clean    _ACT_INC_INST          -inc -instpath=
                      clean      install clean    _ACT_INC_CLEAN         -inc -clean
  */
-STATIC PROCEDURE GNUMake( aParams, hProjectList )
+STATIC PROCEDURE BuildAll( aParams, hProjectList )
 
    LOCAL cProject
    LOCAL hProjectReqList
@@ -231,35 +235,34 @@ STATIC PROCEDURE GNUMake( aParams, hProjectList )
    LOCAL nAction
    LOCAL tmp
 
-   /* Check if the requirements are met and if we have anything to do */
+   IF s_lCoreBuild
 
-   IF Empty( GetEnv( "HB_PLATFORM" ) ) .OR. ;
-      Empty( GetEnv( "HB_COMPILER" ) ) .OR. ;
-      GetEnv( "HB_HOST_BIN_DIR" ) == ""
-      ErrorLevel( 9 )
-      RETURN
+      /* All GNU Make requests, not just the one being executed right now */
+      aGNUMakeParams := hb_ATokens( GetEnv( "HB_MAKECMDGOALS" ) )
+
+      /* Check requirements when running as part of the core GNU Make build */
+
+      IF Empty( GetEnv( "HB_PLATFORM" ) ) .OR. ;
+         Empty( GetEnv( "HB_COMPILER" ) )
+         ErrorLevel( 9 )
+         RETURN
+      ENDIF
+   ELSE
+      aGNUMakeParams := {}
    ENDIF
 
    /* Determine the mode of operation */
 
-   aGNUMakeParams := hb_ATokens( GetEnv( "HB_MAKECMDGOALS" ) )
-
    DO CASE
    CASE AScanL( aParams, "clean" ) > 0
-      IF AScanL( aGNUMakeParams, "clean" ) > 0 .AND. ;
-         AScanL( aGNUMakeParams, "install" ) > 0 .AND. ;
-         AScanL( aGNUMakeParams, "install" ) > AScanL( aGNUMakeParams, "clean" )
-         nAction := _ACT_INC_CLEAN
-      ELSE
-         nAction := _ACT_INC_CLEAN
-      ENDIF
+      nAction := _ACT_INC_CLEAN
    CASE AScanL( aParams, "install" ) > 0
       IF AScanL( aGNUMakeParams, "clean" ) > 0 .AND. ;
          AScanL( aGNUMakeParams, "install" ) > 0 .AND. ;
          AScanL( aGNUMakeParams, "install" ) > AScanL( aGNUMakeParams, "clean" )
          /* Use rebuild mode. This is needed because the clean phase might not
-            have been called previously by GNU Make, f.e. because hbrun or
-            hbmk2 wasn't available. -rebuildall is costless, so we do it to
+            have been called previously by core GNU Make, f.e. because hbrun
+            or hbmk2 wasn't available. -rebuildall is costless, so we do it to
             make sure to build cleanly. [vszakats] */
          nAction := _ACT_INC_REBUILD_INST
       ELSE
@@ -329,22 +332,24 @@ STATIC PROCEDURE GNUMake( aParams, hProjectList )
 
    /* Clearing envvars that may interact with hbmk2 */
 
-   /* Saving original install dirs to our own variables */
-   hb_SetEnv( "_HB_INSTALL_BIN", GetEnv( "HB_INSTALL_BIN" ) )
-   hb_SetEnv( "_HB_INSTALL_LIB", GetEnv( "HB_INSTALL_LIB" ) )
-   hb_SetEnv( "_HB_INSTALL_DYN", GetEnv( "HB_INSTALL_DYN" ) )
-   hb_SetEnv( "_HB_INSTALL_INC", GetEnv( "HB_INSTALL_INC" ) )
-   hb_SetEnv( "_HB_INSTALL_MAN", GetEnv( "HB_INSTALL_MAN" ) )
-   hb_SetEnv( "_HB_INSTALL_ETC", GetEnv( "HB_INSTALL_ETC" ) )
-   hb_SetEnv( "_HB_INSTALL_CONTRIB", GetEnv( "HB_INSTALL_CONTRIB" ) )
-   hb_SetEnv( "_HB_COMPILER_VER", GetEnv( "HB_COMPILER_VER" ) )
+   IF s_lCoreBuild
+      /* Saving original install dirs to our own variables */
+      hb_SetEnv( "_HB_INSTALL_BIN", GetEnv( "HB_INSTALL_BIN" ) )
+      hb_SetEnv( "_HB_INSTALL_LIB", GetEnv( "HB_INSTALL_LIB" ) )
+      hb_SetEnv( "_HB_INSTALL_DYN", GetEnv( "HB_INSTALL_DYN" ) )
+      hb_SetEnv( "_HB_INSTALL_INC", GetEnv( "HB_INSTALL_INC" ) )
+      hb_SetEnv( "_HB_INSTALL_MAN", GetEnv( "HB_INSTALL_MAN" ) )
+      hb_SetEnv( "_HB_INSTALL_ETC", GetEnv( "HB_INSTALL_ETC" ) )
+      hb_SetEnv( "_HB_INSTALL_CONTRIB", GetEnv( "HB_INSTALL_CONTRIB" ) )
+      hb_SetEnv( "_HB_COMPILER_VER", GetEnv( "HB_COMPILER_VER" ) )
 
-   /* Override hbmk2 auto-detection. WARNING: Must be in sync with global.mk logic */
-   hb_SetEnv( "HB_INSTALL_PREFIX", s_cRoot )
-   hb_SetEnv( "HB_INSTALL_BIN", s_cRoot + "bin/" + GetEnv( "HB_PLATFORM" ) + "/" + GetEnv( "HB_COMPILER" ) + GetEnv( "HB_BUILD_NAME" ) )
-   hb_SetEnv( "HB_INSTALL_LIB", s_cRoot + "lib/" + GetEnv( "HB_PLATFORM" ) + "/" + GetEnv( "HB_COMPILER" ) + GetEnv( "HB_BUILD_NAME" ) )
-   hb_SetEnv( "HB_INSTALL_DYN" )
-   hb_SetEnv( "HB_INSTALL_INC", s_cRoot + "include" )
+      /* Override hbmk2 auto-detection. WARNING: Must be in sync with global.mk logic */
+      hb_SetEnv( "HB_INSTALL_PREFIX", s_cRoot )
+      hb_SetEnv( "HB_INSTALL_BIN", s_cRoot + "bin/" + GetEnv( "HB_PLATFORM" ) + "/" + GetEnv( "HB_COMPILER" ) + GetEnv( "HB_BUILD_NAME" ) )
+      hb_SetEnv( "HB_INSTALL_LIB", s_cRoot + "lib/" + GetEnv( "HB_PLATFORM" ) + "/" + GetEnv( "HB_COMPILER" ) + GetEnv( "HB_BUILD_NAME" ) )
+      hb_SetEnv( "HB_INSTALL_DYN" )
+      hb_SetEnv( "HB_INSTALL_INC", s_cRoot + "include" )
+   ENDIF
 
    /* Start building */
 
@@ -356,7 +361,7 @@ STATIC PROCEDURE GNUMake( aParams, hProjectList )
 
    RETURN
 
-STATIC PROCEDURE build_projects( nAction, hProjectList, hProjectReqList, cOptionsUser, lStdAlone )
+STATIC PROCEDURE build_projects( nAction, hProjectList, hProjectReqList, cOptionsUser )
 
    LOCAL aPairList
    LOCAL aSortedList
@@ -426,18 +431,20 @@ STATIC PROCEDURE build_projects( nAction, hProjectList, hProjectReqList, cOption
       EXIT
    ENDSWITCH
 
-   cMakeFlags := GetEnv( "MAKEFLAGS" )
-   IF " -j " $ " " + cMakeFlags + " "
-      /* GNU Make uses job server to limit number of concurrent operations
-         We cannot read it from MAKEFLAGS so I set it to arbitrary value: 8 */
-      cOptions += " -jobs=8"
+   IF s_lCoreBuild
+      cMakeFlags := GetEnv( "MAKEFLAGS" )
+      IF " -j " $ " " + cMakeFlags + " "
+         /* GNU Make uses job server to limit number of concurrent operations
+            We cannot read it from MAKEFLAGS so I set it to arbitrary value: 8 */
+         cOptions += " -jobs=8"
+      ENDIF
    ENDIF
 
    lInstall := ;
       nAction == _ACT_INC_INST .OR. ;
       nAction == _ACT_INC_REBUILD_INST
 
-   hb_SetEnv( iif( lStdAlone, "_HB_BUILD_INSTALL_STDALONE", "_HB_BUILD_INSTALL" ), iif( lInstall, "yes", NIL ) )
+   hb_SetEnv( iif( s_lCoreBuild, "_HB_INST_CORE", "_HB_INST_NONCORE" ), iif( lInstall, "yes", NIL ) )
 
    /* Build the dependencies and primary targets in sorted order */
 

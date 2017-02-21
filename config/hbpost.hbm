@@ -1,4 +1,4 @@
-# Copyright 2010 Viktor Szakats (vszakats.net/harbour)
+# Copyright 2010-2017 Viktor Szakats (vszakats.net/harbour)
 
 # These are mandatory inside Harbour repository, they will always
 # override project options.
@@ -14,7 +14,7 @@
 -harden
 {HB_BUILD_PKG='yes'}-vcsts
 
-../package/harbour.hbc{hbdyn}
+${hb_prefix}/package/harbour.hbc{hbdyn}
 
 # code signing
 "{win&HB_CODESIGN_KEY_PASS}-sign=${HB_CODESIGN_KEY}"
@@ -44,7 +44,7 @@
 
 # dynamic lib creation settings
 {hbdyn}-shared
-{hbdyn}-implib=../lib/${hb_plat}/${hb_comp}${hb_build}/${hb_outputname}_dll
+{hbdyn}-implib=${hb_lib}/${hb_outputname}_dll
 {hbdyn&unix&!cygwin}-ln=${hb_dynprefix}${hb_outputname}${hb_dynext}
 {hbdyn&unix&!darwin&!cygwin}-ln=${hb_dynprefix}${hb_outputname}${hb_dynext}.${hb_major}.${hb_minor}
 {hbdyn&unix&darwin}-ln=${hb_dynprefix}${hb_outputname}.${hb_major}.${hb_minor}${hb_dynext}
@@ -68,12 +68,14 @@
 {hbdyn&!unix&!allwin}-o${hb_outputname}${hb_dynsuffix}
 
 # output dir (in sync with GNU Make)
-{hblib|(hbdyn&unix)}-o../lib/${hb_plat}/${hb_comp}${hb_build}/
-{hbexe|(hbdyn&!unix)}-o../bin/${hb_plat}/${hb_comp}${hb_build}/
+{hblib}-o${hb_lib}/
+{hbexe}-o${hb_bin}/
+{hbdyn}-o${hb_dyn}/
 
 # workdir (in sync with GNU Make)
-{hblib|(hbdyn&unix)}-workdir=../lib/${hb_plat}/${hb_comp}${hb_build}/${hb_work}/${hb_outputname}${hb_workdynsub}
-{hbexe|(hbdyn&!unix)}-workdir=../bin/${hb_plat}/${hb_comp}${hb_build}/${hb_work}/${hb_outputname}${hb_workdynsub}
+{hblib}-workdir=${hb_lib}/${hb_work}/${hb_outputname}${hb_workdynsub}
+{hbexe}-workdir=${hb_bin}/${hb_work}/${hb_outputname}${hb_workdynsub}
+{hbdyn}-workdir=${hb_dyn}/${hb_work}/${hb_outputname}${hb_workdynsub}
 
 # copy contrib-specific public files
 -instfile=contrib:${_HB_CONTRIB_SUBDIR}*.hb
@@ -84,28 +86,28 @@
 -instfile=contrib:${_HB_CONTRIB_SUBDIR}*.txt
 -instfile=contrib_tests:${_HB_CONTRIB_SUBDIR}tests/*.*
 
-# install (GNU Make)
-{_HB_BUILD_INSTALL&_HB_INSTALL_LIB&hblib}-instpath=${_HB_INSTALL_LIB}/
-{_HB_BUILD_INSTALL&_HB_INSTALL_BIN&hbexe}-instpath=${_HB_INSTALL_BIN}/
-{_HB_BUILD_INSTALL&_HB_INSTALL_DYN&hbdyn}-instpath=${_HB_INSTALL_DYN}/
-{_HB_BUILD_INSTALL&_HB_INSTALL_DYN&hbdyn&(win|os2)&HB_INSTALL_3RDDYN='yes'}-instpath=depimplibsrc:${_HB_INSTALL_DYN}/
-{_HB_BUILD_INSTALL&_HB_INSTALL_INC&hblib}-instpath=inc:${_HB_INSTALL_INC}/
-{_HB_BUILD_INSTALL&_HB_INSTALL_LIB}-instpath=implib:${_HB_INSTALL_LIB}/
-{_HB_BUILD_INSTALL&_HB_INSTALL_ETC}-instpath=etc:${_HB_INSTALL_ETC}/
-{_HB_BUILD_INSTALL&_HB_INSTALL_MAN}-instpath=man:${_HB_INSTALL_MAN}/
-{_HB_BUILD_INSTALL&_HB_INSTALL_LIB&!(HB_INSTALL_IMPLIB='no')}-instpath=depimplib:${_HB_INSTALL_LIB}/
-{_HB_BUILD_INSTALL&_HB_INSTALL_CONTRIB&hblib}-instpath=contrib:${_HB_INSTALL_CONTRIB}/${_HB_CONTRIB_SUBDIR}
-{_HB_BUILD_INSTALL&_HB_INSTALL_CONTRIB&hblib}-instpath=contrib_tests:${_HB_INSTALL_CONTRIB}/${_HB_CONTRIB_SUBDIR}/tests/
-{_HB_BUILD_INSTALL}-instforce
+# install (core GNU Make)
+{HB_INST_CORE&_HB_INSTALL_LIB&hblib}-instpath=${_HB_INSTALL_LIB}/
+{HB_INST_CORE&_HB_INSTALL_BIN&hbexe}-instpath=${_HB_INSTALL_BIN}/
+{HB_INST_CORE&_HB_INSTALL_DYN&hbdyn}-instpath=${_HB_INSTALL_DYN}/
+{HB_INST_CORE&_HB_INSTALL_DYN&hbdyn&(win|os2)&HB_INSTALL_3RDDYN='yes'}-instpath=depimplibsrc:${_HB_INSTALL_DYN}/
+{HB_INST_CORE&_HB_INSTALL_INC&hblib}-instpath=inc:${_HB_INSTALL_INC}/
+{HB_INST_CORE&_HB_INSTALL_LIB}-instpath=implib:${_HB_INSTALL_LIB}/
+{HB_INST_CORE&_HB_INSTALL_ETC}-instpath=etc:${_HB_INSTALL_ETC}/
+{HB_INST_CORE&_HB_INSTALL_MAN}-instpath=man:${_HB_INSTALL_MAN}/
+{HB_INST_CORE&_HB_INSTALL_LIB&!(HB_INSTALL_IMPLIB='no')}-instpath=depimplib:${_HB_INSTALL_LIB}/
+{HB_INST_CORE&_HB_INSTALL_CONTRIB&hblib}-instpath=contrib:${_HB_INSTALL_CONTRIB}/${_HB_CONTRIB_SUBDIR}
+{HB_INST_CORE&_HB_INSTALL_CONTRIB&hblib}-instpath=contrib_tests:${_HB_INSTALL_CONTRIB}/${_HB_CONTRIB_SUBDIR}/tests/
+{HB_INST_CORE}-instforce
 
-# install (standalone)
-{_HB_BUILD_INSTALL_STDALONE&hblib}-instpath=${hb_lib}/
-{_HB_BUILD_INSTALL_STDALONE&hbexe}-instpath=${hb_bin}/
-{_HB_BUILD_INSTALL_STDALONE&hbdyn}-instpath=${hb_dyn}/
-{_HB_BUILD_INSTALL_STDALONE&hbdyn&(win|os2)&HB_INSTALL_3RDDYN='yes'}-instpath=depimplibsrc:${hb_dyn}/
-{_HB_BUILD_INSTALL_STDALONE&hblib}-instpath=inc:${hb_inc}/
-{_HB_BUILD_INSTALL_STDALONE}-instpath=implib:${hb_lib}/
-{_HB_BUILD_INSTALL_STDALONE}-instpath=etc:${hb_etc}/
-{_HB_BUILD_INSTALL_STDALONE}-instpath=man:${hb_man}/
-{_HB_BUILD_INSTALL_STDALONE&!(HB_INSTALL_IMPLIB='no')}-instpath=depimplib:${hb_lib}/
-{_HB_BUILD_INSTALL_STDALONE}-instforce
+# install (non-core GNU Make)
+{HB_INST_NONCORE&hblib}-instpath=${hb_lib}/
+{HB_INST_NONCORE&hbexe}-instpath=${hb_bin}/
+{HB_INST_NONCORE&hbdyn}-instpath=${hb_dyn}/
+{HB_INST_NONCORE&hbdyn&(win|os2)&HB_INSTALL_3RDDYN='yes'}-instpath=depimplibsrc:${hb_dyn}/
+{HB_INST_NONCORE&hblib}-instpath=inc:${hb_inc}/
+{HB_INST_NONCORE}-instpath=implib:${hb_lib}/
+{HB_INST_NONCORE}-instpath=etc:${hb_etc}/
+{HB_INST_NONCORE}-instpath=man:${hb_man}/
+{HB_INST_NONCORE&!(HB_INSTALL_IMPLIB='no')}-instpath=depimplib:${hb_lib}/
+{HB_INST_NONCORE}-instforce
