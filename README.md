@@ -1436,7 +1436,7 @@ Supported shells per host platforms:
           * x86-64:
             * 64-bit hosted, posix, seh
      * MinGW CEGCC [win, \*nix, free software, open-source]
-        * <https://web.archive.org/web/sourceforge.net/projects/cegcc/files/cegcc/>
+        * <https://sourceforge.net/projects/cegcc/files/cegcc/>
           * To use this package, you will also need Cygwin package
             installed and be in `PATH` for the Cygwin runtime (`cygwin1.dll`).
           * Unpack using these commands:
