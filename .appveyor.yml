@@ -59,7 +59,7 @@ artifacts:
 
 deploy:
   - provider: GitHub
-    auth_token: $(github_token)
+    auth_token: $(GITHUB_TOKEN)
     tag: v3.4.0dev
     release: 'Harbour 3.4.0dev snapshot'
     description: 'Binaries generated after each commit.'
