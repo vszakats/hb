@@ -451,8 +451,7 @@ file and find occasional link notes inside their `.hbc` files.
 1. Install [Homebrew](https://brew.sh/) :beer:
 2. Install packages:
 
-        $ brew install valgrind pcre pcre2 s-lang mingw-w64 osslsigncode upx uncrustify optipng jpegoptim
-        $ brew tap caskroom/cask
+        $ brew install valgrind pcre pcre2 s-lang upx uncrustify optipng jpegoptim
 
 3. Install [X11](https://www.xquartz.org/) (optional, for `gtxwc`)
 

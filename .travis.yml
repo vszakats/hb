@@ -52,8 +52,7 @@ before_install:
       brew update > /dev/null;
       brew install p7zip;
       if [ "$CC" = 'i686-w64-mingw32-gcc' ]; then
-        brew install mingw-w64;
-        brew install osslsigncode;
+        brew install mingw-w64 jq osslsigncode dos2unix gpg coreutils;
         brew cask install wine-devel;
       else
         brew install cairo;
