@@ -129,3 +129,4 @@ notifications:
   email: false
 git:
   submodules: false
+  depth: 10
