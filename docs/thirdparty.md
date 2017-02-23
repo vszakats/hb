@@ -64,6 +64,13 @@ It offers a great flexibility for the well-known MiniGUI functionality, and an
 easy way to add new features with the lesser modifications to working code
 (anyone can subclass any control and add her own features to it).
 
+## [qt5xhb](https://github.com/marcosgambeta/Qt5xHb)
+
+qt5xhb is the first binding layer to write Qt based cross-platform software.
+If you have at least moderate knowledge in simple object-oriented concepts
+and the Harbour language, qt5xhb will not be difficult to write own
+applications soon. (Also comes with QT4 support.)
+
 ## [T-Gtk](https://sourceforge.net/projects/t-gtk/)
 
 GUI for Harbour toolkit for GTK+. This library gives Harbour the full power
