@@ -673,13 +673,12 @@ static int hb_pp_parseRepoVer( PHB_PP_STATE pState, const char * pszFileName,
    char szName[ _VALUE_SIZE ];
    char szMail[ _VALUE_SIZE ];
    char szCommitInfo[ _VALUE_SIZE ];
-   char szCommitCount[ _VALUE_SIZE ];
    char szURL[ _VALUE_SIZE ];
 
    int iLen;
 
    *szId = *szIdShort = *szDate = *szName = *szMail = *szCommitInfo =
-      *szCommitCount = *szURL = '\0';
+      *szURL = '\0';
 
    file_in = hb_fopen( pszFileName, "r" );
    if( ! file_in )
@@ -710,8 +709,6 @@ static int hb_pp_parseRepoVer( PHB_PP_STATE pState, const char * pszFileName,
             pszValue = szName;
          else if( ! *szMail )
             pszValue = szMail;
-         else if( ! *szCommitCount )
-            pszValue = szCommitCount;
          else if( ! *szURL )
             pszValue = szURL;
          else

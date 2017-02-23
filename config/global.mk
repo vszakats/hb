@@ -1902,7 +1902,6 @@ ifeq ($(HB_INIT_DONE),)
             _cmd := $(subst %,%%,$(_cmd))
          endif
          $(shell $(_cmd) > $(TOP)$(ROOT)include$(DIRSEP)_repover.txt)
-         $(shell git rev-list $(shell git rev-parse --abbrev-ref HEAD) --count >> $(TOP)$(ROOT)include$(DIRSEP)_repover.txt)
          $(shell git ls-remote --get-url >> $(TOP)$(ROOT)include$(DIRSEP)_repover.txt)
       else
          $(info ! WARNING: Git not found in PATH. Version information might not be accurate.)
