@@ -74,8 +74,8 @@ script:
       if [ "$TRAVIS_OS_NAME" = 'osx' ]; then
         export PATH="/Applications/Wine Devel.app/Contents/Resources/wine/bin:${PATH}";
         export DISPLAY=:88.0; wineboot;
-        sh -x ./package/mpkg_win_ci.sh;
-        mv -f harbour-snapshot-win.7z harbour-snapshot-win-from-mac.7z;
+        ./package/mpkg_win_ci.sh;
+        mv -f harbour-snapshot-win.7z harbour-snapshot-win-built-on-mac.7z;
       else
         make -j "$HB_CI_THREADS" HB_COMPILER=clang HB_BUILD_DYN=no HB_BUILD_CONTRIBS=no;
         export HB_BUILD_3RDEXT=no;
@@ -119,7 +119,7 @@ deploy:
   skip_cleanup: true
   provider: releases
   api_key: ${GITHUB_TOKEN}
-  file: harbour-snapshot-win-from-mac.7z
+  file: harbour-snapshot-win-built-on-mac.7z
   prerelease: true
   overwrite: true
   on:
