@@ -101,17 +101,17 @@ mkdir -p "${HB_ABSROOT}bin/"
 
 # Copy these first to let 3rd party .dlls with overlapping names be
 # overwritten by selected native target's binaries.
-if ls       ../pkg/wce/mingwarm/harbour-${HB_VF}-wce-mingwarm/bin/*.dll > /dev/null 2>&1; then
+if ls      ../pkg/wce/mingwarm/harbour-${HB_VF}-wce-mingwarm/bin/*.dll > /dev/null 2>&1; then
   cp -f -p ../pkg/wce/mingwarm/harbour-${HB_VF}-wce-mingwarm/bin/*.dll "${HB_ABSROOT}bin/"
 fi
 
 if [ "${_lib_target}" = '32' ]; then
-  if ls       ../pkg/win/mingw64/harbour-${HB_VF}-win-mingw64/bin/*.dll > /dev/null 2>&1; then
+  if ls      ../pkg/win/mingw64/harbour-${HB_VF}-win-mingw64/bin/*.dll > /dev/null 2>&1; then
     cp -f -p ../pkg/win/mingw64/harbour-${HB_VF}-win-mingw64/bin/*.dll "${HB_ABSROOT}bin/"
   fi
   ( cd "../pkg/win/mingw/harbour-${HB_VF}-win-mingw" && cp -f -p -R ./* "${HB_ABSROOT}" )
 elif [ "${_lib_target}" = '64' ]; then
-  if ls       ../pkg/win/mingw/harbour-${HB_VF}-win-mingw/bin/*.dll > /dev/null 2>&1; then
+  if ls      ../pkg/win/mingw/harbour-${HB_VF}-win-mingw/bin/*.dll > /dev/null 2>&1; then
     cp -f -p ../pkg/win/mingw/harbour-${HB_VF}-win-mingw/bin/*.dll "${HB_ABSROOT}bin/"
   fi
   ( cd "../pkg/win/mingw64/harbour-${HB_VF}-win-mingw64" && cp -f -p -R ./* "${HB_ABSROOT}" )
@@ -285,7 +285,7 @@ touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}BUILD.txt"
 
 # Copy optional text files containing compiler details
 
-if ls       ../BUILD*.txt > /dev/null 2>&1; then
+if ls      ../BUILD*.txt > /dev/null 2>&1; then
   cp -f -p ../BUILD*.txt "${HB_ABSROOT}"
 fi
 

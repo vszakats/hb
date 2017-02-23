@@ -37,8 +37,7 @@ PROCEDURE Main( cName )
 
    ?
    ? "Adding section 'Added', with key NEW := new"
-   hIni[ "Added" ] := { => }
-   hIni[ "Added" ][ "NEW" ] := "new"
+   hIni[ "Added" ] := { "NEW" => "new" }
 
    ? "Writing output to parseini_out.ini"
    IF hb_iniWrite( "parseini_out.ini", hIni, "#Generated file; don't touch", "#End of file" )
@@ -80,8 +79,7 @@ PROCEDURE Main( cName )
 
    ?
    ? "Adding section 'Added', with key NEW := new"
-   hIni[ "Added" ] := { => }
-   hIni[ "Added" ][ "NEW" ] := "new"
+   hIni[ "Added" ] := { "NEW" => "new" }
 
    ? "Writing output to parseini_out1.ini"
    IF hb_iniWrite( "parseini_out1.ini", hIni, ;

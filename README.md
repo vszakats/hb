@@ -734,7 +734,7 @@ for a cross-build process to succeed.
 
 # Build Examples
 
-## on Windows x86-64 (64-bit) hosts
+## on Windows 64-bit hosts
 
 > NOTES:
 >
@@ -746,76 +746,68 @@ for a cross-build process to succeed.
 >   `> log.txt 2>&1`
 
 ```batchfile
-:: MinGW GCC for Windows x86
+:: MinGW GCC (x86 target)
 set PATH=C:\mingw\bin;%PATH%
 mingw32-make
 ```
 
 ```batchfile
-:: MinGW GCC for Windows x86-64
+:: MinGW GCC (x64 target)
 set PATH=C:\mingw64\bin;%PATH%
 mingw32-make
 ```
 
 ```batchfile
-:: clang (alpha)
-call "%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
-set PATH=%ProgramFiles(x86)%\LLVM 3.6.svn;%PATH%
-win-make
-```
-
-```batchfile
-:: MSVC 2015 for Windows x86
+:: MSVC 2015 (x86 target)
 call "%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
 win-make
 ```
 
 ```batchfile
-:: MSVC 2015 for Windows x86-64
-:: (requires preceding build for native target)
+:: MSVC 2015 (x64 target)
 call "%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
 win-make
 ```
 
 ```batchfile
-:: MSVC 2010 and Windows SDK 7.1 for Windows x86
+:: MSVC 2010 and Windows SDK 7.1 (x86 target)
 call "%ProgramFiles(x86)%\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
 win-make
 ```
 
 ```batchfile
-:: MSVC 2010 (Professional or above) and Windows SDK 7.1 for Windows x86-64
+:: MSVC 2010 (Professional or above) and Windows SDK 7.1 (x64 target)
 call "%ProgramFiles(x86)%\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" amd64
 win-make
 ```
 
 ```batchfile
-:: Windows SDK 7 for Windows x86
+:: Windows SDK 7 (x86 target)
 call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\bin\vcvars32.bat"
 win-make
 ```
 
 ```batchfile
-:: Windows SDK 7 for Windows x86-64
+:: Windows SDK 7 (x64 target)
 call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\bin\vcvars64.bat"
 win-make
 ```
 
 ```batchfile
-:: MSVC 2008 for Windows x86
+:: MSVC 2008 (x86 target)
 call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat"
 win-make
 ```
 
 ```batchfile
-:: MSVC 2008 (Standard or above) for Windows x86-64
+:: MSVC 2008 (Standard or above) (x64 target)
 call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat" amd64
 win-make
 ```
 
 ```batchfile
-:: MSVC 2008 (Team Suite) for Windows IA-64 Itanium
-:: (requires preceding build for native target)
+:: MSVC 2008 (Team Suite) (IA-64 Itanium target)
+:: (requires preceding build for x86 or x64 target)
 call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat" x86_ia64
 win-make
 ```
@@ -828,6 +820,13 @@ set INCLUDE=%WATCOM%\H;%WATCOM%\H\NT;%WATCOM%\H\NT\DIRECTX;%WATCOM%\H\NT\DDK;%IN
 win-make
 ```
 
+```batchfile
+:: clang (alpha)
+call "%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
+set PATH=%ProgramFiles(x86)%\LLVM 3.6.svn;%PATH%
+win-make
+```
+
 ## on Windows 32-bit hosts
 
 Same as 64-bit Windows, with the difference that you will have to change
@@ -837,112 +836,111 @@ a cross-build. It's recommended to use a 64-bit environment for Windows
 development.
 
 ```batchfile
-:: clang (alpha)
+:: MinGW GCC (x86 target)
+set PATH=C:\mingw\bin;%PATH%
+mingw32-make
+```
+
+```batchfile
+:: MinGW GCC (x64 target)
+:: (requires preceding build for x86 target)
+set PATH=C:\mingw64\bin;%PATH%
+mingw32-make
+```
+
+```batchfile
+:: MinGW GCC using MSYS2 (x86 target)
+set PATH=C:\msys64\usr\bin;C:\msys64\mingw32\bin;%PATH%
+sh -c make
+```
+
+```batchfile
+:: MinGW GCC using MSYS2 (x64 target)
+set PATH=C:\msys64\usr\bin;C:\msys64\mingw64\bin;%PATH%
+sh -c make
+```
+
+```batchfile
+:: MSVC 2015 (x86 target)
 call "%ProgramFiles%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
-set PATH=%ProgramFiles%\LLVM 3.6.svn;%PATH%
 win-make
 ```
 
 ```batchfile
-:: MSVC 2015
-call "%ProgramFiles%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
-win-make
-```
-
-```batchfile
-:: MSVC 2015 for Windows x86-64
-:: (requires preceding build for native target)
+:: MSVC 2015 (x64 target)
+:: (requires preceding build for x86 target)
 call "%ProgramFiles%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
 win-make
 ```
 
 ```batchfile
-:: MSVC 2010 and Windows SDK 7.1
+:: MSVC 2010 and Windows SDK 7.1 (x86 target)
 call "%ProgramFiles%\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
 win-make
 ```
 
 ```batchfile
-:: MSVC 2010 (Professional or above) and Windows SDK 7.1 for Windows x86-64
-:: (requires preceding build for native target)
+:: MSVC 2010 (Professional or above) and Windows SDK 7.1 (x64 target)
+:: (requires preceding build for x86 target)
 call "%ProgramFiles%\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" x86_amd64
 win-make
 ```
 
 ```batchfile
-:: Windows SDK 7
+:: Windows SDK 7 (x86 target)
 call "%ProgramFiles%\Microsoft Visual Studio 9.0\VC\bin\vcvars32.bat"
 win-make
 ```
 
 ```batchfile
-:: Windows SDK 7 for Windows x86-64
-:: (requires preceding build for native target)
+:: Windows SDK 7 (x64 target)
+:: (requires preceding build for x86 target)
 call "%ProgramFiles%\Microsoft Visual Studio 9.0\VC\bin\vcvarsx86_amd64.bat"
 win-make
 ```
 
 ```batchfile
-:: MSVC 2008 + SDK
+:: MSVC 2008 + SDK (x86 target)
 set WindowsSDKDir=%ProgramFiles%\Microsoft SDKs\Windows\v6.0A\
 call "%ProgramFiles%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat"
 win-make
 ```
 
 ```batchfile
-:: MSVC 2008
+:: MSVC 2008 (x86 target)
 call "%ProgramFiles%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat"
 win-make
 ```
 
 ```batchfile
-:: MSVC 2008 (Standard or above) for Windows x86-64
-:: (requires preceding build for native target)
+:: MSVC 2008 (Standard or above) (x64 target)
+:: (requires preceding build for x86 target)
 call "%ProgramFiles%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat" x86_amd64
 win-make
 ```
 
 ```batchfile
-:: MSVC 2008 (Team Suite) for Windows IA-64 Itanium
-:: (requires preceding build for native target)
+:: MSVC 2008 (Team Suite) (IA-64 Itanium target)
+:: (requires preceding build for x86 target)
 call "%ProgramFiles%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat" x86_ia64
 win-make
 ```
 
 ```batchfile
-:: MSVC 2008 for Windows CE ARM
-:: (requires preceding build for native target)
-set INCLUDE=%ProgramFiles%\Microsoft Visual Studio 9.0\VC\ce\include;%ProgramFiles%\Windows Mobile 5.0 SDK R2\PocketPC\Include\Armv4i
-set LIB=%ProgramFiles%\Microsoft Visual Studio 9.0\VC\ce\lib\armv4i;%ProgramFiles%\Windows Mobile 5.0 SDK R2\PocketPC\Lib\ARMV4I
-set PATH=%ProgramFiles%\Microsoft Visual Studio 9.0\VC\ce\bin\x86_arm;%ProgramFiles%\Microsoft Visual Studio 9.0\Common7\IDE;%PATH%
+:: MinGW GCC (Windows CE ARM target)
+:: (requires Cygwin + preceding build for x86 target)
+set PATH=C:\mingwce\opt\mingw32ce\bin;C:\cygwin\bin;%PATH%
+:: optional:
+set CYGWIN=nodosfilewarning
 win-make
 ```
 
 ```batchfile
-:: MinGW GCC
-set PATH=C:\mingw\bin;%PATH%
-mingw32-make
-```
-
-```batchfile
-:: MinGW GCC using MSYS2 shell
-set PATH=C:\msys64\usr\bin;C:\msys64\mingw64\bin;%PATH%
-sh -c make
-```
-
-```batchfile
-:: MinGW GCC for Windows x86-64
-:: (requires preceding build for native target)
-set PATH=C:\mingw64\bin;%PATH%
-mingw32-make
-```
-
-```batchfile
-:: MinGW GCC for Windows CE ARM
-:: (requires Cygwin + preceding build for native target)
-set PATH=C:\mingwce\opt\mingw32ce\bin;C:\cygwin\bin;%PATH%
-:: optional:
-set CYGWIN=nodosfilewarning
+:: MSVC 2008 (Windows CE ARM target)
+:: (requires preceding build for x86 target)
+set INCLUDE=%ProgramFiles%\Microsoft Visual Studio 9.0\VC\ce\include;%ProgramFiles%\Windows Mobile 5.0 SDK R2\PocketPC\Include\Armv4i
+set LIB=%ProgramFiles%\Microsoft Visual Studio 9.0\VC\ce\lib\armv4i;%ProgramFiles%\Windows Mobile 5.0 SDK R2\PocketPC\Lib\ARMV4I
+set PATH=%ProgramFiles%\Microsoft Visual Studio 9.0\VC\ce\bin\x86_arm;%ProgramFiles%\Microsoft Visual Studio 9.0\Common7\IDE;%PATH%
 win-make
 ```
 
@@ -998,6 +996,13 @@ win-make
 set WATCOM=C:\watcom
 set PATH=%WATCOM%\BINNT;%WATCOM%\BINW;%PATH%
 set INCLUDE=%WATCOM%\LH
+win-make
+```
+
+```batchfile
+:: clang (alpha)
+call "%ProgramFiles%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
+set PATH=%ProgramFiles%\LLVM 3.6.svn;%PATH%
 win-make
 ```
 
@@ -1426,15 +1431,15 @@ Supported shells per host platforms:
 
 * C/C++ Compilers/Shells:
 
-     * MinGW/MinGW-64 [win, \*nix, free software, open-source]
+     * MinGW-w64 [win, \*nix, free software, open-source]
         * <https://mingw-w64.org/>, <https://duckduckgo.com/?q=mingw-w64> (recommended, look for MSYS2 or niXman builds)
-          * Dual-target (aka _multilib_) for x86-64 and x86 hosts (select non-native target with `HB_CPU=x86` or `HB_CPU=x86_64`):
-            * 32-bit hosted, posix, sjlj
-            * 64-bit hosted, posix, sjlj
-          * x86:
-            * 32-bit hosted, posix, dwarf-2
           * x86-64:
             * 64-bit hosted, posix, seh
+          * x86:
+            * 32-bit hosted, posix, dwarf-2
+          * 'multilib' for x86-64 and x86 hosts (select non-native target with `HB_CPU=x86` or `HB_CPU=x86_64`):
+            * 32-bit hosted, posix, sjlj
+            * 64-bit hosted, posix, sjlj
      * MinGW CEGCC [win, \*nix, free software, open-source]
         * <https://sourceforge.net/projects/cegcc/files/cegcc/>
           * To use this package, you will also need Cygwin package
