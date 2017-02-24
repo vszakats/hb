@@ -5015,7 +5015,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          cLibPathSep := " "
          cLibLibExt := ".a"
          cImpLibExt := cLibLibExt
-         bBlk_ImpLib := {| cSourceDLL, cTargetLib, cFlags | win_implib_command_gcc( hbmk, hbmk[ _HBMK_cCCPREFIX ] + "dlltool" + hbmk[ _HBMK_cCCSUFFIX ] + hbmk[ _HBMK_cCCEXT ] + " {FI} -d {ID} -l {OL}", cSourceDLL, cTargetLib, cFlags, cLibLibPrefix, cImpLibExt ) }
+         bBlk_ImpLib := {| cSourceDLL, cTargetLib, cFlags | win_implib_command_gcc( hbmk, hbmk[ _HBMK_cCCPREFIX ] + "dlltool" + hbmk[ _HBMK_cCCSUFFIX ] + hbmk[ _HBMK_cCCEXT ] + " {FI} -d {ID} -l {OL}", cSourceDLL, cTargetLib, cFlags ) }
          IF hbmk[ _HBMK_cCOMP ] == "tcc"
             cBin_Lib := "tiny_libmaker.exe"
          ELSE
@@ -9051,8 +9051,7 @@ STATIC FUNCTION DoLink( hbmk )
 
 STATIC FUNCTION DoIMPLIB( hbmk, bBlk_ImpLib, cLibLibPrefix, cImpLibExt, aIMPLIBSRC, cPROGNAME, cInstCat, lDoSrc )
 
-   LOCAL cMakeImpLibDLL
-   LOCAL tmp, tmp1
+   LOCAL cMakeImpLibDLL, cTargetLib
    LOCAL nNotFound
 
    LOCAL aToDelete
@@ -9065,6 +9064,7 @@ STATIC FUNCTION DoIMPLIB( hbmk, bBlk_ImpLib, cLibLibPrefix, cImpLibExt, aIMPLIBS
          nNotFound := 0
          FOR EACH cMakeImpLibDLL IN aIMPLIBSRC
 
+            cTargetLib := implibsrc_split_arg( @cMakeImpLibDLL )
             cMakeImpLibDLL := hb_FNameExtSetDef( cMakeImpLibDLL, ".dll" )
 
             IF lDoSrc
@@ -9074,20 +9074,21 @@ STATIC FUNCTION DoIMPLIB( hbmk, bBlk_ImpLib, cLibLibPrefix, cImpLibExt, aIMPLIBS
                   AAddNewINST( hbmk[ _HBMK_aINSTFILE ], { "depimplibsrc", cMakeImpLibDLL }, .T. )
                ENDIF
             ELSE
-               tmp1 := cPROGNAME
-               hb_default( @tmp1, hb_FNameName( cMakeImpLibDLL ) )
-               tmp := FN_CookLib( hb_FNameMerge( hbmk[ _HBMK_cPROGDIR ], tmp1 ), cLibLibPrefix, cImpLibExt )
+               /* Determine target implib name */
+               cTargetLib := FN_CookLib( ;
+                  hb_FNameMerge( hbmk[ _HBMK_cPROGDIR ], hb_FNameName( hb_defaultValue( cTargetLib, hb_defaultValue( cPROGNAME, cMakeImpLibDLL ) ) ) ), ;
+                  cLibLibPrefix, cImpLibExt )
 
                IF hbmk[ _HBMK_lCLEAN ]
-                  AAddNew( aToDelete, tmp )
+                  AAddNew( aToDelete, cTargetLib )
                ELSE
-                  SWITCH Eval( bBlk_ImpLib, cMakeImpLibDLL, tmp, ArrayToList( hbmk[ _HBMK_aOPTI ] ), cLibLibPrefix, cImpLibExt )
+                  SWITCH Eval( bBlk_ImpLib, cMakeImpLibDLL, cTargetLib, ArrayToList( hbmk[ _HBMK_aOPTI ] ) )
                   CASE _HBMK_IMPLIB_OK
-                     _hbmk_OutStd( hbmk, hb_StrFormat( I_( "Created import library: %1$s <= %2$s" ), tmp, cMakeImpLibDLL ) )
-                     AAddNewINST( hbmk[ _HBMK_aINSTFILE ], { cInstCat, tmp }, .T. )
+                     _hbmk_OutStd( hbmk, hb_StrFormat( I_( "Created import library: %1$s <= %2$s" ), cTargetLib, cMakeImpLibDLL ) )
+                     AAddNewINST( hbmk[ _HBMK_aINSTFILE ], { cInstCat, cTargetLib }, .T. )
                      EXIT
                   CASE _HBMK_IMPLIB_FAILED
-                     _hbmk_OutErr( hbmk, hb_StrFormat( I_( "Error: Failed creating import library %1$s from %2$s." ), tmp, cMakeImpLibDLL ) )
+                     _hbmk_OutErr( hbmk, hb_StrFormat( I_( "Error: Failed creating import library %1$s from %2$s." ), cTargetLib, cMakeImpLibDLL ) )
                      EXIT
                   CASE _HBMK_IMPLIB_NOTFOUND
                      ++nNotFound
@@ -9118,6 +9119,24 @@ STATIC FUNCTION DoIMPLIB( hbmk, bBlk_ImpLib, cLibLibPrefix, cImpLibExt, aIMPLIBS
    ENDIF
 
    RETURN lRetVal
+
+/* Extract optional target implib name from implib source.
+   Return NIL, if there was not target name specified.
+   'libname.dll.a:libnamecustom' */
+STATIC FUNCTION implibsrc_split_arg( /* @ */ cSource )
+
+   LOCAL cTarget, nPos, cDrive
+
+   /* Extract optional target-name override specified
+      after a colon ':', without confusing this colon
+      with a drive separator. */
+   hb_FNameSplit( cSource,,,, @cDrive )
+   IF ( nPos := hb_At( ":", cSource, Min( Len( cDrive ), 1 ) + Len( ":" ) + 1 ) ) > 0
+      cTarget := SubStr( cSource, nPos + 1 )
+      cSource := Left( cSource, nPos - 1 )
+   ENDIF
+
+   RETURN cTarget
 
 #define _INST_cGroup            1
 #define _INST_cData             2
@@ -10153,8 +10172,10 @@ STATIC FUNCTION dep_evaluate( hbmk )
             IF hbmk[ _HBMK_lInfo ]
                _hbmk_OutStd( hbmk, hb_StrFormat( I_( "Dependency '%1$s' forcibly disabled" ), dep[ _HBMKDEP_cName ] ) )
             ENDIF
-            lAnyForcedOut := .T.
-            LOOP
+            IF ! dep[ _HBMKDEP_lOptional ]
+               lAnyForcedOut := .T.
+               LOOP
+            ENDIF
          ELSE
             IF hbmk[ _HBMK_lDEBUGDEPD ]
                _hbmk_OutStd( hbmk, hb_StrFormat( "debugdepd: REQ %1$s: missing", dep[ _HBMKDEP_cName ] ) )
@@ -10181,8 +10202,10 @@ STATIC FUNCTION dep_evaluate( hbmk )
 
    IF hbmk[ _HBMK_lInfo ]
       FOR EACH dep IN hOPT
-         _hbmk_OutErr( hbmk, hb_StrFormat( I_( "Warning: Missing optional dependency: %1$s" ), dep:__enumKey() ) )
-         dep_show_hint( hbmk, dep )
+         IF ! dep[ _HBMKDEP_lForced ]
+            _hbmk_OutErr( hbmk, hb_StrFormat( I_( "Warning: Missing optional dependency: %1$s" ), dep:__enumKey() ) )
+            dep_show_hint( hbmk, dep )
+         ENDIF
       NEXT
    ENDIF
 
@@ -14071,7 +14094,7 @@ STATIC FUNCTION win_implib_copy( hbmk, cSourceDLL, cTargetLib )
          ordinary .dlls, like with every other compiler.
          [vszakats] */
 
-STATIC FUNCTION win_implib_command_gcc( hbmk, cCommand, cSourceDLL, cTargetLib, cFlags, cLibLibPrefix, cImpLibExt )
+STATIC FUNCTION win_implib_command_gcc( hbmk, cCommand, cSourceDLL, cTargetLib, cFlags )
 
    LOCAL nResult
 
@@ -14082,16 +14105,6 @@ STATIC FUNCTION win_implib_command_gcc( hbmk, cCommand, cSourceDLL, cTargetLib, 
 
    LOCAL lDefSource
    LOCAL lNoDefSource := .F.
-   LOCAL cDrive
-
-   /* Extract optional target-name override specified
-      after a colon ':', without confusing this colon
-      with a drive separator. */
-   hb_FNameSplit( cSourceDLL,,,, @cDrive )
-   IF ( tmp := hb_At( ":", cSourceDLL, Min( Len( cDrive ), 1 ) + Len( ":" ) + 1 ) ) > 0
-      cTargetLib := FN_CookLib( hb_FNameMerge( hb_FNameDir( cTargetLib ), hb_FNameName( SubStr( cSourceDLL, tmp + 1 ) ) ), cLibLibPrefix, cImpLibExt )
-      cSourceDLL := Left( cSourceDLL, tmp - 1 )
-   ENDIF
 
    SWITCH hb_FNameExt( cSourceDLL )
    CASE ".a"

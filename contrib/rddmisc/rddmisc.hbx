@@ -10,14 +10,14 @@
  *          Regenerate using hbmk2 '-hbx=' option.
  */
 
-#ifndef __HBEXTERN_CH__RDDUSER__
-#define __HBEXTERN_CH__RDDUSER__
+#ifndef __HBEXTERN_CH__RDDMISC__
+#define __HBEXTERN_CH__RDDMISC__
 
-#if defined( __HBEXTREQ__ ) .OR. defined( __HBEXTERN__RDDUSER__ANNOUNCE )
-   ANNOUNCE __HBEXTERN__RDDUSER__
+#if defined( __HBEXTREQ__ ) .OR. defined( __HBEXTERN__RDDMISC__ANNOUNCE )
+   ANNOUNCE __HBEXTERN__RDDMISC__
 #endif
 
-#if defined( __HBEXTREQ__ ) .OR. defined( __HBEXTERN__RDDUSER__REQUEST )
+#if defined( __HBEXTREQ__ ) .OR. defined( __HBEXTERN__RDDMISC__REQUEST )
    #command DYNAMIC <fncs,...> => EXTERNAL <fncs>
 #endif
 
@@ -51,7 +51,7 @@ DYNAMIC SMTCDX_GETFUNCTABLE
 DYNAMIC VFPCDX
 DYNAMIC VFPCDX_GETFUNCTABLE
 
-#if defined( __HBEXTREQ__ ) .OR. defined( __HBEXTERN__RDDUSER__REQUEST )
+#if defined( __HBEXTREQ__ ) .OR. defined( __HBEXTERN__RDDMISC__REQUEST )
    #uncommand DYNAMIC <fncs,...> => EXTERNAL <fncs>
 #endif
 
