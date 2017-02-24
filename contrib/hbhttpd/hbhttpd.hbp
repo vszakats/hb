@@ -22,4 +22,4 @@ hbtip.hbc
 {_HB_INST_CORE&_HB_INSTALL_CONTRIB&hblib}-instpath=contrib_tests_files:${_HB_INSTALL_CONTRIB}/${_HB_PROJECT_SUBDIR}/tests/files/
 {_HB_INST_CORE&_HB_INSTALL_CONTRIB&hblib}-instpath=contrib_tests_tpl:${_HB_INSTALL_CONTRIB}/${_HB_PROJECT_SUBDIR}/tests/tpl/
 {_HB_INST_CORE&_HB_INSTALL_CONTRIB&hblib}-instpath=contrib_tests_tpl_app:${_HB_INSTALL_CONTRIB}/${_HB_PROJECT_SUBDIR}/tests/tpl/app/
-{_HB_INST_CORE&_HB_INSTALL_CONTRIB&hblib}-instpath=contrib_tests_tpl_app_account:${_HB_INSTALL_CONTRIB}/${_HB_PROJECT_SUBDIR}/tests/tpl/app/account
+{_HB_INST_CORE&_HB_INSTALL_CONTRIB&hblib}-instpath=contrib_tests_tpl_app_account:${_HB_INSTALL_CONTRIB}/${_HB_PROJECT_SUBDIR}/tests/tpl/app/account/
