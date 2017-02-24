@@ -78,13 +78,13 @@ ${hb_prefix}/package/harbour.hbc{hbdyn}
 {hbdyn}-workdir=${hb_dyn}/${hb_work}/${hb_outputname}${hb_workdynsub}
 
 # copy contrib-specific public files
--instfile=contrib:${_HB_PROJECT_HOME}*.hb
--instfile=contrib:${_HB_PROJECT_HOME}*.hbc
--instfile=contrib:${_HB_PROJECT_HOME}*.hbx
--instfile=contrib:${_HB_PROJECT_HOME}*.ch
--instfile=contrib:${_HB_PROJECT_HOME}*.md
--instfile=contrib:${_HB_PROJECT_HOME}*.txt
--instfile=contrib_tests:${_HB_PROJECT_HOME}tests/*.*
+-instfile=contrib:${_HB_PROJECT_HOME}/*.hb
+-instfile=contrib:${_HB_PROJECT_HOME}/*.hbc
+-instfile=contrib:${_HB_PROJECT_HOME}/*.hbx
+-instfile=contrib:${_HB_PROJECT_HOME}/*.ch
+-instfile=contrib:${_HB_PROJECT_HOME}/*.md
+-instfile=contrib:${_HB_PROJECT_HOME}/*.txt
+-instfile=contrib_tests:${_HB_PROJECT_HOME}/tests/*.*
 
 # install (core GNU Make)
 {_HB_INST_CORE&_HB_INSTALL_LIB&hblib}-instpath=${_HB_INSTALL_LIB}/
