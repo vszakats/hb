@@ -371,7 +371,6 @@ STATIC PROCEDURE build_projects( nAction, hProjectList, hProjectReqList, cOption
    LOCAL cMakeFlags
 
    LOCAL cProject
-   LOCAL cProjectPath
    LOCAL lPrimary
    LOCAL lContainer
 
@@ -391,7 +390,7 @@ STATIC PROCEDURE build_projects( nAction, hProjectList, hProjectReqList, cOption
    aPairList := {}
 
    FOR EACH cProject IN hProjectReqList
-      call_hbmk2_hbinfo( s_cHome + cProject, hProjectList[ cProject ] )
+      call_hbmk2_hbinfo( s_cHome, cProject, hProjectList[ cProject ] )
       DeptLinesToDeptPairList( aPairList, cProject, hProjectList[ cProject ][ "aDept" ] )
    NEXT
 
@@ -401,7 +400,7 @@ STATIC PROCEDURE build_projects( nAction, hProjectList, hProjectReqList, cOption
       file */
    FOR EACH cProject IN aSortedList
       IF AddProject( hProjectList, @cProject )
-         call_hbmk2_hbinfo( s_cHome + cProject, hProjectList[ cProject ] )
+         call_hbmk2_hbinfo( s_cHome, cProject, hProjectList[ cProject ] )
          hProjectList[ cProject ][ "lFromContainer" ] := NIL
       ENDIF
    NEXT
@@ -413,7 +412,7 @@ STATIC PROCEDURE build_projects( nAction, hProjectList, hProjectReqList, cOption
          IF ! cProject $ hProjectReqList .AND. ;
             cProject $ hProjectList .AND. ;
             ! "lChecked" $ hProjectList[ cProject ]
-            call_hbmk2_hbinfo( s_cHome + cProject, hProjectList[ cProject ] )
+            call_hbmk2_hbinfo( s_cHome, cProject, hProjectList[ cProject ] )
          ENDIF
       NEXT
    ENDIF
@@ -451,11 +450,10 @@ STATIC PROCEDURE build_projects( nAction, hProjectList, hProjectReqList, cOption
    FOR EACH cProject IN aSortedList DESCEND
       IF cProject $ hProjectList
 
-         cProjectPath := s_cHome + cProject
          lPrimary := cProject $ hProjectReqList
          lContainer := "lFromContainer" $ hProjectList[ cProject ]
 
-         IF ( nErrorLevel := call_hbmk2( cProjectPath, iif( lPrimary .OR. lContainer, iif( lContainer, cOptions, cOptions + cOptionsUser ), " -inc" ), NIL ) ) == 0
+         IF ( nErrorLevel := call_hbmk2( s_cHome, cProject, iif( lPrimary .OR. lContainer, iif( lContainer, cOptions, cOptions + cOptionsUser ), " -inc" ), NIL ) ) == 0
 
             /* Build dynamic lib */
             IF GetEnv( "HB_BUILD_CONTRIB_DYN" ) == "yes" .AND. hProjectList[ cProject ][ "cType" ] == "hblib"
@@ -465,14 +463,14 @@ STATIC PROCEDURE build_projects( nAction, hProjectList, hProjectReqList, cOption
                ELSE
                   cDynSuffix := ""
                ENDIF
-               call_hbmk2( cProjectPath, iif( lPrimary .OR. lContainer, iif( lContainer, cOptions, cOptions + cOptionsUser ), " -inc" ), cDynSuffix )
+               call_hbmk2( s_cHome, cProject, iif( lPrimary .OR. lContainer, iif( lContainer, cOptions, cOptions + cOptionsUser ), " -inc" ), cDynSuffix )
             ENDIF
 
             IF lPrimary .OR. lContainer
 
                /* Compile documentation */
                IF lInstall
-                  mk_hbd( hb_FNameDir( hb_DirSepToOS( cProjectPath ) ) )
+                  mk_hbd( hb_FNameDir( hb_DirSepToOS( s_cHome + cProject ) ) )
                ENDIF
             ENDIF
          ELSE
@@ -489,7 +487,7 @@ STATIC PROCEDURE build_projects( nAction, hProjectList, hProjectReqList, cOption
 
    RETURN
 
-STATIC PROCEDURE call_hbmk2_hbinfo( cProjectPath, hProject )
+STATIC PROCEDURE call_hbmk2_hbinfo( cProjectRoot, cProjectName, hProject )
 
    LOCAL cStdOut
    LOCAL tmp, tmp1, tmp2
@@ -497,13 +495,13 @@ STATIC PROCEDURE call_hbmk2_hbinfo( cProjectPath, hProject )
 
    LOCAL nErrorLevel
 
-   cProjectPath := hb_DirSepToOS( cProjectPath )
+   LOCAL cProjectPath := hb_DirSepToOS( cProjectRoot + cProjectName )
 
    hProject[ "cType" ] := ""
    hProject[ "aDept" ] := {}
    hProject[ "lChecked" ] := NIL
 
-   IF ( nErrorLevel := call_hbmk2( cProjectPath, " --hbinfo",,, @cStdOut ) ) == 0
+   IF ( nErrorLevel := call_hbmk2( cProjectRoot, cProjectName, " --hbinfo",,, @cStdOut ) ) == 0
 
       IF ! HB_ISHASH( hInfo := hb_jsonDecode( cStdOut ) )
          OutStd( "! Warning: Received invalid result from 'hbmk2 --hbinfo'" + hb_eol() )
@@ -550,13 +548,14 @@ STATIC PROCEDURE call_hbmk2_hbinfo( cProjectPath, hProject )
 STATIC FUNCTION hbmk2_hbinfo_getitem( hInfo, cItem )
    RETURN iif( HB_ISHASH( hInfo ), hb_HGetDef( hInfo, cItem, "" ), "" )
 
-STATIC FUNCTION call_hbmk2( cProjectPath, cOptionsPre, cDynSuffix, cStdErr, cStdOut )
+STATIC FUNCTION call_hbmk2( cProjectRoot, cProjectName, cOptionsPre, cDynSuffix, cStdErr, cStdOut )
 
    LOCAL nErrorLevel
    LOCAL cOptionsLibDyn := ""
    LOCAL cCommand
 
-   cProjectPath := hb_DirSepToOS( cProjectPath )
+   LOCAL cProjectPath := hb_DirSepToOS( cProjectRoot + cProjectName )
+   LOCAL cGlobalConf := hb_DirSepToOS( s_cRoot + "config/" )
 
    /* Making sure that user settings do not interfere with the std build process. */
    hb_SetEnv( "HBMK_OPTIONS" )
@@ -580,17 +579,23 @@ STATIC FUNCTION call_hbmk2( cProjectPath, cOptionsPre, cDynSuffix, cStdErr, cStd
       ENDIF
    ENDIF
 
-   hb_SetEnv( "_HB_PROJECT_SUBDIR", hb_FNameDir( cProjectPath ) )
+   /* Relative directory to the project from hbpost.hbm */
+   hb_SetEnv( "_HB_PROJECT_HOME", hb_PathNormalize( hb_PathRelativize( ;
+      hb_PathNormalize( hb_PathJoin( hb_cwd(), cGlobalConf ) ), ;
+      hb_PathNormalize( hb_PathJoin( hb_cwd(), hb_FNameDir( cProjectPath ) ) ) ) ) )
+
+   /* <projectname>[/<subproject>] */
+   hb_SetEnv( "_HB_PROJECT_SUBDIR", hb_DirSepDel( hb_FNameDir( cProjectName ) ) )
 
    cCommand := s_cBinDir + "hbmk2" + ;
       " -lang=en -quiet -width=0 -autohbm-" + ;
-      " @" + StrTran( s_cRoot + "config/hbpre", "\", "/" ) + ;
+      " @" + StrTran( cGlobalConf + "hbpre", "\", "/" ) + ;
       cOptionsPre + ;
       " " + StrTran( cProjectPath, "\", "/" ) + ;
-      " @" + StrTran( s_cRoot + "config/hbpost", "\", "/" ) + ;
+      " @" + StrTran( cGlobalConf + "hbpost", "\", "/" ) + ;
       StrTran( cOptionsLibDyn, "\", "/" )
 
-   IF PCount() >= 4
+   IF PCount() >= 5
       nErrorLevel := hb_processRun( cCommand,, @cStdOut, @cStdErr )
    ELSE
       nErrorLevel := mk_hb_processRun( cCommand )
