@@ -14,3 +14,12 @@ log.prg
 -env:HB_DYNBIND_OPENSSL=yes
 hbssl.hbc
 hbtip.hbc
+
+-instfile=contrib_tests_files:tests/files/*.*
+-instfile=contrib_tests_tpl:tests/tpl/*.*
+-instfile=contrib_tests_tpl_app:tests/tpl/app/*.*
+-instfile=contrib_tests_tpl_app_account:tests/tpl/account/*.*
+{_HB_INST_CORE&_HB_INSTALL_CONTRIB&hblib}-instpath=contrib_tests_files:${_HB_INSTALL_CONTRIB}/${_HB_PROJECT_SUBDIR}/tests/files/
+{_HB_INST_CORE&_HB_INSTALL_CONTRIB&hblib}-instpath=contrib_tests_tpl:${_HB_INSTALL_CONTRIB}/${_HB_PROJECT_SUBDIR}/tests/tpl/
+{_HB_INST_CORE&_HB_INSTALL_CONTRIB&hblib}-instpath=contrib_tests_tpl_app:${_HB_INSTALL_CONTRIB}/${_HB_PROJECT_SUBDIR}/tests/tpl/app/
+{_HB_INST_CORE&_HB_INSTALL_CONTRIB&hblib}-instpath=contrib_tests_tpl_app_account:${_HB_INSTALL_CONTRIB}/${_HB_PROJECT_SUBDIR}/tests/tpl/app/account

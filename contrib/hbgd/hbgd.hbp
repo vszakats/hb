@@ -34,3 +34,6 @@ gdbar.prg
 gdchart.prg
 gdimage.prg
 gdbarcod.prg
+
+-instfile=contrib_tests_imgs_in:tests/imgs_in/*.*
+{_HB_INST_CORE&_HB_INSTALL_CONTRIB&hblib}-instpath=contrib_tests_imgs_in:${_HB_INSTALL_CONTRIB}/${_HB_PROJECT_SUBDIR}/tests/imgs_in/

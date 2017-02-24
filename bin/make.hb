@@ -580,7 +580,7 @@ STATIC FUNCTION call_hbmk2( cProjectPath, cOptionsPre, cDynSuffix, cStdErr, cStd
       ENDIF
    ENDIF
 
-   hb_SetEnv( "_HB_CONTRIB_SUBDIR", hb_FNameDir( cProjectPath ) )
+   hb_SetEnv( "_HB_PROJECT_SUBDIR", hb_FNameDir( cProjectPath ) )
 
    cCommand := s_cBinDir + "hbmk2" + ;
       " -lang=en -quiet -width=0 -autohbm-" + ;
