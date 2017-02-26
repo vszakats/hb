@@ -73,7 +73,7 @@ if git diff-index --name-only HEAD~1 \
 
   # Delete all files (to ensure that any file no longer generated will be
   # purged from the Reference Guide repository.)
-  find "${hbdoc_fmt}" -name '*' -a -not -name '.git' -delete
+  ( cd "${hbdoc_fmt}" && git rm -q -rf . )
 
   # Generate docs
   ${_bin_hbdoc} -v0 -repr "-format=${hbdoc_fmt}" || exit
@@ -91,9 +91,12 @@ if git diff-index --name-only HEAD~1 \
     (
       set +x
       readonly GITHUB_USER='vszakats'
-      git remote add origin "https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${slug_doc_pages}.git"
+      git remote add origin "https://${GITHUB_USER}@github.com/${slug_doc_pages}.git"
       git config user.name "${GITHUB_USER}-auto"
       git config user.email "${GITHUB_USER}@users.noreply.github.com"
+      git config credential.helper store
+      [ "${os}" = 'win' ] && export HOME="${USERPROFILE}"
+      echo "https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com" > "${HOME}/.git-credentials"
     )
 
     # Add all files (to force adding any new ones)

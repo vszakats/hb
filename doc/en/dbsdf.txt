@@ -42,14 +42,15 @@
       no <nRecord>, <nNext>, or <bWhile> arguments, processes all records from
       current to last.
    $DESCRIPTION$
-      __dbSDF() copies all or selected contents of a database table
-      to an SDF text file or appends all or selected contents of an
-      SDF text file to a database table.
+      __dbSDF() copies all or selected contents of a database table to an SDF
+      text file or appends all or selected contents of an SDF text file to a
+      database table.
    $EXAMPLES$
       // Copy delinquent accounts into an SDF text file.
       USE accounts NEW
-      COPY TO overdue SDF FOR ! Empty( accounts->duedate ) ;
-         .AND. Date() - accounts->duedate > 30
+      COPY TO overdue SDF FOR ;
+         ! Empty( accounts->duedate ) .AND. ;
+         Date() - accounts->duedate > 30
       // Import new customer records.
       USE customer NEW
       APPEND FROM customer SDF
