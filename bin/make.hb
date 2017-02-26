@@ -49,6 +49,7 @@ STATIC s_cHome    /* project store root directory (f.e. 'contrib/') */
 STATIC s_cBinDir  /* directory where the hbmk2 executing this script resides */
 
 STATIC s_lCoreBuild
+STATIC s_lAddon
 
 #define AScanL( aArray, cString )  hb_AScanI( aArray, cString,,, .T. )
 
@@ -84,9 +85,6 @@ PROCEDURE Main( ... )
 
    s_cRoot := StrTran( hb_PathNormalize( s_cRoot ), "\", "/" )
 
-   /* Running as part of the core GNU Make build process? */
-   s_lCoreBuild := ! GetEnv( "HB_HOST_BIN_DIR" ) == ""
-
    /* Project store root */
    IF AScanL( aParams, "." ) > 0
       s_cHome := "./"   /* Current directory in all-project mode */
@@ -94,7 +92,15 @@ PROCEDURE Main( ... )
       s_cHome := "../"  /* Assume it to be one level up when run for a single-project (default) */
    ENDIF
 
-   OutStd( hb_StrFormat( "! Harbour root: '%1$s'  Project store: '%2$s'", s_cRoot, s_cHome ) + hb_eol() )
+   /* Running as part of the core GNU Make build process? */
+   s_lCoreBuild := ! GetEnv( "HB_HOST_BIN_DIR" ) == ""
+   /* Is this an add-on (= not a core contrib) project? */
+   s_lAddon := ! hb_FileMatch( ;
+      hb_PathNormalize( hb_PathJoin( hb_cwd(), s_cHome ) ), ;
+      hb_PathNormalize( hb_PathJoin( hb_cwd(), s_cRoot + hb_ps() + "contrib" + hb_ps() ) ) )
+
+   OutStd( hb_StrFormat( "! Harbour root: '%1$s'  Project store: '%2$s'  Core build: %3$s  addon: %4$s", ;
+      s_cRoot, s_cHome, iif( s_lCoreBuild, "yes", "no" ), iif( s_lAddon, "yes", "no" ) ) + hb_eol() )
 
    /* Load list of projects */
 

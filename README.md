@@ -757,6 +757,12 @@ mingw32-make
 ```
 
 ```batchfile
+:: MSVC 2017 or upper
+:: See: https://msdn.microsoft.com/library/f2ccy3wt
+win-make
+```
+
+```batchfile
 :: MSVC 2015 (x86 target)
 call "%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
 win-make
@@ -857,6 +863,12 @@ sh -c make
 :: MinGW GCC using MSYS2 (x64 target)
 set PATH=C:\msys64\usr\bin;C:\msys64\mingw64\bin;%PATH%
 sh -c make
+```
+
+```batchfile
+:: MSVC 2017 or upper
+:: See: https://msdn.microsoft.com/library/f2ccy3wt
+win-make
 ```
 
 ```batchfile

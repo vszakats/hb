@@ -6,15 +6,16 @@ Source archives and Windows binaries are available for download:
 
 ## Release Notes
 
-Package content:
+### Package content
 
-* Harbour tools (x64)
-* static/shared libraries for x86
-* static/shared libraries for x64
+* Harbour tools (requires x64 OS)
+* static/shared libraries for x86 targets
+* static/shared libraries for x64 targets
 * example/test sources
-* script to download matching full source code
+* script to download complete source code
+* `BUILD*.txt` in package root with build/package details
 
-Usage:
+### Usage
 
 1. Install/unpack to any directory.
 2. Launch a Command Prompt.
@@ -39,14 +40,6 @@ Usage:
 9. To customize/build/rebuild Harbour components as you like,
    download sources using `getsrc.sh` and continue as described
    in section **How to Do a Partial Build** of `README.md`."
-
-## Tool/Library Dependencies
-
-See `BUILD.txt`
-
-## Changes since previous (3.0.0) release
-
-[TODO]
 
 ---
 Viktor Szakats

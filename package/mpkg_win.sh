@@ -220,12 +220,12 @@ if [ "${_HB_BUNDLE_3RDLIB}" = 'yes' ]; then
     eval dir_64="\$$(echo "HB_DIR_${name}_64" | tr '[:lower:]' '[:upper:]' 2> /dev/null)"
     dir_64=$(echo "${dir_64}" | sed 's|\\|/|g')
     for file in ${dir_32}lib/*.a; do
-      if [ -f "${file}" ] && echo "${file}" | grep -v 'dll' > /dev/null 2>&1; then
+      if [ -f "${file}" ] && echo "${file}" | grep -q -v 'dll'; then
         cp -f -p "${file}" "${HB_ABSROOT}lib/win/mingw/"
       fi
     done
     for file in ${dir_64}lib/*.a; do
-      if [ -f "${file}" ] && echo "${file}" | grep -v 'dll' > /dev/null 2>&1; then
+      if [ -f "${file}" ] && echo "${file}" | grep -q -v 'dll'; then
         cp -f -p "${file}" "${HB_ABSROOT}lib/win/mingw64/"
       fi
     done

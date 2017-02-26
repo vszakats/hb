@@ -110,4 +110,6 @@ ${hb_prefix}/package/harbour.hbc{hbdyn}
 {_HB_INST_NONCORE}-instpath=etc:${hb_etc}/
 {_HB_INST_NONCORE}-instpath=man:${hb_man}/
 {_HB_INST_NONCORE&!(HB_INSTALL_IMPLIB='no')}-instpath=depimplib:${hb_lib}/
+{_HB_INST_NONCORE&hblib}-instpath=contrib:${hb_addons}/${_HB_PROJECT_SUBDIR}/
+{_HB_INST_NONCORE&hblib}-instpath=contrib_tests:${hb_addons}/${_HB_PROJECT_SUBDIR}/tests/
 {_HB_INST_NONCORE}-instforce
