@@ -94,7 +94,7 @@ PROCEDURE Main( ... )
 
    /* Running as part of the core GNU Make build process? */
    s_lCoreBuild := ! GetEnv( "HB_HOST_BIN_DIR" ) == ""
-   /* Is this an add-on (= not a core contrib) project? */
+   /* Is this an add-on (= not a core contrib) run? */
    s_lAddon := ! hb_FileMatch( ;
       hb_PathNormalize( hb_PathJoin( hb_cwd(), s_cHome ) ), ;
       hb_PathNormalize( hb_PathJoin( hb_cwd(), s_cRoot + hb_ps() + "contrib" + hb_ps() ) ) )
