@@ -72,7 +72,7 @@ if git diff-index --name-only HEAD~1 \
   git clone --depth 2 "${url}" "${hbdoc_fmt}"
 
   # Delete all files (to ensure that any file no longer generated will be
-  # purged from the Reference Guide repository.
+  # purged from the Reference Guide repository.)
   find "${hbdoc_fmt}" -name '*' -a -not -name '.git' -delete
 
   # Generate docs
