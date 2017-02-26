@@ -71,6 +71,10 @@ if git diff-index --name-only HEAD~1 \
   echo "! Cloning Reference Guide repository '${url}'..."
   git clone --depth 2 "${url}" "${hbdoc_fmt}"
 
+  # Delete all files (to ensure that any file no longer generated will be
+  # purged from the Reference Guide repository.
+  find "${hbdoc_fmt}" -name '*' -a -not -name '.git' -delete
+
   # Generate docs
   ${_bin_hbdoc} -v0 -repr "-format=${hbdoc_fmt}" || exit
 
@@ -92,6 +96,8 @@ if git diff-index --name-only HEAD~1 \
       git config user.email "${GITHUB_USER}@users.noreply.github.com"
     )
 
+    # Add all files (to force adding any new ones)
+    git add .
     git commit -a -m "update content
 
 Based on ${url_source}"
