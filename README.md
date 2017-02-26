@@ -758,7 +758,8 @@ mingw32-make
 
 ```batchfile
 :: MSVC 2017 or upper
-:: See: https://msdn.microsoft.com/library/f2ccy3wt
+:: For configuration, see: https://msdn.microsoft.com/library/f2ccy3wt
+:: Then:
 win-make
 ```
 
@@ -867,7 +868,8 @@ sh -c make
 
 ```batchfile
 :: MSVC 2017 or upper
-:: See: https://msdn.microsoft.com/library/f2ccy3wt
+:: For configuration, see: https://msdn.microsoft.com/library/f2ccy3wt
+:: Then:
 win-make
 ```
 
@@ -1429,13 +1431,13 @@ Press `<Alt+D>` in the app.
 Supported shells per host platforms:
 
 * \*nix / POSIX shell
-* win  / NT shell (cmd.exe)
-* win  / POSIX shell (MSYS2 or Cygwin sh.exe)
-* win  / MS-DOS shell (command.com)
-* dos  / MS-DOS shell (command.com)
-* dos  / POSIX shell (bash.exe)
-* os/2 / OS/2 shell (cmd.exe)
-* os/2 / POSIX shell (bash.exe)
+* win  / NT shell (`cmd.exe`)
+* win  / POSIX shell (MSYS2 or Cygwin `sh.exe`)
+* win  / MS-DOS shell (`command.com`)
+* dos  / MS-DOS shell (`command.com`)
+* dos  / POSIX shell (`bash.exe`)
+* os/2 / OS/2 shell (`cmd.exe`)
+* os/2 / POSIX shell (`bash.exe`)
 
 
 # External Links
@@ -1492,13 +1494,13 @@ Supported shells per host platforms:
 
 * Libraries:
 
-     * HB_WITH_PCRE2, HB_WITH_PCRE - Perl Compatible Regular Expressions [multi-platform, free software, open-source]
+     * `HB_WITH_PCRE2`, `HB_WITH_PCRE` - Perl Compatible Regular Expressions [multi-platform, free software, open-source]
         * <http://pcre.org/>
-     * HB_WITH_PNG - libpng [multi-platform, free software, open-source]
+     * `HB_WITH_PNG` - libpng [multi-platform, free software, open-source]
         * <https://github.com/glennrp/libpng>
-     * HB_WITH_WATT - Watt-32 (TCP/IP sockets) [dos, free software, open-source]
+     * `HB_WITH_WATT` - Watt-32 (TCP/IP sockets) [dos, free software, open-source]
         * <http://www.watt-32.net/>
-     * HB_WITH_ZLIB - zlib [multi-platform, free software, open-source]
+     * `HB_WITH_ZLIB` - zlib [multi-platform, free software, open-source]
         * <http://zlib.net/>
 
 * Tools:

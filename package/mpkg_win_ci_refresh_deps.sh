@@ -44,6 +44,6 @@ if [ -n "${jobid}" ]; then
       < mpkg_win_ci.sh > _tmp && cp _tmp mpkg_win_ci.sh
     rm _tmp
   else
-    echo 'Error: Hashes not found. Something went wrong.'
+    echo 'Error: Hashes not found. Build still running or not completed successfully?'
   fi
 fi
