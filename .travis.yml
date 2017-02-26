@@ -2,6 +2,7 @@
 branches:
   only:
   - master
+  - prod
   - test-travis
 language: c
 env:
