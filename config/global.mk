@@ -5,6 +5,7 @@
 
 # GNU make docs:
 #    https://www.gnu.org/software/make/manual/make.html
+#    https://pubs.opengroup.org/onlinepubs/009695399/utilities/make.html
 #    http://wanderinghorse.net/computing/make/
 #    https://blog.jgc.org/2013/02/updated-list-of-my-gnu-make-articles.html
 #    https://lists.gnu.org/archive/html/help-make/
