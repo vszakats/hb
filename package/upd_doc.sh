@@ -100,7 +100,7 @@ if git diff-index --name-only HEAD~1 \
 
     # Add all files (to force adding any new ones)
     git add .
-    if git commit -a -m "update content
+    if TZ=UTC git commit -a -m "update content
 
 Based on ${url_source}"; then
       git push origin master || true
