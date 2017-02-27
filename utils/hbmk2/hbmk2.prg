@@ -13724,7 +13724,7 @@ STATIC FUNCTION LoadPOTFiles( hbmk, aFiles, cFileBase, lIgnoreError, /* @ */ cEO
 
    RETURN aTrans
 
-STATIC FUNCTION LoadPOTFilesAsHash( hbmk, aFiles )
+STATIC FUNCTION LoadPOTFilesAsHash( hbmk, aFiles, /* @ */ cEOL )
 
    LOCAL cErrorMsg
    LOCAL hTrans
@@ -13732,7 +13732,7 @@ STATIC FUNCTION LoadPOTFilesAsHash( hbmk, aFiles )
    LOCAL cFileName
 
    FOR EACH cFileName IN aFiles
-      IF ( aTrans := __i18n_potArrayLoad( cFileName, @cErrorMsg ) ) != NIL
+      IF ( aTrans := __i18n_potArrayLoad( cFileName, @cErrorMsg, @cEOL ) ) != NIL
          IF hbmk[ _HBMK_lDEBUGI18N ]
             _hbmk_OutStd( hbmk, hb_StrFormat( "LoadPOTFilesAsHash(): %1$s", cFileName ) )
          ENDIF
@@ -13744,13 +13744,17 @@ STATIC FUNCTION LoadPOTFilesAsHash( hbmk, aFiles )
 
    RETURN hTrans
 
+STATIC FUNCTION POTArraySort( hbmk, aTrans )
+   RETURN iif( hbmk[ _HBMK_lREBUILDPO ], __i18n_potArraySort( aTrans ), aTrans )
+
 STATIC PROCEDURE POTMerge( hbmk, aFiles, cFileBase, cFileOut )
 
    LOCAL cErrorMsg, cEOL
    LOCAL aTrans
 
    IF ( aTrans := LoadPOTFiles( hbmk, aFiles, cFileBase, .T., @cEOL ) ) != NIL .AND. ;
-      ! __i18n_potArraySave( cFileOut, iif( hbmk[ _HBMK_lREBUILDPO ], __i18n_potArraySort( aTrans ), aTrans ), @cErrorMsg, .F., ! hbmk[ _HBMK_lMINIPO ], cEOL )
+      ! __i18n_potArraySave( cFileOut, POTArraySort( hbmk, aTrans ), ;
+            @cErrorMsg, .F., ! hbmk[ _HBMK_lMINIPO ], cEOL )
       _hbmk_OutErr( hbmk, hb_StrFormat( I_( ".pot merge error: %1$s" ), cErrorMsg ) )
    ENDIF
 
@@ -13761,9 +13765,9 @@ STATIC PROCEDURE AutoTrans( hbmk, cFileIn, aFiles, cFileOut )
    LOCAL cErrorMsg, cEOL
    LOCAL hTrans
 
-   IF ( hTrans := LoadPOTFilesAsHash( hbmk, aFiles ) ) != NIL .AND. ;
+   IF ( hTrans := LoadPOTFilesAsHash( hbmk, aFiles, @cEOL ) ) != NIL .AND. ;
       ! __i18n_potArraySave( cFileOut, ;
-         __i18n_potArrayTrans( LoadPOTFiles( hbmk, {}, cFileIn, .F., @cEOL ), ;
+         __i18n_potArrayTrans( POTArraySort( hbmk, LoadPOTFiles( hbmk, {}, cFileIn, .F. ) ), ;
                                hTrans ), @cErrorMsg, .F., ! hbmk[ _HBMK_lMINIPO ], cEOL )
       _hbmk_OutErr( hbmk, hb_StrFormat( I_( "Error: %1$s" ), cErrorMsg ) )
    ENDIF

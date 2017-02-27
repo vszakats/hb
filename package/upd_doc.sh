@@ -95,7 +95,6 @@ if git diff-index --name-only HEAD~1 \
       git config user.name "${GITHUB_USER}-auto"
       git config user.email "${GITHUB_USER}@users.noreply.github.com"
       git config credential.helper store
-      [ "${os}" = 'win' ] && export HOME="${USERPROFILE}"
       echo "https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com" > "${HOME}/.git-credentials"
     )
 
