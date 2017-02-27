@@ -1,0 +1,195 @@
+/*
+ * CUPS wrappers
+ *
+ * Copyright 2017 Teo Fonrouge (tfonrouge@gmail.com)
+ * Copyright 2010 Viktor Szakats (vszakats.net/harbour)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this software; see the file COPYING.txt.  If not, write to
+ * the Free Software Foundation, Inc., 59 Temple Place, Suite 330,
+ * Boston, MA 02111-1307 USA (or visit the web site https://www.gnu.org/).
+ *
+ * As a special exception, the Harbour Project gives permission for
+ * additional uses of the text contained in its release of Harbour.
+ *
+ * The exception is that, if you link the Harbour libraries with other
+ * files to produce an executable, this does not by itself cause the
+ * resulting executable to be covered by the GNU General Public License.
+ * Your use of that executable is in no way restricted on account of
+ * linking the Harbour library code into it.
+ *
+ * This exception does not however invalidate any other reasons why
+ * the executable file might be covered by the GNU General Public License.
+ *
+ * This exception applies only to the code released by the Harbour
+ * Project under the name Harbour.  If you copy code from other
+ * Harbour Project or Free Software Foundation releases into a copy of
+ * Harbour, as the General Public License permits, the exception does
+ * not apply to the code that you add in this way.  To avoid misleading
+ * anyone as to the status of such modified files, you must delete
+ * this exception notice from them.
+ *
+ * If you write modifications of your own for Harbour, it is your choice
+ * whether to permit this exception to apply to your modifications.
+ * If you do not wish that, delete this exception notice.
+ *
+ */
+
+#include "hbapi.h"
+#include "hbapiitm.h"
+
+#include <cups/cups.h>
+
+/* Parameter can have two values:
+
+   STRING: host name
+   HASH:
+      "host"       => <hostName String>
+      "port"       => <port Numeric>
+      "encryption" => "HTTP_ENCRYPTION_ALWAYS" | "HTTP_ENCRYPTION_IF_REQUESTED" | "HTTP_ENCRYPTION_NEVER" | "HTTP_ENCRYPTION_REQUIRED"
+      "blocking"   => .T. | .F.
+      "msec"       => <timeout Numeric>
+ */
+static http_t * getHttpParam( int iParam )
+{
+   PHB_ITEM pHttp = hb_param( iParam, HB_IT_STRING | HB_IT_HASH );
+
+   if( pHttp )
+   {
+      #define _HBCUPS_DEF_PORT_  631
+      #define _HBCUPS_DEF_MSEC_  5000
+
+      const char *      host       = NULL;
+      int               port       = _HBCUPS_DEF_PORT_;
+      http_addrlist_t * addrlist   = NULL;
+      int               family     = AF_UNSPEC;
+      http_encryption_t encryption = HTTP_ENCRYPTION_NEVER;
+      int               blocking   = 0;
+      int               msec       = _HBCUPS_DEF_MSEC_;
+      int *             cancel     = NULL;
+
+      if( HB_IS_STRING( pHttp ) )
+      {
+         host = hb_itemGetCPtr( pHttp );
+      }
+      else if( HB_IS_HASH( pHttp ) )
+      {
+         host     = hb_itemGetCPtr( hb_hashGetCItemPtr( pHttp, "host" ) );
+         port     = hb_itemGetNI(   hb_hashGetCItemPtr( pHttp, "port" ) );
+         blocking = hb_itemGetL(    hb_hashGetCItemPtr( pHttp, "blocking" ) ) ? 1 : 0;
+         {
+            const char * cVal = hb_itemGetCPtr( hb_hashGetCItemPtr( pHttp, "encryption" ) );
+
+            if( strcmp( cVal, "HTTP_ENCRYPTION_ALWAYS" ) == 0 )
+               encryption = HTTP_ENCRYPTION_ALWAYS;
+            if( strcmp( cVal, "HTTP_ENCRYPTION_IF_REQUESTED" ) == 0 )
+               encryption = HTTP_ENCRYPTION_IF_REQUESTED;
+            if( strcmp( cVal, "HTTP_ENCRYPTION_NEVER" ) == 0 )
+               encryption = HTTP_ENCRYPTION_NEVER;
+            if( strcmp( cVal, "HTTP_ENCRYPTION_REQUIRED" ) == 0 )
+               encryption = HTTP_ENCRYPTION_REQUIRED;
+         }
+         msec = hb_itemGetNI(   hb_hashGetCItemPtr( pHttp, "msec" ) );
+      }
+
+      if( host && *host )
+         return httpConnect2( host, port, addrlist, family, encryption, blocking, msec, cancel );
+   }
+
+   return NULL;
+}
+
+HB_FUNC( CUPSGETDEFAULT2 )
+{
+   http_t * http = getHttpParam( 1 );
+
+   hb_retc( http ? cupsGetDefault2( http ) : NULL );
+}
+
+HB_FUNC( CUPSGETDESTS2 )
+{
+   http_t * http = getHttpParam( 1 );
+
+   if( http )
+   {
+      cups_dest_t * dest_list;
+      HB_ISIZ       num_dests = ( HB_ISIZ ) cupsGetDests2( http, &dest_list );
+      PHB_ITEM      pArray    = hb_itemArrayNew( num_dests );
+
+      if( num_dests > 0 )
+      {
+         cups_dest_t * desk_list_bak = dest_list;
+         HB_ISIZ       i;
+
+         for( i = 1; i <= num_dests; ++i, ++dest_list )
+            hb_arraySetC( pArray, i, dest_list->name );
+
+         cupsFreeDests( num_dests, desk_list_bak );
+      }
+
+      hb_itemReturnRelease( pArray );
+   }
+   else
+      hb_reta( 0 );
+}
+
+HB_FUNC( CUPSPRINTFILE2 )
+{
+   http_t * http = getHttpParam( 1 );
+
+   if( http )
+   {
+      PHB_ITEM pOptions = hb_param( 5, HB_IT_HASH | HB_IT_ARRAY );
+
+      int num_options         = 0;
+      cups_option_t * options = NULL;
+
+      if( pOptions )
+      {
+         HB_SIZE tmp;
+
+         if( HB_IS_HASH( pOptions ) )
+         {
+            for( tmp = 1; tmp <= hb_hashLen( pOptions ); ++tmp )
+            {
+               PHB_ITEM pKey = hb_hashGetKeyAt( pOptions, tmp );
+               PHB_ITEM pVal = hb_hashGetValueAt( pOptions, tmp );
+
+               if( pKey && HB_IS_STRING( pKey ) && pVal )
+                  num_options = cupsAddOption( hb_itemGetCPtr( pKey ), hb_itemGetCPtr( pVal ), num_options, &options );
+            }
+         }
+         else if( HB_IS_ARRAY( pOptions ) )
+         {
+            for( tmp = 1; tmp <= hb_arrayLen( pOptions ); ++tmp )
+            {
+               const char * pszOption = hb_arrayGetCPtr( pOptions, tmp );
+
+               if( pszOption )
+                  num_options = cupsParseOptions( pszOption, num_options, &options );
+            }
+         }
+      }
+
+      hb_retni( cupsPrintFile2( http /* server */,
+                                hb_parcx( 2 ) /* printername */,
+                                hb_parcx( 3 ) /* filename */,
+                                hb_parcx( 4 ) /* title */,
+                                num_options,
+                                options ) );
+
+      cupsFreeOptions( num_options, options );
+   }
+   else
+      hb_retni( -1 );
+}

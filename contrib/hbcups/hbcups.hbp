@@ -20,3 +20,4 @@
 -hbx=${hb_name}
 
 core.c
+core2.c
