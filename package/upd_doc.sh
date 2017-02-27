@@ -100,10 +100,11 @@ if git diff-index --name-only HEAD~1 \
 
     # Add all files (to force adding any new ones)
     git add .
-    git commit -a -m "update content
+    if git commit -a -m "update content
 
-Based on ${url_source}"
-    git push origin master
+Based on ${url_source}"; then
+      git push origin master || true
+    fi
 
     echo "! Update finished."
   )

@@ -49,11 +49,16 @@ case "${os}" in
     ;;
   mac)
     # `coreutils` for `gcp`. TODO: replace it with `rsync` where `--parents`
-    # option is used:
-    #    brew install p7zip mingw-w64 jq osslsigncode dos2unix gpg coreutils
+    # option is used.
+    # Required:
+    #   brew install p7zip mingw-w64 jq osslsigncode dos2unix gpg coreutils
     # For running `harbour.exe` when creating `BUILD.txt` and
     # `HB_BUILD_POSTRUN` tasks:
-    #    brew cask install wine-devel
+    #   brew cask install wine-devel
+    ;;
+  linux)
+    # Required:
+    #   p7zip-full binutils-mingw-w64 gcc-mingw-w64 gnupg-curl osslsigncode dos2unix realpath wine
     ;;
 esac
 
@@ -63,8 +68,7 @@ if [ "${os}" != 'win' ]; then
   [ "${_BRANC4}" != 'msvc' ] || exit
 
   # Create native build for host OS
-  # NOTE: Remove `HB_COMPILER=clang` in case it's not supported on the platform.
-  make -j "${HB_CI_THREADS}" HB_COMPILER=clang HB_BUILD_DYN=no HB_BUILD_CONTRIBS=hbdoc
+  make -j "${HB_CI_THREADS}" HB_BUILD_DYN=no HB_BUILD_CONTRIBS=hbdoc
 fi
 
 [ "${_BRANC4}" = 'msvc' ] || "$(dirname "$0")/mpkg_win_dl.sh" || exit
@@ -82,6 +86,7 @@ fi
 # common settings
 
 # Clean slate
+export HB_CCSUFFIX=
 export _HB_USER_CFLAGS=
 export HB_USER_LDFLAGS=
 export HB_USER_DFLAGS=
@@ -110,7 +115,7 @@ export HB_BUILD_POSTRUN='"./hbmk2 --version" "./hbrun --version" "./hbtest -noen
 # decrypt code signing key
 
 export HB_CODESIGN_KEY=
-HB_CODESIGN_KEY="$(realpath './package/vszakats.p12')"
+HB_CODESIGN_KEY="$(realpath -m './package/vszakats.p12')"
 (
   set +x
   if [ -n "${HB_CODESIGN_GPG_PASS}" ]; then
