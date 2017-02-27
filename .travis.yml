@@ -5,6 +5,24 @@ branches:
   - prod
   - test-travis
 language: c
+addons:
+  apt:
+    packages: &common_dependencies
+      - firebird2.5-dev
+     #- libcairo2-dev
+      - libcups2-dev
+      - libcurl4-openssl-dev
+      - libfreeimage-dev
+      - libgd2-xpm-dev
+      - libgpm-dev
+     #- libgs-dev
+      - libicu-dev
+      - libmagic-dev
+      - libmysqlclient-dev
+      - libncurses5-dev
+      - libpq-dev
+     #- libslang2-dev
+      - unixodbc-dev
 matrix:
   include:
     - os: linux
@@ -38,6 +56,21 @@ matrix:
             - ubuntu-toolchain-r-test
     - os: linux
       dist: trusty
+      sudo: false
+      compiler: gcc
+      env:
+        - HB_CI_THREADS=4
+        - HB_CCSUFFIX=-7
+      addons:
+        apt:
+          packages:
+            - gcc-7
+            - g++-7
+            - *common_dependencies
+          sources:
+            - ubuntu-toolchain-r-test
+    - os: linux
+      dist: trusty
       sudo: required
       compiler: i686-w64-mingw32-gcc
       env: HB_CI_THREADS=4
@@ -58,24 +91,6 @@ matrix:
       osx_image: xcode8.2
       compiler: i686-w64-mingw32-gcc
       env: HB_CI_THREADS=4
-addons:
-  apt:
-    packages: &common_dependencies
-      - firebird2.5-dev
-     #- libcairo2-dev
-      - libcups2-dev
-      - libcurl4-openssl-dev
-      - libfreeimage-dev
-      - libgd2-xpm-dev
-      - libgpm-dev
-     #- libgs-dev
-      - libicu-dev
-      - libmagic-dev
-      - libmysqlclient-dev
-      - libncurses5-dev
-      - libpq-dev
-     #- libslang2-dev
-      - unixodbc-dev
 before_install:
   - if [ "$TRAVIS_OS_NAME" = 'osx' ]; then
       brew update > /dev/null;
