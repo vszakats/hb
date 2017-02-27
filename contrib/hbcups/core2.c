@@ -53,10 +53,10 @@
 
 #define HB_CUPS_VERS( ma, mi, pa )  \
    ( CUPS_VERSION_MAJOR > ma || \
-     ( CUPS_VERSION_MAJOR == ma && \
-       ( CUPS_VERSION_MINOR > mi || \
-         ( CUPS_VERSION_MINOR == mi && \
-           CUPS_VERSION_PATCH >= pa ) ) ) )
+   ( CUPS_VERSION_MAJOR == ma && \
+   ( CUPS_VERSION_MINOR > mi || \
+   ( CUPS_VERSION_MINOR == mi && \
+     CUPS_VERSION_PATCH >= pa ) ) ) )
 
 /* Parameter can have two values:
 
@@ -74,6 +74,13 @@ static http_t * s_getHttpParam( int iParam )
 
    if( pHttp )
    {
+      #if ! HB_CUPS_VERS( 1, 7, 0 )
+         #define HTTP_ENCRYPTION_IF_REQUESTED  HTTP_ENCRYPT_IF_REQUESTED
+         #define HTTP_ENCRYPTION_NEVER         HTTP_ENCRYPT_NEVER
+         #define HTTP_ENCRYPTION_REQUIRED      HTTP_ENCRYPT_REQUIRED
+         #define HTTP_ENCRYPTION_ALWAYS        HTTP_ENCRYPT_ALWAYS
+      #endif
+
       const char *      host       = NULL;
       int               port       = 631;
       http_encryption_t encryption = HTTP_ENCRYPTION_IF_REQUESTED;
@@ -91,13 +98,6 @@ static http_t * s_getHttpParam( int iParam )
          blocking = hb_itemGetL(    hb_hashGetCItemPtr( pHttp, "blocking" ) ) ? 1 : 0;
          {
             const char * cVal = hb_itemGetCPtr( hb_hashGetCItemPtr( pHttp, "encryption" ) );
-
-            #if ! HB_CUPS_VERS( 1, 7, 0 )
-               #define HTTP_ENCRYPTION_IF_REQUESTED  HTTP_ENCRYPT_IF_REQUESTED
-               #define HTTP_ENCRYPTION_NEVER         HTTP_ENCRYPT_NEVER
-               #define HTTP_ENCRYPTION_REQUIRED      HTTP_ENCRYPT_REQUIRED
-               #define HTTP_ENCRYPTION_ALWAYS        HTTP_ENCRYPT_ALWAYS
-            #endif
 
             if( strcmp( cVal, "HTTP_ENCRYPTION_IF_REQUESTED" ) == 0 )
                encryption = HTTP_ENCRYPTION_IF_REQUESTED;
