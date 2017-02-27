@@ -43,6 +43,10 @@ export CURL_HASH_64='f204fe863291ee840517cf57a40f21aaec877d04f0662011cf52121392a
 
 # Install/update MSYS2 packages required for completing the build
 
+echo "LANG: ${LANG}"
+echo "LC_ALL: ${LC_ALL}"
+echo "LC_CTYPE: ${LC_CTYPE}"
+
 case "${os}" in
   win)
     pacman --noconfirm --noprogressbar -S --needed p7zip mingw-w64-{i686,x86_64}-{jq,osslsigncode}
@@ -58,7 +62,7 @@ case "${os}" in
     ;;
   linux)
     # Required:
-    #   p7zip-full binutils-mingw-w64 gcc-mingw-w64 gnupg-curl osslsigncode dos2unix realpath wine
+    #   p7zip-full binutils-mingw-w64 gcc-mingw-w64 gnupg-curl jq osslsigncode dos2unix realpath wine
     ;;
 esac
 
@@ -115,7 +119,7 @@ export HB_BUILD_POSTRUN='"./hbmk2 --version" "./hbrun --version" "./hbtest -noen
 # decrypt code signing key
 
 export HB_CODESIGN_KEY=
-HB_CODESIGN_KEY="$(realpath -m './package/vszakats.p12')"
+HB_CODESIGN_KEY="$(realpath './package')/vszakats.p12"
 (
   set +x
   if [ -n "${HB_CODESIGN_GPG_PASS}" ]; then
