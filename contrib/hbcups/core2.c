@@ -49,6 +49,14 @@
 #include "hbapiitm.h"
 
 #include <cups/cups.h>
+#include <cups/http.h>
+
+#define HB_CUPS_VERS( ma, mi, pa )  \
+   ( CUPS_VERSION_MAJOR > ma || \
+     ( CUPS_VERSION_MAJOR == ma && \
+       ( CUPS_VERSION_MINOR > mi || \
+         ( CUPS_VERSION_MINOR == mi && \
+           CUPS_VERSION_PATCH >= pa ) ) ) )
 
 /* Parameter can have two values:
 
@@ -60,24 +68,17 @@
       "blocking"   => .T. | .F.
       "msec"       => <timeout Numeric>
  */
-#if CUPS_VERSION_MAJOR >= 2
-static http_t * getHttpParam( int iParam )
+static http_t * s_getHttpParam( int iParam )
 {
    PHB_ITEM pHttp = hb_param( iParam, HB_IT_STRING | HB_IT_HASH );
 
    if( pHttp )
    {
-      #define _HBCUPS_DEF_PORT_  631
-      #define _HBCUPS_DEF_MSEC_  5000
-
       const char *      host       = NULL;
-      int               port       = _HBCUPS_DEF_PORT_;
-      http_addrlist_t * addrlist   = NULL;
-      int               family     = AF_UNSPEC;
-      http_encryption_t encryption = HTTP_ENCRYPTION_NEVER;
+      int               port       = 631;
+      http_encryption_t encryption = HTTP_ENCRYPTION_IF_REQUESTED;
       int               blocking   = 0;
-      int               msec       = _HBCUPS_DEF_MSEC_;
-      int *             cancel     = NULL;
+      int               msec       = 5000;
 
       if( HB_IS_STRING( pHttp ) )
       {
@@ -91,30 +92,40 @@ static http_t * getHttpParam( int iParam )
          {
             const char * cVal = hb_itemGetCPtr( hb_hashGetCItemPtr( pHttp, "encryption" ) );
 
-            if( strcmp( cVal, "HTTP_ENCRYPTION_ALWAYS" ) == 0 )
-               encryption = HTTP_ENCRYPTION_ALWAYS;
             if( strcmp( cVal, "HTTP_ENCRYPTION_IF_REQUESTED" ) == 0 )
                encryption = HTTP_ENCRYPTION_IF_REQUESTED;
-            if( strcmp( cVal, "HTTP_ENCRYPTION_NEVER" ) == 0 )
+            else if( strcmp( cVal, "HTTP_ENCRYPTION_NEVER" ) == 0 )
                encryption = HTTP_ENCRYPTION_NEVER;
-            if( strcmp( cVal, "HTTP_ENCRYPTION_REQUIRED" ) == 0 )
+            else if( strcmp( cVal, "HTTP_ENCRYPTION_REQUIRED" ) == 0 )
                encryption = HTTP_ENCRYPTION_REQUIRED;
+            else if( strcmp( cVal, "HTTP_ENCRYPTION_ALWAYS" ) == 0 )
+               encryption = HTTP_ENCRYPTION_ALWAYS;
          }
-         msec = hb_itemGetNI(   hb_hashGetCItemPtr( pHttp, "msec" ) );
+         msec = hb_itemGetNI( hb_hashGetCItemPtr( pHttp, "msec" ) );
       }
 
       if( host && *host )
+      {
+#if HB_CUPS_VERS( 1, 7, 0 )
+         http_addrlist_t * addrlist = NULL;
+         int family   = AF_UNSPEC;
+         int * cancel = NULL;
          return httpConnect2( host, port, addrlist, family, encryption, blocking, msec, cancel );
+#else
+         HB_SYMBOL_UNUSED( blocking );
+         HB_SYMBOL_UNUSED( msec );
+         return httpConnectEncrypt( host, port, encryption );
+#endif
+      }
    }
 
    return NULL;
 }
-#endif
 
 HB_FUNC( CUPSGETDEFAULT2 )
 {
-#if CUPS_VERSION_MAJOR >= 2
-   http_t * http = getHttpParam( 1 );
+#if HB_CUPS_VERS( 1, 1, 21 )
+   http_t * http = s_getHttpParam( 1 );
 
    hb_retc( http ? cupsGetDefault2( http ) : NULL );
 #else
@@ -124,8 +135,8 @@ HB_FUNC( CUPSGETDEFAULT2 )
 
 HB_FUNC( CUPSGETDESTS2 )
 {
-#if CUPS_VERSION_MAJOR >= 2
-   http_t * http = getHttpParam( 1 );
+#if HB_CUPS_VERS( 1, 1, 21 )
+   http_t * http = s_getHttpParam( 1 );
 
    if( http )
    {
@@ -155,8 +166,8 @@ HB_FUNC( CUPSGETDESTS2 )
 
 HB_FUNC( CUPSPRINTFILE2 )
 {
-#if CUPS_VERSION_MAJOR >= 2
-   http_t * http = getHttpParam( 1 );
+#if HB_CUPS_VERS( 1, 1, 21 )
+   http_t * http = s_getHttpParam( 1 );
 
    if( http )
    {
