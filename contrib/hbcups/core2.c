@@ -2,7 +2,7 @@
  * CUPS wrappers
  *
  * Copyright 2017 Teo Fonrouge (tfonrouge@gmail.com)
- * Copyright 2010 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2010-2017 Viktor Szakats (vszakats.net/harbour)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -60,6 +60,7 @@
       "blocking"   => .T. | .F.
       "msec"       => <timeout Numeric>
  */
+#if CUPS_VERSION_MAJOR >= 2
 static http_t * getHttpParam( int iParam )
 {
    PHB_ITEM pHttp = hb_param( iParam, HB_IT_STRING | HB_IT_HASH );
@@ -108,16 +109,22 @@ static http_t * getHttpParam( int iParam )
 
    return NULL;
 }
+#endif
 
 HB_FUNC( CUPSGETDEFAULT2 )
 {
+#if CUPS_VERSION_MAJOR >= 2
    http_t * http = getHttpParam( 1 );
 
    hb_retc( http ? cupsGetDefault2( http ) : NULL );
+#else
+   hb_retc_null();
+#endif
 }
 
 HB_FUNC( CUPSGETDESTS2 )
 {
+#if CUPS_VERSION_MAJOR >= 2
    http_t * http = getHttpParam( 1 );
 
    if( http )
@@ -141,10 +148,14 @@ HB_FUNC( CUPSGETDESTS2 )
    }
    else
       hb_reta( 0 );
+#else
+   hb_reta( 0 );
+#endif
 }
 
 HB_FUNC( CUPSPRINTFILE2 )
 {
+#if CUPS_VERSION_MAJOR >= 2
    http_t * http = getHttpParam( 1 );
 
    if( http )
@@ -192,4 +203,7 @@ HB_FUNC( CUPSPRINTFILE2 )
    }
    else
       hb_retni( -1 );
+#else
+   hb_retni( -2 );
+#endif
 }

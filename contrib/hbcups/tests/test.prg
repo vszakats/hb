@@ -10,6 +10,10 @@ PROCEDURE Main( cFile )
    LOCAL cDefault := cupsGetDefault()
    LOCAL aPrinter
 
+   LOCAL ma, mi, pa
+
+   ? "cups version:", hb_cups_version( @ma, @mi, @pa ), ma, mi, pa
+
    IF Empty( cDefault )
       ? "No default printer configured"
    ELSE
