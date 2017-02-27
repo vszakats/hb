@@ -63,7 +63,8 @@ if [ "${os}" != 'win' ]; then
   [ "${_BRANC4}" != 'msvc' ] || exit
 
   # Create native build for host OS
-  make -j 2 HB_BUILD_DYN=no HB_BUILD_CONTRIBS=hbdoc
+  # NOTE: Remove `HB_COMPILER=clang` in case it's not supported on the platform.
+  make -j "${HB_CI_THREADS}" HB_COMPILER=clang HB_BUILD_DYN=no HB_BUILD_CONTRIBS=hbdoc
 fi
 
 [ "${_BRANC4}" = 'msvc' ] || "$(dirname "$0")/mpkg_win_dl.sh" || exit

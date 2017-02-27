@@ -656,8 +656,7 @@ STATIC FUNCTION ProcessConnection( oServer )
 
          cBuf := NIL
 
-         nReqLen := ParseRequestHeader( @cRequest )
-         IF nReqLen == NIL
+         IF ( nReqLen := ParseRequestHeader( @cRequest ) ) == NIL
             USetStatusCode( 400 )
             UAddHeader( "Connection", "close" )
          ELSE
