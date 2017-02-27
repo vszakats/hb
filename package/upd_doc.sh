@@ -21,6 +21,8 @@ git diff-index --name-only HEAD~1
 echo '---'
 git diff-index --name-only HEAD~1 | grep -E '((^|\/)doc\/[a-zA-Z0-9_]+\/|^contrib\/hbdoc\/[a-z0-9_]+\.[a-z]+)'
 echo '---'
+git diff contrib/hbdoc/po/hbdoc.en.po
+echo '---'
 
 # Verify if the last commit updated any HBDOC files or the hbdoc tool itself.
 # This requires a repository with a history of at least the last commit.

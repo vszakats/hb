@@ -99,7 +99,7 @@ PROCEDURE Main( ... )
       hb_PathNormalize( hb_PathJoin( hb_cwd(), hb_DirSepToOS( s_cHome ) ) ), ;
       hb_PathNormalize( hb_PathJoin( hb_cwd(), hb_DirSepToOS( s_cRoot + "/contrib/" ) ) ) )
 
-   OutStd( hb_StrFormat( "! Harbour root: '%1$s'  Project store: '%2$s'  Core build: %3$s  addon: %4$s", ;
+   OutStd( hb_StrFormat( "! Harbour root: '%1$s'  Project store: '%2$s'  Core build: %3$s  Addon: %4$s", ;
       s_cRoot, s_cHome, iif( s_lCoreBuild, "yes", "no" ), iif( s_lAddon, "yes", "no" ) ) + hb_eol() )
 
    /* Load list of projects */
