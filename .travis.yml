@@ -11,23 +11,29 @@ matrix:
       dist: trusty
       sudo: false
       compiler: clang
-      env: HB_CI_THREADS=4
+      env:
+        - HB_CI_THREADS=4
+        - HB_CCSUFFIX=-3.9
       addons:
         apt:
           packages:
             - clang-3.9
+            - *common_dependencies
           sources:
             - llvm-toolchain-trusty-3.9
     - os: linux
       dist: trusty
       sudo: false
       compiler: gcc
-      env: HB_CI_THREADS=4
+      env:
+        - HB_CI_THREADS=4
+        - HB_CCSUFFIX=-6
       addons:
         apt:
           packages:
             - gcc-6
             - g++-6
+            - *common_dependencies
           sources:
             - ubuntu-toolchain-r-test
     - os: linux
@@ -54,7 +60,7 @@ matrix:
       env: HB_CI_THREADS=4
 addons:
   apt:
-    packages:
+    packages: &common_dependencies
       - firebird2.5-dev
      #- libcairo2-dev
       - libcups2-dev
@@ -108,11 +114,6 @@ script:
       fi;
     else
       if [ "$TRAVIS_OS_NAME" = 'linux' ]; then
-        if [ "$CC" = 'gcc' ]; then
-          export HB_CCSUFFIX=-6;
-        else
-          export HB_CCSUFFIX=-3.9;
-        fi;
         export HB_USER_CFLAGS="${HB_USER_CFLAGS} -fstack-protector-strong";
       fi;
       export HB_USER_CFLAGS="${HB_USER_CFLAGS} -D_FORTIFY_SOURCE=2";
