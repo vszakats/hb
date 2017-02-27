@@ -271,7 +271,7 @@ touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}include/_repover.txt"
 # Register build information
 
 (
-  ${win} "${HB_ABSROOT}bin/harbour" -build 2>&1 | dos2unix | grep -Ev '^(Version:|Platform:|Extra )'
+  ${win} "${HB_ABSROOT}bin/harbour" -build 2> /dev/null | dos2unix | grep -Ev '^(Version:|Platform:|Extra )'
   echo "Source archive URL: ${_vcs_url}archive/${_vcs_id}.zip"
   echo ---------------------------
   set | grep '_VER=' | grep -v '^_'

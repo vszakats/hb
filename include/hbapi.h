@@ -1178,6 +1178,8 @@ extern HB_EXPORT void *       hb_libSymAddr( PHB_ITEM pDynLib, const char * pszS
 extern HB_EXPORT void         hb_dynCall( int iFuncFlags, void * pFunction, int iParams, int iFirst, int * piArgFlags );
 
 /* misc */
+typedef void ( * PHB_OUT_FUNC )( const char *, HB_SIZE );
+
 extern HB_EXPORT const char * hb_verHostCPU( void );         /* retrieves a constant string with host OS CPU architecture */
 extern HB_EXPORT int          hb_verHostBitWidth( void );    /* retrieves bit width of host OS */
 extern HB_EXPORT const char * hb_verCPU( void );             /* retrieves a constant string with CPU architecture */
@@ -1186,7 +1188,8 @@ extern HB_EXPORT char *       hb_verPlatform( void );        /* retrieves a newl
 extern HB_EXPORT char *       hb_verCompiler( void );        /* retrieves a newly allocated buffer containing compiler version */
 extern HB_EXPORT char *       hb_verHarbour( void );         /* retrieves a newly allocated buffer containing Harbour version */
 extern HB_EXPORT char *       hb_verPCode( void );           /* retrieves a newly allocated buffer containing PCode version */
-extern HB_EXPORT void         hb_verBuildInfo( void );       /* display Harbour, compiler, and platform versions to standard console */
+extern HB_EXPORT void         hb_verBuildInfo( void );       /* display Harbour, compiler and platform versions to stderr console (deprecated) */
+extern HB_EXPORT void         hb_verBuildInfoCB( PHB_OUT_FUNC );  /* pass Harbour, compiler and platform versions to callback function */
 extern HB_EXPORT const char * hb_verCommitID( void );        /* retrieves a static buffer containing source repository hash/id */
 extern HB_EXPORT const char * hb_verCommitIDShort( void );   /* retrieves a static buffer containing source repository hash/id (short version) */
 extern HB_EXPORT int          hb_verCommitRev( void );       /* retrieves source repository revision number */

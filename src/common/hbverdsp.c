@@ -1,7 +1,7 @@
 /*
  * Display build information
  *
- * Copyright 1999-2010 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 1999-2017 Viktor Szakats (vszakats.net/harbour)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -47,59 +47,59 @@
 #include "hbapi.h"
 #include "hbmemory.ch"
 
-void hb_verBuildInfo( void )
+void hb_verBuildInfoCB( PHB_OUT_FUNC pOutFunc )
 {
-   hb_conOutErr( "Harbour Build Info", 0 );
-   hb_conOutErr( hb_conNewLine(), 0 );
-   hb_conOutErr( "---------------------------", 0 );
-   hb_conOutErr( hb_conNewLine(), 0 );
+   ( pOutFunc )( "Harbour Build Info", 0 );
+   ( pOutFunc )( hb_conNewLine(), 0 );
+   ( pOutFunc )( "---------------------------", 0 );
+   ( pOutFunc )( hb_conNewLine(), 0 );
 
    {
       char * pszVersion = hb_verHarbour();
-      hb_conOutErr( "Version: ", 0 );
-      hb_conOutErr( pszVersion, 0 );
-      hb_conOutErr( hb_conNewLine(), 0 );
+      ( pOutFunc )( "Version: ", 0 );
+      ( pOutFunc )( pszVersion, 0 );
+      ( pOutFunc )( hb_conNewLine(), 0 );
       hb_xfree( pszVersion );
    }
 
    {
       char * pszVersion = hb_verCompiler();
-      hb_conOutErr( "Compiler: ", 0 );
-      hb_conOutErr( pszVersion, 0 );
-      hb_conOutErr( hb_conNewLine(), 0 );
+      ( pOutFunc )( "Compiler: ", 0 );
+      ( pOutFunc )( pszVersion, 0 );
+      ( pOutFunc )( hb_conNewLine(), 0 );
       hb_xfree( pszVersion );
    }
 
    {
       char * pszVersion = hb_verPlatform();
-      hb_conOutErr( "Platform: ", 0 );
-      hb_conOutErr( pszVersion, 0 );
-      hb_conOutErr( hb_conNewLine(), 0 );
+      ( pOutFunc )( "Platform: ", 0 );
+      ( pOutFunc )( pszVersion, 0 );
+      ( pOutFunc )( hb_conNewLine(), 0 );
       hb_xfree( pszVersion );
    }
 
    {
       char * pszPCode = hb_verPCode();
-      hb_conOutErr( pszPCode, 0 );
-      hb_conOutErr( hb_conNewLine(), 0 );
+      ( pOutFunc )( pszPCode, 0 );
+      ( pOutFunc )( hb_conNewLine(), 0 );
       hb_xfree( pszPCode );
    }
 
-   hb_conOutErr( "Commit info: ", 0 );
-   hb_conOutErr( hb_verCommitInfo(), 0 );
-   hb_conOutErr( hb_conNewLine(), 0 );
+   ( pOutFunc )( "Commit info: ", 0 );
+   ( pOutFunc )( hb_verCommitInfo(), 0 );
+   ( pOutFunc )( hb_conNewLine(), 0 );
 
-   hb_conOutErr( "Commit ID: ", 0 );
-   hb_conOutErr( hb_verCommitID(), 0 );
-   hb_conOutErr( hb_conNewLine(), 0 );
+   ( pOutFunc )( "Commit ID: ", 0 );
+   ( pOutFunc )( hb_verCommitID(), 0 );
+   ( pOutFunc )( hb_conNewLine(), 0 );
 
    {
       const char * pszFlags = hb_verFlagsPRG();
       if( pszFlags && *pszFlags )
       {
-         hb_conOutErr( "Extra Harbour compiler options: ", 0 );
-         hb_conOutErr( pszFlags, 0 );
-         hb_conOutErr( hb_conNewLine(), 0 );
+         ( pOutFunc )( "Extra Harbour compiler options: ", 0 );
+         ( pOutFunc )( pszFlags, 0 );
+         ( pOutFunc )( hb_conNewLine(), 0 );
       }
    }
 
@@ -107,9 +107,9 @@ void hb_verBuildInfo( void )
       const char * pszFlags = hb_verFlagsC();
       if( pszFlags && *pszFlags )
       {
-         hb_conOutErr( "Extra C compiler options: ", 0 );
-         hb_conOutErr( pszFlags, 0 );
-         hb_conOutErr( hb_conNewLine(), 0 );
+         ( pOutFunc )( "Extra C compiler options: ", 0 );
+         ( pOutFunc )( pszFlags, 0 );
+         ( pOutFunc )( hb_conNewLine(), 0 );
       }
    }
 
@@ -117,35 +117,41 @@ void hb_verBuildInfo( void )
       const char * pszFlags = hb_verFlagsL();
       if( pszFlags && *pszFlags )
       {
-         hb_conOutErr( "Extra linker options: ", 0 );
-         hb_conOutErr( pszFlags, 0 );
-         hb_conOutErr( hb_conNewLine(), 0 );
+         ( pOutFunc )( "Extra linker options: ", 0 );
+         ( pOutFunc )( pszFlags, 0 );
+         ( pOutFunc )( hb_conNewLine(), 0 );
       }
    }
 
-   hb_conOutErr( "Build options:", 0 );
+   ( pOutFunc )( "Build options:", 0 );
    if( hb_xquery( HB_MEM_BLOCKS ) != 0 )
-      hb_conOutErr( " (memory tracking)", 0 );
+      ( pOutFunc )( " (memory tracking)", 0 );
 #if defined( HB_TR_INFO ) && ( HB_TR_LEVEL == HB_TR_INFO || HB_TR_LEVEL == HB_TR_DEBUG )
-   hb_conOutErr( " (tracing)", 0 );
+   ( pOutFunc )( " (tracing)", 0 );
 #endif
 #if ! defined( HB_NO_PROFILER )
-   hb_conOutErr( " (profiler)", 0 );
+   ( pOutFunc )( " (profiler)", 0 );
 #endif
 #if defined( __cplusplus )
-   hb_conOutErr( " (C++ mode)", 0 );
+   ( pOutFunc )( " (C++ mode)", 0 );
 #endif
 #if ! defined( HB_COMPAT_C53 )
-   hb_conOutErr( " (no Clipper 5.3b)", 0 );
+   ( pOutFunc )( " (no Clipper 5.3b)", 0 );
 #endif
 #if ! defined( HB_CLP_UNDOC )
-   hb_conOutErr( " (no Clipper 5.x undoc)", 0 );
+   ( pOutFunc )( " (no Clipper 5.x undoc)", 0 );
 #endif
 #if defined( HB_CLP_STRICT )
-   hb_conOutErr( " (Clipper 5.x strict)", 0 );
+   ( pOutFunc )( " (Clipper 5.x strict)", 0 );
 #endif
-   hb_conOutErr( hb_conNewLine(), 0 );
+   ( pOutFunc )( hb_conNewLine(), 0 );
 
-   hb_conOutErr( "---------------------------", 0 );
-   hb_conOutErr( hb_conNewLine(), 0 );
+   ( pOutFunc )( "---------------------------", 0 );
+   ( pOutFunc )( hb_conNewLine(), 0 );
+}
+
+/* deprecated */
+void hb_verBuildInfo( void )
+{
+   hb_verBuildInfoCB( hb_conOutErr );
 }

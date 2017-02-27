@@ -780,8 +780,8 @@ typedef struct _HB_COMP
    PHB_I18NTABLE     pI18n;
    HB_BOOL           fI18n;
 
-   void              ( * outStdFunc ) ( void *, const char* );
-   void              ( * outErrFunc ) ( void *, const char* );
+   void              ( * outStdFunc ) ( void *, const char * );
+   void              ( * outErrFunc ) ( void *, const char * );
    PHB_PP_MSG_FUNC   outMsgFunc;
    void *            cargo;
 

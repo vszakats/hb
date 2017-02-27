@@ -342,6 +342,14 @@ void hb_errInternal( HB_ERRCODE errCode, const char * szText, const char * szPar
 }
 
 /* console */
+void hb_conOutStd( const char * pStr, HB_SIZE nLen )
+{
+   if( nLen == 0 )
+      nLen = strlen( pStr );
+
+   fprintf( stdout, "%.*s", ( int ) nLen, pStr );
+}
+
 void hb_conOutErr( const char * pStr, HB_SIZE nLen )
 {
    if( nLen == 0 )

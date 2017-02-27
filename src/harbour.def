@@ -3456,6 +3456,7 @@ hb_tracesysout
 hb_username
 hb_valStrnToNum
 hb_verBuildInfo
+hb_verBuildInfoCB
 hb_verCPU
 hb_verCommitID
 hb_verCommitIDShort

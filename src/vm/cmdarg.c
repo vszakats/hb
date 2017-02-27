@@ -855,7 +855,7 @@ void hb_cmdargProcess( void )
    }
 
    if( hb_cmdargCheck( "BUILD" ) )
-      hb_verBuildInfo();
+      hb_verBuildInfoCB( hb_conOutErr );
 
    iHandles = hb_cmdargNum( "F" );
    if( iHandles > 20 )

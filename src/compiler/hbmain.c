@@ -96,7 +96,11 @@ int hb_compMainExt( int argc, const char * const argv[],
       if( HB_COMP_PARAM->fBuildInfo )
       {
          hb_compOutStd( HB_COMP_PARAM, "\n" );
-         hb_verBuildInfo();
+#if defined( HB_OS_DOS )
+         hb_verBuildInfoCB( hb_conOutErr );
+#else
+         hb_verBuildInfoCB( hb_conOutStd );
+#endif
       }
 
       if( HB_COMP_PARAM->fCredits )
