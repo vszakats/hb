@@ -127,6 +127,7 @@ HB_CODESIGN_KEY="$(realpath './package')/vszakats.p12"
   fi
 )
 [ -f "${HB_CODESIGN_KEY}" ] || unset HB_CODESIGN_KEY
+which osslsigncode > /dev/null || unset HB_CODESIGN_KEY
 
 # mingw
 

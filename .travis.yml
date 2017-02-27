@@ -12,16 +12,38 @@ matrix:
       sudo: false
       compiler: clang
       env: HB_CI_THREADS=4
+      addons:
+        apt:
+          packages:
+            - clang-3.9
+          sources:
+            - llvm-toolchain-trusty-3.9
     - os: linux
       dist: trusty
       sudo: false
       compiler: gcc
       env: HB_CI_THREADS=4
+      addons:
+        apt:
+          packages:
+            - gcc-6
+            - g++-6
+          sources:
+            - ubuntu-toolchain-r-test
     - os: linux
       dist: trusty
       sudo: required
       compiler: i686-w64-mingw32-gcc
       env: HB_CI_THREADS=4
+      addons:
+        apt:
+          packages:
+            - binutils-mingw-w64
+            - gcc-mingw-w64
+            - p7zip-full
+            - gnupg-curl
+            - dos2unix
+            - realpath
     - os: osx
       osx_image: xcode8.2
       compiler: clang
@@ -32,13 +54,7 @@ matrix:
       env: HB_CI_THREADS=4
 addons:
   apt:
-    sources:
-      - llvm-toolchain-trusty-3.9
-      - ubuntu-toolchain-r-test
     packages:
-      - clang-3.9
-      - gcc-6
-      - g++-6
       - firebird2.5-dev
      #- libcairo2-dev
       - libcups2-dev
@@ -54,12 +70,6 @@ addons:
       - libpq-dev
      #- libslang2-dev
       - unixodbc-dev
-      - binutils-mingw-w64
-      - gcc-mingw-w64
-      - p7zip-full
-      - gnupg-curl
-      - dos2unix
-      - realpath
 before_install:
   - if [ "$TRAVIS_OS_NAME" = 'osx' ]; then
       brew update > /dev/null;
