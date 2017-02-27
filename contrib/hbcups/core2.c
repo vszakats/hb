@@ -92,6 +92,13 @@ static http_t * s_getHttpParam( int iParam )
          {
             const char * cVal = hb_itemGetCPtr( hb_hashGetCItemPtr( pHttp, "encryption" ) );
 
+            #if ! HB_CUPS_VERS( 1, 7, 0 )
+               #define HTTP_ENCRYPTION_IF_REQUESTED  HTTP_ENCRYPT_IF_REQUESTED
+               #define HTTP_ENCRYPTION_NEVER         HTTP_ENCRYPT_NEVER
+               #define HTTP_ENCRYPTION_REQUIRED      HTTP_ENCRYPT_REQUIRED
+               #define HTTP_ENCRYPTION_ALWAYS        HTTP_ENCRYPT_ALWAYS
+            #endif
+
             if( strcmp( cVal, "HTTP_ENCRYPTION_IF_REQUESTED" ) == 0 )
                encryption = HTTP_ENCRYPTION_IF_REQUESTED;
             else if( strcmp( cVal, "HTTP_ENCRYPTION_NEVER" ) == 0 )
