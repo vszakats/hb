@@ -955,50 +955,50 @@ ifeq ($(HB_COMPILER_VER),)
       ifeq ($(HB_COMP_PATH_VER_DET),)
          HB_COMP_PATH_VER_DET := $(HB_CCPREFIX)gcc$(HB_CCSUFFIX)
       endif
-      _C_VER := $(shell "$(HB_COMP_PATH_VER_DET)" -v 2>&1)
-      ifneq ($(findstring version 7.1.,$(_C_VER)),)
+      _C_VER := $(shell "$(HB_COMP_PATH_VER_DET)" -dumpversion 2>&1)
+      ifneq ($(findstring 7.1.,$(_C_VER)),)
          HB_COMPILER_VER := 0701
       else
-      ifneq ($(findstring version 6.3.,$(_C_VER)),)
+      ifneq ($(findstring 6.3.,$(_C_VER)),)
          HB_COMPILER_VER := 0603
       else
-      ifneq ($(findstring version 6.2.,$(_C_VER)),)
+      ifneq ($(findstring 6.2.,$(_C_VER)),)
          HB_COMPILER_VER := 0602
       else
-      ifneq ($(findstring version 6.1.,$(_C_VER)),)
+      ifneq ($(findstring 6.1.,$(_C_VER)),)
          HB_COMPILER_VER := 0601
       else
-      ifneq ($(findstring version 5.4.,$(_C_VER)),)
+      ifneq ($(findstring 5.4.,$(_C_VER)),)
          HB_COMPILER_VER := 0504
       else
-      ifneq ($(findstring version 5.3.,$(_C_VER)),)
+      ifneq ($(findstring 5.3.,$(_C_VER)),)
          HB_COMPILER_VER := 0503
       else
-      ifneq ($(findstring version 5.2.,$(_C_VER)),)
+      ifneq ($(findstring 5.2.,$(_C_VER)),)
          HB_COMPILER_VER := 0502
       else
-      ifneq ($(findstring version 5.1.,$(_C_VER)),)
+      ifneq ($(findstring 5.1.,$(_C_VER)),)
          HB_COMPILER_VER := 0501
       else
-      ifneq ($(findstring version 4.9.,$(_C_VER)),)
+      ifneq ($(findstring 4.9.,$(_C_VER)),)
          HB_COMPILER_VER := 0409
       else
-      ifneq ($(findstring version 4.8.,$(_C_VER)),)
+      ifneq ($(findstring 4.8.,$(_C_VER)),)
          HB_COMPILER_VER := 0408
       else
-      ifneq ($(findstring version 4.7.,$(_C_VER)),)
+      ifneq ($(findstring 4.7.,$(_C_VER)),)
          HB_COMPILER_VER := 0407
       else
-      ifneq ($(findstring version 4.6.,$(_C_VER)),)
+      ifneq ($(findstring 4.6.,$(_C_VER)),)
          HB_COMPILER_VER := 0406
       else
-      ifneq ($(findstring version 4.5.,$(_C_VER)),)
+      ifneq ($(findstring 4.5.,$(_C_VER)),)
          HB_COMPILER_VER := 0405
       else
-      ifneq ($(findstring version 4.4.,$(_C_VER)),)
+      ifneq ($(findstring 4.4.,$(_C_VER)),)
          HB_COMPILER_VER := 0404
       else
-      ifneq ($(findstring version 4.3.,$(_C_VER)),)
+      ifneq ($(findstring 4.3.,$(_C_VER)),)
          HB_COMPILER_VER := 0403
       else
          HB_COMPILER_VER := 0304

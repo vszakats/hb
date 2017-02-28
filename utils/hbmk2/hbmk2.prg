@@ -14287,10 +14287,10 @@ STATIC FUNCTION CompVersionDetect( hbmk, cPath_CompC )
       ENDIF
    CASE HBMK_ISCOMP( "gcc|gccarm|gccomf|mingw|mingw64|mingwarm|djgpp" )
       IF ! Empty( cPath_CompC )
-         hb_processRun( '"' + cPath_CompC + '"' + " " + "-v",, @cStdOutErr, @cStdOutErr )
+         hb_processRun( '"' + cPath_CompC + '"' + " " + "-dumpversion",, @cStdOutErr, @cStdOutErr )
          tmp := hb_cdpSelect( "cp437" )
-         IF ( tmp1 := hb_AtX( R_( "version ([0-9]*)\.([0-9]*)\.([0-9]*)" ), cStdOutErr ) ) != NIL
-            tmp1 := hb_ATokens( SubStr( tmp1, Len( "version " ) + 1 ), "." )
+         IF ( tmp1 := hb_AtX( R_( "([0-9]*)\.([0-9]*)\.([0-9]*)" ), cStdOutErr ) ) != NIL
+            tmp1 := hb_ATokens( tmp1, "." )
             nVer := Val( StrZero( Val( tmp1[ 1 ] ), 2 ) + StrZero( Val( tmp1[ 2 ] ), 2 ) )
          ELSE
             nVer := 0304
