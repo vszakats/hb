@@ -198,12 +198,12 @@ if [ "${_BRANC4}" != 'msvc' ]; then
   export HB_CCPREFIX="${HB_PFX_MINGW_32}"
   [ "${HB_BUILD_MODE}" != 'cpp' ] && export HB_USER_CFLAGS="${HB_USER_CFLAGS} -fno-asynchronous-unwind-tables"
   [ "${os}" = 'win' ] && export PATH="${HB_DIR_MINGW_32}:${_ori_path}"
+  ${HB_CCPREFIX}gcc -v 2> "${_build_info_32}"
   if which osslsigncode > /dev/null 2>&1; then
     export HB_CODESIGN_KEY="${CODESIGN_KEY}"
   else
     unset HB_CODESIGN_KEY
   fi
-  ${HB_CCPREFIX}gcc -v 2> "${_build_info_32}"
   # shellcheck disable=SC2086
   ${_bin_make} install ${HB_MKFLAGS} HB_COMPILER=mingw HB_CPU=x86 || exit 1
 
@@ -223,12 +223,12 @@ if [ "${_BRANC4}" != 'msvc' ]; then
   export HB_USER_CFLAGS="${_HB_USER_CFLAGS}"
   export HB_CCPREFIX="${HB_PFX_MINGW_64}"
   [ "${os}" = 'win' ] && export PATH="${HB_DIR_MINGW_64}:${_ori_path}"
+  ${HB_CCPREFIX}gcc -v 2> "${_build_info_64}"
   if which osslsigncode > /dev/null 2>&1; then
     export HB_CODESIGN_KEY="${CODESIGN_KEY}"
   else
     unset HB_CODESIGN_KEY
   fi
-  ${HB_CCPREFIX}gcc -v 2> "${_build_info_64}"
   # shellcheck disable=SC2086
   ${_bin_make} install ${HB_MKFLAGS} HB_COMPILER=mingw64 HB_CPU=x86_64 || exit 1
 fi
