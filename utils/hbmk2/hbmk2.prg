@@ -532,7 +532,7 @@ EXTERNAL hbmk_KEYW
 #define _HBMK_lStopAfterInit    132
 #define _HBMK_lStopAfterHarbour 133
 
-#define _HBMK_nCOMPVer          134
+#define _HBMK_cCOMPVer          134
 #define _HBMK_lDEPIMPLIB        135  /* Generate import libs configured in dependecy specification */
 #define _HBMK_lInstForce        136  /* Force to install target even if was up to date */
 #define _HBMK_lAutoHBM          137  /* Toggles processing of '_HBMK_AUTOHBM_NAME' file in current directory */
@@ -2095,9 +2095,9 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
 #if 1
    IF ! ( tmp := GetEnv( "_HB_COMPILER_VER" ) ) == "" .AND. Len( tmp ) != 4
       _hbmk_OutErr( hbmk, hb_StrFormat( I_( "Warning: Invalid _HB_COMPILER_VER value '%1$s' ignored. Format should be: <MMmm>, where <MM> is major version and <mm> is minor version." ), tmp ) )
-      hbmk[ _HBMK_nCOMPVer ] := 0
+      hbmk[ _HBMK_cCOMPVer ] := "0"
    ELSE
-      hbmk[ _HBMK_nCOMPVer ] := Val( tmp )
+      hbmk[ _HBMK_cCOMPVer ] := tmp
    ENDIF
 #endif
 
@@ -2646,11 +2646,11 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
 
    /* Detect compiler version (where applicable) */
 
-   IF hbmk[ _HBMK_nCOMPVer ] == 0
+   IF hbmk[ _HBMK_cCOMPVer ] == "0"
       IF hbmk[ _HBMK_cCOMP ] == "msvc64"
          cPath_CompC := StrTran( cPath_CompC, "ml64.exe", "cl.exe" )
       ENDIF
-      hbmk[ _HBMK_nCOMPVer ] := CompVersionDetect( hbmk, cPath_CompC )
+      hbmk[ _HBMK_cCOMPVer ] := CompVersionDetect( hbmk, cPath_CompC )
    ENDIF
 
    /* Finish detecting bin/lib/include dirs */
@@ -2688,8 +2688,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          ELSE
             _hbmk_OutStd( hbmk, hb_StrFormat( I_( "Using C compiler: %1$s [%2$s...%3$s]" ), cPath_CompC, hbmk[ _HBMK_cCCPREFIX ], hbmk[ _HBMK_cCCSUFFIX ] ) )
          ENDIF
-         IF hbmk[ _HBMK_nCOMPVer ] != 0
-            _hbmk_OutStd( hbmk, hb_StrFormat( I_( "Using C compiler version: %1$s" ), StrZero( hbmk[ _HBMK_nCOMPVer ], 4, 0 ) ) )
+         IF ! hbmk[ _HBMK_cCOMPVer ] == "0"
+            _hbmk_OutStd( hbmk, hb_StrFormat( I_( "Using C compiler version: %1$s" ), hbmk[ _HBMK_cCOMPVer ] ) )
          ENDIF
       ENDIF
    ENDIF
@@ -4483,21 +4483,21 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             cBin_CompCPP := hbmk[ _HBMK_cCCPREFIX ] + "g++" + hbmk[ _HBMK_cCCSUFFIX ]
             cBin_CompC := iif( hbmk[ _HBMK_lCPP ] != NIL .AND. hbmk[ _HBMK_lCPP ], cBin_CompCPP, hbmk[ _HBMK_cCCPREFIX ] + "gcc" + hbmk[ _HBMK_cCCSUFFIX ] )
          ENDCASE
-         IF hbmk[ _HBMK_nCOMPVer ] == 0
-            hbmk[ _HBMK_nCOMPVer ] := CompVersionDetect( hbmk, cBin_CompC )
+         IF hbmk[ _HBMK_cCOMPVer ] == "0"
+            hbmk[ _HBMK_cCOMPVer ] := CompVersionDetect( hbmk, cBin_CompC )
          ENDIF
          IF hbmk[ _HBMK_lHARDEN ]
 #if 0
-            IF hbmk[ _HBMK_nCOMPVer ] >= 0400
+            IF hbmk[ _HBMK_cCOMPVer ] >= "0400"
                AAdd( hbmk[ _HBMK_aOPTC ], "-D_FORTIFY_SOURCE=2" )
             ENDIF
 #endif
             IF hbmk[ _HBMK_cCOMP ] == "gcc"
                /* EXPERIMENTAL */
                DO CASE
-               CASE hbmk[ _HBMK_nCOMPVer ] >= 0409
+               CASE hbmk[ _HBMK_cCOMPVer ] >= "0409"
                   AAdd( hbmk[ _HBMK_aOPTC ], "-fstack-protector-strong" )
-               CASE hbmk[ _HBMK_nCOMPVer ] >= 0401
+               CASE hbmk[ _HBMK_cCOMPVer ] >= "0401"
 #if 0
                   /* too slow */
                   AAdd( hbmk[ _HBMK_aOPTC ], "-fstack-protector-all" )
@@ -4510,7 +4510,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          cOpt_CompC := "-c"
          IF hbmk[ _HBMK_lOPTIM ]
             cOpt_CompC += " -O3"
-            IF hbmk[ _HBMK_nCOMPVer ] < 0406 .AND. ;
+            IF hbmk[ _HBMK_cCOMPVer ] < "0406" .AND. ;
                ! hbmk[ _HBMK_lDEBUG ] .AND. hbmk[ _HBMK_cPLAT ] == "cygwin"
                cOpt_CompC += " -fomit-frame-pointer"
             ENDIF
@@ -4537,15 +4537,15 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
                   AAdd( hbmk[ _HBMK_aOPTC ], "-Wno-disabled-macro-expansion -Wno-undef -Wno-unused-macros -Wno-variadic-macros -Wno-documentation" )
                   AAdd( hbmk[ _HBMK_aOPTC ], "-Wno-switch-enum" )
                   IF iif( hbmk[ _HBMK_cPLAT ] == "darwin", ;
-                        hbmk[ _HBMK_nCOMPVer ] >= 0307, ;
-                        hbmk[ _HBMK_nCOMPVer ] >= 0306 )
+                        hbmk[ _HBMK_cCOMPVer ] >= "0307", ;
+                        hbmk[ _HBMK_cCOMPVer ] >= "0306" )
                      AAdd( hbmk[ _HBMK_aOPTC ], "-Wno-reserved-id-macro" )
                   ENDIF
                   AAdd( hbmk[ _HBMK_aOPTC ], "-Wno-sign-conversion -Wno-shorten-64-to-32 -Wno-conversion -Wno-bad-function-cast" )
                   AAdd( hbmk[ _HBMK_aOPTC ], "-Wno-empty-translation-unit" )
                ELSE
                   AAdd( hbmk[ _HBMK_aOPTC ], "-W -Wall" )
-                  IF hbmk[ _HBMK_nCOMPVer ] >= 0601
+                  IF hbmk[ _HBMK_cCOMPVer ] >= "0601"
                      AAdd( hbmk[ _HBMK_aOPTC ], "-Wlogical-op -Wduplicated-cond -Wshift-negative-value -Wnull-dereference" )
                   ENDIF
                ENDIF
@@ -4875,7 +4875,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          cOpt_CompC := "-c"
          IF hbmk[ _HBMK_lOPTIM ]
             cOpt_CompC += " -O3 -fno-ident"
-            IF hbmk[ _HBMK_nCOMPVer ] < 0406 .AND. ;
+            IF hbmk[ _HBMK_cCOMPVer ] < "0406" .AND. ;
                ! hbmk[ _HBMK_lDEBUG ] .AND. ! hbmk[ _HBMK_cCOMP ] == "mingw64"
                cOpt_CompC += " -fomit-frame-pointer"
             ENDIF
@@ -4884,7 +4884,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          CASE _WARN_MAX ; AAdd( hbmk[ _HBMK_aOPTC ], "-W -Wall -pedantic" ) ; EXIT
          CASE _WARN_YES
             AAdd( hbmk[ _HBMK_aOPTC ], "-W -Wall" )
-            IF hbmk[ _HBMK_nCOMPVer ] >= 0601
+            IF hbmk[ _HBMK_cCOMPVer ] >= "0601"
                AAdd( hbmk[ _HBMK_aOPTC ], "-Wlogical-op -Wduplicated-cond -Wshift-negative-value -Wnull-dereference" )
             ENDIF
             EXIT
@@ -4918,17 +4918,17 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             IF hbmk[ _HBMK_cPLAT ] == "win"
 #if 0
                /* Enable this, once better than a no-op */
-               IF hbmk[ _HBMK_nCOMPVer ] >= 0400
+               IF hbmk[ _HBMK_cCOMPVer ] >= "0400"
                   AAdd( hbmk[ _HBMK_aOPTC ], "-D_FORTIFY_SOURCE=2" )
                ENDIF
 #endif
                DO CASE
-               CASE hbmk[ _HBMK_nCOMPVer ] >= 0409
+               CASE hbmk[ _HBMK_cCOMPVer ] >= "0409"
 #if 0
                   AAdd( hbmk[ _HBMK_aOPTC ], "-fstack-protector-strong" )
                   AAdd( l_aLIBSYS, "ssp" )
 #endif
-               CASE hbmk[ _HBMK_nCOMPVer ] >= 0401
+               CASE hbmk[ _HBMK_cCOMPVer ] >= "0401"
 #if 0
                   /* too slow */
                   AAdd( hbmk[ _HBMK_aOPTC ], "-fstack-protector-all" )
@@ -4940,7 +4940,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
                /* It is also supported by official mingw 4.4.x and mingw64 4.4.x,
                   but not supported by mingw tdm 4.4.x, so I only enable it on or
                   above 4.5.0 [vszakats] */
-               IF hbmk[ _HBMK_nCOMPVer ] > 0404
+               IF hbmk[ _HBMK_cCOMPVer ] > "0404"
                   AAdd( hbmk[ _HBMK_aOPTL ], "-Wl,--nxcompat" )
                   AAdd( hbmk[ _HBMK_aOPTL ], "-Wl,--dynamicbase" )
                   AAdd( hbmk[ _HBMK_aOPTD ], "-Wl,--nxcompat" )
@@ -4954,7 +4954,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
                   ELSE
                      AAdd( hbmk[ _HBMK_aOPTL ], "-Wl,--pic-executable,-e,_mainCRTStartup" )
                   ENDIF
-                  IF hbmk[ _HBMK_nCOMPVer ] >= 0500  /* binutils 2.25 */
+                  IF hbmk[ _HBMK_cCOMPVer ] >= "0500"  /* binutils 2.25 */
                      IF hbmk[ _HBMK_cCOMP ] == "mingw64"
                         AAdd( hbmk[ _HBMK_aOPTL ], "-Wl,--high-entropy-va" )
                         AAdd( hbmk[ _HBMK_aOPTD ], "-Wl,--high-entropy-va" )
@@ -4984,7 +4984,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
 #endif
                   ENDIF
                ENDIF
-               IF hbmk[ _HBMK_nCOMPVer ] > 0405  /* binutils 2.20 */
+               IF hbmk[ _HBMK_cCOMPVer ] > "0405"  /* binutils 2.20 */
                   AAdd( hbmk[ _HBMK_aOPTA ], "-D" )
                ENDIF
             ENDIF
@@ -5151,8 +5151,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          cObjExt := ".o"
          cBin_CompCPP := hbmk[ _HBMK_cCCPREFIX ] + "g++" + hbmk[ _HBMK_cCCSUFFIX ] + hbmk[ _HBMK_cCCEXT ]
          cBin_CompC := iif( hbmk[ _HBMK_lCPP ] != NIL .AND. hbmk[ _HBMK_lCPP ], cBin_CompCPP, hbmk[ _HBMK_cCCPREFIX ] + "gcc" + hbmk[ _HBMK_cCCSUFFIX ] + hbmk[ _HBMK_cCCEXT ] )
-         IF hbmk[ _HBMK_nCOMPVer ] == 0
-            hbmk[ _HBMK_nCOMPVer ] := CompVersionDetect( hbmk, cBin_CompC )
+         IF hbmk[ _HBMK_cCOMPVer ] == "0"
+            hbmk[ _HBMK_cCOMPVer ] := CompVersionDetect( hbmk, cBin_CompC )
          ENDIF
          cOpt_CompC := "-c"
          IF hbmk[ _HBMK_lSTATICFULL ]
@@ -5795,7 +5795,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          ELSE
             cBin_Lib := "lib.exe"
             DO CASE
-            CASE hbmk[ _HBMK_cCOMP ] == "msvcarm" .AND. ( hbmk[ _HBMK_nCOMPVer ] != 0 .AND. hbmk[ _HBMK_nCOMPVer ] < 1400 )
+            CASE hbmk[ _HBMK_cCOMP ] == "msvcarm" .AND. ( ! hbmk[ _HBMK_cCOMPVer ] == "0" .AND. hbmk[ _HBMK_cCOMPVer ] < "1400" )
                cBin_CompC := "clarm.exe"
             CASE hbmk[ _HBMK_cCOMP ] == "clang"
                cBin_CompC := "clang-cl.exe"
@@ -5815,13 +5815,13 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          cLibHBX_Regex := R_( "SECT[0-9A-Z][0-9A-Z ].*[Ee]xternal.*_?HB_FUN_([A-Z0-9_]*)[\s]" )
          IF hbmk[ _HBMK_lOPTIM ]
             IF hbmk[ _HBMK_cPLAT ] == "wce"
-               IF hbmk[ _HBMK_nCOMPVer ] != 0 .AND. hbmk[ _HBMK_nCOMPVer ] < 1400
+               IF ! hbmk[ _HBMK_cCOMPVer ] == "0" .AND. hbmk[ _HBMK_cCOMPVer ] < "1400"
                   cOpt_CompC += " -Oxsb1 -GF"
                ELSE
                   cOpt_CompC += " -Os -Gy"
                ENDIF
             ELSE
-               IF hbmk[ _HBMK_nCOMPVer ] != 0 .AND. hbmk[ _HBMK_nCOMPVer ] < 1400
+               IF ! hbmk[ _HBMK_cCOMPVer ] == "0" .AND. hbmk[ _HBMK_cCOMPVer ] < "1400"
                   cOpt_CompC += " -Ogt2yb1p -GX- -G6"
                ELSE
                   cOpt_CompC += " -O2"
@@ -5829,7 +5829,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             ENDIF
          ENDIF
          IF hbmk[ _HBMK_cPLAT ] == "win"
-            IF hbmk[ _HBMK_nCOMPVer ] != 0 .AND. hbmk[ _HBMK_nCOMPVer ] < 1400
+            IF ! hbmk[ _HBMK_cCOMPVer ] == "0" .AND. hbmk[ _HBMK_cCOMPVer ] < "1400"
                IF hbmk[ _HBMK_lDEBUG ]
                   AAdd( hbmk[ _HBMK_aOPTC ], "-MTd" )
                ELSE
@@ -5848,7 +5848,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             SWITCH hbmk[ _HBMK_nWARN ]
             CASE _WARN_MAX ; AAdd( hbmk[ _HBMK_aOPTC ], "-W4" ) ; EXIT
             CASE _WARN_YES
-               IF hbmk[ _HBMK_cCOMP ] == "msvcarm" .AND. hbmk[ _HBMK_nCOMPVer ] != 0 .AND. hbmk[ _HBMK_nCOMPVer ] < 1400
+               IF hbmk[ _HBMK_cCOMP ] == "msvcarm" .AND. ! hbmk[ _HBMK_cCOMPVer ] == "0" .AND. hbmk[ _HBMK_cCOMPVer ] < "1400"
                   /* Lowered warning level to avoid large amount of warnings in system headers.
                      Maybe this is related to the msvc2003 kit I was using. [vszakats] */
                   AAdd( hbmk[ _HBMK_aOPTC ], "-W3" )
@@ -5873,13 +5873,13 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             IF hbmk[ _HBMK_cPLAT ] == "win"
                /* MSVS 2005 SP1 also supports it, but we only enable it
                   for 2008 and upper [vszakats] */
-               IF hbmk[ _HBMK_nCOMPVer ] > 1400
+               IF hbmk[ _HBMK_cCOMPVer ] > "1400"
                   AAdd( hbmk[ _HBMK_aOPTL ], "-nxcompat" )
                   AAdd( hbmk[ _HBMK_aOPTL ], "-dynamicbase" )
                   AAdd( hbmk[ _HBMK_aOPTL ], "-fixed:no" )  /* is this useful? */
                   AAdd( hbmk[ _HBMK_aOPTD ], "-nxcompat" )
                   AAdd( hbmk[ _HBMK_aOPTD ], "-dynamicbase" )
-                  IF hbmk[ _HBMK_nCOMPVer ] >= 1700 .AND. HBMK_ISCOMP( "msvc64|msvcia64|iccia64" )
+                  IF hbmk[ _HBMK_cCOMPVer ] >= "1700" .AND. HBMK_ISCOMP( "msvc64|msvcia64|iccia64" )
                      AAdd( hbmk[ _HBMK_aOPTL ], "-highentropyva" )
                      AAdd( hbmk[ _HBMK_aOPTD ], "-highentropyva" )
                   ENDIF
@@ -5929,7 +5929,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             AAdd( hbmk[ _HBMK_aOPTD ], "-subsystem:windowsce" )
             AAdd( hbmk[ _HBMK_aOPTL ], "-nodefaultlib:oldnames.lib" )
             AAdd( hbmk[ _HBMK_aOPTD ], "-nodefaultlib:oldnames.lib" )
-            IF hbmk[ _HBMK_nCOMPVer ] >= 1400
+            IF hbmk[ _HBMK_cCOMPVer ] >= "1400"
                AAdd( hbmk[ _HBMK_aOPTL ], "-manifest:no" )
             ENDIF
             IF hbmk[ _HBMK_cCOMP ] == "msvcarm"
@@ -6075,11 +6075,11 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
 #endif
          IF hbmk[ _HBMK_lHARDEN ]
             IF hbmk[ _HBMK_cPLAT ] == "win"
-               IF hbmk[ _HBMK_nCOMPVer ] >= 0500
+               IF hbmk[ _HBMK_cCOMPVer ] >= "0500"
                   AAdd( hbmk[ _HBMK_aOPTD ], "-nxcompat" )
                   AAdd( hbmk[ _HBMK_aOPTL ], "-nxcompat" )
                ENDIF
-               IF hbmk[ _HBMK_nCOMPVer ] >= 0800
+               IF hbmk[ _HBMK_cCOMPVer ] >= "0800"
                   AAdd( hbmk[ _HBMK_aOPTL ], "-dynamicbase" )
                   AAdd( hbmk[ _HBMK_aOPTL ], "-fixed:no" )  /* is this useful? */
                   AAdd( hbmk[ _HBMK_aOPTD ], "-dynamicbase" )
@@ -8298,7 +8298,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             ENDIF
             IF ! Empty( l_aOBJ )
                AEval( l_aOBJ, {| tmp | hb_vfErase( tmp ) } )
-               IF HBMK_ISCOMP( "msvc|msvc64|msvcia64" ) .AND. hbmk[ _HBMK_nCOMPVer ] >= 1600
+               IF HBMK_ISCOMP( "msvc|msvc64|msvcia64" ) .AND. hbmk[ _HBMK_cCOMPVer ] >= "1600"
                   /* delete msvc code analysis outputs */
                   AEval( l_aOBJ, {| tmp | hb_vfErase( hb_FNameExtSet( tmp, ".nativecodeanalysis.xml" ) ) } )
                ENDIF
@@ -10935,37 +10935,38 @@ STATIC FUNCTION hbmk_SecToken()
 
 STATIC FUNCTION PlugIn_make_ctx( hbmk, cState, hVars )
    RETURN { ;
-      "apiver"        => _HBMK_PLUGIN_APIVER        , ;
-      "cSTATE"        => cState                     , ;
-      "params"        => hbmk[ _HBMK_aPLUGINPars ]  , ;
-      "vars"          => hVars                      , ;
-      "cPLAT"         => hbmk[ _HBMK_cPLAT ]        , ;
-      "cCOMP"         => hbmk[ _HBMK_cCOMP ]        , ;
-      "nCOMPVer"      => hbmk[ _HBMK_nCOMPVer ]     , ;
-      "cCPU"          => hbmk[ _HBMK_cCPU ]         , ;
-      "cBUILD"        => hbmk[ _HBMK_cBUILD ]       , ;
-      "cOUTPUTNAME"   => hbmk[ _HBMK_cPROGNAME ]    , ;
-      "cTARGETNAME"   => hbmk_TARGETNAME( hbmk )    , ;
-      "cTARGETTYPE"   => hbmk_TARGETTYPE( hbmk )    , ;
-      "lREBUILD"      => hbmk[ _HBMK_lREBUILD ]     , ;
-      "lCLEAN"        => hbmk[ _HBMK_lCLEAN ]       , ;
-      "lDEBUG"        => hbmk[ _HBMK_lDEBUG ]       , ;
-      "lMAP"          => hbmk[ _HBMK_lMAP ]         , ;
-      "lSTRIP"        => hbmk[ _HBMK_lSTRIP ]       , ;
-      "lDONTEXEC"     => hbmk[ _HBMK_lDONTEXEC ]    , ;
-      "lIGNOREERROR"  => hbmk[ _HBMK_lIGNOREERROR ] , ;
-      "lTRACE"        => hbmk[ _HBMK_lTRACE ]       , ;
-      "lQUIET"        => hbmk[ _HBMK_lQuiet ]       , ;
-      "lINFO"         => hbmk[ _HBMK_lInfo ]        , ;
-      "lBEEP"         => hbmk[ _HBMK_lBEEP ]        , ;
-      "lRUN"          => hbmk[ _HBMK_lRUN ]         , ;
-      "lINC"          => hbmk[ _HBMK_lINC ]         , ;
-      "cCCPATH"       => hbmk[ _HBMK_cCCPATH ]      , ;
-      "cCCPREFIX"     => hbmk[ _HBMK_cCCPREFIX ]    , ;
-      "cCCSUFFIX"     => hbmk[ _HBMK_cCCSUFFIX ]    , ;
-      "cCCEXT"        => hbmk[ _HBMK_cCCEXT ]       , ;
-      "cWorkDir"      => hbmk[ _HBMK_cWorkDir ]     , ;
-      "nExitCode"     => hbmk[ _HBMK_nExitCode ]    , ;
+      "apiver"        => _HBMK_PLUGIN_APIVER          , ;
+      "cSTATE"        => cState                       , ;
+      "params"        => hbmk[ _HBMK_aPLUGINPars ]    , ;
+      "vars"          => hVars                        , ;
+      "cPLAT"         => hbmk[ _HBMK_cPLAT ]          , ;
+      "cCOMP"         => hbmk[ _HBMK_cCOMP ]          , ;
+      "cCOMPVer"      => hbmk[ _HBMK_cCOMPVer ]       , ;
+      "nCOMPVer"      => Val( hbmk[ _HBMK_cCOMPVer ] ), ;  /* compatibility */
+      "cCPU"          => hbmk[ _HBMK_cCPU ]           , ;
+      "cBUILD"        => hbmk[ _HBMK_cBUILD ]         , ;
+      "cOUTPUTNAME"   => hbmk[ _HBMK_cPROGNAME ]      , ;
+      "cTARGETNAME"   => hbmk_TARGETNAME( hbmk )      , ;
+      "cTARGETTYPE"   => hbmk_TARGETTYPE( hbmk )      , ;
+      "lREBUILD"      => hbmk[ _HBMK_lREBUILD ]       , ;
+      "lCLEAN"        => hbmk[ _HBMK_lCLEAN ]         , ;
+      "lDEBUG"        => hbmk[ _HBMK_lDEBUG ]         , ;
+      "lMAP"          => hbmk[ _HBMK_lMAP ]           , ;
+      "lSTRIP"        => hbmk[ _HBMK_lSTRIP ]         , ;
+      "lDONTEXEC"     => hbmk[ _HBMK_lDONTEXEC ]      , ;
+      "lIGNOREERROR"  => hbmk[ _HBMK_lIGNOREERROR ]   , ;
+      "lTRACE"        => hbmk[ _HBMK_lTRACE ]         , ;
+      "lQUIET"        => hbmk[ _HBMK_lQuiet ]         , ;
+      "lINFO"         => hbmk[ _HBMK_lInfo ]          , ;
+      "lBEEP"         => hbmk[ _HBMK_lBEEP ]          , ;
+      "lRUN"          => hbmk[ _HBMK_lRUN ]           , ;
+      "lINC"          => hbmk[ _HBMK_lINC ]           , ;
+      "cCCPATH"       => hbmk[ _HBMK_cCCPATH ]        , ;
+      "cCCPREFIX"     => hbmk[ _HBMK_cCCPREFIX ]      , ;
+      "cCCSUFFIX"     => hbmk[ _HBMK_cCCSUFFIX ]      , ;
+      "cCCEXT"        => hbmk[ _HBMK_cCCEXT ]         , ;
+      "cWorkDir"      => hbmk[ _HBMK_cWorkDir ]       , ;
+      "nExitCode"     => hbmk[ _HBMK_nExitCode ]      , ;
       hbmk_SecToken() => hbmk }
 
 STATIC FUNCTION PlugIn_ctx_get_state( ctx )
@@ -12932,7 +12933,7 @@ STATIC FUNCTION MacroGet( hbmk, cMacro, cFileName )
 #endif
       cMacro := hbmk[ _HBMK_cCOMP ] ; EXIT
    CASE "hb_comp_ver"
-      cMacro := hb_ntos( hbmk[ _HBMK_nCOMPVer ] ) ; EXIT
+      cMacro := hbmk[ _HBMK_cCOMPVer ] ; EXIT
    CASE "hb_build"
       cMacro := hbmk[ _HBMK_cBUILD ] ; EXIT
    CASE "hb_cpu"
@@ -14261,7 +14262,7 @@ STATIC FUNCTION win_implib_command_msvc( hbmk, cCommand, cSourceDLL, cTargetLib,
 
 STATIC FUNCTION CompVersionDetect( hbmk, cPath_CompC )
 
-   LOCAL nVer
+   LOCAL cVer
    LOCAL cStdOutErr
    LOCAL tmp, tmp1
 
@@ -14272,15 +14273,15 @@ STATIC FUNCTION CompVersionDetect( hbmk, cPath_CompC )
          tmp := hb_cdpSelect( "cp437" )
          IF ( tmp1 := hb_AtX( R_( "Version ([0-9]*)\.([0-9]*)\." ), cStdOutErr ) ) != NIL
             tmp1 := hb_ATokens( SubStr( tmp1, Len( "Version " ) + 1 ), "." )
-            nVer := Val( StrZero( Val( tmp1[ 1 ] ), 2 ) + StrZero( Val( tmp1[ 2 ] ), 2 ) )
+            cVer := StrZero( Val( tmp1[ 1 ] ), 2 ) + StrZero( Val( tmp1[ 2 ] ), 2 )
          ELSE
             DO CASE
             CASE HBMK_ISCOMP( "pocc|pocc64|poccarm" )
-               nVer := 0450
+               cVer := "0450"
             CASE hbmk[ _HBMK_cCOMP ] == "msvcarm" .AND. "clarm.exe" $ cPath_CompC
-               nVer := 1310
+               cVer := "1310"
             OTHERWISE
-               nVer := 1400
+               cVer := "1400"
             ENDCASE
          ENDIF
          hb_cdpSelect( tmp )
@@ -14291,9 +14292,9 @@ STATIC FUNCTION CompVersionDetect( hbmk, cPath_CompC )
          tmp := hb_cdpSelect( "cp437" )
          IF ( tmp1 := hb_AtX( R_( "([0-9]*)\.([0-9]*)\.([0-9]*)" ), cStdOutErr ) ) != NIL
             tmp1 := hb_ATokens( tmp1, "." )
-            nVer := Val( StrZero( Val( tmp1[ 1 ] ), 2 ) + StrZero( Val( tmp1[ 2 ] ), 2 ) )
+            cVer := StrZero( Val( tmp1[ 1 ] ), 2 ) + StrZero( Val( tmp1[ 2 ] ), 2 )
          ELSE
-            nVer := 0304
+            cVer := "0304"
          ENDIF
          hb_cdpSelect( tmp )
       ENDIF
@@ -14304,10 +14305,10 @@ STATIC FUNCTION CompVersionDetect( hbmk, cPath_CompC )
          DO CASE
          CASE ( tmp1 := hb_AtX( R_( "based on LLVM [0-9]*\.[0-9]*(\.[0-9]*)?" ), cStdOutErr ) ) != NIL
             tmp1 := hb_ATokens( SubStr( tmp1, Len( "based on LLVM " ) + 1 ), "." )
-            nVer := Val( StrZero( Val( tmp1[ 1 ] ), 2 ) + StrZero( Val( tmp1[ 2 ] ), 2 ) )
+            cVer := StrZero( Val( tmp1[ 1 ] ), 2 ) + StrZero( Val( tmp1[ 2 ] ), 2 )
          CASE ( tmp1 := hb_AtX( R_( "Apple LLVM version [0-9]*\.[0-9]*\.[0-9]*" ), cStdOutErr ) ) != NIL
             tmp1 := hb_ATokens( SubStr( tmp1, Len( "Apple LLVM version " ) + 1 ), "." )
-            nVer := Val( StrZero( Val( tmp1[ 1 ] ), 2 ) + StrZero( Val( tmp1[ 2 ] ), 2 ) )
+            cVer := StrZero( Val( tmp1[ 1 ] ), 2 ) + StrZero( Val( tmp1[ 2 ] ), 2 )
 
             /* Apple clang version vs. official LLVM/clang version:
                  https://opensource.apple.com/source/clang/ -> clang-<version>/src/CMakeLists.txt
@@ -14316,25 +14317,21 @@ STATIC FUNCTION CompVersionDetect( hbmk, cPath_CompC )
               [vszakats] */
 
             DO CASE
-            CASE nVer == 700 ; nVer := 0307
-            CASE nVer == 730 ; nVer := 0308
-            CASE nVer == 800 ; nVer := 0309  /* guess right after WWDC2016 */
+            CASE cVer == "0700" ; cVer := "0307"
+            CASE cVer == "0730" ; cVer := "0308"
+            CASE cVer == "0800" ; cVer := "0309"  /* guess right after WWDC2016 */
             ENDCASE
          CASE ( tmp1 := hb_AtX( R_( "version [0-9]*\.[0-9]*\.[0-9]*" ), cStdOutErr ) ) != NIL
             tmp1 := hb_ATokens( SubStr( tmp1, Len( "version " ) + 1 ), "." )
-            nVer := Val( StrZero( Val( tmp1[ 1 ] ), 2 ) + StrZero( Val( tmp1[ 2 ] ), 2 ) )
+            cVer := StrZero( Val( tmp1[ 1 ] ), 2 ) + StrZero( Val( tmp1[ 2 ] ), 2 )
          OTHERWISE
-            nVer := 0100
+            cVer := "0100"
          ENDCASE
          hb_cdpSelect( tmp )
       ENDIF
    ENDCASE
 
-   IF nVer == NIL
-      nVer := 0
-   ENDIF
-
-   RETURN nVer
+   RETURN hb_defaultValue( cVer, "0" )
 
 STATIC FUNCTION msvc_rc_nologo_support( hbmk, cPath )
 
@@ -18526,7 +18523,7 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
       { "${hb_targettype}"     , I_( "type of the project (hbexe, hblib, hbdyn, hbdynvm, hbimplib, hbppo, hbhrb, hbcontainer)" ) }, ;
       { "${hb_plat}"           , I_( "selected platform" ) }, ;
       { "${hb_comp}"           , I_( "selected C compiler" ) }, ;
-      { "${hb_comp_ver}"       , I_( "C compiler version" ) }, ;
+      { "${hb_comp_ver}"       , I_( "C compiler version. Caveat: Returns '0' on *nix systems, because at macro evaluation time the C compiler version is not queried yet." ) }, ;
       { "${hb_build}"          , I_( "build name" ) }, ;
       { "${hb_cpu}"            , I_( "selected CPU" ) }, ;
       { "${hb_work}"           , I_( "default base workdir name" ) }, ;
@@ -18765,7 +18762,8 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
       { '"vars"'         , I_( "hash of plugin custom variables. Writable, local to each plugin" ) }, ;
       { '"cPLAT"'        , hb_StrFormat( I_( "%1$s value" ), "-plat" ) }, ;
       { '"cCOMP"'        , hb_StrFormat( I_( "%1$s value" ), "-comp" ) }, ;
-      { '"nCOMPVer"'     , I_( "detected compiler version in <MMmm> format" ) }, ;
+      { '"cCOMPVer"'     , I_( "detected compiler version in <MMmm> format (and '0' if undetermined)" ) }, ;
+      { '"nCOMPVer"'     , I_( "detected compiler version as a number: <major> * 100 + <minor> (deprecated)" ) }, ;
       { '"cCPU"'         , hb_StrFormat( I_( "%1$s value" ), "-cpu" )    }, ;
       { '"cBUILD"'       , hb_StrFormat( I_( "%1$s value" ), "-build=" ) }, ;
       { '"cOUTPUTNAME"'  , hb_StrFormat( I_( "%1$s value" ), "-o" )      }, ;
