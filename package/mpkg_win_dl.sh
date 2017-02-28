@@ -55,8 +55,8 @@ set | grep '_VER='
 # Quit if any of the lines fail
 set -e
 
-alias curl='curl -fsS --connect-timeout 10 --retry 3'
-alias gpg='gpg --batch --keyserver-options timeout=10 --keyid-format LONG'
+alias curl='curl -fsS --connect-timeout 15 --retry 3'
+alias gpg='gpg --batch --keyserver-options timeout=15 --keyid-format LONG'
 
 gpg_recv_keys() {
   if ! gpg --keyserver hkps://pgp.mit.edu --recv-keys "$@"; then
