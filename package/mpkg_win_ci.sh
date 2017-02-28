@@ -118,16 +118,14 @@ export HB_BUILD_POSTRUN='"./hbmk2 --version" "./hbrun --version" "./hbtest -noen
 
 # decrypt code signing key
 
-export HB_CODESIGN_KEY=
-HB_CODESIGN_KEY="$(realpath './package')/vszakats.p12"
+CODESIGN_KEY="$(realpath './package')/vszakats.p12"
 (
   set +x
   if [ -n "${HB_CODESIGN_GPG_PASS}" ]; then
-    gpg --batch --passphrase "${HB_CODESIGN_GPG_PASS}" -o "${HB_CODESIGN_KEY}" -d "${HB_CODESIGN_KEY}.asc"
+    gpg --batch --passphrase "${HB_CODESIGN_GPG_PASS}" -o "${CODESIGN_KEY}" -d "${CODESIGN_KEY}.asc"
   fi
 )
-[ -f "${HB_CODESIGN_KEY}" ] || unset HB_CODESIGN_KEY
-which osslsigncode > /dev/null || unset HB_CODESIGN_KEY
+[ -f "${CODESIGN_KEY}" ] || unset CODESIGN_KEY
 
 # mingw
 
@@ -200,6 +198,11 @@ if [ "${_BRANC4}" != 'msvc' ]; then
   export HB_CCPREFIX="${HB_PFX_MINGW_32}"
   [ "${HB_BUILD_MODE}" != 'cpp' ] && export HB_USER_CFLAGS="${HB_USER_CFLAGS} -fno-asynchronous-unwind-tables"
   [ "${os}" = 'win' ] && export PATH="${HB_DIR_MINGW_32}:${_ori_path}"
+  if which osslsigncode > /dev/null 2>&1; then
+    export HB_CODESIGN_KEY="${CODESIGN_KEY}"
+  else
+    unset HB_CODESIGN_KEY
+  fi
   ${HB_CCPREFIX}gcc -v 2> "${_build_info_32}"
   # shellcheck disable=SC2086
   ${_bin_make} install ${HB_MKFLAGS} HB_COMPILER=mingw HB_CPU=x86 || exit 1
@@ -220,6 +223,11 @@ if [ "${_BRANC4}" != 'msvc' ]; then
   export HB_USER_CFLAGS="${_HB_USER_CFLAGS}"
   export HB_CCPREFIX="${HB_PFX_MINGW_64}"
   [ "${os}" = 'win' ] && export PATH="${HB_DIR_MINGW_64}:${_ori_path}"
+  if which osslsigncode > /dev/null 2>&1; then
+    export HB_CODESIGN_KEY="${CODESIGN_KEY}"
+  else
+    unset HB_CODESIGN_KEY
+  fi
   ${HB_CCPREFIX}gcc -v 2> "${_build_info_64}"
   # shellcheck disable=SC2086
   ${_bin_make} install ${HB_MKFLAGS} HB_COMPILER=mingw64 HB_CPU=x86_64 || exit 1
