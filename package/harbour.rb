@@ -44,7 +44,7 @@ class Harbour < Formula
 
     system "make", "install"
 
-    # This is not longer needed in recent builds
+    # This is no longer needed in recent builds
     rm Dir[bin/"hbmk2.*.hbl"] if build.stable?
   end
 
