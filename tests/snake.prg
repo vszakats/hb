@@ -170,39 +170,20 @@ METHOD Refresh() CLASS Snake
 
 METHOD Snake() CLASS Snake
 
-   LOCAL i
-
-   FOR i := Len( ::aTail ) - 1 TO 1 STEP -1
-      ::aTail[ i + 1 ][ 1 ] := ::aTail[ i ][ 1 ]
-      ::aTail[ i + 1 ][ 2 ] := ::aTail[ i ][ 2 ]
-
-      hb_DispOutAt( ::aTail[ i + 1 ][ 1 ], ::aTail[ i + 1 ][ 2 ], "*", "R/N" )
-   NEXT
+   LOCAL tmp
 
    SWITCH ::nDirection
-   CASE DIRECTION_UP
-      ::aTail[ 1 ][ 1 ] := ::nRow + 1
-      ::aTail[ 1 ][ 2 ] := ::nCol
-      EXIT
-
-   CASE DIRECTION_DOWN
-      ::aTail[ 1 ][ 1 ] := ::nRow - 1
-      ::aTail[ 1 ][ 2 ] := ::nCol
-      EXIT
-
-   CASE DIRECTION_LEFT
-      ::aTail[ 1 ][ 1 ] := ::nRow
-      ::aTail[ 1 ][ 2 ] := ::nCol + 1
-      EXIT
-
-   CASE DIRECTION_RIGHT
-      ::aTail[ 1 ][ 1 ] := ::nRow
-      ::aTail[ 1 ][ 2 ] := ::nCol - 1
-      EXIT
-
+   CASE DIRECTION_UP    ; tmp := { ::nRow + 1, ::nCol } ; EXIT
+   CASE DIRECTION_DOWN  ; tmp := { ::nRow - 1, ::nCol } ; EXIT
+   CASE DIRECTION_LEFT  ; tmp := { ::nRow, ::nCol + 1 } ; EXIT
+   CASE DIRECTION_RIGHT ; tmp := { ::nRow, ::nCol - 1 } ; EXIT
    ENDSWITCH
 
-   hb_DispOutAt( ::aTail[ 1 ][ 1 ], ::aTail[ 1 ][ 2 ], "*", "R/N" )
+   hb_AIns( ::aTail, 1, tmp )
+
+   FOR EACH tmp IN ::aTail
+      hb_DispOutAt( tmp[ 1 ], tmp[ 2 ], "*", "R/N" )
+   NEXT
 
    hb_DispOutAt( ::nRow, ::nCol, Chr( 2 ) /* LOW-ASCII "☺" */, "R/N" )
 
