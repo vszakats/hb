@@ -14,9 +14,7 @@
 PROCEDURE Main()
 
    LOCAL nOldCursor := SetCursor( SC_NONE )
-
    LOCAL lContinue := .T.
-
    LOCAL oSnake := Snake():New()
 
    oSnake:InitFood()
@@ -48,7 +46,6 @@ PROCEDURE Main()
 
       OTHERWISE
          oSnake:Move()
-
       ENDSWITCH
 
       IF oSnake:nRow == oSnake:nRowFood .AND. ;
