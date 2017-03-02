@@ -98,7 +98,7 @@ if [ -n "${jobid}" ] && [ ! "${jobid}" = 'null' ]; then
       echo "${out}"
       awk -v "NEW=#hashbegin\n${out}\n#hashend" \
         'BEGIN{n=0} /#hashbegin/ {n=1} {if (n==0) {print $0}} /#hashend/ {print NEW; n=0}' \
-        < mpkg_win_ci.sh > _tmp && mv -f _tmp mpkg_win_ci.sh
+        < mpkg_win_ci.sh > _tmp && cp _tmp mpkg_win_ci.sh && rm -f _tmp
     else
       echo '! Error: Hashes not found. Incomplete or non-production build?'
     fi
