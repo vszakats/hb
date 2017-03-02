@@ -2097,7 +2097,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
       _hbmk_OutErr( hbmk, hb_StrFormat( I_( "Warning: Invalid _HB_COMPILER_VER value '%1$s' ignored. Format should be: <MMmm>, where <MM> is major version and <mm> is minor version." ), tmp ) )
       hbmk[ _HBMK_cCOMPVer ] := "0"
    ELSE
-      hbmk[ _HBMK_cCOMPVer ] := tmp
+      hbmk[ _HBMK_cCOMPVer ] := iif( tmp == "", "0", tmp )
    ENDIF
 #endif
 

@@ -221,7 +221,7 @@ PROCEDURE netiosrv_Main( lUI, ... )
       NIL, ;
       {| pConnectionSocket | netiosrv_callback( netiomgm, netiosrv, pConnectionSocket, .F. ) } )
 
-   netiosrv[ _NETIOSRV_lEncryption ] := ( cPassword != NIL .AND. ! cPassword ) == ""
+   netiosrv[ _NETIOSRV_lEncryption ] := cPassword != NIL .AND. ! cPassword == ""
    cPassword := NIL
 
    IF Empty( netiosrv[ _NETIOSRV_pListenSocket ] )
