@@ -2093,11 +2093,13 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
 #endif
 
 #if 1
-   IF ! ( tmp := GetEnv( "_HB_COMPILER_VER" ) ) == "" .AND. Len( tmp ) != 4
-      _hbmk_OutErr( hbmk, hb_StrFormat( I_( "Warning: Invalid _HB_COMPILER_VER value '%1$s' ignored. Format should be: <MMmm>, where <MM> is major version and <mm> is minor version." ), tmp ) )
-      hbmk[ _HBMK_cCOMPVer ] := "0"
-   ELSE
-      hbmk[ _HBMK_cCOMPVer ] := iif( tmp == "", "0", tmp )
+   hbmk[ _HBMK_cCOMPVer ] := "0"
+   IF ! ( tmp := GetEnv( "_HB_COMPILER_VER" ) ) == ""
+      IF Len( tmp ) == 4
+         hbmk[ _HBMK_cCOMPVer ] := tmp
+      ELSE
+         _hbmk_OutErr( hbmk, hb_StrFormat( I_( "Warning: Invalid _HB_COMPILER_VER value '%1$s' ignored. Format should be: <MMmm>, where <MM> is major version and <mm> is minor version." ), tmp ) )
+      ENDIF
    ENDIF
 #endif
 
