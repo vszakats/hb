@@ -29,6 +29,8 @@ ${hb_prefix}/package/harbour.hbc{hbdyn}
 {win&allmingw&hb_comp_ver>'0407'}-dflag=-static-libgcc
 #{win&allmingw&hb_comp_ver>'0407'&lngcpp}-ldflag=-static-libstdc++
 #{win&allmingw&hb_comp_ver>'0401'}-cflag=-Wstrict-overflow=4
+{((linux|darwin)&gcc)|(!win&clang)}-cflag=-D_FORTIFY_SOURCE=2
+{(linux|darwin)&((gcc&hb_comp_ver>'0408')|(clang&hb_comp_ver>'0304'))}-cflag=-fstack-protector-strong
 
 {allwin}-winuni
 

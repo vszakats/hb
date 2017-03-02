@@ -85,10 +85,6 @@ script:
         mv -f harbour-snapshot-win.7z "harbour-snapshot-win-built-on-${TRAVIS_OS_NAME}.7z";
       fi;
     else
-      if [ "$TRAVIS_OS_NAME" = 'linux' ]; then
-        export HB_USER_CFLAGS="${HB_USER_CFLAGS} -fstack-protector-strong";
-      fi;
-      export HB_USER_CFLAGS="${HB_USER_CFLAGS} -D_FORTIFY_SOURCE=2";
       ls -lA "$(dirname "$(which "${CC}${HB_CCSUFFIX}")")/${CC}"*;
       "${CC}${HB_CCSUFFIX}" -v;
       HB_COMPILER=$CC make -j "${HB_CI_THREADS}";

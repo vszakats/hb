@@ -4511,7 +4511,19 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          ENDIF
          cOpt_CompC := "-c"
          IF hbmk[ _HBMK_lOPTIM ]
-            cOpt_CompC += " -O3"
+            IF hbmk[ _HBMK_cCOMP ] == "clang"
+               IF hbmk[ _HBMK_lDEBUG ]
+                  IF hbmk[ _HBMK_cCOMPVer ] >= "0400"
+                     cOpt_CompC += " -Og"
+                  ELSE
+                     cOpt_CompC += " -O1"
+                  ENDIF
+               ELSE
+                  cOpt_CompC += " -O3"
+               ENDIF
+            ELSE
+               cOpt_CompC += " -O3"
+            ENDIF
             IF hbmk[ _HBMK_cCOMPVer ] < "0406" .AND. ;
                ! hbmk[ _HBMK_lDEBUG ] .AND. hbmk[ _HBMK_cPLAT ] == "cygwin"
                cOpt_CompC += " -fomit-frame-pointer"
