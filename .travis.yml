@@ -99,11 +99,8 @@ deploy:
   api_key: ${GITHUB_TOKEN}
   file: harbour-snapshot-win-built-on-${TRAVIS_OS_NAME}.7z
   file_glob: false
-  tag_name: v3.4.0dev-travis
-  release-number: v3.4.0dev-travis
-  name: 'Harbour 3.4.0dev snapshot'
-  body: 'Binaries generated after each commit.
-    Read `RELNOTES.txt` in package root for release details and "Getting Started" instructions.'
+  tag_name: v3.4.0dev
+  release-number: v3.4.0dev
   draft: false
   prerelease: true
   overwrite: true
