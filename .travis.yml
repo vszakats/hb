@@ -100,7 +100,6 @@ deploy:
   file: harbour-snapshot-win-built-on-${TRAVIS_OS_NAME}.7z
   file_glob: false
   tag_name: v3.4.0dev
-  release-number: v3.4.0dev
   draft: false
   prerelease: true
   overwrite: true
