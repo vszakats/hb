@@ -29,7 +29,7 @@ clipper ntxcl%C% /m/n/w/es2
 %LX% ntxcl%C%
 
 :: DBFCDX for ADS RDD
-clipper rddmktst /m/n/w/es2/d_TEST_ADS_ /d_TEST_CMPDIDX_ %P1%
+clipper rddmktst /m/n/w/es2/d_TEST_CMPDIDX_ /d_TEST_ADS_ %P1%
 %LX% rddmktst
 rddmktst adscl%C%.prg dbfcdx
 clipper adscl%C% /m/n/w/es2
