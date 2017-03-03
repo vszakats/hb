@@ -3691,8 +3691,15 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
 
       CASE hb_LeftEq( cParamL, "-vcshead=" )
 
-         l_cVCSDIR := hb_FNameDir( aParam[ _PAR_cFileName ] )
+         IF l_cVCSDIR == NIL
+            l_cVCSDIR := hb_FNameDir( aParam[ _PAR_cFileName ] )
+         ENDIF
+
          l_cVCSHEAD := PathMakeAbsolute( hb_DirSepToOS( MacroProc( hbmk, SubStr( cParam, Len( "-vcshead=" ) + 1 ), aParam[ _PAR_cFileName ] ) ), aParam[ _PAR_cFileName ] )
+
+      CASE hb_LeftEq( cParamL, "-vcsdir=" )
+
+         l_cVCSDIR := hb_PathNormalize( PathMakeAbsolute( hb_DirSepToOS( MacroProc( hbmk, SubStr( cParam, Len( "-vcsdir=" ) + 1 ), aParam[ _PAR_cFileName ] ) ), aParam[ _PAR_cFileName ] ) )
 
       CASE hb_LeftEq( cParamL, "-bldhead=" )
 
@@ -12086,16 +12093,20 @@ STATIC FUNCTION HBC_ProcessOne( hbmk, cFileName, nNestingLevel )
          NEXT
 
       CASE hb_LeftEq( cLineL, "echo="         ) ; cLine := SubStr( cLine, Len( "echo="         ) + 1 )
-         cLine := MacroProc( hbmk, cLine, cFileName )
-         IF ! Empty( cLine )
-            OutStd( hb_StrFormat( I_( "%1$s" ), cLine ) + _OUT_EOL )
+         IF ! hbmk[ _HBMK_lDumpInfo ]
+            cLine := MacroProc( hbmk, cLine, cFileName )
+            IF ! Empty( cLine )
+               OutStd( hb_StrFormat( I_( "%1$s" ), cLine ) + _OUT_EOL )
+            ENDIF
          ENDIF
 
       CASE hb_LeftEq( cLineL, "stop="         ) ; cLine := SubStr( cLine, Len( "stop="         ) + 1 )
 
-         cLine := MacroProc( hbmk, cLine, cFileName )
-         IF ! Empty( cLine )
-            OutStd( hb_StrFormat( I_( "%1$s" ), cLine ) + _OUT_EOL )
+         IF ! hbmk[ _HBMK_lDumpInfo ]
+            cLine := MacroProc( hbmk, cLine, cFileName )
+            IF ! Empty( cLine )
+               OutStd( hb_StrFormat( I_( "%1$s" ), cLine ) + _OUT_EOL )
+            ENDIF
          ENDIF
 
          hbmk[ _HBMK_lStopAfterInit ] := .T.
@@ -14466,13 +14477,10 @@ STATIC FUNCTION VCSID( hbmk, cDir, cVCSHEAD, /* @ */ cType, /* @ */ hCustom )
       cCommand := "svnversion " + iif( Empty( cDir ), ".", cDir )
       EXIT
    CASE _VCS_GIT_SUB
-      /* --git-dir= will not handle submodules. So instead we CD into
-         the submodule dir and call Git with default/current dir. */
-      cOldDir := hb_cwd( cDir )
-      /* fall through */
    CASE _VCS_GIT
+      cOldDir := hb_cwd( cDir )
       cType := "git"
-      cGitBase := "git" + iif( nType == _VCS_GIT_SUB .OR. Empty( cDir ), "", " --git-dir=" + cDir + ".git" ) + " "
+      cGitBase := "git" + " "
       cCommand := cGitBase + "log -1 --format=format:%h%n%H%n%ci%n%cn%n%ce%n%ai%n%an%n%ae --encoding=utf8"
       /* see: https://github.com/golang/go/issues/9341 */
       hb_SetEnv( "GIT_TERMINAL_PROMPT", "0" )
@@ -14522,9 +14530,8 @@ STATIC FUNCTION VCSID( hbmk, cDir, cVCSHEAD, /* @ */ cType, /* @ */ hCustom )
       CASE _VCS_SVN
          /* 10959<n> */
       CASE _VCS_GIT_SUB
-         hb_cwd( cOldDir )
-         /* fall through */
       CASE _VCS_GIT
+         hb_cwd( cOldDir )
          /* 5f561a7
             5f561a78ebf2ad1aa6866f469c82231fc8104925
             2013-04-26 02:12:08 +0200
@@ -18258,6 +18265,7 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
       { "-compr=<level>"     , I_( e"compress executable/dynamic lib (needs UPX tool)\n<level> can be: yes, no, min, high, max" ) }, ;
       { "-run[-]"            , I_( "run/do not run output executable" ) }, ;
       { "-vcshead=<file>"    , H_( "generate .ch header file with local repository information. Git, SVN, Mercurial, Bazaar, Fossil, CVS and Monotone are currently supported. Generated header will define preprocessor constant _HBMK_VCS_TYPE_ with the name of detected VCS and _HBMK_VCS_ID_ with the unique ID of local repository. VCS specific information is added as _HBMK_VCS_<TYPE>_*_ constants, where supported. If no VCS system is detected, a sequential number will be rolled automatically on each build." ) }, ;
+      { "-vcsdir=<dir>"      , H_( "override VCS repository root" ) }, ;
       { "-bldhead=<file>"    , H_( "generate .ch header file with build information, like build sequence number and timestamp. Generated header will define preprocessor constants _HBMK_BUILD_ID_ and _HBMK_BUILD_ID_NUM_ with sequence number (incremented on each build), _HBMK_BUILD_DATE_, _HBMK_BUILD_TIME_, _HBMK_BUILD_TIMESTAMP_ with the date/time of build and _HBMK_BUILD_RANDSTR_32_ with a random string of 32 bytes in hexadecimal format" ) }, ;
       { "-vcshead=<file>"    , S_( "generate C header file with local repository information. Git, SVN, Mercurial, Bazaar, Fossil, CVS and Monotone are currently supported. Generated header will define preprocessor constant _HBMK_VCS_TYPE_ with the name of detected VCS and _HBMK_VCS_ID_ with the unique ID of local repository. VCS specific information is added as _HBMK_VCS_<TYPE>_*_ constants, where supported. If no VCS system is detected, a sequential number will be rolled automatically on each build." ) }, ;
       { "-bldhead=<file>"    , S_( "generate C header file with build information, like build sequence number and timestamp. Generated header will define preprocessor constants _HBMK_BUILD_ID_ with sequence number (incremented on each build) and _HBMK_BUILD_DATE_, _HBMK_BUILD_TIME_, _HBMK_BUILD_TIMESTAMP_ with the date/time of build" ) }, ;

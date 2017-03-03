@@ -5,11 +5,6 @@ PROCEDURE Main()
    LOCAL regex
    LOCAL aMatch
    LOCAL cStr, nRow := 2, nCol
-   LOCAL aSource := { ;
-      "First date to match: 2001-3-21", ;
-      "2002-12/2", ;
-      "Another can be 1999/5/12, and succeeds", ;
-      "Could be 1999/534/12, but this will fail" }
 
    CLS
 
@@ -23,13 +18,19 @@ PROCEDURE Main()
     */
    regex := hb_regexComp( "([0-9]{4})[-/]([0-9]{1,2})[-/]([0-9]{1,2})" )
 
-   FOR EACH cStr IN aSource
+   FOR EACH cStr IN { ;
+      "First date to match: 2001-3-21", ;
+      "2002-12/2", ;
+      "Another can be 1999/5/12, and succeeds", ;
+      "Could be 1999/534/12, but this will fail" }
 
       @ nRow++, 5 SAY "String is '" + cStr + "'"
 
       IF ! Empty( aMatch := hb_regex( regex, cStr ) )
-         @ nRow++, 10 SAY "Matched: " + aMatch[ 1 ] + " ( Year: " + aMatch[ 2 ] + ", Month: " + ;
-            aMatch[ 3 ] + ", Day: " + aMatch[ 4 ] + ")"
+         @ nRow++, 10 SAY "Matched: " + aMatch[ 1 ] + " (" + ;
+            "Year: " + aMatch[ 2 ] + ", " + ;
+            "Month: " + aMatch[ 3 ] + ", " + ;
+            "Day: " + aMatch[ 4 ] + ")"
       ELSE
          @ nRow++, 10 SAY "Match FAILED!"
       ENDIF

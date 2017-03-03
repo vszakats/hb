@@ -248,8 +248,8 @@ STATIC PROCEDURE BuildAll( aParams, hProjectList )
 
       /* Check requirements when running as part of the core GNU Make build */
 
-      IF Empty( GetEnv( "HB_PLATFORM" ) ) .OR. ;
-         Empty( GetEnv( "HB_COMPILER" ) )
+      IF GetEnv( "HB_PLATFORM" ) == "" .OR. ;
+         GetEnv( "HB_COMPILER" ) == ""
          ErrorLevel( 9 )
          RETURN
       ENDIF
@@ -290,7 +290,9 @@ STATIC PROCEDURE BuildAll( aParams, hProjectList )
 
    /* Assemble list of projects to be built */
 
-   IF ! Empty( cFilter := GetEnv( "HB_BUILD_CONTRIBS" ) )
+   IF s_lAddon
+      cFilter := ""
+   ELSEIF ! ( cFilter := GetEnv( "HB_BUILD_CONTRIBS" ) ) == ""
       OutStd( hb_StrFormat( "! HB_BUILD_CONTRIBS: %1$s", cFilter ) + hb_eol() )
    ENDIF
 
@@ -298,7 +300,7 @@ STATIC PROCEDURE BuildAll( aParams, hProjectList )
       RETURN
    ENDIF
 
-   aFilter := iif( Empty( cFilter ), {}, hb_ATokens( cFilter,, .T. ) )
+   aFilter := iif( cFilter == "", {}, hb_ATokens( cFilter,, .T. ) )
    IF Len( aFilter ) >= 1 .AND. aFilter[ 1 ] == "no"
       hb_ADel( aFilter, 1, .T. )
       lFilterNegative := .T.
@@ -511,6 +513,7 @@ STATIC PROCEDURE call_hbmk2_hbinfo( cProjectRoot, cProjectName, hProject )
 
       IF ! HB_ISHASH( hInfo := hb_jsonDecode( cStdOut ) )
          OutStd( "! Warning: Received invalid result from 'hbmk2 --hbinfo'" + hb_eol() )
+         ? cStdOut
       ENDIF
 
       hProject[ "cType" ] := hbmk2_hbinfo_getitem( hInfo, "targettype" )
@@ -760,7 +763,7 @@ STATIC FUNCTION AddProject( hProjectList, cFileName )
       CASE cDir == ""
          cDir := cName
       ENDCASE
-      IF Empty( cExt )
+      IF cExt == ""
          cExt := ".hbp"
       ENDIF
 

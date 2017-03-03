@@ -51,7 +51,6 @@ PROCEDURE Main()
       IF oSnake:nRow == oSnake:nRowFood .AND. ;
          oSnake:nCol == oSnake:nColFood
 
-         oSnake:nLength++
          AAdd( oSnake:aTail, { 0, 0 } )
          oSnake:InitFood()
       ENDIF
@@ -74,7 +73,6 @@ CREATE CLASS Snake
    DATA nColFood
 
    DATA nDirection INIT DIRECTION_RIGHT
-   DATA nLength    INIT 1
 
    DATA aTail      INIT { { Int( MaxRow() / 2 ), Int( MaxCol() / 2 ) - 1 } }
 
@@ -220,7 +218,7 @@ METHOD PrintResults() CLASS Snake
    ? "Results:"
    ?
    ? "Duration of the game - ", hb_ntos( Int( ( ( hb_MilliSeconds() - ::nStartGame ) / 1000 ) ) ), "second(s)"
-   ? "Length of the snake  - ", hb_ntos( ::nLength ), "element(s)"
+   ? "Length of the snake  - ", hb_ntos( Len( ::aTail ) ), "element(s)"
 
    Inkey( 0 )
 
