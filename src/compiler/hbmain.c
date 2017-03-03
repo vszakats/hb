@@ -4200,7 +4200,7 @@ static int hb_compCompile( HB_COMP_DECL, const char * szPrg, const char * szBuff
 
       if( szBuffer )
       {
-         if( ! hb_pp_inBuffer( HB_COMP_PARAM->pLex->pPP, szBuffer, strlen( szBuffer ), iStartLine ) )
+         if( ! hb_pp_inBuffer2( HB_COMP_PARAM->pLex->pPP, szFileName, szBuffer, strlen( szBuffer ), iStartLine ) )
          {
             hb_compOutErr( HB_COMP_PARAM, "Cannot create preprocessor buffer." );
             iStatus = EXIT_FAILURE;

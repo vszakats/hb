@@ -2976,6 +2976,7 @@ hb_pp_errorCount
 hb_pp_fileName
 hb_pp_free
 hb_pp_inBuffer
+hb_pp_inBuffer2
 hb_pp_inFile
 hb_pp_init
 hb_pp_initDynDefines
