@@ -513,7 +513,6 @@ STATIC PROCEDURE call_hbmk2_hbinfo( cProjectRoot, cProjectName, hProject )
 
       IF ! HB_ISHASH( hInfo := hb_jsonDecode( cStdOut ) )
          OutStd( "! Warning: Received invalid result from 'hbmk2 --hbinfo'" + hb_eol() )
-         ? cStdOut
       ENDIF
 
       hProject[ "cType" ] := hbmk2_hbinfo_getitem( hInfo, "targettype" )
