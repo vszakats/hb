@@ -217,8 +217,8 @@ METHOD PrintResults() CLASS Snake
 
    ? "Results:"
    ?
-   ? "Duration of the game - ", hb_ntos( Int( ( ( hb_MilliSeconds() - ::nStartGame ) / 1000 ) ) ), "second(s)"
-   ? "Length of the snake  - ", hb_ntos( Len( ::aTail ) ), "element(s)"
+   ? "Game duration - ", hb_ntos( Int( ( ( hb_MilliSeconds() - ::nStartGame ) / 1000 ) ) ), "second(s)"
+   ? "Snake length  - ", hb_ntos( Len( ::aTail ) ), "element(s)"
 
    Inkey( 0 )
 
