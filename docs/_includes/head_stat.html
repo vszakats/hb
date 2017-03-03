@@ -1,6 +1,10 @@
 <script>
   window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+{% if site.fork %}
   ga('create', 'UA-86676305-1', 'auto');
+{% else %}
+  ga('create', 'UA-86676305-3', 'auto');
+{% endif %}
   ga('set', 'transport', 'beacon');
   ga('send', 'pageview');
 </script>
