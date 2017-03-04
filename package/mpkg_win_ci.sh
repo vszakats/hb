@@ -183,18 +183,15 @@ if [ "${_BRANC4}" != 'msvc' ]; then
   #
   export HB_WITH_CURL="${HB_DIR_CURL_32}include"
   export HB_WITH_OPENSSL="${HB_DIR_OPENSSL_32}include"
-  ls -l /usr/lib/mxe/i686-w64-mingw32.shared/
   if [ "${os}" = 'win' ]; then
     _inc="${_msys_mingw32}/include"
-  elif [ -d '/usr/lib/mxe/i686-w64-mingw32.shared/include' ]; then
-    _inc='/usr/lib/mxe/i686-w64-mingw32.shared/include'
+  elif [ -d '/usr/lib/mxe/usr/i686-w64-mingw32.shared/include' ]; then
+    _inc='/usr/lib/mxe/usr/i686-w64-mingw32.shared/include'
     export HB_WITH_LIBMAGIC="${_inc}"
   else
     unset _inc
   fi
-  echo "|${_inc}|"
   if [ -n "${_inc}" ]; then
-    echo "|!|"
     export HB_WITH_CAIRO="${_inc}/cairo"
     export HB_WITH_FREEIMAGE="${_inc}"
     export HB_WITH_GD="${_inc}"
@@ -220,18 +217,15 @@ if [ "${_BRANC4}" != 'msvc' ]; then
 
   export HB_WITH_CURL="${HB_DIR_CURL_64}include"
   export HB_WITH_OPENSSL="${HB_DIR_OPENSSL_64}include"
-  ls -l /usr/lib/mxe/x86_64-w64-mingw32.shared/
   if [ "${os}" = 'win' ]; then
     _inc="${_msys_mingw64}/include"
-  elif [ -d '/usr/lib/mxe/x86_64-w64-mingw32.shared/include' ]; then
-    _inc='/usr/lib/mxe/x86_64-w64-mingw32.shared/include'
+  elif [ -d '/usr/lib/mxe/usr/x86_64-w64-mingw32.shared/include' ]; then
+    _inc='/usr/lib/mxe/usr/x86_64-w64-mingw32.shared/include'
     export HB_WITH_LIBMAGIC="${_inc}"
   else
     unset _inc
   fi
-  echo "|${_inc}|"
   if [ -n "${_inc}" ]; then
-    echo "|!|"
     export HB_WITH_CAIRO="${_inc}/cairo"
     export HB_WITH_FREEIMAGE="${_inc}"
     export HB_WITH_GD="${_inc}"
