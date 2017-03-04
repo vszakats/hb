@@ -14,6 +14,10 @@
 -depincpath=libmagic:/usr/include
 -depincpath=libmagic:/usr/local/include
 -depincpath=libmagic:/usr/local/opt/libmagic/include
+-depincpath=libmagic:/usr/lib/mxe/i686-w64-mingw32.static/include{mingw}
+-depincpath=libmagic:/usr/lib/mxe/i686-w64-mingw32.shared/include{mingw}
+-depincpath=libmagic:/usr/lib/mxe/x86_64-w64-mingw32.static/include{mingw64}
+-depincpath=libmagic:/usr/lib/mxe/x86_64-w64-mingw32.shared/include{mingw64}
 
 -hbx=${hb_name}
 

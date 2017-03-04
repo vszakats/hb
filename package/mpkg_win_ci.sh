@@ -185,6 +185,12 @@ if [ "${_BRANC4}" != 'msvc' ]; then
   export HB_WITH_OPENSSL="${HB_DIR_OPENSSL_32}include"
   if [ "${os}" = 'win' ]; then
     _inc="${_msys_mingw32}/include"
+  elif [ -d '/usr/lib/mxe/i686-w64-mingw32.shared/include' ]; then
+    _inc='/usr/lib/mxe/i686-w64-mingw32.shared/include'
+  else
+    unset _inc
+  fi
+  if [ -n "${_inc}" ]; then
     export HB_WITH_CAIRO="${_inc}/cairo"
     export HB_WITH_FREEIMAGE="${_inc}"
     export HB_WITH_GD="${_inc}"
@@ -211,6 +217,12 @@ if [ "${_BRANC4}" != 'msvc' ]; then
   export HB_WITH_OPENSSL="${HB_DIR_OPENSSL_64}include"
   if [ "${os}" = 'win' ]; then
     _inc="${_msys_mingw64}/include"
+  elif [ -d '/usr/lib/mxe/x86_64-w64-mingw32.shared/include' ]; then
+    _inc='/usr/lib/mxe/x86_64-w64-mingw32.shared/include'
+  else
+    unset _inc
+  fi
+  if [ -n "${_inc}" ]; then
     export HB_WITH_CAIRO="${_inc}/cairo"
     export HB_WITH_FREEIMAGE="${_inc}"
     export HB_WITH_GD="${_inc}"
