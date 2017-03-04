@@ -61,10 +61,12 @@ case "${os}" in
     # For running `harbour.exe` when creating `BUILD.txt` and
     # `HB_BUILD_POSTRUN` tasks:
     #   brew cask install wine-devel
+    _mxe="${HOME}/mxe"
     ;;
   linux)
     # Required:
     #   p7zip-full binutils-mingw-w64 gcc-mingw-w64 gnupg-curl jq osslsigncode dos2unix realpath wine
+    _mxe="/usr/lib/mxe"
     ;;
 esac
 
@@ -187,14 +189,14 @@ if [ "${_BRANC4}" != 'msvc' ]; then
   export HB_WITH_OPENSSL="${HB_DIR_OPENSSL_32}include"
   if [ "${os}" = 'win' ]; then
     _inc_df="${_msys_mingw32}/include"
-  elif [ -d '/usr/lib/mxe/usr/i686-w64-mingw32.shared/include' ]; then
-    _inc_df='/usr/lib/mxe/usr/i686-w64-mingw32.shared/include'
+  elif [ -d "${_mxe}/usr/i686-w64-mingw32.shared/include" ]; then
+    _inc_df="${_mxe}/usr/i686-w64-mingw32.shared/include"
     export HB_WITH_LIBMAGIC="${_inc_df}"
   else
     unset _inc_df
   fi
-  if [ -d '/usr/lib/mxe/usr/i686-w64-mingw32.static/include' ]; then
-    _inc_st='/usr/lib/mxe/usr/i686-w64-mingw32.static/include'
+  if [ -d "${_mxe}/usr/i686-w64-mingw32.static/include" ]; then
+    _inc_st="${_mxe}/usr/i686-w64-mingw32.static/include"
   else
     _inc_st="${_inc_df}"
   fi
@@ -229,14 +231,14 @@ if [ "${_BRANC4}" != 'msvc' ]; then
   export HB_WITH_OPENSSL="${HB_DIR_OPENSSL_64}include"
   if [ "${os}" = 'win' ]; then
     _inc_df="${_msys_mingw64}/include"
-  elif [ -d '/usr/lib/mxe/usr/x86_64-w64-mingw32.shared/include' ]; then
-    _inc_df='/usr/lib/mxe/usr/x86_64-w64-mingw32.shared/include'
+  elif [ -d "${_mxe}/usr/x86_64-w64-mingw32.shared/include" ]; then
+    _inc_df="${_mxe}/usr/x86_64-w64-mingw32.shared/include"
     export HB_WITH_LIBMAGIC="${_inc_df}"
   else
     unset _inc_df
   fi
-  if [ -d '/usr/lib/mxe/usr/x86_64-w64-mingw32.static/include' ]; then
-    _inc_st='/usr/lib/mxe/usr/x86_64-w64-mingw32.static/include'
+  if [ -d "${_mxe}/usr/x86_64-w64-mingw32.static/include" ]; then
+    _inc_st="${_mxe}/usr/x86_64-w64-mingw32.static/include"
   else
     _inc_st="${_inc_df}"
   fi
