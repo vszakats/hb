@@ -15,9 +15,10 @@ mxe_get_pkg() {
     name="${BASH_REMATCH[4]}"
     base='http://pkg.mxe.cc/repos/tar/'
     dirl="$(curl -fsS "${base}${repo}/")"
-    if [[ "${dirl}" =~ (${repo}-${name}_[0-9.]*.tar.xz) ]]; then
+    if [[ "${dirl}" =~ (${repo}-${name}_([0-9.]*).tar.xz) ]]; then
+      echo "! Downloading and unpacking ${repo}-${name} version ${BASH_REMATCH[2]}..."
       curl -fsS "${base}${repo}/${BASH_REMATCH[1]}" \
-      | tar -xvq
+      | tar -xv > /dev/null
     fi
   fi
 }
