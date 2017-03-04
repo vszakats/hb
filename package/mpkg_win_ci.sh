@@ -186,25 +186,30 @@ if [ "${_BRANC4}" != 'msvc' ]; then
   export HB_WITH_CURL="${HB_DIR_CURL_32}include"
   export HB_WITH_OPENSSL="${HB_DIR_OPENSSL_32}include"
   if [ "${os}" = 'win' ]; then
-    _inc="${_msys_mingw32}/include"
+    _inc_df="${_msys_mingw32}/include"
   elif [ -d '/usr/lib/mxe/usr/i686-w64-mingw32.shared/include' ]; then
-    _inc='/usr/lib/mxe/usr/i686-w64-mingw32.shared/include'
-    export HB_WITH_LIBMAGIC="${_inc}"
+    _inc_df='/usr/lib/mxe/usr/i686-w64-mingw32.shared/include'
+    export HB_WITH_LIBMAGIC="${_inc_df}"
   else
-    unset _inc
+    unset _inc_df
   fi
-  if [ -n "${_inc}" ]; then
-    export HB_WITH_CAIRO="${_inc}/cairo"
-    export HB_WITH_FREEIMAGE="${_inc}"
-    export HB_WITH_GD="${_inc}"
-    export HB_WITH_GS="${_inc}/ghostscript"
+  if [ -d '/usr/lib/mxe/usr/i686-w64-mingw32.static/include' ]; then
+    _inc_st='/usr/lib/mxe/usr/i686-w64-mingw32.static/include'
+  else
+    _inc_st="${_inc_df}"
+  fi
+  if [ -n "${_inc_df}" ]; then
+    export HB_WITH_CAIRO="${_inc_df}/cairo"
+    export HB_WITH_FREEIMAGE="${_inc_st}"
+    export HB_WITH_GD="${_inc_st}"
+    export HB_WITH_GS="${_inc_df}/ghostscript"
     # TOFIX: Because mxe ghostscript packages misses a binary, version detection
     #        falls back to using the native ghostscript package. Applies to
     #        64-bit as well.
-    export HB_WITH_GS_BIN="${_inc}/../bin"
-    export HB_WITH_ICU="${_inc}"
-    export HB_WITH_MYSQL="${_inc}/mysql"
-    export HB_WITH_PGSQL="${_inc}"
+    export HB_WITH_GS_BIN="${_inc_df}/../bin"
+    export HB_WITH_ICU="${_inc_df}"
+    export HB_WITH_MYSQL="${_inc_df}/mysql"
+    export HB_WITH_PGSQL="${_inc_df}"
   fi
   printenv | grep -E '^(HB_WITH_|HBMK_WITH_)'
   export HB_USER_CFLAGS="${_HB_USER_CFLAGS}"
@@ -223,22 +228,27 @@ if [ "${_BRANC4}" != 'msvc' ]; then
   export HB_WITH_CURL="${HB_DIR_CURL_64}include"
   export HB_WITH_OPENSSL="${HB_DIR_OPENSSL_64}include"
   if [ "${os}" = 'win' ]; then
-    _inc="${_msys_mingw64}/include"
+    _inc_df="${_msys_mingw64}/include"
   elif [ -d '/usr/lib/mxe/usr/x86_64-w64-mingw32.shared/include' ]; then
-    _inc='/usr/lib/mxe/usr/x86_64-w64-mingw32.shared/include'
-    export HB_WITH_LIBMAGIC="${_inc}"
+    _inc_df='/usr/lib/mxe/usr/x86_64-w64-mingw32.shared/include'
+    export HB_WITH_LIBMAGIC="${_inc_df}"
   else
-    unset _inc
+    unset _inc_df
   fi
-  if [ -n "${_inc}" ]; then
-    export HB_WITH_CAIRO="${_inc}/cairo"
-    export HB_WITH_FREEIMAGE="${_inc}"
-    export HB_WITH_GD="${_inc}"
-    export HB_WITH_GS="${_inc}/ghostscript"
-    export HB_WITH_GS_BIN="${_inc}/../bin"
-    export HB_WITH_ICU="${_inc}"
-    export HB_WITH_MYSQL="${_inc}/mysql"
-    export HB_WITH_PGSQL="${_inc}"
+  if [ -d '/usr/lib/mxe/usr/x86_64-w64-mingw32.static/include' ]; then
+    _inc_st='/usr/lib/mxe/usr/x86_64-w64-mingw32.static/include'
+  else
+    _inc_st="${_inc_df}"
+  fi
+  if [ -n "${_inc_df}" ]; then
+    export HB_WITH_CAIRO="${_inc_df}/cairo"
+    export HB_WITH_FREEIMAGE="${_inc_st}"
+    export HB_WITH_GD="${_inc_st}"
+    export HB_WITH_GS="${_inc_df}/ghostscript"
+    export HB_WITH_GS_BIN="${_inc_df}/../bin"
+    export HB_WITH_ICU="${_inc_df}"
+    export HB_WITH_MYSQL="${_inc_df}/mysql"
+    export HB_WITH_PGSQL="${_inc_df}"
   fi
   printenv | grep -E '^(HB_WITH_|HBMK_WITH_)'
   export HB_USER_CFLAGS="${_HB_USER_CFLAGS}"
