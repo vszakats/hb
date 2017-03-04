@@ -112,7 +112,7 @@ export HB_BUILD_POSTRUN='"./hbmk2 --version" "./hbrun --version" "./hbtest -noen
 
 # export HB_BUILD_CONTRIBS='no'
 # export HB_MKFLAGS="${HB_MKFLAGS} HB_BUILD_OPTIM=no"
-export HB_BUILD_VERBOSE='yes'
+# export HB_BUILD_VERBOSE='yes'
 # export _HB_PKG_DEBUG='yes'
 # export _HB_BUNDLE_3RDLIB='yes'
 
@@ -201,7 +201,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
     export HB_WITH_MYSQL="${_inc}/mysql"
     export HB_WITH_PGSQL="${_inc}"
   fi
-  export | grep HB_WITH_
+  printenv | grep -E '^(HB_WITH_|HBMK_WITH_)'
   export HB_USER_CFLAGS="${_HB_USER_CFLAGS}"
   export HB_CCPREFIX="${HB_PFX_MINGW_32}"
   [ "${HB_BUILD_MODE}" != 'cpp' ] && export HB_USER_CFLAGS="${HB_USER_CFLAGS} -fno-asynchronous-unwind-tables"
@@ -235,7 +235,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
     export HB_WITH_MYSQL="${_inc}/mysql"
     export HB_WITH_PGSQL="${_inc}"
   fi
-  export | grep HB_WITH_
+  printenv | grep -E '^(HB_WITH_|HBMK_WITH_)'
   export HB_USER_CFLAGS="${_HB_USER_CFLAGS}"
   export HB_CCPREFIX="${HB_PFX_MINGW_64}"
   [ "${os}" = 'win' ] && export PATH="${HB_DIR_MINGW_64}:${_ori_path}"
