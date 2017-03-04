@@ -200,7 +200,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
   fi
   if [ -d "${_mxe}/usr/i686-w64-mingw32.static/include" ]; then
     _inc_st="${_mxe}/usr/i686-w64-mingw32.static/include"
-    _libdir="${_libdir} -L${_mxe}/usr/i686-w64-mingw32.static/include"
+    _libdir="${_libdir} -L${_mxe}/usr/i686-w64-mingw32.static/lib"
   else
     _inc_st="${_inc_df}"
   fi
@@ -252,7 +252,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
   fi
   if [ -d "${_mxe}/usr/x86_64-w64-mingw32.static/include" ]; then
     _inc_st="${_mxe}/usr/x86_64-w64-mingw32.static/include"
-    _libdir="${_libdir} -L${_mxe}/usr/x86_64-w64-mingw32.static/include"
+    _libdir="${_libdir} -L${_mxe}/usr/x86_64-w64-mingw32.static/lib"
   else
     _inc_st="${_inc_df}"
   fi
