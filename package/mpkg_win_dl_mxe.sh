@@ -16,9 +16,9 @@ mxe_get_pkg() {
     base='http://pkg.mxe.cc/repos/tar/'
     dirl="$(curl -fsS "${base}${repo}/")"
     if [[ "${dirl}" =~ (${repo}-${name}_([0-9.]*).tar.xz) ]]; then
-      echo "! Downloading and unpacking ${repo}-${name} version ${BASH_REMATCH[2]}..."
+      echo "! Version: ${BASH_REMATCH[2]}"
       curl -fsS "${base}${repo}/${BASH_REMATCH[1]}" \
-      | tar -xv > /dev/null
+      | tar -x && echo "! OK"
     fi
   fi
 }
@@ -28,6 +28,7 @@ mkdir -p "${HOME}/mxe"
   cd "${HOME}/mxe" || exit
 
   while [ -n "$1" ]; do
+    echo "! Downloading and unpacking $1..."
     mxe_get_pkg "$1"
     shift
   done
