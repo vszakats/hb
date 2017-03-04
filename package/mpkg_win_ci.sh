@@ -5,7 +5,7 @@
 # See LICENSE.txt for licensing terms.
 # ---------------------------------------------------------------
 
-[ "${CI}" = 'true' ] || [ "${CI}" = 'True' ] || [ "$1" = '--force' ] || exit
+[ -n "${CI}" ] || [ "$1" = '--force' ] || exit
 
 cd "$(dirname "$0")/.." || exit
 
