@@ -26,7 +26,7 @@ mxml_sea.c
 mxml_set.c
 mxml_str.c
 
-# ORIGIN https://michaelrsweet.github.io/
+# ORIGIN https://michaelrsweet.github.io/mxml/
 # URL    https://github.com/michaelrsweet/mxml/releases/download/release-2.10/mxml-2.10.tar.gz
 # DIFF   minixml.diff
 #
