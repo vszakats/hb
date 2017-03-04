@@ -119,7 +119,7 @@ export HB_BUILD_POSTRUN='"./hbmk2 --version" "./hbrun --version" "./hbtest -noen
 
 # export HB_BUILD_CONTRIBS='no'
 # export HB_MKFLAGS="${HB_MKFLAGS} HB_BUILD_OPTIM=no"
-# export HB_BUILD_VERBOSE='yes'
+  export HB_BUILD_VERBOSE='yes'
 # export _HB_PKG_DEBUG='yes'
 # export _HB_BUNDLE_3RDLIB='yes'
 
@@ -193,10 +193,13 @@ if [ "${_BRANC4}" != 'msvc' ]; then
   unset _inc_df _libdir
   if [ "${os}" = 'win' ]; then
     _inc_df="${_msys_mingw32}/include"
+    export HB_WITH_GS_BIN="${_inc_df}/../bin"
+    export HB_WITH_MYSQL="${_inc_df}/mysql"
   elif [ -d "${_mxe}/usr/i686-w64-mingw32.shared/include" ]; then
     _inc_df="${_mxe}/usr/i686-w64-mingw32.shared/include"
     _libdir="-L${_mxe}/usr/i686-w64-mingw32.shared/lib"
     export HB_WITH_LIBMAGIC="${_inc_df}"
+    export HB_WITH_MYSQL="${_inc_df}"
   fi
   if [ -d "${_mxe}/usr/i686-w64-mingw32.static/include" ]; then
     _inc_st="${_mxe}/usr/i686-w64-mingw32.static/include"
@@ -208,13 +211,11 @@ if [ "${_BRANC4}" != 'msvc' ]; then
     export HB_WITH_CAIRO="${_inc_df}/cairo"
     export HB_WITH_FREEIMAGE="${_inc_st}"
     export HB_WITH_GD="${_inc_st}"
-    export HB_WITH_GS="${_inc_df}/ghostscript"
     # TOFIX: Because mxe ghostscript packages misses a binary, version detection
     #        falls back to using the native ghostscript package. Applies to
     #        64-bit as well.
-    export HB_WITH_GS_BIN="${_inc_df}/../bin"
+    export HB_WITH_GS="${_inc_df}/ghostscript"
     export HB_WITH_ICU="${_inc_df}"
-    export HB_WITH_MYSQL="${_inc_df}/mysql"
     export HB_WITH_PGSQL="${_inc_df}"
   fi
   printenv | grep -E '^(HB_WITH_|HBMK_WITH_)' | sort
@@ -231,7 +232,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
   export HB_CCPREFIX="${HB_PFX_MINGW_32}"
   [ "${HB_BUILD_MODE}" != 'cpp' ] && export HB_USER_CFLAGS="${HB_USER_CFLAGS} -fno-asynchronous-unwind-tables"
   [ "${os}" = 'win' ] && export PATH="${HB_DIR_MINGW_32}:${_ori_path}"
-  ${HB_CCPREFIX}gcc -v 2>&1 | tee > "${_build_info_32}"
+  ${HB_CCPREFIX}gcc -v 2>&1 | tee "${_build_info_32}"
   if which osslsigncode > /dev/null 2>&1; then
     export HB_CODESIGN_KEY="${CODESIGN_KEY}"
   else
@@ -245,10 +246,13 @@ if [ "${_BRANC4}" != 'msvc' ]; then
   unset _inc_df _libdir
   if [ "${os}" = 'win' ]; then
     _inc_df="${_msys_mingw64}/include"
+    export HB_WITH_GS_BIN="${_inc_df}/../bin"
+    export HB_WITH_MYSQL="${_inc_df}/mysql"
   elif [ -d "${_mxe}/usr/x86_64-w64-mingw32.shared/include" ]; then
     _inc_df="${_mxe}/usr/x86_64-w64-mingw32.shared/include"
     _libdir="-L${_mxe}/usr/x86_64-w64-mingw32.shared/lib"
     export HB_WITH_LIBMAGIC="${_inc_df}"
+    export HB_WITH_MYSQL="${_inc_df}"
   fi
   if [ -d "${_mxe}/usr/x86_64-w64-mingw32.static/include" ]; then
     _inc_st="${_mxe}/usr/x86_64-w64-mingw32.static/include"
@@ -261,9 +265,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
     export HB_WITH_FREEIMAGE="${_inc_st}"
     export HB_WITH_GD="${_inc_st}"
     export HB_WITH_GS="${_inc_df}/ghostscript"
-    export HB_WITH_GS_BIN="${_inc_df}/../bin"
     export HB_WITH_ICU="${_inc_df}"
-    export HB_WITH_MYSQL="${_inc_df}/mysql"
     export HB_WITH_PGSQL="${_inc_df}"
   fi
   printenv | grep -E '^(HB_WITH_|HBMK_WITH_)' | sort
@@ -279,7 +281,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
   fi
   export HB_CCPREFIX="${HB_PFX_MINGW_64}"
   [ "${os}" = 'win' ] && export PATH="${HB_DIR_MINGW_64}:${_ori_path}"
-  ${HB_CCPREFIX}gcc -v 2>&1 | tee > "${_build_info_64}"
+  ${HB_CCPREFIX}gcc -v 2>&1 | tee "${_build_info_64}"
   if which osslsigncode > /dev/null 2>&1; then
     export HB_CODESIGN_KEY="${CODESIGN_KEY}"
   else
