@@ -94,12 +94,14 @@ fi
 # common settings
 
 # Clean slate
+export HB_CCPREFIX
 export HB_CCSUFFIX
 export HB_BUILD_CONTRIBS
 export HB_USER_CFLAGS
 export HB_USER_LDFLAGS
 export HB_USER_DFLAGS
 
+unset HB_CCPREFIX
 unset HB_CCSUFFIX
 unset HB_BUILD_CONTRIBS
 unset HB_USER_CFLAGS
