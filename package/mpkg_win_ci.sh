@@ -94,13 +94,6 @@ fi
 # common settings
 
 # Clean slate
-export HB_CCPREFIX
-export HB_CCSUFFIX
-export HB_BUILD_CONTRIBS
-export HB_USER_CFLAGS
-export HB_USER_LDFLAGS
-export HB_USER_DFLAGS
-
 unset HB_CCPREFIX
 unset HB_CCSUFFIX
 unset HB_BUILD_CONTRIBS
@@ -147,7 +140,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
 
   # LTO is broken as of mingw 6.1.0
 # [ "${_BRANCH#*prod*}" != "${_BRANCH}" ] && _HB_USER_CFLAGS="${_HB_USER_CFLAGS} -flto -ffat-lto-objects"
-  [ "${HB_BUILD_MODE}" = 'cpp' ] && HB_USER_LDFLAGS="${HB_USER_LDFLAGS} -static-libstdc++"
+  [ "${HB_BUILD_MODE}" = 'cpp' ] && export HB_USER_LDFLAGS="${HB_USER_LDFLAGS} -static-libstdc++"
 
   if [ "${os}" = 'win' ]; then
     readonly _msys_mingw32='/mingw32'
@@ -226,7 +219,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
   fi
   printenv | grep -E '^(HB_WITH_|HBMK_WITH_)' | sort
   if [ -n "${_HB_USER_CFLAGS}" ]; then
-    HB_USER_CFLAGS="${_HB_USER_CFLAGS}"
+    export HB_USER_CFLAGS="${_HB_USER_CFLAGS}"
   else
     unset HB_USER_CFLAGS
   fi
@@ -235,7 +228,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
   else
     unset HB_BUILD_DFLAGS_POST
   fi
-  HB_CCPREFIX="${HB_PFX_MINGW_32}"
+  export HB_CCPREFIX="${HB_PFX_MINGW_32}"
   [ "${HB_BUILD_MODE}" != 'cpp' ] && export HB_USER_CFLAGS="${HB_USER_CFLAGS} -fno-asynchronous-unwind-tables"
   [ "${os}" = 'win' ] && export PATH="${HB_DIR_MINGW_32}:${_ori_path}"
   ${HB_CCPREFIX}gcc -v 2> "${_build_info_32}"
@@ -275,7 +268,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
   fi
   printenv | grep -E '^(HB_WITH_|HBMK_WITH_)' | sort
   if [ -n "${_HB_USER_CFLAGS}" ]; then
-    HB_USER_CFLAGS="${_HB_USER_CFLAGS}"
+    export HB_USER_CFLAGS="${_HB_USER_CFLAGS}"
   else
     unset HB_USER_CFLAGS
   fi
@@ -284,7 +277,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
   else
     unset HB_BUILD_DFLAGS_POST
   fi
-  HB_CCPREFIX="${HB_PFX_MINGW_64}"
+  export HB_CCPREFIX="${HB_PFX_MINGW_64}"
   [ "${os}" = 'win' ] && export PATH="${HB_DIR_MINGW_64}:${_ori_path}"
   ${HB_CCPREFIX}gcc -v 2> "${_build_info_64}"
   if which osslsigncode > /dev/null 2>&1; then
