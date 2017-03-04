@@ -75,9 +75,10 @@ before_install:
       sudo apt-key adv --keyserver hkps://keyserver.ubuntu.com --recv-keys D43A795B73B16ABE9643FE1AFD8FFF16DB45C6AB;
       sudo dpkg --add-architecture i386;
       sudo apt-get update;
+      sudo apt-get -yq --no-install-suggests --no-install-recommends --force-yes install wine;
+      # http://pkg.mxe.cc/repos/tar/
       sudo apt-get -yq --no-install-suggests --no-install-recommends --force-yes install
-        mxe-{i686,x86-64}-w64-mingw32.shared-{cairo,file,freeimage,ghostscript,icu4c,postgresql}
-        wine;
+        mxe-{i686,x86-64}-w64-mingw32.shared-{cairo,file,freeimage,ghostscript,icu4c,postgresql};
     fi;
 script:
   - if [ "$CC" = 'i686-w64-mingw32-gcc' ]; then
