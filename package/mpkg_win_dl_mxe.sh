@@ -23,6 +23,8 @@ mxe_get_pkg() {
   fi
 }
 
+echo '! WARNING: No checksum/signature verification and cleartext download protocol.'
+
 mkdir -p "${HOME}/mxe"
 (
   cd "${HOME}/mxe" || exit

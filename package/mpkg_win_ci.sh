@@ -94,10 +94,19 @@ fi
 # common settings
 
 # Clean slate
-export HB_CCSUFFIX=
-export _HB_USER_CFLAGS=
-export _HB_USER_LDFLAGS=
-export HB_BUILD_CONTRIBS=
+export HB_CCSUFFIX
+export HB_BUILD_CONTRIBS
+export HB_USER_CFLAGS
+export HB_USER_LDFLAGS
+export HB_USER_DFLAGS
+
+unset HB_CCSUFFIX
+unset HB_BUILD_CONTRIBS
+unset HB_USER_CFLAGS
+unset HB_USER_LDFLAGS
+unset HB_USER_DFLAGS
+
+unset _HB_USER_CFLAGS
 
 [ "${_BRANCH#*prod*}" != "${_BRANCH}" ] && export HB_BUILD_CONTRIBS='hbrun hbdoc hbformat/utils hbct hbcurl hbhpdf hbmzip hbwin hbtip hbssl hbexpat hbmemio rddsql hbzebra sddodbc hbunix hbmisc hbcups hbtest hbtcpio hbcomio hbcrypto hbnetio hbpipeio hbgzio hbbz2io hbicu'
 export HB_BUILD_STRIP='bin'
@@ -136,7 +145,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
 
   # LTO is broken as of mingw 6.1.0
 # [ "${_BRANCH#*prod*}" != "${_BRANCH}" ] && _HB_USER_CFLAGS="${_HB_USER_CFLAGS} -flto -ffat-lto-objects"
-  [ "${HB_BUILD_MODE}" = 'cpp' ] && _HB_USER_LDFLAGS="${_HB_USER_LDFLAGS} -static-libstdc++"
+  [ "${HB_BUILD_MODE}" = 'cpp' ] && HB_USER_LDFLAGS="${HB_USER_LDFLAGS} -static-libstdc++"
 
   if [ "${os}" = 'win' ]; then
     readonly _msys_mingw32='/mingw32'
@@ -154,8 +163,8 @@ if [ "${_BRANC4}" != 'msvc' ]; then
       _build_info_32='BUILD-mingw32.txt'
       _build_info_64='BUILD-mingw64.txt'
     fi
-    export HB_PFX_MINGW_32=''
-    export HB_PFX_MINGW_64=''
+    export HB_PFX_MINGW_32=
+    export HB_PFX_MINGW_64=
     _bin_make='mingw32-make'
 
     # Disable picking MSYS2 packages for now
@@ -186,16 +195,17 @@ if [ "${_BRANC4}" != 'msvc' ]; then
   #
   export HB_WITH_CURL="${HB_DIR_CURL_32}include"
   export HB_WITH_OPENSSL="${HB_DIR_OPENSSL_32}include"
-  unset _inc_df _lib
+  unset _inc_df _libdir
   if [ "${os}" = 'win' ]; then
     _inc_df="${_msys_mingw32}/include"
   elif [ -d "${_mxe}/usr/i686-w64-mingw32.shared/include" ]; then
     _inc_df="${_mxe}/usr/i686-w64-mingw32.shared/include"
-    _lib="-L${_mxe}/usr/i686-w64-mingw32.shared/lib"
+    _libdir="-L${_mxe}/usr/i686-w64-mingw32.shared/lib"
     export HB_WITH_LIBMAGIC="${_inc_df}"
   fi
   if [ -d "${_mxe}/usr/i686-w64-mingw32.static/include" ]; then
     _inc_st="${_mxe}/usr/i686-w64-mingw32.static/include"
+    _libdir="${_libdir} -L${_mxe}/usr/i686-w64-mingw32.static/include"
   else
     _inc_st="${_inc_df}"
   fi
@@ -212,11 +222,18 @@ if [ "${_BRANC4}" != 'msvc' ]; then
     export HB_WITH_MYSQL="${_inc_df}/mysql"
     export HB_WITH_PGSQL="${_inc_df}"
   fi
-  printenv | grep -E '^(HB_WITH_|HBMK_WITH_)'
-  export HB_USER_CFLAGS="${_HB_USER_CFLAGS}"
-  export HB_USER_LDFLAGS="${_lib} ${_HB_USER_LDFLAGS}"
-  export HB_USER_DFLAGS="${_lib}"
-  export HB_CCPREFIX="${HB_PFX_MINGW_32}"
+  printenv | grep -E '^(HB_WITH_|HBMK_WITH_)' | sort
+  if [ -n "${_HB_USER_CFLAGS}" ]; then
+    HB_USER_CFLAGS="${_HB_USER_CFLAGS}"
+  else
+    unset HB_USER_CFLAGS
+  fi
+  if [ -n "{_libdir}" ]; then
+    export HB_BUILD_DFLAGS_POST="${_libdir}"
+  else
+    unset HB_BUILD_DFLAGS_POST
+  fi
+  HB_CCPREFIX="${HB_PFX_MINGW_32}"
   [ "${HB_BUILD_MODE}" != 'cpp' ] && export HB_USER_CFLAGS="${HB_USER_CFLAGS} -fno-asynchronous-unwind-tables"
   [ "${os}" = 'win' ] && export PATH="${HB_DIR_MINGW_32}:${_ori_path}"
   ${HB_CCPREFIX}gcc -v 2> "${_build_info_32}"
@@ -230,16 +247,17 @@ if [ "${_BRANC4}" != 'msvc' ]; then
 
   export HB_WITH_CURL="${HB_DIR_CURL_64}include"
   export HB_WITH_OPENSSL="${HB_DIR_OPENSSL_64}include"
-  unset _inc_df _lib
+  unset _inc_df _libdir
   if [ "${os}" = 'win' ]; then
     _inc_df="${_msys_mingw64}/include"
   elif [ -d "${_mxe}/usr/x86_64-w64-mingw32.shared/include" ]; then
     _inc_df="${_mxe}/usr/x86_64-w64-mingw32.shared/include"
-    _lib="-L${_mxe}/usr/x86_64-w64-mingw32.shared/lib"
+    _libdir="-L${_mxe}/usr/x86_64-w64-mingw32.shared/lib"
     export HB_WITH_LIBMAGIC="${_inc_df}"
   fi
   if [ -d "${_mxe}/usr/x86_64-w64-mingw32.static/include" ]; then
     _inc_st="${_mxe}/usr/x86_64-w64-mingw32.static/include"
+    _libdir="${_libdir} -L${_mxe}/usr/x86_64-w64-mingw32.static/include"
   else
     _inc_st="${_inc_df}"
   fi
@@ -253,11 +271,18 @@ if [ "${_BRANC4}" != 'msvc' ]; then
     export HB_WITH_MYSQL="${_inc_df}/mysql"
     export HB_WITH_PGSQL="${_inc_df}"
   fi
-  printenv | grep -E '^(HB_WITH_|HBMK_WITH_)'
-  export HB_USER_CFLAGS="${_HB_USER_CFLAGS}"
-  export HB_USER_LDFLAGS="${_lib} ${_HB_USER_LDFLAGS}"
-  export HB_USER_DFLAGS="${_lib}"
-  export HB_CCPREFIX="${HB_PFX_MINGW_64}"
+  printenv | grep -E '^(HB_WITH_|HBMK_WITH_)' | sort
+  if [ -n "${_HB_USER_CFLAGS}" ]; then
+    HB_USER_CFLAGS="${_HB_USER_CFLAGS}"
+  else
+    unset HB_USER_CFLAGS
+  fi
+  if [ -n "{_libdir}" ]; then
+    export HB_BUILD_DFLAGS_POST="${_libdir}"
+  else
+    unset HB_BUILD_DFLAGS_POST
+  fi
+  HB_CCPREFIX="${HB_PFX_MINGW_64}"
   [ "${os}" = 'win' ] && export PATH="${HB_DIR_MINGW_64}:${_ori_path}"
   ${HB_CCPREFIX}gcc -v 2> "${_build_info_64}"
   if which osslsigncode > /dev/null 2>&1; then
@@ -274,11 +299,12 @@ fi
 if [ "${_BRANC4}" = 'msvc' ]; then
 
   export PATH="${_ori_path}"
-  export HB_USER_CFLAGS=
-  export HB_USER_LDFLAGS=
-  export HB_USER_DFLAGS=
-  export HB_WITH_CURL=
-  export HB_WITH_OPENSSL=
+
+  unset HB_USER_CFLAGS
+  unset HB_USER_LDFLAGS
+  unset HB_USER_DFLAGS
+  unset HB_WITH_CURL
+  unset HB_WITH_OPENSSL
   # TOFIX: clear all HB_WITH_ variables
 
 # export _HB_MSVC_ANALYZE='yes'

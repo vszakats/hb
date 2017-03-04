@@ -11,6 +11,9 @@
 -prgflag=-i-
 #-prgflag=-u+hbstrict.ch
 
+"{HB_BUILD_LDFLAGS_POST}-ldflag=${HB_BUILD_LDFLAGS_POST}"
+"{HB_BUILD_DFLAGS_POST}-dflag=${HB_BUILD_DFLAGS_POST}"
+
 -harden
 {HB_BUILD_PKG='yes'}-vcsts
 
