@@ -183,7 +183,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
   #
   export HB_WITH_CURL="${HB_DIR_CURL_32}include"
   export HB_WITH_OPENSSL="${HB_DIR_OPENSSL_32}include"
-  set -x
+  ls -l /usr/lib/mxe/i686-w64-mingw32.shared/
   if [ "${os}" = 'win' ]; then
     _inc="${_msys_mingw32}/include"
   elif [ -d '/usr/lib/mxe/i686-w64-mingw32.shared/include' ]; then
@@ -192,7 +192,9 @@ if [ "${_BRANC4}" != 'msvc' ]; then
   else
     unset _inc
   fi
+  echo "|${_inc}|"
   if [ -n "${_inc}" ]; then
+    echo "|!|"
     export HB_WITH_CAIRO="${_inc}/cairo"
     export HB_WITH_FREEIMAGE="${_inc}"
     export HB_WITH_GD="${_inc}"
@@ -202,7 +204,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
     export HB_WITH_MYSQL="${_inc}/mysql"
     export HB_WITH_PGSQL="${_inc}"
   fi
-  set +x
+  export | grep HB_WITH_
   export HB_USER_CFLAGS="${_HB_USER_CFLAGS}"
   export HB_CCPREFIX="${HB_PFX_MINGW_32}"
   [ "${HB_BUILD_MODE}" != 'cpp' ] && export HB_USER_CFLAGS="${HB_USER_CFLAGS} -fno-asynchronous-unwind-tables"
@@ -218,7 +220,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
 
   export HB_WITH_CURL="${HB_DIR_CURL_64}include"
   export HB_WITH_OPENSSL="${HB_DIR_OPENSSL_64}include"
-  set -x
+  ls -l /usr/lib/mxe/x86_64-w64-mingw32.shared/
   if [ "${os}" = 'win' ]; then
     _inc="${_msys_mingw64}/include"
   elif [ -d '/usr/lib/mxe/x86_64-w64-mingw32.shared/include' ]; then
@@ -227,7 +229,9 @@ if [ "${_BRANC4}" != 'msvc' ]; then
   else
     unset _inc
   fi
+  echo "|${_inc}|"
   if [ -n "${_inc}" ]; then
+    echo "|!|"
     export HB_WITH_CAIRO="${_inc}/cairo"
     export HB_WITH_FREEIMAGE="${_inc}"
     export HB_WITH_GD="${_inc}"
@@ -237,7 +241,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
     export HB_WITH_MYSQL="${_inc}/mysql"
     export HB_WITH_PGSQL="${_inc}"
   fi
-  set +x
+  export | grep HB_WITH_
   export HB_USER_CFLAGS="${_HB_USER_CFLAGS}"
   export HB_CCPREFIX="${HB_PFX_MINGW_64}"
   [ "${os}" = 'win' ] && export PATH="${HB_DIR_MINGW_64}:${_ori_path}"
