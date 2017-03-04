@@ -14315,12 +14315,19 @@ STATIC FUNCTION CompVersionDetect( hbmk, cPath_CompC )
       IF ! Empty( cPath_CompC )
          hb_processRun( '"' + cPath_CompC + '"' + " " + "-dumpversion",, @cStdOutErr, @cStdOutErr )
          tmp := hb_cdpSelect( "cp437" )
-         IF ( tmp1 := hb_AtX( R_( "([0-9]*)\.([0-9]*)\.([0-9]*)" ), cStdOutErr ) ) != NIL
+         DO CASE
+         CASE ( tmp1 := hb_AtX( R_( "([0-9]*)\.([0-9]*)\.([0-9]*)" ), cStdOutErr ) ) != NIL
             tmp1 := hb_ATokens( tmp1, "." )
             cVer := StrZero( Val( tmp1[ 1 ] ), 2 ) + StrZero( Val( tmp1[ 2 ] ), 2 )
-         ELSE
+         CASE ( tmp1 := hb_AtX( R_( "([0-9]*)\.([0-9]*)" ), cStdOutErr ) ) != NIL
+            /* Prepare for Ubuntu local patch bug (gcc ~4.6-4.9), where version is
+               returned in 'major.minor' format:
+               https://bugs.launchpad.net/ubuntu/+source/gcc-4.8/+bug/1360404 */
+            tmp1 := hb_ATokens( tmp1, "." )
+            cVer := StrZero( Val( tmp1[ 1 ] ), 2 ) + StrZero( Val( tmp1[ 2 ] ), 2 )
+         OTHERWISE
             cVer := "0304"
-         ENDIF
+         ENDCASE
          hb_cdpSelect( tmp )
       ENDIF
    CASE HBMK_ISCOMP( "clang|clang64" )
