@@ -61,9 +61,9 @@ matrix:
       compiler: i686-w64-mingw32-gcc
       env: HB_CI_THREADS=4
 before_install:
-  - mxepkgs=
+  - mxepkgs='
       mxe-{i686,x86-64}-w64-mingw32.shared-{cairo,file,ghostscript,icu4c,libmysqlclient,postgresql}
-      mxe-{i686,x86-64}-w64-mingw32.static-{freeimage,gd};
+      mxe-{i686,x86-64}-w64-mingw32.static-{freeimage,gd}';
     if [ "$TRAVIS_OS_NAME" = 'osx' ]; then
       brew update > /dev/null;
       brew install p7zip;
