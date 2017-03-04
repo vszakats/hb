@@ -280,7 +280,7 @@ touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}include/_repover.txt"
   echo ---------------------------
   cd "${HB_ABSROOT}lib" || exit
   find . -type d | grep -Eo '\./[a-z]+?/[a-z0-9]+?$' | cut -c 3-
-) >> "${HB_ABSROOT}BUILD.txt"
+) | tee >> "${HB_ABSROOT}BUILD.txt"
 touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}BUILD.txt"
 
 # Copy optional text files containing compiler details

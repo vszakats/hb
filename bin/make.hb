@@ -601,8 +601,8 @@ STATIC FUNCTION call_hbmk2( cProjectRoot, cProjectName, cOptionsPre, cDynSuffix,
       " @" + StrTran( cGlobalConf + "hbpre", "\", "/" ) + ;
       cOptionsPre + ;
       " " + StrTran( cProjectPath, "\", "/" ) + ;
-      " @" + StrTran( cGlobalConf + "hbpost", "\", "/" ) + ;
-      StrTran( cOptionsLibDyn, "\", "/" )
+      StrTran( cOptionsLibDyn, "\", "/" ) + ;
+      " @" + StrTran( cGlobalConf + "hbpost", "\", "/" )
 
    IF PCount() >= 5
       nErrorLevel := hb_processRun( cCommand,, @cStdOut, @cStdErr )

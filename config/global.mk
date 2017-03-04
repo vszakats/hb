@@ -286,6 +286,12 @@ ifeq ($(HB_INIT_DONE),)
    ifneq ($(HB_BUILD_PARTS),)
       $(info ! HB_BUILD_PARTS: $(HB_BUILD_PARTS))
    endif
+   ifneq ($(HB_BUILD_LDFLAGS_POST),)
+      $(info ! HB_BUILD_LDFLAGS_POST: $(HB_BUILD_LDFLAGS_POST))
+   endif
+   ifneq ($(HB_BUILD_DFLAGS_POST),)
+      $(info ! HB_BUILD_DFLAGS_POST: $(HB_BUILD_DFLAGS_POST))
+   endif
    ifneq ($(HB_REBUILD_EXTERN),)
       $(info ! HB_REBUILD_EXTERN: $(HB_REBUILD_EXTERN))
    endif

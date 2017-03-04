@@ -231,7 +231,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
   export HB_CCPREFIX="${HB_PFX_MINGW_32}"
   [ "${HB_BUILD_MODE}" != 'cpp' ] && export HB_USER_CFLAGS="${HB_USER_CFLAGS} -fno-asynchronous-unwind-tables"
   [ "${os}" = 'win' ] && export PATH="${HB_DIR_MINGW_32}:${_ori_path}"
-  ${HB_CCPREFIX}gcc -v 2> "${_build_info_32}"
+  ${HB_CCPREFIX}gcc -v 2>&1 | tee > "${_build_info_32}"
   if which osslsigncode > /dev/null 2>&1; then
     export HB_CODESIGN_KEY="${CODESIGN_KEY}"
   else
@@ -279,7 +279,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
   fi
   export HB_CCPREFIX="${HB_PFX_MINGW_64}"
   [ "${os}" = 'win' ] && export PATH="${HB_DIR_MINGW_64}:${_ori_path}"
-  ${HB_CCPREFIX}gcc -v 2> "${_build_info_64}"
+  ${HB_CCPREFIX}gcc -v 2>&1 | tee > "${_build_info_64}"
   if which osslsigncode > /dev/null 2>&1; then
     export HB_CODESIGN_KEY="${CODESIGN_KEY}"
   else
