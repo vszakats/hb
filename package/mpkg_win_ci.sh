@@ -197,7 +197,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
     export HB_WITH_MYSQL="${_inc_df}/mysql"
   elif [ -d "${_mxe}/usr/i686-w64-mingw32.shared/include" ]; then
     _inc_df="${_mxe}/usr/i686-w64-mingw32.shared/include"
-    _libdir="-L${_mxe}/usr/i686-w64-mingw32.shared/lib"
+    _libdir="${_mxe}/usr/i686-w64-mingw32.shared/lib"
     export HB_WITH_LIBMAGIC="${_inc_df}"
     export HB_WITH_MYSQL="${_inc_df}"
     export HB_STATIC_FREEIMAGE=yes
@@ -205,7 +205,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
   fi
   if [ -d "${_mxe}/usr/i686-w64-mingw32.static/include" ]; then
     _inc_st="${_mxe}/usr/i686-w64-mingw32.static/include"
-    _libdir="${_libdir} -L${_mxe}/usr/i686-w64-mingw32.static/lib"
+    _libdir="${_libdir};${_mxe}/usr/i686-w64-mingw32.static/lib"
   else
     _inc_st="${_inc_df}"
   fi
@@ -227,9 +227,9 @@ if [ "${_BRANC4}" != 'msvc' ]; then
     unset HB_USER_CFLAGS
   fi
   if [ -n "{_libdir}" ]; then
-    export HB_BUILD_DFLAGS_POST="${_libdir}"
+    export HB_BUILD_LIBPATH="${_libdir}"
   else
-    unset HB_BUILD_DFLAGS_POST
+    unset HB_BUILD_LIBPATH
   fi
   export HB_CCPREFIX="${HB_PFX_MINGW_32}"
   [ "${HB_BUILD_MODE}" != 'cpp' ] && export HB_USER_CFLAGS="${HB_USER_CFLAGS} -fno-asynchronous-unwind-tables"
@@ -252,7 +252,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
     export HB_WITH_MYSQL="${_inc_df}/mysql"
   elif [ -d "${_mxe}/usr/x86_64-w64-mingw32.shared/include" ]; then
     _inc_df="${_mxe}/usr/x86_64-w64-mingw32.shared/include"
-    _libdir="-L${_mxe}/usr/x86_64-w64-mingw32.shared/lib"
+    _libdir="${_mxe}/usr/x86_64-w64-mingw32.shared/lib"
     export HB_WITH_LIBMAGIC="${_inc_df}"
     export HB_WITH_MYSQL="${_inc_df}"
     export HB_STATIC_FREEIMAGE=yes
@@ -260,7 +260,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
   fi
   if [ -d "${_mxe}/usr/x86_64-w64-mingw32.static/include" ]; then
     _inc_st="${_mxe}/usr/x86_64-w64-mingw32.static/include"
-    _libdir="${_libdir} -L${_mxe}/usr/x86_64-w64-mingw32.static/lib"
+    _libdir="${_libdir};${_mxe}/usr/x86_64-w64-mingw32.static/lib"
   else
     _inc_st="${_inc_df}"
   fi
@@ -279,9 +279,9 @@ if [ "${_BRANC4}" != 'msvc' ]; then
     unset HB_USER_CFLAGS
   fi
   if [ -n "{_libdir}" ]; then
-    export HB_BUILD_DFLAGS_POST="${_libdir}"
+    export HB_BUILD_LIBPATH="${_libdir}"
   else
-    unset HB_BUILD_DFLAGS_POST
+    unset HB_BUILD_LIBPATH
   fi
   export HB_CCPREFIX="${HB_PFX_MINGW_64}"
   [ "${os}" = 'win' ] && export PATH="${HB_DIR_MINGW_64}:${_ori_path}"
