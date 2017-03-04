@@ -200,6 +200,8 @@ if [ "${_BRANC4}" != 'msvc' ]; then
     _libdir="-L${_mxe}/usr/i686-w64-mingw32.shared/lib"
     export HB_WITH_LIBMAGIC="${_inc_df}"
     export HB_WITH_MYSQL="${_inc_df}"
+    export HB_STATIC_FREEIMAGE=yes
+    export HB_STATIC_GD=yes
   fi
   if [ -d "${_mxe}/usr/i686-w64-mingw32.static/include" ]; then
     _inc_st="${_mxe}/usr/i686-w64-mingw32.static/include"
@@ -253,6 +255,8 @@ if [ "${_BRANC4}" != 'msvc' ]; then
     _libdir="-L${_mxe}/usr/x86_64-w64-mingw32.shared/lib"
     export HB_WITH_LIBMAGIC="${_inc_df}"
     export HB_WITH_MYSQL="${_inc_df}"
+    export HB_STATIC_FREEIMAGE=yes
+    export HB_STATIC_GD=yes
   fi
   if [ -d "${_mxe}/usr/x86_64-w64-mingw32.static/include" ]; then
     _inc_st="${_mxe}/usr/x86_64-w64-mingw32.static/include"

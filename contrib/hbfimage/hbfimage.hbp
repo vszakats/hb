@@ -32,6 +32,8 @@ hbwin.hbc{allwin}
 # For FreeImage headers
 #-c=gnu90
 
+-cflag=-DFREEIMAGE_LIB{HB_STATIC_FREEIMAGE}
+
 -hbx=${hb_name}
 
 core.c

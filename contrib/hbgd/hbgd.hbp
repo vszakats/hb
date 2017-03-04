@@ -25,6 +25,8 @@ hbct.hbc
 -depimplibs=gd:../lib/bgd.lib{(msvc|pocc|mingw)&!hbdyn}
 -depimplibs=gd:../lib/libgd.dll.a:bgd
 
+-cflag=-DNONDLL{HB_STATIC_GD}
+
 -hbx=${hb_name}
 
 gdwrp.c
