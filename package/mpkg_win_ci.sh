@@ -187,7 +187,6 @@ if [ "${_BRANC4}" != 'msvc' ]; then
   export HB_WITH_OPENSSL="${HB_DIR_OPENSSL_32}include"
   if [ "${os}" = 'win' ]; then
     _inc="${_msys_mingw32}/include"
-    export HB_WITH_MYSQL="${_inc}/mysql"
   elif [ -d '/usr/lib/mxe/usr/i686-w64-mingw32.shared/include' ]; then
     _inc='/usr/lib/mxe/usr/i686-w64-mingw32.shared/include'
     export HB_WITH_LIBMAGIC="${_inc}"
@@ -204,6 +203,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
     #        64-bit as well.
     export HB_WITH_GS_BIN="${_inc}/../bin"
     export HB_WITH_ICU="${_inc}"
+    export HB_WITH_MYSQL="${_inc}/mysql"
     export HB_WITH_PGSQL="${_inc}"
   fi
   printenv | grep -E '^(HB_WITH_|HBMK_WITH_)'
@@ -224,7 +224,6 @@ if [ "${_BRANC4}" != 'msvc' ]; then
   export HB_WITH_OPENSSL="${HB_DIR_OPENSSL_64}include"
   if [ "${os}" = 'win' ]; then
     _inc="${_msys_mingw64}/include"
-    export HB_WITH_MYSQL="${_inc}/mysql"
   elif [ -d '/usr/lib/mxe/usr/x86_64-w64-mingw32.shared/include' ]; then
     _inc='/usr/lib/mxe/usr/x86_64-w64-mingw32.shared/include'
     export HB_WITH_LIBMAGIC="${_inc}"
@@ -238,6 +237,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
     export HB_WITH_GS="${_inc}/ghostscript"
     export HB_WITH_GS_BIN="${_inc}/../bin"
     export HB_WITH_ICU="${_inc}"
+    export HB_WITH_MYSQL="${_inc}/mysql"
     export HB_WITH_PGSQL="${_inc}"
   fi
   printenv | grep -E '^(HB_WITH_|HBMK_WITH_)'

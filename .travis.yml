@@ -77,7 +77,7 @@ before_install:
       sudo apt-get update;
       sudo apt-get -yq --no-install-suggests --no-install-recommends --force-yes install wine;
       sudo apt-get -yq --no-install-suggests --no-install-recommends --force-yes install
-        mxe-{i686,x86-64}-w64-mingw32.shared-{cairo,file,freeimage,ghostscript,icu4c,postgresql};
+        mxe-{i686,x86-64}-w64-mingw32.shared-{cairo,file,freeimage,ghostscript,icu4c,libmysqlclient,postgresql};
     fi;
 script:
   - if [ "$CC" = 'i686-w64-mingw32-gcc' ]; then
