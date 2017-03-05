@@ -264,6 +264,7 @@ PRG_SOURCES := \
    readkey.prg \
    readvar.prg \
    savebuff.prg \
+   savebufs.prg \
    scrollbr.prg \
    setfunc.prg \
    setta.prg \

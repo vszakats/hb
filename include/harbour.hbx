@@ -1570,6 +1570,7 @@ DYNAMIC __XSaveGetAttr
 DYNAMIC __XSaveGetChar
 DYNAMIC __XSaveGetColor
 DYNAMIC __XSaveScreen
+DYNAMIC __XSaveSetCell
 
 #if defined( __HBEXTREQ__ ) .OR. defined( __HBEXTERN__HARBOUR__REQUEST )
    #uncommand DYNAMIC <fncs,...> => EXTERNAL <fncs>

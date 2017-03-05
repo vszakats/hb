@@ -15,7 +15,7 @@ mxe_get_pkg() {
     name="${BASH_REMATCH[4]}"
     base='http://pkg.mxe.cc/repos/tar/'
     dirl="$(curl -fsS "${base}${repo}/")"
-    if [[ "${dirl}" =~ (${repo}-${name}_([0-9a-b.]*).tar.xz) ]]; then
+    if [[ "${dirl}" =~ (${repo}-${name}_([0-9a-zA-Z.-]*).tar.xz) ]]; then
       echo "! Version: ${BASH_REMATCH[2]}"
       url="${base}${repo}/${BASH_REMATCH[1]}"
       echo "! Downloading... '${url}'"

@@ -35,7 +35,3 @@ hbwin.hbc{allwin}
 
 core.c
 win.c{allwin}
-
--quiet-
--info
--trace
