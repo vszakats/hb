@@ -51,7 +51,7 @@ matrix:
       addons:
         apt:
           packages:
-            - [ binutils-mingw-w64, gcc-mingw-w64, p7zip-full, gnupg-curl, dos2unix, realpath ]
+            - [ binutils-mingw-w64, gcc-mingw-w64, g++-mingw-w64, p7zip-full, gnupg-curl, dos2unix, realpath ]
     - os: osx
       osx_image: xcode8.2
       compiler: clang
