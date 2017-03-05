@@ -9,6 +9,7 @@ headers=freeimag.ch
 libs=${_HB_DYNPREF}${hb_name}${_HB_DYNSUFF}
 
 libs=freeimage
+{win&allgcc&HB_STATIC_FREEIMAGE}libs=stdc++
 {win&allgcc&HB_STATIC_FREEIMAGE}ldflags+=-lstdc++
 {darwin}libpaths=/usr/local/opt/freeimage/lib
 

@@ -15,12 +15,13 @@ mxe_get_pkg() {
     name="${BASH_REMATCH[4]}"
     base='http://pkg.mxe.cc/repos/tar/'
     dirl="$(curl -fsS "${base}${repo}/")"
-    if [[ "${dirl}" =~ (${repo}-${name}_([0-9.]*).tar.xz) ]]; then
+    if [[ "${dirl}" =~ (${repo}-${name}_([0-9a-b.]*).tar.xz) ]]; then
       echo "! Version: ${BASH_REMATCH[2]}"
-      if curl -fsS "${base}${repo}/${BASH_REMATCH[1]}" \
-         | tar -x; then
+      url="${base}${repo}/${BASH_REMATCH[1]}"
+      echo "! Downloading... '${url}'"
+      if curl -fsS "${url}" | tar -x; then
         subd="$(echo "$(pwd)/usr/${repo}" | sed 's|^mxe-||' | sed 's|x86-64|x86_64|' | sed "s|${HOME}|~|")"
-        echo "! OK. Installed into '${subd}'"
+        echo "! OK. Unpacked into: '${subd}'"
       fi
     fi
   fi
@@ -33,7 +34,7 @@ mkdir -p "${HOME}/mxe"
   cd "${HOME}/mxe" || exit
 
   while [ -n "$1" ]; do
-    echo "! Downloading and unpacking $1..."
+    echo "! Installing mxe package '$1'"
     mxe_get_pkg "$1"
     shift
   done
