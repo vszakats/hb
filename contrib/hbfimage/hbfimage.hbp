@@ -25,9 +25,6 @@ hbwin.hbc{allwin}
 -depimplibs=freeimage:FreeImage.dll
 -depimplibs=freeimage:../lib/libfreeimage.dll.a{allmingw}
 -depimplibd=freeimage:freeimage
--depfinish=freeimage
-
-{hbdyn&allmingw}-instfile=depimplibsrc:${HBMK_DIR_FREEIMAGE}/../bin/libfreeimage-3.dll
 
 # For FreeImage headers
 #-c=gnu90
