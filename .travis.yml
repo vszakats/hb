@@ -71,6 +71,7 @@ before_install:
         brew install mingw-w64 jq osslsigncode dos2unix gpg coreutils;
         brew cask install wine-devel;
         ./package/mpkg_win_dl_mxe.sh "${mxepkgs[@]}";
+        ./package/mpkg_win_dl_mxe.sh mxe-{i686,x86-64}-w64-mingw32.shared-{jpeg,freetype,fontconfig,libiconv};
       else
         brew install cairo curl freeimage gd ghostscript icu4c libmagic mariadb openssl@1.1 qt5 s-lang unixodbc;
       fi;
