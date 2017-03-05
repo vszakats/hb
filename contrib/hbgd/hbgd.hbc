@@ -7,7 +7,7 @@ headers=gd.ch
 libs=${_HB_DYNPREF}${hb_name}${_HB_DYNSUFF}
 
 {win&!HB_STATIC_GD}libs=bgd
-{win& HB_STATIC_GD}libs=gd png jpeg freetype fontconfig
+{win& HB_STATIC_GD}libs=gd png jpeg freetype fontconfig libiconv
 {linux}libs=gd png jpeg freetype m
 {darwin}libs=gd
 {darwin}libpaths=/usr/local/opt/gd/lib

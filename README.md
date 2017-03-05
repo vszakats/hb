@@ -650,10 +650,9 @@ settings are case-sensitive.
      Lib names should be without extension and path.
      You only need this in special cases, like CodeGuard build with win/bcc.
 
-   - `HB_BUILD_LDFLAGS_POST` and `HB_BUILD_DFLAGS_POST`
+   - `HB_BUILD_LIBPATH`
 
-     Pass extra options at the end of the options list when building contrib
-     packages.
+     Use extra library path when building contrib packages.
 
    - `HB_INSTALL_IMPLIB=no`
 

@@ -119,7 +119,7 @@ export HB_BUILD_POSTRUN='"./hbmk2 --version" "./hbrun --version" "./hbtest -noen
 
 # export HB_BUILD_CONTRIBS='no'
 # export HB_MKFLAGS="${HB_MKFLAGS} HB_BUILD_OPTIM=no"
-  export HB_BUILD_VERBOSE='yes'
+# export HB_BUILD_VERBOSE='yes'
 # export _HB_PKG_DEBUG='yes'
 # export _HB_BUNDLE_3RDLIB='yes'
 
