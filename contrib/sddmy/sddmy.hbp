@@ -29,6 +29,7 @@ rddsql.hbc
 -depincpath=mysql:/usr/local/opt/mysql/include
 -depimplibs=mysql:../lib/opt/libmySQL.dll
 -depimplibs=mysql:../lib/libmySQL.dll
+-depimplibs=mysql:../lib/libmysqlclient.dll.a
 -depimplibs=mysql:../../lib/libmysql.dll
 -depimplibs=mysql:../../lib/libmysql.def{x86_64}
 -depimplibs=mysql:../../lib/libmysqlclient.dll.a

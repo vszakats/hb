@@ -221,16 +221,10 @@ if [ "${_BRANC4}" != 'msvc' ]; then
     export HB_WITH_PGSQL="${_inc_df}"
   fi
   printenv | grep -E '^(HB_WITH_|HBMK_WITH_)' | sort
-  if [ -n "${_HB_USER_CFLAGS}" ]; then
-    export HB_USER_CFLAGS="${_HB_USER_CFLAGS}"
-  else
-    unset HB_USER_CFLAGS
-  fi
-  if [ -n "{_libdir}" ]; then
-    export HB_BUILD_LIBPATH="${_libdir}"
-  else
-    unset HB_BUILD_LIBPATH
-  fi
+  unset HB_USER_CFLAGS
+  [ -n "${_HB_USER_CFLAGS}" ] && export HB_USER_CFLAGS="${_HB_USER_CFLAGS}"
+  unset HB_BUILD_LIBPATH
+  [ -n "${_libdir}" ] && export HB_BUILD_LIBPATH="${_libdir}"
   export HB_CCPREFIX="${HB_PFX_MINGW_32}"
   [ "${HB_BUILD_MODE}" != 'cpp' ] && export HB_USER_CFLAGS="${HB_USER_CFLAGS} -fno-asynchronous-unwind-tables"
   [ "${os}" = 'win' ] && export PATH="${HB_DIR_MINGW_32}:${_ori_path}"
@@ -273,16 +267,10 @@ if [ "${_BRANC4}" != 'msvc' ]; then
     export HB_WITH_PGSQL="${_inc_df}"
   fi
   printenv | grep -E '^(HB_WITH_|HBMK_WITH_)' | sort
-  if [ -n "${_HB_USER_CFLAGS}" ]; then
-    export HB_USER_CFLAGS="${_HB_USER_CFLAGS}"
-  else
-    unset HB_USER_CFLAGS
-  fi
-  if [ -n "{_libdir}" ]; then
-    export HB_BUILD_LIBPATH="${_libdir}"
-  else
-    unset HB_BUILD_LIBPATH
-  fi
+  unset HB_USER_CFLAGS
+  [ -n "${_HB_USER_CFLAGS}" ] && export HB_USER_CFLAGS="${_HB_USER_CFLAGS}"
+  unset HB_BUILD_LIBPATH
+  [ -n "${_libdir}" ] && export HB_BUILD_LIBPATH="${_libdir}"
   export HB_CCPREFIX="${HB_PFX_MINGW_64}"
   [ "${os}" = 'win' ] && export PATH="${HB_DIR_MINGW_64}:${_ori_path}"
   ${HB_CCPREFIX}gcc -v 2>&1 | tee "${_build_info_64}"
