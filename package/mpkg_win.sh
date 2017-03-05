@@ -271,12 +271,16 @@ touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}include/_repover.txt"
 # Register build information
 
 (
-  ${win} "${HB_ABSROOT}bin/harbour" -build 2> /dev/null | dos2unix | grep -Ev '^(Version:|Platform:|Extra )'
+  ${win} "${HB_ABSROOT}bin/harbour" -build 2> /dev/null \
+  | dos2unix | grep -Ev '^(Version:|Platform:|Extra )'
   echo "Source archive URL: ${_vcs_url}archive/${_vcs_id}.zip"
   echo ---------------------------
   printenv | grep '_VER=' | grep -v '^_' | sort
   echo ---------------------------
-  printenv | grep -E '^(HB_USER_|HB_BUILD_|HB_WITH_|HBMK_WITH_|HB_STATIC_)' | grep -Ev '(HB_BUILD_POSTRUN_HOST=|HB_BUILD_POSTRUN=|HB_BUILD_PKG=)' | sed "s|${HOME}|~|g" | sort
+  printenv \
+  | grep -E '^(HB_USER_|HB_BUILD_|HB_WITH_|HBMK_WITH_|HB_STATIC_)' \
+  | grep -Ev '(HB_BUILD_POSTRUN_HOST=|HB_BUILD_POSTRUN=|HB_BUILD_PKG=)' \
+  | sed "s|${HOME}|~|g" | sort
   echo ---------------------------
   cd "${HB_ABSROOT}lib" || exit
   find . -type d | grep -Eo '\./[a-z]+?/[a-z0-9]+?$' | cut -c 3-
