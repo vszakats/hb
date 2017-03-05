@@ -652,7 +652,8 @@ settings are case-sensitive.
 
    - `HB_BUILD_LIBPATH`
 
-     Use extra library path when building contrib packages.
+     Use extra library path when building contrib packages. It will be passed
+     to hbmk2 via its `-L` option, _after_ any other custom option.
 
    - `HB_INSTALL_IMPLIB=no`
 
