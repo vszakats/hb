@@ -310,9 +310,10 @@ if [ "${_BRANC4}" = 'msvc' ]; then
   export _VCVARSALL="%ProgramFiles(x86)%\Microsoft Visual Studio ${_VCVARSALL}\VC\vcvarsall.bat"
 
   if [ -n "${_VCVARSALL}" ]; then
+    # NOTE: Requires mingw32-make.exe in the PATH
     cat << EOF > _make.bat
        call "%_VCVARSALL%" x86
-       win-make.exe install %HB_MKFLAGS% HB_COMPILER=msvc
+       mingw32-make.exe install %HB_MKFLAGS% HB_COMPILER=msvc
 EOF
     ./_make.bat
     rm _make.bat
@@ -323,9 +324,10 @@ EOF
   [ "${_BRANCH}" = 'msvc2010' ] && _VCVARSALL=
 
   if [ -n "${_VCVARSALL}" ]; then
+    # NOTE: Requires mingw32-make.exe in the PATH
     cat << EOF > _make.bat
        call "%_VCVARSALL%" x86_amd64
-       win-make.exe install %HB_MKFLAGS% HB_COMPILER=msvc64
+       mingw32-make.exe install %HB_MKFLAGS% HB_COMPILER=msvc64
 EOF
     ./_make.bat
     rm _make.bat

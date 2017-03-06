@@ -27,6 +27,7 @@ cstructc.c
 datesxhb.c
 dbf2txt.c
 dbgfxc.c
+dirdrivc.c
 filestat.c
 fparse.c
 freadlin.c
@@ -79,6 +80,7 @@ arrayblk.prg
 cstruct.prg
 dbgfx.prg
 decode.prg
+dirdrive.prg
 dirrec.prg
 diskhb.prg
 dumpvar.prg
