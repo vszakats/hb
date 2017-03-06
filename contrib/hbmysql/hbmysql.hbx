@@ -32,6 +32,8 @@ DYNAMIC mysql_fetch_field
 DYNAMIC mysql_fetch_row
 DYNAMIC mysql_field_count
 DYNAMIC mysql_field_seek
+DYNAMIC mysql_get_client_info
+DYNAMIC mysql_get_client_version
 DYNAMIC mysql_get_host_info
 DYNAMIC mysql_get_server_info
 DYNAMIC mysql_get_server_version
@@ -52,6 +54,7 @@ DYNAMIC mysql_rollback
 DYNAMIC mysql_select_db
 DYNAMIC mysql_store_result
 DYNAMIC mysql_use_result
+DYNAMIC MYSQL_VERSION_ID
 DYNAMIC TBColumnSQL
 DYNAMIC TBrowseSQL
 DYNAMIC TMySQLQuery

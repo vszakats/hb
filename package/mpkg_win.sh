@@ -278,8 +278,8 @@ touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}include/_repover.txt"
   printenv | grep '_VER=' | grep -v '^_' | sort
   echo ---------------------------
   printenv \
-  | grep -E '^(HB_USER_|HB_BUILD_|HB_WITH_|HBMK_WITH_|HB_STATIC_)' \
-  | grep -Ev '(HB_BUILD_POSTRUN_HOST=|HB_BUILD_POSTRUN=|HB_BUILD_PKG=)' \
+  | grep -E  '^(HB_USER_|HB_BUILD_|HB_WITH_|HBMK_WITH_|HB_STATIC_)' \
+  | grep -Ev '^(HB_BUILD_POSTRUN_HOST=|HB_BUILD_POSTRUN=|HB_BUILD_PKG=)' \
   | sed "s|${HOME}|~|g" | sort
   echo ---------------------------
   cd "${HB_ABSROOT}lib" || exit

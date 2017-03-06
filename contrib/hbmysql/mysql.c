@@ -58,6 +58,10 @@
 
 #include "mysql.h"
 
+#if ! defined( MYSQL_VERSION_ID )
+   #define MYSQL_VERSION_ID  0
+#endif
+
 /* NOTE: OS/2 EMX port of MySQL needs libmysqlclient.a from 3.21.33b build which has st and mt
          versions of client library. I'm using ST version since Harbour is single threaded.
          You need also .h files from same distribution. */
@@ -596,4 +600,23 @@ HB_FUNC( MYSQL_ESCAPE_STRING_FROM_FILE )
       hb_retclen_buffer( buffer, nSize );
       hb_xfree( from );
    }
+}
+
+HB_FUNC( MYSQL_GET_CLIENT_INFO )
+{
+   hb_retc( mysql_get_client_info() );
+}
+
+HB_FUNC( MYSQL_GET_CLIENT_VERSION )
+{
+#if MYSQL_VERSION_ID >= 40101
+   hb_retnl( mysql_get_client_version() );
+#else
+   hb_retnl( 0 );
+#endif
+}
+
+HB_FUNC( MYSQL_VERSION_ID )
+{
+   hb_retnl( MYSQL_VERSION_ID );
 }
