@@ -59,7 +59,7 @@ THREAD STATIC t_aTables := {}
 /* Network functions */
 STATIC s_nNetDelay    := 30
 STATIC s_lNetOk       := .F.
-STATIC s_cNetMsgColor := "GR+/R"
+STATIC s_xNetMsgColor := 0x4e
 
 FUNCTION NetDbUse( cDataBase, cAlias, nSeconds, cDriver, lNew, lShared, lReadOnly )
 
@@ -82,7 +82,7 @@ FUNCTION NetDbUse( cDataBase, cAlias, nSeconds, cDriver, lNew, lShared, lReadOnl
             PadC( "Network retry | " + ;
             LTrim( Str( nSeconds, 4, 1 ) ) + " | ESCape : Exit ", ;
             MaxCol() + 1 ), ;
-            s_cNetMsgColor )
+            s_xNetMsgColor )
          lFirstPass := .F.
       ENDIF
 
@@ -185,7 +185,7 @@ FUNCTION NetLock( nType, lReleaseLocks, nSeconds )
 
             hb_DispOutAt( MaxRow(), 0, ;
                PadC( "Network Retry " + cWord + " | " + Str( nSeconds, 3 ) + " | ESC Exit", MaxCol() + 1 ), ;
-               s_cNetMsgColor )
+               s_xNetMsgColor )
 
             nSeconds--
             IF hb_keyStd( Inkey( 1 ) ) == K_ESC
@@ -366,15 +366,16 @@ FUNCTION SetNetDelay( nSecs )
 
    RETURN nTemp
 
-FUNCTION SetNetMsgColor( cColor )
+FUNCTION SetNetMsgColor( xColor )
 
-   LOCAL cTemp := s_cNetMsgColor
+   LOCAL xTemp := s_xNetMsgColor
 
-   IF HB_ISSTRING( cColor )
-      s_cNetMsgColor := cColor
+   IF HB_ISSTRING( xColor ) .OR. ;
+      HB_ISNUMERIC( xColor )
+      s_xNetMsgColor := xColor
    ENDIF
 
-   RETURN cTemp
+   RETURN xTemp
 
 
 /* Utility functions */
