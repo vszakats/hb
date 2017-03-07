@@ -54,13 +54,13 @@
    #include "windows.h"
 #endif
 
-#define _HB_DRIVE_UNKNOWN      0
-#define _HB_DRIVE_NO_ROOT_DIR  1
-#define _HB_DRIVE_REMOVABLE    2
-#define _HB_DRIVE_FIXED        3
-#define _HB_DRIVE_REMOTE       4
-#define _HB_DRIVE_CDROM        5
-#define _HB_DRIVE_RAMDISK      6
+#define _HB_MOUNT_UNKNOWN      0
+#define _HB_MOUNT_NO_ROOT_DIR  1
+#define _HB_MOUNT_REMOVABLE    2
+#define _HB_MOUNT_FIXED        3
+#define _HB_MOUNT_REMOTE       4
+#define _HB_MOUNT_CDROM        5
+#define _HB_MOUNT_RAMDISK      6
 
 static int s_mount_type( void )
 {
@@ -104,56 +104,56 @@ static int s_mount_type( void )
    switch( uiType )
    {
       case DRIVE_NO_ROOT_DIR:
-         iType = _HB_DRIVE_NO_ROOT_DIR;
+         iType = _HB_MOUNT_NO_ROOT_DIR;
          break;
       case DRIVE_REMOVABLE:
-         iType = _HB_DRIVE_REMOVABLE;
+         iType = _HB_MOUNT_REMOVABLE;
          break;
       case DRIVE_FIXED:
-         iType = _HB_DRIVE_FIXED;
+         iType = _HB_MOUNT_FIXED;
          break;
       case DRIVE_REMOTE:
-         iType = _HB_DRIVE_REMOTE;
+         iType = _HB_MOUNT_REMOTE;
          break;
       case DRIVE_CDROM:
-         iType = _HB_DRIVE_CDROM;
+         iType = _HB_MOUNT_CDROM;
          break;
       case DRIVE_RAMDISK:
-         iType = _HB_DRIVE_RAMDISK;
+         iType = _HB_MOUNT_RAMDISK;
          break;
       default:
-         iType = _HB_DRIVE_UNKNOWN;
+         iType = _HB_MOUNT_UNKNOWN;
    }
 
    if( lpFree )
       hb_xfree( lpFree );
 #else
-   iType = _HB_DRIVE_UNKNOWN;
+   iType = _HB_MOUNT_UNKNOWN;
 #endif
    return iType;
 }
 
 HB_FUNC( HB_ISREMOTEDISK )
 {
-   hb_retl( s_mount_type() == _HB_DRIVE_REMOTE );
+   hb_retl( s_mount_type() == _HB_MOUNT_REMOTE );
 }
 
 HB_FUNC( HB_ISRAMDISK )
 {
-   hb_retl( s_mount_type() == _HB_DRIVE_RAMDISK );
+   hb_retl( s_mount_type() == _HB_MOUNT_RAMDISK );
 }
 
 HB_FUNC( HB_ISHARDDISK )
 {
-   hb_retl( s_mount_type() == _HB_DRIVE_FIXED );
+   hb_retl( s_mount_type() == _HB_MOUNT_FIXED );
 }
 
 HB_FUNC( HB_ISCDROM )
 {
-   hb_retl( s_mount_type() == _HB_DRIVE_CDROM );
+   hb_retl( s_mount_type() == _HB_MOUNT_CDROM );
 }
 
 HB_FUNC( HB_ISDISKETTE )
 {
-   hb_retl( s_mount_type() == _HB_DRIVE_REMOVABLE );
+   hb_retl( s_mount_type() == _HB_MOUNT_REMOVABLE );
 }
