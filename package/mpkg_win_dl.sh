@@ -113,7 +113,7 @@ for plat in '32' '64'; do
       (
         set -x
         curl -L --proto-redir =https \
-          -o pack.bin "${base}${name}-${ver}-win${plat}-mingw.7z"
+          -o pack.bin "${base}${name}-${ver}-win${plat}-mingw.7z" \
           -o pack.sig "${base}${name}-${ver}-win${plat}-mingw.7z.asc"
         gpg --verify-options show-primary-uid-only --verify pack.sig pack.bin
         openssl dgst -sha256 pack.bin | grep -q "${hash}" || exit 1
