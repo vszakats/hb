@@ -129,15 +129,15 @@ Platform specific prerequisites:
    different versions of the same compiler in `PATH` at the same time. For the
    list of supported compilers,
    look up [Supported Platforms and C Compilers](#supported-platforms-and-c-compilers).
-3. GNU Make 3.81 or upper is required. A copy of this tool is included in
-   the source package, so you don't have to do anything.
-   If you want to get it separately, you can find it [here](#external-links).
+3. A native build of GNU Make 3.81 or upper is required. It is usually named
+   `mingw32-make.exe`. It's distrbuted in MSYS2, mingw-w64 packages. You can
+   find some links [here](#external-links).
    Unpack it to your `PATH` or Harbour source root directory, and run it as
    `mingw32-make`.
 
 To build:
 
-    > win-make
+    > mingw32-make
 
 To test it, type:
 
@@ -232,12 +232,8 @@ You should see `Hello, world!` on screen.
 
 ## on MS-DOS hosts (possible cross-build targets: Windows, OS/2, Linux)
 
-Make sure to have your C compiler of choice installed in `PATH`.
-
-To prepare:
-
-    1. Get `curl` tool.
-    2. Execute shell script `gettools.sh` to download required build tools.
+Make sure to have your C compiler of choice and GNU coreutils (via DJGPP)
+`cp`, `rm`, `mkdir`, `echo` are installed in `PATH`.
 
 To build:
 
@@ -253,10 +249,8 @@ You should see `Hello, world!` on screen.
 
 ## on OS/2 hosts (possible cross-build targets: MS-DOS, OS/2, Linux)
 
-To prepare:
-
-    1. Get `curl` tool.
-    2. Execute shell script `gettools.sh` to download required build tools.
+Make sure to have the required GNU coreutils `cp`, `rm`, `mkdir`, `echo`
+and GNU `make` installed in `PATH`.
 
 To build:
 
@@ -765,62 +759,62 @@ mingw32-make
 :: MSVC 2017 or upper
 :: For configuration, see: https://msdn.microsoft.com/library/f2ccy3wt
 :: Then:
-win-make
+mingw32-make
 ```
 
 ```batchfile
 :: MSVC 2015 (x86 target)
 call "%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
-win-make
+mingw32-make
 ```
 
 ```batchfile
 :: MSVC 2015 (x64 target)
 call "%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
-win-make
+mingw32-make
 ```
 
 ```batchfile
 :: MSVC 2010 and Windows SDK 7.1 (x86 target)
 call "%ProgramFiles(x86)%\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
-win-make
+mingw32-make
 ```
 
 ```batchfile
 :: MSVC 2010 (Professional or above) and Windows SDK 7.1 (x64 target)
 call "%ProgramFiles(x86)%\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" amd64
-win-make
+mingw32-make
 ```
 
 ```batchfile
 :: Windows SDK 7 (x86 target)
 call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\bin\vcvars32.bat"
-win-make
+mingw32-make
 ```
 
 ```batchfile
 :: Windows SDK 7 (x64 target)
 call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\bin\vcvars64.bat"
-win-make
+mingw32-make
 ```
 
 ```batchfile
 :: MSVC 2008 (x86 target)
 call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat"
-win-make
+mingw32-make
 ```
 
 ```batchfile
 :: MSVC 2008 (Standard or above) (x64 target)
 call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat" amd64
-win-make
+mingw32-make
 ```
 
 ```batchfile
 :: MSVC 2008 (Team Suite) (IA-64 Itanium target)
 :: (requires preceding build for x86 or x64 target)
 call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat" x86_ia64
-win-make
+mingw32-make
 ```
 
 ```batchfile
@@ -828,14 +822,14 @@ win-make
 set WATCOM=C:\watcom
 set PATH=%WATCOM%\BINNT64;%WATCOM%\BINNT;%PATH%
 set INCLUDE=%WATCOM%\H;%WATCOM%\H\NT;%WATCOM%\H\NT\DIRECTX;%WATCOM%\H\NT\DDK;%INCLUDE%
-win-make
+mingw32-make
 ```
 
 ```batchfile
 :: clang (alpha)
 call "%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
 set PATH=%ProgramFiles(x86)%\LLVM 3.6.svn;%PATH%
-win-make
+mingw32-make
 ```
 
 ## on Windows 32-bit hosts
@@ -875,73 +869,73 @@ sh -c make
 :: MSVC 2017 or upper
 :: For configuration, see: https://msdn.microsoft.com/library/f2ccy3wt
 :: Then:
-win-make
+mingw32-make
 ```
 
 ```batchfile
 :: MSVC 2015 (x86 target)
 call "%ProgramFiles%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
-win-make
+mingw32-make
 ```
 
 ```batchfile
 :: MSVC 2015 (x64 target)
 :: (requires preceding build for x86 target)
 call "%ProgramFiles%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
-win-make
+mingw32-make
 ```
 
 ```batchfile
 :: MSVC 2010 and Windows SDK 7.1 (x86 target)
 call "%ProgramFiles%\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
-win-make
+mingw32-make
 ```
 
 ```batchfile
 :: MSVC 2010 (Professional or above) and Windows SDK 7.1 (x64 target)
 :: (requires preceding build for x86 target)
 call "%ProgramFiles%\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" x86_amd64
-win-make
+mingw32-make
 ```
 
 ```batchfile
 :: Windows SDK 7 (x86 target)
 call "%ProgramFiles%\Microsoft Visual Studio 9.0\VC\bin\vcvars32.bat"
-win-make
+mingw32-make
 ```
 
 ```batchfile
 :: Windows SDK 7 (x64 target)
 :: (requires preceding build for x86 target)
 call "%ProgramFiles%\Microsoft Visual Studio 9.0\VC\bin\vcvarsx86_amd64.bat"
-win-make
+mingw32-make
 ```
 
 ```batchfile
 :: MSVC 2008 + SDK (x86 target)
 set WindowsSDKDir=%ProgramFiles%\Microsoft SDKs\Windows\v6.0A\
 call "%ProgramFiles%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat"
-win-make
+mingw32-make
 ```
 
 ```batchfile
 :: MSVC 2008 (x86 target)
 call "%ProgramFiles%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat"
-win-make
+mingw32-make
 ```
 
 ```batchfile
 :: MSVC 2008 (Standard or above) (x64 target)
 :: (requires preceding build for x86 target)
 call "%ProgramFiles%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat" x86_amd64
-win-make
+mingw32-make
 ```
 
 ```batchfile
 :: MSVC 2008 (Team Suite) (IA-64 Itanium target)
 :: (requires preceding build for x86 target)
 call "%ProgramFiles%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat" x86_ia64
-win-make
+mingw32-make
 ```
 
 ```batchfile
@@ -950,7 +944,7 @@ win-make
 set PATH=C:\mingwce\opt\mingw32ce\bin;C:\cygwin\bin;%PATH%
 :: optional:
 set CYGWIN=nodosfilewarning
-win-make
+mingw32-make
 ```
 
 ```batchfile
@@ -959,27 +953,27 @@ win-make
 set INCLUDE=%ProgramFiles%\Microsoft Visual Studio 9.0\VC\ce\include;%ProgramFiles%\Windows Mobile 5.0 SDK R2\PocketPC\Include\Armv4i
 set LIB=%ProgramFiles%\Microsoft Visual Studio 9.0\VC\ce\lib\armv4i;%ProgramFiles%\Windows Mobile 5.0 SDK R2\PocketPC\Lib\ARMV4I
 set PATH=%ProgramFiles%\Microsoft Visual Studio 9.0\VC\ce\bin\x86_arm;%ProgramFiles%\Microsoft Visual Studio 9.0\Common7\IDE;%PATH%
-win-make
+mingw32-make
 ```
 
 ```batchfile
 :: Intel(R) C++
 call "%ProgramFiles%\Intel\Compiler\C++\10.1.014\IA32\Bin\iclvars.bat"
-win-make
+mingw32-make
 ```
 
 ```batchfile
 :: Intel(R) C++ for Windows IA-64 Itanium
 :: (requires preceding build for native target)
 call "%ProgramFiles%\Intel\Compiler\C++\10.1.025\Itanium\Bin\iclvars.bat"
-win-make
+mingw32-make
 ```
 
 ```batchfile
 :: Delorie GNU C for MS-DOS
 set DJGPP=C:\djgpp\djgpp.env
 set PATH=C:\djgpp\bin;%PATH%
-win-make
+mingw32-make
 ```
 
 ```batchfile
@@ -987,7 +981,7 @@ win-make
 set WATCOM=C:\watcom
 set PATH=%WATCOM%\BINNT;%WATCOM%\BINW;%PATH%
 set INCLUDE=%WATCOM%\H;%WATCOM%\H\NT;%WATCOM%\H\NT\DIRECTX;%WATCOM%\H\NT\DDK;%INCLUDE%
-win-make
+mingw32-make
 ```
 
 ```batchfile
@@ -995,7 +989,7 @@ win-make
 set WATCOM=C:\watcom
 set PATH=%WATCOM%\BINNT;%PATH%
 set INCLUDE=%WATCOM%\H
-win-make
+mingw32-make
 ```
 
 ```batchfile
@@ -1005,7 +999,7 @@ set WATCOM=C:\watcom
 set PATH=%WATCOM%\BINNT;%WATCOM%\BINW;%PATH%
 set INCLUDE=%WATCOM%\H;%WATCOM%\H\OS2
 set BEGINLIBPATH=%WATCOM%\BINP\DLL
-win-make
+mingw32-make
 ```
 
 ```batchfile
@@ -1014,14 +1008,14 @@ win-make
 set WATCOM=C:\watcom
 set PATH=%WATCOM%\BINNT;%WATCOM%\BINW;%PATH%
 set INCLUDE=%WATCOM%\LH
-win-make
+mingw32-make
 ```
 
 ```batchfile
 :: clang (alpha)
 call "%ProgramFiles%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
 set PATH=%ProgramFiles%\LLVM 3.6.svn;%PATH%
-win-make
+mingw32-make
 ```
 
 ```batchfile
@@ -1029,7 +1023,7 @@ win-make
 :: (requires preceding build for Windows target)
 wrenv -p vxworks-6.8
 set HB_COMPILER=gcc
-win-make
+mingw32-make
 ```
 
 ```batchfile
@@ -1039,7 +1033,7 @@ wrenv -p vxworks-6.8
 set HB_COMPILER=gcc
 set HB_CPU=arm
 set HB_BUILD_NAME=arm
-win-make
+mingw32-make
 ```
 
 ```batchfile
@@ -1047,7 +1041,7 @@ win-make
 :: (requires preceding build for Windows target)
 wrenv -p vxworks-6.8
 set HB_COMPILER=diab
-win-make
+mingw32-make
 ```
 
 ```batchfile

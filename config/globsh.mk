@@ -9,8 +9,6 @@
 
 ifneq ($(HB_SHELL),sh)
 
-TOOL_DIR := $(subst /,\,$(TOP)$(ROOT)config/)
-
 # Have to use '=' operator here for rules to work
 PKG_DIR_OS = $(subst /,\,$(PKG_DIR))
 OBJ_DIR_OS = $(subst /,\,$(OBJ_DIR))
@@ -142,12 +140,12 @@ ifeq ($(HB_SHELL),os2)
 #       os2rm expects backslashes in filenames. [vszakats]
 
 MK := $(subst \,/,$(MAKE))
-RM := $(TOOL_DIR)os2rm -f
-RDP := $(TOOL_DIR)os2rm -fr
-CP := $(TOOL_DIR)os2cp -f
+RM := rm -f
+RDP := rm -fr
+CP := cp -f
 LN :=
-MD := $(TOOL_DIR)os2mkdir
-MDP := $(TOOL_DIR)os2mkdir -p
+MD := mkdir
+MDP := mkdir -p
 ECHO := echo
 ECHOQUOTE :=
 TRUE := $(ECHO) > nul
@@ -193,13 +191,13 @@ ifeq ($(HB_SHELL),dos)
 #       [vszakats]
 
 MK := $(subst \,/,$(MAKE))
-RM := $(TOOL_DIR)dosrm -f
-RDP := $(TOOL_DIR)dosrm -fr
-CP := $(TOOL_DIR)doscp -f
+RM := rm -f
+RDP := rm -fr
+CP := cp -f
 LN :=
-MD := $(TOOL_DIR)dosmkdir
-MDP := $(TOOL_DIR)dosmkdir -p
-ECHO := $(TOOL_DIR)dosecho
+MD := mkdir
+MDP := mkdir -p
+ECHO := echo
 ECHOQUOTE := "
 TRUE := $(ECHO) > nul
 # TODO
