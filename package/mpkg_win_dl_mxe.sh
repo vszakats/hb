@@ -38,7 +38,9 @@ mxe_get_pkg() {
             echo "! Error: Downlading/unpacking: '${url}'"
           fi
 
-          ctrl="$(curl -fsS "http://pkg.mxe.cc/repos/deb-control/${repo}/${repo}-${name}_${vers}.deb-control" | grep '^Depends: ' | cut -c 10-)"
+          ctrl="$(curl -fsS "http://pkg.mxe.cc/repos/deb-control/${repo}/${repo}-${name}_${vers}.deb-control" \
+            | grep '^Depends: ' \
+            | cut -c 10-)"
 
           for i in $(echo "${ctrl}" | sed "s/,/ /g"); do
             mxe_get_pkg "$i"  # recurse

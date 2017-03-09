@@ -29,7 +29,7 @@ if [ -n "${os}" ]; then
 
     case "${os}" in
       win)
-        curl -f -o pack.bin 'https://sourceforge.mirrorservice.org/m/mi/mingw-w64/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/6.3.0/threads-posix/dwarf/i686-6.3.0-release-posix-dwarf-rt_v5-rev1.7z'
+        curl -f -o pack.bin -L 'https://downloads.sourceforge.net/project/mingw-w64/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/6.3.0/threads-posix/dwarf/i686-6.3.0-release-posix-dwarf-rt_v5-rev1.7z'
         7z e -y pack.bin mingw32/bin/mingw32-make.exe > /dev/null
         rm -f pack.bin
         mv -f mingw32-make.exe ../win-make.exe
