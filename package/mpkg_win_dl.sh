@@ -112,10 +112,11 @@ for plat in '32' '64'; do
       # shellcheck disable=SC2154
       (
         set -x
-        curl -o pack.bin -L --proto-redir =https "${base}${name}-${ver}-win${plat}-mingw.7z"
-        curl -o pack.sig -L --proto-redir =https "${base}${name}-${ver}-win${plat}-mingw.7z.asc"
+        curl -L --proto-redir =https \
+          -o pack.bin "${base}${name}-${ver}-win${plat}-mingw.7z"
+          -o pack.sig "${base}${name}-${ver}-win${plat}-mingw.7z.asc"
         gpg --verify-options show-primary-uid-only --verify pack.sig pack.bin
-        openssl dgst -sha256 pack.bin | grep -q "${hash}"
+        openssl dgst -sha256 pack.bin | grep -q "${hash}" || exit 1
         7z x -y pack.bin > /dev/null
         mv "${name}-${ver}-win${plat}-mingw" "${name}-mingw${plat}"
       )
