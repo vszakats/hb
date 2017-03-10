@@ -6,7 +6,11 @@
 # ---------------------------------------------------------------
 
 # Download and unpack a list of mxe binary packages along with the their
-# dependencies. Requires `ar` tool, which comes with macOS.
+# dependencies.
+
+# Requires:
+# - ar (comes with macOS)
+# - gpg, curl, openssl, awk, sed, tar, gzip
 
 mxe_get_pkg() {
 
