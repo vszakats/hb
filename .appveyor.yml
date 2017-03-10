@@ -27,7 +27,7 @@ build:
 
 environment:
   GITHUB_TOKEN:
-    secure: jH5lISFCVrBIeakX7QraWAa6PG2XDBaHJVQBH+o/Wt9Sx4RvZl/Sb6VAGQfKBaLO
+    secure: ONrgLZ5E+p610MEXEXgeE0nf2P2LBIG/JnawYLezFx2hIAYdwVYpnehgZfDQ6GIe
   VIRUSTOTAL_APIKEY:
     secure: TdJYONfrpH45DuyKxraVqgHYy25IQ/F8TKHzYf+u5zz1aiM2yR0YTMaGxyj2EMReEearSI9kD9D2ZykybSVEbRyEaotZlceUb2lPDKELl3M=
   PUSHOVER_USER:
