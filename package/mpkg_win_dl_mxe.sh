@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # ---------------------------------------------------------------
-# Copyright 2017 Viktor Szakats (vszakats.net/harbour)
-# See LICENSE.txt for licensing terms.
+# Copyright 2017 Viktor Szakats (vszakats.net)
+# License: The MIT license (MIT)
 # ---------------------------------------------------------------
 
 # Download and unpack a list of mxe binary packages along with the their
