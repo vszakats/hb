@@ -46,7 +46,7 @@ mxe_get_pkg() {
             if ar -x pack.bin data.tar.xz && \
                tar --strip-components 4 -xf data.tar.xz; then
               subd="$(echo "$(pwd)/usr/${repo}" | sed 's|^mxe-||' | sed 's|x86-64|x86_64|' | sed "s|${HOME}|~|")"
-              echo "! OK. Unpacked into: '${subd}'"  # ~/mxe/usr/mxe-x86_64-w64-mingw32.shared
+              echo "! Verified OK. Unpacked into: '${subd}'"  # ~/mxe/usr/mxe-x86_64-w64-mingw32.shared
             else
               echo "! Error: Unpacking: '${url}'"
             fi
