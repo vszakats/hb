@@ -102,4 +102,12 @@ mkdir -p "${HOME}/mxe"
   done
 
   echo "! Installed:${done//|/}"
+
+  echo '! Retargeting symlinks...'
+  find . -type l -name '*' | while IFS= read -r f; do
+    # TOFIX: readlink may need to be adapted for non-macOS systems
+    ln -f -s "$(readlink "${f}" | sed "s|/usr/lib/mxe|$(pwd)|")" "${f}"
+  done
+
+  echo '! Done.'
 )
