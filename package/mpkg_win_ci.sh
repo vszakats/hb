@@ -60,7 +60,7 @@ case "${os}" in
     #   brew install p7zip mingw-w64 jq osslsigncode dos2unix gpg coreutils
     # For running `harbour.exe` when creating `BUILD.txt` and
     # `HB_BUILD_POSTRUN` tasks:
-    #   brew cask install wine-devel
+    #   brew install wine
     _mxe="${HOME}/mxe"
     ;;
   linux)
