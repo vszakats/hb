@@ -27,15 +27,15 @@ mxe_get_pkg() {
       if [[ ! "${done}" = *"|${idid}|"* ]]; then  # avoid installing the same package twice
         done="${done} |${idid}|"  # add to list of install packages
 
-        sect="$(awk "/^Package: ${repo}-${name}$/,/^SHA256: /" Packages)"  # control section for this package
+        ctrl="$(awk "/^Package: ${repo}-${name}$/,/^SHA256: /" Packages)"  # control section for this package
 
-        debu="$(echo "${sect}" | sed -n -E 's,^Filename: (.+)$,\1,p')"  # .deb path
-        vers="$(echo "${sect}" | sed -n -E 's,^Version: (.+)$,\1,p')"  # package version
-        hash="$(echo "${sect}" | sed -n -E 's,^SHA256: ([0-9a-fA-F]{64})$,\1,p')"  # .deb hash
-        dept="$(echo "${sect}" | sed -n -E 's,^Depends: (.+)$,\1,p')"  # .deb dependencies
+        debp="$(echo "${ctrl}" | sed -n -E 's,^Filename: (.+)$,\1,p')"  # .deb path
+        vers="$(echo "${ctrl}" | sed -n -E 's,^Version: (.+)$,\1,p')"  # package version
+        hash="$(echo "${ctrl}" | sed -n -E 's,^SHA256: ([0-9a-fA-F]{64})$,\1,p')"  # .deb hash
+        deps="$(echo "${ctrl}" | sed -n -E 's,^Depends: (.+)$,\1,p')"  # .deb dependencies
 
         echo "! Version: ${vers}"
-        url="${base}/${debu}"
+        url="${base}/${debp}"
         echo "! Downloading... '${url}'"
         if curl -fsS "${url}" -o pack.bin; then
 
@@ -58,7 +58,7 @@ mxe_get_pkg() {
           fi
           rm -f pack.bin
 
-          for i in ${dept//,/}; do
+          for i in ${deps//,/}; do
             mxe_get_pkg "$i"  # recurse
           done
         else

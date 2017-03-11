@@ -46,6 +46,44 @@
 
 PROCEDURE Main_HVM()
 
+   LOCAL dNegHigh := -100000.0
+   LOCAL iNegHigh := -100000
+
+   /* Internal double to integer conversions */
+
+   HBTEST Asc( Chr( -100000 ) )              IS 96
+   HBTEST Asc( Chr( -100000.0 ) )            IS 96
+   HBTEST Asc( Chr( iNegHigh ) )             IS 96
+   HBTEST Asc( Chr( dNegHigh ) )             IS 96
+#ifdef __HARBOUR__
+   HBTEST Asc( hb_BChar( -100000 ) )         IS 96
+   HBTEST Asc( hb_BChar( -100000.0 ) )       IS 96
+   HBTEST Asc( hb_BChar( iNegHigh ) )        IS 96
+   HBTEST Asc( hb_BChar( dNegHigh ) )        IS 96
+   HBTEST hb_SToD( "20170310" ) - -100000    IS hb_SToD( "22901224" )
+   HBTEST hb_SToD( "20170310" ) - -100000.0  IS hb_SToD( "22901224" )
+#endif
+   HBTEST hb_SToD( "20170310" ) + -100000    IS hb_SToD( "17430526" )
+   HBTEST hb_SToD( "20170310" ) + -100000.0  IS hb_SToD( "17430526" )
+   HBTEST -100000   + hb_SToD( "20170310" )  IS hb_SToD( "17430526" )
+   HBTEST -100000.0 + hb_SToD( "20170310" )  IS hb_SToD( "17430526" )
+#ifdef __HARBOUR__
+   HBTEST hb_SToD( "20170310" ) - iNegHigh   IS hb_SToD( "22901224" )
+   HBTEST hb_SToD( "20170310" ) - dNegHigh   IS hb_SToD( "22901224" )
+#endif
+   HBTEST hb_SToD( "20170310" ) + iNegHigh   IS hb_SToD( "17430526" )
+   HBTEST hb_SToD( "20170310" ) + dNegHigh   IS hb_SToD( "17430526" )
+   HBTEST iNegHigh + hb_SToD( "20170310" )   IS hb_SToD( "17430526" )
+   HBTEST dNegHigh + hb_SToD( "20170310" )   IS hb_SToD( "17430526" )
+
+   /* Internal date value overflow */
+
+#if 0
+   /* Explanation: https://github.com/harbour/core/issues/142 */
+   HBTEST          hb_SToD( "20170310" ) + 10000000   IS          hb_SToD( "93960404" )
+   HBTEST ValType( hb_SToD( "20170310" ) + 10000000 ) IS ValType( hb_SToD( "93960404" ) )
+#endif
+
    /* ValType() */
 
    HBTEST ValType(  scString  )           IS "C"

@@ -1,4 +1,4 @@
-class Harbour < Formula
+class HarbourAT34 < Formula
   desc "Portable, xBase-compatible programming language and environment"
   homepage "https://github.com/vszakats/harbour-core/"
 

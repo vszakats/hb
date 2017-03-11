@@ -15976,7 +15976,7 @@ STATIC PROCEDURE __hbshell( cFile, ... )
                     we use the same <comp> values as was used to build itself.)
           */
 
-         __hbshell_LoadExtFromSource( aExtension, cFile := hbmk_MemoRead( cFile ) )
+         __hbshell_LoadExtFromSource( aExtension, cFile )
 
          /* NOTE: Find .hbc file. Load .hbc file. Process .hbc references.
                   Pick include paths. Load libs. Add include paths to include
@@ -16008,13 +16008,13 @@ STATIC PROCEDURE __hbshell( cFile, ... )
          NEXT
 
          /* We can use this function as this is a GPL licenced application */
-         cFile := hb_compileFromBuf( ;
-            cFile, ;
+         cFile := hb_compileBuf( ;
             hbmk_CoreHeaderFiles(), ;
             hb_ProgName(), ;
             "-n2", "-w", "-es2", "-q0", ;
             hb_ArrayToParams( aOPTPRG ), ;
-            "-D" + _HBMK_SHELL )
+            "-D" + _HBMK_SHELL, ;
+            cFile )
 
          IF cFile == NIL
             ErrorLevel( _EXIT_COMPPRG )
@@ -16107,8 +16107,9 @@ STATIC PROCEDURE __hbshell_LoadExtFromString( aExtension, cString )
 
    RETURN
 
-STATIC PROCEDURE __hbshell_LoadExtFromSource( aExtension, cFile )
+STATIC PROCEDURE __hbshell_LoadExtFromSource( aExtension, cFileName )
 
+   LOCAL cFile := hbmk_MemoRead( cFileName )
    LOCAL pRegex
    LOCAL tmp
 

@@ -177,6 +177,7 @@ PROCEDURE Main_STR()
    HBTEST Chr( "A" )                      IS "E 1 BASE 1104 Argument error (CHR) OS:0 #:0 A:1:C:A F:S"
    HBTEST Chr( "ADDDDDD" )                IS "E 1 BASE 1104 Argument error (CHR) OS:0 #:0 A:1:C:ADDDDDD F:S"
    HBTEST Chr( -10000000.0 )              IS Chr( 128 )
+   HBTEST Chr( -10000000 )                IS Chr( 128 )
    HBTEST Chr( -100000 )                  IS Chr( 96 )
    HBTEST Chr( -65 )                      IS Chr( 191 )
    HBTEST Chr( snIntP1 )                  IS "A"

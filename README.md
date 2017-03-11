@@ -100,7 +100,7 @@ Download source archive from any of these URLs and unpack:
 
 #### Mac (using Homebrew :beer:)
 
-    brew install https://raw.githubusercontent.com/vszakats/harbour-core/master/package/harbour.rb --HEAD
+    brew install https://raw.githubusercontent.com/vszakats/harbour-core/master/package/harbour@3.4.rb --HEAD
 
 ### Follow commits using:
 

@@ -2041,7 +2041,7 @@ HB_BOOL hb_compExprReduceCHR( PHB_EXPR pSelf, HB_COMP_DECL )
       /* NOTE: CA-Cl*pper's compiler optimizer will be wrong for those
        *       Chr() cases where the passed parameter is a constant which
        *       can be divided by 256 but it's not zero, in this case it
-       *       will return an empty string instead of a Chr(0). [vszakats]
+       *       will return an empty string instead of a Chr( 0 ). [vszakats]
        *
        *       But this bug exist only in compiler and CA-Cl*pper macro
        *       compiler does not have optimizer. This bug is replicated
