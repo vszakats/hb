@@ -68,6 +68,7 @@ before_install:
       brew update > /dev/null;
       brew install p7zip;
       if [ "$CC" = 'i686-w64-mingw32-gcc' ]; then
+        cat /Applications/Utilities/XQuartz.app/Contents/Info.plist;
         brew install mingw-w64 jq osslsigncode dos2unix gpg coreutils;
         brew cask install wine-devel;
         ./package/mpkg_win_dl_mxe.sh "${mxepkgs[@]}";
@@ -84,6 +85,7 @@ before_install:
 script:
   - if [ "$CC" = 'i686-w64-mingw32-gcc' ]; then
       if [ "$TRAVIS_OS_NAME" = 'osx' ]; then
+        cat /Applications/Utilities/XQuartz.app/Contents/Info.plist;
         export PATH="/Applications/Wine Devel.app/Contents/Resources/wine/bin:${PATH}";
         export DISPLAY=:88.0; wineboot;
       fi;
