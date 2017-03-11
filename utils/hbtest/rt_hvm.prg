@@ -78,7 +78,7 @@ PROCEDURE Main_HVM()
 
    /* Internal date value overflow */
 
-#if 0
+#ifdef COMMENT
    /* Explanation: https://github.com/harbour/core/issues/142 */
    HBTEST          hb_SToD( "20170310" ) + 10000000   IS          hb_SToD( "93960404" )
    HBTEST ValType( hb_SToD( "20170310" ) + 10000000 ) IS ValType( hb_SToD( "93960404" ) )

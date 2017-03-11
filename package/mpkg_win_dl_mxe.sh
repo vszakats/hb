@@ -9,7 +9,7 @@
 # dependencies.
 
 # Requires:
-# - ar (comes with macOS)
+# - ar (via Xcode or Homebrew)
 # - gpg, curl, openssl, awk, sed, tar, gzip
 
 mxe_get_pkg() {
