@@ -122,7 +122,7 @@ Evaluate these points before reporting an issue:
     name/release and version, environment variables and verbose log output
     containing **both stderr and stdout in one combined stream**
     (use `make > log.txt 2>&1`). Enable verbose mode using
-    `HB_BUILD_VERBOSE=yes` and _do not_ enable multi-theaded build.
+    `HB_BUILD_VERBOSE=yes` and _do not_ enable multi-theaded (parallel) build.
     Preferably, configure your tools to output English language messages.
     Complete log output is rarely necessary, but make sure to include
     the top of the output (lines starting with `!`) and the area where

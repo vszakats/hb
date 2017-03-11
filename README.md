@@ -744,13 +744,25 @@ for a cross-build process to succeed.
 >   `> log.txt 2>&1`
 
 ```batchfile
-:: MinGW GCC (x86 target)
+:: MinGW-w64 GCC via MSYS2 (x86 target)
+set PATH=C:\msys64\mingw32\bin;%PATH%
+mingw32-make
+```
+
+```batchfile
+:: MinGW-w64 GCC via MSYS2 (x64 target)
+set PATH=C:\msys64\mingw64\bin;%PATH%
+mingw32-make
+```
+
+```batchfile
+:: MinGW-w64 GCC (x86 target)
 set PATH=C:\mingw\bin;%PATH%
 mingw32-make
 ```
 
 ```batchfile
-:: MinGW GCC (x64 target)
+:: MinGW-w64 GCC (x64 target)
 set PATH=C:\mingw64\bin;%PATH%
 mingw32-make
 ```
@@ -841,28 +853,28 @@ a cross-build. It's recommended to use a 64-bit environment for Windows
 development.
 
 ```batchfile
-:: MinGW GCC (x86 target)
+:: MinGW-w64 GCC via MSYS2 (x86 target)
+set PATH=C:\msys64\mingw32\bin;%PATH%
+mingw32-make
+```
+
+```batchfile
+:: MinGW-w64 GCC via MSYS2 (x64 target)
+set PATH=C:\msys64\mingw64\bin;%PATH%
+mingw32-make
+```
+
+```batchfile
+:: MinGW-w64 GCC (x86 target)
 set PATH=C:\mingw\bin;%PATH%
 mingw32-make
 ```
 
 ```batchfile
-:: MinGW GCC (x64 target)
+:: MinGW-w64 GCC (x64 target)
 :: (requires preceding build for x86 target)
 set PATH=C:\mingw64\bin;%PATH%
 mingw32-make
-```
-
-```batchfile
-:: MinGW GCC using MSYS2 (x86 target)
-set PATH=C:\msys64\usr\bin;C:\msys64\mingw32\bin;%PATH%
-sh -c make
-```
-
-```batchfile
-:: MinGW GCC using MSYS2 (x64 target)
-set PATH=C:\msys64\usr\bin;C:\msys64\mingw64\bin;%PATH%
-sh -c make
 ```
 
 ```batchfile
