@@ -22,7 +22,7 @@ Source archives and Windows binaries are available for download:
 3. Add Harbour to `PATH`: `set PATH=<path-to-harbour>\bin;%PATH%`
 4. Install MSYS2: <https://msys2.github.io/>
 5. Install MinGW using this command on the MSYS2 console:
-   `pacman -S VCS base-devel msys2-devel mingw-w64-{i686,x86_64}-toolchain`
+   `pacman -S git base-devel msys2-devel mingw-w64-{i686,x86_64}-toolchain`
    (See above link about how to update MSYS2 packages from this point on
    to their latest version.)
 6. Build test x86 executable:

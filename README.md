@@ -745,13 +745,13 @@ for a cross-build process to succeed.
 
 ```batchfile
 :: MinGW-w64 GCC via MSYS2 (x86 target)
-set PATH=C:\msys64\mingw32\bin;%PATH%
+set PATH=C:\msys64\mingw32\bin;C:\msys64\usr\bin;%PATH%
 mingw32-make
 ```
 
 ```batchfile
 :: MinGW-w64 GCC via MSYS2 (x64 target)
-set PATH=C:\msys64\mingw64\bin;%PATH%
+set PATH=C:\msys64\mingw64\bin;C:\msys64\usr\bin;%PATH%
 mingw32-make
 ```
 
@@ -854,13 +854,13 @@ development.
 
 ```batchfile
 :: MinGW-w64 GCC via MSYS2 (x86 target)
-set PATH=C:\msys64\mingw32\bin;%PATH%
+set PATH=C:\msys64\mingw32\bin;C:\msys64\usr\bin;%PATH%
 mingw32-make
 ```
 
 ```batchfile
 :: MinGW-w64 GCC via MSYS2 (x64 target)
-set PATH=C:\msys64\mingw64\bin;%PATH%
+set PATH=C:\msys64\mingw64\bin;C:\msys64\usr\bin;%PATH%
 mingw32-make
 ```
 
