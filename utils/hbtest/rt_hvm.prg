@@ -46,8 +46,8 @@
 
 PROCEDURE Main_HVM()
 
-   LOCAL dNegHigh := -100000.0
    LOCAL iNegHigh := -100000
+   LOCAL dNegHigh := -100000.0
 
    /* Internal double to integer conversions */
 
