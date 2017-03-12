@@ -50,17 +50,16 @@ echo "! LC_CTYPE: ${LC_CTYPE}"
 case "${os}" in
   win)
     pacman --noconfirm --noprogressbar -S --needed p7zip mingw-w64-{i686,x86_64}-{jq,osslsigncode}
-    # Dependencie for cross-builds:
-    #   http://pkg.mxe.cc/repos/tar/
+    # Dependencies for cross-builds:
+    #   http://pkg.mxe.cc/repos/
     ;;
   mac)
-    # `coreutils` for `gcp`. TODO: replace it with `rsync` where `--parents`
-    # option is used.
     # Required:
-    #   brew install p7zip mingw-w64 jq osslsigncode dos2unix gpg coreutils
-    # For running `harbour.exe` when creating `BUILD.txt` and
-    # `HB_BUILD_POSTRUN` tasks:
-    #   brew install wine
+    #   brew install p7zip mingw-w64 jq osslsigncode dos2unix gpg coreutils wine
+    # - `wine` for running `harbour.exe` when creating `BUILD.txt` and
+    #   `HB_BUILD_POSTRUN` tasks
+    # - `coreutils` for `gcp`.
+    #   TODO: replace it with `rsync` where `--parents` option is used.
     _mxe="${HOME}/mxe"
     ;;
   linux)

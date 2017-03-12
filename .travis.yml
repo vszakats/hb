@@ -68,11 +68,8 @@ before_install:
       brew update > /dev/null;
       brew install p7zip;
       if [ "$CC" = 'i686-w64-mingw32-gcc' ]; then
-        date;
-        brew install mingw-w64 jq osslsigncode dos2unix gpg coreutils wine;
-        date;
-        ./package/mpkg_win_dl_mxe.sh "${mxepkgs[@]}";
-        date;
+        time brew install mingw-w64 jq osslsigncode dos2unix gpg coreutils wine || true;
+        time ./package/mpkg_win_dl_mxe.sh "${mxepkgs[@]}";
       else
         brew install cairo curl freeimage gd ghostscript icu4c libmagic mariadb openssl@1.1 qt5 s-lang unixodbc;
       fi;

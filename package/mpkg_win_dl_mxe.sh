@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bash -ue
 
 # ---------------------------------------------------------------
 # Copyright 2017 Viktor Szakats (vszakats.net)

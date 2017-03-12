@@ -7,7 +7,7 @@ msgid ""
 msgstr "Project-Id-Version: Harbour\nPO-Revision-Date: 2014-10-14 22:50+0000\nLast-Translator: vszakats\nLanguage-Team: Hungarian (https://www.transifex.com/projects/p/harbour/language/hu/)\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nLanguage: hu\nPlural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, c-format
-msgid "Exit code: %1$d: %2$s"
+msgid "Exit status: %1$d: %2$s"
 msgstr "Kilépési kód: %1$d: %2$s"
 
 #, c-format
@@ -639,7 +639,7 @@ msgid "space separated list of licenses"
 msgstr "licencek szóközzel elválasztott listája"
 
 #, c-format
-msgid "Current exit code"
+msgid "Current exit status"
 msgstr "Aktuális kilépési érték"
 
 #, c-format

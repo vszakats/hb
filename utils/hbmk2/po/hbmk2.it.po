@@ -7,7 +7,7 @@ msgid ""
 msgstr "Project-Id-Version: Harbour\nPO-Revision-Date: 2014-10-14 22:50+0000\nLast-Translator: vszakats\nLanguage-Team: Italian (https://www.transifex.com/projects/p/harbour/language/it/)\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nLanguage: it\nPlural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, c-format
-msgid "Exit code: %1$d: %2$s"
+msgid "Exit status: %1$d: %2$s"
 msgstr "Codice d'uscita: %1$d: %2$s"
 
 #, c-format
@@ -799,7 +799,7 @@ msgid "option %1$s"
 msgstr "opzione %1$s"
 
 #, c-format
-msgid "Exit codes (\"errorlevels\"):"
+msgid "Exit statuses (\"errorlevels\"):"
 msgstr "Codice di uscita (\"errorlevels\"):"
 
 #, c-format
@@ -807,7 +807,7 @@ msgid "<other>"
 msgstr "<altro>"
 
 #, c-format
-msgid "when -run option is used, the exit code will be the one returned by the target executable"
+msgid "when -run option is used, the exit status will be the one returned by the target executable"
 msgstr "quando è utilizzata l'opzione -run, il codice di uscita sarà quello riportato dall'eseguibile"
 
 #, c-format
@@ -1367,7 +1367,7 @@ msgid "API version as an integer"
 msgstr "varsione API come intero"
 
 #, c-format
-msgid "Current exit code"
+msgid "Current exit status"
 msgstr "Codice di uscita attuale"
 
 #, c-format

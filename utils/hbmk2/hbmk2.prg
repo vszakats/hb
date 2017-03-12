@@ -903,7 +903,7 @@ STATIC PROCEDURE hbmk_local_entry( ... )
       IF nResult != _EXIT_OK
          IF lExitStr
             OutErr( hb_StrFormat( _SELF_NAME_ + iif( cTargetName == "", "", " " + "[" + cTargetName + "]" ) + ;
-                                  ": " + I_( "Exit code: %1$d: %2$s" ), nResult, ExitCodeStr( nResult ) ) + _OUT_EOL )
+                                  ": " + I_( "Exit status: %1$d: %2$s" ), nResult, ExitCodeStr( nResult ) ) + _OUT_EOL )
          ENDIF
          IF nResult != _EXIT_STOP
             IF lPause
@@ -10214,13 +10214,10 @@ STATIC FUNCTION dep_evaluate( hbmk )
          IF dep[ _HBMKDEP_lOptional ]
             hOPT[ dep[ _HBMKDEP_cName ] ] := dep
          ELSE
-            /* Do not issue a missing dependency error (just warning) for non-*nix
-               platforms if no manual dependency location and no local dir were
-               specified. This assumes that on these platforms' dependencies can never
-               be found on locations known in advance and specified in make
-               files. [vszakats] */
-            IF HBMK_ISPLAT( "win|wce|os2|dos" ) .AND. ;
-               Empty( dep[ _HBMKDEP_cControl ] ) .AND. ;
+            /* Do not issue a missing dependency error (just warning) if no
+               manual dependency location and no local dir was specified.
+               [vszakats] */
+            IF Empty( dep[ _HBMKDEP_cControl ] ) .AND. ;
                Empty( dep[ _HBMKDEP_aINCPATHLOCAL ] )
                hWRN[ dep[ _HBMKDEP_cName ] ] := dep
             ELSE
@@ -18468,7 +18465,7 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
 
    LOCAL aHdr_Exit := { ;
       "", ;
-      I_( e"Exit codes (\"errorlevels\"):" ) }
+      I_( e"Exit statuses (\"errorlevels\"):" ) }
 
    LOCAL aLst_Exit := { ;
       , ;
@@ -18486,7 +18483,7 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
       { hb_ntos( _EXIT_PLUGINPREALL )     , ExitCodeStr( _EXIT_PLUGINPREALL ) }, ;
       { hb_ntos( _EXIT_DEEPPROJNESTING )  , ExitCodeStr( _EXIT_DEEPPROJNESTING ) }, ;
       { hb_ntos( _EXIT_STOP )             , ExitCodeStr( _EXIT_STOP ) }, ;
-      { I_( "<other>" )                   , I_( "when -run option is used, the exit code will be the one returned by the target executable" ) } }
+      { I_( "<other>" )                   , I_( "when -run option is used, the exit status will be the one returned by the target executable" ) } }
 
    LOCAL aHdr_EnvVar := { ;
       "", ;
@@ -18826,7 +18823,7 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
       { '"cCCSUFFIX"'    , hb_StrFormat( I_( "see %1$s envvar" ), "HB_CCSUFFIX" ) }, ;
       { '"cCCEXT"'       , hb_StrFormat( I_( "see %1$s envvar" ), "HB_CCEXT" )    }, ;
       { '"cWorkDir"'     , hb_StrFormat( I_( "%1$s value" ), "-workdir=" ) }, ;
-      { '"nExitCode"'    , I_( "Current exit code" ) } }
+      { '"nExitCode"'    , I_( "Current exit status" ) } }
 
    LOCAL aHdr_Notes := { ;
       "", ;
