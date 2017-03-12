@@ -1,9 +1,11 @@
-#!/usr/bin/env bash -ue
+#!/usr/bin/env bash
 
 # ---------------------------------------------------------------
 # Copyright 2017 Viktor Szakats (vszakats.net)
 # License: The MIT license (MIT)
 # ---------------------------------------------------------------
+
+set -ue
 
 # Download and unpack a list of mxe binary packages along with the their
 # dependencies.
