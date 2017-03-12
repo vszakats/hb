@@ -862,6 +862,11 @@ HB_FUNC( CURL_EASY_SETOPT )
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_PROXYTYPE, hb_parnl( 3 ) );
                break;
 #endif
+#if LIBCURL_VERSION_NUM >= 0x073600
+            case HB_CURLOPT_SUPPRESS_CONNECT_HEADERS:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_SUPPRESS_CONNECT_HEADERS, HB_CURL_OPT_BOOL( 3 ) );
+               break;
+#endif
             case HB_CURLOPT_HTTPPROXYTUNNEL:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_HTTPPROXYTUNNEL, HB_CURL_OPT_BOOL( 3 ) );
                break;
