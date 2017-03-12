@@ -22,49 +22,53 @@ mxe_get_pkg() {
     plat="${BASH_REMATCH[4]}"  # mingw32 | linux-gnu
     name="${BASH_REMATCH[6]}"  # harfbuzz
 
-    if [ ! "${plat}" = 'linux-gnu' ] && \
-       [ ! "${name}" = 'gcc' ]; then  # skip native packages and others that we don't need.
+    # skip native packages
+    if [ ! "${plat}" = 'linux-gnu' ]; then
 
-      idid="${repo}-${name}"  # package id for internal purposes
-      if [[ ! "${done}" = *"|${idid}|"* ]]; then  # avoid installing the same package twice
-        done="${done} |${idid}|"  # add to list of install packages
+      # skip packages on the don't install list
+      if [[ ! "${name}" =~ ^("${MXE_DONT_INSTALL//[, ]/|}")$ ]]; then
 
-        ctrl="$(awk "/^Package: ${repo}-${name}$/,/^SHA256: /" Packages)"  # control section for this package
+        idid="${repo}-${name}"  # package id for internal purposes
+        if [[ ! "${done}" = *"|${idid}|"* ]]; then  # avoid installing the same package twice
+          done="${done} |${idid}|"  # add to list of install packages
 
-        debp="$(echo "${ctrl}" | sed -n -E 's,^Filename: (.+)$,\1,p')"  # .deb path
-        vers="$(echo "${ctrl}" | sed -n -E 's,^Version: (.+)$,\1,p')"  # package version
-        hash="$(echo "${ctrl}" | sed -n -E 's,^SHA256: ([0-9a-fA-F]{64})$,\1,p')"  # .deb hash
-        deps="$(echo "${ctrl}" | sed -n -E 's,^Depends: (.+)$,\1,p')"  # .deb dependencies
+          ctrl="$(awk "/^Package: ${repo}-${name}$/,/^SHA256: /" Packages)"  # control section for this package
 
-        echo "! Version: ${vers}"
-        url="${base}/${debp}"
-        echo "! Downloading... '${url}'"
-        if curl -fsS "${url}" -o pack.bin; then
+          debp="$(echo "${ctrl}" | sed -n -E 's,^Filename: (.+)$,\1,p')"  # .deb path
+          vers="$(echo "${ctrl}" | sed -n -E 's,^Version: (.+)$,\1,p')"  # package version
+          hash="$(echo "${ctrl}" | sed -n -E 's,^SHA256: ([0-9a-fA-F]{64})$,\1,p')"  # .deb hash
+          deps="$(echo "${ctrl}" | sed -n -E 's,^Depends: (.+)$,\1,p')"  # .deb dependencies
 
-          hash_fl="$(openssl dgst -sha256 pack.bin \
-            | sed -n -E 's,.+= ([0-9a-fA-F]{64}),\1,p')"
+          echo "! Version: ${vers}"
+          url="${base}/${debp}"
+          echo "! Downloading... '${url}'"
+          if curl -fsS "${url}" -o pack.bin; then
 
-          if [ "${hash_fl}" = "${hash}" ]; then
-            if ar -x pack.bin data.tar.xz && \
-               tar --strip-components 4 -xf data.tar.xz; then
-              subd="$(echo "$(pwd)/usr/${repo}" | sed 's|^mxe-||' | sed 's|x86-64|x86_64|' | sed "s|${HOME}|~|")"
-              echo "! Verified OK. Unpacked into: '${subd}'"  # ~/mxe/usr/mxe-x86_64-w64-mingw32.shared
+            hash_fl="$(openssl dgst -sha256 pack.bin \
+              | sed -n -E 's,.+= ([0-9a-fA-F]{64}),\1,p')"
+
+            if [ "${hash_fl}" = "${hash}" ]; then
+              if ar -x pack.bin data.tar.xz && \
+                 tar --strip-components 4 -xf data.tar.xz; then
+                subd="$(echo "$(pwd)/usr/${repo}" | sed 's|^mxe-||' | sed 's|x86-64|x86_64|' | sed "s|${HOME}|~|")"
+                echo "! Verified OK. Unpacked into: '${subd}'"  # ~/mxe/usr/mxe-x86_64-w64-mingw32.shared
+              else
+                echo "! Error: Unpacking: '${url}'"
+              fi
+              rm -f data.tar.xz
             else
-              echo "! Error: Unpacking: '${url}'"
+              echo "! Error: Verifying package checksum: '${url}'"
+              echo "!        Expected: ${hash}"
+              echo "!          Actual: ${hash_fl}"
             fi
-            rm -f data.tar.xz
-          else
-            echo "! Error: Verifying package checksum: '${url}'"
-            echo "!        Expected: ${hash}"
-            echo "!          Actual: ${hash_fl}"
-          fi
-          rm -f pack.bin
+            rm -f pack.bin
 
-          for i in ${deps//,/}; do
-            mxe_get_pkg "$i"  # recurse
-          done
-        else
-          echo "! Error: Cannot find file in file list: '${repo}-${name}_*'"
+            for i in ${deps//,/}; do
+              mxe_get_pkg "$i"  # recurse
+            done
+          else
+            echo "! Error: Cannot find file in file list: '${repo}-${name}_*'"
+          fi
         fi
       fi
     fi
@@ -74,9 +78,12 @@ mxe_get_pkg() {
   fi
 }
 
-mkdir -p "${HOME}/mxe"
+[ -z "${MXE_DONT_INSTALL+x}" ] && MXE_DONT_INSTALL='gcc'
+[ -z "${MXE_HOME+x}" ] && MXE_HOME="${HOME}/mxe"
+
+mkdir -p "${MXE_HOME}"
 (
-  cd "${HOME}/mxe" || exit
+  cd "${MXE_HOME}" || exit
 
   # APT root
   base='http://pkg.mxe.cc/repos/apt/debian'
