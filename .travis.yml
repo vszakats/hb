@@ -67,7 +67,7 @@ before_install:
     if [ "$TRAVIS_OS_NAME" = 'osx' ]; then
       if [ "$CC" = 'i686-w64-mingw32-gcc' ]; then
         time brew install p7zip mingw-w64 jq osslsigncode dos2unix gpg coreutils || true;
-        time brew wine || true;
+        time brew install wine || true;
         time ./package/mpkg_win_dl_mxe.sh "${mxe_pkgs[@]}";
       else
         brew install cairo curl freeimage gd ghostscript icu4c libmagic mariadb openssl@1.1 qt5 s-lang unixodbc;
