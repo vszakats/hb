@@ -11,8 +11,15 @@ set -ue
 # dependencies.
 
 # Requires:
-# - ar (via Xcode or Homebrew)
-# - gpg, curl, openssl, awk, sed, tar, gzip
+#   ar (via Xcode or Homebrew)
+#   gpg, curl, openssl, awk, sed, tar, gzip
+
+# Environment:
+#
+#   MXE_HOME          Configure directory where packages will be installed.
+#                     Default: ~/mxe
+#   MXE_DONT_INSTALL  Comma/space separated list of package names to skip
+#                     installing. Useful to exclude unnecessary dependencies.
 
 mxe_get_pkg() {
 
