@@ -4045,7 +4045,7 @@ static HB_ERRCODE hb_fptCreateMemFile( FPTAREAP pArea, LPDBOPENINFO pCreateInfo 
                hb_errPutGenCode( pError, EG_CREATE );
                hb_errPutSubCode( pError, EDBF_CREATE_MEMO );
                hb_errPutDescription( pError, hb_langDGetErrorDesc( EG_CREATE ) );
-               hb_errPutFileName( pError, ( char * ) szFileName );
+               hb_errPutFileName( pError, szFileName );
                hb_errPutFlags( pError, EF_CANRETRY );
             }
             hb_errPutOsCode( pError, hb_fsError() );
@@ -4062,7 +4062,7 @@ static HB_ERRCODE hb_fptCreateMemFile( FPTAREAP pArea, LPDBOPENINFO pCreateInfo 
       if( ! pArea->pMemoFile )
          return HB_FAILURE;
 
-      pArea->szMemoFileName = hb_strdup( ( char * ) szFileName );
+      pArea->szMemoFileName = hb_strdup( szFileName );
    }
    /* else -> For zap file */
 
@@ -4240,7 +4240,7 @@ static HB_ERRCODE hb_fptOpenMemFile( FPTAREAP pArea, LPDBOPENINFO pOpenInfo )
             hb_errPutSubCode( pError, EDBF_OPEN_MEMO );
             hb_errPutDescription( pError, hb_langDGetErrorDesc( EG_OPEN ) );
             hb_errPutOsCode( pError, hb_fsError() );
-            hb_errPutFileName( pError, ( char * ) szFileName );
+            hb_errPutFileName( pError, szFileName );
             hb_errPutFlags( pError, EF_CANRETRY | EF_CANDEFAULT );
          }
          bRetry = ( SELF_ERROR( &pArea->area, pError ) == E_RETRY );
@@ -4256,7 +4256,7 @@ static HB_ERRCODE hb_fptOpenMemFile( FPTAREAP pArea, LPDBOPENINFO pOpenInfo )
    if( ! pArea->pMemoFile )
       return HB_FAILURE;
 
-   pArea->szMemoFileName = hb_strdup( ( char * ) szFileName );
+   pArea->szMemoFileName = hb_strdup( szFileName );
 
    if( pArea->bMemoType == DB_MEMO_DBT )
    {
@@ -4313,7 +4313,7 @@ static HB_ERRCODE hb_fptOpenMemFile( FPTAREAP pArea, LPDBOPENINFO pOpenInfo )
    if( pArea->ulMemoBlockSize == 0 )
    {
       hb_memoErrorRT( pArea, EG_CORRUPTION, EDBF_CORRUPT,
-                      ( char * ) pArea->szMemoFileName, 0, 0 );
+                      pArea->szMemoFileName, 0, 0 );
       return HB_FAILURE;
    }
 
@@ -4670,7 +4670,7 @@ static HB_ERRCODE hb_fptDoPack( FPTAREAP pArea, HB_ULONG ulBlockSize,
                if( errCode != HB_SUCCESS )
                {
                   hb_memoErrorRT( pArea, 0, errCode, errCode == EDBF_READ ?
-                                  ( char * ) szFile : pArea->szMemoFileName, 0, 0 );
+                                  szFile : pArea->szMemoFileName, 0, 0 );
                   errCode = HB_FAILURE;
                }
             }
@@ -4770,7 +4770,7 @@ static HB_ERRCODE hb_fptPack( FPTAREAP pArea )
                if( errCode != HB_SUCCESS )
                {
                   hb_memoErrorRT( pArea, 0, errCode, errCode == EDBF_READ ?
-                                  ( char * ) szFile : pArea->szMemoFileName, 0, 0 );
+                                  szFile : pArea->szMemoFileName, 0, 0 );
                   errCode = HB_FAILURE;
                }
             }

@@ -71,7 +71,7 @@
       /*
        * The macro: __USE_LARGEFILE64 is set when _LARGEFILE64_SOURCE is
        * defined and effectively enables lseek64/flock64/ftruncate64 functions
-       * on 32bit machines.
+       * on 32-bit machines.
        */
       #define HB_USE_LARGEFILE64
    #elif defined( HB_OS_UNIX ) && defined( O_LARGEFILE )
@@ -495,8 +495,8 @@ static PHB_FILE s_fileExtOpen( PHB_FILE_FUNCS pFuncs, const char * pszFileName, 
    {
       if( iMode == FO_WRITE && fShared )
       {
-         if( access( ( char * ) pszFile, R_OK ) == 0 ||
-             access( ( char * ) pszFile, F_OK ) != 0 )
+         if( access( pszFile, R_OK ) == 0 ||
+             access( pszFile, F_OK ) != 0 )
          {
             nExFlags = ( nExFlags ^ FO_WRITE ) | FO_READWRITE;
             iMode = FO_READWRITE;
@@ -515,9 +515,9 @@ static PHB_FILE s_fileExtOpen( PHB_FILE_FUNCS pFuncs, const char * pszFileName, 
    hb_threadEnterCriticalSection( &s_fileMtx );
 
 #  if defined( HB_USE_LARGEFILE64 )
-   fResult = stat64( ( char * ) pszFile, &statbuf ) == 0;
+   fResult = stat64( pszFile, &statbuf ) == 0;
 #  else
-   fResult = stat( ( char * ) pszFile, &statbuf ) == 0;
+   fResult = stat( pszFile, &statbuf ) == 0;
 #  endif
    hb_fsSetIOError( fResult, 0 );
 

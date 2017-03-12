@@ -886,7 +886,7 @@ static HB_ERRCODE hb_usrSysName( AREAP pArea, char * szSysName )
    if( ! hb_usrPushMethod( SELF_USRNODE( pArea )->pMethods, UR_SYSNAME ) )
    {
       hb_stackPop();
-      hb_strncpy( ( char * ) szSysName, SELF_RDDNODE( pArea )->szName,
+      hb_strncpy( szSysName, SELF_RDDNODE( pArea )->szName,
                   HB_RDD_MAX_DRIVERNAME_LEN );
       return HB_SUCCESS;
    }
@@ -895,7 +895,7 @@ static HB_ERRCODE hb_usrSysName( AREAP pArea, char * szSysName )
    hb_xvmPushLocalByRef( ( HB_SHORT ) nOffset );
    hb_vmDo( 2 );
 
-   hb_strncpy( ( char * ) szSysName, hb_itemGetCPtr( hb_stackItemFromBase( nOffset ) ),
+   hb_strncpy( szSysName, hb_itemGetCPtr( hb_stackItemFromBase( nOffset ) ),
                HB_RDD_MAX_DRIVERNAME_LEN );
    hb_stackPop();
 
@@ -1224,7 +1224,7 @@ static HB_ERRCODE hb_usrFieldName( AREAP pArea, HB_USHORT uiIndex, char * szName
    hb_xvmPushLocalByRef( ( HB_SHORT ) nOffset );
    hb_vmDo( 3 );
 
-   hb_strncpy( ( char * ) szName, hb_itemGetCPtr( hb_stackItemFromBase( nOffset ) ),
+   hb_strncpy( szName, hb_itemGetCPtr( hb_stackItemFromBase( nOffset ) ),
                pArea->uiMaxFieldNameLength );
    hb_stackPop();
 
@@ -1577,7 +1577,7 @@ static HB_ERRCODE hb_usrAlias( AREAP pArea, char * szAlias )
    hb_xvmPushLocalByRef( ( HB_SHORT ) nOffset );
    hb_vmDo( 2 );
 
-   hb_strncpy( ( char * ) szAlias, hb_itemGetCPtr( hb_stackItemFromBase( nOffset ) ),
+   hb_strncpy( szAlias, hb_itemGetCPtr( hb_stackItemFromBase( nOffset ) ),
                HB_RDD_MAX_ALIAS_LEN );
    hb_stackPop();
 
