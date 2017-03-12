@@ -95,7 +95,7 @@ mkdir -p "${HOME}/mxe"
 
   done=''
 
-  while [ -n "$1" ]; do
+  while [ $# -gt 0 ]; do
     echo "! Installing mxe package '$1'"
     mxe_get_pkg "$1"
     shift
