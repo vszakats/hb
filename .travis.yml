@@ -4,7 +4,12 @@ branches:
   - master
   - prod
   - test-travis
+notifications:
+  email: false
+git:
+  depth: 10
 language: c
+
 addons:
   apt:
     packages: &hb-linux-common
@@ -23,6 +28,7 @@ addons:
       - libpq-dev
     # - libslang2-dev
       - unixodbc-dev
+
 matrix:
   include:
     - os: linux
@@ -60,6 +66,7 @@ matrix:
       osx_image: xcode8.2
       compiler: i686-w64-mingw32-gcc
       env: HB_CI_THREADS=4
+
 before_install:
   - mxe_pkgs=(
       mxe-{i686,x86-64}-w64-mingw32.shared-{cairo,file,ghostscript,icu4c,libmysqlclient,postgresql}
@@ -81,6 +88,7 @@ before_install:
       sudo apt-get update;
       sudo apt-get -yq --no-install-suggests --no-install-recommends --force-yes install wine "${mxe_pkgs[@]}";
     fi;
+
 script:
   - if [ "$CC" = 'i686-w64-mingw32-gcc' ]; then
       if ./package/mpkg_win_ci.sh && [ "${TRAVIS_BRANCH#*prod*}" = "${TRAVIS_BRANCH}" ] ; then
@@ -91,6 +99,7 @@ script:
       "${CC}${HB_CCSUFFIX}" -v;
       HB_COMPILER=$CC make -j "${HB_CI_THREADS}";
     fi;
+
 deploy:
   skip_cleanup: true
   provider: releases
@@ -104,8 +113,3 @@ deploy:
   on:
     branch: master
     condition: "$CC = i686-w64-mingw32-gcc"
-notifications:
-  email: false
-git:
-  submodules: false
-  depth: 10
