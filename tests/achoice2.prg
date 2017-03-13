@@ -52,7 +52,7 @@ PROCEDURE Main()
       CASE nCounter == 3
          AChoice( 2, 25, 3, 35, aMenu3, .T. )
       CASE nCounter == 4
-         // TOFIX: User function cUF2() fill screen with exclamation marks
+         // FIXME: User function cUF2() fill screen with exclamation marks
          //        in Clipper it does not get called in AC_NOITEM mode
          AChoice( 2, 37, 3, 47, aMenu4, .T., "cUF2" )
       CASE nCounter == 5

@@ -449,7 +449,7 @@ HB_FUNC( SQLCONNECT )  /* hDbc, cDSN, cUseName, cPassword --> nRetCode */
 {
    SQLHDBC hDbc = hb_SQLHDBC_par( 1 );
 
-   /* TOFIX: add protection against connection with connected hDbc handle */
+   /* FIXME: add protection against connection with connected hDbc handle */
 
    if( hDbc )
    {

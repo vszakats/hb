@@ -2120,7 +2120,7 @@ HB_BOOL hb_compExprReduceLEN( PHB_EXPR pSelf, HB_COMP_DECL )
    PHB_EXPR pParms = pSelf->value.asFunCall.pParms;
    PHB_EXPR pArg = pParms->value.asList.pExprList;
 
-   /* TOFIX: do not optimize when array/hash args have user expressions */
+   /* FIXME: do not optimize when array/hash args have user expressions */
    if( ( pArg->ExprType == HB_ET_STRING && ! HB_SUPPORT_USERCP ) ||
        pArg->ExprType == HB_ET_ARRAY ||
        pArg->ExprType == HB_ET_HASH )
@@ -2151,7 +2151,7 @@ HB_BOOL hb_compExprReduceEMPTY( PHB_EXPR pSelf, HB_COMP_DECL )
 
       case HB_ET_ARRAY:
       case HB_ET_HASH:
-         /* TOFIX: do not optimize when array/hash args have user expressions */
+         /* FIXME: do not optimize when array/hash args have user expressions */
          fResult = pArg->nLength == 0;
          break;
 

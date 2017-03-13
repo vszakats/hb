@@ -171,8 +171,8 @@ FUNCTION hb_GetFilesInZip( cFileName, lVerbose )
                nRatio := 0
             ENDIF
 
-            /* TOFIX: Original hbziparch has nMethod as string: Unknown, Stored, DeflatN, DeflatX, DeflatF. */
-            /* TOFIX: Original hbziparch has attributes as string. */
+            /* FIXME: Original hbziparch has nMethod as string: Unknown, Stored, DeflatN, DeflatX, DeflatF. */
+            /* FIXME: Original hbziparch has attributes as string. */
             AAdd( aFiles, { cFileName, nSize, nMethod, nCompSize, nRatio, dDate, cTime, hb_NumToHex( nCRC, 8 ), nInternalAttr /* cAttr */, lCrypted, cComment } )
          ELSE
             AAdd( aFiles, cFileName )

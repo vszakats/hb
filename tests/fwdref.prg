@@ -1,4 +1,4 @@
-/* TOFIX: Compiles fine with Clipper, fails with Harbour */
+/* FIXME: Compiles fine with Clipper, fails with Harbour */
 
 PROCEDURE Main()
 

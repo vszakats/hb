@@ -857,7 +857,7 @@ HB_BOOL hb_threadJoin( HB_THREAD_HANDLE th_h )
    return HB_FALSE;
 #elif defined( HB_OS_OS2 )
    APIRET rc = DosWaitThread( &th_h, DCWW_WAIT );
-   /* TOFIX: ERROR_INVALID_THREADID is a hack for failing DosWaitThread()
+   /* FIXME: ERROR_INVALID_THREADID is a hack for failing DosWaitThread()
     *        when thread terminates before DosWaitThread() call.
     *        OS2 users please check and fix this code if possible.
     */

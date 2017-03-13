@@ -2735,7 +2735,7 @@ HB_SIZE hb_fsReadAt( HB_FHANDLE hFileHandle, void * pBuff, HB_SIZE nCount, HB_FO
    }
 #  endif /* HB_WIN_IOREAD_LIMIT */
 
-/* TOFIX: below are not atom operations. It has to be fixed for RDD
+/* FIXME: below are not atom operations. It has to be fixed for RDD
  *        file access with shared file handles in aliased work areas
  */
 #elif defined( HB_OS_OS2 )
@@ -2874,7 +2874,7 @@ HB_SIZE hb_fsWriteAt( HB_FHANDLE hFileHandle, const void * pBuff, HB_SIZE nCount
    }
 #  endif /* HB_WIN_IOWRITE_LIMIT */
 
-/* TOFIX: below are not atom operations. It has to be fixed for RDD
+/* FIXME: below are not atom operations. It has to be fixed for RDD
  *        file access with shared file handles in aliased work areas
  */
 #elif defined( HB_OS_OS2 )

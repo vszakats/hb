@@ -53,7 +53,7 @@
 #define RF_STATE_CODE   3
 #define RF_STATE_RET    4
 
-// TOFIX:
+// FIXME:
 // 1. in PP commands "<var>" should not be converted to "< var >"
 // 2. capitalization of variable names coinciding with command/clause keywords
 //   ( by ex.:     IF color > 0    --->>>    IF COLOR > 0   ;     LOCAL temp   --->>>   LOCAL TEMP )
@@ -699,7 +699,7 @@ METHOD ConvertCmd( cLine, nBegin, nEnd, lFirstOnly ) CLASS HBFormatCode
 
    IF ::lCase
 
-      IF ! HB_ISNUMERIC( nBegin ) /* TOFIX: Temporary hack to avoid RTE when processing contrib/hbhttpd/core.prg */
+      IF ! HB_ISNUMERIC( nBegin ) /* FIXME: Temporary hack to avoid RTE when processing contrib/hbhttpd/core.prg */
          ::nErr := 1
          ::cLineErr := cLine
          RETURN .F.

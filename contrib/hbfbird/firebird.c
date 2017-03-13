@@ -151,7 +151,7 @@ HB_FUNC( FBCONNECT )
    short i = 0;
    int   len;
 
-   /* TOFIX: Possible buffer overflow. Use hb_snprintf(). */
+   /* FIXME: Possible buffer overflow. Use hb_snprintf(). */
    dpb[ i++ ] = isc_dpb_version1;
    dpb[ i++ ] = isc_dpb_user_name;
    len        = ( int ) strlen( user );
@@ -468,7 +468,7 @@ HB_FUNC( FBFETCH )
       ISC_STATUS_ARRAY status;
       unsigned short   dialect = ( unsigned short ) hb_itemGetNI( hb_itemArrayGet( aParam, 5 ) );
 
-      /* TOFIX */
+      /* FIXME */
       hb_retnl( isc_dsql_fetch( status,
                                 &stmt,
                                 dialect,
@@ -501,7 +501,7 @@ HB_FUNC( FBFREE )
          return;
       }
 
-      /* TOFIX: Freeing pointer received as parameter? We should at least set the item NULL. */
+      /* FIXME: Freeing pointer received as parameter? We should at least set the item NULL. */
       if( sqlda )
          hb_xfree( sqlda );
 

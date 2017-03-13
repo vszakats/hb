@@ -527,7 +527,7 @@ static HB_ERRCODE pgsqlGetValue( SQLBASEAREAP pArea, HB_USHORT uiIndex, PHB_ITEM
    if( PQgetisnull( pSDDData->pResult, pArea->ulRecNo - 1, uiIndex ) )
    {
       hb_itemClear( pItem );
-      /* TOFIX: it breaks defined field type */
+      /* FIXME: it breaks defined field type */
       return HB_SUCCESS;
    }
 

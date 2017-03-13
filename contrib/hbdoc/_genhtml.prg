@@ -973,7 +973,7 @@ METHOD AppendInline( cText, cFormat, lCode, cField, cID ) CLASS GenerateHTML
          nLen := Len( cText )
          FOR tmp := 1 TO nLen
 
-            /* TOFIX: In real Markdown,
+            /* FIXME: In real Markdown,
                       *text*   and _text_   both result in <em>text</em>,
                       **text** and __text__ both result in <strong>text</strong>. */
 

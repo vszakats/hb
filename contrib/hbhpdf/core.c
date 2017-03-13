@@ -173,7 +173,7 @@ HB_FUNC( HPDF_HASDOC )
 /* HPDF_SetErrorHandler( hDoc, procErrHandler ) -> hStatus */
 HB_FUNC( HPDF_SETERRORHANDLER )
 {
-   /* TOFIX: This should be extended to pass a wrapper which calls a
+   /* FIXME: This should be extended to pass a wrapper which calls a
              user defined codeblock. */
 
    hb_retnl( ( long ) HPDF_SetErrorHandler( hb_HPDF_Doc_par( 1 ), ( HPDF_Error_Handler ) hb_parptr( 2 ) ) );

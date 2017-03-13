@@ -266,7 +266,7 @@ METHOD New( cTitle, cLinkTitle, cCharSet, aScriptSRC, ;
       ::cStr += ">" + hb_eol()
    ENDIF
 #if 0
-/* TOFIX: Luiz please review it */
+/* FIXME: Luiz please review it */
    ::cStr += ;
       "   <link title=" + '"' + hb_defaultValue( cLinkTitle, cTitle ) + '"' + hb_eol() + ;
       '                href="mailto:mail@example.org">' + hb_eol() + ;

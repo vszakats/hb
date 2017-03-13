@@ -522,7 +522,7 @@ static char * hb_set_PRINTFILE_default( void )
 #elif defined( HB_OS_WIN ) || defined( HB_OS_OS2 )
    return hb_strdup( "LPT1" );
 #else
-   return hb_strdup( "PRN" ); /* TOFIX */
+   return hb_strdup( "PRN" ); /* FIXME */
 #endif
 }
 

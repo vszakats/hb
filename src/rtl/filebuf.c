@@ -621,7 +621,7 @@ static PHB_FILE s_fileExtOpen( PHB_FILE_FUNCS pFuncs, const char * pszFileName, 
                   hb_fsClose( hFile );
                   hFile = FS_ERROR;
 #if defined( HB_USE_SHARELOCKS ) && ! defined( HB_USE_BSDLOCKS )
-                  /* TOFIX: possible race condition */
+                  /* FIXME: possible race condition */
                   hb_fsLockLarge( pFile->hFile, HB_SHARELOCK_POS, HB_SHARELOCK_SIZE,
                                   FL_LOCK | FLX_SHARED );
 #endif
@@ -636,7 +636,7 @@ static PHB_FILE s_fileExtOpen( PHB_FILE_FUNCS pFuncs, const char * pszFileName, 
                }
                if( hFile != FS_ERROR )
                {
-                  /* TOFIX: possible race condition in MT mode,
+                  /* FIXME: possible race condition in MT mode,
                    *        close() is not safe due to existing locks
                    *        which are removed.
                    */

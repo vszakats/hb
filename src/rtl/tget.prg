@@ -54,7 +54,7 @@
 #include "inkey.ch"
 #include "button.ch"
 
-/* TOFIX: ::Minus [vszakats] */
+/* FIXME: ::Minus [vszakats] */
 
 #define GET_CLR_UNSELECTED      0
 #define GET_CLR_ENHANCED        1
@@ -1214,7 +1214,7 @@ METHOD PutMask( xValue, lEdit ) CLASS Get
    IF lEdit .AND. ::cType == "N" .AND. ! Empty( cPicMask )
       FOR nFor := 1 TO ::nMaxLen
          cChar := hb_USubStr( cPicMask, nFor, 1 )
-         IF cChar $ ",." .AND. hb_USubStr( cBuffer, nFor, 1 ) $ ",." // " " TOFIX
+         IF cChar $ ",." .AND. hb_USubStr( cBuffer, nFor, 1 ) $ ",." // " " FIXME
             IF "E" $ cPicFunc
                cChar := iif( cChar == ",", ".", "," )
             ENDIF

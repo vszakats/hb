@@ -622,7 +622,7 @@ STATIC FUNCTION WordEncodeQ( cData, cCharset )
 
    IF ! Empty( cCharset )
 
-      /* TOFIX: Add support to handle long string. */
+      /* FIXME: Add support to handle long string. */
 
       cString := ""
       FOR EACH c IN cData  /* FOR EACH on byte stream */

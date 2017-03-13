@@ -605,7 +605,7 @@ HB_FUNC( SSL_CTX_GET_CLIENT_CA_LIST )
 
       if( ctx )
       {
-#if OPENSSL_VERSION_NUMBER < 0x10000000L /* TOFIX: Compilation error when tried with 1.0.0beta5 */
+#if OPENSSL_VERSION_NUMBER < 0x10000000L /* FIXME: Compilation error when tried with 1.0.0beta5 */
          STACK_OF( X509_NAME ) * stack = SSL_CTX_get_client_CA_list( ctx );
          int len = sk_X509_NAME_num( stack );
 

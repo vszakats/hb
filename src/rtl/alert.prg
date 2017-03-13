@@ -13,7 +13,7 @@
 #include "setcurs.ch"
 #include "hbgtinfo.ch"
 
-/* TOFIX: Clipper defines a clipped window for Alert() [vszakats] */
+/* FIXME: Clipper defines a clipped window for Alert() [vszakats] */
 
 /* NOTE: Clipper will return NIL if the first parameter is not a string, but
          this is not documented. [vszakats] */

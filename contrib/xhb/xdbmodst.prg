@@ -78,7 +78,7 @@ FUNCTION dbModifyStructure( cFile )
 
       hb_FNameSplit( cFile, @cDir, @cTable )
 
-      /* TOFIX: long filenames, not MS-DOS compatible */
+      /* FIXME: long filenames, not MS-DOS compatible */
       cBakFile       := cDir + cTable + "_bak_" + cDateTime + cExt
       cStructureFile := cDir + cTable + "_str_" + cDateTime + cExt
       cNewFile       := cDir + cTable + "_new_" + cDateTime + cExt

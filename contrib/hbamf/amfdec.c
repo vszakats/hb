@@ -106,7 +106,7 @@ static HB_BOOL amfX_decode_double( amfContext * context, double * val )
 
    /*
     * Put bytes from byte array into double
-    * TOFIX: does this aligment work on any platform?
+    * FIXME: does this aligment work on any platform?
 
       union aligned
       {
@@ -1000,7 +1000,7 @@ static HB_BOOL amf3_deserialize_obj( amfContext * context, PHB_ITEM pItem, HB_BO
    {
       /* Anonymous obj == OBJAMF */
       hb_arrayNew( pItem, OBJAMF_VAR_COUNT );
-      /* performance TOFIX, cache class id (in context maybe)
+      /* performance FIXME, cache class id (in context maybe)
          to not scan all classes by name everytime */
       hb_objSetClass( pItem, "AMF_OBJ", "AMF_OBJ" );
       pValue = hb_itemPutNI( NULL, OBJAMF_VER );

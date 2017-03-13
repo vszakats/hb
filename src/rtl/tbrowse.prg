@@ -612,7 +612,7 @@ METHOD readRecord( nRow ) CLASS TBrowse
       IF nRow <= ::nLastRow
          nToMove := nRow - ::nBufferPos
          nMoved := _SKIP_RESULT( Eval( ::bSkipBlock, nToMove ) )
-         /* TOFIX: add protection against unexpected results
+         /* FIXME: add protection against unexpected results
           *        CA-Cl*pper does not fully respect here the returned
           *        value and current code below replicates what Clipper
           *        seems to do but it means that in network environment
@@ -802,7 +802,7 @@ METHOD stabilize() CLASS TBrowse
          ::nRowPos := ::nLastRow
       ENDIF
       IF ::nBufferPos != ::nRowPos
-         /* TOFIX: add protection against unexpected results
+         /* FIXME: add protection against unexpected results
           *        CA-Cl*pper does not fully respect here the returned
           *        value and current code below replicates what Clipper
           *        seems to do but it means that in network environment
@@ -1506,7 +1506,7 @@ STATIC FUNCTION _DECODE_FH( cName, nHeight, nWidth )
           * does not calculate it as separator
           */
          IF hb_URight( cName, 1 ) == _TBR_CHR_LINEDELIMITER
-            cName := hb_StrShrink( cName )  /* TOFIX: use hb_UStrShrink() */
+            cName := hb_StrShrink( cName )  /* FIXME: use hb_UStrShrink() */
          ENDIF
          nHeight := hb_tokenCount( cName, _TBR_CHR_LINEDELIMITER )
          FOR i := 1 TO nHeight

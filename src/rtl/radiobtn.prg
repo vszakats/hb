@@ -195,7 +195,7 @@ METHOD isAccel( xKey ) CLASS RadioButtn
       RETURN .F.
    ENDCASE
 
-   RETURN ! cKey == "" .AND. hb_AtI( "&" + cKey, ::cCaption ) > 0  /* TOFIX: Use hb_UAtI() */
+   RETURN ! cKey == "" .AND. hb_AtI( "&" + cKey, ::cCaption ) > 0  /* FIXME: Use hb_UAtI() */
 
 METHOD hitTest( nMRow, nMCol ) CLASS RadioButtn
 

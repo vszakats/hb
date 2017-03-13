@@ -167,7 +167,7 @@ METHOD PROCEDURE WvgStatusBar:destroy()
    LOCAL i
 
    FOR EACH i IN ::aItems
-      /* TOFIX: Why was this left empty? */
+      /* FIXME: Why was this left empty? */
    NEXT
 
    ::wvgWindow:destroy()

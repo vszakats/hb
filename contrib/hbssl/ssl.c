@@ -1084,7 +1084,7 @@ HB_FUNC( SSL_GET_READ_AHEAD )
 {
    if( hb_SSL_is( 1 ) )
    {
-#if defined( __BORLANDC__ ) /* TOFIX: SSL_get_read_ahead is an unresolved external when trying to link with BCC */
+#if defined( __BORLANDC__ ) /* FIXME: SSL_get_read_ahead is an unresolved external when trying to link with BCC */
       hb_retni( 0 );
 #else
       SSL * ssl = hb_SSL_par( 1 );

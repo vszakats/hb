@@ -212,7 +212,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
     export HB_WITH_CAIRO="${_inc_df}/cairo"
     export HB_WITH_FREEIMAGE="${_inc_st}"
     export HB_WITH_GD="${_inc_st}"
-    # TOFIX: Because mxe ghostscript packages misses a binary, version detection
+    # FIXME: Because mxe ghostscript packages misses a binary, version detection
     #        falls back to using the native ghostscript package. Applies to
     #        64-bit as well.
     export HB_WITH_GS="${_inc_df}/ghostscript"
@@ -293,7 +293,7 @@ if [ "${_BRANC4}" = 'msvc' ]; then
   unset HB_USER_DFLAGS
   unset HB_WITH_CURL
   unset HB_WITH_OPENSSL
-  # TOFIX: clear all HB_WITH_ variables
+  # FIXME: clear all HB_WITH_ variables
 
 # export _HB_MSVC_ANALYZE='yes'
 

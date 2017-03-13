@@ -61,7 +61,7 @@ PROCEDURE Main()
    result := ""
    ? EVP_DecryptUpdate( ctx, @result, encrypted )
    decrypted += result
-   /* TOFIX: this fails sometimes */
+   /* FIXME: this fails sometimes */
    ? EVP_DecryptFinal( ctx, @result )
    decrypted += result
    ? "DECRYPTED", ">" + decrypted + "<"

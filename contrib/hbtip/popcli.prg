@@ -222,7 +222,7 @@ METHOD Retrieve( nId, nLen ) CLASS TIPClientPOP
          cRet := hb_BLeft( cRet, nPos + 1 )
          ::bEof := .T.
 
-      ELSEIF HB_ISNUMERIC( nLen ) .AND. nLen < hb_BLen( cRet )  /* TOFIX: might break UTF-8 chars */
+      ELSEIF HB_ISNUMERIC( nLen ) .AND. nLen < hb_BLen( cRet )  /* FIXME: might break UTF-8 chars */
          EXIT
       ELSE
          nRetLen += nRead

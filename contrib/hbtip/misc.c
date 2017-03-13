@@ -59,7 +59,7 @@ HB_FUNC( TIP_TIMESTAMP )
    int  iYear, iMonth, iDay, iHour, iMinute, iSecond, iMSec;
    long lOffset;
 
-   /* TOFIX: wrong result is returned when empty dates it's passed */
+   /* FIXME: wrong result is returned when empty dates it's passed */
 
    if( HB_ISDATE( 1 ) )
    {

@@ -5,7 +5,7 @@
 #include "achoice.ch"
 #include "inkey.ch"
 
-/* TOFIX: Code below demonstrates an AChoice() difference between Harbour
+/* FIXME: Code below demonstrates an AChoice() difference between Harbour
           and Clipper it is called with the number of items in the array is
           less than number of rows determined by ( nBottom - nTop + 1 ),
           and a user function is specified for cUserFunction. In the attached

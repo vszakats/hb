@@ -45,7 +45,7 @@
  *
  */
 
-/* TOFIX: The sorting engine requires signed indexes to work, this means
+/* FIXME: The sorting engine requires signed indexes to work, this means
           that arrays larger than 2^31 elements cannot be sorted. [vszakats] */
 
 /* NOTE: Based on PD code found in

@@ -400,7 +400,7 @@ int hb_gt_sln_ReadKey( PHB_GT pGT, int iEventMask )
       if( tmp != 0 )
          return tmp;
 
-      /* TOFIX: this code is broken - needs a diffrent aproach */
+      /* FIXME: this code is broken - needs a diffrent aproach */
       tmp = hb_sln_FindKeyTranslation( ch );
       if( tmp != 0 || ch > 256 )
          return tmp;

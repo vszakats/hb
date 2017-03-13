@@ -1355,7 +1355,7 @@ METHOD ListTables() CLASS TMySQLServer
 METHOD TableExists( cTable ) CLASS TMySQLServer
    RETURN hb_AScanI( mysql_list_dbs( ::nSocket ), cTable,,, .T. ) > 0
 
-/* TOFIX: Conversion creates a .dbf with fields of wrong dimension (often) */
+/* FIXME: Conversion creates a .dbf with fields of wrong dimension (often) */
 METHOD TableStruct( cTable ) CLASS TMySQLServer
 
    LOCAL aStruct := {}

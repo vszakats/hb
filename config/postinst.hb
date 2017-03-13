@@ -198,7 +198,7 @@ PROCEDURE Main( ... )
             mk_hb_vfLinkSym( "harbour" + hb_ps() + cDynVersionFull, hb_DirSepToOS( GetEnvC( "HB_INSTALL_DYN" ) + "/../" ) + cDynVersionFull )
 
          CASE GetEnvC( "HB_INSTALL_DYN" ) == "/usr/local/harbour/lib"
-            /* TOFIX: Rewrite this in .prg:
+            /* FIXME: Rewrite this in .prg:
                ld="/usr/lib"
                if [ -n "${HB_INST_PKGPREF}" ] || [ -w $ld ]
                   then
@@ -660,7 +660,7 @@ STATIC FUNCTION mk_extern_core()
    IF GetEnvC( "HB_REBUILD_EXTERN" ) == "yes" .AND. ;
       ! Empty( GetEnvC( "HB_DYNLIB_BASE" ) )
 
-      /* TOFIX: Use list of libs instead of dynamic lib */
+      /* FIXME: Use list of libs instead of dynamic lib */
       IF ( aExtern := __hb_extern_get_list( hb_DirSepToOS( GetEnvC( "HB_DYNLIB_DIR" ) ) + hb_ps() + GetEnvC( "HB_DYNLIB_PREF" ) + GetEnvC( "HB_DYNLIB_BASE" ) + GetEnvC( "HB_DYNLIB_POST" ) + GetEnvC( "HB_DYNLIB_EXT" ) + GetEnvC( "HB_DYNLIB_PEXT" ) ) ) != NIL
 
          OutStd( "! Generating core extern headers..." + hb_eol() )

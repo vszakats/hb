@@ -2539,7 +2539,7 @@ static HWND hb_gt_wvt_CreateWindow( PHB_GTWVT pWVT, HB_BOOL bResizable )
    }
 
    /* This can happen if the pGTp is alien to this GT */
-   /* TOFIX: */
+   /* FIXME: */
    if( ! bByConf )
    {
       POINT pt;

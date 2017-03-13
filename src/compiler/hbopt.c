@@ -1462,7 +1462,7 @@ static void hb_compPCodeEnumAssignedUnused( HB_COMP_DECL, PHB_HFUNC pFunc, PHB_O
             {
                char szFun[ 256 ];
 
-               /* TOFIX: We calculate line number by simple tracking last HB_P_LINE,
+               /* FIXME: We calculate line number by simple tracking last HB_P_LINE,
                   but it can work bad, if line number optimizator is clever enough.
                   To obtain real line number we need one more tree scan or other
                   algorithm. [Mindaugas] */
@@ -1605,7 +1605,7 @@ void hb_compPCodeTraceOptimizer( HB_COMP_DECL )
    if( ! usLocalCount )
       return;
 
-   /* TOFIX: Support for PARAMETER sentence is not implemented.
+   /* FIXME: Support for PARAMETER sentence is not implemented.
              The temporary solution is to disable optmisation at all if PARAMETER is used.  */
    {
       HB_SIZE nPos = 0;

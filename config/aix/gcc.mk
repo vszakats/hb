@@ -73,7 +73,7 @@ AR_RULE = ( $(AR) rc $(ARFLAGS) $(HB_AFLAGS) $(HB_USER_AFLAGS) $(LIB_DIR)/$@ $(^
 
 DY := $(CC)
 DFLAGS += -shared -Wl,-G $(LIBPATHS)
-# TOFIX: CHECKME, there was space between -o and output name
+# FIXME: CHECKME, there was space between -o and output name
 #DY_OUT := -o$(subst x,x, )
 DY_OUT := $(LD_OUT)
 DLIBS := $(foreach lib,$(HB_USER_LIBS) $(SYSLIBS),-l$(lib))

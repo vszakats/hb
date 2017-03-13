@@ -704,7 +704,7 @@ HB_FUNC( TIP_MIMETYPE )
       else if( HB_ISCHAR( 2 ) )
          hb_retc( hb_parc( 2 ) );
       else
-         hb_retc_const( "unknown" );  /* TOFIX: change to "application/unknown" */
+         hb_retc_const( "unknown" );  /* FIXME: change to "application/unknown" */
    }
    else
       hb_errRT_BASE_SubstR( EG_ARG, 0, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
@@ -725,7 +725,7 @@ HB_FUNC( TIP_FILENAMEMIMETYPE )
       else if( HB_ISCHAR( 2 ) )
          hb_retc( hb_parc( 2 ) );
       else
-         hb_retc_const( "unknown" );  /* TOFIX: change to "application/unknown" */
+         hb_retc_const( "unknown" );  /* FIXME: change to "application/unknown" */
    }
    else
       hb_errRT_BASE_SubstR( EG_ARG, 0, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
@@ -775,7 +775,7 @@ HB_FUNC( TIP_FILEMIMETYPE )
       else if( HB_ISCHAR( 2 ) )
          hb_retc( hb_parc( 2 ) );
       else
-         hb_retc_const( "unknown" );  /* TOFIX: change to "application/unknown" */
+         hb_retc_const( "unknown" );  /* FIXME: change to "application/unknown" */
    }
    else
       hb_errRT_BASE_SubstR( EG_ARG, 0, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );

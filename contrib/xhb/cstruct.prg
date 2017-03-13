@@ -52,7 +52,7 @@
 
 THREAD STATIC t_aActiveStructure
 
-/* TOFIX: Add mutex protection for variables below. */
+/* FIXME: Add mutex protection for variables below. */
 STATIC s_aClasses := {}
 STATIC s_aArrayClasses := {}
 STATIC s_aSynonyms := {}

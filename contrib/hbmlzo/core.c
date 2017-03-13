@@ -77,7 +77,7 @@ static void hb_mlzo_init( void * cargo )
    HB_SYMBOL_UNUSED( cargo );
 
    if( lzo_init() != LZO_E_OK )
-      hb_errInternal( HB_EI_VMBADSTARTUP /* TOFIX: ? */, NULL, NULL, NULL );
+      hb_errInternal( HB_EI_VMBADSTARTUP /* FIXME: ? */, NULL, NULL, NULL );
 }
 
 HB_CALL_ON_STARTUP_BEGIN( _hb_mlzo_init_ )

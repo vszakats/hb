@@ -72,7 +72,7 @@ by Viktor Szakats
 - In case some translatable strings have changed,
   add the word '[TRANSLATION]' to the text.
 
-- Mark comments suggesting further fixes with 'TOFIX: ', further
+- Mark comments suggesting further fixes with 'FIXME: ', further
   todos as 'TODO: ', and update these to '[DONE]' when implemented.
 
 - Mark changes to merge with different branch as '[TOMERGE x.0]'.

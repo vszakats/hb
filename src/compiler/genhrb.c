@@ -91,7 +91,7 @@ void hb_compGenBufPortObj( HB_COMP_DECL, HB_BYTE ** pBufPtr, HB_SIZE * pnSize )
       nLen = strlen( pSym->szName ) + 1;
       memcpy( ptr, pSym->szName, nLen );
       ptr += nLen;
-      /* TOFIX: this conversion strips upper byte from symbol scope
+      /* FIXME: this conversion strips upper byte from symbol scope
        *        Now we added workaround for it by using some strict
        *        bit order and restoring some others at runtime when
        *        .hrb file is loaded but we should create new format

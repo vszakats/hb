@@ -55,7 +55,7 @@
    #include <windows.h>
 #endif
 
-/* TOFIX: The screen buffer handling is not right for all platforms (Windows)
+/* FIXME: The screen buffer handling is not right for all platforms (Windows)
           The output of the launched (MS-DOS?) app is not visible. */
 
 HB_FUNC( __RUN )

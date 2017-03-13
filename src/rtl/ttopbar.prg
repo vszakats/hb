@@ -295,7 +295,7 @@ METHOD getAccel( nKey ) CLASS TopBarMenu
    IF cKey != NIL
       cKey := "&" + cKey
       FOR EACH item IN ::aItems
-         IF hb_AtI( cKey, item:caption ) > 0  /* TOFIX: use hb_UAtI() */
+         IF hb_AtI( cKey, item:caption ) > 0  /* FIXME: use hb_UAtI() */
             RETURN item:__enumIndex()
          ENDIF
       NEXT

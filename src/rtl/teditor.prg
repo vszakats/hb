@@ -57,7 +57,7 @@
 #include "inkey.ch"
 #include "setcurs.ch"
 
-/* TOFIX: Leave this here, until this code is cleaned off of RTEs */
+/* FIXME: Leave this here, until this code is cleaned off of RTEs */
 #pragma linenumber=on
 
 #define _REFRESH_NONE   0
