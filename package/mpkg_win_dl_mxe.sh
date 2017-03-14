@@ -101,7 +101,7 @@ if [ $# -eq 0 ]; then
 fi
 
 [ -z "${MXE_SKIP_INSTALL+x}" ] && MXE_SKIP_INSTALL='gcc'
-[ -z "${MXE_INST_LINUX+x}" ] && MXE_INST_LINUX='yes'
+[ -z "${MXE_INST_LINUX+x}" ] && MXE_INST_LINUX='no'
 [ -z "${MXE_HOME+x}" ] && MXE_HOME="${HOME}/mxe"
 
 mkdir -p "${MXE_HOME}"
