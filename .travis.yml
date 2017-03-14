@@ -85,8 +85,8 @@ before_install:
       echo 'deb http://pkg.mxe.cc/repos/apt/debian wheezy main' | sudo tee /etc/apt/sources.list.d/mxeapt.list > /dev/null;
       sudo apt-key adv --keyserver hkps://keyserver.ubuntu.com --recv-keys D43A795B73B16ABE9643FE1AFD8FFF16DB45C6AB;
       sudo dpkg --add-architecture i386;
-      sudo apt-get update;
-      sudo apt-get -yq --no-install-suggests --no-install-recommends --force-yes install wine "${mxe_pkgs[@]}";
+      sudo apt-get -qq update;
+      sudo apt-get -qq install wine "${mxe_pkgs[@]}";
     fi;
 
 script:

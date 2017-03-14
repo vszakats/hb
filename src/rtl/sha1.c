@@ -1,5 +1,5 @@
 /*
- * sha1.c
+ * WARNING: Outdated, unsecure algorithm.
  *
  * Originally witten by Steve Reid <steve@edmweb.com>
  *

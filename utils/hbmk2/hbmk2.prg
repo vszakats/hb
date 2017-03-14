@@ -1655,7 +1655,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
    LOCAL cScriptFile
    LOCAL hFile
    LOCAL cFile
-   LOCAL aOBJLIST
+   LOCAL aINPLIST
    LOCAL hReplace
 
    LOCAL lSkipBuild := .F.
@@ -7699,12 +7699,10 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
                      FOR EACH aTO_DO IN ArraySplit( l_aCGEN_TO_DO, l_nJOBS )
                         IF hb_mtvm() .AND. Len( aTO_DO:__enumBase() ) > 1
                            AAdd( aThreads, hb_threadStart( @CompileCLoop(), hbmk, aTO_DO, cBin_CompCGEN, cOpt_CompCPass, hb_HClone( hReplace ), cObjExt, nOpt_Esc, nOpt_FNF, aTO_DO:__enumIndex(), Len( aTO_DO:__enumBase() ) ) )
-                        ELSE
-                           IF ! CompileCLoop( hbmk, aTO_DO, cBin_CompCGEN, cOpt_CompCPass, hReplace, cObjExt, nOpt_Esc, nOpt_FNF, 0, 0 )
-                              IF ! hbmk[ _HBMK_lIGNOREERROR ]
-                                 hbmk[ _HBMK_nExitCode ] := _EXIT_COMPC
-                                 EXIT
-                              ENDIF
+                        ELSEIF ! CompileCLoop( hbmk, aTO_DO, cBin_CompCGEN, cOpt_CompCPass, hReplace, cObjExt, nOpt_Esc, nOpt_FNF, 0, 0 )
+                           IF ! hbmk[ _HBMK_lIGNOREERROR ]
+                              hbmk[ _HBMK_nExitCode ] := _EXIT_COMPC
+                              EXIT
                            ENDIF
                         ENDIF
                      NEXT
@@ -8053,13 +8051,13 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
                nOpt_Esc := iif( "{SCRIPT}" $ cOpt_Dyn, hbmk[ _HBMK_nScr_Esc ], hbmk[ _HBMK_nCmd_Esc ] )
                nOpt_FNF := iif( "{SCRIPT}" $ cOpt_Dyn, hbmk[ _HBMK_nScr_FNF ], hbmk[ _HBMK_nCmd_FNF ] )
 
-               aOBJLIST := ArrayJoin( l_aOBJ, hbmk[ _HBMK_aOBJUSER ] )
-               tmp := ArrayToList( aOBJLIST,, nOpt_Esc, nOpt_FNF, cDynObjPrefix )
+               aINPLIST := ArrayJoin( l_aOBJ, hbmk[ _HBMK_aOBJUSER ] )
+               tmp := ArrayToList( aINPLIST,, nOpt_Esc, nOpt_FNF, cDynObjPrefix )
 
                cScriptFile := NIL
                IF "{SCRIPT_MINGW}" $ cOpt_Dyn
                   IF ( hFile := hb_vfTempFile( @cScriptFile,,, ".lnk" ) ) != NIL
-                     hb_vfWrite( hFile, ArrayToList( aOBJLIST, hb_eol(), nOpt_Esc, nOpt_FNF, "INPUT(" + iif( cDynObjPrefix == NIL, "", cDynObjPrefix ), ")" ) )
+                     hb_vfWrite( hFile, ArrayToList( aINPLIST, hb_eol(), nOpt_Esc, nOpt_FNF, "INPUT(" + iif( cDynObjPrefix == NIL, "", cDynObjPrefix ), ")" ) )
                      hb_vfClose( hFile )
                      cOpt_Dyn := StrTran( cOpt_Dyn, "{SCRIPT_MINGW}" )
                      tmp := FNameEscape( cScriptFile, nOpt_Esc, nOpt_FNF )
@@ -14326,7 +14324,7 @@ STATIC FUNCTION CompVersionDetect( hbmk, cPath_CompC )
             tmp1 := hb_ATokens( tmp1, "." )
             cVer := StrZero( Val( tmp1[ 1 ] ), 2 ) + StrZero( Val( tmp1[ 2 ] ), 2 )
          CASE ( tmp1 := hb_AtX( R_( "([0-9]*)\.([0-9]*)" ), cStdOutErr ) ) != NIL
-            /* Prepare for Ubuntu local patch bug (gcc ~4.6-4.9), where version is
+            /* Prepare for Ubuntu-specific-patch bug (gcc ~4.6-4.9), where version is
                returned in 'major.minor' format:
                https://bugs.launchpad.net/ubuntu/+source/gcc-4.8/+bug/1360404 */
             tmp1 := hb_ATokens( tmp1, "." )
