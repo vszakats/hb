@@ -19,7 +19,7 @@ MXE_SKIP_INSTALL  Comma/space separated list of package names to skip
                   installing. Useful to exclude unnecessary dependencies.
                   *-linux-gnu-*, mxe-requirements, mxe-source packages
                   are excluded automatically.
-MXE_INST_LINUX    Installing 'linux-gnu' packages. Default: no
+MXE_INST_LINUX    Install 'linux-gnu' packages. Default: no
 
 Required: ar (BSD), gpg, curl, openssl, awk, sed, tar, gzip
 
