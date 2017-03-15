@@ -116,9 +116,9 @@ if ( [ ! -f /usr/include/pcre2.h ] && \
   INST_PARAM="${INST_PARAM} --with localpcre2"
 fi
 if ( [ ! -f /usr/include/bzlib.h ] && [ ! -f /usr/local/include/bzlib.h ] ) || \
-   [ "$HB_WITH_BZIP2" = "local" ]
+  [ "$HB_WITH_BZIP2" = "local" ]
 then
-   INST_PARAM="${INST_PARAM} --with localbz2"
+  INST_PARAM="${INST_PARAM} --with localbz2"
 fi
 
 TOINST_LST=''
