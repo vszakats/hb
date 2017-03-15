@@ -1116,6 +1116,7 @@ STATIC FUNCTION hbmk_new( lShellMode )
    hbmk[ _HBMK_lDEBUGDEPD ] := .F.
    hbmk[ _HBMK_lDEBUGPARS ] := .F.
    hbmk[ _HBMK_lDEBUGCMDL ] := .F.
+   hbmk[ _HBMK_nCmdLineMax ] := -1
    hbmk[ _HBMK_aCmdLineLen ] := {}
 
    hbmk[ _HBMK_nCmd_Esc ] := NIL
