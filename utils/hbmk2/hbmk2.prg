@@ -506,73 +506,77 @@ EXTERNAL hbmk_KEYW
 #define _HBMK_lDEBUGI18N        112
 #define _HBMK_lDEBUGDEPD        113
 #define _HBMK_lDEBUGPARS        114
+#define _HBMK_lDEBUGCMDL        115
 
-#define _HBMK_cCCPATH           115
-#define _HBMK_cCCPREFIX         116
-#define _HBMK_cCCSUFFIX         117
-#define _HBMK_cCCEXT            118
+#define _HBMK_cCCPATH           116
+#define _HBMK_cCCPREFIX         117
+#define _HBMK_cCCSUFFIX         118
+#define _HBMK_cCCEXT            119
 
-#define _HBMK_cWorkDir          119
-#define _HBMK_cWorkDirDynSub    120
-#define _HBMK_nCmd_Esc          121
-#define _HBMK_nScr_Esc          122
-#define _HBMK_nCmd_FNF          123
-#define _HBMK_nScr_FNF          124
-#define _HBMK_nExitCode         125
+#define _HBMK_cWorkDir          120
+#define _HBMK_cWorkDirDynSub    121
+#define _HBMK_nCmd_Esc          122
+#define _HBMK_nScr_Esc          123
+#define _HBMK_nCmd_FNF          124
+#define _HBMK_nScr_FNF          125
+#define _HBMK_nExitCode         126
 
-#define _HBMK_cPROGDIR          126
-#define _HBMK_cPROGNAME         127
+#define _HBMK_cPROGDIR          127
+#define _HBMK_cPROGNAME         128
 
-#define _HBMK_hAUTOHBC          128  /* trigger header => .hbc associations */
-#define _HBMK_hAUTOHBCFOUND     129  /* trigger headers found */
+#define _HBMK_hAUTOHBC          129  /* trigger header => .hbc associations */
+#define _HBMK_hAUTOHBCFOUND     130  /* trigger headers found */
 
-#define _HBMK_aDEPTHBC          130  /* .hbc references found */
-#define _HBMK_hDEPTSDIR         131  /* Header dirs found for dependencies */
+#define _HBMK_aDEPTHBC          131  /* .hbc references found */
+#define _HBMK_hDEPTSDIR         132  /* Header dirs found for dependencies */
 
-#define _HBMK_lStopAfterInit    132
-#define _HBMK_lStopAfterHarbour 133
+#define _HBMK_lStopAfterInit    133
+#define _HBMK_lStopAfterHarbour 134
 
-#define _HBMK_cCOMPVer          134
-#define _HBMK_lDEPIMPLIB        135  /* Generate import libs configured in dependecy specification */
-#define _HBMK_lInstForce        136  /* Force to install target even if was up to date */
-#define _HBMK_lAutoHBM          137  /* Toggles processing of '_HBMK_AUTOHBM_NAME' file in current directory */
-#define _HBMK_lContainer        138  /* Target type: container */
-#define _HBMK_lShowLevel        139  /* Show project nesting level in all output lines */
-#define _HBMK_hFiles            140  /* Cache for the header parser (common for C and Harbour) */
-#define _HBMK_cDynLibPrefix     141  /* Dynamic lib filename prefix */
-#define _HBMK_cDynLibExt        142  /* Dynamic lib filename extension */
-#define _HBMK_aLINK             143  /* Links to be created and pointing to the target */
-#define _HBMK_hDEPTMACRO        144  /* Links to be created and pointing to the target */
-#define _HBMK_cC                145  /* C dialect */
-#define _HBMK_cCPP              146  /* C++ dialect */
-#define _HBMK_aLIB_BASE_WARN    147
+#define _HBMK_cCOMPVer          135
+#define _HBMK_lDEPIMPLIB        136  /* Generate import libs configured in dependecy specification */
+#define _HBMK_lInstForce        137  /* Force to install target even if was up to date */
+#define _HBMK_lAutoHBM          138  /* Toggles processing of '_HBMK_AUTOHBM_NAME' file in current directory */
+#define _HBMK_lContainer        139  /* Target type: container */
+#define _HBMK_lShowLevel        140  /* Show project nesting level in all output lines */
+#define _HBMK_hFiles            141  /* Cache for the header parser (common for C and Harbour) */
+#define _HBMK_cDynLibPrefix     142  /* Dynamic lib filename prefix */
+#define _HBMK_cDynLibExt        143  /* Dynamic lib filename extension */
+#define _HBMK_aLINK             144  /* Links to be created and pointing to the target */
+#define _HBMK_hDEPTMACRO        145  /* Links to be created and pointing to the target */
+#define _HBMK_cC                146  /* C dialect */
+#define _HBMK_cCPP              147  /* C++ dialect */
+#define _HBMK_aLIB_BASE_WARN    148
 
-#define _HBMK_aArgs             148
-#define _HBMK_nArgTarget        149
-#define _HBMK_lPause            150
-#define _HBMK_nLevel            151
+#define _HBMK_aArgs             149
+#define _HBMK_nArgTarget        150
+#define _HBMK_lPause            151
+#define _HBMK_nLevel            152
 
-#define _HBMK_cHBX              152
-#define _HBMK_lHBXUpdate        153
+#define _HBMK_cHBX              153
+#define _HBMK_lHBXUpdate        154
 
-#define _HBMK_aGT               154
-#define _HBMK_cCPPRG            155
+#define _HBMK_aGT               155
+#define _HBMK_cCPPRG            156
 
-#define _HBMK_lSysLoc           156
-#define _HBMK_lDumpInfo         157
-#define _HBMK_lMarkdown         158
-#define _HBMK_lShellMode        159
-#define _HBMK_bOut              160
+#define _HBMK_lSysLoc           157
+#define _HBMK_lDumpInfo         158
+#define _HBMK_lMarkdown         159
+#define _HBMK_lShellMode        160
+#define _HBMK_bOut              161
 
-#define _HBMK_cSignTime         161
-#define _HBMK_lCLI              162
-#define _HBMK_cPKGM             163
-#define _HBMK_aHBCCON           164
-#define _HBMK_lHaltRevCounters  165
-#define _HBMK_lVCSTS            166
-#define _HBMK_tVCSTS            167
+#define _HBMK_cSignTime         162
+#define _HBMK_lCLI              163
+#define _HBMK_cPKGM             164
+#define _HBMK_aHBCCON           165
+#define _HBMK_lHaltRevCounters  166
+#define _HBMK_lVCSTS            167
+#define _HBMK_tVCSTS            168
 
-#define _HBMK_MAX_              167
+#define _HBMK_nCmdLineMax       169
+#define _HBMK_aCmdLineLen       170
+
+#define _HBMK_MAX_              170
 
 #define _HBMK_DEP_CTRL_MARKER   ".control."  /* must be an invalid path */
 
@@ -1111,6 +1115,8 @@ STATIC FUNCTION hbmk_new( lShellMode )
    hbmk[ _HBMK_lDEBUGI18N ] := .F.
    hbmk[ _HBMK_lDEBUGDEPD ] := .F.
    hbmk[ _HBMK_lDEBUGPARS ] := .F.
+   hbmk[ _HBMK_lDEBUGCMDL ] := .F.
+   hbmk[ _HBMK_aCmdLineLen ] := {}
 
    hbmk[ _HBMK_nCmd_Esc ] := NIL
    hbmk[ _HBMK_nScr_Esc ] := NIL
@@ -2985,6 +2991,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
       CASE cParamL == "-debugi18n"       ; hbmk[ _HBMK_lDEBUGI18N ]   := .T.
       CASE cParamL == "-debugdepd"       ; hbmk[ _HBMK_lDEBUGDEPD ]   := .T.
       CASE cParamL == "-debugpars"       ; hbmk[ _HBMK_lDEBUGPARS ]   := .T.
+      CASE cParamL == "-debugcmdl"       ; hbmk[ _HBMK_lDEBUGCMDL ]   := .T.
+      CASE cParamL == "-debugcmdl-"      ; hbmk[ _HBMK_lDEBUGCMDL ]   := .F.
       CASE cParamL == "-debugrte"        ; nLevel += cParamL /* invalid code to trigger RTE */
 #ifdef HARBOUR_SUPPORT
       CASE cParamL == "-nulrdd"          ; hbmk[ _HBMK_lNULRDD ]      := .T.
@@ -7761,6 +7769,10 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
 
                         cCommand := FNameEscape( cBin_CompCGEN, hbmk[ _HBMK_nCmd_Esc ] ) + " " + cOpt_CompCLoop
 
+                        IF hbmk[ _HBMK_lDEBUGCMDL ]
+                           hbmk_DoesFitCmdLine( hbmk, hb_BLen( cCommand ), "comp_c" )
+                        ENDIF
+
                         IF hbmk[ _HBMK_lTRACE ]
                            IF ! hbmk[ _HBMK_lQuiet ]
                               IF Len( aTO_DO:__enumBase() ) > 1
@@ -7951,6 +7963,10 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
 
                cCommand := FNameEscape( cBin_Link, hbmk[ _HBMK_nCmd_Esc ] ) + " " + cOpt_Link
 
+               IF hbmk[ _HBMK_lDEBUGCMDL ]
+                  hbmk_DoesFitCmdLine( hbmk, hb_BLen( cCommand ), "link_exe" )
+               ENDIF
+
                IF hbmk[ _HBMK_lTRACE ]
                   IF ! hbmk[ _HBMK_lQuiet ]
                      _hbmk_OutStd( hbmk, I_( "Linker command:" ) )
@@ -8097,6 +8113,10 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
 
                cCommand := FNameEscape( cBin_Dyn, hbmk[ _HBMK_nCmd_Esc ] ) + " " + cOpt_Dyn
 
+               IF hbmk[ _HBMK_lDEBUGCMDL ]
+                  hbmk_DoesFitCmdLine( hbmk, hb_BLen( cCommand ), "link_dyn" )
+               ENDIF
+
                IF hbmk[ _HBMK_lTRACE ]
                   IF ! hbmk[ _HBMK_lQuiet ]
                      _hbmk_OutStd( hbmk, I_( "Dynamic lib link command:" ) )
@@ -8191,6 +8211,10 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
                ENDIF
 
                cCommand := FNameEscape( cBin_Lib, hbmk[ _HBMK_nCmd_Esc ] ) + " " + cOpt_Lib
+
+               IF hbmk[ _HBMK_lDEBUGCMDL ]
+                  hbmk_DoesFitCmdLine( hbmk, hb_BLen( cCommand ), "lib" )
+               ENDIF
 
                IF hbmk[ _HBMK_lTRACE ]
                   IF ! hbmk[ _HBMK_lQuiet ]
@@ -8577,6 +8601,10 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
 
    PlugIn_Execute_All( hbmk, "post_all" )
 
+   IF hbmk[ _HBMK_lDEBUGCMDL ]
+      hbmk_debugcmdl( hbmk )
+   ENDIF
+
    IF hbmk[ _HBMK_lDEBUGTIME ]
       _hbmk_OutStd( hbmk, hb_StrFormat( I_( "Running time: %1$ds" ), Round( ( hb_MilliSeconds() - nStart ) / 1000, 1 ) ) )
    ENDIF
@@ -8623,6 +8651,96 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
    ENDIF
 
    RETURN hbmk[ _HBMK_nExitCode ]
+
+/* Return if string size can fit into the command-line
+   https://www.in-ulm.de/~mascheck/various/argmax/
+   https://git.savannah.gnu.org/cgit/libtool.git/tree/m4/libtool.m4 */
+STATIC FUNCTION hbmk_DoesFitCmdLine( hbmk, nSize, cCategory )
+
+   STATIC s_nMaxRaw
+   STATIC s_nMax
+
+   #if defined( __PLATFORM__UNIX )
+   LOCAL cStdOut
+   #endif
+
+   AAdd( hbmk[ _HBMK_aCmdLineLen ], { "size" => nSize, "cat" => cCategory } )
+
+#if 0
+   nSize += 256
+
+   IF hbmk[ _HBMK_lDEBUGCMDL ] != NIL
+      RETURN hbmk[ _HBMK_lDEBUGCMDL ]
+   ELSEIF nSize < 8192  /* should fit everywhere, omit further checks */
+      RETURN .T.
+   ENDIF
+#endif
+
+   IF s_nMax == NIL
+   #if defined( __PLATFORM__UNIX )
+      IF hb_processRun( "getconf ARG_MAX",, @cStdOut ) == 0
+         s_nMaxRaw := Int( Val( hb_StrReplace( cStdOut, Chr( 13 ) + Chr( 10 ) ) ) )
+         s_nMax := Max( s_nMaxRaw - 2048, 0 )
+      ELSE
+      #if defined( __PLATFORM__DARWIN ) .OR. ;
+          defined( __PLATFORM__BSD )
+         s_nMax := 262144
+      #elif defined( __PLATFORM__SUNOS ) .OR. ;
+            defined( __PLATFORM__AIX )
+         s_nMax := 1048320
+      #elif defined( __PLATFORM__HPUX )
+         s_nMax := 2048000
+      #elif defined( __PLATFORM__MINIX )
+         s_nMax := 16384
+      #elif defined( __PLATFORM__CYGWIN )
+         s_nMax := 30000
+      #else
+         s_nMax := 131071
+      #endif
+         s_nMaxRaw := s_nMax
+      ENDIF
+   #elif defined( __PLATFORM__WINDOWS )
+      DO CASE
+      CASE hb_osIsWinVista()
+         s_nMax := 32767
+      #if 0
+      CASE ! hb_osIsWinXP()
+         s_nMax := 2047
+      #endif
+      OTHERWISE
+         s_nMax := 8191
+      ENDCASE
+      s_nMaxRaw := s_nMax
+   #elif defined( __PLATFORM__OS2 )
+      s_nMaxRaw := s_nMax := 8191
+   #elif defined( __PLATFORM__MSDOS )
+      s_nMaxRaw := s_nMax := 12288
+   #else
+      s_nMaxRaw := s_nMax := 1999999999  /* NOTE: extend the above for your platform to avoid this default */
+   #endif
+      IF hbmk[ _HBMK_lInfo ]
+         _hbmk_OutStd( hbmk, hb_StrFormat( I_( "OS command-line length limit: %1$d" ), s_nMax ) )
+      ENDIF
+   ENDIF
+
+   hbmk[ _HBMK_nCmdLineMax ] := s_nMaxRaw
+
+   RETURN nSize < s_nMax
+
+STATIC PROCEDURE hbmk_debugcmdl( hbmk )
+
+   LOCAL nMax := 0
+   LOCAL tmp
+
+   FOR EACH tmp IN hbmk[ _HBMK_aCmdLineLen ]
+      _hbmk_OutStd( hbmk, hb_StrFormat( "debugcmdl: cmd: %1$s %2$d bytes", tmp[ "cat" ], tmp[ "size" ] ) )
+      IF nMax < tmp[ "size" ]
+         nMax := tmp[ "size" ]
+      ENDIF
+   NEXT
+   _hbmk_OutStd( hbmk, hb_StrFormat( "debugcmdl: longest cmd: %1$d bytes  OS limit: %2$d", nMax, hbmk[ _HBMK_nCmdLineMax ] ) )
+
+   RETURN
 
 STATIC FUNCTION LaunchCommand( cCommand )
 
@@ -18434,6 +18552,7 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
       { "-debugi18n"         , I_( "display internals on translation file generation" ) }, ;
       { "-debugdepd"         , I_( "display internals of dependency detection" ) }, ;
       { "-debugpars"         , I_( "display all input parameters in processing order" ) }, ;
+      { "-debugcmdl[-]"      , I_( "simulate command-line length limit of 0, or unlimited" ) }, ;
       { "-debugrte"          , I_( "generate a run-time error" ) } }
 
    LOCAL aHdr_Opt_Self := { ;
