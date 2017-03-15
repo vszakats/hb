@@ -550,7 +550,7 @@ METHOD PostMultiPart( xPostData, cQuery ) CLASS TIPClientHTTP
          hb_vfClose( hFile )
       ENDIF
 
-      cData := cCrlf
+      cData += cCrlf
    NEXT
 
    cData += cBound + "--" + cCrlf
