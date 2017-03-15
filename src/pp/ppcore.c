@@ -5766,7 +5766,7 @@ void hb_pp_readRules( PHB_PP_STATE pState, const char * szRulesFile )
 /*
  * close all open input files and set the given buffer as input stream
  */
-HB_BOOL hb_pp_inBuffer2( PHB_PP_STATE pState, const char * szFileName, const char * pBuffer, HB_SIZE nLen, int iStartLine )
+HB_BOOL hb_pp_inBuffer( PHB_PP_STATE pState, const char * szFileName, const char * pBuffer, HB_SIZE nLen, int iStartLine )
 {
    hb_pp_InFileFree( pState );
 
@@ -5779,12 +5779,6 @@ HB_BOOL hb_pp_inBuffer2( PHB_PP_STATE pState, const char * szFileName, const cha
    pState->pFile->iLastLine = iStartLine + 1;
    pState->iFiles++;
    return HB_TRUE;
-}
-
-/* Deprecated. For compatibility only. */
-HB_BOOL hb_pp_inBuffer( PHB_PP_STATE pState, const char * pBuffer, HB_SIZE nLen, int iStartLine )
-{
-   return hb_pp_inBuffer2( pState, NULL, pBuffer, nLen, iStartLine );
 }
 
 /*
