@@ -35,11 +35,11 @@ matrix:
       dist: trusty
       sudo: false
       compiler: clang
-      env: [ HB_CI_THREADS=4, HB_CCSUFFIX=-3.9 ]
+      env: [ HB_CI_THREADS=4, HB_CCSUFFIX=-4.0 ]
       addons:
         apt:
-          packages: [ *hb-linux-common, clang-3.9 ]
-          sources: llvm-toolchain-trusty-3.9
+          packages: [ *hb-linux-common, clang-4.0 ]
+          sources: llvm-toolchain-trusty-4.0
     - os: linux
       dist: trusty
       sudo: false
