@@ -518,7 +518,7 @@ static HB_ERRCODE fbGoTo( SQLBASEAREAP pArea, HB_ULONG ulRecNo )
                   break;
 
                case SQL_FLOAT:
-                  pItem = hb_itemPutNDLen( pItem, *( float * ) pVar->sqldata, 20 - pField->uiDec, pField->uiDec );
+                  pItem = hb_itemPutNDLen( pItem, ( double ) *( float * ) pVar->sqldata, 20 - pField->uiDec, pField->uiDec );
                   break;
 
                case SQL_DOUBLE:

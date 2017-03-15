@@ -911,7 +911,10 @@ HB_FUNC( ED_STABILIZE )
                {
                   nLen -= ( i - 2 );
                   if( adres[ i - 1 ] == pEd->escape )
-                     i++, nLen--;
+                  {
+                     i++;
+                     nLen--;
+                  }
                   hb_strncpy( adres + 2, adres + i, nLen - 2 );
                   nEscLen -= ( e - 2 );
                }
