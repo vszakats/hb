@@ -639,11 +639,7 @@ int hb_itemGetNI( PHB_ITEM pItem )
          return ( int ) pItem->item.asLong.value;
 
       else if( HB_IS_DOUBLE( pItem ) )
-#if defined( __GNUC__ )
-         return ( int ) ( unsigned int ) pItem->item.asDouble.value;
-#else
-         return ( int ) pItem->item.asDouble.value;
-#endif
+         return HB_CAST_INT( pItem->item.asDouble.value );
    }
 
    return 0;
@@ -662,11 +658,7 @@ long hb_itemGetNL( PHB_ITEM pItem )
          return ( long ) pItem->item.asInteger.value;
 
       else if( HB_IS_DOUBLE( pItem ) )
-#if defined( __GNUC__ )
-         return ( long ) ( HB_ULONG ) pItem->item.asDouble.value;
-#else
-         return ( long ) pItem->item.asDouble.value;
-#endif
+         return HB_CAST_LONG( pItem->item.asDouble.value );
    }
 
    return 0;
@@ -685,11 +677,7 @@ HB_ISIZ hb_itemGetNS( PHB_ITEM pItem )
          return ( HB_ISIZ ) pItem->item.asInteger.value;
 
       else if( HB_IS_DOUBLE( pItem ) )
-#if defined( __GNUC__ )
-         return ( HB_ISIZ ) ( HB_SIZE ) pItem->item.asDouble.value;
-#else
-         return ( HB_ISIZ ) pItem->item.asDouble.value;
-#endif
+         return HB_CAST_ISIZ( pItem->item.asDouble.value );
    }
 
    return 0;
@@ -708,11 +696,7 @@ HB_MAXINT hb_itemGetNInt( PHB_ITEM pItem )
          return ( HB_MAXINT ) pItem->item.asInteger.value;
 
       else if( HB_IS_DOUBLE( pItem ) )
-#if defined( __GNUC__ )
-         return ( HB_MAXINT ) ( HB_MAXUINT ) pItem->item.asDouble.value;
-#else
-         return ( HB_MAXINT ) pItem->item.asDouble.value;
-#endif
+         return HB_CAST_MAXINT( pItem->item.asDouble.value );
    }
 
    return 0;
@@ -732,11 +716,7 @@ HB_LONGLONG hb_itemGetNLL( PHB_ITEM pItem )
          return ( HB_LONGLONG ) pItem->item.asInteger.value;
 
       else if( HB_IS_DOUBLE( pItem ) )
-#if defined( __GNUC__ )
-         return ( HB_LONGLONG ) ( HB_ULONGLONG ) pItem->item.asDouble.value;
-#else
-         return ( HB_LONGLONG ) pItem->item.asDouble.value;
-#endif
+         return HB_CAST_LONGLONG( pItem->item.asDouble.value );
    }
 
    return 0;

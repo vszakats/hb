@@ -544,7 +544,7 @@ PHB_EXPR hb_compExprReduceMinus( PHB_EXPR pSelf, HB_COMP_DECL )
       if( pRight->value.asNum.NumType == HB_ET_LONG )
          pSelf->value.asDate.lDate =  pLeft->value.asDate.lDate - ( long ) pRight->value.asNum.val.l;
       else
-         pSelf->value.asDate.lDate = pLeft->value.asDate.lDate - ( long ) ( unsigned long ) pRight->value.asNum.val.d;
+         pSelf->value.asDate.lDate = pLeft->value.asDate.lDate - HB_CAST_LONG( pRight->value.asNum.val.d );
       pSelf->value.asDate.lTime = 0;
       pSelf->ExprType = HB_ET_DATE;
       pSelf->ValType  = HB_EV_DATE;
@@ -747,7 +747,7 @@ PHB_EXPR hb_compExprReducePlus( PHB_EXPR pSelf, HB_COMP_DECL )
          if( pLeft->value.asNum.NumType == HB_ET_LONG )
             pSelf->value.asDate.lDate = pRight->value.asDate.lDate + ( long ) pLeft->value.asNum.val.l;
          else
-            pSelf->value.asDate.lDate = pRight->value.asDate.lDate + ( long ) ( unsigned long ) pLeft->value.asNum.val.d;
+            pSelf->value.asDate.lDate = pRight->value.asDate.lDate + HB_CAST_LONG( pLeft->value.asNum.val.d );
          pSelf->value.asDate.lTime = 0;
          pSelf->ExprType = HB_ET_DATE;
          pSelf->ValType  = HB_EV_DATE;
@@ -800,7 +800,7 @@ PHB_EXPR hb_compExprReducePlus( PHB_EXPR pSelf, HB_COMP_DECL )
          if( pRight->value.asNum.NumType == HB_ET_LONG )
             pSelf->value.asDate.lDate = pLeft->value.asDate.lDate + ( long ) pRight->value.asNum.val.l;
          else
-            pSelf->value.asDate.lDate = pLeft->value.asDate.lDate + ( long ) ( unsigned long ) pRight->value.asNum.val.d;
+            pSelf->value.asDate.lDate = pLeft->value.asDate.lDate + HB_CAST_LONG( pRight->value.asNum.val.d );
          pSelf->value.asDate.lTime = 0;
          pSelf->ExprType = HB_ET_DATE;
          pSelf->ValType  = HB_EV_DATE;
@@ -2073,7 +2073,7 @@ HB_BOOL hb_compExprReduceCHR( PHB_EXPR pSelf, HB_COMP_DECL )
       }
       else
       {
-         pExpr->value.asString.string = ( char * ) HB_UNCONST( hb_szAscii[ ( unsigned int ) pArg->value.asNum.val.d & 0xff ] );
+         pExpr->value.asString.string = ( char * ) HB_UNCONST( hb_szAscii[ HB_CAST_INT( pArg->value.asNum.val.d ) & 0xff ] );
          pExpr->value.asString.dealloc = HB_FALSE;
          pExpr->nLength = 1;
       }
@@ -2100,8 +2100,8 @@ HB_BOOL hb_compExprReduceBCHAR( PHB_EXPR pSelf, HB_COMP_DECL )
       pExpr->ValType = HB_EV_STRING;
       pExpr->value.asString.string =
          ( char * ) HB_UNCONST( hb_szAscii[ ( pArg->value.asNum.NumType == HB_ET_LONG ?
-                                ( unsigned int ) pArg->value.asNum.val.l :
-                                ( unsigned int ) pArg->value.asNum.val.d ) & 0xff ] );
+                                ( int ) pArg->value.asNum.val.l :
+                                HB_CAST_INT( pArg->value.asNum.val.d ) ) & 0xff ] );
       pExpr->value.asString.dealloc = HB_FALSE;
       pExpr->nLength = 1;
 
