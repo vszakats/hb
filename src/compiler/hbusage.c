@@ -241,6 +241,7 @@ void hb_compPrintCredits( HB_COMP_DECL )
          "Randy Portnoff (randy palmasdev.com)\n"
          "Richard Alexandre Cuylen (racuylen altern.org)\n"
          "Robert Arseniuk (roberta jmpolska.com)\n"
+         "Rolf (elchs unitybox.de)\n"
          "Ron Pinkas (ron profit-master.com)\n"
          "Ross Presser (ross_presser imtek.com)\n"
          "Ryszard Glab (rglab imid.med.pl)\n"

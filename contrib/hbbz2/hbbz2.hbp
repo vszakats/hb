@@ -16,6 +16,7 @@
 -depcontrol=bzip2:${HB_WITH_BZIP2}
 -depincpath=bzip2:/usr/local/opt/bzip2/include
 -depincpath=bzip2:/usr/include
+-depincpath=bzip2:/usr/local/include
 -depincpathlocal=bzip2:3rd/bz2
 -depfinish=bzip2
 

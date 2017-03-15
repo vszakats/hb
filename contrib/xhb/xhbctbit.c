@@ -49,31 +49,26 @@
 static HB_ULONG hb_hextonum( const char * cHex )
 {
    HB_ULONG ulNum = 0;
-   int      iDigit;
+   char     c;
 
-   while( *cHex && *cHex == ' ' )
+   while( *cHex == ' ' )
       cHex++;
 
-   while( *cHex )
+   while( ( c = *cHex++ ) != 0 )
    {
-      char c = *cHex;
-
       ulNum <<= 4;
 
       if( c >= '0' && c <= '9' )
-         iDigit = c - '0';
+         ulNum += c - '0';
       else if( c >= 'A' && c <= 'F' )
-         iDigit = c - 'A' + 10;
+         ulNum += c - ( 'A' + 10 );
       else if( c >= 'a' && c <= 'f' )
-         iDigit = c - 'a' + 10;
+         ulNum += c - ( 'a' + 10 );
       else
       {
          ulNum = 0;
          break;
       }
-
-      ulNum += iDigit;
-      ++cHex;
    }
 
    return ulNum;
@@ -81,8 +76,10 @@ static HB_ULONG hb_hextonum( const char * cHex )
 
 static HB_LONG __getparam( int iParam )
 {
-   if( HB_ISCHAR( iParam ) )
-      return ( HB_LONG ) hb_hextonum( hb_parc( iParam ) );
+   const char * szHexNum = hb_parc( iParam );
+
+   if( szHexNum )
+      return ( HB_LONG ) hb_hextonum( szHexNum );
    else
       return hb_parnl( iParam );
 }
@@ -124,41 +121,38 @@ static void sizeofbits( HB_USHORT * pusBytes, HB_LONG * plPattern, HB_LONG * plT
 
 static HB_LONG __numfun( int iPCount, HB_LONG ( * operation )( HB_LONG wNum1, HB_LONG wNum2 ), HB_BOOL * pbOk )
 {
-   if( HB_ISNUM( 1 ) || HB_ISNIL( 1 ) )
+   if( ( HB_ISNUM( 1 ) || HB_ISNIL( 1 ) ) &&
+       ( HB_ISNUM( 2 ) || HB_ISCHAR( 2 ) ) )
    {
+      HB_LONG   lNum1 = __getparam( 2 );
       HB_LONG   lNumOp = 0;
       HB_LONG   lPattern, lTestMSB;
       HB_USHORT usBytes;
 
       sizeofbits( &usBytes, &lPattern, &lTestMSB );
 
-      if( HB_ISNUM( 2 ) || HB_ISCHAR( 2 ) )
+      if( iPCount == 2 )
+         lNumOp = ( *operation )( lNum1, 0 );  /* If unary operation: NOT */
+      else
       {
-         HB_LONG lNum1 = __getparam( 2 );
+         int iFor;
 
-         if( iPCount == 2 )
-            lNumOp = ( *operation )( lNum1, 0 );  /* If unary operation: NOT */
-         else
+         for( iFor = 3; iFor <= iPCount; iFor++ )
          {
-            int iFor;
-
-            for( iFor = 3; iFor <= iPCount; iFor++ )
+            if( HB_ISNUM( iFor ) || HB_ISCHAR( iFor ) )
+               lNumOp = ( *operation )( lNum1, __getparam( iFor ) );  /* Call to operation: AND, OR, XOR */
+            else
             {
-               if( HB_ISNUM( iFor ) || HB_ISCHAR( iFor ) )
-                  lNumOp = ( *operation )( lNum1, __getparam( iFor ) );  /* Call to operation: AND, OR, XOR */
-               else
-               {
-                  *pbOk = HB_FALSE;
-                  return 0;
-               }
-
-               lNum1 = lNumOp;  /* Copy result to first parameter if multi operation */
+               *pbOk = HB_FALSE;
+               return 0;
             }
-         }
 
-         *pbOk = HB_TRUE;
-         return ( lNumOp & lTestMSB ) ? lNumOp | lPattern : lNumOp & ~lPattern;
+            lNum1 = lNumOp;  /* Copy result to first parameter if multi operation */
+         }
       }
+
+      *pbOk = HB_TRUE;
+      return ( lNumOp & lTestMSB ) ? lNumOp | lPattern : lNumOp & ~lPattern;
    }
 
    *pbOk = HB_FALSE;
@@ -168,7 +162,7 @@ static HB_LONG __numfun( int iPCount, HB_LONG ( * operation )( HB_LONG wNum1, HB
 HB_FUNC( NUMANDX )
 {
    HB_BOOL bOk;
-   HB_LONG lNumOp = __numfun( hb_pcount(), ( HB_LONG ( * )( HB_LONG wNum1, HB_LONG wNum2 ) )( __numand ), &bOk );
+   HB_LONG lNumOp = __numfun( hb_pcount(), __numand, &bOk );
 
    if( bOk )
       hb_retnl( lNumOp );
@@ -177,7 +171,7 @@ HB_FUNC( NUMANDX )
 HB_FUNC( NUMORX )
 {
    HB_BOOL bOk;
-   HB_LONG lNumOp = __numfun( hb_pcount(), ( HB_LONG ( * )( HB_LONG wNum1, HB_LONG wNum2 ) )( __numor ), &bOk );
+   HB_LONG lNumOp = __numfun( hb_pcount(), __numor, &bOk );
 
    if( bOk )
       hb_retnl( lNumOp );
@@ -186,7 +180,7 @@ HB_FUNC( NUMORX )
 HB_FUNC( NUMXORX )
 {
    HB_BOOL bOk;
-   HB_LONG lNumOp = __numfun( 3, ( HB_LONG ( * )( HB_LONG wNum1, HB_LONG wNum2 ) )( __numxor ), &bOk );
+   HB_LONG lNumOp = __numfun( 3, __numxor, &bOk );
 
    if( bOk )
       hb_retnl( lNumOp );
@@ -195,7 +189,7 @@ HB_FUNC( NUMXORX )
 HB_FUNC( NUMNOTX )
 {
    HB_BOOL bOk;
-   HB_LONG lNumOp = __numfun( 2, ( HB_LONG ( * )( HB_LONG wNum1, HB_LONG wNum2 ) )( __numnot ), &bOk );
+   HB_LONG lNumOp = __numfun( 2, __numnot, &bOk );
 
    if( bOk )
       hb_retnl( lNumOp );
