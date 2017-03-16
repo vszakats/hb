@@ -46,11 +46,8 @@
  * #define XV64( v ) ( ( xply_word ) v##UI64 )
  */
 
-/* for BCC 5.5 */
-#if ( defined( __BORLANDC__ ) && ( __BORLANDC__ >= 0x550 ) && ( __BORLANDC__ < 0x578 ) ) || ( defined( _MSC_VER ) && ( _MSC_VER <= 1200 ) && ! defined( __POCC__ ) )
-#  define XRABPLY_TYPE64        __int64
-#  define XV64( v ) ( ( xply_word ) v##ui64 )
-#endif
+#define XRABPLY_TYPE64        HB_I64
+#define XV64( v )             ( ( xply_word ) HB_ULL( v ) )
 
 /*
  * Define to 1 if your processor stores words with the most significant byte
