@@ -1,42 +1,58 @@
 diff --strip-trailing-cr -urN expat.orig/xmlparse.c expat/xmlparse.c
 --- expat.orig/xmlparse.c	2016-06-21 12:58:38.000000000 +0000
-+++ expat/xmlparse.c	2017-01-04 00:46:58.000000000 +0000
-@@ -17,7 +17,9 @@
++++ expat/xmlparse.c	2017-03-16 12:28:18.000000000 +0000
+@@ -17,8 +17,8 @@
  
  #define XML_BUILDING_EXPAT 1
  
 -#ifdef WIN32
-+#if defined(HARBOUR_CONF)
+-#include "winconfig.h"
++#ifdef HARBOUR_CONF
 +#include "_hbconf.h"
-+#elif defined(WIN32)
- #include "winconfi.h"
  #elif defined(MACOS_CLASSIC)
- #include "macconfi.h"
+ #include "macconfig.h"
+ #elif defined(__amigaos__)
+@@ -722,7 +722,14 @@
+   /* Process ID is 0 bits entropy if attacker has local access
+    * XML_Parser address is few bits of entropy if attacker has local access */
+   const unsigned long entropy =
+-      gather_time_entropy() ^ getpid() ^ (unsigned long)parser;
++      gather_time_entropy() ^ getpid() ^
++#if defined( _WIN64 ) && defined( __GNUC__ )
++      (unsigned long)(unsigned long long)parser;
++#elif defined( _WIN64 )
++      (unsigned long)(unsigned __int64)parser;
++#else
++      (unsigned long)parser;
++#endif
+ 
+   /* Factors are 2^31-1 and 2^61-1 (Mersenne primes M31 and M61) */
+   if (sizeof(unsigned long) == 4) {
 diff --strip-trailing-cr -urN expat.orig/xmlrole.c expat/xmlrole.c
 --- expat.orig/xmlrole.c	2016-06-21 12:58:38.000000000 +0000
-+++ expat/xmlrole.c	2017-01-04 00:46:58.000000000 +0000
-@@ -4,7 +4,9 @@
++++ expat/xmlrole.c	2017-03-16 12:28:18.000000000 +0000
+@@ -4,8 +4,8 @@
  
  #include <stddef.h>
  
 -#ifdef WIN32
-+#if defined(HARBOUR_CONF)
+-#include "winconfig.h"
++#ifdef HARBOUR_CONF
 +#include "_hbconf.h"
-+#elif defined(WIN32)
- #include "winconfi.h"
  #elif defined(MACOS_CLASSIC)
- #include "macconfi.h"
+ #include "macconfig.h"
+ #elif defined(__amigaos__)
 diff --strip-trailing-cr -urN expat.orig/xmltok.c expat/xmltok.c
 --- expat.orig/xmltok.c	2016-06-21 12:58:38.000000000 +0000
-+++ expat/xmltok.c	2017-01-04 00:46:58.000000000 +0000
-@@ -4,7 +4,9 @@
++++ expat/xmltok.c	2017-03-16 12:28:18.000000000 +0000
+@@ -4,8 +4,8 @@
  
  #include <stddef.h>
  
 -#ifdef WIN32
-+#if defined(HARBOUR_CONF)
+-#include "winconfig.h"
++#ifdef HARBOUR_CONF
 +#include "_hbconf.h"
-+#elif defined(WIN32)
- #include "winconfi.h"
  #elif defined(MACOS_CLASSIC)
- #include "macconfi.h"
+ #include "macconfig.h"
+ #elif defined(__amigaos__)

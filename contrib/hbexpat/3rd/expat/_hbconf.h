@@ -3,7 +3,7 @@
 
 #include "hbdefs.h"
 
-#if defined(WIN32)
+#if defined( HB_OS_WIN )
 #  define WIN32_LEAN_AND_MEAN
 #  include <windows.h>
 #  undef WIN32_LEAN_AND_MEAN

@@ -4,14 +4,12 @@
 
 #include <stddef.h>
 
-#if defined(HARBOUR_CONF)
+#ifdef HARBOUR_CONF
 #include "_hbconf.h"
-#elif defined(WIN32)
-#include "winconfi.h"
 #elif defined(MACOS_CLASSIC)
-#include "macconfi.h"
+#include "macconfig.h"
 #elif defined(__amigaos__)
-#include "amigacon.h"
+#include "amigaconfig.h"
 #elif defined(__WATCOMC__)
 #include "watcomconfig.h"
 #else

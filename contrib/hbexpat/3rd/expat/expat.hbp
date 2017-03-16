@@ -29,7 +29,6 @@ xmltok.c
 # MAP    lib/xmltok.c         xmltok.c
 # MAP    lib/xmltok_impl.c    xmltok_i.c
 # MAP    lib/xmltok_ns.c      xmltok_n.c
-# MAP    lib/amigaconfig.h    amigacon.h
 # MAP    lib/ascii.h          ascii.h
 # MAP    lib/asciitab.h       asciitab.h
 # MAP    lib/expat.h          expat.h
@@ -37,10 +36,8 @@ xmltok.c
 # MAP    lib/iasciitab.h      iasciita.h
 # MAP    lib/internal.h       internal.h
 # MAP    lib/latin1tab.h      latin1ta.h
-# MAP    lib/macconfig.h      macconfi.h
 # MAP    lib/nametab.h        nametab.h
 # MAP    lib/utf8tab.h        utf8tab.h
-# MAP    lib/winconfig.h      winconfi.h
 # MAP    lib/xmlrole.h        xmlrole.h
 # MAP    lib/xmltok.h         xmltok.h
 # MAP    lib/xmltok_impl.h    xmltok_i.h

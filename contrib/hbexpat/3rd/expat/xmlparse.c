@@ -17,14 +17,12 @@
 
 #define XML_BUILDING_EXPAT 1
 
-#if defined(HARBOUR_CONF)
+#ifdef HARBOUR_CONF
 #include "_hbconf.h"
-#elif defined(WIN32)
-#include "winconfi.h"
 #elif defined(MACOS_CLASSIC)
-#include "macconfi.h"
+#include "macconfig.h"
 #elif defined(__amigaos__)
-#include "amigacon.h"
+#include "amigaconfig.h"
 #elif defined(__WATCOMC__)
 #include "watcomconfig.h"
 #elif defined(HAVE_EXPAT_CONFIG_H)
@@ -724,7 +722,14 @@ generate_hash_secret_salt(XML_Parser parser)
   /* Process ID is 0 bits entropy if attacker has local access
    * XML_Parser address is few bits of entropy if attacker has local access */
   const unsigned long entropy =
-      gather_time_entropy() ^ getpid() ^ (unsigned long)parser;
+      gather_time_entropy() ^ getpid() ^
+#if defined( _WIN64 ) && defined( __GNUC__ )
+      (unsigned long)(unsigned long long)parser;
+#elif defined( _WIN64 )
+      (unsigned long)(unsigned __int64)parser;
+#else
+      (unsigned long)parser;
+#endif
 
   /* Factors are 2^31-1 and 2^61-1 (Mersenne primes M31 and M61) */
   if (sizeof(unsigned long) == 4) {
