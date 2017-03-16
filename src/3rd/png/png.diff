@@ -1,7 +1,7 @@
 diff --strip-trailing-cr -urN png.orig/png.h png/png.h
---- png.orig/png.h	2017-01-05 13:59:36.000000000 +0000
-+++ png/png.h	2017-01-05 18:12:38.000000000 +0000
-@@ -356,7 +356,7 @@
+--- png.orig/png.h	2017-03-16 12:26:33.000000000 +0000
++++ png/png.h	2017-03-16 15:51:58.000000000 +0000
+@@ -358,7 +358,7 @@
  /* If pnglibconf.h is missing, you can
   * copy scripts/pnglibconf.h.prebuilt to pnglibconf.h
   */
@@ -11,9 +11,9 @@ diff --strip-trailing-cr -urN png.orig/png.h png/png.h
  
  #ifndef PNG_VERSION_INFO_ONLY
 diff --strip-trailing-cr -urN png.orig/pnglconf.h png/pnglconf.h
---- png.orig/pnglconf.h	2017-01-05 13:59:36.000000000 +0000
-+++ png/pnglconf.h	2017-01-05 18:12:38.000000000 +0000
-@@ -26,8 +26,8 @@
+--- png.orig/pnglconf.h	2017-03-16 12:26:33.000000000 +0000
++++ png/pnglconf.h	2017-03-16 15:51:58.000000000 +0000
+@@ -28,8 +28,8 @@
  #define PNG_BUILD_GRAYSCALE_PALETTE_SUPPORTED
  #define PNG_CHECK_FOR_INVALID_INDEX_SUPPORTED
  #define PNG_COLORSPACE_SUPPORTED
@@ -24,7 +24,7 @@ diff --strip-trailing-cr -urN png.orig/pnglconf.h png/pnglconf.h
  #define PNG_EASY_ACCESS_SUPPORTED
  /*#undef PNG_ERROR_NUMBERS_SUPPORTED*/
  #define PNG_ERROR_TEXT_SUPPORTED
-@@ -109,9 +109,13 @@
+@@ -111,9 +111,13 @@
  #define PNG_SIMPLIFIED_READ_SUPPORTED
  #define PNG_SIMPLIFIED_WRITE_AFIRST_SUPPORTED
  #define PNG_SIMPLIFIED_WRITE_BGR_SUPPORTED
@@ -38,7 +38,7 @@ diff --strip-trailing-cr -urN png.orig/pnglconf.h png/pnglconf.h
  #define PNG_STORE_UNKNOWN_CHUNKS_SUPPORTED
  #define PNG_TEXT_SUPPORTED
  #define PNG_TIME_RFC1123_SUPPORTED
-@@ -185,7 +189,11 @@
+@@ -187,7 +191,11 @@
  #define PNG_zTXt_SUPPORTED
  /* end of options */
  /* settings */
@@ -52,8 +52,8 @@ diff --strip-trailing-cr -urN png.orig/pnglconf.h png/pnglconf.h
  #define PNG_GAMMA_THRESHOLD_FIXED 5000
  #define PNG_IDAT_READ_SIZE PNG_ZBUF_SIZE
 diff --strip-trailing-cr -urN png.orig/pngpriv.h png/pngpriv.h
---- png.orig/pngpriv.h	2017-01-05 13:59:36.000000000 +0000
-+++ png/pngpriv.h	2017-01-05 18:12:38.000000000 +0000
+--- png.orig/pngpriv.h	2017-03-16 12:26:33.000000000 +0000
++++ png/pngpriv.h	2017-03-16 15:51:58.000000000 +0000
 @@ -67,7 +67,7 @@
   * before png.h is included, but load the configuration now if it is available.
   */
