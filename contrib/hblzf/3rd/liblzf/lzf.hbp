@@ -12,6 +12,7 @@
 # See lzfP.h for more
 -cflag=-DVERY_FAST=1
 -cflag=-DAVOID_ERRNO=1{wce}
+-cflag=-DWIN32{win}
 
 lzf_c.c
 lzf_d.c
@@ -20,9 +21,7 @@ lzf_d.c
 # URL    http://dist.schmorp.de/liblzf/liblzf-3.6.tar.gz
 # DIFF   liblzf.diff
 #
-# MAP    Changes Changes.txt
 # MAP    LICENSE LICENSE.txt
-# MAP    README  README.txt
 # MAP    crc32.h
 # MAP    lzf.h
 # MAP    lzf_c.c
