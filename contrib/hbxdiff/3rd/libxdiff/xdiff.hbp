@@ -9,7 +9,7 @@
 -cpp=no
 -pic
 
--cflag=-DHAVE_HBCONFIG_H
+-cflag=-DHAVE_CONFIG_H
 
 xadler32.c
 xalloc.c
@@ -26,12 +26,12 @@ xrabply.c
 xutils.c
 xversion.c
 
+# WARNING: Make sure to update version in config.h on upgrade.
+
 # ORIGIN http://xmailserver.org/xdiff-lib.html
 # URL    http://xmailserver.org/libxdiff-0.23.tar.gz
-# DIFF   libxdiff.diff
 #
 # MAP    COPYING             LICENSE.txt
-# MAP    winconfig.h         winconf.h
 # MAP    xdiff/xadler32.c    xadler32.c
 # MAP    xdiff/xadler32.h    xadler32.h
 # MAP    xdiff/xalloc.c      xalloc.c
