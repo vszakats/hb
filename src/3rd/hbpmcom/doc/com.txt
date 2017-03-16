@@ -85,7 +85,7 @@ ACKNOLEDGEMENTS:
      (C) Copyright 1993 - 1995 by Christian Blum <chris@phil.uni-sb.de>
      all rights reserved.
      The home location for this document is:
-     http://www.cs.hs-rm.de/~linn/vpdv01/robzilla/hilfe/index.htm
+     https://www.cs.hs-rm.de/~linn/vpdv01/robzilla/hilfe/index.htm
      Other serial port stuff mentioned in this document can be found in the
      same directory.
      - This is the most comprehensive description of serial
@@ -102,7 +102,7 @@ ACKNOLEDGEMENTS:
      - I used his work as a reference.
 
      DJGPP - A port of GNU gcc for DOS by DJ Delorie and team.
-     http://www.delorie.com
+     http://www.delorie.com/
      - I used their work to compile for 32-bit DOS.
 
 3 Functions

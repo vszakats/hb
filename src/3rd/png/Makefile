@@ -63,7 +63,6 @@ else
    include $(TOP)$(ROOT)config/none.mk
 endif
 
-# ORIGIN http://libpng.org/pub/png/libpng.html
 # URL    https://github.com/glennrp/libpng/archive/v1.6.28.tar.gz
 # DIFF   png.diff
 #
