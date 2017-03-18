@@ -293,7 +293,13 @@ if ls      ../BUILD*.txt > /dev/null 2>&1; then
   cp -f -p ../BUILD*.txt "${HB_ABSROOT}"
 fi
 
-# Reset Windows attributes
+# Set file attributes
+
+chmod +x "${HB_ABSROOT}bin/*.hb"
+chmod -x "${HB_ABSROOT}bin/*.dll"
+chmod -x "${HB_ABSROOT}bin/*.exe"
+chmod -x "${HB_ABSROOT}lib/win/mingw/"
+chmod -x "${HB_ABSROOT}lib/win/mingw64/"
 
 if [ "${os}" = 'win' ]; then
   find "${HB_ABSROOT%/}" -exec attrib +A -R {} \;

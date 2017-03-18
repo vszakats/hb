@@ -53,15 +53,6 @@ matrix:
       dist: trusty
       sudo: required
       compiler: i686-w64-mingw32-gcc
-      env: [ HB_CI_THREADS=4, PKG_SUFFIX=linux-trusty ]
-      addons:
-        apt:
-          packages:
-            - [ binutils-mingw-w64, gcc-mingw-w64, g++-mingw-w64, p7zip-full, gnupg-curl, dos2unix, realpath ]
-    - os: linux
-      dist: trusty
-      sudo: required
-      compiler: i686-w64-mingw32-gcc
       services: [ docker ]
       # https://hub.docker.com/_/ubuntu/
       env: [ HB_CI_THREADS=4, PKG_SUFFIX=linux, 'DOCKER_IMAGE=ubuntu:devel' ]
@@ -76,15 +67,14 @@ matrix:
 
 before_install:
   - >
-    mxe_pkgs=( \
-      mxe-{i686,x86-64}-w64-mingw32.shared-{cairo,file,ghostscript,icu4c,libmysqlclient,postgresql} \
-      mxe-{i686,x86-64}-w64-mingw32.static-{freeimage,gd})
     if [ "$TRAVIS_OS_NAME" = 'osx' ]; then
       if [ "$CC" = 'i686-w64-mingw32-gcc' ]; then
         time brew install p7zip mingw-w64 jq osslsigncode dos2unix gpg coreutils || true
         time brew install --force-bottle --build-bottle wine || true
         export MXE_DONT_INSTALL=gcc
-        time ./package/mpkg_win_dl_mxe.sh "${mxe_pkgs[@]}"
+        time ./package/mpkg_win_dl_mxe.sh \
+          mxe-{i686,x86-64}-w64-mingw32.shared-{cairo,file,ghostscript,icu4c,libmysqlclient,postgresql} \
+          mxe-{i686,x86-64}-w64-mingw32.static-{freeimage,gd}
       else
         brew install cairo curl freeimage gd ghostscript icu4c libmagic mariadb openssl@1.1 qt5 s-lang unixodbc
       fi
@@ -94,12 +84,6 @@ before_install:
       time docker run -it -v "${PWD}:${PWD}" -w "${PWD}" --env-file <(env | grep -E '^(TRAVIS_|HB_)') \
         "${DOCKER_IMAGE}" \
         sh -c ./package/mpkg_win_docker.sh
-    elif [ "$TRAVIS_OS_NAME" = 'linux' ] && [ "$CC" = 'i686-w64-mingw32-gcc' ] && [ "$TRAVIS_SUDO" = 'true' ]; then
-      echo 'deb http://pkg.mxe.cc/repos/apt/debian wheezy main' | sudo tee /etc/apt/sources.list.d/mxeapt.list > /dev/null
-      sudo apt-key adv --keyserver hkps://keyserver.ubuntu.com --recv-keys D43A795B73B16ABE9643FE1AFD8FFF16DB45C6AB
-      sudo dpkg --add-architecture i386
-      sudo apt-get -qq update
-      sudo apt-get -qq install wine "${mxe_pkgs[@]}"
     fi
 
 script:
