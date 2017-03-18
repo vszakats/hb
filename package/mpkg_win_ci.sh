@@ -64,7 +64,7 @@ case "${os}" in
     ;;
   linux)
     # Required:
-    #   p7zip-full binutils-mingw-w64 gcc-mingw-w64 g++-mingw-w64 gnupg-curl jq osslsigncode dos2unix realpath wine
+    #   binutils-mingw-w64 gcc-mingw-w64 g++-mingw-w64 p7zip-full jq dos2unix realpath osslsigncode wine gnupg-curl
     _mxe="/usr/lib/mxe"
     ;;
 esac

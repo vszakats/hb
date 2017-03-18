@@ -17,7 +17,7 @@ dpkg --add-architecture i386
 apt-get -qq update
 apt-get -qq install \
   curl dirmngr git make gcc binutils \
-  binutils-mingw-w64 gcc-mingw-w64 g++-mingw-w64 p7zip-full dos2unix realpath wine-stable wine64 wine32
+  binutils-mingw-w64 gcc-mingw-w64 g++-mingw-w64 p7zip-full jq dos2unix realpath osslsigncode wine-stable wine64 wine32
 
 echo 'deb http://pkg.mxe.cc/repos/apt/debian wheezy main' > /etc/apt/sources.list.d/mxeapt.list
 curl -fsS --connect-timeout 15 --retry 3 'https://keyserver.ubuntu.com/pks/lookup?search=0xD43A795B73B16ABE9643FE1AFD8FFF16DB45C6AB&op=get' \
