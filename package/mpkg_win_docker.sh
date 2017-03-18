@@ -29,4 +29,4 @@ apt-get -qq install \
   mxe-{i686,x86-64}-w64-mingw32.shared-{cairo,file,ghostscript,icu4c,libmysqlclient,postgresql} \
   mxe-{i686,x86-64}-w64-mingw32.static-{freeimage,gd}
 
-./package/mpkg_win_ci.sh
+./package/mpkg_win_ci.sh --force
