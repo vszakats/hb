@@ -53,11 +53,18 @@ matrix:
       dist: trusty
       sudo: required
       compiler: i686-w64-mingw32-gcc
-      env: HB_CI_THREADS=4
+      env: [ HB_CI_THREADS=4, PKG_SUFFIX=linux-trusty ]
       addons:
         apt:
           packages:
             - [ binutils-mingw-w64, gcc-mingw-w64, g++-mingw-w64, p7zip-full, gnupg-curl, dos2unix, realpath ]
+    - os: linux
+      dist: trusty
+      sudo: required
+      compiler: i686-w64-mingw32-gcc
+      services: [ docker ]
+      # https://hub.docker.com/_/ubuntu/
+      env: [ HB_CI_THREADS=4, PKG_SUFFIX=linux, 'DOCKER_IMAGE=ubuntu:rolling' ]
     - os: osx
       osx_image: xcode8.2
       compiler: clang
@@ -65,7 +72,7 @@ matrix:
     - os: osx
       osx_image: xcode8.2
       compiler: i686-w64-mingw32-gcc
-      env: HB_CI_THREADS=4
+      env: [ HB_CI_THREADS=4, PKG_SUFFIX=mac ]
 
 before_install:
   - >
@@ -82,6 +89,11 @@ before_install:
         brew install cairo curl freeimage gd ghostscript icu4c libmagic mariadb openssl@1.1 qt5 s-lang unixodbc
       fi
       export MACOSX_DEPLOYMENT_TARGET=10.10
+    elif [ -n "${DOCKER_IMAGE}" ]; then
+      time docker pull "${DOCKER_IMAGE}"
+      time docker run -it -v "${PWD}:${PWD}" -w "${PWD}" --env-file <(env | grep -E '^(TRAVIS_|HB_)') \
+        "${DOCKER_IMAGE}" \
+        sh -c ./package/mpkg_win_docker.sh
     elif [ "$TRAVIS_OS_NAME" = 'linux' ] && [ "$CC" = 'i686-w64-mingw32-gcc' ] && [ "$TRAVIS_SUDO" = 'true' ]; then
       echo 'deb http://pkg.mxe.cc/repos/apt/debian wheezy main' | sudo tee /etc/apt/sources.list.d/mxeapt.list > /dev/null
       sudo apt-key adv --keyserver hkps://keyserver.ubuntu.com --recv-keys D43A795B73B16ABE9643FE1AFD8FFF16DB45C6AB
@@ -93,9 +105,10 @@ before_install:
 script:
   - >
     if [ "$CC" = 'i686-w64-mingw32-gcc' ]; then
-      if ./package/mpkg_win_ci.sh && [ "${TRAVIS_BRANCH#*prod*}" = "${TRAVIS_BRANCH}" ]; then
-        mv -f harbour-snapshot-win.7z "harbour-snapshot-win-built-on-${TRAVIS_OS_NAME}.7z"
+      if [ -z "${DOCKER_IMAGE}" ]; then
+        ./package/mpkg_win_ci.sh
       fi
+      [ -f harbour-snapshot-win.7z ] && mv -f harbour-snapshot-win.7z "harbour-snapshot-win-built-on-${PKG_SUFFIX}.7z"
     else
       ls -lA "$(dirname "$(which "${CC}${HB_CCSUFFIX}")")/${CC}"*
       "${CC}${HB_CCSUFFIX}" -v
@@ -106,7 +119,7 @@ deploy:
   skip_cleanup: true
   provider: releases
   api_key: ${GITHUB_TOKEN}
-  file: harbour-snapshot-win-built-on-${TRAVIS_OS_NAME}.7z
+  file: harbour-snapshot-win-built-on-${PKG_SUFFIX}.7z
   file_glob: false
   tag_name: v3.4.0dev
   draft: false
