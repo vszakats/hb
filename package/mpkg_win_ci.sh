@@ -100,7 +100,7 @@ unset HB_USER_CFLAGS
 unset HB_USER_LDFLAGS
 unset HB_USER_DFLAGS
 
-unset _HB_USER_CFLAGS
+_HB_USER_CFLAGS=''
 
 [ "${_BRANCH#*prod*}" != "${_BRANCH}" ] && export HB_BUILD_CONTRIBS='hbrun hbdoc hbformat/utils hbct hbcurl hbhpdf hbmzip hbwin hbtip hbssl hbexpat hbmemio rddsql hbzebra sddodbc hbunix hbmisc hbcups hbtest hbtcpio hbcomio hbcrypto hbnetio hbpipeio hbgzio hbbz2io hbicu'
 export HB_BUILD_STRIP='bin'

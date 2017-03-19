@@ -301,7 +301,7 @@ chmod -x \
   "${HB_ABSROOT}"bin/*.dll \
   "${HB_ABSROOT}"bin/*.exe \
   "${HB_ABSROOT}"lib/win/mingw/*.a \
-  "${HB_ABSROOT}"lib/win/mingw64/*.a \
+  "${HB_ABSROOT}"lib/win/mingw64/*.a
 
 if [ "${os}" = 'win' ]; then
   find "${HB_ABSROOT%/}" -exec attrib +A -R {} \;
