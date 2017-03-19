@@ -695,7 +695,7 @@ STATIC PROCEDURE mk_hbr( cDestDir )
    LOCAL aFile
    LOCAL cFileName
 
-   FOR EACH aFile IN hb_vfDirectory( cDir + hb_osFileMask(), "D" )
+   FOR EACH aFile IN ASort( hb_vfDirectory( cDir + hb_osFileMask(), "D" ),,, {| tmp1, tmp2 | tmp1[ F_NAME ] < tmp2[ F_NAME ] } )
       IF aFile[ F_NAME ] == "." .OR. aFile[ F_NAME ] == ".."
       ELSEIF "D" $ aFile[ F_ATTR ]
          IF hb_vfExists( cFileName := cDir + aFile[ F_NAME ] + hb_ps() + aFile[ F_NAME ] + ".hbx" )
