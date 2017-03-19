@@ -119,7 +119,7 @@ FUNCTION __hbdoc_LoadDir( cDir, cName, aErrMsg )
             hMeta[ "_COMPONENT" ] := cName
          ENDIF
 
-         FOR EACH aFile IN hb_vfDirectory( cDir + _HBDOC_SRC_SUBDIR + hb_ps() + hb_osFileMask(), "D" )
+         FOR EACH aFile IN ASort( hb_vfDirectory( cDir + _HBDOC_SRC_SUBDIR + hb_ps() + hb_osFileMask(), "D" ),,, {| tmp1, tmp2 | tmp1[ F_NAME ] < tmp2[ F_NAME ] } )
             IF "D" $ aFile[ F_ATTR ] .AND. ;
                !( aFile[ F_NAME ] == "." .OR. aFile[ F_NAME ] == ".." )
 
@@ -139,7 +139,7 @@ STATIC PROCEDURE __hbdoc__read_langdir( aEntry, cDir, hMeta, aErrMsg )
    hMeta[ "_LANG" ] := hb_FNameName( hb_DirSepDel( cDir ) )
 
    nCount := 0
-   FOR EACH aFile IN hb_vfDirectory( cDir + hb_ps() + "*" + _HBDOC_SRC_EXT )
+   FOR EACH aFile IN ASort( hb_vfDirectory( cDir + hb_ps() + "*" + _HBDOC_SRC_EXT ),,, {| tmp1, tmp2 | tmp1[ F_NAME ] < tmp2[ F_NAME ] } )
       __hbdoc__read_file( aEntry, cDir + hb_ps() + aFile[ F_NAME ], hMeta, aErrMsg )
       ++nCount
    NEXT
