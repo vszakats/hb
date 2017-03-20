@@ -19,7 +19,7 @@ skip_commits:
   message: /website/
   files:
     - docs/*
-image: Windows Server 2012 R2
+image: Visual Studio 2015
 clone_depth: 10
 clone_folder: C:\w\
 build:
