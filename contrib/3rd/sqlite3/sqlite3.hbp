@@ -53,4 +53,4 @@ sqlite3.c
 #
 # MAP    sqlite3.c
 # MAP    sqlite3.h
-# MAP    sqlite3ext.h  sqlite3x.h
+# MAP    sqlite3ext.h
