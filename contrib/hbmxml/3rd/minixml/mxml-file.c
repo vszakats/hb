@@ -21,7 +21,7 @@
 #ifndef WIN32
 #  include <unistd.h>
 #endif /* !WIN32 */
-#include "mxml_pri.h"
+#include "mxml-private.h"
 
 
 /*

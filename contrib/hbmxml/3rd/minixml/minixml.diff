@@ -1,15 +1,6 @@
 diff --strip-trailing-cr -urN minixml.orig/config.h minixml/config.h
 --- minixml.orig/config.h	2014-01-04 21:50:06.000000000 +0000
-+++ minixml/config.h	2017-01-04 00:49:08.000000000 +0000
-@@ -7,7 +7,7 @@
-  *
-  * These coded instructions, statements, and computer programs are the
-  * property of Michael R Sweet and are protected by Federal copyright
-- * law.  Distribution and use rights are outlined in the file "LICENSE.txt"
-+ * law.  Distribution and use rights are outlined in the file "COPYING"
-  * which should have been included with this file.  If this file is
-  * missing or damaged, see the license at:
-  *
++++ minixml/config.h	2017-03-21 18:31:18.000000000 +0000
 @@ -18,12 +18,30 @@
   * Include necessary headers...
   */
@@ -125,58 +116,9 @@ diff --strip-trailing-cr -urN minixml.orig/config.h minixml/config.h
  /*
   * End of "$Id: config.h.in 451 2014-01-04 21:50:06Z msweet $".
   */
-diff --strip-trailing-cr -urN minixml.orig/mxml.h minixml/mxml.h
---- minixml.orig/mxml.h	2016-06-12 21:16:14.000000000 +0000
-+++ minixml/mxml.h	2017-01-04 00:49:08.000000000 +0000
-@@ -7,7 +7,7 @@
-  *
-  * These coded instructions, statements, and computer programs are the
-  * property of Michael R Sweet and are protected by Federal copyright
-- * law.  Distribution and use rights are outlined in the file "LICENSE.txt"
-+ * law.  Distribution and use rights are outlined in the file "COPYING"
-  * which should have been included with this file.  If this file is
-  * missing or damaged, see the license at:
-  *
-@@ -21,6 +21,8 @@
- #ifndef _mxml_h_
- #  define _mxml_h_
- 
-+#include "config.h"
-+
- /*
-  * Include necessary headers...
-  */
-@@ -29,8 +31,16 @@
- #  include <stdlib.h>
- #  include <string.h>
- #  include <ctype.h>
--#  include <errno.h>
--
-+#  if defined( UNDER_CE ) || defined( __CEGCC__ ) || defined( __MINGW32CE__ ) || \
-+      defined( _WINCE )
-+#     include <io.h>
-+#     if !defined( UNDER_CE )
-+#        define UNDER_CE
-+#     endif
-+#     define strerror(e)      ""
-+#  else
-+#     include <errno.h>
-+#  endif
- 
- /*
-  * Constants...
-diff --strip-trailing-cr -urN minixml.orig/mxml_att.c minixml/mxml_att.c
---- minixml.orig/mxml_att.c	2014-01-04 21:50:06.000000000 +0000
-+++ minixml/mxml_att.c	2017-01-04 00:49:08.000000000 +0000
-@@ -7,7 +7,7 @@
-  *
-  * These coded instructions, statements, and computer programs are the
-  * property of Michael R Sweet and are protected by Federal copyright
-- * law.  Distribution and use rights are outlined in the file "LICENSE.txt"
-+ * law.  Distribution and use rights are outlined in the file "COPYING"
-  * which should have been included with this file.  If this file is
-  * missing or damaged, see the license at:
-  *
+diff --strip-trailing-cr -urN minixml.orig/mxml-attr.c minixml/mxml-attr.c
+--- minixml.orig/mxml-attr.c	2014-01-04 21:50:06.000000000 +0000
++++ minixml/mxml-attr.c	2017-03-21 18:31:18.000000000 +0000
 @@ -18,7 +18,6 @@
   * Include necessary headers...
   */
@@ -185,30 +127,9 @@ diff --strip-trailing-cr -urN minixml.orig/mxml_att.c minixml/mxml_att.c
  #include "mxml.h"
  
  
-diff --strip-trailing-cr -urN minixml.orig/mxml_ent.c minixml/mxml_ent.c
---- minixml.orig/mxml_ent.c	2014-01-04 21:50:06.000000000 +0000
-+++ minixml/mxml_ent.c	2017-01-04 00:49:08.000000000 +0000
-@@ -8,7 +8,7 @@
-  *
-  * These coded instructions, statements, and computer programs are the
-  * property of Michael R Sweet and are protected by Federal copyright
-- * law.  Distribution and use rights are outlined in the file "LICENSE.txt"
-+ * law.  Distribution and use rights are outlined in the file "COPYING"
-  * which should have been included with this file.  If this file is
-  * missing or damaged, see the license at:
-  *
-diff --strip-trailing-cr -urN minixml.orig/mxml_fil.c minixml/mxml_fil.c
---- minixml.orig/mxml_fil.c	2016-06-13 00:51:16.000000000 +0000
-+++ minixml/mxml_fil.c	2017-01-04 00:49:08.000000000 +0000
-@@ -7,7 +7,7 @@
-  *
-  * These coded instructions, statements, and computer programs are the
-  * property of Michael R Sweet and are protected by Federal copyright
-- * law.  Distribution and use rights are outlined in the file "LICENSE.txt"
-+ * law.  Distribution and use rights are outlined in the file "COPYING"
-  * which should have been included with this file.  If this file is
-  * missing or damaged, see the license at:
-  *
+diff --strip-trailing-cr -urN minixml.orig/mxml-file.c minixml/mxml-file.c
+--- minixml.orig/mxml-file.c	2016-06-13 00:51:16.000000000 +0000
++++ minixml/mxml-file.c	2017-03-21 18:31:18.000000000 +0000
 @@ -71,7 +71,7 @@
  static int		mxml_get_entity(mxml_node_t *parent, void *p,
  			                int *encoding,
@@ -307,18 +228,9 @@ diff --strip-trailing-cr -urN minixml.orig/mxml_fil.c minixml/mxml_fil.c
  	      if ((*putc_cb)('\n', p) < 0)
  		return (-1);
  
-diff --strip-trailing-cr -urN minixml.orig/mxml_get.c minixml/mxml_get.c
---- minixml.orig/mxml_get.c	2014-01-04 21:50:06.000000000 +0000
-+++ minixml/mxml_get.c	2017-01-04 00:49:08.000000000 +0000
-@@ -7,7 +7,7 @@
-  *
-  * These coded instructions, statements, and computer programs are the
-  * property of Michael R Sweet and are protected by Federal copyright
-- * law.  Distribution and use rights are outlined in the file "LICENSE.txt"
-+ * law.  Distribution and use rights are outlined in the file "COPYING"
-  * which should have been included with this file.  If this file is
-  * missing or damaged, see the license at:
-  *
+diff --strip-trailing-cr -urN minixml.orig/mxml-get.c minixml/mxml-get.c
+--- minixml.orig/mxml-get.c	2014-01-04 21:50:06.000000000 +0000
++++ minixml/mxml-get.c	2017-03-21 18:31:18.000000000 +0000
 @@ -18,7 +18,6 @@
   * Include necessary headers...
   */
@@ -327,18 +239,9 @@ diff --strip-trailing-cr -urN minixml.orig/mxml_get.c minixml/mxml_get.c
  #include "mxml.h"
  
  
-diff --strip-trailing-cr -urN minixml.orig/mxml_ind.c minixml/mxml_ind.c
---- minixml.orig/mxml_ind.c	2014-01-04 21:50:06.000000000 +0000
-+++ minixml/mxml_ind.c	2017-01-04 00:49:08.000000000 +0000
-@@ -7,7 +7,7 @@
-  *
-  * These coded instructions, statements, and computer programs are the
-  * property of Michael R Sweet and are protected by Federal copyright
-- * law.  Distribution and use rights are outlined in the file "LICENSE.txt"
-+ * law.  Distribution and use rights are outlined in the file "COPYING"
-  * which should have been included with this file.  If this file is
-  * missing or damaged, see the license at:
-  *
+diff --strip-trailing-cr -urN minixml.orig/mxml-index.c minixml/mxml-index.c
+--- minixml.orig/mxml-index.c	2014-01-04 21:50:06.000000000 +0000
++++ minixml/mxml-index.c	2017-03-21 18:31:18.000000000 +0000
 @@ -18,7 +18,6 @@
   * Include necessary headers...
   */
@@ -347,18 +250,9 @@ diff --strip-trailing-cr -urN minixml.orig/mxml_ind.c minixml/mxml_ind.c
  #include "mxml.h"
  
  
-diff --strip-trailing-cr -urN minixml.orig/mxml_nod.c minixml/mxml_nod.c
---- minixml.orig/mxml_nod.c	2016-06-11 20:51:49.000000000 +0000
-+++ minixml/mxml_nod.c	2017-01-04 00:49:08.000000000 +0000
-@@ -7,7 +7,7 @@
-  *
-  * These coded instructions, statements, and computer programs are the
-  * property of Michael R Sweet and are protected by Federal copyright
-- * law.  Distribution and use rights are outlined in the file "LICENSE.txt"
-+ * law.  Distribution and use rights are outlined in the file "COPYING"
-  * which should have been included with this file.  If this file is
-  * missing or damaged, see the license at:
-  *
+diff --strip-trailing-cr -urN minixml.orig/mxml-node.c minixml/mxml-node.c
+--- minixml.orig/mxml-node.c	2016-06-11 20:51:49.000000000 +0000
++++ minixml/mxml-node.c	2017-03-21 18:31:18.000000000 +0000
 @@ -18,7 +18,6 @@
   * Include necessary headers...
   */
@@ -426,30 +320,9 @@ diff --strip-trailing-cr -urN minixml.orig/mxml_nod.c minixml/mxml_nod.c
    }
  
   /*
-diff --strip-trailing-cr -urN minixml.orig/mxml_pri.c minixml/mxml_pri.c
---- minixml.orig/mxml_pri.c	2014-01-04 21:50:06.000000000 +0000
-+++ minixml/mxml_pri.c	2017-01-04 00:49:08.000000000 +0000
-@@ -7,7 +7,7 @@
-  *
-  * These coded instructions, statements, and computer programs are the
-  * property of Michael R Sweet and are protected by Federal copyright
-- * law.  Distribution and use rights are outlined in the file "LICENSE.txt"
-+ * law.  Distribution and use rights are outlined in the file "COPYING"
-  * which should have been included with this file.  If this file is
-  * missing or damaged, see the license at:
-  *
-diff --strip-trailing-cr -urN minixml.orig/mxml_pri.h minixml/mxml_pri.h
---- minixml.orig/mxml_pri.h	2014-01-04 21:50:06.000000000 +0000
-+++ minixml/mxml_pri.h	2017-01-04 00:49:08.000000000 +0000
-@@ -7,7 +7,7 @@
-  *
-  * These coded instructions, statements, and computer programs are the
-  * property of Michael R Sweet and are protected by Federal copyright
-- * law.  Distribution and use rights are outlined in the file "LICENSE.txt"
-+ * law.  Distribution and use rights are outlined in the file "COPYING"
-  * which should have been included with this file.  If this file is
-  * missing or damaged, see the license at:
-  *
+diff --strip-trailing-cr -urN minixml.orig/mxml-private.h minixml/mxml-private.h
+--- minixml.orig/mxml-private.h	2014-01-04 21:50:06.000000000 +0000
++++ minixml/mxml-private.h	2017-03-21 18:31:18.000000000 +0000
 @@ -18,7 +18,6 @@
   * Include necessary headers...
   */
@@ -458,18 +331,9 @@ diff --strip-trailing-cr -urN minixml.orig/mxml_pri.h minixml/mxml_pri.h
  #include "mxml.h"
  
  
-diff --strip-trailing-cr -urN minixml.orig/mxml_sea.c minixml/mxml_sea.c
---- minixml.orig/mxml_sea.c	2014-01-04 21:50:06.000000000 +0000
-+++ minixml/mxml_sea.c	2017-01-04 00:49:08.000000000 +0000
-@@ -8,7 +8,7 @@
-  *
-  * These coded instructions, statements, and computer programs are the
-  * property of Michael R Sweet and are protected by Federal copyright
-- * law.  Distribution and use rights are outlined in the file "LICENSE.txt"
-+ * law.  Distribution and use rights are outlined in the file "COPYING"
-  * which should have been included with this file.  If this file is
-  * missing or damaged, see the license at:
-  *
+diff --strip-trailing-cr -urN minixml.orig/mxml-search.c minixml/mxml-search.c
+--- minixml.orig/mxml-search.c	2014-01-04 21:50:06.000000000 +0000
++++ minixml/mxml-search.c	2017-03-21 18:31:18.000000000 +0000
 @@ -19,7 +19,6 @@
   * Include necessary headers...
   */
@@ -478,18 +342,9 @@ diff --strip-trailing-cr -urN minixml.orig/mxml_sea.c minixml/mxml_sea.c
  #include "mxml.h"
  
  
-diff --strip-trailing-cr -urN minixml.orig/mxml_set.c minixml/mxml_set.c
---- minixml.orig/mxml_set.c	2014-01-04 21:50:06.000000000 +0000
-+++ minixml/mxml_set.c	2017-01-04 00:49:08.000000000 +0000
-@@ -7,7 +7,7 @@
-  *
-  * These coded instructions, statements, and computer programs are the
-  * property of Michael R Sweet and are protected by Federal copyright
-- * law.  Distribution and use rights are outlined in the file "LICENSE.txt"
-+ * law.  Distribution and use rights are outlined in the file "COPYING"
-  * which should have been included with this file.  If this file is
-  * missing or damaged, see the license at:
-  *
+diff --strip-trailing-cr -urN minixml.orig/mxml-set.c minixml/mxml-set.c
+--- minixml.orig/mxml-set.c	2014-01-04 21:50:06.000000000 +0000
++++ minixml/mxml-set.c	2017-03-21 18:31:18.000000000 +0000
 @@ -18,14 +18,13 @@
   * Include necessary headers...
   */
@@ -639,18 +494,9 @@ diff --strip-trailing-cr -urN minixml.orig/mxml_set.c minixml/mxml_set.c
    if (!node || node->type != MXML_TEXT || !format)
      return (-1);
  
-diff --strip-trailing-cr -urN minixml.orig/mxml_str.c minixml/mxml_str.c
---- minixml.orig/mxml_str.c	2014-01-05 03:25:07.000000000 +0000
-+++ minixml/mxml_str.c	2017-01-04 00:49:08.000000000 +0000
-@@ -7,7 +7,7 @@
-  *
-  * These coded instructions, statements, and computer programs are the
-  * property of Michael R Sweet and are protected by Federal copyright
-- * law.  Distribution and use rights are outlined in the file "LICENSE.txt"
-+ * law.  Distribution and use rights are outlined in the file "COPYING"
-  * which should have been included with this file.  If this file is
-  * missing or damaged, see the license at:
-  *
+diff --strip-trailing-cr -urN minixml.orig/mxml-string.c minixml/mxml-string.c
+--- minixml.orig/mxml-string.c	2014-01-05 03:25:07.000000000 +0000
++++ minixml/mxml-string.c	2017-03-21 18:31:18.000000000 +0000
 @@ -18,8 +18,11 @@
   * Include necessary headers...
   */
@@ -664,3 +510,34 @@ diff --strip-trailing-cr -urN minixml.orig/mxml_str.c minixml/mxml_str.c
  
  /*
   * The va_copy macro is part of C99, but many compilers don't implement it.
+diff --strip-trailing-cr -urN minixml.orig/mxml.h minixml/mxml.h
+--- minixml.orig/mxml.h	2016-06-12 21:16:14.000000000 +0000
++++ minixml/mxml.h	2017-03-21 18:31:18.000000000 +0000
+@@ -21,6 +21,8 @@
+ #ifndef _mxml_h_
+ #  define _mxml_h_
+ 
++#include "config.h"
++
+ /*
+  * Include necessary headers...
+  */
+@@ -29,8 +31,16 @@
+ #  include <stdlib.h>
+ #  include <string.h>
+ #  include <ctype.h>
+-#  include <errno.h>
+-
++#  if defined( UNDER_CE ) || defined( __CEGCC__ ) || defined( __MINGW32CE__ ) || \
++      defined( _WINCE )
++#     include <io.h>
++#     if !defined( UNDER_CE )
++#        define UNDER_CE
++#     endif
++#     define strerror(e)      ""
++#  else
++#     include <errno.h>
++#  endif
+ 
+ /*
+  * Constants...
