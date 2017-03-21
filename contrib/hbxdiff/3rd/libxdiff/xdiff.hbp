@@ -31,7 +31,7 @@ xversion.c
 # ORIGIN http://xmailserver.org/xdiff-lib.html
 # URL    http://xmailserver.org/libxdiff-0.23.tar.gz
 #
-# MAP    COPYING             LICENSE.txt
+# MAP    COPYING
 # MAP    xdiff/xadler32.c    xadler32.c
 # MAP    xdiff/xadler32.h    xadler32.h
 # MAP    xdiff/xalloc.c      xalloc.c
