@@ -1,6 +1,6 @@
 diff --strip-trailing-cr -urN liblzf.orig/lzf.h liblzf/lzf.h
 --- liblzf.orig/lzf.h	2008-08-25 01:40:29.000000000 +0000
-+++ liblzf/lzf.h	2017-03-16 12:35:59.000000000 +0000
++++ liblzf/lzf.h	2017-03-21 18:34:36.000000000 +0000
 @@ -37,6 +37,10 @@
  #ifndef LZF_H
  #define LZF_H
@@ -24,7 +24,7 @@ diff --strip-trailing-cr -urN liblzf.orig/lzf.h liblzf/lzf.h
  
 diff --strip-trailing-cr -urN liblzf.orig/lzf_c.c liblzf/lzf_c.c
 --- liblzf.orig/lzf_c.c	2010-06-01 09:11:20.000000000 +0000
-+++ liblzf/lzf_c.c	2017-03-16 12:35:59.000000000 +0000
++++ liblzf/lzf_c.c	2017-03-21 18:34:36.000000000 +0000
 @@ -120,7 +120,7 @@
     * special workaround for it.
     */

@@ -21,7 +21,7 @@ lzf_d.c
 # URL    http://dist.schmorp.de/liblzf/liblzf-3.6.tar.gz
 # DIFF   liblzf.diff
 #
-# MAP    LICENSE LICENSE.txt
+# MAP    LICENSE
 # MAP    crc32.h
 # MAP    lzf.h
 # MAP    lzf_c.c
