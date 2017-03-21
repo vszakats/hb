@@ -3788,7 +3788,6 @@ inflateSync
 inflateSyncPoint
 inflateUndermine
 inflateValidate
-pcre_assign_jit_stack
 pcre_callout
 pcre_compile
 pcre_compile2
@@ -3807,9 +3806,6 @@ pcre_get_stringnumber
 pcre_get_stringtable_entries
 pcre_get_substring
 pcre_get_substring_list
-pcre_jit_free_unused_memory
-pcre_jit_stack_alloc
-pcre_jit_stack_free
 pcre_maketables
 pcre_malloc
 pcre_pattern_to_host_byte_order
