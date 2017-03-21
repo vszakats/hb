@@ -12,7 +12,7 @@
 fe.c
 ge.c
 keypair.c
-key_exch.c
+key_exchange.c
 sc.c
 sign.c
 verify.c
@@ -20,10 +20,10 @@ verify.c
 # URL    https://github.com/orlp/ed25519/archive/7fa6712ef5d581a6981ec2b08ee623314cd1d1c4.zip
 # DIFF   ed25519.diff
 #
-# MAP    license.txt         LICENSE.txt
+# MAP    license.txt
 # MAP    src/fe.c            fe.c
 # MAP    src/ge.c            ge.c
-# MAP    src/key_exchange.c  key_exch.c
+# MAP    src/key_exchange.c  key_exchange.c
 # MAP    src/keypair.c       keypair.c
 # MAP    src/sc.c            sc.c
 # MAP    src/sign.c          sign.c
@@ -32,6 +32,6 @@ verify.c
 # MAP    src/fe.h            fe.h
 # MAP    src/fixedint.h      fixedint.h
 # MAP    src/ge.h            ge.h
-# MAP    src/precomp_data.h  precompd.h
+# MAP    src/precomp_data.h  precomp_data.h
 # MAP    src/sc.h            sc.h
 # MAP    src/sha512.h        sha512.h
