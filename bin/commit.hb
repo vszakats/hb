@@ -696,12 +696,14 @@ STATIC FUNCTION CheckFile( cName, /* @ */ aErr, lApplyFixes, cLocalRoot, lRebase
 
       /* filename checks */
 
-      IF hb_FNameExt( cName ) == "" .AND. ! FNameExc( cName, aCanHaveNoExtension )
-         AAdd( aErr, "filename: missing extension" )
-      ENDIF
+      IF ! hb_DirSepToOS( "/3rd/" ) $ cName
+         IF hb_FNameExt( cName ) == "" .AND. ! FNameExc( cName, aCanHaveNoExtension )
+            AAdd( aErr, "filename: missing extension" )
+         ENDIF
 
-      IF ! cName == Lower( cName ) .AND. ! FNameExc( cName, aCanBeUpper )
-         AAdd( aErr, "filename: non-lowercase" )
+         IF ! cName == Lower( cName ) .AND. ! FNameExc( cName, aCanBeUpper )
+            AAdd( aErr, "filename: non-lowercase" )
+         ENDIF
       ENDIF
 
       IF ! IsASCII7( cName )
