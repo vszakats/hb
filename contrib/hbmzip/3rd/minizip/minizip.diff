@@ -1,6 +1,6 @@
 diff --strip-trailing-cr -urN minizip.orig/crypt.h minizip/crypt.h
 --- minizip.orig/crypt.h	2017-01-15 17:29:40.000000000 +0000
-+++ minizip/crypt.h	2017-01-15 21:37:15.000000000 +0000
++++ minizip/crypt.h	2017-03-21 18:36:45.000000000 +0000
 @@ -38,6 +38,8 @@
                       * unpredictable manner on 16-bit systems; not a problem
                       * with any known compiler so far, though */
@@ -22,7 +22,7 @@ diff --strip-trailing-cr -urN minizip.orig/crypt.h minizip/crypt.h
      for (n = 0; n < RAND_HEAD_LEN-2; n++)
 diff --strip-trailing-cr -urN minizip.orig/ioapi.c minizip/ioapi.c
 --- minizip.orig/ioapi.c	2017-01-15 17:29:40.000000000 +0000
-+++ minizip/ioapi.c	2017-01-15 21:37:15.000000000 +0000
++++ minizip/ioapi.c	2017-03-21 18:36:45.000000000 +0000
 @@ -27,6 +27,7 @@
  
  
@@ -145,7 +145,7 @@ diff --strip-trailing-cr -urN minizip.orig/ioapi.c minizip/ioapi.c
      pzlib_filefunc_def->zread_file = fread_file_func;
 diff --strip-trailing-cr -urN minizip.orig/ioapi.h minizip/ioapi.h
 --- minizip.orig/ioapi.h	2017-01-15 17:29:40.000000000 +0000
-+++ minizip/ioapi.h	2017-01-15 21:37:15.000000000 +0000
++++ minizip/ioapi.h	2017-03-21 18:36:45.000000000 +0000
 @@ -21,30 +21,58 @@
  #ifndef _ZLIBIOAPI64_H
  #define _ZLIBIOAPI64_H
@@ -236,7 +236,7 @@ diff --strip-trailing-cr -urN minizip.orig/ioapi.h minizip/ioapi.h
  
 diff --strip-trailing-cr -urN minizip.orig/unzip.c minizip/unzip.c
 --- minizip.orig/unzip.c	2017-01-15 17:29:40.000000000 +0000
-+++ minizip/unzip.c	2017-01-15 21:37:15.000000000 +0000
++++ minizip/unzip.c	2017-03-21 18:36:45.000000000 +0000
 @@ -68,13 +68,21 @@
  #include <stdlib.h>
  #include <string.h>
@@ -338,7 +338,7 @@ diff --strip-trailing-cr -urN minizip.orig/unzip.c minizip/unzip.c
      pfile_in_zip_read_info->crc32=0;
 diff --strip-trailing-cr -urN minizip.orig/zip.c minizip/zip.c
 --- minizip.orig/zip.c	2017-01-15 17:29:40.000000000 +0000
-+++ minizip/zip.c	2017-01-15 21:37:15.000000000 +0000
++++ minizip/zip.c	2017-03-21 18:36:45.000000000 +0000
 @@ -29,16 +29,24 @@
  #include "zlib.h"
  #include "zip.h"
@@ -522,7 +522,7 @@ diff --strip-trailing-cr -urN minizip.orig/zip.c minizip/zip.c
      return ZIP_PARAMERROR;
 diff --strip-trailing-cr -urN minizip.orig/zip.h minizip/zip.h
 --- minizip.orig/zip.h	2017-01-15 17:29:40.000000000 +0000
-+++ minizip/zip.h	2017-01-15 21:37:15.000000000 +0000
++++ minizip/zip.h	2017-03-21 18:36:45.000000000 +0000
 @@ -44,7 +44,7 @@
  extern "C" {
  #endif
