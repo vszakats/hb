@@ -11,13 +11,13 @@
 -cpp=no
 -pic
 
-blocksor.c
+blocksort.c
 bzlib.c
 compress.c
 crctable.c
-decompre.c
+decompress.c
 huffman.c
-randtabl.c
+randtable.c
 
 {bcc}-aflag=/C
 
@@ -27,13 +27,13 @@ randtabl.c
 # URL    http://bzip.org/1.0.6/bzip2-1.0.6.tar.gz
 # DIFF   bz2.diff
 #
-# MAP    LICENSE         LICENSE.txt
-# MAP    blocksort.c     blocksor.c
+# MAP    LICENSE
+# MAP    blocksort.c
 # MAP    bzlib.c
 # MAP    bzlib.h
-# MAP    bzlib_private.h bzlib_pr.h
+# MAP    bzlib_private.h
 # MAP    compress.c
 # MAP    crctable.c
-# MAP    decompress.c    decompre.c
+# MAP    decompress.c
 # MAP    huffman.c
-# MAP    randtable.c     randtabl.c
+# MAP    randtable.c

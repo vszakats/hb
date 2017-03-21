@@ -1,6 +1,6 @@
-diff --strip-trailing-cr -urN bz2.orig/bzlib_pr.h bz2/bzlib_pr.h
---- bz2.orig/bzlib_pr.h	2010-09-10 22:41:55.000000000 +0000
-+++ bz2/bzlib_pr.h	2017-01-04 00:40:28.000000000 +0000
+diff --strip-trailing-cr -urN bz2.orig/bzlib_private.h bz2/bzlib_private.h
+--- bz2.orig/bzlib_private.h	2010-09-10 22:41:55.000000000 +0000
++++ bz2/bzlib_private.h	2017-03-21 18:41:20.000000000 +0000
 @@ -85,7 +85,13 @@
  
  #else

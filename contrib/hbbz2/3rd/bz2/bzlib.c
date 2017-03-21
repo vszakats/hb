@@ -28,7 +28,7 @@
      bzBuffToBuffDecompress.  Fixed.
 */
 
-#include "bzlib_pr.h"
+#include "bzlib_private.h"
 
 
 /*---------------------------------------------------*/

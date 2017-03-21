@@ -19,7 +19,7 @@
    ------------------------------------------------------------------ */
 
 
-#include "bzlib_pr.h"
+#include "bzlib_private.h"
 
 /*--
   I think this is an implementation of the AUTODIN-II,
