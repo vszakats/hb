@@ -79,7 +79,7 @@ endif
 # URL    https://ftp.pcre.org/pub/pcre/pcre-8.40.tar.bz2
 # DIFF   pcre.diff
 #
-# MAP    LICENCE                           LICENSE.txt
+# MAP    LICENCE
 # MAP    config.h.generic                  config.h
 # MAP    pcre.h.generic                    pcre.h
 # MAP    pcre_internal.h                   pcreinal.h
