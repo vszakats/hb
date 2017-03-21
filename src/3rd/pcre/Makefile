@@ -17,7 +17,6 @@ C_SOURCES := \
    pcrefinf.c \
    pcreget.c \
    pcreglob.c \
-   pcrejitc.c \
    pcremktb.c \
    pcrenewl.c \
    pcreoutf.c \
@@ -40,10 +39,6 @@ ifneq ($(HB_HAS_PCRE_LOCAL),)
          HB_CFLAGS += -DHAVE_INTTYPES_H
       endif
    endif
-
-#  ifneq ($(filter $(HB_COMPILER),mingw mingw64 msvc mvc64)$(filter $(HB_PLATFORM),darwin linux),)
-#     HB_CFLAGS += -DSUPPORT_JIT
-#  endif
 
    HB_CFLAGS += -DHAVE_CONFIG_H
 
@@ -93,7 +88,6 @@ endif
 # MAP    pcre_fullinfo.c                   pcrefinf.c
 # MAP    pcre_get.c                        pcreget.c
 # MAP    pcre_globals.c                    pcreglob.c
-# MAP    pcre_jit_compile.c                pcrejitc.c
 # MAP    pcre_maketables.c                 pcremktb.c
 # MAP    pcre_newline.c                    pcrenewl.c
 # MAP    pcre_ord2utf8.c                   pcreoutf.c
@@ -105,25 +99,3 @@ endif
 # MAP    pcre_valid_utf8.c                 pcrevutf.c
 # MAP    pcre_version.c                    pcrever.c
 # MAP    pcre_xclass.c                     pcrexcls.c
-# MAP    sljit/sljitConfig.h               sjconf.h
-# MAP    sljit/sljitConfigInternal.h       sjconfi.h
-# MAP    sljit/sljitExecAllocator.c        sjexeca.c
-# MAP    sljit/sljitLir.c                  sjlir.c
-# MAP    sljit/sljitLir.h                  sjlir.h
-# MAP    sljit/sljitNativeARM_32.c         sjarm32.c
-# MAP    sljit/sljitNativeARM_64.c         sjarm64.c
-# MAP    sljit/sljitNativeARM_T2_32.c      sjarmt2.c
-# MAP    sljit/sljitNativeMIPS_32.c        sjmips32.c
-# MAP    sljit/sljitNativeMIPS_64.c        sjmips64.c
-# MAP    sljit/sljitNativeMIPS_common.c    sjmipsc.c
-# MAP    sljit/sljitNativePPC_32.c         sjppc32.c
-# MAP    sljit/sljitNativePPC_64.c         sjppc64.c
-# MAP    sljit/sljitNativePPC_common.c     sjppcc.c
-# MAP    sljit/sljitNativeSPARC_32.c       sjspar32.c
-# MAP    sljit/sljitNativeSPARC_common.c   sjsparc.c
-# MAP    sljit/sljitNativeTILEGX-encoder.c sjtilenc.c
-# MAP    sljit/sljitNativeTILEGX_64.c      sjtil64.c
-# MAP    sljit/sljitNativeX86_32.c         sjx8632.c
-# MAP    sljit/sljitNativeX86_64.c         sjx8664.c
-# MAP    sljit/sljitNativeX86_common.c     sjx86c.c
-# MAP    sljit/sljitUtils.c                sjutils.c
