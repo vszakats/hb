@@ -1,21 +1,9 @@
-diff --strip-trailing-cr -urN libhpdf.orig/hpdf.h libhpdf/hpdf.h
---- libhpdf.orig/hpdf.h	2013-10-16 08:09:38.000000000 +0000
-+++ libhpdf/hpdf.h	2017-01-04 01:03:38.000000000 +0000
-@@ -17,7 +17,7 @@
- #ifndef _HPDF_H
- #define _HPDF_H
- 
--#include "hpdf_config.h"
-+#include "hpdfcfg.h"
- #include "hpdfvers.h"
- 
- #define HPDF_UNUSED(a) ((void)(a))
-diff --strip-trailing-cr -urN libhpdf.orig/hpdfimac.c libhpdf/hpdfimac.c
---- libhpdf.orig/hpdfimac.c	2013-10-16 08:09:38.000000000 +0000
-+++ libhpdf/hpdfimac.c	2017-01-04 01:03:38.000000000 +0000
+diff --strip-trailing-cr -urN libhpdf.orig/hpdf_image_ccitt.c libhpdf/hpdf_image_ccitt.c
+--- libhpdf.orig/hpdf_image_ccitt.c	2013-10-16 08:09:38.000000000 +0000
++++ libhpdf/hpdf_image_ccitt.c	2017-03-21 18:53:09.000000000 +0000
 @@ -18,7 +18,7 @@
- #include "hpdfconf.h"
- #include "hpdfutil.h"
+ #include "hpdf_conf.h"
+ #include "hpdf_utils.h"
  #include "hpdf.h"
 -#include <memory.h>
 +#include <string.h>
@@ -31,9 +19,9 @@ diff --strip-trailing-cr -urN libhpdf.orig/hpdfimac.c libhpdf/hpdfimac.c
  
  /* NB: the uint32 casts are to silence certain ANSI-C compilers */
  #define TIFFhowmany(x, y) ((((uint32)(x))+(((uint32)(y))-1))/((uint32)(y)))
-diff --strip-trailing-cr -urN libhpdf.orig/hpdfimap.c libhpdf/hpdfimap.c
---- libhpdf.orig/hpdfimap.c	2013-10-16 08:09:38.000000000 +0000
-+++ libhpdf/hpdfimap.c	2017-01-04 01:03:38.000000000 +0000
+diff --strip-trailing-cr -urN libhpdf.orig/hpdf_image_png.c libhpdf/hpdf_image_png.c
+--- libhpdf.orig/hpdf_image_png.c	2013-10-16 08:09:38.000000000 +0000
++++ libhpdf/hpdf_image_png.c	2017-03-21 18:53:09.000000000 +0000
 @@ -280,8 +280,8 @@
  		case PNG_COLOR_TYPE_RGB_ALPHA:
  			row_len = 3 * width * sizeof(png_byte);
@@ -59,9 +47,9 @@ diff --strip-trailing-cr -urN libhpdf.orig/hpdfimap.c libhpdf/hpdfimap.c
  
  #endif /* LIBHPDF_HAVE_NOPNGLIB */
 -
-diff --strip-trailing-cr -urN libhpdf.orig/hpdfpago.c libhpdf/hpdfpago.c
---- libhpdf.orig/hpdfpago.c	2013-10-16 08:09:38.000000000 +0000
-+++ libhpdf/hpdfpago.c	2017-01-04 01:03:38.000000000 +0000
+diff --strip-trailing-cr -urN libhpdf.orig/hpdf_page_operator.c libhpdf/hpdf_page_operator.c
+--- libhpdf.orig/hpdf_page_operator.c	2013-10-16 08:09:38.000000000 +0000
++++ libhpdf/hpdf_page_operator.c	2017-03-21 18:53:09.000000000 +0000
 @@ -1155,7 +1155,7 @@
          return HPDF_RaiseError (page->error, HPDF_PAGE_INVALID_FONT, 0);
  
@@ -71,24 +59,3 @@ diff --strip-trailing-cr -urN libhpdf.orig/hpdfpago.c libhpdf/hpdfpago.c
  
      if (page->mmgr != font->mmgr)
          return HPDF_RaiseError (page->error, HPDF_PAGE_INVALID_FONT, 0);
-diff --strip-trailing-cr -urN libhpdf.orig/hpdfutil.h libhpdf/hpdfutil.h
---- libhpdf.orig/hpdfutil.h	2013-10-16 08:09:38.000000000 +0000
-+++ libhpdf/hpdfutil.h	2017-01-04 01:03:38.000000000 +0000
-@@ -18,7 +18,7 @@
- #ifndef _HPDF_UTILS_H
- #define _HPDF_UTILS_H
- 
--#include "hpdf_config.h"
-+#include "hpdfcfg.h"
- #include "hpdftype.h"
- 
- #ifdef __cplusplus
-diff --strip-trailing-cr -urN libhpdf.orig/t4.h libhpdf/t4.h
---- libhpdf.orig/t4.h	2013-10-16 08:09:38.000000000 +0000
-+++ libhpdf/t4.h	2017-01-04 01:03:38.000000000 +0000
-@@ -1,4 +1,4 @@
--/* $Id: t4.h,v 1.20 2007/11/10 18:40:44 drolon Exp $ */
-+/* $Id$ */
- 
- /*
-  * Copyright (c) 1988-1997 Sam Leffler

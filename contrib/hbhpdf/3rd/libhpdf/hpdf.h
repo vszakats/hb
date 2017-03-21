@@ -17,8 +17,8 @@
 #ifndef _HPDF_H
 #define _HPDF_H
 
-#include "hpdfcfg.h"
-#include "hpdfvers.h"
+#include "hpdf_config.h"
+#include "hpdf_version.h"
 
 #define HPDF_UNUSED(a) ((void)(a))
 
@@ -50,8 +50,8 @@
 #define HPDF_EXPORT(A) extern A
 #endif /* HPDF_EXPORT */
 
-#include "hpdfcons.h"
-#include "hpdftype.h"
+#include "hpdf_consts.h"
+#include "hpdf_types.h"
 
 typedef void         *HPDF_HANDLE;
 typedef HPDF_HANDLE   HPDF_Doc;
@@ -84,10 +84,10 @@ typedef HPDF_HANDLE   HPDF_Xref;
 #define HPDF_EXPORT(A)  A
 #endif /* HPDF_EXPORT  */
 
-#include "hpdfcons.h"
-#include "hpdfdoc.h"
-#include "hpdferro.h"
-#include "hpdfpdfa.h"
+#include "hpdf_consts.h"
+#include "hpdf_doc.h"
+#include "hpdf_error.h"
+#include "hpdf_pdfa.h"
 
 #endif /* HPDF_SHARED */
 
