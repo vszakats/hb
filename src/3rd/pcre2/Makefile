@@ -15,7 +15,6 @@ C_SOURCES := \
    p2contex.c \
    p2dfamat.c \
    p2error.c \
-   p2jicomp.c \
    p2maktab.c \
    p2match.c \
    p2matchd.c \
@@ -44,10 +43,6 @@ ifneq ($(HB_HAS_PCRE2_LOCAL),)
       endif
    endif
 
-   ifneq ($(filter $(HB_COMPILER),mingw mingw64 msvc mvc64)$(filter $(HB_PLATFORM),darwin linux),)
-      HB_CFLAGS += -DSUPPORT_JIT
-   endif
-
    HB_CFLAGS += -DHAVE_CONFIG_H
 
    # workaround for problems in sunpro x86 PIC builds exploited by hbpcre library code
@@ -74,7 +69,6 @@ endif
 
 # ORIGIN http://pcre.org/
 # URL    https://ftp.pcre.org/pub/pcre/pcre2-10.23.tar.bz2
-# DIFF   pcre2.diff
 #
 # MAP    LICENCE                               LICENSE.txt
 # MAP    src/config.h.generic                  config.h
@@ -89,9 +83,6 @@ endif
 # MAP    src/pcre2_context.c                   p2contex.c
 # MAP    src/pcre2_dfa_match.c                 p2dfamat.c
 # MAP    src/pcre2_error.c                     p2error.c
-# MAP    src/pcre2_jit_compile.c               p2jicomp.c
-# MAP    src/pcre2_jit_match.c                 p2jimat.c
-# MAP    src/pcre2_jit_misc.c                  p2jimisc.c
 # MAP    src/pcre2_maketables.c                p2maktab.c
 # MAP    src/pcre2_match.c                     p2match.c
 # MAP    src/pcre2_match_data.c                p2matchd.c
@@ -107,25 +98,3 @@ endif
 # MAP    src/pcre2_ucd.c                       p2ucd.c
 # MAP    src/pcre2_valid_utf.c                 p2validu.c
 # MAP    src/pcre2_xclass.c                    p2xclass.c
-# MAP    src/sljit/sljitConfig.h               sjconf.h
-# MAP    src/sljit/sljitConfigInternal.h       sjconfi.h
-# MAP    src/sljit/sljitExecAllocator.c        sjexeca.c
-# MAP    src/sljit/sljitLir.c                  sjlir.c
-# MAP    src/sljit/sljitLir.h                  sjlir.h
-# MAP    src/sljit/sljitNativeARM_32.c         sjarm32.c
-# MAP    src/sljit/sljitNativeARM_64.c         sjarm64.c
-# MAP    src/sljit/sljitNativeARM_T2_32.c      sjarmt2.c
-# MAP    src/sljit/sljitNativeMIPS_32.c        sjmips32.c
-# MAP    src/sljit/sljitNativeMIPS_64.c        sjmips64.c
-# MAP    src/sljit/sljitNativeMIPS_common.c    sjmipsc.c
-# MAP    src/sljit/sljitNativePPC_32.c         sjppc32.c
-# MAP    src/sljit/sljitNativePPC_64.c         sjppc64.c
-# MAP    src/sljit/sljitNativePPC_common.c     sjppcc.c
-# MAP    src/sljit/sljitNativeSPARC_32.c       sjspar32.c
-# MAP    src/sljit/sljitNativeSPARC_common.c   sjsparc.c
-# MAP    src/sljit/sljitNativeTILEGX-encoder.c sjtilenc.c
-# MAP    src/sljit/sljitNativeTILEGX_64.c      sjtil64.c
-# MAP    src/sljit/sljitNativeX86_32.c         sjx8632.c
-# MAP    src/sljit/sljitNativeX86_64.c         sjx8664.c
-# MAP    src/sljit/sljitNativeX86_common.c     sjx86c.c
-# MAP    src/sljit/sljitUtils.c                sjutils.c
