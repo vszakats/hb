@@ -18,7 +18,7 @@
 #endif
 #endif /* ndef WIN32 */
 
-#include "expat_ex.h"
+#include "expat_external.h"
 #include "internal.h"
 #include "xmlrole.h"
 #include "ascii.h"

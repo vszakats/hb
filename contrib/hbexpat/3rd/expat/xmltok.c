@@ -18,7 +18,7 @@
 #endif
 #endif /* ndef WIN32 */
 
-#include "expat_ex.h"
+#include "expat_external.h"
 #include "internal.h"
 #include "xmltok.h"
 #include "nametab.h"
@@ -235,7 +235,7 @@ struct normal_encoding {
 
 static int FASTCALL checkCharRefNumber(int);
 
-#include "xmltok_i.h"
+#include "xmltok_impl.h"
 #include "ascii.h"
 
 #ifdef XML_MIN_SIZE
@@ -309,7 +309,7 @@ sb_charMatches(const ENCODING *enc, const char *p, int c)
 
 #define PREFIX(ident) normal_ ## ident
 #define XML_TOK_IMPL_C
-#include "xmltok_i.c"
+#include "xmltok_impl.c"
 #undef XML_TOK_IMPL_C
 
 #undef MINBPC
@@ -474,7 +474,7 @@ static const struct normal_encoding utf8_encoding = {
 static const struct normal_encoding internal_utf8_encoding_ns = {
   { VTABLE1, utf8_toUtf8, utf8_toUtf16, 1, 1, 0 },
   {
-#include "iasciita.h"
+#include "iasciitab.h"
 #include "utf8tab.h"
   },
   STANDARD_VTABLE(sb_) NORMAL_VTABLE(utf8_)
@@ -486,7 +486,7 @@ static const struct normal_encoding internal_utf8_encoding = {
   { VTABLE1, utf8_toUtf8, utf8_toUtf16, 1, 1, 0 },
   {
 #define BT_COLON BT_NMSTRT
-#include "iasciita.h"
+#include "iasciitab.h"
 #undef BT_COLON
 #include "utf8tab.h"
   },
@@ -538,7 +538,7 @@ static const struct normal_encoding latin1_encoding_ns = {
   { VTABLE1, latin1_toUtf8, latin1_toUtf16, 1, 0, 0 },
   {
 #include "asciitab.h"
-#include "latin1ta.h"
+#include "latin1tab.h"
   },
   STANDARD_VTABLE(sb_) NULL_VTABLE
 };
@@ -551,7 +551,7 @@ static const struct normal_encoding latin1_encoding = {
 #define BT_COLON BT_NMSTRT
 #include "asciitab.h"
 #undef BT_COLON
-#include "latin1ta.h"
+#include "latin1tab.h"
   },
   STANDARD_VTABLE(sb_) NULL_VTABLE
 };
@@ -792,7 +792,7 @@ little2_isNmstrtMin(const ENCODING *enc, const char *p)
 #define IS_NMSTRT_CHAR_MINBPC(enc, p) LITTLE2_IS_NMSTRT_CHAR_MINBPC(enc, p)
 
 #define XML_TOK_IMPL_C
-#include "xmltok_i.c"
+#include "xmltok_impl.c"
 #undef XML_TOK_IMPL_C
 
 #undef MINBPC
@@ -819,7 +819,7 @@ static const struct normal_encoding little2_encoding_ns = {
   },
   {
 #include "asciitab.h"
-#include "latin1ta.h"
+#include "latin1tab.h"
   },
   STANDARD_VTABLE(little2_) NULL_VTABLE
 };
@@ -838,7 +838,7 @@ static const struct normal_encoding little2_encoding = {
 #define BT_COLON BT_NMSTRT
 #include "asciitab.h"
 #undef BT_COLON
-#include "latin1ta.h"
+#include "latin1tab.h"
   },
   STANDARD_VTABLE(little2_) NULL_VTABLE
 };
@@ -850,8 +850,8 @@ static const struct normal_encoding little2_encoding = {
 static const struct normal_encoding internal_little2_encoding_ns = {
   { VTABLE, 2, 0, 1 },
   {
-#include "iasciita.h"
-#include "latin1ta.h"
+#include "iasciitab.h"
+#include "latin1tab.h"
   },
   STANDARD_VTABLE(little2_) NULL_VTABLE
 };
@@ -862,9 +862,9 @@ static const struct normal_encoding internal_little2_encoding = {
   { VTABLE, 2, 0, 1 },
   {
 #define BT_COLON BT_NMSTRT
-#include "iasciita.h"
+#include "iasciitab.h"
 #undef BT_COLON
-#include "latin1ta.h"
+#include "latin1tab.h"
   },
   STANDARD_VTABLE(little2_) NULL_VTABLE
 };
@@ -933,7 +933,7 @@ big2_isNmstrtMin(const ENCODING *enc, const char *p)
 #define IS_NMSTRT_CHAR_MINBPC(enc, p) BIG2_IS_NMSTRT_CHAR_MINBPC(enc, p)
 
 #define XML_TOK_IMPL_C
-#include "xmltok_i.c"
+#include "xmltok_impl.c"
 #undef XML_TOK_IMPL_C
 
 #undef MINBPC
@@ -960,7 +960,7 @@ static const struct normal_encoding big2_encoding_ns = {
   },
   {
 #include "asciitab.h"
-#include "latin1ta.h"
+#include "latin1tab.h"
   },
   STANDARD_VTABLE(big2_) NULL_VTABLE
 };
@@ -979,7 +979,7 @@ static const struct normal_encoding big2_encoding = {
 #define BT_COLON BT_NMSTRT
 #include "asciitab.h"
 #undef BT_COLON
-#include "latin1ta.h"
+#include "latin1tab.h"
   },
   STANDARD_VTABLE(big2_) NULL_VTABLE
 };
@@ -991,8 +991,8 @@ static const struct normal_encoding big2_encoding = {
 static const struct normal_encoding internal_big2_encoding_ns = {
   { VTABLE, 2, 0, 1 },
   {
-#include "iasciita.h"
-#include "latin1ta.h"
+#include "iasciitab.h"
+#include "latin1tab.h"
   },
   STANDARD_VTABLE(big2_) NULL_VTABLE
 };
@@ -1003,9 +1003,9 @@ static const struct normal_encoding internal_big2_encoding = {
   { VTABLE, 2, 0, 1 },
   {
 #define BT_COLON BT_NMSTRT
-#include "iasciita.h"
+#include "iasciitab.h"
 #undef BT_COLON
-#include "latin1ta.h"
+#include "latin1tab.h"
   },
   STANDARD_VTABLE(big2_) NULL_VTABLE
 };
@@ -1719,7 +1719,7 @@ initScan(const ENCODING * const *encodingTable,
 #define NS(x) x
 #define ns(x) x
 #define XML_TOK_NS_C
-#include "xmltok_n.c"
+#include "xmltok_ns.c"
 #undef XML_TOK_NS_C
 #undef NS
 #undef ns
@@ -1730,7 +1730,7 @@ initScan(const ENCODING * const *encodingTable,
 #define ns(x) x ## _ns
 
 #define XML_TOK_NS_C
-#include "xmltok_n.c"
+#include "xmltok_ns.c"
 #undef XML_TOK_NS_C
 
 #undef NS

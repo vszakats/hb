@@ -23,21 +23,21 @@ xmltok.c
 # URL    https://fossies.org/linux/www/expat-2.2.0.tar.bz2
 # DIFF   expat.diff
 #
-# MAP    COPYING              LICENSE.txt
+# MAP    COPYING
 # MAP    lib/xmlparse.c       xmlparse.c
 # MAP    lib/xmlrole.c        xmlrole.c
 # MAP    lib/xmltok.c         xmltok.c
-# MAP    lib/xmltok_impl.c    xmltok_i.c
-# MAP    lib/xmltok_ns.c      xmltok_n.c
+# MAP    lib/xmltok_impl.c    xmltok_impl.c
+# MAP    lib/xmltok_ns.c      xmltok_ns.c
 # MAP    lib/ascii.h          ascii.h
 # MAP    lib/asciitab.h       asciitab.h
 # MAP    lib/expat.h          expat.h
-# MAP    lib/expat_external.h expat_ex.h
-# MAP    lib/iasciitab.h      iasciita.h
+# MAP    lib/expat_external.h expat_external.h
+# MAP    lib/iasciitab.h      iasciitab.h
 # MAP    lib/internal.h       internal.h
-# MAP    lib/latin1tab.h      latin1ta.h
+# MAP    lib/latin1tab.h      latin1tab.h
 # MAP    lib/nametab.h        nametab.h
 # MAP    lib/utf8tab.h        utf8tab.h
 # MAP    lib/xmlrole.h        xmlrole.h
 # MAP    lib/xmltok.h         xmltok.h
-# MAP    lib/xmltok_impl.h    xmltok_i.h
+# MAP    lib/xmltok_impl.h    xmltok_impl.h
