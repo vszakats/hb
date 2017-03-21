@@ -10,11 +10,11 @@
 
    For CA-Cl*pper 5.2e sources:
 
-      `patch -lNi dbu52.diff`
+      `patch -lNi dbu52.patch`
 
    For CA-Cl*pper 5.3b sources:
 
-      `patch -lNi dbu53.diff`
+      `patch -lNi dbu53.patch`
 
 4. Build it:
 

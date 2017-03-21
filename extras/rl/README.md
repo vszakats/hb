@@ -8,7 +8,7 @@
 
 3. Apply supplied patch to the source using GNU Patch:
 
-   `patch -lNi rl.diff`
+   `patch -lNi rl.patch`
 
 4. Build it:
 

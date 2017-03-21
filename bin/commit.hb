@@ -651,14 +651,17 @@ STATIC FUNCTION CheckFile( cName, /* @ */ aErr, lApplyFixes, cLocalRoot, lRebase
       "debian/rules", ;
       "*.mk", ;
       "*.go", ;
-      "*.dif" }
+      "*.diff", ;
+      "*.patch" }
 
    LOCAL aCanHaveSpaceAtEol := { ;
-      "*.dif", ;
+      "*.diff", ;
+      "*.patch", ;
       "*.md" }
 
    LOCAL aCanHaveAnyEncoding := { ;
-      "*.dif" }
+      "*.diff", ;
+      "*.patch" }
 
    LOCAL aForcedCRLF := { ;
       "*.bat" }
