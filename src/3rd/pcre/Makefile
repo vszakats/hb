@@ -8,25 +8,26 @@ HB_BUILD_WARN := no
 HB_BUILD_MODE := c
 
 C_SOURCES := \
-   chartabs.c \
-   pcrebyte.c \
-   pcrecomp.c \
-   pcreconf.c \
-   pcredfa.c \
-   pcreexec.c \
-   pcrefinf.c \
-   pcreget.c \
-   pcreglob.c \
-   pcremktb.c \
-   pcrenewl.c \
-   pcreoutf.c \
-   pcrerefc.c \
-   pcrestud.c \
-   pcretabs.c \
-   pcreucd.c \
-   pcrever.c \
-   pcrevutf.c \
-   pcrexcls.c \
+   pcre_byte_order.c \
+   pcre_chartables.c \
+   pcre_compile.c \
+   pcre_config.c \
+   pcre_dfa_exec.c \
+   pcre_exec.c \
+   pcre_fullinfo.c \
+   pcre_get.c \
+   pcre_globals.c \
+   pcre_maketables.c \
+   pcre_newline.c \
+   pcre_ord2utf8.c \
+   pcre_printint.c \
+   pcre_refcount.c \
+   pcre_study.c \
+   pcre_tables.c \
+   pcre_ucd.c \
+   pcre_valid_utf8.c \
+   pcre_version.c \
+   pcre_xclass.c \
 
 ifneq ($(HB_HAS_PCRE_LOCAL),)
 
@@ -72,30 +73,29 @@ endif
 
 # ORIGIN http://pcre.org/
 # URL    https://ftp.pcre.org/pub/pcre/pcre-8.40.tar.bz2
-# DIFF   pcre.diff
 #
 # MAP    LICENCE
 # MAP    config.h.generic        config.h
 # MAP    pcre.h.generic          pcre.h
-# MAP    pcre_internal.h         pcreinal.h
+# MAP    pcre_internal.h         pcre_internal.h
 # MAP    ucp.h
-# MAP    pcre_chartables.c.dist  chartabs.c
-# MAP    pcre_byte_order.c       pcrebyte.c
-# MAP    pcre_compile.c          pcrecomp.c
-# MAP    pcre_config.c           pcreconf.c
-# MAP    pcre_dfa_exec.c         pcredfa.c
-# MAP    pcre_exec.c             pcreexec.c
-# MAP    pcre_fullinfo.c         pcrefinf.c
-# MAP    pcre_get.c              pcreget.c
-# MAP    pcre_globals.c          pcreglob.c
-# MAP    pcre_maketables.c       pcremktb.c
-# MAP    pcre_newline.c          pcrenewl.c
-# MAP    pcre_ord2utf8.c         pcreoutf.c
-# MAP    pcre_printint.c         pcreprni.c
-# MAP    pcre_refcount.c         pcrerefc.c
-# MAP    pcre_study.c            pcrestud.c
-# MAP    pcre_tables.c           pcretabs.c
-# MAP    pcre_ucd.c              pcreucd.c
-# MAP    pcre_valid_utf8.c       pcrevutf.c
-# MAP    pcre_version.c          pcrever.c
-# MAP    pcre_xclass.c           pcrexcls.c
+# MAP    pcre_chartables.c.dist  pcre_chartables.c
+# MAP    pcre_byte_order.c
+# MAP    pcre_compile.c
+# MAP    pcre_config.c
+# MAP    pcre_dfa_exec.c
+# MAP    pcre_exec.c
+# MAP    pcre_fullinfo.c
+# MAP    pcre_get.c
+# MAP    pcre_globals.c
+# MAP    pcre_maketables.c
+# MAP    pcre_newline.c
+# MAP    pcre_ord2utf8.c
+# MAP    pcre_printint.c
+# MAP    pcre_refcount.c
+# MAP    pcre_study.c
+# MAP    pcre_tables.c
+# MAP    pcre_ucd.c
+# MAP    pcre_valid_utf8.c
+# MAP    pcre_version.c
+# MAP    pcre_xclass.c

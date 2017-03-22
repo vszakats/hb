@@ -6,7 +6,7 @@
 and semantics are as close as possible to those of the Perl 5 language.
 
                        Written by Philip Hazel
-           Copyright (c) 1997-2012 University of Cambridge
+           Copyright (c) 1997-2014 University of Cambridge
 
 -----------------------------------------------------------------------------
 Redistribution and use in source and binary forms, with or without
@@ -38,57 +38,49 @@ POSSIBILITY OF SUCH DAMAGE.
 */
 
 
-/* This file contains a private PCRE function that converts an ordinal
-character value into a UTF8 string. */
+/* This module contains global variables that are exported by the PCRE library.
+PCRE is thread-clean and doesn't use any global variables in the normal sense.
+However, it calls memory allocation and freeing functions via the four
+indirections below, and it can optionally do callouts, using the fifth
+indirection. These values can be changed by the caller, but are shared between
+all threads.
+
+For MS Visual Studio and Symbian OS, there are problems in initializing these
+variables to non-local functions. In these cases, therefore, an indirection via
+a local function is used.
+
+Also, when compiling for Virtual Pascal, things are done differently, and
+global variables are not used. */
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
 
-#define COMPILE_PCRE8
+#include "pcre_internal.h"
 
-#include "pcreinal.h"
+#if defined _MSC_VER || defined  __SYMBIAN32__
+static void* LocalPcreMalloc(size_t aSize)
+  {
+  return malloc(aSize);
+  }
+static void LocalPcreFree(void* aPtr)
+  {
+  free(aPtr);
+  }
+PCRE_EXP_DATA_DEFN void *(*PUBL(malloc))(size_t) = LocalPcreMalloc;
+PCRE_EXP_DATA_DEFN void  (*PUBL(free))(void *) = LocalPcreFree;
+PCRE_EXP_DATA_DEFN void *(*PUBL(stack_malloc))(size_t) = LocalPcreMalloc;
+PCRE_EXP_DATA_DEFN void  (*PUBL(stack_free))(void *) = LocalPcreFree;
+PCRE_EXP_DATA_DEFN int   (*PUBL(callout))(PUBL(callout_block) *) = NULL;
+PCRE_EXP_DATA_DEFN int   (*PUBL(stack_guard))(void) = NULL;
 
-/*************************************************
-*       Convert character value to UTF-8         *
-*************************************************/
-
-/* This function takes an integer value in the range 0 - 0x10ffff
-and encodes it as a UTF-8 character in 1 to 4 pcre_uchars.
-
-Arguments:
-  cvalue     the character value
-  buffer     pointer to buffer for result - at least 6 pcre_uchars long
-
-Returns:     number of characters placed in the buffer
-*/
-
-unsigned
-int
-PRIV(ord2utf)(pcre_uint32 cvalue, pcre_uchar *buffer)
-{
-#ifdef SUPPORT_UTF
-
-register int i, j;
-
-for (i = 0; i < PRIV(utf8_table1_size); i++)
-  if ((int)cvalue <= PRIV(utf8_table1)[i]) break;
-buffer += i;
-for (j = i; j > 0; j--)
- {
- *buffer-- = 0x80 | (cvalue & 0x3f);
- cvalue >>= 6;
- }
-*buffer = PRIV(utf8_table2)[i] | cvalue;
-return i + 1;
-
-#else
-
-(void)(cvalue);  /* Keep compiler happy; this function won't ever be */
-(void)(buffer);  /* called when SUPPORT_UTF is not defined. */
-return 0;
-
+#elif !defined VPCOMPAT
+PCRE_EXP_DATA_DEFN void *(*PUBL(malloc))(size_t) = malloc;
+PCRE_EXP_DATA_DEFN void  (*PUBL(free))(void *) = free;
+PCRE_EXP_DATA_DEFN void *(*PUBL(stack_malloc))(size_t) = malloc;
+PCRE_EXP_DATA_DEFN void  (*PUBL(stack_free))(void *) = free;
+PCRE_EXP_DATA_DEFN int   (*PUBL(callout))(PUBL(callout_block) *) = NULL;
+PCRE_EXP_DATA_DEFN int   (*PUBL(stack_guard))(void) = NULL;
 #endif
-}
 
-/* End of pcre_ord2utf8.c */
+/* End of pcre_globals.c */

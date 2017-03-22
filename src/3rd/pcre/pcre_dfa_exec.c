@@ -80,7 +80,7 @@ in others, so I abandoned this code. */
 #define PSSTART start_subject  /* Field containing processed string start */
 #define PSEND   end_subject    /* Field containing processed string end */
 
-#include "pcreinal.h"
+#include "pcre_internal.h"
 
 
 /* For use to indent debugging output */

@@ -48,7 +48,7 @@ compilation of dftables.c, in which case the macro DFTABLES is defined. */
 #  ifdef HAVE_CONFIG_H
 #  include "config.h"
 #  endif
-#  include "pcreinal.h"
+#  include "pcre_internal.h"
 #endif
 
 

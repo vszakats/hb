@@ -46,7 +46,7 @@ class. It is used by both pcre_exec() and pcre_def_exec(). */
 #include "config.h"
 #endif
 
-#include "pcreinal.h"
+#include "pcre_internal.h"
 
 
 /*************************************************

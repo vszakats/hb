@@ -47,7 +47,7 @@ for these functions came from Scott Wimer. */
 #include "config.h"
 #endif
 
-#include "pcreinal.h"
+#include "pcre_internal.h"
 
 
 /*************************************************

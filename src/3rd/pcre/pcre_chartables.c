@@ -24,7 +24,7 @@ unit might reference this" and so it will always be supplied to the linker. */
 #include "config.h"
 #endif
 
-#include "pcreinal.h"
+#include "pcre_internal.h"
 
 const pcre_uint8 PRIV(default_tables)[] = {
 

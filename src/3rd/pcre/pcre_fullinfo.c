@@ -46,7 +46,7 @@ information about a compiled pattern. */
 #include "config.h"
 #endif
 
-#include "pcreinal.h"
+#include "pcre_internal.h"
 
 
 /*************************************************

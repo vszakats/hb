@@ -51,7 +51,7 @@ http://unicode.org/unicode/reports/tr18/. */
 #include "config.h"
 #endif
 
-#include "pcreinal.h"
+#include "pcre_internal.h"
 
 
 

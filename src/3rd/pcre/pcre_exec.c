@@ -49,7 +49,7 @@ possible. There are also some static supporting functions. */
 #define PSSTART start_subject  /* Field containing processed string start */
 #define PSEND   end_subject    /* Field containing processed string end */
 
-#include "pcreinal.h"
+#include "pcre_internal.h"
 
 /* Undefine some potentially clashing cpp symbols */
 

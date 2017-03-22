@@ -47,7 +47,7 @@ auxiliary local function to flip the appropriate bytes. */
 #include "config.h"
 #endif
 
-#include "pcreinal.h"
+#include "pcre_internal.h"
 
 
 /*************************************************

@@ -50,7 +50,7 @@ supporting internal functions that are not used by other modules. */
 #define PSSTART start_pattern  /* Field containing pattern start */
 #define PSEND   end_pattern    /* Field containing pattern end */
 
-#include "pcreinal.h"
+#include "pcre_internal.h"
 
 
 /* When PCRE_DEBUG is defined, we need the pcre(16|32)_printint() function, which
@@ -61,7 +61,7 @@ COMPILE_PCREx macro will already be appropriately set. */
 #ifdef PCRE_DEBUG
 /* pcre_printint.c should not include any headers */
 #define PCRE_INCLUDED
-#include "pcreprni.c"
+#include "pcre_printint.c"
 #undef PCRE_INCLUDED
 #endif
 

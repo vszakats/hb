@@ -68,7 +68,7 @@ here before pcre_internal.h so that the PCRE_EXP_xxx macros get set
 appropriately for an application, not for building PCRE. */
 
 #include "pcre.h"
-#include "pcreinal.h"
+#include "pcre_internal.h"
 
 /* These are the funtions that are contained within. It doesn't seem worth
 having a separate .h file just for this. */

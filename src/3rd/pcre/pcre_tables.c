@@ -49,7 +49,7 @@ clashes with the library. */
 #include "config.h"
 #endif
 
-#include "pcreinal.h"
+#include "pcre_internal.h"
 
 #endif /* PCRE_INCLUDED */
 
