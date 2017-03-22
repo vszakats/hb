@@ -69,7 +69,7 @@ endif
 # MAP    LICENSE
 # MAP    png.c
 # MAP    pngconf.h
-# MAP    scripts/pnglibconf.h.prebuilt  pnglconf.h
+# MAP    scripts/pnglibconf.h.prebuilt  pnglibconf.h
 # MAP    pngerror.c
 # MAP    pngget.c
 # MAP    png.h
@@ -87,5 +87,5 @@ endif
 # MAP    pngwtran.c
 # MAP    pngwutil.c
 # MAP    pnginfo.h
-# MAP    pngstruct.h                    pngstru.h
+# MAP    pngstruct.h
 # MAP    pngdebug.h
