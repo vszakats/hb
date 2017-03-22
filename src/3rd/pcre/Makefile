@@ -20,7 +20,6 @@ C_SOURCES := \
    pcre_maketables.c \
    pcre_newline.c \
    pcre_ord2utf8.c \
-   pcre_printint.c \
    pcre_refcount.c \
    pcre_study.c \
    pcre_tables.c \
@@ -91,7 +90,6 @@ endif
 # MAP    pcre_maketables.c
 # MAP    pcre_newline.c
 # MAP    pcre_ord2utf8.c
-# MAP    pcre_printint.c
 # MAP    pcre_refcount.c
 # MAP    pcre_study.c
 # MAP    pcre_tables.c
