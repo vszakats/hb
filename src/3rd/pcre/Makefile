@@ -75,27 +75,27 @@ endif
 # DIFF   pcre.diff
 #
 # MAP    LICENCE
-# MAP    config.h.generic                  config.h
-# MAP    pcre.h.generic                    pcre.h
-# MAP    pcre_internal.h                   pcreinal.h
+# MAP    config.h.generic        config.h
+# MAP    pcre.h.generic          pcre.h
+# MAP    pcre_internal.h         pcreinal.h
 # MAP    ucp.h
-# MAP    pcre_chartables.c.dist            chartabs.c
-# MAP    pcre_byte_order.c                 pcrebyte.c
-# MAP    pcre_compile.c                    pcrecomp.c
-# MAP    pcre_config.c                     pcreconf.c
-# MAP    pcre_dfa_exec.c                   pcredfa.c
-# MAP    pcre_exec.c                       pcreexec.c
-# MAP    pcre_fullinfo.c                   pcrefinf.c
-# MAP    pcre_get.c                        pcreget.c
-# MAP    pcre_globals.c                    pcreglob.c
-# MAP    pcre_maketables.c                 pcremktb.c
-# MAP    pcre_newline.c                    pcrenewl.c
-# MAP    pcre_ord2utf8.c                   pcreoutf.c
-# MAP    pcre_printint.c                   pcreprni.c
-# MAP    pcre_refcount.c                   pcrerefc.c
-# MAP    pcre_study.c                      pcrestud.c
-# MAP    pcre_tables.c                     pcretabs.c
-# MAP    pcre_ucd.c                        pcreucd.c
-# MAP    pcre_valid_utf8.c                 pcrevutf.c
-# MAP    pcre_version.c                    pcrever.c
-# MAP    pcre_xclass.c                     pcrexcls.c
+# MAP    pcre_chartables.c.dist  chartabs.c
+# MAP    pcre_byte_order.c       pcrebyte.c
+# MAP    pcre_compile.c          pcrecomp.c
+# MAP    pcre_config.c           pcreconf.c
+# MAP    pcre_dfa_exec.c         pcredfa.c
+# MAP    pcre_exec.c             pcreexec.c
+# MAP    pcre_fullinfo.c         pcrefinf.c
+# MAP    pcre_get.c              pcreget.c
+# MAP    pcre_globals.c          pcreglob.c
+# MAP    pcre_maketables.c       pcremktb.c
+# MAP    pcre_newline.c          pcrenewl.c
+# MAP    pcre_ord2utf8.c         pcreoutf.c
+# MAP    pcre_printint.c         pcreprni.c
+# MAP    pcre_refcount.c         pcrerefc.c
+# MAP    pcre_study.c            pcrestud.c
+# MAP    pcre_tables.c           pcretabs.c
+# MAP    pcre_ucd.c              pcreucd.c
+# MAP    pcre_valid_utf8.c       pcrevutf.c
+# MAP    pcre_version.c          pcrever.c
+# MAP    pcre_xclass.c           pcrexcls.c
