@@ -8963,20 +8963,17 @@ STATIC FUNCTION CheckParamLib( hbmk, cLibName, lHBC, aParam )
 
    /* offer suggestions */
    IF ! Empty( cSuggestion )
-#ifdef HB_LEGACY_LEVEL4
-      IF lHBC
-         _hbmk_OutErr( hbmk, hb_StrFormat( I_( "Warning: Non-portable parameter: %1$s. Use %2$s directives(s) instead." ), ParamToString( aParam ), cSuggestion ) )
-      ELSE
-         _hbmk_OutErr( hbmk, hb_StrFormat( I_( "Warning: Non-portable parameter: %1$s. Use '%2$s' option(s) instead." ), ParamToString( aParam ), cSuggestion ) )
-      ENDIF
-#else
       IF lHBC
          _hbmk_OutErr( hbmk, hb_StrFormat( I_( "Warning: Ignoring non-portable parameter: %1$s. Use %2$s directives(s) instead." ), ParamToString( aParam ), cSuggestion ) )
+         RETURN .F.
       ELSE
-         _hbmk_OutErr( hbmk, hb_StrFormat( I_( "Warning: Ignoring non-portable parameter: %1$s. Use '%2$s' option(s) instead." ), ParamToString( aParam ), cSuggestion ) )
+         /* Do not ignore such option, because it may be required in some cases
+            where an arbitrary, non-standard library name needs to be forced,
+            f.e. one that doesn't have a `lib` prefix in its filename and still
+            using it with gcc/mingw/clang. Anyhow the best practice would be to
+            name all libs in-line with the C compilers' naming conventions. */
+         _hbmk_OutErr( hbmk, hb_StrFormat( I_( "Warning: Non-portable parameter: %1$s. Use '%2$s' option(s) instead." ), ParamToString( aParam ), cSuggestion ) )
       ENDIF
-      RETURN .F.
-#endif
    ENDIF
 
    cLibName := Lower( hb_FNameName( cLibName ) )
