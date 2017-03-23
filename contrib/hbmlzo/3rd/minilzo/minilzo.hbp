@@ -12,7 +12,6 @@ minilzo.c
 
 # ORIGIN https://www.oberhumer.com/opensource/lzo/
 # URL    https://www.oberhumer.com/opensource/lzo/download/minilzo-2.10.tar.gz
-# DIFF
 #
 # MAP    COPYING
 # MAP    lzoconf.h
