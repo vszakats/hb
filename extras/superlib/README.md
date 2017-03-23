@@ -11,8 +11,8 @@
    unzip SOURCE.ZIP
    ```
 
-3. *nix users will need to convert original filenames to lowercase
-   and EOLs to native format, using these commands:
+3. *nix users need to convert original filenames to lowercase and EOLs
+   to native format, using these commands:
 
    `hbmk2 -sanitize *.c *.prg`
 

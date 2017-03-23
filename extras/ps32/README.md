@@ -4,8 +4,7 @@
 
    sha256: `c9a9fb6d81054468d2884a913275184a318be8a5c830bc901376ae88e720849d`
 
-2. Copy these files from PageScript32 installation
-   to this directory:
+2. Copy these files from PageScript32 installation to this directory:
 
       `PScript.ch`
       `TPSCRIPT.PRG`
