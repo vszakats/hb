@@ -1,4 +1,4 @@
-= Harbour Library C Project Template
+# Harbour Library C Project Template
 
 * Build static library:
 

@@ -81,7 +81,8 @@ before_install:
       export MACOSX_DEPLOYMENT_TARGET=10.10
     elif [ -n "${DOCKER_IMAGE}" ]; then
       time docker pull "${DOCKER_IMAGE}"
-      time docker run -it -v "${PWD}:${PWD}" -w "${PWD}" --env-file <(env | grep -E '^(TRAVIS_|HB_)') \
+      time docker run -it -v "${PWD}:${PWD}" -w "${PWD}" \
+        --env-file <(env | grep -E '^(TRAVIS_|HB_)') \
         "${DOCKER_IMAGE}" \
         sh -c ./package/mpkg_win_docker.sh
     fi
