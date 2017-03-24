@@ -230,23 +230,6 @@ To test it, type:
 
 You should see `Hello, world!` on screen.
 
-## on MS-DOS hosts (possible cross-build targets: Windows, OS/2, Linux)
-
-Make sure to have your C compiler of choice and GNU coreutils (via DJGPP)
-`cp`, `rm`, `mkdir`, `echo` are installed in `PATH`.
-
-To build:
-
-    > dos-make
-
-To test it, type:
-
-    > cd tests
-    > ..\bin\<plat>\<comp>\hbmk2 hello.prg
-    > hello
-
-You should see `Hello, world!` on screen.
-
 ## on OS/2 hosts (possible cross-build targets: MS-DOS, OS/2, Linux)
 
 Make sure to have the required GNU coreutils `cp`, `rm`, `mkdir`, `echo`
@@ -1062,23 +1045,6 @@ set PATH=C:\cygwin\bin
 sh -c make
 ```
 
-## on MS-DOS hosts
-
-```batchfile
-rem Delorie GNU C
-set DJGPP=C:\djgpp\djgpp.env
-set PATH=C:\djgpp\bin;%PATH%
-dos-make
-```
-
-```batchfile
-rem Open Watcom C/C++
-set WATCOM=C:\watcom
-set PATH=%WATCOM%\BINW;%PATH%
-set INCLUDE=%WATCOM%\H
-dos-make
-```
-
 ## on OS/2 hosts
 
 ```batchfile
@@ -1396,11 +1362,6 @@ Press `<Alt+D>` in the app.
      x | os2      | win/watcom        | x86
      x | os2      | dos/watcom        | x86
      x | os2      | linux/watcom      | x86
-       | dos      | dos/djgpp         | x86
-       | dos      | dos/watcom        | x86
-     x | dos      | win/watcom        | x86
-     x | dos      | os2/watcom        | x86
-     x | dos      | linux/watcom      | x86
        | darwin   | darwin/clang      | (CPU cross-builds possible: x86, x86-64, unibin)
        | darwin   | darwin/gcc        | (CPU cross-builds possible: x86, x86-64, ppc, ppc64, unibin)
        | darwin   | darwin/icc        | (CPU cross-builds possible: x86, x86-64)
