@@ -14532,6 +14532,7 @@ STATIC FUNCTION NumberOfCPUs()
 #define _VCS_FOSSIL         7
 #define _VCS_MONOTONE       8
 #define _VCS_BITKEEPER      9
+#define _VCS_DARCS          10
 
 STATIC FUNCTION VCSDetect( cDir )
 
@@ -14552,6 +14553,7 @@ STATIC FUNCTION VCSDetect( cDir )
    CASE hb_vfDirExists( cDir + "_MTN" )   ; RETURN _VCS_MONOTONE
    CASE hb_vfDirExists( cDir + "CVS" )    ; RETURN _VCS_CVS
    CASE hb_vfDirExists( cDir + ".bk" )    ; RETURN _VCS_BITKEEPER
+   CASE hb_vfDirExists( cDir + "_darcs" ) ; RETURN _VCS_DARCS
    CASE hb_vfDirExists( cDir + "_svn" )   ; RETURN _VCS_SVN /* NOTE: When SVN_ASP_DOT_NET_HACK envvar is set. [vszakats] */
    ENDCASE
 
@@ -14634,6 +14636,12 @@ STATIC FUNCTION VCSID( hbmk, cDir, cVCSHEAD, /* @ */ cType, /* @ */ hCustom )
    CASE _VCS_BITKEEPER
       cType := "bitkeeper"
       /* TODO: implement support */
+      EXIT
+   CASE _VCS_DARCS
+      cType := "darcs"
+      /* XML output is also supported, though parsing it with core Harbour
+         is non-trivial. */
+      cCommand := "darcs show repo"
       EXIT
    OTHERWISE
       /* No version control system detected, roll our own. */
@@ -14770,6 +14778,22 @@ STATIC FUNCTION VCSID( hbmk, cDir, cVCSHEAD, /* @ */ cType, /* @ */ hCustom )
          EXIT
       CASE _VCS_BITKEEPER
          /* TODO: implement support */
+         EXIT
+      CASE _VCS_DARCS
+         /*
+                   Format: hashed, darcs-2
+                     Root: /test
+                 Pristine: HashedPristine
+                    Cache: thisrepo:/test, cache:~/Library/Caches/darcs
+              Num Patches: 1
+                Weak Hash: 645b82883916263db2b1423e0ec41067c7f07070
+          */
+         IF ( tmp := At( "Weak Hash:", cStdOut ) ) > 0
+            cStdOut := StrTran( LTrim( SubStr( cStdOut, tmp + Len( "Weak Hash:" ) ) ), Chr( 13 ) )
+            IF ( tmp := At( Chr( 10 ), cStdOut ) ) > 0
+               cResult := Left( cStdOut, tmp - 1 )
+            ENDIF
+         ENDIF
          EXIT
       ENDSWITCH
    ENDIF

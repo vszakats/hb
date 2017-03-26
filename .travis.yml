@@ -82,7 +82,7 @@ before_install:
     elif [ -n "${DOCKER_IMAGE}" ]; then
       time docker pull "${DOCKER_IMAGE}"
       time docker run -it -v "${PWD}:${PWD}" -w "${PWD}" \
-        --env-file <(env | grep -E '^(TRAVIS_|HB_)') \
+        --env-file <(env | grep -E '^(TRAVIS|HB)_') \
         "${DOCKER_IMAGE}" \
         sh -c ./package/mpkg_win_docker.sh
     fi
