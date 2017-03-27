@@ -96,17 +96,23 @@ if test_reqrpm 'postgresql-devel' && \
    [ "$HB_WITH_PGSQL" != 'no' ]; then
   INST_PARAM="${INST_PARAM} --with pgsql"
 fi
+if test_reqrpm 'qt5-devel' && \
+   [ "$HB_WITH_QT" != 'no' ]; then
+  INST_PARAM="${INST_PARAM} --with qt5"
+fi
 
 if [ "${HB_BUILD_NOGPLLIB}" = 'yes' ]; then
   INST_PARAM="${INST_PARAM} --without gpllib"
 fi
 if [ "${HB_BUILD_NOGPLLIB}" = 'yes' ] || \
-   [ "${HB_WITH_GPM}" = 'no' ] || \
-   ! test_reqrpm 'gpm-devel'; then
+   ( ! test_reqrpm 'gpm' && \
+     ! test_reqrpm 'gpm-devel' ) || \
+   [ "${HB_WITH_GPM}" = 'no' ]; then
   INST_PARAM="${INST_PARAM} --without gpm"
 fi
-if ! test_reqrpm 'XFree86-devel' && \
-   [ "$HB_WITH_X11" != 'no' ]; then
+if ( ! test_reqrpm 'xorg-x11-devel' && \
+     ! test_reqrpm 'XFree86-devel' ) || \
+   [ "$HB_WITH_X11" = 'no' ]; then
   INST_PARAM="${INST_PARAM} --without X11"
 fi
 if ! test_reqrpm 'ncurses' || \
