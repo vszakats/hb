@@ -9,9 +9,7 @@
 
 set -x
 
-cat /etc/*-release
-ulimit -a
-df -h
+cat /etc/*-release; ulimit -a; df -h
 
 dpkg --add-architecture i386
 apt-get -qq update
