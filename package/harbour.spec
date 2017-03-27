@@ -699,7 +699,7 @@ rm -rf $RPM_BUILD_ROOT
 ######################################################################
 
 %changelog
-* Thu Aug 05 2008 Viktor Szakats (vszakats.net/harbour)
+* Tue Aug 05 2008 Viktor Szakats (vszakats.net/harbour)
 - removed hbdot, hbverfix, hbpptest
 - hbrun now fully replaces hbdot.
 
@@ -707,7 +707,7 @@ rm -rf $RPM_BUILD_ROOT
 + added hbdot
 - removed PP package
 
-* Fri Mar 23 2005 Przemyslaw Czerpak <druzus@priv.onet.pl>
+* Wed Mar 23 2005 Przemyslaw Czerpak <druzus@priv.onet.pl>
 - removed bison and flex from dependences list
 
 * Sat Aug 09 2003 Przemyslaw Czerpak <druzus@polbox.com>
@@ -762,7 +762,7 @@ rm -rf $RPM_BUILD_ROOT
 - Added the setting of $HB_GT_LIB to the environment (ncurses is used).
 - Added support for installing hbmake.
 
-* Mon Jun 28 2001 Dave Pearson <davep@davep.org>
+* Thu Jun 28 2001 Dave Pearson <davep@davep.org>
 - Changed the gharbour script so that it only invokes the C compiler if a C
   file was output. This stops any error messages when someone is using the
   -g option to output other target types.

@@ -457,7 +457,7 @@ Optional, to override locally hosted sources:
 
 You will need these base packages to build/package/test/use Harbour:
 
-      bash git gcc make glibc-devel rpm valgrind upx uncrustify p7zip
+      bash git gcc make glibc-devel rpm-build valgrind upx uncrustify p7zip
 
 You will need these packages to compile optional core Harbour features:
 

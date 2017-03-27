@@ -923,6 +923,9 @@ ifeq ($(HB_COMPILER_VER),)
       ifneq ($(findstring 4.0,$(_C_VER)),)
          HB_COMPILER_VER := 0400
       else
+      ifneq ($(findstring 8.1,$(_C_VER)),)
+         HB_COMPILER_VER := 0309
+      else
       ifneq ($(findstring 3.9,$(_C_VER)),)
          HB_COMPILER_VER := 0309
       else
@@ -948,6 +951,7 @@ ifeq ($(HB_COMPILER_VER),)
          HB_COMPILER_VER := 0305
       else
          HB_COMPILER_VER := 0304
+      endif
       endif
       endif
       endif

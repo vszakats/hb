@@ -163,7 +163,8 @@ if [ -z "${TOINST_LST}" ] || [ "${FORCE}" = 'yes' ]; then
     echo 'Error during packing the sources in ./mpkg_src.sh'
     exit 1
   elif [ -f "${hb_filename}" ]; then
-    if [ "$(id -u)" != 0 ] && [ ! -f "${HOME}/.rpmmacros" ]; then
+    if ( [ "$(id -u)" != 0 ] || [ -f /.dockerenv ] ) && \
+       [ ! -f "${HOME}/.rpmmacros" ]; then
       RPMDIR="${HOME}/RPM"
       mkdir -p "${RPMDIR}/SOURCES" "${RPMDIR}/RPMS" "${RPMDIR}/SRPMS" \
                "${RPMDIR}/BUILD" "${RPMDIR}/SPECS"
@@ -173,6 +174,8 @@ if [ -z "${TOINST_LST}" ] || [ "${FORCE}" = 'yes' ]; then
     fi
 
     mv -f "${hb_filename}" "${RPMDIR}/SOURCES/"
+    # Required for rpmbuild versions < 4.13.0
+    chown "${UID}" "${RPMDIR}/SOURCES/$(basename "${hb_filename}")"
     cp harbour.spec "${RPMDIR}/SPECS/"
 
     cd "${RPMDIR}/SPECS" || exit

@@ -573,6 +573,10 @@ STATIC FUNCTION call_hbmk2( cProjectRoot, cProjectName, cOptionsPre, cDynSuffix,
    hb_SetEnv( "CLIPPERCMD" )
    hb_SetEnv( "_HB_DYNSUFF" )
 
+   IF GetEnv( "HB_BUILD_VERBOSE" ) == "yes"
+      cOptionsPre += " -info"
+   ENDIF
+
    IF cDynSuffix != NIL
       IF ! cDynSuffix == ""
          /* Request dll version of project dependencies (the implibs) to be

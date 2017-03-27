@@ -51,13 +51,11 @@ hb_collect_all_tree()
   find config -type f -exec echo '{}' \;
 }
 
-hb_rmflst='yes'
 hb_flst='bin/hb_flst.tmp'
 (
   cd "$hb_rootdir" || exit
   if [ -d '.git' ]; then
     hb_collect_all_git
-    echo "$hb_flst"
   else
     hb_collect_all_tree
   fi
@@ -71,6 +69,6 @@ hb_flst='bin/hb_flst.tmp'
     $hb_archbin $hb_archopt "$hb_filename" --files-from "$hb_flst"
   fi
 )
-[ "$hb_rmflst" != 'yes' ] || rm -fR "${hb_rootdir:?}/$hb_flst"
+rm -f "${hb_rootdir:?}/$hb_flst"
 
 cd "$hb_currdir" || exit

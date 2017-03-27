@@ -561,22 +561,23 @@ EXTERNAL hbmk_KEYW
 
 #define _HBMK_lSysLoc           157
 #define _HBMK_lDumpInfo         158
-#define _HBMK_lMarkdown         159
-#define _HBMK_lShellMode        160
-#define _HBMK_bOut              161
+#define _HBMK_lNoInfo           159
+#define _HBMK_lMarkdown         160
+#define _HBMK_lShellMode        161
+#define _HBMK_bOut              162
 
-#define _HBMK_cSignTime         162
-#define _HBMK_lCLI              163
-#define _HBMK_cPKGM             164
-#define _HBMK_aHBCCON           165
-#define _HBMK_lHaltRevCounters  166
-#define _HBMK_lVCSTS            167
-#define _HBMK_tVCSTS            168
+#define _HBMK_cSignTime         163
+#define _HBMK_lCLI              164
+#define _HBMK_cPKGM             165
+#define _HBMK_aHBCCON           166
+#define _HBMK_lHaltRevCounters  167
+#define _HBMK_lVCSTS            168
+#define _HBMK_tVCSTS            169
 
-#define _HBMK_nCmdLineMax       169
-#define _HBMK_aCmdLineLen       170
+#define _HBMK_nCmdLineMax       170
+#define _HBMK_aCmdLineLen       171
 
-#define _HBMK_MAX_              170
+#define _HBMK_MAX_              171
 
 #define _HBMK_DEP_CTRL_MARKER   ".control."  /* must be an invalid path */
 
@@ -1145,6 +1146,7 @@ STATIC FUNCTION hbmk_new( lShellMode )
    hbmk[ _HBMK_lSysLoc ] := .T.
 #endif
    hbmk[ _HBMK_lDumpInfo ] := .F.
+   hbmk[ _HBMK_lNoInfo ] := .F.
    hbmk[ _HBMK_lMarkdown ] := .F.
    hbmk[ _HBMK_bOut ] := @OutStd()
 
@@ -1773,8 +1775,13 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
       /* NOTE: Do not forget to make these ignored in the main
                option processing loop. */
       DO CASE
-      CASE cParamL == "-quiet" .OR. ;
-           cParamL == "--hbdirbin" .OR. ;
+      CASE cParamL == "-quiet"
+
+         hbmk[ _HBMK_lQuiet ] := .T.
+         hbmk[ _HBMK_lInfo ] := .F.
+         hbmk[ _HBMK_lTRACE ] := .F.
+
+      CASE cParamL == "--hbdirbin" .OR. ;
            cParamL == "--hbdirdyn" .OR. ;
            cParamL == "--hbdirlib" .OR. ;
            cParamL == "--hbdirinc" .OR. ;
@@ -1783,6 +1790,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          hbmk[ _HBMK_lQuiet ] := .T.
          hbmk[ _HBMK_lInfo ] := .F.
          hbmk[ _HBMK_lTRACE ] := .F.
+
+         hbmk[ _HBMK_lNoInfo ] := .T.
 
       CASE cParamL             == "-quiet-"    ; hbmk[ _HBMK_lQuiet ] := .F.
       CASE hb_LeftEq( cParamL, "-comp=" )      ; ParseCOMPPLATCPU( hbmk, SubStr( cParam, 6 + 1 ), _TARG_COMP )
@@ -1819,7 +1828,12 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
            cParamL             == "-exospace" .OR. ;
            cParamL             == "-blinker"   ; hbmk[ _HBMK_lInfo ] := .F. ; hbmk[ _HBMK_lStopAfterHarbour ] := .F. ; lStopAfterCComp := .F. ; lAcceptLDClipper := .T.
 #endif
-      CASE cParamL             == "-info"      ; hbmk[ _HBMK_lInfo ] := .T.
+      CASE cParamL             == "-info"
+
+         IF ! hbmk[ _HBMK_lNoInfo ]
+            hbmk[ _HBMK_lInfo ] := .T.
+         ENDIF
+
       CASE cParamL             == "-autohbm"   ; hbmk[ _HBMK_lAutoHBM ] := .T.
       CASE cParamL             == "-autohbm-"  ; hbmk[ _HBMK_lAutoHBM ] := .F.
 #ifdef HARBOUR_SUPPORT
@@ -1975,6 +1989,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
 
       ENDCASE
    NEXT
+
+   hbmk[ _HBMK_lNoInfo ] := .F.
 
    IF nLevel > _HBMK_NEST_MAX
       _hbmk_OutErr( hbmk, hb_StrFormat( I_( "Error: Cannot nest projects deeper than %1$d levels" ), _HBMK_NEST_MAX ) )
@@ -2845,13 +2861,13 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
       CASE cParamL == "-quiet"           ; hbmk[ _HBMK_lQuiet ] := .T. ; hbmk[ _HBMK_lInfo ] := .F.
       CASE cParamL == "-quiet-"
 
-         IF ! hbmk[ _HBMK_lDumpInfo ]
+         IF ! hbmk[ _HBMK_lNoInfo ]
             hbmk[ _HBMK_lQuiet ] := .F.
          ENDIF
 
       CASE cParamL == "-info"
 
-         IF ! hbmk[ _HBMK_lDumpInfo ]
+         IF ! hbmk[ _HBMK_lNoInfo ]
             hbmk[ _HBMK_lInfo ] := .T.
          ENDIF
 
@@ -3197,7 +3213,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
 
       CASE cParamL == "-trace"
 
-         IF ! hbmk[ _HBMK_lDumpInfo ]
+         IF ! hbmk[ _HBMK_lNoInfo ]
             hbmk[ _HBMK_lTRACE ]     := .T.
          ENDIF
 
@@ -3211,23 +3227,32 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
       CASE cParamL == "--hbdirbin"       ; hbmk[ _HBMK_lStopAfterInit ] := .T.
 
          OutStd( hbmk[ _HBMK_cHB_INSTALL_BIN ] )
+         hbmk[ _HBMK_lNoInfo ] := .T.
+         hbmk[ _HBMK_lInfo ] := .F.
 
       CASE cParamL == "--hbdirdyn"       ; hbmk[ _HBMK_lStopAfterInit ] := .T.
 
          OutStd( hbmk[ _HBMK_cHB_INSTALL_DYN ] )
+         hbmk[ _HBMK_lNoInfo ] := .T.
+         hbmk[ _HBMK_lInfo ] := .F.
 
       CASE cParamL == "--hbdirlib"       ; hbmk[ _HBMK_lStopAfterInit ] := .T.
 
          OutStd( hbmk[ _HBMK_cHB_INSTALL_LIB ] )
+         hbmk[ _HBMK_lNoInfo ] := .T.
+         hbmk[ _HBMK_lInfo ] := .F.
 
       CASE cParamL == "--hbdirinc"       ; hbmk[ _HBMK_lStopAfterInit ] := .T.
 
          OutStd( hbmk[ _HBMK_cHB_INSTALL_INC ] )
+         hbmk[ _HBMK_lNoInfo ] := .T.
+         hbmk[ _HBMK_lInfo ] := .F.
 #endif
 
       CASE hb_LeftEq( cParamL, "--hbinfo" )
 
          hbmk[ _HBMK_lDumpInfo ] := .T.
+         hbmk[ _HBMK_lNoInfo ] := .T.
          lDumpInfoNested := ( SubStr( cParamL, Len( "--hbinfo" ) + 1 ) == "=nested" )
 
          hbmk[ _HBMK_lQuiet ] := .T.
@@ -3567,7 +3592,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          hbmk[ _HBMK_lRUN ] := .F.
          hbmk[ _HBMK_nExitCode ] := _EXIT_STOP
 
-         IF ! hbmk[ _HBMK_lDumpInfo ]
+         IF ! hbmk[ _HBMK_lNoInfo ]
             IF hb_LeftEq( cParamL, "-stop=" )
                cParam := MacroProc( hbmk, SubStr( cParam, Len( "-stop=" ) + 1 ), aParam[ _PAR_cFileName ] )
                IF ! Empty( cParam )
@@ -3579,7 +3604,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
 
       CASE hb_LeftEq( cParamL, "-echo=" )
 
-         IF ! hbmk[ _HBMK_lDumpInfo ]
+         IF ! hbmk[ _HBMK_lNoInfo ]
             cParam := MacroProc( hbmk, SubStr( cParam, Len( "-echo=" ) + 1 ), aParam[ _PAR_cFileName ] )
             IF ! Empty( cParam )
                OutStd( hb_StrFormat( I_( "%1$s" ), cParam ) + _OUT_EOL )
@@ -14465,13 +14490,14 @@ STATIC FUNCTION CompVersionDetect( hbmk, cPath_CompC )
             /* Apple clang version vs. official LLVM/clang version:
                  https://opensource.apple.com/source/clang/ -> clang-<version>/src/CMakeLists.txt
                  https://opensource.apple.com//source/clang/clang-800.0.38/src/CMakeLists.txt
-              NOTE: It's an interim SVN revision with possible differences in features.
-              [vszakats] */
+               NOTE: It's an interim SVN revision with possible differences in features.
+               [vszakats] */
 
             DO CASE
             CASE cVer == "0700" ; cVer := "0307"
-            CASE cVer == "0730" ; cVer := "0308"
+            CASE cVer == "0703" ; cVer := "0308"
             CASE cVer == "0800" ; cVer := "0309"  /* guess right after WWDC2016 */
+            CASE cVer == "0801" ; cVer := "0309"  /* blind guess right after macOS 10.12.4 release */
             ENDCASE
          CASE ( tmp1 := hb_AtX( R_( "version [0-9]*\.[0-9]*\.[0-9]*" ), cStdOutErr ) ) != NIL
             tmp1 := hb_ATokens( SubStr( tmp1, Len( "version " ) + 1 ), "." )
