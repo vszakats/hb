@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # ---------------------------------------------------------------
-# Copyright 2003 Przemyslaw Czerpak <druzus@polbox.com>
+# Copyright 2003 Przemyslaw Czerpak (druzus/at/priv.onet.pl)
 # simple script to build RPMs from Harbour sources
 #
 # See LICENSE.txt for licensing terms.
@@ -191,7 +191,7 @@ if [ -z "${TOINST_LST}" ] || [ "${FORCE}" = 'yes' ]; then
 
     if [ -f /.dockerenv ]; then
       rm -rf "${OLDPWD}/RPM"
-      cp -rp "${RPMDIR}" "${OLDPWD}"
+      cp -r "${RPMDIR}" "${OLDPWD}"
     fi
   else
     echo "Cannot find archive file: ${hb_filename}"
