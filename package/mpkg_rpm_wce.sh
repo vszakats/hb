@@ -7,13 +7,11 @@
 # See LICENSE.txt for licensing terms.
 # ---------------------------------------------------------------
 
-test_reqrpm()
-{
+test_reqrpm() {
   rpm -q --whatprovides "$1" >/dev/null 2>&1
 }
 
-get_rpmmacro()
-{
+get_rpmmacro() {
   _R="$(rpm --showrc | sed -e "/^-14:.${1}[^a-z0-9A-Z_]/ !d" -e "s/^-14: ${1}.//")"
   _X="$(echo "${_R}" | sed -e 's/.*\(%{\([^}]*\)}\).*/\2/')"
   while [ "${_X}" != "${_R}" ]; do

@@ -7,8 +7,7 @@
 # See LICENSE.txt for licensing terms.
 # ---------------------------------------------------------------
 
-test_reqrpm()
-{
+test_reqrpm() {
   rpm -q --whatprovides "$1" >/dev/null 2>&1
 }
 
@@ -54,8 +53,7 @@ if test_reqrpm 'curl-devel' && \
    [ "$HB_WITH_CURL" != 'no' ]; then
   INST_PARAM="${INST_PARAM} --with curl"
 fi
-if ( test_reqrpm 'openssl' || \
-     test_reqrpm 'openssl-devel' ) && \
+if test_reqrpm 'openssl-devel' && \
    [ "$HB_WITH_OPENSSL" != 'no' ]; then
   INST_PARAM="${INST_PARAM} --with openssl"
 fi
@@ -154,12 +152,14 @@ for i in ${NEED_RPM}; do
   test_reqrpm "$i" || TOINST_LST="${TOINST_LST} $i"
 done
 
+OLDPWD="${PWD}"
+
 if [ -z "${TOINST_LST}" ] || [ "${FORCE}" = 'yes' ]; then
   cd "$(dirname "$0")" || exit
   . ./mpkg_src.sh
   stat="$?"
   if [ -z "${hb_filename}" ]; then
-    echo "The script ./mpkg_src.sh doesn't set archive name to \${hb_filename}"
+    echo "The script ./mpkg_src.sh didn't set archive name to \${hb_filename}"
     exit 1
   elif [ "${stat}" != 0 ]; then
     echo 'Error during packing the sources in ./mpkg_src.sh'
@@ -167,13 +167,13 @@ if [ -z "${TOINST_LST}" ] || [ "${FORCE}" = 'yes' ]; then
   elif [ -f "${hb_filename}" ]; then
     if ( [ "$(id -u)" != 0 ] || [ -f /.dockerenv ] ) && \
        [ ! -f "${HOME}/.rpmmacros" ]; then
-      if [ -f /.dockerenv ]; then
-        RPMDIR="${PWD}/RPM"
-      else
-        RPMDIR="${HOME}/RPM"
-      fi
-      mkdir -p "${RPMDIR}/SOURCES" "${RPMDIR}/RPMS" "${RPMDIR}/SRPMS" \
-               "${RPMDIR}/BUILD" "${RPMDIR}/SPECS"
+      RPMDIR="${HOME}/RPM"
+      mkdir -p \
+        "${RPMDIR}/BUILD" \
+        "${RPMDIR}/RPMS" \
+        "${RPMDIR}/SOURCES" \
+        "${RPMDIR}/SPECS" \
+        "${RPMDIR}/SRPMS"
       echo "%_topdir ${RPMDIR}" > "${HOME}/.rpmmacros"
     else
       RPMDIR=$(rpm --eval %_topdir)
@@ -182,12 +182,17 @@ if [ -z "${TOINST_LST}" ] || [ "${FORCE}" = 'yes' ]; then
     mv -f "${hb_filename}" "${RPMDIR}/SOURCES/"
     # Required for rpmbuild versions < 4.13.0
     chown "${UID}" "${RPMDIR}/SOURCES/$(basename "${hb_filename}")"
-    cp harbour.spec "${RPMDIR}/SPECS/"
 
+    cp harbour.spec "${RPMDIR}/SPECS/"
     cd "${RPMDIR}/SPECS" || exit
 
     # shellcheck disable=SC2086
     rpmbuild -ba harbour.spec ${INST_PARAM}
+
+    if [ -f /.dockerenv ]; then
+      rm -rf "${OLDPWD}/RPM"
+      cp -rp "${RPMDIR}" "${OLDPWD}"
+    fi
   else
     echo "Cannot find archive file: ${hb_filename}"
     exit 1

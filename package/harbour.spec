@@ -8,8 +8,8 @@
 
 # ---------------------------------------------------------------
 # HOWTO .rpm docs:
-#    https://fedoraproject.org/wiki/PackageMaintainers/CreatingPackageHowTo
-#    https://gurulabs.com/downloads/GURULABS-RPM-LAB/GURULABS-RPM-GUIDE-v1.0.PDF
+#    https://fedoraproject.org/wiki/How_to_create_an_RPM_package
+#    https://www.gurulabs.com/media/files/courseware-samples/GURULABS-RPM-GUIDE-v1.0.PDF
 # ---------------------------------------------------------------
 
 ######################################################################
@@ -19,21 +19,24 @@
 # please add your distro suffix if it does not belong to the ones recognized below
 # and remember that order checking can be important
 
-%define platform %(release=$(rpm -q --queryformat='%{VERSION}' mandriva-release-common 2>/dev/null) && echo "mdv$release"|tr -d ".")
+%define platform %(release=$(rpm -q --queryformat='%{VERSION}' mandriva-release 2>/dev/null) && echo "mdv$release" | tr -d '.')
 %if "%{platform}" == ""
-%define platform %(release=$(rpm -q --queryformat='%{VERSION}' fedora-release 2>/dev/null) && echo "fc$release"|tr -d ".")
+%define platform %(release=$(rpm -q --queryformat='%{VERSION}' fedora-release 2>/dev/null) && echo "fc$release" | tr -d '.')
 %if "%{platform}" == ""
-%define platform %(release=$(rpm -q --queryformat='%{VERSION}' centos-release 2>/dev/null) && echo "el$release"|tr -d ".")
+%define platform %(release=$(rpm -q --queryformat='%{VERSION}' epel-release 2>/dev/null) && echo "el$release" | tr -d '.')
 %if "%{platform}" == ""
-%define platform %(release=$(rpm -q --queryformat='%{VERSION}' suse-release 2>/dev/null) && echo "sus$release"|tr -d ".")
+%define platform %(release=$(rpm -q --queryformat='%{VERSION}' centos-release 2>/dev/null) && echo "el$release" | tr -d '.')
 %if "%{platform}" == ""
-%define platform %(release=$(rpm -q --queryformat='%{VERSION}' openSUSE-release 2>/dev/null) && echo "sus$release"|tr -d ".")
+%define platform %(release=$(rpm -q --queryformat='%{VERSION}' suse-release 2>/dev/null) && echo "sus$release" | tr -d '.')
 %if "%{platform}" == ""
-%define platform %(release=$(rpm -q --queryformat='%{VERSION}' redhat-release 2>/dev/null) && echo "rh$release"|tr -d ".")
+%define platform %(release=$(rpm -q --queryformat='%{VERSION}' openSUSE-release 2>/dev/null) && echo "sus$release" | tr -d '.')
 %if "%{platform}" == ""
-%define platform %([ -f /etc/pld-release ] && cat /etc/pld-release|sed -e '/1/ !d' -e 's/[^0-9]//g' -e 's/^/pld/')
+%define platform %(release=$(rpm -q --queryformat='%{VERSION}' redhat-release 2>/dev/null) && echo "rh$release" | tr -d '.')
+%if "%{platform}" == ""
+%define platform %(release=$(rpm -q --queryformat='%{VERSION}' system-release 2>/dev/null) && echo 'amzn1' | tr -d '.')
 %if "%{platform}" == ""
 %undefine platform
+%endif
 %endif
 %endif
 %endif
@@ -50,7 +53,7 @@
 %define name      harbour
 %define dname     Harbour
 %define version   3.4.0
-%define releasen  0.1
+%define releasen  1
 %define alphatag  dev
 %define hb_etcdir /etc/%{name}
 %define hb_plat   export HB_PLATFORM=linux
@@ -63,7 +66,6 @@
 %define hb_crs    export HB_WITH_CURSES=%{!?_without_curses:yes}%{?_without_curses:no}
 %define hb_sln    export HB_WITH_SLANG=%{!?_without_slang:yes}%{?_without_slang:no}
 %define hb_x11    export HB_WITH_X11=%{!?_without_x11:yes}%{?_without_x11:no}
-%define hb_ssl    export HB_WITH_OPENSSL=%{?_with_openssl:yes}%{!?_with_openssl:no}
 %define hb_local  export HB_WITH_ZLIB=%{?_with_localzlib:local} ; export HB_WITH_PCRE2=%{?_with_localpcre2:local} ; export HB_WITH_PCRE=%{?_with_localpcre:local} ; export HB_WITH_BZIP2=%{?_with_localbz2:local}
 %define hb_proot  export HB_INSTALL_PKG_ROOT=${RPM_BUILD_ROOT}
 %define hb_bdir   export HB_INSTALL_BIN=${RPM_BUILD_ROOT}%{_bindir}
@@ -77,8 +79,8 @@
 %define hb_blds   export HB_BUILD_STRIP=all
 %define hb_bldsh  export HB_BUILD_SHARED=%{!?_with_static:yes}
 %define hb_cmrc   export HB_BUILD_NOGPLLIB=%{?_without_gpllib:yes}
-%define hb_ctrb   export HB_BUILD_CONTRIBS="hbblink hbbz2 hbcomio hbcomm hbcrypto hbct hbexpat hbformat hbformat/utils hbfoxpro hbfship hbgt hbhpdf hbhttpd hblzf hbmemio hbmisc hbmlzo hbmxml hbmzip hbnetio hbnetio/utils/hbnetio hbnf hboslib hbpipeio hbsms hbsqlit3 hbtcpio hbtest hbtip hbtpathy hbunix hbxpp hbxdiff hbzebra hbziparc rddbm rddmisc rddsql sddsqlt3 xhb %{?_with_cairo:hbcairo} %{?_with_cups:hbcups} %{?_with_curl:hbcurl} %{?_with_freeimage:hbfimage} %{?_with_gd:hbgd} %{?_with_firebird:hbfbird sddfb} %{?_with_mysql:hbmysql sddmy} %{?_with_odbc:hbodbc sddodbc} %{?_with_pgsql:hbpgsql sddpg} %{?_with_ads:rddads} hbdoc hbrun"
-%define hb_env    %{hb_plat} ; %{hb_cc} ; %{hb_cflag} ; %{hb_lflag} ; %{hb_dflag} ; %{shl_path} ; %{hb_gpm} ; %{hb_crs} ; %{hb_sln} ; %{hb_x11} ; %{hb_ssl} ; %{hb_local} ; %{hb_proot} ; %{hb_bdir} ; %{hb_idir} ; %{hb_ldir} ; %{hb_ddir} ; %{hb_edir} ; %{hb_cdir} ; %{hb_mdir} ; %{hb_tdir} ; %{hb_ctrb} ; %{hb_cmrc} ; %{hb_blds} ; %{hb_bldsh}
+%define hb_ctrb   export HB_BUILD_CONTRIBS="hbblink hbbz2 hbcomio hbcomm hbcrypto hbct hbexpat hbformat hbformat/utils hbfoxpro hbfship hbgt hbhpdf hbhttpd hblzf hbmemio hbmisc hbmlzo hbmxml hbmzip hbnetio hbnetio/utils/hbnetio hbnf hboslib hbpipeio hbsms hbsqlit3 hbtcpio hbtest hbtip hbtpathy hbunix hbxpp hbxdiff hbzebra hbziparc rddbm rddmisc rddsql sddsqlt3 xhb %{?_with_cairo:hbcairo} %{?_with_cups:hbcups} %{?_with_curl:hbcurl} %{?_with_freeimage:hbfimage} %{?_with_gd:hbgd} %{?_with_openssl:hbssl} %{?_with_firebird:hbfbird sddfb} %{?_with_mysql:hbmysql sddmy} %{?_with_odbc:hbodbc sddodbc} %{?_with_pgsql:hbpgsql sddpg} %{?_with_ads:rddads} hbdoc hbrun"
+%define hb_env    %{hb_plat} ; %{hb_cc} ; %{hb_cflag} ; %{hb_lflag} ; %{hb_dflag} ; %{shl_path} ; %{hb_gpm} ; %{hb_crs} ; %{hb_sln} ; %{hb_x11} ; %{hb_local} ; %{hb_proot} ; %{hb_bdir} ; %{hb_idir} ; %{hb_ldir} ; %{hb_ddir} ; %{hb_edir} ; %{hb_cdir} ; %{hb_mdir} ; %{hb_tdir} ; %{hb_ctrb} ; %{hb_cmrc} ; %{hb_blds} ; %{hb_bldsh}
 ######################################################################
 ## Preamble.
 ######################################################################
@@ -279,19 +281,19 @@ statikus szerkesztéshez.
 %{?_with_firebird:Ten pakiet udostępnia statyczn+ biliotekę Firebird dla kompilatora %{dname}.}
 
 ## freeimage library
-#%{?_with_freeimage:%package freeimage}
-#%{?_with_freeimage:Summary:        FreeImage library bindings for %{dname} compiler}
-#%{?_with_freeimage:Summary(pl):    Bilioteka FreeImage dla kompilatora %{dname}}
-#%{?_with_freeimage:Group:          Development/Languages}
-#%{?_with_freeimage:Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}}
+%{?_with_freeimage:%package freeimage}
+%{?_with_freeimage:Summary:        FreeImage library bindings for %{dname} compiler}
+%{?_with_freeimage:Summary(pl):    Bilioteka FreeImage dla kompilatora %{dname}}
+%{?_with_freeimage:Group:          Development/Languages}
+%{?_with_freeimage:Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}}
 
-#%{?_with_freeimage:%description freeimage}
-#%{?_with_freeimage:%{dname} is a Clipper compatible compiler.}
-#%{?_with_freeimage:This package provides %{dname} FreeImage library for program linking.}
+%{?_with_freeimage:%description freeimage}
+%{?_with_freeimage:%{dname} is a Clipper compatible compiler.}
+%{?_with_freeimage:This package provides %{dname} FreeImage library for program linking.}
 
-#%{?_with_freeimage:%description -l pl freeimage}
-#%{?_with_freeimage:%{dname} to kompatybilny z językiem CA-Cl*pper kompilator.}
-#%{?_with_freeimage:Ten pakiet udostępnia statyczn+ biliotekę FreeImage dla kompilatora %{dname}.}
+%{?_with_freeimage:%description -l pl freeimage}
+%{?_with_freeimage:%{dname} to kompatybilny z językiem CA-Cl*pper kompilator.}
+%{?_with_freeimage:Ten pakiet udostępnia statyczn+ biliotekę FreeImage dla kompilatora %{dname}.}
 
 ## gd library
 %{?_with_gd:%package gd}
@@ -307,6 +309,21 @@ statikus szerkesztéshez.
 %{?_with_gd:%description -l pl gd}
 %{?_with_gd:%{dname} to kompatybilny z językiem CA-Cl*pper kompilator.}
 %{?_with_gd:Ten pakiet udostępnia statyczn+ biliotekę GD dla kompilatora %{dname}.}
+
+## openssl library
+%{?_with_openssl:%package openssl}
+%{?_with_openssl:Summary:        OpenSSL library bindings for %{dname} compiler}
+%{?_with_openssl:Summary(pl):    Bilioteka OpenSSL dla kompilatora %{dname}}
+%{?_with_openssl:Group:          Development/Languages}
+%{?_with_openssl:Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}}
+
+%{?_with_openssl:%description openssl}
+%{?_with_openssl:%{dname} is a Clipper compatible compiler.}
+%{?_with_openssl:This package provides %{dname} OpenSSL library for program linking.}
+
+%{?_with_openssl:%description -l pl openssl}
+%{?_with_openssl:%{dname} to kompatybilny z językiem CA-Cl*pper kompilator.}
+%{?_with_openssl:Ten pakiet udostępnia statyczn+ biliotekę OpenSSL dla kompilatora %{dname}.}
 
 ## mysql library
 %{?_with_mysql:%package mysql}
@@ -360,7 +377,7 @@ statikus szerkesztéshez.
 
 %prep
 %setup -c %{name}
-rm -rf $RPM_BUILD_ROOT
+rm -rf "$RPM_BUILD_ROOT"
 
 ######################################################################
 ## Build.
@@ -387,7 +404,6 @@ make install %{?_smp_mflags}
 
 %{?_without_curses:rm -f $HB_INSTALL_LIB/libgtcrs.a}
 %{?_without_slang:rm -f $HB_INSTALL_LIB/libgtsln.a}
-%{!?_with_openssl:rm -f $HB_INSTALL_LIB/libhbssl.a}
 %{!?_with_localbz2:rm -f $HB_INSTALL_LIB/libbz2.a}
 %{!?hb_ldconf:rm -fR $HB_INSTALL_ETC/ld.so.conf.d}
 %{?hb_ldconf:rm -f $RPM_BUILD_ROOT/%{_libdir}/*.so*}
@@ -414,7 +430,7 @@ rm -f \
 ######################################################################
 ## Clean.
 ######################################################################
-rm -rf $RPM_BUILD_ROOT
+rm -rf "$RPM_BUILD_ROOT"
 
 ######################################################################
 ## File list.
@@ -444,31 +460,31 @@ rm -rf $RPM_BUILD_ROOT
 
 %defattr(644,root,root,755)
 %dir %{_libdir}/%{name}
-%{_libdir}/%{name}/libhbcpage.a
+%{_libdir}/%{name}/libgt[^a]*.a
 %{_libdir}/%{name}/libhbcommon.a
+%{_libdir}/%{name}/libhbcpage.a
 %{_libdir}/%{name}/libhbcplr.a
 %{_libdir}/%{name}/libhbdebug.a
-%{_libdir}/%{name}/librddfpt.a
-%{_libdir}/%{name}/librddcdx.a
-%{_libdir}/%{name}/librddntx.a
-%{_libdir}/%{name}/librddnsx.a
-%{_libdir}/%{name}/libgt[^a]*.a
+%{_libdir}/%{name}/libhbextern.a
+%{_libdir}/%{name}/libhbhsx.a
 %{_libdir}/%{name}/libhblang.a
 %{_libdir}/%{name}/libhbmacro.a
-%{_libdir}/%{name}/libhbextern.a
-%{_libdir}/%{name}/libhbnulrdd.a
 %{_libdir}/%{name}/libhbnortl.a
+%{_libdir}/%{name}/libhbnulrdd.a
 %{_libdir}/%{name}/libhbpp.a
 %{_libdir}/%{name}/libhbrdd.a
-%{_libdir}/%{name}/libhbhsx.a
-%{_libdir}/%{name}/libhbsix.a
 %{_libdir}/%{name}/libhbrtl.a
+%{_libdir}/%{name}/libhbsix.a
+%{_libdir}/%{name}/libhbusrrdd.a
 %{_libdir}/%{name}/libhbvm.a
 %{_libdir}/%{name}/libhbvmmt.a
-%{_libdir}/%{name}/libhbusrrdd.a
-%{?_with_localzlib:%{_libdir}/%{name}/libhbzlib.a}
-%{?_with_localpcre2:%{_libdir}/%{name}/libhbpcre2.a}
+%{_libdir}/%{name}/librddcdx.a
+%{_libdir}/%{name}/librddfpt.a
+%{_libdir}/%{name}/librddnsx.a
+%{_libdir}/%{name}/librddntx.a
 %{?_with_localpcre:%{_libdir}/%{name}/libhbpcre.a}
+%{?_with_localpcre2:%{_libdir}/%{name}/libhbpcre2.a}
+%{?_with_localzlib:%{_libdir}/%{name}/libhbzlib.a}
 
 %files lib
 %defattr(755,root,root,755)
@@ -614,18 +630,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/%{name}/contrib/xhb/*
 %{_libdir}/%{name}/libxhb.a
 
-%{?_with_openssl:%dir %{_datadir}/%{name}/contrib/hbssl}
-%{?_with_openssl:%{_datadir}/%{name}/contrib/hbssl/*}
-%{?_with_openssl:%{_libdir}/%{name}/libhbssl.a}
-
 %{?_with_ads:%files ads}
 %{?_with_ads:%defattr(644,root,root,755)}
 %{?_with_ads:%dir %{_libdir}/%{name}}
 %{?_with_ads:%dir %{_datadir}/%{name}}
 %{?_with_ads:%dir %{_datadir}/%{name}/contrib}
 %{?_with_ads:%dir %{_datadir}/%{name}/contrib/rddads}
-%{?_with_ads:%{_datadir}/%{name}/contrib/rddads/*}
 %{?_with_ads:%{_libdir}/%{name}/librddads.a}
+%{?_with_ads:%{_datadir}/%{name}/contrib/rddads/*}
 
 %{?_with_cairo:%files cairo}
 %{?_with_cairo:%defattr(644,root,root,755)}
@@ -665,14 +677,14 @@ rm -rf $RPM_BUILD_ROOT
 %{?_with_firebird:%{_datadir}/%{name}/contrib/sddfb/*}
 %{?_with_firebird:%{_datadir}/%{name}/contrib/hbfbird/*}
 
-#%{?_with_freeimage:%files freeimage}
-#%{?_with_freeimage:%defattr(644,root,root,755)}
-#%{?_with_freeimage:%dir %{_libdir}/%{name}}
-#%{?_with_freeimage:%dir %{_datadir}/%{name}}
-#%{?_with_freeimage:%dir %{_datadir}/%{name}/contrib}
-#%{?_with_freeimage:%dir %{_datadir}/%{name}/contrib/hbfimage}
-#%{?_with_freeimage:%{_libdir}/%{name}/libhbfimage.a}
-#%{?_with_freeimage:%{_datadir}/%{name}/contrib/hbfimage/*}
+%{?_with_freeimage:%files freeimage}
+%{?_with_freeimage:%defattr(644,root,root,755)}
+%{?_with_freeimage:%dir %{_libdir}/%{name}}
+%{?_with_freeimage:%dir %{_datadir}/%{name}}
+%{?_with_freeimage:%dir %{_datadir}/%{name}/contrib}
+%{?_with_freeimage:%dir %{_datadir}/%{name}/contrib/hbfimage}
+%{?_with_freeimage:%{_libdir}/%{name}/libhbfimage.a}
+%{?_with_freeimage:%{_datadir}/%{name}/contrib/hbfimage/*}
 
 %{?_with_gd:%files gd}
 %{?_with_gd:%defattr(644,root,root,755)}
@@ -682,6 +694,15 @@ rm -rf $RPM_BUILD_ROOT
 %{?_with_gd:%dir %{_datadir}/%{name}/contrib/hbgd}
 %{?_with_gd:%{_libdir}/%{name}/libhbgd.a}
 %{?_with_gd:%{_datadir}/%{name}/contrib/hbgd/*}
+
+%{?_with_openssl:%files openssl}
+%{?_with_openssl:%defattr(644,root,root,755)}
+%{?_with_openssl:%dir %{_libdir}/%{name}}
+%{?_with_openssl:%dir %{_datadir}/%{name}}
+%{?_with_openssl:%dir %{_datadir}/%{name}/contrib}
+%{?_with_openssl:%dir %{_datadir}/%{name}/contrib/hbssl}
+%{?_with_openssl:%{_libdir}/%{name}/libhbssl.a}
+%{?_with_openssl:%{_datadir}/%{name}/contrib/hbssl/*}
 
 %{?_with_mysql:%files mysql}
 %{?_with_mysql:%defattr(644,root,root,755)}
@@ -724,9 +745,12 @@ rm -rf $RPM_BUILD_ROOT
 ######################################################################
 
 %changelog
+* Tue Mar 28 2017 Viktor Szakats (vszakats.net/harbour)
+- lots of updates to sync with Harbour changes, see main ChangeLog.txt
+
 * Tue Aug 05 2008 Viktor Szakats (vszakats.net/harbour)
 - removed hbdot, hbverfix, hbpptest
-- hbrun now fully replaces hbdot.
+- hbrun now fully replaces hbdot
 
 * Thu Aug 23 2007 Przemyslaw Czerpak <druzus@priv.onet.pl>
 + added hbdot

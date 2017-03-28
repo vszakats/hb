@@ -19,8 +19,8 @@ _all_ above points is considered rude though.
 ### Bug reports:
 
 Please replace this section with a brief summary of your issue, including
-self-contained example code, stdout/stderr output, platform/compiler and
-version details.
+self-contained example code, combined stdout/stderr output, platform/compiler
+and version/revision details.
 
 ### Notes:
 

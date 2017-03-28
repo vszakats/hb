@@ -34,15 +34,13 @@ rm -f "$hb_filename"
 
 #[ -z "$TZ" ] && export TZ=PST8PDT
 
-hb_collect_all_git()
-{
+hb_collect_all_git() {
   for f in $(git ls-tree HEAD -r --name-only); do
     [ -f "$f" ] && echo "$f"
   done
 }
 
-hb_collect_all_tree()
-{
+hb_collect_all_tree() {
   unset GREP_OPTIONS
   _exclude='/obj/|/lib/|/bin/.*/|\.tar|\.zip|\.exe|\.log|/linux/|/win|/config/'
   for f in $(find . -type f | grep -vE "${_exclude}"); do

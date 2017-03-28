@@ -7,8 +7,7 @@
 # See LICENSE.txt for licensing terms.
 # ---------------------------------------------------------------
 
-get_hbver()
-{
+get_hbver() {
   if [ -z "$hb_rootdir" ]; then
     hb_rootdir='..'
   fi
@@ -19,8 +18,7 @@ get_hbver()
   echo "${MAJOR}.${MINOR}.${RELEA}"
 }
 
-get_hbverstat()
-{
+get_hbverstat() {
   if [ -z "$hb_rootdir" ]; then
     hb_rootdir='..'
   fi
