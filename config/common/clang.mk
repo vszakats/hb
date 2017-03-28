@@ -59,7 +59,7 @@ endif
 ifneq ($(HB_BUILD_OPTIM),no)
    ifeq ($(HB_BUILD_DEBUG),yes)
       ifeq ($(filter $(HB_COMPILER_VER),0304 0305 0306 0307 0308 0309),)
-         CFLAGS += -Og
+         CFLAGS += -O3
       else
          CFLAGS += -O1
       endif
