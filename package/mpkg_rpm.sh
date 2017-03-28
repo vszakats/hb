@@ -142,9 +142,12 @@ if ( [ ! -f /usr/include/pcre2.h ] && \
 fi
 if ( [ ! -f /usr/include/bzlib.h ] && \
      [ ! -f /usr/local/include/bzlib.h ] ) || \
-  [ "$HB_WITH_BZIP2" = "local" ]
-then
+  [ "$HB_WITH_BZIP2" = "local" ]; then
   INST_PARAM="${INST_PARAM} --with localbz2"
+fi
+if ! test_reqrpm 'expat-devel' || \
+   [ "$HB_WITH_EXPAT" = 'local' ]; then
+  INST_PARAM="${INST_PARAM} --with localexpat"
 fi
 
 TOINST_LST=''

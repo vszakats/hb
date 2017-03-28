@@ -6,6 +6,7 @@
 -w3 -es2
 
 -depurlbase=minilzo:https://www.oberhumer.com/opensource/lzo/
+-deppkgname=minilzo:lzo-devel{rpm}
 -deppkgname=minilzo:mingw-w64-i686-lzo2{msys2&mingw}
 -deppkgname=minilzo:mingw-w64-x86_64-lzo2{msys2&mingw64}
 -deppkgname=minilzo:lzo{pacman}

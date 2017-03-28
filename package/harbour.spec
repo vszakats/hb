@@ -66,7 +66,7 @@
 %define hb_crs    export HB_WITH_CURSES=%{!?_without_curses:yes}%{?_without_curses:no}
 %define hb_sln    export HB_WITH_SLANG=%{!?_without_slang:yes}%{?_without_slang:no}
 %define hb_x11    export HB_WITH_X11=%{!?_without_x11:yes}%{?_without_x11:no}
-%define hb_local  export HB_WITH_ZLIB=%{?_with_localzlib:local} ; export HB_WITH_PCRE2=%{?_with_localpcre2:local} ; export HB_WITH_PCRE=%{?_with_localpcre:local} ; export HB_WITH_BZIP2=%{?_with_localbz2:local}
+%define hb_local  export HB_WITH_ZLIB=%{?_with_localzlib:local} ; export HB_WITH_PCRE2=%{?_with_localpcre2:local} ; export HB_WITH_PCRE=%{?_with_localpcre:local} ; export HB_WITH_BZIP2=%{?_with_localbz2:local} ; export HB_WITH_EXPAT=%{?_with_localexpat:local}
 %define hb_proot  export HB_INSTALL_PKG_ROOT=${RPM_BUILD_ROOT}
 %define hb_bdir   export HB_INSTALL_BIN=${RPM_BUILD_ROOT}%{_bindir}
 %define hb_ldir   export HB_INSTALL_LIB=${RPM_BUILD_ROOT}%{_libdir}/%{name}
@@ -405,6 +405,7 @@ make install %{?_smp_mflags}
 %{?_without_curses:rm -f $HB_INSTALL_LIB/libgtcrs.a}
 %{?_without_slang:rm -f $HB_INSTALL_LIB/libgtsln.a}
 %{!?_with_localbz2:rm -f $HB_INSTALL_LIB/libbz2.a}
+%{!?_with_localexpat:rm -f $HB_INSTALL_LIB/libexpat.a}
 %{!?hb_ldconf:rm -fR $HB_INSTALL_ETC/ld.so.conf.d}
 %{?hb_ldconf:rm -f $RPM_BUILD_ROOT/%{_libdir}/*.so*}
 rm -f $RPM_BUILD_ROOT/%{_bindir}/{3rdpatch.hb,commit.hb,hb-uncrustify.cfg}
@@ -527,6 +528,7 @@ rm -rf "$RPM_BUILD_ROOT"
 %{_libdir}/%{name}/libscrypt.a
 %dir %{_datadir}/%{name}/contrib/hbexpat
 %{_datadir}/%{name}/contrib/hbexpat/*
+%{?_with_localexpat:%{_libdir}/%{name}/libexpat.a}
 %{_libdir}/%{name}/libhbexpat.a
 %dir %{_datadir}/%{name}/contrib/hbformat
 %{_datadir}/%{name}/contrib/hbformat/*
