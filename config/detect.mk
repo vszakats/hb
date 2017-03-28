@@ -14,16 +14,18 @@ export DETECT_MK_ := yes
 _DET_OPT_VERB := very
 
 # Reset everything to default
-export HB_HAS_ZLIB       :=
-export HB_HAS_ZLIB_LOCAL :=
-export HB_HAS_PCRE       :=
-export HB_HAS_PCRE_LOCAL :=
-export HB_HAS_OPENSSL    :=
-export HB_HAS_GPM        :=
-export HB_HAS_SLANG      :=
-export HB_HAS_CURSES     :=
-export HB_HAS_X11        :=
-export HB_HAS_WATT       :=
+export HB_HAS_ZLIB        :=
+export HB_HAS_ZLIB_LOCAL  :=
+export HB_HAS_PCRE2       :=
+export HB_HAS_PCRE2_LOCAL :=
+export HB_HAS_PCRE        :=
+export HB_HAS_PCRE_LOCAL  :=
+export HB_HAS_OPENSSL     :=
+export HB_HAS_GPM         :=
+export HB_HAS_SLANG       :=
+export HB_HAS_CURSES      :=
+export HB_HAS_X11         :=
+export HB_HAS_WATT        :=
 
 # Exclude Harbour-wide features prohibiting commercial use
 

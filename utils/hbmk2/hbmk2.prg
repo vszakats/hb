@@ -4781,7 +4781,6 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          /* Add system libraries */
          IF ! hbmk[ _HBMK_lSHARED ]
             IF ! HBMK_ISPLAT( "beos|vxworks" )
-               AAdd( l_aLIBSYS, "m" )
                IF hbmk[ _HBMK_lMT ]
                   IF ! HBMK_ISPLAT( "qnx|android|minix" )
                      AAdd( l_aLIBSYS, "pthread" )
@@ -4811,21 +4810,24 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
                AAddNew( hbmk[ _HBMK_aLIBPATH ], "/usr/lib" )
                AAddNew( hbmk[ _HBMK_aLIBPATH ], "/usr/pkg/lib" )
             ENDCASE
+         ENDIF
 
 #ifdef HARBOUR_SUPPORT
-            IF ! Empty( cLIB_BASE_PCRE ) .AND. ! hb_vfExists( _HBLIB_FULLPATH( cLIB_BASE_PCRE ) )
-               IF hbmk[ _HBMK_cPLAT ] == "bsd"
-                  AAddNew( hbmk[ _HBMK_aLIBPATH ], "/usr/local/lib" )
-               ENDIF
-               AAdd( l_aLIBSYS, iif( HB_HAS_OPTION( "pcre2" ), "pcre2-8", "pcre" ) )
-               cLIB_BASE_PCRE := NIL
-            ENDIF
-            IF ! Empty( cLIB_BASE_ZLIB ) .AND. ! hb_vfExists( _HBLIB_FULLPATH( cLIB_BASE_ZLIB ) )
-               AAdd( l_aLIBSYS, "z" )
-               cLIB_BASE_ZLIB := NIL
-            ENDIF
-#endif
+         IF ! HBMK_ISPLAT( "beos|vxworks" )
+            AAdd( l_aLIBSYS, "m" )
          ENDIF
+         IF ! Empty( cLIB_BASE_PCRE ) .AND. ! hb_vfExists( _HBLIB_FULLPATH( cLIB_BASE_PCRE ) )
+            IF hbmk[ _HBMK_cPLAT ] == "bsd"
+               AAddNew( hbmk[ _HBMK_aLIBPATH ], "/usr/local/lib" )
+            ENDIF
+            AAdd( l_aLIBSYS, iif( HB_HAS_OPTION( "pcre2" ), "pcre2-8", "pcre" ) )
+            cLIB_BASE_PCRE := NIL
+         ENDIF
+         IF ! Empty( cLIB_BASE_ZLIB ) .AND. ! hb_vfExists( _HBLIB_FULLPATH( cLIB_BASE_ZLIB ) )
+            AAdd( l_aLIBSYS, "z" )
+            cLIB_BASE_ZLIB := NIL
+         ENDIF
+#endif
 
          IF IsGTRequested( hbmk, "gtcrs" )
             /* FIXME: Sometimes 'ncur194' is needed. */
@@ -14490,6 +14492,7 @@ STATIC FUNCTION CompVersionDetect( hbmk, cPath_CompC )
             /* Apple clang version vs. official LLVM/clang version:
                  https://opensource.apple.com/source/clang/ -> clang-<version>/src/CMakeLists.txt
                  https://opensource.apple.com//source/clang/clang-800.0.38/src/CMakeLists.txt
+                 https://gist.github.com/yamaya/2924292
                NOTE: It's an interim SVN revision with possible differences in features.
                [vszakats] */
 

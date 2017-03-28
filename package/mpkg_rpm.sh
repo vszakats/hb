@@ -138,7 +138,9 @@ fi
 if ( [ ! -f /usr/include/pcre2.h ] && \
      [ ! -f /usr/local/include/pcre2.h ] ) || \
    [ "$HB_WITH_PCRE2" = 'local' ]; then
-  INST_PARAM="${INST_PARAM} --with localpcre2"
+  # We're not yet vendoring pcre2 sources
+  :
+  # INST_PARAM="${INST_PARAM} --with localpcre2"
 fi
 if ( [ ! -f /usr/include/bzlib.h ] && \
      [ ! -f /usr/local/include/bzlib.h ] ) || \
@@ -165,7 +167,11 @@ if [ -z "${TOINST_LST}" ] || [ "${FORCE}" = 'yes' ]; then
   elif [ -f "${hb_filename}" ]; then
     if ( [ "$(id -u)" != 0 ] || [ -f /.dockerenv ] ) && \
        [ ! -f "${HOME}/.rpmmacros" ]; then
-      RPMDIR="${HOME}/RPM"
+      if [ -f /.dockerenv ]; then
+        RPMDIR="${PWD}/RPM"
+      else
+        RPMDIR="${HOME}/RPM"
+      fi
       mkdir -p "${RPMDIR}/SOURCES" "${RPMDIR}/RPMS" "${RPMDIR}/SRPMS" \
                "${RPMDIR}/BUILD" "${RPMDIR}/SPECS"
       echo "%_topdir ${RPMDIR}" > "${HOME}/.rpmmacros"

@@ -77,7 +77,7 @@
 %define hb_blds   export HB_BUILD_STRIP=all
 %define hb_bldsh  export HB_BUILD_SHARED=%{!?_with_static:yes}
 %define hb_cmrc   export HB_BUILD_NOGPLLIB=%{?_without_gpllib:yes}
-%define hb_ctrb   export HB_BUILD_CONTRIBS="hbblink hbct hbgt hbmisc hbmzip hbbz2 hbtip hbtpathy hbcomm hbhpdf hbziparc hbfoxpro hbsms hbfship hbxpp xhb rddbm rddsql hbsqlit3 sddsqlt3 hbnf hbhttpd hbformat hbunix hbzebra hblzf hbcomio hbmemio hbnetio hbpipeio hbtcpio hbmlzo hbmxml hbexpat %{?_with_cairo:hbcairo} %{?_with_cups:hbcups} %{?_with_curl:hbcurl} %{?_with_freeimage:hbfimage} %{?_with_gd:hbgd} %{?_with_firebird:hbfbird sddfb} %{?_with_mysql:hbmysql sddmy} %{?_with_odbc:hbodbc sddodbc} %{?_with_pgsql:hbpgsql sddpg} %{?_with_ads:rddads} hbrun"
+%define hb_ctrb   export HB_BUILD_CONTRIBS="hbblink hbbz2 hbcomio hbcomm hbcrypto hbct hbexpat hbformat hbformat/utils hbfoxpro hbfship hbgt hbhpdf hbhttpd hblzf hbmemio hbmisc hbmlzo hbmxml hbmzip hbnetio hbnetio/utils/hbnetio hbnf hboslib hbpipeio hbsms hbsqlit3 hbtcpio hbtest hbtip hbtpathy hbunix hbxpp hbxdiff hbzebra hbziparc rddbm rddmisc rddsql sddsqlt3 xhb %{?_with_cairo:hbcairo} %{?_with_cups:hbcups} %{?_with_curl:hbcurl} %{?_with_freeimage:hbfimage} %{?_with_gd:hbgd} %{?_with_firebird:hbfbird sddfb} %{?_with_mysql:hbmysql sddmy} %{?_with_odbc:hbodbc sddodbc} %{?_with_pgsql:hbpgsql sddpg} %{?_with_ads:rddads} hbdoc hbrun"
 %define hb_env    %{hb_plat} ; %{hb_cc} ; %{hb_cflag} ; %{hb_lflag} ; %{hb_dflag} ; %{shl_path} ; %{hb_gpm} ; %{hb_crs} ; %{hb_sln} ; %{hb_x11} ; %{hb_ssl} ; %{hb_local} ; %{hb_proot} ; %{hb_bdir} ; %{hb_idir} ; %{hb_ldir} ; %{hb_ddir} ; %{hb_edir} ; %{hb_cdir} ; %{hb_mdir} ; %{hb_tdir} ; %{hb_ctrb} ; %{hb_cmrc} ; %{hb_blds} ; %{hb_bldsh}
 ######################################################################
 ## Preamble.
@@ -392,13 +392,14 @@ make install %{?_smp_mflags}
 %{!?hb_ldconf:rm -fR $HB_INSTALL_ETC/ld.so.conf.d}
 %{?hb_ldconf:rm -f $RPM_BUILD_ROOT/%{_libdir}/*.so*}
 rm -f $RPM_BUILD_ROOT/%{_bindir}/{3rdpatch.hb,commit.hb,hb-uncrustify.cfg}
-rm -f $HB_INSTALL_LIB/libpng.a \
-      $HB_INSTALL_LIB/liblibhpdf.a \
-      $HB_INSTALL_LIB/libsqlite3.a \
-      $HB_INSTALL_LIB/libexpat.a \
-      $HB_INSTALL_LIB/liblzf.a \
-      $HB_INSTALL_LIB/libminilzo.a \
-      $HB_INSTALL_LIB/libmxml.a
+rm -f \
+  $HB_INSTALL_LIB/libpng.a \
+  $HB_INSTALL_LIB/libexpat.a \
+  $HB_INSTALL_LIB/libhpdf.a \
+  $HB_INSTALL_LIB/liblzf.a \
+  $HB_INSTALL_LIB/libminilzo.a \
+  $HB_INSTALL_LIB/libsqlite3.a \
+  $HB_INSTALL_LIB/libxdiff.a
 
 ######################################################################
 ## Post install/uninstall scripts
@@ -428,14 +429,15 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{hb_etcdir}
 %verify(not md5 mtime) %config %{hb_etcdir}/hb-charmap.def
 %{_bindir}/harbour
-%{_bindir}/hbpp
-%{_bindir}/hbtest
-%{_bindir}/hbspeed
-%{_bindir}/hbrun
+%{_bindir}/hbdoc
+%{_bindir}/hbformat
 %{_bindir}/hbi18n
 %{_bindir}/hbmk2
-%{_bindir}/hbmk2.*.hbl
-%{_bindir}/contrib.hbr
+%{_bindir}/hbnetio
+%{_bindir}/hbpp
+%{_bindir}/hbrun
+%{_bindir}/hbspeed
+%{_bindir}/hbtest
 %{_mandir}/man1/*.1*
 %dir %{_includedir}/%{name}
 %attr(644,root,root) %{_includedir}/%{name}/*
@@ -480,18 +482,69 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/%{name}
 %dir %{_datadir}/%{name}
 %dir %{_datadir}/%{name}/contrib
-%dir %{_datadir}/%{name}/contrib/hbnf
-%{_datadir}/%{name}/contrib/hbnf/*
-%{_libdir}/%{name}/libhbnf.a
+%{_datadir}/%{name}/contrib/contrib.hbr
+%dir %{_datadir}/%{name}/contrib/3rd/sqlite3
+%{_datadir}/%{name}/contrib/3rd/sqlite3/*
 %dir %{_datadir}/%{name}/contrib/hbblink
 %{_datadir}/%{name}/contrib/hbblink/*
 %{_libdir}/%{name}/libhbblink.a
-%dir %{_datadir}/%{name}/contrib/hbmisc
-%{_datadir}/%{name}/contrib/hbmisc/*
-%{_libdir}/%{name}/libhbmisc.a
+%dir %{_datadir}/%{name}/contrib/hbbz2
+%{_datadir}/%{name}/contrib/hbbz2/*
+%{?_with_localbz2:%{_libdir}/%{name}/libbz2.a}
+%{_libdir}/%{name}/libhbbz2.a
+%dir %{_datadir}/%{name}/contrib/hbbz2io
+%{_datadir}/%{name}/contrib/hbbz2io/*
+%{_libdir}/%{name}/libhbbz2io.a
+%dir %{_datadir}/%{name}/contrib/hbcomio
+%{_datadir}/%{name}/contrib/hbcomio/*
+%{_libdir}/%{name}/libhbcomio.a
+%dir %{_datadir}/%{name}/contrib/hbcomm
+%{_datadir}/%{name}/contrib/hbcomm/*
+%{_libdir}/%{name}/libhbcomm.a
+%dir %{_datadir}/%{name}/contrib/hbct
+%{_datadir}/%{name}/contrib/hbct/*
+%{_libdir}/%{name}/libhbct.a
+%dir %{_datadir}/%{name}/contrib/hbcrypto
+%{_datadir}/%{name}/contrib/hbcrypto/*
+%{_libdir}/%{name}/libhbcrypto.a
+%{_libdir}/%{name}/libed25519.a
+%{_libdir}/%{name}/libscrypt.a
 %dir %{_datadir}/%{name}/contrib/hbexpat
 %{_datadir}/%{name}/contrib/hbexpat/*
 %{_libdir}/%{name}/libhbexpat.a
+%dir %{_datadir}/%{name}/contrib/hbformat
+%{_datadir}/%{name}/contrib/hbformat/*
+%{_libdir}/%{name}/libhbformat.a
+%dir %{_datadir}/%{name}/contrib/hbfoxpro
+%{_datadir}/%{name}/contrib/hbfoxpro/*
+%{_libdir}/%{name}/libhbfoxpro.a
+%dir %{_datadir}/%{name}/contrib/hbfship
+%{_datadir}/%{name}/contrib/hbfship/*
+%{_libdir}/%{name}/libhbfship.a
+%dir %{_datadir}/%{name}/contrib/hbgt
+%{_datadir}/%{name}/contrib/hbgt/*
+%{_libdir}/%{name}/libhbgt.a
+%dir %{_datadir}/%{name}/contrib/hbgzio
+%{_datadir}/%{name}/contrib/hbgzio/*
+%{_libdir}/%{name}/libhbgzio.a
+%dir %{_datadir}/%{name}/contrib/hbhpdf
+%{_datadir}/%{name}/contrib/hbhpdf/*
+%{_libdir}/%{name}/libhbhpdf.a
+%dir %{_datadir}/%{name}/contrib/hbhttpd
+%{_datadir}/%{name}/contrib/hbhttpd/*
+%{_libdir}/%{name}/libhbhttpd.a
+%dir %{_datadir}/%{name}/contrib/hblzf
+%{_datadir}/%{name}/contrib/hblzf/*
+%{_libdir}/%{name}/libhblzf.a
+%dir %{_datadir}/%{name}/contrib/hbmemio
+%{_datadir}/%{name}/contrib/hbmemio/*
+%{_libdir}/%{name}/libhbmemio.a
+%dir %{_datadir}/%{name}/contrib/hbmisc
+%{_datadir}/%{name}/contrib/hbmisc/*
+%{_libdir}/%{name}/libhbmisc.a
+%dir %{_datadir}/%{name}/contrib/hbmlzo
+%{_datadir}/%{name}/contrib/hbmlzo/*
+%{_libdir}/%{name}/libhbmlzo.a
 %dir %{_datadir}/%{name}/contrib/hbmxml
 %{_datadir}/%{name}/contrib/hbmxml/*
 %{_libdir}/%{name}/libhbmxml.a
@@ -500,73 +553,51 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/%{name}/contrib/hbmzip/*
 %{_libdir}/%{name}/libminizip.a
 %{_libdir}/%{name}/libhbmzip.a
-%dir %{_datadir}/%{name}/contrib/hbbz2
-%{_datadir}/%{name}/contrib/hbbz2/*
-%{?_with_localbz2:%{_libdir}/%{name}/libbz2.a}
-%{_libdir}/%{name}/libhbbz2.a
-%dir %{_datadir}/%{name}/contrib/hblzf
-%{_datadir}/%{name}/contrib/hblzf/*
-%{_libdir}/%{name}/libhblzf.a
-%dir %{_datadir}/%{name}/contrib/hbmlzo
-%{_datadir}/%{name}/contrib/hbmlzo/*
-%{_libdir}/%{name}/libhbmlzo.a
-%dir %{_datadir}/%{name}/contrib/hbcomm
-%{_datadir}/%{name}/contrib/hbcomm/*
-%{_libdir}/%{name}/libhbcomm.a
-%dir %{_datadir}/%{name}/contrib/hbcomio
-%{_datadir}/%{name}/contrib/hbcomio/*
-%{_libdir}/%{name}/libhbcomio.a
-%dir %{_datadir}/%{name}/contrib/hbmemio
-%{_datadir}/%{name}/contrib/hbmemio/*
-%{_libdir}/%{name}/libhbmemio.a
 %dir %{_datadir}/%{name}/contrib/hbnetio
 %{_datadir}/%{name}/contrib/hbnetio/*
 %{_libdir}/%{name}/libhbnetio.a
+%dir %{_datadir}/%{name}/contrib/hbnf
+%{_datadir}/%{name}/contrib/hbnf/*
+%{_libdir}/%{name}/libhbnf.a
+%dir %{_datadir}/%{name}/contrib/hboslib
+%{_datadir}/%{name}/contrib/hboslib/*
+%{_libdir}/%{name}/libhboslib.a
 %dir %{_datadir}/%{name}/contrib/hbpipeio
 %{_datadir}/%{name}/contrib/hbpipeio/*
 %{_libdir}/%{name}/libhbpipeio.a
+%dir %{_datadir}/%{name}/contrib/hbsms
+%{_datadir}/%{name}/contrib/hbsms/*
+%{_libdir}/%{name}/libhbsms.a
+%dir %{_datadir}/%{name}/contrib/hbsqlit3
+%{_datadir}/%{name}/contrib/hbsqlit3/*
+%{_libdir}/%{name}/libhbsqlit3.a
 %dir %{_datadir}/%{name}/contrib/hbtcpio
 %{_datadir}/%{name}/contrib/hbtcpio/*
 %{_libdir}/%{name}/libhbtcpio.a
-%dir %{_datadir}/%{name}/contrib/hbct
-%{_datadir}/%{name}/contrib/hbct/*
-%{_libdir}/%{name}/libhbct.a
+%dir %{_datadir}/%{name}/contrib/hbtest
+%{_datadir}/%{name}/contrib/hbtest/*
+%{_libdir}/%{name}/libhbtest.a
 %dir %{_datadir}/%{name}/contrib/hbtip
 %{_datadir}/%{name}/contrib/hbtip/*
 %{_libdir}/%{name}/libhbtip.a
-%dir %{_datadir}/%{name}/contrib/hbfoxpro
-%{_datadir}/%{name}/contrib/hbfoxpro/*
-%{_libdir}/%{name}/libhbfoxpro.a
-%dir %{_datadir}/%{name}/contrib/hbfship
-%{_datadir}/%{name}/contrib/hbfship/*
-%{_libdir}/%{name}/libhbfship.a
-%dir %{_datadir}/%{name}/contrib/hbxpp
-%{_datadir}/%{name}/contrib/hbxpp/*
-%{_libdir}/%{name}/libhbxpp.a
-%dir %{_datadir}/%{name}/contrib/xhb
-%{_datadir}/%{name}/contrib/xhb/*
-%{_libdir}/%{name}/libxhb.a
-%dir %{_datadir}/%{name}/contrib/hbhpdf
-%{_datadir}/%{name}/contrib/hbhpdf/*
-%{_libdir}/%{name}/libhbhpdf.a
-%dir %{_datadir}/%{name}/contrib/hbgt
-%{_datadir}/%{name}/contrib/hbgt/*
-%{_libdir}/%{name}/libhbgt.a
 %dir %{_datadir}/%{name}/contrib/hbtpathy
 %{_datadir}/%{name}/contrib/hbtpathy/*
 %{_libdir}/%{name}/libhbtpathy.a
-%dir %{_datadir}/%{name}/contrib/hbziparc
-%{_datadir}/%{name}/contrib/hbziparc/*
-%{_libdir}/%{name}/libhbziparc.a
+%dir %{_datadir}/%{name}/contrib/hbunix
+%{_datadir}/%{name}/contrib/hbunix/*
+%{_libdir}/%{name}/libhbunix.a
+%dir %{_datadir}/%{name}/contrib/hbxpp
+%{_datadir}/%{name}/contrib/hbxpp/*
+%{_libdir}/%{name}/libhbxpp.a
+%dir %{_datadir}/%{name}/contrib/hbxdiff
+%{_datadir}/%{name}/contrib/hbxdiff/*
+%{_libdir}/%{name}/libhbxdiff.a
 %dir %{_datadir}/%{name}/contrib/hbzebra
 %{_datadir}/%{name}/contrib/hbzebra/*
 %{_libdir}/%{name}/libhbzebra.a
-%dir %{_datadir}/%{name}/contrib/hbformat
-%{_datadir}/%{name}/contrib/hbformat/*
-%{_libdir}/%{name}/libhbformat.a
-%dir %{_datadir}/%{name}/contrib/hbhttpd
-%{_datadir}/%{name}/contrib/hbhttpd/*
-%{_libdir}/%{name}/libhbhttpd.a
+%dir %{_datadir}/%{name}/contrib/hbziparc
+%{_datadir}/%{name}/contrib/hbziparc/*
+%{_libdir}/%{name}/libhbziparc.a
 %dir %{_datadir}/%{name}/contrib/rddbm
 %{_datadir}/%{name}/contrib/rddbm/*
 %{_libdir}/%{name}/librddbm.a
@@ -576,18 +607,12 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/%{name}/contrib/rddsql
 %{_datadir}/%{name}/contrib/rddsql/*
 %{_libdir}/%{name}/librddsql.a
-%dir %{_datadir}/%{name}/contrib/hbsqlit3
-%{_datadir}/%{name}/contrib/hbsqlit3/*
-%{_libdir}/%{name}/libhbsqlit3.a
 %dir %{_datadir}/%{name}/contrib/sddsqlt3
 %{_datadir}/%{name}/contrib/sddsqlt3/*
 %{_libdir}/%{name}/libsddsqlt3.a
-%dir %{_datadir}/%{name}/contrib/hbsms
-%{_datadir}/%{name}/contrib/hbsms/*
-%{_libdir}/%{name}/libhbsms.a
-%dir %{_datadir}/%{name}/contrib/hbunix
-%{_datadir}/%{name}/contrib/hbunix/*
-%{_libdir}/%{name}/libhbunix.a
+%dir %{_datadir}/%{name}/contrib/xhb
+%{_datadir}/%{name}/contrib/xhb/*
+%{_libdir}/%{name}/libxhb.a
 
 %{?_with_openssl:%dir %{_datadir}/%{name}/contrib/hbssl}
 %{?_with_openssl:%{_datadir}/%{name}/contrib/hbssl/*}
