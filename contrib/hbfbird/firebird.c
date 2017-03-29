@@ -660,12 +660,12 @@ HB_FUNC( FBGETDATA )
                break;
             }
             case SQL_FLOAT:
-               hb_snprintf( data, sizeof( data ), "%15g ", *( float * ) ( var->sqldata ) );
+               hb_snprintf( data, sizeof( data ), "%15f ", *( float * ) ( var->sqldata ) );
                hb_retc( data );
                break;
 
             case SQL_DOUBLE:
-               hb_snprintf( data, sizeof( data ), "%24f ", *( double * ) ( var->sqldata ) );
+               hb_snprintf( data, sizeof( data ), "%24g ", *( double * ) ( var->sqldata ) );
                hb_retc( data );
                break;
 
