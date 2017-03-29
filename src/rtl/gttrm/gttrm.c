@@ -2376,7 +2376,7 @@ static HB_BOOL hb_trm_isUTF8( PHB_GTTRM pTerm )
 
 static void hb_gt_trm_PutStr( PHB_GTTRM pTerm, int iRow, int iCol, int iAttr, const char * pStr, int iLen, int iChars )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_trm_PutStr(%p,%d,%d,%d,%p,%d,%d)", ( void * ) pTerm, iRow, iCol, iAttr, pStr, iLen, iChars ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_trm_PutStr(%p,%d,%d,%d,%p,%d,%d)", ( void * ) pTerm, iRow, iCol, iAttr, ( const void * ) pStr, iLen, iChars ) );
 
    if( pTerm->iOutBufSize )
    {
@@ -3520,7 +3520,7 @@ static void hb_gt_trm_mouse_GetPos( PHB_GT pGT, int * piRow, int * piCol )
 {
    PHB_GTTRM pTerm;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_trm_mouse_Col(%p,%p,%p)", ( void * ) pGT, piRow, piCol ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_trm_mouse_Col(%p,%p,%p)", ( void * ) pGT, ( void * ) piRow, ( void * ) piCol ) );
 
    pTerm = HB_GTTRM_GET( pGT );
    *piRow = pTerm->mLastEvt.row;

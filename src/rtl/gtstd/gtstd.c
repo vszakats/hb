@@ -719,7 +719,7 @@ static void hb_gt_std_Refresh( PHB_GT pGT )
 
 static HB_BOOL hb_gt_std_Info( PHB_GT pGT, int iType, PHB_GT_INFO pInfo )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_std_Info(%p,%d,%p)", ( void * ) pGT, iType, pInfo ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_std_Info(%p,%d,%p)", ( void * ) pGT, iType, ( void * ) pInfo ) );
 
    switch( iType )
    {
