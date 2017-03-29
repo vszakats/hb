@@ -20,7 +20,7 @@ addons:
       - libfreeimage-dev
       - libgd2-xpm-dev
       - libgpm-dev
-    # - libgs-dev
+      - libgs-dev
       - libicu-dev
       - libmagic-dev
       - libmysqlclient-dev
