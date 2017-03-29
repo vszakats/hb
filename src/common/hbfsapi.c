@@ -243,7 +243,7 @@ PHB_FNAME hb_fsFNameSplit( const char * pszFileName )
 /* This function joins path, name and extension into a string with a filename */
 char * hb_fsFNameMerge( char * pszFileName, PHB_FNAME pFileName )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_fsFNameMerge(%p, %p)", pszFileName, pFileName ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_fsFNameMerge(%p, %p)", ( void * ) pszFileName, ( void * ) pFileName ) );
 
    if( pszFileName && pFileName )
    {
@@ -569,7 +569,7 @@ HB_BOOL hb_fsNameExists( const char * pszFileName )
 {
    HB_BOOL fExist = HB_FALSE;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_fsNameExists(%p)", pszFileName ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_fsNameExists(%p)", ( const void * ) pszFileName ) );
 
    if( pszFileName != NULL )
    {
@@ -621,7 +621,7 @@ HB_BOOL hb_fsFileExists( const char * pszFileName )
 {
    HB_BOOL fExist = HB_FALSE;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_fsFileExists(%p)", pszFileName ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_fsFileExists(%p)", ( const void * ) pszFileName ) );
 
    if( pszFileName != NULL )
    {
@@ -683,7 +683,7 @@ HB_BOOL hb_fsDirExists( const char * pszDirName )
 {
    HB_BOOL fExist = HB_FALSE;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_fsDirExists(%p)", pszDirName ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_fsDirExists(%p)", ( const void * ) pszDirName ) );
 
    if( pszDirName != NULL )
    {

@@ -78,7 +78,7 @@ static char set_char( PHB_ITEM pItem, char oldChar )
 {
    char newChar = oldChar;
 
-   HB_TRACE( HB_TR_DEBUG, ( "set_char(%p, %c)", pItem, oldChar ) );
+   HB_TRACE( HB_TR_DEBUG, ( "set_char(%p, %c)", ( void * ) pItem, oldChar ) );
 
    if( HB_IS_STRING( pItem ) )
    {
@@ -100,7 +100,7 @@ static HB_BOOL set_logical( PHB_ITEM pItem, HB_BOOL bDefault )
 {
    HB_BOOL bLogical = bDefault;
 
-   HB_TRACE( HB_TR_DEBUG, ( "set_logical(%p)", pItem ) );
+   HB_TRACE( HB_TR_DEBUG, ( "set_logical(%p)", ( void * ) pItem ) );
 
    if( pItem )
    {
@@ -128,7 +128,7 @@ static HB_BOOL set_logical( PHB_ITEM pItem, HB_BOOL bDefault )
 
 static int set_number( PHB_ITEM pItem, int iOldValue )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "set_number(%p, %d)", pItem, iOldValue ) );
+   HB_TRACE( HB_TR_DEBUG, ( "set_number(%p, %d)", ( void * ) pItem, iOldValue ) );
 
    return HB_IS_NUMERIC( pItem ) ? hb_itemGetNI( pItem ) : iOldValue;
 }
@@ -137,7 +137,7 @@ static char * set_string( PHB_ITEM pItem, char * szOldString )
 {
    char * szString;
 
-   HB_TRACE( HB_TR_DEBUG, ( "set_string(%p, %s)", pItem, szOldString ) );
+   HB_TRACE( HB_TR_DEBUG, ( "set_string(%p, %s)", ( void * ) pItem, szOldString ) );
 
    if( HB_IS_STRING( pItem ) || HB_IS_NIL( pItem ) )
    {
@@ -156,7 +156,7 @@ static void close_handle( PHB_SET_STRUCT pSet, HB_set_enum set_specifier )
 {
    PHB_FILE * handle_ptr;
 
-   HB_TRACE( HB_TR_DEBUG, ( "close_handle(%p,%d)", pSet, ( int ) set_specifier ) );
+   HB_TRACE( HB_TR_DEBUG, ( "close_handle(%p, %d)", ( void * ) pSet, ( int ) set_specifier ) );
 
    switch( set_specifier )
    {
@@ -270,7 +270,7 @@ static void open_handle( PHB_SET_STRUCT pSet, const char * file_name,
    char ** set_value;
    HB_BOOL fPipe = HB_FALSE, fStripEof;
 
-   HB_TRACE( HB_TR_DEBUG, ( "open_handle(%p, %s, %d, %d)", pSet, file_name, ( int ) fAppend, ( int ) set_specifier ) );
+   HB_TRACE( HB_TR_DEBUG, ( "open_handle(%p, %s, %d, %d)", ( void * ) pSet, file_name, ( int ) fAppend, ( int ) set_specifier ) );
 
    switch( set_specifier )
    {
@@ -1086,7 +1086,7 @@ HB_FUNC( SET )
 
 void hb_setInitialize( PHB_SET_STRUCT pSet )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_setInitialize(%p)", pSet ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_setInitialize(%p)", ( void * ) pSet ) );
 
    pSet->HB_SET_ALTERNATE = HB_FALSE;
    pSet->HB_SET_ALTFILE = NULL;

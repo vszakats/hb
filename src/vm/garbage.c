@@ -743,7 +743,7 @@ void hb_gcReleaseAll( void )
       do
       {
          PHB_GARBAGE pDelete;
-         HB_TRACE( HB_TR_INFO, ( "Release %p", s_pCurrBlock ) );
+         HB_TRACE( HB_TR_INFO, ( "Release %p", ( void * ) s_pCurrBlock ) );
          pDelete = s_pCurrBlock;
          hb_gcUnlink( &s_pCurrBlock, pDelete );
          HB_GC_AUTO_DEC();

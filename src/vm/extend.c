@@ -323,7 +323,7 @@ char * hb_pardsbuff( char * szDate, int iParam )
 {
    HB_STACK_TLS_PRELOAD
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_pardsbuff(%p, %d)", szDate, iParam ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_pardsbuff(%p, %d)", ( void * ) szDate, iParam ) );
 
    if( iParam >= -1 && iParam <= hb_pcount() )
    {
@@ -386,7 +386,7 @@ HB_BOOL hb_partdt( long * plJulian, long * plMilliSec, int iParam )
 {
    HB_STACK_TLS_PRELOAD
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_partdt(%p,%p,%d)", plJulian, plMilliSec, iParam ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_partdt(%p,%p,%d)", ( void * ) plJulian, ( void * ) plMilliSec, iParam ) );
 
    if( iParam >= -1 && iParam <= hb_pcount() )
    {
@@ -713,7 +713,7 @@ void * hb_parptrGC( const HB_GC_FUNCS * pFuncs, int iParam )
 {
    HB_STACK_TLS_PRELOAD
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_parptrGC(%p,%d)", pFuncs, iParam ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_parptrGC(%p,%d)", ( const void * ) pFuncs, iParam ) );
 
    if( iParam >= -1 && iParam <= hb_pcount() )
    {
@@ -907,7 +907,7 @@ char  * hb_parvdsbuff( char * szDate, int iParam, ... )
 {
    HB_STACK_TLS_PRELOAD
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_parvdsbuff(%p, %d, ...)", szDate, iParam ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_parvdsbuff(%p, %d, ...)", ( void * ) szDate, iParam ) );
 
    if( iParam >= -1 && iParam <= hb_pcount() )
    {
@@ -1003,7 +1003,7 @@ HB_BOOL hb_parvtdt( long * plJulian, long * plMilliSec, int iParam, ... )
 {
    HB_STACK_TLS_PRELOAD
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_parvtdt(%p,%p,%d, ...)", plJulian, plMilliSec, iParam ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_parvtdt(%p,%p,%d, ...)", ( void * ) plJulian, ( void * ) plMilliSec, iParam ) );
 
    if( iParam >= -1 && iParam <= hb_pcount() )
    {
@@ -1322,7 +1322,7 @@ void * hb_parvptrGC( const HB_GC_FUNCS * pFuncs, int iParam, ... )
 {
    HB_STACK_TLS_PRELOAD
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_parvptrGC(%p,%d, ...)", pFuncs, iParam ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_parvptrGC(%p,%d, ...)", ( const void * ) pFuncs, iParam ) );
 
    if( iParam >= -1 && iParam <= hb_pcount() )
    {

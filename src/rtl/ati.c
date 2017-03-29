@@ -53,7 +53,7 @@
 
 static HB_SIZE s_strAtI( PHB_CODEPAGE cdp, const char * szSub, HB_SIZE nSubLen, const char * szText, HB_SIZE nLen )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "s_strAtI(%p, %s, %" HB_PFS "u, %s, %" HB_PFS "u)", cdp, szSub, nSubLen, szText, nLen ) );
+   HB_TRACE( HB_TR_DEBUG, ( "s_strAtI(%p, %s, %" HB_PFS "u, %s, %" HB_PFS "u)", ( void * ) cdp, szSub, nSubLen, szText, nLen ) );
 
    if( nSubLen > 0 && nLen >= nSubLen )
    {

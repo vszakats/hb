@@ -688,7 +688,7 @@ PHB_EXPR hb_compExprAssignStatic( PHB_EXPR pLeftExpr, PHB_EXPR pRightExpr, HB_CO
 
 PHB_EXPR hb_compExprSetCodeblockBody( PHB_EXPR pExpr, HB_BYTE * pCode, HB_SIZE nLen )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_compExprSetCodeblockBody(%p,%p,%" HB_PFS "u)", pExpr, pCode, nLen ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_compExprSetCodeblockBody(%p,%p,%" HB_PFS "u)", ( void * ) pExpr, ( void * ) pCode, nLen ) );
 
    pExpr->value.asCodeblock.string = ( char * ) hb_xgrab( nLen + 1 );
    memcpy( pExpr->value.asCodeblock.string, pCode, nLen );
@@ -753,7 +753,7 @@ PHB_EXPR hb_compExprGenPop( PHB_EXPR pExpr, HB_COMP_DECL )
  */
 PHB_EXPR hb_compExprGenStatement( PHB_EXPR pExpr, HB_COMP_DECL )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_compExprGenStatement(%p)", pExpr ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_compExprGenStatement(%p)", ( void * ) pExpr ) );
    if( pExpr )
    {
       if( pExpr->ExprType == HB_EO_EQUAL )
