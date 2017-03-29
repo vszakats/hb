@@ -195,7 +195,7 @@ PROCEDURE Main( cPar1, cPar2, cPar3 )
               hb_eol() + ;
               "Options:  -h, -?        Display this help." + hb_eol() + ;
               "          -all          Display all tests, not only the failures." + hb_eol() + ;
-              "          -noalt        Ignore alternative results (enabled in Harbour builds)." + hb_eol() +;
+              "          -noalt        Ignore alternative results (disabled in Harbour builds)." + hb_eol() +;
               "          -skip:<list>  Skip the listed test numbers." + hb_eol() )
 
       RETURN
@@ -287,7 +287,7 @@ STATIC PROCEDURE TEST_BEGIN( cParam )
 
    s_lShowAll := "-all" $ Lower( cParam )
 #ifdef __HARBOUR__
-   s_lNoAltResult := .T.
+   s_lNoAltResult := .F.
 #else
    s_lNoAltResult := "-noalt" $ Lower( cParam )
 #endif
