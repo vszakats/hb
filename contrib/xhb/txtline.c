@@ -56,7 +56,9 @@ static void hb_readLine( const char * szText, HB_SIZE nTextLen, HB_SIZE nLineLen
    HB_SIZE nPos, nCurrCol, nLastBlk;
    HB_BOOL bBreak = HB_FALSE;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_readLine(%p, %" HB_PFS "u, %" HB_PFS "u, %" HB_PFS "u, %d, %p, %p, %" HB_PFS "u, %p, %p, %p, %p)", szText, nTextLen, nLineLen, nTabLen, bWrap, pTerm, pnTermSizes, nTerms, pbFound, pbEOF, pnEnd, pnEndOffset ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_readLine(%p, %" HB_PFS "u, %" HB_PFS "u, %" HB_PFS "u, %d, %p, %p, %" HB_PFS "u, %p, %p, %p, %p)",
+             ( const void * ) szText, nTextLen, nLineLen, nTabLen, bWrap, ( const void * ) pTerm,
+             ( void * ) pnTermSizes, nTerms, ( void * ) pbFound, ( void * ) pbEOF, ( void * ) pnEnd, ( void * ) pnEndOffset ) );
 
    *pbFound     = HB_FALSE;
    *pbEOF       = HB_FALSE;

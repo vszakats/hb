@@ -300,7 +300,7 @@ int hb_gt_sln_ReadKey( PHB_GT pGT, int iEventMask )
    HB_BOOL fInput;
    int iKey;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_sln_ReadKey(%p,%d)", pGT, ( int ) iEventMask ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_sln_ReadKey(%p,%d)", ( void * ) pGT, ( int ) iEventMask ) );
 
    /* user AbortKey break */
    if( SLKeyBoard_Quit == 1 )

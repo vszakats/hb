@@ -741,7 +741,7 @@ static void hb_bmGetFuncTable( const char * szSuper )
    uiRddId = ( HB_USHORT ) hb_parni( 4 );
    puiSuperRddId = ( HB_USHORT * ) hb_parptr( 5 );
 
-   HB_TRACE( HB_TR_DEBUG, ( "BM%s_GETFUNCTABLE(%p, %p, %p, %hu, %p)", szSuper, puiCount, pTable, pSuperTable, uiRddId, puiSuperRddId ) );
+   HB_TRACE( HB_TR_DEBUG, ( "BM%s_GETFUNCTABLE(%p, %p, %p, %hu, %p)", szSuper, ( void * ) puiCount, pTable, pSuperTable, uiRddId, puiSuperRddId ) );
 
    if( puiCount && pTable && pSuperTable && puiSuperRddId )
    {
