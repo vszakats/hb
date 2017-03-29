@@ -62,7 +62,7 @@
 /* TODO: Tests with MEMO type ? */
 /* TODO: Tests with Log( 0 ) type of invalid values */
 
-#xtranslate HBTEST <x> IS <result> => TEST_CALL( #<x>, {|| <x> }, <result> )
+#translate HBTEST <x> IS <result,...> => TEST_CALL( #<x>, {|| <x> }, <result> )
 
 #ifndef __HARBOUR__
    #ifndef __XPP__
@@ -155,6 +155,7 @@ STATIC s_nFail
 STATIC s_nFhnd
 STATIC s_nCount
 STATIC s_lShowAll
+STATIC s_lNoAltResult
 STATIC s_lShortcut
 STATIC s_aSkipList
 STATIC s_nStartTime
@@ -194,6 +195,7 @@ PROCEDURE Main( cPar1, cPar2, cPar3 )
               hb_eol() + ;
               "Options:  -h, -?        Display this help." + hb_eol() + ;
               "          -all          Display all tests, not only the failures." + hb_eol() + ;
+              "          -noalt        Ignore alternative results (enabled in Harbour builds)." + hb_eol() +;
               "          -skip:<list>  Skip the listed test numbers." + hb_eol() )
 
       RETURN
@@ -284,6 +286,11 @@ STATIC PROCEDURE TEST_BEGIN( cParam )
    /* Options */
 
    s_lShowAll := "-all" $ Lower( cParam )
+#ifdef __HARBOUR__
+   s_lNoAltResult := .T.
+#else
+   s_lNoAltResult := "-noalt" $ Lower( cParam )
+#endif
    s_aSkipList := ListToNArray( CMDLGetValue( Lower( cParam ), "-skip:", "" ) )
    s_lNoEnv := "-noenv" $ Lower( cParam )
 
@@ -400,7 +407,7 @@ STATIC PROCEDURE TEST_BEGIN( cParam )
 FUNCTION TEST_DBFAvail()
    RETURN s_lDBFAvail
 
-PROCEDURE TEST_CALL( cBlock, bBlock, xResultExpected )
+PROCEDURE TEST_CALL( cBlock, bBlock, xResultExpected, xResultAlter )
 
    LOCAL xResult
    LOCAL oError
@@ -440,16 +447,10 @@ PROCEDURE TEST_CALL( cBlock, bBlock, xResultExpected )
 
       ErrorBlock( bOldError )
 
-      IF lRTE
-         lFailed := ! XToStr( xResult ) == XToStr( xResultExpected )
-      ELSEIF ValType( xResult ) == ValType( xResultExpected )
-         lFailed := ! xResult == xResultExpected
-      ELSEIF ValType( xResultExpected ) == "C" .AND. ValType( xResult ) $ "ABMO"
-         lFailed := ! XToStr( xResult ) == xResultExpected
-      ELSE
-         lFailed := .T.
+      lFailed := ResultCompare( lRTE, xResult, xResultExpected )
+      IF lFailed .AND. ! s_lNoAltResult .AND. PCount() >= 4
+         lFailed := ResultCompare( lRTE, xResult, xResultAlter )
       ENDIF
-
    ENDIF
 
    IF s_lShowAll .OR. lFailed .OR. lSkipped .OR. lPPError
@@ -524,6 +525,18 @@ STATIC PROCEDURE TEST_END()
    ErrorLevel( iif( s_nFail != 0, 1, 0 ) )
 
    RETURN
+
+FUNCTION ResultCompare( lRTE, xResult, xResultExpected )
+
+   IF lRTE
+      RETURN ! XToStr( xResult ) == XToStr( xResultExpected )
+   ELSEIF ValType( xResult ) == ValType( xResultExpected )
+      RETURN ! xResult == xResultExpected
+   ELSEIF ValType( xResultExpected ) == "C" .AND. ValType( xResult ) $ "ABMO"
+      RETURN ! XToStr( xResult ) == xResultExpected
+   ENDIF
+
+   RETURN .T.
 
 FUNCTION XToStr( xValue )
 
