@@ -5,7 +5,7 @@
 
 -o${hb_targetname}
 
--warn=low
+-warn=no
 -cpp=no
 -pic
 
