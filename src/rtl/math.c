@@ -81,7 +81,7 @@ static int hb_matherr( HB_MATH_EXCEPTION * pexc )
    int mode = hb_mathGetErrMode();
    int iRet = 1;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_matherr(%p)", pexc ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_matherr(%p)", ( void * ) pexc ) );
 
    if( pexc == NULL || pexc->handled != 0 )
    {
@@ -197,7 +197,7 @@ static HB_TSD_NEW( s_mathErrData, sizeof( HB_MATHERRDATA ),
 /* reset math error information */
 void hb_mathResetError( HB_MATH_EXCEPTION * phb_exc )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_mathResetError(%p)", phb_exc ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_mathResetError(%p)", ( void * ) phb_exc ) );
 
    HB_SYMBOL_UNUSED( phb_exc );
 
@@ -228,7 +228,7 @@ int matherr( struct exception * err )
    HB_MATH_HANDLERPROC mathHandler;
    HB_MATH_EXCEPTION * pExc;
 
-   HB_TRACE( HB_TR_DEBUG, ( "matherr(%p)", err ) );
+   HB_TRACE( HB_TR_DEBUG, ( "matherr(%p)", ( void * ) err ) );
 
    pExc = &hb_mathErrData()->exception;
 
@@ -299,7 +299,7 @@ HB_BOOL hb_mathGetError( HB_MATH_EXCEPTION * phb_exc, const char * szFunc,
 
    int errCode, v;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_mathGetError(%p,%s,%lf,%lf,%lf)", phb_exc, szFunc, arg1, arg2, dResult ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_mathGetError(%p,%s,%lf,%lf,%lf)", ( void * ) phb_exc, szFunc, arg1, arg2, dResult ) );
 
    switch( errno )
    {
@@ -362,7 +362,7 @@ HB_BOOL hb_mathGetError( HB_MATH_EXCEPTION * phb_exc, const char * szFunc,
    }
    return HB_TRUE;
 #else
-   HB_TRACE( HB_TR_DEBUG, ( "hb_mathGetError(%p,%s,%lf,%lf,%lf)", phb_exc, szFunc, arg1, arg2, dResult ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_mathGetError(%p,%s,%lf,%lf,%lf)", ( void * ) phb_exc, szFunc, arg1, arg2, dResult ) );
 
    HB_SYMBOL_UNUSED( dResult );
    HB_SYMBOL_UNUSED( arg1 );
@@ -440,7 +440,7 @@ HB_MATH_HANDLERPROC hb_mathSetHandler( HB_MATH_HANDLERPROC handlerproc )
    HB_MATH_HANDLERPROC oldHandlerProc;
    PHB_MATHERRDATA pMathErr;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_mathSetHandler (%p)", handlerproc ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_mathSetHandler (%p)", ( void * ) handlerproc ) );
 
    pMathErr = hb_mathErrData();
    oldHandlerProc = pMathErr->handler;

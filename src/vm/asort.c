@@ -322,7 +322,7 @@ static void hb_arraySortStart( PHB_BASEARRAY pBaseArray, PHB_ITEM pBlock,
 
 HB_BOOL hb_arraySort( PHB_ITEM pArray, HB_SIZE * pnStart, HB_SIZE * pnCount, PHB_ITEM pBlock )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_arraySort(%p, %p, %p, %p)", pArray, pnStart, pnCount, pBlock ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_arraySort(%p, %p, %p, %p)", ( void * ) pArray, ( void * ) pnStart, ( void * ) pnCount, ( void * ) pBlock ) );
 
    if( HB_IS_ARRAY( pArray ) )
    {

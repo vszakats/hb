@@ -920,37 +920,45 @@ ifeq ($(HB_COMPILER_VER),)
          HB_COMP_PATH_VER_DET := $(HB_CCPREFIX)clang$(HB_CCSUFFIX)
       endif
       _C_VER := $(shell "$(HB_COMP_PATH_VER_DET)" -v 2>&1)
-      ifneq ($(findstring 4.0,$(_C_VER)),)
-         HB_COMPILER_VER := 0400
-      else
-      ifneq ($(findstring 8.1,$(_C_VER)),)
+      ifneq ($(findstring Apple LLVM version 8.1,$(_C_VER)),)
          HB_COMPILER_VER := 0309
       else
-      ifneq ($(findstring 3.9,$(_C_VER)),)
+      ifneq ($(findstring Apple LLVM version 8.0,$(_C_VER)),)
          HB_COMPILER_VER := 0309
       else
-      ifneq ($(findstring 8.0,$(_C_VER)),)
-         HB_COMPILER_VER := 0309
-      else
-      ifneq ($(findstring 7.3,$(_C_VER)),)
+      ifneq ($(findstring Apple LLVM version 7.3,$(_C_VER)),)
          HB_COMPILER_VER := 0308
       else
-      ifneq ($(findstring 3.8,$(_C_VER)),)
-         HB_COMPILER_VER := 0308
-      else
-      ifneq ($(findstring 7.0,$(_C_VER)),)
+      ifneq ($(findstring Apple LLVM version 7.0,$(_C_VER)),)
          HB_COMPILER_VER := 0307
       else
-      ifneq ($(findstring 3.7,$(_C_VER)),)
-         HB_COMPILER_VER := 0307
-      else
-      ifneq ($(findstring 3.6,$(_C_VER)),)
+      ifneq ($(findstring based on LLVM 3.6,$(_C_VER)),)
          HB_COMPILER_VER := 0306
       else
-      ifneq ($(findstring 3.5,$(_C_VER)),)
+      ifneq ($(findstring based on LLVM 3.5,$(_C_VER)),)
+         HB_COMPILER_VER := 0305
+      else
+      ifneq ($(findstring version 4.0,$(_C_VER)),)
+         HB_COMPILER_VER := 0400
+      else
+      ifneq ($(findstring version 3.9,$(_C_VER)),)
+         HB_COMPILER_VER := 0309
+      else
+      ifneq ($(findstring version 3.8,$(_C_VER)),)
+         HB_COMPILER_VER := 0308
+      else
+      ifneq ($(findstring version 3.7,$(_C_VER)),)
+         HB_COMPILER_VER := 0307
+      else
+      ifneq ($(findstring version 3.6,$(_C_VER)),)
+         HB_COMPILER_VER := 0306
+      else
+      ifneq ($(findstring version 3.5,$(_C_VER)),)
          HB_COMPILER_VER := 0305
       else
          HB_COMPILER_VER := 0304
+      endif
+      endif
       endif
       endif
       endif

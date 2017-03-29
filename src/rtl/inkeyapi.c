@@ -395,7 +395,7 @@ HB_SIZE hb_inkeyKeyString( int iKey, char * buffer, HB_SIZE nSize )
 {
    HB_SIZE nLen = 0;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_inkeyKeyString(%d,%p, %" HB_PFS "u)", iKey, buffer, nSize ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_inkeyKeyString(%d,%p, %" HB_PFS "u)", iKey, ( void * ) buffer, nSize ) );
 
    if( HB_INKEY_ISUNICODE( iKey ) )
    {

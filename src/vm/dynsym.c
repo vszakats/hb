@@ -99,7 +99,7 @@ static PHB_DYNS hb_dynsymInsert( PHB_SYMB pSymbol, HB_UINT uiPos )
 {
    PHB_DYNS pDynSym;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_dynsymInsert(%p,%u)", pSymbol, uiPos ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_dynsymInsert(%p, %u)", ( void * ) pSymbol, uiPos ) );
 
    if( ++s_uiDynSymbols == 0 )
    {
@@ -134,7 +134,7 @@ static PHB_DYNS hb_dynsymPos( const char * szName, HB_UINT * puiPos )
 {
    HB_UINT uiFirst, uiLast, uiMiddle;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_dynsymPos(%s,%p)", szName, puiPos ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_dynsymPos(%s, %p)", szName, ( void * ) puiPos ) );
 
    uiFirst = 0;
    uiLast = s_uiDynSymbols;
@@ -240,7 +240,7 @@ PHB_DYNS hb_dynsymNew( PHB_SYMB pSymbol )
    PHB_DYNS pDynSym;
    HB_UINT uiPos;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_dynsymNew(%p)", pSymbol ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_dynsymNew(%p)", ( void * ) pSymbol ) );
 
    HB_DYNSYM_LOCK();
 
@@ -450,56 +450,56 @@ PHB_SYMB hb_dynsymFindSymbol( const char * szName )
 
 PHB_SYMB hb_dynsymSymbol( PHB_DYNS pDynSym )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_dynsymSymbol(%p)", pDynSym ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_dynsymSymbol(%p)", ( void * ) pDynSym ) );
 
    return pDynSym->pSymbol;
 }
 
 const char * hb_dynsymName( PHB_DYNS pDynSym )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_dynsymName(%p)", pDynSym ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_dynsymName(%p)", ( void * ) pDynSym ) );
 
    return pDynSym->pSymbol->szName;
 }
 
 HB_BOOL hb_dynsymIsFunction( PHB_DYNS pDynSym )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_dynsymIsFunction(%p)", pDynSym ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_dynsymIsFunction(%p)", ( void * ) pDynSym ) );
 
    return pDynSym->pSymbol->value.pFunPtr != NULL;
 }
 
 HB_BOOL hb_dynsymIsMemvar( PHB_DYNS pDynSym )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_dynsymIsMemvar(%p)", pDynSym ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_dynsymIsMemvar(%p)", ( void * ) pDynSym ) );
 
    return hb_dynsymHandles( pDynSym )->pMemvar != NULL;
 }
 
 PHB_ITEM hb_dynsymGetMemvar( PHB_DYNS pDynSym )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_dynsymGetMemvar(%p)", pDynSym ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_dynsymGetMemvar(%p)", ( void * ) pDynSym ) );
 
    return ( PHB_ITEM ) hb_dynsymHandles( pDynSym )->pMemvar;
 }
 
 void hb_dynsymSetMemvar( PHB_DYNS pDynSym, PHB_ITEM pMemvar )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_dynsymSetMemvar(%p,%p)", pDynSym, pMemvar ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_dynsymSetMemvar(%p, %p)", ( void * ) pDynSym, ( void * ) pMemvar ) );
 
    hb_dynsymHandles( pDynSym )->pMemvar = ( void * ) pMemvar;
 }
 
 int hb_dynsymAreaHandle( PHB_DYNS pDynSym )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_dynsymAreaHandle(%p)", pDynSym ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_dynsymAreaHandle(%p)", ( void * ) pDynSym ) );
 
    return hb_dynsymHandles( pDynSym )->uiArea;
 }
 
 void hb_dynsymSetAreaHandle( PHB_DYNS pDynSym, int iArea )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_dynsymSetAreaHandle(%p,%d)", pDynSym, iArea ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_dynsymSetAreaHandle(%p, %d)", ( void * ) pDynSym, iArea ) );
 
    hb_dynsymHandles( pDynSym )->uiArea = ( HB_USHORT ) iArea;
 }
@@ -529,7 +529,7 @@ int hb_dynsymToNum( PHB_DYNS pDynSym )
 {
    int iSymNum;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_dynsymToNum(%p)", pDynSym ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_dynsymToNum(%p)", ( void * ) pDynSym ) );
 
    HB_DYNSYM_LOCK();
 
@@ -573,7 +573,7 @@ void hb_dynsymEval( PHB_DYNS_FUNC pFunction, void * Cargo )
    PHB_DYNS pDynSym = NULL;
    HB_USHORT uiPos = 0;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_dynsymEval(%p, %p)", pFunction, Cargo ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_dynsymEval(%p, %p)", ( void * ) pFunction, Cargo ) );
 
    for( ;; )
    {
@@ -607,7 +607,7 @@ void hb_dynsymProtectEval( PHB_DYNS_FUNC pFunction, void * Cargo )
 {
    HB_USHORT uiPos = 0;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_dynsymProtectEval(%p, %p)", pFunction, Cargo ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_dynsymProtectEval(%p, %p)", ( void * ) pFunction, Cargo ) );
 
    HB_DYNSYM_LOCK();
 

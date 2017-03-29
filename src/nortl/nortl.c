@@ -309,7 +309,7 @@ void hb_xexit( void )
 
       for( i = 1, pMemBlock = s_pMemBlocks; pMemBlock; ++i, pMemBlock = pMemBlock->pNextBlock )
          HB_TRACE( HB_TR_ERROR, ( "Block %i %p (size %" HB_PFS "u) \"%s\"", i,
-                ( char * ) pMemBlock + HB_MEMINFO_SIZE, pMemBlock->nSize,
+                ( void * ) pMemBlock + HB_MEMINFO_SIZE, pMemBlock->nSize,
                 hb_memToStr( szBuffer, ( char * ) pMemBlock + HB_MEMINFO_SIZE,
                              pMemBlock->nSize ) ) );
    }

@@ -336,7 +336,7 @@ HB_ERRCODE hb_rddIterateWorkAreas( WACALLBACK pCallBack, void * cargo )
    HB_ERRCODE errCode = HB_SUCCESS;
    HB_USHORT uiIndex;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_rddIterateWorkAreas(%p, %p)", pCallBack, cargo ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_rddIterateWorkAreas(%p, %p)", ( void * ) pCallBack, cargo ) );
 
    pRddInfo = hb_stackRDD();
    for( uiIndex = 1; uiIndex < pRddInfo->uiWaMax; uiIndex++ )
@@ -568,7 +568,7 @@ HB_ERRCODE hb_rddDetachArea( AREAP pArea, PHB_ITEM pCargo )
    HB_SIZE nPos;
    int iArea;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_rddDetachArea(%p, %p)", pArea, pCargo ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_rddDetachArea(%p, %p)", ( void * ) pArea, ( void * ) pCargo ) );
 
    /* save current WA number */
    iArea = hb_rddGetCurrentWorkAreaNumber();

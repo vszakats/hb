@@ -1080,7 +1080,7 @@ HB_SIZE hb_xsize( void * pMem ) /* returns the size of an allocated memory block
 
 const char * hb_xinfo( void * pMem, int * piLine )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_xinfo(%p,%p)", pMem, piLine ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_xinfo(%p,%p)", pMem, ( void * ) piLine ) );
 
 #ifdef HB_FM_STATISTICS
    {

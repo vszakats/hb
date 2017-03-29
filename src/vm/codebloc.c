@@ -131,7 +131,7 @@ PHB_CODEBLOCK hb_codeblockNew( const HB_BYTE * pBuffer,
    PHB_ITEM pLocals, pBase;
    const HB_BYTE * pCode;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_codeblockNew(%p, %hu, %p, %p, %" HB_PFS "u)", pBuffer, uiLocals, pLocalPosTable, pSymbols, nLen ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_codeblockNew(%p, %hu, %p, %p, %" HB_PFS "u)", ( const void * ) pBuffer, uiLocals, ( const void * ) pLocalPosTable, ( void * ) pSymbols, nLen ) );
 
    /* Allocate memory for code block body and detach items hb_gcAllocRaw()
     * to be safe for automatic GC activation in hb_xgrab() without
@@ -225,7 +225,7 @@ PHB_CODEBLOCK hb_codeblockNew( const HB_BYTE * pBuffer,
    pCBlock->uiLocals  = uiLocals;
    pCBlock->pLocals   = pLocals;
 
-   HB_TRACE( HB_TR_INFO, ( "codeblock created %p", pCBlock ) );
+   HB_TRACE( HB_TR_INFO, ( "codeblock created %p", ( void * ) pCBlock ) );
 
    return pCBlock;
 }
@@ -237,7 +237,7 @@ PHB_CODEBLOCK hb_codeblockMacroNew( const HB_BYTE * pBuffer, HB_SIZE nLen )
    PHB_ITEM pBase;
    HB_BYTE * pCode;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_codeblockMacroNew(%p, %" HB_PFS "u)", pBuffer, nLen ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_codeblockMacroNew(%p, %" HB_PFS "u)", ( const void * ) pBuffer, nLen ) );
 
    /* The codeblock pcode is stored in dynamically allocated memory that
     * can be deallocated after creation of a codeblock. We have to duplicate
@@ -261,7 +261,7 @@ PHB_CODEBLOCK hb_codeblockMacroNew( const HB_BYTE * pBuffer, HB_SIZE nLen )
    pCBlock->uiLocals  = 0;
    pCBlock->pLocals   = NULL;
 
-   HB_TRACE( HB_TR_INFO, ( "codeblock created %p", pCBlock ) );
+   HB_TRACE( HB_TR_INFO, ( "codeblock created %p", ( void * ) pCBlock ) );
 
    return pCBlock;
 }
@@ -271,7 +271,7 @@ PHB_ITEM hb_codeblockGetVar( PHB_ITEM pItem, int iItemPos )
 {
    PHB_CODEBLOCK pCBlock = pItem->item.asBlock.value;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_codeblockGetVar(%p, %d)", pItem, iItemPos ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_codeblockGetVar(%p, %d)", ( void * ) pItem, iItemPos ) );
 
    /* local variables accessed in a codeblock are always stored as reference */
    return hb_itemUnRef( pCBlock->pLocals - iItemPos );
@@ -280,7 +280,7 @@ PHB_ITEM hb_codeblockGetVar( PHB_ITEM pItem, int iItemPos )
 /* Get local variable passed by reference */
 PHB_ITEM hb_codeblockGetRef( PHB_CODEBLOCK pCBlock, int iItemPos )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_codeblockGetRef(%p, %d)", pCBlock, iItemPos ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_codeblockGetRef(%p, %d)", ( void * ) pCBlock, iItemPos ) );
 
    return pCBlock->pLocals - iItemPos;
 }
