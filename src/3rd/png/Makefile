@@ -4,6 +4,7 @@ include $(TOP)$(ROOT)config/global.mk
 
 LIBNAME := png
 
+HB_BUILD_WARN := no
 HB_BUILD_MODE := c
 
 C_SOURCES := \
