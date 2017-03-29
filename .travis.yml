@@ -57,11 +57,11 @@ matrix:
       # https://hub.docker.com/_/ubuntu/
       env: [ HB_CI_THREADS=4, PKG_SUFFIX=linux, 'DOCKER_IMAGE=ubuntu:rolling' ]
     - os: osx
-      osx_image: xcode8.2
+      osx_image: xcode8.3
       compiler: clang
       env: HB_CI_THREADS=4
     - os: osx
-      osx_image: xcode8.2
+      osx_image: xcode8.3
       compiler: i686-w64-mingw32-gcc
       env: [ HB_CI_THREADS=4, PKG_SUFFIX=mac ]
 
