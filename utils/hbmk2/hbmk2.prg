@@ -14491,7 +14491,7 @@ STATIC FUNCTION CompVersionDetect( hbmk, cPath_CompC )
 
             /* Apple clang version vs. official LLVM/clang version:
                  https://opensource.apple.com/source/clang/ -> clang-<version>/src/CMakeLists.txt
-                 https://opensource.apple.com//source/clang/clang-800.0.38/src/CMakeLists.txt
+                 https://opensource.apple.com/source/clang/clang-800.0.38/src/CMakeLists.txt
                  https://gist.github.com/yamaya/2924292
                NOTE: It's an interim SVN revision with possible differences in features.
                [vszakats] */
