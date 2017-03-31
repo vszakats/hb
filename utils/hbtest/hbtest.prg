@@ -155,7 +155,7 @@ STATIC s_nFail
 STATIC s_nFhnd
 STATIC s_nCount
 STATIC s_lShowAll
-STATIC s_lNoAltResult
+STATIC s_lShowAltResult
 STATIC s_lShortcut
 STATIC s_aSkipList
 STATIC s_nStartTime
@@ -195,9 +195,8 @@ PROCEDURE Main( cPar1, cPar2, cPar3 )
               hb_eol() + ;
               "Options:  -h, -?        Display this help." + hb_eol() + ;
               "          -all          Display all tests, not only the failures." + hb_eol() + ;
-              "          -noalt        Ignore alternative results (disabled in Harbour builds)." + hb_eol() +;
+              "          -strict       Test against strict Cl*pper results (default in non-Harbour builds)." + hb_eol() +;
               "          -skip:<list>  Skip the listed test numbers." + hb_eol() )
-
       RETURN
    ENDIF
 
@@ -287,9 +286,9 @@ STATIC PROCEDURE TEST_BEGIN( cParam )
 
    s_lShowAll := "-all" $ Lower( cParam )
 #ifdef __HARBOUR__
-   s_lNoAltResult := .F.
+   s_lShowAltResult := ! "-strict" $ Lower( cParam )
 #else
-   s_lNoAltResult := "-noalt" $ Lower( cParam )
+   s_lShowAltResult := .F.
 #endif
    s_aSkipList := ListToNArray( CMDLGetValue( Lower( cParam ), "-skip:", "" ) )
    s_lNoEnv := "-noenv" $ Lower( cParam )
@@ -407,7 +406,7 @@ STATIC PROCEDURE TEST_BEGIN( cParam )
 FUNCTION TEST_DBFAvail()
    RETURN s_lDBFAvail
 
-PROCEDURE TEST_CALL( cBlock, bBlock, xResultExpected, xResultAlter )
+PROCEDURE TEST_CALL( cBlock, bBlock, xResultExpected, xResultAlt )
 
    LOCAL xResult
    LOCAL oError
@@ -448,8 +447,8 @@ PROCEDURE TEST_CALL( cBlock, bBlock, xResultExpected, xResultAlter )
       ErrorBlock( bOldError )
 
       lFailed := ResultCompare( lRTE, xResult, xResultExpected )
-      IF lFailed .AND. ! s_lNoAltResult .AND. PCount() >= 4
-         lFailed := ResultCompare( lRTE, xResult, xResultAlter )
+      IF lFailed .AND. s_lShowAltResult .AND. PCount() >= 4
+         lFailed := ResultCompare( lRTE, xResult, xResultAlt )
       ENDIF
    ENDIF
 
