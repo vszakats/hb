@@ -26,6 +26,7 @@ addons:
       - libmysqlclient-dev
       - libncurses5-dev
       - libpq-dev
+    # - libqt5-dev
     # - libslang2-dev
       - unixodbc-dev
 
