@@ -14,15 +14,20 @@ addons:
   apt:
     packages: &hb-linux-common
       - firebird2.5-dev
+    # - libbz2-dev
     # - libcairo2-dev
       - libcups2-dev
       - libcurl4-openssl-dev
+    # - libexpat1-dev
       - libfreeimage-dev
       - libgd2-xpm-dev
       - libgpm-dev
       - libgs-dev
       - libicu-dev
+    # - liblzo2-dev
       - libmagic-dev
+    # - libminizip-dev
+    # - libmxml-dev
       - libmysqlclient-dev
       - libncurses5-dev
       - libpq-dev

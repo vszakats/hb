@@ -8,6 +8,7 @@
 -w3 -es2
 
 -depurlbase=mxml:https://michaelrsweet.github.io/mxml/
+-deppkgname=mxml:libmxml-dev{deb}
 -deppkgname=mxml:mxml{pacman}
 -deppkgname=mxml:libmxml{homebrew}
 -depkeyhead=mxml:mxml.h
