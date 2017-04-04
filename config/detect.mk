@@ -45,7 +45,7 @@ _DET_VAR_INC_ := HB_INC_ZLIB
 _DET_VAR_HAS_ := HB_HAS_ZLIB
 _DET_FLT_PLAT :=
 _DET_FLT_COMP :=
-_DET_INC_DEFP := /usr/include /usr/local/include /boot/develop/headers/3rdparty
+_DET_INC_DEFP := /usr/local/opt/zlib/include /usr/include /usr/local/include /boot/develop/headers/3rdparty
 _DET_INC_LOCL := src/3rd/zlib
 _DET_INC_HEAD := /zlib.h
 

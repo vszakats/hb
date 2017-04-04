@@ -87,8 +87,7 @@ before_install:
           mxe-{i686,x86-64}-w64-mingw32.static-{freeimage,gd}
       else
       # brew install bzip2 expat libharu liblzf libmxml libpng libxdiff lzo minizip pcre sqlite zlib
-      # brew install ncurses
-        brew install cairo curl freeimage gd ghostscript icu4c libmagic mariadb openssl@1.1 postgresql qt5 s-lang unixodbc
+        brew install cairo curl freeimage gd ghostscript icu4c libmagic mariadb ncurses openssl@1.1 postgresql qt5 s-lang unixodbc
       fi
       export MACOSX_DEPLOYMENT_TARGET=10.10
     elif [ -n "${DOCKER_IMAGE}" ]; then
