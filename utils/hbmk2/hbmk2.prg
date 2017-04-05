@@ -11788,14 +11788,7 @@ STATIC FUNCTION FN_Expand( cFileName, lCommandLine )
       RETURN {}
    ENDIF
 
-#if defined( __PLATFORM__UNIX )
-   /* Disable expansion if this came from the command-line */
-   IF lCommandLine
-      RETURN { cFileName }
-   ENDIF
-#else
    HB_SYMBOL_UNUSED( lCommandLine )
-#endif
 
    IF ! FNameHasWildcard( cFileName )
       RETURN { cFileName }

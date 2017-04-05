@@ -24,7 +24,6 @@ yum install -y gcc git rpm-build findutils \
   minizip-devel \
   openssl-devel \
   postgresql-devel \
-  sqlite-devel \
   unixODBC-devel
 
 ./package/mpkg_rpm.sh
