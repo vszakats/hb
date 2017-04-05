@@ -691,7 +691,6 @@ static void hb_gt_sln_Init( PHB_GT pGT, HB_FHANDLE hFilenoStdin, HB_FHANDLE hFil
    hb_gt_sln_mouse_Init();
    HB_GTSUPER_INIT( pGT, hFilenoStdin, hFilenoStdout, hFilenoStderr );
    HB_GTSELF_RESIZE( pGT, SLtt_Screen_Rows, SLtt_Screen_Cols );
-   HB_GTSELF_SETFLAG( pGT, HB_GTI_COMPATBUFFER, HB_FALSE );
    HB_GTSELF_SETFLAG( pGT, HB_GTI_STDOUTCON, s_fStdOutTTY );
    HB_GTSELF_SETFLAG( pGT, HB_GTI_STDERRCON, s_fStdErrTTY && ( s_fStdOutTTY || s_fStdInTTY ) );
 

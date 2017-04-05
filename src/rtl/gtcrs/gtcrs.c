@@ -2373,7 +2373,6 @@ static void hb_gt_crs_Init( PHB_GT pGT, HB_FHANDLE hFilenoStdin, HB_FHANDLE hFil
          add_new_ioBase( ioBase );
          HB_GTSUPER_INIT( pGT, hFilenoStdin, hFilenoStdout, hFilenoStderr );
          HB_GTSELF_RESIZE( pGT, s_ioBase->maxrow, s_ioBase->maxcol );
-         HB_GTSELF_SETFLAG( pGT, HB_GTI_COMPATBUFFER, HB_FALSE );
          HB_GTSELF_SETBLINK( pGT, HB_TRUE );
       }
    }

@@ -10,4 +10,6 @@ hbmk2 -sanitize '*.C' '*.PRG'
 patch -lNi superlib.patch
 
 hbmk2 superlib.hbp
-hbmk2 test.prg superlib.hbc -run
+
+unzip SAMPLES.ZIP
+hbmk2 S3PROG.PRG superlib.hbc -run

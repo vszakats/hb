@@ -4940,7 +4940,6 @@ static void hb_gt_xwc_Init( PHB_GT pGT, HB_FHANDLE hFilenoStdin, HB_FHANDLE hFil
 #endif
 
    HB_GTSUPER_INIT( pGT, hFilenoStdin, hFilenoStdout, hFilenoStderr );
-   HB_GTSELF_SETFLAG( pGT, HB_GTI_COMPATBUFFER, HB_FALSE );
 
 #if !defined( HB_XWC_XLIB_NEEDLOCKS ) && ! defined( HB_XWC_XLOCK_OFF )
    if( hb_vmIsMt() )
