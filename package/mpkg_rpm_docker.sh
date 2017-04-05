@@ -27,3 +27,8 @@ yum install -y gcc git rpm-build findutils \
   unixODBC-devel
 
 ./package/mpkg_rpm.sh
+
+ls -l .
+ls -l ./package
+ls -l ./RPM/RPMS/x86_64/
+ls -l ./package/RPM/RPMS/x86_64/
