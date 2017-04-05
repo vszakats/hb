@@ -62,14 +62,14 @@ matrix:
       sudo: required
       compiler: gcc
       services: [ docker ]
-      env: [ HB_CI_THREADS=4, 'DOCKER_IMAGE=amazonlinux:latest', SCRIPT=./package/mpkg_rpm_docker.sh ]
+      env: [ HB_CI_THREADS=4, 'DOCKER_IMAGE=amazonlinux:latest', DOCKER_SCRIPT=./package/mpkg_rpm_docker.sh ]
     - os: linux
       dist: trusty
       sudo: required
       compiler: i686-w64-mingw32-gcc
       services: [ docker ]
       # https://hub.docker.com/_/ubuntu/
-      env: [ HB_CI_THREADS=4, PKG_SUFFIX=linux, 'DOCKER_IMAGE=ubuntu:rolling', SCRIPT=./package/mpkg_win_docker.sh ]
+      env: [ HB_CI_THREADS=4, PKG_SUFFIX=linux, 'DOCKER_IMAGE=ubuntu:rolling', DOCKER_SCRIPT=./package/mpkg_win_docker.sh ]
     - os: osx
       osx_image: xcode8.3
       compiler: clang
@@ -101,7 +101,7 @@ before_install:
       time docker run -it -v "${PWD}:${PWD}" -w "${PWD}" \
         --env-file <(env | grep -E '^(TRAVIS|HB)_') \
         "${DOCKER_IMAGE}" \
-        sh -c "${SCRIPT}"
+        sh -c "${DOCKER_SCRIPT}"
     fi
 
 script:
