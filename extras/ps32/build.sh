@@ -9,7 +9,7 @@ cp 'PS32/xHarbour/PScript.ch' .
 cp 'PS32/xHarbour/TPSCRIPT.PRG' .
 cp 'PS32/Demos/xbase sources/PSTest.prg' .
 
-hbmk2 -sanitize *.ch *.prg
+hbmk2 -sanitize *.ch *.prg *.PRG
 
 patch -li ps32.patch
 
