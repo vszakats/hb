@@ -11,6 +11,9 @@
 # maintained. If `ng-hbdoc` repository gets an update (which stored 3rd
 # party docs), it won't have an effect until the next core HBDOC update.
 
+# Select the AppVeyor build for updating the docs
+[ "${APPVEYOR}" = 'True' ] || exit 0
+
 cd "$(dirname "$0")/.." || exit
 
 _BRANCH="$1"

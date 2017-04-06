@@ -199,13 +199,12 @@ PROCEDURE Main( ... )
 
          CASE GetEnvC( "HB_INSTALL_DYN" ) == "/usr/local/harbour/lib"
             /* FIXME: Rewrite this in .prg:
-               ld="/usr/lib"
-               if [ -n "${HB_INST_PKGPREF}" ] || [ -w $ld ]
-                  then
-                     mkdir -p ${HB_INST_PKGPREF}$ld
-                     ln -sf ../local/harbour/lib/$l ${HB_INST_PKGPREF}$ld/$ll
-                     ln -sf ../local/harbour/lib/$l ${HB_INST_PKGPREF}$ld/$l
-                  fi
+               ld='/usr/lib'
+               if [ -n "${HB_INST_PKGPREF}" ] || [ -w "$ld" ]; then
+                 mkdir -p "${HB_INST_PKGPREF}$ld"
+                 ln -sf "../local/harbour/lib/$l" "${HB_INST_PKGPREF}$ld/$ll"
+                 ln -sf "../local/harbour/lib/$l" "${HB_INST_PKGPREF}$ld/$l"
+               fi
             */
          ENDCASE
       ENDIF

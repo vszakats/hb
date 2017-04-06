@@ -57,7 +57,7 @@
 
 static PHB_ITEM hb_itemPutCRaw( PHB_ITEM pItem, const char * szText, HB_SIZE nLen )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_itemPutCRaw(%p, %s, %" HB_PFS "u)", pItem, szText, nLen ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_itemPutCRaw(%p, %s, %" HB_PFS "u)", ( void * ) pItem, szText, nLen ) );
 
    if( pItem )
    {
@@ -84,7 +84,7 @@ static PHB_ITEM hb_itemPutCRaw( PHB_ITEM pItem, const char * szText, HB_SIZE nLe
 #undef hb_itemPutCRawStatic
 static PHB_ITEM hb_itemPutCRawStatic( PHB_ITEM pItem, const char * szText, HB_SIZE nLen )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_itemPutCRawStatic(%p, %s, %" HB_PFS "u)", pItem, szText, nLen ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_itemPutCRawStatic(%p, %s, %" HB_PFS "u)", ( void * ) pItem, szText, nLen ) );
 
    if( pItem )
    {
@@ -954,7 +954,7 @@ static PHB_ITEM StructureToArray( HB_BYTE * Buffer, HB_SIZE nBufferLen, PHB_ITEM
 #endif
    PHB_BASEARRAY pBaseVar;
 
-   /* TraceLog( NULL, "StructureToArray(%p, %p, %u, %i) ->%u\n", Buffer, aDef, uiAlign, bAdoptNested, nLen ); */
+   /* TraceLog( NULL, "StructureToArray(%p, %p, %u, %i) ->%u\n", ( const void * ) Buffer, ( void * ) aDef, uiAlign, bAdoptNested, nLen ); */
 
    /* hb_arrayNew( pRet, nLen ); */
    pBaseVar = pRet->item.asArray.value;

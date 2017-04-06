@@ -10,6 +10,7 @@
 
 -depurlbase=minizip:http://zlib.net/
 -depurlbase=minizip:http://winimage.com/zLibDll/minizip.html
+-deppkgname=minizip:libminizip-dev{deb}
 -deppkgname=minizip:minizip-devel{rpm}
 -deppkgname=minizip:mingw-w64-i686-zlib{msys2&mingw}
 -deppkgname=minizip:mingw-w64-x86_64-zlib{msys2&mingw64}

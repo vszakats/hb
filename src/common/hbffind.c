@@ -355,7 +355,7 @@ HB_FATTR hb_fsAttrEncode( const char * szAttr )
    char ch;
    HB_FATTR nAttr = 0;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_fsAttrEncode(%p)", szAttr ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_fsAttrEncode(%p)", ( const void * ) szAttr ) );
 
    while( ( ch = ( char ) HB_TOUPPER( *pos ) ) != '\0' )
    {
@@ -385,7 +385,7 @@ char * hb_fsAttrDecode( HB_FATTR nAttr, char * szAttr )
 {
    char * ptr = szAttr;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_fsAttrDecode(%u, %p)", nAttr, szAttr ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_fsAttrDecode(%u, %p)", nAttr, ( void * ) szAttr ) );
 
    /* Using the same order as CA-Cl*pper did: RHSVDA. */
    if( nAttr & HB_FA_READONLY   ) *ptr++ = 'R';

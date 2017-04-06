@@ -1098,7 +1098,7 @@ static void hb_gt_wvw_mouse_SetPos( PHB_GT pGT, int iRow, int iCol )
 
 static void hb_gt_wvw_mouse_GetPos( PHB_GT pGT, int * piRow, int * piCol )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvw_mouse_GetPos(%p,%p,%p)", pGT, piRow, piCol ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvw_mouse_GetPos(%p,%p,%p)", ( void * ) pGT, piRow, piCol ) );
 
    *piRow = hb_gt_wvw_mouse_Row( pGT );
    *piCol = hb_gt_wvw_mouse_Col( pGT );
@@ -1106,7 +1106,7 @@ static void hb_gt_wvw_mouse_GetPos( PHB_GT pGT, int * piRow, int * piCol )
 
 static HB_BOOL hb_gt_wvw_mouse_ButtonState( PHB_GT pGT, int iButton )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvw_mouse_ButtonState(%p,%i)", pGT, iButton ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvw_mouse_ButtonState(%p,%i)", ( void * ) pGT, iButton ) );
 
    HB_SYMBOL_UNUSED( pGT );
 
@@ -1139,7 +1139,7 @@ static HB_BOOL hb_gt_wvw_Info( PHB_GT pGT, int iType, PHB_GT_INFO pInfo )
    PWVW_WIN wvw_win = s_wvw->pWin[ s_wvw->iCurWindow ];
    int      iVal;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvw_Info(%p,%d,%p)", pGT, iType, pInfo ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvw_Info(%p,%d,%p)", ( void * ) pGT, iType, pInfo ) );
 
    switch( iType )
    {
@@ -5436,7 +5436,7 @@ COLORREF hb_gt_wvw_GetColorData( int iIndex )
 /* NOTE: are these workable in MULTI_GT ? */
 static HB_BOOL hb_gt_FuncInit( PHB_GT_FUNCS pFuncTable )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gtFnInit( %p)", pFuncTable ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gtFnInit( %p)", ( void * ) pFuncTable ) );
 
    pFuncTable->Init             = hb_gt_wvw_Init;
    pFuncTable->Exit             = hb_gt_wvw_Exit;

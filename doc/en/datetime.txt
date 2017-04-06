@@ -299,7 +299,7 @@
       This function converts any date expression (a field or variable)
       expressed as <dDateString> to a character expression in the default
       format `MM/DD/YY`. The date format expressed by this function is
-      controled in part by the date format specified in the `SET DATE`
+      controlled in part by the date format specified in the `SET DATE`
       command
    $EXAMPLES$
       ? DToC( Date() )

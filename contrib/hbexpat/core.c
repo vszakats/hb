@@ -70,6 +70,11 @@
 
 #include "hbexpat.ch"
 
+#if defined( HB_OS_DARWIN ) && defined( __clang__ )
+#  pragma GCC diagnostic push
+#  pragma GCC diagnostic ignored "-Wunguarded-availability"
+#endif
+
 #define _VAR_xUserData                      0
 #define _VAR_xEncodingHandlerData           1
 #define _VAR_bStartElementHandler           2

@@ -26,7 +26,7 @@ diff -u superori/between.c superpat/between.c
       result[knt] = NIL;
 diff -u superori/mline.c superpat/mline.c
 --- superori/mline.c	1993-09-14 12:17:34.000000000 +0000
-+++ superpat/mline.c	2009-06-25 11:53:22.000000000 +0000
++++ superpat/mline.c	2017-04-05 11:45:10.000000000 +0000
 @@ -1,19 +1,19 @@
 -#include "extend.api"
 -#include "vm.api"
@@ -70,7 +70,7 @@ diff -u superori/mline.c superpat/mline.c
 -  char *string = _parc(1);
 -  unsigned int strlen   = _parclen(1);
 -  int linelen  = _parni(2);
-+  const char *string = hb_parc(1);
++  const unsigned char *string = (const unsigned char *)hb_parc(1);
 +  unsigned int strlen   = hb_parclen(1);
 +  int linelen  = hb_parni(2);
    int gotten   = 0;
@@ -173,8 +173,8 @@ diff -u superori/mline.c superpat/mline.c
  }
 diff -u superori/nextls.c superpat/nextls.c
 --- superori/nextls.c	1993-09-27 08:42:08.000000000 +0000
-+++ superpat/nextls.c	2009-08-01 09:37:43.000000000 +0000
-@@ -2,9 +2,9 @@
++++ superpat/nextls.c	2017-04-05 11:42:22.000000000 +0000
+@@ -2,13 +2,13 @@
  
  
  /*컴컴컴컴컴get next line, return nil if none컴컴컴컴컴컴*/
@@ -182,10 +182,16 @@ diff -u superori/nextls.c superpat/nextls.c
 +HB_FUNC( NEXTLS )
  {
 -  char *string = _parc(1);
-+  const char *string = _parc(1);
++  const unsigned char *string = (const unsigned char *)_parc(1);
    unsigned int strlen   = _parclen(1);
    int offset   = _parni(2);
-   char a141    = 141;
+-  char a141    = 141;
+-  char a13     = 13;
++  unsigned char a141    = 141;
++  unsigned char a13     = 13;
+   unsigned int i;
+ 
+   if (offset+1 < strlen)
 diff -u superori/r_hcode.prg superpat/r_hcode.prg
 --- superori/r_hcode.prg	1993-10-08 10:30:40.000000000 +0000
 +++ superpat/r_hcode.prg	2009-06-10 06:44:26.000000000 +0000

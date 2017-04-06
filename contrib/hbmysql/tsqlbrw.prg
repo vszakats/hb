@@ -50,8 +50,6 @@
 #include "inkey.ch"
 #include "dbstruct.ch"
 
-#include "mysql.ch"
-
 /* NOTE:
 
    In fact no, the 'regular syntax is the same as the VO one,

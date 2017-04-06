@@ -111,11 +111,7 @@ PROCEDURE Main_MISC()
 
 #ifdef HB_COMPAT_C53
    HBTEST Set( _SET_EVENTMASK  )       IS 128  /* INKEY_KEYBOARD */
-#ifdef HB_CLP_STRICT
-   HBTEST Set( _SET_VIDEOMODE  )       IS NIL
-#else
-   HBTEST Set( _SET_VIDEOMODE  )       IS 0
-#endif
+   HBTEST Set( _SET_VIDEOMODE  )       IS NIL, 0
    HBTEST Set( _SET_MBLOCKSIZE )       IS 64
    HBTEST Set( _SET_MFILEEXT   )       IS ""
    HBTEST Set( _SET_STRICTREAD )       IS .F.
@@ -125,11 +121,7 @@ PROCEDURE Main_MISC()
    HBTEST Set( _SET_AUTOSHARE  )       IS 0
 
    HBTEST Set( _SET_EVENTMASK , -1 )   IS "E 1 BASE 2020 Argument error (SET) OS:0 #:0 A:2:N:39;N:-1 "
-#ifdef HB_CLP_STRICT
-   HBTEST Set( _SET_VIDEOMODE , -1 )   IS NIL
-#else
-   HBTEST Set( _SET_VIDEOMODE , -1 )   IS 0
-#endif
+   HBTEST Set( _SET_VIDEOMODE , -1 )   IS NIL, 0
    HBTEST Set( _SET_MBLOCKSIZE, -1 )   IS "E 1 BASE 2020 Argument error (SET) OS:0 #:0 A:2:N:41;N:-1 "
    HBTEST Set( _SET_MFILEEXT  , {} )   IS ""
    HBTEST Set( _SET_STRICTREAD, {} )   IS .F.
