@@ -87,7 +87,7 @@
       -----------------------------------------------
 
       The garbage collector can be called directly from the Harbour code.
-      This is usefull in situations where there is no idle states available
+      This is useful in situations where there is no idle states available
       or the application is working in the loop with no user interaction
       and there is many memory allocations.
       See hb_gcAll() for explanation of how to call this function from your
