@@ -299,19 +299,19 @@ if [ "${_BRANC4}" = 'msvc' ]; then
 
   export HB_COMPILER_VER
 
-  [ "${_BRANCH}" = 'msvc2008' ] && HB_COMPILER_VER='1500' && _VCVARSALL='9.0'
-  [ "${_BRANCH}" = 'msvc2010' ] && HB_COMPILER_VER='1600' && _VCVARSALL='10.0'
-  [ "${_BRANCH}" = 'msvc2012' ] && HB_COMPILER_VER='1700' && _VCVARSALL='11.0'
-  [ "${_BRANCH}" = 'msvc2013' ] && HB_COMPILER_VER='1800' && _VCVARSALL='12.0'
-  [ "${_BRANCH}" = 'msvc2015' ] && HB_COMPILER_VER='1900' && _VCVARSALL='14.0'
-  [ "${_BRANCH}" = 'msvc2017' ] && HB_COMPILER_VER='2000' && _VCVARSALL='15.0'
+  [ "${_BRANCH}" = 'msvc2008' ] && HB_COMPILER_VER='1500' && _VCVARSALL=' 9.0\VC'
+  [ "${_BRANCH}" = 'msvc2010' ] && HB_COMPILER_VER='1600' && _VCVARSALL=' 10.0\VC'
+  [ "${_BRANCH}" = 'msvc2012' ] && HB_COMPILER_VER='1700' && _VCVARSALL=' 11.0\VC'
+  [ "${_BRANCH}" = 'msvc2013' ] && HB_COMPILER_VER='1800' && _VCVARSALL=' 12.0\VC'
+  [ "${_BRANCH}" = 'msvc2015' ] && HB_COMPILER_VER='1900' && _VCVARSALL=' 14.0\VC'
+  [ "${_BRANCH}" = 'msvc2017' ] && HB_COMPILER_VER='2000' && _VCVARSALL='\2017\Community\VC\Auxiliary\Build'
 
-  export _VCVARSALL="%ProgramFiles(x86)%\Microsoft Visual Studio ${_VCVARSALL}\VC\vcvarsall.bat"
+  export _VCVARSALL="%ProgramFiles(x86)%\Microsoft Visual Studio${_VCVARSALL}\vcvarsall.bat"
 
   if [ -n "${_VCVARSALL}" ]; then
-    # NOTE: Requires mingw32-make.exe in the PATH
     cat << EOF > _make.bat
-       call "%_VCVARSALL%" x86
+       set PATH=C:\msys64\mingw64\bin;%PATH%
+       call "${_VCVARSALL}" x86
        mingw32-make.exe install %HB_MKFLAGS% HB_COMPILER=msvc
 EOF
     ./_make.bat
@@ -323,9 +323,9 @@ EOF
   [ "${_BRANCH}" = 'msvc2010' ] && _VCVARSALL=
 
   if [ -n "${_VCVARSALL}" ]; then
-    # NOTE: Requires mingw32-make.exe in the PATH
     cat << EOF > _make.bat
-       call "%_VCVARSALL%" x86_amd64
+       set PATH=C:\msys64\mingw64\bin;%PATH%
+       call "${_VCVARSALL}" x86_amd64
        mingw32-make.exe install %HB_MKFLAGS% HB_COMPILER=msvc64
 EOF
     ./_make.bat

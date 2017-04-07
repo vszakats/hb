@@ -752,7 +752,8 @@ mingw32-make
 
 ```batchfile
 :: MSVC 2017 or upper
-:: For configuration, see: https://msdn.microsoft.com/library/f2ccy3wt
+:: For configuration, see:
+::   https://docs.microsoft.com/cpp/build/setting-the-path-and-environment-variables-for-command-line-builds
 :: Then:
 mingw32-make
 ```
@@ -862,7 +863,8 @@ mingw32-make
 
 ```batchfile
 :: MSVC 2017 or upper
-:: For configuration, see: https://msdn.microsoft.com/library/f2ccy3wt
+:: For configuration, see:
+::   https://docs.microsoft.com/cpp/build/setting-the-path-and-environment-variables-for-command-line-builds
 :: Then:
 mingw32-make
 ```
