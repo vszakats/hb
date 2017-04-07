@@ -19,7 +19,7 @@ skip_commits:
   message: /website/
   files:
     - docs/*
-image: Visual Studio 2015
+image: Visual Studio 2017
 clone_depth: 10
 clone_folder: C:\w\
 build:
