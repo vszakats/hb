@@ -6827,6 +6827,15 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
       NEXT
    ENDIF
 
+   /* Create empty .hbl files if missing, so they don't break the build in case
+      source files depend on them */
+
+   IF hbmk[ _HBMK_nHBMODE ] != _HBMODE_RAW_C .AND. ! hbmk[ _HBMK_lCLEAN ]
+      IF Len( hbmk[ _HBMK_aPO ] ) > 0 .AND. hbmk[ _HBMK_cHBL ] != NIL
+         MakeHBL( hbmk, .T. )
+      ENDIF
+   ENDIF
+
 #ifdef HARBOUR_SUPPORT
    /* Harbour compilation */
 
@@ -7478,16 +7487,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          ENDIF
 
          IF Len( hbmk[ _HBMK_aPO ] ) > 0 .AND. hbmk[ _HBMK_cHBL ] != NIL
-
-            /* Combine target dir with .hbl output name. */
-
-            IF Empty( tmp := hb_FNameDir( hbmk[ _HBMK_cPROGNAME ] ) )
-               hbmk[ _HBMK_cHBL ] := PathMakeAbsolute( hbmk[ _HBMK_cHBL ], hbmk[ _HBMK_cHBLDir ] )
-            ELSE
-               hbmk[ _HBMK_cHBL ] := PathMakeAbsolute( hbmk[ _HBMK_cHBL ], tmp )
-            ENDIF
-
-            MakeHBL( hbmk, hbmk[ _HBMK_cHBL ] )
+            MakeHBL( hbmk, .F. )
          ENDIF
       ENDIF
 
@@ -13800,8 +13800,10 @@ STATIC PROCEDURE UpdatePO( hbmk, aPOTIN )
    RETURN
 
 /* .hbl generation */
+STATIC PROCEDURE MakeHBL( hbmk, lCreateIfMissing )
 
-STATIC PROCEDURE MakeHBL( hbmk, cHBL )
+   LOCAL cHBL
+   LOCAL cFileName
 
    LOCAL cPO
    LOCAL tPO
@@ -13809,14 +13811,22 @@ STATIC PROCEDURE MakeHBL( hbmk, cHBL )
    LOCAL tLNG
    LOCAL aPO_TO_DO
    LOCAL lUpdateNeeded
-   LOCAL tmp
 
    LOCAL aNew := {}
 
    IF ! Empty( hbmk[ _HBMK_aPO ] )
+
       IF hbmk[ _HBMK_lDEBUGI18N ]
          _hbmk_OutStd( hbmk, hb_StrFormat( "po: in: %1$s", ArrayToList( hbmk[ _HBMK_aPO ] ) ) )
       ENDIF
+
+      /* Combine target dir with .hbl output name. */
+      IF Empty( cHBL := hb_FNameDir( hbmk[ _HBMK_cPROGNAME ] ) )
+         cHBL := PathMakeAbsolute( hbmk[ _HBMK_cHBL ], hbmk[ _HBMK_cHBLDir ] )
+      ELSE
+         cHBL := PathMakeAbsolute( hbmk[ _HBMK_cHBL ], cHBL )
+      ENDIF
+
       IF Empty( cHBL )
          cHBL := hb_FNameName( hbmk[ _HBMK_aPO ][ 1 ] )
       ENDIF
@@ -13825,36 +13835,57 @@ STATIC PROCEDURE MakeHBL( hbmk, cHBL )
       ENDIF
 
       FOR EACH cLNG IN iif( Empty( hbmk[ _HBMK_aLNG ] ) .OR. ! _LNG_MARKER $ cHBL, { _LNG_MARKER }, hbmk[ _HBMK_aLNG ] )
-         tLNG := NIL
-         hb_vfTimeGet( StrTran( cHBL, _LNG_MARKER, cLNG ), @tLNG )
-         lUpdateNeeded := .F.
-         aPO_TO_DO := {}
-         FOR EACH cPO IN hbmk[ _HBMK_aPO ]
-            IF tLNG == NIL .OR. ( hb_vfTimeGet( StrTran( cPO, _LNG_MARKER, cLNG ), @tPO ) .AND. tPO > tLNG )
-               lUpdateNeeded := .T.
-            ENDIF
-            AAdd( aPO_TO_DO, StrTran( cPO, _LNG_MARKER, cLNG ) )
-         NEXT
-         IF lUpdateNeeded
-            IF hbmk[ _HBMK_lDEBUGI18N ]
-               _hbmk_OutStd( hbmk, hb_StrFormat( "po: %1$s -> %2$s", ArrayToList( aPO_TO_DO ), StrTran( cHBL, _LNG_MARKER, cLNG ) ) )
-            ENDIF
-            IF GenHBL( hbmk, aPO_TO_DO, tmp := StrTran( cHBL, _LNG_MARKER, cLNG ) )
-               IF hbmk[ _HBMK_lVCSTS ] .AND. ! Empty( hbmk[ _HBMK_tVCSTS ] )
-                  hb_vfTimeSet( tmp, hbmk[ _HBMK_tVCSTS ] )
-               ENDIF
+         cFileName := StrTran( cHBL, _LNG_MARKER, cLNG )
+         IF lCreateIfMissing
+
+            IF ! hb_vfExists( cFileName ) .AND. ;
+               hb_DirBuild( hb_FNameDir( cFileName ) ) .AND. ;
+               hb_MemoWrit( cFileName, "" )
+
                AAdd( aNew, cLNG )
+            ENDIF
+         ELSE
+            tLNG := NIL
+            hb_vfTimeGet( cFileName, @tLNG )
+            lUpdateNeeded := .F.
+            aPO_TO_DO := {}
+            FOR EACH cPO IN hbmk[ _HBMK_aPO ]
+               IF tLNG == NIL .OR. ( hb_vfTimeGet( StrTran( cPO, _LNG_MARKER, cLNG ), @tPO ) .AND. tPO > tLNG )
+                  lUpdateNeeded := .T.
+               ENDIF
+               AAdd( aPO_TO_DO, StrTran( cPO, _LNG_MARKER, cLNG ) )
+            NEXT
+            IF lUpdateNeeded
+               IF hbmk[ _HBMK_lDEBUGI18N ]
+                  _hbmk_OutStd( hbmk, hb_StrFormat( "po: %1$s -> %2$s", ArrayToList( aPO_TO_DO ), cFileName ) )
+               ENDIF
+               IF GenHBL( hbmk, aPO_TO_DO, cFileName )
+                  IF hbmk[ _HBMK_lVCSTS ] .AND. ! Empty( hbmk[ _HBMK_tVCSTS ] )
+                     hb_vfTimeSet( cFileName, hbmk[ _HBMK_tVCSTS ] )
+                  ENDIF
+                  AAdd( aNew, cLNG )
+               ENDIF
             ENDIF
          ENDIF
       NEXT
    ENDIF
 
-   IF ! hbmk[ _HBMK_lQuiet ]
+   IF ! hbmk[ _HBMK_lQuiet ] .OR. lCreateIfMissing
       IF ! Empty( aNew )
          IF Empty( hbmk[ _HBMK_aLNG ] ) .OR. ! _LNG_MARKER $ cHBL
-            _hbmk_OutStd( hbmk, hb_StrFormat( I_( "Created .hbl file '%1$s'" ), cHBL ) )
+            IF lCreateIfMissing
+               _hbmk_OutErr( hbmk, hb_StrFormat( I_( "Warning: Initialize .hbl file '%1$s' with empty content" ), cHBL ) )
+            ELSE
+               _hbmk_OutStd( hbmk, hb_StrFormat( I_( "Created .hbl file '%1$s'" ), cHBL ) )
+            ENDIF
          ELSE
-            _hbmk_OutStd( hbmk, hb_StrFormat( I_( "Created .hbl file '%1$s' for language(s): %2$s" ), cHBL, ArrayToList( aNew, "," ) ) )
+            IF lCreateIfMissing
+               _hbmk_OutErr( hbmk, hb_StrFormat( I_( "Warning: Initialize .hbl file '%1$s' with empty content for language(s): %2$s" ), ;
+                  cHBL, ArrayToList( aNew, "," ) ) )
+            ELSE
+               _hbmk_OutStd( hbmk, hb_StrFormat( I_( "Created .hbl file '%1$s' for language(s): %2$s" ), ;
+                  cHBL, ArrayToList( aNew, "," ) ) )
+            ENDIF
          ENDIF
       ENDIF
    ENDIF
