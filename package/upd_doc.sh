@@ -90,10 +90,10 @@ if git diff-index --name-only HEAD~1 \
 
     echo "! Updating Reference Guide repository..."
 
-    git remote rm origin
     (
       set +x
       readonly GITHUB_USER='vszakats'
+      git remote rm origin
       git remote add origin "https://${GITHUB_USER}@github.com/${slug_doc_pages}.git"
       git config user.name "${GITHUB_USER}-auto"
       git config user.email "${GITHUB_USER}@users.noreply.github.com"

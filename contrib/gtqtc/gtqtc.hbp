@@ -23,7 +23,7 @@
 
 -deppkgname=qt5:libqt5-dev{deb}
 -deppkgname=qt5:qt5-devel{rpm}
--deppkgname=qt5:qt5{homebrew}
+-deppkgname=qt5:qt{homebrew}
 -depcontrol=qt5:${HB_WITH_QT}
 -depkeyhead=qt5:QtCore/QJsonObject
 -depoptional=qt5:yes
@@ -33,7 +33,6 @@
 
 {!HBMK_HAS_QT5}-depurlbase=qt:https://www.qt.io/developers/
 {!HBMK_HAS_QT5}-depurlbase=qt:https://download.qt.io/official_releases/qt/
-{!HBMK_HAS_QT5&darwin}-deppkgname=qt:qt4
 {!HBMK_HAS_QT5&!darwin&!android}-deppkgname=qt:QtCore
 {!HBMK_HAS_QT5}-depkeyhead=qt:QtCore/qglobal.h
 {!HBMK_HAS_QT5}-depcontrol=qt:${HB_WITH_QT}
