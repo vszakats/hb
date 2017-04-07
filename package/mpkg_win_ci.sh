@@ -304,7 +304,7 @@ if [ "${_BRANC4}" = 'msvc' ]; then
   [ "${_BRANCH}" = 'msvc2012' ] && HB_COMPILER_VER='1700' && _VCVARSALL=' 11.0\VC'
   [ "${_BRANCH}" = 'msvc2013' ] && HB_COMPILER_VER='1800' && _VCVARSALL=' 12.0\VC'
   [ "${_BRANCH}" = 'msvc2015' ] && HB_COMPILER_VER='1900' && _VCVARSALL=' 14.0\VC'
-  [ "${_BRANCH}" = 'msvc2017' ] && HB_COMPILER_VER='2000' && _VCVARSALL='\2017\Community\VC\Auxiliary\Build'
+  [ "${_BRANCH}" = 'msvc2017' ] && HB_COMPILER_VER='1910' && _VCVARSALL='\2017\Community\VC\Auxiliary\Build'
 
   export _VCVARSALL="%ProgramFiles(x86)%\Microsoft Visual Studio${_VCVARSALL}\vcvarsall.bat"
 
