@@ -28,6 +28,8 @@ build:
 environment:
   GITHUB_TOKEN:
     secure: ONrgLZ5E+p610MEXEXgeE0nf2P2LBIG/JnawYLezFx2hIAYdwVYpnehgZfDQ6GIe
+  GITHUB_DEPLOY_HB_DOC_PASS:
+    secure: 8yVbRykZCyELvMGaHs+Wjl0usqGR2jL0R7pqvksF83p/7mGcWV2gw3PachYJ/fWG
   VIRUSTOTAL_APIKEY:
     secure: TdJYONfrpH45DuyKxraVqgHYy25IQ/F8TKHzYf+u5zz1aiM2yR0YTMaGxyj2EMReEearSI9kD9D2ZykybSVEbRyEaotZlceUb2lPDKELl3M=
   PUSHOVER_USER:
