@@ -42,15 +42,16 @@ if [ "${os}" = 'win' ]; then
   # Core dependencies (vendored sources are used instead for now)
   # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{libpng,pcre,zlib}
 
-  if [ "${_BRANC4}" = 'msvc' ]; then
+  if [ "${_BRANC4}" = 'msvc' ] && false; then
     # Experimental, untested, requires 2015 Update 3 or upper
-    git clone --shallow https://github.com/Microsoft/vcpkg.git
+    git clone --depth=8 https://github.com/Microsoft/vcpkg.git
     (
       cd vcpkg || exit
-      powershell -exec bypass scripts/bootstrap.ps1
+      ./bootstrap-vcpkg.bat
       # bzip2 cairo expat freeimage icu libmariadb libpng libpq libssh2 lzo pcre pcre2 qt5 sqlite3 zlib
-      vcpkg install curl curl:x64-windows openssl openssl:x64-windows
-      vcpkg integrate install
+      ./vcpkg install --no-sendmetrics \
+        curl curl:x64-windows openssl openssl:x64-windows
+      ./vcpkg integrate install
     )
   fi
 fi
