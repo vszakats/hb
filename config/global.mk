@@ -1038,6 +1038,9 @@ ifeq ($(HB_COMPILER_VER),)
       endif
    else
    ifneq ($(filter $(HB_COMPILER),msvc msvc64 msvcia64 msvcarm),)
+      ifeq ($(HB_COMP_PATH),)
+         HB_COMP_PATH := cl.exe
+      endif
       _C_VER := $(shell "$(HB_COMP_PATH)" 2>&1)
       ifneq ($(findstring Version 19.10,$(_C_VER)),)
          HB_COMPILER_VER := 1910

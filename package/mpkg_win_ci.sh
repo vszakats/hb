@@ -78,7 +78,7 @@ if [ "${os}" != 'win' ]; then
   make -j "${HB_CI_THREADS}" HB_BUILD_DYN=no HB_BUILD_CONTRIBS=hbdoc
 fi
 
-[ "${_BRANC4}" = 'msvc' ] || "$(dirname "$0")/mpkg_win_dl.sh" || exit
+"$(dirname "$0")/mpkg_win_dl.sh" || exit
 
 export HB_VF='snapshot'
 export HB_RT="${_ROOT}"
@@ -297,14 +297,12 @@ if [ "${_BRANC4}" = 'msvc' ]; then
 
 # export _HB_MSVC_ANALYZE='yes'
 
-  export HB_COMPILER_VER
-
-  [ "${_BRANCH}" = 'msvc2008' ] && HB_COMPILER_VER='1500' && _VCVARSALL=' 9.0\VC'
-  [ "${_BRANCH}" = 'msvc2010' ] && HB_COMPILER_VER='1600' && _VCVARSALL=' 10.0\VC'
-  [ "${_BRANCH}" = 'msvc2012' ] && HB_COMPILER_VER='1700' && _VCVARSALL=' 11.0\VC'
-  [ "${_BRANCH}" = 'msvc2013' ] && HB_COMPILER_VER='1800' && _VCVARSALL=' 12.0\VC'
-  [ "${_BRANCH}" = 'msvc2015' ] && HB_COMPILER_VER='1900' && _VCVARSALL=' 14.0\VC'
-  [ "${_BRANCH}" = 'msvc2017' ] && HB_COMPILER_VER='1910' && _VCVARSALL='\2017\Community\VC\Auxiliary\Build'
+  [ "${_BRANCH}" = 'msvc2008' ] && _VCVARSALL=' 9.0\VC'
+  [ "${_BRANCH}" = 'msvc2010' ] && _VCVARSALL=' 10.0\VC'
+  [ "${_BRANCH}" = 'msvc2012' ] && _VCVARSALL=' 11.0\VC'
+  [ "${_BRANCH}" = 'msvc2013' ] && _VCVARSALL=' 12.0\VC'
+  [ "${_BRANCH}" = 'msvc2015' ] && _VCVARSALL=' 14.0\VC'
+  [ "${_BRANCH}" = 'msvc2017' ] && _VCVARSALL='\2017\Community\VC\Auxiliary\Build'
 
   export _VCVARSALL="%ProgramFiles(x86)%\Microsoft Visual Studio${_VCVARSALL}\vcvarsall.bat"
 

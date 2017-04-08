@@ -98,38 +98,41 @@ fi
 
 # Dependencies for Windows builds
 
-# Bintray public key
-gpg_recv_keys 8756C4F765C9AC3CB6B85D62379CE192D401AB61
+if [ "${_BRANC4}" != 'msvc' ]; then
 
-# Builder public key
-# curl 'https://bintray.com/user/downloadSubjectPublicKey?username=vszakats' \
-#   | gpg --import
+  # Bintray public key
+  gpg_recv_keys 8756C4F765C9AC3CB6B85D62379CE192D401AB61
 
-readonly base='https://bintray.com/artifact/download/vszakats/generic/'
+  # Builder public key
+  # curl 'https://bintray.com/user/downloadSubjectPublicKey?username=vszakats' \
+  #   | gpg --import
 
-for plat in '32' '64'; do
-  for name in \
-    'nghttp2' \
-    'openssl' \
-    'libssh2' \
-    'curl' \
-  ; do
-    if [ ! -d "${name}-mingw${plat}" ]; then
-      eval ver="\$$(echo "${name}" | tr '[:lower:]' '[:upper:]' 2> /dev/null)_VER"
-      eval hash="\$$(echo "${name}" | tr '[:lower:]' '[:upper:]' 2> /dev/null)_HASH_${plat}"
-      # shellcheck disable=SC2154
-      (
-        set -x
-        curl -L --proto-redir =https \
-          -o pack.bin "${base}${name}-${ver}-win${plat}-mingw.7z" \
-          -o pack.sig "${base}${name}-${ver}-win${plat}-mingw.7z.asc"
-#       gpg --verify-options show-primary-uid-only --verify pack.sig pack.bin
-        openssl dgst -sha256 pack.bin | grep -q "${hash}" || exit 1
-        7z x -y pack.bin > /dev/null
-        mv "${name}-${ver}-win${plat}-mingw" "${name}-mingw${plat}"
-      )
-    fi
+  readonly base='https://bintray.com/artifact/download/vszakats/generic/'
+
+  for plat in '32' '64'; do
+    for name in \
+      'nghttp2' \
+      'openssl' \
+      'libssh2' \
+      'curl' \
+    ; do
+      if [ ! -d "${name}-mingw${plat}" ]; then
+        eval ver="\$$(echo "${name}" | tr '[:lower:]' '[:upper:]' 2> /dev/null)_VER"
+        eval hash="\$$(echo "${name}" | tr '[:lower:]' '[:upper:]' 2> /dev/null)_HASH_${plat}"
+        # shellcheck disable=SC2154
+        (
+          set -x
+          curl -L --proto-redir =https \
+            -o pack.bin "${base}${name}-${ver}-win${plat}-mingw.7z" \
+            -o pack.sig "${base}${name}-${ver}-win${plat}-mingw.7z.asc"
+#         gpg --verify-options show-primary-uid-only --verify pack.sig pack.bin
+          openssl dgst -sha256 pack.bin | grep -q "${hash}" || exit 1
+          7z x -y pack.bin > /dev/null
+          mv "${name}-${ver}-win${plat}-mingw" "${name}-mingw${plat}"
+        )
+      fi
+    done
   done
-done
 
-rm -f pack.bin pack.sig
+  rm -f pack.bin pack.sig
+fi
