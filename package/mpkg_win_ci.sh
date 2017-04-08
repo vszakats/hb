@@ -308,9 +308,8 @@ if [ "${_BRANC4}" = 'msvc' ]; then
 
   if [ -n "${_VCVARSALL}" ]; then
     cat << EOF > _make.bat
-      set PATH=C:\msys64\mingw64\bin;%PATH%
       call "${_VCVARSALL}" x86
-      mingw32-make.exe install %HB_MKFLAGS% HB_COMPILER=msvc
+      C:\msys64\mingw64\bin\mingw32-make.exe install %HB_MKFLAGS% HB_COMPILER=msvc
 EOF
     ./_make.bat
     rm _make.bat
@@ -322,9 +321,8 @@ EOF
 
   if [ -n "${_VCVARSALL}" ]; then
     cat << EOF > _make.bat
-      set PATH=C:\msys64\mingw64\bin;%PATH%
       call "${_VCVARSALL}" x86_amd64
-      mingw32-make.exe install %HB_MKFLAGS% HB_COMPILER=msvc64
+      C:\msys64\mingw64\bin\mingw32-make.exe install %HB_MKFLAGS% HB_COMPILER=msvc64
 EOF
     ./_make.bat
     rm _make.bat
