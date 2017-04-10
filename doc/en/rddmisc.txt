@@ -22,7 +22,7 @@
 
       <aDecs>  Array of field names
    $RETURNS$
-      <nFields> Number od fields in a database or work area
+      <nFields> Number of fields in a database or work area
    $DESCRIPTION$
       This function will fill a series of arrays with field
       names, field types, field lengths, and number of field
@@ -420,7 +420,7 @@
       <nFieldPos> is ordinal position of the field.
    $DESCRIPTION$
       This function return the ordinal position of the specified field <cField>
-      in the current or aliased work areaIf there isn't field under the name
+      in the current or aliased work area. If there isn't field under the name
       of <cField> or of no database is open in the selected work area, the
       function will return a 0.
    $EXAMPLES$
@@ -576,7 +576,7 @@
       <nBytes> The numeric size of a database file header in bytes
    $DESCRIPTION$
       This function returns the number of bytes in the header of the
-      selected database ot the database in the designated work area.
+      selected database of the database in the designated work area.
 
       If used in conjunction with the LastRec(), RecSize() and DiskSpace()
       functions, this functions is capable of implementing a backup and

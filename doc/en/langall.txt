@@ -211,10 +211,10 @@
        Ukrainian             uk
       </table>
    $RETURNS$
-      <cOldLang>   The old language indentifier
+      <cOldLang>   The old language identifier
    $DESCRIPTION$
       This function set a default language module for date/month names,
-      internal warnigs, NatMsg messages and internal errors. When a
+      internal warnings, NatMsg messages and internal errors. When a
       Lang ID is selected all messages will be output with the current
       language selected until another one is selected or the program ends.
       The default language is English (cLang == "EN").
@@ -330,7 +330,7 @@
        Ukrainian             Windows-1251   UA1251
       </table>
    $RETURNS$
-      <cOldLang>   The old language indentifier
+      <cOldLang>   The old language identifier
    $DESCRIPTION$
       hb_cdpSelect() set the active code page use by Harbour for
       sorting and comparing strings. The default code page use ASCII

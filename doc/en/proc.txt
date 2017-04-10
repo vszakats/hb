@@ -1,6 +1,6 @@
 /* $DOC$
    $AUTHOR$
-      Copyright 1999 Jose Lanin <dezac@corevia.com>
+      Copyright 1999 Jose Lalin <dezac@corevia.com>
    $TEMPLATE$
       Function
    $NAME$
@@ -93,7 +93,7 @@
    $SUBCATEGORY$
       Application
    $ONELINER$
-      This function allways returns an empty string.
+      This function always returns an empty string.
    $SYNTAX$
       ProcFile( <xExp> ) --> cEmptyString
    $ARGUMENTS$

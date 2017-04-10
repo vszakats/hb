@@ -51,7 +51,7 @@
       (a specific record to be displayed), REST (all records from the
       current record position), and ALL (all records). The default is ALL.
 
-      Both logical expressions may work in conjuntion with one another,
+      Both logical expressions may work in conjunction with one another,
       where <bFor> is the logical expression for the FOR condition (for
       records to be displayed within a given range) and <bWhile> for the
       WHILE condition (for records to be displayed until the condition

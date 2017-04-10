@@ -183,7 +183,7 @@
    $RETURNS$
       <xMax> The larger numeric (or later date) value.
    $DESCRIPTION$
-      This function returns the larger of the two passed espressions. If
+      This function returns the larger of the two passed expressions. If
       <xValue> and <xValue1> are numeric data types, the value returned by
       this function will be a numeric data type as well and will be the
       larger of the two numbers passed to it. If <xValue> and <xValue1>
@@ -217,7 +217,7 @@
    $SUBCATEGORY$
       Math
    $ONELINER$
-      Determines the minumum of two numbers or dates.
+      Determines the minimum of two numbers or dates.
    $SYNTAX$
       Min( <xValue>, <xValue1> ) --> xMin
    $ARGUMENTS$
@@ -227,7 +227,7 @@
    $RETURNS$
       <xMin>  The smaller numeric (or earlier date) value.
    $DESCRIPTION$
-      This function returns the smaller of the two passed espressions.
+      This function returns the smaller of the two passed expressions.
       <xValue> and <xValue1> must be the same data type. If numeric, the
       smaller number is returned. If dates, the earlier date is returned.
    $EXAMPLES$
@@ -266,7 +266,7 @@
    $RETURNS$
       <nRemainder>  The remainder after the division operation.
    $DESCRIPTION$
-      This functuion returns the remainder of one number divided by
+      This function returns the remainder of one number divided by
       another.
    $EXAMPLES$
       ? Mod( 12, 8.521 )

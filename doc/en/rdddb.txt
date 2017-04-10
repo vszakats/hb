@@ -73,7 +73,7 @@
    $RETURNS$
       <cWorkArea> Name of alias
    $DESCRIPTION$
-      This function returns the same alias name ofthe currently selected
+      This function returns the same alias name of the currently selected
       work area.
    $EXAMPLES$
       PROCEDURE Main()
@@ -125,7 +125,7 @@
       the record is flushed from the buffer and the contents are
       written to the disk.
 
-      Under a networking enviroment, dbAppend() performs an additional
+      Under a networking environment, dbAppend() performs an additional
       operation: It attempts to lock the newly added record. If
       the database file is currently locked or if a locking assignment
       is made to `LastRec() + 1`, NetErr() will return a logical true (.T.)
@@ -133,8 +133,8 @@
       not unlock the locked records.
 
       If <lLock> is passed a logical true (.T.) value, it will
-      release the record locks, which allows the application to main-
-      tain multiple record locks during an appending operation. The
+      release the record locks, which allows the application to maintain
+      multiple record locks during an appending operation. The
       default for this parameter is a logical false (.F.).
    $EXAMPLES$
       PROCEDURE Main()
@@ -167,13 +167,13 @@
    $SUBCATEGORY$
       Database
    $ONELINER$
-      Clears the current filter condiction in a work area
+      Clears the current filter condition in a work area
    $SYNTAX$
       dbClearFilter() --> NIL
    $RETURNS$
       dbClearFilter() always returns NIL
    $DESCRIPTION$
-      This function clears any active filter condiction
+      This function clears any active filter conduction
       for the current or selected work area.
    $EXAMPLES$
       PROCEDURE Main()
@@ -413,7 +413,7 @@
       - All subscripts values in the second dimension must be set to proper values
 
       - The fourth subscript value in the second dimension - which contains
-        the decimal value-must he specified. even 1kw nonnumeric fields.
+        the decimal value-must he specified. even 1kw non-numeric fields.
 
       - The second subscript value in the second dimension-which contains
         the field data type-must contain a proper value: C, D, L, M or N
@@ -607,14 +607,14 @@
       This function places the record pointer, if working with a .dbf file,
       in selected or aliased work area at the record number specified by
       <xRecordNumber>. The position is not affected by an active index or
-      by any enviromental SET condiction.
+      by any environmental SET condition.
 
       The parameter <xRecordNumber> may be something other than a record
       number. In some data formats, for example, the value of <xRecordNumber>
       is a unique primary key while in other formats, <xRecordNumber> could
       be an array offset if the data set was an array.
 
-      Issuing a `dbGoto( RecNo() )` call in a network enviroment will refresh
+      Issuing a `dbGoto( RecNo() )` call in a network environment will refresh
       the database and index buffers. This is the same as a `dbSkip( 0 )` call.
    $EXAMPLES$
       The following example uses dbGoto() to iteratively process
@@ -688,7 +688,7 @@
    $SUBCATEGORY$
       Database
    $ONELINER$
-      Recalls a record previousy marked for deletion.
+      Recalls a record previously marked for deletion.
    $SYNTAX$
       dbRecall()
    $DESCRIPTION$
@@ -877,8 +877,8 @@
    $DESCRIPTION$
       This function searches for the first record in a database file whose
       index key matches <expKey>. If the item is found, the function will
-      return a logical true (.T.), the value of Found() wilI be a logical
-      true (.T.), and the value of Eof() wilI be a logical false (.F.). If
+      return a logical true (.T.), the value of Found() will be a logical
+      true (.T.), and the value of Eof() wile be a logical false (.F.). If
       no item is found. then the function will return a logical false, the
       value of Found() will be a logical false (.F.), and the value of
       Eof() will be a logical true (.T.).
@@ -952,7 +952,7 @@
       select the numeric work area; if <xArea> is character, then it will
       select the work area with the alias name.
 
-      `dbSelectArea( 0 )` will select the next avaliable and unused work area.
+      `dbSelectArea( 0 )` will select the next available and unused work area.
       Up to 65534 work areas are supported. Each work area has its own alias
       and record pointer, as well as its own Found(), dbFilter(),
       dbRSelect() and dbRelation() function values.
@@ -1004,7 +1004,7 @@
       selected work area. The default will be "DBFNTX". If specified,
       <cDriver> contains the name of the database driver that should be
       used to activate and manage the work area. If the specified driver is
-      not avaliable, this function will have no effect.
+      not available, this function will have no effect.
    $EXAMPLES$
       dbSetDriver( "ADS" )
    $STATUS$
@@ -1038,7 +1038,7 @@
    $DESCRIPTION$
       This function moves the record pointer <nRecords> in the selected or
       aliased work area. The default value for <nRecords> will be 1.
-      A `dbSkip( 0 )` will flush and refresh the internal database bufer and
+      A `dbSkip( 0 )` will flush and refresh the internal database buffer and
       make any changes made to the record visible without moving the record
       pointer in either direction.
    $EXAMPLES$

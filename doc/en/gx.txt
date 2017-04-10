@@ -26,7 +26,7 @@
       columns specified.
       Note that there are only a real few combination or rows/cols pairs
       that produce the video mode change.
-      The followings are availables for GTDOS:
+      The followings are available for GTDOS:
 
       <table-noheader>
          12 rows x 40 columns   12 rows x 80 columns
@@ -44,7 +44,7 @@
          50 rows x 80 columns
       </table>
 
-      Some modes only are availables for color and/or VGA monitors.
+      Some modes only are available for color and/or VGA monitors.
       Any change produced on the screen size is updated in the values
       returned by MaxRow() and MaxCol().
    $EXAMPLES$
@@ -64,7 +64,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-      Some of these modes are not availables in CA-Cl*pper
+      Some of these modes are not available in CA-Cl*pper
    $PLATFORMS$
       All
    $SEEALSO$

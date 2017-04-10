@@ -25,7 +25,7 @@
 
       <nOccurrences> Number of occurrence to replace
    $RETURNS$
-      <cReturn>  Formated string
+      <cReturn>  Formatted string
    $DESCRIPTION$
       This function searches for any occurrence of <cLocString> in <cString>
       and replaces it with <cRepString>. If <cRepString> is not specified, a

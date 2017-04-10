@@ -76,7 +76,7 @@
    $DESCRIPTION$
       This function dynamically increases the length of the <aArray>
       by adding one new element to the end of the array and optionally
-      stores the value <xValue> to that newlly created element.
+      stores the value <xValue> to that newly created element.
 
       <xValue> may be of an data type, including an array reference pointer,
       which in turn may be stored to an array's subscript position.
@@ -215,7 +215,7 @@
       will remain unchanged.
 
       Note: To avoid loosing last element, you can use hb_AIns()
-      which supports autosizing of array.
+      which supports auto-sizing of array.
    $EXAMPLES$
       LOCAL aArray := { "Harbour", "is", "Power!", "!!!" }
       AIns( aArray, 4 )
@@ -249,14 +249,14 @@
    $ARGUMENTS$
       <aArray> The array name into which the value <xValue> will be inserted.
 
-      <nPos> Subscript position in <aArray>. Default: 1st prosition
+      <nPos> Subscript position in <aArray>. Default: 1st position
 
       <xValue> Value to be inserted
 
       <lAutoSize> Boolean flag to increase or not the size of <aArray>.
                   Default value: .F.
    $RETURNS$
-      A refference to array <aArray>
+      A reference to array <aArray>
    $DESCRIPTION$
       This function inserts <xValue> in the <nPos> position of the array,
       moving all the items one position down in the array list.
@@ -314,7 +314,7 @@
       become a NIL data type.
 
       Note: To completely remove an element and decrease the length of array
-      you can use hb_ADel() that supports autosizing.
+      you can use hb_ADel() that supports auto-sizing.
    $EXAMPLES$
       LOCAL aArray := { "Harbour", "is", "Power" }
       ADel( aArray, 2 ) // Result: aArray is { "Harbour", "Power", NIL }

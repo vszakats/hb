@@ -89,7 +89,7 @@
       passed to hb_idleAdd() function
    $DESCRIPTION$
       hb_idleDel() removes the action associated with passed identifier
-      from the list of background tasks. The identifer should be the
+      from the list of background tasks. The identifier should be the
       value returned by the previous call of hb_idleAdd() function.
 
       If specified task is defined then the codeblock is returned

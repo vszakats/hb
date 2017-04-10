@@ -74,7 +74,7 @@
       input buffer in normal mode and you won't be able to go back and
       fetch them later in extended mode.
    $DESCRIPTION$
-      Inkey() can be used to detect input events, such as keypress, mouse
+      Inkey() can be used to detect input events, such as key-press, mouse
       movement, or mouse key clicks (up and/or down).
    $EXAMPLES$
       // Wait for the user to press the <Esc> key
@@ -120,7 +120,7 @@
       Note: The character `;` is converted
       to `Chr( 13 )` (this is an undocumented CA-Cl*pper feature).
    $DESCRIPTION$
-      Clears the Harbour keyboard typeahead buffer and then inserts an
+      Clears the Harbour keyboard type-ahead buffer and then inserts an
       optional string into it.
    $EXAMPLES$
       // Stuff an Enter key into the keyboard buffer
@@ -253,7 +253,7 @@
    $RETURNS$
       <nKey>  The last key extracted from the keyboard buffer.
    $DESCRIPTION$
-      Returns the value of the last key exttracted from the Harbour
+      Returns the value of the last key extracted from the Harbour
       keyboard buffer
    $EXAMPLES$
       // Continue looping unless the <Esc> key was pressed in MainFunc()

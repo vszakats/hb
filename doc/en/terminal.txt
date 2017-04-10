@@ -251,7 +251,7 @@
       CASE nChoice == 0
          // do nothing, blame it on some one else
       CASE nChoice == 1
-         ? "Please call home and tell them you're gonn'a be late"
+         ? "Please call home and tell them you're going to be late"
       CASE nChoice == 2
          // make sure your resume is up to date
       CASE nChoice == 3
@@ -281,7 +281,7 @@
       The interpretation of the `//NOALERT` command-line switch is done only
       if HB_CLP_UNDOC was define during compilation of src/rtl/alert.prg
 
-      <cColorNorm> is a Harbour extension, or at least un-documented
+      <cColorNorm> is a Harbour extension, or at least undocumented
       in Clipper 5.2 NG.
 
       <nDelay> is a Harbour extension.
@@ -382,7 +382,7 @@
    $SUBCATEGORY$
       Terminal
    $ONELINER$
-      Extract one color from a full colorspec string.
+      Extract one color from a full color-spec string.
    $SYNTAX$
       hb_ColorIndex( <cColorSpec>, <nIndex> ) --> cColor
    $ARGUMENTS$
@@ -721,7 +721,7 @@
 
       Once completed, the values of PRow() and PCol(), the row and column
       indicators to the printer, will be set to 0. Their values, however, may
-      be manipulated before or after ussuing an EJECT by using the DevPos()
+      be manipulated before or after issuing an EJECT by using the DevPos()
       function.
 
       On compile time this command is translated into __Eject() function.
@@ -836,13 +836,13 @@
    $SUBCATEGORY$
       Terminal
    $ONELINER$
-      Returns the maximun number of columns in the current video mode
+      Returns the maximum number of columns in the current video mode
    $SYNTAX$
       MaxCol() --> nPosition
    $ARGUMENTS$
       None.
    $RETURNS$
-      <nPosition>  The maximun number of columns possible in current video
+      <nPosition>  The maximum number of columns possible in current video
       mode
    $DESCRIPTION$
       This function returns the current cursor column position. The value
@@ -880,7 +880,7 @@
    $ARGUMENTS$
       None.
    $RETURNS$
-      <nPosition>  The maximun number of rows possible in current video
+      <nPosition>  The maximum number of rows possible in current video
       mode
    $DESCRIPTION$
       This function returns the current cursor row location. The value

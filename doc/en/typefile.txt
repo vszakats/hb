@@ -37,7 +37,7 @@
       __TypeFile() function is used in the preprocessing of the TYPE
       command.
    $EXAMPLES$
-      The following examples assume a file name mytext.dat exist in all
+      The following examples assume a file name `mytext.dat` exist in all
       specified paths, a run-time error would displayed if it does not
 
       // display mytext.dat file on screen

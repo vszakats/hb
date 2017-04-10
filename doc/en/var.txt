@@ -28,7 +28,7 @@
       If it is first variable with this name then the  variable is
       initialized with .T. value.
    $EXAMPLES$
-      None Avaliable
+      None Available
    $STATUS$
       R
    $COMPLIANCE$
@@ -69,7 +69,7 @@
       variable is hidden until the new variable is  released. The new variable
       is always initialized to NIL value.
    $EXAMPLES$
-      None Avaliable
+      None Available
    $STATUS$
       R
    $COMPLIANCE$
@@ -176,7 +176,7 @@
       a new value to released variable without any side effects.
       PUBLIC variables are not changed by this function.
    $EXAMPLES$
-      None Avaliable
+      None Available
    $STATUS$
       R
    $COMPLIANCE$

@@ -248,7 +248,7 @@
 
               `_SET_EXIT`        <lFlag> | <cOnOff>
 
-                   Toggles the use of Uparrow and Dnarrow as READ exit keys.
+                   Toggles the use of <Up> and <Down> as READ exit keys.
                    Specifying true (.T.) enables them as exit keys, and
                    false (.F.) disables them. Used internally by the
                    ReadExit() function.
@@ -1003,7 +1003,7 @@
    $SUBCATEGORY$
       Environment
    $ONELINER$
-      Toggles the enhanced display of PROMPT's and GETs.
+      Toggles the enhanced display of PROMPTs and GETs.
    $SYNTAX$
       SET INTENSITY ON | off | ( <lInte> )
    $ARGUMENTS$
@@ -1094,7 +1094,7 @@
       <lCent> Logical expression for toggle
    $DESCRIPTION$
       This command allows the input and display of dates with the century
-      prefix. It will be in the standart `MM/DD/YYYY` format unless specified
+      prefix. It will be in the standard `MM/DD/YYYY` format unless specified
       by the `SET DATE` command or Set() function. If <lCent> is a logical
       true (.T.), the command will be set on; otherwise, the command will
       be set off
@@ -1399,7 +1399,7 @@
 
       When the device is set to the PRINTER, the `SET MARGIN` value adjusts
       the position of the column values accordingly. Also, an automatic
-      page eject will be issued when the current printhead position is
+      page eject will be issued when the current printer head position is
       less than the last printed row. Finally, if used in conjunction with
       the `@...GET` commands, the values for the GETs will all be ignored.
    $EXAMPLES$

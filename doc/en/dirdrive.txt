@@ -67,7 +67,7 @@
       description of the error.
    $EXAMPLES$
       IF DirChange( "temp" ) == 0
-         ? "Change to diretory was successful"
+         ? "Change to directory was successful"
       ENDIF
    $STATUS$
       R

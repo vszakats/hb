@@ -16,7 +16,7 @@
 
       <nLeft>          - leftmost row used to display array (default 0)
 
-      <nBottom>        - bottommost row used to display array (default MaxRow())
+      <nBottom>        - bottom-most row used to display array (default MaxRow())
 
       <nRight>         - rightmost row used to display array (default MaxCol())
 
