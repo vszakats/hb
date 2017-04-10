@@ -70,7 +70,7 @@ functions, [ed25519](https://en.wikipedia.org/wiki/EdDSA) digital signature func
 This library provides functions compatible with the famous Clipper Tools for
 CA-Clipper (`CT.LIB`).
 
-## hbcups (*nix-only)
+## hbcups (\*nix-only)
 
 CUPS bindings (printing)
 
@@ -151,7 +151,7 @@ LZF bindings (compression)
 
 Apple Mac specific functions
 
-## hbmagic (*nix-only)
+## hbmagic (\*nix-only)
 
 libmagic bindings (file identification)
 
@@ -223,7 +223,7 @@ Telepath(y) emulation library. Telepath(y) is the best serial communication
 library for Nantucket/CA-Clipper and this library has a significant
 amount of the functionality contained in Telepath(y) in this Harbour port.
 
-## hbunix (*nix-only)
+## hbunix (\*nix-only)
 
 Unix specific functions
 
