@@ -7,7 +7,7 @@
       Read me file for GD Library
    $DESCRIPTION$
       HBGD is basically a wrapper of Thomas Boutell's GD Library version 2.x.
-      GD Library is a powerfull graphic library very usefull expecially under CGI environment.
+      GD Library is a powerful graphic library very useful especially under CGI environment.
 
       HBGD actually contains almost all GD functions, more a set of functions that extends original
       library and a set of classes that make easier to work with this library.
@@ -26,7 +26,7 @@
       - fill with colors;
       - draw with brushes;
       - check a point or part or full image with a lot of query functions;
-      - draw characters and words with internal fonts or using truetype fonts;
+      - draw characters and words with internal fonts or using TrueType fonts;
       - write strings on a base line or on a circle line and with any angle degree;
       - copy, resize and rotate part or full image;
 
@@ -150,8 +150,8 @@
       ```
       pImage := gdImageCreateFromJpeg( pMemoryImagePtr, nSize )
       ```
-      the <pImage> pointer returned will be not NIL if successfull and will contains a memory pointer
-      to the jpeg image.
+      the <pImage> pointer returned will be not NIL if successful and will contains a memory pointer
+      to the JPEG image.
 
       HBGD uses it's own memory to manage an image, so it is important to use this function.
 
@@ -179,7 +179,7 @@
    $CATEGORY$
       hbgd
    $ONELINER$
-      Load a Gif image file.
+      Load a GIF image file.
    $SYNTAX$
       gdImageCreateFromGif( <cFile> | <nHandle> | <pPointer> [, <nSize> ] ) --> pImage
    $ARGUMENTS$
@@ -204,7 +204,7 @@
       ```
       pImage := gdImageCreateFromGif( pMemoryImagePtr, nSize )
       ```
-      the <pImage> pointer returned will be not NIL if successfull and will contains a memory pointer
+      the <pImage> pointer returned will be not NIL if successful and will contains a memory pointer
       to the gif image.
 
       HBGD uses it's own memory to manage an image, so it is important to use this function.
@@ -258,7 +258,7 @@
       ```
       pImage := gdImageCreateFromPng( pMemoryImagePtr, nSize )
       ```
-      the <pImage> pointer returned will be not NIL if successfull and will contains a memory pointer
+      the <pImage> pointer returned will be not NIL if successful and will contains a memory pointer
       to the png image.
 
       HBGD uses it's own memory to manage an image, so it is important to use this function.
@@ -312,7 +312,7 @@
       ```
       pImage := gdImageCreateFromGD( pMemoryImagePtr, nSize )
       ```
-      the <pImage> pointer returned will be not NIL if successfull and will contains a memory pointer
+      the <pImage> pointer returned will be not NIL if successful and will contains a memory pointer
       to the GD image.
 
       HBGD uses it's own memory to manage an image, so it is important to use this function.
@@ -341,7 +341,7 @@
    $CATEGORY$
       hbgd
    $ONELINER$
-      Load a WBmp image file.
+      Load a WBMP image file.
    $SYNTAX$
       gdImageCreateFromWBmp( <cFile> | <nHandle> | <pPointer> [, <nSize> ] ) --> pImage
    $ARGUMENTS$
@@ -352,7 +352,7 @@
    $RETURNS$
       <pImage>       - Image pointer
    $DESCRIPTION$
-      gdImageCreateFromWBmp() creates a WBmp image from a file or a handle or another image in memory.
+      gdImageCreateFromWBmp() creates a WBMP image from a file or a handle or another image in memory.
 
       You can use one of 3 syntax:
       ```
@@ -366,8 +366,8 @@
       ```
       pImage := gdImageCreateFromWBmp( pMemoryImagePtr, nSize )
       ```
-      the <pImage> pointer returned will be not NIL if successfull and will contains a memory pointer
-      to the WBmp image.
+      the <pImage> pointer returned will be not NIL if successful and will contains a memory pointer
+      to the WBMP image.
 
       HBGD uses it's own memory to manage an image, so it is important to use this function.
 
@@ -794,19 +794,19 @@
    $CATEGORY$
       hbgd
    $ONELINER$
-      Draws a closed polygon with verticies (at least 3) with a particular color index.
+      Draws a closed polygon with vertices (at least 3) with a particular color index.
    $SYNTAX$
-      gdImagePolygon( <pImage>, <aVerticies>, <nColor> ) --> NIL
+      gdImagePolygon( <pImage>, <aVertices>, <nColor> ) --> NIL
    $ARGUMENTS$
       <pImage>       - Image pointer
-      <aVerticies>   - Array of point array { <x>, <y> } where
+      <aVertices>    - Array of point array { <x>, <y> } where
                        <x> is horizontal position
                        <y> is vertical position
       <nColor>       - Color index
    $RETURNS$
       NIL
    $DESCRIPTION$
-      gdImagePolygon() Draws a closed polygon with verticies (at least 3) with a
+      gdImagePolygon() Draws a closed polygon with vertices (at least 3) with a
       particular color index.
 
       To set the color index you have to use gdImageColorAllocate() function.
@@ -815,7 +815,7 @@
       PROCEDURE Main()
          LOCAL pImage
          LOCAL blue
-         LOCAL aVerticies := { ;
+         LOCAL aVertices := { ;
             { 50,  0 }, ;
             { 99, 99 }, ;
             {  0, 99 } }
@@ -827,7 +827,7 @@
          blue := gdImageColorAllocate( pImage, 0, 0, 255 )
 
          // Draw a polygon
-         gdImagePolygon( pImage, aVerticies, blue )
+         gdImagePolygon( pImage, aVertices, blue )
 
          // Save the image
          gdImageJpeg( pImage, "myimage.jpg" )
@@ -850,19 +850,19 @@
    $CATEGORY$
       hbgd
    $ONELINER$
-      Draws an open polygon with verticies (at least 3) with a particular color index.
+      Draws an open polygon with vertices (at least 3) with a particular color index.
    $SYNTAX$
-      gdImageOpenPolygon( <pImage>, <aVerticies>, <nColor> ) --> NIL
+      gdImageOpenPolygon( <pImage>, <aVertices>, <nColor> ) --> NIL
    $ARGUMENTS$
       <pImage>       - Image pointer
-      <aVerticies>   - Array of point array { <x>, <y> } where
+      <aVertices>    - Array of point array { <x>, <y> } where
                        <x> is horizontal position
                        <y> is vertical position
       <nColor>       - Color index
    $RETURNS$
       NIL
    $DESCRIPTION$
-      gdImageOpenPolygon() Draws an open polygon with verticies (at least 3) with a
+      gdImageOpenPolygon() Draws an open polygon with vertices (at least 3) with a
       particular color index. Unlike gdImagePolygon() the endpoints of the line sequence
       are not connected to close the polygon.
 
@@ -872,7 +872,7 @@
       PROCEDURE Main()
          LOCAL pImage
          LOCAL blue
-         LOCAL aVerticies := { ;
+         LOCAL aVertices := { ;
             { 50,  0 }, ;
             { 99, 99 }, ;
             {  0, 99 } }
@@ -884,7 +884,7 @@
          blue := gdImageColorAllocate( pImage, 0, 0, 255 )
 
          // Draws an open polygon
-         gdImageOpenPolygon( pImage, aVerticies, blue )
+         gdImageOpenPolygon( pImage, aVertices, blue )
 
          // Save the image
          gdImageJpeg( pImage, "myimage.jpg" )
@@ -960,19 +960,19 @@
    $CATEGORY$
       hbgd
    $ONELINER$
-      Draws a filled polygon with verticies (at least 3) with a particular color index.
+      Draws a filled polygon with vertices (at least 3) with a particular color index.
    $SYNTAX$
-      gdImageFilledPolygon( <pImage>, <aVerticies>, <nColor> ) --> NIL
+      gdImageFilledPolygon( <pImage>, <aVertices>, <nColor> ) --> NIL
    $ARGUMENTS$
       <pImage>       - Image pointer
-      <aVerticies>   - Array of point array { <x>, <y> } where
+      <aVertices>    - Array of point array { <x>, <y> } where
                        <x> is horizontal position
                        <y> is vertical position
       <nColor>       - Color index
    $RETURNS$
       NIL
    $DESCRIPTION$
-      gdImageFilledPolygon() Draws a filled polygon with verticies (at least 3) with a
+      gdImageFilledPolygon() Draws a filled polygon with vertices (at least 3) with a
       particular color index.
 
       To set the color index you have to use gdImageColorAllocate() function.
@@ -981,7 +981,7 @@
       PROCEDURE Main()
          LOCAL pImage
          LOCAL blue
-         LOCAL aVerticies := { ;
+         LOCAL aVertices := { ;
             { 50,  0 }, ;
             { 99, 99 }, ;
             {  0, 99 } }
@@ -993,7 +993,7 @@
          blue := gdImageColorAllocate( pImage, 0, 0, 255 )
 
          // Draw a filled polygon
-         gdImageFilledPolygon( pImage, aVerticies, blue )
+         gdImageFilledPolygon( pImage, aVertices, blue )
 
          // Save the image
          gdImageJpeg( pImage, "myimage.jpg" )
@@ -1381,7 +1381,7 @@
    $CATEGORY$
       hbgd
    $ONELINER$
-      specify the actual foreground color to be used when drawing antialiased lines.
+      specify the actual foreground color to be used when drawing anti-aliased lines.
    $SYNTAX$
       gdImageSetAntiAliased( <pImage>, <nColor> ) --> NIL
    $ARGUMENTS$
@@ -1394,20 +1394,20 @@
       can be reduced by blending the foreground color with an appropriate percentage of
       the background, depending on how much of the pixel in question is actually within
       the boundaries of the line being drawn. All line-drawing functions, such as gdImageLine(),
-      gdImageOpenPolygon() and gdImagePolygon(), will draw antialiased lines if the special "color"
+      gdImageOpenPolygon() and gdImagePolygon(), will draw anti-aliased lines if the special "color"
       `gdAntiAliased` constant is used when calling them.
 
       gdImageSetAntiAliased() is used to specify the actual foreground color to be used when drawing
-      antialiased lines. You may set any color to be the foreground, however as of version 2.0.12
+      anti-aliased lines. You may set any color to be the foreground, however as of version 2.0.12
       an alpha channel component is not supported.
 
-      Antialiased lines can be drawn on both truecolor and palette-based images. However,
-      attempts to draw antialiased lines on highly complex palette-based backgrounds may not give
-      satisfactory results, due to the limited number of colors available in the palette. Antialiased
+      Anti-aliased lines can be drawn on both true-color and palette-based images. However,
+      attempts to draw anti-aliased lines on highly complex palette-based backgrounds may not give
+      satisfactory results, due to the limited number of colors available in the palette. Anti-aliased
       line-drawing on simple backgrounds should work well with palette-based images; otherwise create
-      or fetch a truecolor image instead.
+      or fetch a true-color image instead.
 
-      You need not take any special action when you are finished with antialised line drawing.
+      You need not take any special action when you are finished with anti-aliased line drawing.
 
       To set the color index you have to use gdImageColorAllocate() function.
 
@@ -1552,7 +1552,7 @@
          pImage := gdImageCreate( 100, 100 )
 
          // Open the brush PNG. For best results, portions of the brush that should be transparent
-         // (ie, not part of the brush shape) should have the transparent color index.
+         // (i.e., not part of the brush shape) should have the transparent color index.
          pBrush := gdImageCreateFromPng( "mybrush.png" )
 
          // Allocate color  (background color is the first allocate)
@@ -1623,7 +1623,7 @@
          pImage := gdImageCreate( 100, 100 )
 
          // Open the tile PNG. For best results, portions of the
-         // tile that should be transparent (ie, allowing the
+         // tile that should be transparent (i.e., allowing the
          // background to shine through) should have the transparent
          // color index.
          pTile := gdImageCreateFromPng( "mytile.png" )

@@ -49,7 +49,7 @@
 
    $ARGUMENTS$
       <cFloatingPointNumber> Designate a string that contains a Harbour
-      number in flotaing point format.
+      number in floating point format.
       ATTENTION: different implementations or platforms of Harbour, they
       could produce different format in the string returned by FToC().
 

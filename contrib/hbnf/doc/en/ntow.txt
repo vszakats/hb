@@ -20,7 +20,7 @@
       If you want the fraction in words, just pass it as an integer.
 
       Do not pass a negative number!  Handle negative numbers any way
-      you need to in your code.  (ie: CR, DB, Negative, Minus, etc.)
+      you need to in your code.  (i.e.: CR, DB, Negative, Minus, etc.)
 
       Also, numeric 0 is returned as a null string.  You will need to
       make a decision how to output it (zero dollars, no dollars, etc).

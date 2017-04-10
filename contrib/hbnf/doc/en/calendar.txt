@@ -28,11 +28,11 @@
 
    $RETURNS$
       <aRetVal>  is an 8 element array containing date, month, day, year,
-                  month (in character format), day of the week, julian day
+                  month (in character format), day of the week, Julian day
                   and current time.
 
    $DESCRIPTION$
-      ft_Calendar() simply displays today's date, time and julian
+      ft_Calendar() simply displays today's date, time and Julian
       day in a two line display with an optional box shadow. Cursor keys may
       be used to page through the calendar by day, week, month or year
       increments. Returns an 8 element array of calendar data:
@@ -50,7 +50,7 @@
       </table>
 
       WARNING: ft_Calendar() uses ft_Shadow() and ft_XBox()
-               from the Nanforum Toolkit!
+               from the NanForum Toolkit!
    $EXAMPLES$
       LOCAL aRetVal := ft_Calendar( 10, 40, "W+/RB", .T., .T. )
       ? aRetVal[ 1 ]      // Result: 1991-04-20

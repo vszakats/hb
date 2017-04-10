@@ -4,7 +4,7 @@
    $CATEGORY$
       CT3 string functions
    $ONELINER$
-      Add an integer value to an ascii value of a string
+      Add an integer value to an ASCII value of a string
    $SYNTAX$
       AddAscii( <[@]cString>, <nValue>, [<nPosition>], [<lCarryOver>] ) --> cString
    $ARGUMENTS$

@@ -35,7 +35,7 @@
    $CATEGORY$
       CT3 string functions
    $ONELINER$
-      Relation dependant character replacement
+      Relation dependent character replacement
    $SYNTAX$
       CharRelRep( <cStringToMatch1>, <cString1>,
                   <cStringToMatch2>, <[@]cString2>,

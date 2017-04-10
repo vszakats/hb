@@ -14,9 +14,9 @@
       <cString>               is the string that contains <cStringToMatch>
       <nAdjustPosition>       specifies the position to that <cStringToMatch>
                               will be adjusted
-      [<nCounter>]            specifies which occurence of <cStringToMatch>
+      [<nCounter>]            specifies which occurrence of <cStringToMatch>
                               in <cString> is to be adjusted
-                              Default: last occurence
+                              Default: last occurrence
       [<nIgnore>]             specifies how many characters should be omitted
                               in the scan
       [<nFillChar|cFillChar>] specifies the character that is used for the

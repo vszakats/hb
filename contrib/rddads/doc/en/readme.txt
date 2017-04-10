@@ -32,7 +32,7 @@
       rddSetDefault( "ADS" )
       ```
 
-      By default rddads is tuned for remote server and cdx indexes. To
+      By default rddads is tuned for remote server and CDX indexes. To
       change this you may use these commands defined in ads.ch:
 
       ```
@@ -47,7 +47,7 @@
       or functions AdsSetServerType(), AdsSetFileType().
       See the header file ads.ch for details.
 
-      Note that the default local server is useable for
+      Note that the default local server is usable for
       file sharing on a small network.  The default DLL is limited to
       5 users, but an unlimited version is available from Extended Systems.
 

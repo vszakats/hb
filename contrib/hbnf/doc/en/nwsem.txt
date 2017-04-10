@@ -322,7 +322,7 @@
       you don't.  If this call fails, it could be that you're passing
       an invalid semaphore handle.
    $DESCRIPTION$
-      This call unlocks a semaphore prevsiously locked via ft_NWSemLock().
+      This call unlocks a semaphore previously locked via ft_NWSemLock().
       It is important that you get a valid semaphore handle from
       ft_NWSemLock() before you use this call.  Make sure when you call
       ft_NWSemLock() that you pass a numeric parameter in for the handle

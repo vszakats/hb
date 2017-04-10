@@ -87,7 +87,7 @@
    $DESCRIPTION$
       Return the position in <cStr2> where <cStr1> begins to differ.
       If the strings differ in the first character gt_AtDiff() will
-      return 1.  If the two strings are identical (or identical upto
+      return 1.  If the two strings are identical (or identical up to
       the last character in <cStr2>) the function will return 0.
 
       NOTE:
@@ -217,7 +217,7 @@
    $SYNTAX$
       gt_ChrCount( <cChr>, <cStr> ) --> nFreq
    $ARGUMENTS$
-      <cChr>  - The character to find the frequence of
+      <cChr>  - The character to find the frequency of
 
       <cStr>  - The string in which to find the character
    $RETURNS$
@@ -291,7 +291,7 @@
       <nTotOcc> - The number of times the characters specified in
                   <cChrs> appears in <cStr>
    $DESCRIPTION$
-      Returns the numnber of occurrences of characters belonging
+      Returns the number of occurrences of characters belonging
       to the set <cChrs> in the string <cStr>.  If no characters
       in <cChrs> appears in <cStr> gt_ChrTotal() will return 0.
 
@@ -323,7 +323,7 @@
    $SYNTAX$
       gt_StrCount( <cChrs>, <cStr> ) --> nFreq
    $ARGUMENTS$
-      <cChrs> - The substring to find the frequence of
+      <cChrs> - The substring to find the frequency of
 
       <cStr>  - The string in which to find the character
    $RETURNS$
@@ -365,7 +365,7 @@
 
       <cSet>    - The set of characters
    $RETURNS$
-      <nLength> - The length of a string upto a character in the set
+      <nLength> - The length of a string up to a character in the set
    $DESCRIPTION$
       Return the number of characters in the leading segment of a
       string that consists solely of characters NOT in the set.
@@ -402,7 +402,7 @@
    $DESCRIPTION$
       Return a string beginning at the position in <cStr2> where
       <cStr1> begins to differ from <cStr1>. If the two strings are
-      identical (or identical upto the last character in <cStr2>)
+      identical (or identical up to the last character in <cStr2>)
       the function will return "".
 
       NOTE:
@@ -435,7 +435,7 @@
 
       <nNum>  - The number of fill characters to insert (default 1)
 
-      <cChar> - The fill chararacter (default space)
+      <cChar> - The fill character (default space)
    $RETURNS$
       <cRet>  - The input string with fill characters inserted between
                 every character in the original.
@@ -510,10 +510,10 @@
 
       <cSet>    - The set of characters to find
    $RETURNS$
-      <cString> - The input string after the first occurance of any
+      <cString> - The input string after the first occurrence of any
                   character from <cSet>
    $DESCRIPTION$
-      Return a string after the first occurance of any character from
+      Return a string after the first occurrence of any character from
       the input set <cSet>.
    $EXAMPLES$
       ? gt_StrPBRK( "This is a test", "sa " )  // prints "s is a test"

@@ -253,7 +253,7 @@
 
       Use the return value to determine how many records were actually
       skipped, for example to write a custom skipper function for
-      TBrowse'g text files.
+      TBrowse-ing text files.
 
       If a read error occurs ft_FError() will contain the error code.
 

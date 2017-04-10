@@ -15,7 +15,7 @@
    $RETURNS$
       <cString> Return the mask with all the parameters inserted.
    $DESCRIPTION$
-      String replacment, can be useful when writing international
+      String replacement, can be useful when writing international
       apps. You can separate the constant strings from the variable ones.
       Each `%1` - `%9` marks will be replaced with the appropriate parameter
       from the parameter list.

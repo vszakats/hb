@@ -17,7 +17,7 @@
       The CharList() function generates a list of those characters that
       are contained in <cString>. This list can contain each character
       only once, so that its maximum length is 256. The list lists those
-      characters first that are occuring in <cString> first.
+      characters first that are occurring in <cString> first.
    $EXAMPLES$
       ? CharList( "Hello World !" ) // --> "Helo Wrd!"
    $STATUS$

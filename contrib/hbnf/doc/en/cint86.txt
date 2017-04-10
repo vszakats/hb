@@ -33,10 +33,10 @@
           protected mode, .F. may also be returned if an allocation
           of low DOS memory fails.
 
-      n addition, the array elements will contain whatever values were in
-      he CPU registers immediately after the interrupt was executed.  If
-      ither of the string parameters were altered by the interrupt, these
-      hanges will be reflected as well.
+      In addition, the array elements will contain whatever values were in
+      the CPU registers immediately after the interrupt was executed.  If
+      either of the string parameters were altered by the interrupt, these
+      changes will be reflected as well.
    $DESCRIPTION$
       It is occasionally useful to be able to call interrupts directly from
       Clipper, without having to write a separate routine in C or ASM.  This

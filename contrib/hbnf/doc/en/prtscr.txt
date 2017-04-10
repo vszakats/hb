@@ -14,7 +14,7 @@
       The current state: .T. if enabled, .F. if disabled.
    $DESCRIPTION$
       This function is valuable if you have a need to disable the
-      printscreen key.  It works by fooling the BIOS into thinking that
+      <PrintScreen> key.  It works by fooling the BIOS into thinking that
       a printscreen is already in progress.  The BIOS will then refuse
       to invoke the printscreen handler.
    $EXAMPLES$

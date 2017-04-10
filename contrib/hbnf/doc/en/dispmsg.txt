@@ -4,7 +4,7 @@
    $CATEGORY$
       Menus/Prompts
    $ONELINER$
-      Display a message and optionally waits for a keypress
+      Display a message and optionally waits for a key-press
    $SYNTAX$
       ft_DispMsg( <aMessageArray>, [ <cKey2Check> ],
                   [ <nTopBoxRow> ], [ <nLeftBoxColumn> ],
@@ -31,7 +31,7 @@
       <cKey2Check> is a character string of one or more keys to check
       for.  If omitted, the message is displayed and control is returned
       to the calling procedure.  If one character is specified,
-      ft_DispMsg() waits for one keypress, restores the screen and
+      ft_DispMsg() waits for one key-press, restores the screen and
       returns.  If multiple characters are specified, ft_DispMsg()
       remains in a loop until one of the specified keys has been
       pressed, then restores the screen and returns.
@@ -59,7 +59,7 @@
 
       If <cKey2Check> consists of multiple characters, it will lock the
       user in a loop until one of those keys are pressed and return the
-      Inkey() value of the keypress.
+      Inkey() value of the key-press.
    $DESCRIPTION$
       ft_DispMsg() is a multi-purpose pop-up for user messages.
       Multiple lines may be displayed, each with a different attribute.
