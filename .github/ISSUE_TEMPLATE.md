@@ -19,7 +19,7 @@ _all_ above points is considered rude though.
 ### Bug reports:
 
 Please replace this section with a brief summary of your issue, including
-self-contained example code, combined stdout/stderr output, platform/compiler
+self-contained example code, combined STDOUT/STDERR output, platform/compiler
 and version/revision details.
 
 ### Notes:
@@ -32,4 +32,5 @@ Consider creating a [Pull Request](https://github.com/vszakats/harbour-core/pull
 to address any problem found. This is in particular welcome or even expected
 for issues falling outside the focus of this fork, f.e. any C compiler except
 mingw/gcc/clang or regarding certain, non-priority or deprecated components
-(f.e. Windows CE, hbtip, gtwvg/gtwvw, xhb) and feature requests in general.
+(f.e. Windows CE, `hbtip`, `gtwvg`/`gtwvw`, `xhb`) and feature requests in
+general.

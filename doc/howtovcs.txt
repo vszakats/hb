@@ -60,7 +60,7 @@ by Viktor Szakats
   text. If you refer to a commit in another fork,
   include the whole (GitHub) URL of the commit.
 
-- To refer to an issue, inclide issue number prefixed with
+- To refer to an issue, include issue number prefixed with
   a # character. If you include the word "fixes", "fixed"
   or similar, the issue will automatically be closed.
   See more here:
@@ -73,7 +73,7 @@ by Viktor Szakats
   add the word '[TRANSLATION]' to the text.
 
 - Mark comments suggesting further fixes with 'FIXME: ', further
-  todos as 'TODO: ', and update these to '[DONE]' when implemented.
+  TODOs as 'TODO: ', and update these to '[DONE]' when implemented.
 
 - Mark changes to merge with different branch as '[TOMERGE x.0]'.
   Changes these to '[MERGED x.0]' when merge is completed.

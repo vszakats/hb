@@ -78,7 +78,7 @@ Follow are the various directories that exist under the Harbour tree.
 |   |       |
 |   |       +---example - Usage examples.
 |   |       |
-|   |       +---rdds    - A set of simple RDD's all written in PRG.
+|   |       +---rdds    - A set of simple RDDs all written in PRG.
 |   |
 |   +---rtl             - Run-Time libraries functions and various General
 |   |   |                 Terminal (GT) implementation
@@ -119,7 +119,7 @@ Follow are the various directories that exist under the Harbour tree.
 |       |
 |       +---mainwin     - mainwin helper library.
 |       |
-|       +---vmmt        - GNU Makefile for creating the multithreaded version
+|       +---vmmt        - GNU Makefile for creating the multi-threaded version
 |                         of the VM library.
 |
 +---tests               - Test programs.
@@ -129,7 +129,7 @@ Follow are the various directories that exist under the Harbour tree.
 |   |
 |   +---hbpptest        - Regression tests for the preprocessor.
 |   |
-|   +---mt              - Various multithreading tests.
+|   +---mt              - Various multi-threading tests.
 |   |
 |   +---multifnc        - Overloading C functions test.
 |   |

@@ -47,7 +47,7 @@ will be optimized by the dynamic symbol table.
 
 The dynamic symbol table: Dynamically generated from the startup subsystem
 at the beginning of the application. It organizes in an efficient way the
-static symbol table creating an alphabetical index that allows a dicotomic
+static symbol table creating an alphabetical index that allows a dichotomic
 search of symbols. This subsystem is responsible for quick access to symbols
 (functions, variables, fields and workareas aliases).
 
@@ -277,7 +277,7 @@ Answer:
     #define       SETPOSBS         0xCF      1
 
 Harbour will not implement all of them as we want to provide the highest
-freedom to programers to extend and modify Harbour as needed. In example:
+freedom to programmers to extend and modify Harbour as needed. In example:
 Clipper language uses opcodes for: Row(), Col(), Upper(), Space(),
 Replicate(), Inkey(), Year(), Month(), etc... where we may just call a
 standard C function, that uses the standard extend system and that may be
@@ -288,9 +288,9 @@ compiler and VM.
 Question:
 
   I see that, for example, Harbour has an opcode named "PUSHWORD"(06),
-while Valkyre calls it "PUSHW"(3B): Different names, different codes.
-Isn't it desirable that Harbour pCode be binary-compatible with Clipper? I
-mean, by doing so, Harbour VM could interpret Clipper pCode and
+while Valkyrie calls it "PUSHW"(3B): Different names, different codes.
+Isn't it desirable that Harbour pcode be binary-compatible with Clipper? I
+mean, by doing so, Harbour VM could interpret Clipper pcode and
 vice-versa.
 
 Answer:
@@ -304,7 +304,7 @@ speed may increase. Clipper uses it).
 
 We are not fully implementing the Clipper language OBJs model (i.e. to
 provide identifiers names length higher than 10 chars) so Harbour OBJs will
-not be supported by Clipper and viceversa.
+not be supported by Clipper and vice versa.
 
 sorry for such a long message :-)
 

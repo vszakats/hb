@@ -13,7 +13,7 @@
 Harbour is the open/free software implementation of a cross-platform,
 multi-threading, object-oriented, scriptable programming language, backwards
 compatible with xBase languages. Harbour consists of a compiler and runtime
-libraries with multiple UI, database and I/O backends, its own build system
+libraries with multiple UI, database and I/O back ends, its own build system
 and a collection of libraries and bindings for popular APIs.
 
 # Table of Content
@@ -130,7 +130,7 @@ Platform specific prerequisites:
    list of supported compilers,
    look up [Supported Platforms and C Compilers](#supported-platforms-and-c-compilers).
 3. A native build of GNU Make 3.81 or upper is required. It is usually named
-   `mingw32-make.exe`. It's distrbuted in MSYS2, mingw-w64 packages. You can
+   `mingw32-make.exe`. It's distributed in MSYS2, mingw-w64 packages. You can
    find some links [here](#external-links).
    Unpack it to your `PATH` or Harbour source root directory, and run it as
    `mingw32-make`.
@@ -227,42 +227,6 @@ To test it, type:
     $ cd tests
     $ ../bin/<plat>/<comp>/hbmk2 hello.prg
     $ ./hello
-
-You should see `Hello, world!` on screen.
-
-## on OS/2 hosts (possible cross-build targets: MS-DOS, OS/2, Linux)
-
-Make sure to have the required GNU coreutils `cp`, `rm`, `mkdir`, `echo`
-and GNU `make` installed in `PATH`.
-
-To build:
-
-    > os2-make
-
-To test it, type:
-
-    > cd tests
-    > ..\bin\<plat>\<comp>\hbmk2 hello.prg
-    > hello
-
-You should see `Hello, world!` on screen.
-
-## on OS/2 hosts (possible cross-build targets: MS-DOS, OS/2, Linux)
-
-To prepare:
-
-    1. Get `curl` tool.
-    2. Execute shell script `gettools.sh` to download required build tools.
-
-To build:
-
-    > os2-make
-
-To test it, type:
-
-    > cd tests
-    > ..\bin\<plat>\<comp>\hbmk2 hello.prg
-    > hello
 
 You should see `Hello, world!` on screen.
 
@@ -618,7 +582,7 @@ settings are case-sensitive.
      any given platform/compiler. F.e. debug / release.
 
      > In current implementation it's appended to compiler directory name, so
-     > all filesystem/platform name rules and limits apply. (Back)slashes will
+     > all file-system/platform name rules and limits apply. (Back)slashes will
      > be stripped from the name though.
 
    - `HB_USER_LIBS=[<list>]`
@@ -720,7 +684,7 @@ for a cross-build process to succeed.
 > NOTES:
 >
 > - All code below should be copied to batch files or typed at command-line.
-> - Naturally, you will need to adapt pathnames to valid ones on your system.
+> - Naturally, you will need to adapt path names to valid ones on your system.
 > - You can use additional `clean`, `install` or `clean install` make
 >   parameters depending on what you want to do.
 > - To redirect all output to a log file, append this after the make command:
@@ -1144,7 +1108,7 @@ Build Harbour with:
 Run app with:
 
     HB_TR_LEVEL=debug
-    # to override default stderr output:
+    # to override default STDERR output:
     HB_TR_OUTPUT=<filename>
     # to enable additional system specific logging output,
     # OutputDebugString() on Windows, syslog() on \*nix systems:
@@ -1305,7 +1269,7 @@ Press `<Alt+D>` in the app.
 
 # Platform Matrix
 
- &nbsp;| host<br />platform | target<br />platform/compiler | target cpu
+ &nbsp;| host<br />platform | target<br />platform/compiler | target CPU
  :---- | :------- | :---------------- | :---------------------------------------
        | linux    | linux/gcc         | (CPU cross-builds possible)
        | linux    | linux/clang       | (CPU cross-builds possible)
@@ -1463,7 +1427,7 @@ Supported shells per host platforms:
         * <https://www.visualstudio.com/vs/visual-studio-express/>
      * MS Visual Studio [win, commercial, proprietary]
         * <https://www.visualstudio.com/>
-     * Intel Compiler [mult-platform, commercial, proprietary]
+     * Intel Compiler [multi-platform, commercial, proprietary]
         * <https://software.intel.com/c-compilers>
 
 * Libraries:

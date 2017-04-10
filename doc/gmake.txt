@@ -1,18 +1,18 @@
 INTRODUCTION
 ============
 
-This file explains the philosophy for the GNU-make based build system
+This file explains the philosophy for the GNU Make based build system
 for Harbour, and gives instructions on how to use it.
 
 
 PHILOSOPHY
 ==========
 
-This build system is based on GNU-make, the idea being that GNU-make
+This build system is based on GNU Make, the idea being that GNU Make
 is free software, available for every platform you can dream up, and it is
 usually more powerful than any native make.
 
-Each directory in the project contains one makefile, called Makefile,
+Each directory in the project contains one Makefile, called Makefile,
 which lists the data (file names, directory names, etc.) that is used
 to determine how to bring every target up to date within that
 directory. There are no rules in the Makefiles, to keep them
@@ -111,7 +111,7 @@ files compiled with gcc). This has two advantages:
 USAGE
 =====
 
-To use the system, you need to install GNU-make 3.81 or later on your
+To use the system, you need to install GNU Make 3.81 or later on your
 system. To check this, type `make -v`; you should see
 
   GNU Make 3.81
@@ -126,11 +126,11 @@ For MinGW (GCC port for Windows):
   HB_COMPILER       mingw
 
 For MSVC on Windows:
-  Notes: gnu make is case sensitive!  If your editor converts
-         harbour.c to HARBOUR.C when it saves the file, then gnu make
+  Notes: GNU Make is case sensitive!  If your editor converts
+         harbour.c to HARBOUR.C when it saves the file, then GNU Make
          _will_not_work.
          If you have MAKE_MODE in your dos environment, make sure it is
-         not set to unix
+         not set to Unix
 
          For best results, also set:
   HB_PLATFORM       win

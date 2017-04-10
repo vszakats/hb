@@ -120,9 +120,9 @@ Evaluate these points before reporting an issue:
     problem to Harbour developers, make sure to include your OS
     version/language/CPU architecture, Harbour revision, C compiler
     name/release and version, environment variables and verbose log output
-    containing **both stderr and stdout in one combined stream**
+    containing **both STDERR and STDOUT in one combined stream**
     (use `make > log.txt 2>&1`). Enable verbose mode using
-    `HB_BUILD_VERBOSE=yes` and _do not_ enable multi-theaded (parallel) build.
+    `HB_BUILD_VERBOSE=yes` and _do not_ enable multi-threaded (parallel) build.
     Preferably, configure your tools to output English language messages.
     Complete log output is rarely necessary, but make sure to include
     the top of the output (lines starting with `!`) and the area where
@@ -139,14 +139,14 @@ Evaluate these points before reporting an issue:
     output to a file (see above how). Also include your full command-line
     and any referenced build script in your report.
     It is good idea to first remove all manual references to Harbour
-    core components from makefiles and custom environment. F.e. it's
-    commom mistake to add C compiler header and/or lib dirs, Harbour core
-    header and/or lib dirs, built-in constants to makefiles or environment.
+    core components from make-files and custom environment. F.e. it's
+    common mistake to add C compiler header and/or lib dirs, Harbour core
+    header and/or lib dirs, built-in constants to make-files or environment.
     No such thing is necessary as all of these are automatically handled
-    by `hbmk2`. IOW start simple and don't be overbusy with *fine-tuning*
-    your configuration. If you need to, the problem is most probably
-    elsewhere. It's also good idea to try with the latest Harbour revision
-    or Harbour's mainline branch first.
+    by `hbmk2`. In other words: start simple and don't be over-busy with
+    *fine-tuning* your configuration. If you need to, the problem is most
+    probably elsewhere. It's also good idea to try with the latest Harbour
+    revision or Harbour's mainline branch first.
 12. <a name="trbl-12"></a> If you are to report a problem with Harbour itself,
     provide self-contained, minimal source code example. Do not use `xhb`
     contrib library (including `hbcompat.ch`), nor any 3rd party Harbour
