@@ -60,7 +60,7 @@ General
   - HB_PLATFORM=w32     -> HB_PLATFORM=win
   - CCPATH              -> HB_CCPREFIX
   - CCPREFIX            -> HB_CCPATH
-- GNU-make system revised to give optimal support -j<n>
+- GNU Make system revised to give optimal support -j<n>
   multi-threaded parallel builds, which can dramatically
   increase build speed in multi-core/multi-CPU systems.
 - HB_WINCE          -> HB_OS_WIN_CE
@@ -467,7 +467,7 @@ General
 - Several code quality enhancements, warning fixes.
 - Doc quality fixes, formatting.
 - Fixed so that build-time PRG_USR always overrides default
-  options in GNU-make.
+  options in GNU Make.
 - Added openSUSE package requirements to doc/linux1st.txt.
 - Unnecessary compiler options and lib dependencies cleaned
   from build processes.
@@ -506,14 +506,14 @@ General
   instructions in make_vc.bat, how to initiate a WinCE build.
 - Now Harbour is able to build and run properly in MSVC C mode
   in AMD64 (64-bit) mode.
-- Added experimental Pelles C WinCE GNU-make file. It doesn't
+- Added experimental Pelles C WinCE GNU Make file. It doesn't
   yet work properly.
 - Post batch file called from core non-GNU make files was
   renamed, please update your system if you're using them:
   exit_err.bat -> hbmkpost.bat
-- Added experimental MSVC WinCE GNU-make file.
+- Added experimental MSVC WinCE GNU Make file.
 - Added Darwin auto-detection to non-GNU .sh make files.
-- Changed GNU-make name of MinGW WinCE compiler (HB_COMPILER)
+- Changed GNU Make name of MinGW WinCE compiler (HB_COMPILER)
   from 'cemgw' to 'mingwce'. Please update your system, if
   you've been using this directly (and not via make_*ce.sh scripts).
 - Memory statistics module now turned off by default for optimal
@@ -2011,7 +2011,7 @@ Version 0.32 Alpha Build 32 (2000-03-07)
 
 - New Borland make files
 - Many make and build processes fixes, enhancements, warning fixes
-- Borland, MSVC and GNU-make processes don't collide anymore
+- Borland, MSVC and GNU Make processes don't collide anymore
 - PP now supports code in header files
 - Docs separated from the source
 - Docs enhanced

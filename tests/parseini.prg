@@ -10,7 +10,7 @@ PROCEDURE Main( cName )
 
    nRow := 1
    @ nRow++, 20 SAY "Harbour - .ini file parser test"
-   @ nRow++,  5 SAY "Call from command-line using a .ini filename as the only parameter"
+   @ nRow++,  5 SAY "Call from command-line using a .ini file name as the only parameter"
    nRow++
 
    IF Empty( cName )

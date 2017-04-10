@@ -29,7 +29,7 @@ PROCEDURE Main()
    @ MaxRow() - 2, 68 TO MaxRow(), MaxCol() DOUBLE
    @ MaxRow() - 1, 70 SAY "Exit"
 
-   @ 10,  2 SAY " -- Checkings --"
+   @ 10,  2 SAY " -- Status --"
    @ 11,  2 SAY "Window Boundaries :"
    @ 12,  2 SAY "Press/Release But.:"
    @ 13,  2 SAY "Double Click Left :"

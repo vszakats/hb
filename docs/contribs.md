@@ -26,7 +26,7 @@ But if used with GUI extensions, an appealing Windows screens without
 sacrificing the Clipper syntax. Additionally `GTWVG` has a nice set of
 `Wvt*()` classes which employ the common event loop.
 
-You can create high performance dialogs with multiple TBrowser, Reads,
+You can create high performance dialogs with multiple TBrowses, Reads,
 Bitmaps, Buttons, i.e. all GUI elements you can think of.
 
 {% if site.fork %}
@@ -98,7 +98,7 @@ FreeImage graphic library bindings. FreeImage is an Open Source library project
 for developers who would like to support popular graphics image formats like
 PNG, BMP, JPEG, TIFF and others as needed by today's multimedia applications.
 
-FreeImage is easy to use, fast, multithreading safe and cross-platform (works
+FreeImage is easy to use, fast, multi-threading safe and cross-platform (works
 on Windows, Linux and Mac).
 
 ## hbformat
@@ -116,7 +116,7 @@ FlagShip compatibility
 ## [hbgd](https://harbour.github.io/doc/hbgd.html)
 
 Thomas Boutell's GD 2.x library bindings. GD Library is a powerful graphic
-library, useful expecially under CGI environment. `hbgd` supports almost all
+library, useful especially under CGI environment. `hbgd` supports almost all
 GD functions, plus a set of extra functions and classes that extend and make
 it easier to work with this library.
 <span class="readmore-md">[Learn more](https://libgd.github.io/)</span>

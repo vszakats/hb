@@ -23,7 +23,7 @@ App icons for
 {% unless site.fork %}
 # Historical
 
-* Hompages<br>
+* Homepages<br>
   [2000](https://web.archive.org/web/20000309023122/www.hagbard.demon.co.uk/harbour/harbour.html)
   [2001](https://web.archive.org/web/20010206043812/www.harbour-project.org/)
   [2008](https://web.archive.org/web/20081011053452/www.harbour-project.org/)

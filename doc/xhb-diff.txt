@@ -2595,10 +2595,10 @@ to original ZLIB one.
 Harbour gives common multi-platform PRG and C level API for serial port
 communication by hb_com*() functions in core libraries. It also implements
 few other known in Clipper serial port interfaces in contrib libraries
-like CT3 COM_*() functions in hbct library or basic support for Telepathy
+like CT3 COM_*() functions in hbct library or basic support for Telepath(y)
 interface in hbtpathy library. All such implementations use at low level
 code the core hb_com*() interface so they can work on all platforms.
-xHarbour CVS contains only telepath library with some very basic Telepathy
+xHarbour CVS contains only telepath library with some very basic Telepath(y)
 interface which is not available for all platforms.
 xHarbour.com distribute also library compatible with CT3 COM*() interface
 but only for MS-Windows builds.
