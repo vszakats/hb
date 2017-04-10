@@ -786,18 +786,16 @@
       This function checks if an expression has empty value and returns a
       logical indicating whether it the expression is empty or not.
    $EXAMPLES$
-      PROCEDURE Main()
-         ? Empty( "I'm not empty" )  // .F.
-         ? Empty( NIL )              // .T.
-         ? Empty( 0 )                // .T.
-         ? Empty( .F. )              // .T.
-         ? Empty( "" )               // .T.
-         ? Empty( "  " )             // .T.
-         ? Empty( 1 )                // .F.
-         ? Empty( .T. )              // .F.
-         ? Empty( "smile" )          // .F.
-         ? Empty( Date() )           // .F.
-         RETURN
+      ? Empty( "I'm not empty" )  // .F.
+      ? Empty( NIL )              // .T.
+      ? Empty( 0 )                // .T.
+      ? Empty( .F. )              // .T.
+      ? Empty( "" )               // .T.
+      ? Empty( "  " )             // .T.
+      ? Empty( 1 )                // .F.
+      ? Empty( .T. )              // .F.
+      ? Empty( "smile" )          // .F.
+      ? Empty( Date() )           // .F.
    $STATUS$
       R
    $COMPLIANCE$

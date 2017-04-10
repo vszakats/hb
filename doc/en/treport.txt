@@ -79,11 +79,9 @@
       If the NOCONSOLE clause is specified, output to the console will be
       turned off while this command is being executed.
    $EXAMPLES$
-      PROCEDURE Main()
-         USE test NEW
-         REPORT FORM test.frm
-         dbCloseArea()
-         RETURN
+      USE test NEW
+      REPORT FORM test.frm
+      dbCloseArea()
    $STATUS$
       R
    $COMPLIANCE$

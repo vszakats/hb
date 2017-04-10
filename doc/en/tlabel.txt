@@ -51,11 +51,9 @@
       command. The path may be specified, along, with (the drive letter,
       in <cLabelName>
    $EXAMPLES$
-      PROCEDURE Main()
-         USE test NEW
-         LABEL FORM test.lbl
-         dbCloseArea()
-         RETURN
+      USE test NEW
+      LABEL FORM test.lbl
+      dbCloseArea()
    $STATUS$
       R
    $COMPLIANCE$

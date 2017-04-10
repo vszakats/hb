@@ -76,15 +76,11 @@
       This function returns the same alias name of the currently selected
       work area.
    $EXAMPLES$
-      PROCEDURE Main()
-
-         USE test
-         SELECT 0
-         ? iif( Dbf() == "", "No Name", Dbf() )
-         ? test->( Dbf() )
-         ? Alias( 1 )
-
-         RETURN
+      USE test
+      SELECT 0
+      ? iif( Dbf() == "", "No Name", Dbf() )
+      ? test->( Dbf() )
+      ? Alias( 1 )
    $STATUS$
       R
    $COMPLIANCE$
@@ -176,12 +172,10 @@
       This function clears any active filter conduction
       for the current or selected work area.
    $EXAMPLES$
-      PROCEDURE Main()
-         USE test
-         SET FILTER TO hb_LeftEq( test->Name, "An" )
-         dbEdit()
-         Test->( dbClearFilter() )
-         RETURN
+      USE test
+      SET FILTER TO hb_LeftEq( test->Name, "An" )
+      dbEdit()
+      Test->( dbClearFilter() )
    $STATUS$
       R
    $COMPLIANCE$
@@ -215,13 +209,11 @@
       indexes. In addition, it closes all format files and moves
       the work area pointer to the first position
    $EXAMPLES$
-      PROCEDURE Main()
-         USE test NEW
-         dbEdit()
-         USE test1 NEW
-         dbEdit()
-         dbCloseAll()
-         RETURN
+      USE test NEW
+      dbEdit()
+      USE test1 NEW
+      dbEdit()
+      dbCloseAll()
    $STATUS$
       R
    $COMPLIANCE$
@@ -252,11 +244,9 @@
       This function  will close any database open in the selected
       or aliased work area.
    $EXAMPLES$
-      PROCEDURE Main()
-         USE test
-         dbEdit()
-         Test->( dbCloseArea() )
-         RETURN
+      USE test
+      dbEdit()
+      Test->( dbCloseArea() )
    $STATUS$
       R
    $COMPLIANCE$
@@ -831,14 +821,12 @@
       specified, them the current active record/data item will be
       unlocked
    $EXAMPLES$
-      PROCEDURE Main()
-         USE test NEW
-         dbGoto( 10 )
-         IF RLock()
-            ? test->ID
-            dbRUnlock()
-         ENDIF
-         RETURN
+      USE test NEW
+      dbGoto( 10 )
+      IF RLock()
+         ? test->ID
+         dbRUnlock()
+      ENDIF
    $STATUS$
       R
    $COMPLIANCE$
@@ -897,7 +885,7 @@
       <lSoftSeek> is a logical false (.F.)
    $EXAMPLES$
       PROCEDURE Main()
-
+         LOCAL nId
          USE test NEW INDEX test
          dbGoto( 10 )
          nId := test->nId
@@ -1042,14 +1030,12 @@
       make any changes made to the record visible without moving the record
       pointer in either direction.
    $EXAMPLES$
-      PROCEDURE Main()
-         USE test NEW
-         dbGoTop()
-         DO WHILE ! Eof()
-            ? test->Id, test->Name
-            dbSkip()
-         ENDDO
-         RETURN
+      USE test NEW
+      dbGoTop()
+      DO WHILE ! Eof()
+         ? test->Id, test->Name
+         dbSkip()
+      ENDDO
    $STATUS$
       R
    $COMPLIANCE$
@@ -1088,10 +1074,9 @@
       function will return an empty string showing no filter in that work
       area which in fact, would be not correct.
    $EXAMPLES$
-      PROCEDURE Main()
-         USE test NEW
-         dbSetFilter( {|| test->Id < 100 }, "test->Id <100" )
-         dbGoTop()
+      USE test NEW
+      dbSetFilter( {|| test->Id < 100 }, "test->Id <100" )
+      dbGoTop()
    $STATUS$
       R
    $COMPLIANCE$

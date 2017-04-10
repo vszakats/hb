@@ -310,7 +310,7 @@
    $ARGUMENTS$
       This function takes no arguments.
    $DESCRIPTION$
-      The `//NOALERT` command-line switch cause Clipper to ignore calls to
+      The `//NOALERT` command-line switch cause Cl*pper to ignore calls to
       the Alert() function, this function override this behavior
       and always display Alert() dialog box.
    $EXAMPLES$

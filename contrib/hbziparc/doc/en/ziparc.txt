@@ -237,6 +237,8 @@
    $EXAMPLES$
       PROCEDURE Main()
 
+         LOCAL aFiles, nLen, aGauge
+
          IF hb_ZipFileByTDSpan( "test.zip", "test.prg" )
             ? "File was successfully created"
          ENDIF
@@ -337,6 +339,8 @@
    $EXAMPLES$
       PROCEDURE Main()
 
+         LOCAL aFiles, nLen, aGauge
+
          hb_SetDiskZip( {| nDisk | Alert( "Please insert disk no " + hb_ntos( nDisk ) ) } )
 
          IF hb_ZipFileByPKSpan( "test.zip", "test.prg" )
@@ -435,6 +439,8 @@
    $EXAMPLES$
       PROCEDURE Main()
 
+         LOCAL aFiles, nLen, aGauge
+
          IF hb_ZipFile( "test.zip", "test.prg" )
             ? "File was successfully created"
          ENDIF
@@ -510,9 +516,8 @@
    $EXAMPLES$
       PROCEDURE Main()
 
-         LOCAL aExtract
+         LOCAL aExtract := hb_GetFilesInZip( "test.zip" )  // extract all files in zip
 
-         aExtract := hb_GetFilesInZip( "test.zip" )  // extract all files in zip
          IF hb_UnzipFile( "test.zip",,,, "." + hb_ps(), aExtract )
             ? "File was successfully extracted"
          ENDIF

@@ -66,10 +66,8 @@
       Otherwise it returns the line number of the function or procedure
       at <nLevel>.
    $EXAMPLES$
-      PROCEDURE Main()
-         ? ProcLine( 0 )
-         ? ProcName( 2 )
-         RETURN
+      ? ProcLine( 0 )
+      ? ProcName( 2 )
    $STATUS$
       R
    $COMPLIANCE$
@@ -104,11 +102,9 @@
       This function is added to the RTL for full compatibility. It
       always returns an empty string.
    $EXAMPLES$
-      PROCEDURE Main()
-         ? ProcFile()
-         ? ProcFile( NIL )
-         ? ProcFile( 2 )
-         RETURN
+      ? ProcFile()
+      ? ProcFile( NIL )
+      ? ProcFile( 2 )
    $STATUS$
       R
    $COMPLIANCE$
