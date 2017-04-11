@@ -34,8 +34,8 @@
       where it must stop. If neither of them is defined, <nStart> is 1st position
       and <nEnd> the ending of <cString>.
    $EXAMPLES$
-      ? hb_At( "AS", "as simple as possible",  5 )   // --> 0
-      ? hb_AtI( "AS", "as simple as possible",  5 )  // --> 11
+      ? hb_At( "AS", "as simple as possible", 5 )   // --> 0
+      ? hb_AtI( "AS", "as simple as possible", 5 )  // --> 11
    $STATUS$
       R
    $COMPLIANCE$

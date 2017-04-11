@@ -16,7 +16,7 @@
    $ARGUMENTS$
       none.
    $DESCRIPTION$
-      __XSaveScreen() save the image of the whole screen into an internal
+      __XSaveScreen() saves the image of the whole screen into an internal
       buffer, it also save current cursor position. The information could
       later be restored by __XRestScreen(). Each call to __XSaveScreen()
       overwrite the internal buffer.
@@ -65,7 +65,7 @@
    $ARGUMENTS$
       none.
    $DESCRIPTION$
-      `SAVE SCREEN` save the image of the whole screen into an internal
+      `SAVE SCREEN` saves the image of the whole screen into an internal
       buffer, it also save current cursor position. The information could
       later be restored by `RESTORE SCREEN`. Each call to `SAVE SCREEN`
       overwrite the internal buffer.
@@ -108,7 +108,7 @@
    $ARGUMENTS$
       none.
    $DESCRIPTION$
-      __XRestScreen() restore saved image of the whole screen from an
+      __XRestScreen() restores saved image of the whole screen from an
       internal buffer that was saved by __XSaveScreen(), it also restore
       cursor position. After a call to __XRestScreen() the internal buffer
       is cleared.
@@ -156,7 +156,7 @@
    $ARGUMENTS$
       none.
    $DESCRIPTION$
-      Rest Screen restore saved image of the whole screen from an
+      `RESTORE SCREEN` restores saved image of the whole screen from an
       internal buffer that was saved by `SAVE SCREEN`, it also restore
       cursor position. After a call to 'RESTORE SCREEN` the internal
       buffer is cleared.
@@ -215,7 +215,7 @@
    $RETURNS$
       Alert() return Numeric value representing option number chosen.
 
-      If <ESC> was pressed, return value is zero.
+      If <Esc> was pressed, return value is zero.
 
       The return value is NIL
       if Alert() is called with no parameters, or if <xMessage> type is

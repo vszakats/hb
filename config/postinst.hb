@@ -258,7 +258,6 @@ PROCEDURE Main( ... )
 
             mk_hb_processRun( FNameEscape( hb_DirSepToOS( GetEnvC( "HB_DIR_7Z" ) ) + "7za" ) + ;
                " a -bd -r -mx" + ;
-               " -xr!*.tds -xr!*.exp" + ;  /* for win/bcc */
                " " + FNameEscape( tmp ) + ;
                " " + hb_DirSepAdd( GetEnvC( "HB_INSTALL_PKG_ROOT" ) ) + GetEnvC( "HB_PKGNAME" ) + hb_ps() + "*" )
 
