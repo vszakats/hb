@@ -27,7 +27,7 @@
       [<nSortLength>]          specifies how many characters in <cString>,
                                starting from the <nIgnoreCharacters> position,
                                should be sorted
-                               Default: `Len( cString ) - nIgnoreCharacters`
+                               Default: `hb_BLen( cString ) - nIgnoreCharacters`
       [<lDescending>])         specifies whether the process should
                                sort descending or not
    $RETURNS$

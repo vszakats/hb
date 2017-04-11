@@ -332,8 +332,8 @@ cd "${HB_RT}" || exit
 _pkgdate=
 if [ "${_BRANCH#*prod*}" != "${_BRANCH}" ]; then
   case "${os}" in
-    bsd|mac) _pkgdate="$(stat -f '-%Sm' -t '%Y%m%d-%H%M' "${HB_ABSROOT}README.md")";;
-    *)       _pkgdate="$(stat -c '%Y' "${HB_ABSROOT}README.md" | awk '{print "-" strftime("%Y%m%d-%H%M", $1)}')";;
+    bsd|mac) _pkgdate="$(TZ= stat -f '-%Sm' -t '%Y%m%d-%H%M' "${HB_ABSROOT}README.md")";;
+    *)       _pkgdate="$(    stat -c '%Y' "${HB_ABSROOT}README.md" | TZ= awk '{print "-" strftime("%Y%m%d-%H%M", $1)}')";;
   esac
 fi
 

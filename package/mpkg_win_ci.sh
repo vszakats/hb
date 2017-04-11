@@ -43,6 +43,7 @@ export CURL_HASH_64='d5bf81021239628655182e3778b00aea28f542fe405749976b202fb3f78
 
 # Install/update MSYS2 packages required for completing the build
 
+echo "! TZ: $(date +%Z) | ${TZ}"
 echo "! LANG: ${LANG}"
 echo "! LC_ALL: ${LC_ALL}"
 echo "! LC_CTYPE: ${LC_CTYPE}"
