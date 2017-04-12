@@ -49,7 +49,7 @@ The dynamic symbol table: Dynamically generated from the startup subsystem
 at the beginning of the application. It organizes in an efficient way the
 static symbol table creating an alphabetical index that allows a dichotomic
 search of symbols. This subsystem is responsible for quick access to symbols
-(functions, variables, fields and workareas aliases).
+(functions, variables, fields and work areas aliases).
 
 The static and public variables: Responsible for storing public and static
 variables.
@@ -76,9 +76,9 @@ The macro subsystem: it implements a reduced compiler that may be used at
 runtime to generate pcode to be used by the application. In fact it is a
 portion of the Harbour yacc specifications.
 
-The workareas subsystem: Responsible for databases management. It defines
-the locations where the used workareas will be stored and provides all the
-functions to access those workareas. It also implements the interface to the
+The work areas subsystem: Responsible for databases management. It defines
+the locations where the used work areas will be stored and provides all the
+functions to access those work areas. It also implements the interface to the
 replaceable database drivers.
 
 Question:
@@ -89,7 +89,7 @@ relation between them?) If so, are Clipper opcodes described somewhere?
 Answer:
 
                    Clipper language pcode opcodes
-    DEFINE        NAME             VALOR     BYTES
+    DEFINE        NAME             VALUE     BYTES
     #define       NOP              0x00      1
     #define       PUSHC            0x01      3 + literal
     #define       PUSHN            0x05      3
@@ -291,7 +291,7 @@ Question:
 while Valkyrie calls it "PUSHW"(3B): Different names, different codes.
 Isn't it desirable that Harbour pcode be binary-compatible with Clipper? I
 mean, by doing so, Harbour VM could interpret Clipper pcode and
-vice-versa.
+vice versa.
 
 Answer:
 

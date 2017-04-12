@@ -90,11 +90,11 @@ mkdir -p "${HB_ABSROOT}"
 (
   cd .. || exit
   # shellcheck disable=SC2046
-  cp -f -p --parents $(find 'addons' -type f -name '*.txt') "${HB_ABSROOT}"
+  cp -f -p --parents $(find 'addons' -type f -name '*') "${HB_ABSROOT}"
   # shellcheck disable=SC2046
-  cp -f -p --parents $(find 'extras' -type f -name '*')     "${HB_ABSROOT}"
+  cp -f -p --parents $(find 'extras' -type f -name '*') "${HB_ABSROOT}"
   # shellcheck disable=SC2046
-  cp -f -p --parents $(find 'tests'  -type f -name '*')     "${HB_ABSROOT}"
+  cp -f -p --parents $(find 'tests'  -type f -name '*') "${HB_ABSROOT}"
 )
 
 mkdir -p "${HB_ABSROOT}bin/"
@@ -242,7 +242,7 @@ fi
   cp -f -p --parents $(find 'src/3rd' -name '*.h') "${HB_ABSROOT}"
 )
 
-# Burn build information into RELNOTES.txt
+# Burn build information into RELNOTES.md
 
 _hb_ver="${HB_VF}"
 if [ "${HB_VF}" != "${HB_VF_DEF}" ]; then
@@ -257,8 +257,8 @@ _vcs_url="$(git ls-remote --get-url | sed 's|.git$||')/"
 sed -e "s|_HB_VER_COMMIT_ID_SHORT_|${_vcs_id_short}|g" \
     -e "s|_HB_VER_ORIGIN_URL_|${_vcs_url}|g" \
     -e "s|_HB_VERSION_|${_hb_ver}|g" \
-    'RELNOTES.txt.in' > "${HB_ABSROOT}RELNOTES.txt"
-touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}RELNOTES.txt"
+    'RELNOTES.md.in' > "${HB_ABSROOT}RELNOTES.md"
+touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}RELNOTES.md"
 
 sed "s|_HB_URL_SRC_|${_vcs_url}archive/${_vcs_id}.tar.gz|g" \
     'getsrc.sh.in' > "${HB_ABSROOT}getsrc.sh"
@@ -322,7 +322,7 @@ cd "${HB_RT}" || exit
   echo 'include/*'
   echo 'lib/*'
   echo 'src/*'
-  echo 'addons/*.txt'
+  echo 'addons/*'
   echo 'contrib/*'
   echo 'doc/*'
   echo 'extras/*'

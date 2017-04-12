@@ -270,12 +270,12 @@
    $SUBCATEGORY$
       Database
    $ONELINER$
-      Updates all index and database buffers for a given workarea
+      Updates all index and database buffers for a given work area
    $SYNTAX$
       dbCommit()
    $DESCRIPTION$
       This function updates all of the information for a give, selected,
-      or active workarea. This operation includes all database and index
+      or active work area. This operation includes all database and index
       buffers for that work area only. This function does not update all
       open work areas.
    $EXAMPLES$
@@ -384,7 +384,7 @@
 
       <cRDD>      Name of the RDD
 
-      <lKeepOpen> 3-way toggle to Open the file in New or Current workarea:
+      <lKeepOpen> 3-way toggle to Open the file in New or Current work area:
 
                   <table-noheader>
                        NIL     The file is not opened.
@@ -931,7 +931,7 @@
    $ONELINER$
       Change to another work area
    $SYNTAX$
-      dbSelectArea( <xArea> ) -
+      dbSelectArea( <xArea> ) --> NIL
    $ARGUMENTS$
       <xArea> Alias or work area
    $DESCRIPTION$
