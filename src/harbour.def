@@ -3444,6 +3444,9 @@ hb_timeStrGet
 hb_timeStrRawGet
 hb_timeUTCOffset
 hb_timeUnformat
+hb_timerGet
+hb_timerInit
+hb_timerTest
 hb_tr_level
 hb_tr_stealth
 hb_tr_trace

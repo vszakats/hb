@@ -1341,7 +1341,7 @@ static int hb_threadWait( PHB_THREADSTATE * pThreads, int iThreads,
    HB_MAXUINT timer;
 
    if( ulMilliSec != HB_THREAD_INFINITE_WAIT )
-      timer = hb_dateMilliSeconds() + ulMilliSec;
+      timer = hb_timerGet() + ulMilliSec;
    else
       timer = 0;
 #endif
@@ -1396,7 +1396,7 @@ static int hb_threadWait( PHB_THREADSTATE * pThreads, int iThreads,
 #  endif
       if( ! fExit && timer )
       {
-         HB_MAXUINT curr = hb_dateMilliSeconds();
+         HB_MAXUINT curr = hb_timerGet();
          if( timer <= curr )
             fExit = HB_TRUE;
          else
