@@ -14,8 +14,6 @@ PROCEDURE Main()
    LOCAL oSlidingPuzzle
    LOCAL tmp
 
-   hb_cdpSelect( "UTF8" )
-
    oSlidingPuzzle := SlidingPuzzle():New()
    oSlidingPuzzle:Frame()
    oSlidingPuzzle:RandomValue()
