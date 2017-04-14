@@ -250,8 +250,8 @@ METHOD Frame() CLASS SlidingPuzzle
 
 METHOD RandomValue() CLASS SlidingPuzzle
 
-   LOCAL tmp
    LOCAL nRandomValue := hb_randInt( 0, 15 )
+   LOCAL tmp
 
    FOR tmp := 1 TO 16
       AAdd( ::aArray, nRandomValue-- )
