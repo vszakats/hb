@@ -2,21 +2,17 @@
 
 /* Sliding puzzle game */
 
-#include "hbclass.ch"
-#include "setcurs.ch"
 #include "box.ch"
+#include "hbclass.ch"
 #include "inkey.ch"
-
-REQUEST HB_CODEPAGE_UTF8
+#include "setcurs.ch"
 
 PROCEDURE Main()
 
    LOCAL nOldCursor := SetCursor( SC_NONE )
    LOCAL lContinue := .T.
    LOCAL oSlidingPuzzle
-   LOCAL i
-
-   SetMode( 17, 29 )
+   LOCAL tmp
 
    hb_cdpSelect( "UTF8" )
 
@@ -29,61 +25,56 @@ PROCEDURE Main()
       oSlidingPuzzle:Refresh()
 
       SWITCH Inkey( 0, INKEY_ALL )
+      CASE K_ESC
+         lContinue := .F.
+         EXIT
 
-         CASE K_ESC
-            lContinue := .F.
-            EXIT
+      CASE K_UP
+         oSlidingPuzzle:Up()
+         EXIT
 
-         CASE K_UP
-            oSlidingPuzzle:Up()
-            EXIT
+      CASE K_DOWN
+         oSlidingPuzzle:Down()
+         EXIT
 
-         CASE K_DOWN
-            oSlidingPuzzle:Down()
-            EXIT
+      CASE K_LEFT
+         oSlidingPuzzle:Left()
+         EXIT
 
-         CASE K_LEFT
-            oSlidingPuzzle:Left()
-            EXIT
+      CASE K_RIGHT
+         oSlidingPuzzle:Right()
+         EXIT
 
-         CASE K_RIGHT
-            oSlidingPuzzle:Right()
-            EXIT
+      CASE K_LBUTTONDOWN
+         oSlidingPuzzle:LButtonDown()
+         EXIT
 
-         CASE K_LBUTTONDOWN
-            oSlidingPuzzle:LButtonDown()
-            EXIT 
-    
       ENDSWITCH
 
       ++oSlidingPuzzle:nNumberMoves
 
-      i := 1
-      IF hb_AScan( oSlidingPuzzle:aArray, { |x| x <> i++ }, 1, 15 ) == 0
+      tmp := 1
+      IF AScan( oSlidingPuzzle:aArray, {| x | x != tmp++ }, 1, 15 ) == 0
          lContinue := .F.
       ENDIF
-
    ENDDO
 
    oSlidingPuzzle:PrintResults()
 
    SetCursor( nOldCursor )
 
-RETURN
+   RETURN
 
-/*
-   Class Sliding Puzzle
-*/
 CREATE CLASS SlidingPuzzle
 
-   DATA nStartGame   INIT hb_MilliSeconds()
-   DATA nNumberMoves INIT 0
+   VAR nStartGame   INIT hb_MilliSeconds()
+   VAR nNumberMoves INIT 0
 
-   DATA nRow INIT 0
-   DATA nCol INIT 0
-   DATA nPos INIT 0
+   VAR nRow INIT 0
+   VAR nCol INIT 0
+   VAR nPos INIT 0
 
-   DATA aArray INIT {}
+   VAR aArray INIT {}
 
    METHOD New()
    METHOD Up()
@@ -101,7 +92,7 @@ CREATE CLASS SlidingPuzzle
 ENDCLASS
 
 METHOD New() CLASS SlidingPuzzle
-RETURN Self
+   RETURN Self
 
 METHOD Up() CLASS SlidingPuzzle
 
@@ -113,7 +104,7 @@ METHOD Up() CLASS SlidingPuzzle
       ::nPos += 4
    ENDIF
 
-RETURN Self
+   RETURN Self
 
 METHOD Down() CLASS SlidingPuzzle
 
@@ -125,7 +116,7 @@ METHOD Down() CLASS SlidingPuzzle
       ::nPos -= 4
    ENDIF
 
-RETURN Self
+   RETURN Self
 
 METHOD Left() CLASS SlidingPuzzle
 
@@ -137,7 +128,7 @@ METHOD Left() CLASS SlidingPuzzle
       ::nPos++
    ENDIF
 
-RETURN Self
+   RETURN Self
 
 METHOD Right() CLASS SlidingPuzzle
 
@@ -149,7 +140,7 @@ METHOD Right() CLASS SlidingPuzzle
       ::nPos--
    ENDIF
 
-RETURN Self
+   RETURN Self
 
 METHOD LButtonDown() CLASS SlidingPuzzle
 
@@ -157,77 +148,69 @@ METHOD LButtonDown() CLASS SlidingPuzzle
    LOCAL nMCol := MCol()
    LOCAL nMPos
 
-   IF ( nMRow  % 4 ) == 0
+   IF ( nMRow % 4 ) == 0
       RETURN Self
-   ENDIF 
+   ENDIF
 
-   nMPos := ( Int( ( nMRow - 1 ) / 4 ) ) * 4 + Int( ( nMCol - 1 ) / 7 ) + 1
-   
    ::Calculate()
 
-   DO CASE  
-      CASE nMPos == ::nPos + 4
-         ::Up()
+   nMPos := ( Int( ( nMRow - 1 ) / 4 ) ) * 4 + Int( ( nMCol - 1 ) / 7 ) + 1
 
-      CASE nMPos == ::nPos - 4
-         ::Down()
-
-      CASE nMPos == ::nPos + 1
-         ::Left()
-
-      CASE nMPos == ::nPos - 1 
-         ::Right()
-
+   DO CASE
+   CASE nMPos == ::nPos + 4 ; ::Up()
+   CASE nMPos == ::nPos - 4 ; ::Down()
+   CASE nMPos == ::nPos + 1 ; ::Left()
+   CASE nMPos == ::nPos - 1 ; ::Right()
    ENDCASE
 
-RETURN Self
+   RETURN Self
 
 METHOD Calculate() CLASS SlidingPuzzle
 
-   LOCAL i
+   LOCAL tmp
 
-   FOR i := 1 TO 16
-      IF ::aArray[ i ] == 0 
-         ::nPos := i
+   FOR tmp := 1 TO 16
+      IF ::aArray[ tmp ] == 0
+         ::nPos := tmp
          ::nRow := 1 + Int( ( ::nPos - 1 ) / 4 )
          ::nCol := 1 + Int( ( ::nPos - 1 ) % 4 )
          EXIT
       ENDIF
    NEXT
 
-RETURN Self
+   RETURN Self
 
 METHOD Show() CLASS SlidingPuzzle
 
-   LOCAL i
-   LOCAL tmp := 0
    LOCAL nRowPos := 1, nColPos := 3
+   LOCAL tmp := 0
+   LOCAL i
 
    FOR i := 1 TO 16
 
-      tmp++
+      ++tmp
 
-      IF ::aArray[ i ] == IIF( i == 16, 0, i )
+      IF ::aArray[ i ] == iif( i == 16, 0, i )
          hb_DispBox( nRowPos, nColPos - 2, ( nRowPos - 1 ) + 3, ( nColPos - 3 ) + 6, HB_B_SINGLE_UNI + " ", 0x20 )
-         hb_DispOutAt( nRowPos + 1, nColPos, hb_ntos( ::aArray[ i ], 2 ), 0x20 )
+         hb_DispOutAt( nRowPos + 1, nColPos, hb_ntos( ::aArray[ i ] ), 0x20 )
       ELSE
-         hb_DispOutAt( nRowPos + 1, nColPos, hb_ntos( ::aArray[ i ], 2 ), 0xf1 )
+         hb_DispOutAt( nRowPos + 1, nColPos, hb_ntos( ::aArray[ i ] ), 0xf1 )
       ENDIF
 
       IF ::aArray[ i ] == 0
-         hb_DispBox( nRowPos, nColPos - 2, ( nRowPos - 1 ) + 3, ( nColPos - 3 ) + 6, , 0x11 )
+         hb_DispBox( nRowPos, nColPos - 2, ( nRowPos - 1 ) + 3, ( nColPos - 3 ) + 6,, 0x11 )
       ENDIF
-      
+
       nColPos += 7
-      
-      IF tmp  >= 4
+
+      IF tmp >= 4
          nRowPos += 4
          nColPos := 3
-         tmp  := 0
+         tmp := 0
       ENDIF
    NEXT
 
-RETURN Self
+   RETURN Self
 
 METHOD Refresh() CLASS SlidingPuzzle
 
@@ -239,46 +222,46 @@ METHOD Refresh() CLASS SlidingPuzzle
 
    DispEnd()
 
-RETURN Self
+   RETURN Self
 
 METHOD Frame() CLASS SlidingPuzzle
 
    LOCAL nColor := 0xf0
 
-   hb_DispOutAt(  0, 0, "┌──────┬──────┬──────┬──────┐", nColor )
-   hb_DispOutAt(  1, 0, "│      │      │      │      │", nColor )
-   hb_DispOutAt(  2, 0, "│      │      │      │      │", nColor )
-   hb_DispOutAt(  3, 0, "│      │      │      │      │", nColor )
-   hb_DispOutAt(  4, 0, "├──────┼──────┼──────┼──────┤", nColor )
-   hb_DispOutAt(  5, 0, "│      │      │      │      │", nColor )
-   hb_DispOutAt(  6, 0, "│      │      │      │      │", nColor )
-   hb_DispOutAt(  7, 0, "│      │      │      │      │", nColor )
-   hb_DispOutAt(  8, 0, "├──────┼──────┼──────┼──────┤", nColor )
-   hb_DispOutAt(  9, 0, "│      │      │      │      │", nColor )
-   hb_DispOutAt( 10, 0, "│      │      │      │      │", nColor )
-   hb_DispOutAt( 11, 0, "│      │      │      │      │", nColor )
-   hb_DispOutAt( 12, 0, "├──────┼──────┼──────┼──────┤", nColor )
-   hb_DispOutAt( 13, 0, "│      │      │      │      │", nColor )
-   hb_DispOutAt( 14, 0, "│      │      │      │      │", nColor )
-   hb_DispOutAt( 15, 0, "│      │      │      │      │", nColor )
-   hb_DispOutAt( 16, 0, "└──────┴──────┴──────┴──────┘", nColor )
+   hb_DispOutAt(  0, 0, hb_UTF8ToStr( "┌──────┬──────┬──────┬──────┐" ), nColor )
+   hb_DispOutAt(  1, 0, hb_UTF8ToStr( "│      │      │      │      │" ), nColor )
+   hb_DispOutAt(  2, 0, hb_UTF8ToStr( "│      │      │      │      │" ), nColor )
+   hb_DispOutAt(  3, 0, hb_UTF8ToStr( "│      │      │      │      │" ), nColor )
+   hb_DispOutAt(  4, 0, hb_UTF8ToStr( "├──────┼──────┼──────┼──────┤" ), nColor )
+   hb_DispOutAt(  5, 0, hb_UTF8ToStr( "│      │      │      │      │" ), nColor )
+   hb_DispOutAt(  6, 0, hb_UTF8ToStr( "│      │      │      │      │" ), nColor )
+   hb_DispOutAt(  7, 0, hb_UTF8ToStr( "│      │      │      │      │" ), nColor )
+   hb_DispOutAt(  8, 0, hb_UTF8ToStr( "├──────┼──────┼──────┼──────┤" ), nColor )
+   hb_DispOutAt(  9, 0, hb_UTF8ToStr( "│      │      │      │      │" ), nColor )
+   hb_DispOutAt( 10, 0, hb_UTF8ToStr( "│      │      │      │      │" ), nColor )
+   hb_DispOutAt( 11, 0, hb_UTF8ToStr( "│      │      │      │      │" ), nColor )
+   hb_DispOutAt( 12, 0, hb_UTF8ToStr( "├──────┼──────┼──────┼──────┤" ), nColor )
+   hb_DispOutAt( 13, 0, hb_UTF8ToStr( "│      │      │      │      │" ), nColor )
+   hb_DispOutAt( 14, 0, hb_UTF8ToStr( "│      │      │      │      │" ), nColor )
+   hb_DispOutAt( 15, 0, hb_UTF8ToStr( "│      │      │      │      │" ), nColor )
+   hb_DispOutAt( 16, 0, hb_UTF8ToStr( "└──────┴──────┴──────┴──────┘" ), nColor )
 
-RETURN Self
+   RETURN Self
 
 METHOD RandomValue() CLASS SlidingPuzzle
 
-   LOCAL i
+   LOCAL tmp
    LOCAL nRandomValue := hb_randInt( 0, 15 )
 
-   FOR i := 1 TO 16
+   FOR tmp := 1 TO 16
       AAdd( ::aArray, nRandomValue-- )
-      IF nRandomValue == - 1
-         ::nPos := i
+      IF nRandomValue == -1
+         ::nPos := tmp
       ENDIF
-      nRandomValue := IF( nRandomValue == - 1, 15, nRandomValue )
-   NEXT 
+      nRandomValue := iif( nRandomValue == -1, 15, nRandomValue )
+   NEXT
 
-RETURN Self
+   RETURN Self
 
 METHOD PrintResults() CLASS SlidingPuzzle
 
@@ -286,10 +269,10 @@ METHOD PrintResults() CLASS SlidingPuzzle
 
    ? "Results:"
    ?
-   ? "Game duration    - ", hb_ntos( Int( ( ( hb_MilliSeconds() - ::nStartGame ) / 1000 ) ) )
-   ? "second(s)"
-   ? 
-   ? "Number of moves  - ", hb_ntos( ::nNumberMoves - 1 )
+   ? "Game duration   -", hb_ntos( Int( ( ( hb_MilliSeconds() - ::nStartGame ) / 1000 ) ) ), "second(s)"
+   ?
+   ? "Number of moves -", hb_ntos( ::nNumberMoves - 1 )
+
    Inkey( 0 )
 
-RETURN Self
+   RETURN Self
