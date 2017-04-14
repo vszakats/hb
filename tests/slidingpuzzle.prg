@@ -150,6 +150,10 @@ METHOD LButtonDown() CLASS SlidingPuzzle
       RETURN Self
    ENDIF
 
+   IF ( nMCol % 7 ) == 0
+      RETURN Self
+   ENDIF
+
    ::Calculate()
 
    nMPos := ( Int( ( nMRow - 1 ) / 4 ) ) * 4 + Int( ( nMCol - 1 ) / 7 ) + 1
