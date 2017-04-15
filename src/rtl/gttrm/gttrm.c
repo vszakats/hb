@@ -1090,6 +1090,8 @@ static int get_inch( PHB_GTTRM pTerm, HB_MAXINT timeout )
 
    do
    {
+      int counter;
+
       for( i = n = 0; i < pTerm->efds_no; i++ )
       {
          if( pTerm->event_fds[ i ]->status == EVTFDSTAT_RUN )
