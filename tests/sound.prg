@@ -8,6 +8,6 @@ PROCEDURE Main()
    Tone( 440, 9.1 )
    stop := Seconds()
    ? "stop    ", stop
-   ? "duration", ( stop - start ), "(should be close to 1.5)"
+   ? "duration", stop - start, "(should be close to 1.5)"
 
    RETURN

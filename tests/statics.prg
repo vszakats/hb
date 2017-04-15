@@ -49,10 +49,12 @@ STATIC PROCEDURE NumStat( a )
 
    STATIC s_n := 1
 
-   LOCAL cb
+#if COMMENT  // enable it to see an error
+   STATIC s_m := s_n
+   STATIC s_m := Time()
+#endif
 
-// STATIC s_m := s_n    // uncomment it to see an error
-// STATIC s_m := Time() // uncomment it to see an error
+   LOCAL cb
 
    HB_SYMBOL_UNUSED( a )
 
