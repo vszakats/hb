@@ -159,8 +159,8 @@ STATIC PROCEDURE About()
 
    OutStd( ;
       "Harbour Source Formatter " + HBRawVersion() + hb_eol() + ;
-      "Copyright (c) 2009-2017, Alexander S.Kresin" + hb_eol() + ;
-      hb_Version( HB_VERSION_URL_BASE ) + hb_eol() + ;
+      "Copyright (c) 2010-present, " + hb_Version( HB_VERSION_URL_BASE ) + hb_eol() + ;
+      "Copyright (c) 2009, Alexander S.Kresin" + hb_eol() + ;
       hb_eol() )
 
    OutStd( ;

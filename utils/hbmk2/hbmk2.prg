@@ -16467,7 +16467,7 @@ STATIC FUNCTION __plugin_ext()
 /*
  * Extension manager plugin
  *
- * Copyright 2012-2017 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2012-present Viktor Szakats (vszakats.net/harbour)
  */
 
 FUNCTION __hbshell_plugin()
@@ -18297,7 +18297,7 @@ STATIC PROCEDURE ShowHeader( hbmk )
    IF hbmk[ _HBMK_lShellMode ]
       cText := ;
          "Harbour Shell / Script Runner " + HBRawVersion() + e"\n" + ;
-         "Copyright © 2007-2017, Viktor Szakáts" + e"\n" + ;
+         "Copyright © 2007-present, Viktor Szakats" + e"\n" + ;
          "Copyright © 2003-2007, Przemysław Czerpak" + e"\n"
    ELSE
 #endif
@@ -18306,7 +18306,7 @@ STATIC PROCEDURE ShowHeader( hbmk )
          cText += " (" + _SELF_NAME_ + ")"
       ENDIF
       cText += " " + HBRawVersion() + e"\n" + ;
-         "Copyright © 1999-2017, Viktor Szakáts" + e"\n"
+         "Copyright © 1999-present, Viktor Szakats" + e"\n"
 #ifdef HARBOUR_SUPPORT
    ENDIF
 #endif
@@ -19143,7 +19143,7 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
 
    LOCAL aLst_Auth := { ;
       , ;
-      { "Viktor Szakáts (vszakats.net/harbour)", "" } }
+      { "Viktor Szakats (vszakats.net/harbour)", "" } }
 
    /* Examples */
 

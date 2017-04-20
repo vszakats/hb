@@ -173,7 +173,7 @@ STATIC s_lNoEnv
 PROCEDURE Main( cPar1, cPar2, cPar3 )
 
    OutStd( "Harbour Compatibility and Regression Test Suite" + hb_eol() + ;
-           "Copyright (c) 1999-2017, Viktor Szakats" + hb_eol() )
+           "Copyright (c) 1999-present, Viktor Szakats" + hb_eol() )
 
    IF cPar1 == NIL
       cPar1 := ""
