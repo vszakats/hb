@@ -90,11 +90,11 @@ PROCEDURE Main()
       @  4,  2 SAY "DeskTopHeightPx   " + Str( nDeskTopHeightPx, 4 )
       @  5,  2 SAY "DeskTopWidthPx    " + Str( nDeskTopWidthPx, 4 )
 
-      @  4, 29 SAY "ScreenHeightPx "  + Str( nScreenHeightPx, 4 )
-      @  5, 29 SAY "ScreenWidthPx  "  + Str( nScreenWidthPx, 4 )
+      @  4, 29 SAY "ScreenHeightPx " + Str( nScreenHeightPx, 4 )
+      @  5, 29 SAY "ScreenWidthPx  " + Str( nScreenWidthPx, 4 )
 
-      @  4, 54 SAY "ViewMaxHeightChars "  + Str( nViewMaxHeightChars, 4 )
-      @  5, 54 SAY "ViewMaxWidthChars  "  + Str( nViewMaxWidthChars, 4 )
+      @  4, 54 SAY "ViewMaxHeightChars " + Str( nViewMaxHeightChars, 4 )
+      @  5, 54 SAY "ViewMaxWidthChars  " + Str( nViewMaxWidthChars, 4 )
 
       @  7,  2 SAY "MaxRow()          " + Str( MaxRow(), 4 )
       @  8,  2 SAY "MaxCol()          " + Str( MaxCol(), 4 )
