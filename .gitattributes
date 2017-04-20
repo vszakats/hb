@@ -17,5 +17,5 @@
 *.sqlite3 binary
 *.ttf     binary
 
-# Legacy files
+*.sh      text eol=lf
 *.bat     text eol=crlf
