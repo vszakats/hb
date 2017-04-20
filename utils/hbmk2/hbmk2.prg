@@ -5147,7 +5147,12 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          ENDIF
          IF hbmk[ _HBMK_lSTRIP ]
             IF hbmk[ _HBMK_lCreateLib ]
-               cBin_Post := "strip"
+               DO CASE
+               CASE hbmk[ _HBMK_cPLAT ] == "wce"
+                  cBin_Post := hbmk[ _HBMK_cCCPREFIX ] + "strip"
+               OTHERWISE
+                  cBin_Post := "strip"
+               ENDCASE
                cOpt_Post := "-S {OB}"
             ELSE
                AAdd( hbmk[ _HBMK_aOPTL ], "-s" )

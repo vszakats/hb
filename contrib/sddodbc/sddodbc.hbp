@@ -8,7 +8,7 @@
 
 rddsql.hbc
 
--stop{dos|os2|rsxnt}
+-stop{mingwarm|dos|os2|rsxnt}
 
 -deppkgname=odbc:unixodbc-devel{rpm}
 -deppkgname=odbc:unixODBC-devel{rpm}
