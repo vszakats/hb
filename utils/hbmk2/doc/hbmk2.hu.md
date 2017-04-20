@@ -740,4 +740,4 @@ License extensions:
 Szerző:  
 
 
- - Viktor Szakáts \(vszakats\.net/harbour\) 
+ - Viktor Szakats \(vszakats\.net/harbour\) 

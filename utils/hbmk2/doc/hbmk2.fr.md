@@ -741,4 +741,4 @@ License extensions:
 Author:  
 
 
- - Viktor Szakáts \(vszakats\.net/harbour\) 
+ - Viktor Szakats \(vszakats\.net/harbour\) 
