@@ -285,6 +285,8 @@
    Visual Studio 2013, version 12.0        1800
    Visual Studio 2015, version 14.0        1900
    Visual Studio 2017, version 14.1        1910
+
+   https://en.wikipedia.org/wiki/Microsoft_Visual_C%2B%2B#Internal_version_numbering
 */
 
 /*
