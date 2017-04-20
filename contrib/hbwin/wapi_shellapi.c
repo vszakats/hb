@@ -94,3 +94,55 @@ HB_FUNC( WAPI_ISUSERANADMIN )
 
    hbwapi_ret_L( bResult );
 }
+
+/*
+   Function wapi_ShellExecuteEx( aShExecInfoStruct )
+   Performs operation(s) on a specified file.
+   Usage: nResult := wapi_ShellExecuteEx( {[<hparentWindow>] [, <"operation">] , <"filename"> ;
+                                          [, <"parameters">] [, <"workdir">] [, <nShowmode>] ;
+                                          [, <nfMask>]} )
+   commonly used verbs: "open", "print", "edit", "explore", "find", "properties", "openas" et.c.
+                        (The set of available verbs depends on the particular file or folder.
+                        Generally, the actions available from an object's shortcut menu are (on paper ;-))
+                        available verbs.)
+                        - "openas" may not work on older win vers
+                        - to get "properties", nfMask must be passed with SEE_MASK_INVOKEIDLIST (0x0000000C) value
+   Returns: numeric: > 32 on sucess; <= 32 on failure!
+   More about ShellExecuteEx and error codes at:
+   <https://msdn.microsoft.com/en-us/library/windows/desktop/bb759784%28v=vs.85%29.aspx>
+   (Pete D. - 2014/11/05)
+ */
+#include "hbapi.h"
+#include "hbapiitm.h"
+#include "hbapierr.h"
+HB_FUNC( WAPI_SHELLEXECUTEEX )
+{
+   SHELLEXECUTEINFO ShExecInfo;
+
+   PHB_ITEM pArray = hb_param( 1, HB_IT_ARRAY );
+
+   if ( ! pArray )
+   {
+      hb_errRT_BASE_SubstR( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+      hb_retni( 0 );
+      return;
+   }
+
+   memset( &ShExecInfo, 0, sizeof( ShExecInfo ) ); /* initialize struct to avoid unpredictable behavior..*/
+
+   ShExecInfo.cbSize       = sizeof( ShExecInfo );
+   ShExecInfo.hwnd         = (HWND) hb_arrayGetNL( pArray, 1 ); /* parent window. usually NIL */
+   ShExecInfo.lpVerb       = hb_arrayGetC( pArray, 2 ); /* operation requested */
+   ShExecInfo.lpFile       = hb_arrayGetC( pArray, 3 ); /* cfilename on which the requested operation will be performed */
+   ShExecInfo.lpParameters = hb_arrayGetC( pArray, 4 ); /* additional exec parameters */
+   ShExecInfo.lpDirectory  = hb_arrayGetC( pArray, 5 ); /* working dir. NULL=current dir */
+   ShExecInfo.nShow        = hb_arrayGetNI( pArray, 6 ); /* Show modes, default:SW_SHOWNORMAL */
+   ShExecInfo.fMask        = hb_arrayGetNL( pArray, 7 ); /* needs to be assigned with proper value for some operations */
+
+   if ( ! ShellExecuteEx( &ShExecInfo ) )
+      hbwapi_SetLastError( GetLastError() );
+
+   LocalFree( pArray );
+
+   hb_retni( (int) ShExecInfo.hInstApp );
+}
