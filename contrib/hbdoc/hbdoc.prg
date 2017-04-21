@@ -1010,7 +1010,9 @@ STATIC PROCEDURE ShowHelp( cExtraMessage, aArgs )
       aHelp := { ;
          cExtraMessage, ;
          "Harbour Document Compiler (hbdoc) " + HBRawVersion(), ;
-         "Copyright (c) 1999-present, " + hb_Version( HB_VERSION_URL_BASE ), ;
+         "Copyright (c) 1999-" + ;
+            hb_ntos( Year( hb_Version( HB_VERSION_BUILD_DATE ) ) ) + ", " + ;
+            hb_Version( HB_VERSION_URL_BASE ), ;
          "", ;
          "Syntax:", ;
          "", ;
