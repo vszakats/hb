@@ -6,12 +6,12 @@
    $ONELINER$
       Return difference, in minutes, between two mil format times.
    $SYNTAX$
-      ft_ElapMin( <cTIME1>, <cTIME2> ) --> nMINUTES
+      ft_ElapMin( <cTime1>, <cTime2> ) --> nMinutes
    $ARGUMENTS$
-      <cTIME1, cTIME2>  character strings of military form `hhmm`,
+      <cTime1, cTime2>  character strings of military form `hhmm`,
           where 0 <= `hh` < 24.
    $RETURNS$
-      <nMINUTES>
+      <nMinutes>
    $DESCRIPTION$
       Finds the arithmetic difference between time two times
       (time 2 - time 1).

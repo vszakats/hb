@@ -52,16 +52,16 @@
 
       `HB_SM_HARBOUR` - enables Harbour extensions:
             operators: `++`, `--`, `+=`, `-=`, `*=`, `/=`, `^=`
-            objects: assigments to an instance variable
+            objects: assignments to an instance variable
 
       `HB_SM_XBASE` - enables other Xbase++ dialects extensions:
-            expanding of expresions lists
+            expanding of expressions lists
 
       `HB_SM_SHORTCUTS` - enables optimized evaluation of
             logical operators (`.AND.`, `.OR.`)
 
       `HB_SM_PREPROC` - enables preprocessing of commands
-            This is meaningfull if Harbour is compiled with
+            This is meaningful if Harbour is compiled with
             HB_MACRO_STATEMENTS flag
 
    $EXAMPLES$

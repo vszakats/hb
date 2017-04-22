@@ -53,7 +53,7 @@
    $DESCRIPTION$
       Adds or reduces lines from window. The new lines will be colored from column
       zero color, from prior line. There's no checking to determine if the window is
-      bigger than desktop area (except if in maincoord mode, because we need these
+      bigger than desktop area (except if in MainCoord mode, because we need these
       boundaries to MaxRow() function).
    $RETURNS$
       .T. if successful, .F. otherwise.
@@ -360,7 +360,7 @@
       <nIndex> Index of item (start from zero). If 1, remove current selection
       and clean edit control of combobox.
    $DESCRIPTION$
-      Select na item of combobox list.
+      Select an item of combobox list.
    $RETURNS$
       None.
    $PLATFORMS$
@@ -484,7 +484,7 @@
       <lStrikeout> Specifies a strikeout font if set to TRUE.
    $DESCRIPTION$
       Creates a common font dialog box that enables the user to choose attributes
-      for alogical font.
+      for a logical font.
    $RETURNS$
       None.
    $PLATFORMS$
@@ -525,8 +525,8 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_CreateDialogDynamic(cDlgTemplate|<nResource>, <lHandle>,
-      <cDlgProc>|<bDlgProc>|<nDlgProc>, nFlag)
+      wvw_CreateDialogDynamic( <cDlgTemplate>|<nResource>, <lHandle>,
+      <cDlgProc>|<bDlgProc>|<nDlgProc>, <nFlag> )
    $ARGUMENTS$
       <cDlgTemplate|nResource> <lHandle> <cDlgProc|<bDlgProc>|nDlgProc> <nFlag>
    $DESCRIPTION$
@@ -571,7 +571,7 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_CreateFont(cFontFace, <nHeight>, <nWidth>, <nWeight>, <lItalic>,
+      wvw_CreateFont( <cFontFace>, <nHeight>, <nWidth>, <nWeight>, <lItalic>,
       <lUnderline>, <lStrikeout>, <nCharset>, <nQuality>, <nEscapement> )
    $ARGUMENTS$
       <cFontFace> Name of the font. <nHeight> Height of the font's character.
@@ -631,7 +631,7 @@
    $ARGUMENTS$
       None.
    $DESCRIPTION$
-      Creates a drop-down menu, submenu or shortcut menu. The menu is initialy
+      Creates a drop-down menu, submenu or shortcut menu. The menu is initially
       empty, but you can insert or append menu items by using the wvw_AppendMenu()
       function.
    $RETURNS$
@@ -652,13 +652,13 @@
       GTWVW
    $SYNTAX$
       wvw_cxCreate( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>, <cText>,
-      cImage/nImage, <bBlock>, <aOffset>, <nStretchBitmap>, <lMap3DColors> )
+      <cImage>/<nImage>, <bBlock>, <aOffset>, <nStretchBitmap>, <lMap3DColors> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nTop, nLeft> Row/column
       of top/left corner. <nBottom, nRight> Row/column of bottom/right corner.
-      <cText> Text of checkbox. Default is empty. <cImage/nImage> If numeric,
+      <cText> Text of checkbox. Default is empty. <cImage>/<nImage> If numeric,
       represent an resource ID from a .RC file. If string, represent a bitmap file
-      name (must be supplied with a full path). <bBlock> Code block to exectue on
+      name (must be supplied with a full path). <bBlock> Code block to execute on
       every BN_CLICK event. This code block will be evaluated with these parameters:
       current window and checkbox id. If this parameter is omitted, the checkbox
       will not be created. <aOffSet> Array of four elements {x1,y1,x2,y2} with
@@ -713,7 +713,7 @@
       wvw_cxEnable( <nWinNum>, <nCXId>, <lToggle> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nCXId> ID of checkbox.
-      <lToggle> If .T., Enable, otherwisie disable. Default is .T.
+      <lToggle> If .T., Enable, otherwise disable. Default is .T.
    $DESCRIPTION$
       Enable/disable a checkbox on current window.
    $RETURNS$
@@ -907,7 +907,7 @@
       wvw_DrawBoxGet( <nWinNum>, <nRow>, <nCol>, <nWidth>, <aOffset> )
    $DESCRIPTION$
       Draws a box to an input get. Unlike GTWVT, GTWVW draw white lines on outer
-      right and outer bottom. Besides, scope is the same as DRAWBOXRECESSED, ie.,
+      right and outer bottom. Besides, scope is the same as DRAWBOXRECESSED, i.e.,
       two pixel out of char boundary.
    $RETURNS$
       Always .T.
@@ -950,10 +950,10 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DrawBoxRaised( <nNumWin>, <nTop>, <nLeft>, <nBottom>, <nRight>, lTight/aOffset )
+      wvw_DrawBoxRaised( <nNumWin>, <nTop>, <nLeft>, <nBottom>, <nRight>, <lTight>/<aOffset> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
-      nRight> Coordinates to draw a box. <lTight/aOffset> If <lTight>, box is draw
+      nRight> Coordinates to draw a box. <lTight>/<aOffset> If <lTight>, box is draw
       inside the character region and top and left lines are lower two pixel down to
       make room for above/left object. If <aOffset>, an array of four elements is
       defined with coordinates top, left, bottom right to align box with row/column.
@@ -976,10 +976,10 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DrawBoxRecessed( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>, lTight/aOffset )
+      wvw_DrawBoxRecessed( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>, <lTight>/<aOffset> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
-      nRight> Coordinates to draw a box. <lTight/aOffset> If <lTight>, box is drawn
+      nRight> Coordinates to draw a box. <lTight>/<aOffset> If <lTight>, box is drawn
       inside the character region and top and left lines are lower two pixel down to
       make room for above/left object. If <aOffset>, an array of four elements is
       defined with coordinates top, left, bottom right to align box with row/column.
@@ -1003,10 +1003,10 @@
       GTWVW
    $SYNTAX$
       wvw_DrawButton( <nWinNum>, <nTop>, <nLEft>, <nBottom>, <nRight>, <cText>,
-      cImage/nImage, <nFormat>, <nTextColor>, <nBkClor>, <nImageAt> )
+      <cImage>/<nImage>, <nFormat>, <nTextColor>, <nBkClor>, <nImageAt> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nButtom>,
-      nRight> Coordinates to draws a button. <cText> Text of button. <cImage/nImage>
+      nRight> Coordinates to draws a button. <cText> Text of button. <cImage>/<nImage>
       If string, specifies a bitmap filename (full path is required). If numeric,
       specifies the position of image in application image cache. <nFormat>
       Specifies shape of button: 0 1 2 Raised (default) Recessed Outline
@@ -1041,7 +1041,7 @@
       row/column. <nRGBColor> Color to fill the rectangle.
    $DESCRIPTION$
       Draws a color rectangle. wvw_FillRectangle(). This function is for
-      compatibility with GWTWVT, similar to
+      compatibility with GTWVT, similar to
    $RETURNS$
       None.
    $PLATFORMS$
@@ -1158,18 +1158,18 @@
       GTWVW
    $SYNTAX$
       wvw_DrawImage( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>,
-      cImage/nPictureSlot, lTight/aOffset, <lTransparent> )
+      <cImage>/<nPictureSlot>, <lTight>/<aOffset>, <lTransparent> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window.
       <nTop, <nLeft>, <nBottom>, nRight> Coordinates to draw an image. If <nBottom> is NIL,
       so image's height will be proportional to image's width. If <nRight> is NIL,
-      so image's width will be proportional to image's height. If both <nbottom> and
+      so image's width will be proportional to image's height. If both <nBottom> and
       <nRight> are NIL, so original size of image will be used.
-      <cImage/nPictureSlot> If string, an image will be read from <cImage> (full
+      <cImage>/<nPictureSlot> If string, an image will be read from <cImage> (full
       path). If numeric, will an index in an image list (previously loaded by
       application). WARNING: this function will always cache the image. Do not use
       it to draw large number of images, because image handle is never closed.
-      <lTight/aOffset> Specifies how image will be adjusted (in pixels) to
+      <lTight>/<aOffset> Specifies how image will be adjusted (in pixels) to
       row/column coordinates. <lTransparent> If .T., specifies a transparent image,
       otherwise .F. If .T., transparency color will be the top left corner pixel.
    $DESCRIPTION$
@@ -1262,7 +1262,7 @@
       nRight> Coordinates to draw a label. <cLabel> String to be draw. <nAlignHorz>
       Horizontal align of the label. Default is zero. <nAlignVert> Vertical align.
       Default is zero. <nTextColor> Index color of the label. <nBkColor> Index
-      backgroud color of the label. <hFont> Specifies which font will be used to
+      background color of the label. <hFont> Specifies which font will be used to
       draw a label. <aOffSet> String of four elements to align label with
       coordinates <nTop, <nLeft>, <nBottom>, nRight>.
    $DESCRIPTION$
@@ -1425,11 +1425,11 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DrawPicture( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>, <nSlot>, lTight/aOffset )
+      wvw_DrawPicture( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>, <nSlot>, <lTight>/<aOffset> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Coordinates to draw an image. <nSlot> index on image's cache.
-      <lTight/aOffset> Array with four row/column. elements with top/left,
+      <lTight>/<aOffset> Array with four row/column. elements with top/left,
       bottom/right coordinates to align image with
    $DESCRIPTION$
       Draws an image, saving in a cache if images.
@@ -1456,7 +1456,7 @@
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window.
       <nTop, <nLeft>, <nBottom>, nRight> Coordinates to draw a progress bar. <aOffPixels>
-      Array with four elemets with top/left, bottom/right coordinates to align
+      Array with four elements with top/left, bottom/right coordinates to align
       progress bar with row/column. <nPercent> Maximum range value. <nBackColor>
       Background color. <nBarColor> Progress bar color. <cImage> An image to show
       when progress bar is running. <lVertical> Specifies if progress bar is
@@ -1505,8 +1505,8 @@
    $SUBCATEGORY$
       GTWVW
    $SYNTAX$
-      wvw_DrawRoundRect(nWinNum, <nTop>, <nLeft>, <nBottom>, <nRight>, <aOffset>,
-      <nRoundHeight>, nRoundWidth)
+      wvw_DrawRoundRect( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>, <aOffset>,
+      <nRoundHeight>, <nRoundWidth> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Coordinates to draw a rectangle. <aOffset> Array with four elements
@@ -1595,7 +1595,7 @@
       <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Coordinates to draw scrollbar movement button. <aOffPixels> Array of
       four elements with top/left, bottom/right coordinates to align scrollbar
-      movement button with row/column. <nThumbPos> Initital line position.
+      movement button with row/column. <nThumbPos> Initial line position.
    $DESCRIPTION$
       Draws a vertical obsolete. scrollbar button. With functions wvw_xb*(), this
       function becomes
@@ -1623,9 +1623,9 @@
       with top/left, bottom/right coordinates to align rectangle with row/column.
       <nHorVert> Specifies draws method and how to interpret rectangle fill array (
       <aRGBb> and <aRGBe>). Default is GRADIENT_FILL_RECT_H (see wingdi.ch file
-      for all definitions). <aRGBb> Array of four color position (Red, Gree, Blue,
+      for all definitions). <aRGBb> Array of four color position (Red, Green, Blue,
       Alpha), with initial rectangle position. <aRGBe> Array of four color position
-      (Red, Gree, Blue, Alpha), with final rectangle position.
+      (Red, Green, Blue, Alpha), with final rectangle position.
    $DESCRIPTION$
       Draws a rectangle in specified coordinates, with gradient filling colors,
       varying from <aRGBb> to <aRGBe>.
@@ -1705,7 +1705,7 @@
       wvw_DrawToolButtonState( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>, <aOffPixels>,
       <nState> )
    $ARGUMENTS$
-      <nWinNum> Windwow number. Default is current window. <nTop, <nLeft>, <nBottom>,
+      <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Coordinates to draw toolbutton. <aOffPixels> Array of four elements
       with top/left, bottom/right coordinates to align toolbutton with row/column.
       <nState> Button state: 0 1 2 Flat Raised Recessed
@@ -1782,7 +1782,7 @@
       <nWinNum> Window number. Default is current window. <lEnable> If .T., enable
       shortcut keys. .F. disable shortcut keys.
    $DESCRIPTION$
-      Specifies if shortcut keys are enabled/disabled to acess menu item or system
+      Specifies if shortcut keys are enabled/disabled to access menu item or system
       menu.
    $RETURNS$
       Returns old configuration.
@@ -1802,12 +1802,12 @@
       GTWVW
    $SYNTAX$
       wvw_FillRectangle( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>,
-      nRGBColor/hBrush, <lTight>, <lUseBrush> )
+      <nRGBColor>/<hBrush>, <lTight>, <lUseBrush> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Coordinates to fill a rectangle. <nRGBColor/hBrush> Rectangle filling
-      color (a 32-bit value with RGB color). <lTight> Filling patern will be
-      adjusted in all coordinates area. <lUseBrush> If .T., <nRGBColor/hBrush>
+      color (a 32-bit value with RGB color). <lTight> Filling pattern will be
+      adjusted in all coordinates area. <lUseBrush> If .T., <nRGBColor>/<hBrush>
       argument is interpreted as a handle to a pen model. Otherwise, is used as a
       RGB color.
    $DESCRIPTION$
@@ -2406,7 +2406,7 @@
       the cache.
    $DESCRIPTION$
       Load an image in cache of images. Please, read an observation about cache of
-      images, in the introducion.
+      images, in the introduction.
    $RETURNS$
       .T. if successful, .F. otherwise.
    $PLATFORMS$
@@ -2502,7 +2502,7 @@
       OK button, without icons). You can see all definitions in file winuser.ch.
    $DESCRIPTION$
       Creates, displays, and operates a message box. The message box contains an
-      applicationdefined message and title, plus any combination of predefined icons
+      application defined message and title, plus any combination of predefined icons
       and push buttons.
    $RETURNS$
       Number of selected option (IDOK to OK button, IDCANCEL to Cancel button, etc.)
@@ -2654,7 +2654,7 @@
       window, remains invisible.
    $DESCRIPTION$
       Informs to the system that the window, when created, will be displayed or
-      remains invisible until we call funtion wvw_ShowWindow().
+      remains invisible until we call function wvw_ShowWindow().
    $RETURNS$
       Returns new configuration (if argument <lOn> is passed) or actual
       configuration.
@@ -2763,11 +2763,11 @@
       GTWVW
    $SYNTAX$
       wvw_pbCreate( <nWinNum>, <nTop>, <nLeft>, <nBottom>, <nRight>, <cText>,
-      cImage/nImage, <bBlock>, <aOffset>, <nStretchBitmap>, <lMap3DColors> )
+      <cImage>/<nImage>, <bBlock>, <aOffset>, <nStretchBitmap>, <lMap3DColors> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nTop, <nLeft>, <nBottom>,
       nRight> Coordinates to create the button. <cText> Text of the button. Default
-      is "". <cImage/nImage> If specified as numeric, identify ID from Resource in a
+      is "". <cImage>/<nImage> If specified as numeric, identify ID from Resource in a
       .RC file. If specified as string, must have a full path to an image file.
       <bBlock> Code block to be executed whenever a BN_CLICK event occurred (press
       and release the button). Always pass as a parameter: <nWinNum> and ID of
@@ -2904,7 +2904,7 @@
       <lUnderline> Specifies an underlined font if set to TRUE. <lStrikeout>
       Specifies a strikeout font if set to TRUE.
    $DESCRIPTION$
-      This funtction will initialize font for ALL pushbuttons in window <nWinNum>,
+      This function will initialize font for ALL pushbuttons in window <nWinNum>,
       including ones created later on.
    $RETURNS$
       .T. if successful, .F. if failed.
@@ -3034,7 +3034,7 @@
    $DESCRIPTION$
       Update progress bar position within current range.
    $RETURNS$
-      Returns .T. if operation considered successfull, otherwise .F.
+      Returns .T. if operation considered successful, otherwise .F.
    $PLATFORMS$
       Windows
    $END$
@@ -3183,7 +3183,7 @@
    $DESCRIPTION$
       Create status bar for current window, with one part.
    $RETURNS$
-      Handle to status bar of current window. Zero if failed, eg. if there is
+      Handle to status bar of current window. Zero if failed, e.g. if there is
       already a status bar for this window.
    $PLATFORMS$
       Windows
@@ -3271,7 +3271,7 @@
    $ARGUMENTS$
       None.
    $DESCRIPTION$
-      Reinitialize statusBar's parts, eg. after window resize.
+      Reinitialize statusbar's parts, e.g. after window resize.
    $RETURNS$
       Number of parts in status bar, if successful. Zero, otherwise.
    $PLATFORMS$
@@ -3698,8 +3698,8 @@
    $ARGUMENTS$
       <nMaxCache> Limit of cache bitmaps. Default is 20, minimum is 1.
    $DESCRIPTION$
-      To minimize bitmap loading operation, wvw_drawimage caches bitmap once it
-      reads from disk. Ie., subsequent wvw_drawimage will use the bitmap from the
+      To minimize bitmap loading operation, wvw_DrawImage() caches bitmap once it
+      reads from disk. I.e., subsequent wvw_drawimage will use the bitmap from the
       memory. When the maximum number of cache is used, the least recently opened
       bitmap will be discarded from the cache. There is no way to discard a specific
       bitmap from the cache. If you want to control bitmap caching manually, use
@@ -3963,7 +3963,7 @@
       <nWinNum> Window number. Default is current window. <nInterval> Interval, in
       milliseconds.
    $DESCRIPTION$
-      Set timer event for every <nInterval> milliseconds (it can be usefull to
+      Set timer event for every <nInterval> milliseconds (it can be useful to
       update clock on status bar). Effective only if WVW_TIMER() function exists
    $RETURNS$
       .T. if successful, .F. otherwise.
@@ -4080,7 +4080,7 @@
       nRight> Coordinates to draw tooltip.
    $DESCRIPTION$
       Define the borders of tooltip. The border is the distance (in pixels)
-      between window's border and text inside toolip.
+      between window's border and text inside tooltip.
    $RETURNS$
       None.
    $PLATFORMS$
@@ -4127,7 +4127,7 @@
    $DESCRIPTION$
       Define or get the color of text in tooltip.
    $RETURNS$
-      If not passed <nColor>, returns actual color of text, othewise, sets the new
+      If not passed <nColor>, returns actual color of text, otherwise, sets the new
       color.
    $PLATFORMS$
       Windows
@@ -4150,7 +4150,7 @@
       will be displayed an icon with text in tooltip. Is allowed one of the
       following values: 0 1 2 3 no icon (default) information warning Error
 
-      any other value greater than 3, the gtwvw convert to 0.
+      any other value greater than 3, the GTWVW convert to 0.
    $DESCRIPTION$
       None.
    $END$
@@ -4220,7 +4220,7 @@
       .F. Just update configuration.
    $DESCRIPTION$
       Update parameter to centralization of all opened windows (and newly opened).
-      If passed <lPaintIt> and <lCentre>, all windows are repainted and cetralized.
+      If passed <lPaintIt> and <lCentre>, all windows are repainted and centralized.
    $RETURNS$
       None.
    $PLATFORMS$
@@ -4241,7 +4241,7 @@
       wvw_SetWindowPos( <nWinNum>, <nXPosition>, <nYPosition> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nXPosition> Horizontal
-      position in pixels. <nYPosition> Vertical posititon in pixels.
+      position in pixels. <nYPosition> Vertical position in pixels.
    $DESCRIPTION$
       Change position of current window, based in <nXPosition> and <nYPosition>
       coordinates.
@@ -4394,7 +4394,7 @@
       <nWinNum> Window number. Default is current window. <lDIsplayText> .T. Text of
       button will be showed with the image .F. Text will be showed as a tooltip (
       default) <nStyle> Style of toolbar. Default is TBSTYLE_FLAT |
-      TBSTYLE_TOOLTIPS (another definitions are in file COMMCTRL.H).
+      TBSTYLE_TOOLTIPS (another definitions are in file commctrl.h).
       <nSystemBitmap> Points out if will be used Windows system bitmaps. Can be: 0
       1 2 Do not use Windows system bitmaps Use Windows system bitmaps (small) Use
       Windows system bitmaps (large)
@@ -4586,7 +4586,7 @@
       wvw_xbCreate( <nWinNum>, <nStyle>, <nTop>, <nLeft>, <nLength>, <bBlock>, <aOffset> )
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nStyle> 0 Horizontal 1
-      Vertical <nTop, nLeft> Intital row/column of scrollbar (in characters).
+      Vertical <nTop, nLeft> Initial row/column of scrollbar (in characters).
       <nLength> Length of scrollbar (in characters). <bBlock> Code block to
       execute on every VM_VSCROLL/VM_HSCROLL. This code block will be evaluated with
       these parameters: <nWinNum> <nXBid> <nXBmsg> window number scrollbar ID scrollbar
@@ -4606,7 +4606,7 @@
       <aOffset> Array with four elements with top/left, bottom/right coordinates, in
       pixels, to adjust the dimensions of scrollbar.
    $DESCRIPTION$
-      Creates a scollbar in current window.
+      Creates a scrollbar in current window.
    $RETURNS$
       Scrollbar handle, if successful. Zero if failed.
    $PLATFORMS$
@@ -4701,10 +4701,10 @@
    $ARGUMENTS$
       <nWinNum> Window number. Default is current window. <nXBId> ID of scrollbar.
       <nPos> Specifies the position of scrolling button. <nPageSize> Page size. This
-      value is used by scrollbar to determine the proporcional size to page jump.
+      value is used by scrollbar to determine the proportional size to page jump.
       <nMin> Minimum value to scrolling. <nMax> Maximum value to scrolling.
    $DESCRIPTION$
-      Update and redisplay a scollbar data. The parameters <nPos>, <nPageSize>,
+      Update and redisplay a scrollbar data. The parameters <nPos>, <nPageSize>,
       <nMin> and <nMax> are optional, however, both <nMin> and <nMax> must be
       supplied, or not at all.
    $RETURNS$

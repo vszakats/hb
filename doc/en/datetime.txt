@@ -294,7 +294,7 @@
    $ARGUMENTS$
       <dDateString> Any date
    $RETURNS$
-      <dDate> Character represention of date
+      <dDate> Character representation of date
    $DESCRIPTION$
       This function converts any date expression (a field or variable)
       expressed as <dDateString> to a character expression in the default
@@ -366,14 +366,14 @@
    $SUBCATEGORY$
       Date/Time
    $ONELINER$
-      Calculates elapted time.
+      Calculates elapsed time.
    $SYNTAX$
-      ElapTime( <cStartTime>, <cEndTime> ) --> cDiference
+      ElapTime( <cStartTime>, <cEndTime> ) --> cDifference
    $ARGUMENTS$
       <cStartTime> Start in time as a string format
       <cEndTime>   End time as a string format
    $RETURNS$
-      <cDiference>  Difference between the times
+      <cDifference>  Difference between the times
    $DESCRIPTION$
       This function returns a string that shows the difference between
       the starting time represented as <cStartTime> and the ending time

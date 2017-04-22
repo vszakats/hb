@@ -42,15 +42,16 @@ if [ "${os}" = 'win' ]; then
   # Core dependencies (vendored sources are used instead for now)
   # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{libpng,pcre,zlib}
 
-  if [ "${_BRANC4}" = 'msvc' ]; then
+  if [ "${_BRANC4}" = 'msvc' ] && false; then
     # Experimental, untested, requires 2015 Update 3 or upper
-    git clone --shallow https://github.com/Microsoft/vcpkg.git
+    git clone --depth=8 https://github.com/Microsoft/vcpkg.git
     (
       cd vcpkg || exit
-      powershell -exec bypass scripts/bootstrap.ps1
+      ./bootstrap-vcpkg.bat
       # bzip2 cairo expat freeimage icu libmariadb libpng libpq libssh2 lzo pcre pcre2 qt5 sqlite3 zlib
-      vcpkg install curl curl:x64-windows openssl openssl:x64-windows
-      vcpkg integrate install
+      ./vcpkg install --no-sendmetrics \
+        curl curl:x64-windows openssl openssl:x64-windows
+      ./vcpkg integrate install
     )
   fi
 fi
@@ -98,38 +99,41 @@ fi
 
 # Dependencies for Windows builds
 
-# Bintray public key
-gpg_recv_keys 8756C4F765C9AC3CB6B85D62379CE192D401AB61
+if [ "${_BRANC4}" != 'msvc' ]; then
 
-# Builder public key
-# curl 'https://bintray.com/user/downloadSubjectPublicKey?username=vszakats' \
-#   | gpg --import
+  # Bintray public key
+  gpg_recv_keys 8756C4F765C9AC3CB6B85D62379CE192D401AB61
 
-readonly base='https://bintray.com/artifact/download/vszakats/generic/'
+  # Builder public key
+  # curl 'https://bintray.com/user/downloadSubjectPublicKey?username=vszakats' \
+  #   | gpg --import
 
-for plat in '32' '64'; do
-  for name in \
-    'nghttp2' \
-    'openssl' \
-    'libssh2' \
-    'curl' \
-  ; do
-    if [ ! -d "${name}-mingw${plat}" ]; then
-      eval ver="\$$(echo "${name}" | tr '[:lower:]' '[:upper:]' 2> /dev/null)_VER"
-      eval hash="\$$(echo "${name}" | tr '[:lower:]' '[:upper:]' 2> /dev/null)_HASH_${plat}"
-      # shellcheck disable=SC2154
-      (
-        set -x
-        curl -L --proto-redir =https \
-          -o pack.bin "${base}${name}-${ver}-win${plat}-mingw.7z" \
-          -o pack.sig "${base}${name}-${ver}-win${plat}-mingw.7z.asc"
-#       gpg --verify-options show-primary-uid-only --verify pack.sig pack.bin
-        openssl dgst -sha256 pack.bin | grep -q "${hash}" || exit 1
-        7z x -y pack.bin > /dev/null
-        mv "${name}-${ver}-win${plat}-mingw" "${name}-mingw${plat}"
-      )
-    fi
+  readonly base='https://bintray.com/artifact/download/vszakats/generic/'
+
+  for plat in '32' '64'; do
+    for name in \
+      'nghttp2' \
+      'openssl' \
+      'libssh2' \
+      'curl' \
+    ; do
+      if [ ! -d "${name}-mingw${plat}" ]; then
+        eval ver="\$$(echo "${name}" | tr '[:lower:]' '[:upper:]' 2> /dev/null)_VER"
+        eval hash="\$$(echo "${name}" | tr '[:lower:]' '[:upper:]' 2> /dev/null)_HASH_${plat}"
+        # shellcheck disable=SC2154
+        (
+          set -x
+          curl -L --proto-redir =https \
+            -o pack.bin "${base}${name}-${ver}-win${plat}-mingw.7z" \
+            -o pack.sig "${base}${name}-${ver}-win${plat}-mingw.7z.asc"
+          gpg --verify-options show-primary-uid-only --verify pack.sig pack.bin
+          openssl dgst -sha256 pack.bin | grep -q "${hash}" || exit 1
+          7z x -y pack.bin > /dev/null
+          mv "${name}-${ver}-win${plat}-mingw" "${name}-mingw${plat}"
+        )
+      fi
+    done
   done
-done
 
-rm -f pack.bin pack.sig
+  rm -f pack.bin pack.sig
+fi

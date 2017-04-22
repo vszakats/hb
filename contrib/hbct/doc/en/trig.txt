@@ -41,7 +41,7 @@
    $ONELINER$
       Sine of the argument
    $SYNTAX$
-      SIN (nRadiant) --> nSine
+      Sin( nRadiant ) --> nSine
    $ARGUMENTS$
       <nRadiant>       an angle size given in radiants
    $RETURNS$
@@ -440,8 +440,8 @@
       <nDegree>          the size of that angle in degree
    $DESCRIPTION$
       The function RToD() can be used to convert sizes of angles given
-      in radiant (like those returned by the asin, acos or atan function)
-      to degrees that are commonly used geometry and technics.
+      in radiant (like those returned by the ASin(), ACos() or ATan() functions)
+      to degrees that are commonly used geometry and mechanics.
    $EXAMPLES$
       ? RToD( Pi() )      // --> 180
       ? Tanh( Pi() / 3 )  // --> 60

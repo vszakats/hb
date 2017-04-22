@@ -131,7 +131,7 @@
       Returns 0 on success or -1 on error; on error, the error code is set;
       (actually, on success the socket error code is set to 1 -- socket closed )
    $DESCRIPTION$
-      Closes the socket, notifiying both ends of the communication pipe that the
+      Closes the socket, notifying both ends of the communication pipe that the
       connection is over.
 
       If you have threads waiting for data to be read from
@@ -289,7 +289,7 @@
    $ARGUMENTS$
       <socket> a socket previously created / opened
    $RETURNS$
-      System-dependant error string
+      System-dependent error string
    $DESCRIPTION$
       Returns a string describing the last error that occurred in the socket;
       the string is system dependent, and should be used only for debugging
@@ -1065,7 +1065,7 @@
       immediately 1 if there is some data to be read, 0 if there isn't any data and
       -1 in case of error.
 
-      If <nMillisecs> is given, the functon will wait up to that
+      If <nMillisecs> is given, the function will wait up to that
       amount of milliseconds for data to be available; if some data arrives in the
       meanwhile, the wait is immediately interrupted.
 
@@ -1204,11 +1204,11 @@
       An array of IP addresses
    $DESCRIPTION$
       Returns an array containing all the IP addresses associated with a given
-      host name. The IP addressess returned by this funtion are strings in
-      quad dot notations, eg "127.0.0.1", and can be directly used into
+      host name. The IP addresses returned by this function are strings in
+      quad dot notations, e.g. "127.0.0.1", and can be directly used into
       hb_inetConnectIP().
 
-      <cName> can be any string: valid DNS names (eg.
+      <cName> can be any string: valid DNS names (e.g.
       "example.org"), locally available names (e.g. "localhost" or
       windows Network Neighborhood names), or even IP addresses in quad
       dot notation.
@@ -1417,7 +1417,7 @@
       hb_inetGetHosts() is not called in the same moment as an hb_inetConnect()).
 
       The second version of this function accepts a pre-built socket
-      as a parameter. This allows to kill asyncronously a thread waiting
+      as a parameter. This allows to kill asynchronously a thread waiting
       for hb_inetConnect() to connect, and then cleaning up the leftover
       socket data. Also, it is possible to give timeout to the given <SOCKET>,
       but this timeout will be used only in the connection phase, after that
@@ -1476,7 +1476,7 @@
       timeout control while connecting to a server, and a finer error control.
 
       The second version of this function accepts a pre-built socket
-      as a parameter. This allows to kill asyncronously a thread waiting
+      as a parameter. This allows to kill asynchronously a thread waiting
       for hb_inetConnectIP() to connect, and then cleaning up the leftover
       socket data. Also, it is possible to give timeout at the given <SOCKET>.
 
@@ -1518,7 +1518,7 @@
    $DESCRIPTION$
       Creates a datagram-oriented socket that will be able to send data and
       eventually receive data. Since the socket is not bound, the program can't
-      retrieve the address at which this socket appaers to be, but a second
+      retrieve the address at which this socket appears to be, but a second
       socket receiving a message sent from this one would be able to reply
       correctly with a datagram that can be read from a non-bound socket.
 
@@ -1621,7 +1621,7 @@
    $RETURNS$
       Returns number of bytes sent, or -1 on error
    $DESCRIPTION$
-      Sends a datagram (a fixed length data) to a determined ip address (<cAddress>,
+      Sends a datagram (a fixed length data) to a determined IP address (<cAddress>,
       to be specified in quad-dot notation) and port.
 
       If <nSize> is not specified,

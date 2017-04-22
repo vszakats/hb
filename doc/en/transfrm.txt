@@ -14,7 +14,7 @@
    $SYNTAX$
       Transform( <xExpression>, <cTemplate> ) --> cFormatted
    $ARGUMENTS$
-      <xExpression> Any expression to be formated.
+      <xExpression> Any expression to be formatted.
 
       <cTemplate> Character string with picture template
    $RETURNS$

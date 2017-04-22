@@ -13,7 +13,7 @@
       <cString>          is the processed string
       <cReplacement>     is the replacement for sequences found
       [<nCounter>]       specifies the number of replacements
-                         Default: last occurence
+                         Default: last occurrence
       [<lMode>]          if set to .T., only the <nCounter>th sequence
                          of <cStringToMatch> will be replaced, else
                          all sequences will be replaced.
@@ -27,12 +27,12 @@
       The AtRepl() function searches and replaces sequences in a string.
       First, the function ignores the first <nIgnore> characters of <cString>.
       Then, if <lMode> is set to .T., it searches for the <nCounter>th
-      occurence of <cStringToMatch> in <cString>. If successful, the
+      occurrence of <cStringToMatch> in <cString>. If successful, the
       sequence will be replaced with <cReplacement>.
       If <lMode> is set to .F., the same search is performed, but EVERY
-      occurence of <cStringToMatch> till the <nCounter>th (inclusive) will
+      occurrence of <cStringToMatch> till the <nCounter>th (inclusive) will
       be replaced with <cReplacement>. Note that, in this case,
-      the replacements are performed even if the <nCounter>th occurence
+      the replacements are performed even if the <nCounter>th occurrence
       does not exist.
       By using the CSetAtMupa() switch you can decide whether the
       function restarts searching after a found sequence of after

@@ -16,7 +16,7 @@
       characters and exchanges the characters from the odd and the even
       positions.
       By setting the CSetRef() switch to .T., one can omit the return value
-      of this functin, but one must then pass <cString> by reference.
+      of this function, but one must then pass <cString> by reference.
    $EXAMPLES$
       ? CharSwap( "0123456789" )   // "1032547698"
       ? CharSwap( "ABCDEFGHIJK" )  // "BADCFEHGJIK"
@@ -57,7 +57,7 @@
       Additionally the function can perform a swap of the both char of
       each double character.
       By setting the CSetRef() switch to .T., one can omit the return value
-      of this functin, but one must then pass <cString> by reference.
+      of this function, but one must then pass <cString> by reference.
    $EXAMPLES$
       ? WordSwap( "1234567890" )       // "3412785690"
       ? WordSwap( "1234567890", .T. )  // "4321876590"

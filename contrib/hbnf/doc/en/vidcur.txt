@@ -65,7 +65,7 @@
       PC and PS/2 Video Systems_ (Microsoft Press).
 
    $EXAMPLES$
-      aCurInfo := getVCur( 1 )    // Get info on cursor pos in page 1
+      aCurInfo := ft_GetVCur( 1 )    // Get info on cursor pos in page 1
       ? "Row:", aCurInfo[ 3 ], " Col:", aCurInfo[ 4 ]
    $END$
  */

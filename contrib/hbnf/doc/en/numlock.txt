@@ -28,6 +28,7 @@
       #include "inkey.ch"
 
       FUNCTION numBlink()
+
          LOCAL lOldNum := ft_NumLock()
 
          DO WHILE Inkey( 0.5 ) != K_ESC

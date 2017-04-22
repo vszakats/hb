@@ -22,10 +22,10 @@
                      If <lEOL> flag defined instead of <cDelim>,
                      then end of line marker(s) will be used as delimiter.
 
-      <lSkipStrings> boolean flag indicating if quoted substrings
+      <lSkipStrings> Boolean flag indicating if quoted substrings
                      will be tokenized or not.
 
-      <lDoubleQuoteOnly> boolean flag indicating that only double-quoted
+      <lDoubleQuoteOnly> Boolean flag indicating that only double-quoted
                          substrings will be tokenized.
    $RETURNS$
       <aTokens> A character array, filled with the individual tokens found.

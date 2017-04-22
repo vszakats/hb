@@ -104,7 +104,7 @@ and classes for multi-platform development using Harbour and GTK+ 2.10 or higher
 
 * Advantage Database Server — client–server RDD
 * FiveWin/EasyReport — GUI/Report designer (Windows)
-* OTC Mediator — client–server RDD for SQL backends
+* OTC Mediator — client–server RDD for SQL back ends
 * Xailer — Visual IDE (Windows)
 
 Please search the web to find up-to-date information and details about them.

@@ -56,6 +56,12 @@ ifneq ($(HB_HAS_PCRE2_LOCAL),)
       endif
    endif
 
+   ifneq ($(filter $(HB_COMPILER),msvc msvc64 msvcia64 msvcarm),)
+      ifeq ($(filter $(HB_COMPILER_VER),1200 1300 1310 1400 1500 1600),)
+         HB_CFLAGS += -sdl-
+      endif
+   endif
+
    # suppress bcc warnings
    ifeq ($(HB_COMPILER),bcc)
       HB_CFLAGS += -w-use -w-csu -w-aus -w-sig

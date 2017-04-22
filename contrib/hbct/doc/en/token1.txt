@@ -27,7 +27,7 @@
       <nPosition>        The start position of the specified token or
                          0 if such a token does not exist in <cString>.
    $DESCRIPTION$
-      The AtToken() function calculates the start position of tne
+      The AtToken() function calculates the start position of the
       <nTokenCount>th token in <cString>. By setting the new <nSkipWidth>
       parameter to a value different than 0, you can specify how many tokenizing
       characters are combined at most to one token stop. Be aware that

@@ -38,7 +38,7 @@
 
       Both logical expression may work ill conjunction with one another
       where <bFor> is the logical expression for the FOR condition (for
-      records to be displayed whitin a given value range) and <bWhile> for
+      records to be displayed within a given value range) and <bWhile> for
       the WHILE condition (for records to be displayed until they fail to
       meet the condition).
 
@@ -51,11 +51,9 @@
       command. The path may be specified, along, with (the drive letter,
       in <cLabelName>
    $EXAMPLES$
-      PROCEDURE Main()
-         USE test NEW
-         LABEL FORM test.lbl
-         dbCloseArea()
-         RETURN
+      USE test NEW
+      LABEL FORM test.lbl
+      dbCloseArea()
    $STATUS$
       R
    $COMPLIANCE$

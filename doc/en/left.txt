@@ -14,7 +14,7 @@
    $SYNTAX$
       hb_LeftEq( <cString>, <cSubString> ) --> lMatch
    $ARGUMENTS$
-      <cString> Main string of comparisson.
+      <cString> Main string of comparison.
 
       <cSubString> Sub-string compared to leftmost part of <cString>
    $RETURNS$
@@ -25,7 +25,7 @@
       or in other words, checks if <cString> starts with <cSubString>,
       in which case returns .T., otherwise .F.
 
-      Basicaly it's equivalent to the expression:
+      Basically it's equivalent to the expression:
       `Left( <cString>, Len( <cSubString> ) ) == <cSubString>`
       but faster and shorter.
 
@@ -62,14 +62,14 @@
    $SYNTAX$
       hb_LeftEqI( <cString>, <cSubString> ) --> lMatch
    $ARGUMENTS$
-      <cString> Main string of comparisson.
+      <cString> Main string of comparison.
 
       <cSubString> Sub-string compared to leftmost part of <cString>.
    $RETURNS$
       <lMatch> Boolean flag indicating if the matching was successful.
    $DESCRIPTION$
       This function is identical to hb_LeftEq() (see above for details)
-      but it is case *I*nsensitive!
+      but it is case *insensitive*!
    $EXAMPLES$
       ? hb_LeftEqI( "Harbour", "HA" )  // --> .T.
       ? hb_LeftEqI( "Harbour", "ha" )  // --> .T.

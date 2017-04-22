@@ -83,7 +83,7 @@
    $RETURNS$
       <nHandle>  Numeric file handle to be used in other operations.
    $DESCRIPTION$
-      This function creates a new file with a filename of <cFile>. The
+      This function creates a new file with a file name of <cFile>. The
       default value of <nAttribute> is 0 and is used to set the
       attribute byte for the file being created by this function.
       The return value will be a file handle that is associated
@@ -293,7 +293,7 @@
    $DESCRIPTION$
       After every low-level file function, this function will return
       a value that provides additional information on the status of
-      the last low-level file functions's performance. If the FError()
+      the last low-level file function's performance. If the FError()
       function returns a 0, no error was detected. Below is a table
       of possibles values returned by the FError() function.
    $EXAMPLES$
@@ -417,15 +417,15 @@
    $SYNTAX$
       FRename( <cOldFile>, <cNewFile> ) --> nSuccess
    $ARGUMENTS$
-      <cOldFile> Old filename to be changed
+      <cOldFile> Old file name to be changed
 
-      <cNewFile> New filename
+      <cNewFile> New file name
    $RETURNS$
       <nSuccess> If successful, a 0 will be returned otherwise,
       a -1 will be returned.
    $DESCRIPTION$
       This function renames the specified file <cOldFile> to <cNewFile>.
-      A filename and/or directory name may be specified for either para-
+      A file name and/or directory name may be specified for either para-
       meter. However, if a path is supplied as part of <cNewFile> and
       this path is different from either the path specified in <cOldFile>
       or (if none is used) the current drive and directory, the function
@@ -442,8 +442,8 @@
       the function will be unable to rename the file. If the function
       is unable to complete its operation, it will return a value of -1.
       If it is able to rename the file, the return value for the function
-      will be 0. A call to FError() function will give additional infor-
-      mation about any error found.
+      will be 0. A call to FError() function will give additional
+      information about any error found.
    $EXAMPLES$
       #include "fileio.ch"
       nResult := FRename( "test.txt", "test1.txt" )
@@ -559,15 +559,15 @@
    $SYNTAX$
       File( <cFileSpec> ) --> lExists
    $ARGUMENTS$
-      <cFileSpec> Filename skeleton or file name to find.
+      <cFileSpec> File name skeleton or file name to find.
    $RETURNS$
       <lExists> a logical true (.T.) if the file exists or logical
       false (.F.).
    $DESCRIPTION$
-      This function return a logical true (.T.) if the given filename
+      This function return a logical true (.T.) if the given file name
       <cFileSpec> exist.
 
-      Filename skeletons symbols may be used in the filename in <cFileSpec>,
+      File name skeletons symbols may be used in the file name in <cFileSpec>,
       as may the drive and/or path name. If a path is not explicitly
       specified, File() will look for the file in the `SET DEFAULT` path,
       then in each `SET PATH path`, until the file is found or there are
@@ -656,9 +656,9 @@
    $SYNTAX$
       RENAME <cOldFile> TO <cNewFile>
    $ARGUMENTS$
-      <cOldFile> Old filename
+      <cOldFile> Old file name
 
-      <cNewFile> New Filename
+      <cNewFile> New File name
    $DESCRIPTION$
       This command changes the name of <cOldFile> to <cNewFile>. Both
       <cOldFile> and <cNewFile> must include a file extension. This command
@@ -701,7 +701,7 @@
    $DESCRIPTION$
       This command removes a file from the disk. The use of a drive, directory,
       and wild-card skeleton operator is allowed for the root of the
-      filename. The file extension is required. The `SET DEFAULT` and `SET PATH`
+      file name. The file extension is required. The `SET DEFAULT` and `SET PATH`
       commands do not affect this command.
 
       The file must be considered closed by the operating system before it
@@ -735,7 +735,7 @@
    $DESCRIPTION$
       This command removes a file from the disk. The use of a drive, directory,
       and wild-card skeleton operator is allowed for the root of the
-      filename. The file extension is required. The `SET DEFAULT` and `SET PATH`
+      file name. The file extension is required. The `SET DEFAULT` and `SET PATH`
       commands do not affect this command.
 
       The file must be considered closed by the operating system before it
@@ -808,10 +808,10 @@
    $ONELINER$
       Copies a file.
    $SYNTAX$
-      COPY FILE <cfile> TO <cfile1>
+      COPY FILE <cFile> TO <cFile1>
    $ARGUMENTS$
-      <cFile>   Filename of source file
-      <cFile1>  Filename of target file
+      <cFile>   File name of source file
+      <cFile1>  File name of target file
    $DESCRIPTION$
       This command makes an exact copy of <cFile> and names it <cFile1>.
       Both files must have the file extension included; the drive and the

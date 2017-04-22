@@ -1,14 +1,14 @@
 - date: 2016-10-20
   title: New logo and further website refresh
   text: The logo received a refresh, dropping the "Hb" characters, making
-    it fit in a square shape and refreshed, fewers colors. The website evolved
-    further as well, with brigher and more modern look, larger fonts,
+    it fit in a square shape and refreshed, fewer colors. The website evolved
+    further as well, with brighter and more modern look, larger fonts,
     responsive design and a new Donate button. A visual overview of the
     website redesign steps <a href="https://vszakats.github.io/hb-evo/">here</a>.
 - date: 2016-09-20
   title: Website refresh
   text: Continuing with the refactor, the site is now fully vector-based,
-    sources have been cleaned up and further minimised, the look refreshed.
+    sources have been cleaned up and further minimized, the look refreshed.
     The crew page and code examples are now automatically generated, thus
     much easier to update. Several pages have been converted to Markdown.
     Source size is now 64 kB (was 624 kB). Also added en edit button to

@@ -4,7 +4,7 @@
    $CATEGORY$
       Conversion Tools
    $ONELINER$
-      Check if the value is a Binary  Number
+      Check if the value is a binary number
    $SYNTAX$
       IsBin( <cN> ) --> cNr
    $ARGUMENTS$
@@ -12,7 +12,7 @@
    $RETURNS$
       <cNr> .T. if the string is binary, otherwise .F.
    $DESCRIPTION$
-      check if the passed string is a bynary number or not
+      check if the passed string is a binary number or not
    $FILES$
       Library is hbmisc
    $SEEALSO$
@@ -26,7 +26,7 @@
    $CATEGORY$
       Conversion Tools
    $ONELINER$
-      Check if the value is a Octal  Number
+      Check if the value is a octal number
    $SYNTAX$
       IsOctal( <cN> ) --> cNr
    $ARGUMENTS$
@@ -70,15 +70,15 @@
    $CATEGORY$
       Conversion Tools
    $ONELINER$
-      Check if the value is a Hexal  Number
+      Check if the value is a hexadecimal number
    $SYNTAX$
       IsHexa( <cN> ) --> cNr
    $ARGUMENTS$
       <cN> String to be checked
    $RETURNS$
-      <cNr> .T. if the string is hexa; otherwise .F.
+      <cNr> .T. if the string is hexadecimal; otherwise .F.
    $DESCRIPTION$
-      check if the passed string is a hexa number or not
+      check if the passed string is a hexadecimal number or not
    $FILES$
       Library is hbmisc
    $SEEALSO$
@@ -92,7 +92,7 @@
    $CATEGORY$
       Conversion Tools
    $ONELINER$
-      Converts a Decimal Value to Binary
+      Converts a decimal value to binary
    $SYNTAX$
       DecToBin( <cN> ) --> cNr
    $ARGUMENTS$
@@ -115,7 +115,7 @@
    $CATEGORY$
       Conversion Tools
    $ONELINER$
-      Converts a Decimal Value to Octal
+      Converts a decimal value to octal
    $SYNTAX$
       DecToOctal( <cN> ) --> cNr
    $ARGUMENTS$
@@ -138,7 +138,7 @@
    $CATEGORY$
       Conversion Tools
    $ONELINER$
-      Converts a Decimal Value to Hexa
+      Converts a decimal value to hexadecimal
    $SYNTAX$
       DecToHexa( <cN> ) --> cNr
    $ARGUMENTS$
@@ -161,7 +161,7 @@
    $CATEGORY$
       Conversion Tools
    $ONELINER$
-      Converts a Binary Value to Decimal
+      Converts a binary value to decimal
    $SYNTAX$
       BinToDec( <cN> ) --> cNr
    $ARGUMENTS$
@@ -184,7 +184,7 @@
    $CATEGORY$
       Conversion Tools
    $ONELINER$
-      Converts a Octal Value to Decimal
+      Converts a octal value to decimal
    $SYNTAX$
       OctalToDec( <cN> ) --> cNr
    $ARGUMENTS$
@@ -207,7 +207,7 @@
    $CATEGORY$
       Conversion Tools
    $ONELINER$
-      Converts a Hexa Value to Decimal
+      Converts a hexadecimal value to decimal
    $SYNTAX$
       HexaToDec( <cN> ) --> cNr
    $ARGUMENTS$

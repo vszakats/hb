@@ -238,7 +238,7 @@ STATIC PROCEDURE TbWhileTop( cKey )
 // Developed By Jon Cole
 // With softseek set on, seek the first record after condition.
 // This is accomplished by incrementing the right most character of the
-// string cKey by one ascii character.  After SEEKing the new string,
+// string cKey by one ASCII character.  After dbSeek()-ing the new string,
 // back up one record to get to the last record which matches cKey.
 STATIC PROCEDURE TbWhileBot( cKey )
 

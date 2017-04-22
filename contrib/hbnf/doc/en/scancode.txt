@@ -4,7 +4,7 @@
    $CATEGORY$
       Keyboard/Mouse
    $ONELINER$
-      Wait for keypress and return keyboard scan code
+      Wait for key-press and return keyboard scan code
    $SYNTAX$
       ft_ScanCode() --> cCode
    $ARGUMENTS$
@@ -12,7 +12,7 @@
    $RETURNS$
       A two-character string, corresponding to the keyboard scan code.
    $DESCRIPTION$
-      ft_ScanCode() enables you to distinguish the different scancodes
+      ft_ScanCode() enables you to distinguish the different scan-codes
       of similar keys (such as Grey minus versus regular minus), thus
       increasing the number of keys your input routine can recognize.
 

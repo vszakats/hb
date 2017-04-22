@@ -6,7 +6,7 @@
    $CATEGORY$
       Runtime errors
    $ONELINER$
-      Attempt to access nonexisting or hidden variable
+      Attempt to access non-existing or hidden variable
    $DESCRIPTION$
       The specified variable was not found.
 
@@ -1025,7 +1025,7 @@
    $ONELINER$
       Incorrect arguments type
    $DESCRIPTION$
-      Passed Runtime errors was not strings with filenames to copy/
+      Passed Runtime errors was not strings with file names to copy/
    $EXAMPLES$
       __CopyFile()
    $COMPLIANCE$

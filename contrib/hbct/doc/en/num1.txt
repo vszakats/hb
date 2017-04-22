@@ -86,7 +86,7 @@
       <nLargestNumber>     the largest floating point number available in the system
    $DESCRIPTION$
       Infinity() returns the largest floating point number available
-      in the system. For platform independance, this is set to DBL_MAX.
+      in the system. For platform independence, this is set to DBL_MAX.
    $EXAMPLES$
 
    $STATUS$

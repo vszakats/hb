@@ -367,7 +367,7 @@
          - week #(n+1) starts seven days after start of week #n
 
       If <lSWN> is .F. (default), the ISO 8601 week number, defined by
-         - weeks start on mondays
+         - weeks start on Mondays
          - week #1 is the one that includes January, 4
       will be calculated
 

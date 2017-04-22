@@ -4,22 +4,22 @@
    $CATEGORY$
       CT3 string functions
    $ONELINER$
-      Returns string portion after nth occurence of substring
+      Returns string portion after nth occurrence of substring
    $SYNTAX$
       AfterAtNum( <cStringToMatch>, <cString>, [<nCounter>],
                   [<nIgnore>] ) --> cRestString
    $ARGUMENTS$
       <cStringToMatch>    is the substring scanned for
       <cString>           is the scanned string
-      [<nCounter>]        determines how many occurences are of
+      [<nCounter>]        determines how many occurrences are of
                           <cStringToMatch> in <cString> are searched
-                          Default: search last occurence
+                          Default: search last occurrence
       [<nIgnore>]         determines how many character from the start
                           should be ignored in the search
                           Default: 0
    $RETURNS$
       <cRestString>       the portion of <cString> after the <nCounter>th
-                          occurence of <cStringToMatch> in <cString>
+                          occurrence of <cStringToMatch> in <cString>
                           If such a rest does not exist, an empty string
                           is returned.
    $DESCRIPTION$
@@ -56,22 +56,22 @@
    $CATEGORY$
       CT3 string functions
    $ONELINER$
-      Returns string portion before nth occurence of substring
+      Returns string portion before nth occurrence of substring
    $SYNTAX$
       BeforAtNum( <cStringToMatch>, <cString>, [<nCounter>],
                   [<nIgnore>] ) --> cRestString
    $ARGUMENTS$
       <cStringToMatch>    is the substring scanned for
       <cString>           is the scanned string
-      [<nCounter>]        determines how many occurences are of
+      [<nCounter>]        determines how many occurrences are of
                           <cStringToMatch> in <cString> are searched
-                          Default: search last occurence
+                          Default: search last occurrence
       [<nIgnore>]         determines how many character from the start
                           should be ignored in the search
                           Default: 0
    $RETURNS$
       <cRestString>       the portion of <cString> before the <nCounter>th
-                          occurence of <cStringToMatch> in <cString>
+                          occurrence of <cStringToMatch> in <cString>
                           If such a string does not exist, an empty string
                           is returned.
    $DESCRIPTION$
@@ -108,23 +108,23 @@
    $CATEGORY$
       CT3 string functions
    $ONELINER$
-      Returns the start position of the nth occurence of a substring in a string
+      Returns the start position of the nth occurrence of a substring in a string
    $SYNTAX$
       AtNum( <cStringToMatch>, <cString>, [<nCounter>],
              [<nIgnore>] ) --> nPosition
    $ARGUMENTS$
       <cStringToMatch>    is the substring scanned for
       <cString>           is the scanned string
-      [<nCounter>]        determines how many occurences are of
+      [<nCounter>]        determines how many occurrences are of
                           <cStringToMatch> in <cString> are searched
-                          Default: search last occurence
+                          Default: search last occurrence
       [<nIgnore>]         determines how many character from the start
                           should be ignored in the search
                           Default: 0
    $RETURNS$
       <nPosition>         the position of the <nCounter>th
-                          occurence of <cStringToMatch> in <cString>.
-                          If such an occurence does not exist, 0
+                          occurrence of <cStringToMatch> in <cString>.
+                          If such an occurrence does not exist, 0
                           is returned.
    $DESCRIPTION$
       This function scans <cString> for <cStringToMatch>. After the

@@ -43,7 +43,7 @@
       token environment string directly !
 
       Additionally, a counter is stored in the token environment, so that
-      the tokens can successivly be obtained. This counter is first set to 1.
+      the tokens can successively be obtained. This counter is first set to 1.
       When the TokenInit() function is called without a string a tokenize,
       the counter of either the global environment or the environment given
       by reference in the 4th parameter is rewind to 1.
@@ -85,7 +85,7 @@
    $CATEGORY$
       CT3 string functions
    $ONELINER$
-      Successivly obtains tokens from a string
+      Successively obtains tokens from a string
    $SYNTAX$
       TokenNext( <[@]cString>, [<nToken>],
                  [<@cTokenEnvironment>] ) --> cToken
@@ -106,7 +106,7 @@
       the <nToken>th token without manipulating the TE counter. Otherwise
       the token pointed to by the TE counter is returned and the counter
       is incremented by one. Like this, a simple loop with TokenEnd() can
-      be used to retrieve all tokens of a string successivly.
+      be used to retrieve all tokens of a string successively.
 
       Note that <cString> does not have to be the same used in TokenInit(),
       so that one can do a "correlational tokenization", i.e. tokenize a string
@@ -114,10 +114,10 @@
       "AA, BBB" but calling TokenNext() with "CCCEE" would
       give first "CC" and then "EE" (because "CCCEE" is not long enough).
    $EXAMPLES$
-      // default behavhiour
+      // default behaviour
       TokenInit( cString ) // initialize a TE
       DO WHILE ! TokenEnd()
-         ? TokenNext( cString )  // get all tokens successivly
+         ? TokenNext( cString )  // get all tokens successively
       ENDDO
       ? TokenNext( cString, 3 )  // get the 3rd token, counter will remain the same
       TokenExit()                // free the memory used for the global TE
@@ -193,11 +193,11 @@
       reference), the information from this token environment is used,
       otherwise the global TE is used.
       With a combination of TokenEnd() and TokenNext(), all tokens from a
-      string can be retrieved successivly (see example).
+      string can be retrieved successively (see example).
    $EXAMPLES$
       TokenInit( "a.b.c.d", ".", 1 )  // initialize global TE
       DO WHILE ! TokenEnd()
-         ? TokenNext( "a.b.c.d" )     // get all tokens successivly
+         ? TokenNext( "a.b.c.d" )     // get all tokens successively
       ENDDO
    $STATUS$
       R
@@ -234,7 +234,7 @@
    $EXAMPLES$
       TokenInit( cString ) // initialize a TE
       DO WHILE ! TokenEnd()
-         ? TokenNext( cString )  // get all tokens successivly
+         ? TokenNext( cString )  // get all tokens successively
       ENDDO
       ? TokenNext( cString, 3 )  // get the 3rd token, counter will remain the same
       TokenExit()                // free the memory used for the global TE
@@ -273,7 +273,7 @@
    $DESCRIPTION$
       The TokenAt() function is used to retrieve the start and end position
       of the tokens in a token environment. Note however that the position of
-      last character of a token is given by tokenat (.T.)-1 !!
+      last character of a token is given by `TokenAt( .T. ) - 1` !!
 
       If the 2nd parameter, <nToken> is given, TokenAt() returns the
       positions of the <nToken>th token. Otherwise
@@ -287,7 +287,7 @@
       TokenInit( cString ) // initialize a TE
       DO WHILE ! TokenEnd()
          ? "From", TokenAt(), "to", TokenAt( .T. ) - 1
-         ? TokenNext( cString )  // get all tokens successivly
+         ? TokenNext( cString )  // get all tokens successively
       ENDDO
       ? TokenNext( cString, 3 )  // get the 3rd token, counter will remain the same
       TokenExit()                // free the memory used for the global TE

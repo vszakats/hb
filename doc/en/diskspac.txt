@@ -12,7 +12,7 @@
    $ONELINER$
       Get the amount of space available on a disk
    $SYNTAX$
-      DiskSpace( [<nDrive>] ) --> nDiskbytes
+      DiskSpace( [<nDrive>] ) --> nDiskBytes
    $ARGUMENTS$
       <nDrive> The number of the drive you are requesting info on where 1 = A,
       2 = B, etc. For 0 or no parameter, DiskSpace will operate on the current
@@ -57,7 +57,7 @@
    $ONELINER$
       Get the amount of space available on a disk
    $SYNTAX$
-      hb_DiskSpace( [<cDrive>] [, <nType>] ) --> nDiskbytes
+      hb_DiskSpace( [<cDrive>] [, <nType>] ) --> nDiskBytes
    $ARGUMENTS$
       <cDrive> The drive letter you are requesting info on. The default
       is A:
@@ -79,7 +79,7 @@
                       and disk quotas are in effect. Otherwise, the value
                       will be equal to that returned for HB_FS_FREE.
 
-       HB_DISK_FREE   The actual amount of free diskspace on the drive.
+       HB_DISK_FREE   The actual amount of free disk space on the drive.
 
        HB_DISK_USED   The number of bytes in use on the disk.
 

@@ -8,7 +8,7 @@ title: "FAQ (archive)"
 <h3>1. <a href="#1">Legal Stuff</a></h3>
 <dl>
   <dd>1.1. <a href="#2">Copyright</a></dd>
-  <dd>1.2. <a href="#3">Licence</a></dd>
+  <dd>1.2. <a href="#3">License</a></dd>
   <dd>1.3. <a href="#4">Warranty</a></dd>
   <dd>1.4. <a href="#5">Trademarks</a></dd>
 </dl>
@@ -23,7 +23,7 @@ title: "FAQ (archive)"
   <dd>2.7. <a href="#13">What is &quot;free software&quot;?</a></dd>
   <dd>2.8. <a href="#14">So is Harbour in the public domain?</a></dd>
   <dd>2.9. <a href="#15">What is the GPL?</a></dd>
-  <dd>2.10. <a href="#16">Why was the GPL chosen as the licence for Harbour?</a></dd>
+  <dd>2.10. <a href="#16">Why was the GPL chosen as the license for Harbour?</a></dd>
   <dd>2.11. <a href="#17">What is the Harbour exception?</a></dd>
   <dd>2.12. <a href="#18">So why don't you use the LGPL?</a></dd>
   <dd>2.13. <a href="#19">Will my applications be affected by the GPL?</a></dd>
@@ -87,15 +87,15 @@ title: "FAQ (archive)"
 <h3><a id="1"></a>1. Legal Stuff</h2>
 <hr>
 <h2><a id="2"></a>1.1. Copyright</h2>
-<p>This document as a whole is copyrighted (c) 1999 - 2004 David G. Holm.
+<p>This document as a whole is copyrighted © 1999–2004 David G. Holm.
   Some portions of the document may be copyright other individual authors
   and are used with their permission. This document would not exist were
   it not for the efforts of the original maintainer, Dave Pearson.
 </p>
 <hr>
-<h2><a id="3"></a>1.2. Licence</h2>
+<h2><a id="3"></a>1.2. License</h2>
 <p>This document should be considered as free software, distributed under the
-  terms of the GNU General Public Licence, version 2. For details see the file
+  terms of the GNU General Public License, version 2. For details see the file
   COPYING.txt.
 </p>
 <hr>
@@ -199,8 +199,8 @@ title: "FAQ (archive)"
 <p>No, Harbour isn't in the <a href="https://www.gnu.org/philosophy/categories.html">public domain</a>. Most parts of Harbour are copyrighted works and you
   should respect those copyrights as you would any other copyright. With a
   small number of exceptions each of the
-  <a href="#WhoDevelopers">Harbour authors</a> have placed their code under Harbour's chosen licence, currently
-  that licence is the
+  <a href="#WhoDevelopers">Harbour authors</a> have placed their code under Harbour's chosen license, currently
+  that license is the
   <a href="#GPL">GPL</a> and/or the GPL with
   <a href="#HarbourException">Harbour exception</a>.
 </p>
@@ -210,40 +210,40 @@ title: "FAQ (archive)"
 <hr>
 <h2><a id="15"></a>2.9. What is the GPL?<a id="GPL"></a></h2>
 <p>The <a href="https://www.gnu.org/licenses/license-list.html#GPLv2">GPL</a> is the
-  licence of the <a href="https://www.gnu.org/">GNU system</a>, it is a
+  license of the <a href="https://www.gnu.org/">GNU system</a>, it is a
   <a href="#FreeSoftware">free software</a>
-  licence. You might also hear it referred to as the <a href="https://www.gnu.org/copyleft/copyleft.html">Copyleft</a>.
+  license. You might also hear it referred to as the <a href="https://www.gnu.org/copyleft/copyleft.html">Copyleft</a>.
 </p>
-<p>The GPL is currently the licence under which parts of Harbour are released,
+<p>The GPL is currently the license under which parts of Harbour are released,
   other parts of Harbour are under the GPL plus the
   <a href="#HarbourException">Harbour exception</a>.
 </p>
 <hr>
-<h2><a id="16"></a>2.10. Why was the GPL chosen as the licence for Harbour?<a id="WhyGPL"></a></h2>
+<h2><a id="16"></a>2.10. Why was the GPL chosen as the license for Harbour?<a id="WhyGPL"></a></h2>
 <p>That's really a question best asked of each of the Harbour copyright
   holders. A simple answer would be that the GPL is seen as one of the more
   restrictive
-  <a href="#FreeSoftware">free software</a> licences and, for
+  <a href="#FreeSoftware">free software</a> licenses and, for
   that reason more than any other, it appeared to give the maximum amount of
   freedom and at the same time the correct degree of control over use and
   distribution.
 </p>
 <hr>
 <h2><a id="17"></a>2.11. What is the Harbour exception?<a id="HarbourException"></a></h2>
-<p>There is one small wrinkle regarding the use of the GPL as the licence for
+<p>There is one small wrinkle regarding the use of the GPL as the license for
   Harbour. Harbour comes in a number of parts, these can best be described as
   the compiler (including pre-processor), the virtual machine and the run-time
   library. The GPL dictates that anyone distributing binary versions of GPLd
   code must make an offer of providing the source and that the code linked
   against the GPLd code must also fall under the GPL. Failure to do so is a
-  breach of licence.
+  breach of license.
 </p>
 <p>In Harbour terms this means different things depending on which portion of
   Harbour you are considering. The compiler itself can live under the GPL, it
   isn't part of the run-time and so poses no problem. This isn't true for the
   <a href="https://github.com/{{ site.repo_slug }}/tree/master/src/vm">HVM</a> and
   <a href="https://github.com/{{ site.repo_slug }}/tree/master/src/rtl">RTL</a> because they get linked into your application and so would
-  require that your code be distributed under a compatible licence. While the
+  require that your code be distributed under a compatible license. While the
   Harbour developers would like to see you develop
   <a href="#FreeSoftware">free software</a> they have decided to let you make this choice.
 </p>
@@ -320,12 +320,12 @@ version.</p>
 <p>No, the
   <a href="#HarbourException">Harbour exception</a> seeks to ensure
   that, when you build an application with Harbour, compiling with the Harbour
-  compiler and linking against the HVM and RTL, your rights to licence your
+  compiler and linking against the HVM and RTL, your rights to license your
   own code are not in any way affected.
 </p>
-<p>Harbour's licence is there to try and protect the freedom offered by the
-  Harbour developers. Harbour's licence isn't there to try and force you to
-  choose a specific licence.
+<p>Harbour's license is there to try and protect the freedom offered by the
+  Harbour developers. Harbour's license isn't there to try and force you to
+  choose a specific license.
 </p>
 <p>Be assured that it isn't the intention of the
   <a href="#WhoDevelopers">Harbour developers</a> that your applications will have to be released
@@ -336,9 +336,9 @@ version.</p>
   against Harbour.
 </p>
 <p>As always, don't take anyone else's word for this stuff, when in doubt, read
-  the licence. If you're still in doubt pay someone who knows what they are
-  doing to read the licence for you. Hopefully you do this with licences for
-  your other development tools, Harbour is no different, it has a licence that
+  the license. If you're still in doubt pay someone who knows what they are
+  doing to read the license for you. Hopefully you do this with licenses for
+  your other development tools, Harbour is no different, it has a license that
   you need to understand.
 </p>
 <hr>
@@ -949,7 +949,7 @@ often include instructions on how to unsubscribe).</p>
     contains a number of binary builds of the latest stable snapshot.
   </li>
   <li><a href="mailto:dholm@jsd-llc.com">David G. Holm</a> is
-    maintaing a repository of binary builds of stable (and sometimes, in
+    maintaining a repository of binary builds of stable (and sometimes, in
     parallel, unstable) releases at <a href="https://web.archive.org/web/20050909125654/harbour.netfang.net/">harbour.netfang.net/</a>.
   </li>
 </ul>
@@ -1157,7 +1157,7 @@ often include instructions on how to unsubscribe).</p>
   <li><a href="https://www.gnu.org/licenses/license-list.html#GPLv2">The GPL</a></li>
   <li><a href="https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">The Lesser GPL</a></li>
   <li><a href="https://www.gnu.org/philosophy/why-not-lgpl.html">Reasons for not using the LGPL</a></li>
-  <li><a href="https://www.gnu.org/licenses/license-list.html">Free software/OpenSource licence list</a></li>
+  <li><a href="https://www.gnu.org/licenses/license-list.html">Free software/OpenSource license list</a></li>
 </ul>
 </p>
 <hr>
@@ -1262,7 +1262,7 @@ Added a pointer to the Chinese translation of the FAQ.
 <strong>Revision 1.35</strong>  2001-12-18 08:13:03
 
 Removed the text in FAQ 2.5 that said that the wording of the warranty might
-change at some point in the future. Now that the licence details are settled
+change at some point in the future. Now that the license details are settled
 this isn't an issue.
 Added FreeBSD to the list of known supported platforms in FAQ 6.7.
 Gave (hopefully) useful URLs to each platform listed in the above list.
@@ -1314,7 +1314,7 @@ Updated the copyright details of this document.
 
 <strong>Revision 1.24</strong>  2001-04-26 10:10:17
 
-Updated some of the entries regarding licence choices and the Harbour
+Updated some of the entries regarding license choices and the Harbour
 exception. The exception has changed slightly and the GPL is here to stay.
 
 <strong>Revision 1.23</strong>  2001-02-27 18:13:12
@@ -1402,7 +1402,7 @@ Changed the details of the CVS server now that we've moved to SourceForge.
 <strong>Revision 1.9</strong>  1999-11-18 17:10:36
 
 Added details of Andi's unstable snapshot.
-Where approptiate, parts of the main document have been linked to the
+Where appropriate, parts of the main document have been linked to the
 Clipper implementation list in section 7.3.
 Changed section 6.5 so that it mentions the 3rd party support list.
 
@@ -1413,19 +1413,19 @@ I'd moved David's to Matthew's and forgot to add one for Matthew.
 
 <strong>Revision 1.7</strong>  1999-11-16 16:31:52
 
-Added a warning about using non-free licenced copyrighted code to the
+Added a warning about using non-free licensed copyrighted code to the
 development guidelines in section 3.8.
-Changed the wording in section 4.2 to suggest thet harbour will have a users
+Changed the wording in section 4.2 to suggest that harbour will have a users
 mailing list "post-alpha" instead of "post-beta".
 Added details about Matthew Collins' unstable snapshot to section 3.4.
 Hunted down and fixed a couple more `htmlurl' tags that should have been
 `url' tags.
-Added details of Andi Jahja's alternative (WinTel oriented) FAQ formats.
+Added details of Andi Jahja's alternative (Wintel oriented) FAQ formats.
 One or two general tidy-ups.
 
 <strong>Revision 1.6</strong>  1999-10-10 08:02:41
 
-The HTML produced from harbour.sgml is now passed thru a perl script which
+The HTML produced from harbour.sgml is now passed thru a Perl script which
 adds some extra colour and formatting information to make the FAQ better fit
 the colour scheme of the harbour website (if you didn't notice the problem
 your browser is probably dictating how you view information).

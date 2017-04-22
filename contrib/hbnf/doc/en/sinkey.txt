@@ -9,8 +9,8 @@
       ft_SInkey( [ <nWaitTime> ] ) --> nKey
    $ARGUMENTS$
       <nWaitTime> is the number of seconds to wait.  If zero,
-      ft_SInkey() will wait indefinitely for a keypress.  If not
-      passed, ft_SInkey() does not wait for a keypress.  If NIL,
+      ft_SInkey() will wait indefinitely for a key-press.  If not
+      passed, ft_SInkey() does not wait for a key-press.  If NIL,
       it is treated the same as 0.
    $RETURNS$
       The Inkey() value of the key pressed.
@@ -18,7 +18,7 @@
       ft_SInkey() is similar to the function provided by Nantucket in
       keyboard.prg, with one significant difference: you can pass NIL
       to Inkey(), which will be treated as a zero (i.e., wait indefinitely
-      for keypress).  Therefore, it is necessary to differentiate between
+      for key-press).  Therefore, it is necessary to differentiate between
       an explicit NIL and one that is a result of a formal parameter _not_
       being received.
 

@@ -65,7 +65,7 @@
 static int s_mount_type( void )
 {
    int iType;
-#if defined( HB_OS_WIN )
+#if defined( HB_OS_WIN ) && ! defined( HB_OS_WIN_CE )
    UINT uiType;
    PHB_ITEM pRootName = hb_param( 1, HB_IT_STRING );
 

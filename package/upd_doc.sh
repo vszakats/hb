@@ -81,24 +81,45 @@ if git diff-index --name-only HEAD~1 \
   # Generate docs
   ${_bin_hbdoc} -v0 -repr "-format=${hbdoc_fmt}" || exit
 
+  # Prepare deploy key
+  readonly GITHUB_DEPLOY_HB_DOC_KEY="$(realpath './package')/deploy_hb_doc.key"
+  (
+    set +x
+    if [ -n "${GITHUB_DEPLOY_HB_DOC_PASS}" ]; then
+      gpg --batch --passphrase "${GITHUB_DEPLOY_HB_DOC_PASS}" -o "${GITHUB_DEPLOY_HB_DOC_KEY}" -d "${GITHUB_DEPLOY_HB_DOC_KEY}.asc"
+    fi
+  )
+
   # Update origin
 
   if [ "${_BRANCH#*master*}" != "${_BRANCH}" ] && \
-     [ -n "${GITHUB_TOKEN}" ]; then
+     [ -n "${GITHUB_TOKEN}${GITHUB_DEPLOY_HB_DOC_PASS}" ]; then
   (
     cd "${hbdoc_fmt}" || exit
 
     echo "! Updating Reference Guide repository..."
 
-    git remote rm origin
     (
       set +x
       readonly GITHUB_USER='vszakats'
-      git remote add origin "https://${GITHUB_USER}@github.com/${slug_doc_pages}.git"
       git config user.name "${GITHUB_USER}-auto"
       git config user.email "${GITHUB_USER}@users.noreply.github.com"
-      git config credential.helper store
-      echo "https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com" > "${HOME}/.git-credentials"
+      git remote rm origin
+      if [ -f "${GITHUB_DEPLOY_HB_DOC_KEY}" ]; then
+        chmod 600 "${GITHUB_DEPLOY_HB_DOC_KEY}"
+
+        # Add verified result of `ssh-keyscan github.com` to `known_hosts`
+        mkdir -p "${HOME}/.ssh" || true
+        echo 'github.com ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==' >> "${HOME}/.ssh/known_hosts"
+
+        git remote add origin "git@github.com:${slug_doc_pages}.git"
+        # Requires Git 2.10.0 (2016-09)
+        git config core.sshCommand "ssh -o BatchMode=yes -o StrictHostKeyChecking=yes -i '${GITHUB_DEPLOY_HB_DOC_KEY}'"
+      else
+        git remote add origin "https://${GITHUB_USER}@github.com/${slug_doc_pages}.git"
+        git config credential.helper store
+        echo "https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com" > "${HOME}/.git-credentials"
+      fi
     )
 
     # Add all files (to force adding any new ones)

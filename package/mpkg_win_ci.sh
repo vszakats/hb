@@ -27,22 +27,23 @@ _ROOT="$(realpath '.')"
 
 # Don't remove these markers.
 #hashbegin
-export NGHTTP2_VER='1.21.0'
-export NGHTTP2_HASH_32='3be8191e3fb29cd21dd91d4fda441406cd0e201efb519c2368b0960b2d2e5d82'
-export NGHTTP2_HASH_64='45c29e1ede65d8643576293cdccda7a8bab485b9acff3fb5a82bf7f66f2737ff'
+export NGHTTP2_VER='1.21.1'
+export NGHTTP2_HASH_32='bc453759de4498640d4a99e0c56f5cf785ecdc8c3a2a83b4c3d11f6d62b40160'
+export NGHTTP2_HASH_64='d68047214f5499de5722da1b5b55cc4be008e4bb9e568c4e3234e8811730cea4'
 export OPENSSL_VER='1.1.0e'
 export OPENSSL_HASH_32='f45bb7a8c246d8b0a09404c3e11783a721de2d7bad3697909358427aefd58b49'
 export OPENSSL_HASH_64='2318903035004446115ab714145497d5a015a1d4f0a99b8f8c75636ce6e4730b'
 export LIBSSH2_VER='1.8.0'
 export LIBSSH2_HASH_32='ea6b8ed1a2e9224fb041c620b9364a0888d9a874764c48edcd6818bf2597bd71'
 export LIBSSH2_HASH_64='2a6b25c04082f3b206d7e05c72237eeba10e7b1b68a2c1bfbaef03589ce64733'
-export CURL_VER='7.53.1'
-export CURL_HASH_32='b4c4cfefae904d80457c503bda752a2391a1c9e303bbcb2fbc86799c3a0ce823'
-export CURL_HASH_64='6ef597340eb267100462b2f0bd2e552f0a46652a420836990956e31c91721a34'
+export CURL_VER='7.54.0'
+export CURL_HASH_32='d65fb418b56f60db69358e95cb463f17ed4a11572195776c9c84c807b75245e1'
+export CURL_HASH_64='bca3faf3cf8b1ccda58dbf43f98f8335f9aaef8bea64979ce790f544597056df'
 #hashend
 
 # Install/update MSYS2 packages required for completing the build
 
+echo "! TZ: $(date +%Z) | ${TZ}"
 echo "! LANG: ${LANG}"
 echo "! LC_ALL: ${LC_ALL}"
 echo "! LC_CTYPE: ${LC_CTYPE}"
@@ -78,7 +79,7 @@ if [ "${os}" != 'win' ]; then
   make -j "${HB_CI_THREADS}" HB_BUILD_DYN=no HB_BUILD_CONTRIBS=hbdoc
 fi
 
-[ "${_BRANC4}" = 'msvc' ] || "$(dirname "$0")/mpkg_win_dl.sh" || exit
+"$(dirname "$0")/mpkg_win_dl.sh" || exit
 
 export HB_VF='snapshot'
 export HB_RT="${_ROOT}"
@@ -297,22 +298,19 @@ if [ "${_BRANC4}" = 'msvc' ]; then
 
 # export _HB_MSVC_ANALYZE='yes'
 
-  export HB_COMPILER_VER
+  [ "${_BRANCH}" = 'msvc2008' ] && _VCVARSALL=' 9.0\VC'
+  [ "${_BRANCH}" = 'msvc2010' ] && _VCVARSALL=' 10.0\VC'
+  [ "${_BRANCH}" = 'msvc2012' ] && _VCVARSALL=' 11.0\VC'
+  [ "${_BRANCH}" = 'msvc2013' ] && _VCVARSALL=' 12.0\VC'
+  [ "${_BRANCH}" = 'msvc2015' ] && _VCVARSALL=' 14.0\VC'
+  [ "${_BRANCH}" = 'msvc2017' ] && _VCVARSALL='\2017\Community\VC\Auxiliary\Build'
 
-  [ "${_BRANCH}" = 'msvc2008' ] && HB_COMPILER_VER='1500' && _VCVARSALL='9.0'
-  [ "${_BRANCH}" = 'msvc2010' ] && HB_COMPILER_VER='1600' && _VCVARSALL='10.0'
-  [ "${_BRANCH}" = 'msvc2012' ] && HB_COMPILER_VER='1700' && _VCVARSALL='11.0'
-  [ "${_BRANCH}" = 'msvc2013' ] && HB_COMPILER_VER='1800' && _VCVARSALL='12.0'
-  [ "${_BRANCH}" = 'msvc2015' ] && HB_COMPILER_VER='1900' && _VCVARSALL='14.0'
-  [ "${_BRANCH}" = 'msvc2017' ] && HB_COMPILER_VER='2000' && _VCVARSALL='15.0'
-
-  export _VCVARSALL="%ProgramFiles(x86)%\Microsoft Visual Studio ${_VCVARSALL}\VC\vcvarsall.bat"
+  export _VCVARSALL="%ProgramFiles(x86)%\Microsoft Visual Studio${_VCVARSALL}\vcvarsall.bat"
 
   if [ -n "${_VCVARSALL}" ]; then
-    # NOTE: Requires mingw32-make.exe in the PATH
     cat << EOF > _make.bat
-       call "%_VCVARSALL%" x86
-       mingw32-make.exe install %HB_MKFLAGS% HB_COMPILER=msvc
+      call "${_VCVARSALL}" x86
+      C:\msys64\mingw64\bin\mingw32-make.exe install %HB_MKFLAGS% HB_COMPILER=msvc
 EOF
     ./_make.bat
     rm _make.bat
@@ -323,10 +321,9 @@ EOF
   [ "${_BRANCH}" = 'msvc2010' ] && _VCVARSALL=
 
   if [ -n "${_VCVARSALL}" ]; then
-    # NOTE: Requires mingw32-make.exe in the PATH
     cat << EOF > _make.bat
-       call "%_VCVARSALL%" x86_amd64
-       mingw32-make.exe install %HB_MKFLAGS% HB_COMPILER=msvc64
+      call "${_VCVARSALL}" x86_amd64
+      C:\msys64\mingw64\bin\mingw32-make.exe install %HB_MKFLAGS% HB_COMPILER=msvc64
 EOF
     ./_make.bat
     rm _make.bat

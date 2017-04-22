@@ -752,7 +752,7 @@
 
       <nCount> counter, defaults to (length) - <nStart> is omitted
 
-      <lExact> logical valuye indicating whether the comparision
+      <lExact> logical value indicating whether the comparison
       is to be be exact or not
    $RETURNS$
       The position of the located value within the hash table, or zero (0) if not found.
@@ -838,7 +838,7 @@
    $EXAMPLES$
       LOCAL hsTable, lFlag
       hsTable := { "one" => 1, "two" => 2 }
-      // turn 'case match' on for a new hash table, storing ol flag
+      // turn 'case match' on for a new hash table, storing old flag
       lFlag := hb_HCaseMatch( hsTable, .T. )
    $STATUS$
       R
@@ -880,7 +880,7 @@
    $EXAMPLES$
       LOCAL hsTable, lFlag
       hsTable := { "one" => 1, "two" => 2 }
-      // turn 'binary' on for a new hash table, storing ol flag
+      // turn 'binary' on for a new hash table, storing old flag
       lFlag := hb_HBinary( hsTable, .T. )
    $STATUS$
       R
@@ -922,7 +922,7 @@
    $EXAMPLES$
       LOCAL hsTable, lFlag
       hsTable := { "one" => 1, "two" => 2 }
-      // turn 'auto add' on for a new hash table, storing ol flag
+      // turn 'auto add' on for a new hash table, storing old flag
       lFlag := hb_HAutoAdd( hsTable, .T. )
    $STATUS$
       R

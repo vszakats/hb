@@ -6,11 +6,11 @@
    $ONELINER$
       Convert time in military format to number of minute of day.
    $SYNTAX$
-      ft_Mil2Min( <cMILTIME> ) --> nMINUTE
+      ft_Mil2Min( <cMilTime> ) --> nMinOfDay
    $ARGUMENTS$
-      <cMILTIME>  character string of form hhmm, where 0<=hh<24.
+      <cMilTime>  character string of form hhmm, where 0<=hh<24.
    $RETURNS$
-      <nMINOFDAY>  numeric value representing minute of day.
+      <nMinOfDay>  numeric value representing minute of day.
    $DESCRIPTION$
       Converts time in military format to number of minute of the day.
    $EXAMPLES$

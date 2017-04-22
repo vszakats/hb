@@ -20,7 +20,7 @@
       Since all variables in Harbour are stored inside some available tables
       (the eval stack, memvars table and array of static variables) then checking
       if the reference is still alive is quite easy and doesn't require any
-      special treatment during memory allocation. Additionaly the garbage
+      special treatment during memory allocation. Additionally the garbage
       collector is scanning some internal data used by Harbour objects
       implementation that also stores some values that can contain memory
       references. These data are used to initialize class instance variables
@@ -87,7 +87,7 @@
       -----------------------------------------------
 
       The garbage collector can be called directly from the Harbour code.
-      This is usefull in situations where there is no idle states available
+      This is useful in situations where there is no idle states available
       or the application is working in the loop with no user interaction
       and there is many memory allocations.
       See hb_gcAll() for explanation of how to call this function from your

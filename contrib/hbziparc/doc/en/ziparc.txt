@@ -115,7 +115,7 @@
       It always returns True
    $DESCRIPTION$
       This function will set a codeblock that will be evaluated every time
-      that an changedisk event is necessary. <bBlock> receives <nDisk> as a
+      that an change-disk event is necessary. <bBlock> receives <nDisk> as a
       codeblock param that corresponds to the diskette number to be processed.
 
       Set this function before opening archives that are in removable media.
@@ -225,10 +225,10 @@
       file. Default is to overwrite the file, otherwise if <lOverWrite> is
       false the new files are added to the <cFile>.
 
-      If <lWithPath> is used, it tells thats the path should also be stored
+      If <lWithPath> is used, it tells that the path should also be stored
       with the file name. Default is false.
 
-      If <lWithDrive> is used, it tells thats the Drive and path should also
+      If <lWithDrive> is used, it tells that the Drive and path should also
       be stored with the file name. Default is false.
 
       If <pFileProgress> is used, a codeblock is evaluated, `showing` the total
@@ -236,6 +236,8 @@
       The codeblock must be defined as: `{| nPos, nTotal | GaugeUpdate( aGauge1, nPos / nTotal ) }`
    $EXAMPLES$
       PROCEDURE Main()
+
+         LOCAL aFiles, nLen, aGauge
 
          IF hb_ZipFileByTDSpan( "test.zip", "test.prg" )
             ? "File was successfully created"
@@ -315,27 +317,29 @@
       If <bBlock> is used, every time the file is opened to compress it
       will evaluate <bBlock>. Parameters of <bBlock> are <cFile> and <nPos>.
 
-      If <lOverWrite> is used , it toggles to overwrite or not the existing
+      If <lOverWrite> is used, it toggles to overwrite or not the existing
       file. Default is to overwrite the file, otherwise if <lOverWrite> is false
       the new files are added to the <cFile>.
 
       If <cPassword> is used, all files that are added to the archive are encrypted
       with the password.
 
-      If <lWithPath> is used, it tells thats the path should also be stored with
+      If <lWithPath> is used, it tells that the path should also be stored with
       the file name. Default is false.
 
-      If <lWithDrive> is used, it tells thats the Drive and path should also be stored
+      If <lWithDrive> is used, it tells that the Drive and path should also be stored
       with the file name. Default is false.
 
       If <pFileProgress> is used, a codeblock is evaluated, showing the total
       of that file has being processed.
       The codeblock must be defined as: `{| nPos, nTotal | GaugeUpdate( aGauge1, nPos / nTotal ) }`
 
-      Before calling this function, Set an Changedisk codeblock by calling
+      Before calling this function, set a change-disk codeblock by calling
       the hb_SetDiskZip().
    $EXAMPLES$
       PROCEDURE Main()
+
+         LOCAL aFiles, nLen, aGauge
 
          hb_SetDiskZip( {| nDisk | Alert( "Please insert disk no " + hb_ntos( nDisk ) ) } )
 
@@ -426,7 +430,7 @@
       If <lWithPath> is used, it tells  the path should also be stored with
       the file name. Default is false.
 
-      If <lWithDrive> is used, it tells thats the Drive and path should also be stored
+      If <lWithDrive> is used, it tells that the Drive and path should also be stored
       with the file name. Default is false.
 
       If <pFileProgress> is used, a codeblock is evaluated, showing the total
@@ -434,6 +438,8 @@
       The codeblock must be defined as: `{| nPos, nTotal | GaugeUpdate( aGauge1, nPos / nTotal ) }`
    $EXAMPLES$
       PROCEDURE Main()
+
+         LOCAL aFiles, nLen, aGauge
 
          IF hb_ZipFile( "test.zip", "test.prg" )
             ? "File was successfully created"
@@ -449,7 +455,7 @@
 
          aFiles := { "test.prg", "test.hbp" }
          nLen   := Len( aFiles )
-         aGauge := GaugeNew( 5, 5, 7, 40, "W/B", "W+/B" , "." )
+         aGauge := GaugeNew( 5, 5, 7, 40, "W/B", "W+/B", "." )
          GaugeDisplay( aGauge )
          hb_ZipFile( "test33.zip", aFiles, 9, {| cFile, nPos | GaugeUpdate( aGauge, nPos / nLen ) },, "hello" )
          RETURN
@@ -510,9 +516,8 @@
    $EXAMPLES$
       PROCEDURE Main()
 
-         LOCAL aExtract
+         LOCAL aExtract := hb_GetFilesInZip( "test.zip" )  // extract all files in zip
 
-         aExtract := hb_GetFilesInZip( "test.zip" )  // extract all files in zip
          IF hb_UnzipFile( "test.zip",,,, "." + hb_ps(), aExtract )
             ? "File was successfully extracted"
          ENDIF

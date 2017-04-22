@@ -1,6 +1,6 @@
 /* $DOC$
    $AUTHOR$
-      Copyright 1999 Jose Lanin <dezac@corevia.com>
+      Copyright 1999 Jose Lalin <dezac@corevia.com>
    $TEMPLATE$
       Function
    $NAME$
@@ -66,10 +66,8 @@
       Otherwise it returns the line number of the function or procedure
       at <nLevel>.
    $EXAMPLES$
-      PROCEDURE Main()
-         ? ProcLine( 0 )
-         ? ProcName( 2 )
-         RETURN
+      ? ProcLine( 0 )
+      ? ProcName( 2 )
    $STATUS$
       R
    $COMPLIANCE$
@@ -93,7 +91,7 @@
    $SUBCATEGORY$
       Application
    $ONELINER$
-      This function allways returns an empty string.
+      This function always returns an empty string.
    $SYNTAX$
       ProcFile( <xExp> ) --> cEmptyString
    $ARGUMENTS$
@@ -104,11 +102,9 @@
       This function is added to the RTL for full compatibility. It
       always returns an empty string.
    $EXAMPLES$
-      PROCEDURE Main()
-         ? ProcFile()
-         ? ProcFile( NIL )
-         ? ProcFile( 2 )
-         RETURN
+      ? ProcFile()
+      ? ProcFile( NIL )
+      ? ProcFile( 2 )
    $STATUS$
       R
    $COMPLIANCE$

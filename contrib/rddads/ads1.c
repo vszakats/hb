@@ -1992,7 +1992,7 @@ static HB_ERRCODE adsDeleteRec( ADSAREAP pArea )
 
    if( hb_ads_bTestRecLocks )
    {
-      if( ! hb_adsCheckLock( pArea ) == HB_SUCCESS )
+      if( hb_adsCheckLock( pArea ) != HB_SUCCESS )
          return HB_FAILURE;
    }
 
@@ -2565,7 +2565,7 @@ static HB_ERRCODE adsPutRec( ADSAREAP pArea, const HB_BYTE * pBuffer )
 
    if( hb_ads_bTestRecLocks )
    {
-      if( ! hb_adsCheckLock( pArea ) == HB_SUCCESS )
+      if( hb_adsCheckLock( pArea ) != HB_SUCCESS )
          return HB_FAILURE;
    }
 
@@ -2614,7 +2614,7 @@ static HB_ERRCODE adsPutValue( ADSAREAP pArea, HB_USHORT uiIndex, PHB_ITEM pItem
 
    if( hb_ads_bTestRecLocks )
    {
-      if( ! hb_adsCheckLock( pArea ) == HB_SUCCESS )
+      if( hb_adsCheckLock( pArea ) != HB_SUCCESS )
          return HB_FAILURE;
    }
 
@@ -2832,7 +2832,7 @@ static HB_ERRCODE adsRecall( ADSAREAP pArea )
 
    if( hb_ads_bTestRecLocks )
    {
-      if( ! hb_adsCheckLock( pArea ) == HB_SUCCESS )
+      if( hb_adsCheckLock( pArea ) != HB_SUCCESS )
          return HB_FAILURE;
    }
 
@@ -5046,7 +5046,7 @@ static HB_ERRCODE adsPutValueFile( ADSAREAP pArea, HB_USHORT uiIndex, const char
 
    if( hb_ads_bTestRecLocks )
    {
-      if( ! hb_adsCheckLock( pArea ) == HB_SUCCESS )
+      if( hb_adsCheckLock( pArea ) != HB_SUCCESS )
          return HB_FAILURE;
    }
 

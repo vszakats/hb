@@ -74,7 +74,7 @@
    $SYNTAX$
       GetEnv( <cEnviroment> ) --> cReturn
    $ARGUMENTS$
-      <cEnviroment> Enviromental variable to obtain.
+      <cEnviroment> Environmental variable to obtain.
    $RETURNS$
       <cReturn>     Value of the Environment Variable.
    $DESCRIPTION$
@@ -115,7 +115,7 @@
    $SYNTAX$
       GetE( <cEnviroment> ) --> cReturn
    $ARGUMENTS$
-      <cEnviroment> Enviromental variable to obtain.
+      <cEnviroment> Environmental variable to obtain.
    $RETURNS$
       <cReturn>     Value of the Environment Variable.
    $DESCRIPTION$
@@ -155,7 +155,7 @@
    $SYNTAX$
       hb_GetEnv( <cEnviroment>, [<cDefaultValue>] ) --> cReturn
    $ARGUMENTS$
-      <cEnviroment> Enviromental variable to obtain.
+      <cEnviroment> Environmental variable to obtain.
 
       <cDefaultValue> Optional value to return if <cEnvironment> is not found.
    $RETURNS$

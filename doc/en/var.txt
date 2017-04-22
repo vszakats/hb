@@ -28,7 +28,7 @@
       If it is first variable with this name then the  variable is
       initialized with .T. value.
    $EXAMPLES$
-      None Avaliable
+      None Available
    $STATUS$
       R
    $COMPLIANCE$
@@ -69,7 +69,7 @@
       variable is hidden until the new variable is  released. The new variable
       is always initialized to NIL value.
    $EXAMPLES$
-      None Avaliable
+      None Available
    $STATUS$
       R
    $COMPLIANCE$
@@ -111,7 +111,7 @@
       a new value to released variable without any side effects.
 
       It releases variable even if this variable was created in different
-      procedure
+      procedure.
    $EXAMPLES$
       PROCEDURE Main()
 
@@ -123,11 +123,11 @@
 
          RETURN
 
-      PROCEDURE Main()
+      PROCEDURE Test()
 
-         PRIVATE mPrivate := "PRIVATE from Main()"
+         PRIVATE mPrivate := "PRIVATE from Test()"
 
-         ? mPrivate           // PRIVATE from Main()
+         ? mPrivate           // PRIVATE from Test()
          RELEASE mPrivate
          ? mPrivate           // NIL
          mPrivate := "Again in Main()"
@@ -176,7 +176,7 @@
       a new value to released variable without any side effects.
       PUBLIC variables are not changed by this function.
    $EXAMPLES$
-      None Avaliable
+      None Available
    $STATUS$
       R
    $COMPLIANCE$
@@ -764,10 +764,10 @@
       argument with a valid Harbour expression - the data type of this
       expression is returned.
    $EXAMPLES$
-      ? Type( "{ 1, 2 }" )                                // prints "A"
-      ? Type( "iif( .T., SubStr( "TYPE", 2, 1 ), .F. )" ) // prints "C"
-      ? Type( "At( "OK", MyUDF() ) > 0" )                 // prints "UI"
-      ? Type( "{ 1, 2 }[ 5 ]" )                           // prints "UE"
+      ? Type( "{ 1, 2 }" )                                 // prints "A"
+      ? Type( "iif( .T., SubStr( "TYPE", 2, 1 ), .F. )" )  // prints "C"
+      ? Type( "At( "OK", MyUDF() ) > 0" )                  // prints "UI"
+      ? Type( "{ 1, 2 }[ 5 ]" )                            // prints "UE"
 
       //--------------------------------------------------------
 
@@ -846,18 +846,16 @@
       This function returns one character which represents the data type
       of the argument.
    $EXAMPLES$
-      PROCEDURE Main()
-         ? ValType( Array( 1 ) )   // "A"
-         ? ValType( {|| 1 + 1 } )  // "B"
-         ? ValType( "Harbour" )    // "C"
-         ? ValType( Date() )       // "D"
-         ? ValType( .T. )          // "L"
-         ? ValType( 1 )            // "N"
-         ? ValType( TBrowse() )    // "O"
-         ? ValType( hb_idleAdd() ) // "P" Harbour extension
-         ? ValType( @QOut() )      // "S" Harbour extension
-         ? ValType( NIL )          // "U"
-         RETURN
+      ? ValType( Array( 1 ) )    // "A"
+      ? ValType( {|| 1 + 1 } )   // "B"
+      ? ValType( "Harbour" )     // "C"
+      ? ValType( Date() )        // "D"
+      ? ValType( .T. )           // "L"
+      ? ValType( 1 )             // "N"
+      ? ValType( TBrowse() )     // "O"
+      ? ValType( hb_idleAdd() )  // "P" Harbour extension
+      ? ValType( @QOut() )       // "S" Harbour extension
+      ? ValType( NIL )           // "U"
    $STATUS$
       R
    $COMPLIANCE$
@@ -914,10 +912,10 @@
          RETURN
 
       STATIC PROCEDURE Test( Arg1, Arg2, Arg3, Arg4 )
-         ? hb_PIsByRef( 1 )        // .T.
-         ? hb_PIsByRef( 2 )        // .T.
-         ? hb_PIsByRef( 3 )        // .F.
-         ? hb_PIsByRef( 4 )        // .F.
+         ? hb_PIsByRef( 1 )   // .T.
+         ? hb_PIsByRef( 2 )   // .T.
+         ? hb_PIsByRef( 3 )   // .F.
+         ? hb_PIsByRef( 4 )   // .F.
          RETURN
    $STATUS$
       S

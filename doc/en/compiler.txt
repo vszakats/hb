@@ -63,7 +63,7 @@
                         value.
 
       =================
-      `-fn[:[l|u]|-]`    set filename casing (`l`=lower `u`=upper)
+      `-fn[:[l|u]|-]`    set file name casing (`l`=lower `u`=upper)
 
       =================
       `-fd[:[l|u]|-]`    set directory casing (`l`=lower `u`=upper)
@@ -72,7 +72,7 @@
       `-fp[:<char>]`     set path separator
 
       =================
-      `-fs[-]`           turn filename space trimming on or off (default)
+      `-fs[-]`           turn file name space trimming on or off (default)
 
       =================
       `-g<type>`         output type generated is <type>
@@ -118,7 +118,7 @@
 
           `-kd`        accept macros with declared symbols
 
-          `-km`        turn off macrotext substitution
+          `-km`        turn off macro-text substitution
 
           `-kj`        turn off jump optimization in pcode
 

@@ -16,4 +16,4 @@ HB_GT_LIBS += gtwvt gtgui gtwin
 # advapi32: GetUserName()
 # gdi32: gtwvt
 
-SYSLIBS += kernel32 user32 ws2_32 iphlpapi advapi32 gdi32
+SYSLIBS += kernel32 user32 ws2_32 iphlpapi advapi32 gdi32 winmm

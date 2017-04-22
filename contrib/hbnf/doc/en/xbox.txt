@@ -16,8 +16,8 @@
       Centered text is the default.
 
       <cRetWait> is a character which determines if the function will wait
-      for a keypress after displaying the box.  <W> will cause the
-      function to wait for a keypress before returning control to the
+      for a key-press after displaying the box.  <W> will cause the
+      function to wait for a key-press before returning control to the
       calling routine.  Not waiting is the default
 
       <cBorType> is a character which determines whether a single or double
@@ -66,7 +66,7 @@
       // The following uses all optional parameters and displays a three-line
       // box.  The box is left-justified with a double border.  It has a yellow
       // on red border and white on blue text.  The function will wait for a
-      // keypress before returning control to the calling routine.
+      // key-press before returning control to the calling routine.
 
       ft_XBox( "L", "W", "D", "GR+/R", "W/B", 5, 10, ;
          "It is so nice", ;

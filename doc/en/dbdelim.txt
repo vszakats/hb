@@ -27,7 +27,7 @@
       sensitive), which eliminates the character field delimiters and
       sets the field separator to a single space instead of a comma.
 
-      <aFields> An aray of field names to limit the processint to. If
+      <aFields> An array of field names to limit the processing to. If
       not specified, or if empty, then all fields are processed.
 
       <bFor> An optional code block containing a FOR expression that

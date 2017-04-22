@@ -131,7 +131,7 @@ RC_OUT := -o$(subst x,x, )
 RCFLAGS += -I. -I$(HB_HOST_INC) -O coff -c65001
 
 ifneq ($(filter $(HB_BUILD_STRIP),all lib),)
-   ARSTRIP = && ${HB_CCPATH}${HB_CCPREFIX}strip -S $(LIB_DIR)/$@
+   ARSTRIP = && strip -S $(LIB_DIR)/$@
 endif
 ifneq ($(filter $(HB_BUILD_STRIP),all bin),)
    LDSTRIP := -s

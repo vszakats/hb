@@ -18,7 +18,7 @@
 
       <cString> The main string to search into, for <cSearch>
 
-      <nStart> Beggining search position into <cString>, default: 1
+      <nStart> Beginning search position into <cString>, default: 1
 
       <nEnd> Ending search position, default: Length of <cString> (i.e. entire <cString>)
 
@@ -34,10 +34,8 @@
       where it must stop. If neither of them is defined, <nStart> is 1st position
       and <nEnd> the ending of <cString>.
    $EXAMPLES$
-      PROCEDURE Main()
-         ? hb_At( "AS", "as simple as possible",  5 )   // --> 0
-         ? hb_AtI( "AS", "as simple as possible",  5 )  // --> 11
-         RETURN
+      ? hb_At( "AS", "as simple as possible", 5 )   // --> 0
+      ? hb_AtI( "AS", "as simple as possible", 5 )  // --> 11
    $STATUS$
       R
    $COMPLIANCE$

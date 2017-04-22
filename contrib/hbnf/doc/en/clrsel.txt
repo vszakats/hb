@@ -43,7 +43,7 @@
                      W = Window    Windows with radio buttons
                      G = Get       For use with `@ SAY...`
                      B = Browse    For TBrowse() and *dbEdit()
-                     A = aChoice   Pick-lists etc...
+                     A = AChoice   Pick-lists etc...
 
                   W/G/B/A are functionally the same but will provide
                   a more appropriate test display.

@@ -9,7 +9,7 @@
 
 hbwin.hbc{allwin}
 
--depurlbase=freeimage:https://duckduckgo.com/?q=freeimage+library
+-depurlbase=freeimage:https://sourceforge.net/projects/freeimage/
 -deppkgname=freeimage:libfreeimage-dev{deb}
 -deppkgname=freeimage:freeimage-devel{rpm}
 -deppkgname=freeimage:mingw-w64-i686-freeimage{msys2&mingw}

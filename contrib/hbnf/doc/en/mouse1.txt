@@ -116,7 +116,7 @@
    $CATEGORY$
       Keyboard/Mouse
    $ONELINER$
-      Turn mouse cursur off if in specified region
+      Turn mouse cursor off if in specified region
    $SYNTAX$
       ft_MCOnOff( <nTop>, <nLeft>, <nBottom>, <nRight> )
    $ARGUMENTS$
@@ -285,7 +285,7 @@
       numbers are also returned.
 
       NOTE: It appears that the values reported when one starts the mouse
-      driver actually have the minor version in hexadecimal! Thus on bootup
+      driver actually have the minor version in hexadecimal! Thus on boot-up
       my screen showed 6.24 but this routine returned 30 for the minor version
       number!
    $EXAMPLES$
@@ -464,7 +464,7 @@
       only when the variable = 0. Thus multiple calls to ft_MHideCrs()
       require an equal number of calls to ft_MShowCrs() before the cursor
       will again be visible. Once the variable is 0 calls to ft_MShowCrs()
-      does not increment the varaible above 0.
+      does not increment the variable above 0.
    $EXAMPLES$
       ft_MHideCrs()
       @ 10, 10 TO 20, 20
@@ -651,7 +651,7 @@
    $CATEGORY$
       Keyboard/Mouse
    $ONELINER$
-      Set horiz. bounds of mouse using virtual screen coordinates
+      Set horizontal bounds of mouse using virtual screen coordinates
    $SYNTAX$
       ft_MYLimit( <nY1>, <nY2> ) --> NIL
    $ARGUMENTS$
@@ -788,8 +788,8 @@
       numerical values). The 16-bit masks are arranged in a manner identical
       to the way information is stored for each character cell on the screen.
       The low order 8 bits represent the actual character displayed while the
-      high order bits represent the display atributes such as blinking,
-      intensity and forground and background colors. The mask is represented in
+      high order bits represent the display attributes such as blinking,
+      intensity and foreground and background colors. The mask is represented in
       the diagram below:
       ```
       Bit:     │15    │14      12│11       │10       8│7       0│
@@ -810,7 +810,7 @@
       ```
       The hardware cursor is the text cursor provided by the video board. One
       specifies the range of scan lines which are on using <nScrMask> and
-      <nCrsMask>. The range of values is dependant upon the type of monitor.
+      <nCrsMask>. The range of values is dependent upon the type of monitor.
       The first scan line is 0.
    $END$
  */

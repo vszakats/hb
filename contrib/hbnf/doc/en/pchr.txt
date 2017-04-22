@@ -66,8 +66,8 @@
        /COND or /SI      Choose 15 chars per inch
        /EMPH             Turn emphasize on
        /EMPHOFF          Turn emphasize off
-       /SPANISH          Select spanish international char set
-       /USA              Select USA international char set
+       /SPANISH          Select Spanish international charset
+       /USA              Select USA international charset
       </table>
 
    $EXAMPLES$
