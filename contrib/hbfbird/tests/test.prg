@@ -68,7 +68,7 @@ PROCEDURE Main()
 
    ? "Status Execute:", tmp := FBExecute( db, 'insert into customer(customer) values ("test 3")', nDialect ), FBError( tmp )
 
-   // TOFIX: Windows GPF below
+   // FIXME: Windows GPF below
 
    IF HB_ISNUMERIC( qry := FBQuery( db, "SELECT * FROM customer", nDialect ) )
       ? "Error:", qry, FBError( qry )

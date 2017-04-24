@@ -4,22 +4,25 @@
    $CATEGORY$
       String Tools
    $ONELINER$
-      Return the ascii value of a specified character in a string
+      Return the ASCII value of a specified character in a string
    $SYNTAX$
       gt_AscPos( <cStr>, <nPos> ) --> nAscVal
    $ARGUMENTS$
-      <cStr>  - The string
-      <nPos>  - The position in <cStr>
+      <cStr>    - The string
+
+      <nPos>    - The position in <cStr>
    $RETURNS$
-      <nAscVal> - The ascii value of hb_BSubStr( <cStr>, <nPos>, 1 )
+      <nAscVal> - The ASCII value of `hb_BSubStr( <cStr>, <nPos>, 1 )`
    $DESCRIPTION$
-      Return the ascii value of a specified character in a string
+      Return the ASCII value of a specified character in a string
       Equivalent (but much faster) to
-          hb_BCode( hb_BSubStr( cStr, nPos, 1 ) )
+      ```
+      hb_BCode( hb_BSubStr( cStr, nPos, 1 ) )
+      ```
 
       NOTE:
          invalid parameters will return -1
-         nPos > hb_BLen( cStr ) will return -2
+         `nPos > hb_BLen( cStr )` will return -2
 
       This last behaviour is different to the Funcky function of the
       same name.  I changed the behaviour because some of the strings
@@ -29,7 +32,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-
+      NA
    $PLATFORMS$
 
    $FILES$
@@ -43,22 +46,22 @@
    $CATEGORY$
       String Tools
    $ONELINER$
-      Sum the ascii values in a string.
+      Sum the ASCII values in a string.
    $SYNTAX$
       gt_AsciiSum( <cStr> ) --> nSum
    $ARGUMENTS$
-      <cStr>  - The string to sum
+      <cStr> - The string to sum
    $RETURNS$
-      <nSum>    - The sum of all ascii values in <cStr>.
+      <nSum> - The sum of all ASCII values in <cStr>.
    $DESCRIPTION$
-      Sum the ascii value of every character in the passed string
+      Sum the ASCII value of every character in the passed string
       and return the result.
    $EXAMPLES$
 
    $STATUS$
       R
    $COMPLIANCE$
-
+      NA
    $PLATFORMS$
 
    $FILES$
@@ -76,25 +79,26 @@
    $SYNTAX$
       gt_AtDiff( <cStr1>, <cStr2> ) --> nPos
    $ARGUMENTS$
-      <cStr1>  - A character string to compare
-      <cStr2>  - The string to compare with
+      <cStr1> - A character string to compare
+
+      <cStr2> - The string to compare with
    $RETURNS$
-      <nPos>     - The position in <cStr2> where <cStr1> begins to differ
+      <nPos>  - The position in <cStr2> where <cStr1> begins to differ
    $DESCRIPTION$
       Return the position in <cStr2> where <cStr1> begins to differ.
       If the strings differ in the first character gt_AtDiff() will
-      return 1.  If the two strings are identical (or identical upto
+      return 1.  If the two strings are identical (or identical up to
       the last character in <cStr2>) the function will return 0.
 
       NOTE:
          invalid parameters will return -1
    $EXAMPLES$
-      ? gt_AtDiff( "the cat", "the rat" )          // prints 5
-      ? gt_AtDiff( "the cat", "the " )             // prints 0
+      ? gt_AtDiff( "the cat", "the rat" )  // prints 5
+      ? gt_AtDiff( "the cat", "the " )     // prints 0
    $STATUS$
       R
    $COMPLIANCE$
-
+      NA
    $PLATFORMS$
 
    $FILES$
@@ -112,9 +116,9 @@
    $SYNTAX$
       gt_CharEven( <cStr> ) --> cRet
    $ARGUMENTS$
-      <cStr>   - A character string to extract chars from
+      <cStr> - A character string to extract chars from
    $RETURNS$
-      <cRet>     - A string of all the chars in even positions
+      <cRet> - A string of all the chars in even positions
    $DESCRIPTION$
       Return a string consisting of all the characters in even
       positions in <cStr1>.
@@ -122,11 +126,11 @@
       NOTE:
          invalid parameters will return ""
    $EXAMPLES$
-      ? gt_CharEven( "abcdefghijklm" )             // prints "bdfhjl"
+      ? gt_CharEven( "abcdefghijklm" )  // prints "bdfhjl"
    $STATUS$
       R
    $COMPLIANCE$
-
+      NA
    $PLATFORMS$
 
    $FILES$
@@ -144,11 +148,12 @@
    $SYNTAX$
       gt_CharMix( <cStr1>, <cStr2> ) --> cRet
    $ARGUMENTS$
-      <cStr1>  - A character string to mix
-      <cStr2>  - A character string to mix with
+      <cStr1> - A character string to mix
+
+      <cStr2> - A character string to mix with
    $RETURNS$
-      <cRet>     - A string consisting of all the characters in <cStr1>
-                 mixed with all the characters in <cStr2>
+      <cRet>  - A string consisting of all the characters in <cStr1>
+                mixed with all the characters in <cStr2>
    $DESCRIPTION$
       Return a string consisting of all the characters in <cStr1>
       mixed with the characters from <cStr2>.
@@ -156,13 +161,13 @@
       NOTE:
          invalid parameters will return ""
    $EXAMPLES$
-      ? gt_CharMix( "abc", "123" )               // prints "a1b2c3"
-      ? gt_CharMix( "abcde", "123" )             // prints "a1b2c3de"
-      ? gt_CharMix( "abc", "12345" )             // prints "a1b2c345"
+      ? gt_CharMix( "abc", "123" )    // prints "a1b2c3"
+      ? gt_CharMix( "abcde", "123" )  // prints "a1b2c3de"
+      ? gt_CharMix( "abc", "12345" )  // prints "a1b2c345"
    $STATUS$
       R
    $COMPLIANCE$
-
+      NA
    $PLATFORMS$
 
    $FILES$
@@ -180,9 +185,9 @@
    $SYNTAX$
       gt_CharOdd( <cStr> ) --> cRet
    $ARGUMENTS$
-      <cStr>   - A character string to extract chars from
+      <cStr> - A character string to extract chars from
    $RETURNS$
-      <cRet>     - A string of all the chars in odd positions
+      <cRet> - A string of all the chars in odd positions
    $DESCRIPTION$
       Return a string consisting of all the characters in odd
       positions in <cStr1>.
@@ -190,11 +195,11 @@
       NOTE:
          invalid parameters will return ""
    $EXAMPLES$
-      ? gt_CharOdd( "abcdefghijklm" )             // prints "acegikm"
+      ? gt_CharOdd( "abcdefghijklm" )  // prints "acegikm"
    $STATUS$
       R
    $COMPLIANCE$
-
+      NA
    $PLATFORMS$
 
    $FILES$
@@ -212,10 +217,11 @@
    $SYNTAX$
       gt_ChrCount( <cChr>, <cStr> ) --> nFreq
    $ARGUMENTS$
-      <cChr>  - The character to find the frequence of
+      <cChr>  - The character to find the frequency of
+
       <cStr>  - The string in which to find the character
    $RETURNS$
-      nFreq   - The number of times <cChr> occurs in <cStr>
+      <nFreq> - The number of times <cChr> occurs in <cStr>
    $DESCRIPTION$
       gt_ChrCount() counts how many times a specified character
       appears in a string.
@@ -223,11 +229,11 @@
       NOTE:
          invalid parameters will return -1
    $EXAMPLES$
-      ? gt_ChrCount( "t", "the cat sat on the mat" )      // prints 4
+      ? gt_ChrCount( "t", "the cat sat on the mat" )  // prints 4
    $STATUS$
       R
    $COMPLIANCE$
-
+      NA
    $PLATFORMS$
 
    $FILES$
@@ -246,12 +252,13 @@
       gt_ChrFirst( <cChars>, <cStr> ) --> nAsc
    $ARGUMENTS$
       <cChars> - The set of characters to find
+
       <cStr>   - The input string
    $RETURNS$
-      <nAsc>     - The ASCII value of the first character in <cChars>
+      <nAsc>   - The ASCII value of the first character in <cChars>
                  which appears first in <cStr>
    $DESCRIPTION$
-      Return the ascii value of a character in <cChars>
+      Return the ASCII value of a character in <cChars>
       which appears first in <cStr>.
    $EXAMPLES$
       ? hb_BChar( gt_ChrFirst( "sa ", "This is a test" ) )  // prints "s"
@@ -259,7 +266,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-
+      NA
    $PLATFORMS$
 
    $FILES$
@@ -277,13 +284,14 @@
    $SYNTAX$
       gt_ChrTotal( <cChrs>, <cStr> ) --> nTotOcc
    $ARGUMENTS$
-      <cChrs> - The set of characters
-      <cStr>  - The string to search
+      <cChrs>   - The set of characters
+
+      <cStr>    - The string to search
    $RETURNS$
       <nTotOcc> - The number of times the characters specified in
-                <cChrs> appears in <cStr>
+                  <cChrs> appears in <cStr>
    $DESCRIPTION$
-      Returns the numnber of occurrences of characters belonging
+      Returns the number of occurrences of characters belonging
       to the set <cChrs> in the string <cStr>.  If no characters
       in <cChrs> appears in <cStr> gt_ChrTotal() will return 0.
 
@@ -292,12 +300,12 @@
    $EXAMPLES$
       LOCAL cStr1 := "the cat sat on the mat"
 
-         ? gt_ChrTotal( "tae", cStr1 )            // prints 10
-         ? gt_ChrTotal( "zqw", cStr1 )            // prints  0
+      ? gt_ChrTotal( "tae", cStr1 )  // prints 10
+      ? gt_ChrTotal( "zqw", cStr1 )  // prints  0
    $STATUS$
       R
    $COMPLIANCE$
-
+      NA
    $PLATFORMS$
 
    $FILES$
@@ -315,10 +323,11 @@
    $SYNTAX$
       gt_StrCount( <cChrs>, <cStr> ) --> nFreq
    $ARGUMENTS$
-      <cChrs> - The substring to find the frequence of
+      <cChrs> - The substring to find the frequency of
+
       <cStr>  - The string in which to find the character
    $RETURNS$
-      <nFreq>   - The number of times <cChrs> occurs in <cStr>
+      <nFreq> - The number of times <cChrs> occurs in <cStr>
    $DESCRIPTION$
       gt_StrCount() counts how many times a specified substring
       appears in a string.
@@ -330,11 +339,11 @@
       NOTE:
          invalid parameters will return -1
    $EXAMPLES$
-      ? gt_StrCount( "the", "the cat sat on the mat" )      // prints 2
+      ? gt_StrCount( "the", "the cat sat on the mat" )  // prints 2
    $STATUS$
       R
    $COMPLIANCE$
-
+      NA
    $PLATFORMS$
 
    $FILES$
@@ -353,19 +362,20 @@
       gt_StrCSPN( <cString>, <cSet> ) --> nLength
    $ARGUMENTS$
       <cString> - The string to find the prefix in
+
       <cSet>    - The set of characters
    $RETURNS$
-      <nLength>   - The length of a string upto a character in the set
+      <nLength> - The length of a string up to a character in the set
    $DESCRIPTION$
       Return the number of characters in the leading segment of a
       string that consists solely of characters NOT in the set.
    $EXAMPLES$
-      ? gt_StrCSPN( "this is a test", "as " )      // prints 3
-      ? gt_StrCSPN( "this is a test", "elnjpq" )   // prints 11
+      ? gt_StrCSPN( "this is a test", "as " )     // prints 3
+      ? gt_StrCSPN( "this is a test", "elnjpq" )  // prints 11
    $STATUS$
       R
    $COMPLIANCE$
-
+      NA
    $PLATFORMS$
 
    $FILES$
@@ -384,25 +394,26 @@
       gt_StrDiff( <cStr1>, <cStr2> ) --> cRet
    $ARGUMENTS$
       <cStr1>  - A character string to compare
+
       <cStr2>  - The string to compare with
    $RETURNS$
-      <cRet>     - A string beginning at the position in <cStr2> where
+      <cRet>   - A string beginning at the position in <cStr2> where
                  <cStr1> begins to differ from <cStr1>
    $DESCRIPTION$
       Return a string beginning at the position in <cStr2> where
       <cStr1> begins to differ from <cStr1>. If the two strings are
-      identical (or identical upto the last character in <cStr2>)
+      identical (or identical up to the last character in <cStr2>)
       the function will return "".
 
       NOTE:
          invalid parameters will return ""
    $EXAMPLES$
-      ? gt_StrDiff( "the cat", "the rat" )          // prints "rat"
-      ? gt_StrDiff( "the cat", "the " )             // prints ""
+      ? gt_StrDiff( "the cat", "the rat" )  // prints "rat"
+      ? gt_StrDiff( "the cat", "the " )     // prints ""
    $STATUS$
       R
    $COMPLIANCE$
-
+      NA
    $PLATFORMS$
 
    $FILES$
@@ -420,25 +431,27 @@
    $SYNTAX$
       gt_StrExpand( <cStr>, [<nNum>], [<cChar>] ) --> cRet
    $ARGUMENTS$
-      <cStr1>  - A character string to insert chars into
-      <nNum>   - The number of fill characters to insert (default 1)
-      <cChar>  - The fill chararacter (default space)
+      <cStr1> - A character string to insert chars into
+
+      <nNum>  - The number of fill characters to insert (default 1)
+
+      <cChar> - The fill character (default space)
    $RETURNS$
-      <cRet>     - The input string with fill characters inserted between
-                 every character in the original.
+      <cRet>  - The input string with fill characters inserted between
+                every character in the original.
    $DESCRIPTION$
       Inserts fill characters into a string.
 
       NOTE:
          invalid parameters will return ""
    $EXAMPLES$
-      ? gt_StrExpand( "abc" )                    // prints "a b c"
-      ? gt_StrExpand( "abc", 2 )                 // prints "a  b  c"
-      ? gt_StrExpand( "abc", 2, '|' )            // prints "a||b||c"
+      ? gt_StrExpand( "abc" )          // prints "a b c"
+      ? gt_StrExpand( "abc", 2 )       // prints "a  b  c"
+      ? gt_StrExpand( "abc", 2, '|' )  // prints "a||b||c"
    $STATUS$
       R
    $COMPLIANCE$
-
+      NA
    $PLATFORMS$
 
    $FILES$
@@ -457,9 +470,10 @@
       gt_StrLeft( <cStr>, <cChars> ) --> nLen
    $ARGUMENTS$
       <cStr>   - The input string
+
       <cChars> - The set of characters to find
    $RETURNS$
-      nLen     - The length of the prefix found.
+      <nLen>   - The length of the prefix found.
    $DESCRIPTION$
       Return the length of the leading segment in the passed string
       <cStr> that consists solely of the characters in the character
@@ -468,13 +482,13 @@
       If no characters in the the search set are found, the function
       shall return 0
    $EXAMPLES$
-      ? gt_StrLeft( "this is a test", "hsit " )       // prints 8
-      ? gt_StrLeft( "this is a test", "hit a" )       // prints 3
-      ? gt_StrLeft( "this is a test", "zxy" )         // prints 0
+      ? gt_StrLeft( "this is a test", "hsit " )  // prints 8
+      ? gt_StrLeft( "this is a test", "hit a" )  // prints 3
+      ? gt_StrLeft( "this is a test", "zxy" )    // prints 0
    $STATUS$
       R
    $COMPLIANCE$
-
+      NA
    $PLATFORMS$
 
    $FILES$
@@ -492,13 +506,14 @@
    $SYNTAX$
       gt_StrPBRK( <cStr>, <cSet> ) --> cString
    $ARGUMENTS$
-      <cStr>   - The input string
-      <cSet>   - The set of characters to find
+      <cStr>    - The input string
+
+      <cSet>    - The set of characters to find
    $RETURNS$
-      <cString>  - The input string after the first occurance of any
-                 character from <cSet>
+      <cString> - The input string after the first occurrence of any
+                  character from <cSet>
    $DESCRIPTION$
-      Return a string after the first occurance of any character from
+      Return a string after the first occurrence of any character from
       the input set <cSet>.
    $EXAMPLES$
       ? gt_StrPBRK( "This is a test", "sa " )  // prints "s is a test"
@@ -506,7 +521,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-
+      NA
    $PLATFORMS$
 
    $FILES$
@@ -525,9 +540,10 @@
       gt_StrRight( <cStr>, <cChars> ) --> nLen
    $ARGUMENTS$
       <cStr>   - The input string
+
       <cChars> - The set of characters to find
    $RETURNS$
-      <nLen>     - The length of the prefix found.
+      <nLen>   - The length of the prefix found.
    $DESCRIPTION$
       Return the length of the trailing segment in the passed string
       <cStr> that consists solely of the characters in the character
@@ -536,13 +552,13 @@
       If no characters in the the search set are found, the function
       shall return 0
    $EXAMPLES$
-      ? gt_StrRight( "this is a test", "teas " )       // prints 8
-      ? gt_StrRight( "this is a test", "tes h" )       // prints 5
-      ? gt_StrRight( "this is a test", "zxy" )         // prints 0
+      ? gt_StrRight( "this is a test", "teas " )  // prints 8
+      ? gt_StrRight( "this is a test", "tes h" )  // prints 5
+      ? gt_StrRight( "this is a test", "zxy" )    // prints 0
    $STATUS$
       R
    $COMPLIANCE$
-
+      NA
    $PLATFORMS$
 
    $FILES$
@@ -573,9 +589,9 @@
       may want to allow for future expansion). Each character in the
       string returned from gt_NewFlag() will hold 8 logical values.
    $EXAMPLES$
-      cFlags := gt_NewFlag( 20 )   // Create a bit flag string for 20 logical values.
+      cFlags := gt_NewFlag( 20 )  // Create a bit flag string for 20 logical values.
    $SEEALSO$
-      gt_SetFlag() gt_ClrFlag() gt_IsFlag()
+      gt_SetFlag(), gt_ClrFlag(), gt_IsFlag()
    $END$
  */
 
@@ -601,22 +617,19 @@
    $DESCRIPTION$
       gt_SetFlag() is used to turn flags within the flag string on.
    $EXAMPLES$
-      cFlags := gt_NewFlag( 20 )   // Create a bit flag string for 20
+      cFlags := gt_NewFlag( 20 )  // Create a bit flag string for 20
       // logical values.
 
       // Now set flags 10 to 15 to true.
-
       cFlags := gt_SetFlag( cFlags, 10, 15 )
 
       // And set flag 18 to true.
-
       cFlags := gt_SetFlag( cFlags, 18 )
 
       // And set flag 1 to true.
-
       cFlags := gt_SetFlag( cFlags )
    $SEEALSO$
-      gt_NewFlag() gt_ClrFlag() gt_IsFlag()
+      gt_NewFlag(), gt_ClrFlag(), gt_IsFlag()
    $END$
  */
 
@@ -642,26 +655,22 @@
    $DESCRIPTION$
       gt_ClrFlag() is used to turn flags within the flag string off.
    $EXAMPLES$
-      cFlags := gt_NewFlag( 20 )   // Create a bit flag string for 20
+      cFlags := gt_NewFlag( 20 )  // Create a bit flag string for 20
       // logical values.
 
       // Now, turn them all on.
-
       cFlags := gt_SetFlag( cFlags, 1, 20 )
 
       // Now set flags 10 to 15 to false.
-
       cFlags := gt_ClrFlag( cFlags, 10, 15 )
 
       // And set flag 18 to false.
-
       cFlags := gt_ClrFlag( cFlags, 18 )
 
       // And set flag 1 to false.
-
       cFlags := gt_ClrFlag( cFlags )
    $SEEALSO$
-      gt_NewFlag() gt_SetFlag() gt_IsFlag()
+      gt_NewFlag(), gt_SetFlag(), gt_IsFlag()
    $END$
  */
 
@@ -684,12 +693,12 @@
       gt_IsFlag() is used to test the state of a flag with a bit flag
       string.
    $EXAMPLES$
-      // Print the setting of the flags in a flag string called ``cDave''
+      // Print the setting of the flags in a flag string called <cDave>
 
-      FOR nFlag := 1 to ( hb_BLen( cDave ) * 8 )
-         ? "Flag number ", nFlag, " == ", gt_IsFlag( cDave, nFlag )
+      FOR nFlag := 1 TO hb_BLen( cDave ) * 8
+         ? "Flag number", nFlag, "==", gt_IsFlag( cDave, nFlag )
       NEXT
    $SEEALSO$
-      gt_NewFlag() gt_SetFlag() gt_ClrFlag()
+      gt_NewFlag(), gt_SetFlag(), gt_ClrFlag()
    $END$
  */

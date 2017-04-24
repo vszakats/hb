@@ -2,7 +2,7 @@
  * Alert(), hb_Alert() functions
  *
  * Released to Public Domain by Vladimir Kazimirchik <v_kazimirchik@yahoo.com>
- * Copyright 1999-2001 Viktor Szakats (vszakats.net/harbour)
+ * Further modifications 1999-2017 Viktor Szakats (vszakats.net/harbour)
  *    Changes for higher Clipper compatibility, console mode, extensions, __NoNoAlert()
  *
  */
@@ -13,7 +13,7 @@
 #include "setcurs.ch"
 #include "hbgtinfo.ch"
 
-/* TOFIX: Clipper defines a clipped window for Alert() [vszakats] */
+/* FIXME: Clipper defines a clipped window for Alert() [vszakats] */
 
 /* NOTE: Clipper will return NIL if the first parameter is not a string, but
          this is not documented. [vszakats] */
@@ -25,9 +25,9 @@
 STATIC s_lNoAlert
 #endif
 
-FUNCTION Alert( cMessage, aOptions, cColorNorm )
+FUNCTION Alert( cMessage, aOptions, xColorNorm )
 
-   LOCAL cColorHigh
+   LOCAL xColorHigh
    LOCAL aOptionsOK
    LOCAL cOption
    LOCAL nPos
@@ -50,15 +50,15 @@ FUNCTION Alert( cMessage, aOptions, cColorNorm )
 
    cMessage := StrTran( cMessage, ";", Chr( 10 ) )
 
-   IF ! HB_ISSTRING( cColorNorm ) .OR. Empty( cColorNorm )
-      cColorNorm := "W+/R"  // first pair color (Box line and Text)
-      cColorHigh := "W+/B"  // second pair color (Options buttons)
+   IF HB_ISSTRING( xColorNorm ) .AND. ! Empty( xColorNorm )
+      xColorNorm := hb_ColorIndex( xColorNorm, CLR_STANDARD )
+      xColorHigh := hb_StrReplace( ;
+         iif( ( nPos := hb_BAt( "/", xColorNorm ) ) > 0, ;
+            hb_BSubStr( xColorNorm, nPos + 1 ) + "/" + hb_BLeft( xColorNorm, nPos - 1 ), ;
+            "N/" + xColorNorm ), "+*" )
    ELSE
-      cColorNorm := hb_ColorIndex( cColorNorm, CLR_STANDARD )
-      cColorHigh := hb_StrReplace( ;
-         iif( ( nPos := hb_BAt( "/", cColorNorm ) ) > 0, ;
-            hb_BSubStr( cColorNorm, nPos + 1 ) + "/" + hb_BLeft( cColorNorm, nPos - 1 ), ;
-            "N/" + cColorNorm ), "+*" )
+      xColorNorm := 0x4f  // first pair color (Box line and Text)
+      xColorHigh := 0x1f  // second pair color (Options buttons)
    ENDIF
 
    aOptionsOK := {}
@@ -77,15 +77,16 @@ FUNCTION Alert( cMessage, aOptions, cColorNorm )
 #endif
    ENDCASE
 
-   RETURN hb_gtAlert( cMessage, aOptionsOK, cColorNorm, cColorHigh )
+   RETURN hb_gtAlert( cMessage, aOptionsOK, xColorNorm, xColorHigh )
 
-/* NOTE: xMessage can be of any type. This is a Harbour extension over Alert(). */
+/* NOTE: xMessage can be of any type, xColorNorm can be numeric.
+         These are Harbour extensions over Alert(). */
 /* NOTE: nDelay parameter is a Harbour extension over Alert(). */
 
-FUNCTION hb_Alert( xMessage, aOptions, cColorNorm, nDelay )
+FUNCTION hb_Alert( xMessage, aOptions, xColorNorm, nDelay )
 
    LOCAL cMessage
-   LOCAL cColorHigh
+   LOCAL xColorHigh
    LOCAL aOptionsOK
    LOCAL cString
    LOCAL nPos
@@ -118,20 +119,26 @@ FUNCTION hb_Alert( xMessage, aOptions, cColorNorm, nDelay )
       cMessage := hb_CStr( xMessage )
    ENDCASE
 
-   IF ! HB_ISSTRING( cColorNorm ) .OR. Empty( cColorNorm )
-      cColorNorm := "W+/R"  // first pair color (Box line and Text)
-      cColorHigh := "W+/B"  // second pair color (Options buttons)
+   IF HB_ISSTRING( xColorNorm ) .AND. ! Empty( xColorNorm )
+      xColorNorm := hb_ColorIndex( xColorNorm, CLR_STANDARD )
+      xColorHigh := hb_StrReplace( ;
+         iif( ( nPos := hb_BAt( "/", xColorNorm ) ) > 0, ;
+            hb_BSubStr( xColorNorm, nPos + 1 ) + "/" + hb_BLeft( xColorNorm, nPos - 1 ), ;
+            "N/" + xColorNorm ), "+*" )
+   ELSEIF HB_ISNUMERIC( xColorNorm )
+      xColorNorm := hb_bitAnd( xColorNorm, 0xff )
+      xColorHigh := hb_bitAnd( ;
+         hb_bitOr( ;
+            hb_bitShift( xColorNorm, -4 ), ;
+            hb_bitShift( xColorNorm,  4 ) ), 0x77 )
    ELSE
-      cColorNorm := hb_ColorIndex( cColorNorm, CLR_STANDARD )
-      cColorHigh := hb_StrReplace( ;
-         iif( ( nPos := hb_BAt( "/", cColorNorm ) ) > 0, ;
-            hb_BSubStr( cColorNorm, nPos + 1 ) + "/" + hb_BLeft( cColorNorm, nPos - 1 ), ;
-            "N/" + cColorNorm ), "+*" )
+      xColorNorm := 0x4f  // first pair color (Box line and Text)
+      xColorHigh := 0x1f  // second pair color (Options buttons)
    ENDIF
 
    aOptionsOK := {}
    FOR EACH cString IN hb_defaultValue( aOptions, {} )
-      IF HB_ISSTRING( cString ) .AND. ! HB_ISNULL( cString )
+      IF HB_ISSTRING( cString ) .AND. ! cString == ""
          AAdd( aOptionsOK, cString )
       ENDIF
    NEXT
@@ -145,7 +152,7 @@ FUNCTION hb_Alert( xMessage, aOptions, cColorNorm, nDelay )
 #endif
    ENDCASE
 
-   RETURN hb_gtAlert( cMessage, aOptionsOK, cColorNorm, cColorHigh, nDelay )
+   RETURN hb_gtAlert( cMessage, aOptionsOK, xColorNorm, xColorHigh, nDelay )
 
 #ifdef HB_CLP_UNDOC
 

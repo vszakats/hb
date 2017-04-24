@@ -1,4 +1,4 @@
-/* Harbour Test of a HTML-Generator class.
+/* Harbour Test of a HTML generator class.
  *
  * Tips: - Use ShowResults to make dynamic html (to test dynamic
  *         results, put the exe file on CGI-BIN dir or equivalent);
@@ -13,15 +13,15 @@ PROCEDURE Main()
 
    oHTML:SetTitle( "Harbour Power Demonstration" )
    oHTML:AddHead( "Harbour" )
-   oHTML:AddPara( "<b>Harbour</b> is xBase at its best. Have a taste today!", "left" )
-   oHTML:AddPara( "<b>Links</b>", "center" )
-   oHTML:AddLink( "https://example.org", "Meet the Harbour power!" )
+   oHTML:AddPara( "<strong>Harbour</strong> is xBase at its best. Have a taste today!" )
+   oHTML:AddPara( "<strong>Links</strong>" )
+   oHTML:AddLink( "https://example.org/", "Meet the Harbour power!" )
    oHTML:Generate()
 
 #if 0
    // Uncomment the following if you don't have a Web Server to test
    // this sample
-   oHTML:SaveToFile( "test.htm" )
+   oHTML:SaveToFile( "html_test.html" )
 #endif
 
    // If the above is uncommented, you may comment this line:
@@ -33,9 +33,9 @@ CREATE CLASS THTML STATIC
 
    VAR cTitle      INIT "Untitled"        // Page Title
    VAR cBody       INIT ""                // HTML Body Handler
-   VAR cBGColor    INIT "#FFFFFF"         // Background Color
-   VAR cLinkColor  INIT "#0000FF"         // Link Color
-   VAR cvLinkColor INIT "#FF0000"         // Visited Link Color
+   VAR cBGColor    INIT "#fff"            // Background Color
+   VAR cLinkColor  INIT "#00f"            // Link Color
+   VAR cvLinkColor INIT "#f00"            // Visited Link Color
    VAR cContent    INIT ""                // Page Content Handler
 
    METHOD New()                           // New Method
@@ -60,15 +60,11 @@ METHOD SetTitle( cTitle ) CLASS THTML
 
 METHOD AddLink( cLinkTo, cLinkName ) CLASS THTML
 
-   ::cBody += "<a href='" + cLinkTo + "'>" + cLinkName + "</a>"
+   ::cBody += "<a href=" + '"' + cLinkTo + '"' + ">" + cLinkName + "</a>"
 
    RETURN Self
 
 METHOD AddHead( cDescr ) CLASS THTML
-
-   // Why this doesn't work?
-   // ::cBody += ...
-   // ???
 
    ::cBody += "<h1>" + cDescr + "</h1>"
 
@@ -76,30 +72,26 @@ METHOD AddHead( cDescr ) CLASS THTML
 
 METHOD AddPara( cPara, cAlign ) CLASS THTML
 
-   ::cBody += ;
-      "<p align='" + hb_defaultValue( cAlign, "Left" ) + "'>" + hb_eol() + ;
-      cPara + hb_eol() + ;
-      "</p>"
+   ::cBody += "<p>" + cPara + "</p>"
 
    RETURN Self
 
 METHOD Generate() CLASS THTML
 
    ::cContent := ;
-      "<html><head>"                                          + hb_eol() + ;
-      "<title>" + ::cTitle + "</title>"                       + hb_eol() + ;
-      "<body link='" + ::cLinkColor + "' " +                               ;
-      "vlink='" + ::cvLinkColor + "'>" +                      + hb_eol() + ;
-      ::cBody                                                 + hb_eol() + ;
-      "</body></html>"
+      "<!DOCTYPE html>" + hb_eol() + ;
+      '<html lang="en">' + hb_eol() + ;
+      '<meta charset="utf-8">' + hb_eol() + ;
+      "<title>" + ::cTitle + "</title>" + hb_eol() + ;
+      ::cBody + hb_eol()
 
    RETURN Self
 
 METHOD ShowResult() CLASS THTML
 
    OutStd( ;
-;//      "HTTP/1.0 200 OK"                                     + hb_eol() + ;
-      "CONTENT-TYPE: TEXT/HTML"                     + hb_eol() + hb_eol() + ;
+;//   "HTTP/1.1 200 OK" + hb_eol() + ;
+      "Content-Type: text/html" + hb_eol() + hb_eol() + ;
       ::cContent )
 
    RETURN Self

@@ -1,14 +1,15 @@
 # ---------------------------------------------------------------
-# Copyright 2009 Viktor Szakats (vszakats.net/harbour)
+# Copyright 2009-2017 Viktor Szakats (vszakats.net/harbour)
 # See LICENSE.txt for licensing terms.
 # ---------------------------------------------------------------
 
 # GNU make docs:
 #    https://www.gnu.org/software/make/manual/make.html
+#    https://pubs.opengroup.org/onlinepubs/009695399/utilities/make.html
 #    http://wanderinghorse.net/computing/make/
 #    https://blog.jgc.org/2013/02/updated-list-of-my-gnu-make-articles.html
 #    https://lists.gnu.org/archive/html/help-make/
-#    http://make.paulandlesley.org/
+#    http://make.mad-scientist.net/
 # Portable shell programming:
 #    https://www.gnu.org/software/autoconf/manual/html_node/Portable-Shell.html
 #    https://www.gnu.org/software/bash/manual/bashref.html
@@ -16,7 +17,7 @@
 # GNU coding standards:
 #    https://www.gnu.org/prep/standards/standards.html
 # GNU Make NEWS:
-#    http://git.savannah.gnu.org/cgit/make.git/tree/NEWS
+#    https://git.savannah.gnu.org/cgit/make.git/tree/NEWS
 
 # NOTE: $(realpath/abspath) need GNU Make 3.81 or upper
 # NOTE: $(eval) needs GNU Make 3.80 or upper
@@ -50,6 +51,11 @@ substpat := !@!@
 .SUFFIXES:
 
 .PHONY: all clean install
+
+# Try to instruct tools to output English messages to help debugging
+export LC_ALL := C
+export LC_MESSAGES := C
+export LANG := C
 
 _make_ver_min := 3.81
 _make_ver_ok := $(filter $(_make_ver_min),$(firstword $(sort $(MAKE_VERSION) $(_make_ver_min))))
@@ -126,10 +132,13 @@ ifeq ($(HB_INIT_DONE),)
       endif
       # 'clean' and 'install' are required when building a release package
       ifeq ($(filter clean,$(HB_MAKECMDGOALS)),)
-         export HB_BUILD_PKG := no
+         $(warning ! Warning: HB_BUILD_PKG=yes set, please make sure that a 'make clean' was done before the build.)
       else
       ifeq ($(filter install,$(HB_MAKECMDGOALS)),)
-         export HB_BUILD_PKG := no
+         # Let 'clean' be called without 'install'
+         ifeq ($(filter clean,$(HB_MAKECMDGOALS)),)
+            export HB_BUILD_PKG := no
+         endif
       else
       ifneq ($(ROOT),./)
          export HB_BUILD_PKG := no
@@ -160,7 +169,10 @@ ifeq ($(HB_INIT_DONE),)
       # 'install' is required to create import libraries
       ifeq ($(filter install,$(HB_MAKECMDGOALS)),)
          export HB_INSTALL_IMPLIB := no
-         $(warning ! Warning: HB_INSTALL_IMPLIB option has an effect only if 'install' is requested.)
+         # Stay silent on 'make clean'
+         ifeq ($(filter clean,$(HB_MAKECMDGOALS)),)
+            $(warning ! Warning: HB_INSTALL_IMPLIB option has an effect only if 'install' is requested.)
+         endif
       endif
    endif
 
@@ -196,6 +208,9 @@ ifeq ($(HB_INIT_DONE),)
 
    $(info ! Building Harbour $(HB_VER_MAJOR).$(HB_VER_MINOR).$(HB_VER_RELEASE)$(HB_VER_STATUS) from source)
    $(info ! MAKE: $(MAKE) $(MAKE_VERSION) '$(SHELL)' $(HB_MAKECMDGOALS) $(MAKEFLAGS) $(if $(MAKESHELL),MAKESHELL: $(MAKESHELL),))
+   ifneq ($(MACOSX_DEPLOYMENT_TARGET),)
+      $(info ! MACOSX_DEPLOYMENT_TARGET: $(MACOSX_DEPLOYMENT_TARGET))
+   endif
    ifneq ($(HB_USER_PRGFLAGS),)
       $(info ! HB_USER_PRGFLAGS: $(HB_USER_PRGFLAGS))
    endif
@@ -270,6 +285,9 @@ ifeq ($(HB_INIT_DONE),)
    endif
    ifneq ($(HB_BUILD_PARTS),)
       $(info ! HB_BUILD_PARTS: $(HB_BUILD_PARTS))
+   endif
+   ifneq ($(HB_BUILD_LIBPATH),)
+      $(info ! HB_BUILD_LIBPATH: $(HB_BUILD_LIBPATH))
    endif
    ifneq ($(HB_REBUILD_EXTERN),)
       $(info ! HB_REBUILD_EXTERN: $(HB_REBUILD_EXTERN))
@@ -895,30 +913,56 @@ ifeq ($(HB_COMPILER_VER),)
       HB_COMP_PATH_VER_DET := $(HB_COMP_PATH)
    endif
 
+   # Apple clang version vs. official LLVM/clang version: See in hbmk2 source code
+
    ifneq ($(filter $(HB_COMPILER),clang clang64),)
       ifeq ($(HB_COMP_PATH_VER_DET),)
          HB_COMP_PATH_VER_DET := $(HB_CCPREFIX)clang$(HB_CCSUFFIX)
       endif
       _C_VER := $(shell "$(HB_COMP_PATH_VER_DET)" -v 2>&1)
-      ifneq ($(findstring 7.3,$(_C_VER)),)
+      ifneq ($(findstring Apple LLVM version 8.1,$(_C_VER)),)
+         HB_COMPILER_VER := 0309
+      else
+      ifneq ($(findstring Apple LLVM version 8.0,$(_C_VER)),)
+         HB_COMPILER_VER := 0309
+      else
+      ifneq ($(findstring Apple LLVM version 7.3,$(_C_VER)),)
          HB_COMPILER_VER := 0308
       else
-      ifneq ($(findstring 3.8,$(_C_VER)),)
-         HB_COMPILER_VER := 0308
-      else
-      ifneq ($(findstring 7.0,$(_C_VER)),)
+      ifneq ($(findstring Apple LLVM version 7.0,$(_C_VER)),)
          HB_COMPILER_VER := 0307
       else
-      ifneq ($(findstring 3.7,$(_C_VER)),)
-         HB_COMPILER_VER := 0307
-      else
-      ifneq ($(findstring 3.6,$(_C_VER)),)
+      ifneq ($(findstring based on LLVM 3.6,$(_C_VER)),)
          HB_COMPILER_VER := 0306
       else
-      ifneq ($(findstring 3.5,$(_C_VER)),)
+      ifneq ($(findstring based on LLVM 3.5,$(_C_VER)),)
+         HB_COMPILER_VER := 0305
+      else
+      ifneq ($(findstring version 4.0,$(_C_VER)),)
+         HB_COMPILER_VER := 0400
+      else
+      ifneq ($(findstring version 3.9,$(_C_VER)),)
+         HB_COMPILER_VER := 0309
+      else
+      ifneq ($(findstring version 3.8,$(_C_VER)),)
+         HB_COMPILER_VER := 0308
+      else
+      ifneq ($(findstring version 3.7,$(_C_VER)),)
+         HB_COMPILER_VER := 0307
+      else
+      ifneq ($(findstring version 3.6,$(_C_VER)),)
+         HB_COMPILER_VER := 0306
+      else
+      ifneq ($(findstring version 3.5,$(_C_VER)),)
          HB_COMPILER_VER := 0305
       else
          HB_COMPILER_VER := 0304
+      endif
+      endif
+      endif
+      endif
+      endif
+      endif
       endif
       endif
       endif
@@ -930,35 +974,50 @@ ifeq ($(HB_COMPILER_VER),)
       ifeq ($(HB_COMP_PATH_VER_DET),)
          HB_COMP_PATH_VER_DET := $(HB_CCPREFIX)gcc$(HB_CCSUFFIX)
       endif
-      _C_VER := $(shell "$(HB_COMP_PATH_VER_DET)" -v 2>&1)
-      ifneq ($(findstring version 5.3.,$(_C_VER)),)
+      _C_VER := $(shell "$(HB_COMP_PATH_VER_DET)" -dumpversion 2>&1)
+      ifneq ($(findstring 7.1,$(_C_VER)),)
+         HB_COMPILER_VER := 0701
+      else
+      ifneq ($(findstring 6.3,$(_C_VER)),)
+         HB_COMPILER_VER := 0603
+      else
+      ifneq ($(findstring 6.2,$(_C_VER)),)
+         HB_COMPILER_VER := 0602
+      else
+      ifneq ($(findstring 6.1,$(_C_VER)),)
+         HB_COMPILER_VER := 0601
+      else
+      ifneq ($(findstring 5.4,$(_C_VER)),)
+         HB_COMPILER_VER := 0504
+      else
+      ifneq ($(findstring 5.3,$(_C_VER)),)
          HB_COMPILER_VER := 0503
       else
-      ifneq ($(findstring version 5.2.,$(_C_VER)),)
+      ifneq ($(findstring 5.2,$(_C_VER)),)
          HB_COMPILER_VER := 0502
       else
-      ifneq ($(findstring version 5.1.,$(_C_VER)),)
+      ifneq ($(findstring 5.1,$(_C_VER)),)
          HB_COMPILER_VER := 0501
       else
-      ifneq ($(findstring version 4.9.,$(_C_VER)),)
+      ifneq ($(findstring 4.9,$(_C_VER)),)
          HB_COMPILER_VER := 0409
       else
-      ifneq ($(findstring version 4.8.,$(_C_VER)),)
+      ifneq ($(findstring 4.8,$(_C_VER)),)
          HB_COMPILER_VER := 0408
       else
-      ifneq ($(findstring version 4.7.,$(_C_VER)),)
+      ifneq ($(findstring 4.7,$(_C_VER)),)
          HB_COMPILER_VER := 0407
       else
-      ifneq ($(findstring version 4.6.,$(_C_VER)),)
+      ifneq ($(findstring 4.6,$(_C_VER)),)
          HB_COMPILER_VER := 0406
       else
-      ifneq ($(findstring version 4.5.,$(_C_VER)),)
+      ifneq ($(findstring 4.5,$(_C_VER)),)
          HB_COMPILER_VER := 0405
       else
-      ifneq ($(findstring version 4.4.,$(_C_VER)),)
+      ifneq ($(findstring 4.4,$(_C_VER)),)
          HB_COMPILER_VER := 0404
       else
-      ifneq ($(findstring version 4.3.,$(_C_VER)),)
+      ifneq ($(findstring 4.3,$(_C_VER)),)
          HB_COMPILER_VER := 0403
       else
          HB_COMPILER_VER := 0304
@@ -972,11 +1031,19 @@ ifeq ($(HB_COMPILER_VER),)
       endif
       endif
       endif
+      endif
+      endif
+      endif
+      endif
+      endif
    else
    ifneq ($(filter $(HB_COMPILER),msvc msvc64 msvcia64 msvcarm),)
+      ifeq ($(HB_COMP_PATH),)
+         HB_COMP_PATH := cl.exe
+      endif
       _C_VER := $(shell "$(HB_COMP_PATH)" 2>&1)
-      ifneq ($(findstring Version 20.,$(_C_VER)),)
-         HB_COMPILER_VER := 2000
+      ifneq ($(findstring Version 19.10,$(_C_VER)),)
+         HB_COMPILER_VER := 1910
       else
       ifneq ($(findstring Version 19.,$(_C_VER)),)
          HB_COMPILER_VER := 1900
@@ -1046,7 +1113,7 @@ ifneq ($(HB_CC_DET),)
 
       ifeq ($(wildcard $(HB_CCPATH)$(HB_CCPREFIX)gcc$(HB_HOST_BIN_EXT)),)
          ifeq ($(HB_CCPATH),)
-            ifeq ($(call find_in_path $(HB_CCPREFIX)gcc),)
+            ifeq ($(call find_in_path,$(HB_CCPREFIX)gcc),)
                HB_CCPREFIX :=
             endif
          else
@@ -1083,7 +1150,7 @@ ifneq ($(HB_CC_DET),)
 
       ifeq ($(wildcard $(HB_CCPATH)$(HB_CCPREFIX)gcc$(HB_HOST_BIN_EXT)),)
          ifeq ($(HB_CCPATH),)
-            ifeq ($(call find_in_path $(HB_CCPREFIX)gcc),)
+            ifeq ($(call find_in_path,$(HB_CCPREFIX)gcc),)
                HB_CCPREFIX :=
             endif
          else
@@ -1521,14 +1588,8 @@ ifeq ($(HB_HOST_PKGM),)
    ifeq ($(HB_PLATFORM),sunos)
       HB_HOST_PKGM += pkg
    else
-   ifeq ($(HB_PLATFORM),win)
-      ifneq ($(wildcard /etc/pacman.conf),)
-         HB_HOST_PKGM += pacman
-      endif
-   else
    ifeq ($(HB_PLATFORM),cygwin)
       HB_HOST_PKGM += cygwin
-   endif
    endif
    endif
    endif
@@ -1853,24 +1914,18 @@ ifeq ($(HB_INIT_DONE),)
    ifneq ($(HB_INSTALL_PREFIX_ORI),$(HB_INSTALL_PREFIX))
       $(info ! HB_INSTALL_PREFIX automatically set to: $(HB_INSTALL_PREFIX))
    endif
-   ifeq ($(ROOT),./)
-      ifneq ($(wildcard .git),)
-         ifneq ($(call find_in_path,git),)
-            ifneq ($(shell git diff --name-only --quiet),)
-               $(info ! === WARNING: Locally modified source code ===)
-            endif
-            $(info ! Git revision: $(shell git rev-parse --short HEAD))
-         endif
-      endif
-   endif
    ifneq ($(wildcard $(TOP)$(ROOT).git),)
       ifneq ($(call find_in_path,git),)
-         _cmd := git show --summary --format="%h%n%ci%n%an%n%ae" HEAD
+         ifneq ($(shell git diff --name-only --quiet),)
+            $(info ! === WARNING: Locally modified source code ===)
+         endif
+         $(info ! Source code: $(shell git rev-parse --short --quiet HEAD) $(shell git symbolic-ref --short --quiet HEAD) $(shell git ls-remote --get-url))
+         _cmd := git show --no-patch --format="%H%n%h%n%ci%n%an%n%ae" HEAD
          ifneq ($(HB_SHELL),sh)
             _cmd := $(subst %,%%,$(_cmd))
          endif
          $(shell $(_cmd) > $(TOP)$(ROOT)include$(DIRSEP)_repover.txt)
-         $(shell git rev-list $(shell git rev-parse --abbrev-ref HEAD) --count >> $(TOP)$(ROOT)include$(DIRSEP)_repover.txt)
+         $(shell git ls-remote --get-url >> $(TOP)$(ROOT)include$(DIRSEP)_repover.txt)
       else
          $(info ! WARNING: Git not found in PATH. Version information might not be accurate.)
       endif

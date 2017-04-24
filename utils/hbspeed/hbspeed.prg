@@ -30,6 +30,9 @@
    #endif
 #else
    #pragma -w1
+
+   ANNOUNCE HB_GTSYS
+   REQUEST HB_GT_CGI_DEFAULT
 #endif
 
 
@@ -503,7 +506,7 @@ procedure test( nMT, cExclude, lScale )
 
 #ifdef __HARBOUR__
    #include "hbmemory.ch"
-   if Memory( HB_MEM_BLOCKS ) != 0
+   if Memory( HB_MEM_STATISTICS ) != 0
       ? "Warning !!! Memory statistics enabled."
       ?
    endif

@@ -51,9 +51,9 @@ CREATE CLASS HB_LogEmail INHERIT HB_LogChannel
 
    VAR cServer
    VAR cAddress        INIT "log@example.org"
-   VAR cSubject        INIT "Log message from xharbour application"
+   VAR cSubject        INIT "Log message from xHarbour application"
    VAR cSendTo
-   VAR cHelo           INIT "XHarbour E-mail Logger"
+   VAR cHelo           INIT "xHarbour Email Logger"
    VAR nPort           INIT 25
 
    VAR cPrefix

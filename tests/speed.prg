@@ -1,19 +1,18 @@
+#define CONDITION  1
+#define BODY       2
+
 PROCEDURE Main()
 
-   LOCAL Program := {, }, Condition := 1, body := 2, Counter := 1, TheEnd := 1000000, stop, start
+   LOCAL Program := Array( 2 )
+   LOCAL Counter := 1, TheEnd := 2000000
+   LOCAL stop, start
 
-   Program[ condition ] := {|| Counter == TheEnd }
-   Program[      body ] := {|| Counter++ }
+   Program[ CONDITION ] := {|| Counter == TheEnd }
+   Program[ BODY      ] := {|| Counter++ }
+
    ? start := Second()
-
-   // in Clipper :
-   // WHILE ! Program[ condition ]:Eval() ; Program[ body ]:Eval()
-   // why Harbour CodeBlocks don't have Eval() method ?!
-
-   // Now It is supported.
-
-   DO WHILE ! Eval( Program[ condition ] )
-      Eval( Program[ body ] )
+   DO WHILE ! Program[ CONDITION ]:Eval()
+      Program[ BODY ]:Eval()
    ENDDO
    ? stop := Second()
    ? "---"

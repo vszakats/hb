@@ -6,7 +6,7 @@
    $ONELINER$
       Change the current directory
    $SYNTAX$
-      ft_ChDir( <cDirName> ) -> nResult
+      ft_ChDir( <cDirName> ) --> nResult
    $ARGUMENTS$
       <cDirName> is the name of the desired directory.
    $RETURNS$
@@ -15,12 +15,7 @@
       99 if invalid parameters passed
    $DESCRIPTION$
       Use this function if you prefer to change the active directory
-      instead of relying on the SET PATH command.
-
-      The source code is written to adhere to Turbo Assembler's IDEAL mode.
-      To use another assembler, you will need to rearrange the PROC and
-      SEGMENT directives, and also the ENDP and ENDS directives (a very
-      minor task).
+      instead of relying on the `SET PATH` command.
    $EXAMPLES$
       ? ft_ChDir( "harbour" )
       ? ft_ChDir( hb_ps() )

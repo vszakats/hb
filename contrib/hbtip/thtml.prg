@@ -441,11 +441,11 @@ METHOD MatchCriteria( oFound ) CLASS THtmlIteratorScan
 
    LOCAL xData
 
-   IF ::cName != NIL .AND. !( Lower( ::cName ) == Lower( oFound:htmlTagName ) )
+   IF ::cName != NIL .AND. ! Lower( ::cName ) == Lower( oFound:htmlTagName )
       RETURN .F.
    ENDIF
 
-   IF ::cAttribute != NIL .AND. !( ::cAttribute $ oFound:getAttributes() )
+   IF ::cAttribute != NIL .AND. ! ::cAttribute $ oFound:getAttributes()
       RETURN .F.
    ENDIF
 
@@ -458,8 +458,8 @@ METHOD MatchCriteria( oFound ) CLASS THtmlIteratorScan
 
    IF ::cData != NIL
       xData := oFound:getText( " " )
-      /* NOTE: != changed to !( == ) */
-      IF Empty( xData ) .OR. !( AllTrim( ::cData ) == AllTrim( xData ) )
+      /* NOTE: != changed to ! == */
+      IF Empty( xData ) .OR. ! AllTrim( ::cData ) == AllTrim( xData )
          RETURN .F.
       ENDIF
    ENDIF
@@ -695,12 +695,12 @@ METHOD parseHtml( parser ) CLASS THtmlNode
       cText    := LTrim( SubStr( parser:p_str, nLastPos + 1, nStart - nLastPos - 1 ) )
       cTagName := CutStr( " ", @cAttr )
 
-      IF !( cText == "" )
+      IF ! cText == ""
          IF hb_LeftEq( cText, "</" )
             // ending tag of previous node
             cText := Lower( AllTrim( SubStr( CutStr( ">", @cText ), 3 ) ) )
             oLastTag := oThisTag:parent
-            DO WHILE oLastTag != NIL .AND. !( Lower( oLastTag:htmlTagName ) == cText )  /* NOTE: != changed to !( == ) */
+            DO WHILE oLastTag != NIL .AND. ! Lower( oLastTag:htmlTagName ) == cText  /* NOTE: != changed to ! == */
                oLastTag := oLastTag:parent
             ENDDO
             IF oLastTag != NIL
@@ -740,7 +740,7 @@ METHOD parseHtml( parser ) CLASS THtmlNode
          ELSE
 
             oNextTag := oThisTag:parent
-            DO WHILE oNextTag != NIL .AND. !( Lower( oNextTag:htmlTagName ) == Lower( SubStr( cTagName, 2 ) ) )  /* NOTE: != changed to !( == ) */
+            DO WHILE oNextTag != NIL .AND. ! Lower( oNextTag:htmlTagName ) == Lower( SubStr( cTagName, 2 ) )  /* NOTE: != changed to ! == */
                oNextTag := oNextTag:parent
             ENDDO
 
@@ -856,7 +856,7 @@ METHOD parseHtmlFixed( parser ) CLASS THtmlNode
    ENDIF
 
    // back to "<"
-   DO WHILE !( P_PREV( parser ) == "<" )  /* NOTE: != changed to !( == ) */
+   DO WHILE ! P_PREV( parser ) == "<"  /* NOTE: != changed to ! == */
    ENDDO
 
    nEnd  := parser:p_pos
@@ -985,8 +985,8 @@ METHOD nextNode() CLASS THtmlNode
       RETURN ::htmlContent[ 1 ]
    ENDIF
 
-   /* NOTE: != changed to !( == ) */
-   IF !( ::htmlTagName == "_text_" ) .AND. ! Empty( ::htmlContent )
+   /* NOTE: != changed to ! == */
+   IF ! ::htmlTagName == "_text_" .AND. ! Empty( ::htmlContent )
       RETURN ::htmlContent[ 1 ]
    ENDIF
 
@@ -1058,7 +1058,7 @@ METHOD toString( nIndent ) CLASS THtmlNode
       IF ::isInline() .OR. ::keepFormatting() .OR. ::isType( CM_HEADING ) .OR. ::isType( CM_HEAD )
          RETURN cHtml += iif( ::htmlEndTagName == "/", " />", "<" + ::htmlEndTagName + ">" )
       ENDIF
-      IF !( Right( cHtml, Len( hb_eol() ) ) == hb_eol() )
+      IF ! Right( cHtml, Len( hb_eol() ) ) == hb_eol()
          cHtml += hb_eol()
       ENDIF
       RETURN cHtml += cIndent + iif( ::htmlEndTagName == "/", " />", "<" + ::htmlEndTagName + ">" )
@@ -1230,7 +1230,7 @@ STATIC FUNCTION __ParseAttr( parser )
 
       CASE " "
          IF nMode == 1
-            IF !( aAttr[ 1 ] == "" )
+            IF ! aAttr[ 1 ] == ""
                hHash[ aAttr[ 1 ] ] := aAttr[ 2 ]
                aAttr[ 1 ] := ""
                aAttr[ 2 ] := ""
@@ -1295,7 +1295,7 @@ STATIC FUNCTION __ParseAttr( parser )
       ENDSWITCH
    ENDDO
 
-   IF !( aAttr[ 1 ] == "" )
+   IF ! aAttr[ 1 ] == ""
       hHash[ aAttr[ 1 ] ] := aAttr[ 2 ]
    ENDIF
 
@@ -1493,7 +1493,7 @@ METHOD pushNode( cTagName ) CLASS THtmlNode
       RETURN ::error( "Cannot add HTML tag to: <" + ::htmlTagName + ">", ::className(), "+", EG_ARG, { cName } )
    ENDIF
 
-   IF !( cName $ t_hHT )
+   IF ! cName $ t_hHT
       IF hb_LeftEq( cName, "/" ) .AND. SubStr( cName, 2 ) $ t_hHT
          IF ! Lower( SubStr( cName, 2 ) ) == Lower( ::htmlTagName )
             RETURN ::error( "Not a valid closing HTML tag for: <" + ::htmlTagName + ">", ::className(), "-", EG_ARG, { cName } )
@@ -1527,7 +1527,7 @@ METHOD popNode( cName ) CLASS THtmlNode
       cName := SubStr( cName, 1 + 1 )
    ENDIF
 
-   IF !( cName == Lower( ::htmlTagName ) )
+   IF ! cName == Lower( ::htmlTagName )
       RETURN ::error( "Invalid closing HTML tag for: <" + ::htmlTagName + ">", ::className(), "-", EG_ARG, { cName } )
    ENDIF
 
@@ -1621,7 +1621,7 @@ FUNCTION THtmlIsValid( cTagName, cAttrName )
    RETURN lRet
 
 /* HTML Tag data are adopted for Harbour from Tidy
-   http://www.html-tidy.org */
+   http://www.html-tidy.org/ */
 
 STATIC PROCEDURE _Init_Html_TagTypes
 
@@ -4233,7 +4233,7 @@ FUNCTION ANSIToHtml( cAnsiText )
       nEnd  := parser:p_pos
       cText := SubStr( parser:p_str, nStart, nEnd - nStart )
 
-      DO WHILE !( ( cChr := P_NEXT( parser ) ) $ "; " ) .AND. ! Empty( cChr ) .AND. parser:p_pos != 0
+      DO WHILE ! ( cChr := P_NEXT( parser ) ) $ "; " .AND. ! Empty( cChr ) .AND. parser:p_pos != 0
       ENDDO
 
       SWITCH cChr
@@ -4377,7 +4377,7 @@ FUNCTION tip_StrToHtml( cAnsiText )
       nEnd  := parser:p_pos
       cText := SubStr( parser:p_str, nStart, nEnd - nStart )
 
-      DO WHILE !( ( cChr := P_NEXT( parser ) ) $ "; " ) .AND. ! Empty( cChr ) .AND. parser:p_pos != 0
+      DO WHILE ! ( cChr := P_NEXT( parser ) ) $ "; " .AND. ! Empty( cChr ) .AND. parser:p_pos != 0
       ENDDO
 
       SWITCH cChr
@@ -4410,7 +4410,7 @@ FUNCTION tip_StrToHtml( cAnsiText )
 
 STATIC PROCEDURE _Init_Html_CharacterEntities()
 
-   IF t_aHtmlUnicEntities == NIL .OR. !( t_cHtmlCP == hb_cdpSelect() )
+   IF t_aHtmlUnicEntities == NIL .OR. ! t_cHtmlCP == hb_cdpSelect()
       t_cHtmlCP := hb_cdpSelect()
       t_cHtmlUnicChars := hb_UTF8ToStr( "&<>¢£¥¦§©®°¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ^¢£¥¦§©®°¿~" )
       t_aHtmlUnicEntities := __HtmlEntities()

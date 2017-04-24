@@ -76,7 +76,7 @@ ifeq ($(HB_SHELL),os2)
       $(foreach file,$(INSTALL_FILES_OS),$(inst_file))
    endef
 
-   # NOTE: The empty line directly before 'endef' HAVE TO exist!
+   # NOTE: The empty line directly before 'endef' HAS TO exist!
    #       It causes that every command will be separated by LF
    define inst_file
       -@$(CP) $(file) $(INSTALL_DIR_OS)
@@ -94,7 +94,7 @@ ifeq ($(HB_SHELL),dos)
       $(foreach file,$(INSTALL_FILES_OS),$(inst_file))
    endef
 
-   # NOTE: The empty line directly before 'endef' HAVE TO exist!
+   # NOTE: The empty line directly before 'endef' HAS TO exist!
    #       It causes that every command will be separated by LF
    define inst_file
       -@$(CP) $(file) $(INSTALL_DIR_OS)

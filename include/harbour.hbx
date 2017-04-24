@@ -191,6 +191,7 @@ DYNAMIC FCount
 DYNAMIC FCreate
 DYNAMIC FErase
 DYNAMIC FError
+DYNAMIC Field
 DYNAMIC FieldBlock
 DYNAMIC FieldDec
 DYNAMIC FieldGet
@@ -691,8 +692,14 @@ DYNAMIC hb_mutexSubscribeNow
 DYNAMIC hb_mutexUnlock
 DYNAMIC hb_mvRestore
 DYNAMIC hb_mvSave
+DYNAMIC hb_noop
+DYNAMIC hb_ntoc
 DYNAMIC hb_NToColor
+DYNAMIC hb_NToHour
+DYNAMIC hb_NToMin
+DYNAMIC hb_NToMSec
 DYNAMIC hb_ntos
+DYNAMIC hb_NToSec
 DYNAMIC hb_NToT
 DYNAMIC hb_NumToHex
 DYNAMIC hb_osCPU
@@ -857,8 +864,12 @@ DYNAMIC hb_TSToStr
 DYNAMIC hb_TSToUTC
 DYNAMIC hb_TToC
 DYNAMIC hb_TToD
+DYNAMIC hb_TToHour
+DYNAMIC hb_TToMin
+DYNAMIC hb_TToMSec
 DYNAMIC hb_TToN
 DYNAMIC hb_TToS
+DYNAMIC hb_TToSec
 DYNAMIC hb_UAt
 DYNAMIC hb_UChar
 DYNAMIC hb_UCode
@@ -915,6 +926,7 @@ DYNAMIC hb_vfLinkSym
 DYNAMIC hb_vfLoad
 DYNAMIC hb_vfLock
 DYNAMIC hb_vfLockTest
+DYNAMIC hb_vfMoveFile
 DYNAMIC hb_vfOpen
 DYNAMIC hb_vfRead
 DYNAMIC hb_vfReadAt
@@ -930,6 +942,7 @@ DYNAMIC hb_vfUnlock
 DYNAMIC hb_vfWrite
 DYNAMIC hb_vfWriteAt
 DYNAMIC hb_WAEval
+DYNAMIC hb_Week
 DYNAMIC hb_WildMatch
 DYNAMIC hb_WildMatchI
 DYNAMIC hb_ZCompress
@@ -1558,6 +1571,7 @@ DYNAMIC __XSaveGetAttr
 DYNAMIC __XSaveGetChar
 DYNAMIC __XSaveGetColor
 DYNAMIC __XSaveScreen
+DYNAMIC __XSaveSetCell
 
 #if defined( __HBEXTREQ__ ) .OR. defined( __HBEXTERN__HARBOUR__REQUEST )
    #uncommand DYNAMIC <fncs,...> => EXTERNAL <fncs>

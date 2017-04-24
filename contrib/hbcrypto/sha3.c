@@ -282,7 +282,7 @@ static void Keccak( unsigned int rate, unsigned int capacity, const unsigned cha
    /* === Absorb all the input blocks === */
    while( inputByteLen > 0 )
    {
-      blockSize = HB_MIN( inputByteLen, rateInBytes );
+      blockSize = HB_MIN( ( unsigned int ) inputByteLen, rateInBytes );
       for( i = 0; i < blockSize; i++ )
          state[ i ] ^= input[ i ];
       input        += blockSize;
@@ -309,7 +309,7 @@ static void Keccak( unsigned int rate, unsigned int capacity, const unsigned cha
    /* === Squeeze out all the output blocks === */
    while( outputByteLen > 0 )
    {
-      blockSize = HB_MIN( outputByteLen, rateInBytes );
+      blockSize = HB_MIN( ( unsigned int ) outputByteLen, rateInBytes );
       memcpy( output, state, blockSize );
       output        += blockSize;
       outputByteLen -= blockSize;
@@ -320,13 +320,13 @@ static void Keccak( unsigned int rate, unsigned int capacity, const unsigned cha
 }
 
 /* Function to compute SHAKE128 on the input message with any output length. */
-static void FIPS202_SHAKE128( const unsigned char * input, HB_SIZE inputByteLen, unsigned char * output, int outputByteLen )
+static void FIPS202_SHAKE128( const unsigned char * input, HB_SIZE inputByteLen, unsigned char * output, HB_SIZE outputByteLen )
 {
    Keccak( 1344, 256, input, inputByteLen, 0x1F, output, outputByteLen );
 }
 
 /* Function to compute SHAKE256 on the input message with any output length. */
-static void FIPS202_SHAKE256( const unsigned char * input, HB_SIZE inputByteLen, unsigned char * output, int outputByteLen )
+static void FIPS202_SHAKE256( const unsigned char * input, HB_SIZE inputByteLen, unsigned char * output, HB_SIZE outputByteLen )
 {
    Keccak( 1088, 512, input, inputByteLen, 0x1F, output, outputByteLen );
 }

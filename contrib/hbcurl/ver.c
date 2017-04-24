@@ -44,6 +44,10 @@
  *
  */
 
+#ifndef CURL_STRICTER
+#define CURL_STRICTER
+#endif
+
 #include <curl/curl.h>
 #if LIBCURL_VERSION_NUM < 0x070C00
    #include <curl/types.h>

@@ -69,7 +69,7 @@
       /*
        * The macro: __USE_LARGEFILE64 is set when _LARGEFILE64_SOURCE is
        * defined and effectively enables lseek64/flock64/ftruncate64 functions
-       * on 32bit machines.
+       * on 32-bit machines.
        */
       #define HB_USE_LARGEFILE64
    #elif defined( HB_OS_UNIX ) && defined( O_LARGEFILE )
@@ -150,7 +150,7 @@ HB_FOFFSET hb_fsFSize( const char * pszFileName, HB_BOOL bUseDirEntry )
       pszFileName = hb_fsNameConv( pszFileName, &pszFree );
       statbuf.st_size = 0;
       hb_vmUnlock();
-      fResult = stat( ( char * ) pszFileName, &statbuf ) == 0;
+      fResult = stat( ( char * ) HB_UNCONST( pszFileName ), &statbuf ) == 0;
       hb_fsSetIOError( fResult, 0 );
       hb_vmLock();
       if( pszFree )

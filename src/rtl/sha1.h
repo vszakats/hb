@@ -1,5 +1,5 @@
 /*
- * sha.h
+ * WARNING: Outdated, unsecure algorithm.
  *
  * Originally taken from the public domain SHA1 implementation
  * written by by Steve Reid <steve@edmweb.com>

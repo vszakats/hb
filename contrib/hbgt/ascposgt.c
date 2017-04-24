@@ -21,7 +21,7 @@ HB_FUNC( GT_ASCPOS )
       if( p > hb_parclen( 1 ) )        /* oh oh p > length of passed string */
          hb_retni( -2 );               /* error -2 */
       else
-         hb_retni( ( int ) s[ p ] );   /* return ascii code of appropriate */
+         hb_retni( ( int ) s[ p ] );   /* return ASCII code of appropriate */
                                        /* character in string */
    }
    else

@@ -15,7 +15,7 @@ PROCEDURE Main( cVidMode )
 
    hb_default( @cVidMode, "" )
 
-   NoSnow( ( "NOSNOW" $ Upper( cVidMode ) ) )
+   NoSnow( "NOSNOW" $ Upper( cVidMode ) )
    IF "VGA" $ Upper( cVidMode )
       SetMode( 50, 80 )
    ENDIF

@@ -50,6 +50,10 @@
 #include "hbapi.h"
 #include "hbstack.h"
 
+#if defined( __clang__ )
+#  pragma GCC diagnostic ignored "-Wdocumentation-unknown-command"
+#endif
+
 #include "cairo.h"
 
 HB_EXTERN_BEGIN

@@ -85,7 +85,7 @@ ACKNOLEDGEMENTS:
      (C) Copyright 1993 - 1995 by Christian Blum <chris@phil.uni-sb.de>
      all rights reserved.
      The home location for this document is:
-     ftp://ftp.phil.uni-sb.de/pub/staff/chris/The_Serial_Port
+     https://www.cs.hs-rm.de/~linn/vpdv01/robzilla/hilfe/index.htm
      Other serial port stuff mentioned in this document can be found in the
      same directory.
      - This is the most comprehensive description of serial
@@ -94,7 +94,7 @@ ACKNOLEDGEMENTS:
      DZComm - serial communication add-on for Allegro.
      Copyright 1997 Dim Zegebart, Moscow Russia.
      E-mail zager@post.comstar.ru
-     http://www.geocities.com/siliconvalley/pines/7817
+     https://web.archive.org/web/20021201045134/www.geocities.com/SiliconValley/Pines/7817/
      - I used his work as a reference.
 
      BCSIO - serial communication library
@@ -102,7 +102,7 @@ ACKNOLEDGEMENTS:
      - I used his work as a reference.
 
      DJGPP - A port of GNU gcc for DOS by DJ Delorie and team.
-     http://www.delorie.com
+     http://www.delorie.com/
      - I used their work to compile for 32-bit DOS.
 
 3 Functions

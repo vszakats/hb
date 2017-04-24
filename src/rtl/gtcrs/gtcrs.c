@@ -72,6 +72,7 @@ typedef struct
    int    fd;
    int    mode;
    int    status;
+   int    index;
    void * data;
    int ( * eventFunc )( int, int, void * );
 } evtFD;
@@ -147,6 +148,7 @@ typedef struct InOutBase
    int stdin_ptr_r;
    int stdin_inbuf;
 
+   PHB_POLLFD pPollSet;
    evtFD ** event_fds;
    int      efds_size;
    int      efds_no;
@@ -406,13 +408,12 @@ static int add_efds( InOutBase * ioBase, int fd, int mode,
    {
       if( ioBase->efds_size <= ioBase->efds_no )
       {
-         if( ioBase->event_fds == NULL )
-            ioBase->event_fds = ( evtFD ** )
-               hb_xgrab( ( ioBase->efds_size += 10 ) * sizeof( evtFD * ) );
-         else
-            ioBase->event_fds = ( evtFD ** )
+         ioBase->event_fds = ( evtFD ** )
                hb_xrealloc( ioBase->event_fds,
                             ( ioBase->efds_size += 10 ) * sizeof( evtFD * ) );
+         ioBase->pPollSet = ( PHB_POLLFD )
+               hb_xrealloc( ioBase->pPollSet,
+                            ioBase->efds_size * sizeof( HB_POLLFD ) );
       }
 
       pefd = ( evtFD * ) hb_xgrab( sizeof( evtFD ) );
@@ -454,8 +455,10 @@ static void del_all_efds( InOutBase * ioBase )
          hb_xfree( ioBase->event_fds[ i ] );
 
       hb_xfree( ioBase->event_fds );
+      hb_xfree( ioBase->pPollSet );
 
       ioBase->event_fds = NULL;
+      ioBase->pPollSet = NULL;
       ioBase->efds_no = ioBase->efds_size = 0;
    }
 }
@@ -683,13 +686,7 @@ static void flush_gpmevt( mouseEvent * mEvt )
 {
    if( gpm_fd >= 0 )
    {
-      struct timeval tv = { 0, 0 };
-      fd_set rfds;
-
-      FD_ZERO( &rfds );
-      FD_SET( gpm_fd, &rfds );
-
-      while( select( gpm_fd + 1, &rfds, NULL, NULL, &tv ) > 0 )
+      while( hb_fsCanRead( gpm_fd, 0 ) > 0 )
          set_gpmevt( gpm_fd, O_RDONLY, ( void * ) mEvt );
 
       while( getMouseKey( mEvt ) ) ;
@@ -802,58 +799,51 @@ static int read_bufch( InOutBase * ioBase, int fd )
    return n;
 }
 
-static int get_inch( InOutBase * ioBase, int milisec )
+static int get_inch( InOutBase * ioBase, HB_MAXINT timeout )
 {
-   int nRet = 0, npfd = -1, nchk = ioBase->efds_no, lRead = 0;
+   int nRet = 0, nNext = 0, npfd = -1, nchk = ioBase->efds_no, lRead = 0;
    int mode, i, n, counter;
-   struct timeval tv, * ptv;
    evtFD * pefd = NULL;
-   fd_set rfds, wfds;
+   HB_MAXUINT timer;
 
-   if( milisec == 0 )
-      ptv = NULL;
-   else
-   {
-      if( milisec < 0 )
-         milisec = 0;
-      tv.tv_sec = ( milisec / 1000 );
-      tv.tv_usec = ( milisec % 1000 ) * 1000;
-      ptv = &tv;
-   }
+   timer = hb_timerInit( timeout );
 
-   while( nRet == 0 && lRead == 0 )
+   do
    {
-      n = -1;
-      FD_ZERO( &rfds );
-      FD_ZERO( &wfds );
-      for( i = 0; i < ioBase->efds_no; i++ )
+      for( i = n = 0; i < ioBase->efds_no; i++ )
       {
          if( ioBase->event_fds[ i ]->status == EVTFDSTAT_RUN )
          {
-            if( ioBase->event_fds[ i ]->mode == O_RDWR
-                || ioBase->event_fds[ i ]->mode == O_RDONLY )
-            {
-               FD_SET( ioBase->event_fds[ i ]->fd, &rfds );
-               if( n < ioBase->event_fds[ i ]->fd )
-                  n = ioBase->event_fds[ i ]->fd;
-            }
-            if( ioBase->event_fds[ i ]->mode == O_RDWR
-                || ioBase->event_fds[ i ]->mode == O_WRONLY )
-            {
-               FD_SET( ioBase->event_fds[ i ]->fd, &wfds );
-               if( n < ioBase->event_fds[ i ]->fd )
-                  n = ioBase->event_fds[ i ]->fd;
-            }
+            ioBase->pPollSet[ n ].fd = ioBase->event_fds[ i ]->fd;
+            ioBase->pPollSet[ n ].events = 0;
+            ioBase->pPollSet[ n ].revents = 0;
+            if( ioBase->event_fds[ i ]->mode == O_RDWR ||
+                ioBase->event_fds[ i ]->mode == O_RDONLY )
+               ioBase->pPollSet[ n ].events |= HB_POLLIN;
+            if( ioBase->event_fds[ i ]->mode == O_RDWR ||
+                ioBase->event_fds[ i ]->mode == O_WRONLY )
+               ioBase->pPollSet[ n ].events |= HB_POLLOUT;
+            ioBase->event_fds[ i ]->index = n++;
+         }
+         else
+         {
+            ioBase->event_fds[ i ]->index = -1;
+            if( ioBase->event_fds[ i ]->status == EVTFDSTAT_STOP &&
+                ioBase->event_fds[ i ]->eventFunc == NULL )
+               nNext = HB_INKEY_NEW_EVENT( HB_K_TERMINATE );
          }
       }
 
       counter = ioBase->key_counter;
-      if( select( n + 1, &rfds, &wfds, NULL, ptv ) > 0 )
+      if( hb_fsPoll( ioBase->pPollSet, n, timeout ) > 0 )
       {
          for( i = 0; i < ioBase->efds_no; i++ )
          {
-            n = ( FD_ISSET( ioBase->event_fds[ i ]->fd, &rfds ) ? 1 : 0 ) |
-                ( FD_ISSET( ioBase->event_fds[ i ]->fd, &wfds ) ? 2 : 0 );
+            n = ioBase->event_fds[ i ]->index;
+            if( n < 0 )
+               continue;
+            n = ioBase->pPollSet[ n ].revents;
+            n = ( ( n & HB_POLLIN ) ? 1 : 0 ) | ( ( n & HB_POLLOUT ) ? 2 : 0 );
             if( n != 0 )
             {
                if( ioBase->event_fds[ i ]->eventFunc == NULL )
@@ -861,7 +851,10 @@ static int get_inch( InOutBase * ioBase, int milisec )
                   lRead = 1;
                   n = read_bufch( ioBase, ioBase->event_fds[ i ]->fd );
                   if( n == 0 )
+                  {
                      ioBase->event_fds[ i ]->status = EVTFDSTAT_STOP;
+                     nRet = HB_INKEY_NEW_EVENT( HB_K_CLOSE );
+                  }
                }
                else if( nRet == 0 && counter == ioBase->key_counter )
                {
@@ -902,6 +895,8 @@ static int get_inch( InOutBase * ioBase, int milisec )
       else
          lRead = 1;
    }
+   while( nRet == 0 && lRead == 0 &&
+          ( timeout = hb_timerTest( timeout, &timer ) ) != 0 );
 
    for( i = n = nchk; i < ioBase->efds_no; i++ )
    {
@@ -920,7 +915,7 @@ static int get_inch( InOutBase * ioBase, int milisec )
       ioBase->event_fds[ n++ ] = pefd;
    ioBase->efds_no = n;
 
-   return nRet;
+   return nRet == 0 ? nNext : nRet;
 }
 
 static int test_bufch( InOutBase * ioBase, int n, int delay )
@@ -2293,7 +2288,7 @@ int HB_GT_FUNC( gt_CloseTerm( int iHandle ) )
 
 int HB_GT_FUNC( gt_WaitKey( double dTimeOut ) )
 {
-   return wait_key( s_ioBase, ( int ) ( dTimeOut * 1000.0 ) );
+   return wait_key( s_ioBase, ( int ) ( dTimeOut >= 0 ? dTimeOut * 1000.0 : -1 ) );
 }
 
 int HB_GT_FUNC( gt_AddKeyMap( int iKey, char * szSequence ) )
@@ -2349,7 +2344,7 @@ void HB_GT_FUNC( gt_CatchSignal( int iSig ) )
 
 static void hb_gt_crs_Init( PHB_GT pGT, HB_FHANDLE hFilenoStdin, HB_FHANDLE hFilenoStdout, HB_FHANDLE hFilenoStderr )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_Init(%p,%p,%p,%p)", pGT, ( void * ) ( HB_PTRUINT ) hFilenoStdin, ( void * ) ( HB_PTRUINT ) hFilenoStdout, ( void * ) ( HB_PTRUINT ) hFilenoStderr ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_Init(%p,%p,%p,%p)", ( void * ) pGT, ( void * ) ( HB_PTRUINT ) hFilenoStdin, ( void * ) ( HB_PTRUINT ) hFilenoStdout, ( void * ) ( HB_PTRUINT ) hFilenoStderr ) );
 
    if( ! s_ioBase )
    {
@@ -2373,7 +2368,6 @@ static void hb_gt_crs_Init( PHB_GT pGT, HB_FHANDLE hFilenoStdin, HB_FHANDLE hFil
          add_new_ioBase( ioBase );
          HB_GTSUPER_INIT( pGT, hFilenoStdin, hFilenoStdout, hFilenoStderr );
          HB_GTSELF_RESIZE( pGT, s_ioBase->maxrow, s_ioBase->maxcol );
-         HB_GTSELF_SETFLAG( pGT, HB_GTI_COMPATBUFFER, HB_FALSE );
          HB_GTSELF_SETBLINK( pGT, HB_TRUE );
       }
    }
@@ -2386,7 +2380,7 @@ static void hb_gt_crs_Init( PHB_GT pGT, HB_FHANDLE hFilenoStdin, HB_FHANDLE hFil
 
 static void hb_gt_crs_Exit( PHB_GT pGT )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_Exit(%p)", pGT ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_Exit(%p)", ( void * ) pGT ) );
 
    HB_GTSUPER_EXIT( pGT );
 
@@ -2397,7 +2391,7 @@ static void hb_gt_crs_Exit( PHB_GT pGT )
 
 static HB_BOOL hb_gt_crs_IsColor( PHB_GT pGT )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_IsColor(%p)", pGT ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_IsColor(%p)", ( void * ) pGT ) );
 
    HB_SYMBOL_UNUSED( pGT );
 
@@ -2408,7 +2402,7 @@ static HB_BOOL hb_gt_crs_IsColor( PHB_GT pGT )
 
 static HB_BOOL hb_gt_crs_SetMode( PHB_GT pGT, int iRows, int iCols )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_SetMode(%p,%d,%d)", pGT, iRows, iCols ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_SetMode(%p,%d,%d)", ( void * ) pGT, iRows, iCols ) );
 
    if( gt_setsize( s_ioBase, iRows, iCols ) == 0 )
    {
@@ -2423,7 +2417,7 @@ static HB_BOOL hb_gt_crs_SetMode( PHB_GT pGT, int iRows, int iCols )
 
 static void hb_gt_crs_SetBlink( PHB_GT pGT, HB_BOOL fBlink )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_SetBlink(%p, %d)", pGT, ( int ) fBlink ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_SetBlink(%p, %d)", ( void * ) pGT, ( int ) fBlink ) );
 
    if( fBlink )
       s_ioBase->attr_mask |= A_BLINK;
@@ -2437,7 +2431,7 @@ static void hb_gt_crs_SetBlink( PHB_GT pGT, HB_BOOL fBlink )
 
 static void hb_gt_crs_Tone( PHB_GT pGT, double dFrequency, double dDuration )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_Tone(%p,%lf,%lf)", pGT, dFrequency, dDuration ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_Tone(%p,%lf,%lf)", ( void * ) pGT, dFrequency, dDuration ) );
 
    HB_SYMBOL_UNUSED( pGT );
 
@@ -2452,7 +2446,7 @@ static void hb_gt_crs_Tone( PHB_GT pGT, double dFrequency, double dDuration )
 
 static const char * hb_gt_crs_Version( PHB_GT pGT, int iType )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_Version(%p,%d)", pGT, iType ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_Version(%p,%d)", ( void * ) pGT, iType ) );
 
    HB_SYMBOL_UNUSED( pGT );
 
@@ -2466,7 +2460,7 @@ static const char * hb_gt_crs_Version( PHB_GT pGT, int iType )
 
 static void hb_gt_crs_OutStd( PHB_GT pGT, const char * szStr, HB_SIZE ulLen )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_OutStd(%p,%s,%lu)", pGT, szStr, ulLen ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_OutStd(%p,%s,%lu)", ( void * ) pGT, szStr, ulLen ) );
 
    if( s_ioBase )
    {
@@ -2483,7 +2477,7 @@ static void hb_gt_crs_OutStd( PHB_GT pGT, const char * szStr, HB_SIZE ulLen )
 
 static void hb_gt_crs_OutErr( PHB_GT pGT, const char * szStr, HB_SIZE ulLen )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_OutErr(%p,%s,%lu)", pGT, szStr, ulLen ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_OutErr(%p,%s,%lu)", ( void * ) pGT, szStr, ulLen ) );
    if( s_ioBase )
    {
       if( s_ioBase->stderrfd == -1 )
@@ -2499,7 +2493,7 @@ static void hb_gt_crs_OutErr( PHB_GT pGT, const char * szStr, HB_SIZE ulLen )
 
 static HB_BOOL hb_gt_crs_Suspend( PHB_GT pGT )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_Suspend(%p)", pGT ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_Suspend(%p)", ( void * ) pGT ) );
 
    HB_SYMBOL_UNUSED( pGT );
 
@@ -2517,7 +2511,7 @@ static HB_BOOL hb_gt_crs_Suspend( PHB_GT pGT )
 
 static HB_BOOL hb_gt_crs_Resume( PHB_GT pGT )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_Resume(%p)", pGT ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_Resume(%p)", ( void * ) pGT ) );
 
    HB_SYMBOL_UNUSED( pGT );
 
@@ -2537,7 +2531,7 @@ static HB_BOOL hb_gt_crs_Resume( PHB_GT pGT )
 
 static HB_BOOL hb_gt_crs_PreExt( PHB_GT pGT )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_PreExt(%p)", pGT ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_PreExt(%p)", ( void * ) pGT ) );
 
    HB_SYMBOL_UNUSED( pGT );
 
@@ -2551,7 +2545,7 @@ static HB_BOOL hb_gt_crs_PreExt( PHB_GT pGT )
 
 static HB_BOOL hb_gt_crs_PostExt( PHB_GT pGT )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_PostExt(%p)", pGT ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_PostExt(%p)", ( void * ) pGT ) );
 
    HB_SYMBOL_UNUSED( pGT );
 
@@ -2562,7 +2556,7 @@ static HB_BOOL hb_gt_crs_PostExt( PHB_GT pGT )
 
 static HB_BOOL hb_gt_crs_mouse_IsPresent( PHB_GT pGT )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_mouse_IsPresent(%p)", pGT ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_mouse_IsPresent(%p)", ( void * ) pGT ) );
 
    HB_SYMBOL_UNUSED( pGT );
 
@@ -2573,7 +2567,7 @@ static HB_BOOL hb_gt_crs_mouse_IsPresent( PHB_GT pGT )
 
 static void hb_gt_crs_mouse_Show( PHB_GT pGT )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_mouse_Show(%p)", pGT ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_mouse_Show(%p)", ( void * ) pGT ) );
 
    HB_SYMBOL_UNUSED( pGT );
 
@@ -2588,7 +2582,7 @@ static void hb_gt_crs_mouse_Show( PHB_GT pGT )
 
 static void hb_gt_crs_mouse_Hide( PHB_GT pGT )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_mouse_Hide(%p)", pGT ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_mouse_Hide(%p)", ( void * ) pGT ) );
 
    HB_SYMBOL_UNUSED( pGT );
 
@@ -2602,7 +2596,7 @@ static void hb_gt_crs_mouse_Hide( PHB_GT pGT )
 
 static void hb_gt_crs_mouse_GetPos( PHB_GT pGT, int * piRow, int * piCol )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_mouse_Col(%p,%p,%p)", pGT, piRow, piCol ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_mouse_Col(%p,%p,%p)", ( void * ) pGT, ( void * ) piRow, ( void * ) piCol ) );
 
    HB_SYMBOL_UNUSED( pGT );
 
@@ -2614,7 +2608,7 @@ static void hb_gt_crs_mouse_GetPos( PHB_GT pGT, int * piRow, int * piCol )
 
 static void hb_gt_crs_mouse_SetPos( PHB_GT pGT, int iRow, int iCol )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_mouse_SetPos(%p,%i,%i)", pGT, iRow, iCol ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_mouse_SetPos(%p,%i,%i)", ( void * ) pGT, iRow, iCol ) );
 
    HB_SYMBOL_UNUSED( pGT );
 
@@ -2630,7 +2624,7 @@ static HB_BOOL hb_gt_crs_mouse_ButtonState( PHB_GT pGT, int iButton )
 {
    HB_BOOL ret = HB_FALSE;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_mouse_ButtonState(%p,%i)", pGT, iButton ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_mouse_ButtonState(%p,%i)", ( void * ) pGT, iButton ) );
 
    HB_SYMBOL_UNUSED( pGT );
 
@@ -2657,7 +2651,7 @@ static HB_BOOL hb_gt_crs_mouse_ButtonState( PHB_GT pGT, int iButton )
 
 static int hb_gt_crs_mouse_CountButton( PHB_GT pGT )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_mouse_CountButton(%p)", pGT ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_mouse_CountButton(%p)", ( void * ) pGT ) );
 
    HB_SYMBOL_UNUSED( pGT );
 
@@ -2666,7 +2660,7 @@ static int hb_gt_crs_mouse_CountButton( PHB_GT pGT )
 
 static void hb_gt_crs_mouse_SetDoubleClickSpeed( PHB_GT pGT, int iSpeed )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_mouse_SetDoubleClickSpeed(%p,%d)", pGT, iSpeed ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_mouse_SetDoubleClickSpeed(%p,%d)", ( void * ) pGT, iSpeed ) );
 
    HB_GTSUPER_MOUSESETDOUBLECLICKSPEED( pGT, iSpeed );
    s_ioBase->mLastEvt.click_delay = iSpeed;
@@ -2678,11 +2672,11 @@ static int hb_gt_crs_ReadKey( PHB_GT pGT, int iEventMask )
 {
    int iKey;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_ReadKey(%p,%d)", pGT, iEventMask ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_ReadKey(%p,%d)", ( void * ) pGT, iEventMask ) );
 
    HB_SYMBOL_UNUSED( iEventMask );
 
-   iKey = wait_key( s_ioBase, -1 );
+   iKey = wait_key( s_ioBase, 0 );
 
    if( iKey == K_RESIZE )
    {
@@ -2698,7 +2692,7 @@ static int hb_gt_crs_ReadKey( PHB_GT pGT, int iEventMask )
 
 static HB_BOOL hb_gt_crs_SetDispCP( PHB_GT pGT, const char * pszTermCDP, const char * pszHostCDP, HB_BOOL fBox )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_SetDispCP(%p,%s,%s,%d)", pGT, pszTermCDP, pszHostCDP, ( int ) fBox ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_SetDispCP(%p,%s,%s,%d)", ( void * ) pGT, pszTermCDP, pszHostCDP, ( int ) fBox ) );
 
    if( HB_GTSUPER_SETDISPCP( pGT, pszTermCDP, pszHostCDP, fBox ) )
    {
@@ -2713,7 +2707,7 @@ static HB_BOOL hb_gt_crs_SetDispCP( PHB_GT pGT, const char * pszTermCDP, const c
 
 static HB_BOOL hb_gt_crs_SetKeyCP( PHB_GT pGT, const char * pszTermCDP, const char * pszHostCDP )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_SetKeyCP(%p,%s,%s)", pGT, pszTermCDP, pszHostCDP ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_SetKeyCP(%p,%s,%s)", ( void * ) pGT, pszTermCDP, pszHostCDP ) );
 
    if( HB_GTSUPER_SETKEYCP( pGT, pszTermCDP, pszHostCDP ) )
    {
@@ -2727,7 +2721,7 @@ static HB_BOOL hb_gt_crs_SetKeyCP( PHB_GT pGT, const char * pszTermCDP, const ch
 
 static HB_BOOL hb_gt_crs_Info( PHB_GT pGT, int iType, PHB_GT_INFO pInfo )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_Info(%p,%d,%p)", pGT, iType, pInfo ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_Info(%p,%d,%p)", ( void * ) pGT, iType, ( void * ) pInfo ) );
 
    if( s_ioBase )
    {
@@ -2757,7 +2751,7 @@ static HB_BOOL hb_gt_crs_Info( PHB_GT pGT, int iType, PHB_GT_INFO pInfo )
 
 static void hb_gt_crs_Redraw( PHB_GT pGT, int iRow, int iCol, int iSize )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_Redraw(%p,%d,%d,%d)", pGT, iRow, iCol, iSize ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_Redraw(%p,%d,%d,%d)", ( void * ) pGT, iRow, iCol, iSize ) );
 
    if( s_ioBase )
    {
@@ -2783,7 +2777,7 @@ static void hb_gt_crs_Redraw( PHB_GT pGT, int iRow, int iCol, int iSize )
 
 static void hb_gt_crs_Refresh( PHB_GT pGT )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_Refresh(%p)", pGT ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_Refresh(%p)", ( void * ) pGT ) );
 
    HB_GTSUPER_REFRESH( pGT );
    if( s_ioBase )
@@ -2802,7 +2796,7 @@ static void hb_gt_crs_Refresh( PHB_GT pGT )
 
 static HB_BOOL hb_gt_FuncInit( PHB_GT_FUNCS pFuncTable )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_FuncInit(%p)", pFuncTable ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_FuncInit(%p)", ( void * ) pFuncTable ) );
 
    pFuncTable->Init                       = hb_gt_crs_Init;
    pFuncTable->Exit                       = hb_gt_crs_Exit;

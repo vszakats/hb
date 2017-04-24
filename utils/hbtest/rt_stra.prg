@@ -44,11 +44,6 @@
  *
  */
 
-#include "rt_main.ch"
-
-/* Don't change the position of this #include. */
-#include "rt_vars.ch"
-
 PROCEDURE Main_STRA()
 
    /* Str() */
@@ -557,6 +552,3 @@ PROCEDURE Long_STRINGS()
    HBTEST ( "1234567890" + Space( 810910 ) ) - ( "1234567890" + Space( 810910 ) ) IS "12345678901234567890" + Space( 810910 * 2 )
 
    RETURN
-
-/* Don't change the position of this #include. */
-#include "rt_init.ch"

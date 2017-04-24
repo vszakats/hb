@@ -71,7 +71,7 @@
       /*
        * The macro: __USE_LARGEFILE64 is set when _LARGEFILE64_SOURCE is
        * defined and effectively enables lseek64/flock64/ftruncate64 functions
-       * on 32bit machines.
+       * on 32-bit machines.
        */
       #define HB_USE_LARGEFILE64
    #elif defined( HB_OS_UNIX ) && defined( O_LARGEFILE )
@@ -355,7 +355,8 @@ static HB_BOOL s_fileExists( PHB_FILE_FUNCS pFuncs, const char * pszFileName, ch
 {
    HB_SYMBOL_UNUSED( pFuncs );
 
-   return pRetPath ? hb_spFileExists( pszFileName, pRetPath ) : hb_fsFileExists( pszFileName );
+   return pRetPath ? hb_spFileExists( pszFileName, pRetPath ) :
+                     hb_fsFileExists( pszFileName );
 }
 
 static HB_BOOL s_fileDelete( PHB_FILE_FUNCS pFuncs, const char * pszFileName )
@@ -372,11 +373,11 @@ static HB_BOOL s_fileRename( PHB_FILE_FUNCS pFuncs, const char * pszName, const 
    return hb_fsRename( pszName, pszNewName );
 }
 
-static HB_BOOL s_fileCopy( PHB_FILE_FUNCS pFuncs, const char * pSrcFile, const char * pszDstFile )
+static HB_BOOL s_fileCopy( PHB_FILE_FUNCS pFuncs, const char * pszSrcFile, const char * pszDstFile )
 {
    HB_SYMBOL_UNUSED( pFuncs );
 
-   return hb_fsCopy( pSrcFile, pszDstFile );
+   return hb_fsCopy( pszSrcFile, pszDstFile );
 }
 
 static HB_BOOL s_fileDirExists( PHB_FILE_FUNCS pFuncs, const char * pszDirName )
@@ -495,8 +496,8 @@ static PHB_FILE s_fileExtOpen( PHB_FILE_FUNCS pFuncs, const char * pszFileName, 
    {
       if( iMode == FO_WRITE && fShared )
       {
-         if( access( ( char * ) pszFile, R_OK ) == 0 ||
-             access( ( char * ) pszFile, F_OK ) != 0 )
+         if( access( pszFile, R_OK ) == 0 ||
+             access( pszFile, F_OK ) != 0 )
          {
             nExFlags = ( nExFlags ^ FO_WRITE ) | FO_READWRITE;
             iMode = FO_READWRITE;
@@ -515,9 +516,9 @@ static PHB_FILE s_fileExtOpen( PHB_FILE_FUNCS pFuncs, const char * pszFileName, 
    hb_threadEnterCriticalSection( &s_fileMtx );
 
 #  if defined( HB_USE_LARGEFILE64 )
-   fResult = stat64( ( char * ) pszFile, &statbuf ) == 0;
+   fResult = stat64( pszFile, &statbuf ) == 0;
 #  else
-   fResult = stat( ( char * ) pszFile, &statbuf ) == 0;
+   fResult = stat( pszFile, &statbuf ) == 0;
 #  endif
    hb_fsSetIOError( fResult, 0 );
 
@@ -621,7 +622,7 @@ static PHB_FILE s_fileExtOpen( PHB_FILE_FUNCS pFuncs, const char * pszFileName, 
                   hb_fsClose( hFile );
                   hFile = FS_ERROR;
 #if defined( HB_USE_SHARELOCKS ) && ! defined( HB_USE_BSDLOCKS )
-                  /* TOFIX: possible race condition */
+                  /* FIXME: possible race condition */
                   hb_fsLockLarge( pFile->hFile, HB_SHARELOCK_POS, HB_SHARELOCK_SIZE,
                                   FL_LOCK | FLX_SHARED );
 #endif
@@ -636,7 +637,7 @@ static PHB_FILE s_fileExtOpen( PHB_FILE_FUNCS pFuncs, const char * pszFileName, 
                }
                if( hFile != FS_ERROR )
                {
-                  /* TOFIX: possible race condition in MT mode,
+                  /* FIXME: possible race condition in MT mode,
                    *        close() is not safe due to existing locks
                    *        which are removed.
                    */
@@ -1155,7 +1156,8 @@ HB_BOOL hb_fileExists( const char * pszFileName, char * pRetPath )
    if( i >= 0 )
       return s_pFileTypes[ i ]->Exists( s_pFileTypes[ i ], pszFileName, pRetPath );
 
-   return pRetPath ? hb_spFileExists( pszFileName, pRetPath ) : hb_fsFileExists( pszFileName );
+   return pRetPath ? hb_spFileExists( pszFileName, pRetPath ) :
+                     hb_fsFileExists( pszFileName );
 }
 
 HB_BOOL hb_fileDelete( const char * pszFileName )
@@ -1178,14 +1180,31 @@ HB_BOOL hb_fileRename( const char * pszFileName, const char * pszNewName )
    return hb_fsRename( pszFileName, pszNewName );
 }
 
-HB_BOOL hb_fileCopy( const char * pSrcFile, const char * pszDstFile )
+HB_BOOL hb_fileCopy( const char * pszSrcFile, const char * pszDstFile )
 {
-   int i = s_fileFindDrv( pSrcFile );
+   int i = s_fileFindDrv( pszSrcFile );
 
    if( i >= 0 )
-      return s_pFileTypes[ i ]->Copy( s_pFileTypes[ i ], pSrcFile, pszDstFile );
+      return s_pFileTypes[ i ]->Copy( s_pFileTypes[ i ], pszSrcFile, pszDstFile );
 
-   return hb_fsCopy( pSrcFile, pszDstFile );
+   return hb_fsCopy( pszSrcFile, pszDstFile );
+}
+
+HB_BOOL hb_fileMove( const char * pszSrcFile, const char * pszDstFile )
+{
+   int iS = s_fileFindDrv( pszSrcFile ),
+       iD = s_fileFindDrv( pszDstFile );
+
+   if( iS == iD )
+   {
+      if( iS >= 0 ?
+          s_pFileTypes[ iS ]->Rename( s_pFileTypes[ iS ], pszSrcFile, pszDstFile ) :
+          hb_fsRename( pszSrcFile, pszDstFile ) )
+         return HB_TRUE;
+   }
+
+   return hb_fsCopy( pszSrcFile, pszDstFile ) &&
+          hb_fileDelete( pszSrcFile );
 }
 
 HB_BOOL hb_fileDirExists( const char * pszDirName )
@@ -1552,7 +1571,7 @@ HB_BYTE * hb_fileLoadData( PHB_FILE pFile, HB_SIZE nMaxSize,
    HB_FOFFSET nFileSize = hb_fileSize( pFile );
 
    if( nFileSize == FS_ERROR ||
-       ( nFileSize == 0 && hb_fsError() == HB_FILE_ERR_UNSUPPORTED ) )
+       ( nFileSize == 0 && hb_fsError() != 0 ) )
    {
       for( nBufSize = 0;; )
       {

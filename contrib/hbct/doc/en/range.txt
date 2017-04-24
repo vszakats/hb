@@ -6,7 +6,7 @@
    $ONELINER$
       Remove characters within a certain ASCII range from a string
    $SYNTAX$
-      RangeRem( <cChar1|nChar1>, <cChar2|nChar2>, <cString> ) -> cString
+      RangeRem( <cChar1|nChar1>, <cChar2|nChar2>, <cString> ) --> cString
    $ARGUMENTS$
 
    $RETURNS$
@@ -19,9 +19,9 @@
                                              // and from Chr( 0 ) to "0"
       ? RangeRem( "0", "9", "yearcurr.dbf" ) // "yearcurr.dbf", test leaving string untouched
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      RangeRem() is compatible with CT3's RangeRem().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -40,7 +40,7 @@
       Replace characters within a certain ASCII range from a string
    $SYNTAX$
       RangeRepl( <cChar1|nChar1>, <cChar2|nChar2>,
-                 <[@]cString>, <cReplacementChar|nReplacementChar> ) -> cString
+                 <[@]cString>, <cReplacementChar|nReplacementChar> ) --> cString
    $ARGUMENTS$
 
    $RETURNS$
@@ -53,9 +53,9 @@
                                                    // and from Chr( 0 ) to "0"
       ? RangeRepl( "0", "9", "yearcurr.dbf", "?" ) // "yearcurr.dbf", test leaving string untouched
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      RangeRepl() is compatible with CT3's RangeRepl().
+      C
    $PLATFORMS$
       All
    $FILES$

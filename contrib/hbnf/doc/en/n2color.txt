@@ -6,7 +6,7 @@
    $ONELINER$
       Returns the string complement of a Clipper color number
    $SYNTAX$
-      ft_Color2N( <nColor> ) -> cColor
+      ft_Color2N( <nColor> ) --> cColor
    $ARGUMENTS$
       <nColor> a number representing a Clipper color
    $RETURNS$

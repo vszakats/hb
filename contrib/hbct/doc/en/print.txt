@@ -6,7 +6,7 @@
    $ONELINER$
 
    $SYNTAX$
-      PrintStat( [<nPrinter>] ) -> nState
+      PrintStat( [<nPrinter>] ) --> nState
    $ARGUMENTS$
 
    $RETURNS$
@@ -16,9 +16,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-
+      C
    $PLATFORMS$
       DOS
    $FILES$
@@ -36,7 +36,7 @@
    $ONELINER$
 
    $SYNTAX$
-      PrintReady( [<nPrinter>] ) -> lPrinterReady
+      PrintReady( [<nPrinter>] ) --> lPrinterReady
    $ARGUMENTS$
 
    $RETURNS$
@@ -46,9 +46,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-
+      C
    $PLATFORMS$
       DOS
    $FILES$

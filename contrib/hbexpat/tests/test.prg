@@ -2,6 +2,8 @@
 
 #require "hbexpat"
 
+#include "simpleio.ch"
+
 REQUEST HB_CODEPAGE_UTF8EX
 
 PROCEDURE Main( cFileName )

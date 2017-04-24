@@ -84,7 +84,7 @@
 
 #define HB_GT_NAME  WVW
 
-static PWVW_GLO s_wvw          = NULL; /* TOFIX: MT compatibility */
+static PWVW_GLO s_wvw          = NULL; /* FIXME: MT compatibility */
 static HB_BOOL  s_fInit        = HB_FALSE;
 static HB_BOOL  s_fIsReady     = HB_FALSE;
 static HB_BOOL  s_fSizeIsReady = HB_FALSE;
@@ -803,8 +803,8 @@ static void hb_gt_wvw_usBox( PHB_GT pGT, PWVW_WIN wvw_win, int iTop, int iLeft, 
             szBoxW[ i ] = ' ';
       }
 #else
-      BYTE szBoxW[ 10 ];                                             /* TOFIX */
-      BYTE bPadCh = ( BYTE ) HB_GTSELF_GETCLEARCHAR( hb_gt_Base() ); /* TOFIX */
+      BYTE szBoxW[ 10 ];                                             /* FIXME */
+      BYTE bPadCh = ( BYTE ) HB_GTSELF_GETCLEARCHAR( hb_gt_Base() ); /* FIXME */
 
       i = 0;
 
@@ -1098,7 +1098,7 @@ static void hb_gt_wvw_mouse_SetPos( PHB_GT pGT, int iRow, int iCol )
 
 static void hb_gt_wvw_mouse_GetPos( PHB_GT pGT, int * piRow, int * piCol )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvw_mouse_GetPos(%p,%p,%p)", pGT, piRow, piCol ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvw_mouse_GetPos(%p,%p,%p)", ( void * ) pGT, piRow, piCol ) );
 
    *piRow = hb_gt_wvw_mouse_Row( pGT );
    *piCol = hb_gt_wvw_mouse_Col( pGT );
@@ -1106,7 +1106,7 @@ static void hb_gt_wvw_mouse_GetPos( PHB_GT pGT, int * piRow, int * piCol )
 
 static HB_BOOL hb_gt_wvw_mouse_ButtonState( PHB_GT pGT, int iButton )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvw_mouse_ButtonState(%p,%i)", pGT, iButton ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvw_mouse_ButtonState(%p,%i)", ( void * ) pGT, iButton ) );
 
    HB_SYMBOL_UNUSED( pGT );
 
@@ -1139,7 +1139,7 @@ static HB_BOOL hb_gt_wvw_Info( PHB_GT pGT, int iType, PHB_GT_INFO pInfo )
    PWVW_WIN wvw_win = s_wvw->pWin[ s_wvw->iCurWindow ];
    int      iVal;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvw_Info(%p,%d,%p)", pGT, iType, pInfo ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvw_Info(%p,%d,%p)", ( void * ) pGT, iType, pInfo ) );
 
    switch( iType )
    {
@@ -3151,7 +3151,6 @@ static LRESULT CALLBACK hb_gt_wvwWndProc( HWND hWnd, UINT message, WPARAM wParam
             reject if not accepting input (topmost window not on focus) */
          if( ! hb_gt_wvw_AcceptingInput() )
          {
-
             hb_gt_wvwInputNotAllowed( nWin, message, wParam, lParam );
 
             return 0;
@@ -3251,7 +3250,7 @@ static LRESULT CALLBACK hb_gt_wvwWndProc( HWND hWnd, UINT message, WPARAM wParam
             }
             return 0;
          }
-      /* TOFIX: break or return? */
+      /* FIXME: break or return? */
 
       case WM_MOVE:
 
@@ -3269,7 +3268,7 @@ static LRESULT CALLBACK hb_gt_wvwWndProc( HWND hWnd, UINT message, WPARAM wParam
             }
             return 0;
          }
-      /* TOFIX: break or return? */
+      /* FIXME: break or return? */
 
       case WM_CTLCOLORSTATIC:
       case WM_CTLCOLOREDIT:
@@ -3288,7 +3287,7 @@ static LRESULT CALLBACK hb_gt_wvwWndProc( HWND hWnd, UINT message, WPARAM wParam
             if( res != -1 )
                return res;
          }
-         /* TOFIX: break or return? */
+         /* FIXME: break or return? */
       }
       case WM_SYSCOMMAND: /* handle system menu items */  /*SP-ADDED*/
          if( s_wvw->iNumWindows != nWin + 1 )
@@ -3307,7 +3306,7 @@ static LRESULT CALLBACK hb_gt_wvwWndProc( HWND hWnd, UINT message, WPARAM wParam
                   hb_gt_wvwHandleMenuSelection( ( int ) LOWORD( wParam ) );
             }
          }
-      /* TOFIX: break or return? */
+      /* FIXME: break or return? */
 
       case WM_DRAWITEM:
 
@@ -3342,7 +3341,7 @@ static LRESULT CALLBACK hb_gt_wvwWndProc( HWND hWnd, UINT message, WPARAM wParam
 
             return 0;
          }
-         /* TOFIX: break or return? */
+         /* FIXME: break or return? */
    }
    return DefWindowProc( hWnd, message, wParam, lParam );
 }
@@ -4444,7 +4443,7 @@ int hb_gt_wvw_OpenWindow( LPCTSTR szWinName, int iRow1, int iCol1, int iRow2, in
       SetTimer( hWnd, WVW_ID_SYSTEM_TIMER, ( UINT ) s_wvw->iPaintRefresh, NULL );
 
    /* If you wish to show window the way you want, put somewhere in your application
-    * ANNOUNCE HB_NOSTARTUPWINDOW [TOFIX: delete this hack]
+    * ANNOUNCE HB_NOSTARTUPWINDOW [FIXME: delete this hack]
     * If so compiled, then you need to issue wvw_ShowWindow( nWinNum, SW_RESTORE )
     * at the point you desire in your code.
     */
@@ -4981,7 +4980,7 @@ static HB_BOOL hb_gt_wvw_PutChar( PHB_GT pGT, int iRow, int iCol, int iColor, HB
 
    HB_SYMBOL_UNUSED( pGT );
 
-   /* TOFIX: missing hb_gt_wvw_SetInvalidRect() call. Though it should
+   /* FIXME: missing hb_gt_wvw_SetInvalidRect() call. Though it should
              be resolved differently to avoid a heavy performance hit. */
    return hb_gt_wvw_vPutChar( wvw_win, iRow, iCol, iColor, bAttr, usChar );
 }
@@ -5437,7 +5436,7 @@ COLORREF hb_gt_wvw_GetColorData( int iIndex )
 /* NOTE: are these workable in MULTI_GT ? */
 static HB_BOOL hb_gt_FuncInit( PHB_GT_FUNCS pFuncTable )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gtFnInit( %p)", pFuncTable ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gtFnInit( %p)", ( void * ) pFuncTable ) );
 
    pFuncTable->Init             = hb_gt_wvw_Init;
    pFuncTable->Exit             = hb_gt_wvw_Exit;

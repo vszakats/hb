@@ -8,8 +8,8 @@ ifeq ($(HB_BUILD_PARTS),compiler)
       common \
       nortl \
       pp{common,nortl} \
-      compiler \
-      main{pp,compiler} \
+      compiler{pp} \
+      main{compiler} \
 
 else
 
@@ -86,9 +86,9 @@ else
    ifeq ($(HB_BUILD_PARTS),lib)
       HB_COMP_DIR :=
       HB_COMP_REF :=
-      HB_COMP_RF2 := {pp}
+      HB_COMP_RF2 := {compiler}
    else
-      HB_COMP_DIR := main{pp,compiler}
+      HB_COMP_DIR := main{compiler}
       HB_COMP_REF := {main}
       HB_COMP_RF2 := {main}
    endif
@@ -98,7 +98,7 @@ else
       common \
       nortl \
       pp{common,nortl} \
-      compiler \
+      compiler{pp} \
       $(HB_COMP_DIR) \
       vm$(HB_COMP_RF2) \
       rtl$(HB_COMP_REF) \

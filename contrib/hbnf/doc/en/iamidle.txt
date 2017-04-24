@@ -6,7 +6,7 @@
    $ONELINER$
       Inform the operating system that the application is idle.
    $SYNTAX$
-      ft_IAmIdle() -> lSuccess
+      ft_IAmIdle() --> lSuccess
    $ARGUMENTS$
       None
    $RETURNS$

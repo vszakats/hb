@@ -1,6 +1,7 @@
 #require "rddsql"
 #require "sddodbc"
 
+#include "dbinfo.ch"
 #include "simpleio.ch"
 
 REQUEST SDDODBC, SQLMIX

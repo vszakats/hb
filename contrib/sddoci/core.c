@@ -57,7 +57,12 @@
 
 #include "ocilib.h"
 
-#define HB_OCILIB_VERS( ma, mi, mu )  ( OCILIB_MAJOR_VERSION > ma || ( OCILIB_MAJOR_VERSION == ma && ( OCILIB_MINOR_VERSION > mi || ( OCILIB_MINOR_VERSION == mi && OCILIB_REVISION_VERSION >= mu ) ) ) )
+#define HB_OCILIB_VERS( ma, mi, mu )  \
+   ( OCILIB_MAJOR_VERSION > ma || \
+   ( OCILIB_MAJOR_VERSION == ma && \
+   ( OCILIB_MINOR_VERSION > mi || \
+   ( OCILIB_MINOR_VERSION == mi && \
+     OCILIB_REVISION_VERSION >= mu ) ) ) )
 
 #define M_HB_ARRAYGETSTR( arr, n, phstr, plen )  ( s_fOCI_CharsetMetaDataUni ? \
                                                  ( const mtext * ) hb_arrayGetStrU16( arr, n, HB_CDP_ENDIAN_NATIVE, phstr, plen ) : \

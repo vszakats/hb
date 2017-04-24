@@ -112,7 +112,7 @@ PROCEDURE Main( cArg01, cArg02, cArg03, cArg04 )
 
    s_lCallBackStack := "CALLBACKSTACK" $ Upper( cCommandLine )
    s_lRTEDetails := "RTEDETAILS" $ Upper( cCommandLine )
-   s_lObjectDump := !( "NODUMP" $ Upper( cCommandLine ) )
+   s_lObjectDump := ! "NODUMP" $ Upper( cCommandLine )
 
    //
 
@@ -836,7 +836,7 @@ STATIC PROCEDURE TGetTOVS( o, aKeys, lInsert )
 
    LOCAL tmp, tmp1
 
-   IF !( ValType( lInsert ) == "L" )
+   IF ! ValType( lInsert ) == "L"
       lInsert := .F.
    ENDIF
 

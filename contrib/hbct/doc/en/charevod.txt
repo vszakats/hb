@@ -18,15 +18,15 @@
    $EXAMPLES$
       ? CharEven( " H E L L O !" ) // -> "HELLO!"
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      CharEven() is compatible with CT3's CharEven().
+      C
    $PLATFORMS$
       All
    $FILES$
       Library is hbct.
    $SEEALSO$
-      CharOdd()  CharMix()
+      CharOdd(), CharMix()
    $END$
  */
 
@@ -50,14 +50,14 @@
    $EXAMPLES$
       ? CharOdd( "H E L L O ! " ) // -> "HELLO!"
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      CharOdd() is compatible with CT3's CharOdd().
+      C
    $PLATFORMS$
       All
    $FILES$
       Library is hbct.
    $SEEALSO$
-      CharEven()  CharMix()
+      CharEven(), CharMix()
    $END$
  */

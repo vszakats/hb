@@ -857,7 +857,7 @@ HB_BOOL hb_threadJoin( HB_THREAD_HANDLE th_h )
    return HB_FALSE;
 #elif defined( HB_OS_OS2 )
    APIRET rc = DosWaitThread( &th_h, DCWW_WAIT );
-   /* TOFIX: ERROR_INVALID_THREADID is a hack for failing DosWaitThread()
+   /* FIXME: ERROR_INVALID_THREADID is a hack for failing DosWaitThread()
     *        when thread terminates before DosWaitThread() call.
     *        OS2 users please check and fix this code if possible.
     */
@@ -987,21 +987,26 @@ HB_CARGO_FUNC( hb_threadStartVM )
    {
       PHB_ITEM pStart = hb_arrayGetItemPtr( pThread->pParams, 1 );
 
-      if( HB_IS_BLOCK( pStart ) )
+      if( pStart )
       {
-         hb_vmPushEvalSym();
-         hb_vmPush( pStart );
-         fSend = HB_TRUE;
-      }
-      else if( HB_IS_SYMBOL( pStart ) )
-      {
-         hb_vmPush( pStart );
-         hb_vmPushNil();
-      }
-      else if( HB_IS_STRING( pStart ) )
-      {
-         hb_vmPushDynSym( hb_dynsymGet( hb_itemGetCPtr( pStart ) ) );
-         hb_vmPushNil();
+         if( HB_IS_BLOCK( pStart ) )
+         {
+            hb_vmPushEvalSym();
+            hb_vmPush( pStart );
+            fSend = HB_TRUE;
+         }
+         else if( HB_IS_SYMBOL( pStart ) )
+         {
+            hb_vmPush( pStart );
+            hb_vmPushNil();
+         }
+         else if( HB_IS_STRING( pStart ) )
+         {
+            hb_vmPushDynSym( hb_dynsymGet( hb_itemGetCPtr( pStart ) ) );
+            hb_vmPushNil();
+         }
+         else
+            ulPCount = 0;
       }
       else
          ulPCount = 0;
@@ -1123,7 +1128,7 @@ PHB_THREADSTATE hb_threadStateClone( HB_ULONG ulAttr, PHB_ITEM pParams )
          for( nParam = 1; nParam <= nPCount; ++nParam )
          {
             PHB_ITEM pParam = hb_arrayGetItemPtr( pParams, nParam );
-            if( HB_IS_BYREF( pParam ) )
+            if( pParam && HB_IS_BYREF( pParam ) )
                hb_memvarDetachLocal( pParam );
          }
       }
@@ -1245,7 +1250,7 @@ HB_FUNC( HB_THREADSTART )
       else
       {
          PHB_ITEM pParam = hb_arrayGetItemPtr( pParams, 1 );
-         if( HB_IS_BYREF( pParam ) )
+         if( pParam && HB_IS_BYREF( pParam ) )
             hb_itemCopy( pParam, hb_itemUnRef( pParam ) );
       }
 
@@ -1336,7 +1341,7 @@ static int hb_threadWait( PHB_THREADSTATE * pThreads, int iThreads,
    HB_MAXUINT timer;
 
    if( ulMilliSec != HB_THREAD_INFINITE_WAIT )
-      timer = hb_dateMilliSeconds() + ulMilliSec;
+      timer = hb_timerGet() + ulMilliSec;
    else
       timer = 0;
 #endif
@@ -1391,7 +1396,7 @@ static int hb_threadWait( PHB_THREADSTATE * pThreads, int iThreads,
 #  endif
       if( ! fExit && timer )
       {
-         HB_MAXUINT curr = hb_dateMilliSeconds();
+         HB_MAXUINT curr = hb_timerGet();
          if( timer <= curr )
             fExit = HB_TRUE;
          else

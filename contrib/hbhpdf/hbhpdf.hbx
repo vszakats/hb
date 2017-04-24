@@ -144,7 +144,6 @@ DYNAMIC HPDF_Page_CreateSquigglyAnnot
 DYNAMIC HPDF_Page_CreateStampAnnot
 DYNAMIC HPDF_Page_CreateStrikeOutAnnot
 DYNAMIC HPDF_Page_CreateTextAnnot
-DYNAMIC HPDF_Page_CreateTextMarkupAnnot
 DYNAMIC HPDF_Page_CreateUnderlineAnnot
 DYNAMIC HPDF_Page_CreateURILinkAnnot
 DYNAMIC HPDF_Page_CurveTo

@@ -6,7 +6,7 @@
    $ONELINER$
 
    $SYNTAX$
-      KSetIns( [<lNewSwitch>] ) -> lOldSwitch
+      KSetIns( [<lNewSwitch>] ) --> lOldSwitch
    $ARGUMENTS$
 
    $RETURNS$
@@ -16,9 +16,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-
+      C
    $PLATFORMS$
       DOS
    $FILES$
@@ -36,7 +36,7 @@
    $ONELINER$
 
    $SYNTAX$
-      KSetCaps( [<lNewSwitch>] ) -> lOldSwitch
+      KSetCaps( [<lNewSwitch>] ) --> lOldSwitch
    $ARGUMENTS$
 
    $RETURNS$
@@ -46,9 +46,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-
+      C
    $PLATFORMS$
       DOS
    $FILES$
@@ -66,7 +66,7 @@
    $ONELINER$
 
    $SYNTAX$
-      KSetNum( [<lNewSwitch>] ) -> lOldSwitch
+      KSetNum( [<lNewSwitch>] ) --> lOldSwitch
    $ARGUMENTS$
 
    $RETURNS$
@@ -76,9 +76,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-
+      C
    $PLATFORMS$
       DOS
    $FILES$
@@ -96,7 +96,7 @@
    $ONELINER$
 
    $SYNTAX$
-      KSetScroll( [<lNewSwitch>] ) -> lOldSwitch
+      KSetScroll( [<lNewSwitch>] ) --> lOldSwitch
    $ARGUMENTS$
 
    $RETURNS$
@@ -106,9 +106,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-
+      C
    $PLATFORMS$
       DOS
    $FILES$

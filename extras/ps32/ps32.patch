@@ -1,0 +1,53 @@
+diff -u ps32ori/pstest.prg ps32pat/pstest.prg
+--- ps32ori/pstest.prg	2007-04-03 11:13:16.000000000 +0000
++++ ps32pat/pstest.prg	2017-04-05 17:14:21.000000000 +0000
+@@ -18,7 +18,7 @@
+ // by an AbeeLabs Systems Inc. representative shall create a warranty or in any
+ // way increase the scope of this warranty.
+ 
+-#include "..\include\PSCRIPT.CH"
++#include "pscript.ch"
+ 
+ #define dbINV_MASTER 1
+ #define dbINV_DETAIL 2
+diff -u ps32ori/tpscript.prg ps32pat/tpscript.prg
+--- ps32ori/tpscript.prg	2012-05-03 05:42:04.000000000 +0000
++++ ps32pat/tpscript.prg	2017-04-05 17:14:42.000000000 +0000
+@@ -37,15 +37,15 @@
+ if you change the coordinate system to APS_LEFTTOP then you would use the following
+ coordinates : PSFrameEx(nLeft, nTop, nRight, nBottom, ...)
+ ------------------------------------------------------------------------------*/
+-#include "PScript.ch"
+-#include "FileIO.ch"
++#include "pscript.ch"
++#include "fileio.ch"
+ 
+-#ifdef __XHARBOUR__
++#ifdef __HARBOUR__
+    // 02.06.2005 - IBTC - changed for xHarbour Builder:
+    #xtranslate Method <Classname>:<x> => Method <x>
+-   #define DLL_STDCALL NIL
+ 
+    #include "hbclass.ch"
++   #include "dll.ch"
+ #else
+    #include "Xbp.ch"
+    #include "Dll.ch"
+@@ -255,7 +255,7 @@
+ 
+ ::hDll        := DllLoad("PScript.dll") // Handle of the .DLL
+ 
+-if ::hDll == 0
++if Empty( ::hDll )
+    ::nError := PSE_DLLNOTLOADED        // DLL not loaded error
+ else
+    ::nError := DllCall(::hDll, DLL_STDCALL, "PSInit")
+@@ -3268,6 +3268,8 @@
+    lValue := oPScript:IsPreviewVisible()
+ endif
+ 
++Return lValue
++
+ /*-----------------------------------------------------------------------------
+ Function ...: PSLine(<n>, <n>, <n>, <n>, [<n>, <n>]) -> NIL
+ Description : Draw a line

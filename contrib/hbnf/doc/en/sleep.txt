@@ -6,7 +6,7 @@
    $ONELINER$
       Wait for a specified amount of time
    $SYNTAX$
-      ft_Sleep( <nSeconds>, [<nInitial>] ) -> nil
+      ft_Sleep( <nSeconds>, [<nInitial>] ) --> NIL
    $ARGUMENTS$
       <nSeconds> is the number of seconds to pause
 
@@ -35,12 +35,12 @@
       // Example 1:
       ft_Sleep( 10.0 )     // Sleep for 10.0 seconds
       // Example 2:
-      nTime := Seconds()   // usually after some interupt from mouse or
+      nTime := Seconds()   // usually after some interrupt from mouse or
                            // keyboard
 
       // ... intervening code ...
 
-      // ft_Sleep( 0.5, nTime ) // Sleep until the sytem clock is
-                                // nTime+0.5 seconds.
+      // ft_Sleep( 0.5, nTime ) // Sleep until the system clock is
+                                // nTime + 0.5 seconds.
    $END$
  */

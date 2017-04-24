@@ -60,15 +60,26 @@ HB_FUNC( RAND_ADD )
    RAND_add( hb_parcx( 1 ), ( int ) hb_parclen( 1 ), hb_parnd( 2 ) );
 }
 
+HB_FUNC( RAND_POLL )
+{
+   RAND_poll();
+}
+
 HB_FUNC( RAND_STATUS )
 {
    hb_retni( RAND_status() );
 }
 
+#if defined( HB_LEGACY_LEVEL5 )
 HB_FUNC( RAND_EVENT )
 {
 #if defined( HB_OS_WIN ) && ! defined( __CYGWIN__ )
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+   RAND_poll();
+   hb_retni( RAND_status() );
+#else
    hb_retni( RAND_event( hb_parni( 1 ), ( WPARAM ) hb_parnint( 2 ), ( LPARAM ) hb_parnint( 3 ) ) );
+#endif
 #else
    hb_retni( 1 );
 #endif
@@ -77,6 +88,11 @@ HB_FUNC( RAND_EVENT )
 HB_FUNC( RAND_SCREEN )
 {
 #if defined( HB_OS_WIN ) && ! defined( __CYGWIN__ )
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+   RAND_poll()
+#else
    RAND_screen();
 #endif
+#endif
 }
+#endif

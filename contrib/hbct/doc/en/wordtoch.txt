@@ -7,7 +7,7 @@
       Replace double with single characters
    $SYNTAX$
       WordToChar( <cDoubleCharacterSearchString>, <cString>,
-                  <cSingleCharacterReplaceString> ) -> cString
+                  <cSingleCharacterReplaceString> ) --> cString
    $ARGUMENTS$
 
    $RETURNS$
@@ -17,9 +17,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      WordToChar() is compatible with CT3's WordToChar().
+      C
    $PLATFORMS$
       All
    $FILES$

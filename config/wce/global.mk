@@ -10,4 +10,4 @@ HB_RCFLAGS += -DUNDER_CE
 
 HB_GT_LIBS += gtwvt gtgui
 
-SYSLIBS += coredll ws2 iphlpapi
+SYSLIBS += coredll ws2 iphlpapi winmm

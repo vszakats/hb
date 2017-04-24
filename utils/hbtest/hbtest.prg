@@ -1,7 +1,7 @@
 /*
  * Regression tests for the runtime library (main)
  *
- * Copyright 1999-2016 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 1999-2017 Viktor Szakats (vszakats.net/harbour)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -62,13 +62,83 @@
 /* TODO: Tests with MEMO type ? */
 /* TODO: Tests with Log( 0 ) type of invalid values */
 
-#include "rt_main.ch"
+#translate HBTEST <x> IS <result,...> => TEST_CALL( #<x>, {|| <x> }, <result> )
+
+#ifndef __HARBOUR__
+   #ifndef __XPP__
+      #ifndef __CLIP__
+         #ifndef FlagShip
+            #ifndef __VO__ /* QUESTION: is this the correct constant ? */
+               #define __CLIPPER__
+            #endif
+         #endif
+      #endif
+   #endif
+#endif
+
+#ifdef __HARBOUR__
+   #pragma linenumber=on
+#else
+   #define HB_CLP_STRICT
+#endif
 
 #include "error.ch"
 #include "fileio.ch"
 
-/* Don't change the position of this #include. */
-#include "rt_vars.ch"
+MEMVAR mxNotHere /* Please don't declare this variable, since it's used to test undeclared MEMVAR situations. */
+MEMVAR mcLongerNameThen10Chars
+MEMVAR mcString
+MEMVAR mcStringE
+MEMVAR mcStringZ
+MEMVAR mcStringW
+MEMVAR mnIntZ
+MEMVAR mnDoubleZ
+MEMVAR mnIntP
+MEMVAR mnLongP
+MEMVAR mnDoubleP
+MEMVAR mnDoubleI
+MEMVAR mnIntN
+MEMVAR mnLongN
+MEMVAR mnDoubleN
+MEMVAR mdDate
+MEMVAR mdDateE
+MEMVAR mlFalse
+MEMVAR mlTrue
+MEMVAR moObject
+MEMVAR muNIL
+MEMVAR mbBlock
+MEMVAR mbBlockC
+MEMVAR maArray
+
+/* Harbour-only */
+MEMVAR objHolder
+MEMVAR cDtorResult
+
+STATIC scString
+STATIC scStringM
+STATIC scStringE
+STATIC scStringZ
+STATIC scStringW
+STATIC snIntZ
+STATIC snDoubleZ
+STATIC snIntP
+STATIC snIntP1
+STATIC snLongP
+STATIC snDoubleP
+STATIC snIntN
+STATIC snLongN
+STATIC snDoubleN
+STATIC snDoubleI
+STATIC sdDate
+STATIC sdDateE
+STATIC slFalse
+STATIC slTrue
+STATIC soObject
+STATIC suNIL
+STATIC sbBlock
+STATIC sbBlockC
+STATIC saArray
+STATIC saAllTypes
 
 #ifndef __HARBOUR__
    #xtranslate hb_eol() => ( Chr( 13 ) + Chr( 10 ) )
@@ -85,6 +155,7 @@ STATIC s_nFail
 STATIC s_nFhnd
 STATIC s_nCount
 STATIC s_lShowAll
+STATIC s_lShowAltResult
 STATIC s_lShortcut
 STATIC s_aSkipList
 STATIC s_nStartTime
@@ -102,7 +173,7 @@ STATIC s_lNoEnv
 PROCEDURE Main( cPar1, cPar2, cPar3 )
 
    OutStd( "Harbour Compatibility and Regression Test Suite" + hb_eol() + ;
-           "Copyright (c) 1999-2016, Viktor Szakats" + hb_eol() )
+           "Copyright (c) 1999-present, Viktor Szakats" + hb_eol() )
 
    IF cPar1 == NIL
       cPar1 := ""
@@ -124,12 +195,14 @@ PROCEDURE Main( cPar1, cPar2, cPar3 )
               hb_eol() + ;
               "Options:  -h, -?        Display this help." + hb_eol() + ;
               "          -all          Display all tests, not only the failures." + hb_eol() + ;
+              "          -strict       Test against strict Cl*pper results (default in non-Harbour builds)." + hb_eol() +;
               "          -skip:<list>  Skip the listed test numbers." + hb_eol() )
-
       RETURN
    ENDIF
 
    /* Initialize test */
+
+   RT_InitStatics()
 
    TEST_BEGIN( cPar1 + " " + cPar2 + " " + cPar3 )
 
@@ -140,7 +213,7 @@ PROCEDURE Main( cPar1, cPar2, cPar3 )
    Main_STR()
    Main_STRA()
    Main_TRANS()
-   Main_TRANS2()
+   Main_TRAN2()
    Comp_Str()
    Exact_Str()
    New_STRINGS()
@@ -152,7 +225,7 @@ PROCEDURE Main( cPar1, cPar2, cPar3 )
 #ifdef __XPP__
    Long_STRINGS()
 #endif
-   Main_ARRAY()
+   RT_InitStatics(); Main_ARRAY()
    Main_FILE()
    Main_MISC()
 #ifdef __HARBOUR__
@@ -212,6 +285,11 @@ STATIC PROCEDURE TEST_BEGIN( cParam )
    /* Options */
 
    s_lShowAll := "-all" $ Lower( cParam )
+#ifdef __HARBOUR__
+   s_lShowAltResult := ! "-strict" $ Lower( cParam )
+#else
+   s_lShowAltResult := .F.
+#endif
    s_aSkipList := ListToNArray( CMDLGetValue( Lower( cParam ), "-skip:", "" ) )
    s_lNoEnv := "-noenv" $ Lower( cParam )
 
@@ -328,7 +406,7 @@ STATIC PROCEDURE TEST_BEGIN( cParam )
 FUNCTION TEST_DBFAvail()
    RETURN s_lDBFAvail
 
-PROCEDURE TEST_CALL( cBlock, bBlock, xResultExpected )
+PROCEDURE TEST_CALL( cBlock, bBlock, xResultExpected, xResultAlt )
 
    LOCAL xResult
    LOCAL oError
@@ -368,16 +446,10 @@ PROCEDURE TEST_CALL( cBlock, bBlock, xResultExpected )
 
       ErrorBlock( bOldError )
 
-      IF lRTE
-         lFailed := !( XToStr( xResult ) == XToStr( xResultExpected ) )
-      ELSEIF ValType( xResult ) == ValType( xResultExpected )
-         lFailed := !( xResult == xResultExpected )
-      ELSEIF ValType( xResultExpected ) == "C" .AND. ValType( xResult ) $ "ABMO"
-         lFailed := !( XToStr( xResult ) == xResultExpected )
-      ELSE
-         lFailed := .T.
+      lFailed := ResultCompare( lRTE, xResult, xResultExpected )
+      IF lFailed .AND. s_lShowAltResult .AND. PCount() >= 4
+         lFailed := ResultCompare( lRTE, xResult, xResultAlt )
       ENDIF
-
    ENDIF
 
    IF s_lShowAll .OR. lFailed .OR. lSkipped .OR. lPPError
@@ -452,6 +524,18 @@ STATIC PROCEDURE TEST_END()
    ErrorLevel( iif( s_nFail != 0, 1, 0 ) )
 
    RETURN
+
+FUNCTION ResultCompare( lRTE, xResult, xResultExpected )
+
+   IF lRTE
+      RETURN ! XToStr( xResult ) == XToStr( xResultExpected )
+   ELSEIF ValType( xResult ) == ValType( xResultExpected )
+      RETURN ! xResult == xResultExpected
+   ELSEIF ValType( xResultExpected ) == "C" .AND. ValType( xResult ) $ "ABMO"
+      RETURN ! XToStr( xResult ) == xResultExpected
+   ENDIF
+
+   RETURN .T.
 
 FUNCTION XToStr( xValue )
 
@@ -664,7 +748,7 @@ FUNCTION hb_SToD( cDate )
    RETURN SToD( cDate )
 #endif
 
-#ifdef RT_NO_C
+#ifndef RT_HAS_C
 #ifndef __HARBOUR__
 #ifndef __XPP__
 
@@ -701,5 +785,70 @@ STATIC PROCEDURE OutMsg( hFile, cMsg )
 
    RETURN
 
-/* Don't change the position of this #include. */
-#include "rt_init.ch"
+PROCEDURE RT_InitStatics()
+
+   /* NOTE: Some basic values we may need for some tests.
+            ( passing by reference, avoid preprocessor bugs, etc. ) */
+
+   scString  := "HELLO"
+   scStringM := "Hello"
+   scStringE := ""
+   scStringZ := "A" + Chr( 0 ) + "B"
+   scStringW := Chr( 13 ) + Chr( 10 ) + Chr( 141 ) + Chr( 10 ) + Chr( 9 )
+   snIntZ    := 0
+   snDoubleZ := 0.0
+   snIntP    := 10
+   snIntP1   := 65
+   snLongP   := 100000
+   snDoubleP := 10.567 /* Use different number of decimals than the default */
+   snIntN    := -10
+   snLongN   := -100000
+   snDoubleN := -10.567 /* Use different number of decimals than the default */
+   snDoubleI := 0   // Log( 0 )
+   sdDate    := hb_SToD( "19840325" )
+   sdDateE   := hb_SToD( "" )
+   slFalse   := .F.
+   slTrue    := .T.
+   soObject  := ErrorNew()
+   suNIL     := NIL
+   sbBlock   := {|| NIL }
+   sbBlockC  := {|| "(string)" }
+   saArray   := { 9898 }
+
+   saAllTypes := { ;
+      scString, ;
+      scStringE, ;
+      scStringZ, ;
+      snIntZ, ;
+      snDoubleZ, ;
+      snIntP, ;
+      snLongP, ;
+      snDoubleP, ;
+      snIntN, ;
+      snLongN, ;
+      snDoubleN, ;
+      snDoubleI, ;
+      sdDateE, ;
+      slFalse, ;
+      slTrue, ;
+      soObject, ;
+      suNIL, ;
+      sbBlock, ;
+      sbBlockC, ;
+      saArray }
+
+   RETURN
+
+#include "rt_array.prg"
+#include "rt_date.prg"
+#include "rt_file.prg"
+#include "rt_hvm.prg"
+#include "rt_hvma.prg"
+#include "rt_math.prg"
+#include "rt_misc.prg"
+#include "rt_mt.prg"
+#include "rt_str.prg"
+#include "rt_stra.prg"
+#include "rt_tran2.prg"
+#include "rt_trans.prg"
+#include "rt_class.prg"

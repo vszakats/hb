@@ -24,7 +24,7 @@ ifneq ($(HB_LINKING_RTL),)
    endif
    ifneq ($(HB_HAS_PCRE2),)
       ifeq ($(HB_HAS_PCRE2_LOCAL),)
-         SYSLIBS += pcre2
+         SYSLIBS += pcre2-8
       endif
    else
    ifneq ($(HB_HAS_PCRE),)
@@ -36,11 +36,10 @@ ifneq ($(HB_LINKING_RTL),)
    ifeq ($(HB_HAS_ZLIB_LOCAL),)
       SYSLIBS += z
    endif
-   SYSLIBS += rt
 
    ifneq ($(HB_LINKING_VMMT),)
       SYSLIBS += pthread
    endif
 endif
 
-SYSLIBS += m
+SYSLIBS += m rt

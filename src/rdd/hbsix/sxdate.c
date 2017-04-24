@@ -56,7 +56,7 @@ char * hb_sxDtoP( char * pDate, long lJulian )
    int iYear, iMonth, iDay;
    long lPDate;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_sxDtoP(%p, %ld)", pDate, lJulian ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_sxDtoP(%p, %ld)", ( void * ) pDate, lJulian ) );
 
    hb_dateDecode( lJulian, &iYear, &iMonth, &iDay );
    lPDate = ( ( ( iYear << 1 ) | ( iMonth >> 3 ) ) << 8 ) |
@@ -68,7 +68,7 @@ char * hb_sxDtoP( char * pDate, long lJulian )
 
 long hb_sxPtoD( const char * pDate )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_sxPtoD(%p)", pDate ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_sxPtoD(%p)", ( const void * ) pDate ) );
 
    if( pDate )
    {

@@ -390,20 +390,18 @@ static void fs_win_set_drive( int iDrive )
 
 static HANDLE DosToWinHandle( HB_FHANDLE fHandle )
 {
-   if( fHandle == ( HB_FHANDLE ) FS_ERROR )
-      return NULL;
-
-   else if( fHandle == ( HB_FHANDLE ) HB_STDIN_HANDLE )
-      return GetStdHandle( STD_INPUT_HANDLE );
-
-   else if( fHandle == ( HB_FHANDLE ) HB_STDOUT_HANDLE )
-      return GetStdHandle( STD_OUTPUT_HANDLE );
-
-   else if( fHandle == ( HB_FHANDLE ) HB_STDERR_HANDLE )
-      return GetStdHandle( STD_ERROR_HANDLE );
-
-   else
-      return ( HANDLE ) fHandle;
+   switch( fHandle )
+   {
+      case ( HB_FHANDLE ) FS_ERROR:
+         return NULL;
+      case ( HB_FHANDLE ) HB_STDIN_HANDLE:
+         return GetStdHandle( STD_INPUT_HANDLE );
+      case ( HB_FHANDLE ) HB_STDOUT_HANDLE:
+         return GetStdHandle( STD_OUTPUT_HANDLE );
+      case ( HB_FHANDLE ) HB_STDERR_HANDLE:
+         return GetStdHandle( STD_ERROR_HANDLE );
+   }
+   return ( HANDLE ) fHandle;
 }
 
 static void convert_open_flags( HB_BOOL fCreate, HB_FATTR nAttr, HB_USHORT uiFlags,
@@ -565,7 +563,7 @@ static void convert_open_flags( HB_BOOL fCreate, HB_FATTR nAttr, HB_USHORT uiFla
                                 int * flags, unsigned * mode,
                                 int * share, int * attr )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "convert_open_flags(%d, %u, %hu, %p, %p, %p, %p)", fCreate, nAttr, uiFlags, flags, mode, share, attr ) );
+   HB_TRACE( HB_TR_DEBUG, ( "convert_open_flags(%d, %u, %hu, %p, %p, %p, %p)", fCreate, nAttr, uiFlags, ( void * ) flags, ( void * ) mode, ( void * ) share, ( void * ) attr ) );
 
    /* file access mode */
 #if defined( HB_OS_UNIX )
@@ -698,11 +696,336 @@ HB_FHANDLE hb_fsGetOsHandle( HB_FHANDLE hFileHandle )
 #endif
 }
 
+#if defined( HB_OS_UNIX ) || defined( __DJGPP__ )
+/* for POSIX systems only, hides low level select()/poll() access,
+   intentionally covered by HB_OS_UNIX macro to generate compile time
+   error in code which tries to use it on other platforms */
+
+static int hb_fsCanAccess( HB_FHANDLE hFile, HB_MAXINT nTimeOut, HB_BOOL fRead )
+{
+   int iResult;
+
+   hb_vmUnlock();
+
+#if defined( HB_HAS_POLL )
+{
+   HB_MAXUINT timer = hb_timerInit( nTimeOut );
+   struct pollfd fds;
+   short int events = fRead ? POLLIN : POLLOUT;
+
+   fds.fd = hFile;
+   fds.events = events;
+   fds.revents = 0;
+
+   for( ;; )
+   {
+      HB_BOOL fLast = nTimeOut >= 0 && nTimeOut <= 1000;
+      int tout = fLast ? ( int ) nTimeOut : 1000;
+
+      iResult = poll( &fds, 1, tout );
+      hb_fsSetIOError( iResult >= 0, 0 );
+      if( iResult > 0 && ( fds.revents & events ) == 0 )
+      {
+         if( ( fds.revents & ( POLLHUP | POLLNVAL | POLLERR ) ) != 0 )
+         {
+            iResult = -1;
+            break;
+         }
+         iResult = 0;
+      }
+      else if( iResult == -1 && hb_fsOsError() == ( HB_ERRCODE ) EINTR )
+      {
+         iResult = 0;
+         fLast = HB_FALSE;
+      }
+
+      if( iResult == 0 && ! fLast && hb_vmRequestQuery() == 0 &&
+          ( nTimeOut = hb_timerTest( nTimeOut, &timer ) ) != 0 )
+         continue;
+
+      break;
+   }
+}
+#elif ! defined( HB_OS_SYMBIAN ) /* ! HB_HAS_POLL */
+{
+#  if ! defined( HB_HAS_SELECT_TIMER )
+   HB_MAXUINT timer = hb_timerInit( nTimeOut );
+#  endif
+
+   for( ;; )
+   {
+      struct timeval tv;
+      fd_set fds;
+
+      if( nTimeOut < 0 || nTimeOut >= 1000 )
+      {
+         tv.tv_sec = 1;
+         tv.tv_usec = 0;
+      }
+      else
+      {
+         tv.tv_sec = ( long ) nTimeOut / 1000;
+         tv.tv_usec = ( long ) ( nTimeOut % 1000 ) * 1000;
+      }
+
+      FD_ZERO( &fds );
+      FD_SET( hFile, &fds );
+      iResult = select( hFile + 1, fRead ? &fds : NULL,
+                                   fRead ? NULL : &fds, NULL, &tv );
+      hb_fsSetIOError( iResult >= 0, 0 );
+
+      if( iResult == -1 && hb_fsOsError() == ( HB_ERRCODE ) EINTR )
+      {
+         iResult = 0;
+#  if defined( HB_HAS_SELECT_TIMER )
+         if( nTimeOut > 0 )
+            nTimeOut += tv.tv_sec * 1000 + tv.tv_usec / 1000;
+#  endif
+      }
+#  if defined( HB_HAS_SELECT_TIMER )
+      if( iResult == 0 && nTimeOut > 0 )
+      {
+         if( ( nTimeOut -= 1000 ) < 0 )
+            break;
+      }
+
+      if( iResult != 0 || nTimeOut == 0 || hb_vmRequestQuery() != 0 )
+         break;
+#  else
+      if( iResult != 0 || ( nTimeOut = hb_timerTest( nTimeOut, &timer ) ) == 0 ||
+          hb_vmRequestQuery() != 0 )
+         break;
+#  endif
+   }
+}
+#else
+{
+   int iTODO; /* TODO: for given platform */
+
+   HB_SYMBOL_UNUSED( hFile );
+   HB_SYMBOL_UNUSED( nTimeOut );
+   HB_SYMBOL_UNUSED( fRead );
+   iResult = -1;
+}
+#endif /* ! HB_HAS_POLL */
+
+   hb_vmLock();
+
+   return iResult;
+}
+
+int hb_fsCanRead( HB_FHANDLE hFileHandle, HB_MAXINT nTimeOut )
+{
+   HB_TRACE( HB_TR_DEBUG, ( "hb_fsCanRead(%p, %" PFHL "d)", ( void * ) ( HB_PTRUINT ) hFileHandle, nTimeOut ) );
+
+   return hb_fsCanAccess( hFileHandle, nTimeOut, HB_TRUE );
+}
+
+int hb_fsCanWrite( HB_FHANDLE hFileHandle, HB_MAXINT nTimeOut )
+{
+   HB_TRACE( HB_TR_DEBUG, ( "hb_fsCanWrite(%p, %" PFHL "d)", ( void * ) ( HB_PTRUINT ) hFileHandle, nTimeOut ) );
+
+   return hb_fsCanAccess( hFileHandle, nTimeOut, HB_FALSE );
+}
+
+int hb_fsPoll( PHB_POLLFD pPollSet, int iCount, HB_MAXINT nTimeOut )
+{
+   int iResult;
+
+   HB_TRACE( HB_TR_DEBUG, ( "hb_fsPoll(%p, %d, %" PFHL "d)", pPollSet, iCount, nTimeOut ) );
+
+   hb_vmUnlock();
+
+#if defined( HB_HAS_POLL )
+{
+   struct pollfd fds[ 16 ], * pfds;
+   static const HB_BOOL s_fSamePoll =
+                  sizeof( struct pollfd ) == sizeof( HB_POLLFD ) &&
+                  sizeof( pPollSet->fd ) == sizeof( fds[ 0 ].fd ) &&
+                  sizeof( pPollSet->events ) == sizeof( fds[ 0 ].events ) &&
+                  sizeof( pPollSet->revents ) == sizeof( fds[ 0 ].revents ) &&
+                  HB_POLLIN == POLLIN && HB_POLLPRI == POLLPRI &&
+                  HB_POLLOUT == POLLOUT && HB_POLLERR == POLLERR &&
+                  HB_POLLHUP == POLLHUP && HB_POLLNVAL == POLLNVAL;
+
+   HB_MAXUINT timer;
+   void * pFree = NULL;
+   int i;
+
+   if( s_fSamePoll )
+      pfds = ( struct pollfd * ) pPollSet;
+   else
+   {
+      if( iCount <= ( int ) HB_SIZEOFARRAY( fds ) )
+         pfds = fds;
+      else
+         pfds = ( struct pollfd * ) ( pFree = hb_xgrab( sizeof( struct pollfd ) * iCount ) );
+
+      for( i = 0; i < iCount; ++i )
+      {
+         pfds[ i ].fd = pPollSet[ i ].fd;
+         pfds[ i ].events = ( ( pPollSet[ i ].events & HB_POLLIN   ) ? POLLIN   : 0 ) |
+                            ( ( pPollSet[ i ].events & HB_POLLPRI  ) ? POLLPRI  : 0 ) |
+                            ( ( pPollSet[ i ].events & HB_POLLOUT  ) ? POLLOUT  : 0 ) |
+                            ( ( pPollSet[ i ].events & HB_POLLERR  ) ? POLLERR  : 0 ) |
+                            ( ( pPollSet[ i ].events & HB_POLLHUP  ) ? POLLHUP  : 0 ) |
+                            ( ( pPollSet[ i ].events & HB_POLLNVAL ) ? POLLNVAL : 0 );
+         pfds[ i ].revents = 0;
+      }
+   }
+
+   timer = hb_timerInit( nTimeOut );
+   for( ;; )
+   {
+      HB_BOOL fLast = nTimeOut >= 0 && nTimeOut <= 1000;
+      int tout = fLast ? ( int ) nTimeOut : 1000;
+
+      iResult = poll( pfds, iCount, tout );
+      hb_fsSetIOError( iResult >= 0, 0 );
+      if( iResult == -1 && hb_fsOsError() == ( HB_ERRCODE ) EINTR )
+      {
+         iResult = 0;
+         fLast = HB_FALSE;
+      }
+      if( iResult == 0 && ! fLast && hb_vmRequestQuery() == 0 &&
+          ( nTimeOut = hb_timerTest( nTimeOut, &timer ) ) != 0 )
+         continue;
+
+      break;
+   }
+
+   if( ! s_fSamePoll )
+   {
+      for( i = 0; i < iCount; ++i )
+      {
+         pPollSet[ i ].revents = ( ( pfds[ i ].revents & POLLIN   ) ? HB_POLLIN   : 0 ) |
+                                 ( ( pfds[ i ].revents & POLLPRI  ) ? HB_POLLPRI  : 0 ) |
+                                 ( ( pfds[ i ].revents & POLLOUT  ) ? HB_POLLOUT  : 0 ) |
+                                 ( ( pfds[ i ].revents & POLLERR  ) ? HB_POLLERR  : 0 ) |
+                                 ( ( pfds[ i ].revents & POLLHUP  ) ? HB_POLLHUP  : 0 ) |
+                                 ( ( pfds[ i ].revents & POLLNVAL ) ? HB_POLLNVAL : 0 );
+      }
+   }
+
+   if( pFree )
+      hb_xfree( pFree );
+}
+#elif ! defined( HB_OS_SYMBIAN ) /* ! HB_HAS_POLL */
+{
+#  if ! defined( HB_HAS_SELECT_TIMER )
+   HB_MAXUINT timer = hb_timerInit( nTimeOut );
+#  endif
+   fd_set rfds, wfds, efds;
+   int i;
+
+   for( ;; )
+   {
+      struct timeval tv;
+      int iMaxFD = 0;
+      HB_BOOL fLast = nTimeOut >= 0 && nTimeOut <= 1000;
+
+      if( fLast )
+      {
+         tv.tv_sec = ( long ) ( nTimeOut / 1000 );
+         tv.tv_usec = ( long ) ( nTimeOut % 1000 ) * 1000;
+      }
+      else
+      {
+         tv.tv_sec = 1;
+         tv.tv_usec = 0;
+      }
+
+      FD_ZERO( &rfds );
+      FD_ZERO( &wfds );
+      FD_ZERO( &efds );
+
+      for( i = 0; i < iCount; ++i )
+      {
+         PHB_POLLFD pSet = pPollSet + i;
+         if( pSet->fd >= 0 &&
+             ( pSet->events & ( HB_POLLIN | HB_POLLOUT | HB_POLLPRI ) ) )
+         {
+            if( pSet->events & HB_POLLIN )
+               FD_SET( pSet->fd, &rfds );
+            if( pSet->events & HB_POLLOUT )
+               FD_SET( pSet->fd, &wfds );
+            if( pSet->events & HB_POLLPRI )
+               FD_SET( pSet->fd, &efds );
+            if( pSet->fd > iMaxFD )
+               iMaxFD = pSet->fd;
+         }
+      }
+
+      iResult = select( iMaxFD + 1, &rfds, &wfds, &efds, &tv );
+      hb_fsSetIOError( iResult >= 0, 0 );
+
+      if( iResult == -1 && hb_fsOsError() == ( HB_ERRCODE ) EINTR )
+      {
+         iResult = 0;
+         fLast = HB_FALSE;
+#  if defined( HB_HAS_SELECT_TIMER )
+         if( nTimeOut > 0 )
+            nTimeOut += tv.tv_sec * 1000 + tv.tv_usec / 1000;
+#  endif
+      }
+#  if defined( HB_HAS_SELECT_TIMER )
+      if( iResult == 0 && nTimeOut > 0 )
+      {
+         if( ( nTimeOut -= 1000 ) < 0 )
+            break;
+      }
+
+      if( iResult != 0 || fLast || nTimeOut == 0 || hb_vmRequestQuery() != 0 )
+         break;
+#  else
+      if( iResult != 0 || fLast || ( nTimeOut = hb_timerTest( nTimeOut, &timer ) ) == 0 ||
+          hb_vmRequestQuery() != 0 )
+         break;
+#  endif
+   }
+   if( iResult > 0 )
+   {
+      iResult = 0;
+      for( i = 0; i < iCount; ++i )
+      {
+         PHB_POLLFD pSet = pPollSet + i;
+         pSet->revents = 0;
+         if( pSet->fd >= 0 )
+         {
+            if( FD_ISSET( pSet->fd, &rfds ) )
+               pSet->revents |= HB_POLLIN;
+            if( FD_ISSET( pSet->fd, &wfds ) )
+               pSet->revents |= HB_POLLOUT;
+            if( FD_ISSET( pSet->fd, &efds ) )
+               pSet->revents |= HB_POLLPRI;
+            if( pSet->revents != 0 )
+               ++iResult;
+         }
+      }
+   }
+}
+#else
+{
+   int iTODO; /* TODO: for given platform */
+
+   HB_SYMBOL_UNUSED( pPollSet );
+   HB_SYMBOL_UNUSED( iCount );
+   HB_SYMBOL_UNUSED( nTimeOut );
+   iResult = -1;
+}
+#endif /* ! HB_HAS_POLL */
+
+   hb_vmLock();
+
+   return iResult;
+}
+#endif /* HB_OS_UNIX */
+
 HB_FHANDLE hb_fsPOpen( const char * pszFileName, const char * pszMode )
 {
    HB_FHANDLE hFileHandle = FS_ERROR;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_fsPOpen(%p, %s)", pszFileName, pszMode ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_fsPOpen(%p, %s)", ( const void * ) pszFileName, pszMode ) );
 
 #if defined( HB_OS_UNIX ) && ! defined( HB_OS_VXWORKS ) && ! defined( HB_OS_SYMBIAN )
    {
@@ -746,7 +1069,20 @@ HB_FHANDLE hb_fsPOpen( const char * pszFileName, const char * pszMode )
          {
             if( pid != 0 )
             {
-               if( fRead )
+               int iResult, iStatus = 0;
+
+               HB_FAILURE_RETRY( iResult, waitpid( pid, &iStatus, 0 ) );
+
+               iResult = iResult == pid &&
+                         WIFEXITED( iStatus ) &&
+                         WEXITSTATUS( iStatus ) == 0 ? 0 : -1;
+
+               if( iResult != 0 )
+               {
+                  hb_fsClose( hPipeHandle[ 0 ] );
+                  hb_fsClose( hPipeHandle[ 1 ] );
+               }
+               else if( fRead )
                {
                   hb_fsClose( hPipeHandle[ 1 ] );
                   hFileHandle = hPipeHandle[ 0 ];
@@ -761,11 +1097,7 @@ HB_FHANDLE hb_fsPOpen( const char * pszFileName, const char * pszMode )
             {
                HB_FHANDLE hNullHandle;
                int iMaxFD, iResult;
-               const char * argv[ 4 ];
-               argv[ 0 ] = "sh";
-               argv[ 1 ] = "-c";
-               argv[ 2 ] = pszFileName;
-               argv[ 3 ] = 0;
+
                HB_FAILURE_RETRY( hNullHandle, open( "/dev/null", O_RDWR ) );
                if( fRead )
                {
@@ -786,23 +1118,37 @@ HB_FHANDLE hb_fsPOpen( const char * pszFileName, const char * pszMode )
                   iMaxFD = 1024;
                for( hNullHandle = 3; hNullHandle < iMaxFD; ++hNullHandle )
                   hb_fsClose( hNullHandle );
-               if( setuid( getuid() ) == -1 ) {}
-               if( setgid( getgid() ) == -1 ) {}
+
+               pid = fork();
+               if( pid == 0 )
+               {
+                  const char * argv[ 4 ];
+
+                  argv[ 0 ] = "sh";
+                  argv[ 1 ] = "-c";
+                  argv[ 2 ] = pszFileName;
+                  argv[ 3 ] = 0;
+
+                  if( setuid( getuid() ) == -1 ) {}
+                  if( setgid( getgid() ) == -1 ) {}
 #if defined( __WATCOMC__ )
-               HB_FAILURE_RETRY( iResult, execv( "/bin/sh", argv ) );
+                  HB_FAILURE_RETRY( iResult, execv( "/bin/sh", argv ) );
 #else
-               HB_FAILURE_RETRY( iResult, execv( "/bin/sh", ( char ** ) HB_UNCONST( argv ) ) );
+                  HB_FAILURE_RETRY( iResult, execv( "/bin/sh", ( char ** ) HB_UNCONST( argv ) ) );
 #endif
-               exit( 1 );
+               }
+               exit( pid > 0 ? 0 : 1 );
             }
          }
          else
          {
-            hb_fsClose( hPipeHandle[ 0 ] );
-            hb_fsClose( hPipeHandle[ 1 ] );
+            hb_fsSetIOError( hFileHandle != FS_ERROR, 0 );
+            hb_fsCloseRaw( hPipeHandle[ 0 ] );
+            hb_fsCloseRaw( hPipeHandle[ 1 ] );
          }
       }
-      hb_fsSetIOError( hFileHandle != FS_ERROR, 0 );
+      else
+         hb_fsSetIOError( hFileHandle != FS_ERROR, 0 );
       hb_vmLock();
 
       if( pszTmp )
@@ -841,7 +1187,7 @@ HB_BOOL hb_fsPipeCreate( HB_FHANDLE hPipe[ 2 ] )
 {
    HB_BOOL fResult;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_fsPipeCreate(%p)", hPipe ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_fsPipeCreate(%p)", ( void * ) hPipe ) );
 
 #if defined( HB_OS_WIN ) && ! defined( HB_OS_WIN_CE )
 {
@@ -1048,7 +1394,7 @@ HB_SIZE hb_fsPipeIsData( HB_FHANDLE hPipeHandle, HB_SIZE nBufferSize,
 
 #if defined( HB_OS_WIN ) && ! defined( HB_OS_WIN_CE )
 {
-   HB_MAXUINT end_timer = nTimeOut > 0 ? hb_dateMilliSeconds() + nTimeOut : 0;
+   HB_MAXUINT timer = hb_timerInit( nTimeOut );
    HB_BOOL fResult = HB_FALSE;
    DWORD dwAvail;
 
@@ -1068,8 +1414,7 @@ HB_SIZE hb_fsPipeIsData( HB_FHANDLE hPipeHandle, HB_SIZE nBufferSize,
       hb_fsSetIOError( fResult, 0 );
    }
    while( fResult && dwAvail == 0 &&
-          ( nTimeOut < 0 || ( end_timer > 0 &&
-                              end_timer > hb_dateMilliSeconds() ) ) &&
+          ( nTimeOut = hb_timerTest( nTimeOut, &timer ) ) != 0 &&
           hb_vmRequestQuery() == 0 );
 
    if( ! fResult )
@@ -1090,7 +1435,7 @@ HB_SIZE hb_fsPipeIsData( HB_FHANDLE hPipeHandle, HB_SIZE nBufferSize,
 
 #  else
 
-   HB_MAXUINT end_timer = nTimeOut > 0 ? hb_dateMilliSeconds() + nTimeOut : 0;
+   HB_MAXUINT timer = hb_timerInit( nTimeOut );
    HB_BOOL fResult = HB_FALSE;
    AVAILDATA avail;
 
@@ -1111,8 +1456,7 @@ HB_SIZE hb_fsPipeIsData( HB_FHANDLE hPipeHandle, HB_SIZE nBufferSize,
                 ( avail.cbpipe != 0 || ulState == NP_STATE_CONNECTED );
    }
    while( fResult && avail.cbpipe == 0 &&
-          ( nTimeOut < 0 || ( end_timer > 0 &&
-                              end_timer > hb_dateMilliSeconds() ) ) &&
+          ( nTimeOut = hb_timerTest( nTimeOut, &timer ) ) != 0 &&
           hb_vmRequestQuery() == 0 );
 
    if( ! fResult )
@@ -1122,104 +1466,9 @@ HB_SIZE hb_fsPipeIsData( HB_FHANDLE hPipeHandle, HB_SIZE nBufferSize,
                                                              nBufferSize;
 #  endif
 }
-#elif defined( HB_OS_UNIX ) && ! defined( HB_OS_SYMBIAN )
+#elif defined( HB_OS_UNIX )
 {
-   int iResult;
-
-#if defined( HB_HAS_POLL )
-   HB_MAXUINT timer = nTimeOut <= 0 ? 0 : hb_dateMilliSeconds();
-   struct pollfd fds;
-
-   fds.fd = hPipeHandle;
-   fds.events = POLLIN;
-   fds.revents = 0;
-
-   for( ;; )
-   {
-      HB_BOOL fLast = nTimeOut >= 0 && nTimeOut <= 1000;
-      int tout = fLast ? ( int ) nTimeOut : 1000;
-      iResult = poll( &fds, 1, tout );
-      hb_fsSetIOError( iResult >= 0, 0 );
-      if( iResult > 0 && ( fds.revents & POLLIN ) == 0 )
-      {
-         if( ( fds.revents & ( POLLHUP | POLLNVAL | POLLERR ) ) != 0 )
-         {
-            iResult = -1;
-            break;
-         }
-         iResult = 0;
-      }
-      else if( iResult == -1 && hb_fsOsError() == ( HB_ERRCODE ) EINTR )
-      {
-         iResult = 0;
-         fLast = HB_FALSE;
-      }
-      if( iResult == 0 && ! fLast && hb_vmRequestQuery() == 0 )
-      {
-         if( nTimeOut < 0 )
-            continue;
-         else
-         {
-            HB_MAXUINT timecurr = hb_dateMilliSeconds();
-            if( timecurr > timer )
-            {
-               nTimeOut -= timecurr - timer;
-               if( nTimeOut > 0 )
-                  continue;
-            }
-         }
-      }
-      break;
-   }
-#else /* ! HB_HAS_POLL */
-   struct timeval tv;
-   fd_set rfds;
-#  if ! defined( HB_HAS_SELECT_TIMER )
-   HB_MAXUINT timer = nTimeOut <= 0 ? 0 : hb_dateMilliSeconds();
-#  else
-   tv.tv_sec = ( long ) nTimeOut / 1000;
-   tv.tv_usec = ( long ) ( nTimeOut % 1000 ) * 1000;
-#  endif
-
-   for( ;; )
-   {
-      if( nTimeOut < 0 )
-      {
-         tv.tv_sec = 1;
-         tv.tv_usec = 0;
-      }
-#  if ! defined( HB_HAS_SELECT_TIMER )
-      else
-      {
-         tv.tv_sec = ( long ) nTimeOut / 1000;
-         tv.tv_usec = ( long ) ( nTimeOut % 1000 ) * 1000;
-      }
-#  endif
-
-      FD_ZERO( &rfds );
-      FD_SET( hPipeHandle, &rfds );
-      iResult = select( hPipeHandle + 1, &rfds, NULL, NULL, &tv );
-      hb_fsSetIOError( iResult >= 0, 0 );
-      if( nTimeOut < 0 && iResult == 0 && hb_vmRequestQuery() == 0 )
-         continue;
-      if( iResult != -1 || nTimeOut == 0 ||
-          hb_fsOsError() != ( HB_ERRCODE ) EINTR ||
-          hb_vmRequestQuery() != 0 )
-         break;
-#  if ! defined( HB_HAS_SELECT_TIMER )
-      else if( nTimeOut > 0 )
-      {
-         HB_MAXUINT timecurr = hb_dateMilliSeconds();
-         if( timecurr > timer )
-         {
-            if( ( nTimeOut -= timecurr - timer ) <= 0 )
-               break;
-            timer = timecurr;
-         }
-      }
-#  endif
-   }
-#endif /* ! HB_HAS_POLL */
+   int iResult = hb_fsCanRead( hPipeHandle, nTimeOut );
 
    if( iResult > 0 )
       nToRead = nBufferSize;
@@ -1277,7 +1526,7 @@ HB_SIZE hb_fsPipeWrite( HB_FHANDLE hPipeHandle, const void * buffer, HB_SIZE nSi
 
    if( GetNamedPipeHandleState( hPipe, &dwMode, NULL, NULL, NULL, NULL, 0 ) )
    {
-      HB_MAXUINT end_timer = nTimeOut > 0 ? hb_dateMilliSeconds() + nTimeOut : 0;
+      HB_MAXUINT timer = hb_timerInit( nTimeOut );
       HB_BOOL fResult = HB_FALSE;
 
       if( ( dwMode & PIPE_NOWAIT ) == 0 )
@@ -1308,8 +1557,7 @@ HB_SIZE hb_fsPipeWrite( HB_FHANDLE hPipeHandle, const void * buffer, HB_SIZE nSi
          hb_fsSetIOError( fResult, 0 );
       }
       while( fResult && nWritten < nSize &&
-             ( nTimeOut < 0 || ( end_timer > 0 &&
-                                 end_timer > hb_dateMilliSeconds() ) ) &&
+             ( nTimeOut = hb_timerTest( nTimeOut, &timer ) ) != 0 &&
              hb_vmRequestQuery() == 0 );
 
       if( ( dwMode & PIPE_NOWAIT ) == 0 )
@@ -1336,7 +1584,7 @@ HB_SIZE hb_fsPipeWrite( HB_FHANDLE hPipeHandle, const void * buffer, HB_SIZE nSi
    ret = DosQueryNPHState( ( HPIPE ) hPipeHandle, &state );
    if( ret == NO_ERROR )
    {
-      HB_MAXUINT end_timer = nTimeOut > 0 ? hb_dateMilliSeconds() + nTimeOut : 0;
+      HB_MAXUINT timer = hb_timerInit( nTimeOut );
       HB_BOOL fResult = HB_FALSE;
 
       if( ( state & NP_NOWAIT ) == 0 )
@@ -1357,8 +1605,7 @@ HB_SIZE hb_fsPipeWrite( HB_FHANDLE hPipeHandle, const void * buffer, HB_SIZE nSi
          nWritten = fResult ? ( HB_SIZE ) cbActual : ( HB_SIZE ) FS_ERROR;
       }
       while( fResult && nWritten == 0 &&
-             ( nTimeOut < 0 || ( end_timer > 0 &&
-                                 end_timer > hb_dateMilliSeconds() ) ) &&
+             ( nTimeOut = hb_timerTest( nTimeOut, &timer ) ) != 0 &&
              hb_vmRequestQuery() == 0 );
 
       if( ( state & NP_NOWAIT ) == 0 )
@@ -1371,105 +1618,9 @@ HB_SIZE hb_fsPipeWrite( HB_FHANDLE hPipeHandle, const void * buffer, HB_SIZE nSi
    }
 #  endif
 }
-#elif defined( HB_OS_UNIX ) && ! defined( HB_OS_SYMBIAN )
+#elif defined( HB_OS_UNIX )
 {
-   int iResult;
-
-#if defined( HB_HAS_POLL )
-   HB_MAXUINT timer = nTimeOut <= 0 ? 0 : hb_dateMilliSeconds();
-   struct pollfd fds;
-
-   fds.fd = hPipeHandle;
-   fds.events = POLLOUT;
-   fds.revents = 0;
-
-   for( ;; )
-   {
-      HB_BOOL fLast = nTimeOut >= 0 && nTimeOut <= 1000;
-      int tout = fLast ? ( int ) nTimeOut : 1000;
-
-      iResult = poll( &fds, 1, tout );
-      hb_fsSetIOError( iResult >= 0, 0 );
-      if( iResult > 0 && ( fds.revents & POLLOUT ) == 0 )
-      {
-         if( ( fds.revents & ( POLLHUP | POLLNVAL | POLLERR ) ) != 0 )
-         {
-            iResult = -1;
-            break;
-         }
-         iResult = 0;
-      }
-      else if( iResult == -1 && hb_fsOsError() == ( HB_ERRCODE ) EINTR )
-      {
-         iResult = 0;
-         fLast = HB_FALSE;
-      }
-      if( iResult == 0 && ! fLast && hb_vmRequestQuery() == 0 )
-      {
-         if( nTimeOut < 0 )
-            continue;
-         else
-         {
-            HB_MAXUINT timecurr = hb_dateMilliSeconds();
-            if( timecurr > timer )
-            {
-               nTimeOut -= timecurr - timer;
-               if( nTimeOut > 0 )
-                  continue;
-            }
-         }
-      }
-      break;
-   }
-#else /* ! HB_HAS_POLL */
-   struct timeval tv;
-   fd_set wfds;
-#  if ! defined( HB_HAS_SELECT_TIMER )
-   HB_MAXUINT timer = nTimeOut <= 0 ? 0 : hb_dateMilliSeconds();
-#  else
-   tv.tv_sec = ( long ) nTimeOut / 1000;
-   tv.tv_usec = ( long ) ( nTimeOut % 1000 ) * 1000;
-#  endif
-
-   for( ;; )
-   {
-      if( nTimeOut < 0 )
-      {
-         tv.tv_sec = 1;
-         tv.tv_usec = 0;
-      }
-#  if ! defined( HB_HAS_SELECT_TIMER )
-      else
-      {
-         tv.tv_sec = ( long ) nTimeOut / 1000;
-         tv.tv_usec = ( long ) ( nTimeOut % 1000 ) * 1000;
-      }
-#  endif
-
-      FD_ZERO( &wfds );
-      FD_SET( hPipeHandle, &wfds );
-      iResult = select( hPipeHandle + 1, NULL, &wfds, NULL, &tv );
-      hb_fsSetIOError( iResult >= 0, 0 );
-      if( nTimeOut < 0 && iResult == 0 && hb_vmRequestQuery() == 0 )
-         continue;
-      if( iResult != -1 || nTimeOut == 0 ||
-          hb_fsOsError() != ( HB_ERRCODE ) EINTR ||
-          hb_vmRequestQuery() != 0 )
-         break;
-#  if ! defined( HB_HAS_SELECT_TIMER )
-      else if( nTimeOut > 0 )
-      {
-         HB_MAXUINT timecurr = hb_dateMilliSeconds();
-         if( timecurr > timer )
-         {
-            if( ( nTimeOut -= timecurr - timer ) <= 0 )
-               break;
-            timer = timecurr;
-         }
-      }
-#  endif
-   }
-#endif /* ! HB_HAS_POLL */
+   int iResult = hb_fsCanWrite( hPipeHandle, nTimeOut );
 
    if( iResult > 0 )
    {
@@ -1623,6 +1774,36 @@ HB_FHANDLE hb_fsOpenEx( const char * pszFileName, HB_USHORT uiFlags, HB_FATTR nA
    return hFileHandle;
 }
 
+void hb_fsCloseRaw( HB_FHANDLE hFileHandle )
+{
+   HB_TRACE( HB_TR_DEBUG, ( "hb_fsCloseRaw(%p)", ( void * ) ( HB_PTRUINT ) hFileHandle ) );
+
+   hb_vmUnlock();
+#if defined( HB_OS_WIN )
+   CloseHandle( DosToWinHandle( hFileHandle ) );
+#elif defined( HB_OS_OS2 )
+   DosClose( hFileHandle );
+#else
+   {
+#  if defined( EINTR )
+      int ret;
+      /* ignoring EINTR in close() it's quite common bug when sockets or
+       * pipes are used. Without such protection it's not safe to use
+       * signals in user code.
+       */
+      do
+      {
+         ret = close( hFileHandle );
+      }
+      while( ret == -1 && errno == EINTR );
+#  else
+      close( hFileHandle );
+#  endif
+   }
+#endif
+   hb_vmLock();
+}
+
 void hb_fsClose( HB_FHANDLE hFileHandle )
 {
    HB_TRACE( HB_TR_DEBUG, ( "hb_fsClose(%p)", ( void * ) ( HB_PTRUINT ) hFileHandle ) );
@@ -1706,7 +1887,7 @@ HB_BOOL hb_fsGetFileTime( const char * pszFileName, long * plJulian, long * plMi
 {
    HB_BOOL fResult;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_fsGetFileTime(%s, %p, %p)", pszFileName, plJulian, plMillisec ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_fsGetFileTime(%s, %p, %p)", pszFileName, ( void * ) plJulian, ( void * ) plMillisec ) );
 
    fResult = HB_FALSE;
    *plJulian = *plMillisec = 0;
@@ -1862,7 +2043,7 @@ HB_BOOL hb_fsGetAttr( const char * pszFileName, HB_FATTR * pnAttr )
 {
    HB_BOOL fResult;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_fsGetAttr(%s, %p)", pszFileName, pnAttr ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_fsGetAttr(%s, %p)", pszFileName, ( void * ) pnAttr ) );
 
    hb_vmUnlock();
 
@@ -2684,7 +2865,7 @@ HB_SIZE hb_fsReadAt( HB_FHANDLE hFileHandle, void * pBuff, HB_SIZE nCount, HB_FO
    }
 #  endif /* HB_WIN_IOREAD_LIMIT */
 
-/* TOFIX: below are not atom operations. It has to be fixed for RDD
+/* FIXME: below are not atom operations. It has to be fixed for RDD
  *        file access with shared file handles in aliased work areas
  */
 #elif defined( HB_OS_OS2 )
@@ -2823,7 +3004,7 @@ HB_SIZE hb_fsWriteAt( HB_FHANDLE hFileHandle, const void * pBuff, HB_SIZE nCount
    }
 #  endif /* HB_WIN_IOWRITE_LIMIT */
 
-/* TOFIX: below are not atom operations. It has to be fixed for RDD
+/* FIXME: below are not atom operations. It has to be fixed for RDD
  *        file access with shared file handles in aliased work areas
  */
 #elif defined( HB_OS_OS2 )
@@ -3391,7 +3572,7 @@ HB_ULONG hb_fsSeek( HB_FHANDLE hFileHandle, HB_LONG lOffset, HB_USHORT uiFlags )
 
    hb_vmUnlock();
 #if defined( HB_OS_WIN )
-   /* This DOS hack creates 2GB file size limit, Druzus */
+   /* This DOS hack creates 2 GiB file size limit, Druzus */
    if( lOffset < 0 && nFlags == SEEK_SET )
    {
       ulPos = ( ULONG ) INVALID_SET_FILE_POINTER;
@@ -3413,7 +3594,7 @@ HB_ULONG hb_fsSeek( HB_FHANDLE hFileHandle, HB_LONG lOffset, HB_USHORT uiFlags )
    {
       APIRET ret;
 
-      /* This DOS hack creates 2GB file size limit, Druzus */
+      /* This DOS hack creates 2 GiB file size limit, Druzus */
       if( lOffset < 0 && nFlags == SEEK_SET )
          ret = 25; /* 'Seek Error' */
       else
@@ -3427,7 +3608,7 @@ HB_ULONG hb_fsSeek( HB_FHANDLE hFileHandle, HB_LONG lOffset, HB_USHORT uiFlags )
       }
    }
 #else
-   /* This DOS hack creates 2GB file size limit, Druzus */
+   /* This DOS hack creates 2 GiB file size limit, Druzus */
    if( lOffset < 0 && nFlags == SEEK_SET )
    {
       ulPos = ( HB_ULONG ) -1;
@@ -3441,7 +3622,7 @@ HB_ULONG hb_fsSeek( HB_FHANDLE hFileHandle, HB_LONG lOffset, HB_USHORT uiFlags )
       /* small trick to resolve problem with position reported for directories */
       if( ulPos == LONG_MAX && lOffset == 0 && nFlags == SEEK_END )
       {
-         /* we do not need to use fstat64() here on 32 bit platforms, [druzus] */
+         /* we do not need to use fstat64() here on 32-bit platforms, [druzus] */
          struct stat st;
 
          if( fstat( hFileHandle, &st ) == 0 )
@@ -4079,7 +4260,7 @@ HB_BOOL hb_fsGetCWD( char * pszBuffer, HB_SIZE nSize )
 {
    HB_BOOL fResult;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_fsGetCWD(%p,%" HB_PFS "u)", pszBuffer, nSize ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_fsGetCWD(%p,%" HB_PFS "u)", ( void * ) pszBuffer, nSize ) );
 
    pszBuffer[ 0 ] = '\0';
 
@@ -4516,7 +4697,7 @@ HB_FHANDLE hb_fsExtOpen( const char * pszFileName, const char * pDefExt,
    const char * szPath;
    char * szFree = NULL;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_fsExtOpen(%s, %s, %u, %p, %p)", pszFileName, pDefExt, nExFlags, pPaths, pError ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_fsExtOpen(%s, %s, %u, %p, %p)", pszFileName, pDefExt, nExFlags, ( const void * ) pPaths, ( void * ) pError ) );
 
 #if 0
    #define FXO_TRUNCATE   0x0100  /* Create (truncate if exists) */
@@ -4883,14 +5064,14 @@ HB_WCHAR * hb_fsNameConvU16( const char * pszFileName )
             nLen = strlen( pFileName->szName );
             nLen = hb_strRTrimLen( pFileName->szName, nLen, HB_FALSE );
             pFileName->szName = hb_strLTrim( pFileName->szName, &nLen );
-            ( ( char * ) pFileName->szName )[ nLen ] = '\0';
+            ( ( char * ) HB_UNCONST( pFileName->szName ) )[ nLen ] = '\0';
          }
          if( pFileName->szExtension )
          {
             nLen = strlen( pFileName->szExtension );
             nLen = hb_strRTrimLen( pFileName->szExtension, nLen, HB_FALSE );
             pFileName->szExtension = hb_strLTrim( pFileName->szExtension, &nLen );
-            ( ( char * ) pFileName->szExtension )[ nLen ] = '\0';
+            ( ( char * ) HB_UNCONST( pFileName->szExtension ) )[ nLen ] = '\0';
          }
       }
 

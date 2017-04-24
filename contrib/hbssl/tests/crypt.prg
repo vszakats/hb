@@ -61,7 +61,7 @@ PROCEDURE Main()
    result := ""
    ? EVP_DecryptUpdate( ctx, @result, encrypted )
    decrypted += result
-   /* TOFIX: this fails sometimes */
+   /* FIXME: this fails sometimes */
    ? EVP_DecryptFinal( ctx, @result )
    decrypted += result
    ? "DECRYPTED", ">" + decrypted + "<"
@@ -74,7 +74,7 @@ PROCEDURE Main()
    ? Replicate( "=", 15 )
    bioe := BIO_new_fd( hb_GetStdOut(), HB_BIO_NOCLOSE )
    FOR EACH tmp IN all
-      ? tmp:__enumIndex(), pub := tmp:exec( "pubkey.pem", "test" )
+      ? tmp:__enumIndex(), pub := tmp:exec( "public.pem", "test" )
       IF ! Empty( pub )
          ? "EVP_PKEY_free()", EVP_PKEY_free( pub )
       ENDIF
@@ -82,7 +82,7 @@ PROCEDURE Main()
    NEXT
    bioe := NIL
 
-   ? pub := PEM_READ_BIO_PUBKEY( "pubkey.pem", "test" )
+   ? pub := PEM_READ_BIO_PUBKEY( "public.pem", "test" )
 
    ? "EVP_SealInit()", EVP_SealInit( ctx, "AES256", @a, @iv, { pub } )
    ? ValType( a ), iif( HB_ISSTRING( a ), hb_BLen( a ), NIL )

@@ -88,20 +88,27 @@ SSL_CTX * hb_SSL_CTX_par( int iParam )
    return ph ? ( SSL_CTX * ) *ph : NULL;
 }
 
+SSL_CTX * hb_SSL_CTX_itemGet( PHB_ITEM pItem )
+{
+   void ** ph = ( void ** ) hb_itemGetPtrGC( pItem, &s_gcSSL_CTX_funcs );
+
+   return ph ? ( SSL_CTX * ) *ph : NULL;
+}
+
 const SSL_METHOD * hb_ssl_method_id_to_ptr( int n )
 {
    const SSL_METHOD * p;
 
    switch( n )
    {
-      case HB_SSL_CTX_NEW_METHOD_TLSV1:         p = TLSv1_method();         break;
-      case HB_SSL_CTX_NEW_METHOD_TLSV1_SERVER:  p = TLSv1_server_method();  break;
-      case HB_SSL_CTX_NEW_METHOD_TLSV1_CLIENT:  p = TLSv1_client_method();  break;
 #if OPENSSL_VERSION_NUMBER >= 0x10100000L
       case HB_SSL_CTX_NEW_METHOD_TLS:           p = TLS_method();           break;
       case HB_SSL_CTX_NEW_METHOD_TLS_SERVER:    p = TLS_server_method();    break;
       case HB_SSL_CTX_NEW_METHOD_TLS_CLIENT:    p = TLS_client_method();    break;
 #else
+      case HB_SSL_CTX_NEW_METHOD_TLSV1:         p = TLSv1_method();         break;
+      case HB_SSL_CTX_NEW_METHOD_TLSV1_SERVER:  p = TLSv1_server_method();  break;
+      case HB_SSL_CTX_NEW_METHOD_TLSV1_CLIENT:  p = TLSv1_client_method();  break;
       case HB_SSL_CTX_NEW_METHOD_TLS:           p = SSLv23_method();        break;
       case HB_SSL_CTX_NEW_METHOD_TLS_SERVER:    p = SSLv23_server_method(); break;
       case HB_SSL_CTX_NEW_METHOD_TLS_CLIENT:    p = SSLv23_client_method(); break;
@@ -598,7 +605,7 @@ HB_FUNC( SSL_CTX_GET_CLIENT_CA_LIST )
 
       if( ctx )
       {
-#if OPENSSL_VERSION_NUMBER < 0x10000000L /* TOFIX: Compilation error when tried with 1.0.0beta5 */
+#if OPENSSL_VERSION_NUMBER < 0x10000000L /* FIXME: Compilation error when tried with 1.0.0beta5 */
          STACK_OF( X509_NAME ) * stack = SSL_CTX_get_client_CA_list( ctx );
          int len = sk_X509_NAME_num( stack );
 

@@ -1,5 +1,7 @@
 ROOT := ../../
 
+# TODO: Add harbour.rc to hbpp.exe on Windows
+
 C_SOURCES := \
    pptable.c \
    ppcore.c \

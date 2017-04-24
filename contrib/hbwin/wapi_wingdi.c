@@ -45,7 +45,7 @@
  */
 
 /* WinCE MSDN documentation:
-      https://msdn.microsoft.com/en-us/library/aa923590.aspx
+      https://msdn.microsoft.com/library/aa923590
  */
 
 #include "hbwapi.h"
@@ -82,7 +82,7 @@ POINT * hbwapi_par_POINT( POINT * p, int iParam, HB_BOOL bMandatory )
 {
    PHB_ITEM pStru = hb_param( iParam, HB_IT_ANY );
 
-   memset( p, 0, sizeof( POINT ) );
+   memset( p, 0, sizeof( *p ) );
 
    if( pStru && HB_IS_HASH( pStru ) )
    {

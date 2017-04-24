@@ -6,7 +6,7 @@
    $ONELINER$
       Force LastKey() to return a programmer-defined value.
    $SYNTAX$
-      ft_LastKey( <nKey> ) -> NIL
+      ft_LastKey( <nKey> ) --> NIL
    $ARGUMENTS$
       <nKey> is the Inkey() value of the desired key.
    $RETURNS$
@@ -14,7 +14,7 @@
    $DESCRIPTION$
       It is occasionally useful to force LastKey() to return a known value.
       This is easily accomplishing by using the KEYBOARD command, but this
-      has undesireable side effects (the keyboard buffer is cleared, and
+      has undesirable side effects (the keyboard buffer is cleared, and
       the keystroke is processed whether you needed it to be or not).  This
       function accomplishes the same task but without the side effects.  It
       does so by directly modifying the memory location where Clipper stores

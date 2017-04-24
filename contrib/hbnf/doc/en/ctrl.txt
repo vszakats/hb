@@ -6,7 +6,7 @@
    $ONELINER$
       Determine status of the Ctrl key
    $SYNTAX$
-      ft_Ctrl() -> lValue
+      ft_Ctrl() --> lValue
    $ARGUMENTS$
       None
    $RETURNS$
@@ -21,6 +21,6 @@
          @ 0, 0 SAY "    "
       ENDIF
    $SEEALSO$
-      ft_CapLock() ft_NumLock() ft_PrtScr() ft_Shift() ft_Alt()
+      ft_CapLock(), ft_NumLock(), ft_PrtScr(), ft_Shift(), ft_Alt()
    $END$
  */

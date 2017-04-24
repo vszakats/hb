@@ -1,4 +1,4 @@
-description=HTTP server
+description=HTTP/HTTPS server
 
 incpaths=.
 

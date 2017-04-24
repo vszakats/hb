@@ -659,7 +659,7 @@ static PHB_ITEM mxml_node_clone( PHB_ITEM pTg )
 {
    /* Node is not from a real document, so is right to leave nBeginLine at 0 */
    PHB_ITEM pNode = mxml_node_new( NULL );
-   PHB_ITEM pArrayClone;
+   PHB_ITEM pHashClone;
 
    /* sets clone type */
    hb_objSendMsg( pTg, "NTYPE", 0 );
@@ -675,9 +675,9 @@ static PHB_ITEM mxml_node_clone( PHB_ITEM pTg )
 
    /* clone attributes */
    hb_objSendMsg( pTg, "AATTRIBUTES", 0 );
-   pArrayClone = hb_arrayClone( hb_param( -1, HB_IT_ANY ) );
-   hb_objSendMsg( pNode, "_AATTRIBUTES", 1, pArrayClone );
-   hb_itemRelease( pArrayClone );
+   pHashClone = hb_hashClone( hb_param( -1, HB_IT_ANY ) );
+   hb_objSendMsg( pNode, "_AATTRIBUTES", 1, pHashClone );
+   hb_itemRelease( pHashClone );
 
    return pNode;
 }
@@ -962,9 +962,7 @@ static MXML_STATUS mxml_node_read_attributes( MXML_REFIL * ref,
    /* Error already set. */
 #if 0
    if( ref->status != MXML_STATUS_OK )
-   {
       hbxml_set_doc_status( ref, doc, pNode, ref->status, ref->error );
-   }
 #endif
    hb_itemRelease( attributes );
    hb_itemRelease( hbValue );

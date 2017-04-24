@@ -1,11 +1,3 @@
-/*
- * Copyright 2000 Chen Kedem <niki@actcom.co.il>
- *    Documentation for: Tone()
- *
- * See COPYING.txt for licensing terms.
- *
- */
-
 /* $DOC$
    $TEMPLATE$
       Function
@@ -18,7 +10,7 @@
    $ONELINER$
       Return the current operating system.
    $SYNTAX$
-      OS() --> <cOperatingSystem>
+      OS() --> cOperatingSystem
    $RETURNS$
       <cOperatinSystem> The current operating system.
    $DESCRIPTION$
@@ -46,7 +38,7 @@
    $ONELINER$
       Returns the version of Harbour compiler
    $SYNTAX$
-      Version() --> <cReturn>
+      Version() --> cReturn
    $ARGUMENTS$
       None
    $RETURNS$
@@ -80,9 +72,9 @@
    $ONELINER$
       Obtains a system environmental setting.
    $SYNTAX$
-      GetEnv( <cEnviroment> ) --> <cReturn>
+      GetEnv( <cEnviroment> ) --> cReturn
    $ARGUMENTS$
-      <cEnviroment> Enviromental variable to obtain.
+      <cEnviroment> Environmental variable to obtain.
    $RETURNS$
       <cReturn>     Value of the Environment Variable.
    $DESCRIPTION$
@@ -121,9 +113,9 @@
    $ONELINER$
       Obtains a system environmental setting.
    $SYNTAX$
-      GetE( <cEnviroment> ) --> <cReturn>
+      GetE( <cEnviroment> ) --> cReturn
    $ARGUMENTS$
-      <cEnviroment> Enviromental variable to obtain.
+      <cEnviroment> Environmental variable to obtain.
    $RETURNS$
       <cReturn>     Value of the Environment Variable.
    $DESCRIPTION$
@@ -136,13 +128,10 @@
    $EXAMPLES$
       ? GetE( "PATH" )
       ? GetE( "CONFIG" )
-      ? GetE( "HARBOURCMD", "-n -l -es2" )
    $STATUS$
       R
    $COMPLIANCE$
-      This is CA-Cl*pper compliant.
-
-      The <cDefaultValue> parameter is a Harbour extension.
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -164,9 +153,9 @@
    $ONELINER$
       Obtains a system environmental setting.
    $SYNTAX$
-      hb_GetEnv( <cEnviroment>, [<cDefaultValue>] ) --> <cReturn>
+      hb_GetEnv( <cEnviroment>, [<cDefaultValue>] ) --> cReturn
    $ARGUMENTS$
-      <cEnviroment> Enviromental variable to obtain.
+      <cEnviroment> Environmental variable to obtain.
 
       <cDefaultValue> Optional value to return if <cEnvironment> is not found.
    $RETURNS$
@@ -237,6 +226,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$

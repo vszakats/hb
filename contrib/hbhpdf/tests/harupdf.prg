@@ -53,16 +53,14 @@ PROCEDURE Main( cFileToSave )
 
    hb_cdpSelect( "UTF8EX" )
 
-   CLS
-
    IF ! HB_ISSTRING( cFileToSave ) .OR. hb_LeftEq( cFileToSave, "-" )
       cFileToSave := "myharu.pdf"
    ENDIF
 
    IF DesignHaruPDF( cFileToSave )
-      Alert( "PDF File <" + cFileToSave + "> is created!" )
+      ? hb_StrFormat( "PDF File '%1$s' is created!", cFileToSave )
    ELSE
-      Alert( "Some problems in creating the PDF!" )
+      ? "Some problems in creating the PDF!"
    ENDIF
 
    RETURN
@@ -92,7 +90,7 @@ FUNCTION DesignHaruPDF( cFileToSave )
    hb_vfErase( cFileToSave )
 
    IF pdf == NIL
-      Alert( "PDF could not be created!" )
+      ? "PDF could not be created!"
       RETURN .F.
    ENDIF
 

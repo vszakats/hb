@@ -204,7 +204,7 @@ METHOD Transfer( ... ) CLASS TForm
 
          CASE HB_ISOBJECT( xData )              // Object passed
             xRet := ::Transfer( xData:Transfer() )
-         CASE !( ValType( xData ) == "U" )
+         CASE ! ValType( xData ) == "U"
             ? "TRANSFER: Incorrect argument(", xData:__enumIndex(), ")", xData
          ENDCASE
       NEXT

@@ -527,7 +527,7 @@ static HB_ERRCODE pgsqlGetValue( SQLBASEAREAP pArea, HB_USHORT uiIndex, PHB_ITEM
    if( PQgetisnull( pSDDData->pResult, pArea->ulRecNo - 1, uiIndex ) )
    {
       hb_itemClear( pItem );
-      /* TOFIX: it breaks defined field type */
+      /* FIXME: it breaks defined field type */
       return HB_SUCCESS;
    }
 
@@ -565,9 +565,13 @@ static HB_ERRCODE pgsqlGetValue( SQLBASEAREAP pArea, HB_USHORT uiIndex, PHB_ITEM
          break;
 
       case HB_FT_LOGICAL:
-         hb_itemPutL( pItem, pValue[ 0 ] == 'T' || pValue[ 0 ] == 'Y' );
+         hb_itemPutL( pItem,
+            pValue[ 0 ] == 't' ||
+            pValue[ 0 ] == 'T' ||
+            pValue[ 0 ] == 'y' ||
+            pValue[ 0 ] == 'Y' ||
+            pValue[ 0 ] == '1' );
          break;
-
 
       case HB_FT_DATE:
       {

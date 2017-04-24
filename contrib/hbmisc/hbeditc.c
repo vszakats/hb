@@ -9,7 +9,7 @@
    4) Doesn't handle OS-specific EOL (only CRLG)
    5) Unicode support
 
-   TOFIX:
+   FIXME:
 
    1) All TAB characters are replaced with spaces at startup - if edited file is
       very large and contains many TABs then it can take a vary long time - TAB
@@ -911,7 +911,10 @@ HB_FUNC( ED_STABILIZE )
                {
                   nLen -= ( i - 2 );
                   if( adres[ i - 1 ] == pEd->escape )
-                     i++, nLen--;
+                  {
+                     i++;
+                     nLen--;
+                  }
                   hb_strncpy( adres + 2, adres + i, nLen - 2 );
                   nEscLen -= ( e - 2 );
                }

@@ -6,7 +6,7 @@
    $ONELINER$
       Set the video mode
    $SYNTAX$
-      ft_SetMode( <nMode> ) -> NIL
+      ft_SetMode( <nMode> ) --> NIL
    $ARGUMENTS$
       <nMode> is one of the DOS video modes.
    $RETURNS$
@@ -35,7 +35,7 @@
    $ONELINER$
       Get the video mode
    $SYNTAX$
-      ft_GetMode() -> nVMode
+      ft_GetMode() --> nVMode
    $ARGUMENTS$
       None.
    $RETURNS$

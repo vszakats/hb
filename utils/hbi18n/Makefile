@@ -3,8 +3,7 @@ ROOT := ../../
 PRG_SOURCES := \
    hbi18n.prg \
 
-RC_SOURCES := \
-   $(TOP)$(ROOT)package/harbour.rc
+RC_SOURCES := harbour.rc
 
 PRG_MAIN := hbi18n.prg
 

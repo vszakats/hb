@@ -7,7 +7,7 @@ msgid ""
 msgstr "Project-Id-Version: Harbour\nPO-Revision-Date: 2014-10-14 22:50+0000\nLast-Translator: vszakats\nLanguage-Team: Greek (https://www.transifex.com/projects/p/harbour/language/el/)\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nLanguage: el\nPlural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, c-format
-msgid "Exit code: %1$d: %2$s"
+msgid "Exit status: %1$d: %2$s"
 msgstr "Κωδικός εξόδου: %1$d: %2$s"
 
 #, c-format
@@ -1535,11 +1535,11 @@ msgid "option %1$s"
 msgstr "επιλογή %1$s"
 
 #, c-format
-msgid "Exit codes (\"errorlevels\"):"
+msgid "Exit statuses (\"errorlevels\"):"
 msgstr "Κωδικοί εξόδου (\"errorlevels\"):"
 
 #, c-format
-msgid "when -run option is used, the exit code will be the one returned by the target executable"
+msgid "when -run option is used, the exit status will be the one returned by the target executable"
 msgstr "όταν γίνει χρήση της επιλογής -run, κωδικός εξόδου θα είναι αυτός που θα επιστραφεί από το δημιουργημένο εκτελέσιμο."
 
 #, c-format
@@ -2231,7 +2231,7 @@ msgid "callback state. Can be: 'init', 'pre_all', 'pre_prg', 'pre_res', 'pre_c',
 msgstr "δήλωση επίκλισης. Μπορεί να είναι: 'init', 'pre_all', 'pre_prg', 'pre_res', 'pre_c', 'pre_link', 'pre_lib', 'pre_cleanup', 'post_build', 'post_all'"
 
 #, c-format
-msgid "Current exit code"
+msgid "Current exit status"
 msgstr "Τρέχων κωδικός εξόδου"
 
 #, c-format

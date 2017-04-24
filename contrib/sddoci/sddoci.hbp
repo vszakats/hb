@@ -11,6 +11,7 @@ rddsql.hbc
 
 -depurlbase=ocilib:https://vrogier.github.io/ocilib/
 -depurlbase=ocilib:https://www.oracle.com/technetwork/database/features/oci/
+-deppkgname=ocilib:ocilib-devel{rpm}
 -depkeyhead=ocilib:ocilib.h
 -depcontrol=ocilib:no{HB_BUILD_3RDEXT='no'}
 -depcontrol=ocilib:${HB_WITH_OCILIB}

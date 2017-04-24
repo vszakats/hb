@@ -35,9 +35,9 @@
 
       ? FV( 1000, 0.05, 10 ) // --> 12577.893
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      FV() is compatible with CT3's FV().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -83,9 +83,9 @@
 
       ? PV( 100, 0.005, 60 ) // --> 5172.56
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      PV() is compatible with CT3's PV().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -129,9 +129,9 @@
 
       ? Payment( 5172.56, 0.005, 60 ) // --> 100.00
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      Payment() is compatible with CT3's Payment().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -168,7 +168,7 @@
                                  -> has to be 0, so
       <nPeriods> = -Log(1-<nLoan>*(<nInterest>/100)/<nPayment>)/Log(1+<nInterest>/100))
 
-      Note, however that in the case of nPayment <= <nLoan>*(<nInterest>/100),
+      Note, however that in the case of `nPayment <= nLoan * ( nInterest / 100 )`,
       one would need infinite time to pay the loan back. The functions does
       then return -1.
    $EXAMPLES$
@@ -180,9 +180,9 @@
 
       // months to cancel the loan.
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      Periods() is compatible with CT3's Periods().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -214,7 +214,7 @@
 
       <nPayment> = <nLoan>*(<nInterest>/100)/(1-(1+<nInterest>/100)^(-<nPeriods>))
 
-      However, this equation can not be solved for <nInterest> in a "closed"
+      However, this equation cannot be solved for <nInterest> in a "closed"
       manner, i.e. <nInterest> = ..., so that the result can only be estimated.
    $EXAMPLES$
       // You get a loan of 5172.56, pay 100 back every month for
@@ -223,9 +223,9 @@
 
       ? Rate( 5172.56, 100, 60 ) // --> 0.005
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      Rate() is compatible with CT3's Rate().
+      C
    $PLATFORMS$
       All
    $FILES$

@@ -53,15 +53,6 @@
 FUNCTION dbCreateIndex( cOrderBagName, cKeyExpr, bKeyExpr, lUnique, cOrderName )
    RETURN ordCreate( cOrderBagName, cOrderName, cKeyExpr, bKeyExpr, lUnique )
 
-FUNCTION dbSetIndex( cIndexName )
-   RETURN ordListAdd( cIndexName )
-
-FUNCTION dbClearIndex()
-   RETURN ordListClear()
-
-FUNCTION dbReindex()
-   RETURN ordListRebuild()
-
 PROCEDURE dbSetOrder( nOrderNum )
 
    IF HB_ISSTRING( nOrderNum ) .AND. ! Empty( Val( nOrderNum ) )
@@ -71,9 +62,6 @@ PROCEDURE dbSetOrder( nOrderNum )
    ordSetFocus( nOrderNum )
 
    RETURN
-
-FUNCTION IndexExt()
-   RETURN ordBagExt()
 
 FUNCTION IndexKey( nOrder )
 

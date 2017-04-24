@@ -6,7 +6,7 @@
    $ONELINER$
       Retrieve a byte from a specified memory location.
    $SYNTAX$
-      ft_Peek( <nSegment>, <nOffset> ) -> nValue
+      ft_Peek( <nSegment>, <nOffset> ) --> nValue
    $ARGUMENTS$
       <nSegment> is the segment of the desired memory address.
 

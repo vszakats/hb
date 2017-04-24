@@ -78,7 +78,7 @@ FUNCTION dbModifyStructure( cFile )
 
       hb_FNameSplit( cFile, @cDir, @cTable )
 
-      /* TOFIX: long filenames, not MS-DOS compatible */
+      /* FIXME: long filenames, not MS-DOS compatible */
       cBakFile       := cDir + cTable + "_bak_" + cDateTime + cExt
       cStructureFile := cDir + cTable + "_str_" + cDateTime + cExt
       cNewFile       := cDir + cTable + "_new_" + cDateTime + cExt
@@ -206,7 +206,7 @@ FUNCTION dbMerge( xSource, lAppend )
             // Save
             xField := FieldGet( cField:__enumIndex() )
 
-            // Test type compatability
+            // Test type compatibility
             FieldPut( cField:__enumIndex(), ( nSource )->( FieldGet( nSourcePos ) ) )
 
             // Restore
@@ -218,7 +218,7 @@ FUNCTION dbMerge( xSource, lAppend )
             cTargetType := ValType( FieldGet( cField:__enumIndex() ) )
 
             BEGIN SEQUENCE WITH __BreakBlock()
-               // Test type compatability
+               // Test type compatibility
                FieldPut( cField:__enumIndex(), ValToType( ( nSource )->( FieldGet( nSourcePos ) ), cTargetType ) )
 
                // Restore

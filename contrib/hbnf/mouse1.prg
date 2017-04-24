@@ -6,13 +6,13 @@ THREAD STATIC t_lMInit := .F.
 
 FUNCTION ft_MDblClk( nClick, nButton, nInterval, nRow, nCol, nStart )
 
-   LOCAL nVert, nHorz  // local row and col coordinates
-   LOCAL lDouble       // double click actually occurred
-   LOCAL lDone         // loop flag
-   LOCAL nPrs          // number of presses which occurred
+   LOCAL nVert, nHorz  // Local row and col coordinates
+   LOCAL lDouble       // Double click actually occurred
+   LOCAL lDone         // Loop flag
+   LOCAL nPrs          // Number of presses which occurred
 #if ! defined( __PLATFORM__DOS )
-   LOCAL nButtStat     // current button status
-   LOCAL nButtPrev     // previous button status
+   LOCAL nButtStat     // Current button status
+   LOCAL nButtPrev     // Previous button status
 #endif
 
    __defaultNIL( @nClick, 1 )
@@ -45,7 +45,7 @@ FUNCTION ft_MDblClk( nClick, nButton, nInterval, nRow, nCol, nStart )
             nRow := nVert
             nCol := nHorz
          ELSEIF nButtPrev != 0
-            // end of click
+            // End of click
             IF nButtPrev == ( 2 ^ nButton )
                ++nPrs
             ENDIF
@@ -58,10 +58,10 @@ FUNCTION ft_MDblClk( nClick, nButton, nInterval, nRow, nCol, nStart )
       lDone := Seconds() - nStart >= nInterval .OR. lDouble
    ENDDO
 
-   // if we have not moved then keep the preliminary double click setting
+   // If we have not moved then keep the preliminary double click setting
    lDouble := lDouble .AND. nVert == nRow .AND. nHorz == nCol
 
-   // change start time if we waited for first click. nInterval is the
+   // Change start time if we waited for first click. nInterval is the
    // maximum time between clicks not the total time for two clicks if
    // requested.
    IF nClick > 0
@@ -89,7 +89,7 @@ FUNCTION ft_MDblClk( nClick, nButton, nInterval, nRow, nCol, nStart )
                nRow := nVert
                nCol := nHorz
             ELSEIF nButtPrev != 0
-               // end of click
+               // End of click
                IF nButtPrev == ( 2 ^ nButton )
                   nPrs := nPrs + 1
                ENDIF
@@ -102,7 +102,7 @@ FUNCTION ft_MDblClk( nClick, nButton, nInterval, nRow, nCol, nStart )
          lDone := Seconds() - nStart >= nInterval .OR. lDouble
       ENDDO
 
-      // make sure we haven't moved
+      // Make sure we haven't moved
       lDouble := lDouble .AND. nVert == nRow .AND. nHorz == nCol
    ENDIF
 
@@ -165,7 +165,7 @@ PROCEDURE ft_MSetSens( nHoriz, nVert, nDouble )
 FUNCTION ft_MVersion( /* @ */ nMinor, /* @ */ nType, /* @ */ nIRQ )
 
    nMinor := 20
-   nType := 2  // serial
+   nType := 2  // Serial
    nIRQ := 3
 
    RETURN 8

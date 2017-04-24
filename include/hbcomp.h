@@ -84,7 +84,6 @@ extern void hb_compParserRun( HB_COMP_DECL );
 #define HB_VSCOMP_TH_STATIC  ( HB_VSCOMP_STATIC | HB_VSCOMP_THREAD )
 
 /* return detailed information about a class of variable */
-extern int hb_compVariableScope( HB_COMP_DECL, const char * );
 #define HB_VS_UNDECLARED      0
 /* variables declared in a current codeblock/function/procedure */
 #define HB_VS_CBLOCAL_VAR     1     /* func/proc local variables and parameters used in codeblock (detached) */
@@ -252,8 +251,6 @@ extern int  hb_compMainExt( int argc, const char * const argv[], HB_BYTE ** pBuf
 extern void hb_compOutStd( HB_COMP_DECL, const char * szMessage );
 extern void hb_compOutErr( HB_COMP_DECL, const char * szMessage );
 
-extern void hb_compExprLstDealloc( HB_COMP_DECL );
-
 extern PHB_EXPR hb_compExprGenStatement( PHB_EXPR, HB_COMP_DECL );
 extern PHB_EXPR hb_compExprGenPush( PHB_EXPR, HB_COMP_DECL );
 extern PHB_EXPR hb_compExprGenPop( PHB_EXPR, HB_COMP_DECL );
@@ -269,8 +266,10 @@ extern void     hb_compErrorMacro( HB_COMP_DECL, const char * szText );
 extern void     hb_compErrorVParams( HB_COMP_DECL, const char * szFuncOrBlock );
 
 extern PHB_EXPR hb_compErrorStatic( HB_COMP_DECL, const char *, PHB_EXPR );
-extern void     hb_compErrorCodeblock( HB_COMP_DECL, const char * szBlock );
+extern void     hb_compErrorCodeblockDecl( HB_COMP_DECL, const char * szVarName );
+extern void     hb_compErrorCodeblockWith( HB_COMP_DECL, const char * szMessage );
 
+extern void     hb_compPushMacroVar( HB_COMP_DECL, const char * szText );
 extern void     hb_compPushMacroText( HB_COMP_DECL, const char * szText, HB_SIZE nLen, HB_BOOL fMacro );
 
 /* Codeblocks */

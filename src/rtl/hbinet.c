@@ -1256,7 +1256,11 @@ static void hb_inetConnectInternal( HB_BOOL fResolve )
          szHost = szAddr = hb_socketResolveAddr( szHost, HB_SOCKET_AF_INET );
 
       if( fResolve && ! szAddr )
+      {
          hb_inetGetError( socket );
+         if( socket->iError == 0 )
+            socket->iError = HB_SOCKET_ERR_WRONGADDR;
+      }
       else
       {
          /* Creates comm socket */
@@ -1457,7 +1461,7 @@ HB_FUNC( HB_INETDGRAMRECV )
       {
          fRepeat = HB_FALSE;
          if( socket->remote )
-            hb_xfree( socket->remote );  /* TOFIX: double free */
+            hb_xfree( socket->remote );  /* FIXME: double free */
          iMax = hb_socketRecvFrom( socket->sd, buffer, iLen, 0,
                                    &socket->remote, &socket->remotelen,
                                    socket->iTimeout );

@@ -1,6 +1,0 @@
-description=Grumpfish Speller library (English)
-
-incpaths=.
-libpaths=lib/${hb_plat}/${hb_comp}
-
-libs=${hb_name}

@@ -80,7 +80,7 @@ FUNCTION IsShortcut( oMenu, nKey, /* @ */ nID )
 
    DO CASE
    // Test for top menu item not a TopBar Menu:
-   CASE !( oMenu:ClassName() == "TOPBARMENU" )
+   CASE ! oMenu:ClassName() == "TOPBARMENU"
 
       RETURN IsQuick( oMenu, nKey, @nID )
 

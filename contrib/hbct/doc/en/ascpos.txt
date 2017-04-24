@@ -22,9 +22,9 @@
       ? AscPos( "0123456789" ) // --> 57
       ? AscPos( "0123456789", 1 ) // --> 48
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      AscPos() is compatible with CT3's AscPos().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -59,9 +59,9 @@
       ? ValPos( "1234x56789" ) // --> 9
       ? ValPos( "1234x56789", 1 ) // --> 1
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      ValPos() is compatible with CT3's ValPos().
+      C
    $PLATFORMS$
       All
    $FILES$

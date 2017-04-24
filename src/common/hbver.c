@@ -282,6 +282,7 @@ static HB_BOOL s_fWinVerInit = HB_FALSE;
 static HB_BOOL s_fWin10    = HB_FALSE;
 static HB_BOOL s_fWin81    = HB_FALSE;
 static HB_BOOL s_fWin8     = HB_FALSE;
+static HB_BOOL s_fWin7     = HB_FALSE;
 static HB_BOOL s_fWinVista = HB_FALSE;
 static HB_BOOL s_fWin2K3   = HB_FALSE;
 static HB_BOOL s_fWin2K    = HB_FALSE;
@@ -342,6 +343,7 @@ static void s_hb_winVerInit( void )
    s_fWin10    = hb_iswinver( 10, 0, 0, HB_TRUE );
    s_fWin81    = hb_iswinver( 6, 3, 0, HB_TRUE );
    s_fWin8     = hb_iswinver( 6, 2, 0, HB_TRUE );
+   s_fWin7     = hb_iswinver( 6, 1, 0, HB_TRUE );
    s_fWinVista = hb_iswinver( 6, 0, 0, HB_TRUE );
    s_fWin2K3   = hb_iswinver( 5, 2, VER_NT_SERVER, HB_TRUE ) || hb_iswinver( 5, 2, VER_NT_DOMAIN_CONTROLLER, HB_TRUE );
    s_fWin2K    = hb_iswinver( 5, 0, 0, HB_TRUE );
@@ -396,6 +398,7 @@ static HB_BOOL s_fWinVerInit = HB_FALSE;
 static HB_BOOL s_fWin10    = HB_FALSE;
 static HB_BOOL s_fWin81    = HB_FALSE;
 static HB_BOOL s_fWin8     = HB_FALSE;
+static HB_BOOL s_fWin7     = HB_FALSE;
 static HB_BOOL s_fWinVista = HB_FALSE;
 static HB_BOOL s_fWin2K3   = HB_FALSE;
 static HB_BOOL s_fWin2K    = HB_FALSE;
@@ -411,6 +414,7 @@ static void s_hb_winVerInit( void )
    s_fWin10    = HB_FALSE;
    s_fWin81    = HB_FALSE;
    s_fWin8     = HB_FALSE;
+   s_fWin7     = HB_FALSE;
    s_fWinVista = HB_FALSE;
    s_fWin2K3   = s_fWinVista;
    s_fWin2K    = HB_FALSE;
@@ -751,7 +755,7 @@ HB_BOOL hb_iswinver( int iMajor, int iMinor, int iType, HB_BOOL fOrUpper )
       dwlConditionMask = s_pVerSetConditionMask( dwlConditionMask, VER_MAJORVERSION, fOrUpper ? VER_GREATER_EQUAL : VER_EQUAL );
       dwlConditionMask = s_pVerSetConditionMask( dwlConditionMask, VER_MINORVERSION, fOrUpper ? VER_GREATER_EQUAL : VER_EQUAL );
 
-      /* MSDN says <https://msdn.microsoft.com/en-us/library/windows/desktop/ms725492.aspx>:
+      /* MSDN says in https://msdn.microsoft.com/library/ms725492
            "If you are testing the major version, you must also test the
             minor version and the service pack major and minor versions."
          However, Wine (as of 1.7.53) breaks on this. Since native Windows
@@ -850,6 +854,17 @@ HB_BOOL hb_iswin8( void )
    if( ! s_fWinVerInit )
       s_hb_winVerInit();
    return s_fWin8;
+#else
+   return HB_FALSE;
+#endif
+}
+
+HB_BOOL hb_iswin7( void )
+{
+#if defined( HB_OS_WIN ) || defined( HB_OS_DOS )
+   if( ! s_fWinVerInit )
+      s_hb_winVerInit();
+   return s_fWin7;
 #else
    return HB_FALSE;
 #endif
@@ -1348,7 +1363,7 @@ char * hb_verHarbour( void )
    pszVersion = ( char * ) hb_xgrab( 80 );
    hb_snprintf( pszVersion, 80, "Harbour %d.%d.%d%s (%s) (%s)",
                 HB_VER_MAJOR, HB_VER_MINOR, HB_VER_RELEASE, HB_VER_STATUS,
-                hb_verCommitID(), szDate );
+                hb_verCommitIDShort(), szDate );
 
    return pszVersion;
 }

@@ -6,7 +6,7 @@
    $ONELINER$
       Save Clipper array to a disc file.
    $SYNTAX$
-      ft_SaveArr( <aArray>, <cFileName>, <nErrorCode> ) -> lRet
+      ft_SaveArr( <aArray>, <cFileName>, <nErrorCode> ) --> lRet
    $ARGUMENTS$
       <aArray> is any Clipper array except those containing
       compiled code blocks.
@@ -61,7 +61,7 @@
    $ONELINER$
       Restore a Clipper array from a disc file
    $SYNTAX$
-      ft_RestArr( <cFileName>, <nErrorCode> ) -> aArray
+      ft_RestArr( <cFileName>, <nErrorCode> ) --> aArray
    $ARGUMENTS$
       <cFileName> is a DOS file name.
 

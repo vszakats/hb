@@ -396,7 +396,7 @@ METHOD PROCEDURE Draw128( cText, cModeCode ) CLASS GDBarCode
 
    cModeCode := Upper( hb_defaultValue( cModeCode, "B" ) )
 
-   IF ! Empty( cModeCode ) .AND. !( cModeCode $ "ABC" )
+   IF ! Empty( cModeCode ) .AND. ! cModeCode $ "ABC"
       ::DrawError( "Code 128 Modes are A, B or C character values." )
       lError := .T.
    ENDIF

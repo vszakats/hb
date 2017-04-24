@@ -688,14 +688,14 @@ METHOD select( xPos ) CLASS ListBox
    DO CASE
    CASE cType == "C"
       nPos := ::findData( xPos )
-      IF !( ValType( ::xBuffer ) $ "CU" )
+      IF ! ValType( ::xBuffer ) $ "CU"
          ::xBuffer := nPos
       ELSEIF ::nValue == 0
          ::xBuffer := xPos
       ELSE
          ::xBuffer := _LISTBOX_ITEMDATA( ::aItems[ nPos ] )
       ENDIF
-   CASE !( cType == "N" )
+   CASE ! cType == "N"
       RETURN ::nValue
    CASE xPos < 1
       RETURN ::nValue
@@ -888,7 +888,7 @@ METHOD caption( cCaption ) CLASS ListBox
 METHOD coldBox( cColdBox ) CLASS ListBox
 
    IF cColdBox != NIL
-      ::cColdBox := __eInstVar53( Self, "COLDBOX", cColdBox, "C", 1001, {|| HB_ISNULL( cColdBox ) .OR. hb_ULen( cColdBox ) == 8 } )
+      ::cColdBox := __eInstVar53( Self, "COLDBOX", cColdBox, "C", 1001, {|| cColdBox == "" .OR. hb_ULen( cColdBox ) == 8 } )
    ENDIF
 
    RETURN ::cColdBox
@@ -933,7 +933,7 @@ METHOD hasFocus() CLASS ListBox
 METHOD hotBox( cHotBox ) CLASS ListBox
 
    IF cHotBox != NIL
-      ::cHotBox := __eInstVar53( Self, "HOTBOX", cHotBox, "C", 1001, {|| HB_ISNULL( cHotBox ) .OR. hb_ULen( cHotBox ) == 8 } )
+      ::cHotBox := __eInstVar53( Self, "HOTBOX", cHotBox, "C", 1001, {|| cHotBox == "" .OR. hb_ULen( cHotBox ) == 8 } )
    ENDIF
 
    RETURN ::cHotBox

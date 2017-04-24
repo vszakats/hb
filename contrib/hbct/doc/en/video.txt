@@ -2,7 +2,7 @@
    $NAME$
       CharPix()
    $CATEGORY$
-      HBCT video functions
+      CT3 video functions
    $ONELINER$
       Gets the number of scan lines per character.
    $SYNTAX$
@@ -16,7 +16,7 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      S
    $COMPLIANCE$
 
    $PLATFORMS$
@@ -32,7 +32,7 @@
    $NAME$
       VGAPalette()
    $CATEGORY$
-      HBCT video functions
+      CT3 video functions
    $ONELINER$
       Changes VGA palette colors
    $SYNTAX$
@@ -54,7 +54,7 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      S
    $COMPLIANCE$
 
    $PLATFORMS$
@@ -62,7 +62,7 @@
    $FILES$
       Library is hbct.
    $SEEALSO$
-      EGAPALETTE() FONTRESET()
+      EGAPalette(), FontReset()
    $END$
  */
 
@@ -70,7 +70,7 @@
    $NAME$
       VideoType()
    $CATEGORY$
-      HBCT video functions
+      CT3 video functions
    $ONELINER$
       Detects supported video adapter modes
    $SYNTAX$
@@ -84,7 +84,7 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      S
    $COMPLIANCE$
 
    $PLATFORMS$
@@ -92,7 +92,7 @@
    $FILES$
       Library is hbct.
    $SEEALSO$
-      ISCGA(), ISEGA(), ISHERCULES(), ISMCGA(), ISMONO(), ISPGA(), ISVGA()
+      IsCGA(), IsEGA(), IsHercules(), IsMCGA(), IsMono(), IsPGA(), IsVGA()
    $END$
  */
 
@@ -100,7 +100,7 @@
    $NAME$
       SetFont()
    $CATEGORY$
-      HBCT video functions
+      CT3 video functions
    $ONELINER$
       Loads font from a string.
    $SYNTAX$
@@ -120,7 +120,7 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      S
    $COMPLIANCE$
 
    $PLATFORMS$

@@ -13,7 +13,7 @@ PROCEDURE Main( cFile )
       cText := Example_Text()
    ENDIF
 
-   /* TOFIX: this can only handle CRLF EOLs */
+   /* FIXME: this can only handle CRLF EOLs */
    cText := StrTran( StrTran( cText, Chr( 13 ) ), Chr( 10 ), Chr( 13 ) + Chr( 10 ) )
 
    hb_MemoWrit( hb_FNameExtSet( __FILE__, ".out" ), ;

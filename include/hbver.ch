@@ -1,7 +1,7 @@
 /*
  * Header file for hb_Version() function
  *
- * Copyright 2008 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2008-2015 Viktor Szakats (vszakats.net/harbour)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -59,12 +59,13 @@
 #define HB_VERSION_REVISION             6
 #define HB_VERSION_COMMIT_INFO          7
 #define HB_VERSION_ID                   8
+#define HB_VERSION_ID_SHORT             31  /* Latest value. Continue from here. */
 #define HB_VERSION_PCODE_VER            9
 #define HB_VERSION_PCODE_VER_STR        10
 #define HB_VERSION_BUILD_DATE_STR       11
 #define HB_VERSION_BUILD_DATE           12
 #define HB_VERSION_BUILD_TIME           13
-#define HB_VERSION_BUILD_TIMESTAMP_UTC  30  /* Latest value. Continue from here. */
+#define HB_VERSION_BUILD_TIMESTAMP_UTC  30
 #define HB_VERSION_BUILD_PLAT           22
 #define HB_VERSION_BUILD_COMP           23
 #define HB_VERSION_FLAG_PRG             14

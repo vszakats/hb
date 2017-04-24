@@ -2,47 +2,34 @@
 
 PROCEDURE Main()
 
+   LOCAL aPrn
    LOCAL nPrn := 1
+   LOCAL cDocName := "Raw printing test"
    LOCAL cFileName := Space( 256 )
    LOCAL GetList := {}
 
-   LOCAL aPrn := win_printerList()
-
-   CLS
-
-   IF Empty( aPrn )
+   IF Empty( aPrn := win_printerList() )
       Alert( "No printers installed - Cannot continue" )
    ELSE
-      DO WHILE nPrn != 0
+      DO WHILE nPrn > 0
+
          CLS
-         @ 0, 0 SAY "win_PrintFileRaw() test program. Choose a printer to test"
+         @ 0, 0 SAY "Raw printing test. Choose a printer to test"
          @ 1, 0 SAY "File name:" GET cFileName PICTURE "@KS40"
          READ
          @ 2, 0 TO MaxRow(), MaxCol()
-         nPrn := AChoice( 3, 1, MaxRow() - 1, MaxCol() - 1, aPrn, .T.,, nPrn )
-         IF nPrn != 0
-            PrnTest( aPrn[ nPrn ], cFileName )
+
+         IF ( nPrn := AChoice( 3, 1, MaxRow() - 1, MaxCol() - 1, aPrn, .T.,, nPrn ) ) > 0
+
+            IF Empty( cFileName )
+               Alert( "win_PrintDataRaw() returned: " + ;
+                  hb_ntos( win_PrintDataRaw( aPrn[ nPrn ], "Hello World!" + hb_BChar( 12 ), cDocName ) ) )
+            ELSE
+               Alert( "win_PrintFileRaw() returned: " + ;
+                  hb_ntos( win_PrintFileRaw( aPrn[ nPrn ], cFileName, cDocName ) ) )
+            ENDIF
          ENDIF
       ENDDO
-   ENDIF
-
-   RETURN
-
-STATIC PROCEDURE PrnTest( cPrinter, cFileName )
-
-   LOCAL lDelete
-
-   IF HB_ISNULL( cFileName )
-      hb_MemoWrit( cFileName := hb_FNameExtSet( __FILE__, ".prn" ), "Hello World!" + Chr( 12 ) )
-      lDelete := .T.
-   ELSE
-      lDelete := .F.
-   ENDIF
-
-   Alert( "win_PrintFileRaw() returned: " + hb_ntos( win_PrintFileRaw( cPrinter, cFileName, "testing raw printing" ) ) )
-
-   IF lDelete
-      hb_vfErase( cFileName )
    ENDIF
 
    RETURN

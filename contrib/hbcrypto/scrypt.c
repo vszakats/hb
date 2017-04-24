@@ -1,7 +1,7 @@
 /*
  * Harbour interface to scrypt password hashing
  *
- * Copyright 2013 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2013-2017 Viktor Szakats (vszakats.net/harbour)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,11 +48,7 @@
 #include "hbapierr.h"
 
 HB_EXTERN_BEGIN
-#if defined( HBSCRYPT_VANILLA )
-   #include "crypto_scrypt.h"
-#else
-   #include "c_scrypt.h"
-#endif
+#include "crypto_scrypt.h"
 HB_EXTERN_END
 
 /* hb_scrypt( <cPassword>, <cSalt>, <nCPU>, <nMem>, <nParallel>, <nKeyLen> ) -> <cKey> */

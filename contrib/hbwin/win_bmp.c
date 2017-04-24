@@ -93,7 +93,7 @@ HB_FUNC( WIN_LOADBITMAPFILE )
 
    if( pBuffer )
    {
-      /* TOFIX: No check is done on read data from disk which is a large security hole
+      /* FIXME: No check is done on read data from disk which is a large security hole
                 and may cause GPF even in simple error cases, like invalid file content.
                 [vszakats] */
 
@@ -162,17 +162,17 @@ HB_FUNC( WIN_BITMAPISSUPPORTED )
 
 HB_FUNC( WIN_DRAWBITMAP )
 {
-   BITMAPINFO * pbmi = NULL;
    HDC hDC = hbwapi_par_HDC( 1 );
    HB_SIZE nSize = hb_parclen( 2 );
    BITMAPFILEHEADER * pbmfh = ( BITMAPFILEHEADER * ) hb_parc( 2 );
    int iType = hbwin_bitmapType( pbmfh, nSize );
 
-   /* TOFIX: No check is done on 2nd parameter which is a large security hole
+   /* FIXME: No check is done on 2nd parameter which is a large security hole
              and may cause GPF in simple error cases.
              [vszakats] */
    if( hbwin_bitmapIsSupported( hDC, iType, pbmfh, nSize ) == 0 )
    {
+      BITMAPINFO * pbmi = NULL;
       BYTE * pBits = NULL;
 
       int iWidth  = hb_parni( 7 );
@@ -200,7 +200,7 @@ HB_FUNC( WIN_DRAWBITMAP )
          BITMAPINFO bmi;
 
          memset( &bmi, 0, sizeof( bmi ) );
-         bmi.bmiHeader.biSize        = sizeof( BITMAPINFO );
+         bmi.bmiHeader.biSize        = sizeof( bmi );
          bmi.bmiHeader.biWidth       = iWidth;
          bmi.bmiHeader.biHeight      = -iHeight; /* top-down image */
          bmi.bmiHeader.biPlanes      = 1;

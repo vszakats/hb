@@ -6,7 +6,7 @@
    $ONELINER$
       Replace character at a certain position within a string
    $SYNTAX$
-      PosChar( <[@]cString>, <cCharacter|nCharacter>, [<nPosition>] ) -> cString
+      PosChar( <[@]cString>, <cCharacter|nCharacter>, [<nPosition>] ) --> cString
    $ARGUMENTS$
 
    $RETURNS$
@@ -16,9 +16,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      PosChar() is compatible with CT3's PosChar().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -36,7 +36,7 @@
    $ONELINER$
       Delete characters at a certain position within a string
    $SYNTAX$
-      PosDel( <cString>, [<nStartPosition>], <nLength> ) -> cString
+      PosDel( <cString>, [<nStartPosition>], <nLength> ) --> cString
    $ARGUMENTS$
 
    $RETURNS$
@@ -46,9 +46,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      PosDel() is compatible with CT3's PosDel().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -66,7 +66,7 @@
    $ONELINER$
       Insert characters at a certain position within a string
    $SYNTAX$
-      PosIns( <cString>, <cInsert>, [<nPosition>] ) -> cString
+      PosIns( <cString>, <cInsert>, [<nPosition>] ) --> cString
    $ARGUMENTS$
 
    $RETURNS$
@@ -76,15 +76,15 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      PosIns() is compatible with CT3's PosIns().
+      C
    $PLATFORMS$
       All
    $FILES$
       Library is hbct.
    $SEEALSO$
-      POSCHAR, PosDel(), PosRepl()
+      PosChar(), PosDel(), PosRepl()
    $END$
  */
 
@@ -96,7 +96,7 @@
    $ONELINER$
       Replace characters at a certain position within a string
    $SYNTAX$
-      PosRepl( <[@]cString>, <cReplacement>, [<nStartPosition>] ) -> cString
+      PosRepl( <[@]cString>, <cReplacement>, [<nStartPosition>] ) --> cString
    $ARGUMENTS$
 
    $RETURNS$
@@ -106,9 +106,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      PosRepl() is compatible with CT3's PosRepl().
+      C
    $PLATFORMS$
       All
    $FILES$

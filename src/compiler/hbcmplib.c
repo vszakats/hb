@@ -1,5 +1,5 @@
 /*
- * hb_compile() - compiler interface
+ * hb_compile*() - compiler interface
  *
  * Copyright 2007 Przemyslaw Czerpak <druzus / at / priv.onet.pl>
  *

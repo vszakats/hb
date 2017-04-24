@@ -7,8 +7,11 @@
 -w3 -es2
 
 -depurlbase=curl:https://curl.haxx.se/
+-depurlbase=curl:https://github.com/vszakats/harbour-deps{mingw|mingw64}
 -deppkgname=curl:libcurl4-openssl-dev{deb}
 -deppkgname=curl:curl-devel{rpm}
+-deppkgname=curl:mingw-w64-i686-curl{msys2&mingw}
+-deppkgname=curl:mingw-w64-x86_64-curl{msys2&mingw64}
 -deppkgname=curl:curl{pacman}
 -deppkgname=curl:curl{homebrew}
 -depkeyhead=curl:curl/curl.h
@@ -17,6 +20,8 @@
 -depincpath=curl:/usr/local/opt/curl/include
 -depincpath=curl:/usr/include
 -depincpath=curl:/usr/local/include
+
+-cflag=-DCURL_NO_OLDIES
 
 date.c
 easy.c

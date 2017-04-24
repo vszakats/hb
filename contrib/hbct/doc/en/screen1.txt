@@ -6,7 +6,7 @@
    $ONELINER$
 
    $SYNTAX$
-      ScreenAttr( [<nRow>], [<nColumn>] ) -> <nAttr>
+      ScreenAttr( [<nRow>], [<nColumn>] ) --> nAttr
    $ARGUMENTS$
       <nRow>     Designates the line from which to determine the attribute.
                  The default is the cursor line.
@@ -26,9 +26,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -46,7 +46,7 @@
    $ONELINER$
 
    $SYNTAX$
-      ScreenMix( <cCharString>, <cAttributeString>, [<nRow>], [<nCol>] ) -> <cEmptyString>
+      ScreenMix( <cCharString>, <cAttributeString>, [<nRow>], [<nCol>] ) --> cEmptyString
    $ARGUMENTS$
 
    $RETURNS$
@@ -56,9 +56,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -76,7 +76,7 @@
    $ONELINER$
 
    $SYNTAX$
-      SayScreen( <cString>, [<nRow>], [<nCol>] ) -> <cEmptyString>
+      SayScreen( <cString>, [<nRow>], [<nCol>] ) --> cEmptyString
    $ARGUMENTS$
       <cString> - the string to output. Although undocumented, can be NIL.
       <nRow> - row number, defaults to cursor row.
@@ -89,9 +89,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -119,9 +119,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      InvertWin() is compatible with CT3's InvertWin().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -170,9 +170,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -191,7 +191,7 @@
 
    $SYNTAX$
       CharWin( <nTop>, <nLeft>, <nBottom>, <nRight>, [<cNewChar|nNewChar>],
-               [<cOldChar|nOldChar>] ) --> <cEmptyString>
+               [<cOldChar|nOldChar>] ) --> cEmptyString
    $ARGUMENTS$
       <nTop> - top row number, default 0
       <nLeft> - left column number, default 0
@@ -211,9 +211,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -254,9 +254,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -270,7 +270,7 @@
    $NAME$
       ScreenText()
    $CATEGORY$
-      CT video functions (Harbour extension)
+      CT3 video functions (Harbour extension)
    $ONELINER$
 
    $SYNTAX$
@@ -288,9 +288,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -322,9 +322,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-
+      C
    $PLATFORMS$
       All
    $FILES$

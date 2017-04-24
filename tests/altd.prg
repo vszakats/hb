@@ -3,8 +3,6 @@
 
 PROCEDURE Main()
 
-   CLS
-
    AltD( 1 )   // Enables the debugger. Press <F5> to go
 
    Alert( "debugger enabled",, "GR+/B" )
@@ -13,6 +11,6 @@ PROCEDURE Main()
 
    Alert( "debugger invoked",, "GR+" )
 
-   Alert( "finished",, "GR+/B,W+/R" )
+   Alert( "finished",, "GR+/B,W+/R" )  // 'W+/R' is ignored for Cl*pper compatibility and placed there for testing purposes only.
 
    RETURN

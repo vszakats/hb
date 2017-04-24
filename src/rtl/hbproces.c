@@ -102,6 +102,25 @@
 #  endif
 #endif
 
+#if defined( HB_OS_UNIX ) && defined( EINTR )
+#  define HB_FAILURE_RETRY( ret, exp ) \
+   do \
+   { \
+      ( ret ) = ( exp ); \
+      hb_fsSetIOError( ( ret ) != -1, 0 ); \
+   } \
+   while( ( ret ) == -1 && hb_fsOsError() == ( HB_ERRCODE ) EINTR && \
+          hb_vmRequestQuery() == 0 )
+#else
+#  define HB_FAILURE_RETRY( ret, exp ) \
+   do \
+   { \
+      ( ret ) = ( exp ); \
+      hb_fsSetIOError( ( ret ) != -1, 0 ); \
+   } \
+   while( 0 )
+#endif
+
 #if defined( HB_OS_OS2 )
 
 static char * hb_buildArgsOS2( const char *pszFileName, APIRET * ret )
@@ -415,7 +434,7 @@ static int hb_fsProcessExec( const char * pszFileName,
       else if( pid != -1 )
       {
          int iStatus;
-         iResult = waitpid( pid, &iStatus, 0 );
+         HB_FAILURE_RETRY( iResult, waitpid( pid, &iStatus, 0 ) );
 #ifdef ERESTARTSYS
          if( iResult < 0 && errno != ERESTARTSYS )
 #else
@@ -427,31 +446,35 @@ static int hb_fsProcessExec( const char * pszFileName,
          else
             iResult = WIFEXITED( iStatus ) ? WEXITSTATUS( iStatus ) : 0;
       }
+      else
+         hb_fsSetIOError( HB_FALSE, 0 );
    }
-#elif defined( _MSC_VER ) || defined( __LCC__ ) || \
-    defined( __XCC__ ) || defined( __POCC__ )
-   iResult = _spawnvp( _P_WAIT, argv[ 0 ], argv );
-#elif defined( __MINGW32__ ) || defined( __WATCOMC__ )
-   iResult = spawnvp( P_WAIT, argv[ 0 ], ( const char * const * ) argv );
 #else
-   iResult = spawnvp( P_WAIT, argv[ 0 ], ( char * const * ) argv );
-#endif
+#  if defined( _MSC_VER ) || defined( __LCC__ ) || \
+      defined( __XCC__ ) || defined( __POCC__ )
+      iResult = _spawnvp( _P_WAIT, argv[ 0 ], argv );
+#  elif defined( __MINGW32__ ) || defined( __WATCOMC__ )
+      iResult = spawnvp( P_WAIT, argv[ 0 ], ( const char * const * ) argv );
+#  else
+      iResult = spawnvp( P_WAIT, argv[ 0 ], ( char * const * ) argv );
+#  endif
    hb_fsSetIOError( iResult >= 0, 0 );
+#endif
 
    if( iStdIn != FS_ERROR )
    {
       dup2( iStdIn,  0 );
-      close( iStdIn );
+      hb_fsCloseRaw( iStdIn );
    }
    if( iStdOut != FS_ERROR )
    {
       dup2( iStdOut, 1 );
-      close( iStdOut );
+      hb_fsCloseRaw( iStdOut );
    }
    if( iStdErr != FS_ERROR )
    {
       dup2( iStdErr, 2 );
-      close( iStdErr );
+      hb_fsCloseRaw( iStdErr );
    }
 
    hb_vmLock();
@@ -483,10 +506,9 @@ HB_FHANDLE hb_fsProcessOpen( const char * pszFileName,
               hPipeOut[ 2 ] = { FS_ERROR, FS_ERROR },
               hPipeErr[ 2 ] = { FS_ERROR, FS_ERROR };
    HB_FHANDLE hResult = FS_ERROR;
-   HB_ERRCODE errCode;
    HB_BOOL fError = HB_FALSE;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_fsProcessOpen(%s, %p, %p, %p, %d, %p)", pszFileName, phStdin, phStdout, phStderr, fDetach, pulPID ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_fsProcessOpen(%s, %p, %p, %p, %d, %p)", pszFileName, ( void * ) phStdin, ( void * ) phStdout, ( void * ) phStderr, fDetach, ( void * ) pulPID ) );
 
    if( phStdin != NULL )
       fError = ! hb_fsPipeCreate( hPipeIn );
@@ -932,25 +954,21 @@ HB_FHANDLE hb_fsProcessOpen( const char * pszFileName,
 #endif
    }
 
-   errCode = hb_fsError();
-
    if( hPipeIn[ 0 ] != FS_ERROR )
-      hb_fsClose( hPipeIn[ 0 ] );
+      hb_fsCloseRaw( hPipeIn[ 0 ] );
    if( hPipeIn[ 1 ] != FS_ERROR )
-      hb_fsClose( hPipeIn[ 1 ] );
+      hb_fsCloseRaw( hPipeIn[ 1 ] );
    if( hPipeOut[ 0 ] != FS_ERROR )
-      hb_fsClose( hPipeOut[ 0 ] );
+      hb_fsCloseRaw( hPipeOut[ 0 ] );
    if( hPipeOut[ 1 ] != FS_ERROR )
-      hb_fsClose( hPipeOut[ 1 ] );
+      hb_fsCloseRaw( hPipeOut[ 1 ] );
    if( phStdout != phStderr )
    {
       if( hPipeErr[ 0 ] != FS_ERROR )
-         hb_fsClose( hPipeErr[ 0 ] );
+         hb_fsCloseRaw( hPipeErr[ 0 ] );
       if( hPipeErr[ 1 ] != FS_ERROR )
-         hb_fsClose( hPipeErr[ 1 ] );
+         hb_fsCloseRaw( hPipeErr[ 1 ] );
    }
-
-   hb_fsSetError( errCode );
 
    return hResult;
 }
@@ -1014,8 +1032,7 @@ int hb_fsProcessValue( HB_FHANDLE hProcess, HB_BOOL fWait )
    if( pid > 0 )
    {
       hb_vmUnlock();
-      iRetStatus = waitpid( pid, &iStatus, fWait ? 0 : WNOHANG );
-      hb_fsSetIOError( iRetStatus >= 0, 0 );
+      HB_FAILURE_RETRY( iRetStatus, waitpid( pid, &iStatus, fWait ? 0 : WNOHANG ) );
 #ifdef ERESTARTSYS
       if( iRetStatus < 0 && hb_fsOsError() != ( HB_ERRCODE ) ERESTARTSYS )
 #else
@@ -1116,7 +1133,7 @@ int hb_fsProcessRun( const char * pszFileName,
    HB_SIZE nOutSize, nErrSize, nOutBuf, nErrBuf;
    int iResult;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_fsProcessRun(%s, %p, %" HB_PFS "u, %p, %p, %p, %p, %d)", pStdInBuf, pStdInBuf, nStdInLen, pStdOutPtr, pulStdOut, pStdErrPtr, pulStdErr, fDetach ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_fsProcessRun(%s, %p, %" HB_PFS "u, %p, %p, %p, %p, %d)", pszFileName, ( const void * ) pStdInBuf, nStdInLen, ( void * ) pStdOutPtr, ( void * ) pulStdOut, ( void * ) pStdErrPtr, ( void * ) pulStdErr, fDetach ) );
 
    nOutBuf = nErrBuf = nOutSize = nErrSize = 0;
    pOutBuf = pErrBuf = NULL;

@@ -1,7 +1,7 @@
 /*
  * CWI-2 <-> Unicode conversion table
  *
- * Copyright 2016 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2016-2017 Viktor Szakats (vszakats.net/harbour)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -71,8 +71,8 @@
      [*] exception over cp437
 
      https://en.wikipedia.org/wiki/CWI-2
-     http://deneb.iszt.hu/~pasztor/ekezet.html
-     http://oldweb.mit.bme.hu/services/codeconv/tema.html
+     https://web.archive.org/web/deneb.iszt.hu/~pasztor/ekezet.html
+     https://web.archive.org/web/oldweb.mit.bme.hu/services/codeconv/tema.html
  */
 
 #include "hbapicdp.h"

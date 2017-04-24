@@ -54,7 +54,7 @@
 
 HB_BOOL hb_evalNew( PHB_EVALINFO pEvalInfo, PHB_ITEM pItem )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_evalNew(%p, %p)", pEvalInfo, pItem ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_evalNew(%p, %p)", ( void * ) pEvalInfo, ( void * ) pItem ) );
 
    if( pEvalInfo )
    {
@@ -83,7 +83,7 @@ HB_BOOL hb_evalNew( PHB_EVALINFO pEvalInfo, PHB_ITEM pItem )
 
 HB_BOOL hb_evalPutParam( PHB_EVALINFO pEvalInfo, PHB_ITEM pItem )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_evalPutParam(%p, %p)", pEvalInfo, pItem ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_evalPutParam(%p, %p)", ( void * ) pEvalInfo, ( void * ) pItem ) );
 
    if( pEvalInfo && pItem && pEvalInfo->paramCount < HB_EVAL_PARAM_MAX_ )
    {
@@ -99,7 +99,7 @@ PHB_ITEM hb_evalLaunch( PHB_EVALINFO pEvalInfo )
 {
    PHB_ITEM pResult = NULL;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_evalLaunch(%p)", pEvalInfo ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_evalLaunch(%p)", ( void * ) pEvalInfo ) );
 
    if( pEvalInfo )
    {
@@ -154,7 +154,7 @@ PHB_ITEM hb_evalLaunch( PHB_EVALINFO pEvalInfo )
 
 HB_BOOL hb_evalRelease( PHB_EVALINFO pEvalInfo )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_evalRelease(%p)", pEvalInfo ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_evalRelease(%p)", ( void * ) pEvalInfo ) );
 
    if( pEvalInfo )
    {
@@ -188,7 +188,7 @@ PHB_ITEM hb_itemDo( PHB_ITEM pItem, HB_ULONG ulPCount, ... )
 {
    PHB_ITEM pResult = NULL;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_itemDo(%p, %lu, ...)", pItem, ulPCount ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_itemDo(%p, %lu, ...)", ( void * ) pItem, ulPCount ) );
 
    if( pItem )
    {

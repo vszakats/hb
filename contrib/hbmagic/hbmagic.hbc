@@ -6,5 +6,5 @@ headers=${hb_name}.ch
 
 libs=${_HB_DYNPREF}${hb_name}${_HB_DYNSUFF}
 
-{unix}libs=magic
+libs=magic
 {darwin}libpaths=/usr/local/opt/libmagic/lib

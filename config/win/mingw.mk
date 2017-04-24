@@ -12,23 +12,6 @@ OBJ_EXT := .o
 LIB_PREF := lib
 LIB_EXT := .a
 
-3RDLIBS_DYN := $(3RDLIBS)
-
-ifneq ($(HB_COMPILER),mingw64)
-
-   # Since unicows support in harbour-*.dll effectively
-   # doubles build time for core, allow it to be disabled.
-   ifeq ($(__HB_HARBOUR_DLL_UNICOWS),no)
-      3RDLIBS_DYN := $(filter-out $(3RDLIBS_DYN),unicows)
-   endif
-
-   ifneq ($(findstring unicows,$(3RDLIBS_DYN)),)
-      # Required to be able to link harbour-*.dll against unicows lib
-      # without 'Cannot export <*>: symbol not found' errors.
-      HB_DYN_COPT := -DHB_DYNLIB
-   endif
-endif
-
 CC := $(HB_CCPATH)$(HB_CCPREFIX)$(HB_CMP)$(HB_CCSUFFIX)
 CC_IN :=
 CC_OUT := -o
@@ -100,8 +83,8 @@ ifneq ($(HB_BUILD_WARN),no)
 #     # https://gcc.gnu.org/gcc-4.2/changes.html
 #     CFLAGS += -Wstrict-overflow=4
 #  endif
-   ifeq ($(filter $(HB_COMPILER_VER),0209 0304 0400 0401 0402 0403 0404 0405 0406 0407 0408 0409 0501 0502 0503),)
-      CFLAGS += -Wlogical-op -Wduplicated-cond -Wshift-negative-value -Wnull-dereference -Wunused-variable
+   ifeq ($(filter $(HB_COMPILER_VER),0209 0304 0400 0401 0402 0403 0404 0405 0406 0407 0408 0409 0501 0502 0503 0504),)
+      CFLAGS += -Wlogical-op -Wduplicated-cond -Wshift-negative-value -Wnull-dereference
    endif
 else
    CFLAGS += -Wmissing-braces -Wreturn-type -Wformat
@@ -139,14 +122,16 @@ endif
 
 ifeq ($(HB_BUILD_DEBUG),yes)
    CFLAGS += -g
+   DFLAGS += -g
+   LDFLAGS += -g
 endif
 
 RC := $(HB_CCPATH)$(HB_CCPREFIX)windres
 RC_OUT := -o$(subst x,x, )
-RCFLAGS += -I. -I$(HB_HOST_INC) -O coff
+RCFLAGS += -I. -I$(HB_HOST_INC) -O coff -c65001
 
 ifneq ($(filter $(HB_BUILD_STRIP),all lib),)
-   ARSTRIP = && ${HB_CCPATH}${HB_CCPREFIX}strip -S $(LIB_DIR)/$@
+   ARSTRIP = && strip -S $(LIB_DIR)/$@
 endif
 ifneq ($(filter $(HB_BUILD_STRIP),all bin),)
    LDSTRIP := -s
@@ -156,8 +141,8 @@ endif
 LD := $(CC)
 LD_OUT := -o$(subst x,x, )
 
-LIBPATHS := $(foreach dir,$(LIB_DIR) $(3RDLIB_DIR),-L$(dir))
-LDLIBS := $(foreach lib,$(HB_USER_LIBS) $(LIBS) $(3RDLIBS) $(SYSLIBS),-l$(lib))
+LIBPATHS := $(foreach dir,$(LIB_DIR),-L$(dir))
+LDLIBS := $(foreach lib,$(HB_USER_LIBS) $(LIBS) $(SYSLIBS),-l$(lib))
 
 # Add the standard C entry
 ifneq ($(HB_LINKING_RTL),)
@@ -168,9 +153,20 @@ endif
 
 LDFLAGS += $(LIBPATHS)
 
+ifneq ($(HB_CODESIGN_KEY),)
+   define create_exe_signed
+      $(LD) $(LDFLAGS) $(HB_LDFLAGS) $(HB_USER_LDFLAGS) $(LD_OUT)$(subst /,$(DIRSEP),$(BIN_DIR)/$@) $(^F) $(LDLIBS) $(LDSTRIP)
+      @$(ECHO) $(ECHOQUOTE)! Code signing: $(subst /,$(DIRSEP),$(BIN_DIR)/$@)$(ECHOQUOTE)
+      @osslsigncode sign -h sha256 -pkcs12 $(HB_CODESIGN_KEY) -pass "$(HB_CODESIGN_KEY_PASS)" -ts http://timestamp.digicert.com -in $(subst /,$(DIRSEP),$(BIN_DIR)/$@) -out $(subst /,$(DIRSEP),$(BIN_DIR)/$@)-signed
+      @$(CP) $(subst /,$(DIRSEP),$(BIN_DIR)/$@)-signed $(subst /,$(DIRSEP),$(BIN_DIR)/$@)
+      @$(RM) $(subst /,$(DIRSEP),$(BIN_DIR)/$@)-signed
+   endef
+   LD_RULE = $(create_exe_signed)
+endif
+
 AR := $(HB_CCPATH)$(HB_CCPREFIX)ar
 
-# NOTE: The empty line directly before 'endef' HAVE TO exist!
+# NOTE: The empty line directly before 'endef' HAS TO exist!
 define library_object
    @$(ECHO) $(ECHOQUOTE)$(subst \,/,$(file))$(ECHOQUOTE) >> __lib__.tmp
 
@@ -186,19 +182,31 @@ AR_RULE = $(create_library)
 DY := $(CC)
 DFLAGS += -shared $(LIBPATHS)
 DY_OUT := $(LD_OUT)
-DLIBS := $(foreach lib,$(HB_USER_LIBS) $(LIBS) $(3RDLIBS_DYN) $(SYSLIBS),-l$(lib))
+DLIBS := $(foreach lib,$(HB_USER_LIBS) $(LIBS) $(SYSLIBS),-l$(lib))
 
-# NOTE: The empty line directly before 'endef' HAVE TO exist!
+# NOTE: The empty line directly before 'endef' HAS TO exist!
 define dynlib_object
    @$(ECHO) $(ECHOQUOTE)INPUT($(subst \,/,$(file)))$(ECHOQUOTE) >> __dyn__.tmp
 
 endef
-define create_dynlib
-   $(if $(wildcard __dyn__.tmp),@$(RM) __dyn__.tmp,)
-   $(foreach file,$^,$(dynlib_object))
-   $(DY) $(DFLAGS) $(HB_USER_DFLAGS) $(DY_OUT)$(DYN_DIR)/$@ __dyn__.tmp $(DEF_FILE) $(DLIBS) -Wl,--out-implib,$(IMP_FILE),--output-def,$(DYN_DIR)/$(basename $@).def -Wl,--major-image-version,$(HB_VER_MAJOR) -Wl,--minor-image-version,$(HB_VER_MINOR) $(DYSTRIP)
-endef
-
-DY_RULE = $(create_dynlib)
+ifneq ($(HB_CODESIGN_KEY),)
+   define create_dynlib_signed
+      $(if $(wildcard __dyn__.tmp),@$(RM) __dyn__.tmp,)
+      $(foreach file,$^,$(dynlib_object))
+      $(DY) $(DFLAGS) $(HB_USER_DFLAGS) $(DY_OUT)$(DYN_DIR)/$@ __dyn__.tmp $(DEF_FILE) $(DLIBS) -Wl,--out-implib,$(IMP_FILE),--output-def,$(DYN_DIR)/$(basename $@).def -Wl,--major-image-version,$(HB_VER_MAJOR) -Wl,--minor-image-version,$(HB_VER_MINOR) $(DYSTRIP)
+      @$(ECHO) $(ECHOQUOTE)! Code signing: $(DYN_DIR)/$@$(ECHOQUOTE)
+      @osslsigncode sign -h sha256 -pkcs12 $(HB_CODESIGN_KEY) -pass $(HB_CODESIGN_KEY_PASS) -ts http://timestamp.digicert.com -in $(DYN_DIR)/$@ -out $(DYN_DIR)/$@-signed
+      @$(CP) $(DYN_DIR)/$@-signed $(DYN_DIR)/$@
+      @$(RM) $(DYN_DIR)/$@-signed
+   endef
+   DY_RULE = $(create_dynlib_signed)
+else
+   define create_dynlib
+      $(if $(wildcard __dyn__.tmp),@$(RM) __dyn__.tmp,)
+      $(foreach file,$^,$(dynlib_object))
+      $(DY) $(DFLAGS) $(HB_USER_DFLAGS) $(DY_OUT)$(DYN_DIR)/$@ __dyn__.tmp $(DEF_FILE) $(DLIBS) -Wl,--out-implib,$(IMP_FILE),--output-def,$(DYN_DIR)/$(basename $@).def -Wl,--major-image-version,$(HB_VER_MAJOR) -Wl,--minor-image-version,$(HB_VER_MINOR) $(DYSTRIP)
+   endef
+   DY_RULE = $(create_dynlib)
+endif
 
 include $(TOP)$(ROOT)config/rules.mk

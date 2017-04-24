@@ -155,3 +155,9 @@ endif
 # Rule to generate a C file from a PRG file.
 %.c : $(GRANDP)%.prg
 	$(HB_RULE)
+
+print-%:
+	@echo '$*=$($*)'
+	@echo '  origin = $(origin $*)'
+	@echo '  flavor = $(flavor $*)'
+	@echo '   value = $(value  $*)'

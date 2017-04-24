@@ -108,7 +108,7 @@ for example:
       str := Upper( str )
    NEXT
    // now `arr` stores { 2, 4, 6 }
-   // howerer `str` still stores "abc"
+   // however `str` still stores "abc"
 
 Notice the difference:
    FOR EACH a IN someValue

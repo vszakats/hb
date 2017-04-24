@@ -26,6 +26,7 @@ DYNAMIC UGetHeader
 DYNAMIC UGetWidgetById
 DYNAMIC UHtmlEncode
 DYNAMIC UHttpd
+DYNAMIC UHttpdConnection
 DYNAMIC UHttpdLog
 DYNAMIC UHttpdNew
 DYNAMIC ULink

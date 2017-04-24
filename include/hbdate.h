@@ -70,6 +70,8 @@ extern HB_EXPORT char * hb_dateDecStr( char * szDate, long lJulian );
 extern HB_EXPORT long   hb_dateEncStr( const char * szDate );
 extern HB_EXPORT int    hb_dateDOW( int iYear, int iMonth, int iDay );
 extern HB_EXPORT int    hb_dateJulianDOW( long lJulian );
+extern HB_EXPORT HB_BOOL hb_dateDecWeek( long lJulian, int * piYear, int * piWeek, int * piDay );
+extern HB_EXPORT long   hb_dateEncWeek( int iYear, int iWeek, int iDay );
 
 /* RTL functions */
 extern HB_EXPORT const char * hb_dateCMonth( int iMonth );
@@ -139,6 +141,10 @@ extern HB_EXPORT long   hb_timeUnformat( const char * szTime, const char * szTim
 extern HB_EXPORT void   hb_timeStampUnformat( const char * szDateTime,
                                               const char * szDateFormat, const char * szTimeFormat,
                                               long * plJulian, long * plMilliSec );
+
+extern HB_EXPORT HB_MAXUINT hb_timerGet( void );
+extern HB_EXPORT HB_MAXUINT hb_timerInit( HB_MAXINT nTimeOut );
+extern HB_EXPORT HB_MAXINT  hb_timerTest( HB_MAXINT nTimeOut, HB_MAXUINT * pnTimer );
 
 HB_EXTERN_END
 

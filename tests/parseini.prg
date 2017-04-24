@@ -1,20 +1,16 @@
-/*
- * Test for Ini file reading/writing
- *
- * Giancarlo Niccolai
- */
+/* Test for .ini file reading/writing by Giancarlo Niccolai */
 
 PROCEDURE Main( cName )
 
-   LOCAL hIni, aSect, cIni
-   LOCAL cSection
-   LOCAL cKey
-   LOCAL nRow := 1
+   LOCAL cIni, hIni, aSect, cValue
+   LOCAL nRow
 
    SetColor( "W+/B" )
    CLS
+
+   nRow := 1
    @ nRow++, 20 SAY "Harbour - .ini file parser test"
-   @ nRow++, 5 SAY "Call from command-line using a .ini filename as the only parameter"
+   @ nRow++,  5 SAY "Call from command-line using a .ini file name as the only parameter"
    nRow++
 
    IF Empty( cName )
@@ -22,30 +18,26 @@ PROCEDURE Main( cName )
       @ nRow++, 5 SAY "Using default parseini.ini file"
    ENDIF
 
-   hIni := hb_iniRead( cName )
-
    @ nRow, 0
 
    ? "Content of", cName
 
-   IF Empty( hIni )
+   IF Empty( hIni := hb_iniRead( cName ) )
       ? "Not a valid .ini file!"
    ELSE
-      FOR EACH cSection IN hIni:Keys
+      FOR EACH aSect IN hIni
          ?
-         ? "Section [" + cSection + "]"
-         aSect := hIni[ cSection ]
+         ? "Section [" + aSect:__enumKey() + "]"
 
-         FOR EACH cKey IN aSect:Keys
-            ? cKey, "=", aSect[ cKey ]
+         FOR EACH cValue IN aSect
+            ? cValue:__enumKey(), "=", cValue
          NEXT
       NEXT
    ENDIF
 
    ?
    ? "Adding section 'Added', with key NEW := new"
-   hIni[ "Added" ] := { => }
-   hIni[ "Added" ][ "NEW" ] := "new"
+   hIni[ "Added" ] := { "NEW" => "new" }
 
    ? "Writing output to parseini_out.ini"
    IF hb_iniWrite( "parseini_out.ini", hIni, "#Generated file; don't touch", "#End of file" )
@@ -56,44 +48,38 @@ PROCEDURE Main( cName )
    ?
    WAIT
 
-   nRow := 3
-   @ nRow, 0 CLEAR
+   @ 3, 0 CLEAR
    ?
    ? "REPEATING TESTS WITHOUT AUTOMATIC MAIN SECTION"
    ?
-
-   hIni := hb_iniRead( cName, ; /* default case */
-                       , ; /* default key indicators */
-                       , .F. )
-
    ? "Content of", cName
 
-   IF Empty( hIni )
+   IF Empty( hIni := hb_iniRead( cName, ;
+                                 /* default case */, ;
+                                 /* default key indicators */, .F. ) )
       ? "Not a valid .ini file!"
    ELSE
-      FOR EACH cSection IN hIni:Keys
-         /* Now (without automatic main), toplevel options may be in the root hash */
-         aSect := hIni[ cSection ]
+      FOR EACH aSect IN hIni
 
+         /* Now (without automatic main), toplevel options may be in the root hash */
          IF HB_ISHASH( aSect )
             /* It's a section */
             ?
-            ? "Section [" + cSection + "]"
+            ? "Section [" + aSect:__enumKey() + "]"
 
-            FOR EACH cKey IN aSect:Keys
-               ? cKey, "=", aSect[ cKey ]
+            FOR EACH cValue IN aSect
+               ? cValue:__enumKey(), "=", cValue
             NEXT
          ELSE
             /* It's a toplevel option */
-            ? "TOPLEVEL option:", cSection, "=", aSect
+            ? "TOPLEVEL option:", aSect:__enumKey(), "=", aSect
          ENDIF
       NEXT
    ENDIF
 
    ?
    ? "Adding section 'Added', with key NEW := new"
-   hIni[ "Added" ] := { => }
-   hIni[ "Added" ][ "NEW" ] := "new"
+   hIni[ "Added" ] := { "NEW" => "new" }
 
    ? "Writing output to parseini_out1.ini"
    IF hb_iniWrite( "parseini_out1.ini", hIni, ;
@@ -106,10 +92,9 @@ PROCEDURE Main( cName )
    ?
    WAIT
 
-   nRow := 3
-   @ nRow, 0 CLEAR
+   @ 3, 0 CLEAR
    ?
-   ? "WRITING INI TO A STRING"
+   ? "WRITING .ini TO A STRING"
    ?
 
    cIni := hb_iniWriteStr( hIni )
@@ -120,36 +105,31 @@ PROCEDURE Main( cName )
    ?
    WAIT
 
-   nRow := 3
-   @ nRow, 0 CLEAR
+   @ 3, 0 CLEAR
    ?
-   ? "READING INI FILE FROM A STRING"
+   ? "READING .ini FILE FROM A STRING"
    ?
-
-   hIni := hb_iniReadStr( cIni, ; /* default case */
-            , ; /* default key indicators */
-            , .F. )
-
    ? "Content:"
 
-   IF Empty( hIni )
+   IF Empty( hIni := hb_iniReadStr( cIni, ;
+                                    /* default case */, ;
+                                    /* default key indicators */, .F. ) )
       ? "Not a valid .ini file!"
    ELSE
-      FOR EACH cSection IN hIni:Keys
-         /* Now (without automatic main), toplevel options may be in the root hash */
-         aSect := hIni[ cSection ]
+      FOR EACH aSect IN hIni
 
+         /* Now (without automatic main), toplevel options may be in the root hash */
          IF HB_ISHASH( aSect )
             /* It's a section */
             ?
-            ? "Section [" + cSection + "]"
+            ? "Section [" + aSect:__enumKey() + "]"
 
-            FOR EACH cKey IN aSect:Keys
-               ? cKey, "=", aSect[ cKey ]
+            FOR EACH cValue IN aSect
+               ? cValue:__enumKey(), "=", cValue
             NEXT
          ELSE
             /* It's a toplevel option */
-            ? "TOPLEVEL option:", cSection, "=", aSect
+            ? "TOPLEVEL option:", aSect:__enumKey(), "=", aSect
          ENDIF
       NEXT
    ENDIF
@@ -157,17 +137,14 @@ PROCEDURE Main( cName )
    ?
    WAIT
 
-   nRow := 3
-   @ nRow, 0 CLEAR
+   @ 3, 0 CLEAR
    ?
-   ? "WRITING INI FILE TO A STRING"
+   ? "WRITING .ini FILE TO A STRING"
    ?
-
-   cIni := hb_iniWriteStr( hb_iniRead( cName ) )
 
    ? "Content of", cName
    ?
-   ? cIni
+   ? hb_iniWriteStr( hb_iniRead( cName ) )
    ?
    WAIT
 

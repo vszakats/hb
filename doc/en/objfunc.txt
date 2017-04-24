@@ -1,17 +1,6 @@
-/*
- * Copyright 1999-2000 Chen Kedem <niki@actcom.co.il>
- *    Documentation for: __objHasData(), __objHasMethod(), __objGetMsgList(),
- *                       __objGetMethodList(), __objGetValueList(),
- *                       __objSetValueList(), __objAddMethod(),
- *                       __objAddInline(), __objAddData(), __objModMethod(),
- *                       __objModInline(), __objDelMethod(), __objDelInline(),
- *                       __objDelData(), __objDerivedFrom()
- *
- * See COPYING.txt for licensing terms.
- *
- */
-
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -51,6 +40,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -90,6 +81,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -125,13 +118,13 @@
       If specified, the following table shows the values for <nClassType>
       that allow you to distinguish between VAR and CLASS VAR:
 
-      table>
-      hboo.ch           Meaning
+      <table>
+       hboo.ch           Meaning
 
-      HB_MSGLISTALL     All types
-      HB_MSGLISTCLASS   CLASS VAR only
-      HB_MSGLISTPURE    VAR only
-      /table>
+       HB_MSGLISTALL     All types
+       HB_MSGLISTCLASS   CLASS VAR only
+       HB_MSGLISTPURE    VAR only
+      </table>
 
       VAR are instance variable usable within each object from a class,
       where each object has its own VARs.
@@ -142,16 +135,13 @@
    $EXAMPLES$
       // show information about TBrowse class
       oB := TBrowseNew( 0, 0, 24, 79 )
-      aData      := __objGetMsgList( oB, .T. )
-      aClassData := __objGetMsgList( oB, .T., HB_MSGLISTCLASS )
-      aMethod    := __objGetMsgList( oB, .F. )
-      FOR EACH x IN aData
+      FOR EACH x IN __objGetMsgList( oB, .T. )
          ? "VAR name:", x
       NEXT
-      FOR EACH x IN aClassData
+      FOR EACH x IN __objGetMsgList( oB, .T., HB_MSGLISTCLASS )
          ? "CLASS VAR name:", x
       NEXT
-      FOR EACH x IN aMethod
+      FOR EACH x IN __objGetMsgList( oB, .F. )
          ? "METHOD name:", x
       NEXT
    $STATUS$
@@ -167,6 +157,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -188,7 +180,7 @@
    $DESCRIPTION$
       __objGetMethodList() is a low level class support function that let
       you find all class functions names for a given object.
-      It is equivalent to __objGetMsgList( oObject, .F. ).
+      It is equivalent to `__objGetMsgList( oObject, .F. )`.
    $EXAMPLES$
       // show information about TBrowse class
       oB := TBrowseNew( 0, 0, 24, 79 )
@@ -207,6 +199,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -232,8 +226,8 @@
    $DESCRIPTION$
       __objGetValueList() is a low level class support function that
       return an array with VAR names and value, each array element is a
-      pair of: aData[ i, HB_OO_DATA_SYMBOL ] contain the symbol name
-               aData[ i, HB_OO_DATA_VALUE  ] contain the value of DATA
+      pair of: `aData[ i ][ HB_OO_DATA_SYMBOL ]` contain the symbol name
+               `aData[ i ][ HB_OO_DATA_VALUE  ]` contain the value of DATA
    $EXAMPLES$
       // show information about TBrowse class
       oB := TBrowseNew( 0, 0, 24, 79 )
@@ -255,6 +249,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -278,20 +274,20 @@
       __objSetValueList() is a low level class support function that let
       you set a group of instance variables with values. each array
       element in <aData> is a pair of:
-      aData[ i, HB_OO_DATA_SYMBOL ] which contain the variable name to set
-      aData[ i, HB_OO_DATA_VALUE  ] contain the new variable value.
+      aData[ i ][ HB_OO_DATA_SYMBOL ] which contain the variable name to set
+      aData[ i ][ HB_OO_DATA_VALUE  ] contain the new variable value.
    $EXAMPLES$
       // set some TBrowse instance variable
       oB := TBrowse():New()
       aData := Array( 4, 2 )
-      aData[ 1, HB_OO_DATA_SYMBOL ] = "nTop"
-      aData[ 1, HB_OO_DATA_VALUE  ] = 1
-      aData[ 2, HB_OO_DATA_SYMBOL ] = "nLeft"
-      aData[ 2, HB_OO_DATA_VALUE  ] = 10
-      aData[ 3, HB_OO_DATA_SYMBOL ] = "nBottom"
-      aData[ 3, HB_OO_DATA_VALUE  ] = 20
-      aData[ 4, HB_OO_DATA_SYMBOL ] = "nRight"
-      aData[ 4, HB_OO_DATA_VALUE  ] = 70
+      aData[ 1 ][ HB_OO_DATA_SYMBOL ] = "nTop"
+      aData[ 1 ][ HB_OO_DATA_VALUE  ] = 1
+      aData[ 2 ][ HB_OO_DATA_SYMBOL ] = "nLeft"
+      aData[ 2 ][ HB_OO_DATA_VALUE  ] = 10
+      aData[ 3 ][ HB_OO_DATA_SYMBOL ] = "nBottom"
+      aData[ 3 ][ HB_OO_DATA_VALUE  ] = 20
+      aData[ 4 ][ HB_OO_DATA_SYMBOL ] = "nRight"
+      aData[ 4 ][ HB_OO_DATA_VALUE  ] = 70
       __objSetValueList( oB, aData )
       ? oB:nTop      // 1
       ? oB:nLeft     // 10
@@ -310,6 +306,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -366,6 +364,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -405,11 +405,13 @@
    $FILES$
       Library is core
    $SEEALSO$
-      __objAddData(), __objAddMethod(), __objDelInline(), __objGetMethodList(), __objGetMsgList(), __objHasMethod() , __objModInline()
+      __objAddData(), __objAddMethod(), __objDelInline(), __objGetMethodList(), __objGetMsgList(), __objHasMethod(), __objModInline()
    $END$
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -454,6 +456,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -525,6 +529,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -575,6 +581,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -631,6 +639,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -649,9 +659,9 @@
       <cSymbol> is the symbol name of METHOD or INLINE method to be
       deleted (removed) from the object.
    $RETURNS$
-      __objDelInMethod() return a reference to <oObject>.
+      __objDelInline() return a reference to <oObject>.
    $DESCRIPTION$
-      __objDelInMethod() is a low level class support function that delete
+      __objDelInline() is a low level class support function that delete
       (remove) a METHOD or an INLINE method from an object. <oObject> is
       unchanged if a symbol with the name <cSymbol> does not exist in
       <oObject>.
@@ -661,7 +671,7 @@
       __objAddMethod( oHappy, "Smile", @MySmile() )
       ? __objHasMethod( oHappy, "Smile" )    // .T.
       // remove Smile method
-      __objDelInMethod( oHappy, "Smile" )
+      __objDelInline( oHappy, "Smile" )
       ? __objHasMethod( oHappy, "Smile" )    // .F.
 
       STATIC FUNCTION MySmile( nType )
@@ -685,6 +695,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -728,6 +740,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2000 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$

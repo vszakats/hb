@@ -48,17 +48,16 @@
    DataMatrix is ISO/IEC 16022:2006
 
    Some info links:
-     http://www.gs1.org/docs/barcodes/GS1_DataMatrix_Introduction_and_technical_overview.pdf
+     https://web.archive.org/web/20150208040021/www.gs1.org/docs/barcodes/GS1_DataMatrix_Introduction_and_technical_overview.pdf
      http://www.aipsys.com/dmintro.htm
 
    Open source projects, that implement DataMatrix:
      https://www.datenfreihafen.org/projects/iec16022.html
-     http://www.libdmtx.org/
+     https://web.archive.org/web/20130325083148/www.libdmtx.org/
      https://www.codeproject.com/Articles/66495/DataMatrixNet-ported-to-Compact-Framework.aspx
 
    Online encoder:
-     http://www.bcgen.com/datamatrix-barcode-creator.html
-     http://www.bcmaker.com/demos/datamatrix.php
+     https://www.barcodetools.com/generator/index.html
 
    Online decoder:
      http://www.datasymbol.com/barcode-recognition-sdk/barcode-reader/online-barcode-decoder.html

@@ -230,7 +230,7 @@ METHOD PROCEDURE New( cFrmName AS STRING, ;
 
    ::lFormFeeds := lPrinter
 
-   IF HB_ISSTRING( cAltFile ) .AND. ! HB_ISNULL( cAltFile )   // To file
+   IF HB_ISSTRING( cAltFile ) .AND. ! cAltFile == ""   // To file
       lExtraState := Set( _SET_EXTRA, .T. )
       cExtraFile := Set( _SET_EXTRAFILE, cAltFile )
    ENDIF
@@ -413,7 +413,7 @@ METHOD PROCEDURE New( cFrmName AS STRING, ;
    Set( _SET_PRINTER, lPrintOn )    // Set the printer back to prior state
    Set( _SET_CONSOLE, lConsoleOn )  // Set the console back to prior state
 
-   IF HB_ISSTRING( cAltFile ) .AND. ! HB_ISNULL( cAltFile )       // Set extrafile back
+   IF HB_ISSTRING( cAltFile ) .AND. ! cAltFile == ""       // Set extrafile back
       Set( _SET_EXTRAFILE, cExtraFile )
       Set( _SET_EXTRA, lExtraState )
    ENDIF
@@ -614,7 +614,7 @@ METHOD PROCEDURE ExecuteReport() CLASS HBReportForm
                aRecordHeader[ Len( aRecordHeader ) ] += " "
             NEXT
             // Get rid of the extra space from the last column
-            aRecordHeader[ Len( aRecordHeader ) ] := hb_StrShrink( ATail( aRecordHeader ) )  /* TOFIX: use hb_UStrShrink() */
+            aRecordHeader[ Len( aRecordHeader ) ] := hb_StrShrink( ATail( aRecordHeader ) )  /* FIXME: use hb_UStrShrink() */
          ENDIF
       NEXT
    ENDIF
@@ -993,7 +993,7 @@ METHOD LoadReportFile( cFrmFile AS STRING ) CLASS HBReportForm
             ENDIF
 
             // Process columns
-            nFieldOffset := 12      // dBASE skips first 12 byte fields block.
+            nFieldOffset := 12      // dBase skips first 12 byte fields block.
             FOR nCount := 1 TO nColCount
                AAdd( aReport[ RPT_COLUMNS ], ::GetColumn( cFieldsBuff, @nFieldOffset ) )
             NEXT
@@ -1018,11 +1018,11 @@ METHOD GetExpr( nPointer AS NUMERIC ) CLASS HBReportForm
    LOCAL nOffsetOffset := 0
    LOCAL cString := ""
 
-   // Stuff for dBASE compatability.
+   // Stuff for dBase compatibility.
 
    IF nPointer != 65535
 
-      // Convert FILE offset to CLIPPER string offset
+      // Convert FILE offset to Cl*pper string offset
       nPointer++
 
       // Calculate offset into OFFSETS_BUFF
@@ -1042,7 +1042,7 @@ METHOD GetExpr( nPointer AS NUMERIC ) CLASS HBReportForm
       // Extract string
       cString := hb_BSubStr( ::cExprBuff, nExprOffset, nExprLength )
 
-      // dBASE does this so we must do it too
+      // dBase does this so we must do it too
       // Character following character pointed to by pointer is NULL
       IF hb_BLeft( cString, 1 ) == hb_BChar( 0 )
          cString := ""

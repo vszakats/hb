@@ -1,12 +1,6 @@
-/*
- * Copyright 1999 Chen Kedem <niki@actcom.co.il>
- *    Documentation for: __Dir(), DIR, ADir()
- *
- * See COPYING.txt for licensing terms.
- *
- */
-
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -39,6 +33,10 @@
 
       __Dir() is a compatibility function, it is superseded by Directory()
       which return all the information in a multidimensional array.
+
+      If long file names are available Harbour will use/display the first
+      15 characters else Harbour will use/display a 8.3 file name consistent
+      with CA-Cl*pper.
    $EXAMPLES$
       __Dir()      // information for all DBF files in current directory
 
@@ -55,7 +53,7 @@
    $COMPLIANCE$
       C
    $PLATFORMS$
-      All(LFN)
+      All
    $FILES$
       Library is core
    $SEEALSO$
@@ -64,6 +62,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Command
    $NAME$
@@ -94,6 +94,10 @@
 
       __Dir() is a compatibility function, it is superseded by Directory()
       which returns all the information in a multidimensional array.
+
+      If long file names are available Harbour will use/display the first
+      15 characters else Harbour will use/display a 8.3 file name consistent
+      with CA-Cl*pper.
    $EXAMPLES$
       DIR          // information for all DBF files in current directory
 
@@ -110,13 +114,15 @@
    $COMPLIANCE$
       C
    $PLATFORMS$
-      All(LFN)
+      All
    $SEEALSO$
       ADir(), Directory(), SET DEFAULT, __Dir()*
    $END$
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -129,7 +135,7 @@
       Fill pre-defined arrays with file/directory information
    $SYNTAX$
       ADir( [<cFileMask>], [<aName>], [<aSize>], [<aDate>],
-            [<aTime>], [<aAttr>] ) --> nDirEnries
+            [<aTime>], [<aAttr>] ) --> nDirEntries
    $ARGUMENTS$
       <cFileMask> File mask to include in the function return. It could
       contain path and standard wildcard characters as supported by your

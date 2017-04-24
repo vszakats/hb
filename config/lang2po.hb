@@ -27,6 +27,7 @@
 #pragma -ko+
 
 #include "hblang.ch"
+#include "hbver.ch"
 
 PROCEDURE Main_lang2po()
 
@@ -48,7 +49,7 @@ STATIC FUNCTION LangToPO( cLang )
    cPO += Item( "English", hb_langMessage( 2, cLang ), nPos++ )
 
    FOR tmp := HB_LANG_ITEM_BASE_MONTH TO HB_LANG_ITEM_MAX_ - 1
-      IF ! HB_ISNULL( hb_langMessage( tmp, "en" ) )
+      IF ! hb_langMessage( tmp, "en" ) == ""
          cPO += Item( ;
             hb_langMessage( tmp, "en" ), ;
             iif( hb_langMessage( tmp, "en" ) == hb_langMessage( tmp, cLang ) .AND. ;
@@ -106,7 +107,7 @@ STATIC FUNCTION Meta()
 
    hMeta := { => }
    hMeta[ "Project-Id-Version:"        ] := "core-lang"
-   hMeta[ "Report-Msgid-Bugs-To:"      ] := "https://github.com/vszakats/harbour-core/issues"
+   hMeta[ "Report-Msgid-Bugs-To:"      ] := hb_Version( HB_VERSION_URL_BASE ) + "issues"
    hMeta[ "POT-Creation-Date:"         ] := cISO_TimeStamp
    hMeta[ "PO-Revision-Date:"          ] := cISO_TimeStamp
    hMeta[ "Last-Translator:"           ] := "foo bar <foo.bar@example.org>"
@@ -143,7 +144,7 @@ STATIC FUNCTION Item( cOri, cTrs, nPos )
       iif( Empty( cComment ), "", "#  " + cComment + hb_eol() ) + ;
       "#: lang_id:" + hb_ntos( nPos ) + hb_eol() + ;
       "#, c-format" + hb_eol() + ;
-      "msgid " + ItemString( iif( HB_ISNULL( cOri ) .AND. nPos != 0, "{" + StrZero( nPos, 3 ) + "}", cOri ) ) + ;
+      "msgid " + ItemString( iif( cOri == "" .AND. nPos != 0, "{" + StrZero( nPos, 3 ) + "}", cOri ) ) + ;
       "msgstr " + ItemString( cTrs ) + hb_eol()
 
 STATIC FUNCTION ItemString( cString )

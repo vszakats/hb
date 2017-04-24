@@ -131,6 +131,8 @@ static HB_CRITICAL_NEW( s_wvtMtx );
 #endif
 #endif
 
+#define HB_KF_ALTGR             0x10
+
 static PHB_GTWVT s_wvtWindows[ WVT_MAX_WINDOWS ];
 static int       s_wvtCount = 0;
 
@@ -1883,7 +1885,7 @@ static void hb_gt_wvt_ResetWindowSize( PHB_GTWVT pWVT, HFONT hFont )
    TEXTMETRIC tm;
    int        n;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_ResetWindowSize(%p,%p)", pWVT, hFont ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_ResetWindowSize(%p,%p)", ( void * ) pWVT, ( void * ) hFont ) );
 
    if( ! pWVT->hFont || hFont )
    {
@@ -2130,8 +2132,21 @@ static int hb_gt_wvt_GetKeyFlags( void )
       iFlags |= HB_KF_SHIFT;
    if( GetKeyState( VK_CONTROL ) & 0x8000 )
       iFlags |= HB_KF_CTRL;
-   if( GetKeyState( VK_MENU ) & 0x8000 )
+   if( GetKeyState( VK_LMENU ) & 0x8000 )
       iFlags |= HB_KF_ALT;
+   if( GetKeyState( VK_RMENU ) & 0x8000 )
+      iFlags |= HB_KF_ALTGR;
+
+   return iFlags;
+}
+
+static int hb_gt_wvt_UpdateKeyFlags( int iFlags )
+{
+   if( iFlags & HB_KF_ALTGR )
+   {
+      iFlags |= HB_KF_ALT;
+      iFlags &= ~HB_KF_ALTGR;
+   }
 
    return iFlags;
 }
@@ -2394,7 +2409,8 @@ static void hb_gt_wvt_MouseEvent( PHB_GTWVT pWVT, UINT message, WPARAM wParam, L
 
    if( keyCode != 0 )
       hb_gt_wvt_AddCharToInputQueue( pWVT,
-                     HB_INKEY_NEW_MKEY( keyCode, hb_gt_wvt_GetKeyFlags() ) );
+                  HB_INKEY_NEW_MKEY( keyCode,
+                        hb_gt_wvt_UpdateKeyFlags( hb_gt_wvt_GetKeyFlags() ) ) );
 }
 
 static HB_BOOL hb_gt_wvt_KeyEvent( PHB_GTWVT pWVT, UINT message, WPARAM wParam, LPARAM lParam )
@@ -2534,7 +2550,7 @@ static HB_BOOL hb_gt_wvt_KeyEvent( PHB_GTWVT pWVT, UINT message, WPARAM wParam, 
                   pWVT->IgnoreWM_SYSCHAR = HB_TRUE;
                   iKey = ( int ) wParam - VK_NUMPAD0 + '0';
                }
-               else if( iFlags == HB_KF_ALT )
+               else if( iFlags == HB_KF_ALT || iFlags == HB_KF_ALTGR )
                   iFlags = 0; /* for ALT + <ASCII_VALUE_FROM_KEYPAD> */
                iFlags |= HB_KF_KEYPAD;
                break;
@@ -2585,7 +2601,7 @@ static HB_BOOL hb_gt_wvt_KeyEvent( PHB_GTWVT pWVT, UINT message, WPARAM wParam, 
             iKey = iKeyPad;
             if( ( lParam & WVT_EXTKEY_FLAG ) == 0 )
             {
-               if( iFlags == HB_KF_ALT )
+               if( iFlags == HB_KF_ALT || iFlags == HB_KF_ALTGR )
                   iFlags = iKey = 0; /* for ALT + <ASCII_VALUE_FROM_KEYPAD> */
                else
                   iFlags |= HB_KF_KEYPAD;
@@ -2593,14 +2609,16 @@ static HB_BOOL hb_gt_wvt_KeyEvent( PHB_GTWVT pWVT, UINT message, WPARAM wParam, 
          }
          pWVT->keyFlags = iFlags;
          if( iKey != 0 )
-            iKey = HB_INKEY_NEW_KEY( iKey, iFlags );
+            iKey = HB_INKEY_NEW_KEY( iKey, hb_gt_wvt_UpdateKeyFlags( iFlags ) );
          break;
 
       case WM_CHAR:
-         if( ( iFlags & HB_KF_CTRL ) != 0 && ( iFlags & HB_KF_ALT ) != 0 )
-            /* workaround for AltGR and German keyboard */
-            iFlags &= ~( HB_KF_CTRL | HB_KF_ALT );
+         if( ( ( iFlags & HB_KF_CTRL ) != 0 && ( iFlags & HB_KF_ALT ) != 0 ) ||
+             ( iFlags & HB_KF_ALTGR ) != 0 )
+            /* workaround for AltGR and some German/Italian keyboard */
+            iFlags &= ~( HB_KF_CTRL | HB_KF_ALT | HB_KF_ALTGR );
       case WM_SYSCHAR:
+         iFlags = hb_gt_wvt_UpdateKeyFlags( iFlags );
          if( ! pWVT->IgnoreWM_SYSCHAR )
          {
             iKey = ( int ) wParam;
@@ -2612,6 +2630,126 @@ static HB_BOOL hb_gt_wvt_KeyEvent( PHB_GTWVT pWVT, UINT message, WPARAM wParam, 
             }
             else
             {
+               if( message == WM_SYSCHAR && ( iFlags & HB_KF_ALT ) != 0 )
+               {
+                  switch( HIWORD( lParam ) & 0xFF )
+                  {
+                     case  2:
+                        iKey = '1';
+                        break;
+                     case  3:
+                        iKey = '2';
+                        break;
+                     case  4:
+                        iKey = '3';
+                        break;
+                     case  5:
+                        iKey = '4';
+                        break;
+                     case  6:
+                        iKey = '5';
+                        break;
+                     case  7:
+                        iKey = '6';
+                        break;
+                     case  8:
+                        iKey = '7';
+                        break;
+                     case  9:
+                        iKey = '8';
+                        break;
+                     case 10:
+                        iKey = '9';
+                        break;
+                     case 11:
+                        iKey = '0';
+                        break;
+                     case 13:
+                        iKey = '=';
+                        break;
+                     case 14:
+                        iKey = HB_KX_BS;
+                        break;
+                     case 16:
+                        iKey = 'Q';
+                        break;
+                     case 17:
+                        iKey = 'W';
+                        break;
+                     case 18:
+                        iKey = 'E';
+                        break;
+                     case 19:
+                        iKey = 'R';
+                        break;
+                     case 20:
+                        iKey = 'T';
+                        break;
+                     case 21:
+                        iKey = 'Y';
+                        break;
+                     case 22:
+                        iKey = 'U';
+                        break;
+                     case 23:
+                        iKey = 'I';
+                        break;
+                     case 24:
+                        iKey = 'O';
+                        break;
+                     case 25:
+                        iKey = 'P';
+                        break;
+                     case 30:
+                        iKey = 'A';
+                        break;
+                     case 31:
+                        iKey = 'S';
+                        break;
+                     case 32:
+                        iKey = 'D';
+                        break;
+                     case 33:
+                        iKey = 'F';
+                        break;
+                     case 34:
+                        iKey = 'G';
+                        break;
+                     case 35:
+                        iKey = 'H';
+                        break;
+                     case 36:
+                        iKey = 'J';
+                        break;
+                     case 37:
+                        iKey = 'K';
+                        break;
+                     case 38:
+                        iKey = 'L';
+                        break;
+                     case 44:
+                        iKey = 'Z';
+                        break;
+                     case 45:
+                        iKey = 'X';
+                        break;
+                     case 46:
+                        iKey = 'C';
+                        break;
+                     case 47:
+                        iKey = 'V';
+                        break;
+                     case 48:
+                        iKey = 'B';
+                        break;
+                     case 49:
+                        iKey = 'N';
+                        break;
+                     case 50:
+                        iKey = 'M';
+                        break;
+                  }
+               }
 #if defined( UNICODE )
                if( iKey >= 127 )
                   iKey = HB_INKEY_NEW_UNICODEF( iKey, iFlags );
@@ -2620,16 +2758,18 @@ static HB_BOOL hb_gt_wvt_KeyEvent( PHB_GTWVT pWVT, UINT message, WPARAM wParam, 
                else
                   iKey = HB_INKEY_NEW_CHARF( iKey, iFlags );
 #else
-               int u = HB_GTSELF_KEYTRANS( pWVT->pGT, iKey );
-               if( u )
-                  iKey = HB_INKEY_NEW_UNICODEF( u, iFlags );
-               else if( iKey < 127 && ( iFlags & ( HB_KF_CTRL | HB_KF_ALT ) ) )
-                  iKey = HB_INKEY_NEW_KEY( iKey, iFlags );
-               else
                {
-                  if( pWVT->CodePage == OEM_CHARSET )
-                     iKey = hb_gt_wvt_key_ansi_to_oem( iKey );
-                  iKey = HB_INKEY_NEW_CHARF( iKey, iFlags );
+                  int u = HB_GTSELF_KEYTRANS( pWVT->pGT, iKey );
+                  if( u )
+                     iKey = HB_INKEY_NEW_UNICODEF( u, iFlags );
+                  else if( iKey < 127 && ( iFlags & ( HB_KF_CTRL | HB_KF_ALT ) ) )
+                     iKey = HB_INKEY_NEW_KEY( iKey, iFlags );
+                  else
+                  {
+                     if( pWVT->CodePage == OEM_CHARSET )
+                        iKey = hb_gt_wvt_key_ansi_to_oem( iKey );
+                     iKey = HB_INKEY_NEW_CHARF( iKey, iFlags );
+                  }
                }
 #endif
             }
@@ -2871,7 +3011,7 @@ static LRESULT CALLBACK hb_gt_wvt_WndProc( HWND hWnd, UINT message, WPARAM wPara
       }
    }
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_WndProc(%p,%u)", hWnd, message ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_WndProc(%p,%u)", ( void * ) hWnd, message ) );
 
    if( pWVT ) switch( message )
    {
@@ -2977,6 +3117,10 @@ static LRESULT CALLBACK hb_gt_wvt_WndProc( HWND hWnd, UINT message, WPARAM wPara
                hb_gt_wvt_FitRows( pWVT );
          }
          return 0;
+
+      case WM_DPICHANGED:
+         /* TODO: implement */
+         break;
 
       case WM_SYSCOMMAND:
          switch( wParam )
@@ -3203,7 +3347,7 @@ static void hb_gt_wvt_Init( PHB_GT pGT, HB_FHANDLE hFilenoStdin, HB_FHANDLE hFil
    int       iCmdShow;
    PHB_GTWVT pWVT;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_Init(%p,%p,%p,%p)", pGT, ( void * ) ( HB_PTRUINT ) hFilenoStdin, ( void * ) ( HB_PTRUINT ) hFilenoStdout, ( void * ) ( HB_PTRUINT ) hFilenoStderr ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_Init(%p,%p,%p,%p)", ( void * ) pGT, ( void * ) ( HB_PTRUINT ) hFilenoStdin, ( void * ) ( HB_PTRUINT ) hFilenoStdout, ( void * ) ( HB_PTRUINT ) hFilenoStderr ) );
 
    if( ! hb_winmainArgGet( &hInstance, NULL, &iCmdShow ) )
    {
@@ -3234,7 +3378,7 @@ static void hb_gt_wvt_Exit( PHB_GT pGT )
 {
    PHB_GTWVT pWVT;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_Exit(%p)", pGT ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_Exit(%p)", ( void * ) pGT ) );
 
    pWVT = HB_GTWVT_GET( pGT );
    HB_GTSUPER_EXIT( pGT );
@@ -3250,7 +3394,7 @@ static HB_BOOL hb_gt_wvt_SetMode( PHB_GT pGT, int iRow, int iCol )
    PHB_GTWVT pWVT;
    HB_BOOL fResult = HB_FALSE;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_SetMode(%p,%d,%d)", pGT, iRow, iCol ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_SetMode(%p,%d,%d)", ( void * ) pGT, iRow, iCol ) );
 
    pWVT = HB_GTWVT_GET( pGT );
 
@@ -3296,7 +3440,7 @@ static HB_BOOL hb_gt_wvt_SetMode( PHB_GT pGT, int iRow, int iCol )
 
 static const char * hb_gt_wvt_Version( PHB_GT pGT, int iType )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_Version(%p,%d)", pGT, iType ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_Version(%p,%d)", ( void * ) pGT, iType ) );
 
    HB_SYMBOL_UNUSED( pGT );
 
@@ -3314,7 +3458,7 @@ static int hb_gt_wvt_ReadKey( PHB_GT pGT, int iEventMask )
    int c = 0;
    HB_BOOL fKey;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_ReadKey(%p,%d)", pGT, iEventMask ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_ReadKey(%p,%d)", ( void * ) pGT, iEventMask ) );
 
    HB_SYMBOL_UNUSED( iEventMask ); /* we ignore the eventmask! */
 
@@ -3332,7 +3476,7 @@ static int hb_gt_wvt_ReadKey( PHB_GT pGT, int iEventMask )
 /* dDuration is in 'Ticks' (18.2 per second) */
 static void hb_gt_wvt_Tone( PHB_GT pGT, double dFrequency, double dDuration )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_Tone(%p,%lf,%lf)", pGT, dFrequency, dDuration ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_Tone(%p,%lf,%lf)", ( void * ) pGT, dFrequency, dDuration ) );
 
    HB_SYMBOL_UNUSED( pGT );
 
@@ -3343,7 +3487,7 @@ static void hb_gt_wvt_Tone( PHB_GT pGT, double dFrequency, double dDuration )
 
 static HB_BOOL hb_gt_wvt_mouse_IsPresent( PHB_GT pGT )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_mouse_IsPresent(%p)", pGT ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_mouse_IsPresent(%p)", ( void * ) pGT ) );
 
    HB_SYMBOL_UNUSED( pGT );
 
@@ -3354,7 +3498,7 @@ static void hb_gt_wvt_mouse_GetPos( PHB_GT pGT, int * piRow, int * piCol )
 {
    PHB_GTWVT pWVT;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_mouse_GetPos(%p,%p,%p)", pGT, piRow, piCol ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_mouse_GetPos(%p,%p,%p)", ( void * ) pGT, ( void * ) piRow, ( void * ) piCol ) );
 
    pWVT = HB_GTWVT_GET( pGT );
    *piRow = pWVT->MousePos.y;
@@ -3363,14 +3507,14 @@ static void hb_gt_wvt_mouse_GetPos( PHB_GT pGT, int * piRow, int * piCol )
 
 static void hb_gt_wvt_mouse_SetPos( PHB_GT pGT, int iRow, int iCol )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_mouse_SetPos(%p,%i,%i)", pGT, iRow, iCol ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_mouse_SetPos(%p,%i,%i)", ( void * ) pGT, iRow, iCol ) );
 
    hb_gt_wvt_SetMousePos( HB_GTWVT_GET( pGT ), iRow, iCol );
 }
 
 static HB_BOOL hb_gt_wvt_mouse_ButtonState( PHB_GT pGT, int iButton )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_mouse_ButtonState(%p,%i)", pGT, iButton ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_mouse_ButtonState(%p,%i)", ( void * ) pGT, iButton ) );
 
    HB_SYMBOL_UNUSED( pGT );
 
@@ -3388,7 +3532,7 @@ static HB_BOOL hb_gt_wvt_mouse_ButtonState( PHB_GT pGT, int iButton )
 
 static int hb_gt_wvt_mouse_CountButton( PHB_GT pGT )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_mouse_CountButton(%p)", pGT ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_mouse_CountButton(%p)", ( void * ) pGT ) );
 
    HB_SYMBOL_UNUSED( pGT );
 
@@ -3402,7 +3546,7 @@ static HB_BOOL hb_gt_wvt_Info( PHB_GT pGT, int iType, PHB_GT_INFO pInfo )
    PHB_GTWVT pWVT;
    int iVal;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_Info(%p,%d,%p)", pGT, iType, pInfo ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_Info(%p,%d,%p)", ( void * ) pGT, iType, ( void * ) pInfo ) );
 
    pWVT = HB_GTWVT_GET( pGT );
 
@@ -4194,7 +4338,7 @@ static int hb_gt_wvt_gfx_Primitive( PHB_GT pGT, int iType, int iTop, int iLeft, 
    RECT      r;
    int       iRet = 0;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_gfx_Primitive(%p,%d,%d,%d,%d,%d,%d)", pGT, iType, iTop, iLeft, iBottom, iRight, iColor ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_gfx_Primitive(%p,%d,%d,%d,%d,%d,%d)", ( void * ) pGT, iType, iTop, iLeft, iBottom, iRight, iColor ) );
 
    pWVT = HB_GTWVT_GET( pGT );
 
@@ -4326,7 +4470,7 @@ static void hb_gt_wvt_Redraw( PHB_GT pGT, int iRow, int iCol, int iSize )
 {
    PHB_GTWVT pWVT;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_Redraw(%p,%d,%d,%d)", pGT, iRow, iCol, iSize ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_Redraw(%p,%d,%d,%d)", ( void * ) pGT, iRow, iCol, iSize ) );
 
    pWVT = HB_GTWVT_GET( pGT );
    if( pWVT )
@@ -4354,7 +4498,7 @@ static void hb_gt_wvt_Refresh( PHB_GT pGT )
 {
    PHB_GTWVT pWVT;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_Refresh(%p)", pGT ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_Refresh(%p)", ( void * ) pGT ) );
 
    HB_GTSUPER_REFRESH( pGT );
 
@@ -4376,7 +4520,7 @@ static void hb_gt_wvt_Refresh( PHB_GT pGT )
 
 static HB_BOOL hb_gt_FuncInit( PHB_GT_FUNCS pFuncTable )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_FuncInit(%p)", pFuncTable ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_FuncInit(%p)", ( void * ) pFuncTable ) );
 
    pFuncTable->Init                 = hb_gt_wvt_Init;
    pFuncTable->Exit                 = hb_gt_wvt_Exit;

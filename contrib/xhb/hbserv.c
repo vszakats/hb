@@ -626,7 +626,7 @@ static void s_serviceSetHBSig( void )
    signal( SIGPIPE, SIG_IGN );
 #endif
 
-#ifdef HB_OS_WIN
+#if defined( HB_OS_WIN ) && ! defined( HB_OS_WIN_CE )
    /* disable all os-level error boxes */
    s_uiErrorMode = SetErrorMode(
       SEM_FAILCRITICALERRORS | SEM_NOALIGNMENTFAULTEXCEPT | SEM_NOGPFAULTERRORBOX |
@@ -635,7 +635,6 @@ static void s_serviceSetHBSig( void )
    SetUnhandledExceptionFilter( s_exceptionFilter );
    s_hMsgHook = SetWindowsHookEx( WH_GETMESSAGE, ( HOOKPROC ) s_MsgFilterFunc, NULL, GetCurrentThreadId() );
    SetConsoleCtrlHandler( s_ConsoleHandlerRoutine, TRUE );
-
 #endif
 }
 
@@ -656,7 +655,7 @@ static void s_serviceSetDflSig( void )
    signal( SIGPIPE, SIG_DFL );
 #endif
 
-#ifdef HB_OS_WIN
+#if defined( HB_OS_WIN ) && ! defined( HB_OS_WIN_CE )
    SetUnhandledExceptionFilter( NULL );
    if( s_hMsgHook != NULL )
    {
@@ -767,7 +766,7 @@ HB_FUNC( HB_STARTSERVICE )
    s_fIsService = HB_TRUE;
 
    /* in Windows, we just detach from console */
-   #ifdef HB_OS_WIN
+   #if defined( HB_OS_WIN ) && ! defined( HB_OS_WIN_CE )
    if( hb_parl( 1 ) )
       FreeConsole();
    #endif
@@ -1061,8 +1060,11 @@ HB_FUNC( HB_SIGNALDESC )
 HB_FUNC( __HB_SERVICEGENERATEFAULT )
 {
 #if defined( _MSC_VER ) && _MSC_VER >= 1800
-#pragma warning(push)
-#pragma warning(disable:6011)
+#  pragma warning(push)
+#  pragma warning(disable:6011)
+#elif defined( HB_GCC_HAS_DIAG ) && ( HB_GCC_VER >= 601 )
+#  pragma GCC diagnostic push
+#  pragma GCC diagnostic ignored "-Wnull-dereference"
 #endif
    int * pGPF = NULL;
 
@@ -1070,7 +1072,9 @@ HB_FUNC( __HB_SERVICEGENERATEFAULT )
    /* if it doesn't cause GPF (on some platforms it's possible) try this */
    *( --pGPF ) = 0;
 #if defined( _MSC_VER ) && _MSC_VER >= 1800
-#pragma warning(pop)
+#  pragma warning(pop)
+#elif defined( HB_GCC_HAS_DIAG ) && ( HB_GCC_VER >= 601 )
+#  pragma GCC diagnostic pop
 #endif
 }
 

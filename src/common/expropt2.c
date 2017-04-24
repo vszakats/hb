@@ -544,7 +544,7 @@ PHB_EXPR hb_compExprReduceMinus( PHB_EXPR pSelf, HB_COMP_DECL )
       if( pRight->value.asNum.NumType == HB_ET_LONG )
          pSelf->value.asDate.lDate =  pLeft->value.asDate.lDate - ( long ) pRight->value.asNum.val.l;
       else
-         pSelf->value.asDate.lDate = pLeft->value.asDate.lDate - ( long ) ( unsigned long ) pRight->value.asNum.val.d;
+         pSelf->value.asDate.lDate = pLeft->value.asDate.lDate - HB_CAST_LONG( pRight->value.asNum.val.d );
       pSelf->value.asDate.lTime = 0;
       pSelf->ExprType = HB_ET_DATE;
       pSelf->ValType  = HB_EV_DATE;
@@ -747,7 +747,7 @@ PHB_EXPR hb_compExprReducePlus( PHB_EXPR pSelf, HB_COMP_DECL )
          if( pLeft->value.asNum.NumType == HB_ET_LONG )
             pSelf->value.asDate.lDate = pRight->value.asDate.lDate + ( long ) pLeft->value.asNum.val.l;
          else
-            pSelf->value.asDate.lDate = pRight->value.asDate.lDate + ( long ) ( unsigned long ) pLeft->value.asNum.val.d;
+            pSelf->value.asDate.lDate = pRight->value.asDate.lDate + HB_CAST_LONG( pLeft->value.asNum.val.d );
          pSelf->value.asDate.lTime = 0;
          pSelf->ExprType = HB_ET_DATE;
          pSelf->ValType  = HB_EV_DATE;
@@ -800,7 +800,7 @@ PHB_EXPR hb_compExprReducePlus( PHB_EXPR pSelf, HB_COMP_DECL )
          if( pRight->value.asNum.NumType == HB_ET_LONG )
             pSelf->value.asDate.lDate = pLeft->value.asDate.lDate + ( long ) pRight->value.asNum.val.l;
          else
-            pSelf->value.asDate.lDate = pLeft->value.asDate.lDate + ( long ) ( unsigned long ) pRight->value.asNum.val.d;
+            pSelf->value.asDate.lDate = pLeft->value.asDate.lDate + HB_CAST_LONG( pRight->value.asNum.val.d );
          pSelf->value.asDate.lTime = 0;
          pSelf->ExprType = HB_ET_DATE;
          pSelf->ValType  = HB_EV_DATE;
@@ -1053,7 +1053,7 @@ PHB_EXPR hb_compExprReduceNE( PHB_EXPR pSelf, HB_COMP_DECL )
 
          case HB_ET_STRING:
             /* NOTE: the result depends on SET EXACT setting then it
-             * cannot be optimized except the case when NULL string are
+             * cannot be optimized except the case when null strings are
              * compared - "" != "" is always HB_FALSE regardless of EXACT
              * setting
              */
@@ -1573,7 +1573,7 @@ PHB_EXPR hb_compExprReduceEQ( PHB_EXPR pSelf, HB_COMP_DECL )
          case HB_ET_STRING:
             /* NOTE: when not exact comparison (==) is used
              * the result depends on SET EXACT setting then it
-             * cannot be optimized except the case when NULL string are
+             * cannot be optimized except the case when null strings are
              * compared - "" = "" is always TRUE regardless of EXACT
              * setting.
              * If macro substitiution is not didabled (-kM compiler
@@ -2041,7 +2041,7 @@ HB_BOOL hb_compExprReduceCHR( PHB_EXPR pSelf, HB_COMP_DECL )
       /* NOTE: CA-Cl*pper's compiler optimizer will be wrong for those
        *       Chr() cases where the passed parameter is a constant which
        *       can be divided by 256 but it's not zero, in this case it
-       *       will return an empty string instead of a Chr(0). [vszakats]
+       *       will return an empty string instead of a Chr( 0 ). [vszakats]
        *
        *       But this bug exist only in compiler and CA-Cl*pper macro
        *       compiler does not have optimizer. This bug is replicated
@@ -2073,7 +2073,7 @@ HB_BOOL hb_compExprReduceCHR( PHB_EXPR pSelf, HB_COMP_DECL )
       }
       else
       {
-         pExpr->value.asString.string = ( char * ) HB_UNCONST( hb_szAscii[ ( unsigned int ) pArg->value.asNum.val.d & 0xff ] );
+         pExpr->value.asString.string = ( char * ) HB_UNCONST( hb_szAscii[ HB_CAST_INT( pArg->value.asNum.val.d ) & 0xff ] );
          pExpr->value.asString.dealloc = HB_FALSE;
          pExpr->nLength = 1;
       }
@@ -2100,8 +2100,8 @@ HB_BOOL hb_compExprReduceBCHAR( PHB_EXPR pSelf, HB_COMP_DECL )
       pExpr->ValType = HB_EV_STRING;
       pExpr->value.asString.string =
          ( char * ) HB_UNCONST( hb_szAscii[ ( pArg->value.asNum.NumType == HB_ET_LONG ?
-                                ( unsigned int ) pArg->value.asNum.val.l :
-                                ( unsigned int ) pArg->value.asNum.val.d ) & 0xff ] );
+                                ( int ) pArg->value.asNum.val.l :
+                                HB_CAST_INT( pArg->value.asNum.val.d ) ) & 0xff ] );
       pExpr->value.asString.dealloc = HB_FALSE;
       pExpr->nLength = 1;
 
@@ -2120,7 +2120,7 @@ HB_BOOL hb_compExprReduceLEN( PHB_EXPR pSelf, HB_COMP_DECL )
    PHB_EXPR pParms = pSelf->value.asFunCall.pParms;
    PHB_EXPR pArg = pParms->value.asList.pExprList;
 
-   /* TOFIX: do not optimize when array/hash args have user expressions */
+   /* FIXME: do not optimize when array/hash args have user expressions */
    if( ( pArg->ExprType == HB_ET_STRING && ! HB_SUPPORT_USERCP ) ||
        pArg->ExprType == HB_ET_ARRAY ||
        pArg->ExprType == HB_ET_HASH )
@@ -2151,7 +2151,7 @@ HB_BOOL hb_compExprReduceEMPTY( PHB_EXPR pSelf, HB_COMP_DECL )
 
       case HB_ET_ARRAY:
       case HB_ET_HASH:
-         /* TOFIX: do not optimize when array/hash args have user expressions */
+         /* FIXME: do not optimize when array/hash args have user expressions */
          fResult = pArg->nLength == 0;
          break;
 

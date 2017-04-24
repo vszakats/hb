@@ -6,7 +6,7 @@
    $ONELINER$
       Generates a list of all characters in a string
    $SYNTAX$
-      CharList( [<cString>] ) -> cCharacterList
+      CharList( [<cString>] ) --> cCharacterList
    $ARGUMENTS$
       [<cString>]       is the string for whom the function generates a list
                         of all characters
@@ -17,13 +17,13 @@
       The CharList() function generates a list of those characters that
       are contained in <cString>. This list can contain each character
       only once, so that its maximum length is 256. The list lists those
-      characters first that are occuring in <cString> first.
+      characters first that are occurring in <cString> first.
    $EXAMPLES$
       ? CharList( "Hello World !" ) // --> "Helo Wrd!"
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      CharList() is compatible with CT3's CharList().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -41,7 +41,7 @@
    $ONELINER$
       Generates a list of all characters not contained in a string
    $SYNTAX$
-      CharNoList( [<cString>] ) -> cCharacterList
+      CharNoList( [<cString>] ) --> cCharacterList
    $ARGUMENTS$
       [<cString>]       is the string for whom the function generates a list
                         of all characters not contained in that string
@@ -56,9 +56,9 @@
    $EXAMPLES$
       ? CharNoList( CharNoList( "Hello World !" ) ) // --> " !HWdelor"
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      CharNoList() is compatible with CT3's CharNoList().
+      C
    $PLATFORMS$
       All
    $FILES$

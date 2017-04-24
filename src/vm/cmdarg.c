@@ -293,7 +293,7 @@ HB_BOOL hb_winmainArgGet( void * phInstance, void * phPrevInstance, int * piCmdS
 
 void hb_cmdargInit( int argc, char * argv[] )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_cmdargInit(%d, %p)", argc, argv ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_cmdargInit(%d, %p)", argc, ( void * ) argv ) );
 
 #if defined( HB_OS_WIN )
    if( s_lpArgV )
@@ -461,7 +461,7 @@ int hb_cmdargPushArgs( void )
 
 HB_BOOL hb_cmdargIsInternal( const char * szArg, int * piLen )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_cmdargIsInternal(%s, %p)", szArg, piLen ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_cmdargIsInternal(%s, %p)", szArg, ( void * ) piLen ) );
 
    /* NOTE: Not checking for '--' here, as it would filter out
             valid command-line options used by applications. [vszakats] */
@@ -855,7 +855,7 @@ void hb_cmdargProcess( void )
    }
 
    if( hb_cmdargCheck( "BUILD" ) )
-      hb_verBuildInfo();
+      hb_verBuildInfoCB( hb_conOutErr );
 
    iHandles = hb_cmdargNum( "F" );
    if( iHandles > 20 )
@@ -882,6 +882,12 @@ void hb_cmdargProcess( void )
 const char * hb_verCommitID( void )
 {
    return HB_VER_COMMIT_ID;
+}
+
+/* Source repository ID string (short) */
+const char * hb_verCommitIDShort( void )
+{
+   return HB_VER_COMMIT_ID_SHORT;
 }
 
 /* Source repository revision number */
@@ -913,13 +919,13 @@ int hb_verSvnID( void )
 /* ChangeLog ID string */
 const char * hb_verChangeLogID( void )
 {
-   return HB_VER_COMMIT_ID;
+   return HB_VER_COMMIT_ID_SHORT;
 }
 
 /* ChangeLog ID string */
 const char * hb_verSvnChangeLogID( void )
 {
-   return HB_VER_COMMIT_ID;
+   return HB_VER_COMMIT_ID_SHORT;
 }
 
 /* ChangeLog last entry string */

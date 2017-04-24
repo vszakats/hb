@@ -359,10 +359,13 @@ typedef struct
 #define WM_MOUSEWHEEL       0x020A
 #endif
 #ifndef WM_ENTERSIZEMOVE
-#define WM_ENTERSIZEMOVE    561
+#define WM_ENTERSIZEMOVE    0x0231
 #endif
 #ifndef WM_EXITSIZEMOVE
-#define WM_EXITSIZEMOVE     562
+#define WM_EXITSIZEMOVE     0x0232
+#endif
+#ifndef WM_DPICHANGED
+#define WM_DPICHANGED       0x02E0
 #endif
 
 #ifndef SWP_DEFERERASE

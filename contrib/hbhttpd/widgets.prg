@@ -545,7 +545,6 @@ STATIC PROCEDURE SetWId( oW, cID )
    RETURN
 
 FUNCTION UGetWidgetById( cID )
-
    RETURN hb_HGetDef( session[ "_uthis", "idhash" ], cID )
 
 STATIC FUNCTION uhttpd_split( cSeparator, cString )

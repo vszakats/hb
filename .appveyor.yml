@@ -1,0 +1,77 @@
+version: 3.4.{build}
+branches:
+  only:
+  - master
+  - test-appveyor
+  - test-mingwext
+  - test-mingwmsys
+  - prod
+  - prod-mingwext
+  - prod-mingwmsys
+  - msvc2008
+  - msvc2010
+  - msvc2012
+  - msvc2013
+  - msvc2015
+  - msvc2017
+skip_tags: true
+skip_commits:
+  message: /website/
+  files:
+    - docs/*
+image: Visual Studio 2017
+clone_depth: 10
+clone_folder: C:\w\
+build:
+  verbosity: detailed
+
+environment:
+  GITHUB_TOKEN:
+    secure: ONrgLZ5E+p610MEXEXgeE0nf2P2LBIG/JnawYLezFx2hIAYdwVYpnehgZfDQ6GIe
+  GITHUB_DEPLOY_HB_DOC_PASS:
+    secure: 8yVbRykZCyELvMGaHs+Wjl0usqGR2jL0R7pqvksF83p/7mGcWV2gw3PachYJ/fWG
+  VIRUSTOTAL_APIKEY:
+    secure: TdJYONfrpH45DuyKxraVqgHYy25IQ/F8TKHzYf+u5zz1aiM2yR0YTMaGxyj2EMReEearSI9kD9D2ZykybSVEbRyEaotZlceUb2lPDKELl3M=
+  PUSHOVER_USER:
+    secure: zKEcvmxcPuch0HUR9NuvXSXrMJL13qbQ0Ixh65VQUi0=
+  PUSHOVER_TOKEN:
+    secure: DjWTkh5sUw6dUQkHv3KhTvi2llF9GN17z60h9kRGYX4=
+  HB_CODESIGN_GPG_PASS:
+    secure: lOea8Uey+GRt36n5eNjICxD7AlzmxAgQ/V+/DG1yuD5jNJtSFPbfBQOei7VgZPXB
+  HB_CODESIGN_KEY_PASS:
+    secure: gI5Z9engdQmJel5UEuxRTsdRSvXSmixs5IGgMbTjxBxYYat+bCXE139J4Uz84F+D
+
+#init:
+#  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+#on_finish:
+#  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
+build_script:
+  - set PATH=C:\msys64\usr\bin;%PATH%
+  - set HB_CI_THREADS=4
+  - set MSYS2_FC_CACHE_SKIP=yes
+  - pacman --noconfirm --noprogressbar -S --needed mc
+  - pacman --noconfirm --noprogressbar -S -yu -u
+  - pacman --noconfirm --noprogressbar -S -yu -u
+  - sh -c ./package/mpkg_win_ci.sh
+
+artifacts:
+  - path: harbour-snapshot-win*.7z*
+    name: pkg-win
+
+deploy:
+  - provider: GitHub
+    auth_token: $(GITHUB_TOKEN)
+    tag: v3.4.0dev
+    release: 'Harbour 3.4.0dev snapshot'
+    description: 'Binaries generated after each commit.
+
+
+      Read `RELNOTES.txt` in package root for release details and "Getting Started" instructions.'
+    artifact: pkg-win
+    draft: false
+    prerelease: true
+    force_update: true
+    on:
+      branch: master
+      appveyor_repo_tag: false

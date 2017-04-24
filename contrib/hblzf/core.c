@@ -49,7 +49,6 @@
 #include "hbapiitm.h"
 
 #include "lzf.h"
-#include "lzfP.h"
 
 #if ! AVOID_ERRNO
    #include <errno.h>

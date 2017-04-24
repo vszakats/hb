@@ -17,11 +17,11 @@ of the telepathy libarary, Use the Source... (and send me your new functions)
 
 I tried to keep parameter counts and orders as consistent as possible between
 this Telepathy and the real Telepathy.  The only difference I can think of is
-the parameter list for tp_open (and tp_reopen).  That's just because unix has
+the parameter list for tp_open() (and tp_reopen()).  That's just because unix has
 filename comports like /dev/ttyS0 and dos has com port numbers like 1.  I kept
 the com port number thing so that all the telepathy functions (and all your
 code) that uses com port number won't need to be changed.  But you do need to
-change the calls to tp_open.
+change the calls to tp_open().
 
 Feel free to use, modify, distribute, hack, kludge, append, extend or whatever
 you like to this source code.  You can (at your own risk) compile it into any
@@ -40,8 +40,8 @@ There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR
 PURPOSE (thanks RMS).
 This software is totally as is, you may use it at your own risk.
 
-This is freeware.  But if you actually use this in your program, please send
-me email at dan@boba-fett.net.  I'd just be curious to see if anyone ever
+This is open/free software.  But if you actually use this in your program, please
+send me email at dan@boba-fett.net.  I'd just be curious to see if anyone ever
 uses it.
 
 If you find a bug or write some new code for this project, pretty please send

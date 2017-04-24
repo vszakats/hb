@@ -1,0 +1,225 @@
+/* $DOC$
+   $NAME$
+      IsBin()
+   $CATEGORY$
+      Conversion Tools
+   $ONELINER$
+      Check if the value is a binary number
+   $SYNTAX$
+      IsBin( <cN> ) --> cNr
+   $ARGUMENTS$
+      <cN> String to be checked
+   $RETURNS$
+      <cNr> .T. if the string is binary, otherwise .F.
+   $DESCRIPTION$
+      check if the passed string is a binary number or not
+   $FILES$
+      Library is hbmisc
+   $SEEALSO$
+      IsOctal(), IsDec(), IsHexa()
+   $END$
+ */
+
+/* $DOC$
+   $NAME$
+      IsOctal()
+   $CATEGORY$
+      Conversion Tools
+   $ONELINER$
+      Check if the value is a octal number
+   $SYNTAX$
+      IsOctal( <cN> ) --> cNr
+   $ARGUMENTS$
+      <cN> String to be checked
+   $RETURNS$
+      <cNr> .T. if the string is octal; otherwise .F.
+   $DESCRIPTION$
+      check if the passed string is a octal number or not
+   $FILES$
+      Library is hbmisc
+   $SEEALSO$
+      IsBin(), IsDec(), IsHexa()
+   $END$
+ */
+
+/* $DOC$
+   $NAME$
+      IsDec()
+   $CATEGORY$
+      Conversion Tools
+   $ONELINER$
+      Check if the value is a Decimal  Number
+   $SYNTAX$
+      IsDec( <cN> ) --> cNr
+   $ARGUMENTS$
+      <cN> String to be checked
+   $RETURNS$
+      <cNr> .T. if the string is decimal; otherwise .F.
+   $DESCRIPTION$
+      check if the passed string is a decimal number or not
+   $FILES$
+      Library is hbmisc
+   $SEEALSO$
+      IsOctal(), IsBin(), IsHexa()
+   $END$
+ */
+
+/* $DOC$
+   $NAME$
+      IsHexa()
+   $CATEGORY$
+      Conversion Tools
+   $ONELINER$
+      Check if the value is a hexadecimal number
+   $SYNTAX$
+      IsHexa( <cN> ) --> cNr
+   $ARGUMENTS$
+      <cN> String to be checked
+   $RETURNS$
+      <cNr> .T. if the string is hexadecimal; otherwise .F.
+   $DESCRIPTION$
+      check if the passed string is a hexadecimal number or not
+   $FILES$
+      Library is hbmisc
+   $SEEALSO$
+      IsOctal(), IsDec(), IsBin()
+   $END$
+ */
+
+/* $DOC$
+   $NAME$
+      DecToBin()
+   $CATEGORY$
+      Conversion Tools
+   $ONELINER$
+      Converts a decimal value to binary
+   $SYNTAX$
+      DecToBin( <cN> ) --> cNr
+   $ARGUMENTS$
+      <cN> Number to be converted
+   $RETURNS$
+      <cNr>  Number converted
+   $DESCRIPTION$
+      This function converts a string <cN> from an decimal value
+      to an binary value.
+   $FILES$
+      Library is hbmisc
+   $SEEALSO$
+      DecToHexa(), DecToOctal()
+   $END$
+ */
+
+/* $DOC$
+   $NAME$
+      DecToOctal()
+   $CATEGORY$
+      Conversion Tools
+   $ONELINER$
+      Converts a decimal value to octal
+   $SYNTAX$
+      DecToOctal( <cN> ) --> cNr
+   $ARGUMENTS$
+      <cN> Number to be converted
+   $RETURNS$
+      <cNr>  Number converted
+   $DESCRIPTION$
+      This function converts a string <cN> from an decimal value
+      to an octal value.
+   $FILES$
+      Library is hbmisc
+   $SEEALSO$
+      DecToHexa(), DecToBin()
+   $END$
+ */
+
+/* $DOC$
+   $NAME$
+      DecToHexa()
+   $CATEGORY$
+      Conversion Tools
+   $ONELINER$
+      Converts a decimal value to hexadecimal
+   $SYNTAX$
+      DecToHexa( <cN> ) --> cNr
+   $ARGUMENTS$
+      <cN> Number to be converted
+   $RETURNS$
+      <cNr>  Number converted
+   $DESCRIPTION$
+      This function converts a string <cN> from an decimal value
+      to an hexadecimal value.
+   $FILES$
+      Library is hbmisc
+   $SEEALSO$
+      DecToBin(), DecToOctal()
+   $END$
+ */
+
+/* $DOC$
+   $NAME$
+      BinToDec()
+   $CATEGORY$
+      Conversion Tools
+   $ONELINER$
+      Converts a binary value to decimal
+   $SYNTAX$
+      BinToDec( <cN> ) --> cNr
+   $ARGUMENTS$
+      <cN> Number to be converted
+   $RETURNS$
+      <cNr>  Number converted
+   $DESCRIPTION$
+      This function converts a string <cN> from an binary value
+      to a numeric decimal value.
+   $FILES$
+      Library is hbmisc
+   $SEEALSO$
+      OctalToDec(), HexaToDec()
+   $END$
+ */
+
+/* $DOC$
+   $NAME$
+      OctalToDec()
+   $CATEGORY$
+      Conversion Tools
+   $ONELINER$
+      Converts a octal value to decimal
+   $SYNTAX$
+      OctalToDec( <cN> ) --> cNr
+   $ARGUMENTS$
+      <cN> Number to be converted
+   $RETURNS$
+      <cNr>  Number converted
+   $DESCRIPTION$
+      This function converts a string <cN> from an octal value
+      to a numeric decimal value.
+   $FILES$
+      Library is hbmisc
+   $SEEALSO$
+      BinToDec(), HexaToDec()
+   $END$
+ */
+
+/* $DOC$
+   $NAME$
+      HexaToDec()
+   $CATEGORY$
+      Conversion Tools
+   $ONELINER$
+      Converts a hexadecimal value to decimal
+   $SYNTAX$
+      HexaToDec( <cN> ) --> cNr
+   $ARGUMENTS$
+      <cN> Number to be converted
+   $RETURNS$
+      <cNr>  Number converted
+   $DESCRIPTION$
+      This function converts a string <cN> from an hexadecimal value
+      to a numeric decimal value.
+   $FILES$
+      Library is hbmisc
+   $SEEALSO$
+      OctalToDec(), BinToDec()
+   $END$
+ */

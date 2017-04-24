@@ -1,4 +1,6 @@
 /*
+ * WARNING: Outdated, unsecure algorithm.
+ *
  * Harbour MD5 Support
  *
  * Copyright 2004 Dmitry V. Korzhov <dk@april26.spb.ru>

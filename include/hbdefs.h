@@ -88,6 +88,16 @@
    #endif
 #endif
 
+#if ( defined( __GNUC__ ) || defined( __SUNPRO_C ) || defined( __SUNPRO_CC ) ) && \
+    ( defined( _ISOC99_SOURCE ) || defined( _STDC_C99 ) || \
+      ( defined( __STDC_VERSION__ ) && __STDC_VERSION__ >= 199901L ) )
+   #define HB_C99_STATIC    static
+   #define HB_C99_RESTRICT  restrict
+#else
+   #define HB_C99_STATIC
+   #define HB_C99_RESTRICT
+#endif
+
 #if 0
 #define HB_CLIPPER_INT_ITEMS
 #define HB_LONG_LONG_OFF
@@ -471,6 +481,12 @@ typedef HB_MAXUINT   HB_VMMAXUINT;
 #define HB_LIM_INT24(l)       ( INT24_MIN <= (l) && (l) <= INT24_MAX )
 #define HB_LIM_INT32(l)       ( INT32_MIN <= (l) && (l) <= INT32_MAX )
 #define HB_LIM_INT64(l)       ( INT64_MIN <= (l) && (l) <= INT64_MAX )
+
+#define HB_CAST_INT( d )      ( ( int ) ( HB_MAXINT ) ( d ) )
+#define HB_CAST_LONG( d )     ( ( long ) ( HB_MAXINT ) ( d ) )
+#define HB_CAST_LONGLONG( d ) ( ( HB_LONGLONG ) ( d ) )
+#define HB_CAST_MAXINT( d )   ( ( HB_MAXINT ) ( d ) )
+#define HB_CAST_ISIZ( d )     ( ( HB_ISIZ ) ( HB_MAXINT ) ( d ) )
 
 /*
  * It's a hack for compilers which don't support LL suffix for LONGLONG
@@ -1474,7 +1490,7 @@ typedef HB_U32 HB_FATTR;
 
 #define HB_SOURCE_FILE_UNUSED()  static void * dummy = &dummy
 
-/* ***********************************************************************
+/*
  * The name of starting procedure
  * Note: You have to define it in case when Harbour cannot find the proper
  * starting procedure (due to unknown order of static data initialization)

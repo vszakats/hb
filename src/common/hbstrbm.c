@@ -1,7 +1,7 @@
 /*
  * Turbo Boyer-Moore (Crochemore) string search
  *    Based on this code:
- *       http://www-igm.univ-mlv.fr/~lecroq/string/node15.html
+ *       https://web.archive.org/web/www-igm.univ-mlv.fr/~lecroq/string/node15.html
  *    Authors:
  *       Christian Charras, Thierry Lecroq
  *

@@ -29,7 +29,7 @@ PROCEDURE Main()
       RETURN
    ENDIF
 
-   IF !( HB_SHA256( _ENCODE( node ) ) == mxmlElementGetAttr( node, "checksum" ) )
+   IF ! hb_SHA256( _ENCODE( node ) ) == mxmlElementGetAttr( node, "checksum" )
       ? "Custom data of element <hash> is corrupted!"
       mxmlDelete( tree )
 

@@ -74,7 +74,7 @@ PROCEDURE Main( cFileArg )
       RETURN
    ENDIF
 
-   IF !( ( cStr := mxmlGetElement( hTree ) ) == "element" )
+   IF ! ( cStr := mxmlGetElement( hTree ) ) == "element"
       ? hb_StrFormat( "ERROR: Parent value is '%1$s', expected 'element'", cStr )
 
       mxmlDelete( hTree )
@@ -198,7 +198,7 @@ PROCEDURE Main( cFileArg )
    ENDIF
 
    cStr := mxmlGetText( hNode, @nNum )
-   IF nNum != 1 .OR. Empty( cStr ) .OR. !( cStr == "text" )
+   IF nNum != 1 .OR. Empty( cStr ) .OR. ! cStr == "text"
       ? hb_StrFormat( "ERROR: Fourth child value is %1$d, '%2$s', expected 1, 'text'!", ;
          nNum, cStr )
 
@@ -239,7 +239,7 @@ PROCEDURE Main( cFileArg )
       mxmlDelete( hTree )
       ErrorLevel( 1 )
       RETURN
-   ELSEIF mxmlGetType( hNode ) != MXML_OPAQUE .OR. !( mxmlGetOpaque( hNode ) == "value" )
+   ELSEIF mxmlGetType( hNode ) != MXML_OPAQUE .OR. ! mxmlGetOpaque( hNode ) == "value"
       ? "ERROR: Bad value for '*/two'."
 
       mxmlDelete( hTree )
@@ -253,7 +253,7 @@ PROCEDURE Main( cFileArg )
       mxmlDelete( hTree )
       ErrorLevel( 1 )
       RETURN
-   ELSEIF mxmlGetType( hNode ) != MXML_OPAQUE .OR. !( mxmlGetOpaque( hNode ) == "value" )
+   ELSEIF mxmlGetType( hNode ) != MXML_OPAQUE .OR. ! mxmlGetOpaque( hNode ) == "value"
       ? "ERROR: Bad value for 'foo/*/two'."
 
       mxmlDelete( hTree )
@@ -267,7 +267,7 @@ PROCEDURE Main( cFileArg )
       mxmlDelete( hTree )
       ErrorLevel( 1 )
       RETURN
-   ELSEIF mxmlGetType( hNode ) != MXML_OPAQUE .OR. !( mxmlGetOpaque( hNode ) == "value" )
+   ELSEIF mxmlGetType( hNode ) != MXML_OPAQUE .OR. ! mxmlGetOpaque( hNode ) == "value"
       ? "ERROR: Bad value for 'foo/bar/one/two'."
 
       mxmlDelete( hTree )

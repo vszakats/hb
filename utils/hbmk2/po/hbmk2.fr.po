@@ -7,7 +7,7 @@ msgid ""
 msgstr "Project-Id-Version: Harbour\nPO-Revision-Date: 2014-10-14 22:50+0000\nLast-Translator: vszakats\nLanguage-Team: French (https://www.transifex.com/projects/p/harbour/language/fr/)\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nLanguage: fr\nPlural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #, c-format
-msgid "Exit code: %1$d: %2$s"
+msgid "Exit status: %1$d: %2$s"
 msgstr "Code de retour: %1$d: %2$s"
 
 #, c-format
@@ -795,7 +795,7 @@ msgid "mode script runner / interactive shell in debug mode"
 msgstr "mode exécution de script / shell interactif en mode debug"
 
 #, c-format
-msgid "when -run option is used, the exit code will be the one returned by the target executable"
+msgid "when -run option is used, the exit status will be the one returned by the target executable"
 msgstr "quand l'option -run est utilisée, le code de sortie est le même que celui retourné par l'exécutable cible"
 
 #, c-format
@@ -839,7 +839,7 @@ msgid "when <depname> dependency was detected in a location configured by -depin
 msgstr "lorsque la dépendance <depname> a été détectée dans un emplacement configuré par -depincpathlocal=option"
 
 #, c-format
-msgid "Current exit code"
+msgid "Current exit status"
 msgstr "Code de sortie actuel"
 
 #, c-format

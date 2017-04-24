@@ -48,21 +48,21 @@
 
 #include "gtqtc.h"
 
-static  int             s_GtId;
-static  HB_GT_FUNCS     SuperTable;
-#define HB_GTSUPER      (&SuperTable)
-#define HB_GTID_PTR     (&s_GtId)
+static  int                   s_GtId;
+static  HB_GT_FUNCS           SuperTable;
+#define HB_GTSUPER            ( &SuperTable )
+#define HB_GTID_PTR           ( &s_GtId )
 
-#define HB_GTQTC_GET(p) ( ( PHB_GTQTC ) HB_GTLOCAL( p ) )
+#define HB_GTQTC_GET( p )     ( static_cast< PHB_GTQTC >( HB_GTLOCAL( p ) ) )
 
 
 #if defined( HB_OS_UNIX )
-   #if ! defined( HB_QT_NEEDLOCKS )
-      #define HB_QT_NEEDLOCKS
-   #endif
-   #if ! defined( HB_XLIB_NEEDLOCKS )
-/*    #define HB_XLIB_NEEDLOCKS */
-   #endif
+#  if ! defined( HB_QT_NEEDLOCKS )
+#     define HB_QT_NEEDLOCKS
+#  endif
+#  if ! defined( HB_XLIB_NEEDLOCKS )
+/* #     define HB_XLIB_NEEDLOCKS */
+#  endif
 #endif
 
 #ifdef HB_QT_NEEDLOCKS
@@ -95,16 +95,25 @@ static void hb_gt_qtc_itemGetQString( PHB_ITEM pItem, QString * pqStr )
 
    if( ( wStr = hb_itemGetStrU16( pItem, HB_CDP_ENDIAN_NATIVE, &hStr, &nSize ) ) != NULL )
    {
-      * pqStr = QString::fromUtf16( ( const ushort * ) wStr, nSize );
+#if defined( HB_OS_WIN )
+      * pqStr = QString::fromWCharArray( wStr, nSize );
+#else
+      * pqStr = QString::fromUtf16( wStr, nSize );
+#endif
       hb_strfree( hStr );
    }
 }
 
 static PHB_ITEM hb_gt_qtc_itemPutQString( PHB_ITEM pItem, const QString * pqStr )
 {
+#if defined( HB_OS_WIN )
    return hb_itemPutStrLenU16( pItem, HB_CDP_ENDIAN_NATIVE,
-                               ( const HB_WCHAR * ) pqStr->constData(),
+                               reinterpret_cast< const HB_WCHAR * >( pqStr->utf16() ),
                                pqStr->size() );
+#else
+   return hb_itemPutStrLenU16( pItem, HB_CDP_ENDIAN_NATIVE,
+                               pqStr->utf16(), pqStr->size() );
+#endif
 }
 
 /* --- */
@@ -1330,7 +1339,7 @@ static PHB_GTQTC hb_gt_qtc_new( PHB_GT pGT )
 {
    PHB_GTQTC pQTC;
 
-   pQTC = ( PHB_GTQTC ) hb_xgrabz( sizeof( HB_GTQTC ) );
+   pQTC = static_cast< PHB_GTQTC >( hb_xgrabz( sizeof( HB_GTQTC ) ) );
    pQTC->pGT = pGT;
 
    pQTC->colors[  0 ] = BLACK;
@@ -1353,7 +1362,7 @@ static PHB_GTQTC hb_gt_qtc_new( PHB_GT pGT )
    pQTC->iRows         = QTC_DEFAULT_ROWS;
    pQTC->iCols         = QTC_DEFAULT_COLS;
 
-   pQTC->textLine      = ( QChar * ) hb_xgrab( pQTC->iCols * sizeof( QChar ) );
+   pQTC->textLine      = static_cast< QChar * >( hb_xgrab( pQTC->iCols * sizeof( QChar ) ) );
 
    pQTC->iNewPosX      = -1;
    pQTC->iNewPosY      = -1;
@@ -1545,8 +1554,8 @@ static HB_BOOL hb_gt_qtc_setWindowSize( PHB_GTQTC pQTC, int iRows, int iCols )
    if( HB_GTSELF_RESIZE( pQTC->pGT, iRows, iCols ) )
    {
       if( pQTC->iCols != iCols )
-         pQTC->textLine = ( QChar * ) hb_xrealloc( pQTC->textLine,
-                                                   iCols * sizeof( QChar ) );
+         pQTC->textLine = static_cast< QChar * >( hb_xrealloc( pQTC->textLine,
+                                                               iCols * sizeof( QChar ) ) );
 
       if( pQTC->qWnd && ( iRows != pQTC->iRows || iCols != pQTC->iCols ) )
          hb_gt_qtc_addKeyToInputQueue( pQTC, HB_K_RESIZE );
@@ -1664,7 +1673,7 @@ static void hb_gt_qtc_Init( PHB_GT pGT, HB_FHANDLE hFilenoStdin, HB_FHANDLE hFil
    }
 
    pQTC = hb_gt_qtc_new( pGT );
-   HB_GTLOCAL( pGT ) = ( void * ) pQTC;
+   HB_GTLOCAL( pGT ) = static_cast< void * >( pQTC );
 
    if( ! pQTC->qEventLoop )
       pQTC->qEventLoop = new QEventLoop();
@@ -1682,7 +1691,7 @@ static void hb_gt_qtc_Exit( PHB_GT pGT )
 {
    PHB_GTQTC pQTC;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_qtc_Exit(%p)", pGT ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_qtc_Exit(%p)", ( void * ) pGT ) );
 
    pQTC = HB_GTQTC_GET( pGT );
    HB_GTSUPER_EXIT( pGT );
@@ -1697,7 +1706,7 @@ static void hb_gt_qtc_Redraw( PHB_GT pGT, int iRow, int iCol, int iSize )
 {
    PHB_GTQTC pQTC;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_qtc_Redraw(%p,%d,%d,%d)", pGT, iRow, iCol, iSize ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_qtc_Redraw(%p,%d,%d,%d)", ( void * ) pGT, iRow, iCol, iSize ) );
 
    pQTC = HB_GTQTC_GET( pGT );
    if( pQTC )
@@ -1718,7 +1727,7 @@ static void hb_gt_qtc_Refresh( PHB_GT pGT )
 {
    PHB_GTQTC pQTC;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_qtc_Refresh(%p)", pGT ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_qtc_Refresh(%p)", ( void * ) pGT ) );
 
    HB_GTSUPER_REFRESH( pGT );
 
@@ -1739,7 +1748,7 @@ static HB_BOOL hb_gt_qtc_SetMode( PHB_GT pGT, int iRows, int iCols )
    PHB_GTQTC pQTC;
    HB_BOOL fResult, fCenter;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_qtc_SetMode(%p,%d,%d)", pGT, iRows, iCols ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_qtc_SetMode(%p,%d,%d)", ( void * ) pGT, iRows, iCols ) );
 
    pQTC = HB_GTQTC_GET( pGT );
    fCenter = iRows != pQTC->iRows || iCols != pQTC->iCols;
@@ -1762,7 +1771,7 @@ static HB_BOOL hb_gt_qtc_SetMode( PHB_GT pGT, int iRows, int iCols )
 
 static const char * hb_gt_qtc_Version( PHB_GT pGT, int iType )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_qtc_Version(%p,%d)", pGT, iType ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_qtc_Version(%p,%d)", ( void * ) pGT, iType ) );
 
    HB_SYMBOL_UNUSED( pGT );
 
@@ -1778,7 +1787,7 @@ static int hb_gt_qtc_ReadKey( PHB_GT pGT, int iEventMask )
 {
    PHB_GTQTC pQTC;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_qtc_ReadKey(%p,%d)", pGT, iEventMask ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_qtc_ReadKey(%p,%d)", ( void * ) pGT, iEventMask ) );
 
    HB_SYMBOL_UNUSED( iEventMask );
 
@@ -1804,7 +1813,7 @@ static int hb_gt_qtc_ReadKey( PHB_GT pGT, int iEventMask )
 
 static void hb_gt_qtc_Tone( PHB_GT pGT, double dFrequency, double dDuration )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_qtc_Tone(%p,%lf,%lf)", pGT, dFrequency, dDuration ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_qtc_Tone(%p,%lf,%lf)", ( void * ) pGT, dFrequency, dDuration ) );
 
    HB_SYMBOL_UNUSED( pGT );
    HB_SYMBOL_UNUSED( dFrequency );
@@ -1818,7 +1827,7 @@ static void hb_gt_qtc_Tone( PHB_GT pGT, double dFrequency, double dDuration )
 
 static HB_BOOL hb_gt_qtc_mouse_IsPresent( PHB_GT pGT )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_qtc_mouse_IsPresent(%p)", pGT ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_qtc_mouse_IsPresent(%p)", ( void * ) pGT ) );
 
    HB_SYMBOL_UNUSED( pGT );
 
@@ -1829,7 +1838,7 @@ static void hb_gt_qtc_mouse_GetPos( PHB_GT pGT, int * piRow, int * piCol )
 {
    PHB_GTQTC pQTC;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_qtc_mouse_GetPos(%p,%p,%p)", pGT, piRow, piCol ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_qtc_mouse_GetPos(%p,%p,%p)", ( void * ) pGT, piRow, piCol ) );
 
    pQTC = HB_GTQTC_GET( pGT );
    *piRow = pQTC->mouseRow;
@@ -1838,7 +1847,7 @@ static void hb_gt_qtc_mouse_GetPos( PHB_GT pGT, int * piRow, int * piCol )
 
 static HB_BOOL hb_gt_qtc_mouse_ButtonState( PHB_GT pGT, int iButton )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_qtc_mouse_ButtonState(%p,%i)", pGT, iButton ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_qtc_mouse_ButtonState(%p,%i)", ( void * ) pGT, iButton ) );
 
    HB_SYMBOL_UNUSED( pGT );
 
@@ -1856,7 +1865,7 @@ static HB_BOOL hb_gt_qtc_mouse_ButtonState( PHB_GT pGT, int iButton )
 
 static int hb_gt_qtc_mouse_CountButton( PHB_GT pGT )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_qtc_mouse_CountButton(%p)", pGT ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_qtc_mouse_CountButton(%p)", ( void * ) pGT ) );
 
    HB_SYMBOL_UNUSED( pGT );
 
@@ -1870,7 +1879,7 @@ static HB_BOOL hb_gt_qtc_Info( PHB_GT pGT, int iType, PHB_GT_INFO pInfo )
    PHB_GTQTC pQTC;
    int iVal;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_qtc_Info(%p,%d,%p)", pGT, iType, pInfo ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_qtc_Info(%p,%d,%p)", ( void * ) pGT, iType, ( void * ) pInfo ) );
 
    pQTC = HB_GTQTC_GET( pGT );
 
@@ -1948,14 +1957,14 @@ static HB_BOOL hb_gt_qtc_Info( PHB_GT pGT, int iType, PHB_GT_INFO pInfo )
          pInfo->pResult = hb_itemPutNI( pInfo->pResult, pQTC->cellY * pQTC->iRows );
          iVal = hb_itemGetNI( pInfo->pNewVal );
          if( iVal > 0 )
-            HB_GTSELF_SETMODE( pGT, ( HB_USHORT ) ( iVal / pQTC->cellY ), pQTC->iCols );
+            HB_GTSELF_SETMODE( pGT, static_cast< HB_USHORT >( iVal / pQTC->cellY ), pQTC->iCols );
          break;
 
       case HB_GTI_SCREENWIDTH:
          pInfo->pResult = hb_itemPutNI( pInfo->pResult, pQTC->cellX * pQTC->iCols );
          iVal = hb_itemGetNI( pInfo->pNewVal );
          if( iVal > 0 )
-            HB_GTSELF_SETMODE( pGT, pQTC->iRows, ( HB_USHORT ) ( iVal / pQTC->cellX ) );
+            HB_GTSELF_SETMODE( pGT, pQTC->iRows, static_cast< HB_USHORT >( iVal / pQTC->cellX ) );
          break;
 
       case HB_GTI_DESKTOPWIDTH:
@@ -2287,7 +2296,7 @@ static HB_BOOL hb_gt_qtc_Info( PHB_GT pGT, int iType, PHB_GT_INFO pInfo )
                hb_gt_qtc_itemGetQString( pInfo->pNewVal, &qStr );
                qImg = QImage( qStr );
             }
-            else if( hb_arrayLen( pInfo->pNewVal ) == ( HB_SIZE )
+            else if( hb_arrayLen( pInfo->pNewVal ) == static_cast< HB_SIZE >
                      ( ( hb_arrayGetType( pInfo->pNewVal, 4 ) & HB_IT_NUMERIC ) ? 4 : 3 ) &&
                      ( hb_arrayGetType( pInfo->pNewVal, 1 ) & ( HB_IT_POINTER | HB_IT_STRING ) ) &&
                      ( hb_arrayGetType( pInfo->pNewVal, 2 ) & HB_IT_NUMERIC ) &&
@@ -2327,14 +2336,14 @@ static HB_BOOL hb_gt_qtc_Info( PHB_GT pGT, int iType, PHB_GT_INFO pInfo )
                      while( data == NULL && iPad >= 8 )
                      {
                         iPitch = ( iWidth * iDepth + iPad - 1 ) / iPad;
-                        if( nSize == ( HB_SIZE ) ( iHeight * iPitch ) )
-                           data = ( const uchar * ) hb_arrayGetCPtr( pInfo->pNewVal, 1 );
+                        if( nSize == static_cast< HB_SIZE >( iHeight * iPitch ) )
+                           data = reinterpret_cast< const uchar * >( hb_arrayGetCPtr( pInfo->pNewVal, 1 ) );
                         else
                            iPad >>= 1;
                      }
                   }
                   else
-                     data = ( const uchar * ) hb_arrayGetPtr( pInfo->pNewVal, 1 );
+                     data = reinterpret_cast< const uchar * >( hb_arrayGetPtr( pInfo->pNewVal, 1 ) );
                }
                if( data != NULL )
                {
@@ -2405,7 +2414,7 @@ static int hb_gt_qtc_gfx_Primitive( PHB_GT pGT, int iType, int iTop, int iLeft, 
    PHB_GTQTC pQTC;
    int iRet = 1;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_qtc_gfx_Primitive(%p,%d,%d,%d,%d,%d,%d)", pGT, iType, iTop, iLeft, iBottom, iRight, iColor ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_qtc_gfx_Primitive(%p,%d,%d,%d,%d,%d,%d)", ( void * ) pGT, iType, iTop, iLeft, iBottom, iRight, iColor ) );
 
    pQTC = HB_GTQTC_GET( pGT );
 
@@ -2502,7 +2511,7 @@ static int hb_gt_qtc_gfx_Primitive( PHB_GT pGT, int iType, int iTop, int iLeft, 
 
 static HB_BOOL hb_gt_FuncInit( PHB_GT_FUNCS pFuncTable )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_FuncInit(%p)", pFuncTable ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_FuncInit(%p)", ( void * ) pFuncTable ) );
 
    pFuncTable->Init                 = hb_gt_qtc_Init;
    pFuncTable->Exit                 = hb_gt_qtc_Exit;
@@ -2569,7 +2578,7 @@ QTConsole::QTConsole( PHB_GTQTC pStructQTC, QWidget *parnt ) : QWidget( parnt )
 
    /* Qt::WA_InputMethodEnabled disables support for
     * national characters in few European countries
-    * (f.e. Polish characters with ALT in MacOSX)
+    * (f.e. Polish characters with ALT in macOS)
     * If some Asian users needs it then we will have
     * to enable it optionally [druzus]
     */
@@ -2806,7 +2815,7 @@ void QTConsole::copySelection( void )
 
          if( ! HB_GTSELF_GETSCRCHAR( pQTC->pGT, iRow, iCol, &iColor, &bAttr, &usChar ) )
             break;
-         qStr += ( QChar ) usChar;
+         qStr += QChar( usChar );
       }
       if( rc.height() > 1 )
          qStr += qStrEol;
@@ -2944,7 +2953,7 @@ void QTConsole::paintEvent( QPaintEvent * evt )
       if( rSel.intersects( rEvt ) )
       {
 #if defined( HB_OS_DARWIN )
-         /* RasterOp operations are not supported in MacOSX */
+         /* RasterOp operations are not supported in macOS */
          rEvt &= rSel;
          image->invertPixels();
          painter.drawImage( rEvt, *image, rEvt.translated( -pQTC->marginLeft, -pQTC->marginTop ) );
@@ -2964,7 +2973,7 @@ void QTConsole::paintEvent( QPaintEvent * evt )
       if( rEvt.intersects( rCrs ) )
       {
 #if defined( HB_OS_DARWIN )
-         /* RasterOp operations are not supported in MacOSX,
+         /* RasterOp operations are not supported in macOS,
           * use foreground cell color like hardware VGA cursor
           */
          HB_BYTE   bAttr;
@@ -3017,27 +3026,16 @@ void QTConsole::focusOutEvent( QFocusEvent * evt )
 
 void QTConsole::mouseMoveEvent( QMouseEvent * evt )
 {
-   if( pQTC->fSelectCopy &&
-       ( evt->buttons() & Qt::LeftButton ) &&
-       ( evt->modifiers() & Qt::ShiftModifier ) )
+   if( pQTC->fSelectCopy && selectMode )
    {
-      if( ! selectMode )
-      {
-         selectMode = true;
-         selectRect.setCoords( evt->x(), evt->y(), evt->x(), evt->y() );
-         update( hb_gt_qtc_unmapRect( pQTC, hb_gt_qtc_mapRect( pQTC, image, selectRect ) ) );
-      }
-      else
-      {
-         QRect rSel1 = hb_gt_qtc_unmapRect( pQTC, hb_gt_qtc_mapRect( pQTC, image, selectRect ) );
-         selectRect.setBottomRight( evt->pos() );
-         QRect rSel2 = hb_gt_qtc_unmapRect( pQTC, hb_gt_qtc_mapRect( pQTC, image, selectRect ) );
-         if( rSel1 != rSel2 )
-            update( QRegion( rSel1 ).xored( QRegion( rSel2 ) ) );
-      }
+      QRect rSel1 = hb_gt_qtc_unmapRect( pQTC, hb_gt_qtc_mapRect( pQTC, image, selectRect ) );
+      selectRect.setBottomRight( evt->pos() );
+      QRect rSel2 = hb_gt_qtc_unmapRect( pQTC, hb_gt_qtc_mapRect( pQTC, image, selectRect ) );
+      if( rSel1 != rSel2 )
+         update( QRegion( rSel1 ).xored( QRegion( rSel2 ) ) );
    }
-
-   hb_gt_qtc_setMouseKey( pQTC, evt->x(), evt->y(), 0, evt->modifiers() );
+   else
+      hb_gt_qtc_setMouseKey( pQTC, evt->x(), evt->y(), 0, evt->modifiers() );
 }
 
 void QTConsole::wheelEvent( QWheelEvent * evt )
@@ -3102,6 +3100,13 @@ void QTConsole::mousePressEvent( QMouseEvent * evt )
    switch( evt->button() )
    {
       case Qt::LeftButton:
+         if( ! selectMode && ( evt->modifiers() & Qt::ShiftModifier ) )
+         {
+            selectMode = true;
+            selectRect.setCoords( evt->x(), evt->y(), evt->x(), evt->y() );
+            update( hb_gt_qtc_unmapRect( pQTC, hb_gt_qtc_mapRect( pQTC, image, selectRect ) ) );
+            return;
+         }
          iKey = K_LBUTTONDOWN;
          break;
 
@@ -3128,6 +3133,11 @@ void QTConsole::mouseReleaseEvent( QMouseEvent * evt )
    switch( evt->button() )
    {
       case Qt::LeftButton:
+         if( selectMode )
+         {
+            copySelection();
+            return;
+         }
          iKey = K_LBUTTONUP;
          break;
 

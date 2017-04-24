@@ -1,4 +1,4 @@
-/* Copyright 2010 Viktor Szakats (vszakats.net/harbour) */
+/* Copyright 2010-2017 Viktor Szakats (vszakats.net/harbour) */
 
 /* Dynamic library call test. */
 
@@ -9,8 +9,8 @@
 
 #include "hbapi.h"
 
-HB_EXPORT double         TESTD ( double         value ) { printf( "DYN: %lf\n"      , value ); return value; }
-HB_EXPORT float          TESTF ( float          value ) { printf( "DYN: %f\n"       , value ); return value; }
+HB_EXPORT double         TESTD ( double         value ) { printf( "DYN: %f\n"       , value ); return value; }
+HB_EXPORT float          TESTF ( float          value ) { printf( "DYN: %f\n"       , ( double ) value ); return value; }
 HB_EXPORT char           TESTC ( char           value ) { printf( "DYN: %d\n"       , value ); return value; }
 HB_EXPORT unsigned char  TESTUC( unsigned char  value ) { printf( "DYN: %d\n"       , value ); return value; }
 HB_EXPORT short          TESTS ( short          value ) { printf( "DYN: %hd\n"      , value ); return value; }

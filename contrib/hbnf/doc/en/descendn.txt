@@ -6,16 +6,16 @@
    $ONELINER$
       Create a descending index key value
    $SYNTAX$
-      ft_Descend( <exp> ) -> <value>
+      ft_Descend( <exp> ) --> <value>
    $ARGUMENTS$
       <exp> is any expression of character, numeric, date, or logical type.
    $RETURNS$
       The inverse of <exp>
    $DESCRIPTION$
       This function is a replacement for CA-Cl*pper's Descend() function,
-      which is known to produce memory corruption occassionally.
+      which is known to produce memory corruption occasionally.
    $EXAMPLES$
-      ? ft_Descend( 1 )      // Returns -1
+      ? ft_Descend( 1 )  // Returns -1
    $SEEALSO$
       ft_XToY()
    $END$

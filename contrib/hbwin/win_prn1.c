@@ -79,18 +79,17 @@ HB_FUNC( WIN_CREATEDC )
 HB_FUNC( WIN_STARTDOC )
 {
    HDC hDC = hbwapi_par_HDC( 1 );
-   DOCINFO sDoc;
    HB_BOOL bResult = HB_FALSE;
 
    if( hDC )
    {
       void * hDocName;
+      DOCINFO sDoc;
 
-      sDoc.cbSize = sizeof( DOCINFO );
+      memset( &sDoc, 0, sizeof( sDoc ) );
+
+      sDoc.cbSize = sizeof( sDoc );
       sDoc.lpszDocName = HB_PARSTR( 2, &hDocName, NULL );
-      sDoc.lpszOutput = NULL;
-      sDoc.lpszDatatype = NULL;
-      sDoc.fwType = 0;
       bResult = ( StartDoc( hDC, &sDoc ) > 0 );
 
       hb_strfree( hDocName );

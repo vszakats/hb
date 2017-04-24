@@ -6,7 +6,7 @@
    $ONELINER$
       Test diskette drive status
    $SYNTAX$
-      ft_FlopTst( <cDirectory|nDrive> ) -> nStatus
+      ft_FlopTst( <cDirectory|nDrive> ) --> nStatus
    $ARGUMENTS$
       <nDrive> is the diskette drive number, 0 = A:, 1 = B:
    $RETURNS$

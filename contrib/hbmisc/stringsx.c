@@ -14,7 +14,7 @@ static const char * hb_strtoken( const char * szText,
 
    HB_TRACE( HB_TR_DEBUG,
              ( "hb_strtoken(%s, %" HB_PFS "d, %" HB_PFS "d, %d, %p)", szText, nText, nIndex,
-               ( int ) cDelimiter, pnLen ) );
+               ( int ) cDelimiter, ( void * ) pnLen ) );
 
    do
    {

@@ -6,7 +6,7 @@
    $ONELINER$
       Report the drive, path and filename of the current program
    $SYNTAX$
-      ft_Origin() -> cString
+      ft_Origin() --> cString
    $ARGUMENTS$
       None
    $RETURNS$

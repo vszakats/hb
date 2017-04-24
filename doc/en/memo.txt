@@ -1,19 +1,6 @@
-/*
- * Copyright 1999 Jose Lalin <dezac@corevia.com>
- *    MemoTran() documentation
- *    HardCR() documentation
- *
- * Copyright 2003 Alejandro de Garate <alex_degarate@hotmail.com>
- *    MemoRead() documentation
- *    MemoWrit() documentation
- *
- * Documentation for hb_MemoRead(), hb_MemoWrit()
- *
- * See COPYING.txt for licensing terms.
- *
- */
-
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Jose Lalin <dezac@corevia.com>
    $TEMPLATE$
       Function
    $NAME$
@@ -25,7 +12,7 @@
    $ONELINER$
       Converts hard and soft carriage returns within strings.
    $SYNTAX$
-      MemoTran( <cString>, <cHard>, <cSoft> ) --> <cConvertedString>
+      MemoTran( <cString>, <cHard>, <cSoft> ) --> cConvertedString
    $ARGUMENTS$
       <cString> is a string of chars to convert.
 
@@ -53,6 +40,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Jose Lalin <dezac@corevia.com>
    $TEMPLATE$
       Function
    $NAME$
@@ -64,7 +53,7 @@
    $ONELINER$
       Replace all soft carriage returns with hard carriages returns.
    $SYNTAX$
-      HardCR( <cString> ) --> <cConvertedString>
+      HardCR( <cString> ) --> cConvertedString
    $ARGUMENTS$
       <cString> is a string of chars to convert.
    $RETURNS$
@@ -86,6 +75,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2003 Alejandro de Garate <alex_degarate@hotmail.com>
    $TEMPLATE$
       Function
    $NAME$
@@ -99,17 +90,17 @@
    $SYNTAX$
       MemoRead( <cFileName> ) --> cString
    $ARGUMENTS$
-      <cFileName> is the filename to read from disk.
+      <cFileName> is the file name to read from disk.
                   It must include the file extension. If file to be read
                   lives in another directory, you must include the path.
    $RETURNS$
       Returns the contents of a text file as a character string.
 
-      If <cFileName> cannot be found or read MEMOREAD returns an empty
+      If <cFileName> cannot be found or read MemoRead() returns an empty
       string ("").
    $DESCRIPTION$
       MemoRead() is a function that reads the content of a text file (till
-      now) from disk (floppy, HD, CD-ROM, etc.) into a memory string.
+      now) from disk (floppy, HDD, CD-ROM, etc.) into a memory string.
       In that way you can manipulate as any character string or assigned
       to a memo field to be saved in a database.
 
@@ -152,6 +143,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2003 Alejandro de Garate <alex_degarate@hotmail.com>
    $TEMPLATE$
       Function
    $NAME$
@@ -165,17 +158,17 @@
    $SYNTAX$
       hb_MemoRead( <cFileName> ) --> cString
    $ARGUMENTS$
-      <cFileName> is the filename to read from disk.
+      <cFileName> is the file name to read from disk.
                   It must include the file extension. If file to be read
                   lives in another directory, you must include the path.
    $RETURNS$
       Returns the contents of a text file as a character string.
 
-      If <cFileName> cannot be found or read HB_MEMOREAD returns an empty
+      If <cFileName> cannot be found or read hb_MemoRead() returns an empty
       string ("").
    $DESCRIPTION$
       hb_MemoRead() is a function that reads the content of a text file
-      (till now) from disk (floppy, HD, CD-ROM, etc.) into a memory string.
+      (till now) from disk (floppy, HDD, CD-ROM, etc.) into a memory string.
       In that way you can manipulate as any character string or assigned
       to a memo field to be saved in a database.
 
@@ -196,7 +189,7 @@
 
       hb_MemoRead() vs MemoRead():
       hb_MemoRead() is identical to MemoRead() except it won't truncate the
-      last byte (on non-UNIX compatible systems) if it's a EOF char.
+      last byte (on non-Unix compatible systems) if it's a EOF char.
    $EXAMPLES$
       //  This example uses hb_MemoRead() to assign the contents of a text
       //  file to a character variable for later search
@@ -222,6 +215,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2003 Alejandro de Garate <alex_degarate@hotmail.com>
    $TEMPLATE$
       Function
    $NAME$
@@ -235,7 +230,7 @@
    $SYNTAX$
       MemoWrit( <cFileName>, <cString> ) --> lSuccess
    $ARGUMENTS$
-      <cFileName> is the filename to be written to disk.
+      <cFileName> is the file name to be written to disk.
                   It must include the file extension. If file to be read
                   lives in another directory, you must include the path.
 
@@ -246,13 +241,9 @@
       otherwise, it returns false (.F.).
    $DESCRIPTION$
       This a function that writes a memo field or character string to a
-      text file on disk (floppy, HD, CD-ROM, etc.)
+      text file on disk (floppy, HDD, CD-ROM, etc.)
       If you not specified a path, MemoWrit() writes <cFileName> to the
       current directory. If <cFileName> exists, it is overwritten.
-
-      There is a third parameter (optional), <lWriteEof>, (not found in
-      CA-Cl*pper) which let to programmer change the default behavior of
-      - always - to write the EOF character, Chr( 26 ) as in CA-Cl*pper.
 
       MemoWrit() function is used together with MemoRead() and MemoEdit()
       to save to disk text from several sources that was edited, searched,
@@ -283,6 +274,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2003 Alejandro de Garate <alex_degarate@hotmail.com>
    $TEMPLATE$
       Function
    $NAME$
@@ -294,35 +287,22 @@
    $ONELINER$
       Write a memo field or character string to a text file on disk
    $SYNTAX$
-      hb_MemoWrit( <cFileName>, <cString>, [<lWriteEof>] ) --> lSuccess
+      hb_MemoWrit( <cFileName>, <cString> ) --> lSuccess
    $ARGUMENTS$
-      <cFileName> is the filename to be written to disk.
+      <cFileName> is the file name to be written to disk.
                   It must include the file extension. If file to be read
                   lives in another directory, you must include the path.
 
       <cString>   Is the memo field or character string, to be write to
                   <cFile>.
-
-      <lWriteEof> Is a logic variable that settle if the "end of file"
-                  character - Chr( 26 ) - is written to disk.
-                  This parameter is optional. By default is true (.T.)
    $RETURNS$
       Function returns true (.T.) if the writing operation was successful;
       otherwise, it returns false (.F.).
    $DESCRIPTION$
       This a function that writes a memo field or character string to a
-      text file on disk (floppy, HD, CD-ROM, etc.)
+      text file on disk (floppy, HDD, CD-ROM, etc.)
       If you not specified a path, hb_MemoWrit() writes <cFileName> to the
       current directory. If <cFileName> exists, it is overwritten.
-
-      There is a third parameter (optional), <lWriteEof>, (not found in
-      CA-Cl*pper) which let to programmer change the default behavior of
-      - always - to write the EOF character, Chr( 26 ) as in CA-Cl*pper.
-
-      If there is no third parameter, nothing change, EOF is written as
-      in CA-Cl*pper, the same occurs when <lWriteEof> is set to .T.
-      But, if <lWriteEof> is set to .F., EOF char is Not written to the
-      end of the file.
 
       hb_MemoWrit() function is used together with hb_MemoRead() and
       MemoEdit() to save to disk text from several sources that was edited,

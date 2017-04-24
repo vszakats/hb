@@ -378,10 +378,11 @@ HB_FUNC( HB_HMERGE )
 {
    PHB_ITEM pDest = hb_param( 1, HB_IT_HASH );
    PHB_ITEM pSource = hb_param( 2, HB_IT_HASH );
-   PHB_ITEM pAction = hb_param( 3, HB_IT_EVALITEM | HB_IT_NUMERIC );
 
    if( pDest && pSource )
    {
+      PHB_ITEM pAction = hb_param( 3, HB_IT_EVALITEM | HB_IT_NUMERIC );
+
       if( pAction && HB_IS_EVALITEM( pAction ) )
       {
          HB_SIZE nLen = hb_hashLen( pSource ), nPos = 0;
@@ -505,6 +506,26 @@ HB_FUNC( HB_HSCAN )
             if( pItem )
             {
                if( HB_IS_STRING( pItem ) && hb_itemStrCmp( pItem, pValue, fExact ) == 0 )
+               {
+                  fFound = HB_TRUE;
+                  break;
+               }
+            }
+            else
+               break;
+            ++nStart;
+         }
+      }
+      else if( HB_IS_NUMINT( pValue ) )
+      {
+         HB_MAXINT nValue = hb_itemGetNInt( pValue );
+         while( nCount-- )
+         {
+            PHB_ITEM pItem = hb_hashGetValueAt( pHash, nStart );
+            if( pItem )
+            {
+               if( HB_IS_NUMERIC( pItem ) && hb_itemGetNInt( pItem ) == nValue &&
+                   hb_itemGetND( pItem ) == ( double ) nValue )
                {
                   fFound = HB_TRUE;
                   break;
@@ -671,12 +692,14 @@ HB_FUNC( HB_HSORT )
 HB_FUNC( HB_HCASEMATCH )
 {
    PHB_ITEM pHash = hb_param( 1, HB_IT_HASH );
-   PHB_ITEM pValue = hb_param( 2, HB_IT_LOGICAL );
 
    if( pHash )
    {
+      PHB_ITEM pValue = hb_param( 2, HB_IT_LOGICAL );
       int iFlags = hb_hashGetFlags( pHash );
+
       hb_retl( ( iFlags & HB_HASH_IGNORECASE ) == 0 );
+
       if( pValue )
       {
          if( hb_itemGetL( pValue ) )
@@ -701,12 +724,14 @@ HB_FUNC( HB_HCASEMATCH )
 HB_FUNC( HB_HBINARY )
 {
    PHB_ITEM pHash = hb_param( 1, HB_IT_HASH );
-   PHB_ITEM pValue = hb_param( 2, HB_IT_LOGICAL );
 
    if( pHash )
    {
+      PHB_ITEM pValue = hb_param( 2, HB_IT_LOGICAL );
       int iFlags = hb_hashGetFlags( pHash );
+
       hb_retl( ( iFlags & HB_HASH_BINARY ) != 0 );
+
       if( pValue )
       {
          if( hb_itemGetL( pValue ) )
@@ -731,10 +756,10 @@ HB_FUNC( HB_HBINARY )
 HB_FUNC( HB_HAUTOADD )
 {
    PHB_ITEM pHash = hb_param( 1, HB_IT_HASH );
-   PHB_ITEM pValue = hb_param( 2, HB_IT_LOGICAL | HB_IT_NUMERIC );
 
    if( pHash )
    {
+      PHB_ITEM pValue = hb_param( 2, HB_IT_LOGICAL | HB_IT_NUMERIC );
       int iOldFlags = hb_hashGetFlags( pHash ) & HB_HASH_AUTOADD_MASK;
 
       hb_retni( iOldFlags );
@@ -769,12 +794,14 @@ HB_FUNC( HB_HAUTOADD )
 HB_FUNC( HB_HKEEPORDER )
 {
    PHB_ITEM pHash = hb_param( 1, HB_IT_HASH );
-   PHB_ITEM pValue = hb_param( 2, HB_IT_LOGICAL );
 
    if( pHash )
    {
+      PHB_ITEM pValue = hb_param( 2, HB_IT_LOGICAL );
       int iFlags = hb_hashGetFlags( pHash );
+
       hb_retl( ( iFlags & HB_HASH_KEEPORDER ) != 0 );
+
       if( pValue )
       {
          if( hb_itemGetL( pValue ) )

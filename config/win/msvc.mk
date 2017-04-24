@@ -34,8 +34,7 @@ ifeq ($(filter $(HB_COMPILER_VER),1200 1300 1310 1400 1500 1600),)
       LDFLAGS += -highentropyva
       DFLAGS += -highentropyva
    endif
-   # some 3rd party code (libjpeg) won't compile with it
-   #CFLAGS += -sdl
+   CFLAGS += -sdl
 endif
 # enable this only for users of MSVS 2013 and upper
 ifeq ($(filter $(HB_COMPILER_VER),1200 1300 1310 1400 1500 1600 1700),)
@@ -63,6 +62,27 @@ else
    CFLAGS += -W2
 endif
 
+# LLVM mode not functional
+ifeq ($(__HB_COMPILER_LLVM),yes)
+   ifneq ($(HB_BUILD_WARN),no)
+      CFLAGS += -Weverything
+      CFLAGS += -Wno-padded -Wno-cast-align -Wno-float-equal -Wno-missing-prototypes
+      CFLAGS += -Wno-disabled-macro-expansion -Wno-undef -Wno-unused-macros -Wno-variadic-macros -Wno-documentation
+      CFLAGS += -Wno-switch-enum
+      ifeq ($(filter $(HB_COMPILER_VER),0305),)
+         CFLAGS += -Wno-reserved-id-macro
+      endif
+      # These are potentially useful. -Wsign-conversion would require proper HB_SIZE/HB_ISIZ cleanup.
+      CFLAGS += -Wno-sign-conversion -Wno-shorten-64-to-32 -Wno-conversion -Wno-bad-function-cast
+      CFLAGS += -Wno-language-extension-token
+   else
+      CFLAGS += -Wmissing-braces -Wreturn-type -Wformat
+      ifneq ($(HB_BUILD_MODE),cpp)
+         CFLAGS += -Wimplicit-int -Wimplicit-function-declaration
+      endif
+   endif
+endif
+
 ifneq ($(HB_BUILD_OPTIM),no)
    ifneq ($(filter $(HB_COMPILER_VER),1200 1300 1310),)
       CFLAGS += -Ogt2yb1p -GX- -G6
@@ -87,7 +107,7 @@ endif
 
 RC := rc.exe
 RC_OUT := -fo$(subst x,x, )
-RCFLAGS += -I. -I$(HB_HOST_INC)
+RCFLAGS += -I. -I$(HB_HOST_INC) -c65001
 
 # # NOTE: -GA flag should be disabled when building MT _.dlls_,
 # #       as it creates bad code according to MS docs [vszakats].
@@ -103,8 +123,8 @@ LD := link.exe
 # endif
 LD_OUT := -out:
 
-LIBPATHS := $(foreach dir,$(LIB_DIR) $(3RDLIB_DIR),-libpath:$(dir))
-LDLIBS := $(foreach lib,$(HB_USER_LIBS) $(LIBS) $(3RDLIBS) $(SYSLIBS),$(lib)$(LIB_EXT))
+LIBPATHS := $(foreach dir,$(LIB_DIR),-libpath:$(dir))
+LDLIBS := $(foreach lib,$(HB_USER_LIBS) $(LIBS) $(SYSLIBS),$(lib)$(LIB_EXT))
 
 LDFLAGS += -nologo -subsystem:console $(LIBPATHS)
 
@@ -114,9 +134,9 @@ AR_RULE = $(AR) $(ARFLAGS) $(HB_AFLAGS) $(HB_USER_AFLAGS) -nologo -out:$(LIB_DIR
 DY := $(LD)
 DFLAGS += -nologo -dll -subsystem:console $(LIBPATHS)
 DY_OUT := $(LD_OUT)
-DLIBS := $(foreach lib,$(HB_USER_LIBS) $(LIBS) $(3RDLIBS) $(SYSLIBS),$(lib)$(LIB_EXT))
+DLIBS := $(foreach lib,$(HB_USER_LIBS) $(LIBS) $(SYSLIBS),$(lib)$(LIB_EXT))
 
-# NOTE: The empty line directly before 'endef' HAVE TO exist!
+# NOTE: The empty line directly before 'endef' HAS TO exist!
 define dynlib_object
    @$(ECHO) $(ECHOQUOTE)$(file)$(ECHOQUOTE) >> __dyn__.tmp
 

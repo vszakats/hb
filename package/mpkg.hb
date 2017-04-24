@@ -1,10 +1,9 @@
 #!/usr/bin/env hbmk2
 
-/* Copyright 2015 Viktor Szakats (vszakats.net/harbour) */
+/* Copyright 2015-2017 Viktor Szakats (vszakats.net/harbour) */
 
-/* Set timestamps for non-generated (repository) files
-   before including them in a distributable package.
-   For reproducible builds. */
+/* Set timestamps for non-generated (repository) files before including them
+   in a distributable package. For reproducible builds. */
 
 #include "directry.ch"
 #include "fileio.ch"
@@ -12,9 +11,9 @@
 // #define DEBUG
 
 #ifdef DEBUG
-   #translate _DEBUG( <x> ) => OutStd( __FILE__ + ": " + <x> + hb_eol() )
+   #translate _DEBUG( <x,...> ) => OutStd( __FILE__ + ":", <x> + hb_eol() )
 #else
-   #translate _DEBUG( <x> ) =>
+   #translate _DEBUG( <x,...> ) =>
 #endif
 
 PROCEDURE Main( cMode )
@@ -25,23 +24,11 @@ PROCEDURE Main( cMode )
    _DEBUG( "BEGIN" )
 
    SWITCH Lower( cMode := hb_defaultValue( cMode, "" ) )
-   CASE "nl"
-
-      tmp := hb_DirSepToOS( hb_defaultValue( hb_PValue( 2 ), "" ) )
-
-      OutStd( "! mpkg.hb: Converting newlines in", tmp + hb_eol() )
-
-      FOR EACH file IN hb_vfDirectory( tmp )
-         FileConvEOL( hb_FNameDir( tmp ) + file[ F_NAME ] )
-      NEXT
-
-      EXIT
-
    CASE "pe"
 
       tmp := hb_DirSepToOS( hb_defaultValue( hb_PValue( 3 ), "" ) )
 
-      OutStd( "! mpkg.hb: Setting build times in executable headers of", tmp + hb_eol() )
+      OutStd( "! mpkg.hb: Timestamping executable header of", tmp + hb_eol() )
 
       FOR EACH file IN hb_vfDirectory( tmp )
          /* Use a fixed date to change binaries only if their ingredients have changed */
@@ -55,8 +42,8 @@ PROCEDURE Main( cMode )
       cGitRoot := hb_DirSepAdd( hb_DirSepToOS( hb_defaultValue( hb_PValue( 2 ), "." ) ) ) + ".git"
       IF hb_vfDirExists( cGitRoot )
 
-         _DEBUG( "cwd: " + hb_cwd() )
-         _DEBUG( "git: " + cGitRoot )
+         _DEBUG( "cwd:", hb_cwd() )
+         _DEBUG( "git:", cGitRoot )
 
          hb_processRun( "git" + ;
             " " + FNameEscape( "--git-dir=" + cGitRoot ) + ;
@@ -81,7 +68,7 @@ PROCEDURE Main( cMode )
                                Val( SubStr( cStdOut, 24, 2 ) ) ) ) - hb_UTCOffset() ) / 86400 )
          ENDIF
 
-         _DEBUG( "date HEAD:" + hb_TToC( tDateHEAD ) )
+         _DEBUG( "date HEAD:", hb_TToC( tDateHEAD ) )
 
          IF ! Empty( tDateHEAD ) .OR. ! lShallow
 
@@ -92,7 +79,6 @@ PROCEDURE Main( cMode )
             OutStd( "! mpkg.hb: Timestamping repository files..." + hb_eol() )
 
             FOR EACH tmp IN { ;
-               "bin/*.bat", ;
                "bin/*.hb", ;
                "doc/*.txt", ;
                "addons/*.txt", ;
@@ -173,10 +159,11 @@ STATIC FUNCTION win_PESetTimestamp( cFileName, tDateHdr )
    IF ( hFile := hb_vfOpen( cFileName, FO_READWRITE + FO_EXCLUSIVE ) ) != NIL
       IF ( cSignature := hb_vfReadLen( hFile, 2 ) ) == "MZ"
          hb_vfSeek( hFile, 0x003C, FS_SET )
-         nPEPos := Bin2W( hb_vfReadLen( hFile, 2 ) ) + ;
-                   Bin2W( hb_vfReadLen( hFile, 2 ) ) * 0x10000
+         nPEPos := ;
+            Bin2W( hb_vfReadLen( hFile, 2 ) ) + ;
+            Bin2W( hb_vfReadLen( hFile, 2 ) ) * 0x10000
          hb_vfSeek( hFile, nPEPos, FS_SET )
-         IF !( hb_vfReadLen( hFile, 4 ) == "PE" + hb_BChar( 0 ) + hb_BChar( 0 ) )
+         IF ! hb_vfReadLen( hFile, 4 ) == "PE" + hb_BChar( 0 ) + hb_BChar( 0 )
             nPEPos := NIL
          ENDIF
       ELSEIF cSignature + hb_vfReadLen( hFile, 2 ) == "PE" + hb_BChar( 0 ) + hb_BChar( 0 )
@@ -193,13 +180,15 @@ STATIC FUNCTION win_PESetTimestamp( cFileName, tDateHdr )
          IF hb_vfSeek( hFile, nPEPos + 0x0008, FS_SET ) == nPEPos + 0x0008
 
             /* IMAGE_FILE_HEADER.TimeDateStamp */
-            cDWORD := hb_BChar( nDWORD % 0x100 ) + ;
-                      hb_BChar( nDWORD / 0x100 )
+            cDWORD := ;
+               hb_BChar( nDWORD % 0x100 ) + ;
+               hb_BChar( nDWORD / 0x100 )
             nDWORD /= 0x10000
-            cDWORD += hb_BChar( nDWORD % 0x100 ) + ;
-                      hb_BChar( nDWORD / 0x100 )
+            cDWORD += ;
+               hb_BChar( nDWORD % 0x100 ) + ;
+               hb_BChar( nDWORD / 0x100 )
 
-            IF !( hb_vfReadLen( hFile, 4 ) == cDWORD ) .AND. ;
+            IF ! hb_vfReadLen( hFile, 4 ) == cDWORD .AND. ;
                hb_vfSeek( hFile, nPEPos + 0x0008, FS_SET ) == nPEPos + 0x0008 .AND. ;
                hb_vfWrite( hFile, cDWORD ) == hb_BLen( cDWORD )
                lModified := .T.
@@ -227,14 +216,15 @@ STATIC FUNCTION win_PESetTimestamp( cFileName, tDateHdr )
                      /* IMAGE_EXPORT_DIRECTORY */
                      IF hb_vfReadLen( hFile, 8 ) == ".edata" + hb_BChar( 0 ) + hb_BChar( 0 )
                         hb_vfSeek( hFile, 0x000C, FS_RELATIVE )
-                        nPEPos := Bin2W( hb_vfReadLen( hFile, 2 ) ) + ;
-                                  Bin2W( hb_vfReadLen( hFile, 2 ) ) * 0x10000
+                        nPEPos := ;
+                           Bin2W( hb_vfReadLen( hFile, 2 ) ) + ;
+                           Bin2W( hb_vfReadLen( hFile, 2 ) ) * 0x10000
                         EXIT
                      ENDIF
                   NEXT
                   IF nPEPos != NIL .AND. ;
                      hb_vfSeek( hFile, nPEPos + 0x0004, FS_SET ) == nPEPos + 0x0004
-                     IF !( hb_vfReadLen( hFile, 4 ) == cDWORD ) .AND. ;
+                     IF ! hb_vfReadLen( hFile, 4 ) == cDWORD .AND. ;
                         hb_vfSeek( hFile, nPEPos + 0x0004, FS_SET ) == nPEPos + 0x0004 .AND. ;
                         hb_vfWrite( hFile, cDWORD ) == hb_BLen( cDWORD )
                         lModified := .T.
@@ -248,11 +238,13 @@ STATIC FUNCTION win_PESetTimestamp( cFileName, tDateHdr )
                   hb_vfSeek( hFile, FS_SET, 0 )
                   nDWORD := win_PEChecksumCalc( hb_vfReadLen( hFile, tmp ), nPECheckSumPos )
                   IF hb_vfSeek( hFile, nPEChecksumPos ) == nPEChecksumPos
-                     cDWORD := hb_BChar( nDWORD % 0x100 ) + ;
-                               hb_BChar( nDWORD / 0x100 )
+                     cDWORD := ;
+                        hb_BChar( nDWORD % 0x100 ) + ;
+                        hb_BChar( nDWORD / 0x100 )
                      nDWORD /= 0x10000
-                     cDWORD += hb_BChar( nDWORD % 0x100 ) + ;
-                               hb_BChar( nDWORD / 0x100 )
+                     cDWORD += ;
+                        hb_BChar( nDWORD % 0x100 ) + ;
+                        hb_BChar( nDWORD / 0x100 )
                      hb_vfWrite( hFile, cDWORD )
                   ENDIF
                ENDIF
@@ -307,6 +299,6 @@ STATIC FUNCTION FileConvEOL( cFileName )
    hb_vfTimeGet( cFileName, @tDate )
 
    RETURN ;
-      ! HB_ISNULL( cFile := hb_MemoRead( cFileName ) ) .AND. ;
+      ! ( cFile := hb_MemoRead( cFileName ) ) == "" .AND. ;
       hb_MemoWrit( cFileName, StringEOLConv( cFile ) ) .AND. ;
       hb_vfTimeSet( cFileName, tDate )

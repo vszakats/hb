@@ -16,8 +16,8 @@ PROCEDURE Main( cURL )
       RETURN
    ENDIF
 
-   IF !( oURL:cProto == "http" ) .AND. ;
-      !( oURL:cProto == "https" )
+   IF ! oURL:cProto == "http" .AND. ;
+      ! oURL:cProto == "https"
       ? "This is a header test for http/https."
       ? "Use an http/https address."
       RETURN

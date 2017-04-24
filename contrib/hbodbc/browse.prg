@@ -61,7 +61,7 @@ FUNCTION hb_odbcBrowse( nTop, nLeft, nBottom, nRight, oDataSource )
    LOCAL nKey, nKeyStd
    LOCAL bAction
 
-   IF !( oDataSource:ClassName() == "TODBC" ) .OR. ! oDataSource:Active
+   IF ! oDataSource:ClassName() == "TODBC" .OR. ! oDataSource:Active
       RETURN .F.
    ENDIF
 

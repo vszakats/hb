@@ -96,7 +96,7 @@ STATIC FUNCTION s_valToExp( xVal, lRaw, cInd, hRefs, cRefs, cObjs )
          cInd := cRefs := ""
          hRefs := { tmp => cInd }
       ELSEIF tmp $ hRefs
-         IF !( cRefs == "" )
+         IF ! cRefs == ""
             cRefs += ","
          ENDIF
          cRefs += "{{" + cInd + "}," + hRefs[ tmp ] + "}"

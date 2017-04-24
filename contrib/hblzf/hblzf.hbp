@@ -13,6 +13,7 @@
 -depcontrol=lzf:local{HB_BUILD_3RDEXT='no'}
 -depcontrol=lzf:${HB_WITH_LZF}
 -depincpath=lzf:/usr/include
+-depincpath=lzf:/usr/local/include
 -depincpathlocal=lzf:3rd/liblzf
 -depfinish=lzf
 

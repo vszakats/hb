@@ -7,7 +7,7 @@
       Return calendar, fiscal or accounting day data
    $SYNTAX$
       ft_DayOfYr( [ <dGivenDate> ], [ <nDayNum> ], [ <lIsAcct> ] )
-             -> aDateInfo
+             --> aDateInfo
    $ARGUMENTS$
       <dGivenDate> is any valid date in any valid format.  Defaults
       to current system date if not supplied.

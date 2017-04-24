@@ -1,11 +1,5 @@
-/*
- * Harbour Inet demo server program
- *
- * Giancarlo Niccolai
- *
- * In this program, the server uses just one thread
- * to demonstrate how to use timeout sockets.
- */
+/* Harbour Inet demo server program by Giancarlo Niccolai
+   This server uses just one thread to demonstrate how to use timeout sockets. */
 
 #include "setcurs.ch"
 

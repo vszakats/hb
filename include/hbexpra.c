@@ -44,10 +44,7 @@
  *
  */
 
-
 #include "hbcomp.h"
-
-/* ************************************************************************ */
 
 #ifndef HB_MACRO_SUPPORT
 HB_SIZE hb_compExprListEval( HB_COMP_DECL, PHB_EXPR pExpr, PHB_COMP_CARGO_FUNC pEval )
@@ -559,8 +556,7 @@ PHB_EXPR hb_compExprNewArrayAt( PHB_EXPR pArray, PHB_EXPR pIndex, HB_COMP_DECL )
    return pExpr;
 }
 
-
-/* ************************************************************************* */
+/* === */
 
 #ifndef HB_MACRO_SUPPORT
 
@@ -692,7 +688,7 @@ PHB_EXPR hb_compExprAssignStatic( PHB_EXPR pLeftExpr, PHB_EXPR pRightExpr, HB_CO
 
 PHB_EXPR hb_compExprSetCodeblockBody( PHB_EXPR pExpr, HB_BYTE * pCode, HB_SIZE nLen )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_compExprSetCodeblockBody(%p,%p,%" HB_PFS "u)", pExpr, pCode, nLen ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_compExprSetCodeblockBody(%p,%p,%" HB_PFS "u)", ( void * ) pExpr, ( void * ) pCode, nLen ) );
 
    pExpr->value.asCodeblock.string = ( char * ) hb_xgrab( nLen + 1 );
    memcpy( pExpr->value.asCodeblock.string, pCode, nLen );
@@ -757,7 +753,7 @@ PHB_EXPR hb_compExprGenPop( PHB_EXPR pExpr, HB_COMP_DECL )
  */
 PHB_EXPR hb_compExprGenStatement( PHB_EXPR pExpr, HB_COMP_DECL )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_compExprGenStatement(%p)", pExpr ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_compExprGenStatement(%p)", ( void * ) pExpr ) );
    if( pExpr )
    {
       if( pExpr->ExprType == HB_EO_EQUAL )

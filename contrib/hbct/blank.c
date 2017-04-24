@@ -90,7 +90,8 @@ HB_FUNC( BLANK )
          HB_SIZE nLen = hb_itemGetCLen( pItem );
          char * szResult = ( char * ) hb_xgrab( nLen + 1 );
 
-         hb_xmemset( szResult, ' ', nLen );
+         if( nLen > 0 )
+            hb_xmemset( szResult, ' ', nLen );
          if( bRef )
             hb_storclen( szResult, nLen, 1 );
          if( bRet )

@@ -3,6 +3,8 @@ include $(TOP)$(ROOT)config/global.mk
 ifneq ($(HB_PLATFORM),)
 ifneq ($(HB_COMPILER),)
 
+HB_RCFLAGS := -DHB_DYNLIB
+
 HB_LINKING_RTL :=
 HB_LINKING_VMMT :=
 
@@ -22,6 +24,7 @@ endif
 include $(TOP)$(ROOT)config/$(HB_PLATFORM)/$(HB_COMPILER).mk
 include $(TOP)$(ROOT)config/c.mk
 include $(TOP)$(ROOT)config/prg.mk
+include $(TOP)$(ROOT)config/res.mk
 
 ifeq ($(HB_LINKING_VMMT),yes)
    _HB_VM := hbvmmt
@@ -102,6 +105,9 @@ ifeq ($(HB_DYN_FROM_LIBS),yes)
    ALL_OBJS := $(subst /,$(DIRSEP),$(foreach lib,$(HB_DYN_LIBS),$(wildcard $(LIB_DIR)/$(LIB_PREF)$(lib)$(LIB_EXT))))
 else
    ALL_OBJS := $(subst /,$(DIRSEP),$(foreach dir,$(DYNDIRLIST),$(wildcard $(TOP)$(ROOT)$(dir)/$(OBJ_DIR)/*$(OBJ_DYN_POSTFIX)$(OBJ_EXT))))
+endif
+ifneq ($(RC),)
+   ALL_OBJS += $(ALL_RC_OBJS)
 endif
 
 first:: dirbase descend

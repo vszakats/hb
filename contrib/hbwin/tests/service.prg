@@ -50,29 +50,31 @@
 
 PROCEDURE Main( cMode )
 
-   SWITCH Upper( hb_defaultValue( cMode, "S" /* NOTE: Must be the default action */ ) )
-   CASE "I"
+   SWITCH Lower( hb_defaultValue( cMode, "" )
+   CASE "-install"
 
-      IF win_serviceInstall( _SERVICE_NAME, "Harbour Windows Test Service" )
+      IF win_serviceInstall( _SERVICE_NAME, ;
+                             "Harbour Windows Test Service", ;
+                             Chr( 34 ) + hb_ProgName() + Chr( 34 ) + " -service" )
          ? "Service has been successfully installed"
       ELSE
-         ? "Error installing service:", hb_ntos( wapi_GetLastError() ), win_ErrorDesc()
+         ? "Error installing Service:", hb_ntos( wapi_GetLastError() ), win_ErrorDesc()
       ENDIF
       EXIT
 
-   CASE "U"
+   CASE "-uninstall"
 
       IF win_serviceDelete( _SERVICE_NAME )
          ? "Service has been deleted"
       ELSE
-         ? "Error deleting service:", hb_ntos( wapi_GetLastError() ), win_ErrorDesc()
+         ? "Error deleting Service:", hb_ntos( wapi_GetLastError() ), win_ErrorDesc()
       ENDIF
       EXIT
 
-   CASE "S"
+   CASE "-service"
 
-      /* NOTE: Used when starting up as service.
-               Do not invoke the executable manually with this option */
+      /* NOTE: Used when starting up as Service.
+               Do not invoke the executable from the command-line with this option. */
 
       IF win_serviceStart( _SERVICE_NAME, @SrvMain() )
          ? "Service has started OK"
@@ -80,6 +82,16 @@ PROCEDURE Main( cMode )
          ? "Service has had some problems:", hb_ntos( wapi_GetLastError() ), win_ErrorDesc()
       ENDIF
       EXIT
+
+   OTHERWISE
+
+      ? "This is a Windows Service app and cannot be directly run from the command-line."
+      ?
+      ? "Options:"
+      ?
+      ? "  -install    install as a Service"
+      ? "  -uninstall  uninstall Service"
+      ? "  -service    run as Service"
 
    ENDSWITCH
 

@@ -2,6 +2,8 @@
 
 #require "hbexpat"
 
+#include "simpleio.ch"
+
 #define _D_aTree            1
 #define _D_aNode            2
 #define _D_MAX_             2

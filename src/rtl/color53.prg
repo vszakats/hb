@@ -66,7 +66,7 @@ FUNCTION SetClrPair( cColor, nColor, cNewColor )
       RETURN ""
    ENDIF
 
-   RETURN Stuff( cColor, nPos, GetPairLen( cColor, nColor ), cNewColor )  /* TOFIX: use hb_BStuff() */
+   RETURN Stuff( cColor, nPos, GetPairLen( cColor, nColor ), cNewColor )  /* FIXME: use hb_BStuff() */
 
 FUNCTION GetPairPos( cColor, nColor )
 

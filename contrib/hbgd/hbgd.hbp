@@ -11,6 +11,8 @@ hbct.hbc
 -deppkgname=gd:gd-devel{rpm}
 -deppkgname=gd:libgd2-xpm-dev{deb}
 -deppkgname=gd:libgd-xpm-dev{deb}
+-deppkgname=gd:mingw-w64-i686-gd{msys2&mingw}
+-deppkgname=gd:mingw-w64-x86_64-gd{msys2&mingw64}
 -deppkgname=gd:gd{pacman}
 -deppkgname=gd:gd{homebrew}
 -depkeyhead=gd:gd.h
@@ -21,6 +23,9 @@ hbct.hbc
 -depincpath=gd:/usr/local/opt/gd/include
 -depimplibs=gd:../bin/bgd.dll{!(msvc|pocc|mingw)|hbdyn}
 -depimplibs=gd:../lib/bgd.lib{(msvc|pocc|mingw)&!hbdyn}
+-depimplibs=gd:../lib/libgd.dll.a:bgd
+
+-cflag=-DNONDLL{HB_STATIC_GD}
 
 -hbx=${hb_name}
 
@@ -31,3 +36,6 @@ gdbar.prg
 gdchart.prg
 gdimage.prg
 gdbarcod.prg
+
+-instfile=contrib_tests_imgs_in:tests/imgs_in/*.*
+{_HB_INST_CORE&_HB_INSTALL_CONTRIB&hblib}-instpath=contrib_tests_imgs_in:${_HB_INSTALL_CONTRIB}/${_HB_PROJECT_SUBDIR}/tests/imgs_in/

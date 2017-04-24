@@ -1,0 +1,68 @@
+---
+category: database
+title_long: "<code>Browse()</code> function demo"
+description: "Example to test <code>Browse()</code> function features."
+---
+<div class="shot-window"><div class="shot-toolbar"></div><div class="shot-screen shot-alt-1"><pre>
+╒══════════════════════════════════════════════════╕
+│                      Record 1/500                │
+│  STATE ZIP        HIREDATE   MARRIED AGE SALARY  │
+╞═══════ ══════════ ══════════ ═══════ ═══ ════════╡
+│  IL    20503-8202 1992-09-18    T      6   5900  │
+│  MA    55774-2304 1984-10-17    F     28 123700  │
+│  WY    09226-1483 1989-05-23    T     43  82900  │
+│  SD    71947-5114 1985-05-09    F     34 138300  │
+│  ID    38179-3789 1990-12-11    T     88  51800  │
+│  CT    82378-0904 1992-02-24    F     90  20400  │
+│  WV    94177-5329 1987-09-12    T     58 145300  │
+│  RI    08218-8409 1988-02-16    F     46 118900  │
+│  HI    82063-8091 1987-01-17    T     55  23700  │
+│  AK    79021-0643 1989-08-28    F     89  96700  │
+╘══════════════════════════════════════════════════╛
+</pre></div></div>
+
+<div class="shot-window"><div class="shot-toolbar"></div><div class="shot-screen shot-shrink"><pre>
+╒══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╕
+│                                                                                                                              Record 1/500                │
+│  FIRST                LAST                 STREET                         CITY                           STATE ZIP        HIREDATE   MARRIED AGE SALARY  │
+╞══════════════════════ ════════════════════ ══════════════════════════════ ══════════════════════════════ ═════ ══════════ ══════════ ═══════ ═══ ════════╡
+│  Homer                Simpson              32179 Maiden Lane              Springfield                    IL    20503-8202 1992-09-18    T      6   5900  │
+│  Ceci                 Gibbard              9540 Raynes Park Road          Miami                          MA    55774-2304 1984-10-17    F     28 123700  │
+│  Reg                  Kaczocha             30522 Park Ten Place           Scottsdale                     WY    09226-1483 1989-05-23    T     43  82900  │
+│  Ralph                Jochum               8211 Carnegie Center           Hingham                        SD    71947-5114 1985-05-09    F     34 138300  │
+│  Simpson              Jaffee               32736 Meadowbrook Drive        Nedlands                       ID    38179-3789 1990-12-11    T     88  51800  │
+│  Tom                  Logan                6180 Roselle Street            West Covina                    CT    82378-0904 1992-02-24    F     90  20400  │
+│  Gary                 Brock                3893 Canandaigua Road          Senford                        WV    94177-5329 1987-09-12    T     58 145300  │
+│  Frank                Fonseca              18712 Sherman Way              Ashby                          RI    08218-8409 1988-02-16    F     46 118900  │
+│  Rick                 Sencovici            13802 South University         Arcadia                        HI    82063-8091 1987-01-17    T     55  23700  │
+│  Hugh                 Lupton               16472 S. LaSalle Street        Tarzana                        AK    79021-0643 1989-08-28    F     89  96700  │
+│  Oskar                Farley               19123 Washington Street        Boston                         IN    25885-0851 1985-08-31    T     46  77300  │
+│  Johnny               Fischer              30621 Inridge Drive            McLean                         WA    86275-8035 1988-11-12    F     37   2300  │
+│  Corkey               Young                9069 Avon Place                Lund                           NC    36199-1793 1988-12-24    T     54  30000  │
+│  Phyllis              Lechuga              1457 Indianapolis Ave          Council Bluffs                 AR    73036-5749 1987-01-29    F     94  84600  │
+│  Chester              Padilla              32385 Federal Street           Ashby                          MS    82882-2447 1985-12-22    T     90 144000  │
+│  Ali                  Halverson            10614 No. Sheridan Way         Fort Collins                   VT    99748-6645 1991-05-17    F     57 136700  │
+│  Renee                Chism                136 West Markham               Catawba                        NY    58492-3691 1989-02-25    T     78   9700  │
+│  Vincent              Woiska               13093 4th Street               Jackson                        WY    28063-0466 1986-07-11    F     81  49600  │
+│  Arnaldo              Waldrop              27185 Terri-Lyn                Devon Park                     KY    32428-6555 1992-05-13    T     74 106500  │
+│  Herbert              Fuller               4057 Parkside Avenue           Canning Vale                   LA    03556-9645 1989-01-16    F     81 100500  │
+│  Jimmy                Coleman              27233 Amsterdam Ave            Bayside                        VA    14986-9684 1988-06-11    T     96  93800  │
+│  Garland              Humphrey             31565 Brookwood Drive          Atlanta                        DE    18082-8322 1985-01-20    F     57  12200  │
+│  Dave                 Van Allen            12442 Highbury Avenue          Camarillo                      HI    72163-4364 1984-01-12    T     86 133800  │
+│  Homer                Dodd                 7139 Lawrence Ave West         Rochester                      WI    58069-9538 1987-02-08    F     21  17600  │
+│  Shawn                Lupton               9119 Northern Parkway          East Lempster                  FL    64531-9221 1986-04-26    T     84  84200  │
+│  Andy                 Pels                 3302 Cherokee Blvd             Stevensville                   TN    75529-3235 1988-12-10    F     76 116600  │
+│  Alfred               Reslow               24662 Telluride Road           Fullerton                      WA    01900-1402 1985-06-04    T     31  36100  │
+│  Jamie                Lyth                 6929 Prince Charles Drive      Paramus                        NC    01540-4969 1988-07-15    F     80  30500  │
+│  Armand               Cowen                25838 Commonwealth Drive       Temecula                       KS    66763-1397 1991-01-07    T     49  91100  │
+│  Barrie               Thacker              14160 Kent Road                Clearbrook                     PA    54253-1441 1985-04-20    F     87  68100  │
+│  Earl                 Elbaytam             3138 W. Bullard                Ft. Lauderdale                 MS    03367-6761 1992-02-03    T     70 119500  │
+│  Varouj               Dickens              25543 Black Avenue             Murdoch                        VT    47647-8801 1986-01-05    F     89  57800  │
+│  Matthew              Saylors              15742 S. 608 Lilac Lane        Hauppauge                      IL    04933-0079 1991-09-07    T     29  81300  │
+│  Lucian               Stanton              7953 Waterford Drive           Athens                         CA    36127-8609 1989-11-05    F     71 121100  │
+│  Keith                Lokken               29698 Seabreeze Avenue         Stevensville                   IA    01036-4252 1992-08-29    T     96 107200  │
+│  Cindy                Voltz                4556 Pipit Street NE           Schaumburg                     ID    62218-9817 1984-03-01    F     66   6500  │
+│  Holger               Humphrey             900 Butler Pike                Lisle                          CT    08281-0480 1983-11-02    T     55 134600  │
+│  Maritza              Sencovici            595 S Dadeland Blvd            Bethesda                       ME    62686-3230 1984-07-22    F     51 111800  │
+╘══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╛
+</pre></div></div>

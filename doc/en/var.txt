@@ -1,24 +1,6 @@
-/*
- * Copyright 1999 Ryszard Glab <rglab@imid.med.pl>
- *    Documentation for: __mvPublic(), __mvPrivate(), __mvXRelease(),
- *                       __mvRelease(), __mvScope(), __mvClear(),
- *                       __mvDbgInfo(), __mvGet(), __mvPut(), MemVarBlock(),
- *                       Type()
- *
- * Copyright 1999 Chen Kedem <niki@actcom.co.il>
- *    Documentation for: FieldBlock(), FieldWBlock()
- *
- * Copyright 2001 Chen Kedem <niki@actcom.co.il>
- *    Documentation for: __mvExist()
- *
- * Copyright 2002 Walter Negro <anegro@overnet.com.ar>
- *    Documentation for: hb_PIsByRef()
- *
- * See COPYING.txt for licensing terms.
- *
- */
-
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Ryszard Glab <rglab@imid.med.pl>
    $TEMPLATE$
       Function
    $NAME$
@@ -39,14 +21,14 @@
       Nothing
    $DESCRIPTION$
       This function can be called either by the Harbour compiler or by user.
-      The compiler always passes the item of IT_SYMBOL type that stores the
+      The compiler always passes the item of HB_IT_SYMBOL type that stores the
       name of variable.
       If a variable with the same name exists already then the new
       variable is not created - the previous value remains unchanged.
       If it is first variable with this name then the  variable is
       initialized with .T. value.
    $EXAMPLES$
-      None Avaliable
+      None Available
    $STATUS$
       R
    $COMPLIANCE$
@@ -59,6 +41,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Ryszard Glab <rglab@imid.med.pl>
    $TEMPLATE$
       Function
    $NAME$
@@ -79,13 +63,13 @@
       Nothing
    $DESCRIPTION$
       This function can be called either by the Harbour compiler or by user.
-      The compiler always passes the item of IT_SYMBOL type that stores the
+      The compiler always passes the item of HB_IT_SYMBOL type that stores the
       name of variable.
       If a variable with the same name exists already then the value of old
       variable is hidden until the new variable is  released. The new variable
       is always initialized to NIL value.
    $EXAMPLES$
-      None Avaliable
+      None Available
    $STATUS$
       R
    $COMPLIANCE$
@@ -96,6 +80,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Ryszard Glab <rglab@imid.med.pl>
    $TEMPLATE$
       Function
    $NAME$
@@ -125,7 +111,7 @@
       a new value to released variable without any side effects.
 
       It releases variable even if this variable was created in different
-      procedure
+      procedure.
    $EXAMPLES$
       PROCEDURE Main()
 
@@ -137,11 +123,11 @@
 
          RETURN
 
-      PROCEDURE Main()
+      PROCEDURE Test()
 
-         PRIVATE mPrivate := "PRIVATE from Main()"
+         PRIVATE mPrivate := "PRIVATE from Test()"
 
-         ? mPrivate           // PRIVATE from Main()
+         ? mPrivate           // PRIVATE from Test()
          RELEASE mPrivate
          ? mPrivate           // NIL
          mPrivate := "Again in Main()"
@@ -157,6 +143,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Ryszard Glab <rglab@imid.med.pl>
    $TEMPLATE$
       Function
    $NAME$
@@ -179,7 +167,7 @@
       Nothing
    $DESCRIPTION$
       This function releases values stored in memory variables. It shouldn't
-      be called directly, it should be placed into RELEASE ALL command.
+      be called directly, it should be placed into `RELEASE ALL` command.
       If the released variable is a PRIVATE variable then previously hidden
       variable with the same name becomes visible after exit from the
       procedure where released variable was created. If you access
@@ -188,7 +176,7 @@
       a new value to released variable without any side effects.
       PUBLIC variables are not changed by this function.
    $EXAMPLES$
-      None Avaliable
+      None Available
    $STATUS$
       R
    $COMPLIANCE$
@@ -199,6 +187,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Ryszard Glab <rglab@imid.med.pl>
    $TEMPLATE$
       Function
    $NAME$
@@ -215,15 +205,14 @@
       <cVarName> = a string with a variable name to check
    $RETURNS$
       The symbolic values are defined in hbmemvar.ch
-      HB_MV_NOT_FOUND     =variable is not declared (not found in symbol table)
-      HB_MV_UNKNOWN       =if variable doesn't exist (but found in symbol table)
-      HB_MV_ERROR         =if information cannot be obtained (memory error
-      or argument error)
-      HB_MV_PUBLIC         =for public variables
-      HB_MV_PRIVATE_GLOBAL =for private variables declared outside of current
-      function/procedure
-      HB_MV_PRIVATE_LOCAL  =for private variables declared in current
-      function/procedure
+      <table-noheader>
+       HB_MV_NOT_FOUND      variable is not declared (not found in symbol table)
+       HB_MV_UNKNOWN        if variable doesn't exist (but found in symbol table)
+       HB_MV_ERROR          if information cannot be obtained (memory error or argument error)
+       HB_MV_PUBLIC         for public variables
+       HB_MV_PRIVATE_GLOBAL for private variables declared outside of current function/procedure
+       HB_MV_PRIVATE_LOCAL  for private variables declared in current function/procedure
+      </table>
    $EXAMPLES$
       PROCEDURE Main()
 
@@ -257,12 +246,12 @@
       H
    $FILES$
       Library is core
-   $SEEALSO$
-      include/hbmemvar.ch
    $END$
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Ryszard Glab <rglab@imid.med.pl>
    $TEMPLATE$
       Function
    $NAME$
@@ -281,7 +270,7 @@
       Nothing
    $DESCRIPTION$
       This function releases all PRIVATE and PUBLIC variables.
-      It is used to implement CLEAR MEMORY statement.
+      It is used to implement `CLEAR MEMORY` statement.
       The memory occupied by all visible variables are released - any
       attempt to access the variable will result in a runtime error.
       You have to reuse PRIVATE or PUBLIC statement to create again
@@ -298,6 +287,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Ryszard Glab <rglab@imid.med.pl>
    $TEMPLATE$
       Function
    $NAME$
@@ -312,9 +303,13 @@
       __mvDbgInfo( <nScope> [, <nPosition> [, @<cVarName>] ] )
    $ARGUMENTS$
       <nScope> = the scope of variables for which an information is asked
-           Supported values (defined in hbmemvar.ch)
-           HB_MV_PUBLIC
-           HB_MV_PRIVATE (or any other value)
+
+      Supported values (defined in hbmemvar.ch)
+      <table-noheader>
+       HB_MV_PUBLIC
+       HB_MV_PRIVATE (or any other value)
+      </table>
+
       <nPosition> = the position of asked variable on the list of variables
       with specified scope - it should start from position 1
       <cVarName> = the value is filled with a variable name if passed by
@@ -331,7 +326,7 @@
 
       If requested variable doesn't exist (requested position is
       greater then the number of defined variables) then NIL value is
-      returned and variable name is set to "?"
+      returned and variable name is set to `?`.
 
       The dynamic symbols table is used to find a PUBLIC variable then
       the PUBLIC variables are always sorted alphabetically. The PRIVATE
@@ -340,7 +335,7 @@
       Note:
 
       Due to dynamic nature of memvar variables there is no guarantee that
-      successive calls to retrieve the value of <Nth> PUBLIC variable will
+      successive calls to retrieve the value of Nth PUBLIC variable will
       return the value of the same variable.
    $EXAMPLES$
       #include "hbmemvar.ch"
@@ -417,6 +412,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2001 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -428,7 +425,7 @@
    $ONELINER$
       Determine if a given name is a PUBLIC or PRIVATE memory variable
    $SYNTAX$
-      __mvExist( <cVarName> ) --> <lVariableExist>
+      __mvExist( <cVarName> ) --> lVariableExist
    $ARGUMENTS$
       <cVarName> - string that specifies the name of variable to check
    $RETURNS$
@@ -441,11 +438,11 @@
       STATIC  TheStatic
       PUBLIC  ThePublic
       PRIVATE ThePrivate
-      ? __mvExist( "NotExist"   )        // .F.
-      ? __mvExist( "TheLocal"   )        // .F.
-      ? __mvExist( "TheStatic"  )        // .F.
-      ? __mvExist( "ThePublic"  )        // .T.
-      ? __mvExist( "ThePrivate" )        // .T.
+      ? __mvExist( "NotExist"   )  // .F.
+      ? __mvExist( "TheLocal"   )  // .F.
+      ? __mvExist( "TheStatic"  )  // .F.
+      ? __mvExist( "ThePublic"  )  // .T.
+      ? __mvExist( "ThePrivate" )  // .T.
    $STATUS$
       R
    $COMPLIANCE$
@@ -458,6 +455,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Ryszard Glab <rglab@imid.med.pl>
    $TEMPLATE$
       Function
    $NAME$
@@ -469,7 +468,7 @@
    $ONELINER$
       This function returns value of memory variable
    $SYNTAX$
-      __mvGet( <cVarName> ) --> <xVar>
+      __mvGet( <cVarName> ) --> xVar
    $ARGUMENTS$
       <cVarName> - string that specifies the name of variable
    $RETURNS$
@@ -496,6 +495,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Ryszard Glab <rglab@imid.med.pl>
    $TEMPLATE$
       Function
    $NAME$
@@ -507,7 +508,7 @@
    $ONELINER$
       This function set the value of memory variable
    $SYNTAX$
-      __mvGet( <cVarName> [, <xValue>] ) --> <xValue>
+      __mvPut( <cVarName> [, <xValue>] ) --> xValue
    $ARGUMENTS$
       <cVarName> - string that specifies the name of variable
       <xValue>   - a value of any type that will be set - if it is not
@@ -538,6 +539,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Ryszard Glab <rglab@imid.med.pl>
    $TEMPLATE$
       Function
    $NAME$
@@ -549,7 +552,7 @@
    $ONELINER$
       Returns a codeblock that sets/gets a value of memvar variable
    $SYNTAX$
-      MemVarBlock( <cMemvarName> ) --> <bBlock>
+      MemVarBlock( <cMemvarName> ) --> bBlock
    $ARGUMENTS$
       <cMemvarName> - a string that contains the name of variable
    $RETURNS$
@@ -585,6 +588,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2001 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -629,7 +634,7 @@
       If the block is evaluate and there is no field with the name
       <cFieldName> in the current work area, the code block return NIL.
 
-      CA-Cl*pper would raise BASE/1003 error if the field does not exist.
+      CA-Cl*pper would raise `BASE/1003` error if the field does not exist.
    $FILES$
       Library is core
    $SEEALSO$
@@ -638,6 +643,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999-2001 Chen Kedem <niki@actcom.co.il>
    $TEMPLATE$
       Function
    $NAME$
@@ -700,6 +707,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Ryszard Glab <rglab@imid.med.pl>
    $TEMPLATE$
       Function
    $NAME$
@@ -711,28 +720,28 @@
    $ONELINER$
       Retrieves the type of an expression
    $SYNTAX$
-      Type( <cExp> ) --> <cRetType>
+      Type( <cExp> ) --> cRetType
    $ARGUMENTS$
       <cExp> must be a character expression.
    $RETURNS$
       <cRetType> a string indicating the type of the passed expression.
 
       <table>
-        <cRetType>   Meaning
+       <cRetType>   Meaning
 
-        "A"          Array
-        "B"          Block
-        "C"          Character (string)
-        "D"          Date
-        "L"          Logical
-        "M"          Memo
-        "N"          Numeric
-        "O"          Object
-        "P"          Pointer
-        "S"          Symbol
-        "U"          NIL, local or static variable, or not linked-in function
-        "UE"         syntax error in the expression or invalid arguments
-        "UI"         function with non-reserved name was requested
+       "A"          Array
+       "B"          Block
+       "C"          Character (string)
+       "D"          Date
+       "L"          Logical
+       "M"          Memo
+       "N"          Numeric
+       "O"          Object
+       "P"          Pointer
+       "S"          Symbol
+       "U"          NIL, local or static variable, or not linked-in function
+       "UE"         syntax error in the expression or invalid arguments
+       "UI"         function with non-reserved name was requested
       </table>
    $DESCRIPTION$
       This function returns a string which represents the data type
@@ -749,16 +758,16 @@
       This causes that Type() cannot determine a type of local or static
       variables - only symbols visible at runtime can be checked.
 
-      Notice the subtle difference between TYPE and VALTYPE functions.
+      Notice the subtle difference between Type() and ValType() functions.
       ValType() function doesn't call a macro compiler - it simply checks
       the type of passed argument of any type. Type() requires a string
       argument with a valid Harbour expression - the data type of this
       expression is returned.
    $EXAMPLES$
-      ? Type( "{ 1, 2 }" )                                // prints "A"
-      ? Type( "iif( .T., SubStr( "TYPE", 2, 1 ), .F. )" ) // prints "C"
-      ? Type( "At( "OK", MyUDF() ) > 0" )                 // prints "UI"
-      ? Type( "{ 1, 2 }[ 5 ]" )                           // prints "UE"
+      ? Type( "{ 1, 2 }" )                                 // prints "A"
+      ? Type( "iif( .T., SubStr( "TYPE", 2, 1 ), .F. )" )  // prints "C"
+      ? Type( "At( "OK", MyUDF() ) > 0" )                  // prints "UI"
+      ? Type( "{ 1, 2 }[ 5 ]" )                            // prints "UE"
 
       //--------------------------------------------------------
 
@@ -780,9 +789,10 @@
       - Incompatibility with CA-Cl*pper:
         In the following code:
 
+          ```
           PRIVATE lCond := 0
           ? Type( "iof( lCond, 'true', MyUDF() )" )
-
+          ```
         CA-Cl*pper will print "UE" - in Harbour the output will be "UI"
 
       - If "UI" is returned then the syntax of the expression is
@@ -811,43 +821,41 @@
    $ONELINER$
       Retrieves the data type of an expression
    $SYNTAX$
-      ValType( <xExp> ) --> <cRetType>
+      ValType( <xExp> ) --> cRetType
    $ARGUMENTS$
       <xExp> is any valid expression.
    $RETURNS$
       <cRetType> a character indicating the type of the passed expression.
 
       <table>
-        <cRetType>   Meaning
+       <cRetType>   Meaning
 
-        "A"          Array
-        "B"          Block
-        "C"          Character (string)
-        "D"          Date
-        "L"          Logical
-        "M"          Memo
-        "N"          Numeric
-        "O"          Object
-        "P"          Pointer
-        "S"          Symbol
-        "U"          NIL
+       "A"          Array
+       "B"          Block
+       "C"          Character (string)
+       "D"          Date
+       "L"          Logical
+       "M"          Memo
+       "N"          Numeric
+       "O"          Object
+       "P"          Pointer
+       "S"          Symbol
+       "U"          NIL
       </table>
    $DESCRIPTION$
       This function returns one character which represents the data type
       of the argument.
    $EXAMPLES$
-      PROCEDURE Main()
-         ? ValType( Array( 1 ) )   // "A"
-         ? ValType( {|| 1 + 1 } )  // "B"
-         ? ValType( "Harbour" )    // "C"
-         ? ValType( Date() )       // "D"
-         ? ValType( .T. )          // "L"
-         ? ValType( 1 )            // "N"
-         ? ValType( TBrowse() )    // "O"
-         ? ValType( hb_idleAdd() ) // "P" Harbour extension
-         ? ValType( @QOut() )      // "S" Harbour extension
-         ? ValType( NIL )          // "U"
-         RETURN
+      ? ValType( Array( 1 ) )    // "A"
+      ? ValType( {|| 1 + 1 } )   // "B"
+      ? ValType( "Harbour" )     // "C"
+      ? ValType( Date() )        // "D"
+      ? ValType( .T. )           // "L"
+      ? ValType( 1 )             // "N"
+      ? ValType( TBrowse() )     // "O"
+      ? ValType( hb_idleAdd() )  // "P" Harbour extension
+      ? ValType( @QOut() )       // "S" Harbour extension
+      ? ValType( NIL )           // "U"
    $STATUS$
       R
    $COMPLIANCE$
@@ -861,6 +869,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 2002 Walter Negro <anegro@overnet.com.ar>
    $TEMPLATE$
       Function
    $NAME$
@@ -872,7 +882,7 @@
    $ONELINER$
       Determine if a parameter is passed by reference.
    $SYNTAX$
-      hb_PIsByRef( nParam ) --> <lParamIsByRef>
+      hb_PIsByRef( nParam ) --> lParamIsByRef
    $ARGUMENTS$
       <nParam> is the parameter number to test.
    $RETURNS$
@@ -902,10 +912,10 @@
          RETURN
 
       STATIC PROCEDURE Test( Arg1, Arg2, Arg3, Arg4 )
-         ? hb_PIsByRef( 1 )        // .T.
-         ? hb_PIsByRef( 2 )        // .T.
-         ? hb_PIsByRef( 3 )        // .F.
-         ? hb_PIsByRef( 4 )        // .F.
+         ? hb_PIsByRef( 1 )   // .T.
+         ? hb_PIsByRef( 2 )   // .T.
+         ? hb_PIsByRef( 3 )   // .F.
+         ? hb_PIsByRef( 4 )   // .F.
          RETURN
    $STATUS$
       S

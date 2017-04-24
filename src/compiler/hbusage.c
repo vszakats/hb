@@ -1,7 +1,7 @@
 /*
  * Compile help & info related functions
  *
- * Copyright 1999-2016 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 1999-2017 Viktor Szakats (vszakats.net/harbour)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -45,6 +45,7 @@
  */
 
 #include "hbcomp.h"
+#include "hbverbld.h"
 
 void hb_compPrintUsage( HB_COMP_DECL, const char * szSelf )
 {
@@ -207,6 +208,7 @@ void hb_compPrintCredits( HB_COMP_DECL )
          "Jon Berg (jmberg pnh10.med.navy.mil)\n"
          "Jorge A. Giraldo (jorgeagiraldo emtelsa.multi.net.co)\n"
          "Jose Lalin (dezac corevia.com)\n"
+         "Klas Engwall (harbour engwall.com)\n"
          "Kwon, Oh-Chul (ohchul fivetech.net)\n"
          "Leslee Griffith (les.griffith vantagesystems.ca)\n"
          "Lorenzo Fiorini (lorenzo.fiorini gmail com)\n"
@@ -239,6 +241,7 @@ void hb_compPrintCredits( HB_COMP_DECL )
          "Randy Portnoff (randy palmasdev.com)\n"
          "Richard Alexandre Cuylen (racuylen altern.org)\n"
          "Robert Arseniuk (roberta jmpolska.com)\n"
+         "Rolf (elchs unitybox.de)\n"
          "Ron Pinkas (ron profit-master.com)\n"
          "Ross Presser (ross_presser imtek.com)\n"
          "Ryszard Glab (rglab imid.med.pl)\n"
@@ -259,7 +262,8 @@ void hb_compPrintLogo( HB_COMP_DECL )
    char * szVer = hb_verHarbour();
 
    hb_compOutStd( HB_COMP_PARAM, szVer );
-   hb_compOutStd( HB_COMP_PARAM,
-                  "\nCopyright (c) 1999-2016, https://github.com/vszakats/harbour-core/\n" );
+   hb_compOutStd( HB_COMP_PARAM, "\nCopyright (c) 1999-present, " );
+   hb_compOutStd( HB_COMP_PARAM, HB_VER_ORIGIN_URL );
+   hb_compOutStd( HB_COMP_PARAM, "\n" );
    hb_xfree( szVer );
 }

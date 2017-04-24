@@ -229,7 +229,7 @@ STATIC FUNCTION ErrorMessage( oError )
 
    // add either filename or operation
    DO CASE
-   CASE ! HB_ISNULL( oError:filename )
+   CASE ! oError:filename == ""
       cMessage += ": " + oError:filename
    CASE ! Empty( oError:operation )
       cMessage += ": " + oError:operation

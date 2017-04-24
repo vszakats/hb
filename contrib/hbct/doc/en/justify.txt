@@ -6,7 +6,7 @@
    $ONELINER$
       Move characters from the beginning to the end of a string
    $SYNTAX$
-      JustLeft( <[@]cString>, [<cChar>|<nChar>] ) -> cJustifiedString
+      JustLeft( <[@]cString>, [<cChar>|<nChar>] ) --> cJustifiedString
    $ARGUMENTS$
 
    $RETURNS$
@@ -16,9 +16,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      JustLeft() is compatible with CT3's JustLeft().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -32,11 +32,11 @@
    $NAME$
       JustRight()
    $CATEGORY$
-      Harbour Tools string functions
+      CT3 string functions
    $ONELINER$
       Move characters from the end to the beginning of a string
    $SYNTAX$
-      JustRight( <[@]cString>, [<cChar>|<nChar>] ) -> cJustifiedString
+      JustRight( <[@]cString>, [<cChar>|<nChar>] ) --> cJustifiedString
    $ARGUMENTS$
 
    $RETURNS$
@@ -46,9 +46,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      JustRight() is compatible with CT3's JustRight().
+      C
    $PLATFORMS$
       All
    $FILES$

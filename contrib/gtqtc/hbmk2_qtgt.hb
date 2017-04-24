@@ -121,18 +121,20 @@ FUNCTION hbmk_plugin_qt( hbmk )
             FOR EACH cSrc, cDst, cPRG IN hbmk[ "vars" ][ "aQRC_Src" ], hbmk[ "vars" ][ "aQRC_Dst" ], hbmk[ "vars" ][ "aQRC_PRG" ]
 
                IF hbmk[ "lINC" ] .AND. ! hbmk[ "lREBUILD" ]
-                  lBuildIt := ! hb_vfTimeGet( cDst, @tDst ) .OR. ;
-                              ! hb_vfTimeGet( cSrc, @tSrc ) .OR. ;
-                              tSrc > tDst
+                  lBuildIt := ;
+                     ! hb_vfTimeGet( cDst, @tDst ) .OR. ;
+                     ! hb_vfTimeGet( cSrc, @tSrc ) .OR. ;
+                     tSrc > tDst
                ELSE
                   lBuildIt := .T.
                ENDIF
 
                IF lBuildIt
 
-                  cCommand := hbmk[ "vars" ][ "cRCC_BIN" ] +;
-                     " -binary" +;
-                     " " + hbmk_FNameEscape( hbmk, hbmk_PathSepToTarget( hbmk, cSrc ) ) +;
+                  cCommand := ;
+                     hbmk[ "vars" ][ "cRCC_BIN" ] + ;
+                     " -binary" + ;
+                     " " + hbmk_FNameEscape( hbmk, hbmk_PathSepToTarget( hbmk, cSrc ) ) + ;
                      " -o " + hbmk_FNameEscape( hbmk, hbmk_PathSepToTarget( hbmk, cDst ) )
 
                   IF hbmk[ "lTRACE" ]
@@ -152,21 +154,20 @@ FUNCTION hbmk_plugin_qt( hbmk )
                            cRetVal := "error"
                            EXIT
                         ENDIF
-                     ELSE
-                        /* Create little .prg stub which includes the binary */
-                        IF ! hb_MemoWrit( cPRG, ;
-                              "/* WARNING: Automatically generated source file. DO NOT EDIT! */" + hb_eol() +;
-                              hb_eol() +;
-                              "#pragma -km+" + hb_eol() +;
-                              hb_eol() +;
-                              "FUNCTION hbqtres_" + hbmk_FuncNameEncode( hb_FNameName( cSrc ) ) + "()" + hb_eol() +;
-                              "   #pragma __binarystreaminclude " + '"' + hb_FNameNameExt( cDst ) + '"' + " | RETURN %s" + hb_eol() )
 
-                           hbmk_OutErr( hbmk, hb_StrFormat( "Error: Cannot create file: %1$s", cPRG ) )
-                           IF ! hbmk[ "lIGNOREERROR" ]
-                              cRetVal := "error"
-                              EXIT
-                           ENDIF
+                     /* Create little .prg stub which includes the binary */
+                     ELSEIF ! hb_MemoWrit( cPRG, ;
+                        "/* WARNING: Automatically generated source file. DO NOT EDIT! */" + hb_eol() + ;
+                        hb_eol() + ;
+                        "#pragma -km+" + hb_eol() + ;
+                        hb_eol() + ;
+                        "FUNCTION hbqtres_" + hbmk_FuncNameEncode( hb_FNameName( cSrc ) ) + "()" + hb_eol() + ;
+                        "   #pragma __binarystreaminclude " + '"' + hb_FNameNameExt( cDst ) + '"' + " | RETURN %s" + hb_eol() )
+
+                        hbmk_OutErr( hbmk, hb_StrFormat( "Error: Cannot create file: %1$s", cPRG ) )
+                        IF ! hbmk[ "lIGNOREERROR" ]
+                           cRetVal := "error"
+                           EXIT
                         ENDIF
                      ENDIF
                   ENDIF
@@ -187,17 +188,19 @@ FUNCTION hbmk_plugin_qt( hbmk )
             FOR EACH cSrc, cDst IN hbmk[ "vars" ][ "aMOC_Src" ], hbmk[ "vars" ][ "aMOC_Dst" ]
 
                IF hbmk[ "lINC" ] .AND. ! hbmk[ "lREBUILD" ]
-                  lBuildIt := ! hb_vfTimeGet( cDst, @tDst ) .OR. ;
-                              ! hb_vfTimeGet( cSrc, @tSrc ) .OR. ;
-                              tSrc > tDst
+                  lBuildIt := ;
+                     ! hb_vfTimeGet( cDst, @tDst ) .OR. ;
+                     ! hb_vfTimeGet( cSrc, @tSrc ) .OR. ;
+                     tSrc > tDst
                ELSE
                   lBuildIt := .T.
                ENDIF
 
                IF lBuildIt
 
-                  cCommand := hbmk[ "vars" ][ "cMOC_BIN" ] +;
-                     " " + hbmk_FNameEscape( hbmk, hbmk_PathSepToTarget( hbmk, cSrc ) ) +;
+                  cCommand := ;
+                     hbmk[ "vars" ][ "cMOC_BIN" ] + ;
+                     " " + hbmk_FNameEscape( hbmk, hbmk_PathSepToTarget( hbmk, cSrc ) ) + ;
                      " -o " + hbmk_FNameEscape( hbmk, hbmk_PathSepToTarget( hbmk, cDst ) )
 
                   IF hbmk[ "lTRACE" ]
@@ -310,6 +313,7 @@ STATIC FUNCTION IsVersionOK( cBIN, /* @ */ cVer )
    ENDIF
 
    cVer := "unrecognized version"
+
    RETURN .F.
 
 #else

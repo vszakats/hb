@@ -6,11 +6,9 @@
 
 #ifdef __HBSCRIPT__HBSHELL
 #require "hbtest"
-#else
-#include "rt_main.ch"
 #endif
 
-PROCEDURE Main_TRANS2()
+PROCEDURE Main_TRAN2()
 
    LOCAL dt
    LOCAL df := Set( _SET_DATEFORMAT, "mm/dd/yy" )

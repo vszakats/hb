@@ -4,7 +4,7 @@ PROCEDURE Main( cPath, cHide )
 
    LOCAL cFile := ft_TempFil( cPath, hb_defaultValue( cHide, "N" ) == "Y" )
 
-   IF HB_ISNULL( cFile )
+   IF cFile == ""
       ? "An error occurred"
    ELSE
       ? cFile

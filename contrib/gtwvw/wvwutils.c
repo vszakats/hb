@@ -264,7 +264,7 @@ HB_FUNC( WVW_ADDTOOLTIPEX )  /* changed by MAG */
          ti.hwnd     = wvw_win->hWnd;
          ti.uId      = ( UINT_PTR ) wvw_win->hWnd;
          ti.hinst    = GetModuleHandle( NULL );
-         ti.lpszText = ( LPTSTR ) HB_PARSTRDEF( 3, &hText, NULL );  /* TOFIX: drops const */
+         ti.lpszText = ( LPTSTR ) HB_PARSTRDEF( 3, &hText, NULL );  /* FIXME: drops const */
 
          hb_retl( ( HB_BOOL ) SendMessage( wvw->hWndTT, TTM_ADDTOOL, 0, ( LPARAM ) &ti ) );
 

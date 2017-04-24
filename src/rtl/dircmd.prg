@@ -61,7 +61,7 @@ PROCEDURE __Dir( cFileMask )
       cFileMask := AllTrim( cFileMask )
    ENDIF
 
-   IF HB_ISNULL( cFileMask )
+   IF cFileMask == ""
 
       /* NOTE: Although Cl*pper has this string in the national language
                module, it will not use it from there.
@@ -78,7 +78,7 @@ PROCEDURE __Dir( cFileMask )
              {| aDirEntry | PutDbf( aDirEntry ) } )
    ELSE
       hb_FNameSplit( cFileMask, @cPath, @cName, @cExt )
-      IF HB_ISNULL( cPath )
+      IF cPath == ""
          cPath := Set( _SET_DEFAULT )
       ENDIF
 
@@ -138,6 +138,6 @@ STATIC PROCEDURE PutNormal( aDirEntry )
       hb_UPadR( cName, 8 ), ;
       hb_UPadR( hb_USubStr( cExt, 2 ), 3 ), ;
       Str( aDirEntry[ F_SIZE ], 8 ), "", ;
-      aDirEntry[ F_DATE ] )
+      hb_TToD( aDirEntry[ F_DATE ] ) )
 
    RETURN

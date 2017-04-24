@@ -57,7 +57,7 @@ HB_FUNC( __HB_XML_CDPU16MAP )
 
       unsigned int tmp;
 
-      /* TOFIX: uses hb_cdpGetU16() which cannot be used
+      /* FIXME: uses hb_cdpGetU16() which cannot be used
                 with CPs using multibyte encoding. */
 
       for( tmp = 0; tmp <= UCHAR_MAX; ++tmp )

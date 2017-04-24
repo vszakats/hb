@@ -7,7 +7,7 @@
       Character relation of two strings
    $SYNTAX$
       CharRelA( <cStringToMatch1>, <cString1>,
-                <cStringToMatch2>, <cString2> ) -> nPosition
+                <cStringToMatch2>, <cString2> ) --> nPosition
    $ARGUMENTS$
 
    $RETURNS$
@@ -17,9 +17,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      CharRelA() is compatible with CT3's CharRelA().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -35,11 +35,11 @@
    $CATEGORY$
       CT3 string functions
    $ONELINER$
-      Relation dependant character replacement
+      Relation dependent character replacement
    $SYNTAX$
       CharRelRep( <cStringToMatch1>, <cString1>,
                   <cStringToMatch2>, <[@]cString2>,
-                  <cReplacement> ) -> cString
+                  <cReplacement> ) --> cString
    $ARGUMENTS$
 
    $RETURNS$
@@ -49,9 +49,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      CharRelRep() is compatible with CT3's CharRelRep().
+      C
    $PLATFORMS$
       All
    $FILES$

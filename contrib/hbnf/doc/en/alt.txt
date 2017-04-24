@@ -6,7 +6,7 @@
    $ONELINER$
       Determine status of the Alt key
    $SYNTAX$
-      ft_Alt() -> lValue
+      ft_Alt() --> lValue
    $ARGUMENTS$
       None
    $RETURNS$
@@ -21,6 +21,6 @@
          @ 0, 0 SAY "   "
       ENDIF
    $SEEALSO$
-      ft_CapLock() ft_Ctrl() ft_NumLock() ft_PrtScr() ft_Shift()
+      ft_CapLock(), ft_Ctrl(), ft_NumLock(), ft_PrtScr(), ft_Shift()
    $END$
  */

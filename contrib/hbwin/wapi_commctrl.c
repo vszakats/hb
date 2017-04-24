@@ -242,7 +242,7 @@ HB_FUNC( WAPI_IMAGELIST_GETIMAGEINFO )
    IMAGEINFO ii;
 
    if( ImageList_GetImageInfo( hbwapi_par_raw_HIMAGELIST( 1 ), hbwapi_par_INT( 2 ), &ii ) )
-      hb_retclen( ( char * ) &ii, sizeof( IMAGEINFO ) );
+      hb_retclen( ( char * ) &ii, sizeof( ii ) );
    else
       hb_retc_null();
 }

@@ -1,2 +1,2 @@
-libs=${hb_name}
+libs=hpdf
 libs=png

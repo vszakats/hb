@@ -6,19 +6,19 @@
    $ONELINER$
       Return the current Novell NetWare User ID
    $SYNTAX$
-      ft_NWUID( [ <nConnection> ] ) -> cUid
+      ft_NWUID( [ <nConnection> ] ) --> cUid
    $ARGUMENTS$
       <nConnection> is a connection number, or logical station number,
-      to find a userid for.  Under NetWare 286, this number can be from
+      to find a user id for.  Under NetWare 286, this number can be from
       1 to 100.  Under NetWare 386, 1-250.  If not supplied, ft_NWUID()
       defaults to the current connection (i.e., the connection running
       the application).
    $RETURNS$
-      A string containing the userid, or "login name."
+      A string containing the user id, or "login name."
       The maximum length of this string, as defined by current
       versions of Novell NetWare, is 48 characters.
    $DESCRIPTION$
-      ft_NWUID() returns the current NetWare userid, or "login
+      ft_NWUID() returns the current NetWare user id, or "login
       name."  This is useful for implementing security or audit
       trail procedures within your programs.
 
@@ -27,7 +27,7 @@
 
       This function requires ft_int86() and ft_NWLStat()
 
-      This function does NOT test for the existence of the NetWare shell.
+      This function does _not_ test for the existence of the NetWare shell.
       The behavior is undefined if no shell is loaded. You'll usually get
       garbage.  This function has not been tested on NetWare 386.
    $EXAMPLES$

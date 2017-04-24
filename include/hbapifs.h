@@ -121,6 +121,7 @@ HB_EXTERN_BEGIN
 extern HB_EXPORT HB_BOOL    hb_fsChDir       ( const char * pszDirName ); /* change working directory */
 extern HB_EXPORT HB_ERRCODE hb_fsChDrv       ( int iDrive ); /* change working drive */
 extern HB_EXPORT void       hb_fsClose       ( HB_FHANDLE hFileHandle ); /* close a file */
+extern HB_EXPORT void       hb_fsCloseRaw    ( HB_FHANDLE hFileHandle ); /* close a file without setting hb_fsError() */
 extern HB_EXPORT void       hb_fsCommit      ( HB_FHANDLE hFileHandle ); /* commit updates of a file */
 extern HB_EXPORT HB_FHANDLE hb_fsCreate      ( const char * pszFileName, HB_FATTR ulAttr ); /* create a file */
 extern HB_EXPORT HB_FHANDLE hb_fsCreateEx    ( const char * pszFileName, HB_FATTR ulAttr, HB_USHORT uiFlags ); /* create a file, with specific open mode */
@@ -194,6 +195,31 @@ extern HB_EXPORT HB_BOOL    hb_fsLink        ( const char * pszExisting, const c
 extern HB_EXPORT HB_BOOL    hb_fsLinkSym     ( const char * pszTarget, const char * pszNewFile ); /* create symbolic (soft) link */
 extern HB_EXPORT char *     hb_fsLinkRead    ( const char * pszFileName ); /* returns the link pointed to */
 
+#if defined( HB_OS_UNIX ) || defined( __DJGPP__ )
+/* for POSIX systems only, hides low level select()/poll() access,
+   intentionally covered by HB_OS_UNIX / __DJGPP__ macros to generate
+   compile time error in code which tries to use it on other platforms */
+
+typedef struct
+{
+   HB_FHANDLE  fd;
+   HB_SHORT    events;
+   HB_SHORT    revents;
+} HB_POLLFD, * PHB_POLLFD;
+
+#define HB_POLLIN    0x0001 /* There is data to read */
+#define HB_POLLPRI   0x0002 /* There is urgent data to read */
+#define HB_POLLOUT   0x0004 /* Writing now will not block */
+#define HB_POLLERR   0x0008 /* Error condition */
+#define HB_POLLHUP   0x0010 /* Hung up */
+#define HB_POLLNVAL  0x0020 /* Invalid polling request */
+
+extern HB_EXPORT int        hb_fsPoll        ( PHB_POLLFD pPollSet, int iCount, HB_MAXINT nTimeOut );
+extern HB_EXPORT int        hb_fsCanRead     ( HB_FHANDLE hFileHandle, HB_MAXINT nTimeOut );
+extern HB_EXPORT int        hb_fsCanWrite    ( HB_FHANDLE hFileHandle, HB_MAXINT nTimeOut );
+#endif /* HB_OS_UNIX */
+
+
 #define hb_fsFLock( h, s, l )   hb_fsLock( h, s, l, FL_LOCK )
 #define hb_fsFUnlock( h, s, l ) hb_fsLock( h, s, l, FL_UNLOCK )
 
@@ -207,7 +233,7 @@ extern HB_EXPORT char *     hb_fsLinkRead    ( const char * pszFileName ); /* re
          ! defined( __WATCOMC__ ) && ! defined( HB_USE_BSDLOCKS )
        /* default usage of BSD locks in *BSD systems for emulating
         * MS-DOS/Windows DENY_* flags has been disabled because tests
-        * on FreeBSD 6.2 and OS X shows that this implementation
+        * on FreeBSD 6.2 and macOS shows that this implementation
         * can create self deadlock when used simultaneously with
         * POSIX locks - thanks to Phil and Lorenzo for locating the
         * problem and tests [druzus]
@@ -272,7 +298,7 @@ typedef struct
 } HB_FFIND, * PHB_FFIND;
 
 /* File Find API functions */
-extern HB_EXPORT PHB_FFIND hb_fsFindFirst( const char * pszFileName, HB_FATTR ulAttrMask );
+extern HB_EXPORT PHB_FFIND hb_fsFindFirst( const char * pszFileMask, HB_FATTR attrmask );
 extern HB_EXPORT HB_BOOL   hb_fsFindNext( PHB_FFIND ffind );
 extern HB_EXPORT void      hb_fsFindClose( PHB_FFIND ffind );
 
@@ -388,6 +414,7 @@ extern HB_EXPORT HB_BOOL      hb_fileExists     ( const char * pszFileName, char
 extern HB_EXPORT HB_BOOL      hb_fileDelete     ( const char * pszFileName );
 extern HB_EXPORT HB_BOOL      hb_fileRename     ( const char * pszFileName, const char * pszNewName );
 extern HB_EXPORT HB_BOOL      hb_fileCopy       ( const char * pszSrcFile, const char * pszDstFile );
+extern HB_EXPORT HB_BOOL      hb_fileMove       ( const char * pszSrcFile, const char * pszDstFile );
 
 extern HB_EXPORT HB_BOOL      hb_fileDirExists  ( const char * pszDirName );
 extern HB_EXPORT HB_BOOL      hb_fileDirMake    ( const char * pszDirName );

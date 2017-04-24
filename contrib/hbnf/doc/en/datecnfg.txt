@@ -6,7 +6,7 @@
    $ONELINER$
       Set beginning of year/week for ft_*() date functions
    $SYNTAX$
-      ft_DateCnfg( [ <cFYStart> ], [ <nDow> ] ) -> aDateInfo
+      ft_DateCnfg( [ <cFYStart> ], [ <nDow> ] ) --> aDateInfo
    $ARGUMENTS$
       <cFYStart> is a character date string in the user's system date
       format, i.e., the same as the user would enter for CToD().  If

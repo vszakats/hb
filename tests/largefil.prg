@@ -1,4 +1,4 @@
-/* Test creation of a .dbf file bigger than 2GB */
+/* Test creation of a .dbf file bigger than 2 GiB */
 
 procedure Main()
 

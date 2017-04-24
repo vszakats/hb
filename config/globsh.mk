@@ -4,12 +4,10 @@
 # ---------------------------------------------------------------
 
 # See batch docs here:
-#    http://www.computerhope.com/batch.htm
+#    https://www.computerhope.com/batch.htm
 #    http://www.robvanderwoude.com/batchcommands.php
 
 ifneq ($(HB_SHELL),sh)
-
-TOOL_DIR := $(subst /,\,$(TOP)$(ROOT)config/)
 
 # Have to use '=' operator here for rules to work
 PKG_DIR_OS = $(subst /,\,$(PKG_DIR))
@@ -142,12 +140,12 @@ ifeq ($(HB_SHELL),os2)
 #       os2rm expects backslashes in filenames. [vszakats]
 
 MK := $(subst \,/,$(MAKE))
-RM := $(TOOL_DIR)os2rm -f
-RDP := $(TOOL_DIR)os2rm -fr
-CP := $(TOOL_DIR)os2cp -f
+RM := rm -f
+RDP := rm -fr
+CP := cp -f
 LN :=
-MD := $(TOOL_DIR)os2mkdir
-MDP := $(TOOL_DIR)os2mkdir -p
+MD := mkdir
+MDP := mkdir -p
 ECHO := echo
 ECHOQUOTE :=
 TRUE := $(ECHO) > nul
@@ -186,20 +184,20 @@ ifeq ($(HB_SHELL),dos)
 
 # NOTE: MS-DOS command-line length has a limit of 126 characters.
 #       When using DJGPP GNU Make to invoke other DJGPP tools this limit
-#       is about 13KB, as they do special trick to overcome it.
+#       is about 13 kB, as they do special trick to overcome it.
 #       See these DJGPP FAQs:
 #          http://www.delorie.com/djgpp/v2faq/faq16_4.html
 #          http://www.delorie.com/djgpp/v2faq/faq16_5.html
 #       [vszakats]
 
 MK := $(subst \,/,$(MAKE))
-RM := $(TOOL_DIR)dosrm -f
-RDP := $(TOOL_DIR)dosrm -fr
-CP := $(TOOL_DIR)doscp -f
+RM := rm -f
+RDP := rm -fr
+CP := cp -f
 LN :=
-MD := $(TOOL_DIR)dosmkdir
-MDP := $(TOOL_DIR)dosmkdir -p
-ECHO := $(TOOL_DIR)dosecho
+MD := mkdir
+MDP := mkdir -p
+ECHO := echo
 ECHOQUOTE := "
 TRUE := $(ECHO) > nul
 # TODO

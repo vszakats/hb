@@ -52,7 +52,6 @@
 HB_EXTERN_BEGIN
 
 extern FIBITMAP * hb_FIBITMAP_par( int iParam );
-extern void * hb_FIBITMAP_is( int iParam );
 extern void hb_FIBITMAP_ret( FIBITMAP * dib, HB_BOOL fFree );
 
 HB_EXTERN_END

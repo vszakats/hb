@@ -421,7 +421,7 @@ static void hb_gt_win_xGetScreenContents( PHB_GT pGT, SMALL_RECT * psrWin )
    HB_BYTE bxAttr;
 #endif
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_win_xGetScreenContents(%p,%p)", pGT, psrWin ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_win_xGetScreenContents(%p,%p)", ( void * ) pGT, ( void * ) psrWin ) );
 
 #if ! defined( UNICODE )
    bxAttr = 0;
@@ -461,7 +461,7 @@ static void hb_gt_win_xGetScreenContents( PHB_GT pGT, SMALL_RECT * psrWin )
 
 static void hb_gt_win_xInitScreenParam( PHB_GT pGT )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_win_xInitScreenParam(%p)", pGT ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_win_xInitScreenParam(%p)", ( void * ) pGT ) );
 
    if( GetConsoleScreenBufferInfo( s_HOutput, &s_csbi ) )
    {
@@ -664,11 +664,13 @@ static HWND hb_getConsoleWindowHandle( void )
 
          if( SetConsoleTitle( tmpTitle ) )
          {
-            HB_MAXUINT nTimeOut = hb_dateMilliSeconds() + 200;
+            HB_MAXINT timeout = 200;
+            HB_MAXUINT timer = hb_timerInit( timeout );
+
             /* repeat in a loop to be sure title is changed */
             do
                hWnd = FindWindow( NULL, tmpTitle );
-            while( hWnd == NULL && hb_dateMilliSeconds() < nTimeOut );
+            while( hWnd == NULL && ( timeout = hb_timerTest( timeout, &timer ) ) != 0 );
             SetConsoleTitle( oldTitle );
          }
       }
@@ -722,7 +724,7 @@ static HB_BOOL hb_gt_win_SetCloseButton( HB_BOOL bSet, HB_BOOL bClosable )
 
 static void hb_gt_win_Init( PHB_GT pGT, HB_FHANDLE hFilenoStdin, HB_FHANDLE hFilenoStdout, HB_FHANDLE hFilenoStderr )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_win_Init(%p,%p,%p,%p)", pGT, ( void * ) ( HB_PTRUINT ) hFilenoStdin, ( void * ) ( HB_PTRUINT ) hFilenoStdout, ( void * ) ( HB_PTRUINT ) hFilenoStderr ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_win_Init(%p,%p,%p,%p)", ( void * ) pGT, ( void * ) ( HB_PTRUINT ) hFilenoStdin, ( void * ) ( HB_PTRUINT ) hFilenoStdout, ( void * ) ( HB_PTRUINT ) hFilenoStderr ) );
 
    s_fWin9x = hb_iswin9x();
 
@@ -840,7 +842,7 @@ static void hb_gt_win_Init( PHB_GT pGT, HB_FHANDLE hFilenoStdin, HB_FHANDLE hFil
 
 static void hb_gt_win_Exit( PHB_GT pGT )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_win_Exit(%p)", pGT ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_win_Exit(%p)", ( void * ) pGT ) );
 
    HB_GTSELF_REFRESH( pGT );
 
@@ -879,7 +881,7 @@ static HB_BOOL hb_gt_win_SetMode( PHB_GT pGT, int iRows, int iCols )
 {
    HB_BOOL fRet = HB_FALSE;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_win_SetMode(%p,%d,%d)", pGT, iRows, iCols ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_win_SetMode(%p,%d,%d)", ( void * ) pGT, iRows, iCols ) );
 
    if( s_HOutput != INVALID_HANDLE_VALUE && iRows > 0 && iCols > 0 )
    {
@@ -974,7 +976,7 @@ static HB_BOOL hb_gt_win_SetMode( PHB_GT pGT, int iRows, int iCols )
 
 static const char * hb_gt_win_Version( PHB_GT pGT, int iType )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_win_Version(%p,%d)", pGT, iType ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_win_Version(%p,%d)", ( void * ) pGT, iType ) );
 
    HB_SYMBOL_UNUSED( pGT );
 
@@ -988,7 +990,7 @@ static const char * hb_gt_win_Version( PHB_GT pGT, int iType )
 
 static HB_BOOL hb_gt_win_PostExt( PHB_GT pGT )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_win_PostExt(%p)", pGT ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_win_PostExt(%p)", ( void * ) pGT ) );
 
    HB_GTSUPER_POSTEXT( pGT );
    if( s_pCharInfoScreen )
@@ -1000,7 +1002,7 @@ static HB_BOOL hb_gt_win_PostExt( PHB_GT pGT )
 
 static HB_BOOL hb_gt_win_Suspend( PHB_GT pGT )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_win_Suspend(%p)", pGT ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_win_Suspend(%p)", ( void * ) pGT ) );
 
    HB_SYMBOL_UNUSED( pGT );
 
@@ -1015,7 +1017,7 @@ static HB_BOOL hb_gt_win_Suspend( PHB_GT pGT )
 
 static HB_BOOL hb_gt_win_Resume( PHB_GT pGT )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_win_Resume(%p)", pGT ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_win_Resume(%p)", ( void * ) pGT ) );
 
    if( s_pCharInfoScreen )
    {
@@ -1174,7 +1176,7 @@ static int hb_gt_win_ReadKey( PHB_GT pGT, int iEventMask )
 {
    int iKey = 0;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_win_ReadKey(%p,%d)", pGT, iEventMask ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_win_ReadKey(%p,%d)", ( void * ) pGT, iEventMask ) );
 
    HB_SYMBOL_UNUSED( iEventMask );
 
@@ -1197,7 +1199,7 @@ static int hb_gt_win_ReadKey( PHB_GT pGT, int iEventMask )
       {
 #if defined( UNICODE )
          /* Workaround for UNICOWS bug:
-               http://blogs.msdn.com/michkap/archive/2007/01/13/1460724.aspx
+               https://web.archive.org/web/blogs.msdn.com/michkap/archive/2007/01/13/1460724.aspx
             [vszakats] */
 
          if( s_fWin9x )
@@ -1210,10 +1212,10 @@ static int hb_gt_win_ReadKey( PHB_GT pGT, int iEventMask )
 #endif
 
          /* Read keyboard input */
-         ReadConsoleInput( s_HInput,          /* input buffer handle   */
-                           s_irBuffer,         /* buffer to read into   */
-                           INPUT_BUFFER_LEN,  /* size of read buffer   */
-                           &s_dwNumRead );     /* number of records read */
+         ReadConsoleInput( s_HInput,          /* input buffer handle    */
+                           s_irBuffer,        /* buffer to read into    */
+                           INPUT_BUFFER_LEN,  /* size of read buffer    */
+                           &s_dwNumRead );    /* number of records read */
          /* Set up to process the first input event */
          s_dwNumIndex = 0;
 
@@ -1541,6 +1543,126 @@ static int hb_gt_win_ReadKey( PHB_GT pGT, int iEventMask )
                   iKey = HB_K_MENU;
                   break;
 #endif
+               default:
+                  if( ( dwState & ( LEFT_ALT_PRESSED | RIGHT_ALT_PRESSED |
+                                    LEFT_CTRL_PRESSED | RIGHT_CTRL_PRESSED ) ) == LEFT_ALT_PRESSED )
+                  {
+                     switch( wScan )
+                     {
+                        case  2:
+                           iKey = '1';
+                           break;
+                        case  3:
+                           iKey = '2';
+                           break;
+                        case  4:
+                           iKey = '3';
+                           break;
+                        case  5:
+                           iKey = '4';
+                           break;
+                        case  6:
+                           iKey = '5';
+                           break;
+                        case  7:
+                           iKey = '6';
+                           break;
+                        case  8:
+                           iKey = '7';
+                           break;
+                        case  9:
+                           iKey = '8';
+                           break;
+                        case 10:
+                           iKey = '9';
+                           break;
+                        case 11:
+                           iKey = '0';
+                           break;
+                        case 13:
+                           iKey = '=';
+                           break;
+                        case 16:
+                           iKey = 'Q';
+                           break;
+                        case 17:
+                           iKey = 'W';
+                           break;
+                        case 18:
+                           iKey = 'E';
+                           break;
+                        case 19:
+                           iKey = 'R';
+                           break;
+                        case 20:
+                           iKey = 'T';
+                           break;
+                        case 21:
+                           iKey = 'Y';
+                           break;
+                        case 22:
+                           iKey = 'U';
+                           break;
+                        case 23:
+                           iKey = 'I';
+                           break;
+                        case 24:
+                           iKey = 'O';
+                           break;
+                        case 25:
+                           iKey = 'P';
+                           break;
+                        case 30:
+                           iKey = 'A';
+                           break;
+                        case 31:
+                           iKey = 'S';
+                           break;
+                        case 32:
+                           iKey = 'D';
+                           break;
+                        case 33:
+                           iKey = 'F';
+                           break;
+                        case 34:
+                           iKey = 'G';
+                           break;
+                        case 35:
+                           iKey = 'H';
+                           break;
+                        case 36:
+                           iKey = 'J';
+                           break;
+                        case 37:
+                           iKey = 'K';
+                           break;
+                        case 38:
+                           iKey = 'L';
+                           break;
+                        case 44:
+                           iKey = 'Z';
+                           break;
+                        case 45:
+                           iKey = 'X';
+                           break;
+                        case 46:
+                           iKey = 'C';
+                           break;
+                        case 47:
+                           iKey = 'V';
+                           break;
+                        case 48:
+                           iKey = 'B';
+                           break;
+                        case 49:
+                           iKey = 'N';
+                           break;
+                        case 50:
+                           iKey = 'M';
+                           break;
+                     }
+                  }
+                  break;
             }
          }
          else if( wVKey == VK_MENU && ( dwState & NUMLOCK_ON ) != 0 )
@@ -1681,7 +1803,7 @@ static int hb_gt_win_ReadKey( PHB_GT pGT, int iEventMask )
 /* dDuration is in 'Ticks' (18.2 per second) */
 static void hb_gt_win_Tone( PHB_GT pGT, double dFrequency, double dDuration )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_win_Tone(%p,%lf,%lf)", pGT, dFrequency, dDuration ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_win_Tone(%p,%lf,%lf)", ( void * ) pGT, dFrequency, dDuration ) );
 
    HB_SYMBOL_UNUSED( pGT );
 
@@ -1742,7 +1864,7 @@ static HB_BOOL hb_gt_win_FullScreen( HB_BOOL bFullScreen )
 
 static HB_BOOL hb_gt_win_Info( PHB_GT pGT, int iType, PHB_GT_INFO pInfo )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_win_Info(%p,%d,%p)", pGT, iType, pInfo ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_win_Info(%p,%d,%p)", ( void * ) pGT, iType, pInfo ) );
 
    switch( iType )
    {
@@ -2025,7 +2147,7 @@ static int hb_gt_win_mouse_CountButton( PHB_GT pGT )
 
 static void hb_gt_win_Redraw( PHB_GT pGT, int iRow, int iCol, int iSize )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_win_Redraw(%p,%d,%d,%d)", pGT, iRow, iCol, iSize ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_win_Redraw(%p,%d,%d,%d)", ( void * ) pGT, iRow, iCol, iSize ) );
 
    if( iSize > 0 && s_pCharInfoScreen &&
        iRow < ( int ) _GetScreenHeight() && iCol < ( int ) _GetScreenWidth() )
@@ -2060,7 +2182,7 @@ static void hb_gt_win_Redraw( PHB_GT pGT, int iRow, int iCol, int iSize )
 
 static void hb_gt_win_Refresh( PHB_GT pGT )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_win_Refresh(%p)", pGT ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_win_Refresh(%p)", ( void * ) pGT ) );
 
    HB_GTSUPER_REFRESH( pGT );
    if( s_pCharInfoScreen )
@@ -2087,7 +2209,7 @@ static void hb_gt_win_Refresh( PHB_GT pGT )
 
 static HB_BOOL hb_gt_FuncInit( PHB_GT_FUNCS pFuncTable )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_FuncInit(%p)", pFuncTable ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_FuncInit(%p)", ( void * ) pFuncTable ) );
 
    pFuncTable->Init                       = hb_gt_win_Init;
    pFuncTable->Exit                       = hb_gt_win_Exit;

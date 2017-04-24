@@ -13,7 +13,7 @@ msgstr ""
 
 #: utils/hbmk2/hbmk2.prg:885
 #, c-format
-msgid "Exit code: %1$d: %2$s"
+msgid "Exit status: %1$d: %2$s"
 msgstr ""
 
 #: utils/hbmk2/hbmk2.prg:889
@@ -2053,7 +2053,7 @@ msgstr ""
 
 #: utils/hbmk2/hbmk2.prg:17573
 #, c-format
-msgid "Exit codes (\"errorlevels\"):"
+msgid "Exit statuses (\"errorlevels\"):"
 msgstr ""
 
 #: utils/hbmk2/hbmk2.prg:17591
@@ -2063,7 +2063,7 @@ msgstr ""
 
 #: utils/hbmk2/hbmk2.prg:17591
 #, c-format
-msgid "when -run option is used, the exit code will be the one returned by the target executable"
+msgid "when -run option is used, the exit status will be the one returned by the target executable"
 msgstr ""
 
 #: utils/hbmk2/hbmk2.prg:17595
@@ -2983,7 +2983,7 @@ msgstr ""
 
 #: utils/hbmk2/hbmk2.prg:17929
 #, c-format
-msgid "Current exit code"
+msgid "Current exit status"
 msgstr ""
 
 #: utils/hbmk2/hbmk2.prg:17929

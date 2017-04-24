@@ -104,7 +104,7 @@ STATIC PROCEDURE ProcessTrs( /* @ */ cContent, cTrs, cOri, /* @ */ cTranslator, 
       cContent += Space( 2 * 3 ) + ConvToC( cLang ) + "," + hb_eol()
       ++nPos
    ELSE
-      IF HB_ISNULL( cTrs )
+      IF cTrs == ""
          cTrs := cOri
       ENDIF
       cContent += Space( 2 * 3 ) + ConvToC( cTrs ) + "," + hb_eol()

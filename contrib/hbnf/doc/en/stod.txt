@@ -6,7 +6,7 @@
    $ONELINER$
       Convert a date string to a Clipper date data type
    $SYNTAX$
-      ft_SToD( <cDateStr> ) -> dDateType
+      ft_SToD( <cDateStr> ) --> dDateType
    $ARGUMENTS$
       <cDateStr> is a Clipper string in the format "CCYYMMDD".
    $RETURNS$

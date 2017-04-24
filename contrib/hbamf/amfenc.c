@@ -151,7 +151,7 @@ static HB_BOOL amf3_encode_int( amfContext * context, int value )
     *
     * The int is negative if the 1st bit of the 29 int is set.
     */
-   value &= 0x1fffffff; /* Ignore 1st 3 bits of 32 bit int, since we're encoding to 29 bit. */
+   value &= 0x1fffffff; /* Ignore 1st 3 bits of 32-bit int, since we're encoding to 29 bit. */
    if( value < 0x80 )
    {
       tmp_size = 1;

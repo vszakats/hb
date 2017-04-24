@@ -276,7 +276,7 @@ METHOD getAccel( nKey ) CLASS TopBarMenu
    LOCAL item
 
    DO CASE
-   CASE hb_bitAnd( hb_keyMod( nKey ), HB_KF_CTRL ) != 0 .AND. ! HB_ISNULL( hb_keyChar( nKey ) )
+   CASE hb_bitAnd( hb_keyMod( nKey ), HB_KF_CTRL ) != 0 .AND. ! hb_keyChar( nKey ) == ""
 
       cKey := hb_keyChar( nKey )
 
@@ -295,7 +295,7 @@ METHOD getAccel( nKey ) CLASS TopBarMenu
    IF cKey != NIL
       cKey := "&" + cKey
       FOR EACH item IN ::aItems
-         IF hb_AtI( cKey, item:caption ) > 0  /* TOFIX: use hb_UAtI() */
+         IF hb_AtI( cKey, item:caption ) > 0  /* FIXME: use hb_UAtI() */
             RETURN item:__enumIndex()
          ENDIF
       NEXT

@@ -6,7 +6,7 @@
    $ONELINER$
       Determine status of shift key
    $SYNTAX$
-      ft_Shift() -> lValue
+      ft_Shift() --> lValue
    $ARGUMENTS$
       None
    $RETURNS$
@@ -21,6 +21,6 @@
          @ 0, 0 SAY "     "
       ENDIF
    $SEEALSO$
-      ft_CapLock() ft_Ctrl() ft_NumLock() ft_PrtScr() ft_Alt()
+      ft_CapLock(), ft_Ctrl(), ft_NumLock(), ft_PrtScr(), ft_Alt()
    $END$
  */

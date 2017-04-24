@@ -50,7 +50,7 @@ HB_SIZE hbwapi_tstrlen( const TCHAR * pText )
 {
    HB_SIZE nLen = 0;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hbwapi_tstrlen(%p)", pText ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hbwapi_tstrlen(%p)", ( const void * ) pText ) );
 
    while( pText[ nLen ] != TEXT( '\0' ) )
       ++nLen;
@@ -64,7 +64,7 @@ TCHAR * hbwapi_tstrdup( const TCHAR * pszText )
    TCHAR * pszDup;
    HB_SIZE nLen;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hbwapi_tstrdup(%p)", pszText ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hbwapi_tstrdup(%p)", ( const void * ) pszText ) );
 
    nLen = ( hbwapi_tstrlen( pszText ) + 1 ) * sizeof( TCHAR );
 
@@ -79,7 +79,7 @@ TCHAR * hbwapi_tstrncat( TCHAR * pDest, const TCHAR * pSource, HB_SIZE nLen )
 {
    TCHAR * pBuf = pDest;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hbwapi_tstrncat(%p, %p, %" HB_PFS "u)", pDest, pSource, nLen ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hbwapi_tstrncat(%p, %p, %" HB_PFS "u)", ( void * ) pDest, ( const void * ) pSource, nLen ) );
 
    pDest[ nLen ] = TEXT( '\0' );
 
@@ -133,7 +133,7 @@ static TCHAR * hbwapi_FileNameAtSystemDir( const TCHAR * pFileName )
 /* LOAD_LIBRARY_SEARCH_SYSTEM32 is supported on Windows 8 or above,
    and on Windows Vista/7/Server 2008/Server 2008 R2
    _with_ this patch installed:
-      https://support.microsoft.com/en-us/kb/2533623 */
+      https://support.microsoft.com/kb/2533623 */
 static HB_BOOL hbwapi_has_search_system32()
 {
    if( hb_iswin8() )

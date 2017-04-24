@@ -17,5 +17,5 @@ FUNCTION ft_NoOccur( cCheckFor, cCheckIn, lIgnoreCase )
       cCheckIn  := Upper( cCheckIn )
    ENDIF
 
-   RETURN iif( HB_ISNULL( cCheckFor ) .OR. HB_ISNULL( cCheckIn ), 0, ;
+   RETURN iif( cCheckFor == "" .OR. cCheckIn == "", 0, ;
       Int( ( Len( cCheckIn ) - Len( StrTran( cCheckIn, cCheckFor ) ) ) / Len( cCheckFor ) ) )

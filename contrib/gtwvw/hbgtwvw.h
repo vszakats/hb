@@ -52,7 +52,7 @@
 
 /* NOTE: User programs should never call this layer directly! */
 
-/* TOFIX: MT support */
+/* FIXME: MT support */
 
 #ifndef HB_WVW_H_
 #define HB_WVW_H_
@@ -310,7 +310,7 @@ typedef struct
    HB_BOOL   InvalidateWindow;          /* Flag for controlling whether to use ScrollWindowEx() */
    HB_BOOL   EnableShortCuts;           /* Determines whether ALT key enables menu or system menu */
 
-   HDC       hdc;                       /* Handle to Windows Device Context (TOFIX: ? non-MT compatible to store it, even with CS_OWNDC?) */
+   HDC       hdc;                       /* Handle to Windows Device Context (FIXME: ? non-MT compatible to store it, even with CS_OWNDC?) */
    HMENU     hPopup;                    /* Handle of context menu invokable with right click */
 
    HDC       hCompDC;                   /* Compatible DC to _s.hdc */

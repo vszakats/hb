@@ -6,7 +6,7 @@
    $ONELINER$
       Execute a software interrupt
    $SYNTAX$
-      ft_int86( <nInterruptNumber>, <aRegisterValues> ) -> lResult
+      ft_int86( <nInterruptNumber>, <aRegisterValues> ) --> lResult
    $ARGUMENTS$
       <nInterruptNumber> is the interrupt to execute.
 
@@ -14,16 +14,18 @@
       into the various CPU registers.  The correspondence between
       registers and array elements is as follows:
 
-               aElement[ 1 ]  ==  AX register
-               aElement[ 2 ]  ==  BX register
-               aElement[ 3 ]  ==  CX register
-               aElement[ 4 ]  ==  DX register
-               aElement[ 5 ]  ==  SI register
-               aElement[ 6 ]  ==  DI register
-               aElement[ 7 ]  ==  BP register
-               aElement[ 8 ]  ==  DS register
-               aElement[ 9 ]  ==  ES register
-               aElement[ 10 ] ==  Flags register
+      ```
+      aElement[ 1 ]  ==  AX register
+      aElement[ 2 ]  ==  BX register
+      aElement[ 3 ]  ==  CX register
+      aElement[ 4 ]  ==  DX register
+      aElement[ 5 ]  ==  SI register
+      aElement[ 6 ]  ==  DI register
+      aElement[ 7 ]  ==  BP register
+      aElement[ 8 ]  ==  DS register
+      aElement[ 9 ]  ==  ES register
+      aElement[ 10 ] ==  Flags register
+      ```
    $RETURNS$
       .T. if all parameters valid and the function was able
           to execute the desired interrupt.
@@ -31,10 +33,10 @@
           protected mode, .F. may also be returned if an allocation
           of low DOS memory fails.
 
-      n addition, the array elements will contain whatever values were in
-      he CPU registers immediately after the interrupt was executed.  If
-      ither of the string parameters were altered by the interrupt, these
-      hanges will be reflected as well.
+      In addition, the array elements will contain whatever values were in
+      the CPU registers immediately after the interrupt was executed.  If
+      either of the string parameters were altered by the interrupt, these
+      changes will be reflected as well.
    $DESCRIPTION$
       It is occasionally useful to be able to call interrupts directly from
       Clipper, without having to write a separate routine in C or ASM.  This
@@ -141,7 +143,5 @@
 
       aRegs[ AX ] := 16          // Choose hi-res graphics
       ft_int86( 16, aRegs )
-   $INCLUDE$
-      ftint86.ch
    $END$
  */

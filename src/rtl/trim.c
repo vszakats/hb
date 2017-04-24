@@ -52,7 +52,7 @@
 /* also returns the new length in lLen */
 const char * hb_strLTrim( const char * szText, HB_SIZE * nLen )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_strLTrim(%s, %p)", szText, nLen ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_strLTrim(%s, %p)", szText, ( void * ) nLen ) );
 
    while( *nLen && HB_ISSPACE( *szText ) )
    {

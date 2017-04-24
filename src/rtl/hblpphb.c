@@ -51,10 +51,10 @@
    additional steps from application like start/end marker, or sending
    length of structure before the structure. The latter simple approach
    was used in Length Prefix Protocol (LPP). Protocol can easily be
-   described by simple Clipper expression:
-    Bin2L(Len(cData)) + cData
+   described by simple Harbour expression:
+    Bin2L( hb_BLen( cData ) ) + cData
 
-   Future extensions: Protocol is limitted to 4GB size for a single LPP
+   Future extensions: Protocol is limited to 4 GiB size for a single LPP
    message. This can be extended in future to use highest bit of length
    (or some highest length values 2^32-1, etc) as a special marker for
    64-bit or similar length encoding.

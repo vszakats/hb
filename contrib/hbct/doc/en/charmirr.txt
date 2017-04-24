@@ -6,7 +6,7 @@
    $ONELINER$
       Mirror a string
    $SYNTAX$
-      CharMirr( <[@]cString>, [<lDontMirrorSpaces>] ) -> cMirroredString
+      CharMirr( <[@]cString>, [<lDontMirrorSpaces>] ) --> cMirroredString
    $ARGUMENTS$
       <[@]cString>            is the string that should be mirrored
       [<lDontMirrorSpaces>]   if set to .T., spaces at the end of
@@ -27,9 +27,9 @@
       ? CharMirr( "racecar  ", .T. ) // "racecar  "
       ? CharMirr( "racecar  ", .F. ) // "  racecar"
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      CharMirr() is compatible with CT3's CharMirr().
+      C
    $PLATFORMS$
       All
    $FILES$

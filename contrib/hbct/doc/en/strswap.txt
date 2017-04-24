@@ -6,7 +6,7 @@
    $ONELINER$
       Swap the contents of two strings
    $SYNTAX$
-      StrSwap( <[@]cString1>, <[@]cString2> ) -> cString
+      StrSwap( <[@]cString1>, <[@]cString2> ) --> cString
    $ARGUMENTS$
 
    $RETURNS$
@@ -16,9 +16,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      StrSwap() is compatible with CT3's StrSwap().
+      C
    $PLATFORMS$
       All
    $FILES$

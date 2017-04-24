@@ -520,6 +520,10 @@ static HB_ERRCODE hb_bmSkipFilter( AREAP pArea, HB_LONG lUpDown )
    return errCode;
 }
 
+#if defined( HB_GCC_HAS_DIAG ) && ( HB_GCC_VER >= 601 )
+#  pragma GCC diagnostic push
+#  pragma GCC diagnostic ignored "-Wnull-dereference"
+#endif
 static HB_ERRCODE hb_bmPutRec( AREAP pArea, const HB_BYTE * pBuffer )
 {
    HB_ERRCODE errCode = SUPER_PUTREC( pArea, pBuffer );
@@ -594,7 +598,9 @@ static HB_ERRCODE hb_bmSetFilter( AREAP pArea, LPDBFILTERINFO pFilterInfo )
    }
    return errCode;
 }
-
+#if defined( HB_GCC_HAS_DIAG ) && ( HB_GCC_VER >= 601 )
+#  pragma GCC diagnostic pop
+#endif
 
 static const RDDFUNCS bmTable =
 {
@@ -735,7 +741,7 @@ static void hb_bmGetFuncTable( const char * szSuper )
    uiRddId = ( HB_USHORT ) hb_parni( 4 );
    puiSuperRddId = ( HB_USHORT * ) hb_parptr( 5 );
 
-   HB_TRACE( HB_TR_DEBUG, ( "BM%s_GETFUNCTABLE(%p, %p, %p, %hu, %p)", szSuper, puiCount, pTable, pSuperTable, uiRddId, puiSuperRddId ) );
+   HB_TRACE( HB_TR_DEBUG, ( "BM%s_GETFUNCTABLE(%p, %p, %p, %hu, %p)", szSuper, ( void * ) puiCount, pTable, pSuperTable, uiRddId, puiSuperRddId ) );
 
    if( puiCount && pTable && pSuperTable && puiSuperRddId )
    {

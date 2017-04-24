@@ -253,6 +253,7 @@ PRG_SOURCES := \
    memvarhb.prg \
    menuto.prg \
    menusys.prg \
+   noop.prg \
    objfunc.prg \
    perfuncs.prg \
    profiler.prg \
@@ -263,6 +264,7 @@ PRG_SOURCES := \
    readkey.prg \
    readvar.prg \
    savebuff.prg \
+   savebufs.prg \
    scrollbr.prg \
    setfunc.prg \
    setta.prg \

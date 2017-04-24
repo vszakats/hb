@@ -7,42 +7,41 @@
       Position of a token in a string
    $SYNTAX$
       AtToken( <cString>, [<cTokenizer>],
-               [<nTokenCount>], [<nSkipWidth>] ) -> nPosition
+               [<nTokenCount>], [<nSkipWidth>] ) --> nPosition
    $ARGUMENTS$
       <cString>          is the processed string
       [<cTokenizer>]     is a list of characters separating the tokens
                          in <cString>
-                         Default: Chr( 0 ) + Chr( 9 ) + Chr( 10 ) + Chr( 13 ) +
-                                  Chr( 26 ) + hb_BChar( 138 ) + hb_BChar( 141 ) +
-                                  Chr( 32 ) + ",.;:!\?/\\<>()#&%+-*"
+                         Default:
+                         `Chr( 0 ) + Chr( 9 ) + Chr( 10 ) + Chr( 13 ) + Chr( 26 ) + hb_BChar( 138 ) + hb_BChar( 141 ) + Chr( 32 ) + ",.;:!\?/\\<>()#&%+-*"`
       [<nTokenCount>]    specifies the count of the token whose
                          position should be calculated
                          Default: last token
       [<nSkipWidth>]     specifies the maximum number of successive
                          tokenizing characters that are combined as
-                         ONE token stop, e.g. specifying 1 can
+                         _one_ token stop, e.g. specifying 1 can
                          yield to empty tokens
                          Default: 0, any number of successive tokenizing
-                         characters are combined as ONE token stop
+                         characters are combined as _one_ token stop
    $RETURNS$
       <nPosition>        The start position of the specified token or
                          0 if such a token does not exist in <cString>.
    $DESCRIPTION$
-      The AtToken() function calculates the start position of tne
+      The AtToken() function calculates the start position of the
       <nTokenCount>th token in <cString>. By setting the new <nSkipWidth>
       parameter to a value different than 0, you can specify how many tokenizing
       characters are combined at most to one token stop. Be aware that
       this can result to empty tokens there the start position is not
       defined clearly. Then, AtToken() returns the position there the
-      token WOULD start if its length is larger than 0. To check for
+      token _would_ start if its length is larger than 0. To check for
       empty tokens, simply look if the character at the returned position
       is within the tokenizer list.
    $EXAMPLES$
-      AtToken( "Hello, World!" ) // --> 8 (empty strings after tokenizer are not a token !)
+      AtToken( "Hello, World!" )  // --> 8 (empty strings after tokenizer are not a token !)
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      AtToken() is compatible with CT3's ATTOKEN, but has an additional
+      AtToken() is compatible with CT3's AtToken(), but has an additional
       4th parameter to let you specify a skip width equal to that in the
       Token() function.
    $PLATFORMS$
@@ -64,23 +63,22 @@
    $SYNTAX$
       Token( <cString>, [<cTokenizer>],
              [<nTokenCount], [<nSkipWidth>],
-             [<@cPreTokenSep>], [<@cPostTokenSep>] ) -> cToken
+             [<@cPreTokenSep>], [<@cPostTokenSep>] ) --> cToken
    $ARGUMENTS$
       <cString>          is the processed string
       [<cTokenizer>]     is a list of characters separating the tokens
                          in <cString>
-                         Default: Chr( 0 ) + Chr( 9 ) + Chr( 10 ) + Chr( 13 ) +
-                                  Chr( 26 ) + hb_BChar( 138 ) + hb_BChar( 141 ) +
-                                  Chr( 32 ) + ",.;:!\?/\\<>()#&%+-*"
+                         Default:
+                         `Chr( 0 ) + Chr( 9 ) + Chr( 10 ) + Chr( 13 ) + Chr( 26 ) + hb_BChar( 138 ) + hb_BChar( 141 ) + Chr( 32 ) + ",.;:!\?/\\<>()#&%+-*"`
       [<nTokenCount>]    specifies the count of the token that
                          should be extracted
                          Default: last token
       [<nSkipWidth>]     specifies the maximum number of successive
                          tokenizing characters that are combined as
-                         ONE token stop, e.g. specifying 1 can
+                         _one_ token stop, e.g. specifying 1 can
                          yield to empty token
                          Default: 0, any number of successive tokenizing
-                         characters are combined as ONE token stop
+                         characters are combined as _one_ token stop
       [<@cPreTokenSep>]  If given by reference, the tokenizer before
                          the actual token will be stored
       [<@cPostTokenSep>] If given by reference, the tokenizer after
@@ -98,14 +96,14 @@
       Therefore, additional calls to the TokenSep() function are not
       necessary.
    $EXAMPLES$
-      ? Token( "Hello, World!" )            -->  "World"
-      ? Token( "Hello, World!",, 2, 1 )     --> ""
-      ? Token( "Hello, World!", ",", 2, 1 ) --> " World!"
-      ? Token( "Hello, World!", " ", 2, 1 ) --> "World!"
+      ? Token( "Hello, World!" )             //  "World"
+      ? Token( "Hello, World!",, 2, 1 )      // ""
+      ? Token( "Hello, World!", ",", 2, 1 )  // " World!"
+      ? Token( "Hello, World!", " ", 2, 1 )  // "World!"
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      Token() is compatible with CT3's TOKEN, but two additional
+      Token() is compatible with CT3's Token(), but two additional
       parameters have been added there the Token() function can store
       the tokenizers before and after the current token.
    $PLATFORMS$
@@ -125,7 +123,7 @@
    $ONELINER$
       Retrieves the number of tokens in a string
    $SYNTAX$
-      NumToken( <cString>, [<cTokenizer>], [<nSkipWidth>] ) -> nTokenCount
+      NumToken( <cString>, [<cTokenizer>], [<nSkipWidth>] ) --> nTokenCount
    $ARGUMENTS$
 
    $RETURNS$
@@ -135,9 +133,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      NumToken() is compatible with CT3's NumToken().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -156,23 +154,22 @@
       Change the first letter of tokens to lower case
    $SYNTAX$
       TokenLower( <[@]cString>, [<cTokenizer>], [<nTokenCount>],
-                  [<nSkipWidth>] ) -> cString
+                  [<nSkipWidth>] ) --> cString
    $ARGUMENTS$
       <[@]cString>      is the processed string
       [<cTokenizer>]    is a list of characters separating the tokens
                         in <cString>
-                         Default: Chr( 0 ) + Chr( 9 ) + Chr( 10 ) + Chr( 13 ) +
-                                  Chr( 26 ) + hb_BChar( 138 ) + hb_BChar( 141 ) +
-                                  Chr( 32 ) + ",.;:!\?/\\<>()#&%+-*"
+                        Default:
+                        `Chr( 0 ) + Chr( 9 ) + Chr( 10 ) + Chr( 13 ) + Chr( 26 ) + hb_BChar( 138 ) + hb_BChar( 141 ) + Chr( 32 ) + ",.;:!\?/\\<>()#&%+-*"`
       [<nTokenCount>]   specifies the number of tokens that
                         should be processed
                         Default: all tokens
       [<nSkipWidth>]    specifies the maximum number of successive
                         tokenizing characters that are combined as
-                        ONE token stop, e.g. specifying 1 can
+                        _one_ token stop, e.g. specifying 1 can
                         yield to empty token
                         Default: 0, any number of successive tokenizing
-                        characters are combined as ONE token stop
+                        characters are combined as _one_ token stop
    $RETURNS$
       <cString>         the string with the lowercased tokens
    $DESCRIPTION$
@@ -184,12 +181,12 @@
       switch to .T., but you must then pass <cString> by reference to get
       the result.
    $EXAMPLES$
-      ? TokenLower( "Hello, World, here I am!" )         // "hello, world, here i am!"
-      ? TokenLower( "Hello, World, here I am!",, 3 )     // "hello, world, here I am!"
-      ? TokenLower( "Hello, World, here I am!", ",", 3 ) // "hello, World, here I am!"
-      ? TokenLower( "Hello, World, here I am!", " W" )   // "hello, World, here i am!"
+      ? TokenLower( "Hello, World, here I am!" )          // "hello, world, here i am!"
+      ? TokenLower( "Hello, World, here I am!",, 3 )      // "hello, world, here I am!"
+      ? TokenLower( "Hello, World, here I am!", ",", 3 )  // "hello, World, here I am!"
+      ? TokenLower( "Hello, World, here I am!", " W" )    // "hello, World, here i am!"
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
       TokenLower() is compatible with CT3's TokenLower(),
       but a new 4th parameter, <nSkipWidth> has been added for
@@ -212,23 +209,22 @@
       Change the first letter of tokens to upper case
    $SYNTAX$
       TokenUpper( <[@]cString>, [<cTokenizer>], [<nTokenCount>],
-                  [<nSkipWidth>] ) -> cString
+                  [<nSkipWidth>] ) --> cString
    $ARGUMENTS$
       <[@]cString>      is the processed string
       [<cTokenizer>]    is a list of characters separating the tokens
                         in <cString>
-                         Default: Chr( 0 ) + Chr( 9 ) + Chr( 10 ) + Chr( 13 ) +
-                                  Chr( 26 ) + hb_BChar( 138 ) + hb_BChar( 141 ) +
-                                  Chr( 32 ) + ",.;:!\?/\\<>()#&%+-*"
+                        Default:
+                        `Chr( 0 ) + Chr( 9 ) + Chr( 10 ) + Chr( 13 ) + Chr( 26 ) + hb_BChar( 138 ) + hb_BChar( 141 ) + Chr( 32 ) + ",.;:!\?/\\<>()#&%+-*"`
       [<nTokenCount>]   specifies the number of tokens that
                         should be processed
                         Default: all tokens
       [<nSkipWidth>]    specifies the maximum number of successive
                         tokenizing characters that are combined as
-                        ONE token stop, e.g. specifying 1 can
+                        _one_ token stop, e.g. specifying 1 can
                         yield to empty token
                         Default: 0, any number of successive tokenizing
-                        characters are combined as ONE token stop
+                        characters are combined as _one_ token stop
    $RETURNS$
       <cString>         the string with the uppercased tokens
    $DESCRIPTION$
@@ -245,7 +241,7 @@
       ? TokenUpper( "Hello, world, here I am!", ",", 3 ) // "Hello, world, here I am!"
       ? TokenUpper( "Hello, world, here I am!", " w" )   // "Hello, wOrld, Here I Am!"
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
       TokenUpper() is compatible with CT3's TokenUpper(),
       but a new 4th parameter, <nSkipWidth> has been added for
@@ -267,7 +263,7 @@
    $ONELINER$
       Retrieves the token separators of the last Token() call
    $SYNTAX$
-      TokenSep( [<lMode>] ) -> cSeparator
+      TokenSep( [<lMode>] ) --> cSeparator
    $ARGUMENTS$
       [<lMode>]   if set to .T., the token separator BEHIND the token
                   retrieved from the Token() call will be returned.
@@ -286,9 +282,9 @@
    $EXAMPLES$
       see Token() function
    $STATUS$
-      Ready
+      R
    $COMPLIANCE$
-      TokenSep() is compatible with CT3's TokenSep().
+      C
    $PLATFORMS$
       All
    $FILES$

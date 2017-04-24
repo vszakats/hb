@@ -77,7 +77,7 @@ used.  The negative value is used as an index to distinguish it from the
 reference to a codeblock parameter.
 
 
-Incompatbility with the Clipper.
+Incompatibility with the Clipper.
 
 1. Detached locals passed by reference
   There is a little difference between the handling of variables passed by

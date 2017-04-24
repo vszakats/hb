@@ -70,13 +70,10 @@
 #include "hbapicdp.h"
 #include "hbdate.h"
 
-#if ( defined( HB_OS_WIN ) && ! defined( HB_OS_WIN_CE ) ) && \
-    ! defined( HB_GT_CGI_NO_WINUTF8 )
-   #define HB_GT_CGI_WINUTF8
-#endif
-
-#ifdef HB_GT_CGI_WINUTF8
+#if defined( HB_OS_WIN ) && ! defined( HB_OS_WIN_CE )
+   #define HB_GT_CGI_WIN
    #include <windows.h>
+   #include "hbwinuni.h"
 #endif
 
 static int s_GtId;
@@ -88,6 +85,7 @@ static HB_GT_FUNCS SuperTable;
 
 typedef struct _HB_GTCGI
 {
+   PHB_GT         pGT;        /* core GT pointer */
    HB_FHANDLE     hStdout;
    int            iRow;
    int            iCol;
@@ -98,18 +96,87 @@ typedef struct _HB_GTCGI
 #endif
    char *         szCrLf;
    HB_SIZE        nCrLf;
-#ifdef HB_GT_CGI_WINUTF8
-   UINT           uiOldCP;
+#ifdef HB_GT_CGI_WIN
+   HB_BOOL        fIsConsole;
 #endif
 } HB_GTCGI, * PHB_GTCGI;
 
-#ifdef HB_GT_CGI_WINUTF8
-static UINT s_uiOldCP;
+#ifdef HB_GT_CGI_WIN
+static HANDLE DosToWinHandle( HB_FHANDLE fHandle )
+{
+   switch( fHandle )
+   {
+      case ( HB_FHANDLE ) FS_ERROR:
+         return NULL;
+      case ( HB_FHANDLE ) HB_STDIN_HANDLE:
+         return GetStdHandle( STD_INPUT_HANDLE );
+      case ( HB_FHANDLE ) HB_STDOUT_HANDLE:
+         return GetStdHandle( STD_OUTPUT_HANDLE );
+      case ( HB_FHANDLE ) HB_STDERR_HANDLE:
+         return GetStdHandle( STD_ERROR_HANDLE );
+   }
+   return ( HANDLE ) fHandle;
+}
 #endif
 
 static void hb_gt_cgi_termOut( PHB_GTCGI pGTCGI, const char * szStr, HB_SIZE nLen )
 {
+#ifdef HB_GT_CGI_WIN
+   #define HB_WIN_IOWRITE_LIMIT  10000  /* https://tahoe-lafs.org/trac/tahoe-lafs/ticket/1232#no1 */
+
+   if( pGTCGI->fIsConsole )
+   {
+      HANDLE hFile = DosToWinHandle( pGTCGI->hStdout );
+
+      HB_SIZE nWritten = 0;
+      HB_SIZE nCount;
+
+      LPTSTR lpString;
+
+#if defined( UNICODE )
+      lpString = hb_cdpnStrDupU16( HB_GTSELF_TERMCP( pGTCGI->pGT ),
+                                   HB_CDP_ENDIAN_NATIVE,
+                                   szStr, nLen, &nCount );
+#else
+      nCount = nLen;
+      lpString = hb_cdpnDup( szStr, &nCount,
+                             HB_GTSELF_TERMCP( pGTCGI->pGT ), hb_setGetOSCP() );
+#endif
+
+      while( nCount )
+      {
+         DWORD dwToWrite;
+         DWORD dwWritten;
+
+         /* Determine how much to write this time */
+         if( nCount > ( HB_SIZE ) HB_WIN_IOWRITE_LIMIT )
+         {
+            dwToWrite = HB_WIN_IOWRITE_LIMIT;
+            nCount -= ( HB_SIZE ) dwToWrite;
+         }
+         else
+         {
+            dwToWrite = ( DWORD ) nCount;
+            nCount = 0;
+         }
+
+         if( ! WriteConsole( hFile, lpString + nWritten,
+                             dwToWrite, &dwWritten, NULL ) )
+            break;
+
+         nWritten += ( HB_SIZE ) dwWritten;
+
+         if( dwWritten != dwToWrite )
+            break;
+      }
+
+      hb_xfree( lpString );
+   }
+   else
+      hb_fsWriteLarge( pGTCGI->hStdout, szStr, nLen );
+#else
    hb_fsWriteLarge( pGTCGI->hStdout, szStr, nLen );
+#endif
 }
 
 static void hb_gt_cgi_newLine( PHB_GTCGI pGTCGI )
@@ -117,58 +184,28 @@ static void hb_gt_cgi_newLine( PHB_GTCGI pGTCGI )
    hb_gt_cgi_termOut( pGTCGI, pGTCGI->szCrLf, pGTCGI->nCrLf );
 }
 
-#ifdef HB_GT_CGI_WINUTF8
-static HB_BOOL hb_gt_cgi_winutf8_enabled( void )
-{
-   return ( hb_iswinvista() || hb_iswine() ) &&
-      getenv( "HB_GT_CGI_NO_WINUTF8" ) == NULL &&
-      IsValidCodePage( CP_UTF8 );
-}
-
-static BOOL WINAPI hb_gt_cgi_CtrlHandler( DWORD dwCtrlType )
-{
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_cgi_CtrlHandler(%lu)", ( HB_ULONG ) dwCtrlType ) );
-
-   switch( dwCtrlType )
-   {
-      case CTRL_C_EVENT:
-      case CTRL_CLOSE_EVENT:
-      case CTRL_BREAK_EVENT:
-      case CTRL_LOGOFF_EVENT:
-      case CTRL_SHUTDOWN_EVENT:
-         if( hb_gt_cgi_winutf8_enabled() )
-            SetConsoleOutputCP( s_uiOldCP );
-         break;
-   }
-
-   return HB_FALSE;
-}
-#endif
-
 static void hb_gt_cgi_Init( PHB_GT pGT, HB_FHANDLE hFilenoStdin, HB_FHANDLE hFilenoStdout, HB_FHANDLE hFilenoStderr )
 {
    PHB_GTCGI pGTCGI;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_cgi_Init(%p,%p,%p,%p)", pGT, ( void * ) ( HB_PTRUINT ) hFilenoStdin, ( void * ) ( HB_PTRUINT ) hFilenoStdout, ( void * ) ( HB_PTRUINT ) hFilenoStderr ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_cgi_Init(%p,%p,%p,%p)", ( void * ) pGT, ( void * ) ( HB_PTRUINT ) hFilenoStdin, ( void * ) ( HB_PTRUINT ) hFilenoStdout, ( void * ) ( HB_PTRUINT ) hFilenoStderr ) );
 
    HB_GTLOCAL( pGT ) = pGTCGI = ( PHB_GTCGI ) hb_xgrabz( sizeof( HB_GTCGI ) );
 
+   pGTCGI->pGT = pGT;
    pGTCGI->hStdout = hFilenoStdout;
-
-#ifdef HB_GT_CGI_WINUTF8
-   if( hb_gt_cgi_winutf8_enabled() )
-   {
-      pGTCGI->uiOldCP = GetConsoleOutputCP();
-      if( s_uiOldCP == 0 )
-         s_uiOldCP = pGTCGI->uiOldCP;
-      SetConsoleCtrlHandler( hb_gt_cgi_CtrlHandler, TRUE );
-      SetConsoleOutputCP( CP_UTF8 );
-      HB_GTSELF_SETDISPCP( pGT, "UTF8", NULL, HB_FALSE );
-   }
-#endif
 
    pGTCGI->szCrLf = hb_strdup( hb_conNewLine() );
    pGTCGI->nCrLf = strlen( pGTCGI->szCrLf );
+
+#ifdef HB_GT_CGI_WIN
+   {
+      DWORD dwMode;
+      pGTCGI->fIsConsole = GetConsoleMode( DosToWinHandle( pGTCGI->hStdout ), &dwMode );
+      if( pGTCGI->fIsConsole )
+         HB_GTSELF_SETDISPCP( pGT, "UTF8", NULL, HB_FALSE );
+   }
+#endif
 
    hb_fsSetDevMode( pGTCGI->hStdout, FD_BINARY );
 
@@ -180,7 +217,7 @@ static void hb_gt_cgi_Exit( PHB_GT pGT )
 {
    PHB_GTCGI pGTCGI;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_cgi_Exit(%p)", pGT ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_cgi_Exit(%p)", ( void * ) pGT ) );
 
    HB_GTSELF_REFRESH( pGT );
 
@@ -194,14 +231,6 @@ static void hb_gt_cgi_Exit( PHB_GT pGT )
       if( pGTCGI->iLastCol > 0 )
          hb_gt_cgi_newLine( pGTCGI );
 
-#ifdef HB_GT_CGI_WINUTF8
-      if( hb_gt_cgi_winutf8_enabled() )
-      {
-         SetConsoleOutputCP( pGTCGI->uiOldCP );
-         SetConsoleCtrlHandler( hb_gt_cgi_CtrlHandler, FALSE );
-      }
-#endif
-
 #ifndef HB_GT_CGI_RAWOUTPUT
       if( pGTCGI->iLineBufSize > 0 )
          hb_xfree( pGTCGI->sLineBuf );
@@ -214,7 +243,7 @@ static void hb_gt_cgi_Exit( PHB_GT pGT )
 
 static int hb_gt_cgi_ReadKey( PHB_GT pGT, int iEventMask )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_cgi_ReadKey(%p,%d)", pGT, iEventMask ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_cgi_ReadKey(%p,%d)", ( void * ) pGT, iEventMask ) );
 
    HB_SYMBOL_UNUSED( pGT );
    HB_SYMBOL_UNUSED( iEventMask );
@@ -224,7 +253,7 @@ static int hb_gt_cgi_ReadKey( PHB_GT pGT, int iEventMask )
 
 static HB_BOOL hb_gt_cgi_IsColor( PHB_GT pGT )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_cgi_IsColor(%p)", pGT ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_cgi_IsColor(%p)", ( void * ) pGT ) );
 
    HB_SYMBOL_UNUSED( pGT );
 
@@ -236,7 +265,7 @@ static void hb_gt_cgi_Bell( PHB_GT pGT )
    static const char s_szBell[] = { HB_CHAR_BEL, 0 };
    PHB_GTCGI pGTCGI;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_cgi_Bell(%p)", pGT ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_cgi_Bell(%p)", ( void * ) pGT ) );
 
    pGTCGI = HB_GTCGI_GET( pGT );
 
@@ -245,7 +274,7 @@ static void hb_gt_cgi_Bell( PHB_GT pGT )
 
 static const char * hb_gt_cgi_Version( PHB_GT pGT, int iType )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_cgi_Version(%p,%d)", pGT, iType ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_cgi_Version(%p,%d)", ( void * ) pGT, iType ) );
 
    HB_SYMBOL_UNUSED( pGT );
 
@@ -260,7 +289,7 @@ static void hb_gt_cgi_Scroll( PHB_GT pGT, int iTop, int iLeft, int iBottom, int 
 {
    int iHeight, iWidth;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_cgi_Scroll(%p,%d,%d,%d,%d,%d,%d,%d,%d)", pGT, iTop, iLeft, iBottom, iRight, iColor, usChar, iRows, iCols ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_cgi_Scroll(%p,%d,%d,%d,%d,%d,%d,%d,%d)", ( void * ) pGT, iTop, iLeft, iBottom, iRight, iColor, usChar, iRows, iCols ) );
 
    /* Provide some basic scroll support for full screen */
    HB_GTSELF_GETSIZE( pGT, &iHeight, &iWidth );
@@ -406,7 +435,7 @@ static void hb_gt_cgi_Redraw( PHB_GT pGT, int iRow, int iCol, int iSize )
    int iLineFeed, iHeight, iWidth, iLen;
    PHB_GTCGI pGTCGI;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_cgi_Redraw(%p,%d,%d,%d)", pGT, iRow, iCol, iSize ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_cgi_Redraw(%p,%d,%d,%d)", ( void * ) pGT, iRow, iCol, iSize ) );
 
    pGTCGI = HB_GTCGI_GET( pGT );
    HB_GTSELF_GETSIZE( pGT, &iHeight, &iWidth );
@@ -471,7 +500,7 @@ static void hb_gt_cgi_Refresh( PHB_GT pGT )
    int iHeight, iWidth;
    PHB_GTCGI pGTCGI;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_cgi_Refresh(%p)", pGT ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_cgi_Refresh(%p)", ( void * ) pGT ) );
 
    pGTCGI = HB_GTCGI_GET( pGT );
    HB_GTSELF_GETSIZE( pGT, &iHeight, &iWidth );
@@ -490,7 +519,7 @@ static void hb_gt_cgi_Refresh( PHB_GT pGT )
 
 static HB_BOOL hb_gt_FuncInit( PHB_GT_FUNCS pFuncTable )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_FuncInit(%p)", pFuncTable ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_FuncInit(%p)", ( void * ) pFuncTable ) );
 
    pFuncTable->Init                       = hb_gt_cgi_Init;
    pFuncTable->Exit                       = hb_gt_cgi_Exit;

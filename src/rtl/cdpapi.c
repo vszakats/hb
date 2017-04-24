@@ -3149,7 +3149,7 @@ HB_BOOL hb_cdpRegisterRaw( PHB_CODEPAGE cdp )
 {
    PHB_CODEPAGE * cdp_ptr;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_cdpRegisterRaw(%p)", cdp ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_cdpRegisterRaw(%p)", ( void * ) cdp ) );
 
    cdp_ptr = hb_cdpFindPos( cdp->id );
    if( *cdp_ptr == NULL )
@@ -3245,7 +3245,7 @@ PHB_CODEPAGE hb_cdpFindExt( const char * id )
 
 HB_BOOL hb_cdpIsUTF8( PHB_CODEPAGE cdp )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_cdpIsUTF8(%p)", cdp ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_cdpIsUTF8(%p)", ( void * ) cdp ) );
 
    if( cdp == NULL )
       cdp = hb_vmCDP();
@@ -3257,7 +3257,7 @@ PHB_CODEPAGE hb_cdpSelect( PHB_CODEPAGE cdp )
 {
    PHB_CODEPAGE cdpOld;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_cdpSelect(%p)", cdp ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_cdpSelect(%p)", ( void * ) cdp ) );
 
    cdpOld = hb_vmCDP();
    if( cdp )

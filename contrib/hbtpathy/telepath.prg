@@ -54,21 +54,18 @@
 
 #include "hbcom.ch"
 
-
-#define TPFP_NAME          1               /* Structure of ports array */
+#define TPFP_NAME          1  /* Structure of ports array */
 #define TPFP_HANDLE        2
 #define TPFP_BAUD          3
 #define TPFP_DBITS         4
 #define TPFP_PARITY        5
 #define TPFP_SBITS         6
-#define TPFP_OC            7               /* Open/Close Flag */
+#define TPFP_OC            7  /* Open/Close Flag */
 #define TPFP_INBUF         8
-#define TPFP_INBUF_SIZE    9               /* Size of input buffer */
+#define TPFP_INBUF_SIZE    9  /* Size of input buffer */
 
-
-THREAD STATIC t_aPorts               // Array with port info
-THREAD STATIC t_nErrorCode := 0      // Error code from last operation, 0 if no error
-
+THREAD STATIC t_aPorts           // Array with port info
+THREAD STATIC t_nErrorCode := 0  // Error code from last operation, 0 if no error
 
 FUNCTION tp_baud( nPort, nNewBaud )
 
@@ -239,7 +236,7 @@ FUNCTION tp_send( nPort, cString, nTimeout )
 
       hb_default( @cString, "" )
 
-      IF ! HB_ISNULL( cString )
+      IF ! cString == ""
          RETURN hb_comSend( t_aPorts[ nPort ][ TPFP_HANDLE ], cString,, hb_defaultValue( nTimeout, 0 ) )
       ENDIF
    ENDIF
@@ -258,7 +255,7 @@ FUNCTION tp_recvto( nPort, cDelim, nMaxlen, nTimeout )
    LOCAL nStartPos := 1, nFirst := 0
    LOCAL nDone, cRet := ""
 
-   IF isopenport( nPort ) .AND. HB_ISSTRING( cDelim ) .AND. ! HB_ISNULL( cDelim )
+   IF isopenport( nPort ) .AND. HB_ISSTRING( cDelim ) .AND. ! cDelim == ""
 
       hb_default( @nMaxLen, 64999 )  /* MS-DOS telepathy default. In Harbour could be higher. */
       hb_default( @nTimeout, 0 )
@@ -267,7 +264,7 @@ FUNCTION tp_recvto( nPort, cDelim, nMaxlen, nTimeout )
 
       /* Telepathy NG: [...] If nTimeout is omitted or zero, reads until finding the
                        delimiter or the input buffer is empty. */
-      IF nTimeout == 0 .AND. HB_ISNULL( t_aPorts[ nPort ][ TPFP_INBUF ] )
+      IF nTimeout == 0 .AND. t_aPorts[ nPort ][ TPFP_INBUF ] == ""
          RETURN ""
       ENDIF
 
@@ -372,15 +369,18 @@ PROCEDURE tp_clrkbd()
    RETURN
 
 FUNCTION tp_crc16( cString )
-   RETURN hb_ByteSwapW( hb_CRCCT( cString ) )   /* swap lo and hi bytes */
+   RETURN hb_ByteSwapW( hb_CRCCT( cString ) )  /* swap lo and hi bytes */
 
 FUNCTION tp_crc32( cString )
    RETURN hb_CRC32( cString )
 
-FUNCTION tp_waitfor( ... ) /* nPort, nTimeout, acList|cString..., lIgnorecase */
+FUNCTION tp_waitfor( ... )  /* nPort, nTimeout, acList|cString..., lIgnorecase */
 
    LOCAL aParam := hb_AParams()
-   LOCAL nPort // , nTimeout, lIgnorecase
+   LOCAL nPort
+#if 0
+   LOCAL nTimeout, lIgnorecase
+#endif
 
    nPort := aParam[ 1 ]
 
@@ -620,7 +620,7 @@ INIT PROCEDURE _tpinit()
    IF t_aPorts == NIL
       t_aPorts := Array( TP_MAXPORTS )
       FOR EACH x IN t_aPorts
-         // / port name, file handle, baud, data bits, parity, stop bits, Open?, input buffer, input buff.size
+         // port name, file handle, baud, data bits, parity, stop bits, Open?, input buffer, input buff.size
          x := { "", -1, 1200, 8, "N", 1, .F., "", 0 }
       NEXT
    ENDIF
@@ -629,7 +629,7 @@ INIT PROCEDURE _tpinit()
 
 #if 0
 
-// you can uncomment the following section for compatability with TP code... I figured
+// you can uncomment the following section for compatibility with TP code... I figured
 // you'd probably want them commented so it won't compile so that you would see where
 // you have potential incomplete port problems
 FUNCTION tp_mstat()

@@ -159,7 +159,7 @@ METHOD Read( sBuffer, nOffset, nCount ) CLASS TStreamFileReader
    IF HB_ISNUMERIC( nOffset ) .AND. nOffset >= 1
       cBuffer := Space( nCount )
       IF ( nRead := hb_vfRead( ::hFile, @cBuffer, nCount ) ) > 0
-         sBuffer := Stuff( sBuffer, nOffSet + 1, nRead, hb_BLeft( cBuffer, nRead ) )  /* TOFIX: use hb_BStuff() */
+         sBuffer := Stuff( sBuffer, nOffSet + 1, nRead, hb_BLeft( cBuffer, nRead ) )  /* FIXME: use hb_BStuff() */
       ENDIF
    ELSE
       nRead := hb_vfRead( ::hFile, @sBuffer, nCount )

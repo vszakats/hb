@@ -6,7 +6,7 @@
    $ONELINER$
       Save the attribute bytes of a specified screen region.
    $SYNTAX$
-      ft_SaveAtt( <nTop>, <nLeft>, <nBottom>, <nRight> ) -> cAttributes
+      ft_SaveAtt( <nTop>, <nLeft>, <nBottom>, <nRight> ) --> cAttributes
    $ARGUMENTS$
       <nTop>, <nLeft>, <nBottom>, and <nRight> define the screen region.
    $RETURNS$
@@ -18,9 +18,9 @@
       saves the attribute bytes.  This is useful if you want to change the
       screen color without affecting the text.
 
-      *** INTERNALS ALERT ***
+      <b>Internals Alert:</b>
 
-      This function calls the Clipper internal __gtMaxCol to obtain the
+      This function calls the Clipper internal __gtMaxCol() to obtain the
       maximum column value for the current video mode.  If you're too gutless
       to use internals, then this function isn't for you.
    $EXAMPLES$
@@ -42,7 +42,7 @@
    $ONELINER$
       Restore the attribute bytes of a specified screen region.
    $SYNTAX$
-      ft_RestAtt( <nTop>, <nLeft>, <nBottom>, <nRight>, <cAttributes> ) -> NIL
+      ft_RestAtt( <nTop>, <nLeft>, <nBottom>, <nRight>, <cAttributes> ) --> NIL
    $ARGUMENTS$
       <nTop>, <nLeft>, <nBottom>, and <nRight> define the screen region.
       <cAttributes> is a character string containing the attribute bytes
@@ -56,9 +56,9 @@
       restores the attribute bytes.  This is useful if you want to change the
       screen color without affecting the text.
 
-      *** INTERNALS ALERT ***
+      <b>Internals Alert:</b>
 
-      This function calls the Clipper internals __gtSave and __gtRest to
+      This function calls the Clipper internals __gtSave() and __gtRest() to
       manipulate the the screen image.  If you're too gutless to use
       internals, then this function isn't for you.
    $EXAMPLES$

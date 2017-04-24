@@ -26,7 +26,7 @@
                 so as to do a bit better on small files
 */
 
-#include "bzlib_pr.h"
+#include "bzlib_private.h"
 
 
 /*---------------------------------------------------*/

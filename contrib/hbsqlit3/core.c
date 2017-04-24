@@ -54,7 +54,7 @@
 #include "hbapistr.h"
 #include "hbstack.h"
 
-/* TOFIX: verify the exact SQLITE3 version */
+/* FIXME: verify the exact SQLITE3 version */
 #if SQLITE_VERSION_NUMBER <= 3004001
 #define sqlite3_int64                       HB_LONGLONG
 #define sqlite3_uint64                      HB_ULONGLONG
@@ -871,7 +871,7 @@ HB_FUNC( SQLITE3_COMPLETE )
 
 HB_FUNC( SQLITE3_SQL )
 {
-/* TOFIX: verify the exact SQLITE3 version */
+/* FIXME: verify the exact SQLITE3 version */
 #if SQLITE_VERSION_NUMBER > 3004001
    psqlite3_stmt pStmt = ( psqlite3_stmt ) hb_parptr( 1 );
 
@@ -1754,13 +1754,15 @@ HB_FUNC( SQLITE3_ENABLE_SHARED_CACHE )
    hb_retni( sqlite3_enable_shared_cache( hb_parl( 1 ) ) );
 }
 
+/* TODO: implement sqlite3_trace_v2(), that replaces both of these deprecated functions */
+
+#if defined( HB_LEGACY_LEVEL4 )
 /**
    Tracing And Profiling Functions
 
    sqlite3_trace( db, lOnOff )
    sqlite3_profile( db, lOnOff )
  */
-
 static void SQL3ProfileLog( void * sFile, const char * sProfileMsg, sqlite3_uint64 uint64 )
 {
    if( sProfileMsg )
@@ -1810,6 +1812,7 @@ HB_FUNC( SQLITE3_TRACE )
    else
       hb_errRT_BASE_SubstR( EG_ARG, 0, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
+#endif
 
 /**
    BLOB Import/export
@@ -2037,7 +2040,7 @@ HB_FUNC( SQLITE3_BACKUP_INIT )
          hb_parc( 2 ), pHbSqlite3Source->db, hb_parc( 4 ) );
 
       if( pBackup )
-         hb_retptr( pBackup );  /* TOFIX: Create GC collected pointer */
+         hb_retptr( pBackup );  /* FIXME: Create GC collected pointer */
       else
          hb_retptr( NULL );
    }
@@ -2051,7 +2054,7 @@ HB_FUNC( SQLITE3_BACKUP_INIT )
 HB_FUNC( SQLITE3_BACKUP_STEP )
 {
 #if SQLITE_VERSION_NUMBER >= 3006011
-   /* TOFIX: Use GC collected pointer */
+   /* FIXME: Use GC collected pointer */
    sqlite3_backup * pBackup = ( sqlite3_backup * ) hb_parptr( 1 );
 
    if( pBackup )
@@ -2066,7 +2069,7 @@ HB_FUNC( SQLITE3_BACKUP_STEP )
 HB_FUNC( SQLITE3_BACKUP_FINISH )
 {
 #if SQLITE_VERSION_NUMBER >= 3006011
-   /* TOFIX: Use and free GC collected pointer */
+   /* FIXME: Use and free GC collected pointer */
    sqlite3_backup * pBackup = ( sqlite3_backup * ) hb_parptr( 1 );
 
    if( pBackup )
@@ -2081,7 +2084,7 @@ HB_FUNC( SQLITE3_BACKUP_FINISH )
 HB_FUNC( SQLITE3_BACKUP_REMAINING )
 {
 #if SQLITE_VERSION_NUMBER >= 3006011
-   /* TOFIX: Use GC collected pointer */
+   /* FIXME: Use GC collected pointer */
    sqlite3_backup * pBackup = ( sqlite3_backup * ) hb_parptr( 1 );
 
    if( pBackup )
@@ -2096,7 +2099,7 @@ HB_FUNC( SQLITE3_BACKUP_REMAINING )
 HB_FUNC( SQLITE3_BACKUP_PAGECOUNT )
 {
 #if SQLITE_VERSION_NUMBER >= 3006011
-   /* TOFIX: Use GC collected pointer */
+   /* FIXME: Use GC collected pointer */
    sqlite3_backup * pBackup = ( sqlite3_backup * ) hb_parptr( 1 );
 
    if( pBackup )
@@ -2117,7 +2120,7 @@ HB_FUNC( SQLITE3_BACKUP_PAGECOUNT )
 
 HB_FUNC( SQLITE3_MEMORY_USED )
 {
-/* TOFIX: verify the exact SQLITE3 version */
+/* FIXME: verify the exact SQLITE3 version */
 #if SQLITE_VERSION_NUMBER > 3004001
    hb_retnint( sqlite3_memory_used() );
 #else
@@ -2127,7 +2130,7 @@ HB_FUNC( SQLITE3_MEMORY_USED )
 
 HB_FUNC( SQLITE3_MEMORY_HIGHWATER )
 {
-/* TOFIX: verify the exact SQLITE3 version */
+/* FIXME: verify the exact SQLITE3 version */
 #if SQLITE_VERSION_NUMBER > 3004001
    hb_retnint( sqlite3_memory_highwater( ( int ) hb_parl( 1 ) ) );
 #else
@@ -2143,7 +2146,7 @@ HB_FUNC( SQLITE3_MEMORY_HIGHWATER )
 
 HB_FUNC( SQLITE3_THREADSAFE )
 {
-/* TOFIX: verify the exact SQLITE3 version */
+/* FIXME: verify the exact SQLITE3 version */
 #if SQLITE_VERSION_NUMBER > 3004001
    hb_retni( sqlite3_threadsafe() );
 #else

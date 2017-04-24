@@ -6,7 +6,7 @@
    $ONELINER$
       Sum the elements of an array
    $SYNTAX$
-      ft_ASum( <aArray> [, <nStartIndex> [, <nEndIndex> ] ] ) -> nSum
+      ft_ASum( <aArray> [, <nStartIndex> [, <nEndIndex> ] ] ) --> nSum
    $ARGUMENTS$
       <aArray> is the array containing the elements to be summed.
 

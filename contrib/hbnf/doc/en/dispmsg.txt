@@ -4,11 +4,11 @@
    $CATEGORY$
       Menus/Prompts
    $ONELINER$
-      Display a message and optionally waits for a keypress
+      Display a message and optionally waits for a key-press
    $SYNTAX$
       ft_DispMsg( <aMessageArray>, [ <cKey2Check> ],
                   [ <nTopBoxRow> ], [ <nLeftBoxColumn> ],
-                  [ <cnBoxType> ], [ <lShadow> ] ) -> lKeyMatch
+                  [ <cnBoxType> ], [ <lShadow> ] ) --> lKeyMatch
    $ARGUMENTS$
       <aMessageArray> is a multidimensional array of messages to be
       displayed and the color attributes for each message.
@@ -18,7 +18,7 @@
       number of rows on the screen.
 
       Within each line of the message individual characters or groups
-      of characters may be delimited with braces ([]).  The braces will
+      of characters may be delimited with braces `[]`.  The braces will
       be stripped out and the character(s) inside those braces will be
       highlighted.
 
@@ -28,10 +28,10 @@
       always contain one more element than dimension one.  If an
       attribute is omitted, the last color selected will be used.
 
-      <Key2Check> is a character string of one or more keys to check
+      <cKey2Check> is a character string of one or more keys to check
       for.  If omitted, the message is displayed and control is returned
       to the calling procedure.  If one character is specified,
-      ft_DispMsg() waits for one keypress, restores the screen and
+      ft_DispMsg() waits for one key-press, restores the screen and
       returns.  If multiple characters are specified, ft_DispMsg()
       remains in a loop until one of the specified keys has been
       pressed, then restores the screen and returns.
@@ -50,16 +50,16 @@
       uses ft_Shadow() to add a transparent shadow to the box.  If
       false (.F.), the box is drawn without the shadow.
    $RETURNS$
-      If <Key2Check> is not specified, ft_DispMsg() will return false
+      If <cKey2Check> is not specified, ft_DispMsg() will return false
       (.F.).
 
-      If <Key2Check> is a one-character string, ft_DispMsg() will return
+      If <cKey2Check> is a one-character string, ft_DispMsg() will return
       true (.T.) if the user presses that key, or false (.F.) if any
       other key is pressed.
 
-      If <Key2Check> consists of multiple characters, it will lock the
+      If <cKey2Check> consists of multiple characters, it will lock the
       user in a loop until one of those keys are pressed and return the
-      Inkey() value of the keypress.
+      Inkey() value of the key-press.
    $DESCRIPTION$
       ft_DispMsg() is a multi-purpose pop-up for user messages.
       Multiple lines may be displayed, each with a different attribute.
@@ -71,12 +71,12 @@
       // and returns immediately to the calling routine.
 
       ft_DispMsg( { { "Printing Report", ;
-         "Press [ESC] To Interrupt" }, ;
+         "Press <Esc> To Interrupt" }, ;
          { "W+/B*", "W/B", "GR+/B" } } )
 
       // The next example displays a message and waits for a key press.
 
-      ft_DispMsg( { { "Press [D] To Confirm Deletion", ;
+      ft_DispMsg( { { "Press <D> To Confirm Deletion", ;
          "Or Any Other Key To Abort" }, ;
          { "W+/B", "W+/B", "GR+/B" } }, ;
          "D" )

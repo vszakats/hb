@@ -115,7 +115,7 @@ PROCEDURE RAT_NOMOUS()
 PROCEDURE RAT_FORCE()
    RETURN
 
-/* TOFIX: Just an approximation of the original functionality for functions below */
+/* FIXME: Just an approximation of the original functionality for functions below */
 
 FUNCTION RAT_ROWL()
    RETURN MRow()

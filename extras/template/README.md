@@ -1,5 +1,4 @@
-Harbour Library Project Template
-================================
+# Harbour Library Project Template
 
 * Build static library:
 

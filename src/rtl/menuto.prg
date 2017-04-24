@@ -252,7 +252,7 @@ FUNCTION __MenuTo( bBlock, cVariable )
             EXIT
          OTHERWISE
             // did user hit a hot key?
-            IF ! HB_ISNULL( cKey := Upper( hb_keyChar( nKeyStd ) ) )
+            IF ! ( cKey := Upper( hb_keyChar( nKeyStd ) ) ) == ""
                FOR y := 1 TO nArrLen
                   IF hb_LeftEqI( LTrim( t_aLevel[ nPointer - 1 ][ y ][ _ITM_PROMPT ] ), cKey )
                      n := y

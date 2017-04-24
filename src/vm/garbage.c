@@ -90,7 +90,7 @@
 
 /* holder of memory block information */
 /* NOTE: HB_USHORT is used intentionally to fill up the structure to
- * full 16 bytes (on 16/32 bit environment)
+ * full 16 bytes (on 16/32-bit environment)
  */
 typedef struct HB_GARBAGE_
 {
@@ -153,7 +153,7 @@ static PHB_GARBAGE s_pLockedBlock = NULL;
 static PHB_GARBAGE s_pDeletedBlock = NULL;
 
 /* marks if block releasing is requested during garbage collecting */
-static HB_BOOL s_bCollecting = HB_FALSE;
+static HB_BOOL volatile s_bCollecting = HB_FALSE;
 
 /* flag for used/unused blocks - the meaning of the HB_GC_USED_FLAG bit
  * is reversed on every collecting attempt
@@ -743,7 +743,7 @@ void hb_gcReleaseAll( void )
       do
       {
          PHB_GARBAGE pDelete;
-         HB_TRACE( HB_TR_INFO, ( "Release %p", s_pCurrBlock ) );
+         HB_TRACE( HB_TR_INFO, ( "Release %p", ( void * ) s_pCurrBlock ) );
          pDelete = s_pCurrBlock;
          hb_gcUnlink( &s_pCurrBlock, pDelete );
          HB_GC_AUTO_DEC();
@@ -780,7 +780,7 @@ HB_FUNC( HB_GCALL )
     */
    hb_ret();
 
-   hb_gcCollectAll( hb_pcount() < 1 || hb_parl( 1 ) );
+   hb_gcCollectAll( hb_parldef( 1, 1 ) );
 }
 
 #ifdef HB_GC_AUTO

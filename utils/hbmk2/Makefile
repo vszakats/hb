@@ -5,8 +5,7 @@ include $(TOP)$(ROOT)config/global.mk
 PRG_SOURCES := \
    hbmk2.prg \
 
-RC_SOURCES := \
-   hbmk2.rc
+RC_SOURCES := harbour.rc
 
 PRG_MAIN := hbmk2.prg
 
@@ -17,6 +16,7 @@ else
 endif
 
 HB_PRGFLAGS += -u -i$(TOP)
+HB_RCFLAGS += -D_HB_INCLUDE_ICON
 
 # Not possible to override default entry
 # function cleanly when using plain GNU Make

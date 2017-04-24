@@ -118,8 +118,7 @@ PROCEDURE Main( cURL, cFile )
          ENDIF
       ELSE
          IF HB_ISSTRING( cFile )
-            cData := oClient:Read()
-            IF HB_ISNULL( cData )
+            IF ( cData := oClient:Read() ) == ""
                ? "Error: file could not be retrieved", oClient:lastErrorMessage()
             ELSE
                ? "First 80 characters:", hb_ValToExp( hb_BLeft( cData, 80 ) ) )

@@ -27,6 +27,11 @@ ifeq ($(filter --analyze, $(HB_USER_CFLAGS)),)
    CFLAGS += -c
 endif
 
+CFLAGS += -D_FORTIFY_SOURCE=2
+ifeq ($(filter $(HB_COMPILER_VER),0304),)
+   CFLAGS += -fstack-protector-strong
+endif
+
 ifneq ($(HB_BUILD_WARN),no)
    CFLAGS += -W -Weverything
    CFLAGS += -Wno-padded -Wno-cast-align -Wno-float-equal -Wno-missing-prototypes
@@ -51,10 +56,16 @@ else
    endif
 endif
 
-#CFLAGS += -D_FORTIFY_SOURCE=2
-
 ifneq ($(HB_BUILD_OPTIM),no)
-   CFLAGS += -O3
+   ifeq ($(HB_BUILD_DEBUG),yes)
+      ifeq ($(filter $(HB_COMPILER_VER),0304 0305 0306 0307 0308 0309),)
+         CFLAGS += -Og
+      else
+         CFLAGS += -O1
+      endif
+   else
+      CFLAGS += -O3
+   endif
 endif
 
 ifeq ($(HB_BUILD_DEBUG),yes)

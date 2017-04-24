@@ -890,7 +890,7 @@ METHOD Edit( nPassedKey ) CLASS XHBEditor
 
       OTHERWISE
 
-         IF ! HB_ISNULL( hb_keyChar( nKey ) )
+         IF ! hb_keyChar( nKey ) == ""
             IF ::lEditAllow
                ::ClrTextSelection()
                ::K_Ascii( nKey )
@@ -1416,7 +1416,7 @@ METHOD K_Del() CLASS XHBEditor
 
          // in case of softcr, reparse the paragraph.
          IF ::aText[ ::nRow ]:lSoftCR
-            IF !( Right( ::aText[ ::nRow ]:cText, 1 ) == " " )
+            IF ! Right( ::aText[ ::nRow ]:cText, 1 ) == " "
                ::aText[ ::nRow ]:cText += " "
             ENDIF
 
@@ -1617,7 +1617,7 @@ METHOD InsertLine( cLine, lSoftCR, nRow ) CLASS XHBEditor
    __defaultNIL( @lSoftCR, .F. )
 
    IF nRow > ::LastRow()
-      IF HB_ISNULL( cLine )
+      IF cLine == ""
          lSoftCR := .F.
       ENDIF
       ::AddLine( cLine, lSoftCR )
@@ -1684,7 +1684,7 @@ METHOD DelWordRight() CLASS XHBEditor
       cText := SubStr( ::aText[ ::nRow ]:cText, nCol )
 
       DO WHILE .T.
-         IF hb_LeftEq( cText, " " ) .AND. ! HB_ISNULL( cText )
+         IF hb_LeftEq( cText, " " ) .AND. ! cText == ""
             cText := SubStr( cText, 2 )
             nSpacesPre++
          ELSE
@@ -1855,7 +1855,7 @@ STATIC FUNCTION GetParagraph( oSelf, nRow )
       // I don't need to increment nRow since I'm removing lines, ie line n is
       // a different line each time I add it to cLine
       oSelf:RemoveLine( nRow )
-      IF ! HB_ISNULL( cLine ) .AND. !( Right( cLine, 1 ) == " " )
+      IF ! cLine == "" .AND. ! Right( cLine, 1 ) == " "
          cLine += " "
       ENDIF
    ENDDO
@@ -1880,7 +1880,7 @@ STATIC FUNCTION GetParagraph( oSelf, nRow )
       ENDIF
       // This is not needed and will corrupt long lines that do not have any spaces with wordwrap on. [GAD]
 #if 0
-      IF ! HB_ISNULL( cLine ) .AND. !( Right( cLine, 1 ) == " " )
+      IF ! cLine == "" .AND. ! Right( cLine, 1 ) == " "
          cLine += " "
       ENDIF
 #endif
@@ -1940,7 +1940,7 @@ METHOD SplitLine( nRow ) CLASS XHBEditor
       nFirstSpace := ::nWordWrapCol + 1
 
       // Split line at fist space before current position
-      DO WHILE nFirstSpace > 1 .AND. !( SubStr( cLine, nFirstSpace, 1 ) == " " )
+      DO WHILE nFirstSpace > 1 .AND. ! SubStr( cLine, nFirstSpace, 1 ) == " "
          nFirstSpace--
       ENDDO
 
@@ -1968,7 +1968,7 @@ METHOD SplitLine( nRow ) CLASS XHBEditor
       // A necessity because xHarbour does not insert the SoftCarriage and
       // then we are unable to keep trace of where the line break was while
       // reformatting [GAD]
-      IF !( Right( cSplittedLine, 1 ) == " " ) .AND. nFirstSpace > 1
+      IF ! Right( cSplittedLine, 1 ) == " " .AND. nFirstSpace > 1
          // 2006-07-21 - E.F. - Added condition to not stay out of max columns.
          IF Len( cSplittedLine ) < ::nNumCols
             cSplittedLine += " "
@@ -1984,7 +1984,7 @@ METHOD SplitLine( nRow ) CLASS XHBEditor
 
    // 2006-07-21 - E.F. Only insert a line in any circunstancies.
    IF nStartRow + 1 <= ::LastRow()
-      IF ::LineLen( nStartRow + 1 ) == 0 .OR. ! HB_ISNULL( AllTrim( cLine ) )
+      IF ::LineLen( nStartRow + 1 ) == 0 .OR. ! AllTrim( cLine ) == ""
          ::InsertLine( RTrim( cLine ), .F., nStartRow )
       ENDIF
    ELSE
@@ -2657,7 +2657,7 @@ METHOD LoadFile( cFileName ) CLASS XHBEditor
 // Saves file being edited, if there is no file name does nothing, returns .T. if OK
 METHOD SaveFile() CLASS XHBEditor
 
-   IF ! HB_ISSTRING( ::cFile ) .OR. HB_ISNULL( ::cFile )
+   IF ! HB_ISSTRING( ::cFile ) .OR. ::cFile == ""
       RETURN .F.
    ENDIF
 
@@ -2709,7 +2709,7 @@ STATIC FUNCTION Text2Array( cString, nWordWrapCol )
             ELSE
                // remainder of line is shorter than split point
                // 2006-07-21 - E.F. Only add a new line if cLine is not empty.
-               IF ! HB_ISNULL( cLine )
+               IF ! cLine == ""
                   AAdd( aArray, HBTextLine():New( cLine, .F. ) )
                ENDIF
                EXIT  // Done

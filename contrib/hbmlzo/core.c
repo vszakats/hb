@@ -77,7 +77,7 @@ static void hb_mlzo_init( void * cargo )
    HB_SYMBOL_UNUSED( cargo );
 
    if( lzo_init() != LZO_E_OK )
-      hb_errInternal( HB_EI_VMBADSTARTUP /* TOFIX: ? */, NULL, NULL, NULL );
+      hb_errInternal( HB_EI_VMBADSTARTUP /* FIXME: ? */, NULL, NULL, NULL );
 }
 
 HB_CALL_ON_STARTUP_BEGIN( _hb_mlzo_init_ )
@@ -100,7 +100,7 @@ HB_CALL_ON_STARTUP_END( _hb_mlzo_init_ )
  *                        lzo_uintp dst_len,
  *                        lzo_voidp wrkmem );
  *
- * Memory requirements: LZO1X_1_MEM_COMPRESS (64 kB on 32-bit machines)
+ * Memory requirements: LZO1X_1_MEM_COMPRESS (64 KiB on 32-bit machines)
  *
  * Return value:
  *    Always returns LZO_E_OK (this function can never fail).

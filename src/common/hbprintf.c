@@ -96,6 +96,18 @@
 #include <sys/param.h>
 #endif
 
+/* mingw-w64 6.1.0 x64-hosted multilib will crash hbpp.exe
+   inside this function if built in LTO mode for x86 target.
+   Working-around the problem by disabling LTO in this
+   specific case for this specific function. The setting
+   is applied to the whole file, regardless of where it's
+   placed. [vszakats] */
+#if defined( HB_GCC_HAS_OPTIMIZE ) && ( HB_GCC_VER == 601 ) \
+    && defined( __MINGW32__ ) && defined( HB_CPU_X86_64 )
+#  pragma GCC push_options
+#  pragma GCC optimize ("-fno-lto")
+#endif
+
 #if defined( HB_LONG_DOUBLE_OFF ) && ! defined( __NO_LONGDOUBLE__ )
 #  define __NO_LONGDOUBLE__
 #endif
@@ -1444,3 +1456,8 @@ int hb_snprintf( char * buffer, size_t bufsize, const char * format, ... )
 
    return iResult;
 }
+
+#if defined( HB_GCC_HAS_OPTIMIZE ) && ( HB_GCC_VER == 601 ) \
+    && defined( __MINGW32__ ) && defined( HB_CPU_X86_64 )
+#  pragma GCC pop_options
+#endif

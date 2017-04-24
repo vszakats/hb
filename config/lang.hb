@@ -2,7 +2,7 @@
 /*
  * Manage translations and automatic doc generation
  *
- * Copyright 2013 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2013-2017 Viktor Szakats (vszakats.net/harbour)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@
  *   - curl (built with SSL)
  *   - hbmk2 and hbi18n in PATH
  *   - the target .prg be runnable as script (for doc_make only)
- * Reference: http://docs.transifex.com/api/index
+ * Reference: https://docs.transifex.com/api/introduction
  */
 
 #pragma -w3
@@ -115,6 +115,8 @@ STATIC PROCEDURE src_push( cMain )
    LOCAL cTempResult
    LOCAL cContent
 
+   LOCAL cPOTName := hPar[ "po" ] + hb_FNameName( hPar[ "entry" ] ) + "." + hPar[ "baselang" ] + ".po"
+
    hb_vfClose( hb_vfTempFile( @cTempContent, , , ".pot" ) )
    hb_vfClose( hb_vfTempFile( @cTempResult ) )
 
@@ -123,11 +125,16 @@ STATIC PROCEDURE src_push( cMain )
    IF Empty( hPar[ "po" ] )
       cContent := LangToPO( LangToCoreLang( hPar[ "baselang" ] ) )
    ELSE
-      lang_hb_run( hb_StrFormat( "%1$s -hbraw -q0 %2$s -j%3$s -s", hbshell_ProgName(), hPar[ "entry" ], cTempContent ) )
+      IF hPar[ "potgen" ]
+         lang_hb_run( hb_StrFormat( "%1$s -hbraw -q0 %2$s -j%3$s -s", hbshell_ProgName(), hPar[ "entry" ], cTempContent ) )
 
-      POT_Sort( cTempContent )
+         POT_Sort( cTempContent )
 
-      cContent := hb_MemoRead( cTempContent )
+         cContent := hb_MemoRead( cTempContent )
+      ELSE
+         ? "loading existing", cPOTName
+         cContent := hb_MemoRead( cPOTName )
+      ENDIF
    ENDIF
 
    IF Empty( hPar[ "po" ] )
@@ -146,8 +153,10 @@ STATIC PROCEDURE src_push( cMain )
          '"Content-Transfer-Encoding: 8bit\n"', hb_FNameName( hPar[ "entry" ] ), hPar[ "baselang" ] ) + hb_eol() + ;
          hb_eol() + ;
          cContent
-      ? hPar[ "name" ], "saving locally"
-      hb_MemoWrit( hPar[ "po" ] + hb_FNameName( hPar[ "entry" ] ) + "." + hPar[ "baselang" ] + ".po", cContent )
+      IF hPar[ "potgen" ]
+         ? hPar[ "name" ], "saving locally to", cPOTName
+         hb_MemoWrit( cPOTName, cContent )
+      ENDIF
    ENDIF
 
    ? hPar[ "name" ], "uploading", "size", hb_ntos( Len( cContent ) )
@@ -179,9 +188,11 @@ STATIC FUNCTION POT_Sort( cFileName )
 
    LOCAL aTrans
    LOCAL cErrorMsg
+   LOCAL cEOL
 
-   IF ( aTrans := __i18n_potArrayLoad( cFileName, @cErrorMsg ) ) != NIL .AND. ;
-      __i18n_potArraySave( cFileName, __i18n_potArraySort( aTrans ), @cErrorMsg, .F. )
+   IF ( aTrans := __i18n_potArrayLoad( cFileName, @cErrorMsg, @cEOL ) ) != NIL .AND. ;
+      __i18n_potArraySave( cFileName, __i18n_potArraySort( aTrans ), @cErrorMsg, .F., .F., cEOL )
+      ? "Sorting done"
       RETURN .T.
    ENDIF
 
@@ -216,16 +227,7 @@ STATIC PROCEDURE trs_pull( cMain )
 
       IF hb_jsonDecode( hb_MemoRead( cTempResult ), @json ) > 0
          hb_MemoWrit( cTempResult, json[ "content" ] )
-         IF ! Empty( hPar[ "po" ] )
-            POT_Sort( cTempResult )
-            /* should only do this if the translation is primarily done
-               on Transifex website. This is encouraged and probably the case
-               in practice. Delete source information, delete empty
-               translations and apply some automatic transformation for
-               common translation mistakes. */
-            PO_Clean( cTempResult, hPar[ "po" ] + hb_FNameName( hPar[ "entry" ] ) + "." + cLang + ".po", ;
-               .F., .F., @DoctorTranslation() )
-         ELSE
+         IF Empty( hPar[ "po" ] )
             PO_Clean( cTempResult, cTempResult, ;
                .F., .T., @DoctorTranslation() )
             POToLang( ;
@@ -235,6 +237,15 @@ STATIC PROCEDURE trs_pull( cMain )
             #ifdef DEBUG
                hb_MemoWrit( cLang + ".po", json[ "content" ] )
             #endif
+         ELSE
+            POT_Sort( cTempResult )
+            /* should only do this if the translation is primarily done
+               on Transifex website. This is encouraged and probably the case
+               in practice. Delete source information, delete empty
+               translations and apply some automatic transformation for
+               common translation mistakes. */
+            PO_Clean( cTempResult, hPar[ "po" ] + hb_FNameName( hPar[ "entry" ] ) + "." + cLang + ".po", ;
+               .F., .F., @DoctorTranslation() )
          ENDIF
       ELSE
          ? "API error"
@@ -274,8 +285,7 @@ STATIC FUNCTION DoctorTranslation( cString, cOri )
 
    /* For Transifex: RETURN SYMBOL to real new line */
    cString := hb_StrReplace( cString, { ;
-      hb_UChar( 0x23CE ) => e"\n", ;
-      "http://www.transifex.com/" => "https://www.transifex.com/" } )
+      hb_UChar( 0x23CE ) => e"\n" } )
 
    IF lRightToLeft
       /* Common typos: extra space or punctuation */
@@ -353,7 +363,7 @@ STATIC FUNCTION StrUnspace( cString )
 
       cChar := SubStr( cString, tmp, 1 )
 
-      IF !( cChar == " " ) .OR. !( cCharPrev == " " )
+      IF ! cChar == " " .OR. ! cCharPrev == " "
          cResult += cChar
       ENDIF
 
@@ -535,6 +545,7 @@ STATIC FUNCTION LoadPar( cMain )
 
       hPar[ "langs" ]     := hb_ATokens( _HAGetDef( hb_regexAll( "-lng=([\w,]*)", cConfig,,,,, .T. ), "", 1, 2 ), "," )
       hPar[ "baselang" ]  := _HAGetDef( hb_regexAll( "-3rd=_langhb_base=([\w]*)", cConfig,,,,, .T. ), "en", 1, 2 )
+      hPar[ "potgen" ]    := _HAGetDef( hb_regexAll( "-3rd=_langhb_potgen=([\w]*)", cConfig,,,,, .T. ), "yes", 1, 2 ) == "yes"
 
       hPar[ "po" ]        := hb_FNameDir( hPar[ "entry" ] ) + hb_DirSepToOS( "po/" )
    ENDIF

@@ -247,13 +247,13 @@ METHOD display() CLASS PopupMenu
             item:__col := nLeft
 
             IF ( nHotKeyPos := hb_UAt( "&", cCaption ) ) == 0
-               IF ( nCharPos := RAt( hb_USubStr( item:style, 2, 1 ), cCaption ) ) > 0  /* TOFIX: use hb_URat() */
+               IF ( nCharPos := RAt( hb_USubStr( item:style, 2, 1 ), cCaption ) ) > 0  /* FIXME: use hb_URat() */
                   cCaption := hb_UStuff( cCaption, nCharPos - 1, 1, "" )
                ELSE
-                  cCaption := hb_StrShrink( cCaption )  /* TOFIX: use hb_UStrShrink() */
+                  cCaption := hb_StrShrink( cCaption )  /* FIXME: use hb_UStrShrink() */
                ENDIF
             ELSEIF nHotKeyPos == hb_ULen( RTrim( cCaption ) )
-               cCaption := hb_StrShrink( cCaption )  /* TOFIX: use hb_UStrShrink() */
+               cCaption := hb_StrShrink( cCaption )  /* FIXME: use hb_UStrShrink() */
                nHotKeyPos := 0
             ELSE
                cCaption := hb_UStuff( cCaption, nHotKeyPos, 1, "" )
@@ -287,10 +287,10 @@ METHOD getAccel( xKey ) CLASS PopupMenu
       RETURN 0
    ENDCASE
 
-   IF ! HB_ISNULL( cKey )
+   IF ! cKey == ""
       cKey := "&" + cKey
       FOR EACH item in ::aItems
-         IF hb_AtI( cKey, item:caption ) > 0  /* TOFIX: use hb_UAti() */
+         IF hb_AtI( cKey, item:caption ) > 0  /* FIXME: use hb_UAti() */
             RETURN item:__enumIndex()
          ENDIF
       NEXT
@@ -533,7 +533,7 @@ METHOD setMetrics() CLASS PopupMenu
 METHOD border( cBorder ) CLASS PopupMenu
 
    IF cBorder != NIL
-      ::cBorder := __eInstVar53( Self, "BORDER", cBorder, "C", 1001, {|| HB_ISNULL( cBorder ) .OR. hb_ULen( cBorder ) == 11 } )
+      ::cBorder := __eInstVar53( Self, "BORDER", cBorder, "C", 1001, {|| cBorder == "" .OR. hb_ULen( cBorder ) == 11 } )
    ENDIF
 
    RETURN ::cBorder

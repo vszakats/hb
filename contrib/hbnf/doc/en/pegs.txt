@@ -6,7 +6,7 @@
    $ONELINER$
       PEGS GAME (all work and no play...)
    $SYNTAX$
-      ft_Pegs() -> NIL
+      ft_Pegs() --> NIL
    $ARGUMENTS$
       None
    $RETURNS$

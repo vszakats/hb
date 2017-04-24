@@ -18,6 +18,11 @@ CC_OUT := -o$(subst x,x, )
 
 CFLAGS += -I. -I$(HB_HOST_INC) -c
 
+CFLAGS += -D_FORTIFY_SOURCE=2
+ifeq ($(filter $(HB_COMPILER_VER),0209 0304 0400 0401 0402 0403 0404 0405 0406 0407 0408),)
+   CFLAGS += -fstack-protector-strong
+endif
+
 # -no-cpp-precomp prevents from using buggy precompiled headers
 # CFLAGS += -no-cpp-precomp
 

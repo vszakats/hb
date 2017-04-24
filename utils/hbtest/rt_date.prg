@@ -44,11 +44,6 @@
  *
  */
 
-#include "rt_main.ch"
-
-/* Don't change the position of this #include. */
-#include "rt_vars.ch"
-
 PROCEDURE Main_DATE()
 
    LOCAL cDate := "1999-11-25"
@@ -187,6 +182,3 @@ PROCEDURE Main_DATE()
    HBTEST DToS( sdDateE )                 IS "        "
 
    RETURN
-
-/* Don't change the position of this #include. */
-#include "rt_init.ch"

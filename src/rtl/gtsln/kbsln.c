@@ -266,6 +266,11 @@ int hb_sln_Init_Terminal( int phase )
          /* already done in Slang library */
          /* newTTY.c_cc[ VDSUSP ] = 255; */  /* disable ^Y delayed suspend processing */
 
+         /* workaround for bug in some Linux kernels (i.e. 3.13.0-64-generic
+            Ubuntu) in which select() unconditionally accepts stdin for
+            reading if c_cc[ VMIN ] = 0 [druzus] */
+         newTTY.c_cc[ VMIN ] = 1;
+
          if( tcsetattr( SLang_TT_Read_FD, TCSADRAIN, &newTTY ) == 0 )
             /* everything looks ok so far */
             ret = 1;
@@ -295,7 +300,7 @@ int hb_gt_sln_ReadKey( PHB_GT pGT, int iEventMask )
    HB_BOOL fInput;
    int iKey;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_sln_ReadKey(%p,%d)", pGT, ( int ) iEventMask ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_sln_ReadKey(%p,%d)", ( void * ) pGT, ( int ) iEventMask ) );
 
    /* user AbortKey break */
    if( SLKeyBoard_Quit == 1 )
@@ -395,7 +400,7 @@ int hb_gt_sln_ReadKey( PHB_GT pGT, int iEventMask )
       if( tmp != 0 )
          return tmp;
 
-      /* TOFIX: this code is broken - needs a diffrent aproach */
+      /* FIXME: this code is broken - needs a diffrent aproach */
       tmp = hb_sln_FindKeyTranslation( ch );
       if( tmp != 0 || ch > 256 )
          return tmp;

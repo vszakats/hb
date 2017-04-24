@@ -757,7 +757,7 @@ FUNCTION wvg_FindWindow( cTitle )
    RETURN wapi_FindWindow( , cTitle )
 
 #if 0
-FUNCTION wvg_CreateBrush( ... )  /* TOFIX: causes problems due to the GC collected pointer is returns */
+FUNCTION wvg_CreateBrush( ... )  /* FIXME: causes problems due to the GC collected pointer is returns */
    RETURN wapi_CreateBrushIndirect( { ... } )
 #endif
 
@@ -840,7 +840,7 @@ FUNCTION wvg_LoadIcon( ncIcon )
 
    RETURN wapi_LoadImage( , ncIcon, WIN_IMAGE_ICON,,, WIN_LR_LOADFROMFILE )
 
-/* https://msdn.microsoft.com/en-us/library/windows/desktop/ms648045.aspx
+/* https://msdn.microsoft.com/library/ms648045
    Windows 2000 and upper, wapi_LoadImage() can resize image
 
    nSource: 0 ResourceIdByNumber

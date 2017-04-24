@@ -1,14 +1,6 @@
-/*
- * Copyright 1999 Luiz Rafael Culik <culik@sl.conex.net>
- *    db*() documentation
- *    ord*() documentation
- *    rdd*() documentation
- *
- * See COPYING.txt for licensing terms.
- *
- */
-
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Function
    $NAME$
@@ -77,22 +69,18 @@
    $ONELINER$
       Alias name of a work area
    $SYNTAX$
-      Dbf() --> <cWorkArea>
+      Dbf() --> cWorkArea
    $RETURNS$
       <cWorkArea> Name of alias
    $DESCRIPTION$
-      This function returns the same alias name ofthe currently selected
+      This function returns the same alias name of the currently selected
       work area.
    $EXAMPLES$
-      PROCEDURE Main()
-
-         USE test
-         SELECT 0
-         ? iif( Dbf() == "", "No Name", Dbf() )
-         ? test->( Dbf() )
-         ? Alias( 1 )
-
-         RETURN
+      USE test
+      SELECT 0
+      ? iif( Dbf() == "", "No Name", Dbf() )
+      ? test->( Dbf() )
+      ? Alias( 1 )
    $STATUS$
       R
    $COMPLIANCE$
@@ -105,6 +93,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Function
    $NAME$
@@ -131,16 +121,16 @@
       the record is flushed from the buffer and the contents are
       written to the disk.
 
-      Under a networking enviroment, dbAppend() performs an additional
-      operation: It attrmps to lock the newly added record. If
+      Under a networking environment, dbAppend() performs an additional
+      operation: It attempts to lock the newly added record. If
       the database file is currently locked or if a locking assignment
-      if made to LastRec() + 1, NetErr() will return a logical true (.T.)
+      is made to `LastRec() + 1`, NetErr() will return a logical true (.T.)
       immediately after the dbAppend() function. This function does
       not unlock the locked records.
 
       If <lLock> is passed a logical true (.T.) value, it will
-      release the record locks, which allows the application to main-
-      tain multiple record locks during an appending operation. The
+      release the record locks, which allows the application to maintain
+      multiple record locks during an appending operation. The
       default for this parameter is a logical false (.F.).
    $EXAMPLES$
       PROCEDURE Main()
@@ -162,6 +152,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Function
    $NAME$
@@ -171,21 +163,19 @@
    $SUBCATEGORY$
       Database
    $ONELINER$
-      Clears the current filter condiction in a work area
+      Clears the current filter condition in a work area
    $SYNTAX$
       dbClearFilter() --> NIL
    $RETURNS$
       dbClearFilter() always returns NIL
    $DESCRIPTION$
-      This function clears any active filter condiction
+      This function clears any active filter conduction
       for the current or selected work area.
    $EXAMPLES$
-      PROCEDURE Main()
-         USE test
-         SET FILTER TO hb_LeftEq( test->Name, "An" )
-         dbEdit()
-         Test->( dbClearFilter() )
-         RETURN
+      USE test
+      SET FILTER TO hb_LeftEq( test->Name, "An" )
+      dbEdit()
+      Test->( dbClearFilter() )
    $STATUS$
       R
    $COMPLIANCE$
@@ -198,6 +188,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Function
    $NAME$
@@ -217,13 +209,11 @@
       indexes. In addition, it closes all format files and moves
       the work area pointer to the first position
    $EXAMPLES$
-      PROCEDURE Main()
-         USE test NEW
-         dbEdit()
-         USE test1 NEW
-         dbEdit()
-         dbCloseAll()
-         RETURN
+      USE test NEW
+      dbEdit()
+      USE test1 NEW
+      dbEdit()
+      dbCloseAll()
    $STATUS$
       R
    $COMPLIANCE$
@@ -236,6 +226,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Procedure
    $NAME$
@@ -252,11 +244,9 @@
       This function  will close any database open in the selected
       or aliased work area.
    $EXAMPLES$
-      PROCEDURE Main()
-         USE test
-         dbEdit()
-         Test->( dbCloseArea() )
-         RETURN
+      USE test
+      dbEdit()
+      Test->( dbCloseArea() )
    $STATUS$
       R
    $COMPLIANCE$
@@ -269,6 +259,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Procedure
    $NAME$
@@ -278,12 +270,12 @@
    $SUBCATEGORY$
       Database
    $ONELINER$
-      Updates all index and database buffers for a given workarea
+      Updates all index and database buffers for a given work area
    $SYNTAX$
       dbCommit()
    $DESCRIPTION$
       This function updates all of the information for a give, selected,
-      or active workarea. This operation includes all database and index
+      or active work area. This operation includes all database and index
       buffers for that work area only. This function does not update all
       open work areas.
    $EXAMPLES$
@@ -316,6 +308,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Procedure
    $NAME$
@@ -367,6 +361,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Procedure
    $NAME$
@@ -378,19 +374,19 @@
    $ONELINER$
       Creates an empty database from a array.
    $SYNTAX$
-      dbCreate( <cDatabase>, <aStruct>, [<cDriver>], [<lOpen>],
-                [<cAlias>] )
+      dbCreate( <cFile>, <aStruct>, [<cRDD>], [<lKeepOpen>], [<cAlias>],
+                [<cDelimArg>], [<cCodePage>], [<nConnection>] )
    $ARGUMENTS$
-      <cDatabase> Name of database to be create
+      <cFile>     Name of database file to be create
 
       <aStruct>   Name of a multidimensional array that contains the
                   database structure
 
-      <cDriver>   Name of the RDD
+      <cRDD>      Name of the RDD
 
-      <lOpenNew>  3-way toggle to Open the file in New or Current workarea:
+      <lKeepOpen> 3-way toggle to Open the file in New or Current work area:
 
-                       <table>
+                  <table-noheader>
                        NIL     The file is not opened.
                        True    It is opened in a New area.
                        False   It is opened in the current area.
@@ -407,7 +403,7 @@
       - All subscripts values in the second dimension must be set to proper values
 
       - The fourth subscript value in the second dimension - which contains
-        the decimal value-must he specified. even 1kw nonnumeric fields.
+        the decimal value-must he specified. even 1kw non-numeric fields.
 
       - The second subscript value in the second dimension-which contains
         the field data type-must contain a proper value: C, D, L, M or N
@@ -415,19 +411,19 @@
         for 'N'): however, the first letter of this array element must
         be a proper value.
 
-      The dbCreate( ) function does not use the decimal field to
+      The dbCreate() function does not use the decimal field to
       calculate the length of a character held longer than 256. Values
       up to the maximum length of a character field (which is 65519 bytes)
       are stored directly in the database in the length attribute if that
       database was created via this function. However, a file containing
       fields longer than 256 bytes is not compatible with any interpreter.
 
-      The <cDriver> parameter specifies the name of the Replaceable
+      The <cRDD> parameter specifies the name of the Replaceable
       Database Driver to use to create the database. If it is not
       specified, then the Replaceable Database Driver in the current work
       area is used.
 
-      The <lOpenNew> parameter specifies if the already created database is
+      The <lKeepOpen> parameter specifies if the already created database is
       to be opened, and where.  If NIL, the file is not opened. If True,
       it is opened in a New area, and if False it is opened in the current
       area (closing any file already occupying that area).
@@ -462,6 +458,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Procedure
    $NAME$
@@ -500,6 +498,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Function
    $NAME$
@@ -515,9 +515,9 @@
    $RETURNS$
       dbFilter() returns the filter expression.
    $DESCRIPTION$
-      This function return the expression of the SET FILTER TO command
+      This function return the expression of the `SET FILTER TO` command
       for the current or designated work area. If no filter condition
-      is present, a NULL string will be returned.
+      is present, a null string will be returned.
    $EXAMPLES$
       USE test INDEX test NEW
       SET FILTER TO Name == "Harbour"
@@ -539,6 +539,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Procedure
    $NAME$
@@ -575,6 +577,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Procedure
    $NAME$
@@ -593,15 +597,15 @@
       This function places the record pointer, if working with a .dbf file,
       in selected or aliased work area at the record number specified by
       <xRecordNumber>. The position is not affected by an active index or
-      by any enviromental SET condiction.
+      by any environmental SET condition.
 
       The parameter <xRecordNumber> may be something other than a record
       number. In some data formats, for example, the value of <xRecordNumber>
       is a unique primary key while in other formats, <xRecordNumber> could
       be an array offset if the data set was an array.
 
-      Issuing a dbGoto( RecNo() ) call in a network enviroment will refresh
-      the database and index buffers. This is the same as a dbSkip(0) call.
+      Issuing a `dbGoto( RecNo() )` call in a network environment will refresh
+      the database and index buffers. This is the same as a `dbSkip( 0 )` call.
    $EXAMPLES$
       The following example uses dbGoto() to iteratively process
       every fourth record:
@@ -625,6 +629,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Procedure
    $NAME$
@@ -661,6 +667,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Procedure
    $NAME$
@@ -670,7 +678,7 @@
    $SUBCATEGORY$
       Database
    $ONELINER$
-      Recalls a record previousy marked for deletion.
+      Recalls a record previously marked for deletion.
    $SYNTAX$
       dbRecall()
    $DESCRIPTION$
@@ -700,6 +708,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Function
    $NAME$
@@ -744,6 +754,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Function
    $NAME$
@@ -765,14 +777,13 @@
       work area.
    $EXAMPLES$
       PROCEDURE Main()
-         LOCAL aList, x
+         LOCAL x
          USE test NEW
          dbGoto( 10 )
          RLock()
          dbGoto( 100 )
          RLock()
-         aList := dbRLockList()
-         FOR EACH x IN aList
+         FOR EACH x IN dbRLockList()
             ? x
          NEXT
          RETURN
@@ -788,6 +799,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Procedure
    $NAME$
@@ -808,14 +821,12 @@
       specified, them the current active record/data item will be
       unlocked
    $EXAMPLES$
-      PROCEDURE Main()
-         USE test NEW
-         dbGoto( 10 )
-         IF RLock()
-            ? test->ID
-            dbRUnlock()
-         ENDIF
-         RETURN
+      USE test NEW
+      dbGoto( 10 )
+      IF RLock()
+         ? test->ID
+         dbRUnlock()
+      ENDIF
    $STATUS$
       R
    $COMPLIANCE$
@@ -828,6 +839,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Function
    $NAME$
@@ -852,10 +865,10 @@
    $DESCRIPTION$
       This function searches for the first record in a database file whose
       index key matches <expKey>. If the item is found, the function will
-      return a logical true (.T.), the value of Found() wilI be a logical
-      true (.T.), and the value of Eof() wilI be a logical false (.F.). If
+      return a logical true (.T.), the value of Found() will be a logical
+      true (.T.), and the value of Eof() will be a logical false (.F.). If
       no item is found. then the function will return a logical false, the
-      value of Found( ) will be a logical false (.F.), and the value of
+      value of Found() will be a logical false (.F.), and the value of
       Eof() will be a logical true (.T.).
 
       This function always "rewinds" the database pointer and starts the
@@ -872,21 +885,27 @@
       <lSoftSeek> is a logical false (.F.)
    $EXAMPLES$
       PROCEDURE Main()
+         LOCAL nId
          USE test NEW INDEX test
          dbGoto( 10 )
          nId := test->nId
-         IF dbSeek( nId ) .AND. RLock()
+         dbGoTop()
+         IF dbSeek( nId )
             ? test->Name
-            dbRUnlock()
          ENDIF
+
          RETURN
 
-      ACCEPT "Employee name: " TO cName
-      IF Employee->( dbSeek( cName ) )
-         Employee->( ViewRecord() )
-      ELSE
-         ? "Not found"
-      ENDIF
+      PROCEDURE EmployeeLookup()
+
+         ACCEPT "Employee name: " TO cName
+         IF Employee->( dbSeek( cName ) )
+            Employee->( ViewRecord() )
+         ELSE
+            ? "Not found"
+         ENDIF
+
+         RETURN
    $STATUS$
       S
    $COMPLIANCE$
@@ -899,6 +918,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Procedure
    $NAME$
@@ -910,7 +931,7 @@
    $ONELINER$
       Change to another work area
    $SYNTAX$
-      dbSelectArea( <xArea> ) -
+      dbSelectArea( <xArea> ) --> NIL
    $ARGUMENTS$
       <xArea> Alias or work area
    $DESCRIPTION$
@@ -919,8 +940,8 @@
       select the numeric work area; if <xArea> is character, then it will
       select the work area with the alias name.
 
-      dbSelectArea( 0 ) will select the next avaliable and unused work area.
-      Up to 255 work areas are supported. Each work area has its own alias
+      `dbSelectArea( 0 )` will select the next available and unused work area.
+      Up to 65534 work areas are supported. Each work area has its own alias
       and record pointer, as well as its own Found(), dbFilter(),
       dbRSelect() and dbRelation() function values.
    $EXAMPLES$
@@ -948,6 +969,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Function
    $NAME$
@@ -969,7 +992,7 @@
       selected work area. The default will be "DBFNTX". If specified,
       <cDriver> contains the name of the database driver that should be
       used to activate and manage the work area. If the specified driver is
-      not avaliable, this function will have no effect.
+      not available, this function will have no effect.
    $EXAMPLES$
       dbSetDriver( "ADS" )
    $STATUS$
@@ -984,6 +1007,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Procedure
    $NAME$
@@ -1001,18 +1026,16 @@
    $DESCRIPTION$
       This function moves the record pointer <nRecords> in the selected or
       aliased work area. The default value for <nRecords> will be 1.
-      A dbSkip( 0 ) will flush and refresh the internal database bufer and
+      A `dbSkip( 0 )` will flush and refresh the internal database buffer and
       make any changes made to the record visible without moving the record
       pointer in either direction.
    $EXAMPLES$
-      PROCEDURE Main()
-         USE test NEW
-         dbGoTop()
-         DO WHILE ! Eof()
-            ? test->Id, test->Name
-            dbSkip()
-         ENDDO
-         RETURN
+      USE test NEW
+      dbGoTop()
+      DO WHILE ! Eof()
+         ? test->Id, test->Name
+         dbSkip()
+      ENDDO
    $STATUS$
       R
    $COMPLIANCE$
@@ -1025,6 +1048,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Procedure
    $NAME$
@@ -1049,10 +1074,9 @@
       function will return an empty string showing no filter in that work
       area which in fact, would be not correct.
    $EXAMPLES$
-      PROCEDURE Main()
-         USE test NEW
-         dbSetFilter( {|| test->Id < 100 }, "test->Id <100" )
-         dbGoTop()
+      USE test NEW
+      dbSetFilter( {|| test->Id < 100 }, "test->Id <100" )
+      dbGoTop()
    $STATUS$
       R
    $COMPLIANCE$
@@ -1065,6 +1089,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Function
    $NAME$
@@ -1084,15 +1110,14 @@
       pointers to other arrays, each of which contains the characteristic
       of a field in the active work area. The length of this array is based
       in the number of fields in that particular work area. In other words,
-      Len( dbStruct() ) is equal to the value obtained from FCount().
+      `Len( dbStruct() )` is equal to the value obtained from FCount().
       Each subscript position
    $EXAMPLES$
       #include "dbstruct.ch"
       PROCEDURE Main()
-         LOCAL aStru, x
+         LOCAL x
          USE test NEW
-         aStru := dbStruct()
-         FOR EACH x IN aStru
+         FOR EACH x IN dbStruct()
             ? x[ DBS_NAME ]
          NEXT
          RETURN
@@ -1109,6 +1134,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Procedure
    $NAME$
@@ -1147,6 +1174,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Procedure
    $NAME$
@@ -1185,6 +1214,8 @@
  */
 
 /* $DOC$
+   $AUTHOR$
+      Copyright 1999 Luiz Rafael Culik <culik@sl.conex.net>
    $TEMPLATE$
       Procedure
    $NAME$
@@ -1224,13 +1255,13 @@
       used.
 
       If <lShared> is set to a logical true (.T.) value, the database that
-      is specified in <cName> will be opened by the user EXCLUSIVELY. Thus
+      is specified in <cName> will be opened by the user *exclusively*. Thus
       locking it from all other nodes or users on the network. If <lShared>
       is set to a logical false (.F.) value, then the database will be in
       SHARED mode. If <lShared> is not passed, then the function will turn
       to the internal setting of SET EXCLUSIVE to determine a setting.
 
-      If <lReadOnly> is specified, the file will be set to READ ONLY mode.
+      If <lReadOnly> is specified, the file will be set to *read only* mode.
       If it is not specified, the file will he opened in normal read-write
       mode.
    $EXAMPLES$

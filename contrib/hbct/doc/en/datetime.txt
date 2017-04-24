@@ -4,9 +4,9 @@
    $CATEGORY$
       CT3 date and time functions
    $ONELINER$
-      _B_egin _O_f _M_onth
+      Begin of Month
    $SYNTAX$
-      BoM( [<dDate>] ) -> dDateBeginOfMonth
+      BoM( [<dDate>] ) --> dDateBeginOfMonth
    $ARGUMENTS$
 
    $RETURNS$
@@ -16,9 +16,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      BoM() is compatible with CT3's BoM().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -34,9 +34,9 @@
    $CATEGORY$
       CT3 date and time functions
    $ONELINER$
-      _E_nd _O_f _M_onth
+      End of Month
    $SYNTAX$
-      EoM( [<dDate>] ) -> dDateEndOfMonth
+      EoM( [<dDate>] ) --> dDateEndOfMonth
    $ARGUMENTS$
 
    $RETURNS$
@@ -46,9 +46,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      EoM() is compatible with CT3's EoM().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -64,9 +64,9 @@
    $CATEGORY$
       CT3 date and time functions
    $ONELINER$
-      _B_egin _O_f _Q_uarter
+      Begin of Quarter
    $SYNTAX$
-      BoQ( [<dDate>] ) -> dDateBeginOfQuarter
+      BoQ( [<dDate>] ) --> dDateBeginOfQuarter
    $ARGUMENTS$
 
    $RETURNS$
@@ -76,9 +76,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      BoQ() is compatible with CT3's BoQ().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -94,9 +94,9 @@
    $CATEGORY$
       CT3 date and time functions
    $ONELINER$
-      _E_nd _O_f _Q_uarter
+      End of Quarter
    $SYNTAX$
-      EoQ( [<dDate>] ) -> dDateEndOfQuarter
+      EoQ( [<dDate>] ) --> dDateEndOfQuarter
    $ARGUMENTS$
 
    $RETURNS$
@@ -106,9 +106,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      EoQ() is compatible with CT3's EoQ().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -124,9 +124,9 @@
    $CATEGORY$
       CT3 date and time functions
    $ONELINER$
-      _B_egin _O_f _Y_ear
+      Begin of Year
    $SYNTAX$
-      BoY( [<dDate>] ) -> dDateBeginOfYear
+      BoY( [<dDate>] ) --> dDateBeginOfYear
    $ARGUMENTS$
 
    $RETURNS$
@@ -136,9 +136,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      BoY() is compatible with CT3's BoY().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -154,9 +154,9 @@
    $CATEGORY$
       CT3 date and time functions
    $ONELINER$
-      _E_nd _O_f _Y_ear
+      End of Year
    $SYNTAX$
-      EoY( [<dDate>] ) -> dDateEndOfYear
+      EoY( [<dDate>] ) --> dDateEndOfYear
    $ARGUMENTS$
 
    $RETURNS$
@@ -166,9 +166,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      EoY() is compatible with CT3's EoY().
+      C
    $PLATFORMS$
       All
    $FILES$

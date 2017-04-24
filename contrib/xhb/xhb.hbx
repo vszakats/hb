@@ -132,6 +132,8 @@ DYNAMIC hb_DecodeOrEmpty
 DYNAMIC hb_Decrypt
 DYNAMIC hb_DeserialBegin
 DYNAMIC hb_DeserialNext
+DYNAMIC hb_DiskReady
+DYNAMIC hb_DiskReadyW
 DYNAMIC hb_DumpVar
 DYNAMIC hb_EmptyLogFileOnOff
 DYNAMIC hb_enumIndex
@@ -143,8 +145,13 @@ DYNAMIC hb_GetLen8
 DYNAMIC hb_HashAddMember
 DYNAMIC hb_HashId
 DYNAMIC hb_InitStandardLog
-DYNAMIC HB_ISNIL
+DYNAMIC hb_IsCDROM
+DYNAMIC hb_IsDiskette
+DYNAMIC hb_IsHardDisk
+DYNAMIC hb_IsNIL
+DYNAMIC hb_IsRAMDisk
 DYNAMIC hb_IsRegexString
+DYNAMIC hb_IsRemoteDisk
 DYNAMIC hb_IsService
 DYNAMIC hb_Is_CStructure
 DYNAMIC hb_LibDo

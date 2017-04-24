@@ -16,9 +16,9 @@
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      NumAt() is compatible with CT3's NumAt().
+      C
    $PLATFORMS$
       All
    $FILES$

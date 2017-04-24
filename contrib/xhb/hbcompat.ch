@@ -283,7 +283,7 @@
    #xuntranslate MemoWrit(                     =>
 
    #xtranslate NetName( <n> )                  => iif( hb_defaultValue( <n>, 0 ) == 1, hb_UserName(), NetName() )
-   #xtranslate MemoWrit( <x>, <y>, <z> )       => iif( hb_defaultValue( <z>, T. ), MemoWrit( <x>, <y> ), hb_MemoWrit( <x>, <y> ) )
+   #xtranslate MemoWrit( <x>, <y>, <z> )       => iif( hb_defaultValue( <z>, .T. ), MemoWrit( <x>, <y> ), hb_MemoWrit( <x>, <y> ) )
 
    #xuntranslate AIns(                         =>
    #xuntranslate ADel(                         =>

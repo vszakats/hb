@@ -192,7 +192,7 @@
 
 /* --- */
 
-HB_EXPORT HB_FATTR hb_fsAttrFromRaw( HB_FATTR raw_attr )
+HB_FATTR hb_fsAttrFromRaw( HB_FATTR raw_attr )
 {
    HB_FATTR nAttr;
 
@@ -276,7 +276,7 @@ HB_EXPORT HB_FATTR hb_fsAttrFromRaw( HB_FATTR raw_attr )
    return nAttr;
 }
 
-HB_EXPORT HB_FATTR hb_fsAttrToRaw( HB_FATTR nAttr )
+HB_FATTR hb_fsAttrToRaw( HB_FATTR nAttr )
 {
    HB_FATTR raw_attr;
 
@@ -349,13 +349,13 @@ HB_EXPORT HB_FATTR hb_fsAttrToRaw( HB_FATTR nAttr )
 /* Converts a CA-Cl*pper compatible file attribute string
    to the internal reprensentation. */
 
-HB_EXPORT HB_FATTR hb_fsAttrEncode( const char * szAttr )
+HB_FATTR hb_fsAttrEncode( const char * szAttr )
 {
    const char * pos = szAttr;
    char ch;
    HB_FATTR nAttr = 0;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_fsAttrEncode(%p)", szAttr ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_fsAttrEncode(%p)", ( const void * ) szAttr ) );
 
    while( ( ch = ( char ) HB_TOUPPER( *pos ) ) != '\0' )
    {
@@ -381,11 +381,11 @@ HB_EXPORT HB_FATTR hb_fsAttrEncode( const char * szAttr )
 
 /* NOTE: szAttr buffer must be at least 16 chars long */
 
-HB_EXPORT char * hb_fsAttrDecode( HB_FATTR nAttr, char * szAttr )
+char * hb_fsAttrDecode( HB_FATTR nAttr, char * szAttr )
 {
    char * ptr = szAttr;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_fsAttrDecode(%u, %p)", nAttr, szAttr ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_fsAttrDecode(%u, %p)", nAttr, ( void * ) szAttr ) );
 
    /* Using the same order as CA-Cl*pper did: RHSVDA. */
    if( nAttr & HB_FA_READONLY   ) *ptr++ = 'R';
@@ -910,7 +910,7 @@ static HB_BOOL hb_fsFindNextLow( PHB_FFIND ffind )
    return bFound;
 }
 
-HB_EXPORT PHB_FFIND hb_fsFindFirst( const char * pszFileMask, HB_FATTR attrmask )
+PHB_FFIND hb_fsFindFirst( const char * pszFileMask, HB_FATTR attrmask )
 {
    PHB_FFIND ffind = ( PHB_FFIND ) hb_xgrabz( sizeof( HB_FFIND ) );
 
@@ -942,7 +942,7 @@ HB_EXPORT PHB_FFIND hb_fsFindFirst( const char * pszFileMask, HB_FATTR attrmask 
 /* Finds next matching file, and applies a filter which makes
    searching CA-Cl*pper/MS-DOS compatible. */
 
-HB_EXPORT HB_BOOL hb_fsFindNext( PHB_FFIND ffind )
+HB_BOOL hb_fsFindNext( PHB_FFIND ffind )
 {
    while( hb_fsFindNextLow( ffind ) )
    {
@@ -960,7 +960,7 @@ HB_EXPORT HB_BOOL hb_fsFindNext( PHB_FFIND ffind )
    return HB_FALSE;
 }
 
-HB_EXPORT void hb_fsFindClose( PHB_FFIND ffind )
+void hb_fsFindClose( PHB_FFIND ffind )
 {
    if( ffind )
    {

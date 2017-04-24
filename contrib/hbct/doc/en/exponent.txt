@@ -17,18 +17,17 @@
 
       Note:  The mantissa value can be 0 or in the range of 1 to 2.
 
-             The following calculation reproduces the original value:
-
-      Mantissa( <nFloatingPointNumber> ) * 2 ^ Exponent( <nFloatingPointNumber> ) =
-      <nFloatingPointNumber>
-
+      The following calculation reproduces the original value:
+      ```
+      ? Mantissa( <nFloatingPointNumber> ) * 2 ^ Exponent( <nFloatingPointNumber> )  // -> <nFloatingPointNumber>
+      ```
       TODO: add documentation
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      Mantissa() is compatible with CT3's Mantissa().
+      C
    $PLATFORMS$
       All
    $FILES$
@@ -60,20 +59,19 @@
 
       Values < 1 or values > -1 return a negative number -1 to -1023.
 
-      The Exponent( 0 ), return 0.
+      The `Exponent( 0 )`, return 0.
 
       The following calculation reproduces the original value:
-
-      2^Exponent(<nFloatingPointNumber>) * Mantissa(<nFloatingPointNumber>) =
-      <nFloatingPointNumber>
-
+      ```
+      ? 2 ^ Exponent( <nFloatingPointNumber> ) * Mantissa( <nFloatingPointNumber> )  // -> <nFloatingPointNumber>
+      ```
       TODO: add documentation
    $EXAMPLES$
 
    $STATUS$
-      Started
+      R
    $COMPLIANCE$
-      Exponent() is compatible with CT3's Exponent()
+      C
    $PLATFORMS$
       All
    $FILES$

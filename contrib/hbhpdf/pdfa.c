@@ -47,7 +47,7 @@
 /* HPDF_STATUS HPDF_PDFA_SetPDFAConformance (HPDF_Doc pdf,HPDF_PDFAType pdfatype) */
 HB_FUNC( HPDF_PDFA_SETPDFACONFORMANCE )
 {
-/* TOFIX: These functions are not exported from libharu. Until we find
+/* FIXME: These functions are not exported from libharu. Until we find
           out it is design decision or bug, I excluded them from dynamic
           builds. [vszakats] */
 #if HB_HPDF_VERS( 2, 2, 0 ) && ! defined( HB_DYNLIB )

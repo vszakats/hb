@@ -49,7 +49,7 @@
 /* Algorithm:
       http://wiki.yak.net/589/Bubble_Babble_Encoding.txt
    Implementation based on this code:
-      http://www.nitrxgen.net/source/bubblebabble.txt
+      [LOST LINK] www.nitrxgen.net/source/bubblebabble.txt
  */
 
 HB_FUNC( BUBBLEBABBLEENCODE )

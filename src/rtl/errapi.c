@@ -2,7 +2,7 @@
  * The Error API
  *
  * Copyright 1999 Antonio Linares <alinares@fivetech.com>
- * Copyright 1999-2001 Viktor Szakats (vszakats.net/harbour) (DosError(), __errInHandler(), __errRT*(), hb_errLaunch*(), hb_err*Flags(), hb_errRT*())
+ * Copyright 1999-2016 Viktor Szakats (vszakats.net/harbour) (DosError(), __errInHandler(), __errRT*(), hb_errLaunch*(), hb_err*Flags(), hb_errRT*())
  * Copyright 2007 Przemyslaw Czerpak <druzus / at / priv.onet.pl> (rewritten in C ERROR class and all hb_errGet*() and hb_errPut*() functions)
  *
  * This program is free software; you can redistribute it and/or modify
@@ -1029,34 +1029,33 @@ HB_USHORT hb_errRT_BASE( HB_ERRCODE errGenCode, HB_ERRCODE errSubCode, const cha
    pError = hb_errRT_New( ES_ERROR, HB_ERR_SS_BASE, errGenCode, errSubCode, szDescription, szOperation, 0, EF_NONE /* EF_CANRETRY */ );
 
    /* Build the array from the passed arguments. */
-   if( ulArgCount == 0 )
+   switch( ulArgCount )
    {
-      pArray = NULL;
-   }
-   else if( ulArgCount == HB_ERR_ARGS_BASEPARAMS )
-   {
-      if( hb_pcount() == 0 )
+      case 0:
          pArray = NULL;
-      else
-         pArray = hb_arrayBaseParams();
-   }
-   else if( ulArgCount == HB_ERR_ARGS_SELFPARAMS )
-   {
-      pArray = hb_arraySelfParams();
-   }
-   else
-   {
-      pArray = hb_itemArrayNew( ulArgCount );
+         break;
 
-      va_start( va, ulArgCount );
-      for( ulArgPos = 1; ulArgPos <= ulArgCount; ulArgPos++ )
-      {
-         PHB_ITEM pArg = va_arg( va, PHB_ITEM );
-         if( pArg )
-            hb_itemArrayPut( pArray, ulArgPos, pArg );
-      }
-      va_end( va );
+      case HB_ERR_ARGS_BASEPARAMS:
+         pArray = hb_pcount() ? hb_arrayBaseParams() : NULL;
+         break;
+
+      case HB_ERR_ARGS_SELFPARAMS:
+         pArray = hb_arraySelfParams();
+         break;
+
+      default:
+         pArray = hb_itemArrayNew( ulArgCount );
+
+         va_start( va, ulArgCount );
+         for( ulArgPos = 1; ulArgPos <= ulArgCount; ulArgPos++ )
+         {
+            PHB_ITEM pArg = va_arg( va, PHB_ITEM );
+            if( pArg )
+               hb_itemArrayPut( pArray, ulArgPos, pArg );
+         }
+         va_end( va );
    }
+
    if( pArray )
    {
       /* Assign the new array to the object data item. */
@@ -1087,34 +1086,33 @@ HB_USHORT hb_errRT_BASE_Ext1( HB_ERRCODE errGenCode, HB_ERRCODE errSubCode, cons
    pError = hb_errRT_New( ES_ERROR, HB_ERR_SS_BASE, errGenCode, errSubCode, szDescription, szOperation, errOsCode, uiFlags );
 
    /* Build the array from the passed arguments. */
-   if( ulArgCount == 0 )
+   switch( ulArgCount )
    {
-      pArray = NULL;
-   }
-   else if( ulArgCount == HB_ERR_ARGS_BASEPARAMS )
-   {
-      if( hb_pcount() == 0 )
+      case 0:
          pArray = NULL;
-      else
-         pArray = hb_arrayBaseParams();
-   }
-   else if( ulArgCount == HB_ERR_ARGS_SELFPARAMS )
-   {
-      pArray = hb_arraySelfParams();
-   }
-   else
-   {
-      pArray = hb_itemArrayNew( ulArgCount );
+         break;
 
-      va_start( va, ulArgCount );
-      for( ulArgPos = 1; ulArgPos <= ulArgCount; ulArgPos++ )
-      {
-         PHB_ITEM pArg = va_arg( va, PHB_ITEM );
-         if( pArg )
-            hb_itemArrayPut( pArray, ulArgPos, pArg );
-      }
-      va_end( va );
+      case HB_ERR_ARGS_BASEPARAMS:
+         pArray = hb_pcount() ? hb_arrayBaseParams() : NULL;
+         break;
+
+      case HB_ERR_ARGS_SELFPARAMS:
+         pArray = hb_arraySelfParams();
+         break;
+
+      default:
+         pArray = hb_itemArrayNew( ulArgCount );
+
+         va_start( va, ulArgCount );
+         for( ulArgPos = 1; ulArgPos <= ulArgCount; ulArgPos++ )
+         {
+            PHB_ITEM pArg = va_arg( va, PHB_ITEM );
+            if( pArg )
+               hb_itemArrayPut( pArray, ulArgPos, pArg );
+         }
+         va_end( va );
    }
+
    if( pArray )
    {
       /* Assign the new array to the object data item. */
@@ -1144,34 +1142,33 @@ PHB_ITEM hb_errRT_BASE_Subst( HB_ERRCODE errGenCode, HB_ERRCODE errSubCode, cons
    pError = hb_errRT_New_Subst( ES_ERROR, HB_ERR_SS_BASE, errGenCode, errSubCode, szDescription, szOperation, 0, EF_NONE );
 
    /* Build the array from the passed arguments. */
-   if( ulArgCount == 0 )
+   switch( ulArgCount )
    {
-      pArray = NULL;
-   }
-   else if( ulArgCount == HB_ERR_ARGS_BASEPARAMS )
-   {
-      if( hb_pcount() == 0 )
+      case 0:
          pArray = NULL;
-      else
-         pArray = hb_arrayBaseParams();
-   }
-   else if( ulArgCount == HB_ERR_ARGS_SELFPARAMS )
-   {
-      pArray = hb_arraySelfParams();
-   }
-   else
-   {
-      pArray = hb_itemArrayNew( ulArgCount );
+         break;
 
-      va_start( va, ulArgCount );
-      for( ulArgPos = 1; ulArgPos <= ulArgCount; ulArgPos++ )
-      {
-         PHB_ITEM pArg = va_arg( va, PHB_ITEM );
-         if( pArg )
-            hb_itemArrayPut( pArray, ulArgPos, pArg );
-      }
-      va_end( va );
+      case HB_ERR_ARGS_BASEPARAMS:
+         pArray = hb_pcount() ? hb_arrayBaseParams() : NULL;
+         break;
+
+      case HB_ERR_ARGS_SELFPARAMS:
+         pArray = hb_arraySelfParams();
+         break;
+
+      default:
+         pArray = hb_itemArrayNew( ulArgCount );
+
+         va_start( va, ulArgCount );
+         for( ulArgPos = 1; ulArgPos <= ulArgCount; ulArgPos++ )
+         {
+            PHB_ITEM pArg = va_arg( va, PHB_ITEM );
+            if( pArg )
+               hb_itemArrayPut( pArray, ulArgPos, pArg );
+         }
+         va_end( va );
    }
+
    if( pArray )
    {
       /* Assign the new array to the object data item. */
@@ -1200,34 +1197,33 @@ void hb_errRT_BASE_SubstR( HB_ERRCODE errGenCode, HB_ERRCODE errSubCode, const c
    pError = hb_errRT_New_Subst( ES_ERROR, HB_ERR_SS_BASE, errGenCode, errSubCode, szDescription, szOperation, 0, EF_NONE );
 
    /* Build the array from the passed arguments. */
-   if( ulArgCount == 0 )
+   switch( ulArgCount )
    {
-      pArray = NULL;
-   }
-   else if( ulArgCount == HB_ERR_ARGS_BASEPARAMS )
-   {
-      if( hb_pcount() == 0 )
+      case 0:
          pArray = NULL;
-      else
-         pArray = hb_arrayBaseParams();
-   }
-   else if( ulArgCount == HB_ERR_ARGS_SELFPARAMS )
-   {
-      pArray = hb_arraySelfParams();
-   }
-   else
-   {
-      pArray = hb_itemArrayNew( ulArgCount );
+         break;
 
-      va_start( va, ulArgCount );
-      for( ulArgPos = 1; ulArgPos <= ulArgCount; ulArgPos++ )
-      {
-         PHB_ITEM pArg = va_arg( va, PHB_ITEM );
-         if( pArg )
-            hb_itemArrayPut( pArray, ulArgPos, pArg );
-      }
-      va_end( va );
+      case HB_ERR_ARGS_BASEPARAMS:
+         pArray = hb_pcount() ? hb_arrayBaseParams() : NULL;
+         break;
+
+      case HB_ERR_ARGS_SELFPARAMS:
+         pArray = hb_arraySelfParams();
+         break;
+
+      default:
+         pArray = hb_itemArrayNew( ulArgCount );
+
+         va_start( va, ulArgCount );
+         for( ulArgPos = 1; ulArgPos <= ulArgCount; ulArgPos++ )
+         {
+            PHB_ITEM pArg = va_arg( va, PHB_ITEM );
+            if( pArg )
+               hb_itemArrayPut( pArray, ulArgPos, pArg );
+         }
+         va_end( va );
    }
+
    if( pArray )
    {
       /* Assign the new array to the object data item. */

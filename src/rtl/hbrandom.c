@@ -50,7 +50,7 @@
 #include "hbstack.h"
 
 /* NOTE: core random generator algorithm is the work of Steve Park
-         http://www.cs.wm.edu/~va/software/park/ */
+         https://web.archive.org/web/www.cs.wm.edu/~va/software/park/ */
 
 #define MODULUS     2147483647 /* DON'T CHANGE THIS VALUE */
 #define MULTIPLIER  48271      /* DON'T CHANGE THIS VALUE */

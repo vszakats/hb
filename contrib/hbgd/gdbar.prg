@@ -119,7 +119,7 @@ METHOD CreateBar( sx, sy, filename, aColor ) CLASS GDBar
    ::positionY := 0
    ::imWidth   := sx
 
-   IF HB_ISSTRING( filename ) .AND. ! HB_ISNULL( filename )
+   IF HB_ISSTRING( filename ) .AND. ! filename == ""
       ::filename := filename
    ENDIF
 

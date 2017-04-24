@@ -27,7 +27,7 @@ PROCEDURE Main()
         hb_NumToHex( hb_keyVal( kX ), 8 )
       IF ( k >= 32 .AND. k <= 126 ) .OR. ;
          ( k >= 160 .AND. k <= 255 ) .OR. ;
-         ! HB_ISNULL( hb_keyChar( k ) )
+         ! hb_keyChar( k ) == ""
          ?? "", ;
             "char:", iif( k > 256, ;
             "U+" + hb_NumToHex( hb_keyVal( k ), 4 ), ;

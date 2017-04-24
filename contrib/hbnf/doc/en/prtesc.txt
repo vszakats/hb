@@ -9,10 +9,10 @@
       ft_EscCode( <cASCII> )  -> <cPrinterFormat>
    $ARGUMENTS$
       <cASCII> is the ASCII representation of the printer control
-      codes in Lotus 123 format (e.g. "\027E" for hb_BChar( 27 ) + "E")
+      codes in Lotus 123 format (e.g. `"\027E"` for `hb_BChar( 27 ) + "E"`)
 
-      "\nnn" will be converted to hb_BChar( nnn )
-      "\\" will be converted to "\"
+      `"\nnn"` will be converted to `hb_BChar( nnn )`
+      `"\\"` will be converted to `"\"`
    $RETURNS$
       The binary version of an ASCII coded printer setup string.
    $DESCRIPTION$

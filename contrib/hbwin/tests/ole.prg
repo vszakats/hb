@@ -2,9 +2,9 @@
  * OLE demo/test code
  *
  * Copyright 2007 Enrico Maria Giordano e.m.giordano at emagsoftware.it
- * Copyright 2009 Mindaugas Kavaliauskas <dbtopas at dbtopas.lt>
- * Copyright 2008 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2008-2016 Viktor Szakats (vszakats.net/harbour)
  *    Exm_CDO(), Exm_OOOpen(), Exm_CreateShortcut()
+ * Copyright 2009 Mindaugas Kavaliauskas <dbtopas at dbtopas.lt>
  */
 
 #require "hbwin"
@@ -371,27 +371,36 @@ STATIC FUNCTION OO_ConvertToURL( cString )
 
    RETURN "file:" + cString
 
-STATIC PROCEDURE Exm_CDO()
+STATIC PROCEDURE Exm_CDO()  /* STARTTLS not supported by CDO */
 
    LOCAL oCDOMsg
    LOCAL oCDOConf
 
+   LOCAL cFrom
+
    IF ( oCDOMsg := win_oleCreateObject( "CDO.Message" ) ) != NIL
+
+      cFrom := "from@example.com"
 
       oCDOConf := win_oleCreateObject( "CDO.Configuration" )
 
-      oCDOConf:Fields( "http://schemas.microsoft.com/cdo/configuration/sendusing" ):Value := 2 // cdoSendUsingPort
-      oCDOConf:Fields( "http://schemas.microsoft.com/cdo/configuration/smtpserver" ):Value := "smtp.example.com"
-      oCDOConf:Fields( "http://schemas.microsoft.com/cdo/configuration/smtpserverport" ):Value := 25
-      oCDOConf:Fields( "http://schemas.microsoft.com/cdo/configuration/smtpconnectiontimeout" ):Value := 120
+      oCDOConf:Fields( "http:" + "//schemas.microsoft.com/cdo/configuration/sendusing" ):Value := 2  // cdoSendUsingPort: Send the message using SMTP over TCP/IP networking
+      oCDOConf:Fields( "http:" + "//schemas.microsoft.com/cdo/configuration/smtpserver" ):Value := "smtp.example.com"
+      oCDOConf:Fields( "http:" + "//schemas.microsoft.com/cdo/configuration/smtpserverport" ):Value := 465
+      oCDOConf:Fields( "http:" + "//schemas.microsoft.com/cdo/configuration/smtpconnectiontimeout" ):Value := 120
+      oCDOConf:Fields( "http:" + "//schemas.microsoft.com/cdo/configuration/smtpauthenticate" ):Value := 1  // cdoBasic: Basic authentication
+      oCDOConf:Fields( "http:" + "//schemas.microsoft.com/cdo/configuration/sendusername" ):Value := cFrom
+      oCDOConf:Fields( "http:" + "//schemas.microsoft.com/cdo/configuration/sendpassword" ):Value := "password"
+      oCDOConf:Fields( "http:" + "//schemas.microsoft.com/cdo/configuration/smtpusessl" ):Value := .T.
       oCDOConf:Fields:Update()
 
       oCDOMsg:Configuration := oCDOConf
-      oCDOMsg:BodyPart:Charset := "utf-8" // "iso-8859-1" "iso-8859-2"
+      oCDOMsg:BodyPart:Charset := "utf-8"
       oCDOMsg:To := "to@example.com"
-      oCDOMsg:From := "from@example.com"
+      oCDOMsg:From := cFrom
       oCDOMsg:Subject := "Test message"
       oCDOMsg:TextBody := "Test message body"
+      oCDOMsg:AddAttachment( hb_DirBase() + __FILE__ )
 
       BEGIN SEQUENCE WITH __BreakBlock()
          oCDOMsg:Send()
@@ -425,7 +434,7 @@ STATIC PROCEDURE Exm_ADODB()
    IF ( oRs := win_oleCreateObject( "ADODB.Recordset" ) ) != NIL
 
       oRs:Open( "SELECT * FROM test ORDER BY First", ;
-         "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + hb_DirBase() + "\..\..\hbodbc\tests\test.mdb", ;
+         "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + hb_DirBase() + "..\..\hbodbc\tests\test.mdb", ;
          adOpenForwardOnly, ;
          adLockReadOnly )
 
@@ -462,7 +471,7 @@ STATIC PROCEDURE Exm_PocketSOAP()
    IF oHttp != NIL .AND. oEnvelope != NIL
 
       oEnvelope:EncodingStyle := ""
-      oEnvelope:SetMethod( "InvertStringCase", "http://www.dataaccess.com/webservicesserver/" )
+      oEnvelope:SetMethod( "InvertStringCase", "http:" + "//www.dataaccess.com/webservicesserver/" )
       oEnvelope:Parameters:Create( "sAString", "lower UPPER" )
       oHttp:Send( "https://www.dataaccess.com/webservicesserver/textcasing.wso?WSDL", oEnvelope:Serialize() )
       oEnvelope:Parse( oHttp )
@@ -477,13 +486,15 @@ STATIC PROCEDURE Exm_PocketSOAP()
 STATIC PROCEDURE Exm_CreateShortcut()
 
    LOCAL oShell, oSC
+   LOCAL cFileName
 
    IF ( oShell := win_oleCreateObject( "WScript.Shell" ) ) != NIL
-      oSC := oShell:CreateShortcut( hb_DirBase() + hb_ps() + "testole.lnk" )
+      oSC := oShell:CreateShortcut( cFileName := hb_DirBase() + hb_FNameExtSet( __FILE__, ".lnk" ) )
       oSC:TargetPath := hb_ProgName()
       oSC:WorkingDirectory := hb_DirBase()
       oSC:IconLocation := '"' + hb_ProgName() + '"' + ",0"
       oSC:Save()
+      ? "Created:", cFileName
    ELSE
       ? "Error: Shell not available. [" + win_oleErrorText() + "]"
    ENDIF

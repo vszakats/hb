@@ -162,14 +162,19 @@ typedef enum
 
 /* additional definitions used to distinguish macro expressions
  */
-#define HB_ET_MACRO_VAR      0   /* &variable */
-#define HB_ET_MACRO_SYMBOL   1   /* &fimcall() */
-#define HB_ET_MACRO_ALIASED  2   /* &alias->&variable */
-#define HB_ET_MACRO_EXPR     4   /* &( expr ) */
-#define HB_ET_MACRO_LIST    16   /* &variable used as in literal arrays or function call argument. */
-#define HB_ET_MACRO_PARE    32   /* &variable used as parentesised expressions. */
-#define HB_ET_MACRO_REFER   64   /* &macro used in @ (pass by reference) */
-#define HB_ET_MACRO_ASSIGN 128   /* o:&msgname := value */
+#define HB_ET_MACRO_VAR       0x0001   /* &variable */
+#define HB_ET_MACRO_SYMBOL    0x0002   /* &fimcall() */
+#define HB_ET_MACRO_ALIASED   0x0004   /* &alias->&variable */
+#define HB_ET_MACRO_EXPR      0x0008   /* &( expr ) */
+#define HB_ET_MACRO_LIST      0x0010   /* &variable used as in literal arrays or function call argument. */
+#define HB_ET_MACRO_PARE      0x0020   /* &variable used as parentesised expressions. */
+#define HB_ET_MACRO_REFER     0x0040   /* &macro used in @ (pass by reference) */
+#define HB_ET_MACRO_ASSIGN    0x0080   /* o:&msgname := value */
+#define HB_ET_MACRO_NOLIST    ( HB_ET_MACRO_SYMBOL | HB_ET_MACRO_ALIASED | \
+                                HB_ET_MACRO_ASSIGN | HB_ET_MACRO_PARE | \
+                                HB_ET_MACRO_REFER )
+#define HB_ET_MACRO_NOPARE    ( HB_ET_MACRO_SYMBOL | HB_ET_MACRO_ALIASED | \
+                                HB_ET_MACRO_ASSIGN | HB_ET_MACRO_REFER )
 
 /* types of expressions
  * NOTE: the order of these definition is important - change it carefully
@@ -780,8 +785,8 @@ typedef struct _HB_COMP
    PHB_I18NTABLE     pI18n;
    HB_BOOL           fI18n;
 
-   void              ( * outStdFunc ) ( void *, const char* );
-   void              ( * outErrFunc ) ( void *, const char* );
+   void              ( * outStdFunc ) ( void *, const char * );
+   void              ( * outErrFunc ) ( void *, const char * );
    PHB_PP_MSG_FUNC   outMsgFunc;
    void *            cargo;
 

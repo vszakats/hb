@@ -72,7 +72,7 @@
    wanted to reduce memory overhead in used algorithm for finding the
    longest match? The SIX was written for 16-bit DOS and the memory
    consumption was important though it should not be too much. They
-   documented ~9KB increasing the ring buffer size should be linear to
+   documented ~9 KiB increasing the ring buffer size should be linear to
    other used (helper) structures.
    The next interesting thing is that it dynamically overwrites the ring
    buffer with stream data and does not use any separate look ahead buffers.

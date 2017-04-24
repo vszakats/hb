@@ -6,7 +6,7 @@
    $ONELINER$
       Convert a string to proper-name case
    $SYNTAX$
-      ft_Proper( <cString> ) -> cProperName
+      ft_Proper( <cString> ) --> cProperName
    $ARGUMENTS$
       <cString> is the string to be converted.
    $RETURNS$

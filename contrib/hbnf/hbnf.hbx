@@ -171,6 +171,7 @@ DYNAMIC ft_NWSemSig
 DYNAMIC ft_NWSemUnlock
 DYNAMIC ft_NWSemWait
 DYNAMIC ft_NWUID
+DYNAMIC ft_OnIdle
 DYNAMIC ft_OnTick
 DYNAMIC ft_Origin
 DYNAMIC ft_outp

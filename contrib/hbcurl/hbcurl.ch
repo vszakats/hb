@@ -1,7 +1,7 @@
 /*
  * libcurl 'easy' API - Harbour header.
  *
- * Copyright 2008-2015 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2008-2016 Viktor Szakats (vszakats.net/harbour)
  * originally based on:
  * Copyright 2005 Luiz Rafael Culik Guimaraes <luiz at xharbour.com.br>
  *
@@ -270,6 +270,27 @@
 #define HB_CURLOPT_DEFAULT_PROTOCOL           223
 #define HB_CURLOPT_CONNECT_TO                 224
 #define HB_CURLOPT_TCP_FASTOPEN               225
+#define HB_CURLOPT_KEEP_SENDING_ON_ERROR      226
+#define HB_CURLOPT_PROXY_SSLCERT              227
+#define HB_CURLOPT_PROXY_SSLCERTTYPE          228
+#define HB_CURLOPT_PROXY_SSLKEY               229
+#define HB_CURLOPT_PROXY_SSLKEYTYPE           230
+#define HB_CURLOPT_PROXY_KEYPASSWD            231
+#define HB_CURLOPT_PROXY_SSLVERSION           232
+#define HB_CURLOPT_PROXY_CAINFO               233
+#define HB_CURLOPT_PROXY_CAPATH               234
+#define HB_CURLOPT_PROXY_CRLFILE              235
+#define HB_CURLOPT_PROXY_SSL_VERIFYHOST       236
+#define HB_CURLOPT_PROXY_SSL_VERIFYPEER       237
+#define HB_CURLOPT_PROXY_SSL_CIPHER_LIST      238
+#define HB_CURLOPT_PROXY_SSL_OPTIONS          239
+#define HB_CURLOPT_PROXY_PINNEDPUBLICKEY      240
+#define HB_CURLOPT_PROXY_TLSAUTH_PASSWORD     241
+#define HB_CURLOPT_PROXY_TLSAUTH_TYPE         242
+#define HB_CURLOPT_PROXY_TLSAUTH_USERNAME     243
+#define HB_CURLOPT_PRE_PROXY                  244
+#define HB_CURLOPT_ABSTRACT_UNIX_SOCKET       245
+#define HB_CURLOPT_SUPPRESS_CONNECT_HEADERS   246
 #define HB_CURLOPT_DOWNLOAD                   1001  /* Harbour special ones */
 #define HB_CURLOPT_XFERINFOBLOCK              1002
 #define HB_CURLOPT_UL_FILE_SETUP              1003
@@ -398,6 +419,13 @@
 #define HB_CURL_SSLVERSION_TLSv1_0            4
 #define HB_CURL_SSLVERSION_TLSv1_1            5
 #define HB_CURL_SSLVERSION_TLSv1_2            6
+#define HB_CURL_SSLVERSION_TLSv1_3            7
+#define HB_CURL_SSLVERSION_MAX_NONE           0
+#define HB_CURL_SSLVERSION_MAX_DEFAULT        hb_bitShift( HB_CURL_SSLVERSION_TLSv1  , 16 )
+#define HB_CURL_SSLVERSION_MAX_TLSv1_0        hb_bitShift( HB_CURL_SSLVERSION_TLSv1_0, 16 )
+#define HB_CURL_SSLVERSION_MAX_TLSv1_1        hb_bitShift( HB_CURL_SSLVERSION_TLSv1_1, 16 )
+#define HB_CURL_SSLVERSION_MAX_TLSv1_2        hb_bitShift( HB_CURL_SSLVERSION_TLSv1_2, 16 )
+#define HB_CURL_SSLVERSION_MAX_TLSv1_3        hb_bitShift( HB_CURL_SSLVERSION_TLSv1_3, 16 )
 
 /* HB_CURLOPT_SSH_AUTH_TYPES option */
 #define HB_CURL_CURLSSH_AUTH_ANY              hb_bitNot( 0 )      /* all types supported by the server */
@@ -497,6 +525,9 @@
 #define HB_CURLINFO_LOCAL_PORT                42
 #define HB_CURLINFO_ACTIVESOCKET              43
 #define HB_CURLINFO_HTTP_VERSION              44
+#define HB_CURLINFO_PROTOCOL                  45
+#define HB_CURLINFO_SCHEME                    46
+#define HB_CURLINFO_PROXY_SSL_VERIFYRESULT    47
 
 /* curl result codes. */
 
@@ -509,7 +540,8 @@
 #define HB_CURLE_COULDNT_RESOLVE_PROXY        5  /* */
 #define HB_CURLE_COULDNT_RESOLVE_HOST         6  /* */
 #define HB_CURLE_COULDNT_CONNECT              7  /* */
-#define HB_CURLE_FTP_WEIRD_SERVER_REPLY       8  /* */
+#define HB_CURLE_WEIRD_SERVER_REPLY           8  /* */
+#define HB_CURLE_FTP_WEIRD_SERVER_REPLY       HB_CURLE_WEIRD_SERVER_REPLY
 #define HB_CURLE_REMOTE_ACCESS_DENIED         9  /* a service was denied by the server due to lack of access - when login fails this is not returned. */
 #define HB_CURLE_OBSOLETE10                   10 /* NOT USED */
 #define HB_CURLE_FTP_WEIRD_PASS_REPLY         11 /* */
