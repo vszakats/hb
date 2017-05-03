@@ -18297,8 +18297,8 @@ STATIC PROCEDURE ShowHeader( hbmk )
       cText := ;
          "Harbour Shell / Script Runner " + HBRawVersion() + e"\n" + ;
          "Copyright © 2007-" + ;
-            hb_ntos( Year( hb_Version( HB_VERSION_BUILD_DATE ) ) ) + ;
-            ", Viktor Szakats" + e"\n" + ;
+            hb_ntos( Year( hb_Version( HB_VERSION_BUILD_DATE ) ) ) + ", " + ;
+            "Viktor Szakats" + e"\n" + ;
          "Copyright © 2003-2007, Przemysław Czerpak" + e"\n"
    ELSE
 #endif
@@ -18308,8 +18308,8 @@ STATIC PROCEDURE ShowHeader( hbmk )
       ENDIF
       cText += " " + HBRawVersion() + e"\n" + ;
          "Copyright © 1999-" + ;
-            hb_ntos( Year( hb_Version( HB_VERSION_BUILD_DATE ) ) ) + ;
-            ", Viktor Szakats" + e"\n"
+            hb_ntos( Year( hb_Version( HB_VERSION_BUILD_DATE ) ) ) + ", " + ;
+            "Viktor Szakats" + e"\n"
 #ifdef HARBOUR_SUPPORT
    ENDIF
 #endif
