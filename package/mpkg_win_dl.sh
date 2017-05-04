@@ -82,16 +82,8 @@ if [ "${os}" = 'win' ]; then
   set -x
 
   if [ "${_BRANCH#*extmingw*}" != "${_BRANCH}" ]; then
-    readonly mingwbase='https://downloads.sourceforge.net'
-#   curl -o pack.bin -L --proto-redir =https "${mingwbase}/mingw-w64/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/6.3.0/threads-posix/sjlj/i686-6.3.0-release-posix-sjlj-rt_v5-rev1.7z"
-#   openssl dgst -sha256 pack.bin | grep -q ce5551a431661f3295a38fcc8563816a34e5cad867b3b35b1e802ef74e2c42f2
-    curl -o pack.bin -L --proto-redir =https "${mingwbase}/mingw-w64/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/6.3.0/threads-posix/sjlj/x86_64-6.3.0-release-posix-sjlj-rt_v5-rev1.7z"
-    openssl dgst -sha256 pack.bin | grep -q 10c40147b1781d0b915e96967becca99c6ffe2d56695a6830721051fe1b62b1f
-#   curl -o pack.bin -L --proto-redir =https "${mingwbase}/mingw-w64/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/6.3.0/threads-posix/dwarf/i686-6.3.0-release-posix-dwarf-rt_v5-rev1.7z"
-#   openssl dgst -sha256 pack.bin | grep -q 8f7381e8ed61c438d36d33ae2f514a7ca8065c44dcf6801847fd425f71a9ee1d
-#   curl -o pack.bin -L --proto-redir =https "${mingwbase}/mingw-w64/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/6.3.0/threads-posix/seh/x86_64-6.3.0-release-posix-seh-rt_v5-rev1.7z"
-#   openssl dgst -sha256 pack.bin | grep -q 2d0e72340ffa14916d4469db25c37889e477f8f1f49ba4f77155830ddc1dca89
-    # Will unpack into "./mingw64"
+    curl -o pack.bin -L --proto-redir =https "https://downloads.sourceforge.net/mingw-w64/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/7.1.0/threads-posix/sjlj/x86_64-7.1.0-release-posix-sjlj-rt_v5-rev0.7z"
+    openssl dgst -sha256 pack.bin | grep -q a117ec6126c9cc31e89498441d66af3daef59439c36686e80cebf29786e17c13
     7z x -y pack.bin > /dev/null
   fi
 )
