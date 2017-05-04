@@ -81,7 +81,7 @@ if [ "${os}" = 'win' ]; then
 (
   set -x
 
-  if [ "${_BRANCH#*extmingw*}" != "${_BRANCH}" ]; then
+  if [ "${_BRANCH#*mingwext*}" != "${_BRANCH}" ]; then
     curl -o pack.bin -L --proto-redir =https "https://downloads.sourceforge.net/mingw-w64/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/7.1.0/threads-posix/sjlj/x86_64-7.1.0-release-posix-sjlj-rt_v5-rev0.7z"
     openssl dgst -sha256 pack.bin | grep -q a117ec6126c9cc31e89498441d66af3daef59439c36686e80cebf29786e17c13
     7z x -y pack.bin > /dev/null
