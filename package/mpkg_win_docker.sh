@@ -21,7 +21,7 @@ curl -fsS --connect-timeout 15 --retry 3 'https://keyserver.ubuntu.com/pks/looku
 gpg --export D43A795B73B16ABE9643FE1AFD8FFF16DB45C6AB \
 | apt-key add -
 apt-get -qq update
-apt-get -q install \
+apt-get -qy install \
   mxe-{i686,x86-64}-w64-mingw32.shared-{cairo,file,ghostscript,icu4c,libmysqlclient,postgresql} \
   mxe-{i686,x86-64}-w64-mingw32.static-{freeimage,gd}
 
