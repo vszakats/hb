@@ -14524,7 +14524,8 @@ STATIC FUNCTION CompVersionDetect( hbmk, cPath_CompC )
 
             /* Apple clang version vs. official LLVM/clang version:
                  https://opensource.apple.com/source/clang/ -> clang-<version>/src/CMakeLists.txt
-                 https://opensource.apple.com/source/clang/clang-800.0.38/src/CMakeLists.txt
+                 https://opensource.apple.com/source/clang/clang-800.0.42.1/src/CMakeLists.txt
+                 https://opensource.apple.com/source/clang/clang-800.0.42.1/src/autoconf/configure.ac
                  https://gist.github.com/yamaya/2924292
                NOTE: It's an interim SVN revision with possible differences in features.
                [vszakats] */
@@ -14533,7 +14534,7 @@ STATIC FUNCTION CompVersionDetect( hbmk, cPath_CompC )
             CASE cVer == "0700" ; cVer := "0307"
             CASE cVer == "0703" ; cVer := "0308"
             CASE cVer == "0800" ; cVer := "0309"  /* guess right after WWDC2016 */
-            CASE cVer == "0801" ; cVer := "0309"  /* blind guess right after macOS 10.12.4 release */
+            CASE cVer == "0801" ; cVer := "0309"
             ENDCASE
          CASE ( tmp1 := hb_AtX( R_( "version [0-9]*\.[0-9]*\.[0-9]*" ), cStdOutErr ) ) != NIL
             tmp1 := hb_ATokens( SubStr( tmp1, Len( "version " ) + 1 ), "." )
