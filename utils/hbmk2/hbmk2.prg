@@ -576,8 +576,9 @@ EXTERNAL hbmk_KEYW
 
 #define _HBMK_nCmdLineMax       170
 #define _HBMK_aCmdLineLen       171
+#define _HBMK_lInitHBL          172
 
-#define _HBMK_MAX_              171
+#define _HBMK_MAX_              172
 
 #define _HBMK_DEP_CTRL_MARKER   ".control."  /* must be an invalid path */
 
@@ -1119,6 +1120,7 @@ STATIC FUNCTION hbmk_new( lShellMode )
    hbmk[ _HBMK_lDEBUGCMDL ] := .F.
    hbmk[ _HBMK_nCmdLineMax ] := -1
    hbmk[ _HBMK_aCmdLineLen ] := {}
+   hbmk[ _HBMK_lInitHBL ] := .F.
 
    hbmk[ _HBMK_nCmd_Esc ] := NIL
    hbmk[ _HBMK_nScr_Esc ] := NIL
@@ -3048,6 +3050,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          hbmk[ _HBMK_lREBUILD ] := .T.
 
       CASE cParamL == "-rebuildpo"       ; hbmk[ _HBMK_lREBUILDPO ]   := .T.
+      CASE cParamL == "-inithbl"         ; hbmk[ _HBMK_lInitHBL ]     := .T.
       CASE cParamL == "-minipo"          ; hbmk[ _HBMK_lMINIPO ]      := .T.
       CASE cParamL == "-minipo-"         ; hbmk[ _HBMK_lMINIPO ]      := .F.
 #ifdef HB_LEGACY_LEVEL4
@@ -6840,7 +6843,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
       source files depend on them */
 
    IF hbmk[ _HBMK_nHBMODE ] != _HBMODE_RAW_C .AND. ! hbmk[ _HBMK_lCLEAN ]
-      IF Len( hbmk[ _HBMK_aPO ] ) > 0 .AND. hbmk[ _HBMK_cHBL ] != NIL
+      IF Len( hbmk[ _HBMK_aPO ] ) > 0 .AND. hbmk[ _HBMK_cHBL ] != NIL .AND. ;
+         hbmk[ _HBMK_lInitHBL ]
          MakeHBL( hbmk, .T. )
       ENDIF
    ENDIF
@@ -18537,6 +18541,7 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
       { "-po=<output>"       , I_( "create/update .po file from source. Merge it with previous .po file of the same name" ) }, ;
       { "-minipo[-]"         , I_( "do (not) add source file reference to .po (default: add them)" ) }, ;
       { "-rebuildpo"         , I_( "recreate .po file, thus removing all obsolete entries in it" ) }, ;
+      { "-inithbl"           , I_( "if they are missing, create empty .hbl file(s) before starting the build" ) }, ;
       , ;
       { "-hbx=<n[.hbx>]>"    , H_( "create Harbour header (in .hbx format) with all external symbols. Empty parameter will disable it. Default extension is .hbx. If set, <n> will be automatically added to the list of Harbour input files and built into the project. Therefore, the name part of <n> must not be the same as any other input file present in the project." ) }, ;
       { "-hbx[-]"            , H_( "update (or don't) .hbx file specified in -hbx= option (default: update)" ) }, ;
