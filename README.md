@@ -349,7 +349,7 @@ You only need to use manual setup if the dependency isn't available on your
 platform on a system location, or you wish to use a non-standard location.
 Typically, you need to do this on non-\*nix (Windows, MS-DOS, OS/2) systems
 for all packages and for a few packages on \*nix which are not available
-through official package managers (f.e. ADS Client).
+via official package managers (f.e. ADS Client).
 
 Note that Harbour is tuned to use 3rd party **binary** packages in their
 default, unmodified &ndash; "vanilla" &ndash; install layout created by their
