@@ -972,12 +972,14 @@ static int hb_hsxLock( int iHandle, int iAction, HB_ULONG ulRecord )
             iRetVal = hb_hsxFlush( iHandle );
             if( iAction == HSX_APPENDLOCK )
                pHSX->fWrLocked = HB_FALSE;
+            /* fallthrough */
          case HSX_HDRWRITEUNLOCK:
          {
             int iRet = hb_hsxHdrFlush( iHandle );
             if( iRetVal == HSX_SUCCESS )
                iRetVal = iRet;
          }
+            /* fallthrough */
          case HSX_HDRREADUNLOCK:
             if( ! hb_fileLock( pHSX->pFile, HSX_HDRLOCKPOS, HSX_HDRLOCKSIZE,
                                FL_UNLOCK ) )

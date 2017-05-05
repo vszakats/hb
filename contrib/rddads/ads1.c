@@ -1840,7 +1840,7 @@ static HB_ERRCODE adsCreateFields( ADSAREAP pArea, PHB_ITEM pStruct )
                dbFieldInfo.uiFlags &= HB_FF_NULLABLE;
                break;
             }
-            /* no break */
+            /* fallthrough */
 
          case '@':
 #if ADS_LIB_VERSION >= 900
@@ -2082,7 +2082,7 @@ static HB_ERRCODE adsFieldInfo( ADSAREAP pArea, HB_USHORT uiIndex, HB_USHORT uiT
             hb_itemPutC( pItem, "CICHARACTER" );
             break;
          }
-         /* no break */
+         /* fallthrough */
       }
 #endif
       default:

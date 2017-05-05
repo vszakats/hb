@@ -958,7 +958,7 @@ int hb_printf_params( const char * format )
                      format += 2;
                      c = *format++;
                   }
-                  /* no break; */
+                  /* fallthrough */
                default:
                   break;
             }
@@ -1204,7 +1204,7 @@ int hb_vsnprintf( char * buffer, size_t bufsize, const char * format, va_list ap
                         format += 2;
                         c = *format++;
                      }
-                     /* no break; */
+                     /* fallthrough */
                   default:
                      length = _L_UNDEF_;
                      break;
@@ -1224,7 +1224,7 @@ int hb_vsnprintf( char * buffer, size_t bufsize, const char * format, va_list ap
                       * valid parameters order
                       */
                      c = ( c == 'a' || c == 'e' || c == 'g' ) ? 'f' : 'F';
-                     /* no break; */
+                     /* fallthrough */
                   case 'f':   /* double decimal notation */
                   case 'F':   /* double decimal notation */
                      if( length == _L_LONGDOUBLE_ )

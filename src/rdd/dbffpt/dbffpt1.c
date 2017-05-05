@@ -1197,6 +1197,7 @@ static HB_ULONG hb_fptCountSMTItemLength( FPTAREAP pArea, PHB_ITEM pItem,
             break;
          }
       }
+         /* fallthrough */
       case HB_IT_DOUBLE:
          ulSize = 11;
          break;
@@ -1335,6 +1336,7 @@ static void hb_fptStoreSMTItem( FPTAREAP pArea, PHB_ITEM pItem, HB_BYTE ** bBufP
             break;
          }
       }
+         /* fallthrough */
       case HB_IT_DOUBLE:
       {
          double dVal = hb_itemGetND( pItem );

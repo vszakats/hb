@@ -2085,7 +2085,7 @@ static LRESULT CALLBACK hb_gt_wvt_WndProc( HWND hWnd, UINT message, WPARAM wPara
                   hb_vmRequestRestore();
                }
             }
-            { /* To mix gui/cui items */
+            { /* To mix GUI/CUI items */
                PHB_ITEM pEvParams = hb_itemArrayNew( 3 );
 
                hbwapi_arraySet_HANDLE( pEvParams, 1, hWnd );
@@ -2104,6 +2104,7 @@ static LRESULT CALLBACK hb_gt_wvt_WndProc( HWND hWnd, UINT message, WPARAM wPara
 
          case WM_LBUTTONUP:
             SetFocus( hWnd );
+            /* fallthrough */
          case WM_RBUTTONDOWN:
          case WM_LBUTTONDOWN:
          case WM_MBUTTONDOWN:

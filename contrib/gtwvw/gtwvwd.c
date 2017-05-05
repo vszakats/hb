@@ -3250,7 +3250,7 @@ static LRESULT CALLBACK hb_gt_wvwWndProc( HWND hWnd, UINT message, WPARAM wParam
             }
             return 0;
          }
-      /* FIXME: break or return? */
+         break;
 
       case WM_MOVE:
 
@@ -3268,7 +3268,7 @@ static LRESULT CALLBACK hb_gt_wvwWndProc( HWND hWnd, UINT message, WPARAM wParam
             }
             return 0;
          }
-      /* FIXME: break or return? */
+         break;
 
       case WM_CTLCOLORSTATIC:
       case WM_CTLCOLOREDIT:
@@ -3287,9 +3287,9 @@ static LRESULT CALLBACK hb_gt_wvwWndProc( HWND hWnd, UINT message, WPARAM wParam
             if( res != -1 )
                return res;
          }
-         /* FIXME: break or return? */
+         break;
       }
-      case WM_SYSCOMMAND: /* handle system menu items */  /*SP-ADDED*/
+      case WM_SYSCOMMAND:  /* handle system menu items */
          if( s_wvw->iNumWindows != nWin + 1 )
             hb_gt_wvwInputNotAllowed( nWin, message, wParam, lParam );
          else
@@ -3306,7 +3306,7 @@ static LRESULT CALLBACK hb_gt_wvwWndProc( HWND hWnd, UINT message, WPARAM wParam
                   hb_gt_wvwHandleMenuSelection( ( int ) LOWORD( wParam ) );
             }
          }
-      /* FIXME: break or return? */
+         break;
 
       case WM_DRAWITEM:
 
@@ -3341,7 +3341,7 @@ static LRESULT CALLBACK hb_gt_wvwWndProc( HWND hWnd, UINT message, WPARAM wParam
 
             return 0;
          }
-         /* FIXME: break or return? */
+         break;
    }
    return DefWindowProc( hWnd, message, wParam, lParam );
 }
