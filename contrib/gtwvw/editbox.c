@@ -373,7 +373,7 @@ static LRESULT CALLBACK hb_gt_wvw_EBProc( HWND hWnd, UINT message, WPARAM wParam
             case VK_RETURN:
                if( fMultiline || bAlt || bShift || bCtrl )
                   break;
-               else if( ! fMultiline )
+               else
                {
                   SetFocus( hWndParent );
                   PostMessage( hWndParent, message, wParam, lParam );
@@ -381,7 +381,6 @@ static LRESULT CALLBACK hb_gt_wvw_EBProc( HWND hWnd, UINT message, WPARAM wParam
                }
 
             case VK_ESCAPE:
-
                if( bAlt || bShift || bCtrl )
                   break;
                else
@@ -393,7 +392,6 @@ static LRESULT CALLBACK hb_gt_wvw_EBProc( HWND hWnd, UINT message, WPARAM wParam
 
             case VK_UP:
             case VK_DOWN:
-
             case VK_PRIOR:
             case VK_NEXT:
                if( fMultiline )
@@ -408,7 +406,6 @@ static LRESULT CALLBACK hb_gt_wvw_EBProc( HWND hWnd, UINT message, WPARAM wParam
             case VK_TAB:
                if( ! bCtrl && ! bAlt )
                {
-
                   SetFocus( hWndParent );
                   PostMessage( hWndParent, message, wParam, lParam );
                   return 0;
