@@ -574,6 +574,7 @@ void hb_compVariableAdd( HB_COMP_DECL, const char * szVarName, PHB_VARTYPE pVarT
             }
             break;
          }
+
          case HB_VSCOMP_TH_STATIC:
             pVar->uiFlags = HB_VSCOMP_THREAD;
             /* fallthrough */

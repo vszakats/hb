@@ -1938,7 +1938,7 @@ static HB_ERRCODE hb_waRddInfo( LPRDDNODE pRDD, HB_USHORT uiIndex, HB_ULONG ulCo
             break;
          }
       }
-         /* fallthrough */ /* return HB_FAILURE */
+      /* fallthrough */ /* return HB_FAILURE */
       case RDDI_TABLEEXT:
       case RDDI_ORDBAGEXT:
       case RDDI_ORDEREXT:
