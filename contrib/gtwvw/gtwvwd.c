@@ -170,8 +170,6 @@ static void    hb_gt_wvw_FUNCPrologue( int iNumCoord, int * iRow1, int * iCol1, 
 static void    hb_gt_wvw_FUNCEpilogue( void );
 
 /* functions created in order to allow us operating MainCoord Mode: */
-static void    hb_gt_wvw_mouse_vInit( void );
-static void    hb_gt_wvw_mouse_vExit( void );
 static void    hb_gt_wvw_mouse_vSetPos( PWVW_WIN wvw_win, int iRow, int iCol );
 static int     hb_gt_wvw_vDispCount( PWVW_WIN wvw_win );
 static void    hb_gt_wvw_vDispBegin( PWVW_WIN wvw_win );
@@ -1044,15 +1042,12 @@ static void hb_gt_wvw_mouse_Init( PHB_GT pGT )
 {
    HB_SYMBOL_UNUSED( pGT );
 
-   hb_gt_wvw_mouse_vInit();
    hb_gt_wvw_CreateToolTipWindow( s_wvw->pWin[ 0 ] );
 }
 
 static void hb_gt_wvw_mouse_Exit( PHB_GT pGT )
 {
    HB_SYMBOL_UNUSED( pGT );
-
-   hb_gt_wvw_mouse_vExit();
 }
 
 static HB_BOOL hb_gt_wvw_mouse_IsPresent( PHB_GT pGT )
@@ -4857,16 +4852,6 @@ int hb_gt_wvw_SetCurWindow( int nWin )
 /* DONE: These all are to be made window selective!
          all row and col are relative to its own window! */
 /* Budyanto Dj. <budyanto@centrin.net.id> */
-
-/* NOTE: works for topmost window only */
-static void hb_gt_wvw_mouse_vInit( void )
-{
-   hb_gt_wvw_mouse_vSetPos( s_wvw->pWin[ s_wvw->iNumWindows - 1 ], 0, 0 );
-}
-
-static void hb_gt_wvw_mouse_vExit( void )
-{
-}
 
 static void hb_gt_wvw_mouse_vSetPos( PWVW_WIN wvw_win, int iRow, int iCol )
 {
