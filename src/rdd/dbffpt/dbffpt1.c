@@ -3704,8 +3704,7 @@ static HB_ERRCODE hb_fptPutVarField( FPTAREAP pArea, HB_USHORT uiIndex, PHB_ITEM
          }
          else if( HB_IS_NUMBER( pItem ) )
          {
-            HB_MAXINT lVal;
-            lVal = hb_itemGetNInt( pItem );
+            HB_MAXINT lVal = hb_itemGetNInt( pItem );
 
             if( ! HB_IS_DOUBLE( pItem ) && HB_LIM_INT32( lVal ) )
             {
