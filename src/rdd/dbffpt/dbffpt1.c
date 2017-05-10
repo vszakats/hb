@@ -315,9 +315,9 @@ static HB_ERRCODE hb_fptPutRootBlock( FPTAREAP pArea, HB_ULONG ulBlock )
 /*
    GARBAGE COLLECTOR:
    I don't have any documentation about it. All I know is reverse engineering
-   or analyzes of other sources. If any one can tell me sth more about it then
-   I will be really glad. I use method one for SixMemo and method 2 for FLEX
-   memos.
+   or analyzes of other sources. If any one can tell me something more about it
+   then I will be really glad. I use method one for SixMemo and method 2 for
+   FLEX memos.
 
    Method 1.
    FPTHEADER->reserved2[492]     is a list of free pages,

@@ -431,7 +431,7 @@ double hb_numRound( double dNum, int iDec )
  * numbers so we can decrease the precision to 15 digits and use
  * the cut part for proper rounding. It should resolve
  * most of problems. But if someone totally  not understand FL
- * and will try to convert big matrix or sth like that it's quite
+ * and will try to convert big matrix or something like that it's quite
  * possible that he chose one of the natural school algorithm which
  * works nice with real numbers but can give very bad results in FL.
  * In such case it could be good to decrease precision even more.

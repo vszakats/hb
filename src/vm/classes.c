@@ -1618,7 +1618,7 @@ static HB_ISIZ hb_clsSenderOffset( void )
       {
          nOffset = hb_stackItem( nOffset )->item.asSymbol.stackstate->nBaseItem;
 
-         /* I do not like it but Class(y) makes sth like that. [druzus] */
+         /* I do not like it but Class(y) makes something like that. [druzus] */
          while( nOffset > 0 &&
                 hb_stackItem( nOffset )->item.asSymbol.stackstate->uiClass == 0 )
             nOffset = hb_stackItem( nOffset )->item.asSymbol.stackstate->nBaseItem;

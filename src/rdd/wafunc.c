@@ -606,7 +606,7 @@ HB_ERRCODE hb_rddOpenTable( const char * szFileName, const char * szDriver,
    hb_rddSetNetErr( HB_FALSE );
 
    /* Now check parameters, first RDD name.
-    * Clipper seems to make sth like:
+    * Clipper seems to make something like:
     *    if( szDriver && strlen( szDriver ) > 1 )
     * but I do not think we should replicate it, [druzus]
     */

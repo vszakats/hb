@@ -1343,7 +1343,7 @@ void hb_vmExecute( const HB_BYTE * pCode, PHB_SYMB pSymbols )
          *piKeyPolls = 65536;
 
          /* IMHO we should have a _SET_ controlled by user
-          * sth like:
+          * something like:
 
          if( hb_stackSetStruct()->HB_SET_KEYPOLL )
          {

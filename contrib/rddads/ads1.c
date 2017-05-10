@@ -465,7 +465,7 @@ static void adsGetKeyItem( ADSAREAP pArea, PHB_ITEM pItem, int iKeyType,
                ADT files can use ";" concatentation operator, which returns index key types as Raw
        */
       case ADS_RAW:
-         /* hack for timestamp values, we need sth better yo detect timestamp indexes */
+         /* hack for timestamp values, we need something better yo detect timestamp indexes */
          if( pArea->iFileType == ADS_ADT && pKeyBuf[ 0 ] == 0 && ( iKeyLen == 8 || iKeyLen == 4 ) )
          {
             long lDate;
@@ -2474,7 +2474,7 @@ static HB_ERRCODE adsGetValue( ADSAREAP pArea, HB_USHORT uiIndex, PHB_ITEM pItem
    {
       if( pArea->fPositioned )
       {
-         /* It should not happen - sth desynchronize WA with ADS,
+         /* It should not happen - something desynchronize WA with ADS,
             update area flags, Druzus */
          hb_adsUpdateAreaFlags( pArea );
       }
@@ -2513,7 +2513,7 @@ static HB_ERRCODE adsGetVarLen( ADSAREAP pArea, HB_USHORT uiIndex, HB_ULONG * ul
          *ulLen = 0;
       else if( AdsGetMemoLength( pArea->hTable, ADSFIELD( uiIndex ), &u32Len ) != AE_SUCCESS )
       {
-         /* It should not happen - sth desynchronize WA with ADS,
+         /* It should not happen - something desynchronize WA with ADS,
             update area flags, Druzus */
          hb_adsUpdateAreaFlags( pArea );
          *ulLen = 0;
