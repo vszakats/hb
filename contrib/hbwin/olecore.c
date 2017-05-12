@@ -852,21 +852,21 @@ static void hb_oleItemToVariantRef( VARIANT * pVariant, PHB_ITEM pItem,
          }
 #else
          V_VT( pVariant ) = VT_I8;
-   #if defined( HB_OLE_NO_LL )
+#  if defined( HB_OLE_NO_LL )
          /* workaround for wrong OLE variant structure definition */
          * ( ( HB_LONGLONG * ) &V_I4( pVariant ) ) = hb_itemGetNInt( pItem );
-   #else
+#  else
          V_I8( pVariant ) = hb_itemGetNInt( pItem );
-   #endif
+#  endif
          if( pVarRef )
          {
             V_VT( pVarRef ) = VT_I8 | VT_BYREF;
-   #if defined( HB_OLE_NO_LLREF ) || defined( HB_OLE_NO_LL )
+#  if defined( HB_OLE_NO_LLREF ) || defined( HB_OLE_NO_LL )
             /* workaround for wrong OLE variant structure definition */
             V_R8REF( pVarRef ) = &V_R8( pVariant );
-   #else
+#  else
             V_I8REF( pVarRef ) = &V_I8( pVariant );
-   #endif
+#  endif
          }
 #endif
          break;
@@ -1047,7 +1047,7 @@ static void hb_oleSafeArrayToItem( PHB_ITEM pItem, SAFEARRAY * pSafeArray,
                                    int iDim, long * plIndex, VARTYPE vt,
                                    HB_USHORT uiClass )
 {
-   long lFrom = 0, lTo = 0;
+   long lFrom, lTo;
 
    if( SafeArrayGetLBound( pSafeArray, iDim, &lFrom ) == S_OK &&
        SafeArrayGetUBound( pSafeArray, iDim, &lTo ) == S_OK &&
@@ -2348,8 +2348,6 @@ HB_FUNC( WIN_OLEAUTO___OPINDEX )
 
    if( lOleError != S_OK )
    {
-      HRESULT lOleErrorEnum;
-
       /* Try to detect if object is a collection */
       char * szDescription = NULL;
       char * szSource = NULL;
