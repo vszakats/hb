@@ -1049,10 +1049,9 @@ static void hb_oleSafeArrayToItem( PHB_ITEM pItem, SAFEARRAY * pSafeArray,
 {
    long lFrom = 0, lTo = 0;
 
-   SafeArrayGetLBound( pSafeArray, iDim, &lFrom );
-   SafeArrayGetUBound( pSafeArray, iDim, &lTo );
-
-   if( lFrom <= lTo )
+   if( SafeArrayGetLBound( pSafeArray, iDim, &lFrom ) == S_OK &&
+       SafeArrayGetUBound( pSafeArray, iDim, &lTo ) == S_OK &&
+       lFrom <= lTo )
    {
       HB_SIZE ul = 0;
 
@@ -1327,10 +1326,11 @@ void hb_oleVariantToItemEx( PHB_ITEM pItem, VARIANT * pVariant, HB_USHORT uiClas
       case VT_CY:
       case VT_CY | VT_BYREF:
       {
-         double dblVal = 0;
-         VarR8FromCy( V_VT( pVariant ) == VT_CY ?
-                      V_CY( pVariant ) :
-                      *V_CYREF( pVariant ), &dblVal );
+         double dblVal;
+         if( VarR8FromCy( V_VT( pVariant ) == VT_CY ?
+                          V_CY( pVariant ) :
+                          *V_CYREF( pVariant ), &dblVal ) != S_OK )
+            dblVal = 0;
          hb_itemPutND( pItem, dblVal );
          /* hb_itemPutNDLen( pItem, dblVal, 0, 4 ); */
          break;
@@ -1339,10 +1339,11 @@ void hb_oleVariantToItemEx( PHB_ITEM pItem, VARIANT * pVariant, HB_USHORT uiClas
       case VT_DECIMAL:
       case VT_DECIMAL | VT_BYREF:
       {
-         double dblVal = 0;
-         VarR8FromDec( V_VT( pVariant ) == VT_DECIMAL ?
-                       &HB_WIN_U1( pVariant, decVal ) :
-                       V_DECIMALREF( pVariant ), &dblVal );
+         double dblVal;
+         if( VarR8FromDec( V_VT( pVariant ) == VT_DECIMAL ?
+                           &HB_WIN_U1( pVariant, decVal ) :
+                           V_DECIMALREF( pVariant ), &dblVal ) != S_OK )
+            dblVal = 0;
          hb_itemPutND( pItem, dblVal );
          break;
       }
@@ -1821,7 +1822,7 @@ HB_FUNC( __OLEISDISP )
    hb_retl( hb_oleItemGet( hb_param( 1, HB_IT_ANY ) ) != NULL );
 }
 
-HB_FUNC( WIN_OLECLASSEXISTS )
+HB_FUNC( WIN_OLECLASSEXISTS ) /* ( cOleName | cCLSID ) */
 {
    HB_BOOL fExists = HB_FALSE;
    const char * cOleName = hb_parc( 1 );
@@ -1839,6 +1840,7 @@ HB_FUNC( WIN_OLECLASSEXISTS )
 
    hb_retl( fExists );
 }
+
 
 HB_FUNC( __OLECREATEOBJECT ) /* ( cOleName | cCLSID  [, cIID ] ) */
 {
@@ -2351,6 +2353,7 @@ HB_FUNC( WIN_OLEAUTO___OPINDEX )
       /* Try to detect if object is a collection */
       char * szDescription = NULL;
       char * szSource = NULL;
+      HRESULT lOleErrorEnum;
 
       if( lOleError == DISP_E_EXCEPTION )
          hb_oleExcepDescription( &excep, &szDescription, &szSource );
