@@ -369,7 +369,7 @@ static HB_ERRCODE hb_fptPutRootBlock( FPTAREAP pArea, HB_ULONG ulBlock )
    the number of items 2 - means branch node, 3-leaf node. The value in
    GC node is calculated as:
       ( nItem << 2 ) | FPTGCNODE_TYPE
-   Each item in branch node has 12 bytes and inside them 3 32bit little
+   Each item in branch node has 12 bytes and inside them 3 32-bit little
    endian values in pages sorted by offset the are:
       offset,size,subpage
    and in pages sorted by size:

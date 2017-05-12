@@ -65,8 +65,8 @@
 #include "hbapiitm.h"
 #include "hbapierr.h"
 
-#define CODE_START          0x2AFF  /* 17 bit width */
-#define CODE_STOP           0x2517F /* 18 bit width */
+#define CODE_START          0x2AFF  /* 17-bit width */
+#define CODE_STOP           0x2517F /* 18-bit width */
 
 #define LATCH_TEXT          900
 #define LATCH_BYTE          901
@@ -1015,9 +1015,9 @@ static int _pdf417_encode_text( const char * szCode, int iLen, int * pCW, int iP
 
 static int _pdf417_encode_numeric( const char * szCode, int iLen, int * pCW, int iPos )
 {
-   /* Some very long integer (147bit) arithmetics shoud be implemented to encode
+   /* Some very long integer (147-bit) arithmetics shoud be implemented to encode
       digits in an effective way. I use more simple way and encode digits in groups
-      not longer that 18 digits. 64bit integer arithmetics do this job */
+      not longer that 18 digits. 64-bit integer arithmetics do this job */
 
    int i, j;
 

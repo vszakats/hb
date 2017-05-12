@@ -249,7 +249,7 @@ void hb_md5( const void * data, HB_SIZE nLen, char * digest )
 
    /* perform startup procedures */
    hb_md5accinit( md5.accum );
-   /* count full 512bit blocks in data*/
+   /* count full 512-bit blocks in data*/
    n = nLen >> 6;
    /* process full blocks */
    for( i = 0; i < n; i++, ucdata += 64 )

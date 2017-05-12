@@ -451,7 +451,7 @@ HB_FUNC( TRANSFORM )
          if( ( uiPicFlags & ( PF_DEBIT | PF_PARNEG | PF_PARNEGWOS ) ) && dValue < 0 )
          {
             /* Always convert absolute val */
-            if( HB_IS_NUMINT( pValue ) ) /* workaround for 64bit integer conversion */
+            if( HB_IS_NUMINT( pValue ) ) /* workaround for 64-bit integer conversion */
                pNumber = hb_itemPutNInt( NULL, -hb_itemGetNInt( pValue ) );
             else
                pNumber = hb_itemPutND( NULL, -dValue );

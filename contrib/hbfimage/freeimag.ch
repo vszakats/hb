@@ -79,7 +79,8 @@
 
 #define FI_RGBA_RGB_MASK      hb_bitOr( FI_RGBA_RED_MASK, FI_RGBA_GREEN_MASK, FI_RGBA_BLUE_MASK )
 
-// The 16bit macros only include masks and shifts, since each color element is not byte aligned
+/* The 16-bit macros only include masks and shifts, since each color element
+   is not byte aligned */
 
 #define FI16_555_RED_MASK    0x7C00
 #define FI16_555_GREEN_MASK  0x03E0

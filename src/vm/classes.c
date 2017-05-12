@@ -390,7 +390,7 @@ static HB_USHORT hb_clsBucketPos( PHB_DYNS pMsg, HB_USHORT uiMask )
     */
 
    /* Using continuous symbol numbers we are 100% sure that we will cover
-    * the whole 16bit area and we will never have any problems until number
+    * the whole 16-bit area and we will never have any problems until number
     * of symbols is limited to 2^16. [druzus]
     */
    return ( pMsg->uiSymNum & uiMask ) << BUCKETBITS;
