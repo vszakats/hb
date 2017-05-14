@@ -703,6 +703,14 @@ EXTERNAL __dbgEntry
 #define _HBSH_lClipperComp      16
 #define _HBSH_MAX_              16
 
+#define _HBSHELL_EXEC_PRE       ""
+
+/* Allow to inject custom code at build-time. The goal is to help
+   adding necessary customizations for certain use-case. */
+#if defined( _HBMK2_EXTRA_CODE )
+#include "hbmk2_extra.prg"
+#endif
+
 /* Trick to make it run if compiled without -n/-n1/-n2
    (or with -n-) option.
    (typically as scripts and precompiled scripts) */
@@ -17116,6 +17124,7 @@ STATIC PROCEDURE __hbshell_Exec( cCommand )
       } )
 
    cFunc := ;
+      _HBSHELL_EXEC_PRE + _FIL_EOL + ;
       "STATIC FUNCTION __HBDOT()" + _FIL_EOL + ;
       "RETURN {||" + _FIL_EOL + ;
       "   " + cCommand + _FIL_EOL + ;
@@ -18353,6 +18362,11 @@ STATIC PROCEDURE ShowHeader( hbmk )
          Eval( hbmk[ _HBMK_bOut ], cText )
       ENDIF
    ENDIF
+
+#if defined( _HBMK2_EXTRA_CODE )
+   Eval( hbmk[ _HBMK_bOut ], _OUT_EOL )
+   Eval( hbmk[ _HBMK_bOut ], "This build contains build-time customizations." + _OUT_EOL )
+#endif
 
    Eval( hbmk[ _HBMK_bOut ], _OUT_EOL )
 
