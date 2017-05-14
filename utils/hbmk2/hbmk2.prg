@@ -783,6 +783,7 @@ STATIC PROCEDURE hbmk_local_entry( ... )
         hb_LeftEqI( hb_FNameName( hb_ProgName() ), "hbrun" ) .OR. ;
         cParam1L == "." .OR. ;
         hb_FNameExt( cParam1L ) == ".dbf" .OR. ;
+        ( hb_LeftEq( cParam1L, "-dbf:" ) .AND. Len( cParam1L ) > Len( "-dbf:" ) ) .OR. ;
         ( HBMK_IS_IN( hb_FNameExt( cParam1L ), ".hb|.hrb" ) .AND. ! hb_LeftEq( cParam1L, "-" ) ) ) .AND. ;
       !( ! Empty( cParam1L ) .AND. ;
          ( hb_LeftEq( cParam1L, "-hbreg" ) .OR. ;
@@ -16027,6 +16028,7 @@ STATIC PROCEDURE __hbshell( cFile, ... )
    LOCAL cVersion
    LOCAL cParamL
    LOCAL cFileOri
+   LOCAL lDbf
 
    /* get this before doing anything else */
    LOCAL lDebug := ;
@@ -16148,8 +16150,13 @@ STATIC PROCEDURE __hbshell( cFile, ... )
 
    /* Do the thing */
 
-   IF ! Empty( cFile )
-      cFile := hb_DirSepToOS( cFile )
+   cFile := hb_DirSepToOS( hb_defaultValue( cFile, "" ) )
+
+   IF hb_LeftEqI( cFile, "-dbf:" ) .AND. Len( cFile ) > Len( "-dbf:" )
+      cFile := SubStr( cFile, Len( "-dbf:" ) + 1 )
+      lDbf := .T.
+   ELSE
+      lDbf := .F.
    ENDIF
 
    IF cFile == "." .OR. Empty( hb_FNameName( cFile ) )
@@ -16157,11 +16164,11 @@ STATIC PROCEDURE __hbshell( cFile, ... )
       __hbshell_ext_init( aExtension )
       __hbshell_prompt( hb_AParams() )
 
-   ELSEIF ! Empty( cFile := FindInPath( cFileOri := cFile,, { ".hb", ".hrb" } ) )
+   ELSEIF ! Empty( cFile := FindInPath( cFileOri := cFile,, iif( lDbf, { ".dbf" }, { ".hb", ".hrb" } ) ) )
 
       hbsh[ _HBSH_cScriptName ] := hb_PathNormalize( PathMakeAbsolute( cFile, hb_cwd() ) )
 
-      cExt := Lower( hb_FNameExt( cFile ) )
+      cExt := iif( lDbf, ".dbf", Lower( hb_FNameExt( cFile ) ) )
 
       IF !( cExt == ".hb" .OR. ;
             cExt == ".hrb" .OR. ;
@@ -16243,7 +16250,7 @@ STATIC PROCEDURE __hbshell( cFile, ... )
          EXIT
       CASE ".dbf"
          __hbshell_ext_init( aExtension )
-         __hbshell_prompt( hb_AParams(), { "USE " + cFile + " SHARED", "Browse()" } )
+         __hbshell_prompt( hb_AParams(), { "USE " + cFile + " SHARED", "Browse() // '" + cFile + "'" } )
          EXIT
       ENDSWITCH
    ELSE
@@ -18415,7 +18422,7 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
    LOCAL aHdr_Syntax_Shell := { ;
       I_( "Syntax:" ), ;
       "", ;
-      "  " + hb_StrFormat( I_( "%1$s <file[.hb|.prg|.hrb|.dbf]>|<option> [%2$s]" ), cShell, I_( "<parameter[s]>" ) ) }
+      "  " + hb_StrFormat( I_( "%1$s <file[.hb|.prg|.hrb|.dbf|-dbf:dbf]>|<option> [%2$s]" ), cShell, I_( "<parameter[s]>" ) ) }
 
    LOCAL aHdr_Supp := { ;
       , ;
@@ -19102,7 +19109,8 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
          "directory and in PATH. If not extension is given, .hb and .hrb extensions are " + ;
          "searched, in that order. .dbf file will be opened automatically in shared mode and " + ;
          "interactive Harbour shell launched. " + ;
-         "Non-standard extensions will be auto-detected for source and precompiled script types. " + ;
+         ".dbf files with non-standard extension can be opened by prepending '-dbf:' to the file name. " + ;
+         "Otherwise, non-standard extensions will be auto-detected for source and precompiled script types. " + ;
          "Note, for Harbour scripts, the codepage is set to UTF-8 by default. The default " + ;
          "core header 'hb.ch' is automatically #included at the interactive shell prompt. " + ;
          "The default date format is the ISO standard: yyyy-mm-dd. " + ;
