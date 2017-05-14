@@ -18422,7 +18422,7 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
    LOCAL aHdr_Syntax_Shell := { ;
       I_( "Syntax:" ), ;
       "", ;
-      "  " + hb_StrFormat( I_( "%1$s <file[.hb|.prg|.hrb|.dbf|-dbf:dbf]>|<option> [%2$s]" ), cShell, I_( "<parameter[s]>" ) ) }
+      "  " + hb_StrFormat( I_( "%1$s <file[.hb|.prg|.hrb|.dbf]|-dbf:file>|<option> [%2$s]" ), cShell, I_( "<parameter[s]>" ) ) }
 
    LOCAL aHdr_Supp := { ;
       , ;
