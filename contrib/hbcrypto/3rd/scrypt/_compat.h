@@ -14,4 +14,8 @@
 #define be64dec(x)    HB_GET_BE_UINT64(x)
 #define be64enc(x,y)  HB_PUT_BE_UINT64(x,y)
 
+#ifndef SIZE_MAX
+#define SIZE_MAX  HB_SIZE_MAX
+#endif
+
 #endif

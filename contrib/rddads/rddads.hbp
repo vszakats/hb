@@ -11,6 +11,7 @@
 
 -depurlbase=ads:https://devzone.advantagedatabase.com/dz/content.aspx?Key=20
 -depkeyhead=ads:ace.h
+-depcontrol=ads:no{HB_BUILD_3RDEXT='no'}
 -depcontrol=ads:${HB_WITH_ADS}
 -depincpath=ads:/usr/local/ads/acesdk
 -depincpath=ads:${HOME}/ads/acesdk
