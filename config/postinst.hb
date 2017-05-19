@@ -184,8 +184,12 @@ PROCEDURE Main( ... )
          cDynVersionComp := GetEnvC( "HB_DYNLIB_PREF" ) + GetEnvC( "HB_DYNLIB_BASE" ) + GetEnvC( "HB_DYNLIB_POSC" ) + GetEnvC( "HB_DYNLIB_EXT" ) + GetEnvC( "HB_DYNLIB_PEXC" )
          cDynVersionless := GetEnvC( "HB_DYNLIB_PREF" ) + GetEnvC( "HB_DYNLIB_BASE" )                               + GetEnvC( "HB_DYNLIB_EXT" )
 
-         mk_hb_vfLinkSym( cDynVersionFull, hb_DirSepToOS( GetEnvC( "HB_INSTALL_DYN" ) ) + hb_ps() + cDynVersionComp )
-         mk_hb_vfLinkSym( cDynVersionFull, hb_DirSepToOS( GetEnvC( "HB_INSTALL_DYN" ) ) + hb_ps() + cDynVersionless )
+         IF ! cDynVersionFull == cDynVersionComp
+            mk_hb_vfLinkSym( cDynVersionFull, hb_DirSepToOS( GetEnvC( "HB_INSTALL_DYN" ) ) + hb_ps() + cDynVersionComp )
+         ENDIF
+         IF ! cDynVersionFull == cDynVersionless
+            mk_hb_vfLinkSym( cDynVersionFull, hb_DirSepToOS( GetEnvC( "HB_INSTALL_DYN" ) ) + hb_ps() + cDynVersionless )
+         ENDIF
 
          DO CASE
          CASE hb_RightEq( GetEnvC( "HB_INSTALL_DYN" ), "/usr/lib/harbour" ) .OR. ;
@@ -193,8 +197,12 @@ PROCEDURE Main( ... )
               hb_RightEq( GetEnvC( "HB_INSTALL_DYN" ), "/usr/local/lib/harbour" ) .OR. ;
               hb_RightEq( GetEnvC( "HB_INSTALL_DYN" ), "/usr/local/lib64/harbour" )
 
-            mk_hb_vfLinkSym( "harbour" + hb_ps() + cDynVersionFull, hb_DirSepToOS( GetEnvC( "HB_INSTALL_DYN" ) + "/../" ) + cDynVersionless )
-            mk_hb_vfLinkSym( "harbour" + hb_ps() + cDynVersionFull, hb_DirSepToOS( GetEnvC( "HB_INSTALL_DYN" ) + "/../" ) + cDynVersionComp )
+            IF ! cDynVersionFull == cDynVersionless
+               mk_hb_vfLinkSym( "harbour" + hb_ps() + cDynVersionFull, hb_DirSepToOS( GetEnvC( "HB_INSTALL_DYN" ) + "/../" ) + cDynVersionless )
+            ENDIF
+            IF ! cDynVersionFull == cDynVersionComp
+               mk_hb_vfLinkSym( "harbour" + hb_ps() + cDynVersionFull, hb_DirSepToOS( GetEnvC( "HB_INSTALL_DYN" ) + "/../" ) + cDynVersionComp )
+            ENDIF
             mk_hb_vfLinkSym( "harbour" + hb_ps() + cDynVersionFull, hb_DirSepToOS( GetEnvC( "HB_INSTALL_DYN" ) + "/../" ) + cDynVersionFull )
 
          CASE GetEnvC( "HB_INSTALL_DYN" ) == "/usr/local/harbour/lib"
