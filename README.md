@@ -1439,7 +1439,7 @@ Supported shells per host platforms:
      * `HB_WITH_WATT` - Watt-32 (TCP/IP sockets) [dos, free software, open-source]
         * <http://www.watt-32.net/>
      * `HB_WITH_ZLIB` - zlib [multi-platform, free software, open-source]
-        * <http://zlib.net/>
+        * <https://zlib.net/>
 
 * Tools:
 
