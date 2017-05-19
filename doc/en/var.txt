@@ -566,16 +566,12 @@
       value of given variable - the passed value is also returned
       as a value of the codeblock evaluation.
    $EXAMPLES$
-      PROCEDURE Main()
+      LOCAL cbSetGet
+      PUBLIC xPublic
 
-         LOCAL cbSetGet
-         PUBLIC xPublic
-
-         cbSetGet := MemVarBlock( "xPublic" )
-         Eval( cbSetGet, "new value" )
-         ? "Value of xPublic variable", Eval( cbSetGet )
-
-         RETURN
+      cbSetGet := MemVarBlock( "xPublic" )
+      Eval( cbSetGet, "new value" )
+      ? "Value of xPublic variable", Eval( cbSetGet )
    $STATUS$
       R
    $COMPLIANCE$

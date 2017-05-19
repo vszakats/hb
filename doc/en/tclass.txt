@@ -34,9 +34,8 @@
       `:New()`              Create a new instance of the class
    $EXAMPLES$
       PROCEDURE Main()
-         LOCAL oObject
+         LOCAL oObject := HBClass():New( "TMyClass" )
 
-         oObject := HBClass():New( "TMyClass" )
          oObject:End()
 
          RETURN

@@ -203,7 +203,7 @@ METHOD NewFile() CLASS GenerateHTML
       "rel", "stylesheet", ;
       "crossorigin", "anonymous", ;
       "referrerpolicy", "no-referrer", ;
-      "href", "https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism-okaidia.min.css", ;
+      "href", "https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/themes/prism-okaidia.min.css", ;
       "integrity", "sha384-XHIkHrF2GAIZf8n8FpuN43YPTV4JE4h3je69N9L1dZavZmxbmZlQCO1X/6Y/cge2" )
 
    ::OpenTag( "link", ;
@@ -354,12 +354,12 @@ METHOD Generate() CLASS GenerateHTML
 
    ::OpenTagInline( "script", ;
       "crossorigin", "anonymous", ;
-      "src", "https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js", ;
-      "integrity", "sha384-HpkS83c/Act8anQUmwtXWIJ3bZGVZNWMTo10lp+qCNLSRKseSYXNCqTiJeJ4Atg+" ):CloseTag( "script" )
+      "src", "https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js", ;
+      "integrity", "sha384-rYrm3wzug6YeKl/b+fTQ97I5TVSAs/vakIvEwzeyXUXS2SxYvgi7sBHZuV/UqZWf" ):CloseTag( "script" )
 
    ::OpenTagInline( "script", ;
       "crossorigin", "anonymous", ;
-      "src", "https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/components/prism-c.min.js", ;
+      "src", "https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-c.min.js", ;
       "integrity", "sha384-IDvyyshYqx4mSDbCy1jZXIyYtgY0TQ7yTX/qOQ93pN1I3ETUkZD9Nb5joIteiFIC" ):CloseTag( "script" )
 
    ::super:Generate()

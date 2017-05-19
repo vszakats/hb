@@ -30,11 +30,11 @@
    $EXAMPLES$
       PROCEDURE Main()
 
-         FIELD Id
-         FIELD Name
+         FIELD first
+         FIELD age
          USE test.dbf NEW
-         Name := "Sales"
-         Id := 5
+         first := "FirstName"
+         age := 25
          dbCloseArea()
 
          RETURN
