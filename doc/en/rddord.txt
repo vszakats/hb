@@ -75,11 +75,11 @@
    $EXAMPLES$
       USE test VIA "DBFCDX" NEW
       SET INDEX TO test
-      ordBagName( "TeName" )        // Returns: Customer
-      ordBagName( "TeLast" )        // Returns: Customer
-      ordBagName( "teZip" )         // Returns: Customer
+      ? ordBagName( "TeName" )    // Returns: Customer
+      ? ordBagName( "TeLast" )    // Returns: Customer
+      ? ordBagName( "teZip" )     // Returns: Customer
       ordSetFocus( "TeName" )
-      ? OrderBagName()              // Returns: Custumer
+      ? ordBagName()              // Returns: Custumer
    $STATUS$
       S
    $COMPLIANCE$
@@ -201,11 +201,11 @@
       added. It is does exist, then the <cOrderBagName> replaces the former
       name in the order list in the current or specified work area.
    $EXAMPLES$
-      USE test VIA "DBFNDX" NEW
-      ordCreate( "FNAME",, "test->fName" )
+      USE test VIA "DBFNTX" NEW
+      ordCreate( "FNAME",, "test->first" )
 
       USE test VIA "DBFCDX" NEW
-      ordCreate( , "lName", "test->lName" )
+      ordCreate( , "LNAME", "test->last" )
    $STATUS$
       S
    $COMPLIANCE$
@@ -298,8 +298,8 @@
       Order.
    $EXAMPLES$
       USE test NEW VIA "DBFCDX"
-      INDEX ON field->ID TO test FOR field->ID > 100
-      ordFor( "test" )   // Returns: field->ID > 100
+      INDEX ON field->first TO test FOR field->age > 50
+      ? ordFor( "test" )    // Returns: field->age > 50
    $STATUS$
       S
    $COMPLIANCE$
@@ -341,12 +341,12 @@
 
    $EXAMPLES$
       USE test NEW VIA "DBFCDX"
-      INDEX ON field->fName TO test FOR field->fName > "CK"
-      INDEX ON field->Id    TO testid
+      INDEX ON field->first TO test FOR field->first > "CK"
+      INDEX ON field->age   TO testage
 
-      ordKey( "test" )      // Returns: field->fName
+      ? ordKey( "test" )    // Returns: field->first
       ordSetFocus( 2 )
-      ordKey()               // Returns: field->Id
+      ? ordKey()            // Returns: field->age
    $STATUS$
       S
    $COMPLIANCE$

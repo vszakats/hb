@@ -885,6 +885,7 @@
          RETURN
 
       STATIC PROCEDURE EmployeeLookup()
+         LOCAL cName
 
          ACCEPT "Employee name: " TO cName
          IF Employee->( dbSeek( cName ) )
@@ -1136,7 +1137,7 @@
       selected or aliased work area. It will not unlock an associated lock
       in a related databases.
    $EXAMPLES$
-      nId := 10
+      LOCAL nId := 10
       USE testid INDEX testid NEW
       IF testid->( dbSeek( nId ) )
          IF testid->( RLock() )
@@ -1174,7 +1175,7 @@
    $DESCRIPTION$
       This function will remove all file and record locks in all work area.
    $EXAMPLES$
-      nId := 10
+      LOCAL nId := 10
       USE test INDEX testid NEW
       IF testid->( dbSeek( nId ) )
          IF testid->( RLock() )

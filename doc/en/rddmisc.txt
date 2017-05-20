@@ -149,7 +149,6 @@
          dbSkip( -1 )
       ENDDO
       ? "Is Bof()", Bof()
-      dbCloseArea()
    $STATUS$
       R
    $COMPLIANCE$
@@ -186,7 +185,6 @@
    $EXAMPLES$
       USE test NEW INDEX test
       ZAP
-      dbCloseArea()
    $STATUS$
       R
    $COMPLIANCE$
@@ -219,11 +217,10 @@
       the function will return a logical false (.F.).
    $EXAMPLES$
       USE test NEW
-      dbGoto()
+      dbGoto( 10 )
       dbDelete()
-      ? "Is Record Deleted", Test->( Deleted() )
+      ? "Is Record Deleted", test->( Deleted() )
       dbRecall()
-      dbCloseArea()
    $STATUS$
       R
    $COMPLIANCE$
@@ -265,7 +262,6 @@
          dbSkip()
       ENDDO
       ? "Is Eof()", Eof()
-      dbCloseArea()
    $STATUS$
       R
    $COMPLIANCE$
@@ -298,8 +294,7 @@
       return 0.
    $EXAMPLES$
       USE test NEW
-      ? "This database has", test->( FCount() ), "fields"
-      dbCloseArea()
+      ? "This database has", hb_ntos( test->( FCount() ) ), "fields"
    $STATUS$
       R
    $COMPLIANCE$
@@ -336,7 +331,6 @@
    $EXAMPLES$
       USE test NEW
       ? test->( FieldGet( 1 ) )
-      dbCloseArea()
    $STATUS$
       R
    $COMPLIANCE$
@@ -377,7 +371,6 @@
       FOR x := 1 TO test->( FCount() )
          ? "Field Name:", FieldName( x )
       NEXT
-      dbCloseArea()
    $STATUS$
       R
    $COMPLIANCE$
@@ -413,8 +406,7 @@
       function will return a 0.
    $EXAMPLES$
       USE test NEW
-      ? test->( FieldPos( "ID" ) )
-      dbCloseArea()
+      ? test->( FieldPos( "LAST" ) )
    $STATUS$
       R
    $COMPLIANCE$
@@ -453,8 +445,7 @@
       the function will return a NIL data type
    $EXAMPLES$
       USE test NEW
-      FieldPut( 1, "Mr. Jones" )
-      dbCloseArea()
+      ? FieldPut( 1, "Mr. Jones" )
    $STATUS$
       R
    $COMPLIANCE$
@@ -488,11 +479,12 @@
       database. This function will also unlock all records locks placed
       by the same network station.
    $EXAMPLES$
+      LOCAL nSum
       USE test NEW
       IF FLock()
-         SUM test->Ammount
+         SUM test->age TO nSum
+         ? nSum
       ENDIF
-      dbCloseArea()
    $STATUS$
       R
    $COMPLIANCE$
@@ -527,13 +519,12 @@
       flag, so that a Found() condition may be tested in unselected work
       areas by using an alias.
    $EXAMPLES$
-      nId := 100
+      LOCAL nId := 100
       USE test NEW INDEX test
       SEEK nId
       IF Found()
-         ? test->Name
+         ? test->first
       ENDIF
-      dbCloseArea()
    $STATUS$
       R
    $COMPLIANCE$
@@ -642,7 +633,6 @@
    $EXAMPLES$
       USE test NEW
       ? LUpdate()
-      dbCloseArea()
    $STATUS$
       R
    $COMPLIANCE$
@@ -688,15 +678,13 @@
    $EXAMPLES$
       USE test NEW
       IF ! NetErr()
-         INDEX ON field->First TO test
+         INDEX ON field->first TO test
          SET INDEX TO test
-         test->First := "Harbour"
-         SEEK "Harbour"
-         IF Found()
-            ? test->First
+         test->first := "Harbour"
+         IF dbSeek( "Harbour" )
+            ? test->first
          ENDIF
       ENDIF
-      dbCloseArea()
    $STATUS$
       R
    $COMPLIANCE$
@@ -735,7 +723,7 @@
       USE test NEW
       USE harbour NEW
       ? RecCount()
-      ? Test->( RecCount() )
+      ? test->( RecCount() )
       dbCloseAll()
    $STATUS$
       R
@@ -813,7 +801,7 @@
    $EXAMPLES$
       USE test NEW
       dbGoTop()
-      RecSize()            // Returns 1
+      RecSize()          // Returns 1
       dbGoto( 50 )
       RecSize()
    $STATUS$
@@ -863,14 +851,13 @@
 
       REPLACE (single record)
    $EXAMPLES$
-      nId := 10
+      LOCAL nId := 10
       USE testid INDEX testid NEW
       IF testid->( dbSeek( nId ) )
          IF testid->( RLock() )
             dbDelete()
          ENDIF
       ENDIF
-      dbCloseArea()
    $STATUS$
       R
    $COMPLIANCE$
@@ -904,6 +891,7 @@
       name <cAlias>. If no parameter is specified, the current work area will
       be the return value of the function.
    $EXAMPLES$
+      LOCAL cOldArea
       USE test NEW
       USE names NEW
       cOldArea := Select( "names" )
@@ -947,7 +935,7 @@
       USE test NEW
       USE names NEW
       ? Used()    // .T.
-      ? TESTS->( Used() ) //.T.
+      ? test->( Used() )  //.T.
       dbCloseArea()
       ? Used()    // .F.
       SELECT test
@@ -991,7 +979,6 @@
       dbGoto( 10 )
       DELETE NEXT 10
       PACK
-      dbCloseArea()
    $STATUS$
       R
    $COMPLIANCE$
