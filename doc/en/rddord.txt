@@ -24,12 +24,10 @@
 
       This function replaces the IndexOrd() function.
    $EXAMPLES$
-      USE test NEW VIA "DBFNTX"
+      USE test VIA "DBFNTX"
       ? ordBagExt()  // --> ".ntx"
-      dbCloseArea()
-      USE test NEW VIA "DBFCDX"
+      USE test VIA "DBFCDX"
       ? ordBagExt()  // --> ".cdx"
-      dbCloseArea()
    $STATUS$
       S
    $COMPLIANCE$
@@ -201,11 +199,11 @@
       added. It is does exist, then the <cOrderBagName> replaces the former
       name in the order list in the current or specified work area.
    $EXAMPLES$
-      USE test VIA "DBFNTX" NEW
-      ordCreate( "FNAME",, "test->first" )
+      USE test VIA "DBFNTX"
+      ? ordCreate( "FNAME",, "field->first" )
 
-      USE test VIA "DBFCDX" NEW
-      ordCreate( , "LNAME", "test->last" )
+      USE test VIA "DBFCDX"
+      ? ordCreate( , "LNAME", "field->last" )
    $STATUS$
       S
    $COMPLIANCE$
@@ -253,7 +251,7 @@
       and RDDADS drivers).
    $EXAMPLES$
       USE test VIA "DBFCDX" NEW
-      ordDestroy( "lName", "test" )
+      ? ordDestroy( "lName", "test" )
    $STATUS$
       S
    $COMPLIANCE$
@@ -344,9 +342,9 @@
       INDEX ON field->first TO test FOR field->first > "CK"
       INDEX ON field->age   TO testage
 
-      ? ordKey( "test" )    // --> "field->first"
+      ? ordKey( "test" )  // --> "field->first"
       ordSetFocus( 2 )
-      ? ordKey()            // --> "field->age"
+      ? ordKey()          // --> "field->age"
    $STATUS$
       S
    $COMPLIANCE$

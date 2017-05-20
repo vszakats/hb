@@ -725,10 +725,7 @@
       return a 0 value as well.
    $EXAMPLES$
       USE test NEW
-      USE harbour NEW
       ? RecCount()
-      ? test->( RecCount() )
-      dbCloseAll()
    $STATUS$
       R
    $COMPLIANCE$
@@ -766,9 +763,9 @@
    $EXAMPLES$
       USE test NEW
       dbGoTop()
-      RecNo()       // --> 1
+      ? RecNo()     // --> 1
       dbGoto( 50 )
-      RecNo()       // --> 50
+      ? RecNo()     // --> 50
    $STATUS$
       R
    $COMPLIANCE$
@@ -805,9 +802,9 @@
    $EXAMPLES$
       USE test NEW
       dbGoTop()
-      RecSize()     // --> 1
+      ? RecSize()   // --> 1
       dbGoto( 50 )
-      RecSize()
+      ? RecSize()
    $STATUS$
       R
    $COMPLIANCE$
@@ -855,12 +852,11 @@
 
       REPLACE (single record)
    $EXAMPLES$
-      LOCAL nId := 10
-      USE testid INDEX testid NEW
-      IF testid->( dbSeek( nId ) )
-         IF testid->( RLock() )
-            dbDelete()
-         ENDIF
+      LOCAL nAge := 50
+      USE test NEW
+      INDEX ON field->age TO test
+      IF dbSeek( nAge ) .AND. RLock()
+         dbDelete()
       ENDIF
    $STATUS$
       R

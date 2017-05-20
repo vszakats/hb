@@ -130,7 +130,7 @@
       multiple record locks during an appending operation. The
       default for this parameter is a logical false (.F.).
    $EXAMPLES$
-      LOCAL cName := "Harbour", nAge := 10
+      LOCAL cName := "Harbour", nAge := 15
       USE test
       test->( dbAppend() )
       test->first := cName
@@ -472,9 +472,10 @@
       In a networking situation, this function requires that the record
       be locked prior to issuing the dbDelete() function.
    $EXAMPLES$
-      LOCAL nId := 10
-      USE testid INDEX testid NEW
-      IF dbSeek( nId ) .AND. RLock()
+      LOCAL nAge := 50
+      USE test NEW
+      INDEX ON field->age TO test
+      IF dbSeek( nAge ) .AND. RLock()
          dbDelete()
       ENDIF
    $STATUS$
@@ -769,10 +770,10 @@
       LOCAL nRecNo
       USE test NEW
       dbGoto( 10 )
-      RLock()
+      ? RLock()
       dbGoto( 100 )
-      RLock()
-      FOR EACH tmp IN dbRLockList()
+      ? RLock()
+      FOR EACH nRecNo IN dbRLockList()
          ? nRecNo
       NEXT
    $STATUS$
@@ -1189,7 +1190,7 @@
    $DESCRIPTION$
       This function will remove all file and record locks in all work area.
    $EXAMPLES$
-      LOCAL nAge := 10
+      LOCAL nAge := 50
       USE test NEW
       INDEX ON field->age TO test
       IF test->( dbSeek( nAge ) )
