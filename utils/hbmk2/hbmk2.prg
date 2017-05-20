@@ -703,8 +703,6 @@ EXTERNAL __dbgEntry
 #define _HBSH_lClipperComp      16
 #define _HBSH_MAX_              16
 
-#define _HBSHELL_EXEC_PRE       ""
-
 /* Allow to inject custom code at build-time. The goal is to help
    adding necessary customizations for certain use-case. */
 #if defined( _HBMK2_EXTRA_CODE )
@@ -15884,6 +15882,9 @@ STATIC FUNCTION hbmk_CoreHeaderFiles()
       #xcommand ADD HEADER TO <hash> FILE <(cFile)> => ;
                 #pragma __streaminclude <(cFile)> | <hash>\[ <(cFile)> \] := %s
 
+#if defined( _HBSHELL_EXTRA_HEADER )
+      ADD HEADER TO t_hHeaders FILE _HBSHELL_EXTRA_HEADER
+#endif
 #if defined( HBMK_WITH_BUILTIN_HEADERS_ALL )
       ADD HEADER TO t_hHeaders FILE "achoice.ch"
       ADD HEADER TO t_hHeaders FILE "assert.ch"
@@ -16225,6 +16226,10 @@ STATIC PROCEDURE __hbshell( cFile, ... )
          FOR EACH tmp IN hbmk[ _HBMK_aCH ]
             AAdd( aOPTPRG, "-u+" + tmp )
          NEXT
+
+#if defined( _HBSHELL_EXTRA_HEADER )
+         AAdd( aOPTPRG, "-u+" + _HBSHELL_EXTRA_HEADER )
+#endif
 
          /* We can use this function as this is a GPL licenced application */
          cFile := hb_compileBuf( ;
@@ -17122,6 +17127,10 @@ STATIC PROCEDURE __hbshell_Exec( cCommand )
       hb_HEval( hbsh[ _HBSH_hCHCORE ], {| tmp | AAdd( aOPTPRG, "-u+" + tmp ) } )
    ENDIF
 
+#if defined( _HBSHELL_EXTRA_HEADER )
+   AAdd( aOPTPRG, "-u+" + _HBSHELL_EXTRA_HEADER )
+#endif
+
    hb_HEval( hbsh[ _HBSH_hINCPATH ], ;
       {| cExt |
          AEval( hbsh[ _HBSH_hINCPATH ][ cExt ], {| tmp | AAddNew( aOPTPRG, "-i" + tmp ) } )
@@ -17131,7 +17140,6 @@ STATIC PROCEDURE __hbshell_Exec( cCommand )
       } )
 
    cFunc := ;
-      _HBSHELL_EXEC_PRE + _FIL_EOL + ;
       "STATIC FUNCTION __HBDOT()" + _FIL_EOL + ;
       "RETURN {||" + _FIL_EOL + ;
       "   " + cCommand + _FIL_EOL + ;
