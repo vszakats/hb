@@ -250,14 +250,23 @@
       It is also used internally to implement `DO <proc> WITH <args...>`
       In this case <xFuncProc> is of type HB_SYMB.
    $EXAMPLES$
-      cbCode := {| x | MyFunc( x ) }
-      Do( cbCode, 1 )
+      LOCAL bCode, pFunction, cFunction
+
+      bCode := {| x | MyFunc( x ) }
+      ? Do( bCode, 1 )
+
+      pFunction := @MyFunc()
+      ? Do( pFunction, 2 )
 
       cFunction := "MyFunc"
-      xRetVal := Do( cFunction, 2 )
+      ? Do( cFunction, 3 )
 
       // Old style (slower):
-      DO &cFunction WITH 3
+      DO &cFunction WITH 4
+
+      FUNCTION MyFunc( n )
+         ? n
+         RETURN n + 1
    $COMPLIANCE$
       C
    $FILES$

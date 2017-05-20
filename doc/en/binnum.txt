@@ -221,7 +221,7 @@
          cYear  := I2Bin( 68 )
          cMonth := I2Bin(  8 )
          cDay   := I2Bin(  1 )
-         hb_vfWrite( hFile, cYear , 1 )   // write only the first byte
+         hb_vfWrite( hFile, cYear , 1 )  // write only the first byte
          hb_vfWrite( hFile, cMonth, 1 )
          hb_vfWrite( hFile, cDay  , 1 )
          hb_vfClose( hFile )
