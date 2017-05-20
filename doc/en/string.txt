@@ -742,17 +742,14 @@
       size of a hash table. If it is used with a multidimensional array it
       returns the size of the first dimension.
    $EXAMPLES$
-      PROCEDURE Main()
-         LOCAL cName
+      LOCAL cName
 
-         ? Len( "Harbour" )         // --> 7
-         ? Len( { "One", "Two" } )  // --> 2
+      ? Len( "Harbour" )         // --> 7
+      ? Len( { "One", "Two" } )  // --> 2
 
-         cName := ""
-         ACCEPT "Enter your name: " TO cName
-         ? Len( cName )
-
-         RETURN
+      cName := ""
+      ACCEPT "Enter your name: " TO cName
+      ? Len( cName )
    $STATUS$
       R
    $COMPLIANCE$
@@ -1365,7 +1362,7 @@
 
          RETURN
 
-      FUNCTION MakeEmpty( xField )
+      STATIC FUNCTION MakeEmpty( xField )
 
          LOCAL nRecord
          LOCAL xRetValue
@@ -1480,27 +1477,23 @@
       NOTE: new function, available after 2016-06-20 21:59 UTC+0200 commit,
             (it is not available in earlier versions).
    $EXAMPLES$
-      PROCEDURE Main()
+      LOCAL n := ( 5 / 2 ) + 0.009
 
-         LOCAL n := ( 5 / 2 ) + 0.009
-
-         ? hb_ntoc( n )    // --> 2.509
-         ? Str( n )        // -->          2.51
-         ? hb_ntoc( n, 2 ) // --> 2.51
-         ? Str( n, 5, 2 )  // -->  2.51
-         ? hb_ntos( n )    // --> 2.51
-         ? "--- decimals set to 7 ----"
-         SET DECIMALS TO 7
-         ? Str( n )        // -->          2.51
-         ? hb_ntoc( n )    // --> 2.509
-         ? Str( n, 10, 7 ) // -->  2.5090000
-         ? hb_ntoc( n, 7 ) // --> 2.509
-         ? "--- pass non numeric / NIL value ----"
-         ? hb_ntoc( "42" ) // --> null string
-         ? hb_ntoc()       // --> null string
-         ? Str( "42" )     // --> RTE
-
-         RETURN
+      ? hb_ntoc( n )    // --> 2.509
+      ? Str( n )        // -->          2.51
+      ? hb_ntoc( n, 2 ) // --> 2.51
+      ? Str( n, 5, 2 )  // -->  2.51
+      ? hb_ntos( n )    // --> 2.51
+      ? "--- decimals set to 7 ----"
+      SET DECIMALS TO 7
+      ? Str( n )        // -->          2.51
+      ? hb_ntoc( n )    // --> 2.509
+      ? Str( n, 10, 7 ) // -->  2.5090000
+      ? hb_ntoc( n, 7 ) // --> 2.509
+      ? "--- pass non numeric / NIL value ----"
+      ? hb_ntoc( "42" ) // --> null string
+      ? hb_ntoc()       // --> null string
+      ? Str( "42" )     // --> RTE
    $STATUS$
       R
    $COMPLIANCE$
@@ -1539,14 +1532,10 @@
       Essentially, `hb_ntos()` function is equivalent to
       `LTrim( Str( <nValue> ) )` but quite simpler and faster.
    $EXAMPLES$
-      PROCEDURE Main()
+      LOCAL n := ( 5 / 2 ) + 0.009
 
-         LOCAL n := ( 5 / 2 ) + 0.009
-
-         ? Str( n )        // -->          2.51
-         ? hb_ntos( n )    // --> 2.51
-
-         RETURN
+      ? Str( n )        // -->          2.51
+      ? hb_ntos( n )    // --> 2.51
    $STATUS$
       R
    $COMPLIANCE$

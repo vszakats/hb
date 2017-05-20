@@ -48,14 +48,12 @@
 
       2) The delimiters are removed (trimmed) from tokens.
    $EXAMPLES$
-      PROCEDURE Main()
-         LOCAL cString := "Harbour is proven to be stable, robust and efficient."
-         LOCAL aTokens := hb_ATokens( cString )
-         AEval( aTokens, {| token, n | QOut( hb_ntos(n), token ) } )
-         ?
-         aTokens := hb_ATokens( cString, "," )
-         AEval( aTokens, {| token, n | QOut( hb_ntos(n), token ) } )
-         RETURN
+      LOCAL cString := "Harbour is proven to be stable, robust and efficient."
+      LOCAL aTokens := hb_ATokens( cString )
+      AEval( aTokens, {| token, n | QOut( hb_ntos(n), token ) } )
+      ?
+      aTokens := hb_ATokens( cString, "," )
+      AEval( aTokens, {| token, n | QOut( hb_ntos(n), token ) } )
    $STATUS$
       R
    $COMPLIANCE$

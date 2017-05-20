@@ -32,14 +32,12 @@
       CA-Cl*pper v5.x compliant except that arrays in Harbour can have
       an unlimited number of elements.
    $EXAMPLES$
-      PROCEDURE Main()
-         LOCAL aArray := Array( 10 )
-         LOCAL x
-         FOR x := 1 TO Len( aArray )
-            aArray[ x ] := Array( x )
-         NEXT
-         // Result is: { { NIL }, { NIL, NIL }, ... }
-         RETURN
+      LOCAL aArray := Array( 10 )
+      LOCAL x
+      FOR x := 1 TO Len( aArray )
+         aArray[ x ] := Array( x )
+      NEXT
+      // Result is: { { NIL }, { NIL, NIL }, ... }
    $STATUS$
       R
    $COMPLIANCE$
@@ -528,13 +526,10 @@
       When <xSearch> is a code block, the operation of the function
       is slightly different. See AScan() for details.
    $EXAMPLES$
-      PROCEDURE Main()
-         LOCAL a := { "there", "here" }
-         ? AScan( a, "he" ) // --> 2
-         ? hb_AScan( a, "he",,,.F.) // --> 2
-         ? hb_AScan( a, "he",,,.T.) // --> 0
-         WAIT
-         RETURN
+      LOCAL a := { "there", "here" }
+      ? AScan( a, "he" ) // --> 2
+      ? hb_AScan( a, "he",,,.F.) // --> 2
+      ? hb_AScan( a, "he",,,.T.) // --> 0
    $STATUS$
       R
    $COMPLIANCE$
@@ -587,17 +582,14 @@
       thus any change being made to this value doesn't  affects the value of
       element in the array.
    $EXAMPLES$
-      PROCEDURE Main()
-         LOCAL a := { 10, 20, 30 }
-         AEval( a, {| e, n | QOut( e * n + 1 , a[ n ] ) } )
-         QOut( a[ 1 ], a[ 2 ], a[ 3 ] )  // array elements unchanged
-         ? "----"
-         AEval( a, {| e, n | QOut( e * n + 1, a[ n ] *= n + 1 ) }, 2, 1 )
-         // here the 2nd element been changed, because we've explicitly used
-         // its pointer 'a[ n ] *= ...' into array.
-         QOut( a[ 1 ], a[ 2 ], a[ 3 ] )
-         WAIT
-         RETURN
+      LOCAL a := { 10, 20, 30 }
+      AEval( a, {| e, n | QOut( e * n + 1 , a[ n ] ) } )
+      QOut( a[ 1 ], a[ 2 ], a[ 3 ] )  // array elements unchanged
+      ? "----"
+      AEval( a, {| e, n | QOut( e * n + 1, a[ n ] *= n + 1 ) }, 2, 1 )
+      // here the 2nd element been changed, because we've explicitly used
+      // its pointer 'a[ n ] *= ...' into array.
+      QOut( a[ 1 ], a[ 2 ], a[ 3 ] )
    $STATUS$
       R
    $COMPLIANCE$

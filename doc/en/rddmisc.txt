@@ -56,7 +56,7 @@
 
          RETURN
 
-      PROCEDURE PrintFields( nCount )
+      STATIC PROCEDURE PrintFields( nCount )
 
          LOCAL aNames  := Array( nCount )
          LOCAL aTypes  := Array( nCount )
@@ -371,17 +371,13 @@
       existing field in the designated or selected work area, this function
       will return a NULL byte.
    $EXAMPLES$
-      PROCEDURE Main()
+      LOCAL x
 
-         LOCAL x
-
-         USE test NEW
-         FOR x := 1 TO test->( FCount() )
-            ? "Field Name:", FieldName( x )
-         NEXT
-         dbCloseArea()
-
-         RETURN
+      USE test NEW
+      FOR x := 1 TO test->( FCount() )
+         ? "Field Name:", FieldName( x )
+      NEXT
+      dbCloseArea()
    $STATUS$
       R
    $COMPLIANCE$

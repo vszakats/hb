@@ -21,16 +21,14 @@
       This function yields the absolute value of the numeric value or
       expression <nNumber>.
    $EXAMPLES$
-      PROCEDURE Main()
-         LOCAL nNumber := 50
-         LOCAL nNumber1 := 27
-         CLS
+      LOCAL nNumber := 50
+      LOCAL nNumber1 := 27
 
-         ? nNumber - nNumber1
-         ? nNumber1 - nNumber
-         ? Abs( nNumber - nNumber1 )
-         ? Abs( nNumber1 - nNumber )
-         ? Abs( -1 * 345 )
+      ? nNumber - nNumber1
+      ? nNumber1 - nNumber
+      ? Abs( nNumber - nNumber1 )
+      ? Abs( nNumber1 - nNumber )
+      ? Abs( -1 * 345 )
    $STATUS$
       R
    $COMPLIANCE$

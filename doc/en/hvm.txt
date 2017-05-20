@@ -18,7 +18,8 @@
    $DESCRIPTION$
       This function is useful to check the value stored in an argument.
    $EXAMPLES$
-      PROCEDURE Test( nValue, cString )
+      Test( 123, "abc" )
+      STATIC PROCEDURE Test( nValue, cString )
          IF PCount() == 2
             ? hb_PValue( 1 ), nValue
             ? hb_PValue( 2 ), cString
@@ -57,7 +58,9 @@
       This function is useful to check if a function or procedure
       has received the required number of arguments.
    $EXAMPLES$
-      PROCEDURE Test( xExp )
+      Test()
+      Test( "abc" )
+      STATIC PROCEDURE Test( xExp )
          IF PCount() == 0
             ? "This function needs a parameter"
          ELSE
@@ -94,7 +97,9 @@
       This function terminates the current application and returns
       to the system.
    $EXAMPLES$
-      PROCEDURE EndApp( lYesNo )
+      EndApp( .F. )
+      EndApp( .T. )
+      STATIC PROCEDURE EndApp( lYesNo )
          IF lYesNo
             __Quit()
          ENDIF

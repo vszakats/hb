@@ -434,12 +434,11 @@
       Note: new function available after 2017-02-08 19:36 UTC+0100 commit,
             not found in earlier versions.
    $EXAMPLES$
-      PROCEDURE Main()
-         LOCAL nYear, nDayOfWeek
-         ? hb_Week( 0d20170215, @nYear, @nDayOfWeek ), nYear, nDayOfWeek
-         // output: 7, 2017, 3
-         ? hb_Week( 0d00000000, @nYear, @nDayOfWeek ), nYear, nDayOfWeek
-         // output: 0, 0, 0
+      LOCAL nYear, nDayOfWeek
+      ? hb_Week( 0d20170215, @nYear, @nDayOfWeek ), nYear, nDayOfWeek
+      // output: 7, 2017, 3
+      ? hb_Week( 0d00000000, @nYear, @nDayOfWeek ), nYear, nDayOfWeek
+      // output: 0, 0, 0
    $STATUS$
       R
    $COMPLIANCE$

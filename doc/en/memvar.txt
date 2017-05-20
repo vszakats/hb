@@ -28,16 +28,12 @@
       has no effect on memory variables or on field reference buried within
       a macro expression.
    $EXAMPLES$
-      PROCEDURE Main()
-
-         FIELD first
-         FIELD age
-         USE test.dbf NEW
-         first := "FirstName"
-         age := 25
-         dbCloseArea()
-
-         RETURN
+      FIELD first
+      FIELD age
+      USE test.dbf NEW
+      first := "FirstName"
+      age := 25
+      dbCloseArea()
    $STATUS$
       R
    $COMPLIANCE$
@@ -92,16 +88,13 @@
 
       LOCAL variables and arrays are not affected by the RELEASE command.
    $EXAMPLES$
-      PROCEDURE Main()
-         LOCAL n, lVar
+      LOCAL n, lVar := .T.
 
-         n := iif( lVar, "A", 3 )
-         n := 2
-         n := "a"
-         n := Seconds() + 2
-         n := Int( Seconds() + 2 )
-
-         RETURN
+      n := iif( lVar, "A", 3 )
+      n := 2
+      n := "a"
+      n := Seconds() + 2
+      n := Int( Seconds() + 2 )
    $STATUS$
       R
    $COMPLIANCE$
@@ -144,19 +137,16 @@
    $EXAMPLES$
       MEMVAR y AS NUMERIC
 
-      PROCEDURE Main()
-         LOCAL n, lVar
+      LOCAL n, lVar := .T.
 
-         n := iif( lVar, "A", 3 )
-         n := 2
-         n := "a"
-         n := Seconds() + 2
-         n := Int( Seconds() + 2 )
-         y := n
+      n := iif( lVar, "A", 3 )
+      n := 2
+      n := "a"
+      n := Seconds() + 2
+      n := Int( Seconds() + 2 )
+      y := n
 
-         ? y
-
-         RETURN
+      ? y
    $STATUS$
       R
    $COMPLIANCE$

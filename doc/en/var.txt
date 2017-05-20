@@ -123,7 +123,7 @@
 
          RETURN
 
-      PROCEDURE Test()
+      STATIC PROCEDURE Test()
 
          PRIVATE mPrivate := "PRIVATE from Test()"
 
@@ -224,7 +224,7 @@
 
          RETURN
 
-      PROCEDURE CallProc()
+      STATIC PROCEDURE CallProc()
 
          PRIVATE mPrivateLocal
 
@@ -373,7 +373,7 @@
 
          RETURN
 
-      PROCEDURE CountMemvars()
+      STATIC PROCEDURE CountMemvars()
 
          LOCAL i, nCnt, xVal, cName
 
@@ -478,7 +478,8 @@
       this variable exists otherwise it generates a runtime error.
       The variable is specified by its name passed as the function parameter.
    $EXAMPLES$
-      FUNCTION MemVarBlock( cMemvar )
+      ? ValType( MemVarBlock( "myvar" ) )
+      STATIC FUNCTION MemVarBlock( cMemvar )
          RETURN {| x | ;
             iif( PCount() == 0, ;
                __mvGet( cMemvar ), ;
@@ -522,7 +523,8 @@
       parameter.
       If a value is not specified then the NIL is assumed
    $EXAMPLES$
-      FUNCTION MemVarBlock( cMemvar )
+      ? ValType( MemVarBlock( "myvar" ) )
+      STATIC FUNCTION MemVarBlock( cMemvar )
          RETURN {| x | ;
             iif( PCount() == 0, ;
                __mvGet( cMemvar ), ;

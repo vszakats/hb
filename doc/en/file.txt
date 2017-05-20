@@ -518,7 +518,7 @@
       // cB = a string buffer passed-by-reference to hold the result
       // nMaxLine = maximum number of bytes to read
 
-      FUNCTION FReadLn( nH, cB, nMaxLine )
+      STATIC FUNCTION FReadLn( nH, cB, nMaxLine )
          LOCAL cLine, nSavePos, nEol, nNumRead
          cLine := Space( nMaxLine )
          cB := ""

@@ -25,13 +25,11 @@
    $EXAMPLES$
       #include "error.ch"
       REQUEST HB_LANG_ES
-      PROCEDURE Main()
-         // English: Argument error
-         ? "English:", hb_langErrMsg( EG_ARG )
-         hb_langSelect( "es" )
-         // Spanish: Error de argumento
-         ? "Spanish:", hb_langErrMsg( EG_ARG )
-         RETURN
+      // English: Argument error
+      ? "English:", hb_langErrMsg( EG_ARG )
+      hb_langSelect( "es" )
+      // Spanish: Error de argumento
+      ? "Spanish:", hb_langErrMsg( EG_ARG )
    $STATUS$
       R
    $COMPLIANCE$
@@ -75,14 +73,12 @@
    $EXAMPLES$
       #include "hblang.ch"
       REQUEST HB_LANG_ES
-      PROCEDURE Main()
-         // English: Monday
-         ? "English:", hb_langMessage( HB_LANG_ITEM_BASE_DAY + 1 )
-         hb_langSelect( "es" )
-         // Spanish: Lunes
-         ? "Spanish:", hb_langMessage( HB_LANG_ITEM_BASE_DAY + 1 )
-         ? "English:", hb_langMessage( HB_LANG_ITEM_BASE_DAY + 1, "en" )
-         RETURN
+      // English: Monday
+      ? "English:", hb_langMessage( HB_LANG_ITEM_BASE_DAY + 1 )
+      hb_langSelect( "es" )
+      // Spanish: Lunes
+      ? "Spanish:", hb_langMessage( HB_LANG_ITEM_BASE_DAY + 1 )
+      ? "English:", hb_langMessage( HB_LANG_ITEM_BASE_DAY + 1, "en" )
    $STATUS$
       R
    $COMPLIANCE$
@@ -124,21 +120,19 @@
       REQUEST HB_LANG_RO
       REQUEST HB_LANG_ES
       REQUEST HB_LANG_HU
-      PROCEDURE Main()
-         ? hb_langName( "hu" )
-         ? hb_langName( "<non-existent>" )
-         hb_langSelect( "pt" )       // Default language is now Portuguese
-         ? CDoW( Date() )            // Segunda-feira
-         ? "Current language is", hb_langName()              // Portuguese
-         ? "Old language id selected is", hb_langSelect()    // PT
-         hb_langSelect( "ro" )       // Default language is now Romanian
-         ? CMonth( Date() )          // Mai
-         ? "Old language id selected is", hb_langSelect()    // RO
-         hb_langSelect( "es" )       // Default language is now Spanish
-         ? "Current language is", hb_langName()              // Spanish
-         ? CMonth( Date() )          // Mayo
-         ? CDoW( Date() )            // Lunes
-         RETURN
+      ? hb_langName( "hu" )
+      ? hb_langName( "<non-existent>" )
+      hb_langSelect( "pt" )       // Default language is now Portuguese
+      ? CDoW( Date() )            // Segunda-feira
+      ? "Current language is", hb_langName()              // Portuguese
+      ? "Old language id selected is", hb_langSelect()    // PT
+      hb_langSelect( "ro" )       // Default language is now Romanian
+      ? CMonth( Date() )          // Mai
+      ? "Old language id selected is", hb_langSelect()    // RO
+      hb_langSelect( "es" )       // Default language is now Spanish
+      ? "Current language is", hb_langName()              // Spanish
+      ? CMonth( Date() )          // Mayo
+      ? CDoW( Date() )            // Lunes
    $STATUS$
       R
    $COMPLIANCE$
@@ -226,17 +220,15 @@
       REQUEST HB_LANG_PT
       REQUEST HB_LANG_RO
       REQUEST HB_LANG_ES
-      PROCEDURE Main()
-         hb_langSelect( "pt" )       // Default language is now Portuguese
-         ? CDoW( Date() )            // Segunda-feira
-         ? "Old language id selected is", hb_langSelect()    // PT
-         hb_langSelect( "ro" )       // Default language is now Romanian
-         ? CMonth( Date() )          // Mai
-         ? "Old language id selected is", hb_langSelect()    // RO
-         hb_langSelect( "es" )       // Default language is now Spanish
-         ? CMonth( Date() )          // Mayo
-         ? CDoW( Date() )            // Lunes
-         RETURN
+      hb_langSelect( "pt" )       // Default language is now Portuguese
+      ? CDoW( Date() )            // Segunda-feira
+      ? "Old language id selected is", hb_langSelect()    // PT
+      hb_langSelect( "ro" )       // Default language is now Romanian
+      ? CMonth( Date() )          // Mai
+      ? "Old language id selected is", hb_langSelect()    // RO
+      hb_langSelect( "es" )       // Default language is now Spanish
+      ? CMonth( Date() )          // Mayo
+      ? CDoW( Date() )            // Lunes
    $STATUS$
       R
    $COMPLIANCE$
@@ -341,14 +333,12 @@
       following to your program: REQUEST HB_CODEPAGE_RU866
    $EXAMPLES$
       REQUEST HB_CODEPAGE_HU852
-      PROCEDURE Main()
-         hb_cdpSelect( "EN" )
-         ? hb_cdpSelect()
-         ? hb_UTF8ToStr( "É < G is" ), hb_BChar( 144 ) < "G"  // É > G is .F.
-         hb_cdpSelect( "HU852" )
-         ? hb_cdpSelect()
-         ? hb_UTF8ToStr( "É < G is" ), hb_BChar( 144 ) < "G"  // É > G is .T.
-         RETURN
+      hb_cdpSelect( "EN" )
+      ? hb_cdpSelect()
+      ? hb_UTF8ToStr( "É < G is" ), hb_BChar( 144 ) < "G"  // É > G is .F.
+      hb_cdpSelect( "HU852" )
+      ? hb_cdpSelect()
+      ? hb_UTF8ToStr( "É < G is" ), hb_BChar( 144 ) < "G"  // É > G is .T.
    $STATUS$
       R
    $COMPLIANCE$
@@ -404,11 +394,9 @@
    $EXAMPLES$
       REQUEST HB_CODEPAGE_DE
       REQUEST HB_CODEPAGE_DEWIN
-      PROCEDURE Main()
-         LOCAL cTxt := "A" + hb_BChar( 142 ) + "BC"
-         ? "German CP-850 text:", cTxt
-         ? "German Windows-1252 text:", hb_Translate( cTxt, "DE850", "DEWIN" )
-         RETURN
+      LOCAL cTxt := "A" + hb_BChar( 142 ) + "BC"
+      ? "German CP-850 text:", cTxt
+      ? "German Windows-1252 text:", hb_Translate( cTxt, "DE850", "DEWIN" )
    $STATUS$
       R
    $COMPLIANCE$
