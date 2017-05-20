@@ -536,6 +536,7 @@
       is slightly different. See AScan() for details.
    $EXAMPLES$
       LOCAL a := { "there", "here" }
+      Set( _SET_EXACT, .F. )
       ? AScan( a, "he" )            // --> 2
       ? hb_AScan( a, "he",,, .F. )  // --> 2
       ? hb_AScan( a, "he",,, .T. )  // --> 0

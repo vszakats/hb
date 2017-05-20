@@ -1350,11 +1350,11 @@
 
          LOCAL cBigString
          LOCAL cFirst
-         LOCAL cString := Space( 20 )  // Create an character memory variable
-                                       // with length 20
+         LOCAL cString := Space( 20 )   // Create an character memory variable
+                                        // with length 20
          ? Len( cString )      // 20
-         cBigString := Space( 100000 ) // create a memory variable with 100000
-                                       // blank spaces
+         cBigString := Space( 100000 )  // Create a memory variable with 100000
+                                        // blank spaces
          ? Len( cBigString )
          USE test NEW
          cFirst := MakeEmpty( 1 )

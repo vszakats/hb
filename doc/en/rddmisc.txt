@@ -66,8 +66,12 @@
          LOCAL nFields := AFields( aNames, aTypes, aLens, aDecs ), i
 
          ? "Number of items:", nFields
-         FOR i := 1 TO nFields
-            ? i, PadR( aNames[ i ], 12 ), aTypes[ i ], aLens[ i ], aDecs[ i ]
+         FOR tmp := 1 TO nFields
+            ? tmp, ;
+               PadR( aNames[ tmp ], 12 ), ;
+               aTypes[ tmp ], ;
+               aLens[ tmp ], ;
+               aDecs[ tmp ]
          NEXT
 
          RETURN
@@ -294,7 +298,7 @@
       return 0.
    $EXAMPLES$
       USE test NEW
-      ? "This database has", hb_ntos( test->( FCount() ) ), "fields"
+      ? "This database has", hb_ntos( test->( FCount() ) ), "field(s)"
    $STATUS$
       R
    $COMPLIANCE$
@@ -365,11 +369,10 @@
       existing field in the designated or selected work area, this function
       will return a NULL byte.
    $EXAMPLES$
-      LOCAL x
-
+      LOCAL nField
       USE test NEW
-      FOR x := 1 TO test->( FCount() )
-         ? "Field Name:", FieldName( x )
+      FOR nField := 1 TO test->( FCount() )
+         ? "Field Name:", FieldName( nField )
       NEXT
    $STATUS$
       R
@@ -519,9 +522,10 @@
       flag, so that a Found() condition may be tested in unselected work
       areas by using an alias.
    $EXAMPLES$
-      LOCAL nId := 100
-      USE test NEW INDEX test
-      SEEK nId
+      LOCAL nAge := 40
+      USE test NEW
+      INDEX ON field->age TO test
+      SEEK nAge
       IF Found()
          ? test->first
       ENDIF
@@ -762,9 +766,9 @@
    $EXAMPLES$
       USE test NEW
       dbGoTop()
-      RecNo()            // Returns 1
+      RecNo()       // --> 1
       dbGoto( 50 )
-      RecNo()            // Returns 50
+      RecNo()       // --> 50
    $STATUS$
       R
    $COMPLIANCE$
@@ -801,7 +805,7 @@
    $EXAMPLES$
       USE test NEW
       dbGoTop()
-      RecSize()          // Returns 1
+      RecSize()     // --> 1
       dbGoto( 50 )
       RecSize()
    $STATUS$

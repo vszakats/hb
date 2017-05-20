@@ -435,7 +435,7 @@
 
       REQUEST DBFCDX
 
-      dbCreate( "testdbf", aStruct, "DBFCDX", .T., "MYALIAS" )
+      ? dbCreate( "testdbf", aStruct, "DBFCDX", .T., "MYALIAS" )
    $STATUS$
       R
    $COMPLIANCE$
@@ -472,7 +472,7 @@
       In a networking situation, this function requires that the record
       be locked prior to issuing the dbDelete() function.
    $EXAMPLES$
-      nId := 10
+      LOCAL nId := 10
       USE testid INDEX testid NEW
       IF dbSeek( nId ) .AND. RLock()
          dbDelete()
@@ -725,9 +725,9 @@
       passed it will be assumed to lock the current active record/data
       item.
    $EXAMPLES$
-      LOCAL x
+      LOCAL nRecNo
       USE test NEW
-      FOR x := 1 TO LastRec()
+      FOR nRecNo := 1 TO LastRec()
          IF ! dbRLock()
             dbUnlock()
          ENDIF
@@ -766,14 +766,14 @@
       (meaning no elements in it), then there are no locked records in that
       work area.
    $EXAMPLES$
-      LOCAL x
+      LOCAL nRecNo
       USE test NEW
       dbGoto( 10 )
       RLock()
       dbGoto( 100 )
       RLock()
-      FOR EACH x IN dbRLockList()
-         ? x
+      FOR EACH tmp IN dbRLockList()
+         ? nRecNo
       NEXT
    $STATUS$
       R
@@ -873,7 +873,9 @@
       <lSoftSeek> is a logical false (.F.)
    $EXAMPLES$
       PROCEDURE Main()
+
          LOCAL nAge
+
          USE test NEW INDEX test
          dbGoto( 10 )
          nAge := test->age
@@ -885,6 +887,7 @@
          RETURN
 
       STATIC PROCEDURE EmployeeLookup()
+
          LOCAL cName
 
          ACCEPT "Employee name: " TO cName
@@ -893,6 +896,12 @@
          ELSE
             ? "Not found"
          ENDIF
+
+         RETURN
+
+      STATIC PROCEDURE ViewRecord()
+
+         ? field->name
 
          RETURN
    $STATUS$
@@ -935,13 +944,16 @@
       dbRSelect() and dbRelation() function values.
    $EXAMPLES$
       LOCAL nAge
-      USE test NEW INDEX test
-      USE test1 NEW INDEX test1
-      dbSelectArea( 1 )
-      nAge := test->age
-      dbSelectArea( 2 )
+      USE test NEW
+      COPY TO test1
+      USE test1 NEW
+      INDEX ON field->age TO test1
+      dbSelectArea( "test" )
+      dbGoto( 100 )
+      ? nAge := field->age
+      dbSelectArea( "test1" )
       IF dbSeek( nAge )
-         ? test1->first
+         ? field->first
       ENDIF
    $STATUS$
       R
@@ -980,7 +992,7 @@
       used to activate and manage the work area. If the specified driver is
       not available, this function will have no effect.
    $EXAMPLES$
-      dbSetDriver( "ADS" )
+      ? dbSetDriver( "DBFNSX" )
    $STATUS$
       R
    $COMPLIANCE$
@@ -1061,8 +1073,9 @@
       area which in fact, would be not correct.
    $EXAMPLES$
       USE test NEW
-      dbSetFilter( {|| test->age < 30 }, "test->age < 30" )
+      dbSetFilter( {|| test->age > 30 }, "test->age > 30" )
       dbGoTop()
+      ? RecNo()
    $STATUS$
       R
    $COMPLIANCE$
@@ -1100,10 +1113,10 @@
       Each subscript position
    $EXAMPLES$
       #include "dbstruct.ch"
-      LOCAL x
+      LOCAL field
       USE test NEW
-      FOR EACH x IN dbStruct()
-         ? x[ DBS_NAME ]
+      FOR EACH field IN dbStruct()
+         ? field[ DBS_NAME ]
       NEXT
    $STATUS$
       R
@@ -1137,10 +1150,11 @@
       selected or aliased work area. It will not unlock an associated lock
       in a related databases.
    $EXAMPLES$
-      LOCAL nId := 10
-      USE testid INDEX testid NEW
-      IF testid->( dbSeek( nId ) )
-         IF testid->( RLock() )
+      LOCAL nAge := 30
+      USE test NEW
+      INDEX ON field->age TO test
+      IF test->( dbSeek( nAge ) )
+         IF test->( RLock() )
             dbDelete()
          ELSE
             dbUnlock()
@@ -1175,10 +1189,11 @@
    $DESCRIPTION$
       This function will remove all file and record locks in all work area.
    $EXAMPLES$
-      LOCAL nId := 10
-      USE test INDEX testid NEW
-      IF testid->( dbSeek( nId ) )
-         IF testid->( RLock() )
+      LOCAL nAge := 10
+      USE test NEW
+      INDEX ON field->age TO test
+      IF test->( dbSeek( nAge ) )
+         IF test->( RLock() )
             dbDelete()
          ELSE
             dbUnlock()
@@ -1249,7 +1264,7 @@
       If it is not specified, the file will he opened in normal read-write
       mode.
    $EXAMPLES$
-      dbUseArea( .T.,, "test" )
+      ? dbUseArea( .T.,, "test" )
    $STATUS$
       R
    $COMPLIANCE$

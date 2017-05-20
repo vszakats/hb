@@ -629,10 +629,10 @@
       redirected according with the screen driver, and OutStd() send its
       output to the standard output device (STDOUT) and can be redirected.
    $EXAMPLES$
-      OutStd( "Hello" )            // Result: Hello
+      OutStd( "Hello" )           // --> Hello
 
       OutStd( 1, .T., NIL, "A" )
-      OutStd( "B" )                // Result:          1 .T. NIL AB
+      OutStd( "B" )               // -->          1 .T. NIL AB
    $STATUS$
       R
    $COMPLIANCE$
