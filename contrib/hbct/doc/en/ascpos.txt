@@ -19,8 +19,8 @@
       can be found at the position <nPosition> in <cString>. If <nPosition>
       is larger than the length of <cString>, 0 is returned.
    $EXAMPLES$
-      ? AscPos( "0123456789" ) // --> 57
-      ? AscPos( "0123456789", 1 ) // --> 48
+      ? AscPos( "0123456789" )     // --> 57
+      ? AscPos( "0123456789", 1 )  // --> 48
    $STATUS$
       R
    $COMPLIANCE$

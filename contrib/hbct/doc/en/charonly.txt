@@ -19,8 +19,8 @@
       strings. To do this, it deletes all characters from <cString> that
       do not appear in <cThisCharacterOnly>.
    $EXAMPLES$
-      ? CharOnly( "0123456789", "0211 - 38 99 77" )  //  "0211389977"
-      ? CharOnly( "0123456789", "0211/ 389 977" )    //  "0211389977"
+      ? CharOnly( "0123456789", "0211 - 38 99 77" )  // "0211389977"
+      ? CharOnly( "0123456789", "0211/ 389 977" )    // "0211389977"
    $STATUS$
       R
    $COMPLIANCE$

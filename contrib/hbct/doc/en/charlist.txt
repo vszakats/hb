@@ -19,7 +19,7 @@
       only once, so that its maximum length is 256. The list lists those
       characters first that are occurring in <cString> first.
    $EXAMPLES$
-      ? CharList( "Hello World !" ) // --> "Helo Wrd!"
+      ? CharList( "Hello World !" )  // --> "Helo Wrd!"
    $STATUS$
       R
    $COMPLIANCE$

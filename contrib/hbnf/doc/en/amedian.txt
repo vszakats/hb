@@ -27,6 +27,7 @@
       more reflect a more useful average when there are extreme
       values in the set.
    $EXAMPLES$
+      // FIXME
       ? ft_AMedian( aArray )        // Return Median for entire array
       ? ft_AMedian( aArray, 2 )     // Return Median for elements from 2 to end
       ? ft_AMedian( aArray, , 9 )   // Return Median for 1st 9 elements

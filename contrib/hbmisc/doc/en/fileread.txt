@@ -51,19 +51,20 @@
 
       `:ErrorMsg( [<cPre>] )` Returns a formatted error message.
    $EXAMPLES$
-      PROCEDURE Main( cFile )
-         LOCAL oFile := TFileRead():New( cFile )
+      LOCAL oFile
 
-         oFile:Open()
-         IF oFile:Error()
-            ? oFile:ErrorMsg( "FileRead:" )
-         ELSE
-            DO WHILE oFile:MoreToRead()
-               ? oFile:ReadLine()
-            ENDDO
-            oFile:Close()
-         ENDIF
-         RETURN
+      hb_MemoWrit( "test.txt", "Hello" + hb_eol() + "World" )
+
+      oFile := TFileRead():New( "test.txt" )
+      oFile:Open()
+      IF oFile:Error()
+         ? oFile:ErrorMsg( "FileRead:" )
+      ELSE
+         DO WHILE oFile:MoreToRead()
+            ? oFile:ReadLine()
+         ENDDO
+         oFile:Close()
+      ENDIF
    $STATUS$
       R
    $COMPLIANCE$

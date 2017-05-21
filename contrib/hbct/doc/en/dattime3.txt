@@ -80,6 +80,8 @@
       check with TimeValid(), then they must be RTrim()-med prior to the use of
       TimeValid() (see following Examples).
    $EXAMPLES$
+      LOCAL cBegin, GetList := {}
+
       // Using the VALID clause with RTrim(), all valid times are
       // accepted, even if no seconds or minutes are specified:
 
@@ -132,6 +134,8 @@
       within your application, all files acquire this time with
       each write procedure.
    $EXAMPLES$
+      LOCAL cNewTime
+
       // Set the system time in each case; but the hardware clock only
       // on an AT:
 
@@ -180,6 +184,8 @@
       When you use this function to set the system date from within your
       application, all files acquire this date with each write procedure.
    $EXAMPLES$
+      LOCAL dNewDate
+
       // Set the system date in each case; but the hardware clock only
       // on an AT:
 

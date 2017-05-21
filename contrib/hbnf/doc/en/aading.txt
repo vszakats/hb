@@ -28,8 +28,8 @@
       It returns a new array including all the elements of <aList1>
       plus the unique elements of <aList2>.
    $EXAMPLES$
-      aList1 := { "apple", "orange", "pear" }
-      aList2 := { "apple ", "banana", "PEAR" }
+      LOCAL aList1 := { "apple", "orange", "pear" }
+      LOCAL aList2 := { "apple ", "banana", "PEAR" }
 
       ft_AAddition( aList1, aList2 )
       // ignores spaces, sensitive to case

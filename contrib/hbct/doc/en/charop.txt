@@ -24,9 +24,9 @@
       <cString2> has been processed, the function restarts with the first
       character of <cString2>.
    $EXAMPLES$
-      ? CharAdd( "012345678", hb_BChar( 1 ) ) // --> "123456789"
-      ? CharAdd( "123456789", hb_BChar( 255 ) ) // --> "012345678"
-      ? CharAdd( "0000", hb_BChar( 0 ) + hb_BChar( 1 ) + hb_BChar( 2 ) + hb_BChar( 3 ) ) // --> "0123"
+      ? CharAdd( "012345678", hb_BChar( 1 ) )    // --> "123456789"
+      ? CharAdd( "123456789", hb_BChar( 255 ) )  // --> "012345678"
+      ? CharAdd( "0000", hb_BChar( 0 ) + hb_BChar( 1 ) + hb_BChar( 2 ) + hb_BChar( 3 ) )  // --> "0123"
    $STATUS$
       R
    $COMPLIANCE$

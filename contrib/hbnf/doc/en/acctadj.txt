@@ -37,6 +37,8 @@
       ENDIF
       ```
    $EXAMPLES$
+      LOCAL dDate
+
       // Beginning of period mode (lIsEnd == .F.)
 
       dDate := hb_SToD( "19910131" )  // In last 3 days of work week

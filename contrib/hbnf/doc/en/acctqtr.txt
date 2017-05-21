@@ -37,6 +37,7 @@
       'quarter' will contain 14 weeks and the year will contain 53
       weeks.
    $EXAMPLES$
+      LOCAL aDateInfo
       // get info about accounting month containing 1990-09-15
       aDateInfo := ft_AcctQtr( hb_SToD( "19900915" ) )
       ? aDateInfo[ 1 ]   //  199003       (3rd quarter)

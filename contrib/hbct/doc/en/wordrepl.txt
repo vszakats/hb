@@ -37,12 +37,12 @@
       One can omit the return value of this function by setting the CSetRef()
       to .T., but one must then pass <cString> by reference to get a result.
    $EXAMPLES$
-      ? WordRepl( "CC", "AABBCCDDEE", "XX" ) // "AABBXXDDEE"
-      ? WordRepl( "aa", "1aaaa", "ba" )      // "1abaa"
-      ? WordRepl( "aa", "1aaaa", "ba", .T. ) // "1baba"
+      ? WordRepl( "CC", "AABBCCDDEE", "XX" )  // "AABBXXDDEE"
+      ? WordRepl( "aa", "1aaaa", "ba" )       // "1abaa"
+      ? WordRepl( "aa", "1aaaa", "ba", .T. )  // "1baba"
       CSetAtMupa( .T. )
-      ? WordRepl( "aa", "1aaaa", "ba" )      // "1abaa"
-      ? WordRepl( "aa", "1aaaa", "ba", .T. ) // "1bbba"
+      ? WordRepl( "aa", "1aaaa", "ba" )       // "1abaa"
+      ? WordRepl( "aa", "1aaaa", "ba", .T. )  // "1bbba"
    $STATUS$
       R
    $COMPLIANCE$

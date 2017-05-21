@@ -114,8 +114,9 @@
       "AA, BBB" but calling TokenNext() with "CCCEE" would
       give first "CC" and then "EE" (because "CCCEE" is not long enough).
    $EXAMPLES$
+      LOCAL cString := "The quick brown fox jumps over the lazy dog"
       // default behaviour
-      TokenInit( cString ) // initialize a TE
+      TokenInit( cString )  // initialize a TE
       DO WHILE ! TokenEnd()
          ? TokenNext( cString )  // get all tokens successively
       ENDDO
@@ -232,6 +233,7 @@
       using the global TE. Additionally, TokenExit() is implicitly called
       when the thread or application ends.
    $EXAMPLES$
+      LOCAL cString := "The quick brown fox jumps over the lazy dog"
       TokenInit( cString ) // initialize a TE
       DO WHILE ! TokenEnd()
          ? TokenNext( cString )  // get all tokens successively
@@ -284,6 +286,7 @@
       reference), the information from this token environment is used,
       otherwise the global TE is used.
    $EXAMPLES$
+      LOCAL cString := "The quick brown fox jumps over the lazy dog"
       TokenInit( cString ) // initialize a TE
       DO WHILE ! TokenEnd()
          ? "From", TokenAt(), "to", TokenAt( .T. ) - 1

@@ -23,11 +23,11 @@
       the begin of <cString2> again. If on the other hand <cString2> is
       longer than <cString1>, the surplus characters will be omitted.
    $EXAMPLES$
-      ? CharMix( "ABC", "123" )    // "A1B2C3"
-      ? CharMix( "ABCDE", "12" )   // "A1B2C1D2E1"
-      ? CharMix( "AB", "12345" )   // "A1B2"
-      ? CharMix( "HELLO", " " )    //  "H E L L O "
-      ? CharMix( "HELLO", "" )     //  "HELLO"
+      ? CharMix( "ABC", "123" )   // "A1B2C3"
+      ? CharMix( "ABCDE", "12" )  // "A1B2C1D2E1"
+      ? CharMix( "AB", "12345" )  // "A1B2"
+      ? CharMix( "HELLO", " " )   // "H E L L O "
+      ? CharMix( "HELLO", "" )    // "HELLO"
    $STATUS$
       R
    $COMPLIANCE$

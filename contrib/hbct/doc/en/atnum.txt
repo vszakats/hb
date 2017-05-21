@@ -34,9 +34,9 @@
       second character of the matched substring otherwise.
       The function will also consider the settings of SetAtLike().
    $EXAMPLES$
-      ? AfterAtNum( "!", "What is the answer ? 4 ! 5 !" ) // -> ""
-      ? AfterAtNum( "!", "What is the answer ? 4 ! 5 ?" ) // -> " 5 ?"
-      <TODO: add some examples here with CSetAtMupa() and SetAtLike()>
+      ? AfterAtNum( "!", "What is the answer ? 4 ! 5 !" )  // -> ""
+      ? AfterAtNum( "!", "What is the answer ? 4 ! 5 ?" )  // -> " 5 ?"
+      // TODO: add some examples here with CSetAtMupa() and SetAtLike()
    $STATUS$
       R
    $COMPLIANCE$

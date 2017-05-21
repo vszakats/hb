@@ -26,13 +26,12 @@
       actual records skipped.
    $EXAMPLES$
       // open a file and find if we've got enough records in it
-      USE month_sales
+      USE test
       IF dbSkipper( 100 ) == 100
          ? "Good work! You can party now"
       ELSE
          ? "Too bad, you should really work harder"
       ENDIF
-      dbCloseArea()
    $STATUS$
       R
    $COMPLIANCE$
