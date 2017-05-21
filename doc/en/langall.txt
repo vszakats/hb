@@ -25,11 +25,9 @@
    $EXAMPLES$
       #include "error.ch"
       REQUEST HB_LANG_ES
-      // English: Argument error
-      ? "English:", hb_langErrMsg( EG_ARG )
+      ? "English:", hb_langErrMsg( EG_ARG )  // --> English: Argument error
       hb_langSelect( "es" )
-      // Spanish: Error de argumento
-      ? "Spanish:", hb_langErrMsg( EG_ARG )
+      ? "Spanish:", hb_langErrMsg( EG_ARG )  // --> Spanish: Error de argumento
    $STATUS$
       R
    $COMPLIANCE$
@@ -73,11 +71,9 @@
    $EXAMPLES$
       #include "hblang.ch"
       REQUEST HB_LANG_ES
-      // English: Monday
-      ? "English:", hb_langMessage( HB_LANG_ITEM_BASE_DAY + 1 )
+      ? "English:", hb_langMessage( HB_LANG_ITEM_BASE_DAY + 1 )  // --> English: Monday
       hb_langSelect( "es" )
-      // Spanish: Lunes
-      ? "Spanish:", hb_langMessage( HB_LANG_ITEM_BASE_DAY + 1 )
+      ? "Spanish:", hb_langMessage( HB_LANG_ITEM_BASE_DAY + 1 )  // --> Spanish: Lunes
       ? "English:", hb_langMessage( HB_LANG_ITEM_BASE_DAY + 1, "en" )
    $STATUS$
       R
@@ -123,16 +119,16 @@
       ? hb_langName( "pl" )
       ? hb_langName( "<non-existent>" )
       hb_langSelect( "pt" )       // Default language is now Portuguese
-      ? CDoW( Date() )            // Segunda-feira
-      ? "Current language is", hb_langName()              // Portuguese
-      ? "Old language id selected is", hb_langSelect()    // pt
+      ? CDoW( Date() )            // --> Segunda-feira
+      ? "Current language is", hb_langName()              // --> Portuguese
+      ? "Old language id selected is", hb_langSelect()    // --> pt
       hb_langSelect( "ro" )       // Default language is now Romanian
-      ? CMonth( Date() )          // Mai
-      ? "Old language id selected is", hb_langSelect()    // ro
+      ? CMonth( Date() )          // --> Mai
+      ? "Old language id selected is", hb_langSelect()    // --> ro
       hb_langSelect( "es" )       // Default language is now Spanish
-      ? "Current language is", hb_langName()              // Spanish
-      ? CMonth( Date() )          // Mayo
-      ? CDoW( Date() )            // Lunes
+      ? "Current language is", hb_langName()              // --> Spanish
+      ? CMonth( Date() )          // --> Mayo
+      ? CDoW( Date() )            // --> Lunes
    $STATUS$
       R
    $COMPLIANCE$
@@ -221,14 +217,14 @@
       REQUEST HB_LANG_RO
       REQUEST HB_LANG_ES
       hb_langSelect( "pt" )       // Default language is now Portuguese
-      ? CDoW( Date() )            // Segunda-feira
-      ? "Old language id selected is", hb_langSelect()  // pt
+      ? CDoW( Date() )            // --> Segunda-feira
+      ? "Old language id selected is", hb_langSelect()  // --> pt
       hb_langSelect( "ro" )       // Default language is now Romanian
-      ? CMonth( Date() )          // Mai
-      ? "Old language id selected is", hb_langSelect()  // ro
+      ? CMonth( Date() )          // --> Mai
+      ? "Old language id selected is", hb_langSelect()  // --> ro
       hb_langSelect( "es" )       // Default language is now Spanish
-      ? CMonth( Date() )          // Mayo
-      ? CDoW( Date() )            // Lunes
+      ? CMonth( Date() )          // --> Mayo
+      ? CDoW( Date() )            // --> Lunes
    $STATUS$
       R
    $COMPLIANCE$
@@ -335,10 +331,10 @@
       REQUEST HB_CODEPAGE_FR850
       hb_cdpSelect( "EN" )
       ? hb_cdpSelect()
-      ? hb_UTF8ToStr( "É < G is" ), hb_BChar( 144 ) < "G"  // É < G is .F.
+      ? hb_UTF8ToStr( "É < G is" ), hb_BChar( 144 ) < "G"  // --> É < G is .F.
       hb_cdpSelect( "FR850" )
       ? hb_cdpSelect()
-      ? hb_UTF8ToStr( "É < G is" ), hb_BChar( 144 ) < "G"  // É < G is .T.
+      ? hb_UTF8ToStr( "É < G is" ), hb_BChar( 144 ) < "G"  // --> É < G is .T.
    $STATUS$
       R
    $COMPLIANCE$

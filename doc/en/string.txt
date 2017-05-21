@@ -62,8 +62,8 @@
       function will return a logical true (.T.); otherwise, it will
       return a logical false (.F.).
    $EXAMPLES$
-      ? IsDigit( "12345" )  // .T.
-      ? IsDigit( "abcde" )  // .F.
+      ? IsDigit( "12345" )  // --> .T.
+      ? IsDigit( "abcde" )  // --> .F.
    $STATUS$
       R
    $COMPLIANCE$
@@ -102,8 +102,8 @@
       function will return a logical true (.T.); otherwise, it will
       return a logical false (.F.).
    $EXAMPLES$
-      ? IsUpper( "Abcde" )  // .T.
-      ? IsUpper( "abcde" )  // .F.
+      ? IsUpper( "Abcde" )  // --> .T.
+      ? IsUpper( "abcde" )  // --> .F.
    $STATUS$
       R
    $COMPLIANCE$
@@ -142,8 +142,8 @@
       function will return a logical true (.T.); otherwise, it will
       return a logical false (.F.).
    $EXAMPLES$
-      ? IsLower( "ABCde" )  // .F.
-      ? IsLower( "aBCde" )  // .T.
+      ? IsLower( "ABCde" )  // --> .F.
+      ? IsLower( "aBCde" )  // --> .T.
    $STATUS$
       R
    $COMPLIANCE$
@@ -221,7 +221,7 @@
       the first string <cSearch>. If the substring is not contained within
       the second expression, the function will return 0.
    $EXAMPLES$
-      ? At( "cde", "abcdefgfedcba" )  // 3
+      ? At( "cde", "abcdefgfedcba" )  // --> 3
    $STATUS$
       R
    $COMPLIANCE$
@@ -267,8 +267,8 @@
       the second expression, the function will return 0. The third and fourth
       parameters lets you indicate a starting and end offset to search in.
    $EXAMPLES$
-      ? hb_At( "cde", "abcdefgfedcba" )     // 3
-      ? hb_At( "cde", "abcdefgfedcba", 4 )  // 0
+      ? hb_At( "cde", "abcdefgfedcba" )     // --> 3
+      ? hb_At( "cde", "abcdefgfedcba", 4 )  // --> 0
    $STATUS$
       R
    $COMPLIANCE$
@@ -312,8 +312,8 @@
       If the function is unable to find any occurrence of <cSearch> in
       <cString>, the return value is 0.
    $EXAMPLES$
-      ? RAt( "cde", "abcdefgfcdeedcba" )  // 9
-      ? RAt( "cdr", "abcdefgfedcba" )     // 0
+      ? RAt( "cde", "abcdefgfcdeedcba" )  // --> 9
+      ? RAt( "cdr", "abcdefgfedcba" )     // --> 0
    $STATUS$
       R
    $COMPLIANCE$
@@ -375,7 +375,7 @@
          NEXT
       NEXT
 
-      ? hb_RAt( cSearch, "abcdefgfedcba" )  // -> 3
+      ? hb_RAt( cSearch, "abcdefgfedcba" )  // --> 3
    $STATUS$
       R
    $COMPLIANCE$
@@ -417,7 +417,7 @@
       SubStr( <cString>, 1, <nLen> )
       ```
    $EXAMPLES$
-      ? Left( "Hello Harbour", 5 )  // Hello
+      ? Left( "Hello Harbour", 5 )  // --> "Hello"
    $STATUS$
       R
    $COMPLIANCE$
@@ -462,7 +462,7 @@
       SubStr( <cString>, Len( <cString> ) - <nLen> + 1, <nLen> )
       ```
    $EXAMPLES$
-      ? Right( "Hello Harbour", 5 )  // rbour
+      ? Right( "Hello Harbour", 5 )  // --> "rbour"
    $STATUS$
       R
    $COMPLIANCE$
@@ -511,9 +511,9 @@
       characters from <nStart> to the end of the string is less than <nLen>
       the rest are ignored.
    $EXAMPLES$
-      ? SubStr( "Hello Harbour",  7, 4 )  // Harb
-      ? SubStr( "Hello Harbour", -3, 3 )  // our
-      ? SubStr( "Hello Harbour",  7    )  // Harbour
+      ? SubStr( "Hello Harbour",  7, 4 )  // --> "Harb"
+      ? SubStr( "Hello Harbour", -3, 3 )  // --> "our"
+      ? SubStr( "Hello Harbour",  7    )  // --> "Harbour"
    $STATUS$
       R
    $COMPLIANCE$
@@ -588,8 +588,8 @@
       *  If <nLength> is specified but <nDecimals> is omitted (no
          decimal places), the return value is rounded to an integer.
    $EXAMPLES$
-      ? Str( 10, 6, 2 )   // " 10.00"
-      ? Str( -10, 8, 2 )  // "  -10.00"
+      ? Str( 10, 6, 2 )   // --> " 10.00"
+      ? Str( -10, 8, 2 )  // --> "  -10.00"
    $STATUS$
       R
    $COMPLIANCE$
@@ -666,8 +666,8 @@
 
       The StrZero() function was part of the CA-Cl*pper samples.
    $EXAMPLES$
-      ? StrZero( 10, 6, 2 )   // "010.00"
-      ? StrZero( -10, 8, 2 )  // "-0010.00"
+      ? StrZero( 10, 6, 2 )   // --> "010.00"
+      ? StrZero( -10, 8, 2 )  // --> "-0010.00"
    $STATUS$
       R
    $COMPLIANCE$
@@ -783,16 +783,16 @@
       This function checks if an expression has empty value and returns a
       logical indicating whether it the expression is empty or not.
    $EXAMPLES$
-      ? Empty( "I'm not empty" )  // .F.
-      ? Empty( NIL )              // .T.
-      ? Empty( 0 )                // .T.
-      ? Empty( .F. )              // .T.
-      ? Empty( "" )               // .T.
-      ? Empty( "  " )             // .T.
-      ? Empty( 1 )                // .F.
-      ? Empty( .T. )              // .F.
-      ? Empty( "smile" )          // .F.
-      ? Empty( Date() )           // .F.
+      ? Empty( "I'm not empty" )  // --> .F.
+      ? Empty( NIL )              // --> .T.
+      ? Empty( 0 )                // --> .T.
+      ? Empty( .F. )              // --> .T.
+      ? Empty( "" )               // --> .T.
+      ? Empty( "  " )             // --> .T.
+      ? Empty( 1 )                // --> .F.
+      ? Empty( .T. )              // --> .F.
+      ? Empty( "smile" )          // --> .F.
+      ? Empty( Date() )           // --> .F.
    $STATUS$
       R
    $COMPLIANCE$
@@ -862,8 +862,8 @@
       to its lowercased representation. Any non alphabetic character withing
       <cString> will remain unchanged.
    $EXAMPLES$
-      ? Lower( "HARBOUR" )    // harbour
-      ? Lower( "Hello All" )  // hello all
+      ? Lower( "HARBOUR" )    // --> "harbour"
+      ? Lower( "Hello All" )  // --> "hello all"
    $STATUS$
       R
    $COMPLIANCE$
@@ -900,8 +900,8 @@
       This function converts all alpha characters in <cString> to upper
       case values and returns that formatted character expression.
    $EXAMPLES$
-      ? Upper( "harbour" )  // HARBOUR
-      ? Upper( "Harbour" )  // HARBOUR
+      ? Upper( "harbour" )  // --> "HARBOUR"
+      ? Upper( "Harbour" )  // --> "HARBOUR"
    $STATUS$
       R
    $COMPLIANCE$
@@ -1213,10 +1213,10 @@
       Together with LTrim(), this function equated to the AllTrim()
       function.
    $EXAMPLES$
-      ? RTrim( "Hello" )   //  "Hello"
-      ? RTrim( "" )        //  ""
-      ? RTrim( "UA   " )   //  "UA"
-      ? RTrim( "   UA" )   //  "   UA"
+      ? RTrim( "Hello" )   // -->  "Hello"
+      ? RTrim( "" )        // -->  ""
+      ? RTrim( "UA   " )   // -->  "UA"
+      ? RTrim( "   UA" )   // -->  "   UA"
    $STATUS$
       R
    $COMPLIANCE$
@@ -1257,10 +1257,10 @@
       Together with LTrim(), this function equated to the AllTrim()
       function.
    $EXAMPLES$
-      ? Trim( "Hello" )    //  "Hello"
-      ? Trim( "" )         //   ""
-      ? Trim( "UA   " )    //   "UA"
-      ? Trim( "   UA" )    //   "   UA"
+      ? Trim( "Hello" )    // --> "Hello"
+      ? Trim( "" )         // --> ""
+      ? Trim( "UA   " )    // --> "UA"
+      ? Trim( "   UA" )    // --> "   UA"
    $STATUS$
       R
    $COMPLIANCE$
@@ -1303,7 +1303,7 @@
 
       A value of 0 for <nSize> will return a null string.
    $EXAMPLES$
-      ? Replicate( "a", 10 )     // aaaaaaaaaa
+      ? Replicate( "a", 10 )     // --> "aaaaaaaaaa"
       ? Replicate( "b", 10000 )
    $STATUS$
       R
@@ -1352,7 +1352,7 @@
          LOCAL cFirst
          LOCAL cString := Space( 20 )   // Create an character memory variable
                                         // with length 20
-         ? Len( cString )      // 20
+         ? Len( cString )  // --> 20
          cBigString := Space( 100000 )  // Create a memory variable with 100000
                                         // blank spaces
          ? Len( cBigString )
@@ -1423,7 +1423,7 @@
 
       This functions is the oppose of the Str() function.
    $EXAMPLES$
-      ? Val( "31421" )  // 31421
+      ? Val( "31421" )  // --> 31421
    $STATUS$
       R
    $COMPLIANCE$

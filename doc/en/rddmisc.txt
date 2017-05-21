@@ -936,12 +936,12 @@
    $EXAMPLES$
       USE test NEW
       USE names NEW
-      ? Used()    // .T.
-      ? test->( Used() )  //.T.
+      ? Used()            // --> .T.
+      ? test->( Used() )  // --> .T.
       dbCloseArea()
-      ? Used()    // .F.
+      ? Used()            // --> .F.
       SELECT test
-      ? Used()    // .T.
+      ? Used()            // --> .T.
    $STATUS$
       R
    $COMPLIANCE$
@@ -980,7 +980,9 @@
       USE test
       dbGoto( 10 )
       DELETE NEXT 10
+      ? LastRec()
       PACK
+      ? LastRec()
    $STATUS$
       R
    $COMPLIANCE$

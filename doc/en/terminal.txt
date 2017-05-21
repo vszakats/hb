@@ -234,8 +234,8 @@
       LOCAL cMessage, aOptions, nChoice
 
       // harmless message
-      cMessage := "Major Database Corruption Detected!;" +  ;
-                  "(deadline in few hours);;"             +  ;
+      cMessage := "Major Database Corruption Detected!;" + ;
+                  "(deadline in few hours);;" + ;
                   "where DO you want to go today?"
 
       // define response option
@@ -398,7 +398,7 @@
       defined in color.ch to identify and extract common colors.
    $EXAMPLES$
       #include "color.ch"
-      ? hb_ColorIndex( "W/N, N/W", CLR_ENHANCED )  // "N/W"
+      ? hb_ColorIndex( "W/N, N/W", CLR_ENHANCED )  // --> "N/W"
    $STATUS$
       R
    $COMPLIANCE$
@@ -437,7 +437,7 @@
       using the default transformation for the type of expression.
    $EXAMPLES$
       // Output a negative dollar amount using debit notation.
-      DevOutPict( -1.25, "@D$ 99,999.99 )  // -> $(     1.25)
+      DevOutPict( -1.25, "@D$ 99,999.99 )  // --> $(     1.25)
    $STATUS$
       R
    $COMPLIANCE$
@@ -579,7 +579,7 @@
       LOCAL cKey
       // Wait for a key stroke
       __Wait( "Press a key to continue" )
-      //
+
       DO WHILE ! cKey == "Q"
          cKey := __Wait( "Press 'Q' to continue" )
       ENDDO

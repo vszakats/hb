@@ -435,8 +435,8 @@
             not found in earlier versions.
    $EXAMPLES$
       LOCAL nYear, nDayOfWeek
-      ? hb_Week( 0d20170215, @nYear, @nDayOfWeek ), nYear, nDayOfWeek  // 7, 2017, 3
-      ? hb_Week( 0d00000000, @nYear, @nDayOfWeek ), nYear, nDayOfWeek  // 0, 0, 0
+      ? hb_Week( 0d20170215, @nYear, @nDayOfWeek ), nYear, nDayOfWeek  // --> 7, 2017, 3
+      ? hb_Week( 0d00000000, @nYear, @nDayOfWeek ), nYear, nDayOfWeek  // --> 0, 0, 0
    $STATUS$
       R
    $COMPLIANCE$

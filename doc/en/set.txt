@@ -513,7 +513,7 @@
       `SET FUNCTION` command is preprocessed into __SetFunction() function
       during compile time.
    $EXAMPLES$
-      // Set F1 with a string
+      // Set <F1> with a string
       CLS
       SET FUNCTION 1 TO "I Am Lazy" + Chr( 13 )
       cTest := Space( 20 )
@@ -847,7 +847,7 @@
       This is an internal undocumented CA-Cl*pper function, which will
       try to call the user defined function HELP() if it is defined
       in the current application. This is the default SetKey() handler
-      for the F1 key.
+      for the <F1> key.
    $STATUS$
       R
    $COMPLIANCE$
