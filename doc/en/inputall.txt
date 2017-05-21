@@ -77,6 +77,7 @@
       Inkey() can be used to detect input events, such as key-press, mouse
       movement, or mouse key clicks (up and/or down).
    $EXAMPLES$
+      #include "inkey.ch"
       // Wait for the user to press the <Esc> key
       ? "Please press the <Esc> key."
       DO WHILE Inkey( 0.1 ) != K_ESC
@@ -167,6 +168,7 @@
       than one code, call the function repeatedly. The zero code cannot
       be inserted.
    $EXAMPLES$
+      #include "inkey.ch"
       // Stuff an <Alt+PgDn> key into the keyboard buffer
       hb_keyPut( K_ALT_PGDN ); ? Inkey()  // -> 417
       hb_keyPut( K_F11 ); ? Inkey()  // -> -40
@@ -205,6 +207,7 @@
       Returns the value of the next key in the Harbour keyboard buffer
       without extracting it.
    $EXAMPLES$
+      #include "inkey.ch"
       // Use NextKey() with Inkey() to change display characters, or by
       // itself to exit the loop, so that the caller can detect the <Esc>.
       LOCAL nKey, cChar := "+"
@@ -256,6 +259,7 @@
       Returns the value of the last key extracted from the Harbour
       keyboard buffer
    $EXAMPLES$
+      #include "inkey.ch"
       // Continue looping unless the <Esc> key was pressed in MainFunc()
       DO WHILE .T.
          MainFunc()
@@ -265,6 +269,10 @@
       ENDDO
       //
       KEYBOARD "AB"; ? Inkey(), LastKey()  // ->   65   65
+
+      STATIC PROCEDURE MainFunc()
+         Inkey( 0 )
+         RETURN
    $STATUS$
       R
    $COMPLIANCE$

@@ -187,8 +187,10 @@
       In a network environment, any file that is about to be ZAPped must
       be used exclusively.
    $EXAMPLES$
-      USE test NEW INDEX test
+      USE test
+      ? LastRec()  // --> 500
       ZAP
+      ? LastRec()  // --> 0
    $STATUS$
       R
    $COMPLIANCE$
@@ -975,7 +977,7 @@
       has completed its operation. On completion, the record pointer is placed
       on the first record in the database.
    $EXAMPLES$
-      USE test NEW INDEX test
+      USE test
       dbGoto( 10 )
       DELETE NEXT 10
       PACK

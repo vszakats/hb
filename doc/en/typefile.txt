@@ -37,8 +37,10 @@
       __TypeFile() function is used in the preprocessing of the TYPE
       command.
    $EXAMPLES$
-      The following examples assume a file name `mytext.dat` exist in all
-      specified paths, a run-time error would displayed if it does not
+      // The following examples assume a file name `mytext.dat` exist in all
+      // specified paths, a run-time error would displayed if it does not
+
+      hb_MemoWrit( "mytext.dat", "Hello World" )
 
       // display mytext.dat file on screen
       __TypeFile( "mytext.dat" )
@@ -105,8 +107,10 @@
       Use `SET CONSOLE OFF` to suppress screen output.
       You can pause the output using <Ctrl-S>, press any key to resume.
    $EXAMPLES$
-      The following examples assume a file name mytext.dat exist in all
-      specified paths, a run-time error would displayed if it does not
+      // The following examples assume a file name `mytext.dat` exist in all
+      // specified paths, a run-time error would displayed if it does not
+
+      hb_MemoWrit( "mytext.dat", "Hello World" )
 
       // display mytext.dat file on screen
       TYPE mytext.dat

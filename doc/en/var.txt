@@ -27,8 +27,6 @@
       variable is not created - the previous value remains unchanged.
       If it is first variable with this name then the  variable is
       initialized with .T. value.
-   $EXAMPLES$
-      None Available
    $STATUS$
       R
    $COMPLIANCE$
@@ -68,8 +66,6 @@
       If a variable with the same name exists already then the value of old
       variable is hidden until the new variable is  released. The new variable
       is always initialized to NIL value.
-   $EXAMPLES$
-      None Available
    $STATUS$
       R
    $COMPLIANCE$
@@ -113,6 +109,8 @@
       It releases variable even if this variable was created in different
       procedure.
    $EXAMPLES$
+      MEMVAR mPrivate
+
       PROCEDURE Main()
 
          PRIVATE mPrivate := "PRIVATE from Main()"
@@ -175,8 +173,6 @@
       was created the the NIL value is returned. You can however assign
       a new value to released variable without any side effects.
       PUBLIC variables are not changed by this function.
-   $EXAMPLES$
-      None Available
    $STATUS$
       R
    $COMPLIANCE$
@@ -214,6 +210,12 @@
        HB_MV_PRIVATE_LOCAL  for private variables declared in current function/procedure
       </table>
    $EXAMPLES$
+      #include "hbmemvar.ch"
+
+      MEMVAR mPublic
+      MEMVAR mPrivateGlobal
+      MEMVAR mPrivateLocal
+
       PROCEDURE Main()
 
          PUBLIC mPublic
@@ -339,6 +341,11 @@
       return the value of the same variable.
    $EXAMPLES$
       #include "hbmemvar.ch"
+
+      MEMVAR cPublic
+      MEMVAR cPrivate
+      MEMVAR ccPublic
+      MEMVAR ccPrivate
 
       PROCEDURE Main()
 
@@ -619,13 +626,13 @@
       Note that FieldBlock() works on the current work area, if you need
       a specific work area code block use FieldWBlock() instead.
    $EXAMPLES$
-      // open a file named test.dbf that have a field named "name"
-      LOCAL bFiled := FieldBlock( "name" )
-
+      // open a file named test.dbf that have a field named "first"
+      LOCAL bField
       USE test
-      ? "Original value of field 'name':", Eval( bField )
+      bField := FieldBlock( "first" )
+      ? "Original value of field 'first':", Eval( bField )
       Eval( bField, "Mr X new name" )
-      ? "New value for the field 'name':", Eval( bField )
+      ? "New value for the field 'first':", Eval( bField )
    $STATUS$
       R
    $COMPLIANCE$
@@ -675,21 +682,20 @@
       with the name <cFieldName> in work area number <nWorkArea>, the code
       block return NIL.
    $EXAMPLES$
-      // this block work on the field "name" that exist on work area 2
-      LOCAL bFiled := FieldBlock( "name", 2 )
-      // open a file named One in work area 1
-      // that have a field named "name"
+      LOCAL bField
+      // open a file named 'one' in work area 1 that has a field named "first"
       SELECT 1
       USE one
-      // open a file named Two in work area 2
-      // it also have a field named "name"
+      // open a file named 'two' in work area 2 that also has a field named "first"
       SELECT 2
       USE two
       SELECT 1
-      ? "Original names:", One->name, Two->name
-      ? "Name value for file Two:", Eval( bField )
-      Eval( bField, "Two has new name" )
-      ? "and now:", One->name, Two->name
+      // this block works on the field "first" that exists on work area 2
+      bField := FieldWBlock( "first", 2 )
+      ? "Original 'first' values:", one->first, two->first
+      ? "'first' value for file 'two':", Eval( bField )
+      Eval( bField, "'two' has updated 'first'" )
+      ? "and now:", one->first, two->first
    $STATUS$
       R
    $COMPLIANCE$
@@ -762,20 +768,22 @@
       argument with a valid Harbour expression - the data type of this
       expression is returned.
    $EXAMPLES$
+      LOCAL c, cFilter
+      MEMVAR a, b
+
       ? Type( "{ 1, 2 }" )                                 // prints "A"
-      ? Type( "iif( .T., SubStr( "TYPE", 2, 1 ), .F. )" )  // prints "C"
-      ? Type( "At( "OK", MyUDF() ) > 0" )                  // prints "UI"
+      ? Type( 'iif( .T., SubStr( "TYPE", 2, 1 ), .F. )' )  // prints "C"
+      ? Type( 'At( "OK", MyUDF() ) > 0' )                  // prints "UI"
       ? Type( "{ 1, 2 }[ 5 ]" )                            // prints "UE"
 
       //--------------------------------------------------------
 
-      LOCAL c
       PRIVATE a := "A", b := "B"
       ? Type( "a + b + c" )     // prints: "U" ('C' variable is a local one)
 
       //--------------------------------------------------------
 
-      LOCAL cFilter := Space( 60 )
+      cFilter := Space( 60 )
       ACCEPT "Enter filter expression:" TO cFilter
       IF Type( cFilter ) $ "CDLMN"
          // this is a valid expression

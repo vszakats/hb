@@ -877,7 +877,8 @@
 
          LOCAL nAge
 
-         USE test NEW INDEX test
+         USE test NEW
+         INDEX ON field->age TO test
          dbGoto( 10 )
          nAge := test->age
          dbGoTop()

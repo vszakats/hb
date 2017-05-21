@@ -513,7 +513,7 @@
       `CREATE FROM` command is preprocessed into __dbCopyStruct() function
       during compile time and uses this mode.
    $EXAMPLES$
-      See example in the CREATE command
+      // See example in the CREATE command
    $STATUS$
       R
    $COMPLIANCE$

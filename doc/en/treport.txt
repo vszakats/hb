@@ -81,7 +81,6 @@
    $EXAMPLES$
       USE test NEW
       REPORT FORM test.frm
-      dbCloseArea()
    $STATUS$
       R
    $COMPLIANCE$

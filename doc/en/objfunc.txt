@@ -24,10 +24,10 @@
       __objHasData() is a low level class support function that let you
       find out if a symbol is an instance variable in a given object.
    $EXAMPLES$
-      oB := TBrowseNew( 0, 0, 24, 79 )
-      ? __objHasData( oB, "nLeft" )      // this should return .T.
-      ? __objHasData( oB, "lBugFree" )   // hopefully this should be .F.
-      ? __objHasData( oB, "Left" )       // .F. since this is a METHOD
+      LOCAL oB := TBrowseNew( 0, 0, 24, 79 )
+      ? __objHasData( oB, "nLeft" )     // this should return .T.
+      ? __objHasData( oB, "lBugFree" )  // hopefully this should be .F.
+      ? __objHasData( oB, "Left" )      // .F. since this is a METHOD
    $STATUS$
       R
    $COMPLIANCE$
@@ -65,10 +65,10 @@
       __objHasMethod() is a low level class support function that let you
       find out if a symbol is a class function in a given object.
    $EXAMPLES$
-      oB := TBrowseNew( 0, 0, 24, 79 )
-      ? __objHasMethod( oB, "nLeft" )      // .F. since this is a VAR
-      ? __objHasMethod( oB, "FixBugs" )    // hopefully this should be .F.
-      ? __objHasMethod( oB, "Left" )       // this should return .T.
+      LOCAL oB := TBrowseNew( 0, 0, 24, 79 )
+      ? __objHasMethod( oB, "nLeft" )    // .F. since this is a VAR
+      ? __objHasMethod( oB, "FixBugs" )  // hopefully this should be .F.
+      ? __objHasMethod( oB, "Left" )     // this should return .T.
    $STATUS$
       R
    $COMPLIANCE$
@@ -133,16 +133,17 @@
       value within Object1 will be reflected when accessing the CLASS VAR
       from Object2.
    $EXAMPLES$
+      #include "hboo.ch"
       // show information about TBrowse class
-      oB := TBrowseNew( 0, 0, 24, 79 )
-      FOR EACH x IN __objGetMsgList( oB, .T. )
-         ? "VAR name:", x
+      LOCAL oB := TBrowseNew( 0, 0, 24, 79 ), tmp
+      FOR EACH tmp IN __objGetMsgList( oB, .T. )
+         ? "VAR name:", tmp
       NEXT
-      FOR EACH x IN __objGetMsgList( oB, .T., HB_MSGLISTCLASS )
-         ? "CLASS VAR name:", x
+      FOR EACH tmp IN __objGetMsgList( oB, .T., HB_MSGLISTCLASS )
+         ? "CLASS VAR name:", tmp
       NEXT
-      FOR EACH x IN __objGetMsgList( oB, .F. )
-         ? "METHOD name:", x
+      FOR EACH tmp IN __objGetMsgList( oB, .F. )
+         ? "METHOD name:", tmp
       NEXT
    $STATUS$
       R
@@ -183,9 +184,9 @@
       It is equivalent to `__objGetMsgList( oObject, .F. )`.
    $EXAMPLES$
       // show information about TBrowse class
-      oB := TBrowseNew( 0, 0, 24, 79 )
-      FOR EACH s IN __objGetMethodList( oB )
-         ? "METHOD name:", s
+      LOCAL oB := TBrowseNew( 0, 0, 24, 79 ), tmp
+      FOR EACH tmp IN __objGetMethodList( oB )
+         ? "METHOD name:", tmp
       NEXT
    $STATUS$
       R
@@ -227,14 +228,16 @@
       __objGetValueList() is a low level class support function that
       return an array with VAR names and value, each array element is a
       pair of: `aData[ i ][ HB_OO_DATA_SYMBOL ]` contain the symbol name
-               `aData[ i ][ HB_OO_DATA_VALUE  ]` contain the value of DATA
+               `aData[ i ][ HB_OO_DATA_VALUE  ]` contain the value of VAR
    $EXAMPLES$
+      // FIXME
       // show information about TBrowse class
-      oB := TBrowseNew( 0, 0, 24, 79 )
-      FOR EACH i IN __objGetValueList( oB )
+      #include "hboo.ch"
+      LOCAL oB := TBrowseNew( 0, 0, 24, 79 ), tmp
+      FOR EACH tmp IN __objGetValueList( oB )
          ? ;
-           "VAR name:", i[ HB_OO_DATA_SYMBOL ], ;
-           "   value=", i[ HB_OO_DATA_VALUE ]
+           "VAR name:", tmp[ HB_OO_DATA_SYMBOL ], ;
+           "   value=", tmp[ HB_OO_DATA_VALUE ]
       NEXT
    $STATUS$
       R
@@ -278,21 +281,22 @@
       aData[ i ][ HB_OO_DATA_VALUE  ] contain the new variable value.
    $EXAMPLES$
       // set some TBrowse instance variable
-      oB := TBrowse():New()
-      aData := Array( 4, 2 )
-      aData[ 1 ][ HB_OO_DATA_SYMBOL ] = "nTop"
-      aData[ 1 ][ HB_OO_DATA_VALUE  ] = 1
-      aData[ 2 ][ HB_OO_DATA_SYMBOL ] = "nLeft"
-      aData[ 2 ][ HB_OO_DATA_VALUE  ] = 10
-      aData[ 3 ][ HB_OO_DATA_SYMBOL ] = "nBottom"
-      aData[ 3 ][ HB_OO_DATA_VALUE  ] = 20
-      aData[ 4 ][ HB_OO_DATA_SYMBOL ] = "nRight"
-      aData[ 4 ][ HB_OO_DATA_VALUE  ] = 70
+      #include "hboo.ch"
+      LOCAL oB := TBrowse():New()
+      LOCAL aData := Array( 4, 2 )
+      aData[ 1 ][ HB_OO_DATA_SYMBOL ] := "nTop"
+      aData[ 1 ][ HB_OO_DATA_VALUE  ] := 1
+      aData[ 2 ][ HB_OO_DATA_SYMBOL ] := "nLeft"
+      aData[ 2 ][ HB_OO_DATA_VALUE  ] := 10
+      aData[ 3 ][ HB_OO_DATA_SYMBOL ] := "nBottom"
+      aData[ 3 ][ HB_OO_DATA_VALUE  ] := 20
+      aData[ 4 ][ HB_OO_DATA_SYMBOL ] := "nRight"
+      aData[ 4 ][ HB_OO_DATA_VALUE  ] := 70
       __objSetValueList( oB, aData )
-      ? oB:nTop      // 1
-      ? oB:nLeft     // 10
-      ? oB:nBottom   // 20
-      ? oB:nRight    // 70
+      ? oB:nTop     // 1
+      ? oB:nLeft    // 10
+      ? oB:nBottom  // 20
+      ? oB:nRight   // 70
    $STATUS$
       R
    $COMPLIANCE$
@@ -337,7 +341,7 @@
       created using the @ operator, see example below.
    $EXAMPLES$
       // create a new THappy class and add a Smile method
-      oHappy := HBClass():New( "THappy" )
+      LOCAL oHappy := HBClass():New( "THappy" )
       __objAddMethod( oHappy, "Smile", @MySmile() )
       ? oHappy:Smile( 1 )       // :)
       ? oHappy:Smile( 2 )       // ;)
@@ -392,8 +396,9 @@
       with the name <cInlineName> already exist in <oObject>.
    $EXAMPLES$
       // create a new THappy class and add a Smile INLINE method
-      oHappy := HBClass():New( "THappy" )
-      bInline := {| nType | { ":)", ";)", "*SMILE*" }[ nType ] }
+      LOCAL oHappy := HBClass():New( "THappy" )
+      LOCAL bInline := {| Self, nType | HB_SYMBOL_UNUSED( Self ), ;
+         { ":)", ";)", "*SMILE*" }[ nType ] }
       __objAddInline( oHappy, "Smile", bInline )
       ? oHappy:Smile( 1 )       // :)
       ? oHappy:Smile( 2 )       // ;)
@@ -436,7 +441,7 @@
       <cDataName> already exist in <oObject>.
    $EXAMPLES$
       // create a new THappy class and add a lHappy VAR
-      oHappy := HBClass():New( "THappy" )
+      LOCAL oHappy := HBClass():New( "THappy" )
       __objAddData( oHappy, "lHappy" )
       oHappy:lHappy := .T.
       IF oHappy:lHappy
@@ -489,7 +494,7 @@
       created using the @ operator, see example below.
    $EXAMPLES$
       // create a new THappy class and add a Smile method
-      oHappy := HBClass():New( "THappy" )
+      LOCAL oHappy := HBClass():New( "THappy" )
       __objAddMethod( oHappy, "Smile", @MySmile() )
       ? oHappy:Smile( 1 )       // :)
       ? oHappy:Smile( 2 )       // ;)
@@ -499,24 +504,22 @@
       ? oHappy:Smile( 2 )       // *WINK*
 
       STATIC FUNCTION MySmile( nType )
-         LOCAL cSmile
          DO CASE
          CASE nType == 1
-            cSmile := ":)"
+            RETURN ":)"
          CASE nType == 2
-            cSmile := ";)"
+            RETURN ";)"
          ENDCASE
-         RETURN cSmile
+         RETURN NIL
 
       STATIC FUNCTION YourSmile( nType )
-         LOCAL cSmile
          DO CASE
          CASE nType == 1
-            cSmile := "*SMILE*"
+            RETURN "*SMILE*"
          CASE nType == 2
-            cSmile := "*WINK*"
+            RETURN "*WINK*"
          ENDCASE
-         RETURN cSmile
+         RETURN NIL
    $STATUS$
       R
    $COMPLIANCE$
@@ -559,9 +562,11 @@
       mechanism.
    $EXAMPLES$
       // create a new THappy class and add a Smile INLINE method
-      oHappy := HBClass():New( "THappy" )
-      bMyInline   := {| nType | { ":)", ";)" }[ nType ] }
-      bYourInline := {| nType | { "*SMILE*", "*WINK*" }[ nType ] }
+      LOCAL oHappy := HBClass():New( "THappy" )
+      LOCAL bMyInline   := {| Self, nType | HB_SYMBOL_UNUSED( Self ), ;
+         { ":)", ";)" }[ nType ] }
+      LOCAL bYourInline := {| Self, nType | HB_SYMBOL_UNUSED( Self ), ;
+         { "*SMILE*", "*WINK*" }[ nType ] }
       __objAddInline( oHappy, "Smile", bMyInline )
       ? oHappy:Smile( 1 )       // :)
       ? oHappy:Smile( 2 )       // ;)
@@ -611,22 +616,21 @@
       __objDelInline() is exactly the same as __objDelMethod().
    $EXAMPLES$
       // create a new THappy class and add a Smile method
-      oHappy := HBClass():New( "THappy" )
+      LOCAL oHappy := HBClass():New( "THappy" )
       __objAddMethod( oHappy, "Smile", @MySmile() )
-      ? __objHasMethod( oHappy, "Smile" )    // .T.
+      ? __objHasMethod( oHappy, "Smile" )  // .T.
       // remove Smile method
       __objDelMethod( oHappy, "Smile" )
-      ? __objHasMethod( oHappy, "Smile" )    // .F.
+      ? __objHasMethod( oHappy, "Smile" )  // .F.
 
       STATIC FUNCTION MySmile( nType )
-         LOCAL cSmile
          DO CASE
          CASE nType == 1
-            cSmile := ":)"
+            RETURN ":)"
          CASE nType == 2
-            cSmile := ";)"
+            RETURN ";)"
          ENDCASE
-         RETURN cSmile
+         RETURN NIL
    $STATUS$
       R
    $COMPLIANCE$
@@ -667,22 +671,21 @@
       <oObject>.
    $EXAMPLES$
       // create a new THappy class and add a Smile method
-      oHappy := HBClass():New( "THappy" )
+      LOCAL oHappy := HBClass():New( "THappy" )
       __objAddMethod( oHappy, "Smile", @MySmile() )
-      ? __objHasMethod( oHappy, "Smile" )    // .T.
+      ? __objHasMethod( oHappy, "Smile" )  // .T.
       // remove Smile method
       __objDelInline( oHappy, "Smile" )
-      ? __objHasMethod( oHappy, "Smile" )    // .F.
+      ? __objHasMethod( oHappy, "Smile" )  // .F.
 
       STATIC FUNCTION MySmile( nType )
-         LOCAL cSmile
          DO CASE
          CASE nType == 1
-            cSmile := ":)"
+            RETURN ":)"
          CASE nType == 2
-            cSmile := ";)"
+            RETURN ";)"
          ENDCASE
-         RETURN cSmile
+         RETURN NIL
    $STATUS$
       R
    $COMPLIANCE$
@@ -722,12 +725,12 @@
       with the name <cDataName> does not exist in <oObject>.
    $EXAMPLES$
       // create a new THappy class and add a lHappy VAR
-      oHappy := HBClass():New( "THappy" )
+      LOCAL oHappy := HBClass():New( "THappy" )
       __objAddData( oHappy, "lHappy" )
-      ? __objHasData( oHappy, "lHappy" )    // .T.
+      ? __objHasData( oHappy, "lHappy" )  // .T.
       // remove lHappy VAR
       __objDelData( oHappy, "lHappy" )
-      ? __objHasData( oHappy, "lHappy" )    // .F.
+      ? __objHasData( oHappy, "lHappy" )  // .F.
    $STATUS$
       R
    $COMPLIANCE$
@@ -771,13 +774,12 @@
 
       #include "hbclass.ch"
       PROCEDURE Main()
-         LOCAL oSuper, oObject, oDress
-         oSuper  := TMood():New()
-         oObject := THappy():New()
-         oDress  := TShirt():New()
-         ? __objDerivedFrom( oObject, oSuper )    // .T.
-         ? __objDerivedFrom( oSuper, oObject )    // .F.
-         ? __objDerivedFrom( oObject, oDress )    // .F.
+         LOCAL oSuper  := TMood():New()
+         LOCAL oObject := THappy():New()
+         LOCAL oDress  := TShirt():New()
+         ? __objDerivedFrom( oObject, oSuper )  // .T.
+         ? __objDerivedFrom( oSuper, oObject )  // .F.
+         ? __objDerivedFrom( oObject, oDress )  // .F.
          RETURN
 
       CREATE CLASS TMood

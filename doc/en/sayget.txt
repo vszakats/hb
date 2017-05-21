@@ -127,7 +127,7 @@
       be included in the PICTURE string if there are both functions and
       templates.
    $EXAMPLES$
-      LOCAL cVar := Space( 50 )
+      LOCAL cVar := Space( 50 ), GetList := {}
       LOCAL nId := 0
       CLS
       @ 3, 1 SAY "Name" GET cVar PICTURE "@!S 30"

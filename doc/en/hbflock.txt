@@ -13,7 +13,7 @@
       hb_FLock( <nHandle>, <nOffset>, <nBytes> [, <nType ] )
                 --> lSuccess
    $ARGUMENTS$
-      <nHandle>  Dos file handle
+      <nHandle>  OS file handle
 
       set>  Offset of the first byte of the region to be locked.
 
@@ -71,7 +71,7 @@
    $SYNTAX$
       hb_FUnlock( <nHandle>, <nOffset>, <nBytes> ) --> lSuccess
    $ARGUMENTS$
-      <nHandle>  Dos file handle
+      <nHandle>  OS file handle
 
       set>  Offset of the first byte of the region to be locked.
 

@@ -451,7 +451,8 @@
       `SET FUNCTION` command is preprocessed into __SetFunction() function
       during compile time.
    $EXAMPLES$
-      // Set F1 with a string
+      LOCAL cTest
+      // Set <F1> with a string
       CLS
       __SetFunction( 1, "I Am Lazy" + Chr( 13 ) )
       cTest := Space( 20 )
@@ -562,17 +563,21 @@
       A group of keys may be assigned the same code block/condition block
       by using an array of key values in place on the first parameter.
    $EXAMPLES$
+      #include "getexit.ch"
+      #include "inkey.ch"
       LOCAL bOldF10 := SetKey( K_F10, {|| Yahoo() } )
-      ... // some other processing
+      LOCAL bBlock
+      // some other processing ...
       SetKey( K_F10, bOldF10 )
-      ... // some other processing
+      // some other processing ...
       bBlock := SetKey( K_SPACE )
-      IF bBlock != NIL ...
+      IF bBlock != NIL  // ...
 
-      // make F10 exit current get, but only if in a get - ignores other
-      // wait-states such as menus, achoices, etc...
-      SetKey( K_F10, {|| GetActive():State := GE_WRITE },;
-       {|| GetActive() != NIL } )
+         // make <F10> exit current get, but only if in a get - ignores other
+         // wait states such as menus, achoices, etc...
+         SetKey( K_F10, {|| GetActive():State := GE_WRITE }, ;
+            {|| GetActive() != NIL } )
+      ENDIF
    $STATUS$
       R
    $COMPLIANCE$
@@ -613,9 +618,10 @@
       a key, and optionally assigns the condition-block to the
       return-parameter
    $EXAMPLES$
+      #include "inkey.ch"
       LOCAL bOldF10, bOldF10Cond
       bOldF10 := hb_SetKeyGet( K_F10, @bOldF10Cond )
-      ... // some other processing
+      // some other processing ...
       SetKey( K_F10, bOldF10, bOldF10Cond )
    $STATUS$
       R
@@ -657,7 +663,7 @@
       or the value of NIL to clear the current list.
    $EXAMPLES$
       LOCAL aKeys := hb_SetKeySave( NIL )  // removes all current set=keys
-      ... // some other processing
+      // some other processing ...
       hb_SetKeySave( aKeys )
    $STATUS$
       R
@@ -703,15 +709,17 @@
       functionality for such functions as AChoice(), dbEdit(), MemoEdit(),
       ACCEPT, INPUT, READ, and WAIT
    $EXAMPLES$
+      // FIXME
+      #include "inkey.ch"
       // within ReadModal()
       IF hb_SetKeyCheck( K_ALT_X, GetActive() )
-         ... // some other processing
+         // some other processing ...
       ENDIF
       // within TBrowse handler
       CASE hb_SetKeyCheck( nInkey, oTBrowse )
          RETURN
       CASE nInKey == K_ESC
-         ... // some other processing
+         // some other processing ...
    $STATUS$
       R
    $COMPLIANCE$
@@ -753,17 +761,21 @@
       A group of keys may be assigned the same code block/condition block
       by using an array of key values in place on the first parameter.
    $EXAMPLES$
+      #include "getexit.ch"
+      #include "inkey.ch"
       LOCAL bOldF10 := SetKey( K_F10, {|| Yahoo() } )
-      ... // some other processing
+      LOCAL bBlock
+      // some other processing ...
       SET KEY K_F10 TO bOldF10
-      ... // some other processing
+      // some other processing ...
       bBlock := SetKey( K_SPACE )
-      IF bBlock != NIL ...
+      IF bBlock != NIL  // ...
 
          // make F10 exit current get, but only if in a get - ignores other
          // wait-states such as menus, achoices, etc...
          SetKey( K_F10, {|| GetActive():State := GE_WRITE }, ;
             {|| GetActive() != NIL } )
+      ENDIF
    $STATUS$
       R
    $COMPLIANCE$
@@ -901,7 +913,7 @@
       value of the logical expression <lWrap> is a logical false (.F.),
       the wrapping mode is set OFF; otherwise, it is set ON.
    $EXAMPLES$
-      See tests/menuto.prg
+      // See tests/menuto.prg
    $STATUS$
       R
    $COMPLIANCE$
@@ -1294,7 +1306,7 @@
       SET PRINTER ON
       SET PRINTER TO LPT1
       ? 25141251 / 362
-      SET PRINTER .F.
+      SET PRINTER ( .F. )
    $STATUS$
       R
    $COMPLIANCE$
@@ -1444,6 +1456,7 @@
       If <lBell> is a logical true (.T.), the bell will be turned
       ON; otherwise, the bell will be turned off.
    $EXAMPLES$
+      LOCAL cDummy, GetList := {}
       SET BELL ON
       cDummy := Space( 20 )
       @ 3, 2 GET cDummy
@@ -1586,7 +1599,7 @@
       This function removes a SET listener callback function.
    $EXAMPLES$
       int handle = hb_setListenerAdd( callback_function );
-      ...
+      /* ... */
       hb_setListenerRemove( handle );
    $STATUS$
       R

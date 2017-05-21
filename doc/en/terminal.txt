@@ -32,7 +32,6 @@
       // save the screen, display list of files than restore the screen
       SAVE SCREEN
       DIR *.*
-      WAIT
       RESTORE SCREEN
    $STATUS$
       R
@@ -77,7 +76,6 @@
       // save the screen, display list of files than restore the screen
       SAVE SCREEN
       DIR *.*
-      WAIT
       RESTORE SCREEN
    $STATUS$
       R
@@ -123,7 +121,6 @@
       // save the screen, display list of files than restore the screen
       SAVE SCREEN
       DIR *.*
-      WAIT
       RESTORE SCREEN
    $STATUS$
       R
@@ -168,7 +165,6 @@
       // save the screen, display list of files than restore the screen
       SAVE SCREEN
       DIR *.*
-      WAIT
       RESTORE SCREEN
    $STATUS$
       R
@@ -401,7 +397,8 @@
       a given item from this list. You may use the manifest constants
       defined in color.ch to identify and extract common colors.
    $EXAMPLES$
-      ? hb_ColorIndex( "W/N, N/W", CLR_ENHANCED ) // "N/W"
+      #include "color.ch"
+      ? hb_ColorIndex( "W/N, N/W", CLR_ENHANCED )  // "N/W"
    $STATUS$
       R
    $COMPLIANCE$
@@ -440,7 +437,7 @@
       using the default transformation for the type of expression.
    $EXAMPLES$
       // Output a negative dollar amount using debit notation.
-      DevOutPict( -1.25, "@D$ 99,999.99 ) // -> $(     1.25)
+      DevOutPict( -1.25, "@D$ 99,999.99 )  // -> $(     1.25)
    $STATUS$
       R
    $COMPLIANCE$
@@ -579,10 +576,11 @@
       This function stops the application until a key is pressed. The key
       must be in the range 32..255. Control keys are not processed.
    $EXAMPLES$
+      LOCAL cKey
       // Wait for a key stroke
       __Wait( "Press a key to continue" )
       //
-      DO WHILE !( cKey == "Q" )
+      DO WHILE ! cKey == "Q"
          cKey := __Wait( "Press 'Q' to continue" )
       ENDDO
    $STATUS$
@@ -726,11 +724,12 @@
 
       On compile time this command is translated into __Eject() function.
    $EXAMPLES$
-      USE clients NEW
+      LOCAL Curpos
+      USE test NEW
       SET DEVICE TO PRINTER
-      CurPos := 0
+      Curpos := 0
       DO WHILE ! Eof()
-         ? clients->NAME, clients->ADDRESS
+         ? test->first, test->last
          Curpos++
          IF Curpos > 59
             Curpos := 0
@@ -738,7 +737,6 @@
          ENDIF
       ENDDO
       SET DEVICE TO SCREEN
-      dbCloseArea()
    $STATUS$
       R
    $COMPLIANCE$

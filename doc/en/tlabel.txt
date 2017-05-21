@@ -53,7 +53,6 @@
    $EXAMPLES$
       USE test NEW
       LABEL FORM test.lbl
-      dbCloseArea()
    $STATUS$
       R
    $COMPLIANCE$

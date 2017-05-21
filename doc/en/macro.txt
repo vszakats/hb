@@ -65,9 +65,10 @@
             HB_MACRO_STATEMENTS flag
 
    $EXAMPLES$
+      #include "hbmacro.ch"
       INIT PROCEDURE IWANTCLIPPER()
-         hb_SetMacro( HB_SM_HARBOUR, .F. )
-         hb_SetMacro( HB_SM_XBASE, .F. )
+         ? hb_SetMacro( HB_SM_HARBOUR, .F. )
+         ? hb_SetMacro( HB_SM_XBASE, .F. )
          RETURN
    $STATUS$
       R

@@ -250,21 +250,15 @@
       It is also used internally to implement `DO <proc> WITH <args...>`
       In this case <xFuncProc> is of type HB_SYMB.
    $EXAMPLES$
-      LOCAL bCode, pFunction, cFunction
+      LOCAL cFunction := "MyFunc"
 
-      bCode := {| x | MyFunc( x ) }
-      ? Do( bCode, 1 )
+      ? Do( cFunction, 1 )  // Old style
+      DO &cFunction WITH 2  // Old style with macro
 
-      pFunction := @MyFunc()
-      ? Do( pFunction, 2 )
+      ? Do( {| n | MyFunc( n ) }, 3 )
+      ? Do( @MyFunc(), 4 )
 
-      cFunction := "MyFunc"
-      ? Do( cFunction, 3 )
-
-      // Old style (slower):
-      DO &cFunction WITH 4
-
-      FUNCTION MyFunc( n )
+      FUNCTION MyFunc( n )  /* must be a public function for old style calls */
          ? n
          RETURN n + 1
    $COMPLIANCE$

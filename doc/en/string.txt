@@ -180,7 +180,7 @@
    $DESCRIPTION$
       This function trims the leading space blank
    $EXAMPLES$
-      ? LTrim( "Hello     " )
+      ? "|" + LTrim( "Hello     " ) + "|"
    $STATUS$
       R
    $COMPLIANCE$
@@ -221,7 +221,7 @@
       the first string <cSearch>. If the substring is not contained within
       the second expression, the function will return 0.
    $EXAMPLES$
-      ? At( "cde", "abcdefgfedcba" )    // 3
+      ? At( "cde", "abcdefgfedcba" )  // 3
    $STATUS$
       R
    $COMPLIANCE$
@@ -1303,8 +1303,8 @@
 
       A value of 0 for <nSize> will return a null string.
    $EXAMPLES$
-      ? Replicate( "a", 10 )      // aaaaaaaaaa
-      ? Replicate( "b", 100000 )
+      ? Replicate( "a", 10 )     // aaaaaaaaaa
+      ? Replicate( "b", 10000 )
    $STATUS$
       R
    $COMPLIANCE$
@@ -1479,21 +1479,19 @@
    $EXAMPLES$
       LOCAL n := ( 5 / 2 ) + 0.009
 
-      ? hb_ntoc( n )    // --> 2.509
-      ? Str( n )        // -->          2.51
-      ? hb_ntoc( n, 2 ) // --> 2.51
-      ? Str( n, 5, 2 )  // -->  2.51
-      ? hb_ntos( n )    // --> 2.51
+      ? hb_ntoc( n )     // --> 2.509
+      ? Str( n )         // -->          2.51
+      ? hb_ntoc( n, 2 )  // --> 2.51
+      ? Str( n, 5, 2 )   // -->  2.51
+      ? hb_ntos( n )     // --> 2.51
       ? "--- decimals set to 7 ----"
       SET DECIMALS TO 7
-      ? Str( n )        // -->          2.51
-      ? hb_ntoc( n )    // --> 2.509
-      ? Str( n, 10, 7 ) // -->  2.5090000
-      ? hb_ntoc( n, 7 ) // --> 2.509
+      ? Str( n )         // -->          2.51
+      ? hb_ntoc( n )     // --> 2.509
+      ? Str( n, 10, 7 )  // -->  2.5090000
+      ? hb_ntoc( n, 7 )  // --> 2.509
       ? "--- pass non numeric / NIL value ----"
-      ? hb_ntoc( "42" ) // --> null string
-      ? hb_ntoc()       // --> null string
-      ? Str( "42" )     // --> RTE
+      ? Str( "42" )      // --> RTE
    $STATUS$
       R
    $COMPLIANCE$
@@ -1534,8 +1532,8 @@
    $EXAMPLES$
       LOCAL n := ( 5 / 2 ) + 0.009
 
-      ? Str( n )        // -->          2.51
-      ? hb_ntos( n )    // --> 2.51
+      ? Str( n )      // -->          2.51
+      ? hb_ntos( n )  // --> 2.51
    $STATUS$
       R
    $COMPLIANCE$
