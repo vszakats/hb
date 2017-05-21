@@ -2740,7 +2740,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
 
    /* Process command-line */
 
-   hbmk[ _HBMK_lHARDEN ] := HBMK_ISPLAT( "win" ) /* TODO: later enable this for all platforms */
+   hbmk[ _HBMK_lHARDEN ] := HBMK_ISPLAT( "win" )  /* TODO: later enable this for all platforms */
 
    l_aOPTCPRS := {}
    l_aOPTRUN := {}
@@ -9052,7 +9052,30 @@ STATIC PROCEDURE convert_incpaths_to_options( hbmk, cOptIncMask, lCHD_Comp )
             ELSE
                AAddNew( hbmk[ _HBMK_aOPTC ], StrTran( cOptIncMask, "{DI}", FNameEscape( cINCPATH, hbmk[ _HBMK_nCmd_Esc ], hbmk[ _HBMK_nCmd_FNF ] ) ) )
             ENDIF
-            AAddNew( hbmk[ _HBMK_aOPTRES ], StrTran( cOptIncMask, "{DI}", FNameEscape( cINCPATH, hbmk[ _HBMK_nCmd_Esc ], hbmk[ _HBMK_nCmd_FNF ] ) ) )
+
+            /* Hack to avoid passing an include path to windres, that contains
+               space character. Such path will result in a windres error even
+               if quoted correctly. It means that resources may fail to find
+               their required headers. Include paths are typically specified
+               for C and Harbour sources, so it's expected that most apps won't
+               be affected by not automatically adding these paths to the
+               resource compiler. In which cases this _is_ required, the
+               solution is to install the necessary components on a space-free
+               path. Refs:
+                  https://sourceware.org/bugzilla/show_bug.cgi?id=4356
+                  https://sourceforge.net/p/mingw/bugs/1000/
+                  https://github.com/Alexpux/MINGW-packages/issues/1035
+             */
+            IF " " $ cINCPATH .AND. ;
+               hb_Version( HB_VERSION_BUILD_PLAT ) == "win" .AND. ;  /* mingw on non-Windows platforms is not affected */
+               HBMK_ISPLAT( "win" ) .AND. HBMK_ISCOMP( "mingw|mingw64|mingwarm|clang" )  /* targets using `windres` */
+
+               IF hbmk[ _HBMK_lInfo ]
+                  _hbmk_OutErr( hbmk, hb_StrFormat( I_( "Warning: Skipped adding header path to 'windres', because it breaks with paths containing spaces: '%1$s'" ), cINCPATH ) )
+               ENDIF
+            ELSE
+               AAddNew( hbmk[ _HBMK_aOPTRES ], StrTran( cOptIncMask, "{DI}", FNameEscape( cINCPATH, hbmk[ _HBMK_nCmd_Esc ], hbmk[ _HBMK_nCmd_FNF ] ) ) )
+            ENDIF
          ENDIF
       ENDIF
    NEXT
