@@ -827,6 +827,7 @@
       This function converts an expression in his inverted form. It is
       useful to build descending indexes.
    $EXAMPLES$
+      // FIXME
       // Seek for Smith in a descending index
       dbSeek( Descend( "SMITH" ) )
    $STATUS$
@@ -1303,8 +1304,8 @@
 
       A value of 0 for <nSize> will return a null string.
    $EXAMPLES$
-      ? Replicate( "a", 10 )     // --> "aaaaaaaaaa"
-      ? Replicate( "b", 10000 )
+      ? Replicate( "a", 10 )      // --> "aaaaaaaaaa"
+      ? Replicate( "b", 100000 )
    $STATUS$
       R
    $COMPLIANCE$
