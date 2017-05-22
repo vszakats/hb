@@ -23,9 +23,9 @@
       This function finds the position in a string of the "ith" time another
       string appears in it.
    $EXAMPLES$
-      // Find the Position in cMemoString of
-      // the 10th Occurrence of "the", case
-      // insensitive
+      // Find the position in cMemoString of the 10th occurrence
+      // of "the", case insensitive
+      LOCAL cMemoString := hb_MemoRead( "test.txt" )
 
       ? ft_FindITh( "the", cMemoString, 10 )
    $SEEALSO$

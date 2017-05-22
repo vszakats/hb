@@ -26,7 +26,7 @@
       be meaningful (i.e., converting from a code block returns an Empty()
       value of the desired type).
    $EXAMPLES$
-      nNumericValue := ft_XToY( cInputValue, "N" )
-      lLogicalValue := ft_XToY( nInputValue, "L" )
+      ? ft_XToY( "123", "N" )  // --> 123
+      ? ft_XToY( 1, "L" )      // --> .T.
    $END$
  */

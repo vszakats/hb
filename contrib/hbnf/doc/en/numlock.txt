@@ -19,15 +19,17 @@
       This function is useful if you need to know or set the status of the
       <NumLock> key for some reason.
    $EXAMPLES$
+      #include "inkey.ch"
+
       IF ft_NumLock()
          ? "NumLock is active"
       ENDIF
 
       // Another one, slightly strange, courtesy of Glenn Scott:
 
-      #include "inkey.ch"
+      numBlink()
 
-      FUNCTION numBlink()
+      STATIC FUNCTION numBlink()
 
          LOCAL lOldNum := ft_NumLock()
 

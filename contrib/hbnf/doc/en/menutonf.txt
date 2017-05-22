@@ -176,6 +176,7 @@
       Note that this command can also be called using function-style
       syntax.  See the entry for ft_MenuTo() for further details.
    $EXAMPLES$
+      // FIXME
       #include "ftmenuto.ch"
 
       // Simple command

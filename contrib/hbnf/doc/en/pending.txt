@@ -33,12 +33,12 @@
       pending message is issued much too soon after the current one.
 
    $EXAMPLES$
-      ft_Pending( "Message one", 20, 0, 3, "W+/G" ) // Displays "Message one."
-                                                    // sets row to 20, col to 0.
-                                                    // wait to 3 and color to
-                                                    // bright white over green.
-      ft_Pending( "Message two" )   // Displays "Message two", after 5 sec.
-      ft_Pending( "Message three" ) // Displays "Message three", after 5 sec.
+      ft_Pending( "Message one", 20, 0, 3, "W+/G" )  // Displays "Message one."
+                                                     // sets row to 20, col to 0.
+                                                     // wait to 3 and color to
+                                                     // bright white over green.
+      ft_Pending( "Message two" )    // Displays "Message two", after 5 sec.
+      ft_Pending( "Message three" )  // Displays "Message three", after 5 sec.
 
       // Note that default row, col, wait time and color need to be set only
       // once in the very first call to ft_Pending() and only if the internal

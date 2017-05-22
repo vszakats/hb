@@ -32,15 +32,16 @@
       The routine correctly handles passing through midnight but will not
       work for more than 24 hours.
    $EXAMPLES$
+      LOCAL nTime
       // Example 1:
-      ft_Sleep( 10.0 )     // Sleep for 10.0 seconds
+      ft_Sleep( 10.0 )    // Sleep for 10.0 seconds
       // Example 2:
-      nTime := Seconds()   // usually after some interrupt from mouse or
-                           // keyboard
+      nTime := Seconds()  // usually after some interrupt from mouse or
+                          // keyboard
 
       // ... intervening code ...
 
-      // ft_Sleep( 0.5, nTime ) // Sleep until the system clock is
-                                // nTime + 0.5 seconds.
+      // ft_Sleep( 0.5, nTime )  // Sleep until the system clock is
+                                 // nTime + 0.5 seconds.
    $END$
  */

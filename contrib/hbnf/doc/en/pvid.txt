@@ -22,7 +22,7 @@
       setting, and maximum row and column to a series of static arrays.  All
       that is needed to restore the saved settings is a call to ft_PopVid().
    $EXAMPLES$
-      ft_PushVid()          // Save the current video states
+      ft_PushVid()  // Save the current video states
    $SEEALSO$
       ft_PopVid()
    $END$
@@ -49,7 +49,7 @@
       reduced by one.  Note that the use of stack logic means that items on
       the stack are retrieved in Last In First Out order.
    $EXAMPLES$
-      ft_PopVid()          // Restore video states
+      ft_PopVid()  // Restore video states
    $SEEALSO$
       ft_PushVid()
    $END$

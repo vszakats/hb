@@ -18,6 +18,7 @@
       instead of relying on the `SET PATH` command.
    $EXAMPLES$
       ? ft_ChDir( "harbour" )
+      ? ft_ChDir( "." + hb_ps() )
       ? ft_ChDir( hb_ps() )
       ? ft_ChDir( ".." + hb_ps() + "hbnf" )
    $END$

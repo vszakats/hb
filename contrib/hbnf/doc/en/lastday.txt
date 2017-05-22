@@ -18,8 +18,8 @@
       passed, or the last day of the current month if no argument is
       supplied.
    $EXAMPLES$
-      ? ft_LDay( 0d19900915 )   // 1990-09-30
-      ? ft_LDay()               // 1991-03-31  (current month)
+      ? ft_LDay( 0d19900915 )  // --> 1990-09-30
+      ? ft_LDay()              // --> 1991-03-31  (current month)
    $SEEALSO$
       ft_FDay()
    $END$

@@ -26,14 +26,12 @@
       version and use the Clipper Extend system.
    $EXAMPLES$
       // This code would clear bit 4 in a byte represented by hb_BChar( 115 ):
-
-      cNewByte := ft_BitClr( hb_BChar( 115 ), 4 )
-      ? hb_BCode( cNewbyte )    // result: 99
-      ? cNewByte                // result: "c"
+      LOCAL cNewByte := ft_BitClr( hb_BChar( 115 ), 4 )
+      ? hb_BCode( cNewbyte )  // --> 99
+      ? cNewByte              // --> "c"
 
       // This code would clear bit 5 in the byte represented by letter "A":
-
-      ? ft_BitClr( "A", 5 )     // result: "A", since bit 5 already clear
+      ? ft_BitClr( "A", 5 )   // --> "A", since bit 5 already clear
    $SEEALSO$
       ft_BitSet(), ft_IsBit()
    $END$

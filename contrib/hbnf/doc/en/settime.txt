@@ -24,14 +24,9 @@
    $EXAMPLES$
       // The following program takes a time string from the command-line and sets
       // the DOS system time:
-
-      PROCEDURE Main( cTime )
-
-         cTime := iif( cTime == NIL, Time(), cTime )
-         ? "Setting time to:", cTime + "... "
-         ft_SetTime( cTime )
-         ? "Time is now:", Time()
-
-         RETURN
+      LOCAL cTime := Time()
+      ? "Setting time to:", cTime + "... "
+      ft_SetTime( cTime )
+      ? "Time is now:", Time()
    $END$
  */

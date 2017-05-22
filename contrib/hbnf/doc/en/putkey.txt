@@ -33,8 +33,8 @@
       handler.  If you don't like using internals, then don't use this
       function, you sniveling coward.
    $EXAMPLES$
-      ft_PutKey( -9 )   //  Stuff the F10 key
-      ft_PutKey( 276 )  //  Stuff the Alt+T key
-      KEYBOARD 28       //  Stuff the F1 key using a User-Defined Command
+      ft_PutKey( -9 )   // Stuff the <F10> key
+      ft_PutKey( 276 )  // Stuff the <Alt+T> key
+      KEYBOARD 28       // Stuff the <F1> key using a User-Defined Command
    $END$
  */

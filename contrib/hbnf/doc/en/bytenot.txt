@@ -25,8 +25,8 @@
    $EXAMPLES$
       // This code performs a bitwise NOT on byte represented by hb_BChar( 32 ):
 
-      cNewByte := ft_ByteNot( hb_BChar( 32 ) )
-      ? hb_BCode( cNewByte )     // result: 223
+      LOCAL cNewByte := ft_ByteNot( hb_BChar( 32 ) )
+      ? hb_BCode( cNewByte )  // --> 223
    $SEEALSO$
       ft_ByteOr(), ft_ByteXor(), ft_ByteNeg(), ft_ByteAnd()
    $END$

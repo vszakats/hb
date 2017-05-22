@@ -51,6 +51,7 @@
                            the calling routine or resumes
       <table>
    $EXAMPLES$
+      // FIXME
       // Declare arrays
       LOCAL aColors  := {}
       LOCAL aBar     := { " ENTER/EDIT ", " REPORTS ", " DISPLAY " }
@@ -144,6 +145,7 @@
       ft_Fill() is a function used to set up the menu options prior
       to calling ft_Menu1().
    $EXAMPLES$
+      // FIXME
       ft_Fill( aOptions[ 1 ], "A. Execute A Dummy Procedure" , {|| fubar() }, .T. )
 
       // The above would be added to the sub-menu associated with the

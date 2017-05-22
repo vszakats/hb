@@ -25,9 +25,9 @@
       // This code performs a bit-wise XOR on two bytes represented
       // by hb_BChar( 32 ) and hb_BChar( 55 ):
 
-      cNewByte := ft_ByteXor( hb_BChar( 32 ), hb_BChar( 55 ) )
-      ? hb_BCode( cNewByte )     // result: 23
-      ? cNewByte                 // result: non-printable character
+      LOCAL cNewByte := ft_ByteXor( hb_BChar( 32 ), hb_BChar( 55 ) )
+      ? hb_BCode( cNewByte )  // --> 23
+      ? cNewByte              // --> non-printable character
    $SEEALSO$
       ft_ByteOr(), ft_ByteNot(), ft_ByteNeg(), ft_ByteAnd()
    $END$

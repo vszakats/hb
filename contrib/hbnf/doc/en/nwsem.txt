@@ -75,15 +75,12 @@
       excellent companion guide to the source code for all NetWare
       functions in the Nanforum Toolkit.
    $EXAMPLES$
-      LOCAL nInitVal, nRc, nHandle, nOpenCnt
-
-      nInitVal := 2
-      nRc      := ft_NWSemOpen( "Semaphore Test", nInitVal, ;
-                                @nHandle, @nOpenCnt )
-
+      LOCAL nHandle, nOpenCnt
+      LOCAL nInitVal := 2
+      LOCAL nRc := ft_NWSemOpen( "Semaphore Test", nInitVal, ;
+                                 @nHandle, @nOpenCnt )
       IF nRc != 0
          ? "Error:", nRc
-         RETURN
       ENDIF
    $SEEALSO$
       ft_NWSemEx(), ft_NWSemWait(), ft_NWSemSig(), ft_NWSemClose(), ft_NWSemLock()
@@ -121,14 +118,13 @@
    $DESCRIPTION$
       See the description for ft_NWSemOpen().
    $EXAMPLES$
-      nInitVal := 2
-      nHandle  := 0
-      nOpenCnt := 0
+      LOCAL nInitVal := 2
+      LOCAL nHandle  := 0
+      LOCAL nOpenCnt := 0
 
       ft_NWSemOpen( "Semaphore Test", nInitVal, @nHandle, @nOpenCnt )
 
-      nRc := ft_NWSemWait( nHandle )
-      IF nRc == 254
+      IF ft_NWSemWait( nHandle ) == 254
          ? "All slots for this resource are currently in use"
          RETURN
       ENDIF
@@ -172,10 +168,8 @@
    $EXAMPLES$
       ft_NWSemOpen( "Semaphore Test", nInitVal, @nHandle, @nOpenCnt )
 
-      nRc := ft_NWSemWait( nHandle )
-      IF nRc == 254
+      IF ft_NWSemWait( nHandle ) == 254
          ? "All slots for this resource are currently in use"
-         RETURN
       ENDIF
    $SEEALSO$
       ft_NWSemOpen(), ft_NWSemEx(), ft_NWSemSig(), ft_NWSemClose(), ft_NWSemLock()
@@ -260,7 +254,6 @@
       <lRet> == .T. if you get the lock, .T. if you don't.
       If the lock succeeds, <nHandle> will contain the semaphore
       handle.  If it fails, the value of <nHandle> is undefined.
-
    $DESCRIPTION$
       ft_NWSemLock() uses the Nanforum Toolkit's NetWare Semaphore API
       functions in order to provide a general purpose "lock" you can use in

@@ -18,10 +18,8 @@
       as Wilton's "Programmer's Guide to PC & PS/2 Video Systems"
       (Microsoft Press)
    $EXAMPLES$
-      PROCEDURE Main( cMode )
-         ft_SetMode( Val( cMode ) )
-         ? "Video mode is:", ft_GetMode()
-         RETURN
+      ft_SetMode( 1 )
+      ? "Video mode is:", ft_GetMode()
    $SEEALSO$
       ft_Adapter()
    $END$
@@ -47,9 +45,7 @@
       as Wilton's "Programmer's Guide to PC & PS/2 Video Systems"
       (Microsoft Press)
    $EXAMPLES$
-      PROCEDURE Main( cMode )
-         ft_SetMode( Val( cMode ) )
-         ? "Video mode is:", ft_GetMode()
-         RETURN
+      ft_SetMode( 1 )
+      ? "Video mode is:", ft_GetMode()
    $END$
  */

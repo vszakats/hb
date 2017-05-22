@@ -44,19 +44,28 @@
         b. Type (whole, decimal, fraction)
         c. Amount (100's, 5 decimals, 16th, etc.)
    $EXAMPLES$
+      LOCAL nVal := 1234.567
+
+      #define NEAREST_DECIMAL       "D"
+      #define NEAREST_FRACTION      "F"
+      #define NEAREST_WHOLE_NUMBER  "W"
+      #define ROUND_DOWN            "D"
+      #define ROUND_NORMAL          "N"
+      #define ROUND_UP              "U"
+
       // round normal to 2 decimal places
-      ? ft_Round( nDollars )
+      ? ft_Round( nVal )
 
       // round normal to 6 decimal places
-      ? ft_Round( nIntRate, 6 )
+      ? ft_Round( nVal, 6 )
 
       // round to nearest thousands
-      ? ft_Round( nPrice, 3, NEAREST_WHOLE_NUMBER )
+      ? ft_Round( nVal, 3, NEAREST_WHOLE_NUMBER )
 
       // round Up to nearest third
-      ? ft_Round( nAmount, 3, NEAREST_FRACTION, ROUND_UP )
+      ? ft_Round( nVal, 3, NEAREST_FRACTION, ROUND_UP )
 
       // round down to 3 decimals Within .005
-      ? ft_Round( nAvg, 3, , ROUND_DOWN, .005 )
+      ? ft_Round( nVal, 3, , ROUND_DOWN, .005 )
    $END$
  */

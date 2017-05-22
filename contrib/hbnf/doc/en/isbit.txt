@@ -28,13 +28,13 @@
       // This code tests whether bit 3 is set in the byte represented by
       // hb_BChar( 107 ):
 
-      lBitflag := ft_IsBit( hb_BChar( 107 ), 3 )
-      ? lBitflag                  // result: .T.
+      LOCAL lBitflag := ft_IsBit( hb_BChar( 107 ), 3 )
+      ? lBitflag            // --> .T.
 
       // This code tests whether bit 5 is set in the byte represented by ASCII
       // 65 (letter "A")
 
-      ? ft_IsBit( "A", 5 )        // result: .F.
+      ? ft_IsBit( "A", 5 )  // --> .F.
    $SEEALSO$
       ft_BitSet(), ft_BitClr()
    $END$

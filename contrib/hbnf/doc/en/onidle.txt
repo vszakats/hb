@@ -24,7 +24,7 @@
    $EXAMPLES$
       ft_OnIdle( {|| QOut( "Hey, I'm not busy!" ) } )
 
-      Inkey( 0 )    // Let the fun begin
+      Inkey( 0 )  // Let the fun begin
    $SEEALSO$
       ft_Idle()
    $END$

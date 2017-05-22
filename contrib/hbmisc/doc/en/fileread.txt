@@ -51,11 +51,7 @@
 
       `:ErrorMsg( [<cPre>] )` Returns a formatted error message.
    $EXAMPLES$
-      LOCAL oFile
-
-      hb_MemoWrit( "test.txt", "Hello" + hb_eol() + "World" )
-
-      oFile := TFileRead():New( "test.txt" )
+      LOCAL oFile := TFileRead():New( "test.txt" )
       oFile:Open()
       IF oFile:Error()
          ? oFile:ErrorMsg( "FileRead:" )

@@ -25,9 +25,9 @@
       // This code performs a bit-wise OR on two bytes represented
       // by hb_BChar( 20 ) and hb_BChar( 10 ):
 
-      cNewByte := ft_ByteOr( hb_BChar( 20 ), hb_BChar( 10 ) )
-      ? hb_BCode( cNewByte )     // result: 30
-      ? cNewByte                 // result: non-printable character
+      LOCAL cNewByte := ft_ByteOr( hb_BChar( 20 ), hb_BChar( 10 ) )
+      ? hb_BCode( cNewByte )  // --> 30
+      ? cNewByte              // --> non-printable character
    $SEEALSO$
       ft_ByteXor(), ft_ByteNot(), ft_ByteNeg(), ft_ByteAnd()
    $END$

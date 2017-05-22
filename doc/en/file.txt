@@ -821,7 +821,6 @@
       `SET DEFAULT TO` settings.
    $EXAMPLES$
       COPY FILE test.dbf TO adir.prg
-      hb_MemoWrit( "test.txt", "Test" )
       COPY FILE test.txt TO LPT1
    $STATUS$
       R
@@ -858,9 +857,7 @@
       function returns .T. and sets the value returned by FError() to -1
       (F_ERROR) or a C-compiler dependent errno value (EBADF or EINVAL).
    $EXAMPLES$
-      LOCAL nH
-      hb_MemoWrit( "test.txt", hb_Compiler() )
-      nH := FOpen( "test.txt" )
+      LOCAL nH := FOpen( "test.txt" )
       ? FReadStr( nH, 80 )
       IF hb_FEof( nH )
          ? "End-of-file reached"

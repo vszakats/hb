@@ -39,17 +39,19 @@
    $EXAMPLES$
       // Get the environment in text form and browse it:
 
-      cEnvBlock   := ""
-      nNumStrings := ft_GetE( @cEnvBlock )
+      LOCAL cEnvBlock := ""
+      LOCAL nNumStrings := ft_GetE( @cEnvBlock )
+      LOCAL aEnvArray
+
       @ 0, 0 TO MaxRow() - 1, MaxCol()
-      @ MaxRow(), 0 SAY 'Browse strings, press ESC to exit...'
-      MemoWrit( cEnvBlock, 1, 1, MaxRow() - 2, MaxCol() - 1, .F. )
+      @ MaxRow(), 0 SAY 'Browse strings, press <Esc> to exit...'
+      hb_MemoWrit( cEnvBlock, 1, 1, MaxRow() - 2, MaxCol() - 1, .F. )
 
       // Get the environment in text form and write it to a file:
 
       cEnvBlock := ""
       ft_GetE( @cEnvBlock )
-      MemoWrit( "environ.txt", cEnvBlock )
+      hb_MemoWrit( "environ.txt", cEnvBlock )
 
       // Get the environment in Array form:
       aEnvArray := Array( ft_GetE() )
