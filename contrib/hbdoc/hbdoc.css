@@ -290,7 +290,6 @@ pre {
   padding: 8px 16px !important;
   overflow: scroll;
   line-height: 125% !important;
-  resize: both;
 }
 
 code, .d-t {
@@ -328,6 +327,10 @@ aside code {
   margin: 0 0 0 1em;
   padding: 0 !important;
   white-space: pre-wrap;
+}
+
+.d-ex pre {
+  resize: both;
 }
 
 .d-sym pre {

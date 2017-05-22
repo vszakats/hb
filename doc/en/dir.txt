@@ -44,10 +44,10 @@
 
       // list all PRG files in Harbour Run-Time library
       // for MS-DOS compatible operating systems
-      __Dir( "src\rtl\*.prg" )
+      __Dir( hb_DirSepToOS( "src/rtl/*.prg" ) )
 
       // list all files in the public section on a Unix like machine
-      __Dir( "/pub" )
+      __Dir( hb_DirSepToOS( "/pub" ) )
    $STATUS$
       R
    $COMPLIANCE$
@@ -105,7 +105,7 @@
 
       // list all PRG files in Harbour Run-Time library
       // for MS-DOS compatible operating systems
-      DIR "src\rtl\*.prg"
+      DIR "src/rtl/*.prg"
 
       // list all files in the public section on a Unix like machine
       DIR "/pub"

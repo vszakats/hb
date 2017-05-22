@@ -30,7 +30,7 @@
    $EXAMPLES$
       ? "You can use:", hb_ntos( DiskSpace() ), "bytes"
 
-      // NOTE: See tests/diskspac.prg for another example
+      // See tests/diskspac.prg for another example
    $STATUS$
       R
    $COMPLIANCE$
@@ -91,10 +91,11 @@
       error 2018 will be raised.
    $EXAMPLES$
       #include "fileio.ch"
-      ? "You can use:", hb_ntos( hb_DiskSpace() ), "bytes", ;
-        "Out of a total of", hb_ntos( hb_DiskSpace( "C:", HB_DISK_TOTAL ) )
 
-      // NOTE: See tests/diskspac.prg for another example
+      ? "You can use:", hb_ntos( hb_DiskSpace() ), "bytes"
+      ? "Out of a total of:", hb_ntos( hb_DiskSpace( , HB_DISK_TOTAL ) )
+
+      // See tests/diskspac.prg for another example
    $STATUS$
       R
    $COMPLIANCE$

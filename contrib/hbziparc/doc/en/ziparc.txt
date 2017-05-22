@@ -500,12 +500,12 @@
    $EXAMPLES$
       LOCAL aExtract := hb_GetFilesInZip( "test.zip" )  // extract all files in zip
 
-      IF hb_UnzipFile( "test.zip",,,, "." + hb_ps(), aExtract )
+      IF hb_UnzipFile( "test.zip",,,, hb_DirSepToOS( "./" ), aExtract )
          ? "File was successfully extracted"
       ENDIF
 
       aExtract := hb_GetFilesInZip( "test2.zip" )  // extract all files in zip
-      IF hb_UnzipFile( "test2.zip", {| cFile | QOut( cFile ) },,, "." + hb_ps(), aExtract )
+      IF hb_UnzipFile( "test2.zip", {| cFile | QOut( cFile ) },,, hb_DirSepToOS( "./" ), aExtract )
          ? "File was successfully extracted"
       ENDIF
    $STATUS$

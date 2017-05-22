@@ -575,7 +575,7 @@
       searched and the current drive/directory is only searched if
       `SET DEFAULT` is blank.
    $EXAMPLES$
-      ? File( "C:\hb\doc\pp.txt" )
+      ? File( hb_DirSepToOS( "/hb/doc/pp.txt" ) )
       ? File( "*.txt" )
    $STATUS$
       S (wild card support is missing)

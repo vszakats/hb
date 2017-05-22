@@ -23,9 +23,9 @@
       If this function fails, it will return the last OS error code number.
       See FError() function for the description of the error.
    $EXAMPLES$
-      cDir := ".\backup"
-      IF DirRemove( cDir ) == 0
-         ? "Remove of directory", cDir, "was successful"
+      LOCAL cDir
+      IF DirRemove( cDir := hb_DirSepToOS( "./mydir" ) ) == 0
+         ? "Removing directory", cDir, "was successful"
       ENDIF
    $STATUS$
       R
@@ -66,7 +66,7 @@
       the last OS error code number. See FError() function for the
       description of the error.
    $EXAMPLES$
-      IF DirChange( "temp" ) == 0
+      IF DirChange( hb_DirSepToOS( "./mydir" ) ) == 0
          ? "Change to directory was successful"
       ENDIF
    $STATUS$
@@ -108,8 +108,8 @@
       error code number. See FError() function for the description of the
       error
    $EXAMPLES$
-      cDir := "temp"
-      IF MakeDir( cDir ) == 0
+      LOCAL cDir
+      IF MakeDir( cDir := hb_DirSepToOS( "./mydir" ) ) == 0
          ? "Directory", cDir, "successfully created"
       ENDIF
    $STATUS$
@@ -141,7 +141,7 @@
    $SYNTAX$
       IsDisk( <cDrive> ) --> lSuccess
    $ARGUMENTS$
-      <cDrive>  An valid Drive letter
+      <cDrive>  An valid drive letter
    $RETURNS$
       <lSuccess>  .T. is the drive is ready, otherwise .F.
    $DESCRIPTION$
