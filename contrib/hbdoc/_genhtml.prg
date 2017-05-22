@@ -362,9 +362,55 @@ METHOD Generate() CLASS GenerateHTML
       "src", "https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-c.min.js", ;
       "integrity", "sha384-IDvyyshYqx4mSDbCy1jZXIyYtgY0TQ7yTX/qOQ93pN1I3ETUkZD9Nb5joIteiFIC" ):CloseTag( "script" )
 
+   ::OpenTagInline( "script", ;
+      "crossorigin", "anonymous", ;
+      "src", "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js", ;
+      "integrity", "sha384-xBuQ/xzmlsLoJpyjoggmTEz8OWUFM0/RC5BsqQBDX2v5cMvDHcMakNTNrHIW2I5f" ):CloseTag( "script" )
+
+   ::OpenTagInline( "script", ;
+      "crossorigin", "anonymous", ;
+      "src", "https://os.allcom.pl/harbour/static/playground-embed.js" ):CloseTag( "script" )
+
+   ::OpenTagInline( "script", ;
+      "crossorigin", "anonymous", ;
+      "src", "https://os.allcom.pl/harbour/static/play.js" ):CloseTag( "script" )
+
+   ::OpenTag( "script" )
+   ::cFile += _playground_embed_js()
+   ::CloseTag( "script" )
+
    ::super:Generate()
 
    RETURN Self
+
+STATIC FUNCTION _playground_embed_js()
+#pragma __cstream | RETURN %s
+$(function() {
+
+  $('.playground > pre.numbers, .code > pre.numbers').each(function() {
+    var $spans = $(this).find('> span');
+
+    var max = 0;
+    $spans.each(function() {
+      var n = $(this).attr('num')*1;
+      if (n > max) max = n;
+    });
+    var width = 2;
+    while (max > 10) {
+      max = max / 10;
+      width++;
+    }
+
+    $spans.each(function() {
+      var n = $(this).attr('num')+' ';
+      while (n.length < width) n = ' '+n;
+      $('<span class="number">').text(n).insertBefore(this);
+    });
+  });
+
+  initPlayground(hbioTransport());
+});
+#pragma __endtext
 
 METHOD NewDocument( cDir, cFilename, cTitle, cLang, hComponents ) CLASS GenerateHTML
 
@@ -647,7 +693,10 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS Genera
       DO CASE
       CASE lPreformatted  /* EXAMPLES, TESTS */
 
-         ::OpenTagInline( "pre", "class", cTagClass ):OpenTagInline( "code", "class", CODECLASS )
+         ::OpenTagInline( "section", "class", cTagClass )
+         ::OpenTagInline( "div", "class", "playground" )
+         ::OpenTagInline( "pre", "contenteditable", "true", "spellcheck", "false" )
+         ::OpenTagInline( "code", "class", CODECLASS )
 #if 1
          /* logic to remove PROCEDURE Main()/RETURN enclosure
             to fit more interesting information on the screen.
@@ -694,7 +743,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS Genera
          ENDIF
 #endif
          ::Append( cContent,, .T., cField )
-         ::CloseTagInline( "code" ):CloseTag( "pre" )
+         ::CloseTagInline( "code" ):CloseTagInline( "pre" ):CloseTagInline( "div" ):CloseTag( "section" )
 
       CASE cField == "SEEALSO"
 

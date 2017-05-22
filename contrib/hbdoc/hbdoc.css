@@ -344,6 +344,64 @@ code code {
   border: none;
 }
 
+section.d-ex {
+  margin: 0;
+  border: none;
+  padding: 0;
+}
+
+button {
+  background: #49a4ff;
+  cursor: pointer;
+  border: none;
+  padding: 5px;
+  margin-left: 5px;
+  color: #000;
+  border-radius: 4px;
+  font-size: 90%;
+}
+
+button:hover {
+  background: #fff;
+}
+
+section.d-ex > div > pre:first-child {
+  padding-bottom: 38px !important;
+}
+
+.buttons {
+  position: relative;
+  float: right;
+  top: -48px;
+  right: 5px;
+}
+
+div.output {
+  border: none;
+  border-radius: 0 3px 3px 0;
+}
+
+div.output pre {
+  display: inline-block;
+  margin: -20px 0 0 0;
+  padding: 0;
+  background: rgb(39, 40, 34);
+  border: none;
+  width: 95.2%;
+}
+
+div.output .stdout, div.output pre {
+  color: #e6e6e6;
+}
+
+div.output .stderr, div.output .error {
+  color: #ffc8c8;
+}
+
+div.output .system, div.output .exit {
+  color: #ffe678;
+}
+
 .d-it .d-key {
   display: inline-block;
   min-width: .7em;
