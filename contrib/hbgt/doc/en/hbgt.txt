@@ -301,7 +301,7 @@
       LOCAL cString := "the cat sat on the mat"
 
       ? gt_ChrTotal( "tae", cString )  // --> 10
-      ? gt_ChrTotal( "zqw", cString )  // -->  0
+      ? gt_ChrTotal( "zqw", cString )  // --> 0
    $STATUS$
       R
    $COMPLIANCE$
