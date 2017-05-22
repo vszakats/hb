@@ -884,7 +884,7 @@ static MXML_STATUS mxml_node_read_name( MXML_REFIL * ref, PHB_ITEM pNode, PHB_IT
             break;
 
          case 1:
-            if( HB_ISALNUM( chr ) || chr == '_' || chr == '-' || chr == ':' )
+            if( HB_ISALNUM( chr ) || chr == '_' || chr == '-' || chr == ':' || chr == '.' )
             {
                /* cannot cause reallocations */
                buf[ iPos++ ] = ( char ) chr;

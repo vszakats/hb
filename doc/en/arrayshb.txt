@@ -482,7 +482,8 @@
    $EXAMPLES$
       #include "directry.ch"
       LOCAL aDir := hb_vfDirectory( "*.prg" )
-      ? AScan( aDir,,, {| aFile, nPos | HB_SYMBOL_UNUSED( nPos ), aFile[ F_NAME ] == "test.prg" } )
+      ? AScan( aDir,,, ;
+         {| aFile, nPos | HB_SYMBOL_UNUSED( nPos ), aFile[ F_NAME ] == "test.prg" } )
    $STATUS$
       R
    $COMPLIANCE$
