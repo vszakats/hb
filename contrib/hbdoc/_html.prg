@@ -384,33 +384,7 @@ METHOD Generate() CLASS GenerateHTML
    RETURN Self
 
 STATIC FUNCTION _playground_embed_js()
-#pragma __cstream | RETURN %s
-$(function() {
-
-  $('.playground > pre.numbers, .code > pre.numbers').each(function() {
-    var $spans = $(this).find('> span');
-
-    var max = 0;
-    $spans.each(function() {
-      var n = $(this).attr('num')*1;
-      if (n > max) max = n;
-    });
-    var width = 2;
-    while (max > 10) {
-      max = max / 10;
-      width++;
-    }
-
-    $spans.each(function() {
-      var n = $(this).attr('num')+' ';
-      while (n.length < width) n = ' '+n;
-      $('<span class="number">').text(n).insertBefore(this);
-    });
-  });
-
-  initPlayground(hbioTransport());
-});
-#pragma __endtext
+   #pragma __streaminclude "hbplay.js" | RETURN _TO_LF( %s )
 
 METHOD NewDocument( cDir, cFilename, cTitle, cLang, hComponents ) CLASS GenerateHTML
 
