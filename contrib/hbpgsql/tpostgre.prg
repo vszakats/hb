@@ -891,7 +891,7 @@ METHOD Append( oRow ) CLASS TPQquery
       cQuery := "INSERT INTO " + ::Schema + "." + ::Tablename + "("
 
       FOR i := 1 TO oRow:FCount()
-         IF ::lAllCols .OR. oRow:changed( i )
+         IF ::lAllCols .OR. oRow:Changed( i )
             lChanged := .T.
             cQuery += oRow:FieldName( i ) + ","
          ENDIF
