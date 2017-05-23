@@ -164,13 +164,13 @@
    $SUBCATEGORY$
       Internal
    $ONELINER$
-      Set F1 as the default help key
+      Set <F1> as the default help key
    $SYNTAX$
       __SetHelpK()
    $ARGUMENTS$
       None.
    $DESCRIPTION$
-      Set F1 to execute a function called HELP if such a function is
+      Set <F1> to execute a function called HELP if such a function is
       linked into the program.
    $STATUS$
       R

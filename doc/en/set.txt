@@ -453,8 +453,8 @@
    $EXAMPLES$
       LOCAL cTest
       // Set <F1> with a string
-      CLS
       __SetFunction( 1, "I Am Lazy" + Chr( 13 ) )
+      CLS
       cTest := Space( 20 )
       @ 10, 0 SAY "type something or <F1> for lazy mode " GET cTest
       READ
@@ -513,18 +513,19 @@
       `SET FUNCTION` command is preprocessed into __SetFunction() function
       during compile time.
    $EXAMPLES$
+      LOCAL cTest
       // Set <F1> with a string
-      CLS
       SET FUNCTION 1 TO "I Am Lazy" + Chr( 13 )
+      CLS
       cTest := Space( 20 )
-      @ 10, 0 SAY "type something or F1 for lazy mode " GET cTest
+      @ 10, 0 SAY "type something or <F1> for lazy mode " GET cTest
       READ
       ? cTest
    $STATUS$
       R
    $COMPLIANCE$
-      Harbour use 11 and 12 to represent F11 and F12, while CA-Cl*pper use
-      11 and 12 to represent Shift-F1 and Shift-F2.
+      Harbour use 11 and 12 to represent <F11> and <F12>, while CA-Cl*pper use
+      11 and 12 to represent <Shift+F1> and <Shift+F2>.
    $PLATFORMS$
       All
    $SEEALSO$
@@ -771,7 +772,7 @@
       bBlock := SetKey( K_SPACE )
       IF bBlock != NIL  // ...
 
-         // make F10 exit current get, but only if in a get - ignores other
+         // make <F10> exit current get, but only if in a get - ignores other
          // wait-states such as menus, achoices, etc...
          SetKey( K_F10, {|| GetActive():State := GE_WRITE }, ;
             {|| GetActive() != NIL } )
