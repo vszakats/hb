@@ -16,12 +16,13 @@
 -DHBMK_WITH_GTXWC{HBMK_WITH_GTXWC='yes'}
 -gtxwc{HBMK_WITH_GTXWC='yes'}
 
-{__HBMKDYN='yes'}-env:_HBMK_WITH_EXTS=hbcrypto|hbct|hbexpat|hbmzip|hbnf|hbtip|hbbz2io|hbcomio|hbgzio|hbmemio|hbnetio|hbpipeio|hbtcpio
+{__HBMKDYN='yes'}-env:_HBMK_WITH_EXTS=hbbz2|hbcrypto|hbct|hbexpat|hbmzip|hbnf|hbtip|hbbz2io|hbcomio|hbgzio|hbmemio|hbnetio|hbpipeio|hbtcpio
 {__HBMKDYN='yes'&unix}-env:_HBMK_WITH_EXTS+|hbunix
 {__HBMKDYN='yes'&allwin}-env:_HBMK_WITH_EXTS+|hbwin
 {__HBMKDYN='yes'&darwin}-env:_HBMK_WITH_EXTS+|hbmac
 {__HBMKDYN='yes'}-DHBMK_WITH_EXTS=${_HBMK_WITH_EXTS}
 
+{!(__HBMKDYN='yes')}hbbz2.hbc        {!(__HBMKDYN='yes')}-request=__HBEXTERN__HBBZ2__
 {!(__HBMKDYN='yes')}hbcrypto.hbc     {!(__HBMKDYN='yes')}-request=__HBEXTERN__HBCRYPTO__
 {!(__HBMKDYN='yes')}hbct.hbc         {!(__HBMKDYN='yes')}-request=__HBEXTERN__HBCT__
 {!(__HBMKDYN='yes')}hbexpat.hbc      {!(__HBMKDYN='yes')}-request=__HBEXTERN__HBEXPAT__
