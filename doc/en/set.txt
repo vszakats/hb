@@ -451,9 +451,10 @@
       `SET FUNCTION` command is preprocessed into __SetFunction() function
       during compile time.
    $EXAMPLES$
+      #include "inkey.ch"
       LOCAL cTest, GetList := {}
-      // Set <F1> with a string
-      __SetFunction( 1, "I Am Lazy" + Chr( 13 ) )
+      // Associate <F1> with a string
+      __SetFunction( 1, "I Am Lazy" + Chr( K_ENTER ) )
       CLS
       cTest := Space( 20 )
       @ 10, 0 SAY "type something or <F1> for lazy mode" GET cTest
@@ -513,9 +514,10 @@
       `SET FUNCTION` command is preprocessed into __SetFunction() function
       during compile time.
    $EXAMPLES$
+      #include "inkey.ch"
       LOCAL cTest, GetList := {}
-      // Set <F1> with a string
-      SET FUNCTION 1 TO "I Am Lazy" + Chr( 13 )
+      // Associate <F1> with a string
+      SET FUNCTION 1 TO "I Am Lazy" + Chr( K_ENTER )
       CLS
       cTest := Space( 20 )
       @ 10, 0 SAY "type something or <F1> for lazy mode" GET cTest
