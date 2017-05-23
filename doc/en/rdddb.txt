@@ -322,6 +322,7 @@
       Before the disk write is performed, all buffers are flushed.
       open work areas.
    $EXAMPLES$
+      // FIXME
       LOCAL GetList := {}
       LOCAL cName := Space( 40 )
       LOCAL nId := 0

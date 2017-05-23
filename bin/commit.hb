@@ -69,7 +69,9 @@ PROCEDURE Main()
       RETURN
    ENDIF
 
-   IF CheckFileList( aFiles, cLocalRoot, .F. ) .OR. "--force" $ cli_Options()
+   IF CheckFileList( aFiles, cLocalRoot, .F. ) .OR. ;
+      "-f" $ cli_Options() .OR. ;
+      "--force" $ cli_Options()
 
       cLogName := FindChangeLog( cVCS )
       IF cLogName == ""
