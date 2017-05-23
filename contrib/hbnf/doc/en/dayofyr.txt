@@ -41,7 +41,7 @@
    $EXAMPLES$
       LOCAL aDateInfo
 
-      aDateInfo := ft_DayOfYr( hb_SToD( "19910331" ) )
+      aDateInfo := ft_DayOfYr( 0d19910331 )
       ? aDateInfo[ 1 ]  // --> 1991090     (90th day of year 1991)
       ? aDateInfo[ 2 ]  // --> 1991-01-01
       ? aDateInfo[ 3 ]  // --> 1991-12-31

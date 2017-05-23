@@ -32,7 +32,7 @@
       please do and send it to Glenn Scott 71620,1521.]
    $EXAMPLES$
       LOCAL aArray := { ;
-         { "Invoice 1", hb_SToD( "19910415" ), 1234.32, .T. }, ;
+         { "Invoice 1", 0d19910415, 1234.32, .T. }, ;
          { "Invoice 2", Date(), 234.98, .F. }, ;
          { "Invoice 3", Date() + 1, 0, .T. } }
       LOCAL nErrorCode := 0, aSave
@@ -78,7 +78,7 @@
       please do and send it to Glenn Scott 71620,1521.]
    $EXAMPLES$
       LOCAL aArray := { ;
-         { "Invoice 1", hb_SToD( "19910415" ), 1234.32, .T. }, ;
+         { "Invoice 1", 0d19910415, 1234.32, .T. }, ;
          { "Invoice 2", Date(), 234.98, .F. }, ;
          { "Invoice 3", Date() + 1, 0, .T. } }
       LOCAL nErrorCode := 0, aSave

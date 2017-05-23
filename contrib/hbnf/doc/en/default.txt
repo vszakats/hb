@@ -19,10 +19,10 @@
       Useful any time you need to know or change the default drive.
    $EXAMPLES$
       LOCAL cDrive := ft_Default()  // Get the current drive
-      ft_Default( "C" )             // Switch to drive C
+      ft_Default( "C" )             // Switch to drive C:
 
       IF ! ft_Default( "E" ) == "E"
-         ? "Drive E does not exist!"
+         ? "Drive E: does not exist!"
       ENDIF
    $END$
  */

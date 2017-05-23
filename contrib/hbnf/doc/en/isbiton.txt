@@ -19,6 +19,8 @@
       CPU flags are returned as a series of bits.  Using this function, you
       can determine the state of each CPU flag.
    $EXAMPLES$
+      LOCAL nCPUFlags := 0xaa
+
       IF ft_IsBitOn( nCPUFlags, 0 )
          ? "The carry flag was set."
       ENDIF

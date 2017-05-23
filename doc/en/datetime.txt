@@ -630,7 +630,7 @@
       is an empty date expression, in which case it will be zero.
    $EXAMPLES$
       ? Year( Date() )
-      ? Year( hb_SToD( "32510125" ) )
+      ? Year( 0d32510125 )
    $STATUS$
       R
    $COMPLIANCE$

@@ -136,6 +136,7 @@
       // The following example uses ft_RgnStack() to save and restore various
       // sections of the screen.
 
+      LOCAL GetList := {}
       @ 0, 0, 24, 79 BOX "111111111"         // fill the screen with 1's
       ft_RgnStack( "push", 10,  5, 15, 15 )  // push a region
       @ 0, 0, 24, 79 BOX "222222222"         // fill the screen with 2's

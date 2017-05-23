@@ -21,6 +21,7 @@
       This function is to sum the elements of a numeric array or to sum the
       lengths of a character array.
    $EXAMPLES$
+      LOCAL aSubTotals := { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 }
       ? ft_ASum( aSubTotals )         // Sum the Entire Array
       ? ft_ASum( aSubTotals, 5 )      // Sum from the 5th Element On
       ? ft_ASum( aSubTotals, , 10 )   // Sum the 1st 10 Elements

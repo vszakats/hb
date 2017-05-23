@@ -28,9 +28,9 @@
       #include "inkey.ch"
 
       hb_keyPut( K_ESC )
-      ? LastKey()  // returns 27 (K_ESC)
+      ? LastKey()  // --> 27 (K_ESC)
 
       ft_LastKey( K_F1 )
-      ? LastKey()  // now returns 28 (K_F1)
+      ? LastKey()  // --> 28 (K_F1)
    $END$
  */

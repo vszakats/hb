@@ -38,13 +38,13 @@
       LOCAL aDateInfo
 
       // get info about quarter containing 1990-09-15
-      aDateInfo := ft_Qtr( hb_SToD( "19900915" ) )
+      aDateInfo := ft_Qtr( 0d19900915 )
       ? aDateInfo[ 1 ]  // --> 199003      (3rd quarter)
       ? aDateInfo[ 2 ]  // --> 1990-07-01  beginning of quarter 3
       ? aDateInfo[ 3 ]  // --> 1990-09-30  end of week quarter 3
 
       // get info about quarter 2 in year containing 1990-09-15
-      aDateInfo := ft_Qtr( hb_SToD( "19900915" ), 2 )
+      aDateInfo := ft_Qtr( 0d19900915, 2 )
       ? aDateInfo[ 1 ]  // --> 199002
       ? aDateInfo[ 2 ]  // --> 1990-04-01  beginning of quarter 2
       ? aDateInfo[ 3 ]  // --> 1990-06-30  end of quarter 2

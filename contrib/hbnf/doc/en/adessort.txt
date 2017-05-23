@@ -20,9 +20,14 @@
    $DESCRIPTION$
       This function is used to sort an array in descending order, i.e., Z-A
    $EXAMPLES$
-      ft_ADesSort( aNames )         // Sort the Entire Array
-      ft_ADesSort( aNames, 5 )      // Sort from the 5th Element On
-      ft_ADesSort( aNames, , 10 )   // Sort the 1st 10 Elements
-      ft_ADesSort( aNames, 5, 10 )  // Sort Elements 5-10
+      LOCAL aNames := { "apple", "orange", "pear", "banana", "cherry", "mango" }
+      ft_ADesSort( aNames, 2, 4 )  // Sort Elements 1-3
+      ? hb_ValToExp( aNames )
+      ft_ADesSort( aNames, 5 )     // Sort from the 5th Element On
+      ? hb_ValToExp( aNames )
+      ft_ADesSort( aNames, , 2 )   // Sort the 1st 3 Elements
+      ? hb_ValToExp( aNames )
+      ft_ADesSort( aNames )        // Sort the Entire Array
+      ? hb_ValToExp( aNames )
    $END$
  */

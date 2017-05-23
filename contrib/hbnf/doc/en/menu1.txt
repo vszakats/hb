@@ -64,12 +64,12 @@
 
       // fill color array
       // Box Border, Menu Options, Menu Bar, Current Selection, Unselected
-      aColors := iif( lColor, ;
+      aColors := iif( IsColor(), ;
          { "W+/G", "N/G", "N/G", "N/W", "N+/G" }, ;
          { "W+/N", "W+/N", "W/N", "N/W", "W/N" } )
 
       // array for first pulldown menu
-      ft_Fill( aOptions[ 1 ], "A. Execute A Dummy Procedure" , {|| fubar() }, .T. )
+      ft_Fill( aOptions[ 1 ], "A. Execute A Dummy Procedure" , {|| Alert( "hello" ) }, .T. )
       ft_Fill( aOptions[ 1 ], "B. Enter Daily Charges"       , {|| .T. },     .F. )
       ft_Fill( aOptions[ 1 ], "C. Enter Payments On Accounts", {|| .T. },     .T. )
 
@@ -85,7 +85,7 @@
       // Call ft_Fill() once for each item on each pulldown menu, passing it
       // three parameters:
 
-      ft_Fill( <cMenuSelection>, <bCodeBlock>, <lSelectable>
+      ft_Fill( <cMenuSelection>, <bCodeBlock>, <lSelectable> )
 
       // <cMenuSelection> is a character string which will be displayed on
       // the pulldown menu.

@@ -19,7 +19,7 @@
       day for the beginning of the week has been changed with
       ft_DateCnfg().
    $EXAMPLES$
-      LOCAL dDate := hb_SToD( "19900915" )
+      LOCAL dDate := 0d19900915
 
       ? DoW( dDate )          // --> 7
       ? CDoW( dDate )         // --> "Saturday"

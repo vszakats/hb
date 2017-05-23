@@ -31,16 +31,16 @@
       LOCAL aList1 := { "apple", "orange", "pear" }
       LOCAL aList2 := { "apple ", "banana", "PEAR" }
 
-      ft_AAddition( aList1, aList2 )
       // ignores spaces, sensitive to case
-      // returns { "apple", "orange", "pear", "banana", "PEAR" }
+      ? hb_ValToExp( ft_AAddition( aList1, aList2 ) )
+      // --> { "apple", "orange", "pear", "banana", "PEAR" }
 
-      ft_AAddition( aList1, aList2, , .F. )
       // ignores spaces, not sensitive to case
-      // returns { "apple", "orange", "pear", "banana" }
+      ? hb_ValToExp( ft_AAddition( aList1, aList2, , .F. ) )
+      // --> { "apple", "orange", "pear", "banana" }
 
-      ft_AAddition( aList1, aList2, .F. , .F. )
       // sensitive to spaces, not sensitive to case
-      // returns { "apple", "orange", "pear", "apple ", "banana" }
+      ? hb_ValToExp( ft_AAddition( aList1, aList2, .F. , .F. ) )
+      // --> { "apple", "orange", "pear", "apple ", "banana" }
    $END$
  */

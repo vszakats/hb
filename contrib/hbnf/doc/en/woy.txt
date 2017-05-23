@@ -20,24 +20,24 @@
       Handles dates with `CENTURY ON`|`OFF`, to allow for 21st century.
       Date validation must be external to this function.
    $EXAMPLES$
-      LOCAL dDate
+      LOCAL dDate, GetList := {}
 
       // These code fragments find the week number, given a date.
 
       // literal character date
-      ? ft_WoY( 0d19910101 )             // --> 1
+      ? ft_WoY( 0d19910101 )  // --> 1
 
-      // presume DOS date to be 1991-01-06
-      ? ft_WoY( Date() )                 // --> 2
+      // presume OS date to be 1991-01-06
+      ? ft_WoY( Date() )      // --> 2
 
       // date input
-      dDate := hb_SToD()
-      @ 4, 10 GET cDate                  // input 1991-07-04
+      dDate := 0d0
+      @ 4, 10 GET cDate       // input 1991-07-04
       READ
-      ? ft_WoY( dDate )                  // --> 27
+      ? ft_WoY( dDate )       // --> 27
 
       // last day of year
-      ? ft_WoY( hb_SToD( "19911231" ) )  // --> 53
+      ? ft_WoY( 0d19911231 )  // --> 53
    $END$
  */
 
@@ -60,23 +60,23 @@
       Handles dates with `CENTURY ON`|`OFF`, to allow for 21st century.
       Date validation must be external to this function.
    $EXAMPLES$
-      LOCAL dDate
+      LOCAL dDate, GetList := {}
 
       // These code fragments find the day number, given a date.
 
       // literal character date
-      ? ft_DoY( 0d19910101 )             // --> 1
+      ? ft_DoY( 0d19910101 )  // --> 1
 
-      // presume DOS date to be 1991-01-06
-      ? ft_DoY( Date() )                 // --> 6
+      // presume OS date to be 1991-01-06
+      ? ft_DoY( Date() )      // --> 6
 
       // date input
-      dDate := hb_SToD()
-      @ 4, 10 GET cDate                  // input 1991-07-04
+      dDate := 0d0
+      @ 4, 10 GET cDate       // input 1991-07-04
       READ
-      ? ft_DoY( dDate )                  // --> 185
+      ? ft_DoY( dDate )       // --> 185
 
       // last day of year
-      ? ft_DoY( hb_SToD( "19911231" ) )  // --> 365
+      ? ft_DoY( 0d19911231 )  // --> 365
    $END$
  */

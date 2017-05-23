@@ -98,7 +98,7 @@
       This is a mouse meta function that checks for the presence
       of a double click.
    $EXAMPLES$
-      IF ft_MIsRegion( 10, 10, 11, 20 ) .AND. ;
+      IF ft_MInRegion( 10, 10, 11, 20 ) .AND. ;
          ft_MDblClk( 0, 1,, ft_MGetX(), ft_MGetY() )  // double click, right button
                                                       // at current location with
                                                       // default interval

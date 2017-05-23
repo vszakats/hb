@@ -65,6 +65,8 @@
 
    $EXAMPLES$
       LOCAL aCurInfo := ft_GetVCur( 1 )  // Get info on cursor pos in page 1
-      ? "Row:", aCurInfo[ 3 ], " Col:", aCurInfo[ 4 ]
+      ? "Row:", aCurInfo[ 3 ]
+      ? "Col:", aCurInfo[ 4 ]
+      ? hb_ValToExp( aCurInfo )
    $END$
  */

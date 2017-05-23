@@ -35,7 +35,7 @@
 
       // Get info about year containing 1990-09-15, assuming default
       // beginning of year is January 1st.
-      aDateInfo := ft_Year( hb_SToD( "19900915" ) )
+      aDateInfo := ft_Year( 0d19900915 )
       ? aDateInfo[ 1 ]  // --> 1990
       ? aDateInfo[ 2 ]  // --> 1990-01-01  beginning of year
       ? aDateInfo[ 3 ]  // --> 1990-12-31  end of year

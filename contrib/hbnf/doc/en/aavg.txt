@@ -23,6 +23,7 @@
 
       This routine requires ft_ASum().
    $EXAMPLES$
+      LOCAL aSubTotals := { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 }
       ? ft_AAvg( aSubTotals )         // Get Average of Entire Array
       ? ft_AAvg( aSubTotals, 5 )      // Get Average of 5th Element On
       ? ft_AAvg( aSubTotals, , 10 )   // Get Average of 1st 10 Elements
