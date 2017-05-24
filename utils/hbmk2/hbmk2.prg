@@ -3045,16 +3045,26 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
 #endif
       CASE cParamL == "-rebuild"
 
-         hbmk[ _HBMK_lINC ] := .T.
-         IF nLevel == 1
-            hbmk[ _HBMK_lREBUILD ] := .T.
-            PointlessPairWarning( hbmk, @aParamINC, aParam, cParamL, "-rebuild" )
+         IF hbmk[ _HBMK_lStopAfterHarbour ] .AND. ;
+            hbmk[ _HBMK_lCreateHRB ]
+            PointlessINCMode( hbmk, aParam )
+         ELSE
+            hbmk[ _HBMK_lINC ] := .T.
+            IF nLevel == 1
+               hbmk[ _HBMK_lREBUILD ] := .T.
+               PointlessPairWarning( hbmk, @aParamINC, aParam, cParamL, "-rebuild" )
+            ENDIF
          ENDIF
 
       CASE cParamL == "-rebuildall"
 
-         hbmk[ _HBMK_lINC ] := .T.
-         hbmk[ _HBMK_lREBUILD ] := .T.
+         IF hbmk[ _HBMK_lStopAfterHarbour ] .AND. ;
+            hbmk[ _HBMK_lCreateHRB ]
+            PointlessINCMode( hbmk, aParam )
+         ELSE
+            hbmk[ _HBMK_lINC ] := .T.
+            hbmk[ _HBMK_lREBUILD ] := .T.
+         ENDIF
 
       CASE cParamL == "-rebuildpo"       ; hbmk[ _HBMK_lREBUILDPO ]   := .T.
       CASE cParamL == "-inithbl"         ; hbmk[ _HBMK_lInitHBL ]     := .T.
@@ -3064,7 +3074,16 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
       CASE cParamL == "-nominipo"        ; hbmk[ _HBMK_lMINIPO ]      := .F. ; LegacyWarning( hbmk, aParam, "-minipo-" )
 #endif
       CASE cParamL == "-clean"           ; hbmk[ _HBMK_lINC ]         := .T. ; hbmk[ _HBMK_lCLEAN ] := .T.
-      CASE cParamL == "-inc"             ; hbmk[ _HBMK_lINC ]         := .T. ; PointlessPairWarning( hbmk, @aParamINC, aParam, cParamL, "-inc" )
+      CASE cParamL == "-inc"
+
+         IF hbmk[ _HBMK_lStopAfterHarbour ] .AND. ;
+            hbmk[ _HBMK_lCreateHRB ]
+            PointlessINCMode( hbmk, aParam )
+         ELSE
+            hbmk[ _HBMK_lINC ] := .T.
+            PointlessPairWarning( hbmk, @aParamINC, aParam, cParamL, "-inc" )
+         ENDIF
+
       CASE cParamL == "-inc-"            ; hbmk[ _HBMK_lINC ]         := .F. ; aParamINC := NIL
 #ifdef HB_LEGACY_LEVEL4
       CASE cParamL == "-noinc"           ; hbmk[ _HBMK_lINC ]         := .F. ; LegacyWarning( hbmk, aParam, "-inc-" )
@@ -3632,6 +3651,10 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             IF SubStr( cParamL, 2 ) == "gh"
                hbmk[ _HBMK_lStopAfterHarbour ] := .T.
                hbmk[ _HBMK_lCreateHRB ] := .T.
+               hbmk[ _HBMK_lINC ] := .F.
+               IF aParamINC != NIL
+                  PointlessINCMode( hbmk, aParamINC )
+               ENDIF
             ENDIF
             IF ! SubStr( cParamL, 2, 1 ) == "o"
                AAddNewNotEmpty( hbmk[ _HBMK_aOPTPRG ], hbmk_hb_DirSepToOS( cParam, 2 ) )
@@ -3935,6 +3958,10 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             IF SubStr( cParamL, 2 ) == "gh"
                hbmk[ _HBMK_lStopAfterHarbour ] := .T.
                hbmk[ _HBMK_lCreateHRB ] := .T.
+               hbmk[ _HBMK_lINC ] := .F.
+               IF aParamINC != NIL
+                  PointlessINCMode( hbmk, aParamINC )
+               ENDIF
 
             /* Detect if Harbour is only used as preprocessor (-p + -s options) */
             ELSEIF SubStr( cParamL, 2 ) == "p"
@@ -8835,6 +8862,12 @@ STATIC FUNCTION AllFilesWarning( hbmk, cArg )
 
    RETURN .F.
 #endif
+
+STATIC PROCEDURE PointlessINCMode( hbmk, aParam )
+
+   _hbmk_OutErr( hbmk, hb_StrFormat( I_( "Warning: Option ignored when creating .hrb output: %1$s" ), ParamToString( aParam ) ) )
+
+   RETURN
 
 STATIC PROCEDURE PointlessPairWarning( hbmk, /* @ */ aParam1, aParam2, cParam2L, cOption )
 
