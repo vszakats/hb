@@ -3046,7 +3046,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
       CASE cParamL == "-rebuild"
 
          IF hbmk[ _HBMK_lStopAfterHarbour ] .AND. ;
-            hbmk[ _HBMK_lCreateHRB ]
+            hbmk[ _HBMK_lCreateHRB ] .AND. ;
+            ! hbmk[ _HBMK_lCreateLib ]
             PointlessINCMode( hbmk, aParam )
          ELSE
             hbmk[ _HBMK_lINC ] := .T.
@@ -3059,7 +3060,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
       CASE cParamL == "-rebuildall"
 
          IF hbmk[ _HBMK_lStopAfterHarbour ] .AND. ;
-            hbmk[ _HBMK_lCreateHRB ]
+            hbmk[ _HBMK_lCreateHRB ] .AND. ;
+            ! hbmk[ _HBMK_lCreateLib ]
             PointlessINCMode( hbmk, aParam )
          ELSE
             hbmk[ _HBMK_lINC ] := .T.
@@ -3077,7 +3079,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
       CASE cParamL == "-inc"
 
          IF hbmk[ _HBMK_lStopAfterHarbour ] .AND. ;
-            hbmk[ _HBMK_lCreateHRB ]
+            hbmk[ _HBMK_lCreateHRB ] .AND. ;
+            ! hbmk[ _HBMK_lCreateLib ]
             PointlessINCMode( hbmk, aParam )
          ELSE
             hbmk[ _HBMK_lINC ] := .T.
