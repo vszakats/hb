@@ -45,12 +45,11 @@
  *
  */
 
-
 #ifndef _CT_CH
 #define _CT_CH 1
 
 /* subsystem name */
-#define CT_SUBSYSTEM "CT"
+#define CT_SUBSYSTEM  "CT"
 
 /* CSetArgErr() argument error behaviour */
 #include "error.ch"
@@ -61,14 +60,14 @@
 #define CT_ARGERR_IGNORE        -1
 
 /* SETMATHERR() stati and modes for math error correction */
-#define CT_MATHERR_STATUS_NOTFOUND   -1 /* math handler is not installed */
-#define CT_MATHERR_STATUS_INACTIVE   0  /* math handler is installed but inactive */
-#define CT_MATHERR_STATUS_ACTIVE     1  /* math handler is installed and active */
+#define CT_MATHERR_STATUS_NOTFOUND   -1  /* math handler is not installed */
+#define CT_MATHERR_STATUS_INACTIVE   0   /* math handler is installed but inactive */
+#define CT_MATHERR_STATUS_ACTIVE     1   /* math handler is installed and active */
 
-#define CT_MATHERR_MODE_NONE         0  /* no correction at all, program will exit */
-#define CT_MATHERR_MODE_DEFAULT      1  /* default return value will be used, no error msgs ! */
-#define CT_MATHERR_MODE_USER         2  /* error will be thrown to user who is responsible for error correction */
-#define CT_MATHERR_MODE_USERDEFAULT  3  /* error will be thrown, but if user fails, default correction will be used */
+#define CT_MATHERR_MODE_NONE         0   /* no correction at all, program will exit */
+#define CT_MATHERR_MODE_DEFAULT      1   /* default return value will be used, no error msgs! */
+#define CT_MATHERR_MODE_USER         2   /* error will be thrown to user who is responsible for error correction */
+#define CT_MATHERR_MODE_USERDEFAULT  3   /* error will be thrown, but if user fails, default correction will be used */
 
 /* SetAtLike() modes */
 #define CT_SETATLIKE_EXACT     0
