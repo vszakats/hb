@@ -1,6 +1,6 @@
 diff --strip-trailing-cr -urN sqlite3.orig/sqlite3.c sqlite3/sqlite3.c
---- sqlite3.orig/sqlite3.c	2017-05-22 15:31:06.000000000 +0000
-+++ sqlite3/sqlite3.c	2017-05-22 19:24:49.000000000 +0000
+--- sqlite3.orig/sqlite3.c	2017-05-24 15:13:52.000000000 +0000
++++ sqlite3/sqlite3.c	2017-05-24 18:49:17.000000000 +0000
 @@ -33601,7 +33601,11 @@
        ** This is a similar technique to that used by glibc on systems
        ** that do not have a real fallocate() call.
