@@ -291,6 +291,7 @@ DYNAMIC wvw_SetDefLineSpacing
 DYNAMIC wvw_SetDefLSpaceColor
 DYNAMIC wvw_SetDefVCentreWindow
 DYNAMIC wvw_SetFont
+DYNAMIC wvw_SetGridPen
 DYNAMIC wvw_SetIcon
 DYNAMIC wvw_SetLastMenuEvent
 DYNAMIC wvw_SetLineSpacing
