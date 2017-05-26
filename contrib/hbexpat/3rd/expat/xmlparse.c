@@ -19,6 +19,8 @@
 
 #ifdef HARBOUR_CONF
 #include "_hbconf.h"
+#elif defined(WIN32)
+#include "winconfig.h"
 #elif defined(MACOS_CLASSIC)
 #include "macconfig.h"
 #elif defined(__amigaos__)
