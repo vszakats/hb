@@ -27,9 +27,9 @@ _ROOT="$(realpath '.')"
 
 # Don't remove these markers.
 #hashbegin
-export NGHTTP2_VER='1.22.0'
-export NGHTTP2_HASH_32='d0a6502c77a8344f1cc7172edadf1f659c23bc51428555a3c6de53d00d6120a2'
-export NGHTTP2_HASH_64='8466f97f499b98d3322b671f8657bc6e7c7c69ec914ee4c13dfec9f65c3e6a62'
+export NGHTTP2_VER='1.23.0'
+export NGHTTP2_HASH_32='af7e997021fd2bc8fdcdacb8db5bf5cc2b1f2abec43bfc33f70d3126a9e7de5b'
+export NGHTTP2_HASH_64='2c46effe43eb109e394e4ac6b5aaed10881c0139a03889f3e065442b199e653a'
 export OPENSSL_VER='1.1.0f'
 export OPENSSL_HASH_32='c41d617fa2c59e83b06d0851e331bd2ca5afa2e8839a9464d5f00a399426b3b6'
 export OPENSSL_HASH_64='65743a0d2c46e36ab30709a59b29f37bb228c5c73a235d379405e25e992e3dd6'
@@ -37,8 +37,8 @@ export LIBSSH2_VER='1.8.0'
 export LIBSSH2_HASH_32='4aad699829910db0db6040763cfb12219fc1996651b2e4fcbc5c81c388ff5acd'
 export LIBSSH2_HASH_64='7c0ec32eb0f5d5fbaf1b71f9ec6db96e6afe762e625d3ed0407e128d666a2efe'
 export CURL_VER='7.54.0'
-export CURL_HASH_32='de47fcc8575de10e6847785f011cd02452b4bbcef99083e9feaad46d32f50a50'
-export CURL_HASH_64='127782b5db3c7cf48ba16a2516e707282babf9b874e81e8ff86786f380b4fca6'
+export CURL_HASH_32='4f6a3aaf56c15841a2080e9b9a5f19fada8e4677200246333778575994746502'
+export CURL_HASH_64='48ce67ccfa47edf6fc1f9a347329ec716f0b80deb9d434800a73e91369d6f0cb'
 #hashend
 
 # Install/update MSYS2 packages required for completing the build
