@@ -782,6 +782,7 @@ STATIC PROCEDURE hbmk_local_entry( ... )
         cParam1L == "." .OR. ;
         hb_FNameExt( cParam1L ) == ".dbf" .OR. ;
         ( hb_LeftEq( cParam1L, "-dbf:" ) .AND. Len( cParam1L ) > Len( "-dbf:" ) ) .OR. ;
+        ( hb_LeftEq( cParam1L, "-prg:" ) .OR. cParam1L == "-prg" ) .OR. ;
         ( HBMK_IS_IN( hb_FNameExt( cParam1L ), ".hb|.hrb" ) .AND. ! hb_LeftEq( cParam1L, "-" ) ) ) .AND. ;
       !( ! Empty( cParam1L ) .AND. ;
          ( hb_LeftEq( cParam1L, "-hbreg" ) .OR. ;
@@ -1949,6 +1950,24 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
                NEXT
             ENDIF
          NEXT
+         RETURN _EXIT_OK
+
+      CASE cParamL == "-urlize"
+
+         __extra_initenv( hbmk, aArgs, cParam )
+         IF Len( aArgs ) >= 1
+            tmp := hb_MemoRead( aArgs[ 1 ] )
+            IF ! hb_FNameExt( aArgs[ 1 ] ) == ".hrb" .AND. Chr( 13 ) + Chr( 10 ) $ tmp
+               tmp := StrTran( tmp, Chr( 13 ) + Chr( 10 ), Chr( 10 ) )
+            ENDIF
+            tmp1 := hb_ZCompress( tmp )
+            OutStd( hb_StrReplace( hb_base64Encode( iif( hb_BLen( tmp1 ) < hb_BLen( tmp ), tmp1, tmp ) ), "+/=", "-_" ) )
+            IF Len( aArgs ) > 1
+               _hbmk_OutErr( hbmk, I_( "Warning: Only one source filename is supported, rest was skipped" ) )
+            ENDIF
+         ELSE
+            _hbmk_OutErr( hbmk, I_( "Error: Missing source filename" ) )
+         ENDIF
          RETURN _EXIT_OK
 
       CASE hb_LeftEq( cParamL, "-hbmake=" )
@@ -16088,7 +16107,7 @@ STATIC PROCEDURE __hbshell( cFile, ... )
    LOCAL cVersion
    LOCAL cParamL
    LOCAL cFileOri
-   LOCAL lDbf
+   LOCAL lDbf, lInline
 
    /* get this before doing anything else */
    LOCAL lDebug := ;
@@ -16210,7 +16229,22 @@ STATIC PROCEDURE __hbshell( cFile, ... )
 
    /* Do the thing */
 
-   cFile := hb_DirSepToOS( hb_defaultValue( cFile, "" ) )
+   hb_default( @cFile, "" )
+
+   DO CASE
+   CASE hb_LeftEqI( cFile, "-prg:" ) .AND. Len( cFile ) > Len( "-prg:" )
+      cFile := SubStr( cFile, Len( "-prg:" ) + 1 )
+      lInline := .T.
+   CASE cFile == "-prg" .OR. cFile == "-prg:"
+      cFile := ""
+      tmp1 := Space( 8192 )
+      DO WHILE ( tmp := FRead( hb_GetStdIn(), @tmp1, hb_BLen( tmp1 ) ) ) > 0
+         cFile += hb_BLeft( tmp1, tmp )
+      ENDDO
+      lInline := .T.
+   OTHERWISE
+      lInline := .F.
+   ENDCASE
 
    IF hb_LeftEqI( cFile, "-dbf:" ) .AND. Len( cFile ) > Len( "-dbf:" )
       cFile := SubStr( cFile, Len( "-dbf:" ) + 1 )
@@ -16219,16 +16253,35 @@ STATIC PROCEDURE __hbshell( cFile, ... )
       lDbf := .F.
    ENDIF
 
-   IF cFile == "." .OR. Empty( hb_FNameName( cFile ) )
+   IF ! lInline
+      cFile := hb_DirSepToOS( cFile )
+   ENDIF
+
+   IF ! lInline .AND. ( cFile == "." .OR. Empty( hb_FNameName( cFile ) ) )
 
       __hbshell_ext_init( aExtension )
       __hbshell_prompt( hb_AParams() )
 
-   ELSEIF ! Empty( cFile := FindInPath( cFileOri := cFile,, iif( lDbf, { ".dbf" }, { ".hb", ".hrb" } ) ) )
+   ELSEIF lInline .OR. ! Empty( cFile := FindInPath( cFileOri := cFile,, iif( lDbf, { ".dbf" }, { ".hb", ".hrb" } ) ) )
 
-      hbsh[ _HBSH_cScriptName ] := hb_PathNormalize( PathMakeAbsolute( cFile, hb_cwd() ) )
+      IF lInline
+         hbsh[ _HBSH_cScriptName ] := "{SOURCE}.prg"
+         cFile := hb_base64Decode( hb_StrReplace( cFile, "-_", "+/" ) )
+         IF ( tmp := hb_ZUncompress( cFile ) ) != NIL
+            cFile := tmp
+         ENDIF
+      ELSE
+         hbsh[ _HBSH_cScriptName ] := hb_PathNormalize( PathMakeAbsolute( cFile, hb_cwd() ) )
+      ENDIF
 
-      cExt := iif( lDbf, ".dbf", Lower( hb_FNameExt( cFile ) ) )
+      DO CASE
+      CASE lInline
+         cExt := iif( hb_LeftEq( cFile, hb_hrbSignature() ), ".hrb", ".hb" )
+      CASE lDbf
+         cExt := ".dbf"
+      OTHERWISE
+         cExt := Lower( hb_FNameExt( cFile ) )
+      ENDCASE
 
       IF !( cExt == ".hb" .OR. ;
             cExt == ".hrb" .OR. ;
@@ -16255,7 +16308,7 @@ STATIC PROCEDURE __hbshell( cFile, ... )
                     we use the same <comp> values as was used to build itself.)
           */
 
-         __hbshell_LoadExtFromSource( aExtension, cFile )
+         __hbshell_LoadExtFromSource( aExtension, iif( lInline, cFile, hbmk_MemoRead( cFile ) ) )
 
          /* NOTE: Find .hbc file. Load .hbc file. Process .hbc references.
                   Pick include paths. Load libs. Add include paths to include
@@ -16290,19 +16343,31 @@ STATIC PROCEDURE __hbshell( cFile, ... )
          AAdd( aOPTPRG, "-u+" + _HBSHELL_EXTRA_HEADER )
 #endif
 
-         /* We can use this function as this is a GPL licenced application */
-         cFile := hb_compileBuf( ;
-            hbmk_CoreHeaderFiles(), ;
-            hb_ProgName(), ;
-            "-n2", "-w", "-es2", "-q0", ;
-            hb_ArrayToParams( aOPTPRG ), ;
-            "-D" + _HBMK_SHELL, ;
-            cFile )
+         /* We can use these functions because this is a GPL licenced application */
+         IF lInline
+            cFile := hb_compileFromBuf( ;
+               cFile, ;
+               hbmk_CoreHeaderFiles(), ;
+               hb_ProgName(), ;
+               "-n2", "-w", "-es2", "-q0", ;
+               hb_ArrayToParams( aOPTPRG ), ;
+               "-D" + _HBMK_SHELL )
+         ELSE
+            cFile := hb_compileBuf( ;
+               hbmk_CoreHeaderFiles(), ;
+               hb_ProgName(), ;
+               "-n2", "-w", "-es2", "-q0", ;
+               hb_ArrayToParams( aOPTPRG ), ;
+               "-D" + _HBMK_SHELL, ;
+               cFile )
+         ENDIF
 
          IF cFile == NIL
             ErrorLevel( _EXIT_COMPPRG )
             EXIT
          ENDIF
+
+         /* fallthrough */
 
       CASE ".hrb"
          hbsh[ _HBSH_lInteractive ] := .F.
@@ -16390,9 +16455,8 @@ STATIC PROCEDURE __hbshell_LoadExtFromString( aExtension, cString )
 
    RETURN
 
-STATIC PROCEDURE __hbshell_LoadExtFromSource( aExtension, cFileName )
+STATIC PROCEDURE __hbshell_LoadExtFromSource( aExtension, cFile )
 
-   LOCAL cFile := hbmk_MemoRead( cFileName )
    LOCAL pRegex
    LOCAL tmp
 
@@ -18489,7 +18553,7 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
    LOCAL aHdr_Syntax_Shell := { ;
       I_( "Syntax:" ), ;
       "", ;
-      "  " + hb_StrFormat( I_( "%1$s <file[.hb|.prg|.hrb|.dbf]|-dbf:file>|<option> [%2$s]" ), cShell, I_( "<parameter[s]>" ) ) }
+      "  " + hb_StrFormat( I_( "%1$s <file[.hb|.prg|.hrb|.dbf]|-dbf:file|-prg:string>|<option> [%2$s]" ), cShell, I_( "<parameter[s]>" ) ) }
 
    LOCAL aHdr_Supp := { ;
       , ;
@@ -18684,6 +18748,7 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
       { "-docjson <text>"    , H_( "output documentation in JSON format for function[s]/command[s] in <text>" ) }, ;
       { "-fixcase <file[s]>" , H_( "fix casing of Harbour function names to their 'official' format. Core functions and functions belonging to all active contribs/addons with an .hbx file will be processed." ) }, ;
       { "-sanitize <file[s]>", H_( "convert filenames to lowercase, EOLs to platform native and remove EOF character, if present." ) }, ;
+      { "-urlize <file>"     , H_( "convert .prg source file to base64 encoded string." ) }, ;
       , ; /* HARBOUR_SUPPORT */
       { "-hbmake=<file>"     , H_( "convert hbmake project <file> to .hbp file" ) }, ;
       { "-xbp=<file>"        , H_( "convert .xbp (xbuild) project <file> to .hbp file" ) }, ;
