@@ -1476,11 +1476,11 @@ STATIC PROCEDURE init_Templates()
 
    hb_HCaseMatch( sc_hFields, .F. )
 
-   #define _T TPL_TEMPLATE
-   #define _R TPL_REQUIRED
-   #define _O TPL_OPTIONAL
-   #define _P TPL_PREFORMATTED
-   #define _U TPL_OUTPUT
+   #define _T  TPL_TEMPLATE
+   #define _R  TPL_REQUIRED
+   #define _O  TPL_OPTIONAL
+   #define _P  TPL_PREFORMATTED
+   #define _U  TPL_OUTPUT
 
    /* The columns of this array correspond to the elements of sc_hFields */
    sc_hTemplates := { ;

@@ -132,7 +132,7 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    METHOD EndIndex() INLINE ::CloseTag( "aside" ):Spacer(), Self
    METHOD AddIndexItem( cName, cID, lRawID )
 
-   METHOD WriteEntry( cField, cContent, lPreformatted, cID ) HIDDEN
+   METHOD WriteEntry( cField, cContent, lPreformatted, cID, lPlayground ) HIDDEN
 
    VAR nIndent INIT 0
 
@@ -603,7 +603,8 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
 
          ::CloseTag( "h4" )
       ELSEIF IsField( hEntry, item ) .AND. IsOutput( hEntry, item ) .AND. ! hEntry[ item ] == ""
-         ::WriteEntry( item, hEntry[ item ], IsPreformatted( hEntry, item ), hEntry[ "_id" ] )
+         ::WriteEntry( item, hEntry[ item ], IsPreformatted( hEntry, item ), hEntry[ "_id" ], ;
+            ! hEntry[ "TEMPLATE" ] == "C Function" )
       ENDIF
    NEXT
 
@@ -633,7 +634,7 @@ STATIC FUNCTION SourceURL( cEntry, cComponent, cTemplate, /* @ */ nLine, /* @ */
 
    RETURN ""
 
-METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS GenerateHTML
+METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID, lPlayground ) CLASS GenerateHTML
 
    STATIC s_class := { ;
       "NAME"     => "d-na", ;
@@ -667,8 +668,10 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS Genera
       DO CASE
       CASE lPreformatted  /* EXAMPLES, TESTS */
 
-         ::OpenTagInline( "section", "class", cTagClass )
-         ::OpenTagInline( "div", "class", "playground" )
+         IF lPlayground
+            ::OpenTagInline( "section", "class", cTagClass )
+            ::OpenTagInline( "div", "class", "playground" )
+         ENDIF
          ::OpenTagInline( "pre", "contenteditable", "true", "spellcheck", "false" )
          ::OpenTagInline( "code", "class", CODECLASS )
 #if 1
