@@ -720,7 +720,11 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID, lPlayground )
          ENDIF
 #endif
          ::Append( cContent,, .T., cField )
-         ::CloseTagInline( "code" ):CloseTagInline( "pre" ):CloseTagInline( "div" ):CloseTag( "section" )
+         IF lPlayground
+            ::CloseTagInline( "code" ):CloseTagInline( "pre" ):CloseTagInline( "div" ):CloseTag( "section" )
+         ELSE
+            ::CloseTagInline( "code" ):CloseTag( "pre" )
+         ENDIF
 
       CASE cField == "SEEALSO"
 
