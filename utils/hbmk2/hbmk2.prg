@@ -1960,14 +1960,32 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             IF ! hb_FNameExt( aArgs[ 1 ] ) == ".hrb" .AND. Chr( 13 ) + Chr( 10 ) $ tmp
                tmp := StrTran( tmp, Chr( 13 ) + Chr( 10 ), Chr( 10 ) )
             ENDIF
-            tmp1 := hb_ZCompress( tmp )
-            OutStd( hb_StrReplace( hb_base64Encode( iif( hb_BLen( tmp1 ) < hb_BLen( tmp ), tmp1, tmp ) ), "+/=", "-_" ) )
             IF Len( aArgs ) > 1
-               _hbmk_OutErr( hbmk, I_( "Warning: Only one source filename is supported, rest was skipped" ) )
+               _hbmk_OutErr( hbmk, I_( "Warning: Only one filename is supported, rest was skipped" ) )
             ENDIF
          ELSE
-            _hbmk_OutErr( hbmk, I_( "Error: Missing source filename" ) )
+            tmp := MemoReadStdIn()
          ENDIF
+         tmp1 := hb_ZCompress( tmp )
+         OutStd( hb_StrReplace( hb_base64Encode( iif( hb_BLen( tmp1 ) < hb_BLen( tmp ), tmp1, tmp ) ), "+/=", "-_" ) )
+         RETURN _EXIT_OK
+
+      CASE cParamL == "-deurlize"
+
+         __extra_initenv( hbmk, aArgs, cParam )
+         IF Len( aArgs ) >= 1
+            cFile := aArgs[ 1 ]
+            IF Len( aArgs ) > 1
+               _hbmk_OutErr( hbmk, I_( "Warning: Only one filename is supported, rest was skipped" ) )
+            ENDIF
+         ELSE
+            cFile := MemoReadStdIn()
+         ENDIF
+         cFile := hb_base64Decode( hb_StrReplace( cFile, "-_", "+/" ) )
+         IF ( tmp := hb_ZUncompress( cFile ) ) != NIL
+            cFile := tmp
+         ENDIF
+         OutStd( cFile )
          RETURN _EXIT_OK
 
       CASE hb_LeftEq( cParamL, "-hbmake=" )
@@ -16094,6 +16112,18 @@ STATIC FUNCTION hbsh()
 
    RETURN t_hbsh
 
+STATIC FUNCTION MemoReadStdIn()
+
+   LOCAL cBuffer := Space( 8192 )
+   LOCAL cData := ""
+   LOCAL nRead
+
+   DO WHILE ( nRead := FRead( hb_GetStdIn(), @cBuffer, hb_BLen( cBuffer ) ) ) > 0
+      cData += hb_BLeft( cBuffer, nRead )
+   ENDDO
+
+   RETURN cData
+
 STATIC PROCEDURE __hbshell( cFile, ... )
 
    LOCAL hbsh := hbsh()
@@ -16236,11 +16266,7 @@ STATIC PROCEDURE __hbshell( cFile, ... )
       cFile := SubStr( cFile, Len( "-prg:" ) + 1 )
       lInline := .T.
    CASE cFile == "-prg" .OR. cFile == "-prg:"
-      cFile := ""
-      tmp1 := Space( 8192 )
-      DO WHILE ( tmp := FRead( hb_GetStdIn(), @tmp1, hb_BLen( tmp1 ) ) ) > 0
-         cFile += hb_BLeft( tmp1, tmp )
-      ENDDO
+      cFile := MemoReadStdIn()
       lInline := .T.
    OTHERWISE
       lInline := .F.
@@ -18748,7 +18774,8 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
       { "-docjson <text>"    , H_( "output documentation in JSON format for function[s]/command[s] in <text>" ) }, ;
       { "-fixcase <file[s]>" , H_( "fix casing of Harbour function names to their 'official' format. Core functions and functions belonging to all active contribs/addons with an .hbx file will be processed." ) }, ;
       { "-sanitize <file[s]>", H_( "convert filenames to lowercase, EOLs to platform native and remove EOF character, if present." ) }, ;
-      { "-urlize <file>"     , H_( "convert .prg source file to base64 encoded string." ) }, ;
+      { "-urlize [<file>]"   , H_( "convert .prg source or .hrb file (or stdin) to base64 encoded string on stdout." ) }, ;
+      { "-deurlize [<str>]"  , H_( "convert base64 encoded source string (or stdin) to .prg source/.hrb file on stdout." ) }, ;
       , ; /* HARBOUR_SUPPORT */
       { "-hbmake=<file>"     , H_( "convert hbmake project <file> to .hbp file" ) }, ;
       { "-xbp=<file>"        , H_( "convert .xbp (xbuild) project <file> to .hbp file" ) }, ;
