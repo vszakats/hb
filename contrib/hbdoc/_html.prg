@@ -111,6 +111,7 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    VAR TargetFilename AS STRING INIT ""
 
    VAR hNameIDM
+   VAR lPlayground INIT .F.
 
    EXPORTED:
 
@@ -362,22 +363,24 @@ METHOD Generate() CLASS GenerateHTML
       "src", "https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-c.min.js", ;
       "integrity", "sha384-IDvyyshYqx4mSDbCy1jZXIyYtgY0TQ7yTX/qOQ93pN1I3ETUkZD9Nb5joIteiFIC" ):CloseTag( "script" )
 
-   ::OpenTagInline( "script", ;
-      "crossorigin", "anonymous", ;
-      "src", "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js", ;
-      "integrity", "sha384-xBuQ/xzmlsLoJpyjoggmTEz8OWUFM0/RC5BsqQBDX2v5cMvDHcMakNTNrHIW2I5f" ):CloseTag( "script" )
+   IF ::lPlayground
+      ::OpenTagInline( "script", ;
+         "crossorigin", "anonymous", ;
+         "src", "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js", ;
+         "integrity", "sha384-xBuQ/xzmlsLoJpyjoggmTEz8OWUFM0/RC5BsqQBDX2v5cMvDHcMakNTNrHIW2I5f" ):CloseTag( "script" )
 
-   ::OpenTagInline( "script", ;
-      "crossorigin", "anonymous", ;
-      "src", "https://os.allcom.pl/harbour/static/playground-embed.js" ):CloseTag( "script" )
+      ::OpenTagInline( "script", ;
+         "crossorigin", "anonymous", ;
+         "src", "https://os.allcom.pl/harbour/static/playground-embed.js" ):CloseTag( "script" )
 
-   ::OpenTagInline( "script", ;
-      "crossorigin", "anonymous", ;
-      "src", "https://os.allcom.pl/harbour/static/play.js" ):CloseTag( "script" )
+      ::OpenTagInline( "script", ;
+         "crossorigin", "anonymous", ;
+         "src", "https://os.allcom.pl/harbour/static/play.js" ):CloseTag( "script" )
 
-   ::OpenTag( "script" )
-   ::cFile += _playground_embed_js()
-   ::CloseTag( "script" )
+      ::OpenTag( "script" )
+      ::cFile += _playground_embed_js()
+      ::CloseTag( "script" )
+   ENDIF
 
    ::super:Generate()
 
@@ -669,6 +672,7 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID, lPlayground )
       CASE lPreformatted  /* EXAMPLES, TESTS */
 
          IF lPlayground
+            ::lPlayground := .T.
             ::OpenTagInline( "section", "class", cTagClass )
             ::OpenTagInline( "div", "class", "playground" )
          ENDIF
