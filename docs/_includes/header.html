@@ -16,7 +16,7 @@
        <div class="header-text-content">
          <span class="header-text-headline">Harbour.</span><br>
          The Cross-Platform xBase.
-         <div class="header-version header-version-full">{{ site.badge_version }}</div>
+         <div class="header-version header-version-full">{% unless site.fork %}Version {% endunless %}{{ site.short_version }}{% if site.fork %} Fork{% endif %}</div>
        </div>
     </div>
   </div>
