@@ -340,7 +340,7 @@ STATIC PROCEDURE Exm_OOOpen()
 
       oOO_Desktop := oOO_ServiceManager:createInstance( "com.sun.star.frame.Desktop" )
       oOO_PropVal01 := oOO_ServiceManager:Bridge_GetStruct( "com.sun.star.beans.PropertyValue" )
-      oOO_Doc := oOO_Desktop:loadComponentFromURL( OO_ConvertToURL( hb_FNameMerge( hb_DirBase(), "sample.odt" ) ), "_blank", 0, { oOO_PropVal01 } )
+      oOO_Doc := oOO_Desktop:loadComponentFromURL( OO_ConvertToURL( hb_FNameMerge( hb_DirBase(), "test.odt" ) ), "_blank", 0, { oOO_PropVal01 } )
 
       ? "About to close OpenOffice"
       WAIT

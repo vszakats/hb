@@ -45,23 +45,24 @@ STATIC FUNCTION Example_Text()
 STATIC FUNCTION Example_Text_Raw()
 #pragma __cstream | RETURN %s
 
- ~2THE HARBOUR PROJECT COMPILER LICENSE~1
-~3 ====================================
+ ~2Lorem ipsum dolor sit amet, consectetur adipiscing elit.~1
+~3 ========================================================
 
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 of the License, or
- (at your option) any later version.
+ Integer a dolor eu lorem luctus cursus. Proin varius dui quis felis.
+ Sed vitae lacus ac mauris cursus vehicula. Nulla sodales fringilla
+ lorem. Praesent odio mi, interdum eget, facilisis et, elementum
+ luctus, enim. Vivamus sed est. Cras leo dolor, mollis et, suscipit
+ sed, interdum ac, elit. Phasellus cursus, arcu nec bibendum cursus,
+ dolor mi vestibulum leo, ut cursus orci sem id dolor. Morbi porttitor
+ libero nec risus. Duis diam justo, blandit sed, fermentum eu,
+ consectetur at, arcu. Quisque felis ipsum, facilisis quis, ultrices
+ sed, venenatis aliquam, urna. Cras sit amet risus. Pellentesque
+ dictum. In hac habitasse platea dictumst.
 
- This program is distributed in the hope that it will be useful,
- but ~2WITHOUT ANY WARRANTY~1; without even the implied warranty of
- ~4MERCHANTABILITY~1 or ~5FITNESS FOR A PARTICULAR PURPOSE~1.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA (or visit
- their website at https://www.gnu.org/).
+ Nunc odio elit, mattis et, rutrum id, faucibus vitae, ipsum. Donec
+ aliquet sem sed augue. Aliquam erat volutpat. Etiam ultrices, metus
+ a tristique ornare, tellus urna congue nunc, vitae iaculis risus
+ enim quis magna.
 
 ~5This file have to be separated with CR/LF characters~1
 #pragma __endtext
