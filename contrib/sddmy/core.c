@@ -57,6 +57,15 @@ typedef int my_socket;
 
 #include "mysql.h"
 
+#if ! defined( MYSQL_VERSION_ID )
+   #if defined( MARIADB_VERSION_ID )
+      /* Required since MariaDB ~10.2.* */
+      #define MYSQL_VERSION_ID  MARIADB_VERSION_ID
+   #else
+      #define MYSQL_VERSION_ID  0
+   #endif
+#endif
+
 #ifndef MYSQL_TYPE_NEWDECIMAL
 #define MYSQL_TYPE_NEWDECIMAL  246
 #endif
