@@ -553,7 +553,6 @@ static int hb_pp_parseChangelog( PHB_PP_STATE pState, const char * pszFileName,
    char szToCheck[ HB_PATH_MAX ];
 
    *szCommitYear = '\0';
-   *pszCommitYear = NULL;
 
    PHB_FNAME pFileName = hb_fsFNameSplit( pszFileName );
 
@@ -766,7 +765,6 @@ static int hb_pp_parseRepoVer( PHB_PP_STATE pState, const char * pszFileName,
    hb_pp_addDefine( pState, "HB_VER_CHLID", szId );
 #endif
 
-   *pszCommitYear = NULL;
    *pszCommitID = hb_strdup( szId );
    *pszCommitIDShort = hb_strdup( szIdShort );
    *pszURL = hb_strdup( szURL );
