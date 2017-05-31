@@ -62,8 +62,8 @@
       function will return a logical true (.T.); otherwise, it will
       return a logical false (.F.).
    $EXAMPLES$
-      ? IsDigit( "12345" )  // .T.
-      ? IsDigit( "abcde" )  // .F.
+      ? IsDigit( "12345" )  // --> .T.
+      ? IsDigit( "abcde" )  // --> .F.
    $STATUS$
       R
    $COMPLIANCE$
@@ -102,8 +102,8 @@
       function will return a logical true (.T.); otherwise, it will
       return a logical false (.F.).
    $EXAMPLES$
-      ? IsUpper( "Abcde" )  // .T.
-      ? IsUpper( "abcde" )  // .F.
+      ? IsUpper( "Abcde" )  // --> .T.
+      ? IsUpper( "abcde" )  // --> .F.
    $STATUS$
       R
    $COMPLIANCE$
@@ -142,8 +142,8 @@
       function will return a logical true (.T.); otherwise, it will
       return a logical false (.F.).
    $EXAMPLES$
-      ? IsLower( "ABCde" )  // .F.
-      ? IsLower( "aBCde" )  // .T.
+      ? IsLower( "ABCde" )  // --> .F.
+      ? IsLower( "aBCde" )  // --> .T.
    $STATUS$
       R
    $COMPLIANCE$
@@ -180,7 +180,7 @@
    $DESCRIPTION$
       This function trims the leading space blank
    $EXAMPLES$
-      ? LTrim( "Hello     " )
+      ? "|" + LTrim( "Hello     " ) + "|"
    $STATUS$
       R
    $COMPLIANCE$
@@ -221,7 +221,7 @@
       the first string <cSearch>. If the substring is not contained within
       the second expression, the function will return 0.
    $EXAMPLES$
-      ? At( "cde", "abcdefgfedcba" )    // 3
+      ? At( "cde", "abcdefgfedcba" )  // --> 3
    $STATUS$
       R
    $COMPLIANCE$
@@ -267,8 +267,8 @@
       the second expression, the function will return 0. The third and fourth
       parameters lets you indicate a starting and end offset to search in.
    $EXAMPLES$
-      ? hb_At( "cde", "abcdefgfedcba" )     // 3
-      ? hb_At( "cde", "abcdefgfedcba", 4 )  // 0
+      ? hb_At( "cde", "abcdefgfedcba" )     // --> 3
+      ? hb_At( "cde", "abcdefgfedcba", 4 )  // --> 0
    $STATUS$
       R
    $COMPLIANCE$
@@ -312,8 +312,8 @@
       If the function is unable to find any occurrence of <cSearch> in
       <cString>, the return value is 0.
    $EXAMPLES$
-      ? RAt( "cde", "abcdefgfcdeedcba" )  // 9
-      ? RAt( "cdr", "abcdefgfedcba" )     // 0
+      ? RAt( "cde", "abcdefgfcdeedcba" )  // --> 9
+      ? RAt( "cdr", "abcdefgfedcba" )     // --> 0
    $STATUS$
       R
    $COMPLIANCE$
@@ -375,7 +375,7 @@
          NEXT
       NEXT
 
-      ? hb_RAt( cSearch, "abcdefgfedcba" )  // -> 3
+      ? hb_RAt( cSearch, "abcdefgfedcba" )  // --> 3
    $STATUS$
       R
    $COMPLIANCE$
@@ -417,7 +417,7 @@
       SubStr( <cString>, 1, <nLen> )
       ```
    $EXAMPLES$
-      ? Left( "Hello Harbour", 5 )  // Hello
+      ? Left( "Hello Harbour", 5 )  // --> "Hello"
    $STATUS$
       R
    $COMPLIANCE$
@@ -462,7 +462,7 @@
       SubStr( <cString>, Len( <cString> ) - <nLen> + 1, <nLen> )
       ```
    $EXAMPLES$
-      ? Right( "Hello Harbour", 5 )  // rbour
+      ? Right( "Hello Harbour", 5 )  // --> "rbour"
    $STATUS$
       R
    $COMPLIANCE$
@@ -511,9 +511,9 @@
       characters from <nStart> to the end of the string is less than <nLen>
       the rest are ignored.
    $EXAMPLES$
-      ? SubStr( "Hello Harbour",  7, 4 )  // Harb
-      ? SubStr( "Hello Harbour", -3, 3 )  // our
-      ? SubStr( "Hello Harbour",  7    )  // Harbour
+      ? SubStr( "Hello Harbour",  7, 4 )  // --> "Harb"
+      ? SubStr( "Hello Harbour", -3, 3 )  // --> "our"
+      ? SubStr( "Hello Harbour",  7    )  // --> "Harbour"
    $STATUS$
       R
    $COMPLIANCE$
@@ -588,8 +588,8 @@
       *  If <nLength> is specified but <nDecimals> is omitted (no
          decimal places), the return value is rounded to an integer.
    $EXAMPLES$
-      ? Str( 10, 6, 2 )   // " 10.00"
-      ? Str( -10, 8, 2 )  // "  -10.00"
+      ? Str( 10, 6, 2 )   // --> " 10.00"
+      ? Str( -10, 8, 2 )  // --> "  -10.00"
    $STATUS$
       R
    $COMPLIANCE$
@@ -666,8 +666,8 @@
 
       The StrZero() function was part of the CA-Cl*pper samples.
    $EXAMPLES$
-      ? StrZero( 10, 6, 2 )   // "010.00"
-      ? StrZero( -10, 8, 2 )  // "-0010.00"
+      ? StrZero( 10, 6, 2 )   // --> "010.00"
+      ? StrZero( -10, 8, 2 )  // --> "-0010.00"
    $STATUS$
       R
    $COMPLIANCE$
@@ -704,7 +704,7 @@
       ? hb_ValToStr( 4 ) == "         4"
       ? hb_ValToStr( 4.0 / 2 ) == "         2.00"
       ? hb_ValToStr( "String" ) == "String"
-      ? hb_ValToStr( hb_SToD( "20010101" ) ) == "2001-01-01"
+      ? hb_ValToStr( 0d20010101 ) == "2001-01-01"
       ? hb_ValToStr( NIL ) == "NIL"
       ? hb_ValToStr( .F. ) == ".F."
       ? hb_ValToStr( .T. ) == ".T."
@@ -742,17 +742,14 @@
       size of a hash table. If it is used with a multidimensional array it
       returns the size of the first dimension.
    $EXAMPLES$
-      PROCEDURE Main()
-         LOCAL cName
+      LOCAL cName
 
-         ? Len( "Harbour" )         // --> 7
-         ? Len( { "One", "Two" } )  // --> 2
+      ? Len( "Harbour" )         // --> 7
+      ? Len( { "One", "Two" } )  // --> 2
 
-         cName := ""
-         ACCEPT "Enter your name: " TO cName
-         ? Len( cName )
-
-         RETURN
+      cName := ""
+      ACCEPT "Enter your name: " TO cName
+      ? Len( cName )
    $STATUS$
       R
    $COMPLIANCE$
@@ -786,16 +783,16 @@
       This function checks if an expression has empty value and returns a
       logical indicating whether it the expression is empty or not.
    $EXAMPLES$
-      ? Empty( "I'm not empty" )  // .F.
-      ? Empty( NIL )              // .T.
-      ? Empty( 0 )                // .T.
-      ? Empty( .F. )              // .T.
-      ? Empty( "" )               // .T.
-      ? Empty( "  " )             // .T.
-      ? Empty( 1 )                // .F.
-      ? Empty( .T. )              // .F.
-      ? Empty( "smile" )          // .F.
-      ? Empty( Date() )           // .F.
+      ? Empty( "I'm not empty" )  // --> .F.
+      ? Empty( NIL )              // --> .T.
+      ? Empty( 0 )                // --> .T.
+      ? Empty( .F. )              // --> .T.
+      ? Empty( "" )               // --> .T.
+      ? Empty( "  " )             // --> .T.
+      ? Empty( 1 )                // --> .F.
+      ? Empty( .T. )              // --> .F.
+      ? Empty( "smile" )          // --> .F.
+      ? Empty( Date() )           // --> .F.
    $STATUS$
       R
    $COMPLIANCE$
@@ -830,6 +827,7 @@
       This function converts an expression in his inverted form. It is
       useful to build descending indexes.
    $EXAMPLES$
+      // FIXME
       // Seek for Smith in a descending index
       dbSeek( Descend( "SMITH" ) )
    $STATUS$
@@ -865,8 +863,8 @@
       to its lowercased representation. Any non alphabetic character withing
       <cString> will remain unchanged.
    $EXAMPLES$
-      ? Lower( "HARBOUR" )    // harbour
-      ? Lower( "Hello All" )  // hello all
+      ? Lower( "HARBOUR" )    // --> "harbour"
+      ? Lower( "Hello All" )  // --> "hello all"
    $STATUS$
       R
    $COMPLIANCE$
@@ -903,8 +901,8 @@
       This function converts all alpha characters in <cString> to upper
       case values and returns that formatted character expression.
    $EXAMPLES$
-      ? Upper( "harbour" )  // HARBOUR
-      ? Upper( "Harbour" )  // HARBOUR
+      ? Upper( "harbour" )  // --> "HARBOUR"
+      ? Upper( "Harbour" )  // --> "HARBOUR"
    $STATUS$
       R
    $COMPLIANCE$
@@ -1216,10 +1214,10 @@
       Together with LTrim(), this function equated to the AllTrim()
       function.
    $EXAMPLES$
-      ? RTrim( "Hello" )   //  "Hello"
-      ? RTrim( "" )        //  ""
-      ? RTrim( "UA   " )   //  "UA"
-      ? RTrim( "   UA" )   //  "   UA"
+      ? RTrim( "Hello" )   // -->  "Hello"
+      ? RTrim( "" )        // -->  ""
+      ? RTrim( "UA   " )   // -->  "UA"
+      ? RTrim( "   UA" )   // -->  "   UA"
    $STATUS$
       R
    $COMPLIANCE$
@@ -1260,10 +1258,10 @@
       Together with LTrim(), this function equated to the AllTrim()
       function.
    $EXAMPLES$
-      ? Trim( "Hello" )    //  "Hello"
-      ? Trim( "" )         //   ""
-      ? Trim( "UA   " )    //   "UA"
-      ? Trim( "   UA" )    //   "   UA"
+      ? Trim( "Hello" )    // --> "Hello"
+      ? Trim( "" )         // --> ""
+      ? Trim( "UA   " )    // --> "UA"
+      ? Trim( "   UA" )    // --> "   UA"
    $STATUS$
       R
    $COMPLIANCE$
@@ -1306,7 +1304,7 @@
 
       A value of 0 for <nSize> will return a null string.
    $EXAMPLES$
-      ? Replicate( "a", 10 )      // aaaaaaaaaa
+      ? Replicate( "a", 10 )      // --> "aaaaaaaaaa"
       ? Replicate( "b", 100000 )
    $STATUS$
       R
@@ -1353,11 +1351,11 @@
 
          LOCAL cBigString
          LOCAL cFirst
-         LOCAL cString := Space( 20 )  // Create an character memory variable
-                                       // with length 20
-         ? Len( cString )      // 20
-         cBigString := Space( 100000 ) // create a memory variable with 100000
-                                       // blank spaces
+         LOCAL cString := Space( 20 )   // Create an character memory variable
+                                        // with length 20
+         ? Len( cString )  // --> 20
+         cBigString := Space( 100000 )  // Create a memory variable with 100000
+                                        // blank spaces
          ? Len( cBigString )
          USE test NEW
          cFirst := MakeEmpty( 1 )
@@ -1365,7 +1363,7 @@
 
          RETURN
 
-      FUNCTION MakeEmpty( xField )
+      STATIC FUNCTION MakeEmpty( xField )
 
          LOCAL nRecord
          LOCAL xRetValue
@@ -1426,7 +1424,7 @@
 
       This functions is the oppose of the Str() function.
    $EXAMPLES$
-      ? Val( "31421" )  // 31421
+      ? Val( "31421" )  // --> 31421
    $STATUS$
       R
    $COMPLIANCE$
@@ -1480,27 +1478,21 @@
       NOTE: new function, available after 2016-06-20 21:59 UTC+0200 commit,
             (it is not available in earlier versions).
    $EXAMPLES$
-      PROCEDURE Main()
+      LOCAL n := ( 5 / 2 ) + 0.009
 
-         LOCAL n := ( 5 / 2 ) + 0.009
-
-         ? hb_ntoc( n )    // --> 2.509
-         ? Str( n )        // -->          2.51
-         ? hb_ntoc( n, 2 ) // --> 2.51
-         ? Str( n, 5, 2 )  // -->  2.51
-         ? hb_ntos( n )    // --> 2.51
-         ? "--- decimals set to 7 ----"
-         SET DECIMALS TO 7
-         ? Str( n )        // -->          2.51
-         ? hb_ntoc( n )    // --> 2.509
-         ? Str( n, 10, 7 ) // -->  2.5090000
-         ? hb_ntoc( n, 7 ) // --> 2.509
-         ? "--- pass non numeric / NIL value ----"
-         ? hb_ntoc( "42" ) // --> null string
-         ? hb_ntoc()       // --> null string
-         ? Str( "42" )     // --> RTE
-
-         RETURN
+      ? hb_ntoc( n )     // --> 2.509
+      ? Str( n )         // -->          2.51
+      ? hb_ntoc( n, 2 )  // --> 2.51
+      ? Str( n, 5, 2 )   // -->  2.51
+      ? hb_ntos( n )     // --> 2.51
+      ? "--- decimals set to 7 ----"
+      SET DECIMALS TO 7
+      ? Str( n )         // -->          2.51
+      ? hb_ntoc( n )     // --> 2.509
+      ? Str( n, 10, 7 )  // -->  2.5090000
+      ? hb_ntoc( n, 7 )  // --> 2.509
+      ? "--- pass non numeric / NIL value ----"
+      ? Str( "42" )      // --> RTE
    $STATUS$
       R
    $COMPLIANCE$
@@ -1539,14 +1531,10 @@
       Essentially, `hb_ntos()` function is equivalent to
       `LTrim( Str( <nValue> ) )` but quite simpler and faster.
    $EXAMPLES$
-      PROCEDURE Main()
+      LOCAL n := ( 5 / 2 ) + 0.009
 
-         LOCAL n := ( 5 / 2 ) + 0.009
-
-         ? Str( n )        // -->          2.51
-         ? hb_ntos( n )    // --> 2.51
-
-         RETURN
+      ? Str( n )      // -->          2.51
+      ? hb_ntos( n )  // --> 2.51
    $STATUS$
       R
    $COMPLIANCE$

@@ -47,7 +47,7 @@
       Video Systems_ (Microsoft Press).
 
    $EXAMPLES$
-      nPage := ft_GetVPg()
+      ? ft_GetVPg()
    $SEEALSO$
       ft_SetVPg()
    $END$

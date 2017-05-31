@@ -1,4 +1,4 @@
-/* Copyright 2010 Viktor Szakats (vszakats.net/harbour) */
+/* Copyright 2010-2017 Viktor Szakats (vszakats.net/harbour) */
 
 /* GDI calls and passing structures. */
 
@@ -8,7 +8,7 @@
 
 PROCEDURE Main()
 
-   LOCAL cPrinterName := "Microsoft XPS Document Writer"
+   LOCAL cPrinterName := "Microsoft Print to PDF"  /* Requires Windows 10 or newer */
 
    LOCAL hDC
    LOCAL pDEVMODE
@@ -74,8 +74,5 @@ PROCEDURE Main()
 
    ? wapi_EndPage( hDC )
    ? wapi_EndDoc( hDC )
-
-   hDC := NIL
-   hOBJECT := NIL
 
    RETURN

@@ -37,18 +37,18 @@
       __TypeFile() function is used in the preprocessing of the TYPE
       command.
    $EXAMPLES$
-      The following examples assume a file name `mytext.dat` exist in all
-      specified paths, a run-time error would displayed if it does not
+      // The following examples assume a file name `test.txt` exist in all
+      // specified paths, a run-time error would displayed if it does not
 
-      // display mytext.dat file on screen
-      __TypeFile( "mytext.dat" )
+      // display test.txt file on screen
+      __TypeFile( "test.txt" )
 
-      // display mytext.dat file on screen and printer
-      __TypeFile( "mytext.dat", .T. )
+      // display test.txt file on screen and printer
+      __TypeFile( "test.txt", .T. )
 
-      // display mytext.dat file on printer only
+      // display test.txt file on printer only
       SET CONSOLE OFF
-      __TypeFile( "mytext.dat", .T. )
+      __TypeFile( "test.txt", .T. )
       SET CONSOLE ON
    $STATUS$
       R
@@ -105,22 +105,22 @@
       Use `SET CONSOLE OFF` to suppress screen output.
       You can pause the output using <Ctrl-S>, press any key to resume.
    $EXAMPLES$
-      The following examples assume a file name mytext.dat exist in all
-      specified paths, a run-time error would displayed if it does not
+      // The following examples assume a file name `test.txt` exist in all
+      // specified paths, a run-time error would displayed if it does not
 
-      // display mytext.dat file on screen
-      TYPE mytext.dat
+      // display test.txt file on screen
+      TYPE test.txt
 
-      // display mytext.dat file on screen and printer
-      TYPE mytext.dat TO PRINTER
+      // display test.txt file on screen and printer
+      TYPE test.txt TO PRINTER
 
-      // display mytext.dat file on printer only
+      // display test.txt file on printer only
       SET CONSOLE OFF
-      TYPE mytext.dat TO PRINTER
+      TYPE test.txt TO PRINTER
       SET CONSOLE ON
 
-      // display mytext.dat file on screen and into a file myreport.txt
-      TYPE mytext.dat TO FILE myreport
+      // display test.txt file on screen and into a file myreport.txt
+      TYPE test.txt TO FILE myreport
    $STATUS$
       R
    $COMPLIANCE$

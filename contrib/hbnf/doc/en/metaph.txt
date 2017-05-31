@@ -22,11 +22,12 @@
       the string are pronounced.  ft_Metaph() will group sound-alikes
       together, and forgive shortcomings in spelling ability.
    $EXAMPLES$
-      USE persons
-      INDEX ON ft_Metaph( field->LastName ) TO lastname
+      // FIXME
+      USE test
+      INDEX ON ft_Metaph( field->last ) TO lastname
       SEEK ft_Metaph( "Philmore" )
-      ? Found(), field->LastName       // Result: .T. Philmore
+      ? Found(), field->last  // --> .T.  Philmore
       SEEK ft_Metaph( "Fillmore" )
-      ? Found(), field->LastName       // Result: .T. Philmore
+      ? Found(), field->last  // --> .T.  Philmore
    $END$
  */

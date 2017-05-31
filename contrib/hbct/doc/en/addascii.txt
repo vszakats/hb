@@ -36,7 +36,7 @@
       // Add 32 to the ASCII value of the character at the last position
       // in the string
 
-      ? AddAscii( "SmitH", 32 ) // --> "Smith"
+      ? AddAscii( "SmitH", 32 )  // --> "Smith"
    $STATUS$
       R
    $COMPLIANCE$

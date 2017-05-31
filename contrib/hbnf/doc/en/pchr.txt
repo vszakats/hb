@@ -71,20 +71,22 @@
       </table>
 
    $EXAMPLES$
+      LOCAL cSetUp := "27,116,1"
+
       SET PRINTER ON
-      cSetUp := "27,116,1"
-      ? ft_PChr( cSetUp )        // -> hb_BChar( 27 ) + hb_BChar( 116 ) + hb_BChar( 1 )
-                                 //     <select Epson char. graphics>
 
-      ? ft_PChr( '27,"x",0' )    // -> hb_BChar( 27 ) + hb_BChar( 120 ) + hb_BChar( 0 )
-                                 //     <Epson draft mode>
+      ? ft_PChr( cSetUp )         // --> hb_BChar( 27 ) + hb_BChar( 116 ) + hb_BChar( 1 )
+                                  //      <select Epson char. graphics>
 
-      ? ft_PChr( '&1B,"E"'  )    // -> hb_BChar( 27 ) + hb_BChar( 69 )
-                                 //     <HP reset>
+      ? ft_PChr( '27,"x",0' )     // --> hb_BChar( 27 ) + hb_BChar( 120 ) + hb_BChar( 0 )
+                                  //      <Epson draft mode>
 
-      ? ft_PChr( "/ELITE,/NLQ" ) // -> hb_BChar( 27 ) + hb_BChar( 77 ) + ;
-                                 //    hb_BChar( 27 ) + hb_BChar( 120 ) + hb_BChar( 1 )
-                                 //     <Epson elite & near letter quality>
+      ? ft_PChr( '&1B,"E"'  )     // --> hb_BChar( 27 ) + hb_BChar( 69 )
+                                  //      <HP reset>
+
+      ? ft_PChr( "/ELITE,/NLQ" )  // --> hb_BChar( 27 ) + hb_BChar( 77 ) + ;
+                                  //     hb_BChar( 27 ) + hb_BChar( 120 ) + hb_BChar( 1 )
+                                  //      <Epson elite & near letter quality>
    $SEEALSO$
 
    $END$

@@ -45,9 +45,9 @@
       <nX> and <nY> must be passed by reference to receive
       the mouse position in Mickeys.
    $EXAMPLES$
+      LOCAL nX, nY
       ft_MMickeys( @nX, @nY )
-      ? nX
-      ? nY
+      ? nX, nY
    $END$
  */
 
@@ -98,12 +98,11 @@
       This is a mouse meta function that checks for the presence
       of a double click.
    $EXAMPLES$
-      IF ft_MIsRegion( 10, 10, 11, 20 ) .AND. ;
-         ft_MDblClk( 0, 1,, ft_MGetX(), ft_MGetY() ) // double click, right button
-                                                     // at current location with
-                                                     // default interval
-
-         MnuItem1()
+      IF ft_MInRegion( 10, 10, 11, 20 ) .AND. ;
+         ft_MDblClk( 0, 1,, ft_MGetX(), ft_MGetY() )  // double click, right button
+                                                      // at current location with
+                                                      // default interval
+         // MnuItem1()
       ENDIF
    $SEEALSO$
       ft_MButPrs(), ft_MButRel()
@@ -155,6 +154,7 @@
       This function will check to see if the mouse cursor is
       within the confines of the specified region.
    $EXAMPLES$
+      LOCAL nChoice
       IF ft_MInRegion( 10, 10, 11, 20 )
          nChoice := 1
       ENDIF
@@ -216,10 +216,8 @@
       to 32000 but the driver forces a maximum of 100. Also the documentation
       states that resetting the mouse will reset these values. This is not
       the case.
-
-
    $EXAMPLES$
-      ft_MSetSens( 75, 75, 50 )     // a little less mouse movement necessary.
+      ft_MSetSens( 75, 75, 50 )  // a little less mouse movement necessary.
    $SEEALSO$
       ft_MGetSens()
    $END$
@@ -250,7 +248,9 @@
       determines the threshold above which the mouse moves at twice the normal
       speed. For further discussion of these values see ft_MSetSens()
    $EXAMPLES$
+      LOCAL nHoriz, nVert, nDouble
       ft_MGetSens( @nHoriz, @nVert, @nDouble )
+      ? nHoriz, nVert, nDouble
    $SEEALSO$
       ft_MSetSens()
    $END$
@@ -289,11 +289,12 @@
       my screen showed 6.24 but this routine returned 30 for the minor version
       number!
    $EXAMPLES$
-      nMajor := ft_MVersion( @nMinor )
+      LOCAL nMinor
+      LOCAL nMajor := ft_MVersion( @nMinor )
       IF ( nMajor + nMinor / 100 ) < 7.2
          ? "Sorry mouse driver version too old"
-         RETURN
       ENDIF
+      ? nMajor, nMinor
    $SEEALSO$
       ft_MSetSens()
    $END$
@@ -342,7 +343,7 @@
       values of <nPage> is dependent upon the display mode. See ft_SetVPg()
       for changing the current video page
    $EXAMPLES$
-      nPage := ft_MGetPage( )  // Gets the mouse cursor display page
+      ? ft_MGetPage( )  // Gets the mouse cursor display page
    $SEEALSO$
       ft_MSetPage()
    $END$
@@ -372,7 +373,7 @@
       Normally, ft_MInit() should be used to initialize the mouse since it
       will not reinitialize if already done.
    $EXAMPLES$
-      IF Empty( ft_MReset() )
+      IF ft_MReset() == 0
          ? "No mouse driver is installed"
       ENDIF
    $SEEALSO$
@@ -432,9 +433,7 @@
       will again be visible. Once the variable is 0 calls to ft_MShowCrs()
       does not increment the variable above 0.
    $EXAMPLES$
-      IF Empty( ft_MReset() )
-         ft_MShowCrs()
-      ENDIF
+      ft_MShowCrs()
    $SEEALSO$
       ft_MHideCrs(), ft_MCOnOff()
    $END$
@@ -588,8 +587,8 @@
       mode has eight virtual coordinates per character cell. Thus x=16 means
       that you are in the Row 2.
    $EXAMPLES$
-      ft_MSetPos( 10, 20 )     // position mouse cursor at row 10, col 20
-                               // in virtual screen coordinates
+      ft_MSetPos( 10, 20 )  // position mouse cursor at row 10, col 20
+                            // in virtual screen coordinates
    $SEEALSO$
       ft_MGetPos(), ft_MGetCoord(), ft_MSetCoord(), ft_MGetX(), ft_MGetY()
    $END$
@@ -614,8 +613,8 @@
       Positions mouse cursor on screen using text (normal row and column)
       coordinates.
    $EXAMPLES$
-      ft_MSetCoord( 10, 20 )     // position mouse cursor at row 10, col 20
-                                 // in text screen coordinates
+      ft_MSetCoord( 10, 20 )  // position mouse cursor at row 10, col 20
+                              // in text screen coordinates
    $SEEALSO$
       ft_MGetPos(), ft_MGetCoord(), ft_MSetPos(), ft_MDefCrs(), ft_MGetX(), ft_MGetY()
    $END$
@@ -708,7 +707,7 @@
       Retrieves the mouse button status and the position of the cursor when
       a button was last pressed.
    $EXAMPLES$
-      IF Empty( ft_MButPrs( 1 ) )
+      IF ft_MButPrs( 1 ) == 0
          ? "No Item selected"
       ENDIF
    $SEEALSO$

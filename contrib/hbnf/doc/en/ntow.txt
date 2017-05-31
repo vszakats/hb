@@ -25,20 +25,22 @@
       Also, numeric 0 is returned as a null string.  You will need to
       make a decision how to output it (zero dollars, no dollars, etc).
    $EXAMPLES$
-      ? ft_NToW( 999 )        // -> Nine Hundred Ninety Nine
-      ? ft_NToW( 1000 )       // -> One Thousand
+      LOCAL x, cents, string
+
+      ? ft_NToW( 999 )   // --> "Nine Hundred Ninety Nine"
+      ? ft_NToW( 1000 )  // --> "One Thousand"
 
       ? ft_NToW( 23 ) + " Dollars and " + ft_NToW( 99 ) + " Cents"
-            // -> Twenty Three Dollars and Ninety Nine Cents
+         // --> Twenty Three Dollars and Ninety Nine Cents
 
       ? ft_NToW( 23 ) + " Dollars and " + "99/100"
-            // -> Twenty Three Dollars and 99/100
+         // --> Twenty Three Dollars and 99/100
 
       x      := -23.99
       cents  := Str( ( x - Int( x ) ) * 100, 2, 0 ) + "/100"
       x      := Int( x )
       string := iif( x < 0, "Credit of ", "Debit of " )
       ? string + ft_NToW( Abs( x ) ) + " Dollars and " + "99/100"
-            // -> Credit of Twenty Three Dollars and 99/100
+         // --> Credit of Twenty Three Dollars and 99/100
    $END$
  */

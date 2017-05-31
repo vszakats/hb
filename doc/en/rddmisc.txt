@@ -56,7 +56,7 @@
 
          RETURN
 
-      PROCEDURE PrintFields( nCount )
+      STATIC PROCEDURE PrintFields( nCount )
 
          LOCAL aNames  := Array( nCount )
          LOCAL aTypes  := Array( nCount )
@@ -66,8 +66,12 @@
          LOCAL nFields := AFields( aNames, aTypes, aLens, aDecs ), i
 
          ? "Number of items:", nFields
-         FOR i := 1 TO nFields
-            ? i, PadR( aNames[ i ], 12 ), aTypes[ i ], aLens[ i ], aDecs[ i ]
+         FOR tmp := 1 TO nFields
+            ? tmp, ;
+               PadR( aNames[ tmp ], 12 ), ;
+               aTypes[ tmp ], ;
+               aLens[ tmp ], ;
+               aDecs[ tmp ]
          NEXT
 
          RETURN
@@ -149,7 +153,6 @@
          dbSkip( -1 )
       ENDDO
       ? "Is Bof()", Bof()
-      dbCloseArea()
    $STATUS$
       R
    $COMPLIANCE$
@@ -184,9 +187,10 @@
       In a network environment, any file that is about to be ZAPped must
       be used exclusively.
    $EXAMPLES$
-      USE test NEW INDEX test
+      USE test
+      ? LastRec()  // --> 500
       ZAP
-      dbCloseArea()
+      ? LastRec()  // --> 0
    $STATUS$
       R
    $COMPLIANCE$
@@ -219,11 +223,10 @@
       the function will return a logical false (.F.).
    $EXAMPLES$
       USE test NEW
-      dbGoto()
+      dbGoto( 10 )
       dbDelete()
-      ? "Is Record Deleted", Test->( Deleted() )
+      ? "Is Record Deleted", test->( Deleted() )
       dbRecall()
-      dbCloseArea()
    $STATUS$
       R
    $COMPLIANCE$
@@ -265,7 +268,6 @@
          dbSkip()
       ENDDO
       ? "Is Eof()", Eof()
-      dbCloseArea()
    $STATUS$
       R
    $COMPLIANCE$
@@ -298,8 +300,7 @@
       return 0.
    $EXAMPLES$
       USE test NEW
-      ? "This database has", test->( FCount() ), "fields"
-      dbCloseArea()
+      ? "This database has", hb_ntos( test->( FCount() ) ), "field(s)"
    $STATUS$
       R
    $COMPLIANCE$
@@ -336,7 +337,6 @@
    $EXAMPLES$
       USE test NEW
       ? test->( FieldGet( 1 ) )
-      dbCloseArea()
    $STATUS$
       R
    $COMPLIANCE$
@@ -371,17 +371,11 @@
       existing field in the designated or selected work area, this function
       will return a NULL byte.
    $EXAMPLES$
-      PROCEDURE Main()
-
-         LOCAL x
-
-         USE test NEW
-         FOR x := 1 TO test->( FCount() )
-            ? "Field Name:", FieldName( x )
-         NEXT
-         dbCloseArea()
-
-         RETURN
+      LOCAL nField
+      USE test NEW
+      FOR nField := 1 TO test->( FCount() )
+         ? "Field Name:", FieldName( nField )
+      NEXT
    $STATUS$
       R
    $COMPLIANCE$
@@ -417,8 +411,7 @@
       function will return a 0.
    $EXAMPLES$
       USE test NEW
-      ? test->( FieldPos( "ID" ) )
-      dbCloseArea()
+      ? test->( FieldPos( "LAST" ) )
    $STATUS$
       R
    $COMPLIANCE$
@@ -457,8 +450,7 @@
       the function will return a NIL data type
    $EXAMPLES$
       USE test NEW
-      FieldPut( 1, "Mr. Jones" )
-      dbCloseArea()
+      ? FieldPut( 1, "Mr. Jones" )
    $STATUS$
       R
    $COMPLIANCE$
@@ -492,11 +484,12 @@
       database. This function will also unlock all records locks placed
       by the same network station.
    $EXAMPLES$
+      LOCAL nSum
       USE test NEW
       IF FLock()
-         SUM test->Ammount
+         SUM test->age TO nSum
+         ? nSum
       ENDIF
-      dbCloseArea()
    $STATUS$
       R
    $COMPLIANCE$
@@ -531,13 +524,13 @@
       flag, so that a Found() condition may be tested in unselected work
       areas by using an alias.
    $EXAMPLES$
-      nId := 100
-      USE test NEW INDEX test
-      SEEK nId
+      LOCAL nAge := 40
+      USE test NEW
+      INDEX ON field->age TO test
+      SEEK nAge
       IF Found()
-         ? test->Name
+         ? test->first
       ENDIF
-      dbCloseArea()
    $STATUS$
       R
    $COMPLIANCE$
@@ -646,7 +639,6 @@
    $EXAMPLES$
       USE test NEW
       ? LUpdate()
-      dbCloseArea()
    $STATUS$
       R
    $COMPLIANCE$
@@ -692,15 +684,13 @@
    $EXAMPLES$
       USE test NEW
       IF ! NetErr()
-         INDEX ON field->First TO test
+         INDEX ON field->first TO test
          SET INDEX TO test
-         test->First := "Harbour"
-         SEEK "Harbour"
-         IF Found()
-            ? test->First
+         test->first := "Harbour"
+         IF dbSeek( "Harbour" )
+            ? test->first
          ENDIF
       ENDIF
-      dbCloseArea()
    $STATUS$
       R
    $COMPLIANCE$
@@ -737,10 +727,7 @@
       return a 0 value as well.
    $EXAMPLES$
       USE test NEW
-      USE harbour NEW
       ? RecCount()
-      ? Test->( RecCount() )
-      dbCloseAll()
    $STATUS$
       R
    $COMPLIANCE$
@@ -778,9 +765,9 @@
    $EXAMPLES$
       USE test NEW
       dbGoTop()
-      RecNo()            // Returns 1
+      ? RecNo()     // --> 1
       dbGoto( 50 )
-      RecNo()            // Returns 50
+      ? RecNo()     // --> 50
    $STATUS$
       R
    $COMPLIANCE$
@@ -817,9 +804,9 @@
    $EXAMPLES$
       USE test NEW
       dbGoTop()
-      RecSize()            // Returns 1
+      ? RecSize()   // --> 1
       dbGoto( 50 )
-      RecSize()
+      ? RecSize()
    $STATUS$
       R
    $COMPLIANCE$
@@ -867,14 +854,12 @@
 
       REPLACE (single record)
    $EXAMPLES$
-      nId := 10
-      USE testid INDEX testid NEW
-      IF testid->( dbSeek( nId ) )
-         IF testid->( RLock() )
-            dbDelete()
-         ENDIF
+      LOCAL nAge := 50
+      USE test NEW
+      INDEX ON field->age TO test
+      IF dbSeek( nAge ) .AND. RLock()
+         dbDelete()
       ENDIF
-      dbCloseArea()
    $STATUS$
       R
    $COMPLIANCE$
@@ -908,6 +893,7 @@
       name <cAlias>. If no parameter is specified, the current work area will
       be the return value of the function.
    $EXAMPLES$
+      LOCAL cOldArea
       USE test NEW
       USE names NEW
       cOldArea := Select( "names" )
@@ -950,12 +936,12 @@
    $EXAMPLES$
       USE test NEW
       USE names NEW
-      ? Used()    // .T.
-      ? TESTS->( Used() ) //.T.
+      ? Used()            // --> .T.
+      ? test->( Used() )  // --> .T.
       dbCloseArea()
-      ? Used()    // .F.
+      ? Used()            // --> .F.
       SELECT test
-      ? Used()    // .T.
+      ? Used()            // --> .T.
    $STATUS$
       R
    $COMPLIANCE$
@@ -991,11 +977,12 @@
       has completed its operation. On completion, the record pointer is placed
       on the first record in the database.
    $EXAMPLES$
-      USE test NEW INDEX test
+      USE test
       dbGoto( 10 )
       DELETE NEXT 10
+      ? LastRec()
       PACK
-      dbCloseArea()
+      ? LastRec()
    $STATUS$
       R
    $COMPLIANCE$

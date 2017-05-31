@@ -19,7 +19,7 @@
       only once, so that its maximum length is 256. The function
       gives the same result as `CharSort( CharList( cString ) )`
    $EXAMPLES$
-      ? CharSList( "Hello World !" ) // --> " !HWdelor"
+      ? CharSList( "Hello World !" )  // --> " !HWdelor"
    $STATUS$
       R
    $COMPLIANCE$

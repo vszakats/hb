@@ -172,7 +172,7 @@ static HB_BOOL amf3_decode_int( amfContext * context, int * iVal )
       result  |= byte & 0xff;
    }
 
-   /* Move sign bit, since we're converting 29bit->32bit */
+   /* Move sign bit, since we're converting 29-bit -> 32-bit */
    if( result & 0x10000000 )
       result -= 0x20000000;
 

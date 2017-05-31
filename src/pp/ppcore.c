@@ -3415,7 +3415,7 @@ static void hb_pp_directiveNew( PHB_PP_STATE pState, PHB_PP_TOKEN pToken,
       {
          if( pMatch )
          {
-            /* Clipper PP makes sth like that for result pattern of
+            /* Clipper PP makes something like that for result pattern of
              #[x]translate and #[x]command */
             if( pStart->spaces > 1 )
                pStart->spaces = 1;
@@ -3822,7 +3822,7 @@ static HB_BOOL hb_pp_tokenMatch( PHB_PP_TOKEN pMatch, PHB_PP_TOKEN * pTokenPtr,
 
       /*
        * Here we are strictly Clipper compatible. Clipper accepts dummy
-       * restrict marker which starts from comma, <id: ,[ sth,...]>
+       * restrict marker which starts from comma, <id: ,[ something,...]>
        * which always match empty expression. The same effect can be
        * reached by giving ,, in the world list on other positions.
        */

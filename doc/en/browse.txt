@@ -251,7 +251,7 @@
       1, 0, MaxRow(), MaxCol().
    $EXAMPLES$
       // this one shows you how to browse around
-      USE around
+      USE test
       Browse()
    $STATUS$
       S
@@ -297,8 +297,8 @@
       returned TBrowse() object contain no TBColumn() objects and you need
       to add column for each field by your self.
    $EXAMPLES$
-      for a good example, look at the source code for Browse() function
-      at src/rtl/browse.prg
+      // For a good example, look at the source code for Browse() function
+      // at src/rtl/browse.prg
    $STATUS$
       S
    $COMPLIANCE$

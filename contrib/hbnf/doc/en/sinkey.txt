@@ -25,7 +25,11 @@
       ft_SInkey() differs from the standard Inkey() in that it will
       respond to any keys set with `SET KEY TO` or SetKey().
    $EXAMPLES$
+      #include "inkey.ch"
       SetKey( K_F1, {| n, l, r | HELP( n, l, r ) } )
-      ? ft_SInkey( 0 )       // HELP() will be called if F1 pressed
+      ? ft_SInkey( 0 )        // HELP() will be called if <F1> pressed
+      STATIC PROCEDURE HELP( n, l, r )
+         ? n, l, r
+         RETURN
    $END$
  */

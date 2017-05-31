@@ -5,7 +5,7 @@
 PROCEDURE Main( cFile )
 
    // open a text file here
-   IF ft_FUse( hb_defaultValue( cFile, __FILE__ ), FO_READ ) != F_ERROR
+   IF ft_FUse( hb_defaultValue( cFile, __FILE__ ), FO_READ ) != 0
 
       DO WHILE ! ft_FEof()
          ? "line", Str( ft_FRecNo(), 2 ), ft_FReadLn()

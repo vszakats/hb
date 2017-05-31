@@ -60,30 +60,31 @@
       indexed database.
    $EXAMPLES$
       // This example will only show those people with last name of "JONES"
-      // in the tbnames.dbf which contains at least the fields:
+      // in the test.dbf which contains at least the fields:
       // Last, First, City AND is indexed on Last + First.
       LOCAL nRecSel    := 0
       LOCAL aFields    := {}
-      LOCAL bWhile     := {|| TBNames->Last = "JONES" }
+      LOCAL bWhile     := {|| field->last = "JONES" }
       LOCAL cKey       := "JONES"
       LOCAL nFreeze    := 1
       LOCAL lSaveScrn  := .T.
       LOCAL cColorList := "N/W, N/BG, B/W, B/BG, B/W, B/BG, R/W, B/R"
       LOCAL cColorShad := "N/N"
 
-      USE tbnames INDEX tbnames NEW  // indexed on Last + First
+      USE test NEW  // indexed on Last + First
+      INDEX ON field->last + field->first TO test
 
       // Pass Heading as character and Field as Block including Alias
       // To eliminate the need to use FieldWBlock() function in ft_BrwsWhl()
-      AAdd( aFields, { "Last Name" , {|| TBNames->Last }  } )
-      AAdd( aFields, { "First Name", {|| TBNames->First } } )
-      AAdd( aFields, { "City"      , {|| TBNames->City }  } )
+      AAdd( aFields, { "Last Name" , {|| field->last }  } )
+      AAdd( aFields, { "First Name", {|| field->first } } )
+      AAdd( aFields, { "City"      , {|| field->city }  } )
 
       IF ft_BrwsWhl( aFields, bWhile, cKey, nFreeze, lSaveScrn, ;
          cColorList, cColorShad, 3, 6, MaxRow() - 2, MaxCol() - 6 ) == 0
          ? "Sorry, No records were selected"
       ELSE
-         ? "You Selected:", TBNames->Last, TBNames->First, TBNames->City
+         ? "You Selected:", field->last, field->first, field->city
       ENDIF
    $END$
  */

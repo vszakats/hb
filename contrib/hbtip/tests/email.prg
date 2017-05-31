@@ -71,21 +71,21 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
       nPort, ;
       cFrom, ;
       cTo, ;
-      NIL /* CC */, ;
+      /* CC */, ;
       {} /* BCC */, ;
       "test: body", ;
       "test: subject", ;
-      NIL /* attachment */, ;
+      { __FILE__ } /* attachment */, ;
       cFrom, ;
       cPassword, ;
       "", ;
-      NIL /* nPriority */, ;
-      NIL /* lRead */, ;
+      /* nPriority */, ;
+      /* lRead */, ;
       .T. /* lTrace */, ;
       .F., ;
-      NIL /* lNoAuth */, ;
-      NIL /* nTimeOut */, ;
-      NIL /* cReplyTo */, ;
+      /* lNoAuth */, ;
+      /* nTimeOut */, ;
+      /* cReplyTo */, ;
       nPort == 465 )
 
    RETURN

@@ -33,6 +33,7 @@
       option, you can save on a lot of `DO CASE` or `IF..ELSEIF` code in your
       main program.  See the test code for a succinct demonstration.
    $EXAMPLES$
+      // FIXME
       LOCAL mainmenu := { ;
          { "Data Entry",  "Enter data",    {|| ft_Menu2( datamenu )  } }, ;
          { "Reports",     "Hard copy",     {|| ft_Menu2( repmenu )   } }, ;

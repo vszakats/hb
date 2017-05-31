@@ -17,6 +17,7 @@
       supported: FILTER, FORMAT, FUNCTION, INDEX, KEYS, MODE, ORDER,
       PROCEDURE, RELATION, TYPEAHEAD
    $EXAMPLES$
+      // FIXME
       ft_RestSets( aOldSets )
    $SEEALSO$
       ft_SaveSets(), ft_SetCentury()

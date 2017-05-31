@@ -51,27 +51,19 @@
         ft_Qtr()        ft_AcctQtr()        ft_AcctAdj()
         ft_Year()       ft_AcctYear()
    $EXAMPLES$
-      // Configure library date functions to begin year on
-      //  July 1st.
-
       Set( _SET_DATEFORMAT, "yyyy-mm-dd" )
-      ft_DateCnfg( "1980-07-01" )    // year is insignificant
 
-      // Examples of return values:
+      // Configure library date functions to begin year on July 1st.
+      ft_DateCnfg( "1980-07-01" )  // year is insignificant
 
-      //                                         aArray[ 1 ]   aArray[ 2 ]
-      //  System date format: American
+      SET DATE TO AMERICAN  // System date format: American
+      ? hb_ValToExp( ft_DateCnfg() )                 // --> { "1980.01.01", 1 }  (Sun)
+      ? hb_ValToExp( ft_DateCnfg( "07/01/80" ) )     // --> { "1980.07.01", 1 }  (Sun)
+      ? hb_ValToExp( ft_DateCnfg( "07/01/80", 2 ) )  // --> { "1980.07.01", 2 }  (Mon)
+      ? hb_ValToExp( ft_DateCnfg( , 2 ) )            // --> { "1980.01.01", 2 }  (Mon)
 
-      SET DATE TO AMERICAN
-      aArray := ft_DateCnfg()                //  "1980.01.01"     1 (Sun.)
-      aArray := ft_DateCnfg( "07/01/80" )    //  "1980.07.01"     1 (Sun.)
-      aArray := ft_DateCnfg( "07/01/80", 2 ) //  "1980.07.01"     2 (Mon.)
-      aArray := ft_DateCnfg( , 2 )           //  "1980.01.01"     2 (Mon.)
-
-      //  System date format: British
-
-      SET DATE TO BRITISH
-      aArray := ft_DateCnfg( "01/07/80", 2 ) //  "1980.07.01"     2 (Mon.)
+      SET DATE TO BRITISH  // System date format: British
+      ? hb_ValToExp( ft_DateCnfg( "01/07/80", 2 ) )  // --> { "1980.07.01", 2 }  (Mon)
    $SEEALSO$
       ft_AcctAdj()
    $END$

@@ -28,18 +28,18 @@
       add and delete rows with the <F7> and <F8> keys,
       and pass a UDF with information to edit the individual gets.
    $EXAMPLES$
-      ft_ArEdit( 3, 5, 18, 75, ar, @nElem, aHeadings, aBlocks )
+      LOCAL i, ar[ 3 ][ 26 ], aBlocks[ 3 ], aHeadings[ 3 ]
+      LOCAL nElem := 1, bGetFunc
 
       // This example will allow you to browse a 2 dimensional array
       // But you can't edit it since there is no GetBlock UDF
-      // It allows the user to hit <ENTER> to select an element or ESC to
-      // return 0
+      // It allows the user to hit <Enter> to select an element or <Esc>
+      // to return 0
+
+      ft_ArEdit( 3, 5, 18, 75, ar, @nElem, aHeadings, aBlocks )
 
       // This second example shows how to edit a 2 dimensional array
       // as might be done to edit an invoice
-
-      LOCAL i, ar[ 3 ][ 26 ], aBlocks[ 3 ], aHeadings[ 3 ]
-      LOCAL nElem := 1, bGetFunc
 
       // Set up two dimensional array "ar"
 
@@ -66,5 +66,8 @@
       SetColor( "N/W, W/N, , , W/N" )
       CLS
       ft_ArEdit( 3, 5, 18, 75, ar, @nElem, aHeadings, aBlocks, bGetFunc )
+
+      STATIC FUNCTION TestGet( ... )
+         RETURN .T.
    $END$
  */

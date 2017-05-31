@@ -3496,7 +3496,7 @@ static void hb_cdxTagHeaderStore( LPCDXTAG pTag )
 #if defined( HB_SIXCDX )
 static HB_BOOL hb_cdxIsTemplateFunc( const char * szKeyExpr )
 {
-   /* For CDX format SIx3 really makes sth like that */
+   /* For CDX format SIx3 really makes something like that */
    return hb_strnicmp( szKeyExpr, "sxChar(", 7 ) == 0 ||
           hb_strnicmp( szKeyExpr, "sxDate(", 7 ) == 0 ||
           hb_strnicmp( szKeyExpr, "sxNum(", 6 ) == 0 ||

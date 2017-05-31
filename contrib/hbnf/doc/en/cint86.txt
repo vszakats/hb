@@ -97,6 +97,7 @@
       it might be useful.  cpmiInt86() is part of the CPMI API.  See the
       CPMI documentation for more information.
    $EXAMPLES$
+      // FIXME
       // This example shows how to call the DOS "create file" service.  Take
       // special note of how to set up string parameters.
 

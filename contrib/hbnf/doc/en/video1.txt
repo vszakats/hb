@@ -61,15 +61,17 @@
       where speed is important.  It is faster and requires less memory than
       ft_VidStr().
    $EXAMPLES$
+      LOCAL nX, nY
+
       FOR nX := 1 TO MaxRow()
          FOR nY := 1 TO MaxCol()
             ft_WrtChr( nX, nY, "∙", ( nX - 1 ) + ( nY * 16 ) )
          NEXT
       NEXT
 
-      This example will write the ASCII character 249 to every location
-      `ON SCREEN` in every possible COLOR combination.  It will recognize
-      the status of SetBlink().  It uses direct video writes FOR speed.
+      // This example will write the ASCII character 249 to every location
+      // `ON SCREEN` in every possible COLOR combination.  It will recognize
+      // the status of SetBlink().  It uses direct video writes FOR speed.
    $END$
  */
 

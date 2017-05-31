@@ -96,7 +96,7 @@ void hb_compGenBufPortObj( HB_COMP_DECL, HB_BYTE ** pBufPtr, HB_SIZE * pnSize )
        *        bit order and restoring some others at runtime when
        *        .hrb file is loaded but we should create new format
        *        for .hrb files in which this field will have at least
-       *        16bit [druzus]
+       *        16-bit [druzus]
        */
       *ptr++ = ( HB_BYTE ) pSym->cScope;
       /* symbol type */

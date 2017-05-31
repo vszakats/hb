@@ -140,10 +140,6 @@ STATIC sbBlockC
 STATIC saArray
 STATIC saAllTypes
 
-#ifndef __HARBOUR__
-   #xtranslate hb_eol() => ( Chr( 13 ) + Chr( 10 ) )
-#endif
-
 #define TEST_RESULT_COL1_WIDTH  1
 #define TEST_RESULT_COL2_WIDTH  20
 #define TEST_RESULT_COL3_WIDTH  40
@@ -164,16 +160,24 @@ STATIC s_lDBFAvail := .F.
 STATIC s_lNoEnv
 
 #ifdef __HARBOUR__
-   REQUEST HB_LANG_EN
+   #include "hbver.ch"
 
    ANNOUNCE HB_GTSYS
    REQUEST HB_GT_CGI_DEFAULT
+
+   #define COPYRIGHT_YEAR  hb_ntos( Year( hb_Version( HB_VERSION_BUILD_DATE ) ) )
+#else
+   #define COPYRIGHT_YEAR  "present"
+
+   #xtranslate hb_eol() => ( Chr( 13 ) + Chr( 10 ) )
 #endif
 
 PROCEDURE Main( cPar1, cPar2, cPar3 )
 
-   OutStd( "Harbour Compatibility and Regression Test Suite" + hb_eol() + ;
-           "Copyright (c) 1999-present, Viktor Szakats" + hb_eol() )
+   OutStd( ;
+      "Harbour Compatibility and Regression Test Suite" + hb_eol() + ;
+      "Copyright (c) 1999-" + COPYRIGHT_YEAR + ", " + ;
+      "Viktor Szakats" + hb_eol() )
 
    IF cPar1 == NIL
       cPar1 := ""

@@ -40,9 +40,9 @@
       The function allows the use of wildcards in <cStringToMatch>
       and looks for the settings of SetAtLike().
    $EXAMPLES$
-      ? AtRepl( "ABC", "ABCDABCDABC", "xx" )    // --> "xxDxxDxx"
-      ? AtRepl( "ABC", "ABCDABC", "ZYXW" )      // --> "ZYXWDZYXW"
-      ? AtRepl( "ABC", "ABCDABCDABC", "xx", 2 ) // --> "xxDxxDABC"
+      ? AtRepl( "ABC", "ABCDABCDABC", "xx" )          // --> "xxDxxDxx"
+      ? AtRepl( "ABC", "ABCDABC", "ZYXW" )            // --> "ZYXWDZYXW"
+      ? AtRepl( "ABC", "ABCDABCDABC", "xx", 2 )       // --> "xxDxxDABC"
       ? AtRepl( "ABC", "ABCDABCDABC", "xx", 2, .T. )  // --> "ABCDxxDABC"
    $STATUS$
       R

@@ -27,7 +27,8 @@
       Returns a string/memo with carriage return chars converted to
       specified chars.
    $EXAMPLES$
-      ? MemoTran( DATA->CNOTES )
+      // FIXME
+      ? MemoTran( data->CNOTES )
    $STATUS$
       R
    $COMPLIANCE$
@@ -62,7 +63,8 @@
       Returns a string/memo with soft carriage return chars converted to
       hard carriage return chars.
    $EXAMPLES$
-      ? HardCR( Data->CNOTES )
+      // FIXME
+      ? HardCR( data->CNOTES )
    $STATUS$
       R
    $COMPLIANCE$
@@ -119,15 +121,15 @@
       mode and shared.  If the file is used in mode exclusive by another
       process, the function will returns a null string ("").
    $EXAMPLES$
-      //  This example uses MemoRead() to assign the contents of a text
-      //  file to a character variable for later search
+      // This example uses MemoRead() to assign the contents of a text
+      // file to a character variable for later search
 
-      cFile   := "account.prg"
-      cString := MemoRead( cFile )
-      cCopyright := "Melina"
+      LOCAL cFile := "account.prg"
+      LOCAL cString := MemoRead( cFile )
+      LOCAL cCopyright := "Melina"
 
-      IF ! cCopyright $ cString                  // check for copyright
-         MemoWrit( cFile, cCopyright + cString ) // if not, add it!
+      IF ! cCopyright $ cString                     // check for copyright
+         ? MemoWrit( cFile, cCopyright + cString )  // if not, add it!
       ENDIF
    $STATUS$
       R
@@ -191,15 +193,15 @@
       hb_MemoRead() is identical to MemoRead() except it won't truncate the
       last byte (on non-Unix compatible systems) if it's a EOF char.
    $EXAMPLES$
-      //  This example uses hb_MemoRead() to assign the contents of a text
-      //  file to a character variable for later search
+      // This example uses hb_MemoRead() to assign the contents of a text
+      // file to a character variable for later search
 
-      cFile   := "account.prg"
-      cString := hb_MemoRead( cFile )
-      cCopyright := "Melina"
+      LOCAL cFile := "account.prg"
+      LOCAL cString := hb_MemoRead( cFile )
+      LOCAL cCopyright := "Melina"
 
-      IF ! cCopyright $ cString                     // check for copyright
-         hb_MemoWrit( cFile, cCopyright + cString ) // if not, add it!
+      IF ! cCopyright $ cString                        // check for copyright
+         ? hb_MemoWrit( cFile, cCopyright + cString )  // if not, add it!
       ENDIF
    $STATUS$
       R
@@ -254,11 +256,12 @@
       //  This example uses MemoWrit() to write the contents of a character
       // variable to a text file.
 
-      cFile   := "account.prg"
-      cString := MemoRead( cFile )
+      LOCAL cFile := "account.prg"
+      LOCAL cString := MemoRead( cFile )
+      LOCAL cCopyright := "Melina"
 
-      IF ! cCopyright $ cString                  // check for copyright
-         MemoWrit( cFile, cCopyright + cString ) // if not, add it!
+      IF ! cCopyright $ cString                     // check for copyright
+         ? MemoWrit( cFile, cCopyright + cString )  // if not, add it!
       ENDIF
    $STATUS$
       R
@@ -316,12 +319,12 @@
       //  This example uses hb_MemoWrit() to write the contents of a character
       //  variable to a text file.
 
-      cFile   := "account.prg"
-      cString := hb_MemoRead( cFile )
-      cCopyright := "Melina"
+      LOCAL cFile := "account.prg"
+      LOCAL cString := hb_MemoRead( cFile )
+      LOCAL cCopyright := "Melina"
 
-      IF ! cCopyright $ cString                     // check for copyright
-         hb_MemoWrit( cFile, cCopyright + cString ) // if not, add it!
+      IF ! cCopyright $ cString                        // check for copyright
+         ? hb_MemoWrit( cFile, cCopyright + cString )  // if not, add it!
       ENDIF
    $STATUS$
       R

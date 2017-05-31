@@ -4349,11 +4349,17 @@ static HB_ERRCODE hb_dbfOpen( DBFAREAP pArea, LPDBOPENINFO pOpenInfo )
                case 'L':
                case 'D':
                   if( pField->bFieldFlags & ~HB_FF_NULLABLE )
+                  {
                      uiFlags = 0;
+                     break;
+                  }
                   /* fallthrough */
                case 'N':
                   if( pField->bFieldFlags & ~( HB_FF_NULLABLE | HB_FF_AUTOINC ) )
+                  {
                      uiFlags = 0;
+                     break;
+                  }
                   else if( ( pField->bFieldFlags & HB_FF_AUTOINC ) != 0 )
                   {
                      if( HB_GET_LE_UINT32( pField->bReserved1 ) != 0 ||

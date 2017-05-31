@@ -17,8 +17,9 @@
       Use this function if you prefer to change the active directory
       instead of relying on the `SET PATH` command.
    $EXAMPLES$
-      ? ft_ChDir( "harbour" )
-      ? ft_ChDir( hb_ps() )
-      ? ft_ChDir( ".." + hb_ps() + "hbnf" )
+      ? ft_ChDir( "mydir" )
+      ? ft_ChDir( hb_DirSepToOS( "/" ) )
+      ? ft_ChDir( hb_DirSepToOS( "./" ) )
+      ? ft_ChDir( hb_DirSepToOS( "../mydir" ) )
    $END$
  */

@@ -23,9 +23,9 @@
       switch to .T., but <cString> must then be passed by reference to get
       a result.
    $EXAMPLES$
-      ? CharMirr( "racecar" )        // "racecar"
-      ? CharMirr( "racecar  ", .T. ) // "racecar  "
-      ? CharMirr( "racecar  ", .F. ) // "  racecar"
+      ? CharMirr( "racecar" )         // "racecar"
+      ? CharMirr( "racecar  ", .T. )  // "racecar  "
+      ? CharMirr( "racecar  ", .F. )  // "  racecar"
    $STATUS$
       R
    $COMPLIANCE$

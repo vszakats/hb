@@ -979,7 +979,7 @@ static int hb_hsxLock( int iHandle, int iAction, HB_ULONG ulRecord )
             if( iRetVal == HSX_SUCCESS )
                iRetVal = iRet;
          }
-            /* fallthrough */
+         /* fallthrough */
          case HSX_HDRREADUNLOCK:
             if( ! hb_fileLock( pHSX->pFile, HSX_HDRLOCKPOS, HSX_HDRLOCKSIZE,
                                FL_UNLOCK ) )

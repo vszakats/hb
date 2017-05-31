@@ -116,7 +116,7 @@ debug and release versions.
   with a preemtive multi-thread library, use this define to allow
   smooth cooperative work of the modules.
 -DP386 -- will turn on '-3' option of the compiler and will push
-  all the 32bit registers in the IRQ wrappers. This is work around for
+  all the 32-bit registers in the IRQ wrappers. This is work around for
   -3 option that forces BC to emit 386 functions but defining
   'interrupt' functions don't save the 32-bit registers in the
   stack. Use this option if your project is 386 based.

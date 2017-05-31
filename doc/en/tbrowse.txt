@@ -166,7 +166,7 @@
 
       `:DispCell( nColumn, cColor )`  Displays a single cell
    $EXAMPLES$
-      See tests/tbrowse.prg
+      // See tests/tbrowse.prg
    $STATUS$
       S
    $COMPLIANCE$
@@ -234,7 +234,7 @@
       TBrowse:Applykey() is called  with an key value that is not contained
       in the dictionary. For example
       ```
-      oTb:SetKey( 0, {| oTb, nKey | DefKeyHandler( otb, nkey } )
+      oTb:SetKey( 0, {| oTb, nKey | DefKeyHandler( oTb, nkey } )
       ```
       This call the a function named DefKeyHandler() when <nKey> is not
       contained in the dictionary.
@@ -244,7 +244,9 @@
       oTb:SetKey( K_ESC, NIL )
       ```
    $EXAMPLES$
-      oTb:SeyKey( K_F10, {| otb, nkey | ShowListByname( otb ) }
+      #include "inkey.ch"
+      LOCAL oTb := TBrowseNew( 0, 0, 10, 20 )
+      oTb:SetKey( K_F10, {| oTb, nkey | ShowListByname( oTb ) } )
    $END$
  */
 
@@ -275,6 +277,7 @@
       This method evaluate an code block associated with <nkey> that is
       contained in the TBrowse:SetKey() dictionary.
    $EXAMPLES$
+      LOCAL oTb := TBrowseNew( 0, 0, 10, 20 )
       DO WHILE .T.
          oTb:forceStable()
          IF oTb:applykey( Inkey( 0 ) ) == -1

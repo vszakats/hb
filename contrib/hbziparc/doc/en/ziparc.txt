@@ -15,8 +15,8 @@
       This function stored an global comment to an zip archive.
       It should be called before any of the compression functions.
    $EXAMPLES$
-      hb_SetZipComment( "This is an Test" )
-      hb_ZipFile( "test.zip", { "ios.ini", "win.ini" } )
+      ? hb_SetZipComment( "This is an Test" )
+      ? hb_ZipFile( "test.zip", { "test.xml", "test.ini" } )
    $STATUS$
       R
    $COMPLIANCE$
@@ -235,28 +235,22 @@
       of that file has being processed.
       The codeblock must be defined as: `{| nPos, nTotal | GaugeUpdate( aGauge1, nPos / nTotal ) }`
    $EXAMPLES$
-      PROCEDURE Main()
+      LOCAL aFiles, nLen, aGauge
 
-         LOCAL aFiles, nLen, aGauge
+      IF hb_ZipFileByTDSpan( "test.zip", "test.prg" )
+         ? "File was successfully created"
+      ENDIF
 
-         IF hb_ZipFileByTDSpan( "test.zip", "test.prg" )
-            ? "File was successfully created"
-         ENDIF
+      IF hb_ZipFileByTDSpan( "test1.zip", { "test.prg", "test.hbp" } )
+         ? "File was successfully created"
+      ENDIF
 
-         IF hb_ZipFileByTDSpan( "test1.zip", { "test.prg", "test.hbp" } )
-            ? "File was successfully created"
-         ENDIF
+      IF hb_ZipFileByTDSpan( "test2.zip", { "test.prg", "test.hbp" }, 9, {| cFile, nPos | QOut( cFile ) }, "hello",, 521421 )
+         ? "File was successfully created"
+      ENDIF
 
-         IF hb_ZipFileByTDSpan( "test2.zip", { "test.prg", "test.hbp" }, 9, {| nPos, cFile | QOut( cFile ) }, "hello",, 521421 )
-            ? "File was successfully created"
-         ENDIF
-
-         aFiles := { "test.prg", "test.hbp" }
-         nLen   := Len( aFiles )
-         aGauge := GaugeNew( 5, 5, 7, 40, "W/B", "W+/B", "." )
-         GaugeDisplay( aGauge )
-         hb_ZipFileByTDSpan( "test33.zip", aFiles, 9, {| cFile, nPos | GaugeUpdate( aGauge, nPos / nLen ) },, "hello",, 6585452 )
-         RETURN
+      aFiles := { "test.prg", "test.hbp" }
+      hb_ZipFileByTDSpan( "test33.zip", aFiles, 9,,, "hello",, 6585452 )
    $STATUS$
       R
    $COMPLIANCE$
@@ -337,30 +331,25 @@
       Before calling this function, set a change-disk codeblock by calling
       the hb_SetDiskZip().
    $EXAMPLES$
-      PROCEDURE Main()
+      LOCAL aFiles, nLen, aGauge
 
-         LOCAL aFiles, nLen, aGauge
+      hb_SetDiskZip( {| nDisk | Alert( "Please insert disk no " + hb_ntos( nDisk ) ) } )
 
-         hb_SetDiskZip( {| nDisk | Alert( "Please insert disk no " + hb_ntos( nDisk ) ) } )
+      IF hb_ZipFileByPKSpan( "test.zip", "test.prg" )
+         ? "File was successfully created"
+      ENDIF
 
-         IF hb_ZipFileByPKSpan( "test.zip", "test.prg" )
-            ? "File was successfully created"
-         ENDIF
+      IF hb_ZipFileByPKSpan( "test1.zip", { "test.prg", "test.hbp" } )
+         ? "File was successfully created"
+      ENDIF
 
-         IF hb_ZipFileByPKSpan( "test1.zip", { "test.prg", "test.hbp" } )
-            ? "File was successfully created"
-         ENDIF
+      IF hb_ZipFileByPKSpan( "test2.zip", { "test.prg", "test.hbp" }, 9, {| cFile, nPos | QOut( cFile ) } )
+         ? "File was successfully created"
+      ENDIF
 
-         IF hb_ZipFileByPKSpan( "test2.zip", { "test.prg", "test.hbp" }, 9, {| nPos, cFile | QOut( cFile ) } )
-            ? "File was successfully created"
-         ENDIF
-
-         aFiles := { "test.prg", "test.hbp" }
-         nLen   := Len( aFiles )
-         aGauge := GaugeNew( 5, 5, 7, 40, "W/B", "W+/B", "." )
-         GaugeDisplay( aGauge )
-         hb_ZipFileByPKSpan( "test33.zip", aFiles, 9, {| cFile, nPos | GaugeUpdate( aGauge, nPos / nLen ) },, "hello" )
-         RETURN
+      aFiles := { "test.prg", "test.hbp" }
+      nLen   := Len( aFiles )
+      hb_ZipFileByPKSpan( "test33.zip", aFiles, 9,,, "hello" )
    $STATUS$
       R
    $COMPLIANCE$
@@ -437,28 +426,23 @@
       of that file has being processed.
       The codeblock must be defined as: `{| nPos, nTotal | GaugeUpdate( aGauge1, nPos / nTotal ) }`
    $EXAMPLES$
-      PROCEDURE Main()
+      LOCAL aFiles, nLen, aGauge
 
-         LOCAL aFiles, nLen, aGauge
+      IF hb_ZipFile( "test.zip", "test.prg" )
+         ? "File was successfully created"
+      ENDIF
 
-         IF hb_ZipFile( "test.zip", "test.prg" )
-            ? "File was successfully created"
-         ENDIF
+      IF hb_ZipFile( "test1.zip", { "test.prg", "test.hbp" } )
+         ? "File was successfully created"
+      ENDIF
 
-         IF hb_ZipFile( "test1.zip", { "test.prg", "test.hbp" } )
-            ? "File was successfully created"
-         ENDIF
+      IF hb_ZipFile( "test2.zip", { "test.prg", "test.hbp" }, 9, {| cFile, nPos | QOut( cFile ) } )
+         ? "File was successfully created"
+      ENDIF
 
-         IF hb_ZipFile( "test2.zip", { "test.prg", "test.hbp" }, 9, {| cFile, nPos | QOut( cFile ) } )
-            ? "File was successfully created"
-         ENDIF
-
-         aFiles := { "test.prg", "test.hbp" }
-         nLen   := Len( aFiles )
-         aGauge := GaugeNew( 5, 5, 7, 40, "W/B", "W+/B", "." )
-         GaugeDisplay( aGauge )
-         hb_ZipFile( "test33.zip", aFiles, 9, {| cFile, nPos | GaugeUpdate( aGauge, nPos / nLen ) },, "hello" )
-         RETURN
+      aFiles := { "test.prg", "test.hbp" }
+      nLen   := Len( aFiles )
+      hb_ZipFile( "test33.zip", aFiles, 9,,, "hello" )
    $STATUS$
       R
    $COMPLIANCE$
@@ -514,20 +498,16 @@
       of that file has being processed.
       The codeblock must be defined as: `{| nPos, nTotal | GaugeUpdate( aGauge1, nPos / nTotal ) }`
    $EXAMPLES$
-      PROCEDURE Main()
+      LOCAL aExtract := hb_GetFilesInZip( "test.zip" )  // extract all files in zip
 
-         LOCAL aExtract := hb_GetFilesInZip( "test.zip" )  // extract all files in zip
+      IF hb_UnzipFile( "test.zip",,,, hb_DirSepToOS( "./" ), aExtract )
+         ? "File was successfully extracted"
+      ENDIF
 
-         IF hb_UnzipFile( "test.zip",,,, "." + hb_ps(), aExtract )
-            ? "File was successfully extracted"
-         ENDIF
-
-         aExtract := hb_GetFilesInZip( "test2.zip" )  // extract all files in zip
-         IF hb_UnzipFile( "test2.zip", {| cFile | QOut( cFile ) },,, "." + hb_ps(), aExtract )
-            ? "File was successfully extracted"
-         ENDIF
-
-         RETURN
+      aExtract := hb_GetFilesInZip( "test2.zip" )  // extract all files in zip
+      IF hb_UnzipFile( "test2.zip", {| cFile | QOut( cFile ) },,, hb_DirSepToOS( "./" ), aExtract )
+         ? "File was successfully extracted"
+      ENDIF
    $STATUS$
       R
    $COMPLIANCE$

@@ -111,6 +111,7 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    VAR TargetFilename AS STRING INIT ""
 
    VAR hNameIDM
+   VAR lPlayground INIT .F.
 
    EXPORTED:
 
@@ -132,7 +133,7 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    METHOD EndIndex() INLINE ::CloseTag( "aside" ):Spacer(), Self
    METHOD AddIndexItem( cName, cID, lRawID )
 
-   METHOD WriteEntry( cField, cContent, lPreformatted, cID ) HIDDEN
+   METHOD WriteEntry( cField, cContent, lPreformatted, cID, lPlayground ) HIDDEN
 
    VAR nIndent INIT 0
 
@@ -203,7 +204,7 @@ METHOD NewFile() CLASS GenerateHTML
       "rel", "stylesheet", ;
       "crossorigin", "anonymous", ;
       "referrerpolicy", "no-referrer", ;
-      "href", "https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism-okaidia.min.css", ;
+      "href", "https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/themes/prism-okaidia.min.css", ;
       "integrity", "sha384-XHIkHrF2GAIZf8n8FpuN43YPTV4JE4h3je69N9L1dZavZmxbmZlQCO1X/6Y/cge2" )
 
    ::OpenTag( "link", ;
@@ -354,17 +355,39 @@ METHOD Generate() CLASS GenerateHTML
 
    ::OpenTagInline( "script", ;
       "crossorigin", "anonymous", ;
-      "src", "https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js", ;
-      "integrity", "sha384-HpkS83c/Act8anQUmwtXWIJ3bZGVZNWMTo10lp+qCNLSRKseSYXNCqTiJeJ4Atg+" ):CloseTag( "script" )
+      "src", "https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js", ;
+      "integrity", "sha384-rYrm3wzug6YeKl/b+fTQ97I5TVSAs/vakIvEwzeyXUXS2SxYvgi7sBHZuV/UqZWf" ):CloseTag( "script" )
 
    ::OpenTagInline( "script", ;
       "crossorigin", "anonymous", ;
-      "src", "https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/components/prism-c.min.js", ;
+      "src", "https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-c.min.js", ;
       "integrity", "sha384-IDvyyshYqx4mSDbCy1jZXIyYtgY0TQ7yTX/qOQ93pN1I3ETUkZD9Nb5joIteiFIC" ):CloseTag( "script" )
+
+   IF ::lPlayground
+      ::OpenTagInline( "script", ;
+         "crossorigin", "anonymous", ;
+         "src", "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js", ;
+         "integrity", "sha384-xBuQ/xzmlsLoJpyjoggmTEz8OWUFM0/RC5BsqQBDX2v5cMvDHcMakNTNrHIW2I5f" ):CloseTag( "script" )
+
+      ::OpenTagInline( "script", ;
+         "crossorigin", "anonymous", ;
+         "src", "https://os.allcom.pl/harbour/static/playground-embed.js" ):CloseTag( "script" )
+
+      ::OpenTagInline( "script", ;
+         "crossorigin", "anonymous", ;
+         "src", "https://os.allcom.pl/harbour/static/play.js" ):CloseTag( "script" )
+
+      ::OpenTag( "script" )
+      ::cFile += _playground_embed_js()
+      ::CloseTag( "script" )
+   ENDIF
 
    ::super:Generate()
 
    RETURN Self
+
+STATIC FUNCTION _playground_embed_js()
+   #pragma __streaminclude "hbplay.js" | RETURN _TO_LF( %s )
 
 METHOD NewDocument( cDir, cFilename, cTitle, cLang, hComponents ) CLASS GenerateHTML
 
@@ -583,7 +606,8 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
 
          ::CloseTag( "h4" )
       ELSEIF IsField( hEntry, item ) .AND. IsOutput( hEntry, item ) .AND. ! hEntry[ item ] == ""
-         ::WriteEntry( item, hEntry[ item ], IsPreformatted( hEntry, item ), hEntry[ "_id" ] )
+         ::WriteEntry( item, hEntry[ item ], IsPreformatted( hEntry, item ), hEntry[ "_id" ], ;
+            ! hEntry[ "TEMPLATE" ] == "C Function" )
       ENDIF
    NEXT
 
@@ -613,7 +637,7 @@ STATIC FUNCTION SourceURL( cEntry, cComponent, cTemplate, /* @ */ nLine, /* @ */
 
    RETURN ""
 
-METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS GenerateHTML
+METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID, lPlayground ) CLASS GenerateHTML
 
    STATIC s_class := { ;
       "NAME"     => "d-na", ;
@@ -647,7 +671,13 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS Genera
       DO CASE
       CASE lPreformatted  /* EXAMPLES, TESTS */
 
-         ::OpenTagInline( "pre", "class", cTagClass ):OpenTagInline( "code", "class", CODECLASS )
+         IF lPlayground
+            ::lPlayground := .T.
+            ::OpenTagInline( "section", "class", cTagClass )
+            ::OpenTagInline( "div", "class", "playground" )
+         ENDIF
+         ::OpenTagInline( "pre", "contenteditable", "true", "spellcheck", "false" )
+         ::OpenTagInline( "code", "class", CODECLASS )
 #if 1
          /* logic to remove PROCEDURE Main()/RETURN enclosure
             to fit more interesting information on the screen.
@@ -694,7 +724,11 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID ) CLASS Genera
          ENDIF
 #endif
          ::Append( cContent,, .T., cField )
-         ::CloseTagInline( "code" ):CloseTag( "pre" )
+         IF lPlayground
+            ::CloseTagInline( "code" ):CloseTagInline( "pre" ):CloseTagInline( "div" ):CloseTag( "section" )
+         ELSE
+            ::CloseTagInline( "code" ):CloseTag( "pre" )
+         ENDIF
 
       CASE cField == "SEEALSO"
 

@@ -18,7 +18,8 @@
    $DESCRIPTION$
       This function is useful to check the value stored in an argument.
    $EXAMPLES$
-      PROCEDURE Test( nValue, cString )
+      Test( 123, "abc" )
+      STATIC PROCEDURE Test( nValue, cString )
          IF PCount() == 2
             ? hb_PValue( 1 ), nValue
             ? hb_PValue( 2 ), cString
@@ -57,7 +58,9 @@
       This function is useful to check if a function or procedure
       has received the required number of arguments.
    $EXAMPLES$
-      PROCEDURE Test( xExp )
+      Test()
+      Test( "abc" )
+      STATIC PROCEDURE Test( xExp )
          IF PCount() == 0
             ? "This function needs a parameter"
          ELSE
@@ -94,7 +97,9 @@
       This function terminates the current application and returns
       to the system.
    $EXAMPLES$
-      PROCEDURE EndApp( lYesNo )
+      EndApp( .F. )
+      EndApp( .T. )
+      STATIC PROCEDURE EndApp( lYesNo )
          IF lYesNo
             __Quit()
          ENDIF
@@ -159,13 +164,13 @@
    $SUBCATEGORY$
       Internal
    $ONELINER$
-      Set F1 as the default help key
+      Set <F1> as the default help key
    $SYNTAX$
       __SetHelpK()
    $ARGUMENTS$
       None.
    $DESCRIPTION$
-      Set F1 to execute a function called HELP if such a function is
+      Set <F1> to execute a function called HELP if such a function is
       linked into the program.
    $STATUS$
       R
@@ -245,14 +250,17 @@
       It is also used internally to implement `DO <proc> WITH <args...>`
       In this case <xFuncProc> is of type HB_SYMB.
    $EXAMPLES$
-      cbCode := {| x | MyFunc( x ) }
-      Do( cbCode, 1 )
+      LOCAL cFunction := "MyFunc"
 
-      cFunction := "MyFunc"
-      xRetVal := Do( cFunction, 2 )
+      ? Do( cFunction, 1 )  // Old style
+      DO &cFunction WITH 2  // Old style with macro
 
-      // Old style (slower):
-      DO &cFunction WITH 3
+      ? Do( {| n | MyFunc( n ) }, 3 )
+      ? Do( @MyFunc(), 4 )
+
+      FUNCTION MyFunc( n )  /* must be a public function for old style calls */
+         ? n
+         RETURN n + 1
    $COMPLIANCE$
       C
    $FILES$

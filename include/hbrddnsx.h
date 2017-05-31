@@ -139,7 +139,7 @@ NSX description:
    up to 4 GiB. This is maximum keeping binary compatibility with SIX3
    NSX RDD. But Harbour can support files up to 4 TiB - it's a little
    bit modified format with 'I' instead of 'i' in index header signature.
-   Such indexes are created when locking mode is set to 64bit. On open
+   Such indexes are created when locking mode is set to 64-bit. On open
    Harbour RDDs automatically recognize type of index files so it
    can use new format also with different locking schemes. SIX3 NSX
    cannot use new index.

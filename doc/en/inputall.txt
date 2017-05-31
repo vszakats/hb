@@ -77,12 +77,13 @@
       Inkey() can be used to detect input events, such as key-press, mouse
       movement, or mouse key clicks (up and/or down).
    $EXAMPLES$
+      #include "inkey.ch"
       // Wait for the user to press the <Esc> key
       ? "Please press the <Esc> key."
       DO WHILE Inkey( 0.1 ) != K_ESC
       ENDDO
-      //
-      KEYBOARD "AB"; ? Inkey(), Inkey()  // ->   65   66
+
+      KEYBOARD "AB"; ? Inkey(), Inkey()  // -->   65   66
    $STATUS$
       S
    $COMPLIANCE$
@@ -127,10 +128,10 @@
       KEYBOARD Chr( 13 )
       // Clear the keyboard buffer
       CLEAR TYPEAHEAD
-      //
-      KEYBOARD Chr( 13 ); ? Inkey()  // -> 13
-      KEYBOARD ";"; ? Inkey()  // -> 13
-      KEYBOARD "Hello"; CLEAR TYPEAHEAD; ? Inkey()  // -> 0
+
+      KEYBOARD Chr( 13 ); ? Inkey()  // --> 13
+      KEYBOARD ";"; ? Inkey()  // --> 13
+      KEYBOARD "Hello"; CLEAR TYPEAHEAD; ? Inkey()  // --> 0
    $STATUS$
       R
    $COMPLIANCE$
@@ -167,9 +168,10 @@
       than one code, call the function repeatedly. The zero code cannot
       be inserted.
    $EXAMPLES$
+      #include "inkey.ch"
       // Stuff an <Alt+PgDn> key into the keyboard buffer
-      hb_keyPut( K_ALT_PGDN ); ? Inkey()  // -> 417
-      hb_keyPut( K_F11 ); ? Inkey()  // -> -40
+      hb_keyPut( K_ALT_PGDN ); ? Inkey()  // --> 417
+      hb_keyPut( K_F11 ); ? Inkey()  // --> -40
    $STATUS$
       R
    $COMPLIANCE$
@@ -205,6 +207,7 @@
       Returns the value of the next key in the Harbour keyboard buffer
       without extracting it.
    $EXAMPLES$
+      #include "inkey.ch"
       // Use NextKey() with Inkey() to change display characters, or by
       // itself to exit the loop, so that the caller can detect the <Esc>.
       LOCAL nKey, cChar := "+"
@@ -218,8 +221,8 @@
             cChar := hb_keyChar( nKey )
          ENDCASE
       ENDDO
-      //
-      KEYBOARD "AB"; ? NextKey(), NextKey()  // ->   65   65
+
+      KEYBOARD "AB"; ? NextKey(), NextKey()  // -->   65   65
    $STATUS$
       R
    $COMPLIANCE$
@@ -256,6 +259,7 @@
       Returns the value of the last key extracted from the Harbour
       keyboard buffer
    $EXAMPLES$
+      #include "inkey.ch"
       // Continue looping unless the <Esc> key was pressed in MainFunc()
       DO WHILE .T.
          MainFunc()
@@ -263,8 +267,12 @@
             EXIT
          ENDIF
       ENDDO
-      //
-      KEYBOARD "AB"; ? Inkey(), LastKey()  // ->   65   65
+
+      KEYBOARD "AB"; ? Inkey(), LastKey()  // -->   65   65
+
+      STATIC PROCEDURE MainFunc()
+         Inkey( 0 )
+         RETURN
    $STATUS$
       R
    $COMPLIANCE$
@@ -309,9 +317,9 @@
       KEYBOARD Chr( 13 )
       // Clear the keyboard buffer
       CLEAR TYPEAHEAD
-      //
-      KEYBOARD Chr( 13 ); ? Inkey()  // -> 13
-      KEYBOARD "Hello"; CLEAR TYPEAHEAD; ? Inkey()  // -> 0
+
+      KEYBOARD Chr( 13 ); ? Inkey()  // --> 13
+      KEYBOARD "Hello"; CLEAR TYPEAHEAD; ? Inkey()  // --> 0
    $STATUS$
       R
    $COMPLIANCE$

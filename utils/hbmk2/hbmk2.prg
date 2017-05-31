@@ -703,6 +703,12 @@ EXTERNAL __dbgEntry
 #define _HBSH_lClipperComp      16
 #define _HBSH_MAX_              16
 
+/* Allow to inject custom code at build-time. The goal is to help
+   adding necessary customizations for certain use-case. */
+#if defined( _HBMK2_EXTRA_CODE )
+#include "hbmk2_extra.prg"
+#endif
+
 /* Trick to make it run if compiled without -n/-n1/-n2
    (or with -n-) option.
    (typically as scripts and precompiled scripts) */
@@ -775,6 +781,8 @@ STATIC PROCEDURE hbmk_local_entry( ... )
         hb_LeftEqI( hb_FNameName( hb_ProgName() ), "hbrun" ) .OR. ;
         cParam1L == "." .OR. ;
         hb_FNameExt( cParam1L ) == ".dbf" .OR. ;
+        ( hb_LeftEq( cParam1L, "-dbf:" ) .AND. Len( cParam1L ) > Len( "-dbf:" ) ) .OR. ;
+        ( hb_LeftEq( cParam1L, "-prg:" ) .OR. cParam1L == "-prg" ) .OR. ;
         ( HBMK_IS_IN( hb_FNameExt( cParam1L ), ".hb|.hrb" ) .AND. ! hb_LeftEq( cParam1L, "-" ) ) ) .AND. ;
       !( ! Empty( cParam1L ) .AND. ;
          ( hb_LeftEq( cParam1L, "-hbreg" ) .OR. ;
@@ -1944,6 +1952,42 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          NEXT
          RETURN _EXIT_OK
 
+      CASE cParamL == "-urlize"
+
+         __extra_initenv( hbmk, aArgs, cParam )
+         IF Len( aArgs ) >= 1
+            tmp := hb_MemoRead( aArgs[ 1 ] )
+            IF ! hb_FNameExt( aArgs[ 1 ] ) == ".hrb" .AND. Chr( 13 ) + Chr( 10 ) $ tmp
+               tmp := StrTran( tmp, Chr( 13 ) + Chr( 10 ), Chr( 10 ) )
+            ENDIF
+            IF Len( aArgs ) > 1
+               _hbmk_OutErr( hbmk, I_( "Warning: Only one filename is supported, rest was skipped" ) )
+            ENDIF
+         ELSE
+            tmp := MemoReadStdIn()
+         ENDIF
+         tmp1 := hb_ZCompress( tmp )
+         OutStd( hb_StrReplace( hb_base64Encode( iif( hb_BLen( tmp1 ) < hb_BLen( tmp ), tmp1, tmp ) ), "+/=", "-_" ) )
+         RETURN _EXIT_OK
+
+      CASE cParamL == "-deurlize"
+
+         __extra_initenv( hbmk, aArgs, cParam )
+         IF Len( aArgs ) >= 1
+            cFile := aArgs[ 1 ]
+            IF Len( aArgs ) > 1
+               _hbmk_OutErr( hbmk, I_( "Warning: Only one filename is supported, rest was skipped" ) )
+            ENDIF
+         ELSE
+            cFile := MemoReadStdIn()
+         ENDIF
+         cFile := hb_base64Decode( hb_StrReplace( cFile, "-_", "+/" ) )
+         IF ( tmp := hb_ZUncompress( cFile ) ) != NIL
+            cFile := tmp
+         ENDIF
+         OutStd( cFile )
+         RETURN _EXIT_OK
+
       CASE hb_LeftEq( cParamL, "-hbmake=" )
 
          convert_hbmake_to_hbp( hbmk, SubStr( cParam, 8 + 1 ) )
@@ -2733,7 +2777,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
 
    /* Process command-line */
 
-   hbmk[ _HBMK_lHARDEN ] := HBMK_ISPLAT( "win" ) /* TODO: later enable this for all platforms */
+   hbmk[ _HBMK_lHARDEN ] := HBMK_ISPLAT( "win" )  /* TODO: later enable this for all platforms */
 
    l_aOPTCPRS := {}
    l_aOPTRUN := {}
@@ -3038,16 +3082,28 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
 #endif
       CASE cParamL == "-rebuild"
 
-         hbmk[ _HBMK_lINC ] := .T.
-         IF nLevel == 1
-            hbmk[ _HBMK_lREBUILD ] := .T.
-            PointlessPairWarning( hbmk, @aParamINC, aParam, cParamL, "-rebuild" )
+         IF hbmk[ _HBMK_lStopAfterHarbour ] .AND. ;
+            hbmk[ _HBMK_lCreateHRB ] .AND. ;
+            ! hbmk[ _HBMK_lCreateLib ]
+            PointlessINCMode( hbmk, aParam )
+         ELSE
+            hbmk[ _HBMK_lINC ] := .T.
+            IF nLevel == 1
+               hbmk[ _HBMK_lREBUILD ] := .T.
+               PointlessPairWarning( hbmk, @aParamINC, aParam, cParamL, "-rebuild" )
+            ENDIF
          ENDIF
 
       CASE cParamL == "-rebuildall"
 
-         hbmk[ _HBMK_lINC ] := .T.
-         hbmk[ _HBMK_lREBUILD ] := .T.
+         IF hbmk[ _HBMK_lStopAfterHarbour ] .AND. ;
+            hbmk[ _HBMK_lCreateHRB ] .AND. ;
+            ! hbmk[ _HBMK_lCreateLib ]
+            PointlessINCMode( hbmk, aParam )
+         ELSE
+            hbmk[ _HBMK_lINC ] := .T.
+            hbmk[ _HBMK_lREBUILD ] := .T.
+         ENDIF
 
       CASE cParamL == "-rebuildpo"       ; hbmk[ _HBMK_lREBUILDPO ]   := .T.
       CASE cParamL == "-inithbl"         ; hbmk[ _HBMK_lInitHBL ]     := .T.
@@ -3057,7 +3113,17 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
       CASE cParamL == "-nominipo"        ; hbmk[ _HBMK_lMINIPO ]      := .F. ; LegacyWarning( hbmk, aParam, "-minipo-" )
 #endif
       CASE cParamL == "-clean"           ; hbmk[ _HBMK_lINC ]         := .T. ; hbmk[ _HBMK_lCLEAN ] := .T.
-      CASE cParamL == "-inc"             ; hbmk[ _HBMK_lINC ]         := .T. ; PointlessPairWarning( hbmk, @aParamINC, aParam, cParamL, "-inc" )
+      CASE cParamL == "-inc"
+
+         IF hbmk[ _HBMK_lStopAfterHarbour ] .AND. ;
+            hbmk[ _HBMK_lCreateHRB ] .AND. ;
+            ! hbmk[ _HBMK_lCreateLib ]
+            PointlessINCMode( hbmk, aParam )
+         ELSE
+            hbmk[ _HBMK_lINC ] := .T.
+            PointlessPairWarning( hbmk, @aParamINC, aParam, cParamL, "-inc" )
+         ENDIF
+
       CASE cParamL == "-inc-"            ; hbmk[ _HBMK_lINC ]         := .F. ; aParamINC := NIL
 #ifdef HB_LEGACY_LEVEL4
       CASE cParamL == "-noinc"           ; hbmk[ _HBMK_lINC ]         := .F. ; LegacyWarning( hbmk, aParam, "-inc-" )
@@ -3625,6 +3691,10 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             IF SubStr( cParamL, 2 ) == "gh"
                hbmk[ _HBMK_lStopAfterHarbour ] := .T.
                hbmk[ _HBMK_lCreateHRB ] := .T.
+               hbmk[ _HBMK_lINC ] := .F.
+               IF aParamINC != NIL
+                  PointlessINCMode( hbmk, aParamINC )
+               ENDIF
             ENDIF
             IF ! SubStr( cParamL, 2, 1 ) == "o"
                AAddNewNotEmpty( hbmk[ _HBMK_aOPTPRG ], hbmk_hb_DirSepToOS( cParam, 2 ) )
@@ -3928,6 +3998,10 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             IF SubStr( cParamL, 2 ) == "gh"
                hbmk[ _HBMK_lStopAfterHarbour ] := .T.
                hbmk[ _HBMK_lCreateHRB ] := .T.
+               hbmk[ _HBMK_lINC ] := .F.
+               IF aParamINC != NIL
+                  PointlessINCMode( hbmk, aParamINC )
+               ENDIF
 
             /* Detect if Harbour is only used as preprocessor (-p + -s options) */
             ELSEIF SubStr( cParamL, 2 ) == "p"
@@ -8829,6 +8903,12 @@ STATIC FUNCTION AllFilesWarning( hbmk, cArg )
    RETURN .F.
 #endif
 
+STATIC PROCEDURE PointlessINCMode( hbmk, aParam )
+
+   _hbmk_OutErr( hbmk, hb_StrFormat( I_( "Warning: Option ignored when creating .hrb output: %1$s" ), ParamToString( aParam ) ) )
+
+   RETURN
+
 STATIC PROCEDURE PointlessPairWarning( hbmk, /* @ */ aParam1, aParam2, cParam2L, cOption )
 
    IF aParam1 != NIL .AND. ;  /* there was a previous option */
@@ -9045,7 +9125,30 @@ STATIC PROCEDURE convert_incpaths_to_options( hbmk, cOptIncMask, lCHD_Comp )
             ELSE
                AAddNew( hbmk[ _HBMK_aOPTC ], StrTran( cOptIncMask, "{DI}", FNameEscape( cINCPATH, hbmk[ _HBMK_nCmd_Esc ], hbmk[ _HBMK_nCmd_FNF ] ) ) )
             ENDIF
-            AAddNew( hbmk[ _HBMK_aOPTRES ], StrTran( cOptIncMask, "{DI}", FNameEscape( cINCPATH, hbmk[ _HBMK_nCmd_Esc ], hbmk[ _HBMK_nCmd_FNF ] ) ) )
+
+            /* Hack to avoid passing an include path to windres, that contains
+               space character. Such path will result in a windres error even
+               if quoted correctly. It means that resources may fail to find
+               their required headers. Include paths are typically specified
+               for C and Harbour sources, so it's expected that most apps won't
+               be affected by not automatically adding these paths to the
+               resource compiler. In which cases this _is_ required, the
+               solution is to install the necessary components on a space-free
+               path. Refs:
+                  https://sourceware.org/bugzilla/show_bug.cgi?id=4356
+                  https://sourceforge.net/p/mingw/bugs/1000/
+                  https://github.com/Alexpux/MINGW-packages/issues/1035
+             */
+            IF " " $ cINCPATH .AND. ;
+               hb_Version( HB_VERSION_BUILD_PLAT ) == "win" .AND. ;  /* mingw on non-Windows platforms is not affected */
+               HBMK_ISPLAT( "win" ) .AND. HBMK_ISCOMP( "mingw|mingw64|mingwarm|clang" )  /* targets using `windres` */
+
+               IF hbmk[ _HBMK_lInfo ]
+                  _hbmk_OutErr( hbmk, hb_StrFormat( I_( "Warning: Skipped adding header path to 'windres', because it breaks with paths containing spaces: '%1$s'" ), cINCPATH ) )
+               ENDIF
+            ELSE
+               AAddNew( hbmk[ _HBMK_aOPTRES ], StrTran( cOptIncMask, "{DI}", FNameEscape( cINCPATH, hbmk[ _HBMK_nCmd_Esc ], hbmk[ _HBMK_nCmd_FNF ] ) ) )
+            ENDIF
          ENDIF
       ENDIF
    NEXT
@@ -15875,6 +15978,9 @@ STATIC FUNCTION hbmk_CoreHeaderFiles()
       #xcommand ADD HEADER TO <hash> FILE <(cFile)> => ;
                 #pragma __streaminclude <(cFile)> | <hash>\[ <(cFile)> \] := %s
 
+#if defined( _HBSHELL_EXTRA_HEADER )
+      ADD HEADER TO t_hHeaders FILE _HBSHELL_EXTRA_HEADER
+#endif
 #if defined( HBMK_WITH_BUILTIN_HEADERS_ALL )
       ADD HEADER TO t_hHeaders FILE "achoice.ch"
       ADD HEADER TO t_hHeaders FILE "assert.ch"
@@ -16006,6 +16112,18 @@ STATIC FUNCTION hbsh()
 
    RETURN t_hbsh
 
+STATIC FUNCTION MemoReadStdIn()
+
+   LOCAL cBuffer := Space( 8192 )
+   LOCAL cData := ""
+   LOCAL nRead
+
+   DO WHILE ( nRead := FRead( hb_GetStdIn(), @cBuffer, hb_BLen( cBuffer ) ) ) > 0
+      cData += hb_BLeft( cBuffer, nRead )
+   ENDDO
+
+   RETURN cData
+
 STATIC PROCEDURE __hbshell( cFile, ... )
 
    LOCAL hbsh := hbsh()
@@ -16019,6 +16137,7 @@ STATIC PROCEDURE __hbshell( cFile, ... )
    LOCAL cVersion
    LOCAL cParamL
    LOCAL cFileOri
+   LOCAL lDbf, lInline
 
    /* get this before doing anything else */
    LOCAL lDebug := ;
@@ -16140,20 +16259,55 @@ STATIC PROCEDURE __hbshell( cFile, ... )
 
    /* Do the thing */
 
-   IF ! Empty( cFile )
+   hb_default( @cFile, "" )
+
+   DO CASE
+   CASE hb_LeftEqI( cFile, "-prg:" ) .AND. Len( cFile ) > Len( "-prg:" )
+      cFile := SubStr( cFile, Len( "-prg:" ) + 1 )
+      lInline := .T.
+   CASE cFile == "-prg" .OR. cFile == "-prg:"
+      cFile := MemoReadStdIn()
+      lInline := .T.
+   OTHERWISE
+      lInline := .F.
+   ENDCASE
+
+   IF hb_LeftEqI( cFile, "-dbf:" ) .AND. Len( cFile ) > Len( "-dbf:" )
+      cFile := SubStr( cFile, Len( "-dbf:" ) + 1 )
+      lDbf := .T.
+   ELSE
+      lDbf := .F.
+   ENDIF
+
+   IF ! lInline
       cFile := hb_DirSepToOS( cFile )
    ENDIF
 
-   IF cFile == "." .OR. Empty( hb_FNameName( cFile ) )
+   IF ! lInline .AND. ( cFile == "." .OR. Empty( hb_FNameName( cFile ) ) )
 
       __hbshell_ext_init( aExtension )
       __hbshell_prompt( hb_AParams() )
 
-   ELSEIF ! Empty( cFile := FindInPath( cFileOri := cFile,, { ".hb", ".hrb" } ) )
+   ELSEIF lInline .OR. ! Empty( cFile := FindInPath( cFileOri := cFile,, iif( lDbf, { ".dbf" }, { ".hb", ".hrb" } ) ) )
 
-      hbsh[ _HBSH_cScriptName ] := hb_PathNormalize( PathMakeAbsolute( cFile, hb_cwd() ) )
+      IF lInline
+         hbsh[ _HBSH_cScriptName ] := "{SOURCE}.prg"
+         cFile := hb_base64Decode( hb_StrReplace( cFile, "-_", "+/" ) )
+         IF ( tmp := hb_ZUncompress( cFile ) ) != NIL
+            cFile := tmp
+         ENDIF
+      ELSE
+         hbsh[ _HBSH_cScriptName ] := hb_PathNormalize( PathMakeAbsolute( cFile, hb_cwd() ) )
+      ENDIF
 
-      cExt := Lower( hb_FNameExt( cFile ) )
+      DO CASE
+      CASE lInline
+         cExt := iif( hb_LeftEq( cFile, hb_hrbSignature() ), ".hrb", ".hb" )
+      CASE lDbf
+         cExt := ".dbf"
+      OTHERWISE
+         cExt := Lower( hb_FNameExt( cFile ) )
+      ENDCASE
 
       IF !( cExt == ".hb" .OR. ;
             cExt == ".hrb" .OR. ;
@@ -16180,7 +16334,7 @@ STATIC PROCEDURE __hbshell( cFile, ... )
                     we use the same <comp> values as was used to build itself.)
           */
 
-         __hbshell_LoadExtFromSource( aExtension, cFile )
+         __hbshell_LoadExtFromSource( aExtension, iif( lInline, cFile, hbmk_MemoRead( cFile ) ) )
 
          /* NOTE: Find .hbc file. Load .hbc file. Process .hbc references.
                   Pick include paths. Load libs. Add include paths to include
@@ -16211,19 +16365,35 @@ STATIC PROCEDURE __hbshell( cFile, ... )
             AAdd( aOPTPRG, "-u+" + tmp )
          NEXT
 
-         /* We can use this function as this is a GPL licenced application */
-         cFile := hb_compileBuf( ;
-            hbmk_CoreHeaderFiles(), ;
-            hb_ProgName(), ;
-            "-n2", "-w", "-es2", "-q0", ;
-            hb_ArrayToParams( aOPTPRG ), ;
-            "-D" + _HBMK_SHELL, ;
-            cFile )
+#if defined( _HBSHELL_EXTRA_HEADER )
+         AAdd( aOPTPRG, "-u+" + _HBSHELL_EXTRA_HEADER )
+#endif
+
+         /* We can use these functions because this is a GPL licenced application */
+         IF lInline
+            cFile := hb_compileFromBuf( ;
+               cFile, ;
+               hbmk_CoreHeaderFiles(), ;
+               hb_ProgName(), ;
+               "-n2", "-w", "-es2", "-q0", ;
+               hb_ArrayToParams( aOPTPRG ), ;
+               "-D" + _HBMK_SHELL )
+         ELSE
+            cFile := hb_compileBuf( ;
+               hbmk_CoreHeaderFiles(), ;
+               hb_ProgName(), ;
+               "-n2", "-w", "-es2", "-q0", ;
+               hb_ArrayToParams( aOPTPRG ), ;
+               "-D" + _HBMK_SHELL, ;
+               cFile )
+         ENDIF
 
          IF cFile == NIL
             ErrorLevel( _EXIT_COMPPRG )
             EXIT
          ENDIF
+
+         /* fallthrough */
 
       CASE ".hrb"
          hbsh[ _HBSH_lInteractive ] := .F.
@@ -16235,7 +16405,7 @@ STATIC PROCEDURE __hbshell( cFile, ... )
          EXIT
       CASE ".dbf"
          __hbshell_ext_init( aExtension )
-         __hbshell_prompt( hb_AParams(), { "USE " + cFile + " SHARED", "Browse()" } )
+         __hbshell_prompt( hb_AParams(), { "USE " + cFile + " SHARED", "Browse() // '" + cFile + "'" } )
          EXIT
       ENDSWITCH
    ELSE
@@ -16311,9 +16481,8 @@ STATIC PROCEDURE __hbshell_LoadExtFromString( aExtension, cString )
 
    RETURN
 
-STATIC PROCEDURE __hbshell_LoadExtFromSource( aExtension, cFileName )
+STATIC PROCEDURE __hbshell_LoadExtFromSource( aExtension, cFile )
 
-   LOCAL cFile := hbmk_MemoRead( cFileName )
    LOCAL pRegex
    LOCAL tmp
 
@@ -17106,6 +17275,10 @@ STATIC PROCEDURE __hbshell_Exec( cCommand )
       AAdd( aOPTPRG, "-i" + hbsh[ _HBSH_hbmk ][ _HBMK_cHB_INSTALL_INC ] )
       hb_HEval( hbsh[ _HBSH_hCHCORE ], {| tmp | AAdd( aOPTPRG, "-u+" + tmp ) } )
    ENDIF
+
+#if defined( _HBSHELL_EXTRA_HEADER )
+   AAdd( aOPTPRG, "-u+" + _HBSHELL_EXTRA_HEADER )
+#endif
 
    hb_HEval( hbsh[ _HBSH_hINCPATH ], ;
       {| cExt |
@@ -18354,6 +18527,11 @@ STATIC PROCEDURE ShowHeader( hbmk )
       ENDIF
    ENDIF
 
+#if defined( _HBMK2_EXTRA_CODE )
+   Eval( hbmk[ _HBMK_bOut ], _OUT_EOL )
+   Eval( hbmk[ _HBMK_bOut ], "This build contains build-time customizations." + _OUT_EOL )
+#endif
+
    Eval( hbmk[ _HBMK_bOut ], _OUT_EOL )
 
    RETURN
@@ -18401,7 +18579,7 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
    LOCAL aHdr_Syntax_Shell := { ;
       I_( "Syntax:" ), ;
       "", ;
-      "  " + hb_StrFormat( I_( "%1$s <file[.hb|.prg|.hrb|.dbf]>|<option> [%2$s]" ), cShell, I_( "<parameter[s]>" ) ) }
+      "  " + hb_StrFormat( I_( "%1$s <file[.hb|.prg|.hrb|.dbf]|-dbf:file|-prg:string>|<option> [%2$s]" ), cShell, I_( "<parameter[s]>" ) ) }
 
    LOCAL aHdr_Supp := { ;
       , ;
@@ -18596,6 +18774,8 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
       { "-docjson <text>"    , H_( "output documentation in JSON format for function[s]/command[s] in <text>" ) }, ;
       { "-fixcase <file[s]>" , H_( "fix casing of Harbour function names to their 'official' format. Core functions and functions belonging to all active contribs/addons with an .hbx file will be processed." ) }, ;
       { "-sanitize <file[s]>", H_( "convert filenames to lowercase, EOLs to platform native and remove EOF character, if present." ) }, ;
+      { "-urlize [<file>]"   , H_( "convert .prg source or .hrb file (or stdin) to base64 encoded string on stdout." ) }, ;
+      { "-deurlize [<str>]"  , H_( "convert base64 encoded source string (or stdin) to .prg source/.hrb file on stdout." ) }, ;
       , ; /* HARBOUR_SUPPORT */
       { "-hbmake=<file>"     , H_( "convert hbmake project <file> to .hbp file" ) }, ;
       { "-xbp=<file>"        , H_( "convert .xbp (xbuild) project <file> to .hbp file" ) }, ;
@@ -19088,7 +19268,8 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
          "directory and in PATH. If not extension is given, .hb and .hrb extensions are " + ;
          "searched, in that order. .dbf file will be opened automatically in shared mode and " + ;
          "interactive Harbour shell launched. " + ;
-         "Non-standard extensions will be auto-detected for source and precompiled script types. " + ;
+         ".dbf files with non-standard extension can be opened by prepending '-dbf:' to the file name. " + ;
+         "Otherwise, non-standard extensions will be auto-detected for source and precompiled script types. " + ;
          "Note, for Harbour scripts, the codepage is set to UTF-8 by default. The default " + ;
          "core header 'hb.ch' is automatically #included at the interactive shell prompt. " + ;
          "The default date format is the ISO standard: yyyy-mm-dd. " + ;

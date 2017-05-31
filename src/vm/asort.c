@@ -91,7 +91,7 @@ static HB_BOOL hb_itemIsLess( PHB_BASEARRAY pBaseArray, PHB_ITEM pBlock,
       return hb_itemStrCmp( pItem1, pItem2, HB_FALSE ) < 0;
    else if( HB_IS_NUMINT( pItem1 ) && HB_IS_NUMINT( pItem2 ) )
       /* intentionally separate comparison for integer numbers
-         to avoid precision lose in 64bit integer to double conversion */
+         to avoid precision lose in 64-bit integer to double conversion */
       return hb_itemGetNInt( pItem1 ) < hb_itemGetNInt( pItem2 );
    else if( HB_IS_NUMERIC( pItem1 ) && HB_IS_NUMERIC( pItem2 ) )
       return hb_itemGetND( pItem1 ) < hb_itemGetND( pItem2 );

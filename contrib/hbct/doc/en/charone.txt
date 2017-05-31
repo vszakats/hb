@@ -20,10 +20,10 @@
       occurrences must occur directly one behind the other. This behaviour is
       is in contrast to the CharList() function.
    $EXAMPLES$
-      ? CharOne( "122333a123" )      // "123a123"
-      ? CharOne( "A  B  CCCD" )      // "A B CD"
-      ? CharOne( " ", "A  B  A  B" ) // "A B A B"
-      ? CharOne( "o", "122oooB12o" ) // "122oB12o"
+      ? CharOne( "122333a123" )       // "123a123"
+      ? CharOne( "A  B  CCCD" )       // "A B CD"
+      ? CharOne( " ", "A  B  A  B" )  // "A B A B"
+      ? CharOne( "o", "122oooB12o" )  // "122oB12o"
    $STATUS$
       R
    $COMPLIANCE$

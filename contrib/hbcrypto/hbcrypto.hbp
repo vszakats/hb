@@ -9,6 +9,7 @@
 
 -depurlbase=ed25519:https://github.com/orlp/ed25519
 -depkeyhead=ed25519:ed25519.h
+-depcontrol=ed25519:local{HB_BUILD_3RDEXT='no'}
 -depcontrol=ed25519:${HB_WITH_ED25519}
 -depincpathlocal=ed25519:3rd/ed25519
 -depfinish=ed25519

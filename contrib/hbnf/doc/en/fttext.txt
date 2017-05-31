@@ -18,8 +18,8 @@
    $RETURNS$
       If <cFile> is passed and the file is opened successfully, an
       integer containing the text file's workarea.  If the file cannot be
-      opened, F_ERROR (-1) will be returned.  In this case, check the
-      return value of ft_FError() for the cause of the error.
+      opened, 0 will be returned.  In this case, check the return value
+      of ft_FError() for the cause of the error.
 
       If ft_FUse() is called without any arguments, it will close the
       text file in the current "text area" and return 0.
@@ -37,14 +37,9 @@
    $EXAMPLES$
       #include "fileio.ch"
 
-      // open a text file for reading
-      ft_FUse( "test.txt" )
-
-      // open a text file for reading and writing
-      ft_FUse( "test.txt", FO_READWRITE + FO_SHARED )
-
-      // close file
-      ft_FUse()
+      ? ft_FUse( "test.txt" )  // Open a text file for reading
+      ? ft_FUse( "test.txt", FO_READWRITE + FO_SHARED )  // Open a text file for reading and writing
+      ? ft_FUse()              // Close file
    $SEEALSO$
       ft_FUse(), ft_FSelect()
    $END$
@@ -83,17 +78,15 @@
       Text file workareas are separate from and independent of Clipper's
       database workareas.
    $EXAMPLES$
+      LOCAL nFile1, nFile2
+
       ft_FSelect( 1 )
-
-      nFile1 := ft_FUse( "temp.c" )
-
-      ? ft_FLastRe()                 // no. of lines in temp.c
+      nFile1 := ft_FUse( "test.txt" )
+      ? ft_FLastRe()  // no. of lines in test.txt
 
       ft_FSelect( 2 )
-
-      nFile2 := ft_FUse( "temp.h" )
-
-      ? ft_FLastRe()                 // no. of lines in temp.h
+      nFile2 := ft_FUse( "test.dbf" )
+      ? ft_FLastRe()  // no. of lines in test.dbf
    $SEEALSO$
       ft_FUse()
    $END$
@@ -118,16 +111,16 @@
 
       A text file "record" is a line of text terminated by a CRLF/LF.
    $EXAMPLES$
-      ft_FUse( "test.txt" )      // open text file
+      ft_FUse( "test.txt" )  // open text file
 
       DO WHILE ! ft_FEof()
-         ? ft_FReadLn()        // read thru file
+         ? ft_FReadLn()      // read thru file
          ft_FSkip()
       ENDDO
 
-      ft_FGoTop()              // go back to top
+      ft_FGoTop()            // go back to top
 
-      ? ft_FRecNo()            // 1
+      ? ft_FRecNo()          // 1
    $SEEALSO$
       ft_FSelect(), ft_FUse(), ft_FRecNo(), ft_FGoBot()
    $END$
@@ -154,11 +147,9 @@
       Errors could stem from any open, create, read or write operation,
       among others.
    $EXAMPLES$
-      #include "fileio.ch"
-      IF ft_FUse( "test.txt" ) != F_ERROR     // open text file
-         err := ft_FError()
-         ? "Error opening file 'test.txt', error code (" + ;
-            hb_ntos( err ) + ")"
+      IF ft_FUse( "test.txt" ) == 0  // open text file
+         ? "Error opening file 'test.txt', " + ;
+            "error code (" + hb_ntos( ft_FError() ) + ")"
       ENDIF
    $SEEALSO$
 
@@ -184,16 +175,16 @@
 
       A text file "record" is a line of text terminated by a CRLF/LF.
    $EXAMPLES$
-      ft_FUse( "test.txt" )      // open text file
+      ft_FUse( "test.txt" )  // open text file
 
       DO WHILE ! ft_FEof()
-         ? ft_FReadLn()        // read thru file
+         ? ft_FReadLn()      // read thru file
          ft_FSkip()
       ENDDO
 
-      ft_FGoTop()              // go back to top
+      ft_FGoTop()            // go back to top
 
-      ? ft_FRecNo()            // 1
+      ? ft_FRecNo()          // 1
    $SEEALSO$
       ft_FSelect(), ft_FUse(), ft_FGoTop(), ft_FGoBot()
    $END$
@@ -222,9 +213,7 @@
    $EXAMPLES$
       // read last line
       ft_FUse( "test.txt" )
-
       ft_FGoBot()
-
       ? ft_FReadLn()
    $SEEALSO$
       ft_FSelect(), ft_FUse(), ft_FGoTop(), ft_FRecNo(), ft_FReadLn()
@@ -262,7 +251,6 @@
       // display each record of a text file
 
       ft_FUse( "test.txt" )
-
       DO WHILE ! ft_FEof()
          ? ft_FReadLn()
          ft_FSkip()
@@ -303,7 +291,6 @@
       // display each record of a text file
 
       ft_FUse( "test.txt" )
-
       DO WHILE ! ft_FEof()
          ? ft_FReadLn()
          ft_FSkip()
@@ -339,8 +326,7 @@
    $EXAMPLES$
       // delete the next 4 lines from a file
       ft_FUse( "test.txt" )
-
-      ft_FDelete( 4 )
+      ? ft_FDelete( 4 )
    $SEEALSO$
       ft_FAppend(), ft_FRecNo(), ft_FInsert()
    $END$
@@ -375,10 +361,8 @@
    $EXAMPLES$
       // add a couple of blank lines of text to a file
       ft_FUse( "test.txt" )
-
       ft_FGoto( 10 )
-
-      ft_FInsert( 5 )
+      ? ft_FInsert( 5 )
    $SEEALSO$
       ft_FAppend(), ft_FRecNo(), ft_FDelete(), ft_FLastRe()
    $END$
@@ -422,11 +406,13 @@
       // add a blank line of text to a file
       ft_FUse( "test.txt" )
 
-      ? ft_FRecNo()           // displays 5
+      ft_FGoBot()
+      ? ft_FRecNo()
 
       ft_FAppend()
 
-      ? ft_FRecNo()           // displays 6
+      ft_FGoBot()
+      ? ft_FRecNo()
    $SEEALSO$
       ft_FRecNo(), ft_FDelete(), ft_FInsert(), ft_FLastRe()
    $END$
@@ -470,13 +456,13 @@
    $EXAMPLES$
       // write a line of text to a file
 
-      ft_FUse( "config.sys" )
+      ft_FUse( "test.txt" )
 
-      DO WHILE ! hb_LeftEqI( ft_FReadLn(), "FILES=" ) .AND. ! ft_FEof()
+      DO WHILE ! hb_LeftEqI( ft_FReadLn(), "===" ) .AND. ! ft_FEof()
          ft_FSkip()
       ENDDO
 
-      ft_FWriteLn( "FILES=30", ft_FEof() )
+      ? ft_FWriteLn( "FILES=30", ft_FEof() )
    $SEEALSO$
       ft_FReadLn(), ft_FRecNo(), ft_FInsert(), ft_FDelete()
    $END$
@@ -531,11 +517,11 @@
    $EXAMPLES$
       ft_FUse( "test.txt" )
 
-      ? ft_FEof()        // .F.
+      ? ft_FEof()  // --> .F.
 
       ft_FSkip()
 
-      ? ft_FEof()        // .T.
+      ? ft_FEof()  // --> .T.
    $SEEALSO$
       ft_FUse(), ft_FSkip()
    $END$
@@ -564,11 +550,11 @@
 
       ft_FGoTop()
 
-      ? ft_FBof()        // .F.
+      ? ft_FBof()  // --> .F.
 
       ft_FSkip( -1 )
 
-      ? ft_FBof()        // .T.
+      ? ft_FBof()  // --> .T.
    $SEEALSO$
       ft_FSkip(), ft_FEof(), ft_FGoTop()
    $END$

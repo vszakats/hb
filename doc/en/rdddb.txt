@@ -33,19 +33,16 @@
    $DESCRIPTION$
       Performs a code block operation on the current Database
    $EXAMPLES$
-      PROCEDURE Main()
-         LOCAL nCount
+      LOCAL nCount
 
-         USE test
+      USE test
 
-         dbGoto( 4 )
-         ? RecNo()
-         COUNT TO nCount
-         ? RecNo(), nCount
-         COUNT TO nCount NEXT 10
-         ? RecNo(), nCount
-
-         RETURN
+      dbGoto( 4 )
+      ? RecNo()
+      COUNT TO nCount NEXT 10
+      ? RecNo(), nCount
+      COUNT TO nCount
+      ? RecNo(), nCount
    $STATUS$
       S
    $COMPLIANCE$
@@ -133,13 +130,11 @@
       multiple record locks during an appending operation. The
       default for this parameter is a logical false (.F.).
    $EXAMPLES$
-      PROCEDURE Main()
-         LOCAL cName := "Harbour", nId := 10
-         USE test
-         test->( dbAppend() )
-         test->Name := cName
-         test->Id   := nId
-         RETURN
+      LOCAL cName := "Harbour", nAge := 15
+      USE test
+      test->( dbAppend() )
+      test->first := cName
+      test->age   := nAge
    $STATUS$
       R
    $COMPLIANCE$
@@ -173,9 +168,10 @@
       for the current or selected work area.
    $EXAMPLES$
       USE test
-      SET FILTER TO hb_LeftEq( test->Name, "An" )
-      dbEdit()
-      Test->( dbClearFilter() )
+      SET FILTER TO hb_LeftEq( test->first, "An" )
+      dbGoTop()
+      dbEval( {|| QOut( test->first ) } )
+      dbClearFilter()
    $STATUS$
       R
    $COMPLIANCE$
@@ -246,7 +242,7 @@
    $EXAMPLES$
       USE test
       dbEdit()
-      Test->( dbCloseArea() )
+      test->( dbCloseArea() )
    $STATUS$
       R
    $COMPLIANCE$
@@ -279,23 +275,22 @@
       buffers for that work area only. This function does not update all
       open work areas.
    $EXAMPLES$
-      PROCEDURE Main()
-         LOCAL cName := Space( 40 )
-         LOCAL nId := 0
+      LOCAL GetList := {}
+      LOCAL cName := Space( 40 )
+      LOCAL nAge := 0
 
-         USE test EXCLUSIVE NEW
+      USE test EXCLUSIVE NEW
 
-         @ 10, 10 GET cName
-         @ 11, 10 GET nId
-         READ
+      @ 10, 10 GET cName
+      @ 11, 10 GET nAge
+      READ
 
-         IF Updated()
-            dbAppend()
-            test->Name := cName
-            test->Id   := nId
-            dbCommit()
-         ENDIF
-         RETURN
+      IF Updated()
+         dbAppend()
+         test->first := cName
+         test->age   := nAge
+         dbCommit()
+      ENDIF
    $STATUS$
       R
    $COMPLIANCE$
@@ -327,28 +322,28 @@
       Before the disk write is performed, all buffers are flushed.
       open work areas.
    $EXAMPLES$
-      PROCEDURE Main()
-         LOCAL cName := Space( 40 )
-         LOCAL nId := 0
+      // FIXME
+      LOCAL GetList := {}
+      LOCAL cName := Space( 40 )
+      LOCAL nId := 0
 
-         USE test EXCLUSIVE NEW
-         USE testid NEW INDEX testid
+      USE test EXCLUSIVE NEW
+      USE testid NEW INDEX testid
 
-         @ 10, 10 GET cName
-         @ 11, 10 GET nId
-         READ
+      @ 10, 10 GET cName
+      @ 11, 10 GET nId
+      READ
 
-         IF Updated()
-            dbAppend()
-            test->Name := cName
-            test->Id   := nId
-            IF ! testid->( dbSeek( nId ) )
-               testid->( dbAppend() )
-               testid->Id := nId
-            ENDIF
+      IF Updated()
+         dbAppend()
+         test->first := cName
+         test->Id    := nId
+         IF ! testid->( dbSeek( nId ) )
+            testid->( dbAppend() )
+            testid->Id := nId
          ENDIF
-         dbCommitAll()
-         RETURN
+      ENDIF
+      dbCommitAll()
    $STATUS$
       R
    $COMPLIANCE$
@@ -430,21 +425,18 @@
       The <cAlias> parameter specifies the alias name for the new opened
       database.
    $EXAMPLES$
-      PROCEDURE Main()
-         LOCAL aStruct := { ;
-            { "CHARACTER", "C", 25, 0 }, ;
-            { "NUMERIC",   "N",  8, 0 }, ;
-            { "DOUBLE",    "N",  8, 2 }, ;
-            { "DATE",      "D",  8, 0 }, ;
-            { "LOGICAL",   "L",  1, 0 }, ;
-            { "MEMO1",     "M", 10, 0 }, ;
-            { "MEMO2",     "M", 10, 0 } }
+      LOCAL aStruct := { ;
+         { "CHARACTER", "C", 25, 0 }, ;
+         { "NUMERIC",   "N",  8, 0 }, ;
+         { "DOUBLE",    "N",  8, 2 }, ;
+         { "DATE",      "D",  8, 0 }, ;
+         { "LOGICAL",   "L",  1, 0 }, ;
+         { "MEMO1",     "M", 10, 0 }, ;
+         { "MEMO2",     "M", 10, 0 } }
 
-         REQUEST DBFCDX
+      REQUEST DBFCDX
 
-         dbCreate( "testdbf", aStruct, "DBFCDX", .T., "MYALIAS" )
-
-         RETURN
+      ? dbCreate( "testdbf", aStruct, "DBFCDX", .T., "MYALIAS" )
    $STATUS$
       R
    $COMPLIANCE$
@@ -481,9 +473,10 @@
       In a networking situation, this function requires that the record
       be locked prior to issuing the dbDelete() function.
    $EXAMPLES$
-      nId := 10
-      USE testid INDEX testid NEW
-      IF dbSeek( nId ) .AND. RLock()
+      LOCAL nAge := 50
+      USE test NEW
+      INDEX ON field->age TO test
+      IF dbSeek( nAge ) .AND. RLock()
          dbDelete()
       ENDIF
    $STATUS$
@@ -520,9 +513,9 @@
       is present, a null string will be returned.
    $EXAMPLES$
       USE test INDEX test NEW
-      SET FILTER TO Name == "Harbour"
+      SET FILTER TO field->first = "Harbour"
       USE testid INDEX testid NEW
-      SET FILTER TO Id == 1
+      SET FILTER TO field->age == 25
       SELECT test
 
       ? dbFilter()
@@ -607,8 +600,8 @@
       Issuing a `dbGoto( RecNo() )` call in a network environment will refresh
       the database and index buffers. This is the same as a `dbSkip( 0 )` call.
    $EXAMPLES$
-      The following example uses dbGoto() to iteratively process
-      every fourth record:
+      // The following example uses dbGoto() to iteratively process
+      // every fourth record:
 
       dbUseArea( .T., "DBFNTX", "sales", "sales", .T. )
 
@@ -734,14 +727,13 @@
       passed it will be assumed to lock the current active record/data
       item.
    $EXAMPLES$
-      PROCEDURE Main()
-         LOCAL x
-         USE test NEW
-         FOR x := 1 TO LastRec()
-            IF ! dbRLock()
-               dbUnlock()
-            ENDIF
-         NEXT
+      LOCAL nRecNo
+      USE test NEW
+      FOR nRecNo := 1 TO LastRec()
+         IF ! dbRLock()
+            dbUnlock()
+         ENDIF
+      NEXT
    $STATUS$
       R
    $COMPLIANCE$
@@ -776,17 +768,15 @@
       (meaning no elements in it), then there are no locked records in that
       work area.
    $EXAMPLES$
-      PROCEDURE Main()
-         LOCAL x
-         USE test NEW
-         dbGoto( 10 )
-         RLock()
-         dbGoto( 100 )
-         RLock()
-         FOR EACH x IN dbRLockList()
-            ? x
-         NEXT
-         RETURN
+      LOCAL nRecNo
+      USE test NEW
+      dbGoto( 10 )
+      ? RLock()
+      dbGoto( 100 )
+      ? RLock()
+      FOR EACH nRecNo IN dbRLockList()
+         ? nRecNo
+      NEXT
    $STATUS$
       R
    $COMPLIANCE$
@@ -824,7 +814,7 @@
       USE test NEW
       dbGoto( 10 )
       IF RLock()
-         ? test->ID
+         ? test->age
          dbRUnlock()
       ENDIF
    $STATUS$
@@ -885,18 +875,23 @@
       <lSoftSeek> is a logical false (.F.)
    $EXAMPLES$
       PROCEDURE Main()
-         LOCAL nId
-         USE test NEW INDEX test
+
+         LOCAL nAge
+
+         USE test NEW
+         INDEX ON field->age TO test
          dbGoto( 10 )
-         nId := test->nId
+         nAge := test->age
          dbGoTop()
-         IF dbSeek( nId )
-            ? test->Name
+         IF dbSeek( nAge )
+            ? test->first
          ENDIF
 
          RETURN
 
-      PROCEDURE EmployeeLookup()
+      STATIC PROCEDURE EmployeeLookup()
+
+         LOCAL cName
 
          ACCEPT "Employee name: " TO cName
          IF Employee->( dbSeek( cName ) )
@@ -904,6 +899,12 @@
          ELSE
             ? "Not found"
          ENDIF
+
+         RETURN
+
+      STATIC PROCEDURE ViewRecord()
+
+         ? field->name
 
          RETURN
    $STATUS$
@@ -945,18 +946,18 @@
       and record pointer, as well as its own Found(), dbFilter(),
       dbRSelect() and dbRelation() function values.
    $EXAMPLES$
-      PROCEDURE Main()
-         LOCAL nId
-         USE test NEW INDEX test
-         USE test1 NEW INDEX test1
-         dbSelectArea( 1 )
-         nId := test->Id
-         dbSelectArea( 2 )
-         IF dbSeek( nId )
-            ? test1->cName
-         ENDIF
-         dbCloseAll()
-         RETURN
+      LOCAL nAge
+      USE test NEW
+      COPY TO test1
+      USE test1 NEW
+      INDEX ON field->age TO test1
+      dbSelectArea( "test" )
+      dbGoto( 100 )
+      ? nAge := field->age
+      dbSelectArea( "test1" )
+      IF dbSeek( nAge )
+         ? field->first
+      ENDIF
    $STATUS$
       R
    $COMPLIANCE$
@@ -994,7 +995,7 @@
       used to activate and manage the work area. If the specified driver is
       not available, this function will have no effect.
    $EXAMPLES$
-      dbSetDriver( "ADS" )
+      ? dbSetDriver( "DBFNSX" )
    $STATUS$
       R
    $COMPLIANCE$
@@ -1033,7 +1034,7 @@
       USE test NEW
       dbGoTop()
       DO WHILE ! Eof()
-         ? test->Id, test->Name
+         ? test->age, test->first
          dbSkip()
       ENDDO
    $STATUS$
@@ -1075,8 +1076,9 @@
       area which in fact, would be not correct.
    $EXAMPLES$
       USE test NEW
-      dbSetFilter( {|| test->Id < 100 }, "test->Id <100" )
+      dbSetFilter( {|| test->age > 30 }, "test->age > 30" )
       dbGoTop()
+      ? RecNo()
    $STATUS$
       R
    $COMPLIANCE$
@@ -1114,13 +1116,11 @@
       Each subscript position
    $EXAMPLES$
       #include "dbstruct.ch"
-      PROCEDURE Main()
-         LOCAL x
-         USE test NEW
-         FOR EACH x IN dbStruct()
-            ? x[ DBS_NAME ]
-         NEXT
-         RETURN
+      LOCAL field
+      USE test NEW
+      FOR EACH field IN dbStruct()
+         ? field[ DBS_NAME ]
+      NEXT
    $STATUS$
       R
    $COMPLIANCE$
@@ -1153,10 +1153,11 @@
       selected or aliased work area. It will not unlock an associated lock
       in a related databases.
    $EXAMPLES$
-      nId := 10
-      USE testid INDEX testid NEW
-      IF testid->( dbSeek( nId ) )
-         IF testid->( RLock() )
+      LOCAL nAge := 30
+      USE test NEW
+      INDEX ON field->age TO test
+      IF test->( dbSeek( nAge ) )
+         IF test->( RLock() )
             dbDelete()
          ELSE
             dbUnlock()
@@ -1191,10 +1192,11 @@
    $DESCRIPTION$
       This function will remove all file and record locks in all work area.
    $EXAMPLES$
-      nId := 10
-      USE test INDEX testid NEW
-      IF testid->( dbSeek( nId ) )
-         IF testid->( RLock() )
+      LOCAL nAge := 50
+      USE test NEW
+      INDEX ON field->age TO test
+      IF test->( dbSeek( nAge ) )
+         IF test->( RLock() )
             dbDelete()
          ELSE
             dbUnlock()
@@ -1265,7 +1267,7 @@
       If it is not specified, the file will he opened in normal read-write
       mode.
    $EXAMPLES$
-      dbUseArea( .T.,, "test" )
+      ? dbUseArea( .T.,, "test" )
    $STATUS$
       R
    $COMPLIANCE$

@@ -92,5 +92,7 @@
          { "Pick List",      "N/GR*,W+/B,,, BG/GR*",          "A"      } }
 
       aClrs := ft_ClrSel( aClrs, lColor )
+
+      ? hb_ValToExp( aClrs )
    $END$
  */

@@ -5,10 +5,10 @@
 -nulrdd
 
 hbdoc.prg
-_genbase.prg
-_genhtml.prg
-_gentxt.prg
-_genxml.prg
+_base.prg
+_html.prg
+_txt.prg
+_xml.prg
 
 hbgt.hbc
 

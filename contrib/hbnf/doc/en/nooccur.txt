@@ -21,6 +21,8 @@
       This function finds the number of times a string occurs in a
          second string.
    $EXAMPLES$
+      LOCAL cMemoString := hb_MemoRead( "test.txt" )
+
       // Find the number of times "the" appears in cMemoString, case
       // insensitive
       ? ft_NoOccur( "the", cMemoString )

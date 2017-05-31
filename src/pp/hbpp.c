@@ -331,9 +331,11 @@ static char * hb_pp_escapeString( char * szString )
 }
 
 static int hb_pp_generateVerInfo( char * szVerFile,
+                                  char * szCommitYear,
                                   int iCommitRev,
                                   char * szCommitInfo,
-                                  char * szCommitID, char * szCommitIDShort,
+                                  char * szCommitID,
+                                  char * szCommitIDShort,
                                   char * szURL )
 {
    int iResult = 0;
@@ -379,6 +381,13 @@ static int hb_pp_generateVerInfo( char * szVerFile,
       {
          pszEscaped = hb_pp_escapeString( szCommitIDShort );
          fprintf( fout, "#define HB_VER_COMMIT_ID_SHORT   \"%s\"\n", pszEscaped );
+         hb_xfree( pszEscaped );
+      }
+
+      if( szCommitYear )
+      {
+         pszEscaped = hb_pp_escapeString( szCommitYear );
+         fprintf( fout, "#define HB_VER_COMMIT_YEAR       \"%s\"\n", pszEscaped );
          hb_xfree( pszEscaped );
       }
 
@@ -465,7 +474,7 @@ static char * hb_fsFileFind( const char * pszFileMask )
    return NULL;
 }
 
-static int hb_pp_TimeStampToNum( PHB_PP_STATE pState, char * pszLog )
+static int hb_pp_TimeStampToNum( PHB_PP_STATE pState, char * pszLog, char * pszYear )
 {
    char szRevID[ 18 ];
    int iLen;
@@ -497,10 +506,13 @@ static int hb_pp_TimeStampToNum( PHB_PP_STATE pState, char * pszLog )
       if( lJulian && lMilliSec )
       {
          hb_timeStampStrRawPut( szRevID, lJulian, lMilliSec );
+         memcpy( pszYear, szRevID, 4 );
          memmove( szRevID, szRevID + 2, 10 );
       }
       else
       {
+         memcpy( pszYear, pszLog, 4 );
+
          szRevID[ 0 ] = pszLog[ 2 ];
          szRevID[ 1 ] = pszLog[ 3 ];
          szRevID[ 2 ] = pszLog[ 5 ];
@@ -512,11 +524,13 @@ static int hb_pp_TimeStampToNum( PHB_PP_STATE pState, char * pszLog )
          szRevID[ 8 ] = pszLog[ 14 ];
          szRevID[ 9 ] = pszLog[ 15 ];
       }
-      szRevID[ 10 ] = '\0';
+      pszYear[ 4 ] = szRevID[ 10 ] = '\0';
    }
    else
-      szRevID[ 0 ] = '\0';
+      pszYear[ 0 ] = szRevID[ 0 ] = '\0';
 
+   hb_pp_delDefine( pState, "HB_VER_COMMIT_YEAR" );
+   hb_pp_addDefine( pState, "HB_VER_COMMIT_YEAR", pszYear );
    hb_pp_delDefine( pState, "HB_VER_COMMIT_REV" );
    hb_pp_addDefine( pState, "HB_VER_COMMIT_REV", szRevID );
 #if defined( HB_LEGACY_LEVEL4 )
@@ -528,13 +542,18 @@ static int hb_pp_TimeStampToNum( PHB_PP_STATE pState, char * pszLog )
 }
 
 static int hb_pp_parseChangelog( PHB_PP_STATE pState, const char * pszFileName,
-                                 int iQuiet, int * piCommitRev, char ** pszCommitInfo )
+                                 int iQuiet, char ** pszCommitYear,
+                                 int * piCommitRev, char ** pszCommitInfo )
 {
    char * pszFree = NULL;
    int iResult = 0;
    FILE * file_in;
+   char szCommitYear[ 5 ];
 
    char szToCheck[ HB_PATH_MAX ];
+
+   *szCommitYear = '\0';
+
    PHB_FNAME pFileName = hb_fsFNameSplit( pszFileName );
 
    if( ! pFileName->szName )
@@ -647,7 +666,9 @@ static int hb_pp_parseChangelog( PHB_PP_STATE pState, const char * pszFileName,
          hb_pp_addDefine( pState, "HB_VER_COMMIT_INFO", szLine );
          *pszCommitInfo = hb_strdup( szLog );
 
-         *piCommitRev = hb_pp_TimeStampToNum( pState, szLog );
+         *piCommitRev = hb_pp_TimeStampToNum( pState, szLog, szCommitYear );
+
+         *pszCommitYear = hb_strdup( szCommitYear );
       }
    }
 
@@ -662,6 +683,7 @@ static int hb_pp_parseChangelog( PHB_PP_STATE pState, const char * pszFileName,
 static int hb_pp_parseRepoVer( PHB_PP_STATE pState, const char * pszFileName,
                                int iQuiet,
                                char ** pszCommitID, char ** pszCommitIDShort,
+                               char ** pszCommitYear,
                                int * piCommitRev, char ** pszCommitInfo,
                                char ** pszURL )
 {
@@ -672,13 +694,14 @@ static int hb_pp_parseRepoVer( PHB_PP_STATE pState, const char * pszFileName,
    char szDate[ _VALUE_SIZE ];
    char szName[ _VALUE_SIZE ];
    char szMail[ _VALUE_SIZE ];
+   char szCommitYear[ 5 ];
    char szCommitInfo[ _VALUE_SIZE ];
    char szURL[ _VALUE_SIZE ];
 
    int iLen;
 
-   *szId = *szIdShort = *szDate = *szName = *szMail = *szCommitInfo =
-      *szURL = '\0';
+   *szId = *szIdShort = *szDate = *szName = *szMail =
+      *szCommitYear = *szCommitInfo = *szURL = '\0';
 
    file_in = hb_fopen( pszFileName, "r" );
    if( ! file_in )
@@ -769,7 +792,9 @@ static int hb_pp_parseRepoVer( PHB_PP_STATE pState, const char * pszFileName,
 
       *pszCommitInfo = hb_strdup( szCommitInfo );
 
-      *piCommitRev = hb_pp_TimeStampToNum( pState, szCommitInfo );
+      *piCommitRev = hb_pp_TimeStampToNum( pState, szCommitInfo, szCommitYear );
+
+      *pszCommitYear = hb_strdup( szCommitYear );
    }
 
    return 0;
@@ -801,7 +826,8 @@ int main( int argc, char * argv[] )
    char * szFile = NULL, * szRuleFile = NULL, * szVerFile = NULL;
    char * szStdCh = NULL, * szLogFile = NULL, * szRepoVerFile = NULL;
    HB_BOOL fWrite = HB_FALSE, fChgLog = HB_FALSE, fRepoVer = HB_FALSE;
-   char * szCommitID = NULL, * szCommitIDShort = NULL, * szCommitInfo = NULL, * szURL = NULL;
+   char * szCommitID = NULL, * szCommitIDShort = NULL;
+   char * szCommitYear = NULL, * szCommitInfo = NULL, * szURL = NULL;
    int iCommitRev = 0, iResult = 0, iQuiet = 0;
    char * szPPRuleFuncName = NULL;
    PHB_PP_STATE pState;
@@ -963,16 +989,16 @@ int main( int argc, char * argv[] )
 
          if( fChgLog )
             iResult = hb_pp_parseChangelog( pState, szLogFile, iQuiet,
-                                            &iCommitRev, &szCommitInfo );
+                                            &szCommitYear, &iCommitRev, &szCommitInfo );
          if( fRepoVer )
             iResult = hb_pp_parseRepoVer( pState, szRepoVerFile, iQuiet,
-                                          &szCommitID, &szCommitIDShort, &iCommitRev, &szCommitInfo, &szURL );
+                                          &szCommitID, &szCommitIDShort, &szCommitYear, &iCommitRev, &szCommitInfo, &szURL );
 
          if( iResult == 0 )
             iResult = hb_pp_preprocesfile( pState, szRuleFile, szPPRuleFuncName );
 
          if( iResult == 0 && szVerFile && szRepoVerFile )
-            iResult = hb_pp_generateVerInfo( szVerFile, iCommitRev, szCommitInfo, szCommitID, szCommitIDShort, szURL );
+            iResult = hb_pp_generateVerInfo( szVerFile, szCommitYear, iCommitRev, szCommitInfo, szCommitID, szCommitIDShort, szURL );
 
          if( iResult == 0 && hb_pp_errorCount( pState ) > 0 )
             iResult = 1;
@@ -990,6 +1016,8 @@ int main( int argc, char * argv[] )
       hb_xfree( szCommitID );
    if( szCommitIDShort )
       hb_xfree( szCommitIDShort );
+   if( szCommitYear )
+      hb_xfree( szCommitYear );
    if( szCommitInfo )
       hb_xfree( szCommitInfo );
    if( szURL )

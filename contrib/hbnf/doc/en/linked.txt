@@ -29,11 +29,11 @@
       Nantucket Libraries, but it is a valid CLIPPER command because the
       preprocessor will convert it to other function calls.
    $EXAMPLES$
-      cString := "ft_GoodFunc( BadFunc( 3, 2 ) )"
+      LOCAL cString := "ft_GoodFunc( BadFunc( 3, 2 ) )"
       IF ft_Linked( cString )
          Eval( &( "{||" + cString + "}" ) )
       ELSE
-         Alert( "Error: " + cString + " was not linked in. Called by ft_Linked()" )
+         ? "Error:", cString, "was not linked in. Called by ft_Linked()"
       ENDIF
    $END$
  */

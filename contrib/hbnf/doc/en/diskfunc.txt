@@ -18,7 +18,7 @@
       Uses ft_int86() through the internal function `_ftDiskInfo()`.
    $EXAMPLES$
       ? ft_DskSize()       // Maximum capacity for default drive
-      ? ft_DskSize( "D" )  // Maximum capacity for Drive D:
+      ? ft_DskSize( "D" )  // Maximum capacity for drive D:
    $END$
  */
 
@@ -43,6 +43,6 @@
 
       Uses ft_int86() through the internal function `_ftDiskInfo()`.
    $EXAMPLES$
-      ? ft_DskFree()  // Returns free space on default drive.
+      ? ft_DskFree()  // --> free space on default drive.
    $END$
  */

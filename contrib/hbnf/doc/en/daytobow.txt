@@ -19,17 +19,17 @@
       day for the beginning of the week has been changed with
       ft_DateCnfg().
    $EXAMPLES$
-      dDate := hb_SToD( "19900915" )
+      LOCAL dDate := 0d19900915
 
-      ? DoW( dDate )               // 7
-      ? CDoW( dDate )              // Saturday
-      ? ft_DayToBoW( dDate )       // 6
+      ? DoW( dDate )          // --> 7
+      ? CDoW( dDate )         // --> "Saturday"
+      ? ft_DayToBoW( dDate )  // --> 6
 
-      // change beginning of week to Friday  (yeah!)
+      // change beginning of week to Friday (yeah!)
       ft_DateCnfg( , 6 )
-      ? DoW( dDate )               // 7
-      ? CDoW( dDate )              // Saturday
-      ? ft_DayToBoW( dDate )       // 1
+      ? DoW( dDate )          // --> 7
+      ? CDoW( dDate )         // --> "Saturday"
+      ? ft_DayToBoW( dDate )  // --> 1
    $SEEALSO$
       ft_DateCnfg(), ft_AcctWeek(), ft_Week()
    $END$

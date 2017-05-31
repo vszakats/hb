@@ -13,7 +13,7 @@
       hb_FLock( <nHandle>, <nOffset>, <nBytes> [, <nType ] )
                 --> lSuccess
    $ARGUMENTS$
-      <nHandle>  Dos file handle
+      <nHandle>  OS file handle
 
       set>  Offset of the first byte of the region to be locked.
 
@@ -41,9 +41,9 @@
       read locks ( <nType> = 0x0100 ).  Additionally you can specify a
       blocking version of this function (that is it won't return until
       either an error has occurred or the lock has been obtained) by
-      adding Ox0200 to the above values.
+      adding 0x0200 to the above values.
    $EXAMPLES$
-      refer to tests/tflock.prg
+      // refer to tests/tflock.prg
    $STATUS$
       R
    $COMPLIANCE$
@@ -71,7 +71,7 @@
    $SYNTAX$
       hb_FUnlock( <nHandle>, <nOffset>, <nBytes> ) --> lSuccess
    $ARGUMENTS$
-      <nHandle>  Dos file handle
+      <nHandle>  OS file handle
 
       set>  Offset of the first byte of the region to be locked.
 
@@ -92,7 +92,7 @@
 
       <nBytes> is the length of the region to be unlocked in bytes.
    $EXAMPLES$
-      refer to tests/tflock.prg
+      // refer to tests/tflock.prg
    $STATUS$
       R
    $COMPLIANCE$

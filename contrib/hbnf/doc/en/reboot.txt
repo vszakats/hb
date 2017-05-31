@@ -20,8 +20,6 @@
       #define COLD  0
       #define WARM  1
 
-      // Issue a warm boot
-
-      ft_Reboot( WARM )
+      ft_Reboot( WARM )  // Issue a warm boot
    $END$
  */

@@ -17,8 +17,8 @@
       i.e. a change of position of a certain character in the string does
       not change the ASCII sum.
    $EXAMPLES$
-      ? AsciiSum( "ABC" ) // -->  197
-      ? AsciiSum( "ACB" ) // -->  197
+      ? AsciiSum( "ABC" )  // -->  197
+      ? AsciiSum( "ACB" )  // -->  197
    $STATUS$
       R
    $COMPLIANCE$

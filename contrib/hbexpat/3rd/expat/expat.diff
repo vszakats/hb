@@ -1,18 +1,18 @@
 diff --strip-trailing-cr -urN expat.orig/xmlparse.c expat/xmlparse.c
 --- expat.orig/xmlparse.c	2016-06-21 12:58:38.000000000 +0000
-+++ expat/xmlparse.c	2017-03-21 18:15:37.000000000 +0000
-@@ -17,8 +17,8 @@
++++ expat/xmlparse.c	2017-05-26 05:20:42.000000000 +0000
+@@ -17,7 +17,9 @@
  
  #define XML_BUILDING_EXPAT 1
  
 -#ifdef WIN32
--#include "winconfig.h"
 +#ifdef HARBOUR_CONF
 +#include "_hbconf.h"
++#elif defined(WIN32)
+ #include "winconfig.h"
  #elif defined(MACOS_CLASSIC)
  #include "macconfig.h"
- #elif defined(__amigaos__)
-@@ -722,7 +722,14 @@
+@@ -722,7 +724,14 @@
    /* Process ID is 0 bits entropy if attacker has local access
     * XML_Parser address is few bits of entropy if attacker has local access */
    const unsigned long entropy =
@@ -30,29 +30,29 @@ diff --strip-trailing-cr -urN expat.orig/xmlparse.c expat/xmlparse.c
    if (sizeof(unsigned long) == 4) {
 diff --strip-trailing-cr -urN expat.orig/xmlrole.c expat/xmlrole.c
 --- expat.orig/xmlrole.c	2016-06-21 12:58:38.000000000 +0000
-+++ expat/xmlrole.c	2017-03-21 18:15:37.000000000 +0000
-@@ -4,8 +4,8 @@
++++ expat/xmlrole.c	2017-05-26 05:20:54.000000000 +0000
+@@ -4,7 +4,9 @@
  
  #include <stddef.h>
  
 -#ifdef WIN32
--#include "winconfig.h"
 +#ifdef HARBOUR_CONF
 +#include "_hbconf.h"
++#elif defined(WIN32)
+ #include "winconfig.h"
  #elif defined(MACOS_CLASSIC)
  #include "macconfig.h"
- #elif defined(__amigaos__)
 diff --strip-trailing-cr -urN expat.orig/xmltok.c expat/xmltok.c
 --- expat.orig/xmltok.c	2016-06-21 12:58:38.000000000 +0000
-+++ expat/xmltok.c	2017-03-21 18:15:37.000000000 +0000
-@@ -4,8 +4,8 @@
++++ expat/xmltok.c	2017-05-26 05:21:01.000000000 +0000
+@@ -4,7 +4,9 @@
  
  #include <stddef.h>
  
 -#ifdef WIN32
--#include "winconfig.h"
 +#ifdef HARBOUR_CONF
 +#include "_hbconf.h"
++#elif defined(WIN32)
+ #include "winconfig.h"
  #elif defined(MACOS_CLASSIC)
  #include "macconfig.h"
- #elif defined(__amigaos__)

@@ -78,6 +78,5 @@ PROCEDURE Main()
 
    oPC:cDefaultPrinter := cDefaultPrinter
    oPC:cClose()
-   oPC := NIL
 
    RETURN

@@ -518,7 +518,7 @@
       // cB = a string buffer passed-by-reference to hold the result
       // nMaxLine = maximum number of bytes to read
 
-      FUNCTION FReadLn( nH, cB, nMaxLine )
+      STATIC FUNCTION FReadLn( nH, cB, nMaxLine )
          LOCAL cLine, nSavePos, nEol, nNumRead
          cLine := Space( nMaxLine )
          cB := ""
@@ -575,7 +575,7 @@
       searched and the current drive/directory is only searched if
       `SET DEFAULT` is blank.
    $EXAMPLES$
-      ? File( "C:\hb\doc\pp.txt" )
+      ? File( hb_DirSepToOS( "/hb/doc/pp.txt" ) )
       ? File( "*.txt" )
    $STATUS$
       S (wild card support is missing)
@@ -820,8 +820,8 @@
       device (e.g. `LPT1`). This command does not observe the `SET PATH TO` or
       `SET DEFAULT TO` settings.
    $EXAMPLES$
-      COPY FILE /path/to/adir.prg TO /tmp/adir.prg
-      COPY FILE adir.prg TO LPT1
+      COPY FILE test.dbf TO adir.prg
+      COPY FILE test.txt TO LPT1
    $STATUS$
       R
    $COMPLIANCE$
@@ -857,7 +857,7 @@
       function returns .T. and sets the value returned by FError() to -1
       (F_ERROR) or a C-compiler dependent errno value (EBADF or EINVAL).
    $EXAMPLES$
-      nH := FOpen( "test.txt" )
+      LOCAL nH := FOpen( "test.txt" )
       ? FReadStr( nH, 80 )
       IF hb_FEof( nH )
          ? "End-of-file reached"

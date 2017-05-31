@@ -37,9 +37,9 @@
       in <cString> are to the replaced. The default of <nOccurrences> is
       all occurrences.
    $EXAMPLES$
-      ? StrTran( "Harbour  Power", "  ", " " )   // Harbour Power
-      // Harbour Power The future  of  xBase
+      ? StrTran( "Harbour  Power", "  ", " " )  // --> "Harbour Power"
       ? StrTran( "Harbour  Power  The Future  of  xBase", "  ", " " , , 2 )
+        // --> "Harbour Power The future  of  xBase"
    $STATUS$
       R
    $COMPLIANCE$

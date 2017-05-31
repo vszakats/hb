@@ -19,9 +19,9 @@
       A quick way to blink a msg on screen in the CURRENT colors.
       Restores colors on return.
    $EXAMPLES$
-      ft_Blink( "WAIT", 5, 10 )   // Blinks "WAIT" in current colors @ 5,10
+      ft_Blink( "WAIT", 5, 10 )  // Blinks "WAIT" in current colors @ 5,10
 
       @ 5, 10 SAY "WAIT - Printing Report"
-      ft_Blink( "..." )           // Blink "..." after wait message...
+      ft_Blink( "..." )          // Blink "..." after wait message...
    $END$
  */

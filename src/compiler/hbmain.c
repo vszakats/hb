@@ -574,6 +574,7 @@ void hb_compVariableAdd( HB_COMP_DECL, const char * szVarName, PHB_VARTYPE pVarT
             }
             break;
          }
+
          case HB_VSCOMP_TH_STATIC:
             pVar->uiFlags = HB_VSCOMP_THREAD;
             /* fallthrough */
@@ -1378,7 +1379,7 @@ static void hb_compOptimizeJumps( HB_COMP_DECL )
              * [ no jump targets or stack modification here ]
              *    HB_P_JUMP{FALSE|TRUE}*,
              *
-             * I'll think about sth like that later, [druzus]
+             * I'll think about something like that later, [druzus]
              */
             switch( pCode[ nJumpAddr ] )
             {

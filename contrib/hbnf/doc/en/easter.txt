@@ -20,6 +20,6 @@
       This function can be useful in calendar type programs that indicate
       when holidays occur.
    $EXAMPLES$
-      ? ft_Easter( 1990 )  // returns 1990-04-15
+      ? ft_Easter( 1990 )  // --> 1990-04-15
    $END$
  */

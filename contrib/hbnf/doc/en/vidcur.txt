@@ -26,7 +26,6 @@
 
    $EXAMPLES$
       // Set the position to row 5, column 10 on video page 1:
-
       ft_SetVCur( 1, 5, 10 )
    $END$
  */
@@ -65,7 +64,9 @@
       PC and PS/2 Video Systems_ (Microsoft Press).
 
    $EXAMPLES$
-      aCurInfo := ft_GetVCur( 1 )    // Get info on cursor pos in page 1
-      ? "Row:", aCurInfo[ 3 ], " Col:", aCurInfo[ 4 ]
+      LOCAL aCurInfo := ft_GetVCur( 1 )  // Get info on cursor pos in page 1
+      ? "Row:", aCurInfo[ 3 ]
+      ? "Col:", aCurInfo[ 4 ]
+      ? hb_ValToExp( aCurInfo )
    $END$
  */

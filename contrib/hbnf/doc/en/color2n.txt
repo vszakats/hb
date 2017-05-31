@@ -18,7 +18,9 @@
       a converted color string than having to calculate or look up the
       corresponding number.
    $EXAMPLES$
-      nColor := ft_Color2N( "gr+/b" )         // returns 30
+      LOCAL nColor
+
+      ? nColor := ft_Color2N( "gr+/b" )  // --> 30
 
       ft_SetAttr( 0, 0, 10, 10, nColor )
    $SEEALSO$

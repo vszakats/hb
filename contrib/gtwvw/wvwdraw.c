@@ -627,6 +627,30 @@ HB_FUNC( WVW_SETPEN )
    hb_retl( HB_FALSE );
 }
 
+/* wvw_SetGridPen( nPenStyle, nWidth, nColor ) */
+HB_FUNC( WVW_SETGRIDPEN )
+{
+   PWVW_GLO wvw = hb_gt_wvw();
+
+   if( wvw && HB_ISNUM( 1 ) )
+   {
+      HPEN hPen = CreatePen( hb_parni( 1 ), hb_parni( 2 ), hbwapi_par_COLORREF( 3 ) );
+
+      if( hPen )
+      {
+         if( wvw->a.gridPen )
+            DeleteObject( wvw->a.gridPen );
+
+         wvw->a.gridPen = hPen;
+
+         hb_retl( HB_TRUE );
+         return;
+      }
+   }
+
+   hb_retl( HB_FALSE );
+}
+
 /* wvw_SetBrush( nStyle, nColor, [ nHatch ] ) */
 /* IMPORTANT: in prev release this functions has nWinNum parameter
               BRUSHes are now application-wide. */

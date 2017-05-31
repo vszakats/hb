@@ -21,15 +21,17 @@
       you can cause Clipper to automatically release the CPU whenever
       Clipper itself detects an idle state.
    $EXAMPLES$
+      #include "inkey.ch"
+
       DO WHILE Inkey() != K_ESC
-         ft_IAmIdle()         // Wait for ESC and announce idleness
+         ft_IAmIdle()  // Wait for ESC and announce idleness
       ENDDO
 
       // Here's another way to do it:
 
       ft_OnIdle( {|| ft_IAmIdle() } )
 
-      Inkey( 0 )              // Automatically reports idleness until key is pressed!
+      Inkey( 0 )       // Automatically reports idleness until key is pressed!
    $SEEALSO$
       ft_OnIdle()
    $END$

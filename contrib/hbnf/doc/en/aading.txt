@@ -28,19 +28,19 @@
       It returns a new array including all the elements of <aList1>
       plus the unique elements of <aList2>.
    $EXAMPLES$
-      aList1 := { "apple", "orange", "pear" }
-      aList2 := { "apple ", "banana", "PEAR" }
+      LOCAL aList1 := { "apple", "orange", "pear" }
+      LOCAL aList2 := { "apple ", "banana", "PEAR" }
 
-      ft_AAddition( aList1, aList2 )
       // ignores spaces, sensitive to case
-      // returns { "apple", "orange", "pear", "banana", "PEAR" }
+      ? hb_ValToExp( ft_AAddition( aList1, aList2 ) )
+      // --> { "apple", "orange", "pear", "banana", "PEAR" }
 
-      ft_AAddition( aList1, aList2, , .F. )
       // ignores spaces, not sensitive to case
-      // returns { "apple", "orange", "pear", "banana" }
+      ? hb_ValToExp( ft_AAddition( aList1, aList2, , .F. ) )
+      // --> { "apple", "orange", "pear", "banana" }
 
-      ft_AAddition( aList1, aList2, .F. , .F. )
       // sensitive to spaces, not sensitive to case
-      // returns { "apple", "orange", "pear", "apple ", "banana" }
+      ? hb_ValToExp( ft_AAddition( aList1, aList2, .F. , .F. ) )
+      // --> { "apple", "orange", "pear", "apple ", "banana" }
    $END$
  */

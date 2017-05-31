@@ -26,9 +26,9 @@
    $EXAMPLES$
       // Set up a self-updating on-screen clock
 
-      ft_OnTick( "CLOCK", 9 )
+      ft_OnTick( @Clock(), 9 )
 
-      PROCEDURE Clock()
+      STATIC PROCEDURE Clock()
 
          LOCAL nRow := Row()
          LOCAL nCol := Col()

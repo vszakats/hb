@@ -27,18 +27,19 @@
       execution and you are inside a READ or `MENU TO`.
    $EXAMPLES$
       #include "inkey.ch"
-      // display a menu, press F1 to view the MENU TO variable name
+      LOCAL What_Is_Bug
+      // display a menu, press <F1> to view the MENU TO variable name
       CLS
       @ 1, 10 PROMPT "blood sucking insect that infect beds   "
       @ 2, 10 PROMPT "germ; virus infection                   "
       @ 3, 10 PROMPT "defect; snag; (source of) malfunctioning"
       @ 4, 10 PROMPT "small hidden microphone                 "
-      @ 6, 10 SAY "(Press F1 for a hint)"
+      @ 6, 10 SAY "(Press <F1> for a hint)"
       SetKey( K_F1, {|| ShowVar() } )
       MENU TO What_Is_Bug
 
       STATIC PROCEDURE ShowVar()
-         Alert( ReadVar() )     // WHAT_IS_BUG in red Alert() box
+         Alert( ReadVar() )  // --> "WHAT_IS_BUG"
          RETURN
    $STATUS$
       R

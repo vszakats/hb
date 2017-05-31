@@ -27,6 +27,7 @@
       This function returns the number of array elements that, when passed
       to the supplied code block, cause that code block to return a .T. value.
    $EXAMPLES$
+      // FIXME
       // Search the Entire Array
       ? ft_ANoMatches( aTries, {| x | x <= 100 } )
 

@@ -1024,7 +1024,7 @@ HB_USHORT hb_errRT_BASE( HB_ERRCODE errGenCode, HB_ERRCODE errSubCode, const cha
    HB_ULONG ulArgPos;
 
    /* I replaced EF_CANRETRY with EF_NONE for Clipper compatibility
-    * If it's wrong and I missed sth please fix me, Druzus.
+    * If it's wrong and I missed something please fix me, Druzus.
     */
    pError = hb_errRT_New( ES_ERROR, HB_ERR_SS_BASE, errGenCode, errSubCode, szDescription, szOperation, 0, EF_NONE /* EF_CANRETRY */ );
 

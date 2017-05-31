@@ -161,7 +161,7 @@ HB_FUNC( MYSQL_REAL_CONNECT ) /* MYSQL * mysql_real_connect( MYSQL *, char * hos
    const char * szHost = hb_parc( 1 );
    const char * szUser = hb_parc( 2 );
    const char * szPass = hb_parc( 3 );
-   unsigned int port   = ( unsigned int ) hb_parnidef( 4, MYSQL_PORT );
+   unsigned int port   = ( unsigned int ) hb_parni( 4 );
    unsigned int flags  = ( unsigned int ) hb_parni( 5 );
 
 #if MYSQL_VERSION_ID > 32200

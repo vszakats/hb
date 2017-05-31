@@ -30,7 +30,7 @@
       drives.  If the third drive is "C" and the fourth "D" then there
       should be no problems.
    $EXAMPLES$
-      iStatus := ft_FlopTst( "A:" )
+      LOCAL iStatus := ft_FlopTst( "A:" )
       DO CASE
       CASE iStatus == 1
          ? "The door to drive A is open."

@@ -315,9 +315,9 @@ static HB_ERRCODE hb_fptPutRootBlock( FPTAREAP pArea, HB_ULONG ulBlock )
 /*
    GARBAGE COLLECTOR:
    I don't have any documentation about it. All I know is reverse engineering
-   or analyzes of other sources. If any one can tell me sth more about it then
-   I will be really glad. I use method one for SixMemo and method 2 for FLEX
-   memos.
+   or analyzes of other sources. If any one can tell me something more about it
+   then I will be really glad. I use method one for SixMemo and method 2 for
+   FLEX memos.
 
    Method 1.
    FPTHEADER->reserved2[492]     is a list of free pages,
@@ -369,7 +369,7 @@ static HB_ERRCODE hb_fptPutRootBlock( FPTAREAP pArea, HB_ULONG ulBlock )
    the number of items 2 - means branch node, 3-leaf node. The value in
    GC node is calculated as:
       ( nItem << 2 ) | FPTGCNODE_TYPE
-   Each item in branch node has 12 bytes and inside them 3 32bit little
+   Each item in branch node has 12 bytes and inside them 3 32-bit little
    endian values in pages sorted by offset the are:
       offset,size,subpage
    and in pages sorted by size:
@@ -1189,15 +1189,14 @@ static HB_ULONG hb_fptCountSMTItemLength( FPTAREAP pArea, PHB_ITEM pItem,
       case HB_IT_INTEGER:
       case HB_IT_LONG:
       {
-         HB_MAXINT iVal;
-         iVal = hb_itemGetNInt( pItem );
+         HB_MAXINT iVal = hb_itemGetNInt( pItem );
          if( HB_LIM_INT32( iVal ) )
          {
             ulSize = 5;
             break;
          }
       }
-         /* fallthrough */
+      /* fallthrough */
       case HB_IT_DOUBLE:
          ulSize = 11;
          break;
@@ -1336,7 +1335,7 @@ static void hb_fptStoreSMTItem( FPTAREAP pArea, PHB_ITEM pItem, HB_BYTE ** bBufP
             break;
          }
       }
-         /* fallthrough */
+      /* fallthrough */
       case HB_IT_DOUBLE:
       {
          double dVal = hb_itemGetND( pItem );
@@ -3705,8 +3704,7 @@ static HB_ERRCODE hb_fptPutVarField( FPTAREAP pArea, HB_USHORT uiIndex, PHB_ITEM
          }
          else if( HB_IS_NUMBER( pItem ) )
          {
-            HB_MAXINT lVal;
-            lVal = hb_itemGetNInt( pItem );
+            HB_MAXINT lVal = hb_itemGetNInt( pItem );
 
             if( ! HB_IS_DOUBLE( pItem ) && HB_LIM_INT32( lVal ) )
             {

@@ -17,9 +17,9 @@
       number is the constant perimeter-to-diameter-ratio of circles.
    $EXAMPLES$
       // the diameter of a circle-like swimming pool is 3.4 meters, how
-      // long is the perimeter ?
+      // long is the perimeter?
 
-      ? Str( Pi() * 3.4, 5, 3 ) + " meters"  // --> 10.681 meters
+      ? Str( Pi() * 3.4, 5, 3 ) + " meters"  // --> "10.681 meters"
    $STATUS$
       R
    $COMPLIANCE$

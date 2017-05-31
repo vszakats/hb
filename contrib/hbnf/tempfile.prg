@@ -40,7 +40,7 @@ FUNCTION ft_TempFil( cPath, lHide, /* @ */ hFile )  /* <hFile> is a Harbour exte
 
    hFile := hb_vfTempFile( @cFile, cPath,, iif( hb_defaultValue( lHide, .F. ), FC_HIDDEN, FC_NORMAL ) )
 
-   IF ! hb_PIsByRef( 3 )
+   IF ! hb_PIsByRef( 3 ) .AND. hFile != NIL
       hb_vfClose( hFile )
    ENDIF
 

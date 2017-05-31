@@ -10,7 +10,7 @@ gzio.c
 ${hb_name}.hbx
 
 # This is a dependency of zlib
--depurlbase=zlib:http://zlib.net/
+-depurlbase=zlib:https://zlib.net/
 -deppkgname=zlib:mingw-w64-i686-zlib{msys2&mingw}
 -deppkgname=zlib:mingw-w64-x86_64-zlib{msys2&mingw64}
 -depkeyhead=zlib:zlib.h

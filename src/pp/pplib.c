@@ -240,7 +240,7 @@ HB_FUNC( __PP_ADDRULE )
          hb_pp_parseLine( pState, szText, &nLen );
 
          /* probably for parsing #included files the old code was making
-            sth like that */
+            something like that */
          do
          {
             if( hb_vmRequestQuery() != 0 )

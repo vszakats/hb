@@ -64,7 +64,7 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
       /* aCC */, ;
       "test: body", ;
       "test: subject", ;
-      /* attachment */, ;
+      { __FILE__ } /* attachment */, ;
       /* nPriority */, ;
       /* lRead */, ;
       /* cReplyTo */, ;

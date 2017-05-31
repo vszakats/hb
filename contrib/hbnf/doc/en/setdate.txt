@@ -9,31 +9,23 @@
       ft_SetDate( <dDate> ) --> lResult
    $ARGUMENTS$
       <dDate> is a Clipper date variable that you want to set the current
-      DOS system date to.
+      OS system date to.
 
       It is up to you to send in a valid date.  The
-      year must be within the range 1980 through 2099.  If DOS
+      year must be within the range 1980 through 2099.  If the OS
       thinks the date is not valid, it won't change the date.
-
    $RETURNS$
       <lResult> is simply the result of ft_int86(), passed back
       to your program.
-
    $DESCRIPTION$
       ft_SetDate() uses NANFOR.LIB's ft_int86() function to invoke
       the DOS Set Date service (Interrupt 33, service 43).
-
    $EXAMPLES$
       // The following program takes a date from the command-line and sets
-      // the DOS system date:
-
-      PROCEDURE Main( cDate )
-
-         hb_default( @cDate, DToS( Date() ) )
-         ? "Setting date to:", cDate + "... "
-         ft_SetDate( hb_SToD( cDate ) )
-         ? "Today is now:", Date()
-
-         RETURN
+      // the OS system date:
+      LOCAL dDate := Date() + 1
+      ? "Setting date to:", dDate
+      ft_SetDate( dDate )
+      ? "Today is now:", Date()
    $END$
  */

@@ -22,14 +22,12 @@
       executed function if no arguments are passed. Otherwise it returns
       the name of the function or procedure at <nLevel>.
    $EXAMPLES$
-      PROCEDURE Main()
-         // This test will show the functions and procedures in stack.
-         // before executing it.
-         LOCAL n := 1
-         DO WHILE ! Empty( ProcName( n ) )
-            ? ProcName( n++ )
-         ENDDO
-         RETURN
+      // This test will show the functions and procedures in stack.
+      // before executing it.
+      LOCAL n := 1
+      DO WHILE ! Empty( ProcName( n ) )
+         ? ProcName( n++ )
+      ENDDO
    $STATUS$
       R
    $COMPLIANCE$

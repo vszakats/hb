@@ -96,7 +96,7 @@
       Therefore, additional calls to the TokenSep() function are not
       necessary.
    $EXAMPLES$
-      ? Token( "Hello, World!" )             //  "World"
+      ? Token( "Hello, World!" )             // "World"
       ? Token( "Hello, World!",, 2, 1 )      // ""
       ? Token( "Hello, World!", ",", 2, 1 )  // " World!"
       ? Token( "Hello, World!", " ", 2, 1 )  // "World!"
@@ -236,10 +236,10 @@
       switch to .T., but you must then pass <cString> by reference to get
       the result.
    $EXAMPLES$
-      ? TokenUpper( "Hello, world, here I am!" )         // "Hello, World, Here I Am!"
-      ? TokenUpper( "Hello, world, here I am!",, 3 )     // "Hello, World, Here I am!"
-      ? TokenUpper( "Hello, world, here I am!", ",", 3 ) // "Hello, world, here I am!"
-      ? TokenUpper( "Hello, world, here I am!", " w" )   // "Hello, wOrld, Here I Am!"
+      ? TokenUpper( "Hello, world, here I am!" )          // "Hello, World, Here I Am!"
+      ? TokenUpper( "Hello, world, here I am!",, 3 )      // "Hello, World, Here I am!"
+      ? TokenUpper( "Hello, world, here I am!", ",", 3 )  // "Hello, world, here I am!"
+      ? TokenUpper( "Hello, world, here I am!", " w" )    // "Hello, wOrld, Here I Am!"
    $STATUS$
       R
    $COMPLIANCE$

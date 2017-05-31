@@ -328,7 +328,7 @@
 #include "hbthread.h"
 #include "hbdate.h"
 
-/* TODO change error description to sth more user friendly */
+/* TODO change error description to something more user friendly */
 static const char * s_socketErrors[] = {
    "OK",
    "EPIPE",
@@ -2878,7 +2878,7 @@ int hb_socketSetReuseAddr( HB_SOCKET sd, HB_BOOL fReuse )
     * clean all pending connections addressed to previous port owner
     */
    #if defined( HB_OS_WIN )
-      /* SO_REUSEADDR in MS-Windows makes sth completly different
+      /* SO_REUSEADDR in MS-Windows makes something completely different
        * then in other OS-es
        */
       HB_SYMBOL_UNUSED( sd );

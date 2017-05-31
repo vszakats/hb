@@ -20,16 +20,16 @@
       This function is valuable if you use a graphics library and need to
       know what type of graphics adapter is installed.
    $EXAMPLES$
-      iVideo := ft_Adapter()
+      LOCAL nVideo := ft_Adapter()
 
       DO CASE
-      CASE iVideo == 0
+      CASE nVideo == 0
          ? "You have a monochrome adapter."
-      CASE iVideo == 1
+      CASE nVideo == 1
          ? "You have a CGA adapter."
-      CASE iVideo == 2
+      CASE nVideo == 2
          ? "You have an EGA adapter."
-      CASE iVideo == 3
+      CASE nVideo == 3
          ? "You have a VGA adapter."
       ENDCASE
    $SEEALSO$

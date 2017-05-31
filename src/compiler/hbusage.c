@@ -262,8 +262,7 @@ void hb_compPrintLogo( HB_COMP_DECL )
    char * szVer = hb_verHarbour();
 
    hb_compOutStd( HB_COMP_PARAM, szVer );
-   hb_compOutStd( HB_COMP_PARAM, "\nCopyright (c) 1999-present, " );
-   hb_compOutStd( HB_COMP_PARAM, HB_VER_ORIGIN_URL );
-   hb_compOutStd( HB_COMP_PARAM, "\n" );
+   hb_compOutStd( HB_COMP_PARAM,
+      "\nCopyright (c) 1999-" HB_VER_COMMIT_YEAR ", " HB_VER_ORIGIN_URL "\n" );
    hb_xfree( szVer );
 }

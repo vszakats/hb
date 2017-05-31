@@ -63,8 +63,8 @@
       Please see standard CA-Cl*pper documentation for AChoice() for
       additional detail.
    $EXAMPLES$
-      aItems := { "One", "Two", "Three" }
-      nChoice := AChoice( 10, 10, 20, 20, aItems )
+      LOCAL aItems := { "One", "Two", "Three" }
+      LOCAL nChoice := AChoice( 10, 10, 20, 20, aItems )
       IF nChoice == 0
          ? "You did not choose an item"
       ELSE
@@ -123,6 +123,7 @@
       `@...PROMPT` command is preprocessed into __AtPrompt() function during
       compile time.
    $EXAMPLES$
+      LOCAL nChoice
       // display a two line menu with status line at the bottom
       // let the user select favorite day
       SET MESSAGE TO 24 CENTER
@@ -188,6 +189,7 @@
       `@...PROMPT` command is preprocessed into __AtPrompt() function during
       compile time.
    $EXAMPLES$
+      LOCAL nChoice
       // display a two line menu with status line at the bottom
       // let the user select favorite day
       SET MESSAGE TO 24 CENTER
@@ -278,6 +280,7 @@
       `MENU TO` command is preprocessed into __MenuTo() function during
       compile time.
    $EXAMPLES$
+      LOCAL nChoice
       // display menu item on each screen corner and let user select one
       CLS
       SET MESSAGE TO MaxRow() / 2 CENTER
@@ -366,6 +369,7 @@
       `MENU TO` command is preprocessed into __MenuTo() function during
       compile time.
    $EXAMPLES$
+      LOCAL nChoice
       // display menu item on each screen corner and let user select one
       CLS
       SET MESSAGE TO MaxRow() / 2 CENTER

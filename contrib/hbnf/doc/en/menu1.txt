@@ -58,33 +58,33 @@
       // Include the following two lines of code in your program, as is.
       // The first creates aOptions with the same length as aBar.  The
       // second assigns a three-element array to each element of aOptions.
-      LOCAL aOptions[ Len( aBar ) ]
+      LOCAL aOptions := Array( Len( aBar ) )
       AEval( aBar, {| x, i | aOptions[ i ] := { {}, {}, {} } } )
 
       // fill color array
       // Box Border, Menu Options, Menu Bar, Current Selection, Unselected
-      aColors := iif( lColor, ;
+      aColors := iif( IsColor(), ;
          { "W+/G", "N/G", "N/G", "N/W", "N+/G" }, ;
          { "W+/N", "W+/N", "W/N", "N/W", "W/N" } )
 
       // array for first pulldown menu
-      ft_Fill( aOptions[ 1 ], "A. Execute A Dummy Procedure" , {|| fubar() }, .T. )
-      ft_Fill( aOptions[ 1 ], "B. Enter Daily Charges"       , {|| .T. },     .F. )
-      ft_Fill( aOptions[ 1 ], "C. Enter Payments On Accounts", {|| .T. },     .T. )
+      ft_Fill( aOptions[ 1 ], "A. Execute A Dummy Procedure" , {|| Alert( "hello" ) }, .T. )
+      ft_Fill( aOptions[ 1 ], "B. Enter Daily Charges"       , {|| .T. }, .F. )
+      ft_Fill( aOptions[ 1 ], "C. Enter Payments On Accounts", {|| .T. }, .T. )
 
       // array for second pulldown menu
-      ft_Fill( aOptions[ 2 ], "A. Print Member List"         , {|| .T. },     .T. )
-      ft_Fill( aOptions[ 2 ], "B. Print Active Auto Charges" , {|| .T. },     .T. )
+      ft_Fill( aOptions[ 2 ], "A. Print Member List"         , {|| .T. }, .T. )
+      ft_Fill( aOptions[ 2 ], "B. Print Active Auto Charges" , {|| .T. }, .T. )
 
       // array for third pulldown menu
-      ft_Fill( aOptions[ 3 ], "A. Transaction Totals Display", {|| .T. },     .T. )
-      ft_Fill( aOptions[ 3 ], "B. Display Invoice Totals"    , {|| .T. },     .T. )
-      ft_Fill( aOptions[ 3 ], "C. Exit To DOS"               , {|| .F. },     .T. )
+      ft_Fill( aOptions[ 3 ], "A. Transaction Totals Display", {|| .T. }, .T. )
+      ft_Fill( aOptions[ 3 ], "B. Display Invoice Totals"    , {|| .T. }, .T. )
+      ft_Fill( aOptions[ 3 ], "C. Exit To DOS"               , {|| .F. }, .T. )
 
       // Call ft_Fill() once for each item on each pulldown menu, passing it
       // three parameters:
-
-      ft_Fill( <cMenuSelection>, <bCodeBlock>, <lSelectable>
+      //
+      //   ft_Fill( <cMenuSelection>, <bCodeBlock>, <lSelectable> )
 
       // <cMenuSelection> is a character string which will be displayed on
       // the pulldown menu.
@@ -101,7 +101,6 @@
       //   .T. WHICH WILL DO NOTHING.  THIS ALLOWS THE DEVELOPER TO DESIGN A
       //   SKELETON MENU STRUCTURE PRIOR TO COMPLETING ALL OF THE SUBROUTINES.
 
-      // CALL ft_Menu1()
       ft_Menu1( aBar, aOptions, aColors, 0 )
 
       // NOTE: ft_Menu1() disables <Alt-C> and <Alt-D> in order to make them
@@ -144,27 +143,29 @@
       ft_Fill() is a function used to set up the menu options prior
       to calling ft_Menu1().
    $EXAMPLES$
-      ft_Fill( aOptions[ 1 ], "A. Execute A Dummy Procedure" , {|| fubar() }, .T. )
+      LOCAL aOptions := Array( 4 )
+
+      ft_Fill( aOptions[ 1 ], "A. Execute A Dummy Procedure" , {|| Alert( "hello" ) }, .T. )
 
       // The above would be added to the sub-menu associated with the
       // first menu bar item, would execute the function FUBAR() when
       // that option was selected, and would be selectable.
 
 
-      ft_Fill( aOptions[ 3 ], "B. Enter Daily Charges"       , {|| .T. },     .F. )
+      ft_Fill( aOptions[ 3 ], "B. Enter Daily Charges"       , {|| .T. }, .F. )
 
       // The above would be added to the sub-menu associated with the
       // third menu bar item, and would be unselectable.
 
 
-      ft_Fill( aOptions[ 2 ], "C. Enter Payments On Accounts", {|| .T. },     .T. )
+      ft_Fill( aOptions[ 2 ], "C. Enter Payments On Accounts", {|| .T. }, .T. )
 
       // The above would be added to the sub-menu associated with the
       // second menu bar item, and would be selectable, but would do
       // nothing when selected.
 
 
-      ft_Fill( aOptions[ 4 ], "C. Exit"                      , {|| .F. },     .T. )
+      ft_Fill( aOptions[ 4 ], "C. Exit"                      , {|| .F. }, .T. )
 
       // The above would be added to the sub-menu associated with the
       // fourth menu bar item, and would be selectable, and would exit

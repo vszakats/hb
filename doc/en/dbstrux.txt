@@ -513,7 +513,7 @@
       `CREATE FROM` command is preprocessed into __dbCopyStruct() function
       during compile time and uses this mode.
    $EXAMPLES$
-      See example in the CREATE command
+      // See example in the CREATE command
    $STATUS$
       R
    $COMPLIANCE$
@@ -574,6 +574,7 @@
       __FLedit() is a compatibility function and it is synonym for
       __dbStructFilter() which does exactly the same.
    $EXAMPLES$
+      // FIXME
       LOCAL aStruct, aList, aRet
       aStruct := { ;
          { "CODE",  "N",  4, 0 }, ;
@@ -582,17 +583,17 @@
          { "IQ",    "N",  3, 0 } }
       aList := { "IQ", "NAME" }
       aRet := __FLedit( aStruct, aList )
-                        // { { "IQ", "N", 3, 0 }, { "NAME", "C", 10, 0 } }
+                         // { { "IQ", "N", 3, 0 }, { "NAME", "C", 10, 0 } }
 
       aRet := __FLedit( aStruct, {} )
-      ? aRet == aStruct // .T.
+      ? aRet == aStruct  // .T.
 
       aList := { "iq", "NOTEXIST" }
       aRet := __FLedit( aStruct, aList )
-                        // { { "IQ", "N", 3, 0 } }
+                         // { { "IQ", "N", 3, 0 } }
 
       aList := { "NOTEXIST" }
-      aRet := __FLedit( aStruct, aList )   // {}
+      aRet := __FLedit( aStruct, aList )  // {}
 
       // Create a new file that contain part of the original structure
       LOCAL aStruct, aList, aRet
@@ -667,6 +668,7 @@
 
       `SET EXACT` has no effect on the return value.
    $EXAMPLES$
+      // FIXME
       LOCAL aStruct, aList, aRet
       aStruct := { ;
          { "CODE",  "N",  4, 0 }, ;
@@ -675,17 +677,17 @@
          { "IQ",    "N",  3, 0 } }
       aList := { "IQ", "NAME" }
       aRet := __dbStructFilter( aStruct, aList )
-                        // { { "IQ", "N", 3, 0 }, { "NAME", "C", 10, 0 } }
+                         // { { "IQ", "N", 3, 0 }, { "NAME", "C", 10, 0 } }
 
       aRet := __dbStructFilter( aStruct, {} )
-      ? aRet == aStruct // .T.
+      ? aRet == aStruct  // .T.
 
       aList := { "iq", "NOTEXIST" }
       aRet := __dbStructFilter( aStruct, aList )
-                        // { { "IQ", "N", 3, 0 } }
+                         // { { "IQ", "N", 3, 0 } }
 
       aList := { "NOTEXIST" }
-      aRet := __dbStructFilter( aStruct, aList )   // {}
+      aRet := __dbStructFilter( aStruct, aList )  // --> {}
 
       // Create a new file that contain part of the original structure
       LOCAL aStruct, aList, aRet

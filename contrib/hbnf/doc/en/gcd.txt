@@ -18,9 +18,9 @@
       i.e., the largest number that will divide into both numbers evenly.  It
       will return zero (0) if either number is zero.
    $EXAMPLES$
-      ? ft_GCD( 10, 15 )    // Result: 5
-      ? ft_GCD( 108, 54 )   // Result: 54
-      ? ft_GCD( 102, 54 )   // Result: 6
-      ? ft_GCD( 111, 17 )   // Result: 1
+      ? ft_GCD( 10, 15 )   // --> 5
+      ? ft_GCD( 108, 54 )  // --> 54
+      ? ft_GCD( 102, 54 )  // --> 6
+      ? ft_GCD( 111, 17 )  // --> 1
    $END$
  */

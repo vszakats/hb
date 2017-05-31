@@ -36,20 +36,18 @@
    $EXAMPLES$
       // Show DBF last update date
       #include "fileio.ch"
-      PROCEDURE Main()
-         LOCAL hFile, cYear, cMonth, cDay
-         IF ( hFile := hb_vfOpen( "test.dbf", FO_READ ) ) != NIL
-            hb_vfSeek( hFile, 1 )
-            cYear := cMonth := cDay := " "
-            hb_vfRead( hFile, @cYear , hb_BLen( cYear ) )
-            hb_vfRead( hFile, @cMonth, hb_BLen( cMonth ) )
-            hb_vfRead( hFile, @cDay  , hb_BLen( cDay ) )
-            ? "Last update:", Bin2I( cYear ), Bin2I( cMonth ), Bin2I( cDay )
-            hb_vfClose( hFile )
-         ELSE
-            ? "Cannot open file"
-         ENDIF
-         RETURN
+      LOCAL hFile, cYear, cMonth, cDay
+      IF ( hFile := hb_vfOpen( "test.dbf", FO_READ ) ) != NIL
+         hb_vfSeek( hFile, 1 )
+         cYear := cMonth := cDay := hb_BChar( 0 )
+         hb_vfRead( hFile, @cYear , hb_BLen( cYear ) )
+         hb_vfRead( hFile, @cMonth, hb_BLen( cMonth ) )
+         hb_vfRead( hFile, @cDay  , hb_BLen( cDay ) )
+         ? "Last update:", Bin2I( cYear ), Bin2I( cMonth ), Bin2I( cDay )
+         hb_vfClose( hFile )
+      ELSE
+         ? "Cannot open file"
+      ENDIF
    $STATUS$
       R
    $COMPLIANCE$
@@ -99,17 +97,15 @@
    $EXAMPLES$
       // Show number of records in DBF
       #include "fileio.ch"
-      PROCEDURE Main()
-         LOCAL hFile, cBuffer := Space( 4 )
-         IF ( hFile := hb_vfOpen( "test.dbf", FO_READ ) ) != NIL
-            hb_vfSeek( hFile, 4 )
-            hb_vfRead( hFile, @cBuffer, hb_BLen( cBuffer ) )
-            ? "Number of records in file:", Bin2L( cBuffer )
-            hb_vfClose( hFile )
-         ELSE
-            ? "Cannot open file"
-         ENDIF
-         RETURN
+      LOCAL hFile, cBuffer := Space( 4 )
+      IF ( hFile := hb_vfOpen( "test.dbf", FO_READ ) ) != NIL
+         hb_vfSeek( hFile, 4 )
+         hb_vfRead( hFile, @cBuffer, hb_BLen( cBuffer ) )
+         ? "Number of records in file:", Bin2L( cBuffer )
+         hb_vfClose( hFile )
+      ELSE
+         ? "Cannot open file"
+      ENDIF
    $STATUS$
       R
    $COMPLIANCE$
@@ -159,17 +155,15 @@
    $EXAMPLES$
       // Show header length of a DBF
       #include "fileio.ch"
-      PROCEDURE Main()
-         LOCAL hFile, cBuffer := Space( 2 )
-         IF ( hFile := hb_vfOpen( "test.dbf", FO_READ ) ) != NIL
-            hb_vfSeek( hFile, 8 )
-            hb_vfRead( hFile, @cBuffer, hb_BLen( cBuffer ) )
-            ? "Length of DBF header in bytes:", Bin2W( cBuffer )
-            hb_vfClose( hFile )
-         ELSE
-            ? "Cannot open file"
-         ENDIF
-         RETURN
+      LOCAL hFile, cBuffer := Space( 2 )
+      IF ( hFile := hb_vfOpen( "test.dbf", FO_READ ) ) != NIL
+         hb_vfSeek( hFile, 8 )
+         hb_vfRead( hFile, @cBuffer, hb_BLen( cBuffer ) )
+         ? "Length of DBF header in bytes:", Bin2W( cBuffer )
+         hb_vfClose( hFile )
+      ELSE
+         ? "Cannot open file"
+      ENDIF
    $STATUS$
       R
    $COMPLIANCE$
@@ -218,27 +212,25 @@
    $EXAMPLES$
       // Update DBF "last update" date
       #include "fileio.ch"
-      PROCEDURE Main()
-         LOCAL hFile, cYear, cMonth, cDay
+      LOCAL hFile, cYear, cMonth, cDay
+      USE test
+      ? "Original update date is:", LUpdate()
+      dbCloseArea()
+      IF ( hFile := hb_vfOpen( "test.dbf", FO_READWRITE ) ) != NIL
+         hb_vfSeek( hFile, 1 )
+         cYear  := I2Bin( 68 )
+         cMonth := I2Bin(  8 )
+         cDay   := I2Bin(  1 )
+         hb_vfWrite( hFile, cYear , 1 )  // write only the first byte
+         hb_vfWrite( hFile, cMonth, 1 )
+         hb_vfWrite( hFile, cDay  , 1 )
+         hb_vfClose( hFile )
          USE test
-         ? "Original update date is:", LUpdate()
+         ? "New update date is:", LUpdate()
          dbCloseArea()
-         IF ( hFile := hb_vfOpen( "test.dbf", FO_READWRITE ) ) != NIL
-            hb_vfSeek( hFile, 1 )
-            cYear  := I2Bin( 68 )
-            cMonth := I2Bin(  8 )
-            cDay   := I2Bin(  1 )
-            hb_vfWrite( hFile, cYear , 1 )   // write only the first byte
-            hb_vfWrite( hFile, cMonth, 1 )
-            hb_vfWrite( hFile, cDay  , 1 )
-            hb_vfClose( hFile )
-            USE test
-            ? "New update date is:", LUpdate()
-            dbCloseArea()
-         ELSE
-            ? "Cannot open file"
-         ENDIF
-         RETURN
+      ELSE
+         ? "Cannot open file"
+      ENDIF
    $STATUS$
       R
    $COMPLIANCE$

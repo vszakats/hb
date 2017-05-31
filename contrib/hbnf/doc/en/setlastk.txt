@@ -25,12 +25,12 @@
       work.  If this makes you uncomfortable, then don't use this function,
       you worthless crybaby.
    $EXAMPLES$
-      hb_keyPut( K_ESC )
+      #include "inkey.ch"
 
-      ? LastKey()  // returns 27
+      hb_keyPut( K_ESC )
+      ? LastKey()  // --> 27 (K_ESC)
 
       ft_LastKey( K_F1 )
-
-      ? LastKey()  // now returns 28
+      ? LastKey()  // --> 28 (K_F1)
    $END$
  */

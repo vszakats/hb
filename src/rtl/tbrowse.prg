@@ -1952,7 +1952,7 @@ METHOD rowCount() CLASS TBrowse
 
 
 /* NOTE: CA-Cl*pper has a bug where negative nRowPos value will be translated
-         to 16bit unsigned int, so the behaviour will be different in this case.
+         to 16-bit unsigned int, so the behaviour will be different in this case.
          [vszakats] */
 METHOD setRowPos( nRowPos ) CLASS TBrowse
 
@@ -1982,7 +1982,7 @@ METHOD getRowPos() CLASS TBrowse
 
 
 /* NOTE: CA-Cl*pper has a bug where negative nRowPos value will be translated
-         to 16bit unsigned int, so the behaviour will be different in this case.
+         to 16-bit unsigned int, so the behaviour will be different in this case.
          [vszakats] */
 METHOD setColPos( nColPos ) CLASS TBrowse
 

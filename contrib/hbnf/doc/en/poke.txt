@@ -24,6 +24,6 @@
       you wish to use is stored as a character, use the hb_BCode() function
       to convert it.
    $EXAMPLES$
-      ft_Poke( 0, 0x417, 0x40 )  // Turn CapsLock on (MS-DOS)
+      ? ft_Poke( 0, 0x417, 0x40 )  // Turn CapsLock on (MS-DOS)
    $END$
  */

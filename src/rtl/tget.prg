@@ -980,7 +980,7 @@ METHOD setPos( nPos ) CLASS Get
 
          CASE nPos > 0
 
-            /* NOTE: CA-Cl*pper has a bug where negative nPos value will be translated to 16bit unsigned int,
+            /* NOTE: CA-Cl*pper has a bug where negative nPos value will be translated to 16-bit unsigned int,
                      so the behaviour will be different in this case. [vszakats] */
 
             FOR tmp := nPos TO ::nMaxLen
@@ -1869,7 +1869,7 @@ METHOD setMinus( lMinus ) CLASS Get
 
    RETURN .F.
 
-/* NOTE: CA-Cl*pper has a bug where negative nRow value will be translated to 16bit unsigned int,
+/* NOTE: CA-Cl*pper has a bug where negative nRow value will be translated to 16-bit unsigned int,
          so the behaviour will be different in this case. [vszakats] */
 
 METHOD getRow() CLASS Get
@@ -1878,7 +1878,7 @@ METHOD getRow() CLASS Get
 METHOD setRow( nRow ) CLASS Get
    RETURN ::nRow := iif( HB_ISNUMERIC( nRow ), Int( nRow ), 0 )
 
-/* NOTE: CA-Cl*pper has a bug where negative nCol value will be translated to 16bit unsigned int,
+/* NOTE: CA-Cl*pper has a bug where negative nCol value will be translated to 16-bit unsigned int,
          so the behaviour will be different in this case. [vszakats] */
 
 METHOD getCol() CLASS Get

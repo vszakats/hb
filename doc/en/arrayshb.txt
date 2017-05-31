@@ -32,14 +32,11 @@
       CA-Cl*pper v5.x compliant except that arrays in Harbour can have
       an unlimited number of elements.
    $EXAMPLES$
-      PROCEDURE Main()
-         LOCAL aArray := Array( 10 )
-         LOCAL x
-         FOR x := 1 TO Len( aArray )
-            aArray[ x ] := Array( x )
-         NEXT
-         // Result is: { { NIL }, { NIL, NIL }, ... }
-         RETURN
+      LOCAL aArray := Array( 10 ), tmp
+      FOR tmp := 1 TO Len( aArray )
+         aArray[ tmp ] := Array( tmp )
+      NEXT
+      ? hb_ValToExp( aArray )  // --> { { NIL }, { NIL, NIL }, ... }
    $STATUS$
       R
    $COMPLIANCE$
@@ -81,13 +78,12 @@
       <xValue> may be of an data type, including an array reference pointer,
       which in turn may be stored to an array's subscript position.
    $EXAMPLES$
-      LOCAL aArray := {}
-      LOCAL x
+      LOCAL aArray := {}, tmp
       AAdd( aArray, 10 )
-      FOR x := 1 TO 10
-         AAdd( aArray, x )
+      FOR tmp := 1 TO 10
+         AAdd( aArray, tmp )
       NEXT
-      // Result is: { 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }
+      ? hb_ValToExp( aArray )  // --> { 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }
    $STATUS$
       R
    $COMPLIANCE$
@@ -130,9 +126,12 @@
       are removed from the end of array. If the length of the array is lengthened
       the new elements are added to the end of array and they are assigned a NIL value.
    $EXAMPLES$
-      LOCAL aArray := { 1 }      // Result: aArray is { 1 }
-      ASize( aArray, 3 )         // Result: aArray is { 1, NIL, NIL }
-      ASize( aArray, 1 )         // Result: aArray is { 1 }
+      LOCAL aArray := { 1 }
+      ? hb_ValToExp( aArray )  // --> { 1 }
+      ASize( aArray, 3 )
+      ? hb_ValToExp( aArray )  // --> { 1, NIL, NIL }
+      ASize( aArray, 1 )
+      ? hb_ValToExp( aArray )  // --> { 1 }
    $STATUS$
       R
    $COMPLIANCE$
@@ -169,7 +168,7 @@
       named <aArray>. Same as `xValue := aArray[ Len( aArray ) ]`
    $EXAMPLES$
       LOCAL aArray := { "Harbour", "is", "Supreme", "Power" }
-      ? ATail( aArray ) // Result is "Power"
+      ? ATail( aArray )  // --> "Power"
    $STATUS$
       R
    $COMPLIANCE$
@@ -219,6 +218,7 @@
    $EXAMPLES$
       LOCAL aArray := { "Harbour", "is", "Power!", "!!!" }
       AIns( aArray, 4 )
+      ? hb_ValToExp( aArray )
    $STATUS$
       R
    $COMPLIANCE$
@@ -269,8 +269,10 @@
       will be lost.
    $EXAMPLES$
       LOCAL aArray := { "Harbour", "Power!" }
-      hb_AIns( aArray, 2,  "is", .F. ) // --> { "Harbour", "is" }
-      hb_AIns( aArray, 2,  "is", .T. ) // --> { "Harbour", "is", "Power!" }
+      hb_AIns( aArray, 2, "is", .F. )
+      ? hb_ValToExp( aArray )  // --> { "Harbour", "is" }
+      hb_AIns( aArray, 2, "is", .T. )
+      ? hb_ValToExp( aArray )  // --> { "Harbour", "is", "Power!" }
    $STATUS$
       R
    $COMPLIANCE$
@@ -317,7 +319,8 @@
       you can use hb_ADel() that supports auto-sizing.
    $EXAMPLES$
       LOCAL aArray := { "Harbour", "is", "Power" }
-      ADel( aArray, 2 ) // Result: aArray is { "Harbour", "Power", NIL }
+      ADel( aArray, 2 )
+      ? hb_ValToExp( aArray )  // --> { "Harbour", "Power", NIL }
    $STATUS$
       R
    $COMPLIANCE$
@@ -364,8 +367,10 @@
       just like in ADel().
    $EXAMPLES$
       LOCAL aArray := { "Harbour", "is", "Power" }
-      hb_ADel( aArray, 2 ) // Result: aArray is { "Harbour", "Power", NIL } - array length: 3 (unchanged)
-      hb_ADel( aArray, 2, .T. ) // Result: aArray is { "Harbour", "Power" } - array length: 2 (decreased)
+      hb_ADel( aArray, 2 )
+      ? hb_ValToExp( aArray )  // --> { "Harbour", "Power", NIL } - length unchanged
+      hb_ADel( aArray, 2, .T. )
+      ? hb_ValToExp( aArray )  // --> a{ "Harbour", "Power" } - length decreased
    $STATUS$
       R
    $COMPLIANCE$
@@ -418,8 +423,9 @@
       those values will be lost, since this function will overwrite those
       values with new values.
    $EXAMPLES$
-      LOCAL aTest := { NIL, 0, 1, 2 }
-      AFill( aTest, 5 )
+      LOCAL aArray := { NIL, 0, 1, 2 }
+      AFill( aArray, 5 )
+      ? hb_ValToExp( aArray )
    $STATUS$
       R
    $COMPLIANCE$
@@ -474,8 +480,10 @@
       will continue until the value obtained from the code block is a
       logical true (.T.) or until the end of the array has been reached.
    $EXAMPLES$
+      #include "directry.ch"
       LOCAL aDir := hb_vfDirectory( "*.prg" )
-      AScan( aDir,,, {| x, y | x[ 1 ] := "test.prg", HB_SYMBOL_UNUSED( y ) } )
+      ? AScan( aDir,,, ;
+         {| aFile, nPos | HB_SYMBOL_UNUSED( nPos ), aFile[ F_NAME ] == "test.prg" } )
    $STATUS$
       R
    $COMPLIANCE$
@@ -528,13 +536,11 @@
       When <xSearch> is a code block, the operation of the function
       is slightly different. See AScan() for details.
    $EXAMPLES$
-      PROCEDURE Main()
-         LOCAL a := { "there", "here" }
-         ? AScan( a, "he" ) // --> 2
-         ? hb_AScan( a, "he",,,.F.) // --> 2
-         ? hb_AScan( a, "he",,,.T.) // --> 0
-         WAIT
-         RETURN
+      LOCAL a := { "there", "here" }
+      Set( _SET_EXACT, .F. )
+      ? AScan( a, "he" )            // --> 2
+      ? hb_AScan( a, "he",,, .F. )  // --> 2
+      ? hb_AScan( a, "he",,, .T. )  // --> 0
    $STATUS$
       R
    $COMPLIANCE$
@@ -587,17 +593,14 @@
       thus any change being made to this value doesn't  affects the value of
       element in the array.
    $EXAMPLES$
-      PROCEDURE Main()
-         LOCAL a := { 10, 20, 30 }
-         AEval( a, {| e, n | QOut( e * n + 1 , a[ n ] ) } )
-         QOut( a[ 1 ], a[ 2 ], a[ 3 ] )  // array elements unchanged
-         ? "----"
-         AEval( a, {| e, n | QOut( e * n + 1, a[ n ] *= n + 1 ) }, 2, 1 )
-         // here the 2nd element been changed, because we've explicitly used
-         // its pointer 'a[ n ] *= ...' into array.
-         QOut( a[ 1 ], a[ 2 ], a[ 3 ] )
-         WAIT
-         RETURN
+      LOCAL a := { 10, 20, 30 }
+      AEval( a, {| e, n | QOut( e * n + 1 , a[ n ] ) } )
+      ? a[ 1 ], a[ 2 ], a[ 3 ]  // array elements unchanged
+      ? "----"
+      AEval( a, {| e, n | QOut( e * n + 1, a[ n ] *= n + 1 ) }, 2, 1 )
+      /* Here the 2nd element been changed, because we've explicitly used
+         its pointer 'a[ n ] *= ...' into array */
+      ? a[ 1 ], a[ 2 ], a[ 3 ]
    $STATUS$
       R
    $COMPLIANCE$
@@ -660,11 +663,11 @@
       subscript positions to the target array, the size of the target
       array <aTarget> remains constant.
    $EXAMPLES$
-      LOCAL nCount := 2, nStart := 1, aOne, aTwo
-      aOne := { "Harbour", " is ", "Power" }
-      aTwo := { "Clipper", " was ", "Power" }
+      LOCAL nCount := 2, nStart := 1
+      LOCAL aOne := { "Harbour", " is ", "Power" }
+      LOCAL aTwo := { "Clipper", " was ", "Power" }
       ACopy( aOne, aTwo, nStart, nCount )
-      // aTwo --> { "Harbour", " is ", "Power" }
+      ? hb_ValToExp( aTwo )  // --> { "Harbour", " is ", "Power" }
    $STATUS$
       R
    $COMPLIANCE$
@@ -702,13 +705,12 @@
       a complete set of arrays values for all dimensions within the
       original array <aSource>
    $EXAMPLES$
-      LOCAL aOne, aTwo
-      aOne := { "Harbour", " is ", "POWER" }
-      aTwo := AClone( aOne )       // Result: aTwo is { "Harbour", " is ", "POWER" }
+      LOCAL aOne := { "Harbour", " is ", "POWER" }
+      LOCAL aTwo := AClone( aOne )
+      ? hb_ValToExp( aTwo )  // --> { "Harbour", " is ", "POWER" }
       aOne[ 1 ] := "The Harbour Compiler"
-      // Result:
-      // aOne is { "The Harbour Compiler", " is ", "POWER" }
-      // aTwo is { "Harbour", " is ", "POWER" }
+      ? hb_ValToExp( aOne )  // --> { "The Harbour Compiler", " is ", "POWER" }
+      ? hb_ValToExp( aTwo )  // --> { "Harbour", " is ", "POWER" }
    $STATUS$
       R
    $COMPLIANCE$
@@ -767,18 +769,23 @@
       Codeblock calling frequency and order differs from CA-Cl*pper, since
       Harbour uses a different (faster) sorting algorithm (quicksort).
    $EXAMPLES$
-      // sort numeric values in ascending order
-      ASort( { 3, 1, 4, 42, 5, 9 } )     // result: { 1, 3, 4, 5, 9, 42 }
+      LOCAL aKeys, bSort, aPair
 
-      // sort character strings in descending lexical order
+      // Sort numeric values in ascending order
+      aKeys := { 3, 1, 4, 42, 5, 9 }
+      ASort( aKeys )
+      ? hb_ValToExp( aKeys )  // --> { 1, 3, 4, 5, 9, 42 }
+
+      // Sort character strings in descending lexical order
       aKeys := { "Ctrl", "Alt", "Delete" }
       bSort := {| x, y | Upper( x ) > Upper( y ) }
-      ASort( aKeys,,, bSort )      // result: { "Delete", "Ctrl", "Alt" }
+      ASort( aKeys,,, bSort )
+      ? hb_ValToExp( aKeys )  // --> { "Delete", "Ctrl", "Alt" }
 
-      // sort two-dimensional array according to 2nd element of each pair
+      // Sort two-dimensional array according to 2nd element of each pair
       aPair := { { "Sun", 8 }, { "Mon", 1 }, { "Tue", 57 }, { "Wed", -6 } }
       ASort( aPair,,, {| x, y | x[ 2 ] < y[ 2 ] } )
-      // result: { { "Wed", -6 }, { "Mon", 1 }, { "Sun", 8 }, { "Tue", 57 } }
+      ? hb_ValToExp( aPair )  // --> { { "Wed", -6 }, { "Mon", 1 }, { "Sun", 8 }, { "Tue", 57 } }
    $STATUS$
       R
    $COMPLIANCE$

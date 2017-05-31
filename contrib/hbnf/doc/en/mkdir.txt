@@ -19,8 +19,9 @@
       application.  It might be especially useful in an installation
       program.
    $EXAMPLES$
-      ? ft_MkDir( "harbour" )
-      ? ft_MkDir( hb_ps() + "example" )
-      ? ft_MkDir( ".." + hb_ps() + "source" )
+      ? ft_MkDir( "mydir" )
+      ? ft_MkDir( hb_DirSepToOS( "/mydir" ) )
+      ? ft_MkDir( hb_DirSepToOS( "./mydir" ) )
+      ? ft_MkDir( hb_DirSepToOS( "../mydir" ) )
    $END$
  */

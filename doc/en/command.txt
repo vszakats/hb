@@ -50,6 +50,8 @@
       and Delegating, and is largely compatible with Class(y)(tm), TopClass(tm)
       and Visual Objects(tm).
    $EXAMPLES$
+      #include "hbclass.ch"
+
       CREATE CLASS TBColumn
 
          VAR Block      // Code block to retrieve data for the column
@@ -67,6 +69,9 @@
          METHOD New()    // Constructor
 
       ENDCLASS
+
+      METHOD New() CLASS TBColumn
+         RETURN Self
    $STATUS$
       R
    $COMPLIANCE$
@@ -133,6 +138,8 @@
       VAR can be a synonym for VAR, or it can use a slightly different
       syntax for compatibility with other dialects.
    $EXAMPLES$
+      #include "hbclass.ch"
+
       CREATE CLASS TBColumn
 
          VAR Block      // Code block to retrieve data for the column
@@ -150,6 +157,9 @@
          METHOD New()   // Constructor
 
       ENDCLASS
+
+      METHOD New() CLASS TBColumn
+         RETURN Self
    $STATUS$
       R
    $COMPLIANCE$
@@ -197,6 +207,7 @@
       Use the `INIT <uValue>` clause to initialize that `VAR` to <uValue>
       whenever the class is first used.
    $EXAMPLES$
+      #include "hbclass.ch"
       CREATE CLASS TWindow
          VAR   hWnd, nOldProc
          CLASS VAR lRegistered AS LOGICAL
@@ -289,12 +300,14 @@
                    Use this syntax only for defining a full method after
                    the ENDCLASS command.
    $EXAMPLES$
+      // FIXME
+      #include "hbclass.ch"
       CREATE CLASS TWindow
          VAR    hWnd, nOldProc
          METHOD New() CONSTRUCTOR
          METHOD Capture() INLINE  SetCapture( ::hWnd )
          METHOD End() BLOCK  {| Self, lEnd | iif( lEnd := ::lValid(), ;
-            ::PostMsg( WM_CLOSE ), ), lEnd }
+            ::PostMsg( "close" ), ), lEnd }
          METHOD EraseBkGnd( hDC )
          METHOD cTitle( cNewTitle ) SETGET
          METHOD Close() VIRTUAL
@@ -302,8 +315,8 @@
 
       METHOD New() CLASS TWindow
          LOCAL nVar, cStr
-         ... <code> ...
-         ... <code> ...
+         // ... <code> ...
+         // ... <code> ...
          RETURN Self
    $STATUS$
       R
@@ -357,6 +370,8 @@
       to call `::xBeginPaint()`.  This is then free to call the public
       function BeginPaint().
    $EXAMPLES$
+      // FIXME
+      #include "hbclass.ch"
       CREATE CLASS TWindow
          VAR    hWnd, nOldProc
          METHOD New() CONSTRUCTOR
@@ -396,9 +411,14 @@
       `ERROR HANDLER` names the method that should handle errors for the
       class being defined.
    $EXAMPLES$
+      #include "hbclass.ch"
+
       CREATE CLASS TWindow
          ERROR HANDLER MyErrHandler()
       ENDCLASS
+
+      METHOD MyErrHandler() CLASS TWindow
+         RETURN Self
    $STATUS$
       R
    $COMPLIANCE$
@@ -434,9 +454,14 @@
       It names the method that should handle errors for the
       class being defined.
    $EXAMPLES$
+      #include "hbclass.ch"
+
       CREATE CLASS TWindow
          ON ERROR MyErrHandler()
       ENDCLASS
+
+      METHOD MyErrHandler() CLASS TWindow
+         RETURN Self
    $STATUS$
       R
    $COMPLIANCE$
@@ -469,6 +494,7 @@
       ENDCLASS marks the end of a class declaration.
       It is usually followed by the class methods that are not INLINE.
    $EXAMPLES$
+      #include "hbclass.ch"
       CREATE CLASS TWindow
          VAR hWnd, nOldProc
       ENDCLASS

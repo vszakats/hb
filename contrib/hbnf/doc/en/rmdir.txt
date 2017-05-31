@@ -21,8 +21,9 @@
       This function is useful if you need to remove a subdirectory for
       some reason.
    $EXAMPLES$
-      ? ft_RmDir( "harbour" )
-      ? ft_RmDir( hb_ps() + "example" )
-      ? ft_RmDir( ".." + hb_ps() + "source" )
+      ? ft_RmDir( "mydir" )
+      ? ft_RmDir( hb_DirSepToOS( "/mydir" ) )
+      ? ft_RmDir( hb_DirSepToOS( "./mydir" ) )
+      ? ft_RmDir( hb_DirSepToOS( "../mydir" ) )
    $END$
  */

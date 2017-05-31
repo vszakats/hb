@@ -8,7 +8,7 @@
 # localtime_r, gmtime_r
 #-c=gnu90
 
--depurlbase=minizip:http://zlib.net/
+-depurlbase=minizip:https://zlib.net/
 -depurlbase=minizip:http://winimage.com/zLibDll/minizip.html
 -deppkgname=minizip:libminizip-dev{deb}
 -deppkgname=minizip:minizip-devel{rpm}
@@ -27,7 +27,7 @@
 -depfinish=minizip
 
 # This is a dependency of minizip
--depurlbase=zlib:http://zlib.net/
+-depurlbase=zlib:https://zlib.net/
 -deppkgname=zlib:mingw-w64-i686-zlib{msys2&mingw}
 -deppkgname=zlib:mingw-w64-x86_64-zlib{msys2&mingw64}
 -depkeyhead=zlib:zlib.h

@@ -10,7 +10,7 @@
    $ARGUMENTS$
       <cPath> is the directory where you want to create the temporary
       file.  If you omit this argument, the root of the current drive
-      is assumed ("\").
+      is assumed.
 
       If <lHide> is .T., then the file will be created with the hidden
       attribute set.  The default is .F.

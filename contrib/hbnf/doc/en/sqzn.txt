@@ -18,10 +18,9 @@
       stored in the database.  The compression is 50% the storage space
       of the original number.  The companion function, ft_Unsqzn() returns
       the original number from the compressed string.
-
    $EXAMPLES$
-      TRANS->cust_id := ft_Sqzn( mcust_id, 8 )
-      TRANS->amount  := ft_Sqzn( mamount, 12, 2 )
+      ? hb_StrToHex( ft_Sqzn( 12345678, 8 ) )
+      ? hb_StrToHex( ft_Sqzn( 123.45, 12, 2 ) )
    $SEEALSO$
       ft_Unsqzn()
    $END$
@@ -52,10 +51,9 @@
 
       This function, along with ft_Sqzn() can be used to reduce disk storage
       requirements for numeric fields in a database file.
-
    $EXAMPLES$
-      ? ft_Unsqzn( field->cust_id, 8 )
-      ? ft_Unsqzn( field->amount, 12, 2 )
+      ? ft_Unsqzn( ft_Sqzn( 12345678, 8 ), 8 )
+      ? ft_Unsqzn( ft_Sqzn( 123.45, 12, 2 ), 12, 2 )
    $SEEALSO$
       ft_Sqzn()
    $END$

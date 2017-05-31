@@ -28,8 +28,6 @@
       and Mark Zechiel; it was re-written in C (and thus, optimized
       and enhanced) by Robert DiFalco.
    $EXAMPLES$
-      PROCEDURE Main( cStr )
-         ? ft_Proper( cStr )
-         RETURN
+      ? ft_Proper( "hello world" )
    $END$
  */

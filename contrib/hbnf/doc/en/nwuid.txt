@@ -31,11 +31,13 @@
       The behavior is undefined if no shell is loaded. You'll usually get
       garbage.  This function has not been tested on NetWare 386.
    $EXAMPLES$
+      LOCAL cUid, x
+
       ? "I am:", ft_NWUID()
 
       FOR x := 1 TO 100
          cUid := ft_NWUID( x )
-         IF ! Empty( cUid )
+         IF ! cUid == ""
             ? Str( x, 3 ), cUid
          ENDIF
       NEXT

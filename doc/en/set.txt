@@ -336,7 +336,7 @@
                    Specifies a path of directories to search through to
                    locate a file that can't be located in the DEFAULT
                    directory. Defaults to no path `""`. Directories must
-                   be separated by a semicolon (e.g., `C:\hb\bin;C:\hb\tests`).
+                   be separated by a semicolon (e.g., `/hb/bin;/hb/tests`).
 
               `_SET_PRINTER`     <lFlag> | <cOnOff>
 
@@ -451,11 +451,13 @@
       `SET FUNCTION` command is preprocessed into __SetFunction() function
       during compile time.
    $EXAMPLES$
-      // Set F1 with a string
+      #include "inkey.ch"
+      LOCAL cTest, GetList := {}
+      // Associate <F1> with a string
+      __SetFunction( 1, "I Am Lazy" + Chr( K_ENTER ) )
       CLS
-      __SetFunction( 1, "I Am Lazy" + Chr( 13 ) )
       cTest := Space( 20 )
-      @ 10, 0 SAY "type something or <F1> for lazy mode " GET cTest
+      @ 10, 0 SAY "type something or <F1> for lazy mode" GET cTest
       READ
       ? cTest
    $STATUS$
@@ -512,18 +514,20 @@
       `SET FUNCTION` command is preprocessed into __SetFunction() function
       during compile time.
    $EXAMPLES$
-      // Set F1 with a string
+      #include "inkey.ch"
+      LOCAL cTest, GetList := {}
+      // Associate <F1> with a string
+      SET FUNCTION 1 TO "I Am Lazy" + Chr( K_ENTER )
       CLS
-      SET FUNCTION 1 TO "I Am Lazy" + Chr( 13 )
       cTest := Space( 20 )
-      @ 10, 0 SAY "type something or F1 for lazy mode " GET cTest
+      @ 10, 0 SAY "type something or <F1> for lazy mode" GET cTest
       READ
       ? cTest
    $STATUS$
       R
    $COMPLIANCE$
-      Harbour use 11 and 12 to represent F11 and F12, while CA-Cl*pper use
-      11 and 12 to represent Shift-F1 and Shift-F2.
+      Harbour use 11 and 12 to represent <F11> and <F12>, while CA-Cl*pper use
+      11 and 12 to represent <Shift+F1> and <Shift+F2>.
    $PLATFORMS$
       All
    $SEEALSO$
@@ -562,17 +566,21 @@
       A group of keys may be assigned the same code block/condition block
       by using an array of key values in place on the first parameter.
    $EXAMPLES$
+      #include "getexit.ch"
+      #include "inkey.ch"
       LOCAL bOldF10 := SetKey( K_F10, {|| Yahoo() } )
-      ... // some other processing
+      LOCAL bBlock
+      // some other processing ...
       SetKey( K_F10, bOldF10 )
-      ... // some other processing
+      // some other processing ...
       bBlock := SetKey( K_SPACE )
-      IF bBlock != NIL ...
+      IF bBlock != NIL  // ...
 
-      // make F10 exit current get, but only if in a get - ignores other
-      // wait-states such as menus, achoices, etc...
-      SetKey( K_F10, {|| GetActive():State := GE_WRITE },;
-       {|| GetActive() != NIL } )
+         // make <F10> exit current get, but only if in a get - ignores other
+         // wait states such as menus, achoices, etc...
+         SetKey( K_F10, {|| GetActive():State := GE_WRITE }, ;
+            {|| GetActive() != NIL } )
+      ENDIF
    $STATUS$
       R
    $COMPLIANCE$
@@ -613,9 +621,10 @@
       a key, and optionally assigns the condition-block to the
       return-parameter
    $EXAMPLES$
+      #include "inkey.ch"
       LOCAL bOldF10, bOldF10Cond
       bOldF10 := hb_SetKeyGet( K_F10, @bOldF10Cond )
-      ... // some other processing
+      // some other processing ...
       SetKey( K_F10, bOldF10, bOldF10Cond )
    $STATUS$
       R
@@ -657,7 +666,7 @@
       or the value of NIL to clear the current list.
    $EXAMPLES$
       LOCAL aKeys := hb_SetKeySave( NIL )  // removes all current set=keys
-      ... // some other processing
+      // some other processing ...
       hb_SetKeySave( aKeys )
    $STATUS$
       R
@@ -703,15 +712,17 @@
       functionality for such functions as AChoice(), dbEdit(), MemoEdit(),
       ACCEPT, INPUT, READ, and WAIT
    $EXAMPLES$
+      // FIXME
+      #include "inkey.ch"
       // within ReadModal()
       IF hb_SetKeyCheck( K_ALT_X, GetActive() )
-         ... // some other processing
+         // some other processing ...
       ENDIF
       // within TBrowse handler
       CASE hb_SetKeyCheck( nInkey, oTBrowse )
          RETURN
       CASE nInKey == K_ESC
-         ... // some other processing
+         // some other processing ...
    $STATUS$
       R
    $COMPLIANCE$
@@ -753,17 +764,21 @@
       A group of keys may be assigned the same code block/condition block
       by using an array of key values in place on the first parameter.
    $EXAMPLES$
+      #include "getexit.ch"
+      #include "inkey.ch"
       LOCAL bOldF10 := SetKey( K_F10, {|| Yahoo() } )
-      ... // some other processing
+      LOCAL bBlock
+      // some other processing ...
       SET KEY K_F10 TO bOldF10
-      ... // some other processing
+      // some other processing ...
       bBlock := SetKey( K_SPACE )
-      IF bBlock != NIL ...
+      IF bBlock != NIL  // ...
 
-         // make F10 exit current get, but only if in a get - ignores other
+         // make <F10> exit current get, but only if in a get - ignores other
          // wait-states such as menus, achoices, etc...
          SetKey( K_F10, {|| GetActive():State := GE_WRITE }, ;
             {|| GetActive() != NIL } )
+      ENDIF
    $STATUS$
       R
    $COMPLIANCE$
@@ -835,7 +850,7 @@
       This is an internal undocumented CA-Cl*pper function, which will
       try to call the user defined function HELP() if it is defined
       in the current application. This is the default SetKey() handler
-      for the F1 key.
+      for the <F1> key.
    $STATUS$
       R
    $COMPLIANCE$
@@ -868,7 +883,8 @@
       parameters with this command will default the operation to the
       current logged drive and directory.
    $EXAMPLES$
-      SET DEFAULT TO C:\hb\tests
+      SET DEFAULT TO /hb/tests
+      Set( _SET_DEFAULT, hb_DirSepToOS( "/hb/tests" ) )
    $STATUS$
       R
    $COMPLIANCE$
@@ -901,7 +917,7 @@
       value of the logical expression <lWrap> is a logical false (.F.),
       the wrapping mode is set OFF; otherwise, it is set ON.
    $EXAMPLES$
-      See tests/menuto.prg
+      // See tests/menuto.prg
    $STATUS$
       R
    $COMPLIANCE$
@@ -981,7 +997,8 @@
       search hierarchy is: 1 Current drive and directory, 2 The `SET DEFAULT`
       path; 3 The `SET PATH` path.
    $EXAMPLES$
-      SET PATH TO C:\hb\tests
+      SET PATH TO /hb/tests
+      Set( _SET_PATH, hb_DirSepToOS( "/hb/tests" ) )
    $STATUS$
       R
    $COMPLIANCE$
@@ -1294,7 +1311,7 @@
       SET PRINTER ON
       SET PRINTER TO LPT1
       ? 25141251 / 362
-      SET PRINTER .F.
+      SET PRINTER ( .F. )
    $STATUS$
       R
    $COMPLIANCE$
@@ -1444,6 +1461,7 @@
       If <lBell> is a logical true (.T.), the bell will be turned
       ON; otherwise, the bell will be turned off.
    $EXAMPLES$
+      LOCAL cDummy, GetList := {}
       SET BELL ON
       cDummy := Space( 20 )
       @ 3, 2 GET cDummy
@@ -1586,7 +1604,7 @@
       This function removes a SET listener callback function.
    $EXAMPLES$
       int handle = hb_setListenerAdd( callback_function );
-      ...
+      /* ... */
       hb_setListenerRemove( handle );
    $STATUS$
       R

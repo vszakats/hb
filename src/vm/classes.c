@@ -390,7 +390,7 @@ static HB_USHORT hb_clsBucketPos( PHB_DYNS pMsg, HB_USHORT uiMask )
     */
 
    /* Using continuous symbol numbers we are 100% sure that we will cover
-    * the whole 16bit area and we will never have any problems until number
+    * the whole 16-bit area and we will never have any problems until number
     * of symbols is limited to 2^16. [druzus]
     */
    return ( pMsg->uiSymNum & uiMask ) << BUCKETBITS;
@@ -1618,7 +1618,7 @@ static HB_ISIZ hb_clsSenderOffset( void )
       {
          nOffset = hb_stackItem( nOffset )->item.asSymbol.stackstate->nBaseItem;
 
-         /* I do not like it but Class(y) makes sth like that. [druzus] */
+         /* I do not like it but Class(y) makes something like that. [druzus] */
          while( nOffset > 0 &&
                 hb_stackItem( nOffset )->item.asSymbol.stackstate->uiClass == 0 )
             nOffset = hb_stackItem( nOffset )->item.asSymbol.stackstate->nBaseItem;

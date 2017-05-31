@@ -32,7 +32,7 @@ Assign to: <nobody>
 Detail...: Add NETRDD - meta RDD which will allow transport layer
            between client application and server application with any
            other chosen RDD driver. Idea similar to GTNET but for RDD
-           drivers - it's sth like ADS does.
+           drivers - it's something like ADS does.
 Status...: Open.
 
 ***

@@ -15,9 +15,9 @@
       This function returns an array with all the months names in the
       selected current language.
    $EXAMPLES$
-      aMonths := AMonths()
-      ? aMonths[ 1 ]  // -> January
-      ? aMonths[ 1 ]  // -> Enero (if the selected language is Spanish)
+      LOCAL aMonths := AMonths()
+      ? aMonths[ 1 ]  // --> January
+      ? aMonths[ 1 ]  // --> Enero (if the selected language is Spanish)
    $STATUS$
       R
    $COMPLIANCE$
@@ -48,9 +48,9 @@
       This function returns an array with all the days names in the
       selected current language.
    $EXAMPLES$
-      aDays := ADays()
-      ? aDays[ 1 ]  // -> Sunday
-      ? aDays[ 1 ]  // -> Domingo (if the selected language is Spanish)
+      LOCAL aDays := ADays()
+      ? aDays[ 1 ]  // --> Sunday
+      ? aDays[ 1 ]  // --> Domingo (if the selected language is Spanish)
    $STATUS$
       R
    $COMPLIANCE$
@@ -81,8 +81,8 @@
       This function returns true if the given date is a leap year and
       false if isn't.
    $EXAMPLES$
-      ? IsLeapYear( hb_SToD( "20000101" ) )  // -> .T.
-      ? IsLeapYear( hb_SToD( "20010101" ) )  // -> .F.
+      ? IsLeapYear( 0d20000101 )  // --> .T.
+      ? IsLeapYear( 0d20010101 )  // --> .F.
    $STATUS$
       R
    $COMPLIANCE$
@@ -112,8 +112,8 @@
    $DESCRIPTION$
       This function returns the number of days of the given date month.
    $EXAMPLES$
-      ? hbmisc_DaysInMonth( hb_SToD( "20000101" ) )  // -> 31
-      ? hbmisc_DaysInMonth( hb_SToD( "20000201" ) )  // -> 29
+      ? hbmisc_DaysInMonth( 0d20000101 )  // --> 31
+      ? hbmisc_DaysInMonth( 0d20000201 )  // --> 29
    $STATUS$
       R
    $COMPLIANCE$
@@ -146,8 +146,8 @@
       It returns the week number in ISO format (range 0 - 52, by default
       or passing TRUE as second parameter) or 1 - 52 if <lIso> is FALSE.
    $EXAMPLES$
-      ? WoY( hb_SToD( "20000131" ) )  // -> 3
-      ? WoY( hb_SToD( "20000131" ), .F. )  // -> 4
+      ? WoY( 0d20000131 )       // --> 3
+      ? WoY( 0d20000131, .F. )  // --> 4
    $STATUS$
       R
    $COMPLIANCE$

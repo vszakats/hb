@@ -24,9 +24,9 @@
 
       You can print `%` character with `%%`.
    $EXAMPLES$
-      StrFormat( "Please insert disk %1 to drive %2", hb_ntos( 2 ), "A:" )
-      StrFormat( "This is %1 from %2", "John", "Earth" )
-      StrFormat( "%2 %1 %2", "Param1", "Param2" )
+      ? StrFormat( "Please insert disk %1 to drive %2", hb_ntos( 2 ), "A:" )
+      ? StrFormat( "This is %1 from %2", "John", "Earth" )
+      ? StrFormat( "%2 %1 %2", "Param1", "Param2" )
    $STATUS$
       R
    $COMPLIANCE$

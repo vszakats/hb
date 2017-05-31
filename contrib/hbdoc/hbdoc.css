@@ -1,6 +1,6 @@
 html {
   -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -286,7 +286,6 @@ pre {
   background-color: #f2f2f2;
   color: #2e2a24;
   border: none !important;
-  border-left: 4px solid #aaaaaa !important;
   border-radius: 0 3px 3px 0 !important;
   padding: 8px 16px !important;
   overflow: scroll;
@@ -330,6 +329,10 @@ aside code {
   white-space: pre-wrap;
 }
 
+.d-ex pre {
+  resize: both;
+}
+
 .d-sym pre {
   white-space: pre;
 }
@@ -339,6 +342,64 @@ code code {
   margin: 0 !important;
   padding: 0 !important;
   border: none;
+}
+
+section.d-ex {
+  margin: 0;
+  border: none;
+  padding: 0;
+}
+
+button {
+  background: #49a4ff;
+  cursor: pointer;
+  border: none;
+  padding: 5px;
+  margin-left: 5px;
+  color: #000;
+  border-radius: 4px;
+  font-size: 90%;
+}
+
+button:hover {
+  background: #fff;
+}
+
+section.d-ex > div > pre:first-child {
+  padding-bottom: 40px !important;
+}
+
+.buttons {
+  position: relative;
+  float: right;
+  top: -48px;
+  right: 5px;
+}
+
+div.output {
+  border: none;
+  border-radius: 0 3px 3px 0;
+}
+
+div.output pre {
+  display: inline-block;
+  margin: -20px 0 0 0;
+  padding: 0;
+  background: rgb(39, 40, 34);
+  border: none;
+  width: 95.2%;
+}
+
+div.output .stdout, div.output pre {
+  color: #e6e6e6;
+}
+
+div.output .stderr, div.output .error {
+  color: #ffc8c8;
+}
+
+div.output .system, div.output .exit {
+  color: #ffe678;
 }
 
 .d-it .d-key {

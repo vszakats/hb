@@ -1476,11 +1476,11 @@ STATIC PROCEDURE init_Templates()
 
    hb_HCaseMatch( sc_hFields, .F. )
 
-   #define _T TPL_TEMPLATE
-   #define _R TPL_REQUIRED
-   #define _O TPL_OPTIONAL
-   #define _P TPL_PREFORMATTED
-   #define _U TPL_OUTPUT
+   #define _T  TPL_TEMPLATE
+   #define _R  TPL_REQUIRED
+   #define _O  TPL_OPTIONAL
+   #define _P  TPL_PREFORMATTED
+   #define _U  TPL_OUTPUT
 
    /* The columns of this array correspond to the elements of sc_hFields */
    sc_hTemplates := { ;
@@ -1670,8 +1670,8 @@ FUNCTION hbdoc_SymbolSource( cDir, cName, /* @ */ nLine, /* @ */ cRedir )
    RETURN result[ 1 ]
 
 #if defined( __HBSCRIPT__HBSHELL )
-SET PROCEDURE TO "_genbase.prg"
-SET PROCEDURE TO "_gentxt.prg"
-SET PROCEDURE TO "_genhtml.prg"
-SET PROCEDURE TO "_genxml.prg"
+SET PROCEDURE TO "_base.prg"
+SET PROCEDURE TO "_html.prg"
+SET PROCEDURE TO "_txt.prg"
+SET PROCEDURE TO "_xml.prg"
 #endif

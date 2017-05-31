@@ -592,9 +592,9 @@ CREATE CLASS THtmlNode MODULE FRIENDLY
    METHOD findNodeByTagName
    METHOD findNodesByTagName
 
-   ERROR HANDLER noMessage
+   ERROR HANDLER noMessage( ... )
 
-   METHOD noAttribute
+   METHOD noAttribute( cName, aValue )
 
 ENDCLASS
 

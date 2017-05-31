@@ -17,7 +17,8 @@
       FILTER, FORMAT, FUNCTION, INDEX, KEYS, MODE, ORDER, PROCEDURE,
       RELATION, TYPEAHEAD
    $EXAMPLES$
-      aOldSets := ft_SaveSets()
+      LOCAL aOldSets := ft_SaveSets()
+      ? hb_ValToExp( aOldSets )
    $SEEALSO$
       ft_RestSets(), ft_SetCentury()
    $END$

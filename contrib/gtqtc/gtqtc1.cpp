@@ -1819,7 +1819,7 @@ static void hb_gt_qtc_Tone( PHB_GT pGT, double dFrequency, double dDuration )
    HB_SYMBOL_UNUSED( dFrequency );
    HB_SYMBOL_UNUSED( dDuration );
 
-   /* TODO: add support for sth more advanced then simple system beep */
+   /* TODO: add support for something more advanced then simple system beep */
    QApplication::beep();
 }
 
@@ -2314,6 +2314,7 @@ static HB_BOOL hb_gt_qtc_Info( PHB_GT pGT, int iType, PHB_GT_INFO pInfo )
                {
                   case 0:
                      iDepth = 32;
+                     /* fallthrough */
                   case 32:
                      format = QImage::Format_RGB32;
                      break;

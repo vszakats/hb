@@ -90,10 +90,10 @@ HB_FUNC( COM_CRC )
 
       /* NOTE: warning this function is not bug compatible with CT3.
        *       It fixes few problems in original CT3 implementation
-       *       i.e. it works correctly for 8 bit and smaller polynomials
+       *       i.e. it works correctly for 8-bit and smaller polynomials
        *       instead of returning 0 or supports much larger polynomials
-       *       up to 64bits.
-       *       For 16/17 bit polynomials it gives the same results as CT3
+       *       up to 64-bit.
+       *       For 16/17-bit polynomials it gives the same results as CT3
        *       so for most common usage it should be binary compatible
        *       with CT3. [druzus]
        */

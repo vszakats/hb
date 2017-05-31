@@ -16,7 +16,6 @@
       <nErrorCode> will return any DOS file error.
 
       All arguments are required.
-
    $RETURNS$
       .F. if there was a DOS file error or the array contained
       code blocks, otherwise returns .T.
@@ -31,14 +30,12 @@
       This function does not appear to work with multi-dimensional
       arrays.  If you'd care to modify it to support this feature,
       please do and send it to Glenn Scott 71620,1521.]
-
-
    $EXAMPLES$
-      aArray := { ;
-         { "Invoice 1", hb_SToD( "19910415" ), 1234.32, .T. }, ;
+      LOCAL aArray := { ;
+         { "Invoice 1", 0d19910415, 1234.32, .T. }, ;
          { "Invoice 2", Date(), 234.98, .F. }, ;
          { "Invoice 3", Date() + 1, 0, .T. } }
-      nErrorCode := 0
+      LOCAL nErrorCode := 0, aSave
       ft_SaveArr( aArray, "invoice.dat", @nErrorCode )
       IF nErrorCode == 0
          aSave := ft_RestArr( "invoice.dat", @nErrorCode )
@@ -79,13 +76,12 @@
       This function does not appear to work with multi-dimensional
       arrays.  If you'd care to modify it to support this feature,
       please do and send it to Glenn Scott 71620,1521.]
-
    $EXAMPLES$
-      aArray := { ;
-         { "Invoice 1", hb_SToD( "19910415" ), 1234.32, .T. }, ;
+      LOCAL aArray := { ;
+         { "Invoice 1", 0d19910415, 1234.32, .T. }, ;
          { "Invoice 2", Date(), 234.98, .F. }, ;
          { "Invoice 3", Date() + 1, 0, .T. } }
-      nErrorCode := 0
+      LOCAL nErrorCode := 0, aSave
       ft_SaveArr( aArray, "invoice.dat", @nErrorCode )
       IF nErrorCode == 0
          aSave := ft_RestArr( "invoice.dat", @nErrorCode )

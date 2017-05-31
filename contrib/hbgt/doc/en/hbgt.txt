@@ -28,7 +28,7 @@
       same name.  I changed the behaviour because some of the strings
       I process contain embedded NULs.
    $EXAMPLES$
-      ? gt_AscPos( "the cat sat on the mat", 3 ) // prints e
+      ? hb_BChar( gt_AscPos( "the cat sat on the mat", 3 ) )  // --> "e"
    $STATUS$
       R
    $COMPLIANCE$
@@ -93,8 +93,8 @@
       NOTE:
          invalid parameters will return -1
    $EXAMPLES$
-      ? gt_AtDiff( "the cat", "the rat" )  // prints 5
-      ? gt_AtDiff( "the cat", "the " )     // prints 0
+      ? gt_AtDiff( "the cat", "the rat" )  // --> 5
+      ? gt_AtDiff( "the cat", "the " )     // --> 0
    $STATUS$
       R
    $COMPLIANCE$
@@ -126,7 +126,7 @@
       NOTE:
          invalid parameters will return ""
    $EXAMPLES$
-      ? gt_CharEven( "abcdefghijklm" )  // prints "bdfhjl"
+      ? gt_CharEven( "abcdefghijklm" )  // --> "bdfhjl"
    $STATUS$
       R
    $COMPLIANCE$
@@ -161,9 +161,9 @@
       NOTE:
          invalid parameters will return ""
    $EXAMPLES$
-      ? gt_CharMix( "abc", "123" )    // prints "a1b2c3"
-      ? gt_CharMix( "abcde", "123" )  // prints "a1b2c3de"
-      ? gt_CharMix( "abc", "12345" )  // prints "a1b2c345"
+      ? gt_CharMix( "abc", "123" )    // --> "a1b2c3"
+      ? gt_CharMix( "abcde", "123" )  // --> "a1b2c3de"
+      ? gt_CharMix( "abc", "12345" )  // --> "a1b2c345"
    $STATUS$
       R
    $COMPLIANCE$
@@ -195,7 +195,7 @@
       NOTE:
          invalid parameters will return ""
    $EXAMPLES$
-      ? gt_CharOdd( "abcdefghijklm" )  // prints "acegikm"
+      ? gt_CharOdd( "abcdefghijklm" )  // --> "acegikm"
    $STATUS$
       R
    $COMPLIANCE$
@@ -229,7 +229,7 @@
       NOTE:
          invalid parameters will return -1
    $EXAMPLES$
-      ? gt_ChrCount( "t", "the cat sat on the mat" )  // prints 4
+      ? gt_ChrCount( "t", "the cat sat on the mat" )  // --> 4
    $STATUS$
       R
    $COMPLIANCE$
@@ -261,8 +261,8 @@
       Return the ASCII value of a character in <cChars>
       which appears first in <cStr>.
    $EXAMPLES$
-      ? hb_BChar( gt_ChrFirst( "sa ", "This is a test" ) )  // prints "s"
-      ? hb_BChar( gt_ChrFirst( "et" , "This is a test" ) )  // prints "t"
+      ? hb_BChar( gt_ChrFirst( "sa ", "This is a test" ) )  // --> "s"
+      ? hb_BChar( gt_ChrFirst( "et" , "This is a test" ) )  // --> "t"
    $STATUS$
       R
    $COMPLIANCE$
@@ -298,10 +298,10 @@
       NOTE:
          invalid parameters will return -1
    $EXAMPLES$
-      LOCAL cStr1 := "the cat sat on the mat"
+      LOCAL cString := "the cat sat on the mat"
 
-      ? gt_ChrTotal( "tae", cStr1 )  // prints 10
-      ? gt_ChrTotal( "zqw", cStr1 )  // prints  0
+      ? gt_ChrTotal( "tae", cString )  // --> 10
+      ? gt_ChrTotal( "zqw", cString )  // --> 0
    $STATUS$
       R
    $COMPLIANCE$
@@ -339,7 +339,7 @@
       NOTE:
          invalid parameters will return -1
    $EXAMPLES$
-      ? gt_StrCount( "the", "the cat sat on the mat" )  // prints 2
+      ? gt_StrCount( "the", "the cat sat on the mat" )  // --> 2
    $STATUS$
       R
    $COMPLIANCE$
@@ -370,8 +370,8 @@
       Return the number of characters in the leading segment of a
       string that consists solely of characters NOT in the set.
    $EXAMPLES$
-      ? gt_StrCSPN( "this is a test", "as " )     // prints 3
-      ? gt_StrCSPN( "this is a test", "elnjpq" )  // prints 11
+      ? gt_StrCSPN( "this is a test", "as " )     // --> 3
+      ? gt_StrCSPN( "this is a test", "elnjpq" )  // --> 11
    $STATUS$
       R
    $COMPLIANCE$
@@ -408,8 +408,8 @@
       NOTE:
          invalid parameters will return ""
    $EXAMPLES$
-      ? gt_StrDiff( "the cat", "the rat" )  // prints "rat"
-      ? gt_StrDiff( "the cat", "the " )     // prints ""
+      ? gt_StrDiff( "the cat", "the rat" )  // --> "rat"
+      ? gt_StrDiff( "the cat", "the " )     // --> ""
    $STATUS$
       R
    $COMPLIANCE$
@@ -445,9 +445,9 @@
       NOTE:
          invalid parameters will return ""
    $EXAMPLES$
-      ? gt_StrExpand( "abc" )          // prints "a b c"
-      ? gt_StrExpand( "abc", 2 )       // prints "a  b  c"
-      ? gt_StrExpand( "abc", 2, '|' )  // prints "a||b||c"
+      ? gt_StrExpand( "abc" )          // --> "a b c"
+      ? gt_StrExpand( "abc", 2 )       // --> "a  b  c"
+      ? gt_StrExpand( "abc", 2, '|' )  // --> "a||b||c"
    $STATUS$
       R
    $COMPLIANCE$
@@ -482,9 +482,9 @@
       If no characters in the the search set are found, the function
       shall return 0
    $EXAMPLES$
-      ? gt_StrLeft( "this is a test", "hsit " )  // prints 8
-      ? gt_StrLeft( "this is a test", "hit a" )  // prints 3
-      ? gt_StrLeft( "this is a test", "zxy" )    // prints 0
+      ? gt_StrLeft( "this is a test", "hsit " )  // --> 8
+      ? gt_StrLeft( "this is a test", "hit a" )  // --> 3
+      ? gt_StrLeft( "this is a test", "zxy" )    // --> 0
    $STATUS$
       R
    $COMPLIANCE$
@@ -516,8 +516,8 @@
       Return a string after the first occurrence of any character from
       the input set <cSet>.
    $EXAMPLES$
-      ? gt_StrPBRK( "This is a test", "sa " )  // prints "s is a test"
-      ? gt_StrPBRK( "This is a test", "et" )   // prints "test"
+      ? gt_StrPBRK( "This is a test", "sa " )  // --> "s is a test"
+      ? gt_StrPBRK( "This is a test", "et" )   // --> "test"
    $STATUS$
       R
    $COMPLIANCE$
@@ -552,9 +552,9 @@
       If no characters in the the search set are found, the function
       shall return 0
    $EXAMPLES$
-      ? gt_StrRight( "this is a test", "teas " )  // prints 8
-      ? gt_StrRight( "this is a test", "tes h" )  // prints 5
-      ? gt_StrRight( "this is a test", "zxy" )    // prints 0
+      ? gt_StrRight( "this is a test", "teas " )  // --> 8
+      ? gt_StrRight( "this is a test", "tes h" )  // --> 5
+      ? gt_StrRight( "this is a test", "zxy" )    // --> 0
    $STATUS$
       R
    $COMPLIANCE$
@@ -589,7 +589,7 @@
       may want to allow for future expansion). Each character in the
       string returned from gt_NewFlag() will hold 8 logical values.
    $EXAMPLES$
-      cFlags := gt_NewFlag( 20 )  // Create a bit flag string for 20 logical values.
+      ? hb_StrToHex( gt_NewFlag( 20 ) )  // Create a bit flag string for 20 logical values.
    $SEEALSO$
       gt_SetFlag(), gt_ClrFlag(), gt_IsFlag()
    $END$
@@ -617,17 +617,17 @@
    $DESCRIPTION$
       gt_SetFlag() is used to turn flags within the flag string on.
    $EXAMPLES$
-      cFlags := gt_NewFlag( 20 )  // Create a bit flag string for 20
+      LOCAL cFlags := gt_NewFlag( 20 )  // Create a bit flag string for 20
       // logical values.
 
       // Now set flags 10 to 15 to true.
-      cFlags := gt_SetFlag( cFlags, 10, 15 )
+      ? hb_StrToHex( cFlags := gt_SetFlag( cFlags, 10, 15 ) )
 
       // And set flag 18 to true.
-      cFlags := gt_SetFlag( cFlags, 18 )
+      ? hb_StrToHex( cFlags := gt_SetFlag( cFlags, 18 ) )
 
       // And set flag 1 to true.
-      cFlags := gt_SetFlag( cFlags )
+      ? hb_StrToHex( cFlags := gt_SetFlag( cFlags ) )
    $SEEALSO$
       gt_NewFlag(), gt_ClrFlag(), gt_IsFlag()
    $END$
@@ -655,20 +655,20 @@
    $DESCRIPTION$
       gt_ClrFlag() is used to turn flags within the flag string off.
    $EXAMPLES$
-      cFlags := gt_NewFlag( 20 )  // Create a bit flag string for 20
+      LOCAL cFlags := gt_NewFlag( 20 )  // Create a bit flag string for 20
       // logical values.
 
       // Now, turn them all on.
-      cFlags := gt_SetFlag( cFlags, 1, 20 )
+      ? hb_StrToHex( cFlags := gt_SetFlag( cFlags, 1, 20 ) )
 
       // Now set flags 10 to 15 to false.
-      cFlags := gt_ClrFlag( cFlags, 10, 15 )
+      ? hb_StrToHex( cFlags := gt_ClrFlag( cFlags, 10, 15 ) )
 
       // And set flag 18 to false.
-      cFlags := gt_ClrFlag( cFlags, 18 )
+      ? hb_StrToHex( cFlags := gt_ClrFlag( cFlags, 18 ) )
 
       // And set flag 1 to false.
-      cFlags := gt_ClrFlag( cFlags )
+      ? hb_StrToHex( cFlags := gt_ClrFlag( cFlags ) )
    $SEEALSO$
       gt_NewFlag(), gt_SetFlag(), gt_IsFlag()
    $END$
@@ -694,7 +694,7 @@
       string.
    $EXAMPLES$
       // Print the setting of the flags in a flag string called <cDave>
-
+      LOCAL nFlag
       FOR nFlag := 1 TO hb_BLen( cDave ) * 8
          ? "Flag number", nFlag, "==", gt_IsFlag( cDave, nFlag )
       NEXT
