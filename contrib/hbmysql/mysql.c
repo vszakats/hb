@@ -59,7 +59,12 @@
 #include "mysql.h"
 
 #if ! defined( MYSQL_VERSION_ID )
-   #define MYSQL_VERSION_ID  0
+   #if defined( MARIADB_VERSION_ID )
+      /* Required since MariaDB ~10.2.* */
+      #define MYSQL_VERSION_ID  MARIADB_VERSION_ID
+   #else
+      #define MYSQL_VERSION_ID  0
+   #endif
 #endif
 
 /* NOTE: OS/2 EMX port of MySQL needs libmysqlclient.a from 3.21.33b build which has st and mt
@@ -185,7 +190,7 @@ HB_FUNC( MYSQL_REAL_CONNECT ) /* MYSQL * mysql_real_connect( MYSQL *, char * hos
 
       /* from 3.22.x of MySQL there is a new parameter in mysql_real_connect() call, that is char * db
          which is not used here */
-      if( mysql_real_connect( mysql, szHost, szUser, szPass, 0, port, NULL, flags ) )
+      if( mysql_real_connect( mysql, szHost, szUser, szPass, NULL, port, NULL, flags ) )
          hb_MYSQL_ret( mysql );
       else
       {
