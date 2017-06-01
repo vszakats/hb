@@ -14436,7 +14436,7 @@ STATIC FUNCTION win_implib_command_gcc( hbmk, cCommand, cSourceDLL, cTargetLib, 
    CASE ".nodef"
       cSourceDLL := hb_FNameExtSet( cSourceDLL, ".dll" )
       lNoDefSource := .T.
-      /* fall through */
+      /* fallthrough */
    OTHERWISE
       lDefSource := .F.
       IF ( nResult := win_implib_coff( hbmk, cSourceDLL, cTargetLib ) ) != _HBMK_IMPLIB_NOTFOUND
