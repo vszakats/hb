@@ -85,6 +85,8 @@ before_install:
       if [ "$CC" = 'i686-w64-mingw32-gcc' ]; then
         time brew install p7zip mingw-w64 jq osslsigncode dos2unix gpg coreutils || true
         time brew install --force-bottle --build-bottle wine || true
+        export DISPLAY=:88.0
+        time wineboot
         export MXE_DONT_INSTALL=gcc
       # time ./package/mpkg_win_dl_mxe.sh \
       #   mxe-{i686,x86-64}-w64-mingw32.static-{bzip2,expat,libharu,mxml,libpng,lzo,minizip,pcre,sqlite,zlib}
