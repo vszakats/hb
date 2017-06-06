@@ -22,7 +22,6 @@ typedef struct _HB_MQCONN
 } HB_MQCONN, * PHB_MQCONN;
 
 typedef amqp_envelope_t * PHB_ENVELOPE;
-typedef struct timeval * PHB_TIMEVAL;
 
 static amqp_response_type_enum s_decode_reply( amqp_rpc_reply_t x, char const * context )
 {
