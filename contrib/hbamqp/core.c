@@ -1,10 +1,13 @@
-/* Requires: rabbitmq-c 0.4.0 or upper */
-
 #include "hbapi.h"
 #include "hbapierr.h"
 #include "hbapiitm.h"
 
 #include <amqp.h>
+
+#if ! defined( AMQP_VERSION_MAJOR )
+#error Requires librabbitmq 0.4.0 or upper
+#endif
+
 #include <amqp_framing.h>
 #include <amqp_tcp_socket.h>
 #include <amqp_ssl_socket.h>
@@ -20,7 +23,7 @@
    ( AMQP_VERSION_MINOR == mi && \
      AMQP_VERSION_PATCH >= mu ) ) ) )
 
-/* object destructor, it's executed automatically */
+/* Object destructor, it's executed automatically */
 static HB_GARBAGE_FUNC( hb_amq_connection_Destructor )
 {
    /* Retrieve object pointer holder */
@@ -43,7 +46,7 @@ static const HB_GC_FUNCS s_gc_amq_connection_Funcs =
    hb_gcDummyMark
 };
 
-/* function returns object pointer or NULL when wrong variable is
+/* Function returns object pointer or NULL when wrong variable is
    passed or object was freed before */
 static amqp_connection_state_t hb_par_amq_connection( int iParam )
 {
@@ -52,7 +55,7 @@ static amqp_connection_state_t hb_par_amq_connection( int iParam )
    return ptr ? *ptr : NULL;
 }
 
-/* HB_ENVELOPE destructor, it's executed automatically */
+/* Object destructor, it's executed automatically */
 static HB_GARBAGE_FUNC( hb_amq_envelope_Destructor )
 {
    /* Retrieve object pointer holder */
@@ -77,7 +80,7 @@ static const HB_GC_FUNCS s_gc_amq_envelope_Funcs =
    hb_gcDummyMark
 };
 
-/* function returns object pointer or NULL when wrong variable is
+/* Function returns object pointer or NULL when wrong variable is
    passed or object was freed before */
 static amqp_envelope_t * hb_par_amq_envelope( int iParam )
 {
@@ -86,7 +89,7 @@ static amqp_envelope_t * hb_par_amq_envelope( int iParam )
    return ptr ? *ptr : NULL;
 }
 
-static amqp_response_type_enum s_decode_reply( amqp_rpc_reply_t x, char const * context )
+static amqp_response_type_enum s_decode_reply( amqp_rpc_reply_t x, char const * pszContext )
 {
    switch( x.reply_type )
    {
@@ -94,11 +97,11 @@ static amqp_response_type_enum s_decode_reply( amqp_rpc_reply_t x, char const * 
          break;
 
       case AMQP_RESPONSE_NONE:
-         HB_TRACE( HB_TR_ERROR, ( "amqp - %s: missing RPC reply type!", context ) );
+         HB_TRACE( HB_TR_ERROR, ( "hbamqp: %s: missing RPC reply type", pszContext ) );
          break;
 
       case AMQP_RESPONSE_LIBRARY_EXCEPTION:
-         HB_TRACE( HB_TR_ERROR, ( "amqp - %s: %d %s", context, x.library_error, amqp_error_string2( x.library_error ) ) );
+         HB_TRACE( HB_TR_ERROR, ( "hbamqp: %s: %d %s", pszContext, x.library_error, amqp_error_string2( x.library_error ) ) );
          break;
 
       case AMQP_RESPONSE_SERVER_EXCEPTION:
@@ -107,9 +110,8 @@ static amqp_response_type_enum s_decode_reply( amqp_rpc_reply_t x, char const * 
             case AMQP_CONNECTION_CLOSE_METHOD:
             {
                amqp_connection_close_t * m = ( amqp_connection_close_t * ) x.reply.decoded;
-               HB_TRACE( HB_TR_ERROR, ( "amqp - %s: server connection error %d, message: %.*s",
-                                        context,
-                                        m->reply_code,
+               HB_TRACE( HB_TR_ERROR, ( "hbamqp: %s: server connection error %d, message: %.*s",
+                                        pszContext, m->reply_code,
                                         ( int ) m->reply_text.len, ( const char * ) m->reply_text.bytes ) );
 
                break;
@@ -117,21 +119,19 @@ static amqp_response_type_enum s_decode_reply( amqp_rpc_reply_t x, char const * 
             case AMQP_CHANNEL_CLOSE_METHOD:
             {
                amqp_channel_close_t * m = ( amqp_channel_close_t * ) x.reply.decoded;
-
-               HB_TRACE( HB_TR_ERROR, ( "amqp - %s: server channel error %d, message: %.*s",
-                                        context,
-                                        m->reply_code,
+               HB_TRACE( HB_TR_ERROR, ( "hbamqp: %s: server channel error %d, message: %.*s",
+                                        pszContext, m->reply_code,
                                         ( int ) m->reply_text.len, ( const char * ) m->reply_text.bytes ) );
                break;
             }
             default:
-               HB_TRACE( HB_TR_ERROR, ( "amqp - %s: unrecognized server error, method id 0x%08X", context, x.reply.id ) );
+               HB_TRACE( HB_TR_ERROR, ( "hbamqp: %s: unrecognized server error, method id 0x%X", pszContext, x.reply.id ) );
                break;
          }
          break;
 #if 0
       default:
-         HB_TRACE( HB_TR_ERROR, ( "amqp - %s: unrecognized reply type %d", context, x.reply_type ) );
+         HB_TRACE( HB_TR_ERROR, ( "hbamqp: %s: unrecognized reply type %d", pszContext, x.reply_type ) );
          break;
 #endif
    }
@@ -139,14 +139,14 @@ static amqp_response_type_enum s_decode_reply( amqp_rpc_reply_t x, char const * 
    return x.reply_type;
 }
 
-static int s_decode_status( int status, char const * context )
+static int s_decode_status( int iStatus, char const * pszContext )
 {
-   if( status != AMQP_STATUS_OK )
+   if( iStatus != AMQP_STATUS_OK )
    {
-      HB_TRACE( HB_TR_ERROR, ( "amqp - %s status=%d (%s)", context, status, amqp_error_string2( status ) ) );
+      HB_TRACE( HB_TR_ERROR, ( "amqp - %s status=%d (%s)", pszContext, iStatus, amqp_error_string2( iStatus ) ) );
    }
 
-   return status;
+   return iStatus;
 }
 
 /* Creates a new amqp_connection_state_t object.
