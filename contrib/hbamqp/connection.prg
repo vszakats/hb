@@ -46,8 +46,8 @@ CREATE CLASS AMQPConnection
 
    PROTECTED:
 
-   VAR pConn                       /* PHB_MQCONN * */
-   VAR pSocket     AS POINTER      /* amqp_socket_t * */
+   VAR pConn
+   VAR pSocket     AS POINTER
 
    VAR status      AS NUMERIC      /* AMQP_STATUS_* */
    VAR response    AS NUMERIC      /* AMQP_RESPONSE_* */
