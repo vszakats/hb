@@ -12,14 +12,14 @@ PROCEDURE Main()
    oTest:One   := "hello"
    oTest:Two   := 123
    oTest:Three := "this value is not persistent"
-   oTest:Four  := oTest2   // We store another persistent object here
+   oTest:Four  := oTest2  // Store another persistent object here
    oTest:Four2 := oTest2
 
    oTest2:Five := "some more text"
 
-   ? tmp := oTest:SaveToText()     // We save it to a text
+   ? tmp := oTest:SaveToText()  // Save it to a text
 
-   oTest:SaveToFile( "test.txt" )  // We save it to a file
+   oTest:SaveToFile( hb_FNameExtSet( __FILE__, ".out" ) )  // Save it to a file
 
    tmp := StrTran( tmp, "some more text", "changed text" )
    tmp := StrTran( tmp, "hello", "welcome" )

@@ -219,6 +219,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
     export HB_WITH_GS="${_inc_df}/ghostscript"
     export HB_WITH_ICU="${_inc_df}"
     export HB_WITH_PGSQL="${_inc_df}"
+    export HB_WITH_RABBITMQ="${_inc_df}"
   fi
   printenv | grep -E '^(HB_WITH_|HBMK_WITH_)' | sort
   unset HB_USER_CFLAGS
@@ -265,6 +266,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
     export HB_WITH_GS="${_inc_df}/ghostscript"
     export HB_WITH_ICU="${_inc_df}"
     export HB_WITH_PGSQL="${_inc_df}"
+    export HB_WITH_RABBITMQ="${_inc_df}"
   fi
   printenv | grep -E '^(HB_WITH_|HBMK_WITH_)' | sort
   unset HB_USER_CFLAGS

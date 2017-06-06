@@ -57,7 +57,7 @@ CREATE CLASS AMQPConnection
    VAR password    AS CHARACTER      INIT "guest"
    VAR loginMethod AS NUMERIC        INIT AMQP_SASL_METHOD_PLAIN
 
-   VAR virtualHost AS CHARACTER      INIT ""
+   VAR virtualHost AS CHARACTER      INIT "/"
 
    VAR host        AS CHARACTER      INIT "localhost"
    VAR port        AS NUMERIC        INIT 5672

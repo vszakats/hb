@@ -26,19 +26,25 @@ PROCEDURE Main( cCommand )
 
    RETURN
 
-STATIC PROCEDURE Publish()
+STATIC FUNCTION NewConnection()
 
    LOCAL oConn := AMQPConnection():New()
-
-   LOCAL cData := "Hello, world!"
-   LOCAL cExchange := "amq.direct"
-   LOCAL cRoutingKey := "test-routingkey"
 
    oConn:SetHost( s_cHost )
    oConn:SetPort( s_nPort )
    oConn:SetSSL( s_lSSL )
    oConn:SetAuth( s_cUser, s_cPassword )
    oConn:SetVirtualHost( s_cVirtualHost )
+
+   RETURN oConn
+
+STATIC PROCEDURE Publish()
+
+   LOCAL oConn := NewConnection()
+
+   LOCAL cData := "Hello, world!"
+   LOCAL cExchange := "amq.direct"
+   LOCAL cRoutingKey := "test-routingkey"
 
    IF oConn:Connect() != AMQP_STATUS_OK
       ? "Connect status:", amqp_error_string2( oConn:GetStatus() )
@@ -73,16 +79,10 @@ STATIC PROCEDURE Publish()
 
 STATIC PROCEDURE Consume()
 
-   LOCAL oConn := AMQPConnection():New()
+   LOCAL oConn := NewConnection()
 
-   LOCAL oEnvelope
    LOCAL cQueueName := "test-queue"
-
-   oConn:SetHost( s_cHost )
-   oConn:SetPort( s_nPort )
-   oConn:SetSSL( s_lSSL )
-   oConn:SetAuth( s_cUser, s_cPassword )
-   oConn:SetVirtualHost( s_cVirtualHost )
+   LOCAL oEnvelope
 
    IF oConn:Connect() != AMQP_STATUS_OK
       ? "Connect status:", amqp_error_string2( oConn:GetStatus() )
