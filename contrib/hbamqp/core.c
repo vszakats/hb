@@ -9,6 +9,10 @@
 #include <amqp_tcp_socket.h>
 #include <amqp_ssl_socket.h>
 
+#if defined(HB_OS_WIN) && defined(__MINGW32__)
+#include <sys/time.h>
+#endif
+
 #define HB_AMQP_VERS( ma, mi, mu )  \
    ( AMQP_VERSION_MAJOR > ma || \
    ( AMQP_VERSION_MAJOR == ma && \
