@@ -50,21 +50,21 @@ METHOD CloseChannel() CLASS AMQPConsumer
 
 METHOD PROCEDURE ConsumeAndDispatch() CLASS AMQPConsumer
 
-   LOCAL oEnvelope := AMQPEnvelope():New()
+   LOCAL pEnvelope := amqp_envelope_new()
    LOCAL hEnvelope
    LOCAL result
 
    ::connection:MaybeReleaseBuffers()
 
-   IF ( result := ::connection:ConsumeMessage( oEnvelope, ::timeOutMS ) ) == AMQP_RESPONSE_NORMAL
+   IF ( result := ::connection:ConsumeMessage( pEnvelope, ::timeOutMS ) ) == AMQP_RESPONSE_NORMAL
 
       // build envelope
 
       hEnvelope := { ;
-         "exchange"    => oEnvelope:GetExchange(), ;
-         "routingKey"  => oEnvelope:GetRoutingKey(), ;
-         "deliveryTag" => oEnvelope:GetDeliveryTag(), ;
-         "messageBody" => oEnvelope:GetMessageBody() }
+         "exchange"    => amqp_envelope_getexchange( pEnvelope ), ;
+         "routingKey"  => amqp_envelope_getroutingkey( pEnvelope ), ;
+         "deliveryTag" => amqp_envelope_getdeliverytag( pEnvelope ), ;
+         "messageBody" => amqp_envelope_getmessagebody( pEnvelope ) }
 
       // call action
 
@@ -85,7 +85,7 @@ METHOD PROCEDURE ConsumeAndDispatch() CLASS AMQPConsumer
 
       // action returns .T. -> ack message
       IF result
-         IF ::connection:BasicAck( ::channel, oEnvelope:GetDeliveryTag() ) != 0
+         IF ::connection:BasicAck( ::channel, amqp_envelope_getdeliverytag( pEnvelope ) ) != 0
             hb_traceLog( "AMQPConsumer", "basicAck error" )
          ELSE
             hb_traceLog( "AMQPConsumer", "basicAck OK" )
@@ -96,8 +96,6 @@ METHOD PROCEDURE ConsumeAndDispatch() CLASS AMQPConsumer
    ELSE
       hb_traceLog( "AMQPConsumer", hb_StrFormat( "consume Error (result=%1$d, response=%2$s)", result, ::connection:GetResponse() ) )
    ENDIF
-
-   oEnvelope:Destroy()
 
    RETURN
 

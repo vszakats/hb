@@ -174,8 +174,6 @@ METHOD CloseChannel( nChannel ) CLASS AMQPConnection
       hb_traceLog( "Socket Error" )
    ENDIF
 
-   hb_default( @nChannel, 1 )
-
    RETURN ::response := amqp_channel_close( ::pConn, nChannel )
 
 METHOD BasicPublish( cData, nChannel, cExchange, cRoutingKey ) CLASS AMQPConnection
@@ -185,11 +183,6 @@ METHOD BasicPublish( cData, nChannel, cExchange, cRoutingKey ) CLASS AMQPConnect
    ENDIF
    IF Empty( ::pSocket )
       hb_traceLog( "Socket Error" )
-   ENDIF
-
-   IF cData == NIL
-      hb_traceLog( "BasicPublish", "data error (NIL)" )
-      cData := ""
    ENDIF
 
    RETURN ::status := amqp_basic_publish( ::pConn, nChannel, cExchange, cRoutingKey, ::mandatory, ::immediate, ::hMessageProperties, cData )
@@ -212,9 +205,6 @@ METHOD BasicConsume( nChannel, cQueueName, cConsumerTag, lNoLocal, lNoAck, lExcl
    ENDIF
    IF Empty( ::pSocket )
       hb_traceLog( "Socket Error" )
-   ENDIF
-   IF ! HB_ISSTRING( cQueueName )
-      hb_traceLog( "Queue Name Error" )
    ENDIF
 
    RETURN ::status := amqp_basic_consume( ::pConn, nChannel, cQueueName, cConsumerTag, lNoLocal, lNoAck, lExclusive )
@@ -244,9 +234,6 @@ METHOD BasicAck( nChannel, nDeliveryTag, lMultiple ) CLASS AMQPConnection
    ENDIF
    IF Empty( ::pSocket )
       hb_traceLog( "Socket Error" )
-   ENDIF
-   IF ! HB_ISNUMERIC( nDeliveryTag )
-      hb_traceLog( "Delivery Tag Error" )
    ENDIF
 
    RETURN ::status := amqp_basic_ack( ::pConn, nChannel, nDeliveryTag, lMultiple )
