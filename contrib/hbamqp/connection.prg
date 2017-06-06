@@ -35,7 +35,7 @@ CREATE CLASS AMQPConnection
    METHOD BasicConsume( nChannel, cQueueName, cConsumerTag, lNoLocal, lNoAck, lExclusive )
 
    METHOD CreateEnvelope()
-   METHOD ConsumeMessage( envelope AS OBJECT, nTimeOutMS )
+   METHOD ConsumeMessage( envelope AS OBJECT, nTimeoutMS )
    METHOD BasicAck( nChannel, nDeliveryTag, lMultiple )
 
    METHOD MaybeReleaseBuffers()
@@ -213,7 +213,7 @@ METHOD BasicConsume( nChannel, cQueueName, cConsumerTag, lNoLocal, lNoAck, lExcl
 METHOD CreateEnvelope() CLASS AMQPConnection
    RETURN AMQPEnvelope():FromPtr( amqp_envelope_new() )
 
-METHOD ConsumeMessage( envelope AS OBJECT, nTimeOutMS ) CLASS AMQPConnection
+METHOD ConsumeMessage( envelope AS OBJECT, nTimeoutMS ) CLASS AMQPConnection
 
    IF Empty( ::pConn )
       hb_traceLog( "Connection Error" )
@@ -225,7 +225,7 @@ METHOD ConsumeMessage( envelope AS OBJECT, nTimeOutMS ) CLASS AMQPConnection
       hb_traceLog( "Envelope Error" )
    ENDIF
 
-   RETURN ::status := amqp_consume_message( ::pConn, envelope:GetPtr(), nTimeOutMS )
+   RETURN ::status := amqp_consume_message( ::pConn, envelope:GetPtr(), nTimeoutMS )
 
 METHOD BasicAck( nChannel, nDeliveryTag, lMultiple ) CLASS AMQPConnection
 

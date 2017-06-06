@@ -10,7 +10,7 @@ CREATE CLASS AMQPConsumer
 
    METHOD SetChannel( nChannel )      INLINE ::channel   := nChannel
    METHOD SetQueueName( cQueueName )  INLINE ::queueName := cQueueName
-   METHOD SetTimeOutMS( nTimeOutMS )  INLINE ::timeOutMS := nTimeOutMS
+   METHOD SetTimeoutMS( nTimeoutMS )  INLINE ::timeoutMS := nTimeoutMS
    METHOD SetAction( bAction )
 
    METHOD OpenChannel()

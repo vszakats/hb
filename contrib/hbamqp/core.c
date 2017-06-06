@@ -22,6 +22,7 @@ typedef struct _HB_MQCONN
 } HB_MQCONN, * PHB_MQCONN;
 
 typedef amqp_envelope_t * PHB_ENVELOPE;
+typedef struct timeval * PHB_TIMEVAL;
 
 static amqp_response_type_enum s_decode_reply( amqp_rpc_reply_t x, char const * context )
 {
@@ -397,7 +398,7 @@ HB_FUNC( AMQP_BASIC_ACK )
 }
 
 /* Wait for and consume a message
-   amqp_consume_message( pConn, pEnvelope, nTimeoutMs ) --> nResponse */
+   amqp_consume_message( pConn, pEnvelope, nTimeoutMS ) --> nResponse */
 HB_FUNC( AMQP_CONSUME_MESSAGE )
 {
    PHB_MQCONN   pConn     = ( PHB_MQCONN ) hb_parptr( 1 );
@@ -405,26 +406,17 @@ HB_FUNC( AMQP_CONSUME_MESSAGE )
 
    if( pConn && pEnvelope )
    {
-      struct timeval * pTimeout;
+      struct timeval timeout;
 
-      if( HB_ISNUM( 3 ) )
-      {
-         pTimeout = ( struct timeval * ) hb_xgrabz( sizeof( struct timeval ) );
-         pTimeout->tv_usec = hb_parni( 3 ) * 1000L;  /* ms to us */
-      }
-      else
-         pTimeout = NULL;  /* infinite */
+      timeout.tv_usec = hb_parni( 3 ) * 1000L;  /* ms to us */
 
       hb_retni( s_decode_reply(
          amqp_consume_message(
             pConn->conn,
             pEnvelope,
-            pTimeout,
+            HB_ISNUM( 3 ) ? &timeout : NULL /* infinite */,
             hb_parni( 4 ) /* flags */ ),
          "amqp_consume_message()" ) );
-
-      if( HB_ISNUM( 3 ) && pTimeout )
-         hb_xfree( pTimeout );
    }
    else
       hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
