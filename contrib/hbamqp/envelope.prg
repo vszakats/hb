@@ -6,10 +6,8 @@
 
 CREATE CLASS AMQPEnvelope
 
-   METHOD FromPtr( pEnvelope )
+   METHOD New()
    METHOD GetPtr()
-
-   METHOD Destroy()
 
    METHOD GetMessageBody()
 
@@ -19,33 +17,18 @@ CREATE CLASS AMQPEnvelope
 
    PROTECTED:
 
-   VAR pEnvelope
+   VAR pEnvelope AS POINTER
 
 END CLASS
 
-METHOD FromPtr( pEnvelope ) CLASS AMQPEnvelope
+METHOD New() CLASS AMQPEnvelope
 
-   ::Super:New()
-
-   IF Empty( pEnvelope )
-      ::Throw( "Invalid Envelope" )
-   ENDIF
-
-   ::pEnvelope := pEnvelope
+   ::pEnvelope := amqp_envelope_new()
 
    RETURN Self
 
 METHOD GetPtr() CLASS AMQPEnvelope
    RETURN ::pEnvelope
-
-METHOD Destroy() CLASS AMQPEnvelope
-
-   IF ! Empty( ::pEnvelope )
-      amqp_destroy_envelope( ::pEnvelope )
-      ::pEnvelope := NIL
-   ENDIF
-
-   RETURN NIL
 
 METHOD GetMessageBody() CLASS AMQPEnvelope
 

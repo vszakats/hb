@@ -50,7 +50,7 @@ METHOD CloseChannel() CLASS AMQPConsumer
 
 METHOD PROCEDURE ConsumeAndDispatch() CLASS AMQPConsumer
 
-   LOCAL oEnvelope := ::connection:CreateEnvelope()
+   LOCAL oEnvelope := AMQPEnvelope():New()
    LOCAL hEnvelope
    LOCAL result
 

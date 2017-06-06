@@ -20,12 +20,69 @@
    ( AMQP_VERSION_MINOR == mi && \
      AMQP_VERSION_PATCH >= mu ) ) ) )
 
-typedef struct _HB_MQCONN
+/* object destructor, it's executed automatically */
+static HB_GARBAGE_FUNC( hb_amq_connection_Destructor )
 {
-   amqp_connection_state_t conn;
-} HB_MQCONN, * PHB_MQCONN;
+   /* Retrieve object pointer holder */
+   amqp_connection_state_t * ptr = ( amqp_connection_state_t * ) Cargo;
 
-typedef amqp_envelope_t * PHB_ENVELOPE;
+   /* Check if pointer is not NULL to avoid multiple freeing */
+   if( *ptr )
+   {
+      /* Destroy the object */
+      amqp_destroy_connection( *ptr );
+
+      /* set pointer to NULL to avoid multiple freeing */
+      *ptr = NULL;
+   }
+}
+
+static const HB_GC_FUNCS s_gc_amq_connection_Funcs =
+{
+   hb_amq_connection_Destructor,
+   hb_gcDummyMark
+};
+
+/* function returns object pointer or NULL when wrong variable is
+   passed or object was freed before */
+static amqp_connection_state_t hb_par_amq_connection( int iParam )
+{
+   amqp_connection_state_t * ptr = ( amqp_connection_state_t * ) hb_parptrGC( &s_gc_amq_connection_Funcs, iParam );
+
+   return ptr ? *ptr : NULL;
+}
+
+/* HB_ENVELOPE destructor, it's executed automatically */
+static HB_GARBAGE_FUNC( hb_amq_envelope_Destructor )
+{
+   /* Retrieve object pointer holder */
+   amqp_envelope_t ** ptr = ( amqp_envelope_t ** ) Cargo;
+
+   /* Check if pointer is not NULL to avoid multiple freeing */
+   if( *ptr )
+   {
+      /* Destroy the object */
+      amqp_destroy_envelope( *ptr );
+
+      /* set pointer to NULL to avoid multiple freeing */
+      *ptr = NULL;
+   }
+}
+
+static const HB_GC_FUNCS s_gc_amq_envelope_Funcs =
+{
+   hb_amq_envelope_Destructor,
+   hb_gcDummyMark
+};
+
+/* function returns object pointer or NULL when wrong variable is
+   passed or object was freed before */
+static amqp_envelope_t * hb_par_amq_envelope( int iParam )
+{
+   amqp_envelope_t ** ptr = ( amqp_envelope_t ** ) hb_parptrGC( &s_gc_amq_envelope_Funcs, iParam );
+
+   return ptr ? *ptr : NULL;
+}
 
 static amqp_response_type_enum s_decode_reply( amqp_rpc_reply_t x, char const * context )
 {
@@ -95,37 +152,29 @@ static int s_decode_status( int status, char const * context )
    amqp_new_connection() --> pConn */
 HB_FUNC( AMQP_NEW_CONNECTION )
 {
-   PHB_MQCONN pConn = ( PHB_MQCONN ) hb_xgrab( sizeof( HB_MQCONN ) );
+   amqp_connection_state_t conn = amqp_new_connection();
 
-   if( pConn )
-      pConn->conn = amqp_new_connection();
+   if( conn )
+   {
+      amqp_connection_state_t * ptr = ( amqp_connection_state_t * ) hb_gcAllocate( sizeof( amqp_connection_state_t * ),
+                                                                                   &s_gc_amq_connection_Funcs );
+      *ptr = conn;
 
-   hb_retptr( pConn );
+      hb_retptrGC( ( void * ) ptr );
+   }
+   else
+      hb_retptr( NULL );
 }
 
 /* amqp_connection_close( pConn ) --> nResponse */
 HB_FUNC( AMQP_CONNECTION_CLOSE )
 {
-   PHB_MQCONN pConn = ( PHB_MQCONN ) hb_parptr( 1 );
+   amqp_connection_state_t conn = hb_par_amq_connection( 1 );
 
-   if( pConn )
+   if( conn )
       hb_retni( s_decode_reply(
-                   amqp_connection_close( pConn->conn, AMQP_REPLY_SUCCESS ),
+                   amqp_connection_close( conn, AMQP_REPLY_SUCCESS ),
                    "amqp_connection_close()" ) );
-   else
-      hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
-}
-
-/* amqp_destroy_connection( pConn ) */
-HB_FUNC( AMQP_DESTROY_CONNECTION )
-{
-   PHB_MQCONN pConn = ( PHB_MQCONN ) hb_parptr( 1 );
-
-   if( pConn )
-   {
-      amqp_destroy_connection( pConn->conn );
-      hb_xfree( pConn );
-   }
    else
       hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
@@ -133,13 +182,10 @@ HB_FUNC( AMQP_DESTROY_CONNECTION )
 /* amqp_tcp_socket_new( pConn ) --> pSocket */
 HB_FUNC( AMQP_TCP_SOCKET_NEW )
 {
-   PHB_MQCONN pConn = ( PHB_MQCONN ) hb_parptr( 1 );
+   amqp_connection_state_t conn = hb_par_amq_connection( 1 );
 
-   if( pConn )
-   {
-      amqp_socket_t * pSocket = amqp_tcp_socket_new( pConn->conn );
-      hb_retptr( pSocket );
-   }
+   if( conn )
+      hb_retptr( amqp_tcp_socket_new( conn ) );
    else
       hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
@@ -153,13 +199,10 @@ HB_FUNC( AMQP_SET_INITIALIZE_SSL_LIBRARY )
 /* amqp_ssl_socket_new( pConn ) --> pSocket */
 HB_FUNC( AMQP_SSL_SOCKET_NEW )
 {
-   PHB_MQCONN pConn = ( PHB_MQCONN ) hb_parptr( 1 );
+   amqp_connection_state_t conn = hb_par_amq_connection( 1 );
 
-   if( pConn )
-   {
-      amqp_socket_t * pSocket = amqp_ssl_socket_new( pConn->conn );
-      hb_retptr( pSocket );
-   }
+   if( conn )
+      hb_retptr( amqp_ssl_socket_new( conn ) );
    else
       hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
@@ -250,12 +293,12 @@ HB_FUNC( AMQP_SOCKET_OPEN )
    amqp_login( pConn, cVHost, nFrameSize, nMethod, user, pwd ) --> nResponse */
 HB_FUNC( AMQP_LOGIN )
 {
-   PHB_MQCONN pConn = ( PHB_MQCONN ) hb_parptr( 1 );
+   amqp_connection_state_t conn = hb_par_amq_connection( 1 );
 
-   if( pConn )
+   if( conn )
       hb_retni( s_decode_reply(
                    amqp_login(
-                      pConn->conn,
+                      conn,
                       hb_parcx( 2 ) /* vhost */,
                       0 /* ch max */,
                       hb_parnidef( 3, 0x20000 ) /* frame size */,
@@ -271,13 +314,13 @@ HB_FUNC( AMQP_LOGIN )
 /* amqp_channel_open( pConn, nChannel ) --> nResponse */
 HB_FUNC( AMQP_CHANNEL_OPEN )
 {
-   PHB_MQCONN pConn = ( PHB_MQCONN ) hb_parptr( 1 );
+   amqp_connection_state_t conn = hb_par_amq_connection( 1 );
 
-   if( pConn )
+   if( conn )
    {
-      amqp_channel_open( pConn->conn, ( amqp_channel_t ) hb_parnidef( 2, 1 ) );
+      amqp_channel_open( conn, ( amqp_channel_t ) hb_parnidef( 2, 1 ) );
 
-      hb_retni( s_decode_reply( amqp_get_rpc_reply( pConn->conn ), "amqp_channel_open()" ) );
+      hb_retni( s_decode_reply( amqp_get_rpc_reply( conn ), "amqp_channel_open()" ) );
    }
    else
       hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
@@ -286,13 +329,13 @@ HB_FUNC( AMQP_CHANNEL_OPEN )
 /* amqp_channel_close( pConn, nChannel ) --> nResponse */
 HB_FUNC( AMQP_CHANNEL_CLOSE )
 {
-   PHB_MQCONN pConn = ( PHB_MQCONN ) hb_parptr( 1 );
+   amqp_connection_state_t conn = hb_par_amq_connection( 1 );
 
-   if( pConn )
+   if( conn )
    {
       hb_retni( s_decode_reply(
                    amqp_channel_close(
-                      pConn->conn,
+                      conn,
                       ( amqp_channel_t ) hb_parnidef( 2, 1 ),
                       AMQP_REPLY_SUCCESS /* code */ ),
                    "amqp_channel_close()" ) );
@@ -304,11 +347,11 @@ HB_FUNC( AMQP_CHANNEL_CLOSE )
 /* amqp_exchange_declare( pConn, nChannel, cExchange, cExchangeType, lPassive, lDurable, lAutoDelete, lInternal ) --> nResponse */
 HB_FUNC( AMQP_EXCHANGE_DECLARE )
 {
-   PHB_MQCONN pConn = ( PHB_MQCONN ) hb_parptr( 1 );
+   amqp_connection_state_t conn = hb_par_amq_connection( 1 );
 
-   if( pConn )
+   if( conn )
    {
-      amqp_exchange_declare( pConn->conn,
+      amqp_exchange_declare( conn,
                              ( amqp_channel_t ) hb_parnidef( 2, 1 ),  /* channel */
                              amqp_cstring_bytes( hb_parcx( 3 ) ),     /* exchange */
                              amqp_cstring_bytes( hb_parcx( 4 ) ),     /* type */
@@ -322,7 +365,7 @@ HB_FUNC( AMQP_EXCHANGE_DECLARE )
 
       hb_retni( s_decode_reply(
                    amqp_get_rpc_reply(
-                      pConn->conn ),
+                      conn ),
                    "amqp_exchange_declare()" ) );
    }
    else
@@ -334,9 +377,9 @@ HB_FUNC( AMQP_EXCHANGE_DECLARE )
    - hProperties keys: content_type, delivery_mode */
 HB_FUNC( AMQP_BASIC_PUBLISH )
 {
-   PHB_MQCONN pConn = ( PHB_MQCONN ) hb_parptr( 1 );
+   amqp_connection_state_t conn = hb_par_amq_connection( 1 );
 
-   if( pConn && HB_ISHASH( 7 ) )
+   if( conn && HB_ISHASH( 7 ) )
    {
       PHB_ITEM pProps = hb_param( 7, HB_IT_HASH );
 
@@ -349,7 +392,7 @@ HB_FUNC( AMQP_BASIC_PUBLISH )
       props.delivery_mode = hb_itemGetNI( hb_hashGetCItemPtr( pProps, "delivery_mode" ) );  /* AMQP_DELIVERY_* */
 
       hb_retni( s_decode_status(
-                   amqp_basic_publish( pConn->conn,
+                   amqp_basic_publish( conn,
                                        ( amqp_channel_t ) hb_parnidef( 2, 1 ),  /* channel */
                                        amqp_cstring_bytes( hb_parcx( 3 ) ),     /* exchange */
                                        amqp_cstring_bytes( hb_parcx( 4 ) ),     /* routing_key */
@@ -366,11 +409,11 @@ HB_FUNC( AMQP_BASIC_PUBLISH )
 /* amqp_basic_consume( pConn, nChannel, cQueueName, cConsumerTag, lNoLocal, lNoAck, lExclusive ) --> nResponse */
 HB_FUNC( AMQP_BASIC_CONSUME )
 {
-   PHB_MQCONN pConn = ( PHB_MQCONN ) hb_parptr( 1 );
+   amqp_connection_state_t conn = hb_par_amq_connection( 1 );
 
-   if( pConn )
+   if( conn )
    {
-      amqp_basic_consume( pConn->conn,
+      amqp_basic_consume( conn,
                           ( amqp_channel_t ) hb_parnidef( 2, 1 ),  /* channel */
                           amqp_cstring_bytes( hb_parcx( 3 ) ),     /* queuename */
                           amqp_cstring_bytes( hb_parcx( 4 ) ),     /* consumer_tag */
@@ -379,7 +422,7 @@ HB_FUNC( AMQP_BASIC_CONSUME )
                           ( amqp_boolean_t ) hb_parl( 7 ),         /* exclusive */
                           amqp_empty_table );
 
-      hb_retni( s_decode_reply( amqp_get_rpc_reply( pConn->conn ), "amqp_basic_consume()" ) );
+      hb_retni( s_decode_reply( amqp_get_rpc_reply( conn ), "amqp_basic_consume()" ) );
    }
    else
       hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
@@ -389,10 +432,10 @@ HB_FUNC( AMQP_BASIC_CONSUME )
    amqp_basic_ack( pConn, nChannel, nDeliveryTag, lMultiple ) --> nResponse */
 HB_FUNC( AMQP_BASIC_ACK )
 {
-   PHB_MQCONN pConn = ( PHB_MQCONN ) hb_parptr( 1 );
+   amqp_connection_state_t conn = hb_par_amq_connection( 1 );
 
-   if( pConn )
-      hb_retni( amqp_basic_ack( pConn->conn /* state */,
+   if( conn )
+      hb_retni( amqp_basic_ack( conn /* state */,
                                 ( amqp_channel_t ) hb_parnidef( 2, 1 ) /* channel */,
                                 hb_parnint( 3 ) /* delivery_tag */,
                                 ( amqp_boolean_t ) hb_parl( 4 ) /* multiple */ ) );
@@ -404,10 +447,10 @@ HB_FUNC( AMQP_BASIC_ACK )
    amqp_consume_message( pConn, pEnvelope, nTimeoutMS ) --> nResponse */
 HB_FUNC( AMQP_CONSUME_MESSAGE )
 {
-   PHB_MQCONN   pConn     = ( PHB_MQCONN ) hb_parptr( 1 );
-   PHB_ENVELOPE pEnvelope = ( PHB_ENVELOPE ) hb_parptr( 2 );
+   amqp_connection_state_t conn = hb_par_amq_connection( 1 );
+   amqp_envelope_t * envelope = hb_par_amq_envelope( 2 );
 
-   if( pConn && pEnvelope )
+   if( conn && envelope )
    {
       struct timeval timeout;
 
@@ -415,8 +458,8 @@ HB_FUNC( AMQP_CONSUME_MESSAGE )
 
       hb_retni( s_decode_reply(
          amqp_consume_message(
-            pConn->conn,
-            pEnvelope,
+            conn,
+            envelope,
             HB_ISNUM( 3 ) ? &timeout : NULL /* infinite */,
             hb_parni( 4 ) /* flags */ ),
          "amqp_consume_message()" ) );
@@ -427,32 +470,21 @@ HB_FUNC( AMQP_CONSUME_MESSAGE )
 
 HB_FUNC( AMQP_ENVELOPE_NEW )
 {
-   hb_retptr( ( PHB_ENVELOPE ) hb_xgrabz( sizeof( amqp_envelope_t ) ) );
-}
+   amqp_envelope_t ** ptr = ( amqp_envelope_t ** ) hb_gcAllocate( sizeof( amqp_envelope_t ),
+                                                                  &s_gc_amq_envelope_Funcs );
 
-/* Frees memory associated with a amqp_envelope_t allocated in amqp_consume_message()
-   amqp_destroy_envelope( pEnvelope ) */
-HB_FUNC( AMQP_DESTROY_ENVELOPE )
-{
-   PHB_ENVELOPE pEnvelope = ( PHB_ENVELOPE ) hb_parptr( 1 );
+   memset( *ptr, 0, sizeof( amqp_envelope_t ) );
 
-   if( pEnvelope )
-   {
-      amqp_destroy_envelope( pEnvelope );
-
-      hb_xfree( pEnvelope );
-   }
-   else
-      hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+   hb_retptrGC( ( void * ) ptr );
 }
 
 /* amqp_envelope_getmessagebody( pEnvelope ) --> cMessage */
 HB_FUNC( AMQP_ENVELOPE_GETMESSAGEBODY )
 {
-   PHB_ENVELOPE pEnvelope = ( PHB_ENVELOPE ) hb_parptr( 1 );
+   amqp_envelope_t * envelope = hb_par_amq_envelope( 1 );
 
-   if( pEnvelope )
-      hb_retclen( pEnvelope->message.body.bytes, pEnvelope->message.body.len );
+   if( envelope )
+      hb_retclen( envelope->message.body.bytes, envelope->message.body.len );
    else
       hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
@@ -460,30 +492,30 @@ HB_FUNC( AMQP_ENVELOPE_GETMESSAGEBODY )
 /* amqp_envelope_getdeliverytag( pEnvelope ) --> nDeliveryTag */
 HB_FUNC( AMQP_ENVELOPE_GETDELIVERYTAG )
 {
-   PHB_ENVELOPE pEnvelope = ( PHB_ENVELOPE ) hb_parptr( 1 );
+   amqp_envelope_t * envelope = hb_par_amq_envelope( 1 );
 
-   if( pEnvelope )
-      hb_retnll( pEnvelope->delivery_tag );
+   if( envelope )
+      hb_retnint( envelope->delivery_tag );
    else
       hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
 HB_FUNC( AMQP_ENVELOPE_GETROUTINGKEY )
 {
-   PHB_ENVELOPE pEnvelope = ( PHB_ENVELOPE ) hb_parptr( 1 );
+   amqp_envelope_t * envelope = hb_par_amq_envelope( 1 );
 
-   if( pEnvelope )
-      hb_retclen( pEnvelope->routing_key.bytes, pEnvelope->routing_key.len );
+   if( envelope )
+      hb_retclen( envelope->routing_key.bytes, envelope->routing_key.len );
    else
       hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
 HB_FUNC( AMQP_ENVELOPE_GETEXCHANGE )
 {
-   PHB_ENVELOPE pEnvelope = ( PHB_ENVELOPE ) hb_parptr( 1 );
+   amqp_envelope_t * envelope = hb_par_amq_envelope( 1 );
 
-   if( pEnvelope )
-      hb_retclen( pEnvelope->exchange.bytes, pEnvelope->exchange.len );
+   if( envelope )
+      hb_retclen( envelope->exchange.bytes, envelope->exchange.len );
    else
       hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
@@ -491,10 +523,10 @@ HB_FUNC( AMQP_ENVELOPE_GETEXCHANGE )
 /* amqp_maybe_release_buffers( pConn ) */
 HB_FUNC( AMQP_MAYBE_RELEASE_BUFFERS )
 {
-   PHB_MQCONN pConn = ( PHB_MQCONN ) hb_parptr( 1 );
+   amqp_connection_state_t conn = hb_par_amq_connection( 1 );
 
-   if( pConn )
-      amqp_maybe_release_buffers( pConn->conn );
+   if( conn )
+      amqp_maybe_release_buffers( conn );
    else
       hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }

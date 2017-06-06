@@ -5,7 +5,7 @@
 STATIC s_cHost := "localhost"
 STATIC s_nPort := NIL
 STATIC s_lSSL := .F.
-STATIC s_cVirtualHost := ""
+STATIC s_cVirtualHost := NIL
 STATIC s_cUser := "guest"
 STATIC s_cPassword := "guest"
 
@@ -106,7 +106,7 @@ STATIC PROCEDURE Consume()
 
    DO WHILE Inkey() != Asc( "q" )
 
-      oEnvelope := oConn:CreateEnvelope()
+      oEnvelope := AMQPEnvelope():New()
 
       oConn:MaybeReleaseBuffers()
 
@@ -122,8 +122,6 @@ STATIC PROCEDURE Consume()
             ? "BasicAck error"
          ENDIF
       ENDIF
-
-      oEnvelope:Destroy()
    ENDDO
 
    IF oConn:CloseChannel() != AMQP_RESPONSE_NORMAL

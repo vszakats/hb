@@ -31,8 +31,6 @@ DYNAMIC amqp_channel_close
 DYNAMIC amqp_channel_open
 DYNAMIC amqp_connection_close
 DYNAMIC amqp_consume_message
-DYNAMIC amqp_destroy_connection
-DYNAMIC amqp_destroy_envelope
 DYNAMIC amqp_envelope_getdeliverytag
 DYNAMIC amqp_envelope_getexchange
 DYNAMIC amqp_envelope_getmessagebody
