@@ -193,7 +193,7 @@ HB_FUNC( AMQP_SSL_SOCKET_SET_SSL_VERSIONS )
                                                  ( amqp_tls_version_t ) hb_parni( 2 ),
                                                  ( amqp_tls_version_t ) hb_parni( 3 ) ) );
 #else
-      hb_retni( AMQP_STATUS_UNSUPPORTED );
+      hb_retni( AMQP_STATUS_OK );
 #endif
    else
       hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
@@ -310,8 +310,10 @@ HB_FUNC( AMQP_EXCHANGE_DECLARE )
                              amqp_cstring_bytes( hb_parcx( 4 ) ),     /* type */
                              ( amqp_boolean_t ) hb_parl( 5 ),         /* passive */
                              ( amqp_boolean_t ) hb_parl( 6 ),         /* durable */
+#if HB_AMQP_VERS( 0, 6, 0 )
                              ( amqp_boolean_t ) hb_parl( 7 ),         /* auto_delete */
                              ( amqp_boolean_t ) hb_parl( 8 ),         /* internal */
+#endif
                              amqp_empty_table );
 
       hb_retni( s_decode_reply(
