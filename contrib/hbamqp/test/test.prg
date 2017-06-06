@@ -6,7 +6,7 @@ PROCEDURE Main( cCommand, cURL )  /* amqps://guest:guest@localhost:5672/vhost */
 
    LOCAL aConn
 
-   ? "librabbitmq version:", amqp_version()
+   ? "librabbitmq version:", amqp_version(), "0x" + hb_NumToHex( amqp_version_number() )
 
    IF HB_ISSTRING( cURL ) .AND. ! cURL == ""
       amqp_parse_url( cURL, @aConn )

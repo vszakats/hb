@@ -460,12 +460,16 @@ HB_FUNC( AMQP_BASIC_NACK )
    amqp_connection_state_t conn = hb_par_amq_connection( 1 );
 
    if( conn )
+#if HB_AMQP_VERS( 0, 5, 0 )
       hb_retni( amqp_basic_nack(
          conn /* state */,
          ( amqp_channel_t ) hb_parnidef( 2, 1 ) /* channel */,
          hb_parnint( 3 ) /* delivery_tag */,
          ( amqp_boolean_t ) hb_parl( 4 ) /* multiple */,
          ( amqp_boolean_t ) hb_parl( 4 ) /* requeue */ ) );
+#else
+      hb_retni( AMQP_STATUS_OK );
+#endif
    else
       hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
@@ -482,6 +486,84 @@ HB_FUNC( AMQP_BASIC_REJECT )
          ( amqp_channel_t ) hb_parnidef( 2, 1 ) /* channel */,
          hb_parnint( 3 ) /* delivery_tag */,
          ( amqp_boolean_t ) hb_parl( 4 ) /* requeue */ ) );
+   else
+      hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+/* amqp_frames_enqueued( pConn ) --> lValue */
+HB_FUNC( AMQP_FRAMES_ENQUEUED )
+{
+   amqp_connection_state_t conn = hb_par_amq_connection( 1 );
+
+   if( conn )
+      hb_retl( amqp_frames_enqueued( conn ) );
+   else
+      hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+/* amqp_data_in_buffer( pConn ) --> lValue */
+HB_FUNC( AMQP_DATA_IN_BUFFER )
+{
+   amqp_connection_state_t conn = hb_par_amq_connection( 1 );
+
+   if( conn )
+      hb_retl( amqp_data_in_buffer( conn ) );
+   else
+      hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+/* amqp_tune_connection( pConn, nChannelMax, nFrameMax, nHeartbeatSecs ) --> nStatus */
+HB_FUNC( AMQP_TUNE_CONNECTION )
+{
+   amqp_connection_state_t conn = hb_par_amq_connection( 1 );
+
+   if( conn )
+      hb_retni( amqp_tune_connection(
+         conn /* state */,
+         hb_parnidef( 2, 1 ) /* channel_max */,
+         hb_parni( 3 ) /* frame_max */,
+         hb_parni( 4 ) /* heartbeat */ ) );
+   else
+      hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+/* amqp_get_channel_max( pConn ) --> nChannelMax */
+HB_FUNC( AMQP_GET_CHANNEL_MAX )
+{
+   amqp_connection_state_t conn = hb_par_amq_connection( 1 );
+
+   if( conn )
+      hb_retni( amqp_get_channel_max( conn ) );
+   else
+      hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+/* amqp_get_frame_max( pConn ) --> nFrameMax */
+HB_FUNC( AMQP_GET_FRAME_MAX )
+{
+   amqp_connection_state_t conn = hb_par_amq_connection( 1 );
+
+   if( conn )
+#if HB_AMQP_VERS( 0, 6, 0 )
+      hb_retni( amqp_get_frame_max( conn ) );
+#else
+      hb_retni( 0 );
+#endif
+   else
+      hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+/* amqp_get_heartbeat( pConn ) --> nHeartbeatSecs */
+HB_FUNC( AMQP_GET_HEARTBEAT )
+{
+   amqp_connection_state_t conn = hb_par_amq_connection( 1 );
+
+   if( conn )
+#if HB_AMQP_VERS( 0, 6, 0 )
+      hb_retni( amqp_get_heartbeat( conn ) );
+#else
+      hb_retni( 0 );
+#endif
    else
       hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
@@ -638,7 +720,13 @@ HB_FUNC( AMQP_PARSE_URL )
    hb_xfree( pszURL );
 }
 
-/* amqp_version() */
+/* amqp_version_number() --> nVersion */
+HB_FUNC( AMQP_VERSION_NUMBER )
+{
+   hb_retnl( amqp_version_number() );
+}
+
+/* amqp_version() --> cVersion */
 HB_FUNC( AMQP_VERSION )
 {
    hb_retc( amqp_version() );
