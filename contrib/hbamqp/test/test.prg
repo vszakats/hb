@@ -1,24 +1,25 @@
 /* Basic Publish and Consume API Test */
 
-#include "inkey.ch"
+PROCEDURE Main( cCommand, cURL )  /* amqps://guest:guest@localhost:5672/vhost */
 
-STATIC s_cHost := "localhost"
-STATIC s_nPort := NIL
-STATIC s_lSSL := .F.
-STATIC s_cVirtualHost := NIL
-STATIC s_cUser := "guest"
-STATIC s_cPassword := "guest"
+   LOCAL aConn
 
-PROCEDURE Main( cCommand )
+   ? "librabbitmq version:", amqp_version()
 
-   ? amqp_version()
+   IF HB_ISSTRING( cURL ) .AND. ! cURL == ""
+      amqp_parse_url( cURL, @aConn )
+   ELSE
+      aConn := amqp_default_connection_info()
+   ENDIF
+
+   ? "Connection:", hb_ValToExp( aConn )
 
    SWITCH hb_asciiLower( hb_defaultValue( cCommand, "" ) )
    CASE "p"
-      Publish()
+      Publish( aConn )
       EXIT
    CASE "c"
-      Consume()
+      Consume( aConn )
       EXIT
    OTHERWISE
       ? "Pass 'p' for publish or 'c' for consume as parameter"
@@ -26,21 +27,9 @@ PROCEDURE Main( cCommand )
 
    RETURN
 
-STATIC FUNCTION NewConnection()
+STATIC PROCEDURE Publish( aConn )
 
-   LOCAL oConn := AMQPConnection():New()
-
-   oConn:SetHost( s_cHost )
-   oConn:SetPort( s_nPort )
-   oConn:SetSSL( s_lSSL )
-   oConn:SetAuth( s_cUser, s_cPassword )
-   oConn:SetVirtualHost( s_cVirtualHost )
-
-   RETURN oConn
-
-STATIC PROCEDURE Publish()
-
-   LOCAL oConn := NewConnection()
+   LOCAL oConn := AMQPConnection():New( aConn )
 
    LOCAL cData := "Hello, world!"
    LOCAL cExchange := "amq.direct"
@@ -77,12 +66,12 @@ STATIC PROCEDURE Publish()
 
    RETURN
 
-STATIC PROCEDURE Consume()
+STATIC PROCEDURE Consume( aConn )
 
-   LOCAL oConn := NewConnection()
+   LOCAL oConn := AMQPConnection():New( aConn )
 
    LOCAL cQueueName := "test-queue"
-   LOCAL oEnvelope
+   LOCAL pEnvelope
 
    IF oConn:Connect() != AMQP_STATUS_OK
       ? "Connect status:", amqp_error_string2( oConn:GetStatus() )
@@ -104,23 +93,23 @@ STATIC PROCEDURE Consume()
       RETURN
    ENDIF
 
-   DO WHILE Inkey() != Asc( "q" )
+   DO WHILE .T.
 
-      oEnvelope := AMQPEnvelope():New()
+      pEnvelope := amqp_envelope_new()
 
       oConn:MaybeReleaseBuffers()
 
-      IF oConn:ConsumeMessage( oEnvelope, AMQP_TIMEOUT_INFINITE ) != AMQP_RESPONSE_NORMAL
-         ? "ConsumeMessage status:", oConn:GetResponse()
-         EXIT
-      ELSE
-         ? "GetExchange:", oEnvelope:GetExchange()
-         ? "GetRoutingKey:", oEnvelope:GetRoutingKey()
-         ? "GetMessageBody:", oEnvelope:GetMessageBody()
+      IF oConn:ConsumeMessage( pEnvelope, 2000 ) == AMQP_RESPONSE_NORMAL
+         ? "GetExchange:", amqp_envelope_getexchange( pEnvelope )
+         ? "GetRoutingKey:", amqp_envelope_getroutingkey( pEnvelope )
+         ? "GetMessageBody:", amqp_envelope_getmessagebody( pEnvelope )
 
-         IF oConn:BasicAck( 1, oEnvelope:GetDeliveryTag() ) != 0
+         IF oConn:BasicAck( 1, amqp_envelope_getdeliverytag( pEnvelope ) ) != 0
             ? "BasicAck error"
          ENDIF
+      ELSE
+         ? "ConsumeMessage status:", oConn:GetResponse()
+         EXIT
       ENDIF
    ENDDO
 

@@ -6,7 +6,7 @@
 
 CREATE CLASS AMQPConnection
 
-   METHOD New()
+   METHOD New( aConn )
 
    METHOD SetAuth( cUser, cPassword, nMethod )
    METHOD SetHost( cHost )  INLINE ::host := cHost
@@ -52,15 +52,15 @@ CREATE CLASS AMQPConnection
    VAR status      AS NUMERIC      /* AMQP_STATUS_* */
    VAR response    AS NUMERIC      /* AMQP_RESPONSE_* */
 
-   VAR user        AS CHARACTER    INIT "guest"
-   VAR password    AS CHARACTER    INIT "guest"
+   VAR user        AS CHARACTER
+   VAR password    AS CHARACTER
    VAR loginMethod AS NUMERIC      INIT AMQP_SASL_METHOD_PLAIN
 
-   VAR virtualHost AS CHARACTER    INIT "/"
+   VAR virtualHost AS CHARACTER
 
-   VAR host        AS CHARACTER    INIT "localhost"
-   VAR port        AS NUMERIC      INIT 5672
-   VAR ssl         AS LOGICAL      INIT .F.
+   VAR host        AS CHARACTER
+   VAR port        AS NUMERIC
+   VAR ssl         AS LOGICAL
    VAR frameSize   AS NUMERIC      INIT 0x20000
 
    VAR exchange    AS CHARACTER    INIT ""
@@ -72,7 +72,17 @@ CREATE CLASS AMQPConnection
 
 END CLASS
 
-METHOD New() CLASS AMQPConnection
+METHOD New( aConn ) CLASS AMQPConnection
+
+   IF ! HB_ISARRAY( aConn ) .OR. Len( aConn ) < HB_AMQP_CONN_LEN
+      aConn := amqp_default_connection_info()
+   ENDIF
+
+   ::SetHost( aConn[ HB_AMQP_CONN_cHOST ] )
+   ::SetPort( aConn[ HB_AMQP_CONN_nPORT ] )
+   ::SetSSL( aConn[ HB_AMQP_CONN_lSSL ] )
+   ::SetAuth( aConn[ HB_AMQP_CONN_cUSER ], aConn[ HB_AMQP_CONN_cPASSWORD ] )
+   ::SetVirtualHost( aConn[ HB_AMQP_CONN_cVHOST ] )
 
    ::pConn := amqp_new_connection()
 

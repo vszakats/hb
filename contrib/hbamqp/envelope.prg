@@ -2,8 +2,6 @@
 
 #include "hbclass.ch"
 
-#include "hbamqp.ch"
-
 CREATE CLASS AMQPEnvelope
 
    METHOD New()

@@ -26,11 +26,14 @@ DYNAMIC AMQPConsumer
 DYNAMIC AMQPEnvelope
 DYNAMIC amqp_basic_ack
 DYNAMIC amqp_basic_consume
+DYNAMIC amqp_basic_nack
 DYNAMIC amqp_basic_publish
+DYNAMIC amqp_basic_reject
 DYNAMIC amqp_channel_close
 DYNAMIC amqp_channel_open
 DYNAMIC amqp_connection_close
 DYNAMIC amqp_consume_message
+DYNAMIC amqp_default_connection_info
 DYNAMIC amqp_envelope_getdeliverytag
 DYNAMIC amqp_envelope_getexchange
 DYNAMIC amqp_envelope_getmessagebody
@@ -40,7 +43,9 @@ DYNAMIC amqp_error_string2
 DYNAMIC amqp_exchange_declare
 DYNAMIC amqp_login
 DYNAMIC amqp_maybe_release_buffers
+DYNAMIC amqp_maybe_release_buffers_on_channel
 DYNAMIC amqp_new_connection
+DYNAMIC amqp_parse_url
 DYNAMIC amqp_set_initialize_ssl_library
 DYNAMIC amqp_socket_open
 DYNAMIC amqp_ssl_socket_new

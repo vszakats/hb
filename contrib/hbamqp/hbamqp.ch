@@ -49,4 +49,13 @@
 
 #define AMQP_TIMEOUT_INFINITE                   NIL
 
+/* amqp_parse_url(), amqp_default_connection_info() array positions */
+#define HB_AMQP_CONN_cUSER                      1
+#define HB_AMQP_CONN_cPASSWORD                  2
+#define HB_AMQP_CONN_cHOST                      3
+#define HB_AMQP_CONN_cVHOST                     4
+#define HB_AMQP_CONN_nPORT                      5
+#define HB_AMQP_CONN_lSSL                       6
+#define HB_AMQP_CONN_LEN                        6
+
 #endif

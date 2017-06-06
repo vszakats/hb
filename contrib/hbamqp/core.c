@@ -64,6 +64,8 @@ static HB_GARBAGE_FUNC( hb_amq_envelope_Destructor )
       /* Destroy the object */
       amqp_destroy_envelope( *ptr );
 
+      hb_xfree( *ptr );
+
       /* set pointer to NULL to avoid multiple freeing */
       *ptr = NULL;
    }
@@ -166,15 +168,17 @@ HB_FUNC( AMQP_NEW_CONNECTION )
       hb_retptr( NULL );
 }
 
-/* amqp_connection_close( pConn ) --> nResponse */
+/* amqp_connection_close( pConn, nReason ) --> nResponse */
 HB_FUNC( AMQP_CONNECTION_CLOSE )
 {
    amqp_connection_state_t conn = hb_par_amq_connection( 1 );
 
    if( conn )
       hb_retni( s_decode_reply(
-                   amqp_connection_close( conn, AMQP_REPLY_SUCCESS ),
-                   "amqp_connection_close()" ) );
+         amqp_connection_close(
+            conn,
+            hb_parnidef( 2, AMQP_REPLY_SUCCESS ) /* reason */ ),
+         "amqp_connection_close()" ) );
    else
       hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
@@ -236,9 +240,10 @@ HB_FUNC( AMQP_SSL_SOCKET_SET_SSL_VERSIONS )
 
    if( pSocket )
 #if HB_AMQP_VERS( 0, 8, 0 )
-      hb_retni( amqp_ssl_socket_set_ssl_versions( pSocket,
-                                                 ( amqp_tls_version_t ) hb_parni( 2 ),
-                                                 ( amqp_tls_version_t ) hb_parni( 3 ) ) );
+      hb_retni( amqp_ssl_socket_set_ssl_versions(
+         pSocket,
+         ( amqp_tls_version_t ) hb_parni( 2 ),
+         ( amqp_tls_version_t ) hb_parni( 3 ) ) );
 #else
       hb_retni( AMQP_STATUS_OK );
 #endif
@@ -297,16 +302,16 @@ HB_FUNC( AMQP_LOGIN )
 
    if( conn )
       hb_retni( s_decode_reply(
-                   amqp_login(
-                      conn,
-                      hb_parcx( 2 ) /* vhost */,
-                      0 /* ch max */,
-                      hb_parnidef( 3, 0x20000 ) /* frame size */,
-                      0 /* heartbeat  - unsupported */,
-                      ( amqp_sasl_method_enum ) hb_parni( 4 ) /* AMQP_SASL_METHOD_PLAIN */,
-                      hb_parcx( 5 ) /* user */,
-                      hb_parcx( 6 ) /* pwd */ ),
-                   "amqp_login()" ) );
+         amqp_login(
+            conn,
+            hb_parcx( 2 ) /* vhost */,
+            0 /* ch max */,
+            hb_parnidef( 3, 0x20000 ) /* frame size */,
+            0 /* heartbeat  - unsupported */,
+            ( amqp_sasl_method_enum ) hb_parni( 4 ) /* AMQP_SASL_METHOD_PLAIN */,
+            hb_parcx( 5 ) /* user */,
+            hb_parcx( 6 ) /* pwd */ ),
+         "amqp_login()" ) );
    else
       hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
@@ -334,11 +339,11 @@ HB_FUNC( AMQP_CHANNEL_CLOSE )
    if( conn )
    {
       hb_retni( s_decode_reply(
-                   amqp_channel_close(
-                      conn,
-                      ( amqp_channel_t ) hb_parnidef( 2, 1 ),
-                      AMQP_REPLY_SUCCESS /* code */ ),
-                   "amqp_channel_close()" ) );
+         amqp_channel_close(
+            conn,
+            ( amqp_channel_t ) hb_parnidef( 2, 1 ),
+            AMQP_REPLY_SUCCESS /* code */ ),
+         "amqp_channel_close()" ) );
    }
    else
       hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
@@ -351,22 +356,23 @@ HB_FUNC( AMQP_EXCHANGE_DECLARE )
 
    if( conn )
    {
-      amqp_exchange_declare( conn,
-                             ( amqp_channel_t ) hb_parnidef( 2, 1 ),  /* channel */
-                             amqp_cstring_bytes( hb_parcx( 3 ) ),     /* exchange */
-                             amqp_cstring_bytes( hb_parcx( 4 ) ),     /* type */
-                             ( amqp_boolean_t ) hb_parl( 5 ),         /* passive */
-                             ( amqp_boolean_t ) hb_parl( 6 ),         /* durable */
+      amqp_exchange_declare(
+         conn,
+         ( amqp_channel_t ) hb_parnidef( 2, 1 ),  /* channel */
+         amqp_cstring_bytes( hb_parcx( 3 ) ),     /* exchange */
+         amqp_cstring_bytes( hb_parcx( 4 ) ),     /* type */
+         ( amqp_boolean_t ) hb_parl( 5 ),         /* passive */
+         ( amqp_boolean_t ) hb_parl( 6 ),         /* durable */
 #if HB_AMQP_VERS( 0, 6, 0 )
-                             ( amqp_boolean_t ) hb_parl( 7 ),         /* auto_delete */
-                             ( amqp_boolean_t ) hb_parl( 8 ),         /* internal */
+         ( amqp_boolean_t ) hb_parl( 7 ),         /* auto_delete */
+         ( amqp_boolean_t ) hb_parl( 8 ),         /* internal */
 #endif
-                             amqp_empty_table );
+         amqp_empty_table );
 
       hb_retni( s_decode_reply(
-                   amqp_get_rpc_reply(
-                      conn ),
-                   "amqp_exchange_declare()" ) );
+         amqp_get_rpc_reply(
+            conn ),
+         "amqp_exchange_declare()" ) );
    }
    else
       hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
@@ -385,22 +391,24 @@ HB_FUNC( AMQP_BASIC_PUBLISH )
 
       amqp_basic_properties_t props;
 
-      props._flags = AMQP_BASIC_CONTENT_TYPE_FLAG |
-                     AMQP_BASIC_DELIVERY_MODE_FLAG;
+      props._flags =
+         AMQP_BASIC_CONTENT_TYPE_FLAG |
+         AMQP_BASIC_DELIVERY_MODE_FLAG;
 
       props.content_type  = amqp_cstring_bytes( hb_itemGetCPtr( hb_hashGetCItemPtr( pProps, "content_type" ) ) );
       props.delivery_mode = hb_itemGetNI( hb_hashGetCItemPtr( pProps, "delivery_mode" ) );  /* AMQP_DELIVERY_* */
 
       hb_retni( s_decode_status(
-                   amqp_basic_publish( conn,
-                                       ( amqp_channel_t ) hb_parnidef( 2, 1 ),  /* channel */
-                                       amqp_cstring_bytes( hb_parcx( 3 ) ),     /* exchange */
-                                       amqp_cstring_bytes( hb_parcx( 4 ) ),     /* routing_key */
-                                       hb_parni( 5 ),                           /* mandatory */
-                                       hb_parni( 6 ),                           /* immediate */
-                                       &props,                                  /* properties */
-                                       amqp_cstring_bytes( hb_parcx( 8 ) ) ),   /* body */
-                   "amqp_basic_publish()" ) );
+         amqp_basic_publish(
+            conn,
+            ( amqp_channel_t ) hb_parnidef( 2, 1 ),  /* channel */
+            amqp_cstring_bytes( hb_parcx( 3 ) ),     /* exchange */
+            amqp_cstring_bytes( hb_parcx( 4 ) ),     /* routing_key */
+            hb_parni( 5 ),                           /* mandatory */
+            hb_parni( 6 ),                           /* immediate */
+            &props,                                  /* properties */
+            amqp_cstring_bytes( hb_parcx( 8 ) ) ),   /* body */
+         "amqp_basic_publish()" ) );
    }
    else
       hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
@@ -413,14 +421,15 @@ HB_FUNC( AMQP_BASIC_CONSUME )
 
    if( conn )
    {
-      amqp_basic_consume( conn,
-                          ( amqp_channel_t ) hb_parnidef( 2, 1 ),  /* channel */
-                          amqp_cstring_bytes( hb_parcx( 3 ) ),     /* queuename */
-                          amqp_cstring_bytes( hb_parcx( 4 ) ),     /* consumer_tag */
-                          ( amqp_boolean_t ) hb_parl( 5 ),         /* no_local */
-                          ( amqp_boolean_t ) hb_parl( 6 ),         /* no_ack */
-                          ( amqp_boolean_t ) hb_parl( 7 ),         /* exclusive */
-                          amqp_empty_table );
+      amqp_basic_consume(
+         conn,
+         ( amqp_channel_t ) hb_parnidef( 2, 1 ),  /* channel */
+         amqp_cstring_bytes( hb_parcx( 3 ) ),     /* queuename */
+         amqp_cstring_bytes( hb_parcx( 4 ) ),     /* consumer_tag */
+         ( amqp_boolean_t ) hb_parl( 5 ),         /* no_local */
+         ( amqp_boolean_t ) hb_parl( 6 ),         /* no_ack */
+         ( amqp_boolean_t ) hb_parl( 7 ),         /* exclusive */
+         amqp_empty_table );
 
       hb_retni( s_decode_reply( amqp_get_rpc_reply( conn ), "amqp_basic_consume()" ) );
    }
@@ -428,17 +437,51 @@ HB_FUNC( AMQP_BASIC_CONSUME )
       hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
-/* Acknowledges a message
+/* Acknowledge message(s)
    amqp_basic_ack( pConn, nChannel, nDeliveryTag, lMultiple ) --> nResponse */
 HB_FUNC( AMQP_BASIC_ACK )
 {
    amqp_connection_state_t conn = hb_par_amq_connection( 1 );
 
    if( conn )
-      hb_retni( amqp_basic_ack( conn /* state */,
-                                ( amqp_channel_t ) hb_parnidef( 2, 1 ) /* channel */,
-                                hb_parnint( 3 ) /* delivery_tag */,
-                                ( amqp_boolean_t ) hb_parl( 4 ) /* multiple */ ) );
+      hb_retni( amqp_basic_ack(
+         conn /* state */,
+         ( amqp_channel_t ) hb_parnidef( 2, 1 ) /* channel */,
+         hb_parnint( 3 ) /* delivery_tag */,
+         ( amqp_boolean_t ) hb_parl( 4 ) /* multiple */ ) );
+   else
+      hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+/* Reject message(s)
+   amqp_basic_nack( pConn, nChannel, nDeliveryTag, lMultiple, lRequeue ) --> nResponse */
+HB_FUNC( AMQP_BASIC_NACK )
+{
+   amqp_connection_state_t conn = hb_par_amq_connection( 1 );
+
+   if( conn )
+      hb_retni( amqp_basic_nack(
+         conn /* state */,
+         ( amqp_channel_t ) hb_parnidef( 2, 1 ) /* channel */,
+         hb_parnint( 3 ) /* delivery_tag */,
+         ( amqp_boolean_t ) hb_parl( 4 ) /* multiple */,
+         ( amqp_boolean_t ) hb_parl( 4 ) /* requeue */ ) );
+   else
+      hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+/* Reject a message
+   amqp_basic_reject( pConn, nChannel, nDeliveryTag, lRequeue ) --> nResponse */
+HB_FUNC( AMQP_BASIC_REJECT )
+{
+   amqp_connection_state_t conn = hb_par_amq_connection( 1 );
+
+   if( conn )
+      hb_retni( amqp_basic_reject(
+         conn /* state */,
+         ( amqp_channel_t ) hb_parnidef( 2, 1 ) /* channel */,
+         hb_parnint( 3 ) /* delivery_tag */,
+         ( amqp_boolean_t ) hb_parl( 4 ) /* requeue */ ) );
    else
       hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
@@ -452,17 +495,26 @@ HB_FUNC( AMQP_CONSUME_MESSAGE )
 
    if( conn && envelope )
    {
-      struct timeval timeout;
+      struct timeval * timeout;
 
-      timeout.tv_usec = hb_parni( 3 ) * 1000L;  /* ms to us */
+      if( HB_ISNUM( 3 ) )
+      {
+         timeout = ( struct timeval * ) hb_xgrabz( sizeof( struct timeval ) );
+         timeout->tv_usec = hb_parni( 3 ) * 1000;  /* ms to us */
+      }
+      else
+         timeout = NULL;  /* infinite */
 
       hb_retni( s_decode_reply(
          amqp_consume_message(
             conn,
             envelope,
-            HB_ISNUM( 3 ) ? &timeout : NULL /* infinite */,
+            timeout,
             hb_parni( 4 ) /* flags */ ),
          "amqp_consume_message()" ) );
+
+      if( timeout )
+         hb_xfree( timeout );
    }
    else
       hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
@@ -470,10 +522,10 @@ HB_FUNC( AMQP_CONSUME_MESSAGE )
 
 HB_FUNC( AMQP_ENVELOPE_NEW )
 {
-   amqp_envelope_t ** ptr = ( amqp_envelope_t ** ) hb_gcAllocate( sizeof( amqp_envelope_t ),
+   amqp_envelope_t ** ptr = ( amqp_envelope_t ** ) hb_gcAllocate( sizeof( amqp_envelope_t * ),
                                                                   &s_gc_amq_envelope_Funcs );
 
-   memset( *ptr, 0, sizeof( amqp_envelope_t ) );
+   *ptr = ( amqp_envelope_t * ) hb_xgrabz( sizeof( amqp_envelope_t ) );
 
    hb_retptrGC( ( void * ) ptr );
 }
@@ -531,10 +583,59 @@ HB_FUNC( AMQP_MAYBE_RELEASE_BUFFERS )
       hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
+/* amqp_maybe_release_buffers_on_channel( pConn, nChannel ) */
+HB_FUNC( AMQP_MAYBE_RELEASE_BUFFERS_ON_CHANNEL )
+{
+   amqp_connection_state_t conn = hb_par_amq_connection( 1 );
+
+   if( conn )
+      amqp_maybe_release_buffers_on_channel( conn, ( amqp_channel_t ) hb_parnidef( 2, 1 ) );
+   else
+      hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
 /* amqp_error_string2( nStatus ) --> cStatus */
 HB_FUNC( AMQP_ERROR_STRING2 )
 {
    hb_retc_const( amqp_error_string2( hb_parni( 1 ) ) );
+}
+
+static PHB_ITEM s_ret_conn_info( struct amqp_connection_info * info )
+{
+   PHB_ITEM aInfo = hb_itemArrayNew( 6 );
+
+   hb_arraySetC( aInfo, 1, info->user );
+   hb_arraySetC( aInfo, 2, info->password );
+   hb_arraySetC( aInfo, 3, info->host );
+   hb_arraySetC( aInfo, 4, info->vhost );
+   hb_arraySetNI( aInfo, 5, info->port );
+   hb_arraySetL( aInfo, 6, ( HB_BOOL ) info->ssl );
+
+   return aInfo;
+}
+
+/* amqp_default_connection_info() --> aInfo */
+HB_FUNC( AMQP_DEFAULT_CONNECTION_INFO )
+{
+   struct amqp_connection_info info;
+
+   amqp_default_connection_info( &info );
+
+   hb_itemReturnRelease( s_ret_conn_info( &info ) );
+}
+
+/* amqp_parse_url( cURL, @aInfo ) --> nStatus */
+HB_FUNC( AMQP_PARSE_URL )
+{
+   struct amqp_connection_info info;
+   char * pszURL = hb_strdup( hb_parcx( 1 ) );
+
+   memset( &info, 0, sizeof( info ) );
+
+   hb_retni( amqp_parse_url( pszURL, &info ) );
+   hb_itemParamStoreRelease( 2, s_ret_conn_info( &info ) );
+
+   hb_xfree( pszURL );
 }
 
 /* amqp_version() */
