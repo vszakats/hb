@@ -1,5 +1,7 @@
 /* Basic Publish and Consume API Test */
 
+#require "hbamqp"
+
 PROCEDURE Main( cCommand, cURL )  /* amqps://guest:guest@localhost:5672/vhost */
 
    LOCAL aConn
