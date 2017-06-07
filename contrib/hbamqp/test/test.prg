@@ -8,7 +8,8 @@ PROCEDURE Main( cCommand, cURL )  /* amqps://guest:guest@localhost:5672/vhost */
 
    ? "librabbitmq version:", amqp_version(), "0x" + hb_NumToHex( amqp_version_number() )
 
-   IF HB_ISSTRING( cURL ) .AND. ! cURL == ""
+   IF ( HB_ISSTRING( cURL ) .AND. ! cURL == "" ) .OR. ;
+      ! ( cURL := hb_MemoRead( hb_FNameExtSet( __FILE__, ".url" ) ) ) == ""
       amqp_parse_url( cURL, @aConn )
    ELSE
       aConn := amqp_default_connection_info()
