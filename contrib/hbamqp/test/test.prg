@@ -24,7 +24,9 @@ PROCEDURE Main( cCommand, cURL )  /* amqps://guest:guest@localhost:5672/vhost */
       Consume( aConn )
       EXIT
    OTHERWISE
-      ? "Pass 'p' for publish or 'c' for consume as parameter"
+      ? "Pass 'p' for publish or 'c' for consume as parameter. Doing a publish-consume cycle now."
+      Publish( aConn )
+      Consume( aConn )
    ENDSWITCH
 
    RETURN
@@ -102,6 +104,7 @@ STATIC PROCEDURE Consume( aConn )
       oConn:MaybeReleaseBuffers()
 
       IF oConn:ConsumeMessage( pEnvelope, 2000 ) == AMQP_RESPONSE_NORMAL
+         ? "Response:", hb_ValToExp( oConn:GetResponseDetails() )
          ? "Exchange:", amqp_envelope_getexchange( pEnvelope )
          ? "RoutingKey:", amqp_envelope_getroutingkey( pEnvelope )
          ? "MessageBody:", amqp_envelope_getmessagebody( pEnvelope )

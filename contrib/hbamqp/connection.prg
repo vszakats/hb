@@ -39,12 +39,14 @@ CREATE CLASS AMQPConnection
 
    METHOD MaybeReleaseBuffers()
 
-   METHOD Close()
+   METHOD Close( nReason )
 
    METHOD GetStatus()      INLINE ::status
    METHOD GetResponse()    INLINE ::response
    METHOD GetStatusStr()   INLINE hb_StrFormat( "%1$d: %2$s (%3$s)", ::status, hb_amqp_status_string( ::status ), amqp_error_string2( ::status ) )
-   METHOD GetResponseStr() INLINE hb_StrFormat( "%1$d: %2$s", ::response, hb_amqp_response_string( ::response ) )
+   METHOD GetResponseStr() INLINE hb_StrFormat( "%1$d: %2$s: %3$s", ::response, hb_amqp_response_string( ::response ), hb_ValToExp( ::hResponse ) )
+
+   METHOD GetResponseDetails() INLINE ::hResponse
 
    PROTECTED:
 
@@ -53,6 +55,7 @@ CREATE CLASS AMQPConnection
 
    VAR status      AS NUMERIC  /* AMQP_STATUS_* */
    VAR response    AS NUMERIC  /* AMQP_RESPONSE_* */
+   VAR hResponse   AS HASH
 
    VAR user        AS CHARACTER
    VAR password    AS CHARACTER
@@ -125,10 +128,10 @@ METHOD Connect( cCACert, cCert, cKey, lNoVerifyPeer, lNoVerifyHost ) CLASS AMQPC
 
    RETURN ::status := amqp_socket_open( ::pSocket, ::host, ::port )
 
-METHOD PROCEDURE Close() CLASS AMQPConnection
+METHOD PROCEDURE Close( nReason ) CLASS AMQPConnection
 
    IF ! Empty( ::pConn )
-      amqp_connection_close( ::pConn )
+      amqp_connection_close( ::pConn, nReason, @::hResponse )
       ::pConn := NIL
    ENDIF
 
@@ -154,7 +157,7 @@ METHOD Login() CLASS AMQPConnection
       hb_traceLog( "Socket Error" )
    ENDIF
 
-   RETURN ::response := amqp_login( ::pConn, ::virtualHost, 0, ::frameSize, 0, ::loginMethod, ::user, ::password )
+   RETURN ::response := amqp_login( ::pConn, ::virtualHost, 0, ::frameSize, 0, ::loginMethod, ::user, ::password, @::hResponse )
 
 METHOD OpenChannel( nChannel ) CLASS AMQPConnection
 
@@ -165,7 +168,7 @@ METHOD OpenChannel( nChannel ) CLASS AMQPConnection
       hb_traceLog( "Socket Error" )
    ENDIF
 
-   RETURN ::response := amqp_channel_open( ::pConn, nChannel )
+   RETURN ::response := amqp_channel_open( ::pConn, nChannel, @::hResponse )
 
 METHOD CloseChannel( nChannel ) CLASS AMQPConnection
 
@@ -176,7 +179,7 @@ METHOD CloseChannel( nChannel ) CLASS AMQPConnection
       hb_traceLog( "Socket Error" )
    ENDIF
 
-   RETURN ::response := amqp_channel_close( ::pConn, nChannel )
+   RETURN ::response := amqp_channel_close( ::pConn, nChannel, @::hResponse )
 
 METHOD BasicPublish( cData, nChannel, cExchange, cRoutingKey ) CLASS AMQPConnection
 
@@ -187,7 +190,7 @@ METHOD BasicPublish( cData, nChannel, cExchange, cRoutingKey ) CLASS AMQPConnect
       hb_traceLog( "Socket Error" )
    ENDIF
 
-   RETURN ::status := amqp_basic_publish( ::pConn, nChannel, cExchange, cRoutingKey, ::mandatory, ::immediate, ::hMessageProperties, cData )
+   RETURN ::status := amqp_basic_publish( ::pConn, nChannel, cExchange, cRoutingKey, ::mandatory, ::immediate, ::hMessageProperties, cData, @::hResponse )
 
 METHOD ExchangeDeclare( nChannel, cExchange, cExchangeType, lPassive, lDurable, lAutoDelete, lInternal ) CLASS AMQPConnection
 
@@ -209,7 +212,7 @@ METHOD BasicConsume( nChannel, cQueueName, cConsumerTag, lNoLocal, lNoAck, lExcl
       hb_traceLog( "Socket Error" )
    ENDIF
 
-   RETURN ::status := amqp_basic_consume( ::pConn, nChannel, cQueueName, cConsumerTag, lNoLocal, lNoAck, lExclusive )
+   RETURN ::status := amqp_basic_consume( ::pConn, nChannel, cQueueName, cConsumerTag, lNoLocal, lNoAck, lExclusive, @::hResponse )
 
 METHOD ConsumeMessage( xEnvelope, nTimeoutMS ) CLASS AMQPConnection
 
@@ -227,7 +230,7 @@ METHOD ConsumeMessage( xEnvelope, nTimeoutMS ) CLASS AMQPConnection
       hb_traceLog( "Envelope Error" )
    ENDCASE
 
-   RETURN ::status := amqp_consume_message( ::pConn, xEnvelope, nTimeoutMS )
+   RETURN ::status := amqp_consume_message( ::pConn, xEnvelope, nTimeoutMS, @::hResponse )
 
 METHOD BasicAck( nChannel, nDeliveryTag, lMultiple ) CLASS AMQPConnection
 
