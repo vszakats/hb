@@ -143,7 +143,7 @@ static int s_decode_status( int iStatus, char const * pszContext )
 {
    if( iStatus != AMQP_STATUS_OK )
    {
-      HB_TRACE( HB_TR_ERROR, ( "amqp - %s status=%d (%s)", pszContext, iStatus, amqp_error_string2( iStatus ) ) );
+      HB_TRACE( HB_TR_ERROR, ( "hbamqp: %s status=%d (%s)", pszContext, iStatus, amqp_error_string2( iStatus ) ) );
    }
 
    return iStatus;
