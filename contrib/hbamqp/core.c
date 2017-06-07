@@ -295,7 +295,7 @@ HB_FUNC( AMQP_SOCKET_OPEN )
 
 /* Login to the broker.
    After using amqp_open_socket() and amqp_set_sockfd(), call amqp_login() to complete connecting to the broker
-   amqp_login( pConn, cVHost, nFrameSize, nMethod, user, pwd ) --> nResponse */
+   amqp_login( pConn, cVHost, nChannelMax, nFrameSize, nHeartbeat, nMethod, cUser, cPassword ) --> nResponse */
 HB_FUNC( AMQP_LOGIN )
 {
    amqp_connection_state_t conn = hb_par_amq_connection( 1 );
@@ -305,12 +305,12 @@ HB_FUNC( AMQP_LOGIN )
          amqp_login(
             conn,
             hb_parcx( 2 ) /* vhost */,
-            0 /* ch max */,
-            hb_parnidef( 3, 0x20000 ) /* frame size */,
-            0 /* heartbeat  - unsupported */,
-            ( amqp_sasl_method_enum ) hb_parni( 4 ) /* AMQP_SASL_METHOD_PLAIN */,
-            hb_parcx( 5 ) /* user */,
-            hb_parcx( 6 ) /* pwd */ ),
+            hb_parni( 3 ) /* channel_max */,
+            hb_parnidef( 4, 0x20000 ) /* frame size */,
+            hb_parni( 5 ) /* heartbeat */,
+            ( amqp_sasl_method_enum ) hb_parni( 6 ) /* AMQP_SASL_METHOD_PLAIN */,
+            hb_parcx( 7 ) /* user */,
+            hb_parcx( 8 ) /* password */ ),
          "amqp_login()" ) );
    else
       hb_errRT_BASE( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
@@ -358,14 +358,14 @@ HB_FUNC( AMQP_EXCHANGE_DECLARE )
    {
       amqp_exchange_declare(
          conn,
-         ( amqp_channel_t ) hb_parnidef( 2, 1 ),  /* channel */
-         amqp_cstring_bytes( hb_parcx( 3 ) ),     /* exchange */
-         amqp_cstring_bytes( hb_parcx( 4 ) ),     /* type */
-         ( amqp_boolean_t ) hb_parl( 5 ),         /* passive */
-         ( amqp_boolean_t ) hb_parl( 6 ),         /* durable */
+         ( amqp_channel_t ) hb_parnidef( 2, 1 ),
+         amqp_cstring_bytes( hb_parcx( 3 ) ) /* exchange */,
+         amqp_cstring_bytes( hb_parcx( 4 ) ) /* type */,
+         ( amqp_boolean_t ) hb_parl( 5 ) /* passive */,
+         ( amqp_boolean_t ) hb_parl( 6 ) /* durable */,
 #if HB_AMQP_VERS( 0, 6, 0 )
-         ( amqp_boolean_t ) hb_parl( 7 ),         /* auto_delete */
-         ( amqp_boolean_t ) hb_parl( 8 ),         /* internal */
+         ( amqp_boolean_t ) hb_parl( 7 ) /* auto_delete */,
+         ( amqp_boolean_t ) hb_parl( 8 ) /* internal */,
 #endif
          amqp_empty_table );
 
@@ -379,7 +379,7 @@ HB_FUNC( AMQP_EXCHANGE_DECLARE )
 }
 
 /* Publish a message to the broker.
-   amqp_basic_publish( pConn, nChannel, cExchange, cKey, nMandatory, nImmediate, hProperties, cBody ) --> nStatus
+   amqp_basic_publish( pConn, nChannel, cExchange, cRoutingKey, lMandatory, lImmediate, hProperties, cBody ) --> nStatus
    - hProperties keys: content_type, delivery_mode */
 HB_FUNC( AMQP_BASIC_PUBLISH )
 {
@@ -387,27 +387,27 @@ HB_FUNC( AMQP_BASIC_PUBLISH )
 
    if( conn && HB_ISHASH( 7 ) )
    {
-      PHB_ITEM pProps = hb_param( 7, HB_IT_HASH );
+      PHB_ITEM pProperties = hb_param( 7, HB_IT_HASH );
 
-      amqp_basic_properties_t props;
+      amqp_basic_properties_t properties;
 
-      props._flags =
+      properties._flags =
          AMQP_BASIC_CONTENT_TYPE_FLAG |
          AMQP_BASIC_DELIVERY_MODE_FLAG;
 
-      props.content_type  = amqp_cstring_bytes( hb_itemGetCPtr( hb_hashGetCItemPtr( pProps, "content_type" ) ) );
-      props.delivery_mode = hb_itemGetNI( hb_hashGetCItemPtr( pProps, "delivery_mode" ) );  /* AMQP_DELIVERY_* */
+      properties.content_type  = amqp_cstring_bytes( hb_itemGetCPtr( hb_hashGetCItemPtr( pProperties, "content_type" ) ) );
+      properties.delivery_mode = hb_itemGetNI( hb_hashGetCItemPtr( pProperties, "delivery_mode" ) );  /* AMQP_DELIVERY_* */
 
       hb_retni( s_decode_status(
          amqp_basic_publish(
             conn,
-            ( amqp_channel_t ) hb_parnidef( 2, 1 ),  /* channel */
-            amqp_cstring_bytes( hb_parcx( 3 ) ),     /* exchange */
-            amqp_cstring_bytes( hb_parcx( 4 ) ),     /* routing_key */
-            hb_parni( 5 ),                           /* mandatory */
-            hb_parni( 6 ),                           /* immediate */
-            &props,                                  /* properties */
-            amqp_cstring_bytes( hb_parcx( 8 ) ) ),   /* body */
+            ( amqp_channel_t ) hb_parnidef( 2, 1 ),
+            amqp_cstring_bytes( hb_parcx( 3 ) ) /* exchange */,
+            amqp_cstring_bytes( hb_parcx( 4 ) ) /* routing_key */,
+            ( amqp_boolean_t ) hb_parl( 5 ) /* mandatory */,
+            ( amqp_boolean_t ) hb_parl( 6 ) /* immediate */,
+            &properties,
+            amqp_cstring_bytes( hb_parcx( 8 ) ) /* body */ ),
          "amqp_basic_publish()" ) );
    }
    else
@@ -423,12 +423,12 @@ HB_FUNC( AMQP_BASIC_CONSUME )
    {
       amqp_basic_consume(
          conn,
-         ( amqp_channel_t ) hb_parnidef( 2, 1 ),  /* channel */
-         amqp_cstring_bytes( hb_parcx( 3 ) ),     /* queuename */
-         amqp_cstring_bytes( hb_parcx( 4 ) ),     /* consumer_tag */
-         ( amqp_boolean_t ) hb_parl( 5 ),         /* no_local */
-         ( amqp_boolean_t ) hb_parl( 6 ),         /* no_ack */
-         ( amqp_boolean_t ) hb_parl( 7 ),         /* exclusive */
+         ( amqp_channel_t ) hb_parnidef( 2, 1 ),
+         amqp_cstring_bytes( hb_parcx( 3 ) ) /* queuename */,
+         amqp_cstring_bytes( hb_parcx( 4 ) ) /* consumer_tag */,
+         ( amqp_boolean_t ) hb_parl( 5 ) /* no_local */,
+         ( amqp_boolean_t ) hb_parl( 6 ) /* no_ack */,
+         ( amqp_boolean_t ) hb_parl( 7 ) /* exclusive */,
          amqp_empty_table );
 
       hb_retni( s_decode_reply( amqp_get_rpc_reply( conn ), "amqp_basic_consume()" ) );
@@ -446,7 +446,7 @@ HB_FUNC( AMQP_BASIC_ACK )
    if( conn )
       hb_retni( amqp_basic_ack(
          conn /* state */,
-         ( amqp_channel_t ) hb_parnidef( 2, 1 ) /* channel */,
+         ( amqp_channel_t ) hb_parnidef( 2, 1 ),
          hb_parnint( 3 ) /* delivery_tag */,
          ( amqp_boolean_t ) hb_parl( 4 ) /* multiple */ ) );
    else
@@ -463,7 +463,7 @@ HB_FUNC( AMQP_BASIC_NACK )
 #if HB_AMQP_VERS( 0, 5, 0 )
       hb_retni( amqp_basic_nack(
          conn /* state */,
-         ( amqp_channel_t ) hb_parnidef( 2, 1 ) /* channel */,
+         ( amqp_channel_t ) hb_parnidef( 2, 1 ),
          hb_parnint( 3 ) /* delivery_tag */,
          ( amqp_boolean_t ) hb_parl( 4 ) /* multiple */,
          ( amqp_boolean_t ) hb_parl( 4 ) /* requeue */ ) );
@@ -483,7 +483,7 @@ HB_FUNC( AMQP_BASIC_REJECT )
    if( conn )
       hb_retni( amqp_basic_reject(
          conn /* state */,
-         ( amqp_channel_t ) hb_parnidef( 2, 1 ) /* channel */,
+         ( amqp_channel_t ) hb_parnidef( 2, 1 ),
          hb_parnint( 3 ) /* delivery_tag */,
          ( amqp_boolean_t ) hb_parl( 4 ) /* requeue */ ) );
    else
@@ -582,7 +582,7 @@ HB_FUNC( AMQP_CONSUME_MESSAGE )
       if( HB_ISNUM( 3 ) )
       {
          timeout = ( struct timeval * ) hb_xgrabz( sizeof( struct timeval ) );
-         timeout->tv_usec = hb_parni( 3 ) * 1000;  /* ms to us */
+         timeout->tv_usec = hb_parnl( 3 ) * 1000;  /* ms to us */
       }
       else
          timeout = NULL;  /* infinite */

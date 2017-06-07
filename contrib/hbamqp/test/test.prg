@@ -14,7 +14,7 @@ PROCEDURE Main( cCommand, cURL )  /* amqps://guest:guest@localhost:5672/vhost */
       aConn := amqp_default_connection_info()
    ENDIF
 
-   ? "Connection:", hb_ValToExp( aConn )
+   ? "Connection:", hb_ValToExp( hb_AIns( ADel( AClone( aConn ), HB_AMQP_CONN_cPASSWORD ), HB_AMQP_CONN_cPASSWORD, "*" ) )
 
    SWITCH hb_asciiLower( hb_defaultValue( cCommand, "" ) )
    CASE "p"
@@ -38,29 +38,29 @@ STATIC PROCEDURE Publish( aConn )
    LOCAL cRoutingKey := "test-routingkey"
 
    IF oConn:Connect() != AMQP_STATUS_OK
-      ? "Connect status:", amqp_error_string2( oConn:GetStatus() )
+      ? "Connect status:", oConn:GetStatusStr()
       RETURN
    ENDIF
 
    IF oConn:Login() != AMQP_RESPONSE_NORMAL
-      ? "Login response:", oConn:GetResponse()
+      ? "Login response:", oConn:GetResponseStr()
       RETURN
    ENDIF
 
    IF oConn:OpenChannel( 1 ) != AMQP_RESPONSE_NORMAL
-      ? "OpenChannel response:", oConn:GetResponse()
+      ? "OpenChannel response:", oConn:GetResponseStr()
       RETURN
    ENDIF
 
    IF oConn:BasicPublish( cData, 1, cExchange, cRoutingKey ) != AMQP_STATUS_OK
-      ? "Publish status:", amqp_error_string2( oConn:GetStatus() )
+      ? "Publish status:", oConn:GetStatusStr()
       RETURN
    ENDIF
 
    ? "Message Published"
 
    IF oConn:CloseChannel() != AMQP_RESPONSE_NORMAL
-      ? "CloseChannel status:", oConn:GetResponse()
+      ? "CloseChannel response:", oConn:GetResponseStr()
       RETURN
    ENDIF
 
@@ -76,22 +76,22 @@ STATIC PROCEDURE Consume( aConn )
    LOCAL pEnvelope
 
    IF oConn:Connect() != AMQP_STATUS_OK
-      ? "Connect status:", amqp_error_string2( oConn:GetStatus() )
+      ? "Connect status:", oConn:GetStatusStr()
       RETURN
    ENDIF
 
    IF oConn:Login() != AMQP_RESPONSE_NORMAL
-      ? "Login response:", oConn:GetResponse()
+      ? "Login response:", oConn:GetResponseStr()
       RETURN
    ENDIF
 
    IF oConn:OpenChannel( 1 ) != AMQP_RESPONSE_NORMAL
-      ? "OpenChannel response:", oConn:GetResponse()
+      ? "OpenChannel response:", oConn:GetResponseStr()
       RETURN
    ENDIF
 
    IF oConn:BasicConsume( 1, cQueueName ) != AMQP_RESPONSE_NORMAL
-      ? "BasicConsume status:", oConn:GetResponse()
+      ? "BasicConsume response:", oConn:GetResponseStr()
       RETURN
    ENDIF
 
@@ -102,21 +102,21 @@ STATIC PROCEDURE Consume( aConn )
       oConn:MaybeReleaseBuffers()
 
       IF oConn:ConsumeMessage( pEnvelope, 2000 ) == AMQP_RESPONSE_NORMAL
-         ? "GetExchange:", amqp_envelope_getexchange( pEnvelope )
-         ? "GetRoutingKey:", amqp_envelope_getroutingkey( pEnvelope )
-         ? "GetMessageBody:", amqp_envelope_getmessagebody( pEnvelope )
+         ? "Exchange:", amqp_envelope_getexchange( pEnvelope )
+         ? "RoutingKey:", amqp_envelope_getroutingkey( pEnvelope )
+         ? "MessageBody:", amqp_envelope_getmessagebody( pEnvelope )
 
          IF oConn:BasicAck( 1, amqp_envelope_getdeliverytag( pEnvelope ) ) != 0
             ? "BasicAck error"
          ENDIF
       ELSE
-         ? "ConsumeMessage status:", oConn:GetResponse()
+         ? "ConsumeMessage response:", oConn:GetResponseStr()
          EXIT
       ENDIF
    ENDDO
 
    IF oConn:CloseChannel() != AMQP_RESPONSE_NORMAL
-      ? "CloseChannel status:", oConn:GetResponse()
+      ? "CloseChannel response:", oConn:GetResponseStr()
       RETURN
    ENDIF
 

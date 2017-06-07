@@ -6,12 +6,12 @@
 
 CREATE CLASS AMQPConsumer
 
-   METHOD New( connection AS OBJECT )
+   METHOD New( oConnection )
 
-   METHOD SetChannel( nChannel )      INLINE ::channel   := nChannel
-   METHOD SetQueueName( cQueueName )  INLINE ::queueName := cQueueName
-   METHOD SetTimeoutMS( nTimeoutMS )  INLINE ::timeoutMS := nTimeoutMS
-   METHOD SetAction( bAction )
+   METHOD SetChannel( nChannel )     INLINE ::channel   := nChannel
+   METHOD SetQueueName( cQueueName ) INLINE ::queueName := cQueueName
+   METHOD SetTimeoutMS( nTimeoutMS ) INLINE ::timeoutMS := nTimeoutMS
+   METHOD SetAction( xAction )
 
    METHOD OpenChannel()
    METHOD ConsumeAndDispatch()
@@ -21,21 +21,21 @@ CREATE CLASS AMQPConsumer
 
    METHOD DumpAction( hEnvelope )
 
-   VAR connection  AS OBJECT     /* AMQPConnection */
-   VAR channel     AS NUMERIC    INIT 1
-   VAR timeOutMS   AS NUMERIC    INIT AMQP_TIMEOUT_INFINITE
-   VAR queueName   AS CHARACTER  INIT "default"
+   VAR connection AS OBJECT    /* AMQPConnection */
+   VAR channel    AS NUMERIC   INIT 1
+   VAR timeOutMS  AS NUMERIC   INIT AMQP_TIMEOUT_INFINITE
+   VAR queueName  AS CHARACTER INIT "default"
    VAR action
 
 END CLASS
 
-METHOD New( connection AS OBJECT ) CLASS AMQPConsumer
+METHOD New( oConnection ) CLASS AMQPConsumer
 
-   IF Empty( connection )
+   IF Empty( oConnection )
       hb_traceLog( "Connection Error" )
    ENDIF
 
-   ::connection := connection
+   ::connection := oConnection
    ::action := {| hEnvelope | ::DumpAction( hEnvelope ) }
 
    RETURN Self
@@ -106,15 +106,15 @@ METHOD PROCEDURE DumpAction( hEnvelope ) CLASS AMQPConsumer
 
    RETURN
 
-METHOD PROCEDURE SetAction( bAction ) CLASS AMQPConsumer
+METHOD PROCEDURE SetAction( xAction ) CLASS AMQPConsumer
 
    DO CASE
-   CASE HB_ISEVALITEM( bAction )
+   CASE HB_ISEVALITEM( xAction )
       /* do nothing */
 
-   CASE HB_ISSTRING( bAction )
+   CASE HB_ISSTRING( xAction )
 
-      IF ! hb_IsFunction( bAction )
+      IF ! hb_IsFunction( xAction )
          hb_traceLog( "action is not a function" )
       ENDIF
 
@@ -122,6 +122,6 @@ METHOD PROCEDURE SetAction( bAction ) CLASS AMQPConsumer
       hb_traceLog( "Invalid action" )
    ENDCASE
 
-   ::action = bAction
+   ::action = xAction
 
    RETURN

@@ -9,12 +9,12 @@ CREATE CLASS AMQPConnection
    METHOD New( aConn )
 
    METHOD SetAuth( cUser, cPassword, nMethod )
-   METHOD SetHost( cHost )  INLINE ::host := cHost
-   METHOD SetPort( nPort )  INLINE ::port := hb_defaultValue( nPort, 5672 )
-   METHOD SetSSL( lSSL )    INLINE ::ssl := hb_defaultValue( lSSL, .T. )
+   METHOD SetHost( cHost ) INLINE ::host := cHost
+   METHOD SetPort( nPort ) INLINE ::port := hb_defaultValue( nPort, 5672 )
+   METHOD SetSSL( lSSL )   INLINE ::ssl := hb_defaultValue( lSSL, .T. )
 
-   METHOD SetVirtualHost( cVirtualHost )  INLINE ::virtualHost := hb_defaultValue( cVirtualHost, "/" )
-   METHOD SetFramSize( nFrameSize )       INLINE ::frameSize   := nFrameSize
+   METHOD SetVirtualHost( cVirtualHost ) INLINE ::virtualHost := hb_defaultValue( cVirtualHost, "/" )
+   METHOD SetFramSize( nFrameSize )      INLINE ::frameSize   := nFrameSize
 
    METHOD Connect( cCACert, cCert, cKey, lNoVerifyPeer, lNoVerifyHost )
 
@@ -23,10 +23,10 @@ CREATE CLASS AMQPConnection
    METHOD OpenChannel( nChannel )
    METHOD CloseChannel( nChannel )
 
-   METHOD SetMandatory( nMandatory )  INLINE ::mandatory := nMandatory
-   METHOD SetImmediate( nImmediate )  INLINE ::immediate := nImmediate
+   METHOD SetMandatory( lMandatory ) INLINE ::mandatory := lMandatory
+   METHOD SetImmediate( lImmediate ) INLINE ::immediate := lImmediate
 
-   METHOD SetMessageProperties( hMessageProperties )  INLINE ::hMessageProperties := hMessageProperties
+   METHOD SetMessageProperties( hMessageProperties ) INLINE ::hMessageProperties := hMessageProperties
 
    METHOD BasicPublish( cData, nChannel, cExchange, cRoutingKey )
 
@@ -41,34 +41,36 @@ CREATE CLASS AMQPConnection
 
    METHOD Close()
 
-   METHOD GetStatus()    INLINE ::status
-   METHOD GetResponse()  INLINE ::response
+   METHOD GetStatus()      INLINE ::status
+   METHOD GetResponse()    INLINE ::response
+   METHOD GetStatusStr()   INLINE hb_StrFormat( "%1$d: %2$s (%3$s)", ::status, hb_amqp_status_string( ::status ), amqp_error_string2( ::status ) )
+   METHOD GetResponseStr() INLINE hb_StrFormat( "%1$d: %2$s", ::response, hb_amqp_response_string( ::response ) )
 
    PROTECTED:
 
    VAR pConn
    VAR pSocket     AS POINTER
 
-   VAR status      AS NUMERIC      /* AMQP_STATUS_* */
-   VAR response    AS NUMERIC      /* AMQP_RESPONSE_* */
+   VAR status      AS NUMERIC  /* AMQP_STATUS_* */
+   VAR response    AS NUMERIC  /* AMQP_RESPONSE_* */
 
    VAR user        AS CHARACTER
    VAR password    AS CHARACTER
-   VAR loginMethod AS NUMERIC      INIT AMQP_SASL_METHOD_PLAIN
+   VAR loginMethod AS NUMERIC   INIT AMQP_SASL_METHOD_PLAIN
 
    VAR virtualHost AS CHARACTER
 
    VAR host        AS CHARACTER
    VAR port        AS NUMERIC
    VAR ssl         AS LOGICAL
-   VAR frameSize   AS NUMERIC      INIT 0x20000
+   VAR frameSize   AS NUMERIC   INIT 0x20000
 
-   VAR exchange    AS CHARACTER    INIT ""
-   VAR routingKey  AS CHARACTER    INIT ""
-   VAR mandatory   AS NUMERIC      INIT 1
-   VAR immediate   AS NUMERIC      INIT 0  /* NOT_IMPLEMENTED - immediate=true */
+   VAR exchange    AS CHARACTER INIT ""
+   VAR routingKey  AS CHARACTER INIT ""
+   VAR mandatory   AS LOGICAL   INIT .T.
+   VAR immediate   AS LOGICAL   INIT .F.
 
-   VAR hMessageProperties AS HASH  INIT { "content_type" => "text", "delivery_mode" => AMQP_DELIVERY_PERSISTENT }
+   VAR hMessageProperties AS HASH INIT { "content_type" => "text", "delivery_mode" => AMQP_DELIVERY_PERSISTENT }
 
 END CLASS
 
@@ -152,7 +154,7 @@ METHOD Login() CLASS AMQPConnection
       hb_traceLog( "Socket Error" )
    ENDIF
 
-   RETURN ::response := amqp_login( ::pConn, ::virtualHost, ::frameSize, ::loginMethod, ::user, ::password )
+   RETURN ::response := amqp_login( ::pConn, ::virtualHost, 0, ::frameSize, 0, ::loginMethod, ::user, ::password )
 
 METHOD OpenChannel( nChannel ) CLASS AMQPConnection
 
@@ -221,7 +223,7 @@ METHOD ConsumeMessage( xEnvelope, nTimeoutMS ) CLASS AMQPConnection
    DO CASE
    CASE HB_ISOBJECT( xEnvelope )
       xEnvelope := xEnvelope:GetPtr()
-   CASE xEnvelope == NIL
+   CASE ! HB_ISPOINTER( xEnvelope ) .OR. Empty( xEnvelope )
       hb_traceLog( "Envelope Error" )
    ENDCASE
 

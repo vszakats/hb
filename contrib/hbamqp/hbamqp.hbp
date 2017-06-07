@@ -26,3 +26,5 @@ core.c
 connection.prg
 consumer.prg
 envelope.prg
+
+errstr.prg

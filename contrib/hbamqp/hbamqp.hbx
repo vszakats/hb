@@ -63,6 +63,8 @@ DYNAMIC amqp_tcp_socket_new
 DYNAMIC amqp_tune_connection
 DYNAMIC amqp_version
 DYNAMIC amqp_version_number
+DYNAMIC hb_amqp_response_string
+DYNAMIC hb_amqp_status_string
 
 #if defined( __HBEXTREQ__ ) .OR. defined( __HBEXTERN__HBAMQP__REQUEST )
    #uncommand DYNAMIC <fncs,...> => EXTERNAL <fncs>

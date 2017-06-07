@@ -30,32 +30,32 @@ METHOD GetPtr() CLASS AMQPEnvelope
 
 METHOD GetMessageBody() CLASS AMQPEnvelope
 
-   IF ! Empty( ::pEnvelope )
-      RETURN amqp_envelope_getmessagebody( ::pEnvelope )
+   IF Empty( ::pEnvelope )
+      RETURN NIL
    ENDIF
 
-   RETURN NIL
+   RETURN amqp_envelope_getmessagebody( ::pEnvelope )
 
 METHOD GetDeliveryTag() CLASS AMQPEnvelope
 
-   IF ! Empty( ::pEnvelope )
-      RETURN amqp_envelope_getdeliverytag( ::pEnvelope )
+   IF Empty( ::pEnvelope )
+      RETURN NIL
    ENDIF
 
-   RETURN NIL
+   RETURN amqp_envelope_getdeliverytag( ::pEnvelope )
 
 METHOD GetExchange() CLASS AMQPEnvelope
 
-   IF ! Empty( ::pEnvelope )
-      RETURN amqp_envelope_getexchange( ::pEnvelope )
+   IF Empty( ::pEnvelope )
+      RETURN NIL
    ENDIF
 
-   RETURN NIL
+   RETURN amqp_envelope_getexchange( ::pEnvelope )
 
 METHOD GetRoutingKey() CLASS AMQPEnvelope
 
-   IF ! Empty( ::pEnvelope )
-      RETURN amqp_envelope_getroutingkey( ::pEnvelope )
+   IF Empty( ::pEnvelope )
+      RETURN NIL
    ENDIF
 
-   RETURN NIL
+   RETURN amqp_envelope_getroutingkey( ::pEnvelope )
