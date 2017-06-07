@@ -6,17 +6,19 @@
 
 PROCEDURE Main()
 
+   LOCAL cFileName := hb_FNameExtSet( __FILE__, ".out" )
+
    LOCAL h
    LOCAL cStr
    LOCAL tmp
 
-   ? "create handle", h := FCreate( "test.txt" )
+   ? "create handle", h := FCreate( cFileName )
    FWrite( h, "This test worked if you can see this" )
    FClose( h )
 
    /* using FRead() */
 
-   ? "open handle", h := FOpen( "test.txt" )
+   ? "open handle", h := FOpen( cFileName )
    ?
    /* try to read what is there */
    cStr := Space( 1 )
@@ -28,7 +30,7 @@ PROCEDURE Main()
 
    /* using FReadStr() */
 
-   ? "open handle", h := FOpen( "test.txt" )
+   ? "open handle", h := FOpen( cFileName )
    ?
    /* try to read what is there */
    DO WHILE hb_BCode( cStr := FReadStr( h, 1 ) ) != 0

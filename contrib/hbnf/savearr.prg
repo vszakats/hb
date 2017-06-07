@@ -54,13 +54,13 @@ STATIC FUNCTION _ftsavesub( xMemVar, hFile, /* @ */ nErrorCode, lDropCompatibili
             AEval( xMemVar, {| xMemVar1 | lRet := _ftsavesub( xMemVar1, hFile,, lDropCompatibility ) },, 0x7FFFFFFF )
             EXIT
          ENDIF
-         // fall through
+         /* fallthrough */
       CASE "B"
          lRet := .F.
          EXIT
       CASE "N"
          xMemVar := Str( xMemVar )
-         // fall through
+         /* fallthrough */
       CASE "C" ; hb_vfWrite( hFile, L2Bin( Min( hb_BLen( xMemVar ), 0x7FFFFFFF ) ) + hb_BLeft( xMemVar, 0x7FFFFFFF ) ) ; EXIT
       CASE "D" ; hb_vfWrite( hFile, L2Bin( 8 ) + iif( lDropCompatibility, DToS( xMemVar ), hb_BLeft( DToC( xMemVar ), 8 ) ) ) ; EXIT
       CASE "L" ; hb_vfWrite( hFile, L2Bin( 1 ) + iif( xMemVar, "T", "F" ) ) ; EXIT

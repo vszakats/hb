@@ -1,0 +1,73 @@
+/* --------------------------------------------------------------------
+ * NOTE: You can add manual override which functions to include or
+ *       exclude from automatically generated EXTERNAL/DYNAMIC list.
+ *          Syntax: // HB_FUNC_INCLUDE <func>
+ *                  // HB_FUNC_EXCLUDE <func>
+ */
+
+/* --------------------------------------------------------------------
+ * WARNING: Automatically generated code below. DO NOT EDIT! (except casing)
+ *          Regenerate using hbmk2 '-hbx=' option.
+ */
+
+#ifndef __HBEXTERN_CH__HBAMQP__
+#define __HBEXTERN_CH__HBAMQP__
+
+#if defined( __HBEXTREQ__ ) .OR. defined( __HBEXTERN__HBAMQP__ANNOUNCE )
+   ANNOUNCE __HBEXTERN__HBAMQP__
+#endif
+
+#if defined( __HBEXTREQ__ ) .OR. defined( __HBEXTERN__HBAMQP__REQUEST )
+   #command DYNAMIC <fncs,...> => EXTERNAL <fncs>
+#endif
+
+DYNAMIC AMQPConnection
+DYNAMIC AMQPConsumer
+DYNAMIC AMQPEnvelope
+DYNAMIC amqp_basic_ack
+DYNAMIC amqp_basic_consume
+DYNAMIC amqp_basic_nack
+DYNAMIC amqp_basic_publish
+DYNAMIC amqp_basic_reject
+DYNAMIC amqp_channel_close
+DYNAMIC amqp_channel_open
+DYNAMIC amqp_connection_close
+DYNAMIC amqp_consume_message
+DYNAMIC amqp_data_in_buffer
+DYNAMIC amqp_default_connection_info
+DYNAMIC amqp_envelope_getdeliverytag
+DYNAMIC amqp_envelope_getexchange
+DYNAMIC amqp_envelope_getmessagebody
+DYNAMIC amqp_envelope_getroutingkey
+DYNAMIC amqp_envelope_new
+DYNAMIC amqp_error_string2
+DYNAMIC amqp_exchange_declare
+DYNAMIC amqp_frames_enqueued
+DYNAMIC amqp_get_channel_max
+DYNAMIC amqp_get_frame_max
+DYNAMIC amqp_get_heartbeat
+DYNAMIC amqp_login
+DYNAMIC amqp_maybe_release_buffers
+DYNAMIC amqp_maybe_release_buffers_on_channel
+DYNAMIC amqp_new_connection
+DYNAMIC amqp_parse_url
+DYNAMIC amqp_set_initialize_ssl_library
+DYNAMIC amqp_socket_open
+DYNAMIC amqp_ssl_socket_new
+DYNAMIC amqp_ssl_socket_set_cacert
+DYNAMIC amqp_ssl_socket_set_key
+DYNAMIC amqp_ssl_socket_set_ssl_versions
+DYNAMIC amqp_ssl_socket_set_verify_hostname
+DYNAMIC amqp_ssl_socket_set_verify_peer
+DYNAMIC amqp_tcp_socket_new
+DYNAMIC amqp_tune_connection
+DYNAMIC amqp_version
+DYNAMIC amqp_version_number
+DYNAMIC hb_amqp_response_string
+DYNAMIC hb_amqp_status_string
+
+#if defined( __HBEXTREQ__ ) .OR. defined( __HBEXTERN__HBAMQP__REQUEST )
+   #uncommand DYNAMIC <fncs,...> => EXTERNAL <fncs>
+#endif
+
+#endif

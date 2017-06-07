@@ -1,0 +1,9 @@
+description=RabbitMQ API bindings
+
+incpaths=.
+
+headers=${hb_name}.ch
+
+libs=${_HB_DYNPREF}${hb_name}${_HB_DYNSUFF}
+
+libs=rabbitmq

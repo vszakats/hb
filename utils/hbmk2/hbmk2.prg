@@ -14436,7 +14436,7 @@ STATIC FUNCTION win_implib_command_gcc( hbmk, cCommand, cSourceDLL, cTargetLib, 
    CASE ".nodef"
       cSourceDLL := hb_FNameExtSet( cSourceDLL, ".dll" )
       lNoDefSource := .T.
-      /* fall through */
+      /* fallthrough */
    OTHERWISE
       lDefSource := .F.
       IF ( nResult := win_implib_coff( hbmk, cSourceDLL, cTargetLib ) ) != _HBMK_IMPLIB_NOTFOUND
@@ -19549,7 +19549,7 @@ STATIC PROCEDURE OutOpt( hbmk, aOpt, nWidth )
 
    LOCAL nLine
    LOCAL nLines
-   LOCAL cOpt
+   LOCAL cOpt, tmp
 
    hb_default( @nWidth, 22 )
 
@@ -19580,8 +19580,12 @@ STATIC PROCEDURE OutOpt( hbmk, aOpt, nWidth )
                nLines := Max( MLCount( aOpt[ 2 ], hbmk[ _HBMK_nMaxCol ] - nWidth ), ;
                               MLCount( aOpt[ 1 ], nWidth ) )
                FOR nLine := 1 TO nLines
-                  Eval( hbmk[ _HBMK_bOut ], PadR( Space( 2 ) + MemoLine( aOpt[ 1 ], nWidth, nLine ), nWidth ) )
-                  Eval( hbmk[ _HBMK_bOut ], RTrim( MemoLine( aOpt[ 2 ], hbmk[ _HBMK_nMaxCol ] - nWidth, nLine ) ) + _OUT_EOL )
+                  IF Empty( tmp := MemoLine( aOpt[ 2 ], hbmk[ _HBMK_nMaxCol ] - nWidth, nLine ) )
+                     Eval( hbmk[ _HBMK_bOut ], RTrim( Space( 2 ) + MemoLine( aOpt[ 1 ], nWidth, nLine ) ) )
+                  ELSE
+                     Eval( hbmk[ _HBMK_bOut ], PadR( Space( 2 ) + MemoLine( aOpt[ 1 ], nWidth, nLine ), nWidth ) )
+                     Eval( hbmk[ _HBMK_bOut ], RTrim( tmp ) + _OUT_EOL )
+                  ENDIF
                NEXT
             ELSE
                IF nWidth < 0

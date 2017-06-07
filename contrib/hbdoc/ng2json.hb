@@ -46,6 +46,8 @@ procedure main( name )
     conv_one( name )
   endif
 
+  return
+
 static procedure conv_one( name )
 
   local a, p, ic, t1, t2, mt, mc, tmp

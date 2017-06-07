@@ -127,7 +127,7 @@ static HB_ISIZ Prev( PHB_EDITOR pEd, HB_ISIZ adres )
       {
          if( pEd->begin[ i ] == '\n' )
          {
-            if( i < adres - 2 )
+            if( i + 2 < adres )
                return i + 1;
          }
       }

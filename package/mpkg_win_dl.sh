@@ -19,13 +19,13 @@ _BRANCH="${APPVEYOR_REPO_BRANCH}${TRAVIS_BRANCH}${CI_BUILD_REF_NAME}${GIT_BRANCH
 [ -n "${_BRANCH}" ] || _BRANCH='master'
 _BRANC4="$(echo "${_BRANCH}" | cut -c -4)"
 
-# Update/install MSYS2 pacman packages to fullfill dependencies
+# Update/install MSYS2 pacman packages to fulfill dependencies
 
 if [ "${os}" = 'win' ]; then
 
   # Dependencies of the default (full) list of contribs
   if [ "${_BRANCH#*prod*}" = "${_BRANCH}" ]; then
-    pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{cairo,freeimage,gd,ghostscript,libmariadbclient,postgresql}
+    pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{cairo,freeimage,gd,ghostscript,libmariadbclient,postgresql,rabbitmq-c}
   # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-qt5
   fi
 

@@ -6,6 +6,7 @@ headers=mysql.ch
 
 libs=${_HB_DYNPREF}${hb_name}${_HB_DYNSUFF}
 
+# libs=mariadbclient
 {!dos}libs=mysqlclient
 {dos}libs=libmysql
 {darwin}libpaths=/usr/local/opt/mariadb/lib

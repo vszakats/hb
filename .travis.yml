@@ -34,6 +34,7 @@ addons:
       - libncurses5-dev
       - libpq-dev
     # - libqt5-dev
+      - librabbitmq-dev
     # - libslang2-dev
       - unixodbc-dev
 
@@ -85,6 +86,8 @@ before_install:
       if [ "$CC" = 'i686-w64-mingw32-gcc' ]; then
         time brew install p7zip mingw-w64 jq osslsigncode dos2unix gpg coreutils || true
         time brew install --force-bottle --build-bottle wine || true
+        export DISPLAY=:1
+        time wineboot
         export MXE_DONT_INSTALL=gcc
       # time ./package/mpkg_win_dl_mxe.sh \
       #   mxe-{i686,x86-64}-w64-mingw32.static-{bzip2,expat,libharu,mxml,libpng,lzo,minizip,pcre,sqlite,zlib}
@@ -93,7 +96,8 @@ before_install:
           mxe-{i686,x86-64}-w64-mingw32.static-{freeimage,gd}
       else
       # brew install bzip2 expat libharu liblzf libmxml libpng libxdiff lzo minizip pcre sqlite zlib
-        brew install cairo curl freeimage gd ghostscript icu4c libmagic mariadb ncurses openssl@1.1 postgresql qt s-lang unixodbc
+        brew install --force-bottle --build-bottle fontconfig || true
+        brew install cairo curl freeimage gd ghostscript icu4c libmagic mariadb ncurses openssl@1.1 postgresql qt rabbitmq-c s-lang unixodbc
       fi
       export MACOSX_DEPLOYMENT_TARGET=10.10
     elif [ -n "${DOCKER_IMAGE}" ]; then
