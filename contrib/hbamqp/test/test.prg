@@ -2,9 +2,11 @@
 
 #require "hbamqp"
 
-PROCEDURE Main( cCommand, cURL )  /* amqps://guest:guest@localhost:5672/vhost */
+PROCEDURE Main( cCommand, cURL )  /* amqps://guest:guest@localhost:5671/vhost */
 
    LOCAL aConn
+
+   LOCAL cCACert := iif( hb_vfExists( "curl-ca-bundle.crt" ), "curl-ca-bundle.crt", )
 
    ? "librabbitmq version:", amqp_version(), "0x" + hb_NumToHex( amqp_version_number() )
 
@@ -19,28 +21,28 @@ PROCEDURE Main( cCommand, cURL )  /* amqps://guest:guest@localhost:5672/vhost */
 
    SWITCH hb_asciiLower( hb_defaultValue( cCommand, "" ) )
    CASE "p"
-      Publish( aConn )
+      Publish( aConn, cCACert )
       EXIT
    CASE "c"
-      Consume( aConn )
+      Consume( aConn, cCACert )
       EXIT
    OTHERWISE
       ? "Pass 'p' for publish or 'c' for consume as parameter. Doing a publish-consume cycle now."
-      Publish( aConn )
-      Consume( aConn )
+      Publish( aConn, cCACert )
+      Consume( aConn, cCACert )
    ENDSWITCH
 
    RETURN
 
-STATIC PROCEDURE Publish( aConn )
+STATIC PROCEDURE Publish( aConn, cCACert )
 
    LOCAL oConn := AMQPConnection():New( aConn )
 
    LOCAL cData := "Hello, world!"
-   LOCAL cExchange := "amq.direct"
-   LOCAL cRoutingKey := "test-routingkey"
+   LOCAL cExchange := ""  /* amq.direct */
+   LOCAL cRoutingKey := "hello"
 
-   IF oConn:Connect() != AMQP_STATUS_OK
+   IF oConn:Connect( cCACert ) != AMQP_STATUS_OK
       ? "Connect status:", oConn:GetStatusStr()
       RETURN
    ENDIF
@@ -71,14 +73,14 @@ STATIC PROCEDURE Publish( aConn )
 
    RETURN
 
-STATIC PROCEDURE Consume( aConn )
+STATIC PROCEDURE Consume( aConn, cCACert )
 
    LOCAL oConn := AMQPConnection():New( aConn )
 
-   LOCAL cQueueName := "test-queue"
+   LOCAL cQueueName := "hello"
    LOCAL pEnvelope
 
-   IF oConn:Connect() != AMQP_STATUS_OK
+   IF oConn:Connect( cCACert ) != AMQP_STATUS_OK
       ? "Connect status:", oConn:GetStatusStr()
       RETURN
    ENDIF
