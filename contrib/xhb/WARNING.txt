@@ -18,7 +18,7 @@ Most of this code is also never tested by this fork, and none of it is ever
 used, so the chances of bugs is higher than in other parts of Harbour.
 
 If you can't do without some parts of this code, feel free to fork it locally
-or publicly and continue it maintaining there, otherwise try switching to
+or publicly and continue maintaining it there, otherwise try switching to
 core Harbour functionality ASAP.
 
 -Viktor
