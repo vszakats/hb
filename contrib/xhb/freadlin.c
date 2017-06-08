@@ -153,7 +153,7 @@ static char * s_ReadLine( PHB_FILE hFileHandle, HB_ISIZ * pnBuffLen, const char 
    return pBuff;
 }
 
-/* hb_FReadLine( <Handle>, <@buffer>, [<aTerminators | cTerminator>], [<nReadingBlock>] ) -> nError */
+/* hb_FReadLine( <Handle>, <@buffer>, [<aTerminators | cTerminator>], [<nReadingBlock>] ) --> nError */
 HB_FUNC( HB_FREADLINE )
 {
    PHB_FILE hFileHandle;
