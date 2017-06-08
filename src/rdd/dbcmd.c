@@ -259,7 +259,7 @@ HB_FUNC( BOF )
    hb_retl( bBof );
 }
 
-/* dbAppend( [<lUnLockAll>=.T.] ) -> <lSuccess> */
+/* dbAppend( [<lUnLockAll>=.T.] ) --> <lSuccess> */
 HB_FUNC( DBAPPEND )
 {
    AREAP pArea = ( AREAP ) hb_rddGetCurrentWorkAreaPointer();
@@ -305,10 +305,10 @@ HB_FUNC( DBCOMMITALL )
 
 /*
  * In Clipper the arguments are:
- *    dbCreate( cFile, aStruct, cRDD, lKeepOpen, cAlias, cDelimArg ) -> NIL
+ *    dbCreate( cFile, aStruct, cRDD, lKeepOpen, cAlias, cDelimArg ) --> NIL
  * In Harbour (HB_EXTENSION):
  *    dbCreate( cFile, aStruct, cRDD, lKeepOpen, cAlias, cDelimArg, ;
- *              cCodePage, nConnection ) -> <lSuccess>
+ *              cCodePage, nConnection ) --> <lSuccess>
  */
 HB_FUNC( DBCREATE )
 {
@@ -378,7 +378,7 @@ HB_FUNC( DBCREATE )
 }
 
 /*
- * hb_dbCreateTemp( <cAlias>, <aStruct>, <cRDD>, <cCodePage>, <nConnection> ) -> <lSuccess>
+ * hb_dbCreateTemp( <cAlias>, <aStruct>, <cRDD>, <cCodePage>, <nConnection> ) --> <lSuccess>
  */
 HB_FUNC( HB_DBCREATETEMP )
 {
@@ -443,7 +443,7 @@ HB_FUNC( HB_DBCREATETEMP )
          if .F. it will be opened in the current one. */
 /* NOTE: Has an identical parameter list with dbCreate() */
 
-/* __dbOpenSDF( cFile, aStruct, cRDD, lKeepOpen, cAlias, cDelimArg, cCodePage, nConnection ) -> <lSuccess> */
+/* __dbOpenSDF( cFile, aStruct, cRDD, lKeepOpen, cAlias, cDelimArg, cCodePage, nConnection ) --> <lSuccess> */
 HB_FUNC( __DBOPENSDF )
 {
    const char * szFileName, * szAlias, * szDriver, * szCpId;
@@ -909,7 +909,7 @@ HB_FUNC( DBUNLOCKALL )
 
 /* dbUseArea( [<lNewArea>], [<cDriver>], <cName>, [<xcAlias>], ;
               [<lShared>], [<lReadonly>], [<cCodePage>], ;
-              [<nConnection>] ) -> <lSuccess> */
+              [<nConnection>] ) --> <lSuccess> */
 HB_FUNC( DBUSEAREA )
 {
    hb_retl( hb_rddOpenTable( hb_parc( 3 ), hb_parc( 2 ),
@@ -1965,7 +1965,7 @@ HB_FUNC( __DBARRANGE )
    hb_retl( errCode == HB_SUCCESS );
 }
 
-/* __dbTrans( nDstArea, aFieldsStru, bFor, bWhile, nNext, nRecord, lRest ) -> <lSuccess> */
+/* __dbTrans( nDstArea, aFieldsStru, bFor, bWhile, nNext, nRecord, lRest ) --> <lSuccess> */
 HB_FUNC( __DBTRANS )
 {
    if( HB_ISNUM( 1 ) )
@@ -2044,7 +2044,7 @@ HB_FUNC( __DBTRANS )
 /* __dbApp( <cNameName>, [<aFields>], ;
             [<bFor>], [<bWhile>], [<nNext>], [<nRecord>], [<lRest>], ;
             [<cRDD>], [<nConnection>], [<cCodePage>], ;
-            [<xDelimiter>] ) -> <lSuccess> */
+            [<xDelimiter>] ) --> <lSuccess> */
 HB_FUNC( __DBAPP )
 {
    AREAP pArea = ( AREAP ) hb_rddGetCurrentWorkAreaPointer();
@@ -2072,7 +2072,7 @@ HB_FUNC( __DBAPP )
 /* __dbCoppy( <cNameName>, [<aFields>], ;
               [<bFor>], [<bWhile>], [<nNext>], [<nRecord>], [<lRest>], ;
               [<cRDD>], [<nConnection>], [<cCodePage>], ;
-              [<xDelimiter>] ) -> <lSuccess> */
+              [<xDelimiter>] ) --> <lSuccess> */
 HB_FUNC( __DBCOPY )
 {
    AREAP pArea = ( AREAP ) hb_rddGetCurrentWorkAreaPointer();

@@ -47,27 +47,27 @@
 /*
   Harbour level API:
 
-  hb_threadStart( [ <nThreadAttrs>, ] <@sStart()> | <bStart> | <cStart> [, <params,...> ] ) -> <pThID>
-  hb_threadSelf() -> <pThID> | NIL
-  hb_threadID( [ <pThID> ] ) -> <nThNo>
-  hb_threadJoin( <pThID> [, @<xRetCode> ] ) -> <lOK>
-  hb_threadDetach( <pThID> ) -> <lOK>
-* hb_threadQuitRequest( <pThID> ) -> <lOK>
-  hb_threadTerminateAll() -> NIL
-  hb_threadWaitForAll() -> NIL
+  hb_threadStart( [ <nThreadAttrs>, ] <@sStart()> | <bStart> | <cStart> [, <params,...> ] ) --> <pThID>
+  hb_threadSelf() --> <pThID> | NIL
+  hb_threadID( [ <pThID> ] ) --> <nThNo>
+  hb_threadJoin( <pThID> [, @<xRetCode> ] ) --> <lOK>
+  hb_threadDetach( <pThID> ) --> <lOK>
+* hb_threadQuitRequest( <pThID> ) --> <lOK>
+  hb_threadTerminateAll() --> NIL
+  hb_threadWaitForAll() --> NIL
   hb_threadWait( <pThID> | <apThID>, [ <nTimeOut> ] [, <lAll> ] ) => <nThInd> | <nThCount> | 0
-  hb_threadOnce( @<onceControl> [, <bAction> | <@sAction()> ] ) -> <lFirstCall>
-  hb_threadOnceInit( @<item>, <value> ) -> <lInitialized>
-  hb_mutexCreate() -> <pMtx>
-  hb_mutexLock( <pMtx> [, <nTimeOut> ] ) -> <lLocked>
-  hb_mutexUnlock( <pMtx> ) -> <lOK>
-  hb_mutexNotify( <pMtx> [, <xVal>] ) -> NIL
-  hb_mutexNotifyAll( <pMtx> [, <xVal>] ) -> NIL
-  hb_mutexSubscribe( <pMtx>, [ <nTimeOut> ] [, @<xSubscribed> ] ) -> <lSubscribed>
-  hb_mutexSubscribeNow( <pMtx>, [ <nTimeOut> ] [, @<xSubscribed> ] ) -> <lSubscribed>
-  hb_mutexEval( <pMtx>, <bCode> | <@sFunc()> [, <params,...> ] ) -> <xCodeResult>
-** hb_mutexQueueInfo( <pMtx>, [ @<nWaitersCount> ], [ @<nQueueLength> ] ) -> .T.
-  hb_mtvm() -> <lMultiThreadVM>
+  hb_threadOnce( @<onceControl> [, <bAction> | <@sAction()> ] ) --> <lFirstCall>
+  hb_threadOnceInit( @<item>, <value> ) --> <lInitialized>
+  hb_mutexCreate() --> <pMtx>
+  hb_mutexLock( <pMtx> [, <nTimeOut> ] ) --> <lLocked>
+  hb_mutexUnlock( <pMtx> ) --> <lOK>
+  hb_mutexNotify( <pMtx> [, <xVal>] ) --> NIL
+  hb_mutexNotifyAll( <pMtx> [, <xVal>] ) --> NIL
+  hb_mutexSubscribe( <pMtx>, [ <nTimeOut> ] [, @<xSubscribed> ] ) --> <lSubscribed>
+  hb_mutexSubscribeNow( <pMtx>, [ <nTimeOut> ] [, @<xSubscribed> ] ) --> <lSubscribed>
+  hb_mutexEval( <pMtx>, <bCode> | <@sFunc()> [, <params,...> ] ) --> <xCodeResult>
+** hb_mutexQueueInfo( <pMtx>, [ @<nWaitersCount> ], [ @<nQueueLength> ] ) --> .T.
+  hb_mtvm() --> <lMultiThreadVM>
 
   * - this function call can be ignored by the destination thread in some
       cases. HVM does not guaranties that the QUIT signal will be always
@@ -1557,7 +1557,7 @@ HB_FUNC( HB_THREADTERMINATEALL )
 #endif
 }
 
-/* hb_threadOnce( @<onceControl> [, <bAction> ] ) -> <lFirstCall>
+/* hb_threadOnce( @<onceControl> [, <bAction> ] ) --> <lFirstCall>
  * Execute <bAction> only once. <onceControl> is variable which holds
  * the execution status and have to be initialized to NIL. In most of
  * cases it will be simple static variable in user code.
@@ -1620,7 +1620,7 @@ HB_FUNC( HB_THREADONCE )
       hb_errRT_BASE_SubstR( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
-/* hb_threadOnceInit( @<item>, <value> ) -> <lInitialized>
+/* hb_threadOnceInit( @<item>, <value> ) --> <lInitialized>
  * assign <value> to @<item> only if <item> is NIL
  */
 HB_FUNC( HB_THREADONCEINIT )

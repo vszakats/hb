@@ -1,7 +1,7 @@
 /*
  * FlagShip compatible functions
- *    IndexCount() -> <nIndexCount>
- *    IndexNames() -> <acIndexNames>
+ *    IndexCount() --> <nIndexCount>
+ *    IndexNames() --> <acIndexNames>
  *
  * Copyright 2011 Przemyslaw Czerpak <druzus@acn.waw.pl>
  *

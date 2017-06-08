@@ -1,7 +1,7 @@
 /*
  * FlagShip compatible functions
- *    ExecName( [ <lFullPath> ] ) -> <cName>
- *    ExecPIDNum() -> <nPID>
+ *    ExecName( [ <lFullPath> ] ) --> <cName>
+ *    ExecPIDNum() --> <nPID>
  *
  * Copyright 2011 Przemyslaw Czerpak <druzus@acn.waw.pl>
  *

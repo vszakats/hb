@@ -564,7 +564,7 @@ HB_BOOL hb_execFromArray( PHB_ITEM pParam )
    return HB_FALSE;
 }
 
-/* hb_ExecMsg( <sFuncSym>, <object>, [<params,...>] ) -> <xResult>
+/* hb_ExecMsg( <sFuncSym>, <object>, [<params,...>] ) --> <xResult>
  * Execute <sFuncSym> with <object> set as QSELF() value
  */
 HB_FUNC( HB_EXECMSG )

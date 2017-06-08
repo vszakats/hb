@@ -6,7 +6,7 @@
  *    netio_MTServer( [<nPort>], [<cIfAddr>], [<cRootDir>], [<xRPC>],
  *                    [<cPasswd>], [<nCompressionLevel>], [<nStrategy>],
  *                    [<sSrvFunc>] )
- *                                           -> <pListenSocket> | NIL
+ *                                           --> <pListenSocket> | NIL
  * and can be stopped by:
  *    netio_ServerStop( <pListenSocket>, .T. )
  *

@@ -57,7 +57,7 @@ static const HB_BLOWFISH * hb_bf_keyparam( void )
       return NULL;
 }
 
-/* hb_blowfishKey( <cPasswd> ) -> <cBfKey>
+/* hb_blowfishKey( <cPasswd> ) --> <cBfKey>
  */
 HB_FUNC( HB_BLOWFISHKEY )
 {
@@ -72,7 +72,7 @@ HB_FUNC( HB_BLOWFISHKEY )
    }
 }
 
-/* hb_blowfishEncrypt( <cBfKey>, <cText> [, <lRaw>=.F. ] ) -> <cCipher> | NIL
+/* hb_blowfishEncrypt( <cBfKey>, <cText> [, <lRaw>=.F. ] ) --> <cCipher> | NIL
  * return string encrypted using ECB (electronic codebook) mode or
  * NIL on error (wrong parameters),
  * in raw mode passed string is padded to 8 bytes with '\0'
@@ -119,7 +119,7 @@ HB_FUNC( HB_BLOWFISHENCRYPT )
    }
 }
 
-/* hb_blowfishDecrypt( <cBfKey>, <cCipher> [, <lRaw>=.F. ] ) -> <cText> | NIL
+/* hb_blowfishDecrypt( <cBfKey>, <cCipher> [, <lRaw>=.F. ] ) --> <cText> | NIL
  * return string decrypted using ECB (electronic codebook) mode or
  * NIL on error (wrong parameters),
  * in raw mode whole passed string is decoded as is
@@ -196,7 +196,7 @@ static void hb_bf_encode( const HB_BLOWFISH * bf, HB_BYTE * vect )
 }
 
 /* hb_blowfishEncrypt_CFB( <cBfKey>, <cText> [, <cInitSeed> ] )
- *          -> <cCipher> | NIL
+ *          --> <cCipher> | NIL
  * return string encrypted using CFB (cipher feedback) mode or
  * NIL on error (wrong parameters)
  */
@@ -233,7 +233,7 @@ HB_FUNC( HB_BLOWFISHENCRYPT_CFB )
 }
 
 /* hb_blowfishDecrypt_CFB( <cBfKey>, <cCipher> [, <cInitSeed> ] )
- *          -> <cText> | NIL
+ *          --> <cText> | NIL
  * return string decrypted using CFB (cipher feedback) mode or
  * NIL on error (wrong parameters),
  */

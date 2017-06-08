@@ -1,6 +1,6 @@
 /*
  * Undocumented FlagShip compatible function
- *    StrOccurs( <cSub>, <cStr>, [<lAny>] ) -> <nCount>
+ *    StrOccurs( <cSub>, <cStr>, [<lAny>] ) --> <nCount>
  *
  * Copyright 2013 Przemyslaw Czerpak <druzus / at / priv.onet.pl>
  *

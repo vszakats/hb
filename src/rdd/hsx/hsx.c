@@ -1703,7 +1703,7 @@ static int hb_hsxFilter( int iHandle, const char * pSeek, HB_SIZE nSeek,
 /* ************************************************************************ */
 
 /* hs_Create( <cFile>, <nBufSize>, <nKeySize>, <lCase>, <nFiltSet>, <xExpr> )
-                     -> nVal >=0 (OK: <hIndex>), nVal < 0 (ERROR CODE)
+                     --> nVal >=0 (OK: <hIndex>), nVal < 0 (ERROR CODE)
    Creates a new, empty HiPer-SEEK index file */
 HB_FUNC( HS_CREATE )
 {
@@ -1713,7 +1713,7 @@ HB_FUNC( HS_CREATE )
 }
 
 /* hs_Open( <cFile>, <nBufSize>, <nOpenMode> )
-                     -> nVal >=0 (OK: <hIndex>), nVal < 0 (ERROR CODE)
+                     --> nVal >=0 (OK: <hIndex>), nVal < 0 (ERROR CODE)
    Opens an existing HiPer-SEEK index file */
 HB_FUNC( HS_OPEN )
 {
@@ -1721,7 +1721,7 @@ HB_FUNC( HS_OPEN )
              hb_param( 3, HB_IT_NUMERIC ) ? hb_parni( 3 ) : HSXDEFOPENMODE ) );
 }
 
-/* hs_Close( <hIndex> ) -> nVal = 1 (OK), nVal < 0 (ERROR CODE)
+/* hs_Close( <hIndex> ) --> nVal = 1 (OK), nVal < 0 (ERROR CODE)
    Closes a previously opened HiPer-SEEK index file */
 HB_FUNC( HS_CLOSE )
 {
@@ -1732,7 +1732,7 @@ HB_FUNC( HS_CLOSE )
 }
 
 /* hs_Index( <cFile>, <cExpr>, <nKeySize>, <nOpenMode>, <nBufSize>, <lCase>,
-             <nFiltSet> ) -> nVal >=0 (OK: <hIndex>), nVal < 0 (ERROR CODE)
+             <nFiltSet> ) --> nVal >=0 (OK: <hIndex>), nVal < 0 (ERROR CODE)
    Creates and populates a new HiPer-SEEK index */
 HB_FUNC( HS_INDEX )
 {
@@ -1743,7 +1743,7 @@ HB_FUNC( HS_INDEX )
                           hb_parni( 7 ) ) );
 }
 
-/* hs_Add( <hIndex>, [<xExpr>], [lDel] ) -> nVal >= 1 (RECNO), nVal < 0 (ERROR CODE)
+/* hs_Add( <hIndex>, [<xExpr>], [lDel] ) --> nVal >= 1 (RECNO), nVal < 0 (ERROR CODE)
    Adds a text string entry to a HiPer-SEEK index file */
 HB_FUNC( HS_ADD )
 {
@@ -1765,7 +1765,7 @@ HB_FUNC( HS_ADD )
       hb_retni( HSX_BADPARMS );
 }
 
-/* hs_Replace( <hIndex>, [<xExpr>], <nRecNo>, [lDel] ) -> nVal = 1 (OK), nVal < 0 (ERROR CODE)
+/* hs_Replace( <hIndex>, [<xExpr>], <nRecNo>, [lDel] ) --> nVal = 1 (OK), nVal < 0 (ERROR CODE)
    Replaces current HiPer-SEEK index entry with a new value */
 HB_FUNC( HS_REPLACE )
 {
@@ -1777,7 +1777,7 @@ HB_FUNC( HS_REPLACE )
       hb_retni( HSX_BADPARMS );
 }
 
-/* hs_IfDel( <hIndex>, <nRecNo> ) -> nVal = {0|1} (DELETED), nVal < 0 (ERROR CODE)
+/* hs_IfDel( <hIndex>, <nRecNo> ) --> nVal = {0|1} (DELETED), nVal < 0 (ERROR CODE)
    Determines if a HiPer-SEEK record is marked as deleted */
 HB_FUNC( HS_IFDEL )
 {
@@ -1787,7 +1787,7 @@ HB_FUNC( HS_IFDEL )
       hb_retni( HSX_BADPARMS );
 }
 
-/* hs_Delete( <hIndex>, <nRecNo> ) -> nVal = 1 (OK), nVal < 0 (ERROR CODE)
+/* hs_Delete( <hIndex>, <nRecNo> ) --> nVal = 1 (OK), nVal < 0 (ERROR CODE)
    Deletes specifed index record from HiPer-SEEK index file */
 HB_FUNC( HS_DELETE )
 {
@@ -1797,7 +1797,7 @@ HB_FUNC( HS_DELETE )
       hb_retni( HSX_BADPARMS );
 }
 
-/* hs_Undelete( <hIndex>, <nRecNo> ) -> nVal = 1 (OK), nVal < 0 (ERROR CODE)
+/* hs_Undelete( <hIndex>, <nRecNo> ) --> nVal = 1 (OK), nVal < 0 (ERROR CODE)
    Unmarks the specified HiPer-SEEK record as being deleted */
 HB_FUNC( HS_UNDELETE )
 {
@@ -1807,7 +1807,7 @@ HB_FUNC( HS_UNDELETE )
       hb_retni( HSX_BADPARMS );
 }
 
-/* hs_KeyCount( <hIndex> ) -> nVal >= 0 (RECCOUNT), nVal < 0 (ERROR CODE)
+/* hs_KeyCount( <hIndex> ) --> nVal >= 0 (RECCOUNT), nVal < 0 (ERROR CODE)
    Returns the number of entries in a HiPer-SEEK index */
 HB_FUNC( HS_KEYCOUNT )
 {
@@ -1829,7 +1829,7 @@ HB_FUNC( HS_KEYCOUNT )
       hb_retni( HSX_BADPARMS );
 }
 
-/* hs_Set( <hIndex>, <cExpr> ) -> nVal = 1 (OK), nVal < 0 (ERROR CODE)
+/* hs_Set( <hIndex>, <cExpr> ) --> nVal = 1 (OK), nVal < 0 (ERROR CODE)
    Sets up parameters for a subsequent hs_Next() call */
 HB_FUNC( HS_SET )
 {
@@ -1841,7 +1841,7 @@ HB_FUNC( HS_SET )
    hb_retni( iRetVal );
 }
 
-/* hs_Filter( <cIndex>, <cVal>, [xRealExp], [nBufSize], [nOpenMode] ) -> nRecMatch
+/* hs_Filter( <cIndex>, <cVal>, [xRealExp], [nBufSize], [nOpenMode] ) --> nRecMatch
    Sets a WA RM filter using a HiPer-SEEK index */
 HB_FUNC( HS_FILTER )
 {
@@ -1947,7 +1947,7 @@ HB_FUNC( HS_FILTER )
       hb_retnint( ulRecords );
 }
 
-/* hs_Next( <hIndex> ) -> nVal >= 0 (RECNO), nVal < 0 (ERROR CODE)
+/* hs_Next( <hIndex> ) --> nVal >= 0 (RECNO), nVal < 0 (ERROR CODE)
    Searches a HiPer-SEEK index file for first/next match */
 HB_FUNC( HS_NEXT )
 {
@@ -1964,8 +1964,8 @@ HB_FUNC( HS_NEXT )
 }
 
 /* hs_Verify( <hIndex>, <bSource>, <cValue>, <nType> )
-          -> nVal = {0|1} (VERIFIED), nVal < 0 (ERROR CODE)
-   hs_Verify( <bSource>, <cValue> ) -> lOK
+          --> nVal = {0|1} (VERIFIED), nVal < 0 (ERROR CODE)
+   hs_Verify( <bSource>, <cValue> ) --> lOK
    Verifies hs_Next() hit against code block expression */
 HB_FUNC( HS_VERIFY )
 {
@@ -2023,7 +2023,7 @@ HB_FUNC( HS_VERIFY )
    }
 }
 
-/* hs_Version() -> <cVersion> */
+/* hs_Version() --> <cVersion> */
 HB_FUNC( HS_VERSION )
 {
    static const char sc_szVer[] = "HiPer-SEEK / FTS library emulation";

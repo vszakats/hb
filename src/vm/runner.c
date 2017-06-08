@@ -660,7 +660,7 @@ static void hb_hrbReturn( PHRB_BODY pHrbBody )
 }
 
 /*
-   hb_hrbRun( [ <nOptions>, ] <cHrb> [, <xparams,...> ] ) -> <retVal>
+   hb_hrbRun( [ <nOptions>, ] <cHrb> [, <xparams,...> ] ) --> <retVal>
 
    This program will get the data from the .hrb file and run the p-code
    contained in it.

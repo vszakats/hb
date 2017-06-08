@@ -310,7 +310,7 @@ HB_FUNC( HB_TOKENGET )
 
 /* like hb_tokenGet() but returns next token starting from passed position
  * (0 based) inside string, f.e.:
- *    hb_tokenPtr( cString, @nTokPos, Chr( 9 ) ) -> cToken
+ *    hb_tokenPtr( cString, @nTokPos, Chr( 9 ) ) --> cToken
  */
 HB_FUNC( HB_TOKENPTR )
 {

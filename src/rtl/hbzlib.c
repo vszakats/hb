@@ -221,7 +221,7 @@ static int s_zlibUncompress( char * pDst, HB_SIZE * pnDst,
 }
 
 /*
- * hb_ZLibVersion( [<nType>] ) -> <cZlibVersion>
+ * hb_ZLibVersion( [<nType>] ) --> <cZlibVersion>
  */
 HB_FUNC( HB_ZLIBVERSION )
 {
@@ -237,7 +237,7 @@ HB_FUNC( HB_ZLIBVERSION )
 }
 
 /*
- * hb_ZCompressBound( <cData> | <nDataLen> ) -> <nMaxCompressLen>
+ * hb_ZCompressBound( <cData> | <nDataLen> ) --> <nMaxCompressLen>
  */
 HB_FUNC( HB_ZCOMPRESSBOUND )
 {
@@ -251,7 +251,7 @@ HB_FUNC( HB_ZCOMPRESSBOUND )
 
 /*
  * hb_ZUncompressLen( <cCompressedData>, [<@nResult>] )
- *          -> <nUnCompressedDataLen> or -1 on error
+ *          --> <nUnCompressedDataLen> or -1 on error
  */
 HB_FUNC( HB_ZUNCOMPRESSLEN )
 {
@@ -408,7 +408,7 @@ HB_FUNC( HB_ZUNCOMPRESS )
 }
 
 /*
- * hb_gzCompressBound( <cData> | <nDataLen> ) -> <nMaxCompressLen>
+ * hb_gzCompressBound( <cData> | <nDataLen> ) --> <nMaxCompressLen>
  */
 HB_FUNC( HB_GZCOMPRESSBOUND )
 {

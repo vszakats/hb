@@ -483,7 +483,7 @@ HB_FUNC( HB_LANGMESSAGE )
 }
 
 /* hb_langNew( <cNewLangId>, <cNewLangCpId>,
- *             <cLangId>, <cLangCpId> ) -> <lOK>
+ *             <cLangId>, <cLangCpId> ) --> <lOK>
  */
 HB_FUNC( HB_LANGNEW )
 {

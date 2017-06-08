@@ -3357,7 +3357,7 @@ HB_FUNC( __CLSADDMSG )
 
 /* __clsNew( <szClassName>, <uiDatas>,
  *           [<pSuperArray>], [<pClassFunc>],
- *           [<fModuleFriendly>] ) -> <hClass>
+ *           [<fModuleFriendly>] ) --> <hClass>
  *
  * Create a new class
  *
@@ -3569,7 +3569,7 @@ static HB_USHORT hb_clsNew( const char * szClassName, HB_USHORT uiDatas,
    return pNewCls->uiClass;
 }
 
-/* __clsNew( <cClassName>, <nDatas>, [<ahSuper>], [<pClassFunc>], [<lModuleFriendly>] ) -> <hClass>
+/* __clsNew( <cClassName>, <nDatas>, [<ahSuper>], [<pClassFunc>], [<lModuleFriendly>] ) --> <hClass>
  *
  * Create a new class
  *
@@ -3663,7 +3663,7 @@ HB_FUNC( __CLSDELMSG )
 }
 
 
-/* hb_clsInst( <hClass> ) -> <pObjectItm>
+/* hb_clsInst( <hClass> ) --> <pObjectItm>
  *
  * Create a new object from class definition <hClass>
  */
@@ -3722,7 +3722,7 @@ static PHB_ITEM hb_clsInst( HB_USHORT uiClass )
    return pSelf;
 }
 
-/* __clsInst( <hClass> ) -> <oNewObject>
+/* __clsInst( <hClass> ) --> <oNewObject>
  *
  * Create a new object from class definition <hClass>
  */
@@ -3848,7 +3848,7 @@ HB_FUNC( __CLSMODMSG )
 }
 
 
-/* __objGetClsName( <hClass> | <oObj> ) -> <cClassName>
+/* __objGetClsName( <hClass> | <oObj> ) --> <cClassName>
  *
  * Returns class name of <oObj> or <hClass>
  */
@@ -3867,7 +3867,7 @@ HB_FUNC( __OBJGETCLSNAME )
 }
 
 
-/* __objHasMsg( <oObj>, <cMsgName> | <sMsgName> ) -> <lRet>
+/* __objHasMsg( <oObj>, <cMsgName> | <sMsgName> ) --> <lRet>
  *
  * Is <cSymbol> a valid message for the <oObj>
  */
@@ -3884,7 +3884,7 @@ HB_FUNC( __OBJHASMSG )
       hb_errRT_BASE_SubstR( EG_ARG, 1099, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
-/* __objHasMsgAssigned( <oObj>, <cMsgName> | <sMsgName> ) -> <lExists>
+/* __objHasMsgAssigned( <oObj>, <cMsgName> | <sMsgName> ) --> <lExists>
  *
  * checks if function exists and is not virtual
  */
@@ -3903,7 +3903,7 @@ HB_FUNC( __OBJHASMSGASSIGNED )
       hb_errRT_BASE_SubstR( EG_ARG, 1099, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
-/* __objSendMsg( <oObj>, <cMsgName> | <sMsgName>, <xArg,..> ) -> <xRet>
+/* __objSendMsg( <oObj>, <cMsgName> | <sMsgName>, <xArg,..> ) --> <xRet>
  *
  * Send a message to an object
  */
@@ -3929,7 +3929,7 @@ HB_FUNC( __OBJSENDMSG )
       hb_errRT_BASE( EG_ARG, 3000, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
-/* __objClone( <oSource> ) -> <oNew>
+/* __objClone( <oSource> ) --> <oNew>
  *
  * Clone an object. Note the similarity with aClone ;-)
  */
@@ -3944,7 +3944,7 @@ HB_FUNC( __OBJCLONE )
       hb_errRT_BASE( EG_ARG, 3001, NULL, HB_ERR_FUNCNAME, 0 );
 }
 
-/* __clsInstSuper( <cClassName> | <sClassFunc> ) -> <hClass>
+/* __clsInstSuper( <cClassName> | <sClassFunc> ) --> <hClass>
  *
  * Instance super class and return class handle
  */
@@ -4039,7 +4039,7 @@ HB_FUNC( __CLSINSTSUPER )
    hb_retni( uiClassH );
 }
 
-/* __clsAssocType( <hClass>, <cType> ) -> <lOK>
+/* __clsAssocType( <hClass>, <cType> ) --> <lOK>
  *
  * Associate class with given basic type
  */
@@ -4103,7 +4103,7 @@ HB_FUNC( __CLSASSOCTYPE )
    hb_retl( fResult );
 }
 
-/* __clsCntClasses() -> <nCount>
+/* __clsCntClasses() --> <nCount>
  *
  * Return number of classes
  */
@@ -4113,7 +4113,7 @@ HB_FUNC( __CLSCNTCLASSES )
    hb_retni( ( int ) s_uiClasses );
 }
 
-/* __cls_CntClsData( <hClass> ) -> <nCount>
+/* __cls_CntClsData( <hClass> ) --> <nCount>
  *
  * Return number of class datas
  */
@@ -4126,7 +4126,7 @@ HB_FUNC( __CLS_CNTCLSDATA )
                   ( HB_USHORT ) hb_arrayLen( s_pClasses[ uiClass ]->pClassDatas ) : 0 );
 }
 
-/* __cls_CntShrData( <hClass> ) -> <nCount>
+/* __cls_CntShrData( <hClass> ) --> <nCount>
  *
  * Return number of class datas
  */
@@ -4139,7 +4139,7 @@ HB_FUNC( __CLS_CNTSHRDATA )
                   ( HB_USHORT ) hb_arrayLen( s_pClasses[ uiClass ]->pSharedDatas ) : 0 );
 }
 
-/* __cls_CntData( <hClass> ) -> <nCount>
+/* __cls_CntData( <hClass> ) --> <nCount>
  *
  * Return number of datas
  */
@@ -4152,7 +4152,7 @@ HB_FUNC( __CLS_CNTDATA )
              s_pClasses[ uiClass ]->uiDatas : 0 );
 }
 
-/* __cls_DecData( <hClass> ) -> <nCount>
+/* __cls_DecData( <hClass> ) --> <nCount>
  *
  * Decrease number of datas and return new value
  */
@@ -4172,7 +4172,7 @@ HB_FUNC( __CLS_DECDATA )
       hb_retni( 0 );
 }
 
-/* __cls_IncData( <hClass> ) -> <nCount>
+/* __cls_IncData( <hClass> ) --> <nCount>
  *
  * Increase number of datas and return offset to new value
  */
@@ -4249,7 +4249,7 @@ HB_FUNC( __GETMESSAGE )
    hb_retc( hb_stackItem ( hb_stackBaseItem()->item.asSymbol.stackstate->nBaseItem )->item.asSymbol.value->szName );
 }
 
-/* __clsParent( <hClass>, <cParentClass> ) -> <lIsParent>
+/* __clsParent( <hClass>, <cParentClass> ) --> <lIsParent>
  * Checks if <cParentClass> is parent of <hClass>
  */
 HB_FUNC( __CLSPARENT )
@@ -4261,7 +4261,7 @@ HB_FUNC( __CLSPARENT )
             hb_clsIsParent( ( HB_USHORT ) hb_parni( 1 ), szParentName ) );
 }
 
-/* __Sender() -> <obj> | NIL
+/* __Sender() --> <obj> | NIL
  * returns sender object
  */
 HB_FUNC( __SENDER )
@@ -4342,7 +4342,7 @@ HB_FUNC( __CLSSYNCWAIT )
 #endif /* HB_MT_VM */
 }
 
-/* __classH( <obj> ) -> <hClass>
+/* __classH( <obj> ) --> <hClass>
  *
  * Returns class handle of <obj>
  */
@@ -5011,7 +5011,7 @@ void hb_mthAddTime( HB_ULONG ulClockTicks )
 }
 #endif
 
-/* __GetMsgPrf( <hClass>, <cMsg> ) -> <aMethodInfo> { { <nTimes>, <nTime> }, ... } */
+/* __GetMsgPrf( <hClass>, <cMsg> ) --> <aMethodInfo> { { <nTimes>, <nTime> }, ... } */
 HB_FUNC( __GETMSGPRF ) /* profiler: returns a method called and consumed times */
 {
    HB_STACK_TLS_PRELOAD
@@ -5237,7 +5237,7 @@ static void hb_objSetIVars( PHB_ITEM pObject, PHB_ITEM pArray )
 }
 
 /* __objGetIVars( <oObject>, [<nScope>], [<lChanged>] )
- *          -> <aIVars> { { <cName>, <xVal> }, ... }
+ *          --> <aIVars> { { <cName>, <xVal> }, ... }
  */
 HB_FUNC( __OBJGETIVARS )
 {
@@ -5249,7 +5249,7 @@ HB_FUNC( __OBJGETIVARS )
 }
 
 /* __objSetIVars( <oObject> | <hClass> | <cClassName> | <sClassFunc>,
- *                <aIVars> ) -> <oObject>
+ *                <aIVars> ) --> <oObject>
  */
 HB_FUNC( __OBJSETIVARS )
 {
@@ -5279,7 +5279,7 @@ HB_FUNC( __OBJSETIVARS )
 }
 
 /* __objRestoreIVars( <aIVars>, <hClass> | <sClassFunc> |
-                                <cClassName>[, <cClassFuncName>] ) -> <oObject>
+                                <cClassName>[, <cClassFuncName>] ) --> <oObject>
  */
 HB_FUNC( __OBJRESTOREIVARS )
 {
@@ -5309,7 +5309,7 @@ HB_FUNC( __OBJRESTOREIVARS )
    hb_itemReturn( pArray );
 }
 
-/* __clsGetProperties( <nClassHandle>, [<lAllExported>] ) -> <acProperties>
+/* __clsGetProperties( <nClassHandle>, [<lAllExported>] ) --> <acProperties>
  * Notice that this function works quite similar to __classSel()
  * except that just returns the name of the datas and methods
  * that have been declared as PROPERTY (PERSISTENT) or also EXPORTED
@@ -5380,7 +5380,7 @@ HB_FUNC( __CLSGETPROPERTIES )
    hb_itemReturnRelease( pReturn );
 }
 
-/* __clsGetAncestors( <nClass> ) -> { <nSuper1>, <nSuper2>, ... } */
+/* __clsGetAncestors( <nClass> ) --> { <nSuper1>, <nSuper2>, ... } */
 HB_FUNC( __CLSGETANCESTORS )
 {
    HB_USHORT uiClass = ( HB_USHORT ) hb_parni( 1 ), uiCount;
@@ -5404,7 +5404,7 @@ HB_FUNC( __CLSGETANCESTORS )
    }
 }
 
-/* __clsMsgType( <hClass>, <cMsgName> | <sMsgName> ) -> <nType>
+/* __clsMsgType( <hClass>, <cMsgName> | <sMsgName> ) --> <nType>
  *
  * return type of method attached to given message,
  * <nType> is one of HB_OO_MSG_* values defined in hboo.ch or
@@ -5434,7 +5434,7 @@ HB_FUNC( __CLSMSGTYPE )
  * for MT programs which will allocate dynamically at runtime
  * more then 16386 classes. In practice rather impossible though
  * who knows ;-)
- * __clsPreallocate( [<nMaxClasses>] ) -> <nMaxClasses>
+ * __clsPreallocate( [<nMaxClasses>] ) --> <nMaxClasses>
  */
 HB_FUNC( __CLSPREALLOCATE )
 {
@@ -5458,7 +5458,7 @@ HB_FUNC( __CLSPREALLOCATE )
    hb_retnl( s_uiClsSize );
 }
 
-/* __clsLockDef( <clsItem> ) -> <lLocked> */
+/* __clsLockDef( <clsItem> ) --> <lLocked> */
 HB_FUNC( __CLSLOCKDEF )
 {
    HB_STACK_TLS_PRELOAD
@@ -5497,7 +5497,7 @@ HB_FUNC( __CLSUNLOCKDEF )
 }
 
 /* Dirty functions which converts array to object of given class
- * __objSetClass( <oObject>, <cClassName> [, <cClassFuncName> ] ) -> <oObject>
+ * __objSetClass( <oObject>, <cClassName> [, <cClassFuncName> ] ) --> <oObject>
  */
 HB_FUNC( __OBJSETCLASS )
 {
@@ -5518,7 +5518,7 @@ HB_FUNC( __OBJSETCLASS )
  * It allows to change the class handle of an object into another class handle,
  * so the object behaves like a different Class of object.
  * Based on objects.lib SetClsHandle()
- * __objSetClassHandle( <oObject>, <nClassHandle> ) -> <nPrevClassHandle>
+ * __objSetClassHandle( <oObject>, <nClassHandle> ) --> <nPrevClassHandle>
  */
 HB_FUNC( __OBJSETCLASSHANDLE )
 {

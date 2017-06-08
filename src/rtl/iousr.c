@@ -751,7 +751,7 @@ HB_FUNC( IOUSR_REGISTER )
       s_errRT_IOUSR( EG_ARG, 1001, "Argument error" );
 }
 
-/* IOUSR_SetError( [<nError> [, <nBase> ]] ) -> <nPrevError> */
+/* IOUSR_SetError( [<nError> [, <nBase> ]] ) --> <nPrevError> */
 HB_FUNC( IOUSR_SETERROR )
 {
    HB_ERRCODE errCodePrev = hb_fsError();
