@@ -52,32 +52,32 @@
 
 #define READING_BLOCK  4096
 
-static char * s_ReadLine( PHB_FILE hFileHandle, HB_ISIZ * plBuffLen, const char ** pTerm, HB_ISIZ * pnTermSizes, HB_ISIZ nTerms, HB_BOOL * pbFound, HB_BOOL * pbEOF )
+static char * s_ReadLine( PHB_FILE hFileHandle, HB_ISIZ * pnBuffLen, const char ** pTerm, HB_ISIZ * pnTermSizes, HB_ISIZ nTerms, HB_BOOL * pfFound, HB_BOOL * pfEOF )
 {
    HB_ISIZ nPosTerm = 0, nPos, nPosition;
    int     nTries;
    HB_ISIZ nRead = 0, nOffset, nSize;
    char *  pBuff;
 
-   HB_TRACE( HB_TR_DEBUG, ( "s_ReadLine(%p, %" HB_PFS "d, %p, %p, %" HB_PFS "d, %p, %p)", ( void * ) ( HB_PTRUINT ) hFileHandle, *plBuffLen, ( const void * ) pTerm, ( void * ) pnTermSizes, nTerms, ( void * ) pbFound, ( void * ) pbEOF ) );
+   HB_TRACE( HB_TR_DEBUG, ( "s_ReadLine(%p, %" HB_PFS "d, %p, %p, %" HB_PFS "d, %p, %p)", ( void * ) ( HB_PTRUINT ) hFileHandle, *pnBuffLen, ( const void * ) pTerm, ( void * ) pnTermSizes, nTerms, ( void * ) pfFound, ( void * ) pfEOF ) );
 
-   *pbFound = HB_FALSE;
-   *pbEOF   = HB_FALSE;
+   *pfFound = HB_FALSE;
+   *pfEOF   = HB_FALSE;
    nTries   = 0;
    nOffset  = 0;
-   nSize    = *plBuffLen;
+   nSize    = *pnBuffLen;
 
-   if( *plBuffLen < 10 )
-      *plBuffLen = READING_BLOCK;
+   if( *pnBuffLen < 10 )
+      *pnBuffLen = READING_BLOCK;
 
-   pBuff = ( char * ) hb_xgrab( *plBuffLen + 1 );
+   pBuff = ( char * ) hb_xgrab( *pnBuffLen + 1 );
 
    do
    {
       if( nTries > 0 )
       {
          /* pBuff can be enlarged to hold the line as needed.. */
-         nSize    = ( *plBuffLen * ( nTries + 1 ) ) + 1;
+         nSize    = ( *pnBuffLen * ( nTries + 1 ) ) + 1;
          pBuff    = ( char * ) hb_xrealloc( pBuff, nSize );
          nOffset += nRead;
       }
@@ -86,7 +86,6 @@ static char * s_ReadLine( PHB_FILE hFileHandle, HB_ISIZ * plBuffLen, const char 
       nRead = hb_fileResult( hb_fileRead( hFileHandle, pBuff + nOffset, nSize - nOffset, -1 ) );
 
       /* scan the read buffer */
-
       if( nRead > 0 )
       {
          for( nPos = 0; nPos < nRead; nPos++ )
@@ -96,31 +95,31 @@ static char * s_ReadLine( PHB_FILE hFileHandle, HB_ISIZ * plBuffLen, const char 
                /* Compare with the LAST terminator byte */
                if( pBuff[ nOffset + nPos ] == pTerm[ nPosTerm ][ pnTermSizes[ nPosTerm ] - 1 ] && ( pnTermSizes[ nPosTerm ] - 1 ) <= ( nPos + nOffset ) )
                {
-                  *pbFound = HB_TRUE;
+                  *pfFound = HB_TRUE;
 
                   for( nPosition = 0; nPosition < ( pnTermSizes[ nPosTerm ] - 1 ); nPosition++ )
                   {
                      if( pTerm[ nPosTerm ][ nPosition ] != pBuff[ nOffset + ( nPos - pnTermSizes[ nPosTerm ] ) + nPosition + 1 ] )
                      {
-                        *pbFound = HB_FALSE;
+                        *pfFound = HB_FALSE;
                         break;
                      }
                   }
 
-                  if( *pbFound )
+                  if( *pfFound )
                      break;
                }
             }
 
-            if( *pbFound )
+            if( *pfFound )
                break;
          }
 
-         if( *pbFound )
+         if( *pfFound )
          {
-            *plBuffLen = nOffset + nPos - pnTermSizes[ nPosTerm ] + 1;
+            *pnBuffLen = nOffset + nPos - pnTermSizes[ nPosTerm ] + 1;
 
-            pBuff[ *plBuffLen ] = '\0';
+            pBuff[ *pnBuffLen ] = '\0';
 
             /* Set handle pointer in the end of the line */
             hb_fileSeek( hFileHandle, ( ( nRead - nPos ) * -1 ) + 1, FS_RELATIVE );
@@ -130,32 +129,31 @@ static char * s_ReadLine( PHB_FILE hFileHandle, HB_ISIZ * plBuffLen, const char 
       }
       else
       {
-         if( ! *pbFound )
+         if( ! *pfFound )
          {
             if( nTries == 0 )
             {
                pBuff[ 0 ] = '\0';
-               *plBuffLen = 0;
+               *pnBuffLen = 0;
             }
             else
             {
                pBuff[ nOffset + nRead ] = '\0';
-               *plBuffLen = nOffset + nRead;
+               *pnBuffLen = nOffset + nRead;
             }
 
-            *pbEOF = HB_TRUE;
+            *pfEOF = HB_TRUE;
          }
       }
 
       nTries++;
    }
-   while( ! *pbFound && nRead > 0 );
+   while( ! *pfFound && nRead > 0 );
 
    return pBuff;
 }
 
-/* PRG level hb_FReadLine( <Handle>, <@buffer>, [<aTerminators | cTerminator>], [<nReadingBlock>] ) */
-
+/* hb_FReadLine( <Handle>, <@buffer>, [<aTerminators | cTerminator>], [<nReadingBlock>] ) -> nError */
 HB_FUNC( HB_FREADLINE )
 {
    PHB_FILE hFileHandle;
@@ -172,7 +170,7 @@ HB_FUNC( HB_FREADLINE )
       HB_ISIZ *     pnTermSizes;
       HB_ISIZ       nSize = hb_parns( 4 );
       HB_ISIZ       nTerms;
-      HB_BOOL       bFound, bEOF;
+      HB_BOOL       fFound, fEOF;
 
       if( HB_ISARRAY( 3 ) || HB_ISCHAR( 3 ) )
       {
@@ -214,7 +212,7 @@ HB_FUNC( HB_FREADLINE )
       {
          Term             = ( const char ** ) hb_xgrab( sizeof( char * ) );
          pnTermSizes      = ( HB_ISIZ * ) hb_xgrab( sizeof( HB_ISIZ ) );
-         Term[ 0 ]        = "\r\n";    /* Should be replaced with the default EOL sequence */
+         Term[ 0 ]        = "\r\n";    /* FIXME: Should be replaced with the default EOL sequence */
          nTerms           = 1;
          pnTermSizes[ 0 ] = 2;
       }
@@ -222,11 +220,13 @@ HB_FUNC( HB_FREADLINE )
       if( nSize == 0 )
          nSize = READING_BLOCK;
 
-      pBuffer = s_ReadLine( hFileHandle, &nSize, Term, pnTermSizes, nTerms, &bFound, &bEOF );
+      pBuffer = s_ReadLine( hFileHandle, &nSize, Term, pnTermSizes, nTerms, &fFound, &fEOF );
 
       if( ! hb_storclen_buffer( pBuffer, nSize, 2 ) )
          hb_xfree( pBuffer );
-      hb_retns( bEOF ? -1 : 0 );
+
+      hb_retni( fEOF ? FS_ERROR : 0 );
+
       hb_xfree( ( void * ) Term );
       hb_xfree( pnTermSizes );
 

@@ -67,9 +67,9 @@ FUNCTION tip_MailAssemble( ;
 
    LOCAL oMail
    LOCAL oAttach
-   LOCAL aThisFile
+   LOCAL xFile
    LOCAL cMimeType
-   LOCAL cFile
+   LOCAL cFileName
    LOCAL cData
    LOCAL cContentType
    LOCAL nAttr
@@ -132,38 +132,38 @@ FUNCTION tip_MailAssemble( ;
       oAttach:SetBody( cBody )
       oMail:Attach( oAttach )
 
-      FOR EACH aThisFile IN aFiles
+      FOR EACH xFile IN aFiles
 
          cMimeType := NIL
          nAttr := 0
 
          DO CASE
-         CASE HB_ISSTRING( aThisFile )
-            cFile := aThisFile
-            cData := hb_MemoRead( cFile )
-            hb_vfAttrGet( cFile, @nAttr )
-         CASE HB_ISARRAY( aThisFile ) .AND. Len( aThisFile ) >= 2
-            cFile := aThisFile[ 1 ]
-            IF HB_ISSTRING( aThisFile[ 2 ] )
-               cData := aThisFile[ 2 ]
-               hb_default( @cFile, "unnamed" )
-            ELSEIF HB_ISSTRING( cFile )
-               cData := hb_MemoRead( cFile )
-               hb_vfAttrGet( cFile, @nAttr )
+         CASE HB_ISSTRING( xFile )
+            cFileName := xFile
+            cData := hb_MemoRead( cFileName )
+            hb_vfAttrGet( cFileName, @nAttr )
+         CASE HB_ISARRAY( xFile ) .AND. Len( xFile ) >= 2
+            cFileName := xFile[ 1 ]
+            IF HB_ISSTRING( xFile[ 2 ] )
+               cData := xFile[ 2 ]
+               hb_default( @cFileName, "unnamed" )
+            ELSEIF HB_ISSTRING( cFileName )
+               cData := hb_MemoRead( cFileName )
+               hb_vfAttrGet( cFileName, @nAttr )
             ELSE
                LOOP  /* No filename and no content. */
             ENDIF
-            IF Len( aThisFile ) >= 3 .AND. HB_ISSTRING( aThisFile[ 3 ] )
-               cMimeType := aThisFile[ 3 ]
+            IF Len( xFile ) >= 3 .AND. HB_ISSTRING( xFile[ 3 ] )
+               cMimeType := xFile[ 3 ]
             ENDIF
          OTHERWISE
             LOOP
          ENDCASE
 
          IF cMimeType == NIL
-            cMimeType := tip_FileNameMimeType( cFile, "application/octet-stream" )
+            cMimeType := tip_FileNameMimeType( cFileName, "application/octet-stream" )
          ENDIF
-         cFile := s_TransCP( cFile, cCharsetCP )
+         cFileName := s_TransCP( cFileName, cCharsetCP )
 
          oAttach := TIPMail():New()
          oAttach:SetCharset( cCharset )
@@ -176,13 +176,13 @@ FUNCTION tip_MailAssemble( ;
             ENDIF
          ENDIF
          // Some email clients use Content-Type to check for filename
-         cMimeType += "; name=" + '"' + hb_FNameNameExt( cFile ) + '"'
+         cMimeType += "; name=" + '"' + hb_FNameNameExt( cFileName ) + '"'
          IF ( nAttr := __tip_FAttrToUmask( nAttr ) ) != 0
             cMimeType += "; x-unix-mode=" + '"' + hb_NumToHex( nAttr, 4 ) + '"'
          ENDIF
          oAttach:hHeaders[ "Content-Type" ] := cMimeType
          // Usually, original filename is set here
-         oAttach:hHeaders[ "Content-Disposition" ] := "attachment; filename=" + '"' + hb_FNameNameExt( cFile ) + '"'
+         oAttach:hHeaders[ "Content-Disposition" ] := "attachment; filename=" + '"' + hb_FNameNameExt( cFileName ) + '"'
          oAttach:SetBody( cData )
          oMail:Attach( oAttach )
       NEXT
