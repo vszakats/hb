@@ -34,8 +34,8 @@
       second character of the matched substring otherwise.
       The function will also consider the settings of SetAtLike().
    $EXAMPLES$
-      ? AfterAtNum( "!", "What is the answer ? 4 ! 5 !" )  // -> ""
-      ? AfterAtNum( "!", "What is the answer ? 4 ! 5 ?" )  // -> " 5 ?"
+      ? AfterAtNum( "!", "What is the answer ? 4 ! 5 !" )  // --> ""
+      ? AfterAtNum( "!", "What is the answer ? 4 ! 5 ?" )  // --> " 5 ?"
       // TODO: add some examples here with CSetAtMupa() and SetAtLike()
    $STATUS$
       R
@@ -86,8 +86,8 @@
       second character of the matched substring otherwise.
       The function will also consider the settings of SetAtLike().
    $EXAMPLES$
-      ? BeforAtNum( "!", "What is the answer ? 4 ! 5 !" ) // -> "What is the answer ? 4 ! 5 "
-      ? BeforAtNum( "!", "What is the answer ? 4 ! 5 ?" ) // -> "What is the answer ? 4 "
+      ? BeforAtNum( "!", "What is the answer ? 4 ! 5 !" )  // --> "What is the answer ? 4 ! 5 "
+      ? BeforAtNum( "!", "What is the answer ? 4 ! 5 ?" )  // --> "What is the answer ? 4 "
       <TODO: add some examples here with CSetAtMupa() and SetAtLike()>
    $STATUS$
       R
@@ -137,8 +137,8 @@
       second character of the matched substring otherwise.
       The function will also consider the settings of SetAtLike().
    $EXAMPLES$
-      ? AtNum( "!", "What is the answer ? 4 ! 5 !" ) // -> 28
-      ? AtNum( "!", "What is the answer ? 4 ! 5 ?" ) // -> 24
+      ? AtNum( "!", "What is the answer ? 4 ! 5 !" )  // --> 28
+      ? AtNum( "!", "What is the answer ? 4 ! 5 ?" )  // --> 24
       <TODO: add some examples here with CSetAtMupa() and SetAtLike()>
    $STATUS$
       R

@@ -426,7 +426,7 @@ HB_FUNC( WAPI_QUERYPERFORMANCEFREQUENCY )
 
 /* wapi_GetVolumeInformation( <cRootPath>, @<cVolumeName>, @<nSerial>,
  *                            @<nMaxComponentLength>, @<nFileSystemFlags>,
- *                            @<cFileSystemName> ) -> <lSuccess>
+ *                            @<cFileSystemName> ) --> <lSuccess>
  */
 
 HB_FUNC( WAPI_GETVOLUMEINFORMATION )

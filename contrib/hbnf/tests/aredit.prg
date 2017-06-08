@@ -5,20 +5,20 @@
 PROCEDURE Main()
 
    // Thanks to Jim Gale for helping me understand the basics
-   LOCAL i, ar[ 3, 26 ], aBlocks[ 3 ], aHeadings, nElem := 1, bGetFunc, cRet
+   LOCAL i, ar[ 3 ][ 26 ], aBlocks[ 3 ], aHeadings, nElem := 1, bGetFunc, cRet
 
    // set up 2 dimensional array ar[]
    FOR i := 1 TO 26
-      ar[ 1, i ] := i                          //  1  ->  26  Numeric
-      ar[ 2, i ] := Chr( Asc( "A" ) + i - 1 )  // "A" -> "Z"  Character
-      ar[ 3, i ] := Chr( Asc( "Z" ) - i + 1 )  // "Z" -> "A"  Character
+      ar[ 1 ][ i ] := i                          //  1  ->  26  Numeric
+      ar[ 2 ][ i ] := Chr( Asc( "A" ) + i - 1 )  // "A" -> "Z"  Character
+      ar[ 3 ][ i ] := Chr( Asc( "Z" ) - i + 1 )  // "Z" -> "A"  Character
    NEXT
    // Set Up aHeadings[] for column headings
    aHeadings := { "Numbers", "Letters", "Reverse" }
    // Set Up Blocks Describing Individual Elements in Array ar[]
-   aBlocks[ 1 ] := {|| Str( ar[ 1, nElem ], 2 ) }  // to prevent default 10 spaces
-   aBlocks[ 2 ] := {|| ar[ 2, nElem ] }
-   aBlocks[ 3 ] := {|| ar[ 3, nElem ] }
+   aBlocks[ 1 ] := {|| Str( ar[ 1 ][ nElem ], 2 ) }  // to prevent default 10 spaces
+   aBlocks[ 2 ] := {|| ar[ 2 ][ nElem ] }
+   aBlocks[ 3 ] := {|| ar[ 3 ][ nElem ] }
    // Set up TestGet() as bGetFunc
    bGetFunc := {| b, ar, nDim, nElem | TestGet( b, ar, nDim, nElem ) }
 

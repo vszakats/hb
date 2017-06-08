@@ -46,7 +46,7 @@
 #include "hbapi.h"
 #include "hbapiitm.h"
 
-/* ASizeAlloc( <array>, <num> ) -> <array> - Set the pre-alloc step. */
+/* ASizeAlloc( <array>, <num> ) --> <array> - Set the pre-alloc step. */
 HB_FUNC( ASIZEALLOC )
 {
    PHB_ITEM pArray    = hb_param( 1, HB_IT_ARRAY );
@@ -59,7 +59,7 @@ HB_FUNC( ASIZEALLOC )
    }
 }
 
-/* ALenAlloc( <array> ) -> <num> - Get the pre-alloc step. */
+/* ALenAlloc( <array> ) --> <num> - Get the pre-alloc step. */
 HB_FUNC( ALENALLOC )
 {
    PHB_ITEM pArray = hb_param( 1, HB_IT_ARRAY );

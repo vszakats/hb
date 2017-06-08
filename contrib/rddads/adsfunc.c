@@ -2256,7 +2256,7 @@ HB_FUNC( ADSRESTRUCTURETABLE )
 #endif
 }
 
-/* AdsCopyTableContent( szAliasDest [, nAdsFilterOption ] ) -> lSuccess */
+/* AdsCopyTableContent( szAliasDest [, nAdsFilterOption ] ) --> lSuccess */
 HB_FUNC( ADSCOPYTABLECONTENTS )
 {
 #if ADS_LIB_VERSION >= 600

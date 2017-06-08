@@ -82,7 +82,7 @@
 
 /* win_ShellNotifyIcon( [<hWnd>], [<nUID>], [<nMessage>], [<hIcon>],
                         [<cTooltip>], [<lAddDel>],
-                        [<cInfo>], [<nInfoTimeOut>], [<cInfoTitle>], [<nInfoFlags>] ) -> <lOK> */
+                        [<cInfo>], [<nInfoTimeOut>], [<cInfoTitle>], [<nInfoFlags>] ) --> <lOK> */
 HB_FUNC( WIN_SHELLNOTIFYICON )
 {
 #if ! defined( HB_OS_WIN_CE )
@@ -211,7 +211,7 @@ static LPTSTR s_StringList( int iParam )
 
 /* win_SHFileOperation( [<hWnd>], [<nFunction>], [<cFrom>|<aFrom>], [<cTo>|<aTo>],
                         [<nFlags>], [<@lAnyOperationAborted>],
-                        [<aNameMappings>], [<cProgressTitle>] ) -> <nResult> */
+                        [<aNameMappings>], [<cProgressTitle>] ) --> <nResult> */
 HB_FUNC( WIN_SHFILEOPERATION )
 {
    int iRetVal;

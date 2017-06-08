@@ -2085,7 +2085,7 @@ HB_FUNC( WVT_DRAWSTATUSBAR )
    }
 }
 
-/* wvt_DrawPicture( nTop, nLeft, nBottom, nRight, nSlot, aPxlOff, lDoNotScale ) -> lOk
+/* wvt_DrawPicture( nTop, nLeft, nBottom, nRight, nSlot, aPxlOff, lDoNotScale ) --> lOk
    nSlot <= 20  aAdj == { 0,0,-2,-2 } To Adjust the pixels for { Top,Left,Bottom,Right } */
 HB_FUNC( WVT_DRAWPICTURE )
 {
@@ -2120,7 +2120,7 @@ HB_FUNC( WVT_DRAWPICTURE )
    hb_retl( HB_FALSE );
 }
 
-/* wvt_DrawPictureEx( nTop, nLeft, nBottom, nRight, hPicture, aPxlOff, lDoNotScale ) -> lOk */
+/* wvt_DrawPictureEx( nTop, nLeft, nBottom, nRight, hPicture, aPxlOff, lDoNotScale ) --> lOk */
 HB_FUNC( WVT_DRAWPICTUREEX )  /* Not in WVW */
 {
 #if ! defined( HB_OS_WIN_CE )
@@ -2826,7 +2826,7 @@ HB_FUNC( WVT_LOADPEN )
    hb_retl( HB_FALSE );
 }
 
-/* wvt_SaveScreen( nTop, nLeft, nBottom, nRight ) -> aSrc */
+/* wvt_SaveScreen( nTop, nLeft, nBottom, nRight ) --> aSrc */
 HB_FUNC( WVT_SAVESCREEN )
 {
    PHB_GTWVT _s = hb_wvt_gtGetWVT();

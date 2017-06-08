@@ -709,7 +709,7 @@ HB_FUNC( CURL_EASY_PERFORM )
       hb_errRT_BASE( EG_ARG, 2010, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
-/* NOTE: curl_easy_send( curl, cBuffer, @nSentBytes ) -> nResult */
+/* NOTE: curl_easy_send( curl, cBuffer, @nSentBytes ) --> nResult */
 HB_FUNC( CURL_EASY_SEND )
 {
    if( PHB_CURL_is( 1 ) )
@@ -733,7 +733,7 @@ HB_FUNC( CURL_EASY_SEND )
       hb_errRT_BASE( EG_ARG, 2010, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
-/* NOTE: curl_easy_recv( curl, @cBuffer ) -> nResult */
+/* NOTE: curl_easy_recv( curl, @cBuffer ) --> nResult */
 HB_FUNC( CURL_EASY_RECV )
 {
    if( PHB_CURL_is( 1 ) )
@@ -2147,7 +2147,7 @@ HB_FUNC( CURL_EASY_DL_BUFF_GET )
 
 #define HB_CURL_EASY_GETINFO( hb_curl, n, p )  ( hb_curl ? curl_easy_getinfo( hb_curl->curl, n, p ) : ( CURLcode ) HB_CURLE_ERROR )
 
-/* NOTE: curl_easy_getinfo( curl, x, @nError ) -> xValue */
+/* NOTE: curl_easy_getinfo( curl, x, @nError ) --> xValue */
 HB_FUNC( CURL_EASY_GETINFO )
 {
    if( PHB_CURL_is( 1 ) && HB_ISNUM( 2 ) )

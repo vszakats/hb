@@ -478,7 +478,7 @@ HB_FUNC( WAPI_LOADBITMAP )
 #endif
 
 /* wapi_LoadImage( [<hInstance>], <cName>, [<nType>],
-                   [<nWidth>], [<nHeight>], [<nFlags>] ) -> <hImage> */
+                   [<nWidth>], [<nHeight>], [<nFlags>] ) --> <hImage> */
 HB_FUNC( WAPI_LOADIMAGE )
 {
    void * hString = NULL;
@@ -858,7 +858,7 @@ HB_FUNC( WAPI_GETMENUDEFAULTITEM )
 #endif
 }
 
-/* wapi_CreateAcceleratorTable( <aAccelTable> ) -> <hAccel> */
+/* wapi_CreateAcceleratorTable( <aAccelTable> ) --> <hAccel> */
 HB_FUNC( WAPI_CREATEACCELERATORTABLE )
 {
    HACCEL hAccel = NULL;

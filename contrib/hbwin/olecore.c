@@ -2517,7 +2517,7 @@ HB_FUNC( __OLEINVOKEPUT )
 }
 
 
-/* __oleVariantGetValue( <pVariant> ) -> <xValue> */
+/* __oleVariantGetValue( <pVariant> ) --> <xValue> */
 HB_FUNC( __OLEVARIANTGETVALUE )
 {
    VARIANT * pVariant = hb_oleVariantParam( 1 );
@@ -2526,7 +2526,7 @@ HB_FUNC( __OLEVARIANTGETVALUE )
       hb_oleVariantToItemEx( hb_stackReturnItem(), pVariant, 0 );
 }
 
-/* __oleVariantGetType( <pVariant> ) -> <nVariantType> */
+/* __oleVariantGetType( <pVariant> ) --> <nVariantType> */
 HB_FUNC( __OLEVARIANTGETTYPE )
 {
    VARIANT * pVariant = hb_oleVariantParam( 1 );
@@ -2535,7 +2535,7 @@ HB_FUNC( __OLEVARIANTGETTYPE )
       hb_retni( V_VT( pVariant ) );
 }
 
-/* __oleVariantNew( <nVariantType> [, <xInitValue>] ) -> <pVariant> */
+/* __oleVariantNew( <nVariantType> [, <xInitValue>] ) --> <pVariant> */
 HB_FUNC( __OLEVARIANTNEW )
 {
    int iType = hb_parni( 1 );
@@ -2769,7 +2769,7 @@ HB_FUNC( __OLEVARIANTNEW )
       hb_errRT_OLE( EG_ARG, 1018, 0, NULL, HB_ERR_FUNCNAME, NULL );
 }
 
-/* __oleVariantNullDate( [<lNewNullDateFlag>] ) -> <lPrevNullDateFlag> */
+/* __oleVariantNullDate( [<lNewNullDateFlag>] ) --> <lPrevNullDateFlag> */
 HB_FUNC( __OLEVARIANTNULLDATE )
 {
    hb_retl( hb_oleGetNullDateFlag() );
@@ -2777,7 +2777,7 @@ HB_FUNC( __OLEVARIANTNULLDATE )
       hb_oleSetNullDateFlag( hb_parl( 1 ) );
 }
 
-/* __oleVariantNil2Null( [<lNewNil2NullFlag>] ) -> <lPrevNil2NullFlag> */
+/* __oleVariantNil2Null( [<lNewNil2NullFlag>] ) --> <lPrevNil2NullFlag> */
 HB_FUNC( __OLEVARIANTNIL2NULL )
 {
    hb_retl( hb_oleGetNil2NullFlag() );

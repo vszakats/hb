@@ -51,7 +51,7 @@ HB_EXTERN_BEGIN
 #include "crypto_scrypt.h"
 HB_EXTERN_END
 
-/* hb_scrypt( <cPassword>, <cSalt>, <nCPU>, <nMem>, <nParallel>, <nKeyLen> ) -> <cKey> */
+/* hb_scrypt( <cPassword>, <cSalt>, <nCPU>, <nMem>, <nParallel>, <nKeyLen> ) --> <cKey> */
 HB_FUNC( HB_SCRYPT )
 {
    HB_ISIZ keylen = hb_parns( 6 );

@@ -741,7 +741,7 @@ static int bcrypt_pbkdf( const HB_U8 * pass, size_t passlen,
    return 0;
 }
 
-/* hb_bcrypt( <cPassword>, <cSalt>, <nRounds>, <nKeyLen> ) -> <cKey> */
+/* hb_bcrypt( <cPassword>, <cSalt>, <nRounds>, <nKeyLen> ) --> <cKey> */
 HB_FUNC( HB_BCRYPT )
 {
    HB_ISIZ      keylen = hb_parns( 4 );

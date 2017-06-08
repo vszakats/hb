@@ -68,7 +68,7 @@
 
 /* wvt_ChooseFont( cFontName, nHeight, nWidth, nWeight, nQuality, ;
  *                                lItalic, lUnderline, lStrikeout )
- * -> { cFontName, nHeight, nWidth, nWeight, nQuality, lItalic, lUnderline, lStrikeout, nRGB }
+ * --> { cFontName, nHeight, nWidth, nWeight, nQuality, lItalic, lUnderline, lStrikeout, nRGB }
  */
 HB_FUNC( WVT_CHOOSEFONT )
 {

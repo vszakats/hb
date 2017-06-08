@@ -53,7 +53,7 @@
 #include <commdlg.h>
 
 /* win_PrintDlgDC( [@<cDevice>], [<nFromPage>], [<nToPage>], [<nCopies>], [nFlags] )
- *                -> <hDC>
+ *                --> <hDC>
  */
 HB_FUNC( WIN_PRINTDLGDC )
 {
@@ -288,7 +288,7 @@ static void s_GetFileName( HB_BOOL fSave )
 
 /* win_GetOpenFileName( [[@]<nFlags>], [<cTitle>], [<cInitDir>], [<cDefExt>], ;
  *                      [<acFilter>], [[@]<nFilterIndex>], [<nBufferSize>], [<cDefName>] )
- *    -> <cFilePath> | <cPath> + e"\0" + <cFile1> [ + e"\0" + <cFileN> ] | ""
+ *    --> <cFilePath> | <cPath> + e"\0" + <cFile1> [ + e"\0" + <cFileN> ] | ""
  *
  */
 HB_FUNC( WIN_GETOPENFILENAME )
@@ -298,7 +298,7 @@ HB_FUNC( WIN_GETOPENFILENAME )
 
 /* win_GetSaveFileName( [[@]<nFlags>], [<cTitle>], [<cInitDir>], [<cDefExt>], ;
  *                      [<acFilter>], [[@]<nFilterIndex>], [<nBufferSize>], [<cDefName>] )
- *    -> <cFilePath> | <cPath> + e"\0" + <cFile1> [ + e"\0" + <cFileN> ] | ""
+ *    --> <cFilePath> | <cPath> + e"\0" + <cFile1> [ + e"\0" + <cFileN> ] | ""
  *
  */
 HB_FUNC( WIN_GETSAVEFILENAME )

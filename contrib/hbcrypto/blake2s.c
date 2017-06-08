@@ -223,7 +223,7 @@ static int blake2s( void * out, HB_SIZE outlen,
 
 #define BLAKE2S_OUTBYTES  32
 
-/* hb_BLAKE2s( <cIn>, [<cKey>], [<nSize=32>], [<lBinary=.F.>] ) -> <cHash> */
+/* hb_BLAKE2s( <cIn>, [<cKey>], [<nSize=32>], [<lBinary=.F.>] ) --> <cHash> */
 HB_FUNC( HB_BLAKE2S )
 {
    const char * pszStr = hb_parc( 1 );

@@ -89,7 +89,7 @@ METHOD write( cSource ) CLASS TRtf
 
             // TODO: I need function dec2hex()
             // to convert ASCII to 2-characters hex
-            // ie  : dec2hex( "H" ) -> 48
+            // ie  : dec2hex( "H" ) --> 48
             IF cChar == "+" .OR. cChar == "-"
                xAtt := cChar + ;
                   SubStr( cLine, nChar + 1, 1 ) + ;
