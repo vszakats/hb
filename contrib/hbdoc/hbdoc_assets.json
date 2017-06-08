@@ -28,13 +28,13 @@
   "github-fork-ribbon-css":
   {
     "root": "https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/",
-    "ver": "0.2.0",
+    "ver": "0.2.1",
     "files":
     {
       "css":
       {
         "name": "gh-fork-ribbon.min.css",
-        "sri": "sha384-HoFyoZ18hzctAGKv3BkTqlVH019/pvkU+3BKRAlDRgLuguzWZI0MMuF0JpcMOAye"
+        "sri": "sha384-uz757WkW2Q7nb8jbwm2AWKKGscQaW/rD5b/lFhTfd/8UImRPbr3pY0LWfWJs75xd"
       }
     }
   },
