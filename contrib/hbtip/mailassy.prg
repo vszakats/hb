@@ -156,6 +156,9 @@ FUNCTION tip_MailAssemble( ;
             IF Len( xFile ) >= 3 .AND. HB_ISSTRING( xFile[ 3 ] )
                cMimeType := xFile[ 3 ]
             ENDIF
+            IF Len( xFile ) >= 4 .AND. HB_ISNUMERIC( xFile[ 4 ] )
+               nAttr := xFile[ 4 ]
+            ENDIF
          OTHERWISE
             LOOP
          ENDCASE
