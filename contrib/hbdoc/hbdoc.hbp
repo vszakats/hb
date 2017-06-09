@@ -11,6 +11,7 @@ _txt.prg
 _xml.prg
 
 hbgt.hbc
+hbyaml.hbc
 
 ../../package/harbour.hbc
 

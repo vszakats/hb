@@ -16654,14 +16654,22 @@ FUNCTION hbshell_ext_unload( cName )
    RETURN .F.
 
 FUNCTION hbshell_ext_get_list()
+   RETURN _hbshell_ext_get_list( .F. )
+
+STATIC FUNCTION _hbshell_ext_get_list( lAbbreviate )
 
    LOCAL hbsh := hbsh()
 
    LOCAL aName := Array( Len( hbsh[ _HBSH_hLibExt ] ) )
    LOCAL hLib
+   LOCAL cName
 
    FOR EACH hLib IN hbsh[ _HBSH_hLibExt ]
-      aName[ hLib:__enumIndex() ] := iif( Empty( hLib ), Upper( hLib:__enumKey() ), hLib:__enumKey() )
+      cName := hLib:__enumKey()
+      IF lAbbreviate .AND. hb_LeftEqI( cName, "hb" )
+         cName := SubStr( cName, Len( "hb" ) + 1 )
+      ENDIF
+      aName[ hLib:__enumIndex() ] := iif( Empty( hLib ), Upper( cName ), cName )
    NEXT
 
    RETURN ASort( aName )
@@ -17249,7 +17257,7 @@ STATIC PROCEDURE __hbshell_Info( cCommand )
       hb_DispOutAt( 1, MaxCol(), "o", "R/BG" )
    ENDIF
 
-   hb_DispOutAt( 2, 0, PadR( "Ext:" + " " + ArrayToList( hbshell_ext_get_list(), ", " ), MaxCol() + 1 ), iif( __hbshell_CanLoadDyn(), "W/B", "N/N*" ) )
+   hb_DispOutAt( 2, 0, PadR( "Ext:" + " " + ArrayToList( _hbshell_ext_get_list( .T. ), ", " ), MaxCol() + 1 ), iif( __hbshell_CanLoadDyn(), "W/B", "N/N*" ) )
 
    RETURN
 

@@ -157,7 +157,7 @@ METHOD NewFile() CLASS GenerateHTML
       ENDIF
    ENDIF
    IF s_hAssets == NIL
-      s_hAssets := hb_jsonDecode( hbdoc_assets_json() )
+      s_hAssets := hb_yaml_decode( hbdoc_assets_yaml() )
    ENDIF
 
    ::hNameIDM := hbdoc_NameIDM()
@@ -1177,8 +1177,8 @@ METHOD LinkAsset( cType, cPkg, cFile ) CLASS GenerateHTML
 
    RETURN Self
 
-STATIC FUNCTION hbdoc_assets_json()
-   #pragma __streaminclude "hbdoc_assets.json" | RETURN %s
+STATIC FUNCTION hbdoc_assets_yaml()
+   #pragma __streaminclude "hbdoc_assets.yml" | RETURN %s
 
 STATIC FUNCTION hbdoc_head_html()
    #pragma __streaminclude "hbdoc_head.html" | RETURN _TO_LF( %s )
