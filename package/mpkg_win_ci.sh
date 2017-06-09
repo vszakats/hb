@@ -218,6 +218,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
     #        64-bit as well.
     export HB_WITH_GS="${_inc_df}/ghostscript"
     export HB_WITH_ICU="${_inc_df}"
+    export HB_WITH_LIBYAML="${_inc_df}"
     export HB_WITH_PGSQL="${_inc_df}"
     export HB_WITH_RABBITMQ="${_inc_df}"
   fi
@@ -265,6 +266,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
     export HB_WITH_GD="${_inc_st}"
     export HB_WITH_GS="${_inc_df}/ghostscript"
     export HB_WITH_ICU="${_inc_df}"
+    export HB_WITH_LIBYAML="${_inc_df}"
     export HB_WITH_PGSQL="${_inc_df}"
     export HB_WITH_RABBITMQ="${_inc_df}"
   fi

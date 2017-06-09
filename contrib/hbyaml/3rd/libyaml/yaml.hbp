@@ -1,0 +1,37 @@
+-stop{hbdyn}
+
+-hblib
+-inc
+
+-o${hb_targetname}
+
+-warn=low
+-pic
+
+api.c
+dumper.c
+emitter.c
+loader.c
+parser.c
+reader.c
+scanner.c
+writer.c
+
+-cflag=-DHAVE_CONFIG_H
+{hblib}-cflag=-DYAML_DECLARE_STATIC
+{hbdyn}-cflag=-DYAML_DECLARE_EXPORT
+
+# URL    https://github.com/yaml/libyaml/archive/0.1.7.tar.gz
+#
+# MAP    LICENSE
+# MAP    include/yaml.h       yaml.h
+# MAP    src/api.c            api.c
+# MAP    src/dumper.c         dumper.c
+# MAP    src/emitter.c        emitter.c
+# MAP    src/loader.c         loader.c
+# MAP    src/parser.c         parser.c
+# MAP    src/reader.c         reader.c
+# MAP    src/scanner.c        scanner.c
+# MAP    src/writer.c         writer.c
+# MAP    src/yaml_private.h   yaml_private.h
+# MAP    win32/config.h       config.h

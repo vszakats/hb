@@ -1,0 +1,10 @@
+description=libyaml wrapper (YAML parser/emitter)
+
+incpaths=.
+
+headers=${hb_name}.ch
+
+libs=${_HB_DYNPREF}${hb_name}${_HB_DYNSUFF}
+
+libpaths=/usr/local/opt/libyaml/lib{darwin}
+libs=3rd/libyaml/yaml.hbc
