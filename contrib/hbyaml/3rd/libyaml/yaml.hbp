@@ -8,6 +8,8 @@
 -warn=low
 -pic
 
+-I.
+
 api.c
 dumper.c
 emitter.c
@@ -17,6 +19,7 @@ reader.c
 scanner.c
 writer.c
 
+-cflag=-DHAVE_CONFIG_H
 {hblib}-cflag=-DYAML_DECLARE_STATIC
 {hbdyn}-cflag=-DYAML_DECLARE_EXPORT
 
@@ -33,3 +36,4 @@ writer.c
 # MAP    src/scanner.c      scanner.c
 # MAP    src/writer.c       writer.c
 # MAP    src/yaml_private.h yaml_private.h
+# MAP    win32/config.h     config.h
