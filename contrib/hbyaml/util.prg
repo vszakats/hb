@@ -48,17 +48,17 @@
 
 FUNCTION hb_yaml_decode( cFile )
 
-   LOCAL parser, hToken
-   LOCAL val, key, node
-   LOCAL root, parents := {}
+   LOCAL parser, token, root, parents, key, val, node
 
    IF ! Empty( parser := yaml_parser_initialize() )
 
       yaml_parser_set_input_string( parser, cFile )
 
-      DO WHILE HB_ISHASH( hToken := yaml_parser_scan( parser ) )
+      parents := {}
 
-         SWITCH hToken[ "type" ]
+      DO WHILE HB_ISHASH( token := yaml_parser_scan( parser ) )
+
+         SWITCH token[ "type" ]
          CASE YAML_KEY_TOKEN
             key := yaml_parser_scan( parser )[ "scalar" ]
             EXIT
@@ -66,9 +66,9 @@ FUNCTION hb_yaml_decode( cFile )
          CASE YAML_SCALAR_TOKEN
             DO CASE
             CASE HB_ISARRAY( val )
-               AAdd( val, hToken[ "scalar" ] )
+               AAdd( val, token[ "scalar" ] )
             CASE HB_ISHASH( val )
-               val[ key ] := hToken[ "scalar" ]
+               val[ key ] := token[ "scalar" ]
             ENDCASE
             EXIT
 
@@ -104,7 +104,7 @@ FUNCTION hb_yaml_decode( cFile )
 
          ENDSWITCH
 
-         IF hToken[ "type" ] == YAML_STREAM_END_TOKEN
+         IF token[ "type" ] == YAML_STREAM_END_TOKEN
             EXIT
          ENDIF
       ENDDO
