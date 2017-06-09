@@ -177,6 +177,7 @@ HB_FUNC( YAML_PARSER_SCAN )
       yaml_token_t token;
       if( yaml_parser_scan( parser, &token ) == 1 )
          token_ret( &token );
+      yaml_token_delete( &token );
    }
    else
       hb_errRT_BASE( EG_ARG, 2040, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );

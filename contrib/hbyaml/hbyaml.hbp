@@ -26,5 +26,6 @@
 -hbx=${hb_name}
 
 core.c
+util.prg
 
 3rd/libyaml/yaml.hbc{HBMK_HAS_LIBYAML_LOCAL}

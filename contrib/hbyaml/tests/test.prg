@@ -1,8 +1,8 @@
 /* Copyright 2017 Viktor Szakats (vszakats.net/harbour) */
 
-#include "simpleio.ch"
-
 #require "hbyml"
+
+#include "simpleio.ch"
 
 PROCEDURE Main( cFileName )
 
@@ -18,9 +18,10 @@ PROCEDURE Main( cFileName )
    ENDIF
 
    yaml_parser_set_input_string( parser, ;
-      hb_MemoRead( hb_defaultValue( cFileName, hb_DirSepToOS( "../../../.travis.yml" ) ) ) )
+      hb_MemoRead( hb_defaultValue( cFileName, ;
+         hb_DirSepToOS( "../../../.travis.yml" ) ) ) )
 
-   DO WHILE ( hToken := yaml_parser_scan( parser ) ) != NIL
+   DO WHILE HB_ISHASH( hToken := yaml_parser_scan( parser ) )
 
       ? hb_ValToExp( hToken )
 
