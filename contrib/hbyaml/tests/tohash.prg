@@ -1,6 +1,6 @@
 /* Copyright 2017 Viktor Szakats (vszakats.net/harbour) */
 
-#require "hbyml"
+#require "hbyaml"
 
 #include "simpleio.ch"
 
