@@ -7,8 +7,11 @@
 PROCEDURE Main( cFileName )
 
    LOCAL parser, hToken
+   LOCAL v1, v2, v3
 
    ? yaml_get_version_string()
+   yaml_get_version( @v1, @v2, @v3 )
+   ? hb_ntos( v1 ) + "." + hb_ntos( v2 ) + "." + hb_ntos( v3 )
 
    IF Empty( parser := yaml_parser_initialize() )
       RETURN

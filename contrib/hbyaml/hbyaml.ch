@@ -49,6 +49,7 @@
 #ifndef HBYAML_CH_
 #define HBYAML_CH_
 
+/* token[ "type" ] values */
 #define YAML_NO_TOKEN                       0
 #define YAML_STREAM_START_TOKEN             1
 #define YAML_STREAM_END_TOKEN               2
@@ -72,7 +73,7 @@
 #define YAML_TAG_TOKEN                      20
 #define YAML_SCALAR_TOKEN                   21
 
-/* token[ "style" ] */
+/* token[ "style" ] values */
 #define YAML_ANY_SCALAR_STYLE               0
 #define YAML_PLAIN_SCALAR_STYLE             1
 #define YAML_SINGLE_QUOTED_SCALAR_STYLE     2
@@ -80,7 +81,7 @@
 #define YAML_LITERAL_SCALAR_STYLE           4
 #define YAML_FOLDED_SCALAR_STYLE            5
 
-/* token[ "encoding" ] */
+/* token[ "encoding" ] values */
 #define YAML_ANY_ENCODING                   0
 #define YAML_UTF8_ENCODING                  1
 #define YAML_UTF16LE_ENCODING               2

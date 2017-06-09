@@ -46,13 +46,6 @@
 
 #include "yaml.h"
 
-#define HB_YAML_VERS( ma, mi, mu )  \
-   ( YAML_MAJOR_VERSION > ma || \
-   ( YAML_MAJOR_VERSION == ma && \
-   ( YAML_MINOR_VERSION > mi || \
-   ( YAML_MINOR_VERSION == mi && \
-     YAML_PATCH_VERSION >= mu ) ) ) )
-
 #include "hbapi.h"
 #include "hbapiitm.h"
 #include "hbapierr.h"
@@ -90,22 +83,6 @@ static yaml_parser_t * parser_par( int iParam )
 }
 
 /* Harbour interface */
-
-HB_FUNC( YAML_GET_VERSION_STRING )
-{
-   hb_retc_const( yaml_get_version_string() );
-}
-
-HB_FUNC( YAML_GET_VERSION )
-{
-   int major, minor, patch;
-
-   yaml_get_version( &major, &minor, &patch );
-
-   hb_storni( major, 1 );
-   hb_storni( minor, 2 );
-   hb_storni( patch, 3 );
-}
 
 HB_FUNC( YAML_PARSER_INITIALIZE )
 {
@@ -203,4 +180,30 @@ HB_FUNC( YAML_PARSER_SCAN )
    }
    else
       hb_errRT_BASE( EG_ARG, 2040, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+HB_FUNC( YAML_PARSER_SET_ENCODING )
+{
+   yaml_parser_t * parser = parser_par( 1 );
+
+   if( parser )
+      yaml_parser_set_encoding( parser, ( yaml_encoding_t ) hb_parni( 2 ) );
+   else
+      hb_errRT_BASE( EG_ARG, 2040, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+HB_FUNC( YAML_GET_VERSION_STRING )
+{
+   hb_retc_const( yaml_get_version_string() );
+}
+
+HB_FUNC( YAML_GET_VERSION )
+{
+   int major, minor, patch;
+
+   yaml_get_version( &major, &minor, &patch );
+
+   hb_storni( major, 1 );
+   hb_storni( minor, 2 );
+   hb_storni( patch, 3 );
 }
