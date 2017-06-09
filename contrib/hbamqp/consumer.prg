@@ -63,7 +63,7 @@ CREATE CLASS AMQPConsumer
 
    PROTECTED:
 
-   METHOD DumpAction( hEnvelope )
+   METHOD DumpEnvelope( hEnvelope )
 
    VAR connection AS OBJECT    /* AMQPConnection */
    VAR channel    AS NUMERIC   INIT 1
@@ -80,7 +80,7 @@ METHOD New( oConnection ) CLASS AMQPConsumer
    ENDIF
 
    ::connection := oConnection
-   ::action := {| hEnvelope | ::DumpAction( hEnvelope ) }
+   ::action := {| hEnvelope | ::DumpEnvelope( hEnvelope ) }
 
    RETURN Self
 
@@ -122,7 +122,7 @@ METHOD PROCEDURE ConsumeAndDispatch() CLASS AMQPConsumer
          result := hb_ExecFromArray( { ::action, hEnvelope } )
 
       OTHERWISE
-         hb_traceLog( "ConsumeAndDispatch action error" )
+         hb_traceLog( hb_MethodName(), "action error" )
       ENDCASE
 
       result := hb_default( @result, .F. )
@@ -130,23 +130,22 @@ METHOD PROCEDURE ConsumeAndDispatch() CLASS AMQPConsumer
       // action returns .T. -> ack message
       IF result
          IF ::connection:BasicAck( ::channel, amqp_envelope_getdeliverytag( pEnvelope ) ) != 0
-            hb_traceLog( "AMQPConsumer", "basicAck error" )
+            hb_traceLog( ::className(), "basicAck error" )
          ELSE
-            hb_traceLog( "AMQPConsumer", "basicAck OK" )
+            hb_traceLog( ::className(), "basicAck OK" )
          ENDIF
       ELSE
-         hb_traceLog( "AMQPConsumer", "action block error" )
+         hb_traceLog( ::className(), "action block error" )
       ENDIF
    ELSE
-      hb_traceLog( "AMQPConsumer", hb_StrFormat( "consume Error (result=%1$d, response=%2$s)", result, ::connection:GetResponse() ) )
+      hb_traceLog( ::className(), hb_StrFormat( "consume Error (result=%1$d, response=%2$s)", result, ::connection:GetResponse() ) )
    ENDIF
 
    RETURN
 
-// Raw message dump
-METHOD PROCEDURE DumpAction( hEnvelope ) CLASS AMQPConsumer
+METHOD PROCEDURE DumpEnvelope( hEnvelope ) CLASS AMQPConsumer
 
-   hb_traceLog( "AMQPConsumer", "Raw message:", hb_ValToExp( hEnvelope ) )
+   hb_traceLog( ::className(), "Raw message:", hb_ValToExp( hEnvelope ) )
 
    RETURN
 
