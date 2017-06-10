@@ -2,12 +2,10 @@
 
 #require "hbyaml"
 
-#include "simpleio.ch"
-
 PROCEDURE Main( cFileName )
 
-   ? hb_jsonEncode( hb_yaml_decode( ;
+   OutStd( hb_jsonEncode( hb_yaml_decode( ;
       hb_MemoRead( hb_defaultValue( cFileName, ;
-         hb_DirSepToOS( "../../../.travis.yml" ) ) ) ), .T. )
+         hb_DirSepToOS( "../../../.travis.yml" ) ) ) ), .T. ) )
 
    RETURN
