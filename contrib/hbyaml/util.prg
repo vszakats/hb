@@ -47,9 +47,9 @@
 #include "hbyaml.ch"
 
 #ifdef HBYAML_TRACE
-#xtranslate _DEBUG( [<x,...>] ) => OutStd( <x> ); OutStd( hb_eol() )
+#xtranslate _TRACE( [<x,...>] ) => OutStd( <x> ); OutStd( hb_eol() )
 #else
-#xtranslate _DEBUG( [<x,...>] ) =>
+#xtranslate _TRACE( [<x,...>] ) =>
 #endif
 
 FUNCTION hb_yaml_decode( cFile, /* @ */ meta )
@@ -74,7 +74,7 @@ FUNCTION hb_yaml_decode( cFile, /* @ */ meta )
 
          type := token[ "type" ]
 
-         _DEBUG( Space( level * 3 ) + s_yaml_token_str( type ), hb_ValToExp( token ) )
+         _TRACE( Space( level * 3 ) + s_yaml_token_str( type ), hb_ValToExp( token ) )
 
          SWITCH type
          CASE YAML_VALUE_TOKEN
@@ -168,9 +168,9 @@ FUNCTION hb_yaml_decode( cFile, /* @ */ meta )
       ENDDO
    ENDIF
 
-   _DEBUG( hb_ValToExp( anchors ) )
-   _DEBUG( hb_ValToExp( tags ) )
-   _DEBUG( hb_ValToExp( meta ) )
+   _TRACE( hb_ValToExp( anchors ) )
+   _TRACE( hb_ValToExp( tags ) )
+   _TRACE( hb_ValToExp( meta ) )
 
    RETURN root
 
@@ -178,7 +178,7 @@ STATIC PROCEDURE s_add( token, meta, val, key, type, new )
 
    LOCAL final := PCount() > 5  /* false when pre-filling with null */
 
-   _DEBUG( "s_add", hb_ValToExp( hb_AParams() ) )
+   _TRACE( "s_add", hb_ValToExp( hb_AParams() ) )
 
    DO CASE
    CASE HB_ISARRAY( val )
