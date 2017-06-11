@@ -46,68 +46,222 @@
 
 #include "hbyaml.ch"
 
-FUNCTION hb_yaml_decode( cFile )
+#ifdef HBYAML_TRACE
+#xtranslate _DEBUG( [<x,...>] ) => OutStd( <x> ); OutStd( hb_eol() )
+#else
+#xtranslate _DEBUG( [<x,...>] ) =>
+#endif
 
-   LOCAL parser, token, root, parents, key, val, node
+FUNCTION hb_yaml_decode( cFile, /* @ */ meta )
 
-   IF ! Empty( parser := yaml_parser_initialize() )
+   LOCAL parser, token, root, parents, anchors, tags
+   LOCAL key, val, node, exp, level, type, tmp
 
+   meta := { => }
+
+   IF Empty( parser := yaml_parser_initialize() )
+      s_log_msg( meta, "error", "failed to initialize" )
+   ELSE
       yaml_parser_set_input_string( parser, cFile )
 
+      level := 0
       parents := {}
+      exp := 0
+      anchors := { => }
+      tags := { => }
 
       DO WHILE HB_ISHASH( token := yaml_parser_scan( parser ) )
 
-         SWITCH token[ "type" ]
+         type := token[ "type" ]
+
+         _DEBUG( Space( level * 3 ) + s_yaml_token_str( type ), hb_ValToExp( token ) )
+
+         SWITCH type
+         CASE YAML_VALUE_TOKEN
+         CASE YAML_BLOCK_ENTRY_TOKEN
+         CASE YAML_FLOW_ENTRY_TOKEN
+            s_add( token, meta, val, key, type )  /* pre-fill with null */
+            /* fallthrough */
          CASE YAML_KEY_TOKEN
-            key := yaml_parser_scan( parser )[ "scalar" ]
+            exp := type  /* expected type in next YAML_SCALAR_TOKEN */
             EXIT
 
          CASE YAML_SCALAR_TOKEN
-            DO CASE
-            CASE HB_ISARRAY( val )
-               AAdd( val, token[ "scalar" ] )
-            CASE HB_ISHASH( val )
-               val[ key ] := token[ "scalar" ]
-            ENDCASE
+            SWITCH exp
+            CASE YAML_KEY_TOKEN
+               key := token[ "scalar" ]
+               EXIT
+            CASE YAML_VALUE_TOKEN
+            CASE YAML_FLOW_ENTRY_TOKEN
+            CASE YAML_BLOCK_ENTRY_TOKEN
+               s_add( token, meta, val, key, exp, token[ "scalar" ] )
+               EXIT
+            ENDSWITCH
             EXIT
 
+         CASE YAML_TAG_TOKEN
+            s_log_msg( meta, "warning", ;
+               hb_StrFormat( "line: %1$d, column: %2$d: tag token not supported", ;  /* TODO */
+                  token[ "start_line" ], token[ "start_column" ] ) )
+            EXIT
+
+         CASE YAML_ALIAS_TOKEN
+            IF token[ "value" ] $ anchors
+               node := hb_HValueAt( anchors[ token[ "value" ] ], 1 )
+               DO CASE
+               CASE HB_ISARRAY( node )
+                  FOR EACH tmp IN node
+                     s_add( token, meta, val, key, exp, tmp )
+                  NEXT
+               CASE HB_ISHASH( node )
+                  FOR EACH tmp IN node
+                     s_add( token, meta, val, tmp:__enumKey(), exp, tmp )
+                  NEXT
+               ENDCASE
+            ENDIF
+            EXIT
+
+         CASE YAML_FLOW_SEQUENCE_START_TOKEN
+         CASE YAML_FLOW_MAPPING_START_TOKEN
          CASE YAML_BLOCK_SEQUENCE_START_TOKEN
-            AAdd( parents, { key, val } )
-            val := {}
-            IF root == NIL
-               root := val
-            ENDIF
-            EXIT
-
          CASE YAML_BLOCK_MAPPING_START_TOKEN
-            AAdd( parents, { key, val } )
-            val := { => }
+            ++level
+            AAdd( parents, { key, val, exp } )
+            val := iif( type == YAML_BLOCK_SEQUENCE_START_TOKEN .OR. ;
+                        type == YAML_FLOW_SEQUENCE_START_TOKEN, {}, { => } )
+            key := NIL
             IF root == NIL
                root := val
             ENDIF
             EXIT
 
+         CASE YAML_FLOW_SEQUENCE_END_TOKEN
+         CASE YAML_FLOW_MAPPING_END_TOKEN
          CASE YAML_BLOCK_END_TOKEN
             node := val
             key := ATail( parents )[ 1 ]
             val := ATail( parents )[ 2 ]
+            exp := ATail( parents )[ 3 ]
             ASize( parents, Len( parents ) - 1 )
+            s_add( token, meta, val, key, exp, node )
+            --level
+            EXIT
 
-            DO CASE
-            CASE HB_ISARRAY( val )
-               AAdd( val, node )
-            CASE HB_ISHASH( val )
-               val[ key ] := node
-            ENDCASE
+         CASE YAML_ANCHOR_TOKEN
+            anchors[ token[ "value" ] ] := val
+            EXIT
+
+         CASE YAML_TAG_DIRECTIVE_TOKEN
+            tags[ token[ "handle" ] ] := token[ "prefix" ]
+            EXIT
+
+         CASE YAML_VERSION_DIRECTIVE_TOKEN
+            meta[ "major" ] := token[ "major" ]
+            meta[ "minor" ] := token[ "minor" ]
             EXIT
 
          ENDSWITCH
 
-         IF token[ "type" ] == YAML_STREAM_END_TOKEN
+         IF type == YAML_STREAM_END_TOKEN
             EXIT
          ENDIF
       ENDDO
    ENDIF
 
+   _DEBUG( hb_ValToExp( anchors ) )
+   _DEBUG( hb_ValToExp( tags ) )
+   _DEBUG( hb_ValToExp( meta ) )
+
    RETURN root
+
+STATIC PROCEDURE s_add( token, meta, val, key, type, new )
+
+   LOCAL final := PCount() > 5  /* false when pre-filling with null */
+
+   _DEBUG( "s_add", hb_ValToExp( hb_AParams() ) )
+
+   DO CASE
+   CASE HB_ISARRAY( val )
+
+      IF final .AND. ATail( val ) == NIL .AND. Len( val ) > 0
+         val[ Len( val ) ] := new  /* replace pre-filled array tail */
+      ELSE
+         AAdd( val, new )
+      ENDIF
+
+   CASE HB_ISHASH( val )
+
+      IF HB_ISSTRING( key )
+         IF type == YAML_FLOW_ENTRY_TOKEN .OR. ;
+            type == YAML_BLOCK_ENTRY_TOKEN
+
+            IF ! key $ val .OR. ;
+               val[ key ] == NIL  /* replace pre-filled hash element */
+               val[ key ] := {}
+            ELSEIF ! HB_ISARRAY( val[ key ] )
+               RETURN
+            ENDIF
+
+            val := val[ key ]
+            IF final .AND. ATail( val ) == NIL .AND. Len( val ) > 0
+               val[ Len( val ) ] := new  /* replace pre-filled array tail */
+            ELSE
+               AAdd( val, new )
+            ENDIF
+         ELSE
+            val[ key ] := new
+         ENDIF
+      ELSE
+         s_log_msg( meta, "error", ;
+            hb_StrFormat( "line: %1$d, column: %2$d: key expected", ;
+               token[ "start_line" ], token[ "start_column" ] ) )
+      ENDIF
+
+   ENDCASE
+
+   RETURN
+
+STATIC PROCEDURE s_log_msg( meta, cat, cMessage )
+
+   IF ! cat $ meta
+      meta[ cat ] := {}
+   ENDIF
+
+   AAdd( meta[ cat ], cMessage )
+
+   RETURN
+
+#ifdef HBYAML_TRACE
+STATIC FUNCTION s_yaml_token_str( nType )
+
+   IF ! HB_ISNUMERIC( nType )
+      RETURN "HB_YAML_TOKEN_INVALID"
+   ENDIF
+
+   SWITCH nType
+   CASE YAML_NO_TOKEN                   ; RETURN "YAML_NO_TOKEN"
+   CASE YAML_STREAM_START_TOKEN         ; RETURN "YAML_STREAM_START_TOKEN"
+   CASE YAML_STREAM_END_TOKEN           ; RETURN "YAML_STREAM_END_TOKEN"
+   CASE YAML_VERSION_DIRECTIVE_TOKEN    ; RETURN "YAML_VERSION_DIRECTIVE_TOKEN"
+   CASE YAML_TAG_DIRECTIVE_TOKEN        ; RETURN "YAML_TAG_DIRECTIVE_TOKEN"
+   CASE YAML_DOCUMENT_START_TOKEN       ; RETURN "YAML_DOCUMENT_START_TOKEN"
+   CASE YAML_DOCUMENT_END_TOKEN         ; RETURN "YAML_DOCUMENT_END_TOKEN"
+   CASE YAML_BLOCK_SEQUENCE_START_TOKEN ; RETURN "YAML_BLOCK_SEQUENCE_START_TOKEN"
+   CASE YAML_BLOCK_MAPPING_START_TOKEN  ; RETURN "YAML_BLOCK_MAPPING_START_TOKEN"
+   CASE YAML_BLOCK_END_TOKEN            ; RETURN "YAML_BLOCK_END_TOKEN"
+   CASE YAML_FLOW_SEQUENCE_START_TOKEN  ; RETURN "YAML_FLOW_SEQUENCE_START_TOKEN"
+   CASE YAML_FLOW_SEQUENCE_END_TOKEN    ; RETURN "YAML_FLOW_SEQUENCE_END_TOKEN"
+   CASE YAML_FLOW_MAPPING_START_TOKEN   ; RETURN "YAML_FLOW_MAPPING_START_TOKEN"
+   CASE YAML_FLOW_MAPPING_END_TOKEN     ; RETURN "YAML_FLOW_MAPPING_END_TOKEN"
+   CASE YAML_BLOCK_ENTRY_TOKEN          ; RETURN "YAML_BLOCK_ENTRY_TOKEN"
+   CASE YAML_FLOW_ENTRY_TOKEN           ; RETURN "YAML_FLOW_ENTRY_TOKEN"
+   CASE YAML_KEY_TOKEN                  ; RETURN "YAML_KEY_TOKEN"
+   CASE YAML_VALUE_TOKEN                ; RETURN "YAML_VALUE_TOKEN"
+   CASE YAML_ALIAS_TOKEN                ; RETURN "YAML_ALIAS_TOKEN"
+   CASE YAML_ANCHOR_TOKEN               ; RETURN "YAML_ANCHOR_TOKEN"
+   CASE YAML_TAG_TOKEN                  ; RETURN "YAML_TAG_TOKEN"
+   CASE YAML_SCALAR_TOKEN               ; RETURN "YAML_SCALAR_TOKEN"
+   ENDSWITCH
+
+   RETURN "HB_YAML_TOKEN_UNRECOGNIZED_" + hb_ntos( nType )
+#endif

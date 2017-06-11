@@ -162,6 +162,9 @@ static void token_ret( yaml_token_t * token )
          break;
    }
 
+   hb_hashAdd( hToken, hb_itemPutCConst( pKey, "start_line" ), hb_itemPutNS( pVal, ( HB_SIZE ) token->start_mark.line ) );
+   hb_hashAdd( hToken, hb_itemPutCConst( pKey, "start_column" ), hb_itemPutNS( pVal, ( HB_SIZE ) token->start_mark.column ) );
+
    hb_itemReturnRelease( hToken );
 
    hb_itemRelease( pVal );
