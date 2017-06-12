@@ -20,10 +20,12 @@ yum install -y gcc git rpm-build findutils \
   gd-devel \
   ghostscript-devel \
   libmariadb-devel \
+  libyaml-devel \
   lzo-devel \
   minizip-devel \
   openssl-devel \
   postgresql-devel \
+  librabbitmq-devel \
   unixODBC-devel
 
 ./package/mpkg_rpm.sh
