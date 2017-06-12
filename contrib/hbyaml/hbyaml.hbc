@@ -1,4 +1,4 @@
-description=libyaml wrapper (YAML parser/emitter)
+description=libyaml bindings for YAML parsing
 
 incpaths=.
 

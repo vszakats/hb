@@ -1,4 +1,4 @@
-description=RabbitMQ API bindings
+description=AMQP API via librabbitmq-c bindings.
 
 incpaths=.
 
