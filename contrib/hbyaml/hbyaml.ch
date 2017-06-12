@@ -87,4 +87,27 @@
 #define YAML_UTF16LE_ENCODING               2
 #define YAML_UTF16BE_ENCODING               3
 
+/* event[ "type" ] values */
+#define YAML_NO_EVENT                       0
+#define YAML_STREAM_START_EVENT             1
+#define YAML_STREAM_END_EVENT               2
+#define YAML_DOCUMENT_START_EVENT           3
+#define YAML_DOCUMENT_END_EVENT             4
+#define YAML_ALIAS_EVENT                    5
+#define YAML_SCALAR_EVENT                   6
+#define YAML_SEQUENCE_START_EVENT           7
+#define YAML_SEQUENCE_END_EVENT             8
+#define YAML_MAPPING_START_EVENT            9
+#define YAML_MAPPING_END_EVENT              10
+
+/* event[ "style" ] for YAML_SEQUENCE_START_EVENT */
+#define YAML_ANY_SEQUENCE_STYLE             0
+#define YAML_BLOCK_SEQUENCE_STYLE           1
+#define YAML_FLOW_SEQUENCE_STYLE            2
+
+/* event[ "style" ] for YAML_MAPPING_START_EVENT */
+#define YAML_ANY_MAPPING_STYLE              0
+#define YAML_BLOCK_MAPPING_STYLE            1
+#define YAML_FLOW_MAPPING_STYLE             2
+
 #endif /* HBYAML_CH_ */
