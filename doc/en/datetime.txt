@@ -660,10 +660,12 @@
    $SYNTAX$
       hb_DToT( <dDate> [, <cTimeValue|nSeconds>] ) --> <tDateTime>
    $ARGUMENTS$
-      <dDate> Any valid date expression. Optional: <cTime|nSeconds> representing
-      a time of the day value: <cTime> string in a valid time format: "hh:mm:ss.nnn".
-      nSeconds in a numeric value in seconds in the range from 0 to 86399.99~
-      ( 60 secs * 60 mins * 24 hours - 1 millisecond )
+      <dDate> Any valid date expression.
+
+      Optional: <cTime|nSeconds> representing a time of the day value.
+      <cTime> is a string in a valid time format: "hh:mm:ss.nnn".
+      <nSeconds> is a numeric value in seconds in the range from
+      0 to 86399.999~ ( 60 secs * 60 mins * 24 hours - 1 millisecond )
    $RETURNS$
       <tDateTime> a dateTime value
    $DESCRIPTION$
