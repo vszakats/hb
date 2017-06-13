@@ -2677,9 +2677,9 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
                   Permanently enabled. Apparently this is still top problem for bcc users. It is
                   also in sync this way with Harbour core build system. */
          IF .T. .OR. ;
-            ! hb_vfExists( hb_FNameDir( cPath_CompC ) + ".." + hb_ps() + "Bin" + hb_ps() + "bcc32.cfg" ) .OR. ;
-            ! hb_vfExists( hb_FNameDir( cPath_CompC ) + ".." + hb_ps() + "Bin" + hb_ps() + "ilink32.cfg" )
-            /* Override default bcc32.cfg/ilink32.cfg with nul files. */
+            ! hb_vfExists( hb_FNameDir( cPath_CompC ) + ".." + hb_ps() + "Bin" + hb_ps() + hb_FNameName( cPath_CompC ) + ".cfg" ) .OR. ;
+            ! hb_vfExists( hb_FNameDir( cPath_CompC ) + ".." + hb_ps() + "Bin" + hb_ps() + "ilink32.cfg" )  /* ilink64.cfg ? */
+            /* Override default bcc*.cfg/ilink*.cfg with nul files. */
             AAddNew( hbmk[ _HBMK_aOPTC ], "+nul" )
             AAddNew( hbmk[ _HBMK_aOPTL ], "+nul" )
             AAddNew( hbmk[ _HBMK_aOPTD ], "+nul" )
@@ -14665,12 +14665,12 @@ STATIC FUNCTION CompVersionDetect( hbmk, cPath_CompC )
                NOTE: It's an interim SVN revision with possible differences in features.
                [vszakats] */
 
-            DO CASE
-            CASE cVer == "0700" ; cVer := "0307"
-            CASE cVer == "0703" ; cVer := "0308"
-            CASE cVer == "0800" ; cVer := "0309"  /* guess right after WWDC2016 */
-            CASE cVer == "0801" ; cVer := "0309"
-            ENDCASE
+            SWITCH cVer
+            CASE "0700" ; cVer := "0307" ; EXIT
+            CASE "0703" ; cVer := "0308" ; EXIT
+            CASE "0800" ; cVer := "0309" ; EXIT  /* guess right after WWDC2016 */
+            CASE "0801" ; cVer := "0309" ; EXIT
+            ENDSWITCH
          CASE ( tmp1 := hb_AtX( R_( "version [0-9]*\.[0-9]*\.[0-9]*" ), cStdOutErr ) ) != NIL
             tmp1 := hb_ATokens( SubStr( tmp1, Len( "version " ) + 1 ), "." )
             cVer := StrZero( Val( tmp1[ 1 ] ), 2 ) + StrZero( Val( tmp1[ 2 ] ), 2 )

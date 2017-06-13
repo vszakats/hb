@@ -81,7 +81,7 @@
 #define YAML_LITERAL_SCALAR_STYLE           4
 #define YAML_FOLDED_SCALAR_STYLE            5
 
-/* token[ "encoding" ] values */
+/* token[ "encoding" ] values and yaml_emitter_set_encoding() parameter */
 #define YAML_ANY_ENCODING                   0
 #define YAML_UTF8_ENCODING                  1
 #define YAML_UTF16LE_ENCODING               2
@@ -109,5 +109,11 @@
 #define YAML_ANY_MAPPING_STYLE              0
 #define YAML_BLOCK_MAPPING_STYLE            1
 #define YAML_FLOW_MAPPING_STYLE             2
+
+/* yaml_emitter_set_break() parameter */
+#define YAML_ANY_BREAK                      0
+#define YAML_CR_BREAK                       1
+#define YAML_LN_BREAK                       2
+#define YAML_CRLN_BREAK                     3
 
 #endif /* HBYAML_CH_ */

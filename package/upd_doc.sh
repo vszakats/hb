@@ -18,15 +18,6 @@ cd "$(dirname "$0")/.." || exit
 
 _BRANCH="$1"
 
-# DEBUG
-echo '---'
-git diff-index --name-only HEAD~1
-echo '---'
-git diff-index --name-only HEAD~1 | grep -E '((^|\/)doc\/[a-zA-Z0-9_]+\/|^contrib\/hbdoc\/[a-z0-9_]+\.[a-z]+)'
-echo '---'
-
-# Verify if the last commit updated any HBDOC files or the hbdoc tool itself.
-# This requires a repository with a history of at least the last commit.
 # Test strings:
 #   + doc/en/file.txt
 #   + contrib/name/doc/pt_PR/file.txt
@@ -34,8 +25,19 @@ echo '---'
 #   - src/contrib/hbdoc/file.ext
 #   - contrib/hbdoc/po/file.po
 #   - src/dir/file.ext
+readonly hbdoc_file_mask='((^|\/)doc\/[a-zA-Z0-9_]+\/|^contrib\/hbdoc\/[a-z0-9_]+\.[a-z]+)'
+
+# DEBUG
+echo '---'
+git diff-index --name-only HEAD~1
+echo '---'
+git diff-index --name-only HEAD~1 | grep -E "${hbdoc_file_mask}"
+echo '---'
+
+# Verify if the last commit updated any HBDOC files or the hbdoc tool itself.
+# This requires a repository with a history of at least the last commit.
 if git diff-index --name-only HEAD~1 \
-   | grep -q -E '((^|\/)doc\/[a-zA-Z0-9_]+\/|^contrib\/hbdoc\/[a-z0-9_]+\.[a-z]+)'; then
+   | grep -q -E "${hbdoc_file_mask}"; then
 
   case "$(uname)" in
     *_NT*)   readonly os='win';;

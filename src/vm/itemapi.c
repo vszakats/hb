@@ -5,7 +5,7 @@
  * Copyright 1999-2007 Viktor Szakats (vszakats.net/harbour)
  *    hb_itemPCount(), hb_itemParamPtr(), hb_itemReturnPtr()
  *    hb_itemPutDL(), hb_itemPutNI(), hb_itemGetDL(), hb_itemGetNI(),
- *    hb_itemGetCPtr(), hb_itemGetCLPtr(), hb_itemGetCLen(), hb_itemGetNLen()
+ *    hb_itemGetCPtr(), hb_itemGetCLen(), hb_itemGetNLen()
  *    hb_itemPutCConst(), hb_itemPutCLConst()
  *    hb_itemPutNLen(), hb_itemPutNDLen(), hb_itemPutNILen(), hb_itemPutNLLen()
  *    hb_itemPutD(), hb_itemSetCMemo()

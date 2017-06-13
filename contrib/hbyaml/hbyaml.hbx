@@ -22,6 +22,15 @@
 #endif
 
 DYNAMIC hb_yaml_decode
+DYNAMIC hb_yaml_emitter_get_output
+DYNAMIC yaml_emitter_initialize
+DYNAMIC yaml_emitter_set_break
+DYNAMIC yaml_emitter_set_canonical
+DYNAMIC yaml_emitter_set_encoding
+DYNAMIC yaml_emitter_set_indent
+DYNAMIC yaml_emitter_set_output_string
+DYNAMIC yaml_emitter_set_unicode
+DYNAMIC yaml_emitter_set_width
 DYNAMIC yaml_get_version
 DYNAMIC yaml_get_version_string
 DYNAMIC yaml_parser_initialize
