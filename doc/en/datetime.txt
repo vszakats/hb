@@ -658,7 +658,7 @@
    $ONELINER$
       Create a <tDateTime> value from a <dDate> parameter
    $SYNTAX$
-      hb_DToT( <dDate> [, <cTimeValue|nSeconds>] ) --> <tDateTime>
+      hb_DToT( <dDate> [, <cTime|nSeconds>] ) --> <tDateTime>
    $ARGUMENTS$
       <dDate> Any valid date expression.
 
