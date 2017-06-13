@@ -680,7 +680,7 @@
    $STATUS$
       R
    $COMPLIANCE$
-      C
+      H
    $PLATFORMS$
       All
    $FILES$
