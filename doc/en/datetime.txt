@@ -669,7 +669,7 @@
    $RETURNS$
       <tDateTime> a dateTime value
    $DESCRIPTION$
-      This function returns a <tDateTime> value from a <dData> value.
+      This function returns a <tDateTime> value from a <dDate> value.
       Optionally, a second parameter with the time of the day value
       can be provided which can be represented by either of a string
       time value or a numeric value in seconds.
