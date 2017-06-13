@@ -650,7 +650,7 @@
    $TEMPLATE$
       Function
    $NAME$
-      hb_dToT()
+      hb_DToT()
    $CATEGORY$
       API
    $SUBCATEGORY$
@@ -658,7 +658,7 @@
    $ONELINER$
       Create a <tDateTime> value from a <dDate> parameter
    $SYNTAX$
-      hb_dToT( <dDate> [, <cTimeValue|nSeconds>] ) --> <tDateTime>
+      hb_DToT( <dDate> [, <cTimeValue|nSeconds>] ) --> <tDateTime>
    $ARGUMENTS$
       <dDate> Any valid date expression
       Optional: <cTime|nSeconds> representing a time of the day value
@@ -671,9 +671,9 @@
       Optionally, a second parameter can be provided which can be
       represented by either of a string value or a numeric value.
    $EXAMPLES$
-      ? hb_dToT( date() ) // a dateTime with a empty time part
-      ? hb_dToT( date(), "14:30:00.500" ) // a dateTime with time part 14:30pm with 500 milliseconds
-      ? hb_dToT( date(), 3600 ) // a dateTime with time part 1:00am (one hour)
+      ? hb_DToT( Date() ) // a dateTime with a empty time part
+      ? hb_DToT( Date(), "14:30:00.500" ) // a dateTime with time part 14:30pm with 500 milliseconds
+      ? hb_DToT( Date(), 3600 ) // a dateTime with time part 1:00am (one hour)
    $STATUS$
       R
    $COMPLIANCE$
@@ -683,6 +683,6 @@
    $FILES$
       Library is core
    $SEEALSO$
-      date()
+      Date()
    $END$
  */
