@@ -670,9 +670,9 @@
       <tDateTime> a dateTime value
    $DESCRIPTION$
       This function returns a <tDateTime> value from a <dData> value.
-      Optionally, a second parameter with the time of the day value, can be
-      provided which can be represented by either of a string time value or a
-      numeric value in seconds.
+      Optionally, a second parameter with the time of the day value
+      can be provided which can be represented by either of a string
+      time value or a numeric value in seconds.
    $EXAMPLES$
       ? hb_DToT( Date() )  // a dateTime with a empty time part
       ? hb_DToT( Date(), "14:30:00.500" )  // a dateTime with time part 14:30pm with 500 milliseconds
