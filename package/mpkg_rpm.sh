@@ -27,6 +27,7 @@ while [ $# -gt 0 ]; do
       [ "$1" = 'pgsql' ] && NEED_RPM="${NEED_RPM} postgresql-devel"
       [ "$1" = 'firebird' ] && NEED_RPM="${NEED_RPM} firebird-devel"
       [ "$1" = 'freeimage' ] && NEED_RPM="${NEED_RPM} freeimage-devel"
+      [ "$1" = 'rabbitmq' ] && NEED_RPM="${NEED_RPM} librabbitmq-devel"
     fi
   fi
   LAST="$1"
@@ -98,6 +99,10 @@ if test_reqrpm 'qt5-devel' && \
    [ "$HB_WITH_QT" != 'no' ]; then
   INST_PARAM="${INST_PARAM} --with qt5"
 fi
+if test_reqrpm 'librabbitmq-devel' && \
+   [ "$HB_WITH_RABBITMQ" != 'no' ]; then
+  INST_PARAM="${INST_PARAM} --with rabbitmq"
+fi
 
 if [ "${HB_BUILD_NOGPLLIB}" = 'yes' ]; then
   INST_PARAM="${INST_PARAM} --without gpllib"
@@ -148,6 +153,10 @@ fi
 if ! test_reqrpm 'expat-devel' || \
    [ "$HB_WITH_EXPAT" = 'local' ]; then
   INST_PARAM="${INST_PARAM} --with localexpat"
+fi
+if ! test_reqrpm 'libyaml-devel' || \
+   [ "$HB_WITH_LIBYAML" = 'local' ]; then
+  INST_PARAM="${INST_PARAM} --with locallibyaml"
 fi
 
 TOINST_LST=''

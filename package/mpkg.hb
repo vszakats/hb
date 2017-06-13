@@ -8,12 +8,12 @@
 #include "directry.ch"
 #include "fileio.ch"
 
-// #define DEBUG
+// #define TRACE
 
-#ifdef DEBUG
-   #translate _DEBUG( <x,...> ) => OutStd( __FILE__ + ":", <x> + hb_eol() )
+#ifdef TRACE
+   #translate _TRACE( <x,...> ) => OutStd( __FILE__ + ":", <x> + hb_eol() )
 #else
-   #translate _DEBUG( <x,...> ) =>
+   #translate _TRACE( <x,...> ) =>
 #endif
 
 PROCEDURE Main( cMode )
@@ -21,7 +21,7 @@ PROCEDURE Main( cMode )
    LOCAL tmp, aFiles, file, cStdOut, tDate, tDateHEAD
    LOCAL cGitRoot, lShallow, cBinMask
 
-   _DEBUG( "BEGIN" )
+   _TRACE( "BEGIN" )
 
    SWITCH Lower( cMode := hb_defaultValue( cMode, "" ) )
    CASE "pe"
@@ -42,8 +42,8 @@ PROCEDURE Main( cMode )
       cGitRoot := hb_DirSepAdd( hb_DirSepToOS( hb_defaultValue( hb_PValue( 2 ), "." ) ) ) + ".git"
       IF hb_vfDirExists( cGitRoot )
 
-         _DEBUG( "cwd:", hb_cwd() )
-         _DEBUG( "git:", cGitRoot )
+         _TRACE( "cwd:", hb_cwd() )
+         _TRACE( "git:", cGitRoot )
 
          hb_processRun( "git" + ;
             " " + FNameEscape( "--git-dir=" + cGitRoot ) + ;
@@ -68,7 +68,7 @@ PROCEDURE Main( cMode )
                                Val( SubStr( cStdOut, 24, 2 ) ) ) ) - hb_UTCOffset() ) / 86400 )
          ENDIF
 
-         _DEBUG( "date HEAD:", hb_TToC( tDateHEAD ) )
+         _TRACE( "date HEAD:", hb_TToC( tDateHEAD ) )
 
          IF ! Empty( tDateHEAD ) .OR. ! lShallow
 
@@ -135,7 +135,7 @@ PROCEDURE Main( cMode )
       OutStd( "! mpkg.hb: Error: Wrong mode:", "'" + cMode + "'" + hb_eol() )
    ENDSWITCH
 
-   _DEBUG( "FINISH" )
+   _TRACE( "FINISH" )
 
    RETURN
 

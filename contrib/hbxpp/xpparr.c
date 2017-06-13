@@ -48,7 +48,7 @@
 #include "hbapiitm.h"
 #include "hbapierr.h"
 
-/* ARemove( <aArray> [, <nPos>] [, <nCount>] ) -> <aDeleted>
+/* ARemove( <aArray> [, <nPos>] [, <nCount>] ) --> <aDeleted>
  * Removes elements and return them as array
  */
 HB_FUNC( AREMOVE )

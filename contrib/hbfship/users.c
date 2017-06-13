@@ -1,6 +1,6 @@
 /*
  * FlagShip compatible functions
- *    UsersMax() -> <nMaxUsers> (1024)
+ *    UsersMax() --> <nMaxUsers> (1024)
  *
  * Copyright 2011 Przemyslaw Czerpak <druzus@acn.waw.pl>
  *

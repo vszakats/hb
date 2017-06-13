@@ -1,5 +1,5 @@
 /*
- * CStr( xAnyType ) -> String
+ * CStr( xAnyType ) --> String
  *
  * Copyright 2001 Ron Pinkas <ron@@ronpinkas.com>
  *

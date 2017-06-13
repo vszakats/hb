@@ -11,12 +11,14 @@
 
 -o${hb_name}
 
+-DHBMK_PROGNAME=hbrun{abstr}
+
 -DHBMK_WITH_BUILTIN_HEADERS_ALL
 
 -DHBMK_WITH_GTXWC{HBMK_WITH_GTXWC='yes'}
 -gtxwc{HBMK_WITH_GTXWC='yes'}
 
-{__HBMKDYN='yes'}-env:_HBMK_WITH_EXTS=hbbz2|hbcrypto|hbct|hbexpat|hbmzip|hbnf|hbtip|hbbz2io|hbcomio|hbgzio|hbmemio|hbnetio|hbpipeio|hbtcpio
+{__HBMKDYN='yes'}-env:_HBMK_WITH_EXTS=hbbz2|hbcrypto|hbct|hbexpat|hbmzip|hbnf|hbtip|hbyaml|hbbz2io|hbcomio|hbgzio|hbmemio|hbnetio|hbpipeio|hbtcpio
 {__HBMKDYN='yes'&unix}-env:_HBMK_WITH_EXTS+|hbunix
 {__HBMKDYN='yes'&allwin}-env:_HBMK_WITH_EXTS+|hbwin
 {__HBMKDYN='yes'&darwin}-env:_HBMK_WITH_EXTS+|hbmac
@@ -29,6 +31,7 @@
 {!(__HBMKDYN='yes')}hbmzip.hbc       {!(__HBMKDYN='yes')}-request=__HBEXTERN__HBMZIP__
 {!(__HBMKDYN='yes')}hbnf.hbc         {!(__HBMKDYN='yes')}-request=__HBEXTERN__HBNF__
 {!(__HBMKDYN='yes')}hbtip.hbc        {!(__HBMKDYN='yes')}-request=__HBEXTERN__HBTIP__
+{!(__HBMKDYN='yes')}hbyaml.hbc       {!(__HBMKDYN='yes')}-request=__HBEXTERN__HBYAML__
 {!(__HBMKDYN='yes')}hbbz2io.hbc      {!(__HBMKDYN='yes')}-request=__HBEXTERN__HBBZ2IO__
 {!(__HBMKDYN='yes')}hbcomio.hbc      {!(__HBMKDYN='yes')}-request=__HBEXTERN__HBCOMIO__
 {!(__HBMKDYN='yes')}hbgzio.hbc       {!(__HBMKDYN='yes')}-request=__HBEXTERN__HBGZIO__

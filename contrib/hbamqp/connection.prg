@@ -1,4 +1,49 @@
-/* AMQP Connection */
+/*
+ * AMQP Connection
+ *
+ * Copyright 2017 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2015 https://github.com/emazv72
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this software; see the file COPYING.txt.  If not, write to
+ * the Free Software Foundation, Inc., 59 Temple Place, Suite 330,
+ * Boston, MA 02111-1307 USA (or visit the web site https://www.gnu.org/).
+ *
+ * As a special exception, the Harbour Project gives permission for
+ * additional uses of the text contained in its release of Harbour.
+ *
+ * The exception is that, if you link the Harbour libraries with other
+ * files to produce an executable, this does not by itself cause the
+ * resulting executable to be covered by the GNU General Public License.
+ * Your use of that executable is in no way restricted on account of
+ * linking the Harbour library code into it.
+ *
+ * This exception does not however invalidate any other reasons why
+ * the executable file might be covered by the GNU General Public License.
+ *
+ * This exception applies only to the code released by the Harbour
+ * Project under the name Harbour.  If you copy code from other
+ * Harbour Project or Free Software Foundation releases into a copy of
+ * Harbour, as the General Public License permits, the exception does
+ * not apply to the code that you add in this way.  To avoid misleading
+ * anyone as to the status of such modified files, you must delete
+ * this exception notice from them.
+ *
+ * If you write modifications of your own for Harbour, it is your choice
+ * whether to permit this exception to apply to your modifications.
+ * If you do not wish that, delete this exception notice.
+ *
+ */
 
 #include "hbclass.ch"
 
@@ -39,12 +84,14 @@ CREATE CLASS AMQPConnection
 
    METHOD MaybeReleaseBuffers()
 
-   METHOD Close()
+   METHOD Close( nReason )
 
    METHOD GetStatus()      INLINE ::status
    METHOD GetResponse()    INLINE ::response
    METHOD GetStatusStr()   INLINE hb_StrFormat( "%1$d: %2$s (%3$s)", ::status, hb_amqp_status_string( ::status ), amqp_error_string2( ::status ) )
-   METHOD GetResponseStr() INLINE hb_StrFormat( "%1$d: %2$s", ::response, hb_amqp_response_string( ::response ) )
+   METHOD GetResponseStr() INLINE hb_StrFormat( "%1$d: %2$s: %3$s", ::response, hb_amqp_response_string( ::response ), hb_ValToExp( ::hResponse ) )
+
+   METHOD GetResponseDetails() INLINE ::hResponse
 
    PROTECTED:
 
@@ -53,6 +100,7 @@ CREATE CLASS AMQPConnection
 
    VAR status      AS NUMERIC  /* AMQP_STATUS_* */
    VAR response    AS NUMERIC  /* AMQP_RESPONSE_* */
+   VAR hResponse   AS HASH
 
    VAR user        AS CHARACTER
    VAR password    AS CHARACTER
@@ -125,10 +173,10 @@ METHOD Connect( cCACert, cCert, cKey, lNoVerifyPeer, lNoVerifyHost ) CLASS AMQPC
 
    RETURN ::status := amqp_socket_open( ::pSocket, ::host, ::port )
 
-METHOD PROCEDURE Close() CLASS AMQPConnection
+METHOD PROCEDURE Close( nReason ) CLASS AMQPConnection
 
    IF ! Empty( ::pConn )
-      amqp_connection_close( ::pConn )
+      amqp_connection_close( ::pConn, nReason, @::hResponse )
       ::pConn := NIL
    ENDIF
 
@@ -154,7 +202,7 @@ METHOD Login() CLASS AMQPConnection
       hb_traceLog( "Socket Error" )
    ENDIF
 
-   RETURN ::response := amqp_login( ::pConn, ::virtualHost, 0, ::frameSize, 0, ::loginMethod, ::user, ::password )
+   RETURN ::response := amqp_login( ::pConn, ::virtualHost, 0, ::frameSize, 0, ::loginMethod, ::user, ::password, @::hResponse )
 
 METHOD OpenChannel( nChannel ) CLASS AMQPConnection
 
@@ -165,7 +213,7 @@ METHOD OpenChannel( nChannel ) CLASS AMQPConnection
       hb_traceLog( "Socket Error" )
    ENDIF
 
-   RETURN ::response := amqp_channel_open( ::pConn, nChannel )
+   RETURN ::response := amqp_channel_open( ::pConn, nChannel, @::hResponse )
 
 METHOD CloseChannel( nChannel ) CLASS AMQPConnection
 
@@ -176,7 +224,7 @@ METHOD CloseChannel( nChannel ) CLASS AMQPConnection
       hb_traceLog( "Socket Error" )
    ENDIF
 
-   RETURN ::response := amqp_channel_close( ::pConn, nChannel )
+   RETURN ::response := amqp_channel_close( ::pConn, nChannel, @::hResponse )
 
 METHOD BasicPublish( cData, nChannel, cExchange, cRoutingKey ) CLASS AMQPConnection
 
@@ -187,7 +235,7 @@ METHOD BasicPublish( cData, nChannel, cExchange, cRoutingKey ) CLASS AMQPConnect
       hb_traceLog( "Socket Error" )
    ENDIF
 
-   RETURN ::status := amqp_basic_publish( ::pConn, nChannel, cExchange, cRoutingKey, ::mandatory, ::immediate, ::hMessageProperties, cData )
+   RETURN ::status := amqp_basic_publish( ::pConn, nChannel, cExchange, cRoutingKey, ::mandatory, ::immediate, ::hMessageProperties, cData, @::hResponse )
 
 METHOD ExchangeDeclare( nChannel, cExchange, cExchangeType, lPassive, lDurable, lAutoDelete, lInternal ) CLASS AMQPConnection
 
@@ -209,7 +257,7 @@ METHOD BasicConsume( nChannel, cQueueName, cConsumerTag, lNoLocal, lNoAck, lExcl
       hb_traceLog( "Socket Error" )
    ENDIF
 
-   RETURN ::status := amqp_basic_consume( ::pConn, nChannel, cQueueName, cConsumerTag, lNoLocal, lNoAck, lExclusive )
+   RETURN ::status := amqp_basic_consume( ::pConn, nChannel, cQueueName, cConsumerTag, lNoLocal, lNoAck, lExclusive, @::hResponse )
 
 METHOD ConsumeMessage( xEnvelope, nTimeoutMS ) CLASS AMQPConnection
 
@@ -227,7 +275,7 @@ METHOD ConsumeMessage( xEnvelope, nTimeoutMS ) CLASS AMQPConnection
       hb_traceLog( "Envelope Error" )
    ENDCASE
 
-   RETURN ::status := amqp_consume_message( ::pConn, xEnvelope, nTimeoutMS )
+   RETURN ::status := amqp_consume_message( ::pConn, xEnvelope, nTimeoutMS, @::hResponse )
 
 METHOD BasicAck( nChannel, nDeliveryTag, lMultiple ) CLASS AMQPConnection
 

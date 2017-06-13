@@ -44,7 +44,7 @@
 
 #include "hbhpdf.h"
 
-/* HPDF_STATUS HPDF_PDFA_SetPDFAConformance (HPDF_Doc pdf,HPDF_PDFAType pdfatype) */
+/* HPDF_PDFA_SetPDFAConformance( pdf, nPDFAType ) --> hStatus */
 HB_FUNC( HPDF_PDFA_SETPDFACONFORMANCE )
 {
 /* FIXME: These functions are not exported from libharu. Until we find

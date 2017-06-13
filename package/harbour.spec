@@ -66,7 +66,7 @@
 %define hb_crs    export HB_WITH_CURSES=%{!?_without_curses:yes}%{?_without_curses:no}
 %define hb_sln    export HB_WITH_SLANG=%{!?_without_slang:yes}%{?_without_slang:no}
 %define hb_x11    export HB_WITH_X11=%{!?_without_x11:yes}%{?_without_x11:no}
-%define hb_local  export HB_WITH_ZLIB=%{?_with_localzlib:local} ; export HB_WITH_PCRE2=%{?_with_localpcre2:local} ; export HB_WITH_PCRE=%{?_with_localpcre:local} ; export HB_WITH_BZIP2=%{?_with_localbz2:local} ; export HB_WITH_EXPAT=%{?_with_localexpat:local}
+%define hb_local  export HB_WITH_ZLIB=%{?_with_localzlib:local} ; export HB_WITH_PCRE2=%{?_with_localpcre2:local} ; export HB_WITH_PCRE=%{?_with_localpcre:local} ; export HB_WITH_BZIP2=%{?_with_localbz2:local} ; export HB_WITH_EXPAT=%{?_with_localexpat:local} ; export HB_WITH_LIBYAML=%{?_with_locallibyaml:local}
 %define hb_proot  export HB_INSTALL_PKG_ROOT=${RPM_BUILD_ROOT}
 %define hb_bdir   export HB_INSTALL_BIN=${RPM_BUILD_ROOT}%{_bindir}
 %define hb_ldir   export HB_INSTALL_LIB=${RPM_BUILD_ROOT}%{_libdir}/%{name}
@@ -79,7 +79,7 @@
 %define hb_blds   export HB_BUILD_STRIP=all
 %define hb_bldsh  export HB_BUILD_SHARED=%{!?_with_static:yes}
 %define hb_cmrc   export HB_BUILD_NOGPLLIB=%{?_without_gpllib:yes}
-%define hb_ctrb   export HB_BUILD_CONTRIBS="hbblink hbbz2 hbcomio hbcomm hbcrypto hbct hbexpat hbformat hbformat/utils hbfoxpro hbfship hbgt hbhpdf hbhttpd hblzf hbmemio hbmisc hbmlzo hbmxml hbmzip hbnetio hbnetio/utils/hbnetio hbnf hboslib hbpipeio hbsms hbsqlit3 hbtcpio hbtest hbtip hbtpathy hbunix hbxpp hbxdiff hbzebra hbziparc rddbm rddmisc rddsql sddsqlt3 xhb %{?_with_cairo:hbcairo} %{?_with_cups:hbcups} %{?_with_curl:hbcurl} %{?_with_freeimage:hbfimage} %{?_with_gd:hbgd} %{?_with_openssl:hbssl} %{?_with_firebird:hbfbird sddfb} %{?_with_mysql:hbmysql sddmy} %{?_with_odbc:hbodbc sddodbc} %{?_with_pgsql:hbpgsql sddpg} %{?_with_ads:rddads} hbdoc hbrun"
+%define hb_ctrb   export HB_BUILD_CONTRIBS="hbblink hbbz2 hbcomio hbcomm hbcrypto hbct hbexpat hbformat hbformat/utils hbfoxpro hbfship hbgt hbhpdf hbhttpd hblzf hbmemio hbmisc hbmlzo hbmxml hbmzip hbnetio hbnetio/utils/hbnetio hbnf hboslib hbpipeio hbsms hbsqlit3 hbtcpio hbtest hbtip hbtpathy hbunix hbxpp hbxdiff hbyaml hbzebra hbziparc rddbm rddmisc rddsql sddsqlt3 xhb %{?_with_cairo:hbcairo} %{?_with_cups:hbcups} %{?_with_curl:hbcurl} %{?_with_freeimage:hbfimage} %{?_with_gd:hbgd} %{?_with_openssl:hbssl} %{?_with_firebird:hbfbird sddfb} %{?_with_mysql:hbmysql sddmy} %{?_with_odbc:hbodbc sddodbc} %{?_with_pgsql:hbpgsql sddpg} %{?_with_rabbitmq:hbamqp} %{?_with_ads:rddads} hbdoc hbrun"
 %define hb_env    %{hb_plat} ; %{hb_cc} ; %{hb_cflag} ; %{hb_lflag} ; %{hb_dflag} ; %{shl_path} ; %{hb_gpm} ; %{hb_crs} ; %{hb_sln} ; %{hb_x11} ; %{hb_local} ; %{hb_proot} ; %{hb_bdir} ; %{hb_idir} ; %{hb_ldir} ; %{hb_ddir} ; %{hb_edir} ; %{hb_cdir} ; %{hb_mdir} ; %{hb_tdir} ; %{hb_ctrb} ; %{hb_cmrc} ; %{hb_blds} ; %{hb_bldsh}
 ######################################################################
 ## Preamble.
@@ -370,6 +370,16 @@ statikus szerkesztéshez.
 %{?_with_pgsql:%{dname} to kompatybilny z językiem CA-Cl*pper kompilator.}
 %{?_with_pgsql:Ten pakiet udostępnia statyczn+ biliotekę PGSQL dla kompilatora %{dname}.}
 
+## rabbitmq-c library
+%{?_with_rabbitmq:%package rabbitmq}
+%{?_with_rabbitmq:Summary:        rabbitmq-c library bindings for %{dname} compiler}
+%{?_with_rabbitmq:Summary(pl):    Bilioteka rabbitmq-c dla kompilatora %{dname}}
+%{?_with_rabbitmq:Group:          Development/Languages}
+%{?_with_rabbitmq:Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}}
+
+%{?_with_rabbitmq:%description rabbitmq}
+%{?_with_rabbitmq:%{dname} is a Clipper compatible compiler.}
+%{?_with_rabbitmq:This package provides %{dname} rabbitmq-c bindings.}
 
 ######################################################################
 ## Preperation.
@@ -406,12 +416,12 @@ make install %{?_smp_mflags}
 %{?_without_slang:rm -f $HB_INSTALL_LIB/libgtsln.a}
 %{!?_with_localbz2:rm -f $HB_INSTALL_LIB/libbz2.a}
 %{!?_with_localexpat:rm -f $HB_INSTALL_LIB/libexpat.a}
+%{!?_with_locallibyaml:rm -f $HB_INSTALL_LIB/libyaml.a}
 %{!?hb_ldconf:rm -fR $HB_INSTALL_ETC/ld.so.conf.d}
 %{?hb_ldconf:rm -f $RPM_BUILD_ROOT/%{_libdir}/*.so*}
 rm -f $RPM_BUILD_ROOT/%{_bindir}/{3rdpatch.hb,commit.hb,hb-uncrustify.cfg}
 rm -f \
   $HB_INSTALL_LIB/libpng.a \
-  $HB_INSTALL_LIB/libexpat.a \
   $HB_INSTALL_LIB/libhpdf.a \
   $HB_INSTALL_LIB/liblzf.a \
   $HB_INSTALL_LIB/libminilzo.a \
@@ -610,6 +620,10 @@ rm -rf "$RPM_BUILD_ROOT"
 %dir %{_datadir}/%{name}/contrib/hbxdiff
 %{_datadir}/%{name}/contrib/hbxdiff/*
 %{_libdir}/%{name}/libhbxdiff.a
+%dir %{_datadir}/%{name}/contrib/hbyaml
+%{_datadir}/%{name}/contrib/hbyaml/*
+%{?_with_localyaml:%{_libdir}/%{name}/libyaml.a}
+%{_libdir}/%{name}/libhbyaml.a
 %dir %{_datadir}/%{name}/contrib/hbzebra
 %{_datadir}/%{name}/contrib/hbzebra/*
 %{_libdir}/%{name}/libhbzebra.a
@@ -741,6 +755,15 @@ rm -rf "$RPM_BUILD_ROOT"
 %{?_with_pgsql:%{_libdir}/%{name}/libsddpg.a}
 %{?_with_pgsql:%{_datadir}/%{name}/contrib/hbpgsql/*}
 %{?_with_pgsql:%{_datadir}/%{name}/contrib/sddpg/*}
+
+%{?_with_rabbitmq:%files rabbitmq}
+%{?_with_rabbitmq:%defattr(644,root,root,755)}
+%{?_with_rabbitmq:%dir %{_libdir}/%{name}}
+%{?_with_rabbitmq:%dir %{_datadir}/%{name}}
+%{?_with_rabbitmq:%dir %{_datadir}/%{name}/contrib}
+%{?_with_rabbitmq:%dir %{_datadir}/%{name}/contrib/hbamqp}
+%{?_with_rabbitmq:%{_libdir}/%{name}/libhbamqp.a}
+%{?_with_rabbitmq:%{_datadir}/%{name}/contrib/hbamqp/*}
 
 ######################################################################
 ## Spec file Changelog.

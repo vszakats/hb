@@ -67,12 +67,12 @@
    -  Function changes/additions (refer to the individual doc headers for
       details):
 
-      ft_FSelect( [ <nArea > ] )               -> nArea
-      ft_FUse(    [ <cFile>  ][, <nMode>   ] ) -> nHandle | NIL
-      ft_FWriteLn(  <cData>   [, <lInsert> ] ) -> NIL
-      ft_FInsert( [ <nLines> ] )               -> NIL
-      ft_FDelete( [ <nLines> ] )               -> NIL
-      ft_FAppend( [ <nLines> ] )               -> NIL
+      ft_FSelect( [ <nArea > ] )               --> nArea
+      ft_FUse(    [ <cFile>  ][, <nMode>   ] ) --> nHandle | NIL
+      ft_FWriteLn(  <cData>   [, <lInsert> ] ) --> NIL
+      ft_FInsert( [ <nLines> ] )               --> NIL
+      ft_FDelete( [ <nLines> ] )               --> NIL
+      ft_FAppend( [ <nLines> ] )               --> NIL
 
       Internal Steve Larsen revisions:
 

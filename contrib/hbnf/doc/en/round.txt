@@ -8,7 +8,7 @@
    $SYNTAX$
       ft_Round( <nNumber> [, <nRoundToAmount>           ;
                 [, <cRoundType>  [, <cRoundDirection>   ;
-                [, <nAcceptableError> ] ] ] ] )            -> nNumber
+                [, <nAcceptableError> ] ] ] ] )           --> nNumber
    $ARGUMENTS$
       <nNumber> is the number to round
 
@@ -23,14 +23,14 @@
 
       <cRoundDirection> is the direction to round the number toward
 
-         "U" to round Up      1.31 ->  1.4
-                             -1.31 -> -1.4
-         "D" to round Down    1.36 ->  1.3
-                             -1.36 -> -1.3
-         "N" to round Normal  1.5  ->  2
-                             -1.5  -> -2
-                              1.49 ->  1
-                             -1.49 -> -1
+         "U" to round Up      1.31 -->  1.4
+                             -1.31 --> -1.4
+         "D" to round Down    1.36 -->  1.3
+                             -1.36 --> -1.3
+         "N" to round Normal  1.5  -->  2
+                             -1.5  --> -2
+                              1.49 -->  1
+                             -1.49 --> -1
 
       <nAcceptableError> is the amount that is considered acceptable
       to be within, i.e., if you're within this amount of the number

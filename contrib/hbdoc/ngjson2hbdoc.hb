@@ -595,7 +595,7 @@ static function entrysort( e )
     "PLATFORMS"     , ;
     "FILES"         , ;
     "TAGS"          , ;
-    "SEEALSO"        }
+    "SEEALSO"       }
 
   local n := { => }, tmp
 

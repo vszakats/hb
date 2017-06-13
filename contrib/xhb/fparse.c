@@ -44,9 +44,9 @@
  *
  */
 
-/* TODO: use Harbour FS API */
+/* FIXME: use Harbour VF IO API */
 
-/* FParse( cFile, cDelimiter ) -> array
+/* FParse( cFile, cDelimiter ) --> array
 
    Purpose:
       Parse a delimited text file.

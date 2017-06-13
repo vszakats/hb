@@ -2424,7 +2424,7 @@ HB_FUNC( WVW_DRAWSTATUSBAR )
    }
 }
 
-/* wvw_DrawPicture( [nWinNum], nTop, nLeft, nBottom, nRight, nSlot, lTight/aAdj ) -> lOk */
+/* wvw_DrawPicture( [nWinNum], nTop, nLeft, nBottom, nRight, nSlot, lTight/aAdj ) --> lOk */
 /* nSlot <= 20  aAdj == { 0,0,-2,-2 } To Adjust the pixels for { Top,Left,Bottom,Right } */
 HB_FUNC( WVW_DRAWPICTURE )
 {

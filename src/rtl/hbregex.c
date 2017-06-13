@@ -584,7 +584,7 @@ HB_FUNC( HB_REGEXATX )
 }
 
 /* 2005-12-16 - Francesco Saverio Giudice
-   hb_regexAll( cRegex, cString, lCaseSensitive, lNewLine, nMaxMatches, nGetMatch, lOnlyMatch ) -> aAllRegexMatches
+   hb_regexAll( cRegex, cString, lCaseSensitive, lNewLine, nMaxMatches, nGetMatch, lOnlyMatch ) --> aAllRegexMatches
 
    This function return all matches from a Regex search.
    It is a mix from hb_regex() and hb_regexAtX()

@@ -19,7 +19,7 @@
 
       The following calculation reproduces the original value:
       ```
-      ? Mantissa( <nFloatingPointNumber> ) * 2 ^ Exponent( <nFloatingPointNumber> )  // -> <nFloatingPointNumber>
+      ? Mantissa( <nFloatingPointNumber> ) * 2 ^ Exponent( <nFloatingPointNumber> )  // --> <nFloatingPointNumber>
       ```
       TODO: add documentation
    $EXAMPLES$
@@ -63,7 +63,7 @@
 
       The following calculation reproduces the original value:
       ```
-      ? 2 ^ Exponent( <nFloatingPointNumber> ) * Mantissa( <nFloatingPointNumber> )  // -> <nFloatingPointNumber>
+      ? 2 ^ Exponent( <nFloatingPointNumber> ) * Mantissa( <nFloatingPointNumber> )  // --> <nFloatingPointNumber>
       ```
       TODO: add documentation
    $EXAMPLES$

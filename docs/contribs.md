@@ -39,6 +39,12 @@ A `GTWVG` alternative with multi-window support.
 
 AMF file format handling
 
+{% if site.fork %}
+## hbamqp
+
+AMQP API via librabbitmq-c bindings
+
+{% endif %}
 ## hbblink
 
 Blinker compatibility
@@ -247,6 +253,12 @@ libxdiff bindings (diffing)
 
 Xbase++ compatibility
 
+{% if site.fork %}
+## hbyaml
+
+libyaml bindings for YAML parsing
+
+{% endif %}
 ## hbzebra
 
 Barcode creating functions

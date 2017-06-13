@@ -61,10 +61,10 @@ CREATE CLASS wce_Sim
    METHOD lDeInitialize()  // Must be deinitialized....
 
    METHOD lNumberOfPhoneBookEntries( nType, /* @ */ nTotal, /* @ */ nUsed )
-   METHOD aGetAllPhoneBookEntries( nType )  // -> array with phonebook entries of nType storage
-   METHOD lGetSimPhoneEntry( nPos, nType, /* @ */ aEntry )  // -> aEntry by reference contains phonebook entry
-   METHOD lSetSimPhoneEntry( nPos, nType, cNumber, cName, nPlan, nAddrType )  // -> .T. / .F. if phonebook entry written
-   METHOD lDelSimPhoneEntry( nPos, nType )  // -> .T. / .F. if phonebook entry deleted
+   METHOD aGetAllPhoneBookEntries( nType )  // --> array with phonebook entries of nType storage
+   METHOD lGetSimPhoneEntry( nPos, nType, /* @ */ aEntry )  // --> aEntry by reference contains phonebook entry
+   METHOD lSetSimPhoneEntry( nPos, nType, cNumber, cName, nPlan, nAddrType )  // --> .T. / .F. if phonebook entry written
+   METHOD lDelSimPhoneEntry( nPos, nType )  // --> .T. / .F. if phonebook entry deleted
 
 ENDCLASS
 

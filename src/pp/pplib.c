@@ -148,7 +148,7 @@ PHB_PP_STATE hb_pp_Param( int iParam )
 
 /*
  * initialize new PP context and return pointer to it.
- * __pp_Init( [<cIncludePath>], [<cStdChFile> ] [, <lArchDefs>] ) -> <pPP>
+ * __pp_Init( [<cIncludePath>], [<cStdChFile> ] [, <lArchDefs>] ) --> <pPP>
  * when <cStdChFile> is empty string ("") then no default rules are used
  * only the dynamically created #defines like __HARBOUR__, __DATE__, __TIME__
  */
@@ -191,7 +191,7 @@ HB_FUNC( __PP_INIT )
 
 /*
  * add new (or replace previous) include paths.
- * __pp_Path( <pPP>, <cPath> [, <lClearPrev>] ) -> NIL
+ * __pp_Path( <pPP>, <cPath> [, <lClearPrev>] ) --> NIL
  */
 HB_FUNC( __PP_PATH )
 {
@@ -203,7 +203,7 @@ HB_FUNC( __PP_PATH )
 
 /*
  * reset the PP context (remove all rules added by user or preprocessed code)
- * __pp_Reset( <pPP> ) -> NIL
+ * __pp_Reset( <pPP> ) --> NIL
  */
 HB_FUNC( __PP_RESET )
 {
@@ -215,7 +215,7 @@ HB_FUNC( __PP_RESET )
 
 /*
  * preprocess and execute new preprocessor directive
- * __pp_AddRule( <pPP>, <cDirective> ) -> <lOK>
+ * __pp_AddRule( <pPP>, <cDirective> ) --> <lOK>
  */
 HB_FUNC( __PP_ADDRULE )
 {
@@ -257,7 +257,7 @@ HB_FUNC( __PP_ADDRULE )
 
 /*
  * preprocess given code and return result
- * __pp_Process( <pPP>, <cCode> ) -> <cPreprocessedCode>
+ * __pp_Process( <pPP>, <cCode> ) --> <cPreprocessedCode>
  */
 HB_FUNC( __PP_PROCESS )
 {

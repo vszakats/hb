@@ -108,7 +108,7 @@ static void hb_wvg_RestFromBuffer( PHB_GTWVT pWVT, int iLeft, int iTop, int iRig
            pWVT->hGuiDC, iLeft, iTop, SRCCOPY );
 }
 
-/* wvg_ClearGUIObjects() -> NIL */
+/* wvg_ClearGUIObjects() --> NIL */
 HB_FUNC( WVG_CLEARGUIOBJECTS )
 {
    PHB_GTWVT pWVT = hb_wvt_gtGetWVT();
@@ -173,7 +173,7 @@ HB_FUNC( WVG_SETGOBJSTATE )
    hb_retni( iOState );
 }
 
-/* wvg_SetGObjData( hObj, nGobjDataType, xData, xData1 ) -> lSuccess */
+/* wvg_SetGObjData( hObj, nGobjDataType, xData, xData1 ) --> lSuccess */
 HB_FUNC( WVG_SETGOBJDATA )
 {
    PHB_GTWVT pWVT     = hb_wvt_gtGetWVT();
@@ -344,7 +344,7 @@ static void hb_wvg_BoxRaised( PHB_GTWVT pWVT, int iLeft, int iTop, int iRight, i
    LineTo( hdc, iRight + 1, iBottom + 1 );
 }
 
-/* wvg_BoxRecessed( nTop, nLeft, nBottom, nRight, aPxlOff ) -> NIL */
+/* wvg_BoxRecessed( nTop, nLeft, nBottom, nRight, aPxlOff ) --> NIL */
 HB_FUNC( WVG_BOXRECESSED )
 {
    PHB_GTWVT  pWVT = hb_wvt_gtGetWVT();
@@ -399,7 +399,7 @@ static void hb_wvg_BoxRecessed( PHB_GTWVT pWVT, int iLeft, int iTop, int iRight,
    LineTo( hdc, iRight + 1, iTop - 1 );
 }
 
-/* wvt_BoxGet( nRow, nCol, nWidth ) -> NIL */
+/* wvt_BoxGet( nRow, nCol, nWidth ) --> NIL */
 HB_FUNC( WVG_BOXGET )
 {
    PHB_GTWVT  pWVT = hb_wvt_gtGetWVT();
@@ -443,7 +443,7 @@ static void hb_wvg_BoxGet( PHB_GTWVT pWVT, int iLeft, int iTop, int iRight, int 
    LineTo(   hdc, iLeft - 2, iBottom );
 }
 
-/* wvg_BoxGroup( nTop, nLeft, nBottom, nRight, aPxlOff ) -> NIL */
+/* wvg_BoxGroup( nTop, nLeft, nBottom, nRight, aPxlOff ) --> NIL */
 HB_FUNC( WVG_BOXGROUP )
 {
    PHB_GTWVT  pWVT = hb_wvt_gtGetWVT();
@@ -503,7 +503,7 @@ static void hb_wvg_BoxGroup( PHB_GTWVT pWVT, int iLeft, int iTop, int iRight, in
    LineTo( hdc, iRight, iTop );
 }
 
-/* wvg_BoxRaised( nTop, nLeft, nBottom, nRight, aPxlOff ) -> NIL */
+/* wvg_BoxRaised( nTop, nLeft, nBottom, nRight, aPxlOff ) --> NIL */
 HB_FUNC( WVG_BOXGROUPRAISED )
 {
    PHB_GTWVT  pWVT = hb_wvt_gtGetWVT();
@@ -1364,7 +1364,7 @@ static void hb_wvg_TextBox( PHB_GTWVT pWVT, PHB_GOBJS gObj, int iLeft, int iTop,
    DrawText( hdc, gObj->lpText, lstrlen( gObj->lpText ), &rc, gObj->iAlign | DT_WORDBREAK | DT_TOP );
 }
 
-/* wvg_Picture( nTop, nLeft, nBottom, nRight, aPxlOff, nSlot, lDoNotScale ) -> NIL */
+/* wvg_Picture( nTop, nLeft, nBottom, nRight, aPxlOff, nSlot, lDoNotScale ) --> NIL */
 HB_FUNC( WVG_PICTURE )
 {
 #if ! defined( HB_OS_WIN_CE )

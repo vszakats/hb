@@ -552,7 +552,7 @@ HB_FUNC( WVG_TREEVIEW_GETSELECTIONINFO )
    }
 }
 
-/* wvg_TreeView_AddItem( oItem:hTree, hParent, oItem:Caption ) -> hItem */
+/* wvg_TreeView_AddItem( oItem:hTree, hParent, oItem:Caption ) --> hItem */
 HB_FUNC( WVG_TREEVIEW_ADDITEM )
 {
    TVINSERTSTRUCT tvis;
@@ -1018,7 +1018,7 @@ HB_FUNC( WVG_RELEASEWINDOWPROCBLOCK )
       hb_itemRelease( pBlock );
 }
 
-/* wvg_CreateToolTipWindow( hControl ) -> hWndTT */
+/* wvg_CreateToolTipWindow( hControl ) --> hWndTT */
 HB_FUNC( WVG_CREATETOOLTIPWINDOW )
 {
    HWND hwndTip = CreateWindowEx( 0, TOOLTIPS_CLASS, 0,

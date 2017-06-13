@@ -16,7 +16,7 @@
       The CharEven() function looks for the characters on the even positions
       in a given string, collects them and returns them as a string.
    $EXAMPLES$
-      ? CharEven( " H E L L O !" )  // -> "HELLO!"
+      ? CharEven( " H E L L O !" )  // --> "HELLO!"
    $STATUS$
       R
    $COMPLIANCE$
@@ -48,7 +48,7 @@
       The CharOdd() function looks for the characters on the odd positions
       in a given string, collects them and returns them as a string.
    $EXAMPLES$
-      ? CharOdd( "H E L L O ! " ) // -> "HELLO!"
+      ? CharOdd( "H E L L O ! " )  // --> "HELLO!"
    $STATUS$
       R
    $COMPLIANCE$

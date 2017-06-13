@@ -51,7 +51,7 @@ HB_EXTERN_BEGIN
 #include "sha256.h"
 HB_EXTERN_END
 
-/* hb_pbkdf2_sha256( <cPassword>, <cSalt>, <nCount>, <nKeyLen> ) -> <cKey> */
+/* hb_pbkdf2_sha256( <cPassword>, <cSalt>, <nCount>, <nKeyLen> ) --> <cKey> */
 HB_FUNC( HB_PBKDF2_SHA256 )
 {
    HB_U64 nC = hb_parnintdef( 3, 1 );

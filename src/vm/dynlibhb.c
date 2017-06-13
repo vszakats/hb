@@ -273,7 +273,7 @@ HB_FUNC( HB_LIBERROR )
 }
 
 /* Get FUNCTION or PROCEDURE symbol from given library.
- *    hb_libGetFunSym( <pLibHandle>, <cFuncName> ) -> <sFuncSym> | NIL
+ *    hb_libGetFunSym( <pLibHandle>, <cFuncName> ) --> <sFuncSym> | NIL
  */
 HB_FUNC( HB_LIBGETFUNSYM )
 {

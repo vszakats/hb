@@ -47,7 +47,7 @@
 #include "hbapi.h"
 
 /* Compare strings in length-constant time:
-   hb_strcmpc( <cString1>, <cString2> ) -> <lEqual> */
+   hb_strcmpc( <cString1>, <cString2> ) --> <lEqual> */
 HB_FUNC( HB_STRCMPC )
 {
    const char * str1 = hb_parc( 1 );

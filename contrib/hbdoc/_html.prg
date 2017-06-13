@@ -75,6 +75,7 @@
 
 STATIC s_tDate
 STATIC s_cRevision
+STATIC s_hAssets
 
 /* https://www.debuggex.com/r/4GiNJeVJ_VALmNDk
    https://regex101.com/r/aS9RYU/2 */
@@ -106,6 +107,7 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    METHOD Spacer() INLINE ::cFile += _FIL_EOL, Self
    METHOD NewLine() INLINE ::cFile += "<br>" + _FIL_EOL, Self
    METHOD NewFile()
+   METHOD LinkAsset( cType, cPkg, cFile )
 
    CLASS VAR lCreateStyleDocument AS LOGICAL INIT .T.
    VAR TargetFilename AS STRING INIT ""
@@ -154,6 +156,9 @@ METHOD NewFile() CLASS GenerateHTML
          s_cRevision := GitRev()
       ENDIF
    ENDIF
+   IF s_hAssets == NIL
+      s_hAssets := hb_yaml_decode( hbdoc_assets_yaml() )
+   ENDIF
 
    ::hNameIDM := hbdoc_NameIDM()
 
@@ -183,29 +188,12 @@ METHOD NewFile() CLASS GenerateHTML
    ::Spacer()
 
 #if 0
-   ::OpenTag( "link", ;
-      "rel", "stylesheet", ;
-      "crossorigin", "anonymous", ;
-      "referrerpolicy", "no-referrer", ;
-      "href", "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css", ;
-      "integrity", "sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" )
+   ::LinkAsset( "css", "fontawesome", "css" )
 #endif
 #if 0
-   /* https://sourcefoundry.org/hack/ */
-   ::OpenTag( "link", ;
-      "rel", "stylesheet", ;
-      "crossorigin", "anonymous", ;
-      "referrerpolicy", "no-referrer", ;
-      "href", "https://cdn.jsdelivr.net/font-hack/2.020/css/hack-extended.min.css", ;
-      "integrity", "sha384-OVfRWylgEw5vMHfO8jOvXtmhTOGsT1DZffRlvjep/grIFvxCgc6xmqjOvp2KJA9w" )
+   ::LinkAsset( "css", "hack", "css" )  /* https://sourcefoundry.org/hack/ */
 #endif
-
-   ::OpenTag( "link", ;
-      "rel", "stylesheet", ;
-      "crossorigin", "anonymous", ;
-      "referrerpolicy", "no-referrer", ;
-      "href", "https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/themes/prism-okaidia.min.css", ;
-      "integrity", "sha384-XHIkHrF2GAIZf8n8FpuN43YPTV4JE4h3je69N9L1dZavZmxbmZlQCO1X/6Y/cge2" )
+   ::LinkAsset( "css", "prism", "theme" )
 
    ::OpenTag( "link", ;
       "rel", "stylesheet", ;
@@ -353,29 +341,13 @@ METHOD Generate() CLASS GenerateHTML
 
    ::CloseTag( "footer" )
 
-   ::OpenTagInline( "script", ;
-      "crossorigin", "anonymous", ;
-      "src", "https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js", ;
-      "integrity", "sha384-rYrm3wzug6YeKl/b+fTQ97I5TVSAs/vakIvEwzeyXUXS2SxYvgi7sBHZuV/UqZWf" ):CloseTag( "script" )
-
-   ::OpenTagInline( "script", ;
-      "crossorigin", "anonymous", ;
-      "src", "https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-c.min.js", ;
-      "integrity", "sha384-IDvyyshYqx4mSDbCy1jZXIyYtgY0TQ7yTX/qOQ93pN1I3ETUkZD9Nb5joIteiFIC" ):CloseTag( "script" )
+   ::LinkAsset( "js", "prism", "js" )
+   ::LinkAsset( "js", "prism", "c" )
 
    IF ::lPlayground
-      ::OpenTagInline( "script", ;
-         "crossorigin", "anonymous", ;
-         "src", "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js", ;
-         "integrity", "sha384-xBuQ/xzmlsLoJpyjoggmTEz8OWUFM0/RC5BsqQBDX2v5cMvDHcMakNTNrHIW2I5f" ):CloseTag( "script" )
-
-      ::OpenTagInline( "script", ;
-         "crossorigin", "anonymous", ;
-         "src", "https://os.allcom.pl/harbour/static/playground-embed.js" ):CloseTag( "script" )
-
-      ::OpenTagInline( "script", ;
-         "crossorigin", "anonymous", ;
-         "src", "https://os.allcom.pl/harbour/static/play.js" ):CloseTag( "script" )
+      ::LinkAsset( "js", "jquery", "js" )
+      ::LinkAsset( "js", "hb-playground", "embed" )
+      ::LinkAsset( "js", "hb-playground", "js" )
 
       ::OpenTag( "script" )
       ::cFile += _playground_embed_js()
@@ -1168,6 +1140,45 @@ METHOD Append( cText, cFormat, lCode, cField, cID ) CLASS GenerateHTML
    ::cFile += _FIL_EOL
 
    RETURN Self
+
+METHOD LinkAsset( cType, cPkg, cFile ) CLASS GenerateHTML
+
+   LOCAL pkg := s_hAssets[ cPkg ]
+
+   LOCAL param := { ;
+      pkg[ "root" ] + ;
+      iif( "ver" $ pkg, pkg[ "ver" ] + "/", "" ) + ;
+      pkg[ "files" ][ cFile ][ "name" ] }
+
+   IF "sri" $ pkg[ "files" ][ cFile ]
+      AAdd( param, "integrity" )
+      AAdd( param, pkg[ "files" ][ cFile ][ "sri" ] )
+   ENDIF
+
+   AAdd( param, "crossorigin" )
+   AAdd( param, "anonymous" )
+
+   SWITCH cType
+   CASE "css"
+
+      ::OpenTag( "link", ;
+         "rel", "stylesheet", ;
+         "referrerpolicy", "no-referrer", ;
+         "href", hb_ArrayToParams( param ) )
+      EXIT
+
+   CASE "js"
+
+      ::OpenTagInline( "script", ;
+         "src", hb_ArrayToParams( param ) ):CloseTag( "script" )
+      EXIT
+
+   ENDSWITCH
+
+   RETURN Self
+
+STATIC FUNCTION hbdoc_assets_yaml()
+   #pragma __streaminclude "hbdoc_assets.yml" | RETURN %s
 
 STATIC FUNCTION hbdoc_head_html()
    #pragma __streaminclude "hbdoc_head.html" | RETURN _TO_LF( %s )

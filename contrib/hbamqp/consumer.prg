@@ -1,4 +1,48 @@
-/* AMQP Consumer */
+/*
+ * AMQP Consumer
+ *
+ * Copyright 2015 https://github.com/emazv72
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this software; see the file COPYING.txt.  If not, write to
+ * the Free Software Foundation, Inc., 59 Temple Place, Suite 330,
+ * Boston, MA 02111-1307 USA (or visit the web site https://www.gnu.org/).
+ *
+ * As a special exception, the Harbour Project gives permission for
+ * additional uses of the text contained in its release of Harbour.
+ *
+ * The exception is that, if you link the Harbour libraries with other
+ * files to produce an executable, this does not by itself cause the
+ * resulting executable to be covered by the GNU General Public License.
+ * Your use of that executable is in no way restricted on account of
+ * linking the Harbour library code into it.
+ *
+ * This exception does not however invalidate any other reasons why
+ * the executable file might be covered by the GNU General Public License.
+ *
+ * This exception applies only to the code released by the Harbour
+ * Project under the name Harbour.  If you copy code from other
+ * Harbour Project or Free Software Foundation releases into a copy of
+ * Harbour, as the General Public License permits, the exception does
+ * not apply to the code that you add in this way.  To avoid misleading
+ * anyone as to the status of such modified files, you must delete
+ * this exception notice from them.
+ *
+ * If you write modifications of your own for Harbour, it is your choice
+ * whether to permit this exception to apply to your modifications.
+ * If you do not wish that, delete this exception notice.
+ *
+ */
 
 #include "hbclass.ch"
 
@@ -19,7 +63,7 @@ CREATE CLASS AMQPConsumer
 
    PROTECTED:
 
-   METHOD DumpAction( hEnvelope )
+   METHOD DumpEnvelope( hEnvelope )
 
    VAR connection AS OBJECT    /* AMQPConnection */
    VAR channel    AS NUMERIC   INIT 1
@@ -36,7 +80,7 @@ METHOD New( oConnection ) CLASS AMQPConsumer
    ENDIF
 
    ::connection := oConnection
-   ::action := {| hEnvelope | ::DumpAction( hEnvelope ) }
+   ::action := {| hEnvelope | ::DumpEnvelope( hEnvelope ) }
 
    RETURN Self
 
@@ -78,7 +122,7 @@ METHOD PROCEDURE ConsumeAndDispatch() CLASS AMQPConsumer
          result := hb_ExecFromArray( { ::action, hEnvelope } )
 
       OTHERWISE
-         hb_traceLog( "ConsumeAndDispatch action error" )
+         hb_traceLog( hb_MethodName(), "action error" )
       ENDCASE
 
       result := hb_default( @result, .F. )
@@ -86,23 +130,22 @@ METHOD PROCEDURE ConsumeAndDispatch() CLASS AMQPConsumer
       // action returns .T. -> ack message
       IF result
          IF ::connection:BasicAck( ::channel, amqp_envelope_getdeliverytag( pEnvelope ) ) != 0
-            hb_traceLog( "AMQPConsumer", "basicAck error" )
+            hb_traceLog( ::className(), "basicAck error" )
          ELSE
-            hb_traceLog( "AMQPConsumer", "basicAck OK" )
+            hb_traceLog( ::className(), "basicAck OK" )
          ENDIF
       ELSE
-         hb_traceLog( "AMQPConsumer", "action block error" )
+         hb_traceLog( ::className(), "action block error" )
       ENDIF
    ELSE
-      hb_traceLog( "AMQPConsumer", hb_StrFormat( "consume Error (result=%1$d, response=%2$s)", result, ::connection:GetResponse() ) )
+      hb_traceLog( ::className(), hb_StrFormat( "consume Error (result=%1$d, response=%2$s)", result, ::connection:GetResponse() ) )
    ENDIF
 
    RETURN
 
-// Raw message dump
-METHOD PROCEDURE DumpAction( hEnvelope ) CLASS AMQPConsumer
+METHOD PROCEDURE DumpEnvelope( hEnvelope ) CLASS AMQPConsumer
 
-   hb_traceLog( "AMQPConsumer", "Raw message:", hb_ValToExp( hEnvelope ) )
+   hb_traceLog( ::className(), "Raw message:", hb_ValToExp( hEnvelope ) )
 
    RETURN
 

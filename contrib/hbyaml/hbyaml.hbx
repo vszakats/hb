@@ -1,0 +1,37 @@
+/* --------------------------------------------------------------------
+ * NOTE: You can add manual override which functions to include or
+ *       exclude from automatically generated EXTERNAL/DYNAMIC list.
+ *          Syntax: // HB_FUNC_INCLUDE <func>
+ *                  // HB_FUNC_EXCLUDE <func>
+ */
+
+/* --------------------------------------------------------------------
+ * WARNING: Automatically generated code below. DO NOT EDIT! (except casing)
+ *          Regenerate using hbmk2 '-hbx=' option.
+ */
+
+#ifndef __HBEXTERN_CH__HBYAML__
+#define __HBEXTERN_CH__HBYAML__
+
+#if defined( __HBEXTREQ__ ) .OR. defined( __HBEXTERN__HBYAML__ANNOUNCE )
+   ANNOUNCE __HBEXTERN__HBYAML__
+#endif
+
+#if defined( __HBEXTREQ__ ) .OR. defined( __HBEXTERN__HBYAML__REQUEST )
+   #command DYNAMIC <fncs,...> => EXTERNAL <fncs>
+#endif
+
+DYNAMIC hb_yaml_decode
+DYNAMIC yaml_get_version
+DYNAMIC yaml_get_version_string
+DYNAMIC yaml_parser_initialize
+DYNAMIC yaml_parser_parse
+DYNAMIC yaml_parser_scan
+DYNAMIC yaml_parser_set_encoding
+DYNAMIC yaml_parser_set_input_string
+
+#if defined( __HBEXTREQ__ ) .OR. defined( __HBEXTERN__HBYAML__REQUEST )
+   #uncommand DYNAMIC <fncs,...> => EXTERNAL <fncs>
+#endif
+
+#endif

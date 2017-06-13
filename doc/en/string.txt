@@ -1214,10 +1214,10 @@
       Together with LTrim(), this function equated to the AllTrim()
       function.
    $EXAMPLES$
-      ? RTrim( "Hello" )   // -->  "Hello"
-      ? RTrim( "" )        // -->  ""
-      ? RTrim( "UA   " )   // -->  "UA"
-      ? RTrim( "   UA" )   // -->  "   UA"
+      ? RTrim( "Hello" )   // --> "Hello"
+      ? RTrim( "" )        // --> ""
+      ? RTrim( "UA   " )   // --> "UA"
+      ? RTrim( "   UA" )   // --> "   UA"
    $STATUS$
       R
    $COMPLIANCE$

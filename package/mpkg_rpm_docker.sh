@@ -20,11 +20,15 @@ yum install -y gcc git rpm-build findutils \
   gd-devel \
   ghostscript-devel \
   libmariadb-devel \
+  libyaml-devel \
   lzo-devel \
   minizip-devel \
   openssl-devel \
   postgresql-devel \
   unixODBC-devel
+
+# librabbitmq-devel provides verison 0.2, which is too old to
+# be supported.
 
 ./package/mpkg_rpm.sh
 

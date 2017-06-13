@@ -568,7 +568,7 @@ HB_FUNC( HB_STRTOTS )
 }
 
 /* get week number and other parts ISO 8601 week date:
-   hb_Week( <dDate>, [@<nYear>], [@<nDayOfWeek>] ) -> <nWeek> */
+   hb_Week( <dDate>, [@<nYear>], [@<nDayOfWeek>] ) --> <nWeek> */
 HB_FUNC( HB_WEEK )
 {
    PHB_ITEM pDate = hb_param( 1, HB_IT_DATETIME );

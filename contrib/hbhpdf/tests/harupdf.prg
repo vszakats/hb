@@ -166,7 +166,10 @@ FUNCTION DesignHaruPDF( cFileToSave )
    // Comment out the following line if you need ASCII chart by Codepages
    Page_CodePages( pdf )
 
-   IF HPDF_SaveToFile( pdf, cFileToSave ) != HPDF_OK
+   IF HPDF_SaveToStream( pdf ) == HPDF_OK
+      ? "Size:", hb_ntos( HPDF_GetStreamSize( pdf ) )
+      ? "Saved:", hb_MemoWrit( cFileToSave, HPDF_ReadFromStream( pdf ) )
+   ELSE
       ? "0x" + hb_NumToHex( HPDF_GetError( pdf ), 4 ), hb_HPDF_GetErrorString( HPDF_GetError( pdf ) ), HPDF_GetErrorDetail( pdf )
    ENDIF
 

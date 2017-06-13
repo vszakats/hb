@@ -122,7 +122,7 @@ HB_FUNC( HB_PROCESSCLOSE )
 }
 
 /* hb_processRun( <cCommand>, [ <cStdIn> ], [ @<cStdOut> ], [ @<cStdErr> ], ;
-                  [ <lDetach> ] ) -> <nResult> */
+                  [ <lDetach> ] ) --> <nResult> */
 HB_FUNC( HB_PROCESSRUN )
 {
    const char * szName = hb_parc( 1 );

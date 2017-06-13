@@ -60,7 +60,12 @@
 
 #include "expat.h"
 
-#define HB_EXPAT_VERS( ma, mi, mu )  ( XML_MAJOR_VERSION > ma || ( XML_MAJOR_VERSION == ma && ( XML_MINOR_VERSION > mi || ( XML_MINOR_VERSION == mi && XML_MICRO_VERSION >= mu ) ) ) )
+#define HB_EXPAT_VERS( ma, mi, mu )  \
+   ( XML_MAJOR_VERSION > ma || \
+   ( XML_MAJOR_VERSION == ma && \
+   ( XML_MINOR_VERSION > mi || \
+   ( XML_MINOR_VERSION == mi && \
+     XML_MICRO_VERSION >= mu ) ) ) )
 
 #include "hbapi.h"
 #include "hbapiitm.h"

@@ -23,7 +23,7 @@ PROCEDURE DllMain()
     *
     * win_oleServerInit( <cClassID>, <cServerName>, ;
     *                    [ <hAction> | <oAction> | <bAction> | <sAction> ], ;
-    *                    [ <lHashClone> | <lAcceptAll> ] ) -> <lServerActive>
+    *                    [ <lHashClone> | <lAcceptAll> ] ) --> <lServerActive>
     *
     * <cClassID> is registered OLE server class GUID
     *

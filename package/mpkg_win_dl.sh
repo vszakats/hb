@@ -25,7 +25,7 @@ if [ "${os}" = 'win' ]; then
 
   # Dependencies of the default (full) list of contribs
   if [ "${_BRANCH#*prod*}" = "${_BRANCH}" ]; then
-    pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{cairo,freeimage,gd,ghostscript,libmariadbclient,postgresql,rabbitmq-c}
+    pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{cairo,freeimage,gd,ghostscript,libmariadbclient,libyaml,postgresql,rabbitmq-c}
   # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-qt5
   fi
 
