@@ -86,16 +86,19 @@ static yaml_parser_t * parser_par( int iParam )
 
 HB_FUNC( YAML_PARSER_INITIALIZE )
 {
-   void ** ph = ( void ** ) hb_gcAllocate( sizeof( yaml_parser_t * ), &s_gc_parser_funcs );
    yaml_parser_t * parser = ( yaml_parser_t * ) hb_xgrabz( sizeof( yaml_parser_t ) );
 
    if( yaml_parser_initialize( parser ) )
    {
+      void ** ph = ( void ** ) hb_gcAllocate( sizeof( yaml_parser_t * ), &s_gc_parser_funcs );
       *ph = parser;
       hb_retptrGC( ph );
    }
    else
+   {
+      hb_xfree( parser );
       hb_retptr( NULL );
+   }
 }
 
 HB_FUNC( YAML_PARSER_SET_INPUT_STRING )
