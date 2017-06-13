@@ -671,9 +671,9 @@
       Optionally, a second parameter can be provided which can be
       represented by either of a string value or a numeric value.
    $EXAMPLES$
-      ? hb_DToT( Date() ) // a dateTime with a empty time part
-      ? hb_DToT( Date(), "14:30:00.500" ) // a dateTime with time part 14:30pm with 500 milliseconds
-      ? hb_DToT( Date(), 3600 ) // a dateTime with time part 1:00am (one hour)
+      ? hb_DToT( Date() )  // a dateTime with a empty time part
+      ? hb_DToT( Date(), "14:30:00.500" )  // a dateTime with time part 14:30pm with 500 milliseconds
+      ? hb_DToT( Date(), 3600 )  // a dateTime with time part 1:00am (one hour)
    $STATUS$
       R
    $COMPLIANCE$
