@@ -14792,7 +14792,7 @@ STATIC FUNCTION VCSID( hbmk, cDir, cVCSHEAD, /* @ */ cType, /* @ */ hCustom )
    LOCAL aResult
    LOCAL cResult := ""
    LOCAL tmp
-   LOCAL cOldDir
+   LOCAL cChDir
    LOCAL nOffset
    LOCAL cGitBase
 
@@ -14805,7 +14805,7 @@ STATIC FUNCTION VCSID( hbmk, cDir, cVCSHEAD, /* @ */ cType, /* @ */ hCustom )
       EXIT
    CASE _VCS_GIT_SUB
    CASE _VCS_GIT
-      cOldDir := hb_cwd( cDir )
+      cChDir := cDir
       cType := "git"
       cGitBase := "git" + " "
       cCommand := cGitBase + "log -1 --format=format:%h%n%H%n%ci%n%cn%n%ce%n%ai%n%an%n%ae --encoding=utf8"
@@ -14857,6 +14857,10 @@ STATIC FUNCTION VCSID( hbmk, cDir, cVCSHEAD, /* @ */ cType, /* @ */ hCustom )
          OutStd( cCommand + _OUT_EOL )
       ENDIF
 
+      IF HB_ISSTRING( cChDir )
+         cChDir := hb_cwd( cChDir )
+      ENDIF
+
       hb_processRun( cCommand,, @cStdOut )
 
       SWITCH nType
@@ -14864,7 +14868,6 @@ STATIC FUNCTION VCSID( hbmk, cDir, cVCSHEAD, /* @ */ cType, /* @ */ hCustom )
          /* 10959<n> */
       CASE _VCS_GIT_SUB
       CASE _VCS_GIT
-         hb_cwd( cOldDir )
          /* 5f561a7
             5f561a78ebf2ad1aa6866f469c82231fc8104925
             2013-04-26 02:12:08 +0200
@@ -14996,6 +14999,10 @@ STATIC FUNCTION VCSID( hbmk, cDir, cVCSHEAD, /* @ */ cType, /* @ */ hCustom )
          ENDIF
          EXIT
       ENDSWITCH
+
+      IF HB_ISSTRING( cChDir )
+         hb_cwd( cChDir )
+      ENDIF
    ENDIF
 
    RETURN cResult
