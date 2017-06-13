@@ -643,3 +643,46 @@
       Day(), Month()
    $END$
  */
+
+/* $DOC$
+   $AUTHOR$
+
+   $TEMPLATE$
+      Function
+   $NAME$
+      hb_DToT()
+   $CATEGORY$
+      API
+   $SUBCATEGORY$
+      Date/Time
+   $ONELINER$
+      Create a <tDateTime> value from a <dDate> parameter
+   $SYNTAX$
+      hb_DToT( <dDate> [, <cTimeValue|nSeconds>] ) --> <tDateTime>
+   $ARGUMENTS$
+      <dDate> Any valid date expression
+      Optional: <cTime|nSeconds> representing a time of the day value
+         String form: "hh:mm:ss.nnn"
+         Numeric: 3600 (representing one hour: 60 (secs) * 60 (mins) )
+   $RETURNS$
+      <tDateTime> a dateTime value
+   $DESCRIPTION$
+      This function returns a <tDateTime> value from a <dData> value
+      Optionally, a second parameter can be provided which can be
+      represented by either of a string value or a numeric value.
+   $EXAMPLES$
+      ? hb_DToT( Date() )  // a dateTime with a empty time part
+      ? hb_DToT( Date(), "14:30:00.500" )  // a dateTime with time part 14:30pm with 500 milliseconds
+      ? hb_DToT( Date(), 3600 )  // a dateTime with time part 1:00am (one hour)
+   $STATUS$
+      R
+   $COMPLIANCE$
+      C
+   $PLATFORMS$
+      All
+   $FILES$
+      Library is core
+   $SEEALSO$
+      Date()
+   $END$
+ */
