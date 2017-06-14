@@ -44,13 +44,7 @@
  *
  */
 
-#include "yaml.h"
-
-#include "hbapi.h"
-#include "hbapiitm.h"
-#include "hbapierr.h"
-
-#include "hbyaml.ch"
+#include "hbyaml.h"
 
 typedef struct _HB_EMITTER
 {
@@ -89,14 +83,14 @@ static const HB_GC_FUNCS s_gc_emitter_funcs =
    NULL
 };
 
-static yaml_emitter_t * emitter_par( int iParam )
+static yaml_emitter_t * hb_yaml_par_emitter( int iParam )
 {
    void ** ptr = ( void ** ) hb_parptrGC( &s_gc_emitter_funcs, iParam );
 
    return ptr ? ( ( PHB_EMITTER ) *ptr )->emitter : NULL;
 }
 
-static PHB_EMITTER emitter_par_hb( int iParam )
+static PHB_EMITTER hb_yaml_par_hbemitter( int iParam )
 {
    void ** ptr = ( void ** ) hb_parptrGC( &s_gc_emitter_funcs, iParam );
 
@@ -129,7 +123,7 @@ HB_FUNC( YAML_EMITTER_INITIALIZE )
 
 HB_FUNC( HB_YAML_EMITTER_GET_OUTPUT )
 {
-   PHB_EMITTER hbemitter = emitter_par_hb( 1 );
+   PHB_EMITTER hbemitter = hb_yaml_par_hbemitter( 1 );
 
    if( hbemitter )
       hb_retclen( ( char * ) hbemitter->buffer, ( HB_SIZE ) hbemitter->len );
@@ -139,8 +133,8 @@ HB_FUNC( HB_YAML_EMITTER_GET_OUTPUT )
 
 HB_FUNC( YAML_EMITTER_SET_OUTPUT_STRING )
 {
-   PHB_EMITTER hbemitter = emitter_par_hb( 1 );
-   yaml_emitter_t * emitter = emitter_par( 1 );
+   PHB_EMITTER hbemitter = hb_yaml_par_hbemitter( 1 );
+   yaml_emitter_t * emitter = hb_yaml_par_emitter( 1 );
 
    if( hbemitter && emitter )
    {
@@ -162,7 +156,7 @@ HB_FUNC( YAML_EMITTER_SET_OUTPUT_STRING )
 
 HB_FUNC( YAML_EMITTER_SET_ENCODING )
 {
-   yaml_emitter_t * emitter = emitter_par( 1 );
+   yaml_emitter_t * emitter = hb_yaml_par_emitter( 1 );
 
    if( emitter )
       yaml_emitter_set_encoding( emitter, ( yaml_encoding_t ) hb_parni( 2 ) );
@@ -172,7 +166,7 @@ HB_FUNC( YAML_EMITTER_SET_ENCODING )
 
 HB_FUNC( YAML_EMITTER_SET_CANONICAL )
 {
-   yaml_emitter_t * emitter = emitter_par( 1 );
+   yaml_emitter_t * emitter = hb_yaml_par_emitter( 1 );
 
    if( emitter )
       yaml_emitter_set_canonical( emitter, hb_parni( 2 ) );
@@ -182,7 +176,7 @@ HB_FUNC( YAML_EMITTER_SET_CANONICAL )
 
 HB_FUNC( YAML_EMITTER_SET_INDENT )
 {
-   yaml_emitter_t * emitter = emitter_par( 1 );
+   yaml_emitter_t * emitter = hb_yaml_par_emitter( 1 );
 
    if( emitter )
       yaml_emitter_set_indent( emitter, hb_parni( 2 ) );
@@ -192,7 +186,7 @@ HB_FUNC( YAML_EMITTER_SET_INDENT )
 
 HB_FUNC( YAML_EMITTER_SET_WIDTH )
 {
-   yaml_emitter_t * emitter = emitter_par( 1 );
+   yaml_emitter_t * emitter = hb_yaml_par_emitter( 1 );
 
    if( emitter )
       yaml_emitter_set_width( emitter, hb_parni( 2 ) );
@@ -202,7 +196,7 @@ HB_FUNC( YAML_EMITTER_SET_WIDTH )
 
 HB_FUNC( YAML_EMITTER_SET_UNICODE )
 {
-   yaml_emitter_t * emitter = emitter_par( 1 );
+   yaml_emitter_t * emitter = hb_yaml_par_emitter( 1 );
 
    if( emitter )
       yaml_emitter_set_unicode( emitter, hb_parni( 2 ) );
@@ -212,10 +206,170 @@ HB_FUNC( YAML_EMITTER_SET_UNICODE )
 
 HB_FUNC( YAML_EMITTER_SET_BREAK )
 {
-   yaml_emitter_t * emitter = emitter_par( 1 );
+   yaml_emitter_t * emitter = hb_yaml_par_emitter( 1 );
 
    if( emitter )
       yaml_emitter_set_break( emitter, ( yaml_break_t ) hb_parni( 2 ) );
+   else
+      hb_errRT_BASE( EG_ARG, 2040, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+/* Constructor/Destructor */
+
+static HB_GARBAGE_FUNC( document_release )
+{
+   yaml_document_t ** ptr = ( yaml_document_t ** ) Cargo;
+
+   /* Check if pointer is not NULL to avoid multiple freeing */
+   if( ptr && *ptr )
+   {
+      yaml_document_delete( ( yaml_document_t * ) *ptr );
+
+      /* Destroy the object */
+      hb_xfree( *ptr );
+      *ptr = NULL;
+   }
+}
+
+static const HB_GC_FUNCS s_gc_document_funcs =
+{
+   document_release,
+   NULL
+};
+
+static yaml_document_t * hb_yaml_par_document( int iParam )
+{
+   void ** ptr = ( void ** ) hb_parptrGC( &s_gc_document_funcs, iParam );
+
+   return ptr ? ( yaml_document_t * ) *ptr : NULL;
+}
+
+/* Harbour interface */
+
+HB_FUNC( YAML_DOCUMENT_INITIALIZE )
+{
+   yaml_document_t * document = ( yaml_document_t * ) hb_xgrabz( sizeof( yaml_document_t ) );
+
+   PHB_ITEM pParam = hb_param( 1, HB_IT_HASH );
+
+   HB_BOOL fVer = HB_FALSE;
+   yaml_version_directive_t version_directive;
+   HB_BOOL fTagStart = HB_FALSE;
+   yaml_tag_directive_t tag_directives_start;
+   HB_BOOL fTagEnd = HB_FALSE;
+   yaml_tag_directive_t tag_directives_end;
+   int start_implicit = 0;
+   int end_implicit = 0;
+
+   if( pParam )
+   {
+      if( hb_hashGetCItemPtr( pParam, "minor" ) ||
+          hb_hashGetCItemPtr( pParam, "major" ) )
+      {
+         fVer = HB_TRUE;
+         version_directive.minor = hb_itemGetNI( hb_hashGetCItemPtr( pParam, "minor" ) );
+         version_directive.major = hb_itemGetNI( hb_hashGetCItemPtr( pParam, "major" ) );
+      }
+
+      if( hb_hashGetCItemPtr( pParam, "tag_start_handle" ) &&
+          hb_hashGetCItemPtr( pParam, "tag_start_prefix" ) )
+      {
+         fTagStart = HB_TRUE;
+         tag_directives_start.handle = HB_UNCONST( hb_itemGetCPtr( hb_hashGetCItemPtr( pParam, "tag_start_handle" ) ) );
+         tag_directives_start.prefix = HB_UNCONST( hb_itemGetCPtr( hb_hashGetCItemPtr( pParam, "tag_start_prefix" ) ) );
+      }
+
+      if( hb_hashGetCItemPtr( pParam, "tag_end_handle" ) &&
+          hb_hashGetCItemPtr( pParam, "tag_end_prefix" ) )
+      {
+         fTagEnd = HB_TRUE;
+         tag_directives_end.handle = HB_UNCONST( hb_itemGetCPtr( hb_hashGetCItemPtr( pParam, "tag_end_handle" ) ) );
+         tag_directives_end.prefix = HB_UNCONST( hb_itemGetCPtr( hb_hashGetCItemPtr( pParam, "tag_end_prefix" ) ) );
+      }
+
+      start_implicit = hb_itemGetNI( hb_hashGetCItemPtr( pParam, "start_implicit" ) );
+      end_implicit = hb_itemGetNI( hb_hashGetCItemPtr( pParam, "end_implicit" ) );
+   }
+
+   if( yaml_document_initialize( document,
+          fVer ? &version_directive : NULL,
+          fTagStart ? &tag_directives_start : NULL,
+          fTagEnd ? &tag_directives_end : NULL,
+          start_implicit,
+          end_implicit ) )
+   {
+      void ** ph = ( void ** ) hb_gcAllocate( sizeof( yaml_document_t * ), &s_gc_document_funcs );
+      *ph = document;
+      hb_retptrGC( ph );
+   }
+   else
+   {
+      hb_xfree( document );
+      hb_retptr( NULL );
+   }
+}
+
+HB_FUNC( YAML_EMITTER_OPEN )
+{
+   yaml_emitter_t * emitter = hb_yaml_par_emitter( 1 );
+
+   if( emitter )
+      hb_retni( yaml_emitter_open( emitter ) );
+   else
+      hb_errRT_BASE( EG_ARG, 2040, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+HB_FUNC( YAML_EMITTER_DUMP )
+{
+   yaml_emitter_t * emitter = hb_yaml_par_emitter( 1 );
+   yaml_document_t * document = hb_yaml_par_document( 2 );
+
+   if( emitter && document )
+      hb_retni( yaml_emitter_dump( emitter, document ) );
+   else
+      hb_errRT_BASE( EG_ARG, 2040, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+HB_FUNC( YAML_EMITTER_CLOSE )
+{
+   yaml_emitter_t * emitter = hb_yaml_par_emitter( 1 );
+
+   if( emitter )
+      hb_retni( yaml_emitter_close( emitter ) );
+   else
+      hb_errRT_BASE( EG_ARG, 2040, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+HB_FUNC( YAML_EMITTER_FLUSH )
+{
+   yaml_emitter_t * emitter = hb_yaml_par_emitter( 1 );
+
+   if( emitter )
+      hb_retni( yaml_emitter_flush( emitter ) );
+   else
+      hb_errRT_BASE( EG_ARG, 2040, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+HB_FUNC( YAML_PARSER_LOAD )
+{
+   yaml_parser_t * parser = hb_yaml_par_parser( 1 );
+
+   if( parser )
+   {
+      yaml_document_t * document = ( yaml_document_t * ) hb_xgrabz( sizeof( yaml_document_t ) );
+
+      if( yaml_parser_load( parser, document ) )
+      {
+         void ** ph = ( void ** ) hb_gcAllocate( sizeof( yaml_document_t * ), &s_gc_document_funcs );
+         *ph = document;
+         hb_retptrGC( ph );
+      }
+      else
+      {
+         hb_xfree( document );
+         hb_retptr( NULL );
+      }
+   }
    else
       hb_errRT_BASE( EG_ARG, 2040, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }

@@ -44,13 +44,7 @@
  *
  */
 
-#include "yaml.h"
-
-#include "hbapi.h"
-#include "hbapiitm.h"
-#include "hbapierr.h"
-
-#include "hbyaml.ch"
+#include "hbyaml.h"
 
 /* Constructor/Destructor */
 
@@ -75,7 +69,7 @@ static const HB_GC_FUNCS s_gc_parser_funcs =
    NULL
 };
 
-static yaml_parser_t * parser_par( int iParam )
+yaml_parser_t * hb_yaml_par_parser( int iParam )
 {
    void ** ptr = ( void ** ) hb_parptrGC( &s_gc_parser_funcs, iParam );
 
@@ -103,7 +97,7 @@ HB_FUNC( YAML_PARSER_INITIALIZE )
 
 HB_FUNC( YAML_PARSER_SET_INPUT_STRING )
 {
-   yaml_parser_t * parser = parser_par( 1 );
+   yaml_parser_t * parser = hb_yaml_par_parser( 1 );
 
    if( parser )
       yaml_parser_set_input_string( parser, ( const unsigned char * ) hb_parcx( 2 ), ( size_t ) hb_parclen( 2 ) );
@@ -176,7 +170,7 @@ static void s_token_ret( yaml_token_t * token )
 
 HB_FUNC( YAML_PARSER_SCAN )
 {
-   yaml_parser_t * parser = parser_par( 1 );
+   yaml_parser_t * parser = hb_yaml_par_parser( 1 );
 
    if( parser )
    {
@@ -191,7 +185,7 @@ HB_FUNC( YAML_PARSER_SCAN )
 
 HB_FUNC( YAML_PARSER_SET_ENCODING )
 {
-   yaml_parser_t * parser = parser_par( 1 );
+   yaml_parser_t * parser = hb_yaml_par_parser( 1 );
 
    if( parser )
       yaml_parser_set_encoding( parser, ( yaml_encoding_t ) hb_parni( 2 ) );
@@ -290,7 +284,7 @@ static void s_event_ret( yaml_event_t * event )
 
 HB_FUNC( YAML_PARSER_PARSE )
 {
-   yaml_parser_t * parser = parser_par( 1 );
+   yaml_parser_t * parser = hb_yaml_par_parser( 1 );
 
    if( parser )
    {

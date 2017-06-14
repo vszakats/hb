@@ -23,7 +23,12 @@
 
 DYNAMIC hb_yaml_decode
 DYNAMIC hb_yaml_emitter_get_output
+DYNAMIC yaml_document_initialize
+DYNAMIC yaml_emitter_close
+DYNAMIC yaml_emitter_dump
+DYNAMIC yaml_emitter_flush
 DYNAMIC yaml_emitter_initialize
+DYNAMIC yaml_emitter_open
 DYNAMIC yaml_emitter_set_break
 DYNAMIC yaml_emitter_set_canonical
 DYNAMIC yaml_emitter_set_encoding
@@ -34,6 +39,7 @@ DYNAMIC yaml_emitter_set_width
 DYNAMIC yaml_get_version
 DYNAMIC yaml_get_version_string
 DYNAMIC yaml_parser_initialize
+DYNAMIC yaml_parser_load
 DYNAMIC yaml_parser_parse
 DYNAMIC yaml_parser_scan
 DYNAMIC yaml_parser_set_encoding
