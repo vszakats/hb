@@ -25,7 +25,7 @@
 
 procedure main( fn )
 
-  local r, pkg, file, url, body, old
+  local r, pkg, file, url, body
 
   fn := hb_defaultvalue( fn, 'hbdoc_assets.yml' )
 
@@ -37,7 +37,6 @@ procedure main( fn )
         file[ 'name' ]
       body := dl( url )
       if 'sri' $ file
-        old := file[ 'sri' ]
         file[ 'sri' ] := 'sha384-' + hb_base64encode( hb_sha384( body, .t. ) )
       endif
     next
