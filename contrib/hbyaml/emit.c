@@ -256,14 +256,12 @@ HB_FUNC( YAML_DOCUMENT_INITIALIZE )
    yaml_version_directive_t version_directive;
    yaml_tag_directive_t * tag_directives_start = NULL;
    yaml_tag_directive_t * tag_directives_end = NULL;
+   void ** hConvert = NULL;
    int start_implicit = 0;
    int end_implicit = 0;
 
    if( pParam )
    {
-#if 0
-      PHB_ITEM pTags;
-
       if( hb_hashGetCItemPtr( pParam, "minor" ) ||
           hb_hashGetCItemPtr( pParam, "major" ) )
       {
@@ -273,39 +271,28 @@ HB_FUNC( YAML_DOCUMENT_INITIALIZE )
          /* FIXME: emitter(...,0x...) malloc: *** error for object 0x...: pointer being freed was not allocated */
       }
 
-      if( ( pTags = hb_hashGetCItemPtr( pParam, "tags" ) ) && HB_IS_ARRAY( pTags ) )
       {
-         HB_SIZE nLen = hb_arrayLen( pTags );
+         PHB_ITEM pTags = hb_hashGetCItemPtr( pParam, "tags" );
+         HB_SIZE nLen;
 
-         if( nLen > 0 )
+         if( pTags && ( nLen = hb_arrayLen( pTags ) ) > 0 )
          {
             HB_SIZE nItem;
 
             tag_directives_start = tag_directives_end =
                ( yaml_tag_directive_t * ) hb_xgrab( sizeof( yaml_tag_directive_t ) * nLen );
+            hConvert = ( void ** ) hb_xgrab( sizeof( void * ) * nLen * 2 );
 
             for( nItem = 0; nItem < nLen; ++nItem )
             {
                PHB_ITEM pItem = hb_arrayGetItemPtr( pTags, nItem + 1 );
-
-               if( pItem && HB_IS_HASH( pItem ) )
-               {
-                  /* TODO: UTF-8 conversion */
-                  tag_directives_end->handle = HB_UNCONST( hb_itemGetC( hb_hashGetCItemPtr( pItem, "handle" ) ) );
-                  tag_directives_end->prefix = HB_UNCONST( hb_itemGetC( hb_hashGetCItemPtr( pItem, "prefix" ) ) );
-               }
-               else
-               {
-                  /* FIXME: This will cause assert failures inside libyaml */
-                  tag_directives_end->handle = NULL;
-                  tag_directives_end->prefix = NULL;
-               }
-
+               tag_directives_end->handle = HB_UNCONST( hb_strnull( hb_itemGetStrUTF8( hb_hashGetCItemPtr( pItem, "handle" ), &hConvert[   nItem * 2       ], NULL ) ) );
+               tag_directives_end->prefix = HB_UNCONST( hb_strnull( hb_itemGetStrUTF8( hb_hashGetCItemPtr( pItem, "prefix" ), &hConvert[ ( nItem * 2 ) + 1 ], NULL ) ) );
                ++tag_directives_end;
             }
+            /* FIXME: emitter(...,0x...) malloc: *** error for object 0x...: pointer being freed was not allocated */
          }
       }
-#endif
 
       start_implicit = hb_itemGetNI( hb_hashGetCItemPtr( pParam, "start_implicit" ) );
       end_implicit = hb_itemGetNI( hb_hashGetCItemPtr( pParam, "end_implicit" ) );
@@ -330,6 +317,8 @@ HB_FUNC( YAML_DOCUMENT_INITIALIZE )
 
    if( tag_directives_start )
       hb_xfree( tag_directives_start );
+   if( hConvert )
+      hb_xfree( hConvert );
 }
 
 HB_FUNC( YAML_DOCUMENT_ADD_SCALAR )
