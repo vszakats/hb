@@ -275,7 +275,7 @@ HB_FUNC( YAML_DOCUMENT_INITIALIZE )
          PHB_ITEM pTags = hb_hashGetCItemPtr( pParam, "tags" );
          HB_SIZE nLen;
 
-         if( pTags && ( nLen = hb_arrayLen( pTags ) ) > 0 )
+         if( pTags && ( nLen = hb_hashLen( pTags ) ) > 0 )
          {
             HB_SIZE nItem;
 
@@ -285,9 +285,8 @@ HB_FUNC( YAML_DOCUMENT_INITIALIZE )
 
             for( nItem = 0; nItem < nLen; ++nItem )
             {
-               PHB_ITEM pItem = hb_arrayGetItemPtr( pTags, nItem + 1 );
-               tag_directives_end->handle = HB_UNCONST( hb_strnull( hb_itemGetStrUTF8( hb_hashGetCItemPtr( pItem, "handle" ), &hConvert[   nItem * 2       ], NULL ) ) );
-               tag_directives_end->prefix = HB_UNCONST( hb_strnull( hb_itemGetStrUTF8( hb_hashGetCItemPtr( pItem, "prefix" ), &hConvert[ ( nItem * 2 ) + 1 ], NULL ) ) );
+               tag_directives_end->handle = HB_UNCONST( hb_strnull( hb_itemGetStrUTF8( hb_hashGetKeyAt( pTags, nItem + 1 )  , &hConvert[   nItem * 2       ], NULL ) ) );
+               tag_directives_end->prefix = HB_UNCONST( hb_strnull( hb_itemGetStrUTF8( hb_hashGetValueAt( pTags, nItem + 1 ), &hConvert[ ( nItem * 2 ) + 1 ], NULL ) ) );
                ++tag_directives_end;
             }
             /* FIXME: emitter(...,0x...) malloc: *** error for object 0x...: pointer being freed was not allocated */

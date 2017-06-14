@@ -238,25 +238,20 @@ static void s_event_ret( yaml_event_t * event )
              event->data.document_start.tag_directives.end != NULL )
          {
             yaml_tag_directive_t * tag_directive;
-
-            PHB_ITEM pArray = hb_itemArrayNew( 0 );
+            PHB_ITEM pTags = hb_hashNew( NULL );
 
             for( tag_directive = event->data.document_start.tag_directives.start;
                  tag_directive != event->data.document_start.tag_directives.end;
                  ++tag_directive )
             {
-               PHB_ITEM hItem = hb_hashNew( NULL );
-
-               hb_hashAdd( hItem, hb_itemPutCConst( pKey, "handle" ), hb_itemPutStrUTF8( pVal, ( const char * ) tag_directive->handle ) );
-               hb_hashAdd( hItem, hb_itemPutCConst( pKey, "prefix" ), hb_itemPutStrUTF8( pVal, ( const char * ) tag_directive->prefix ) );
-
-               hb_arrayAddForward( pArray, hItem );
-               hb_itemRelease( hItem );
+               hb_hashAdd( pTags,
+                  hb_itemPutStrUTF8( pKey, ( const char * ) tag_directive->handle ),
+                  hb_itemPutStrUTF8( pVal, ( const char * ) tag_directive->prefix ) );
             }
 
-            hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "tag_directives" ), pArray );
+            hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "tag_directives" ), pTags );
 
-            hb_itemRelease( pArray );
+            hb_itemRelease( pTags );
          }
          hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "implicit" ), hb_itemPutNI( pVal, event->data.document_start.implicit ) );
          break;
