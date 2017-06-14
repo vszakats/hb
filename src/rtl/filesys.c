@@ -832,7 +832,7 @@ int hb_fsPoll( PHB_POLLFD pPollSet, int iCount, HB_MAXINT nTimeOut )
 {
    int iResult;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_fsPoll(%p, %d, %" PFHL "d)", pPollSet, iCount, nTimeOut ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_fsPoll(%p, %d, %" PFHL "d)", ( void * ) pPollSet, iCount, nTimeOut ) );
 
    hb_vmUnlock();
 

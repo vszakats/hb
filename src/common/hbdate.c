@@ -1179,7 +1179,7 @@ HB_MAXUINT hb_timerInit( HB_MAXINT nTimeOut )
 
 HB_MAXINT hb_timerTest( HB_MAXINT nTimeOut, HB_MAXUINT * pnTimer )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_timerTest(%" PFHL "d, %p)", nTimeOut, pnTimer ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_timerTest(%" PFHL "d, %p)", nTimeOut, ( void * ) pnTimer ) );
 
    if( nTimeOut > 0 )
    {
