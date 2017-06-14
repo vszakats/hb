@@ -67,8 +67,8 @@ FUNCTION hb_yaml_encode( xValue, nMaxSize )
    s_emit_value( document, xValue )
 
    IF yaml_emitter_dump( emitter, document ) == 0 .OR. ;
-      yaml_emitter_close( emitter ) == 0 .OR. ;
-      yaml_emitter_flush( emitter ) == 0
+      yaml_emitter_flush( emitter ) == 0 .OR. ;
+      yaml_emitter_close( emitter ) == 0
       RETURN ""
    ENDIF
 
