@@ -25,7 +25,7 @@
 
 procedure main( fn )
 
-  local r, pkg, file, url, body, conf, old
+  local r, pkg, file, url, body, old
 
   fn := hb_defaultvalue( fn, 'hbdoc_assets.yml' )
 
