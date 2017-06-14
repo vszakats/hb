@@ -73,7 +73,8 @@
 #define YAML_TAG_TOKEN                      20
 #define YAML_SCALAR_TOKEN                   21
 
-/* token[ "style" ] values */
+/* token[ "style" ] values and
+   yaml_document_add_scalar() parameter */
 #define YAML_ANY_SCALAR_STYLE               0
 #define YAML_PLAIN_SCALAR_STYLE             1
 #define YAML_SINGLE_QUOTED_SCALAR_STYLE     2
@@ -81,7 +82,8 @@
 #define YAML_LITERAL_SCALAR_STYLE           4
 #define YAML_FOLDED_SCALAR_STYLE            5
 
-/* token[ "encoding" ] values and yaml_emitter_set_encoding() parameter */
+/* token[ "encoding" ] values and
+   yaml_emitter_set_encoding() parameter */
 #define YAML_ANY_ENCODING                   0
 #define YAML_UTF8_ENCODING                  1
 #define YAML_UTF16LE_ENCODING               2
@@ -100,12 +102,14 @@
 #define YAML_MAPPING_START_EVENT            9
 #define YAML_MAPPING_END_EVENT              10
 
-/* event[ "style" ] for YAML_SEQUENCE_START_EVENT */
+/* event[ "style" ] for YAML_SEQUENCE_START_EVENT and
+   yaml_document_add_sequence() parameter */
 #define YAML_ANY_SEQUENCE_STYLE             0
 #define YAML_BLOCK_SEQUENCE_STYLE           1
 #define YAML_FLOW_SEQUENCE_STYLE            2
 
-/* event[ "style" ] for YAML_MAPPING_START_EVENT */
+/* event[ "style" ] for YAML_MAPPING_START_EVENT and
+   yaml_document_add_mapping() parameter */
 #define YAML_ANY_MAPPING_STYLE              0
 #define YAML_BLOCK_MAPPING_STYLE            1
 #define YAML_FLOW_MAPPING_STYLE             2

@@ -140,21 +140,21 @@ static void s_token_ret( yaml_token_t * token )
          hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "minor" ), hb_itemPutNI( pVal, token->data.version_directive.minor ) );
          break;
       case YAML_TAG_DIRECTIVE_TOKEN:
-         hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "handle" ), hb_itemPutC( pVal, ( const char * ) token->data.tag_directive.handle ) );
-         hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "prefix" ), hb_itemPutC( pVal, ( const char * ) token->data.tag_directive.prefix ) );
+         hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "handle" ), hb_itemPutStrUTF8( pVal, ( const char * ) token->data.tag_directive.handle ) );
+         hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "prefix" ), hb_itemPutStrUTF8( pVal, ( const char * ) token->data.tag_directive.prefix ) );
          break;
       case YAML_ALIAS_TOKEN:
-         hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "value" ), hb_itemPutC( pVal, ( const char * ) token->data.alias.value ) );
+         hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "value" ), hb_itemPutStrUTF8( pVal, ( const char * ) token->data.alias.value ) );
          break;
       case YAML_ANCHOR_TOKEN:
-         hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "value" ), hb_itemPutC( pVal, ( const char * ) token->data.anchor.value ) );
+         hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "value" ), hb_itemPutStrUTF8( pVal, ( const char * ) token->data.anchor.value ) );
          break;
       case YAML_TAG_TOKEN:
-         hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "handle" ), hb_itemPutC( pVal, ( const char * ) token->data.tag.handle ) );
-         hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "suffix" ), hb_itemPutC( pVal, ( const char * ) token->data.tag.suffix ) );
+         hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "handle" ), hb_itemPutStrUTF8( pVal, ( const char * ) token->data.tag.handle ) );
+         hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "suffix" ), hb_itemPutStrUTF8( pVal, ( const char * ) token->data.tag.suffix ) );
          break;
       case YAML_SCALAR_TOKEN:
-         hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "scalar" ), hb_itemPutCL( pVal, ( const char * ) token->data.scalar.value, token->data.scalar.length ) );
+         hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "scalar" ), hb_itemPutStrLenUTF8( pVal, ( const char * ) token->data.scalar.value, token->data.scalar.length ) );
          hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "style" ), hb_itemPutNI( pVal, ( int ) token->data.scalar.style ) );
          break;
    }
@@ -229,20 +229,34 @@ static void s_event_ret( yaml_event_t * event )
          hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "encoding" ), hb_itemPutNI( pVal, ( int ) event->data.stream_start.encoding ) );
          break;
       case YAML_DOCUMENT_START_EVENT:
-         if( event->data.document_start.version_directive )
+         if( event->data.document_start.version_directive != NULL )
          {
             hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "major" ), hb_itemPutNI( pVal, event->data.document_start.version_directive->major ) );
             hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "minor" ), hb_itemPutNI( pVal, event->data.document_start.version_directive->minor ) );
          }
-         if( event->data.document_start.tag_directives.start )
+         if( event->data.document_start.tag_directives.start != NULL &&
+             event->data.document_start.tag_directives.end != NULL )
          {
-            hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "tag_start_handle" ), hb_itemPutC( pVal, ( const char * ) event->data.document_start.tag_directives.start->handle ) );
-            hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "tag_start_prefix" ), hb_itemPutC( pVal, ( const char * ) event->data.document_start.tag_directives.start->prefix ) );
-         }
-         if( event->data.document_start.tag_directives.end )
-         {
-            hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "tag_end_handle" ), hb_itemPutC( pVal, ( const char * ) event->data.document_start.tag_directives.end->handle ) );
-            hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "tag_end_prefix" ), hb_itemPutC( pVal, ( const char * ) event->data.document_start.tag_directives.end->prefix ) );
+            yaml_tag_directive_t * tag_directive;
+
+            PHB_ITEM pArray = hb_itemArrayNew( 0 );
+
+            for( tag_directive = event->data.document_start.tag_directives.start;
+                 tag_directive != event->data.document_start.tag_directives.end;
+                 ++tag_directive )
+            {
+               PHB_ITEM hItem = hb_hashNew( NULL );
+
+               hb_hashAdd( hItem, hb_itemPutCConst( pKey, "handle" ), hb_itemPutStrUTF8( pVal, ( const char * ) tag_directive->handle ) );
+               hb_hashAdd( hItem, hb_itemPutCConst( pKey, "prefix" ), hb_itemPutStrUTF8( pVal, ( const char * ) tag_directive->prefix ) );
+
+               hb_arrayAddForward( pArray, hItem );
+               hb_itemRelease( hItem );
+            }
+
+            hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "tag_directives" ), pArray );
+
+            hb_itemRelease( pArray );
          }
          hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "implicit" ), hb_itemPutNI( pVal, event->data.document_start.implicit ) );
          break;
@@ -250,24 +264,24 @@ static void s_event_ret( yaml_event_t * event )
          hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "implicit" ), hb_itemPutNI( pVal, event->data.document_start.implicit ) );
          break;
       case YAML_ALIAS_EVENT:
-         hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "anchor" ), hb_itemPutC( pVal, ( const char * ) event->data.alias.anchor ) );
+         hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "anchor" ), hb_itemPutStrUTF8( pVal, ( const char * ) event->data.alias.anchor ) );
          break;
       case YAML_SCALAR_EVENT:
-         hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "anchor" ), hb_itemPutC( pVal, ( const char * ) event->data.scalar.anchor ) );
-         hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "tag" ), hb_itemPutC( pVal, ( const char * ) event->data.scalar.tag ) );
-         hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "value" ), hb_itemPutCL( pVal, ( const char * ) event->data.scalar.value, event->data.scalar.length ) );
+         hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "anchor" ), hb_itemPutStrUTF8( pVal, ( const char * ) event->data.scalar.anchor ) );
+         hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "tag" ), hb_itemPutStrUTF8( pVal, ( const char * ) event->data.scalar.tag ) );
+         hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "value" ), hb_itemPutStrLenUTF8( pVal, ( const char * ) event->data.scalar.value, event->data.scalar.length ) );
          hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "plain_implicit" ), hb_itemPutNI( pVal, event->data.scalar.plain_implicit ) );
          hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "quoted_implicit" ), hb_itemPutNI( pVal, event->data.scalar.quoted_implicit ) );
          break;
       case YAML_SEQUENCE_START_EVENT:
-         hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "anchor" ), hb_itemPutC( pVal, ( const char * ) event->data.sequence_start.anchor ) );
-         hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "tag" ), hb_itemPutC( pVal, ( const char * ) event->data.sequence_start.tag ) );
+         hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "anchor" ), hb_itemPutStrUTF8( pVal, ( const char * ) event->data.sequence_start.anchor ) );
+         hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "tag" ), hb_itemPutStrUTF8( pVal, ( const char * ) event->data.sequence_start.tag ) );
          hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "implicit" ), hb_itemPutNI( pVal, event->data.sequence_start.implicit ) );
          hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "style" ), hb_itemPutNI( pVal, ( int ) event->data.sequence_start.style ) );
          break;
       case YAML_MAPPING_START_EVENT:
-         hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "anchor" ), hb_itemPutC( pVal, ( const char * ) event->data.mapping_start.anchor ) );
-         hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "tag" ), hb_itemPutC( pVal, ( const char * ) event->data.mapping_start.tag ) );
+         hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "anchor" ), hb_itemPutStrUTF8( pVal, ( const char * ) event->data.mapping_start.anchor ) );
+         hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "tag" ), hb_itemPutStrUTF8( pVal, ( const char * ) event->data.mapping_start.tag ) );
          hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "implicit" ), hb_itemPutNI( pVal, event->data.mapping_start.implicit ) );
          hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "style" ), hb_itemPutNI( pVal, ( int ) event->data.mapping_start.style ) );
          break;

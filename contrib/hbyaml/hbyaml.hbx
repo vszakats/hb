@@ -23,6 +23,12 @@
 
 DYNAMIC hb_yaml_decode
 DYNAMIC hb_yaml_emitter_get_output
+DYNAMIC hb_yaml_encode
+DYNAMIC yaml_document_add_mapping
+DYNAMIC yaml_document_add_scalar
+DYNAMIC yaml_document_add_sequence
+DYNAMIC yaml_document_append_mapping_pair
+DYNAMIC yaml_document_append_sequence_item
 DYNAMIC yaml_document_initialize
 DYNAMIC yaml_emitter_close
 DYNAMIC yaml_emitter_dump

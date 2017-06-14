@@ -52,6 +52,7 @@
 #include "hbapi.h"
 #include "hbapiitm.h"
 #include "hbapierr.h"
+#include "hbapistr.h"
 
 #include "hbyaml.ch"
 

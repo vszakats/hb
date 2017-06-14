@@ -254,38 +254,58 @@ HB_FUNC( YAML_DOCUMENT_INITIALIZE )
 
    HB_BOOL fVer = HB_FALSE;
    yaml_version_directive_t version_directive;
-   HB_BOOL fTagStart = HB_FALSE;
-   yaml_tag_directive_t tag_directives_start;
-   HB_BOOL fTagEnd = HB_FALSE;
-   yaml_tag_directive_t tag_directives_end;
+   yaml_tag_directive_t * tag_directives_start = NULL;
+   yaml_tag_directive_t * tag_directives_end = NULL;
    int start_implicit = 0;
    int end_implicit = 0;
 
    if( pParam )
    {
+#if 0
+      PHB_ITEM pTags;
+
       if( hb_hashGetCItemPtr( pParam, "minor" ) ||
           hb_hashGetCItemPtr( pParam, "major" ) )
       {
          fVer = HB_TRUE;
          version_directive.minor = hb_itemGetNI( hb_hashGetCItemPtr( pParam, "minor" ) );
          version_directive.major = hb_itemGetNI( hb_hashGetCItemPtr( pParam, "major" ) );
+         /* FIXME: emitter(...,0x...) malloc: *** error for object 0x...: pointer being freed was not allocated */
       }
 
-      if( hb_hashGetCItemPtr( pParam, "tag_start_handle" ) &&
-          hb_hashGetCItemPtr( pParam, "tag_start_prefix" ) )
+      if( ( pTags = hb_hashGetCItemPtr( pParam, "tags" ) ) && HB_IS_ARRAY( pTags ) )
       {
-         fTagStart = HB_TRUE;
-         tag_directives_start.handle = HB_UNCONST( hb_itemGetCPtr( hb_hashGetCItemPtr( pParam, "tag_start_handle" ) ) );
-         tag_directives_start.prefix = HB_UNCONST( hb_itemGetCPtr( hb_hashGetCItemPtr( pParam, "tag_start_prefix" ) ) );
-      }
+         HB_SIZE nLen = hb_arrayLen( pTags );
 
-      if( hb_hashGetCItemPtr( pParam, "tag_end_handle" ) &&
-          hb_hashGetCItemPtr( pParam, "tag_end_prefix" ) )
-      {
-         fTagEnd = HB_TRUE;
-         tag_directives_end.handle = HB_UNCONST( hb_itemGetCPtr( hb_hashGetCItemPtr( pParam, "tag_end_handle" ) ) );
-         tag_directives_end.prefix = HB_UNCONST( hb_itemGetCPtr( hb_hashGetCItemPtr( pParam, "tag_end_prefix" ) ) );
+         if( nLen > 0 )
+         {
+            HB_SIZE nItem;
+
+            tag_directives_start = tag_directives_end =
+               ( yaml_tag_directive_t * ) hb_xgrab( sizeof( yaml_tag_directive_t ) * nLen );
+
+            for( nItem = 0; nItem < nLen; ++nItem )
+            {
+               PHB_ITEM pItem = hb_arrayGetItemPtr( pTags, nItem + 1 );
+
+               if( pItem && HB_IS_HASH( pItem ) )
+               {
+                  /* TODO: UTF-8 conversion */
+                  tag_directives_end->handle = HB_UNCONST( hb_itemGetC( hb_hashGetCItemPtr( pItem, "handle" ) ) );
+                  tag_directives_end->prefix = HB_UNCONST( hb_itemGetC( hb_hashGetCItemPtr( pItem, "prefix" ) ) );
+               }
+               else
+               {
+                  /* FIXME: This will cause assert failures inside libyaml */
+                  tag_directives_end->handle = NULL;
+                  tag_directives_end->prefix = NULL;
+               }
+
+               ++tag_directives_end;
+            }
+         }
       }
+#endif
 
       start_implicit = hb_itemGetNI( hb_hashGetCItemPtr( pParam, "start_implicit" ) );
       end_implicit = hb_itemGetNI( hb_hashGetCItemPtr( pParam, "end_implicit" ) );
@@ -293,8 +313,8 @@ HB_FUNC( YAML_DOCUMENT_INITIALIZE )
 
    if( yaml_document_initialize( document,
           fVer ? &version_directive : NULL,
-          fTagStart ? &tag_directives_start : NULL,
-          fTagEnd ? &tag_directives_end : NULL,
+          tag_directives_start,
+          tag_directives_end,
           start_implicit,
           end_implicit ) )
    {
@@ -307,6 +327,93 @@ HB_FUNC( YAML_DOCUMENT_INITIALIZE )
       hb_xfree( document );
       hb_retptr( NULL );
    }
+
+   if( tag_directives_start )
+      hb_xfree( tag_directives_start );
+}
+
+HB_FUNC( YAML_DOCUMENT_ADD_SCALAR )
+{
+   yaml_document_t * document = hb_yaml_par_document( 1 );
+
+   if( document && HB_ISCHAR( 3 ) )
+   {
+      void * hTag;
+      void * hValue;
+      HB_SIZE nValueLen;
+
+      hb_retni( yaml_document_add_scalar( document,
+         HB_UNCONST( hb_parstr_utf8( 2, &hTag, NULL ) ),
+         HB_UNCONST( hb_parstr_utf8( 3, &hValue, &nValueLen ) ),
+         ( int ) nValueLen,
+         ( yaml_scalar_style_t ) hb_parni( 4 ) ) );
+
+      hb_strfree( hTag );
+      hb_strfree( hValue );
+   }
+   else
+      hb_errRT_BASE( EG_ARG, 2040, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+HB_FUNC( YAML_DOCUMENT_ADD_SEQUENCE )
+{
+   yaml_document_t * document = hb_yaml_par_document( 1 );
+
+   if( document )
+   {
+      void * hTag;
+
+      hb_retni( yaml_document_add_sequence( document,
+         HB_UNCONST( hb_parstr_utf8( 2, &hTag, NULL ) ),
+         ( yaml_sequence_style_t ) hb_parni( 3 ) ) );
+
+      hb_strfree( hTag );
+   }
+   else
+      hb_errRT_BASE( EG_ARG, 2040, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+HB_FUNC( YAML_DOCUMENT_ADD_MAPPING )
+{
+   yaml_document_t * document = hb_yaml_par_document( 1 );
+
+   if( document )
+   {
+      void * hTag;
+
+      hb_retni( yaml_document_add_mapping( document,
+         HB_UNCONST( hb_parstr_utf8( 2, &hTag, NULL ) ),
+         ( yaml_mapping_style_t ) hb_parni( 3 ) ) );
+
+      hb_strfree( hTag );
+   }
+   else
+      hb_errRT_BASE( EG_ARG, 2040, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+HB_FUNC( YAML_DOCUMENT_APPEND_SEQUENCE_ITEM )
+{
+   yaml_document_t * document = hb_yaml_par_document( 1 );
+
+   if( document )
+      hb_retni( yaml_document_append_sequence_item( document,
+         hb_parni( 2 ) /* sequence */,
+         hb_parni( 3 ) /* item */ ) );
+   else
+      hb_errRT_BASE( EG_ARG, 2040, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+HB_FUNC( YAML_DOCUMENT_APPEND_MAPPING_PAIR )
+{
+   yaml_document_t * document = hb_yaml_par_document( 1 );
+
+   if( document )
+      hb_retni( yaml_document_append_mapping_pair( document,
+         hb_parni( 2 ) /* mapping */,
+         hb_parni( 3 ) /* key */,
+         hb_parni( 4 ) /* value */ ) );
+   else
+      hb_errRT_BASE( EG_ARG, 2040, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
 HB_FUNC( YAML_EMITTER_OPEN )
@@ -373,3 +480,20 @@ HB_FUNC( YAML_PARSER_LOAD )
    else
       hb_errRT_BASE( EG_ARG, 2040, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
+
+/*
+yaml_stream_start_event_initialize(yaml_event_t *event,
+yaml_stream_end_event_initialize(yaml_event_t *event);
+yaml_document_start_event_initialize(yaml_event_t *event,
+yaml_document_end_event_initialize(yaml_event_t *event, int implicit);
+yaml_alias_event_initialize(yaml_event_t *event, yaml_char_t *anchor);
+yaml_scalar_event_initialize(yaml_event_t *event,
+yaml_sequence_start_event_initialize(yaml_event_t *event,
+yaml_sequence_end_event_initialize(yaml_event_t *event);
+yaml_mapping_start_event_initialize(yaml_event_t *event,
+yaml_mapping_end_event_initialize(yaml_event_t *event);
+
+yaml_document_get_node(yaml_document_t *document, int index);
+yaml_document_get_root_node(yaml_document_t *document);
+yaml_emitter_emit(yaml_emitter_t *emitter, yaml_event_t *event);
+*/
