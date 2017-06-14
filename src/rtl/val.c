@@ -48,7 +48,7 @@
 #include "hbapiitm.h"
 #include "hbapierr.h"
 
-/* returns the numeric value of a character string representation of a number  */
+/* returns the numeric value of a character string representation of a number */
 static void hb_val( HB_BOOL fExt )
 {
    PHB_ITEM pText = hb_param( 1, HB_IT_STRING );
