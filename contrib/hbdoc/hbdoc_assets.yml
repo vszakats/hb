@@ -7,7 +7,7 @@ fontawesome:
       sri: sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN
 font-hack:
   root: https://cdn.jsdelivr.net/font-hack/
-  ver: '2.020'
+  ver: 2.020
   files:
     css:
       name: css/hack-extended.min.css

@@ -4,14 +4,16 @@
 
 PROCEDURE Main( cFileName )
 
-   LOCAL hMeta
+   LOCAL hMeta, xValue
 
-   OutStd( hb_jsonEncode( hb_yaml_decode( ;
+   OutStd( hb_jsonEncode( xValue := hb_yaml_decode( ;
       hb_MemoRead( hb_defaultValue( cFileName, ;
          hb_DirSepToOS( "../../../.travis.yml" ) ) ), @hMeta ), .T. ) )
 
    IF ! Empty( hMeta )
       OutErr( hb_jsonEncode( hMeta, .T. ) )
    ENDIF
+
+   OutStd( hb_yaml_encode( xValue ) )
 
    RETURN
