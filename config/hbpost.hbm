@@ -91,6 +91,9 @@ ${hb_prefix}/package/harbour.hbc{hbdyn}
 -instfile=contrib:${_HB_PROJECT_HOME}/*.ch
 -instfile=contrib:${_HB_PROJECT_HOME}/*.md
 -instfile=contrib:${_HB_PROJECT_HOME}/*.txt
+-instfile=contrib:${_HB_PROJECT_HOME}/LIC*
+-instfile=contrib:${_HB_PROJECT_HOME}/COPYING
+-instfile=contrib:${_HB_PROJECT_HOME}/README
 -instfile=contrib_tests:${_HB_PROJECT_HOME}/tests/*.*
 
 # install (core GNU Make)
