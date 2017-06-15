@@ -110,6 +110,7 @@ PROCEDURE Main( ... )
                mk_hb_vfCopyFile( "LICENSE.txt", tmp + hb_ps(), .T.,, .T. )
                mk_hb_vfCopyFile( ".github/CONTRIBUTING.md", tmp + hb_ps(), .T.,, .T. )
                mk_hb_vfCopyFile( "README.md", tmp + hb_ps(), .T.,, .T. )
+               mk_hb_vfCopyFile( "CODE_OF_CONDUCT.md", tmp + hb_ps(), .T.,, .T. )
             ELSE
                OutStd( hb_StrFormat( "! Error: Cannot create directory '%1$s'", tmp ) + hb_eol() )
             ENDIF
