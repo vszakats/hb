@@ -23,5 +23,5 @@ indent_size = 2
 indent_size = 1
 
 [{**/3rd/**,*.diff}]
-trim_trailing_whitespace = no
+trim_trailing_whitespace = false
 charset =
