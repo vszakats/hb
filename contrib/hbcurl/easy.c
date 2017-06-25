@@ -1048,6 +1048,11 @@ HB_FUNC( CURL_EASY_SETOPT )
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_TRANSFER_ENCODING, hb_parnl( 3 ) );
                break;
 #endif
+#if LIBCURL_VERSION_NUM >= 0x073700
+            case HB_CURLOPT_REQUEST_TARGET:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_REQUEST_TARGET, hb_parc( 3 ) );
+               break;
+#endif
             case HB_CURLOPT_FOLLOWLOCATION:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_FOLLOWLOCATION, HB_CURL_OPT_BOOL( 3 ) );
                break;
