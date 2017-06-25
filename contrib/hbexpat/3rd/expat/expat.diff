@@ -1,6 +1,6 @@
 diff --strip-trailing-cr -urN expat.orig/xmlparse.c expat/xmlparse.c
 --- expat.orig/xmlparse.c	2017-06-17 16:07:38.000000000 +0000
-+++ expat/xmlparse.c	2017-06-25 17:09:30.000000000 +0000
++++ expat/xmlparse.c	2017-06-25 17:38:38.000000000 +0000
 @@ -23,7 +23,9 @@
  
  #define XML_BUILDING_EXPAT 1
@@ -12,6 +12,15 @@ diff --strip-trailing-cr -urN expat.orig/xmlparse.c expat/xmlparse.c
  #include "winconfig.h"
  #elif defined(HAVE_EXPAT_CONFIG_H)
  #include <expat_config.h>
+@@ -749,7 +751,7 @@
+ static int
+ writeRandomBytes_RtlGenRandom(void * target, size_t count) {
+   int success = 0;  /* full count bytes written? */
+-  const HMODULE advapi32 = LoadLibrary("ADVAPI32.DLL");
++  const HMODULE advapi32 = LoadLibrary(TEXT("ADVAPI32.DLL"));
+ 
+   if (advapi32) {
+     const RTLGENRANDOM_FUNC RtlGenRandom
 diff --strip-trailing-cr -urN expat.orig/xmlrole.c expat/xmlrole.c
 --- expat.orig/xmlrole.c	2017-06-17 16:07:38.000000000 +0000
 +++ expat/xmlrole.c	2017-06-25 17:09:30.000000000 +0000
