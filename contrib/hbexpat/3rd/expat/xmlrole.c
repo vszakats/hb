@@ -6,19 +6,13 @@
 
 #ifdef HARBOUR_CONF
 #include "_hbconf.h"
-#elif defined(WIN32)
+#elif defined(_WIN32)
 #include "winconfig.h"
-#elif defined(MACOS_CLASSIC)
-#include "macconfig.h"
-#elif defined(__amigaos__)
-#include "amigaconfig.h"
-#elif defined(__WATCOMC__)
-#include "watcomconfig.h"
 #else
 #ifdef HAVE_EXPAT_CONFIG_H
 #include <expat_config.h>
 #endif
-#endif /* ndef WIN32 */
+#endif /* ndef _WIN32 */
 
 #include "expat_external.h"
 #include "internal.h"
