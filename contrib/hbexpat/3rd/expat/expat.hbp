@@ -36,6 +36,7 @@ xmltok.c
 # MAP    lib/internal.h       internal.h
 # MAP    lib/latin1tab.h      latin1tab.h
 # MAP    lib/nametab.h        nametab.h
+# MAP    lib/siphash.h        siphash.h
 # MAP    lib/utf8tab.h        utf8tab.h
 # MAP    lib/xmlrole.h        xmlrole.h
 # MAP    lib/xmltok.h         xmltok.h
