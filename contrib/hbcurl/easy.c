@@ -2144,6 +2144,8 @@ HB_FUNC( CURL_EASY_DL_BUFF_GET )
 #define HB_CURL_INFO_TYPE_LONG       4
 #define HB_CURL_INFO_TYPE_DOUBLE     5
 #define HB_CURL_INFO_TYPE_SLIST      6
+#define HB_CURL_INFO_TYPE_SOCKET     7
+#define HB_CURL_INFO_TYPE_CERTINFO   8
 
 #define HB_CURL_EASY_GETINFO( hb_curl, n, p )  ( hb_curl ? curl_easy_getinfo( hb_curl->curl, n, p ) : ( CURLcode ) HB_CURLE_ERROR )
 
@@ -2162,6 +2164,8 @@ HB_FUNC( CURL_EASY_GETINFO )
       long   ret_long   = 0;
       struct curl_slist * ret_slist = NULL;
       double ret_double = 0.0;
+      curl_socket_t ret_socket = CURL_SOCKET_BAD;
+      struct curl_certinfo * ret_certinfo = NULL;
 
       switch( hb_parni( 2 ) )
       {
@@ -2315,9 +2319,9 @@ HB_FUNC( CURL_EASY_GETINFO )
             break;
          case HB_CURLINFO_ACTIVESOCKET:
 #if LIBCURL_VERSION_NUM >= 0x072D00
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_ACTIVESOCKET, &ret_slist );
+            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_ACTIVESOCKET, &ret_socket );
 #endif
-            type = HB_CURL_INFO_TYPE_PTR_SLIST;
+            type = HB_CURL_INFO_TYPE_SOCKET;
             break;
          case HB_CURLINFO_LASTSOCKET:  /* NOTE: Not compatible with 64-bit Windows builds */
 #if LIBCURL_VERSION_NUM >= 0x070F02
@@ -2345,9 +2349,9 @@ HB_FUNC( CURL_EASY_GETINFO )
             break;
          case HB_CURLINFO_CERTINFO:
 #if LIBCURL_VERSION_NUM >= 0x071301
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_CERTINFO, &ret_slist );
+            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_CERTINFO, &ret_certinfo );
 #endif
-            type = HB_CURL_INFO_TYPE_SLIST;
+            type = HB_CURL_INFO_TYPE_CERTINFO;
             break;
          case HB_CURLINFO_CONDITION_UNMET:
 #if LIBCURL_VERSION_NUM >= 0x071304
@@ -2459,6 +2463,42 @@ HB_FUNC( CURL_EASY_GETINFO )
             else
                hb_reta( 0 );
             break;
+         case HB_CURL_INFO_TYPE_SOCKET:
+            hb_retnint( ret_socket );
+            break;
+         case HB_CURL_INFO_TYPE_CERTINFO:
+         {
+            int nCerts = ret_certinfo != NULL ? ret_certinfo->num_of_certs : 0;
+
+            PHB_ITEM pCerts = hb_itemArrayNew( nCerts );
+            int nPos = 0;
+
+            for( nPos = 0; nPos < nCerts; ++nPos )
+            {
+               PHB_ITEM pArray;
+               int      nCount;
+               struct curl_slist * walk_ret_slist;
+
+               /* Count */
+               for( walk_ret_slist = ret_certinfo->certinfo[ nPos ], nCount = 0; walk_ret_slist->next; nCount++ )
+                  walk_ret_slist = walk_ret_slist->next;
+
+               /* Fill */
+               pArray = hb_itemArrayNew( nCount );
+               for( walk_ret_slist = ret_certinfo->certinfo[ nPos ], nCount = 1; walk_ret_slist->next; )
+               {
+                  hb_arraySetC( pArray, nCount++, walk_ret_slist->data );
+                  walk_ret_slist = walk_ret_slist->next;
+               }
+               hb_arraySetForward( pCerts, nPos + 1, pArray );
+               hb_itemRelease( pArray );
+
+               curl_slist_free_all( ret_slist );
+            }
+
+            hb_itemReturnRelease( pCerts );
+            break;
+         }
       }
 
       hb_stornl( ( long ) res, 3 );

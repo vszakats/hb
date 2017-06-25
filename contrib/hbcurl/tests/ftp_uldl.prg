@@ -156,9 +156,11 @@ PROCEDURE Main( cDL, cUL )
       ? curl_easy_setopt( curl, HB_CURLOPT_VERBOSE, lVerbose )
       ? curl_easy_setopt( curl, HB_CURLOPT_DEBUGBLOCK, {| ... | QOut( "DEBUG:", ... ) } )
       ? curl_easy_setopt( curl, HB_CURLOPT_CAINFO, _CA_FN_ )
+      ? curl_easy_setopt( curl, HB_CURLOPT_CERTINFO, .T. )
 
       ? "DOWNLOAD FILE (FILENAME):", curl_easy_perform( curl )
       ? "SERVER TIMESTAMP:", tDate := UnixTimeToT( curl_easy_getinfo( curl, HB_CURLINFO_FILETIME ) )
+      ? "CERTINFO:", hb_ValToExp( curl_easy_getinfo( curl, HB_CURLINFO_CERTINFO ) )
 
       curl_easy_reset( curl )
 
