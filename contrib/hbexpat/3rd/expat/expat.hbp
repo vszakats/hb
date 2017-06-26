@@ -18,7 +18,7 @@ xmltok.c
 {bcc}-cflag=-w-8008
 {bcc}-cflag=-w-8066
 
-# ORIGIN https://github.com/libexpat/libexpat
+# ORIGIN https://libexpat.github.io/
 # URL    https://downloads.sourceforge.net/project/expat/expat/2.2.1/expat-2.2.1.tar.bz2
 # DIFF   expat.diff
 #

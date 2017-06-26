@@ -1,6 +1,6 @@
 diff --strip-trailing-cr -urN expat.orig/xmlparse.c expat/xmlparse.c
 --- expat.orig/xmlparse.c	2017-06-17 16:07:38.000000000 +0000
-+++ expat/xmlparse.c	2017-06-25 17:38:38.000000000 +0000
++++ expat/xmlparse.c	2017-06-26 11:15:42.000000000 +0000
 @@ -23,7 +23,9 @@
  
  #define XML_BUILDING_EXPAT 1
@@ -12,12 +12,23 @@ diff --strip-trailing-cr -urN expat.orig/xmlparse.c expat/xmlparse.c
  #include "winconfig.h"
  #elif defined(HAVE_EXPAT_CONFIG_H)
  #include <expat_config.h>
-@@ -749,7 +751,7 @@
+@@ -740,6 +742,10 @@
+ 
+ typedef BOOLEAN (APIENTRY *RTLGENRANDOM_FUNC)(PVOID, ULONG);
+ 
++#ifndef LOAD_LIBRARY_SEARCH_SYSTEM32
++# define LOAD_LIBRARY_SEARCH_SYSTEM32  0x00000800
++#endif
++
+ /* Obtain entropy on Windows XP / Windows Server 2003 and later.
+  * Hint on RtlGenRandom and the following article from libsodioum.
+  *
+@@ -749,7 +755,7 @@
  static int
  writeRandomBytes_RtlGenRandom(void * target, size_t count) {
    int success = 0;  /* full count bytes written? */
 -  const HMODULE advapi32 = LoadLibrary("ADVAPI32.DLL");
-+  const HMODULE advapi32 = LoadLibrary(TEXT("ADVAPI32.DLL"));
++  const HMODULE advapi32 = LoadLibraryEx(TEXT("ADVAPI32.DLL"), NULL, LOAD_LIBRARY_SEARCH_SYSTEM32);
  
    if (advapi32) {
      const RTLGENRANDOM_FUNC RtlGenRandom
