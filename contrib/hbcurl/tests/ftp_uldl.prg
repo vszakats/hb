@@ -26,6 +26,8 @@ PROCEDURE Main( cDL, cUL )
 
    LOCAL lVerbose := .F.
 
+   Set( _SET_DATEFORMAT, "yyyy-mm-dd" )
+
    ? curl_version()
    ? curl_getdate( "Sun, 1 Jun 2008 02:10:58 +0200" )
 
@@ -160,7 +162,7 @@ PROCEDURE Main( cDL, cUL )
 
       ? "DOWNLOAD FILE (FILENAME):", curl_easy_perform( curl )
       ? "SERVER TIMESTAMP:", tDate := UnixTimeToT( curl_easy_getinfo( curl, HB_CURLINFO_FILETIME ) )
-      ? "CERTINFO:", hb_ValToExp( curl_easy_getinfo( curl, HB_CURLINFO_CERTINFO ) )
+      ? "CERTINFO:", hb_jsonEncode( curl_easy_getinfo( curl, HB_CURLINFO_CERTINFO ), .T. )
 
       curl_easy_reset( curl )
 
