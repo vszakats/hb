@@ -907,6 +907,14 @@ ifeq ($(HB_COMPILER),)
    endif
 endif
 
+ifneq ($(HB_COMPILER_VER),)
+   strlen = $(strip $(eval __temp := $(subst $(subst x,x, ),x,$1))$(foreach a,0 1 2 3 4 5 6 7 8 9 .,$(eval __temp := $$(subst $a,x,$(__temp))))$(eval __temp := $(subst x,x ,$(__temp)))$(words $(__temp)))
+   ifneq ($(call strlen,$(HB_COMPILER_VER)), 4)
+      $(info ! Warning: Invalid HB_COMPILER_VER value '$(HB_COMPILER_VER)' ignored. Format should be: <MMmm>, where <MM> is major version and <mm> is minor version.)
+      HB_COMPILER_VER :=
+   endif
+endif
+
 ifeq ($(HB_COMPILER_VER),)
 
    ifeq ($(HB_COMP_PATH_VER_DET),)
