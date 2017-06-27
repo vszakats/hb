@@ -15601,13 +15601,16 @@ STATIC FUNCTION GetListOfFunctionsKnown( hbmk, lIncludeCore )
    LOCAL hAll := { => }
    LOCAL cDir
    LOCAL aFile
+   LOCAL cFile
    LOCAL hHash
 
    hb_HCaseMatch( hAll, .F. )
 
    FOR EACH cDir IN { hbmk[ _HBMK_cHB_INSTALL_CON ], hbmk[ _HBMK_cHB_INSTALL_ADD ], hb_DirBase() }
       FOR EACH aFile IN hb_vfDirectory( hb_DirSepAdd( cDir ) + "*.hbr" )
-         IF HB_ISHASH( hHash := hb_Deserialize( hb_MemoRead( hb_DirSepAdd( cDir ) + aFile[ F_NAME ] ) ) )
+         cFile := hb_MemoRead( hb_DirSepAdd( cDir ) + aFile[ F_NAME ] )
+         IF HB_ISHASH( hHash := hb_Deserialize( cFile ) ) .OR. ;
+            HB_ISHASH( hHash := hb_jsonDecode( cFile ) )
             /* FIXME: To handle function names present in multiple containers */
             hb_HMerge( hAll, hHash )
          ENDIF

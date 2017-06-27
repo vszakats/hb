@@ -693,13 +693,15 @@ STATIC FUNCTION GetEnvC( cEnvVar )
 
    RETURN s_hEnvCache[ cEnvVar ] := GetEnv( cEnvVar )
 
-STATIC PROCEDURE mk_hbr( cDestDir )
+STATIC FUNCTION mk_hbr( cDestDir )
 
    LOCAL hAll := { => }
 
    LOCAL cDir := "contrib" + hb_ps()
    LOCAL aFile
    LOCAL cFileName
+
+   LOCAL cOutput
 
    FOR EACH aFile IN ASort( hb_vfDirectory( cDir + hb_osFileMask(), "D" ),,, {| tmp1, tmp2 | tmp1[ F_NAME ] < tmp2[ F_NAME ] } )
       IF aFile[ F_NAME ] == "." .OR. aFile[ F_NAME ] == ".."
@@ -710,9 +712,13 @@ STATIC PROCEDURE mk_hbr( cDestDir )
       ENDIF
    NEXT
 
-   mk_hb_MemoWrit( hb_DirSepAdd( cDestDir ) + "contrib.hbr", hb_Serialize( hAll, HB_SERIALIZE_COMPRESS ) )
+#if 0
+   cOutput := hb_Serialize( hAll, HB_SERIALIZE_COMPRESS )
+#else
+   cOutput := hb_jsonEncode( hAll, .T. )
+#endif
 
-   RETURN
+   RETURN mk_hb_MemoWrit( hb_DirSepAdd( cDestDir ) + "contrib.hbr", cOutput )
 
 STATIC FUNCTION LoadHBX( cFileName, hAll )
 

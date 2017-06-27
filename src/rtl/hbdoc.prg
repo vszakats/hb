@@ -354,7 +354,7 @@ FUNCTION __hbdoc_FilterOut( cFile )
    hb_BChar( 0x01 ) + ;
    hb_BChar( 0x00 ) )
 
-FUNCTION __hbdoc_SaveHBD( cFileName, aEntry )
+FUNCTION __hbdoc_SaveHBD( cFileName, aEntry, cFormat )
 
    LOCAL hFile
 
@@ -366,8 +366,17 @@ FUNCTION __hbdoc_SaveHBD( cFileName, aEntry )
       ENDIF
 
       IF ( hFile := hb_vfOpen( cFileName, FO_CREAT + FO_TRUNC + FO_WRITE + FO_EXCLUSIVE ) ) != NIL
-         hb_vfWrite( hFile, _HBDOC_SIGNATURE )
-         hb_vfWrite( hFile, hb_Serialize( aEntry, HB_SERIALIZE_COMPRESS ) )
+         SWITCH hb_defaultValue( cFormat, "" )
+         CASE "binary"
+            hb_vfWrite( hFile, _HBDOC_SIGNATURE )
+            hb_vfWrite( hFile, hb_Serialize( aEntry, HB_SERIALIZE_COMPRESS ) )
+         CASE "json-dense"
+            hb_vfWrite( hFile, hb_jsonEncode( aEntry ) )
+         CASE "json"
+            /* fallthrough */
+         OTHERWISE
+            hb_vfWrite( hFile, hb_jsonEncode( aEntry, .T. ) )
+         ENDSWITCH
          hb_vfClose( hFile )
          RETURN .T.
       ENDIF
@@ -399,12 +408,18 @@ FUNCTION __hbdoc_LoadHBD( cFileName )
 
             aEntry := hb_Deserialize( cBuffer )
             cBuffer := NIL
-
-            IF ! HB_ISARRAY( aEntry )
-               aEntry := NIL
-            ENDIF
          ELSE
+            cBuffer := Space( hb_vfSize( hFile ) )
+            hb_vfSeek( hFile, 0, FS_SET )
+            hb_vfRead( hFile, @cBuffer, hb_BLen( cBuffer ) )
             hb_vfClose( hFile )
+
+            aEntry := hb_jsonDecode( cBuffer )
+            cBuffer := NIL
+         ENDIF
+
+         IF ! HB_ISARRAY( aEntry )
+            aEntry := NIL
          ENDIF
       ENDIF
    ENDIF
