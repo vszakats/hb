@@ -244,6 +244,14 @@ static yaml_document_t * hb_yaml_par_document( int iParam )
    return ptr ? ( yaml_document_t * ) *ptr : NULL;
 }
 
+static void hb_yaml_drop_document( int iParam )
+{
+   void ** ptr = ( void ** ) hb_parptrGC( &s_gc_document_funcs, iParam );
+
+   if( ptr )
+      *ptr = NULL;
+}
+
 /* Harbour interface */
 
 HB_FUNC( YAML_DOCUMENT_INITIALIZE )
@@ -268,7 +276,6 @@ HB_FUNC( YAML_DOCUMENT_INITIALIZE )
          fVer = HB_TRUE;
          version_directive.minor = hb_itemGetNI( hb_hashGetCItemPtr( pParam, "minor" ) );
          version_directive.major = hb_itemGetNI( hb_hashGetCItemPtr( pParam, "major" ) );
-         /* FIXME: emitter(...,0x...) malloc: *** error for object 0x...: pointer being freed was not allocated */
       }
 
       {
@@ -289,7 +296,6 @@ HB_FUNC( YAML_DOCUMENT_INITIALIZE )
                tag_directives_end->prefix = HB_UNCONST( hb_strnull( hb_itemGetStrUTF8( hb_hashGetValueAt( pTags, nItem + 1 ), &hConvert[ ( nItem * 2 ) + 1 ], NULL ) ) );
                ++tag_directives_end;
             }
-            /* FIXME: emitter(...,0x...) malloc: *** error for object 0x...: pointer being freed was not allocated */
          }
       }
 
@@ -420,7 +426,14 @@ HB_FUNC( YAML_EMITTER_DUMP )
    yaml_document_t * document = hb_yaml_par_document( 2 );
 
    if( emitter && document )
+   {
       hb_retni( yaml_emitter_dump( emitter, document ) );
+      /* document object is handled by the emitter object at this point
+         and will be released automatically on yaml_emitter_delete(). Thus
+         we need to make sure we don't delete it when deleting the document
+         object, by NULL-ing it in the Harbour level object. */
+      hb_yaml_drop_document( 2 );
+   }
    else
       hb_errRT_BASE( EG_ARG, 2040, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
