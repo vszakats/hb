@@ -1,6 +1,6 @@
 #!/usr/bin/env hbrun
 /*
- * Recalculate SRI hashes for assets.json
+ * Recalculate SRI hashes for hbdoc_assets.yml
  *
  * Copyright 2017 Viktor Szakats (vszakats.net/harbour)
  *
