@@ -1,6 +1,6 @@
 diff --strip-trailing-cr -urN png.orig/pnglibconf.h png/pnglibconf.h
---- png.orig/pnglibconf.h	2017-03-16 12:26:33.000000000 +0000
-+++ png/pnglibconf.h	2017-03-22 10:52:06.000000000 +0000
+--- png.orig/pnglibconf.h	2017-06-28 18:50:29.000000000 +0000
++++ png/pnglibconf.h	2017-06-28 20:38:22.000000000 +0000
 @@ -28,8 +28,8 @@
  #define PNG_BUILD_GRAYSCALE_PALETTE_SUPPORTED
  #define PNG_CHECK_FOR_INVALID_INDEX_SUPPORTED
