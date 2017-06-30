@@ -13,7 +13,7 @@ PROCEDURE Main()
    LOCAL hLib
    LOCAL cData
 
-   #define MAX_PATH 260
+   #define MAX_PATH  260
 
    ? "MsgBox:", hb_DynCall( { "MessageBoxA", "user32.dll", HB_DYN_CALLCONV_STDCALL }, 0, "Hello world!", "Harbour sez", 0 /* MB_OK */ )
 
@@ -25,7 +25,7 @@ PROCEDURE Main()
 
    /* Force Windows not to show dragged windows contents */
 
-   #define SPI_SETDRAGFULLWINDOWS 37
+   #define SPI_SETDRAGFULLWINDOWS  37
 
    ? "Full content drag: OFF"
    ? hb_DynCall( { "SystemParametersInfo", "user32.dll", HB_DYN_CALLCONV_STDCALL }, SPI_SETDRAGFULLWINDOWS, 0, 0, 0 )
@@ -37,8 +37,8 @@ PROCEDURE Main()
 
    /* Get some standard Windows directories */
 
-   #define CSIDL_APPDATA               0x001a /* <username>\Application Data */
-   #define CSIDL_ADMINTOOLS            0x0030 /* <username>\Start Menu\Programs\Administrative Tools */
+   #define CSIDL_APPDATA     0x001a  /* <username>\Application Data */
+   #define CSIDL_ADMINTOOLS  0x0030  /* <username>\Start Menu\Programs\Administrative Tools */
 
    hLib := hb_libLoad( "shell32.dll" )
    ? "ValType( hLib ):", ValType( hLib )
