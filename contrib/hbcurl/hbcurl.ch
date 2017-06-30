@@ -292,6 +292,7 @@
 #define HB_CURLOPT_ABSTRACT_UNIX_SOCKET       245
 #define HB_CURLOPT_SUPPRESS_CONNECT_HEADERS   246
 #define HB_CURLOPT_REQUEST_TARGET             247
+#define HB_CURLOPT_SOCKS5_AUTH                248
 #define HB_CURLOPT_DOWNLOAD                   1001  /* Harbour special ones */
 #define HB_CURLOPT_XFERINFOBLOCK              1002
 #define HB_CURLOPT_UL_FILE_SETUP              1003
@@ -332,7 +333,7 @@
 #define HB_CURLSSLOPT_ALLOW_BEAST             hb_bitShift( 1, 0 )
 #define HB_CURLSSLOPT_NO_REVOKE               hb_bitShift( 1, 1 )
 
-/* HB_CURLOPT_HTTPAUTH option */
+/* HB_CURLOPT_HTTPAUTH, HB_CURLOPT_PROXYAUTH, HB_CURLOPT_SOCKS5 options */
 #define HB_CURLAUTH_NONE                      0                    /* nothing */
 #define HB_CURLAUTH_BASIC                     hb_bitShift( 1, 0 )  /* Basic (default) */
 #define HB_CURLAUTH_DIGEST                    hb_bitShift( 1, 1 )  /* Digest */
@@ -345,6 +346,7 @@
 #define HB_CURLAUTH_ANYSAFE                   hb_bitNot( hb_bitOr( HB_CURLAUTH_BASIC, HB_CURLAUTH_DIGEST_IE ) )
 
 #define HB_CURLAUTH_GSSNEGOTIATE              HB_CURLAUTH_NEGOTIATE
+#define HB_CURLAUTH_GSSAPI                    HB_CURLAUTH_NEGOTIATE
 
 /* HB_CURLOPT_HTTP_VERSION option */
 #define HB_CURL_HTTP_VERSION_NONE               0  /* setting this means we don't care, and that we'd like the library to choose the best possible for us! */
