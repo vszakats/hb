@@ -11,8 +11,6 @@ PROCEDURE Main( cFile )
 
    ? hb_ValToExp( XMLToHash( pRoot, "group" ) )
 
-   mxmlDelete( pRoot )
-
    RETURN
 
 STATIC FUNCTION XMLToHash( pRoot, cElement )
