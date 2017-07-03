@@ -76,7 +76,10 @@
 #define SIPHASH_H
 
 #include <stddef.h> /* size_t */
-#include <stdint.h> /* uint64_t uint32_t uint8_t */
+#include "hbdefs.h"
+#define uint8_t       HB_U8
+#define uint32_t      HB_U32
+#define uint64_t      HB_U64
 
 
 #define SIP_ROTL(x, b) (uint64_t)(((x) << (b)) | ( (x) >> (64 - (b))))
