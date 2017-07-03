@@ -59,8 +59,13 @@
 #include <amqp_tcp_socket.h>
 #include <amqp_ssl_socket.h>
 
-#if defined(HB_OS_WIN) && defined(__MINGW32__)
-#include <sys/time.h>
+/* for timeval */
+#if defined( HB_OS_WIN )
+#  if defined( __MINGW32__ )
+#     include <sys/time.h>
+#  else
+#     include <winsock2.h>
+#  endif
 #endif
 
 #define HB_AMQP_VERS( ma, mi, mu )  \
