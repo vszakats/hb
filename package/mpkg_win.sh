@@ -257,7 +257,7 @@ _vcs_url="$(git ls-remote --get-url | sed 's|.git$||')/"
 sed -e "s|_HB_VER_COMMIT_ID_SHORT_|${_vcs_id_short}|g" \
     -e "s|_HB_VER_ORIGIN_URL_|${_vcs_url}|g" \
     -e "s|_HB_VERSION_|${_hb_ver}|g" \
-    'RELNOTES.md.in' > "${HB_ABSROOT}RELNOTES.md"
+    'RELNOTES.md.in' | unix2dos > "${HB_ABSROOT}RELNOTES.md"
 touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}RELNOTES.md"
 
 sed "s|_HB_URL_SRC_|${_vcs_url}archive/${_vcs_id}.tar.gz|g" \
@@ -286,9 +286,11 @@ touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}include/_repover.txt"
   find . -type d | grep -Eo '\./[a-z]+?/[a-z0-9]+?$' | cut -c 3-
 ) | tee -a "${HB_ABSROOT}BUILD.txt"
 
+unix2dos -k "${HB_ABSROOT}BUILD.txt"
+
 # Set timestamps
 
-touch -c -r "${HB_ABSROOT}README.md" ../BUILD.txt
+touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}BUILD.txt"
 touch -c -r "${HB_ABSROOT}README.md" ../BUILD*.txt
 
 # Copy optional text files containing compiler details

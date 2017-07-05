@@ -293,14 +293,3 @@ STATIC FUNCTION StringEOLConv( cFile )
 
    RETURN iif( hb_eol() == Chr( 10 ), cFile, ;
       StrTran( cFile, Chr( 10 ), Chr( 13 ) + Chr( 10 ) ) )
-
-STATIC FUNCTION FileConvEOL( cFileName )
-
-   LOCAL cFile, tDate
-
-   hb_vfTimeGet( cFileName, @tDate )
-
-   RETURN ;
-      ! ( cFile := hb_MemoRead( cFileName ) ) == "" .AND. ;
-      hb_MemoWrit( cFileName, StringEOLConv( cFile ) ) .AND. ;
-      hb_vfTimeSet( cFileName, tDate )
