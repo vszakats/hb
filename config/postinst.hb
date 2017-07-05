@@ -701,7 +701,7 @@ STATIC FUNCTION mk_hbr( cDestDir )
    LOCAL aFile
    LOCAL cFileName
 
-   LOCAL cOutput
+   LOCAL cOutput, cEOL
 
    FOR EACH aFile IN ASort( hb_vfDirectory( cDir + hb_osFileMask(), "D" ),,, {| tmp1, tmp2 | tmp1[ F_NAME ] < tmp2[ F_NAME ] } )
       IF aFile[ F_NAME ] == "." .OR. aFile[ F_NAME ] == ".."
@@ -715,7 +715,9 @@ STATIC FUNCTION mk_hbr( cDestDir )
 #if 0
    cOutput := hb_Serialize( hAll, HB_SERIALIZE_COMPRESS )
 #else
+   cEOL := Set( _SET_EOL, Chr( 10 ) )
    cOutput := hb_jsonEncode( hAll, .T. )
+   Set( _SET_EOL, cEOL )
 #endif
 
    RETURN mk_hb_MemoWrit( hb_DirSepAdd( cDestDir ) + "contrib.hbr", cOutput )

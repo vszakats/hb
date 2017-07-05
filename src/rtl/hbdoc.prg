@@ -356,7 +356,7 @@ FUNCTION __hbdoc_FilterOut( cFile )
 
 FUNCTION __hbdoc_SaveHBD( cFileName, aEntry, cFormat )
 
-   LOCAL hFile
+   LOCAL hFile, cEOL
 
    IF HB_ISSTRING( cFileName ) .AND. ;
       HB_ISARRAY( aEntry )
@@ -375,7 +375,9 @@ FUNCTION __hbdoc_SaveHBD( cFileName, aEntry, cFormat )
          CASE "json"
             /* fallthrough */
          OTHERWISE
+            cEOL := Set( _SET_EOL, Chr( 10 ) )
             hb_vfWrite( hFile, hb_jsonEncode( aEntry, .T. ) )
+            Set( _SET_EOL, cEOL )
          ENDSWITCH
          hb_vfClose( hFile )
          RETURN .T.
