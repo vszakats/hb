@@ -288,7 +288,7 @@ touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}include/_repover.txt"
 
 # Set timestamps
 
-touch -c -r "${HB_ABSROOT}README.md" "../BUILD*.txt"
+touch -c -r "${HB_ABSROOT}README.md" ../BUILD*.txt
 
 # Copy optional text files containing compiler details
 
