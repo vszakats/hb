@@ -285,7 +285,10 @@ touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}include/_repover.txt"
   cd "${HB_ABSROOT}lib" || exit
   find . -type d | grep -Eo '\./[a-z]+?/[a-z0-9]+?$' | cut -c 3-
 ) | tee -a "${HB_ABSROOT}BUILD.txt"
-touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}BUILD.txt"
+
+# Set timestamps
+
+touch -c -r "${HB_ABSROOT}README.md" "../BUILD*.txt"
 
 # Copy optional text files containing compiler details
 
@@ -332,8 +335,8 @@ cd "${HB_RT}" || exit
 _pkgdate=
 if [ "${_BRANCH#*prod*}" != "${_BRANCH}" ]; then
   case "${os}" in
-    bsd|mac) _pkgdate="$(TZ= stat -f '-%Sm' -t '%Y%m%d-%H%M' "${HB_ABSROOT}README.md")";;
-    *)       _pkgdate="$(    stat -c '%Y' "${HB_ABSROOT}README.md" | TZ= awk '{print "-" strftime("%Y%m%d-%H%M", $1)}')";;
+    bsd|mac) _pkgdate="$(TZ='' stat -f '-%Sm' -t '%Y%m%d-%H%M' "${HB_ABSROOT}README.md")";;
+    *)       _pkgdate="$(      stat -c '%Y' "${HB_ABSROOT}README.md" | TZ='' awk '{print "-" strftime("%Y%m%d-%H%M", $1)}')";;
   esac
 fi
 

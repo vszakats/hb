@@ -80,7 +80,9 @@ PROCEDURE Main( cMode )
 
             FOR EACH tmp IN { ;
                "bin/*.hb", ;
+               "doc/*.md", ;
                "doc/*.txt", ;
+               "addons/*.md", ;
                "addons/*.txt", ;
                "contrib/", ;
                "extras/", ;
