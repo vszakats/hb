@@ -32,7 +32,7 @@ hb_ver=$(get_hbver "${hb_rootdir}")
 hb_filename="${hb_currdir}/harbour-${hb_ver}.src${hb_ext}"
 rm -f "$hb_filename"
 
-#[ -z "$TZ" ] && export TZ=PST8PDT
+#[ -z "$TZ" ] && export TZ=UTC
 
 hb_collect_all_git() {
   for f in $(git ls-tree HEAD -r --name-only); do
