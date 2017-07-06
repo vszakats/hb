@@ -71,7 +71,7 @@ else
 endif
 
 # ORIGIN http://pcre.org/
-# URL    https://ftp.pcre.org/pub/pcre/pcre-8.40.tar.bz2
+# URL    https://ftp.pcre.org/pub/pcre/pcre-8.41.tar.bz2
 #
 # MAP    LICENCE
 # MAP    config.h.generic        config.h
