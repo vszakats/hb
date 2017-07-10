@@ -165,7 +165,7 @@ Evaluate these points before reporting an issue:
       * <http://sscce.org/>
       * <https://stackoverflow.com/help/mcve>
     * See more on how to report issues in an effective and useful way:
-      <http://www.chiark.greenend.org.uk/~sgtatham/bugs.html>
+      <https://www.chiark.greenend.org.uk/~sgtatham/bugs.html>
     * "How To Ask Questions The Smart Way" article by Eric S. Raymond:
       <http://www.catb.org/~esr/faqs/smart-questions.html>
     * "Does Not Work"
