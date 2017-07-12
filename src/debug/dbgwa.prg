@@ -145,10 +145,13 @@ PROCEDURE __dbgShowWorkAreas()
       aBrw[ 3 ]:Cargo := n3 := iif( nSkip > 0, Min( Len( aStruc ), n3 + nSkip ), ;
       Max( 1, n3 + nSkip ) ), n3 - nPos }
 
-   aBrw[ 3 ]:AddColumn( HBDbColumnNew( "", {|| hb_UPadR( aStruc[ n3 ][ DBS_NAME ], 10 ) + " " + ;
-      hb_UPadR( aStruc[ n3 ][ DBS_TYPE ], 4 ) + " " + ;
-      Str( aStruc[ n3 ][ DBS_LEN ], 3 ) + " " + ;
-      Str( aStruc[ n3 ][ DBS_DEC ], 2 ) } ) )
+   IF ! Empty( aStruc )
+      aBrw[ 3 ]:AddColumn( HBDbColumnNew( "", {|| ;
+         hb_UPadR( aStruc[ n3 ][ DBS_NAME ], 10 ) + " " + ;
+         hb_UPadR( aStruc[ n3 ][ DBS_TYPE ], 4 ) + " " + ;
+         Str( aStruc[ n3 ][ DBS_LEN ], 3 ) + " " + ;
+         Str( aStruc[ n3 ][ DBS_DEC ], 2 ) } ) )
+   ENDIF
 
    /* Show dialog */
 
