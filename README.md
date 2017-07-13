@@ -1404,7 +1404,7 @@ Supported shells per host platforms:
      * MSYS2 [win, free software, open-source]
         * <https://msys2.github.io/>
      * Clang [multi-platform, free software, open-source]
-        * <http://releases.llvm.org/>
+        * <https://llvm.org/releases/>
      * Cygwin [win, free software, open-source]
         * <https://cygwin.com/>
      * OS/2 GCC [os2, free software, open-source]
