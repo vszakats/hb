@@ -1,6 +1,5 @@
 /* Copyright 2017 Rafał Jopek ( rafaljopek at hotmail com ) */
 
-#include "inkey.ch"
 #include "setcurs.ch"
 
 PROCEDURE Main()
@@ -20,28 +19,28 @@ PROCEDURE Main()
 
       hb_DispOutAtBox( nRow, nCol, hb_UTF8ToStr( cLine ), nColorLine )
 
-      IF Inkey( 0.05 ) == K_ESC
+      IF Inkey( 0.05 ) == 0
          EXIT
-      ELSE
-         SWITCH cDirection
-         CASE "u"
-            cLine := "│"
-            nRow := iif( nRow < 0, MaxRow(), nRow - 1 )
-            EXIT
-         CASE "d"
-            cLine := "│"
-            nRow := iif( nRow > MaxRow(), -1, nRow + 1 )
-            EXIT
-         CASE "l"
-            cLine := "─"
-            nCol := iif( nCol < 0, MaxCol(), nCol - 1 )
-            EXIT
-         CASE "r"
-            cLine := "─"
-            nCol := iif( nCol > MaxCol(), -1, nCol + 1 )
-            EXIT
-         ENDSWITCH
       ENDIF
+
+      SWITCH cDirection
+      CASE "u"
+         cLine := "│"
+         nRow := iif( nRow < 0, MaxRow(), nRow - 1 )
+         EXIT
+      CASE "d"
+         cLine := "│"
+         nRow := iif( nRow > MaxRow(), -1, nRow + 1 )
+         EXIT
+      CASE "l"
+         cLine := "─"
+         nCol := iif( nCol < 0, MaxCol(), nCol - 1 )
+         EXIT
+      CASE "r"
+         cLine := "─"
+         nCol := iif( nCol > MaxCol(), -1, nCol + 1 )
+         EXIT
+      ENDSWITCH
 
       IF hb_MilliSeconds() - nTime > hb_randInt( 100, 1000 )
          SWITCH cDirection

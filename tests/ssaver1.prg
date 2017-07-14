@@ -1,12 +1,11 @@
 /* Copyright 2017 Rafał Jopek ( rafaljopek at hotmail com ) */
 
-/* Screensaver */
-
 #include "setcurs.ch"
 
 PROCEDURE Main()
 
    LOCAL nOldCursor := SetCursor( SC_NONE )
+
    LOCAL aScreensaver := ss_new()
    LOCAL nSeconds := Seconds()
 
