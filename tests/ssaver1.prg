@@ -46,14 +46,15 @@ STATIC PROCEDURE ss_show( a )
    LOCAL s := "☺☻♥♦♣♠•◘○◙♂♀♪♫☼►◄↕‼¶§▬↨↑↓→←∟↔▲▼!#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~⌂ÇüéâäàåçêëèïîìÄÅÉæÆôöòûùÿÖÜ¢£¥₧ƒáíóúñÑªº¿⌐¬½¼¡«»░▒▓│┤╡╢╖╕╣║╗╝╜╛┐└┴┬├─┼╞╟╚╔╩╦╠═╬╧╨╤╥╙╘╒╓╫╪┘┌█▄▌▐▀αßΓπΣσµτΦΘΩδ∞φε∩≡±≥≤⌠⌡÷≈°∙·√ⁿ²■" + hb_UChar( 34 )
    LOCAL e
 
-   hb_AIns( a, 1, { 0, hb_randInt( 0, MaxCol() ), hb_randInt( 1, 15 ) }, .T. )
+   hb_AIns( a, 1, { 0, hb_randInt( 0, MaxCol() ), hb_randInt( 1, 15 ) } )
 
    FOR EACH e IN a
-      hb_DispOutAtBox( e[ 1 ], e[ 2 ], hb_UTF8ToStr( hb_USubStr( s, hb_randInt( 1, hb_ULen( s ) ), 1 ) ), e[ 3 ] )
-      hb_Scroll( e[ 1 ] - 20, e[ 2 ], e[ 1 ] - 20, e[ 2 ] )
+      hb_DispOutAtBox( e[ 1 ], e[ 2 ], ;
+         hb_UTF8ToStr( hb_USubStr( s, hb_randInt( 1, hb_ULen( s ) ), 1 ) ), e[ 3 ] )
+      IF e[ 1 ] >= 20
+         hb_Scroll( e[ 1 ] - 20, e[ 2 ], e[ 1 ] - 20, e[ 2 ] )
+      ENDIF
       ++e[ 1 ]
    NEXT
-
-   hb_ADel( a, Len( a ), .T. )
 
    RETURN
