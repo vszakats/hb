@@ -11,33 +11,33 @@ PROCEDURE Main()
    LOCAL nCol := Int( MaxCol() / 2 )
 
    LOCAL cDirection := SubStr( "udlr", hb_randInt( 1, 4 ), 1 )
-   LOCAL cLine := iif( cDirection $ "ud", hb_UTF8ToStr( "│" ), hb_UTF8ToStr( "─" ) )
+   LOCAL cLine := iif( cDirection $ "ud", "│", "─" )
    LOCAL nColorLine := 0xf
 
    LOCAL nTime := hb_MilliSeconds()
 
    DO WHILE .T.
 
-      hb_DispOutAtBox( nRow, nCol, cLine, nColorLine )
+      hb_DispOutAtBox( nRow, nCol, hb_UTF8ToStr( cLine ), nColorLine )
 
       IF Inkey( 0.05 ) == K_ESC
          EXIT
       ELSE
          SWITCH cDirection
          CASE "u"
-            cLine := hb_UTF8ToStr( "│" )
+            cLine := "│"
             nRow := iif( nRow < 0, MaxRow(), nRow - 1 )
             EXIT
          CASE "d"
-            cLine := hb_UTF8ToStr( "│" )
+            cLine := "│"
             nRow := iif( nRow > MaxRow(), -1, nRow + 1 )
             EXIT
          CASE "l"
-            cLine := hb_UTF8ToStr( "─" )
+            cLine := "─"
             nCol := iif( nCol < 0, MaxCol(), nCol - 1 )
             EXIT
          CASE "r"
-            cLine := hb_UTF8ToStr( "─" )
+            cLine := "─"
             nCol := iif( nCol > MaxCol(), -1, nCol + 1 )
             EXIT
          ENDSWITCH
@@ -47,26 +47,26 @@ PROCEDURE Main()
          SWITCH cDirection
          CASE "u"
             SWITCH cDirection := SubStr( "udlr", hb_randInt( 3, 4 ), 1 )
-            CASE "l" ; cLine := hb_UTF8ToStr( "┐" ) ; EXIT
-            CASE "r" ; cLine := hb_UTF8ToStr( "┌" ) ; EXIT
+            CASE "l" ; cLine := "┐" ; EXIT
+            CASE "r" ; cLine := "┌" ; EXIT
             ENDSWITCH
             EXIT
          CASE "d"
             SWITCH cDirection := SubStr( "udlr", hb_randInt( 3, 4 ), 1 )
-            CASE "l" ; cLine := hb_UTF8ToStr( "┘" ) ; EXIT
-            CASE "r" ; cLine := hb_UTF8ToStr( "└" ) ; EXIT
+            CASE "l" ; cLine := "┘" ; EXIT
+            CASE "r" ; cLine := "└" ; EXIT
             ENDSWITCH
             EXIT
          CASE "l"
             SWITCH cDirection := SubStr( "udlr", hb_randInt( 1, 2 ), 1 )
-            CASE "u" ; cLine := hb_UTF8ToStr( "└" ) ; EXIT
-            CASE "d" ; cLine := hb_UTF8ToStr( "┌" ) ; EXIT
+            CASE "u" ; cLine := "└" ; EXIT
+            CASE "d" ; cLine := "┌" ; EXIT
             ENDSWITCH
             EXIT
          CASE "r"
             SWITCH cDirection := SubStr( "udlr", hb_randInt( 1, 2 ), 1 )
-            CASE "u" ; cLine := hb_UTF8ToStr( "┘" ) ; EXIT
-            CASE "d" ; cLine := hb_UTF8ToStr( "┐" ) ; EXIT
+            CASE "u" ; cLine := "┘" ; EXIT
+            CASE "d" ; cLine := "┐" ; EXIT
             ENDSWITCH
             EXIT
          ENDSWITCH
