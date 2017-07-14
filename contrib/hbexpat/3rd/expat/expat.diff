@@ -1,22 +1,7 @@
-diff --strip-trailing-cr -urN expat.orig/siphash.h expat/siphash.h
---- expat.orig/siphash.h	2017-06-17 16:07:38.000000000 +0000
-+++ expat/siphash.h	2017-07-03 11:02:23.000000000 +0000
-@@ -76,7 +76,10 @@
- #define SIPHASH_H
- 
- #include <stddef.h> /* size_t */
--#include <stdint.h> /* uint64_t uint32_t uint8_t */
-+#include "hbdefs.h"
-+#define uint8_t       HB_U8
-+#define uint32_t      HB_U32
-+#define uint64_t      HB_U64
- 
- 
- #define SIP_ROTL(x, b) (uint64_t)(((x) << (b)) | ( (x) >> (64 - (b))))
 diff --strip-trailing-cr -urN expat.orig/xmlparse.c expat/xmlparse.c
---- expat.orig/xmlparse.c	2017-06-17 16:07:38.000000000 +0000
-+++ expat/xmlparse.c	2017-06-26 11:15:42.000000000 +0000
-@@ -23,7 +23,9 @@
+--- expat.orig/xmlparse.c	2017-07-12 21:55:49.000000000 +0000
++++ expat/xmlparse.c	2017-07-14 19:46:29.000000000 +0000
+@@ -25,7 +25,9 @@
  
  #define XML_BUILDING_EXPAT 1
  
@@ -27,7 +12,7 @@ diff --strip-trailing-cr -urN expat.orig/xmlparse.c expat/xmlparse.c
  #include "winconfig.h"
  #elif defined(HAVE_EXPAT_CONFIG_H)
  #include <expat_config.h>
-@@ -740,6 +742,10 @@
+@@ -777,6 +779,10 @@
  
  typedef BOOLEAN (APIENTRY *RTLGENRANDOM_FUNC)(PVOID, ULONG);
  
@@ -38,18 +23,18 @@ diff --strip-trailing-cr -urN expat.orig/xmlparse.c expat/xmlparse.c
  /* Obtain entropy on Windows XP / Windows Server 2003 and later.
   * Hint on RtlGenRandom and the following article from libsodioum.
   *
-@@ -749,7 +755,7 @@
+@@ -786,7 +792,7 @@
  static int
  writeRandomBytes_RtlGenRandom(void * target, size_t count) {
    int success = 0;  /* full count bytes written? */
--  const HMODULE advapi32 = LoadLibrary("ADVAPI32.DLL");
+-  const HMODULE advapi32 = LoadLibrary(TEXT("ADVAPI32.DLL"));
 +  const HMODULE advapi32 = LoadLibraryEx(TEXT("ADVAPI32.DLL"), NULL, LOAD_LIBRARY_SEARCH_SYSTEM32);
  
    if (advapi32) {
      const RTLGENRANDOM_FUNC RtlGenRandom
 diff --strip-trailing-cr -urN expat.orig/xmlrole.c expat/xmlrole.c
---- expat.orig/xmlrole.c	2017-06-17 16:07:38.000000000 +0000
-+++ expat/xmlrole.c	2017-06-25 17:09:30.000000000 +0000
+--- expat.orig/xmlrole.c	2017-07-12 21:55:49.000000000 +0000
++++ expat/xmlrole.c	2017-07-14 19:45:35.000000000 +0000
 @@ -4,7 +4,9 @@
  
  #include <stddef.h>
@@ -62,8 +47,8 @@ diff --strip-trailing-cr -urN expat.orig/xmlrole.c expat/xmlrole.c
  #else
  #ifdef HAVE_EXPAT_CONFIG_H
 diff --strip-trailing-cr -urN expat.orig/xmltok.c expat/xmltok.c
---- expat.orig/xmltok.c	2017-06-17 16:07:38.000000000 +0000
-+++ expat/xmltok.c	2017-06-25 17:09:30.000000000 +0000
+--- expat.orig/xmltok.c	2017-07-12 21:55:49.000000000 +0000
++++ expat/xmltok.c	2017-07-14 19:45:35.000000000 +0000
 @@ -4,7 +4,9 @@
  
  #include <stddef.h>
