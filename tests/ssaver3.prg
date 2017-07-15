@@ -19,7 +19,7 @@ PROCEDURE Main()
 
       hb_DispOutAtBox( nRow, nCol, hb_UTF8ToStr( cLine ), nColorLine )
 
-      IF Inkey( 0.05 ) == 0
+      IF Inkey( 0.05 ) != 0
          EXIT
       ENDIF
 
