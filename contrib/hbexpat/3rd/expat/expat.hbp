@@ -12,11 +12,17 @@ xmlparse.c
 xmlrole.c
 xmltok.c
 
+-cflag=-DHAVE_ARC4RANDOM_BUF{darwin|bsd}
+
 -cflag=-DHARBOUR_CONF
 {hblib}-cflag=-DXML_STATIC
 {bcc}-cflag=-w-8057
 {bcc}-cflag=-w-8008
 {bcc}-cflag=-w-8066
+
+-cflag=-DHAVE_ARC4RANDOM_BUF{darwin|bsd}
+# Requires glibc >=2.25
+-cflag=-DHAVE_GETRANDOM{linux}
 
 # ORIGIN https://libexpat.github.io/
 # URL    https://downloads.sourceforge.net/project/expat/expat/2.2.2/expat-2.2.2.tar.bz2
