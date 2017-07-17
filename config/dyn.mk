@@ -104,7 +104,7 @@ endif
 ifeq ($(HB_DYN_FROM_LIBS),yes)
    ALL_OBJS := $(subst /,$(DIRSEP),$(foreach lib,$(HB_DYN_LIBS),$(wildcard $(LIB_DIR)/$(LIB_PREF)$(lib)$(LIB_EXT))))
 else
-   ALL_OBJS := $(subst /,$(DIRSEP),$(foreach dir,$(DYNDIRLIST),$(wildcard $(TOP)$(ROOT)$(dir)/$(OBJ_DIR)/*$(OBJ_DYN_POSTFIX)$(OBJ_EXT))))
+   ALL_OBJS := $(subst /,$(DIRSEP),$(foreach dir,$(DYNDIRLIST),$(wildcard $(TOP)$(ROOT)$(dir)/$(OBJ_DIR)/*$(OBJ_DYN_SUFFIX)$(OBJ_EXT))))
 endif
 ifneq ($(RC),)
    ALL_OBJS += $(ALL_RC_OBJS)

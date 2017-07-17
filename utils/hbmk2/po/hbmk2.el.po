@@ -1047,7 +1047,7 @@ msgid "create (or not) a map file"
 msgstr "δημιουργία (ή όχι) ενός map αρχείου"
 
 #, c-format
-msgid "create (or not) an import library (in -hbdyn/-hbexe mode). The name will have a postfix added."
+msgid "create (or not) an import library (in -hbdyn/-hbexe mode). The name will have a suffix added."
 msgstr "δημιουργία (ή όχι) βιβλιοθήκης εισαγωγής (in -hbdyn/-hbexe mode). Στο όνομα θα προστεθεί ένα επίθεμα."
 
 #, c-format

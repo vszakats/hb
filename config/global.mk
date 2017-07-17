@@ -1906,7 +1906,7 @@ else
          else
             HB_INSTALL_PREFIX := /usr/local
          endif
-         # Add postfix for cross builds
+         # Add suffix for cross builds
          ifneq ($(HB_HOST_PLAT),$(HB_PLATFORM))
             HB_INSTALL_PREFIX := $(HB_INSTALL_PREFIX)/harbour-$(HB_PLATFORM)-$(HB_COMPILER)
          endif

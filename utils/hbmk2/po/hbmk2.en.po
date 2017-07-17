@@ -1353,7 +1353,7 @@ msgstr ""
 
 #: utils/hbmk2/hbmk2.prg:17463
 #, c-format
-msgid "create (or not) an import library (in -hbdyn/-hbexe mode). The name will have a postfix added."
+msgid "create (or not) an import library (in -hbdyn/-hbexe mode). The name will have a suffix added."
 msgstr ""
 
 #: utils/hbmk2/hbmk2.prg:17463

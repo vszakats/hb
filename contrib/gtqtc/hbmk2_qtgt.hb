@@ -241,7 +241,7 @@ FUNCTION hbmk_plugin_qt( hbmk )
 
    RETURN cRetVal
 
-STATIC FUNCTION qt_tool_detect( hbmk, cName, cEnvQT, lPostfix )
+STATIC FUNCTION qt_tool_detect( hbmk, cName, cEnvQT, lSuffix )
 
    LOCAL cBIN
    LOCAL cEnv
@@ -250,9 +250,12 @@ STATIC FUNCTION qt_tool_detect( hbmk, cName, cEnvQT, lPostfix )
 
    IF Empty( cBIN := GetEnv( cEnvQT ) )
 
-      IF lPostfix
-         cName += GetEnv( "HB_QTPOSTFIX" )
-         aEnvList := { "HB_QTPATH", "HB_QTPOSTFIX" }
+      IF lSuffix
+         IF ! ( cEnv := GetEnv( "HB_QTPOSTFIX" ) ) == ""  /* Compatibility */
+            hb_SetEnv( "HB_QTSUFFIX", cEnv )
+         ENDIF
+         cName += GetEnv( "HB_QTSUFFIX" )
+         aEnvList := { "HB_QTPATH", "HB_QTSUFFIX" }
       ELSE
          aEnvList := { "HB_QTPATH" }
       ENDIF

@@ -923,7 +923,7 @@ msgid "create (or not) a map file"
 msgstr "crear (o no) un archivo map"
 
 #, c-format
-msgid "create (or not) an import library (in -hbdyn/-hbexe mode). The name will have a postfix added."
+msgid "create (or not) an import library (in -hbdyn/-hbexe mode). The name will have a suffix added."
 msgstr "crear (o no) una biblioteca de importación (en modo -hbdyn/-hbexe). El nombre tendrá un sufijo añadido."
 
 #, c-format

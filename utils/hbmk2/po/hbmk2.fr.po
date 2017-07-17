@@ -727,7 +727,7 @@ msgid "failed in final assembly (linker or library manager)"
 msgstr "Echec à l'assemblage final (éditeur de liens ou gestionnaire de librairie)"
 
 #, c-format
-msgid "create (or not) an import library (in -hbdyn/-hbexe mode). The name will have a postfix added."
+msgid "create (or not) an import library (in -hbdyn/-hbexe mode). The name will have a suffix added."
 msgstr "Créer (ou non) une bibliothèque d'importation (en mode -hbdyn/-hbexe). Le nom aura un suffixe ajouté."
 
 #, c-format

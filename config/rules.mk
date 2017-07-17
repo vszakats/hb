@@ -11,9 +11,9 @@ else
 endif
 
 ifeq ($(HB_DYN_COPT),)
-   OBJ_DYN_POSTFIX :=
+   OBJ_DYN_SUFFIX :=
 else
-   OBJ_DYN_POSTFIX := _dyn
+   OBJ_DYN_SUFFIX := _dyn
 endif
 
 # Double space
@@ -42,7 +42,7 @@ ifeq ($(CC_RULE),)
             ifneq ($(filter $(LIBNAME),$(HB_DYN_LIBS)),)
                define cc_comp_all
                   $(CC)$(subst $(_SPCD),$(_SPCS),$(subst $(_SPCD),$(_SPCS), $(subst $(CC_DIRSEPFROM),$(CC_DIRSEPTO),$(CC_FLAGS) $(HB_USER_CFLAGS) $(HB_CFLAGS_STA) $(CC_OUT)$(<F:.c=$(OBJ_EXT)) $(CC_IN) $<)))
-                  $(CC)$(subst $(_SPCD),$(_SPCS),$(subst $(_SPCD),$(_SPCS), $(subst $(CC_DIRSEPFROM),$(CC_DIRSEPTO),$(CC_FLAGS) $(HB_USER_CFLAGS) $(HB_CFLAGS_DYN) $(HB_DYN_COPT) $(CC_OUT)$(<F:.c=$(OBJ_DYN_POSTFIX)$(OBJ_EXT)) $(CC_IN) $<)))
+                  $(CC)$(subst $(_SPCD),$(_SPCS),$(subst $(_SPCD),$(_SPCS), $(subst $(CC_DIRSEPFROM),$(CC_DIRSEPTO),$(CC_FLAGS) $(HB_USER_CFLAGS) $(HB_CFLAGS_DYN) $(HB_DYN_COPT) $(CC_OUT)$(<F:.c=$(OBJ_DYN_SUFFIX)$(OBJ_EXT)) $(CC_IN) $<)))
                endef
                CC_RULE = $(cc_comp_all)
             endif

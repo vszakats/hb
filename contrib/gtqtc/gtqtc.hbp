@@ -13,11 +13,11 @@
 -pic
 
 # NOTE: You can override auto-detection of QT 'moc' tool by using HB_QTPATH and
-#       optionally HB_QTPOSTFIX envvars. This may only be necessary on some *nix
+#       optionally HB_QTSUFFIX envvars. This may only be necessary on some *nix
 #       systems. F.e.:
 #
 #       HB_QTPATH=/opt/qt5/bin/
-#       HB_QTPOSTFIX=
+#       HB_QTSUFFIX=
 
 -plugin=hbmk2_qtgt.hb
 
