@@ -12,8 +12,6 @@ xmlparse.c
 xmlrole.c
 xmltok.c
 
--cflag=-DHAVE_ARC4RANDOM_BUF{darwin|bsd}
-
 -cflag=-DHARBOUR_CONF
 {hblib}-cflag=-DXML_STATIC
 {bcc}-cflag=-w-8057
