@@ -364,12 +364,12 @@ to adjust them to your own directories:
     HB_WITH_CURSES= (on \*nix systems and DJGPP, auto-detected on both)
     HB_WITH_GPM= (on Linux only)
     HB_WITH_PCRE2=C:\pcre2
-    HB_WITH_PCRE=C:\pcre (defaults to locally hosted version if not found)
-    HB_WITH_PNG=C:\libpng (defaults to locally hosted version if not found)
+    HB_WITH_PCRE=C:\pcre (defaults to locally hosted copy if not found)
+    HB_WITH_PNG=C:\libpng (defaults to locally hosted copy if not found)
     HB_WITH_SLANG= (on \*nix systems)
     HB_WITH_WATT= (on MS-DOS systems)
     HB_WITH_X11= (on \*nix systems)
-    HB_WITH_ZLIB=C:\zlib (defaults to locally hosted version if not found)
+    HB_WITH_ZLIB=C:\zlib (defaults to locally hosted copy if not found)
 
 To explicitly disable any given components, use the value `no`. This may be
 useful to avoid auto-detection of installed packages on \*nix systems. You
