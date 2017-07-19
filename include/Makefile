@@ -25,6 +25,7 @@ C_HEADERS := \
    hbapilng.h \
    hbapirdd.h \
    hbapistr.h \
+   hbarc4.h \
    hbassert.h \
    hbatomic.h \
    hbbfish.h \

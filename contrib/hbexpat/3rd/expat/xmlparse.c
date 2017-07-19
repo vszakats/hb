@@ -27,6 +27,9 @@
 
 #ifdef HARBOUR_CONF
 #include "_hbconf.h"
+#include "hbarc4.h"
+#define HAVE_ARC4RANDOM_BUF
+#define arc4random_buf(x, y) hb_arc4random_buf(x, y)
 #elif defined(_WIN32)
 #include "winconfig.h"
 #elif defined(HAVE_EXPAT_CONFIG_H)
@@ -775,13 +778,10 @@ writeRandomBytes_getrandom(void * target, size_t count) {
 #endif  /* defined(HAVE_GETRANDOM) || defined(HAVE_SYSCALL_GETRANDOM) */
 
 
+#if !(defined(HAVE_ARC4RANDOM_BUF) || defined(__CloudABI__))
 #ifdef _WIN32
 
 typedef BOOLEAN (APIENTRY *RTLGENRANDOM_FUNC)(PVOID, ULONG);
-
-#ifndef LOAD_LIBRARY_SEARCH_SYSTEM32
-# define LOAD_LIBRARY_SEARCH_SYSTEM32  0x00000800
-#endif
 
 /* Obtain entropy on Windows XP / Windows Server 2003 and later.
  * Hint on RtlGenRandom and the following article from libsodioum.
@@ -792,7 +792,7 @@ typedef BOOLEAN (APIENTRY *RTLGENRANDOM_FUNC)(PVOID, ULONG);
 static int
 writeRandomBytes_RtlGenRandom(void * target, size_t count) {
   int success = 0;  /* full count bytes written? */
-  const HMODULE advapi32 = LoadLibraryEx(TEXT("ADVAPI32.DLL"), NULL, LOAD_LIBRARY_SEARCH_SYSTEM32);
+  const HMODULE advapi32 = LoadLibrary(TEXT("ADVAPI32.DLL"));
 
   if (advapi32) {
     const RTLGENRANDOM_FUNC RtlGenRandom
@@ -809,6 +809,7 @@ writeRandomBytes_RtlGenRandom(void * target, size_t count) {
 }
 
 #endif /* _WIN32 */
+#endif
 
 
 static unsigned long

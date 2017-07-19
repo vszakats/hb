@@ -45,8 +45,7 @@
  */
 
 #include "hbapi.h"
-
-#include "arc4.h"
+#include "hbarc4.h"
 
 void hb_random_block( void * data, HB_SIZE len )
 {
