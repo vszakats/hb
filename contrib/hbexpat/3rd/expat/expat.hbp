@@ -13,6 +13,9 @@ xmlrole.c
 xmltok.c
 
 -cflag=-DHAVE_EXPAT_CONFIG_H
+# Needed to have <expat_config.h> found
+-I.
+
 {hblib}-cflag=-DXML_STATIC
 {bcc}-cflag=-w-8057
 {bcc}-cflag=-w-8008
