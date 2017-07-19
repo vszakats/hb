@@ -232,7 +232,7 @@ You should see `Hello, world!` on screen.
 
 ## on Minix hosts
 
-Install GNU make from the Minix pkgsrc repository; for details see [here](http://wiki.minix3.org/en/UsersGuide/InstallingBinaryPackages).
+Install GNU make from the Minix pkgsrc repository; for details see [here](http://wiki.minix3.org/doku.php?id=usersguide:installingbinarypackages).
 
 Optionally, GCC may also be installed if you wish to use that instead
 of Clang, the Minix system compiler.
@@ -1506,11 +1506,6 @@ Supported shells per host platforms:
      * [hbqt (GUI)](https://groups.google.com/forum/#!forum/qtcontribs)
      * [hwgui (GUI)](https://sourceforge.net/p/hwgui/mailman/hwgui-developers/)
      * [xHarbour fork](https://groups.google.com/forum/#!forum/comp.lang.xharbour)
-
-  * Translators:
-     * [Bing Translator](https://www.bing.com/translator/)
-     * [Google Translate](https://translate.google.com/)
-
 
 # Harbour Links
 

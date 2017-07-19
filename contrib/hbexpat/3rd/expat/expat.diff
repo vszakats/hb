@@ -1,6 +1,6 @@
 diff --strip-trailing-cr -urN expat.orig/xmlparse.c expat/xmlparse.c
 --- expat.orig/xmlparse.c	2017-07-12 21:55:49.000000000 +0000
-+++ expat/xmlparse.c	2017-07-19 01:30:07.000000000 +0000
++++ expat/xmlparse.c	2017-07-19 15:07:12.000000000 +0000
 @@ -25,7 +25,12 @@
  
  #define XML_BUILDING_EXPAT 1
@@ -19,7 +19,7 @@ diff --strip-trailing-cr -urN expat.orig/xmlparse.c expat/xmlparse.c
  #endif  /* defined(HAVE_GETRANDOM) || defined(HAVE_SYSCALL_GETRANDOM) */
  
  
-+#if !(defined(HAVE_ARC4RANDOM_BUF) || defined(__CloudABI__))
++#if ! defined(HAVE_ARC4RANDOM_BUF)
  #ifdef _WIN32
  
  typedef BOOLEAN (APIENTRY *RTLGENRANDOM_FUNC)(PVOID, ULONG);
@@ -27,15 +27,17 @@ diff --strip-trailing-cr -urN expat.orig/xmlparse.c expat/xmlparse.c
    return tv.tv_usec;
  #endif
  }
-+#endif
++#endif  /* ! defined(HAVE_ARC4RANDOM_BUF) */
  
  static unsigned long
  ENTROPY_DEBUG(const char * label, unsigned long entropy) {
-@@ -847,7 +854,6 @@
+@@ -846,8 +853,7 @@
+ {
    unsigned long entropy;
    (void)parser;
- #if defined(HAVE_ARC4RANDOM_BUF) || defined(__CloudABI__)
+-#if defined(HAVE_ARC4RANDOM_BUF) || defined(__CloudABI__)
 -  (void)gather_time_entropy;
++#if defined(HAVE_ARC4RANDOM_BUF)
    arc4random_buf(&entropy, sizeof(entropy));
    return ENTROPY_DEBUG("arc4random_buf", entropy);
  #else

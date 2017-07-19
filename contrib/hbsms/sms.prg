@@ -48,10 +48,8 @@
 /* TODO: - Receive support */
 
 /* Source of information:
-   http://www.smssolutions.net/tutorials/gsm/sendsmsat/
-   http://www.smssolutions.net/tutorials/gsm/receivesmsat/
-   http://www.developershome.com/sms/sendSmsByAtCommands.asp
-   http://www.developershome.com/sms/readSmsByAtCommands.asp
+   https://web.archive.org/web/www.smssolutions.net/tutorials/gsm/sendsmsat/
+   https://web.archive.org/web/www.smssolutions.net/tutorials/gsm/receivesmsat/
    https://web.archive.org/web/20121115163620/dreamfabric.com/sms/
  */
 
