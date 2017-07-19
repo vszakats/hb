@@ -4,9 +4,7 @@
 
 #include <stddef.h>
 
-#ifdef HARBOUR_CONF
-#include "_hbconf.h"
-#elif defined(_WIN32)
+#ifdef _WIN32
 #include "winconfig.h"
 #else
 #ifdef HAVE_EXPAT_CONFIG_H
