@@ -1,7 +1,10 @@
 #ifndef _HBCONF_H
 #define _HBCONF_H
 
-#include "hbdefs.h"
+#include "hbarc4.h"
+
+#define HAVE_ARC4RANDOM_BUF
+#define arc4random_buf hb_arc4random_buf
 
 #if defined( HB_OS_WIN )
 #  define WIN32_LEAN_AND_MEAN

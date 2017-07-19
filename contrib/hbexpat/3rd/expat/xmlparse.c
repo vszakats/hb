@@ -27,9 +27,6 @@
 
 #ifdef HARBOUR_CONF
 #include "_hbconf.h"
-#include "hbarc4.h"
-#define HAVE_ARC4RANDOM_BUF
-#define arc4random_buf(x, y) hb_arc4random_buf(x, y)
 #elif defined(_WIN32)
 #include "winconfig.h"
 #elif defined(HAVE_EXPAT_CONFIG_H)
