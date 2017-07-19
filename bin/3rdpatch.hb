@@ -58,7 +58,7 @@
  *   file it is working with, so a URL containing this sort if information must
  *   be picked. As an example, download URLs like
  *   `https://github.com/glennrp/libpng/archive/v1.6.16.tar.gz'
- *   are OK, but `https://example.com/download/latest' is not, even if latter
+ *   are OK, but `https://example.org/download/latest' is not, even if latter
  *   would ultimately result (perhaps by the server using Content-Disposition
  *   or similar headers) in a file named `example-pkg-54.tar.gz'.
  *

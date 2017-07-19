@@ -8,8 +8,8 @@ PROCEDURE Main()
    LOCAL cBody := "Test body"
    LOCAL lMailConf := .F.
    LOCAL lFromUser := .T.
-   LOCAL aSender := { "test from", "from@example.com" }
-   LOCAL aDest := { { "test to", "to@example.com", WIN_MAPI_TO } }
+   LOCAL aSender := { "test from", "from@example.org" }
+   LOCAL aDest := { { "test to", "to@example.org", WIN_MAPI_TO } }
    LOCAL aFiles := { { __FILE__, hb_FNameName( __FILE__ ) } }
 
    ? win_MAPISendMail( ;
@@ -34,8 +34,8 @@ PROCEDURE Main()
       "", ;                             // conversation ID
       lMailConf, ;                      // acknowledgment
       lFromUser, ;                      // user intervention
-      "from@example.com", ;             // sender
-      { "to@example.com" }, ;           // destinators
+      "from@example.org", ;             // sender
+      { "to@example.org" }, ;           // destinators
       { __FILE__ } )                    // attach
 
    RETURN

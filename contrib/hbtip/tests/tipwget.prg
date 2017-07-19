@@ -26,7 +26,7 @@
  *    - use &at; in mail-from message
  *    - Send the mail in filename (that must include
  *      headers) to RCPT f.e.
- *      stmp[s]://user&at;example.com@smtp.example.com/gian@niccolai.ws
+ *      smtp[s]://user&at;example.org@smtp.example.org/gian@niccolai.ws
  *
  *      NOTE: In Unix, to use '&' from command-line you have to surround
  *      the URL with "", f.e. "smtp[s]://...&at;...@server/dest"

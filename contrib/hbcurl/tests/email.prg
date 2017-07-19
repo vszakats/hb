@@ -22,7 +22,7 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
 
    hb_default( @cFrom    , "from@example.net" )
    hb_default( @cPassword, "password" )
-   hb_default( @cTo      , "to@example.com" )
+   hb_default( @cTo      , "to@example.org" )
    hb_default( @cHost    , "localhost" )
 
    cHost := Lower( cHost )

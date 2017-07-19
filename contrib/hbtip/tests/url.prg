@@ -6,7 +6,7 @@
 
 PROCEDURE Main( cURL )
 
-   LOCAL oURL := TURL():New( hb_defaultValue( cURL, "https://user:passwd@example.com:443/mypages/mysite/page.html?avar=0&avar1=1" ) )
+   LOCAL oURL := TURL():New( hb_defaultValue( cURL, "https://user:passwd@example.org:443/mypages/mysite/page.html?avar=0&avar1=1" ) )
 
    ? "cAddress"  , oURL:cAddress
    ? "cProto"    , oURL:cProto

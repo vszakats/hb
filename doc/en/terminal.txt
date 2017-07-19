@@ -239,7 +239,7 @@
                   "where DO you want to go today?"
 
       // define response option
-      aOptions := { "Ok", "www.example.com", "Oops" }
+      aOptions := { "Ok", "www.example.org", "Oops" }
 
       // show message and let end user select panic level
       nChoice := Alert( cMessage, aOptions )

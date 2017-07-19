@@ -14,7 +14,7 @@ PROCEDURE Main( cURL, cMask )
    /* fetch files to transfer */
    IF ! Empty( aFiles := hb_vfDirectory( hb_defaultValue( cMask, hb_osFileMask() ) ) )
 
-      hb_default( @cURL, "ftp://user:pass@ftp.example.com" )
+      hb_default( @cURL, "ftp://user:pass@ftp.example.org" )
 
       oURL := TUrl():New( cURL )
 

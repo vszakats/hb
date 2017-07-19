@@ -12,7 +12,7 @@ PROCEDURE Main( cURL, ... )
    /* fetch files to transfer */
    IF ! Empty( aFiles := { ... } )
 
-      hb_default( @cURL, "ftp://user:pass@ftp.example.com" )
+      hb_default( @cURL, "ftp://user:pass@ftp.example.org" )
 
       oURL := TUrl():New( cURL )
 

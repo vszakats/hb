@@ -47,7 +47,7 @@
 #include "hbclass.ch"
 
 /* An URL:
-   https://user:passwd@example.com:port/mypages/mysite/page.html?avar=0&avar1=1
+   https://user:passwd@example.org:port/mypages/mysite/page.html?avar=0&avar1=1
    ^---^   ^--^ ^----^ ^---------^ ^--^ ^----------------------^ ^------------^
    cProto   UID  PWD     cServer  nPort          cPath               cQuery
                                         ^------------^ ^-------^
