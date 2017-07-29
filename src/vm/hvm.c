@@ -444,6 +444,7 @@ static void hb_vmDoInitHelp( void )
 #if ! defined( HB_MT_VM )
 
 HB_BOOL hb_vmIsMt( void ) { return HB_FALSE; }
+HB_BOOL hb_vmThreadIsMain( void * Cargo ) { HB_SYMBOL_UNUSED( Cargo ); return s_fHVMActive; }
 void hb_vmLock( void ) {}
 void hb_vmUnlock( void ) {}
 void hb_vmLockForce( void ) {}
@@ -706,6 +707,21 @@ void * hb_vmThreadState( void )
    HB_TRACE( HB_TR_DEBUG, ( "hb_vmThreadState()" ) );
 
    return hb_stackId() ? hb_stackList() : NULL;
+}
+
+HB_BOOL hb_vmThreadIsMain( void * Cargo )
+{
+   HB_TRACE( HB_TR_DEBUG, ( "hb_vmThreadIsMain(%p)", Cargo ) );
+
+   if( ! s_fHVMActive || s_main_thread == NULL )
+      return HB_FALSE;
+   else if( Cargo )
+      return s_main_thread == ( ( PHB_THREADSTATE ) Cargo )->pStackId;
+   else
+   {
+      HB_STACK_TLS_PRELOAD
+      return s_main_thread == hb_stackId();
+   }
 }
 
 static void hb_vmStackAdd( PHB_THREADSTATE pState )
@@ -9068,7 +9084,7 @@ HB_BOOL hb_vmTryEval( PHB_ITEM * pResult, PHB_ITEM pItem, HB_ULONG ulPCount, ...
 {
    HB_BOOL fResult;
 
-   HB_TRACE( HB_TR_DEBUG, ( "hb_vmTryEval(%p, %lu)", ( void * ) pItem, ulPCount ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_vmTryEval(%p, %p, %lu)", pResult, ( void * ) pItem, ulPCount ) );
 
    fResult = HB_FALSE;
    *pResult = NULL;
@@ -12394,6 +12410,8 @@ HB_FUNC( __VMITEMID )
          hb_retptr( hb_hashId( pItem ) );
       else if( HB_IS_BLOCK( pItem ) )
          hb_retptr( hb_codeblockId( pItem ) );
+      else if( HB_IS_SYMBOL( pItem ) )
+         hb_retptr( pItem->item.asSymbol.value );
    }
 }
 
