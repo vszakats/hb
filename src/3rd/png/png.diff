@@ -1,6 +1,6 @@
 diff --strip-trailing-cr -urN png.orig/pnglibconf.h png/pnglibconf.h
---- png.orig/pnglibconf.h	2017-06-28 18:50:29.000000000 +0000
-+++ png/pnglibconf.h	2017-06-28 20:38:22.000000000 +0000
+--- png.orig/pnglibconf.h	2017-07-27 10:27:17.000000000 +0000
++++ png/pnglibconf.h	2017-07-29 18:20:32.000000000 +0000
 @@ -28,8 +28,8 @@
  #define PNG_BUILD_GRAYSCALE_PALETTE_SUPPORTED
  #define PNG_CHECK_FOR_INVALID_INDEX_SUPPORTED
@@ -12,7 +12,7 @@ diff --strip-trailing-cr -urN png.orig/pnglibconf.h png/pnglibconf.h
  #define PNG_EASY_ACCESS_SUPPORTED
  /*#undef PNG_ERROR_NUMBERS_SUPPORTED*/
  #define PNG_ERROR_TEXT_SUPPORTED
-@@ -111,9 +111,13 @@
+@@ -112,9 +112,13 @@
  #define PNG_SIMPLIFIED_READ_SUPPORTED
  #define PNG_SIMPLIFIED_WRITE_AFIRST_SUPPORTED
  #define PNG_SIMPLIFIED_WRITE_BGR_SUPPORTED
@@ -26,7 +26,7 @@ diff --strip-trailing-cr -urN png.orig/pnglibconf.h png/pnglibconf.h
  #define PNG_STORE_UNKNOWN_CHUNKS_SUPPORTED
  #define PNG_TEXT_SUPPORTED
  #define PNG_TIME_RFC1123_SUPPORTED
-@@ -187,7 +191,11 @@
+@@ -190,7 +194,11 @@
  #define PNG_zTXt_SUPPORTED
  /* end of options */
  /* settings */
