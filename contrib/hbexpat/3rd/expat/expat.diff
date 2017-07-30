@@ -1,7 +1,7 @@
 diff -urN expat.orig/xmlparse.c expat/xmlparse.c
---- expat.orig/xmlparse.c	2017-07-24 16:57:23.412595132 +0200
-+++ expat/xmlparse.c	2017-07-24 16:57:23.412595132 +0200
-@@ -15,6 +15,12 @@
+--- expat.orig/xmlparse.c	2017-07-12 21:55:49.000000000 +0000
++++ expat/xmlparse.c	2017-07-30 20:44:40.000000000 +0000
+@@ -17,6 +17,12 @@
  
  #ifdef _WIN32
  #define getpid GetCurrentProcessId
@@ -14,12 +14,7 @@ diff -urN expat.orig/xmlparse.c expat/xmlparse.c
  #else
  #include <sys/time.h>                   /* gettimeofday() */
  #include <sys/types.h>                  /* getpid() */
-@@ -749,11 +757,11 @@
- static int
- writeRandomBytes_RtlGenRandom(void * target, size_t count) {
-   int success = 0;  /* full count bytes written? */
--  const HMODULE advapi32 = LoadLibrary("ADVAPI32.DLL");
-+  const HMODULE advapi32 = LoadLibrary(TEXT("ADVAPI32.DLL"));
+@@ -790,7 +796,7 @@
  
    if (advapi32) {
      const RTLGENRANDOM_FUNC RtlGenRandom
@@ -28,7 +23,7 @@ diff -urN expat.orig/xmlparse.c expat/xmlparse.c
      if (RtlGenRandom) {
        if (RtlGenRandom((PVOID)target, (ULONG)count) == TRUE) {
          success = 1;
-@@ -771,10 +779,21 @@
+@@ -808,10 +814,21 @@
  static unsigned long
  gather_time_entropy(void)
  {
@@ -51,7 +46,7 @@ diff -urN expat.orig/xmlparse.c expat/xmlparse.c
  #else
    struct timeval tv;
    int gettimeofday_res;
-@@ -793,7 +812,11 @@
+@@ -831,7 +848,11 @@
  
  static unsigned long
  ENTROPY_DEBUG(const char * label, unsigned long entropy) {
