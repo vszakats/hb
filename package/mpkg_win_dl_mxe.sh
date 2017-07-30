@@ -27,7 +27,7 @@ Author: Viktor Szakats <https://vszakats.net/>"
 }
 
 mxe_curl() {
-  curl -fsS --connect-timeout 15 --retry 3 "$@"
+  curl -fsS --connect-timeout 15 -m 540 --retry 3 "$@"
 }
 
 mxe_get_pkg() {
