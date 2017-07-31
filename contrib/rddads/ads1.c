@@ -465,7 +465,7 @@ static void adsGetKeyItem( ADSAREAP pArea, PHB_ITEM pItem, int iKeyType,
                ADT files can use ";" concatentation operator, which returns index key types as Raw
        */
       case ADS_RAW:
-         /* hack for timestamp values, we need something better yo detect timestamp indexes */
+         /* hack for timestamp values, we need something better to detect timestamp indexes */
          if( pArea->iFileType == ADS_ADT && pKeyBuf[ 0 ] == 0 && ( iKeyLen == 8 || iKeyLen == 4 ) )
          {
             long lDate;
@@ -490,6 +490,8 @@ static void adsGetKeyItem( ADSAREAP pArea, PHB_ITEM pItem, int iKeyType,
             break;
          }
 #endif
+         /* fallthrough */
+
       case ADS_STRING:
          hb_itemPutCL( pItem, pKeyBuf, iKeyLen );
          break;
@@ -618,6 +620,8 @@ static HB_ERRCODE adsScopeSet( ADSAREAP pArea, ADSHANDLE hOrder, HB_USHORT nScop
                   }
 #endif
                }
+               /* fallthrough */
+
             case ADS_STRING:
                if( HB_IS_STRING( pItem ) )
                {
@@ -2088,15 +2092,15 @@ static HB_ERRCODE adsFieldInfo( ADSAREAP pArea, HB_USHORT uiIndex, HB_USHORT uiT
          hb_itemPutL( pItem, u16Null != 0 );
          break;
       }
-#if ADS_LIB_VERSION >= 710
       case DBS_TYPE:
+#if ADS_LIB_VERSION >= 710
          if( pArea->area.lpFields[ uiIndex - 1 ].uiTypeExtended == ADS_CISTRING )
          {
             hb_itemPutC( pItem, "CICHARACTER" );
             break;
          }
-         /* fallthrough */
 #endif
+         /* fallthrough */
       default:
          return SUPER_FIELDINFO( &pArea->area, uiIndex, uiType, pItem );
    }
