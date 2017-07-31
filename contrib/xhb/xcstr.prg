@@ -166,7 +166,7 @@ FUNCTION ValToPrg( xVal, cName, nPad, aObjs )
 #endif
    CASE "P" ; RETURN "0x" + hb_NumToHex( xVal )
    CASE "O"
-      /* TODO: Use HBPersistent() when avialable! */
+      /* TODO: Use HBPersistent() when available! */
       IF cName == NIL
          cName := "M->__ValToPrg_Object"
          nPad := 0
