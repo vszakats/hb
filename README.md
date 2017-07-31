@@ -626,10 +626,10 @@ settings are case-sensitive.
 
    - `HB_BUILD_MODE=[cpp|c]`
 
-     Change default build mode to C++ or C. Default: `c`
+     Set default build mode to C++ or C. Default: `c`
 
      This option is meant for testing Harbour code base for issues revealed
-     by stricter C++ compiler rules and/or C/C++ interoperability issues.
+     by stricter C++ compiler rules and/or for C/C++ interoperability issues.
      Do not use it for production builds.
 
    - `HB_CCPATH=[<dir>/]`

@@ -109,7 +109,7 @@ debug and release versions.
   the various functions parameters and internal routines functionality.
 -DDISABLE_TIMING -- will disable the library to use the system timer
   and this will disable all the xxxTimed() functions from operation as
-  well. If you intent yo use the system timer for you own needs this
+  well. If you intent to use the system timer for you own needs this
   option will disable interception of the timer IRQ (IRQ0).
 -DDISABLE_PREEMPTING -- will turn off the ability to be preempted the
   process of handling COM IRQs. If you intent to use the library along
