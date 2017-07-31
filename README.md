@@ -541,11 +541,6 @@ settings are case-sensitive.
 
      Enable C compiler optimizations. Default: `yes`
 
-   - `HB_BUILD_MODE=[cpp|c]`
-
-     Change default build mode to C++ or C.
-     Default: `c`
-
    - `HB_BUILD_PARTS=[all|compiler|lib]`
 
      Build only specific part of Harbour.
@@ -628,6 +623,14 @@ settings are case-sensitive.
      Rebuild language parser sources. You only need this if your are Harbour
      core developer modifying grammar rules (.y). Requires GNU Bison 1.28 or
      upper in `PATH`. Default: `no`
+
+   - `HB_BUILD_MODE=[cpp|c]`
+
+     Change default build mode to C++ or C. Default: `c`
+
+     This option is meant for testing Harbour code base for issues revealed
+     by stricter C++ compiler rules and/or C/C++ interoperability issues.
+     Do not use it for production builds.
 
    - `HB_CCPATH=[<dir>/]`
 
