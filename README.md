@@ -544,7 +544,7 @@ settings are case-sensitive.
    - `HB_BUILD_MODE=[cpp|c]`
 
      Change default build mode to C++ or C.
-     Default: `c`, except for msvc* compilers, where it's `cpp`.
+     Default: `c`
 
    - `HB_BUILD_PARTS=[all|compiler|lib]`
 

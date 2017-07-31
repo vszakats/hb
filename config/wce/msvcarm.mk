@@ -45,10 +45,6 @@ endif
 ifeq ($(HB_BUILD_MODE),cpp)
    CFLAGS += -TP
 endif
-# Build in C++ mode by default
-ifeq ($(HB_BUILD_MODE),)
-   CFLAGS += -TP
-endif
 
 ifneq ($(HB_BUILD_WARN),no)
    ifneq ($(filter $(HB_COMPILER_VER),1200 1300 1310),)
