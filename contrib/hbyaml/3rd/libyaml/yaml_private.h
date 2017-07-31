@@ -5,6 +5,10 @@
 
 #include <yaml.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <assert.h>
 #include <limits.h>
 #include <stddef.h>
@@ -658,3 +662,6 @@ yaml_queue_extend(void **start, void **head, void **tail, void **end);
      (node).data.mapping.pairs.top = (node_pairs_start),                        \
      (node).data.mapping.style = (node_style))
 
+#ifdef __cplusplus
+}
+#endif

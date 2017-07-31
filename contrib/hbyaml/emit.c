@@ -335,10 +335,11 @@ HB_FUNC( YAML_DOCUMENT_ADD_SCALAR )
       void * hTag;
       void * hValue;
       HB_SIZE nValueLen;
+      const char * pValue = hb_parstr_utf8( 3, &hValue, &nValueLen );
 
       hb_retni( yaml_document_add_scalar( document,
          ( yaml_char_t * ) HB_UNCONST( hb_parstr_utf8( 2, &hTag, NULL ) ),
-         ( yaml_char_t * ) HB_UNCONST( hb_parstr_utf8( 3, &hValue, &nValueLen ) ),
+         ( yaml_char_t * ) HB_UNCONST( pValue ),
          ( int ) nValueLen,
          ( yaml_scalar_style_t ) hb_parni( 4 ) ) );
 

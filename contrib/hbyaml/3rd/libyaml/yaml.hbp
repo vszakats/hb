@@ -25,6 +25,7 @@ writer.c
 {hbdyn}-cflag=-DYAML_DECLARE_EXPORT
 
 # URL    https://github.com/yaml/libyaml/archive/0.1.7.tar.gz
+# DIFF   yaml.diff
 #
 # MAP    LICENSE
 # MAP    include/yaml.h     yaml.h
