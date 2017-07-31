@@ -292,8 +292,8 @@ HB_FUNC( YAML_DOCUMENT_INITIALIZE )
 
             for( nItem = 0; nItem < nLen; ++nItem )
             {
-               tag_directives_end->handle = HB_UNCONST( hb_strnull( hb_itemGetStrUTF8( hb_hashGetKeyAt( pTags, nItem + 1 )  , &hConvert[   nItem * 2       ], NULL ) ) );
-               tag_directives_end->prefix = HB_UNCONST( hb_strnull( hb_itemGetStrUTF8( hb_hashGetValueAt( pTags, nItem + 1 ), &hConvert[ ( nItem * 2 ) + 1 ], NULL ) ) );
+               tag_directives_end->handle = ( yaml_char_t * ) HB_UNCONST( hb_strnull( hb_itemGetStrUTF8( hb_hashGetKeyAt( pTags, nItem + 1 )  , &hConvert[   nItem * 2       ], NULL ) ) );
+               tag_directives_end->prefix = ( yaml_char_t * ) HB_UNCONST( hb_strnull( hb_itemGetStrUTF8( hb_hashGetValueAt( pTags, nItem + 1 ), &hConvert[ ( nItem * 2 ) + 1 ], NULL ) ) );
                ++tag_directives_end;
             }
          }
@@ -337,8 +337,8 @@ HB_FUNC( YAML_DOCUMENT_ADD_SCALAR )
       HB_SIZE nValueLen;
 
       hb_retni( yaml_document_add_scalar( document,
-         HB_UNCONST( hb_parstr_utf8( 2, &hTag, NULL ) ),
-         HB_UNCONST( hb_parstr_utf8( 3, &hValue, &nValueLen ) ),
+         ( yaml_char_t * ) HB_UNCONST( hb_parstr_utf8( 2, &hTag, NULL ) ),
+         ( yaml_char_t * ) HB_UNCONST( hb_parstr_utf8( 3, &hValue, &nValueLen ) ),
          ( int ) nValueLen,
          ( yaml_scalar_style_t ) hb_parni( 4 ) ) );
 
@@ -358,7 +358,7 @@ HB_FUNC( YAML_DOCUMENT_ADD_SEQUENCE )
       void * hTag;
 
       hb_retni( yaml_document_add_sequence( document,
-         HB_UNCONST( hb_parstr_utf8( 2, &hTag, NULL ) ),
+         ( yaml_char_t * ) HB_UNCONST( hb_parstr_utf8( 2, &hTag, NULL ) ),
          ( yaml_sequence_style_t ) hb_parni( 3 ) ) );
 
       hb_strfree( hTag );
@@ -376,7 +376,7 @@ HB_FUNC( YAML_DOCUMENT_ADD_MAPPING )
       void * hTag;
 
       hb_retni( yaml_document_add_mapping( document,
-         HB_UNCONST( hb_parstr_utf8( 2, &hTag, NULL ) ),
+         ( yaml_char_t * ) HB_UNCONST( hb_parstr_utf8( 2, &hTag, NULL ) ),
          ( yaml_mapping_style_t ) hb_parni( 3 ) ) );
 
       hb_strfree( hTag );
