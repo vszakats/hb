@@ -808,7 +808,7 @@ HB_FUNC( SQLITE3_EXEC )
 /**
    Compiling An SQL Statement
 
-   sqlite3_prepare( db, cSQLTEXT )
+   sqlite3_prepare( db, cSQLTEXT, [nPrepFlags] )
    --> return pointer to compiled statement or NIL if error occurs
 
    TODO: pszTail?
@@ -826,8 +826,15 @@ HB_FUNC( SQLITE3_PREPARE )
       const char *  pszSQLText = hb_parstr_utf8( 2, &hSQLText, &nSQLText );
       psqlite3_stmt pStmt;
       const char *  pszTail;
+      int           result;
 
-      if( sqlite3_prepare_v2( pHbSqlite3->db, pszSQLText, ( int ) nSQLText, &pStmt, &pszTail ) == SQLITE_OK )
+#if SQLITE_VERSION_NUMBER >= 3020000
+      result = sqlite3_prepare_v3( pHbSqlite3->db, pszSQLText, ( int ) nSQLText, ( unsigned int ) hb_parnl( 3 ), &pStmt, &pszTail );
+#else
+      result = sqlite3_prepare_v2( pHbSqlite3->db, pszSQLText, ( int ) nSQLText, &pStmt, &pszTail );
+#endif
+
+      if( result == SQLITE_OK )
          hb_retptr( pStmt );
       else
       {

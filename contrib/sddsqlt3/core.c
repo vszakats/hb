@@ -293,6 +293,7 @@ static HB_ERRCODE sqlite3Open( SQLBASEAREAP pArea )
    HB_ERRCODE     errCode;
    char *         szError;
    HB_BOOL        bError;
+   int            result;
 
    pArea->pSDDData = memset( hb_xgrab( sizeof( SDDDATA ) ), 0, sizeof( SDDDATA ) );
    pSDDData        = ( SDDDATA * ) pArea->pSDDData;
@@ -300,7 +301,13 @@ static HB_ERRCODE sqlite3Open( SQLBASEAREAP pArea )
    pItem    = hb_itemPutC( NULL, pArea->szQuery );
    pszQuery = S_HB_ITEMGETSTR( pItem, &hQuery, &nQueryLen );
 
-   if( sqlite3_prepare_v2( pDb, pszQuery, ( int ) nQueryLen, &st, NULL ) != SQLITE_OK )
+#if SQLITE_VERSION_NUMBER >= 3020000
+   result = sqlite3_prepare_v3( pDb, pszQuery, ( int ) nQueryLen, 0, &st, NULL );
+#else
+   result = sqlite3_prepare_v2( pDb, pszQuery, ( int ) nQueryLen, &st, NULL );
+#endif
+
+   if( result != SQLITE_OK )
    {
       hb_strfree( hQuery );
       hb_itemRelease( pItem );

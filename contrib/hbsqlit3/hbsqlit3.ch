@@ -174,4 +174,7 @@
 #define SQLITE_LIMIT_VARIABLE_NUMBER       9
 #define SQLITE_LIMIT_TRIGGER_DEPTH         10
 
+/* sqlite3_prepare() option (requires sqlite 3.20.0) */
+#define SQLITE_PREPARE_PERSISTENT          0x01
+
 #endif
