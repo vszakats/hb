@@ -49,7 +49,7 @@
 
    Some info links:
      https://web.archive.org/web/20150208040021/www.gs1.org/docs/barcodes/GS1_DataMatrix_Introduction_and_technical_overview.pdf
-     http://www.aipsys.com/dmintro.htm
+     https://web.archive.org/web/20161114095405/www.aipsys.com/dmintro.htm
 
    Open source projects, that implement DataMatrix:
      https://www.datenfreihafen.org/projects/iec16022.html
@@ -60,7 +60,7 @@
      https://www.barcodetools.com/generator/index.html
 
    Online decoder:
-     http://www.datasymbol.com/barcode-recognition-sdk/barcode-reader/online-barcode-decoder.html
+     http://www.datasymbol.com/barcode-reader-sdk/barcode-reader-sdk-for-windows/online-barcode-decoder.html
 
  */
 
