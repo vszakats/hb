@@ -230,7 +230,26 @@ PROCEDURE Main()
          SetPaletteIndex()
 
       CASE nKeyStd == K_ALT_F7
-         hb_gtInfo( HB_GTI_PALETTE, Palette_Windows10_16257() )
+
+         /* https://blogs.msdn.microsoft.com/commandline/2017/08/02/updating-the-windows-console-colors/ */
+         hb_gtInfo( HB_GTI_PALETTE, { ;
+            0x0C0C0C, ;
+            0xDA3700, ;
+            0x0EA113, ;
+            0xDD963A, ;
+            0x1F0FC5, ;
+            0x981788, ;
+            0x009CC1, ;
+            0xCCCCCC, ;
+            0x767676, ;
+            0xFF783B, ;
+            0x0CC616, ;
+            0xD6D661, ;
+            0x5648E7, ;
+            0x9E00B4, ;
+            0xA5F1F9, ;
+            0xF2F2F2 } )
+
          DispScreen()
 
       CASE nKeyStd == K_F8
@@ -614,23 +633,3 @@ STATIC PROCEDURE ChgPalette( lFocus )
    RestScreen( 0, 0, MaxRow(), MaxCol(), cSaveScreen )
 
    RETURN
-
-/* https://blogs.msdn.microsoft.com/commandline/2017/08/02/updating-the-windows-console-colors/ */
-STATIC FUNCTION Palette_Windows10_16257()
-   RETURN { ;
-      RGB( 12, 12, 12 ), ;
-      RGB( 0, 55, 218 ), ;
-      RGB( 19, 161, 14 ), ;
-      RGB( 58, 150, 221 ), ;
-      RGB( 197, 15, 31 ), ;
-      RGB( 136, 23, 152 ), ;
-      RGB( 193, 156, 0 ), ;
-      RGB( 204, 204, 204 ), ;
-      RGB( 118, 118, 118 ), ;
-      RGB( 59, 120, 255 ), ;
-      RGB( 22, 198, 12 ), ;
-      RGB( 97, 214, 214 ), ;
-      RGB( 231, 72, 86 ), ;
-      RGB( 180, 0, 158 ), ;
-      RGB( 249, 241, 165 ), ;
-      RGB( 242, 242, 242 ) }

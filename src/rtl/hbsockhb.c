@@ -537,7 +537,7 @@ static const HB_SOCKET_FILTER ** s_socket_getfilters( const char * pszFilter,
                                 hb_xmemdup( pFilters, sizeof( *pFilters ) * iMax );
                   iMax += 16;
                   pFilters = ( const HB_SOCKET_FILTER ** )
-                             hb_xrealloc( pFilters, sizeof( *pFilters ) * iMax );
+                             hb_xrealloc( HB_UNCONST( pFilters ), sizeof( *pFilters ) * iMax );
                }
                pFilters[ iCount++ ] = s_socketFilters[ i ];
             }
