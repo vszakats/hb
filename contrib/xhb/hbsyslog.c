@@ -51,7 +51,7 @@
 
 #if defined( HB_OS_WIN ) && ! defined( HB_OS_WIN_CE )
 
-   #include "windows.h"
+   #include <windows.h>
 
 static HANDLE s_RegHandle = NULL;
 

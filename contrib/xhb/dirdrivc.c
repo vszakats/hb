@@ -51,7 +51,7 @@
 #include "hbwinuni.h"
 
 #if defined( HB_OS_WIN )
-   #include "windows.h"
+   #include <windows.h>
 #endif
 
 #define _HB_MOUNT_UNKNOWN      0
