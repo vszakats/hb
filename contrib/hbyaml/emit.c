@@ -429,7 +429,7 @@ HB_FUNC( YAML_EMITTER_DUMP )
    if( emitter && document )
    {
       hb_retni( yaml_emitter_dump( emitter, document ) );
-      /* Document object is handled by the emitter object at this point
+      /* 'document' object is handled by the emitter object at this point
          and will be released automatically on yaml_emitter_delete(). Thus
          we need to make sure we don't delete it when deleting the document
          object, by NULL-ing it in the Harbour level object. [vszakats] */
