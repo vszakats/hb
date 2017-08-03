@@ -229,6 +229,10 @@ PROCEDURE Main()
       CASE nKeyStd == K_F7
          SetPaletteIndex()
 
+      CASE nKeyStd == K_ALT_F7
+         hb_gtInfo( HB_GTI_PALETTE, Palette_Windows10_16257() )
+         DispScreen()
+
       CASE nKeyStd == K_F8
          Alert( "Menu text changed. Was: " + hb_gtInfo( HB_GTI_SELECTCOPY, hb_TToS( hb_DateTime() ) ) )
 
@@ -366,8 +370,7 @@ STATIC PROCEDURE SetPalette( nMode )
    t_nG += iif( nMode == 0, -5, 5 )
    t_nB += iif( nMode == 0, -5, 5 )
 
-   // Change "W" to slightly gray everytime you press F5
-   //
+   // Change "W" to slightly gray everytime you press <F5>
    aPalette[ 8 ] := RGB( t_nR, t_nG, t_nB )
 
    hb_gtInfo( HB_GTI_PALETTE, aPalette )
@@ -611,3 +614,23 @@ STATIC PROCEDURE ChgPalette( lFocus )
    RestScreen( 0, 0, MaxRow(), MaxCol(), cSaveScreen )
 
    RETURN
+
+/* https://blogs.msdn.microsoft.com/commandline/2017/08/02/updating-the-windows-console-colors/ */
+STATIC FUNCTION Palette_Windows10_16257()
+   RETURN { ;
+      RGB( 12, 12, 12 ), ;
+      RGB( 0, 55, 218 ), ;
+      RGB( 19, 161, 14 ), ;
+      RGB( 58, 150, 221 ), ;
+      RGB( 197, 15, 31 ), ;
+      RGB( 136, 23, 152 ), ;
+      RGB( 193, 156, 0 ), ;
+      RGB( 204, 204, 204 ), ;
+      RGB( 118, 118, 118 ), ;
+      RGB( 59, 120, 255 ), ;
+      RGB( 22, 198, 12 ), ;
+      RGB( 97, 214, 214 ), ;
+      RGB( 231, 72, 86 ), ;
+      RGB( 180, 0, 158 ), ;
+      RGB( 249, 241, 165 ), ;
+      RGB( 242, 242, 242 ) }
