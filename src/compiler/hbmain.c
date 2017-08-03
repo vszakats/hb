@@ -2553,7 +2553,7 @@ static void hb_compGenVariablePCode( HB_COMP_DECL, HB_BYTE bPCode, const char * 
    /*
     * NOTE:
     * Clipper always assumes a memvar variable if undeclared variable
-    * is popped (a value is asssigned to a variable).
+    * is popped (a value is assigned to a variable).
     */
    if( HB_SUPPORT_HARBOUR )
       bGenCode = HB_COMP_PARAM->fForceMemvars;    /* Harbour compatibility */

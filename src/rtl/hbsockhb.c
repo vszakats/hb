@@ -553,7 +553,7 @@ static const HB_SOCKET_FILTER ** s_socket_getfilters( const char * pszFilter,
    if( iCount == 0 )
    {
       if( iMax > *piCount )
-         hb_xfree( pFilters );
+         hb_xfree( HB_UNCONST( pFilters ) );
       pFilters = NULL;
    }
    *piCount = iCount;
@@ -590,7 +590,7 @@ PHB_SOCKEX hb_sockexNew( HB_SOCKET sd, const char * pszFilter, PHB_ITEM pParams 
          pSock = pSockNew;
       }
       if( pFilters != pBuffer )
-         hb_xfree( pFilters );
+         hb_xfree( HB_UNCONST( pFilters ) );
    }
    return pSock;
 }
@@ -615,7 +615,7 @@ PHB_SOCKEX hb_sockexNext( PHB_SOCKEX pSock, const char * pszFilter, PHB_ITEM pPa
             pSock = NULL;
       }
       if( pFilters != pBuffer )
-         hb_xfree( pFilters );
+         hb_xfree( HB_UNCONST( pFilters ) );
    }
    return pSock;
 }

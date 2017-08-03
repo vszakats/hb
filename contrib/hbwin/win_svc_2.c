@@ -259,7 +259,7 @@ HB_FUNC( WIN_SERVICERUN )
                hb_strfree( hArgs[ pos ] );
 
             hb_xfree( hArgs );
-            hb_xfree( lpArgs );
+            hb_xfree( HB_UNCONST( lpArgs ) );
          }
 
          CloseServiceHandle( schSrv );

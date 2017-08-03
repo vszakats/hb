@@ -2284,7 +2284,7 @@ HB_FUNC( WIN_OLEAUTO___ONERROR )
 
    if( iPCount >= 1 && HB_ISHASH( 1 ) )
    {
-      /* named parameters are passsed in hash array */
+      /* named parameters are passed in hash array */
       PHB_ITEM pArgs[ HB_OLE_MAX_NAMEDARGS  ];
       DISPID pDispIds[ HB_OLE_MAX_NAMEDARGS + 1 ];
       UINT uiNamedArgs;
