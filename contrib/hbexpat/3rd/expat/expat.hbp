@@ -23,7 +23,7 @@ xmltok.c
 {bcc}-cflag=-w-8066
 
 # ORIGIN https://libexpat.github.io/
-# URL    https://downloads.sourceforge.net/project/expat/expat/2.2.2/expat-2.2.2.tar.bz2
+# URL    https://downloads.sourceforge.net/project/expat/expat/2.2.3/expat-2.2.3.tar.bz2
 #
 # MAP    COPYING
 # MAP    lib/xmlparse.c       xmlparse.c
@@ -38,6 +38,7 @@ xmltok.c
 # MAP    lib/iasciitab.h      iasciitab.h
 # MAP    lib/internal.h       internal.h
 # MAP    lib/latin1tab.h      latin1tab.h
+# MAP    lib/loadlibrary.c    loadlibrary.c
 # MAP    lib/nametab.h        nametab.h
 # MAP    lib/siphash.h        siphash.h
 # MAP    lib/utf8tab.h        utf8tab.h
