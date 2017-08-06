@@ -27,7 +27,7 @@ yum install -y gcc git rpm-build findutils \
   lzo-devel \
   minizip-devel \
   openssl-devel \
-  pcre-devel \
+  pcre2-devel \
   postgresql-devel \
   sqlite-devel \
   unixODBC-devel
