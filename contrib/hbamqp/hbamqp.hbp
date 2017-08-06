@@ -8,10 +8,10 @@
 -depurlbase=rabbitmq:https://github.com/alanxz/rabbitmq-c
 -deppkgname=rabbitmq:librabbitmq-dev{deb}
 -deppkgname=rabbitmq:librabbitmq-devel{rpm}
+-deppkgname=rabbitmq:rabbitmq-c{homebrew}
+-deppkgname=rabbitmq:rabbitmq-c{pacman}
 -deppkgname=rabbitmq:mingw-w64-i686-rabbitmq-c{msys2&mingw}
 -deppkgname=rabbitmq:mingw-w64-x86_64-rabbitmq-c{msys2&mingw64}
--deppkgname=rabbitmq:rabbitmq-c{pacman}
--deppkgname=rabbitmq:rabbitmq-c{homebrew}
 -depkeyhead=rabbitmq:amqp.h
 -depcontrol=rabbitmq:no{HB_BUILD_3RDEXT='no'}
 -depcontrol=rabbitmq:${HB_WITH_RABBITMQ}

@@ -10,10 +10,10 @@
 -depurlbase=curl:https://github.com/vszakats/harbour-deps{mingw|mingw64}
 -deppkgname=curl:libcurl4-openssl-dev{deb}
 -deppkgname=curl:curl-devel{rpm}
+-deppkgname=curl:curl{homebrew}
+-deppkgname=curl:curl{pacman}
 -deppkgname=curl:mingw-w64-i686-curl{msys2&mingw}
 -deppkgname=curl:mingw-w64-x86_64-curl{msys2&mingw64}
--deppkgname=curl:curl{pacman}
--deppkgname=curl:curl{homebrew}
 -depkeyhead=curl:curl/curl.h
 -depcontrol=curl:no{HB_BUILD_3RDEXT='no'}
 -depcontrol=curl:${HB_WITH_CURL}

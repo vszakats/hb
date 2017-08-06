@@ -68,7 +68,6 @@
 static void hb_regfree( PHB_REGEX pRegEx )
 {
 #if defined( HB_HAS_PCRE2 )
-   pcre2_match_data_free( pRegEx->re_match_data );
    pcre2_code_free( pRegEx->re_pcre );
 #elif defined( HB_HAS_PCRE )
    ( pcre_free )( pRegEx->re_pcre );
@@ -84,20 +83,20 @@ static int hb_regcomp( PHB_REGEX pRegEx, const char * szRegEx )
 #if defined( HB_HAS_PCRE2 )
    int iError = 0;
    PCRE2_SIZE iErrOffset = 0;
-   int iCFlags = ( ( pRegEx->iFlags & HBREG_ICASE   ) ? PCRE2_CASELESS  : 0 ) |
-                 ( ( pRegEx->iFlags & HBREG_NEWLINE ) ? PCRE2_MULTILINE : 0 ) |
-                 ( ( pRegEx->iFlags & HBREG_DOTALL  ) ? PCRE2_DOTALL    : 0 );
+   HB_U32 uiCFlags = ( ( pRegEx->iFlags & HBREG_ICASE   ) ? PCRE2_CASELESS  : 0 ) |
+                     ( ( pRegEx->iFlags & HBREG_NEWLINE ) ? PCRE2_MULTILINE : 0 ) |
+                     ( ( pRegEx->iFlags & HBREG_DOTALL  ) ? PCRE2_DOTALL    : 0 );
 
    pRegEx->iEFlags = ( ( pRegEx->iFlags & HBREG_NOTBOL ) ? PCRE2_NOTBOL : 0 ) |
                      ( ( pRegEx->iFlags & HBREG_NOTEOL ) ? PCRE2_NOTEOL : 0 );
 
    /* use UTF8 in pcre when available and HVM CP is also UTF8. */
    if( s_iUTF8Enabled && hb_cdpIsUTF8( NULL ) )
-      iCFlags |= PCRE2_UTF;
+      uiCFlags |= PCRE2_UTF;
 
    pRegEx->re_pcre = pcre2_compile( ( PCRE2_SPTR ) szRegEx,
-                                    strlen( szRegEx ),
-                                    ( PCRE2_SIZE ) iCFlags,
+                                    ( PCRE2_SIZE ) strlen( szRegEx ),
+                                    uiCFlags,
                                     &iError,
                                     &iErrOffset, s_re_ctxc );
    return pRegEx->re_pcre ? 0 : -1;
@@ -142,7 +141,7 @@ static int hb_regexec( PHB_REGEX pRegEx, const char * szString, HB_SIZE nLen,
                                      ( PCRE2_SPTR ) szString,
                                      ( PCRE2_SIZE ) nLen,
                                      ( PCRE2_SIZE ) 0 /* startoffset */,
-                                     ( uint32_t ) pRegEx->iEFlags,
+                                     ( HB_U32 ) pRegEx->iEFlags,
                                      aMatches, s_re_ctxm );
    if( iResult == 0 )
    {
@@ -253,7 +252,7 @@ HB_FUNC( HB_ATX )
          {
             const char * pszString = hb_itemGetCPtr( pString );
 #if defined( HB_HAS_PCRE2 )
-            HB_REGMATCH * aMatches = pRegEx->re_match_data = pcre2_match_data_create( 1, NULL );
+            HB_REGMATCH * aMatches = pcre2_match_data_create( 1, NULL );
 #else
             HB_REGMATCH aMatches[ HB_REGMATCH_SIZE( 1 ) ];
 #endif
@@ -274,6 +273,10 @@ HB_FUNC( HB_ATX )
             }
             else
                nStart = nLen = 0;
+
+#if defined( HB_HAS_PCRE2 )
+            pcre2_match_data_free( aMatches );
+#endif
          }
          else
             nStart = nLen = 0;
@@ -320,7 +323,7 @@ static HB_BOOL hb_regex( int iRequest )
       return HB_FALSE;
 
 #if defined( HB_HAS_PCRE2 )
-   aMatches = pRegEx->re_match_data = pcre2_match_data_create( REGEX_MAX_GROUPS, NULL );
+   aMatches = pcre2_match_data_create( REGEX_MAX_GROUPS, NULL );
 #endif
 
    pszString = hb_itemGetCPtr( pString );
@@ -534,6 +537,10 @@ static HB_BOOL hb_regex( int iRequest )
       hb_itemReturnRelease( pRetArray );
       fResult = HB_TRUE;
    }
+
+#if defined( HB_HAS_PCRE2 )
+   pcre2_match_data_free( aMatches );
+#endif
 
    hb_regexFree( pRegEx );
    return fResult;

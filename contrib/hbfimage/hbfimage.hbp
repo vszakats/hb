@@ -12,10 +12,10 @@ hbwin.hbc{allwin}
 -depurlbase=freeimage:https://sourceforge.net/projects/freeimage/
 -deppkgname=freeimage:libfreeimage-dev{deb}
 -deppkgname=freeimage:freeimage-devel{rpm}
+-deppkgname=freeimage:freeimage{homebrew}
+-deppkgname=freeimage:freeimage{pacman}
 -deppkgname=freeimage:mingw-w64-i686-freeimage{msys2&mingw}
 -deppkgname=freeimage:mingw-w64-x86_64-freeimage{msys2&mingw64}
--deppkgname=freeimage:freeimage{pacman}
--deppkgname=freeimage:freeimage{homebrew}
 -depkeyhead=freeimage:FreeImage.h
 -depcontrol=freeimage:no{HB_BUILD_3RDEXT='no'}
 -depcontrol=freeimage:${HB_WITH_FREEIMAGE}

@@ -8,10 +8,10 @@
 -depurlbase=libyaml:https://github.com/yaml/libyaml
 -deppkgname=libyaml:libyaml-dev{deb}
 -deppkgname=libyaml:libyaml-devel{rpm}
+-deppkgname=libyaml:libyaml{homebrew}
+-deppkgname=libyaml:libyaml{pacman}
 -deppkgname=libyaml:mingw-w64-i686-libyaml{msys2&mingw}
 -deppkgname=libyaml:mingw-w64-x86_64-libyaml{msys2&mingw64}
--deppkgname=libyaml:libyaml{pacman}
--deppkgname=libyaml:libyaml{homebrew}
 -depkeyhead=libyaml:yaml.h
 -depcontrol=libyaml:local{HB_BUILD_3RDEXT='no'}
 -depcontrol=libyaml:${HB_WITH_LIBYAML}

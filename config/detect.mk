@@ -20,7 +20,6 @@ export HB_HAS_PCRE2       :=
 export HB_HAS_PCRE2_LOCAL :=
 export HB_HAS_PCRE        :=
 export HB_HAS_PCRE_LOCAL  :=
-export HB_HAS_OPENSSL     :=
 export HB_HAS_GPM         :=
 export HB_HAS_SLANG       :=
 export HB_HAS_CURSES      :=
@@ -40,6 +39,13 @@ endif
 
 # Detect zlib
 
+# zlib1g-dev{deb}
+# zlib-devel{rpm}
+# zlib{homebrew}
+# zlib{pacman}
+# mingw-w64-i686-zlib{msys2&mingw}
+# mingw-w64-x86_64-zlib{msys2&mingw64}
+
 _DET_DSP_NAME := zlib
 _DET_VAR_INC_ := HB_INC_ZLIB
 _DET_VAR_HAS_ := HB_HAS_ZLIB
@@ -52,6 +58,13 @@ _DET_INC_HEAD := /zlib.h
 include $(TOP)$(ROOT)config/detfun.mk
 
 # Detect pcre2
+
+# libpcre2-dev{deb}
+# pcre2-devel{rpm}
+# pcre2{homebrew}
+# pcre2{pacman}
+# mingw-w64-i686-?{msys2&mingw}
+# mingw-w64-x86_64-?{msys2&mingw64}
 
 _DET_DSP_NAME := pcre2
 _DET_VAR_INC_ := HB_INC_PCRE2
@@ -68,6 +81,13 @@ ifeq ($(HB_HAS_PCRE2),)
 
    # Detect pcre
 
+   # libpcre3-dev{deb}
+   # pcre-devel{rpm}
+   # pcre{homebrew}
+   # pcre{pacman}
+   # mingw-w64-i686-pcre{msys2&mingw}
+   # mingw-w64-x86_64-pcre{msys2&mingw64}
+
    _DET_DSP_NAME := pcre
    _DET_VAR_INC_ := HB_INC_PCRE
    _DET_VAR_HAS_ := HB_HAS_PCRE
@@ -82,6 +102,11 @@ endif
 
 # Detect GPM mouse
 
+# libgmp-dev{deb}
+# libgpmg1-dev{deb}
+# gpm-devel{rpm}
+# gpm{pacman}
+
 _DET_DSP_NAME := gpm
 _DET_VAR_INC_ := HB_INC_GPM
 _DET_VAR_HAS_ := HB_HAS_GPM
@@ -93,6 +118,12 @@ _DET_INC_HEAD := /gpm.h
 include $(TOP)$(ROOT)config/detfun.mk
 
 # Detect s-lang
+
+# libslang1-dev{deb}
+# libslang2-dev{deb}
+# slang-devel{rpm}
+# s-lang{homebrew}
+# slang{pacman}
 
 _DET_DSP_NAME := s-lang
 _DET_VAR_INC_ := HB_INC_SLANG
@@ -111,6 +142,13 @@ _DET_INC_DEFP += /usr/pkg/include/slang2 /usr/pkg/include
 include $(TOP)$(ROOT)config/detfun.mk
 
 # Detect curses
+
+# libncurses5-dev{deb}
+# ncurses-devel{rpm}
+# ncurses{homebrew}
+# ncurses{pacman}
+# mingw-w64-i686-ncurses{msys2&mingw}
+# mingw-w64-x86_64-ncurses{msys2&mingw64}
 
 _DET_DSP_NAME := curses
 _DET_VAR_INC_ := HB_INC_CURSES
@@ -131,6 +169,12 @@ endif
 include $(TOP)$(ROOT)config/detfun.mk
 
 # Detect X11
+
+# libx11-dev{deb}
+# libX11-devel{rpm}
+# xorg-x11-devel{rpm}
+# XFree86-devel{rpm}
+# libx11{pacman}
 
 _DET_DSP_NAME := x11
 _DET_VAR_INC_ := HB_INC_X11

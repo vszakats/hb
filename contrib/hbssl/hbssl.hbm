@@ -13,12 +13,12 @@
 -depurlbase=openssl:https://www.openssl.org/community/binaries.html
 -deppkgname=openssl:libssl-dev{deb}
 -deppkgname=openssl:openssl-devel{rpm}
--deppkgname=openssl:mingw-w64-i686-openssl{msys2&mingw}
--deppkgname=openssl:mingw-w64-x86_64-openssl{msys2&mingw64}
--deppkgname=openssl:openssl{pacman}
 -deppkgname=openssl:openssl@1.1{homebrew}
 -deppkgname=openssl:openssl{homebrew}
 -deppkgname=openssl:libressl{homebrew}
+-deppkgname=openssl:openssl{pacman}
+-deppkgname=openssl:mingw-w64-i686-openssl{msys2&mingw}
+-deppkgname=openssl:mingw-w64-x86_64-openssl{msys2&mingw64}
 -depkeyhead=openssl:openssl/ssl.h
 -depcontrol=openssl:no{HB_BUILD_3RDEXT='no'}
 -depcontrol=openssl:${HB_WITH_OPENSSL}

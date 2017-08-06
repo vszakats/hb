@@ -29,6 +29,7 @@ addons:
     # - libminizip-dev
     # - libmxml-dev
       - libmysqlclient-dev
+    # - libpcre2-dev
     # - libpcre3-dev
     # - libpng12-dev
       - libncurses5-dev
@@ -91,12 +92,12 @@ before_install:
         time wineboot
         export MXE_DONT_INSTALL=gcc
       # travis_wait time ./package/mpkg_win_dl_mxe.sh \
-      #   mxe-{i686,x86-64}-w64-mingw32.static-{bzip2,expat,libharu,mxml,libpng,lzo,minizip,pcre,sqlite,zlib}
+      #   mxe-{i686,x86-64}-w64-mingw32.static-{bzip2,expat,libharu,mxml,libpng,lzo,minizip,pcre2,pcre,sqlite,zlib}
         travis_wait time ./package/mpkg_win_dl_mxe.sh \
           mxe-{i686,x86-64}-w64-mingw32.shared-{cairo,file,ghostscript,icu4c,libmysqlclient,postgresql} \
           mxe-{i686,x86-64}-w64-mingw32.static-{freeimage,gd}
       else
-      # brew install bzip2 libharu liblzf libmxml libpng libxdiff lzo minizip pcre sqlite zlib
+      # brew install bzip2 libharu liblzf libmxml libpng libxdiff lzo minizip pcre2 pcre sqlite zlib
         brew install --force-bottle --build-bottle fontconfig || true
         brew install \
           expat \

@@ -10,6 +10,7 @@
 set -x; cat /etc/*-release; ulimit -a; df -h
 
 yum install -y gcc git rpm-build findutils \
+  bzip2-devel \
   cairo-devel \
   cups-devel \
   curl-devel \
@@ -19,16 +20,22 @@ yum install -y gcc git rpm-build findutils \
   freeimage-devel \
   gd-devel \
   ghostscript-devel \
+  libicu-devel \
   libmariadb-devel \
+  libpng-devel \
   libyaml-devel \
   lzo-devel \
   minizip-devel \
   openssl-devel \
+  pcre-devel \
   postgresql-devel \
+  sqlite-devel \
   unixODBC-devel
 
-# librabbitmq-devel provides verison 0.2, which is too old to
-# be supported.
+# qt5-devel: not currently offered
+# librabbitmq-devel: version 0.2, too old to be supported
+# ocilib-devel: not currently offered
+# pcre2-devel: not currently offered
 
 ./package/mpkg_rpm.sh
 

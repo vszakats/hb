@@ -8,10 +8,10 @@
 -depurlbase=expat:https://github.com/libexpat/libexpat
 -deppkgname=expat:libexpat1-dev{deb}
 -deppkgname=expat:expat-devel{rpm}
+-deppkgname=expat:expat{homebrew}
+-deppkgname=expat:expat{pacman}
 -deppkgname=expat:mingw-w64-i686-expat{msys2&mingw}
 -deppkgname=expat:mingw-w64-x86_64-expat{msys2&mingw64}
--deppkgname=expat:expat{pacman}
--deppkgname=expat:expat{homebrew}
 -depkeyhead=expat:expat.h
 -depcontrol=expat:local{HB_BUILD_3RDEXT='no'}
 -depcontrol=expat:${HB_WITH_EXPAT}
