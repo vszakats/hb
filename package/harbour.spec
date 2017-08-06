@@ -66,7 +66,7 @@
 %define hb_crs    export HB_WITH_CURSES=%{!?_without_curses:yes}%{?_without_curses:no}
 %define hb_sln    export HB_WITH_SLANG=%{!?_without_slang:yes}%{?_without_slang:no}
 %define hb_x11    export HB_WITH_X11=%{!?_without_x11:yes}%{?_without_x11:no}
-%define hb_local  export HB_WITH_ZLIB=%{?_with_localzlib:local} ; export HB_WITH_PCRE2=%{?_with_localpcre2:local} ; export HB_WITH_PCRE=%{?_with_localpcre:local} ; export HB_WITH_BZIP2=%{?_with_localbz2:local} ; export HB_WITH_EXPAT=%{?_with_localexpat:local} ; export HB_WITH_LIBYAML=%{?_with_locallibyaml:local}
+%define hb_local  export HB_WITH_ZLIB=%{?_with_localzlib:local} ; export HB_WITH_PCRE2=%{?_with_localpcre2:local} ; export HB_WITH_PCRE=%{?_with_localpcre:local} ; export HB_WITH_BZIP2=%{?_with_localbz2:local} ; export HB_WITH_EXPAT=%{?_with_localexpat:local} ; export HB_WITH_LIBYAML=%{?_with_locallibyaml:local} ; export HB_WITH_SQLITE3=%{?_with_localsqlite3:local}
 %define hb_proot  export HB_INSTALL_PKG_ROOT=${RPM_BUILD_ROOT}
 %define hb_bdir   export HB_INSTALL_BIN=${RPM_BUILD_ROOT}%{_bindir}
 %define hb_ldir   export HB_INSTALL_LIB=${RPM_BUILD_ROOT}%{_libdir}/%{name}
@@ -417,6 +417,7 @@ make install %{?_smp_mflags}
 %{!?_with_localbz2:rm -f $HB_INSTALL_LIB/libbz2.a}
 %{!?_with_localexpat:rm -f $HB_INSTALL_LIB/libexpat.a}
 %{!?_with_locallibyaml:rm -f $HB_INSTALL_LIB/libyaml.a}
+%{!?_with_localsqlite3:rm -f $HB_INSTALL_LIB/libsqlite3.a}
 %{!?hb_ldconf:rm -fR $HB_INSTALL_ETC/ld.so.conf.d}
 %{?hb_ldconf:rm -f $RPM_BUILD_ROOT/%{_libdir}/*.so*}
 rm -f $RPM_BUILD_ROOT/%{_bindir}/{3rdpatch.hb,commit.hb,hb-uncrustify.cfg}
@@ -512,6 +513,7 @@ rm -rf "$RPM_BUILD_ROOT"
 %{_datadir}/%{name}/contrib/contrib.hbr
 %dir %{_datadir}/%{name}/contrib/3rd/sqlite3
 %{_datadir}/%{name}/contrib/3rd/sqlite3/*
+%{?_with_locallibyaml:%{_libdir}/%{name}/libsqlite3.a}
 %dir %{_datadir}/%{name}/contrib/hbblink
 %{_datadir}/%{name}/contrib/hbblink/*
 %{_libdir}/%{name}/libhbblink.a
@@ -622,7 +624,7 @@ rm -rf "$RPM_BUILD_ROOT"
 %{_libdir}/%{name}/libhbxdiff.a
 %dir %{_datadir}/%{name}/contrib/hbyaml
 %{_datadir}/%{name}/contrib/hbyaml/*
-%{?_with_localyaml:%{_libdir}/%{name}/libyaml.a}
+%{?_with_locallibyaml:%{_libdir}/%{name}/libyaml.a}
 %{_libdir}/%{name}/libhbyaml.a
 %dir %{_datadir}/%{name}/contrib/hbzebra
 %{_datadir}/%{name}/contrib/hbzebra/*

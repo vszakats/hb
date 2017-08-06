@@ -27,4 +27,9 @@ rddsql.hbc
 
 core.c
 
+# Copy contrib/3rd/sqlite3/sqlite3.hbc to install destination
+# It's needed even if the local/vendored sqlite3 copy wasn't used.
+-instfile=contrib_sqlite3:${_HB_PROJECT_HOME}/../3rd/sqlite3/*.hbc
+{_HB_INST_CORE&_HB_INSTALL_CONTRIB&hblib}-instpath=contrib_sqlite3:${_HB_INSTALL_CONTRIB}/3rd/sqlite3/
+
 ../3rd/sqlite3/sqlite3.hbc{HBMK_HAS_SQLITE3_LOCAL}

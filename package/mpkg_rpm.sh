@@ -158,6 +158,10 @@ if ! test_reqrpm 'libyaml-devel' || \
    [ "$HB_WITH_LIBYAML" = 'local' ]; then
   INST_PARAM="${INST_PARAM} --with locallibyaml"
 fi
+if ! test_reqrpm 'sqlite-devel' || \
+   [ "$HB_WITH_SQLITE3" = "local" ]; then
+  INST_PARAM="${INST_PARAM} --with localsqlite3"
+fi
 
 TOINST_LST=''
 for i in ${NEED_RPM}; do
