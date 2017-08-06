@@ -1,45 +1,45 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-600 -400 1200 800">
+<svg viewBox="-600 -400 1200 800" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
  <defs>
-  <circle id="a" r="145.663" fill="none" stroke="#013ba6" stroke-width="39.03"/>
-  <circle id="c" r="145.663" fill="none" stroke="#fff" stroke-width="17.347"/>
-  <clipPath id="b">
-   <path d="M0-200v400h200v-400zm-200 0v400h100v-400z"/>
+  <circle id="m" r="145.66" fill="none" stroke="#013ba6" stroke-width="39.03"/>
+  <circle id="l" r="145.66" fill="none" stroke="#fff" stroke-width="17.347"/>
+  <clipPath id="t">
+   <path d="m0-200v400h200v-400zm-200 0v400h100v-400z"/>
   </clipPath>
-  <clipPath id="e">
+  <clipPath id="s">
    <path d="M-200-200h400V50h-400z"/>
   </clipPath>
-  <clipPath id="f">
-   <path d="M0 0l-200-150v300z"/>
+  <clipPath id="r">
+   <path d="m0 0-200-150v300z"/>
   </clipPath>
-  <clipPath id="g">
-   <path d="M0 0l-200-200v400z"/>
+  <clipPath id="q">
+   <path d="m0 0-200-200v400z"/>
   </clipPath>
-  <clipPath id="h">
-   <path d="M0 0l-50-200h-150v350z"/>
+  <clipPath id="p">
+   <path d="m0 0-50-200h-150v350z"/>
   </clipPath>
-  <clipPath id="i">
-   <path d="M0 0v-200h-200v400z"/>
+  <clipPath id="o">
+   <path d="m0 0v-200h-200v400z"/>
   </clipPath>
  </defs>
- <path fill="#013ba6" d="M-600-400H600v800H-600z"/>
- <g id="d" transform="translate(145.663)">
-  <use xlink:href="#a" clip-path="url(#b)"/>
-  <use xlink:href="#c"/>
+ <path d="M-600-400H600v800H-600z" fill="#013ba6"/>
+ <g id="k" transform="translate(145.66)">
+  <use clip-path="url(#t)" xlink:href="#m"/>
+  <use xlink:href="#l"/>
  </g>
- <use xlink:href="#d" transform="rotate(-60)"/>
- <use xlink:href="#d" transform="rotate(60)"/>
- <use xlink:href="#d" transform="rotate(120)"/>
- <use xlink:href="#d" transform="rotate(180)"/>
- <use xlink:href="#d" transform="rotate(240)"/>
- <use xlink:href="#a" clip-path="url(#e)"/>
- <use xlink:href="#c"/>
- <g transform="translate(145.663)">
-  <use xlink:href="#a" clip-path="url(#f)"/>
-  <use xlink:href="#c" clip-path="url(#g)"/>
+ <use transform="rotate(-60)" xlink:href="#k"/>
+ <use transform="rotate(60)" xlink:href="#k"/>
+ <use transform="rotate(120)" xlink:href="#k"/>
+ <use transform="rotate(180)" xlink:href="#k"/>
+ <use transform="rotate(240)" xlink:href="#k"/>
+ <use clip-path="url(#s)" xlink:href="#m"/>
+ <use xlink:href="#l"/>
+ <g transform="translate(145.66)">
+  <use clip-path="url(#r)" xlink:href="#m"/>
+  <use clip-path="url(#q)" xlink:href="#l"/>
  </g>
- <g id="j" transform="rotate(120 -72.832 42.05)">
-  <use xlink:href="#a" clip-path="url(#h)"/>
-  <use xlink:href="#c" clip-path="url(#i)"/>
+ <g id="n" transform="rotate(120 -72.832 42.05)">
+  <use clip-path="url(#p)" xlink:href="#m"/>
+  <use clip-path="url(#o)" xlink:href="#l"/>
  </g>
- <use xlink:href="#j" transform="scale(-1 1)"/>
+ <use transform="scale(-1 1)" xlink:href="#n"/>
 </svg>

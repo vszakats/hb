@@ -1,25 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 7410 3900">
- <path fill="#b22234" d="M0 0h7410v3900H0z"/>
+<svg viewBox="0 0 7410 3900" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <path d="M0 0h7410v3900H0z" fill="#b22234"/>
  <path d="M0 450h7410m0 600H0m0 600h7410m0 600H0m0 600h7410m0 600H0" stroke="#fff" stroke-width="300"/>
- <path fill="#3c3b6e" d="M0 0h2964v2100H0z"/>
+ <path d="M0 0h2964v2100H0z" fill="#3c3b6e"/>
  <g fill="#fff">
-  <g id="d">
-   <g id="c">
-    <g id="e">
-     <g id="b">
-      <path id="a" d="M247 90l70.534 217.082-184.66-134.164h228.253L176.466 307.082z"/>
-      <use xlink:href="#a" y="420"/>
-      <use xlink:href="#a" y="840"/>
-      <use xlink:href="#a" y="1260"/>
+  <g id="h">
+   <g id="f">
+    <g id="g">
+     <g id="i">
+      <path id="a" d="m247 90 70.534 217.08-184.66-134.16h228.25l-184.66 134.16z"/>
+      <use y="420" xlink:href="#a"/>
+      <use y="840" xlink:href="#a"/>
+      <use y="1260" xlink:href="#a"/>
      </g>
-     <use xlink:href="#a" y="1680"/>
+     <use y="1680" xlink:href="#a"/>
     </g>
-    <use xlink:href="#b" x="247" y="210"/>
+    <use x="247" y="210" xlink:href="#i"/>
    </g>
-   <use xlink:href="#c" x="494"/>
+   <use x="494" xlink:href="#f"/>
   </g>
-  <use xlink:href="#d" x="988"/>
-  <use xlink:href="#c" x="1976"/>
-  <use xlink:href="#e" x="2470"/>
+  <use x="988" xlink:href="#h"/>
+  <use x="1976" xlink:href="#f"/>
+  <use x="2470" xlink:href="#g"/>
  </g>
 </svg>
