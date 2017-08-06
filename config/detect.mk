@@ -104,7 +104,7 @@ endif
 
 # Detect GPM mouse
 
-# libgmp-dev{deb}
+# libgpm-dev{deb}
 # libgpmg1-dev{deb}
 # gpm-devel{rpm}
 # gpm{pacman}
