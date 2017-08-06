@@ -29,8 +29,8 @@ addons:
     # - libminizip-dev (requires Ubuntu 'xenial')
       - libmxml-dev
       - libmysqlclient-dev
-      - libpcre2-dev
-    # - libpcre3-dev
+    # - libpcre2-dev (requires Ubuntu 'xenial')
+      - libpcre3-dev
       - libpng12-dev
       - libncurses5-dev
       - libpq-dev
