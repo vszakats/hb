@@ -1526,6 +1526,7 @@ Supported shells per host platforms:
      * Harbour [online documentation](https://harbour.github.io/doc/)
      * Harbour [internal documents](doc/)
      * [Harbour for Beginners (by Alexander Kresin)](https://www.kresin.ru/en/hrbfaq_3.html)
+     * [Harbour Wiki (by Pete D)](https://github.com/Petewg/V-harbour-core/wiki)
      * [Wikipedia](https://en.wikipedia.org/wiki/Harbour_compiler)
      * [Stack Overflow](https://stackoverflow.com/questions/tagged/clipper)
      * [Medium](https://medium.com/harbour-magazine)
