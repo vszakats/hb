@@ -24,49 +24,52 @@ C_SOURCES := \
    pngwtran.c \
    pngwutil.c \
 
-ifneq ($(HB_HAS_PNG_LOCAL),)
+ifeq ($(filter $(HB_COMPILER),poccarm xcc tcc),)
 
-   ifeq ($(filter $(HB_COMPILER),poccarm xcc tcc),)
+# Detect libpng
 
-      _DET_DSP_NAME := libpng
-      _DET_VAR_INC_ := HB_INC_PNG
-      _DET_VAR_HAS_ := HB_HAS_PNG
-      _DET_FLT_PLAT :=
-      _DET_FLT_COMP :=
-      _DET_INC_DEFP := /usr/include /boot/develop/headers/3rdparty
-      _DET_INC_LOCL := src/3rd/png
-      _DET_INC_HEAD := /png.h
-      include $(TOP)$(ROOT)config/detfun.mk
+   # libpng12-dev{deb}
+   # libpng-devel{rpm}
+   # libpng{homebrew}
+   # libpng{pacman}
+   # mingw-w64-i686-libpng{msys2&mingw}
+   # mingw-w64-x86_64-libpng{msys2&mingw64}
 
-      ifneq ($(HB_HAS_PNG_LOCAL),)
+   _DET_DSP_NAME := libpng
+   _DET_VAR_INC_ := HB_INC_PNG
+   _DET_VAR_HAS_ := HB_HAS_PNG
+   _DET_FLT_PLAT :=
+   _DET_FLT_COMP :=
+   _DET_INC_DEFP := /usr/local/opt/png/include /usr/include /usr/local/include /boot/develop/headers/3rdparty
+   _DET_INC_LOCL := src/3rd/png
+   _DET_INC_HEAD := /png.h
+   include $(TOP)$(ROOT)config/detfun.mk
 
-         ifneq ($(HB_HAS_ZLIB),)
+   ifneq ($(HB_HAS_PNG_LOCAL),)
 
-            HB_CFLAGS += $(foreach d,$(HB_HAS_ZLIB),-I$(d))
-            HB_CFLAGS_DYN := -DPNG_BUILD_DLL
+      ifneq ($(HB_HAS_ZLIB),)
 
-            # requirement for wce and for win/msvc with -sdl option
-            HB_CFLAGS += -DPNG_NO_STDIO
+         HB_CFLAGS += $(foreach d,$(HB_HAS_ZLIB),-I$(d))
+         HB_CFLAGS_DYN := -DPNG_BUILD_DLL
 
-            ifneq ($(filter $(HB_COMPILER),pocc pocc64 poccarm),)
-               HB_CFLAGS += -DPNG_ALLOCATED
-            endif
+         # requirement for wce and for win/msvc with -sdl option
+         HB_CFLAGS += -DPNG_NO_STDIO
 
-            include $(TOP)$(ROOT)config/lib.mk
-         else
-            HB_SKIP_REASON := $(_DET_RES_TEXT)
-            include $(TOP)$(ROOT)config/none.mk
+         ifneq ($(filter $(HB_COMPILER),pocc pocc64 poccarm),)
+            HB_CFLAGS += -DPNG_ALLOCATED
          endif
+
+         include $(TOP)$(ROOT)config/lib.mk
       else
-         HB_SKIP_REASON := local copy unused
+         HB_SKIP_REASON := $(_DET_RES_TEXT)
          include $(TOP)$(ROOT)config/none.mk
       endif
    else
-      HB_SKIP_REASON := compiler not supported
+      HB_SKIP_REASON := local copy unused
       include $(TOP)$(ROOT)config/none.mk
    endif
 else
-   HB_SKIP_REASON := local copy unused
+   HB_SKIP_REASON := compiler not supported
    include $(TOP)$(ROOT)config/none.mk
 endif
 
