@@ -26,7 +26,7 @@ addons:
       - libicu-dev
       - liblzo2-dev
       - libmagic-dev
-      - libminizip-dev
+    # - libminizip-dev (requires Ubuntu 'xenial')
       - libmxml-dev
       - libmysqlclient-dev
     # - libpcre2-dev
