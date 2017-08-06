@@ -36,6 +36,7 @@ addons:
       - libpq-dev
     # - libqt5-dev
       - librabbitmq-dev
+    # - libsqlite3-dev
     # - libslang2-dev
       - libyaml-dev
       - unixodbc-dev
