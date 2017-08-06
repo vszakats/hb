@@ -247,11 +247,15 @@ static void mxml_index_ret( mxml_index_t * index )
 
 HB_FUNC( HB_MXMLVERSION )
 {
+#if defined( MXML_MAJOR_VERSION ) && defined( MXML_MINOR_VERSION )  /* defined in version 2.8 and upper */
    char buffer[ 32 ];
 
    hb_snprintf( buffer, sizeof( buffer ), "Mini-XML v%d.%d", MXML_MAJOR_VERSION, MXML_MINOR_VERSION );
 
    hb_retc( buffer );
+#else
+   hb_retc_null();
+#endif
 }
 
 /* MXML_... wrapper funcs */
