@@ -1,6 +1,6 @@
 diff --strip-trailing-cr -urN libhpdf.orig/hpdf_doc.c libhpdf/hpdf_doc.c
---- libhpdf.orig/hpdf_doc.c	2013-10-16 08:09:38.000000000 +0000
-+++ libhpdf/hpdf_doc.c	2017-03-29 03:43:58.000000000 +0000
+--- libhpdf.orig/hpdf_doc.c	2013-10-30 13:11:59.000000000 +0000
++++ libhpdf/hpdf_doc.c	2017-08-06 18:29:06.000000000 +0000
 @@ -1784,7 +1784,7 @@
      if (!HPDF_HasDoc (pdf))
          return HPDF_INVALID_DOCUMENT;
@@ -29,8 +29,8 @@ diff --strip-trailing-cr -urN libhpdf.orig/hpdf_doc.c libhpdf/hpdf_doc.c
                      (HPDF_STATUS)style);
  
 diff --strip-trailing-cr -urN libhpdf.orig/hpdf_image_ccitt.c libhpdf/hpdf_image_ccitt.c
---- libhpdf.orig/hpdf_image_ccitt.c	2013-10-16 08:09:38.000000000 +0000
-+++ libhpdf/hpdf_image_ccitt.c	2017-03-21 21:20:46.000000000 +0000
+--- libhpdf.orig/hpdf_image_ccitt.c	2013-10-30 13:11:59.000000000 +0000
++++ libhpdf/hpdf_image_ccitt.c	2017-08-06 18:29:06.000000000 +0000
 @@ -18,7 +18,7 @@
  #include "hpdf_conf.h"
  #include "hpdf_utils.h"
@@ -50,8 +50,8 @@ diff --strip-trailing-cr -urN libhpdf.orig/hpdf_image_ccitt.c libhpdf/hpdf_image
  /* NB: the uint32 casts are to silence certain ANSI-C compilers */
  #define TIFFhowmany(x, y) ((((uint32)(x))+(((uint32)(y))-1))/((uint32)(y)))
 diff --strip-trailing-cr -urN libhpdf.orig/hpdf_image_png.c libhpdf/hpdf_image_png.c
---- libhpdf.orig/hpdf_image_png.c	2013-10-16 08:09:38.000000000 +0000
-+++ libhpdf/hpdf_image_png.c	2017-03-21 21:20:46.000000000 +0000
+--- libhpdf.orig/hpdf_image_png.c	2013-10-30 13:11:59.000000000 +0000
++++ libhpdf/hpdf_image_png.c	2017-08-06 18:29:06.000000000 +0000
 @@ -280,8 +280,8 @@
  		case PNG_COLOR_TYPE_RGB_ALPHA:
  			row_len = 3 * width * sizeof(png_byte);
@@ -78,8 +78,8 @@ diff --strip-trailing-cr -urN libhpdf.orig/hpdf_image_png.c libhpdf/hpdf_image_p
  #endif /* LIBHPDF_HAVE_NOPNGLIB */
 -
 diff --strip-trailing-cr -urN libhpdf.orig/hpdf_page_operator.c libhpdf/hpdf_page_operator.c
---- libhpdf.orig/hpdf_page_operator.c	2013-10-16 08:09:38.000000000 +0000
-+++ libhpdf/hpdf_page_operator.c	2017-03-21 21:20:46.000000000 +0000
+--- libhpdf.orig/hpdf_page_operator.c	2013-10-30 13:11:59.000000000 +0000
++++ libhpdf/hpdf_page_operator.c	2017-08-06 18:29:06.000000000 +0000
 @@ -1155,7 +1155,7 @@
          return HPDF_RaiseError (page->error, HPDF_PAGE_INVALID_FONT, 0);
  
@@ -90,8 +90,8 @@ diff --strip-trailing-cr -urN libhpdf.orig/hpdf_page_operator.c libhpdf/hpdf_pag
      if (page->mmgr != font->mmgr)
          return HPDF_RaiseError (page->error, HPDF_PAGE_INVALID_FONT, 0);
 diff --strip-trailing-cr -urN libhpdf.orig/hpdf_pages.c libhpdf/hpdf_pages.c
---- libhpdf.orig/hpdf_pages.c	2013-10-16 08:09:38.000000000 +0000
-+++ libhpdf/hpdf_pages.c	2017-03-29 03:44:07.000000000 +0000
+--- libhpdf.orig/hpdf_pages.c	2013-10-30 13:11:59.000000000 +0000
++++ libhpdf/hpdf_pages.c	2017-08-06 18:29:06.000000000 +0000
 @@ -1369,7 +1369,7 @@
      if (!HPDF_Page_Validate (page))
          return HPDF_INVALID_PAGE;
