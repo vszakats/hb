@@ -18,22 +18,35 @@ class HarbourAT34 < Formula
     version "3.4.0"
   end
 
-  # This one is "vendored", but it is used when found on the system
-  depends_on "pcre"
+  # These are "vendored", but system package used when found
+  depends_on "bzip2"
+  depends_on "expat"
+  depends_on "libharu"
+  depends_on "liblzf"
+  depends_on "libmxml"
+  depends_on "libpng"
+  depends_on "libxdiff"
+  depends_on "lzo"
+  depends_on "minizip"
+  depends_on "pcre2"
+  depends_on "sqlite"
 
   depends_on "cairo" => :optional
+  depends_on "curl" => :optional
   depends_on "freeimage" => :optional
   depends_on "gd" => :optional
   depends_on "ghostscript" => :optional
   depends_on "icu4c" => :optional
   depends_on "libmagic" => :optional
+  depends_on "libyaml" => :optional
   depends_on "mariadb" => :optional
   depends_on :mysql => :optional
   depends_on "ncurses" => :optional
   depends_on "openssl" => :optional if build.stable?
   depends_on "openssl@1.1" => :optional unless build.stable?
   depends_on :postgresql => :optional
-  depends_on "qt5" => :optional
+  depends_on "qt" => :optional
+  depends_on "rabbitmq-c" => :optional
   depends_on "s-lang" => :optional
   depends_on "unixodbc" => :optional
   depends_on :x11 => :optional
