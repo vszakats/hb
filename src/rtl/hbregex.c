@@ -250,33 +250,38 @@ HB_FUNC( HB_ATX )
 
          if( nLen && nStart <= nLen && nStart <= nEnd )
          {
-            const char * pszString = hb_itemGetCPtr( pString );
 #if defined( HB_HAS_PCRE2 )
             HB_REGMATCH * aMatches = pcre2_match_data_create( 1, NULL );
 #else
             HB_REGMATCH aMatches[ HB_REGMATCH_SIZE( 1 ) ];
 #endif
-
-            if( nEnd < nLen )
-               nLen = nEnd;
-            if( nStart )
+            if( aMatches )
             {
-               --nStart;
-               nLen -= nStart;
-            }
+               const char * pszString = hb_itemGetCPtr( pString );
 
-            if( hb_regexec( pRegEx, pszString + nStart, nLen, 1, aMatches ) > 0 )
-            {
-               nStart += HB_REGMATCH_SO( aMatches, 0 ) + 1;
-               nLen = HB_REGMATCH_EO( aMatches, 0 ) - HB_REGMATCH_SO( aMatches, 0 );
-               hb_retclen( pszString + nStart - 1, nLen );
+               if( nEnd < nLen )
+                  nLen = nEnd;
+               if( nStart )
+               {
+                  --nStart;
+                  nLen -= nStart;
+               }
+
+               if( hb_regexec( pRegEx, pszString + nStart, nLen, 1, aMatches ) > 0 )
+               {
+                  nStart += HB_REGMATCH_SO( aMatches, 0 ) + 1;
+                  nLen = HB_REGMATCH_EO( aMatches, 0 ) - HB_REGMATCH_SO( aMatches, 0 );
+                  hb_retclen( pszString + nStart - 1, nLen );
+               }
+               else
+                  nStart = nLen = 0;
+
+#if defined( HB_HAS_PCRE2 )
+               pcre2_match_data_free( aMatches );
+#endif
             }
             else
                nStart = nLen = 0;
-
-#if defined( HB_HAS_PCRE2 )
-            pcre2_match_data_free( aMatches );
-#endif
          }
          else
             nStart = nLen = 0;
@@ -324,6 +329,8 @@ static HB_BOOL hb_regex( int iRequest )
 
 #if defined( HB_HAS_PCRE2 )
    aMatches = pcre2_match_data_create( REGEX_MAX_GROUPS, NULL );
+   if( ! aMatches )
+      return HB_FALSE;
 #endif
 
    pszString = hb_itemGetCPtr( pString );

@@ -74,8 +74,7 @@ typedef struct
    int         iFlags;
    int         iEFlags;
 #if defined( HB_HAS_PCRE2 )
-   pcre2_code       * re_pcre;
-   pcre2_match_data * re_match_data;
+   pcre2_code  * re_pcre;
 #elif defined( HB_HAS_PCRE )
    pcre        * re_pcre;
 #elif defined( HB_POSIX_REGEX )

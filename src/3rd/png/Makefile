@@ -26,7 +26,10 @@ C_SOURCES := \
 
 ifeq ($(filter $(HB_COMPILER),poccarm xcc tcc),)
 
-# Detect libpng
+   # Detect libpng
+
+   HB_HAS_PNG :=
+   HB_HAS_PNG_LOCAL :=
 
    # libpng12-dev{deb}
    # libpng-devel{rpm}
