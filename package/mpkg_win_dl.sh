@@ -40,7 +40,7 @@ if [ "${os}" = 'win' ]; then
   # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{bzip2,expat,libharu,lzo2,sqlite3}
 
   # Core dependencies (vendored sources are used instead for now)
-  # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{libpng,pcre,zlib}
+  # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{libpng,pcre2,pcre,zlib}
 
   if [ "${_BRANC4}" = 'msvc' ] && false; then
     # Experimental, untested, requires 2015 Update 3 or upper

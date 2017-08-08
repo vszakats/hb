@@ -63,8 +63,8 @@ include $(TOP)$(ROOT)config/detfun.mk
 # pcre2-devel{rpm}
 # pcre2{homebrew}
 # pcre2{pacman}
-# mingw-w64-i686-?{msys2&mingw}
-# mingw-w64-x86_64-?{msys2&mingw64}
+# mingw-w64-i686-pcre2{msys2&mingw}
+# mingw-w64-x86_64-pcre2{msys2&mingw64}
 
 _DET_DSP_NAME := pcre2
 _DET_VAR_INC_ := HB_INC_PCRE2

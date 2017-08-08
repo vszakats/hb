@@ -2,56 +2,61 @@
 
 PROCEDURE Main( cHost, cDatabase, cUser, cPass )
 
-   LOCAL nVersion, cConnInfo
-
-   LOCAL hostaddr := "127.0.0.1"
-   LOCAL port := "5432"
-   LOCAL connect_timeout := "10"
+   LOCAL nVersion
 
    CLS
 
-   hb_default( @cHost, "localhost" )
-   hb_default( @cDatabase, "postgres" )
-   hb_default( @cUser, hb_UserName() )
-   hb_default( @cPass, "" )
-
-   ? "The function PQlibVersion() returns", ( nVersion := PQlibVersion() ); ?
+   ? "The function PQlibVersion() returns", nVersion := PQlibVersion()
+   ?
 
    IF nVersion < 90100
       ? "Function PQping() not supported."
       QUIT
    ENDIF
 
+   hb_default( @cHost, "localhost" )
+   hb_default( @cDatabase, "postgres" )
+   hb_default( @cUser, hb_UserName() )
+   hb_default( @cPass, "" )
+
    /* PQping() reports the status of the server.
-      It accepts connection parameters identical to those of PQconnectdb(). It is not, however, necessary to
-      supply correct user name, password, or database name values to obtain the server status. */
+      It accepts connection parameters identical to those of PQconnectdb().
+      It is not, however, necessary to supply correct user name, password,
+      or database name values to obtain the server status. */
    HB_SYMBOL_UNUSED( cDatabase )
    HB_SYMBOL_UNUSED( cUser )
    HB_SYMBOL_UNUSED( cPass )
 
    /* the ConnInfo string can be empty to use ALL default parameters */
-   cConnInfo := ""
-   PingTest( cConnInfo )
+   PingTest( "" )
 
-   /* 'database' is not allowed parameter key, you can find the currently recognized parameter key words
-      on https://www.postgresql.org/docs/9.1/static/libpq-connect.html */
-   cConnInfo := "host = localhost database = test"
-   PingTest( cConnInfo )
+   /* 'database' is not allowed parameter key, you can find the currently
+      recognized parameter key words on
+         https://www.postgresql.org/docs/9.1/static/libpq-connect.html */
+   PingTest( ;
+      "host = localhost" + " " + ;
+      "database = test" )
 
-   /* the default port for Postgres is 5432, but we can try connect to port 3333 and see what is happen */
-   cConnInfo := "host = " + cHost + " port = " + "3333"
-   PingTest( cConnInfo )
+   /* the default port for Postgres is 5432, but we can try connect to an
+      alternate port and see what happens. */
+   PingTest( ;
+      "host = " + cHost + " " + ;
+      "port = " + "3333" )
 
    /* next attempt */
-   cConnInfo := "host = " + cHost + " hostaddr = " + hostaddr + " port = " + port + " connect_timeout = " + connect_timeout
-   PingTest( cConnInfo )
+   PingTest( ;
+      "host = " + cHost + " " + ;
+      "hostaddr = " + "127.0.0.1" + " " + ;
+      "port = " + "5432" + " " + ;
+      "connect_timeout = " + "10" )
 
    RETURN
 
-STATIC PROCEDURE PingTest( c )
+STATIC PROCEDURE PingTest( cConnInfo )
 
-   ? "cConnInfo is", '"' + c + '"'
-   ? "PQPing( cConnInfo ) returns:", GetPingResult( PQPing( c ) ); ?
+   ? "cConnInfo is", '"' + cConnInfo + '"'
+   ? "PQPing( cConnInfo ) returns:", GetPingResult( PQPing( cConnInfo ) )
+   ?
 
    RETURN
 
