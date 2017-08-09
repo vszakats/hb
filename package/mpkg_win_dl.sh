@@ -110,6 +110,12 @@ if [ "${_BRANC4}" != 'msvc' ]; then
       'curl' \
     ; do
       test=''
+      # Temporary hack to enable a custom libcurl patch (3/3)
+      if [ "${_BRANCH#*prod*}" != "${_BRANCH}" ] &&
+         [ "${name}" = 'curl' ]; then
+        test='-test'
+        echo "! Mod: Switching to curl-test (download)"
+      fi
       if [ ! -d "${name}-mingw${plat}" ]; then
         eval ver="\$$(echo "${name}" | tr '[:lower:]' '[:upper:]' 2> /dev/null)_VER"
         eval hash="\$$(echo "${name}" | tr '[:lower:]' '[:upper:]' 2> /dev/null)_HASH_${plat}"
