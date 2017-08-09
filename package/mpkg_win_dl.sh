@@ -111,7 +111,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
     ; do
       test=''
       # Temporary hack to enable a custom libcurl patch (3/3)
-      if [ "${_BRANCH#*prod*}" != "${_BRANCH}" ] &&
+      if [ "${_BRANCH#*prod*}" != "${_BRANCH}" ] && \
          [ "${name}" = 'curl' ]; then
         test='-test'
         echo "! Mod: Switching to curl-test (download)"
