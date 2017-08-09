@@ -1896,6 +1896,11 @@ HB_FUNC( CURL_EASY_SETOPT )
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_SSH_AUTH_TYPES, hb_parnl( 3 ) );
                break;
 #endif
+#if LIBCURL_VERSION_NUM > 0x073700
+            case HB_CURLOPT_SSH_COMPRESSION:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_SSH_COMPRESSION, HB_CURL_OPT_BOOL( 3 ) );
+               break;
+#endif
 #if LIBCURL_VERSION_NUM >= 0x071101
             case HB_CURLOPT_SSH_HOST_PUBLIC_KEY_MD5:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_SSH_HOST_PUBLIC_KEY_MD5, hb_parc( 3 ) );

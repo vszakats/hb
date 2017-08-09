@@ -293,6 +293,7 @@
 #define HB_CURLOPT_SUPPRESS_CONNECT_HEADERS   246
 #define HB_CURLOPT_REQUEST_TARGET             247
 #define HB_CURLOPT_SOCKS5_AUTH                248
+#define HB_CURLOPT_SSH_COMPRESSION            249
 #define HB_CURLOPT_DOWNLOAD                   1001  /* Harbour special ones */
 #define HB_CURLOPT_XFERINFOBLOCK              1002
 #define HB_CURLOPT_UL_FILE_SETUP              1003
