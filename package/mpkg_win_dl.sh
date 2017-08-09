@@ -109,6 +109,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
       'libssh2' \
       'curl' \
     ; do
+      test=''
       if [ ! -d "${name}-mingw${plat}" ]; then
         eval ver="\$$(echo "${name}" | tr '[:lower:]' '[:upper:]' 2> /dev/null)_VER"
         eval hash="\$$(echo "${name}" | tr '[:lower:]' '[:upper:]' 2> /dev/null)_HASH_${plat}"
@@ -116,8 +117,8 @@ if [ "${_BRANC4}" != 'msvc' ]; then
         (
           set -x
           curl -L --proto-redir =https \
-            -o pack.bin "${base}${name}-${ver}-win${plat}-mingw.7z" \
-            -o pack.sig "${base}${name}-${ver}-win${plat}-mingw.7z.asc"
+            -o pack.bin "${base}${name}-${ver}-win${plat}-mingw${test}.7z" \
+            -o pack.sig "${base}${name}-${ver}-win${plat}-mingw${test}.7z.asc"
           gpg --verify-options show-primary-uid-only --verify pack.sig pack.bin
           openssl dgst -sha256 pack.bin | grep -q "${hash}" || exit 1
           7z x -y pack.bin > /dev/null
