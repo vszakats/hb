@@ -46,7 +46,7 @@ and a collection of libraries and bindings for popular APIs.
 
 # Maintainer contacts
 
-  * [Twitter](https://twitter.com/vszakats)
+  * [![Twitter URL](https://img.shields.io/twitter/url/https/twitter.com/vszakats.svg?style=social&label=%40vszakats)](https://twitter.com/vszakats)
   * [GitHub](https://github.com/vszakats)
   * [PGP](https://keybase.io/vszakats) [key](https://keybase.io/vszakats/key.asc)
   * [Homepage](https://vszakats.net/)
