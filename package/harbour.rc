@@ -9,8 +9,8 @@
 1 ICON DISCARDABLE "../package/harbour.ico"
 #endif
 
-/* NOTE: BCC 5.5 has a RC preprocessor bug that in certain cases will append
-         a trash byte to the return value of this macro. Such trash bytes
+/* NOTE: BCC 5.5 has an RC preprocessor bug that in certain cases will append
+         a trash byte to the return value of this macro. Such trash byte
          will result in a broken manifest record and the executable rejected
          by the OS (f.e. Windows 10) to run. It can be "fixed" by using
          a macro name shorter or longer by one character. But, instead of
