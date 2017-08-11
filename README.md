@@ -1478,6 +1478,15 @@ Supported shells per host platforms:
      * GNU Make [multi-platform, free software, open-source]
         * <https://www.gnu.org/software/make/>
 
+* Package searches
+
+     * deb (Debian): <https://packages.debian.org/search>
+     * deb (Ubuntu): <https://packages.ubuntu.com/>
+     * rpm (Fedora): <https://apps.fedoraproject.org/packages/>
+     * pacman (Arch Linux): <https://www.archlinux.org/packages/>
+     * Homebrew: <http://braumeister.org/>
+     * msys2: <https://github.com/Alexpux/MINGW-packages>
+
 * Documentation:
 
      * [Netiquette Guidelines](https://tools.ietf.org/html/rfc1855)
