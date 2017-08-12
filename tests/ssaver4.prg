@@ -48,7 +48,7 @@ PROCEDURE Main()
 
 CREATE CLASS Snow
 
-   VAR nRow
+   VAR nRow INIT 0
    VAR nCol
    VAR nSnowflake
    VAR nSnowColor
@@ -161,7 +161,6 @@ END CLASS
 
 METHOD New() CLASS Snow
 
-   ::nRow       := 0
    ::nCol       := hb_RandomInt( 5, MaxCol() - 5 )
    ::nSnowflake := hb_RandomInt( 1, Len( ::aFlake ) )
    ::nSnowColor := hb_RandomInt( 0x1, 0xf )
