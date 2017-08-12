@@ -1,7 +1,7 @@
 /*
  * High-level portable file functions.
  *
- * Copyright 2009-2015 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2009-2017 Viktor Szakats (vszakats.net/harbour)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -312,7 +312,6 @@ FUNCTION hb_DirBuild( cDir )
 
 FUNCTION hb_DirUnbuild( cDir )
 
-   LOCAL cDirTemp
    LOCAL tmp
 
    IF ! HB_ISSTRING( cDir )
@@ -323,19 +322,17 @@ FUNCTION hb_DirUnbuild( cDir )
 
       cDir := hb_DirSepDel( cDir )
 
-      cDirTemp := cDir
-      DO WHILE ! cDirTemp == ""
-         IF hb_vfDirExists( cDirTemp )
-            IF hb_vfDirRemove( cDirTemp ) != 0
-               RETURN .F.
-            ENDIF
+      DO WHILE ! cDir == ""
+         IF hb_vfDirExists( cDir ) .AND. ;
+            hb_vfDirRemove( cDir ) != 0
+            RETURN .F.
          ENDIF
-         IF ( tmp := RAt( hb_ps(), cDirTemp ) ) == 0  /* FIXME: use hb_URAt() function */
+         IF ( tmp := RAt( hb_ps(), cDir ) ) == 0  /* FIXME: use hb_URAt() function */
             EXIT
          ENDIF
-         cDirTemp := Left( cDirTemp, tmp - 1 )
+         cDir := Left( cDir, tmp - 1 )
          IF ! hb_osDriveSeparator() == "" .AND. ;
-            Right( cDirTemp, Len( hb_osDriveSeparator() ) ) == hb_osDriveSeparator()
+            Right( cDir, Len( hb_osDriveSeparator() ) ) == hb_osDriveSeparator()
             EXIT
          ENDIF
       ENDDO
