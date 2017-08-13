@@ -536,7 +536,7 @@ HB_USHORT hb_errLaunch( PHB_ITEM pError )
       if( pErrData->errorHandler )
       {
          /* there is a low-level error handler defined - use it instead
-          * of normal Harbour-level one
+          * of normal Harbour level one
           */
          pErrData->errorHandler->Error = pError;
          pErrData->errorHandler->ErrorBlock = pErrData->errorBlock;
@@ -630,7 +630,7 @@ PHB_ITEM hb_errLaunchSubst( PHB_ITEM pError )
       if( pErrData->errorHandler )
       {
          /* there is a low-level error handler defined - use it instead
-          * of normal Harbour-level one
+          * of normal Harbour level one
           */
          pErrData->errorHandler->Error = pError;
          pErrData->errorHandler->ErrorBlock = pErrData->errorBlock;

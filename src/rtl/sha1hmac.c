@@ -1,5 +1,5 @@
 /*
- * WARNING: Outdated, unsecure algorithm.
+ * WARNING: Outdated, insecure algorithm.
  *
  * Version 1.0.0
  *

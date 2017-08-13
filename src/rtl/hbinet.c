@@ -7,7 +7,7 @@
  * Copyright 2007 Przemyslaw Czerpak <druzus / at / priv.onet.pl>
  *    updated and ported to Harbour
  * Copyright 2008 Miguel Angel marchuet <miguelangel@marchuet.net>
- *    added dinamic system buffer
+ *    added dynamic system buffer
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

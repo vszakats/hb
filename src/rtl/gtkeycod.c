@@ -1,7 +1,7 @@
 /*
  * hb_gt_dos_keyCodeTranslate()
- *       function used by DOS, WIN and OS2 ports of few GTs which use
- *       getkey()/getch()/_read_kbd()/KbdCharIn() or similar function
+ *       function used by MS-DOS, Windows and OS/2 ports of few GTs which
+ *       use getkey()/getch()/_read_kbd()/KbdCharIn() or similar function
  *       for keyboard input
  *
  * Copyright 2006, 2015 Przemyslaw Czerpak <druzus / at / priv.onet.pl>

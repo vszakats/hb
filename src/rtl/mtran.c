@@ -96,7 +96,7 @@ HB_FUNC( MEMOTRAN )
          cHardCR = *pszRepl;
 
       /* CA-Cl*pper checks 3-rd cSoftCR parameter only
-       * if 2-nd one cHardCR is specified [druzus]
+       * if 2nd one cHardCR is specified [druzus]
        */
 #ifdef HB_CLP_STRICT
       if( pszRepl )

@@ -652,7 +652,7 @@ HB_FUNC( TRANSFORM )
          if( uiPicFlags & PF_BRITISH )
          {
             /* When @E is used CA-Cl*pper do not update date format
-             * pattern but wrongly moves 4-th and 5-th bytes of
+             * pattern but wrongly moves 4th and 5th bytes of
              * formatted date to the beginning (see below). It causes
              * that date formats formats different then MM?DD?YY[YY]
              * are wrongly translated. The code below is not CA-Cl*pper
@@ -756,7 +756,7 @@ HB_FUNC( TRANSFORM )
          if( szDateFormat && ( uiPicFlags & PF_BRITISH ) )
          {
             /* When @E is used CA-Cl*pper do not update date format
-             * pattern but wrongly moves 4-th and 5-th bytes of
+             * pattern but wrongly moves 4th and 5th bytes of
              * formatted date to the beginning (see below). It causes
              * that date formats formats different then MM?DD?YY[YY]
              * are wrongly translated. The code below is not CA-Cl*pper

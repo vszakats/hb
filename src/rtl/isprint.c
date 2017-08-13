@@ -131,7 +131,7 @@ HB_BOOL hb_printerIsReady( const char * pszPrinterName )
    tcp:localhost:9100, /dev/lp0, etc...). Those that are writable
    just like a stream. Of these two functions, IsPrinter() will
    always use the same, OS-specific predefined device name, just
-   like in Cl*pper, for compatiblity. IOW, it doesn't accept
+   like in Cl*pper, for compatibility. IOW, it doesn't accept
    a parameter. See source code above what the predefined device
    names are. hb_IsPrinter() _will_ accept such device name as its
    1st and only parameter. However, because devices are typically

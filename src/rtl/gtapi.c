@@ -12,7 +12,7 @@
  * Copyright 2006 Przemyslaw Czerpak < druzus /at/ priv.onet.pl >
  *    The body of these functions which were usable in new GT API
  *    have been moved to hbgtcore.c to hb_gt_def_*() functions
- *    some of my modificaations.
+ *    some of my modifications.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

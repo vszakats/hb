@@ -1,7 +1,7 @@
 /*
- * WARNING: Outdated, unsecure algorithm.
+ * WARNING: Outdated, insecure algorithm.
  *
- * Originally witten by Steve Reid <steve@edmweb.com>
+ * Originally written by Steve Reid <steve@edmweb.com>
  *
  * Modified by Aaron D. Gifford <agifford@infowest.com>
  *

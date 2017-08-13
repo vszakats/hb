@@ -71,13 +71,13 @@
     the only new error code (until now) is HB_LPP_ERROR_TOOLARGE
    hb_lppSetLimit( hLPP, nLimit )
     Sets size limit for receiving data. Sending 4 bytes containing
-    large 32-bit value makes receiving application to alllocate a
+    large 32-bit value makes receiving application to allocate a
     large memory block for storage of data to be received. It is very
     easy to crash  application (or system) using such protocol and
     logic. hb_lppSetLimit() helps to protect against such attacks.
     On hb_lppCreate() limit is set to 1024 bytes. This is enough
-    for server/client authentification. After successful
-    authentification server can increase size limit and large LPP
+    for server/client authentication. After successful
+    authentication server can increase size limit and large LPP
     packets can be used.
    hb_lppSend( hLPP, cBuf [, nTimeout = FOREVER ] ) --> lSuccess
    hb_lppRecv( hLPP, @cBuf [, nTimeout = FOREVER ] ) --> lSuccess
@@ -92,7 +92,7 @@
    hLPP := hb_lppCreate( hSocket )
    DO WHILE ! ( lI := hb_lppSend( hLPP, cData, nTimeout ) ) .AND. ;
           hb_lppError( hLPP ) == HB_SOCKET_ERR_TIMEOUT )
-      // draw progressbar using hb_lppSendLen( hLPP )
+      // draw progress bar using hb_lppSendLen( hLPP )
    ENDDO
    IF lI  // or hb_lppError( hLPP ) == 0
       // Sent OK
@@ -105,7 +105,7 @@
    // recv sample
    DO WHILE ! ( lI := hb_lppRecv( hLPP, @cData, nTimeout ) ) .AND. ;
           hb_lppError( hLPP ) == HB_SOCKET_ERR_TIMEOUT )
-      // draw progressbar using hb_lppRecvLen( hLPP )
+      // draw progress bar using hb_lppRecvLen( hLPP )
    ENDDO
    IF lI
       // Rcvd OK, data in cData

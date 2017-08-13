@@ -12,7 +12,7 @@
  *    hb_fsEof()
  * Copyright 2001 Jose Gimenez (JFG) <jfgimenez@wanadoo.es>, <tecnico.sireinsa@ctv.es>
  *    Added platform check for any compiler to use the Windows
- *    API calls to allow openning an unlimited number of files
+ *    API calls to allow opening an unlimited number of files
  *    simultaneously.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -1169,16 +1169,16 @@ HB_FHANDLE hb_fsPOpen( const char * pszFileName, const char * pszMode )
 #if defined( HB_OS_OS2 )
 #  if ! defined( HB_OS2_NONAMEDPIPES ) && ! defined( HB_OS2_USENAMEDPIPES )
 
-/* In OS2 anonymous pipes are not simulated by named pipes and
+/* In OS/2 anonymous pipes are not simulated by named pipes and
    unlike in MS-Windows functions for named pipes cannot be used
    with anonymous ones. Read/Write operations from/to anonymous
-   pipes are always blocking on OS2. For unblocking access we
+   pipes are always blocking on OS/2. For unblocking access we
    have to emulate anonymous pipe using named one [druzus] */
 #     define HB_OS2_USENAMEDPIPES
 
 #  endif
 
-/* the size of sustem IO buffers in OS2 pipes */
+/* the size of system IO buffers in OS/2 pipes */
 #  define HB_OS2_PIPEBUFSIZE        4096
 
 #endif
@@ -3142,7 +3142,7 @@ void hb_fsCommit( HB_FHANDLE hFileHandle )
 
 #else
 
-   /* NOTE: close() functions releases all locks regardles if it is an
+   /* NOTE: close() functions releases all locks regardless if it is an
     * original or duplicated file handle
     */
    /* This hack is very dangerous. POSIX standard define that if _ANY_
@@ -3150,7 +3150,7 @@ void hb_fsCommit( HB_FHANDLE hFileHandle )
     * pointed by this descriptor are removed. It doesn't matter they
     * were done using different descriptor. It means that we now clean
     * all locks on hFileHandle with the code below if the OS is POSIX
-    * compilant. I vote to disable it. [druzus]
+    * compliant. I vote to disable it. [druzus]
     */
    {
       int dup_handle;
@@ -4858,8 +4858,8 @@ const char * hb_fsNameConv( const char * pszFileName, char ** pszFree )
 
 /*
    Convert file and dir case. The allowed SET options are:
-      LOWER - Convert all caracters of file to lower
-      UPPER - Convert all caracters of file to upper
+      LOWER - Convert all characters of file to lower
+      UPPER - Convert all characters of file to upper
       MIXED - Leave as is
 
    The allowed environment options are:
@@ -5002,8 +5002,8 @@ HB_WCHAR * hb_fsNameConvU16( const char * pszFileName )
 
 /*
    Convert file and dir case. The allowed SET options are:
-      LOWER - Convert all caracters of file to lower
-      UPPER - Convert all caracters of file to upper
+      LOWER - Convert all characters of file to lower
+      UPPER - Convert all characters of file to upper
       MIXED - Leave as is
 
    The allowed environment options are:

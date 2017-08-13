@@ -1,5 +1,5 @@
 /*
- * WARNING: Outdated, unsecure algorithm.
+ * WARNING: Outdated, insecure algorithm.
  *
  * Originally taken from the public domain SHA1 implementation
  * written by by Steve Reid <steve@edmweb.com>

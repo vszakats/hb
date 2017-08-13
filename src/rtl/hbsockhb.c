@@ -115,7 +115,7 @@ static int s_sockexClose( PHB_SOCKEX pSock, HB_BOOL fClose )
    return iResult;
 }
 
-/* read data from extended socket, check internal readahead
+/* read data from extended socket, check internal read-ahead
    buffer first */
 static long s_sockexRead( PHB_SOCKEX pSock, void * data, long len, HB_MAXINT timeout )
 {

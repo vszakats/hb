@@ -1,5 +1,5 @@
 /*
- * WARNING: Outdated, unsecure algorithm.
+ * WARNING: Outdated, insecure algorithm.
  *
  * Harbour MD5 Support
  *
@@ -85,7 +85,7 @@ typedef struct
 } MD5_BUF;
 
 /*
-   Pseudofunctions;
+   Pseudo-functions;
    A[x] - accumulators[4]
    T[x] - Value table[64]
    X[x] - buffer[16]

@@ -1,5 +1,5 @@
 /*
- * IOUSRD - library to create new FILE IO redirectors at prg level
+ * IOUSRD - library to create new FILE IO redirectors at .prg level
  *
  * Copyright 2014 Przemyslaw Czerpak <druzus / at / priv.onet.pl>
  *

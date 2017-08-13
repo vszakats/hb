@@ -59,7 +59,7 @@
            pValue  - value to encode;
            pnLen   - if pnLen is not NULL, length of returned buffer is
                      stored to *pnLen;
-           fHuman  - format to be human redable;
+           fHuman  - format to be human readable;
            returns pointer to encoded JSON buffer. buffer must be fried
               by the caller.
 
@@ -390,7 +390,7 @@ static void _hb_jsonEncode( PHB_ITEM pValue, PHB_JSON_ENCODE_CTX pCtx,
    }
    else
    {
-      /* All unsupported types are replacd by null */
+      /* All unsupported types are replaced by null */
       _hb_jsonCtxAdd( pCtx, "null", 4 );
    }
 }

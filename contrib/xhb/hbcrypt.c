@@ -1,7 +1,7 @@
 /*
  * Cryptography for xHarbour
  *
- * WARNING: Non-standard, unsecure crypto. Use core hb_blowfish*()
+ * WARNING: Non-standard, insecure crypto. Use core hb_blowfish*()
  *          functions or other _standard_ alternatives instead.
  *
  * Copyright 2003 Giancarlo Niccolai <giancarlo@niccolai.ws>

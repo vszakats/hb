@@ -228,7 +228,7 @@ void hb_gt_winapi_tone( double dFrequency, double dDuration )
 
    /*
     * According to the Clipper NG, the duration in 'ticks' is truncated to the
-    * interger portion  ... Depending on the platform, Harbour allows a finer
+    * integer portion  ... Depending on the platform, Harbour allows a finer
     * resolution, but the minimum is 1 tick (for compatibility)
     */
    /* Convert from ticks to seconds */

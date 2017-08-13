@@ -125,7 +125,7 @@ PROCEDURE Main()
       ? "Certificate and/or private key missing."
       ? "Create them by running ./mkcert.sh"
       ?
-      ? "WARNING: Continuing with unsecure/cleartext communication."
+      ? "WARNING: Continuing with insecure/cleartext communication."
       ?
    ENDIF
 

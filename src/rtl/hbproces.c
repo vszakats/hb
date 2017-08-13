@@ -235,7 +235,7 @@ static void hb_getCommand( const char * pszFileName,
 
 #elif defined( HB_PROCESS_USEFILES ) || defined( HB_OS_UNIX )
 
-/* convert command to argument list using standard bourne shell encoding:
+/* convert command to argument list using standard Bourne shell encoding:
  * "" and '' can be used to group parameters with blank characters,
  * the escape character is '\', quoting by '' disables escape character.
  */

@@ -115,7 +115,7 @@ void hb_conInit( void )
 
 #if ! defined( HB_OS_WIN )
    /* On Windows file handles with numbers 0, 1, 2 are
-      transalted inside filesys to:
+      translated inside filesys to:
       GetStdHandle( STD_INPUT_HANDLE ), GetStdHandle( STD_OUTPUT_HANDLE ),
       GetStdHandle( STD_ERROR_HANDLE ) */
 
@@ -614,7 +614,7 @@ HB_FUNC( DISPOUT ) /* writes a single value to the screen, but is not affected b
 
 /* NOTE: Clipper does no checks about the screen positions. [vszakats] */
 
-HB_FUNC( DISPOUTAT ) /* writes a single value to the screen at speficic position, but is not affected by SET ALTERNATE */
+HB_FUNC( DISPOUTAT )  /* writes a single value to the screen at specific position, but is not affected by SET ALTERNATE */
 {
    char * pszString;
    HB_SIZE nLen;
@@ -647,7 +647,7 @@ HB_FUNC( DISPOUTAT ) /* writes a single value to the screen at speficic position
    }
 }
 
-/* Harbour extension, works like DISPOUTAT but does not change cursor position */
+/* Harbour extension, works like DispOutAt() but does not change cursor position */
 
 HB_FUNC( HB_DISPOUTAT )
 {
