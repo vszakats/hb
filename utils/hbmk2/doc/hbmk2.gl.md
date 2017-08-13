@@ -1,5 +1,5 @@
-Harbour Make \(hbmk2\) 3\.4\.0dev \(070bae68be\) \(2016\-12\-03 12:21\)  
-Copyright &copy; 1999\-present, Viktor Szakats  
+Harbour Make \(hbmk2\) 3\.4\.0dev \(f045ac02bb\) \(2017\-08\-07 09:55\)  
+Copyright &copy; 1999\-2017, Viktor Szakats  
 <https://github\.com/vszakats/harbour\-core/>  
 Traducción \(gl\): JLalín  
 
@@ -45,7 +45,7 @@ Opcións:
  - **\-c=&lt;value&gt;** select C standard\. Allowed values are: iso90, iso99, iso11, gnu90, gnu99, gnu11
  - **\-cpp=&lt;value&gt;** select C\+\+ mode or standard\. Allowed values are: def, yes, no, iso98, iso11, iso14, gnu98, gnu11, gnu14
  - **\-map\[\-\]** crear \(ou non\) o arquivo \.map
- - **\-implib\[\-\]** create \(or not\) an import library \(in \-hbdyn/\-hbexe mode\)\. The name will have a suffix added\.
+ - **\-implib\[\-\]** Crear \(ou non\) a biblioteca de imporación \(en modo \-hbdyn/\-hbexe\)\. Engadirase un sufixo ao nome\.
  - **\-implib=&lt;output&gt;** crear nome de biblioteca de importación \(en modo \-hbdyn/\-hbexe\) para a saída a &lt;output&gt; \(predeterminado: o mesmo que a saída\)
  - **\-ln=&lt;link&gt;** crear enlace simbólico para &lt;output&gt; \(&lt;link&gt; considérase relativo a &lt;output&gt;\)
  - **\-trace\[\-\]** mostrar comandos executados
@@ -67,7 +67,8 @@ Opcións:
 &lt;level&gt; can be: yes, no, min, high, max
  - **\-run\[\-\]** executar/non executar o executable de saída
  - **\-vcshead=&lt;file&gt;** generate \.ch header file with local repository information\. Git, SVN, Mercurial, Bazaar, Fossil, CVS and Monotone are currently supported\. Generated header will define preprocessor constant \_HBMK\_VCS\_TYPE\_ with the name of detected VCS and \_HBMK\_VCS\_ID\_ with the unique ID of local repository\. VCS specific information is added as \_HBMK\_VCS\_&lt;TYPE&gt;\_\*\_ constants, where supported\. If no VCS system is detected, a sequential number will be rolled automatically on each build\.
- - **\-bldhead=&lt;file&gt;** generate \.ch header file with build information, like build sequence number and timestamp\. Generated header will define preprocessor constants \_HBMK\_BUILD\_ID\_ and \_HBMK\_BUILD\_ID\_NUM\_ with sequence number \(incremented on each build\), \_HBMK\_BUILD\_DATE\_, \_HBMK\_BUILD\_TIME\_, \_HBMK\_BUILD\_TIMESTAMP\_ with the date/time of build and \_HBMK\_BUILD\_RANDSTR\_32\_ with a random string of 32 bytes in hexadecimal format
+ - **\-vcsdir=&lt;dir&gt;** override VCS repository root
+ - **\-bldhead=&lt;file&gt;** generate \.ch header file with build information, like build sequence number and timestamp\. Generated header will define preprocessor constants \_HBMK\_BUILD\_ID\_ and \_HBMK\_BUILD\_ID\_NUM\_ with sequence number \(incremented on each build\), \_HBMK\_BUILD\_YEAR\_, \_HBMK\_BUILD\_DATE\_, \_HBMK\_BUILD\_TIME\_, \_HBMK\_BUILD\_TIMESTAMP\_ with the date/time of build and \_HBMK\_BUILD\_RANDSTR\_32\_ with a random string of 32 bytes in hexadecimal format
  - **\-haltrev\[\-\]** do not increase revision numbers in \-bldhead= \(\_HBMK\_BUILD\_ID\_\) and \-vcshead= \(\_HBMK\_VCS\_ID\_\) options \(default: do increase\)
  - **\-icon=&lt;file&gt;** usar &lt;file&gt; como icono para a aplicación\. O arquivo &lt;file&gt; debe ser soportado na plataforma destino \(non soportado en algunhas plataformas/compiladores\)\. En Windows impleméntase xenerando e enlazando un arquivo de recursos\.
  - **\-manifest=&lt;file&gt;** Incrustar arquivo de manifesto &lt;file&gt; en executable/biblioteca dinámica \(só Windows\)
@@ -98,13 +99,14 @@ Opcións:
  - **\-aflag=&lt;f&gt;** enviar parámetro para o enlazador \(biblioteca estática\)
  - **\-iflag=&lt;f&gt;** Pasar a opción ao comando de creación de bibliotecas de importación
  - **\-signflag=&lt;f&gt;** pasar a opción para a ferramenta de asinado de código
+ - **\-comprflag=&lt;f&gt;** pass single flag to executable compressor
  - **\-runflag=&lt;f&gt;** enviar parámetro ao executable de saída cando se usa a opción \-run
  - **\-cflag\+=&lt;f&gt;** enviar parámetros ao compilador C substituindo os parámetros engadidos por hbmk2\. Usar con precaución\.
  - **\-ldflag\+=&lt;f&gt;** enviar a opción ao enlazador \(executable\) despois da lista de bibliotecas\. Usar con precaución\.
  - **\-dflag\+=&lt;f&gt;** pasar a opción tal cuál ao enlazador \(biblioteca dinámica\), tra\-la lista de bibliotecas\. Usar con precaución\.
  - **\-3rd=&lt;f&gt;** opcións/parámetros reservados para ferramentas externas, ignoradas sempre por hbmk2
  - **\-env:&lt;e&gt;\[&lt;o&gt;\[&lt;v&gt;\]\]** modifica o ámbito local\. &lt;e&gt; é o nome de unha variable de ámbito para modificar\. &lt;o&gt; pode ser '=' para establecer, '\-' para eliminar, '\+' para engadir ao final, '\#' para insertar ao comezo\. &lt;v&gt; é o valor para establecer, engadir, insertar\.
- - **\-jobs=&lt;n&gt;** start n compilation threads \(multiprocess platforms only\) \(default: number of processors available or 1 if not detectable/applicable; on this system: 2\)
+ - **\-jobs=&lt;n&gt;** start n compilation threads \(multiprocess platforms only\) \(default: number of processors available or 1 if not detectable/applicable; on this system: 8\)
  - **\-head=&lt;m&gt;** controla a análise dos fontes \(en modo de construcción incremental\)  
   
 &lt;m&gt; pode ser: native \(usa o compilador para extraer dependencias\), full \(predeterminado, usa análise sinxelo de texto no arquivo\), dep, off
@@ -127,6 +129,7 @@ Opcións:
  - **\-po=&lt;output&gt;** crear/actualizar arquivo \.po a partir dos fontes\. Mesturar co arquivo \.po anterior co mesmo nome
  - **\-minipo\[\-\]** do \(not\) add source file reference to \.po \(default: add them\)
  - **\-rebuildpo** recrear arquivo \.po, eliminando todas as entradas obsoletas
+ - **\-inithbl** if they are missing, create empty \.hbl file\(s\) before starting the build
 
 
  - **\-hbx=&lt;n\[\.hbx&gt;\]&gt;** create Harbour header \(in \.hbx format\) with all external symbols\. Empty parameter will disable it\. Default extension is \.hbx\. If set, &lt;n&gt; will be automatically added to the list of Harbour input files and built into the project\. Therefore, the name part of &lt;n&gt; must not be the same as any other input file present in the project\.
@@ -188,6 +191,8 @@ create link/copy hbmk2 to rtlink/blinker/exospace for the same effect
  - **\-docjson &lt;text&gt;** output documentation in JSON format for function\[s\]/command\[s\] in &lt;text&gt;
  - **\-fixcase &lt;file\[s\]&gt;** fix casing of Harbour function names to their 'official' format\. Core functions and functions belonging to all active contribs/addons with an \.hbx file will be processed\.
  - **\-sanitize &lt;file\[s\]&gt;** convert filenames to lowercase, EOLs to platform native and remove EOF character, if present\.
+ - **\-urlize \[&lt;file&gt;\]** convert \.prg source or \.hrb file \(or stdin\) to base64 encoded string on stdout\.
+ - **\-deurlize \[&lt;str&gt;\]** convert base64 encoded source string \(or stdin\) to \.prg source/\.hrb file on stdout\.
 
 
  - **\-hbmake=&lt;file&gt;** converter arquivo de proxecto hbmake a arquivo \.hbp
@@ -228,6 +233,7 @@ As seguintes opcións son internas/para uso de desenvolvedores \(non se garantiz
  - **\-debugi18n** mostrar os detalles da xeneración de arquivos de traducción
  - **\-debugdepd** mostrar os detalles da detección de dependencias
  - **\-debugpars** mostrar todos os parámetros na orde en que se procesan
+ - **\-debugcmdl\[\-\]** simulate command\-line length limit of 0, or unlimited
  - **\-debugrte** xenerar un erro de execución
 
 
@@ -260,7 +266,7 @@ Arquivos:
  - **\*\.hbm** colección de opcións\. Pode usarse para agrupar opcións comúns no mesmo arquivo e incluílo nos arquivos de proxecto\. Usa o mesmo formato que os arquivos \.hbp\.
  - **\*\.hbc** colección de opcións que acompañan compoñentes \(bibliotecas, paquetes\)\. Usan unha sintaxe diferente da liña de comandos e arquivos \.hbp/\.hbm\. Liñas que comenzan co caracter '\#' son ignoradas, cada directiva debe estar nunha liña separada\.
  - **\*\.ch** cand se pasa directamente coma un arquivo fonte será usado como un arquivo adicional estándar de cabeceira
- - **hbmk\.hbc** arquivo \.hbc estándar que é procesado automáticamente se existe\. As localizacións posibles \(en orde de precedencia\) \[\*\]: $HOME/\.harbour, /etc/harbour, &lt;directorio hbmk2&gt;/\.\./etc/harbour, &lt;directorio hbmk2&gt;/\.\./etc, &lt;directorio hbmk2&gt;
+ - **hbmk\.hbc** arquivo \.hbc estándar que é procesado automáticamente se existe\. As localizacións posibles \(en orde de precedencia\) \[\*\]: $HOME/\.harbour, /etc/harbour, etc/harbour, etc, &lt;directorio hbmk2&gt;
  - **hbmk\.hbm** arquivo opcional \.hbm no directorio de traballo actual, que é automaticamente procesado antes de outras opcións
  - **$hb\_pkg\_dynlib\.hbm** special \.hbm file built\-in inside hbmk2\. It manages the details of creating a dynamic library \(in the style of Harbour contribs\)\.
  - **$hb\_pkg\_install\.hbm** special \.hbm file built\-in inside hbmk2\. It manages the details of installing build targets and related package files to standard locations \(in the style of Harbour contribs\)\.
@@ -268,7 +274,7 @@ Arquivos:
 
  - **\*\.hb** Guión de Harbour
  - **\*\.hrb** Binario portable de Harbour \(coñecido como guión de Harbour precompilado\)
- - **hbstart\.hb** guión de arranque para o intérprete interactivo\. Execútase automáticamente cando se inicia o intérprete, se existe\. Localizacións posibles \(en orde de precedencia\) \[\*\]: \./, $HOME/\.harbour, /etc/harbour, &lt;directorio hbmk2&gt;/\.\./etc/harbour, &lt;directorio hbmk2&gt;/\.\./etc, &lt;directorio hbmk2&gt;
+ - **hbstart\.hb** guión de arranque para o intérprete interactivo\. Execútase automáticamente cando se inicia o intérprete, se existe\. Localizacións posibles \(en orde de precedencia\) \[\*\]: \./, $HOME/\.harbour, /etc/harbour, etc/harbour, etc, &lt;directorio hbmk2&gt;
  - **shell plugins** complementos \.hb e \.hrb para o intérprete interactivo de Harbour\. Poden ubicarse en \[\*\]: $HOME/\.harbour/
  - **\.hb\_history** garda o historial do intérprete interactivo de Harbour\. Pode omitirse o historial usando 'no' na primeira liña \(sen comiñas e con retorno de carro/nova liña\)\. Atópase en \[\*\]: $HOME/\.harbour/
  - **hb\_extension** lista de extensións para cargar no intérprete interactivo\. Unha extensión por liña, ignórase a partir do caracter '\#' \. Nome de arquivo alternativo en MS\-DOS: hb\_ext\.ini\. Reside en \[\*\]: $HOME/\.harbour/
@@ -277,6 +283,7 @@ Macro variables:
 
 
  - **$\{hb\_root\}** directorio de hbmk2
+ - **$\{hb\_prefix\}** Harbour root directory
  - **$\{hb\_dir\}** o directorio do nome do arquivo é usado en
  - **$\{hb\_dirname\}** directorio superior do nome do arquivo é usado en
  - **$\{hb\_name\}** nome do arquivo usado \(sen directorio nin extensión\)
@@ -287,7 +294,7 @@ Macro variables:
  - **$\{hb\_targettype\}** tipo do proxecto \(hbexe, hblib, hbdyn, hbdynvm, hbimplib, hbppo, hbhrb, hbcontainer\)
  - **$\{hb\_plat\}** plataforma seleccionada
  - **$\{hb\_comp\}** compilador C seleccionado
- - **$\{hb\_comp\_ver\}** Versión do compilador C
+ - **$\{hb\_comp\_ver\}** C compiler version\. Caveat: Returns '0' on \*nix systems, because at macro evaluation time the C compiler version is not queried yet\.
  - **$\{hb\_build\}** nome da construcción
  - **$\{hb\_cpu\}** CPU seleccionada
  - **$\{hb\_work\}** nome predeterminado do directorio base de traballo
@@ -302,6 +309,7 @@ Macro variables:
  - **$\{hb\_release\}** Número de versión da publicación de Harbour
  - **$\{hb\_status\}** Estado da versión de Harbour
  - **$\{hb\_ver\_id\}** Harbour version ID
+ - **$\{hb\_ver\_id\_short\}** Harbour version ID \(short\)
  - **$\{hb\_revision\}** Revisión de Harbour
  - **$\{hb\_host\_plat\}** Plataforma anfitriona de Harbour
  - **$\{hb\_host\_plat\_unix\}** Retorna '1' se a plataforma anfitrión e \*nix compatible
@@ -539,7 +547,8 @@ Variables para os complementos: \(elementos hash do contexto de 'hbmk', sen dist
  - **"vars"** lista tipo hash de variables personalizadas para o complemento\. Modificables e locais para cada complemento
  - **"cPLAT"** valor \-plat
  - **"cCOMP"** valor \-comp
- - **"nCOMPVer"** detected compiler version in &lt;MMmm&gt; format
+ - **"cCOMPVer"** detected compiler version in &lt;MMmm&gt; format \(and '0' if undetermined\)
+ - **"nCOMPVer"** detected compiler version as a number: &lt;major&gt; \* 100 \+ &lt;minor&gt; \(deprecated\)
  - **"cCPU"** valor \-cpu
  - **"cBUILD"** valor \-build=
  - **"cOUTPUTNAME"** valor \-o
@@ -690,7 +699,7 @@ Tamén se poden combinar os filtros usando os operadores '&amp;' \(and\), '|' \(
   - '\.' \(dot\) passed as first parameter will enter the interactive Harbour shell\.
 
 
-  - \.hb, \.hrb ou \.dbf file passed as first parameter will be run as Harbour script\. If the filename contains no path components, it will be searched in current working directory and in PATH\. If not extension is given, \.hb and \.hrb extensions are searched, in that order\. \.dbf file will be opened automatically in shared mode and interactive Harbour shell launched\. Non\-standard extensions will be auto\-detected for source and precompiled script types\. Note, for Harbour scripts, the codepage is set to UTF\-8 by default\. The default core header 'hb\.ch' is automatically \#included at the interactive shell prompt\. The default date format is the ISO standard: yyyy\-mm\-dd\. SET EXACT is set to ON\. Set\( \_SET\_EOL \) is set to OFF\. The default GT is 'gtcgi', unless full\-screen CUI calls are detected, when 'gttrm' \[\*\] is automatically selected \(except for INIT PROCEDUREs\)\.
+  - \.hb, \.hrb ou \.dbf file passed as first parameter will be run as Harbour script\. If the filename contains no path components, it will be searched in current working directory and in PATH\. If not extension is given, \.hb and \.hrb extensions are searched, in that order\. \.dbf file will be opened automatically in shared mode and interactive Harbour shell launched\. \.dbf files with non\-standard extension can be opened by prepending '\-dbf:' to the file name\. Otherwise, non\-standard extensions will be auto\-detected for source and precompiled script types\. Note, for Harbour scripts, the codepage is set to UTF\-8 by default\. The default core header 'hb\.ch' is automatically \#included at the interactive shell prompt\. The default date format is the ISO standard: yyyy\-mm\-dd\. SET EXACT is set to ON\. Set\( \_SET\_EOL \) is set to OFF\. The default GT is 'gtcgi', unless full\-screen CUI calls are detected, when 'gttrm' \[\*\] is automatically selected \(except for INIT PROCEDUREs\)\.
   - You can use key &lt;Ctrl\+V&gt; in interactive Harbour shell to paste text from the clipboard\.
   - Os valores marcados con \[\*\] poden depender da plataforma anfitriona e/ou da configuración\. Esta axuda foi xenerada na plataforma 'darwin'\.
 
@@ -730,9 +739,9 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE\.  See the
 GNU General Public License for more details\.  
   
 You should have received a copy of the GNU General Public License  
-along with this program; if not, write to the Free Software  
-Foundation, Inc\., 675 Mass Ave, Cambridge, MA 02139, USA \(or visit  
-their website at https://www\.gnu\.org/\)\.  
+along with this program; if not, write to the Free Software Foundation,  
+Inc\., 51 Franklin Street, Fifth Floor, Boston, MA 02110\-1301 USA\.  
+\(or visit their website at https://www\.gnu\.org/licenses/\)\.  
   
 License extensions:  
   \- This source code must be kept and distributed as part  

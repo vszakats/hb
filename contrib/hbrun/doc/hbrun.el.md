@@ -1,12 +1,12 @@
-Harbour Shell / Script Runner 3\.4\.0dev \(070bae68be\) \(2016\-12\-03 12:21\)  
-Copyright &copy; 2007\-present, Viktor Szakats  
+Harbour Shell / Script Runner 3\.4\.0dev \(f045ac02bb\) \(2017\-08\-07 09:55\)  
+Copyright &copy; 2007\-2017, Viktor Szakats  
 Copyright &copy; 2003\-2007, Przemysław Czerpak  
 <https://github\.com/vszakats/harbour\-core/>  
 Μετάφραση \(el\): Pete D\. \(pete\_westg@yahoo\.gr\)  
 
 Σύνταξη:  
   
-  hbrun &lt;αρχείο\[\.hb|\.prg|\.hrb|\.dbf\]&gt;|&lt;επιλογή&gt; \[&lt;παραμετρος\[ι\]&gt;\]  
+  hbrun &lt;file\[\.hb|\.prg|\.hrb|\.dbf\]|\-dbf:file|\-prg:string&gt;|&lt;option&gt; \[&lt;παραμετρος\[ι\]&gt;\]  
   
 Περιγραφή:  
 
@@ -23,13 +23,14 @@ Copyright &copy; 2003\-2007, Przemysław Czerpak
  - **\-viewhelp** full help in text viewer
  - **\-fullhelp** full help
  - **\-fullhelpmd** full help in [Markdown](https://daringfireball.net/projects/markdown/) format
+ - **\-version** εμφάνιση κεφαλίδας έκδοσης μόνο
   
 Αρχεία:  
 
 
  - **\*\.hb** Σενάριο Harbour
  - **\*\.hrb** Μεταφέρσιμο δυαδικό Harbour \(γνωστό και ως προκατασκευασμένο σενάριο\)
- - **hbstart\.hb** εναρκτήριο σενάριο Harbour για το διαδραστικό κέλυφος Harbour\. Εκτελείται αυτόματα κατά την έναρξη του κελύφους, αν υπάρχει\. Ενδεχόμενες τοποθεσίες \(με σειρά προτεραιότητας\) \[\*\]: \./, $HOME/\.harbour, /etc/harbour, &lt;hbrun κατάλογος&gt;/\.\./etc/harbour, &lt;hbrun κατάλογος&gt;/\.\./etc, &lt;hbrun κατάλογος&gt;
+ - **hbstart\.hb** εναρκτήριο σενάριο Harbour για το διαδραστικό κέλυφος Harbour\. Εκτελείται αυτόματα κατά την έναρξη του κελύφους, αν υπάρχει\. Ενδεχόμενες τοποθεσίες \(με σειρά προτεραιότητας\) \[\*\]: \./, $HOME/\.harbour, /etc/harbour, etc/harbour, etc, &lt;hbrun κατάλογος&gt;
  - **shell plugins** \.hb και \.hrb plugins για το διαδραστικό κέλυφος του Harbour\. Πρέπει να βρίσκονται μέσα στο \[\*\]: $HOME/\.harbour/
  - **\.hb\_history** αποθηκεύει ιστορικό εντολών για το διαδραστικό κέλυφος του Harbour\. Μπορείτε να απενεργοποιήσετε το ιστορικό κάνοντας την πρώτη γραμμή 'no' \(χωρίς τα εισαγωγικά και με νεα γραμμή\)\. Βρίσκεται στο \[\*\]: $HOME/\.harbour/
  - **hb\_extension** λίστα καταλήξεων προς φόρτωση στο διαδραστικό κέλυφος του Harbour\. Μία κατάληξη ανα γραμμή, το τμήμα της γραμμής μετά από ένα χαρακτήρα '\#' αγνοείται\. Εναλλακτικά ονομα\-αρχείου στο Ms\-DOS: Το hb\_ext\.ini\. Βρίσκεται μεσα στο \[\*\]: $HOME/\.harbour/
@@ -75,7 +76,7 @@ Name of the script executing\.
 Σημειώσεις:  
 
 
-  - \.hb, \.prg, \.hrb ή \.dbf file passed as first parameter will be run as Harbour script\. If the filename contains no path components, it will be searched in current working directory and in PATH\. If not extension is given, \.hb and \.hrb extensions are searched, in that order\. \.dbf file will be opened automatically in shared mode and interactive Harbour shell launched\. Non\-standard extensions will be auto\-detected for source and precompiled script types\. Note, for Harbour scripts, the codepage is set to UTF\-8 by default\. The default core header 'hb\.ch' is automatically \#included at the interactive shell prompt\. The default date format is the ISO standard: yyyy\-mm\-dd\. SET EXACT is set to ON\. Set\( \_SET\_EOL \) is set to OFF\. The default GT is 'gtcgi', unless full\-screen CUI calls are detected, when 'gttrm' \[\*\] is automatically selected \(except for INIT PROCEDUREs\)\.
+  - \.hb, \.prg, \.hrb ή \.dbf file passed as first parameter will be run as Harbour script\. If the filename contains no path components, it will be searched in current working directory and in PATH\. If not extension is given, \.hb and \.hrb extensions are searched, in that order\. \.dbf file will be opened automatically in shared mode and interactive Harbour shell launched\. \.dbf files with non\-standard extension can be opened by prepending '\-dbf:' to the file name\. Otherwise, non\-standard extensions will be auto\-detected for source and precompiled script types\. Note, for Harbour scripts, the codepage is set to UTF\-8 by default\. The default core header 'hb\.ch' is automatically \#included at the interactive shell prompt\. The default date format is the ISO standard: yyyy\-mm\-dd\. SET EXACT is set to ON\. Set\( \_SET\_EOL \) is set to OFF\. The default GT is 'gtcgi', unless full\-screen CUI calls are detected, when 'gttrm' \[\*\] is automatically selected \(except for INIT PROCEDUREs\)\.
   - You can use key &lt;Ctrl\+V&gt; in interactive Harbour shell to paste text from the clipboard\.
   - Τιμές με αστερίσκο \[\*\] μπορεί να εξαρτώνται από την πλατφόρμα υποδοχής ή/και τη διαμόρφωση\. Η παρούσα βοήθεια δημιουργήθηκε στην 'darwin' πλατφόρμα υποδοχής\.
   
@@ -93,9 +94,9 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE\.  See the
 GNU General Public License for more details\.  
   
 You should have received a copy of the GNU General Public License  
-along with this program; if not, write to the Free Software  
-Foundation, Inc\., 675 Mass Ave, Cambridge, MA 02139, USA \(or visit  
-their website at https://www\.gnu\.org/\)\.  
+along with this program; if not, write to the Free Software Foundation,  
+Inc\., 51 Franklin Street, Fifth Floor, Boston, MA 02110\-1301 USA\.  
+\(or visit their website at https://www\.gnu\.org/licenses/\)\.  
   
 License extensions:  
   \- This source code must be kept and distributed as part  

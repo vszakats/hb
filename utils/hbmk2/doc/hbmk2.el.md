@@ -1,5 +1,5 @@
-Harbour Make \(hbmk2\) 3\.4\.0dev \(070bae68be\) \(2016\-12\-03 12:21\)  
-Copyright &copy; 1999\-present, Viktor Szakats  
+Harbour Make \(hbmk2\) 3\.4\.0dev \(f045ac02bb\) \(2017\-08\-07 09:55\)  
+Copyright &copy; 1999\-2017, Viktor Szakats  
 <https://github\.com/vszakats/harbour\-core/>  
 Μετάφραση \(el\): Pete D\. \(pete\_westg@yahoo\.gr\)  
 
@@ -45,7 +45,7 @@ Besides building executables, hbmk2 is able to run Harbour scripts \(both source
  - **\-c=&lt;value&gt;** select C standard\. Allowed values are: iso90, iso99, iso11, gnu90, gnu99, gnu11
  - **\-cpp=&lt;value&gt;** select C\+\+ mode or standard\. Allowed values are: def, yes, no, iso98, iso11, iso14, gnu98, gnu11, gnu14
  - **\-map\[\-\]** δημιουργία \(ή όχι\) ενός map αρχείου
- - **\-implib\[\-\]** create \(or not\) an import library \(in \-hbdyn/\-hbexe mode\)\. The name will have a suffix added\.
+ - **\-implib\[\-\]** δημιουργία \(ή όχι\) βιβλιοθήκης εισαγωγής \(in \-hbdyn/\-hbexe mode\)\. Στο όνομα θα προστεθεί ένα επίθεμα\.
  - **\-implib=&lt;output&gt;** δημιουργία ονόματος βιβλιοθήκης εισαγωγής \(in \-hbdyn/\-hbexe mode\) στο &lt;output&gt; \(Προεπιλογή: ίδιο με το output\)
  - **\-ln=&lt;link&gt;** δημιουργία συμβολικού δεσμού που δείχνει στο &lt;output&gt; \(το &lt;link&gt; θεωρείται σχετικό με το &lt;output&gt;\)
  - **\-trace\[\-\]** εμφάνιση εντολών που εκτελούνται
@@ -66,7 +66,8 @@ Besides building executables, hbmk2 is able to run Harbour scripts \(both source
 το &lt;level&gt; μπορεί να είναι: yes, no, min, high, max
  - **\-run\[\-\]** εκτέλεση/ή όχι, του εκτελέσιμου που θα δημιουργηθεί
  - **\-vcshead=&lt;file&gt;** generate \.ch header file with local repository information\. Git, SVN, Mercurial, Bazaar, Fossil, CVS and Monotone are currently supported\. Generated header will define preprocessor constant \_HBMK\_VCS\_TYPE\_ with the name of detected VCS and \_HBMK\_VCS\_ID\_ with the unique ID of local repository\. VCS specific information is added as \_HBMK\_VCS\_&lt;TYPE&gt;\_\*\_ constants, where supported\. If no VCS system is detected, a sequential number will be rolled automatically on each build\.
- - **\-bldhead=&lt;file&gt;** generate \.ch header file with build information, like build sequence number and timestamp\. Generated header will define preprocessor constants \_HBMK\_BUILD\_ID\_ and \_HBMK\_BUILD\_ID\_NUM\_ with sequence number \(incremented on each build\), \_HBMK\_BUILD\_DATE\_, \_HBMK\_BUILD\_TIME\_, \_HBMK\_BUILD\_TIMESTAMP\_ with the date/time of build and \_HBMK\_BUILD\_RANDSTR\_32\_ with a random string of 32 bytes in hexadecimal format
+ - **\-vcsdir=&lt;dir&gt;** override VCS repository root
+ - **\-bldhead=&lt;file&gt;** generate \.ch header file with build information, like build sequence number and timestamp\. Generated header will define preprocessor constants \_HBMK\_BUILD\_ID\_ and \_HBMK\_BUILD\_ID\_NUM\_ with sequence number \(incremented on each build\), \_HBMK\_BUILD\_YEAR\_, \_HBMK\_BUILD\_DATE\_, \_HBMK\_BUILD\_TIME\_, \_HBMK\_BUILD\_TIMESTAMP\_ with the date/time of build and \_HBMK\_BUILD\_RANDSTR\_32\_ with a random string of 32 bytes in hexadecimal format
  - **\-haltrev\[\-\]** do not increase revision numbers in \-bldhead= \(\_HBMK\_BUILD\_ID\_\) and \-vcshead= \(\_HBMK\_VCS\_ID\_\) options \(default: do increase\)
  - **\-icon=&lt;file&gt;** ορίζει το &lt;file&gt; ως εικονίδιο της εφαρμογής\. Το &lt;file&gt; πρέπει να είναι σε μορφή υποστηριζόμενη από τη πλατφόρμα\-στόχο \(δεν υποστηρίζεται από μερικές πλατφόρμες/μεταγλωττιστές\)\. Σε Windows, υλοποιείται με τη δημιουργία και διασύνδεση ενός resource αρχείου\.
  - **\-manifest=&lt;file&gt;** ενσωμάτωση του μανιφέστου &lt;file&gt; στο εκτελέσιμο/δυναμική βιβλ\. \(μονο σε Windows\)
@@ -97,13 +98,14 @@ Besides building executables, hbmk2 is able to run Harbour scripts \(both source
  - **\-aflag=&lt;f&gt;** πέρασμα μιας σημαίας στον συνδέτη \(static library\)
  - **\-iflag=&lt;f&gt;** πέρασμα μιάς σημαίας στην εντολή δημιουργίας βιβλιοθήκης εισαγωγής
  - **\-signflag=&lt;f&gt;** περασμα απλής σημαίας στην εντολή σήμανσης κώδικα
+ - **\-comprflag=&lt;f&gt;** pass single flag to executable compressor
  - **\-runflag=&lt;f&gt;** πέρασμα μίας σημαίας \-flag\- στο εκτελέσιμο εξόδου όταν έχει γίνει χρήση της επιλογής \-run
  - **\-cflag\+=&lt;f&gt;** πέρασμα μιάς σημαίας \-flag\- στον μεταγλωττιστή C υπερκαλύπτοντας αντίστοιχες σημαίες C που προστέθηκαν απο το ίδιο το hbmk2 itself\. Χρησιμοποιείστε το με προσοχή\.
  - **\-ldflag\+=&lt;f&gt;** πέρασμα, χωρίς έλεγχο, μιας επιλογής στο συνδέτη/linker \(εκτελέσιμο\) μετά τη λίστα βιβλιοθηκών\. Χρησιμοποιήστε το με προσοχή\!
  - **\-dflag\+=&lt;f&gt;** πέρασμα, χωρίς έλεγχο, μιάς επιλογής στο συνδέτη/linker \(δυναμική βιβλιοθήκη\) μετά τη λίστα βιβλιοθηκών\. Χρησιμοποιήστε το με προσοχή\!
  - **\-3rd=&lt;f&gt;** επιλογές/σημαίες εφεδρικές για 3rd party εργαλεία, πάντοτε αγνοούνται από το ίδιο το hbmk2
  - **\-env:&lt;e&gt;\[&lt;o&gt;\[&lt;v&gt;\]\]** τροποποίηση τοπικού περιβάλλοντος\. &lt;e&gt; είναι το όνομα μεταβλητής περιβάλλοντος για αλλαγή\. &lt;o&gt; μπορεί να είναι '=' για ορισμό/επικάλυψη, '\-' για διαγραφή, '\+' για προσθήκη στο τέλος της υπάρχουσας τιμής, '\#' για εισαγωγή στην αρχή της υπάρχουσας τιμής\. &lt;v&gt; είναι η τιμή που θα οριστεί/προστεθεί/εισαχθεί\.
- - **\-jobs=&lt;n&gt;** start n compilation threads \(multiprocess platforms only\) \(default: number of processors available or 1 if not detectable/applicable; on this system: 2\)
+ - **\-jobs=&lt;n&gt;** start n compilation threads \(multiprocess platforms only\) \(default: number of processors available or 1 if not detectable/applicable; on this system: 8\)
  - **\-head=&lt;m&gt;** έλεγχος της ανάλυσης του πηγαίου header \(σε αυξητικό \-incremental\- ρυθμό κατασκευής\)  
 &lt;m&gt; μπορεί να είναι: native \(χρήση του μεταγλωττιστή για εξαγωγή των εξαρτήσεων\), full \(προεπιλογή, χρήση απλού αναλυτή κειμένου σε όλο το αρχείο\), dep, off
  - **\-rebuild** ανακατασκευή \(σε incremental ρυθμό\)
@@ -123,6 +125,7 @@ Besides building executables, hbmk2 is able to run Harbour scripts \(both source
  - **\-po=&lt;output&gt;** δημιουργία/ενημέρωση αρχείου \.po από το πηγαίο\. Συγχώνευσή του με προηγούμενο αρχείο \.po ίδιου ονόματος
  - **\-minipo\[\-\]** do \(not\) add source file reference to \.po \(default: add them\)
  - **\-rebuildpo** αναδημιουργία \.po αρχείου, απομακρύνοντας έτσι όλες τις παρωχημένες καταχωρίσεις
+ - **\-inithbl** if they are missing, create empty \.hbl file\(s\) before starting the build
 
 
  - **\-hbx=&lt;n\[\.hbx&gt;\]&gt;** δημιουργία Harbour header \(σε μορφή \.hbx\) με όλα τα εξωτερικά symbols\. Κενή παράμετρος θα απενεργοποιήσει την δημιουργία\. Η προκαθορισμένη κατάληξη είναι \.hbx\. Αν οριστεί, &lt;n&gt; θα προστεθεί αυτόματα στη λίστα των Harbour αρχείων εισόδου και θα 'κτισθεί' εντός του έργου\. Ως εκ τούτου, το τμήμα 'όνομα' του &lt;n&gt; δεν πρέπει να είναι ίδιο με κανένα άλλο όνομα αρχείου εισόδου που ενυπάρχει στο έργο\.
@@ -182,6 +185,8 @@ create link/copy hbmk2 to rtlink/blinker/exospace for the same effect
  - **\-docjson &lt;text&gt;** output documentation in JSON format for function\[s\]/command\[s\] in &lt;text&gt;
  - **\-fixcase &lt;file\[s\]&gt;** fix casing of Harbour function names to their 'official' format\. Core functions and functions belonging to all active contribs/addons with an \.hbx file will be processed\.
  - **\-sanitize &lt;file\[s\]&gt;** convert filenames to lowercase, EOLs to platform native and remove EOF character, if present\.
+ - **\-urlize \[&lt;file&gt;\]** convert \.prg source or \.hrb file \(or stdin\) to base64 encoded string on stdout\.
+ - **\-deurlize \[&lt;str&gt;\]** convert base64 encoded source string \(or stdin\) to \.prg source/\.hrb file on stdout\.
 
 
  - **\-hbmake=&lt;file&gt;** μετατροπή έργου hbmake &lt;file&gt; σε αρχείο \.hbp
@@ -222,6 +227,7 @@ Special value:
  - **\-debugi18n** εμφάνιση εσωτερικών στοιχείων της δημιουργίας αρχείου μετάφρασης
  - **\-debugdepd** εμφάνιση εσωτερικών στοιχείων της ανίχνευσης εξάρτησης
  - **\-debugpars** εμφάνιση όλων των παραμέτρων εισόδου με τη σειρά που επεξεργάζονται
+ - **\-debugcmdl\[\-\]** simulate command\-line length limit of 0, or unlimited
  - **\-debugrte** παράγει ένα λάθος χρόνου\-εκτέλεσης /run\-time error/
 
 
@@ -254,7 +260,7 @@ Special value:
  - **\*\.hbm** συλλογή επιλογών\. Μπορεί να χρησιμοποιηθεί για συγκέντρωση κοινών επιλογών μέσα σε ένα αρχείο το οποίο θα συμπεριληφθεί μέσα σε αρχεία έργου\. Χρησιμοποιεί μορφή ίδια με τα \.hbp αρχεία\.
  - **\*\.hbc** συλλογή από επιλογές που συνοδεύουν συστατικά στοιχεία \(γνωστά και ως 'βιβλιοθήκες', γνωστά και ως πακέτα\)\. γίνεται χρήση διαφορετικής σύνταξης απο αυτήν της γραμμής\-εντολών και των αρχείων \.hbp/\.hbm\. Γραμμές που αρχίζουν με το χαρακτήρα '\#' αγνοούνται, κάθε ντιρεκτίβα πρέπει να τοποθετείται σε ξεχωριστή γραμμή\.
  - **\*\.ch** αν περαστεί κατευθείαν σαν πηγαίο αρχείο, θα χρησιμοποιηθεί σαν επιπλέον πρότυπο header
- - **hbmk\.hbc** standard αρχείο \.hbc που δέχεται αυτόματη επεξεργασία, αν είναι παρόν\. Πιθανή\(ές\) τοποθεσίες \(με σειρά προτεραιότητας\) \[\*\]: $HOME/\.harbour, /etc/harbour, &lt;hbmk2 κατάλογος&gt;/\.\./etc/harbour, &lt;hbmk2 κατάλογος&gt;/\.\./etc, &lt;hbmk2 κατάλογος&gt;
+ - **hbmk\.hbc** standard αρχείο \.hbc που δέχεται αυτόματη επεξεργασία, αν είναι παρόν\. Πιθανή\(ές\) τοποθεσίες \(με σειρά προτεραιότητας\) \[\*\]: $HOME/\.harbour, /etc/harbour, etc/harbour, etc, &lt;hbmk2 κατάλογος&gt;
  - **hbmk\.hbm** προαιρετικό \.hbm αρχείο μέσα στο τρέχοντα κατάλογο εργασίας, που δέχεται επεξεργασία αυτομάτως, πρίν από τυχόν άλλες επιλογές
  - **$hb\_pkg\_dynlib\.hbm** special \.hbm file built\-in inside hbmk2\. It manages the details of creating a dynamic library \(in the style of Harbour contribs\)\.
  - **$hb\_pkg\_install\.hbm** special \.hbm file built\-in inside hbmk2\. It manages the details of installing build targets and related package files to standard locations \(in the style of Harbour contribs\)\.
@@ -262,7 +268,7 @@ Special value:
 
  - **\*\.hb** Σενάριο Harbour
  - **\*\.hrb** Μεταφέρσιμο δυαδικό Harbour \(γνωστό και ως προκατασκευασμένο σενάριο\)
- - **hbstart\.hb** εναρκτήριο σενάριο Harbour για το διαδραστικό κέλυφος Harbour\. Εκτελείται αυτόματα κατά την έναρξη του κελύφους, αν υπάρχει\. Ενδεχόμενες τοποθεσίες \(με σειρά προτεραιότητας\) \[\*\]: \./, $HOME/\.harbour, /etc/harbour, &lt;hbmk2 κατάλογος&gt;/\.\./etc/harbour, &lt;hbmk2 κατάλογος&gt;/\.\./etc, &lt;hbmk2 κατάλογος&gt;
+ - **hbstart\.hb** εναρκτήριο σενάριο Harbour για το διαδραστικό κέλυφος Harbour\. Εκτελείται αυτόματα κατά την έναρξη του κελύφους, αν υπάρχει\. Ενδεχόμενες τοποθεσίες \(με σειρά προτεραιότητας\) \[\*\]: \./, $HOME/\.harbour, /etc/harbour, etc/harbour, etc, &lt;hbmk2 κατάλογος&gt;
  - **shell plugins** \.hb και \.hrb plugins για το διαδραστικό κέλυφος του Harbour\. Πρέπει να βρίσκονται μέσα στο \[\*\]: $HOME/\.harbour/
  - **\.hb\_history** αποθηκεύει ιστορικό εντολών για το διαδραστικό κέλυφος του Harbour\. Μπορείτε να απενεργοποιήσετε το ιστορικό κάνοντας την πρώτη γραμμή 'no' \(χωρίς τα εισαγωγικά και με νεα γραμμή\)\. Βρίσκεται στο \[\*\]: $HOME/\.harbour/
  - **hb\_extension** λίστα καταλήξεων προς φόρτωση στο διαδραστικό κέλυφος του Harbour\. Μία κατάληξη ανα γραμμή, το τμήμα της γραμμής μετά από ένα χαρακτήρα '\#' αγνοείται\. Εναλλακτικά ονομα\-αρχείου στο Ms\-DOS: Το hb\_ext\.ini\. Βρίσκεται μεσα στο \[\*\]: $HOME/\.harbour/
@@ -271,6 +277,7 @@ Special value:
 
 
  - **$\{hb\_root\}** κατάλογος του hbmk2
+ - **$\{hb\_prefix\}** Harbour root directory
  - **$\{hb\_dir\}** κατάλογος του χρησιμοποιούμενου ονόματος αρχείου
  - **$\{hb\_dirname\}** ανώτατος κατάλογος του αρχείου που χρησιμοποιείται
  - **$\{hb\_name\}** όνομα του αρχείου που χρησιοποιείται \(χωρίς κατάλογο και κατάληξη\)
@@ -281,7 +288,7 @@ Special value:
  - **$\{hb\_targettype\}** ο τύπος του έργου \(hbexe, hblib, hbdyn, hbdynvm, hbimplib, hbppo, hbhrb, hbcontainer\)
  - **$\{hb\_plat\}** επιλεγμένη πλατφόρμα
  - **$\{hb\_comp\}** επιλεγμένος μεταγλωττιστής C
- - **$\{hb\_comp\_ver\}** Εκδοση μεταγλωττιστή C
+ - **$\{hb\_comp\_ver\}** C compiler version\. Caveat: Returns '0' on \*nix systems, because at macro evaluation time the C compiler version is not queried yet\.
  - **$\{hb\_build\}** όνομα κατασκευής
  - **$\{hb\_cpu\}** επιλεγμένη CPU
  - **$\{hb\_work\}** προεπιλεγμένο όνομα βασικού καταλόγου εργασίας
@@ -296,6 +303,7 @@ Special value:
  - **$\{hb\_release\}** Αριθμός έκδοσης Harbour \-release\-
  - **$\{hb\_status\}** Κατάσταση έκδοσης Harbour
  - **$\{hb\_ver\_id\}** Harbour version ID
+ - **$\{hb\_ver\_id\_short\}** Harbour version ID \(short\)
  - **$\{hb\_revision\}** Αναθεώρηση Harbour
  - **$\{hb\_host\_plat\}** Πλατφόρμα υποδοχής
  - **$\{hb\_host\_plat\_unix\}** επιστρέφει '1' αν η πλατφόρμα υποδοχής Harbour είναι \*nix συμβατή
@@ -533,7 +541,8 @@ Add a C compiler option\.
  - **"vars"** Κατακερματισμός \-hash\- των ιδιαίτερων μεταβλητών plugin\. Εγγράψιμο, τοπικά σε κάθε plugin
  - **"cPLAT"** \-plat τιμή
  - **"cCOMP"** \-comp τιμή
- - **"nCOMPVer"** detected compiler version in &lt;MMmm&gt; format
+ - **"cCOMPVer"** detected compiler version in &lt;MMmm&gt; format \(and '0' if undetermined\)
+ - **"nCOMPVer"** detected compiler version as a number: &lt;major&gt; \* 100 \+ &lt;minor&gt; \(deprecated\)
  - **"cCPU"** \-cpu τιμή
  - **"cBUILD"** \-build= τιμή
  - **"cOUTPUTNAME"** \-o τιμή
@@ -679,7 +688,7 @@ $ hbmk2 \-hblib mylibsrc\.prg \-omylib \-inc
   - '\.' \(dot\) passed as first parameter will enter the interactive Harbour shell\.
 
 
-  - \.hb, \.hrb ή \.dbf file passed as first parameter will be run as Harbour script\. If the filename contains no path components, it will be searched in current working directory and in PATH\. If not extension is given, \.hb and \.hrb extensions are searched, in that order\. \.dbf file will be opened automatically in shared mode and interactive Harbour shell launched\. Non\-standard extensions will be auto\-detected for source and precompiled script types\. Note, for Harbour scripts, the codepage is set to UTF\-8 by default\. The default core header 'hb\.ch' is automatically \#included at the interactive shell prompt\. The default date format is the ISO standard: yyyy\-mm\-dd\. SET EXACT is set to ON\. Set\( \_SET\_EOL \) is set to OFF\. The default GT is 'gtcgi', unless full\-screen CUI calls are detected, when 'gttrm' \[\*\] is automatically selected \(except for INIT PROCEDUREs\)\.
+  - \.hb, \.hrb ή \.dbf file passed as first parameter will be run as Harbour script\. If the filename contains no path components, it will be searched in current working directory and in PATH\. If not extension is given, \.hb and \.hrb extensions are searched, in that order\. \.dbf file will be opened automatically in shared mode and interactive Harbour shell launched\. \.dbf files with non\-standard extension can be opened by prepending '\-dbf:' to the file name\. Otherwise, non\-standard extensions will be auto\-detected for source and precompiled script types\. Note, for Harbour scripts, the codepage is set to UTF\-8 by default\. The default core header 'hb\.ch' is automatically \#included at the interactive shell prompt\. The default date format is the ISO standard: yyyy\-mm\-dd\. SET EXACT is set to ON\. Set\( \_SET\_EOL \) is set to OFF\. The default GT is 'gtcgi', unless full\-screen CUI calls are detected, when 'gttrm' \[\*\] is automatically selected \(except for INIT PROCEDUREs\)\.
   - You can use key &lt;Ctrl\+V&gt; in interactive Harbour shell to paste text from the clipboard\.
   - Τιμές με αστερίσκο \[\*\] μπορεί να εξαρτώνται από την πλατφόρμα υποδοχής ή/και τη διαμόρφωση\. Η παρούσα βοήθεια δημιουργήθηκε στην 'darwin' πλατφόρμα υποδοχής\.
 
@@ -719,9 +728,9 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE\.  See the
 GNU General Public License for more details\.  
   
 You should have received a copy of the GNU General Public License  
-along with this program; if not, write to the Free Software  
-Foundation, Inc\., 675 Mass Ave, Cambridge, MA 02139, USA \(or visit  
-their website at https://www\.gnu\.org/\)\.  
+along with this program; if not, write to the Free Software Foundation,  
+Inc\., 51 Franklin Street, Fifth Floor, Boston, MA 02110\-1301 USA\.  
+\(or visit their website at https://www\.gnu\.org/licenses/\)\.  
   
 License extensions:  
   \- This source code must be kept and distributed as part  
