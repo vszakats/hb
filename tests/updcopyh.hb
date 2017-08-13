@@ -16,12 +16,22 @@ PROCEDURE Main()
    LOCAL nUpd := 0
    LOCAL cOri, cNew
 
-   LOCAL cGPLOld := ;
+   LOCAL cGPL1Old := ;
+      "along with this program; if not, write to the Free Software" + hb_eol() + ;
+      "Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA (or visit" + hb_eol() + ;
+      "their website at https://www.gnu.org/)." + hb_eol()
+
+   LOCAL cGPL1New := ;
+      "along with this program; if not, write to the Free Software Foundation," + hb_eol() + ;
+      "Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA." + hb_eol() + ;
+      "(or visit their website at https://www.gnu.org/licenses/)." + hb_eol()
+
+   LOCAL cGPL2Old := ;
       " * along with this program; if not, write to the Free Software" + hb_eol() + ;
       " * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA (or visit" + hb_eol() + ;
       " * their website at https://www.gnu.org/)." + hb_eol()
 
-   LOCAL cGPLNew := ;
+   LOCAL cGPL2New := ;
       " * along with this program; if not, write to the Free Software Foundation," + hb_eol() + ;
       " * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA." + hb_eol() + ;
       " * (or visit their website at https://www.gnu.org/licenses/)." + hb_eol()
@@ -37,8 +47,9 @@ PROCEDURE Main()
       " * Boston, MA 02110-1301 USA (or visit https://www.gnu.org/licenses/)." + hb_eol()
 
    LOCAL hReplace := { ;
-      cGPLOld => cGPLNew, ;
-      cGPHOld => cGPHNew }
+      cGPL1Old => cGPL1New, ;
+      cGPL2Old => cGPL2New, ;
+      cGPHOld  => cGPHNew }
 
    FOR EACH aFile IN hb_DirScan( ".", hb_osFileMask() )
 
