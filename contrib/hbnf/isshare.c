@@ -1,5 +1,5 @@
 /* Copyright 2000 Luiz Rafael Culik <Culik@sl.conex.net>
-   See COPYING.txt for licensing terms. */
+   See LICENSE.txt for licensing terms. */
 
 #include "hbapi.h"
 

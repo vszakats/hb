@@ -1,6 +1,6 @@
 /* Copyright 2007 Przemyslaw Czerpak <druzus / at / priv.onet.pl>
    Copyright 2012 Viktor Szakats (vszakats.net/harbour)
-   See COPYING.txt for licensing terms. */
+   See LICENSE.txt for licensing terms. */
 
 #include "hbapi.h"
 #include "hbapigt.h"

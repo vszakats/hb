@@ -1,5 +1,5 @@
 /* Copyright 2000 Luiz Rafael Culik <Culik@sl.conex.net>
-   See COPYING.txt for licensing terms.
+   See LICENSE.txt for licensing terms.
 
    This is an original work by Glenn Scott and is placed in the public domain.
 
