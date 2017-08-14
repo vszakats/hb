@@ -36,7 +36,7 @@ C_SOURCES := \
 ifneq ($(HB_HAS_PCRE2_LOCAL),)
 
    HB_CFLAGS += -DSUPPORT_UNICODE -DPCRE2_CODE_UNIT_WIDTH=8
-   # only needed for win/wce, for other platforms this is noop
+   # only needed for win/wce, for other platforms this is no-op
    HB_CFLAGS_STA := -DPCRE2_STATIC
 
    ifneq ($(filter $(HB_COMPILER),clang gcc mingw mingw64 sunpro),)

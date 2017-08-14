@@ -13,16 +13,11 @@
 PROCEDURE Main()
 
    LOCAL aFile
-   LOCAL cExt
    LOCAL eol
    LOCAL tmp, tmp1
 
    FOR EACH aFile IN hb_DirScan( ".", hb_osFileMask() )
-
-      cExt := hb_FNameExt( aFile[ F_NAME ] )
-
-      IF ( Empty( cExt ) .OR. ;
-         "|" + cExt + "|" $ "|.c|.h|.hb|.prg|.hbm|.hbp|.hbc|.ini|.bat|.sh|.vbs|.def|.api|.ch|.txt|.mk|" )
+      IF "|" + hb_FNameExt( aFile[ F_NAME ] ) + "|" $ "||.c|.h|.hb|.prg|.hbm|.hbp|.hbc|.ini|.bat|.sh|.vbs|.def|.api|.ch|.txt|.mk|"
 
          tmp := tmp1 := hb_MemoRead( aFile[ F_NAME ] )
 

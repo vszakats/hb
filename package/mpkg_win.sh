@@ -170,7 +170,7 @@ for name in \
     # Remove embedded timestamps
     "${_bin_hbmk2}" "${_SCRIPT}" pe "${_ROOT}" "${file}"
 
-    # Readd code signature
+    # Re-add code signature
     if [ -f "${HB_CODESIGN_KEY}" ]; then
       (
         set +x

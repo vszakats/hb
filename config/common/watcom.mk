@@ -92,7 +92,7 @@ ifeq ($(ANYDOS),yes)
    # disable DOS/32A Banner
    export DOS32A := /NOC
 
-   # work arround to DOS command-line size limit
+   # workaround for MS-DOS command-line length limit
    ifneq ($(findstring wcc386,$(CC)),)
       export WCC386 := $(strip $(subst $(CC_DIRSEPFROM),$(CC_DIRSEPTO),$(CC_FLAGS)))
    else

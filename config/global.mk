@@ -45,7 +45,7 @@ endif
 # Arbitrary pattern which we do not expect to occur in real-world path names
 substpat := !@!@
 
-# This is not strictly necessary, but it does signficantly reduce
+# This is not strictly necessary, but it does significantly reduce
 # the number of rules that make has to evaluate otherwise, which may give
 # a performance boost on a slow system.
 .SUFFIXES:
@@ -1531,9 +1531,9 @@ ifeq ($(HB_INIT_DONE),)
       # NOTE: We do need DJGPP build of GNU Make on Windows
       #       systems. The reason is that this uses special
       #       trick to pass command-lines to other DJGPP tools
-      #       (like gcc) to overcome 126 chars MS-DOS command
+      #       (f.e. to gcc) to overcome 126 chars MS-DOS command
       #       line length limitation. IOW: mingw32-make.exe
-      #       wo not work with DJGPP on Windows hosts.
+      #       will not work with DJGPP on Windows hosts.
       #       [vszakats]
       ifeq ($(HB_HOST_PLAT),win)
          ifneq ($(HB_MAKE_PLAT),dos)
@@ -1645,7 +1645,7 @@ ifneq ($(HB_HOST_PLAT)$(HB_HOST_CPU),$(HB_PLATFORM)$(HB_CPU))
             # 'Windows host, Cygwin target'
             ifneq ($(HB_HOST_PLAT)-$(HB_PLATFORM),win-cygwin)
                HB_CROSS_BUILD := yes
-               # Try to autosetup
+               # Try to auto-setup
                ifneq ($(HB_SRC_ROOTPATH),)
                   _HB_ROOT_BIN := $(HB_SRC_ROOTPATH)
                else
@@ -1844,7 +1844,7 @@ ifeq ($(HB_BUILD_PKG),yes)
       #                       created (root of Harbour source tree)
       # HB_INSTALL_PKG_ROOT - dir which has to be packed
       # HB_PKGNAME          - name of the release package
-      # HB_INSTALL_PREFIX   - dir where Harbour dirs will be created
+      # HB_INSTALL_PREFIX   - dir where Harbour subdirectories will be created
       #
       #   <HB_TOP><plat/comp  ><HB_BUILD_PKG_PREFIX>
       #   <HB_INSTALL_PKG_ROOT>

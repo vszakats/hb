@@ -3,7 +3,7 @@
 # Copyright 2016 Viktor Szakats (vszakats.net/harbour)
 # See LICENSE.txt for licensing terms.
 
-# Generate RSA keypair with encrypted private key
+# Generate RSA key pair with encrypted private key
 # Requires: OpenSSL 1.x or upper
 #           (install with `brew install openssl` on Mac)
 

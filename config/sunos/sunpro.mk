@@ -25,7 +25,7 @@ CXX := $(HB_CCACHE) $(HB_CCPATH)$(HB_CCPREFIX)sunCC$(HB_CCSUFFIX)
 
 CFLAGS += -I. -I$(HB_HOST_INC) -c
 
-# try to keep `-fast' as left as possible, as later optim
+# try to keep `-fast' as left as possible, as later optimization
 # flags may override values set by `-fast', and this way
 # no warnings are generated.
 

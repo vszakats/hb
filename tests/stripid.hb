@@ -64,8 +64,7 @@ PROCEDURE Main()
 
       cExt := hb_FNameExt( aFile[ F_NAME ] )
 
-      IF Empty( cExt ) .OR. ;
-         "|" + cExt + "|" $ "|.c|.h|.hb|.prg|.hbm|.hbp|.hbc|.ini|.bat|.sh|.vbs|.def|.api|.ch|.txt|.mk|"
+      IF "|" + cExt + "|" $ "||.c|.h|.hb|.prg|.hbm|.hbp|.hbc|.ini|.bat|.sh|.vbs|.def|.api|.ch|.txt|.mk|"
 
          tmp := hb_StrReplace( MemoRead( aFile[ F_NAME ] ), hReplace )
 

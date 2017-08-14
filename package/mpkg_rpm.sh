@@ -141,9 +141,7 @@ fi
 if ( [ ! -f /usr/include/pcre2.h ] && \
      [ ! -f /usr/local/include/pcre2.h ] ) || \
    [ "$HB_WITH_PCRE2" = 'local' ]; then
-  # We're not yet vendoring pcre2 sources
-  :
-  # INST_PARAM="${INST_PARAM} --with localpcre2"
+  INST_PARAM="${INST_PARAM} --with localpcre2"
 fi
 if ( [ ! -f /usr/include/bzlib.h ] && \
      [ ! -f /usr/local/include/bzlib.h ] ) || \

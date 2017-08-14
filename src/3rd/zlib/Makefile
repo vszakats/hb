@@ -36,7 +36,7 @@ endif
 
 ifneq ($(HB_HAS_ZLIB_LOCAL),)
    ifneq ($(filter $(HB_COMPILER),mingw mingw64),)
-      # Required to enable 64-bit lseek since version 1.2.9
+      # Required to enable 64-bit lseek() since version 1.2.9
       HB_CFLAGS += -D_LARGEFILE64_SOURCE=1 -D_LFS64_LARGEFILE=1
    endif
    ifneq ($(filter $(HB_PLATFORM),wce),)
