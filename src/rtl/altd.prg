@@ -53,7 +53,7 @@ PROCEDURE AltD( nAction )
 
    IF PCount() == 0
 
-      /* do not activate the debugger imediatelly because the module
+      /* do not activate the debugger immediately because the module
          where AltD() was called can have no debugger info - stop
          on first LINE with debugged info */
       __dbgInvokeDebug( Set( _SET_DEBUG ) )

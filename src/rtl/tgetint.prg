@@ -61,7 +61,7 @@ FUNCTION __Get( bSetGet, cVarName, cPicture, bValid, bWhen )
          /* If cVarName is not a field name in current workarea then
           * CA-Cl*pper always tries to create SET/GET block for memvar.
           * If it cannot (i.e. cVarName is complex expression) then it
-          * macrocompile simple SET/GET block for it. [druzus]
+          * macro-compile simple SET/GET block for it. [druzus]
           */
          bSetGet := hb_macroBlock( "iif(HB_PValue(1)==NIL," + cVarName + "," + cVarName + ":=hb_PValue(1))" )
       ENDIF

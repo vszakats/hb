@@ -1291,7 +1291,7 @@ METHOD unTransform() CLASS Get
             ENDIF
             cBuffer := Space( ::FirstEditable() - 1 ) + hb_USubStr( cBuffer, ::FirstEditable(), ::LastEditable() - ::FirstEditable() + 1 )
 
-            /* Readd leading decimal point, if any */
+            /* Re-add leading decimal point, if any */
             IF ::decPos <= ::FirstEditable() - 1
                cBuffer := hb_ULeft( cBuffer, ::decPos - 1 ) + "." + hb_USubStr( cBuffer, ::decPos + 1 )
             ENDIF
@@ -1698,10 +1698,11 @@ METHOD IsEditable( nPos ) CLASS Get
       RETURN .T.
    ENDIF
 
-   /* This odd behaviour helps to be more compatible with CA-Cl*pper in some rare situations.
+   /* This odd behaviour helps to be more compatible with CA-Cl*pper in some
+      rare situations.
       xVar := 98 ; o := _GET_( xVar, "xVar" ) ; o:SetFocus() ; o:picture := "99999" ; o:UnTransform() -> result
-      We're still not 100% compatible in slighly different situations because the CA-Cl*pper
-      behaviour is pretty much undefined here. [vszakats] */
+      We're still not 100% compatible in slightly different situations because
+      the CA-Cl*pper behaviour is pretty much undefined here. [vszakats] */
    IF nPos > hb_ULen( ::cPicMask ) .AND. nPos <= ::nMaxLen
       RETURN .T.
    ENDIF

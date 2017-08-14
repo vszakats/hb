@@ -59,7 +59,7 @@
 
 #ifdef HB_COMPAT_C53
 
-/* Some helper contants for the ReadStats() calls. */
+/* Some helper constants for the ReadStats() calls. */
 #define SNLASTEXIT      6
 #define SNNEXTGET       12
 

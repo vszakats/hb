@@ -256,7 +256,7 @@ CREATE CLASS TBrowse
    VAR nBufferPos    AS INTEGER INIT 1          // position in row buffer
    VAR nMoveOffset   AS INTEGER INIT 0          // requested repositioning
    VAR nLastRow      AS INTEGER INIT 0          // last row in the buffer
-   VAR nLastScroll   AS INTEGER INIT 0          // last srcoll value
+   VAR nLastScroll   AS INTEGER INIT 0          // last scroll value
    VAR nConfigure    AS INTEGER INIT _TBR_CONF_ALL // configuration status
    VAR nLastPos      AS INTEGER INIT 0          // last calculated column position
    VAR lHitTop       AS LOGICAL INIT .F.        // indicates the beginning of available data
@@ -616,7 +616,7 @@ METHOD readRecord( nRow ) CLASS TBrowse
           *        CA-Cl*pper does not fully respect here the returned
           *        value and current code below replicates what Clipper
           *        seems to do but it means that in network environment
-          *        with concurent modifications wrong records can be
+          *        with concurrent modifications wrong records can be
           *        shown. [druzus]
           */
          IF nToMove > 0
@@ -806,7 +806,7 @@ METHOD stabilize() CLASS TBrowse
           *        CA-Cl*pper does not fully respect here the returned
           *        value and current code below replicates what Clipper
           *        seems to do but it means that in network environment
-          *        with concurent modifications wrong records can be
+          *        with concurrent modifications wrong records can be
           *        shown. [druzus]
           */
          nToMove := ::nRowPos - ::nBufferPos
@@ -907,7 +907,7 @@ STATIC FUNCTION _DECODECOLORS( cColorSpec )
 
    FOR nPos := 1 TO nColors
       cColor := hb_tokenGet( cColorSpec, nPos, "," )
-      /* For 1-st two colors CA-Cl*pper checks if given color
+      /* For 1st two colors CA-Cl*pper checks if given color
        * definition has at least one of the following characters:
        * "*+/bBgGrRwWnNiIxXuU0123456789"
        * If not then it takes default color value.
@@ -968,7 +968,7 @@ STATIC FUNCTION _COLDEFCOLORS( aDefColorsIdx, nMaxColorIndex )
 
 /* If oCol:colorBlock does not return array length enough then colors
  * are taken from preprocessed during configuration oCol:defColor array.
- * oCol:colorBlock is used only for cells so only 1-st two color indexes
+ * oCol:colorBlock is used only for cells so only 1st two color indexes
  * are significant. [druzus]
  */
 STATIC FUNCTION _CELLCOLORS( aCol, xValue, nMaxColorIndex )
@@ -1554,7 +1554,7 @@ STATIC FUNCTION _MAXFREEZE( nColumns, aColData, nWidth )
 
    /* CA-Cl*pper allows to freeze all columns only when they
     * are fully visible, otherwise it reserves at least one
-    * character for 1-st unfrozen column [druzus]
+    * character for 1st unfrozen column [druzus]
     */
    IF nWidth > 0 .OR. ;
       nWidth == 0 .AND. _NEXTCOLUMN( aColData, nColumns + 1 ) == 0

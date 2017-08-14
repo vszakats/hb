@@ -237,7 +237,7 @@ METHOD PROCEDURE New( cFrmName AS STRING, ;
 
    BEGIN SEQUENCE
 
-      ::aReportData := ::LoadReportFile( cFRMName )  // Load the frm into an array
+      ::aReportData := ::LoadReportFile( cFRMName )  // Load the .frm into an array
       ::nMaxLinesAvail := ::aReportData[ RPT_LINES ]
 
       // Modify ::aReportData based on the report parameters
@@ -488,7 +488,7 @@ METHOD ReportHeader() CLASS HBReportForm
       NEXT
    NEXT
 
-   AAdd( aPageHeader, "" )  // S87 compat.
+   AAdd( aPageHeader, "" )  // S87 compatibility
 
    nLinesInHeader := Len( aPageHeader )
    nMaxColLength := 0

@@ -318,7 +318,7 @@ METHOD getShortCt( nKey ) CLASS TopBarMenu
    RETURN 0
 
 /* NOTE: In my tests I cannot get other values than HTNOWHERE or a value
-         greather than 0 (selected item), althought the NG's says that
+         greater than 0 (selected item), althought the NG's says that
          it returns other HT* values [jlalin]
 
          This method correct a bug in Cl*pper:

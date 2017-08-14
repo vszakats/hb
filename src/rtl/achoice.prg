@@ -101,10 +101,10 @@ FUNCTION AChoice( nTop, nLeft, nBottom, nRight, acItems, xSelect, xUserFunc, nPo
       nPos := 0
    ENDIF
 
-   // Ensure hilighted item can be selected
+   // Ensure highlighted item can be selected
    nPos := BETWEEN( nFrstItem, nPos, nLastItem )
 
-   // Force hilighted row to be valid
+   // Force highlighted row to be valid
    nHiLiteRow := BETWEEN( 0, nHiLiteRow, nNumRows - 1 )
 
    // Force the topmost item to be a valid index of the array
@@ -520,7 +520,7 @@ FUNCTION AChoice( nTop, nLeft, nBottom, nRight, acItems, xSelect, xUserFunc, nPo
             IF nPos > 0 .AND. nMode != AC_EXCEPT
 
 #if 0
-               /* TOVERIFY: Disabled nRowsClr in DispPage() call.
+               /* TODO: Disabled nRowsClr in DispPage() call:
                   Please verify it, I do not know why it was added but
                   it breaks code which adds dynamically new acItems positions */
                nRowsClr := Min( nNumRows, nItems )

@@ -2,7 +2,7 @@
  * GET system module (default)
  *
  * Copyright 1999-2001 Antonio Linares <alinares@fivetech.com>
- * Copyright 2001 Luiz Rafael Culik (Support for CA-Cl*pper 5.3 Getsystem)
+ * Copyright 2001 Luiz Rafael Culik (Support for CA-Cl*pper 5.3 GET-system)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -121,8 +121,8 @@ FUNCTION GetActive( oGet )
 
    IF oGetList == NIL
       /* NOTE: For complete compatibility we need to make sure this
-               function works even if there is no active getlist.
-               F.e. when 3rd party software manages getlists on its
+               function works even if there is no active GetList.
+               F.e. when 3rd party software manages GetLists on its
                own and still uses this function. [vszakats] */
       IF PCount() > 0
          oGetActiveOld := t_oGetActive

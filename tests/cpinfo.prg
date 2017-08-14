@@ -436,7 +436,7 @@ static function genCPfile( id, info, unicode, flags, upper, lower, sort, ;
 #endif
       if lWarn
          cDef += ;
-            "#if 0 /* TOVERIFY: binary tables */" + hb_eol()
+            "#if 0 /* TODO: Verify binary tables */" + hb_eol()
       endif
    endif
    if lBin .or. lWarn

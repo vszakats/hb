@@ -189,12 +189,12 @@ CREATE CLASS XHBEditor
    METHOD Edit( nPassedKey )                               // Handles input (can receive a key in which case handles only this key and then exits)
 
    METHOD KeyboardHook()                                   // Gets called every time there is a key not handled directly by HBEditor
-   METHOD IdleHook()                                       // Gets called every time there are no more keys to hanlde just before HBEditor blocks itself waiting for a char
+   METHOD IdleHook()                                       // Gets called every time there are no more keys to handle just before HBEditor blocks itself waiting for a char
 
    METHOD Resize( nTop, nLeft, nBottom, nRight )           // Redefines editor window size and refreshes it
    METHOD SetColor( cColorString )                         // Sets/retrieves color used for screen writes
-   METHOD Hilite()                                         // Start hilighting swapping first two color definitions inside cColorSpec
-   METHOD DeHilite()                                       // Stop hilighting
+   METHOD Hilite()                                         // Start highlighting swapping first two color definitions inside cColorSpec
+   METHOD DeHilite()                                       // Stop highlighting
 
    METHOD SetPos( nRow, nCol )                             // Updates ::nPhysRow, ::nPhysCol and then calls SetPos() to move hardware cursor
    METHOD Row() INLINE ::nPhysRow                          // Same as Cl*pper ones, returns ::nPhysRow value
