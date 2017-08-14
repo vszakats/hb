@@ -188,8 +188,8 @@ HB_FUNC( WVW_PBISFOCUSED )
 /* wvw_pbEnable( [nWinNum], nButtonId, [lToggle] )
  *  enable/disable button nButtonId on window nWinNum
  * (lToggle defaults to .T., ie. enabling the button)
- *  return previous state of the button (TRUE:enabled FALSE:disabled)
- * (if nButtonId is invalid, this function returns FALSE too)
+ *  return previous state of the button (.T.: enabled .F.: disabled)
+ * (if nButtonId is invalid, this function returns .F. too)
  */
 HB_FUNC( WVW_PBENABLE )
 {

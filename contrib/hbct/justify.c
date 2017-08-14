@@ -51,7 +51,7 @@
 #define DO_JUSTIFY_JUSTLEFT   0
 #define DO_JUSTIFY_JUSTRIGHT  1
 
-/* helper function for the justxxx() functions */
+/* helper function for the Just*() functions */
 static void do_justify( int iSwitch )
 {
    int iNoRet = ct_getref() && HB_ISBYREF( 1 );

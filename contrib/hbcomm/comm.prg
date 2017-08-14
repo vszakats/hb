@@ -94,7 +94,7 @@ FUNCTION ISWORKING( nPort )
    RETURN nPort $ s_hPort
 
 /* NOTE: INCOMPATIBILITY.
-         In contratry to original HBCOMM, here <cData> must be passed by reference.
+         In contrary to original HBCOMM, here <cData> must be passed by reference.
          HBCOMM could corrupt HVM because of its buggy way of returning data.
          [vszakats] */
 /* Fetch <nCount> chars into <cData> */

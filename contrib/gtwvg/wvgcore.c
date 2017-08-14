@@ -1261,7 +1261,7 @@ HB_FUNC( WVT_DRAWLINE )
             break;
 
          case 2:  /* Bottom */
-            if( iFormat == 0 || iFormat == 1 )  /* Raised/Recessd */
+            if( iFormat == 0 || iFormat == 1 )  /* Raised/Recessed */
                y = iBottom - 1;
             else
                y = iBottom;
@@ -1271,7 +1271,7 @@ HB_FUNC( WVT_DRAWLINE )
             break;
 
          case 4:  /* Right */
-            if( iFormat == 0 || iFormat == 1 )  /* Raised/Recessd */
+            if( iFormat == 0 || iFormat == 1 )  /* Raised/Recessed */
                x = iRight - 1;
             else
                x = iRight;
@@ -1466,7 +1466,7 @@ HB_FUNC( WVT_DRAWLINEEX )
                break;
 
             case 2:  /* Bottom */
-               if( iFormat == 0 || iFormat == 1 )  /* Raised/Recessd */
+               if( iFormat == 0 || iFormat == 1 )  /* Raised/Recessed */
                   y = iBottom - 1;
                else
                   y = iBottom;
@@ -1476,7 +1476,7 @@ HB_FUNC( WVT_DRAWLINEEX )
                break;
 
             case 4:  /* Right */
-               if( iFormat == 0 || iFormat == 1 )  /* Raised/Recessd */
+               if( iFormat == 0 || iFormat == 1 )  /* Raised/Recessed */
                   x = iRight - 1;
                else
                   x = iRight;

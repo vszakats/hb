@@ -132,7 +132,7 @@ STATIC FUNCTION DispStatusMsg( cMsg )
 
    ClearStatusMsg()
 
-   /* NOTE: The GUI function used as such is not subject to autopainting */
+   /* NOTE: The GUI function used as such is not subject to auto-painting */
    wvt_DrawLabel( MaxRow(), 60, cMsg, 6, , 0, WIN_RGB( 198, 198, 198 ), "Arial", 18, , 900 )
 
    RETURN .T.

@@ -129,7 +129,7 @@ typedef struct _HB_EXPAT
          hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS ); \
    }
 
-/* --- Global initialization/deinitialization --- */
+/* --- Global initialization/de-initialization --- */
 
 static void * XMLCALL hb_expat_xgrab( size_t size )
 {

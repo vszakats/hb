@@ -174,8 +174,8 @@ HB_FUNC( WVW_CXSETFOCUS )
 /* wvw_cxEnable( [nWinNum], nButtonId, [lToggle] )
    enable/disable checkbox nButtonId on window nWinNum
    (lToggle defaults to .T., ie. enabling the checkbox)
-   return previous state of the checkbox (TRUE:enabled FALSE:disabled)
-   (if nButtonId is invalid, this function returns FALSE too) */
+   return previous state of the checkbox (.T.: enabled .F.: disabled)
+   (if nButtonId is invalid, this function returns .F. too) */
 HB_FUNC( WVW_CXENABLE )
 {
    PWVW_WIN wvw_win = hb_gt_wvw_win_par();

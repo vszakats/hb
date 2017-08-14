@@ -281,7 +281,7 @@ typedef struct
 
    POINT     caretPos;                                 /* the current caret position */
    int       CaretSize;                                /* this may be specific to each windows, eg. different font size */
-   POINT     mousePos;                                 /* the last mousedown position */
+   POINT     mousePos;                                 /* the last mouse down position */
    HB_BOOL   MouseMove;                                /* Flag to say whether to return mouse movement events */
    HWND      hWnd;                                     /* the window handle */
    int       Keys[ WVW_CHAR_QUEUE_SIZE ];              /* Array to hold the characters & events */
@@ -389,9 +389,9 @@ typedef struct
       HPEN   currentPen;                        /* Handle to current pen settable at runtime */
       HPEN   gridPen;                           /* Handle da Pen para Grid */
       HBRUSH currentBrush;                      /* Handle to current brush settable by runtime */
-      HBRUSH diagonalBrush;                     /* Handle to diaoganl brush to draw scrollbars */
+      HBRUSH diagonalBrush;                     /* Handle to diagonal brush to draw scrollbars */
       HBRUSH solidBrush;                        /* Handle to solid brush */
-      HBRUSH wvwWhiteBrush;                     /* Wvw specific White colored brush */
+      HBRUSH wvwWhiteBrush;                     /* WVW specific White colored brush */
       HBRUSH OriginalBrush;                     /* Handle da Brush original do Device Context */
 
       IPicture * pPicture[ 20 ];                /* Array to hold the Picture Streams to avoid recurring loading and unloading */
@@ -412,7 +412,7 @@ typedef struct
       WVW_BMP *  pbhBitmapList;
       WVW_IPIC * pphPictureList;
 
-      WVW_BMP * pbhUserBitmap;            /* User bitmap (wvw_drawimage) */
+      WVW_BMP * pbhUserBitmap;            /* User bitmap (wvw_DrawImage()) */
       int       iBMcache;                 /* number of bitmap cached */
       int       iMaxBMcache;              /* maximum number of bitmap cached */
 
@@ -507,7 +507,7 @@ extern void       hb_gt_wvw_CloseWindow( void );
 extern int        hb_gt_wvw_SetCurWindow( int nWin );
 extern void       hb_gt_wvw_CreateToolTipWindow( PWVW_WIN wvw_win );
 
-/* bitmap caching functions for user drawn bitmaps (wvw_drawimage) */
+/* bitmap caching functions for user drawn bitmaps (wvw_DrawImage()) */
 extern HBITMAP    hb_gt_wvw_FindUserBitmapHandle( const char * szFileName, int * piWidth, int * piHeight );
 extern void       hb_gt_wvw_AddUserBitmapHandle( const char * szFileName, HBITMAP hBitmap, int iWidth, int iHeight );
 

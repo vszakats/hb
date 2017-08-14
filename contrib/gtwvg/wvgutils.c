@@ -1128,7 +1128,7 @@ HB_FUNC( WVT_GETFONTHANDLE )
       hbwapi_ret_raw_HANDLE( 0 );
 }
 
-HB_FUNC( WVG_N2P )  /* NOTE: Unsafe: allows to pass arbitary pointers to functions, potentially causing a crash or worse. */
+HB_FUNC( WVG_N2P )  /* NOTE: Unsafe: allows to pass arbitrary pointers to functions, potentially causing a crash or worse. */
 {
    hb_retptr( HB_ISPOINTER( 1 ) ? hb_parptr( 1 ) : ( void * ) ( HB_PTRUINT ) hb_parnint( 1 ) );
 }

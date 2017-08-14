@@ -74,7 +74,7 @@
 #define AMQP_STATUS_UNKNOWN_CLASS               -0x0003  /* An unknown AMQP class was received. This is a protocol error. */
 #define AMQP_STATUS_UNKNOWN_METHOD              -0x0004  /* An unknown AMQP method was received. This is a protocol error. */
 #define AMQP_STATUS_HOSTNAME_RESOLUTION_FAILED  -0x0005  /* Unable to resolve the hostname */
-#define AMQP_STATUS_INCOMPATIBLE_AMQP_VERSION   -0x0006  /* The broker advertised an incompaible AMQP version */
+#define AMQP_STATUS_INCOMPATIBLE_AMQP_VERSION   -0x0006  /* The broker advertised an incompatible AMQP version */
 #define AMQP_STATUS_CONNECTION_CLOSED           -0x0007  /* The connection to the broker has been closed */
 #define AMQP_STATUS_BAD_URL                     -0x0008  /* malformed AMQP URL */
 #define AMQP_STATUS_SOCKET_ERROR                -0x0009  /* A socket error occurred */

@@ -1,5 +1,5 @@
 /* Copyright 2004 Budyanto Dj. <budyanto@centrin.net.id>
-   Mapping of GTWVT functions and their coresponding ones in GTWVW.
+   Mapping of GTWVT functions and their corresponding ones in GTWVW.
    Header file to be included in your GTWVT program if you wish to link it with GTWVW. */
 
 /* PART-1: WINDOW INDEPENDENT (the same parameter list) */
@@ -181,7 +181,7 @@
 /* Line Spacing. Currently none in WVT. */
 //wvw_SetLineSpacing()
 
-/* PART-3: RESERVED FUNCTION NAMES ("callback" prg functions, called by GTWVW) */
+/* PART-3: RESERVED FUNCTION NAMES ("callback" .prg functions, called by GTWVW) */
 
 /*
   Notes:

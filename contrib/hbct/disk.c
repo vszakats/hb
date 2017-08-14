@@ -175,8 +175,8 @@ HB_FUNC( NUMDISKL )
  * any drive letter and "test" will be the new volume name.
  *
  * Notes:
- * 1) if the drive letter is not suplied, then the current drive will
- *    be used to change voloume name.
+ * 1) if the drive letter is not supplied, then the current drive will
+ *    be used to change volume name.
  * 2) if Volume("X:") or Volume("X:\") then the volume name of the drive
  *    "X:" will be erased.
  * 3) if Volume("") or Volume() then the volume name of the current drive
@@ -223,7 +223,7 @@ HB_FUNC( VOLUME )
 
 /*
  * VolSerial() function returns the volume serial number of an drive letter like
- * floppy, Hard-disk, CD or mapped network drive. The return value is a dword
+ * floppy, Hard-disk, CD or mapped network drive. The return value is a numeric
  * type. If the drive is not available, VolSerial() returns -1.
  *
  * Syntax is: VolSerial( "X:\" )

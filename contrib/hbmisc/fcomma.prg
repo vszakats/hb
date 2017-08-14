@@ -218,7 +218,7 @@ STATIC FUNCTION FCM_GOTO( nWA, nRecord )
       hb_FGoTop()
       aWData[ 2 ] := aWData[ 3 ] := hb_FAtEof()
    ELSE
-      hb_FSkip( 0 ) /* Clear the EOF flag inside hb_F* engin
+      hb_FSkip( 0 ) /* Clear the EOF flag inside hb_F*() engine
                      - it's not done automatically in hb_FGoBottom() :-( */
       hb_FGoto( nRecord )
       aWData[ 2 ] := hb_FRecNo() == 0
@@ -248,7 +248,7 @@ STATIC FUNCTION FCM_GOBOTTOM( nWA )
    IF hb_FLastRec() == 0
       aWData[ 2 ] := aWData[ 3 ] := .T.
    ELSE
-      hb_FSkip( 0 ) /* Clear the EOF flag inside hb_F* engin
+      hb_FSkip( 0 ) /* Clear the EOF flag inside hb_F*() engine
                      - it's not done automatically in hb_FGoBottom() :-( */
       hb_FGoBottom()
       aWData[ 2 ] := aWData[ 3 ] := .F.

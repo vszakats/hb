@@ -51,7 +51,7 @@
 #define DO_COUNT_COUNTLEFT   0
 #define DO_COUNT_COUNTRIGHT  1
 
-/* helper function for the countxxx functions */
+/* helper function for the Count*() functions */
 static void do_count( int iSwitch )
 {
    /* param check */

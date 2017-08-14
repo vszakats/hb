@@ -514,7 +514,7 @@ HB_FUNC( WVW_TBCREATE )
  *      otherwise it will be used as tooltip
  * nBitmapType: 0:custom, 1:system std bitmap, 2:system view bitmap, 3:system hist bitmap
  * lMap3Dcolors: defaults to .F.
- *         (meaningfull for custom bitmap only)
+ *         (meaningful for custom bitmap only)
  *         if .T. the following color mapping will be performed:
  *            RGB( 192, 192, 192 ) --> COLOR_3DFACE   ("transparent")
  *            RGB( 128, 128, 128 ) --> COLOR_3DSHADOW

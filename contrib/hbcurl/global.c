@@ -1,5 +1,5 @@
 /*
- * curl_global_*() - Global initialization/deinitialization
+ * curl_global_*() - Global initialization/de-initialization
  *
  * Copyright 2008-2010 Viktor Szakats (vszakats.net/harbour)
  *

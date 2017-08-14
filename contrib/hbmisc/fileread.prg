@@ -20,7 +20,7 @@ CREATE CLASS TFileRead
    METHOD Open( nMode )        // Open the file for reading
    METHOD Close()              // Close the file when done
    METHOD ReadLine()           // Read a line from the file
-   METHOD Name()               // Retunrs the file name
+   METHOD Name()               // Returns the file name
    METHOD IsOpen()             // Returns .T. if file is open
    METHOD MoreToRead()         // Returns .T. if more to be read
    METHOD Error()              // Returns .T. if error occurred

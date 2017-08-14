@@ -3,7 +3,7 @@
 /* Redirecting a very old and limited copy-paste adaptation
    of NanFor lib's file handling functions into their originals.
    I haven't verified any minor differences that developed
-   througout the years, it's possible there are some.
+   throughout the years, it's possible there are some.
    Two marginal functions are not supported, see below.
    [vszakats] */
 

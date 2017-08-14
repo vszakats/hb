@@ -614,7 +614,7 @@
 #define HB_CURLE_REMOTE_FILE_EXISTS           73 /* File already exists */
 #define HB_CURLE_TFTP_NOSUCHUSER              74 /* No such user */
 #define HB_CURLE_CONV_FAILED                  75 /* conversion failed */
-#define HB_CURLE_CONV_REQD                    76 /* caller must register conversion callbacks using curl_easy_setopt options CURLOPT_CONV_FROM_NETWORK_FUNCTION, CURLOPT_CONV_TO_NETWORK_FUNCTION, and CURLOPT_CONV_FROM_UTF8_FUNCTION */
+#define HB_CURLE_CONV_REQD                    76 /* caller must register conversion callbacks using curl_easy_setopt() options CURLOPT_CONV_FROM_NETWORK_FUNCTION, CURLOPT_CONV_TO_NETWORK_FUNCTION, and CURLOPT_CONV_FROM_UTF8_FUNCTION */
 #define HB_CURLE_SSL_CACERT_BADFILE           77 /* could not load CACERT file, missing or wrong format */
 #define HB_CURLE_REMOTE_FILE_NOT_FOUND        78 /* remote file not found */
 #define HB_CURLE_SSH                          79 /* error from the SSH layer, somewhat generic so the error message will be of interest when this has happened */

@@ -2,7 +2,7 @@
  * Harbour interface to bcrypt password hashing
  *
  * Copyright 2015 Viktor Szakats (vszakats.net/harbour) (hb_bcrypt())
- * For additional Copyrights and Licences, see below.
+ * For additional Copyrights and Licenses, see below.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -725,7 +725,7 @@ static int bcrypt_pbkdf( const HB_U8 * pass, size_t passlen,
       }
 
       /*
-       * pbkdf2 deviation: ouput the key material non-linearly.
+       * pbkdf2 deviation: output the key material non-linearly.
        */
       if( keylen < amt )
          amt = keylen;

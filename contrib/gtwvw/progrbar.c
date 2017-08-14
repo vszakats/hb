@@ -68,7 +68,7 @@
  *
  * example:
  * wvw_pgCreate( , 5, 10, 5, 30)
- *  :: creates horiz progressbar on current window at (5,10) to (5,30)
+ *  :: creates horizontal progressbar on current window at (5,10) to (5,30)
  *     colors using default ones.
  *
  * wvw_pgCreate( , 5, 10, 5, 30, {-1, 0, +1, 0} )

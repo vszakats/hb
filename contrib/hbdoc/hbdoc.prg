@@ -777,7 +777,7 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, hNameID, /* @ */ nCount, /* @ */ nC
          DO WHILE hb_BRight( cSection, hb_BLen( _DOC_EOL ) ) == _DOC_EOL
             cSection := hb_StrShrink( cSection, Len( _DOC_EOL ) )
          ENDDO
-         /* Readd one if multi-line */
+         /* Re-add one if multi-line */
          IF _DOC_EOL $ cSection
             cSection += _DOC_EOL
          ENDIF

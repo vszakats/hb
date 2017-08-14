@@ -493,7 +493,7 @@ static void hb_gt_wvt_FireMenuEvent( PHB_GTWVT pWVT, int iMode, int menuIndex )
    hb_gt_wvt_FireEvent( pWVT, HB_GTE_MENU, pEvParams );
 }
 
-/* use the standard fixed oem font, unless the caller has requested set size fonts */
+/* use the standard fixed OEM font, unless the caller has requested set size fonts */
 static HFONT hb_gt_wvt_GetFont( LPCTSTR lpFace, int iHeight, int iWidth, int iWeight, int iQuality, int iCodePage )
 {
    if( iHeight > 0 )
@@ -636,7 +636,7 @@ static void hb_gt_wvt_AddCharToInputQueue( PHB_GTWVT pWVT, int iKey )
 
    if( iKey == K_MOUSEMOVE || iKey == K_NCMOUSEMOVE )
    {
-      /* Clipper strips repeated mouse movemnt - let's do the same */
+      /* Clipper strips repeated mouse movement - let's do the same */
       if( pWVT->keyLast == iKey && pWVT->keyPointerIn != pWVT->keyPointerOut )
          return;
    }
@@ -1773,7 +1773,7 @@ static HB_BOOL hb_gt_wvt_KeyEvent( PHB_GTWVT pWVT, UINT message, WPARAM wParam, 
 }
 
 /*
- * hb_gt_wvt_TextOut converts col and row to x and y ( pixels ) and calls
+ * Convert col and row to x and y ( pixels ) and calls
  * the Windows function TextOut with the expected coordinates
  */
 static HB_BOOL hb_gt_wvt_TextOut( PHB_GTWVT pWVT, HDC hdc, int col, int row, int iColor, LPCTSTR lpString, UINT cbString )
@@ -2059,7 +2059,7 @@ static LRESULT CALLBACK hb_gt_wvt_WndProc( HWND hWnd, UINT message, WPARAM wPara
             {
                pWVT->bGetFocus = HB_TRUE;
             }
-            {  /* For mixing gui/cui items */
+            {  /* For mixing GUI/CUI items */
                PHB_ITEM pEvParams = hb_itemArrayNew( 3 );
 
                hbwapi_arraySet_HANDLE( pEvParams, 1, hWnd );
@@ -2879,7 +2879,7 @@ static int hb_gt_wvt_ReadKey( PHB_GT pGT, int iEventMask )
 
    HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_ReadKey(%p,%d)", ( void * ) pGT, iEventMask ) );
 
-   HB_SYMBOL_UNUSED( iEventMask ); /* we ignore the eventmask! */
+   HB_SYMBOL_UNUSED( iEventMask ); /* we ignore the event mask! */
 
    pWVT = HB_GTWVT_GET( pGT );
 

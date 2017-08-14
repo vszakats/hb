@@ -400,7 +400,7 @@ HB_FUNC( WVW_MAXMAXCOL )
 /* wvw_UnreachedBr( [nWinNum], [nBottomPixels], [nRightPixels] )
  * get unreached pixels
  * below MaxRow() to nBottomPixels
- * and on the right of maxcols() to nRightPixels
+ * and on the right of MaxCol() to nRightPixels
  */
 HB_FUNC( WVW_UNREACHEDBR )
 {

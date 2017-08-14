@@ -14,9 +14,9 @@
       Image is read from file only once, and then cached.
       Test: After image is displayed, delete the image file.
             Image should be still displayed with no problem,
-            since gtwvw already store it in memory.
+            since GTWVW already store it in memory.
    2. Transparency
-      If this option is used, topleft pixel is used as the transparent mask
+      If this option is used, top left pixel is used as the transparent mask
       of the image. */
 
 #require "gtwvw"

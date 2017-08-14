@@ -425,7 +425,7 @@ HB_FUNC( HPDF_SETENCRYPTIONMODE )
    HPDF_COMP_NONE         1    All contents are not compressed.
    HPDF_COMP_TEXT         2    Compress the contents stream of the page.
    HPDF_COMP_IMAGE        3    Compress the streams of the image objects.
-   HPDF_COMP_METADATA     4    Other stream datas (fonts, cmaps and so on)  are compressed.
+   HPDF_COMP_METADATA     4    Other stream datas (fonts, cmaps and so on) are compressed.
    HPDF_COMP_ALL          5    All stream datas are compressed. (The same as "HPDF_COMP_TEXT | HPDF_COMP_IMAGE | HPDF_COMP_METADATA")
  */
 HB_FUNC( HPDF_SETCOMPRESSIONMODE )

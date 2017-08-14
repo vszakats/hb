@@ -155,7 +155,7 @@ static int query( char * sel_str )
 
    if( ! sqlda->sqld )
    {
-      /* Execute and commit non-select querys */
+      /* Execute and commit non-SELECT queries */
       if( isc_dsql_execute( status, &trans, &stmt, dialect, NULL ) )
          ERREXIT( status, 1 );
 

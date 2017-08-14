@@ -54,12 +54,12 @@
 #define DO_POS1_POSRANGE  2
 #define DO_POS1_POSUPPER  3
 
-/* helper function for the posxxx() functions */
+/* helper function for the Pos*() functions */
 static void do_pos1( int iSwitch )
 {
    if( HB_ISCHAR( 1 ) &&                  /* all functions need string as 1st param */
-       ( iSwitch != DO_POS1_POSRANGE ||   /* that's the only condition for all funcs _except_ POSRANGE */
-         ( iSwitch == DO_POS1_POSRANGE && /* In addition, POSRANGE needs .. */
+       ( iSwitch != DO_POS1_POSRANGE ||   /* that's the only condition for all functions _except_ PosRange() */
+         ( iSwitch == DO_POS1_POSRANGE && /* In addition, PosRange() needs .. */
            HB_ISCHAR( 2 ) &&              /* .. string as 2nd .. */
            HB_ISCHAR( 3 ) ) ) )           /* .. and 3rd param */
    {

@@ -1569,10 +1569,10 @@ static void hb_wvg_RenderPicture( PHB_GTWVT pWVT, PHB_GOBJS gObj, int iLeft, int
 
 /* wvg_Object( nObj, bBlock )
    nObj == one of the objects == GOBJ_OBJTYPE_ROUNDRECT | GOBJ_OBJTYPE_IMAGE | etc
-   bBlock == Block returning the array conataining as many elements as necessary for the given object
+   bBlock == Block returning the array containing as many elements as necessary for the given object
              Also it will return those array elements in the same order expected by the object to draw
 
-   This protocol is necessary for dyanamic coordinates which might have been changed by the
+   This protocol is necessary for dynamic coordinates which might have been changed by the
    applications, like TBrowse dimensions.
 
    wvg_Object( GOBJ_OBJTYPE_BOXRAISED, {|| { oBrw:nTop, oBrw:nLeft, oBrw:nBottom, oBrw:nRight, {-2,-2,2,2} } } )

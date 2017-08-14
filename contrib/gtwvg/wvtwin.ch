@@ -444,7 +444,7 @@
 #define SS_WORDELLIPSIS                           49152
 #define SS_ELLIPSISMASK                           49152
 
-/* Static Control Mesages */
+/* Static Control Messages */
 #define STM_SETICON                               368
 #define STM_GETICON                               369
 #define STM_SETIMAGE                              370
@@ -647,7 +647,7 @@
 #define TBIF_COMMAND                              32
 #define TBIF_SIZE                                 64
 
-#define TBIF_BYINDEX                              2147483648          // this specifies that the wparam in Get/SetButtonInfo is an index, not id
+#define TBIF_BYINDEX                              2147483648          // this specifies that the wParam in Get/SetButtonInfo is an index, not id
 
 #define TBBUTTONINFO                              TBBUTTONINFOW
 #define LPTBBUTTONINFO                            LPTBBUTTONINFOW
@@ -1827,7 +1827,7 @@
 #define HDM_SETIMAGELIST                          ( HDM_FIRST + 8 )
 #define HDM_GETIMAGELIST                          ( HDM_FIRST + 9 )
 #define HDM_ORDERTOINDEX                          ( HDM_FIRST + 15 )
-#define HDM_CREATEDRAGIMAGE                       ( HDM_FIRST + 16 )  // wparam = which item (by index)
+#define HDM_CREATEDRAGIMAGE                       ( HDM_FIRST + 16 )  // wParam = which item (by index)
 #define HDM_GETORDERARRAY                         ( HDM_FIRST + 17 )
 #define HDM_SETORDERARRAY                         ( HDM_FIRST + 18 )
 #define HDM_SETHOTDIVIDER                         ( HDM_FIRST + 19 )

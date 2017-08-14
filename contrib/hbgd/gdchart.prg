@@ -151,10 +151,10 @@ METHOD PieChart() CLASS GDChart
 
    /* hData := ["TITLE"], ["VALUE"], ["FILLED"], ["COLOR"], ["TILE"], ["EXTRUDE"] */
 
-   // Before sum of values to determine percentual
+   // Before sum of values to determine percentage
    FOR EACH hElement IN aPieDataOfHash
       nTot += hElement[ "VALUE" ]
-      // Check extrution
+      // Check extrusion
       IF ( nExtrude := __HGetValue( hElement, "EXTRUDE" ) ) != NIL
          nTotExtr := Max( nTotExtr, nExtrude )
       ENDIF
@@ -264,7 +264,7 @@ METHOD VerticalBarChart() CLASS GDChart
    CASE "GIANT"  ; ::SetFontGiant()      ; EXIT
    ENDSWITCH
 
-   // Before sum of values to determine percentual
+   // Before sum of values to determine percentage
    nMaxLabel := 0
    nMax      := 0
    FOR EACH hElement IN aDataOfHash
@@ -576,7 +576,7 @@ METHOD LineChart() CLASS GDChart
    CASE "GIANT"  ; ::SetFontGiant()      ; EXIT
    ENDSWITCH
 
-   // Before sum of values to determine percentual
+   // Before sum of values to determine percentage
    nMaxLabel := 0
    nMax      := 0
    FOR EACH hElement IN aDataOfHash
@@ -589,7 +589,7 @@ METHOD LineChart() CLASS GDChart
       nMaxLabel := Max( nMaxLabel, Len( iif( cLabel != NIL, cLabel, "" ) ) )
    NEXT
 
-   // Before sum of values to determine percentual
+   // Before sum of values to determine percentage
    nMinLabel := 0
    nMin      := 0
    FOR EACH hElement IN aDataOfHash

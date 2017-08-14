@@ -126,9 +126,9 @@ typedef struct
    HPEN      penBlack;                      /* Black pen to draw GDI elements */
    HPEN      penWhiteDim;                   /* White dim pen to draw GDI elements */
    HPEN      penDarkGray;                   /* Dark gray pen to draw GDI elements */
-   HPEN      penGray;                       /* Gray pen equivilant to Clipper White */
+   HPEN      penGray;                       /* Gray pen equivalent to Clipper White */
    HPEN      penNull;                       /* Null pen */
-   HBRUSH    diagonalBrush;                 /* Handle to diaoganl brush to draw scrollbars */
+   HBRUSH    diagonalBrush;                 /* Handle to diagonal brush to draw scrollbars */
    HBRUSH    solidBrush;                    /* Handle to solid brush */
    HBRUSH    whiteBrush;                    /* Wvt specific White colored brush */
 #if ! defined( HB_OS_WIN_CE )
@@ -157,7 +157,7 @@ typedef struct
    COLORREF COLORS[ 16 ];                   /* colors */
 
    HB_BOOL  CaretExist;                     /* HB_TRUE if a caret has been created */
-   HB_BOOL  CaretHidden;                    /* HB_TRUE if a caret has been hiden */
+   HB_BOOL  CaretHidden;                    /* HB_TRUE if a caret has been hidden */
    int      CaretSize;                      /* Height of solid caret */
    int      CaretWidth;                     /* Width of solid caret */
 
@@ -280,7 +280,7 @@ typedef struct
    PHB_GT_PARAMS  pPP;                      /* Presentation Parameters */
 
    HB_BOOL   bDeferPaint;                   /* To create pure Windows dialogs */
-   HB_BOOL   bTracking;                     /* To track if mouse has eneter or left the window area */
+   HB_BOOL   bTracking;                     /* To track if mouse has entered or left the window area */
 
    HB_BOOL   bResizing;                     /* To know when it is in resizing mode */
    HB_BOOL   bAlreadySizing;

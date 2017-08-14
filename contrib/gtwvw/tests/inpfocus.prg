@@ -54,7 +54,7 @@ PROCEDURE Main()
 
    wvw_MessageBox( 0, "Thanks for trying this program", "Goodbye", WIN_MB_OK )
 
-   // let toolbar and statusbar be autodestroyed
+   // let toolbar and statusbar be auto-destroyed
 
    RETURN
 
@@ -194,7 +194,7 @@ STATIC PROCEDURE typing( ch )
    RETURN
 
 /* WVW_INPUTFOCUS() is a special, callback function
- * This function will be called by GTWVW everytime input occurs on
+ * This function will be called by GTWVW every time input occurs on
  * non-topmost window.
  * This includes Menu, Toolbar, Pushbutton, Scrollbar, or plain keyboard
  * and mouse inputs.

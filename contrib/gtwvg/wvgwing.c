@@ -98,7 +98,7 @@
 
 #define WIN_STATUSBAR_MAX_PARTS  256
 
-/* Bitmap Management Function. Coutesy GTWVW */
+/* Bitmap Management Function. Courtesy GTWVW */
 
 static BITMAPINFO * PackedDibLoad( LPCTSTR szFileName )
 {

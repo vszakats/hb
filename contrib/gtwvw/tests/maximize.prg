@@ -1,4 +1,4 @@
-/* sample on using Maximize Mode in gtwvw. budyanto@centrin.net.id */
+/* sample on using Maximize Mode in GTWVW. budyanto@centrin.net.id */
 
 #require "gtwvw"
 
@@ -72,8 +72,8 @@ STATIC PROCEDURE updatescr()
 
    RETURN
 
-// this function is called by gtwvw AFTER the size is changed
-// WARNING: screen repainting is not performed completely by gtwvw at this point of call
+// this function is called by GTWVW AFTER the size is changed
+// WARNING: screen repainting is not performed completely by GTWVW at this point of call
 PROCEDURE WVW_SIZE( nWinNum, hWnd, message, wParam, lParam )  /* must be a public function */
 
    LOCAL cScreen

@@ -149,7 +149,7 @@ typedef struct
 
    PHB_GT_PARAMS  pPP;                      /* Presentation Parameters */
 
-   HB_BOOL   bTracking;                     /* To track if mouse has eneter or left the window area */
+   HB_BOOL   bTracking;                     /* To track if mouse has entered or left the window area */
    HB_BOOL   bResizing;                     /* To know when it is in resizing mode */
    int       width;
    int       height;

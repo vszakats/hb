@@ -161,7 +161,7 @@ static void do_charone( int iSwitch )
                   }
                }
 
-               /* copy last character if string len is odd */
+               /* copy last character if string length is odd */
                if( sStrLen & 1 )
                   pcRet[ sRetStrLen++ ] = pcString[ sStrLen - 1 ];
 

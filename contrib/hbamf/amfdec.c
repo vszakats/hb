@@ -106,7 +106,7 @@ static HB_BOOL amfX_decode_double( amfContext * context, double * val )
 
    /*
     * Put bytes from byte array into double
-    * FIXME: does this aligment work on any platform?
+    * FIXME: does this alignment work on any platform?
 
       union aligned
       {
@@ -328,7 +328,7 @@ static HB_BOOL amf3_decode_dynamic_dict( amfContext * context, PHB_ITEM pItem )
    }
 }
 
-/* Populate an array with vals from the buffer. */
+/* Populate an array with values from the buffer. */
 static HB_BOOL decode_dynamic_array_AMF3( amfContext * context, PHB_ITEM pItem, int array_len, HB_BOOL dict )
 {
    int     i;
@@ -796,7 +796,7 @@ static HB_BOOL amf3_deserialize_class_def( amfContext * context, PHB_ITEM pClass
    return HB_TRUE;
 }
 
-/* Returns a dict with vals from an obj. */
+/* Returns a dict with values from an object. */
 static HB_BOOL amf3_decode_obj_attrs( amfContext * context, PHB_ITEM pHash, PHB_ITEM pClass )
 {
    PHB_ITEM pArray;
@@ -863,12 +863,12 @@ static HB_BOOL amf3_decode_anon_obj( amfContext * context, PHB_ITEM pItem, PHB_I
    PHB_ITEM pAnonHash = hb_itemNew( NULL );
    HB_BOOL  result    = HB_FALSE;
 
-   /* Original python comment which I don't understand:
+   /* Original Python comment which I don't understand:
       We're using merge instead of populating the dict
       directly, because we have to setup a reference to the
       object before decoding it. ?????? */
 
-   /* we (Harbourers) are supplying already initialized hash to next func */
+   /* we (Harbourers) are supplying already initialized hash to next function */
    if( hb_arrayGet( pItem, OBJAMF_VAR_HASH, pAnonHash ) )
       result = amf3_decode_obj_attrs( context, pAnonHash, pClass );
 
@@ -1001,7 +1001,7 @@ static HB_BOOL amf3_deserialize_obj( amfContext * context, PHB_ITEM pItem, HB_BO
       /* Anonymous obj == OBJAMF */
       hb_arrayNew( pItem, OBJAMF_VAR_COUNT );
       /* performance FIXME, cache class id (in context maybe)
-         to not scan all classes by name everytime */
+         to not scan all classes by name every time */
       hb_objSetClass( pItem, "AMF_OBJ", "AMF_OBJ" );
       pValue = hb_itemPutNI( NULL, OBJAMF_VER );
       hb_arraySet( pItem, OBJAMF_VAR_VER, pValue );
@@ -1039,7 +1039,7 @@ static HB_BOOL amf3_deserialize_obj( amfContext * context, PHB_ITEM pItem, HB_BO
    }
    else
    {
-      /* Create obj_val for all typed objs. */
+      /* Create obj_val for all typed objects. */
 #if 0
       obj_val = PyObject_CallMethod( class_def, "getInstance", NULL );
 #endif

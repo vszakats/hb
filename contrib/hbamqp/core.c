@@ -344,7 +344,7 @@ HB_FUNC( AMQP_SSL_SOCKET_SET_VERIFY_HOSTNAME )
       hb_errRT_BASE( EG_ARG, 2030, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
-/* Attempts to open a socket to hostname on portnumber
+/* Attempts to open a socket to hostname on port number
    amqp_socket_open( pSocket, cHost, nPort ) --> nStatus */
 HB_FUNC( AMQP_SOCKET_OPEN )
 {

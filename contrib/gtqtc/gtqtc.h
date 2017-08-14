@@ -316,7 +316,7 @@ typedef struct
 
    QBitmap *   boxImage[ HB_BOXCH_TRANS_MAX ];   /* bitmaps with box drawing characters */
    HB_UCHAR    boxIndex[ HB_BOXCH_TRANS_COUNT ]; /* indexes to bitmap array */
-   int         boxCount;                         /* numebr of defined box characters */
+   int         boxCount;                         /* number of defined box characters */
 
    QIcon *     qIcon;                        /* application icon */
    QString *   wndTitle;                     /* window title */
@@ -324,8 +324,8 @@ typedef struct
    HB_BOOL     fAltEnter;                    /* ALT+ENTER switch between fullscreen mode */
    HB_BOOL     fResizable;                   /* enable/disable window resizing */
    HB_BOOL     fResizeInc;                   /* enable/disable resize progression */
-   HB_BOOL     fMaximized;                   /* enter/leave mximize mode */
-   HB_BOOL     fMinimized;                   /* enter/leave mximize ( e.g. as icon in taskbar ) mode */
+   HB_BOOL     fMaximized;                   /* enter/leave maximize mode */
+   HB_BOOL     fMinimized;                   /* enter/leave maximize (e.g. as icon in TaskBar) mode */
    HB_BOOL     fFullScreen;                  /* enable/disable fullscreen mode */
    HB_BOOL     fSelectCopy;                  /* allow marking texts by mouse left button with shift */
    HB_BOOL     fRepaint;                     /* force internal image repainting */

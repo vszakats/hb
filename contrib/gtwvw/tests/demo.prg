@@ -203,7 +203,7 @@ PROCEDURE Main()
    @ MaxRow(), 0 SAY "This is line " + hb_ntos( MaxRow() )
 
    DO WHILE ( nKeyStd := hb_keyStd( Inkey( 0 ) ) ) != K_ESC
-      // experiment with different paintrefresh interval:
+      // experiment with different paint refresh interval:
       DO CASE
       CASE nKeyStd == hb_keyCode( "<" )
          wvw_SetPaintRefresh( Int( wvw_SetPaintRefresh() / 2 ) )
@@ -309,7 +309,7 @@ STATIC PROCEDURE Demo_Console( nTop, nLeft, nBottom, nRight )
          // Recursively call (another) typewriter, bigger one
          Demo_Console( nTop + 2, nLeft + 2, nBottom + 4, nRight + 6 )
       ELSEIF nKeyStd == K_CTRL_E
-         // toggle echoing output to prev window
+         // toggle echoing output to previous window
          lEchoing := ! lEchoing
       ELSE
          // any other char goes here
@@ -942,7 +942,7 @@ STATIC PROCEDURE AddMiscObjects( nWinNum, bAction )
 
 STATIC FUNCTION nAfterInkey( nKey )
 
-   // check if nkey is:
+   // check if nKey is:
    // (1) menu command, or
    // (2) mouse button action
    LOCAL bAction
@@ -1195,8 +1195,8 @@ STATIC PROCEDURE MyError( e )
 
 // mouse object types
 #define _MOBJECT_BUTTON  0      // mouse button
-#define _MOBJECT_HSCROLL 1      // horiz scrollbar: OBSOLETE, NOT USED HERE
-#define _MOBJECT_VSCROLL 2      // horiz scrollbar: OBSOLETE, NOT USED HERE
+#define _MOBJECT_HSCROLL 1      // horizontal scrollbar: OBSOLETE, NOT USED HERE
+#define _MOBJECT_VSCROLL 2      // horizontal scrollbar: OBSOLETE, NOT USED HERE
 
 // WVWMouseButton
 

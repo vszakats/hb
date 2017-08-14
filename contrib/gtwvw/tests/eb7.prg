@@ -9,7 +9,7 @@
 
    (The editbox itself always accept input independent of WVW_INPUTFOCUS())
 
-   Some parts of this sample are modifications from MINIGUI's sourcecode
+   Some parts of this sample are modifications from MINIGUI's source code
    to handle "masks" during editbox input session:
      ProcessCharMask()
      CharMaskTekstOK()
@@ -208,7 +208,7 @@ STATIC FUNCTION AddEBGet( aEBGets, mnrow, mncol, mxValue, mcVarName, mbAssign, m
       mbText := {|| DToC( mxValue ) }
       EXIT
    OTHERWISE
-      // unsupported valtype
+      // unsupported type
       RETURN .F.
    ENDSWITCH
 
@@ -313,7 +313,7 @@ STATIC PROCEDURE EBReadGets( nwinnum, aEBGets )
          lchangefocus := .T.
          DO CASE
          CASE nKeyStd == K_TAB .OR. nKeyStd == K_DOWN .OR. nKeyStd == K_ENTER
-            IF nFocus < ( nNumGets + 2 )  // incl buttons
+            IF nFocus < ( nNumGets + 2 )  // include buttons
                nFocus++
             ELSE
                nFocus := 1

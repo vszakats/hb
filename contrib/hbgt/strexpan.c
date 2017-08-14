@@ -23,7 +23,7 @@ HB_FUNC( GT_STREXPAND )
       if( HB_ISCHAR( 3 ) )
          insert = hb_parc( 3 );
 
-      out = ( char * ) hb_xgrab( len * ( nIns + 1 ) );  /* grab us some mem to work with */
+      out = ( char * ) hb_xgrab( len * ( nIns + 1 ) );  /* grab us some memory to work with */
 
       /* loop thru input */
       for( i = 0, p = 0; i < len; i++ )

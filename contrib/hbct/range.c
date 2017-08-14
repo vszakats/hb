@@ -171,7 +171,7 @@ HB_FUNC( RANGEREPL )
       hb_storclen( pcRet, sStrLen, 3 );
 
       if( iNoRef )
-         /* Contrary to the official documentation, RANGREPL() returns NIL instead of .F.
+         /* Contrary to the official documentation, RangeRepl() returns NIL instead of .F.
           * in this situation. If the string is not passed by reference, it returns the
           * string regardless of iNoRef. */
          hb_ret();

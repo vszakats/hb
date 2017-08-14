@@ -59,7 +59,7 @@ static const HB_ERRCODE sulErrorSubcodes[] =
    CT_ERROR_REMRIGHT
 };
 
-/* helper function for the remxxx functions */
+/* helper function for the Rem*() functions */
 static void do_remove( int iSwitch )
 {
    /* param check */

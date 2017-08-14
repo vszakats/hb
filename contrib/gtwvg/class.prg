@@ -98,7 +98,7 @@ CREATE CLASS WvtDialog
    VAR    oldMenuBlock
    VAR    lGui
 
-   /*  Dialog Parameters  */
+   /*  Dialog parameters  */
    VAR    nRows
    VAR    nCols
    VAR    cFont
@@ -109,7 +109,7 @@ CREATE CLASS WvtDialog
    VAR    cTitle
    VAR    cColor
 
-   /*  Objects handelling  */
+   /*  Objects handling  */
    VAR    aObjects                                INIT {}
    VAR    oCurObj
    VAR    oLastObj

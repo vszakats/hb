@@ -458,7 +458,7 @@ STATIC PROCEDURE doytest()
 
 STATIC PROCEDURE eomtest()
 
-   // dBom := EoM( dDate )
+   // dBoM := EoM( dDate )
    //
    // Returns the last date in the month of the month appearing in
    // date.
@@ -490,7 +490,7 @@ STATIC PROCEDURE eomtest()
 
 STATIC PROCEDURE eoqtest()
 
-   // dret := EoQ( dDate )
+   // dRet := EoQ( dDate )
    //
    // Returns the last date in the quarter in which dDate falls.
 
@@ -585,7 +585,7 @@ STATIC PROCEDURE isleaptest()
 
 STATIC PROCEDURE lastdayomtest()
 
-   // ndays := LastDayOM( xDate )
+   // nDays := LastDayOM( xDate )
    //
    // Returns the the number of days in the month.
    // xDate can be a date or a month number. If empty uses the
@@ -729,7 +729,7 @@ STATIC PROCEDURE ntocmthtest()
 
 STATIC PROCEDURE qtrtest()
 
-   // nqtr := Quarter( dDate )
+   // nQtr := Quarter( dDate )
    //
    // Returns the quarter as a number. If no date is specified,
    // the system date is used.
@@ -811,7 +811,7 @@ STATIC PROCEDURE weektest()
    // nWeek := Week( dDate, lSWN )
    //
    // Returns the calendar week as a number. If no date is specified,
-   // the system date is used. An empty date viz hb_SToD()
+   // the system date is used. An empty date with hb_SToD()
    // returns 0.
 
    LOCAL GetList := {}

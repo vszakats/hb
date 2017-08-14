@@ -1364,7 +1364,7 @@ HB_FUNC( GDIMAGETRUECOLORTOPALETTE ) /* void gdImageTrueColorToPalette (gdImageP
    {
       gdImagePtr im = hb_parGdImage( 1 );
 
-      /* Converts a truecolor image to a palette-based image */
+      /* Converts a true-color image to a palette-based image */
       if( im )
          gdImageTrueColorToPalette( im,
                                     hb_parl( 2 ) ? 1 : 0 /* ditherFlag */,
@@ -1382,7 +1382,7 @@ HB_FUNC( GDIMAGECREATEPALETTEFROMTRUECOLOR ) /* gdImagePtr gdImageCreatePaletteF
    {
       gdImagePtr im = hb_parGdImage( 1 );
 
-      /* Converts a truecolor image to a palette-based image and return the image */
+      /* Converts a true-color image to a palette-based image and return the image */
       if( im )
          hb_retGdImage( gdImageCreatePaletteFromTrueColor( im,
                                                            hb_parl( 2 ) ? 1 : 0 /* ditherFlag */,

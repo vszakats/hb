@@ -57,7 +57,7 @@
  * Not implemented yet.
  *
  * NetPrinter() --> lSuccess
- * Return true if a current local printer seted by SET PRINTER TO was connected to a
+ * Return true if a current local printer set by SET PRINTER TO was connected to a
  * network printer.
  *
  * NetRedir( cLocalDevice, cSharedDevice, [ cPassword ], [ lShowError] ) --> lSuccess
@@ -70,10 +70,10 @@
  * CA-T*ols help for more details.
  *
  * Network() --> lSuccess
- * Return true if a PC-LAN/MS-NET or Netware type is active.
+ * Return true if a PC-LAN/MS-NET or NetWare type is active.
  *
  * NNetwork() --> lSuccess
- * Return true if a Netware type is active.
+ * Return true if a NetWare type is active.
  *
  */
 

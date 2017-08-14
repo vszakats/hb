@@ -16,7 +16,7 @@
       characters should be left unchanged and interpreted during editing
    2) It reformats whole text at startup - again for a very long text it can
       take too much time
-   3) Text buffer shold be reallocated dynamically
+   3) Text buffer should be reallocated dynamically
  */
 
 #include "hbapi.h"
@@ -46,9 +46,9 @@ typedef struct
    HB_ISIZ last_display;      /* the offset of last visible line */
    HB_ISIZ first_col;         /* first visible column */
    HB_BOOL fStable;           /* is the editor stabilized? */
-   int     current_stabil;    /* currently displayed row (during stabilisation) */
+   int     current_stabil;    /* currently displayed row (during stabilization) */
    int     stabil;            /* number of rows to stabilize */
-   char    escape;            /* ASCII code of color escaspe character (the next character after this will be used as color index */
+   char    escape;            /* ASCII code of color escape character (the next character after this will be used as color index */
    HB_ISIZ next_stabil;       /* the offset in memory buffer of next line to display */
    int     dir;               /* the direction of line stabilization */
    int     tab_size;          /* the number of spaces the replaces TAB character */
@@ -230,7 +230,7 @@ static void FormatText( PHB_EDITOR pEd )
          *wsk = ' ';
    }
 
-   /* TODO: optimize this line formating - format line only if
+   /* TODO: optimize this line formatting - format line only if
       it will be displayed */
    while( pEd->current_line >= 0 )
    {
@@ -849,8 +849,8 @@ HB_FUNC( ED_READTEXT )
 
 /* Stabilize the editor
    Redisplays all requested lines
-   It is simmilar to TBrowse:forceStable()
-   Incremental stabilisation was too slow */
+   It is similar to TBrowse:forceStable()
+   Incremental stabilization was too slow */
 HB_FUNC( ED_STABILIZE )
 {
    PHB_EDITOR pEd = PHB_EDITOR_par( 1 );
@@ -1214,7 +1214,7 @@ HB_FUNC( ED_PGDOWN )
             pEd->first_display = 0;
       }
 
-      /* find the offset of the line where the currsor will be displayed */
+      /* find the offset of the line where the cursor will be displayed */
       pEd->current_line = pEd->last_display;
       for( i = 0; i < pEd->bottom - pEd->top - pEd->cursor_row; i++ )
       {
@@ -1251,7 +1251,7 @@ HB_FUNC( ED_PGUP )
       if( j < 0 )  /* no more lines to move */
       {
          pEd->fStable = HB_TRUE;
-         /* advannce the cursor to the topmost line */
+         /* advance the cursor to the topmost line */
          for( i = 0; i < bt + 1; i++ )
             Up( pEd );
          return;
@@ -1733,7 +1733,7 @@ HB_FUNC( ED_DELCHAR )
          else  /* at the last character */
          {
             j = Next( pEd, pEd->current_line );
-            if( j >= 0 )  /* if it is not the last line then delete character unde the cursor */
+            if( j >= 0 )  /* if it is not the last line then delete character under the cursor */
                DelChar( pEd );
          }
       }
@@ -2051,7 +2051,7 @@ static HB_BOOL format_line( PHB_EDITOR pEd, char Karetka, HB_ISIZ LineDl )
    if( ! LineDl )
       LineDl = GetLineLength( pEd, pEd->current_line, &rdl );
 
-   status = HB_FALSE;  /* the line is not splitted yet */
+   status = HB_FALSE;  /* the line is not split yet */
    if( LineDl > pEd->line_length )
    {
       char *  p;
@@ -2062,14 +2062,14 @@ static HB_BOOL format_line( PHB_EDITOR pEd, char Karetka, HB_ISIZ LineDl )
 
       /* the line is longer then maximal allowed length  -
          wrap the line */
-      status = HB_TRUE;  /* the line will be splitted */
+      status = HB_TRUE;  /* the line will be split */
 
       /* copy maximum allowed bytes form the line into temporary buffer */
       hb_strncpy( pom, pEd->begin + pEd->current_line,
                   pEd->line_length + 10 + rdl );
       pom[ pEd->line_length + rdl ] = '\0';
 
-      /* find the last space where the line can be splitted */
+      /* find the last space where the line can be split */
       p = strrchr( pom, ' ' );
       if( p )
       {
@@ -2176,7 +2176,7 @@ static void PutChar( PHB_EDITOR pEd, HB_BOOL fInsert, char znak )
    HB_ISIZ rdl;
 
    jj = HB_FALSE;
-   cc = pEd->cursor_col + pEd->first_col;  /* currnt position in the line */
+   cc = pEd->cursor_col + pEd->first_col;  /* current position in the line */
    if( fInsert )
    {
       /* INSERT is ON */

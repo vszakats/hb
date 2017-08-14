@@ -1264,7 +1264,7 @@ PROCEDURE USessionStart()
       t_aSessionData := httpd:hSession[ cSID ]
       IF hb_mutexLock( t_aSessionData[ 1 ], 0 )
 
-         // No concurent sessions
+         // No concurrent sessions
          IF t_aSessionData[ 3 ] > hb_MilliSeconds()
             t_aSessionData[ 3 ] := hb_MilliSeconds() + SESSION_TIMEOUT * 1000
             session := t_aSessionData[ 2 ]
@@ -1274,7 +1274,7 @@ PROCEDURE USessionStart()
          ENDIF
       ELSE
 
-         // Concurent process exists
+         // Concurrent process exists
          hb_mutexUnlock( httpd:hmtxSession )
 
          // Wait for session
@@ -1292,7 +1292,7 @@ PROCEDURE USessionStart()
                USessionCreateInternal()
             ENDIF
          ELSE
-            // Session was destroyed by concurent process
+            // Session was destroyed by concurrent process
             USessionCreateInternal()
          ENDIF
       ENDIF

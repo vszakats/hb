@@ -1,5 +1,5 @@
 /*
- * Test CT3 TRIGONOMETRIC functions - PART 1
+ * Test CT3 trigonometric functions - Part 1
  *   - Pi()
  *   - Sin()
  *   - Cos()
@@ -229,8 +229,8 @@ PROCEDURE Main()
    WAIT
    CLS
 
-   /* NOTE: Atn2( x, y) have the parameters inverted, when
-            comparing with the standard C languaje ATAN2( y, x) */
+   /* NOTE: Atn2( x, y ) have the parameters inverted, when
+            comparing with the standard C language atan2( y, x ) */
 
 
    ? "Testing Atn2( x, y )... where:"

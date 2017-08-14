@@ -143,7 +143,7 @@ HB_FUNC( FI_WINDRAW )
          SetStretchBltMode( hDC, COLORONCOLOR );
 #endif
 
-         /* return scanlines */
+         /* return scan lines */
          hb_retni( StretchDIBits( hDC,
                                   rcDest.left,
                                   rcDest.top,

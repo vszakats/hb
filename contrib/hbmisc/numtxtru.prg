@@ -420,7 +420,7 @@ STATIC sc_aBel := { ;
 
 /*
  * nValue:  integer value;
- * cLang:   language Id ("ru", "uk", "be"), russian ("ru") by default;
+ * cLang:   language Id ("ru", "uk", "be"), Russian ("ru") by default;
  * nGender: masculine (default), feminine or neuter gender;
  * lOrd:    ordinals, cardinal numbers if omitted
  */
@@ -447,7 +447,7 @@ FUNCTION NumToTxtRU( nValue, cLang, nGender, lOrd )
 
 /*
  * nValue:  integer value;
- * cLang:   language Id ("ru", "uk", "be"), russian ("ru") by default;
+ * cLang:   language Id ("ru", "uk", "be"), Russian ("ru") by default;
  * nMode1:  1 - in words,
  *          2 - in words and short name,
  *          3 - in numbers,

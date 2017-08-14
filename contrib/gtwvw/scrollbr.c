@@ -129,13 +129,13 @@ static LRESULT CALLBACK hb_gt_wvw_XBProc( HWND hWnd, UINT message, WPARAM wParam
  * nLeft: col of top/left corner (in character unit)
  * nLength: length of scrollbar (in character unit)
  * NOTES: width of scrollbar (in character unit)
- *            horiz: defaults to one character height
- *            verti: defaults to one character _height_ too (!)
+ *            horizontal: defaults to one character height
+ *            vertical: defaults to one character _height_ too (!)
  *       use aOffset to adjust the dimension
  * aOffset: array {y1,x1,y2,x2} of offsets to corner pixels, to adjust
  *         dimension of scroll bar.
  *         defaults for vertical scroll bar: {0,+3,0,0}
- *         defaults for horiz scroll bar: {+3-linespacing,0,0,0}
+ *         defaults for horizontal scroll bar: {+3-linespacing,0,0,0}
  *         NOTES: these defaults are meant to make room for other common
  *                GUI elements like raised/recessed lines.
  *
@@ -144,7 +144,7 @@ static LRESULT CALLBACK hb_gt_wvw_XBProc( HWND hWnd, UINT message, WPARAM wParam
  *         nWinNum: window number
  *         nXBid  : scrollbar id
  *         nXBmsg : scrollbar message, ie. one of these:
- *         nXBpos : scrollthumb position (only if message==SB_THUMB...)
+ *         nXBpos : scroll thumb position (only if message==SB_THUMB...)
  *         the "must be handled" messages:
  *             SB_LINEUP/SB_LINELEFT     0: up/left button clicked
  *             SB_LINEDOWN/SB_LINERIGHT  1: down/right button clicked

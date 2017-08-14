@@ -7,9 +7,9 @@
 
 #define EDIT_LOWER      0       // convert to lowercase
 #define EDIT_UPPER      1       // convert to uppercase
-#define EDIT_SAME       2       // no convertion
+#define EDIT_SAME       2       // no conversion
 
-#define EDIT_HARD       13      // hard cariage
+#define EDIT_HARD       13      // hard carriage
 
 #define EDIT_EDIT       .T.     // full edit mode
 #define EDIT_VIEW       .F.     // view only mode
@@ -36,12 +36,12 @@ THREAD STATIC t_nESize := 4096       // default buffer size
 //
 // nTop, nLeft, nBottom, nRight - position on the screen
 // nLength - the line length
-// cFrame - the frame to be drawed around the editor
+// cFrame - the frame to be drawn around the editor
 // cTitle - comment displayed in upper, left corner
 // cColor - colors used to draw the editor
 // nSize - the size of memory buffer that holds the edited text - the buffer
 //         will not grow at current design
-// nEscape - the character code used as a marker of color highlighing
+// nEscape - the character code used as a marker of color highlighting
 // For example if its value is 126 '~' then the following text:
 // normal text ~2text in bold~1 back to normal text
 // will be displayed with 'text in bold' highlighted using the second
@@ -151,11 +151,11 @@ PROCEDURE EditorInsText( oEdit, cText, nLine )
    RETURN
 
 // Retrieves the text from editor
-// nCarret - specifies if soft carriage return (141/10) should be replaced by
+// nCarRet - specifies if soft carriage return (141/10) should be replaced by
 //    hard carriage returns (13/10)
 //
-FUNCTION EditorGetText( oEdit, nCarret )
-   RETURN ed_GetText( oEdit[ E_EDIT ], hb_defaultValue( nCarret, EDIT_HARD ) )
+FUNCTION EditorGetText( oEdit, nCarRet )
+   RETURN ed_GetText( oEdit[ E_EDIT ], hb_defaultValue( nCarRet, EDIT_HARD ) )
 
 // Returns the line count stored in editor
 //
@@ -181,7 +181,7 @@ FUNCTION EditorNextLine( oEdit )
 
 // Edit the specified file
 //
-// xInput - the filename to edit or a handle to a file retrned by FOPEN
+// xInput - the filename to edit or a handle to a file returned by FOpen()
 // cOutput - the name of the file created in 'save' operation
 // nLineLen - the line length
 // nHelp - the index into help subsystem
@@ -238,7 +238,7 @@ FUNCTION EditorFile( xInput, cOutput, nLineLen, lConv, nEscape )
 // nOffset - the starting offset
 // nLen - the number of characters to read
 // lConv - specifies if some unprintable characters should be converted
-//    (NOTE: it was used to allow display charcters with ASCII code 27 and 26)
+//    (NOTE: it was used to allow display characters with ASCII code 27 and 26)
 //
 FUNCTION EditorRead( oEditor, xFileHandle, nOffset, nLen, lConv )
    RETURN ed_ReadText( oEditor[ E_EDIT ], xFileHandle, nOffset, nLen, ;
@@ -295,7 +295,7 @@ FUNCTION EditorEdit( oEdit, lEdit, lFrame )
 
    DO WHILE .T.
       nRow := ed_Stabilize( oEdit[ E_EDIT ] )    // displays all visible lines
-      // It doesn't uses incremantal stabilization for performance reasons
+      // It doesn't uses incremental stabilization for performance reasons
 
       IF nRow != ed_Row( oEdit[ E_EDIT ] )
          nRow := ed_Row( oEdit[ E_EDIT ] )

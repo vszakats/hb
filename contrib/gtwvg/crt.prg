@@ -124,7 +124,7 @@ CREATE CLASS WvgCrt INHERIT WvgWindow, WvgPartHandler
    VAR    sl_killDisplayFocus                    /* only for CRT */
    VAR    sl_killInputFocus
    VAR    sl_move
-   VAR    sl_paint                               /* only for gui dialogs */
+   VAR    sl_paint                               /* only for GUI dialogs */
    VAR    sl_quit
    VAR    sl_resize
    VAR    sl_setDisplayFocus                     /* only for CRT */

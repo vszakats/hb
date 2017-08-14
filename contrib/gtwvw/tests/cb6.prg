@@ -1,7 +1,7 @@
 /* Copyright 2005 Budyanto Dj. <budyanto@centrin.net.id>
 
    This is an example on how to integrate GTWVW's combobox into
-   regular GET/GETLIST system. Be creative, do not be bound by
+   regular GET/GetList system. Be creative, do not be bound by
    the ideas presented herein. There may be better ways to do it. */
 
 #require "gtwvw"
@@ -122,7 +122,7 @@ STATIC PROCEDURE CBhandler( nWinNum, nId, nEvent, nIndex, cVar, GetList )
    HB_SYMBOL_UNUSED( nIndex )
 
    /* if GetList is empty, then READ session is already ended
-      this should not be happenning! */
+      this should not be happening! */
 
    IF Empty( GetList )
       MyAlert( "Bad practice: you left an active combobox, but READ already ended" )
@@ -134,7 +134,7 @@ STATIC PROCEDURE CBhandler( nWinNum, nId, nEvent, nIndex, cVar, GetList )
 
       IF ( i := AScan( GetList, {| x | x:Name == cVar } ) ) > 0
          /* ! oGet:HasFocus means
-          * CBN_SETFOCUS was NOT initiated from mouseclick
+          * CBN_SETFOCUS was NOT initiated from mouse click
           * then we don't need to bother about setting focus to the
           * new GET. GetSys has already done that via CBreader().
           * It is CBreader() that brought us here, so ignore it.
@@ -154,7 +154,7 @@ STATIC PROCEDURE CBhandler( nWinNum, nId, nEvent, nIndex, cVar, GetList )
              * The trick is simple:
              * reject the SETFOCUS. This will cause reader()
              * resume its action on Inkey( 0 ).
-             * All we have to do here is emulate the mouseclick
+             * All we have to do here is emulate the mouse click
              * event on oNewGet object beneath the CB, ie.
              * putting K_LBUTTONDOWN into keyboard buffer
              * at proper coordinate.

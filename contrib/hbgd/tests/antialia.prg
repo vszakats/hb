@@ -14,17 +14,17 @@ PROCEDURE Main()
 
    hb_vfDirMake( IMAGES_OUT )
 
-   /* This sample shows differences on use of antiliased command between a
+   /* This sample shows differences on use of antialiased command between a
       palette based image and a true color image.
       Normally antialias works better with a true color image.
 
       From GD official documentation:
 
-      Antialiased lines can be drawn on both truecolor and palette-based images.
+      Antialiased lines can be drawn on both true-color and palette-based images.
       However, attempts to draw antialiased lines on highly complex palette-based backgrounds
       may not give satisfactory results, due to the limited number of colors available in the
       palette. Antialiased line-drawing on simple backgrounds should work well with palette-based
-      images; otherwise create or fetch a truecolor image instead. */
+      images; otherwise create or fetch a true-color image instead. */
 
    /* DRAW A LINE IN A PALETTE BASED IMAGE */
    im := gdImageCreatePalette( 100, 100 )                  /* First we create a true color image */

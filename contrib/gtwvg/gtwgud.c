@@ -331,7 +331,7 @@ static void hb_gt_wvt_AddCharToInputQueue( PHB_GTWVT pWVT, int iKey )
 
    if( iKey == K_MOUSEMOVE || iKey == K_NCMOUSEMOVE )
    {
-      /* Clipper strips repeated mouse movemnt - let's do the same */
+      /* Clipper strips repeated mouse movement - let's do the same */
       if( pWVT->keyLast == iKey && pWVT->keyPointerIn != pWVT->keyPointerOut )
          return;
    }
@@ -1230,7 +1230,7 @@ static int hb_gt_wvt_ReadKey( PHB_GT pGT, int iEventMask )
 
    HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvt_ReadKey(%p,%d)", ( void * ) pGT, iEventMask ) );
 
-   HB_SYMBOL_UNUSED( iEventMask ); /* we ignore the eventmask! */
+   HB_SYMBOL_UNUSED( iEventMask ); /* we ignore the event mask! */
 
    pWVT = HB_GTWVT_GET( pGT );
 
@@ -1632,8 +1632,8 @@ static HB_BOOL hb_gt_wvt_Info( PHB_GT pGT, int iType, PHB_GT_INFO pInfo )
 
             if( iType == HB_GTI_SETPOS_ROWCOL )
             {
-               hb_arraySetNI( pInfo->pResult, 1, rect.top / pWVT->fontHeight );    /* Will only return approx value */
-               hb_arraySetNI( pInfo->pResult, 2, rect.left / pWVT->fontWidth );    /* Will only return approx value */
+               hb_arraySetNI( pInfo->pResult, 1, rect.top / pWVT->fontHeight );  /* Will only return approximate value */
+               hb_arraySetNI( pInfo->pResult, 2, rect.left / pWVT->fontWidth );  /* Will only return approximate value */
             }
             else
             {

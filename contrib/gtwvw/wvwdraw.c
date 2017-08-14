@@ -602,7 +602,7 @@ static IPicture * hb_gt_wvw_rr_LoadPicture( const char * filename, int * piWidth
 }
 
 /* wvw_SetPen( nPenStyle, nWidth, nColor ) */
-/* IMPORTANT: in prev release this functions has nWinNum parameter
+/* IMPORTANT: in previous release this functions has nWinNum parameter
               PENs are now application-wide. */
 HB_FUNC( WVW_SETPEN )
 {
@@ -652,7 +652,7 @@ HB_FUNC( WVW_SETGRIDPEN )
 }
 
 /* wvw_SetBrush( nStyle, nColor, [ nHatch ] ) */
-/* IMPORTANT: in prev release this functions has nWinNum parameter
+/* IMPORTANT: in previous release this functions has nWinNum parameter
               BRUSHes are now application-wide. */
 HB_FUNC( WVW_SETBRUSH )
 {
@@ -699,7 +699,7 @@ HB_FUNC( WVW_SETBRUSH )
 }
 
 /* wvw_DrawBoxGet( [nWinNum], nRow, nCol, nWidth, ;
-                   aOffset )   <-- additional parm, not exist in GTWVT */
+                   aOffset )   <-- additional parameter, not exist in GTWVT */
 /* NOTES: unlike GTWVT, GTWVW draw white lines on outer right and outer bottom
           Besides, scope is the same as wvw_DrawBoxRecessed(), ie.
           two pixel out of char boundary */
@@ -771,7 +771,7 @@ HB_FUNC( WVW_DRAWBOXGET )
 }
 
 /* wvw_DrawBoxGet_XP( [nWinNum], nRow, nCol, nWidth, ;
-                      aOffset )   <-- additional parm, not exist in GTWVT */
+                      aOffset )   <-- additional parameter, not exist in GTWVT */
 /* NOTES: unlike GTWVT, GTWVW draw white lines on outer right and outer bottom
           Besides, scope is the same as wvw_DrawBoxRecessed(), ie.
           two pixel out of char boundary */
@@ -829,9 +829,9 @@ HB_FUNC( WVW_DRAWBOXGET_XP )  /* Not in WVT */
 
 /* if lTight, box is drawn inside the character region
    AND top and left lines are lower two pixel down to make room for above/left object
-   WARNING: gui object of this type subject to be overwritten by chars
+   WARNING: GUI object of this type subject to be overwritten by chars
    NOTE that these lines are to be overwritten by displayed char,
-        we are depending on the fact that gui object will be painted last
+        we are depending on the fact that GUI object will be painted last
 
    lTight may be replaced with aOffset parm {top,left,bottom,right}
      ie. offset in pixel unit */
@@ -888,11 +888,11 @@ HB_FUNC( WVW_DRAWBOXRAISED )
 
 /* if lTight, box is drawn inside the character region
    AND top and left lines are lower two pixel down to make room for above/left object
-   WARNING: gui object of this type subject to be overwritten by chars
+   WARNING: GUI object of this type subject to be overwritten by chars
    NOTE that these lines are to be overwritten by displayed char,
-        we are depending on the fact that gui object will be painted last
+        we are depending on the fact that GUI object will be painted last
 
-   lTight may be replaced with aOffset parm {top,left,bottom,right}
+   lTight may be replaced with aOffset parameter {top,left,bottom,right}
      ie. offset in pixel unit */
 HB_FUNC( WVW_DRAWBOXRECESSED )
 {
@@ -1971,7 +1971,7 @@ HB_FUNC( WVW_DRAWRECTANGLE )
 }
 
 /* wvw_DrawRoundRect( nWinNum, nTop, nLeft, nBottom, nRight, ;
-                      aOffset, ; <-- new parm
+                      aOffset, ; <-- new parameter
                       nRoundHeight, nRoundWidth */
 
 /* WARNING!!!

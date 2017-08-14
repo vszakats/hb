@@ -297,8 +297,8 @@ HB_FUNC( ATAN )
             hb_retndlen( hb_exc.retval, hb_exc.retvalwidth, hb_exc.retvaldec );
          else
          {
-            /* atan normally don't error, but it's save to return Pi()/2
-               or -Pi()/2, respectively, as these
+            /* atan() normally doesn't error, but it's safe to return Pi() / 2
+               or -Pi() / 2, respectively, as these
                are the boundary result values */
             if( dArg < 0.0 )
                hb_retnd( -CT_PI / 2.0 );
@@ -343,11 +343,12 @@ HB_FUNC( ATN2 )
             hb_retndlen( hb_exc.retval, hb_exc.retvalwidth, hb_exc.retvaldec );
          else
          {
-            /* DOMAIN error: both arguments to atan2 have been 0 */
-            /* CT3 behaves very strange here: atn2 (0.0, 0.0) == -PI
-               atn2 (0.0, -0.0) == 0.0
-               atn2 (-0.0, 0.0) == -PI
-               atn2 (-0.0, -0.0) == -2*PI */
+            /* DOMAIN error: both arguments to atan2() have been 0 */
+            /* CT3 behaves very strange here:
+               Atn2( 0.0, 0.0 ) == -Pi()
+               Atn2( 0.0, -0.0 ) == 0.0
+               Atn2( -0.0, 0.0 ) == -PI
+               Atn2( -0.0, -0.0 ) == -2 * Pi() */
             if( dX >= 0.0 )
                hb_retnd( -CT_PI );
             else if( dY < 0.0 )

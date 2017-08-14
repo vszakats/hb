@@ -260,7 +260,7 @@
 #define CUT_DEFAULT          0
 #define DDS_DEFAULT          0
 #define GIF_DEFAULT          0
-#define GIF_LOAD256          1       // Load the image as a 256 color image with ununsed palette entries, if it's 16 or 2 color
+#define GIF_LOAD256          1       // Load the image as a 256 color image with unused palette entries, if it's 16 or 2 color
 #define GIF_PLAYBACK         2       // 'Play' the GIF to generate each frame (as 32bpp) instead of returning raw frame data when loading
 #define HDR_DEFAULT          0
 #define ICO_DEFAULT          0

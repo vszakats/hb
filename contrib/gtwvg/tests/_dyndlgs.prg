@@ -42,7 +42,7 @@ FUNCTION DynWinDialog( nInfo )
       ES_WANTRETURN + WIN_WS_BORDER  + WIN_WS_VSCROLL
    aDlg   := wvt_AddDlgItem( aDlg,  1, 2, 15, 35, {}, ID_MLE       , "EDIT"   , nStyle, /* cText, nHelpId, nExStyle */ )
 
-   // Two Horz and Vert Lines
+   // Two horizontal and vertical lines
    nStyle := WIN_WS_CHILD + WIN_WS_VISIBLE + SS_ETCHEDVERT
    aDlg   := wvt_AddDlgItem( aDlg, 1, 39,  16, 1, {}, 111          , "STATIC" , nStyle )
    nStyle := WIN_WS_CHILD + WIN_WS_VISIBLE + SS_ETCHEDHORZ
@@ -241,9 +241,11 @@ STATIC FUNCTION DynDlgProc( hDlg, nMsg, wParam, lParam )
       EXIT
 
    CASE WIN_WM_DESTROY
-      // Do whatevert you want to do with cText
+      // Do whatever you want to do with cText
       // Each box will retrieve its own text.
-      /* cText := */
+#if 0
+      cText := ""
+#endif
       wapi_GetDlgItemText( hDlg, ID_MLE )
       EXIT
    ENDSWITCH

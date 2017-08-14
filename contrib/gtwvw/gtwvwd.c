@@ -1197,7 +1197,7 @@ static HB_BOOL hb_gt_wvw_Info( PHB_GT pGT, int iType, PHB_GT_INFO pInfo )
          pInfo->pResult = hb_itemPutNI( pInfo->pResult, wvw_win->fontWidth );
          iVal = hb_itemGetNI( pInfo->pNewVal );
          if( iVal > 0 )
-            wvw_win->fontWidth = iVal;  /* store font status for next operation on fontsize */
+            wvw_win->fontWidth = iVal;  /* store font status for next operation on font size */
          break;
 
       case HB_GTI_FONTNAME:
@@ -1237,7 +1237,7 @@ static HB_BOOL hb_gt_wvw_Info( PHB_GT pGT, int iType, PHB_GT_INFO pInfo )
          pInfo->pResult = hb_itemPutNI( pInfo->pResult, iVal );
          if( hb_itemType( pInfo->pNewVal ) & HB_IT_NUMERIC )
          {
-            /* store font status for next operation on fontsize */
+            /* store font status for next operation on font size */
             switch( hb_itemGetNI( pInfo->pNewVal ) )
             {
                case HB_GTI_FONTW_THIN:
@@ -1296,7 +1296,7 @@ static HB_BOOL hb_gt_wvw_Info( PHB_GT pGT, int iType, PHB_GT_INFO pInfo )
           * SEEALSO         hb_gt_wvwCalcPixelHeight()
           */
 
-         /* NOTE 2004-07-19 screenheight includes linespacing, if any */
+         /* NOTE 2004-07-19 screen height includes linespacing, if any */
 
          pInfo->pResult = hb_itemPutNI( pInfo->pResult, hb_gt_wvw_LineHeight( wvw_win ) * wvw_win->ROWS );
          iVal = hb_itemGetNI( pInfo->pNewVal );
@@ -1353,7 +1353,7 @@ static HB_BOOL hb_gt_wvw_Info( PHB_GT pGT, int iType, PHB_GT_INFO pInfo )
           * SEEALSO         hb_gt_wvwCalcPixelHeight() - iSBHeight - iTBHeight
           */
 
-         /* NOTE 2004-07-19 screenheight includes linespacing, if any */
+         /* NOTE 2004-07-19 screen height includes linespacing, if any */
 
          RECT rDesk;
          HWND hDesk = GetDesktopWindow();
@@ -1406,7 +1406,7 @@ static HB_BOOL hb_gt_wvw_Info( PHB_GT pGT, int iType, PHB_GT_INFO pInfo )
          break;
       }
 
-      /* TODO: these two doesn't seem right. see gtwin about what they're supposed to do */
+      /* TODO: these two doesn't seem right. see GTWIN about what they're supposed to do */
       case HB_GTI_VIEWMAXWIDTH:
          pInfo->pResult = hb_itemPutNI( pInfo->pResult, wvw_win->COLS );
          break;
@@ -2566,7 +2566,7 @@ static LRESULT CALLBACK hb_gt_wvwWndProc( HWND hWnd, UINT message, WPARAM wParam
                len        = 0;
                oldColor   = wvw_win->screenBuffer[ index ].c.bColor;
 
-               /* colorute may change mid line...
+               /* color may change mid line...
                   so buffer up text with same color, and output it
                   then do next section with same color, etc */
 
@@ -3820,7 +3820,7 @@ int hb_gt_wvw_JustTranslateKey( int key, int shiftkey, int altkey, int controlke
 }
 
 /* font stuff */
-/* use the standard fixed oem font, unless the caller has requested set size fonts */
+/* use the standard fixed OEM font, unless the caller has requested set size fonts */
 
 HFONT hb_gt_wvw_GetFont( LPCTSTR pszFace, int iHeight, int iWidth, int iWeight, int iQuality, int iCodePage )
 {
@@ -4657,7 +4657,7 @@ static void hb_gt_wvwInputNotAllowed( int nWin, UINT message, WPARAM wParam, LPA
    Main Window's coordinate. It is similar to old Cl*pper program which
    uses coordinate relative to the physical screen area.
 
-   This mode can be set and reset during runtime,eg.
+   This mode can be set and reset during runtime, eg.
    oldCoordMode := wvw_SetMainCoord( .T. )
 
    Illustration:
@@ -5183,7 +5183,7 @@ static void hb_gt_wvw_vSetPos( PWVW_WIN wvw_win, int iRow, int iCol )
 /* Other static functions */
 /* Budyanto Dj. <budyanto@centrin.net.id> */
 
-/* called during init static, or after userpaint
+/* called during init static, or after user paint
    This function must be called only when fPaintPending == HB_FALSE */
 static void hb_wvw_InitPendingRect( PWVW_WIN wvw_win )
 {
@@ -5203,7 +5203,7 @@ static void hb_wvw_UpdatePendingRect( PWVW_WIN wvw_win, int iRow1, int iCol1, in
    wvw_win->rPaintPending.bottom = HB_MAX( wvw_win->rPaintPending.bottom, iRow2 );
 }
 
-/* returns lineheight, ie. including linespacing if any */
+/* returns line height, ie. including linespacing if any */
 int hb_gt_wvw_LineHeight( PWVW_WIN wvw_win )
 {
    return wvw_win->PTEXTSIZE.y + wvw_win->iLineSpacing;
@@ -5555,7 +5555,7 @@ TCHAR * hb_gt_wvw_GetAppName( void )
  */
 
 /* PENDING decision:
-   2004-09-08 TODO: GTWVT deliberately adds new parm aOffset before nRoundHeight
+   2004-09-08 TODO: GTWVT deliberately adds new parameter aOffset before nRoundHeight
                     I hate it when doing such thing
  */
 
@@ -5709,7 +5709,7 @@ void hb_gt_wvw_AddBitmapHandle( const char * szFileName, HBITMAP hBitmap, int iW
 /* hb_gt_wvw_FindUserBitmapHandle() and hb_gt_wvw_AddUserBitmapHandle()
    are for bitmaps NOT associated with
    Windows controls such as toolbar, pushbutton, checkbox, etc
-   IOW, it is for user drawn images (wvw_drawimage)
+   IOW, it is for user drawn images (wvw_DrawImage())
  */
 HBITMAP hb_gt_wvw_FindUserBitmapHandle( const char * szFileName, int * piWidth, int * piHeight )
 {
@@ -6581,7 +6581,7 @@ HB_FUNC( WVW_ADDROWS )
          SetWindowPos( wvw_win->hStatusBar, NULL, wi.left, wi.bottom - wvw_win->iSBHeight, width, wvw_win->iSBHeight, SWP_NOZORDER );
 
       #if 0
-      /* --- THESE are not required, because we simply enlarged/shrinked the window downward
+      /* --- THESE are not required, because we simply enlarged/shrunk the window downward
              NOTICE however that some control may not be fully visible */
 
       if( wvw_win->hToolBar != NULL )

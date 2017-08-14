@@ -3,11 +3,11 @@
 /*
  * This module demonstrates a simple UDP Discovery Server
  *
- * If you run some service on the network (ex., netio) you need to
+ * If you run some service on the network (ex., hbnetio) you need to
  * know server IP address and configure client to connect to this
  * address. UDPDS helps client to find server address (or addresses
  * of multiple servers) on local network. UDPDS should be run in
- * parallel to real server (ex., netio). Server part of UDPDS uses
+ * parallel to real server (ex., hbnetio). Server part of UDPDS uses
  * threads, so, it should be compiled in MT mode.
  *
  * Server functions:

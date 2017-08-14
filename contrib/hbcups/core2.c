@@ -211,7 +211,7 @@ HB_FUNC( CUPSPRINTFILE2 )
       }
 
       hb_retni( cupsPrintFile2( http /* server */,
-                                hb_parcx( 2 ) /* printername */,
+                                hb_parcx( 2 ) /* printer name */,
                                 hb_parcx( 3 ) /* filename */,
                                 hb_parcx( 4 ) /* title */,
                                 num_options,

@@ -161,7 +161,7 @@ HB_FUNC( WOPEN )
 {
    int iColor;
 
-   /* 6-th (color) and 7-th (lVisible) parameters are Harbour extensions */
+   /* 6th (color) and 7th (lVisible) parameters are Harbour extensions */
    iColor = hb_ctColorParam( 6, -1 );   /* Harbour extension */ /* HB_EXTENSION */
    hb_retni( hb_ctwCreateWindow( hb_parni( 1 ), hb_parni( 2 ),
                                  hb_parni( 3 ), hb_parni( 4 ),

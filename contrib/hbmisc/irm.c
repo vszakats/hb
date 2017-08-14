@@ -169,14 +169,14 @@ static void hb_irmMapMarkCallback( HB_ULONG ulRecNo, unsigned char * pKey, unsig
 }
 
 /*
- *  Expresion operators:
+ *  Expression operators:
  *    "&", expr1, expr2, ...
  *    "|", expr1, expr2, ...
  *  Filter operators:
- *    "=", tag, bag, value                    ORKEYVAL() = value
- *    "<=", tag, bag, value                   ORKEYVAL() <= value
- *    ">=", tag, bag, value                   ORKEYVAL() >= value
- *    "<=<=", tag, bag, value1, value2        value1 <= ORKEYVAL() <= value2
+ *    "=", tag, bag, value                    ordKeyVal() = value
+ *    "<=", tag, bag, value                   ordKeyVal() <= value
+ *    ">=", tag, bag, value                   ordKeyVal() >= value
+ *    "<=<=", tag, bag, value1, value2        value1 <= ordKeyVal() <= value2
  */
 PHB_IRMMAP hb_irmExecute( PHB_ITEM pItem )
 {

@@ -119,7 +119,7 @@ static void do_charonly( int iSwitch )
          }
       }
 
-      /* copy last character if string len is odd */
+      /* copy last character if string length is odd */
       if( iShift == 2 && sStrLen % 2 == 1 )
          pcRet[ sRetStrLen++ ] = pcString[ sStrLen - 1 ];
 

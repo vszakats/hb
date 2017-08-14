@@ -225,7 +225,7 @@ METHOD PROCEDURE WvgPartHandler:notifierBlock( ... )
 
    RETURN
 
-/* This will be called by the WvgCrt() console for various events to be propogated to child controls */
+/* This will be called by the WvgCrt() console for various events to be propagated to child controls */
 METHOD WvgPartHandler:notifier( nEvent, xParams )
 
    LOCAL aPos, aMenuItem, nIndex, nCtrlID, oObj
@@ -340,7 +340,7 @@ METHOD WvgPartHandler:notifier( nEvent, xParams )
 #endif
 
    CASE nEvent == HB_GTE_GUIPARTS
-      /* Eventally every window be checked if it falls within returned rectangle or not
+      /* Eventually every window be checked if it falls within returned rectangle or not
          then it will avoid a lot of flickering */
       AEval( ::aChildren, {| o | wvg_InvalidateRect( o:hWnd ) } )
 

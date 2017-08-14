@@ -211,7 +211,7 @@ STATIC PROCEDURE Page_Lines( pdf )
 
    HPDF_Page_SetFontAndSize( page, font, 10 )
 
-   /* Draw verious widths of lines. */
+   /* Draw various widths of lines. */
    HPDF_Page_SetLineWidth( page, 0 )
    draw_line( page, 60, 770, "line width: 0" )
 
@@ -840,7 +840,7 @@ STATIC PROCEDURE Page_TextScaling( pdf )
 
    /* Rotating text */
    angle1 := 30                   /* A rotation of 30 degrees. */
-   rad1 := angle1 / 180 * Pi()    /* Calcurate the radian value. */
+   rad1 := angle1 / 180 * Pi()    /* Calculate the radian value. */
 
    show_description( page, 320, ypos - 60, "Rotating text" )
    HPDF_Page_BeginText( page )
@@ -1001,7 +1001,9 @@ STATIC PROCEDURE Page_CodePages( pdf )
       dst := HPDF_Page_CreateDestination( page )
       HPDF_Destination_SetXYZ( dst, 0, HPDF_Page_GetHeight( page ), 1 )
 
-      /* HPDF_Destination_SetFitB( dst ) */
+#if 0
+      HPDF_Destination_SetFitB( dst )
+#endif
       HPDF_Outline_SetDestination( outline, dst )
 
       HPDF_Page_SetFontAndSize( page, font, 15 )
@@ -1329,16 +1331,16 @@ STATIC PROCEDURE Page_Images( pdf )
 
    x += 150
 
-   /* Scalling image(X direction) */
+   /* Scaling image(X direction) */
    HPDF_Page_DrawImage( page, image, x, y, iw * 1.5, ih )
 
-   show_description_1( page, x, y, "Scalling image(X direction)" )
+   show_description_1( page, x, y, "Scaling image(X direction)" )
 
    x += 150
 
-   /* Scalling image(Y direction). */
+   /* Scaling image(Y direction). */
    HPDF_Page_DrawImage( page, image, x, y, iw, ih * 1.5 )
-   show_description_1( page, x, y, "Scalling image(Y direction)" )
+   show_description_1( page, x, y, "Scaling image(Y direction)" )
 
    x := 100
    y -= 120
@@ -1360,7 +1362,7 @@ STATIC PROCEDURE Page_Images( pdf )
 
    /* Rotating image */
    angle := 30     /* rotation of 30 degrees. */
-   rad := angle / 180 * Pi() /* Calcurate the radian value. */
+   rad := angle / 180 * Pi() /* Calculate the radian value. */
 
    HPDF_Page_GSave( page )
    HPDF_Page_Concat( page, iw * Cos( rad ), ;

@@ -660,9 +660,9 @@ HB_FUNC( WVW_WINDOW2BITMAP )
    Returns old setting of maximum user-bitmap cache.
 
    Description:
-   To minimize bitmap loading operation, wvw_drawimage caches bitmap once
+   To minimize bitmap loading operation, wvw_DrawImage() caches bitmap once
    it reads from disk.
-   Ie., subsequent wvw_drawimage will use the bitmap from the memory.
+   Ie., subsequent wvw_DrawImage() will use the bitmap from the memory.
    When the maximum number of cache is used, the least recently opened bitmap
    will be discarded from the cache.
 
@@ -704,7 +704,7 @@ HB_FUNC( WVW_NUMBMCACHE )
 /* TIMER */
 
 /* wvw_SetTimer([nWinNum], nInterval)
- * set timer event for every nInterval millisec
+ * set timer event for every nInterval millisecond
  * (effective only if WVW_TIMER() function exists)
  * eg. it can be useful to update clock on status bar
  * returns .T. if successful
@@ -1022,9 +1022,9 @@ HB_FUNC( WVW_SETMOUSEPOS )
 
      if lTight, rect is drawn inside the character region
      AND top and left lines are lower two pixel down to make room for above/left object
-     WARNING: gui object of this type subject to be overwritten by chars
+     WARNING: GUI object of this type subject to be overwritten by chars
      NOTE that these lines are to be overwritten by displayed char,
-          we are depending on the fact that gui object will be painted last
+          we are depending on the fact that GUI object will be painted last
 
      if lUseBrush, nRGBcolor is treated as a BRUSH handle */
 HB_FUNC( WVW_FILLRECTANGLE )
