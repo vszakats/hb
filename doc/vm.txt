@@ -58,7 +58,7 @@ The memory: Responsible for allocating, reallocating, locking, unlocking and
 freeing memory.
 
 The extend system: Defines the interface (_parc(), ..., _retc() ) from low
-level (C language) to high level (Clipper language). This subsystem is
+level (C language) to high-level (Clipper language). This subsystem is
 responsible for connecting in a proper way C language functions to the
 entire application.
 

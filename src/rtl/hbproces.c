@@ -1,5 +1,5 @@
 /*
- * Low level functions to create, wait and terminate processes
+ * Low-level functions to create, wait and terminate processes
  *
  * Copyright 2009 Przemyslaw Czerpak <druzus / at / priv.onet.pl>
  * based on xHarbour code by

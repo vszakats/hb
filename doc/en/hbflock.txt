@@ -24,7 +24,7 @@
       <lSuccess> .T. if the lock was obtained, else .F.
    $DESCRIPTION$
       This function attempts to lock a region of the file whose file handle
-      is <nHandle>. This is a low level file function.  To lock Harbour
+      is <nHandle>. This is a low-level file function.  To lock Harbour
       data files use either the FLock() or RLock() function.
 
       The value of <nHandle> is obtained from either a call to the FOpen()
@@ -80,7 +80,7 @@
       <lSuccess> .T. if the lock was removed, else .F.
    $DESCRIPTION$
       This function attempts to unlock a region of the file whose file
-      handle is <nHandle>. This is a low level file function.  To
+      handle is <nHandle>. This is a low-level file function.  To
       unlock Harbour data files use the dbUnlock() function.
 
       The value of <nHandle> is obtained from either a call to the FOpen()

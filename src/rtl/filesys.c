@@ -697,7 +697,7 @@ HB_FHANDLE hb_fsGetOsHandle( HB_FHANDLE hFileHandle )
 }
 
 #if defined( HB_OS_UNIX ) || defined( __DJGPP__ )
-/* for POSIX systems only, hides low level select()/poll() access,
+/* for POSIX systems only, hides low-level select()/poll() access,
    intentionally covered by HB_OS_UNIX macro to generate compile time
    error in code which tries to use it on other platforms */
 

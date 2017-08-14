@@ -168,7 +168,7 @@ void hb_conRelease( void )
    /*
     * Clipper does not restore screen size on exit so I removed the code with:
     *    hb_gtSetMode( s_originalMaxRow + 1, s_originalMaxCol + 1 );
-    * If the low level GT drive change some video adapter parameters which
+    * If the low-level GT drive change some video adapter parameters which
     * have to be restored on exit then it should does it in its Exit()
     * method. Here we cannot force any actions because it may cause bad
     * results in some GTs, f.e. when the screen size is controlled by remote

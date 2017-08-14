@@ -1,5 +1,5 @@
 /*
- * Firebird RDBMS low level (client api) interface code.
+ * Firebird RDBMS low-level (client API) interface code.
  *
  * Copyright 2003 Rodrigo Moreno rodrigo_moreno@yahoo.com
  *

@@ -20,7 +20,7 @@
    $RETURNS$
       Bin2I() return numeric integer (or 0 if <cBuffer> is not a string).
    $DESCRIPTION$
-      Bin2I() is one of the low level binary conversion functions, those
+      Bin2I() is one of the low-level binary conversion functions, those
       functions convert between Harbour numeric and a character
       representation of numeric value. Bin2I() take two bytes of encoded
       16-bit signed short integer and convert it into standard Harbour
@@ -81,7 +81,7 @@
    $RETURNS$
       Bin2L() return numeric integer (or 0 if <cBuffer> is not a string).
    $DESCRIPTION$
-      Bin2L() is one of the low level binary conversion functions, those
+      Bin2L() is one of the low-level binary conversion functions, those
       functions convert between Harbour numeric and a character
       representation of numeric value. Bin2L() take four bytes of encoded
       32-bit signed long integer and convert it into standard Harbour
@@ -139,7 +139,7 @@
    $RETURNS$
       Bin2W() return numeric integer (or 0 if <cBuffer> is not a string).
    $DESCRIPTION$
-      Bin2W() is one of the low level binary conversion functions, those
+      Bin2W() is one of the low-level binary conversion functions, those
       functions convert between Harbour numeric and a character
       representation of numeric value. Bin2W() take two bytes of encoded
       16-bit unsigned short integer and convert it into standard Harbour
@@ -196,7 +196,7 @@
       I2Bin() return two bytes character string that contains 16-bit
       encoded signed short integer (least significant byte first).
    $DESCRIPTION$
-      I2Bin() is one of the low level binary conversion functions, those
+      I2Bin() is one of the low-level binary conversion functions, those
       functions convert between Harbour numeric and a character
       representation of numeric value. I2Bin() take a numeric integer
       value and convert it into two bytes of encoded 16-bit signed short
@@ -263,7 +263,7 @@
       L2Bin() return four bytes character string that contains 32-bit
       encoded signed long integer (least significant byte first).
    $DESCRIPTION$
-      L2Bin() is one of the low level binary conversion functions, those
+      L2Bin() is one of the low-level binary conversion functions, those
       functions convert between Harbour numeric and a character
       representation of numeric value. L2Bin() take a numeric integer
       value and convert it into four bytes of encoded 32-bit signed long

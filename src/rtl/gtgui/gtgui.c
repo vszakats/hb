@@ -1,6 +1,6 @@
 /*
  * Mini GT for GUI programs.
- * Now it supports only low level TONE and CLIPBOARD code for Windows
+ * Now it supports only low-level Tone() and CLIPBOARD code for Windows
  *
  * Copyright 2006 Przemyslaw Czerpak <druzus / at / priv.onet.pl>
  *

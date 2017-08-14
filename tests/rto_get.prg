@@ -693,7 +693,7 @@ PROCEDURE Main( cArg01, cArg02, cArg03, cArg04 )
    // Error conditions
 
    TGetAssign( NIL )
-// TGetAssign( -1 ) // CA-Cl*pper has too many differences due to the low level implementation here
+// TGetAssign( -1 ) // CA-Cl*pper has too many differences due to the low-level implementation here
    TGetAssign( 0 )
    TGetAssign( 1 )
    TGetAssign( 3 )

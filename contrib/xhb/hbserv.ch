@@ -1,5 +1,5 @@
 /*
- * The Service/Daemon support (Includes also signal/low level error management)
+ * The Service/Daemon support (Includes also signal/low-level error management)
  *
  * Copyright 2003 Giancarlo Niccolai [gian@niccolai.ws]
  *

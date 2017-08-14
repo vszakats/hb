@@ -170,7 +170,7 @@ static long s_sockexFlush( PHB_SOCKEX pSock, HB_MAXINT timeout, HB_BOOL fSync )
    If fBuffer parameter is set to true then only data already read
    from socket and stored in memory buffer should be checked without
    any timeout. Such call is executed just before inside
-   hb_sockexSelect() just before call to low level socket select()
+   hb_sockexSelect() just before call to low-level socket select()
    function. */
 static int s_sockexCanRead( PHB_SOCKEX pSock, HB_BOOL fBuffer, HB_MAXINT timeout )
 {

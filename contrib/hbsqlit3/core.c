@@ -1,5 +1,5 @@
 /*
- * SQLite3 library low level (client api) interface code
+ * SQLite3 library low-level (client API) interface code
  *
  * Copyright 2007-2010 P.Chornyj <myorg63@mail.ru>
  *

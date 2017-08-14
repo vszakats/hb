@@ -1,5 +1,5 @@
 /*
- * Harbour Graphic Terminal low level code
+ * Harbour Graphic Terminal low-level code
  *
  * Copyright 2006 Przemyslaw Czerpak < druzus /at/ priv.onet.pl >
  *
@@ -644,7 +644,7 @@ static void hb_gt_def_SetSnowFlag( PHB_GT pGT, HB_BOOL fNoSnow )
 {
    /*
     * NOTE: This is a compatibility function which have to be implemented
-    *       in low level GT driver.
+    *       in low-level GT driver.
     *       If you're running on a CGA and snow is a problem speak up!
     */
 
@@ -2932,7 +2932,7 @@ static void hb_gt_def_InkeyPoll( PHB_GT pGT )
     * _SET_TYPEAHEAD when CL5.2 only when it's non zero.
     * IMHO keeping CL5.2 behavior will be more accurate for Harbour
     * because it allows to control it by user what some times could be
-    * necessary due to different low level GT behavior on some platforms
+    * necessary due to different low-level GT behavior on some platforms
     */
    if( hb_setGetTypeAhead() )
       hb_gt_def_InkeyPollDo( pGT );

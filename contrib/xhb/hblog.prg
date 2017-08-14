@@ -619,7 +619,7 @@ METHOD Send( nStyle, cMessage, cProgName, nPriority ) CLASS HB_LogDbf
    RETURN .T.
 
 
-/* Syslog channel - a wrapper for the low level
+/* Syslog channel - a wrapper for the low-level
    C interface to syslog/ event log system */
 
 CREATE CLASS HB_LogSysLog INHERIT HB_LogChannel

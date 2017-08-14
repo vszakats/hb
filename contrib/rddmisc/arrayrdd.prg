@@ -113,8 +113,8 @@ STATIC s_nRddID := -1
 
 /*
  * non work area methods receive RDD ID as first parameter
- * Methods INIT and EXIT does not have to execute SUPER methods - these is
- * always done by low level USRRDD code
+ * Methods INIT and EXIT does not have to execute SUPER methods - this is
+ * always done by low-level USRRDD code
  */
 
 STATIC FUNCTION AR_INIT( nRDD )
@@ -198,8 +198,8 @@ STATIC FUNCTION AR_WAOIINIT()
  * methods: NEW and RELEASE receive pointer to work area structure
  * not work area number. It's necessary because the can be executed
  * before work area is allocated
- * these methods does not have to execute SUPER methods - these is
- * always done by low level USRRDD code
+ * these methods does not have to execute SUPER methods - this is
+ * always done by low-level USRRDD code
  */
 
 STATIC FUNCTION AR_NEW( pWA )

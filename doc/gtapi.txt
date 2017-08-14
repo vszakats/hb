@@ -216,19 +216,19 @@ driver in GUI application. You can even create mixed GUI/CUI code in one
 program.
 
 And finally, the Tone() function problem.
-Low level TONE code is part of GT driver. In the past, GUI libraries in
-Windows were linked the whole GTWIN driver and only TONE were used. It
+Low-level Tone() code is part of GT driver. In the past, GUI libraries in
+Windows were linked the whole GTWIN driver and only Tone() were used. It
 was possible because someone blocked GTWIN to work with application
 linked as Windows GUI programs. Now, GTWIN can be used with any
 applications, and I do not want reduce its functionality. So GUI
-libraries which needs TONE should have their own GT driver which will
+libraries which needs Tone() should have their own GT driver which will
 support it. Now, such GT driver can also give much more features for
 final users, because it allow to integrate GUI library with standard
 Clipper screen functions.
 
 How to create such base GUI GT driver?
 See as example GTGUI in src/rtl/gtgui/gtgui.c
-It supports only TONE and CLIPBOARD operations.
+It supports only Tone() and CLIPBOARD operations.
 GUI libraries can use it or create other GT driver inheriting from
 this one.
 
@@ -326,7 +326,7 @@ gtalleg- GT driver which uses allegro library for input/output.
          Multi platform, works on all platforms for which allegro
          library has been ported: MS-Windows, MS-DOS, VESA, X11, FB, SDL, ...
 
-gtgui  - pseudo GT driver which adds to GTNUL Clipboard and Tone
+gtgui  - pseudo GT driver which adds to GTNUL Clipboard and Tone()
          functionality. If you are using some MS-Windows GUI library
          and you still want to use Tone() function or HB_GTI_CLIPBOARD
          actions then link this GT driver with your application.

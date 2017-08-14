@@ -1765,7 +1765,7 @@ initialize numeric and logical values to 0 and .f.
 ================================
 Both Harbour and xHarbour support object destructors and both
 compilers uses reference counters and garbage collector to
-execute destructors. Anyhow the low level implementation is
+execute destructors. Anyhow the low-level implementation is
 different in the two compilers. In Harbour HVM is reentrant safe
 so the implementation of destructors is much simpler. It also
 keeps full control about reference counters and detects user
@@ -2492,13 +2492,13 @@ Portable code should respect these differences.
 ###    INET SOCKETS    ###
 ==========================
 Both compilers support IP4 sockets with similar .prg API created by
-Giancarlo Niccolai though both use different low level implementations.
+Giancarlo Niccolai though both use different low-level implementations.
 In xHarbour IP4 functions have Inet*() prefix.
 In Harbour they have hb_inet*() prefix in core code and xHarbour Inet*()
 functions are available in XHB library.
 
 Harbour has also public C socket API (hbsocket.h) which is not reduced
-to IP4 protocols only and is the base low level code used for .prg level
+to IP4 protocols only and is the base low-level code used for .prg level
 [hb_]inet*() function implementation. This socket implementation was
 rewritten from scratch, it's MT safe and was designed to hide platform
 differences in BSD socket implementation. It also works in DOS builds
@@ -2511,7 +2511,7 @@ This API is available for users also at PRG level by hb_socket*() functions.
 ==========================
 Harbour and xHarbour compilers have build-in support for
 internationalization (I18N) and it's enabled during compilation using
-the same compiler time switch -j[<file>] but the low level implementation
+the same compiler time switch -j[<file>] but the low-level implementation
 in compilers and at runtime is completely different.
 
 In xHarbour during compilation with -j switch compiler looks for all
@@ -2596,7 +2596,7 @@ Harbour gives common multi-platform PRG and C level API for serial port
 communication by hb_com*() functions in core libraries. It also implements
 few other known in Clipper serial port interfaces in contrib libraries
 like CT3 COM_*() functions in hbct library or basic support for Telepath(y)
-interface in hbtpathy library. All such implementations use at low level
+interface in hbtpathy library. All such implementations use at low-level
 code the core hb_com*() interface so they can work on all platforms.
 xHarbour CVS contains only telepath library with some very basic Telepath(y)
 interface which is not available for all platforms.

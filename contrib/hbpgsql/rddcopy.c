@@ -1,5 +1,5 @@
 /*
- * PostgreSQL RDBMS low level (client api) interface code.
+ * PostgreSQL RDBMS low-level (client API) interface code.
  *
  * Copyright 2003 Rodrigo Moreno rodrigo_moreno@yahoo.com
  *

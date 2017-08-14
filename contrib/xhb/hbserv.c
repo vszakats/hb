@@ -1,5 +1,5 @@
 /*
- * The Service/Daemon support (includes also signal/low level error management)
+ * The Service/Daemon support (includes also signal/low-level error management)
  *
  * Copyright 2003 Giancarlo Niccolai [gian@niccolai.ws]
  *
@@ -897,7 +897,7 @@ HB_FUNC( HB_POPSIGNALHANDLER )
 }
 
 /**
- * Return a character description of the low level signal that has been
+ * Return a character description of the low-level signal that has been
  * issued to signal handling routines. This is system dependant.
  * TODO: Make it international through the xHarbour standard message system.
  */

@@ -24,7 +24,7 @@
               Returns the pointer (address) to a function.
 
               The returned value is not useful to application-level programming, but
-              is used at a low level to implement object oriented coding.
+              is used at a low-level to implement object oriented coding.
               (Internally, a class method is a static function and there is no
               symbol for it, so it is accessed via its address).
 

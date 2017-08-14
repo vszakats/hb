@@ -4700,11 +4700,11 @@ static void hb_gt_wvwInputNotAllowed( int nWin, UINT message, WPARAM wParam, LPA
    - HB_GT_FUNC( gt_xPutch() )          c
    - etc.
 
-   Higher level functions uses coord as passed by user, eg.:
+   Higher-level functions uses coord as passed by user, eg.:
    - wvw_nOpenWindow()
    - etc.
 
-   Lower level functions (both static and exported ones) use coord relative
+   Lower-level functions (both static and exported ones) use coord relative
    to the referred window, eg.:
    - hb_gt_wvwTextOut()
    - etc

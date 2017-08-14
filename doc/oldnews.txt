@@ -359,7 +359,7 @@ Contrib
 - hbwin made steps towards creating a unified Windows API wrapper layer.
 - Added hbcrypt, hbssl and rddsql (with mysql, pgsql, fbsql plugins)
   to contribs.
-- hbct windowing extended with new low level API, better shadow
+- hbct windowing extended with new low-level API, better shadow
   handling.
 - gtwvg lots of improvements.
 - gtwvg Xbase++ compatible UI objects.
@@ -1026,7 +1026,7 @@ RTL
   objects also with active exceptions
 - added missing support for _SET_FILECASE, _SET_DIRCASE switches in some
   functions
-- added _SET_TRIMFILENAME - when enabled low level hb_fs*() functions strip
+- added _SET_TRIMFILENAME - when enabled low-level hb_fs*() functions strip
   trailing and leading spaces from file names to emulate DOS like behavior
 - added support for _SET_DEFEXTENSIONS to native all RDDs
 - many fixes in Transform() function and fixed 64-bit integer transformation.
@@ -1080,7 +1080,7 @@ GT:
 - fixed color string decoding to be fully Clipper compatible
 - OutStd()/OutErr() respects automatic CP translation when they
   are not redirected to GT screen
-- added common for all GTs CLIPBOARD support. If possible low level GT
+- added common for all GTs CLIPBOARD support. If possible low-level GT
   drivers uses system clipboard otherwise they emulate it for Harbour
   application only
 
@@ -1163,7 +1163,7 @@ Version 1.1.1 Devel Build (2007-06-14) tag: build48
   constructions
 - added BEGIN SEQUENCE [WITH <bErrorBlock>] / RECOVER [USING <oErr>] /
         ALWAYS / END
-- new debugger code with low level C interface borrowed from xHarbour
+- new debugger code with low-level C interface borrowed from xHarbour
 - added hash tables
 - speed improvement
 - added regular expressions
@@ -1398,7 +1398,7 @@ API
 - Use hb_fileNameConv() instead of hb_filecase(), hb_fileNameConv()
   is the only one function to make file name conversions dependent on
   some SETs.
-- HB_MATHERRMODE() input validation logic moved to the lower level
+- HB_MATHERRMODE() input validation logic moved to the lower-level
   function. This is a step to make this a simple Set().
 - Added STRPEEK and STRPOKE FS functions covered by HB_COMPAT_FLAGSHIP
   macro.
@@ -1732,7 +1732,7 @@ The runtime modules
 - Fixed to correctly return the procedure name where the codeblock was created.
 - Greek and Serbian language codepage files added.
 - fixed to use 'mkstemp' on Unix (no more GCC linker warnings)
-- Fixed file find API to be compatible with CA-Cl*pper on the lower level.
+- Fixed file find API to be compatible with CA-Cl*pper on the lower-level.
 - Fixes in TBColumn class
 
 RDD
@@ -2119,7 +2119,7 @@ Version 0.30 Alpha Build 30 (1999-09-30)
 - Even more Preprocessor compatibility
 - Set HARBOUR= in environment to override Set CLIPPER= settings
 - Rudimentary Unix keyboard support added
-- Tone support added
+- Tone() support added
 - SET KEY support was added
 - Extensive regression test suite added (RTL_TEST)
 - Array handling fixed and made Clipper compatible

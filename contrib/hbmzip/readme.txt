@@ -1,6 +1,6 @@
 This directory contains compression related files including:
    * wrapper functions for minizip
-   * some additionl functions to provide a higher level API for zip files
+   * some additionl functions to provide a higher-level API for ZIP files
 
 
 Harbour functions to manage ZIP files:

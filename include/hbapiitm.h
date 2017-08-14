@@ -212,7 +212,7 @@ extern PHB_ITEM hb_itemPutPtrRawGC( PHB_ITEM pItem, void * pValue );
 #  define hb_itemRawMove( dst, src )      hb_itemMove( (dst), (src) )
 #endif
 
-   /* intentional low level hack to eliminate race condition in
+   /* intentional low-level hack to eliminate race condition in
     * unprotected readonly access in few places in core code only.
     * hb_item[Raw]Move() moves HB_ITEM structure members first coping
     * 'type' and then 'item' parts of HB_ITEM. In this macro the order

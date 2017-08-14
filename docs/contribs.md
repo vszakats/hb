@@ -198,7 +198,7 @@ OSLib (Dave Pearson's) compatibility
 
 ## hbpgsql
 
-Low Level API bindings for PostgreSQL RDBMS. Includes a `dbf2pg.prg` utility to
+Low-level API bindings for PostgreSQL RDBMS. Includes a `dbf2pg.prg` utility to
 convert a `.dbf` file into a PostgreSQL table.
 
 ## hbsqlit3

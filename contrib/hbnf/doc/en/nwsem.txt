@@ -285,7 +285,7 @@
 
       You can use a semaphore lock to control access to anything
       that Clipper's RLock() and FLock() can't help you with, such
-      as text files written with the low level file I/O functions,
+      as text files written with the low-level file I/O functions,
       etc.
    $EXAMPLES$
       LOCAL nHandle := 0

@@ -1,5 +1,5 @@
 /*
- * FreeImage graphic library low level (client api) interface code.
+ * FreeImage graphic library low-level (client API) interface code.
  *
  * Copyright 2005 Francesco Saverio Giudice <info@fsgiudice.com>
  * Copyright 2012 Viktor Szakats (vszakats.net/harbour)

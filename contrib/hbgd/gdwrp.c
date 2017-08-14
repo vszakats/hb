@@ -1,5 +1,5 @@
 /*
- * GD graphic library low level (client api) interface code.
+ * GD graphic library low-level (client API) interface code.
  *
  * Copyright 2004-2005 Francesco Saverio Giudice <info@fsgiudice.com>
  *

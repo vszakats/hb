@@ -1,4 +1,4 @@
-README 2003-12-23 - Harbour Low Level API for Firebird and Interbase RDBMS
+README 2003-12-23 - Harbour low-level API for Firebird and Interbase RDBMS
 
 This work is not finished yet. It's planned to be similar to Harbour TMysql routines.
 

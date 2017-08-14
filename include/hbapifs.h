@@ -81,7 +81,7 @@ HB_EXTERN_BEGIN
 #define FXO_COPYNAME  0x8000        /* copy final szPath into pszFileName */
 
 /* these definitions should be cleared,
- * now they only help to clean lower level code
+ * now they only help to clean lower-level code
  */
 #define HB_FA_FIFO            HB_FA_TEMPORARY   /* S_ISFIFO() */
 #define HB_FA_FILE            HB_FA_ARCHIVE     /* S_ISREG() */
@@ -196,7 +196,7 @@ extern HB_EXPORT HB_BOOL    hb_fsLinkSym     ( const char * pszTarget, const cha
 extern HB_EXPORT char *     hb_fsLinkRead    ( const char * pszFileName ); /* returns the link pointed to */
 
 #if defined( HB_OS_UNIX ) || defined( __DJGPP__ )
-/* for POSIX systems only, hides low level select()/poll() access,
+/* for POSIX systems only, hides low-level select()/poll() access,
    intentionally covered by HB_OS_UNIX / __DJGPP__ macros to generate
    compile time error in code which tries to use it on other platforms */
 

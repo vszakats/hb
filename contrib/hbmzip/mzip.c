@@ -1,6 +1,6 @@
 /*
  * Wrapper functions for minizip library
- * Some higher level zip archive functions
+ * Some higher-level ZIP archive functions
  *
  * Copyright 2008 Mindaugas Kavaliauskas <dbtopas.at.dbtopas.lt>
  * Copyright 2011-2013 Viktor Szakats (vszakats.net/harbour) (codepage/unicode)
@@ -671,7 +671,7 @@ HB_FUNC( HB_UNZIPFILECLOSE )
 
 /*
  *
- * Higher level functions - not a wrappers of minizip code
+ * Higher-level functions - not wrappers of minizip code
  *
  */
 

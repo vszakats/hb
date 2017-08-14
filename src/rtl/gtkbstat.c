@@ -1,5 +1,5 @@
 /*
- * Low level keyboard shift state functions common to some GT drivers
+ * Low-level keyboard shift state functions common to some GT drivers
  *
  * Copyright 2007 Przemyslaw Czerpak <druzus / at / priv.onet.pl>
  *
