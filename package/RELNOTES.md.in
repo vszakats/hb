@@ -26,12 +26,12 @@ Source archives and Windows binaries are available for download:
    `pacman -S git base-devel msys2-devel mingw-w64-{i686,x86_64}-toolchain`
    (See above link about how to update MSYS2 packages from this point on
    to their latest version.)
-6. Build test x86 executable:
+6. Build test 32-bit executable:
    ```
    set PATH=<path-to-msys2>\mingw32\bin;%PATH%
    hbmk2 <path-to-harbour>/tests/hello.prg
    ```
-7. Build test x64 executable:
+7. Build test 64-bit executable:
    ```
    set PATH=<path-to-msys2>\mingw64\bin;%PATH%
    hbmk2 <path-to-harbour>/tests/hello.prg
