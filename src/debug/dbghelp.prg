@@ -141,7 +141,7 @@ STATIC PROCEDURE ProcessKey( nKey, oDlg, oBrw, aTopics )
    CASE K_PGUP
    CASE K_CTRL_B
 
-      ShowTopic( oDlg, aTopics, oBrw:Cargo, -1 )  // Skip to prev page
+      ShowTopic( oDlg, aTopics, oBrw:Cargo, -1 )  // Skip to previous page
       EXIT
 
    CASE K_PGDN
@@ -211,7 +211,7 @@ STATIC PROCEDURE ShowTopic( oDlg, aTopics, nTopic, nPageOp )
          ENDIF
          EXIT
 
-      CASE -1  // Show prev page
+      CASE -1  // Show previous page
 
          IF oDebug:nHelpPage > 1
             oDebug:nHelpPage--

@@ -1826,7 +1826,7 @@ static void hb_gt_wvt_FitSize( PHB_GTWVT pWVT )
             else
             {
                /* I did it this way, so that "Courier New" would size and maximize as expected.
-                * "Courier New"  appears to not scale linearily, sometimes by just decreasing the
+                * "Courier New"  appears to not scale linearly, sometimes by just decreasing the
                 * font width by one with some font heights makes it all work out?
                 * This code never seems to get executed with "Lucida Console"
                 * Width scaling with some Heights is an issue with Courier New and Terminal
@@ -2787,7 +2787,7 @@ static HB_BOOL hb_gt_wvt_KeyEvent( PHB_GTWVT pWVT, UINT message, WPARAM wParam, 
 }
 
 /*
- * hb_gt_wvt_TextOut converts col and row to x and y ( pixels ) and calls
+ * Convert col and row to x and y ( pixels ) and calls
  * the Windows function TextOut with the expected coordinates
  */
 static void hb_gt_wvt_TextOut( PHB_GTWVT pWVT, HDC hdc, int col, int row, int iColor, LPCTSTR lpString, UINT cbString )

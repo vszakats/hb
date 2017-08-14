@@ -117,7 +117,7 @@ static void hb_cdxIndexPoolFree( LPCDXINDEX pIndex, int nPagesLeft );
 /* split Root Page */
 static int hb_cdxPageRootSplit( LPCDXPAGE pPage );
 
-/* free create index structur */
+/* free create index structure */
 static void hb_cdxSortFree( LPCDXSORTINFO pSort );
 
 static HB_USHORT s_uiRddId = ( HB_USHORT ) -1;
@@ -273,7 +273,7 @@ static LPCDXKEY hb_cdxKeyCopy( LPCDXKEY pKeyDest, LPCDXKEY pKey )
 }
 
 /*
- * store bytes value in inkdex key
+ * store bytes value in index key
  */
 static LPCDXKEY hb_cdxKeyPut( LPCDXKEY pKey, const HB_BYTE * pbVal, HB_USHORT uiLen, HB_ULONG ulRec )
 {
@@ -299,7 +299,7 @@ static LPCDXKEY hb_cdxKeyPut( LPCDXKEY pKey, const HB_BYTE * pbVal, HB_USHORT ui
 }
 
 /*
- * store string value in inkdex key
+ * store string value in index key
  */
 static LPCDXKEY hb_cdxKeyPutCL( LPCDXKEY pKey, const char * pText, HB_SIZE nLen, HB_ULONG ulRec, HB_USHORT uiKeyLen, int iMode )
 {
@@ -1538,7 +1538,7 @@ static HB_ULONG hb_cdxPageGetKeyRec( LPCDXPAGE pPage, int iKey )
 }
 
 /*
- * get child page number from interrior index page
+ * get child page number from interior index page
  */
 static HB_ULONG hb_cdxPageGetKeyPage( LPCDXPAGE pPage, int iKey )
 {
@@ -1941,7 +1941,7 @@ static void hb_cdxPageLeafInitSpace( LPCDXPAGE pPage )
 
 /*
  * calculate the size of keys stored in buffer, return
- * the number of keys wich can be stored in the page
+ * the number of keys which can be stored in the page
  */
 static void hb_cdxPageCalcLeafSpace( LPCDXPAGE pPage, HB_BYTE * pKeyBuf, int iKeys )
 {
@@ -1957,7 +1957,7 @@ static void hb_cdxPageCalcLeafSpace( LPCDXPAGE pPage, HB_BYTE * pKeyBuf, int iKe
 #ifdef HB_CDX_DBGCODE_EXT
    hb_cdxPageCheckDupTrl( pPage, pKeyBuf, iKeys, HB_FALSE );
 #endif
-   /* clear duplicate counter in 1-st key */
+   /* clear duplicate counter in 1st key */
    HB_PUT_LE_UINT16( &pKeyBuf[ iNum + 4 ], 0 );
    for( iKey = 0; iKey < iKeys; iKey++ )
    {
@@ -3730,7 +3730,7 @@ static void hb_cdxTagFree( LPCDXTAG pTag )
 /*
  * Creates a new structure with a tag information
  * TagHdr = offset of index page where a tag header is stored
- *            if CDX_DUMMYNODE then allocate space ofor a new tag header
+ *            if CDX_DUMMYNODE then allocate space for a new tag header
  */
 static LPCDXTAG hb_cdxTagNew( LPCDXINDEX pIndex, const char * szTagName, HB_ULONG TagHdr )
 {
@@ -3852,7 +3852,7 @@ static void hb_cdxTagPoolFlush( LPCDXTAG pTag )
 }
 
 /*
- * retrive CurKey from current Tag possition
+ * retrieve CurKey from current Tag position
  */
 static void hb_cdxSetCurKey( LPCDXPAGE pPage )
 {
@@ -3985,7 +3985,7 @@ static HB_BOOL hb_cdxCheckRecordScope( CDXAREAP pArea, HB_ULONG ulRec )
 }
 
 /*
- * check and avaluate record filter
+ * check and evaluate record filter
  */
 static HB_BOOL hb_cdxCheckRecordFilter( CDXAREAP pArea, HB_ULONG ulRecNo )
 {

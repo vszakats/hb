@@ -146,7 +146,7 @@ PROCEDURE Main( cRDDType, cAdsMode )
       REPLACE CHAR WITH Chr( Asc( "A" ) + Val( SubStr( hb_ntos( RecNo() ), 2, 1 ) ) ) + ;
          " RECORD " + hb_ntos( RecNo() )
 
-      // TEST: Direct field assigment
+      // TEST: Direct field assignment
       MYTEST->NUM  := ( iif( RecNo() % 2 > 0, - 1, 1 ) * RecNo() ) + ( RecNo() / 1000 )
       MYTEST->DATE := Date() + Int( field->NUM )
       MYTEST->LOG  := ( field->NUM < 0 )

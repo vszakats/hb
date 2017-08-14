@@ -62,8 +62,8 @@
 #define HB_PCODE_VER_MIN      0x0002
 
 /*
- * NOTE: You can select the default language modul used by Harbour, by
- *       defining this to a valid language modul identifier.
+ * NOTE: You can select the default language module used by Harbour, by
+ *       defining this to a valid language module identifier.
  */
 
 #ifndef HB_LANG_DEFAULT
@@ -72,7 +72,7 @@
 
 /*
  * NOTE: You can select the default codepage used by Harbour, by
- *       defining this to a valid codepage modul identifier.
+ *       defining this to a valid codepage module identifier.
  */
 
 #ifndef HB_CODEPAGE_DEFAULT
@@ -96,7 +96,7 @@
  * to call functions before the 'main' module is called.
  * This trick is used to automatically join all symbol tables defined
  * in run-time support modules and in user defined modules.
- *   If strict ANSI C compability is required then all symbol tables
+ *   If strict ANSI C compatibility is required then all symbol tables
  * have to be joined manually by calling special function named
  * hb_vm_SymbolInit_<module_name>
  * (for example for myfirst.prg it will be: 'hb_vm_SymbolInit_MYFIRST'
@@ -111,7 +111,7 @@
  * Define this option if you want the /y YACC trace option to be available
  * in the Harbour compiler.
  *
- * Note that if you turn this on, the compiler will slighly grow in size.
+ * Note that if you turn this on, the compiler will slightly grow in size.
  *
  * By default this is turned off.
  */

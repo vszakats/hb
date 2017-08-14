@@ -501,8 +501,8 @@ static void hb_compGenCByteStr( FILE * yyc, const HB_BYTE * pText, HB_SIZE nLen 
    {
       HB_BYTE uchr = ( HB_BYTE ) pText[ nPos ];
       /*
-       * NOTE: After optimization some Chr(n) can be converted
-       *    into a string containing nonprintable characters.
+       * NOTE: After optimization some Chr( n ) can be converted
+       *    into a string containing non-printable characters.
        *
        * TODO: add switch to use hexadecimal format "%#04x"
        */
@@ -519,7 +519,7 @@ static void hb_compGenCLocalName( PHB_HFUNC pFunc, int iLocal, HB_SIZE nPCodePos
 
    if( cargo->nEndBlockPos > nPCodePos )
    {
-      /* we are accesing variables within a codeblock */
+      /* we are accessing variables within a codeblock */
       /* the names of codeblock variable are lost     */
       if( iLocal < 0 )
          fprintf( cargo->yyc, "\t/* localvar%i */", -iLocal );
@@ -2670,7 +2670,7 @@ static const PHB_GENC_FUNC s_verbose_table[] = {
    hb_p_enumend,
    hb_p_switch,
    hb_p_pushdate,
-   /* optimalization of inlined math operations (+=, -= */
+   /* optimization of inlined math operations (+=, -= */
    hb_p_pluseqpop,
    hb_p_minuseqpop,
    hb_p_multeqpop,

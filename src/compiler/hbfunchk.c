@@ -28,9 +28,9 @@
 
 typedef struct
 {
-   const char * cFuncName;                /* function name              */
-   int          iMinParam;                /* min no of parms it needs   */
-   int          iMaxParam;                /* max no of parms need       */
+   const char * cFuncName;                /* function name                   */
+   int          iMinParam;                /* min number of parameters needed */
+   int          iMaxParam;                /* max number of parameters needed */
 } HB_FUNCINFO, * PHB_FUNCINFO;
 
 

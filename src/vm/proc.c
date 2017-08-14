@@ -5,7 +5,7 @@
  * Copyright 1999-2001 Viktor Szakats (vszakats.net/harbour) (ProcFile())
  * Copyright 2001 JFL (Mafact) <jfl@mafact.com>
  *    Adding the MethodName() just calling ProcName()
- *    Special treatment in case of Object and Eval (only for methodname)
+ *    Special treatment in case of Object and Eval (only for method mame)
  *    skipping block and adding (b) before the method name
  *
  * This program is free software; you can redistribute it and/or modify
@@ -201,7 +201,7 @@ char * hb_procname( int iLevel, char * szName, HB_BOOL fMethodName )
 
 /* NOTE: szName size must be an at least:
  *          HB_SYMBOL_NAME_LEN + HB_SYMBOL_NAME_LEN + 5
- *       szFile szie must be an at least:
+ *       szFile size must be an at least:
  *          HB_PATH_MAX
  */
 HB_BOOL hb_procinfo( int iLevel, char * szName, HB_USHORT * puiLine, char * szFile )

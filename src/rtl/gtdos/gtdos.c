@@ -1221,7 +1221,7 @@ static HB_BOOL hb_gt_dos_SetMode( PHB_GT pGT, int iRows, int iCols )
 
    hb_gt_dos_GetScreenSize( &s_iRows, &s_iCols );
 
-   /* Check for succesful */
+   /* Check for success */
    if( s_iRows == iRows && s_iCols == iCols )
    {
       bSuccess = HB_TRUE;

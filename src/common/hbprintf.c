@@ -45,13 +45,13 @@
  */
 
 /*
-   patterm format:
+   pattern format:
    '%' [<flags>*] [<field width>] [.<precision>] [<length modifier>]
        <conversion specifier>
  */
 
 /*
-   The folowwing conversions are not explicitly supported:
+   The following conversions are not explicitly supported:
       A, a
       E, e
       G, g
@@ -62,7 +62,7 @@
       S (or Ls)
    These are wide character conversions and needs locale settings.
 
-   double conversion if not necessary can be disabled to not create unnencessary
+   double conversion if not necessary can be disabled to not create unnecessary
    overhead and/or references to math library by
       #define __NO_DOUBLE__
    It can be also greatly optimized anyhow it will increase dependences list and

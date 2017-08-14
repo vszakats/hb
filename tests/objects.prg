@@ -18,7 +18,7 @@ PROCEDURE Main()
    ? oObject:cName
 
    oObject:DoNothing()    // a virtual method does nothing,
-   // but it is very usefull for Classes building logic
+   // but it is very useful for Classes building logic
 
    RETURN
 

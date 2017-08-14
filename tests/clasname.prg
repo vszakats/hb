@@ -1,5 +1,5 @@
 // The following code tests the application of the className method
-// against the "fundemental" types of Clipper.
+// against the "fundamental" types of Clipper.
 
 // These tests were written by Dave Pearson <davep@hagbard.demon.co.uk>
 // and are placed into the public domain.

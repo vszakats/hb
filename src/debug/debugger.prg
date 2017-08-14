@@ -52,10 +52,10 @@
 
 #pragma -b-
 
-#define HB_CLS_NOTOBJECT      /* do not inherit from HBObject calss */
+#define HB_CLS_NOTOBJECT      /* do not inherit from HBObject class */
 #include "hbclass.ch"
 
-#include "hbdebug.ch"   /* for "nMode" of __dbgEntry */
+#include "hbdebug.ch"   /* for "nMode" of __dbgEntry() */
 #include "hbgtinfo.ch"
 #include "hbmemvar.ch"
 
@@ -497,7 +497,7 @@ METHOD PROCEDURE BuildBrowseStack() CLASS HBDebugger
          ::oBrwStack:Cargo := Min( Max( ::oBrwStack:Cargo, 1 ), ;
          Len( ::aProcStack ) ), ::oBrwStack:Cargo - nOld }
 
-      ::oBrwStack:Cargo := 1 // Actual highligthed row
+      ::oBrwStack:Cargo := 1 // Actual highlighted row
 
       ::oBrwStack:AddColumn( HBDbColumnNew( "", {|| iif( Len( ::aProcStack ) > 0, ;
          hb_UPadC( ::aProcStack[ ::oBrwStack:Cargo ][ HB_DBG_CS_FUNCTION ], 14 ), Space( 14 ) ) } ) )
@@ -719,7 +719,7 @@ METHOD PROCEDURE Colors() CLASS HBDebugger
       RETURN
    ENDIF
 
-   oBrwColors:Cargo := { 1, {} }  // Actual highligthed row
+   oBrwColors:Cargo := { 1, {} }  // Actual highlighted row
    oBrwColors:ColorSpec := ::ClrModal()
    oBrwColors:goTopBlock := {|| oBrwColors:cargo[ 1 ] := 1 }
    oBrwColors:goBottomBlock := {|| oBrwColors:cargo[ 1 ] := Len( oBrwColors:cargo[ 2 ][ 1 ] ) }

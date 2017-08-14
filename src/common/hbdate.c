@@ -2,9 +2,11 @@
  * The Date conversion module
  *
  * Copyright 1999 Antonio Linares <alinares@fivetech.com>
- * Copyright 1999-2001 Viktor Szakats (vszakats.net/harbour) (hb_dateEncStr(), hb_dateDecStr(), hb_dateStrPut(), hb_dateStrGet())
+ * Copyright 1999-2001 Viktor Szakats (vszakats.net/harbour)
+ *   (hb_dateEncStr(), hb_dateDecStr(), hb_dateStrPut(), hb_dateStrGet())
  * Copyright 1999 Jose Lalin <dezac@corevia.com> (hb_dateDOW())
- * Copyright 2009 Przemyslaw Czerpak <druzus / at / priv.onet.pl> (time/timestamp functions)
+ * Copyright 2009 Przemyslaw Czerpak <druzus / at / priv.onet.pl>
+ *   (time/timestamp functions)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -138,7 +140,7 @@ void hb_timeStampGetLocal( int * piYear, int * piMonth, int * piDay,
 #endif
 }
 
-/* return UTC julian timestamp in milliseconds */
+/* return UTC Julian timestamp in milliseconds */
 HB_MAXUINT hb_dateMilliSeconds( void )
 {
    HB_TRACE( HB_TR_DEBUG, ( "hb_dateMilliSeconds()" ) );

@@ -256,7 +256,7 @@ PHB_CODEBLOCK hb_codeblockMacroNew( const HB_BYTE * pBuffer, HB_SIZE nLen )
    pCBlock->dynBuffer = HB_TRUE;
    pCBlock->pDefSymb  = pBase->item.asSymbol.stackstate->uiClass ?
                         hb_clsMethodSym( pBase ) : pBase->item.asSymbol.value;
-   pCBlock->pSymbols  = NULL;  /* macro-compiled codeblock cannot acces a local symbol table */
+   pCBlock->pSymbols  = NULL;  /* macro-compiled codeblock cannot access a local symbol table */
    pCBlock->pStatics  = hb_stackGetStaticsBase();
    pCBlock->uiLocals  = 0;
    pCBlock->pLocals   = NULL;

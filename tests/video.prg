@@ -47,7 +47,7 @@ PROCEDURE Main( lUtf, lCompatBuf )
    hb_gtInfo( HB_GTI_COMPATBUFFER, ! Empty( lCompatBuf ) )
 #endif
 
-   Initialise()
+   Initialize()
 
    // Perform tests
    AAdd( aResult, StaticText() )
@@ -59,9 +59,9 @@ PROCEDURE Main( lUtf, lCompatBuf )
 
    RETURN
 
-// initialise the screen
+// initialize the screen
 
-STATIC PROCEDURE Initialise()
+STATIC PROCEDURE Initialize()
 
    SetColor( "W+/BG" )
 #ifdef __HARBOUR__
@@ -118,7 +118,7 @@ STATIC FUNCTION WindowBounce()
       "N", "B", "G", "BG", "R", "RB", "GR", "W", ;
       "N*", "B*", "G*", "BG*", "R*", "RB*", "GR*", "W*" }
 
-   // initialise boxes
+   // initialize boxes
    FOR i := 1 TO nBoxes
       x[ i ]   := i
       y[ i ]   := i - 1
@@ -208,7 +208,7 @@ STATIC FUNCTION ColorBoxes()
       ++nFrames
    ENDDO
 
-   // remove any nested dispbegins()
+   // remove any nested DispBegin()s
    DO WHILE nDepth > 0
       DispEnd()
       nDepth--

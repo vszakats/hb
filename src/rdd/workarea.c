@@ -148,7 +148,7 @@ static HB_ERRCODE hb_waSkipFilter( AREAP pArea, HB_LONG lUpDown )
 
    /* Since lToSkip is passed to SkipRaw, it should never request more than
       a single skip.
-      The implied purpose of hb_waSkipFilter is to get off of a "bad" record
+      The implied purpose of hb_waSkipFilter() is to get off of a "bad" record
       after a skip was performed, NOT to skip lToSkip filtered records.
     */
    lUpDown = ( lUpDown < 0  ? -1 : 1 );
@@ -399,8 +399,8 @@ static HB_ERRCODE hb_waCreateFields( AREAP pArea, PHB_ITEM pStruct )
          case 'N':
             dbFieldInfo.uiType = HB_FT_LONG;
             dbFieldInfo.uiDec = uiDec;
-            /* DBASE documentation defines maximum numeric field size as 20
-             * but Clipper allows to create longer fileds so I remove this
+            /* dBase documentation defines maximum numeric field size as 20
+             * but Clipper allows to create longer fields so I remove this
              * limit, Druzus
              */
             /*
@@ -922,7 +922,7 @@ static HB_ERRCODE hb_waInfo( AREAP pArea, HB_USHORT uiIndex, PHB_ITEM pItem )
 
 /*
  * Retrieve information about the current order that SELF could not.
- * Called by SELF_ORDINFO if uiIndex is not supported.
+ * Called by SELF_ORDINFO() if uiIndex is not supported.
  */
 static HB_ERRCODE hb_waOrderInfo( AREAP pArea, HB_USHORT uiIndex, LPDBORDERINFO pInfo )
 {
@@ -2141,7 +2141,7 @@ static HB_USHORT      s_uiRddRedirMax   = 0;
 static HB_USHORT      s_uiRddRedirCount = 0;
 
 /*
- * Get RDD node poionter
+ * Get RDD node pointer
  */
 LPRDDNODE hb_rddGetNode( HB_USHORT uiNode )
 {
@@ -2197,7 +2197,7 @@ LPRDDNODE hb_rddFindNode( const char * szDriver, HB_USHORT * uiIndex )
 }
 
 /*
- * Find a RDD node respecing file/table name
+ * Find a RDD node respecting file/table name
  */
 LPRDDNODE hb_rddFindFileNode( LPRDDNODE pRddNode, const char * szFileName )
 {

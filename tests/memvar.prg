@@ -59,7 +59,7 @@ PROCEDURE Main()
 
 STATIC PROCEDURE Test1()
 
-   // PUBLIC overrided by PRIVATE overrided by uninitialized PUBLIC
+   // PUBLIC overridden by PRIVATE overridden by uninitialized PUBLIC
    PUBL memvar1
 
    ? "==Test 1==PUBLIC -> PRIVATE -> PUBLIC"
@@ -93,7 +93,7 @@ STATIC PROCEDURE Scope2()
 
 STATIC PROCEDURE Test2()
 
-   // PUBLIC overrided by PUBLIC overrided by uninitialized PUBLIC
+   // PUBLIC overridden by PUBLIC overridden by uninitialized PUBLIC
    PUBLIC memvar2
 
    ? "==Test 2==PUBLIC -> PUBLIC -> PUBLIC"
@@ -127,7 +127,7 @@ STATIC PROCEDURE Scope4()
 
 STATIC PROCEDURE Test3()
 
-   // PUBLIC overrided by PRIVATE overrided by initialized PUBLIC
+   // PUBLIC overridden by PRIVATE overridden by initialized PUBLIC
    PUBLIC memvar3
 
    ? "==Test 3==PUBLIC -> PRIVATE -> PUBLIC:="
@@ -161,7 +161,7 @@ STATIC PROCEDURE Scope6()
 
 STATIC PROCEDURE Test4()
 
-   // PUBLIC overrided by PUBLIC overrided by initialized PUBLIC
+   // PUBLIC overridden by PUBLIC overridden by initialized PUBLIC
    PUBLIC memvar4
 
    ? "==Test 4==PUBLIC -> PUBLIC -> PUBLIC:="

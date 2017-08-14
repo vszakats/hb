@@ -728,7 +728,7 @@ PROCEDURE Main_MISC()
 
 #endif /* __XPP__ */
 
-   /* NOTE: BIN2*() functions are quite untable in CA-Cl*pper when the passed
+   /* NOTE: BIN2*() functions are quite unstable in CA-Cl*pper when the passed
       parameter is smaller than the required length. */
 
    /* Bin2I() */

@@ -324,7 +324,7 @@ static HB_ERRCODE hb_fptPutRootBlock( FPTAREAP pArea, HB_ULONG ulBlock )
                                  6 bytes for each page
                                     size[2]  (size in blocks) (little endian)
                                     block[4] (block number) (little endian)
-                                 signature1[12] has to be cutted down to
+                                 signature1[12] has to be cut down to
                                  10 bytes. The last 2 bytes becomes the
                                  number of entries in free block list (max 82)
 
@@ -390,7 +390,7 @@ static void hb_fptSortGCitems( LPMEMOGCTABLE pGCtable )
    HB_BOOL fMoved = HB_TRUE;
    int l;
 
-   /* this table should be allready quite good sorted so this simple
+   /* this table should be already quite good sorted so this simple
       algorithms will be the most efficient one.
       It will need only one or two passes */
    l = pGCtable->usItems - 1;
@@ -431,7 +431,7 @@ static void hb_fptPackGCitems( LPMEMOGCTABLE pGCtable )
 {
    int i, j;
 
-   /* TODO: better alogrithm this primitve one can be too slow for big
+   /* TODO: better algorithm this primitive one can be too slow for big
       free block list table */
    for( i = 0; i < pGCtable->usItems; i++ )
    {
@@ -718,7 +718,7 @@ static HB_ERRCODE hb_fptGCgetFreeBlock( FPTAREAP pArea, LPMEMOGCTABLE pGCtable,
 }
 
 /*
- * Init GC table free memo blok list.
+ * Init GC table free memo block list.
  */
 static void hb_fptInitGCdata( LPMEMOGCTABLE pGCtable )
 {
@@ -726,7 +726,7 @@ static void hb_fptInitGCdata( LPMEMOGCTABLE pGCtable )
 }
 
 /*
- * Clean GC table free memo blok list.
+ * Clean GC table free memo block list.
  */
 static void hb_fptDestroyGCdata( LPMEMOGCTABLE pGCtable )
 {
@@ -2400,7 +2400,7 @@ static HB_ERRCODE hb_fptReadFlexItem( FPTAREAP pArea, HB_BYTE ** pbMemoBuf, HB_B
             errCode = EDBF_CORRUPT;
          break;
       default:
-         /* fprintf( stderr, "Uknown FLEX array item: 0x%x = %d\n", usType, usType ); fflush( stderr ); */
+         /* fprintf( stderr, "Unknown FLEX array item: 0x%x = %d\n", usType, usType ); fflush( stderr ); */
          errCode = EDBF_CORRUPT;
          hb_itemClear( pItem );
          break;

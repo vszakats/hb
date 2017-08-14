@@ -579,8 +579,8 @@ msgid "display version header only"
 msgstr "csak a verziószám kijelzése"
 
 #, c-format
-msgid "enable xhb mode"
-msgstr "kapcsolja be az xhb üzemmódot"
+msgid "enable xHarbour mode"
+msgstr "kapcsolja be az xHarbour üzemmódot"
 
 #, c-format
 msgid "long help"

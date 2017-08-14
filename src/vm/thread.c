@@ -300,7 +300,7 @@ void hb_threadReleaseCPU( void )
    }
 
    /* the code below is simpler but seems that some Linux kernels
-    * (f.e. from  Centos 5.1) have problems with nanosleep()
+    * (f.e. from CentOS 5.1) have problems with nanosleep()
     * so it was replaced by above code
     */
 
@@ -528,7 +528,7 @@ static HB_CRITICAL_NEW( s_atomicMtx );
 void hb_atomic_set( volatile HB_COUNTER * pCounter, HB_COUNTER value )
 {
    /* NOTE: on some platforms it may be necessary to protect this
-    * by cirtical section, f.e. when HB_COUNTER cannot be accessed
+    * by critical section, f.e. when HB_COUNTER cannot be accessed
     * using single memory access by CPU.
     */
    *pCounter = value;
@@ -537,7 +537,7 @@ void hb_atomic_set( volatile HB_COUNTER * pCounter, HB_COUNTER value )
 HB_COUNTER hb_atomic_get( volatile HB_COUNTER * pCounter )
 {
    /* NOTE: on some platforms it may be necessary to protect this
-    * by cirtical section, f.e. when HB_COUNTER cannot be accessed
+    * by critical section, f.e. when HB_COUNTER cannot be accessed
     * using single memory access by CPU.
     */
    return *pCounter;
@@ -1588,7 +1588,7 @@ HB_FUNC( HB_THREADTERMINATEALL )
  * If thread calls hb_threadOnce() with the same <onceControl> variable
  * recursively from <bAction> then hb_threadOnce() returns immediately
  * returning HB_FALSE without executing <bAction>.
- * This function returns logical value indicating if it was 1-st call to
+ * This function returns logical value indicating if it was 1st call to
  * hb_threadOnce() for given <onceControl> variable
  */
 HB_FUNC( HB_THREADONCE )

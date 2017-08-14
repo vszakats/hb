@@ -715,8 +715,8 @@ msgid "enable pure C mode"
 msgstr "abilita modo C puro"
 
 #, c-format
-msgid "enable xhb mode"
-msgstr "abilita modo xhb"
+msgid "enable xHarbour mode"
+msgstr "abilita modo xHarbour"
 
 #, c-format
 msgid "Harbour compiler build information"
@@ -1139,8 +1139,8 @@ msgid "Windows UNICODE (WIDE) mode (see -winuni option)"
 msgstr "Modalità Windows UNICODE (WIDE) (vedere l'opzione -winuni)"
 
 #, c-format
-msgid "xhb mode (see -xhb option)"
-msgstr "modalità xhb (vedi l'opzione -xhb)"
+msgid "xHarbour mode (see -xhb option)"
+msgstr "modalità xHarbour (vedi l'opzione -xhb)"
 
 #, c-format
 msgid ".hbc directives (they should be written in separate lines):"

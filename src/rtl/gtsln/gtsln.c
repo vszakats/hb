@@ -105,7 +105,7 @@ static int s_iCursorStyle = SC_NORMAL;
 /* indicate if we are currently running a command from system */
 static HB_BOOL s_bSuspended = HB_FALSE;
 
-/* the name of an environmet variable containig a definition of nation chars.*/
+/* the name of an environment variable containing a definition of nation chars.*/
 /* A definition is a list of pairs of chars. The first char in each pair is  */
 /* an ASCII key, which should be pressed *after* a "DeadKey" was pressed to  */
 /* get the nation char, a second in that pair is a corresponding nation char */
@@ -439,7 +439,7 @@ static void hb_sln_SetCursorStyle( int iStyle )
    {
       SLtt_set_cursor_visibility( iStyle != SC_NONE );
 
-      /* NOTE: cursor apearence works only under linux console */
+      /* NOTE: cursor appearance works only under linux console */
       if( hb_sln_UnderLinuxConsole && s_iCursorStyle != iStyle )
       {
          /* keyseq to define cursor shape under linux console */
@@ -464,7 +464,7 @@ static void hb_sln_SetCursorStyle( int iStyle )
                break;
 
             case SC_SPECIAL2:
-               /* TODO: find a proper sequqnce to set a cursor
+               /* TODO: find a proper sequence to set a cursor
                   to SC_SPECIAL2 under Linux console  */
                cursDefseq[ 3 ] = '4';
                break;
@@ -497,7 +497,7 @@ static int hb_sln_isUTF8( int iStdOut, int iStdIn )
          timer = hb_timerInit( timeout );
          for( ;; )
          {
-            /* loking for cursor position in "\033[%d;%dR" */
+            /* looking for cursor position in "\033[%d;%dR" */
             while( j < n && rdbuf[ j ] != '\033' )
                ++j;
             if( n - j >= 6 )
@@ -569,7 +569,7 @@ static void hb_gt_sln_Init( PHB_GT pGT, HB_FHANDLE hFilenoStdin, HB_FHANDLE hFil
    SLang_TT_Read_FD  = -1;
    SLang_TT_Write_FD = -1;
 
-   /* read a terminal descripion from a terminfo database */
+   /* read a terminal description from a terminfo database */
    SLtt_get_terminfo();
 
    /* initialize higher-level Slang routines */
@@ -599,7 +599,7 @@ static void hb_gt_sln_Init( PHB_GT pGT, HB_FHANDLE hFilenoStdin, HB_FHANDLE hFil
             /* do not indicate USER_BREAK in SLang_Error - ??? */
             SLang_Ignore_User_Abort = 1;
 
-            /* no default abort procesing */
+            /* no default abort processing */
             SLang_set_abort_signal( NULL );
 
             /* NOTE: this is incompatible with CLIPPER
@@ -612,7 +612,7 @@ static void hb_gt_sln_Init( PHB_GT pGT, HB_FHANDLE hFilenoStdin, HB_FHANDLE hFil
                 s_iCursorStyle = SC_UNAVAIL;
 
             /* NOTE: this driver is implemented in a way that it is
-               imposible to get intensity/blinking background mode.
+               impossible to get intensity/blinking background mode.
                The reason is the way Slang is written.
                This is incompatible with Clipper.
                But when the console is in UTF-8 mode we don't need

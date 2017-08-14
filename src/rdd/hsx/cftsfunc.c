@@ -6,8 +6,8 @@
  *
  * Credits:
  *    Many thanks for Mindaugas Kavaliauskas for his assistance,
- *    informations about HSX internals, code checking and general
- *    helping in many things when this library was written.
+ *    information about HSX internals, code checking and general
+ *    help in many things when this library was written.
  *                                                          Przemek.
  *
  * This program is free software; you can redistribute it and/or modify

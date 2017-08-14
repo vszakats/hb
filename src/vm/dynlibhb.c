@@ -65,7 +65,7 @@
    #include <os2.h>
 #elif defined( HB_OS_DOS ) && defined( __WATCOMC__ ) && !defined( HB_CAUSEWAY_DLL )
    /* it's broken in recent OpenWatcom builds so enable it
-      for tests only in harbur.dll [druzus] */
+      for tests only in harbour.dll [druzus] */
    #if defined( HB_DYNLIB )
       #define HB_CAUSEWAY_DLL
       #include <cwdllfnc.h>

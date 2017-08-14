@@ -2,7 +2,10 @@
  * Compiler main file
  *
  * Copyright 1999 Antonio Linares <alinares@fivetechsoft.com>
- * Copyright 2000 RonPinkas <Ron@Profit-Master.com> (hb_compPrepareJumps(), hb_compOptimizeJumps(), hb_compOptimizeFrames(), hb_compDeclaredParameterAdd(), hb_compClassAdd(), hb_compClassFind(), hb_compMethodAdd(), hb_compMethodFind(), hb_compDeclaredAdd())
+ * Copyright 2000 Ron Pinkas <Ron@Profit-Master.com>
+ *   (hb_compPrepareJumps(), hb_compOptimizeJumps(), hb_compOptimizeFrames(),
+ *   hb_compDeclaredParameterAdd(), hb_compClassAdd(), hb_compClassFind(),
+ *   hb_compMethodAdd(), hb_compMethodFind(), hb_compDeclaredAdd())
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -722,7 +725,7 @@ PHB_HVAR hb_compVariableFind( HB_COMP_DECL, const char * szVarName, int * piPos,
                 *
                 * NOTE: Clipper creates such a codeblock however at the
                 * time of codeblock evaluation it generates a runtime error:
-                * 'bound error: array acccess'
+                * 'bound error: array access'
                 * Called from: (b)STATICS$(0)
                 */
                hb_compGenError( HB_COMP_PARAM, hb_comp_szErrors, 'E', HB_COMP_ERR_ILLEGAL_INIT, "(b)", szVarName );
@@ -896,7 +899,7 @@ static int hb_compVariableScope( HB_COMP_DECL, const char * szVarName )
 void hb_compPushMacroVar( HB_COMP_DECL, const char * szVarName )
 {
    /* save and restore iEarlyEvalPass to not disable early
-      evaluation when only macrovar and/or macrotex is used */
+      evaluation when only macrovar and/or macrotext is used */
    int iEarlyEvalPass = HB_COMP_PARAM->functions.pLast->iEarlyEvalPass;
 
    hb_compGenPushVar( szVarName, HB_COMP_PARAM );
@@ -1307,7 +1310,7 @@ PHB_VARTYPE hb_compVarTypeNew( HB_COMP_DECL, HB_BYTE cVarType, const char* szFro
    }
 
    /* Add to the end of list. I hope it will help the most usual type (' ', NULL)
-      to be in the begining of the list, and it will be found faster. [Mindaugas] */
+      to be in the beginning of the list, and it will be found faster. [Mindaugas] */
    pVT = ( PHB_VARTYPE ) hb_xgrab( sizeof( HB_VARTYPE ) );
    pVT->pNext = NULL;
    pVT->cVarType = cVarType;
@@ -1536,7 +1539,7 @@ static void hb_compOptimizeJumps( HB_COMP_DECL )
          /* First Scan NOOPS - Adjust Jump addresses. */
          for( nNOOP = 0; nNOOP < HB_COMP_PARAM->functions.pLast->nNOOPs; nNOOP++ )
          {
-            /* Adjusting preceding jumps that pooint to code beyond the current NOOP
+            /* Adjusting preceding jumps that point to code beyond the current NOOP
                or trailing backward jumps pointing to lower address. */
             for( nJump = 0; nJump < HB_COMP_PARAM->functions.pLast->nJumps; nJump++ )
             {
@@ -1578,7 +1581,7 @@ static void hb_compOptimizeJumps( HB_COMP_DECL )
                       pNOOPs[ nNOOP ] < ( HB_SIZE ) ( nJumpAddr + nOffset ) )
                      plSizes[ nJump ]--;
                }
-               else /* if( nOffset < 0 ) - backword (negative) jump */
+               else /* if( nOffset < 0 ) - backward (negative) jump */
                {
                   /* Only if points to code prior the current fix. */
                   if( pNOOPs[ nNOOP ] < nJumpAddr &&
@@ -1627,7 +1630,7 @@ static void hb_compOptimizeJumps( HB_COMP_DECL )
       }
 
       nOptimized = nNextByte = 0;
-      /* Second Scan, after all adjustements been made, we can copy the optimized code. */
+      /* Second Scan, after all adjustments been made, we can copy the optimized code. */
       for( nNOOP = 0; nNOOP < HB_COMP_PARAM->functions.pLast->nNOOPs; nNOOP++ )
       {
          nBytes2Copy = ( pNOOPs[ nNOOP ] - nNextByte );
@@ -1886,7 +1889,7 @@ static void hb_compFinalizeFunction( HB_COMP_DECL ) /* fixes all last defined fu
 }
 
 /*
- * This function creates and initialises the HB_HFUNC structure
+ * This function creates and initializes the HB_HFUNC structure
  */
 static PHB_HFUNC hb_compFunctionNew( HB_COMP_DECL, const char * szName, HB_SYMBOLSCOPE cScope )
 {
@@ -2218,7 +2221,7 @@ static void hb_compAnnounce( HB_COMP_DECL, const char * szFunName )
    PHB_HFUNC pFunc;
 
    /* Clipper call this function after compiling .prg module where ANNOUNCE
-    * symbol was deined not after compiling all .prg modules and search for
+    * symbol was defined not after compiling all .prg modules and search for
     * public ANNOUNCEd function/procedure in all compiled so far modules
     * and then for static one in currently compiler module.
     */
@@ -2696,7 +2699,7 @@ void hb_compGenPopVar( const char * szVarName, HB_COMP_DECL ) /* generates the p
          case HB_VS_LOCAL_VAR:
          case HB_VS_CBLOCAL_VAR:
             /* local variable */
-            /* local variables used in a coddeblock will not be adjusted
+            /* local variables used in a codeblock will not be adjusted
              * if PARAMETERS statement will be used then it is safe to
              * use 2 bytes for LOCALNEAR
              */
@@ -2756,7 +2759,7 @@ void hb_compGenPopMemvar( const char * szVarName, HB_COMP_DECL )
    hb_compGenVarPCode( HB_P_POPMEMVAR, szVarName, HB_COMP_PARAM );
 }
 
-/* generates the pcode to push a nonaliased variable value to the virtual
+/* generates the pcode to push a non-aliased variable value to the virtual
  * machine stack
  * bMacroVar is HB_TRUE if macro &szVarName context
  */
@@ -2776,7 +2779,7 @@ void hb_compGenPushVar( const char * szVarName, HB_COMP_DECL )
          case HB_VS_LOCAL_VAR:
          case HB_VS_CBLOCAL_VAR:
             /* local variable */
-            /* local variables used in a coddeblock will not be adjusted
+            /* local variables used in a codeblock will not be adjusted
              * if PARAMETERS statement will be used then it is safe to
              * use 2 bytes for LOCALNEAR
              */
@@ -3260,7 +3263,7 @@ HB_BOOL hb_compHasJump( PHB_HFUNC pFunc, HB_SIZE nPos )
 }
 
 /* Generate the opcode to open BEGIN/END sequence
- * This code is simmilar to JUMP opcode - the offset will be filled with
+ * This code is similar to JUMP opcode - the offset will be filled with
  * - either the address of HB_P_SEQEND opcode if there is no RECOVER clause
  * - or the address of RECOVER code
  */
@@ -3276,10 +3279,10 @@ HB_SIZE hb_compSequenceBegin( HB_COMP_DECL )
 }
 
 /* Generate the opcode to close BEGIN/END sequence
- * This code is simmilar to JUMP opcode - the offset will be filled with
+ * This code is similar to JUMP opcode - the offset will be filled with
  * the address of first line after END SEQUENCE
  * This opcode will be executed if recover code was not requested (as the
- * last statement in code beetwen BEGIN ... RECOVER) or if BREAK was requested
+ * last statement in code between BEGIN ... RECOVER) or if BREAK was requested
  * and there was no matching RECOVER clause.
  */
 HB_SIZE hb_compSequenceEnd( HB_COMP_DECL )
@@ -3301,7 +3304,7 @@ HB_SIZE hb_compSequenceAlways( HB_COMP_DECL )
 }
 
 /* Remove unnecessary opcodes in case there were no executable statements
- * beetwen BEGIN and RECOVER sequence
+ * between BEGIN and RECOVER sequence
  */
 void hb_compSequenceFinish( HB_COMP_DECL, HB_SIZE nStartPos, HB_SIZE nEndPos,
                             HB_SIZE nAlways, HB_BOOL fUsualStmts, HB_BOOL fRecover,
@@ -3713,7 +3716,7 @@ void hb_compCodeBlockEnd( HB_COMP_DECL )
       pFunc->pStatics = pCodeblock->pStatics;
    pVar = pCodeblock->pStatics;
    pCodeblock->pStatics = NULL;
-   /* change stati variables names to avoid conflicts */
+   /* change static variables names to avoid conflicts */
    while( pVar )
    {
       char szName[ HB_SYMBOL_NAME_LEN + 4 ];

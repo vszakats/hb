@@ -120,7 +120,7 @@
 #define HB_SX_UNCOMPRESED  0xFFFFFFFFUL
 
 
-/* number of bits for encoded item (position,length) */
+/* number of bits for encoded item (position, length) */
 #define ITEMBITS           16
 /* unused DUMMY bits - who does know why SIX has it? */
 #define DUMMYBITS          1
@@ -139,7 +139,7 @@
 #define RBUFMASK           ( ( 1 << OFFSETBITS ) - 1 )
 /* the bit mask for match length */
 #define MATCHMASK          ( ( 1 << LENGTHBITS ) - 1 )
-/* get ringbuffer index */
+/* get ring buffer index */
 #define RBUFINDEX( i )       ( ( i ) & RBUFMASK )
 
 /* get ring buffer offset position from low and high bytes */

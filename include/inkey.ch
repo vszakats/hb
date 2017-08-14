@@ -264,8 +264,7 @@
 #define K_ALT_QUOTE             296
 #define K_ALT_COMMA             307
 #define K_ALT_PERIOD            308
-#define K_ALT_SLASH             309   /*   Alt-Slash (fyi Ctrl-? doesn't
-                                           work - maybe just under xp?) */
+#define K_ALT_SLASH             309   /*   Alt-Slash (FYI: Ctrl-? doesn't work - maybe just under Windows XP?) */
 
 /* Function keys */
 

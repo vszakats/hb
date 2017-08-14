@@ -131,7 +131,7 @@ PROCEDURE __dbgShowWorkAreas()
 
    oCol:ColorBlock := {|| iif( aAlias[ n1 ][ 1 ] == Select() .AND. n2 == 1, { 3, 4 }, { 1, 2 } ) }
 
-   /* Struc browse */
+   /* Structure browser */
 
    aStruc := ( aAlias[ n1 ][ 1 ] )->( dbStruct() )
 

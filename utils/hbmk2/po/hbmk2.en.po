@@ -1063,7 +1063,7 @@ msgstr ""
 
 #: utils/hbmk2/hbmk2.prg:16739
 #, c-format
-msgid "Hint: Convert them to #pragma/#define or group files with common options into library subprojects."
+msgid "Hint: Convert them to #pragma/#define or group files with common options into library sub-projects."
 msgstr ""
 
 #: utils/hbmk2/hbmk2.prg:16785
@@ -1798,7 +1798,7 @@ msgstr ""
 
 #: utils/hbmk2/hbmk2.prg:17521
 #, c-format
-msgid "enable xhb mode"
+msgid "enable xHarbour mode"
 msgstr ""
 
 #: utils/hbmk2/hbmk2.prg:17521
@@ -2588,7 +2588,7 @@ msgstr ""
 
 #: utils/hbmk2/hbmk2.prg:17738
 #, c-format
-msgid "xhb mode (see -xhb option)"
+msgid "xHarbour mode (see -xhb option)"
 msgstr ""
 
 #: utils/hbmk2/hbmk2.prg:17742

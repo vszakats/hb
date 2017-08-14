@@ -101,7 +101,7 @@ typedef struct _HB_HVAR
    const char *   szAlias;          /* variable alias namespace */
    int            iUsed;            /* number of times used */
    int            iDeclLine;        /* declaration line number */
-   HB_USHORT      uiFlags;          /* optional falgs, f.e. THREAD STATIC */
+   HB_USHORT      uiFlags;          /* optional flags, f.e. THREAD STATIC */
    HB_BYTE        cType;            /* optional strong typing */
    PHB_HCLASS     pClass;
    struct _HB_HVAR * pNext;            /* pointer to next defined variable */
@@ -145,9 +145,9 @@ typedef struct _HB_VARTYPE
 typedef enum
 {
    HB_EA_REDUCE = 0,    /* reduce the expression into optimized one */
-   HB_EA_ARRAY_AT,      /* check if the expession can be used as array */
-   HB_EA_ARRAY_INDEX,   /* check if the expession can be used as index */
-   HB_EA_LVALUE,        /* check if the expression can be used as lvalue (left side of an assigment) */
+   HB_EA_ARRAY_AT,      /* check if the expression can be used as array */
+   HB_EA_ARRAY_INDEX,   /* check if the expression can be used as index */
+   HB_EA_LVALUE,        /* check if the expression can be used as lvalue (left side of an assignment) */
    HB_EA_PUSH_PCODE,    /* generate the pcodes to push the value of expression */
    HB_EA_POP_PCODE,     /* generate the pcodes to pop the value of expression */
    HB_EA_PUSH_POP,      /* generate the pcodes to push and pop the expression */
@@ -167,7 +167,7 @@ typedef enum
 #define HB_ET_MACRO_ALIASED   0x0004   /* &alias->&variable */
 #define HB_ET_MACRO_EXPR      0x0008   /* &( expr ) */
 #define HB_ET_MACRO_LIST      0x0010   /* &variable used as in literal arrays or function call argument. */
-#define HB_ET_MACRO_PARE      0x0020   /* &variable used as parentesised expressions. */
+#define HB_ET_MACRO_PARE      0x0020   /* &variable used as parenthesized expressions. */
 #define HB_ET_MACRO_REFER     0x0040   /* &macro used in @ (pass by reference) */
 #define HB_ET_MACRO_ASSIGN    0x0080   /* o:&msgname := value */
 #define HB_ET_MACRO_NOLIST    ( HB_ET_MACRO_SYMBOL | HB_ET_MACRO_ALIASED | \
@@ -215,7 +215,7 @@ typedef enum
    HB_ET_VARIABLE,
    HB_EO_POSTINC,    /* post-operators -> lowest precedence */
    HB_EO_POSTDEC,
-   HB_EO_ASSIGN,     /* assigments */
+   HB_EO_ASSIGN,     /* assignments */
    HB_EO_PLUSEQ,
    HB_EO_MINUSEQ,
    HB_EO_MULTEQ,
@@ -360,7 +360,7 @@ typedef struct HB_EXPR_
       struct
       {
          char * string;       /* literal strings */
-         HB_BOOL dealloc;     /* automatic deallocate on expresion deletion */
+         HB_BOOL dealloc;     /* automatically deallocate on expression deletion */
       } asString;
       struct
       {
@@ -384,7 +384,7 @@ typedef struct HB_EXPR_
       } asNum;
       struct
       {
-         long  lDate;            /* julian date */
+         long  lDate;            /* Julian date */
          long  lTime;            /* time in milliseconds */
       } asDate;
       struct
@@ -516,7 +516,7 @@ typedef struct _HB_HFUNC
    HB_SIZE      nJumps;                   /* Jumps Counter */
    int          iStaticsBase;             /* base for this function statics */
    int          iFuncSuffix;              /* function suffix for multiple static functions with the same name */
-   int          iEarlyEvalPass;           /* !=0 if early evaluaded block is compiled - accessing of declared (compile time) variables is limited */
+   int          iEarlyEvalPass;           /* !=0 if early evaluated block is compiled - accessing of declared (compile time) variables is limited */
    HB_BOOL      fVParams;                 /* HB_TRUE if variable number of parameters is used */
    HB_BOOL      bError;                   /* error during function compilation */
    HB_BOOL      bBlock;                   /* HB_TRUE if simple codeblock body is compiled */
@@ -567,7 +567,7 @@ typedef struct _HB_HFUNCALL
 /* structure to control all Clipper defined functions */
 typedef struct
 {
-   PHB_HFUNC pFirst;            /* pointer to the first defined funtion */
+   PHB_HFUNC pFirst;            /* pointer to the first defined function */
    PHB_HFUNC pLast;             /* pointer to the last defined function */
    int       iCount;            /* number of defined functions */
 } HB_HFUNCTION_LIST;
@@ -819,7 +819,7 @@ typedef struct _HB_COMP
    int               iVarScope;           /* holds the scope for next variables to be defined */
    int               iLanguage;           /* default Harbour generated output language */
    int               iGenCOutput;         /* C code generation should be verbose (use comments) or not */
-   int               ilastLineErr;        /* line numer with last syntax error */
+   int               ilastLineErr;        /* line number with last syntax error */
    int               iTraceInclude;       /* trace included files and generate dependencies list */
    int               iSyntaxCheckOnly;    /* syntax check only */
    int               iErrorFmt;           /* error message formatting mode (default: Clipper) */
@@ -828,12 +828,12 @@ typedef struct _HB_COMP
    HB_BOOL           fGauge;              /* hide line counter gauge (-ql) */
    HB_BOOL           fFullQuiet;          /* be quiet during compilation disable all messages */
    HB_BOOL           fExit;               /* force breaking compilation process */
-   HB_BOOL           fPPO;                /* flag indicating, is ppo output needed */
-   HB_BOOL           fPPT;                /* flag indicating, is ppt output needed */
+   HB_BOOL           fPPO;                /* flag indicating, is .ppo output needed */
+   HB_BOOL           fPPT;                /* flag indicating, is .ppt output needed */
    HB_BOOL           fLineNumbers;        /* holds if we need pcodes with line numbers */
    HB_BOOL           fAnyWarning;         /* holds if there was any warning during the compilation process */
    HB_BOOL           fAutoMemvarAssume;   /* holds if undeclared variables are automatically assumed MEMVAR (-a)*/
-   HB_BOOL           fForceMemvars;       /* holds if memvars are assumed when accesing undeclared variable (-v)*/
+   HB_BOOL           fForceMemvars;       /* holds if memvars are assumed when accessing undeclared variable (-v)*/
    HB_BOOL           fDebugInfo;          /* holds if generate debugger required info */
    HB_BOOL           fHideSource;         /* do not embed original source filename into generated source code */
    HB_BOOL           fNoStartUp;          /* C code generation embed HB_FS_FIRST or not */

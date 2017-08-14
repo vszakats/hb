@@ -935,7 +935,7 @@ HB_BOOL hb_hashDelAt( PHB_ITEM pHash, HB_SIZE nPos )
       return HB_FALSE;
 }
 
-/* retrives the hash unique ID */
+/* retrieves the hash unique ID */
 void * hb_hashId( PHB_ITEM pHash )
 {
    HB_TRACE( HB_TR_DEBUG, ( "hb_hashId(%p)", ( void * ) pHash ) );

@@ -64,9 +64,9 @@ PROCEDURE Main( cPort )
          hb_inetPeriodCallback( s, { @Progress(), @nTurn, 6, 39 } )
          // that will be called each TIMEOUT Milliseconds.
          cResponse := hb_inetRecvLine( s, @nResponse )
-         // hb_inetRecvLine won't return until the periodic callback returns .F.,
+         // hb_inetRecvLine() won't return until the periodic callback returns .F.,
          // or the Timelimit has been reached. Timelimit is currently -1, so
-         // hb_inetRecvLine will wait forever.
+         // hb_inetRecvLine() will wait forever.
 
          DO CASE
          CASE hb_inetErrorCode( s ) == 0

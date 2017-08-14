@@ -104,7 +104,7 @@ static HB_BOOL hb_itemIsLess( PHB_BASEARRAY pBaseArray, PHB_ITEM pBlock,
       return lDate1 == lDate2 ? lTime1 < lTime2 : lDate1 < lDate2;
    }
    else if( HB_IS_DATETIME( pItem1 ) && HB_IS_DATETIME( pItem2 ) )
-      /* it's not exact comparison, compare only julian date */
+      /* it's not exact comparison, compare only Julian date */
       return hb_itemGetDL( pItem1 ) < hb_itemGetDL( pItem2 );
    else if( HB_IS_LOGICAL( pItem1 ) && HB_IS_LOGICAL( pItem2 ) )
       return hb_itemGetL( pItem1 ) < hb_itemGetL( pItem2 );

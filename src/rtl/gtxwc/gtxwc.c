@@ -2939,7 +2939,7 @@ static void hb_gt_xwc_ProcessKey( PXWND_DEF wnd, XKeyEvent * evt )
       if( i <= 0 )
       {
          /*
-          * This is a temporary hack for Latin-x input see gt_SetKeyCP
+          * This is a temporary hack for Latin-x input see gt_SetKeyCP()
           */
          if( outISO >= 0x0100 && outISO <= 0x0fff && ( outISO & 0x80 ) == 0x80 )
          {
@@ -3525,7 +3525,7 @@ static void hb_gt_xwc_WndProc( PXWND_DEF wnd, XEvent * evt )
  */
 
 /* *********************************************************************** */
-/* collor allocation */
+/* color allocation */
 static int hb_gt_xwc_GetColormapSize( PXWND_DEF wnd )
 {
    XVisualInfo visInfo, *visInfoPtr;
@@ -4685,7 +4685,7 @@ static void hb_gt_xwc_DissConnectX( PXWND_DEF wnd )
       wnd->dpy = NULL;
 
       /* Hack to avoid race condition inside some XLIB library - it looks
-       * in heavy stres MT tests that it can receive some events bound with
+       * in heavy stress MT tests that it can receive some events bound with
        * destroyed objects and executes our error handler.
        */
       s_fIgnoreErrors = HB_TRUE;
@@ -4727,7 +4727,7 @@ static void hb_gt_xwc_SetResizing( PXWND_DEF wnd )
 
    /* with StaticGravity XMoveWindow expects upper left corner of client area
     * and with NorthWestGravity it expect upper left corner of window with
-    * frame and title bar. ConfigureNotify always returns client area possition
+    * frame and title bar. ConfigureNotify always returns client area position
     * so working with NorthWestGravity it's necessary to update cords returned
     * to user in hb_gt_xwc_UpdateWindowCords()
     */

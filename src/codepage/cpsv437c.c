@@ -54,9 +54,9 @@
    136, a rather pointless relocation IMHO. I found no way to replicate
    that behaviour in the character strings below, so if you allow Chr( 146 )
    and Chr( 145 ) to be saved in indexed fields there WILL be index corruption
-   if data is shared between Clipper and Harbour. Upper()/Lower() converson
+   if data is shared between Clipper and Harbour. Upper()/Lower() conversion
    of those characters as well as all accented characters must be done
-   programatically just like in Clipper.
+   programmatically just like in Clipper.
 
    For sharing data with Clipper, assuming that the Chr( 146 ) and Chr( 145 )
    problem is properly taken care of in your code, this codepage version

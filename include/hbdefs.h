@@ -644,7 +644,7 @@ typedef HB_U32 HB_FATTR;
 #if ! defined( HB_PDP_ENDIAN ) && ! defined( HB_BIG_ENDIAN ) && \
     ! defined( HB_LITTLE_ENDIAN )
 
-   /* I intentionaly move the first two #if/#elif to the begining
+   /* I intentionaly move the first two #if/#elif to the beginning
       to avoid compiler error when this macro will be defined as
       empty statement in next conditions, F.e. SunOS
     */

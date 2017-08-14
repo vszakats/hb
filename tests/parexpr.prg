@@ -1,4 +1,4 @@
-// The following code tests harbour's ability to cope with parenthesized
+// The following code tests Harbour's ability to cope with parenthesized
 // expressions.
 
 // These tests were written by Dave Pearson <davep@hagbard.demon.co.uk> and

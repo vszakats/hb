@@ -71,7 +71,7 @@
 
 
 /*
- * This pseudofunction is only document in CL5.3 NG but not implemented
+ * This pseudo-function is only document in CL5.3 NG but not implemented
  * in Cl*pper
  */
 

@@ -28,8 +28,8 @@
 #define LI_PRFLT        mslist[ 16 ]
 #define LI_TEKZP        mslist[ 17 ]
 #define LI_KOLZ         mslist[ 18 ]
-#define LI_VALID        mslist[ 19 ]  // Array of codeblocks for postvalidation while changing a field
-#define LI_WHEN         mslist[ 20 ]  // Array of codeblocks for prevalidation while changing a field
+#define LI_VALID        mslist[ 19 ]  // Array of codeblocks for post-validation while changing a field
+#define LI_WHEN         mslist[ 20 ]  // Array of codeblocks for prev-validation while changing a field
 #define LI_MSNAME       mslist[ 21 ]
 #define LI_MSTYP        mslist[ 22 ]
 #define LI_MSLEN        mslist[ 23 ]

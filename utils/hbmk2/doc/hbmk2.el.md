@@ -168,7 +168,7 @@ Besides building executables, hbmk2 is able to run Harbour scripts \(both source
  - **\-hb20** ενεργοποίηση συμβατότητας Harbour 2\.0\.x
  - **\-hb30** ενργοποίηση συμβατότητας Harbour 3\.0\.x
  - **\-hb32** enable Harbour 3\.2\.0dev compatibility mode
- - **\-xhb** ενεργοποίηση xhb mode
+ - **\-xhb** ενεργοποίηση xHarbour mode
  - **\-hbc** ενεργοποίηση καθαρού C mode
  - **\-blinker** emulate Cl\*pper compatible linker behavior  
 create link/copy hbmk2 to rtlink/blinker/exospace for the same effect
@@ -352,7 +352,7 @@ Special value:
  - **\{hb20\}** Κατάσταση συμβατότητας Harbour 2\.0\.x \(δες επιλογή \-hb20\)
  - **\{hb30\}** Κατάσταση συμβατότητας Harbour 3\.0\.x \(δες επιλογή \-hb30\)
  - **\{hb32\}** Harbour 3\.2\.0dev compatibility mode \(see \-hb32 option\)
- - **\{xhb\}** xhb μοντέλο \(δες επιλογή \-xhb\)
+ - **\{xhb\}** xHarbour μοντέλο \(δες επιλογή \-xhb\)
  - **\{hb\_ispath='&lt;file|dir&gt;'\}** το φίλτρο θα περάσει αν το όνομα &lt;file&gt; ή &lt;dir&gt; υπάρχει στο δίσκο\.
  - **\{MACRO\}** το φίλτρο θα περάσει αν η τιμή $\{MACRO\} δεν είναι άδεια και όχι ίση με '0' ή 'no' \(πεζά/κεφαλαία: αδιάφορο\)
  - **\{MACRO='&lt;value&gt;'\}** το φίλτρο θα περάσει αν η τιμή $\{MACRO\} ισούται με την &lt;value&gt; \(ευαίσθητο σε πεζά/κεφαλαία\)

@@ -26,7 +26,7 @@ PROCEDURE Main()
       ++:tries
 
       /* Notice that for post/pre increment decrement operators and
-         for assigments (:=,+=,-=,*=,/=) the macro have to
+         for assignments (:=,+=,-=,*=,/=) the macro have to
          start from the underscore symbol '_'
 
          To access the object variable using macro the '_' should be omitted */

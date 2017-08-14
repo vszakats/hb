@@ -56,7 +56,7 @@ method __enumStart( enum, lDescend ) class myclass1
 
 
 /* The second form of FOR EACH overloading
- * We are overloading the folowing messages:
+ * We are overloading the following messages:
  *    __enumStart()     // executed when FOR EACH starts
  *    __enumSkip()      // executed on each LOOP
  *    __enumStop()      // executed when FOR EACH stops

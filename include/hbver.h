@@ -57,6 +57,6 @@
 #define HB_VER_MINOR    4        /* Minor version number */
 #define HB_VER_RELEASE  0        /* Release number */
 #define HB_VER_STATUS   "dev"    /* Build status (all lowercase) */
-#define __HARBOUR__     0x030400 /* Three bytes: Major + Minor + Release. This is recommented for 3rd party .c and .prg level code. */
+#define __HARBOUR__     0x030400 /* Three bytes: Major + Minor + Release. This is recommended for 3rd party .c and .prg level code. */
 
 #endif /* HB_VER_H_ */

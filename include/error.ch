@@ -1,5 +1,5 @@
 /*
- * Header file for error hanlding
+ * Header file for error handling
  *
  * Copyright 1999 {list of individual authors and e-mail addresses}
  *

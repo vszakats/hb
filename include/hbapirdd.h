@@ -112,7 +112,7 @@ HB_EXTERN_BEGIN
 #define HB_FF_HIDDEN          0x0001 /* System Column (not visible to user) */
 #define HB_FF_NULLABLE        0x0002 /* Column can store null values */
 #define HB_FF_BINARY          0x0004 /* Binary column */
-#define HB_FF_AUTOINC         0x0008 /* Column is autoincrementing */
+#define HB_FF_AUTOINC         0x0008 /* Column is auto-incrementing */
 #define HB_FF_COMPRESSED      0x0010 /* Column is compressed */
 #define HB_FF_ENCRYPTED       0x0020 /* Column is encrypted */
 #define HB_FF_UNICODE         0x0040 /* Column stores Unicode strings */
@@ -738,7 +738,7 @@ typedef struct _RDDFUNCS
    DBENTRYP_VLO   setLocate;        /*-Set the locate scope for the specified WorkArea. */
    DBENTRYP_VOS   setScope;         /*  */
    DBENTRYP_VPL   skipScope;        /*  */
-   DBENTRYP_B     locate;           /* reposition cursor to postions set by setLocate */
+   DBENTRYP_B     locate;           /* reposition cursor to positions set by setLocate */
 
 
    /* Miscellaneous */
@@ -750,7 +750,7 @@ typedef struct _RDDFUNCS
 
    /* Network operations */
 
-   DBENTRYP_VSP   rawlock;          /* Perform a lowlevel network lock in the specified WorkArea. */
+   DBENTRYP_VSP   rawlock;          /* Perform a low-level network lock in the specified WorkArea. */
    DBENTRYP_VL    lock;             /* Perform a network lock in the specified WorkArea. */
    DBENTRYP_I     unlock;           /* Release network locks in the specified WorkArea. */
 

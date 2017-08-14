@@ -61,7 +61,7 @@ PROCEDURE Main( cName )
    ELSE
       FOR EACH aSect IN hIni
 
-         /* Now (without automatic main), toplevel options may be in the root hash */
+         /* Now (without automatic main), top level options may be in the root hash */
          IF HB_ISHASH( aSect )
             /* It's a section */
             ?
@@ -71,8 +71,8 @@ PROCEDURE Main( cName )
                ? cValue:__enumKey(), "=", cValue
             NEXT
          ELSE
-            /* It's a toplevel option */
-            ? "TOPLEVEL option:", aSect:__enumKey(), "=", aSect
+            /* It's a top level option */
+            ? "TOP LEVEL option:", aSect:__enumKey(), "=", aSect
          ENDIF
       NEXT
    ENDIF
@@ -118,7 +118,7 @@ PROCEDURE Main( cName )
    ELSE
       FOR EACH aSect IN hIni
 
-         /* Now (without automatic main), toplevel options may be in the root hash */
+         /* Now (without automatic main), top level options may be in the root hash */
          IF HB_ISHASH( aSect )
             /* It's a section */
             ?
@@ -128,8 +128,8 @@ PROCEDURE Main( cName )
                ? cValue:__enumKey(), "=", cValue
             NEXT
          ELSE
-            /* It's a toplevel option */
-            ? "TOPLEVEL option:", aSect:__enumKey(), "=", aSect
+            /* It's a top level option */
+            ? "TOP LEVEL option:", aSect:__enumKey(), "=", aSect
          ENDIF
       NEXT
    ENDIF

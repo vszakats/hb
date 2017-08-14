@@ -75,7 +75,7 @@
    Convert with:
       md2man man.md > man.1
       (man.md should come out from this executable as output, so
-      the manual does not have to be updated in two disctinct places)
+      the manual does not have to be updated in two distinct places)
  */
 
 #ifndef HBMK_GENERIC
@@ -536,7 +536,7 @@ EXTERNAL hbmk_KEYW
 #define _HBMK_lStopAfterHarbour 134
 
 #define _HBMK_cCOMPVer          135
-#define _HBMK_lDEPIMPLIB        136  /* Generate import libs configured in dependecy specification */
+#define _HBMK_lDEPIMPLIB        136  /* Generate import libs configured in dependency specification */
 #define _HBMK_lInstForce        137  /* Force to install target even if was up to date */
 #define _HBMK_lAutoHBM          138  /* Toggles processing of '_HBMK_AUTOHBM_NAME' file in current directory */
 #define _HBMK_lContainer        139  /* Target type: container */
@@ -871,7 +871,7 @@ STATIC PROCEDURE hbmk_local_entry( ... )
       ENDCASE
    ENDIF
 
-   /* Handle multitarget command-lines */
+   /* Handle multi-target command-lines */
 
    nTargetTO_DO := 1
    WHILE .T.
@@ -1857,7 +1857,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
       CASE cParamL             == "-hbc"       ; hbmk[ _HBMK_nHBMODE ] := _HBMODE_RAW_C ; lAcceptCFlag := .T.
 #endif
 
-      /* -env options used on command-line, process only once (=do not process again for subprojects) */
+      /* -env options used on command-line, process only once (=do not process again for sub-projects) */
       CASE hb_LeftEq( cParamL, "-env:" ) .AND. hbmk[ _HBMK_nLevel ] == 1
 
          ProcEnvOption( SubStr( cParam, 5 + 1 ) )
@@ -2141,8 +2141,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
       cLIB_BASE_PCRE    := "pcrepos"
       cLIB_BASE_ZLIB    := "zlib"
 
-      /* NOTE: 'dbfnsx' was added to xhb on 2009-01-08. We chose to prioritize
-               on newer xhb versions, so for older versions, a dummy lib should
+      /* NOTE: 'dbfnsx' was added to xHarbour on 2009-01-08. We chose to prioritize
+               on newer xHarbour versions, so for older versions, a dummy lib should
                be created. [vszakats] */
    ENDIF
 
@@ -4275,7 +4275,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
    ENDIF
 #endif
 
-   /* Force MT mode off in 1.0.x and xhb/dos compatibility modes. */
+   /* Force MT mode off in 1.0.x and xHarbour/MS-DOS compatibility modes. */
    IF hbmk[ _HBMK_nHBMODE ] == _HBMODE_HB10 .OR. ;
       ( _HBMODE_IS_XHB( hbmk[ _HBMK_nHBMODE ] ) .AND. hbmk[ _HBMK_cPLAT ] == "dos" )
       hbmk[ _HBMK_lMT ] := .F.
@@ -5280,7 +5280,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
 #ifdef HARBOUR_SUPPORT
          DO CASE
          CASE _HBMODE_IS_XHB( hbmk[ _HBMK_nHBMODE ] )
-            /* NOTE: Newer xhb versions use "-x.y.z" version numbers. */
+            /* NOTE: Newer xHarbour versions use "-x.y.z" version numbers. */
             l_aLIBSHARED := { iif( hbmk[ _HBMK_lMT ], "xharbourmt", "xharbour" ) }
          OTHERWISE
             l_aLIBSHARED := { cHarbourDyn + hbmk_IMPSUFFIX( hbmk, cDL_Version_Alter ) }
@@ -5669,7 +5669,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          cBin_LibHBX := cBin_Lib
          cOpt_LibHBX := "{LI}"
          IF HBMK_ISPLAT( "linux|dos|os2" )
-            /* register callconv (-6r, -5r) puts an underscore after names */
+            /* register calling convention (-6r, -5r) puts an underscore after names */
             cLibHBX_Regex := R_( "[\s]_?HB_FUN_([A-Z0-9_]*)_[\s]" )
          ENDIF
          IF HBMK_ISPLAT( "win|os2|dos" )
@@ -5827,7 +5827,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             AAdd( hbmk[ _HBMK_aOPTC ], "-DUNICODE" )
          ENDIF
          IF _HBMODE_IS_XHB( hbmk[ _HBMK_nHBMODE ] )
-            /* Adding weird hack for xhb to make it possible to force ST C mode. */
+            /* Adding weird hack for xHarbour to make it possible to force ST C mode. */
             IF hb_AScan( hbmk[ _HBMK_aOPTC ], "-tW",,, .T. ) == 0
                AAdd( hbmk[ _HBMK_aOPTC ], "-tWM" )
             ELSE
@@ -7560,7 +7560,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
       /* Dress obj names. */
       IF cObjExt == NIL
          /* NOTE: May only happen if the plat/comp combination is not supported.
-                  Do not let the obj filelist be the exact same as the source list,
+                  Do not let the obj file list be the exact same as the source list,
                   it would cause unwanted deletion of source at cleanup stage.
                   [vszakats] */
          l_aOBJ := {}
@@ -8129,7 +8129,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
 
 #ifdef HARBOUR_SUPPORT
                   /* Run failed linker command again to
-                     analyse its output and present hints */
+                     analyze its output and present hints */
                   IF ! hbmk[ _HBMK_lQuiet ]
                      ShowFunctionProviders( hbmk, ExtractHarbourSymbols( cStdOutErr ), .F. )
                   ENDIF
@@ -8279,7 +8279,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
 
 #ifdef HARBOUR_SUPPORT
                   /* Run failed linker command again to
-                     analyse its output and present hints */
+                     analyze its output and present hints */
                   IF ! hbmk[ _HBMK_lQuiet ]
                      ShowFunctionProviders( hbmk, ExtractHarbourSymbols( cStdOutErr ), .F. )
                   ENDIF
@@ -9087,7 +9087,7 @@ STATIC FUNCTION CheckParamLib( hbmk, cLibName, lHBC, aParam )
       cOpt != NIL /* always include lib name suggestion, if there was a path in the value */
 
       cOpt := hb_FNameName( cLibName )
-      /* readd empty extension */
+      /* re-add empty extension */
       IF hb_RightEq( hb_FNameNameExt( cLibName ), "." )
          cOpt += "."
       ENDIF
@@ -9145,7 +9145,7 @@ STATIC PROCEDURE convert_incpaths_to_options( hbmk, cOptIncMask, lCHD_Comp )
          AAddNew( hbmk[ _HBMK_aOPTPRG ], "-i" + iif( hbmk[ _HBMK_nHBMODE ] == _HBMODE_NATIVE, cINCPATH, FNameEscape( cINCPATH, hbmk[ _HBMK_nCmd_Esc ] ) ) )
          IF ! hbmk[ _HBMK_lStopAfterHarbour ]
             IF lCHD_Comp
-               /* Rebase source dirs relative to the target dir */
+               /* Rebase source directories relative to the target directory */
                AAddNew( hbmk[ _HBMK_aOPTC ], StrTran( cOptIncMask, "{DI}", FNameEscape( hb_PathNormalize( PathMakeAbsolute( cINCPATH, cBaseDir ) ), hbmk[ _HBMK_nCmd_Esc ], hbmk[ _HBMK_nCmd_FNF ] ) ) )
             ELSE
                AAddNew( hbmk[ _HBMK_aOPTC ], StrTran( cOptIncMask, "{DI}", FNameEscape( cINCPATH, hbmk[ _HBMK_nCmd_Esc ], hbmk[ _HBMK_nCmd_FNF ] ) ) )
@@ -9282,7 +9282,7 @@ STATIC PROCEDURE vxworks_env_init( hbmk )
 
    #define _VX_DIAB_ENV         "rtp"
 
-   /* Conversion table between ours and vxworks CPU values required to target that CPU */
+   /* Conversion table between ours and VxWorks CPU values required to target that CPU */
    LOCAL aTable := { ;
       "x86"  => { "pentium", "X86LH"  , "_VX_SIMPENTIUM", "simpentium/SIMPENTIUM" }, ;
       "arm"  => { "arm"    , "ARMV7LS", "_VX_ARMARCH7"  , "arm/ARMARCH7"          }, ;
@@ -9583,7 +9583,7 @@ STATIC FUNCTION hbmk_hb_compile( hbmk, ... )
       RETURN hb_compile( ... )
    ELSE
       cOldCP := hb_cdpSelect( hbmk[ _HBMK_cCPPRG ] )
-      /* We can use this function as this is a GPL licenced application */
+      /* We can use this function as this is a GPL licensed application */
       xRetVal := hb_compile( ... )
       hb_cdpSelect( cOldCP )
    ENDIF
@@ -9599,7 +9599,7 @@ STATIC FUNCTION hbmk_hb_compileBuf( hbmk, ... )
       RETURN hb_compileBuf( ... )
    ELSE
       cOldCP := hb_cdpSelect( hbmk[ _HBMK_cCPPRG ] )
-      /* We can use this function as this is a GPL licenced application */
+      /* We can use this function as this is a GPL licensed application */
       xRetVal := hb_compileBuf( ... )
       hb_cdpSelect( cOldCP )
    ENDIF
@@ -9648,7 +9648,7 @@ STATIC FUNCTION CompileCLoop( hbmk, aTO_DO, cBin_CompC, cOpt_CompC, hReplace, cO
          ENDIF
          /* Delete output file in case of compile error.
             (only if we know for sure what is the output filename, that is when we
-             speficied it on the command-line)
+             specified it on the command-line)
             This is to protect against compiler bugs (f.e. gcc with -pipe option)
             when dummy or wrong object file is left on the disk, and misleading
             next incremental build pass. [vszakats] */
@@ -10182,7 +10182,7 @@ STATIC FUNCTION getNewestTime( hbmk, cFile, hFiles, lCMode )
     * some other ones.
     */
    hFiles[ cFile, _HBMK_FILEDEF_tNEWESTTIME ] := tTime
-   /* mark all files with cross references as scanable so we can
+   /* mark all files with cross references as scannable so we can
     * repeat the scan process for other files
     */
    FOR EACH aFile IN hFiles
@@ -10973,7 +10973,7 @@ STATIC PROCEDURE PlugIn_Load( hbmk, cFileName )
          IF ! lOK .AND. ! Lower( cExt ) == ".hrb"  /* Optimization: Do not try to load it as .prg if the extension is .hrb */
 #ifdef HARBOUR_INCLUDE_PURE_GPL_PARTS
             cType := I_( "(source)" )
-            /* We can use this function as this is a GPL licenced application */
+            /* We can use this function as this is a GPL licensed application */
             IF ! Empty( cFile := hb_compileFromBuf( cFile, "-n2", "-w3", "-es2", "-q0", "-i" + hbmk[ _HBMK_cHB_INSTALL_INC ], "-D" + _HBMK_PLUGIN ) )
                hrb := hb_hrbLoad( HB_HRB_BIND_FORCELOCAL, cFile )
             ENDIF
@@ -11482,7 +11482,7 @@ STATIC FUNCTION ArraySplitHBX( arrayIn, nChunksReq, /* @ */ lLastIsHBX )
    LOCAL arrayOut := AClone( arrayIn )
 
    /* TODO: Ideally we should only split off the .hbx file if it's
-            the same one as speficied in hbmk[ _HBMK_cHBX ]
+            the same one as specified in hbmk[ _HBMK_cHBX ]
             (-hbx= option) (aka "our own"), instead of any .hbx
             file added to the project (not that it would make too
             much sense to add extra .hbx files to a project).
@@ -12776,7 +12776,7 @@ STATIC FUNCTION HBC_ProcessOne( hbmk, cFileName, nNestingLevel )
          cLine := MacroProc( hbmk, cLine, cFileName )
          hbmk[ _HBMK_cSignTime ] := cLine
 
-      /* .hbc identification strings. Similar to pkgconfig ones. */
+      /* .hbc identification strings. Similar to pkg-config ones. */
       CASE hb_LeftEq( cLineL, "name="         ) ; cLine := SubStr( cLine, Len( "name="         ) + 1 )
 
          /* Silently ignore */
@@ -15228,7 +15228,7 @@ STATIC PROCEDURE darwin_burn_dylib_path( hbmk, cTarget )
       FOR EACH cDylib IN hb_ATokens( cStdOut, .T. )
 
          /* Filter for .dylibs that have a relative path */
-         cDylib := AllTrim( cDylib )  /* Trim leftside tab */
+         cDylib := AllTrim( cDylib )  /* Trim left-side tab */
          IF ( tmp := At( ".dylib" + " ", cDylib ) ) > 0 .AND. ! hb_LeftEq( cDylib, hb_ps() )
 
             /* Extract original .dylib name */
@@ -16406,7 +16406,7 @@ STATIC PROCEDURE __hbshell( cFile, ... )
          AAdd( aOPTPRG, "-u+" + _HBSHELL_EXTRA_HEADER )
 #endif
 
-         /* We can use these functions because this is a GPL licenced application */
+         /* We can use these functions because this is a GPL licensed application */
          IF lInline
             cFile := hb_compileFromBuf( ;
                cFile, ;
@@ -16808,7 +16808,7 @@ STATIC FUNCTION __hbshell_plugins_load( hPlugins, aParams )
       plugin[ _PLUGIN_hHRB ] := NIL
 
       IF ! Lower( hb_FNameExt( cFile:__enumKey() ) ) == ".hrb"
-         /* We can use this function as this is a GPL licenced application */
+         /* We can use this function as this is a GPL licensed application */
          cFile := hb_compileFromBuf( cFile, hbmk_CoreHeaderFiles(), hbmk_hb_ProgName(), "-n2", "-w", "-es2", "-q0" )
       ENDIF
 
@@ -17344,7 +17344,7 @@ STATIC PROCEDURE __hbshell_Exec( cCommand )
 
    BEGIN SEQUENCE WITH {| oError | __hbshell_Err( oError, cCommand ) }
 
-      /* We can use this function as this is a GPL licenced application */
+      /* We can use this function as this is a GPL licensed application */
       IF Empty( cHRB := hb_compileFromBuf( cFunc, hbmk_CoreHeaderFiles(), hbmk_hb_ProgName(), "-n2", "-q2", hb_ArrayToParams( aOPTPRG ) ) )
          Eval( ErrorBlock(), I_( "Syntax error." ) )
       ELSEIF ! Empty( pHRB := hb_hrbLoad( cHRB ) )
@@ -18026,7 +18026,7 @@ STATIC PROCEDURE convert_xbp_to_hbp( hbmk, cSrcName, cDstName )
                   _hbmk_OutErr( hbmk, hb_StrFormat( I_( "Warning: Ignored per-file option (not supported in %1$s) in line %2$d: '%3$s'" ), _SELF_NAME_, cLine:__enumIndex(), cLine ) )
                   IF ! lHintShown
                      lHintShown := .T.
-                     _hbmk_OutErr( hbmk, I_( "Hint: Convert them to #pragma/#define or group files with common options into library subprojects." ) )
+                     _hbmk_OutErr( hbmk, I_( "Hint: Convert them to #pragma/#define or group files with common options into library sub-projects." ) )
                   ENDIF
                ENDSWITCH
             ENDIF
@@ -18805,7 +18805,7 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
       { "-hb20"              , H_( "enable Harbour 2.0.x compatibility mode" ) }, ;
       { "-hb30"              , H_( "enable Harbour 3.0.x compatibility mode" ) }, ;
       { "-hb32"              , H_( "enable Harbour 3.2.0dev compatibility mode" ) }, ;
-      { "-xhb"               , H_( "enable xhb mode" ) }, ;
+      { "-xhb"               , H_( "enable xHarbour mode" ) }, ;
       { "-hbc"               , H_( "enable pure C mode" ) }, ;
       { "-blinker"           , hb_StrFormat( H_( e"emulate Cl*pper compatible linker behavior\ncreate link/copy %1$s to rtlink/blinker/exospace for the same effect" ), _SELF_NAME_ ) }, ;
       { "-exospace"          , H_( "see above" ) }, ;
@@ -19060,7 +19060,7 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
       { "{hb20}"                  , H_( "Harbour 2.0.x compatibility mode (see -hb20 option)" ) }, ;
       { "{hb30}"                  , H_( "Harbour 3.0.x compatibility mode (see -hb30 option)" ) }, ;
       { "{hb32}"                  , H_( "Harbour 3.2.0dev compatibility mode (see -hb32 option)" ) }, ;
-      { "{xhb}"                   , H_( "xhb mode (see -xhb option)" ) }, ;
+      { "{xhb}"                   , H_( "xHarbour mode (see -xhb option)" ) }, ;
       { "{hb_ispath='<file|dir>'}", I_( "filter will pass if <file> or <dir> name exists on disk." ) }, ;
       { "{MACRO}"                 , I_( "filter will pass if ${MACRO} value is not empty and not equal to '0' or 'no' (case insensitive)" ) }, ;
       { "{MACRO='<value>'}"       , I_( "filter will pass if ${MACRO} value equals to <value> (case insensitive)." ) }, ;

@@ -168,7 +168,7 @@ create link/copy hbmk2 to hbcc for the same effect
  - **\-hb20** enable Harbour 2\.0\.x compatibility mode
  - **\-hb30** enable Harbour 3\.0\.x compatibility mode
  - **\-hb32** enable Harbour 3\.2\.0dev compatibility mode
- - **\-xhb** kapcsolja be az xhb üzemmódot
+ - **\-xhb** kapcsolja be az xHarbour üzemmódot
  - **\-hbc** enable pure C mode
  - **\-blinker** emulate Cl\*pper compatible linker behavior  
 create link/copy hbmk2 to rtlink/blinker/exospace for the same effect
@@ -352,7 +352,7 @@ Filters \(you can combine and/or negate them\):
  - **\{hb20\}** Harbour 2\.0\.x compatibility mode \(see \-hb20 option\)
  - **\{hb30\}** Harbour 3\.0\.x compatibility mode \(see \-hb30 option\)
  - **\{hb32\}** Harbour 3\.2\.0dev compatibility mode \(see \-hb32 option\)
- - **\{xhb\}** xhb mode \(see \-xhb option\)
+ - **\{xhb\}** xHarbour mode \(see \-xhb option\)
  - **\{hb\_ispath='&lt;file|dir&gt;'\}** filter will pass if &lt;file&gt; or &lt;dir&gt; name exists on disk\.
  - **\{MACRO\}** filter will pass if $\{MACRO\} value is not empty and not equal to '0' or 'no' \(case insensitive\)
  - **\{MACRO='&lt;value&gt;'\}** filter will pass if $\{MACRO\} value equals to &lt;value&gt; \(case insensitive\)\.

@@ -36,7 +36,7 @@ CREATE CLASS TTextFile STATIC
 
    VAR cFileName               // Filename spec. by user
    VAR hFile                   // File handle
-   VAR nLine     INIT 0        // Current linenumber
+   VAR nLine     INIT 0        // Current line number
    VAR nError                  // Last error
    VAR lEoF      INIT .F.      // End of file
    VAR cBlock    INIT ""       // Storage block
@@ -59,7 +59,7 @@ ENDCLASS
 //
 // <cFile>      file name. No wild characters
 // <cMode>      mode for opening. Default "R"
-// <nBlockSize> Optional maximum blocksize
+// <nBlockSize> Optional maximum block size
 //
 METHOD New( cFileName, cMode, nBlock ) CLASS TTextFile
 

@@ -1747,7 +1747,7 @@ static void hb_nsxTagFree( LPTAGINFO pTag )
 }
 
 /*
- * delete tag from compund index
+ * delete tag from compound index
  */
 static void hb_nsxTagDelete( LPTAGINFO pTag )
 {
@@ -1773,7 +1773,7 @@ static void hb_nsxTagDelete( LPTAGINFO pTag )
 }
 
 /*
- * add tag to compund index
+ * add tag to compound index
  */
 static HB_ERRCODE hb_nsxTagAdd( LPNSXINDEX pIndex, LPTAGINFO pTag )
 {
@@ -3198,7 +3198,7 @@ static HB_BOOL hb_nsxTagInsertKey( LPTAGINFO pTag, LPPAGEINFO pPage,
 }
 
 /*
- * add key to the index at the curret page path
+ * add key to the index at the current page path
  */
 static HB_BOOL hb_nsxTagKeyAdd( LPTAGINFO pTag, LPKEYINFO pKey )
 {
@@ -3307,7 +3307,7 @@ static void hb_nsxPageLeafKeyDel( LPTAGINFO pTag, LPPAGEINFO pPage, HB_USHORT ui
 }
 
 /*
- * del key at the curret page path from the index
+ * del key at the current page path from the index
  */
 static HB_BOOL hb_nsxTagKeyDel( LPTAGINFO pTag, LPKEYINFO pKey )
 {
@@ -3483,7 +3483,7 @@ static void hb_nsxTagSkipFilter( LPTAGINFO pTag, HB_BOOL fForward )
 }
 
 /*
- * go to the first visiable record in Tag
+ * go to the first visible record in Tag
  */
 static void hb_nsxTagGoTop( LPTAGINFO pTag )
 {
@@ -3506,7 +3506,7 @@ static void hb_nsxTagGoTop( LPTAGINFO pTag )
 }
 
 /*
- * go to the last visiable record in Tag
+ * go to the last visible record in Tag
  */
 static void hb_nsxTagGoBottom( LPTAGINFO pTag )
 {
@@ -7033,7 +7033,7 @@ static HB_ERRCODE hb_nsxOrderCreate( NSXAREAP pArea, LPDBORDERCREATEINFO pOrderI
    while( *pIndexPtr && *pIndexPtr != pIndex )
       pIndexPtr = &( *pIndexPtr )->pNext;
 
-   /* It should not happen, reintrance? */
+   /* It should not happen, reentrance? */
    if( ! *pIndexPtr )
       return HB_FAILURE;
 

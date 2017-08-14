@@ -308,7 +308,7 @@ PHB_DYNS hb_dynsymNew( PHB_SYMB pSymbol )
              * for C code which makes something like: HB_FUNC_EXEC( funcname );
              * In such case we cannot do anything - we cannot even detect
              * such situation. In some cases even linker cannot detect it
-             * because C compiler can make autoinlining or some bindings
+             * because C compiler can make auto-inlining or some bindings
              * which are not visible for linker
              */
             /* Let's try to overload one of the functions. Simple:

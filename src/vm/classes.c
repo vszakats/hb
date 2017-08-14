@@ -26,30 +26,30 @@
  *    hb_clsDictRealloc()
  *
  * Copyright 2000-2007 JF. Lefebvre <jfl@mafact.com> & RA. Cuylen <cakiral@altern.org
- *    Multiple inheritence fully implemented
+ *    Multiple inheritance fully implemented
  *    Forwarding, delegating
- *    Data initialisation & Autoinit for Bool and Numeric
- *    Scoping : Protected / exported
+ *    Data initialization & Autoinit for Bool and Numeric
+ *    Scoping: PROTECTED / EXPORTED
  *
  * Copyright 2008- JF. Lefebvre <jfl@mafact.com>
  *    hb_clsDictRealloc()   New version
  *    Now support of shared and not shared class data
- *    Multiple datas declaration fully supported
+ *    Multiple data declarations fully supported
  *
  * Copyright 2000 Ryszard Glab <rglab@imid.med.pl>
  *    Garbage collector fixes
  *
  * Copyright 2001 JF. Lefebvre <jfl@mafact.com>
  *    Super msg corrected
- *    Scoping : working for protected, hidden and readonly
+ *    Scoping: working for PROTECTED, HIDDEN and READONLY
  *    To Many enhancement and correction to give a full list :-)
- *    Improved class(y) compatibility
+ *    Improved Class(y) compatibility
  *    Improved TopClass compatibility
- *    __CLS_PAR00() (Allow the creation of class wich not autoinherit of the default HBObject())
+ *    __CLS_PAR00() (Allow the creation of class which not autoinherit of the default HBObject())
  *    Adding HB_CLS_ENFORCERO FLAG to disable Write access to RO VAR
  *    outside of Constructors /!\ Could be related to some incompatibility
- *    Added hb_objGetRealClsName to keep a full class tree (for 99% cases)
- *    Fixed hb_clsIsParent
+ *    Added hb_objGetRealClsName() to keep a full class tree (for 99% cases)
+ *    Fixed hb_clsIsParent()
  *    hb_objGetMthd() & __clsAddMsg() modified to translate operators
  *
  * This program is free software; you can redistribute it and/or modify
@@ -125,7 +125,7 @@ typedef struct
    PHB_SYMB    pFuncSym;         /* Function symbol */
    PHB_SYMB    pRealSym;         /* Real function symbol when wrapper is used */
    HB_TYPE     itemType;         /* Type of item in restricted assignment */
-   HB_USHORT   uiSprClass;       /* Originalclass'handel (super or current class'handel if not herited). */ /*Added by RAC&JF*/
+   HB_USHORT   uiSprClass;       /* Original class handle (super or current class handle if not inherited). [RAC&JF] */
    HB_USHORT   uiScope;          /* Scoping value */
    HB_USHORT   uiData;           /* Item position for instance data, class data and shared data (Harbour like, begin from 1), supercast class or delegated message index object */
    HB_USHORT   uiOffset;         /* position in pInitData for class datas (from 1) or offset to instance area in inherited instance data and supercast messages (from 0) */
@@ -159,8 +159,8 @@ typedef struct
    HB_USHORT   fHasDestructor;   /* has the class destructor message? */
    HB_USHORT   fHasOnError;      /* has the class OnError message? */
    HB_USHORT   fLocked;          /* Class is locked against modifications */
-   HB_USHORT   uiMethods;        /* Total Method initialised Counter */
-   HB_USHORT   uiInitDatas;      /* Total Method initialised Counter */
+   HB_USHORT   uiMethods;        /* Total Method initialized Counter */
+   HB_USHORT   uiInitDatas;      /* Total Method initialized Counter */
    HB_USHORT   uiDatas;          /* Total Data Counter */
    HB_USHORT   uiDataFirst;      /* First instance item from this class */
    HB_USHORT   uiSuperClasses;   /* Number of super classes */
@@ -311,7 +311,7 @@ static HB_SYMB s___msgEnumValue   = { "__ENUMVALUE",     {HB_FS_MESSAGE}, {HB_FU
 static HB_SYMB s___msgEnumIsFirst = { "__ENUMISFIRST",   {HB_FS_MESSAGE}, {HB_FUNCNAME( msgNull )},       NULL };
 static HB_SYMB s___msgEnumIsLast  = { "__ENUMISLAST",    {HB_FS_MESSAGE}, {HB_FUNCNAME( msgNull )},       NULL };
 
-/* WITH OBJECT base value access/asign methods (:__withobject) */
+/* WITH OBJECT base value access/assign methods (:__withobject) */
 static HB_SYMB s___msgWithObjectPush = { "__WITHOBJECT",  {HB_FS_MESSAGE}, {HB_FUNCNAME( msgNull )},       NULL };
 static HB_SYMB s___msgWithObjectPop  = { "___WITHOBJECT", {HB_FS_MESSAGE}, {HB_FUNCNAME( msgNull )},       NULL };
 
@@ -1787,9 +1787,9 @@ static void hb_clsMakeSuperObject( PHB_ITEM pDest, PHB_ITEM pObject,
    /* Now save the Self object as the 1st elem. */
    hb_arraySet( pDest, 1, pObject );
    /* And transform it into a fake object */
-   /* backup of actual handel */
+   /* backup of actual handle */
    pDest->item.asArray.value->uiPrevCls = hb_objGetClassH( pObject );
-   /* superclass handel casting */
+   /* superclass handle casting */
    pDest->item.asArray.value->uiClass = uiSuperClass;
 }
 
@@ -2851,7 +2851,7 @@ static HB_TYPE hb_clsGetItemType( PHB_ITEM pItem, HB_TYPE nDefault )
  *             HB_OO_CLSTP_READONLY       16 : data read only
  *             HB_OO_CLSTP_SHARED         32 : (method or) data shared
  *             HB_OO_CLSTP_CLASS          64 : message is class message not object
- *           * HB_OO_CLSTP_SUPER         128 : message is herited
+ *           * HB_OO_CLSTP_SUPER         128 : message is inherited
  *             HB_OO_CLSTP_PERSIST       256 : message is persistent (PROPERTY)
  *             HB_OO_CLSTP_NONVIRTUAL    512 : Non Virtual message - should not be covered by subclass(es) messages with the same name when executed from a given class message
  *             HB_OO_CLSTP_OVERLOADED   1024 : message overload NONVIRTUAL one
@@ -3159,7 +3159,7 @@ static HB_BOOL hb_clsAddMsg( HB_USHORT uiClass, const char * szMessage,
             {
                if( hb_arrayLen( pClass->pClassDatas ) < ( HB_SIZE ) pNewMeth->uiData )
                   hb_arraySize( pClass->pClassDatas, pNewMeth->uiData );
-               /* uiOffset is used to copy ancestor class data initializaers when
+               /* uiOffset is used to copy ancestor class data initializers when
                 * new class is created
                 */
                pNewMeth->uiOffset = hb_clsAddInitValue( pClass, pInit,
@@ -3184,7 +3184,7 @@ static HB_BOOL hb_clsAddMsg( HB_USHORT uiClass, const char * szMessage,
 
          case HB_OO_MSG_SUPER:
 
-            pNewMeth->uiData = uiSprClass; /* store the super handel */
+            pNewMeth->uiData = uiSprClass; /* store the super handle */
             pNewMeth->uiOffset = uiIndex; /* offset to instance area */
             pNewMeth->uiScope = uiScope;
             pNewMeth->pFuncSym = &s___msgSuper;
@@ -3289,7 +3289,7 @@ static HB_BOOL hb_clsAddMsg( HB_USHORT uiClass, const char * szMessage,
  *             HB_OO_CLSTP_READONLY       16 : data read only
  *             HB_OO_CLSTP_SHARED         32 : (method or) data shared
  *           * HB_OO_CLSTP_CLASS          64 : message is class message not object
- *           * HB_OO_CLSTP_SUPER         128 : message is herited
+ *           * HB_OO_CLSTP_SUPER         128 : message is inherited
  *             HB_OO_CLSTP_PERSIST       256 : message is persistent (PROPERTY)
  *             HB_OO_CLSTP_NONVIRTUAL    512 : Class method constructor
  *             HB_OO_CLSTP_OVERLOADED   1024 : Class method constructor
@@ -5514,7 +5514,7 @@ HB_FUNC( __OBJSETCLASS )
    hb_itemReturn( pObject );
 }
 
-/* Real dirty function, though very usefull under certain circunstances:
+/* Real dirty function, though very useful under certain circumstances:
  * It allows to change the class handle of an object into another class handle,
  * so the object behaves like a different Class of object.
  * Based on objects.lib SetClsHandle()

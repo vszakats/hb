@@ -3,7 +3,8 @@
  *
  * Copyright 1999 Ryszard Glab <rglab@imid.med.pl>
  * Copyright 1999-2001 Viktor Szakats (vszakats.net/harbour)
- *   __mvSave(), __mvRestore() (Thanks to Dave Pearson and Jo French for the original Clipper function FReadMem() to read .mem files)
+ *   __mvSave(), __mvRestore() (Thanks to Dave Pearson and Jo French for
+ *   the original Clipper function FReadMem() to read .mem files)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -318,7 +319,7 @@ void hb_memvarSetPrivatesBase( HB_SIZE nBase )
 }
 
 /*
- * Update PRIVATE base ofsset so they will not be removed
+ * Update PRIVATE base offset so they will not be removed
  * when function return
  */
 void hb_memvarUpdatePrivatesBase( void )
@@ -706,7 +707,7 @@ static void hb_memvarRelease( PHB_ITEM pMemvar )
          {
             if( pDynSymbol == hb_stackGetPrivateStack()->stack[ --nBase ].pDynSym )
             {
-               /* reset current value to NIL - the overriden variables will be
+               /* reset current value to NIL - the overridden variables will be
                 * visible after exit from current procedure
                 */
                pMemvar = hb_dynsymGetMemvar( pDynSymbol );
@@ -746,7 +747,7 @@ static void hb_memvarReleaseWithMask( const char * szMask, HB_BOOL bInclude )
       PHB_ITEM pMemvar;
 
       pDynVar = hb_stackGetPrivateStack()->stack[ nCount ].pDynSym;
-      /* reset current value to NIL - the overriden variables will be
+      /* reset current value to NIL - the overridden variables will be
        * visible after exit from current procedure
        */
       pMemvar = hb_dynsymGetMemvar( pDynVar );
@@ -1325,7 +1326,7 @@ HB_FUNC( __MVPUT )
                                               pName->item.asString.length );
       if( pDynVar )
       {
-         /* variable was declared somwhere - assign a new value
+         /* variable was declared somewhere - assign a new value
           */
          hb_memvarSetValue( pDynVar->pSymbol, pValue );
       }
@@ -1683,7 +1684,7 @@ HB_FUNC( __MVRESTORE )
                   PHB_DYNS pDynVar = hb_memvarFindSymbol( pszName, strlen( pszName ) );
 
                   if( pDynVar )
-                     /* variable was declared somwhere - assign a new value */
+                     /* variable was declared somewhere - assign a new value */
                      hb_memvarSetValue( pDynVar->pSymbol, pItem );
                   else
                      /* attempt to assign a value to undeclared variable create the PRIVATE one */

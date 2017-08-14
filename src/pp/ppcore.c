@@ -193,7 +193,7 @@ static const HB_PP_OPERATOR s_operators[] =
    { "%"    , 1, "%"    , HB_PP_TOKEN_MOD       | HB_PP_TOKEN_STATIC },
    { "^"    , 1, "^"    , HB_PP_TOKEN_POWER     | HB_PP_TOKEN_STATIC }
 /* unused: ? ~ " ' ` */
-/* not accesible: " ' `  */
+/* not accessible: " ' `  */
 /* illegal in Clipper: ~ */
 };
 
@@ -1307,7 +1307,7 @@ static void hb_pp_getLine( PHB_PP_STATE pState )
                ;
 
             /*
-             * In Clipper note can be used only as 1-st token and after
+             * In Clipper note can be used only as 1st token and after
              * statement separator ';' it does not work like a single line
              * comment.
              */
@@ -3183,7 +3183,7 @@ static HB_BOOL hb_pp_matchPatternNew( PHB_PP_STATE pState, PHB_PP_TOKEN * pToken
                      return HB_FALSE;
                   }
                   /* replace the order for these optional tokens to keep
-                     the ones with keywords 1-st */
+                     the ones with keywords 1st */
                   ( *pTokenPtr )->pMTokens = *pLastPtr;
                   *pLastPtr = pOptTok;
                }

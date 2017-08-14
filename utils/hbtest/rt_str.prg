@@ -499,13 +499,13 @@ PROCEDURE Main_STR()
 #ifdef __HARBOUR__
    #pragma -kh-
 #endif
-   HBTEST At( "", "" )                    IS 1  /* Bug in CA-Cl*ppers compiler optimizer, it should return 0 */
-   HBTEST At( "", "ABCDEF" )              IS 1  /* Bug in CA-Cl*ppers compiler optimizer, it should return 0 */
+   HBTEST At( "", "" )                    IS 1  /* Bug in CA-Cl*pper compiler optimizer, it should return 0 */
+   HBTEST At( "", "ABCDEF" )              IS 1  /* Bug in CA-Cl*pper compiler optimizer, it should return 0 */
 #ifdef __HARBOUR__
    /* enable Harbour extensions and test correct results results */
    #pragma -kh+
-   HBTEST At( "", "" )                    IS 0  /* Bug in CA-Cl*ppers compiler optimizer, it should return 0 */
-   HBTEST At( "", "ABCDEF" )              IS 0  /* Bug in CA-Cl*ppers compiler optimizer, it should return 0 */
+   HBTEST At( "", "" )                    IS 0  /* Bug in CA-Cl*pper compiler optimizer, it should return 0 */
+   HBTEST At( "", "ABCDEF" )              IS 0  /* Bug in CA-Cl*pper compiler optimizer, it should return 0 */
 #endif
    HBTEST At( scStringE, scStringE )      IS 0
    HBTEST At( scStringE, "ABCDEF" )       IS 0

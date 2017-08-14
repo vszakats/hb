@@ -712,7 +712,7 @@ AREAP hb_rddRequestArea( const char * szAlias, PHB_ITEM pCargo,
    /* leave critical section */
    hb_threadLeaveCriticalSection( &s_waMtx );
 
-   /* atach WA and set alias */
+   /* attach WA and set alias */
    if( pArea )
    {
       hb_waNodeInsert( hb_stackRDD(), pArea );

@@ -2,8 +2,10 @@
  * The Array API (C level)
  *
  * Copyright 1999 Antonio Linares <alinares@fivetech.com>
- * Copyright 1999-2001 Viktor Szakats (vszakats.net/harbour) (hb_arrayIsObject(), hb_arrayCopyC(), hb_arrayGetC())
- * Copyright 2001 Ron Pinkas <ron@profit-master.com> (hb_arrayClone(), hb_arrayFromStack(), hb_arrayFromParams())
+ * Copyright 1999-2001 Viktor Szakats (vszakats.net/harbour)
+ *   (hb_arrayIsObject(), hb_arrayCopyC(), hb_arrayGetC())
+ * Copyright 2001 Ron Pinkas <ron@profit-master.com>
+ *   (hb_arrayClone(), hb_arrayFromStack(), hb_arrayFromParams())
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -225,7 +227,7 @@ HB_BOOL hb_arraySize( PHB_ITEM pArray, HB_SIZE nLen )
                      I've used here a little different formula. ulAllocated is divided by
                      factor 2 ( >> 1 ) and 1 is added to requested size. This algorithm
                      has properties:
-                       - reallocation count remains asymptoticaly logarithmic;
+                       - reallocation count remains asymptotically logarithmic;
                        - saves memory for large arrays, because reallocation buffer
                          size is not doubled, but multiplied by 1.5;
                        - adding of 1, allows reduce reallocation count for small arrays.
@@ -289,7 +291,7 @@ HB_BOOL hb_arrayIsObject( PHB_ITEM pArray )
       return HB_FALSE;
 }
 
-/* retrives the array unique ID */
+/* retrieves the array unique ID */
 void * hb_arrayId( PHB_ITEM pArray )
 {
    if( pArray && HB_IS_ARRAY( pArray ) )

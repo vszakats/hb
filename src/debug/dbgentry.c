@@ -632,7 +632,7 @@ void hb_dbgEntry( int nMode, int nLine, const char * szName, int nIndex, PHB_ITE
                return;
          }
 
-         /* Check if'we skipping to the end of current routine */
+         /* Check if we're skipping to the end of current routine */
          if( info->bNextRoutine )
             return;
 

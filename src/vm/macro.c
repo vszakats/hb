@@ -98,7 +98,7 @@ static int s_macroFlags = HB_SM_DEFAULT;
 /* Compile passed string into a pcode buffer
  *
  * 'pMacro' - pointer to HB_MACRO structure that will hold all information
- *    nedded for macro compilation and evaluation
+ *    needed for macro compilation and evaluation
  * 'szString'  - a string to compile
  * 'iFlag' - specifies if compiled code should generate pcodes either for push
  *    operation (for example: var :=&macro) or for pop operation (&macro :=var)
@@ -233,10 +233,10 @@ static void hb_macroSyntaxError( PHB_MACRO pMacro )
    }
 }
 
-/* This replaces all '&var' or '&var.' occurences within a given string
+/* This replaces all '&var' or '&var.' occurrences within a given string
  * with the value of variable 'var' if this variable exists and contains
  * a string value. The value of variable is also searched for
- * occurences of macro operator and if it is found then it is expanded
+ * occurrences of macro operator and if it is found then it is expanded
  * until there is no more macro operators.
  * NOTE:
  *    this does not evaluate a macro expression - there is a simple text
@@ -434,7 +434,7 @@ void hb_macroGetValue( PHB_ITEM pItem, int iContext, int flags )
       struMacro.status    = HB_MACRO_CONT;
       struMacro.length    = pItem->item.asString.length;
       /*
-       * Clipper appears to expand nested macros staticly vs. by
+       * Clipper appears to expand nested macros statically vs. by
        * Macro Parser, f.e.:
        *       PROCEDURE Main()
        *          LOCAL cText
@@ -1134,7 +1134,7 @@ const char * hb_macroGetType( PHB_ITEM pItem )
 
             /* Set our temporary error handler. We do not need any error
              * messages here - we need to know only if evaluation was
-             * successfull. If evaluation was successfull then the data type
+             * successful. If evaluation was successful then the data type
              * of expression can be determined.
              */
             struErr.Func  = hb_macroErrorType;
@@ -1145,7 +1145,7 @@ const char * hb_macroGetType( PHB_ITEM pItem )
 
             if( struMacro.status & HB_MACRO_CONT )
             {
-               /* Evaluation was successfull
+               /* Evaluation was successful
                 * Now the value of expression is placed on the eval stack -
                 * check its type and pop it from the stack
                 */
@@ -1577,7 +1577,7 @@ void hb_macroGenPopAliasedVar( const char * szVarName,
    }
 }
 
-/* generates the pcode to push a nonaliased variable value to the virtual
+/* generates the pcode to push a non-aliased variable value to the virtual
  * machine stack
  */
 void hb_macroGenPushVar( const char * szVarName, HB_COMP_DECL )

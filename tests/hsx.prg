@@ -33,7 +33,7 @@ PROCEDURE Main()
 
    /* Does RDD support Record Map Filters? */
    IF dbInfo( DBI_RM_SUPPORTED )
-      /* if yest then let set filter for all records with 'SHERMAN'
+      /* if yes then let set filter for all records with 'SHERMAN'
          word and look at them in browser */
       hs_Filter( hs, "SHERMAN" )
       dbGoTop()

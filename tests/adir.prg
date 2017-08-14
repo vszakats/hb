@@ -13,7 +13,7 @@ PROCEDURE Main()
 
    RETURN
 
-// In order to account for documented behavour, this call will ensure
+// In order to account for documented behaviour, this call will ensure
 // that ADir() returns the same length array in both cases.
 // ie: ADir( cSpec ) could return a different length array than
 // ADir( cSpec, , , , , {} )

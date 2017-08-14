@@ -984,7 +984,7 @@ PHB_EXPR hb_compExprReduceIN( PHB_EXPR pSelf, HB_COMP_DECL )
       /* Both arguments are literal strings
        */
 
-      /* NOTE: If macro substitiution is not didabled (-kM compiler
+      /* NOTE: If macro substitution is not disabled (-kM compiler
        *       switch) then we cannot reduce also strings which
        *       have macro operator '&'
        */
@@ -1002,7 +1002,7 @@ PHB_EXPR hb_compExprReduceIN( PHB_EXPR pSelf, HB_COMP_DECL )
           *       But this bug exist only in compiler and CA-Cl*pper macro
           *       compiler does not have optimizer. This bug is replicated
           *       by us only when Harbour extensions in compiler (-kh) are
-          *       not enabled f.e. in strict Clipper cmpatible mode (-kc)
+          *       not enabled f.e. in strict Clipper compatible mode (-kc)
           *       [druzus]
           */
          if( pLeft->nLength == 0 )
@@ -1576,7 +1576,7 @@ PHB_EXPR hb_compExprReduceEQ( PHB_EXPR pSelf, HB_COMP_DECL )
              * cannot be optimized except the case when null strings are
              * compared - "" = "" is always TRUE regardless of EXACT
              * setting.
-             * If macro substitiution is not didabled (-kM compiler
+             * If macro substitution is not disabled (-kM compiler
              * switch) then we cannot reduce also strings which
              * have macro operator '&'
              */
@@ -1897,8 +1897,8 @@ PHB_EXPR hb_compExprReduceIIF( PHB_EXPR pSelf, HB_COMP_DECL )
          /* store the TRUE expression as a result of reduction
           */
          pSelf = pExpr;
-         pExpr = pExpr->pNext;       /* skip to HB_FALSE expression */
-         HB_COMP_EXPR_FREE( pExpr ); /* delete HB_FALSE expr */
+         pExpr = pExpr->pNext;       /* skip to FALSE expression */
+         HB_COMP_EXPR_FREE( pExpr ); /* delete FALSE expression */
          pSelf->pNext = NULL;
       }
       else
@@ -1915,10 +1915,10 @@ PHB_EXPR hb_compExprReduceIIF( PHB_EXPR pSelf, HB_COMP_DECL )
           */
          pSelf->value.asList.pExprList = NULL;
          HB_COMP_EXPR_FREE( pSelf );
-         /* store the HB_FALSE expression as a result of reduction
+         /* store the FALSE expression as a result of reduction
           */
          pSelf = pExpr->pNext;
-         HB_COMP_EXPR_FREE( pExpr );      /* delete TRUE expr */
+         HB_COMP_EXPR_FREE( pExpr );      /* delete TRUE expression */
          pSelf->pNext = NULL;
       }
 
@@ -1986,11 +1986,11 @@ HB_BOOL hb_compExprReduceAT( PHB_EXPR pSelf, HB_COMP_DECL )
       PHB_EXPR pReduced;
 
       /* NOTE: CA-Cl*pper has a bug in At( "", cText ) compile time
-       *       optimization and always set 1 as result in such cses.
+       *       optimization and always set 1 as result in such cases.
        *       This bug exist only in compiler and CA-Cl*pper macro
        *       compiler does not have optimizer. This bug is replicated
        *       by us only when Harbour extensions in compiler (-kh) are
-       *       not enabled f.e. in strict Clipper cmpatible mode (-kc)
+       *       not enabled f.e. in strict Clipper compatible mode (-kc)
        *       [druzus]
        */
       if( pSub->nLength == 0 )
@@ -2046,7 +2046,7 @@ HB_BOOL hb_compExprReduceCHR( PHB_EXPR pSelf, HB_COMP_DECL )
        *       But this bug exist only in compiler and CA-Cl*pper macro
        *       compiler does not have optimizer. This bug is replicated
        *       by us only when Harbour extensions in compiler (-kh) are
-       *       not enabled f.e. in strict Clipper cmpatible mode (-kc)
+       *       not enabled f.e. in strict Clipper compatible mode (-kc)
        *       [druzus]
        */
 

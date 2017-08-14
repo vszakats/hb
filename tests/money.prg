@@ -1,4 +1,4 @@
-// Sample class Money with overloading of arythmetical operations
+// Sample class Money with overloading of arithmetical operations
 //
 // Written by Pavel Tsarenko <tpe2 at mail.ru>
 

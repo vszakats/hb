@@ -175,7 +175,7 @@ LOCAL bReak:=0
   ++bReak
   IF bReak == 0
     Break /*break*/ ( nil )
-    BREAK   /* break to beggining */
+    BREAK   /* break to beginning */
     Break(0)   //in Clipper: syntax error: ')'
   ENDIF
 
@@ -248,7 +248,7 @@ case )
   CASE case++
 #ifndef HB_CLIPPER_COMPATIBLE
     case--   //sorry -Clipper and Harbour(flex) doesn't compile this line - but SimpLex does
-    case++   //sorry -Clipper and harbour(flex) doesn't compile this line - but SimpLex does
+    case++   //sorry -Clipper and Harbour(flex) doesn't compile this line - but SimpLex does
 #endif
     ( case++ )
     ( case-- )
@@ -266,7 +266,7 @@ case )
 */
   CASE( CASE )
     case =case != case
-  CASE( CASE ) //new CASE or function call? :) - CASE supercedes case as identifier when syntax is valid.
+  CASE( CASE ) //new CASE or function call? :) - CASE supersedes case as identifier when syntax is valid.
   CASE case->case
     case->case :=case->case +1
     ( case )->( case() )
@@ -339,8 +339,8 @@ LOCAL with
 
   while while
 #ifndef HB_CLIPPER_COMPATIBLE
-    while++   //Clipper and harbour(flex) incomplete statement or unbalanced delimiter
-    while--   //Clipper and harbour(flex) incomplete statement or unbalanced delimiter
+    while++   //Clipper and Harbour(flex) incomplete statement or unbalanced delimiter
+    while--   //Clipper and Harbour(flex) incomplete statement or unbalanced delimiter
 #endif
     ( while++ )
     ( while-- )
@@ -445,7 +445,7 @@ LOCAL end, while
   DO end WITH end++
 
 #ifndef HB_CLIPPER_COMPATIBLE
-  end->( end() )   //in Clipper and harbour(flex): ENDIF does not match IF
+  end->( end() )   //in Clipper and Harbour(flex): ENDIF does not match IF
 #endif
   ( end )->( end() )
 

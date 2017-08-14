@@ -230,13 +230,13 @@ PROCEDURE Main_HVMA()
 #ifdef __HARBOUR__
    #pragma -kh-
 #endif
-   HBTEST "" $ ""                         IS .T.  /* Bug in CA-Cl*ppers compiler optimizer. It should return .F. */
-   HBTEST "" $ "bcde"                     IS .T.  /* Bug in CA-Cl*ppers compiler optimizer. It should return .F. */
+   HBTEST "" $ ""                         IS .T.  /* Bug in CA-Cl*pper compiler optimizer. It should return .F. */
+   HBTEST "" $ "bcde"                     IS .T.  /* Bug in CA-Cl*pper compiler optimizer. It should return .F. */
 #ifdef __HARBOUR__
    /* enable Harbour extensions and test correct results results */
    #pragma -kh+
-   HBTEST "" $ ""                         IS .F.  /* Bug in CA-Cl*ppers compiler optimizer. It should return .F. */
-   HBTEST "" $ "bcde"                     IS .F.  /* Bug in CA-Cl*ppers compiler optimizer. It should return .F. */
+   HBTEST "" $ ""                         IS .F.  /* Bug in CA-Cl*pper compiler optimizer. It should return .F. */
+   HBTEST "" $ "bcde"                     IS .F.  /* Bug in CA-Cl*pper compiler optimizer. It should return .F. */
 #endif
    HBTEST "d" $ "bcde"                    IS .T.
    HBTEST "D" $ "BCDE"                    IS .T.

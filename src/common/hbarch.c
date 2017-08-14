@@ -216,7 +216,7 @@ double hb_get_ord_ieee754( const HB_BYTE * ptr )
 
 /*
  * I added function hb_get_rev_double() and hb_get_std_double() because
- * some compilers does not like constraction used by in HB_GET_LE_DOUBLE
+ * some compilers does not like construction used by in HB_GET_LE_DOUBLE()
  * macro => d = { ... }
  */
 double hb_get_rev_double( const HB_BYTE * ptr )

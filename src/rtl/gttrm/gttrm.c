@@ -1006,7 +1006,7 @@ static void mouse_init( PHB_GTTRM pTerm )
          GPM_MOVE | GPM_DRAG | GPM_UP | GPM_DOWN | GPM_SINGLE | GPM_DOUBLE;
       /* give me move events but handle them anyway */
       pTerm->Conn.defaultMask = GPM_MOVE | GPM_HARD;
-      /* report Ctrl,Alt,Shft events */
+      /* report Ctrl,Alt,Shift events */
       pTerm->Conn.minMod = 0;
       pTerm->Conn.maxMod = ( ( 1 << KG_SHIFT ) | ( 1 << KG_CTRL ) | ( 1 << KG_ALT ) );
       gpm_zerobased = 1;
@@ -1986,7 +1986,7 @@ static HB_BOOL hb_gt_trm_AnsiGetCursorPos( PHB_GTTRM pTerm, int * iRow, int * iC
       timer = hb_timerInit( timeout );
       for( ;; )
       {
-         /* loking for cursor position in "\033[%d;%dR" */
+         /* looking for cursor position in "\033[%d;%dR" */
          while( j < n && rdbuf[ j ] != '\033' )
             ++j;
          if( n - j >= 6 )

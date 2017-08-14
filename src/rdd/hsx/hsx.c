@@ -5,8 +5,8 @@
  *
  * Credits:
  *    Many thanks for Mindaugas Kavaliauskas for his assistance,
- *    informations about HSX internals, code checking and general
- *    helping in many things when this library was written.
+ *    information about HSX internals, code checking and general
+ *    help in many things when this library was written.
  *                                                          Przemek.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -54,7 +54,7 @@
 /*
    LOCKING/IO operations done by HiPpe-SEEK/CFTS library:
       A. in exclusive mode:
-         Unimportant. Thogugh tests shows that CFTS uses buffers
+         Unimportant. Though tests shows that CFTS uses buffers
          only in ADD and NEXT operations. Other causes immediate
          IO call
       B. in shared mode
@@ -184,7 +184,7 @@
       are called without key expression. When the key expression is
       set as string then it is also stored in HSX header and later
       is automatically retrieve by HS_OPEN.
-   3. HS_CREATE has optional 6-th parameter with key expression. It works
+   3. HS_CREATE has optional 6th parameter with key expression. It works
       in the same way as key parameter in HS_INDEX.
    4. other functions which accept the index key can receive it as
       direct the key value (string item) or codeblock
@@ -334,7 +334,7 @@ typedef struct _HSXINFO
    int       iArea;             /* work area number if bound with WA or 0 */
    char *    szKeyExpr;         /* key expression when bound with WA for automatic update */
    PHB_ITEM  pKeyItem;          /* item with compiled key expression */
-   HB_BOOL   fFlush;            /* data was written to file and not commited */
+   HB_BOOL   fFlush;            /* data was written to file and not committed */
 } HSXINFO;
 typedef HSXINFO * LPHSXINFO;
 
@@ -932,7 +932,7 @@ static int hb_hsxLock( int iHandle, int iAction, HB_ULONG ulRecord )
             }
             if( iRetVal == HSX_SUCCESS )
             {
-               /* discrad buffers in shared mode */
+               /* discard buffers in shared mode */
                pHSX->ulFirstRec = pHSX->ulBufRec = 0;
                if( iAction == HSX_APPENDLOCK )
                   hb_hsxGetRecCount( pHSX );

@@ -265,7 +265,7 @@ extern HB_EXPORT PHB_SYMB hb_vmProcessSymbols( PHB_SYMB pSymbols, HB_USHORT uiSy
       static HB_$INITSYM _s_init_func_##func = func;
 
    /*  After each '*_END' symbol, additional 'hooks' are required
-    *  See the C output of a generated prg for example
+    *  See the C output of a generated .prg for example
     */
 
 #elif defined( __WATCOMC__ )

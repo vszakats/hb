@@ -347,7 +347,7 @@ static LONG WINAPI hb_winExceptionHandler( struct _EXCEPTION_POINTERS * pExcepti
          pc = ( unsigned char * ) pCtx->Eip;
          for( i = 0; i < 16; i++ )
          {
-            /* FIXME: Unsafe funcion. */
+            /* FIXME: Unsafe function. */
             if( IsBadReadPtr( pc, 1 ) )
                break;
             hb_snprintf( buf, sizeof( buf ), " %02X", ( int ) pc[ i ] );
@@ -357,7 +357,7 @@ static LONG WINAPI hb_winExceptionHandler( struct _EXCEPTION_POINTERS * pExcepti
          sc = ( unsigned int * ) pCtx->Esp;
          for( i = 0; i < 16; i++ )
          {
-            /* FIXME: Unsafe funcion. */
+            /* FIXME: Unsafe function. */
             if( IsBadReadPtr( sc, 4 ) )
                break;
             hb_snprintf( buf, sizeof( buf ), " %08X", sc[ i ] );
@@ -368,12 +368,12 @@ static LONG WINAPI hb_winExceptionHandler( struct _EXCEPTION_POINTERS * pExcepti
          hb_strncat( errmsg, "    EIP:     EBP:       Frame: OldEBP, RetAddr, Params...\n", errmsglen );
          eip = pCtx->Eip;
          ebp = ( unsigned int * ) pCtx->Ebp;
-         /* FIXME: Unsafe funcion. */
+         /* FIXME: Unsafe function. */
          if( ! IsBadWritePtr( ebp, 8 ) )
          {
             for( i = 0; i < 20; i++ )
             {
-               /* FIXME: Unsafe funcion. */
+               /* FIXME: Unsafe function. */
                if( ( unsigned int ) ebp % 4 != 0 || IsBadWritePtr( ebp, 40 ) || ( unsigned int ) ebp >= ebp[ 0 ] )
                   break;
                hb_snprintf( buf, sizeof( buf ), "    %08X %08X  ", ( int ) eip, ( int ) ebp );

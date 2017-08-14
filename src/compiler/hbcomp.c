@@ -263,11 +263,11 @@ PHB_COMP hb_comp_new( void )
                          HB_COMPFLAG_SHORTCUTS;
 
       pComp->fSwitchCase       = HB_FALSE;
-      pComp->fPPO              = HB_FALSE;   /* flag indicating, is ppo output needed */
+      pComp->fPPO              = HB_FALSE;   /* flag indicating, is .ppo output needed */
       pComp->fLineNumbers      = HB_TRUE;    /* holds if we need pcodes with line numbers */
       pComp->fAnyWarning       = HB_FALSE;   /* holds if there was any warning during the compilation process */
       pComp->fAutoMemvarAssume = HB_FALSE;   /* holds if undeclared variables are automatically assumed MEMVAR (-a)*/
-      pComp->fForceMemvars     = HB_FALSE;   /* holds if memvars are assumed when accesing undeclared variable (-v)*/
+      pComp->fForceMemvars     = HB_FALSE;   /* holds if memvars are assumed when accessing undeclared variable (-v)*/
       pComp->fDebugInfo        = HB_FALSE;   /* holds if generate debugger required info */
       pComp->fHideSource       = ! pComp->fDebugInfo;  /* do not store .prg file names in PCODE */
       pComp->fNoStartUp        = HB_FALSE;   /* C code generation embed HB_FS_FIRST or not */

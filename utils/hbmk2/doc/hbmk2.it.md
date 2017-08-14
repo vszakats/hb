@@ -167,7 +167,7 @@ create link/copy hbmk2 to hbcc for the same effect
  - **\-hb20** abilita la compatibilità Harbour 2\.0\.x
  - **\-hb30** abilita la compatibilità Harbour 3\.0\.x
  - **\-hb32** enable Harbour 3\.2\.0dev compatibility mode
- - **\-xhb** abilita modo xhb
+ - **\-xhb** abilita modo xHarbour
  - **\-hbc** abilita modo C puro
  - **\-blinker** emulate Cl\*pper compatible linker behavior  
 create link/copy hbmk2 to rtlink/blinker/exospace for the same effect
@@ -351,7 +351,7 @@ Filtri \(è possibile combinarli e/o negarli\):
  - **\{hb20\}** modalità di comaptibilità Harbour 2\.0\.x \(vedi l'opzione \-hb20\)
  - **\{hb30\}** modalità di comaptibilità Harbour 3\.0\.x \(vedi l'opzione \-hb30\)
  - **\{hb32\}** Harbour 3\.2\.0dev compatibility mode \(see \-hb32 option\)
- - **\{xhb\}** modalità xhb \(vedi l'opzione \-xhb\)
+ - **\{xhb\}** modalità xHarbour \(vedi l'opzione \-xhb\)
  - **\{hb\_ispath='&lt;file|dir&gt;'\}** il filtro sarà soddisfatto se il esiste il nome &lt;file&gt; o &lt;dir&gt; sul disco\.
  - **\{MACRO\}** verrà soddisfatto il filtro se $\{MACRO\} è valorizzato e diverso da '0' or 'no' \(ignora maiuscole e minuscole\)
  - **\{MACRO='&lt;value&gt;'\}** filter will pass if $\{MACRO\} value equals to &lt;value&gt; \(case insensitive\)\.

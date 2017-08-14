@@ -58,7 +58,7 @@ PROCEDURE Main()
    x  := {| xx | Out( hb_ntos( xx ) ), Out( "+" ), Out( hb_ntos( yy ) ), Out( "=" ), xx + yy }
    ?? Eval( x, 1 )       // this is OK
    ?
-   ?? Eval( x, 1, 2 )    // this should ignore unnecesary parameters
+   ?? Eval( x, 1, 2 )    // this should ignore unnecessary parameters
 
    ? Eval( RetBlock(), 5 )
 

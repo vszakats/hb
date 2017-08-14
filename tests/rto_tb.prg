@@ -57,7 +57,7 @@
 
 #ifdef __XHARBOUR__
    #ifndef HB_COMPAT_C53
-      /* It makes xhb crash. */
+      /* It makes xHarbour crash. */
       /* #define HB_COMPAT_C53 */
    #endif
 #endif

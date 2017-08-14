@@ -251,7 +251,7 @@ const HB_BYTE hb_comp_pcode_len[] = {
    1,        /* HB_P_ENUMEND               */
    3,        /* HB_P_SWITCH                */
    5,        /* HB_P_PUSHDATE              */
-             /* optimalization of inlined math operations */
+             /* optimization of inlined math operations */
    1,        /* HB_P_PLUSEQPOP             */
    1,        /* HB_P_MINUSEQPOP            */
    1,        /* HB_P_MULTEQPOP             */
@@ -443,7 +443,7 @@ static PHB_PCODE_FUNC s_psize_table[] =
    NULL,                       /* HB_P_ENUMEND               */
    NULL,                       /* HB_P_SWITCH                */
    NULL,                       /* HB_P_PUSHDATE              */
-                               /* optimalization of inlined math operations */
+                               /* optimization of inlined math operations */
    NULL,                       /* HB_P_PLUSEQPOP             */
    NULL,                       /* HB_P_MINUSEQPOP            */
    NULL,                       /* HB_P_MULTEQPOP             */

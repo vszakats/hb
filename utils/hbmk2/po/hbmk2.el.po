@@ -1359,8 +1359,8 @@ msgid "enable pure C mode"
 msgstr "ενεργοποίηση καθαρού C mode"
 
 #, c-format
-msgid "enable xhb mode"
-msgstr "ενεργοποίηση xhb mode"
+msgid "enable xHarbour mode"
+msgstr "ενεργοποίηση xHarbour mode"
 
 #, c-format
 msgid "Harbour compiler build information"
@@ -1943,8 +1943,8 @@ msgid "Windows UNICODE (WIDE) mode (see -winuni option)"
 msgstr "κατάσταση λειτουργίας Windows UNICODE (WIDE) (δες επιλογή -winuni)"
 
 #, c-format
-msgid "xhb mode (see -xhb option)"
-msgstr "xhb μοντέλο (δες επιλογή -xhb)"
+msgid "xHarbour mode (see -xhb option)"
+msgstr "xHarbour μοντέλο (δες επιλογή -xhb)"
 
 #, c-format
 msgid ".hbc directives (they should be written in separate lines):"

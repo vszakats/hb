@@ -328,12 +328,12 @@ PHB_EXPR hb_compExprNewFunCall( PHB_EXPR pName, PHB_EXPR pParms, HB_COMP_DECL )
                   pVar->pNext = hb_compExprNewNil( HB_COMP_PARAM );
                pVar = pVar->pNext;
             }
-            if( pVar->pNext ) /* Delete 6-th argument if present */
+            if( pVar->pNext ) /* Delete 6th argument if present */
             {
                pIndex->pNext = pVar->pNext->pNext;
                HB_COMP_EXPR_FREE( pVar->pNext );
             }
-            pVar->pNext = pIndex;   /* Set a new 6-th argument */
+            pVar->pNext = pIndex;   /* Set a new 6th argument */
 
             /* Remove the index expression from a string representation
              */
@@ -440,7 +440,7 @@ PHB_EXPR hb_compExprNewFunCall( PHB_EXPR pName, PHB_EXPR pParms, HB_COMP_DECL )
                 */
                PHB_EXPR pFirst = pArg; /* save first argument */
 
-               pArg = hb_compExprNewNil( HB_COMP_PARAM ); /* replace 1-st with NIL */
+               pArg = hb_compExprNewNil( HB_COMP_PARAM ); /* replace 1st with NIL */
                if( pFirst->pNext && pFirst->pNext->ExprType == HB_ET_STRING )
                   pArg->pNext = pFirst->pNext;
                else

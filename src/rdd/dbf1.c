@@ -2305,7 +2305,7 @@ static HB_ERRCODE hb_dbfGetValue( DBFAREAP pArea, HB_USHORT uiIndex, PHB_ITEM pI
          HB_MAXINT lVal;
          HB_BOOL fDbl;
 
-         /* DBASE documentation defines maximum numeric field size as 20
+         /* dBase documentation defines maximum numeric field size as 20
           * but Clipper allows to create longer fields so I remove this
           * limit, Druzus
           */
@@ -2551,7 +2551,7 @@ static HB_ERRCODE hb_dbfPutValue( DBFAREAP pArea, HB_USHORT uiIndex, PHB_ITEM pI
 {
    LPFIELD pField;
    /* this buffer is for varlength, date and number conversions,
-    * DBASE documentation defines maximum numeric field size as 20
+    * dBase documentation defines maximum numeric field size as 20
     * but Clipper allows to create longer fields so I removed this
     * limit [druzus]
     */
@@ -4083,7 +4083,7 @@ static HB_ERRCODE hb_dbfNewArea( DBFAREAP pArea )
    if( SUPER_NEW( &pArea->area ) == HB_FAILURE )
       return HB_FAILURE;
 
-   /* set maximum fieldname length to 10 characters */
+   /* set maximum field name length to 10 characters */
    pArea->area.uiMaxFieldNameLength = 10;
 
    pArea->pDataFile = pArea->pMemoFile = pArea->pMemoTmpFile = NULL;
@@ -4274,7 +4274,7 @@ static HB_ERRCODE hb_dbfOpen( DBFAREAP pArea, LPDBOPENINFO pOpenInfo )
          return HB_FAILURE;
       }
 
-      /* Allocate only after succesfully open file */
+      /* Allocate only after successfully open file */
       pArea->szDataFileName = hb_strdup( szFileName );
 
       /* Read file header and exit if error */
@@ -4481,7 +4481,7 @@ static HB_ERRCODE hb_dbfOpen( DBFAREAP pArea, LPDBOPENINFO pOpenInfo )
          case 'N':
             dbFieldInfo.uiType = HB_FT_LONG;
             dbFieldInfo.uiDec = pField->bDec;
-            /* DBASE documentation defines maximum numeric field size as 20
+            /* dBase documentation defines maximum numeric field size as 20
              * but Clipper allows to create longer fields so I removed this
              * limit, Druzus
              */
@@ -5611,7 +5611,7 @@ static HB_ERRCODE hb_dbfZap( DBFAREAP pArea )
    if( SELF_GOTO( &pArea->area, 0 ) != HB_SUCCESS )
       return HB_FAILURE;
 
-   /* reset autoincrement and row version fields */
+   /* reset auto-increment and row version fields */
    for( uiField = 0; uiField < pArea->area.uiFieldCount; uiField++ )
    {
       if( pArea->area.lpFields[ uiField ].uiType == HB_FT_ROWVER )
@@ -5782,7 +5782,7 @@ static HB_ERRCODE hb_dbfSetFilter( DBFAREAP pArea, LPDBFILTERINFO pFilterInfo )
 #define hb_dbfEvalBlock  NULL
 
 /*
- * Perform a network lowlevel lock in the specified WorkArea.
+ * Perform a network low-level lock in the specified WorkArea.
  */
 static HB_ERRCODE hb_dbfRawLock( DBFAREAP pArea, HB_USHORT uiAction, HB_ULONG ulRecNo )
 {

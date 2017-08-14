@@ -235,7 +235,7 @@ PHB_FNAME hb_fsFNameSplit( const char * pszFileName )
 }
 
 /* NOTE: szFileName buffer must be at least HB_PATH_MAX long.
- *       Because some freign code may not be updated yet then
+ *       Because some foreign code may not be updated yet then
  *       hb_fsFNameMerge() effectively uses only HB_PATH_MAX buffer
  *       but it will be changed in the future.
  */

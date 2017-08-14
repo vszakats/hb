@@ -2,7 +2,7 @@
 
 PROCEDURE Main()
 
-   ? ["'/* bumbulda */45]="k"
+   ? ["'/* foobar */45]="k"
 
    TEXT
          any text is allowed here

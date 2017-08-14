@@ -491,7 +491,7 @@ static const PHB_CODETRACE_FUNC s_codeTraceFuncTable[] =
    hb_p_default,               /* HB_P_ENUMEND               */
    hb_p_switch,                /* HB_P_SWITCH                */
    hb_p_default,               /* HB_P_PUSHDATE              */
-                               /* optimalization of inlined math operations */
+                               /* optimization of inlined math operations */
    hb_p_default,               /* HB_P_PLUSEQPOP             */
    hb_p_default,               /* HB_P_MINUSEQPOP            */
    hb_p_default,               /* HB_P_MULTEQPOP             */

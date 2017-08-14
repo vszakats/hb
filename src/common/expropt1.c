@@ -84,7 +84,7 @@ static const char * s_OperTable[ HB_EXPR_COUNT ] = {
    "",         /* variable */
    "++",       /* post-operators -> lowest precedence */
    "--",
-   ":=",       /* assigments */
+   ":=",       /* assignments */
    "+=",
    "-=",
    "*=",
@@ -150,7 +150,7 @@ static const HB_BYTE s_PrecedTable[ HB_EXPR_COUNT ] = {
    HB_ET_NIL,                 /*   HB_ET_VARIABLE,    */
    HB_ET_NIL,                 /*   HB_EO_POSTINC,     post-operators */
    HB_ET_NIL,                 /*   HB_EO_POSTDEC,     */
-   HB_ET_NONE,                /*   HB_EO_ASSIGN,      assigments */
+   HB_ET_NONE,                /*   HB_EO_ASSIGN,      assignments */
    HB_ET_NONE,                /*   HB_EO_PLUSEQ,      Invalid syntax */
    HB_ET_NONE,                /*   HB_EO_MINUSEQ,     */
    HB_ET_NONE,                /*   HB_EO_MULTEQ,      */
@@ -715,7 +715,7 @@ PHB_EXPR hb_compExprNewMacroSend( PHB_EXPR pMessage, HB_COMP_DECL )
 /* Set object in send expression
  *    pObject : pExpr
  *
- *    pExpr   = is an expression returned by hb_compExprNewSend
+ *    pExpr   = is an expression returned by hb_compExprNewSend()
  *    pObject = is an object
  */
 PHB_EXPR hb_compExprNewMethodObject( PHB_EXPR pExpr, PHB_EXPR pObject )
@@ -730,7 +730,7 @@ PHB_EXPR hb_compExprNewMethodObject( PHB_EXPR pExpr, PHB_EXPR pObject )
 /* Creates new method call
  *    pObject : identifier ( pArgList )
  *
- *    pObject  = is an expression returned by hb_compExprNewSend
+ *    pObject  = is an expression returned by hb_compExprNewSend()
  *    pArgList = list of passed arguments - it will be HB_ET_NONE if no arguments
  *                are passed
  */
@@ -1251,7 +1251,7 @@ PHB_EXPR hb_compExprSetOperand( PHB_EXPR pExpr, PHB_EXPR pItem, HB_COMP_DECL )
       }
       else
       {
-         /* Left operator has the same or higer precedence then the right one
+         /* Left operator has the same or higher precedence then the right one
           * e.g.  a * b + c
           *    pItem -> b + c   -> L=b  R=c  O=+
           *    pExpr -> a *     -> l=a  r=   o=*

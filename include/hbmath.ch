@@ -1,5 +1,5 @@
 /*
- * Header file for MATHDEFERRMODE function
+ * Header file for hb_matherMode() function
  *
  * Copyright 2002 IntTec GmbH, Neunlindenstr 32, 79106 Freiburg, Germany
  *        Author: Martin Vogel <vogel@inttec.de>
@@ -64,7 +64,7 @@
 #define HB_MATH_ERRMODE_CDEFAULT          1   /* handle error by using the C RTL correction values */
 #define HB_MATH_ERRMODE_USER              2   /* throw Harbour error, user MUST correct math error within Harbour error
                                                  handling */
-#define HB_MATH_ERRMODE_USERDEFAULT       3   /* dito, but if user does not correct math error, default
+#define HB_MATH_ERRMODE_USERDEFAULT       3   /* ditto, but if user does not correct math error, default
                                                  error handling, i.e. by individual function applies */
 #define HB_MATH_ERRMODE_USERCDEFAULT      4   /* as ERRMODE_USER, but if user does not correct math error, C RTL
                                                  correction values are used */

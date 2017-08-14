@@ -1,4 +1,4 @@
-/* This program demonstrates that the 4 diskspace related functions work
+/* This program demonstrates that the 4 disk space related functions work
    correctly for disks of any size.
 
    Certain OS's may allow limits to the amount of disk space available to

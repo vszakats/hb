@@ -1,6 +1,6 @@
 /*
  * Demonstration/test code for shared class variables casting and allocating
- * in multiinherited classes
+ * in multi-inherited classes
  *
  * Copyright 2006 Przemyslaw Czerpak <druzus / at / priv.onet.pl>
  *

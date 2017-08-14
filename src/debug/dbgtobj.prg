@@ -46,13 +46,13 @@
 
 #pragma -b-
 
-#define HB_CLS_NOTOBJECT      /* do not inherit from HBObject calss */
+#define HB_CLS_NOTOBJECT      /* do not inherit from HBObject class */
 #include "hbclass.ch"
 
 #include "inkey.ch"
 #include "setcurs.ch"
 
-/* object message descirption */
+/* object message description */
 #define OMSG_NAME       1
 #define OMSG_VALUE      2
 #define OMSG_EDIT       3

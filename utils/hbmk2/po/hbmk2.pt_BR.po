@@ -1375,8 +1375,8 @@ msgid "enable pure C mode"
 msgstr "ativa modo C puro"
 
 #, c-format
-msgid "enable xhb mode"
-msgstr "habilitar modo xHb"
+msgid "enable xHarbour mode"
+msgstr "habilitar modo xHarbour"
 
 #, c-format
 msgid "fix casing of Harbour function names to their 'official' format. Core functions and functions belonging to all active contribs/addons with an .hbx file will be processed. [EXPERIMENTAL]"
@@ -1995,8 +1995,8 @@ msgid "Windows UNICODE (WIDE) mode (see -winuni option)"
 msgstr "Modo Windows UNICODE (WIDE) (veja opção -winuni)"
 
 #, c-format
-msgid "xhb mode (see -xhb option)"
-msgstr "modo xhb (veja opção -xhb)"
+msgid "xHarbour mode (see -xhb option)"
+msgstr "modo xHarbour (veja opção -xhb)"
 
 #, c-format
 msgid ".hbc directives (they should be written in separate lines):"

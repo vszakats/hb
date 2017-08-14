@@ -1502,7 +1502,7 @@ static void hb_ntxTagFree( LPTAGINFO pTag )
 }
 
 /*
- * delete tag from compund index
+ * delete tag from compound index
  */
 static void hb_ntxTagDelete( LPTAGINFO pTag )
 {
@@ -1528,7 +1528,7 @@ static void hb_ntxTagDelete( LPTAGINFO pTag )
 }
 
 /*
- * add tag to compund index
+ * add tag to compound index
  */
 static HB_ERRCODE hb_ntxTagAdd( LPNTXINDEX pIndex, LPTAGINFO pTag )
 {
@@ -1731,7 +1731,7 @@ static HB_ERRCODE hb_ntxTagHeaderSave( LPTAGINFO pTag )
       ( pTag->Partial ? NTX_FLAG_PARTIAL | NTX_FLAG_FORITEM : 0 ) |
       ( pIndex->pArea->dbfarea.bLockType == DB_DBFLOCK_CLIPPER2 ? NTX_FLAG_EXTLOCK : 0 ) |
       ( pTag->Partial  ? NTX_FLAG_PARTIAL | NTX_FLAG_FORITEM : 0 ) |
-      /* non CLipper flags */
+      /* non Clipper flags */
       ( pTag->Custom   ? NTX_FLAG_CUSTOM : 0 ) |
       ( pTag->ChgOnly  ? NTX_FLAG_CHGONLY : 0 ) |
       ( pTag->Template ? NTX_FLAG_TEMPLATE : 0 ) |
@@ -2833,7 +2833,7 @@ static void hb_ntxBalancePages( LPTAGINFO pTag, LPPAGEINFO pBasePage, HB_USHORT 
 
    /*
     * such situation should not exist even max keys, though it does not cost
-    * much and I want to be able to call hb_ntxBalancePages in any case for
+    * much and I want to be able to call hb_ntxBalancePages() in any case for
     * some advanced balancing
     */
    if( iMove == 0 )
@@ -2908,7 +2908,7 @@ static void hb_ntxBalancePages( LPTAGINFO pTag, LPPAGEINFO pBasePage, HB_USHORT 
 }
 
 /*
- * add key to the index at the curret page path
+ * add key to the index at the current page path
  */
 static HB_BOOL hb_ntxTagKeyAdd( LPTAGINFO pTag, LPKEYINFO pKey )
 {
@@ -3080,7 +3080,7 @@ static HB_BOOL hb_ntxTagKeyAdd( LPTAGINFO pTag, LPKEYINFO pKey )
 }
 
 /*
- * del key at the curret page path from the index
+ * del key at the current page path from the index
  */
 static HB_BOOL hb_ntxTagKeyDel( LPTAGINFO pTag, LPKEYINFO pKey )
 {
@@ -3244,7 +3244,7 @@ static void hb_ntxTagSkipFilter( LPTAGINFO pTag, HB_BOOL fForward )
 }
 
 /*
- * go to the first visiable record in Tag
+ * go to the first visible record in Tag
  */
 static void hb_ntxTagGoTop( LPTAGINFO pTag )
 {
@@ -3267,7 +3267,7 @@ static void hb_ntxTagGoTop( LPTAGINFO pTag )
 }
 
 /*
- * go to the last visiable record in Tag
+ * go to the last visible record in Tag
  */
 static void hb_ntxTagGoBottom( LPTAGINFO pTag )
 {
@@ -6650,7 +6650,7 @@ static HB_ERRCODE hb_ntxOrderCreate( NTXAREAP pArea, LPDBORDERCREATEINFO pOrderI
    while( *pIndexPtr && *pIndexPtr != pIndex )
       pIndexPtr = &( *pIndexPtr )->pNext;
 
-   /* It should not happen, reintrance? */
+   /* It should not happen, reentrance? */
    if( ! *pIndexPtr )
       return HB_FAILURE;
 

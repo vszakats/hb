@@ -301,7 +301,7 @@ HB_FUNC( SX_SETPASS )
           ( iPCount < 4 || HB_ISNUM( 4 ) ) )
       {
          /* Set pending password for table which will be open
-          * 3-rd and 4-th parameters are optional Harbour extensions
+          * 3rd and 4th parameters are optional Harbour extensions
           * with RDD name and connection number.
           */
          LPRDDNODE pRDDNode;

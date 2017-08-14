@@ -67,7 +67,7 @@ static void hb_delimInitArea( DELIMAREAP pArea, char * szFileName )
 {
    const char * szEol;
 
-   /* Allocate only after succesfully open file */
+   /* Allocate only after successfully open file */
    pArea->szFileName = hb_strdup( szFileName );
 
    /* set line separator: EOL */

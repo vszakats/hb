@@ -248,7 +248,7 @@ static void hb_gt_pca_AnsiGetCurPos( int * iRow, int * iCol )
       timer = hb_timerInit( timeout );
       for( ;; )
       {
-         /* loking for cursor position in "\033[%d;%dR" */
+         /* looking for cursor position in "\033[%d;%dR" */
          while( j < n && rdbuf[ j ] != '\033' )
             ++j;
          if( n - j >= 6 )

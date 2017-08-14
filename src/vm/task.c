@@ -400,7 +400,7 @@ static void hb_taskFinalize( PHB_TASKINFO pTask )
 #endif
    }
 
-   /* it cannot happen for runing threads */
+   /* it cannot happen for running threads */
 
    /* remove from mutex lockers queue */
    if( pTask->locking )

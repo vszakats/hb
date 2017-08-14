@@ -54,10 +54,10 @@ HB_EXTERN_BEGIN
 extern HB_EXPORT double hb_secondsCPU( int n );
 
 extern HB_EXPORT double hb_dateSeconds( void );
-/* return UTC julian timestamp in milliseconds */
+/* return UTC Julian timestamp in milliseconds */
 extern HB_EXPORT HB_MAXUINT hb_dateMilliSeconds( void );
 
-/* functions to operate on julian date values */
+/* functions to operate on Julian date values */
 
 extern HB_EXPORT void   hb_dateTimeStr( char * pszTime );
 extern HB_EXPORT void   hb_dateToday( int * piYear, int * piMonth, int * piDay );

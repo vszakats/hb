@@ -1600,7 +1600,7 @@ void hb_itemCopy( PHB_ITEM pDest, PHB_ITEM pSource )
          if( HB_IS_MEMVAR( pSource ) )
             hb_memvarValueIncRef( pSource->item.asMemvar.value );
 
-         else if( HB_IS_ENUM( pSource ) )    /* enumerators cannnot be copied */
+         else if( HB_IS_ENUM( pSource ) )    /* enumerators cannot be copied */
             pDest->type = HB_IT_NIL;
 
          else if( HB_IS_EXTREF( pSource ) )
@@ -2683,7 +2683,7 @@ HB_BOOL hb_itemStrBuf( char * szResult, PHB_ITEM pNumber, int iSize, int iDec )
    This function should be used by any function that wants to format numeric
    data for displaying, printing, or putting in a database.
 
-   Note: The caller is responsible for calling hb_xfree to free the results
+   Note: The caller is responsible for calling hb_xfree() to free the results
          buffer, but ONLY if the return value is not a NULL pointer! (If a NULL
          pointer is returned, then there was a conversion error.)
  */

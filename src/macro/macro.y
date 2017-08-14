@@ -165,7 +165,7 @@
    } valDouble;
    struct
    {
-      long     date;    /* to hold julian date */
+      long     date;    /* to hold Julian date */
       long     time;    /* to hold milliseconds */
    } valTimeStamp;
 }
@@ -188,9 +188,9 @@ extern void yyerror( PHB_MACRO, const char * );    /* parsing error management f
 %token EPSILON
 
 /*the lowest precedence*/
-/*postincrement and postdecrement*/
+/*post-increment and post-decrement*/
 %left   POST
-/*assigment - from right to left*/
+/*assignment - from right to left*/
 %right  INASSIGN
 %right  PLUSEQ MINUSEQ
 %right  MULTEQ DIVEQ MODEQ
@@ -207,7 +207,7 @@ extern void yyerror( PHB_MACRO, const char * );    /* parsing error management f
 %right  '*' '/' '%'
 %right  POWER
 %right  UNARY
-/*preincrement and predecrement*/
+/*pre-increment and pre-decrement*/
 %right  PRE
 /*special operators*/
 %right  ALIASOP '&' '@'

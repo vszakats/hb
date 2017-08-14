@@ -223,7 +223,7 @@ static void hb_gt_os2_mouse_Exit( PHB_GT pGT )
 
    if( s_uMouHandle )
    {
-      MouClose( s_uMouHandle );           /* relese mouse handle */
+      MouClose( s_uMouHandle );           /* release mouse handle */
       s_uMouHandle = 0;
    }
 }
@@ -745,7 +745,7 @@ static HB_BOOL hb_gt_os2_IsColor( PHB_GT pGT )
 
    HB_SYMBOL_UNUSED( pGT );
 
-   return s_vi.fbType != 0;        /* 0 = monochrom-compatible mode */
+   return s_vi.fbType != 0;        /* 0 = monochrome-compatible mode */
 }
 
 static HB_BOOL hb_gt_os2_GetBlink( PHB_GT pGT )

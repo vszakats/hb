@@ -6,7 +6,6 @@
 #define NFILES   1000
 
 // use only *one* at a time
-// dejar solo una de las dos lineas siguientes:
 #define WITH_DBFCDX
 // #define WITH_ADS
 
