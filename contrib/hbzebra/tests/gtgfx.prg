@@ -9,7 +9,7 @@
 #include "hbgtinfo.ch"
 #include "hbgfx.ch"
 
-#define _SCALE_ 2  /* modifies y: fontheight, x: pixel */
+#define _SCALE_ 2  /* modifies y: font height, x: pixel */
 
 PROCEDURE Main()
 

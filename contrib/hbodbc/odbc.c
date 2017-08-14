@@ -3,9 +3,12 @@
  *
  * Copyright 2009 Viktor Szakats (vszakats.net/harbour)
  * Copyright 2009 Mindaugas Kavaliauskas <dbtopas at dbtopas.lt>
- * Copyright 2006 Marcelo Lombardo <lombardo@uol.com.br> (SQLGetInfo(), SQLSetStmtAttr(), SQLGetStmtAttr(), SQLCommit(), SQLRollback(), SQLColAttribute(), SQLMoreResults())
+ * Copyright 2006 Marcelo Lombardo <lombardo@uol.com.br>
+ *   (SQLGetInfo(), SQLSetStmtAttr(), SQLGetStmtAttr(), SQLCommit(),
+ *   SQLRollback(), SQLColAttribute(), SQLMoreResults())
  * Copyright 1999 Antonio Linares <alinares@fivetech.com>
- * Copyright 1999 Felipe G. Coury <fcoury@creation.com.br> (SQLNumResultCols(), SQLDescribeCol())
+ * Copyright 1999 Felipe G. Coury <fcoury@creation.com.br>
+ *   (SQLNumResultCols(), SQLDescribeCol())
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -246,7 +249,7 @@ static void hb_SQLHDBC_stor( PHB_ITEM pHEnvItm, SQLHDBC hDbc, int iParam )
    pHDbc->hDbc = hDbc;
    pHDbc->conn_counter = 1;
    /* initialize pointer scanned by mark function before allocating new
-      new GC block - such allocation may activate GC and uninitalized
+      new GC block - such allocation may activate GC and uninitialized
       pointer will be accessed from our mark function */
    pHDbc->pHEnvItm = NULL;
    if( pHEnvItm )

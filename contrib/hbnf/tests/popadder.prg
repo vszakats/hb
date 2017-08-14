@@ -22,7 +22,7 @@ PROCEDURE Main()
    @ 15, 60 SAY "Vaca. hrs."
    @ MaxRow() - 2, 0 SAY PadC( "Press <Alt-A> to Pop - Up the Adder.", MaxCol() + 1 )
    @ MaxRow() - 1, 0 SAY PadC( "Press <Esc> to Quit the adder Demo.", MaxCol() + 1 )
-   DO WHILE .T.                                 // Get the sick, personal, and vaca
+   DO WHILE .T.                                 // Get the sick, personal, and vacation hours
       @ 16, 24 GET nSickHrs PICTURE "9999.999"  // Normally I have a VALID
       @ 16, 43 GET nPersHrs PICTURE "9999.999"  // to make sure the value is
       @ 16, 63 GET nVacaHrs PICTURE "9999.999"  // within the allowable range.

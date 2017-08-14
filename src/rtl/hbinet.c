@@ -1,7 +1,7 @@
 /*
  * The internet protocol / TCP support
  *
- * Copyright 2002 Giancarlo Niccolai [gian@niccolai.ws]
+ * Copyright 2002 Giancarlo Niccolai <gian@niccolai.ws>
  *                Ron Pinkas [Ron@RonPinkas.com]
  *                Marcelo Lombardo [marcelo.lombardo@newage-software.com.br]
  * Copyright 2007 Przemyslaw Czerpak <druzus / at / priv.onet.pl>

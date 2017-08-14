@@ -10,20 +10,20 @@
    Nanforum Toolkit
  */
 
-/* The concepts for this algoritm were adapted from an article in the
+/* The concepts for this algorithm were adapted from an article in the
    Computer Language Magazine (Dec.90, Vol.7, No.12) written by
    Lawrence B.F. Phillips.
 
-   The STRTRAN function was selected to calculate the MetaPhone, to
-   allow the algoritm to be fine-tuned in an easy manner, as there are
+   The StrTran() function was selected to calculate the MetaPhone, to
+   allow the algorithm to be fine-tuned in an easy manner, as there are
    always exceptions to any phonetic pronunciation in not only English,
    but many other languages as well.
 
    What is a metaphone?
    Basically it takes a character string, removes the vowels, and equates
-   letters (or groups of letters) to other consonent sounds.  The vowels
+   letters (or groups of letters) to other consonant sounds.  The vowels
    are not removed until near the end, as they play an important part
-   in determining how some consonents sound in different surroundings.
+   in determining how some consonants sound in different surroundings.
 
    The consonant sounds are:  B, F, H, J, K, L, M, N, P, R, S, T, W, X, Y, 0
    Vowels are only included if they are at the beginning.

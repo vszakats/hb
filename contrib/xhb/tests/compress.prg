@@ -30,7 +30,7 @@ PROCEDURE Main()
 
    cComp := Space( nBufLen )
    // We allocate more space (manual says 0.1% + 12, but you can never know...)
-   // to allow compression of uncompressable strings to grow a little.
+   // to allow compression of incompressible strings to grow a little.
    cDecomp := Space( Int( nBufLen * 1.1 ) )
 
    // on exit, nBuflen will contain the length of the compressed buffer
@@ -40,7 +40,7 @@ PROCEDURE Main()
    ? "Uncompressed: (" + hb_ntos( hb_BLen( cText ) ) + ")" + cText + "<<"
    ? "Compressed (" + hb_ntos( nBuflen ) + ")" + hb_StrToHex( cComp ) + "<<"
    // Notice: this time the length of the destination buffer is not the length of
-   // the original buffer, but Int(nBufLen * 1.1)
+   // the original buffer, but Int( nBufLen * 1.1 )
    ? "Decompressed: (" + hb_ntos( hb_BLen( cDecomp ) ) + ")" + cDecomp + "<<"
 
    ?

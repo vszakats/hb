@@ -1,7 +1,7 @@
 /*
  * Versatile logging system.
  *
- * Copyright 2003 Giancarlo Niccolai [gian@niccolai.ws]
+ * Copyright 2003 Giancarlo Niccolai <gian@niccolai.ws>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -264,7 +264,7 @@ CREATE CLASS HB_LogChannel
 
 ENDCLASS
 
-/* Creates a new channel. nLeven can be nil ( and will log all ),
+/* Creates a new channel. nLevel can be nil ( and will log all ),
    cName is the "program name" and must be given */
 METHOD New( nLevel ) CLASS HB_LogChannel
 

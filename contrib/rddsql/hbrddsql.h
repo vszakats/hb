@@ -168,7 +168,7 @@ typedef struct _MIXTAG
    PMIXKEY HotKey;
    HB_BOOL HotFor;
 
-   PHB_CODEPAGE pCodepage;          /* National sorttable for character key tags, NULL otherwise */
+   PHB_CODEPAGE pCodepage;          /* National sort table for character key tags, NULL otherwise */
 } MIXTAG, * PMIXTAG;
 
 

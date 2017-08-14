@@ -68,7 +68,7 @@
 CREATE CLASS TBColumnSQL INHERIT TBColumn
 
    VAR oBrw                 // pointer to Browser containing this column, needed to be able to
-                            // retreive field values from Browse instance variable oCurRow
+                            // retrieve field values from Browse instance variable oCurRow
 // VAR Picture              // From CA-Cl*pper 5.3
    VAR nFieldNum            // This column maps field num from query
 
@@ -126,7 +126,7 @@ METHOD Block() CLASS TBColumnSQL
 /* --- */
 
 /* This class is more or less like a TBrowseDB() object in that it receives an oQuery/oTable
-   object and gives back a browseable view of it */
+   object and gives back a browsable view of it */
 CREATE CLASS TBrowseSQL INHERIT TBrowse
 
    VAR oCurRow                       // Active row inside table / sql query
@@ -134,7 +134,7 @@ CREATE CLASS TBrowseSQL INHERIT TBrowse
 
    METHOD New( nTop, nLeft, nBottom, nRight, oServer, oQuery, cTable )
 
-   METHOD EditField()                   // Editing of hilighted field, after editing does an update of
+   METHOD EditField()                   // Editing of highlighted field, after editing does an update of
                                         // corresponding row inside table
 
    METHOD BrowseTable( lCanEdit, aExitKeys ) // Handles standard moving inside table and if lCanEdit == .T.
@@ -206,7 +206,7 @@ STATIC FUNCTION Skipper( nSkip, oQuery )
    CASE nSkip == 0 .OR. oQuery:LastRec() == 0
       oQuery:Skip( 0 )
    CASE nSkip > 0
-      DO WHILE i < nSkip           // Skip Foward
+      DO WHILE i < nSkip           // Skip forward
          IF oQuery:recno() == oQuery:lastrec()
             EXIT
          ENDIF
@@ -241,7 +241,7 @@ METHOD EditField() CLASS TBrowseSQL
    // Editing of a memo field requires a MemoEdit() window
    IF ::oCurRow:FieldType( oCol:nFieldNum ) == "M"
 
-      /* save, clear, and frame window for memoedit */
+      /* save, clear, and frame window for MemoEdit() */
       cMemoBuff := SaveScreen( 10, 10, 22, 69 )
 
       hb_Scroll( 10, 10, 22, 69, 0 )

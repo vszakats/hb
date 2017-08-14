@@ -90,7 +90,7 @@ static MXML_STATUS mxml_node_write( MXML_OUTPUT * out, PHB_ITEM pNode, int style
 static MXML_STATUS mxml_attribute_read( MXML_REFIL * data, PHB_ITEM doc, PHB_ITEM pNode, PHBXML_ATTRIBUTE dest, int style );
 static MXML_STATUS mxml_attribute_write( MXML_OUTPUT * out, PHBXML_ATTRIBUTE attr, int style );
 
-/* Refil routines */
+/* Refill routines */
 /* Currently not used */
 #if 0
 static MXML_REFIL * mxml_refil_new( MXML_REFIL_FUNC func, char * buf, HB_ISIZ buflen, HB_ISIZ bufsize );
@@ -466,10 +466,10 @@ static PHB_ITEM mxml_node_new( PHB_ITEM pDoc )
    return pNode;
 }
 
-/* The unlink function is used to detach a node from the UPPER and PARENT hyerarcy.
+/* The unlink function is used to detach a node from the UPPER and PARENT hierarchy.
  * The node is "removed" so that siblings node are "squished", and possible parents
  * are informed of the changes, so that they are able to get a new child to start
- * the tree structure under them. The childs of the unlinked nodes are NOT unlinked,
+ * the tree structure under them. The children of the unlinked nodes are NOT unlinked,
  * thus remains attached to the node: is like removing a branch with all its leaves.
  */
 static void mxml_node_unlink( PHB_ITEM pNode )
@@ -653,7 +653,7 @@ HB_FUNC( HBXML_NODE_ADD_BELOW )
 }
 
 /* Clones a node, but it does not sets the parent, nor the siblings;
- * this clone is "floating" out of the tree hierarcy.
+ * this clone is "floating" out of the tree hierarchy.
  */
 static PHB_ITEM mxml_node_clone( PHB_ITEM pTg )
 {
@@ -688,7 +688,7 @@ HB_FUNC( HBXML_NODE_CLONE )
 }
 
 /* Clones a node and all its subtree, but it does not sets the parent, nor the siblings;
- * this clone is "floating" out of the tree hierarcy.
+ * this clone is "floating" out of the tree hierarchy.
  */
 static PHB_ITEM mxml_node_clone_tree( PHB_ITEM pTg )
 {
@@ -831,7 +831,7 @@ static void mxml_node_read_data( MXML_REFIL * ref, PHB_ITEM pNode, PHB_ITEM doc,
       return;
    }
 
-   /* trimming unneded spaces */
+   /* trimming unneeded spaces */
    while( iPos > 1 && HB_ISSPACE( ( HB_BYTE ) buf[ iPos - 1 ] ) )
       iPos--;
 
@@ -1423,7 +1423,7 @@ static MXML_STATUS mxml_node_read( MXML_REFIL * ref, PHB_ITEM pNode, PHB_ITEM do
          hbxml_set_doc_status( ref, doc, pNode, MXML_STATUS_MALFORMED, MXML_ERROR_INVNODE );
          return MXML_STATUS_MALFORMED;
       }
-      /* resetting new node foundings */
+      /* resetting new node findings */
       node = NULL;
 
       switch( iStatus )
@@ -1648,7 +1648,7 @@ static MXML_STATUS mxml_node_write( MXML_OUTPUT * out, PHB_ITEM pNode, int style
          mxml_node_write_attributes( out, hb_param( -1, HB_IT_ANY ), style );
 
          hb_objSendMsg( pNode, "CDATA", 0 );
-         /* itemcopy should not be applied to strings, as it rises the
+         /* hb_itemCopy() should not be applied to strings, as it rises the
             holders, and we don't want this */
          hb_itemMove( pItem, hb_param( -1, HB_IT_ANY ) );
          hb_objSendMsg( pNode, "OCHILD", 0 );
@@ -1787,7 +1787,7 @@ static MXML_STATUS mxml_node_write( MXML_OUTPUT * out, PHB_ITEM pNode, int style
 /* HBXML lib - Virtual stream input/output routines */
 
 /* Creates a new output object
- * In this case, the func member is required.
+ * In this case, the function member is required.
  * Node count is optional, but highly wanted for progress indicators.
  */
 #if 0
@@ -1808,7 +1808,7 @@ static MXML_OUTPUT * mxml_output_new( MXML_OUTPUT_FUNC func, int node_count )
 #endif
 
 /* Sets up output parameters.
- * In this case, the func member is required.
+ * In this case, the function member is required.
  * Node count is optional, but highly wanted for progress indicators.
  */
 static MXML_STATUS mxml_output_setup( MXML_OUTPUT * out, MXML_OUTPUT_FUNC func, int node_count )
@@ -1915,11 +1915,11 @@ static void mxml_output_func_to_sgs( MXML_OUTPUT * out, const char * s, HB_ISIZ 
 }
 
 
-/* HBXML lib - Refiller routines */
+/* HBXML lib - Re-filler routines */
 
-/* Creates a new refiller object.
- * If buf is null, then buflen is ignored and set to 0; the first retrival
- * of a character will then lead to refil func calling.
+/* Creates a new re-filler object.
+ * If buf is null, then buflen is ignored and set to 0; the first retrieval
+ * of a character will then lead to refill func calling.
  * If the function is null, once the data has been read the reader returns
  * eof. If both func and buf are NULL, the creation fails, and the function
  * retunrs NULL.
@@ -1941,9 +1941,9 @@ static MXML_REFIL * mxml_refil_new( MXML_REFIL_FUNC func, char * buf, HB_ISIZ bu
 }
 #endif
 
-/* Sets up refiller parameters.
+/* Sets up re-filler parameters.
  * If buf is null, then buflen is ignored and set to 0; the first retrival
- * of a character will then lead to refil func calling. Bufsize is the size
+ * of a character will then lead to refill func calling. Bufsize is the size
  * of the allocated memory, while buflen is the count of currently valid
  * characters in that buffer.
  * If the function is null, once the data has been read the reader returns
@@ -1978,7 +1978,7 @@ static MXML_STATUS mxml_refil_setup( MXML_REFIL * ref, MXML_REFIL_FUNC func,
    ref->streamlen = 0;
    ref->streampos = 0;
 
-   /* theese are for ungetc operations */
+   /* these are for ungetc operations */
    ref->sparechar = MXML_EOF;
 
    /* data is left to fill for the program */

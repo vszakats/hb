@@ -94,7 +94,7 @@ typedef struct _MIXTAG
    HB_ULONG  ulRecMax;
    HB_ULONG  ulRecCount;
 
-   PHB_CODEPAGE pCodepage;      /* National sorttable for character key tags, NULL otherwise */
+   PHB_CODEPAGE pCodepage;      /* National sort table for character key tags, NULL otherwise */
 
    HB_ULONG ulKeyNo;
 } MIXTAG, * PMIXTAG;
@@ -409,7 +409,7 @@ static PMIXTAG mixTagCreate( const char * szTagName, PHB_ITEM pKeyExpr, PHB_ITEM
    pTag->szKeyExpr = ( char * ) hb_xgrab( hb_itemGetCLen( pKeyExpr ) + 1 );
    hb_strncpyTrim( pTag->szKeyExpr, hb_itemGetCPtr( pKeyExpr ), hb_itemGetCLen( pKeyExpr ) );
 
-   /* TODO: for expresion */
+   /* TODO: for expression */
    pTag->szForExpr = NULL;
 
    pTag->pKeyItem = pKeyItem;

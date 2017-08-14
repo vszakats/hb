@@ -58,7 +58,7 @@
 REQUEST DBFCDX
 REQUEST DBFFPT
 
-/* Announce our RDD for forign REQUESTs */
+/* Announce our RDD for foreign REQUESTs */
 ANNOUNCE SMTCDX
 
 FUNCTION SMTCDX_GETFUNCTABLE( pFuncCount, pFuncTable, pSuperTable, nRddID, pSuperRddID )

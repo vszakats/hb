@@ -246,7 +246,7 @@ static void * hb_sqlite3_param( int iParam, int iType, HB_BOOL fError )
 }
 
 /**
-   Callbacs helpers:
+   Callback helpers:
       Compile-Time Authorization Callback
       A Callback To Handle SQLITE_BUSY Errors
       Query Progress Callbacks
@@ -2146,7 +2146,7 @@ HB_FUNC( SQLITE3_MEMORY_HIGHWATER )
 }
 
 /**
-   Test To See If The Library Is Threadsafe
+   Test to see if the library is thread-safe
 
    sqlite3_threadsafe() --> nResult
  */

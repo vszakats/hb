@@ -292,7 +292,7 @@ static HB_ERRCODE fbOpen( SQLBASEAREAP pArea )
       int iType;
 
       /* FIXME: if pVar->sqlname is ended with 0 byte then this hb_strndup()
-       *        and hb_xfree() bewlow is redundant and
+       *        and hb_xfree() below is redundant and
        *          dbFieldInfo.atomName = pVar->sqlname;
        *        is enough.
        */

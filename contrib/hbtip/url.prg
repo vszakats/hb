@@ -110,7 +110,7 @@ METHOD SetAddress( cUrl ) CLASS TUrl
       RETURN .T.
    ENDIF
 
-   // TOPLEVEL url parsing. May fail.
+   // Top-level URL parsing. May fail.
    IF Empty( aMatch := hb_regex( ::cREuri, cUrl ) )
       RETURN .F.
    ENDIF

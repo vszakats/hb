@@ -5,7 +5,7 @@
    LOWBYTE() #translates.
 
       Rev 1.4   31 Dec 1992 21:35:46   GLENN
-   Some typos made it into the most recent version of ftint86,
+   Some typos made it into the most recent version of ftint86(),
    particularly within the HIGHBYTE() macro.  This has been fixed.
 
       Rev 1.3   01 Jul 1992 01:00:52   GLENN

@@ -102,7 +102,7 @@ METHOD PROCEDURE Destroy() CLASS win_BMP  // Compatibility function for Alaska X
 METHOD IsSupported( oPrn, /* @ */ nError ) CLASS win_BMP
    RETURN ( nError := win_bitmapIsSupported( oPrn:hPrinterDc, ::Bitmap ) ) == 0
 
-METHOD Draw( oPrn, aRectangle, /* @ */ nError ) CLASS win_BMP // Pass a win_Prn object reference and rectangle array
+METHOD Draw( oPrn, aRectangle, /* @ */ nError ) CLASS win_BMP // Pass a win_Prn() object reference and rectangle array
 
    IF HB_ISARRAY( aRectangle )
       ::Rect := aRectangle

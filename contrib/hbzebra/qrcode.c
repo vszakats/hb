@@ -47,7 +47,7 @@
 /*
      QR Code is ISO/IEC18004
 
-     JIS-X-0510  QR Code standard in Japaneese language :)
+     JIS-X-0510  QR Code standard in Japanese language :)
        https://osdn.jp/projects/qrcode/docs/qrcode_specification_ja/en/1/qrcode_specification_ja.pdf
 
    https://en.wikipedia.org/wiki/QR_Code
@@ -64,7 +64,7 @@
    http://www.thonky.com/qr-code-tutorial/                 Tutorial
    https://github.com/zxing/zxing                          Java library
    http://goqr.me/                                         Online encode
-   http://www.pclviewer.com/rs2/calculator.html            Reed-solomon ECC calculator
+   http://www.pclviewer.com/rs2/calculator.html            Reed-Solomon ECC calculator
    https://web.archive.org/web/raidenii.net/files/datasheets/misc/qr_code.pdf
 
  */
@@ -468,7 +468,7 @@ static int _qr_fixed( int iVersion, int iRow, int iCol )
    int iLength = _qr_versionlength( iVersion );
    const unsigned char * pi;
 
-   /* position detection markers and versino info */
+   /* position detection markers and version info */
    if( iRow < 9 && iCol < 9 )
       return 1;
    if( iRow < 9 && iCol >= iLength - 8 )
@@ -627,7 +627,7 @@ static int _qr_dataencode( const char * szCode, HB_SIZE nSize, PHB_BITBUFFER pDa
    HB_SIZE n;
 
    /* Select encoding mode */
-   iMode = 1;  /* 1=Numeric, 2=Alphanumeric, 4=8-bit, 8=Kanji. Not modes: 0=termibator, 3=Structured append, 7=ECI, 5=FNC1(1), 9=FNC1(2)*/
+   iMode = 1;  /* 1=Numeric, 2=Alphanumeric, 4=8-bit, 8=Kanji. Not modes: 0=terminator, 3=Structured append, 7=ECI, 5=FNC1(1), 9=FNC1(2)*/
    for( n = 0; n < nSize; n++ )
    {
       char ch = szCode[ n ];
@@ -785,7 +785,7 @@ static unsigned char * _qr_checksum( PHB_BITBUFFER pData, int iVersion, int iLev
          j ^= iPoly;
    }
 
-   /* Init Reed-Solomonn encode. Parameters: iECCLen, iIndex */
+   /* Init Reed-Solomon encode. Parameters: iECCLen, iIndex */
    iECCLen = pLevel->block[ 0 ].uiECC;
    iIndex = 0; /* why this parameter is different from DataMatrix ??? */
 

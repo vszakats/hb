@@ -45,7 +45,7 @@
  */
 
 /*
- * A simple RDD which introduce logging to file. It inheriths from
+ * A simple RDD which introduce logging to file. It inherits from
  * any existent RDD but if you write / replace / delete something
  * on tables it writes changes in a log file.
  */

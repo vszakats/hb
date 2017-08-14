@@ -90,7 +90,7 @@ THREAD STATIC t_cHtmlUnicChars
 THREAD STATIC t_aHtmlAnsiEntities  // HTML character entities (ANSI character set)
 THREAD STATIC t_cHtmlAnsiChars
 #endif
-THREAD STATIC t_lInit := .F.       // initilization flag for HTML data
+THREAD STATIC t_lInit := .F.       // initialization flag for HTML data
 
 #ifdef _DEBUG_
 #xtranslate HIDDEN: => EXPORTED:   // debugger cannot see HIDDEN iVars
@@ -4269,7 +4269,7 @@ FUNCTION ANSIToHtml( cAnsiText )
 FUNCTION OEMToHtml( cOemText )
    RETURN ANSIToHtml( hb_OEMToANSI( cOemText ) )
 
-// This function returs the HTML character entities that are exchangeable between ANSI and OEM character sets
+// This function returns the HTML character entities that are exchangeable between ANSI and OEM character sets
 STATIC PROCEDURE _Init_Html_AnsiCharacterEntities()
 
    t_cHtmlAnsiChars := ;

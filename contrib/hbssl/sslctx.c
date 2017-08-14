@@ -823,7 +823,6 @@ long SSL_CTX_set_tmp_dh_callback( SSL_CTX * ctx, DH * ( *cb )( void ) );
 long SSL_CTX_set_tmp_rsa( SSL_CTX * ctx, RSA * rsa );
 /* SSL_CTX_set_tmp_rsa_callback */
 long SSL_CTX_set_tmp_rsa_callback( SSL_CTX * ctx, RSA * ( *cb )( SSL * ssl, int export, int keylength ) );
-/* Sets the callback which will be called when a temporary private key is required.The export flag will be set if the reason for needing a temp key is that an export ciphersuite is in use, in which case, keylength will contain the required keylength in bits.Generate a key of appropriate size( using ? ? ? ) and return it. */
 long SSL_set_tmp_rsa_callback( SSL * ssl, RSA * ( *cb )( SSL * ssl, int export, int keylength ) );
 The same as SSL_CTX_set_tmp_rsa_callback, except it operates on an SSL session instead of a context.
 void SSL_CTX_set_verify( SSL_CTX * ctx, int mode, int ( *cb ); ( void ) )

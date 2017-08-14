@@ -325,7 +325,7 @@ HB_FUNC( ADSMGGETCONFIGINFO )
 
          case 1:
             hb_reta( 13 );
-            hb_storvnd( stConfigMemory.ulTotalConfigMem        , -1, 1  );  /* Total mem taken by cfg params */
+            hb_storvnd( stConfigMemory.ulTotalConfigMem        , -1, 1  );  /* Total memory taken by config parameters */
             hb_storvnl( stConfigMemory.ulConnectionMem         , -1, 2  );  /* memory taken by connections */
             hb_storvnl( stConfigMemory.ulWorkAreaMem           , -1, 3  );  /* memory taken by work areas */
             hb_storvnl( stConfigMemory.ulTableMem              , -1, 4  );  /* memory taken by tables */
@@ -334,10 +334,10 @@ HB_FUNC( ADSMGGETCONFIGINFO )
             hb_storvnl( stConfigMemory.ulUserBufferMem         , -1, 7  );  /* memory taken by user buffer */
             hb_storvnl( stConfigMemory.ulTPSHeaderElemMem      , -1, 8  );  /* memory taken by TPS hdr elems */
             hb_storvnl( stConfigMemory.ulTPSVisibilityElemMem  , -1, 9  );  /* memory taken by TPS vis elems */
-            hb_storvnl( stConfigMemory.ulTPSMemoTransElemMem   , -1, 10 );  /* mem taken by TPS memo elems */
-            hb_storvnl( stConfigMemory.ulReceiveEcbMem         , -1, 11 );  /* mem taken by rcv ECBs (NLM) */
-            hb_storvnl( stConfigMemory.ulSendEcbMem            , -1, 12 );  /* mem taken by send ECBs (NLM) */
-            hb_storvnl( stConfigMemory.ulWorkerThreadMem       , -1, 13 );  /* mem taken by worker threads */
+            hb_storvnl( stConfigMemory.ulTPSMemoTransElemMem   , -1, 10 );  /* memory taken by TPS memo elems */
+            hb_storvnl( stConfigMemory.ulReceiveEcbMem         , -1, 11 );  /* memory taken by rcv ECBs (NLM) */
+            hb_storvnl( stConfigMemory.ulSendEcbMem            , -1, 12 );  /* memory taken by send ECBs (NLM) */
+            hb_storvnl( stConfigMemory.ulWorkerThreadMem       , -1, 13 );  /* memory taken by worker threads */
             break;
 
          default:
@@ -418,8 +418,8 @@ HB_FUNC( ADSMGGETUSERNAMES )
 /*
  * NOTE: returns an array of 5 elements if successful
  *       [1] Client machine name when server runs on NT/2000
- *           Client Username when server runs on Netware
- *       [2] Netware connection number
+ *           Client Username when server runs on NetWare
+ *       [2] NetWare connection number
  *       [3] Login user name for data dictionary connections (ADS 6.0 and above)
  *       [4] Client machine IP address (ADS 6.0 and above)
  *       [5] lock type ADS_MGMT_NO_LOCK ADS_MGMT_RECORD_LOCK ADS_MGMT_FILE_LOCK
@@ -444,10 +444,10 @@ HB_FUNC( ADSMGGETLOCKOWNER )
       hb_storvnl( ( UNSIGNED16 ) pstUserInfo->usConnNumber, -1, 2 ); /* NetWare conn # (NLM only) */
 #if ADS_LIB_VERSION >= 600
       hb_storvc( ( char * ) pstUserInfo->aucAuthUserName, -1, 3 );   /* logon name with Data Dictionary */
-      hb_storvc( ( char * ) pstUserInfo->aucAddress, -1, 4 );        /* IP adddress */
+      hb_storvc( ( char * ) pstUserInfo->aucAddress, -1, 4 );        /* IP address */
 #else
       hb_storvc( NULL, -1, 3 );                                      /* logon name with Data Dictionary */
-      hb_storvc( NULL, -1, 4 );                                      /* IP adddress */
+      hb_storvc( NULL, -1, 4 );                                      /* IP address */
 #endif
       hb_storvnl( pusLockType, -1, 5 );                              /* type of lock */
    }
@@ -462,7 +462,7 @@ HB_FUNC( ADSMGGETLOCKOWNER )
 #endif
 }
 
-/* NOTE: For a newer edition of this function, which also returns locktype
+/* NOTE: For a newer edition of this function, which also returns lock type
          info, see AdsMgGetOpenTables2(). */
 HB_FUNC( ADSMGGETOPENTABLES ) /* nMaxNumberOfFilesToReturn, cUserName, nConnection */
 {
@@ -472,7 +472,7 @@ HB_FUNC( ADSMGGETOPENTABLES ) /* nMaxNumberOfFilesToReturn, cUserName, nConnecti
 
    if( AdsMgGetOpenTables( s_hMgmtHandle,
                            ( UNSIGNED8 * ) ( hb_parclen( 2 ) > 0 ? HB_UNCONST( hb_parc( 2 ) ) : NULL ) /* pucUserName */,
-                           ( UNSIGNED16 ) hb_parni( 3 ) /* usConnNumber */, /* = HB_ADS_PARCONNECTION( 3 ) only valid for netware so don't default to current, only take a passed value */
+                           ( UNSIGNED16 ) hb_parni( 3 ) /* usConnNumber */, /* = HB_ADS_PARCONNECTION( 3 ) only valid for NetWare so don't default to current, only take a passed value */
                            astOpenTableInfo,
                            &usArrayLen,
                            &usStructSize ) == AE_SUCCESS )
@@ -504,7 +504,7 @@ HB_FUNC( ADSMGGETOPENTABLES2 ) /* nMaxNumberOfFilesToReturn, cUserName, nConnect
 
    if( AdsMgGetOpenTables( s_hMgmtHandle,
                            ( UNSIGNED8 * ) ( hb_parclen( 2 ) > 0 ? HB_UNCONST( hb_parc( 2 ) ) : NULL ) /* pucUserName */,
-                           ( UNSIGNED16 ) hb_parni( 3 ) /* usConnNumber */, /* = HB_ADS_PARCONNECTION( 3 ) only valid for netware so don't default to current, only take a passed value */
+                           ( UNSIGNED16 ) hb_parni( 3 ) /* usConnNumber */, /* = HB_ADS_PARCONNECTION( 3 ) only valid for NetWare so don't default to current, only take a passed value */
                            astOpenTableInfo,
                            &usArrayLen,
                            &usStructSize ) == AE_SUCCESS )
@@ -543,7 +543,7 @@ HB_FUNC( ADSMGGETOPENINDEXES ) /* nMaxNumberOfFilesToReturn, cTableName, cUserNa
    if( AdsMgGetOpenIndexes( s_hMgmtHandle,
                             ( UNSIGNED8 * ) ( hb_parclen( 2 ) > 0 ? HB_UNCONST( hb_parc( 2 ) ) : NULL ) /* pucTableName */, /* fully qualified path to that table */
                             ( UNSIGNED8 * ) ( hb_parclen( 3 ) > 0 ? HB_UNCONST( hb_parc( 3 ) ) : NULL ) /* pucUserName */,
-                            ( UNSIGNED16 ) hb_parni( 4 ) /* usConnNumber */, /* = HB_ADS_PARCONNECTION( 4 ) only valid for netware so don't default to current, only take a passed value */
+                            ( UNSIGNED16 ) hb_parni( 4 ) /* usConnNumber */, /* = HB_ADS_PARCONNECTION( 4 ) only valid for NetWare so don't default to current, only take a passed value */
                             astOpenIndexInfo,
                             &usArrayLen,
                             &usStructSize ) == AE_SUCCESS )
@@ -576,7 +576,7 @@ HB_FUNC( ADSMGGETLOCKS )
    if( AdsMgGetLocks( s_hMgmtHandle,
                       ( UNSIGNED8 * ) ( hb_parclen( 2 ) > 0 ? HB_UNCONST( hb_parc( 2 ) ) : NULL ) /* pucTableName */, /* fully qualified path to that table */
                       ( UNSIGNED8 * ) ( hb_parclen( 3 ) > 0 ? HB_UNCONST( hb_parc( 3 ) ) : NULL ) /* pucUserName */,
-                      ( UNSIGNED16 ) hb_parni( 4 ) /* usConnNumber */, /* = HB_ADS_PARCONNECTION( 4 ) only valid for netware so don't default to current, only take a passed value */
+                      ( UNSIGNED16 ) hb_parni( 4 ) /* usConnNumber */, /* = HB_ADS_PARCONNECTION( 4 ) only valid for NetWare so don't default to current, only take a passed value */
                       astRecordInfo,
                       &usArrayLen,
                       &usStructSize ) == AE_SUCCESS )

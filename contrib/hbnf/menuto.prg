@@ -74,7 +74,7 @@ PROCEDURE ft_Prompt( nRow, nCol, cPrompt, cColor, ;
       __defaultNIL( @cMsgColor, cColor )
    ENDIF
 
-   // If trigger values not specifed, set the defaults
+   // If trigger values not specified, set the defaults
    __defaultNIL( @nTrigger, 1 )
    __defaultNIL( @cTriggerColor, cColor )
 

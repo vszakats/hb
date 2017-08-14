@@ -2200,7 +2200,7 @@ HB_FUNC( ADSDDGETUSERPROPERTY )
 
              If the optional last 3 parameters are supplied, then it queries the
              requested user property and returns it in the buffer. This is useful
-             fo example to get the groups of which the user is a member
+             for example to get the groups of which the user is a member
  */
 HB_FUNC( ADSTESTLOGIN )
 {

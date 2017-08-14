@@ -471,11 +471,11 @@ METHOD getcookies( cHost, cPath ) CLASS TIPClientHTTP
 
 /* nType: 0=as found as the separator in the stdin stream
           1=as found as the last one in the stdin stream
-          2=as found in the CGI enviroment
+          2=as found in the CGI environment
    Examples:
    0: -----------------------------41184676334     // in the body or stdin stream
    1: -----------------------------41184676334--   // last one of the stdin stream
-   2: ---------------------------41184676334       // in the header or CGI envirnment
+   2: ---------------------------41184676334       // in the header or CGI environment
  */
 METHOD Boundary( nType ) CLASS TIPClientHTTP
 

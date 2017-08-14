@@ -100,7 +100,7 @@ static HB_BOOL hb_ExportVar( PHB_FILE handle, PHB_ITEM pValue, const char * cDel
 
          hb_fileWrite( handle, szString, strlen( szString ), -1 );
 
-         /* Orphaned, get rif off it */
+         /* Orphaned, get rid of it */
          hb_xfree( szStrEsc );
          hb_xfree( szString );
          break;

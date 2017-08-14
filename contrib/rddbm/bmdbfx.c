@@ -60,7 +60,7 @@
 #include "rddsys.ch"
 
 
-/* now this function is RDD independent and can work with any RDD suporting
+/* now this function is RDD independent and can work with any RDD supporting
  * DBOI_SKIPWILD and DBOI_SKIPWILDBACK
  */
 HB_FUNC( BM_DBSEEKWILD )

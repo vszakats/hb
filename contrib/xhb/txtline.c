@@ -118,7 +118,7 @@ static void hb_readLine( const char * szText, HB_SIZE nTextLen, HB_SIZE nLineLen
       }
       else if( szText[ nPos ] == HB_CHAR_SOFT1 && szText[ nPos + 1 ] == HB_CHAR_SOFT2 )
       {
-         /* Clipper does NOT considers SOFT CR as a word seperator - WHY?
+         /* Clipper does NOT consider SOFT CR as a word separator - WHY?
             Should we not fix that? */
          #if 0
          nLastBlk = nPos;

@@ -1,5 +1,5 @@
 /*
- * xhb compatibility functions
+ * xHarbour compatibility functions
  *
  * Copyright 2012 Przemyslaw Czerpak <druzus / at / priv.onet.pl> (optimization and fixes)
  * Copyright 2012 Viktor Szakats (vszakats.net/harbour) (rework, xhb__Run())

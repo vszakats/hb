@@ -300,7 +300,7 @@ METHOD TableStruct( cTable ) CLASS TPQserver
             /* Postgres doesn't store ".", but .dbf does, it can cause data width problem */
             nSize := Val( nSize ) + iif( nDec > 0, 1, 0 )
 
-            /* Numeric/Decimal without scale/precision can genarete big values, so, i limit this to 10,5 */
+            /* Numeric/Decimal without scale/precision can generate big values, so, I limit this to 10,5 */
 
             IF nDec > 100
                nDec := 5
@@ -602,7 +602,7 @@ METHOD Refresh( lQuery, lMeta ) CLASS TPQquery
                   /* Postgres don't store ".", but .dbf does, it can cause data width problem */
                   IF nDec > 0
                      nSize++
-                     /* Numeric/Decimal without scale/precision can genarete big values, so, i limit this to 10,5 */
+                     /* Numeric/Decimal without scale/precision can generate big values, so, I limit this to 10,5 */
                      IF nDec > 100
                         nDec := 5
                      ENDIF
@@ -667,7 +667,7 @@ METHOD Refresh( lQuery, lMeta ) CLASS TPQquery
                   nSize := 19
 
                OTHERWISE
-                  /* Unsuported */
+                  /* Unsupported */
                   cType := "K"
                ENDCASE
 

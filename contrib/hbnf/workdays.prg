@@ -33,9 +33,9 @@ FUNCTION ft_Workdays( dStart, dStop )
          ENDCASE
 
          DO CASE
-         CASE ( nDays := DoW( dStop ) ) == 1  // Sunday (change to prev Friday)
+         CASE ( nDays := DoW( dStop ) ) == 1  // Sunday (change to previous Friday)
             dStop -= 2
-         CASE nDays == 7  // Saturday (change to prev Friday)
+         CASE nDays == 7  // Saturday (change to previous Friday)
             dStop--
          ENDCASE
 

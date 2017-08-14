@@ -254,7 +254,7 @@ PHB_ZEBRA hb_zebra_create_code128( const char * szCode, HB_SIZE nLen, int iFlags
 
    /* encode source data */
    /* Warning: digit optimizer works in optimal way with this encoder code. Be careful
-      if you'll change encoder code, digit optimizer canm require adjustment also [Mindaugas] */
+      if you'll change encoder code, digit optimizer can require adjustment also [Mindaugas] */
    for( i = 0; i < iLen; i++ )
    {
       int iCode = _code128_charno( szCode[ i ], iCodeSet );

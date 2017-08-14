@@ -2,7 +2,7 @@
    in the public domain.
 
       Rev 2.0   12 Aug 1994 23:05:14   PAUL
-   Added ablilty to highlight individual characters and cleaned up code
+   Added ability to highlight individual characters and cleaned up code
 
       Rev 1.2   15 Aug 1991 23:05:14   GLENN
    Forest Belt proofread/edited/cleaned up doc

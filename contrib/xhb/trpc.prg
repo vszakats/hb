@@ -116,7 +116,7 @@
          send confirmation at end
      "Function name" + { Param1, ... Param N }
      +Array containing the elements
-     Note: the parameter called $1 is substitued with the foreach
+     Note: the parameter called $1 is substituted with the foreach
 
    25 - Foreach function call / Compressed
      <LEN8> - Original data length
@@ -126,19 +126,19 @@
      * follows compressed data containing:
      "Function name" + { Param1, ... Param N }
      +Array containing the elements
-     Note: the parameter called $1 is substitued with the foreach
+     Note: the parameter called $1 is substituted with the foreach
 
    29 - Cancelation request
 
    TCP REPLIES:
 
    30 - Function result
-      + <LEN8> - raw data len
+      + <LEN8> - raw data length
       + Serialized result
 
    31 - Compressed result
      + <LEN8> - Original data length
-     + <LEN8> -compressed data len
+     + <LEN8> - Compressed data length
      + Compressed data containing serialized result
 
    33 - Progress
@@ -146,7 +146,7 @@
 
    34 - Progress with raw data
      + Serialized progress number (0 to 100 float) (10 chars)
-     + <LEN8> - raw data len
+     + <LEN8> - raw data length
      + Uncompressed progress data
 
    35 - Progress with compressed data
@@ -372,7 +372,7 @@ CREATE CLASS TRPCServeCon
    METHOD Stop()
    METHOD Run()
 
-   /* Utilty */
+   /* Utility */
    METHOD SendProgress( nProgress, oData )
    METHOD IsCanceled()        INLINE ::lCanceled
 
@@ -382,7 +382,7 @@ CREATE CLASS TRPCServeCon
    VAR nStatus               INIT RPCS_STATUS_NONE
    /* Is this connection encrypted? */
    VAR bEncrypted
-   /* crc for challenge handshake */
+   /* CRC for challenge handshake */
    VAR nChallengeCRC
    /* Temporary supposed user in challenge */
    VAR cChallengeUserid
@@ -490,7 +490,7 @@ METHOD Run() CLASS TRPCServeCon
             "XHBR10" + hb_Serialize( ::oServer:cServerName ) )
          EXIT
 
-      CASE "XHBR90"  /* Read autorization request */
+      CASE "XHBR90"  /* Read authorization request */
          IF nSafeStatus == RPCS_STATUS_NONE
             lBreak := ! ::RecvAuth( .F. )
             IF ! lBreak
@@ -501,7 +501,7 @@ METHOD Run() CLASS TRPCServeCon
          ENDIF
          EXIT
 
-      CASE "XHBR93"  /* Read encrypted autorization request */
+      CASE "XHBR93"  /* Read encrypted authorization request */
          IF nSafeStatus == RPCS_STATUS_NONE
             lBreak := ! ::RecvAuth( .T. )
             IF ! lBreak
@@ -512,7 +512,7 @@ METHOD Run() CLASS TRPCServeCon
          ENDIF
          EXIT
 
-      CASE "XHBR95"  /* Challeng reply */
+      CASE "XHBR95"  /* Challenge reply */
          IF nSafeStatus == RPCS_STATUS_CHALLENGE
             lBreak := ! ::RecvChallenge()
             IF ! lBreak
@@ -645,7 +645,7 @@ METHOD Run() CLASS TRPCServeCon
          lBreak := .T.
       ENDSWITCH
 
-      /* Analisys of the nSafeStatus code */
+      /* Analysis of the nSafeStatus code */
       DO CASE
       CASE nSafeStatus == RPCS_STATUS_BUSY
          hb_inetSendAll( ::skRemote, "XHBR4011" )
@@ -655,7 +655,7 @@ METHOD Run() CLASS TRPCServeCon
 
          /* Update real status only if not in error case */
       OTHERWISE
-            /* The running status is set (in this thread) indipendently
+            /* The running status is set (in this thread) independently
                by the function launcher, if everything is fine */
          hb_mutexLock( ::mtxBusy )
          IF ::nStatus != RPCS_STATUS_RUNNING
@@ -898,7 +898,7 @@ METHOD LaunchFunction( cFuncName, aParams, nMode, aDesc ) CLASS TRPCServeCon
 
    LOCAL oFunc
 
-   // Check for function existance
+   // Check for function existence
    oFunc := ::oServer:Find( cFuncName )
    IF Empty( oFunc )
       // signal error

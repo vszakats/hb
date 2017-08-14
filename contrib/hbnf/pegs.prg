@@ -2,9 +2,9 @@
    public domain.
 
       Rev 1.3   28 Sep 1991 03:09:44   GLENN
-   Allowed "No peg at that location" messagee to exceed the boundary of the
+   Allowed "No peg at that location" message to exceed the boundary of the
    box at the bottom of the matrix.  Just shortened the message to "No
-   piece there, per Greg's instructions.
+   piece there", per Greg's instructions.
 
       Rev 1.2   15 Aug 1991 23:04:18   GLENN
    Forest Belt proofread/edited/cleaned up doc

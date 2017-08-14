@@ -42,7 +42,7 @@ PROCEDURE Main( cFileName )
          ? "(Value token)"
          EXIT
 
-      /* Block delimeters */
+      /* Block delimiters */
       CASE YAML_BLOCK_SEQUENCE_START_TOKEN
          ? "<b>Start Block (Sequence)</b>"
          EXIT

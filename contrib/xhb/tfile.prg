@@ -338,7 +338,7 @@ METHOD PrevLine( nBytes ) CLASS TCgiFile
 
       cEOL := Chr( 13 ) + Chr( 10 )  /* FIXME: EOL detection to be multi-platform */
 
-      // Check preceeding chars for EOL
+      // Check preceding chars for EOL
       hb_vfSeek( hFile, -hb_BLen( cEOL ), FS_RELATIVE )
       IF hb_vfReadLen( hFile, hb_BLen( cEOL ) ) == cEOL
          hb_vfSeek( hFile, -hb_BLen( cEOL ), FS_RELATIVE )

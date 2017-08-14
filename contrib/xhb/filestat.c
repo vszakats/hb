@@ -1,7 +1,7 @@
 /*
  * FileStats() function
  *
- * Copyright 2004 Giancarlo Niccolai <gc -at- niccolai [dot] ws>
+ * Copyright 2004 Giancarlo Niccolai <gc@niccolai.ws>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -71,8 +71,8 @@
    #if defined( __USE_LARGEFILE64 )
       /*
        * The macro: __USE_LARGEFILE64 is set when _LARGEFILE64_SOURCE is
-       * defined and effectively enables lseek64/flock64/ftruncate64 functions
-       * on 32-bit machines.
+       * defined and effectively enables lseek64()/flock64()/ftruncate64()
+       * functions on 32-bit machines.
        */
       #define HB_USE_LARGEFILE64
    #elif defined( HB_OS_UNIX ) && defined( O_LARGEFILE )
@@ -215,7 +215,7 @@ HB_FUNC( FILESTATS )
 
          hb_fsAttrDecode( hb_fsAttrFromRaw( dwAttribs ), szAttr );
 
-         /* If file existed, do a findfirst */
+         /* If file existed, do a find-first */
          hFind = FindFirstFile( lpFileName, &ffind );
          if( hFind != INVALID_HANDLE_VALUE )
          {
@@ -255,7 +255,7 @@ HB_FUNC( FILESTATS )
 
 #else
 
-   /* Generic algorithm based on findfirst */
+   /* Generic algorithm based on find-first */
    {
       PHB_FFIND findinfo = hb_fsFindFirst( hb_parc( 1 ), HB_FA_ALL );
 

@@ -2,7 +2,9 @@
  * TIP Class oriented Internet protocol library
  *
  * Copyright 2003 Giancarlo Niccolai <gian@niccolai.ws>
- * Copyright 2007 Hannes Ziegler <hz AT knowlexbase.com> (setHeader(), attachFile(), detachFile(), getFileName(), isMultiPart(), getMultiParts())
+ * Copyright 2007 Hannes Ziegler <hz AT knowlexbase.com>
+ *   (setHeader(), attachFile(), detachFile(), getFileName(), isMultiPart(),
+ *   getMultiParts())
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -305,7 +307,7 @@ METHOD ToString() CLASS TIPMail
       IF Empty( ::aAttachments )
          cRet += ::cBody + iif( ::lBodyEncoded, "", e"\r\n" )
       ELSE
-         // if there are attachements, the body of the message has to be treated as an attachment. [GD]
+         // if there are attachments, the body of the message has to be treated as an attachment. [GD]
          cRet += ;
             "--" + cBoundary + e"\r\n" + ;
             "Content-Disposition: inline" + e"\r\n" + ;
@@ -445,9 +447,9 @@ METHOD FromString( cMail, cBoundary, nPos ) CLASS TIPMail
       ELSE
          // nPos := nLinePos + 2
          /* 2004-05-04 - <maurilio.longo@libero.it>
-            Instead of testing every single line of mail until we find next boundary, if there is a boundary we
-            jump to it immediatly, this saves thousands of EOL test and makes splitting of a string fast
-          */
+            Instead of testing every single line of mail until we find next
+            boundary, if there is a boundary we jump to it immediately, this
+            saves thousands of EOL test and makes splitting of a string fast */
          nPos := ;
             iif( Empty( cSubBoundary ), ;
             iif( Empty( cBoundary ), ;

@@ -20,7 +20,7 @@
  * Copyright 1999 David G. Holm <dholm@jsd-llc.com>
  *    hb_gt_wvw_Tone()
  *
- * (C) 2003-2004 Giancarlo Niccolai <gc at niccolai dot ws>
+ * (C) 2003-2004 Giancarlo Niccolai <gc@niccolai.ws>
  *         Standard xplatform GT Info system,
  *         Graphical object system and event system.
  *         hb_gtInfo() And GTO_* implementation.

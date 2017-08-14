@@ -46,10 +46,10 @@
 
 /*
  * Teditor Fix: v3.0beta 2004-04-17
- * Copyright 2004 Giancarlo Niccolai <antispam /at/ niccolai /dot/ ws>
+ * Copyright 2004 Giancarlo Niccolai <antispam /at/ niccolai.ws>
  *
- * Minimal revision for proper working (expecially with word wrapping).
- * Fixed many funtions
+ * Minimal revision for proper working (especially with word wrapping).
+ * Fixed many functions
  * Added GotoCol() and GotoPos() to goto a logical column or position;
  * they translate this movement in a adequate ::SetPos call.
  */
@@ -108,9 +108,9 @@ CREATE CLASS XHBEditor
    VAR nPhysCol       INIT 0      // application/object and this one could be moving real cursor. If I'm running full
    // screen nPhysRow will always have the same value as Row() and nPhysCol as Col()
 
-   VAR nTextRow       INIT 0      // Display position of the cursor whitin the text buffer
+   VAR nTextRow       INIT 0      // Display position of the cursor within the text buffer
    VAR nTextCol       INIT 0      // idem.
-   VAR nWndRow        INIT 0      // Initial position of cursor whitin text window
+   VAR nWndRow        INIT 0      // Initial position of cursor within text window
    VAR nWndCol        INIT 0      // idem.
 
    VAR nNumCols       INIT 1      // How many columns / rows can be displayed inside editor window
@@ -321,7 +321,7 @@ METHOD New( cString, nTop, nLeft, nBottom, nRight, lEditMode, nLineLength, nTabS
    ::nFirstRow := Max( 1, ::nTextRow - ::nWndRow )
    ::nFirstCol := Max( 1, ::nTextCol - ::nWndCol )
 
-   // If memofield was created with Cl*pper, it needs to have __SoftCR() stripped
+   // If memo field was created with Cl*pper, it needs to have __SoftCR() stripped
 
 #if 0
    // 2006-07-20 - E.F. - We should not replace SoftCR with " " (space)
@@ -334,9 +334,9 @@ METHOD New( cString, nTop, nLeft, nBottom, nRight, lEditMode, nLineLength, nTabS
 #endif
 
    // Load text to internal array.
-   // TODO: if at ME_INIT mode (when udf is called), the ::lWordWrap is toggled
-   //       to .F. (default is .T.), the <cString> should not be splitted, but
-   //       in the Text2Array() function the <cString> will be splitted in
+   // TODO: if at ME_INIT mode (when UDF is called), the ::lWordWrap is toggled
+   //       to .F. (default is .T.), the <cString> should not be split, but
+   //       in the Text2Array() function the <cString> will be split in
    //       accordance with nLineLength.
    ::aText := Text2Array( cString, nLineLength )
 
@@ -400,7 +400,7 @@ METHOD Resize( nTop, nLeft, nBottom, nRight ) CLASS XHBEditor
 
 // Screen Output
 
-// Redraws a screenfull of text
+// Redraws a screenful of text
 METHOD RefreshWindow() CLASS XHBEditor
 
    LOCAL i
@@ -545,7 +545,7 @@ METHOD MoveCursor( nKey ) CLASS XHBEditor
    // Modified to handle cursor movements inside text array without crashing!
    // Modified to allow line wrapping, and to track cursor to line ends.
    SWITCH hb_keyStd( nKey )
-   // TODO: for optimization, change this with relativie GOTOCOL, GOTOPOS and GOTOROW
+   // TODO: for optimization, change this relative to GOTOCOL, GOTOPOS and GOTOROW
    CASE K_DOWN
       ::ClrTextSelection()
       ::Down()
@@ -1087,7 +1087,7 @@ METHOD WordRight() CLASS XHBEditor
    DispBegin()  // to minimize flicker.
 
    // 2006-07-21 - E.F. Changed to verify empty character instead space.
-   //                   In any circunstancies wordright stop at space.
+   //                   In any circumstances wordright stop at space.
    //                   Added verification in not wordwrap mode if reach
    //                   rightmost position.
 
@@ -1177,7 +1177,7 @@ METHOD Left() CLASS XHBEditor
 METHOD WordLeft() CLASS XHBEditor
 
    // splitline() does not use this function
-   // modifed to wrap lines and position at first letter of word, not word end
+   // modified to wrap lines and position at first letter of word, not word end
 
    IF ! ::lWordWrap .AND. ::IsEmptyLine( ::nRow ) .OR. ::LastRow() == 0
       RETURN Self
@@ -1197,8 +1197,8 @@ METHOD WordLeft() CLASS XHBEditor
       ENDDO
    ENDIF
 
-   // 2006-07-21 - E.F. - Changed to verifiy empty char instead space. In any
-   //                     circunstancies wordleft stop at space.
+   // 2006-07-21 - E.F. - Changed to verify empty char instead space. In any
+   //                     circumstances wordleft stop at space.
    DO WHILE ::nCol > 1 .AND. ! Empty( ::GetCol( ::nRow, ::nCol ) )
       ::Left()
    ENDDO
@@ -1286,7 +1286,7 @@ METHOD K_Ascii( nKey ) CLASS XHBEditor
    ::nMarkPos := 0
 
    // If I'm past EOL I need to add as much spaces as I need to reach ::nCol
-   // Always remeber the cursor position is always 1 ahead of buffer
+   // Always remember the cursor position is always 1 ahead of buffer
    // So adding 1 below [Pritpal Bedi]
    IF ::nCol > ::LineLen( ::nRow ) + 1        // At end of line, add room
       ::aText[ ::nRow ]:cText += Space( ::nCol - ::LineLen( ::nRow ) )
@@ -1319,7 +1319,7 @@ METHOD K_Bs() CLASS XHBEditor
    IF ::lEditAllow
       // xHarbour extension: If backspace reach first column, move cursor to up
       //                     and go to last column. Allow to continue backspace in
-      //                     previous line. Cl*pper memoedit backspace act only at
+      //                     previous line. Cl*pper MemoEdit() backspace act only at
       //                     same line.
       IF ::nCol == 1
 
@@ -1344,7 +1344,7 @@ METHOD K_Bs() CLASS XHBEditor
 
                ::RemoveLine( ::nRow + 1 )
 
-               // resplit the line.
+               // re-split the line.
                IF ::LineLen( ::nRow ) > ::nWordWrapCol
                   // will also refresh
                   ::SplitLine( ::nRow )
@@ -1365,8 +1365,8 @@ METHOD K_Bs() CLASS XHBEditor
          ENDIF
 
          // 2006-07-19 - E.F. When backspace reach column 1 and the line is
-         //                   empty and exist next line, we need set linelen to
-         //                   zero and set lSoftCR to true as Cl*pper does.
+         //                   empty and exist next line, we need set line length
+         //                   to zero and set lSoftCR to true as Cl*pper does.
          IF ::nCol == 1 .AND. Empty( ::aText[ ::nRow ]:cText ) .AND. ;
             ::nRow + 1 <= ::LastRow()
 
@@ -1414,7 +1414,7 @@ METHOD K_Del() CLASS XHBEditor
          ::aText[ ::nRow ]:cText := Stuff( ::aText[ ::nRow ]:cText, ::nCol, 1, "" )
          ::lChanged := .T.
 
-         // in case of softcr, reparse the paragraph.
+         // in case of softcr, re-parse the paragraph.
          IF ::aText[ ::nRow ]:lSoftCR
             IF ! Right( ::aText[ ::nRow ]:cText, 1 ) == " "
                ::aText[ ::nRow ]:cText += " "
@@ -1471,7 +1471,7 @@ METHOD K_Tab() CLASS XHBEditor
          ENDIF
          ::lChanged := .T.
 
-         ::lRightScroll := .F.         // prevent auto linewrap
+         ::lRightScroll := .F.         // prevent auto-linewrap
          FOR i := 1 to ::nTabWidth
             IF ::nCol < ::nWordWrapCol - ::nTabWidth - ::nTabWidth
                ::Right()
@@ -1949,14 +1949,14 @@ METHOD SplitLine( nRow ) CLASS XHBEditor
          cSplittedLine := Left( cLine, nFirstSpace )
       ELSE
          // Changed -- now splits line at the nWordWrapCol when no space! The cursor position is not reliable!
-         // This avoids error if the line has NO SPACES! Without this modif. code enters infinite loop on wrap
-         // Note that cursor postioning when wrapping lines that have NO space is funky due to MovetoNextLine() problems
+         // This avoids error if the line has NO SPACES! Without this modification, code enters infinite loop on wrap
+         // Note that cursor positioning when wrapping lines that have NO space is funky due to MovetoNextLine() problems
 #if 0
          // Old method was: else split at current cursor position
          cSplittedLine := Left( cLine, ::nCol - 1 )
 #endif
 
-         // 2006-07-19 - E.F. - Changed cut point at witdh of line to maintain.
+         // 2006-07-19 - E.F. - Changed cut point at width of line to maintain.
          //                     amount of chars same as Cl*pper.
 #if 0
          cSplittedLine := Left( cLine, ::nWordWrapCol )
@@ -1982,7 +1982,7 @@ METHOD SplitLine( nRow ) CLASS XHBEditor
    // insert EVEN an empty row (it will be added at bottom)
    // I have to recheck if trim is viable here ???
 
-   // 2006-07-21 - E.F. Only insert a line in any circunstancies.
+   // 2006-07-21 - E.F. Only insert a line in any circumstances.
    IF nStartRow + 1 <= ::LastRow()
       IF ::LineLen( nStartRow + 1 ) == 0 .OR. ! AllTrim( cLine ) == ""
          ::InsertLine( RTrim( cLine ), .F., nStartRow )

@@ -14,7 +14,7 @@
  *    Adopted to new GT API
  * Copyright 1999 David G. Holm <dholm@jsd-llc.com>
  *    hb_gt_Tone()
- * Copyright 2003-2004 Giancarlo Niccolai <gc at niccolai dot ws>
+ * Copyright 2003-2004 Giancarlo Niccolai <gc@niccolai.ws>
  *         Standard xplatform GT Info system,
  *         Graphical object system and event system.
  *         GTINFO() And GTO_* implementation.

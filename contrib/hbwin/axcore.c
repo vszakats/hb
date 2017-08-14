@@ -592,7 +592,7 @@ static void hb_sink_destruct( void * cargo )
       DWORD dwCookie = pSink->dwCookie;
 
       /* Unadvise() may activate pSink destructor so clear these
-       * items as protection against recursive Unadvise call.
+       * items as protection against recursive Unadvise() call.
        */
       pSink->pConnectionPoint = NULL;
       pSink->dwCookie = 0;

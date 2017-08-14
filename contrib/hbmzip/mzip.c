@@ -95,8 +95,8 @@
    #if defined( __USE_LARGEFILE64 )
       /*
        * The macro: __USE_LARGEFILE64 is set when _LARGEFILE64_SOURCE is
-       * defined and effectively enables lseek64/flock64/ftruncate64 functions
-       * on 32-bit machines.
+       * defined and effectively enables lseek64()/flock64()/ftruncate64()
+       * functions on 32-bit machines.
        */
       #define HB_USE_LARGEFILE64
    #elif defined( HB_OS_UNIX ) && defined( O_LARGEFILE )
@@ -983,7 +983,7 @@ static int hb_zipStoreFile( zipFile hZip, int iParamFileName, int iParamZipName,
 
    zfi.external_fa = ulExtAttr;
    /* TODO: zip.exe test: 0 for binary file, 1 for text. Does not depend on
-      extension. We should analyse content of file to determine this??? */
+      extension. We should analyze content of file to determine this??? */
    zfi.internal_fa = 0;
 
    if( ulExtAttr & 0x40000000 )
@@ -1130,7 +1130,7 @@ static int hb_zipStoreFileHandle( zipFile hZip, PHB_FILE pFile, int iParamZipNam
       zfi.internal_fa = fText ? 1 : 0;
    else
       /* TODO: zip.exe test: 0 for binary file, 1 for text. Does not depend on
-         extension. We should analyse content of file to determine this??? */
+         extension. We should analyze content of file to determine this??? */
       zfi.internal_fa = 0;
 
    iResult = zipOpenNewFileInZip4( hZip, szZipName, &zfi, NULL, 0, NULL, 0, szComment,

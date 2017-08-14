@@ -1,5 +1,6 @@
 /*
- * Reimplementation of xhb .zip functions. EXPERIMENTAL CODE. USE AT YOUR OWN RISK. NO GUARANTEES.
+ * Reimplementation of xHarbour .zip functions.
+ * EXPERIMENTAL CODE. USE AT YOUR OWN RISK. NO GUARANTEES.
  *
  * Copyright 2010 Viktor Szakats (vszakats.net/harbour)
  *

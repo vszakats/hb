@@ -1,7 +1,7 @@
 /*
  * The Service/Daemon support (Includes also signal/low-level error management)
  *
- * Copyright 2003 Giancarlo Niccolai [gian@niccolai.ws]
+ * Copyright 2003 Giancarlo Niccolai <gian@niccolai.ws>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -64,12 +64,12 @@
 #define HB_SERVICE_QUIT      3
 
 
-/* Index in the OS dependant signal array that is passed to the
+/* Index in the OS dependent signal array that is passed to the
    signal handler as a parameter
    1: low-level signal
    2: low-level subsignal
    3: low-level system error
-   4: address that rised the signal
+   4: address that rose the signal
    5: process id of the signal riser
    6: UID of the riser
  */

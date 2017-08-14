@@ -48,7 +48,7 @@
  *
  */
 
-/* NXS aglorithm is FREE SOFTWARE. It can be reused for any
+/* NXS algorithm is FREE SOFTWARE. It can be reused for any
  * purpose, provided that this copyright notice is still present
  * in the software.
  *

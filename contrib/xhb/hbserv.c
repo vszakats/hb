@@ -1,7 +1,7 @@
 /*
  * The Service/Daemon support (includes also signal/low-level error management)
  *
- * Copyright 2003 Giancarlo Niccolai [gian@niccolai.ws]
+ * Copyright 2003 Giancarlo Niccolai <gian@niccolai.ws>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -226,7 +226,7 @@ static void s_signalHandler( int sig, siginfo_t * info, void * v )
                hb_vmRequestQuit();
                /* Allow signals to go through pthreads */
                s_serviceSetDflSig();
-               /* NOTICE: should be pthread_exit(0), but a bug in linuxthread prevents it:
+               /* NOTICE: should be pthread_exit(0), but a bug in Linux threading prevents it:
                   calling pthread exit from a signal handler will cause infinite wait for
                   restart signal.
                   This solution is rude, while the other would allow clean VM termination...
@@ -442,7 +442,7 @@ static LONG s_signalHandler( int type, int sig, PEXCEPTION_RECORD exc )
           * 1: low-level signal
           * 2: low-level subsignal
           * 3: low-level system error
-          * 4: address that rised the signal
+          * 4: address that rose the signal
           * 5: process id of the signal riser
           * 6: UID of the riser
           */
@@ -561,7 +561,7 @@ BOOL WINAPI s_ConsoleHandlerRoutine( DWORD dwCtrlType )
 /**
  * Filter/handlers setup/shutdown
  * This utility functions are meant to abstract the process of declare and
- * remove the signal handlers, and do it in a mutltiplatform fashon. Use this
+ * remove the signal handlers, and do it in a mutlti-platform fashion. Use this
  * to implement new platform signal/exception handlers.
  */
 
@@ -884,7 +884,7 @@ HB_FUNC( HB_POPSIGNALHANDLER )
          if( hb_arrayLen( s_pHooks ) == 0 )
          {
             hb_itemRelease( s_pHooks );
-            s_pHooks = NULL;              /* So it can be reinitilized */
+            s_pHooks = NULL;              /* So it can be reinitialized */
          }
       }
       else
@@ -898,7 +898,7 @@ HB_FUNC( HB_POPSIGNALHANDLER )
 
 /**
  * Return a character description of the low-level signal that has been
- * issued to signal handling routines. This is system dependant.
+ * issued to signal handling routines. This is system dependent.
  * TODO: Make it international through the xHarbour standard message system.
  */
 HB_FUNC( HB_SIGNALDESC )

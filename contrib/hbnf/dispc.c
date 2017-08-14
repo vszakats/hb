@@ -112,7 +112,7 @@ static void chattr( PFT_DISPC dispc, int x, int y, int len, int attr )
    It returns the offset into the file of the first byte of the buffer. */
 static HB_FOFFSET getblock( PFT_DISPC dispc, HB_FOFFSET offset )
 {
-   /* set the file pointer to the proper offset and if an error occured
+   /* set the file pointer to the proper offset and if an error occurred
       then check to see if a positive offset was requested, if so then
       set the pointer to the offset from the end of the file, otherwise
       set it from the beginning of the file. */

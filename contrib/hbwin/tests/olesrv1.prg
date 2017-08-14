@@ -39,11 +39,11 @@ PROCEDURE DllMain()
     * contains values which are neither codeblock nor symbol items
     * so they are not used as method but rather as instance variables
     * because such instance variables are shared between OLE objects.
-    * Setting 4-th parameter <lHashClone> to .T. causes that each
-    * objects receives it's own copy of <hAction> item so instance
+    * Setting 4th parameter <lHashClone> to .T. causes that each
+    * objects receives its own copy of <hAction> item so instance
     * variables inside hash array are also local to OLE object.
     * Alternatively programmer can use <bAction> or <sAction> to create
-    * seprate copy of hash array for each object, i.e.:
+    * separate copy of hash array for each object, i.e.:
     *    bAction := {|| hb_HClone( hValue ) }
     * When hash array contains symbol item (@funcName()) then when it's
     * executed by OLE object message it's possible to access the hash
@@ -80,12 +80,12 @@ PROCEDURE DllMain()
     * array or Harbour object which is used as base for newly created
     * OLE object.
     *
-    * If the 3-rd parameter is <oAction>, <bAction> or <sAction> then
-    * it's possible to also set 4-th parameter <lAcceptAll> to .T. and
+    * If the 3rd parameter is <oAction>, <bAction> or <sAction> then
+    * it's possible to also set 4th parameter <lAcceptAll> to .T. and
     * in such case <xAction> parameter is used in different way. Newly
     * created OLE object accepts any massage names invoking for each
     * of them Eval() message which is sent to <xAction> with OLE message
-    * name inserted as the 1-st item to OLE object parameters.
+    * name inserted as the 1st item to OLE object parameters.
     * It allows to create OLE server which will accept unknown messages
     * redirecting them to some other code, i.e.:
     *    if netio_Connect( cServer,,, cPasswd )
@@ -94,7 +94,7 @@ PROCEDURE DllMain()
     * initialize OLE server which redirects all messages to default netio
     * connection established by netio_Connect().
     *
-    * If 3-rd parameter is not given then all HVM functions becomes
+    * If 3rd parameter is not given then all HVM functions becomes
     * OLE methods and HVM memvars (public and private variables) are
     * OLE object instance variables so they are shared with all OLE
     * objects created by this interface. It works just like xHarbour.com

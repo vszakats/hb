@@ -37,7 +37,7 @@ FUNCTION ft_At2( cSearch, cTarget, nOccurs, lCaseSens )
       // Resize cSubstr
       cSubstr := SubStr( cSubstr, At( cSearch, cSubstr ) + 1 )
 
-      // Breakout if there are no occurences here
+      // Breakout if there are no occurrences here
       IF nPos == 0
          EXIT
       ENDIF
@@ -69,7 +69,7 @@ FUNCTION ft_RAt2( cSearch, cTarget, nOccurs, lCaseSens )
       // Resize cSubstr
       cSubstr := Left( cSubstr, RAt( cSearch, cSubstr ) - 1 )
 
-      // Breakout if there are no occurences here
+      // Breakout if there are no occurrences here
       IF nPos == 0
          EXIT
       ENDIF

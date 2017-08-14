@@ -1,8 +1,8 @@
 /*
- * xhb compatibility functions HSetPartition()/HGetPartition()
+ * xHarbour compatibility functions HSetPartition()/HGetPartition()
  *
  * Copyright 2010 Viktor Szakats (vszakats.net/harbour)
- * Copyright 2003 Giancarlo Niccolai
+ * Copyright 2003 Giancarlo Niccolai <gc@niccolai.ws>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,7 +48,7 @@
 #include "hbapiitm.h"
 #include "hbapierr.h"
 
-/* Dummy compatibility functions mimicing RTE behavior only.
+/* Dummy compatibility functions mimicking RTE behavior only.
    The rest is not needed in Harbour */
 
 HB_FUNC( HSETPARTITION )

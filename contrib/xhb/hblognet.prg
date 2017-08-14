@@ -1,7 +1,7 @@
 /*
  * Versatile logging system - Logger sending log message to email
  *
- * Copyright 2003 Giancarlo Niccolai [gian@niccolai.ws]
+ * Copyright 2003 Giancarlo Niccolai <gian@niccolai.ws>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -99,7 +99,7 @@ METHOD New( nLevel, cHelo, cServer, cSendTo, cSubject, cFrom ) CLASS HB_LogEmail
 
    RETURN SELF
 
-/* Inet init must be called here */
+/* hb_inetInit() must be called here */
 METHOD Open( cName ) CLASS HB_LogEmail
 
    HB_SYMBOL_UNUSED( cName )
@@ -107,7 +107,7 @@ METHOD Open( cName ) CLASS HB_LogEmail
 
    RETURN .T.
 
-/* InetCleanup to be called here */
+/* hb_inetCleanup() to be called here */
 METHOD Close( cName ) CLASS HB_LogEmail
 
    HB_SYMBOL_UNUSED( cName )

@@ -1,5 +1,5 @@
 /*
- * Harbour NETIO server management cmdline tool
+ * Harbour NETIO server management command-line tool
  *
  * Copyright 2009-2011 Viktor Szakats (vszakats.net/harbour)
  *

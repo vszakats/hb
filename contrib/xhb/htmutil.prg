@@ -1,5 +1,5 @@
 /*
- * Misc Suport Functions for HTMLLIB
+ * Misc Support Functions for HTMLLIB
  *
  * Copyright 2000 Manos Aspradakis <maspr@otenet.gr>
  * Copyright 2000 Luiz Rafael Culik <culik@sl.conex.net> (Porting this library to Harbour)

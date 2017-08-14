@@ -441,8 +441,8 @@ FUNCTION tp_waitfor( ... )  /* nPort, nTimeout, acList|cString..., lIgnorecase *
 
    RETURN 0
 
-/* We cannot set, well, _I_ think we cannot, CTS without setting RTS flowcontrol, so this
-   function and tp_ctrlrts() do the same thing, that is set/reset CRTSCTS flowcontol */
+/* We cannot set, well, _I_ think we cannot, CTS without setting RTS flow control, so this
+   function and tp_ctrlrts() do the same thing, that is set/reset CRTSCTS flow contol */
 FUNCTION tp_ctrlcts( nPort, nNewCtrl )
 
    LOCAL nCurValue
@@ -662,10 +662,10 @@ FUNCTION tp_outchrs()
 FUNCTION tp_keybd()
    RETURN 0
 
-// / tp_debug is not a real TP function.  I included it so you can define your own debug
+// / tp_debug() is not a real TP function.  I included it so you can define your own debug
 // / output function.
 // / the point of the first parameter is a "debug level".  I keep a system variable for how
-// / much debuggning output is wanted and if the tp_debug parameter is a LOWER number than
+// / much debugging output is wanted and if the tp_debug() parameter is a LOWER number than
 // / the global debug level I print the message.  Since I don't have your system globals,
 // / I will ignore the first parameter and always print it.
 // / I recommend you modify this function to suit your own debugging needs

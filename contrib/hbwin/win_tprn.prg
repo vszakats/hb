@@ -78,7 +78,7 @@ CREATE CLASS win_Prn
    METHOD StartPage()
    METHOD EndPage( lStartNewPage )  // If lStartNewPage == .T. then StartPage() is called for the next page of output
    METHOD NewLine()
-   METHOD NewPage( lDelay )         // If lDelay == .T. then new page is not created immediately but just before 1-st output
+   METHOD NewPage( lDelay )         // If lDelay == .T. then new page is not created immediately but just before 1st output
    METHOD CheckPage()
    METHOD GetDocumentProperties()
    METHOD SetFont( cFontName, nPointSize, xWidth, nBold, lUnderline, lItalic, nCharSet, lManualSize )
@@ -249,7 +249,7 @@ METHOD Create() CLASS win_Prn
          IF HB_ISNUMERIC( ::BkMode )
             wapi_SetBkMode( ::hPrinterDc, ::BkMode )
          ENDIF
-         // Set mapping mode to pixels, topleft down
+         // Set mapping mode to pixels, top-left down
          wapi_SetMapMode( ::hPrinterDC, WIN_MM_TEXT )
 #if 0
          win_SetTextCharacterExtra( ::hPrinterDC, 0 )  // do not add extra char spacing even if bold
@@ -275,7 +275,7 @@ METHOD Create() CLASS win_Prn
          ::SetDefaultFont()
          ::PageNumber := 0
          ::HavePrinted := ::Printing := ::PageInit := .F.
-         ::fOldFormType     := ::FormType  // Last formtype used
+         ::fOldFormType     := ::FormType  // Last form type used
          ::fOldLandScape    := ::LandScape
          ::fOldBinNumber    := ::BinNumber
          ::fNewDuplexType   := ::fDuplexType
@@ -464,7 +464,7 @@ METHOD GetDocumentProperties() CLASS win_Prn
       @::Collate )
 
 // If font width is specified it is in "characters per inch" to emulate DotMatrix
-// An array { nMul, nDiv } is used to get precise size such a the Dot Matric equivalent
+// An array { nMul, nDiv } is used to get precise size such a the Dot Matrix equivalent
 // of Compressed print == 16.67 char per inch == { 3,-50 }
 // If nDiv is < 0 then Fixed width printing is forced via ExtTextOut()
 METHOD SetFont( cFontName, nPointSize, xWidth, nBold, lUnderline, lItalic, nCharSet, lManualSize ) CLASS win_Prn

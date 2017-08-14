@@ -44,7 +44,7 @@ FUNCTION ft_Easter( nYear )
          // <nSunday> Find Sunday
          nSunday := Int( ( 5 * nYear ) / 4 - nCorx - 10 )
 
-         // Set Epact <nEpact> (specifies occurance of a full moon)
+         // Set Epact <nEpact> (specifies occurrence of a full moon)
          nEpact := Int( ( 11 * nGold + 20 + nCorz - nCorx ) % 30 )
 
          IF nEpact < 0

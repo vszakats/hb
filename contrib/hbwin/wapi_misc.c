@@ -188,7 +188,7 @@ HKEY hbwapi_get_HKEY( HB_PTRUINT nKey )
    {
       case 1:
          return ( HKEY ) HKEY_CLASSES_ROOT;
-      /* NOTE: In xhb, zero value means HKEY_LOCAL_MACHINE. */
+      /* NOTE: In xHarbour, zero value means HKEY_LOCAL_MACHINE. */
       case 0:
       case 2:
          return ( HKEY ) HKEY_CURRENT_USER;

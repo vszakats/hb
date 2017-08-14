@@ -99,7 +99,7 @@ HB_FUNC( HB_VMMODE )
 #if   defined( HB_NO_PROFILER ) && defined( HB_NO_TRACE ) && ! defined( HB_GUI )
    hb_retni( 2 ); /* optimized for console applications */
 #elif defined( HB_NO_PROFILER ) && defined( HB_NO_TRACE ) && defined( HB_GUI )
-   hb_retni( 1 ); /* optimized for gui applications */
+   hb_retni( 1 ); /* optimized for GUI applications */
 #else
    hb_retni( 0 ); /* no optimization */
 #endif
@@ -214,7 +214,8 @@ HB_FUNC( CURDIRX )
    else
       iDrv = iCurDrv;
 
-   /* NOTE: hb_fsCurDirBuffEx() in xhb, but I couldn't decipher the difference. [vszakats] */
+   /* NOTE: hb_fsCurDirBuffEx() in xHarbour, but I couldn't decipher the
+            difference. [vszakats] */
    hb_fsCurDirBuff( iDrv, pbyBuffer, HB_PATH_MAX );
 
    hb_retc_buffer( pbyBuffer );

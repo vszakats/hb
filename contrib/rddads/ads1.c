@@ -462,7 +462,7 @@ static void adsGetKeyItem( ADSAREAP pArea, PHB_ITEM pItem, int iKeyType,
    {
       /*
          TODO: ADS_RAW only partially supported.  Presumed string.
-               ADT files can use ";" concatentation operator, which returns index key types as Raw
+               ADT files can use ";" concatenation operator, which returns index key types as Raw
        */
       case ADS_RAW:
          /* hack for timestamp values, we need something better to detect timestamp indexes */
@@ -591,7 +591,7 @@ static HB_ERRCODE adsScopeSet( ADSAREAP pArea, ADSHANDLE hOrder, HB_USHORT nScop
          /* make sure passed item has same type as index */
          switch( u16KeyType )
          {
-            case ADS_RAW:               /* adt files need the ";" concatenation operator (instead of "+") to be optimized */
+            case ADS_RAW:               /* ADT files need the ";" concatenation operator (instead of "+") to be optimized */
                /* ADS timestamp values */
                if( HB_IS_DATETIME( pItem ) )
                {
@@ -948,7 +948,7 @@ static HB_ERRCODE adsGoTo( ADSAREAP pArea, HB_ULONG ulRecNo )
    {
       /* set our record number value */
       SELF_RECCOUNT( &pArea->area, &ulRecCount );
-      /* eliminate posible race condition in this operation */
+      /* eliminate possible race condition in this operation */
       if( ulRecNo != 0 && ulRecNo <= ulRecCount )
          pArea->ulRecNo = ulRecNo;
       else
@@ -1155,7 +1155,7 @@ static HB_ERRCODE adsSeek( ADSAREAP pArea, HB_BOOL bSoftSeek, PHB_ITEM pKey, HB_
       If a filter is set that is not valid for ADS, we need to skip
       off of any invalid records (IOW, filter at the Harbour level if ADS cannot
       because the filter has UDFs or PUBLICVAR references).
-      To make sure the skipped-to record still matches the seeked key, we need to
+      To make sure the skipped-to record still matches the seek-ed key, we need to
       be able to construct a comparable key for the subsequent record.
       This is annoyingly complex with the various ads key types for various table types.
       AdsExtractKey would seem to be the api of choice, but here on the starting end the
@@ -2029,7 +2029,7 @@ static HB_ERRCODE adsDeleted( ADSAREAP pArea, HB_BOOL * pDeleted )
 
    if( ! pArea->fPositioned )
    {
-      /* AdsIsRecordDeleted has error AE_NO_CURRENT_RECORD at eof; avoid server call */
+      /* AdsIsRecordDeleted() has error AE_NO_CURRENT_RECORD at EOF; avoid server call */
       *pDeleted = HB_FALSE;
    }
    else
@@ -2747,7 +2747,7 @@ static HB_ERRCODE adsPutValue( ADSAREAP pArea, HB_USHORT uiIndex, PHB_ITEM pItem
          {
             bTypeError = HB_FALSE;
             u32RetVal = AdsSetLongLong( pArea->hTable, ADSFIELD( uiIndex ), hb_itemGetNInt( pItem ) );
-            /* write to autoincrement field will gen error 5066 */
+            /* write to auto-increment field will generate error 5066 */
          }
          break;
 #endif
@@ -2759,7 +2759,7 @@ static HB_ERRCODE adsPutValue( ADSAREAP pArea, HB_USHORT uiIndex, PHB_ITEM pItem
          {
             bTypeError = HB_FALSE;
             u32RetVal = AdsSetDouble( pArea->hTable, ADSFIELD( uiIndex ), hb_itemGetND( pItem ) );
-            /* write to autoincrement field will gen error 5066
+            /* write to auto-increment field will generate error 5066
                #if HB_TR_LEVEL >= HB_TR_DEBUG
                   if( pField->uiTypeExtended == ADS_AUTOINC )
                      HB_TRACE( HB_TR_INFO, ( "adsPutValue() error" ) );
@@ -2787,7 +2787,7 @@ static HB_ERRCODE adsPutValue( ADSAREAP pArea, HB_USHORT uiIndex, PHB_ITEM pItem
          {
             long lDate = hb_itemGetDL( pItem );
 
-            /* ADS does not support dates before 0001-01-01. It generates corructed
+            /* ADS does not support dates before 0001-01-01. It generates corrupted
                DBF records and fires ADS error 5095 on FieldGet() later. [Mindaugas] */
             if( pField->uiLen != 4 && lDate < 1721426 )  /* 1721426 ~= 0001-01-01 */
                lDate = 0;
@@ -2819,7 +2819,7 @@ static HB_ERRCODE adsPutValue( ADSAREAP pArea, HB_USHORT uiIndex, PHB_ITEM pItem
                Advantage documentations says that we need use AdsSetBinary in binary/image
                fields. I tested these special fields with AdsSetString() and it works, but
                is a little bit slower to save big image file in the fields, so I keep
-               AdsSetString() only for commom memo fields and AdsSetBinary() for the others.
+               AdsSetString() only for common memo fields and AdsSetBinary() for the others.
              */
             if( pField->uiTypeExtended == ADS_BINARY || pField->uiTypeExtended == ADS_IMAGE )
             {
@@ -3437,7 +3437,7 @@ static HB_ERRCODE adsInfo( ADSAREAP pArea, HB_USHORT uiIndex, PHB_ITEM pItem )
       case DBI_MEMOBLOCKSIZE:     /* Blocksize in memo files */
          break;
 
-      /* use workarea.c implmentation */
+      /* use workarea.c implementation */
       default:
          return SUPER_INFO( &pArea->area, uiIndex, pItem );
    }
@@ -3516,7 +3516,7 @@ static HB_ERRCODE adsOpen( ADSAREAP pArea, LPDBOPENINFO pOpenInfo )
    if( pArea->hTable != 0 )
    {
       /*
-       * table was open by ADSEXECUTESQL[DIRECT]() function
+       * table was open by AdsExecuteSQL[Direct]() function
        * I do not like the way it was implemented but I also
        * do not have time to change it so I simply restored this
        * functionality, Druzus.
@@ -4157,7 +4157,7 @@ static HB_ERRCODE adsOrderListFocus( ADSAREAP pArea, LPDBORDERINFO pOrderInfo )
 
       if( u32RetVal != AE_SUCCESS )
       {
-         /* ntx compatibilty: keep current order if failed */
+         /* NTX compatibility: keep current order if failed */
          if( pArea->iFileType == ADS_NTX )
             return HB_SUCCESS;
 
@@ -5175,7 +5175,7 @@ static HB_ERRCODE adsDrop( LPRDDNODE pRDD, PHB_ITEM pItemTable, PHB_ITEM pItemIn
    hb_fsFNameMerge( szFileName, pFileName );
    hb_xfree( pFileName );
 
-   /* Use hb_spFile first to locate table which can be in differ path */
+   /* Use hb_spFile() first to locate table which can be in differ path */
    if( hb_spFile( szFileName, szFileName ) )
    {
       fResult = hb_fsDelete( szFileName );

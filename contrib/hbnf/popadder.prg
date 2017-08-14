@@ -69,7 +69,7 @@
 #define nTapeSpace aAdder[ 22 ]
 #define cTapeScr   aAdder[ 23 ]
 
-// I still use a few of STATICs, but most are set to NIL when quiting
+// I still use a few of STATICs, but most are set to NIL when quitting
 THREAD STATIC t_lAdderOpen := .F.
 THREAD STATIC t_aKeys
 THREAD STATIC t_aWindow
@@ -388,7 +388,7 @@ STATIC PROCEDURE _ftAddTotal( aAdder )
          _ftSetWinColor( W_CURR, W_PROMPT )
          _ftUpdateTrans( aAdder, .T. )
          _ftDispTotal( aAdder )
-         lSubRtn   := .F.         // pressed the total key reset everyting
+         lSubRtn   := .F.         // pressed the total key reset everything
          nSavTotal := nTotal
          nTotal    := 0
          lTotalOk  := .T.
@@ -563,7 +563,7 @@ STATIC PROCEDURE _ftClearAdder( aAdder )
    _ftEraseTotSubTot( aAdder )
    lDecSet   := .F.
    nDecDigit := 0
-   IF lClAdder         // If it has alredy been pressed once
+   IF lClAdder         // If it has already been pressed once
       nTotal    := 0   // then we are clearing the total
       nSavTotal := 0
       _ftUpdateTrans( aAdder, .F. )
@@ -1040,7 +1040,7 @@ STATIC PROCEDURE _ftWinTitle( cTheTitle, cTopOrBot )
 
    RETURN
 
-// Initilize the colors for the Adder
+// Initialize the colors for the Adder
 STATIC PROCEDURE _ftInitColors()
 
    t_aWinColor := { ;

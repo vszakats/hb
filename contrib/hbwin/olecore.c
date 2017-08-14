@@ -73,7 +73,7 @@
    #define HB_OLE_NO_SAFEARRAYGETVARTYPE
 #endif
 
-/* base date value in OLE (1899-12-30) as julian day */
+/* base date value in OLE (1899-12-30) as Julian day */
 #define HB_OLE_DATE_BASE  0x0024D9AB
 
 static PHB_DYNS s_pDyns_hb_oleauto;
@@ -1206,7 +1206,7 @@ void hb_oleDispatchToItem( PHB_ITEM pItem, IDispatch * pdispVal, HB_USHORT uiCla
          hb_vmRequestRestore();
 
          /* We should store object to pItem after hb_vmRequestRestore(),
-          * because pItem actualy can be stack's return item!
+          * because pItem actually can be stack's return item!
           */
          hb_itemMove( pItem, pObject );
          hb_itemRelease( pObject );
@@ -1334,7 +1334,7 @@ void hb_oleVariantToItemEx( PHB_ITEM pItem, VARIANT * pVariant, HB_USHORT uiClas
          break;
 
       case VT_UI8:
-         /* TODO: sign is lost. Convertion to double will lose significant digits. */
+         /* TODO: sign is lost. Conversion to double will lose significant digits. */
 #if HB_VMLONG_MAX == INT32_MAX || defined( HB_LONG_LONG_OFF )
          hb_itemPutNInt( pItem, ( HB_MAXINT ) V_UI4( pVariant ) );
 #elif defined( HB_OLE_NO_LL )
@@ -1346,7 +1346,7 @@ void hb_oleVariantToItemEx( PHB_ITEM pItem, VARIANT * pVariant, HB_USHORT uiClas
          break;
 
       case VT_UI8 | VT_BYREF:
-         /* TODO: sign is lost. Convertion to double will lose significant digits. */
+         /* TODO: sign is lost. Conversion to double will lose significant digits. */
 #if HB_VMLONG_MAX == INT32_MAX || defined( HB_LONG_LONG_OFF )
          hb_itemPutNInt( pItem, ( HB_MAXINT ) *V_UI4REF( pVariant ) );
 #elif defined( HB_OLE_NO_LLREF )

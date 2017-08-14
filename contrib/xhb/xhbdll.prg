@@ -1,5 +1,5 @@
 /*
- * xhb CallDll() emulation
+ * xHarbour CallDll() emulation
  *
  * Copyright 2014 Viktor Szakats (vszakats.net/harbour)
  *

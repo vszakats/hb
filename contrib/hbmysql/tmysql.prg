@@ -153,7 +153,7 @@ METHOD FieldLen( nNum ) CLASS TMySQLRow
    RETURN iif( nNum >= 1 .AND. nNum <= Len( ::aFieldStruct ), ::aFieldStruct[ nNum ][ MYSQL_FS_LENGTH ], 0 )
 
 /* lFormat: when .T. method returns number of formatted decimal places from mysql table otherwise _SET_DECIMALS.
-   lFormat is usefull for copying table structure from mysql to dbf
+   lFormat is useful for copying table structure from mysql to dbf
  */
 METHOD FieldDec( nNum, lFormat ) CLASS TMySQLRow
 
@@ -531,7 +531,7 @@ METHOD FieldLen( nNum ) CLASS TMySQLQuery
    RETURN 0
 
 /* lFormat: when .T. method returns number of formatted decimal places from mysql table otherwise _SET_DECIMALS.
-   lFormat is usefull for copying table structure from mysql to dbf */
+   lFormat is useful for copying table structure from mysql to dbf */
 METHOD FieldDec( nNum, lFormat ) CLASS TMySQLQuery
 
    IF nNum >= 1 .AND. nNum <= Len( ::aFieldStruct )
@@ -728,7 +728,7 @@ METHOD Update( oRow, lOldRecord, lRefresh ) CLASS TMySQLTable
 
          IF mysql_query( ::nSocket, cUpdateQuery ) == 0
 
-            // All values are commited
+            // All values are committed
             AFill( oRow:aDirty, .F. )
             AFill( oRow:aOldValue, NIL )
 
@@ -909,7 +909,7 @@ METHOD Append( oRow, lRefresh ) CLASS TMySQLTable
          IF mysql_query( ::nSocket, cInsertQuery ) == 0
             ::lError := .F.
 
-            // All values are commited
+            // All values are committed
             AFill( oRow:aDirty, .F. )
             AFill( oRow:aOldValue, NIL )
 

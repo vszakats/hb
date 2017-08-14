@@ -56,7 +56,7 @@ CREATE CLASS TRPCClient
    VAR nUdpPort
    VAR nTcpPort
 
-   VAR lAsyncMode       // asyncrhonous mode
+   VAR lAsyncMode       // asynchronous mode
    VAR bOnScanComplete  // block to be called at scan completion
 
    /* block called when there is a progress in the scan */
@@ -110,13 +110,13 @@ CREATE CLASS TRPCClient
    METHOD UdpHasError()             INLINE iif( Empty( ::skUDP ), .F., hb_inetErrorCode( ::skUDP ) > 0 )
    METHOD UdpGetErrorCode()         INLINE iif( Empty( ::skUDP ), 0, hb_inetErrorCode( ::skUDP ) )
    METHOD UdpGetErrorDesc()         INLINE iif( Empty( ::skUDP ), "", hb_inetErrorDesc( ::skUDP ) )
-   /* Used to retreive data from scans */
+   /* Used to retrieve data from scans */
    METHOD GetFunctionName( xId )
    METHOD GetServerName( xId )
    METHOD GetServerAddress( xId )
 
    HIDDEN:
-   /* Automatic initialization of inet support */
+   /* Automatic initialization of hb_inet*() support */
    CLASS VAR lInit INIT hb_inetInit()
 
    VAR mtxBusy INIT hb_mutexCreate()
@@ -337,7 +337,7 @@ METHOD UDPAccept() CLASS TRPCClient
 
       IF ::nTimeout >= 0
          nTime := Int( Seconds() * 1000 )
-         /* A little tollerance must be added for double roundings
+         /* A little tolerance must be added for double rounding
             in the double Int() functions */
          IF nTime - ::nUDPTimeBegin >= ::nTimeout - 5
             EXIT
@@ -556,7 +556,7 @@ METHOD ClearTCPBuffer() CLASS TRPCClient
    ENDIF
 
    DO WHILE hb_inetDataReady( ::skTCP ) > 0
-      // hb_inetRecv reads only the available data
+      // hb_inetRecv() reads only the available data
       hb_inetRecv( ::skTCP, @cDummy )
    ENDDO
 
@@ -799,7 +799,7 @@ METHOD TCPAccept() CLASS TRPCClient
 
       IF nTimeLimit >= 0
          nTime := Int( Seconds() * 1000 )
-         // a little tollerance must be added for double roundings
+         // a little tolerance must be added for double rounding
          // in the double Int() functions
          IF nTime - ::nTCPTimeBegin >= nTimeLimit - 5
             EXIT

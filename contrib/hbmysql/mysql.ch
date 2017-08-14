@@ -55,7 +55,7 @@
 #define CLIENT_CONNECT_WITH_DB         hb_bitShift( 1, 3 )   /* One can specify db on connect */
 #define CLIENT_NO_SCHEMA               hb_bitShift( 1, 4 )   /* Don't allow database.table.column */
 #define CLIENT_COMPRESS                hb_bitShift( 1, 5 )   /* Can use compression protocol */
-#define CLIENT_ODBC                    hb_bitShift( 1, 6 )   /* Odbc client */
+#define CLIENT_ODBC                    hb_bitShift( 1, 6 )   /* ODBC client */
 #define CLIENT_LOCAL_FILES             hb_bitShift( 1, 7 )   /* Can use LOAD DATA LOCAL */
 #define CLIENT_IGNORE_SPACE            hb_bitShift( 1, 8 )   /* Ignore spaces before '(' */
 #define CLIENT_PROTOCOL_41             hb_bitShift( 1, 9 )   /* New 4.1 protocol */
@@ -123,7 +123,7 @@
 #define BINARY_FLAG             hb_bitShift( 1, 7 )
 /* The following are only sent to new clients */
 #define ENUM_FLAG               hb_bitShift( 1, 8 )   /* field is an enum */
-#define AUTO_INCREMENT_FLAG     hb_bitShift( 1, 9 )   /* field is a autoincrement field */
+#define AUTO_INCREMENT_FLAG     hb_bitShift( 1, 9 )   /* field is a auto-increment field */
 #define TIMESTAMP_FLAG          hb_bitShift( 1, 10 )  /* Field is a timestamp */
 #define PART_KEY_FLAG           hb_bitShift( 1, 14 )  /* Intern; Part of some key */
 #define GROUP_FLAG              hb_bitShift( 1, 15 )  /* Intern group field */

@@ -195,7 +195,7 @@
    #xtranslate hb_HSetAutoAdd( [<x,...>] )     => HSetAutoAdd( <x> )
    #endif
 
-   /* Inet functions */
+   /* hb_inet*() functions */
    #xtranslate hb_inetInit( [<x,...>] )                => inetInit( <x> )
    #xtranslate hb_inetCleanup( [<x,...>] )             => inetCleanup( <x> )
    #xtranslate hb_inetCreate( [<x,...>] )              => inetCreate( <x> )
@@ -515,7 +515,7 @@
                                                    hb_HKeepOrder( h ) ;;
                                                    RETURN .T. ; }:eval( <x> )
 
-   /* Inet functions */
+   /* inet*() functions */
    #xtranslate inetInit( [<x,...>] )                => hb_inetInit( <x> )
    #xtranslate inetCleanup( [<x,...>] )             => hb_inetCleanup( <x> )
    #xtranslate inetCreate( [<x,...>] )              => hb_inetCreate( <x> )

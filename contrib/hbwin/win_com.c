@@ -367,7 +367,7 @@ HB_FUNC( WIN_COMQUEUESTATUS )
          hb_storl( ComStat.fXoffHold, 5 );
          hb_storl( ComStat.fXoffSent, 6 );
          hb_stornint( ComStat.cbInQue, 7 );
-         hb_stornint( ComStat.cbOutQue, 8 ); /* This value will be zero for a nonoverlapped write */
+         hb_stornint( ComStat.cbOutQue, 8 ); /* This value will be zero for a non-overlapped write */
 
          hb_retl( HB_TRUE );
       }
@@ -638,7 +638,7 @@ static int hb_win_ComSetTimeouts( HANDLE hCommPort, LPCOMMTIMEOUTS Timeouts, DWO
    else
       NewTimeouts.WriteTotalTimeoutMultiplier = Timeouts->WriteTotalTimeoutMultiplier;
 
-   /* 50 ms is a thumbsuck - seems long enough and not too long! */
+   /* 50 ms is a thumb-suck - seems long enough and not too long! */
    NewTimeouts.WriteTotalTimeoutConstant = Timeouts->WriteTotalTimeoutConstant == ( DWORD ) -1 ? 50 : Timeouts->WriteTotalTimeoutConstant;
 
    /* A value of zero for both the WriteTotalTimeoutMultiplier and WriteTotalTimeoutConstant members

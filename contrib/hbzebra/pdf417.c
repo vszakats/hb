@@ -1015,7 +1015,7 @@ static int _pdf417_encode_text( const char * szCode, int iLen, int * pCW, int iP
 
 static int _pdf417_encode_numeric( const char * szCode, int iLen, int * pCW, int iPos )
 {
-   /* Some very long integer (147-bit) arithmetics shoud be implemented to encode
+   /* Some very long integer (147-bit) arithmetics should be implemented to encode
       digits in an effective way. I use more simple way and encode digits in groups
       not longer that 18 digits. 64-bit integer arithmetics do this job */
 
@@ -1073,8 +1073,8 @@ static int _pdf417_encode( const char * szCode, int iLen, int * pCW )
          if( _pdf417_isdigit( szCode[ i ] ) )
          {
             /*
-               Digit in textmode uses 0.5 CW, in numeric mode 0.3409 CW.
-               To save 2 CW + average remainig space in text mode we must
+               Digit in text mode uses 0.5 CW, in numeric mode 0.3409 CW.
+               To save 2 CW + average remaining space in text mode we must
                have 2.5 / (0.5-0.3409) = 15.71 digits
              */
             for( j = i + 1; j < iLen && _pdf417_isdigit( szCode[ j ] ); j++ )
@@ -1309,7 +1309,7 @@ PHB_ZEBRA hb_zebra_create_pdf417( const char * szCode, HB_SIZE nLen, int iFlags,
       for( ;; )
       {
          iColCount = ( iDataCount + _pdf417_ec_size( iLevel ) + iRowCount - 1 ) / iRowCount;
-         /* w:h aspect ration is less than 2:1 for defaul 3x module height */
+         /* w:h aspect ration is less than 2:1 for default 3x module height */
          HB_TRACE( HB_TR_DEBUG, ( "iDataCount=%d iRowCount=%d iColCount=%d", iDataCount, iRowCount, iColCount ) );
          if( ( _pdf417_width( iColCount, iFlags ) < iRowCount * 3 * 2 || iColCount == 1 ) &&
              iColCount <= MAX_COL_COUNT &&

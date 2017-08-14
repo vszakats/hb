@@ -51,7 +51,7 @@
  * *Directory() function results so they can be easy used
  * directly in other code, f.e. to create archive without
  * absolute paths. Please note that user can easy convert
- * relative paths to absolte ones by simple adding CurDir()
+ * relative paths to absolute ones by simple adding CurDir()
  * and/or cPath parameter passed to DirectoryRecurse() but
  * reverted conversion may not be possible in some cases.
  * The 3-rd xHarbour parameter <lCaseMach> is ignored because

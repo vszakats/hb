@@ -1599,7 +1599,7 @@ HB_FUNC( NETIO_SERVER )
             case NETIO_SYNC:
                continue;
 
-            default: /* unkown message */
+            default: /* unrecognized message */
                errCode = NETIO_ERR_UNKNOWN_COMMAND;
                break;
          }

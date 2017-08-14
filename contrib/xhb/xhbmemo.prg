@@ -105,7 +105,7 @@ METHOD MemoInit( xUDF ) CLASS xhb_TMemoEditor
    //       extended keycode support
 
    /* CTRL_V in not same as K_INS when extended keycodes are available, this works as paste selected text to clipboard. */
-   /* CTRL_V is same as K_INS when extended keycodes are not available, so it has special treatment in memoedit. */
+   /* CTRL_V is same as K_INS when extended keycodes are not available, so it has special treatment in MemoEdit(). */
    ::aConfigurableKeys := { ;
       K_CTRL_N, ;
       K_CTRL_Y, ;
@@ -177,7 +177,7 @@ METHOD Edit() CLASS xhb_TMemoEditor
          Eval( ::bKeyBlock, ::ProcName, ::ProcLine, ReadVar() )
 
          /* 2006-09-15 - E.F. - After SetKey() is executed, if exist nextkey,
-                                I need trap this nextkey to memoedit process
+                                I need trap this nextkey to MemoEdit() process
                                 <nKey> first and the <nNextKey> on the next loop. */
          nNextKey := hb_keyNext( hb_bitOr( Set( _SET_EVENTMASK ), HB_INKEY_EXT ) )
 
@@ -201,8 +201,8 @@ METHOD Edit() CLASS xhb_TMemoEditor
          RETURN a value telling MemoEdit() what to do next.
 
          When the user function argument is specified, MemoEdit() defines two
-         classes of keys: nonconfigurable and key exceptions.  When a
-         nonconfigurable key is pressed, MemoEdit() executes it, otherwise a
+         classes of keys: non-configurable and key exceptions.  When a
+         non-configurable key is pressed, MemoEdit() executes it, otherwise a
          key exception is generated and the user function is called.  When
          there are no keys left in the keyboard buffer for MemoEdit() to
          process, the user function is called once again. */
@@ -375,7 +375,7 @@ METHOD CallUdf( nMode ) CLASS xhb_TMemoEditor
 
    RETURN xResult
 
-// Prg Level Call of MemoEdit()
+// .prg Level Call of MemoEdit()
 FUNCTION xhb_MemoEdit( ;
       cString, ;
       nTop, nLeft, ;
@@ -474,8 +474,8 @@ FUNCTION xhb_MemoEdit( ;
 
    // 2006-08-06 - E.F. Cl*pper's <cUserFunction> in .T. or. F. means the same.
    IF HB_ISLOGICAL( xUDF )
-      /* 2006-07-24 - E.F. - If xUDF is in .F. or .T. cause diplay memo content and exit,
-                             so we have to repos the cursor at bottom of memoedit
+      /* 2006-07-24 - E.F. - If xUDF is in .F. or .T. cause display memo content and exit,
+                             so we have to repos the cursor at bottom of MemoEdit
                              screen after that. */
       SetPos( Min( nBottom, MaxRow() ), 0 )
    ELSE

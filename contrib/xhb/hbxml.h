@@ -85,7 +85,7 @@
 #define MXML_STYLE_THREESPACES        0x0004
 #define MXML_STYLE_NOESCAPE           0x0008
 
-/* Status vaules */
+/* Status values */
 
 typedef enum
 {
@@ -139,7 +139,7 @@ typedef void ( *MXML_OUTPUT_FUNC )( struct tag_mxml_output * out, const char * d
 
 /* --- Structures holding the XML data --- */
 
-/* Refiller */
+/* Re-filler */
 
 typedef struct tag_mxml_refil
 {

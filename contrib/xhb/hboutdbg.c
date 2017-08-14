@@ -178,7 +178,7 @@ void hb_OutDebug( const char * szMsg, HB_SIZE nMsgLen )
       if( s_iDebugFd <= 0 || s_iXtermPid == 0 )
          return;
 
-      /* Chech if display process has terminated in the meanwhile */
+      /* Check if display process has terminated in the meanwhile */
       if( ! s_iUseDebugName )
       {
          int iPid = waitpid( s_iXtermPid, &iStatus, WNOHANG );

@@ -49,7 +49,7 @@
  * To create new HSX index for current work area use: hsx_Create()
  * To open already existing one use hsx_Open(),
  * To close use: hsx_Close()
- * To retieve an handle use: hsx_Handle()
+ * To retrieve an handle use: hsx_Handle()
  */
 
 #include "dbinfo.ch"
@@ -72,7 +72,7 @@ STATIC FUNCTION _HSX_NEW( pWA )
    LOCAL aWData := { .F., {}, {} }
 
    /*
-    * Set in our private AREA item the array where we will kepp HSX indexes
+    * Set in our private AREA item the array where we will keep HSX indexes
     * and HOT buffer flag
     */
 

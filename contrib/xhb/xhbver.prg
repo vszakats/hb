@@ -1,5 +1,5 @@
 /*
- * xhb hb_BuildInfo() emulation.
+ * xHarbour hb_BuildInfo() emulation.
  *
  * Copyright 2009 Viktor Szakats (vszakats.net/harbour)
  *
@@ -94,9 +94,9 @@ FUNCTION hb_BuildInfo( n )
    v[ _HB_HARBOUR_YYDEBUG        ] := .F. /* Fake value, unlikely it's turned on */
    v[ _HB_SYMBOL_NAME_LEN        ] := 63  /* Constant in Harbour */
    v[ _HB_MULTITHREAD            ] := hb_mtvm()
-   v[ _HB_VM_OPTIMIZATION        ] := 2   /* Emulate xhb */
+   v[ _HB_VM_OPTIMIZATION        ] := 2   /* Emulate xHarbour */
    v[ _HB_LANG_ID                ] := hb_langSelect()
-   v[ _HB_ARRAY_MODE             ] := 0   /* Emulate xhb */
+   v[ _HB_ARRAY_MODE             ] := 0   /* Emulate xHarbour */
    v[ _HB_CREDITS                ] := { "See 'harbour -credits'" }
 
    RETURN iif( HB_ISNUMERIC( n ), iif( n <= Len( v ), v[ n ], NIL ), v )
