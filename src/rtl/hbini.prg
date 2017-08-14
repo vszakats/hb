@@ -285,13 +285,13 @@ FUNCTION hb_iniWriteStr( hIni, cCommentBegin, cCommentEnd, lAutoMain )
       lAutoMain := .F.
    ENDIF
 
-   /* Write toplevel section */
+   /* Write top level section */
    IF lAutoMain
       /* When automain is on, write the main section */
       hb_HEval( hIni[ "MAIN" ], {| cKey, xVal | ;
          cBuffer += hb_CStr( cKey ) + "=" + hb_CStr( xVal ) + cEOL } )
    ELSE
-      /* When automain is off, just write all the toplevel variables. */
+      /* When automain is off, just write all the top level variables. */
       hb_HEval( hIni, {| cKey, xVal | iif( HB_ISHASH( xVal ), /* nothing */, ;
          cBuffer += hb_CStr( cKey ) + "=" + hb_CStr( xVal ) + cEOL ) } )
    ENDIF
@@ -305,7 +305,7 @@ FUNCTION hb_iniWriteStr( hIni, cCommentBegin, cCommentEnd, lAutoMain )
             LOOP
          ENDIF
       ELSE
-         /* When automain is off, skip all the toplevel variables. */
+         /* When automain is off, skip all the top level variables. */
          IF ! HB_ISHASH( cSection )
             LOOP
          ENDIF

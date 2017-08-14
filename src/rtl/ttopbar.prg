@@ -265,9 +265,9 @@ METHOD getPrev() CLASS TopBarMenu
    RETURN 0
 
 /* NOTE: This method corrects two bugs in Cl*pper:
-         1) when two menuitems have the same key and the
+         1) when two menu items have the same key and the
             first item is disabled
-         2) when a menuitem is disabled it will ignore the key [jlalin] */
+         2) when a menu item is disabled it will ignore the key [jlalin] */
 
 METHOD getAccel( nKey ) CLASS TopBarMenu
 
@@ -318,11 +318,11 @@ METHOD getShortCt( nKey ) CLASS TopBarMenu
    RETURN 0
 
 /* NOTE: In my tests I cannot get other values than HTNOWHERE or a value
-         greater than 0 (selected item), althought the NG's says that
+         greater than 0 (selected item), although the NG's says that
          it returns other HT* values [jlalin]
 
          This method correct a bug in Cl*pper:
-         when click on a disabled menuitem it will ignore it [jlalin] */
+         when click on a disabled menu item it will ignore it [jlalin] */
 
 METHOD hitTest( nMRow, nMCol ) CLASS TopBarMenu
 

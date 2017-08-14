@@ -1,5 +1,5 @@
 /*
- * Color functions for Getsys and Menu System
+ * Color functions for GetSys and Menu System
  *
  * Copyright 2003 Walter Negro <anegro@overnet.com.ar>
  *

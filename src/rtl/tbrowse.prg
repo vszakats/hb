@@ -211,7 +211,7 @@ CREATE CLASS TBrowse
    METHOD rightVisible()                        // indicates position of rightmost unfrozen column in display
 
    METHOD hilite()                              // highlights the current cell
-   METHOD deHilite()                            // dehighlights the current cell
+   METHOD deHilite()                            // de-highlights the current cell
    METHOD refreshAll()                          // causes all data to be recalculated during the next stabilize
    METHOD refreshCurrent()                      // causes the current row to be refilled and repainted on next stabilize
    METHOD forceStable()                         // performs a full stabilization
@@ -277,7 +277,7 @@ CREATE CLASS TBrowse
    VAR aCellColors   AS ARRAY   INIT {}         // cell colors buffers for each record
 
    METHOD doConfigure()                         // reconfigures the internal settings of the TBrowse object
-   METHOD setUnstable()                         // set TBrows in unstable mode resetting flags
+   METHOD setUnstable()                         // set TBrowse in unstable mode resetting flags
    METHOD setPosition()                         // synchronize record position with the buffer
    METHOD readRecord( nRow )                    // read current record into the buffer
 
@@ -1035,7 +1035,7 @@ METHOD setUnstable() CLASS TBrowse
       ::doConfigure()
    ENDIF
 
-   /* CA-Cl*pper dehighlights the current cell */
+   /* CA-Cl*pper de-highlights the current cell */
    IF ::lHiLited
       ::deHilite()
    ENDIF
