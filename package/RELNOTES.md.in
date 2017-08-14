@@ -29,12 +29,12 @@ Source archives and Windows binaries are available for download:
 6. Build test x86 executable:
    ```
    set PATH=<path-to-msys2>\mingw32\bin;%PATH%
-   hbmk2 <path-to-harbour>/tests/hello.prg -cpu=x86
+   hbmk2 <path-to-harbour>/tests/hello.prg
    ```
 7. Build test x64 executable:
    ```
    set PATH=<path-to-msys2>\mingw64\bin;%PATH%
-   hbmk2 <path-to-harbour>/tests/hello.prg -cpu=x64
+   hbmk2 <path-to-harbour>/tests/hello.prg
    ```
 8. Further hints in section **Build Your Own Harbour App**
    of `README.md`.
