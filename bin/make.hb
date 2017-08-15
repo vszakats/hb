@@ -141,7 +141,7 @@ STATIC PROCEDURE BuildSingle( aParams, hProjectList )
 
    LOCAL lPassThrough_hbmk2 := .F.
 
-   /* Processing cmdline options */
+   /* Processing command-line options */
 
    DO CASE
    CASE AScanL( aParams, "clean" ) > 0 .AND. ;

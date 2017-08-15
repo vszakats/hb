@@ -64,7 +64,7 @@
                                        shift state handling. Enable to correct a
                                        documented keyboard handling bug under Win9x.
                                        Enable if the caps-lock key affects the top
-                                       row keys.  (Alternate language keys are not
+                                       row keys. (Alternate language keys are not
                                        handled properly by this temporary fix.
                                        Default is disabled. */
 #define HB_GTI_KBDALT           12  /* This will get/set the status of the Alt-NumPad

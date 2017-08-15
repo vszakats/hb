@@ -202,7 +202,7 @@ typedef struct
    HB_BOOL  IgnoreWM_SYSCHAR;
 
    HB_BOOL  bMaximized;                     /* Flag is set when window has been maximized */
-   HB_BOOL  bBeingMarked;                   /* Flag to control DOS window like copy operation */
+   HB_BOOL  bBeingMarked;                   /* Flag to control CUI window like copy operation */
    HB_BOOL  bBeginMarked;
 
    HB_BOOL  bResizable;

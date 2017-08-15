@@ -72,7 +72,7 @@ PROCEDURE Main( cName )
             NEXT
          ELSE
             /* It's a top-level option */
-            ? "TOP-LEVEL option:", aSect:__enumKey(), "=", aSect
+            ? "Top-level option:", aSect:__enumKey(), "=", aSect
          ENDIF
       NEXT
    ENDIF
@@ -129,7 +129,7 @@ PROCEDURE Main( cName )
             NEXT
          ELSE
             /* It's a top-level option */
-            ? "TOP-LEVEL option:", aSect:__enumKey(), "=", aSect
+            ? "Top-level option:", aSect:__enumKey(), "=", aSect
          ENDIF
       NEXT
    ENDIF

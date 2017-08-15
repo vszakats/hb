@@ -1,5 +1,5 @@
 /*
- * Harbour source code formatter (cmdline wrapper)
+ * Harbour source code formatter (command-line wrapper)
  *
  * Copyright 2009 Alexander S.Kresin <alex@belacy.belgorod.su>
  *

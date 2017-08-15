@@ -581,7 +581,7 @@ STATIC PROCEDURE DEMO_Browse()
 
    RETURN
 
-/* generic Vertical Scrollbar handler for tbrowse */
+/* generic Vertical Scrollbar handler for TBrowse */
 STATIC PROCEDURE VXBscroller( oBrowse, nWinNum, XBid, XBmsg )
 
    LOCAL nOldWin
@@ -637,7 +637,7 @@ STATIC PROCEDURE VXBscroller( oBrowse, nWinNum, XBid, XBmsg )
 
    RETURN
 
-/* generic Horizontal Scrollbar handler for tbrowse */
+/* generic Horizontal Scrollbar handler for TBrowse */
 STATIC PROCEDURE HXBscroller( oBrowse, nWinNum, XBid, XBmsg )
 
    LOCAL nOldWin
@@ -704,7 +704,7 @@ STATIC PROCEDURE RefreshVXB( oBrowse, nWinNum, XBid )
    LOCAL nMin, nMax, nPage, nPos
    LOCAL nRatio
 
-   // recalc the pos
+   // Recalculate position
    IF ordKeyCount() < 30000
       nMin := 1
       nMax := ordKeyCount()
@@ -726,7 +726,7 @@ STATIC PROCEDURE RefreshVXB( oBrowse, nWinNum, XBid )
 
    RETURN
 
-// recalc the pos
+// Recalculate position
 STATIC PROCEDURE RefreshHXB( oBrowse, nWinNum, XBid )
 
    LOCAL nMin := 1

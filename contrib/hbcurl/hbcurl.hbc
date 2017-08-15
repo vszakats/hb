@@ -1,6 +1,6 @@
 description=libcurl wrapper (IP communication)
 
-# NOTE: use HB_STATIC_CURL=yes envvar to link curl lib statically
+# NOTE: use HB_STATIC_CURL=yes envvar to link libcurl lib statically
 
 incpaths=.
 

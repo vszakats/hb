@@ -129,15 +129,15 @@ METHOD ReadLine() CLASS TFileRead
          // Deal with multiple possible end of line conditions.
          DO CASE
          CASE SubStr( ::cBuffer, nPos, 3 ) == Chr( 13 ) + Chr( 13 ) + Chr( 10 )
-            // It's a messed up DOS newline (such as that created by a program
+            // It's a messed up CRLF newline (such as that created by a program
             // that uses "\r\n" as newline when writing to a text mode file,
             // which causes the '\n' to expand to "\r\n", giving "\r\r\n").
             nPos += 3
          CASE SubStr( ::cBuffer, nPos, 2 ) == Chr( 13 ) + Chr( 10 )
-            // It's a standard DOS newline
+            // It's a standard CRLF newline
             nPos += 2
          OTHERWISE
-            // It's probably a Mac or Unix newline
+            // It's probably LF (Unix) or a CR (Mac) newline
             nPos++
          ENDCASE
          ::cBuffer := SubStr( ::cBuffer, nPos )

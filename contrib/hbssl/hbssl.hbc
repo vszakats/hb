@@ -1,6 +1,6 @@
 description=OpenSSL wrapper (encryption)
 
-# NOTE: use HB_STATIC_OPENSSL=yes envvar to link openssl lib statically
+# NOTE: use HB_STATIC_OPENSSL=yes envvar to link OpenSSL libs statically
 
 incpaths=.
 

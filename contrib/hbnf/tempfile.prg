@@ -4,7 +4,7 @@
    Deleted #define for FLAG_CARRY as Toolkit v2.1's ftint86.ch has it.
 
       Rev 1.6   03 Oct 1991 18:36:28   GLENN
-   Tim Wong from Nantucket pointed out that this DOS function actually
+   Tim Wong from Nantucket pointed out that this MS-DOS function actually
    leaves a file handle in AX.  In order to preserve the functionality,
    I now close that handle if the call is successful.
 
