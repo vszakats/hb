@@ -1157,7 +1157,7 @@ STATIC PROCEDURE MyError( e )
    RETURN
 
 /* Pseudo mouse object in GTWVW GUI
-   copyright 2004 Budyanto Dj. <budyanto@centrin.net.id>
+   Copyright 2004 Budyanto Dj. <budyanto@centrin.net.id>
 
    This is a sample of implementation of a pseudo GUI object in GTWVW,
    using GTWVW GUI primitives.

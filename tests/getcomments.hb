@@ -68,7 +68,6 @@ STATIC FUNCTION SkipDir( cDir )
    cDir := StrTran( cDir, "\", "/" )
 
    RETURN ;
-      ! "/contrib/" $ cDir .OR. ;
       "/doc/en/" $ cDir .OR. ;
       "/doc/pt_BR/" $ cDir
 

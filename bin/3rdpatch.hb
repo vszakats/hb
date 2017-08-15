@@ -211,7 +211,7 @@
  * generated on Windows hosts can not be applied on non-Windows hosts.
  *
  * To remedy this situation, 3rdpatch will change diffs to use Unix-style path
- * separators. Since this is a grave problem (the diff is unapplyable on
+ * separators. Since this is a grave problem (the diff is unappliable on
  * non-Windows hosts), this change takes place unconditionally. The user is
  * notified of the change by an informational message stating the fact. These
  * changed diffs should be committed back to the repository.
@@ -274,7 +274,7 @@ PROCEDURE Main( ... )
    LOCAL cThisComponent       /* component being processed */
    LOCAL aOneMap              /* one pair from s_aChangeMap */
    LOCAL cCommand             /* patch/diff commands */
-   LOCAL nRunResult           /* patch/diff exit vals */
+   LOCAL nRunResult           /* patch/diff exit statuses */
    LOCAL cDiffText            /* diff will return the new diff in this */
    LOCAL cArchiveURL          /* URL for the component */
    LOCAL cTopIndicator        /* file signifying the top of the component's source tree */
@@ -365,7 +365,7 @@ PROCEDURE Main( ... )
             IF "/" $ aRegexMatch[ TWOARG_ARG1 ]
                aRegexMatch[ TWOARG_ARG1 ] := StrTran( aRegexMatch[ TWOARG_ARG1 ], "/", hb_ps() )
             ENDIF
-            /* In case the priginal and the HB file names are identical, the
+            /* In case the original and the HB file names are identical, the
              * second argument to `MAP' is optional. Due to the way the regex is
              * constructed, in this case the last backref will contain the only
              * file name, so shuffle arguments around accordingly
@@ -469,7 +469,7 @@ PROCEDURE Main( ... )
             CombinePath( s_cSourceRoot, aOneMap[ FN_ORIG ] ), ;
             CombinePath( s_cTempDir, cThisComponent + ".orig", aOneMap[ FN_HB ] ) )
 
-         /* Munch the file, applying the appropriate xforms */
+         /* Munch the file, applying the appropriate transforms */
          hb_FileTran( CombinePath( s_cTempDir, cThisComponent + ".orig", aOneMap[ FN_HB ] ) )
 
          /* If operating in `rediff' mode, copy the current Harbour component tree;
@@ -600,7 +600,7 @@ STATIC PROCEDURE SetupTools()
    LOCAL cTool
 
    /* Look for g$tool first, only attempt raw name if it isn't found
-    * Helps non-GNU userland systems with GNU tools installed.
+    * Helps non-GNU user space systems with GNU tools installed.
     * Only several of the tools are known to have GNU variants. */
 
    FOR EACH cPathComp IN hb_ATokens( GetEnv( "PATH" ), hb_osPathListSeparator() )

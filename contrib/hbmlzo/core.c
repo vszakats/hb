@@ -94,11 +94,11 @@ HB_CALL_ON_STARTUP_END( _hb_mlzo_init_ )
 /* Compression */
 
 /*
- * int lzo1x_1_compress ( const lzo_bytep src,
- *                        lzo_uint  src_len,
- *                        lzo_bytep dst,
- *                        lzo_uintp dst_len,
- *                        lzo_voidp wrkmem );
+ * int lzo1x_1_compress( const lzo_bytep src,
+ *                       lzo_uint  src_len,
+ *                       lzo_bytep dst,
+ *                       lzo_uintp dst_len,
+ *                       lzo_voidp wrkmem );
  *
  * Memory requirements: LZO1X_1_MEM_COMPRESS (64 KiB on 32-bit machines)
  *

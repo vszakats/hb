@@ -297,7 +297,7 @@ STATIC PROCEDURE EBReadGets( nwinnum, aEBGets )
       {|| ToCloseWindow( nwinnum, @lClosepermitted ) } )
    wvw_pbEnable( nwinnum, nclosebutton, .F. )
 
-   // register a keyhandler for WVW_INPFOCUS
+   // register a key handler for WVW_INPFOCUS
    inp_handler( nwinnum, {| n, ch | InpKeyHandler( n, ch, aEBGets, nOKbutton, nCancelbutton ) } )
 
    wvw_ebSetFocus( nwinnum, aEBGets[ 1 ][ __GET_NEBID ] )

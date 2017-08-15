@@ -80,7 +80,7 @@
    $DESCRIPTION$
       This function yields a string that is the value of the
       environment variable <cEnviroment>, which is stored at the
-      system level.
+      system-level.
 
       If no environment variable
       is found, an empty string is returned.
@@ -121,7 +121,7 @@
    $DESCRIPTION$
       This function yields a string that is the value of the
       environment variable <cEnviroment>, which is stored at the
-      system level.
+      system-level.
 
       If no environment variable
       is found, an empty string is returned.
@@ -163,7 +163,7 @@
    $DESCRIPTION$
       This function yields a string that is the value of the
       environment variable <cEnviroment>, which is stored at the
-      system level.
+      system-level.
 
       If no environment variable
       can be found, the value of the function will be <cDefaultValue>

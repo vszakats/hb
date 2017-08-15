@@ -65,7 +65,7 @@
  *      "SectionN" => { "Key1" => "Val1", ... , "KeyN" => "ValN" }
  *    }
  *
- * Main is the default section (variables that are declared without a section).
+ * 'MAIN' is the default section (variables that are declared without a section).
  *
  */
 
@@ -163,7 +163,7 @@ STATIC FUNCTION hb_iniStringLow( hIni, cData, lKeyCaseSens, cSplitters, lAutoMai
    reSection := hb_regexComp( "[[](.*)[]]" )
    reSplitters := hb_regexComp( cSplitters )
 
-   /* Always begin with the MAIN section */
+   /* Always begin with the 'MAIN' section */
    hCurrentSection := iif( lAutoMain, hIni[ "MAIN" ], hIni )
 
    cLine := ""
@@ -280,32 +280,32 @@ FUNCTION hb_iniWriteStr( hIni, cCommentBegin, cCommentEnd, lAutoMain )
 
    hb_default( @lAutoMain, .T. )
 
-   // Fix if lAutoMain is .T. but I haven't a MAIN section
+   // Fix if lAutoMain is .T. but I have no 'MAIN' section
    IF lAutoMain .AND. ! "MAIN" $ hIni
       lAutoMain := .F.
    ENDIF
 
-   /* Write top level section */
+   /* Write top-level section */
    IF lAutoMain
-      /* When automain is on, write the main section */
+      /* When lAutoMain is on, write the 'main' section */
       hb_HEval( hIni[ "MAIN" ], {| cKey, xVal | ;
          cBuffer += hb_CStr( cKey ) + "=" + hb_CStr( xVal ) + cEOL } )
    ELSE
-      /* When automain is off, just write all the top level variables. */
+      /* When lAutoMain is off, just write all the top-level variables. */
       hb_HEval( hIni, {| cKey, xVal | iif( HB_ISHASH( xVal ), /* nothing */, ;
          cBuffer += hb_CStr( cKey ) + "=" + hb_CStr( xVal ) + cEOL ) } )
    ENDIF
 
    FOR EACH cSection IN hIni
 
-      /* Avoid re-processing main section */
+      /* Avoid re-processing 'MAIN' section */
       IF lAutoMain
-         /* When automain is on, skip section named MAIN */
+         /* When lAutoMain is on, skip section named 'MAIN' */
          IF cSection:__enumKey == "MAIN"
             LOOP
          ENDIF
       ELSE
-         /* When automain is off, skip all the top level variables. */
+         /* When lAutoMain is off, skip all the top-level variables. */
          IF ! HB_ISHASH( cSection )
             LOOP
          ENDIF

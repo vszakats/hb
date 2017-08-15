@@ -46,7 +46,7 @@ PROCEDURE Main()
    ShowResult( @cStr, @cCompressed, @nLenC, @nResult )
 
    /*
-    * lzo1x_decompress_safe - The 'safe' decompressor. Somewhat slower.
+    * lzo1x_decompress_safe() - The 'safe' decompressor. Somewhat slower.
     *
     * This decompressor will catch all compressed data violations and
     * return an error code in this case - it will never crash.
@@ -62,7 +62,7 @@ PROCEDURE Main()
    ENDIF
 
    /*
-    * lzo1x_decompress
+    * hb_lzo1x_decompress()
     * The 'standard' decompressor. Pretty fast - use this whenever possible.
     *
     * This decompressor expects valid compressed data.

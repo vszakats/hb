@@ -210,7 +210,7 @@ int ct_getargerrormode( void )
    return *iArgErrMode;
 }
 
-HB_FUNC( CSETARGERR )
+HB_FUNC( CSETARGERR )  /* HB_EXTENSION */
 {
    hb_retni( ct_getargerrormode() );
 

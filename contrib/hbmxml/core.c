@@ -62,7 +62,7 @@ typedef struct /* placeholder for mxml_node_t */
    mxml_node_t * node;
 } HBMXML_NODE;
 
-/* cb's funcs support */
+/* callback function support */
 
 typedef struct
 {
@@ -244,7 +244,7 @@ static void mxml_index_ret( mxml_index_t * index )
    hb_itemPutPtrGC( hb_stackReturnItem(), mxml_index_new( index ) );
 }
 
-/* non-wrap HB_... funcs */
+/* non-wrap hb_mxml*() functions */
 
 HB_FUNC( HB_MXMLVERSION )
 {
@@ -260,7 +260,7 @@ HB_FUNC( HB_MXMLVERSION )
 #endif
 }
 
-/* MXML_... wrapper funcs */
+/* mxml_*() wrapper functions */
 
 /*
  * - mxmlEntityAddCallback

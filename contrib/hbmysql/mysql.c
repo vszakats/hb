@@ -1,5 +1,5 @@
 /*
- * MySQL DBMS low level (client api) interface code.
+ * MySQL DBMS low-level (client API) interface code.
  *
  * Copyright 2010 Viktor Szakats (vszakats.net/harbour) (GC support)
  * Copyright 2000 Maurilio Longo <maurilio.longo@libero.it>
@@ -67,8 +67,9 @@
    #endif
 #endif
 
-/* NOTE: OS/2 EMX port of MySQL needs libmysqlclient.a from 3.21.33b build which has st and mt
-         versions of client library. I'm using ST version since Harbour is single threaded.
+/* NOTE: OS/2 EMX port of MySQL needs libmysqlclient.a from 3.21.33b build
+         which has ST and MT versions of client library. I'm using ST version
+         since Harbour is single threaded.
          You need also .h files from same distribution. */
 
 /* GC object handlers */

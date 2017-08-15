@@ -261,7 +261,7 @@ extern HB_EXPORT void       hb_gtWCurrent( HB_GT_WND * wnd );
 extern HB_EXPORT void       hb_gtWPos( HB_GT_WND * wnd, HB_GT_RECT * rect );
 extern HB_EXPORT HB_BOOL    hb_gtWVis( HB_GT_WND * wnd, HB_USHORT uiStatus );
 
-extern HB_EXPORT HB_ERRCODE hb_gtSLR( HB_GT_SLR * pSLR ); /* System Level Request */
+extern HB_EXPORT HB_ERRCODE hb_gtSLR( HB_GT_SLR * pSLR ); /* System-Level Request */
 extern HB_EXPORT HB_ERRCODE hb_gtModalRead( void * );
 extern HB_EXPORT HB_ERRCODE hb_gtFlushCursor( void );
 extern HB_EXPORT HB_ERRCODE hb_gtSetColor( HB_GT_RGB * color );

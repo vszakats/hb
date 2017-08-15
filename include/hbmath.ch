@@ -70,7 +70,7 @@
                                                  correction values are used */
 
 /* array element indices in aInfo parameter passed to math errorblock */
-#define HB_MATHERRORBLOCK_RETVAL  1
-#define HB_MATHERRORBLOCK_HANDLED 2
+#define HB_MATHERRORBLOCK_RETVAL   1
+#define HB_MATHERRORBLOCK_HANDLED  2
 
 #endif /* HB_MATH_CH */
