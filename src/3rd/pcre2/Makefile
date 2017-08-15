@@ -70,7 +70,7 @@ else
 endif
 
 # ORIGIN http://pcre.org/
-# URL    https://ftp.pcre.org/pub/pcre/pcre2-10.23.tar.bz2
+# URL    https://ftp.pcre.org/pub/pcre/pcre2-10.30.tar.bz2
 #
 # MAP    LICENCE
 # MAP    src/config.h.generic         config.h
