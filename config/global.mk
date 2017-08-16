@@ -907,8 +907,9 @@ ifeq ($(HB_COMPILER),)
    endif
 endif
 
+strlen = $(strip $(eval __temp := $(subst $(subst x,x, ),x,$1))$(foreach a,0 1 2 3 4 5 6 7 8 9 .,$(eval __temp := $$(subst $a,x,$(__temp))))$(eval __temp := $(subst x,x ,$(__temp)))$(words $(__temp)))
+
 ifneq ($(HB_COMPILER_VER),)
-   strlen = $(strip $(eval __temp := $(subst $(subst x,x, ),x,$1))$(foreach a,0 1 2 3 4 5 6 7 8 9 .,$(eval __temp := $$(subst $a,x,$(__temp))))$(eval __temp := $(subst x,x ,$(__temp)))$(words $(__temp)))
    ifneq ($(call strlen,$(HB_COMPILER_VER)), 4)
       $(info ! Warning: Invalid HB_COMPILER_VER value '$(HB_COMPILER_VER)' ignored. Format should be: <MMmm>, where <MM> is major version and <mm> is minor version.)
       HB_COMPILER_VER :=
@@ -920,205 +921,111 @@ ifeq ($(HB_COMPILER_VER),)
    ifeq ($(HB_COMP_PATH_VER_DET),)
       HB_COMP_PATH_VER_DET := $(HB_COMP_PATH)
    endif
-
-   # Apple clang version vs. official LLVM/clang version: See in hbmk2 source code
-
    ifneq ($(filter $(HB_COMPILER),clang clang64),)
+
       ifeq ($(HB_COMP_PATH_VER_DET),)
          HB_COMP_PATH_VER_DET := $(HB_CCPREFIX)clang$(HB_CCSUFFIX)
       endif
       _C_VER := $(shell "$(HB_COMP_PATH_VER_DET)" -v 2>&1)
-      ifneq ($(findstring Apple LLVM version 8.1,$(_C_VER)),)
-         HB_COMPILER_VER := 0309
+
+      ifneq ($(findstring based on LLVM,$(_C_VER)),)  # 'Apple LLVM version 6.1.0 (clang-602.0.53) (based on LLVM 3.6.0svn)'
+         __temp := svn)
+         _C_VER := $(wordlist 9,9,$(subst $(__temp),,$(_C_VER)))
       else
-      ifneq ($(findstring Apple LLVM version 8.0,$(_C_VER)),)
-         HB_COMPILER_VER := 0309
+      ifneq ($(findstring Apple LLVM version,$(_C_VER)),)  # 'Apple LLVM version 8.1.0 (clang-802.0.42)'
+         _C_VER := $(wordlist 4,4,$(_C_VER))
+         _APPLE_VER := yes
       else
-      ifneq ($(findstring Apple LLVM version 7.3,$(_C_VER)),)
-         HB_COMPILER_VER := 0308
+      ifneq ($(findstring version,$(_C_VER)),)  # 'clang version 3.0 (tags/RELEASE_30/final)'
+         _C_VER := $(wordlist 3,3,$(_C_VER))
       else
-      ifneq ($(findstring Apple LLVM version 7.0,$(_C_VER)),)
-         HB_COMPILER_VER := 0307
-      else
-      ifneq ($(findstring based on LLVM 3.6,$(_C_VER)),)
-         HB_COMPILER_VER := 0306
-      else
-      ifneq ($(findstring based on LLVM 3.5,$(_C_VER)),)
-         HB_COMPILER_VER := 0305
-      else
-      ifneq ($(findstring version 4.0,$(_C_VER)),)
-         HB_COMPILER_VER := 0400
-      else
-      ifneq ($(findstring version 3.9,$(_C_VER)),)
-         HB_COMPILER_VER := 0309
-      else
-      ifneq ($(findstring version 3.8,$(_C_VER)),)
-         HB_COMPILER_VER := 0308
-      else
-      ifneq ($(findstring version 3.7,$(_C_VER)),)
-         HB_COMPILER_VER := 0307
-      else
-      ifneq ($(findstring version 3.6,$(_C_VER)),)
-         HB_COMPILER_VER := 0306
-      else
-      ifneq ($(findstring version 3.5,$(_C_VER)),)
-         HB_COMPILER_VER := 0305
-      else
-         HB_COMPILER_VER := 0304
+         _C_VER := 1.0
       endif
       endif
       endif
+
+      # Convert <0-99>.<0-99>.<n> version number to HB_COMPILER_VER format
+      _C_VER_MAJOR := $(wordlist 1,1,$(subst ., ,$(_C_VER)))
+      _C_VER_MINOR := $(wordlist 2,2,$(subst ., ,$(_C_VER)))
+      ifeq ($(call strlen,$(_C_VER_MAJOR)), 1)
+         _C_VER_MAJOR := 0$(_C_VER_MAJOR)
       endif
+      ifeq ($(call strlen,$(_C_VER_MINOR)), 1)
+         _C_VER_MINOR := 0$(_C_VER_MINOR)
       endif
+      HB_COMPILER_VER := $(_C_VER_MAJOR)$(_C_VER_MINOR)
+
+      # Apple clang version vs. official LLVM/clang version
+      # NOTE: Must keep this conversion table in sync with hbmk2.prg
+      ifneq ($(_APPLE_VER),)
+         HB_COMPILER_VER := $(subst 0700,0307,$(HB_COMPILER_VER))
+         HB_COMPILER_VER := $(subst 0703,0308,$(HB_COMPILER_VER))
+         HB_COMPILER_VER := $(subst 0800,0309,$(HB_COMPILER_VER))
+         HB_COMPILER_VER := $(subst 0801,0309,$(HB_COMPILER_VER))
       endif
-      endif
-      endif
-      endif
-      endif
-      endif
-      endif
+
    else
    ifneq ($(filter $(HB_COMPILER),gcc gccarm gccomf mingw mingw64 mingwarm djgpp),)
+
       ifeq ($(HB_COMP_PATH_VER_DET),)
          HB_COMP_PATH_VER_DET := $(HB_CCPREFIX)gcc$(HB_CCSUFFIX)
       endif
       _C_VER := $(shell "$(HB_COMP_PATH_VER_DET)" -dumpversion 2>&1)
-      ifneq ($(findstring 8.1,$(_C_VER)),)
-         HB_COMPILER_VER := 0801
-      else
-      ifneq ($(findstring 7.2,$(_C_VER)),)
-         HB_COMPILER_VER := 0702
-      else
-      ifneq ($(findstring 7.1,$(_C_VER)),)
-         HB_COMPILER_VER := 0701
-      else
-      ifneq ($(findstring 6.4,$(_C_VER)),)
-         HB_COMPILER_VER := 0604
-      else
-      ifneq ($(findstring 6.3,$(_C_VER)),)
-         HB_COMPILER_VER := 0603
-      else
-      ifneq ($(findstring 6.2,$(_C_VER)),)
-         HB_COMPILER_VER := 0602
-      else
-      ifneq ($(findstring 6.1,$(_C_VER)),)
-         HB_COMPILER_VER := 0601
-      else
-      ifneq ($(findstring 5.4,$(_C_VER)),)
-         HB_COMPILER_VER := 0504
-      else
-      ifneq ($(findstring 5.3,$(_C_VER)),)
-         HB_COMPILER_VER := 0503
-      else
-      ifneq ($(findstring 5.2,$(_C_VER)),)
-         HB_COMPILER_VER := 0502
-      else
-      ifneq ($(findstring 5.1,$(_C_VER)),)
-         HB_COMPILER_VER := 0501
-      else
-      ifneq ($(findstring 4.9,$(_C_VER)),)
-         HB_COMPILER_VER := 0409
-      else
-      ifneq ($(findstring 4.8,$(_C_VER)),)
-         HB_COMPILER_VER := 0408
-      else
-      ifneq ($(findstring 4.7,$(_C_VER)),)
-         HB_COMPILER_VER := 0407
-      else
-      ifneq ($(findstring 4.6,$(_C_VER)),)
-         HB_COMPILER_VER := 0406
-      else
-      ifneq ($(findstring 4.5,$(_C_VER)),)
-         HB_COMPILER_VER := 0405
-      else
-      ifneq ($(findstring 4.4,$(_C_VER)),)
-         HB_COMPILER_VER := 0404
-      else
-      ifneq ($(findstring 4.3,$(_C_VER)),)
-         HB_COMPILER_VER := 0403
-      else
-         HB_COMPILER_VER := 0304
+
+      ifeq ($(_C_VER),)
+         _C_VER := 3.4.0
       endif
+
+      # Convert <0-99>.<0-99>.<n> version number to HB_COMPILER_VER format
+      _C_VER_MAJOR := $(wordlist 1,1,$(subst ., ,$(_C_VER)))
+      _C_VER_MINOR := $(wordlist 2,2,$(subst ., ,$(_C_VER)))
+      ifeq ($(call strlen,$(_C_VER_MAJOR)), 1)
+         _C_VER_MAJOR := 0$(_C_VER_MAJOR)
       endif
+      ifeq ($(call strlen,$(_C_VER_MINOR)), 1)
+         _C_VER_MINOR := 0$(_C_VER_MINOR)
       endif
-      endif
-      endif
-      endif
-      endif
-      endif
-      endif
-      endif
-      endif
-      endif
-      endif
-      endif
-      endif
-      endif
-      endif
-      endif
+      HB_COMPILER_VER := $(_C_VER_MAJOR)$(_C_VER_MINOR)
+
    else
    ifneq ($(filter $(HB_COMPILER),msvc msvc64 msvcia64 msvcarm),)
+
       ifeq ($(HB_COMP_PATH),)
          HB_COMP_PATH := cl.exe
       endif
       _C_VER := $(shell "$(HB_COMP_PATH)" 2>&1)
-      ifneq ($(findstring Version 19.10,$(_C_VER)),)
-         HB_COMPILER_VER := 1910
+
+      ifeq ($(wordlist 7,7,$(_C_VER)),Version)  # 'Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.30729.01 for 80x86'
+         _C_VER := $(wordlist 8,8,$(_C_VER))
       else
-      ifneq ($(findstring Version 19.,$(_C_VER)),)
-         HB_COMPILER_VER := 1900
+      ifeq ($(wordlist 6,6,$(_C_VER)),Version)  # 'Microsoft (R) C/C++ Optimizing Compiler Version 19.00.23026 for ...'
+         _C_VER := $(wordlist 7,7,$(_C_VER))
       else
-      ifneq ($(findstring Version 18.,$(_C_VER)),)
-         HB_COMPILER_VER := 1800
-      else
-      ifneq ($(findstring Version 17.,$(_C_VER)),)
-         HB_COMPILER_VER := 1700
-      else
-      ifneq ($(findstring Version 16.,$(_C_VER)),)
-         HB_COMPILER_VER := 1600
-      else
-      ifneq ($(findstring Version 15.,$(_C_VER)),)
-         HB_COMPILER_VER := 1500
-      else
-      ifneq ($(findstring Version 14.,$(_C_VER)),)
-         HB_COMPILER_VER := 1400
-      else
-      ifneq ($(findstring Version 13.,$(_C_VER)),)
-         HB_COMPILER_VER := 1300
-      else
-         HB_COMPILER_VER := 1200
+         _C_VER := 12.00
       endif
       endif
-      endif
-      endif
-      endif
-      endif
-      endif
-      endif
+
+      # Convert <0-99>.<0-99>.<n> version number to HB_COMPILER_VER format
+      _C_VER_MAJOR := $(wordlist 1,1,$(subst ., ,$(_C_VER)))
+      _C_VER_MINOR := $(wordlist 2,2,$(subst ., ,$(_C_VER)))
+      HB_COMPILER_VER := $(_C_VER_MAJOR)$(_C_VER_MINOR)
+
    else
    ifneq ($(filter $(HB_COMPILER),pocc pocc64 poccarm),)
+
       _C_VER := $(shell "$(HB_COMP_PATH_VER_DET)" 2>&1)
-      ifneq ($(findstring 8.00.,$(_C_VER)),)
-         HB_COMPILER_VER := 0800
-      else
-      ifneq ($(findstring 7.00.,$(_C_VER)),)
-         HB_COMPILER_VER := 0700
-      else
-      ifneq ($(findstring 6.50.,$(_C_VER)),)
-         HB_COMPILER_VER := 0650
-      else
-      ifneq ($(findstring 6.00.,$(_C_VER)),)
-         HB_COMPILER_VER := 0600
-      else
-      ifneq ($(findstring 5.00.,$(_C_VER)),)
-         HB_COMPILER_VER := 0500
-      else
-         HB_COMPILER_VER := 0450
+
+      # 'Pelles ISO C Compiler, Version 8.00.28'
+      _C_VER := $(wordlist 6,6,$(_C_VER))
+
+      # Convert <0-99>.<0-99>.<n> version number to HB_COMPILER_VER format
+      _C_VER_MAJOR := $(wordlist 1,1,$(subst ., ,$(_C_VER)))
+      _C_VER_MINOR := $(wordlist 2,2,$(subst ., ,$(_C_VER)))
+      ifeq ($(call strlen,$(_C_VER_MAJOR)), 1)
+         _C_VER_MAJOR := 0$(_C_VER_MAJOR)
       endif
-      endif
-      endif
-      endif
-      endif
+      HB_COMPILER_VER := $(_C_VER_MAJOR)$(_C_VER_MINOR)
+
    endif
    endif
    endif

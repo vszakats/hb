@@ -14669,6 +14669,7 @@ STATIC FUNCTION CompVersionDetect( hbmk, cPath_CompC )
                NOTE: It's an interim SVN revision with possible differences in features.
                [vszakats] */
 
+            /* NOTE: Must keep this in sync with config/global.mk */
             SWITCH cVer
             CASE "0700" ; cVer := "0307" ; EXIT
             CASE "0703" ; cVer := "0308" ; EXIT
