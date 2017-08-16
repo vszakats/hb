@@ -3257,10 +3257,12 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          CASE SubStr( cParamL, 5 + 1 ) == "iso11" ; hbmk[ _HBMK_cCPP ] := "iso11"
          CASE SubStr( cParamL, 5 + 1 ) == "iso14" ; hbmk[ _HBMK_cCPP ] := "iso14"
          CASE SubStr( cParamL, 5 + 1 ) == "iso17" ; hbmk[ _HBMK_cCPP ] := "iso17"
+         CASE SubStr( cParamL, 5 + 1 ) == "iso20" ; hbmk[ _HBMK_cCPP ] := "iso20"
          CASE SubStr( cParamL, 5 + 1 ) == "gnu98" ; hbmk[ _HBMK_cCPP ] := "gnu98"
          CASE SubStr( cParamL, 5 + 1 ) == "gnu11" ; hbmk[ _HBMK_cCPP ] := "gnu11"
          CASE SubStr( cParamL, 5 + 1 ) == "gnu14" ; hbmk[ _HBMK_cCPP ] := "gnu14"
          CASE SubStr( cParamL, 5 + 1 ) == "gnu17" ; hbmk[ _HBMK_cCPP ] := "gnu17"
+         CASE SubStr( cParamL, 5 + 1 ) == "gnu20" ; hbmk[ _HBMK_cCPP ] := "gnu20"
          CASE SubStr( cParamL, 5 + 1 ) == ""      ; hbmk[ _HBMK_cCPP ] := ""
          OTHERWISE                                ; InvalidOptionValue( hbmk, aParam )
          ENDCASE
@@ -9254,10 +9256,12 @@ STATIC FUNCTION gcc_opt_lngcpp_fill( hbmk )
       CASE "iso11" ; RETURN "-std=c++11" /* aka c++0x */
       CASE "iso14" ; RETURN "-std=c++14" /* aka c++1y */
       CASE "iso17" ; RETURN "-std=c++17" /* aka c++1z */
+      CASE "iso20" ; RETURN "-std=c++20" /* aka c++2a */
       CASE "gnu98" ; RETURN "-std=gnu++98"
       CASE "gnu11" ; RETURN "-std=gnu++11"
       CASE "gnu14" ; RETURN "-std=gnu++14"
       CASE "gnu17" ; RETURN "-std=gnu++17"
+      CASE "gnu20" ; RETURN "-std=gnu++20"
       ENDSWITCH
 
    CASE HBMK_ISCOMP( "icc" )
