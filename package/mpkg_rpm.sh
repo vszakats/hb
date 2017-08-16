@@ -133,15 +133,14 @@ if ( [ ! -f /usr/include/zlib.h ] && \
    [ "$HB_WITH_ZLIB" = 'local' ]; then
   INST_PARAM="${INST_PARAM} --with localzlib"
 fi
-if ( [ ! -f /usr/include/pcre.h ] && \
-     [ ! -f /usr/local/include/pcre.h ] ) || \
-   [ "$HB_WITH_PCRE" = 'local' ]; then
-  INST_PARAM="${INST_PARAM} --with localpcre"
-fi
 if ( [ ! -f /usr/include/pcre2.h ] && \
      [ ! -f /usr/local/include/pcre2.h ] ) || \
    [ "$HB_WITH_PCRE2" = 'local' ]; then
   INST_PARAM="${INST_PARAM} --with localpcre2"
+elif ( [ ! -f /usr/include/pcre.h ] && \
+     [ ! -f /usr/local/include/pcre.h ] ) || \
+   [ "$HB_WITH_PCRE" = 'local' ]; then
+  INST_PARAM="${INST_PARAM} --with localpcre1"
 fi
 if ( [ ! -f /usr/include/bzlib.h ] && \
      [ ! -f /usr/local/include/bzlib.h ] ) || \
