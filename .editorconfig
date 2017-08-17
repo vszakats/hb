@@ -22,6 +22,6 @@ indent_size = 2
 [{*.svg}]
 indent_size = 1
 
-[{**/3rd/**,*.diff}]
+[{**/3rd/**,*.diff,*.patch}]
 trim_trailing_whitespace = false
 charset =
