@@ -8,10 +8,10 @@ Source archives and Windows binaries are available for download:
 
 ### Package content
 
-* Harbour tools (requires x64 OS)
-* static/shared libraries for x86 and x64 targets
+* Harbour tools (requires 64-bit OS)
+* static/shared libraries for 32-bit and 64-bit targets
 * static/shared libraries of libcurl, openssl, libssh2, nghttp2
-  for x86 and x64 targets
+  for 32-bit and 64-bit targets
 * example/test sources
 * script to download complete source code
 * `BUILD*.txt` in package root with build/package details
