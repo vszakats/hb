@@ -2,18 +2,11 @@ version: 3.4.{build}
 branches:
   only:
   - master
-  - test-appveyor
-  - test-mingwext
-  - test-mingwmsys
   - prod
-  - prod-mingwext
-  - prod-mingwmsys
-  - msvc2008
-  - msvc2010
-  - msvc2012
-  - msvc2013
-  - msvc2015
-  - msvc2017
+  - /prod-mingw.*/
+  - /test-mingw.*/
+  - test-appveyor
+  - /msvc.*/
 skip_tags: true
 skip_commits:
   message: /website/
