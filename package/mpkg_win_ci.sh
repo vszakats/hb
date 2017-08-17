@@ -321,7 +321,7 @@ if [ "${_BRANC4}" = 'msvc' ]; then
   [ "${_BRANCH}" = 'msvc2013' ] && _VCVARSALL=' 12.0\VC'
   [ "${_BRANCH}" = 'msvc2015' ] && _VCVARSALL=' 14.0\VC'
   # Assume '\<YYYY>\Community\VC\Auxiliary\Build' for anything newer:
-  [ -z "${_VCVARSALL}" ] && _VCVARSALL="\$(echo "${_BRANCH}" | cut -c 5-8)\Community\VC\Auxiliary\Build"
+  [ -z "${_VCVARSALL}" ] && _VCVARSALL="\\$(echo "${_BRANCH}" | cut -c 5-8)\Community\VC\Auxiliary\Build"
 
   export _VCVARSALL="%ProgramFiles(x86)%\Microsoft Visual Studio${_VCVARSALL}\vcvarsall.bat"
 
