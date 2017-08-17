@@ -28,4 +28,4 @@ maintainers.
 
 This Code of Conduct is adapted from the [Contributor
 Covenant](https://contributor-covenant.org/), version 1.1.0, available at
-[https://contributor-covenant.org/version/1/1/0/](http://contributor-covenant.org/version/1/1/0/)
+[https://contributor-covenant.org/version/1/1/0/](https://contributor-covenant.org/version/1/1/0/)
