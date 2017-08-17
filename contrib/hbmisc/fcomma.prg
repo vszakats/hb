@@ -142,7 +142,7 @@ STATIC FUNCTION FCM_OPEN( nWA, aOpenInfo )
 
    ft_FSelect( nSlot )
 
-   IF ( nHandle := ft_FUse( aOpenInfo[ UR_OI_NAME ], nMode ) ) == F_ERROR
+   IF ( nHandle := ft_FUse( aOpenInfo[ UR_OI_NAME ], nMode ) ) == 0
       oError := ErrorNew()
       oError:GenCode     := EG_OPEN
       oError:SubCode     := 1001
