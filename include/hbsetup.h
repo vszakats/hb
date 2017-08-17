@@ -286,7 +286,8 @@
    Visual Studio 2015, version 14.0        1900
    Visual Studio 2017, version 14.1        1910
 
-   https://en.wikipedia.org/wiki/Microsoft_Visual_C%2B%2B#Internal_version_numbering
+   For newer versions, refer to this page:
+      https://en.wikipedia.org/wiki/Microsoft_Visual_C%2B%2B#Internal_version_numbering
 */
 
 /*
