@@ -10,6 +10,9 @@
 #    https://blog.jgc.org/2013/02/updated-list-of-my-gnu-make-articles.html
 #    https://lists.gnu.org/archive/html/help-make/
 #    http://make.mad-scientist.net/
+#    https://lists.gnu.org/archive/html/info-gnu/2013-10/msg00006.html
+#    https://www.gnu.org/software/make/manual/html_node/Guile-Integration.html
+#    https://lists.gnu.org/archive/html/info-gnu/2016-05/msg00013.html
 # Portable shell programming:
 #    https://www.gnu.org/software/autoconf/manual/html_node/Portable-Shell.html
 #    https://www.gnu.org/software/bash/manual/bashref.html
