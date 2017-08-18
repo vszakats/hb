@@ -20,6 +20,8 @@ PROCEDURE Main( ... )
    LOCAL nPt
 #endif
 
+   LOCAL cSelf := hb_FNameNameExt( hb_ProgName() )
+
    // Gestione parametri
    FOR EACH cPar IN hParams
 
@@ -68,14 +70,14 @@ PROCEDURE Main( ... )
       WRITE hb_ValToExp( hParams ) + "<br>"
       WRITE hb_ValToExp( cParams ) + "<br>"
       WRITE hb_ValToExp( cQuery ) + "<br>"
-      WRITE '<img src="test_out.exe?img=' + cPhoto + "&width=" + hb_ntos( nWidth ) + "&height=" + hb_ntos( nHeight ) + '" alt="pic">' + "<br>"
+      WRITE '<img src="' + cSelf + '?img=' + cPhoto + "&width=" + hb_ntos( nWidth ) + "&height=" + hb_ntos( nHeight ) + '" alt="pic">' + "<br>"
 #endif
       WRITE "<table border=1>"
       WRITE "<tr><td align='center'>"
-      WRITE '<img src="test_out.exe?img=' + cPhoto + '" alt="pic">' + "<br>"
+      WRITE '<img src="' + cSelf + '?img=' + cPhoto + '" alt="pic">' + "<br>"
       WRITE "</td></tr>"
       WRITE "<tr><td align='center'>"
-      WRITE '<img src="test_out.exe?img=' + cPhoto + ;
+      WRITE '<img src="' + cSelf + '?img=' + cPhoto + ;
          iif( HB_ISNUMERIC( nWidth ), "&width=" + hb_ntos( nWidth ), "" ) + ;
          iif( HB_ISNUMERIC( nHeight ), "&height=" + hb_ntos( nHeight ), "" ) + ;
          '" alt="pic">' + "<br>"
@@ -86,7 +88,7 @@ PROCEDURE Main( ... )
       WRITE "</table>"
       WRITE "<br>"
 #if 0
-      WRITE '<img src="test_out.exe?img=' + cText + "_2&pt=" + hb_ntos( nPt ) + '" alt="pic">' + "<br>"
+      WRITE '<img src="' + cSelf + '?img=' + cText + "_2&pt=" + hb_ntos( nPt ) + '" alt="pic">' + "<br>"
       WRITE OS() + "<br>"
 #endif
       EndHTML()

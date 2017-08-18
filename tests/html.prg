@@ -1,8 +1,8 @@
-/* Harbour Test of a HTML generator class.
+/* Example HTML generator class for Harbour
  *
- * Tips: - Use ShowResults to make dynamic html (to test dynamic
- *         results, put the exe file on CGI-BIN dir or equivalent);
- *       - Use SaveToFile to make static html page
+ * - Use :ShowResults() to make dynamic HTML (to test dynamic results, copy
+ *   the executable into cgi-bin directory or equivalent)
+ * - Use :SaveToFile() to make static HTML page
  */
 
 #include "hbclass.ch"
@@ -31,21 +31,21 @@ PROCEDURE Main()
 
 CREATE CLASS THTML STATIC
 
-   VAR cTitle      INIT "Untitled"        // Page Title
-   VAR cBody       INIT ""                // HTML Body Handler
-   VAR cBGColor    INIT "#fff"            // Background Color
-   VAR cLinkColor  INIT "#00f"            // Link Color
-   VAR cvLinkColor INIT "#f00"            // Visited Link Color
-   VAR cContent    INIT ""                // Page Content Handler
+   VAR cTitle      INIT "Untitled"       // Page title
+   VAR cBody       INIT ""               // HTML body handler
+   VAR cBGColor    INIT "#fff"           // Background color
+   VAR cLinkColor  INIT "#00f"           // Link color
+   VAR cvLinkColor INIT "#f00"           // Visited link color
+   VAR cContent    INIT ""               // Page content handler
 
-   METHOD New()                           // New Method
-   METHOD SetTitle( cTitle )              // Set Page Title
-   METHOD AddLink( cLinkTo, cLinkName )   // Add <H1> Header
-   METHOD AddHead( cDescr )               // Add Hyperlink
-   METHOD AddPara( cPara, cAlign )        // Add Paragraph
-   METHOD Generate()                      // Generate HTML
-   METHOD ShowResult()                    // Saves Content to File
-   METHOD SaveToFile( cFile )             // Show Result
+   METHOD New()                          // New method
+   METHOD SetTitle( cTitle )             // Set page title
+   METHOD AddLink( cLinkTo, cLinkName )  // Add <h1> header
+   METHOD AddHead( cDescr )              // Add hyperlink
+   METHOD AddPara( cPara, cAlign )       // Add paragraph
+   METHOD Generate()                     // Generate HTML
+   METHOD ShowResult()                   // Saves content to file
+   METHOD SaveToFile( cFile )            // Show result
 
 ENDCLASS
 
@@ -97,7 +97,4 @@ METHOD ShowResult() CLASS THTML
    RETURN Self
 
 METHOD SaveToFile( cFile ) CLASS THTML
-
-   hb_MemoWrit( cFile, ::cContent )
-
-   RETURN Self
+   RETURN hb_MemoWrit( cFile, ::cContent )

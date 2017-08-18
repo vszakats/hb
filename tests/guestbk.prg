@@ -94,7 +94,7 @@ PROCEDURE Main()
 
       oHTML:cContent := ;
          "<html><head>" + ;
-         '<meta http-equiv="Refresh" content="0;url=/cgi-bin/guestbk.exe">' + ;
+         '<meta http-equiv="Refresh" content="0;url=/cgi-bin/guestbk">' + ;  /* path to executable */
          "</head><body></body></html>"
 
       oHTML:ShowResult()

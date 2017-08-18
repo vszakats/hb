@@ -13,7 +13,7 @@ PROCEDURE Main( n )
       hb_run( "harbour hrbext.prg -gh" )
    ENDIF
 
-   ? "calling Msg ... From exe here !"
+   ? "calling Msg() from main executable here !"
    Msg()
    ? "---"
 
@@ -53,6 +53,6 @@ PROCEDURE Main( n )
 
 FUNCTION Msg()  /* must be a public function */
 
-   ? "Function called from .exe"
+   ? "Function called from main executable"
 
    RETURN .T.

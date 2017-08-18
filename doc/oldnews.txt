@@ -600,7 +600,7 @@ Core
 - Fixed GPFs and leaks when using Harbour compiler -w3 switch.
 - Bad workaround added for Pelles C 5.00.1 in AMD64 mode to
   compile the Harbour 'inet' subsystem. It won't properly
-  work, but it lets build the rest of Harbour (like hbrun.exe).
+  work, but it lets build the rest of Harbour (like hbrun executable).
 - PCRE lib upgraded to 7.8 (from 7.7)
 - Fixed dbInfo( DBI_POSITIONED ) returned value.
 - Fixed internal error in dirty index reading.
@@ -1925,8 +1925,9 @@ Version 0.35 Alpha Build 35 (2000-08-15)
 - ADS RDD encryption/decryption functions added
 - New GTCGI driver
 - Improved command-line parsing
-- Alternate Lexer (SimpLex), utilizes less memory, smaller Harbour.exe
-  as well as smaller compiled applications (due to smaller macro compiler)
+- Alternate Lexer (SimpLex), utilizes less memory, smaller harbour
+  executables as well as smaller compiled applications (due to smaller
+  macro compiler)
 
 ----------------------------------------------------------------------
 Version 0.34 Alpha Build 34 (2000-06-02)
@@ -2172,8 +2173,8 @@ Version 0.28 Alpha Build 28 (1999-07-18)
 ----------------------------------------------------------------------
 Version 0.27a Alpha Build 27a (1999-06-19)
 
-- Corrected build numbers in Harbour.exe
-- Corrected a little bug in HScript.prg
+- Corrected build numbers in harbour executable
+- Corrected a little bug in hscript.prg
 
 ----------------------------------------------------------------------
 Version 0.27 Alpha Build 27 (1999-06-18)
@@ -2224,9 +2225,9 @@ Version 0.24 Alpha Build 24 (1999-06-03)
 ----------------------------------------------------------------------
 Version 0.23 Alpha Build 23 (1999-05-19)
 
-- Harbour.exe for DOS/Windows is included now
-- The Windows libs are also included (hbw.bat to build Windows .exe's)
-- .hrb files! These files can be run with the runner.exe (Source included)
+- harbour executable for DOS/Windows is included now
+- The Windows libs are also included (hbw.bat to build Windows executables)
+- .hrb files! These files can be run with runner.exe (Source included)
 - No need for a C compiler anymore to run Harbour source!
 - New MAKE and BUILD files for IBM C++ 3.0 for OS/2
 - Many fixes, Many enhancements (See ChangeLog in the Harbour directory)

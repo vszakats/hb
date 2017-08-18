@@ -96,12 +96,11 @@
 #include <sys/param.h>
 #endif
 
-/* mingw-w64 6.1.0 x64-hosted multilib will crash hbpp.exe
+/* mingw-w64 6.1.0 x64-hosted multilib will crash hbpp executable
    inside this function if built in LTO mode for x86 target.
-   Working-around the problem by disabling LTO in this
-   specific case for this specific function. The setting
-   is applied to the whole file, regardless of where it's
-   placed. [vszakats] */
+   Working-around the problem by disabling LTO in this specific
+   case for this specific function. The setting is applied to the
+   whole file, regardless of where it's placed. [vszakats] */
 #if defined( HB_GCC_HAS_OPTIMIZE ) && ( HB_GCC_VER == 601 ) \
     && defined( __MINGW32__ ) && defined( HB_CPU_X86_64 )
 #  pragma GCC push_options
