@@ -217,13 +217,15 @@ METHOD StandardFields() CLASS TIPClientHTTP
 
    RETURN .T.
 
+#define _HEADER_MAX  10240
+
 METHOD ReadHeaders( lClear ) CLASS TIPClientHTTP
 
    LOCAL cLine, nPos, aVersion
    LOCAL aHead
 
    // Now reads the fields and set the content length
-   IF ( cLine := hb_defaultValue( ::inetRecvLine( ::SocketCon, @nPos, 500 ), "" ) ) == ""
+   IF ( cLine := hb_defaultValue( ::inetRecvLine( ::SocketCon, @nPos, _HEADER_MAX ), "" ) ) == ""
       // In case of timeout or error on receiving
       RETURN .F.
    ENDIF
@@ -249,11 +251,11 @@ METHOD ReadHeaders( lClear ) CLASS TIPClientHTTP
    IF hb_defaultValue( lClear, .F. ) .AND. ! Empty( ::hHeaders )
       ::hHeaders := { => }
    ENDIF
-   cLine := ::inetRecvLine( ::SocketCon, @nPos, 500 )
+   cLine := ::inetRecvLine( ::SocketCon, @nPos, _HEADER_MAX )
    DO WHILE ::inetErrorCode( ::SocketCon ) == 0 .AND. HB_ISSTRING( cLine ) .AND. ! cLine == ""
 
       IF Len( aHead := hb_regexSplit( ":", cLine,,, 1 ) ) != 2
-         cLine := ::inetRecvLine( ::SocketCon, @nPos, 500 )
+         cLine := ::inetRecvLine( ::SocketCon, @nPos, _HEADER_MAX )
          LOOP
       ENDIF
 
@@ -275,7 +277,7 @@ METHOD ReadHeaders( lClear ) CLASS TIPClientHTTP
          ::setCookie( aHead[ 2 ] )
       ENDCASE
 
-      cLine := ::inetRecvLine( ::SocketCon, @nPos, 500 )
+      cLine := ::inetRecvLine( ::SocketCon, @nPos, _HEADER_MAX )
    ENDDO
    IF ::inetErrorCode( ::SocketCon ) != 0
       RETURN .F.
