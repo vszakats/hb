@@ -2736,7 +2736,11 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
       IF hbmk[ _HBMK_cCOMP ] == "msvc64"
          cPath_CompC := StrTran( cPath_CompC, "ml64.exe", "cl.exe" )
       ENDIF
-      hbmk[ _HBMK_cCOMPVer ] := CompVersionDetect( hbmk, cPath_CompC )
+      hbmk[ _HBMK_cCOMPVer ] := CompVersionDetect( hbmk, cPath_CompC, .T. )
+   ELSE
+      IF hbmk[ _HBMK_lInfo ]
+          _hbmk_OutStd( hbmk, hb_StrFormat( I_( "Using C compiler version: %1$s (manual)" ), hbmk[ _HBMK_cCOMPVer ] ) )
+      ENDIF
    ENDIF
 
    /* Finish detecting bin/lib/include dirs */
@@ -2773,9 +2777,6 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             _hbmk_OutStd( hbmk, hb_StrFormat( I_( "Using C compiler: %1$s" ), cPath_CompC ) )
          ELSE
             _hbmk_OutStd( hbmk, hb_StrFormat( I_( "Using C compiler: %1$s [%2$s...%3$s]" ), cPath_CompC, hbmk[ _HBMK_cCCPREFIX ], hbmk[ _HBMK_cCCSUFFIX ] ) )
-         ENDIF
-         IF ! hbmk[ _HBMK_cCOMPVer ] == "0"
-            _hbmk_OutStd( hbmk, hb_StrFormat( I_( "Using C compiler version: %1$s" ), hbmk[ _HBMK_cCOMPVer ] ) )
          ENDIF
       ENDIF
    ENDIF
@@ -4627,7 +4628,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             cBin_CompC := iif( hbmk[ _HBMK_lCPP ] != NIL .AND. hbmk[ _HBMK_lCPP ], cBin_CompCPP, hbmk[ _HBMK_cCCPREFIX ] + "gcc" + hbmk[ _HBMK_cCCSUFFIX ] )
          ENDCASE
          IF hbmk[ _HBMK_cCOMPVer ] == "0"
-            hbmk[ _HBMK_cCOMPVer ] := CompVersionDetect( hbmk, cBin_CompC )
+            hbmk[ _HBMK_cCOMPVer ] := CompVersionDetect( hbmk, cBin_CompC, .F. )
          ENDIF
          IF hbmk[ _HBMK_lHARDEN ]
 #if 0
@@ -5036,6 +5037,9 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             cBin_CompCPP := hbmk[ _HBMK_cCCPREFIX ] + "g++" + hbmk[ _HBMK_cCCSUFFIX ] + hbmk[ _HBMK_cCCEXT ]
             cBin_CompC := iif( hbmk[ _HBMK_lCPP ] != NIL .AND. hbmk[ _HBMK_lCPP ], cBin_CompCPP, hbmk[ _HBMK_cCCPREFIX ] + "gcc" + hbmk[ _HBMK_cCCSUFFIX ] + hbmk[ _HBMK_cCCEXT ] )
          ENDCASE
+         IF hbmk[ _HBMK_cCOMPVer ] == "0"
+            hbmk[ _HBMK_cCOMPVer ] := CompVersionDetect( hbmk, cBin_CompC, .F. )
+         ENDIF
          cOpt_CompC := "-c"
          IF hbmk[ _HBMK_lOPTIM ]
             cOpt_CompC += " -O3 -fno-ident"
@@ -5324,7 +5328,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          cBin_CompCPP := hbmk[ _HBMK_cCCPREFIX ] + "g++" + hbmk[ _HBMK_cCCSUFFIX ] + hbmk[ _HBMK_cCCEXT ]
          cBin_CompC := iif( hbmk[ _HBMK_lCPP ] != NIL .AND. hbmk[ _HBMK_lCPP ], cBin_CompCPP, hbmk[ _HBMK_cCCPREFIX ] + "gcc" + hbmk[ _HBMK_cCCSUFFIX ] + hbmk[ _HBMK_cCCEXT ] )
          IF hbmk[ _HBMK_cCOMPVer ] == "0"
-            hbmk[ _HBMK_cCOMPVer ] := CompVersionDetect( hbmk, cBin_CompC )
+            hbmk[ _HBMK_cCOMPVer ] := CompVersionDetect( hbmk, cBin_CompC, .F. )
          ENDIF
          cOpt_CompC := "-c"
          IF hbmk[ _HBMK_lSTATICFULL ]
@@ -5454,6 +5458,9 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          cObjExt := ".o"
          cBin_CompCPP := hbmk[ _HBMK_cCCPREFIX ] + "gpp" + hbmk[ _HBMK_cCCSUFFIX ] + hbmk[ _HBMK_cCCEXT ]
          cBin_CompC := iif( hbmk[ _HBMK_lCPP ] != NIL .AND. hbmk[ _HBMK_lCPP ], cBin_CompCPP, hbmk[ _HBMK_cCCPREFIX ] + "gcc" + hbmk[ _HBMK_cCCSUFFIX ] + hbmk[ _HBMK_cCCEXT ] )
+         IF hbmk[ _HBMK_cCOMPVer ] == "0"
+            hbmk[ _HBMK_cCOMPVer ] := CompVersionDetect( hbmk, cBin_CompC, .F. )
+         ENDIF
          cOpt_CompC := "-c"
          IF hbmk[ _HBMK_lSTATICFULL ]
             cLibModePrefix :=       "-Wl,-Bstatic" + " "
@@ -5983,6 +5990,9 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             cBin_Dyn := cBin_Link
          ENDIF
          cBin_CompCPP := cBin_CompC
+         IF hbmk[ _HBMK_cCOMPVer ] == "0"
+            hbmk[ _HBMK_cCOMPVer ] := CompVersionDetect( hbmk, cBin_CompC, .F. )
+         ENDIF
          cOpt_Lib := "-nologo {FA} -out:{OL} {LO}{SCRIPT}"
          cOpt_Dyn := "-nologo {FD} {IM} -dll -out:{OD} {DL} {LO} {LL} {LB} {LF} {LS}{SCRIPT}"
          cOpt_CompC := "-nologo -c"
@@ -14604,7 +14614,7 @@ STATIC FUNCTION win_implib_command_msvc( hbmk, cCommand, cSourceDLL, cTargetLib,
 
    RETURN nResult
 
-STATIC FUNCTION CompVersionDetect( hbmk, cPath_CompC )
+STATIC FUNCTION CompVersionDetect( hbmk, cPath_CompC, lEarly )
 
    LOCAL cVer
    LOCAL cStdOutErr
@@ -14686,7 +14696,19 @@ STATIC FUNCTION CompVersionDetect( hbmk, cPath_CompC )
       ENDIF
    ENDCASE
 
-   RETURN hb_defaultValue( cVer, "0" )
+   IF cVer == NIL
+      RETURN "0"
+   ENDIF
+
+   IF hbmk[ _HBMK_lInfo ]
+      IF lEarly
+         _hbmk_OutStd( hbmk, hb_StrFormat( I_( "Using C compiler version: %1$s (early auto-detected)" ), cVer ) )
+      ELSE
+         _hbmk_OutStd( hbmk, hb_StrFormat( I_( "Using C compiler version: %1$s (late auto-detected)" ), cVer ) )
+      ENDIF
+   ENDIF
+
+   RETURN cVer
 
 STATIC FUNCTION msvc_rc_nologo_support( hbmk, cPath )
 
