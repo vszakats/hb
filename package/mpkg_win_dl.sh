@@ -64,7 +64,7 @@ set | grep '_VER='
 set -e
 
 alias curl='curl -fsS --connect-timeout 15 --retry 3'
-alias gpg='gpg --batch --keyserver-options timeout=15 --keyid-format LONG'
+alias gpg='gpg --batch --keyid-format LONG'
 
 gpg_recv_keys() {
   req="pks/lookup?search=0x$1&op=get"

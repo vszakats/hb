@@ -111,7 +111,7 @@ mkdir -p "${MXE_HOME}"
   base='http://pkg.mxe.cc/repos/apt/debian'  # APT root
   suid='D43A795B73B16ABE9643FE1AFD8FFF16DB45C6AB'  # Signer UID
 
-  alias gpg='gpg --batch --keyserver-options timeout=15 --keyid-format LONG'
+  alias gpg='gpg --batch --keyid-format LONG'
 
   echo "! Downloading and verifying MXE package list..."
   mxe_curl \
