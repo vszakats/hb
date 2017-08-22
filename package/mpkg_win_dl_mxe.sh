@@ -117,9 +117,12 @@ mkdir -p "${MXE_HOME}"
   mxe_curl \
     -O "${base}/dists/wheezy/Release.gpg" \
     -O "${base}/dists/wheezy/Release"
-  mxe_curl \
-    "https://keyserver.ubuntu.com/pks/lookup?search=0x${suid}&op=get" \
-  | gpg --import --status-fd 1
+  (
+    set -x
+    mxe_curl \
+      "https://keyserver.ubuntu.com/pks/lookup?search=0x${suid}&op=get" \
+    | gpg --import --status-fd 1
+  )
   gpg --verify-options show-primary-uid-only --verify Release.gpg Release || exit 1
   mxe_curl \
     -O "${base}/dists/wheezy/main/binary-amd64/Packages.gz"

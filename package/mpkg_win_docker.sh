@@ -9,6 +9,8 @@
 
 set -x; cat /etc/*-release; ulimit -a; df -h
 
+alias gpg='gpg --batch --keyid-format LONG'
+
 dpkg --add-architecture i386
 apt-get -qq update
 apt-get -qq install \
