@@ -22,7 +22,6 @@
 
 #include <string.h>
 
-#include "hbhash.h"
 #include "hbcomp.h"
 
 #define HB_IDENT_TABLE_SIZE  509UL

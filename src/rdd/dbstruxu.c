@@ -44,7 +44,7 @@
  *
  */
 
-#include "hbapi.h"
+#include "hbdefs.h"
 
 /* NOTE: Undocumented, internal Clipper function */
 

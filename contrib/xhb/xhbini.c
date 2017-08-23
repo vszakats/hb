@@ -44,7 +44,7 @@
  *
  */
 
-#include "hbapi.h"
+#include "hbdefs.h"
 
 HB_FUNC_TRANSLATE( HB_SETINICOMMENT , HB_INISETCOMMENT )
 HB_FUNC_TRANSLATE( HB_READINI       , HB_INIREAD       )

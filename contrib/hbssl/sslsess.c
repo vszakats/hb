@@ -44,9 +44,6 @@
  *
  */
 
-#include "hbapi.h"
-#include "hbapierr.h"
-
 #include "hbssl.h"
 
 static HB_GARBAGE_FUNC( SSL_SESSION_release )

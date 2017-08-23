@@ -44,8 +44,6 @@
  *
  */
 
-#include "hbapi.h"
-
 /* These functions are only for compatibility with existing
  * xHarbour code. Harbour does not emulate associative arrays by
  * special index but it uses real natural order for them. It means

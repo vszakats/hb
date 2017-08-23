@@ -45,8 +45,6 @@
  */
 
 #include "hbzebra.h"
-#include "hbapiitm.h"
-#include "hbapierr.h"
 
 
 /* Usually one character bitmap does not fit into 1 byte, but if we use enough

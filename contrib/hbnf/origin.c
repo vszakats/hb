@@ -9,6 +9,6 @@
    Initial revision.
  */
 
-#include "hbapi.h"
+#include "hbdefs.h"
 
 HB_FUNC_TRANSLATE( FT_ORIGIN, HB_PROGNAME )

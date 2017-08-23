@@ -47,7 +47,7 @@
  *
  */
 
-#include "hbapi.h"
+#include "hbdefs.h"
 
 HB_FUNC_TRANSLATE( SX_FINDREC   , ORDFINDREC )
 HB_FUNC_TRANSLATE( SX_CLEARORDER, ORDBAGCLEAR )

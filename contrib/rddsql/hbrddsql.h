@@ -48,11 +48,11 @@
 #ifndef HB_RDDSQL_H_
 #define HB_RDDSQL_H_
 
+#include "hbapi.h"
 #include "hbapirdd.h"
 #include "hbdbferr.h"
 #include "hbapierr.h"
 #include "hbapilng.h"
-#include "hbapi.h"
 
 /* SQLBASE */
 

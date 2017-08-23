@@ -62,8 +62,6 @@
  */
 
 #include "hbzebra.h"
-#include "hbapiitm.h"
-#include "hbapierr.h"
 
 #define CODE_START          0x2AFF  /* 17-bit width */
 #define CODE_STOP           0x2517F /* 18-bit width */

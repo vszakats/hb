@@ -44,9 +44,8 @@
  *
  */
 
-#include "hbapi.h"
-#include "hbapierr.h"
-
+/* This must come before #include "hbssl.h" */
+#include "hbdefs.h"
 #if defined( HB_OS_WIN )
    #include <windows.h>
    #include <wincrypt.h>

@@ -52,11 +52,11 @@
 
 #define HB_GT_NAME  XWC
 
+#include "hbapi.h"
 #include "hbgtcore.h"
 #include "hbinit.h"
 #include "hbset.h"
 #include "hbvm.h"
-#include "hbapi.h"
 #include "hbapiitm.h"
 #include "hbapierr.h"
 #include "inkey.ch"

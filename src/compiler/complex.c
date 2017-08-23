@@ -45,8 +45,8 @@
  *
  */
 
-#include "hbpp.h"
 #include "hbcomp.h"
+#include "hbpp.h"
 #include "hbdate.h"
 #include "harboury.h"
 

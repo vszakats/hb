@@ -10,6 +10,6 @@
    Nanforum Toolkit
  */
 
-#include "hbapi.h"
+#include "hbdefs.h"
 
 HB_FUNC_TRANSLATE( FT_STOD, HB_STOD )

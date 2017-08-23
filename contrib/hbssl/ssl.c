@@ -60,8 +60,8 @@
    #define _lseek    lseek
 #endif
 
-#include "hbapi.h"
-#include "hbapierr.h"
+#include "hbssl.h"
+
 #include "hbapiitm.h"
 #include "hbvm.h"
 
@@ -69,8 +69,6 @@
    #include <windows.h>
    #include <wincrypt.h>
 #endif
-
-#include "hbssl.h"
 
 typedef struct _HB_SSL
 {

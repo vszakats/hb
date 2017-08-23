@@ -47,8 +47,8 @@
 #ifndef HB_COMP_H_
 #define HB_COMP_H_
 
-#include "hbmacro.ch"
 #include "hbapi.h"
+#include "hbmacro.ch"
 #include "hberrors.h"
 #include "hbpp.h"
 #include "hbmacro.h"

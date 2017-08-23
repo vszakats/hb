@@ -4,6 +4,6 @@
    Initial revision.
  */
 
-#include "hbapi.h"
+#include "hbdefs.h"
 
 HB_FUNC_TRANSLATE( FT_SETKEYS, HB_SETKEYSAVE )

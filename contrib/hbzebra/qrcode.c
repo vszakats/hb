@@ -70,9 +70,6 @@
  */
 
 #include "hbzebra.h"
-#include "hbapi.h"
-#include "hbapiitm.h"
-#include "hbapierr.h"
 
 /* #define DEBUG_CODE */
 

@@ -44,7 +44,7 @@
  *
  */
 
-#include "hbapi.h"
+#include "hbdefs.h"
 
 HB_FUNC_TRANSLATE( CURL_ESCAPE   , CURL_EASY_ESCAPE )
 HB_FUNC_TRANSLATE( CURL_UNESCAPE , CURL_EASY_UNESCAPE )

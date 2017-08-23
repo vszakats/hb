@@ -47,12 +47,11 @@
 /* this has to be declared before hbsocket.h is included */
 #define _HB_SOCKEX_IMPLEMENTATION_
 
-#include "hbapiitm.h"
-#include "hbapierr.h"
-#include "hbvm.h"
-#include "hbsocket.h"
-#include "hbdate.h"
 #include "hbssl.h"
+
+#include "hbapiitm.h"
+#include "hbvm.h"
+#include "hbdate.h"
 #include "hbinit.h"
 
 typedef struct _HB_SSLSTREAM

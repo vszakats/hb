@@ -44,7 +44,7 @@
  *
  */
 
-#include "hbapi.h"
+#include "hbdefs.h"
 
 /* MT functions */
 HB_FUNC_TRANSLATE( HB_MULTITHREAD           , HB_MTVM               )

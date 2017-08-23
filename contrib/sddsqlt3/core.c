@@ -44,15 +44,14 @@
  *
  */
 
-#include "hbapi.h"
+#include "hbrddsql.h"
+
 #include "hbapiitm.h"
 #include "hbapistr.h"
 #include "hbdate.h"
 #include "hbset.h"
 #include "hbvm.h"
 #include "hbset.h"
-
-#include "hbrddsql.h"
 
 #include <sqlite3.h>
 

@@ -48,6 +48,7 @@
 #define HBSSL_H_
 
 #include "hbapi.h"
+#include "hbapierr.h"
 #include "hbsocket.h"
 
 #if defined( HB_OS_WIN )

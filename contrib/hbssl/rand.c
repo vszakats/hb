@@ -44,8 +44,6 @@
  *
  */
 
-#include "hbapi.h"
-
 #include "hbssl.h"
 
 #include <openssl/rand.h>

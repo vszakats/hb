@@ -44,14 +44,13 @@
  *
  */
 
-#include "hbapi.h"
+#include "hbrddsql.h"
+
 #include "hbapiitm.h"
 #include "hbdate.h"
 #include "hbapistr.h"
 #include "hbset.h"
 #include "hbvm.h"
-
-#include "hbrddsql.h"
 
 /* Required by headers on Windows */
 #if defined( HB_OS_WIN )

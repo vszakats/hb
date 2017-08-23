@@ -47,8 +47,8 @@
 #ifndef HB_MACRO_H_
 #define HB_MACRO_H_
 
-#include "hbcompdf.h"
 #include "hbapi.h"
+#include "hbcompdf.h"
 #include "hbapiitm.h"
 #include "hbapierr.h"
 #include "hbvm.h"

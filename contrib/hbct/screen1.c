@@ -47,7 +47,6 @@
  *
  */
 
-#include "hbdefs.h"
 #include "hbapi.h"
 #include "hbapigt.h"
 

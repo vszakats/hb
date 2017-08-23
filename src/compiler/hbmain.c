@@ -32,7 +32,6 @@
 #endif
 
 #include "hbcomp.h"
-#include "hbhash.h"
 #include "hbset.h"
 
 static int hb_compCompile( HB_COMP_DECL, const char * szPrg, const char * szBuffer, int iStartLine );

@@ -45,9 +45,6 @@
  *
  */
 
-#include "hbapi.h"
-#include "hbapiitm.h"
-
 #include "rddads.h"
 
 static ADSHANDLE s_hMgmtHandle = 0;

@@ -45,7 +45,7 @@
  *
  */
 
-#include "hbapi.h"
+#include "hbdefs.h"
 
 #ifdef HB_CLP_UNDOC
 

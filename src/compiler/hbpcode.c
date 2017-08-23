@@ -20,7 +20,6 @@
  *
  */
 
-
 #include "hbcomp.h"
 #include "hbassert.h"
 

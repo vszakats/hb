@@ -51,7 +51,7 @@
  *
  */
 
-#include "hbapi.h"
+#include "hbdefs.h"
 
 HB_FUNC_TRANSLATE( CFTSADD   , HS_ADD )
 HB_FUNC_TRANSLATE( CFTSCLOSE , HS_CLOSE )

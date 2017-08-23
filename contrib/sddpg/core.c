@@ -45,11 +45,10 @@
  */
 
 
-#include "hbapi.h"
+#include "hbrddsql.h"
+
 #include "hbapiitm.h"
 #include "hbvm.h"
-
-#include "hbrddsql.h"
 
 #include "libpq-fe.h"
 

@@ -47,10 +47,10 @@
 #define SUPERTABLE   ( &adsSuper )
 #define MAX_STR_LEN  255
 
+#include "rddads.h"
+
 #include "hbvm.h"
 #include "hbinit.h"
-#include "hbapi.h"
-#include "hbapiitm.h"
 #include "hbapistr.h"
 #include "hbapierr.h"
 #include "hbdbferr.h"
@@ -60,7 +60,6 @@
 #include "hbstack.h"
 
 #include "rddsys.ch"
-#include "rddads.h"
 
 static int s_iSetListenerHandle = 0;
 

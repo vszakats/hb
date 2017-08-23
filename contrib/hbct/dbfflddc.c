@@ -45,6 +45,6 @@
  *
  */
 
-#include "hbapi.h"
+#include "hbdefs.h"
 
 HB_FUNC_TRANSLATE( FIELDDECI, HB_FIELDDEC )

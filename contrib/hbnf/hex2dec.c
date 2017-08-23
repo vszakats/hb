@@ -14,6 +14,6 @@
    Nanforum Toolkit
  */
 
-#include "hbapi.h"
+#include "hbdefs.h"
 
 HB_FUNC_TRANSLATE( FT_HEX2DEC, HB_HEXTONUM )

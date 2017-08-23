@@ -44,7 +44,7 @@
  *
  */
 
-#include "hbapi.h"
+#include "hbdefs.h"
 
 HB_FUNC_TRANSLATE( DBSETINDEX   , ORDLISTADD )
 HB_FUNC_TRANSLATE( DBCLEARINDEX , ORDLISTCLEAR )

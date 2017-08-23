@@ -44,11 +44,9 @@
  *
  */
 
-#include "hbapi.h"
-#include "hbapiitm.h"
-#include "hbapierr.h"
-
 #include "hbssl.h"
+
+#include "hbapiitm.h"
 
 /* BIO GC handler */
 

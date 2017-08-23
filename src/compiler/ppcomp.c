@@ -44,7 +44,6 @@
  *
  */
 
-
 #include "hbcomp.h"
 
 static void hb_pp_ErrorGen( void * cargo,

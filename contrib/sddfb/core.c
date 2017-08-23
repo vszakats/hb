@@ -50,11 +50,10 @@
    #define __STDINT_H
 #endif
 
-#include "hbapi.h"
+#include "hbrddsql.h"
+
 #include "hbapiitm.h"
 #include "hbvm.h"
-
-#include "hbrddsql.h"
 
 #include "ibase.h"
 

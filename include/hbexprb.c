@@ -45,7 +45,6 @@
  */
 
 #include "hbcomp.h"
-#include "hbmacro.ch"
 
 #if ! defined( HB_HASH_USES_ARRAY_INDEXES )
    #define HB_HASH_USES_ARRAY_INDEXES

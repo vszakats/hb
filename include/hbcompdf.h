@@ -44,11 +44,9 @@
  *
  */
 
-
 #ifndef HB_COMPDF_H_
 #define HB_COMPDF_H_
 
-#include "hbapi.h"
 #include "hbpp.h"
 #include "hbhash.h"
 
