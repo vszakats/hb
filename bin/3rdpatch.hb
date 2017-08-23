@@ -38,7 +38,7 @@
  * ORIGIN
  *   Takes one argument, the URL of component's home page. Not currently used,
  *   but greatly helps locating resources regarding the component.
- *   Example: for PCRE2, it is `http://pcre.org/'.
+ *   Example: for ZLIB, it is `https://zlib.net/'.
  *
  * VER
  *   Takes one argument, the version number of the component currently in the
