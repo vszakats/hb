@@ -6,6 +6,8 @@
 # ---------------------------------------------------------------
 
 # - Requires '[PACKAGE]_VER' and '[PACKAGE]_HASH_[32|64]' envvars
+# - Requires bash extensions for curly brace expansion, but using
+#   'sh' anyway to stay in POSIX shell mode with shellcheck.
 
 case "$(uname)" in
   *_NT*)   readonly os='win';;

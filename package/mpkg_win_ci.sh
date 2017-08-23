@@ -5,6 +5,9 @@
 # See LICENSE.txt for licensing terms.
 # ---------------------------------------------------------------
 
+# - Requires bash extensions for curly brace expansion, but using
+#   'sh' anyway to stay in POSIX shell mode with shellcheck.
+
 [ -n "${CI}" ] || [ "$1" = '--force' ] || exit
 
 cd "$(dirname "$0")/.." || exit
