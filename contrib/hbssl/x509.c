@@ -44,7 +44,11 @@
  *
  */
 
-/* This must come before #include "hbssl.h" */
+/* This must come before #include "hbssl.h".
+   OpenSSL 1.1.x and upper don't require Windows headers anymore,
+   but if #included, it still must come before its own headers.
+   The Harbour wrapper code doesn't need the Windows headers, so
+   they will be dropped once 1.0.2 is EOLed in 2019-12-31. */
 #include "hbdefs.h"
 #if defined( HB_OS_WIN )
    #include <windows.h>

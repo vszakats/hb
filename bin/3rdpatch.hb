@@ -51,8 +51,9 @@
  *   version of the component. Used by 3rdpatch.
  *   Example: for PCRE2, at the time of this writing, it is
  *   `https://ftp.pcre.org/pub/pcre/pcre2-10.22.tar.bz2'.
- *   3rdpatch can currently unpack only `tar.gz', `tar.bz2', `tgz', `tbz',
- *   `tbz2', `tar.xz', `txz' and `zip' archives -- one of these must be chosen.
+ *   3rdpatch can currently unpack only `.tar.gz', `.tar.bz2', `.tgz', `.tbz',
+ *   `.tbz2', `.tar.xz', `.txz', `.tar.lz', `.tlz' and `.zip' archives -- one
+ *   of these must be chosen.
  *
  *   3rdpatch will also use the URL parameter to figure out what type of
  *   file it is working with, so a URL containing this sort if information must
@@ -259,6 +260,7 @@ STATIC s_aTools := { ;
    "gzip"   =>, ;
    "bzip2"  =>, ;
    "xz"     =>, ;
+   "lzip"   =>, ;
    "unzip"  => }
 
 PROCEDURE Main( ... )
@@ -699,6 +701,13 @@ STATIC FUNCTION FetchAndExtract( cArchiveURL )
       }, ;
       ".tar.xz|.txz" => { ;
          "Extractor"          => "xz", ;
+         "ExtractorArgs"      => "-d", ;
+         "ExtractedFile"      => ".tar", ;
+         "Archiver"           => "tar", ;
+         "ArchiverArgs"       => "--force-local -xvf" ;
+      }, ;
+      ".tar.lz|.tlz" => { ;
+         "Extractor"          => "lzip", ;
          "ExtractorArgs"      => "-d", ;
          "ExtractedFile"      => ".tar", ;
          "Archiver"           => "tar", ;

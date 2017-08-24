@@ -3,7 +3,7 @@
 /*
  * Converts core lang modules to standard .po files
  *
- * Copyright 2013 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2013-2017 Viktor Szakats (vszakats.net/harbour)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -100,23 +100,20 @@ STATIC FUNCTION Meta()
 
    LOCAL cISO_TimeStamp := ISO_TimeStamp()
 
-   LOCAL hMeta
-   LOCAL cMeta
-
    LOCAL meta
+   LOCAL hMeta := { ;
+      "Project-Id-Version:"        => "core-lang", ;
+      "Report-Msgid-Bugs-To:"      => hb_Version( HB_VERSION_URL_BASE ) + "issues", ;
+      "POT-Creation-Date:"         => cISO_TimeStamp, ;
+      "PO-Revision-Date:"          => cISO_TimeStamp, ;
+      "Last-Translator:"           => "foo bar <foo.bar@example.org>", ;
+      "Language-Team:"             => "https://www.transifex.com/projects/p/harbour/", ;
+      "MIME-Version:"              => "1.0", ;
+      "Content-Type:"              => "text/plain; charset=UTF-8", ;
+      "Content-Transfer-Encoding:" => "8bit" }
 
-   hMeta := { => }
-   hMeta[ "Project-Id-Version:"        ] := "core-lang"
-   hMeta[ "Report-Msgid-Bugs-To:"      ] := hb_Version( HB_VERSION_URL_BASE ) + "issues"
-   hMeta[ "POT-Creation-Date:"         ] := cISO_TimeStamp
-   hMeta[ "PO-Revision-Date:"          ] := cISO_TimeStamp
-   hMeta[ "Last-Translator:"           ] := "foo bar <foo.bar@example.org>"
-   hMeta[ "Language-Team:"             ] := "https://www.transifex.com/projects/p/harbour/"
-   hMeta[ "MIME-Version:"              ] := "1.0"
-   hMeta[ "Content-Type:"              ] := "text/plain; charset=UTF-8"
-   hMeta[ "Content-Transfer-Encoding:" ] := "8bit"
+   LOCAL cMeta := ""
 
-   cMeta := ""
    FOR EACH meta IN hMeta
       cMeta += meta:__enumKey() + " " + meta
       IF ! meta:__enumIsLast()

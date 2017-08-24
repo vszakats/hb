@@ -59,10 +59,6 @@
 #include "sha1hmac.h"
 #include <string.h>
 
-#ifdef  __cplusplus
-extern "C" {
-#endif
-
 /* Filler bytes: */
 #define IPAD_BYTE   0x36
 #define OPAD_BYTE   0x5c
@@ -186,9 +182,5 @@ void hb_HMAC_SHA1_Done(HMAC_SHA1_CTX *ctx) {
     ctx->keylen = 0;
     ctx->hashkey = 0;
 }
-
-#ifdef  __cplusplus
-}
-#endif
 
 #endif

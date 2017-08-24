@@ -44,14 +44,20 @@
  *
  */
 
-#include "hbssl.h"
-
-#include "hbapiitm.h"
-
+/* This must come before #include "hbssl.h".
+   OpenSSL 1.1.x and upper don't require Windows headers anymore,
+   but if #included, it still must come before its own headers.
+   The Harbour wrapper code doesn't need the Windows headers, so
+   they will be dropped once 1.0.2 is EOLed in 2019-12-31. */
+#include "hbdefs.h"
 #if defined( HB_OS_WIN )
    #include <windows.h>
    #include <wincrypt.h>
 #endif
+
+#include "hbssl.h"
+
+#include "hbapiitm.h"
 
 static HB_GARBAGE_FUNC( SSL_CTX_release )
 {
@@ -603,7 +609,7 @@ HB_FUNC( SSL_CTX_GET_CLIENT_CA_LIST )
 
       if( ctx )
       {
-#if OPENSSL_VERSION_NUMBER < 0x10000000L /* FIXME: Compilation error when tried with 1.0.0beta5 */
+#if OPENSSL_VERSION_NUMBER < 0x10000000L || OPENSSL_VERSION_NUMBER >= 0x1000000FL /* NOTE: Compilation error when tried with 1.0.0beta5 */
          STACK_OF( X509_NAME ) * stack = SSL_CTX_get_client_CA_list( ctx );
          int len = sk_X509_NAME_num( stack );
 

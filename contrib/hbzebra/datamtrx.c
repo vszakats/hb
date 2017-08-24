@@ -60,7 +60,7 @@
      https://www.barcodetools.com/generator/index.html
 
    Online decoder:
-     http://www.datasymbol.com/barcode-reader-sdk/barcode-reader-sdk-for-windows/online-barcode-decoder.html
+     https://www.datasymbol.com/barcode-reader-sdk/barcode-reader-sdk-for-windows/online-barcode-decoder.html
 
  */
 

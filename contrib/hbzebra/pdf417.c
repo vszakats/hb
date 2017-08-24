@@ -58,7 +58,7 @@
      https://www.terryburton.co.uk/barcodewriter/generator/
 
    Online decoder:
-     http://www.datasymbol.com/barcode-recognition-sdk/barcode-reader/online-barcode-decoder.html
+     https://www.datasymbol.com/barcode-recognition-sdk/barcode-reader/online-barcode-decoder.html
  */
 
 #include "hbzebra.h"

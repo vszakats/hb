@@ -115,10 +115,6 @@
 
  */
 
-#include "hbapi.h"
-#include "hbapifs.h"
-#include "hbapiitm.h"
-#include "hbapierr.h"
 #include "hbsxfunc.h"
 
 #define HB_SX_UNCOMPRESED  0xFFFFFFFFUL
