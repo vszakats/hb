@@ -1898,7 +1898,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
 
          hbmk[ _HBMK_lMarkdown ] := .T.
 
-         ShowHeader( hbmk )
+         ShowHeader( hbmk, .T. )
          ShowHelp( hbmk, .T., .T. )
          RETURN _EXIT_HELP
 
@@ -1907,7 +1907,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          hbmk[ _HBMK_lMarkdown ] := .T.
          hbmk[ _HBMK_lShellMode ] := .T.
 
-         ShowHeader( hbmk )
+         ShowHeader( hbmk, .T. )
          ShowHelp( hbmk, .T., .T. )
          RETURN _EXIT_HELP
 
@@ -18536,18 +18536,22 @@ STATIC FUNCTION ToMarkdown( cText, cStyle )
 
    RETURN cText
 
-STATIC PROCEDURE ShowHeader( hbmk )
+STATIC PROCEDURE ShowHeader( hbmk, lForTheWeb )
 
    LOCAL cText
    LOCAL cTrsText
    LOCAL cTrsTextI
+
+   LOCAL cToYear := iif( hb_defaultValue( lForTheWeb, .F. ), ;
+      I_( "present" ), ;
+      hb_ntos( Year( hb_Version( HB_VERSION_BUILD_DATE ) ) ) )
 
 #ifdef HARBOUR_SUPPORT
    IF hbmk[ _HBMK_lShellMode ]
       cText := ;
          "Harbour Shell / Script Runner " + HBRawVersion() + e"\n" + ;
          "Copyright © 2007-" + ;
-            hb_ntos( Year( hb_Version( HB_VERSION_BUILD_DATE ) ) ) + ", " + ;
+            cToYear + ", " + ;
             "Viktor Szakats" + e"\n" + ;
          "Copyright © 2003-2007, Przemysław Czerpak" + e"\n"
    ELSE
@@ -18558,7 +18562,7 @@ STATIC PROCEDURE ShowHeader( hbmk )
       ENDIF
       cText += " " + HBRawVersion() + e"\n" + ;
          "Copyright © 1999-" + ;
-            hb_ntos( Year( hb_Version( HB_VERSION_BUILD_DATE ) ) ) + ", " + ;
+            cToYear + ", " + ;
             "Viktor Szakats" + e"\n"
 #ifdef HARBOUR_SUPPORT
    ENDIF

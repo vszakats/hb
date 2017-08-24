@@ -1,5 +1,5 @@
-Harbour Make \(hbmk2\) 3\.4\.0dev \(f045ac02bb\) \(2017\-08\-07 09:55\)  
-Copyright &copy; 1999\-2017, Viktor Szakats  
+Harbour Make \(hbmk2\) 3\.4\.0dev \(e8ace75ec7\) \(2017\-08\-23 10:58\)  
+Copyright &copy; 1999\-present, Viktor Szakats  
 <https://github\.com/vszakats/harbour\-core/>  
 
 Syntax:  
