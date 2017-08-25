@@ -18489,6 +18489,7 @@ INIT PROCEDURE ClipInit()
 
 STATIC FUNCTION ToMarkdown( cText, cStyle )
 
+   /* Do not escape '.' and '-' to avoid destroying URLs */
    STATIC sc_hMarkdown := { ;
       "&"        => "&amp;", ;
       "<"        => "&lt;", ;
@@ -18509,8 +18510,6 @@ STATIC FUNCTION ToMarkdown( cText, cStyle )
       ")"        => "\)", ;
       "#"        => "\#", ;
       "+"        => "\+", ;
-      "-"        => "\-", ;
-      "."        => "\.", ;
       "!"        => "\!", ;
       "Markdown" => "[Markdown](https://daringfireball.net/projects/markdown/)" }
 
