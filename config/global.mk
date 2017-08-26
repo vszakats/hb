@@ -965,6 +965,7 @@ ifeq ($(HB_COMPILER_VER),)
          HB_COMPILER_VER := $(subst 0703,0308,$(HB_COMPILER_VER))
          HB_COMPILER_VER := $(subst 0800,0309,$(HB_COMPILER_VER))
          HB_COMPILER_VER := $(subst 0801,0309,$(HB_COMPILER_VER))
+         HB_COMPILER_VER := $(subst 0900,0400,$(HB_COMPILER_VER))
       endif
 
    else

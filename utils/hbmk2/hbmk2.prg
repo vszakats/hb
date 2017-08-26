@@ -14685,6 +14685,7 @@ STATIC FUNCTION CompVersionDetect( hbmk, cPath_CompC, lEarly )
             CASE "0703" ; cVer := "0308" ; EXIT
             CASE "0800" ; cVer := "0309" ; EXIT  /* guess right after WWDC2016 */
             CASE "0801" ; cVer := "0309" ; EXIT
+            CASE "0900" ; cVer := "0400" ; EXIT  /* 2017-08 guess */
             ENDSWITCH
          CASE ( tmp1 := hb_AtX( R_( "version [0-9]*\.[0-9]*\.[0-9]*" ), cStdOutErr ) ) != NIL
             tmp1 := hb_ATokens( SubStr( tmp1, Len( "version " ) + 1 ), "." )
