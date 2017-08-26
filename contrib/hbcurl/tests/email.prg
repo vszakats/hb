@@ -16,7 +16,7 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
    LOCAL lSTARTTLS_force
 
    IF hb_AScan( curl_version_info()[ HB_CURLVERINFO_PROTOCOLS ], "smtps",,, .T. ) == 0
-      ? "Error: Requires libcurl 7.20.0 or newer, built with SSL and smtp protocol support"
+      ? "Error: Requires libcurl 7.20.0 or newer, built with TLS/SSL and SMTP protocol support"
       RETURN
    ENDIF
 

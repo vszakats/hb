@@ -4,11 +4,11 @@
 
 #require "hbcurl"
 
-#define UPLOAD_FILE_AS      "test_ul.bin"
-#define RENAME_FILE_TO      "test_ul_renamed.bin"
-#define REMOTE_URL          "ftp://username:password@localhost/" + UPLOAD_FILE_AS
-#define REMOTE_URL_DEL      "ftp://username:password@localhost/" + RENAME_FILE_TO
-#define REMOTE_URL_MEM      "ftp://username:password@localhost/from_mem.txt"
+#define UPLOAD_FILE_AS  "test_ul.bin"
+#define RENAME_FILE_TO  "test_ul_renamed.bin"
+#define REMOTE_URL      "ftp://username:password@localhost/" + UPLOAD_FILE_AS
+#define REMOTE_URL_DEL  "ftp://username:password@localhost/" + RENAME_FILE_TO
+#define REMOTE_URL_MEM  "ftp://username:password@localhost/from_mem.txt"
 
 #include "fileio.ch"
 
