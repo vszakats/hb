@@ -1502,6 +1502,11 @@ static HB_BOOL hb_gt_wvw_Info( PHB_GT pGT, int iType, PHB_GT_INFO pInfo )
 
          }
          break;
+
+      case HB_GTI_WINHANDLE:
+         pInfo->pResult = hb_itemPutPtr( pInfo->pResult, s_wvw->pWin[ 0 ]->hWnd );
+         break;
+
       default:
       {
          if( pGT )
