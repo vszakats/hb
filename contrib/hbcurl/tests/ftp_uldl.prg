@@ -10,11 +10,11 @@
 #define REMOTE_URL_DEL      "ftp://username:password@localhost/" + RENAME_FILE_TO
 #define REMOTE_URL_MEM      "ftp://username:password@localhost/from_mem.txt"
 
-#define _CA_FN_  "cacert.pem"
-
 #include "fileio.ch"
 
 PROCEDURE Main( cDL, cUL )
+
+   LOCAL cCA := "cacert.pem"
 
    LOCAL curl
    LOCAL info
@@ -130,18 +130,21 @@ PROCEDURE Main( cDL, cUL )
 
       WAIT
 
+      #if defined( __PLATFORM__WINDOWS )
+         cCA := hb_DirBase() + hb_DirSepToOS( "../../../bin/" ) + cCA
+      #endif
       #if ! defined( __PLATFORM__UNIX ) .OR. defined( __PLATFORM__DARWIN )
-         IF ! hb_vfExists( _CA_FN_ )
-            ? "Downloading", _CA_FN_
+         IF ! hb_vfExists( cCA )
+            ? "Downloading", cCA
             curl_easy_setopt( curl, HB_CURLOPT_DOWNLOAD )
-            curl_easy_setopt( curl, HB_CURLOPT_SSL_VERIFYPEER, 0 )  /* we don't have a CA database yet, so skip checking */
+            curl_easy_setopt( curl, HB_CURLOPT_SSL_VERIFYPEER, .F. )  /* we don't have a CA database yet, so skip checking */
             curl_easy_setopt( curl, HB_CURLOPT_URL, "https://curl.haxx.se/ca/cacert.pem" )
-            curl_easy_setopt( curl, HB_CURLOPT_DL_FILE_SETUP, _CA_FN_ )
+            curl_easy_setopt( curl, HB_CURLOPT_DL_FILE_SETUP, cCA )
             curl_easy_setopt( curl, HB_CURLOPT_FAILONERROR, .T. )
             curl_easy_perform( curl )
             curl_easy_reset( curl )
          ENDIF
-         curl_easy_setopt( curl, HB_CURLOPT_CAINFO, _CA_FN_ )
+         curl_easy_setopt( curl, HB_CURLOPT_CAINFO, cCA )
       #endif
 
       hb_default( @cDL, "https://www.example.org/index.html" )
@@ -157,7 +160,7 @@ PROCEDURE Main( cDL, cUL )
       ? curl_easy_setopt( curl, HB_CURLOPT_NOPROGRESS, 0 )
       ? curl_easy_setopt( curl, HB_CURLOPT_VERBOSE, lVerbose )
       ? curl_easy_setopt( curl, HB_CURLOPT_DEBUGBLOCK, {| ... | QOut( "DEBUG:", ... ) } )
-      ? curl_easy_setopt( curl, HB_CURLOPT_CAINFO, _CA_FN_ )
+      ? curl_easy_setopt( curl, HB_CURLOPT_CAINFO, cCA )
       ? curl_easy_setopt( curl, HB_CURLOPT_CERTINFO, .T. )
 
       ? "DOWNLOAD FILE (FILENAME):", curl_easy_perform( curl )
@@ -181,7 +184,7 @@ PROCEDURE Main( cDL, cUL )
       ? curl_easy_setopt( curl, HB_CURLOPT_NOPROGRESS, 0 )
       ? curl_easy_setopt( curl, HB_CURLOPT_VERBOSE, lVerbose )
       ? curl_easy_setopt( curl, HB_CURLOPT_DEBUGBLOCK, {| ... | QOut( "DEBUG:", ... ) } )
-      ? curl_easy_setopt( curl, HB_CURLOPT_CAINFO, _CA_FN_ )
+      ? curl_easy_setopt( curl, HB_CURLOPT_CAINFO, cCA )
 
       ? "DOWNLOAD FILE (FILE HANDLE):", curl_easy_perform( curl )
       ? "SERVER TIMESTAMP:", tDate := UnixTimeToT( curl_easy_getinfo( curl, HB_CURLINFO_FILETIME ) )
@@ -205,7 +208,7 @@ PROCEDURE Main( cDL, cUL )
       ? curl_easy_setopt( curl, HB_CURLOPT_NOPROGRESS, 0 )
       ? curl_easy_setopt( curl, HB_CURLOPT_VERBOSE, lVerbose )
       ? curl_easy_setopt( curl, HB_CURLOPT_DEBUGBLOCK, {| ... | QOut( "DEBUG:", ... ) } )
-      ? curl_easy_setopt( curl, HB_CURLOPT_CAINFO, _CA_FN_ )
+      ? curl_easy_setopt( curl, HB_CURLOPT_CAINFO, cCA )
 
       ? "DOWNLOAD FILE (FS HANDLE):", curl_easy_perform( curl )
       ? "SERVER TIMESTAMP:", tDate := UnixTimeToT( curl_easy_getinfo( curl, HB_CURLINFO_FILETIME ) )
@@ -229,7 +232,7 @@ PROCEDURE Main( cDL, cUL )
       ? curl_easy_setopt( curl, HB_CURLOPT_NOPROGRESS, 0 )
       ? curl_easy_setopt( curl, HB_CURLOPT_VERBOSE, lVerbose )
       ? curl_easy_setopt( curl, HB_CURLOPT_DEBUGBLOCK, {| ... | QOut( "DEBUG:", ... ) } )
-      ? curl_easy_setopt( curl, HB_CURLOPT_CAINFO, _CA_FN_ )
+      ? curl_easy_setopt( curl, HB_CURLOPT_CAINFO, cCA )
 
       ? "DOWNLOAD FILE TO MEM:", curl_easy_perform( curl )
       ? "SERVER TIMESTAMP:", tDate := UnixTimeToT( curl_easy_getinfo( curl, HB_CURLINFO_FILETIME ) )

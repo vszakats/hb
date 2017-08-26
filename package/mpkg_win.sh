@@ -231,6 +231,7 @@ if [ "${_HB_BUNDLE_3RDLIB}" = 'yes' ]; then
     done
     [ -f "${dir_64}COPYING.txt" ] && cp -f -p "${dir_64}COPYING.txt" "${HB_ABSROOT}LICENSE_${name}.txt"
     [ -f "${dir_64}LICENSE.txt" ] && cp -f -p "${dir_64}LICENSE.txt" "${HB_ABSROOT}LICENSE_${name}.txt"
+    [ "${name}" = 'curl' ] && cp -f -p "${dir_64}bin/curl-ca-bundle.crt" "${HB_ABSROOT}bin/cacert.pem"
   done
 fi
 

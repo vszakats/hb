@@ -5,9 +5,9 @@
 
 #include "simpleio.ch"
 
-#define _CA_FN_  "cacert.pem"
-
 PROCEDURE Main( cFrom, cPassword, cTo, cHost )
+
+   LOCAL cCA := "cacert.pem"
 
    LOCAL curl
    LOCAL cMessage
@@ -78,18 +78,21 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
    IF Empty( curl := curl_easy_init() )
       ? "Failed to init"
    ELSE
+      #if defined( __PLATFORM__WINDOWS )
+         cCA := hb_DirBase() + hb_DirSepToOS( "../../../bin/" ) + cCA
+      #endif
       #if ! defined( __PLATFORM__UNIX ) .OR. defined( __PLATFORM__DARWIN )
-         IF ! hb_vfExists( _CA_FN_ )
-            ? "Downloading", _CA_FN_
+         IF ! hb_vfExists( cCA )
+            ? "Downloading", cCA
             curl_easy_setopt( curl, HB_CURLOPT_DOWNLOAD )
-            curl_easy_setopt( curl, HB_CURLOPT_SSL_VERIFYPEER, 0 )  /* we don't have a CA database yet, so skip checking */
+            curl_easy_setopt( curl, HB_CURLOPT_SSL_VERIFYPEER, .F. )  /* we don't have a CA database yet, so skip checking */
             curl_easy_setopt( curl, HB_CURLOPT_URL, "https://curl.haxx.se/ca/cacert.pem" )
-            curl_easy_setopt( curl, HB_CURLOPT_DL_FILE_SETUP, _CA_FN_ )
+            curl_easy_setopt( curl, HB_CURLOPT_DL_FILE_SETUP, cCA )
             curl_easy_setopt( curl, HB_CURLOPT_FAILONERROR, .T. )
             curl_easy_perform( curl )
             curl_easy_reset( curl )
          ENDIF
-         curl_easy_setopt( curl, HB_CURLOPT_CAINFO, _CA_FN_ )
+         curl_easy_setopt( curl, HB_CURLOPT_CAINFO, cCA )
       #endif
       curl_easy_setopt( curl, HB_CURLOPT_USE_SSL, ;
          iif( lSTARTTLS_force, HB_CURLUSESSL_ALL, HB_CURLUSESSL_TRY ) )
