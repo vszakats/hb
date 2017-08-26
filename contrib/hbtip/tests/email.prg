@@ -37,7 +37,7 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
    CASE cHost == "fastmail" .OR. "@fastmail.com" $ cFrom .OR. "@fastmail.fm" $ cFrom
       cHost := "smtp.fastmail.com"
    CASE cHost == "gmx.net" .OR. "@gmx.net" $ cFrom .OR. "@gmx.ch" $ cFrom .OR. "@gmx.de" $ cFrom
-      cHost := "mail.gmx.net"; lSTARTTLS := .T.
+      cHost := "mail.gmx.net"
    CASE cHost == "google" .OR. "@gmail.com" $ cFrom .OR. "@googlemail.com" $ cFrom
       cHost := "smtp.gmail.com"
    CASE cHost == "mail.ru" .OR. "@mail.ru" $ cFrom

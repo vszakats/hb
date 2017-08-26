@@ -30,7 +30,7 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
    lSTARTTLS_force := .F.
 
    /* NOTE: Consult your provider for updated settings
-            and make a pull request if necessary. */
+            and create a Pull Request if necessary. */
 
    DO CASE
    CASE cHost == "apple" .OR. "@icloud.com" $ cFrom .OR. "@mac.com" $ cFrom .OR. "@me.com" $ cFrom
@@ -38,7 +38,7 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
    CASE cHost == "fastmail" .OR. "@fastmail.com" $ cFrom .OR. "@fastmail.fm" $ cFrom
       cHost := "smtps://smtp.fastmail.com"
    CASE cHost == "gmx.net" .OR. "@gmx.net" $ cFrom .OR. "@gmx.ch" $ cFrom .OR. "@gmx.de" $ cFrom
-      cHost := "smtp://mail.gmx.net:587"; lSTARTTLS_force := .T.
+      cHost := "smtps://mail.gmx.net"
    CASE cHost == "google" .OR. "@gmail.com" $ cFrom .OR. "@googlemail.com" $ cFrom
       cHost := "smtps://smtp.gmail.com"
    CASE cHost == "mail.ru" .OR. "@mail.ru" $ cFrom
