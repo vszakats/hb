@@ -29,7 +29,7 @@ procedure main( fn )
 
   fn := hb_defaultvalue( fn, 'hbdoc_assets.yml' )
 
-  for each pkg in r := hb_yaml_decode( hb_memoread( fn ) )
+  for each pkg in hb_defaultValue( r := hb_yaml_decode( hb_memoread( fn ) ), { => } )
     for each file in pkg[ 'files' ]
       ? url := ;
         pkg[ 'root' ] + ;
