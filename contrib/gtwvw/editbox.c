@@ -109,8 +109,7 @@ static LRESULT CALLBACK hb_gt_wvw_EBProc( HWND hWnd, UINT message, WPARAM wParam
       case WM_SYSKEYDOWN:
       {
          HB_BOOL bAlt = GetKeyState( VK_MENU ) & 0x8000;
-         int     c    = ( int ) wParam;
-         switch( c )
+         switch( wParam )
          {
             case VK_F1:
                iKey = hb_gt_wvw_JustTranslateKey( K_F1, K_SH_F1, K_ALT_F1, K_CTRL_F1 );
@@ -167,7 +166,7 @@ static LRESULT CALLBACK hb_gt_wvw_EBProc( HWND hWnd, UINT message, WPARAM wParam
 
          if( bCtrl && iScanCode == 28 )
             iKey = K_CTRL_RETURN;
-         else if( bCtrl && ( c >= 1 && c <= 26 ) )
+         else if( bCtrl && c >= 1 && c <= 26 )
             iKey = s_K_Ctrl[ c - 1 ];
          else
          {
@@ -198,8 +197,8 @@ static LRESULT CALLBACK hb_gt_wvw_EBProc( HWND hWnd, UINT message, WPARAM wParam
 
       case WM_SYSCHAR:
       {
-         int c, iScanCode = HB_LOBYTE( HIWORD( lParam ) );
-         switch( iScanCode )
+         int c;
+         switch( HB_LOBYTE( HIWORD( lParam ) ) )
          {
             case  2:
                c = K_ALT_1;
@@ -351,7 +350,6 @@ static LRESULT CALLBACK hb_gt_wvw_EBProc( HWND hWnd, UINT message, WPARAM wParam
          HB_BOOL bAlt   = GetKeyState( VK_MENU ) & 0x8000;
          HB_BOOL bCtrl  = GetKeyState( VK_CONTROL ) & 0x8000;
          HB_BOOL bShift = GetKeyState( VK_SHIFT ) & 0x8000;
-         int     c      = ( int ) wParam;
          HB_BOOL fMultiline;
 
          if( ! hb_gt_wvw_BufferedKey( ( int ) wParam ) )
@@ -359,7 +357,7 @@ static LRESULT CALLBACK hb_gt_wvw_EBProc( HWND hWnd, UINT message, WPARAM wParam
 
          fMultiline = ( ( nEBType & WVW_EB_MULTILINE ) == WVW_EB_MULTILINE );
 
-         switch( c )
+         switch( wParam )
          {
             case VK_F4:
                if( bAlt )
@@ -427,19 +425,20 @@ static LRESULT CALLBACK hb_gt_wvw_EBProc( HWND hWnd, UINT message, WPARAM wParam
 
       case WM_CHAR:
       {
-         HB_BOOL bCtrl = GetKeyState( VK_CONTROL ) & 0x8000;
-         switch( ( int ) wParam )
+         switch( wParam )
          {
             case VK_TAB:
                return 0;
-
             case 1:
+            {
+               HB_BOOL bCtrl = GetKeyState( VK_CONTROL ) & 0x8000;
                if( bCtrl )
                {
                   SendMessage( hWnd, EM_SETSEL, 0, ( LPARAM ) -1 );
                   return 0;
                }
                break;
+            }
          }
          break;
       }
@@ -837,19 +836,19 @@ HB_FUNC( WVW_EBGETTEXT )
 
    if( wvw_ctl )
    {
-      int    iLen;
+      HB_SIZE nLen;
       LPTSTR szText;
 
       if( hb_parl( 3 ) /* fSoftBreak */ )
          SendMessage( wvw_ctl->hWnd, EM_FMTLINES, ( WPARAM ) TRUE, 0 );
 
-      iLen = ( int ) SendMessage( wvw_ctl->hWnd, WM_GETTEXTLENGTH, 0, 0 );
+      nLen = ( HB_SIZE ) SendMessage( wvw_ctl->hWnd, WM_GETTEXTLENGTH, 0, 0 );
 
-      szText = ( LPTSTR ) hb_xgrab( ( iLen + 1 ) * sizeof( TCHAR ) );
+      szText = ( LPTSTR ) hb_xgrab( ( nLen + 1 ) * sizeof( TCHAR ) );
 
-      SendMessage( wvw_ctl->hWnd, WM_GETTEXT, iLen + 1, ( LPARAM ) szText );
+      SendMessage( wvw_ctl->hWnd, WM_GETTEXT, ( WPARAM ) ( nLen + 1 ), ( LPARAM ) szText );
 
-      HB_RETSTRLEN( szText, iLen );
+      HB_RETSTRLEN( szText, nLen );
 
       hb_xfree( szText );
    }

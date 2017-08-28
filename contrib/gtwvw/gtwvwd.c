@@ -2965,8 +2965,8 @@ static LRESULT CALLBACK hb_gt_wvwWndProc( HWND hWnd, UINT message, WPARAM wParam
          {
             if( bCtrl && iScanCode == 28 )        /* K_CTRL_RETURN */
                hb_gt_wvw_AddCharToInputQueue( K_CTRL_RETURN );
-            else if( bCtrl && c >= 1 && c <= 26 ) /* K_CTRL_A - Z */
-               hb_gt_wvw_AddCharToInputQueue( s_K_Ctrl[ c - 1 ]  );
+            else if( bCtrl && c >= 1 && c <= 26 ) /* K_CTRL_A - K_CTRL_Z */
+               hb_gt_wvw_AddCharToInputQueue( s_K_Ctrl[ c - 1 ] );
             else
             {
                switch( c )
@@ -4288,26 +4288,24 @@ static void hb_gt_wvwMouseEvent( PWVW_WIN wvw_win, HWND hWnd, UINT message, WPAR
          break;
 
       case WM_MOUSEMOVE:
-         keyState = ( SHORT ) wParam;
-
-         if( keyState == MK_LBUTTON )
-            keyCode = K_MMLEFTDOWN;
-         else if( keyState == MK_RBUTTON )
-            keyCode = K_MMRIGHTDOWN;
-         else if( keyState == MK_MBUTTON )
-            keyCode = K_MMMIDDLEDOWN;
-         else
-            keyCode = K_MOUSEMOVE;
+         switch( ( SHORT ) wParam )
+         {
+            case MK_LBUTTON:
+               keyCode = K_MMLEFTDOWN;
+               break;
+            case MK_RBUTTON:
+               keyCode = K_MMRIGHTDOWN;
+               break;
+            case MK_MBUTTON:
+               keyCode = K_MMMIDDLEDOWN;
+               break;
+            default:
+               keyCode = K_MOUSEMOVE;
+         }
          break;
 
       case WM_MOUSEWHEEL:
-         keyState = HIWORD( wParam );
-
-         if( keyState > 0 )
-            keyCode = K_MWFORWARD;
-         else
-            keyCode = K_MWBACKWARD;
-
+         keyCode = ( SHORT ) HIWORD( wParam ) > 0 ? K_MWFORWARD : K_MWBACKWARD;
          break;
 
       case WM_NCMOUSEMOVE:
@@ -4369,9 +4367,7 @@ static void hb_gt_wvwWindowEpilogue( void )
 int hb_gt_wvw_OpenWindow( LPCTSTR szWinName, int iRow1, int iCol1, int iRow2, int iCol2, DWORD dwStyle, HWND hWndParent )
 {
    HWND hWnd;
-
    WNDCLASS wndclass;
-   int      iCmdShow;
 
    HB_TRACE( HB_TR_DEBUG, ( "hb_gt_wvwOpenWindow()" ) );
 
@@ -4447,12 +4443,7 @@ int hb_gt_wvw_OpenWindow( LPCTSTR szWinName, int iRow1, int iCol1, int iRow2, in
     * If so compiled, then you need to issue wvw_ShowWindow( nWinNum, SW_RESTORE )
     * at the point you desire in your code.
     */
-   if( s_wvw->fNOSTARTUPSUBWINDOW )
-      iCmdShow = SW_HIDE;
-   else
-      iCmdShow = SW_SHOWNORMAL;
-
-   ShowWindow( hWnd, iCmdShow );
+   ShowWindow( hWnd, s_wvw->fNOSTARTUPSUBWINDOW ? SW_HIDE : SW_SHOWNORMAL );
    UpdateWindow( hWnd );
 
    hb_gt_wvw_SetWindowTitle( s_wvw->pWin[ s_wvw->iNumWindows - 1 ], szWinName );

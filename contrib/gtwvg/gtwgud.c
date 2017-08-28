@@ -428,7 +428,6 @@ static void hb_gt_wvt_MouseEvent( PHB_GTWVT pWVT, UINT message, WPARAM wParam, L
 {
    POINT xy;
    SHORT keyCode = 0;
-   SHORT keyState;
 
    HB_SYMBOL_UNUSED( wParam );
    if( ! pWVT->MouseMove && ( message == WM_MOUSEMOVE || message == WM_NCMOUSEMOVE ) )
@@ -476,9 +475,7 @@ static void hb_gt_wvt_MouseEvent( PHB_GTWVT pWVT, UINT message, WPARAM wParam, L
          break;
 
       case WM_MOUSEMOVE:
-         keyState = ( SHORT ) wParam;
-
-         switch( keyState )
+         switch( ( SHORT ) wParam )
          {
             case MK_LBUTTON:
                keyCode = K_MMLEFTDOWN;
@@ -505,8 +502,7 @@ static void hb_gt_wvt_MouseEvent( PHB_GTWVT pWVT, UINT message, WPARAM wParam, L
 #endif
          break;
       case WM_MOUSEWHEEL:
-         keyState = HIWORD( wParam );
-         keyCode = keyState > 0 ? K_MWFORWARD : K_MWBACKWARD;
+         keyCode = ( SHORT ) HIWORD( wParam ) > 0 ? K_MWFORWARD : K_MWBACKWARD;
          break;
 
       case WM_NCMOUSEMOVE:
@@ -617,7 +613,7 @@ static HB_BOOL hb_gt_wvt_KeyEvent( PHB_GTWVT pWVT, UINT message, WPARAM wParam, 
             {
                HB_BOOL bCtrl     = GetKeyState( VK_CONTROL ) & 0x8000;
                HB_BOOL bShift    = GetKeyState( VK_SHIFT ) & 0x8000;
-               int  iScanCode = HIWORD( lParam ) & 0xFF;
+               int     iScanCode = HIWORD( lParam ) & 0xFF;
 
                if( bCtrl && iScanCode == 76 ) /* CTRL_VK_NUMPAD5 */
                   hb_gt_wvt_AddCharToInputQueue( pWVT, KP_CTRL_5 );
@@ -675,7 +671,7 @@ static HB_BOOL hb_gt_wvt_KeyEvent( PHB_GTWVT pWVT, UINT message, WPARAM wParam, 
          {
             if( bCtrl && iScanCode == 28 )  /* K_CTRL_RETURN */
                hb_gt_wvt_AddCharToInputQueue( pWVT, K_CTRL_RETURN );
-            else if( bCtrl && ( c >= 1 && c <= 26 ) )  /* K_CTRL_A - Z */
+            else if( bCtrl && c >= 1 && c <= 26 )  /* K_CTRL_A - K_CTRL_Z */
                hb_gt_wvt_AddCharToInputQueue( pWVT, s_K_Ctrl[ c - 1 ] );
             else
             {
@@ -720,8 +716,8 @@ static HB_BOOL hb_gt_wvt_KeyEvent( PHB_GTWVT pWVT, UINT message, WPARAM wParam, 
       case WM_SYSCHAR:
          if( ! pWVT->IgnoreWM_SYSCHAR )
          {
-            int c, iScanCode = HIWORD( lParam ) & 0xFF;
-            switch( iScanCode )
+            int c;
+            switch( HIWORD( lParam ) & 0xFF )
             {
                case  2:
                   c = K_ALT_1;

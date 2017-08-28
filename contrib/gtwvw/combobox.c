@@ -99,7 +99,6 @@ static LRESULT CALLBACK hb_gt_wvw_CBProc( HWND hWnd, UINT message, WPARAM wParam
          HB_BOOL bAlt   = GetKeyState( VK_MENU ) & 0x8000;
          HB_BOOL bCtrl  = GetKeyState( VK_CONTROL ) & 0x8000;
          HB_BOOL bShift = GetKeyState( VK_SHIFT ) & 0x8000;
-         int     c      = ( int ) wParam;
          HB_BOOL fDropped;
 
          if( ! hb_gt_wvw_BufferedKey( ( int ) wParam ) )
@@ -109,7 +108,7 @@ static LRESULT CALLBACK hb_gt_wvw_CBProc( HWND hWnd, UINT message, WPARAM wParam
 
          if( nKbdType == WVW_CB_KBD_STANDARD )
          {
-            switch( c )
+            switch( wParam )
             {
                case VK_F4:
                   if( bAlt )
@@ -162,7 +161,7 @@ static LRESULT CALLBACK hb_gt_wvw_CBProc( HWND hWnd, UINT message, WPARAM wParam
          }     /* WVW_CB_KBD_STANDARD */
          else  /* assume WVW_CB_KBD_CLIPPER */
          {
-            switch( c )
+            switch( wParam )
             {
                case VK_F4:
                   if( bAlt )
@@ -683,18 +682,18 @@ HB_FUNC( WVW_CBGETCURTEXT )
 
    if( wvw_ctl )
    {
-      int iCurSel  = ( int ) SendMessage( wvw_ctl->hWnd, CB_GETCURSEL, 0, 0 );
-      int iTextLen = ( int ) SendMessage( wvw_ctl->hWnd, CB_GETLBTEXTLEN, ( WPARAM ) iCurSel, 0 );
-      if( iTextLen == CB_ERR )
+      int iCurSel = ( int ) SendMessage( wvw_ctl->hWnd, CB_GETCURSEL, 0, 0 );
+      HB_SIZE nTextLen = ( HB_SIZE ) SendMessage( wvw_ctl->hWnd, CB_GETLBTEXTLEN, ( WPARAM ) iCurSel, 0 );
+      if( nTextLen == ( HB_SIZE ) CB_ERR )
          hb_retc_null();
       else
       {
-         LPTSTR lptstr = ( LPTSTR ) hb_xgrab( ( iTextLen + 1 ) * sizeof( TCHAR ) );
+         LPTSTR lptstr = ( LPTSTR ) hb_xgrab( ( nTextLen + 1 ) * sizeof( TCHAR ) );
 
          if( SendMessage( wvw_ctl->hWnd, CB_GETLBTEXT, ( WPARAM ) iCurSel, ( LPARAM ) lptstr ) == CB_ERR )
             hb_retc_null();
          else
-            HB_RETSTRLEN( lptstr, iTextLen );
+            HB_RETSTRLEN( lptstr, nTextLen );
 
          hb_xfree( lptstr );
       }

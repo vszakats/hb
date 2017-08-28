@@ -153,16 +153,16 @@ HB_FUNC( WAPI_SETDLGITEMTEXT )
 /* Retrieves the title or text associated with a control in a dialog box. */
 HB_FUNC( WAPI_GETDLGITEMTEXT )
 {
-   int     nSize    = ( int ) SendMessage( GetDlgItem( hbwapi_par_raw_HWND( 1 ), hbwapi_par_INT( 2 ) ), WM_GETTEXTLENGTH, 0, 0 );
+   HB_SIZE nSize    = ( HB_SIZE ) SendMessage( GetDlgItem( hbwapi_par_raw_HWND( 1 ), hbwapi_par_INT( 2 ) ), WM_GETTEXTLENGTH, 0, 0 );
    TCHAR * lpResult = ( TCHAR * ) hb_xgrab( ( nSize + 1 ) * sizeof( TCHAR ) );
 
-   UINT nResult = GetDlgItemText( hbwapi_par_raw_HWND( 1 ),
-                                  hbwapi_par_INT( 2 ),
-                                  lpResult,
-                                  nSize + 1 );
+   HB_SIZE nResult = ( HB_SIZE ) GetDlgItemText( hbwapi_par_raw_HWND( 1 ),
+                                                 hbwapi_par_INT( 2 ),
+                                                 lpResult,
+                                                 nSize + 1 );
 
    hbwapi_SetLastError( GetLastError() );
-   HB_RETSTRLEN( lpResult, ( HB_SIZE ) nResult );
+   HB_RETSTRLEN( lpResult, nResult );
    hb_xfree( lpResult );
 }
 

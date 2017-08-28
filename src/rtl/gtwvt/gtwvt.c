@@ -2625,7 +2625,7 @@ static HB_BOOL hb_gt_wvt_KeyEvent( PHB_GTWVT pWVT, UINT message, WPARAM wParam, 
          {
             iKey = ( int ) wParam;
 
-            if( ( iFlags & HB_KF_CTRL ) != 0 && ( iKey >= 0 && iKey < 32 ) )
+            if( ( iFlags & HB_KF_CTRL ) != 0 && iKey >= 0 && iKey < 32 )
             {
                iKey += 'A' - 1;
                iKey = HB_INKEY_NEW_KEY( iKey, iFlags );
