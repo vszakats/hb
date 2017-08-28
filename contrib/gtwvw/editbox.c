@@ -843,11 +843,11 @@ HB_FUNC( WVW_EBGETTEXT )
       if( hb_parl( 3 ) /* fSoftBreak */ )
          SendMessage( wvw_ctl->hWnd, EM_FMTLINES, ( WPARAM ) TRUE, 0 );
 
-      iLen = ( int ) SendMessage( wvw_ctl->hWnd, WM_GETTEXTLENGTH, 0, 0 ) + 1;
+      iLen = ( int ) SendMessage( wvw_ctl->hWnd, WM_GETTEXTLENGTH, 0, 0 );
 
       szText = ( LPTSTR ) hb_xgrab( ( iLen + 1 ) * sizeof( TCHAR ) );
 
-      SendMessage( wvw_ctl->hWnd, WM_GETTEXT, iLen, ( LPARAM ) szText );
+      SendMessage( wvw_ctl->hWnd, WM_GETTEXT, iLen + 1, ( LPARAM ) szText );
 
       HB_RETSTRLEN( szText, iLen );
 

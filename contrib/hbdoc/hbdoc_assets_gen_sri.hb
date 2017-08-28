@@ -36,6 +36,10 @@ procedure main( fn )
         iif( 'ver' $ pkg, pkg[ 'ver' ] + '/', '' ) + ;
         file[ 'name' ]
       body := dl( url )
+      if body == ''
+        ? 'Wrong URL:', url
+        loop
+      endif
       if 'sri' $ file
         file[ 'sri' ] := 'sha384-' + hb_base64encode( hb_sha384( body, .t. ) )
       endif
@@ -50,6 +54,8 @@ static function dl( url )
 
   local stdout
 
-  hb_processrun( hb_strformat( 'curl -fsS -L --proto-redir =https "%1$s"', url ),, @stdout )
+  if hb_processrun( hb_strformat( 'curl -fsS -L --proto-redir =https "%1$s"', url ),, @stdout ) != 0
+    stdout := ''
+  endif
 
   return stdout
