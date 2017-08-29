@@ -53,6 +53,8 @@
 #include "hbapi.h"
 #include "hbapiitm.h"
 
+#include "hbcurl.ch"
+
 static void * hb_curl_xgrab( size_t size )
 {
    return size > 0 ? hb_xgrab( size ) : NULL;
