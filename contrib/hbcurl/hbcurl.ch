@@ -648,11 +648,36 @@
 #define HB_CURLVERINFO_LIBSSH_VERSION         13
 #define HB_CURLVERINFO_LEN                    13
 
-/* HB_CURLOPT_HTTPPOST_FORM type */
+/* HB_CURLVERINFO_FEATURES bit positions. */
+#define HB_CURL_VERSION_IPV6                  hb_bitShift( 1, 0 )   /* IPv6-enabled */
+#define HB_CURL_VERSION_KERBEROS4             hb_bitShift( 1, 1 )   /* Kerberos V4 auth is supported (deprecated) */
+#define HB_CURL_VERSION_SSL                   hb_bitShift( 1, 2 )   /* SSL options are present */
+#define HB_CURL_VERSION_LIBZ                  hb_bitShift( 1, 3 )   /* libz features are present */
+#define HB_CURL_VERSION_NTLM                  hb_bitShift( 1, 4 )   /* NTLM auth is supported */
+#define HB_CURL_VERSION_GSSNEGOTIATE          hb_bitShift( 1, 5 )   /* Negotiate auth is supported (deprecated) */
+#define HB_CURL_VERSION_DEBUG                 hb_bitShift( 1, 6 )   /* Built with debug capabilities */
+#define HB_CURL_VERSION_ASYNCHDNS             hb_bitShift( 1, 7 )   /* Asynchronous DNS resolves */
+#define HB_CURL_VERSION_SPNEGO                hb_bitShift( 1, 8 )   /* SPNEGO auth is supported */
+#define HB_CURL_VERSION_LARGEFILE             hb_bitShift( 1, 9 )   /* Supports files larger than 2GB */
+#define HB_CURL_VERSION_IDN                   hb_bitShift( 1, 10 )  /* Internationized Domain Names are supported */
+#define HB_CURL_VERSION_SSPI                  hb_bitShift( 1, 11 )  /* Built against Windows SSPI */
+#define HB_CURL_VERSION_CONV                  hb_bitShift( 1, 12 )  /* Character conversions supported */
+#define HB_CURL_VERSION_CURLDEBUG             hb_bitShift( 1, 13 )  /* Debug memory tracking supported */
+#define HB_CURL_VERSION_TLSAUTH_SRP           hb_bitShift( 1, 14 )  /* TLS-SRP auth is supported */
+#define HB_CURL_VERSION_NTLM_WB               hb_bitShift( 1, 15 )  /* NTLM delegation to winbind helper is supported */
+#define HB_CURL_VERSION_HTTP2                 hb_bitShift( 1, 16 )  /* HTTP2 support built-in */
+#define HB_CURL_VERSION_GSSAPI                hb_bitShift( 1, 17 )  /* Built against a GSS-API library */
+#define HB_CURL_VERSION_KERBEROS5             hb_bitShift( 1, 18 )  /* Kerberos V5 auth is supported */
+#define HB_CURL_VERSION_UNIX_SOCKETS          hb_bitShift( 1, 19 )  /* Unix domain sockets support */
+#define HB_CURL_VERSION_PSL                   hb_bitShift( 1, 20 )  /* Mozilla's Public Suffix List, used for cookie domain verification */
+#define HB_CURL_VERSION_HTTPS_PROXY           hb_bitShift( 1, 21 )  /* HTTPS-proxy support built-in */
+#define HB_CURL_VERSION_MULTI_SSL             hb_bitShift( 1, 22 )  /* Multiple SSL backends available */
+
+/* HB_CURLOPT_HTTPPOST_FORM type. */
 #define HB_CURLOPT_HTTPPOST_FORM_CONTENT      1
 #define HB_CURLOPT_HTTPPOST_FORM_FILE         2
 
-/* HB_CURLOPT_DEBUGBLOCK callback modes */
+/* HB_CURLOPT_DEBUGBLOCK callback modes. */
 #define HB_CURLINFO_TEXT                      0
 #define HB_CURLINFO_HEADER_IN                 1
 #define HB_CURLINFO_HEADER_OUT                2
@@ -660,5 +685,26 @@
 #define HB_CURLINFO_DATA_OUT                  4
 #define HB_CURLINFO_SSL_DATA_IN               5
 #define HB_CURLINFO_SSL_DATA_OUT              6
+
+/* curl_global_sslset() return values. */
+#define HB_CURLSSLSET_NOT_IMPLEMENTED         -1  /* Harbour-specific value */
+#define HB_CURLSSLSET_OK                      0
+#define HB_CURLSSLSET_UNKNOWN_BACKEND         1
+#define HB_CURLSSLSET_TOO_LATE                2
+
+/* curl_global_sslset() 1st parameter and
+   hash key of returned 3rd parameter. */
+#define HB_CURLSSLBACKEND_NONE                0
+#define HB_CURLSSLBACKEND_OPENSSL             1
+#define HB_CURLSSLBACKEND_GNUTLS              2
+#define HB_CURLSSLBACKEND_NSS                 3
+#define HB_CURLSSLBACKEND_OBSOLETE4           4
+#define HB_CURLSSLBACKEND_GSKIT               5
+#define HB_CURLSSLBACKEND_POLARSSL            6
+#define HB_CURLSSLBACKEND_CYASSL              7
+#define HB_CURLSSLBACKEND_SCHANNEL            8
+#define HB_CURLSSLBACKEND_DARWINSSL           9
+#define HB_CURLSSLBACKEND_AXTLS               10
+#define HB_CURLSSLBACKEND_MBEDTLS             11
 
 #endif /* HBCURL_CH_ */

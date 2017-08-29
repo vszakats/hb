@@ -878,9 +878,9 @@ STATIC FUNCTION IsBadDate( cBuffer )
 
    RETURN .F.
 
-/* --- WVW_INPUTFOCUS --- */
+/* --- WVW_INPUTFOCUS() --- */
 
-// this is a simple sample of WVW_INPUTFOCUS
+// this is a simple sample of WVW_INPUTFOCUS()
 // only handles WIN_WM_CHAR, thus not all input characters are accepted
 FUNCTION WVW_INPUTFOCUS( nWinNum, hWnd, message, wParam, lParam )  /* must be a public function */
 

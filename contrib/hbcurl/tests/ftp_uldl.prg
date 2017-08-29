@@ -32,15 +32,26 @@ PROCEDURE Main( cDL, cUL )
    ? curl_getdate( "Sun, 1 Jun 2008 02:10:58 +0200" )
 
    FOR EACH tmp IN curl_version_info()
-      IF tmp:__enumIndex() == HB_CURLVERINFO_PROTOCOLS
-         ? tmp:__enumIndex(), ""
+      ? tmp:__enumIndex(), ""
+      SWITCH tmp:__enumIndex()
+      CASE HB_CURLVERINFO_PROTOCOLS
          FOR EACH tmp1 IN tmp
             ?? tmp1, ""
          NEXT
-      ELSE
-         ? tmp:__enumIndex(), tmp
-      ENDIF
+         EXIT
+      CASE HB_CURLVERINFO_VERSION_NUM
+         ?? "0x" + hb_NumToHex( tmp )
+         EXIT
+      CASE HB_CURLVERINFO_FEATURES
+         ?? "0x" + hb_NumToHex( tmp ), "multi:", hb_bitAnd( tmp, HB_CURL_VERSION_MULTI_SSL ) != 0
+         EXIT
+      OTHERWISE
+         ?? tmp
+      ENDSWITCH
    NEXT
+
+   ? "curl_global_sslset():", curl_global_sslset( -1,, @tmp )
+   ? "Available SSL backends:", hb_ValToExp( tmp )
 
    WAIT
 

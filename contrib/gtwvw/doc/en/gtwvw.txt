@@ -2429,7 +2429,7 @@
       <nWinNum> Window number. Default is current window.
    $DESCRIPTION$
       Maximize current window (argument <nWinNum> is ignored). If application
-      define a callback function WVW_Size() the window will be maximized, otherwise,
+      define a callback function WVW_SIZE() the window will be maximized, otherwise,
       only restores window.
    $RETURNS$
       None.

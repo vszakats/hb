@@ -336,7 +336,8 @@ FUNCTION wvw_SetOnTop( nWin )
    wapi_GetWindowRect( hWnd, rc )
 
    RETURN wapi_SetWindowPos( hWnd, WIN_HWND_TOPMOST, ;
-      rc[ "left" ], rc[ "top" ],,, hb_bitOr( WIN_SWP_NOSIZE, WIN_SWP_NOMOVE, WIN_SWP_NOACTIVATE ) )
+      rc[ "left" ], rc[ "top" ],,, ;
+      hb_bitOr( WIN_SWP_NOSIZE, WIN_SWP_NOMOVE, WIN_SWP_NOACTIVATE ) )
 
 FUNCTION wvw_SetAsNormal( nWin )
 
@@ -351,7 +352,8 @@ FUNCTION wvw_SetAsNormal( nWin )
    wapi_GetWindowRect( hWnd, rc )
 
    RETURN wapi_SetWindowPos( hWnd, WIN_HWND_NOTOPMOST, ;
-      rc[ "left" ], rc[ "top" ],,, hb_bitOr( WIN_SWP_NOSIZE, WIN_SWP_NOMOVE, WIN_SWP_NOACTIVATE ) )
+      rc[ "left" ], rc[ "top" ],,, ;
+      hb_bitOr( WIN_SWP_NOSIZE, WIN_SWP_NOMOVE, WIN_SWP_NOACTIVATE ) )
 
 /* Get/Set window style
    NOTES: if window has controls (eg. pushbutton, scrollbar)
@@ -370,7 +372,8 @@ FUNCTION wvw_SetWinStyle( nWin, nStyle )
 
    IF HB_ISNUMERIC( nStyle )
       nStyleOld := wapi_SetWindowLongPtr( hWnd, WIN_GWL_STYLE, nStyle )
-      wapi_SetWindowPos( hWnd,,,,,, hb_bitOr( WIN_SWP_NOMOVE, WIN_SWP_NOSIZE, WIN_SWP_NOZORDER, WIN_SWP_FRAMECHANGED ) )
+      wapi_SetWindowPos( hWnd,,,,,, ;
+         hb_bitOr( WIN_SWP_NOMOVE, WIN_SWP_NOSIZE, WIN_SWP_NOZORDER, WIN_SWP_FRAMECHANGED ) )
       wapi_ShowWindow( hWnd, WIN_SW_SHOWNORMAL )
    ELSE
       nStyleOld := wapi_GetWindowLongPtr( hWnd, WIN_GWL_STYLE )
@@ -380,7 +383,8 @@ FUNCTION wvw_SetWinStyle( nWin, nStyle )
 
 /* Get/Set maximize button
    returns maximize box state prior to applying the new style
-   NOTE: in order to enable MAXIMIZE button, app should have WVW_SIZE() callback function */
+   NOTE: in order to enable MAXIMIZE button, app should have WVW_SIZE()
+         callback function */
 FUNCTION wvw_EnableMaximize( nWin, lEnable )
 
    LOCAL hWnd
@@ -396,8 +400,12 @@ FUNCTION wvw_EnableMaximize( nWin, lEnable )
    lEnableOld := hb_bitAnd( nStyle, WIN_WS_MAXIMIZEBOX ) != 0
 
    IF HB_ISLOGICAL( lEnable ) .AND. lEnable != lEnableOld
-      wapi_SetWindowLongPtr( hWnd, WIN_GWL_STYLE, iif( lEnable, hb_bitOr( nStyle, WIN_WS_MAXIMIZEBOX ), hb_bitAnd( nStyle, hb_bitNot( WIN_WS_MAXIMIZEBOX ) ) ) )
-      wapi_SetWindowPos( hWnd,,,,,, hb_bitOr( WIN_SWP_NOMOVE, WIN_SWP_NOSIZE, WIN_SWP_NOZORDER, WIN_SWP_FRAMECHANGED ) )
+      wapi_SetWindowLongPtr( hWnd, WIN_GWL_STYLE, ;
+         iif( lEnable, ;
+            hb_bitOr( nStyle, WIN_WS_MAXIMIZEBOX ), ;
+            hb_bitAnd( nStyle, hb_bitNot( WIN_WS_MAXIMIZEBOX ) ) ) )
+      wapi_SetWindowPos( hWnd,,,,,, ;
+         hb_bitOr( WIN_SWP_NOMOVE, WIN_SWP_NOSIZE, WIN_SWP_NOZORDER, WIN_SWP_FRAMECHANGED ) )
       wapi_ShowWindow( hWnd, WIN_SW_SHOW )
    ENDIF
 
@@ -459,8 +467,10 @@ FUNCTION win_InvalidateRect( w, e, l, t, r, b )
 FUNCTION win_CreateBrush( ... )
    RETURN wapi_CreateBrushIndirect( { ... } )
 
-FUNCTION win_CreateFont( cFontName, nWidth, nHeight, nWeight, nCharSet, lItalic, lUnderline, lStrikeOut )
-   RETURN wapi_CreateFont( nHeight, nWidth,,, nWeight, lItalic, lUnderline, lStrikeOut, nCharSet, 0, 0, 0, 0, cFontName )
+FUNCTION win_CreateFont( cFontName, nWidth, nHeight, nWeight, ;
+                         nCharSet, lItalic, lUnderline, lStrikeOut )
+   RETURN wapi_CreateFont( nHeight, nWidth,,, nWeight, ;
+      lItalic, lUnderline, lStrikeOut, nCharSet, 0, 0, 0, 0, cFontName )
 
 FUNCTION wvw_ChooseColor( nColor, aColor, nFlags )
 

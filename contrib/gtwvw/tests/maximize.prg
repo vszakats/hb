@@ -32,7 +32,7 @@ PROCEDURE Main()
    updatescr()
    DO WHILE hb_keyStd( Inkey( 0 ) ) != K_ESC
       // refresh screen, probably in a new dimension
-      // (You may alternatively call updatescr() from WVW_SIZE instead)
+      // (You may alternatively call updatescr() from WVW_SIZE() instead)
       updatescr()
    ENDDO
 

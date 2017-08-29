@@ -51,6 +51,7 @@
 #include <curl/curl.h>
 
 #include "hbapi.h"
+#include "hbapiitm.h"
 
 static void * hb_curl_xgrab( size_t size )
 {
@@ -78,6 +79,39 @@ static void * hb_curl_calloc( size_t nelem, size_t elsize )
    size_t size = nelem * elsize;
 
    return size > 0 ? hb_xgrabz( size ) : NULL;
+}
+
+HB_FUNC( CURL_GLOBAL_SSLSET )
+{
+#if LIBCURL_VERSION_NUM >= 0x073800
+   const curl_ssl_backend ** avail = NULL;
+   int tmp;
+   hb_retni( tmp = curl_global_sslset(
+      ( curl_sslbackend ) hb_parni( 1 ),
+      hb_parc( 2 ),
+      &avail ) );
+   if( HB_ISBYREF( 3 ) )
+   {
+      PHB_ITEM pAvail = hb_hashNew( NULL );
+      if( avail )
+      {
+         PHB_ITEM pKey = hb_itemNew( NULL );
+         PHB_ITEM pVal = hb_itemNew( NULL );
+         HB_SIZE nLen = 0;
+         for( nLen = 0; avail[ nLen ]; ++nLen )
+            hb_hashAdd( pAvail,
+               hb_itemPutNI( pKey, ( int ) avail[ nLen ]->id ),
+               hb_itemPutCConst( pVal, avail[ nLen ]->name ) );
+         hb_itemRelease( pVal );
+         hb_itemRelease( pKey );
+      }
+      hb_itemParamStoreRelease( 3, pAvail );
+   }
+#else
+   hb_retni( HB_CURLSSLSET_NOT_IMPLEMENTED );
+   if( HB_ISBYREF( 3 ) )
+      hb_itemParamStoreRelease( 3, hb_hashNew( NULL ) );
+#endif
 }
 
 HB_FUNC( CURL_GLOBAL_INIT )

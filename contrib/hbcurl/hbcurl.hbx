@@ -39,6 +39,7 @@ DYNAMIC curl_escape
 DYNAMIC curl_getdate
 DYNAMIC curl_global_cleanup
 DYNAMIC curl_global_init
+DYNAMIC curl_global_sslset
 DYNAMIC curl_unescape
 DYNAMIC curl_version
 DYNAMIC curl_version_info

@@ -14,7 +14,7 @@
 2007-09-21 23:30 UTC+0700 Budyanto Dj. <budyanto@centrin.net.id>
   * contrib/gtwvw/gtwvw.c
     ! WM_HSCROLL and WM_VSCROLL should be controlled by bTopMost || s_bAllowNonTop,
-      not by hb_wvw_gtAcceptingInput(). This may cause problem if WVW_SETFOCUS interferes.
+      not by hb_wvw_gtAcceptingInput(). This may cause problem if WVW_SETFOCUS() interferes.
       Fixed.
     ! wvw_ebCreate() :: do NOT use ES_OEMCONVERT by default
 
@@ -74,11 +74,11 @@
     + wvw_AllowNonTopEvent()
       To set whether control's codeblock is allowed to be executed from
       non topmost window.
-      (default is FALSE, the old behaviour)
+      (default is .F., the old behaviour)
 
     + wvw_RecurseCBlock()
       To set whether control's codeblock is allowed to do recursive action.
-      (default is FALSE, the old behaviour)
+      (default is .F., the old behaviour)
 
   * contrib/gtwvw/doc/whatsnew.txt
     * notes on changes applied.
@@ -92,10 +92,10 @@
       Fransesco, I hope you don't mind.
     * hb_wvw_gtDrawImage()
       Rewritten. Now supports displaying transparent image if
-      bTransp parameter is TRUE.
+      bTransp parameter is .T.
     * hb_wvw_gtRenderPicture()
       Modified to support displaying transparent image if
-      bTransp parameter is TRUE.
+      bTransp parameter is .T.
     * wvw_DrawImage()
       Added lTransp optional parameter.
       Supports displaying images with proportional height/width ratio.
@@ -177,11 +177,11 @@ MAXIMIZE MODE
    Please notice, however, that there are some things need to be addressed when
    implementing this mode.
 
-   To implement this mode, app should have a special callback function WVW_SIZE.
+   To implement this mode, app should have a special callback function WVW_SIZE().
    This function is called by Gtwvw AFTER a window size is changed, as when the
    window is maximized or restored.
 
-   See the sample prog doc/maximize.prg on how to apply a simple WVW_SIZE function.
+   See the sample prog doc/maximize.prg on how to apply a simple WVW_SIZE() function.
 
    Some new/modified supporting functions in this area of interest:
 
@@ -195,7 +195,7 @@ MAXIMIZE MODE
 
    * wvw_Maximize()
      ! This function now really maximizes the window, provided
-       user has the WVW_SIZE function.
+       user has the WVW_SIZE() function.
        (This is different with gtwvt's WVT_MAXIMIZE which really does a RESTORE).
 
    + wvw_Restore()

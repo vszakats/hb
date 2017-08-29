@@ -262,7 +262,7 @@ static int hb_gt_wvw_GetFontDialogUnits( HWND hWnd, HFONT hFont )
  *         nType  : event type (CBN_SELCHANGE/CBN_SETFOCUS/CBN_KILLFOCUS supported)
  *         nIndex : index of the selected list item (0 based)
  * nListLines: number of lines for list items, default = 3
- *            (will be automatically truncated if it's > Len(aText))
+ *            (will be automatically truncated if it's > Len( aText ))
  * nReserved: reserved for future (this parameter is now ignored)
  *
  * nKbdType: WVW_CB_KBD_STANDARD (0): similar to standard windows convention
@@ -366,7 +366,7 @@ HB_FUNC( WVW_CBCREATE )
 
       if( hWnd )
       {
-         int LongComboWidth = 0, NewLongComboWidth;
+         HB_SIZE nMaxWidth = 0;
 
          SendMessage( hWnd, WM_SETREDRAW, ( WPARAM ) TRUE, 0 );
 
@@ -391,9 +391,9 @@ HB_FUNC( WVW_CBCREATE )
                }
                else
                {
-                  int numofchars = ( int ) SendMessage( hWnd, CB_GETLBTEXTLEN, i - 1, 0 );
-                  if( numofchars > LongComboWidth )
-                     LongComboWidth = numofchars;
+                  HB_SIZE nLen = ( HB_SIZE ) SendMessage( hWnd, CB_GETLBTEXTLEN, i - 1, 0 );
+                  if( nLen != ( HB_SIZE ) CB_ERR && nLen > nMaxWidth )
+                     nMaxWidth = nLen;
                }
 
                hb_strfree( hText );
@@ -403,12 +403,13 @@ HB_FUNC( WVW_CBCREATE )
          SendMessage( hWnd, CB_SETCURSEL, 0, 0 );
          SendMessage( hWnd, CB_SETEXTENDEDUI, ( WPARAM ) TRUE, 0 );
 
+         if( nMaxWidth > 2 )
          {
             HFONT hFont = hb_gt_wvw_GetFont( wvw_win->fontFace, 10, wvw_win->fontWidth, wvw_win->fontWeight, wvw_win->fontQuality, wvw_win->CodePage );
-            NewLongComboWidth = ( LongComboWidth - 2 ) * hb_gt_wvw_GetFontDialogUnits( wvw_win->hWnd, hFont );
+            nMaxWidth = ( nMaxWidth - 2 ) * hb_gt_wvw_GetFontDialogUnits( wvw_win->hWnd, hFont );
             DeleteObject( hFont );
          }
-         SendMessage( hWnd, CB_SETDROPPEDWIDTH, ( WPARAM ) NewLongComboWidth + 100 /* LongComboWidth + 100 */, 0 );
+         SendMessage( hWnd, CB_SETDROPPEDWIDTH, ( WPARAM ) nMaxWidth + 100, 0 );
 
          hb_gt_wvw_AddControlHandle( wvw_win, WVW_CONTROL_COMBOBOX, hWnd, nCtrlId, hb_param( 6, HB_IT_EVALITEM ),
                                      rXB, rOffXB, hb_parnidef( 9, WVW_CB_KBD_STANDARD ) );

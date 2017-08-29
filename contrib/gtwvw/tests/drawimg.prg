@@ -220,7 +220,7 @@ METHOD PROCEDURE Draw() CLASS wPaintObj
 
 // undraw the object
 // normally this is called with ::lVisible == .F.,
-// otherwise the object will be redrawn by WVW_PAINT
+// otherwise the object will be redrawn by WVW_PAINT()
 METHOD PROCEDURE Undraw() CLASS wPaintObj
 
    LOCAL cScreen
@@ -341,7 +341,7 @@ STATIC PROCEDURE wg_DelWPaintObj( nWinNum, nType, cId, lStrict )
 
    RETURN
 
-FUNCTION WVW_Paint( nWinNum )  /* must be a public function */
+FUNCTION WVW_PAINT( nWinNum )  /* must be a public function */
 
    IF Len( s_aPObjList ) >= nWinNum + 1
       // simple redraw, ignoring wpaint obj dependency with each other:

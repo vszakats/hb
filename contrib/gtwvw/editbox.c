@@ -687,8 +687,8 @@ HB_FUNC( WVW_EBENABLE )
 /* wvw_ebEditable( [nWinNum], nEditId, [lEditable] )
  *  get/set editability attribute from editbox nEditId on window nWinNum
  * (if lEditable is not specified, no change to editability)
- *  return previous state of the editbox (TRUE:editable FALSE:not editable)
- * (if nEditId is invalid, this function returns FALSE too)
+ *  return previous state of the editbox (.T.: editable .F.: not editable)
+ * (if nEditId is invalid, this function returns .F. too)
  */
 HB_FUNC( WVW_EBEDITABLE )
 {

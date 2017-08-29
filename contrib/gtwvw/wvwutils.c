@@ -1675,7 +1675,7 @@ HB_FUNC( WVW_GETFONTINFO )
 }
 
 /* wvw_Maximize( [nWinNum] )
-   maximizes the window, if callback function WVW_SIZE exists
+   maximizes the window, if callback function WVW_SIZE() exists
 
    note: in GTWVT wvt_Maximize() restores the window, not maximizes it
    see also: wvw_Restore(), wvw_MaxMaxRow(), wvw_MaxMaxCol() */
@@ -1697,7 +1697,7 @@ HB_FUNC( WVW_MAXIMIZE )
    restores the window (similar with GTWVT's wvt_Maximize())
 
    WARNING: restoring window from its maximized state might need handling
-            in callback function WVW_SIZE,
+            in callback function WVW_SIZE(),
             because this function assumes no change in MaxRow()/MaxCol()
    see also: wvw_Maximize(), wvw_MaxMaxRow(), wvw_MaxMaxCol() */
 HB_FUNC( WVW_RESTORE )

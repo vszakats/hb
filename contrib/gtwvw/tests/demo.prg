@@ -789,17 +789,17 @@ STATIC FUNCTION TBPrev()
 
    RETURN lMoved
 
-// WVW_Paint() must be a FUNCTION in your application
+// WVW_PAINT() must be a FUNCTION in your application
 // as it is called when Window gets WM_PAINT message.
 //
-// 2004-03-30, was: FUNCTION WVW_Paint( hWnd, msg, wParam, lParam, nWinNum )
-// 2004-04-08, was: FUNCTION WVW_Paint( nWinNum, nrow1, ncol1, nrow2, ncol2 )
+// 2004-03-30, was: FUNCTION WVW_PAINT( hWnd, msg, wParam, lParam, nWinNum )
+// 2004-04-08, was: FUNCTION WVW_PAINT( nWinNum, nrow1, ncol1, nrow2, ncol2 )
 
-FUNCTION WVW_Paint( nWinNum )  /* must be a public function */
+FUNCTION WVW_PAINT( nWinNum )  /* must be a public function */
 
 #if 0
    ldebug( ;
-      "WVW_Paint:" + hb_eol() + ;
+      "WVW_PAINT():" + hb_eol() + ;
       "hWnd: " + hb_ntos( hWnd ) + hb_eol() + ;
       "nWinNum: " + hb_ntos( nWinNum ) )
 #endif
@@ -812,12 +812,12 @@ FUNCTION WVW_Paint( nWinNum )  /* must be a public function */
 
    RETURN 0
 
-// WVW_SetFocus() must be a FUNCTION in your application
+// WVW_SETFOCUS() must be a FUNCTION in your application
 // needs to process messages sent through WM_SETFOCUS message
 // received by the window.
 //
 #if 0
-PROCEDURE WVW_SetFocus( hWnd, nWinNum )  /* must be a public function */
+PROCEDURE WVW_SETFOCUS( hWnd, nWinNum )  /* must be a public function */
 
    STATIC s_nGotFocus := 0
 
@@ -832,11 +832,11 @@ PROCEDURE WVW_SetFocus( hWnd, nWinNum )  /* must be a public function */
 
    RETURN
 
-// WVW_KillFocus() must be a FUNCTION in your application
+// WVW_KILLFOCUS() must be a FUNCTION in your application
 // needs to process messages sent through WM_KILLFOCUS message
 // received by the window.
 
-PROCEDURE WVW_KillFocus( hWnd )  /* must be a public function */
+PROCEDURE WVW_KILLFOCUS( hWnd )  /* must be a public function */
    RETURN
 #endif
 
@@ -1525,7 +1525,7 @@ METHOD DRAW( nWinNum ) CLASS WVWMouseButton
 
 STATIC PROCEDURE wvwm_paint( nWinNum )
 
-   // normally called by WVW_Paint()
+   // normally called by WVW_PAINT()
    // redraw every mouse object in window nWinNum
    IF Len( s_amouseobjlist ) >= nWinNum + 1
       AEval( s_amouseobjlist[ nWinNum + 1 ], {| o | o[ 2 ]:draw( nWinNum ) } )

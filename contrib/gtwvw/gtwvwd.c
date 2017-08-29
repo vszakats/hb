@@ -5536,10 +5536,10 @@ TCHAR * hb_gt_wvw_GetAppName( void )
    return s_wvw ? s_wvw->szAppName : NULL;
 }
 
-/* about WVW_SIZE callback function:
+/* about WVW_SIZE() callback function:
 
    parameters:
-   function WVW_SIZE( nWinNum, hWnd, message, wParam, lParam )
+   WVW_SIZE( nWinNum, hWnd, message, wParam, lParam )
 
    notes:
  * this function is called by GTWVW AFTER the size is changed

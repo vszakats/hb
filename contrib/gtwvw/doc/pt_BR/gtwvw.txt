@@ -3127,7 +3127,7 @@
    $DESCRIPTION$
       Restaura a janela atual (o parâmetro <nWinNum> é ignorado). A restauraçao da
       janela do modo maximizado pode precisar ser manipulada pela funçao callback
-      WVW_Size(), porque a funçao wvw_Restore() assume que nao acontecerá mudança em
+      WVW_SIZE(), porque a funçao wvw_Restore() assume que nao acontecerá mudança em
       MaxRow()/MaxCol().
    $RETURNS$
       nenhum.

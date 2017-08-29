@@ -376,7 +376,7 @@ STATIC PROCEDURE ZREVWINDOW()
 // as it is called when Window gets WM_PAINT message.
 // WARNING: it now receives only nWinNum parameter
 
-FUNCTION WVW_Paint( nWinNum )  /* must be a public function */
+FUNCTION WVW_PAINT( nWinNum )  /* must be a public function */
 
    IF nWinNum + 1 <= Len( s_amiscobjlist )
       AEval( s_amiscobjlist[ nWinNum + 1 ], {| e | Eval( e, nWinNum ) } )

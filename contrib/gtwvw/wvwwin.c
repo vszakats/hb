@@ -458,7 +458,7 @@ HB_FUNC( WVW_SETMAINCOORD )
 /* Budyanto Dj. <budyanto@centrin.net.id> */
 
 /* wvw_SetPaintRefresh( [nPaintRefresh] )
- * returns old setting of wvw->iPaintRefresh (millisec between calls to WVW_PAINT)
+ * returns old setting of wvw->iPaintRefresh (millisec between calls to WVW_PAINT())
  * then assigns wvw->iPaintRefresh := nPaintRefresh (if supplied)
  * NOTES: nPaintRefresh must be >= 50
  *        or nPaintRefresh == 0, causing Repaint to execute immediately, as GTWVT
@@ -594,7 +594,7 @@ HB_FUNC( WVW_SETDEFVCENTREWINDOW )
 
 /* wvw_SetDefLineSpacing( [nLineSpacing] )
  * returns old setting of wvw->iDefLineSpacing (default linespacing between lines)
- * then assigns wvw->iDefLineSpacing:= nLineSpacing (if supplied)
+ * then assigns wvw->iDefLineSpacing := nLineSpacing (if supplied)
  * NOTES:
  * - nLineSpacing will be the default line spacing for all window opens
  * - nLineSpacing must be even, positive number <= 40
@@ -619,7 +619,7 @@ HB_FUNC( WVW_SETDEFLINESPACING )
 
 /* wvw_SetDefLSpaceColor( [nColorIndex] )
  * returns old setting of wvw->iDefLSpaceColor (color index of spacing between lines)
- * then assigns wvw->iDefLSpaceColor:= nColorIndex (if supplied)
+ * then assigns wvw->iDefLSpaceColor := nColorIndex (if supplied)
  * NOTES:
  * - nColorIndex will be the default line spacing color for all window opens
  * - nColorIndex must >= 0 and <= 15, or == -1

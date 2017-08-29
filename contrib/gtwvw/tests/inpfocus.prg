@@ -1,5 +1,5 @@
 /* Copyright 2004 Budyanto Dj. <budyanto@centrin.net.id>
-   Demo program to show how to make use of WVW_INPUTFOCUS feature of GTWVW */
+   Demo program to show how to make use of WVW_INPUTFOCUS() feature of GTWVW */
 
 #require "gtwvw"
 
