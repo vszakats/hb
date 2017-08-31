@@ -62,7 +62,7 @@ hb_flst='bin/hb_flst.tmp'
 (
   cd "$hb_rootdir" || exit
   if [ "$hb_archbin" = 'zip' ]; then
-    $hb_archbin -9 -o -r -q "$hb_filename" . "-i@$hb_flst"
+    $hb_archbin -X -9 -o -r -q "$hb_filename" . "-i@$hb_flst"
   else
     $hb_archbin $hb_archopt "$hb_filename" --files-from "$hb_flst"
   fi
