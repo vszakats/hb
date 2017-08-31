@@ -30,7 +30,7 @@ Short description of Harbour functions:
 
    bWhile   - COPY TO like WHILE codeblock
    bFor     - COPY TO like FOR codeblock
-   aFields  - array of fieldnames (codeblocks are going to be supported here too)
+   aFields  - array of field names (codeblocks are going to be supported here too)
    nCount   - NEXT like, process only specified count of records
    lStrTrim - RTrim() strings, default is .T.
 
@@ -85,10 +85,10 @@ Issues
     reference id in AMF increase sequentially. It could be okay and faster
     to use some array with decent resize schema. Other than that benchmarks (in
     ST mode) showed that decoding speed is a little bit faster in this
-    implementation than with Flash's bulit-in.
+    implementation than with Flash's built-in.
 
   ; .c function amf3_encode_string() does string hb_strRTrimLen()
-    on a utf8 values. so far i haven't found a string that was broken
+    on a UTF-8 values. so far i haven't found a string that was broken
     by this, but i have a feeling that it is possible...
 
 Note your issues too!

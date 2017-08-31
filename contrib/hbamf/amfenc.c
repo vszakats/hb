@@ -284,7 +284,7 @@ static int amf3_add_index( amfContext * context, PHB_ITEM pHash, PHB_ITEM pItem 
       result = ( int ) ( hb_hashLen( pHash ) - 1 + context->strstr_count );
       /* used only when some inner context inside
        * conversion function uses only strstr mode
-       * like AMF3_FROMWA function f.e. */
+       * like amf3_FromWA() function f.e. */
    }
 
    if( ( HB_IS_STRING( pItem ) || HB_IS_MEMO( pItem ) ) && context->use_strstr )
@@ -646,7 +646,7 @@ static int amf3_encode_class_def( amfContext * context, PHB_ITEM pClass )
    if( ! static_attrs )
       return 0;
 
-   static_attr_len = hb_arrayLen( static_attrs ); /* array this is -- hb_itemGetCLen(static_attrs); */
+   static_attr_len = hb_arrayLen( static_attrs ); /* array this is -- hb_itemGetCLen( static_attrs ); */
    if( static_attr_len == -1 || static_attr_len > ( MAX_INT >> 4 ) )
       return 0;
 
@@ -655,7 +655,7 @@ static int amf3_encode_class_def( amfContext * context, PHB_ITEM pClass )
       return 0;
 
    result = amf3_serialize_string( context, class_alias );
-   /* not needed  hb_itemRelease(class_alias); */
+   /* not needed hb_itemRelease( class_alias ); */
    if( ! result )
       return 0;
 
@@ -673,7 +673,7 @@ static int amf3_encode_class_def( amfContext * context, PHB_ITEM pClass )
          return 0;
    }
 
-   /* not needed  hb_itemRelease( static_attrs ); */
+   /* not needed hb_itemRelease( static_attrs ); */
    return 1;
 }
 

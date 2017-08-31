@@ -420,7 +420,7 @@ static HB_BOOL amf3_deserialize_array( amfContext * context, PHB_ITEM pItem, HB_
    }
 
    array_len = ( int ) ( header >> 1 );
-   /* Original python comment was:
+   /* Original Python comment was:
       Cannot use array_len to create a list of known
       length, see ticket #46
       I think that this is not a problem for Harbour */
@@ -663,8 +663,8 @@ static HB_BOOL amf3_decode_class_def( amfContext * context, PHB_ITEM pClass, int
          hb_hashNew( pMappedClassDef ); /* empty hash emulation for now */
       }
 
-      /* PyObject_CallMethodObjArgs(context->class_mapper,
-          context->class_def_name, alias, NULL); */
+      /* PyObject_CallMethodObjArgs( context->class_mapper,
+          context->class_def_name, alias, NULL ); */
    }
    hb_itemRelease( pStrAlias );
 
@@ -706,7 +706,7 @@ static HB_BOOL amf3_decode_class_def( amfContext * context, PHB_ITEM pClass, int
          the raw bytes. */
 
       /* TODO: introduce similar RTE?
-         PyErr_SetString(amfast_DecodeError, "Encoded class is externalizable, but ClassDef is not."); */
+         PyErr_SetString( amfast_DecodeError, "Encoded class is externalizable, but ClassDef is not." ); */
       return HB_FALSE;
    }
 
@@ -811,7 +811,7 @@ static HB_BOOL amf3_decode_obj_attrs( amfContext * context, PHB_ITEM pHash, PHB_
    if( ! pArray )
       return HB_FALSE;
 
-   /* maybe hb_arrayGetItemPtr(?) could be used */
+   /* maybe hb_arrayGetItemPtr() could be used? */
 
    static_attr_len = hb_arrayLen( pArray );
 
