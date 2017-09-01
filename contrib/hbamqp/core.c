@@ -193,7 +193,8 @@ static amqp_response_type_enum s_process_response( int iParam, amqp_rpc_reply_t 
             break;
       }
 
-      hb_itemParamStoreRelease( iParam, hResponse );
+      if( ! hb_itemParamStoreRelease( iParam, hResponse ) )
+         hb_itemRelease( hResponse );
 
       hb_itemRelease( pVal );
       hb_itemRelease( pKey );
@@ -767,7 +768,12 @@ HB_FUNC( AMQP_PARSE_URL )
    memset( &info, 0, sizeof( info ) );
 
    hb_retni( amqp_parse_url( pszURL, &info ) );
-   hb_itemParamStoreRelease( 2, s_ret_conn_info( &info ) );
+   if( HB_ISBYREF( 2 ) )
+   {
+      PHB_ITEM pInfo = s_ret_conn_info( &info );
+      if( ! hb_itemParamStoreRelease( 2, pInfo ) )
+         hb_itemRelease( pInfo );
+   }
 
    hb_xfree( pszURL );
 }

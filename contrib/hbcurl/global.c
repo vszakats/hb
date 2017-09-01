@@ -107,12 +107,17 @@ HB_FUNC( CURL_GLOBAL_SSLSET )
          hb_itemRelease( pVal );
          hb_itemRelease( pKey );
       }
-      hb_itemParamStoreRelease( 3, pAvail );
+      if( ! hb_itemParamStoreRelease( 3, pAvail ) )
+         hb_itemRelease( pAvail );
    }
 #else
    hb_retni( HB_CURLSSLSET_NOT_IMPLEMENTED );
    if( HB_ISBYREF( 3 ) )
-      hb_itemParamStoreRelease( 3, hb_hashNew( NULL ) );
+   {
+      PHB_ITEM pAvail = hb_hashNew( NULL );
+      if( ! hb_itemParamStoreRelease( 3, pAvail ) )
+         hb_itemRelease( pAvail );
+   }
 #endif
 }
 
