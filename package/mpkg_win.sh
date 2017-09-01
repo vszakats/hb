@@ -398,7 +398,7 @@ cd - || exit
   fi
 
   if [ -n "${VIRUSTOTAL_APIKEY}" ]; then
-    # https://www.virustotal.com/en/documentation/public-api/#scanning-files
+    # https://www.virustotal.com/documentation/public-api/#scanning-files
     if [ "$(wc -c < "${_pkgname}")" -lt 32000000 ]; then
       out="$(curl -sS \
         --form-string "apikey=${VIRUSTOTAL_APIKEY}" \
