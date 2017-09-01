@@ -938,7 +938,7 @@ internals:
 - added support for dynamically set during compilation ChangeLog entry,
   ChangeLog ID, SVN revision and compilation flags.
   Update Harbour logo message to show the exact revision number and
-- removed non-working compiler front ends: .NET CLI and Java.
+- removed non-working compiler frontends: .NET CLI and Java.
 - added support for i18n into compiler (-j[<filename>] switch)
   gettext compatible .pot files are generated
 

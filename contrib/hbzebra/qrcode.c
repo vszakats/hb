@@ -51,10 +51,10 @@
        https://osdn.jp/projects/qrcode/docs/qrcode_specification_ja/en/1/qrcode_specification_ja.pdf
 
    https://en.wikipedia.org/wiki/QR_Code
-   http://www.qrcode.com/en/
+   http://www.qrcode.com/
    https://foxdesignsstudio.com/uploads/pdf/Three_QR_Code.pdf
    https://web.archive.org/web/www.qrme.co.uk/qr-code-resources/understanding-a-qr-code.html
-   http://www.swetake.com/qr/index-e.html
+   http://www.swetake.com/qrcode/index-e.html
    https://www.codeproject.com/Articles/20574/Open-Source-QRCode-Library
    https://osdn.jp/projects/reedsolomon/
    https://web.archive.org/web/twit88.com/platform/projects/show/mt-qrcode
