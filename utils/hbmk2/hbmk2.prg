@@ -11249,12 +11249,16 @@ STATIC FUNCTION hbmk_SecToken()
    hb_mutexLock( s_mutexToken )
 
    IF s_cToken == NIL
-      s_cToken := StrZero( hb_rand32(), 10 )
+      s_cToken := "c" + hb_base64Encode( hb_ntos( hb_rand32() ) )
    ENDIF
 
    hb_mutexUnlock( s_mutexToken )
 
    RETURN s_cToken
+
+/* Please open an Issue/Pull Request in case you need additional information
+   accessible via the documented hbmk2 context hash or the plugin API. Also
+   note that plugins have access to HBMK_* envvars for extra information. */
 
 STATIC FUNCTION PlugIn_make_ctx( hbmk, cState, hVars )
    RETURN { ;
@@ -11269,6 +11273,7 @@ STATIC FUNCTION PlugIn_make_ctx( hbmk, cState, hVars )
       "cCPU"          => hbmk[ _HBMK_cCPU ]           , ;
       "cBUILD"        => hbmk[ _HBMK_cBUILD ]         , ;
       "cOUTPUTNAME"   => hbmk[ _HBMK_cPROGNAME ]      , ;
+      hbmk_SecToken() => hbmk                         , ;  /* use an arbitrary, non-guarenteed position for this item */
       "cTARGETNAME"   => hbmk_TARGETNAME( hbmk )      , ;
       "cTARGETTYPE"   => hbmk_TARGETTYPE( hbmk )      , ;
       "lREBUILD"      => hbmk[ _HBMK_lREBUILD ]       , ;
@@ -11289,8 +11294,7 @@ STATIC FUNCTION PlugIn_make_ctx( hbmk, cState, hVars )
       "cCCSUFFIX"     => hbmk[ _HBMK_cCCSUFFIX ]      , ;
       "cCCEXT"        => hbmk[ _HBMK_cCCEXT ]         , ;
       "cWorkDir"      => hbmk[ _HBMK_cWorkDir ]       , ;
-      "nExitCode"     => hbmk[ _HBMK_nExitCode ]      , ;
-      hbmk_SecToken() => hbmk }
+      "nExitCode"     => hbmk[ _HBMK_nExitCode ]      }
 
 STATIC FUNCTION PlugIn_ctx_get_state( ctx )
    RETURN ctx[ "cSTATE" ]

@@ -44,8 +44,6 @@
  *
  */
 
-/* NOTE: This file is also used by C code. */
-
 #ifndef HBYAML_CH_
 #define HBYAML_CH_
 

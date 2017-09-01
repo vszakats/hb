@@ -54,8 +54,6 @@
 #include "hbapierr.h"
 #include "hbapistr.h"
 
-#include "hbyaml.ch"
-
 yaml_parser_t * hb_yaml_par_parser( int iParam );
 
 #endif /* HBYAML_H_ */
