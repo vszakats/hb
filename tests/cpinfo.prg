@@ -222,7 +222,7 @@ procedure main( cdp, info, unicode )
                cLo := cLo2
                if lSort
                   ? "letters are not sorted continuously" + ;
-                     " (padded to 1-st non latin character)"
+                     " (padded to 1st non-latin character)"
                   lBin := lWarn := .t.
                endif
             elseif cUp2 >= Chr( 127 ) .and. cLo2 >= Chr( 127 )

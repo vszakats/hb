@@ -85,7 +85,7 @@ HB_FUNC( HB_BCHAR )
 }
 
 /* hb_UCode( <cText> ) --> <nCode>
- * return unicode value of 1-st character (not byte) in given string
+ * return unicode value of 1st character (not byte) in given string
  */
 HB_FUNC( HB_UCODE )
 {
@@ -99,7 +99,7 @@ HB_FUNC( HB_UCODE )
 }
 
 /* hb_BCode( <cText> ) --> <nCode>
- * return value of 1-st byte in given string
+ * return value of 1st byte in given string
  */
 HB_FUNC( HB_BCODE )
 {
@@ -152,7 +152,7 @@ HB_FUNC( HB_BEMPTY )
 }
 
 /* hb_UPeek( <cText>, <n> ) --> <nCode>
- * return unicode value of <n>-th character in given string
+ * return unicode value of <n>th character in given string
  */
 HB_FUNC( HB_UPEEK )
 {
@@ -181,7 +181,7 @@ HB_FUNC( HB_UPEEK )
 }
 
 /* hb_BPeek( <cText>, <n> ) --> <nCode>
- * return value of <n>-th byte in given string
+ * return value of <n>th byte in given string
  */
 HB_FUNC( HB_BPEEK )
 {
@@ -199,7 +199,7 @@ HB_FUNC( HB_BPEEK )
 }
 
 /* hb_UPoke( [@]<cText>, <n>, <nVal> ) --> <cText>
- * change <n>-th character in given string to unicode <nVal> one and return modified text
+ * change <n>th character in given string to unicode <nVal> one and return modified text
  */
 HB_FUNC( HB_UPOKE )
 {
@@ -251,7 +251,7 @@ HB_FUNC( HB_UPOKE )
 }
 
 /* hb_BPoke( [@]<cText>, <n>, <nVal> ) --> <cText>
- * change <n>-th byte in given string to <nVal> and return modified text
+ * change <n>th byte in given string to <nVal> and return modified text
  */
 HB_FUNC( HB_BPOKE )
 {

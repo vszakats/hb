@@ -2719,7 +2719,7 @@ static void hb_gt_xwc_ProcessKey( PXWND_DEF wnd, XKeyEvent * evt )
    {
       i = Xutf8LookupString( wnd->ic, evt, buf, ( int ) sizeof( buf ), &outISO, &status_return );
       buf[ HB_MAX( i, 0 ) ] = '\0';
-      printf( "UTF8: KeySym=%lx, keySymISO=%lx, keystr[%d]='%s'\n", out, outISO, i, buf ); fflush( stdout );
+      printf( "UTF-8: KeySym=%lx, keySymISO=%lx, keystr[%d]='%s'\n", out, outISO, i, buf ); fflush( stdout );
    }
    else
 #  endif

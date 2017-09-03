@@ -171,7 +171,7 @@ HB_FUNC( WOPEN )
 
 HB_FUNC( WCLOSE )
 {
-   /* 1-st parameter (window handle) is Harbour extension */
+   /* 1st parameter (window handle) is Harbour extension */
    hb_retni( hb_ctwCloseWindow( HB_ISNUM( 1 ) ? hb_parni( 1 ) : /* HB_EXTENSION */
                                              hb_ctwCurrentWindow() ) );
 }

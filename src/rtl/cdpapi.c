@@ -1019,7 +1019,7 @@ int hb_cdpicmp( const char * szFirst, HB_SIZE nLenFirst,
 }
 
 /*
- * UTF8 conversions
+ * UTF-8 conversions
  */
 int hb_cdpUTF8CharSize( HB_WCHAR wc )
 {

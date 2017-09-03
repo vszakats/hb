@@ -16,7 +16,7 @@ Client side functions:
       with name starting with "net:" to HBNETIO server, set default
       server address, port and connection parameters and tries to set
       the connection to this server.
-      When executed 1-st time it sets default connection parameters
+      When executed 1st time it sets default connection parameters
       for all threads. Each thread can overwrite these default settings
       with its own local ones calling netio_Connect() function.
       Each successful call to netio_Connect() increase the reference

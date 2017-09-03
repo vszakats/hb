@@ -633,7 +633,7 @@ AREAP hb_rddRequestArea( const char * szAlias, PHB_ITEM pCargo,
    if( pCargo )
       hb_itemClear( pCargo );
 
-   /* close current WA or chose 1-st free available */
+   /* close current WA or chose 1st free available */
    if( ! fNewArea )
    {
       hb_rddReleaseCurrentArea();

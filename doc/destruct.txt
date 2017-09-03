@@ -71,7 +71,7 @@ situation.
 
 In summary, Harbour destructor implementation should be able to detect
 bugs in destructor and keep HVM integrity. But we are not able to
-guarantee that nothing wrong will happen with 3-rd party code which
+guarantee that nothing wrong will happen with 3rd party code which
 uses POINTER items scanned by GC, which are not safe for .prg code
 bugs in destructors and repeated cleanup function execution.
 

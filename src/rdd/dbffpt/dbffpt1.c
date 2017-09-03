@@ -4278,7 +4278,7 @@ static HB_ERRCODE hb_fptOpenMemFile( FPTAREAP pArea, LPDBOPENINFO pOpenInfo )
                pArea->ulMemoBlockSize = HB_GET_LE_UINT32( fptHeader.blockSize );
             else
                pArea->ulMemoBlockSize = HB_GET_BE_UINT32( fptHeader.blockSize );
-            /* hack for some buggy 3-rd part memo code implementations */
+            /* hack for some buggy 3rd part memo code implementations */
             if( pArea->ulMemoBlockSize > 0x10000 &&
                 ( pArea->ulMemoBlockSize & 0xFFFF ) != 0 )
             {

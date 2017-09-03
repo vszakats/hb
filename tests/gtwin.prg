@@ -45,23 +45,23 @@ procedure main()
    pGT := hb_gtSelect( pGT1 )
    SetColor( "W+/R" )
    DispBox( 10, 10, 20, 50, HB_B_DOUBLE_UNI + " " )
-   ?? "This test is shown in 1-st GT window"
+   ?? "This test is shown in 1st GT window"
 
    hb_gtSelect( pGT2 )
    SetColor( "W+/B" )
    DispBox( 15, 30, 20, 70, HB_B_DOUBLE_UNI + " " )
-   ?? "This test is shown in 2-nd GT window"
+   ?? "This test is shown in 2nd GT window"
 
    hb_gtSelect( pGT )
    ? "New console window should be visible now"
    wait
 
-   ? "Destroy 1-st window..."
+   ? "Destroy 1st window..."
    pGT1 := NIL
    ?? "done"
    wait
 
-   ? "Destroy 2-nd window..."
+   ? "Destroy 2nd window..."
    pGT2 := NIL
    ?? "done"
 

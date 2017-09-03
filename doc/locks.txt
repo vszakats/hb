@@ -126,7 +126,7 @@ CDX WRITE LOCK:  @0xfffeffff : 0x10001
     prepare the index modification in memory and before writing to
     index file lock @0xffff0000 : 0x10000
   to eliminate starvation effect caused by many readers
-  on each 16-th read lock reading process tries to lock write
+  on each 16th read lock reading process tries to lock write
   area @0xfffeffff : 1 instead and then sets normal read lock
 
 In Harbour it's DB_DBFLOCK_COMIX.
@@ -148,7 +148,7 @@ CDX WRITE LOCK:  @0xfffeffff : 0x10001
     prepare the index modification in memory and before writing to
     index file lock @0xffff0000 : 0x10000
   to eliminate starvation effect caused by many readers
-  on each 16-th read lock reading process tries to lock write
+  on each 16th read lock reading process tries to lock write
   area @0xfffeffff : 1 instead and then sets normal read lock
 
 In Harbour it's DB_DBFLOCK_HB32.
@@ -170,7 +170,7 @@ CDX WRITE LOCK:  @0x7fffffff00000000 : 0x10001
     prepare the index modification in memory and before writing to
     index file lock @0x7fffffff00000001 : 0x10000
   to eliminate starvation effect caused by many readers
-  on each 16-th read lock reading process tries to lock write
+  on each 16th read lock reading process tries to lock write
   area @0x7fffffff00000000 : 1 instead and then sets normal read lock
 
 In Harbour it's DB_DBFLOCK_HB64.

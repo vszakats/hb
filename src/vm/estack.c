@@ -335,7 +335,7 @@ void hb_stackReleaseTSD( PHB_TSD pTSD )
       pTSD->iHandle = 0;
       /* TODO: add recovery system to not lose TSD handles and
        *       make this functionality more general and public
-       *       for 3-rd party developers
+       *       for 3rd party developers
        */
    }
 }

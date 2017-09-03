@@ -313,7 +313,7 @@ In xHarbour the behavior of references stored in array is reverted in
 comparison to Clipper or Harbour.
 In Clipper and Harbour VM executing code like:
          aVal[ 1 ] := 100
-clears unconditionally 1-st item in aVal array and assigns to it value 100.
+clears unconditionally 1st item in aVal array and assigns to it value 100.
 xHarbour checks if aVal[ 1 ] is an reference and in such case it resolves
 the reference and then assign 100 to the destination item.
 On access Clipper and Harbour VM executing code like:
@@ -1047,7 +1047,7 @@ Warning! Xbase++ also supports $ operator for arrays but it makes non
          1st is a semi bug: it uses non exact comparison but reverts
          arguments so ` "abc" $ { "a" } ' gives .T.
          2nd which is critical: it has wrong stop condition so does
-         not stop scanning when locates 1-st matching item. It should
+         not stop scanning when locates 1st matching item. It should
          be fixed and I do not know what will be the final CLIP behavior.
 
 
@@ -1194,12 +1194,12 @@ it and not create such code.
 xHarbour supports application wide static variables called GLOBALs.
 To declare GLOBAL variable you have to put
       GLOBAL <varname> [ := <initValue> ]
-before the 1-st function in compiled .prg module and use -n compiler
+before the 1st function in compiled .prg module and use -n compiler
 switch. In xHarbour GLOBAL variables cannot be declared inside function
 body. If user wants to use GLOBAL variable in different .prg module
 then he has to add declaration
       GLOBAL EXTERNAL <varname>
-to his code before the 1-st function in compiled .prg module and use
+to his code before the 1st function in compiled .prg module and use
 -n compiler switch. Also, GLOBAL EXTERNAL declaration cannot be used
 in function body. Unlike other variables GLOBALs declared in xHarbour
 reserve used names so they cannot be used in the same module in local
@@ -1558,7 +1558,7 @@ protection and multi-inheritance (see OOP SCOPES and OOP AND MULTI-INHERITANCE).
 Everything is done automatically without any explicit casting or other
 then declaring variables or methods as HIDDEN source code modification.
 This code illustrates it. We have two classes and each of them has its own
-_private_ 'temp' instance variable and 'set' method. 3-rd class inherits
+_private_ 'temp' instance variable and 'set' method. 3rd class inherits
 from both of them and executes it's public methods which internally
 access hidden ones but without any explicit casting. In Harbour all is done
 automatically by HVM:
@@ -1770,7 +1770,7 @@ different in the two compilers. In Harbour HVM is reentrant safe
 so the implementation of destructors is much simpler. It also
 keeps full control about reference counters and detects user
 code errors bound with complex items in .prg and C code what
-greatly helps to detect problems in user code or 3-rd party
+greatly helps to detect problems in user code or 3rd party
 libraries and gives protection against internal HVM memory
 corruption. In the last years it also helped to located few
 very hard to exploit bugs in core code.
@@ -1833,7 +1833,7 @@ Harbour executes above code cleanly without any errors:
 Missing protection and error detection is not only problem for programmers.
 It also causes that in xHarbour core code few bad bugs have not been fixed
 so far though they exist for years. It also extremely time consuming problem
-for core developers when users or 3-rd party developers reports problems with
+for core developers when users or 3rd party developers reports problems with
 some memory corruption and it's necessary to locate the reason.
 I remember how much time I lost for such things working on xHarbour
 in the past so later when I moved to Harbour it was one of the main goal
@@ -2137,7 +2137,7 @@ are thread local which ones are shared and how they are initialized:
          - math error handler and math error block
          - default macro compiler features setting (controlled by
            hb_SetMacro())
-         - RDDI_* settings in core RDDs (some 3-rd party RDDs may use
+         - RDDI_* settings in core RDDs (some 3rd party RDDs may use
            global settings)
          - thread static variables
          - SetKey() are reset to empty array (Clipper compatible automatic
@@ -2400,7 +2400,7 @@ file server on TCP IP socket.
 In Harbour it's possible to dynamically register many alternative
 RDD IO APIs and use them simultaneously in one application.
 HBNETIO library in Harbour implements this so without touching even
-single line in RDD code it works for all core RDDs and also 3-rd
+single line in RDD code it works for all core RDDs and also 3rd
 party ones if they use Harbour RDD IO API (hb_file*() functions).
 Additionally client and server code in HBNETIO are fully MT safe
 so can be used in MT programs without any problems.
@@ -2526,7 +2526,7 @@ This programs reads .hil file show all existing strings and allow to
 type translation for each existing string and then saves the translation
 table in files with .hit extension using another internal xHarbour binary
 format. At runtime application may load .hit file and then i18n() function
-will look if string passed as 1-st parameter exists in translation table
+will look if string passed as 1st parameter exists in translation table
 and if yes then it returns translated string and if not it returns original
 string. Only pure 1 to 1 translation exists without any extensions like
 context domains, support for plural forms or automatic CP translations.
@@ -2860,7 +2860,7 @@ activation in memory manager.
 These are only examples and anyone can find many other similar problems
 in xHarbour core code so in my opinion API separation with core code
 cleanup is something what has to be done in xHarbour in the future.
-Of course such separation does not mean that we can forbid 3-rd party
+Of course such separation does not mean that we can forbid 3rd party
 programmers to access HVM internals. Programmers creating code for Harbour
 can include before any other Harbour header files "hbvmint.h", i.e.:
       #include "hbvmint.h"

@@ -233,7 +233,7 @@ static HB_BOOL amf3_encode_bool( amfContext * context, PHB_ITEM pItem )
 
 static HB_BOOL amf3_encode_string( amfContext * context, PHB_ITEM pItem )
 {
-   void *       hStr = NULL;       /* = hb_itemGetCPtr(pItem); not needed with UTF8 conversion */
+   void *       hStr = NULL;       /* = hb_itemGetCPtr( pItem ); not needed with UTF-8 conversion */
    HB_SIZE      len;
    const char * utf8str = hb_itemGetStrUTF8( pItem, &hStr, &len );
    HB_BOOL      result;

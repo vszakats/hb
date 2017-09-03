@@ -122,7 +122,7 @@ HB_FUNC( HB_UTF8AT )
    {
       HB_SIZE nTextLength = hb_itemGetCLen( pText );
       HB_SIZE nStart = hb_parnsdef( 3, 1 );
-      HB_SIZE nEnd = hb_parnsdef( 4, nTextLength ); /* nTextLength can be > UTF8 len. No problem.*/
+      HB_SIZE nEnd = hb_parnsdef( 4, nTextLength ); /* nTextLength can be > UTF-8 len. No problem.*/
 
       if( nEnd < nStart )
          hb_retns( 0 );
@@ -135,7 +135,7 @@ HB_FUNC( HB_UTF8AT )
 }
 
 /*
- * NOTE: In HB_UTF8RAT we are still traversing from
+ * NOTE: In hb_utf8RAt() we are still traversing from
  *       left to right, as it would be required anyway to
  *       determine the real string length. [bacco]
  */
@@ -149,7 +149,7 @@ HB_FUNC( HB_UTF8RAT )
    {
       HB_SIZE nTextLength = hb_itemGetCLen( pText );
       HB_SIZE nStart = hb_parnsdef( 3, 1 );
-      HB_SIZE nEnd = hb_parnsdef( 4, nTextLength ); /* nTextLength can be > UTF8 len. No problem.*/
+      HB_SIZE nEnd = hb_parnsdef( 4, nTextLength ); /* nTextLength can be > UTF-8 len. No problem.*/
 
       if( nEnd < nStart )
          hb_retns( 0 );
@@ -375,7 +375,7 @@ HB_FUNC( HB_UTF8LEN )
       hb_errRT_BASE_SubstR( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
-/* none of numeric parameters in StrTran() (4-th and 5-th) refers to
+/* none of numeric parameters in StrTran() (4th and 5th) refers to
  * character position in string so we do not need to create new
  * hb_utf8StrTran() but we can safely use normal StrTran() function
  */

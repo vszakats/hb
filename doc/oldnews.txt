@@ -305,8 +305,8 @@ Core
   In such case "(_INITSTATICS)" is used as function name.
   Without it debugger does not register entering such codeblocks and
   GPFs.
-- Added support for automatic adding 1-st function with the same name
-  as compiled .prg file if some code statements are used before 1-st
+- Added support for automatic adding 1st function with the same name
+  as compiled .prg file if some code statements are used before 1st
   function/procedure declared explicitly in .prg file. Such mode can
   be enabled by -n2 new Harbour compiler switch. This switch is used
   by default by new hbmk tool.
@@ -870,7 +870,7 @@ General
   who want to change the grammar files needs bison
 - removed all HB_COMPAT_XHB definitions from source code - now all covered
   extensions should be supported by hbcompat.ch and/or xhb library
-- removed 3-rd party header files from SVN, f.e.: ace.h
+- removed 3rd party header files from SVN, f.e.: ace.h
 
 Portability
 -----------
@@ -968,7 +968,7 @@ API
 - added C functions to access SET values (hb_setGet*()) which should be used
   instead of direct accessing HB_SET structure
 - added hb_fsFileExists() and hb_fsDirExists()
-- added hb_arraySet*() functions - they should help 3-rd party developers
+- added hb_arraySet*() functions - they should help 3rd party developers
   to eliminate using C stack level HB_ITEM and reduce usage of potentially
   danger function like hb_arrayGetItemPtr()
 - added hb_itemParamStore[Forward]() functions
@@ -1005,8 +1005,8 @@ DEBUGGER
 
 RTL
 ---
-- added functions for translation to/from UTF8 mode and operations
-  on UTF8 strings
+- added functions for translation to/from UTF-8 mode and operations
+  on UTF-8 strings
 - added functions for bit manipulations: HB_BIT*() and for conversions
   to/from hexadecimal format
 - added set of functions with hb_ prefix supported extended parameters,
@@ -1060,7 +1060,7 @@ GT:
   terminfo). It has hard coded support only for few terminals (Linux,ANSI,
   XTERM) but because uses only very limited set of escape sequences then
   on most currently used terminals it works better then curses or slang
-  based programs. GTTRM automatically detects ISO/UTF8 terminal mode at
+  based programs. GTTRM automatically detects ISO/UTF-8 terminal mode at
   startup and chose valid output what should also help *nix users - it
   resolves problems with some box drawing characters and others which
   are not accessible in ISO mode. It also respects /etc/harbour/hb-charmap.def
@@ -1337,12 +1337,12 @@ API
   such code may stop to work with next Harbour versions. Without
   hbvmopt.h the internal structures like HB_ITEM, HB_DYNS, ... are
   mapped to 'void' so there is no way to access their members so we
-  can modify them in the future without afford for 3-rd party code.
+  can modify them in the future without afford for 3rd party code.
 - Remove default API and stack macros. Now API/stack macros can be
   enabled by including hb_vmopt.h file. This file should be included
   ONLY by core code because binary object/libraries generated after
   can work only with EXACTLY the same HVM compiled the same C
-  alignment switches. 3-rd party code should include hbvmpub.h only.
+  alignment switches. 3rd party code should include hbvmpub.h only.
 - Added support to passing function references as HB_IT_SYMBOL.
 - hb_itemType() return "S" for HB_IT_SYMBOL.
 - Message symbols are not function symbols, cleaned the HB_FS_MESSAGE
@@ -1437,7 +1437,7 @@ Multilangual:
 - Codepage: Updated UNICODE values for characters in range 1-31 to
   keep DOS compatibility.
 - Codepage: Renamed files (cdp*.c -> cd*.c).
-- Codepage: Added UTF8 related functions: hb_cdpUTF8StringLength(),
+- Codepage: Added UTF-8 related functions: hb_cdpUTF8StringLength(),
   hb_cdpStringInUTF8Length(), hb_cdpUTF8ToStrn().
 - Moved EN lang definitions to core lang code so we always have
 - HU sorting order fixed to be more compatible with Clipper.

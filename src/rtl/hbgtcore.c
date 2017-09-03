@@ -1878,7 +1878,7 @@ static HB_BOOL hb_gt_def_Info( PHB_GT pGT, int iType, PHB_GT_INFO pInfo )
          if( ! pInfo->pResult )
             pInfo->pResult = hb_itemNew( NULL );
          hb_arrayNew( pInfo->pResult, 7 );
-         /* 7-th item is allocated for GTCTW window number */
+         /* 7th item is allocated for GTCTW window number */
          HB_GTSELF_GETPOS( pGT, &iRow, &iCol );
          hb_arraySetNI( pInfo->pResult, 1, iRow );
          hb_arraySetNI( pInfo->pResult, 2, iCol );

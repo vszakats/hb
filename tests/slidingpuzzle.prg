@@ -228,25 +228,28 @@ METHOD Refresh() CLASS SlidingPuzzle
 
 METHOD Frame() CLASS SlidingPuzzle
 
-   LOCAL nColor := 0xf0
+   LOCAL cLine
 
-   hb_DispOutAt(  0, 0, hb_UTF8ToStr( "┌──────┬──────┬──────┬──────┐" ), nColor )
-   hb_DispOutAt(  1, 0, hb_UTF8ToStr( "│      │      │      │      │" ), nColor )
-   hb_DispOutAt(  2, 0, hb_UTF8ToStr( "│      │      │      │      │" ), nColor )
-   hb_DispOutAt(  3, 0, hb_UTF8ToStr( "│      │      │      │      │" ), nColor )
-   hb_DispOutAt(  4, 0, hb_UTF8ToStr( "├──────┼──────┼──────┼──────┤" ), nColor )
-   hb_DispOutAt(  5, 0, hb_UTF8ToStr( "│      │      │      │      │" ), nColor )
-   hb_DispOutAt(  6, 0, hb_UTF8ToStr( "│      │      │      │      │" ), nColor )
-   hb_DispOutAt(  7, 0, hb_UTF8ToStr( "│      │      │      │      │" ), nColor )
-   hb_DispOutAt(  8, 0, hb_UTF8ToStr( "├──────┼──────┼──────┼──────┤" ), nColor )
-   hb_DispOutAt(  9, 0, hb_UTF8ToStr( "│      │      │      │      │" ), nColor )
-   hb_DispOutAt( 10, 0, hb_UTF8ToStr( "│      │      │      │      │" ), nColor )
-   hb_DispOutAt( 11, 0, hb_UTF8ToStr( "│      │      │      │      │" ), nColor )
-   hb_DispOutAt( 12, 0, hb_UTF8ToStr( "├──────┼──────┼──────┼──────┤" ), nColor )
-   hb_DispOutAt( 13, 0, hb_UTF8ToStr( "│      │      │      │      │" ), nColor )
-   hb_DispOutAt( 14, 0, hb_UTF8ToStr( "│      │      │      │      │" ), nColor )
-   hb_DispOutAt( 15, 0, hb_UTF8ToStr( "│      │      │      │      │" ), nColor )
-   hb_DispOutAt( 16, 0, hb_UTF8ToStr( "└──────┴──────┴──────┴──────┘" ), nColor )
+   FOR EACH cLine IN { ;
+      "┌──────┬──────┬──────┬──────┐", ;
+      "│      │      │      │      │", ;
+      "│      │      │      │      │", ;
+      "│      │      │      │      │", ;
+      "├──────┼──────┼──────┼──────┤", ;
+      "│      │      │      │      │", ;
+      "│      │      │      │      │", ;
+      "│      │      │      │      │", ;
+      "├──────┼──────┼──────┼──────┤", ;
+      "│      │      │      │      │", ;
+      "│      │      │      │      │", ;
+      "│      │      │      │      │", ;
+      "├──────┼──────┼──────┼──────┤", ;
+      "│      │      │      │      │", ;
+      "│      │      │      │      │", ;
+      "│      │      │      │      │", ;
+      "└──────┴──────┴──────┴──────┘" }
+      hb_DispOutAt( cLine:__enumIndex() - 1, 0, hb_UTF8ToStr( cLine ), 0xf0 )
+   NEXT
 
    RETURN Self
 

@@ -9881,9 +9881,9 @@ STATIC FUNCTION s_getIncludedFiles( hbmk, cFile, cParentDir, lCMode )
          https://vcs.pcre.org/pcre/code/trunk/doc/pcre.txt?view=markup */
 
    IF t_pRegexInclude == NIL
-      /* Switch to non UTF8 CP - otherwise PCRE fails on user files
-       * containing non UTF8 characters. For this expression we do
-       * not need UTF8 or any other fixed encoding.
+      /* Switch to non UTF-8 CP - otherwise PCRE fails on user files
+       * containing non UTF-8 characters. For this expression we do
+       * not need UTF-8 or any other fixed encoding.
        */
       tmp := hb_cdpSelect( "cp437" )
       t_pRegexInclude := hb_regexComp( _HBMK_REGEX_INCLUDE, .F. /* lCaseSensitive */, .T. /* lNewLine */ )

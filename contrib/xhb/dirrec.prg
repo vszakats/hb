@@ -54,7 +54,7 @@
  * relative paths to absolute ones by simple adding CurDir()
  * and/or cPath parameter passed to DirectoryRecurse() but
  * reverted conversion may not be possible in some cases.
- * The 3-rd xHarbour parameter <lCaseMach> is ignored because
+ * The 3rd xHarbour parameter <lCaseMach> is ignored because
  * Harbour uses platform native rules to check filename mask
  * respecting SET FILECASE and SET DIRCASE settings.
  * xHarbour does not add "D" to attribute list used for directory

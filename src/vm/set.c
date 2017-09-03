@@ -1345,7 +1345,7 @@ HB_BOOL hb_setSetItem( HB_set_enum set_specifier, PHB_ITEM pItem )
          case HB_SET_ALTFILE:
          case HB_SET_EXTRAFILE:
          case HB_SET_PRINTFILE:
-            /* This sets needs 3-rd parameter to indicate additive mode
+            /* This sets needs 3rd parameter to indicate additive mode
              * so they cannot be fully supported by this function
              */
             if( HB_IS_STRING( pItem ) || HB_IS_NIL( pItem ) )

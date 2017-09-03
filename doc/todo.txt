@@ -42,7 +42,7 @@ Detail...: Extended HB_IT_POINTER. In practice we can give them the
            same functionality as for objects and use them for fast
            creation objects at C level. We can also add HB_VALTYPE()
            function which will return the extended type name, f.e.
-           "WINDOW", "FONT", "SOCKET" or anything what 3-rd party
+           "WINDOW", "FONT", "SOCKET" or anything what 3rd party
            programmers may want to use. It will greatly simplify
            writing some libraries.
 Status...: Open.

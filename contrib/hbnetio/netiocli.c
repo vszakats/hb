@@ -1089,7 +1089,7 @@ HB_FUNC( NETIO_DECODE )
    hb_storni( iLevel, 6 );
    hb_storni( iStrategy, 7 );
    if( pszFile != pszFullName )
-      /* the order is important and 1-st parameter
+      /* the order is important and 1st parameter
        * should be assigned at the end
        */
       hb_storc( pszFile, 1 );

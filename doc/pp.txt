@@ -492,7 +492,7 @@ making in last days.
             If anything substituted
                continue
 
-            Do While 1-st token match some #[x]command pattern
+            Do While 1st token match some #[x]command pattern
                substitute
             EndDo
 
@@ -500,7 +500,7 @@ making in last days.
 
          Output processed token until the last one or ; token
 
-         If 1-st token is '#'
+         If 1st token is '#'
             continue
 
          Remove all tokens in the list until the last one or ; token
