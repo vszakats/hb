@@ -156,12 +156,23 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
                { ;
                   "subparts" => ;
                   { ;
-                     { "data" => cInlineHTML, "type" => "text/html" }, ;
-                     { "data" => cText } ;
+                     { ;
+                        "data" => cInlineHTML, ;
+                        "type" => "text/html" }, ;
+                     { ;
+                        "data" => cText } ;
                   }, ;
-                  "type" => "multipart/alternative", "headers" => { "Content-Disposition: inline" } ;
+                  "type" => "multipart/alternative", ;
+                  "headers" => { "Content-Disposition: inline" } ;
                }, ;
-               { "filedata" => __FILE__, "filename" => "myname.c", "name" => "myname.c" } ;
+               { ;
+                  "filedata" => __FILE__, ;
+                  "filename" => "text.c" }, ;
+               { ;
+                  "data" => hb_base64Encode( Replicate( hb_BChar( 123 ), 1024 ), 76 ), ;
+                  "type" => "image/png", ;
+                  "filename" => "mock.png", ;
+                  "headers" => { "Content-Transfer-Encoding: base64" } } ;
             } )
       ELSE
          curl_easy_setopt( curl, HB_CURLOPT_UL_BUFF_SETUP, cText )
