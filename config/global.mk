@@ -976,6 +976,12 @@ ifeq ($(HB_COMPILER_VER),)
       endif
       _C_VER := $(shell "$(HB_COMP_PATH_VER_DET)" -dumpversion 2>&1)
 
+      # Try new option if the returned version is 1 or 2 character long
+      # (possibly a major version number only)
+      ifneq ($(filter $(call strlen,$(_C_VER)),1 2),)
+         _C_VER := $(shell "$(HB_COMP_PATH_VER_DET)" -dumpfullversion 2>&1)
+      endif
+
       ifeq ($(_C_VER),)
          _C_VER := 3.4.0
       endif
