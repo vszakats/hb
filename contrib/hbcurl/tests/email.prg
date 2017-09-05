@@ -12,9 +12,11 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
    LOCAL curl
    LOCAL lAPI_curl := curl_version_info()[ HB_CURLVERINFO_VERSION_NUM ] >= 0x073800
 
+   LOCAL cUser
    LOCAL cText
    LOCAL aHeader
    LOCAL cInlineHTML
+   LOCAL cSubject
 
    /* Require STARTTLS on port 587 (true) or allow it to proceed without it (false) */
    LOCAL lSTARTTLS_force
@@ -24,12 +26,16 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
       RETURN
    ENDIF
 
-   hb_default( @cFrom    , "<from@example.net>" )
+   hb_default( @cFrom    , "from@example.net" )
    hb_default( @cPassword, "password" )
-   hb_default( @cTo      , "<to@example.org>" )
+   hb_default( @cTo      , "to@example.org" )
    hb_default( @cHost    , "localhost" )
 
+   cFrom := "<" + ( cUser := hb_curl_mail_address_to_email( cFrom ) ) + ">"
+   cTo := "<" + hb_curl_mail_address_to_email( cTo ) + ">"
    cHost := Lower( cHost )
+
+   cSubject := "Example sending a MIME-formatted message"
 
    cText := ;
       e"This is the inline text message of the email.\r\n" + ;
@@ -41,13 +47,13 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
       aHeader := { ;
          "Date: " + hb_curl_date(), ;
          "To: " + cTo, ;
-         "From: " + cFrom + " (Example User)", ;
+         "From: hbcurl " + cFrom, ;
          "Cc: " + cTo, ;
          "Message-ID: <dcd7cb36-11db-487a-9f3a-e652a9458efd@rfcpedant.example.org>", ;
          "Reply-to: " + cFrom, ;
-         "Disposition-Notification-To: " + tip_GetRawEmail( cFrom ), ;
+         "Disposition-Notification-To: " + cFrom, ;
          "X-Priority: " + hb_ntos( 1 ), ;  /* 1: high, 3: standard, 5: low */
-         "Subject: example sending a MIME-formatted message" }
+         "Subject: " + cSubject }
 
       cInlineHTML := ;
          e"<html><body>\r\n" + ;
@@ -57,11 +63,12 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
          e"email viewers able to handle HTML.</p>" + ;
          e"</body></html>\r\n"
    ELSE
-      cText := tip_MailAssemble( cFrom, ;
+      cText := tip_MailAssemble( ;
+         "hbtip " + cFrom, ;
          { cTo }, ;
          /* aCC */, ;
          cText, ;
-         "test: subject", ;
+         cSubject, ;
          { __FILE__ } /* attachment */, ;
          /* nPriority */, ;
          /* lRead */, ;
@@ -102,7 +109,7 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
       cHost := "smtps://smtp.mail.yahoo.com"
    CASE cHost == "mailtrap.io" .OR. "@mailtrap.io" $ cFrom
       cHost := "smtp://smtp.mailtrap.io:465"; lSTARTTLS_force := .T.
-      cFrom := StrTran( cFrom, "@mailtrap.io" )
+      cUser := StrTran( cUser, "@mailtrap.io" )
    ENDCASE
 
    ? "libcurl:", curl_version_info()[ HB_CURLVERINFO_VERSION ]
@@ -137,13 +144,13 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
       curl_easy_setopt( curl, HB_CURLOPT_PROTOCOLS, hb_bitOr( HB_CURLPROTO_SMTPS, HB_CURLPROTO_SMTP ) )
       curl_easy_setopt( curl, HB_CURLOPT_TIMEOUT_MS, 15000 )
       curl_easy_setopt( curl, HB_CURLOPT_VERBOSE, .T. )
-      curl_easy_setopt( curl, HB_CURLOPT_USERNAME, cFrom )
+      curl_easy_setopt( curl, HB_CURLOPT_USERNAME, cUser )
       curl_easy_setopt( curl, HB_CURLOPT_PASSWORD, cPassword )
       curl_easy_setopt( curl, HB_CURLOPT_MAIL_FROM, cFrom )
       curl_easy_setopt( curl, HB_CURLOPT_MAIL_RCPT, { cTo } )
       IF lAPI_curl
          curl_easy_setopt( curl, HB_CURLOPT_HTTPHEADER, aHeader )
-         /* NOTE: 'charset', 'name', 'x-unix-mode' attribute support to be implement */
+         /* NOTE: 'charset', 'x-unix-mode' attribute support to be implemented */
          curl_easy_setopt( curl, HB_CURLOPT_MIMEPOST, ;
             { ;
                { ;

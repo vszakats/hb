@@ -29,3 +29,5 @@ escold.c
 global.c
 miscc.c
 ver.c
+
+misc.prg
