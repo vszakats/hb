@@ -169,10 +169,10 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
                   "filedata" => __FILE__, ;
                   "filename" => "text.c" }, ;
                { ;
-                  "data" => hb_base64Encode( Replicate( hb_BChar( 123 ), 1024 ), 76 ), ;
+                  "data" => Replicate( hb_BChar( 123 ), 1024 ), ;
                   "type" => "image/png", ;
-                  "filename" => "mock.png", ;
-                  "headers" => { "Content-Transfer-Encoding: base64" } } ;
+                  "encoder" => "base64", ;  /* binary, 8bit, 7bit, base64, quoted-printable */
+                  "filename" => "mock.png" } ;
             } )
       ELSE
          curl_easy_setopt( curl, HB_CURLOPT_UL_BUFF_SETUP, cText )
