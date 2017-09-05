@@ -15804,7 +15804,7 @@ STATIC FUNCTION __hb_extern_get_list_hrb( cInputName )
       aExtern := {}
       hExtern := { => }
       FOR EACH cFunction IN hb_hrbGetFunList( hrb, HB_HRB_FUNC_PUBLIC )
-         cFunction := hb_asciiUpper( cFunction )
+         cFunction := hb_asciiLower( cFunction )
          IF ! cFunction $ hExtern
             AAdd( aExtern, cFunction )
             hExtern[ cFunction ] := NIL
@@ -15867,7 +15867,7 @@ STATIC FUNCTION __hb_extern_get_list( hbmk, cInputName, cBin_LibHBX, cOpt_LibHBX
                aExtern := {}
                hExtern := { => }
                FOR EACH tmp IN aResult
-                  tmp[ 2 ] := hb_asciiUpper( tmp[ 2 ] )
+                  tmp[ 2 ] := hb_asciiLower( tmp[ 2 ] )
                   IF ! tmp[ 2 ] $ hExtern
                      AAdd( aExtern, tmp[ 2 ] )
                      hExtern[ tmp[ 2 ] ] := NIL
