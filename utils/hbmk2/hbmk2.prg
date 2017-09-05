@@ -14658,6 +14658,16 @@ STATIC FUNCTION CompVersionDetect( hbmk, cPath_CompC, lEarly )
                https://bugs.launchpad.net/ubuntu/+source/gcc-4.8/+bug/1360404 */
             tmp1 := hb_ATokens( tmp1, "." )
             cVer := StrZero( Val( tmp1[ 1 ] ), 2 ) + StrZero( Val( tmp1[ 2 ] ), 2 )
+         CASE ( tmp1 := hb_AtX( R_( "([0-9]*)" ), cStdOutErr ) ) != NIL
+            /* Prepare for certain builds (e.g. Fedora 26 and Ubuntu) of gcc 7 and
+               upper, where only the major version is returned:
+               https://bugzilla.redhat.com/show_bug.cgi?id=1441594
+               A new option -dumpfullversion has been introduced that always returns
+               the full version, but it's of course not available in earlier gcc
+               versions. Let's use it once a minor version granularity will be needed
+               for a 7+ gcc version. */
+            tmp1 := hb_ATokens( tmp1, "." )
+            cVer := StrZero( Val( tmp1[ 1 ] ), 2 ) + "01"
          OTHERWISE
             cVer := "0304"
          ENDCASE

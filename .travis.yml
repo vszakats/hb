@@ -58,20 +58,22 @@ matrix:
       dist: trusty
       sudo: false
       compiler: gcc
-      env: [ HB_CI_THREADS=4, HB_CCSUFFIX=-6 ]
+      env: [ HB_CI_THREADS=4, HB_CCSUFFIX=-7 ]
       addons:
         apt:
-          packages: [ *hb-linux-common, gcc-6, g++-6 ]
+          packages: [ *hb-linux-common, gcc-7, g++-7 ]
           sources: ubuntu-toolchain-r-test
     - os: linux
       dist: trusty
       sudo: required
+      group: edge
       compiler: gcc
       services: [ docker ]
       env: [ HB_CI_THREADS=4, 'DOCKER_IMAGE=amazonlinux:latest', DOCKER_SCRIPT=./package/mpkg_rpm_docker.sh ]
     - os: linux
       dist: trusty
       sudo: required
+      group: edge
       compiler: i686-w64-mingw32-gcc
       services: [ docker ]
       # https://hub.docker.com/_/ubuntu/
@@ -126,6 +128,7 @@ script:
     elif [ -z "${DOCKER_IMAGE}" ]; then
       ls -lA "$(dirname "$(which "${CC}${HB_CCSUFFIX}")")/${CC}"*
       "${CC}${HB_CCSUFFIX}" -v
+      [ "${CC}" = 'gcc' ] && "${CC}${HB_CCSUFFIX}" -dumpversion && "${CC}${HB_CCSUFFIX}" -dumpfullversion
       HB_COMPILER=$CC make -j "${HB_CI_THREADS}"
     fi
 
