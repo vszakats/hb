@@ -14,8 +14,7 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
 
    LOCAL cUser
    LOCAL cText
-   LOCAL aHeader
-   LOCAL cInlineHTML
+   LOCAL cHTML
    LOCAL cSubject
 
    /* Require STARTTLS on port 587 (true) or allow it to proceed without it (false) */
@@ -43,41 +42,13 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
       e"  It could be a lot of lines that would be displayed in an email\r\n" + ;
       e"viewer that is not able to handle HTML.\r\n"
 
-   IF lAPI_curl
-      aHeader := { ;
-         "Date: " + hb_curl_date(), ;
-         "To: " + cTo, ;
-         "From: hbcurl " + cFrom, ;
-         "Cc: " + cTo, ;
-         "Message-ID: <dcd7cb36-11db-487a-9f3a-e652a9458efd@rfcpedant.example.org>", ;
-         "Reply-to: " + cFrom, ;
-         "Disposition-Notification-To: " + cFrom, ;
-         "X-Priority: " + hb_ntos( 1 ), ;  /* 1: high, 3: standard, 5: low */
-         "Subject: " + cSubject }
-
-      cInlineHTML := ;
-         e"<html><body>\r\n" + ;
-         e"<p>This is the inline <strong>HTML</strong> message of the email.</p>" + ;
-         e"<br />\r\n" + ;
-         e"<p>It could be a lot of HTML data that would be displayed by " + ;
-         e"email viewers able to handle HTML.</p>" + ;
-         e"</body></html>\r\n"
-   ELSE
-      cText := tip_MailAssemble( ;
-         "hbtip " + cFrom, ;
-         { cTo }, ;
-         /* aCC */, ;
-         cText, ;
-         cSubject, ;
-         { __FILE__ } /* attachment */, ;
-         /* nPriority */, ;
-         /* lRead */, ;
-         /* cReplyTo */, ;
-         /* cCharset */, ;
-         /* cEncoding */, ;
-         .F. /* lBodyHTML */, ;
-         /* bSMIME */ )
-   ENDIF
+   cHTML := ;
+      e"<html><body>\r\n" + ;
+      e"<p>This is the inline <strong>HTML</strong> message of the email.</p>" + ;
+      e"<br />\r\n" + ;
+      e"<p>It could be a lot of HTML data that would be displayed by " + ;
+      e"email viewers able to handle HTML.</p>" + ;
+      e"</body></html>\r\n"
 
    lSTARTTLS_force := .F.
 
@@ -148,33 +119,48 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
       curl_easy_setopt( curl, HB_CURLOPT_PASSWORD, cPassword )
       curl_easy_setopt( curl, HB_CURLOPT_MAIL_FROM, cFrom )
       curl_easy_setopt( curl, HB_CURLOPT_MAIL_RCPT, { cTo } )
+
       IF lAPI_curl
-         curl_easy_setopt( curl, HB_CURLOPT_HTTPHEADER, aHeader )
-         /* NOTE: 'charset', 'x-unix-mode' attribute support to be implemented */
-         curl_easy_setopt( curl, HB_CURLOPT_MIMEPOST, ;
-            { ;
-               { ;
-                  "subparts" => ;
-                  { ;
-                     { ;
-                        "data" => cInlineHTML, ;
-                        "type" => "text/html" }, ;
-                     { ;
-                        "data" => cText } ;
-                  }, ;
-                  "type" => "multipart/alternative", ;
-                  "headers" => { "Content-Disposition: inline" } ;
-               }, ;
-               { ;
-                  "filedata" => __FILE__, ;
-                  "filename" => "text.c" }, ;
-               { ;
-                  "data" => Replicate( hb_BChar( 123 ), 1024 ), ;
-                  "type" => "image/png", ;
-                  "encoder" => "base64", ;  /* binary, 8bit, 7bit, base64, quoted-printable */
-                  "filename" => "mock.png" } ;
-            } )
+         curl_easy_setopt( curl, HB_CURLOPT_HTTPHEADER, { ;
+            "Date: " + hb_curl_date(), ;
+            "To: " + cTo, ;
+            "From: hbcurl " + cFrom, ;
+            "Cc: " + cTo, ;
+            "Message-ID: <dcd7cb36-11db-487a-9f3a-e652a9458efd@rfcpedant.example.org>", ;
+            "Reply-to: " + cFrom, ;
+            "Disposition-Notification-To: " + cFrom, ;
+            "X-Priority: " + hb_ntos( 1 ), ;  /* 1: high, 3: standard, 5: low */
+            "Subject: " + cSubject } )
+
+         /* NOTE: 'charset' to be added when implemented */
+         curl_easy_setopt( curl, HB_CURLOPT_MIMEPOST, { ;
+            { "subparts" => { ;
+              { "data" => cHTML, ;
+                "type" => "text/html" }, ;
+              { "data" => cText } }, ;
+              "type" => "multipart/alternative", ;
+              "headers" => { "Content-Disposition: inline" } }, ;
+            { "filedata" => __FILE__, ;
+              "filename" => "text.c" }, ;
+            { "data" => Replicate( hb_BChar( 123 ), 1024 ), ;
+              "type" => "image/png", ;
+              "encoder" => "base64", ;  /* binary, 8bit, 7bit, base64, quoted-printable */
+              "filename" => "mock.png" } } )
       ELSE
+         cText := tip_MailAssemble( ;
+            "hbtip " + cFrom, ;
+            { cTo }, ;
+            /* aCC */, ;
+            cText, ;
+            cSubject, ;
+            { __FILE__, { "mock.png", Replicate( hb_BChar( 123 ), 1024 ) } } /* attachments */, ;
+            /* nPriority */, ;
+            /* lRead */, ;
+            /* cReplyTo */, ;
+            /* cCharset */, ;
+            /* cEncoding */, ;
+            .F. /* lBodyHTML */, ;
+            /* bSMIME */ )
          curl_easy_setopt( curl, HB_CURLOPT_UL_BUFF_SETUP, cText )
          curl_easy_setopt( curl, HB_CURLOPT_INFILESIZE_LARGE, hb_BLen( cText ) )
       ENDIF
