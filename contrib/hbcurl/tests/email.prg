@@ -10,7 +10,11 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
    LOCAL cCA := "cacert.pem"
 
    LOCAL curl
-   LOCAL cMessage
+   LOCAL lAPI_curl := curl_version_info()[ HB_CURLVERINFO_VERSION_NUM ] >= 0x073800
+
+   LOCAL cText
+   LOCAL aHeader
+   LOCAL cInlineHTML
 
    /* Require STARTTLS on port 587 (true) or allow it to proceed without it (false) */
    LOCAL lSTARTTLS_force
@@ -20,12 +24,53 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
       RETURN
    ENDIF
 
-   hb_default( @cFrom    , "from@example.net" )
+   hb_default( @cFrom    , "<from@example.net>" )
    hb_default( @cPassword, "password" )
-   hb_default( @cTo      , "to@example.org" )
+   hb_default( @cTo      , "<to@example.org>" )
    hb_default( @cHost    , "localhost" )
 
    cHost := Lower( cHost )
+
+   cText := ;
+      e"This is the inline text message of the email.\r\n" + ;
+      e"\r\n" + ;
+      e"  It could be a lot of lines that would be displayed in an email\r\n" + ;
+      e"viewer that is not able to handle HTML.\r\n"
+
+   IF lAPI_curl
+      aHeader := { ;
+         "Date: " + hb_curl_date(), ;
+         "To: " + cTo, ;
+         "From: " + cFrom + " (Example User)", ;
+         "Cc: " + cTo, ;
+         "Message-ID: <dcd7cb36-11db-487a-9f3a-e652a9458efd@rfcpedant.example.org>", ;
+         "Reply-to: " + cFrom, ;
+         "Disposition-Notification-To: " + tip_GetRawEmail( cFrom ), ;
+         "X-Priority: " + hb_ntos( 1 ), ;  /* 1: high, 3: standard, 5: low */
+         "Subject: example sending a MIME-formatted message" }
+
+      cInlineHTML := ;
+         e"<html><body>\r\n" + ;
+         e"<p>This is the inline <strong>HTML</strong> message of the email.</p>" + ;
+         e"<br />\r\n" + ;
+         e"<p>It could be a lot of HTML data that would be displayed by " + ;
+         e"email viewers able to handle HTML.</p>" + ;
+         e"</body></html>\r\n"
+   ELSE
+      cText := tip_MailAssemble( cFrom, ;
+         { cTo }, ;
+         /* aCC */, ;
+         cText, ;
+         "test: subject", ;
+         { __FILE__ } /* attachment */, ;
+         /* nPriority */, ;
+         /* lRead */, ;
+         /* cReplyTo */, ;
+         /* cCharset */, ;
+         /* cEncoding */, ;
+         .F. /* lBodyHTML */, ;
+         /* bSMIME */ )
+   ENDIF
 
    lSTARTTLS_force := .F.
 
@@ -55,23 +100,14 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
       cHost := "smtps://smtps.uol.com.br"
    CASE cHost == "yahoo" .OR. "@yahoo.com" $ cFrom
       cHost := "smtps://smtp.mail.yahoo.com"
+   CASE cHost == "mailtrap.io" .OR. "@mailtrap.io" $ cFrom
+      cHost := "smtp://smtp.mailtrap.io:465"; lSTARTTLS_force := .T.
+      cFrom := StrTran( cFrom, "@mailtrap.io" )
    ENDCASE
 
+   ? "libcurl:", curl_version_info()[ HB_CURLVERINFO_VERSION ]
+   ? "Payload API:", iif( lAPI_curl, "libcurl native", "tip_MailAssemble()" )
    ? "Host:", cHost, iif( lSTARTTLS_force, "(must STARTTLS)", "" )
-
-   cMessage := tip_MailAssemble( cFrom, ;
-      { cTo }, ;
-      /* aCC */, ;
-      "test: body", ;
-      "test: subject", ;
-      { __FILE__ } /* attachment */, ;
-      /* nPriority */, ;
-      /* lRead */, ;
-      /* cReplyTo */, ;
-      /* cCharset */, ;
-      /* cEncoding */, ;
-      .F. /* lBodyHTML */, ;
-      /* bSMIME */ )
 
    curl_global_init()
 
@@ -99,13 +135,31 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
       curl_easy_setopt( curl, HB_CURLOPT_UPLOAD )
       curl_easy_setopt( curl, HB_CURLOPT_URL, cHost )
       curl_easy_setopt( curl, HB_CURLOPT_PROTOCOLS, hb_bitOr( HB_CURLPROTO_SMTPS, HB_CURLPROTO_SMTP ) )
+      curl_easy_setopt( curl, HB_CURLOPT_TIMEOUT_MS, 15000 )
+      curl_easy_setopt( curl, HB_CURLOPT_VERBOSE, .T. )
       curl_easy_setopt( curl, HB_CURLOPT_USERNAME, cFrom )
       curl_easy_setopt( curl, HB_CURLOPT_PASSWORD, cPassword )
-      curl_easy_setopt( curl, HB_CURLOPT_UL_BUFF_SETUP, cMessage )
-      curl_easy_setopt( curl, HB_CURLOPT_INFILESIZE_LARGE, hb_BLen( cMessage ) )
       curl_easy_setopt( curl, HB_CURLOPT_MAIL_FROM, cFrom )
       curl_easy_setopt( curl, HB_CURLOPT_MAIL_RCPT, { cTo } )
-      curl_easy_setopt( curl, HB_CURLOPT_VERBOSE, .T. )
+      IF lAPI_curl
+         curl_easy_setopt( curl, HB_CURLOPT_HTTPHEADER, aHeader )
+         /* NOTE: 'charset', 'name', 'x-unix-mode' attribute support to be implement */
+         curl_easy_setopt( curl, HB_CURLOPT_MIMEPOST, ;
+            { ;
+               { ;
+                  "subparts" => ;
+                  { ;
+                     { "data" => cInlineHTML, "type" => "text/html" }, ;
+                     { "data" => cText } ;
+                  }, ;
+                  "type" => "multipart/alternative", "headers" => { "Content-Disposition: inline" } ;
+               }, ;
+               { "filedata" => __FILE__, "filename" => "myname.c", "name" => "myname.c" } ;
+            } )
+      ELSE
+         curl_easy_setopt( curl, HB_CURLOPT_UL_BUFF_SETUP, cText )
+         curl_easy_setopt( curl, HB_CURLOPT_INFILESIZE_LARGE, hb_BLen( cText ) )
+      ENDIF
 
       ? "Result:", curl_easy_perform( curl )
 

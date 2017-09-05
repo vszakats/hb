@@ -1,7 +1,7 @@
 /*
  * libcurl 'easy' API - Harbour header.
  *
- * Copyright 2008-2016 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2008-2017 Viktor Szakats (vszakats.net/harbour)
  * originally based on:
  * Copyright 2005 Luiz Rafael Culik Guimaraes <luiz at xharbour.com.br>
  *
@@ -65,17 +65,17 @@
 #define HB_CURLOPT_WRITEFUNCTION              11
 #define HB_CURLOPT_READFUNCTION               12
 #define HB_CURLOPT_TIMEOUT                    13
-#define HB_CURLOPT_INFILESIZE                 14
+#define HB_CURLOPT_INFILESIZE                 HB_CURLOPT_INFILESIZE_LARGE
 #define HB_CURLOPT_POSTFIELDS                 15
 #define HB_CURLOPT_REFERER                    16
 #define HB_CURLOPT_FTPPORT                    17
 #define HB_CURLOPT_USERAGENT                  18
 #define HB_CURLOPT_LOW_SPEED_LIMIT            19
 #define HB_CURLOPT_LOW_SPEED_TIME             20
-#define HB_CURLOPT_RESUME_FROM                21
+#define HB_CURLOPT_RESUME_FROM                HB_CURLOPT_RESUME_FROM_LARGE
 #define HB_CURLOPT_COOKIE                     22
 #define HB_CURLOPT_HTTPHEADER                 23
-#define HB_CURLOPT_HTTPPOST                   24
+#define HB_CURLOPT_HTTPPOST                   24  /* deprecated */
 #define HB_CURLOPT_SSLCERT                    25
 #define HB_CURLOPT_KEYPASSWD                  26
 #define HB_CURLOPT_SSLCERTPASSWD              HB_CURLOPT_KEYPASSWD
@@ -110,7 +110,7 @@
 #define HB_CURLOPT_PROGRESSDATA               57
 #define HB_CURLOPT_AUTOREFERER                58
 #define HB_CURLOPT_PROXYPORT                  59
-#define HB_CURLOPT_POSTFIELDSIZE              60
+#define HB_CURLOPT_POSTFIELDSIZE              HB_CURLOPT_POSTFIELDSIZE_LARGE
 #define HB_CURLOPT_HTTPPROXYTUNNEL            61
 #define HB_CURLOPT_INTERFACE                  62
 #define HB_CURLOPT_KRBLEVEL                   63
@@ -163,7 +163,7 @@
 #define HB_CURLOPT_PROXYAUTH                  111
 #define HB_CURLOPT_FTP_RESPONSE_TIMEOUT       112
 #define HB_CURLOPT_IPRESOLVE                  113
-#define HB_CURLOPT_MAXFILESIZE                114
+#define HB_CURLOPT_MAXFILESIZE                HB_CURLOPT_MAXFILESIZE_LARGE
 #define HB_CURLOPT_INFILESIZE_LARGE           115
 #define HB_CURLOPT_RESUME_FROM_LARGE          116
 #define HB_CURLOPT_MAXFILESIZE_LARGE          117
@@ -294,6 +294,7 @@
 #define HB_CURLOPT_REQUEST_TARGET             247
 #define HB_CURLOPT_SOCKS5_AUTH                248
 #define HB_CURLOPT_SSH_COMPRESSION            249
+#define HB_CURLOPT_MIMEPOST                   250
 #define HB_CURLOPT_DOWNLOAD                   1001  /* Harbour special ones */
 #define HB_CURLOPT_XFERINFOBLOCK              1002
 #define HB_CURLOPT_UL_FILE_SETUP              1003
@@ -304,8 +305,8 @@
 #define HB_CURLOPT_DL_BUFF_SETUP              1008
 #define HB_CURLOPT_DL_BUFF_GET                1009
 #define HB_CURLOPT_UL_NULL_SETUP              1010
-#define HB_CURLOPT_HTTPPOST_CONTENT           1013
-#define HB_CURLOPT_HTTPPOST_FORM              1014
+#define HB_CURLOPT_HTTPPOST_CONTENT           1013  /* deprecated */
+#define HB_CURLOPT_HTTPPOST_FORM              1014  /* deprecated */
 #define HB_CURLOPT_DEBUGBLOCK                 1015
 /* Compatibility ones. Please don't use these. */
 #define HB_CURLOPT_UL_FHANDLE_SETUP           HB_CURLOPT_UL_FILE_SETUP

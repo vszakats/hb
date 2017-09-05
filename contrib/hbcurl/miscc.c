@@ -1,8 +1,7 @@
 /*
- * TIP Class oriented Internet protocol library
+ * curl helper functions
  *
- * Copyright 2003 Giancarlo Niccolai <gian@niccolai.ws>
- * Copyright 2007 Hannes Ziegler <hz AT knowlexbase.com> (tip_GetEncoder())
+ * Copyright 1999-2017 Viktor Szakats (vszakats.net/harbour)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -45,43 +44,37 @@
  *
  */
 
-/* Internet Messaging: https://tools.ietf.org/html/rfc2045 */
+#include "hbapi.h"
+#include "hbdate.h"
 
-#include "hbclass.ch"
+/* Internet timestamp based on:
+   https://tools.ietf.org/html/rfc822
+   https://tools.ietf.org/html/rfc2822 */
+HB_FUNC( HB_CURL_DATE )
+{
+   static const char * s_days[]   = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
+   static const char * s_months[] = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
 
-#include "fileio.ch"
+   char szRet[ 32 ];
+   int  iYear, iMonth, iDay, iHour, iMinute, iSecond, iMSec;
+   long lOffset;
 
-CREATE CLASS TIPEncoder
+   if( HB_ISDATETIME( 1 ) )
+      hb_timeStampUnpack( hb_partd( 1 ), &iYear, &iMonth, &iDay, &iHour, &iMinute, &iSecond, &iMSec );
+   else
+      hb_timeStampGetLocal( &iYear, &iMonth, &iDay, &iHour, &iMinute, &iSecond, &iMSec );
 
-   VAR cName
+   if( HB_ISNUM( 2 ) )
+      lOffset = hb_parnl( 2 );
+   else
+      lOffset = hb_timeStampUTCOffset( iYear, iMonth, iDay, iHour, iMinute, iSecond );
 
-   METHOD New( cMode )
-   METHOD Encode( cData )
-   METHOD Decode( cData )
+   hb_snprintf( szRet, sizeof( szRet ), "%s, %02d %s %04d %02d:%02d:%02d %+03d%02d",
+                s_days[ hb_dateDOW( iYear, iMonth, iDay ) - 1 ],
+                iDay, s_months[ iMonth == 0 ? 0 : iMonth - 1 ], iYear,
+                iHour, iMinute, iSecond,
+                ( int ) ( lOffset / 3600 ),
+                ( int ) ( ( lOffset % 3600 ) / 60 ) );
 
-ENDCLASS
-
-#define MODE_PASSTHROUGH  "as-is"
-
-METHOD New( cMode ) CLASS TIPEncoder
-
-   ::cName := Lower( hb_defaultValue( cMode, MODE_PASSTHROUGH ) )
-
-   RETURN Self
-
-METHOD Encode( cData ) CLASS TIPEncoder
-   RETURN iif( ::cName == MODE_PASSTHROUGH, cData, tip_GetEncoder( ::cName ):Encode( cData ) )
-
-METHOD Decode( cData ) CLASS TIPEncoder
-   RETURN iif( ::cName == MODE_PASSTHROUGH, cData, tip_GetEncoder( ::cName ):Decode( cData ) )
-
-FUNCTION tip_GetEncoder( cMode )
-
-   SWITCH Lower( hb_defaultValue( cMode, MODE_PASSTHROUGH ) )
-   CASE "base64"           ; RETURN TIPEncoderBase64():New()
-   CASE "quoted-printable" ; RETURN TIPEncoderQP():New()
-   CASE "url"
-   CASE "urlencoded"       ; RETURN TIPEncoderUrl():New()
-   ENDSWITCH
-
-   RETURN TIPEncoder():New()
+   hb_retc( szRet );
+}

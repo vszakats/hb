@@ -2,7 +2,7 @@
  * tip_MailAssemble() (This version started from Luiz's original work on SendMail())
  *
  * Copyright 2007 Luiz Rafael Culik Guimaraes and Patrick Mast
- * Copyright 2009 Viktor Szakats (vszakats.net/harbour) (SSL support)
+ * Copyright 2009-2017 Viktor Szakats (vszakats.net/harbour) (SSL support)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -203,7 +203,7 @@ FUNCTION tip_MailAssemble( ;
    oMail:SetHeader( cSubject, cFrom, xTo, xCC )
    oMail:hHeaders[ "Date" ] := tip_TimeStamp()
    IF ! Empty( cReplyTo )
-      oMail:hHeaders[ "Reply-to" ] := cReplyTo
+      oMail:hHeaders[ "Reply-To" ] := cReplyTo
    ENDIF
    IF lRead
       oMail:hHeaders[ "Disposition-Notification-To" ] := tip_GetRawEmail( cFrom )

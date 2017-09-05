@@ -1,4 +1,4 @@
-# https://developer.mozilla.org/en-US/docs/WebAssembly/C_to_wasm
+# https://developer.mozilla.org/docs/WebAssembly/C_to_wasm
 # https://kripken.github.io/emscripten-site/docs/compiling/Building-Projects.html
 
 ifeq ($(HB_BUILD_MODE),cpp)

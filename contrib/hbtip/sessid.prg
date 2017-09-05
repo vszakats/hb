@@ -90,7 +90,7 @@ FUNCTION tip_CheckSID( cSID, cCRCKey )
    NEXT
 
    /* Recalculate the CRC */
-   nSIDCRC := nKey * 51 // Max Value is 99603. a 5 chars number
+   nSIDCRC := nKey * 51  // Max Value is 99603. a 5 chars number
    cTemp   := StrZero( nSIDCRC, 5 )
 
    cSIDCRC := ""
@@ -102,7 +102,7 @@ FUNCTION tip_CheckSID( cSID, cCRCKey )
 
 FUNCTION tip_DateToGMT( tDate )
 
-   hb_default( @tDate, hb_DateTime() )
+   tDate := hb_defaultValue( tDate, hb_DateTime() ) - ( hb_UTCOffset() / 86400 )
 
    RETURN ;
       { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" }[ DoW( tDate ) ] + ", " + ;

@@ -75,7 +75,7 @@ PROCEDURE Main_MISC()
    HBTEST              hb_HMAC_SHA1( "hello", "key", .F. )   IS "b34ceac4516ff23a143e61d79d0fa7a4fbe5f266"
    HBTEST hb_StrToHex( hb_HMAC_SHA1( "hello", "key", .T. ) ) IS "B34CEAC4516FF23A143E61D79D0FA7A4FBE5F266"
 
-   /* https://www.ietf.org/rfc/rfc3174.txt */
+   /* https://tools.ietf.org/html/rfc3174 */
 
    HBTEST Lower( hb_SHA1( "abc"                                                                               ) ) IS "a9993e364706816aba3e25717850c26c9cd0d89d"
    HBTEST Lower( hb_SHA1( "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq"                          ) ) IS "84983e441c3bd26ebaae4aa1f95129e5e54670f1"

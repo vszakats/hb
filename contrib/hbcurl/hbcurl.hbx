@@ -43,6 +43,7 @@ DYNAMIC curl_global_sslset
 DYNAMIC curl_unescape
 DYNAMIC curl_version
 DYNAMIC curl_version_info
+DYNAMIC hb_curl_date
 
 #if defined( __HBEXTREQ__ ) .OR. defined( __HBEXTERN__HBCURL__REQUEST )
    #uncommand DYNAMIC <fncs,...> => EXTERNAL <fncs>
