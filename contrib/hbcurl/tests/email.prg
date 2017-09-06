@@ -82,7 +82,7 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
       cHost := "smtp://smtp.mailtrap.io:465"; lSTARTTLS_force := .T.
       cUser := StrTran( cUser, "@mailtrap.io" )
    CASE cHost == "localhost"
-      cHost := "smtp://0.0.0.0:1025"  /* MailHog */
+      cHost := "smtp://localhost:1025"  /* MailHog */
       cUser := cPass := NIL
    ENDCASE
 
