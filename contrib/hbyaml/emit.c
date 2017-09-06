@@ -265,6 +265,7 @@ HB_FUNC( YAML_DOCUMENT_INITIALIZE )
    yaml_tag_directive_t * tag_directives_start = NULL;
    yaml_tag_directive_t * tag_directives_end = NULL;
    void ** hConvert = NULL;
+   HB_SIZE nLen = 0;
    int start_implicit = 0;
    int end_implicit = 0;
 
@@ -280,7 +281,6 @@ HB_FUNC( YAML_DOCUMENT_INITIALIZE )
 
       {
          PHB_ITEM pTags = hb_hashGetCItemPtr( pParam, "tags" );
-         HB_SIZE nLen;
 
          if( pTags && ( nLen = hb_hashLen( pTags ) ) > 0 )
          {
@@ -322,8 +322,16 @@ HB_FUNC( YAML_DOCUMENT_INITIALIZE )
 
    if( tag_directives_start )
       hb_xfree( tag_directives_start );
+
    if( hConvert )
+   {
+      HB_SIZE nItem;
+
+      for( nItem = 0; nItem < ( nLen << 1 ); ++nItem )
+         hb_strfree( hConvert[ nItem ] );
+
       hb_xfree( hConvert );
+   }
 }
 
 HB_FUNC( YAML_DOCUMENT_ADD_SCALAR )
