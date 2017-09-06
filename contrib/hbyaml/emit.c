@@ -327,7 +327,9 @@ HB_FUNC( YAML_DOCUMENT_INITIALIZE )
    {
       HB_SIZE nItem;
 
-      for( nItem = 0; nItem < ( nLen << 1 ); ++nItem )
+      nLen <<= 1;
+
+      for( nItem = 0; nItem < nLen; ++nItem )
          hb_strfree( hConvert[ nItem ] );
 
       hb_xfree( hConvert );
