@@ -817,7 +817,7 @@ STATIC FUNCTION __hb_extern_get_list( cInputName )
                aExtern := {}
                hExtern := { => }
                FOR EACH tmp IN aResult
-                  tmp[ 2 ] := hb_asciiUpper( tmp[ 2 ] )
+                  tmp[ 2 ] := hb_asciiLower( tmp[ 2 ] )
                   IF ! tmp[ 2 ] $ hExtern
                      AAdd( aExtern, tmp[ 2 ] )
                      hExtern[ tmp[ 2 ] ] := NIL
@@ -961,8 +961,8 @@ STATIC FUNCTION __hb_extern_gen( aFuncList, cOutputName )
       NEXT
    ENDIF
    FOR EACH tmp IN aExtern
-      IF ! hb_WildMatch( "HB_GT_*_DEFAULT", tmp, .T. ) .AND. ;
-         ! hb_WildMatch( _HB_SELF_PREFIX + "*" + _HB_SELF_SUFFIX, tmp, .T. ) .AND. ;
+      IF ! hb_WildMatchI( "HB_GT_*_DEFAULT", tmp, .T. ) .AND. ;
+         ! hb_WildMatchI( _HB_SELF_PREFIX + "*" + _HB_SELF_SUFFIX, tmp, .T. ) .AND. ;
          AScan( aExclude, {| flt | hb_WildMatchI( flt, tmp, .T. ) } ) == 0
          cExtern += "DYNAMIC " + hb_HGetDef( hDynamic, tmp, tmp ) + cEOL
       ENDIF
