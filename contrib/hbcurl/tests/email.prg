@@ -81,6 +81,9 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
    CASE cHost == "mailtrap.io" .OR. "@mailtrap.io" $ cFrom
       cHost := "smtp://smtp.mailtrap.io:465"; lSTARTTLS_force := .T.
       cUser := StrTran( cUser, "@mailtrap.io" )
+   CASE cHost == "localhost"
+      cHost := "smtp://0.0.0.0:1025"  /* MailHog */
+      cUser := cPass := NIL
    ENDCASE
 
    ? "libcurl:", curl_version_info()[ HB_CURLVERINFO_VERSION ]
@@ -112,7 +115,8 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
          iif( lSTARTTLS_force, HB_CURLUSESSL_ALL, HB_CURLUSESSL_TRY ) )
       curl_easy_setopt( curl, HB_CURLOPT_UPLOAD )
       curl_easy_setopt( curl, HB_CURLOPT_URL, cHost )
-      curl_easy_setopt( curl, HB_CURLOPT_PROTOCOLS, hb_bitOr( HB_CURLPROTO_SMTPS, HB_CURLPROTO_SMTP ) )
+      curl_easy_setopt( curl, HB_CURLOPT_PROTOCOLS, ;
+         hb_bitOr( HB_CURLPROTO_SMTPS, HB_CURLPROTO_SMTP ) )
       curl_easy_setopt( curl, HB_CURLOPT_TIMEOUT_MS, 15000 )
       curl_easy_setopt( curl, HB_CURLOPT_VERBOSE, .T. )
       curl_easy_setopt( curl, HB_CURLOPT_USERNAME, cUser )
@@ -127,9 +131,9 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
             "From: hbcurl " + cFrom, ;
             "Cc: " + cTo, ;
             "Message-ID: <dcd7cb36-11db-487a-9f3a-e652a9458efd@rfcpedant.example.org>", ;
-            "Reply-to: " + cFrom, ;
+            "Reply-To: " + cFrom, ;
             "Disposition-Notification-To: " + cFrom, ;
-            "X-Priority: " + hb_ntos( 1 ), ;  /* 1: high, 3: standard, 5: low */
+            "X-Priority: " + hb_ntos( 3 ), ;  /* 1: high, 3: standard, 5: low */
             "Subject: " + cSubject } )
 
          /* NOTE: 'charset' to be added when implemented */
@@ -140,8 +144,7 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
               { "data" => cText } }, ;
               "type" => "multipart/alternative", ;
               "headers" => { "Content-Disposition: inline" } }, ;
-            { "filedata" => __FILE__, ;
-              "filename" => "text.c" }, ;
+            { "filedata" => __FILE__ }, ;
             { "data" => Replicate( hb_BChar( 123 ), 1024 ), ;
               "type" => "image/png", ;
               "encoder" => "base64", ;  /* binary, 8bit, 7bit, base64, quoted-printable */
