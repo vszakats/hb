@@ -149,16 +149,16 @@ typedef struct _HB_CURL
 /* returns a hash key */
 static HB_HASH_FUNC( hb_curl_HashKey )    /* HB_SIZE func( const void * Value, const void * Cargo ) */
 {
-   HB_SIZE      ulSum  = 0;
+   HB_SIZE      nSum   = 0;
    const char * szName = ( const char * ) Value;
 
    while( *szName )
-      ulSum += *szName++;
+      nSum += *szName++;
 
    HB_SYMBOL_UNUSED( HashPtr );
    HB_SYMBOL_UNUSED( Cargo );
 
-   return ulSum % HB_CURL_HASH_TABLE_SIZE;
+   return nSum % HB_CURL_HASH_TABLE_SIZE;
 }
 
 /* deletes a string */

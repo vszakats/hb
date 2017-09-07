@@ -122,7 +122,6 @@ static void hb_compGenArgList( int iFirst, int iLast,
                                PHB_PP_MSG_FUNC * pMsgFunc )
 {
    PHB_ITEM pParam;
-   HB_SIZE ul, nLen;
    int argc = 1, i;
    const char ** argv;
 
@@ -155,15 +154,15 @@ static void hb_compGenArgList( int iFirst, int iLast,
       {
          if( HB_IS_ARRAY( pParam ) )
          {
-            ul = hb_arrayLen( pParam );
-            if( ul )
+            HB_SIZE nPos = hb_arrayLen( pParam );
+            if( nPos )
             {
                do
                {
-                  if( hb_arrayGetType( pParam, ul ) & HB_IT_STRING )
+                  if( hb_arrayGetType( pParam, nPos ) & HB_IT_STRING )
                      ++argc;
                }
-               while( --ul );
+               while( --nPos );
             }
          }
          else if( HB_IS_STRING( pParam ) )
@@ -180,11 +179,11 @@ static void hb_compGenArgList( int iFirst, int iLast,
       {
          if( HB_IS_ARRAY( pParam ) )
          {
-            nLen = hb_arrayLen( pParam );
-            for( ul = 1; ul <= nLen; ++ul )
+            HB_SIZE nPos, nLen = hb_arrayLen( pParam );
+            for( nPos = 1; nPos <= nLen; ++nPos )
             {
-               if( hb_arrayGetType( pParam, ul ) & HB_IT_STRING )
-                  argv[ argc++ ] = hb_arrayGetCPtr( pParam, ul );
+               if( hb_arrayGetType( pParam, nPos ) & HB_IT_STRING )
+                  argv[ argc++ ] = hb_arrayGetCPtr( pParam, nPos );
             }
          }
          else if( HB_IS_STRING( pParam ) )

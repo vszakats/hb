@@ -5781,9 +5781,9 @@ static void hb_vmPushAParams( void )
       if( nLen )
       {
          PHB_ITEM pCount;
-         HB_SIZE ul;
-         for( ul = 1; ul < nLen; ++ul )
-            hb_vmPush( pArray->item.asArray.value->pItems + ul );
+         HB_SIZE nPos;
+         for( nPos = 1; nPos < nLen; ++nPos )
+            hb_vmPush( pArray->item.asArray.value->pItems + nPos );
          pCount = hb_stackAllocItem();
          hb_itemCopy( pCount, pArray->item.asArray.value->pItems );
          hb_itemMove( pArray, pCount );

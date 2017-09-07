@@ -90,18 +90,18 @@ void hb_sxEnCrypt( const char * pSrc, char * pDst, const char * pKeyVal, HB_SIZE
 {
    HB_U32 ulSeed;
    HB_U16 uiKey;
-   HB_SIZE ul;
+   HB_SIZE nPos;
    int i;
 
    ulSeed = hb_sxInitSeed( pKeyVal, &uiKey );
-   for( ul = 0, i = 0; ul < nLen; ul++ )
+   for( nPos = 0, i = 0; nPos < nLen; nPos++ )
    {
       HB_UCHAR ucChar, ucShft;
 
-      ucChar = ( HB_UCHAR ) pSrc[ ul ];
+      ucChar = ( HB_UCHAR ) pSrc[ nPos ];
       ucShft = ( HB_UCHAR ) ( uiKey & 0x07 );
-      pDst[ ul ] = ( ( ucChar >> ucShft ) + ( ucChar << ( 8 - ucShft ) ) +
-                     ( uiKey & 0xFF ) );
+      pDst[ nPos ] = ( ( ucChar >> ucShft ) + ( ucChar << ( 8 - ucShft ) ) +
+                       ( uiKey & 0xFF ) );
       ulSeed = hb_sxNextSeed( ulSeed, &pKeyVal[ i ], &uiKey );
       if( ++i == 7 )
          i = 0;
@@ -112,17 +112,17 @@ void hb_sxDeCrypt( const char * pSrc, char * pDst, const char * pKeyVal, HB_SIZE
 {
    HB_U32 ulSeed;
    HB_U16 uiKey;
-   HB_SIZE ul;
+   HB_SIZE nPos;
    int i;
 
    ulSeed = hb_sxInitSeed( pKeyVal, &uiKey );
-   for( ul = 0, i = 0; ul < nLen; ul++ )
+   for( nPos = 0, i = 0; nPos < nLen; nPos++ )
    {
       HB_UCHAR ucChar, ucShft;
 
-      ucChar = ( HB_UCHAR ) pSrc[ ul ] - ( uiKey & 0xFF );
+      ucChar = ( HB_UCHAR ) pSrc[ nPos ] - ( uiKey & 0xFF );
       ucShft = ( HB_UCHAR ) ( uiKey & 0x07 );
-      pDst[ ul ] = ( ( ucChar << ucShft ) + ( ucChar >> ( 8 - ucShft ) ) );
+      pDst[ nPos ] = ( ( ucChar << ucShft ) + ( ucChar >> ( 8 - ucShft ) ) );
       ulSeed = hb_sxNextSeed( ulSeed, &pKeyVal[ i ], &uiKey );
       if( ++i == 7 )
          i = 0;

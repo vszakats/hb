@@ -104,18 +104,18 @@ static HB_BOOL _hb_timeValid( const char * szTime, HB_SIZE nLen, int * piDecode 
    {
       static const int sc_iMax[] = { 23, 59, 59, 99 };
       int     i;
-      HB_SIZE ul;
+      HB_SIZE nPos;
 
       fValid = HB_TRUE;
-      for( ul = 0; fValid && ul < nLen; ++ul )
+      for( nPos = 0; fValid && nPos < nLen; ++nPos )
       {
-         fValid = ul % 3 == 2 ? szTime[ ul ] == ':' :
-                  ( szTime[ ul ] >= '0' && szTime[ ul ] <= '9' );
+         fValid = nPos % 3 == 2 ? szTime[ nPos ] == ':' :
+                  ( szTime[ nPos ] >= '0' && szTime[ nPos ] <= '9' );
       }
-      for( ul = 0, i = 0; fValid && ul < nLen; ul += 3, ++i )
+      for( nPos = 0, i = 0; fValid && nPos < nLen; nPos += 3, ++i )
       {
          int iVal;
-         iVal   = 10 * ( szTime[ ul ] - '0' ) + ( szTime[ ul + 1 ] - '0' );
+         iVal   = 10 * ( szTime[ nPos ] - '0' ) + ( szTime[ nPos + 1 ] - '0' );
          fValid = iVal <= sc_iMax[ i ];
          if( piDecode )
             piDecode[ i ] = iVal;

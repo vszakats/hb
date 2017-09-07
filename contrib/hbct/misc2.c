@@ -61,10 +61,10 @@ HB_FUNC( COMPLEMENT )
          {
             const char * szSrc = hb_itemGetCPtr( pItem );
             char * szBuffer = ( char * ) hb_xgrab( nLen + 1 );
-            HB_SIZE ulPos;
+            HB_SIZE nPos;
 
-            for( ulPos = 0; ulPos < nLen; ulPos++ )
-               szBuffer[ ulPos ] = ~szSrc[ ulPos ];
+            for( nPos = 0; nPos < nLen; nPos++ )
+               szBuffer[ nPos ] = ~szSrc[ nPos ];
             hb_retclen_buffer( szBuffer, nLen );
          }
          else

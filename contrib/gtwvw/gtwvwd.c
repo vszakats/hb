@@ -982,18 +982,18 @@ static void hb_gt_wvw_VertLine( PHB_GT pGT, int iCol, int iTop, int iBottom, HB_
    hb_gt_wvw_FUNCEpilogue();
 }
 
-static void hb_gt_wvw_OutStd( PHB_GT pGT, const char * pbyStr, HB_SIZE ulLen )
+static void hb_gt_wvw_OutStd( PHB_GT pGT, const char * pbyStr, HB_SIZE nLen )
 {
    HB_SYMBOL_UNUSED( pGT );
 
-   hb_fsWriteLarge( s_wvw->iStdOut, pbyStr, ulLen );
+   hb_fsWriteLarge( s_wvw->iStdOut, pbyStr, nLen );
 }
 
-static void hb_gt_wvw_OutErr( PHB_GT pGT, const char * pbyStr, HB_SIZE ulLen )
+static void hb_gt_wvw_OutErr( PHB_GT pGT, const char * pbyStr, HB_SIZE nLen )
 {
    HB_SYMBOL_UNUSED( pGT );
 
-   hb_fsWriteLarge( s_wvw->iStdErr, pbyStr, ulLen );
+   hb_fsWriteLarge( s_wvw->iStdErr, pbyStr, nLen );
 }
 
 static HB_BOOL hb_gt_wvw_GetCharFromInputQueue( int * c )

@@ -1878,7 +1878,7 @@ static InOutBase * create_ioBase( char * term, int infd, int outfd, int errfd,
    }
 
 
-   /* curses SCREEN initializ<ation */
+   /* curses SCREEN initialization */
    if( ioBase->base_infd == fileno( stdin ) )
       ioBase->basein = stdin;
    else
@@ -2458,35 +2458,35 @@ static const char * hb_gt_crs_Version( PHB_GT pGT, int iType )
 
 /* *********************************************************************** */
 
-static void hb_gt_crs_OutStd( PHB_GT pGT, const char * szStr, HB_SIZE ulLen )
+static void hb_gt_crs_OutStd( PHB_GT pGT, const char * szStr, HB_SIZE nLen )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_OutStd(%p,%s,%lu)", ( void * ) pGT, szStr, ulLen ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_OutStd(%p,%s,%lu)", ( void * ) pGT, szStr, nLen ) );
 
    if( s_ioBase )
    {
       if( s_ioBase->stdoutfd == -1 )
-         HB_GTSELF_WRITECON( pGT, szStr, ulLen );
+         HB_GTSELF_WRITECON( pGT, szStr, nLen );
       else
-         gt_outstd( s_ioBase, szStr, ulLen );
+         gt_outstd( s_ioBase, szStr, nLen );
    }
    else
-      HB_GTSUPER_OUTSTD( pGT, szStr, ulLen );
+      HB_GTSUPER_OUTSTD( pGT, szStr, nLen );
 }
 
 /* *********************************************************************** */
 
-static void hb_gt_crs_OutErr( PHB_GT pGT, const char * szStr, HB_SIZE ulLen )
+static void hb_gt_crs_OutErr( PHB_GT pGT, const char * szStr, HB_SIZE nLen )
 {
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_OutErr(%p,%s,%lu)", ( void * ) pGT, szStr, ulLen ) );
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gt_crs_OutErr(%p,%s,%lu)", ( void * ) pGT, szStr, nLen ) );
    if( s_ioBase )
    {
       if( s_ioBase->stderrfd == -1 )
-         HB_GTSELF_WRITECON( pGT, szStr, ulLen );
+         HB_GTSELF_WRITECON( pGT, szStr, nLen );
       else
-         gt_outerr( s_ioBase, szStr, ulLen );
+         gt_outerr( s_ioBase, szStr, nLen );
    }
    else
-      HB_GTSUPER_OUTERR( pGT, szStr, ulLen );
+      HB_GTSUPER_OUTERR( pGT, szStr, nLen );
 }
 
 /* *********************************************************************** */

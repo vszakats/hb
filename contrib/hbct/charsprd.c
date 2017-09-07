@@ -64,20 +64,20 @@ HB_FUNC( CHARSPREAD )
          const char * szText = hb_parc( 1 );
          char cDelim = ' ';
          HB_ISIZ nTokens = 0;
-         HB_SIZE ul;
+         HB_SIZE nPos;
 
          if( HB_ISCHAR( 3 ) )
             cDelim = hb_parc( 3 )[ 0 ];
          else if( HB_ISNUM( 3 ) )
             cDelim = ( char ) hb_parni( 3 );
 
-         for( ul = 0; ul < nLen; ++ul )
+         for( nPos = 0; nPos < nLen; ++nPos )
          {
-            if( szText[ ul ] == cDelim )
+            if( szText[ nPos ] == cDelim )
             {
                nTokens++;
-               while( ul + 1 < nLen && szText[ ul + 1 ] == cDelim )
-                  ++ul;
+               while( nPos + 1 < nLen && szText[ nPos + 1 ] == cDelim )
+                  ++nPos;
             }
          }
 
@@ -95,15 +95,15 @@ HB_FUNC( CHARSPREAD )
             iFirst = ( iRest + 1 ) >> 1;
             iRest >>= 1;
             szDest = ( char * ) hb_xgrab( nSize + 1 );
-            for( nDst = ul = 0; ul < nLen; ++ul )
+            for( nDst = nPos = 0; nPos < nLen; ++nPos )
             {
-               szDest[ nDst++ ] = szText[ ul ];
-               if( szText[ ul ] == cDelim )
+               szDest[ nDst++ ] = szText[ nPos ];
+               if( szText[ nPos ] == cDelim )
                {
                   HB_ISIZ i;
 
-                  while( ul + 1 < nLen && szText[ ul + 1 ] == cDelim )
-                     szDest[ nDst++ ] = szText[ ++ul ];
+                  while( nPos + 1 < nLen && szText[ nPos + 1 ] == cDelim )
+                     szDest[ nDst++ ] = szText[ ++nPos ];
                   i = iRepl;
                   if( iFirst )
                   {

@@ -55,9 +55,9 @@
 #ifdef __XHARBOUR__
 
    #define hb_retc_buffer( szText )            hb_retcAdopt( szText )
-   #define hb_retclen_buffer( szText, ulLen )  hb_retclenAdopt( szText, ulLen )
+   #define hb_retclen_buffer( szText, nLen )   hb_retclenAdopt( szText, nLen )
    #define hb_retc_const( szText )             hb_retcStatic( szText )
-   #define hb_retclen_const( szText, ulLen )   hb_retclenStatic( szText, ulLen )
+   #define hb_retclen_const( szText, nLen )    hb_retclenStatic( szText, nLen )
 
    #define hb_storclen_buffer                  hb_storclenAdopt
    #define hb_itemPutCLConst                   hb_itemPutCRawStatic
@@ -102,9 +102,9 @@
 #else
 
    #define hb_retcAdopt( szText )              hb_retc_buffer( szText )
-   #define hb_retclenAdopt( szText, ulLen )    hb_retclen_buffer( szText, ulLen )
+   #define hb_retclenAdopt( szText, nLen )     hb_retclen_buffer( szText, nLen )
    #define hb_retcStatic( szText )             hb_retc_const( szText )
-   #define hb_retclenStatic( szText, ulLen )   hb_retclen_const( szText, ulLen )
+   #define hb_retclenStatic( szText, nLen )    hb_retclen_const( szText, nLen )
 
    #define hb_storclenAdopt                    hb_storclen_buffer
    #define hb_itemPutCRawStatic                hb_itemPutCLConst

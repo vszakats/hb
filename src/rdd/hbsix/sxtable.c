@@ -230,13 +230,13 @@ HB_FUNC( SX_RLOCK )
       dbLockInfo.uiMethod = DBLM_MULTIPLE;
       if( pRecords )
       {
-         HB_SIZE ul, nLen = hb_arrayLen( pRecords );
+         HB_SIZE nPos, nLen = hb_arrayLen( pRecords );
          pResult = hb_itemArrayNew( nLen );
-         for( ul = 1; ul <= nLen; ++ul )
+         for( nPos = 1; nPos <= nLen; ++nPos )
          {
-            dbLockInfo.itmRecID = hb_arrayGetItemPtr( pRecords, ul );
+            dbLockInfo.itmRecID = hb_arrayGetItemPtr( pRecords, nPos );
             SELF_LOCK( pArea, &dbLockInfo );
-            hb_arraySetL( pResult, ul, dbLockInfo.fResult );
+            hb_arraySetL( pResult, nPos, dbLockInfo.fResult );
          }
       }
       else
@@ -262,10 +262,10 @@ HB_FUNC( SX_UNLOCK )
       PHB_ITEM pRecords = hb_param( 1, HB_IT_ARRAY );
       if( pRecords )
       {
-         HB_SIZE ul, nLen = hb_arrayLen( pRecords );
-         for( ul = 1; ul <= nLen; ++ul )
+         HB_SIZE nPos, nLen = hb_arrayLen( pRecords );
+         for( nPos = 1; nPos <= nLen; ++nPos )
          {
-            SELF_UNLOCK( pArea, hb_arrayGetItemPtr( pRecords, ul ) );
+            SELF_UNLOCK( pArea, hb_arrayGetItemPtr( pRecords, nPos ) );
          }
       }
       else
