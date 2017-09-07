@@ -776,7 +776,7 @@ HB_FUNC( CURL_EASY_RECV )
 
 #if LIBCURL_VERSION_NUM >= 0x073800
 
-/* #define CURL_MIME_TRACE */
+/* #define HB_CURL_MIME_TRACE */
 
 /* Convert string array to curl_slist */
 static struct curl_slist * hb_curl_opt_mime_header( PHB_ITEM pArray )
@@ -809,7 +809,7 @@ static void hb_curl_opt_mime_addpart( CURL * curl, curl_mime * mime, PHB_ITEM pH
          curl_mimepart * part = curl_mime_addpart( mime );
          HB_SIZE nPos;
 
-         #ifdef CURL_MIME_TRACE
+         #ifdef HB_CURL_MIME_TRACE
          printf( "curl_mime_addpart( %p )\n", ( void * ) mime );
          #endif
 
@@ -854,7 +854,7 @@ static void hb_curl_opt_mime_addpart( CURL * curl, curl_mime * mime, PHB_ITEM pH
                      #endif
                   }
 
-                  #ifdef CURL_MIME_TRACE
+                  #ifdef HB_CURL_MIME_TRACE
                   printf( "curl_mime_%s( \"%s\" )\n", szKey, hb_itemGetCPtr( pVal ) );
                   #endif
                }
@@ -882,7 +882,7 @@ static curl_mime * hb_curl_opt_mime( CURL * curl, PHB_ITEM pItem )
 
             mime = curl_mime_init( curl );
 
-            #ifdef CURL_MIME_TRACE
+            #ifdef HB_CURL_MIME_TRACE
             printf( "curl_mime_init()\n" );
             #endif
 
@@ -894,7 +894,7 @@ static curl_mime * hb_curl_opt_mime( CURL * curl, PHB_ITEM pItem )
       {
          mime = curl_mime_init( curl );
 
-         #ifdef CURL_MIME_TRACE
+         #ifdef HB_CURL_MIME_TRACE
          printf( "curl_mime_init()\n" );
          #endif
 
