@@ -60,7 +60,8 @@ FUNCTION KeyTime( nKey, cClockTime )
       nMin := Val( SubStr( cClockTime, 4, 2 ) )
       nSec := Val( SubStr( cClockTime, 7, 2 ) )
       nLast := -1
-      t_hIdle := hb_idleAdd( {|| doKeyTime( nKey, cClockTime, nHour, nMin, nSec, @nLast ) } )
+      t_hIdle := hb_idleAdd( ;
+         {|| doKeyTime( nKey, cClockTime, nHour, nMin, nSec, @nLast ) } )
       RETURN .T.
    ENDIF
 

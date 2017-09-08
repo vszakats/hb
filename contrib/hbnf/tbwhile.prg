@@ -117,7 +117,7 @@ FUNCTION ft_BrwsWhl( aFields, bWhileCond, cKey, nFreeze, lSaveScrn, ;
 
    IF PCount() <= 6  // don't keep screen
       SetColor( cColorBack )
-      hb_Scroll()
+      Scroll()
    ENDIF
 
    // make a window shadow

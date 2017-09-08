@@ -14,7 +14,7 @@ PROCEDURE Main()
       DispBegin()
 
       IF Seconds() - nSeconds > 10
-         hb_Scroll()
+         Scroll()
          nSeconds := Seconds()
       ENDIF
 
@@ -52,7 +52,7 @@ STATIC PROCEDURE ss_show( a )
       hb_DispOutAtBox( e[ 1 ], e[ 2 ], ;
          hb_UTF8ToStr( hb_USubStr( s, hb_randInt( 1, hb_ULen( s ) ), 1 ) ), e[ 3 ] )
       IF e[ 1 ] >= 20
-         hb_Scroll( e[ 1 ] - 20, e[ 2 ], e[ 1 ] - 20, e[ 2 ] )
+         Scroll( e[ 1 ] - 20, e[ 2 ], e[ 1 ] - 20, e[ 2 ] )
       ENDIF
       ++e[ 1 ]
    NEXT

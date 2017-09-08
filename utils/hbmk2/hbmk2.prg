@@ -6087,6 +6087,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          CASE "msvcmips" ; AAdd( hbmk[ _HBMK_aOPTI ], "-machine:mips" ) ; EXIT
          CASE "msvcsh"   ; AAdd( hbmk[ _HBMK_aOPTI ], "-machine:sh5"  ) ; EXIT
          ENDSWITCH
+         /* TODO: migrate to use 'llvm-dlltool' with clang 5 and upper
+                  https://lists.llvm.org/pipermail/llvm-dev/2017-February/110097.html */
          bBlk_ImpLib := {| cSourceDLL, cTargetLib, cFlags | win_implib_command_msvc( hbmk, cBin_Lib + " -nologo {FI} -def:{ID} -out:{OL}", cSourceDLL, cTargetLib, cFlags ) }
          cLibPathPrefix := "-libpath:"
          cLibPathSep := " "
@@ -16979,7 +16981,7 @@ STATIC PROCEDURE __hbshell_prompt( aParams, aCommand )
 
    hb_gtInfo( HB_GTI_ICONRES, 1 )
 
-   hb_Scroll()
+   Scroll()
    Set( _SET_SCOREBOARD, .F. )
 
    __hbshell_HistoryLoad()
@@ -17061,7 +17063,7 @@ STATIC PROCEDURE __hbshell_prompt( aParams, aCommand )
             cLine := NIL
          ENDIF
          IF nMaxRow != MaxRow() .OR. nMaxCol != MaxCol()
-            hb_Scroll( nMaxRow, 0 )
+            Scroll( nMaxRow, 0 )
          ENDIF
          LOOP
       ENDIF
@@ -17078,7 +17080,7 @@ STATIC PROCEDURE __hbshell_prompt( aParams, aCommand )
 
       cCommand := AllTrim( cLine )
       cLine := NIL
-      hb_Scroll( nMaxRow, 0 )
+      Scroll( nMaxRow, 0 )
       __hbshell_Info( cCommand )
 
       IF ! Empty( cCommand )
@@ -17099,7 +17101,7 @@ STATIC PROCEDURE __hbshell_prompt( aParams, aCommand )
             ENDIF
 
             IF hbsh[ _HBSH_nRow ] >= MaxRow()
-               hb_Scroll( 3, 0, MaxRow(), MaxCol(), 1 )
+               Scroll( 3, 0, MaxRow(), MaxCol(), 1 )
                hbsh[ _HBSH_nRow ] := MaxRow() - 1
             ENDIF
          ENDIF

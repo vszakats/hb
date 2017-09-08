@@ -48,7 +48,7 @@ FUNCTION ft_ClrSel( aClrs, lColor, cChr )
 
    SetCursor( SC_NONE )
    SetColor( iif( lColor, "GR+/N,,N/N", "W+/N,,N/N" ) )
-   hb_Scroll()
+   Scroll()
 
    // initialize the color palette
    aClrPal := _ftInitPal( iif( lColor, aClrTab, aClrBW ) )
@@ -72,7 +72,7 @@ FUNCTION ft_ClrSel( aClrs, lColor, cChr )
 
    // set up the window for AChoice()
    SetColor( iif( lColor, "N/W,W+/R", "N/W,W+/N" ) )
-   hb_Scroll( nT, nL, nB, nR )
+   Scroll( nT, nL, nB, nR )
 
    // prompt for color setting and modify
    DO WHILE nChoice != 0
@@ -149,7 +149,7 @@ STATIC FUNCTION _ftColors( aOpt, aClrPal, lColor )
 
       // set up the window for prompt
       SetColor( "N/W" )
-      hb_Scroll( nT, nL, nB, nR )
+      Scroll( nT, nL, nB, nR )
    ENDIF
 
    DO WHILE .T.
@@ -255,7 +255,7 @@ STATIC PROCEDURE _ftShowIt( aOpt )
 
    CASE "G"    // Get windows
       SetColor( aClr[ 1 ] )
-      hb_Scroll( 19, 41, 24, 66 )
+      Scroll( 19, 41, 24, 66 )
       Single( 19, 42, 24, 65 )
       hb_DispOutAt( 20, 43, "    Invoice Entry    " )
       hb_DispOutAt( 21, 42, hb_UTF8ToStr( "├──────────────────────┤" ) )
@@ -269,7 +269,7 @@ STATIC PROCEDURE _ftShowIt( aOpt )
 
    CASE "W"    // Alert windows
       SetColor( aClr[ 1 ] )
-      hb_Scroll( 18, 40, 24, 66 )
+      Scroll( 18, 40, 24, 66 )
       Single( 18, 41, 24, 65 )
       hb_DispOutAt( 19, 42, "                       " )
       hb_DispOutAt( 20, 42, "     Test Message      " )
@@ -283,7 +283,7 @@ STATIC PROCEDURE _ftShowIt( aOpt )
 
    CASE "B"    // browse windows
       SetColor( aClr[ 1 ] )
-      hb_Scroll( 18, 37, 24, 70 )
+      Scroll( 18, 37, 24, 70 )
       Single( 18, 38, 24, 69 )
       hb_DispOutAt( 19, 39,                " Cust   Name           Amount " )
       hb_DispOutAt( 20, 38, hb_UTF8ToStr( "╞══════╤══════════════╤════════╡" ) )
@@ -300,7 +300,7 @@ STATIC PROCEDURE _ftShowIt( aOpt )
 
    CASE "A"    // AChoice() type window
       SetColor( aClr[ 1 ] )
-      hb_Scroll( 18, 42, 24, 64 )
+      Scroll( 18, 42, 24, 64 )
       Single( 18, 43, 24, 63 )
       hb_DispOutAt( 19, 44, " Daily Reports     " )
       hb_DispOutAt( 21, 44, " Quarterly Reports " )
@@ -452,7 +452,7 @@ STATIC FUNCTION _ftDeskChar( aOpt )
    ENDDO
 
    SetColor( "W+/N" )
-   hb_Scroll( 18, 28, 23, 39 )
+   Scroll( 18, 28, 23, 39 )
 
    RETURN aOpt
 

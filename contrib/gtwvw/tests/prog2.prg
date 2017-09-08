@@ -342,7 +342,7 @@ STATIC FUNCTION ZNEWWINDOW( wtype, r1, c1, r2, c2, ctitle, ccolor )
 
    SetColor( ccolor )
 
-   hb_Scroll( r1, c1, r2, c2 )
+   Scroll( r1, c1, r2, c2 )
 
    HB_SYMBOL_UNUSED( wtype )
 

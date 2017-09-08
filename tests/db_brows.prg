@@ -236,7 +236,7 @@ FUNCTION DBFLIST( mslist, x1, y1, x2, y2, title, maskey )
                LI_NSTR++
                IF LI_NSTR > razmer
                   LI_NSTR := razmer
-                  hb_Scroll( LI_Y1 + 1, LI_X1 + 1, LI_Y2 - 1, LI_X2 - 1, 1 )
+                  Scroll( LI_Y1 + 1, LI_X1 + 1, LI_Y2 - 1, LI_X2 - 1, 1 )
                   VIVSTR( mslist, LI_Y2 - 1, 0 )
                ENDIF
                IF Eval( LI_BEOF, mslist )
@@ -252,7 +252,7 @@ FUNCTION DBFLIST( mslist, x1, y1, x2, y2, title, maskey )
             LI_NSTR--
             IF LI_NSTR == 0
                LI_NSTR := 1
-               hb_Scroll( LI_Y1 + 1, LI_X1 + 1, LI_Y2 - 1, LI_X2 - 1, -1 )
+               Scroll( LI_Y1 + 1, LI_X1 + 1, LI_Y2 - 1, LI_X2 - 1, -1 )
                VIVSTR( mslist, LI_Y1 + 1, 0 )
             ENDIF
          ENDIF
@@ -374,7 +374,7 @@ FUNCTION DBFLIST( mslist, x1, y1, x2, y2, title, maskey )
             ENDIF
             IF ( LastKey() == K_ESC .OR. ! Updated() ) .AND. Eval( LI_BEOF, mslist )
                SetColor( LI_CLR )
-               hb_Scroll( LI_NSTR + LI_Y1, LI_X1 + 1, LI_NSTR + LI_Y1, LI_X2 - 1 )
+               Scroll( LI_NSTR + LI_Y1, LI_X1 + 1, LI_NSTR + LI_Y1, LI_X2 - 1 )
                LI_NSTR--
                Eval( LI_BSKIP, mslist, -1 )
             ELSE
@@ -445,7 +445,7 @@ STATIC PROCEDURE VIVNAMES( mslist )
       IF LI_NMCLR != NIL
          oldc := SetColor( LI_NMCLR )
       ENDIF
-      hb_Scroll( LI_Y1, x - 1, LI_Y1, LI_X2 - 1 )
+      Scroll( LI_Y1, x - 1, LI_Y1, LI_X2 - 1 )
       fif := iif( LI_FREEZE > 0, 1, LI_NLEFT )
       DO WHILE i <= LI_NCOLUMNS .AND. fif <= Len( LI_NAMES )
          IF LI_NAMES[ fif ] != NIL
@@ -473,7 +473,7 @@ STATIC FUNCTION WNDVIVOD( mslist )
    ENDIF
    firstrec := Eval( LI_RECNO, mslist )
    SetColor( LI_CLR )
-   hb_Scroll( LI_Y1 + 1, LI_X1 + 1, LI_Y2 - 1, LI_X2 - 1 )
+   Scroll( LI_Y1 + 1, LI_X1 + 1, LI_Y2 - 1, LI_X2 - 1 )
    DO WHILE .T.
       VIVSTR( mslist, nstr + LI_Y1, 0 )
       nstr++

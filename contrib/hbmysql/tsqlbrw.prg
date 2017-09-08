@@ -244,7 +244,7 @@ METHOD EditField() CLASS TBrowseSQL
       /* save, clear, and frame window for MemoEdit() */
       cMemoBuff := SaveScreen( 10, 10, 22, 69 )
 
-      hb_Scroll( 10, 10, 22, 69, 0 )
+      Scroll( 10, 10, 22, 69 )
       hb_DispBox( 10, 10, 22, 69 )
 
       /* edit the memo field */

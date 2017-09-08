@@ -773,5 +773,3 @@ PHB_EXPR hb_compExprReduce( PHB_EXPR pExpr, HB_COMP_DECL )
    return HB_EXPR_USE( pExpr, HB_EA_REDUCE );
 }
 #endif
-
-/* ************************************************************************* */

@@ -81,7 +81,7 @@ PROCEDURE ft_Menu1( aBar, aOptions, aColors, nTopRow, lShadow )
 
    // display the menu bar
    SetColor( cBar )
-   hb_Scroll( nTopRow, 0, nTopRow )
+   Scroll( nTopRow, 0, nTopRow, 0 )
    AEval( aBar, {| x, i | HB_SYMBOL_UNUSED( x ), hb_DispOutAt( nTopRow, aBarCol[ i ], aBar[ i ] ) } )
 
    // store inkey code for each item on menu bar to aBarKeys

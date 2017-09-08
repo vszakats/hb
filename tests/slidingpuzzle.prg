@@ -218,7 +218,7 @@ METHOD Refresh() CLASS SlidingPuzzle
 
    DispBegin()
 
-   hb_Scroll()
+   Scroll()
    ::Frame()
    ::Show()
 

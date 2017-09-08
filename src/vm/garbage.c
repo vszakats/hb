@@ -780,7 +780,7 @@ HB_FUNC( HB_GCALL )
     */
    hb_ret();
 
-   hb_gcCollectAll( hb_parldef( 1, 1 ) );
+   hb_gcCollectAll( hb_parldef( 1, HB_TRUE ) );
 }
 
 #ifdef HB_GC_AUTO

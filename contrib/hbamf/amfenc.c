@@ -1360,7 +1360,7 @@ HB_FUNC( AMF3_ENCODE )
 {
    PHB_ITEM pItem    = hb_param( 1, HB_IT_ANY );
    PHB_ITEM pFuncSym = hb_param( 2, HB_IT_SYMBOL );
-   HB_BOOL  lBA      = hb_parldef( 3, HB_FALSE );
+   HB_BOOL  lBA      = hb_parl( 3 );
    HB_BOOL  lRetval;
 
    amfContext * context;

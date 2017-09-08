@@ -13,7 +13,7 @@ PROCEDURE Main()
 
       DispBegin()
 
-      hb_Scroll()
+      Scroll()
 
       tmp := 1
       DO WHILE tmp <= Len( aSnow )

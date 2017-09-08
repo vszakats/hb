@@ -662,7 +662,7 @@ STATIC PROCEDURE _ftDisplayTape( aAdder, nKey )
    ENDIF
    IF lTape                  // Are we in the display mode
       SetColor( "N/W" )
-      hb_Scroll( 5 + nTopOS, 7 + nTapeSpace, 20 + nTopOS, 32 + nTapeSpace, 1 )
+      Scroll( 5 + nTopOS, 7 + nTapeSpace, 20 + nTopOS, 32 + nTapeSpace, 1 )
       IF Len( aTrans ) > 0   // Any transactions been entered yet?
          hb_DispOutAt( 20 + nTopOS, 7 + nTapeSpace, ATail( aTrans ) )
       ENDIF
@@ -967,7 +967,7 @@ STATIC PROCEDURE _ftPushWin( t, l, b, r, cTitle, cBotTitle, nWinColor )
    ENDIF
 
    _ftSetWinColor( nWinColor, W_SCREEN, W_VARIAB )
-   hb_Scroll( t + 1, l + 1, b - 1, r - 1 )
+   Scroll( t + 1, l + 1, b - 1, r - 1 )
 
    RETURN
 

@@ -64,7 +64,7 @@ PROCEDURE ft_XBox( ;
    nBRow := nTRow + nNumRows + 1
 
    // form box and border
-   hb_Scroll( nTRow, nLCol, nBRow, nRCol )
+   Scroll( nTRow, nLCol, nBRow, nRCol )
    SetColor( hb_defaultValue( cBorColor, "N/W" ) )
    hb_DispBox( nTRow, nLCol, nBRow, nRCol, iif( hb_LeftEq( cBorType, "D" ), HB_B_DOUBLE_UNI, HB_B_SINGLE_UNI ) )
    hb_Shadow( nTRow, nLCol, nBRow, nRCol )

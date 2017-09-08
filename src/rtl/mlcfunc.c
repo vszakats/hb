@@ -327,7 +327,7 @@ HB_FUNC( MEMOLINE )
 
          if( nLine == 0 )
          {
-            HB_BOOL fPad = hb_parldef( 7, 1 );
+            HB_BOOL fPad = hb_parldef( 7, HB_TRUE );
             HB_SIZE nIndex, nSize, nCol;
 
             nIndex = MLC.nOffset;
@@ -563,7 +563,7 @@ HB_FUNC( HB_MLEVAL )
       HB_SIZE nLen = hb_parclen( 1 );
       HB_SIZE nTabSize = hb_parnsdef( 4, 4 );
       HB_SIZE nPos = hb_parns( 6 ) - 1;
-      HB_BOOL fWordWrap = hb_parldef( 5, 1 );
+      HB_BOOL fWordWrap = hb_parldef( 5, HB_TRUE );
       PHB_CODEPAGE cdp = hb_vmCDP();
       PHB_ITEM pLineItem = NULL, pSoftItem = NULL;
       HB_BOOL fSoftCR, fEOL;

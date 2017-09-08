@@ -785,7 +785,7 @@ HB_FUNC( HB_VFSIZE )
 
    if( pszFile )
    {
-      hb_retnint( hb_fileSizeGet( pszFile, hb_parldef( 2, 1 ) ) );
+      hb_retnint( hb_fileSizeGet( pszFile, hb_parldef( 2, HB_TRUE ) ) );
       hb_fsSetFError( hb_fsError() );
    }
    else

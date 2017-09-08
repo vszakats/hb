@@ -26,7 +26,7 @@ STATIC PROCEDURE fillscreen()
 
    LOCAL i, j
 
-   hb_Scroll()
+   Scroll()
    wvw_nOpenWindow( "Win2", 10, 10, 19, 69 )
    wvw_nOpenWindow( "Win3", 15, 15, 22, 75 )
    DevPos( 0, 0 )

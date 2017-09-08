@@ -170,7 +170,7 @@ METHOD ReadModal() CLASS HBGetList
          cMsgColor := GetClrPair( SetColor(), 1 )
       ENDIF
 
-      hb_Scroll( nMsgRow, nMsgLeft, nMsgRow, nMsgRight )
+      Scroll( nMsgRow, nMsgLeft, nMsgRow, nMsgRight )
 
       ::cMsgSaveS := SaveScreen( nMsgRow, nMsgLeft, nMsgRow, nMsgRight )
    ENDIF

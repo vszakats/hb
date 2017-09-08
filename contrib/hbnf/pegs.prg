@@ -71,7 +71,7 @@ PROCEDURE ft_Pegs()
    // the following code block is used in conjunction with AScan()
    // to validate entry when there is more than one possible move
    scanblock := {| a | a[ 2 ] == move2 }
-   hb_Scroll()
+   Scroll()
    SetColor( "w/r" )
    hb_DispBox( 22, 31, 24, 48, HB_B_SINGLE_UNI + " " )
    hb_DispOutAt( 23, 33, "Your move:" )

@@ -433,9 +433,9 @@ static HB_BOOL hb_regex( int iRequest )
          case 5: /* _ALL_ results AND positions */
          {
             PHB_ITEM pAtxArray;
-            int      iMax       = hb_parni( 5 );   /* max number of matches I want, 0 = unlimited */
+            int      iMax       = hb_parni( 5 );   /* Max number of matches I want, 0 = unlimited */
             int      iGetMatch  = hb_parni( 6 );   /* Gets if want only one single match or a sub-match */
-            HB_BOOL  fOnlyMatch = hb_parldef( 7, HB_TRUE ); /* if HB_TRUE returns only matches and sub-matches, not positions */
+            HB_BOOL  fOnlyMatch = hb_parldef( 7, HB_TRUE ); /* If HB_TRUE, returns only matches and sub-matches, not positions */
             HB_SIZE  nOffset    = 0;
             int      iCount     = 0;
             HB_SIZE  nSO, nEO;
