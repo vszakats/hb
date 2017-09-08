@@ -2481,7 +2481,7 @@ supports few different regular expression libraries and it's possible to
 use platform or CRTL native libs or PCRE which is included in Harbour.
 Harbour always uses native for given library API. xHarbour supports only
 PCRE modified to use POSIX regex interface which does not support strings
-with embedded Chr(0) characters.
+with embedded Chr( 0 ) characters.
 
 Both compilers can store and reuse compiled regular expressions.
 xHarbour stores them in string items and Harbour in GC pointer items.
