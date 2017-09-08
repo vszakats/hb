@@ -6,7 +6,7 @@ PROCEDURE Main()
 
    LOCAL nOldCursor := SetCursor( SC_NONE )
    LOCAL lContinue := .T.
-   LOCAL nRow := Int( ( MaxRow() - 6 ) / 2 )
+   LOCAL nRow
    LOCAL cLine
    LOCAL item
    LOCAL nColor
@@ -82,10 +82,13 @@ PROCEDURE Main()
       nColor := hb_RandomInt( 0x1, 0xf )
 
       FOR EACH item IN aArray DESCEND
-         hb_Scroll()
+         nRow := Int( ( MaxRow() - Len( item ) ) / 2 )
+         DispBegin()
+         Scroll()
          FOR EACH cLine IN item
             hb_DispOutAt( nRow + cLine:__enumIndex() - 1, 0, PadC( cLine, MaxCol() + 1 ), nColor )
          NEXT
+         DispEnd()
          IF Inkey( 1 ) != 0
             lContinue := .F.
             EXIT
