@@ -8,10 +8,10 @@ PROCEDURE Main()
    LOCAL lContinue := .T.
    LOCAL nRow
    LOCAL cLine
-   LOCAL item
+   LOCAL aLogo
    LOCAL nColor
 
-   LOCAL aArray := { { ;
+   LOCAL aLogoSet := { { ;
       "  _________ __                 __    ", ;
       " /   _____//  |______ ________/  |_  ", ;
       " \_____  \\   __\__  \\_  __ \   __\ ", ;
@@ -81,11 +81,11 @@ PROCEDURE Main()
 
       nColor := hb_RandomInt( 0x1, 0xf )
 
-      FOR EACH item IN aArray DESCEND
-         nRow := Int( ( MaxRow() - Len( item ) ) / 2 )
+      FOR EACH aLogo IN aLogoSet DESCEND
+         nRow := Int( ( MaxRow() - Len( aLogo ) ) / 2 )
          DispBegin()
          Scroll()
-         FOR EACH cLine IN item
+         FOR EACH cLine IN aLogo
             hb_DispOutAt( nRow + cLine:__enumIndex() - 1, 0, PadC( cLine, MaxCol() + 1 ), nColor )
          NEXT
          DispEnd()
