@@ -52,20 +52,20 @@
 #if defined( _HB_REGEX_INTERNAL_ )
 
 #if defined( HB_HAS_PCRE2 )
-   #include <pcre2.h>
-   #undef HB_POSIX_REGEX
+#  include <pcre2.h>
+#  undef HB_POSIX_REGEX
 #elif defined( HB_HAS_PCRE )
-   #include <pcre.h>
-   #undef HB_POSIX_REGEX
+#  include <pcre.h>
+#  undef HB_POSIX_REGEX
 #elif defined( HB_OS_UNIX )
-   #include <sys/types.h>
-   #include <regex.h>
-   #define HB_POSIX_REGEX
+#  include <sys/types.h>
+#  include <regex.h>
+#  define HB_POSIX_REGEX
 #elif defined( __BORLANDC__ )
-   #include <pcreposi.h>
-   #define HB_POSIX_REGEX
+#  include <pcreposi.h>
+#  define HB_POSIX_REGEX
 #else
-   #error pcre component required, but not available
+#  error pcre component required, but not available
 #endif
 
 typedef struct

@@ -58,24 +58,24 @@
 /* Direct WinApi Functions - Prefixed wvg_*() */
 
 #if defined( __BORLANDC__ )
-   #if ! defined( NONAMELESSUNION )
-      #define NONAMELESSUNION
-   #endif
-   #if defined( DUMMYUNIONNAME )
-      #undef DUMMYUNIONNAME
-   #endif
-   #if defined( DUMMYUNIONNAME2 )
-      #undef DUMMYUNIONNAME2
-   #endif
-   #if defined( DUMMYUNIONNAME3 )
-      #undef DUMMYUNIONNAME3
-   #endif
-   #if defined( DUMMYUNIONNAME4 )
-      #undef DUMMYUNIONNAME4
-   #endif
-   #if defined( DUMMYUNIONNAME5 )
-      #undef DUMMYUNIONNAME5
-   #endif
+#  if ! defined( NONAMELESSUNION )
+#     define NONAMELESSUNION
+#  endif
+#  if defined( DUMMYUNIONNAME )
+#     undef DUMMYUNIONNAME
+#  endif
+#  if defined( DUMMYUNIONNAME2 )
+#     undef DUMMYUNIONNAME2
+#  endif
+#  if defined( DUMMYUNIONNAME3 )
+#     undef DUMMYUNIONNAME3
+#  endif
+#  if defined( DUMMYUNIONNAME4 )
+#     undef DUMMYUNIONNAME4
+#  endif
+#  if defined( DUMMYUNIONNAME5 )
+#     undef DUMMYUNIONNAME5
+#  endif
 #endif
 
 #include "gtwvg.h"
@@ -85,9 +85,9 @@
 #endif
 
 #if defined( NONAMELESSUNION )
-   #define HB_WIN_V_UNION( x, z )  ( ( x ).DUMMYUNIONNAME.z )
+#  define HB_WIN_V_UNION( x, z )  ( ( x ).DUMMYUNIONNAME.z )
 #else
-   #define HB_WIN_V_UNION( x, z )  ( ( x ).z )
+#  define HB_WIN_V_UNION( x, z )  ( ( x ).z )
 #endif
 
 #if defined( HB_OS_WIN_CE )

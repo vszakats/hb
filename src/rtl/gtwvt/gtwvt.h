@@ -70,15 +70,15 @@
 #define WVT_MAX_WINDOWS             256
 
 #if defined( HB_OS_WIN_CE )
-   #define WVT_DEFAULT_ROWS         15
-   #define WVT_DEFAULT_COLS         50
-   #define WVT_DEFAULT_FONT_HEIGHT  12
-   #define WVT_DEFAULT_FONT_WIDTH   8
+#  define WVT_DEFAULT_ROWS         15
+#  define WVT_DEFAULT_COLS         50
+#  define WVT_DEFAULT_FONT_HEIGHT  12
+#  define WVT_DEFAULT_FONT_WIDTH   8
 #else
-   #define WVT_DEFAULT_ROWS         25
-   #define WVT_DEFAULT_COLS         80
-   #define WVT_DEFAULT_FONT_HEIGHT  20
-   #define WVT_DEFAULT_FONT_WIDTH   10
+#  define WVT_DEFAULT_ROWS         25
+#  define WVT_DEFAULT_COLS         80
+#  define WVT_DEFAULT_FONT_HEIGHT  20
+#  define WVT_DEFAULT_FONT_WIDTH   10
 #endif
 
 #define WVT_DEFAULT_FONT_ATTR       0

@@ -112,13 +112,13 @@ char * hb_netname( void )
 
 #elif defined( HB_OS_DOS )
 
-   #if defined( __DJGPP__ ) || defined( __RSX32__ ) || defined( __GNUC__ )
+#  if defined( __DJGPP__ ) || defined( __RSX32__ ) || defined( __GNUC__ )
       char szValue[ MAXGETHOSTNAME + 1 ];
       szValue[ 0 ] = szValue[ MAXGETHOSTNAME ] = '\0';
       gethostname( szValue, MAXGETHOSTNAME );
       if( szValue[ 0 ] )
          return hb_osStrDecode( szValue );
-   #else
+#  else
       union REGS regs;
       struct SREGS sregs;
       char szValue[ 16 ];
@@ -132,7 +132,7 @@ char * hb_netname( void )
 
       if( regs.h.ch != 0 && szValue[ 0 ] )
          return hb_osStrDecode( szValue );
-   #endif
+#  endif
 
 #elif ( defined( HB_OS_UNIX ) && ! defined( __WATCOMC__ ) ) || \
       ( defined( HB_OS_OS2 ) && defined( __GNUC__ ) )

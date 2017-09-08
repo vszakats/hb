@@ -51,7 +51,7 @@
 
 #if defined( HB_OS_WIN ) && ! defined( HB_OS_WIN_CE )
 
-   #include <windows.h>
+#  include <windows.h>
 
 static HANDLE s_RegHandle = NULL;
 
@@ -60,7 +60,7 @@ static HANDLE s_RegHandle = NULL;
    ! defined( HB_OS_VXWORKS ) && \
    ! defined( HB_OS_SYMBIAN )
 
-   #include <syslog.h>
+#  include <syslog.h>
 
 #endif
 

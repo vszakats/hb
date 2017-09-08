@@ -47,7 +47,7 @@
  */
 
 #if ! defined( _LARGEFILE64_SOURCE )
-   #define _LARGEFILE64_SOURCE  1
+#  define _LARGEFILE64_SOURCE  1
 #endif
 
 #define _HB_FFIND_INTERNAL_
@@ -818,11 +818,11 @@ static HB_BOOL hb_fsFindNextLow( PHB_FFIND ffind )
                raw_attr = sStat.st_mode;
 
                ftime = sStat.st_mtime;
-   #if defined( HB_HAS_LOCALTIME_R )
+#  if defined( HB_HAS_LOCALTIME_R )
                localtime_r( &ftime, &lt );
-   #else
+#  else
                lt = *localtime( &ftime );
-   #endif
+#  endif
 
                iYear  = lt.tm_year + 1900;
                iMonth = lt.tm_mon + 1;
@@ -832,18 +832,18 @@ static HB_BOOL hb_fsFindNextLow( PHB_FFIND ffind )
                iMin  = lt.tm_min;
                iSec  = lt.tm_sec;
 
-   #if defined( HB_OS_LINUX ) && \
+#  if defined( HB_OS_LINUX ) && \
       defined( __GLIBC__ ) && defined( __GLIBC_MINOR__ ) && \
       ( __GLIBC__ > 2 || ( __GLIBC__ == 2 && __GLIBC_MINOR__ >= 6 ) )
-      #if defined( _BSD_SOURCE ) || defined( _SVID_SOURCE ) || \
+#     if defined( _BSD_SOURCE ) || defined( _SVID_SOURCE ) || \
          ( __GLIBC_MINOR__ >= 12 && \
            ( ( defined( _POSIX_C_SOURCE ) || _POSIX_C_SOURCE >= 200809L ) || \
              ( defined( _XOPEN_SOURCE ) || _XOPEN_SOURCE >= 700 ) ) )
                iMSec = sStat.st_mtim.tv_nsec / 1000000;
-      #else
+#     else
                iMSec = sStat.st_mtimensec / 1000000;
-      #endif
-   #endif
+#     endif
+#  endif
             }
             else
                bFound = HB_FALSE;
@@ -979,11 +979,11 @@ void hb_fsFindClose( PHB_FFIND ffind )
 
 #if defined( HB_OS_DOS )
 
-   #if defined( __WATCOMC__ )
+#  if defined( __WATCOMC__ )
             _dos_findclose( &info->entry );
-   #elif ! defined( __DJGPP__ ) && ! defined( __BORLANDC__ )
+#  elif ! defined( __DJGPP__ ) && ! defined( __BORLANDC__ )
             findclose( &info->entry );
-   #endif
+#  endif
 
 #elif defined( HB_OS_OS2 )
 

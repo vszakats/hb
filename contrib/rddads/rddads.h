@@ -167,9 +167,9 @@ typedef ADSAREA * ADSAREAP;
 #define HB_RDD_ADS_VERSION_STRING  "ADS RDD 1.4"
 
 #if defined( HB_OS_WIN )
-   #define ADS_USE_OEM_TRANSLATION
+#  define ADS_USE_OEM_TRANSLATION
 #else
-   #undef ADS_USE_OEM_TRANSLATION
+#  undef ADS_USE_OEM_TRANSLATION
 #endif
 
 #define HB_ADS_PARCONNECTION( n )     ( ( ADSHANDLE ) hb_parnintdef( n, hb_ads_getConnection() ) )
@@ -213,9 +213,9 @@ extern ADSAREAP   hb_adsGetWorkAreaPointer( void );
                                          UNSIGNED32 * pulLen );
 
 #else
-   #define hb_adsOemToAnsi( s, l )  ( ( char * ) HB_UNCONST( s ) )
-   #define hb_adsAnsiToOem( s, l )  ( ( char * ) HB_UNCONST( s ) )
-   #define hb_adsOemAnsiFree( s )
+#  define hb_adsOemToAnsi( s, l )  ( ( char * ) HB_UNCONST( s ) )
+#  define hb_adsAnsiToOem( s, l )  ( ( char * ) HB_UNCONST( s ) )
+#  define hb_adsOemAnsiFree( s )
 #endif
 
 HB_EXTERN_END

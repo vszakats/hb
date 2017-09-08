@@ -512,7 +512,8 @@ STATIC PROCEDURE TEST_END()
 
    IF s_nFail != 0
       #ifdef __CLIPPER__
-         OutMsg( s_nFhnd, "WARNING: Failures detected using CA-Cl*pper." + hb_eol() + ;
+         OutMsg( s_nFhnd, ;
+            "WARNING: Failures detected using CA-Cl*pper." + hb_eol() + ;
             "Please fix those expected results which are not bugs in CA-Cl*pper itself." + hb_eol() )
       #else
          OutMsg( s_nFhnd, "WARNING: Failures detected" + hb_eol() )

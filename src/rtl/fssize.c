@@ -46,7 +46,7 @@
  */
 
 #if ! defined( _LARGEFILE64_SOURCE )
-   #define _LARGEFILE64_SOURCE  1
+#  define _LARGEFILE64_SOURCE  1
 #endif
 
 #include "hbapi.h"
@@ -54,14 +54,14 @@
 #include "hbvm.h"
 
 #if defined( HB_OS_WIN )
-   #include <windows.h>
-   #include "hbwinuni.h"
-   #if defined( HB_OS_WIN_CE )
-      #include "hbwince.h"
-   #endif
+#  include <windows.h>
+#  include "hbwinuni.h"
+#  if defined( HB_OS_WIN_CE )
+#     include "hbwince.h"
+#  endif
 #else
-   #include <sys/types.h>
-   #include <sys/stat.h>
+#  include <sys/types.h>
+#  include <sys/stat.h>
 #endif
 
 #if ! defined( HB_USE_LARGEFILE64 ) && defined( HB_OS_UNIX )

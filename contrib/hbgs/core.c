@@ -48,17 +48,16 @@
 
 #include "hbapi.h"
 #if defined( HB_GS_UTF8_SUPPORT )
-   #include "hbapistr.h"
+#  include "hbapistr.h"
 #endif
 
 #if defined( HB_OS_WIN )
-   #if ! defined( _Windows )
-      #define _Windows
-   #endif
-   #include <windows.h>
-   #define GSDLLEXPORT  __declspec( dllimport )
-   /* Some binary build may need the line below to be commented */
-   #define GSDLLAPI
+#  if ! defined( _Windows )
+#     define _Windows
+#  endif
+#  include <windows.h>
+#  define GSDLLEXPORT  __declspec( dllimport )
+#  define GSDLLAPI  /* Some binary builds may need this to be commented */
 #endif
 
 #include "ierrors.h"
@@ -66,7 +65,7 @@
 
 /* Workaround to build with pre-9.18 versions */
 #if defined( e_Quit )
-   #define gs_error_Quit  e_Quit
+#  define gs_error_Quit  e_Quit
 #endif
 
 HB_FUNC( HB_GS )

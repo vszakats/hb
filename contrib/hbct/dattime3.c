@@ -55,9 +55,9 @@
 #include "hbstack.h"
 
 #if defined( HB_OS_WIN )
-   #include <windows.h>
+#  include <windows.h>
 #elif defined( HB_OS_DOS )
-   #include <dos.h>
+#  include <dos.h>
 #endif
 #include <time.h>
 
