@@ -39,7 +39,7 @@ PROCEDURE Main( nRow, nCol )
    @ 0, 0, MaxRow(), MaxCol() BOX hb_UTF8ToStr( "░░░░░░░░░" )
 
    SetColor( "GR+/RB" )
-   Scroll( 7, 2, 19, 63, 0 )
+   Scroll( 7, 2, 19, 63 )
    @ 7, 2 TO 20, 63
 
    @ 17, 10 TO 19, 40 DOUBLE

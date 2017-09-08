@@ -2567,7 +2567,6 @@ hb_gtGetColorStr
 hb_gtGetCurrColor
 hb_gtGetCursor
 hb_gtGetPos
-hb_gtGetPosEx
 hb_gtGetScrChar
 hb_gtGfxPrimitive
 hb_gtGfxText

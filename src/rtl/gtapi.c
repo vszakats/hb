@@ -161,6 +161,26 @@ HB_ERRCODE hb_gtBox( int iTop, int iLeft, int iBottom, int iRight, const char * 
    return HB_FAILURE;
 }
 
+HB_ERRCODE hb_gtBoxEx( int iTop, int iLeft, int iBottom, int iRight, const char * szFrame, int iColor )
+{
+   PHB_GT pGT;
+
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gtBoxEx(%d, %d, %d, %d, %p, %d)", iTop, iLeft, iBottom, iRight, ( const void * ) szFrame, iColor ) );
+
+   pGT = hb_gt_Base();
+   if( pGT )
+   {
+      if( iColor == -1 )
+         iColor = HB_GTSELF_GETCOLOR( pGT );
+      HB_GTSELF_BOX( pGT, iTop, iLeft, iBottom, iRight, szFrame, iColor );
+      HB_GTSELF_SETPOS( pGT, iTop + 1, iLeft + 1 );
+      HB_GTSELF_FLUSH( pGT );
+      hb_gt_BaseFree( pGT );
+      return HB_SUCCESS;
+   }
+   return HB_FAILURE;
+}
+
 HB_ERRCODE hb_gtBoxD( int iTop, int iLeft, int iBottom, int iRight )
 {
    PHB_GT pGT;
@@ -437,6 +457,13 @@ HB_ERRCODE hb_gtGetPos( int * piRow, int * piCol )
    *piRow = *piCol = 0;
    return HB_FAILURE;
 }
+
+#if defined( HB_LEGACY_LEVEL5 )
+HB_ERRCODE hb_gtGetPosEx( int * piRow, int * piCol )
+{
+   return hb_gtGetPos( piRow, piCol );
+}
+#endif
 
 /* NOTE: Should be exactly the same as hb_gtSetPosContext(), but without the
          additional third parameter. */
@@ -820,6 +847,29 @@ HB_ERRCODE hb_gtScroll( int iTop, int iLeft, int iBottom, int iRight, int iRows,
       hb_gt_BaseFree( pGT );
       return HB_SUCCESS;
    }
+   return HB_FAILURE;
+}
+
+HB_ERRCODE hb_gtScrollEx( int iTop, int iLeft, int iBottom, int iRight, int iColor, int iChar, int iRows, int iCols )
+{
+   PHB_GT pGT;
+
+   HB_TRACE( HB_TR_DEBUG, ( "hb_gtScrollEx(%d, %d, %d, %d, %d, %d, %d, %d)", iTop, iLeft, iBottom, iRight, iColor, iChar, iRows, iCols ) );
+
+   pGT = hb_gt_Base();
+   if( pGT )
+   {
+      if( iColor == -1 )
+         iColor = HB_GTSELF_GETCOLOR( pGT );
+      if( iChar < 0 )
+         iChar = HB_GTSELF_GETCLEARCHAR( pGT );
+      HB_GTSELF_SCROLL( pGT, iTop, iLeft, iBottom, iRight,
+                        iColor, ( HB_USHORT ) iChar, iRows, iCols );
+      HB_GTSELF_FLUSH( pGT );
+      hb_gt_BaseFree( pGT );
+      return HB_SUCCESS;
+   }
+
    return HB_FAILURE;
 }
 
@@ -1227,66 +1277,6 @@ HB_ERRCODE hb_gtFlush( void )
    pGT = hb_gt_Base();
    if( pGT )
    {
-      HB_GTSELF_FLUSH( pGT );
-      hb_gt_BaseFree( pGT );
-      return HB_SUCCESS;
-   }
-   return HB_FAILURE;
-}
-
-HB_ERRCODE hb_gtGetPosEx( int * piRow, int * piCol )
-{
-   PHB_GT pGT;
-
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gtGetPosEx(%p, %p)", ( void * ) piRow, ( void * ) piCol ) );
-
-   pGT = hb_gt_Base();
-   if( pGT )
-   {
-      HB_GTSELF_GETPOS( pGT, piRow, piCol );
-      hb_gt_BaseFree( pGT );
-      return HB_SUCCESS;
-   }
-   *piRow = *piCol = 0;
-   return HB_FAILURE;
-}
-
-HB_ERRCODE hb_gtScrollEx( int iTop, int iLeft, int iBottom, int iRight, int iColor, int iChar, int iRows, int iCols )
-{
-   PHB_GT pGT;
-
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gtScrollEx(%d, %d, %d, %d, %d, %d, %d, %d)", iTop, iLeft, iBottom, iRight, iColor, iChar, iRows, iCols ) );
-
-   pGT = hb_gt_Base();
-   if( pGT )
-   {
-      if( iColor == -1 )
-         iColor = HB_GTSELF_GETCOLOR( pGT );
-      if( iChar < 0 )
-         iChar = HB_GTSELF_GETCLEARCHAR( pGT );
-      HB_GTSELF_SCROLL( pGT, iTop, iLeft, iBottom, iRight,
-                        iColor, ( HB_USHORT ) iChar, iRows, iCols );
-      HB_GTSELF_FLUSH( pGT );
-      hb_gt_BaseFree( pGT );
-      return HB_SUCCESS;
-   }
-
-   return HB_FAILURE;
-}
-
-HB_ERRCODE hb_gtBoxEx( int iTop, int iLeft, int iBottom, int iRight, const char * szFrame, int iColor )
-{
-   PHB_GT pGT;
-
-   HB_TRACE( HB_TR_DEBUG, ( "hb_gtBoxEx(%d, %d, %d, %d, %p, %d)", iTop, iLeft, iBottom, iRight, ( const void * ) szFrame, iColor ) );
-
-   pGT = hb_gt_Base();
-   if( pGT )
-   {
-      if( iColor == -1 )
-         iColor = HB_GTSELF_GETCOLOR( pGT );
-      HB_GTSELF_BOX( pGT, iTop, iLeft, iBottom, iRight, szFrame, iColor );
-      HB_GTSELF_SETPOS( pGT, iTop + 1, iLeft + 1 );
       HB_GTSELF_FLUSH( pGT );
       hb_gt_BaseFree( pGT );
       return HB_SUCCESS;

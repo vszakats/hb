@@ -26,7 +26,7 @@ PROCEDURE Main()
    ?
    ? "Scroll test: pre =", ""
    PosNow()
-// Scroll( 0, 0, MaxRow(), MaxCol(), -3, 0 )
+// Scroll( 0, 0, MaxRow(), MaxCol(), -3 )
    ?? " post =", ""
    PosNow()
 

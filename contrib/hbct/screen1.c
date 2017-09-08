@@ -183,7 +183,7 @@ static HB_BOOL hb_ctGetWinCord( int * piTop, int * piLeft,
    int iMaxRow = hb_gtMaxRow();
    int iMaxCol = hb_gtMaxCol();
 
-   hb_gtGetPosEx( piTop, piLeft );
+   hb_gtGetPos( piTop, piLeft );
 
    if( HB_ISNUM( 1 ) )
       *piTop = hb_parni( 1 );

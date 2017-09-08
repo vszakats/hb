@@ -205,11 +205,14 @@ extern HB_EXPORT HB_ERRCODE hb_gtSetClearChar( HB_USHORT usChar );
 extern HB_EXPORT HB_ERRCODE hb_gtGetScrChar( int iRow, int iCol, int * piColor, HB_BYTE * pbAttr, HB_USHORT * pusChar );
 extern HB_EXPORT HB_ERRCODE hb_gtPutScrChar( int iRow, int iCol, int iColor, HB_BYTE bAttr, HB_USHORT usChar );
 extern HB_EXPORT HB_ERRCODE hb_gtFlush( void );
-extern HB_EXPORT HB_ERRCODE hb_gtGetPosEx( int * piRow, int * piCol );
 extern HB_EXPORT HB_ERRCODE hb_gtScrollEx( int iTop, int iLeft, int iBottom, int iRight, int iColor, int iChar, int iRows, int iCols );
 extern HB_EXPORT HB_ERRCODE hb_gtBoxEx( int iTop, int iLeft, int iBottom, int iRight, const char * szFrame, int iColor );
 extern HB_EXPORT int        hb_gtGfxPrimitive( int iType, int iTop, int iLeft, int iBottom, int iRight, int iColor );
 extern HB_EXPORT HB_ERRCODE hb_gtGfxText( int iTop, int iLeft, const char * szText, int iColor, int iSize, int iWidth );
+
+#if defined( HB_LEGACY_LEVEL5 )
+extern HB_EXPORT HB_ERRCODE hb_gtGetPosEx( int * piRow, int * piCol );
+#endif
 
 extern HB_EXPORT HB_BOOL    hb_mouseIsPresent( void );
 extern HB_EXPORT HB_BOOL    hb_mouseGetCursor( void );
