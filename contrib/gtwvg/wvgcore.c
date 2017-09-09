@@ -106,10 +106,55 @@ void hb_wvt_PutStringAttrib( int top, int left, int bottom, int right, HB_BYTE *
 }
 
 /* Courtesy - Augusto Infante - Thanks */
+IPicture * hb_wvt_gtLoadPicture( const char * pszFileName )
+{
+   IPicture * pPicture = NULL;
+
 #if ! defined( HB_OS_WIN_CE )
+   if( pszFileName )
+   {
+      PHB_FILE pFile = hb_fileExtOpen( pszFileName, NULL,
+                                       FO_READ | FO_SHARED | FO_PRIVATE |
+                                       FXO_DEFAULTS | FXO_SHARELOCK,
+                                       NULL, NULL );
+      if( pFile )
+      {
+         HB_SIZE nFileSize = ( HB_SIZE ) hb_fileSize( pFile );
+
+         if( nFileSize < ( 32 * 1024 * 1024 ) )
+         {
+            HGLOBAL hGlobal = GlobalAlloc( GPTR, ( DWORD ) nFileSize );
+
+            if( hGlobal )
+            {
+               if( hb_fileRead( pFile, hGlobal, nFileSize, -1 ) == nFileSize )
+               {
+                  IStream * pStream = NULL;
+
+                  if( CreateStreamOnHGlobal( hGlobal, FALSE, &pStream ) == S_OK && pStream )
+                  {
+                     OleLoadPicture( pStream, nFileSize, TRUE, HB_ID_REF( IID_IPicture ), ( LPVOID * ) &pPicture );
+                     HB_VTBL( pStream )->Release( HB_THIS( pStream ) );
+                  }
+               }
+               GlobalFree( hGlobal );
+            }
+         }
+         hb_fileClose( pFile );
+      }
+   }
+#else
+   HB_SYMBOL_UNUSED( pszFileName );
+#endif
+
+   return ( IPicture * ) pPicture;
+}
+
 IPicture * hb_wvt_gtLoadPictureFromResource( LPCTSTR resource, LPCTSTR section )
 {
    IPicture * pPicture = NULL;
+
+#if ! defined( HB_OS_WIN_CE )
    HRSRC      res;
    HINSTANCE  hInstance = GetModuleHandle( NULL );
 
@@ -158,47 +203,15 @@ IPicture * hb_wvt_gtLoadPictureFromResource( LPCTSTR resource, LPCTSTR section )
          FreeResource( mem );
       }
    }
+#else
+   HB_SYMBOL_UNUSED( resource );
+   HB_SYMBOL_UNUSED( section );
+#endif
 
    return ( IPicture * ) pPicture;
 }
 
-IPicture * hb_wvt_gtLoadPicture( LPCTSTR image )
-{
-   IPicture * pPicture = NULL;
-
-   HANDLE hFile = CreateFile( image, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL );
-
-   if( hFile != INVALID_HANDLE_VALUE )
-   {
-      DWORD nFileSize = GetFileSize( hFile, NULL );
-
-      if( nFileSize != INVALID_FILE_SIZE )
-      {
-         HGLOBAL hGlobal = GlobalAlloc( GPTR, nFileSize );
-
-         if( hGlobal )
-         {
-            DWORD nReadByte;
-
-            if( ReadFile( hFile, hGlobal, nFileSize, &nReadByte, NULL ) )
-            {
-               IStream * pStream = NULL;
-
-               if( CreateStreamOnHGlobal( hGlobal, FALSE, &pStream ) == S_OK && pStream )
-               {
-                  OleLoadPicture( pStream, nFileSize, TRUE, HB_ID_REF( IID_IPicture ), ( LPVOID * ) &pPicture );
-                  HB_VTBL( pStream )->Release( HB_THIS( pStream ) );
-               }
-            }
-            GlobalFree( hGlobal );
-         }
-      }
-      CloseHandle( hFile );
-   }
-
-   return ( IPicture * ) pPicture;
-}
-
+#if ! defined( HB_OS_WIN_CE )
 static HB_BOOL hb_wvt_gtRenderPicture( int x, int y, int wd, int ht, IPicture * pPicture, HB_BOOL bDoNotScale )
 {
    PHB_GTWVT _s      = hb_wvt_gtGetWVT();
@@ -312,101 +325,105 @@ POINT hb_wvt_gtGetXYFromColRow( int col, int row )
    return xy;
 }
 
-static HB_BOOL hb_wvt_DrawImage( HDC hdc, int x, int y, int wd, int ht, LPCTSTR lpImage, HB_BOOL bDoNotScale )
+static HB_BOOL hb_wvt_DrawImage( HDC hdc, int x, int y, int wd, int ht, const char * pszImage, HB_BOOL bDoNotScale )
 {
    HB_BOOL bResult = HB_FALSE;
 
 #if ! defined( HB_OS_WIN_CE )
-   HANDLE hFile = CreateFile( lpImage, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL );
-
-   if( hFile != INVALID_HANDLE_VALUE )
+   if( pszImage )
    {
-      DWORD nFileSize = GetFileSize( hFile, NULL );
+      PHB_FILE pFile = hb_fileExtOpen( pszImage, NULL,
+                                       FO_READ | FO_SHARED | FO_PRIVATE |
+                                       FXO_DEFAULTS | FXO_SHARELOCK,
+                                       NULL, NULL );
 
-      if( nFileSize != INVALID_FILE_SIZE )
+      if( pFile )
       {
-         HGLOBAL hGlobal = GlobalAlloc( GPTR, nFileSize );
+         HB_SIZE nFileSize = ( HB_SIZE ) hb_fileSize( pFile );
 
-         if( hGlobal )
+         if( nFileSize < ( 32 * 1024 * 1024 ) )
          {
-            DWORD nReadByte;
+            HGLOBAL hGlobal = GlobalAlloc( GPTR, ( DWORD ) nFileSize );
 
-            if( ReadFile( hFile, hGlobal, nFileSize, &nReadByte, NULL ) )
+            if( hGlobal )
             {
-               IStream *  pStream;
-               IPicture * pPicture = NULL;
-
-               if( CreateStreamOnHGlobal( hGlobal, FALSE, &pStream ) == S_OK && pStream )
-                  OleLoadPicture( pStream, nFileSize, TRUE, HB_ID_REF( IID_IPicture ), ( LPVOID * ) &pPicture );
-
-               if( pPicture )
+               if( hb_fileRead( pFile, hGlobal, nFileSize, -1 ) == nFileSize )
                {
-                  OLE_XSIZE_HIMETRIC nWidth = 0;
-                  OLE_YSIZE_HIMETRIC nHeight = 0;
+                  IStream *  pStream;
+                  IPicture * pPicture = NULL;
 
-                  POINT lpp = { 0, 0 };
+                  if( CreateStreamOnHGlobal( hGlobal, FALSE, &pStream ) == S_OK && pStream )
+                     OleLoadPicture( pStream, nFileSize, TRUE, HB_ID_REF( IID_IPicture ), ( LPVOID * ) &pPicture );
 
-                  RECT rc_dummy;
-
-                  memset( &rc_dummy, 0, sizeof( rc_dummy ) );
-
-                  if( HB_VTBL( pPicture )->get_Width( HB_THIS_( pPicture ) &nWidth ) != S_OK )
-                     nWidth = 0;
-                  if( HB_VTBL( pPicture )->get_Height( HB_THIS_( pPicture ) &nHeight ) != S_OK )
-                     nHeight = 0;
-
-                  if( nWidth && nHeight )
+                  if( pPicture )
                   {
-                     int  xe, ye;
-                     HRGN hrgn1;
+                     OLE_XSIZE_HIMETRIC nWidth = 0;
+                     OLE_YSIZE_HIMETRIC nHeight = 0;
 
-                     if( bDoNotScale )
+                     POINT lpp = { 0, 0 };
+
+                     RECT rc_dummy;
+
+                     memset( &rc_dummy, 0, sizeof( rc_dummy ) );
+
+                     if( HB_VTBL( pPicture )->get_Width( HB_THIS_( pPicture ) &nWidth ) != S_OK )
+                        nWidth = 0;
+                     if( HB_VTBL( pPicture )->get_Height( HB_THIS_( pPicture ) &nHeight ) != S_OK )
+                        nHeight = 0;
+
+                     if( nWidth && nHeight )
                      {
-                        int iHt;
-                        int iWd;
-                        if( nHeight > nWidth )
+                        int  xe, ye;
+                        HRGN hrgn1;
+
+                        if( bDoNotScale )
                         {
-                           iWd = ( int ) ( ( double ) ht * nWidth / nHeight );
-                           iWd = HB_MIN( iWd, wd );
-                           iHt = ( int ) ( ( double ) iWd * nHeight / nWidth );
+                           int iHt;
+                           int iWd;
+                           if( nHeight > nWidth )
+                           {
+                              iWd = ( int ) ( ( double ) ht * nWidth / nHeight );
+                              iWd = HB_MIN( iWd, wd );
+                              iHt = ( int ) ( ( double ) iWd * nHeight / nWidth );
+                           }
+                           else
+                           {
+                              iHt = ( int ) ( ( double ) wd * nHeight / nWidth );
+                              iHt = HB_MIN( iHt, ht );
+                              iWd = ( int ) ( ( double ) iHt * nWidth / nHeight );
+                           }
+                           x  += abs( ( iWd - wd ) / 2 );
+                           y  += abs( ( iHt - ht ) / 2 );
+                           wd  = iWd;
+                           ht  = iHt;
                         }
-                        else
-                        {
-                           iHt = ( int ) ( ( double ) wd * nHeight / nWidth );
-                           iHt = HB_MIN( iHt, ht );
-                           iWd = ( int ) ( ( double ) iHt * nWidth / nHeight );
-                        }
-                        x  += abs( ( iWd - wd ) / 2 );
-                        y  += abs( ( iHt - ht ) / 2 );
-                        wd  = iWd;
-                        ht  = iHt;
+                        xe = x + wd - 1;
+                        ye = y + ht - 1;
+
+                        GetViewportOrgEx( hdc, &lpp );
+
+                        hrgn1 = CreateRectRgn( lpp.x + x, lpp.y + y, lpp.x + xe, lpp.y + ye );
+                        SelectClipRgn( hdc, hrgn1 );
+
+                        HB_VTBL( pPicture )->Render( HB_THIS_( pPicture ) hdc, x, y, wd, ht, 0, nHeight, nWidth, -nHeight, &rc_dummy );
+
+                        SelectClipRgn( hdc, NULL );
+                        DeleteObject( hrgn1 );
+
+                        bResult = HB_TRUE;
                      }
-                     xe = x + wd - 1;
-                     ye = y + ht - 1;
 
-                     GetViewportOrgEx( hdc, &lpp );
-
-                     hrgn1 = CreateRectRgn( lpp.x + x, lpp.y + y, lpp.x + xe, lpp.y + ye );
-                     SelectClipRgn( hdc, hrgn1 );
-
-                     HB_VTBL( pPicture )->Render( HB_THIS_( pPicture ) hdc, x, y, wd, ht, 0, nHeight, nWidth, -nHeight, &rc_dummy );
-
-                     SelectClipRgn( hdc, NULL );
-                     DeleteObject( hrgn1 );
-
-                     bResult = HB_TRUE;
+                     HB_VTBL( pPicture )->Release( HB_THIS( pPicture ) );
                   }
 
-                  HB_VTBL( pPicture )->Release( HB_THIS( pPicture ) );
+                  if( pStream )
+                     HB_VTBL( pStream )->Release( HB_THIS( pStream ) );
                }
-
-               if( pStream )
-                  HB_VTBL( pStream )->Release( HB_THIS( pStream ) );
+               GlobalFree( hGlobal );
             }
-            GlobalFree( hGlobal );
          }
+         hb_fileClose( pFile );
       }
-      CloseHandle( hFile );
    }
 #else
    HB_SYMBOL_UNUSED( hdc );
@@ -414,7 +431,7 @@ static HB_BOOL hb_wvt_DrawImage( HDC hdc, int x, int y, int wd, int ht, LPCTSTR 
    HB_SYMBOL_UNUSED( y );
    HB_SYMBOL_UNUSED( wd );
    HB_SYMBOL_UNUSED( ht );
-   HB_SYMBOL_UNUSED( lpImage );
+   HB_SYMBOL_UNUSED( pszImage );
    HB_SYMBOL_UNUSED( bDoNotScale );
 #endif
 
@@ -843,12 +860,8 @@ HB_FUNC( WVT_DRAWBOXGROUPRAISED )
 /* wvg_DrawImage( hdc, nLeft, nTop, nWidth, nHeight, cImage, lDoNotScale ) in Pixels */
 HB_FUNC( WVG_DRAWIMAGE )
 {
-   void * hImage;
-
    hb_retl( hb_wvt_DrawImage( hbwapi_par_raw_HDC( 1 ), hb_parni( 2 ), hb_parni( 3 ),
-                              hb_parni( 4 ), hb_parni( 5 ), HB_PARSTR( 6, &hImage, NULL ), hb_parl( 7 ) ) );
-
-   hb_strfree( hImage );
+                              hb_parni( 4 ), hb_parni( 5 ), hb_parc( 6 ), hb_parl( 7 ) ) );
 }
 
 /* wvt_DrawImage( nTop, nLeft, nBottom, nRight, cImage/nPictureSlot, aPxlOff, lDoNotScale ) */
@@ -874,15 +887,10 @@ HB_FUNC( WVT_DRAWIMAGE )
          hb_wvt_gtRenderPicture( iLeft, iTop, ( iRight - iLeft ) + 1, ( iBottom - iTop ) + 1, _s->pGUI->pPicture[ hb_parni( 5 ) - 1 ], hb_parl( 7 ) );
       else
       {
-         void * hImage;
-         hb_wvt_DrawImage( _s->hdc, iLeft, iTop, ( iRight - iLeft ) + 1, ( iBottom - iTop ) + 1, HB_PARSTR( 5, &hImage, NULL ), hb_parl( 7 ) );
-         hb_strfree( hImage );
+         hb_wvt_DrawImage( _s->hdc, iLeft, iTop, ( iRight - iLeft ) + 1, ( iBottom - iTop ) + 1, hb_parc( 5 ), hb_parl( 7 ) );
          #if defined( __SETGUI__ )
          if( _s->bGui )
-         {
-            hb_wvt_DrawImage( _s->hGuiDC, iLeft, iTop, ( iRight - iLeft ) + 1, ( iBottom - iTop ) + 1, HB_PARSTR( 5, &hImage, NULL ), hb_parl( 7 ) );
-            hb_strfree( hImage );
-         }
+            hb_wvt_DrawImage( _s->hGuiDC, iLeft, iTop, ( iRight - iLeft ) + 1, ( iBottom - iTop ) + 1, hb_parc( 5 ), hb_parl( 7 ) );
          #endif
       }
 
@@ -1998,14 +2006,9 @@ HB_FUNC( WVT_DRAWBUTTON )
          }
          else
          {
-            void * hImage;
-            hb_wvt_DrawImage( _s->hdc, iLeft + 4, iTop + 4, iImageWidth, iImageHeight, HB_PARSTR( 6, &hImage, NULL ), FALSE );
-            hb_strfree( hImage );
+            hb_wvt_DrawImage( _s->hdc, iLeft + 4, iTop + 4, iImageWidth, iImageHeight, hb_parc( 6 ), FALSE );
             if( _s->bGui )
-            {
-               hb_wvt_DrawImage( _s->hGuiDC, iLeft + 4, iTop + 4, iImageWidth, iImageHeight, HB_PARSTR( 6, &hImage, NULL ), FALSE );
-               hb_strfree( hImage );
-            }
+               hb_wvt_DrawImage( _s->hGuiDC, iLeft + 4, iTop + 4, iImageWidth, iImageHeight, hb_parc( 6 ), FALSE );
          }
       }
 #endif
@@ -2576,15 +2579,10 @@ HB_FUNC( WVT_DRAWPROGRESSBAR )
 
       if( HB_ISCHAR( 9 ) )
       {
-         void * hImage;
-         hb_wvt_DrawImage( _s->hdc, rc.left, rc.top, rc.right - rc.left + 1, rc.bottom - rc.top + 1, HB_PARSTR( 9, &hImage, NULL ), FALSE );
-         hb_strfree( hImage );
+         hb_wvt_DrawImage( _s->hdc, rc.left, rc.top, rc.right - rc.left + 1, rc.bottom - rc.top + 1, hb_parc( 9 ), FALSE );
          #if defined( __SETGUI__ )
          if( _s->bGui )
-         {
-            hb_wvt_DrawImage( _s->hGuiDC, rc.left, rc.top, rc.right - rc.left + 1, rc.bottom - rc.top + 1, HB_PARSTR( 9, &hImage, NULL ), FALSE );
-            hb_strfree( hImage );
-         }
+            hb_wvt_DrawImage( _s->hGuiDC, rc.left, rc.top, rc.right - rc.left + 1, rc.bottom - rc.top + 1, hb_parc( 9 ), FALSE );
          #endif
       }
       else
@@ -2661,11 +2659,7 @@ HB_FUNC( WVT_LOADPICTURE )
 
       if( iSlot >= 0 && iSlot < ( int ) HB_SIZEOFARRAY( _s->pGUI->pPicture ) )
       {
-         void * hImage;
-
-         IPicture * pPicture = hb_wvt_gtLoadPicture( HB_PARSTR( 2, &hImage, NULL ) );
-
-         hb_strfree( hImage );
+         IPicture * pPicture = hb_wvt_gtLoadPicture( hb_parc( 2 ) );
 
          if( pPicture )
          {
@@ -2695,9 +2689,7 @@ HB_FUNC( WVT_DESTROYPICTURE )
 HB_FUNC( WVT_LOADPICTUREEX )
 {
 #if ! defined( HB_OS_WIN_CE )
-   void * hImage;
-   hbwapi_ret_raw_HANDLE( hb_wvt_gtLoadPicture( HB_PARSTR( 1, &hImage, NULL ) ) );
-   hb_strfree( hImage );
+   hbwapi_ret_raw_HANDLE( hb_wvt_gtLoadPicture( hb_parc( 1 ) ) );
 #else
    hbwapi_ret_raw_HANDLE( 0 );
 #endif

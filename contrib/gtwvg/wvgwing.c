@@ -100,39 +100,35 @@
 
 /* Bitmap Management Function. Courtesy GTWVW */
 
-static BITMAPINFO * PackedDibLoad( LPCTSTR szFileName )
+static BITMAPINFO * PackedDibLoad( const char * pszFileName )
 {
    BITMAPINFO * pbmi = NULL;
 
-   HANDLE hFile = CreateFile( szFileName, GENERIC_READ, FILE_SHARE_READ, NULL,
-                              OPEN_EXISTING, FILE_FLAG_SEQUENTIAL_SCAN, NULL );
-
-   if( hFile != INVALID_HANDLE_VALUE )
+   PHB_FILE pFile = hb_fileExtOpen( pszFileName, NULL,
+                                    FO_READ | FO_SHARED | FO_PRIVATE |
+                                    FXO_DEFAULTS | FXO_SHARELOCK,
+                                    NULL, NULL );
+   if( pFile )
    {
       BITMAPFILEHEADER bmfh;
-      DWORD            dwBytesRead;
 
-      HB_BOOL bSuccess = ReadFile( hFile, &bmfh, sizeof( bmfh ), &dwBytesRead, NULL );
-
-      if( bSuccess && dwBytesRead == sizeof( bmfh ) &&
+      if( hb_fileRead( pFile, &bmfh, sizeof( bmfh ), -1 ) == sizeof( bmfh ) &&
           bmfh.bfType == 0x4d42 /* "BM" */ &&
           bmfh.bfSize > sizeof( bmfh ) &&
           bmfh.bfSize <= ( 32 * 1024 * 1024 ) /* an arbitrary size limit */ )
       {
-         DWORD dwPackedDibSize = bmfh.bfSize - sizeof( bmfh );
+         HB_SIZE nPackedDibSize = bmfh.bfSize - sizeof( bmfh );
 
-         pbmi = ( BITMAPINFO * ) hb_xgrab( dwPackedDibSize );
+         pbmi = ( BITMAPINFO * ) hb_xgrab( nPackedDibSize );
 
-         bSuccess = ReadFile( hFile, pbmi, dwPackedDibSize, &dwBytesRead, NULL );
-
-         if( ! bSuccess || dwBytesRead != dwPackedDibSize )
+         if( hb_fileRead( pFile, pbmi, nPackedDibSize, -1 ) != nPackedDibSize )
          {
             hb_xfree( pbmi );
             pbmi = NULL;
          }
       }
 
-      CloseHandle( hFile );
+      hb_fileClose( pFile );
    }
 
    return pbmi;
@@ -212,7 +208,8 @@ static BYTE * PackedDibGetBitsPtr( BITMAPINFO * pPackedDib )
 }
 #endif
 
-static HBITMAP hPrepareBitmap( LPCTSTR szBitmap, UINT uiBitmap,
+static HBITMAP hPrepareBitmap( LPCTSTR szBitmap,
+                               const char * pszFileName, UINT uiBitmap,
                                int iExpWidth, int iExpHeight,
                                HB_BOOL bMap3Dcolors,
                                HWND hCtrl,
@@ -229,7 +226,7 @@ static HBITMAP hPrepareBitmap( LPCTSTR szBitmap, UINT uiBitmap,
             BITMAPINFO * pPackedDib = NULL;
 
             if( ! bMap3Dcolors )
-               pPackedDib = PackedDibLoad( szBitmap );
+               pPackedDib = PackedDibLoad( pszFileName );
 
             if( pPackedDib || bMap3Dcolors )
             {
@@ -346,7 +343,7 @@ HB_FUNC( WVG_PREPAREBITMAPFROMFILE )
 {
    void *  hText;
 
-   hb_retptr( ( void * ) hPrepareBitmap( HB_PARSTR( 1, &hText, NULL ), 0, hb_parni( 2 ), hb_parni( 3 ), hb_parl( 4 ),
+   hb_retptr( ( void * ) hPrepareBitmap( HB_PARSTR( 1, &hText, NULL ), hb_parcx( 1 ), 0, hb_parni( 2 ), hb_parni( 3 ), hb_parl( 4 ),
                                          hbwapi_par_raw_HWND( 5 ), 0 ) );
 
    hb_strfree( hText );
@@ -354,7 +351,7 @@ HB_FUNC( WVG_PREPAREBITMAPFROMFILE )
 
 HB_FUNC( WVG_PREPAREBITMAPFROMRESOURCEID )
 {
-   hb_retptr( ( void * ) hPrepareBitmap( NULL, hb_parni( 1 ), hb_parni( 2 ), hb_parni( 3 ), hb_parl( 4 ),
+   hb_retptr( ( void * ) hPrepareBitmap( NULL, NULL, hb_parni( 1 ), hb_parni( 2 ), hb_parni( 3 ), hb_parl( 4 ),
                                          hbwapi_par_raw_HWND( 5 ), 2 ) );
 }
 
@@ -362,7 +359,7 @@ HB_FUNC( WVG_PREPAREBITMAPFROMRESOURCENAME )
 {
    void * hText;
 
-   hb_retptr( ( void * ) hPrepareBitmap( HB_PARSTR( 1, &hText, NULL ), 0, hb_parni( 2 ), hb_parni( 3 ), hb_parl( 4 ),
+   hb_retptr( ( void * ) hPrepareBitmap( HB_PARSTR( 1, &hText, NULL ), NULL, 0, hb_parni( 2 ), hb_parni( 3 ), hb_parl( 4 ),
                                          hbwapi_par_raw_HWND( 5 ), 1 ) );
 
    hb_strfree( hText );

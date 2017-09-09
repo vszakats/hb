@@ -304,10 +304,8 @@ typedef struct
 #define PHB_GTWVT  PHB_GTWVG
 
 extern HB_EXPORT POINT         hb_wvt_gtGetXYFromColRow( int col, int row );
-#if ! defined( HB_OS_WIN_CE )
-extern HB_EXPORT IPicture *    hb_wvt_gtLoadPicture( LPCTSTR image );
+extern HB_EXPORT IPicture *    hb_wvt_gtLoadPicture( const char * pszFileName );
 extern HB_EXPORT IPicture *    hb_wvt_gtLoadPictureFromResource( LPCTSTR resource, LPCTSTR section );
-#endif
 extern HB_EXPORT void          hb_wvt_GetStringAttrib( int top, int left, int bottom, int right, HB_BYTE * sBuffer, HB_BYTE * sAttrib );
 extern HB_EXPORT void          hb_wvt_PutStringAttrib( int top, int left, int bottom, int right, HB_BYTE * sBuffer, HB_BYTE * sAttrib );
 

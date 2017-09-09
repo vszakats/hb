@@ -219,9 +219,7 @@ HB_FUNC( WVG_SETGOBJDATA )
                   }
                   else
                   {
-                     void * hPic;
-                     pPicture = hb_wvt_gtLoadPicture( HB_PARSTR( 3, &hPic, NULL ) );
-                     hb_strfree( hPic );
+                     pPicture = hb_wvt_gtLoadPicture( hb_parc( 3 ) );
                      if( ! pPicture )
                      {
                         void * hRes;
@@ -1454,9 +1452,7 @@ HB_FUNC( WVG_IMAGE )
          }
          case GOBJ_IMAGESOURCE_FILE:
          {
-            void * hPic;
-            pPicture = hb_wvt_gtLoadPicture( HB_PARSTR( 7, &hPic, NULL ) );
-            hb_strfree( hPic );
+            pPicture = hb_wvt_gtLoadPicture( hb_parc( 7 ) );
             break;
          }
       }
