@@ -341,12 +341,8 @@ static HBITMAP hPrepareBitmap( LPCTSTR szBitmap,
 
 HB_FUNC( WVG_PREPAREBITMAPFROMFILE )
 {
-   void *  hText;
-
-   hb_retptr( ( void * ) hPrepareBitmap( HB_PARSTR( 1, &hText, NULL ), hb_parcx( 1 ), 0, hb_parni( 2 ), hb_parni( 3 ), hb_parl( 4 ),
+   hb_retptr( ( void * ) hPrepareBitmap( NULL, hb_parcx( 1 ), 0, hb_parni( 2 ), hb_parni( 3 ), hb_parl( 4 ),
                                          hbwapi_par_raw_HWND( 5 ), 0 ) );
-
-   hb_strfree( hText );
 }
 
 HB_FUNC( WVG_PREPAREBITMAPFROMRESOURCEID )
