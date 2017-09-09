@@ -37,16 +37,21 @@ PROCEDURE Main()
       " * (or visit their website at https://www.gnu.org/licenses/)." + hb_eol()
 
    LOCAL cGPH1Old := ;
-      " * along with this software; see the file COPYING.txt.  If not, write to" + hb_eol() + ;
-      " * the Free Software Foundation, Inc., 59 Temple Place, Suite 330," + hb_eol() + ;
-      " * Boston, MA 02111-1307 USA (or visit the web site https://www.gnu.org/)." + hb_eol()
-
-   LOCAL cGPH2Old := ;
       "along with this software; see the file LICENSE.txt.  If not, write to" + hb_eol() + ;
       "the Free Software Foundation, Inc., 59 Temple Place, Suite 330," + hb_eol() + ;
       "Boston, MA 02111-1307 USA (or visit the website https://www.gnu.org/)." + hb_eol()
 
-   LOCAL cGPHNew := ;
+   LOCAL cGPH1Old := ;
+      "along with this program; see the file LICENSE.txt.  If not, write to" + hb_eol() + ;
+      "the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor," + hb_eol() + ;
+      "Boston, MA 02110-1301 USA (or visit https://www.gnu.org/licenses/)." + hb_eol()
+
+   LOCAL cGPH2Old := ;
+      " * along with this software; see the file COPYING.txt.  If not, write to" + hb_eol() + ;
+      " * the Free Software Foundation, Inc., 59 Temple Place, Suite 330," + hb_eol() + ;
+      " * Boston, MA 02111-1307 USA (or visit the web site https://www.gnu.org/)." + hb_eol()
+
+   LOCAL cGPH2New := ;
       " * along with this program; see the file LICENSE.txt.  If not, write to" + hb_eol() + ;
       " * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor," + hb_eol() + ;
       " * Boston, MA 02110-1301 USA (or visit https://www.gnu.org/licenses/)." + hb_eol()
@@ -54,8 +59,8 @@ PROCEDURE Main()
    LOCAL hReplace := { ;
       cGPL1Old => cGPL1New, ;
       cGPL2Old => cGPL2New, ;
-      cGPH1Old => cGPHNew, ;
-      cGPH2Old => cGPHNew }
+      cGPH1Old => cGPH1New, ;
+      cGPH2Old => cGPH2New }
 
    FOR EACH aFile IN hb_DirScan( ".", hb_osFileMask() )
 
