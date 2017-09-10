@@ -208,8 +208,8 @@ static BYTE * PackedDibGetBitsPtr( BITMAPINFO * pPackedDib )
 }
 #endif
 
-static HBITMAP hPrepareBitmap( LPCTSTR szBitmap,
-                               const char * pszFileName, UINT uiBitmap,
+static HBITMAP hPrepareBitmap( const char * pszFileName,
+                               LPCTSTR szBitmap, UINT uiBitmap,
                                int iExpWidth, int iExpHeight,
                                HB_BOOL bMap3Dcolors,
                                HWND hCtrl )
@@ -272,7 +272,6 @@ static HBITMAP hPrepareBitmap( LPCTSTR szBitmap,
          {
             HDC     hdcSource, hdcTarget;
             HBITMAP hBitmap2;
-            HB_BOOL bResult;
 
             hdcSource = CreateCompatibleDC( hdc );
             SelectObject( hdcSource, hBitmap );
@@ -281,7 +280,7 @@ static HBITMAP hPrepareBitmap( LPCTSTR szBitmap,
             hBitmap2  = CreateCompatibleBitmap( hdcSource, iExpWidth, iExpHeight );
             SelectObject( hdcTarget, hBitmap2 );
 
-            bResult = StretchBlt(
+            if( StretchBlt(
                hdcTarget,   /* handle to destination DC */
                0,           /* x-coord of destination upper-left corner */
                0,           /* y-coord of destination upper-left corner */
@@ -293,15 +292,13 @@ static HBITMAP hPrepareBitmap( LPCTSTR szBitmap,
                iWidth,      /* width of source rectangle */
                iHeight,     /* height of source rectangle */
                SRCCOPY      /* raster operation code */
-               );
-
-            if( ! bResult )
-               DeleteObject( hBitmap2 );
-            else
+               ) )
             {
                DeleteObject( hBitmap );
                hBitmap = hBitmap2;
             }
+            else
+               DeleteObject( hBitmap2 );
 
             DeleteDC( hdcSource );
             DeleteDC( hdcTarget );
@@ -332,13 +329,8 @@ static HBITMAP hPrepareBitmap( LPCTSTR szBitmap,
 
 HB_FUNC( WVG_PREPAREBITMAPFROMFILE )
 {
-   hb_retptr( ( void * ) hPrepareBitmap( NULL, hb_parcx( 1 ), 0, hb_parni( 2 ), hb_parni( 3 ), hb_parl( 4 ),
-                                         hbwapi_par_raw_HWND( 5 ) ) );
-}
-
-HB_FUNC( WVG_PREPAREBITMAPFROMRESOURCEID )
-{
-   hb_retptr( ( void * ) hPrepareBitmap( NULL, NULL, hb_parni( 1 ), hb_parni( 2 ), hb_parni( 3 ), hb_parl( 4 ),
+   hb_retptr( ( void * ) hPrepareBitmap( hb_parcx( 1 ), NULL, 0,
+                                         hb_parni( 2 ), hb_parni( 3 ), hb_parl( 4 ),
                                          hbwapi_par_raw_HWND( 5 ) ) );
 }
 
@@ -346,10 +338,18 @@ HB_FUNC( WVG_PREPAREBITMAPFROMRESOURCENAME )
 {
    void * hText;
 
-   hb_retptr( ( void * ) hPrepareBitmap( HB_PARSTRDEF( 1, &hText, NULL ), NULL, 0, hb_parni( 2 ), hb_parni( 3 ), hb_parl( 4 ),
+   hb_retptr( ( void * ) hPrepareBitmap( NULL, HB_PARSTRDEF( 1, &hText, NULL ), 0,
+                                         hb_parni( 2 ), hb_parni( 3 ), hb_parl( 4 ),
                                          hbwapi_par_raw_HWND( 5 ) ) );
 
    hb_strfree( hText );
+}
+
+HB_FUNC( WVG_PREPAREBITMAPFROMRESOURCEID )
+{
+   hb_retptr( ( void * ) hPrepareBitmap( NULL, NULL, hb_parni( 1 ),
+                                         hb_parni( 2 ), hb_parni( 3 ), hb_parl( 4 ),
+                                         hbwapi_par_raw_HWND( 5 ) ) );
 }
 
 HB_FUNC( WVG_STATUSBARCREATEPANEL )
