@@ -208,148 +208,126 @@ static BYTE * PackedDibGetBitsPtr( BITMAPINFO * pPackedDib )
 }
 #endif
 
-static HBITMAP hPrepareBitmap( const char * pszFileName,
-                               LPCTSTR szBitmap, UINT uiBitmap,
-                               int iExpWidth, int iExpHeight,
-                               HB_BOOL bMap3Dcolors,
-                               HWND hCtrl )
+HB_FUNC( WVG_PREPAREBITMAPFROMFILE )
 {
    HBITMAP hBitmap = NULL;
 
-   if( pszFileName )
+   HB_BOOL fMap3Dcolors = hb_parl( 4 );
+   BITMAPINFO * pPackedDib = fMap3Dcolors ? NULL : PackedDibLoad( hb_parcx( 1 ) /* szFileName */ );
+
+   if( pPackedDib || fMap3Dcolors )
    {
-      BITMAPINFO * pPackedDib = NULL;
+      int iWidth, iExpWidth = hb_parni( 2 );
+      int iHeight, iExpHeight = hb_parni( 3 );
+      HWND hCtrl = hbwapi_par_raw_HWND( 5 );
 
-      if( ! bMap3Dcolors )
-         pPackedDib = PackedDibLoad( pszFileName );
+      HDC hdc = GetDC( hCtrl );
 
-      if( pPackedDib || bMap3Dcolors )
+      if( fMap3Dcolors )
       {
-         int iWidth, iHeight;
+         void * hString;
 
-         HDC hdc = GetDC( hCtrl );
+         hBitmap = ( HBITMAP ) LoadImage( NULL,
+                                          HB_PARSTRDEF( 1, &hString, NULL ),
+                                          IMAGE_BITMAP,
+                                          iExpWidth,
+                                          iExpHeight,
+                                          LR_LOADFROMFILE | LR_LOADMAP3DCOLORS );
 
-         if( ! bMap3Dcolors )
-         {
+         hb_strfree( hString );
+
+         iWidth  = iExpWidth;
+         iHeight = iExpHeight;
+      }
 #if ! defined( HB_OS_WIN_CE )
-            hBitmap = CreateDIBitmap( hdc,
-                                      ( PBITMAPINFOHEADER ) pPackedDib,
-                                      CBM_INIT,
-                                      PackedDibGetBitsPtr( pPackedDib ),
-                                      pPackedDib,
-                                      DIB_RGB_COLORS );
-            if( hBitmap == NULL )
-               return NULL;
+      else
+      {
+         hBitmap = CreateDIBitmap( hdc,
+                                   ( PBITMAPINFOHEADER ) pPackedDib,
+                                   CBM_INIT,
+                                   PackedDibGetBitsPtr( pPackedDib ),
+                                   pPackedDib,
+                                   DIB_RGB_COLORS );
 
-            iWidth  = PackedDibGetWidth( pPackedDib );
-            iHeight = PackedDibGetHeight( pPackedDib );
-#else
-            return NULL;
+         iWidth  = PackedDibGetWidth( pPackedDib );
+         iHeight = PackedDibGetHeight( pPackedDib );
+      }
 #endif
+
+      if( iExpWidth == 0 && iExpHeight == 0 )
+      {
+         iWidth  = iExpWidth;
+         iHeight = iExpHeight;
+      }
+
+      if( hBitmap && ( iExpWidth != iWidth || iExpHeight != iHeight ) )
+      {
+         HDC     hdcSource, hdcTarget;
+         HBITMAP hBitmap2;
+
+         hdcSource = CreateCompatibleDC( hdc );
+         SelectObject( hdcSource, hBitmap );
+
+         hdcTarget = CreateCompatibleDC( hdc );
+         hBitmap2  = CreateCompatibleBitmap( hdcSource, iExpWidth, iExpHeight );
+         SelectObject( hdcTarget, hBitmap2 );
+
+         if( StretchBlt(
+            hdcTarget,   /* handle to destination DC */
+            0,           /* x-coord of destination upper-left corner */
+            0,           /* y-coord of destination upper-left corner */
+            iExpWidth,   /* width of destination rectangle */
+            iExpHeight,  /* height of destination rectangle */
+            hdcSource,   /* handle to source DC */
+            0,           /* x-coord of source upper-left corner */
+            0,           /* y-coord of source upper-left corner */
+            iWidth,      /* width of source rectangle */
+            iHeight,     /* height of source rectangle */
+            SRCCOPY      /* raster operation code */
+            ) )
+         {
+            DeleteObject( hBitmap );
+            hBitmap = hBitmap2;
          }
          else
-         {
-            hBitmap = ( HBITMAP ) LoadImage( NULL,
-                                             szBitmap,
-                                             IMAGE_BITMAP,
-                                             iExpWidth,
-                                             iExpHeight,
-                                             LR_LOADFROMFILE | LR_LOADMAP3DCOLORS );
-            if( hBitmap == NULL )
-               return NULL;
+            DeleteObject( hBitmap2 );
 
-            iWidth  = iExpWidth;
-            iHeight = iExpHeight;
-         }
-
-         if( iExpWidth == 0 && iExpHeight == 0 )
-         {
-            iWidth  = iExpWidth;
-            iHeight = iExpHeight;
-         }
-
-         if( iExpWidth != iWidth || iExpHeight != iHeight )
-         {
-            HDC     hdcSource, hdcTarget;
-            HBITMAP hBitmap2;
-
-            hdcSource = CreateCompatibleDC( hdc );
-            SelectObject( hdcSource, hBitmap );
-
-            hdcTarget = CreateCompatibleDC( hdc );
-            hBitmap2  = CreateCompatibleBitmap( hdcSource, iExpWidth, iExpHeight );
-            SelectObject( hdcTarget, hBitmap2 );
-
-            if( StretchBlt(
-               hdcTarget,   /* handle to destination DC */
-               0,           /* x-coord of destination upper-left corner */
-               0,           /* y-coord of destination upper-left corner */
-               iExpWidth,   /* width of destination rectangle */
-               iExpHeight,  /* height of destination rectangle */
-               hdcSource,   /* handle to source DC */
-               0,           /* x-coord of source upper-left corner */
-               0,           /* y-coord of source upper-left corner */
-               iWidth,      /* width of source rectangle */
-               iHeight,     /* height of source rectangle */
-               SRCCOPY      /* raster operation code */
-               ) )
-            {
-               DeleteObject( hBitmap );
-               hBitmap = hBitmap2;
-            }
-            else
-               DeleteObject( hBitmap2 );
-
-            DeleteDC( hdcSource );
-            DeleteDC( hdcTarget );
-         }
-
-         ReleaseDC( hCtrl, hdc );
-         if( pPackedDib )
-            hb_xfree( pPackedDib );
+         DeleteDC( hdcSource );
+         DeleteDC( hdcTarget );
       }
-   }
-   else if( szBitmap )
-   {
-      hBitmap = ( HBITMAP ) LoadImage( GetModuleHandle( NULL ), szBitmap,
-         IMAGE_BITMAP, iExpWidth, iExpHeight, bMap3Dcolors ? LR_LOADMAP3DCOLORS : LR_DEFAULTCOLOR );
-   }
-   else
-   {
-      char szResname[ MAX_PATH + 1 ];
 
-      hb_snprintf( szResname, sizeof( szResname ), "?%u", uiBitmap );
+      ReleaseDC( hCtrl, hdc );
 
-      hBitmap = ( HBITMAP ) LoadImage( GetModuleHandle( NULL ), MAKEINTRESOURCE( uiBitmap ),
-         IMAGE_BITMAP, iExpWidth, iExpHeight, bMap3Dcolors ? LR_LOADMAP3DCOLORS : LR_DEFAULTCOLOR );
+      if( pPackedDib )
+         hb_xfree( pPackedDib );
    }
 
-   return hBitmap;
+   hb_retptr( ( void * ) hBitmap );
 }
 
-HB_FUNC( WVG_PREPAREBITMAPFROMFILE )
+static void s_PrepareBitmapFromResource( void )  /* TODO: Convert this to a wapi_LoadImage() wrapper */
 {
-   hb_retptr( ( void * ) hPrepareBitmap( hb_parcx( 1 ), NULL, 0,
-                                         hb_parni( 2 ), hb_parni( 3 ), hb_parl( 4 ),
-                                         hbwapi_par_raw_HWND( 5 ) ) );
+   void * hString = NULL;
+
+   hb_retptr( ( void * ) ( HBITMAP ) LoadImage(
+      GetModuleHandle( NULL ),
+      HB_ISNUM( 1 ) ? MAKEINTRESOURCE( ( INT ) hb_parni( 1 ) ) : HB_PARSTRDEF( 1, &hString, NULL ),
+      IMAGE_BITMAP,
+      hb_parni( 2 ) /* iExpWidth */,
+      hb_parni( 3 ) /* iExpHeight */,
+      hb_parl( 4 ) /* fMap3Dcolors */ ? LR_LOADMAP3DCOLORS : LR_DEFAULTCOLOR ) );
+
+   hb_strfree( hString );
 }
 
 HB_FUNC( WVG_PREPAREBITMAPFROMRESOURCENAME )
 {
-   void * hText;
-
-   hb_retptr( ( void * ) hPrepareBitmap( NULL, HB_PARSTRDEF( 1, &hText, NULL ), 0,
-                                         hb_parni( 2 ), hb_parni( 3 ), hb_parl( 4 ),
-                                         hbwapi_par_raw_HWND( 5 ) ) );
-
-   hb_strfree( hText );
+   s_PrepareBitmapFromResource();
 }
 
 HB_FUNC( WVG_PREPAREBITMAPFROMRESOURCEID )
 {
-   hb_retptr( ( void * ) hPrepareBitmap( NULL, NULL, hb_parni( 1 ),
-                                         hb_parni( 2 ), hb_parni( 3 ), hb_parl( 4 ),
-                                         hbwapi_par_raw_HWND( 5 ) ) );
+   s_PrepareBitmapFromResource();
 }
 
 HB_FUNC( WVG_STATUSBARCREATEPANEL )
