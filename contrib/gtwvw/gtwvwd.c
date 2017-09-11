@@ -1819,7 +1819,6 @@ BOOL CALLBACK hb_gt_wvw_DlgProcModal( HWND hDlg, UINT message, WPARAM wParam, LP
             if( hb_vmRequestReenter() )
             {
                hb_vmPushDynSym( ( PHB_DYNS ) pFunc );
-
                hb_vmPushNil();
                hbwapi_vmPush_HANDLE( hDlg );
                hb_vmPushNumInt( message );
