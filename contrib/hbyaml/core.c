@@ -116,20 +116,20 @@ static void s_token_ret( yaml_token_t * token )
 
    switch( token->type )
    {
-      case YAML_NO_TOKEN: /* fallthrough */
-      case YAML_STREAM_END_TOKEN: /* fallthrough */
-      case YAML_DOCUMENT_START_TOKEN: /* fallthrough */
-      case YAML_DOCUMENT_END_TOKEN: /* fallthrough */
-      case YAML_BLOCK_SEQUENCE_START_TOKEN: /* fallthrough */
-      case YAML_BLOCK_MAPPING_START_TOKEN: /* fallthrough */
-      case YAML_BLOCK_END_TOKEN: /* fallthrough */
-      case YAML_FLOW_SEQUENCE_START_TOKEN: /* fallthrough */
-      case YAML_FLOW_SEQUENCE_END_TOKEN: /* fallthrough */
-      case YAML_FLOW_MAPPING_START_TOKEN: /* fallthrough */
-      case YAML_FLOW_MAPPING_END_TOKEN: /* fallthrough */
-      case YAML_BLOCK_ENTRY_TOKEN: /* fallthrough */
-      case YAML_FLOW_ENTRY_TOKEN: /* fallthrough */
-      case YAML_KEY_TOKEN: /* fallthrough */
+      case YAML_NO_TOKEN:
+      case YAML_STREAM_END_TOKEN:
+      case YAML_DOCUMENT_START_TOKEN:
+      case YAML_DOCUMENT_END_TOKEN:
+      case YAML_BLOCK_SEQUENCE_START_TOKEN:
+      case YAML_BLOCK_MAPPING_START_TOKEN:
+      case YAML_BLOCK_END_TOKEN:
+      case YAML_FLOW_SEQUENCE_START_TOKEN:
+      case YAML_FLOW_SEQUENCE_END_TOKEN:
+      case YAML_FLOW_MAPPING_START_TOKEN:
+      case YAML_FLOW_MAPPING_END_TOKEN:
+      case YAML_BLOCK_ENTRY_TOKEN:
+      case YAML_FLOW_ENTRY_TOKEN:
+      case YAML_KEY_TOKEN:
       case YAML_VALUE_TOKEN:
          break;
       case YAML_STREAM_START_TOKEN:
@@ -220,10 +220,10 @@ static void s_event_ret( yaml_event_t * event )
 
    switch( event->type )
    {
-      case YAML_NO_EVENT: /* fallthrough */
-      case YAML_STREAM_END_EVENT: /* fallthrough */
-      case YAML_SEQUENCE_END_EVENT: /* fallthrough */
-      case YAML_MAPPING_END_EVENT: /* fallthrough */
+      case YAML_NO_EVENT:
+      case YAML_STREAM_END_EVENT:
+      case YAML_SEQUENCE_END_EVENT:
+      case YAML_MAPPING_END_EVENT:
          break;
       case YAML_STREAM_START_EVENT:
          hb_hashAdd( hReturn, hb_itemPutCConst( pKey, "encoding" ), hb_itemPutNI( pVal, ( int ) event->data.stream_start.encoding ) );

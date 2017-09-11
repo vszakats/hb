@@ -1225,7 +1225,7 @@ HB_FUNC( CURL_EASY_SETOPT )
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_POST, HB_CURL_OPT_BOOL( 3 ) );
                break;
 #if LIBCURL_VERSION_NUM >= 0x071101
-            case HB_CURLOPT_POSTFIELDS: /* fallthrough */
+            case HB_CURLOPT_POSTFIELDS:
             case HB_CURLOPT_COPYPOSTFIELDS:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_COPYPOSTFIELDS, hb_parc( 3 ) );
                break;
