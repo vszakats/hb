@@ -92,7 +92,7 @@
 
 #if defined( HB_OS_WIN_CE )
    #ifndef LR_LOADMAP3DCOLORS
-   #define LR_LOADMAP3DCOLORS   0
+   #define LR_LOADMAP3DCOLORS  0
    #endif
 #endif
 
@@ -163,11 +163,9 @@ static int PackedDibGetInfoHeaderSize( BITMAPINFO * pPackedDib )
 {
    if( pPackedDib->bmiHeader.biSize == sizeof( BITMAPCOREHEADER ) )
       return ( ( PBITMAPCOREINFO ) pPackedDib )->bmciHeader.bcSize;
-
    else if( pPackedDib->bmiHeader.biSize == sizeof( BITMAPINFOHEADER ) )
       return pPackedDib->bmiHeader.biSize +
              ( pPackedDib->bmiHeader.biCompression == BI_BITFIELDS ? 12 : 0 );
-
    else
       return pPackedDib->bmiHeader.biSize;
 }
@@ -182,9 +180,7 @@ static int PackedDibGetColorsUsed( BITMAPINFO * pPackedDib )
 
 static int PackedDibGetNumColors( BITMAPINFO * pPackedDib )
 {
-   int iNumColors;
-
-   iNumColors = PackedDibGetColorsUsed( pPackedDib );
+   int iNumColors = PackedDibGetColorsUsed( pPackedDib );
 
    if( iNumColors == 0 && PackedDibGetBitCount( pPackedDib ) < 16 )
       iNumColors = 1 << PackedDibGetBitCount( pPackedDib );
@@ -316,12 +312,10 @@ HB_FUNC( WVG_STATUSBARCREATEPANEL )
          case 0:
          {
             int  ptArray[ WIN_STATUSBAR_MAX_PARTS ];
-            int  iParts;
             RECT rc = { 0, 0, 0, 0 };
             int  n;
             int  width;
-
-            iParts = ( int ) SendMessage( hWndSB, SB_GETPARTS, ( WPARAM ) HB_SIZEOFARRAY( ptArray ) - 1, ( LPARAM ) ( LPINT ) ptArray );
+            int  iParts = ( int ) SendMessage( hWndSB, SB_GETPARTS, ( WPARAM ) HB_SIZEOFARRAY( ptArray ) - 1, ( LPARAM ) ( LPINT ) ptArray );
 
             GetClientRect( hWndSB, &rc );
             width = ( int ) ( rc.right / ( iParts + 1 ) );
@@ -623,10 +617,7 @@ static UINT_PTR CALLBACK WvgDialogProcChooseFont( HWND hwnd, UINT msg, WPARAM wP
       }
    }
 
-   if( binit )
-      return 1;
-   else
-      return bret;
+   return binit ? 1 : bret;
 }
 #endif
 
@@ -818,8 +809,7 @@ HB_FUNC( WVG_ADDTOOLBARBUTTON )
       case 1:  /* button from image */
       {
          void * hCaption;
-         /* set string */
-         int iNewString = ( int ) SendMessage( hWndTB, TB_ADDSTRING, 0, ( LPARAM ) HB_PARSTR( 3, &hCaption, NULL ) );
+         int iNewString = ( int ) SendMessage( hWndTB, TB_ADDSTRING, 0, ( LPARAM ) HB_PARSTR( 3, &hCaption, NULL ) );  /* set string */
          hb_strfree( hCaption );
 
          if( hb_parl( 6 ) )
@@ -839,14 +829,12 @@ HB_FUNC( WVG_ADDTOOLBARBUTTON )
 #if ! defined( HB_OS_WIN_CE )
          SendMessage( hWndTB, TB_SETPADDING, 0, ( LPARAM ) MAKELPARAM( 10, 10 ) );
 #endif
-         return;
+         break;
       }
-
       case 2:  /* system bitmap */
 
-
-      case 3:                 /* separator */
-         tbb.iBitmap   = 0;   /* Can be width of the separator */
+      case 3:  /* separator */
+         tbb.iBitmap   = 0;  /* Can be the width of the separator */
          tbb.idCommand = 0;
          tbb.fsState   = TBSTATE_ENABLED;
          tbb.fsStyle   = TBSTYLE_SEP;
@@ -856,7 +844,7 @@ HB_FUNC( WVG_ADDTOOLBARBUTTON )
          /* Conversion of LRESULT to HB_BOOL:
             https://msdn.microsoft.com/library/bb787291 */
          hb_retl( ( HB_BOOL ) SendMessage( hWndTB, TB_ADDBUTTONS, ( WPARAM ) 1, ( LPARAM ) ( LPTBBUTTON ) &tbb ) );
-         return;
+         break;
    }
 }
 
@@ -877,11 +865,9 @@ HB_FUNC( WVG_REGISTERCLASS_BYNAME )
    wndclass.lpszMenuName  = NULL;
    wndclass.lpszClassName = HB_PARSTR( 1, &hClass, NULL );
 
-   if( ! RegisterClass( &wndclass ) )
-   {
-      if( GetLastError() != ERROR_CLASS_ALREADY_EXISTS )
-         hb_errInternal( 10001, "Failed to register DA window class", NULL, NULL );
-   }
+   if( ! RegisterClass( &wndclass ) &&
+       GetLastError() != ERROR_CLASS_ALREADY_EXISTS )
+      hb_errInternal( 10001, "Failed to register DA window class", NULL, NULL );
 
    hb_strfree( hClass );
 }
@@ -922,8 +908,10 @@ LRESULT CALLBACK ControlWindowProcedure( HWND hwnd, UINT msg, WPARAM wParam, LPA
       hb_vmPushNumInt( ( HB_PTRUINT ) wParam );
       hb_vmPushNumInt( ( HB_PTRUINT ) lParam );
       hb_vmDo( 4 );
+
       return ( LRESULT ) hbwapi_par_RESULT( -1 );
    }
+
    return DefWindowProc( hwnd, msg, wParam, lParam );
 }
 
@@ -979,14 +967,11 @@ HB_FUNC( WVG_CREATETOOLTIPWINDOW )
       ti.uId      = ( UINT_PTR ) ti.hwnd;
       ti.lpszText = ( LPTSTR ) TEXT( "" );
 
-      if( SendMessage( hwndTip, TTM_ADDTOOL, 0, ( LPARAM ) &ti ) )
-      {
-         hbwapi_ret_raw_HANDLE( hwndTip );
-         return;
-      }
+      if( ! SendMessage( hwndTip, TTM_ADDTOOL, 0, ( LPARAM ) &ti ) )
+         hwndTip = NULL;
    }
 
-   hbwapi_ret_raw_HANDLE( NULL );
+   hbwapi_ret_raw_HANDLE( hwndTip );
 }
 
 HB_FUNC( WVG_SETTOOLTIPTEXT )

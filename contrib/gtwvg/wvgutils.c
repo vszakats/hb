@@ -814,8 +814,7 @@ static INT_PTR CALLBACK hb_wvt_gtDlgProcModal( HWND hDlg, UINT message, WPARAM w
                break;
 
             case 2: /* Block */
-               /* eval the codeblock */
-               if( HB_IS_EVALITEM( pFunc ) )
+               if( HB_IS_EVALITEM( pFunc ) )  /* eval the codeblock */
                {
                   if( hb_vmRequestReenter() )
                   {
@@ -877,7 +876,8 @@ static INT_PTR CALLBACK hb_wvt_gtDlgProcModal( HWND hDlg, UINT message, WPARAM w
 
 HB_FUNC( WVT_CREATEDIALOGDYNAMIC )
 {
-   PHB_GTWVT _s = hb_wvt_gtGetWVT();
+   PHB_GTWVT _s   = hb_wvt_gtGetWVT();
+   HWND      hDlg = 0;
 
    if( _s )
    {
@@ -895,7 +895,6 @@ HB_FUNC( WVT_CREATEDIALOGDYNAMIC )
          PHB_ITEM pFirst = hb_param( 3, HB_IT_ANY );
          PHB_ITEM pFunc  = NULL;
          PHB_DYNS pExecSym;
-         HWND     hDlg  = 0;
          int      iType = 0;
          int      iResource = hb_parni( 4 );
 
@@ -979,18 +978,16 @@ HB_FUNC( WVT_CREATEDIALOGDYNAMIC )
 
             _s->hDlgModeless[ iIndex ] = NULL;
          }
-
-         hbwapi_ret_raw_HANDLE( hDlg );
-         return;
       }
    }
 
-   hbwapi_ret_raw_HANDLE( 0 );
+   hbwapi_ret_raw_HANDLE( hDlg );
 }
 
 HB_FUNC( WVT_CREATEDIALOGMODAL )
 {
-   PHB_GTWVT _s = hb_wvt_gtGetWVT();
+   PHB_GTWVT  _s      = hb_wvt_gtGetWVT();
+   HB_PTRDIFF iResult = 0;
 
    if( _s )
    {
@@ -1009,7 +1006,6 @@ HB_FUNC( WVT_CREATEDIALOGMODAL )
          PHB_ITEM   pFunc  = NULL;
          PHB_DYNS   pExecSym;
          int        iResource = hb_parni( 4 );
-         HB_PTRDIFF iResult   = 0;
          HWND       hParent   = hbwapi_is_HANDLE( 5 ) ? hbwapi_par_raw_HWND( 5 ) : _s->hWnd;
 
          if( HB_IS_EVALITEM( pFirst ) )
@@ -1063,13 +1059,10 @@ HB_FUNC( WVT_CREATEDIALOGMODAL )
                                                  ( LPARAM ) ( DWORD ) iIndex + 1 );
                break;
          }
-
-         hb_retnint( iResult );
-         return;
       }
    }
 
-   hb_retnint( 0 );
+   hb_retnint( iResult );
 }
 
 HB_FUNC( WVT_LBADDSTRING )

@@ -318,27 +318,27 @@ static void hb_wvg_BoxRaised( PHB_GTWVT pWVT, int iLeft, int iTop, int iRight, i
    PHB_GUIDATA pGUI = pWVT->pGUI;
 
    SelectObject( hdc, pGUI->penWhiteDim );
-   MoveToEx( hdc, iLeft, iTop, NULL );             /* Top Inner    */
+   MoveToEx( hdc, iLeft, iTop, NULL );             /* Top Inner */
    LineTo( hdc, iRight, iTop );
-   MoveToEx( hdc, iLeft, iTop, NULL );             /* Left Inner   */
+   MoveToEx( hdc, iLeft, iTop, NULL );             /* Left Inner */
    LineTo( hdc, iLeft, iBottom );
 
    SelectObject( hdc, pGUI->penWhite );
-   MoveToEx( hdc, iLeft - 1, iTop - 1, NULL );     /* Top Outer    */
+   MoveToEx( hdc, iLeft - 1, iTop - 1, NULL );     /* Top Outer */
    LineTo( hdc, iRight + 1, iTop - 1 );
-   MoveToEx( hdc, iLeft - 1, iTop - 1, NULL );     /* Left Outer   */
+   MoveToEx( hdc, iLeft - 1, iTop - 1, NULL );     /* Left Outer */
    LineTo( hdc, iLeft - 1, iBottom + 1 );
 
    SelectObject( hdc, pGUI->penDarkGray );
    MoveToEx( hdc, iLeft, iBottom, NULL );          /* Bottom Inner */
    LineTo( hdc, iRight, iBottom );
-   MoveToEx( hdc, iRight, iBottom, NULL );         /* Right Inner  */
+   MoveToEx( hdc, iRight, iBottom, NULL );         /* Right Inner */
    LineTo( hdc, iRight, iTop );
 
    SelectObject( hdc, pGUI->penBlack );
    MoveToEx( hdc, iLeft - 1, iBottom + 1, NULL );  /* Bottom Outer */
    LineTo( hdc, iRight + 1 + 1, iBottom + 1 );
-   MoveToEx( hdc, iRight + 1, iTop - 1, NULL );    /* Right Outer  */
+   MoveToEx( hdc, iRight + 1, iTop - 1, NULL );    /* Right Outer */
    LineTo( hdc, iRight + 1, iBottom + 1 );
 }
 
@@ -373,27 +373,27 @@ static void hb_wvg_BoxRecessed( PHB_GTWVT pWVT, int iLeft, int iTop, int iRight,
    PHB_GUIDATA pGUI = pWVT->pGUI;
 
    SelectObject( hdc, pGUI->penWhiteDim );
-   MoveToEx( hdc, iRight, iTop, NULL );            /* Right Inner  */
+   MoveToEx( hdc, iRight, iTop, NULL );            /* Right Inner */
    LineTo( hdc, iRight, iBottom );
    MoveToEx( hdc, iLeft, iBottom, NULL );          /* Bottom Inner */
    LineTo( hdc, iRight, iBottom );
 
    SelectObject( hdc, pGUI->penWhite );
-   MoveToEx( hdc, iRight + 1, iTop - 1, NULL );    /* Right Outer  */
+   MoveToEx( hdc, iRight + 1, iTop - 1, NULL );    /* Right Outer */
    LineTo( hdc, iRight + 1, iBottom + 1 );
    MoveToEx( hdc, iLeft - 1, iBottom + 1, NULL );  /* Bottom Outer */
    LineTo( hdc, iRight + 2, iBottom + 1 );
 
    SelectObject( hdc, pGUI->penBlack );
-   MoveToEx( hdc, iLeft, iTop, NULL );             /* Left  Inner  */
+   MoveToEx( hdc, iLeft, iTop, NULL );             /* Left Inner */
    LineTo( hdc, iLeft, iBottom );
-   MoveToEx( hdc, iLeft, iTop, NULL );             /* Top Inner    */
+   MoveToEx( hdc, iLeft, iTop, NULL );             /* Top Inner */
    LineTo( hdc, iRight, iTop );
 
    SelectObject( hdc, pGUI->penDarkGray );
-   MoveToEx( hdc, iLeft - 1, iTop - 1, NULL );     /* Left Outer   */
+   MoveToEx( hdc, iLeft - 1, iTop - 1, NULL );     /* Left Outer */
    LineTo( hdc, iLeft - 1, iBottom + 1 );
-   MoveToEx( hdc, iLeft - 1, iTop - 1, NULL );     /* Top Outer    */
+   MoveToEx( hdc, iLeft - 1, iTop - 1, NULL );     /* Top Outer */
    LineTo( hdc, iRight + 1, iTop - 1 );
 }
 
@@ -429,15 +429,15 @@ static void hb_wvg_BoxGet( PHB_GTWVT pWVT, int iLeft, int iTop, int iRight, int 
    PHB_GUIDATA pGUI = pWVT->pGUI;
 
    SelectObject( hdc, pGUI->penBlack );
-   MoveToEx( hdc, iLeft - 1, iTop - 1, NULL );   /* Top Inner   */
+   MoveToEx( hdc, iLeft - 1, iTop - 1, NULL );  /* Top Inner */
    LineTo(   hdc, iRight - 1, iTop - 1 );
-   MoveToEx( hdc, iLeft - 1, iTop - 1, NULL );   /* Left  Inner */
+   MoveToEx( hdc, iLeft - 1, iTop - 1, NULL );  /* Left Inner */
    LineTo(   hdc, iLeft - 1, iBottom - 1 );
 
    SelectObject( hdc, pGUI->penDarkGray );
-   MoveToEx( hdc, iLeft - 2, iTop - 2, NULL );   /* Top Outer   */
+   MoveToEx( hdc, iLeft - 2, iTop - 2, NULL );  /* Top Outer */
    LineTo(   hdc, iRight, iTop - 2 );
-   MoveToEx( hdc, iLeft - 2, iTop - 2, NULL );   /* Left Outer  */
+   MoveToEx( hdc, iLeft - 2, iTop - 2, NULL );  /* Left Outer */
    LineTo(   hdc, iLeft - 2, iBottom );
 }
 
@@ -473,31 +473,31 @@ static void hb_wvg_BoxGroup( PHB_GTWVT pWVT, int iLeft, int iTop, int iRight, in
 
    SelectObject( hdc, pGUI->penDarkGray );
 
-   MoveToEx( hdc, iRight, iTop, NULL );         /* Right Inner  */
+   MoveToEx( hdc, iRight, iTop, NULL );         /* Right Inner */
    LineTo( hdc, iRight, iBottom );
 
    MoveToEx( hdc, iLeft, iBottom, NULL );       /* Bottom Inner */
    LineTo( hdc, iRight, iBottom );
 
-   MoveToEx( hdc, iLeft - 1, iTop - 1, NULL );  /* Left Outer   */
+   MoveToEx( hdc, iLeft - 1, iTop - 1, NULL );  /* Left Outer */
    LineTo( hdc, iLeft - 1, iBottom + 1 );
 
-   MoveToEx( hdc, iLeft - 1, iTop - 1, NULL );  /* Top Outer    */
+   MoveToEx( hdc, iLeft - 1, iTop - 1, NULL );  /* Top Outer */
    LineTo( hdc, iRight + 1, iTop - 1 );
 
 
    SelectObject( hdc, pGUI->penWhite );
 
-   MoveToEx( hdc, iRight + 1, iTop, NULL );        /* Right Outer  */
+   MoveToEx( hdc, iRight + 1, iTop, NULL );        /* Right Outer */
    LineTo( hdc, iRight + 1, iBottom + 1 );
 
    MoveToEx( hdc, iLeft - 1, iBottom + 1, NULL );  /* Bottom Outer */
    LineTo( hdc, iRight + 1 + 1, iBottom + 1 );
 
-   MoveToEx( hdc, iLeft, iTop, NULL );             /* Left  Inner  */
+   MoveToEx( hdc, iLeft, iTop, NULL );             /* Left Inner */
    LineTo( hdc, iLeft, iBottom );
 
-   MoveToEx( hdc, iLeft, iTop, NULL );             /* Top Inner    */
+   MoveToEx( hdc, iLeft, iTop, NULL );             /* Top Inner */
    LineTo( hdc, iRight, iTop );
 }
 
@@ -533,30 +533,30 @@ static void hb_wvg_BoxGroupRaised( PHB_GTWVT pWVT, int iLeft, int iTop, int iRig
 
    SelectObject( hdc, pGUI->penWhite );
 
-   MoveToEx( hdc, iRight, iTop, NULL );            /* Right Inner  */
+   MoveToEx( hdc, iRight, iTop, NULL );            /* Right Inner */
    LineTo( hdc, iRight, iBottom );
 
    MoveToEx( hdc, iLeft, iBottom, NULL );          /* Bottom Inner */
    LineTo( hdc, iRight, iBottom );
 
-   MoveToEx( hdc, iLeft - 1, iTop - 1, NULL );     /* Left Outer   */
+   MoveToEx( hdc, iLeft - 1, iTop - 1, NULL );     /* Left Outer */
    LineTo( hdc, iLeft - 1, iBottom + 1 );
 
-   MoveToEx( hdc, iLeft - 1, iTop - 1, NULL );     /* Top Outer    */
+   MoveToEx( hdc, iLeft - 1, iTop - 1, NULL );     /* Top Outer */
    LineTo( hdc, iRight + 1, iTop - 1 );
 
    SelectObject( hdc, pGUI->penDarkGray );
 
-   MoveToEx( hdc, iRight + 1, iTop, NULL );        /* Right Outer  */
+   MoveToEx( hdc, iRight + 1, iTop, NULL );        /* Right Outer */
    LineTo( hdc, iRight + 1, iBottom + 1 );
 
    MoveToEx( hdc, iLeft - 1, iBottom + 1, NULL );  /* Bottom Outer */
    LineTo( hdc, iRight + 1 + 1, iBottom + 1 );
 
-   MoveToEx( hdc, iLeft, iTop, NULL );             /* Left  Inner  */
+   MoveToEx( hdc, iLeft, iTop, NULL );             /* Left Inner */
    LineTo( hdc, iLeft, iBottom );
 
-   MoveToEx( hdc, iLeft, iTop, NULL );             /* Top Inner    */
+   MoveToEx( hdc, iLeft, iTop, NULL );             /* Top Inner */
    LineTo( hdc, iRight, iTop );
 }
 
@@ -811,8 +811,8 @@ HB_FUNC( WVG_OUTLINE )
       gObj->aOffset.iBottom = hb_parvni( 5, 3 );
       gObj->aOffset.iRight  = hb_parvni( 5, 4 );
 
-      gObj->iWidth = hb_parni( 6 );             /* iThick */
-      gObj->iStyle = hb_parni( 7 );             /* iShape */
+      gObj->iWidth = hb_parni( 6 );  /* iThick */
+      gObj->iStyle = hb_parni( 7 );  /* iShape */
       gObj->crRGB  = hbwapi_par_COLORREF( 8 );
 
       if( gObj->iWidth > 0 )
@@ -873,16 +873,16 @@ static void hb_wvg_Outline( PHB_GTWVT pWVT, PHB_GOBJS gObj, int iLeft, int iTop,
 
    SelectObject( pWVT->hdc, gObj->hPen );
 
-   MoveToEx( hdc, iLeft, iTop, NULL );             /*  Top    */
+   MoveToEx( hdc, iLeft, iTop, NULL );     /*  Top    */
    LineTo( hdc, iRight, iTop );
 
-   MoveToEx( hdc, iLeft, iTop, NULL );             /*  Left   */
+   MoveToEx( hdc, iLeft, iTop, NULL );     /*  Left   */
    LineTo( hdc, iLeft, iBottom );
 
-   MoveToEx( hdc, iLeft, iBottom, NULL );          /*  Bottom */
+   MoveToEx( hdc, iLeft, iBottom, NULL );  /*  Bottom */
    LineTo( hdc, iRight, iBottom );
 
-   MoveToEx( hdc, iRight, iTop, NULL );            /*  Right  */
+   MoveToEx( hdc, iRight, iTop, NULL );    /*  Right  */
    LineTo( hdc, iRight, iBottom + 1 );
 }
 
@@ -912,7 +912,7 @@ HB_FUNC( WVG_LINE )
       gObj->iAlign  = hb_parni( 8 );
 
       gObj->iStyle = hb_parni( 9 );
-      gObj->iWidth = hb_parni( 10 );           /* iThick */
+      gObj->iWidth = hb_parni( 10 );  /* iThick */
       gObj->crRGB  = hbwapi_par_COLORREF( 11 );
 
       gObj->hPen        = CreatePen( gObj->iStyle, gObj->iWidth, gObj->crRGB );
@@ -967,8 +967,8 @@ static void hb_wvg_Line( PHB_GTWVT pWVT, PHB_GOBJS gObj, int iLeft, int iTop, in
 
    switch( gObj->iAlign )
    {
-      case 0:                       /* Center */
-         if( gObj->iOrient == 0 )   /* Horizontal  */
+      case 0:  /* Center */
+         if( gObj->iOrient == 0 )  /* Horizontal */
          {
             iOffset = ( iBottom - iTop ) / 2;
             y       = iTop + iOffset;
@@ -980,20 +980,20 @@ static void hb_wvg_Line( PHB_GTWVT pWVT, PHB_GOBJS gObj, int iLeft, int iTop, in
          }
          break;
 
-      case 1:                  /* Top */
+      case 1:  /* Top */
          break;
 
-      case 2:                                            /* bottom */
+      case 2:  /* Bottom */
          if( gObj->iFormat == 0 || gObj->iFormat == 1 )  /* Raised/Recessed */
             y = iBottom - 1;
          else
             y = iBottom;
          break;
 
-      case 3:                  /* Left */
+      case 3:  /* Left */
          break;
 
-      case 4:                                            /* Right */
+      case 4:  /* Right */
          if( gObj->iFormat == 0 || gObj->iFormat == 1 )  /* Raised/Recessed */
             x = iRight - 1;
          else
@@ -1006,8 +1006,8 @@ static void hb_wvg_Line( PHB_GTWVT pWVT, PHB_GOBJS gObj, int iLeft, int iTop, in
 
    switch( gObj->iFormat )
    {
-      case 0:                                      /* Raised */
-         if( gObj->iOrient == 0 )                  /* Horizontal */
+      case 0:  /* Raised */
+         if( gObj->iOrient == 0 )  /* Horizontal */
          {
             SelectObject( hdc, pWVT->pGUI->penWhite );
             MoveToEx( hdc, x, y, NULL );
@@ -1016,7 +1016,7 @@ static void hb_wvg_Line( PHB_GTWVT pWVT, PHB_GOBJS gObj, int iLeft, int iTop, in
             MoveToEx( hdc, x, y + 1, NULL );
             LineTo( hdc, iRight, y + 1 );
          }
-         else                                      /* Vertical */
+         else                      /* Vertical */
          {
             SelectObject( hdc, pWVT->pGUI->penWhite );
             MoveToEx( hdc, x, y, NULL );
@@ -1027,8 +1027,8 @@ static void hb_wvg_Line( PHB_GTWVT pWVT, PHB_GOBJS gObj, int iLeft, int iTop, in
          }
          break;
 
-      case 1:                                      /* Recessed */
-         if( gObj->iOrient == 0 )                  /* Horizontal  */
+      case 1:  /* Recessed */
+         if( gObj->iOrient == 0 )  /* Horizontal */
          {
             SelectObject( hdc, hPen );
             MoveToEx( hdc, x, y, NULL );
@@ -1037,7 +1037,7 @@ static void hb_wvg_Line( PHB_GTWVT pWVT, PHB_GOBJS gObj, int iLeft, int iTop, in
             MoveToEx( hdc, x, y + 1, NULL );
             LineTo( hdc, iRight, y + 1 );
          }
-         else                                      /* Vertical */
+         else                      /* Vertical */
          {
             SelectObject( hdc, hPen );
             MoveToEx( hdc, x, y, NULL );
@@ -1048,14 +1048,14 @@ static void hb_wvg_Line( PHB_GTWVT pWVT, PHB_GOBJS gObj, int iLeft, int iTop, in
          }
          break;
 
-      case 2:                                      /* Plain */
-         if( gObj->iOrient == 0 )                  /* Horizontal */
+      case 2:  /* Plain */
+         if( gObj->iOrient == 0 )  /* Horizontal */
          {
             SelectObject( hdc, hPen );
             MoveToEx( hdc, x, y, NULL );
             LineTo( hdc, iRight, y );
          }
-         else                                      /* Vertical */
+         else                      /* Vertical */
          {
             SelectObject( hdc, hPen );
             MoveToEx( hdc, x, y, NULL );
@@ -1599,10 +1599,8 @@ static void hb_wvg_GridVert( PHB_GTWVT pWVT, PHB_ITEM pArray, RECT * uRect )
 
    if( iTabs > 0 )
    {
-      int     iTop, iBottom;
-
-      iTop    = hb_arrayGetNI( pArray, 1 ) * ( int ) pWVT->PTEXTSIZE.y;
-      iBottom = ( ( hb_arrayGetNI( pArray, 2 ) + 1 ) * ( int ) pWVT->PTEXTSIZE.y ) - 1;
+      int iTop    = hb_arrayGetNI( pArray, 1 ) * ( int ) pWVT->PTEXTSIZE.y;
+      int iBottom = ( ( hb_arrayGetNI( pArray, 2 ) + 1 ) * ( int ) pWVT->PTEXTSIZE.y ) - 1;
 
       if( ( iTop >= uRect->top && iTop <= uRect->bottom ) ||
           ( iBottom >= uRect->top && iBottom <= uRect->bottom ) )
@@ -1612,7 +1610,7 @@ static void hb_wvg_GridVert( PHB_GTWVT pWVT, PHB_ITEM pArray, RECT * uRect )
          HB_ISIZ i;
 
          SelectObject( hdc, pWVT->currentPen );
-         for( i = 1; i <= iTabs; i++ )
+         for( i = 1; i <= iTabs; ++i )
          {
             x = hb_arrayGetNI( pCols, i ) * pWVT->PTEXTSIZE.x;
             MoveToEx( hdc, x, iTop, NULL );
@@ -1625,7 +1623,7 @@ static void hb_wvg_GridVert( PHB_GTWVT pWVT, PHB_ITEM pArray, RECT * uRect )
           */
          hdc = pWVT->hdc;
          SelectObject( hdc, pWVT->currentPen );
-         for( i = 1; i <= iTabs; i++ )
+         for( i = 1; i <= iTabs; ++i )
          {
             x = hb_arrayGetNI( pCols, i ) * pWVT->PTEXTSIZE.x;
             MoveToEx( hdc, x, iTop, NULL );
@@ -1647,28 +1645,26 @@ static void hb_wvg_GridHorz( PHB_GTWVT pWVT, PHB_ITEM pArray, RECT * uRect )
    int iTop    = iAtRow * pWVT->PTEXTSIZE.y;
    int iBottom = ( iAtRow + iRows ) * pWVT->PTEXTSIZE.y;  /* do not add 1 */
 
-   if( ( uRect->left > iRight ) || ( uRect->top > iBottom ) ||
-       ( uRect->bottom < iTop ) || ( uRect->right < iLeft ) )
+   if( uRect->left > iRight || uRect->top > iBottom ||
+       uRect->bottom < iTop || uRect->right < iLeft )
       return;
 
    hdc = pWVT->hdc;
    SelectObject( hdc, pWVT->currentPen );
-   for( i = 0; i < iRows; i++ )
+   for( i = 0; i < iRows; ++i, ++iAtRow )
    {
-      y = ( iAtRow ) * pWVT->PTEXTSIZE.y;
+      y = iAtRow * pWVT->PTEXTSIZE.y;
       MoveToEx( hdc, iLeft, y, NULL );
       LineTo( hdc, iRight, y );
-      iAtRow++;
    }
 
    hdc = pWVT->hGuiDC;
    SelectObject( hdc, pWVT->currentPen );
-   for( i = 0; i < iRows; i++ )
+   for( i = 0; i < iRows; ++i, ++iAtRow )
    {
-      y = ( iAtRow ) * pWVT->PTEXTSIZE.y;
+      y = iAtRow * pWVT->PTEXTSIZE.y;
       MoveToEx( hdc, iLeft, y, NULL );
       LineTo( hdc, iRight, y );
-      iAtRow++;
    }
 }
 
@@ -1748,8 +1744,8 @@ void hb_gt_wvt_PaintGObjects( PHB_GTWVT pWVT, RECT * uRect )
             case GOBJ_OBJTYPE_BOXGET:
             case GOBJ_OBJTYPE_BOXGROUP:
             case GOBJ_OBJTYPE_BOXGROUPRAISED:
-               if( ( uRect->left > iRight + 2 ) || ( uRect->top > iBottom + 2 ) ||
-                   ( uRect->bottom < iTop - 2 ) || ( uRect->right < iLeft - 2 ) )
+               if( uRect->left > ( iRight + 2 ) || uRect->top > ( iBottom + 2 ) ||
+                   uRect->bottom < ( iTop - 2 ) || uRect->right < ( iLeft - 2 ) )
                {
                   /* It is outside of the boundaries */
                }
@@ -1792,8 +1788,8 @@ void hb_gt_wvt_PaintGObjects( PHB_GTWVT pWVT, RECT * uRect )
             case GOBJ_OBJTYPE_COLORRECT:
             case GOBJ_OBJTYPE_SHADEDRECT:
             case GOBJ_OBJTYPE_TEXTBOX:
-               if( ( uRect->left > iRight ) || ( uRect->top > iBottom ) ||
-                   ( uRect->bottom < iTop ) || ( uRect->right < iLeft ) )
+               if( uRect->left > iRight || uRect->top > iBottom ||
+                   uRect->bottom < iTop || uRect->right < iLeft )
                {
                   /* Nothing to do */
                }
@@ -1837,8 +1833,8 @@ void hb_gt_wvt_PaintGObjects( PHB_GTWVT pWVT, RECT * uRect )
             case GOBJ_OBJTYPE_LABEL:
             case GOBJ_OBJTYPE_LABELEX:
                #if 0
-               if( ( uRect->top > iTop + gObj->lf->lfHeight ) ||
-                   ( uRect->bottom < iTop ) || ( uRect->right < iLeft ) )
+               if( uRect->top > ( iTop + gObj->lf->lfHeight ) ||
+                   uRect->bottom < iTop || uRect->right < iLeft )
                {
                   /* Nothing to do */
                }
@@ -1855,8 +1851,8 @@ void hb_gt_wvt_PaintGObjects( PHB_GTWVT pWVT, RECT * uRect )
 
             case GOBJ_OBJTYPE_OUTLINE:
             case GOBJ_OBJTYPE_OUTLINEEX:
-               if( ( uRect->left > iRight ) || ( uRect->top > iBottom ) ||
-                   ( uRect->bottom < iTop ) || ( uRect->right < iLeft ) )
+               if( uRect->left > iRight || uRect->top > iBottom ||
+                   uRect->bottom < iTop || uRect->right < iLeft )
                {
                   /* It is outside of the boundaries */
                }

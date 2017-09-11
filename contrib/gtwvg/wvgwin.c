@@ -270,10 +270,7 @@ HB_FUNC( WVG_SETLAYEREDWINDOWATTRIBUTES )
 
          SetWindowLong( hWnd, GWL_EXSTYLE, GetWindowLong( hWnd, GWL_EXSTYLE ) | WS_EX_LAYERED );
 
-         if( pfnLayered( hWnd, cr, ( BYTE ) hb_parni( 3 ), /*LWA_COLORKEY |*/ LWA_ALPHA ) == 0 )
-         {
-            /* Just to supress warning */
-         }
+         ( void ) pfnLayered( hWnd, cr, ( BYTE ) hb_parni( 3 ), /* LWA_COLORKEY | */ LWA_ALPHA );
       }
       FreeLibrary( h );
    }
@@ -463,15 +460,13 @@ HB_FUNC( WVG_SENDTOOLBARMESSAGE )
 
 HB_FUNC( WVG_SENDEDITCONTROLMESSAGE )
 {
-   HWND hED = hbwapi_par_raw_HWND( 1 );
-
    switch( hbwapi_par_INT( 2 ) )
    {
       case EM_GETSEL:
       {
          DWORD min = 0;
          DWORD max = 0;
-         SendMessage( hED, EM_GETSEL, ( WPARAM ) &min, ( LPARAM ) &max );
+         SendMessage( hbwapi_par_raw_HWND( 1 ), EM_GETSEL, ( WPARAM ) &min, ( LPARAM ) &max );
          break;
       }
    }
