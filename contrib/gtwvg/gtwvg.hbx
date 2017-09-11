@@ -152,8 +152,7 @@ DYNAMIC wvg_PictureEx
 DYNAMIC wvg_PointSizeToHeight
 DYNAMIC wvg_PostMessage
 DYNAMIC wvg_PrepareBitmapFromFile
-DYNAMIC wvg_PrepareBitmapFromResourceId
-DYNAMIC wvg_PrepareBitmapFromResourceName
+DYNAMIC wvg_PrepareBitmapFromResource
 DYNAMIC wvg_PurgePaint
 DYNAMIC wvg_Rectangle
 DYNAMIC wvg_RegisterClass_ByName

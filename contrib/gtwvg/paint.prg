@@ -909,6 +909,13 @@ FUNCTION wvt_ChooseColor( nColor, aColor, nFlags )
       hb_defaultValue( aColor, AFill( Array( 16 ), wapi_GetSysColor( WIN_COLOR_BTNFACE ) ) ), ;
       hb_defaultValue( nFlags, hb_bitOr( WIN_CC_ANYCOLOR, WIN_CC_RGBINIT, WIN_CC_FULLOPEN ) ) )
 
+FUNCTION wvg_PrepareBitmapFromResource( xNameOrID, nExpWidth, nExpHeight, lMap3Dcolors )
+   RETURN wapi_LoadImage( wapi_GetModuleHandle(), xNameOrID, WIN_IMAGE_BITMAP, ;
+      nExpWidth, nExpHeight, ;
+      iif( hb_defaultValue( lMap3Dcolors, .F. ), WIN_LR_LOADMAP3DCOLORS, WIN_LR_DEFAULTCOLOR ) )
+
+#ifdef HB_LEGACY_LEVEL5
+
 FUNCTION wvg_PrepareBitmapFromResourceId( nID, nExpWidth, nExpHeight, lMap3Dcolors )
    RETURN wapi_LoadImage( wapi_GetModuleHandle(), nID, WIN_IMAGE_BITMAP, ;
       nExpWidth, nExpHeight, ;
@@ -918,3 +925,5 @@ FUNCTION wvg_PrepareBitmapFromResourceName( cName, nExpWidth, nExpHeight, lMap3D
    RETURN wapi_LoadImage( wapi_GetModuleHandle(), cName, WIN_IMAGE_BITMAP, ;
       nExpWidth, nExpHeight, ;
       iif( hb_defaultValue( lMap3Dcolors, .F. ), WIN_LR_LOADMAP3DCOLORS, WIN_LR_DEFAULTCOLOR ) )
+
+#endif
