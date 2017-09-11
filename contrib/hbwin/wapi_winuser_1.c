@@ -477,7 +477,7 @@ HB_FUNC( WAPI_LOADBITMAP )
 }
 #endif
 
-/* wapi_LoadImage( [<hInstance>], <cName>, [<nType>],
+/* wapi_LoadImage( [<hInstance>], <cName>|<nID>, [<nType>],
                    [<nWidth>], [<nHeight>], [<nFlags>] ) --> <hImage> */
 HB_FUNC( WAPI_LOADIMAGE )
 {

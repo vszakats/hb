@@ -305,31 +305,6 @@ HB_FUNC( WVG_PREPAREBITMAPFROMFILE )
    hb_retptr( ( void * ) hBitmap );
 }
 
-static void s_PrepareBitmapFromResource( void )  /* TODO: Convert this to a wapi_LoadImage() wrapper */
-{
-   void * hString = NULL;
-
-   hb_retptr( ( void * ) ( HBITMAP ) LoadImage(
-      GetModuleHandle( NULL ),
-      HB_ISNUM( 1 ) ? MAKEINTRESOURCE( ( INT ) hb_parni( 1 ) ) : HB_PARSTRDEF( 1, &hString, NULL ),
-      IMAGE_BITMAP,
-      hb_parni( 2 ) /* iExpWidth */,
-      hb_parni( 3 ) /* iExpHeight */,
-      hb_parl( 4 ) /* fMap3Dcolors */ ? LR_LOADMAP3DCOLORS : LR_DEFAULTCOLOR ) );
-
-   hb_strfree( hString );
-}
-
-HB_FUNC( WVG_PREPAREBITMAPFROMRESOURCENAME )
-{
-   s_PrepareBitmapFromResource();
-}
-
-HB_FUNC( WVG_PREPAREBITMAPFROMRESOURCEID )
-{
-   s_PrepareBitmapFromResource();
-}
-
 HB_FUNC( WVG_STATUSBARCREATEPANEL )
 {
    HWND hWndSB = hbwapi_par_raw_HWND( 1 );
