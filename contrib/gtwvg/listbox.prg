@@ -72,21 +72,21 @@ CREATE CLASS WvgListBox INHERIT WvgWindow, WvgDataRef
 
    METHOD handleEvent( nMessage, aNM )
 
-   METHOD getItemHeight()                       INLINE  ::sendMessage( LB_GETITEMHEIGHT, 0, 0 )
-   METHOD getTopItem()                          INLINE  ::sendMessage( LB_GETTOPINDEX, 0, 0 )
+   METHOD getItemHeight()                       INLINE ::sendMessage( LB_GETITEMHEIGHT, 0, 0 )
+   METHOD getTopItem()                          INLINE ::sendMessage( LB_GETTOPINDEX, 0, 0 )
    METHOD getVisibleItems()                     VIRTUAL
-   METHOD numItems()                            INLINE  ::sendMessage( LB_GETCOUNT, 0, 0 )
-   METHOD setItemsHeight( nPixel )              INLINE  ::sendMessage( LB_SETITEMHEIGHT, 0, nPixel )
-   METHOD setTopItem( nIndex )                  INLINE  ::sendMessage( LB_SETTOPINDEX, nIndex - 1, 0 )
+   METHOD numItems()                            INLINE ::sendMessage( LB_GETCOUNT, 0, 0 )
+   METHOD setItemsHeight( nPixel )              INLINE ::sendMessage( LB_SETITEMHEIGHT, 0, nPixel )
+   METHOD setTopItem( nIndex )                  INLINE ::sendMessage( LB_SETTOPINDEX, nIndex - 1, 0 )
 
-   METHOD addItem( cItem )                      INLINE  ::sendMessage( LB_ADDSTRING, 0, cItem )
+   METHOD addItem( cItem )                      INLINE ::sendMessage( LB_ADDSTRING, 0, cItem )
    METHOD clear()
-   METHOD delItem( nIndex )                     INLINE  ::sendMessage( LB_DELETESTRING, nIndex - 1, 0 )
-   METHOD getItem( nIndex )                     INLINE  wvg_lbGetText( ::hWnd, nIndex - 1 )
+   METHOD delItem( nIndex )                     INLINE ::sendMessage( LB_DELETESTRING, nIndex - 1, 0 )
+   METHOD getItem( nIndex )                     INLINE wvg_lbGetText( ::hWnd, nIndex - 1 )
    METHOD getTabstops()                         VIRTUAL
-   METHOD insItem( nIndex, cItem )              INLINE  ::sendMessage( LB_INSERTSTRING, nIndex - 1, cItem )
+   METHOD insItem( nIndex, cItem )              INLINE ::sendMessage( LB_INSERTSTRING, nIndex - 1, cItem )
    METHOD setColumnWidth()                      VIRTUAL
-   METHOD setItem( nIndex, cItem )              INLINE  ::delItem( nIndex ), ::insItem( nIndex, cItem )
+   METHOD setItem( nIndex, cItem )              INLINE ::delItem( nIndex ), ::insItem( nIndex, cItem )
    METHOD setTabstops()                         VIRTUAL
 
 
@@ -176,7 +176,7 @@ METHOD WvgListBox:handleEvent( nMessage, aNM )
             ::oParent:setFocus()
          ENDIF
          IF HB_ISEVALITEM( ::sl_itemMarked )
-            Eval( ::sl_itemMarked, , , self )
+            Eval( ::sl_itemMarked, , , Self )
          ENDIF
          IF ::isParentCrt()
             IF ::pointerFocus
@@ -190,7 +190,7 @@ METHOD WvgListBox:handleEvent( nMessage, aNM )
             ::oParent:setFocus()
          ENDIF
          IF HB_ISEVALITEM( ::sl_itemSelected )
-            Eval( ::sl_itemSelected, , , self )
+            Eval( ::sl_itemSelected, , , Self )
          ENDIF
          IF ::isParentCrt()
             IF ::pointerFocus
@@ -212,7 +212,7 @@ METHOD WvgListBox:handleEvent( nMessage, aNM )
             ::oParent:setFocus()
          ENDIF
          IF HB_ISEVALITEM( ::sl_itemSelected )
-            Eval( ::sl_itemSelected, , , self )
+            Eval( ::sl_itemSelected, , , Self )
          ENDIF
          IF ::isParentCrt()
             IF ::pointerFocus
@@ -242,7 +242,7 @@ METHOD WvgListBox:handleEvent( nMessage, aNM )
             IF ::isParentCrt()
                ::oParent:setFocus()
             ENDIF
-            Eval( ::sl_itemMarked, , , self )
+            Eval( ::sl_itemMarked, , , Self )
             IF ::isParentCrt()
                ::setFocus()
             ENDIF
@@ -254,7 +254,7 @@ METHOD WvgListBox:handleEvent( nMessage, aNM )
             IF ::isParentCrt()
                ::oParent:setFocus()
             ENDIF
-            Eval( ::sl_itemSelected, , , self )
+            Eval( ::sl_itemSelected, , , Self )
             IF ::isParentCrt()
                ::setFocus()
             ENDIF
@@ -268,7 +268,7 @@ METHOD WvgListBox:handleEvent( nMessage, aNM )
                IF ::isParentCrt()
                   ::oParent:setFocus()
                ENDIF
-               Eval( ::sl_itemMarked, , , self )
+               Eval( ::sl_itemMarked, , , Self )
                IF ::isParentCrt()
                   ::setFocus()
                ENDIF

@@ -354,11 +354,12 @@ METHOD WvgPartHandler:notifier( nEvent, xParams )
       CASE xParams[ 1 ] == 0                             /* menu selected */
          IF HB_ISOBJECT( ::oMenu )
             IF ! Empty( aMenuItem := ::oMenu:FindMenuItemById( xParams[ 2 ] ) )
-               IF HB_ISEVALITEM( aMenuItem[ 2 ] )
+               DO CASE
+               CASE HB_ISEVALITEM( aMenuItem[ 2 ] )
                   Eval( aMenuItem[ 2 ], aMenuItem[ 1 ], , aMenuItem[ 4 ] )
-               ELSEIF HB_ISEVALITEM( aMenuItem[ 3 ] )
+               CASE HB_ISEVALITEM( aMenuItem[ 3 ] )
                   Eval( aMenuItem[ 3 ], aMenuItem[ 1 ], , aMenuItem[ 4 ] )
-               ENDIF
+               ENDCASE
             ENDIF
          ENDIF
 
@@ -458,11 +459,12 @@ METHOD WvgPartHandler:controlWndProc( hWnd, nMessage, nwParam, nlParam )
       IF Empty( hWndCtrl )                   /* It is menu */
          IF HB_ISOBJECT( ::oMenu )
             IF ! Empty( aMenuItem := ::oMenu:FindMenuItemById( nCtrlID ) )
-               IF HB_ISEVALITEM( aMenuItem[ 2 ] )
+               DO CASE
+               CASE HB_ISEVALITEM( aMenuItem[ 2 ] )
                   Eval( aMenuItem[ 2 ], aMenuItem[ 1 ], , aMenuItem[ 4 ] )
-               ELSEIF HB_ISEVALITEM( aMenuItem[ 3 ] )
+               CASE HB_ISEVALITEM( aMenuItem[ 3 ] )
                   Eval( aMenuItem[ 3 ], aMenuItem[ 1 ], , aMenuItem[ 4 ] )
-               ENDIF
+               ENDCASE
             ENDIF
          ENDIF
          RETURN EVENT_HANDLED
@@ -479,11 +481,12 @@ METHOD WvgPartHandler:controlWndProc( hWnd, nMessage, nwParam, nlParam )
    CASE WIN_WM_NOTIFY
       IF ( nObj := AScan( ::aChildren, {| o | o:nID == nwParam } ) ) > 0
          nReturn := ::aChildren[ nObj ]:handleEvent( HB_GTE_NOTIFY, { nwParam, wvg_n2p( nlParam ) } )
-         IF HB_ISNUMERIC( nReturn ) .AND. nReturn == EVENT_HANDLED
+         DO CASE
+         CASE HB_ISNUMERIC( nReturn ) .AND. nReturn == EVENT_HANDLED
             RETURN EVENT_HANDLED
-         ELSEIF HB_ISLOGICAL( nReturn )
+         CASE HB_ISLOGICAL( nReturn )
             RETURN nReturn
-         ENDIF
+         ENDCASE
       ENDIF
       EXIT
 

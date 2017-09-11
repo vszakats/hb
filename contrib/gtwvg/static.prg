@@ -221,7 +221,7 @@ METHOD WvgStatic:handleEvent( nMessage, aNM )
          ::rePosition()
       ENDIF
       IF HB_ISEVALITEM( ::sl_resize )
-         Eval( ::sl_resize, , , self )
+         Eval( ::sl_resize, , , Self )
       ENDIF
       AEval( ::aChildren, {| o | o:handleEvent( HB_GTE_RESIZED, { 0, 0, 0, 0, 0 } ) } )
       RETURN EVENT_HANDLED

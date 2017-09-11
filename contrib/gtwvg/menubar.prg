@@ -264,12 +264,12 @@ METHOD WvgMenuBar:putItem( aItem, nPos, lInsert )
    /* xCaption : NIL | cPrompt | ncResource | oMenu */
    SWITCH ValType( xCaption )
    CASE "U"  /* Separator */
-      aItem := { WIN_MF_SEPARATOR, 0, 0, NIL, nStyle, nAttrib }
+      aItem := { WIN_MF_SEPARATOR, 0, 0, , nStyle, nAttrib }
       EXIT
 
    CASE "C"
       IF hb_LeftEq( xCaption, "-" )
-         aItem := { WIN_MF_SEPARATOR, 0, 0, NIL, nStyle, nAttrib }
+         aItem := { WIN_MF_SEPARATOR, 0, 0, , nStyle, nAttrib }
       ELSE
          aItem := { WIN_MF_STRING, ++::nMenuItemID, xCaption, bAction, nStyle, nAttrib }
       ENDIF

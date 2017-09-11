@@ -125,7 +125,7 @@ METHOD WvgStatusBar:handleEvent( nMessage, aNM )
 
    CASE nMessage == HB_GTE_COMMAND
       IF HB_ISEVALITEM( ::sl_lbClick )
-         Eval( ::sl_lbClick, , , self )
+         Eval( ::sl_lbClick, , , Self )
          RETURN EVENT_HANDLED
       ENDIF
 

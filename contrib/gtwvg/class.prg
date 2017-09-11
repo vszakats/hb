@@ -528,7 +528,7 @@ METHOD WvtDialog:Inkey()
          IF ::nCurObj > 0
             IF ! Empty( ::aDialogKeys )
                IF ( n := AScan( ::aDialogKeys, {| e_ | e_[ 1 ] == ::nKey } ) ) > 0
-                  Eval( ::aDialogKeys[ n, 2 ], self, ::oCurObj )
+                  Eval( ::aDialogKeys[ n, 2 ], Self, ::oCurObj )
                ENDIF
             ENDIF
 
@@ -754,7 +754,7 @@ CREATE CLASS WvtObject
 
    METHOD SetToolTip()                            INLINE wvt_SetToolTip( ::nTop, ::nLeft, ::nBottom, ::nRight, ::Tooltip )
    METHOD Refresh()                               INLINE wvt_InvalidateRect( ::nTop, ::nLeft, ::nTop, ::nLeft )
-   METHOD Eval( bBlock )                          INLINE iif( HB_ISEVALITEM( bBlock ), Eval( bBlock, self ), NIL )
+   METHOD Eval( bBlock )                          INLINE iif( HB_ISEVALITEM( bBlock ), Eval( bBlock, Self ), NIL )
    METHOD AddChild( aChild )                      INLINE AAdd( ::aChildren, aChild )
    METHOD AddParent( aParent )                    INLINE AAdd( ::aParent, aParent )
 
@@ -1054,7 +1054,7 @@ METHOD WvtBrowse:SetHBar()
 METHOD WvtBrowse:Refresh()
 
    IF HB_ISEVALITEM( ::bOnRefresh )
-      Eval( ::bOnRefresh, self )
+      Eval( ::bOnRefresh, Self )
    ELSE
       ( ::cAlias )->( ::oBrw:RefreshAll():ForceStable() )
    ENDIF
@@ -1064,7 +1064,7 @@ METHOD WvtBrowse:Refresh()
 METHOD WvtBrowse:HandleEvent( nKey )
 
    IF HB_ISEVALITEM( ::bHandleEvent )
-      RETURN Eval( ::bHandleEvent, self, ::oParent:cPaintBlockID, ::oBrw, nKey )
+      RETURN Eval( ::bHandleEvent, Self, ::oParent:cPaintBlockID, ::oBrw, nKey )
    ENDIF
 
    RETURN .F.
@@ -1139,7 +1139,7 @@ METHOD WvtBrowse:SetTooltip()
 METHOD WvtBrowse:SaveSettings()
 
    IF HB_ISEVALITEM( ::bSaveSettings )
-      ::xSettings := Eval( ::bSaveSettings, self )
+      ::xSettings := Eval( ::bSaveSettings, Self )
    ENDIF
 
    RETURN Self
@@ -1147,7 +1147,7 @@ METHOD WvtBrowse:SaveSettings()
 METHOD WvtBrowse:RestSettings()
 
    IF ::xSettings != NIL .AND. HB_ISEVALITEM( ::bRestSettings )
-      Eval( ::bRestSettings, self )
+      Eval( ::bRestSettings, Self )
    ENDIF
 
    RETURN Self
@@ -1215,7 +1215,7 @@ METHOD WvtStatusBar:New( oParent, nID, nTop, nLeft, nBottom, nRight )
 METHOD WvtStatusBar:Create()
 
    ::Refresh()
-   ::PaintBlock( DLG_OBJ_STATUSBAR, self )
+   ::PaintBlock( DLG_OBJ_STATUSBAR, Self )
 
    ::Super:Create()
 

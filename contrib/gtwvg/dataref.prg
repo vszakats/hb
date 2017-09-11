@@ -185,7 +185,7 @@ METHOD WvgDataRef:undo()
 METHOD WvgDataRef:validate( xParam )
 
    IF PCount() == 0 .AND. HB_ISEVALITEM( ::sl_validate )
-      RETURN Eval( ::sl_validate, self )
+      RETURN Eval( ::sl_validate, Self )
    ELSEIF HB_ISEVALITEM( xParam )
       ::sl_validate := xParam
    ENDIF

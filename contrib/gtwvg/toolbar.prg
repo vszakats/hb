@@ -205,7 +205,7 @@ METHOD WvgToolBar:handleEvent( nMessage, aNM )
                IF ::isParentCrt()
                   ::oParent:setFocus()
                ENDIF
-               Eval( ::sl_lbClick, ::aItems[ nObj, 2 ], NIL, Self )
+               Eval( ::sl_lbClick, ::aItems[ nObj ][ 2 ], , Self )
 
             ENDIF
          ENDIF
