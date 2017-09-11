@@ -116,7 +116,7 @@ PROCEDURE Main()
 
    pGT := SetGT( 1, hb_gtSelect() )
 
-   /*  Force mouse pointer right below the Harbour label */
+   /* Force mouse pointer right below the Harbour label */
    wvt_SetMousePos( 2, 40 )
 
    AAdd( aBlocks, {|| wvt_SetIcon( GetResource( "vr_1.ico" ) ) } )

@@ -458,7 +458,7 @@ HB_FUNC( _FT_DFINIT )
          hb_xfree( dispc->lbuff );
 
       dispc->buffer = ( char * ) hb_xalloc( dispc->buffsize );    /* allocate memory */
-      dispc->lbuff  = ( char * ) hb_xalloc( dispc->maxlin + 1 );  /*  for buffers */
+      dispc->lbuff  = ( char * ) hb_xalloc( dispc->maxlin + 1 );  /* for buffers */
 
       dispc->bIsAllocated = ! ( dispc->buffer == NULL || dispc->lbuff == NULL || dispc->vseg == NULL );
 
