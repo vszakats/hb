@@ -1192,7 +1192,7 @@ FUNCTION UGetHeader( cType )
    LOCAL nI
 
    IF ( nI := AScan( t_aHeader, {| x | Upper( x[ 1 ] ) == Upper( cType ) } ) ) > 0
-      RETURN t_aHeader[ nI, 2 ]
+      RETURN t_aHeader[ nI ][ 2 ]
    ENDIF
 
    RETURN NIL
@@ -1202,7 +1202,7 @@ PROCEDURE UAddHeader( cType, cValue )
    LOCAL nI
 
    IF ( nI := AScan( t_aHeader, {| x | Upper( x[ 1 ] ) == Upper( cType ) } ) ) > 0
-      t_aHeader[ nI, 2 ] := cValue
+      t_aHeader[ nI ][ 2 ] := cValue
    ELSE
       AAdd( t_aHeader, { cType, cValue } )
    ENDIF

@@ -110,25 +110,37 @@ STATIC PROCEDURE transform_point( nX, nY, hPath, aLengths )
       EXIT
    CASE CAIRO_PATH_LINE_TO
       nRatio := nNX / aLengths[ nI ]
-      nX := aLast[ 1 ] * ( 1 - nRatio ) + aPoints[ 1, 1 ] * nRatio
-      nY := aLast[ 2 ] * ( 1 - nRatio ) + aPoints[ 1, 2 ] * nRatio
+      nX := aLast[ 1 ] * ( 1 - nRatio ) + aPoints[ 1 ][ 1 ] * nRatio
+      nY := aLast[ 2 ] * ( 1 - nRatio ) + aPoints[ 1 ][ 2 ] * nRatio
 
-      nDX := -( aLast[ 1 ] - aPoints[ 1, 1 ] )
-      nDY := -( aLast[ 2 ] - aPoints[ 1, 2 ] )
+      nDX := -( aLast[ 1 ] - aPoints[ 1 ][ 1 ] )
+      nDY := -( aLast[ 2 ] - aPoints[ 1 ][ 2 ] )
 
       nRatio := nNY / aLengths[ nI ]
       nX += -nDY * nRatio
       nY += nDX * nRatio
       EXIT
    CASE CAIRO_PATH_CURVE_TO
-      nX := aLast[ 1 ] * ( 1 - nRatio ) ^ 3 + 3 * aPoints[ 1, 1 ] * ( 1 - nRatio ) ^ 2 * nRatio + 3 * aPoints[ 2, 1 ] * ( 1 - nRatio ) * nRatio ^ 2 + aPoints[ 3, 1 ] * nRatio ^ 3
-      nY := aLast[ 2 ] * ( 1 - nRatio ) ^ 3 + 3 * aPoints[ 1, 2 ] * ( 1 - nRatio ) ^ 2 * nRatio + 3 * aPoints[ 2, 2 ] * ( 1 - nRatio ) * nRatio ^ 2 + aPoints[ 3, 2 ] * nRatio ^ 3
+      nX := aLast[ 1 ] * ;
+         ( 1 - nRatio ) ^ 3 + 3 * aPoints[ 1 ][ 1 ] * ;
+         ( 1 - nRatio ) ^ 2 * nRatio + 3 * aPoints[ 2 ][ 1 ] * ;
+         ( 1 - nRatio ) * nRatio ^ 2 + aPoints[ 3 ][ 1 ] * nRatio ^ 3
+      nY := aLast[ 2 ] * ;
+         ( 1 - nRatio ) ^ 3 + 3 * aPoints[ 1 ][ 2 ] * ;
+         ( 1 - nRatio ) ^ 2 * nRatio + 3 * aPoints[ 2 ][ 2 ] * ;
+         ( 1 - nRatio ) * nRatio ^ 2 + aPoints[ 3 ][ 2 ] * nRatio ^ 3
 
       nK1 := 1 - 4 * nRatio + 3 * nRatio ^ 2
       nK2 := 2 * nRatio - 3 * nRatio ^ 2
 
-      nDX := -3 * aLast[ 1 ] * ( 1 - nRatio ) ^ 2 + 3 * aPoints[ 1, 1 ] * nK1 + 3 * aPoints[ 2, 1 ] * nK2 + 3 * aPoints[ 3, 1 ] * nRatio ^ 2
-      nDY := -3 * aLast[ 2 ] * ( 1 - nRatio ) ^ 2 + 3 * aPoints[ 1, 2 ] * nK1 + 3 * aPoints[ 2, 2 ] * nK2 + 3 * aPoints[ 3, 2 ] * nRatio ^ 2
+      nDX := -3 * aLast[ 1 ] * ( 1 - nRatio ) ^ 2 + ;
+         3 * aPoints[ 1 ][ 1 ] * nK1 + ;
+         3 * aPoints[ 2 ][ 1 ] * nK2 + ;
+         3 * aPoints[ 3 ][ 1 ] * nRatio ^ 2
+      nDY := -3 * aLast[ 2 ] * ( 1 - nRatio ) ^ 2 + ;
+         3 * aPoints[ 1 ][ 2 ] * nK1 + ;
+         3 * aPoints[ 2 ][ 2 ] * nK2 + ;
+         3 * aPoints[ 3 ][ 2 ] * nRatio ^ 2
 
       nRatio := nNY / Sqrt( nDX * nDX + nDY * nDY )
       nX += -nDY * nRatio
@@ -153,12 +165,15 @@ STATIC FUNCTION path_lengths( hPath )
          aLast := aPoints[ 1 ]
          EXIT
       CASE CAIRO_PATH_LINE_TO
-         nLen := distance( aLast[ 1 ], aLast[ 2 ], aPoints[ 1, 1 ], aPoints[ 1, 2 ] )
+         nLen := distance( aLast[ 1 ], aLast[ 2 ], ;
+            aPoints[ 1 ][ 1 ], aPoints[ 1 ][ 2 ] )
          aLast := aPoints[ 1 ]
          EXIT
       CASE CAIRO_PATH_CURVE_TO
-         nLen := curve_length( aLast[ 1 ], aLast[ 2 ], aPoints[ 1, 1 ], aPoints[ 1, 2 ], ;
-            aPoints[ 2, 1 ], aPoints[ 2, 2 ], aPoints[ 3, 1 ], aPoints[ 3, 2 ] )
+         nLen := curve_length( aLast[ 1 ], aLast[ 2 ], ;
+            aPoints[ 1 ][ 1 ], aPoints[ 1 ][ 2 ], ;
+            aPoints[ 2 ][ 1 ], aPoints[ 2 ][ 2 ], ;
+            aPoints[ 3 ][ 1 ], aPoints[ 3 ][ 2 ] )
          aLast := aPoints[ 3 ]
          EXIT
       ENDSWITCH

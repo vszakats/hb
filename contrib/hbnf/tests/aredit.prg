@@ -49,15 +49,15 @@ STATIC FUNCTION TestGet( b, ar, nDim, nElem )
    SetColor( cOldColor )
    DO CASE
    CASE nDim == 1
-      @ nRow, nCol GET ar[ 1, nElem ] PICTURE "99"
+      @ nRow, nCol GET ar[ 1 ][ nElem ] PICTURE "99"
       READ
       b:refreshAll()
    CASE nDim == 2
-      @ nRow, nCol GET ar[ 2, nElem ] PICTURE "!"
+      @ nRow, nCol GET ar[ 2 ][ nElem ] PICTURE "!"
       READ
       b:refreshAll()
    CASE nDim == 3
-      @ nRow, nCol GET ar[ 3, nElem ] PICTURE "!"
+      @ nRow, nCol GET ar[ 3 ][ nElem ] PICTURE "!"
       READ
       b:refreshAll()
    ENDCASE

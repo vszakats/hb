@@ -528,7 +528,7 @@ METHOD WvtDialog:Inkey()
          IF ::nCurObj > 0
             IF ! Empty( ::aDialogKeys )
                IF ( n := AScan( ::aDialogKeys, {| e_ | e_[ 1 ] == ::nKey } ) ) > 0
-                  Eval( ::aDialogKeys[ n, 2 ], Self, ::oCurObj )
+                  Eval( ::aDialogKeys[ n ][ 2 ], Self, ::oCurObj )
                ENDIF
             ENDIF
 
@@ -537,7 +537,7 @@ METHOD WvtDialog:Inkey()
             IF ::lEventHandled
                IF ::oCurObj:nChildren > 0
                   FOR i := 1 to ::oCurObj:nChildren
-                     IF AScan( ::oCurObj:aChildren[ i, OBJ_CHILD_EVENTS ], ::nKey ) > 0
+                     IF AScan( ::oCurObj:aChildren[ i ][ OBJ_CHILD_EVENTS ], ::nKey ) > 0
                         ::oCurObj:NotifyChild( i, ::nKey, ::oCurObj )
                      ENDIF
                   NEXT
@@ -911,8 +911,8 @@ METHOD WvtObject:ShowPopup()
          IF ( n := AScan( ::aPopup, {| e_ | e_[ 3 ] == nRet } ) ) > 0
             lRet := .T.
 
-            IF HB_ISEVALITEM( ::aPopup[ n, 2 ] )
-               Eval( ::aPopup[ n, 2 ] )
+            IF HB_ISEVALITEM( ::aPopup[ n ][ 2 ] )
+               Eval( ::aPopup[ n ][ 2 ] )
             ENDIF
          ENDIF
       ENDIF
@@ -1074,23 +1074,23 @@ METHOD WvtBrowse:NotifyChild( nIndex, nKey, oCurObj )
    LOCAL xData, i
 
    IF nIndex >= 1 .AND. nIndex <= Len( ::aChildren )
-      IF HB_ISEVALITEM( ::aChildren[ nIndex, OBJ_CHILD_DATABLOCK ] )
-         xData := Eval( ::aChildren[ nIndex, OBJ_CHILD_DATABLOCK ] )
+      IF HB_ISEVALITEM( ::aChildren[ nIndex ][ OBJ_CHILD_DATABLOCK ] )
+         xData := Eval( ::aChildren[ nIndex ][ OBJ_CHILD_DATABLOCK ] )
       ENDIF
 
-      Eval( ::aChildren[ nIndex, OBJ_CHILD_REFRESHBLOCK ], ;
-         ::aChildren[ nIndex, OBJ_CHILD_OBJ ], ;
-         ::aChildren[ nIndex, OBJ_CHILD_OBJ ]:oParent:cPaintBlockID, ;
-         ::aChildren[ nIndex, OBJ_CHILD_OBJ ]:oBrw, ;
+      Eval( ::aChildren[ nIndex ][ OBJ_CHILD_REFRESHBLOCK ], ;
+         ::aChildren[ nIndex ][ OBJ_CHILD_OBJ ], ;
+         ::aChildren[ nIndex ][ OBJ_CHILD_OBJ ]:oParent:cPaintBlockID, ;
+         ::aChildren[ nIndex ][ OBJ_CHILD_OBJ ]:oBrw, ;
          nKey, ;
          xData )
 
-      IF ::aChildren[ nIndex, OBJ_CHILD_OBJ ]:nChildren > 0
+      IF ::aChildren[ nIndex ][ OBJ_CHILD_OBJ ]:nChildren > 0
          /* Pretend IF focus is current on this object */
-         Eval( ::aChildren[ nIndex, OBJ_CHILD_OBJ ]:bOnFocus, ::aChildren[ nIndex, OBJ_CHILD_OBJ ] )
+         Eval( ::aChildren[ nIndex ][ OBJ_CHILD_OBJ ]:bOnFocus, ::aChildren[ nIndex ][ OBJ_CHILD_OBJ ] )
 
-         FOR i := 1 to ::aChildren[ nIndex, OBJ_CHILD_OBJ ]:nChildren
-            ::aChildren[ nIndex, OBJ_CHILD_OBJ ]:NotifyChild( i, nKey, ::aChildren[ nIndex, OBJ_CHILD_OBJ ] )
+         FOR i := 1 to ::aChildren[ nIndex ][ OBJ_CHILD_OBJ ]:nChildren
+            ::aChildren[ nIndex ][ OBJ_CHILD_OBJ ]:NotifyChild( i, nKey, ::aChildren[ nIndex ][ OBJ_CHILD_OBJ ] )
          NEXT
 
          /* Restore previous environments */
@@ -1976,11 +1976,11 @@ METHOD WvtGets:Create()
 
    FOR i := 1 TO Len( ::aGetList )
 
-      __defaultNIL( @::aGetList[ i, 7 ], "N/W*,N/W*,,,N/GR*" )
-      __defaultNIL( @::aGetList[ i, 5 ], {|| .T. } )
-      __defaultNIL( @::aGetList[ i, 6 ], {|| .T. } )
+      __defaultNIL( @::aGetList[ i ][ 7 ], "N/W*,N/W*,,,N/GR*" )
+      __defaultNIL( @::aGetList[ i ][ 5 ], {|| .T. } )
+      __defaultNIL( @::aGetList[ i ][ 6 ], {|| .T. } )
 
-      AAdd( ::GetList, Get():New( ::aGetList[ i, 1 ], ::aGetList[ i, 2 ], {| v | iif( PCount() == 0, ::aGetList[ i, 3 ], ::aGetList[ i, 3 ] := v ) }, "::aGetList[ i, 3 ]", ::aGetList[ i, 7 ] ) )
+      AAdd( ::GetList, Get():New( ::aGetList[ i ][ 1 ], ::aGetList[ i ][ 2 ], {| v | iif( PCount() == 0, ::aGetList[ i ][ 3 ], ::aGetList[ i ][ 3 ] := v ) }, "::aGetList[ i ][ 3 ]", ::aGetList[ i ][ 7 ] ) )
 
       ::GetList[ i ]:Display()
       ::PaintBlock( i )
@@ -1996,13 +1996,13 @@ METHOD WvtGets:PaintBlock( nIndex )
 
    LOCAL nLen, bPaint
 
-   nLen   := Len( Transform( ::aGetList[ nIndex, 3 ], ::aGetList[ nIndex, 4 ] ) )
+   nLen   := Len( Transform( ::aGetList[ nIndex ][ 3 ], ::aGetList[ nIndex ][ 4 ] ) )
 
-   bPaint := {|| wvt_DrawBoxGet( ::aGetList[ nIndex, 1 ], ::aGetList[ nIndex, 2 ], nLen ) }
+   bPaint := {|| wvt_DrawBoxGet( ::aGetList[ nIndex ][ 1 ], ::aGetList[ nIndex ][ 2 ], nLen ) }
 
    AAdd( ::aPaint, { bPaint, ;
-      { WVT_BLOCK_GETS, ::aGetList[ nIndex, 1 ] - 1, ::aGetList[ nIndex, 2 ] - 1, ;
-      ::aGetList[ nIndex, 1 ] - 1,  ::aGetList[ nIndex, 2 ] + nLen } } )
+      { WVT_BLOCK_GETS, ::aGetList[ nIndex ][ 1 ] - 1, ::aGetList[ nIndex ][ 2 ] - 1, ;
+      ::aGetList[ nIndex ][ 1 ] - 1,  ::aGetList[ nIndex ][ 2 ] + nLen } } )
 
    RETURN Self
 
@@ -2981,8 +2981,8 @@ METHOD wvtMenu:DelItem( nItemNum )
    LOCAL lResult := .F.
 
    IF nItemNum >= 1 .AND. nItemNum <= ::NumItems()
-      IF ::aItems[ nItemNum, WVT_MENU_TYPE ] == WIN_MF_POPUP
-         ::aItems[ nItemNum, WVT_MENU_MENUOBJ ]:Destroy()
+      IF ::aItems[ nItemNum ][ WVT_MENU_TYPE ] == WIN_MF_POPUP
+         ::aItems[ nItemNum ][ WVT_MENU_MENUOBJ ]:Destroy()
       ENDIF
 
       IF ( lResult := wapi_DeleteMenu( ::hMenu, nItemNum - 1, WIN_MF_BYPOSITION ) ) /* Remember ZERO base */
@@ -3032,9 +3032,9 @@ METHOD wvtMenu:FindMenuItemById( nId )
    IF ! Empty( nId )
       x := ::NumItems()
       DO WHILE x > 0 .AND. Empty( aResult )
-         IF ::aItems[ x, WVT_MENU_TYPE ] == WIN_MF_POPUP
-            aResult := ::aItems[ x, WVT_MENU_MENUOBJ ]:FindMenuItemById( nId )
-         ELSEIF ::aItems[ x, WVT_MENU_IDENTIFIER ] == nId
+         IF ::aItems[ x ][ WVT_MENU_TYPE ] == WIN_MF_POPUP
+            aResult := ::aItems[ x ][ WVT_MENU_MENUOBJ ]:FindMenuItemById( nId )
+         ELSEIF ::aItems[ x ][ WVT_MENU_IDENTIFIER ] == nId
             aResult := ::aItems[ x ]
          ENDIF
          x--

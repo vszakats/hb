@@ -174,13 +174,13 @@ FUNCTION ft_MenuTo( bGetSet, cReadVar, lCold )
 
       DispBegin()
 
-      IF t_aMessage[ nMenu, nActive ] != NIL
-         cScreen := SaveScreen( t_aMsgRow[ nMenu, nActive ], t_aMsgCol[ nMenu, nActive ], ;
-            t_aMsgRow[ nMenu, nActive ], t_aMsgCol[ nMenu, nActive ] + ;
-            Len( t_aMessage[ nMenu, nActive ] ) - 1 )
+      IF t_aMessage[ nMenu ][ nActive ] != NIL
+         cScreen := SaveScreen( t_aMsgRow[ nMenu ][ nActive ], t_aMsgCol[ nMenu ][ nActive ], ;
+            t_aMsgRow[ nMenu ][ nActive ], t_aMsgCol[ nMenu ][ nActive ] + ;
+            Len( t_aMessage[ nMenu ][ nActive ] ) - 1 )
 
-         hb_DispOutAt( t_aMsgRow[ nMenu, nActive ], t_aMsgCol[ nMenu, nActive ], ;
-            t_aMessage[ nMenu, nActive ], t_aMsgColor[ nMenu, nActive ]  )
+         hb_DispOutAt( t_aMsgRow[ nMenu ][ nActive ], t_aMsgCol[ nMenu ][ nActive ], ;
+            t_aMessage[ nMenu ][ nActive ], t_aMsgColor[ nMenu ][ nActive ]  )
       ELSE
          cScreen := NIL
       ENDIF
@@ -188,13 +188,13 @@ FUNCTION ft_MenuTo( bGetSet, cReadVar, lCold )
       // Display the prompt using the designated colors for the prompt and
       // the trigger character.
 
-      hb_DispOutAt( t_aRow[ nMenu, nActive ], t_aCol[ nMenu, nActive ], ;
-         t_aPrompt[ nMenu, nActive ], hb_ColorIndex( t_aColor[ nMenu, nActive ], 1 ) )
+      hb_DispOutAt( t_aRow[ nMenu ][ nActive ], t_aCol[ nMenu ][ nActive ], ;
+         t_aPrompt[ nMenu ][ nActive ], hb_ColorIndex( t_aColor[ nMenu ][ nActive ], 1 ) )
 
-      hb_DispOutAt( t_aRow[ nMenu, nActive ], ;
-         t_aCol[ nMenu, nActive ] - 1 + t_aTrigger[ nMenu, nActive ], ;
-         SubStr( t_aPrompt[ nMenu, nActive ], t_aTrigger[ nMenu, nActive ], 1 ), ;
-         hb_ColorIndex(  t_aTriggerColor[ nMenu, nActive ], 1 ) )
+      hb_DispOutAt( t_aRow[ nMenu ][ nActive ], ;
+         t_aCol[ nMenu ][ nActive ] - 1 + t_aTrigger[ nMenu ][ nActive ], ;
+         SubStr( t_aPrompt[ nMenu ][ nActive ], t_aTrigger[ nMenu ][ nActive ], 1 ), ;
+         hb_ColorIndex(  t_aTriggerColor[ nMenu ][ nActive ], 1 ) )
 
       DispEnd()
 
@@ -217,8 +217,8 @@ FUNCTION ft_MenuTo( bGetSet, cReadVar, lCold )
       CASE nKeyStd == K_ENTER
          // If Enter was pressed, either exit the menu or evaluate the
          // associated code block.
-         IF t_aExecute[ nMenu, nActive ] != NIL
-            Eval( t_aExecute[ nMenu, nActive ] )
+         IF t_aExecute[ nMenu ][ nActive ] != NIL
+            Eval( t_aExecute[ nMenu ][ nActive ] )
          ELSE
             lChoice := .T.
          ENDIF
@@ -230,50 +230,50 @@ FUNCTION ft_MenuTo( bGetSet, cReadVar, lCold )
 
       CASE nKeyStd == K_HOME
          // If Home was pressed, go to the designated menu item
-         nActive := iif( t_aHome[ nMenu, nActive ] == NIL, 1, t_aHome[ nMenu, nActive ] )
+         nActive := iif( t_aHome[ nMenu ][ nActive ] == NIL, 1, t_aHome[ nMenu ][ nActive ] )
 
       CASE nKeyStd == K_END
          // If End was pressed, go to the designated menu item
-         nActive := iif( t_aEnd[ nMenu, nActive ] == NIL, nCount, t_aEnd[ nMenu, nActive ] )
+         nActive := iif( t_aEnd[ nMenu ][ nActive ] == NIL, nCount, t_aEnd[ nMenu ][ nActive ] )
 
       CASE nKeyStd == K_UP
          // If Up Arrow was pressed, go to the designated menu item
-         IF t_aUp[ nMenu, nActive ] == NIL
+         IF t_aUp[ nMenu ][ nActive ] == NIL
             IF --nActive < 1
                nActive := iif( lWrap, nCount, 1 )
             ENDIF
-         ELSEIF isOkay( t_aUp[ nMenu, nActive ] )
-            nActive := t_aUp[ nMenu, nActive ]
+         ELSEIF isOkay( t_aUp[ nMenu ][ nActive ] )
+            nActive := t_aUp[ nMenu ][ nActive ]
          ENDIF
 
       CASE nKeyStd == K_DOWN
          // If Down Arrow was pressed, go to the designated menu item
-         IF t_aDown[ nMenu, nActive ] == NIL
+         IF t_aDown[ nMenu ][ nActive ] == NIL
             IF ++nActive > nCount
                nActive := iif( lWrap, 1, nCount )
             ENDIF
-         ELSEIF isOkay( t_aDown[ nMenu, nActive ] )
-            nActive := t_aDown[ nMenu, nActive ]
+         ELSEIF isOkay( t_aDown[ nMenu ][ nActive ] )
+            nActive := t_aDown[ nMenu ][ nActive ]
          ENDIF
 
       CASE nKeyStd == K_LEFT
          // If Left Arrow was pressed, go to the designated menu item
-         IF t_aLeft[ nMenu, nActive ] == NIL
+         IF t_aLeft[ nMenu ][ nActive ] == NIL
             IF --nActive < 1
                nActive := iif( lWrap, nCount, 1 )
             ENDIF
-         ELSEIF isOkay( t_aLeft[ nMenu, nActive ] )
-            nActive := t_aLeft[ nMenu, nActive ]
+         ELSEIF isOkay( t_aLeft[ nMenu ][ nActive ] )
+            nActive := t_aLeft[ nMenu ][ nActive ]
          ENDIF
 
       CASE nKeyStd == K_RIGHT
          // If Right Arrow was pressed, go to the designated menu item
-         IF t_aRight[ nMenu, nActive ] == NIL
+         IF t_aRight[ nMenu ][ nActive ] == NIL
             IF ++nActive > nCount
                nActive := iif( lWrap, 1, nCount )
             ENDIF
-         ELSEIF isOkay( t_aRight[ nMenu, nActive ] )
-            nActive := t_aRight[ nMenu, nActive ]
+         ELSEIF isOkay( t_aRight[ nMenu ][ nActive ] )
+            nActive := t_aRight[ nMenu ][ nActive ]
          ENDIF
 
       CASE ( nScan := AScan( t_aTriggerInkey[ nMenu ], nKey ) ) > 0 .OR. ;
@@ -288,19 +288,19 @@ FUNCTION ft_MenuTo( bGetSet, cReadVar, lCold )
       // Erase the highlight bar in preparation for the next iteration
       IF ! lChoice
          DispBegin()
-         hb_DispOutAt( t_aRow[ nMenu, nPrev ], t_aCol[ nMenu, nPrev ], ;
-            t_aPrompt[ nMenu, nPrev ], t_aColor[ nMenu, nPrev ] )
+         hb_DispOutAt( t_aRow[ nMenu ][ nPrev ], t_aCol[ nMenu ][ nPrev ], ;
+            t_aPrompt[ nMenu ][ nPrev ], t_aColor[ nMenu ][ nPrev ] )
 
-         hb_DispOutAt( t_aRow[ nMenu, nPrev ], t_aCol[ nMenu, nPrev ] - 1 + t_aTrigger[ nMenu, nPrev ], ;
-            SubStr( t_aPrompt[ nMenu, nPrev ], t_aTrigger[ nMenu, nPrev ], 1 ), ;
-            t_aTriggerColor[ nMenu, nPrev ] )
+         hb_DispOutAt( t_aRow[ nMenu ][ nPrev ], t_aCol[ nMenu ][ nPrev ] - 1 + t_aTrigger[ nMenu ][ nPrev ], ;
+            SubStr( t_aPrompt[ nMenu ][ nPrev ], t_aTrigger[ nMenu ][ nPrev ], 1 ), ;
+            t_aTriggerColor[ nMenu ][ nPrev ] )
 
          IF cScreen != NIL
-            RestScreen( t_aMsgRow[ nMenu, nPrev ], ;
-               t_aMsgCol[ nMenu, nPrev ], ;
-               t_aMsgRow[ nMenu, nPrev ], ;
-               t_aMsgCol[ nMenu, nPrev ]  ;
-               + Len( t_aMessage[ nMenu, nPrev ] ) - 1, ;
+            RestScreen( t_aMsgRow[ nMenu ][ nPrev ], ;
+               t_aMsgCol[ nMenu ][ nPrev ], ;
+               t_aMsgRow[ nMenu ][ nPrev ], ;
+               t_aMsgCol[ nMenu ][ nPrev ]  ;
+               + Len( t_aMessage[ nMenu ][ nPrev ] ) - 1, ;
                cScreen )
          ENDIF
          DispEnd()

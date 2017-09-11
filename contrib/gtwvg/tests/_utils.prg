@@ -157,8 +157,8 @@ PROCEDURE wvt_Mouse( nKey, nRow, nCol )  /* must be a public function */
       e_[ WVT_OBJ_COLTO ] >= nCol } )
    IF nObj == 0
       IF s_nLastObj > 0
-         aObjects[ s_nLastObj, WVT_OBJ_STATE ] := OBJ_STATE_DISP
-         Eval( aObjects[ s_nLastObj, WVT_OBJ_ONDISP ] )
+         aObjects[ s_nLastObj ][ WVT_OBJ_STATE ] := OBJ_STATE_DISP
+         Eval( aObjects[ s_nLastObj ][ WVT_OBJ_ONDISP ] )
          s_nLastObj := 0
       ENDIF
       RETURN
@@ -173,23 +173,23 @@ PROCEDURE wvt_Mouse( nKey, nRow, nCol )  /* must be a public function */
 
    DO CASE
    CASE nKey == K_MOUSEMOVE
-      IF aObjects[ s_nLastObj, WVT_OBJ_STATE ] != OBJ_STATE_MOUSEOVER
-         aObjects[ s_nLastObj, WVT_OBJ_STATE ] := OBJ_STATE_MOUSEOVER
-         IF aObjects[ nObj, WVT_OBJ_ONMOUSEOVER ] != NIL
-            Eval( aObjects[ nObj, WVT_OBJ_ONMOUSEOVER ] )
+      IF aObjects[ s_nLastObj ][ WVT_OBJ_STATE ] != OBJ_STATE_MOUSEOVER
+         aObjects[ s_nLastObj ][ WVT_OBJ_STATE ] := OBJ_STATE_MOUSEOVER
+         IF aObjects[ nObj ][ WVT_OBJ_ONMOUSEOVER ] != NIL
+            Eval( aObjects[ nObj ][ WVT_OBJ_ONMOUSEOVER ] )
          ENDIF
       ENDIF
 
    CASE nKey == K_LBUTTONDOWN
-      aObjects[ s_nLastObj, WVT_OBJ_STATE ] := OBJ_STATE_BUTTONDOWN
-      IF aObjects[ nObj, WVT_OBJ_ONBUTTONDOWN ] != NIL
-         Eval( aObjects[ nObj, WVT_OBJ_ONBUTTONDOWN ] )
+      aObjects[ s_nLastObj ][ WVT_OBJ_STATE ] := OBJ_STATE_BUTTONDOWN
+      IF aObjects[ nObj ][ WVT_OBJ_ONBUTTONDOWN ] != NIL
+         Eval( aObjects[ nObj ][ WVT_OBJ_ONBUTTONDOWN ] )
       ENDIF
 
    CASE nKey == K_LBUTTONUP
-      aObjects[ s_nLastObj, WVT_OBJ_STATE ] := OBJ_STATE_DISP
-      IF aObjects[ nObj, WVT_OBJ_ONBUTTONUP ] != NIL
-         Eval( aObjects[ nObj, WVT_OBJ_ONBUTTONUP ] )
+      aObjects[ s_nLastObj ][ WVT_OBJ_STATE ] := OBJ_STATE_DISP
+      IF aObjects[ nObj ][ WVT_OBJ_ONBUTTONUP ] != NIL
+         Eval( aObjects[ nObj ][ WVT_OBJ_ONBUTTONUP ] )
       ENDIF
 
    ENDCASE

@@ -980,11 +980,11 @@ STATIC PROCEDURE _ftPopWin()
 
    LOCAL nNumWindow := Len( t_aWindow )
 
-   RestScreen( t_aWindow[ nNumWindow, 1 ], t_aWindow[ nNumWindow, 2 ], ;
-      t_aWindow[ nNumWindow, 3 ] + 1, t_aWindow[ nNumWindow, 4 ] + 2, ;
-      t_aWindow[ nNumWindow, 6 ] )
+   RestScreen( t_aWindow[ nNumWindow ][ 1 ], t_aWindow[ nNumWindow ][ 2 ], ;
+      t_aWindow[ nNumWindow ][ 3 ] + 1, t_aWindow[ nNumWindow ][ 4 ] + 2, ;
+      t_aWindow[ nNumWindow ][ 6 ] )
 
-   IF t_aWindow[ nNumWindow, 7 ]
+   IF t_aWindow[ nNumWindow ][ 7 ]
       _ftLastWinColor()
    ENDIF
 
@@ -1008,11 +1008,11 @@ STATIC FUNCTION _ftSetWinColor( nWin, nStd, nEnh, nBord, nBack, nUnsel )
    hb_default( @nEnh, 7 )
 
    RETURN SetColor( ;
-      t_aWinColor[ hb_defaultValue( nStd, 7 ), nWin ] + "," + ;
-      t_aWinColor[ nEnh, nWin ] + "," + ;
-      t_aWinColor[ hb_defaultValue( nBord, 7 ), nWin ] + "," + ;
-      t_aWinColor[ hb_defaultValue( nBack, 7 ), nWin ] + "," + ;
-      t_aWinColor[ hb_defaultValue( nUnsel, nEnh ), nWin ] )
+      t_aWinColor[ hb_defaultValue( nStd, 7 ) ][ nWin ] + "," + ;
+      t_aWinColor[ nEnh ][ nWin ] + "," + ;
+      t_aWinColor[ hb_defaultValue( nBord, 7 ) ][ nWin ] + "," + ;
+      t_aWinColor[ hb_defaultValue( nBack, 7 ) ][ nWin ] + "," + ;
+      t_aWinColor[ hb_defaultValue( nUnsel, nEnh ) ][ nWin ] )
 
 // Decrement the active window color number and return the current value
 // NOTE: If we are already on window #1 restart count by using # 4.
@@ -1035,8 +1035,10 @@ STATIC PROCEDURE _ftWinTitle( cTheTitle, cTopOrBot )
    LOCAL nCurWin  := Len( t_aWindow )
    LOCAL nLenTitle := Len( cTheTitle )
 
-   hb_DispOutAt( t_aWindow[ nCurWin, iif( cTopOrBot == NIL, 1, 3 ) ], ( t_aWindow[ nCurWin, 4 ] - ;
-      t_aWindow[ nCurWin, 2 ] - nLenTitle ) / 2 + t_aWindow[ nCurWin, 2 ], " " + cTheTitle + " " )
+   hb_DispOutAt( ;
+      t_aWindow[ nCurWin ][ iif( cTopOrBot == NIL, 1, 3 ) ], ;
+      ( t_aWindow[ nCurWin ][ 4 ] - t_aWindow[ nCurWin ][ 2 ] - nLenTitle ) / 2 + t_aWindow[ nCurWin ][ 2 ], ;
+      " " + cTheTitle + " " )
 
    RETURN
 

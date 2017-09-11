@@ -21,7 +21,7 @@ FUNCTION UWMainNew()
 
    LOCAL oW := UWMain()
 
-   session[ "_uthis", "main" ] := oW
+   session[ "_uthis" ][ "main" ] := oW
 
    RETURN oW
 
@@ -92,7 +92,7 @@ METHOD Add( oWidget, nRow, nCol ) CLASS UWLayoutGrid
          AEval( ::aChilds, {| x | AAdd( x, {} ) } )
       NEXT
    ENDIF
-   AAdd( ::aChilds[ nRow, nCol ], oWidget )
+   AAdd( ::aChilds[ nRow ][ nCol ], oWidget )
 
    RETURN Self
 
@@ -463,7 +463,7 @@ PROCEDURE UProcWidgets( cURL, aMap )
       nI := 1
       nL := Min( Len( aURL ), Len( aStack ) )
       DO WHILE nI <= nL
-         IF aStack[ nI, 1 ] == aURL[ nI ]
+         IF aStack[ nI ][ 1 ] == aURL[ nI ]
             nI++
          ELSE
             EXIT
@@ -524,7 +524,7 @@ PROCEDURE UWDefaultHandler( cMethod )
 
    IF cMethod == "GET"
       IF ( cID := hb_HGetDef( get, "ajax" ) ) == NIL
-         session[ "_uthis", "main" ]:Paint()
+         session[ "_uthis" ][ "main" ]:Paint()
       ELSE
          IF ( oW := UGetWidgetById( cID ) ) != NIL
             UAddHeader( "Content-type", "text/html; charset=UTF-8" )
@@ -539,13 +539,13 @@ STATIC PROCEDURE SetWId( oW, cID )
 
    IF cID != NIL
       oW:cID := cID
-      session[ "_uthis", "idhash", cID ] := oW
+      session[ "_uthis" ][ "idhash" ][ cID ] := oW
    ENDIF
 
    RETURN
 
 FUNCTION UGetWidgetById( cID )
-   RETURN hb_HGetDef( session[ "_uthis", "idhash" ], cID )
+   RETURN hb_HGetDef( session[ "_uthis" ][ "idhash" ], cID )
 
 STATIC FUNCTION uhttpd_split( cSeparator, cString )
 

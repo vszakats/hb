@@ -89,9 +89,9 @@ PROCEDURE ft_Pegs()
          IF board_[ move ][ 4 ]
             possible_ := {}
             FOR xx := 1 TO Len( board_[ move ][ 2 ] )
-               IF board_[ board_[ move ][ 2, xx ] ][ 4 ] .AND. ;
-                  ! board_[ board_[ move ][ 3, xx ] ][ 4 ]
-                  AAdd( possible_, { board_[ move ][ 2, xx ], board_[ move ][ 3, xx ] } )
+               IF board_[ board_[ move ][ 2 ][ xx ] ][ 4 ] .AND. ;
+                  ! board_[ board_[ move ][ 3 ][ xx ] ][ 4 ]
+                  AAdd( possible_, { board_[ move ][ 2 ][ xx ], board_[ move ][ 3 ][ xx ] } )
                ENDIF
             NEXT
             SWITCH Len( possible_ )
@@ -101,14 +101,14 @@ PROCEDURE ft_Pegs()
             CASE 1
                // only one available move -- do it
                // clear out original position and the position you jumped over
-               board_[ move ][ 4 ] := board_[ possible_[ 1, 1 ] ][ 4 ] := .F.
-               board_[ possible_[ 1, 2 ] ][ 4 ] := .T.
+               board_[ move ][ 4 ] := board_[ possible_[ 1 ][ 1 ] ][ 4 ] := .F.
+               board_[ possible_[ 1 ][ 2 ] ][ 4 ] := .T.
                drawbox( board_, move )
-               drawbox( board_, possible_[ 1, 1 ] )
-               drawbox( board_, possible_[ 1, 2 ] )
+               drawbox( board_, possible_[ 1 ][ 1 ] )
+               drawbox( board_, possible_[ 1 ][ 2 ] )
                EXIT
             OTHERWISE
-               move2 := possible_[ 1, 2 ]
+               move2 := possible_[ 1 ][ 2 ]
                toprow := 21 - Len( possible_ )
                SetColor( "+w/b" )
                buffer := SaveScreen( toprow, 55, 22, 74 )
@@ -127,10 +127,10 @@ PROCEDURE ft_Pegs()
                Set( _SET_SCOREBOARD, oldscore )
                mpos := AScan( possible_, {| a | move2 == a[ 2 ] } )
                // clear out original position and the position you jumped over
-               board_[ move ][ 4 ] := board_[ possible_[ mpos, 1 ] ][ 4 ] := .F.
+               board_[ move ][ 4 ] := board_[ possible_[ mpos ][ 1 ] ][ 4 ] := .F.
                board_[ move2 ][ 4 ] := .T.
                drawbox( board_, move )
-               drawbox( board_, possible_[ mpos, 1 ] )
+               drawbox( board_, possible_[ mpos ][ 1 ] )
                drawbox( board_, move2 )
             ENDSWITCH
          ELSE
@@ -149,14 +149,14 @@ STATIC PROCEDURE DrawBox( board_, nelement )
    SetColor( iif( board_[ nelement ][ 4 ], "+w/rb", "w/n" ) )
 
    hb_DispBox( ;
-      board_[ nelement ][ 1, 1 ], ;
-      board_[ nelement ][ 1, 2 ], ;
-      board_[ nelement ][ 1, 3 ], ;
-      board_[ nelement ][ 1, 4 ], HB_B_SINGLE_UNI + " " )
+      board_[ nelement ][ 1 ][ 1 ], ;
+      board_[ nelement ][ 1 ][ 2 ], ;
+      board_[ nelement ][ 1 ][ 3 ], ;
+      board_[ nelement ][ 1 ][ 4 ], HB_B_SINGLE_UNI + " " )
 
    hb_DispOutAt( ;
-      board_[ nelement ][ 1, 1 ] + 1, ;
-      board_[ nelement ][ 1, 2 ] + 2, hb_ntos( nelement ) )
+      board_[ nelement ][ 1 ][ 1 ] + 1, ;
+      board_[ nelement ][ 1 ][ 2 ] + 2, hb_ntos( nelement ) )
 
    RETURN
 
@@ -179,9 +179,9 @@ STATIC FUNCTION moremoves( board_ )
 
    FOR xx := 1 TO 33
       FOR yy := 1 TO Len( board_[ xx ][ 2 ] )
-         IF board_[ xx ][ 4 ] .AND.  ;                    // if current location is filled
-            board_[ board_[ xx ][ 2, yy ] ][ 4 ] .AND. ;  // adjacent must be filled
-            ! board_[ board_[ xx ][ 3, yy ] ][ 4 ]        // target must be empty
+         IF board_[ xx ][ 4 ] .AND.  ;                      // if current location is filled
+            board_[ board_[ xx ][ 2 ][ yy ] ][ 4 ] .AND. ;  // adjacent must be filled
+            ! board_[ board_[ xx ][ 3 ][ yy ] ][ 4 ]        // target must be empty
             canmove := .T.
             EXIT
          ENDIF

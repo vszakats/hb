@@ -102,11 +102,11 @@ PROCEDURE ft_Menu1( aBar, aOptions, aColors, nTopRow, lShadow )
       SetColor( cCurrent )
       hb_DispOutAt( nTopRow, aBarCol[ t_nHPos ], aBar[ t_nHPos ] )
       IF lShadow
-         hb_Shadow( nTopRow + 1, aBoxLoc[ t_nHPos ], Len( t_aChoices[ t_nHPos, 1 ] ) + nTopRow + 2, aBarWidth[ t_nHPos ] + 3 + aBoxLoc[ t_nHPos ] )
+         hb_Shadow( nTopRow + 1, aBoxLoc[ t_nHPos ], Len( t_aChoices[ t_nHPos ][ 1 ] ) + nTopRow + 2, aBarWidth[ t_nHPos ] + 3 + aBoxLoc[ t_nHPos ] )
       ENDIF
-      hb_DispBox( nTopRow + 1, aBoxLoc[ t_nHPos ], Len( t_aChoices[ t_nHPos, 1 ] ) + nTopRow + 2, aBarWidth[ t_nHPos ] + 3 + aBoxLoc[ t_nHPos ], HB_B_DOUBLE_UNI + " ", cBorder )
+      hb_DispBox( nTopRow + 1, aBoxLoc[ t_nHPos ], Len( t_aChoices[ t_nHPos ][ 1 ] ) + nTopRow + 2, aBarWidth[ t_nHPos ] + 3 + aBoxLoc[ t_nHPos ], HB_B_DOUBLE_UNI + " ", cBorder )
       SetColor( cBox + "," + cCurrent + ",,," + cUnselec )
-      t_nVPos := AChoice( nTopRow + 2, aBoxLoc[ t_nHPos ] + 2, Len( t_aChoices[ t_nHPos, 1 ] ) + nTopRow + 2, aBarWidth[ t_nHPos ] + 1 + aBoxLoc[ t_nHPos ], t_aChoices[ t_nHPos, 1 ], t_aChoices[ t_nHPos, 3 ], {| nMode | __ftAcUdf( nMode ) }, aLastSel[ t_nHPos ] )
+      t_nVPos := AChoice( nTopRow + 2, aBoxLoc[ t_nHPos ] + 2, Len( t_aChoices[ t_nHPos ][ 1 ] ) + nTopRow + 2, aBarWidth[ t_nHPos ] + 1 + aBoxLoc[ t_nHPos ], t_aChoices[ t_nHPos ][ 1 ], t_aChoices[ t_nHPos ][ 3 ], {| nMode | __ftAcUdf( nMode ) }, aLastSel[ t_nHPos ] )
       SWITCH LastKey()
       CASE K_RIGHT
       CASE K_TAB
@@ -127,10 +127,10 @@ PROCEDURE ft_Menu1( aBar, aOptions, aColors, nTopRow, lShadow )
          EXIT
       CASE K_ENTER
          aLastSel[ t_nHPos ] := t_nVPos
-         IF t_aChoices[ t_nHPos, 2, t_nVPos ] != NIL
+         IF t_aChoices[ t_nHPos ][ 2 ][ t_nVPos ] != NIL
             SetCancel( lCancMode )
             AltD( ENABLE )
-            lLooping := Eval( t_aChoices[ t_nHPos, 2, t_nVPos ] )
+            lLooping := Eval( t_aChoices[ t_nHPos ][ 2 ][ t_nVPos ] )
             AltD( DISABLE )
             SetCancel( .F. )
          ENDIF
@@ -161,7 +161,7 @@ STATIC FUNCTION __ftAcUdf( nMode )
       EXIT
    CASE AC_EXCEPT
       IF Upper( hb_keyChar( LastKey() ) ) $ t_aValidKeys[ t_nHPos ]
-         IF t_aChoices[ t_nHPos, 3, At( Upper( hb_keyChar( LastKey() ) ), t_aValidKeys[ t_nHPos ] ) ]
+         IF t_aChoices[ t_nHPos ][ 3 ][ At( Upper( hb_keyChar( LastKey() ) ), t_aValidKeys[ t_nHPos ] ) ]
             hb_keyPut( K_ENTER )
             nRtnVal := AC_GOTO
          ENDIF
@@ -175,8 +175,8 @@ STATIC FUNCTION __ftAcUdf( nMode )
 
 STATIC PROCEDURE _ftWidest( i, t_aChoices, aBarWidth )
 
-   AEval( t_aChoices[ i, 1 ], {| a, b | HB_SYMBOL_UNUSED( a ), aBarWidth[ i ] := ;
-      Max( aBarWidth[ i ], Len( t_aChoices[ i, 1, b ] ) ) } )
+   AEval( t_aChoices[ i ][ 1 ], {| a, b | HB_SYMBOL_UNUSED( a ), aBarWidth[ i ] := ;
+      Max( aBarWidth[ i ], Len( t_aChoices[ i ][ 1 ][ b ] ) ) } )
 
    RETURN
 
@@ -207,7 +207,7 @@ STATIC FUNCTION _ftBailOut( cBorder, cBox )
 
 STATIC PROCEDURE _ftValKeys( nNum, t_aChoices, t_aValidKeys )
 
-   AEval( t_aChoices[ nNum, 1 ], {| x | t_aValidKeys[ nNum ] += Left( x, 1 ) } )
+   AEval( t_aChoices[ nNum ][ 1 ], {| x | t_aValidKeys[ nNum ] += Left( x, 1 ) } )
 
    RETURN
 

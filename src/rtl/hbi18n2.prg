@@ -317,7 +317,7 @@ STATIC FUNCTION __i18n_ItemToStr( item )
       cSource := "~" + Left( cSource, tmp - 1 ) + Str( Val( SubStr( cSource, tmp + 1 ) ), 10, 0 )
    ENDIF
 
-   RETURN cSource + item[ _I18N_MSGID, 1 ]
+   RETURN cSource + item[ _I18N_MSGID ][ 1 ]
 
 FUNCTION __i18n_potArrayClean( aTrans, lKeepSource, lKeepVoidTranslations, bTransformTranslation )
 
@@ -332,7 +332,7 @@ FUNCTION __i18n_potArrayClean( aTrans, lKeepSource, lKeepVoidTranslations, bTran
    FOR EACH item IN aTrans
       IF HB_ISEVALITEM( bTransformTranslation )
          FOR EACH cString IN item[ _I18N_MSGSTR ]
-            tmp := Eval( bTransformTranslation, cString, item[ _I18N_MSGID, cString:__enumIndex() ] )
+            tmp := Eval( bTransformTranslation, cString, item[ _I18N_MSGID ][ cString:__enumIndex() ] )
             IF HB_ISSTRING( tmp )
                cString := tmp
             ENDIF
@@ -347,7 +347,7 @@ FUNCTION __i18n_potArrayClean( aTrans, lKeepSource, lKeepVoidTranslations, bTran
       FOR EACH item IN aTrans DESCEND
          lVoid := .T.
          FOR EACH cString IN item[ _I18N_MSGSTR ]
-            IF ! Empty( cString ) .AND. ! cString == item[ _I18N_MSGID, cString:__enumIndex() ]
+            IF ! Empty( cString ) .AND. ! cString == item[ _I18N_MSGID ][ cString:__enumIndex() ]
                lVoid := .F.
                EXIT
             ENDIF
@@ -440,21 +440,21 @@ FUNCTION __i18n_potArrayToHash( aTrans, lEmpty, hI18N )
    hTrans := hI18N[ "CONTEXT" ]
 
    FOR EACH aItem IN aTrans
-      IF lEmpty .OR. ! Empty( aItem[ _I18N_MSGSTR, 1 ] )
+      IF lEmpty .OR. ! Empty( aItem[ _I18N_MSGSTR ][ 1 ] )
          cContext := aItem[ _I18N_CONTEXT ]
          IF cContext $ hTrans
             hContext := hTrans[ cContext ]
          ELSE
             hTrans[ cContext ] := hContext := { => }
          ENDIF
-         IF Empty( aItem[ _I18N_MSGSTR, 1 ] )
-            IF ! aItem[ _I18N_MSGID, 1 ] $ hContext
-               hContext[ aItem[ _I18N_MSGID, 1 ] ] := iif( aItem[ _I18N_PLURAL ], ;
-                  AClone( aItem[ _I18N_MSGID ] ), aItem[ _I18N_MSGID, 1 ] )
+         IF Empty( aItem[ _I18N_MSGSTR ][ 1 ] )
+            IF ! aItem[ _I18N_MSGID ][ 1 ] $ hContext
+               hContext[ aItem[ _I18N_MSGID ][ 1 ] ] := iif( aItem[ _I18N_PLURAL ], ;
+                  AClone( aItem[ _I18N_MSGID ] ), aItem[ _I18N_MSGID ][ 1 ] )
             ENDIF
          ELSE
-            hContext[ aItem[ _I18N_MSGID, 1 ] ] := iif( aItem[ _I18N_PLURAL ], ;
-               AClone( aItem[ _I18N_MSGSTR ] ), aItem[ _I18N_MSGSTR, 1 ] )
+            hContext[ aItem[ _I18N_MSGID ][ 1 ] ] := iif( aItem[ _I18N_PLURAL ], ;
+               AClone( aItem[ _I18N_MSGSTR ] ), aItem[ _I18N_MSGSTR ][ 1 ] )
          ENDIF
       ENDIF
    NEXT
@@ -475,9 +475,9 @@ FUNCTION __i18n_potArrayTrans( aTrans, hI18N )
       cContext := aItem[ _I18N_CONTEXT ]
       IF cContext $ hTrans
          hContext := hTrans[ cContext ]
-         IF Empty( aItem[ _I18N_MSGSTR, 1 ] )
-            IF aItem[ _I18N_MSGID, 1 ] $ hContext
-               xTrans := hContext[ aItem[ _I18N_MSGID, 1 ] ]
+         IF Empty( aItem[ _I18N_MSGSTR ][ 1 ] )
+            IF aItem[ _I18N_MSGID ][ 1 ] $ hContext
+               xTrans := hContext[ aItem[ _I18N_MSGID ][ 1 ] ]
                IF aItem[ _I18N_PLURAL ]
                   aItem[ _I18N_MSGSTR ] := iif( HB_ISARRAY( xTrans ), ;
                      AClone( xTrans ), { xTrans } )
@@ -524,13 +524,13 @@ FUNCTION __i18n_potArrayJoin( aTrans, aTrans2, hIndex )
    IF ! HB_ISHASH( hIndex )
       hIndex := { => }
       FOR EACH aItem in aTrans
-         ctx := aItem[ _I18N_CONTEXT ] + _I18N_DELIM + aItem[ _I18N_MSGID, 1 ]
+         ctx := aItem[ _I18N_CONTEXT ] + _I18N_DELIM + aItem[ _I18N_MSGID ][ 1 ]
          hIndex[ ctx ] := aItem:__enumIndex()
       NEXT
    ENDIF
 
    FOR EACH aItem in aTrans2
-      ctx := aItem[ _I18N_CONTEXT ] + _I18N_DELIM + aItem[ _I18N_MSGID, 1 ]
+      ctx := aItem[ _I18N_CONTEXT ] + _I18N_DELIM + aItem[ _I18N_MSGID ][ 1 ]
       IF ctx $ hIndex
          aDest := aTrans[ hIndex[ ctx ] ]
          IF aItem[ _I18N_PLURAL ]
@@ -551,7 +551,7 @@ FUNCTION __i18n_potArrayJoin( aTrans, aTrans2, hIndex )
          IF ! Empty( aItem[ _I18N_MSGSTR ] ) .AND. ;
             ( Empty( aDest[ _I18N_MSGSTR ] ) .OR. ;
             ( Len( aDest[ _I18N_MSGSTR ] ) == 1 .AND. ;
-            Empty( aDest[ _I18N_MSGSTR, 1 ] ) ) )
+            Empty( aDest[ _I18N_MSGSTR ][ 1 ] ) ) )
             aDest[ _I18N_MSGSTR ] := AClone( aItem[ _I18N_MSGSTR ] )
          ENDIF
       ELSE

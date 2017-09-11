@@ -362,15 +362,15 @@ STATIC FUNCTION _ftClrSel( aClrPal, cClr, nElem, aOpt )
       nC := iif( nC > nDim, 1, iif( nC == 0, nDim, nC ) )
 
       // place selected color in the appropriate spot in color string
-      aOpt[ C_CLR ] := _ftClrPut( aOpt[ C_CLR ], nElem, aClrPal[ nR, nC ] )
+      aOpt[ C_CLR ] := _ftClrPut( aOpt[ C_CLR ], nElem, aClrPal[ nR ][ nC ] )
 
       // show sample window
       _ftShowIt( aOpt )
 
       // highlight the color palette element
       SetColor( "W+/N" )
-      hb_DispOutAt( nR, nC * 3 + 26, "" ) /* LOW-ASCII "►" */
-      hb_DispOutAt( nR, nC * 3 + 29, "" ) /* LOW-ASCII "◄" */
+      hb_DispOutAt( nR, nC * 3 + 26, Chr( 22 ) ) /* LOW-ASCII "►" */
+      hb_DispOutAt( nR, nC * 3 + 29, Chr( 23 ) ) /* LOW-ASCII "◄" */
       nKey := hb_keyStd( Inkey( 0 ) )
       hb_DispOutAt( nR, nC * 3 + 26, " " )
       hb_DispOutAt( nR, nC * 3 + 29, " " )
@@ -436,8 +436,8 @@ STATIC FUNCTION _ftDeskChar( aOpt )
       _ftShowIt( aOpt )
 
       SetColor( "W+/N" )
-      hb_DispOutAt( n, 28, "" ) /* LOW-ASCII "►" */
-      hb_DispOutAt( n, 39, "" ) /* LOW-ASCII "◄" */
+      hb_DispOutAt( n, 28, Chr( 22 ) ) /* LOW-ASCII "►" */
+      hb_DispOutAt( n, 39, Chr( 23 ) ) /* LOW-ASCII "◄" */
       nKey := hb_keyStd( Inkey( 0 ) )
       hb_DispOutAt( n, 28, " " )
       hb_DispOutAt( n, 39, " " )
