@@ -55,7 +55,8 @@
 #if ! defined( WIN32 ) && defined( HB_OS_WIN )
    #define WIN32
 #endif
-#if ! defined( unix ) && defined( HB_OS_UNIX )
+/* ads.h considers every Unixes Linux, and this breaks on darwin */
+#if ! defined( unix ) && defined( HB_OS_UNIX ) && ! defined( HB_OS_DARWIN )
    #define unix
 #endif
 #if ! defined( x64 ) && defined( HB_ARCH_64BIT )
@@ -63,6 +64,35 @@
 #endif
 #if defined( __WATCOMC__ ) || defined( __LCC__ ) || ( defined( __MINGW32__ ) && ! defined( _declspec ) )
    #define _declspec( dllexport )  __declspec( dllexport )
+#endif
+
+/* Emulate types require by ads.h to make it possible to compile
+   the wrapper code on platforms not natively supported by ADS */
+#if ! defined( WIN32 ) && ! defined( unix )
+   #define WINAPI
+   #define FARPROC  void *
+   #define HWND     void *
+   typedef HB_U32          UNSIGNED32;
+   typedef HB_I32          SIGNED32;
+   typedef HB_U16          UNSIGNED16;
+   typedef HB_I16          SIGNED16;
+   typedef HB_U8           UNSIGNED8;
+   typedef HB_I8           SIGNED8;
+   typedef unsigned short  WCHAR;
+   typedef double          DOUBLE;
+   #if defined( HB_ARCH_64BIT )
+      #define __int64  HB_I64
+      typedef HB_U64        ADSHANDLE;
+      typedef HB_U64        UNSIGNED64;
+      typedef HB_I64        SIGNED64;
+   #else
+      typedef HB_ULONG      ADSHANDLE;
+      typedef HB_ULONGLONG  UNSIGNED64;
+      typedef HB_LONGLONG   SIGNED64;
+   #endif
+   #define RDDUNVRS_H
+   #define WCHAR_DEFINED
+   #define ADSHANDLE_DEFINED
 #endif
 
 #include "ace.h"

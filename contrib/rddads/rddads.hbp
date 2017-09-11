@@ -5,8 +5,6 @@
 
 -w3 -es2
 
--stop{!(linux|win)}
-
 # NOTE: On Linux, download 'Advantage Client Engine API for Linux' (f.e. 'aceapi-11.10.0.10.tar.gz')
 
 -depurlbase=ads:https://devzone.advantagedatabase.com/dz/content.aspx?Key=20
@@ -19,6 +17,9 @@
 {x86}-depimplibs=ads:Redistribute/ace32.dll
 {x86}-depimplibs=ads:32bit/ace32.dll
 {x86}-depimplibs=ads:ace32.dll
+-depfinish=ads
+
+-stop{!(linux|win)&!HBMK_HAS_ADS}
 
 # To avoid a warning in ACE header
 -cflag+=-Wno-unknown-pragmas{allgcc}

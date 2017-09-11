@@ -6,7 +6,19 @@
 -w3 -es2
 -winuni
 
--stop{!allwin}
+#-depurlbase=wine:https://www.winehq.org/
+#-deppkgname=wine:wine-dev{deb}
+#-deppkgname=wine:wine-devel{rpm}
+#-deppkgname=wine:wine{homebrew}
+#-deppkgname=wine:wine{pacman}
+#-depkeyhead=wine:windows.h
+#-depcontrol=wine:no{HB_BUILD_3RDEXT='no'}
+#-depcontrol=wine:${HB_WITH_WINE}
+#-depincpath=wine:/usr/include/wine/windows
+#-depincpath=wine:/usr/local/include/wine/windows
+#-depfinish=wine
+
+-stop{!allwin&!HBMK_HAS_WINE}
 
 -cflag=-DWIN32_LEAN_AND_MEAN
 
