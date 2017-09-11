@@ -3083,10 +3083,7 @@ void hb_vmExecute( const HB_BYTE * pCode, PHB_SYMB pSymbols )
    }
 }
 
-/* ------------------------------- */
-/* Operators ( mathematical        */
-/*             character / misc )  */
-/* ------------------------------- */
+/* Operators (mathematical / character / misc) */
 
 static void hb_vmAddInt( PHB_ITEM pResult, HB_LONG lAdd )
 {
