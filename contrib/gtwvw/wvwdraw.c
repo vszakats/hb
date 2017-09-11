@@ -1536,8 +1536,12 @@ HB_FUNC( WVW_DRAWOUTLINE )
             hOldPen = ( HPEN ) SelectObject( hDC, hPen );
       }
       else
-         /* hPen = NULL; */
+      {
+         #if 0
+         hPen = NULL;
+         #endif
          SelectObject( hDC, wvw->a.penBlack );
+      }
 
       hb_gt_wvw_DrawOutline( hDC, iTop, iLeft, iBottom, iRight );
 

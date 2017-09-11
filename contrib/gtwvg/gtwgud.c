@@ -1716,7 +1716,13 @@ static HB_BOOL hb_gt_wvt_Info( PHB_GT pGT, int iType, PHB_GT_INFO pInfo )
 
             case HB_GTS_RESETWINDOW:
                if( pWVT->hWnd )
-                  UpdateWindow( pWVT->hWnd );  /* hb_gt_wvt_ResetWindowSize( pWVT ); */
+               {
+                  #if 0
+                  hb_gt_wvt_ResetWindowSize( pWVT );
+                  #else
+                  UpdateWindow( pWVT->hWnd );
+                  #endif
+               }
                break;
 
             case HB_GTS_SETTIMER:

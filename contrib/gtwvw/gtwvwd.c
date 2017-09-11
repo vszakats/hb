@@ -1940,7 +1940,7 @@ static void hb_gt_wvwCreateObjects( int nWin )
 
       lb.lbStyle = BS_HATCHED;
       lb.lbColor = RGB( 210, 210, 210 );
-      lb.lbHatch = HS_DIAGCROSS;  /* HS_BDIAGONAL; */
+      lb.lbHatch = HS_DIAGCROSS;  /* HS_BDIAGONAL */
       s_wvw->a.diagonalBrush = CreateBrushIndirect( &lb );
 
       lb.lbStyle = BS_SOLID;
