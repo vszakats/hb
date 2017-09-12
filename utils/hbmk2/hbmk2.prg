@@ -6190,7 +6190,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          cBin_CompCPP := cBin_CompC
          cBin_Dyn := cBin_Link
          cOpt_CompC := "-c -Ze"
-         IF ! hbmk[ _HBMK_cCOMP ] == "poccarm"  .AND. ;
+         IF ! hbmk[ _HBMK_cCOMP ] == "poccarm" .AND. ;
             ! hbmk[ _HBMK_cCOMP ] == "xcc"  /* xcc does not have this enabled in default Harbour builds. */
             cOpt_CompC += " -MT"
          ENDIF
