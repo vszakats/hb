@@ -87,7 +87,7 @@ FUNCTION WvtPaintObjects()
                   IF tlbr_[ 1 ] > blk[ 3 ][ 4 ] .OR. ;  /* top    > bottom */
                      tlbr_[ 3 ] < blk[ 3 ][ 2 ] .OR. ;  /* bottom < top    */
                      tlbr_[ 2 ] > nRight + 1 .OR. ;     /* left   > right  */
-                     tlbr_[ 4 ] < nLeft  - 2            /* right  < left   */
+                     tlbr_[ 4 ] < nLeft - 2             /* right  < left   */
                      lExe := .F.
                   ENDIF
                ENDIF
@@ -96,7 +96,7 @@ FUNCTION WvtPaintObjects()
                IF tlbr_[ 1 ] > blk[ 3 ][ 4 ] .OR. ;  /* top    > bottom */
                   tlbr_[ 3 ] < blk[ 3 ][ 2 ] .OR. ;  /* bottom < top    */
                   tlbr_[ 2 ] > blk[ 3 ][ 5 ] .OR. ;  /* left   > right  */
-                  tlbr_[ 4 ] < blk[ 3 ][ 3 ] )       /* right  < left   */
+                  tlbr_[ 4 ] < blk[ 3 ][ 3 ]         /* right  < left   */
                   lExe := .F.
                ENDIF
 
@@ -107,7 +107,7 @@ FUNCTION WvtPaintObjects()
                IF tlbr_[ 1 ] > blk[ 3 ][ 4 ] .OR. ;  /* top    > bottom */
                   tlbr_[ 3 ] < blk[ 3 ][ 2 ] .OR. ;  /* bottom < top    */
                   tlbr_[ 2 ] > blk[ 3 ][ 5 ] .OR. ;  /* left   > right  */
-                  tlbr_[ 4 ] < blk[ 3 ][ 3 ] )       /* right  < left   */
+                  tlbr_[ 4 ] < blk[ 3 ][ 3 ]         /* right  < left   */
                   lExe := .F.
                ENDIF
             ENDCASE

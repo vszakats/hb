@@ -3,19 +3,23 @@
 PROCEDURE Main()
 
    LOCAL hSurface, hCairo
-   FIELD CODE, NAME, RESIDENTS
 
-   Set( _SET_DATEFORMAT, "yyyy-mm-dd" )
+   // Create table
+   dbCreate( "country.dbf", { ;
+      { "CODE"     , "C",  3, 0 }, ;
+      { "NAME"     , "C", 30, 0 }, ;
+      { "RESIDENTS", "N", 10, 0 } },, .T. )
 
-   // Create database
-   dbCreate( "country.dbf", { { "CODE", "C", 3, 0 }, { "NAME", "C", 30, 0 }, { "RESIDENTS", "N", 10, 0 } },, .T. )
-   dbAppend(); CODE := "LTU"; NAME := "Lithuania";                 RESIDENTS :=   3369600
-   dbAppend(); CODE := "USA"; NAME := "United States of America";  RESIDENTS := 305397000
-   dbAppend(); CODE := "POR"; NAME := "Portugal";                  RESIDENTS :=  10617600
-   dbAppend(); CODE := "POL"; NAME := "Poland";                    RESIDENTS :=  38115967
-   dbAppend(); CODE := "AUS"; NAME := "Australia";                 RESIDENTS :=  21446187
-   dbAppend(); CODE := "FRA"; NAME := "France";                    RESIDENTS :=  64473140
-   dbAppend(); CODE := "RUS"; NAME := "Russia";                    RESIDENTS := 141900000
+   hb_MemoWrit( "country.csv", ;
+      e"LTU,Lithuania,3369600\n" + ;
+      e"USA,United States of America,305397000\n" + ;
+      e"PRT,Portugal,10617600\n" + ;
+      e"POL,Poland,38115967\n" + ;
+      e"AUS,Australia,21446187\n" + ;
+      e"FRA,France,64473140\n" + ;
+      e"RUS,Russia,141900000\n" )
+   APPEND FROM country.csv DELIMITED
+   hb_vfErase( "country.csv" )
 
    // Draw
    hSurface := cairo_pdf_surface_create( "table.pdf", 566.9, 793.7 )  // 200x280 mm in pt
@@ -28,7 +32,10 @@ PROCEDURE Main()
    cairo_move_to( hCairo, 50, 50 )
    cairo_show_text( hCairo, "Table of countries" )
 
-   draw_table( hCairo, 50, 75, { { "Code", "CODE" }, { "Country", "NAME" }, { "Residents", "RESIDENTS" } } )
+   draw_table( hCairo, 50, 75, { ;
+      { "Code", "CODE" }, ;
+      { "Country", "NAME" }, ;
+      { "Residents", "RESIDENTS" } } )
 
    cairo_show_page( hCairo )
    cairo_destroy( hCairo )

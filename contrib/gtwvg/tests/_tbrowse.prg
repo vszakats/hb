@@ -472,7 +472,7 @@ STATIC PROCEDURE BrwBuildButtons( oCrt, oBrw )
       "Maximize", ;
       "Go Top", ;
       "Go Bottom", ;
-      "Right Most" }
+      "Rightmost" }
    LOCAL aAct := { ;
       {|| wvt_Keyboard( K_F3 ) }, ;
       {|| wvt_Keyboard( K_F4 ) }, ;

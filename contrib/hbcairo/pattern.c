@@ -141,8 +141,8 @@ HB_FUNC( CAIRO_PATTERN_GET_COLOR_STOP_COUNT )
    else
       hb_retni( -1 );
 #else
-   hb_cairo_pattern_param( 1 ); /* Parameter validation */
-   hb_retni( -1 );              /* There is no good CAIRO_STATUS_* for this */
+   hb_cairo_pattern_param( 1 );  /* Parameter validation */
+   hb_retni( -1 );  /* There is no good CAIRO_STATUS_* for this */
 #endif
 }
 
@@ -170,8 +170,8 @@ HB_FUNC( CAIRO_PATTERN_GET_COLOR_STOP_RGBA )
    else
       hb_retni( -1 );
 #else
-   hb_cairo_pattern_param( 1 ); /* Parameter validation */
-   hb_retni( -1 );              /* There is no good CAIRO_STATUS_* for this */
+   hb_cairo_pattern_param( 1 );  /* Parameter validation */
+   hb_retni( -1 );  /* There is no good CAIRO_STATUS_* for this */
 #endif
 }
 
@@ -207,8 +207,8 @@ HB_FUNC( CAIRO_PATTERN_GET_RGBA )
    else
       hb_retni( -1 );
 #else
-   hb_cairo_pattern_param( 1 ); /* Parameter validation */
-   hb_retni( -1 );              /* There is no good CAIRO_STATUS_* for this */
+   hb_cairo_pattern_param( 1 );  /* Parameter validation */
+   hb_retni( -1 );  /* There is no good CAIRO_STATUS_* for this */
 #endif
 }
 
@@ -233,8 +233,8 @@ HB_FUNC( CAIRO_PATTERN_GET_SURFACE )
    else
       hb_retni( -1 );
 #else
-   hb_cairo_pattern_param( 1 ); /* Parameter validation */
-   hb_retni( -1 );              /* There is no good CAIRO_STATUS_* for this */
+   hb_cairo_pattern_param( 1 );  /* Parameter validation */
+   hb_retni( -1 );  /* There is no good CAIRO_STATUS_* for this */
 #endif
 }
 
@@ -265,8 +265,8 @@ HB_FUNC( CAIRO_PATTERN_GET_LINEAR_POINTS )
    else
       hb_retni( -1 );
 #else
-   hb_cairo_pattern_param( 1 ); /* Parameter validation */
-   hb_retni( -1 );              /* There is no good CAIRO_STATUS_* for this */
+   hb_cairo_pattern_param( 1 );  /* Parameter validation */
+   hb_retni( -1 );  /* There is no good CAIRO_STATUS_* for this */
 #endif
 }
 
@@ -301,8 +301,8 @@ HB_FUNC( CAIRO_PATTERN_GET_RADIAL_CIRCLES )
    else
       hb_retni( -1 );
 #else
-   hb_cairo_pattern_param( 1 ); /* Parameter validation */
-   hb_retni( -1 );              /* There is no good CAIRO_STATUS_* for this */
+   hb_cairo_pattern_param( 1 );  /* Parameter validation */
+   hb_retni( -1 );  /* There is no good CAIRO_STATUS_* for this */
 #endif
 }
 

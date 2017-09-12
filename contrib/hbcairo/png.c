@@ -62,7 +62,7 @@ HB_FUNC( CAIRO_SURFACE_WRITE_TO_PNG )
    if( pSurface )
       hb_retni( cairo_surface_write_to_png( pSurface, hb_parc( 2 ) ) );
 #else
-   hb_cairo_surface_param( 1 ); /* Parameter validation */
-   hb_retni( -1 );              /* There is no good CAIRO_STATUS_* for this */
+   hb_cairo_surface_param( 1 );  /* Parameter validation */
+   hb_retni( -1 );  /* There is no good CAIRO_STATUS_* for this */
 #endif
 }

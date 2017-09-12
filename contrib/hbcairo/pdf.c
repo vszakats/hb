@@ -63,7 +63,6 @@ HB_FUNC( CAIRO_PDF_SURFACE_SET_SIZE )
    if( pSurface )
       cairo_pdf_surface_set_size( pSurface, hb_parnd( 2 ), hb_parnd( 3 ) );
 #else
-   /* Just paramter validation */
-   hb_cairo_surface_param( 1 );
+   hb_cairo_surface_param( 1 );  /* Parameter validation */
 #endif
 }

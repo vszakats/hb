@@ -63,8 +63,7 @@ HB_FUNC( CAIRO_PS_SURFACE_SET_SIZE )
    if( pSurface )
       cairo_ps_surface_set_size( pSurface, hb_parnd( 2 ), hb_parnd( 3 ) );
 #else
-   /* Parameter validation */
-   hb_cairo_surface_param( 1 );
+   hb_cairo_surface_param( 1 );  /* Parameter validation */
 #endif
 }
 
@@ -75,8 +74,7 @@ HB_FUNC( CAIRO_PS_SURFACE_SET_EPS )
    if( pSurface )
       cairo_ps_surface_set_eps( pSurface, hb_parl( 2 ) );
 #else
-   /* Parameter validation */
-   hb_cairo_surface_param( 1 );
+   hb_cairo_surface_param( 1 );  /* Parameter validation */
 #endif
 }
 
@@ -87,7 +85,6 @@ HB_FUNC( CAIRO_PS_SURFACE_GET_EPS )
    if( pSurface )
       hb_retl( cairo_ps_surface_get_eps( pSurface ) );
 #else
-   /* Parameter validation */
-   hb_cairo_surface_param( 1 );
+   hb_cairo_surface_param( 1 );  /* Parameter validation */
 #endif
 }
