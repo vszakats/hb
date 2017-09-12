@@ -137,13 +137,13 @@ Platform specific prerequisites:
 
 To build:
 
-    > mingw32-make
+    $ mingw32-make
 
 To test it, type:
 
-    > cd tests
-    > ..\bin\<plat>\<comp>\hbmk2 hello.prg
-    > hello
+    $ cd tests
+    $ ..\bin\<plat>\<comp>\hbmk2 hello.prg
+    $ hello
 
 You should see `Hello, world!` on screen.
 
@@ -151,13 +151,13 @@ You should see `Hello, world!` on screen.
 
 To build:
 
-    > sh -c make
+    $ sh -c make
 
 To test it, type:
 
-    > cd tests
-    > ..\bin\<plat>\<comp>\hbmk2 hello.prg
-    > hello
+    $ cd tests
+    $ ..\bin\<plat>\<comp>\hbmk2 hello.prg
+    $ hello
 
 You should see `Hello, world!` on screen.
 
@@ -281,8 +281,8 @@ If you want to rebuild one specific contrib package, use this:
 
 ## On Windows
 
-    > cd contrib/<name>
-    > hbmk2 make.hb [clean] [custom hbmk2 options]
+    $ cd contrib/<name>
+    $ hbmk2 make.hb [clean] [custom hbmk2 options]
 
 > Where `make.hb` and `hbmk2` must be in `PATH`.
 
