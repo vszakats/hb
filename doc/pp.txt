@@ -647,7 +647,7 @@ making in last days.
       Such special status can be added automatically when ; token is followed
       by # or ; is quoted by \
    d. already existing xHarbour extensions:
-         #[x]unTranslate, #[x]unCommand
+         #[x]untranslate, #[x]uncommand
       but modified to locate match pattern which can cover exactly the same
       data.
          #if

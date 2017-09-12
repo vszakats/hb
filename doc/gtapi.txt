@@ -321,7 +321,7 @@ gtxwc  - GT driver for X-Window. It's like GTWVT but for nixes.
          for simple program which demonstrates it.
          Supported by POSIX systems (mostly different *nixes)
 
-gtalleg- GT driver which uses allegro library for input/output.
+gtalleg- GT driver which uses Allegro library for input/output.
          It's also GUI driver which support HB_GFX*() drawing.
          Multi platform, works on all platforms for which allegro
          library has been ported: MS-Windows, MS-DOS, VESA, X11, FB, SDL, ...
