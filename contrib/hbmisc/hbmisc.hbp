@@ -15,7 +15,6 @@ ffind.c
 hb_f.c
 hbeditc.c
 irm.c
-spd.c
 strfmt.c
 stringsx.c
 
