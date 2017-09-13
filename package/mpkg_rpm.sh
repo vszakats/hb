@@ -144,7 +144,7 @@ elif ( [ ! -f /usr/include/pcre.h ] && \
 fi
 if ( [ ! -f /usr/include/bzlib.h ] && \
      [ ! -f /usr/local/include/bzlib.h ] ) || \
-  [ "$HB_WITH_BZIP2" = "local" ]; then
+   [ "$HB_WITH_BZIP2" = 'local' ]; then
   INST_PARAM="${INST_PARAM} --with localbz2"
 fi
 if ! test_reqrpm 'expat-devel' || \
