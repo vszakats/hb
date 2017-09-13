@@ -239,7 +239,7 @@ INIT PROCEDURE _LOGRDD_INIT()
 
    RETURN
 
-/* USER UTILITY FUNCTIONS */
+/* User utility functions */
 
 FUNCTION hb_LogRddLogFileName( cFileName )
 
@@ -345,7 +345,7 @@ FUNCTION hb_LogRddValueToText( uValue )
 
    RETURN "[" + cType + "]>>>" + cText + "<<<"
 
-/* LOCAL UTILITY FUNCTIONS */
+/* Local utility functions */
 
 STATIC PROCEDURE OpenLogFile( nWA )
 
