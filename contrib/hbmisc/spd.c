@@ -54,7 +54,7 @@
 
 static void STAItm( PHB_ITEM pItmPar )
 {
-   HB_UINT      i, ulItmPar = ( HB_UINT ) hb_itemGetCLen( pItmPar );
+   HB_SIZE      i, ulItmPar = hb_itemGetCLen( pItmPar );
    const char * cItmPar = hb_itemGetCPtr( pItmPar ), * c;
    char *       cRes;
 
@@ -75,11 +75,11 @@ static void STAItm( PHB_ITEM pItmPar )
    hb_itemPutCLPtr( pItmPar, cRes, i );
 }
 
-static HB_UINT SCItm( char * cBuffer, HB_UINT ulMaxBuf, const char * cParFrm, int iCOut, int IsIndW,
+static HB_SIZE SCItm( char * cBuffer, HB_SIZE ulMaxBuf, const char * cParFrm, int iCOut, int IsIndW,
                       int iIndWidth, int IsIndP, int iIndPrec,
                       PHB_ITEM pItmPar )
 {
-   HB_UINT s;
+   HB_SIZE s;
 
    if( IsIndW && IsIndP )
    {
@@ -193,7 +193,7 @@ static HB_UINT SCItm( char * cBuffer, HB_UINT ulMaxBuf, const char * cParFrm, in
 
 HB_FUNC( SQL_SPRINTF )
 {
-   HB_UINT      ulItmFrm;
+   HB_SIZE      ulItmFrm;
    const char * cItmFrm;
    char *       cRes;
    int          argc    = hb_pcount() - 1;
@@ -203,7 +203,7 @@ HB_FUNC( SQL_SPRINTF )
    {
       hb_errRT_BASE_SubstR( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, 1, hb_paramError( 1 ) );
    }
-   else if( ( ulItmFrm = ( HB_UINT ) hb_itemGetCLen( pItmFrm ) ) == 0 )
+   else if( ( ulItmFrm = hb_itemGetCLen( pItmFrm ) ) == 0 )
    {
       hb_retc_null();
    }
@@ -217,7 +217,7 @@ HB_FUNC( SQL_SPRINTF )
    {
       static const char s_szToken[] = "stTcdiouxXaAeEfgGpnSC";
 
-      HB_UINT ulResPos = 0, ulMaxBuf = DK_INCBUF, ulMaxRes = DK_INCRES;
+      HB_SIZE ulResPos = 0, ulMaxBuf = DK_INCBUF, ulMaxRes = DK_INCRES;
 
       char * cIntMod, * cBuffer, * cParFrm;
       int    p, iErrorPar = 0;
@@ -231,7 +231,7 @@ HB_FUNC( SQL_SPRINTF )
       {
          PHB_ITEM pItmPar, pItmCpy;
          int      arg, iCOut, IsType, IsIndW, IsIndP, iIndWidth, iIndPrec;
-         HB_UINT  s, f, i, ulWidth, ulParPos = 0;
+         HB_SIZE  s, f, i, ulWidth, ulParPos = 0;
 
          const char * c = cItmFrm + ulParPos;
 
@@ -489,7 +489,7 @@ HB_FUNC( SQL_SPRINTF )
                   else
                      STAItm( pItmPar );
                }
-               f = ( HB_UINT ) hb_itemGetCLen( pItmPar );
+               f = hb_itemGetCLen( pItmPar );
                if( ( f = i + HB_MAX( ulWidth, f ) ) > ulMaxBuf )
                {
                   ulMaxBuf += f + DK_INCBUF;
@@ -604,7 +604,7 @@ HB_FUNC( SQL_SPRINTF )
                   HB_SIZE nLen = strlen( cStr );
                   const char * cTrimStr = hb_strLTrim( cStr, &nLen );
 
-                  f        = ( HB_UINT ) nLen;
+                  f        = nLen;
                   if( ( f = i + HB_MAX( ulWidth, f ) ) > ulMaxBuf )
                   {
                      ulMaxBuf += f + DK_INCBUF;
@@ -649,7 +649,7 @@ HB_FUNC( SQL_SPRINTF )
          hb_strncpy( cRes + ulResPos, cBuffer, s );
          ulResPos += s;
 
-         if( ( ulParPos = ( HB_UINT ) ( c - cItmFrm ) ) >= ulItmFrm )
+         if( ( ulParPos = ( c - cItmFrm ) ) >= ulItmFrm )
             break;   /* No more Par Format */
       }
 
