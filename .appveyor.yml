@@ -43,6 +43,7 @@ build_script:
   - set PATH=C:\msys64\usr\bin;%PATH%
   - set HB_CI_THREADS=4
   - set MSYS2_FC_CACHE_SKIP=yes
+  - echo "keyid-format long" >> "C:\msys64\home\%USERNAME%\.gnupg\gpg.conf"
   - pacman --noconfirm --noprogressbar -S --needed mc
   - pacman --noconfirm --noprogressbar -S -yu -u
   - pacman --noconfirm --noprogressbar -S -yu -u

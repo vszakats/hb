@@ -58,8 +58,6 @@ echo "! LANG: ${LANG}"
 echo "! LC_ALL: ${LC_ALL}"
 echo "! LC_CTYPE: ${LC_CTYPE}"
 
-[ -d "${HOME}/.gnupg" ] && echo 'keyid-format long' >> "${HOME}/.gnupg/gpg.conf"
-
 case "${os}" in
   win)
     pacman --noconfirm --noprogressbar -S --needed p7zip mingw-w64-{i686,x86_64}-{jq,osslsigncode}
