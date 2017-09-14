@@ -101,7 +101,7 @@ METHOD WvgScrollBar:create( oParent, oOwner, aPos, aSize, aPresParams, lVisible 
       ::style += SBS_HORZ
    ENDIF
 
-   ::oParent:AddChild( SELF )
+   ::oParent:AddChild( Self )
 
    ::createControl()
 

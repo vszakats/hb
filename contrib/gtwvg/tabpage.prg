@@ -106,7 +106,7 @@ METHOD WvgTabPage:create( oParent, oOwner, aPos, aSize, aPresParams, lVisible )
 
    ::style += TCS_FOCUSNEVER
 
-   ::oParent:AddChild( SELF )
+   ::oParent:AddChild( Self )
 
    ::createControl()
 
