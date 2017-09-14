@@ -46,15 +46,10 @@ if [ "${os}" = 'win' ]; then
 
   if [ "${_BRANC4}" = 'msvc' ] && false; then
     # Experimental, untested, requires 2015 Update 3 or upper
-    git clone --depth=8 https://github.com/Microsoft/vcpkg.git
-    (
-      cd vcpkg || exit
-      ./bootstrap-vcpkg.bat
-      # bzip2 cairo expat freeimage icu libmariadb libpng libpq libssh2 lzo pcre pcre2 qt5 sqlite3 zlib
-      ./vcpkg install --no-sendmetrics \
-        curl curl:x64-windows openssl openssl:x64-windows
-      ./vcpkg integrate install
-    )
+    # bzip2 cairo expat freeimage icu libmariadb libpng libpq libssh2 lzo pcre pcre2 qt5 sqlite3 zlib
+    vcpkg install --no-sendmetrics \
+      curl curl:x64-windows openssl openssl:x64-windows
+    vcpkg integrate install
   fi
 fi
 
