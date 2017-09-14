@@ -366,10 +366,10 @@ static int XMLCALL hb_expat_UnknownEncodingHandler( void * userdata,
 
          if( iResult == XML_STATUS_OK )
          {
-            HB_UINT tmp;
+            HB_SIZE nPos;
 
-            for( tmp = 0; tmp < HB_SIZEOFARRAY( info->map ); ++tmp )
-               info->map[ tmp ] = hb_arrayGetNI( pPar2, tmp + 1 );
+            for( nPos = 0; nPos < HB_SIZEOFARRAY( info->map ); ++nPos )
+               info->map[ nPos ] = hb_arrayGetNI( pPar2, nPos + 1 );
 
             /* NOTE: Not supported by wrapper layer yet. */
             info->data    = NULL;
@@ -652,7 +652,7 @@ static int XMLCALL hb_expat_NotStandaloneHandler( void * userdata )
 
 static void PHB_EXPAT_free( PHB_EXPAT hb_expat, HB_BOOL bFree )
 {
-   HB_UINT tmp;
+   unsigned int tmp;
 
    for( tmp = 0; tmp < HB_SIZEOFARRAY( hb_expat->pVar ); ++tmp )
    {
@@ -690,8 +690,8 @@ static HB_GARBAGE_FUNC( PHB_EXPAT_mark )
 
    if( hb_expat_ptr && *hb_expat_ptr )
    {
-      PHB_EXPAT hb_expat = *hb_expat_ptr;
-      HB_UINT   tmp;
+      PHB_EXPAT    hb_expat = *hb_expat_ptr;
+      unsigned int tmp;
 
       for( tmp = 0; tmp < HB_SIZEOFARRAY( hb_expat->pVar ); ++tmp )
       {

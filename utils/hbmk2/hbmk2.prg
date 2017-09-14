@@ -15806,7 +15806,7 @@ STATIC FUNCTION __hb_extern_get_list_hrb( cInputName )
       aExtern := {}
       hExtern := { => }
       FOR EACH cFunction IN hb_hrbGetFunList( hrb, HB_HRB_FUNC_PUBLIC )
-         cFunction := hb_asciiLower( cFunction )
+         cFunction := hb_asciiUpper( cFunction )
          IF ! cFunction $ hExtern
             AAdd( aExtern, cFunction )
             hExtern[ cFunction ] := NIL
@@ -15869,7 +15869,7 @@ STATIC FUNCTION __hb_extern_get_list( hbmk, cInputName, cBin_LibHBX, cOpt_LibHBX
                aExtern := {}
                hExtern := { => }
                FOR EACH tmp IN aResult
-                  tmp[ 2 ] := hb_asciiLower( tmp[ 2 ] )
+                  tmp[ 2 ] := hb_asciiUpper( tmp[ 2 ] )
                   IF ! tmp[ 2 ] $ hExtern
                      AAdd( aExtern, tmp[ 2 ] )
                      hExtern[ tmp[ 2 ] ] := NIL
@@ -15917,7 +15917,7 @@ STATIC PROCEDURE __hb_extern_get_exception_list( cFile, /* @ */ aInclude, /* @ *
       ENDIF
       IF ! Empty( pRegex := hb_regexComp( R_( "^DYNAMIC ([a-zA-Z0-9_]*)$" ), .T., .T. ) )
          FOR EACH tmp IN hb_regexAll( pRegex, StrTran( cFile, Chr( 13 ) ),,,,, .T. )
-            hDynamic[ Upper( tmp[ 2 ] ) ] := tmp[ 2 ]
+            hDynamic[ hb_asciiUpper( tmp[ 2 ] ) ] := tmp[ 2 ]
          NEXT
       ENDIF
    ENDIF
@@ -16012,7 +16012,7 @@ STATIC FUNCTION __hb_extern_gen( hbmk, aFuncList, cOutputName )
       IF ! hb_WildMatchI( "HB_GT_*_DEFAULT", tmp, .T. ) .AND. ;
          ! hb_WildMatchI( _HB_SELF_PREFIX + "*" + _HB_SELF_SUFFIX, tmp, .T. ) .AND. ;
          AScan( aExclude, {| flt | hb_WildMatchI( flt, tmp, .T. ) } ) == 0
-         cExtern += "DYNAMIC " + hb_HGetDef( hDynamic, tmp, tmp ) + cEOL
+         cExtern += "DYNAMIC " + hb_HGetDef( hDynamic, tmp, hb_asciiLower( tmp ) ) + cEOL
       ENDIF
    NEXT
 

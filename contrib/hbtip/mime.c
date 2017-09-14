@@ -539,7 +539,7 @@ static const EXT_MIME_ENTRY s_extMimeTable[] =
 
 static const char * s_findExtMimeType( const char * szFileExt )
 {
-   HB_UINT uiFirst = 0, uiLast = HB_SIZEOFARRAY( s_extMimeTable );
+   unsigned int uiFirst = 0, uiLast = HB_SIZEOFARRAY( s_extMimeTable );
    char szExt[ 16 ];
 
    if( *szFileExt == '.' )
@@ -548,7 +548,7 @@ static const char * s_findExtMimeType( const char * szFileExt )
 
    do
    {
-      HB_UINT uiMiddle;
+      unsigned int uiMiddle;
       int i;
 
       uiMiddle = ( uiFirst + uiLast ) >> 1;

@@ -86,7 +86,7 @@ HB_FUNC( TIP_URLENCODE )
             }
             else /* encode! */
             {
-               HB_UINT uiVal;
+               unsigned int uiVal;
                pszRet[ nPosRet++ ] = '%';
                uiVal = ( ( HB_UCHAR ) cElem ) >> 4;
                pszRet[ nPosRet++ ] = ( char ) ( ( uiVal < 10 ? '0' : 'A' - 10 ) + uiVal );
