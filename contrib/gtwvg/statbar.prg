@@ -184,7 +184,7 @@ METHOD WvgStatusBar:addItem( cCaption, xImage, cDLL, nStyle, cKey, nMode )
 
    LOCAL oPanel := WvgStatusBarPanel():new( cCaption, nStyle, cKey )
 
-   oPanel:oParent := self
+   oPanel:oParent := Self
    oPanel:index := ::numItems + 1
 
    IF wvg_StatusBarCreatePanel( ::hWnd, hb_defaultValue( nMode, 0 ) )

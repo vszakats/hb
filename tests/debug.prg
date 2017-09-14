@@ -140,7 +140,7 @@ PROCEDURE Show() CLASS TForm
 //                                      Set a whole list symbols to value
 //                                      Normal way of set objects from external
 //                                      sources, like memo files.
-// <oObject>                            Set self according to the DATA
+// <oObject>                            Set Self according to the DATA
 //                                      contained in <oObject>
 //                                      Can be used to transfer info from
 //                                      one class to another
@@ -189,7 +189,7 @@ METHOD Transfer( ... ) CLASS TForm
    LOCAL xData
 
    IF PCount() == 0
-      xRet := __objGetValueList( self, ::aExcept() )
+      xRet := __objGetValueList( Self, ::aExcept() )
    ELSE
       FOR EACH xData IN __dbgVMParLList()
 
@@ -197,9 +197,9 @@ METHOD Transfer( ... ) CLASS TForm
          CASE HB_ISARRAY( xData )
 
             IF HB_ISARRAY( xData[ 1 ] )         // 2D array passed
-               xRet := __objSetValueList( self, xData )
+               xRet := __objSetValueList( Self, xData )
             ELSE                                // 1D array passed
-               xRet := __objSetValueList( self, { xData } )
+               xRet := __objSetValueList( Self, { xData } )
             ENDIF
 
          CASE HB_ISOBJECT( xData )              // Object passed

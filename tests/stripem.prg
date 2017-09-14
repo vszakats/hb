@@ -82,7 +82,7 @@ METHOD New( cFileName, cMode, nBlock ) CLASS TTextFile
       ? "Error", ::nError := FError()
    ENDIF
 
-   RETURN self
+   RETURN Self
 
 // Close the file handle
 METHOD Dispose() CLASS TTextFile
@@ -93,7 +93,7 @@ METHOD Dispose() CLASS TTextFile
       ? "Error closing", ::cFileName, " Code", ::nError
    ENDIF
 
-   RETURN self
+   RETURN Self
 
 // Read a single line
 METHOD Read() CLASS TTextFile
@@ -166,7 +166,7 @@ METHOD WriteLn( xTxt, lCRLF ) CLASS TTextFile
       ::nLine++
    ENDIF
 
-   RETURN self
+   RETURN Self
 
 // Go to a specified line number
 METHOD Goto( nLine ) CLASS TTextFile

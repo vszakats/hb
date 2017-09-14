@@ -97,7 +97,7 @@ METHOD init( type ) CLASS myClass
    ? "Hi, I'm INIT method of class:", ::classname()
    ::type := type
 
-   RETURN self
+   RETURN Self
 
 PROCEDURE dtor() CLASS myClass
 
@@ -105,22 +105,22 @@ PROCEDURE dtor() CLASS myClass
 
    SWITCH ::type
    CASE 1
-      ? "   I'm storing reference to self in instance variable."
+      ? "   I'm storing reference to Self in instance variable."
       ? "   Bad practice but safe in Harbour because it will be destroyed."
-      ::var1 := self
+      ::var1 := Self
       EXIT
    CASE 2
-      ? "   I'm storing reference to self in class variable."
+      ? "   I'm storing reference to Self in class variable."
       ? "   It's programmer bug which should cause RT error."
-      ::var2 := self
+      ::var2 := Self
       EXIT
    CASE 3
-      ? "   I'm storing reference to self in public variable."
+      ? "   I'm storing reference to Self in public variable."
       ? "   It's programmer bug which should cause RT error."
-      P := self
+      P := Self
       EXIT
    OTHERWISE
-      ? "   I do not store any references to self."
+      ? "   I do not store any references to Self."
       ? "   It's a safe destructor."
    ENDSWITCH
 

@@ -302,7 +302,7 @@ METHOD WvgScrollBar:Scroll( xParam )
       ::sl_xbeSB_Scroll := xParam
    ENDIF
 
-   RETURN self
+   RETURN Self
 
 METHOD WvgScrollBar:setRange( aRange )
 

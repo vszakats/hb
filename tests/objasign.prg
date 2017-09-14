@@ -58,4 +58,4 @@ METHOD New() CLASS TNumber
 
    ::x := 1
 
-   RETURN self
+   RETURN Self

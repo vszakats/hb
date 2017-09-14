@@ -400,7 +400,7 @@ METHOD WvgTreeViewItem:addItem( cCaption )
    LOCAL oItem := WvgTreeViewItem():New()
 
    oItem:hTree   := ::hTree
-   oItem:oParent := self
+   oItem:oParent := Self
    oItem:caption := cCaption
    oItem:oWnd    := ::oWnd
 

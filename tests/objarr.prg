@@ -67,7 +67,7 @@ METHOD New() CLASS TNumber
 
    ::x := { 1, 1 }
 
-   RETURN self
+   RETURN Self
 
 METHOD Get() CLASS TNumber
    RETURN ::x

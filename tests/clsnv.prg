@@ -59,7 +59,7 @@ METHOD m1()
    ? "   execute ::z(),  should be: MYCLASS3:Z()"
    ::z()
 
-   RETURN self
+   RETURN Self
 
 METHOD x()
 
@@ -71,7 +71,7 @@ METHOD x()
    ? "      e =>", ::e, ",  should be: (e3)"
    ? "      f =>", ::f, ",  should be: (f3)"
 
-   RETURN self
+   RETURN Self
 
 METHOD y()
 
@@ -83,7 +83,7 @@ METHOD y()
    ? "      e =>", ::e, ",  should be: (e3)"
    ? "      f =>", ::f, ",  should be: (f3)"
 
-   RETURN self
+   RETURN Self
 
 METHOD z()
 
@@ -95,7 +95,7 @@ METHOD z()
    ? "      e =>", ::e, ",  should be: (e3)"
    ? "      f =>", ::f, ",  should be: (f3)"
 
-   RETURN self
+   RETURN Self
 
 CREATE CLASS myclass2
 
@@ -133,7 +133,7 @@ METHOD m2()
    ? "   execute ::z(),  should be: MYCLASS3:Z()"
    ::z()
 
-   RETURN self
+   RETURN Self
 
 METHOD x()
 
@@ -145,7 +145,7 @@ METHOD x()
    ? "      e =>", ::e, ",  should be: (e3)"
    ? "      f =>", ::f, ",  should be: (f3)"
 
-   RETURN self
+   RETURN Self
 
 METHOD y()
 
@@ -157,7 +157,7 @@ METHOD y()
    ? "      e =>", ::e, ",  should be: (e3)"
    ? "      f =>", ::f, ",  should be: (f3)"
 
-   RETURN self
+   RETURN Self
 
 METHOD z()
 
@@ -169,7 +169,7 @@ METHOD z()
    ? "      e =>", ::e, ",  should be: (e3)"
    ? "      f =>", ::f, ",  should be: (f3)"
 
-   RETURN self
+   RETURN Self
 
 CREATE CLASS myclass3 INHERIT myclass1, myclass2
 
@@ -207,7 +207,7 @@ METHOD m3()
    ? "   execute ::z(),  should be: MYCLASS3:Z()"
    ::z()
 
-   RETURN self
+   RETURN Self
 
 METHOD x()
 
@@ -219,7 +219,7 @@ METHOD x()
    ? "      e =>", ::e, ",  should be: (e3)"
    ? "      f =>", ::f, ",  should be: (f3)"
 
-   RETURN self
+   RETURN Self
 
 METHOD y()
 
@@ -231,7 +231,7 @@ METHOD y()
    ? "      e =>", ::e, ",  should be: (e3)"
    ? "      f =>", ::f, ",  should be: (f3)"
 
-   RETURN self
+   RETURN Self
 
 METHOD z()
 
@@ -243,4 +243,4 @@ METHOD z()
    ? "      e =>", ::e, ",  should be: (e3)"
    ? "      f =>", ::f, ",  should be: (f3)"
 
-   RETURN self
+   RETURN Self

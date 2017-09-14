@@ -52,7 +52,7 @@ METHOD new( cFilename ) CLASS TRtf
          "\uc1\pard\lang1033\ulnone\f0\fs20" + hb_eol() )
    ENDIF
 
-   RETURN self
+   RETURN Self
 
 METHOD write( cSource ) CLASS TRtf
 
@@ -125,7 +125,7 @@ METHOD write( cSource ) CLASS TRtf
       ft_FUse()
    ENDIF
 
-   RETURN self
+   RETURN Self
 
 METHOD close() CLASS TRtf
 
@@ -134,4 +134,4 @@ METHOD close() CLASS TRtf
       hb_vfClose( ::hFile )
    ENDIF
 
-   RETURN self
+   RETURN Self

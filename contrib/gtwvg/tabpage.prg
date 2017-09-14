@@ -163,7 +163,7 @@ METHOD WvgTabPage:tabActivate( xParam )
       ::sl_tabActivate := xParam
    ENDIF
 
-   RETURN self
+   RETURN Self
 
 METHOD WvgTabPage:minimize()
 

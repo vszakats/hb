@@ -346,7 +346,9 @@ METHOD New( cVarName, cUrl, cName, x, y, w, h ) CLASS JWindow
    ::height  := hb_defaultValue( h, 300 )
    ::width   := hb_defaultValue( w, 300 )
 
-   // objectViewer( self )
+   #if 0
+   objectViewer( Self )
+   #endif
 
    RETURN Self
 

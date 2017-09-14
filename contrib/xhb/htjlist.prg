@@ -164,7 +164,7 @@ METHOD SetFont( name, font, fntColor, fntSize ) CLASS TJSList
       " color='" + hb_defaultValue( fntColor, ::fontColor ) + "' " + ;
       ' > ","</font>");' + hb_eol() )
 
-   RETURN self
+   RETURN Self
 
 /* Add a menu item */
 METHOD AddItem( name, url, bgColor ) CLASS TJSList
@@ -176,7 +176,7 @@ METHOD AddItem( name, url, bgColor ) CLASS TJSList
    ::nItems++
    AAdd( ::aScript, ::cCurrentNode + '.addItem( "' + cUrl + '"' + iif( HB_ISSTRING( bgColor ), ',"' + bgColor + '"', "" ) + ');' + hb_eol() )
 
-   RETURN self
+   RETURN Self
 
 /* Add a menu item */
 METHOD AddLink( name, url, img, bgColor ) CLASS TJSList
@@ -189,7 +189,7 @@ METHOD AddLink( name, url, img, bgColor ) CLASS TJSList
    ::nItems++
    AAdd( ::aScript, ::cCurrentNode + '.addItem( "' + cUrl + '"' + iif( HB_ISSTRING( bgColor ), ',"' + bgColor + '"', "" ) + ');' + hb_eol() )
 
-   RETURN self
+   RETURN Self
 
 METHOD EndNode( name, caption ) CLASS TJSList
 
@@ -197,7 +197,7 @@ METHOD EndNode( name, caption ) CLASS TJSList
 
    AAdd( ::aScript, ::cMainNode + ".addList( " + name + ", '<b>" + caption + "</b>' );" + hb_eol() )
 
-   RETURN self
+   RETURN Self
 
 METHOD Build( xPos, yPos ) CLASS TJSList
 

@@ -976,14 +976,14 @@ method Notifier:init
    ::aQueue := {}
    ::oSignal := Signal():new()
 
-   return self
+   return Self
 
 method Notifier:notify( xValue )
 
    AAdd( ::aQueue, xValue )
    ::oSignal:signal()
 
-   return self
+   return Self
 
 method Notifier:subscribe()
 
