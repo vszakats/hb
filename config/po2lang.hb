@@ -128,7 +128,7 @@ STATIC FUNCTION _begin()
 
 #include "hbapilng.h"
 
-static HB_LANG s_lang =
+static const HB_LANG s_lang =
 {
    {
 #pragma __endtext
