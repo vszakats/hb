@@ -111,12 +111,10 @@ static void preBmGs( const char * needle, HB_ISIZ m, HB_ISIZ bmGs[] )
 
 HB_ISIZ hb_strAtTBM( const char * needle, HB_ISIZ m, const char * haystack, HB_ISIZ n )
 {
-   HB_ISIZ r = 0;
-   HB_ISIZ bcShift, j, shift, u, v, turboShift;
+   HB_ISIZ r = 0, j, shift, u;
    HB_ISIZ bmBc[ ASIZE ];
-   HB_ISIZ * bmGs;
 
-   bmGs = ( HB_ISIZ * ) hb_xgrab( m * sizeof( HB_ISIZ ) );
+   HB_ISIZ * bmGs = ( HB_ISIZ * ) hb_xgrab( m * sizeof( HB_ISIZ ) );
 
    /* Preprocessing */
    preBmGs( needle, m, bmGs );
@@ -146,9 +144,9 @@ HB_ISIZ hb_strAtTBM( const char * needle, HB_ISIZ m, const char * haystack, HB_I
       }
       else
       {
-         v = m - 1 - i;
-         turboShift = u - v;
-         bcShift = bmBc[ ( HB_UCHAR ) haystack[ i + j ] ] - m + 1 + i;
+         HB_ISIZ v = m - 1 - i;
+         HB_ISIZ turboShift = u - v;
+         HB_ISIZ bcShift = bmBc[ ( HB_UCHAR ) haystack[ i + j ] ] - m + 1 + i;
          shift = HB_MAX( turboShift, bcShift );
          shift = HB_MAX( shift, bmGs[ i ] );
          if( shift == bmGs[ i ] )
