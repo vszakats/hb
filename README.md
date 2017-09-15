@@ -349,7 +349,7 @@ You only need to use manual setup if the dependency isn't available on your
 platform on a system location, or you wish to use a non-standard location.
 Typically, you need to do this on non-\*nix (e.g. Windows) systems for all
 packages and for a few packages on \*nix which are not available via
-official package managers (f.e. ADS Client).
+official package managers (e.g. ADS Client).
 
 Note that Harbour is tuned to use 3rd party **binary** packages in their
 default, unmodified &ndash; "vanilla" &ndash; install layout created by their
@@ -448,7 +448,7 @@ Packages for optional core Harbour features:
 >   * See [this](https://distrowatch.com/dwres.php?resource=package-management)
 >       on package management in various distros.
 >   * On openSUSE, if you want to build 32-bit Harbour on a 64-bit host,
->       install above packages with `-32bit` suffix, f.e. `slang-devel-32bit`
+>       install above packages with `-32bit` suffix, e.g. `slang-devel-32bit`
 
 ## OpenSolaris
 
@@ -1095,7 +1095,7 @@ For all platforms you will need two things:
     be used, so you don't have to make any extra steps here.
 
 Use `hbmk2` to build your app from source. It's recommended to put it in the
-`PATH` (f.e. by using `set PATH=C:\hb\bin;%PATH%` on Windows).
+`PATH` (e.g. by using `set PATH=C:\hb\bin;%PATH%` on Windows).
 
 See `hbmk2` [documentation, with examples](utils/hbmk2/doc/hbmk2.en.md).
 
