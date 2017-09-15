@@ -116,7 +116,7 @@ For all platforms you will need:
 * GNU Make (3.81 recommended, minimum 3.79 required, see also platform details)
 * Harbour sources (2.0.0 or upper)
 
-## on Windows hosts (possible cross-build targets: Windows CE, MS-DOS, OS/2, Linux)
+## on Windows hosts (possible cross-build targets: Linux, Windows CE, MS-DOS, OS/2)
 
 Platform specific prerequisites:
 
@@ -147,7 +147,7 @@ To test it, type:
 
 You should see `Hello, world!` on screen.
 
-## on Windows hosts with POSIX shells (MSYS2/Cygwin) (possible cross-build targets: Windows CE, MS-DOS, OS/2, Linux)
+## on Windows hosts with POSIX shells (MSYS2/Cygwin) (possible cross-build targets: Linux, Windows CE, MS-DOS, OS/2)
 
 To build:
 
@@ -347,9 +347,9 @@ be used if installed on well-known standard system locations.
 
 You only need to use manual setup if the dependency isn't available on your
 platform on a system location, or you wish to use a non-standard location.
-Typically, you need to do this on non-\*nix (Windows, MS-DOS, OS/2) systems
-for all packages and for a few packages on \*nix which are not available
-via official package managers (f.e. ADS Client).
+Typically, you need to do this on non-\*nix (e.g. Windows) systems for all
+packages and for a few packages on \*nix which are not available via
+official package managers (f.e. ADS Client).
 
 Note that Harbour is tuned to use 3rd party **binary** packages in their
 default, unmodified &ndash; "vanilla" &ndash; install layout created by their
