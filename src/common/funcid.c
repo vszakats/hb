@@ -56,7 +56,7 @@ typedef struct
 
 /* NOTE: THIS TABLE MUST BE SORTED ALPHABETICALLY
  */
-static _HB_FUNCID s_funcId[] =
+static const _HB_FUNCID s_funcId[] =
 {
    { "AADD",                    0, HB_FN_RESERVED, HB_F_AADD                 },
    { "ABS",                     0, HB_FN_RESERVED, HB_F_ABS                  },

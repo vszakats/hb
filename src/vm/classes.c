@@ -298,10 +298,10 @@ static HB_SYMB s___msgClassH      = { "CLASSH",          {HB_FS_MESSAGE}, {HB_FU
 static HB_SYMB s___msgClassSel    = { "CLASSSEL",        {HB_FS_MESSAGE}, {HB_FUNCNAME( msgClassSel )},   NULL };
 static HB_SYMB s___msgExec        = { "EXEC",            {HB_FS_MESSAGE}, {HB_FUNCNAME( msgNull )},       NULL };
 static HB_SYMB s___msgName        = { "NAME",            {HB_FS_MESSAGE}, {HB_FUNCNAME( msgNull )},       NULL };
-/*
+#if 0
 static HB_SYMB s___msgClsParent   = { "ISDERIVEDFROM",   {HB_FS_MESSAGE}, {HB_FUNCNAME( msgClassParent )},NULL };
 static HB_SYMB s___msgClass       = { "CLASS",           {HB_FS_MESSAGE}, {HB_FUNCNAME( msgClass )},      NULL };
-*/
+#endif
 static HB_SYMB s___msgKeys        = { "KEYS",            {HB_FS_MESSAGE}, {HB_FUNCNAME( msgNull )},       NULL };
 static HB_SYMB s___msgValues      = { "VALUES",          {HB_FS_MESSAGE}, {HB_FUNCNAME( msgNull )},       NULL };
 
@@ -387,9 +387,9 @@ static HB_USHORT hb_clsBucketPos( PHB_DYNS pMsg, HB_USHORT uiMask )
    /* Safely divide it by 16 - it's minimum memory allocated for single
     * HB_DYNS structure
     */
-   /*
-      return ( ( HB_USHORT ) ( ( HB_PTRUINT ) pMsg >> 4 ) & uiMask ) << BUCKETBITS;
-    */
+   #if 0
+   return ( ( HB_USHORT ) ( ( HB_PTRUINT ) pMsg >> 4 ) & uiMask ) << BUCKETBITS;
+   #endif
 
    /* Using continuous symbol numbers we are 100% sure that we will cover
     * the whole 16-bit area and we will never have any problems until number
@@ -709,10 +709,10 @@ static HB_BOOL hb_clsHasParentClass( PCLASS pClass, HB_USHORT uiParentCls )
    /* alternative method but can give wrong results
     * if user overloads super casting method, [druzus].
     */
-   /*
+   #if 0
    PMETHOD pMethod = hb_clsFindMsg( pClass, s_pClasses[ uiParentCls ]->pClassSym );
    return pMethod && pMethod->pFuncSym == &s___msgSuper;
-   */
+   #endif
 }
 
 static HB_USHORT hb_clsGetParent( PCLASS pClass, PHB_DYNS pParentSym )
@@ -730,10 +730,10 @@ static HB_USHORT hb_clsGetParent( PCLASS pClass, PHB_DYNS pParentSym )
    /* alternative method but can give wrong results
     * if user overloads super casting method, [druzus].
     */
-   /*
+   #if 0
    PMETHOD pMethod = hb_clsFindMsg( pClass, pParentSym );
    return pMethod && pMethod->pFuncSym == &s___msgSuper;
-   */
+   #endif
 }
 
 static HB_USHORT hb_clsParentInstanceOffset( PCLASS pClass, HB_USHORT uiParentCls )
@@ -4504,8 +4504,7 @@ HB_FUNC_STATIC( msgClass )
    hb_itemReturnForward( hb_stackSelfItem() );
 }
 
-/* Added by JfL&RaC
- * <logical> <= <obj>:IsDerivedFrom( xParam )
+/* <obj>:IsDerivedFrom( xParam ) --> <logical>
  *
  * Return true if <obj> is derived from xParam.
  * xParam can be either an obj or a classname

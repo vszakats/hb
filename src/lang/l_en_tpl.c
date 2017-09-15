@@ -1,6 +1,6 @@
 #include "hbapilng.h"
 
-static HB_LANG s_lang =
+static const HB_LANG s_lang =
 {
    {
       /* Identification */

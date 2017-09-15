@@ -47,7 +47,7 @@
 #include "hbcomp.h"
 #include "hbset.h"
 
-static char s_szUndefineMarker[ 1 ] = "";
+static char s_szUndefineMarker[ 1 ] = "";  /* TODO: add const */
 
 static HB_SIZE hb_compChkOptionLen( const char * szSwitch, HB_BOOL fEnv )
 {

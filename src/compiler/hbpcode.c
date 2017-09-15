@@ -303,7 +303,7 @@ const HB_BYTE hb_comp_pcode_len[] = {
  * this table has pointers to functions which count
  * real size of variable size PCODEs
  */
-static PHB_PCODE_FUNC s_psize_table[] =
+static const PHB_PCODE_FUNC s_psize_table[] =
 {
    NULL,                       /* HB_P_AND                   */
    NULL,                       /* HB_P_ARRAYPUSH             */
