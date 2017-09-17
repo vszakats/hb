@@ -14,10 +14,6 @@
 # For hbserv.c, maybe more
 #-c=gnu90
 
-hbct.hbc
-hbtip.hbc
-hbfship.hbc
-hbxpp.hbc
 hbwin.hbc{allwin}
 
 -hbx=${hb_name}
