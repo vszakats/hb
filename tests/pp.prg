@@ -1,5 +1,5 @@
-// Tests for stringify match markers
-// Preproces and compile only
+// Testing stringify match markers. Preprocess and compile only.
+
 PROCEDURE Main()
 LOCAL b := ""
 MEMVAR a

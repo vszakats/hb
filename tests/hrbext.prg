@@ -1,4 +1,4 @@
-// see also hrb.prg
+/* See also: hrb.prg */
 
 FUNCTION Msg()  /* must be a public function */
 

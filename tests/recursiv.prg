@@ -1,4 +1,4 @@
-// testing recursive calls
+// Testing recursive calls
 
 PROCEDURE Main()
 

@@ -15,7 +15,7 @@ STATIC PROCEDURE test()
 
    LOCAL a := 15.1
    LOCAL b := 10.0002575
-   LOCAL nI, c, d
+   LOCAL tmp, c, d
 
    ?? "1: "
    ?? 10
@@ -63,10 +63,10 @@ STATIC PROCEDURE test()
    ?? b * b * b * b * b * b * b
    ?
 
-   FOR nI := 1 TO 20
+   FOR tmp := 1 TO 20
       ?
-      ?? Str( 6 + nI ) + ": "
-      ?? 10 ^ nI + ( 1.02 * 1.02 )
+      ?? Str( 6 + tmp ) + ": "
+      ?? 10 ^ tmp + ( 1.02 * 1.02 )
    NEXT
    ?
 

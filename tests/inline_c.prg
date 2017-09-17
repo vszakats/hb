@@ -12,7 +12,7 @@ PROCEDURE Main()
 
 HB_FUNC( C_FUNC )
 {
-   hb_retc( "returned from C_FUNC()\n" );
+   hb_retc( "Returned from C_FUNC()\n" );
 }
 
 #pragma enddump

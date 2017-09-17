@@ -15,16 +15,12 @@ STATIC PROCEDURE TestValue( x )
 
    IF x == 1
       ? "x is 1"
-
    ELSEIF x == 2
       ? "x is 2"
-
    ELSEIF x == 3
       ? "x is 3"
-
    ELSEIF x == 4
       ? "x is 4"
-
    ELSE
       ? "x is not 1 or 2 or 3 or 4"
    ENDIF

@@ -1,6 +1,4 @@
-//
-// Array test AIns() / ADel() / ASize() / AFill()
-//
+// Testing array functions: AIns(), ADel(), ASize(), AFill()
 
 #ifndef __HARBOUR__
 #include "clipper.ch"
@@ -15,44 +13,44 @@ PROCEDURE Main()
    aFirst := AClone( { 1, 2, 4 } )
    AIns( aFirst, 3 )
    aFirst[ 3 ] := "3"
-   ?? "Testing AIns() ... "
+   ? "Testing AIns() ... "
    ADump( aFirst )
 
    aSecond := { 1, 2, 4 }
    ASize( aSecond, 4 )
-   ?? "Testing ASize() ... "
+   ? "Testing ASize() ... "
    ADump( aSecond )
 
    aSecond := { 1, 2, 4 }
    ASize( aSecond, 4 )
    AIns( aSecond, 3 )
    aSecond[ 3 ] := "3"
-   ?? "Testing ASize() + AIns() ... "
+   ? "Testing ASize() + AIns() ... "
    ADump( aSecond )
 
    aSecond := { 1, 2, 3, 3, 4, 5 }
    ADel( aSecond, 3 )
-   ?? "Testing ADel() ... "
+   ? "Testing ADel() ... "
    ADump( aSecond )
 
    aSecond := { 1, 2, 3, 3, 4, 5 }
    ADel( aSecond, 3 )
    ASize( aSecond, Len( aSecond ) - 1 )
-   ?? "Testing ASize() + ADel() ... "
+   ? "Testing ASize() + ADel() ... "
    ADump( aSecond )
 
    AFill( aSecond, "!" )
-   ?? "Testing AFill() ... "
+   ? "Testing AFill() ... "
    ADump( aSecond )
 
    aMore := { 1, 2, 3, 4, 5, 6 }
    AFill( aMore, "X", 3 )
-   ?? "Testing AFill() with start ... "
+   ? "Testing AFill() with start ... "
    ADump( aMore )
 
    aMore := { 1, 2, 3, 4, 5, 6 }
    AFill( aMore, "X", 3, 2 )
-   ?? "Testing AFill() with start and count ... "
+   ? "Testing AFill() with start and count ... "
    ADump( aMore )
 
    aMore := { { 1, 2 }, { 3, 4 } }
@@ -63,31 +61,29 @@ PROCEDURE Main()
 
 STATIC PROCEDURE ADump( aShow )
 
-   LOCAL n
+   LOCAL tmp
 
-   ?? "Len=", hb_ntos( Len( aShow ) )
+   ?? "Len =", hb_ntos( Len( aShow ) )
    ?? ": "
-   FOR n := 1 TO Len( aShow )
+   FOR tmp := 1 TO Len( aShow )
 
       ?? "["
-      ?? hb_ntos( n )
-      ?? "]= "
-      ?? ValType( aShow[ n ] )
+      ?? hb_ntos( tmp )
+      ?? "] = "
+      ?? ValType( aShow[ tmp ] )
       ?? ":"
-      IF HB_ISARRAY( aShow[ n ] ) /* Iterate array */
+      IF HB_ISARRAY( aShow[ tmp ] )  /* Iterate array */
          ?
          ?? "["
-         ADump( aShow[ n ] )
+         ADump( aShow[ tmp ] )
          ?? "]"
       ELSE
-         ?? iif( HB_ISNUMERIC( aShow[ n ] ), hb_ntos( aShow[ n ] ), aShow[ n ] )
+         ?? iif( HB_ISNUMERIC( aShow[ tmp ] ), hb_ntos( aShow[ tmp ] ), aShow[ tmp ] )
       ENDIF
 
-      IF n != Len( aShow )
+      IF tmp < Len( aShow )
          ?? ", "
       ENDIF
-
    NEXT
-   ?
 
    RETURN

@@ -1,5 +1,4 @@
-// This files demonstrates the use of BEGIN/RECOVER/END SEQUENCE
-// and BREAK statement
+// Demonstrate BEGIN/RECOVER/END SEQUENCE and BREAK statements
 
 MEMVAR m_oMemvar
 MEMVAR m_cPrivate
@@ -7,11 +6,11 @@ MEMVAR m_cPrivate
 PROCEDURE Main()
 
    LOCAL oLocal
-   PRIVATE m_cPrivate := "private value in MAIN"
+   PRIVATE m_cPrivate := "PRIVATE value in Main()"
 
    BEGIN SEQUENCE
       ? " Inside SEQUENCE 1"
-      ? "  No break issued...."
+      ? "  No BREAK issued...."
    RECOVER
       ? "  Recovering in 1 ..."
    END SEQUENCE
@@ -29,7 +28,7 @@ PROCEDURE Main()
 
    BEGIN SEQUENCE
       ? " Inside SEQUENCE 3"
-      Break
+      BREAK
    RECOVER USING oLocal
       ? "  Recovering in 3 using....", oLocal
    END SEQUENCE
@@ -38,7 +37,7 @@ PROCEDURE Main()
 
    BEGIN SEQUENCE
       ? " Inside SEQUENCE 4"
-      Break
+      BREAK
       ? "  Recovering in 4 using....", oLocal
    END SEQUENCE
    ? "After SEQUENCE 4"
@@ -77,7 +76,7 @@ PROCEDURE Main()
 
 STATIC PROCEDURE Break1()
 
-   PRIVATE m_cPrivate := "VALUE from Break1"
+   PRIVATE m_cPrivate := "VALUE from Break1()"
 
    BREAK M->m_cPrivate
 
@@ -121,6 +120,6 @@ STATIC PROCEDURE Break3()
 
 STATIC PROCEDURE Break4( cValue )
 
-   LOCAL oLocal := " detached Break4 "
+   LOCAL oLocal := " detached Break4() "
 
    Break( {| x | oLocal + x + cValue } )
