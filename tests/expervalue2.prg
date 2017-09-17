@@ -140,6 +140,9 @@ PROCEDURE Main()
             ENDIF
          ENDIF
          EXIT
+      CASE K_TAB
+         Score( aArray )
+         EXIT
 
       ENDSWITCH
 
@@ -183,23 +186,38 @@ PROCEDURE WelcomeScreen()
 PROCEDURE Show( nRow, nCol, aArray )
 
    LOCAL row, col
-   LOCAL nScore
 
-      DispBegin()
+   DispBegin()
 
-      nScore := 0
-      FOR EACH row IN aArray
-         FOR EACH col IN row
-            hb_DispOutAt( row:__enumIndex() - 1, col:__enumIndex() - 1, hb_ntos( col[ 1 ] ), col[ 2 ] )
-            IF col[ 1 ] == 0
-               nScore++
-            ENDIF
-         NEXT
+   FOR EACH row IN aArray
+      FOR EACH col IN row
+         hb_DispOutAt( row:__enumIndex() - 1, col:__enumIndex() - 1, hb_ntos( col[ 1 ] ), col[ 2 ] )
       NEXT
-      hb_DispOutAtBox( nRow - 1, nCol - 1, Chr( 2 ), aArray[ nRow, nCol, 2 ] )
+   NEXT
+   hb_DispOutAtBox( nRow - 1, nCol - 1, Chr( 2 ), aArray[ nRow, nCol, 2 ] )
 
-      DispEnd()
-
-      hb_gtInfo( HB_GTI_WINTITLE, "Experience Value 2 " + "  Score : " + " [ " + hb_ntos( nScore ) + " / " + "2000 ]" )
+   DispEnd()
 
    RETURN
+
+PROCEDURE Score( aArray )
+
+   LOCAL nRow := Int( ( MaxRow() - 1 ) / 2 )
+   LOCAL row, col
+   LOCAL nScore := 0
+
+   CLS
+
+   FOR EACH row IN aArray
+      FOR EACH col IN row
+         IF col[ 1 ] == 0
+            nScore++
+         ENDIF
+      NEXT
+   NEXT
+
+   hb_DispOutAt( nRow, 0, hb_UPadC( "Experience Value 2 " + "  Score : " + " [ " + hb_ntos( nScore ) + " / " + "2000 ]", MaxCol() + 1 ), 0xf )
+
+   Inkey( 3 )
+
+   RETURN 
