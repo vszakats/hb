@@ -25,7 +25,7 @@ PROCEDURE Main()
    nRow := Int( MaxRow() / 2 ) + 1
    nCol := Int( MaxCol() / 2 ) + 1
    
-   aArray[ nRow, nCol ] := { 0, 0x0 }
+   aArray[ nRow ][ nCol ] := { 0, 0x0 }
 
    DO WHILE lContinue
 
@@ -42,18 +42,18 @@ PROCEDURE Main()
             hb_Alert( "You crossed the game board.; The End Experience Value", , 0xf0, 3 )
             lContinue := .F.
          ELSE
-            tmp     := aArray[ nRow - 1, nCol, 1 ]
+            tmp     := aArray[ nRow - 1 ][ nCol ][ 1 ]
             nRowOld := nRow
-            nRow    -= aArray[ nRow - 1, nCol, 1 ]
+            nRow    -= aArray[ nRow - 1 ][ nCol ][ 1 ]
             IF nRow > 0
                FOR i := 1 TO tmp
-                  aArray[ nRow + i, nCol ] := { 0, 0x0 }
+                  aArray[ nRow + i ][ nCol ] := { 0, 0x0 }
                NEXT
             ELSE
                tmp := nRowOld
                nRow := 1
                FOR i := 1 TO tmp
-                  aArray[ nRow + i, nCol ] := { 0, 0x0 }
+                  aArray[ nRow + i ][ nCol ] := { 0, 0x0 }
                NEXT
                Show( nRow, nCol, aArray )
                hb_Alert( "You crossed the game board.; The End Experience Value", , 0xf0, 3 )
@@ -70,17 +70,17 @@ PROCEDURE Main()
             lContinue := .F.
          ELSE
 
-            tmp  := aArray[ nRow + 1, nCol, 1 ]
-            nRow += aArray[ nRow + 1, nCol, 1 ]
+            tmp  := aArray[ nRow + 1 ][ nCol ][ 1 ]
+            nRow += aArray[ nRow + 1 ][ nCol ][ 1 ]
 
             IF nRow < MaxRow() + 2
                FOR i := 1 TO tmp
-                  aArray[ nRow - i, nCol ] := { 0, 0x0 }
+                  aArray[ nRow - i ][ nCol ] := { 0, 0x0 }
                NEXT   
             ELSE
                nRow := MaxRow() + 1
                FOR i := 1 TO tmp
-                  aArray[ nRow - i, nCol ] := { 0, 0x0 }
+                  aArray[ nRow - i ][ nCol ] := { 0, 0x0 }
                NEXT
                Show( nRow, nCol, aArray )
                hb_Alert( "You crossed the game board.; The End Experience Value", , 0xf0, 3 )
@@ -95,18 +95,18 @@ PROCEDURE Main()
             hb_Alert( "You crossed the game board.; The End Experience Value", , 0xf0, 3 )
             lContinue := .F.
          ELSE
-            tmp  := aArray[ nRow, nCol - 1, 1 ]
+            tmp  := aArray[ nRow ][ nCol - 1 ][ 1 ]
             nColOld := nCol
-            nCol -= aArray[ nRow, nCol - 1, 1 ]
+            nCol -= aArray[ nRow ][ nCol - 1 ][ 1 ]
             IF nCol > 0
                FOR i := 1 TO tmp
-                  aArray[ nRow, nCol + i ] := { 0, 0x0 }
+                  aArray[ nRow ][ nCol + i ] := { 0, 0x0 }
                NEXT
             ELSE
                tmp := nColOld
                nCol := 1
                FOR i := 1 TO tmp
-                  aArray[ nRow, nCol + i ] := { 0, 0x0 }
+                  aArray[ nRow ][ nCol + i ] := { 0, 0x0 }
                NEXT
                Show( nRow, nCol, aArray )
                hb_Alert( "You crossed the game board.; The End Experience Value", , 0xf0, 3 )
@@ -122,16 +122,16 @@ PROCEDURE Main()
             hb_Alert( "You crossed the game board.; The End Experience Value", , 0xf0, 3 )
             lContinue := .F.
          ELSE
-            tmp  := aArray[ nRow, nCol + 1, 1 ]
-            nCol += aArray[ nRow, nCol + 1, 1 ]
+            tmp  := aArray[ nRow ][ nCol + 1 ][ 1 ]
+            nCol += aArray[ nRow ][ nCol + 1 ][ 1 ]
             IF nCol < MaxCol() + 2
                FOR i := 1 TO tmp
-                  aArray[ nRow, nCol - i ] := { 0, 0x0 }
+                  aArray[ nRow ][ nCol - i ] := { 0, 0x0 }
                NEXT
             ELSE
                nCol := MaxCol() + 1
                FOR i := 1 TO tmp
-                  aArray[ nRow, nCol - i ] := { 0, 0x0 }
+                  aArray[ nRow ][ nCol - i ] := { 0, 0x0 }
                NEXT
                Show( nRow, nCol, aArray )
                hb_Alert( "You crossed the game board.; The End Experience Value", , 0xf0, 3 )
@@ -156,8 +156,6 @@ PROCEDURE WelcomeScreen()
 
    LOCAL nRow := Int( ( MaxRow() - 12 ) / 2 )
    LOCAL cLine
-
-   hb_gtInfo( HB_GTI_WINTITLE, "Experience Value 2 " )
 
    DispBegin()
 
