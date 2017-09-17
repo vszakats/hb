@@ -192,7 +192,7 @@ PROCEDURE Show( nRow, nCol, aArray )
          hb_DispOutAt( row:__enumIndex() - 1, col:__enumIndex() - 1, hb_ntos( col[ 1 ] ), col[ 2 ] )
       NEXT
    NEXT
-   hb_DispOutAtBox( nRow - 1, nCol - 1, Chr( 2 ), aArray[ nRow, nCol, 2 ] )
+   hb_DispOutAtBox( nRow - 1, nCol - 1, Chr( 2 ), aArray[ nRow ][ nCol ][ 2 ] )
 
    DispEnd()
 
@@ -219,3 +219,4 @@ PROCEDURE Score( aArray )
    Inkey( 3 )
 
    RETURN 
+   
