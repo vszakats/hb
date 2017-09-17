@@ -73,7 +73,7 @@ PROCEDURE Main()
             tmp  := aArray[ nRow + 1, nCol, 1 ]
             nRow += aArray[ nRow + 1, nCol, 1 ]
 
-            IF nRow < MaxRow() + 1
+            IF nRow < MaxRow() + 2
                FOR i := 1 TO tmp
                   aArray[ nRow - i, nCol ] := { 0, 0x0 }
                NEXT   
@@ -124,7 +124,7 @@ PROCEDURE Main()
          ELSE
             tmp  := aArray[ nRow, nCol + 1, 1 ]
             nCol += aArray[ nRow, nCol + 1, 1 ]
-            IF nCol < MaxCol() + 1
+            IF nCol < MaxCol() + 2
                FOR i := 1 TO tmp
                   aArray[ nRow, nCol - i ] := { 0, 0x0 }
                NEXT
