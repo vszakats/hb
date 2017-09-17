@@ -24,7 +24,7 @@ PROCEDURE Main()
 
    nRow := Int( MaxRow() / 2 ) + 1
    nCol := Int( MaxCol() / 2 ) + 1
-   
+
    aArray[ nRow ][ nCol ] := { 0, 0x0 }
 
    DO WHILE lContinue
@@ -76,7 +76,7 @@ PROCEDURE Main()
             IF nRow < MaxRow() + 2
                FOR i := 1 TO tmp
                   aArray[ nRow - i ][ nCol ] := { 0, 0x0 }
-               NEXT   
+               NEXT
             ELSE
                nRow := MaxRow() + 1
                FOR i := 1 TO tmp
@@ -112,7 +112,7 @@ PROCEDURE Main()
                hb_Alert( "You crossed the game board.; The End Experience Value", , 0xf0, 3 )
                Inkey( 0 )
                lContinue := .F.
-            ENDIF   
+            ENDIF
          ENDIF
          EXIT
 
@@ -154,12 +154,7 @@ PROCEDURE Main()
 
 PROCEDURE WelcomeScreen()
 
-   LOCAL nRow := Int( ( MaxRow() - 12 ) / 2 )
-   LOCAL cLine
-
-   DispBegin()
-
-   FOR EACH cLine IN { ;
+   LOCAL aBanner := { ;
       "__________                          _____                        ", ;
       "___  ____/___  ________________________(_)______________________ ", ;
       "__  __/  __  |/_/__  __ \  _ \_  ___/_  /_  _ \_  __ \  ___/  _ \", ;
@@ -172,6 +167,13 @@ PROCEDURE WelcomeScreen()
       "__ |/ / / /_/ /_  / / /_/ //  __/", ;
       "_____/  \__,_/ /_/  \__,_/ \___/ ", ;
       "                                    v0.0.0" }
+
+   LOCAL nRow := Int( ( MaxRow() - Len( aBanner ) ) / 2 )
+   LOCAL cLine
+
+   DispBegin()
+
+   FOR EACH cLine IN aBanner
       hb_DispOutAt( nRow + cLine:__enumIndex() - 1, 0, PadC( cLine, MaxCol() + 1 ), 0xb )
    NEXT
 
@@ -214,9 +216,10 @@ PROCEDURE Score( aArray )
       NEXT
    NEXT
 
-   hb_DispOutAt( nRow, 0, hb_UPadC( "Experience Value 2 " + "  Score : " + " [ " + hb_ntos( nScore ) + " / " + "2000 ]", MaxCol() + 1 ), 0xf )
+   hb_DispOutAt( nRow, 0, hb_UPadC( ;
+      "Experience Value 2 " + ;
+      "  Score : " + " [ " + hb_ntos( nScore ) + " / " + "2000 ]", MaxCol() + 1 ), 0xf )
 
    Inkey( 3 )
 
-   RETURN 
-   
+   RETURN
