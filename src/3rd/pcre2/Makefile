@@ -47,17 +47,6 @@ ifneq ($(HB_HAS_PCRE2_LOCAL),)
 
    HB_CFLAGS += -DHAVE_CONFIG_H
 
-   # workaround for problems in sunpro x86 PIC builds exploited by hbpcre library code
-   ifeq ($(HB_COMPILER),sunpro)
-      ifeq ($(HB_PLATFORM),sunos)
-         ifeq ($(findstring sparc,$(shell isalist)),)
-            HB_CFLAGS += -xbuiltin=%none
-         endif
-      else
-         HB_CFLAGS += -xbuiltin=%none
-      endif
-   endif
-
    # suppress bcc warnings
    ifeq ($(HB_COMPILER),bcc)
       HB_CFLAGS += -w-use -w-csu -w-aus -w-sig
