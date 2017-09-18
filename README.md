@@ -738,49 +738,6 @@ mingw32-make
 ```
 
 ```batchfile
-:: MSVC 2010 and Windows SDK 7.1 (x86 target)
-call "%ProgramFiles(x86)%\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
-mingw32-make
-```
-
-```batchfile
-:: MSVC 2010 (Professional or above) and Windows SDK 7.1 (x64 target)
-call "%ProgramFiles(x86)%\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" amd64
-mingw32-make
-```
-
-```batchfile
-:: Windows SDK 7 (x86 target)
-call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\bin\vcvars32.bat"
-mingw32-make
-```
-
-```batchfile
-:: Windows SDK 7 (x64 target)
-call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\bin\vcvars64.bat"
-mingw32-make
-```
-
-```batchfile
-:: MSVC 2008 (x86 target)
-call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat"
-mingw32-make
-```
-
-```batchfile
-:: MSVC 2008 (Standard or above) (x64 target)
-call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat" amd64
-mingw32-make
-```
-
-```batchfile
-:: MSVC 2008 (Team Suite) (IA-64 Itanium target)
-:: (requires preceding build for x86 or x64 target)
-call "%ProgramFiles(x86)%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat" x86_ia64
-mingw32-make
-```
-
-```batchfile
 :: Open Watcom C/C++
 set WATCOM=C:\watcom
 set PATH=%WATCOM%\BINNT64;%WATCOM%\BINNT;%PATH%
@@ -850,73 +807,11 @@ mingw32-make
 ```
 
 ```batchfile
-:: MSVC 2010 and Windows SDK 7.1 (x86 target)
-call "%ProgramFiles%\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
-mingw32-make
-```
-
-```batchfile
-:: MSVC 2010 (Professional or above) and Windows SDK 7.1 (x64 target)
-:: (requires preceding build for x86 target)
-call "%ProgramFiles%\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" x86_amd64
-mingw32-make
-```
-
-```batchfile
-:: Windows SDK 7 (x86 target)
-call "%ProgramFiles%\Microsoft Visual Studio 9.0\VC\bin\vcvars32.bat"
-mingw32-make
-```
-
-```batchfile
-:: Windows SDK 7 (x64 target)
-:: (requires preceding build for x86 target)
-call "%ProgramFiles%\Microsoft Visual Studio 9.0\VC\bin\vcvarsx86_amd64.bat"
-mingw32-make
-```
-
-```batchfile
-:: MSVC 2008 + SDK (x86 target)
-set WindowsSDKDir=%ProgramFiles%\Microsoft SDKs\Windows\v6.0A\
-call "%ProgramFiles%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat"
-mingw32-make
-```
-
-```batchfile
-:: MSVC 2008 (x86 target)
-call "%ProgramFiles%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat"
-mingw32-make
-```
-
-```batchfile
-:: MSVC 2008 (Standard or above) (x64 target)
-:: (requires preceding build for x86 target)
-call "%ProgramFiles%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat" x86_amd64
-mingw32-make
-```
-
-```batchfile
-:: MSVC 2008 (Team Suite) (IA-64 Itanium target)
-:: (requires preceding build for x86 target)
-call "%ProgramFiles%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat" x86_ia64
-mingw32-make
-```
-
-```batchfile
 :: MinGW GCC (Windows CE ARM target)
 :: (requires Cygwin + preceding build for x86 target)
 set PATH=C:\mingwce\opt\mingw32ce\bin;C:\cygwin\bin;%PATH%
 :: optional:
 set CYGWIN=nodosfilewarning
-mingw32-make
-```
-
-```batchfile
-:: MSVC 2008 (Windows CE ARM target)
-:: (requires preceding build for x86 target)
-set INCLUDE=%ProgramFiles%\Microsoft Visual Studio 9.0\VC\ce\include;%ProgramFiles%\Windows Mobile 5.0 SDK R2\PocketPC\Include\Armv4i
-set LIB=%ProgramFiles%\Microsoft Visual Studio 9.0\VC\ce\lib\armv4i;%ProgramFiles%\Windows Mobile 5.0 SDK R2\PocketPC\Lib\ARMV4I
-set PATH=%ProgramFiles%\Microsoft Visual Studio 9.0\VC\ce\bin\x86_arm;%ProgramFiles%\Microsoft Visual Studio 9.0\Common7\IDE;%PATH%
 mingw32-make
 ```
 
@@ -1012,21 +907,6 @@ mingw32-make
 :: Cygwin GCC using Cygwin shell
 set PATH=C:\cygwin\bin
 sh -c make
-```
-
-## on OS/2 hosts
-
-```batchfile
-rem GCC 3.3.4 and GCC 3.3.5
-C:\usr\bin\gccenv.cmd
-os2-make
-```
-
-```batchfile
-rem GCC 4.x
-C:\usr\local433\gcc440.cmd
-set HB_COMPILER=gccomf
-os2-make
 ```
 
 ```batchfile
@@ -1173,12 +1053,12 @@ Press `<Alt+D>` in the app.
 * aix      - IBM AIX
 * hpux     - HP-UX
 * sunos    - Sun Solaris / OpenSolaris
-* beos     - BeOS / Haiku (experimental)
 * qnx      - QNX (experimental)
 * vxworks  - VxWorks (experimental)
 * minix    - Minix 3 (experimental, tested on 3.2.1; earlier releases will not work)
-* symbian  - Symbian OS (deprecated)
 * cygwin   - Cygwin (experimental)
+* beos     - BeOS / Haiku (deprecated)
+* symbian  - Symbian OS (deprecated)
 
 ## You can override C compiler auto-detection with these `HB_COMPILER` values:
 
@@ -1207,15 +1087,13 @@ Press `<Alt+D>` in the app.
 ### win
 * mingw    - MinGW GNU C 3.4.2 and above
 * mingw64  - MinGW GNU C x86-64
-* msvc     - Microsoft Visual C++
-* msvc64   - Microsoft Visual C++ x86-64
-* msvcia64 - Microsoft Visual C++ IA-64 (Itanium)
+* msvc     - Microsoft Visual C++ (2010 and above)
+* msvc64   - Microsoft Visual C++ x86-64 (2010 and above)
 
 ### win (partial support, some features may be missing)
 * clang    - Clang
 * watcom   - Open Watcom C/C++
 * icc      - Intel(R) C/C++
-* iccia64  - Intel(R) C/C++ IA-64 (Itanium)
 
 ### win (deprecated)
 * bcc      - Borland/CodeGear/Embarcadero C++ 5.5 and above
@@ -1223,12 +1101,14 @@ Press `<Alt+D>` in the app.
 * pocc     - Pelles C 4.5 and above
 * pocc64   - Pelles C x86-64 5.0 and above
 * xcc      - Pelles C for xhb
+* iccia64  - Intel(R) C/C++ IA-64 (Itanium)
+* msvcia64 - Microsoft Visual C++ IA-64 (Itanium)
 
 ### wce
 * mingw    - MinGW GNU C x86
 * mingwarm - MinGW GNU C ARM (CEGCC 0.55 and above)
 * msvcarm  - Microsoft Visual C++ ARM
-* poccarm  - Pelles C ARM 5.0 and above
+* poccarm  - Pelles C ARM 5.0 and above (deprecated)
 
 ### dos
 * djgpp    - Delorie GNU C
@@ -1249,9 +1129,6 @@ Press `<Alt+D>` in the app.
 * gcc      - GNU C
 * sunpro   - Sun Studio C/C++
 
-### beos (experimental)
-* gcc      - GNU C
-
 ### qnx (experimental)
 * gcc      - GNU C
 
@@ -1264,6 +1141,9 @@ Press `<Alt+D>` in the app.
 * gcc      - GNU C
 
 ### cygwin (experimental)
+* gcc      - GNU C
+
+### beos (deprecated)
 * gcc      - GNU C
 
 ### symbian (deprecated)
@@ -1284,8 +1164,8 @@ Press `<Alt+D>` in the app.
      x | linux    | win/mingw         | x86
      x | linux    | win/mingw64       | x86-64
      x | linux    | win/watcom        | x86
-     x | linux    | win/bcc           | x86 (requires WINE)
-     x | linux    | win/bcc64         | x86-64 (requires WINE)
+     x | linux    | win/bcc           | x86    (requires WINE) (deprecated)
+     x | linux    | win/bcc64         | x86-64 (requires WINE) (deprecated)
      x | linux    | os2/watcom        | x86
      x | linux    | dos/watcom        | x86
      x | linux    | dos/djgpp         | x86
@@ -1293,30 +1173,28 @@ Press `<Alt+D>` in the app.
      x | linux    | android/gccarm    | arm
      x | linux    | vxworks/gcc       | (CPU cross-builds possible: x86, arm, mips, ppc)
      x | linux    | vxworks/diab      | (CPU cross-builds possible: x86, arm, mips, ppc, sparc)
-       | win      | win/bcc           | x86
-       | win      | win/bcc64         | x86-64
+       | win      | win/bcc           | x86    (deprecated)
+       | win      | win/bcc64         | x86-64 (deprecated)
        | win      | win/clang         | x86
        | win      | win/gcc           | x86
        | win      | win/icc           | x86
-       | win      | win/icc64         | x86-64 (not supported yet)
-       | win      | win/iccia64       | ia64
+       | win      | win/icc64         | x86-64
+       | win      | win/iccia64       | ia64   (deprecated)
        | win      | win/mingw         | x86
        | win      | win/mingw64       | x86-64
        | win      | win/msvc          | x86
        | win      | win/msvc64        | x86-64
-       | win      | win/msvcia64      | ia64
-       | win      | win/pocc          | x86
-       | win      | win/pocc64        | x86-64
+       | win      | win/msvcia64      | ia64   (deprecated)
+       | win      | win/pocc          | x86    (deprecated)
+       | win      | win/pocc64        | x86-64 (deprecated)
        | win      | win/watcom        | x86
-       | win      | win/xcc           | x86
+       | win      | win/xcc           | x86    (deprecated)
      x | win      | wce/mingwarm      | arm
-     x | win      | wce/mingw         | x86   (not fully supported yet)
-     x | win      | wce/poccarm       | arm
+     x | win      | wce/mingw         | x86    (not fully supported yet)
+     x | win      | wce/poccarm       | arm    (deprecated)
      x | win      | wce/msvcarm       | arm
-     x | win      | wce/msvcmips      | mips  (not supported yet)
-     x | win      | wce/msvcsh        | sh    (not supported yet)
-     x | win      | wce/msvc          | x86   (not supported yet)
-     x | win      | dos/djgpp         | x86   (on Windows x86 hosts only)
+     x | win      | wce/msvc          | x86    (not supported yet)
+     x | win      | dos/djgpp         | x86    (on Windows x86 hosts only)
      x | win      | dos/watcom        | x86
      x | win      | os2/watcom        | x86
      x | win      | linux/watcom      | x86
@@ -1324,7 +1202,7 @@ Press `<Alt+D>` in the app.
      x | win      | android/gccarm    | arm
      x | win      | vxworks/gcc       | (CPU cross-builds possible: x86, arm, mips, ppc)
      x | win      | vxworks/diab      | (CPU cross-builds possible: x86, arm, mips, ppc, sparc)
-     x | win      | symbian/gcc       | arm
+     x | win      | symbian/gcc       | arm    (deprecated)
      x | win      | cygwin/gcc        | x86
        | os2      | os2/gcc           | x86
        | os2      | os2/watcom        | x86
@@ -1385,6 +1263,10 @@ Supported shells per host platforms:
 
 * C/C++ Compilers/Shells:
 
+     * MSYS2 [win, free software, open-source]
+        * <https://msys2.github.io/>
+     * Clang [multi-platform, free software, open-source]
+        * <https://llvm.org/releases/>
      * MinGW-w64 [win, \*nix, free software, open-source]
         * <https://mingw-w64.org/>, <https://duckduckgo.com/?q=mingw-w64> (recommended, look for MSYS2 or niXman builds)
           * x86-64:
@@ -1394,6 +1276,19 @@ Supported shells per host platforms:
           * 'multilib' for x86-64 and x86 hosts (select non-native target with `HB_CPU=x86` or `HB_CPU=x86_64`):
             * 32-bit hosted, posix, sjlj
             * 64-bit hosted, posix, sjlj
+     * Open Watcom [multi-platform, free software, open-source]
+        * <https://github.com/open-watcom/open-watcom-v2>, <https://open-watcom.github.io/open-watcom/>
+     * Xcode / Command Line Tools for Xcode [darwin, zero price, proprietary with open-source components]
+        * <https://itunes.apple.com/us/app/xcode/id497799835>
+        * <https://developer.apple.com/downloads/>
+     * MS Windows SDK [zero price, proprietary]
+        * <https://developer.microsoft.com/windows/downloads/sdk-archive/>
+     * MS Visual C++ Build Tools [win, zero price, proprietary]
+        * <https://go.microsoft.com/fwlink/?LinkId=691126>
+     * MS Visual Studio Community [win, zero price, proprietary]
+        * <https://www.visualstudio.com/vs/visual-studio-express/>
+     * MS Windows Mobile SDK [wce, zero price, proprietary]
+        * <https://www.microsoft.com/download/details.aspx?id=42>
      * MinGW CEGCC [win, \*nix, free software, open-source]
         * <https://sourceforge.net/projects/cegcc/files/cegcc/>
           * To use this package, you will also need Cygwin package
@@ -1404,34 +1299,12 @@ Supported shells per host platforms:
             `tar -xvf cegcc_mingw32ce_cygwin1.7_r1399.tar -h`
 
           * Compiler will be in the `opt\mingw32ce` subdirectory.
-     * MSYS2 [win, free software, open-source]
-        * <https://msys2.github.io/>
-     * Clang [multi-platform, free software, open-source]
-        * <https://llvm.org/releases/>
-     * Cygwin [win, free software, open-source]
-        * <https://cygwin.com/>
-     * OS/2 GCC [os2, free software, open-source]
-        * <http://os2ports.smedley.id.au/index.php?page=tools-utilities>
-     * DJGPP [\*nix, dos, free software, open-source]
-        * <http://www.delorie.com/djgpp/>
-     * Open Watcom [multi-platform, free software, open-source]
-        * <https://github.com/open-watcom/open-watcom-v2>, <https://open-watcom.github.io/open-watcom/>
-     * Xcode / Command Line Tools for Xcode [darwin, zero price, proprietary with open-source components]
-        * <https://itunes.apple.com/us/app/xcode/id497799835>
-        * <https://developer.apple.com/downloads/>
-     * MS Windows SDK [zero price, proprietary]
-        * <https://developer.microsoft.com/windows/downloads/sdk-archive/><br />
-         ([7.x](https://www.microsoft.com/download/details.aspx?id=8279) includes compilers for x86, x86-64 and IA-64)
-     * MS Windows Mobile SDK [wce, zero price, proprietary]
-        * <https://www.microsoft.com/download/details.aspx?id=42>
-     * MS Visual C++ Build Tools [win, zero price, proprietary]
-        * <https://go.microsoft.com/fwlink/?LinkId=691126>
-     * MS Visual Studio Community [win, zero price, proprietary]
-        * <https://www.visualstudio.com/vs/visual-studio-express/>
-     * MS Visual Studio [win, commercial, proprietary]
-        * <https://www.visualstudio.com/>
      * Intel Compiler [multi-platform, commercial, proprietary]
         * <https://software.intel.com/c-compilers>
+     * Cygwin [win, free software, open-source]
+        * <https://cygwin.com/>
+     * DJGPP [\*nix, dos, free software, open-source]
+        * <http://www.delorie.com/djgpp/>
 
 * Libraries:
 

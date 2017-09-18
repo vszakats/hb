@@ -9,14 +9,12 @@ Clipper (the language that is implemented by the compiler CA-Clipper).
 Harbour is a cross-platform compiler and is known to compile and run on:
 
 * GNU/Linux
-* Windows (32/64-bit, CE)
+* Windows (32/64-bit)
 * macOS
 * iOS
 * Android
 * *BSD
 * *nix
-* OS/2
-* MS-DOS
 
 Harbour is a free and open-source project. It can be used to make open
 source applications, free or nonfree products. To learn more about

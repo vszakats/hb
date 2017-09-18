@@ -30,7 +30,7 @@ the [README](../README.md#external-links).
 
 Consider creating a [Pull Request](https://github.com/vszakats/harbour-core/pulls)
 to address any problem found. This is in particular welcome or even expected
-for issues falling outside the focus of this fork, f.e. any C compiler except
+for issues falling outside the focus of this fork, e.g. any C compiler except
 mingw/gcc/clang or regarding certain, non-priority or deprecated components
-(f.e. Windows CE, `hbtip`, `gtwvg`/`gtwvw`, `xhb`) and feature requests in
+(e.g. Windows CE, `hbtip`, `gtwvg`/`gtwvw`, `xhb`) and feature requests in
 general.

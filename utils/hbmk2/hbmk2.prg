@@ -135,7 +135,7 @@
      5. If HB_COMPILER is not set,
         use the highest one on the priority list.
      NOTES: - Priority list: HB_CCPATH, PATH, embedded.
-            - Priority list: mingw, msvc, bcc, watcom, pocc, xcc
+            - Priority list: mingw, msvc, watcom
             - Compilers of native CPU target have higher priority. (extra)
               On x86_64 Windows: msvc64, msvc, msvcia64, mingw64, mingw, ...
               On x86 Windows: msvc, msvc64, msvcia64, mingw, mingw64, ...
@@ -353,8 +353,6 @@ EXTERNAL hbmk_KEYW
 #endif
 #endif
 #define _WORKDIR_DEF_           ( _WORKDIR_BASE_ + hb_ps() + hbmk[ _HBMK_cPLAT ] + hb_ps() + hbmk[ _HBMK_cCOMP ] )
-
-#define _BCC_BIN_DETECT()       FindInPath( "bcc32.exe" )
 
 #define HB_ISALPHA( c )         hb_asciiIsAlpha( c )
 #define HB_ISFIRSTIDCHAR( c )   ( HB_ISALPHA( c ) .OR. ( c ) == "_" )
@@ -2360,7 +2358,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          { {|| iif( FindInPath( "wcc386"   ) == NIL, ;
                     FindInPath( "cl.exe"   ), ;
                     NIL )                      }, "msvc"    }, ;
-         { {|| _BCC_BIN_DETECT()        }, "bcc"    }, ; /* TODO: Add bcc64 auto-detection */
+         { {|| FindInPath( "bcc32.exe" ) }, "bcc"   }, ;
          { {|| iif( FindInPath( "dbgeng.lib", GetEnv( "LIB" ) ) != NIL .AND. ( tmp1 := FindInPath( "pocc.exe" ) ) != NIL, tmp1, NIL ) }, "pocc64"  }, ;
          { {|| FindInPath( "pocc.exe" ) }, "pocc"   }, ;
          { {|| iif( ( tmp1 := FindInPath( "icl.exe" ) ) != NIL .AND. "itanium" $ Lower( tmp1 ), tmp1, NIL ) }, "iccia64" }, ;
@@ -2670,7 +2668,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
       /* NOTE: Hack to tweak bcc setup to include one additional
                compiler lib dir to lib search path. */
       IF Empty( cPath_CompC )
-         cPath_CompC := _BCC_BIN_DETECT()
+         cPath_CompC := FindInPath( "bcc32.exe" )
       ENDIF
       IF ! Empty( cPath_CompC )
          /* NOTE: Automatically configure bcc installation with missing configuration. [vszakats]
@@ -5873,7 +5871,6 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             cOpt_Dyn  := "-Gn -Tpd -L{DL} {FD} " +                          "c0d32" + cObjExt                      + " {LO}, {OD}, " + iif( hbmk[ _HBMK_lMAP ], "{OM}", "nul" ) + ", {LL} {LB} {LF} " + cLibBCC_CRTL + " import32" + cLibExt + ", {IM}, {LS}{SCRIPT}"
          ENDIF
          IF hbmk[ _HBMK_cCOMP ] == "bcc"
-            /* TODO: Add support for bcc64/mkexp */
             bBlk_ImpLib := {| cSourceDLL, cTargetLib, cFlags | win_implib_command_bcc( hbmk, "implib.exe -c {FI} {OL} {ID}", cSourceDLL, cTargetLib, cFlags ) }
          ENDIF
          cLibPathPrefix := ""
@@ -5922,8 +5919,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          ENDIF
          l_aLIBSHAREDPOST := { "hbmainstd", "hbmainwin" }
 #endif
-         /* TODO: Confirm if this hack is indeed required for bcc64. [vszakats] */
-         IF hbmk[ _HBMK_cCOMP ] == "bcc64" .AND. ;
+         IF hbmk[ _HBMK_cCOMP ] == "bcc64" .AND. ;  /* Unconfirmed if this hack is required or not */
             ( tmp := hb_AScan( l_aLIBSYSMISC, "uuid",,, .T. ) ) > 0
             hb_ADel( l_aLIBSYSMISC, tmp, .T. )
          ENDIF
