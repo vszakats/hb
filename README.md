@@ -116,7 +116,7 @@ For all platforms you will need:
 * GNU Make (3.81 recommended, minimum 3.79 required, see also platform details)
 * Harbour sources (2.0.0 or upper)
 
-## on Windows hosts (possible cross-build targets: Linux, Windows CE, MS-DOS, OS/2)
+## on Windows hosts
 
 Platform specific prerequisites:
 
@@ -147,7 +147,7 @@ To test it, type:
 
 You should see `Hello, world!` on screen.
 
-## on Windows hosts with POSIX shells (MSYS2/Cygwin) (possible cross-build targets: Linux, Windows CE, MS-DOS, OS/2)
+## on Windows hosts with POSIX shells (MSYS2)
 
 To build:
 
@@ -175,7 +175,7 @@ To test it, type:
 
 You should see `Hello, world!` on screen.
 
-## on Darwin (Mac) hosts (possible cross-build targets: Windows, Windows CE, MS-DOS)
+## on Darwin (Mac) hosts (possible cross-build targets: Windows)
 
 Platform specific prerequisite:
    Xcode or Command Line Tools for Xcode installed
@@ -237,7 +237,7 @@ Install GNU make from the Minix pkgsrc repository; for details see [here](http:/
 Optionally, GCC may also be installed if you wish to use that instead
 of Clang, the Minix system compiler.
 
-## on other \*nix hosts (possible cross-build targets: Windows, Windows CE, MS-DOS)
+## on other \*nix hosts
 
 To build:
 
@@ -417,7 +417,7 @@ Optional, to override locally hosted sources:
       for zlib support:          zlib1g-dev
       for pcre (regex) support:  libpcre3-dev
 
-## Linux (.rpm based distros: openSUSE, Fedora, CentOS, Mandriva)
+## Linux (.rpm based distros: openSUSE, Fedora, CentOS)
 
 You will need these base packages to build/package/test/use Harbour:
 
@@ -487,8 +487,7 @@ settings are case-sensitive.
      you must set it to a valid directory when using
      `install`. Use absolute paths only.
      You have to use path format native to your shell.
-     F.e. to specify `C:\dir` on Windows, with Cygwin
-     you should use `/cygdrive/c/dir`, with MSYS `/c/dir`.
+     F.e. to specify `C:\dir` on Windows.
 
    - `HB_USER_PRGFLAGS`        User Harbour compiler options
    - `HB_USER_CFLAGS`          User C compiler options
@@ -904,12 +903,6 @@ mingw32-make
 ```
 
 ```batchfile
-:: Cygwin GCC using Cygwin shell
-set PATH=C:\cygwin\bin
-sh -c make
-```
-
-```batchfile
 rem Open Watcom C/C++
 set WATCOM=C:\watcom
 set PATH=%WATCOM%\BINP;%WATCOM%\BINW;%PATH%
@@ -1251,7 +1244,7 @@ Supported shells per host platforms:
 
 * \*nix / POSIX shell
 * win  / NT shell (`cmd.exe`)
-* win  / POSIX shell (MSYS2 or Cygwin `sh.exe`)
+* win  / POSIX shell (MSYS2 `sh.exe`)
 * win  / MS-DOS shell (`command.com`)
 * dos  / MS-DOS shell (`command.com`)
 * dos  / POSIX shell (`bash.exe`)
@@ -1350,7 +1343,7 @@ Supported shells per host platforms:
      * rpm (Fedora): <https://apps.fedoraproject.org/packages/>
      * pacman (Arch Linux): <https://www.archlinux.org/packages/>
      * Homebrew: <http://braumeister.org/>
-     * msys2: <https://github.com/Alexpux/MINGW-packages>
+     * MSYS2: <https://github.com/Alexpux/MINGW-packages>
 
 * Documentation:
 

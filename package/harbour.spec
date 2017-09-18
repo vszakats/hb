@@ -19,8 +19,6 @@
 # please add your distro suffix if it does not belong to the ones recognized below
 # and remember that order checking can be important
 
-%define platform %(release=$(rpm -q --queryformat='%{VERSION}' mandriva-release 2>/dev/null) && echo "mdv$release" | tr -d '.')
-%if "%{platform}" == ""
 %define platform %(release=$(rpm -q --queryformat='%{VERSION}' fedora-release 2>/dev/null) && echo "fc$release" | tr -d '.')
 %if "%{platform}" == ""
 %define platform %(release=$(rpm -q --queryformat='%{VERSION}' epel-release 2>/dev/null) && echo "el$release" | tr -d '.')
@@ -36,7 +34,6 @@
 %define platform %(release=$(rpm -q --queryformat='%{VERSION}' system-release 2>/dev/null) && echo 'amzn1' | tr -d '.')
 %if "%{platform}" == ""
 %undefine platform
-%endif
 %endif
 %endif
 %endif

@@ -637,7 +637,6 @@ STATIC FUNCTION unix_name()
    DO CASE
    CASE GetEnvC( "HB_PLATFORM" ) == "dos" ; RETURN "djgpp"
    CASE GetEnvC( "HB_PLATFORM" ) == "win" ; RETURN GetEnvC( "HB_COMPILER" )
-   CASE ! Empty( tmp := query_rpm( "mandriva-release" , "mdv" ) ) ; RETURN tmp
    CASE ! Empty( tmp := query_rpm( "fedora-release"   , "fc"  ) ) ; RETURN tmp
    CASE ! Empty( tmp := query_rpm( "epel-release"     , "el"  ) ) ; RETURN tmp
    CASE ! Empty( tmp := query_rpm( "centos-release"   , "el"  ) ) ; RETURN tmp
