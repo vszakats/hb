@@ -60,32 +60,32 @@
  *    __dbgVMLocalList()
  *    __dbgVMParLList()
  * for locals:
- *    __dbgVMVarLGet()              (debugger.prg)
- *    __dbgVMVarLSet()              (debugger.prg)
- *    hb_dbg_vmVarLGet(int,int)     (dbgentry.c)
+ *    __dbgVMVarLGet()                   debugger.prg
+ *    __dbgVMVarLSet()                   debugger.prg
+ *    hb_dbg_vmVarLGet( int, int )       dbgentry.c
  *
- * form classes.c:
- *    hb_dbg_objSendMessage(...)    (dbgentry.c)
+ * from classes.c:
+ *    hb_dbg_objSendMessage( ... )       dbgentry.c
  *
- * form hvm.c
+ * from hvm.c
  * general:
- *    __dbgInvokeDebug()            (debugger.prg)
- *    __dbgProcLevel()              (debugger.prg)
- *    hb_dbg_InvokeDebug(HB_BOOL)   (dbgentry.c)
- *    hb_dbg_ProcLevel()            (dbgentry.c)
- *    hb_dbg_SetEntry(*ENTRY_FUNC)  (dbgentry.c)
+ *    __dbgInvokeDebug()                 debugger.prg
+ *    __dbgProcLevel()                   debugger.prg
+ *    hb_dbg_InvokeDebug( HB_BOOL )      dbgentry.c
+ *    hb_dbg_ProcLevel()                 dbgentry.c
+ *    hb_dbg_SetEntry( * ENTRY_FUNC )    dbgentry.c
  * for statics:
  *    __dbgVMVarSList()
  *    __dbgVMVarSLen()
- *    __dbgVMVarSGet()              (debugger.prg)
- *    __dbgVMVarSSet()              (debugger.prg)
- *    hb_dbg_vmVarSGet(PHB_ITEM,int)(dbgentry.c)
+ *    __dbgVMVarSGet()                   debugger.prg
+ *    __dbgVMVarSSet()                   debugger.prg
+ *    hb_dbg_vmVarSGet( PHB_ITEM, int )  dbgentry.c
  * for globals (unused):
  *    __dbgVMVarGList()
- *    __dbgVMVarGGet()              (debugger.prg)
- *    __dbgVMVarGSet()              (debugger.prg)
- *    hb_dbg_vmVarGCount()          (dbgentry.c)
- *    hb_dbg_vmVarGGet(int,int)     (dbgentry.c)
+ *    __dbgVMVarGGet()                   debugger.prg
+ *    __dbgVMVarGSet()                   debugger.prg
+ *    hb_dbg_vmVarGCount()               dbgentry.c
+ *    hb_dbg_vmVarGGet( int, int )       dbgentry.c
  *
  *
  * Information from HVM send to debugger by __dbgEntry()
@@ -98,14 +98,13 @@
  *    HB_DBG_VMQUIT
  */
 
-/* AddToArray( <pItem>, <pReturn>, <uiPos> )
- * Add <pItem> to array <pReturn> at pos <uiPos>
+/* Add <pItem> to array <pReturn> at pos <nPos>
  */
 static void AddToArray( PHB_ITEM pItem, PHB_ITEM pReturn, HB_SIZE nPos )
 {
    HB_TRACE( HB_TR_DEBUG, ( "AddToArray(%p, %p, %" HB_PFS "u)", ( void * ) pItem, ( void * ) pReturn, nPos ) );
 
-   if( HB_IS_SYMBOL( pItem ) )                  /* Symbol is pushed as text */
+   if( HB_IS_SYMBOL( pItem ) )  /* Symbol is pushed as text */
    {
       PHB_ITEM pArrayItem = hb_arrayGetItemPtr( pReturn, nPos );
 
@@ -118,7 +117,7 @@ static void AddToArray( PHB_ITEM pItem, PHB_ITEM pReturn, HB_SIZE nPos )
          hb_itemPutCLPtr( pArrayItem, szBuff, nLen );
       }
    }
-   else                                         /* Normal types             */
+   else  /* Normal types */
       hb_itemArrayPut( pReturn, nPos, pItem );
 }
 
@@ -144,7 +143,7 @@ HB_FUNC( __DBGVMSTKGLIST )
       HB_ISIZ nLen = hb_stackTopOffset();
       HB_ISIZ nPos;
 
-      pReturn = hb_itemArrayNew( nLen );           /* Create a transfer array  */
+      pReturn = hb_itemArrayNew( nLen );  /* Create a transfer array */
 
       for( nPos = 0; nPos < nLen; ++nPos )
          AddToArray( hb_stackItem( nPos ), pReturn, nPos + 1 );
@@ -212,7 +211,7 @@ HB_FUNC( __DBGVMSTKLLIST )
       nPrevOffset = hb_stackItem( nBaseOffset - 1 )->item.asSymbol.stackstate->nBaseItem;
 
       nLen = nBaseOffset - nPrevOffset - 3;
-      pReturn = hb_itemArrayNew( nLen );           /* Create a transfer array  */
+      pReturn = hb_itemArrayNew( nLen );  /* Create a transfer array */
       for( n = 0; n < nLen; ++n )
          AddToArray( hb_stackItem( nPrevOffset + n ), pReturn, n + 1 );
 

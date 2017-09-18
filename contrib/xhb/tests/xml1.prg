@@ -46,12 +46,10 @@ PROCEDURE Main()
             EXIT
          ELSE
             ? "current tag:", oCurrent:cName
-            DO CASE
-            CASE oCurrent:cName == "note"
-               cNote := oCurrent:cData
-            CASE oCurrent:cName == "discount"
-               cDiscount := oCurrent:cData
-            ENDCASE
+            SWITCH oCurrent:cName
+            CASE "note"     ; cNote := oCurrent:cData ; EXIT
+            CASE "discount" ; cDiscount := oCurrent:cData ; EXIT
+            ENDSWITCH
          ENDIF
       ENDDO
 
