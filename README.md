@@ -1263,12 +1263,12 @@ Supported shells per host platforms:
 
 * C/C++ Compilers/Shells:
 
+     * Clang/LLVM [multi-platform, free software, open-source]
+        * <https://releases.llvm.org/>
      * MSYS2 [win, free software, open-source]
         * <https://msys2.github.io/>
-     * Clang [multi-platform, free software, open-source]
-        * <https://llvm.org/releases/>
      * MinGW-w64 [win, \*nix, free software, open-source]
-        * <https://mingw-w64.org/>, <https://duckduckgo.com/?q=mingw-w64> (recommended, look for MSYS2 or niXman builds)
+        * <https://mingw-w64.org/>, <https://duckduckgo.com/?q=mingw-w64> (look for MSYS2 or niXman builds)
           * x86-64:
             * 64-bit hosted, posix, seh
           * x86:
@@ -1330,24 +1330,16 @@ Supported shells per host platforms:
         * <https://travis-ci.org/>
      * AppVeyor CI [continuous integration, web service, free plan available]
         * <https://www.appveyor.com/>
-     * Read the Docs [online documentation creator, web service, free software]
-        * <https://readthedocs.org/>
      * GNU Bison (grammar parser generator) [multi-platform, free software, open-source]
-        * Windows binary:
-           * <https://git-for-windows.github.io/>
+        * Windows binary: See at Git or MSYS2.
      * Cppcheck (static analysis) [multi-platform, free software, open-source]
         * <https://github.com/danmar/cppcheck>
      * Valgrind (dynamic executable analysis tool) [linux, darwin, free software, open-source]
-        * <http://valgrind.org/>
+        * <https://en.wikipedia.org/wiki/Valgrind>
      * Uncrustify (source formatter) [multi-platform, free software, open-source]
         * <https://github.com/uncrustify/uncrustify>
      * UPX (executable compressor) [multi-platform, free software, open-source]
         * <https://upx.github.io/>
-     * 7-Zip [multi-platform, free software, open-source]
-        * <http://7-zip.org/>
-     * Chocolatey and NuGet (Windows package managers) [free software, open-source]
-        * <https://chocolatey.org/>
-        * <https://www.nuget.org/>
      * GNU Make [multi-platform, free software, open-source]
         * <https://www.gnu.org/software/make/>
 
