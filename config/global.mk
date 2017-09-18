@@ -699,7 +699,6 @@ ifeq ($(HB_COMPILER),)
                                                       ifneq ($(HB_COMP_PATH),)
                                                          HB_COMPILER := msvc
                                                       else
-                                                         # TODO: Add bcc64, bcc32c auto-detection
                                                          HB_COMP_PATH := $(call find_in_path_raw,bcc32.exe)
                                                          ifneq ($(HB_COMP_PATH),)
                                                             HB_COMPILER := bcc
