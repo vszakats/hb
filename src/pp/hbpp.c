@@ -552,9 +552,9 @@ static int hb_pp_parseChangelog( PHB_PP_STATE pState, const char * pszFileName,
 
    char szToCheck[ HB_PATH_MAX ];
 
-   *szCommitYear = '\0';
-
    PHB_FNAME pFileName = hb_fsFNameSplit( pszFileName );
+
+   *szCommitYear = '\0';
 
    if( ! pFileName->szName )
    {
