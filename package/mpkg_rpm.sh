@@ -174,7 +174,6 @@ hb_verfull=$(hb_get_ver)
 hb_verstat=$(hb_get_ver_status)
 
 if [ -z "${TOINST_LST}" ] || [ "${FORCE}" = 'yes' ]; then
-  cd "$(dirname "$0")" || exit
   . ./mpkg_src.sh
   stat="$?"
   if [ -z "${hb_filename}" ]; then
