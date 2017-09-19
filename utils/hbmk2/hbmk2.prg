@@ -5762,7 +5762,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          IF HBMK_ISPLAT( "win|os2" )
             cBin_Res := "wrc" + hbmk[ _HBMK_cCCEXT ]
             cResExt := ".res"
-            cOpt_Res := "-q -r {FR} -zm {IR} -fo={OS}"
+            cOpt_Res := "-q -r {FR} {IR} -fo={OS}"
             DO CASE
             CASE hbmk[ _HBMK_cPLAT ] == "win" ; cOpt_Res += " -bt=nt" /* default */
             CASE hbmk[ _HBMK_cPLAT ] == "os2" ; cOpt_Res += " -bt=os2"

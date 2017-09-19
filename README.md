@@ -1084,7 +1084,7 @@ Press `<Alt+D>` in the app.
 * msvc     - Microsoft Visual C++ (2010 and above)
 * msvc64   - Microsoft Visual C++ x86-64 (2010 and above)
 
-### win (partial support, some features may be missing)
+### win (experimental/partial support, some features may be missing)
 * clang    - Clang
 * watcom   - Open Watcom C/C++
 * icc      - Intel(R) C/C++

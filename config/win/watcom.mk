@@ -50,7 +50,7 @@ endif
 
 RC := wrc
 RC_OUT := -fo=
-RCFLAGS += -i. -i$(GRANDP) -i$(HB_HOST_INC) -q -r -zm -bt=nt
+RCFLAGS += -i. -i$(GRANDP) -i$(HB_HOST_INC) -q -r -bt=nt
 
 LD := wlink
 ifeq ($(HB_BUILD_DEBUG),yes)
