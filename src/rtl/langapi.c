@@ -49,7 +49,7 @@
 #include "hbapicdp.h"
 #include "hbapierr.h"
 
-static const HB_LANG s_lang_en =
+static HB_LANG s_lang_en =
 {
    {
       /* Identification */
