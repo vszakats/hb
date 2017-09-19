@@ -11,8 +11,8 @@ solution.
 
 The only reason hbtip hasn't been deleted altogether is compatibility with
 mainline (3.2) Harbour, xHarbour and existing projects, plus the fact there
-are still some low-level functions that do work fine (tip_MimeType()) or have
-no better replacement yet (tip_MailAssemble()).
+are still some low-level functions that have have no better replacement yet
+(tip_MailAssemble()).
 
 For internet protocol related tasks, the recommended and supported library
 is _hbcurl_, which is a thin wrapper over libcurl's 'easy' API. libcurl is

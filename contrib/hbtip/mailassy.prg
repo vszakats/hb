@@ -164,7 +164,7 @@ FUNCTION tip_MailAssemble( ;
          ENDCASE
 
          IF cMimeType == NIL
-            cMimeType := tip_FileNameMimeType( cFileName, "application/octet-stream" )
+            cMimeType := hb_mimeFName( cFileName, "application/octet-stream" )
          ENDIF
          cFileName := s_TransCP( cFileName, cCharsetCP )
 

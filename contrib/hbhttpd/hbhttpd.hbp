@@ -13,7 +13,6 @@ log.prg
 
 -env:HB_DYNBIND_OPENSSL=yes
 hbssl.hbc
-hbtip.hbc
 
 -instfile=contrib_tests_files:tests/files/*.*
 -instfile=contrib_tests_tpl:tests/tpl/*.*

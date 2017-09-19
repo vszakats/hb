@@ -560,7 +560,7 @@ METHOD attachFile( cFileName ) CLASS TIPMail
 
    oAttach:setFieldPart( "Content-Disposition", "attachment" )
    oAttach:setFieldOption( "Content-Disposition", "filename", cBaseName )
-   oAttach:setFieldPart( "Content-Type", tip_FileMimeType( cFileName, "application/unknown" ) )
+   oAttach:setFieldPart( "Content-Type", hb_mimeFName( cFileName ) )
    oAttach:setFieldOption( "Content-Type", "name", cBaseName )
    IF hb_vfAttrGet( cFileName, @nAttr ) .AND. nAttr != 0
       oAttach:setFieldOption( "Content-Type", "x-unix-mode", hb_NumToHex( __tip_FAttrToUmask( nAttr ), 4 ) )

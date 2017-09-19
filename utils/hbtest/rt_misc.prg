@@ -1,7 +1,7 @@
 /*
  * Regression tests for the runtime library (misc)
  *
- * Copyright 1999-2014 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 1999-2017 Viktor Szakats (vszakats.net/harbour)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -88,6 +88,12 @@ PROCEDURE Main_MISC()
    Test_SHA2_HMAC()
 
    Test_Base64()
+
+   /* MIME */
+
+   HBTEST hb_MimeStr( "MZ" )                IS "application/x-dosexec"
+   HBTEST hb_MimeStr( "hello" )             IS "application/unknown"
+   HBTEST hb_MimeStr( "hello", "fallback" ) IS "fallback"
 
 #endif
 

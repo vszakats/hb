@@ -136,6 +136,7 @@ C_SOURCES := \
    math.c \
    maxrow.c \
    memofile.c \
+   mime.c \
    minmax.c \
    mlcfunc.c \
    mod.c \

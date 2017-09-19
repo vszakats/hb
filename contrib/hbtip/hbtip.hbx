@@ -47,8 +47,6 @@ DYNAMIC tip_base64EncodeUrl
 DYNAMIC tip_CheckSID
 DYNAMIC tip_CRLF
 DYNAMIC tip_DateToGMT
-DYNAMIC tip_FileMimeType
-DYNAMIC tip_FileNameMimeType
 DYNAMIC tip_GenerateSID
 DYNAMIC tip_GetEncoder
 DYNAMIC tip_GetNameEmail
@@ -58,7 +56,6 @@ DYNAMIC tip_HtmlToStr
 DYNAMIC tip_JSONSpecialChars
 DYNAMIC tip_MailAssemble
 DYNAMIC tip_MailSend
-DYNAMIC tip_MimeType
 DYNAMIC tip_QPDecode
 DYNAMIC tip_QPEncode
 DYNAMIC tip_SSL

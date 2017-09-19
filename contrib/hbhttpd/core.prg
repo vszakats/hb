@@ -1410,7 +1410,7 @@ PROCEDURE UProcFiles( cFileName, lIndex )
 
          USetStatusCode( 412 )
       ELSE
-         UAddHeader( "Content-Type", tip_FileNameMimeType( cFileName, "application/octet-stream" ) )
+         UAddHeader( "Content-Type", hb_mimeFName( cFileName, "application/octet-stream" ) )
 
          IF hb_vfTimeGet( UOsFileName( cFileName ), @tDate )
             UAddHeader( "Last-Modified", HttpDateFormat( tDate ) )
