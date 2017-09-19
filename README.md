@@ -310,7 +310,7 @@ You can fine-tune the build with these options:
     --with static      - link all binaries with static libs
     --with localzlib   - build local copy of zlib library
     --with localpcre2  - build local copy of pcre2 library
-    --with localpcre   - build local copy of pcre library
+    --with localpcre1  - build local copy of pcre1 library
     --without x11      - do not build components dependent on x11 (gtxwc)
     --without curses   - do not build components dependent on curses (gtcrs)
     --without slang    - do not build components dependent on slang (gtsln)
@@ -363,7 +363,7 @@ to adjust them to your own directories:
 
     HB_WITH_CURSES= (on \*nix systems and DJGPP, auto-detected on both)
     HB_WITH_GPM= (on Linux only)
-    HB_WITH_PCRE2=C:\pcre2
+    HB_WITH_PCRE2=C:\pcre2 (defaults to locally hosted copy if not found)
     HB_WITH_PCRE=C:\pcre (defaults to locally hosted copy if not found)
     HB_WITH_PNG=C:\libpng (defaults to locally hosted copy if not found)
     HB_WITH_SLANG= (on \*nix systems)
@@ -415,6 +415,7 @@ You will need these packages to compile optional core Harbour features:
 Optional, to override locally hosted sources:
 
       for zlib support:          zlib1g-dev
+      for pcre2 (regex) support: libpcre2-dev
       for pcre (regex) support:  libpcre3-dev
 
 ## Linux (.rpm based distros: openSUSE, Fedora, CentOS)
@@ -1258,17 +1259,15 @@ Supported shells per host platforms:
 
      * Clang/LLVM [multi-platform, free software, open-source]
         * <https://releases.llvm.org/>
-     * MSYS2 [win, free software, open-source]
+     * MinGW-w64 via MSYS2 [win, free software, open-source] (recommended)
         * <https://msys2.github.io/>
+        * Install [instructions](package/RELNOTES.md.in)
      * MinGW-w64 [win, \*nix, free software, open-source]
-        * <https://mingw-w64.org/>, <https://duckduckgo.com/?q=mingw-w64> (look for MSYS2 or niXman builds)
-          * x86-64:
-            * 64-bit hosted, posix, seh
-          * x86:
-            * 32-bit hosted, posix, dwarf-2
-          * 'multilib' for x86-64 and x86 hosts (select non-native target with `HB_CPU=x86` or `HB_CPU=x86_64`):
-            * 32-bit hosted, posix, sjlj
-            * 64-bit hosted, posix, sjlj
+        * <https://mingw-w64.org/>
+          * 64-bit: threads-posix, seh
+            <https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/>
+          * 32-bit: threads-posix, dwarf-2
+            <https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/>
      * Open Watcom [multi-platform, free software, open-source]
         * <https://github.com/open-watcom/open-watcom-v2>, <https://open-watcom.github.io/open-watcom/>
      * Xcode / Command Line Tools for Xcode [darwin, zero price, proprietary with open-source components]
