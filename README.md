@@ -416,7 +416,7 @@ Optional, to override locally hosted sources:
 
       for zlib support:          zlib1g-dev
       for pcre2 (regex) support: libpcre2-dev
-      for pcre (regex) support:  libpcre3-dev
+      for pcre1 (regex) support: libpcre3-dev
 
 ## Linux (.rpm based distros: openSUSE, Fedora, CentOS)
 
@@ -1261,7 +1261,7 @@ Supported shells per host platforms:
         * <https://releases.llvm.org/>
      * MinGW-w64 via MSYS2 [win, free software, open-source] (recommended)
         * <https://msys2.github.io/>
-        * Install [instructions](package/RELNOTES.md.in)
+        * Install [instructions](package/RELNOTES.md)
      * MinGW-w64 [win, \*nix, free software, open-source]
         * <https://mingw-w64.org/>
           * 64-bit: threads-posix, seh

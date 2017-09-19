@@ -258,11 +258,11 @@ _vcs_url="$(git ls-remote --get-url | sed 's|.git$||')/"
 sed -e "s|_HB_VER_COMMIT_ID_SHORT_|${_vcs_id_short}|g" \
     -e "s|_HB_VER_ORIGIN_URL_|${_vcs_url}|g" \
     -e "s|_HB_VERSION_|${_hb_ver}|g" \
-    'RELNOTES.md.in' | unix2dos > "${HB_ABSROOT}RELNOTES.md"
+    'RELNOTES.md' | unix2dos > "${HB_ABSROOT}RELNOTES.md"
 touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}RELNOTES.md"
 
 sed "s|_HB_URL_SRC_|${_vcs_url}archive/${_vcs_id}.tar.gz|g" \
-    'getsrc.sh.in' > "${HB_ABSROOT}getsrc.sh"
+    'getsrc.sh' > "${HB_ABSROOT}getsrc.sh"
 chmod +x "${HB_ABSROOT}getsrc.sh"
 touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}getsrc.sh"
 
