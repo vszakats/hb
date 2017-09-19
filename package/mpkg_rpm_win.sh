@@ -45,10 +45,10 @@ HB_CCPREFIX="$TARGET-"
 HB_CCPATH="$MINGW_DIR/bin"
 
 cd "$(dirname "$0")" || exit
+
 . ./mpkg_ver.sh
-hb_ver=$(get_hbver)
-hb_verstat=$(get_hbverstat)
-[ -n "${hb_verstat}" ] || hb_verstat='0'
+hb_verfull=$(hb_get_ver)
+hb_verstat=$(hb_get_ver_status)
 
 NEED_RPM='make gcc binutils'
 
@@ -99,8 +99,8 @@ if [ -z "${TOINST_LST}" ] || [ "${FORCE}" = 'yes' ]; then
     # Required for rpmbuild versions < 4.13.0
     chown "${UID}" "${RPMDIR}/SOURCES/$(basename "${hb_filename}")"
 
-    sed -e "s|^%define version .*$|%define version   ${hb_ver}|g" \
-        -e "s|^%define releasen .*$|%define releasen  ${hb_verstat}|g" \
+    sed -e "s|^%define version .*$|%define version ${hb_verfull}|g" \
+        -e "s|^%define verstat .*$|%define verstat ${hb_verstat}|g" \
         -e "s|^%define hb_ccpath .*$|%define hb_ccpath ${HB_CCPATH}|g" \
         -e "s|^%define hb_ccpref .*$|%define hb_ccpref ${HB_CCPREFIX}|g" \
         harbour-win.spec.in > "${RPMDIR}/SPECS/harbour-win.spec"

@@ -7,22 +7,23 @@
 # See LICENSE.txt for licensing terms.
 # ---------------------------------------------------------------
 
-get_hbver() {
-  if [ -z "$hb_rootdir" ]; then
-    hb_rootdir='..'
-  fi
-  FVER="${hb_rootdir}/include/hbver.h"
-  MAJOR="$(sed -e '/HB_VER_MAJOR/   !d' -e 's/[^0-9]*\([^ ]*\).*/\1/g' "${FVER}")"
-  MINOR="$(sed -e '/HB_VER_MINOR/   !d' -e 's/[^0-9]*\([^ ]*\).*/\1/g' "${FVER}")"
-  RELEA="$(sed -e '/HB_VER_RELEASE/ !d' -e 's/[^0-9]*\([^ ]*\).*/\1/g' "${FVER}")"
-  echo "${MAJOR}.${MINOR}.${RELEA}"
+hb_get_ver() {
+  verfile='../include/hbver.h'
+  ver_maj="$(sed -e '/HB_VER_MAJOR/   !d' -e 's/[^0-9]*\([^ ]*\).*/\1/g' "${verfile}")"
+  ver_min="$(sed -e '/HB_VER_MINOR/   !d' -e 's/[^0-9]*\([^ ]*\).*/\1/g' "${verfile}")"
+  ver_rel="$(sed -e '/HB_VER_RELEASE/ !d' -e 's/[^0-9]*\([^ ]*\).*/\1/g' "${verfile}")"
+  echo "${ver_maj}.${ver_min}.${ver_rel}"
 }
 
-get_hbverstat() {
-  if [ -z "$hb_rootdir" ]; then
-    hb_rootdir='..'
-  fi
-  FVER="${hb_rootdir}/include/hbver.h"
-  VERSTAT="$(sed -e '/HB_VER_STATUS/ !d' -e 's/[^\"]*\"\([^\"]*\).*/\1/g' "${FVER}")"
-  echo "${VERSTAT}"
+hb_get_ver_majorminor() {
+  verfile='../include/hbver.h'
+  ver_maj="$(sed -e '/HB_VER_MAJOR/   !d' -e 's/[^0-9]*\([^ ]*\).*/\1/g' "${verfile}")"
+  ver_min="$(sed -e '/HB_VER_MINOR/   !d' -e 's/[^0-9]*\([^ ]*\).*/\1/g' "${verfile}")"
+  echo "${ver_maj}.${ver_min}"
+}
+
+hb_get_ver_status() {
+  verfile='../include/hbver.h'
+  ver_sta="$(sed -e '/HB_VER_STATUS/ !d' -e 's/[^\"]*\"\([^\"]*\).*/\1/g' "${verfile}")"
+  echo "${ver_sta}"
 }

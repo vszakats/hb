@@ -1079,7 +1079,7 @@ Press `<Alt+D>` in the app.
 * gccarm   - GNU C ARM
 
 ### win
-* mingw    - MinGW GNU C 3.4.2 and above
+* mingw    - MinGW GNU C (4.4.0 and above)
 * mingw64  - MinGW GNU C x86-64
 * msvc     - Microsoft Visual C++ (2010 and above)
 * msvc64   - Microsoft Visual C++ x86-64 (2010 and above)
@@ -1094,7 +1094,7 @@ Press `<Alt+D>` in the app.
 * bcc64    - Embarcadero C++ 6.5 and above
 * pocc     - Pelles C 4.5 and above
 * pocc64   - Pelles C x86-64 5.0 and above
-* xcc      - Pelles C for xhb
+* xcc      - Pelles C for xHarbour
 * iccia64  - Intel(R) C/C++ IA-64 (Itanium)
 * msvcia64 - Microsoft Visual C++ IA-64 (Itanium)
 
@@ -1263,7 +1263,7 @@ Supported shells per host platforms:
         * <https://msys2.github.io/>
         * Install [instructions](package/RELNOTES.md)
      * MinGW-w64 [win, \*nix, free software, open-source]
-        * <https://mingw-w64.org/>
+        * <https://mingw-w64.org/> <https://en.wikipedia.org/wiki/MinGW#MinGW-w64>
           * 64-bit: threads-posix, seh
             <https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/>
           * 32-bit: threads-posix, dwarf-2

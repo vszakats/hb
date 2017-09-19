@@ -25,10 +25,14 @@ esac
 echo "! Self: $0"
 echo "! Host OS: ${os}"
 
-readonly HB_VS_DEF=34
-readonly HB_VL_DEF=340
-readonly HB_VM_DEF=3.4
-readonly HB_VF_DEF=3.4.0dev
+. ./mpkg_ver.sh
+hb_verfull=$(hb_get_ver)
+hb_vershrt=$(hb_get_ver_majorminor)
+
+readonly HB_VS_DEF="$(echo "${hb_vershrt}" | sed 's|\.||g')"  # xy
+readonly HB_VL_DEF="$(echo "${hb_verfull}" | sed 's|\.||g')"  # xyz
+readonly HB_VM_DEF="${hb_vershrt}"                            # x.y
+readonly HB_VF_DEF="$(hb_verfull)$(hb_get_ver_status)"        # x.y.zrel
 readonly HB_RT_DEF=C:/hb
 
 [ -z "${HB_VS}" ] && HB_VS="${HB_VS_DEF}"

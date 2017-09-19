@@ -10,12 +10,13 @@
 ######################################################################
 
 %define name      harbour-win
-%define version   3.4.0
-%define releasen  dev
+%define version   0.0.0
+%define releasen  1
+%define verstat   dev
 
 # Workaround for the problem of /usr/bin/strip not handling PE binaries.
-%define hb_ccpath /opt/xmingw/bin
-%define hb_ccpref i386-mingw-
+%define hb_ccpath /usr/bin
+%define hb_ccpref i686-w64-mingw32-
 %define __strip   %{hb_ccpath}/%{hb_ccpref}strip
 %define __objdump %{hb_ccpath}/%{hb_ccpref}objdump
 
@@ -27,7 +28,7 @@ Summary:        Free software Clipper compatible compiler
 Summary(pl):    Darmowy kompilator kompatybilny z językiem Clipper.
 Name:           %{name}
 Version:        %{version}
-Release:        %{releasen}
+Release:        %{releasen}%{?verstat:.%{verstat}}
 License:        GPL (plus exception)
 Group:          Development/Languages
 URL:            https://github.com/vszakats/harbour-core/

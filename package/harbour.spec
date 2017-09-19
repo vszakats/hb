@@ -49,9 +49,9 @@
 
 %define name      harbour
 %define dname     Harbour
-%define version   3.4.0
+%define version   0.0.0
 %define releasen  1
-%define alphatag  dev
+%define verstat   dev
 %define hb_etcdir /etc/%{name}
 %define hb_plat   export HB_PLATFORM=linux
 %define hb_cc     export HB_COMPILER=gcc
@@ -88,7 +88,7 @@ Summary(ru):    Свободный компилятор, совместимый 
 Summary(hu):    Szabad szoftver Clipper kompatibilis fordító
 Name:           %{name}
 Version:        %{version}
-Release:        %{releasen}%{?alphatag:.%{alphatag}}%{?platform:.%{platform}}
+Release:        %{releasen}%{?verstat:.%{verstat}}%{?platform:.%{platform}}
 License:        GPL (plus exception)
 Group:          Development/Languages
 URL:            https://github.com/vszakats/harbour-core/

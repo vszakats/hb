@@ -27,10 +27,10 @@ get_rpmmacro() {
 }
 
 cd "$(dirname "$0")" || exit
+
 . ./mpkg_ver.sh
-hb_ver=$(get_hbver)
-hb_verstat=$(get_hbverstat)
-[ -n "${hb_verstat}" ] || hb_verstat='0'
+hb_verfull=$(hb_get_ver)
+hb_verstat=$(hb_get_ver_status)
 
 NEED_RPM='make gcc binutils cegcc-mingw32ce'
 
@@ -81,8 +81,8 @@ if [ -z "${TOINST_LST}" ] || [ "${FORCE}" = 'yes' ]; then
     # Required for rpmbuild versions < 4.13.0
     chown "${UID}" "${RPMDIR}/SOURCES/$(basename "${hb_filename}")"
 
-    sed -e "s|^%define version .*$|%define version   ${hb_ver}|g" \
-        -e "s|^%define releasen .*$|%define releasen  ${hb_verstat}|g" \
+    sed -e "s|^%define version .*$|%define version ${hb_verfull}|g" \
+        -e "s|^%define verstat .*$|%define verstat ${hb_verstat}|g" \
         harbour-wce.spec.in > "${RPMDIR}/SPECS/harbour-wce.spec"
     cd "${RPMDIR}/SPECS" || exit
 

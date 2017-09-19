@@ -167,6 +167,12 @@ done
 
 OLDPWD="${PWD}"
 
+cd "$(dirname "$0")" || exit
+
+. ./mpkg_ver.sh
+hb_verfull=$(hb_get_ver)
+hb_verstat=$(hb_get_ver_status)
+
 if [ -z "${TOINST_LST}" ] || [ "${FORCE}" = 'yes' ]; then
   cd "$(dirname "$0")" || exit
   . ./mpkg_src.sh
@@ -196,7 +202,9 @@ if [ -z "${TOINST_LST}" ] || [ "${FORCE}" = 'yes' ]; then
     # Required for rpmbuild versions < 4.13.0
     chown "${UID}" "${RPMDIR}/SOURCES/$(basename "${hb_filename}")"
 
-    cp harbour.spec "${RPMDIR}/SPECS/"
+    sed -e "s|^%define version .*$|%define version ${hb_verfull}|g" \
+        -e "s|^%define verstat .*$|%define verstat ${hb_verstat}|g" \
+        harbour.spec > "${RPMDIR}/SPECS/harbour.spec"
     cd "${RPMDIR}/SPECS" || exit
 
     # shellcheck disable=SC2086
