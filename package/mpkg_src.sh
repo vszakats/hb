@@ -17,9 +17,15 @@ fi
 
 hb_currdir="$(pwd)"
 
-cd "$(dirname "$0")" || exit
+if [ -f mpkg_ver.sh ]; then
+  hb_rootdir='..'
+else
+  hb_rootdir=$(dirname "$0")
+  hb_rootdir=$(dirname "${hb_rootdir}")
+fi
 
-. ./mpkg_ver.sh
+# shellcheck source=./mpkg_ver.sh
+. "${hb_rootdir}/package/mpkg_ver.sh"
 hb_verfull=$(hb_get_ver)
 
 hb_filename="${hb_currdir}/harbour-${hb_verfull}.src${hb_ext}"
@@ -44,22 +50,22 @@ hb_collect_all_tree() {
 
 hb_flist='bin/hb_flist.tmp'
 (
-  cd .. || exit
+  cd "$hb_rootdir" || exit
   if [ -d '.git' ]; then
     hb_collect_all_git
   else
     hb_collect_all_tree
   fi
-) > "../$hb_flist"
+) > "$hb_rootdir/$hb_flist"
 
 (
-  cd .. || exit
+  cd "$hb_rootdir" || exit
   if [ "$hb_archbin" = 'zip' ]; then
     $hb_archbin -X -9 -o -r -q "$hb_filename" . "-i@$hb_flist"
   else
     $hb_archbin -c --files-from "$hb_flist" | gzip -n > "$hb_filename"
   fi
 )
-rm -f "../$hb_flist"
+rm -f "${hb_rootdir:?}/$hb_flist"
 
 cd "$hb_currdir" || exit
