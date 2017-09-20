@@ -1355,7 +1355,7 @@ Supported shells per host platforms:
        * <https://web.archive.org/web/20160427125642/heiner-eichmann.de/autotools/using_gettext.html>
      * [GitHub Guides](https://guides.github.com/)
      * [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown)
-     * [A Practical Git Introduction](http://marc.helbling.fr/2014/09/practical-git-introduction)
+     * [A Practical Git Introduction](https://github.com/marchelbling/marchelbling.github.io/blob/master/_posts/2014-09-22-practical-git-introduction.md)
 
 * Community forums:
 
