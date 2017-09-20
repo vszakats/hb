@@ -83,16 +83,13 @@ static const MIME_ENTRY s_mimeTable[] =
    { 16, "\x02",                              "application/x-executable",      0, 1, MIME_FLAG_CONTINUE                                               },
    { 16, "\x03",                              "application/x-sharedlib",       0, 1, MIME_FLAG_CONTINUE                                               },
    { 16, "\x04",                              "application/x-coredump",        0, 0, MIME_FLAG_CONTINUE                                               },
-   /* Shell script */
+   /* Scripts */
    { 0,  "#!/bin/sh",                         "application/x-shellscript",     0, 0, 0                                                                },
    { 0,  "#!/usr/local/env bash",             "application/x-shellscript",     0, 0, 0                                                                },
+   { 0,  "#!/usr/local/env perl",             "application/x-perl",            0, 0, 0                                                                },
+   { 0,  "#!/usr/local/env python",           "application/x-python",          0, 0, 0                                                                },
    /* Java object code*/
    { 0,  "\xCA\xFE\xBA\xBE",                  "application/java",              0, 0, 0                                                                },
-   /* Perl */
-   { 0,  "#!/usr/local/env perl",             "application/x-perl",            0, 0, 0                                                                },
-   /* Python */
-   { 0,  "#!/usr/local/env python",           "application/x-python",          0, 0, 0                                                                },
-   { 0,  "#!/usr/local/env python3",          "application/x-python",          0, 0, 0                                                                },
    /* Unix compress (.z) */
    { 0,  "\x1F\x9D",                          "application/x-compress",        0, 0, 0                                                                },
    /* Unix gzip */
