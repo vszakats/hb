@@ -558,8 +558,9 @@ settings are case-sensitive.
    - `HB_BUILD_CONTRIBS=no [<l>]`
 
      Do not build any, or space separated `<l>` list of, contrib packages.
-     Please note it will not prevent building packages which are dependencies
-     of other &ndash; enabled &ndash; packages.
+     Please note that packages which are dependencies of other &ndash;
+     enabled &ndash; packages will still be built, unless their dependents
+     are disabled as well.
 
    - `HB_BUILD_CONTRIBS=[<l>]`
 
