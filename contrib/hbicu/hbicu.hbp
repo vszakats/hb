@@ -23,6 +23,6 @@
 -hbx=${hb_name}
 
 # Hack to avoid a warning inside umachine.h
--cflag=-fcomment-block-commands=stable{clang}
+-cflag=-fcomment-block-commands=stable{allclang}
 
 core.c

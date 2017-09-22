@@ -695,6 +695,20 @@ for a cross-build process to succeed.
 >   `> log.txt 2>&1`
 
 ```batchfile
+:: MinGW-w64 Clang/LLVM via MSYS2 (x86 target)
+set PATH=C:\msys64\mingw32\bin;C:\msys64\usr\bin;%PATH%
+set HB_COMPILER=clang
+mingw32-make
+```
+
+```batchfile
+:: MinGW-w64 Clang/LLVM via MSYS2 (x64 target)
+set PATH=C:\msys64\mingw64\bin;C:\msys64\usr\bin;%PATH%
+set HB_COMPILER=clang64
+mingw32-make
+```
+
+```batchfile
 :: MinGW-w64 GCC via MSYS2 (x86 target)
 set PATH=C:\msys64\mingw32\bin;C:\msys64\usr\bin;%PATH%
 mingw32-make
@@ -762,6 +776,21 @@ a cross-build. It's recommended to use a 64-bit environment for Windows
 development.
 
 ```batchfile
+:: MinGW-w64 Clang/LLVM via MSYS2 (x86 target)
+set PATH=C:\msys64\mingw32\bin;C:\msys64\usr\bin;%PATH%
+set HB_COMPILER=clang
+mingw32-make
+```
+
+```batchfile
+:: MinGW-w64 Clang/LLVM via MSYS2 (x64 target)
+:: (requires preceding build for x86 target)
+set PATH=C:\msys64\mingw64\bin;C:\msys64\usr\bin;%PATH%
+set HB_COMPILER=clang64
+mingw32-make
+```
+
+```batchfile
 :: MinGW-w64 GCC via MSYS2 (x86 target)
 set PATH=C:\msys64\mingw32\bin;C:\msys64\usr\bin;%PATH%
 mingw32-make
@@ -769,6 +798,7 @@ mingw32-make
 
 ```batchfile
 :: MinGW-w64 GCC via MSYS2 (x64 target)
+:: (requires preceding build for x86 target)
 set PATH=C:\msys64\mingw64\bin;C:\msys64\usr\bin;%PATH%
 mingw32-make
 ```
@@ -1059,7 +1089,7 @@ Press `<Alt+D>` in the app.
 
 ### linux
 * gcc      - GNU C
-* clang    - Clang
+* clang    - Clang/LLVM
 * watcom   - Open Watcom C/C++
 * icc      - Intel(R) C/C++
 * sunpro   - Sun Studio C/C++
@@ -1067,12 +1097,12 @@ Press `<Alt+D>` in the app.
 
 ### darwin
 * gcc      - GNU C
-* clang    - Clang
+* clang    - Apple Clang/LLVM
 * icc      - Intel(R) C/C++
 
 ### bsd
 * gcc      - GNU C
-* clang    - Clang
+* clang    - Clang/LLVM
 * pcc      - Portable C Compiler (experimental)
 
 ### android
@@ -1082,11 +1112,12 @@ Press `<Alt+D>` in the app.
 ### win
 * mingw    - MinGW GNU C (4.4.0 and above)
 * mingw64  - MinGW GNU C x86-64
+* clang    - Clang/LLVM
+* clang64  - Clang/LLVM x86-64
 * msvc     - Microsoft Visual C++ (2010 and above)
 * msvc64   - Microsoft Visual C++ x86-64 (2010 and above)
 
 ### win (experimental)
-* clang    - Clang
 * watcom   - Open Watcom C/C++
 * icc      - Intel(R) C/C++
 
@@ -1132,7 +1163,7 @@ Press `<Alt+D>` in the app.
 * diab     - Wind River Compiler
 
 ### minix (experimental)
-* clang    - Clang
+* clang    - Clang/LLVM
 * gcc      - GNU C
 
 ### cygwin (experimental)
@@ -1171,8 +1202,9 @@ Press `<Alt+D>` in the app.
        | win      | win/bcc           | x86    (deprecated)
        | win      | win/bcc64         | x86-64 (deprecated)
        | win      | win/clang         | x86
+       | win      | win/clang64       | x86-64
        | win      | win/gcc           | x86
-       | win      | win/icc           | x86
+       | win      | win/icc           | x86    (experimental)
        | win      | win/icc64         | x86-64
        | win      | win/iccia64       | ia64   (deprecated)
        | win      | win/mingw         | x86
@@ -1182,7 +1214,7 @@ Press `<Alt+D>` in the app.
        | win      | win/msvcia64      | ia64   (deprecated)
        | win      | win/pocc          | x86    (deprecated)
        | win      | win/pocc64        | x86-64 (deprecated)
-       | win      | win/watcom        | x86
+       | win      | win/watcom        | x86    (experimental)
        | win      | win/xcc           | x86    (deprecated)
      x | win      | wce/mingwarm      | arm
      x | win      | wce/mingw         | x86    (not fully supported yet)

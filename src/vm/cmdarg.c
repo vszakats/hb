@@ -124,7 +124,7 @@ void hb_winmainArgVBuild( void )
       }
       else
       {
-         lpDst = ( LPTSTR ) lpCmdLine;
+         lpDst = ( LPTSTR ) HB_UNCONST( lpCmdLine );
          nSize = nModuleName;
       }
 

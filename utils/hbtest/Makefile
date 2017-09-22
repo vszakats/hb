@@ -22,6 +22,6 @@ endif
 
 include $(TOP)$(ROOT)config/bin.mk
 
-ifneq ($(filter $(HB_COMPILER),mingw mingw64 gcc clang),)
+ifneq ($(filter $(HB_COMPILER),gcc mingw mingw64 clang clang64),)
    HB_LDFLAGS += -fno-lto
 endif

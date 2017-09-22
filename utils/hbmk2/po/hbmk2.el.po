@@ -1891,8 +1891,8 @@ msgid "static build (see -static and related options)"
 msgstr "κατασκευή static (δες -static και τις σχετικές επιλογές)"
 
 #, c-format
-msgid "target C compiler belongs to gcc family (gcc, mingw, mingw64, mingwarm, djgpp, gccomf, clang, open64, pcc)"
-msgstr "ο χρησιμοποιούμενος μεταγλωττιστής C ανήκει στην οικογένεια gcc (gcc, mingw, mingw64, mingwarm, djgpp, gccomf, clang, open64, pcc)"
+msgid "target C compiler belongs to gcc family (gcc, mingw, mingw64, mingwarm, djgpp, gccomf, clang, clang64, open64, pcc)"
+msgstr "ο χρησιμοποιούμενος μεταγλωττιστής C ανήκει στην οικογένεια gcc (gcc, mingw, mingw64, mingwarm, djgpp, gccomf, clang, clang64, open64, pcc)"
 
 #, c-format
 msgid "target C compiler is bcc* (bcc, bcc64)"

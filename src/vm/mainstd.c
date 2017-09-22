@@ -50,7 +50,7 @@
 #if ! ( defined( HB_DYNLIB ) && defined( __WATCOMC__ ) )
 
 HB_EXTERN_BEGIN
-#if defined( __MINGW32__ )
+#if defined( __MINGW32__ ) && ! defined( __clang__ )
 int _CRT_glob = 0;
 #elif defined( __DJGPP__ )
 

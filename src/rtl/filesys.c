@@ -2957,7 +2957,7 @@ HB_SIZE hb_fsWriteAt( HB_FHANDLE hFileHandle, const void * pBuff, HB_SIZE nCount
             nCount = 0;
          }
 
-         bResult = WriteFile( hWFileHandle, ( HB_UCHAR * ) pBuff + nWritten,
+         bResult = WriteFile( hWFileHandle, ( const HB_UCHAR * ) pBuff + nWritten,
                               dwToWrite, &dwWritten, &Overlapped );
 
          if( ! bResult )
