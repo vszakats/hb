@@ -4,7 +4,9 @@ branches:
   - master
   - prod
   - /prod-mingw.*/
+  - /prod-clang.*/
   - /test-mingw.*/
+  - /test-clang.*/
   - test-appveyor
   - /msvc.*/
 skip_tags: true

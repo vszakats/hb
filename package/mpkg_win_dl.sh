@@ -25,6 +25,11 @@ _BRANC4="$(echo "${_BRANCH}" | cut -c -4)"
 
 if [ "${os}" = 'win' ]; then
 
+  # clang toolchain
+  if [ "${_BRANCH#*clang*}" != "${_BRANCH}" ]; then
+    pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-clang
+  fi
+
   # Dependencies of the default (full) list of contribs
   if [ "${_BRANCH#*prod*}" = "${_BRANCH}" ]; then
     pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{cairo,freeimage,gd,ghostscript,libmariadbclient,libyaml,postgresql,rabbitmq-c}

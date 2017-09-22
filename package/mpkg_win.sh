@@ -5,6 +5,8 @@
 # See LICENSE.txt for licensing terms.
 # ---------------------------------------------------------------
 
+# TODO: remove bcc*, win/watcom, mingwarm references
+
 cd "$(dirname "$0")" || exit
 
 # - Requires MSYS2 or 'Git for Windows' to run on Windows
