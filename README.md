@@ -761,7 +761,7 @@ mingw32-make
 ```
 
 ```batchfile
-:: clang (alpha)
+:: Clang-cl/LLVM (pre-experimental)
 call "%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
 set PATH=%ProgramFiles(x86)%\LLVM 3.6.svn;%PATH%
 mingw32-make
@@ -902,7 +902,7 @@ mingw32-make
 ```
 
 ```batchfile
-:: clang (alpha)
+:: Clang-cl/LLVM (pre-experimental)
 call "%ProgramFiles%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
 set PATH=%ProgramFiles%\LLVM 3.6.svn;%PATH%
 mingw32-make
@@ -1290,19 +1290,20 @@ Supported shells per host platforms:
 
 * C/C++ Compilers/Shells:
 
-     * Clang/LLVM [multi-platform, free software, open-source]
-        * <https://releases.llvm.org/>
      * MinGW-w64 via MSYS2 [win, free software, open-source] (recommended)
         * <https://msys2.github.io/>
-        * Install [instructions](package/RELNOTES.md)
+        * `pacman -S git base-devel msys2-devel mingw-w64-{i686,x86_64}-toolchain`
+     * Clang/LLVM via MSYS2 [multi-platform, free software, open-source]
+        * <https://msys2.github.io/>
+        * MinGW-w64 above + `pacman -S mingw-w64-{i686,x86_64}-clang`
      * MinGW-w64 [win, \*nix, free software, open-source]
         * <https://mingw-w64.org/> <https://en.wikipedia.org/wiki/MinGW#MinGW-w64>
           * 64-bit: threads-posix, seh
             <https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/>
           * 32-bit: threads-posix, dwarf-2
             <https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/>
-     * Open Watcom [multi-platform, free software, open-source]
-        * <https://github.com/open-watcom/open-watcom-v2>, <https://open-watcom.github.io/open-watcom/>
+     * Clang/LLVM [multi-platform, free software, open-source]
+        * <https://releases.llvm.org/>
      * Xcode / Command Line Tools for Xcode [darwin, zero price, proprietary with open-source components]
         * <https://itunes.apple.com/us/app/xcode/id497799835>
         * <https://developer.apple.com/downloads/>
@@ -1324,6 +1325,8 @@ Supported shells per host platforms:
             `tar -xvf cegcc_mingw32ce_cygwin1.7_r1399.tar -h`
 
           * Compiler will be in the `opt\mingw32ce` subdirectory.
+     * Open Watcom [multi-platform, free software, open-source]
+        * <https://github.com/open-watcom/open-watcom-v2>, <https://open-watcom.github.io/open-watcom/>
      * Intel Compiler [multi-platform, commercial, proprietary]
         * <https://software.intel.com/c-compilers>
      * Cygwin [win, free software, open-source]

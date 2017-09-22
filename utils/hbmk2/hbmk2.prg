@@ -2354,7 +2354,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          { {|| FindInPath( "armasm.exe" ) }, "msvcarm",,, "wce" }, ;
          { {|| FindInPath( "ml64.exe"   ) }, "msvc64" }, ;
          { {|| FindInPath( "ias.exe"    ) }, "msvcia64" }, ;
-         { {|| FindInPath( "clang-cl.exe" ) }, "clang" }, ;
+         { {|| FindInPath( "clang-cl.exe" ) }, "clang-cl" }, ;
          { {|| iif( FindInPath( "wcc386"   ) == NIL, ;
                     FindInPath( "cl.exe"   ), ;
                     NIL )                      }, "msvc"    }, ;
@@ -4414,7 +4414,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
 
       hb_default( @hbmk[ _HBMK_lSHAREDDIST ], hbmk[ _HBMK_lSysLoc ] )
 
-      IF hbmk[ _HBMK_lSHAREDDIST ] .OR. ! HBMK_ISCOMP( "gcc|clang|open64" )  /* FIXME: clang64? */
+      IF hbmk[ _HBMK_lSHAREDDIST ] .OR. ! HBMK_ISCOMP( "gcc|clang|clang64|open64" )
          l_cDynLibDir := ""
       ELSE
          /* Only supported by gcc, clang, open64 compilers. */
@@ -4610,8 +4610,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             cBin_CompC := iif( hbmk[ _HBMK_lCPP ] != NIL .AND. hbmk[ _HBMK_lCPP ], cBin_CompCPP, "icc" )
             AAdd( hbmk[ _HBMK_aOPTC ], "-D_GNU_SOURCE" )
          CASE HBMK_ISCOMP( "clang|clang64" )
-            cBin_CompCPP := hbmk[ _HBMK_cCCPREFIX ] + "clang++" + hbmk[ _HBMK_cCCSUFFIX ]
-            cBin_CompC := iif( hbmk[ _HBMK_lCPP ] != NIL .AND. hbmk[ _HBMK_lCPP ], cBin_CompCPP, hbmk[ _HBMK_cCCPREFIX ] + "clang" + hbmk[ _HBMK_cCCSUFFIX ] )
+            cBin_CompCPP := hbmk[ _HBMK_cCCPREFIX ] + "clang++" + hbmk[ _HBMK_cCCSUFFIX ] + hbmk[ _HBMK_cCCEXT ]
+            cBin_CompC := iif( hbmk[ _HBMK_lCPP ] != NIL .AND. hbmk[ _HBMK_lCPP ], cBin_CompCPP, hbmk[ _HBMK_cCCPREFIX ] + "clang" + hbmk[ _HBMK_cCCSUFFIX ] + hbmk[ _HBMK_cCCEXT ] )
          CASE hbmk[ _HBMK_cCOMP ] == "pcc"
             cBin_CompC := hbmk[ _HBMK_cCCPREFIX ] + "pcc" + hbmk[ _HBMK_cCCSUFFIX ]
          CASE hbmk[ _HBMK_cCOMP ] == "open64"
@@ -4636,13 +4636,12 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
                AAdd( hbmk[ _HBMK_aOPTC ], "-D_FORTIFY_SOURCE=2" )
             ENDIF
 #endif
-            IF hbmk[ _HBMK_cCOMP ] == "gcc"
+            DO CASE
+            CASE hbmk[ _HBMK_cCOMP ] == "gcc"
                /* EXPERIMENTAL */
                DO CASE
                CASE hbmk[ _HBMK_cCOMPVer ] >= "0409"
-                  IF ! hbmk[ _HBMK_cPLAT ] == "win"
-                     AAdd( hbmk[ _HBMK_aOPTC ], "-fstack-protector-strong" )
-                  ENDIF
+                  AAdd( hbmk[ _HBMK_aOPTC ], "-fstack-protector-strong" )
                CASE hbmk[ _HBMK_cCOMPVer ] >= "0401"
 #if 0
                   /* too slow */
@@ -4651,7 +4650,30 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
                   AAdd( hbmk[ _HBMK_aOPTC ], "-fstack-protector" )
 #endif
                ENDCASE
-            ENDIF
+            CASE hbmk[ _HBMK_cPLAT ] == "win" .AND. HBMK_ISCOMP( "clang|clang64" )
+               AAdd( hbmk[ _HBMK_aOPTL ], "-Wl,--nxcompat" )
+               AAdd( hbmk[ _HBMK_aOPTL ], "-Wl,--dynamicbase" )
+               AAdd( hbmk[ _HBMK_aOPTD ], "-Wl,--nxcompat" )
+               AAdd( hbmk[ _HBMK_aOPTD ], "-Wl,--dynamicbase" )
+               /* Required to make -Wl,--dynamicbase work, by forcing a relocation
+                  table to be generated and thus making the executable be relocatable.
+                  Ref:
+                     https://lists.ffmpeg.org/pipermail/ffmpeg-devel/2015-September/179242.html */
+               IF hbmk[ _HBMK_cCOMP ] == "clang64"
+                  AAdd( hbmk[ _HBMK_aOPTL ], "-Wl,--pic-executable,-e,mainCRTStartup" )
+                  AAdd( hbmk[ _HBMK_aOPTL ], "-Wl,--high-entropy-va" )
+                  AAdd( hbmk[ _HBMK_aOPTD ], "-Wl,--high-entropy-va" )
+                  /* Unlock even higher entropy ASLR. Safe to do if 64-bit pointers are
+                     correctly handled and never truncated to 32-bit.
+                        https://blogs.technet.microsoft.com/srd/2013/12/11/software-defense-mitigating-common-exploitation-techniques/
+                        https://lists.ffmpeg.org/pipermail/ffmpeg-devel/2015-September/179243.html */
+                  AAdd( hbmk[ _HBMK_aOPTL ], "-Wl,--image-base,0x140000000" )
+                  AAdd( hbmk[ _HBMK_aOPTD ], "-Wl,--image-base,0x180000000" )
+               ELSE
+                  AAdd( hbmk[ _HBMK_aOPTL ], "-Wl,--pic-executable,-e,_mainCRTStartup" )
+               ENDIF
+               AAdd( hbmk[ _HBMK_aOPTA ], "-D" )
+            ENDCASE
          ENDIF
          cOpt_CompC := "-c"
          IF hbmk[ _HBMK_cCOMP ] == "wasm"
@@ -4670,6 +4692,9 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
                ENDIF
             ELSE
                cOpt_CompC += " -O3"
+            ENDIF
+            IF hbmk[ _HBMK_cPLAT ] == "win"
+               cOpt_CompC += " -fno-ident"
             ENDIF
             IF hbmk[ _HBMK_cCOMPVer ] < "0406" .AND. ;
                ! hbmk[ _HBMK_lDEBUG ] .AND. hbmk[ _HBMK_cPLAT ] == "cygwin"
@@ -4785,6 +4810,10 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          ELSE
             cLibLibExt := ".a"
          ENDIF
+         IF hbmk[ _HBMK_cPLAT ] == "win"
+            cImpLibExt := cLibLibExt
+            bBlk_ImpLib := {| cSourceDLL, cTargetLib, cFlags | win_implib_command_gcc( hbmk, hbmk[ _HBMK_cCCPREFIX ] + "dlltool" + hbmk[ _HBMK_cCCSUFFIX ] + hbmk[ _HBMK_cCCEXT ] + " {FI} -d {ID} -l {OL}", cSourceDLL, cTargetLib, cFlags ) }
+         ENDIF
          cBin_LibHBX := hbmk[ _HBMK_cCCPREFIX ] + "nm"
          cOpt_LibHBX := "-g" + iif( hbmk[ _HBMK_cPLAT ] == "darwin", "", " --defined-only -C" ) + " {LI}"
          IF hbmk[ _HBMK_cPLAT ] == "darwin"
@@ -4875,15 +4904,17 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             ENDIF
          ENDIF
 
-         /* Always inherit/reproduce some flags from self */
-         FOR EACH tmp IN { "-mlp64", "-mlp32", "-m64", "-m32" }
-            IF tmp $ hb_Version( HB_VERSION_FLAG_C )
-               AAddNew( hbmk[ _HBMK_aOPTC ], tmp )
-               AAddNew( hbmk[ _HBMK_aOPTL ], tmp )
-               AAddNew( hbmk[ _HBMK_aOPTD ], tmp )
-               EXIT
-            ENDIF
-         NEXT
+         IF ! hbmk[ _HBMK_cPLAT ] == "win"
+            /* Always inherit/reproduce some flags from self */
+            FOR EACH tmp IN { "-mlp64", "-mlp32", "-m64", "-m32" }
+               IF tmp $ hb_Version( HB_VERSION_FLAG_C )
+                  AAddNew( hbmk[ _HBMK_aOPTC ], tmp )
+                  AAddNew( hbmk[ _HBMK_aOPTL ], tmp )
+                  AAddNew( hbmk[ _HBMK_aOPTD ], tmp )
+                  EXIT
+               ENDIF
+            NEXT
+         ENDIF
 
          /* Add system libraries */
          IF ! hbmk[ _HBMK_lSHARED ]
@@ -5003,15 +5034,34 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          ENDIF
 #endif
 
+#ifdef HARBOUR_SUPPORT
+         IF hbmk[ _HBMK_cPLAT ] == "win"
+            l_aLIBSHARED := { cHarbourDyn + hbmk_IMPSUFFIX( hbmk, cDL_Version_Alter ) }
+
+            IF hbmk[ _HBMK_lGUI ]
+               l_aLIBSHAREDPOST := { "hbmainwin" }
+            ELSE
+               l_aLIBSHAREDPOST := { "hbmainstd" }
+            ENDIF
+            IF ! l_lNOHBLIB .AND. ! hbmk[ _HBMK_lCreateDyn ]
+               l_aLIBSTATICPOST := l_aLIBSHAREDPOST
+            ENDIF
+#endif
+
+            cBin_Res := hbmk[ _HBMK_cCCPREFIX ] + "windres" + hbmk[ _HBMK_cCCEXT ]
+            cResExt := ".reso"
+            cOpt_Res := "{FR} {IR} -O coff -o {OS}"
+            IF ! Empty( hbmk[ _HBMK_cCCPATH ] )
+               cBin_Res := hbmk[ _HBMK_cCCPATH ] + hb_ps() + cBin_Res
+            ENDIF
+         ENDIF
+
       CASE ( hbmk[ _HBMK_cPLAT ] == "win" .AND. hbmk[ _HBMK_cCOMP ] == "gcc" ) .OR. ;
            ( hbmk[ _HBMK_cPLAT ] == "win" .AND. hbmk[ _HBMK_cCOMP ] == "mingw" ) .OR. ;
            ( hbmk[ _HBMK_cPLAT ] == "win" .AND. hbmk[ _HBMK_cCOMP ] == "mingw64" ) .OR. ;
            ( hbmk[ _HBMK_cPLAT ] == "win" .AND. hbmk[ _HBMK_cCOMP ] == "tcc" ) .OR. ;
            ( hbmk[ _HBMK_cPLAT ] == "wce" .AND. hbmk[ _HBMK_cCOMP ] == "mingw" ) .OR. ;
            ( hbmk[ _HBMK_cPLAT ] == "wce" .AND. hbmk[ _HBMK_cCOMP ] == "mingwarm" )
-
-         /* NOTE: 'clang' branches are here for the gcc flavor of clang (clang-gcc),
-                  which is not available in any usable form yet [2013-09-17] */  /* FIXME: clang */
 
          hbmk[ _HBMK_nCmd_FNF ] := _FNF_FWDSLASH
 
@@ -5028,17 +5078,13 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             cLibModePrefix :=       "-Wl,-Bstatic" + " "
             cLibModeSuffix := " " + "-Wl,-Bdynamic"
          ENDIF
-         DO CASE
-         CASE hbmk[ _HBMK_cCOMP ] == "clang"  /* FIXME: clang */
-            cBin_CompCPP := hbmk[ _HBMK_cCCPREFIX ] + "clang++" + hbmk[ _HBMK_cCCSUFFIX ] + hbmk[ _HBMK_cCCEXT ]
-            cBin_CompC := iif( hbmk[ _HBMK_lCPP ] != NIL .AND. hbmk[ _HBMK_lCPP ], cBin_CompCPP, hbmk[ _HBMK_cCCPREFIX ] + "clang" + hbmk[ _HBMK_cCCSUFFIX ] + hbmk[ _HBMK_cCCEXT ] )
-         CASE hbmk[ _HBMK_cCOMP ] == "tcc"
+         IF hbmk[ _HBMK_cCOMP ] == "tcc"
             cBin_CompCPP := "tcc.exe"
             cBin_CompC := cBin_CompCPP
-         OTHERWISE
+         ELSE
             cBin_CompCPP := hbmk[ _HBMK_cCCPREFIX ] + "g++" + hbmk[ _HBMK_cCCSUFFIX ] + hbmk[ _HBMK_cCCEXT ]
             cBin_CompC := iif( hbmk[ _HBMK_lCPP ] != NIL .AND. hbmk[ _HBMK_lCPP ], cBin_CompCPP, hbmk[ _HBMK_cCCPREFIX ] + "gcc" + hbmk[ _HBMK_cCCSUFFIX ] + hbmk[ _HBMK_cCCEXT ] )
-         ENDCASE
+         ENDIF
          IF hbmk[ _HBMK_cCOMPVer ] == "0"
             hbmk[ _HBMK_cCOMPVer ] := CompVersionDetect( hbmk, cBin_CompC, .F. )
          ENDIF
@@ -5310,7 +5356,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          ENDIF
 #endif
 
-         IF HBMK_ISCOMP( "mingw|mingw64|mingwarm|clang|clang64" )  /* FIXME: clang */
+         IF HBMK_ISCOMP( "mingw|mingw64|mingwarm" )
             cBin_Res := hbmk[ _HBMK_cCCPREFIX ] + "windres" + hbmk[ _HBMK_cCCEXT ]
             cResExt := ".reso"
             cOpt_Res := "{FR} {IR} -O coff -o {OS}"

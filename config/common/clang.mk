@@ -34,6 +34,26 @@ ifeq ($(filter $(HB_COMPILER_VER),0304),)
    endif
 endif
 
+ifeq ($(HB_PLATFORM),win)
+   LDFLAGS += -Wl,--nxcompat -Wl,--dynamicbase
+   DFLAGS += -Wl,--nxcompat -Wl,--dynamicbase
+   ifeq ($(HB_COMPILER),clang64)
+      LDFLAGS += -Wl,--pic-executable,-e,mainCRTStartup
+      LDFLAGS += -Wl,--high-entropy-va -Wl,--image-base,0x140000000
+      DFLAGS += -Wl,--high-entropy-va -Wl,--image-base,0x180000000
+   else
+      LDFLAGS += -Wl,--pic-executable,-e,_mainCRTStartup
+   endif
+   # '--no-insert-timestamp' has a bug failing to properly
+   # reset timestamp in many (apparently random) cases as
+   # of binutils 2.25, so disable for now.
+   #LDFLAGS += -Wl,--no-insert-timestamp
+   # This has potential risks for .dlls:
+   #    https://sourceware.org/bugzilla/show_bug.cgi?id=16887
+   #DFLAGS += -Wl,--no-insert-timestamp
+   ARFLAGS += -D
+endif
+
 ifneq ($(HB_BUILD_WARN),no)
    CFLAGS += -W -Weverything
    CFLAGS += -Wno-padded -Wno-cast-align -Wno-float-equal -Wno-missing-prototypes
