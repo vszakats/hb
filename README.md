@@ -1334,7 +1334,7 @@ Supported shells per host platforms:
 * Libraries:
 
      * `HB_WITH_PCRE2`, `HB_WITH_PCRE` - Perl Compatible Regular Expressions [multi-platform, free software, open-source]
-        * <http://pcre.org/>
+        * <https://pcre.org/>
      * `HB_WITH_PNG` - libpng [multi-platform, free software, open-source]
         * <https://github.com/glennrp/libpng>
      * `HB_WITH_WATT` - Watt-32 (TCP/IP sockets) [dos, free software, open-source]

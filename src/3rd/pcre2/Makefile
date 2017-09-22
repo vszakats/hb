@@ -58,7 +58,7 @@ else
    include $(TOP)$(ROOT)config/none.mk
 endif
 
-# ORIGIN http://pcre.org/
+# ORIGIN https://pcre.org/
 # URL    https://ftp.pcre.org/pub/pcre/pcre2-10.30.tar.bz2
 #
 # MAP    LICENCE
