@@ -692,6 +692,7 @@
 #define HB_CURLSSLSET_OK                      0
 #define HB_CURLSSLSET_UNKNOWN_BACKEND         1
 #define HB_CURLSSLSET_TOO_LATE                2
+#define HB_CURLSSLSET_NO_BACKENDS             3
 
 /* curl_global_sslset() 1st parameter and
    hash key of returned 3rd parameter. */

@@ -831,7 +831,7 @@ static void hb_curl_opt_mime_addpart( CURL * curl, curl_mime * mime, PHB_ITEM pH
                   else if( ! HB_IS_STRING( pVal ) )
                      continue;
                   else if( hb_stricmp( szKey, "name" ) == 0 )
-                     curl_mime_name( part, hb_itemGetCPtr( pVal ), ( size_t ) hb_itemGetCLen( pVal ) );
+                     curl_mime_name( part, hb_itemGetCPtr( pVal ) );
                   else if( hb_stricmp( szKey, "filename" ) == 0 )
                      curl_mime_filename( part, hb_itemGetCPtr( pVal ) );
                   else if( hb_stricmp( szKey, "type" ) == 0 )
