@@ -250,22 +250,23 @@ HB_FUNC( WAPI_ENABLESCROLLBAR )
 /* BOOL GetScrollBarInfo( HWND hwnd, LONG idObject, PSCROLLBARINFO psbi ); */
 HB_FUNC( WAPI_GETSCROLLBARINFO )
 {
-   PSCROLLBARINFO sbi = ( PSCROLLBARINFO ) hbwapi_par_STRUCT( 3 );
-   BOOL           bSuccess;
+   BOOL bSuccess;
 
-   if( sbi )
+   if( HB_ISBYREF( 3 ) && hb_parclen( 3 ) == sizeof( SCROLLBARINFO ) )
    {
-      memset( sbi, 0, sizeof( *sbi ) );
-      sbi->cbSize = sizeof( *sbi );
+      SCROLLBARINFO sbi;
+
+      memcpy( &sbi, hbwapi_par_raw_STRUCT( 3 ), sizeof( sbi ) );
+      sbi.cbSize = sizeof( sbi );
 
       bSuccess = GetScrollBarInfo( hbwapi_par_raw_HWND( 1 ),
                                    hbwapi_par_LONG( 2 ),
-                                   sbi );
+                                   &sbi );
 
       hbwapi_SetLastError( GetLastError() );
 
       if( bSuccess )
-         hb_storclen( ( char * ) sbi, sizeof( *sbi ), 3 );
+         hb_storclen( ( char * ) &sbi, sizeof( sbi ), 3 );
       else
          hb_storc( NULL, 3 );
    }
@@ -282,22 +283,23 @@ HB_FUNC( WAPI_GETSCROLLBARINFO )
 /* BOOL GetScrollInfo( HWND hwnd, int fnBar, LPSCROLLINFO lpsi ); */
 HB_FUNC( WAPI_GETSCROLLINFO )
 {
-   LPSCROLLINFO si = ( LPSCROLLINFO ) hbwapi_par_raw_STRUCT( 3 );
-   BOOL         bSuccess;
+   BOOL bSuccess;
 
-   if( si )
+   if( HB_ISBYREF( 3 ) && hb_parclen( 3 ) == sizeof( SCROLLINFO ) )
    {
-      memset( si, 0, sizeof( *si ) );
-      si->cbSize = sizeof( *si );
+      SCROLLINFO si;
+
+      memcpy( &si, hbwapi_par_raw_STRUCT( 3 ), sizeof( si ) );
+      si.cbSize = sizeof( si );
 
       bSuccess = GetScrollInfo( hbwapi_par_raw_HWND( 1 ),
                                 hbwapi_par_INT( 2 ),
-                                si );
+                                &si );
 
       hbwapi_SetLastError( GetLastError() );
 
       if( bSuccess )
-         hb_storclen( ( char * ) si, sizeof( *si ), 3 );
+         hb_storclen( ( char * ) &si, sizeof( si ), 3 );
       else
          hb_storc( NULL, 3 );
    }
@@ -386,11 +388,9 @@ HB_FUNC( WAPI_SCROLLWINDOWEX )
 /* int SetScrollInfo( HWND hwnd, int fnBar, LPCSCROLLINFO lpsi, BOOL fRedraw ); */
 HB_FUNC( WAPI_SETSCROLLINFO )
 {
-   LPSCROLLINFO si = ( LPSCROLLINFO ) hbwapi_par_raw_STRUCT( 3 );
-
    hbwapi_ret_NI( SetScrollInfo( hbwapi_par_raw_HWND( 1 ),
                                  hbwapi_par_INT( 2 ),
-                                 si,
+                                 hb_parclen( 3 ) == sizeof( SCROLLINFO ) ? ( LPSCROLLINFO ) HB_UNCONST( hbwapi_par_raw_STRUCT( 3 ) ) : NULL,
                                  HB_ISLOG( 4 ) ? hbwapi_par_BOOL( 4 ) : TRUE ) );
 }
 

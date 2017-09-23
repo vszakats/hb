@@ -164,7 +164,7 @@ HB_FUNC( WIN_DRAWBITMAP )
 {
    HDC hDC = hbwapi_par_HDC( 1 );
    HB_SIZE nSize = hb_parclen( 2 );
-   BITMAPFILEHEADER * pbmfh = ( BITMAPFILEHEADER * ) hb_parc( 2 );
+   const BITMAPFILEHEADER * pbmfh = ( const BITMAPFILEHEADER * ) hb_parc( 2 );
    int iType = hbwin_bitmapType( pbmfh, nSize );
 
    /* FIXME: No check is done on 2nd parameter which is a large security hole
@@ -172,22 +172,22 @@ HB_FUNC( WIN_DRAWBITMAP )
              [vszakats] */
    if( hbwin_bitmapIsSupported( hDC, iType, pbmfh, nSize ) == 0 )
    {
-      BITMAPINFO * pbmi = NULL;
-      BYTE * pBits = NULL;
+      const BITMAPINFO * pbmi = NULL;
+      const BYTE * pBits = NULL;
 
       int iWidth  = hb_parni( 7 );
       int iHeight = hb_parni( 8 );
 
       if( iType == HB_WIN_BITMAP_BMP )
       {
-         pbmi  = ( BITMAPINFO * ) ( pbmfh + 1 );
-         pBits = ( BYTE * ) pbmfh + pbmfh->bfOffBits;
+         pbmi  = ( const BITMAPINFO * ) ( pbmfh + 1 );
+         pBits = ( const BYTE * ) pbmfh + pbmfh->bfOffBits;
 
          /* Remember there are 2 types of BitMap File */
          if( pbmi->bmiHeader.biSize == sizeof( BITMAPCOREHEADER ) )
          {
-            iWidth  = ( ( BITMAPCOREHEADER * ) pbmi )->bcWidth;
-            iHeight = ( ( BITMAPCOREHEADER * ) pbmi )->bcHeight;
+            iWidth  = ( ( const BITMAPCOREHEADER * ) pbmi )->bcWidth;
+            iHeight = ( ( const BITMAPCOREHEADER * ) pbmi )->bcHeight;
          }
          else
          {
@@ -208,7 +208,7 @@ HB_FUNC( WIN_DRAWBITMAP )
          bmi.bmiHeader.biCompression = ( iType == HB_WIN_BITMAP_JPEG ? BI_JPEG : BI_PNG );
          bmi.bmiHeader.biSizeImage   = ( DWORD ) nSize;
          pbmi = &bmi;
-         pBits = ( BYTE * ) pbmfh;
+         pBits = ( const BYTE * ) pbmfh;
       }
 
       if( pbmi && pBits )

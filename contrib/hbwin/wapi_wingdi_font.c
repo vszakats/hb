@@ -76,7 +76,7 @@ HB_FUNC( WAPI_ADDFONTMEMRESOURCEEX )
       }
 
       if( s_pAddFontMemResourceEx )
-         hResult = s_pAddFontMemResourceEx( ( PVOID ) hb_parcx( 1 ), ( DWORD ) hb_parclen( 1 ), NULL, &dwFonts );
+         hResult = s_pAddFontMemResourceEx( ( PVOID ) HB_UNCONST( hb_parcx( 1 ) ), ( DWORD ) hb_parclen( 1 ), NULL, &dwFonts );
    }
 #endif
 

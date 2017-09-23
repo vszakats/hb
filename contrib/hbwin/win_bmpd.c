@@ -281,14 +281,14 @@ HB_FUNC( WIN_BITMAPDIMENSIONS )
 
    if( iType == HB_WIN_BITMAP_BMP && nSize >= sizeof( BITMAPCOREHEADER ) )
    {
-      BITMAPFILEHEADER * pbmfh = ( BITMAPFILEHEADER * ) buffer;
-      BITMAPINFO * pbmi = ( BITMAPINFO * ) ( pbmfh + 1 );
+      const BITMAPFILEHEADER * pbmfh = ( const BITMAPFILEHEADER * ) buffer;
+      const BITMAPINFO * pbmi = ( const BITMAPINFO * ) ( pbmfh + 1 );
 
       /* Remember there are 2 types of BitMap File */
       if( pbmi->bmiHeader.biSize == sizeof( BITMAPCOREHEADER ) )
       {
-         iWidth = ( ( BITMAPCOREHEADER * ) pbmi )->bcWidth;
-         iHeight = ( ( BITMAPCOREHEADER * ) pbmi )->bcHeight;
+         iWidth = ( ( const BITMAPCOREHEADER * ) pbmi )->bcWidth;
+         iHeight = ( ( const BITMAPCOREHEADER * ) pbmi )->bcHeight;
       }
       else
       {

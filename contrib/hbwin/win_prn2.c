@@ -259,7 +259,7 @@ HB_FUNC( WIN_PRINTERSTATUS )
       LPCTSTR lpPrinterName = HB_ITEMGETSTR( pPrinterName, &hPrinterName, NULL );
       HANDLE hPrinter;
 
-      if( OpenPrinter( ( LPTSTR ) lpPrinterName, &hPrinter, NULL ) )
+      if( OpenPrinter( ( LPTSTR ) HB_UNCONST( lpPrinterName ), &hPrinter, NULL ) )
       {
          DWORD dwNeeded = 0;
 
@@ -371,12 +371,12 @@ HB_FUNC( WIN_PRINTFILERAW )
       void * hDeviceName;
       LPCTSTR lpDeviceName = HB_PARSTR( 1, &hDeviceName, NULL );
 
-      if( OpenPrinter( ( LPTSTR ) lpDeviceName, &hPrinter, NULL ) != 0 )
+      if( OpenPrinter( ( LPTSTR ) HB_UNCONST( lpDeviceName ), &hPrinter, NULL ) != 0 )
       {
          void * hDocName;
          DOC_INFO_1 DocInfo;
 
-         DocInfo.pDocName = ( LPTSTR ) HB_PARSTR( HB_ISCHAR( 3 ) ? 3 : 2, &hDocName, NULL );
+         DocInfo.pDocName = ( LPTSTR ) HB_UNCONST( HB_PARSTR( HB_ISCHAR( 3 ) ? 3 : 2, &hDocName, NULL ) );
          DocInfo.pOutputFile = NULL;
          DocInfo.pDatatype = ( LPTSTR ) TEXT( "RAW" );
 
@@ -467,12 +467,12 @@ HB_FUNC( WIN_PRINTDATARAW )
       void * hDeviceName;
       LPCTSTR lpDeviceName = HB_PARSTR( 1, &hDeviceName, NULL );
 
-      if( OpenPrinter( ( LPTSTR ) lpDeviceName, &hPrinter, NULL ) != 0 )
+      if( OpenPrinter( ( LPTSTR ) HB_UNCONST( lpDeviceName ), &hPrinter, NULL ) != 0 )
       {
          void * hDocName;
          DOC_INFO_1 DocInfo;
 
-         DocInfo.pDocName = ( LPTSTR ) HB_PARSTR( 3, &hDocName, NULL );
+         DocInfo.pDocName = ( LPTSTR ) HB_UNCONST( HB_PARSTR( 3, &hDocName, NULL ) );
          DocInfo.pOutputFile = NULL;
          DocInfo.pDatatype = ( LPTSTR ) TEXT( "RAW" );
          if( DocInfo.pDocName == NULL )
@@ -482,14 +482,14 @@ HB_FUNC( WIN_PRINTDATARAW )
          {
             if( StartPagePrinter( hPrinter ) != 0 )
             {
-               HB_BYTE * pbData = ( HB_BYTE * ) hb_parc( 2 );
+               const HB_BYTE * pbData = ( const HB_BYTE * ) hb_parc( 2 );
                HB_SIZE nLen = hb_parclen( 2 );
 
                nResult = 0;
                while( ( HB_SIZE ) nResult < nLen )
                {
                   DWORD dwWritten = 0;
-                  if( ! WritePrinter( hPrinter, &pbData[ nResult ],
+                  if( ! WritePrinter( hPrinter, ( LPVOID ) HB_UNCONST( &pbData[ nResult ] ),
                                       ( DWORD ) ( nLen - nResult ),
                                       &dwWritten ) || dwWritten == 0 )
                      break;

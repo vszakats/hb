@@ -374,15 +374,15 @@ HB_FUNC( WIN_SETDOCUMENTPROPERTIES )
       void * hDeviceName;
       LPCTSTR lpDeviceName = HB_PARSTR( 2, &hDeviceName, NULL );
 
-      if( OpenPrinter( ( LPTSTR ) lpDeviceName, &hPrinter, NULL ) )
+      if( OpenPrinter( ( LPTSTR ) HB_UNCONST( lpDeviceName ), &hPrinter, NULL ) )
       {
-         LONG lSize = DocumentProperties( 0, hPrinter, ( LPTSTR ) lpDeviceName, NULL, NULL, 0 );
+         LONG lSize = DocumentProperties( 0, hPrinter, ( LPTSTR ) HB_UNCONST( lpDeviceName ), NULL, NULL, 0 );
 
          if( lSize > 0 )
          {
             PDEVMODE pDevMode = ( PDEVMODE ) hb_xgrabz( lSize );
 
-            if( DocumentProperties( 0, hPrinter, ( LPTSTR ) lpDeviceName, pDevMode, pDevMode, DM_OUT_BUFFER ) == IDOK )
+            if( DocumentProperties( 0, hPrinter, ( LPTSTR ) HB_UNCONST( lpDeviceName ), pDevMode, pDevMode, DM_OUT_BUFFER ) == IDOK )
             {
                DWORD dmFields = 0, fMode;
                HB_BOOL fUserDialog;
@@ -455,7 +455,7 @@ HB_FUNC( WIN_SETDOCUMENTPROPERTIES )
                if( fUserDialog )
                   fMode |= DM_IN_PROMPT;
 
-               if( DocumentProperties( 0, hPrinter, ( LPTSTR ) lpDeviceName, pDevMode, pDevMode, fMode ) == IDOK )
+               if( DocumentProperties( 0, hPrinter, ( LPTSTR ) HB_UNCONST( lpDeviceName ), pDevMode, pDevMode, fMode ) == IDOK )
                {
                   hb_storni( pDevMode->dmPaperSize, 3 );
                   hb_storl( pDevMode->dmOrientation == DMORIENT_LANDSCAPE, 4 );
@@ -492,15 +492,15 @@ HB_FUNC( WIN_GETDOCUMENTPROPERTIES )
    void * hDeviceName;
    LPCTSTR lpDeviceName = HB_PARSTR( 1, &hDeviceName, NULL );
 
-   if( OpenPrinter( ( LPTSTR ) lpDeviceName, &hPrinter, NULL ) )
+   if( OpenPrinter( ( LPTSTR ) HB_UNCONST( lpDeviceName ), &hPrinter, NULL ) )
    {
-      LONG lSize = DocumentProperties( 0, hPrinter, ( LPTSTR ) lpDeviceName, NULL, NULL, 0 );
+      LONG lSize = DocumentProperties( 0, hPrinter, ( LPTSTR ) HB_UNCONST( lpDeviceName ), NULL, NULL, 0 );
 
       if( lSize > 0 )
       {
          PDEVMODE pDevMode = ( PDEVMODE ) hb_xgrabz( lSize );
 
-         if( DocumentProperties( 0, hPrinter, ( LPTSTR ) lpDeviceName, pDevMode, pDevMode, DM_OUT_BUFFER ) == IDOK )
+         if( DocumentProperties( 0, hPrinter, ( LPTSTR ) HB_UNCONST( lpDeviceName ), pDevMode, pDevMode, DM_OUT_BUFFER ) == IDOK )
          {
             hb_storni( pDevMode->dmPaperSize, 2 );
             hb_storl( pDevMode->dmOrientation == DMORIENT_LANDSCAPE, 3 );

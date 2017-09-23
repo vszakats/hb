@@ -63,7 +63,7 @@ static HB_BOOL hb_SetDefaultPrinter( LPCTSTR lpPrinterName )
    if( hb_iswin9x() )
    {
       /* Open this printer so you can get information about it. */
-      bFlag = OpenPrinter( ( LPTSTR ) lpPrinterName, &hPrinter, NULL );
+      bFlag = OpenPrinter( ( LPTSTR ) HB_UNCONST( lpPrinterName ), &hPrinter, NULL );
       if( ! bFlag || ! hPrinter )
          return HB_FALSE;
 
@@ -142,7 +142,7 @@ static HB_BOOL hb_SetDefaultPrinter( LPCTSTR lpPrinterName )
          HB_ISIZ nStrLen;
 
          /* Open this printer so you can get information about it. */
-         bFlag = OpenPrinter( ( LPTSTR ) lpPrinterName, &hPrinter, NULL );
+         bFlag = OpenPrinter( ( LPTSTR ) HB_UNCONST( lpPrinterName ), &hPrinter, NULL );
          if( ! bFlag || ! hPrinter )
             return HB_FALSE;
 
