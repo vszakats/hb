@@ -28,13 +28,13 @@ echo "! Self: $0"
 echo "! Host OS: ${os}"
 
 . ./mpkg_ver.sh
-hb_verfull=$(hb_get_ver)
 hb_vershrt=$(hb_get_ver_majorminor)
+hb_verfull=$(hb_get_ver)
 
 readonly HB_VS_DEF="$(echo "${hb_vershrt}" | sed 's|\.||g')"  # xy
 readonly HB_VL_DEF="$(echo "${hb_verfull}" | sed 's|\.||g')"  # xyz
 readonly HB_VM_DEF="${hb_vershrt}"                            # x.y
-readonly HB_VF_DEF="$(hb_verfull)$(hb_get_ver_status)"        # x.y.zrel
+readonly HB_VF_DEF="${hb_verfull}$(hb_get_ver_status)"        # x.y.zrel
 readonly HB_RT_DEF=C:/hb
 
 [ -z "${HB_VS}" ] && HB_VS="${HB_VS_DEF}"
@@ -75,12 +75,14 @@ esac
 if [ -z "${HB_BASE}" ]; then
   # Auto-detect the base bitness, by default it will be 32-bit, and 64-bit
   # if it's the only one available.
-  if [ -d "../pkg/win/mingw/harbour-${HB_VF}-win-mingw" ]; then
-    # MinGW 32-bit base system
-    _lib_target='32'
+  if   [ -d "../pkg/win/mingw/harbour-${HB_VF}-win-mingw" ]; then
+    _lib_target='32'  # MinGW 32-bit base system
+  elif [ -d "../pkg/win/clang/harbour-${HB_VF}-win-clang" ]; then
+    _lib_target='32'  # Clang/LLVM 32-bit base system
   elif [ -d "../pkg/win/mingw64/harbour-${HB_VF}-win-mingw64" ]; then
-    # MinGW 64-bit base system
-    _lib_target='64'
+    _lib_target='64'  # MinGW 64-bit base system
+  elif [ -d "../pkg/win/clang64/harbour-${HB_VF}-win-clang64" ]; then
+    _lib_target='64'  # Clang/LLVM 64-bit base system
   fi
 else
   _lib_target="${HB_BASE}"
@@ -114,13 +116,25 @@ fi
 if [ "${_lib_target}" = '32' ]; then
   if ls      "../pkg/win/mingw64/harbour-${HB_VF}-win-mingw64/bin/"*.dll > /dev/null 2>&1; then
     cp -f -p "../pkg/win/mingw64/harbour-${HB_VF}-win-mingw64/bin/"*.dll "${HB_ABSROOT}bin/"
+  elif ls    "../pkg/win/mingw64/harbour-${HB_VF}-win-clang64/bin/"*.dll > /dev/null 2>&1; then
+    cp -f -p "../pkg/win/mingw64/harbour-${HB_VF}-win-clang64/bin/"*.dll "${HB_ABSROOT}bin/"
   fi
-  ( cd "../pkg/win/mingw/harbour-${HB_VF}-win-mingw" && cp -f -p -R ./* "${HB_ABSROOT}" )
+  if [ -d    "../pkg/win/mingw/harbour-${HB_VF}-win-mingw" ]; then
+    ( cd     "../pkg/win/mingw/harbour-${HB_VF}-win-mingw" && cp -f -p -R ./* "${HB_ABSROOT}" )
+  elif [ -d  "../pkg/win/clang/harbour-${HB_VF}-win-clang" ]; then
+    ( cd     "../pkg/win/clang/harbour-${HB_VF}-win-clang" && cp -f -p -R ./* "${HB_ABSROOT}" )
+  fi
 elif [ "${_lib_target}" = '64' ]; then
   if ls      "../pkg/win/mingw/harbour-${HB_VF}-win-mingw/bin/"*.dll > /dev/null 2>&1; then
     cp -f -p "../pkg/win/mingw/harbour-${HB_VF}-win-mingw/bin/"*.dll "${HB_ABSROOT}bin/"
+  elif ls    "../pkg/win/mingw/harbour-${HB_VF}-win-clang/bin/"*.dll > /dev/null 2>&1; then
+    cp -f -p "../pkg/win/mingw/harbour-${HB_VF}-win-clang/bin/"*.dll "${HB_ABSROOT}bin/"
   fi
-  ( cd "../pkg/win/mingw64/harbour-${HB_VF}-win-mingw64" && cp -f -p -R ./* "${HB_ABSROOT}" )
+  if [ -d    "../pkg/win/mingw64/harbour-${HB_VF}-win-mingw64" ]; then
+    ( cd     "../pkg/win/mingw64/harbour-${HB_VF}-win-mingw64" && cp -f -p -R ./* "${HB_ABSROOT}" )
+  elif [ -d  "../pkg/win/clang64/harbour-${HB_VF}-win-clang64" ]; then
+    ( cd     "../pkg/win/clang64/harbour-${HB_VF}-win-clang64" && cp -f -p -R ./* "${HB_ABSROOT}" )
+  fi
 fi
 
 for dir in \
@@ -206,6 +220,8 @@ for _cpu in '' '64'; do
   for files in \
     "${HB_ABSROOT}lib/win/mingw${_cpu}/*-*.*" \
     "${HB_ABSROOT}lib/win/mingw${_cpu}/*_dll*.*" \
+    "${HB_ABSROOT}lib/win/clang${_cpu}/*-*.*" \
+    "${HB_ABSROOT}lib/win/clang${_cpu}/*_dll*.*" \
     "${HB_ABSROOT}lib/win/msvc${_cpu}/*.lib"; do
     # shellcheck disable=SC2086
     if ls ${files} > /dev/null 2>&1; then
@@ -229,12 +245,14 @@ if [ "${_HB_BUNDLE_3RDLIB}" = 'yes' ]; then
     dir_64=$(echo "${dir_64}" | sed 's|\\|/|g')
     for file in ${dir_32}lib/*.a; do
       if [ -f "${file}" ] && echo "${file}" | grep -q -v 'dll'; then
-        cp -f -p "${file}" "${HB_ABSROOT}lib/win/mingw/"
+        [ -d "${HB_ABSROOT}lib/win/mingw/" ] && cp -f -p "${file}" "${HB_ABSROOT}lib/win/mingw/"
+        [ -d "${HB_ABSROOT}lib/win/clang/" ] && cp -f -p "${file}" "${HB_ABSROOT}lib/win/clang/"
       fi
     done
     for file in ${dir_64}lib/*.a; do
       if [ -f "${file}" ] && echo "${file}" | grep -q -v 'dll'; then
-        cp -f -p "${file}" "${HB_ABSROOT}lib/win/mingw64/"
+        [ -d "${HB_ABSROOT}lib/win/mingw64/" ] && cp -f -p "${file}" "${HB_ABSROOT}lib/win/mingw64/"
+        [ -d "${HB_ABSROOT}lib/win/clang64/" ] && cp -f -p "${file}" "${HB_ABSROOT}lib/win/clang64/"
       fi
     done
     [ -f "${dir_64}COPYING.txt" ] && cp -f -p "${dir_64}COPYING.txt" "${HB_ABSROOT}LICENSE_${name}.txt"
@@ -316,7 +334,9 @@ chmod -x \
   "${HB_ABSROOT}"bin/*.dll \
   "${HB_ABSROOT}"bin/*.exe \
   "${HB_ABSROOT}"lib/win/mingw/*.a \
-  "${HB_ABSROOT}"lib/win/mingw64/*.a
+  "${HB_ABSROOT}"lib/win/mingw64/*.a \
+  "${HB_ABSROOT}"lib/win/clang/*.a \
+  "${HB_ABSROOT}"lib/win/clang64/*.a
 
 if [ "${os}" = 'win' ]; then
   find "${HB_ABSROOT%/}" -exec attrib +A -R {} \;
