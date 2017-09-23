@@ -57,8 +57,16 @@
 #include "hbwinole.h"
 
 #if ! defined( HB_OS_WIN_CE )
-#include <olectl.h>
+#  if defined( _MSC_VER ) && _MSC_VER >= 1800
+#     pragma warning(push)
+#     pragma warning(disable:4201)  /* warning C4201: nonstandard extension used: nameless struct/union */
+#  endif
+#  include <olectl.h>
+#  if defined( _MSC_VER ) && _MSC_VER >= 1800
+#     pragma warning(pop)
+#  endif
 #endif
+
 #include <commctrl.h>
 #include <commdlg.h>
 #include <shellapi.h>

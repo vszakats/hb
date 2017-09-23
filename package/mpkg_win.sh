@@ -333,7 +333,7 @@ chmod +x \
 chmod -x \
   "${HB_ABSROOT}"bin/*.dll \
   "${HB_ABSROOT}"bin/*.exe \
-  "$(find "${HB_ABSROOT}"lib/win -name '*.a')"
+  $(find "${HB_ABSROOT}"lib/win -name '*.a')
 
 if [ "${os}" = 'win' ]; then
   find "${HB_ABSROOT%/}" -exec attrib +A -R {} \;

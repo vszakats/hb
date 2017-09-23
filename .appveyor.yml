@@ -19,6 +19,8 @@ clone_depth: 10
 clone_folder: C:\w\
 build:
   verbosity: detailed
+cache:
+  - C:\msys64 -> .appveyor.yml
 
 environment:
   GITHUB_TOKEN:
