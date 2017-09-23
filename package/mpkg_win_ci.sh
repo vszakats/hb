@@ -158,6 +158,12 @@ if [ "${_BRANC4}" != 'msvc' ]; then
 # [ "${_BRANCH#*prod*}" != "${_BRANCH}" ] && _HB_USER_CFLAGS="${_HB_USER_CFLAGS} -flto -ffat-lto-objects"
   [ "${HB_BUILD_MODE}" = 'cpp' ] && export HB_USER_LDFLAGS="${HB_USER_LDFLAGS} -static-libstdc++"
 
+  if [ "${_BRANCH#*clang*}" = "${_BRANCH}" ]; then
+    HB_COMP_BASE=mingw
+  else
+    HB_COMP_BASE=clang
+  fi
+
   if [ "${os}" = 'win' ]; then
     readonly _msys_mingw32='/mingw32'
     readonly _msys_mingw64='/mingw64'
@@ -253,7 +259,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
     unset HB_CODESIGN_KEY
   fi
   # shellcheck disable=SC2086
-  ${_bin_make} install ${HB_MKFLAGS} HB_COMPILER=mingw HB_CPU=x86 || exit 1
+  ${_bin_make} install ${HB_MKFLAGS} "HB_COMPILER=${HB_COMP_BASE}" HB_CPU=x86 || exit 1
 
   export HB_WITH_CURL="${HB_DIR_CURL_64}include"
   export HB_WITH_OPENSSL="${HB_DIR_OPENSSL_64}include"
@@ -300,7 +306,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
     unset HB_CODESIGN_KEY
   fi
   # shellcheck disable=SC2086
-  ${_bin_make} install ${HB_MKFLAGS} HB_COMPILER=mingw64 HB_CPU=x86_64 || exit 1
+  ${_bin_make} install ${HB_MKFLAGS} "HB_COMPILER=${HB_COMP_BASE}64" HB_CPU=x86_64 || exit 1
 fi
 
 # msvc
