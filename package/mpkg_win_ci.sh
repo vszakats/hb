@@ -22,7 +22,8 @@ esac
 _BRANCH="${APPVEYOR_REPO_BRANCH}${TRAVIS_BRANCH}${CI_BUILD_REF_NAME}${GIT_BRANCH}"
 [ -n "${_BRANCH}" ] || _BRANCH="$(git symbolic-ref --short --quiet HEAD)"
 [ -n "${_BRANCH}" ] || _BRANCH='master'
-_BRANC4="$(echo "${_BRANCH}" | cut -c -4)"
+[ -n "${HB_TARGET}" ] || HB_TARGET="${_BRANCH}"
+HB_TARGET4="$(echo "${_BRANCH}" | cut -c -4)"
 
 [ -n "${HB_CI_THREADS}" ] || HB_CI_THREADS=4
 
@@ -83,7 +84,7 @@ esac
 if [ "${os}" != 'win' ]; then
 
   # msvc only available on Windows
-  [ "${_BRANC4}" != 'msvc' ] || exit
+  [ "${HB_TARGET4}" != 'msvc' ] || exit
 
   # Create native build for host OS
   make -j "${HB_CI_THREADS}" HB_BUILD_DYN=no HB_BUILD_CONTRIBS=hbdoc
@@ -126,7 +127,7 @@ export _HB_BUILD_PKG_ARCHIVE='no'
 
 # can disable to save time/space
 
-[ "${_BRANC4}" = 'msvc' ] || export _HB_BUNDLE_3RDLIB='yes'
+[ "${HB_TARGET4}" = 'msvc' ] || export _HB_BUNDLE_3RDLIB='yes'
 export HB_INSTALL_3RDDYN='yes'
 export HB_BUILD_CONTRIB_DYN='yes'
 export HB_BUILD_POSTRUN='"./hbmk2 --version" "./hbrun --version" "./hbtest -noenv" "./hbspeed --noenv --stdout"'
@@ -152,13 +153,13 @@ CODESIGN_KEY="$(realpath './package')/vszakats.p12"
 
 # mingw/clang
 
-if [ "${_BRANC4}" != 'msvc' ]; then
+if [ "${HB_TARGET4}" != 'msvc' ]; then
 
   # LTO is broken as of mingw 6.1.0
 # [ "${_BRANCH#*prod*}" != "${_BRANCH}" ] && _HB_USER_CFLAGS="${_HB_USER_CFLAGS} -flto -ffat-lto-objects"
   [ "${HB_BUILD_MODE}" = 'cpp' ] && export HB_USER_LDFLAGS="${HB_USER_LDFLAGS} -static-libstdc++"
 
-  if [ "${_BRANCH#*clang*}" = "${_BRANCH}" ]; then
+  if [ "${HB_TARGET#*clang*}" = "${HB_TARGET}" ]; then
     HB_COMP_BASE=mingw
     HB_COMP_TOOL=gcc
   else
@@ -313,7 +314,7 @@ fi
 
 # msvc
 
-if [ "${_BRANC4}" = 'msvc' ]; then
+if [ "${HB_TARGET4}" = 'msvc' ]; then
 
   export PATH="${_ori_path}"
 
@@ -326,13 +327,13 @@ if [ "${_BRANC4}" = 'msvc' ]; then
 
 # export _HB_MSVC_ANALYZE='yes'
 
-  [ "${_BRANCH}" = 'msvc2008' ] && _VCVARSALL=' 9.0\VC'
-  [ "${_BRANCH}" = 'msvc2010' ] && _VCVARSALL=' 10.0\VC'
-  [ "${_BRANCH}" = 'msvc2012' ] && _VCVARSALL=' 11.0\VC'
-  [ "${_BRANCH}" = 'msvc2013' ] && _VCVARSALL=' 12.0\VC'
-  [ "${_BRANCH}" = 'msvc2015' ] && _VCVARSALL=' 14.0\VC'
+  [ "${HB_TARGET}" = 'msvc2008' ] && _VCVARSALL=' 9.0\VC'
+  [ "${HB_TARGET}" = 'msvc2010' ] && _VCVARSALL=' 10.0\VC'
+  [ "${HB_TARGET}" = 'msvc2012' ] && _VCVARSALL=' 11.0\VC'
+  [ "${HB_TARGET}" = 'msvc2013' ] && _VCVARSALL=' 12.0\VC'
+  [ "${HB_TARGET}" = 'msvc2015' ] && _VCVARSALL=' 14.0\VC'
   # Assume '\<YEAR>\Community\VC\Auxiliary\Build' for anything newer:
-  [ -z "${_VCVARSALL}" ] && _VCVARSALL="\\$(echo "${_BRANCH}" | cut -c 5-8)\Community\VC\Auxiliary\Build"
+  [ -z "${_VCVARSALL}" ] && _VCVARSALL="\\$(echo "${HB_TARGET}" | cut -c 5-8)\Community\VC\Auxiliary\Build"
 
   export _VCVARSALL="%ProgramFiles(x86)%\Microsoft Visual Studio${_VCVARSALL}\vcvarsall.bat"
 
@@ -346,8 +347,8 @@ EOF
   fi
 
   # 64-bit target not supported by these MSVC versions
-  [ "${_BRANCH}" = 'msvc2008' ] && _VCVARSALL=
-  [ "${_BRANCH}" = 'msvc2010' ] && _VCVARSALL=
+  [ "${HB_TARGET}" = 'msvc2008' ] && _VCVARSALL=
+  [ "${HB_TARGET}" = 'msvc2010' ] && _VCVARSALL=
 
   if [ -n "${_VCVARSALL}" ]; then
     cat << EOF > _make.bat
@@ -361,8 +362,11 @@ fi
 
 # packaging
 
-[ "${_BRANC4}" = 'msvc' ] || "$(dirname "$0")/mpkg_win.sh"
+[ "${HB_TARGET4}" = 'msvc' ] || "$(dirname "$0")/mpkg_win.sh"
 
 # documentation
 
-"$(dirname "$0")/upd_doc.sh" "${_BRANCH}"
+if [ "${_BRANCH#*master*}" != "${_BRANCH}" ] && \
+   [ "${HB_TARGET}" = "${HB_TARGET_DISTR}" ]; then
+  "$(dirname "$0")/upd_doc.sh"
+fi

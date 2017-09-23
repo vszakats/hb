@@ -19,8 +19,6 @@ clone_depth: 10
 clone_folder: C:\w\
 build:
   verbosity: detailed
-cache:
-  - C:\msys64 -> .appveyor.yml
 
 environment:
   GITHUB_TOKEN:
@@ -38,9 +36,13 @@ environment:
   HB_CODESIGN_KEY_PASS:
     secure: gI5Z9engdQmJel5UEuxRTsdRSvXSmixs5IGgMbTjxBxYYat+bCXE139J4Uz84F+D
   matrix:
-    - APPVEYOR_REPO_BRANCH: test-clang
-    - APPVEYOR_REPO_BRANCH: master
-    - APPVEYOR_REPO_BRANCH: msvc2017
+    - HB_TARGET: clang
+    - HB_TARGET: mingw
+    - HB_TARGET: msvc2017
+  HB_TARGET_DISTR: mingw
+matrix:
+  allow_failures:
+    - HB_TARGET: msvc2017
 
 #init:
 #  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
@@ -52,8 +54,8 @@ build_script:
   - set HB_CI_THREADS=4
   - set MSYS2_FC_CACHE_SKIP=yes
   - pacman --noconfirm --noprogressbar -S --needed mc
-  - pacman --noconfirm --noprogressbar -S -yu -u
-  - pacman --noconfirm --noprogressbar -S -yu -u
+  - if not "%HB_TARGET:~0,4%" == "msvc" pacman --noconfirm --noprogressbar -S -yu -u
+  - if not "%HB_TARGET:~0,4%" == "msvc" pacman --noconfirm --noprogressbar -S -yu -u
   - sh -c ./package/mpkg_win_ci.sh
 
 artifacts:

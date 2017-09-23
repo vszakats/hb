@@ -19,42 +19,43 @@ esac
 _BRANCH="${APPVEYOR_REPO_BRANCH}${TRAVIS_BRANCH}${CI_BUILD_REF_NAME}${GIT_BRANCH}"
 [ -n "${_BRANCH}" ] || _BRANCH="$(git symbolic-ref --short --quiet HEAD)"
 [ -n "${_BRANCH}" ] || _BRANCH='master'
-_BRANC4="$(echo "${_BRANCH}" | cut -c -4)"
+[ -n "${HB_TARGET}" ] || HB_TARGET="${_BRANCH}"
+HB_TARGET4="$(echo "${_BRANCH}" | cut -c -4)"
 
 # Update/install MSYS2 pacman packages to fulfill dependencies
 
 if [ "${os}" = 'win' ]; then
-
-  # clang toolchain
-  if [ "${_BRANCH#*clang*}" != "${_BRANCH}" ]; then
-    pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-clang
-  fi
-
-  # Dependencies of the default (full) list of contribs
-  if [ "${_BRANCH#*prod*}" = "${_BRANCH}" ]; then
-    pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{cairo,freeimage,gd,ghostscript,libmariadbclient,libyaml,postgresql,rabbitmq-c}
-  # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-qt5
-  fi
-
-  # Skip using this component for test purposes for now in favour of creating
-  # more practical/usable snapshot binaries.
-  # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-icu
-
-  # Dependencies of 'prod' builds (our own builds are used instead for now)
-  # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{curl,openssl}
-
-  # Dependencies of 'prod' builds (vendored sources are used instead for now)
-  # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{bzip2,expat,libharu,lzo2,sqlite3}
-
-  # Core dependencies (vendored sources are used instead for now)
-  # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{libpng,pcre2,pcre,zlib}
-
-  if [ "${_BRANC4}" = 'msvc' ] && false; then
+  if [ "${HB_TARGET4}" = 'msvc' ]; then
     # Experimental, untested, requires 2015 Update 3 or upper
     # bzip2 cairo expat freeimage icu libmariadb libpng libpq libssh2 lzo pcre pcre2 qt5 sqlite3 zlib
-    vcpkg install --no-sendmetrics \
-      curl curl:x64-windows openssl openssl:x64-windows
-    vcpkg integrate install
+
+    #vcpkg install --no-sendmetrics \
+    #  curl curl:x64-windows openssl openssl:x64-windows
+    #vcpkg integrate install
+  else
+    # clang toolchain
+    if [ "${HB_TARGET#*clang*}" != "${HB_TARGET}" ]; then
+      pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-clang
+    fi
+
+    # Dependencies of the default (full) list of contribs
+    if [ "${_BRANCH#*prod*}" = "${_BRANCH}" ]; then
+      pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{cairo,freeimage,gd,ghostscript,libmariadbclient,libyaml,postgresql,rabbitmq-c}
+    # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-qt5
+    fi
+
+    # Skip using this component for test purposes for now in favour of creating
+    # more practical/usable snapshot binaries.
+    # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-icu
+
+    # Dependencies of 'prod' builds (our own builds are used instead for now)
+    # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{curl,openssl}
+
+    # Dependencies of 'prod' builds (vendored sources are used instead for now)
+    # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{bzip2,expat,libharu,lzo2,sqlite3}
+
+    # Core dependencies (vendored sources are used instead for now)
+    # pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-{libpng,pcre2,pcre,zlib}
   fi
 fi
 
@@ -86,7 +87,7 @@ if [ "${os}" = 'win' ]; then
 (
   set -x
 
-  if [ "${_BRANCH#*mingwext*}" != "${_BRANCH}" ]; then
+  if [ "${HB_TARGET#*mingwext*}" != "${HB_TARGET}" ]; then
     curl -o pack.bin -L --proto-redir =https "https://downloads.sourceforge.net/mingw-w64/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/7.1.0/threads-posix/sjlj/x86_64-7.1.0-release-posix-sjlj-rt_v5-rev0.7z"
     openssl dgst -sha256 pack.bin | grep -q a117ec6126c9cc31e89498441d66af3daef59439c36686e80cebf29786e17c13
     7z x -y pack.bin > /dev/null
@@ -96,7 +97,7 @@ fi
 
 # Dependencies for Windows builds
 
-if [ "${_BRANC4}" != 'msvc' ]; then
+if [ "${HB_TARGET4}" != 'msvc' ]; then
 
   # Bintray public key
   gpg_recv_keys 8756C4F765C9AC3CB6B85D62379CE192D401AB61

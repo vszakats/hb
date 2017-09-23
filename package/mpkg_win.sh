@@ -24,9 +24,6 @@ case "$(uname)" in
   *BSD)    readonly os='bsd';;
 esac
 
-echo "! Self: $0"
-echo "! Host OS: ${os}"
-
 . ./mpkg_ver.sh
 hb_vershrt=$(hb_get_ver_majorminor)
 hb_verfull=$(hb_get_ver)
@@ -53,11 +50,12 @@ HB_ABSROOT="${HB_RT}/${HB_DR}"
 _BRANCH="${APPVEYOR_REPO_BRANCH}${TRAVIS_BRANCH}${CI_BUILD_REF_NAME}${GIT_BRANCH}"
 [ -n "${_BRANCH}" ] || _BRANCH="$(git symbolic-ref --short --quiet HEAD)"
 [ -n "${_BRANCH}" ] || _BRANCH='master'
+[ -n "${HB_TARGET}" ] || HB_TARGET="${_BRANCH}"
 
 _SCRIPT="$(realpath 'mpkg.hb')"
 _ROOT="$(realpath '..')"
 
-echo "! Branch: '${_BRANCH}'"
+echo "! Self: $0  Host OS: '${os}'  Branch: '${_BRANCH}'  Target: '${HB_TARGET}'"
 
 case "${os}" in
   win)
@@ -395,6 +393,7 @@ cd - || exit
 (
   set +x
   if [ "${_BRANCH#*prod*}" != "${_BRANCH}" ] && \
+     [ "${HB_TARGET}" = "${HB_TARGET_DISTR}" ] && \
      [ -n "${PUSHOVER_USER}" ] && \
      [ -n "${PUSHOVER_TOKEN}" ]; then
     # https://pushover.net/api
@@ -402,7 +401,7 @@ cd - || exit
       --form-string "user=${PUSHOVER_USER}" \
       --form-string "token=${PUSHOVER_TOKEN}" \
       --form-string "title=${GITHUB_SLUG}" \
-      --form-string "message=Build ready: ${_BRANCH}" \
+      --form-string "message=Build ready: ${_BRANCH} (${HB_TARGET})" \
       --form-string 'html=1' \
       --form-string 'priority=1' \
       https://api.pushover.net/1/messages.json
@@ -410,7 +409,7 @@ cd - || exit
     echo "! Push notification: Build ready."
   fi
 
-  if [ "${_BRANCH#*master*}" != "${_BRANCH}" ] && \
+  if [ "${HB_TARGET}" = "${HB_TARGET_DISTR}" ] && \
      [ -n "${GITHUB_TOKEN}" ]; then
 
     # Create tag update JSON request

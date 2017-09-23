@@ -16,8 +16,6 @@
 
 cd "$(dirname "$0")/.." || exit
 
-_BRANCH="$1"
-
 # Test strings:
 #   + doc/en/file.txt
 #   + contrib/name/doc/pt_PR/file.txt
@@ -94,8 +92,7 @@ if git diff-index --name-only HEAD~1 \
 
   # Update origin
 
-  if [ "${_BRANCH#*master*}" != "${_BRANCH}" ] && \
-     [ -n "${GITHUB_TOKEN}${GITHUB_DEPLOY_HB_DOC_PASS}" ]; then
+  if [ -n "${GITHUB_TOKEN}${GITHUB_DEPLOY_HB_DOC_PASS}" ]; then
   (
     cd "${hbdoc_fmt}" || exit
 
