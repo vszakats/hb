@@ -30,7 +30,7 @@ ${hb_prefix}/package/harbour.hbc{hbdyn}
 {win&allmingw&hb_comp_ver>'0407'}-ldflag=-static-libgcc
 {win&allmingw&hb_comp_ver>'0407'}-dflag=-static-libgcc
 #{win&allmingw&hb_comp_ver>'0407'&lngcpp}-ldflag=-static-libstdc++
-#{win&allmingw&hb_comp_ver>'0401'}-cflag=-Wstrict-overflow=4
+#{win&((allmingw&hb_comp_ver>'0401')|allclang)}-cflag=-Wstrict-overflow=4
 {((linux|darwin)&gcc)|(!win&clang)}-cflag=-D_FORTIFY_SOURCE=2
 {(linux|darwin)&((gcc&hb_comp_ver>'0408')|(clang&hb_comp_ver>'0304'))}-cflag=-fstack-protector-strong
 
@@ -63,8 +63,8 @@ ${hb_prefix}/package/harbour.hbc{hbdyn}
 "{hbdyn&android}-dflag=-Wl,-soname,${hb_dynprefix}${hb_outputname}${hb_dynext} -Wl,--no-undefined -Wl,-z,noexecstack"
 "{hbdyn&linux&!android}-dflag=-Wl,-soname,${hb_dynprefix}${hb_outputname}${hb_dynext}.${hb_major}.${hb_minor}"
 "{hbdyn&sunos}-dflag=-Wl,-h,${hb_dynprefix}${hb_outputname}${hb_dynext}.${hb_major}.${hb_minor}"
-"{hbdyn&win&allmingw}-dflag=-Wl,--major-image-version,${hb_major}"
-"{hbdyn&win&allmingw}-dflag=-Wl,--minor-image-version,${hb_minor}"
+"{hbdyn&win&(allmingw|allclang)}-dflag=-Wl,--major-image-version,${hb_major}"
+"{hbdyn&win&(allmingw|allclang)}-dflag=-Wl,--minor-image-version,${hb_minor}"
 
 # output name tweaks for dynamic libs
 # NOTE: We're altering previously set output name value here

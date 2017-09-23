@@ -535,7 +535,14 @@
    #define HB_EXTERN_END
 #endif
 
-#if defined( __GNUC__ )
+#define HB_PP_VALTOSTR( x )    #x
+#define HB_PP_VAL( x )         HB_PP_VALTOSTR( x )
+#define HB_PP_VALDEBUG( var )  #var "=" HB_PP_VAL( var )
+
+#if defined( __clang__ )
+   #define HB_GCC_HAS_DIAG
+   #define HB_GCC_VER  0
+#elif defined( __GNUC__ )
    #define HB_GCC_VER  ( ( ( __GNUC__ - 0 ) * 100 ) + ( __GNUC_MINOR__ - 0 ) )
 #  if HB_GCC_VER >= 406
       #define HB_GCC_HAS_DIAG
