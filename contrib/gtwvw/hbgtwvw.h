@@ -64,12 +64,12 @@
 #include "hbwapi.h"
 #include "hbwinole.h"
 
-#if defined( _MSC_VER ) && _MSC_VER >= 1800
+#if defined( _MSC_VER )
 #  pragma warning(push)
 #  pragma warning(disable:4201)  /* warning C4201: nonstandard extension used: nameless struct/union */
 #endif
 #include <olectl.h>
-#if defined( _MSC_VER ) && _MSC_VER >= 1800
+#if defined( _MSC_VER )
 #  pragma warning(pop)
 #endif
 
