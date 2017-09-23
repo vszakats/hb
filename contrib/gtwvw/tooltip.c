@@ -114,7 +114,7 @@ HB_FUNC( WVW_SETTOOLTIP )
          iBottom = xy.y - 1;
          iRight  = xy.x - 1;
 
-         ti.lpszText    = ( LPTSTR ) HB_PARSTRDEF( 6, &hText, NULL );  /* FIXME: drops const */
+         ti.lpszText    = ( LPTSTR ) HB_UNCONST( HB_PARSTRDEF( 6, &hText, NULL ) );
          ti.rect.left   = iLeft;
          ti.rect.top    = iTop;
          ti.rect.right  = iRight;
@@ -144,7 +144,7 @@ HB_FUNC( WVW_SETTOOLTIPTEXT )
       if( SendMessage( wvw_win->hWndTT, TTM_GETTOOLINFO, 0, ( LPARAM ) &ti ) )
       {
          void * hText;
-         ti.lpszText = ( LPTSTR ) HB_PARSTRDEF( 2, &hText, NULL );  /* FIXME: drops const */
+         ti.lpszText = ( LPTSTR ) HB_UNCONST( HB_PARSTRDEF( 2, &hText, NULL ) );
          SendMessage( wvw_win->hWndTT, TTM_UPDATETIPTEXT, 0, ( LPARAM ) &ti );
          hb_strfree( hText );
       }

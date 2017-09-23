@@ -108,7 +108,14 @@ typedef struct _HB_SSL
       Consequently 'hbrun' will fail with operations that require
       C RTL calls internally. Such calls are currently made when
       using BIO_new_fd() BIO_new_file() IO API. */
+   #if defined( HB_GCC_HAS_DIAG ) && defined( __clang__ )
+      #pragma GCC diagnostic push
+      #pragma GCC diagnostic ignored "-Wpedantic"
+   #endif
    #include "openssl/applink.c"
+   #if defined( HB_GCC_HAS_DIAG ) && defined( __clang__ )
+      #pragma GCC diagnostic pop
+   #endif
    #if defined( HB_OPENSSL_STATIC ) && \
        OPENSSL_VERSION_NUMBER <= 0x1000206fL /* 1.0.2f or lower */
       extern void * OPENSSL_UplinkTable[];  /* available when OpenSSL was built with -DOPENSSL_USE_APPLINK option */

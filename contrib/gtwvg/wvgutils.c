@@ -200,7 +200,7 @@ HB_FUNC( WVT_SETTOOLTIP )
             iBottom = xy.y - 1;
             iRight  = xy.x - 1;
 
-            ti.lpszText    = ( LPTSTR ) HB_PARSTR( 5, &hText, NULL );
+            ti.lpszText    = ( LPTSTR ) HB_UNCONST( HB_PARSTR( 5, &hText, NULL ) );
             ti.rect.left   = iLeft;
             ti.rect.top    = iTop;
             ti.rect.right  = iRight;
@@ -231,7 +231,7 @@ HB_FUNC( WVT_SETTOOLTIPTEXT )
       if( SendMessage( _s->hWndTT, TTM_GETTOOLINFO, 0, ( LPARAM ) &ti ) )
       {
          void * hText;
-         ti.lpszText = ( LPTSTR ) HB_PARSTR( 1, &hText, NULL );
+         ti.lpszText = ( LPTSTR ) HB_UNCONST( HB_PARSTR( 1, &hText, NULL ) );
          SendMessage( _s->hWndTT, TTM_UPDATETIPTEXT, 0, ( LPARAM ) &ti );
          hb_strfree( hText );
       }
@@ -915,7 +915,7 @@ HB_FUNC( WVT_CREATEDIALOGDYNAMIC )
          if( hbwapi_is_HANDLE( 3 ) )
             /* argument 1 is already unicode compliant, so no conversion */
             hDlg = CreateDialogIndirect( GetModuleHandle( NULL ),
-                                         ( LPDLGTEMPLATE ) hb_parc( 1 ),
+                                         ( LPCDLGTEMPLATE ) hb_parc( 1 ),
                                          hb_parl( 2 ) ? _s->hWnd : NULL,
                                          hbwapi_par_raw_DLGPROC( 3 ) );
          else

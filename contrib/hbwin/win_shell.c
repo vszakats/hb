@@ -223,11 +223,14 @@ HB_FUNC( WIN_SHFILEOPERATION )
 
    void * hProgressTitle;
 
+   LPTSTR pFrom = s_StringList( 3 );
+   LPTSTR pTo   = s_StringList( 4 );
+
    memset( &fop, 0, sizeof( fop ) );
    fop.hwnd                  = hbwapi_par_raw_HWND( 1 );
    fop.wFunc                 = hbwapi_par_UINT( 2 );
-   fop.pFrom                 = ( LPCTSTR ) s_StringList( 3 );
-   fop.pTo                   = ( LPCTSTR ) s_StringList( 4 );
+   fop.pFrom                 = ( LPCTSTR ) pFrom;
+   fop.pTo                   = ( LPCTSTR ) pTo;
    fop.fFlags                = ( FILEOP_FLAGS ) hb_parnl( 5 );
    fop.fAnyOperationsAborted = FALSE;
    fop.hNameMappings         = NULL;
@@ -238,11 +241,11 @@ HB_FUNC( WIN_SHFILEOPERATION )
 
    hb_storl( fop.fAnyOperationsAborted, 6 );
 
-   if( fop.pFrom )
-      hb_xfree( ( void * ) fop.pFrom );
+   if( pFrom )
+      hb_xfree( pFrom );
 
-   if( fop.pTo )
-      hb_xfree( ( void * ) fop.pTo );
+   if( pTo )
+      hb_xfree( pTo );
 
    hb_strfree( hProgressTitle );
 

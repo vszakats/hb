@@ -54,7 +54,16 @@
 typedef int my_socket;
 #endif
 
+#if defined( HB_GCC_HAS_DIAG ) && defined( __clang__ )
+   #pragma GCC diagnostic push
+   #pragma GCC diagnostic ignored "-Wignored-attributes"
+#endif
+
 #include "mysql.h"
+
+#if defined( HB_GCC_HAS_DIAG ) && defined( __clang__ )
+   #pragma GCC diagnostic pop
+#endif
 
 #if ! defined( MYSQL_VERSION_ID )
    #if defined( MARIADB_VERSION_ID )

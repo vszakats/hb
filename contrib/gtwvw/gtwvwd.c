@@ -813,6 +813,8 @@ static void hb_gt_wvw_usBox( PHB_GT pGT, PWVW_WIN wvw_win, int iTop, int iLeft, 
 
       while( i < 8 )
          szBoxW[ i++ ] = bPadCh;
+
+      HB_SYMBOL_UNUSED( pGt );
 #endif
 
       szBoxW[ i ] = '\0';

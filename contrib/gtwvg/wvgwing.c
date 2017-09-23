@@ -498,7 +498,7 @@ HB_FUNC( WVG_TREEVIEW_ADDITEM )
 
    HB_WIN_V_UNION( tvis, item.state ) = 0;  /* TVI_BOLD */
    tvis.hParent = hbwapi_par_raw_HTREEITEM( 2 );
-   HB_WIN_V_UNION( tvis, item.pszText ) = ( LPTSTR ) HB_PARSTRDEF( 3, &hText, NULL );
+   HB_WIN_V_UNION( tvis, item.pszText ) = ( LPTSTR ) HB_UNCONST( HB_PARSTRDEF( 3, &hText, NULL ) );
 
    hbwapi_ret_raw_HANDLE( TreeView_InsertItem( hbwapi_par_raw_HWND( 1 ), &tvis ) );
 
@@ -985,7 +985,7 @@ HB_FUNC( WVG_SETTOOLTIPTEXT )
    ti.hwnd     = hbwapi_par_raw_HWND( 1 );
    ti.uFlags   = TTF_IDISHWND | TTF_SUBCLASS;
    ti.uId      = ( UINT_PTR ) ti.hwnd;
-   ti.lpszText = ( LPTSTR ) HB_PARSTRDEF( 3, &hText, NULL );
+   ti.lpszText = ( LPTSTR ) HB_UNCONST( HB_PARSTRDEF( 3, &hText, NULL ) );
 
    SendMessage( hbwapi_par_raw_HWND( 2 ), TTM_SETTOOLINFO, 0, ( LPARAM ) &ti );
 

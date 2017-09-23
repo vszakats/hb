@@ -178,7 +178,7 @@ HB_FUNC( WVG_SETMENUITEM )
    if( hb_parl( 5 ) )
    {
       lpmii.fMask = MIIM_STRING;
-      lpmii.dwTypeData = ( LPTSTR ) HB_PARSTR( 4, &hText, NULL );
+      lpmii.dwTypeData = ( LPTSTR ) HB_UNCONST( HB_PARSTR( 4, &hText, NULL ) );
    }
    else
       lpmii.fMask = MIIM_SUBMENU;
