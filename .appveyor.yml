@@ -35,6 +35,10 @@ environment:
     secure: lOea8Uey+GRt36n5eNjICxD7AlzmxAgQ/V+/DG1yuD5jNJtSFPbfBQOei7VgZPXB
   HB_CODESIGN_KEY_PASS:
     secure: gI5Z9engdQmJel5UEuxRTsdRSvXSmixs5IGgMbTjxBxYYat+bCXE139J4Uz84F+D
+  matrix:
+    - APPVEYOR_REPO_BRANCH: master
+    - APPVEYOR_REPO_BRANCH: test-clang
+    - APPVEYOR_REPO_BRANCH: msvc2017
 
 #init:
 #  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))

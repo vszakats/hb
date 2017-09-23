@@ -116,8 +116,8 @@ fi
 if [ "${_lib_target}" = '32' ]; then
   if ls      "../pkg/win/mingw64/harbour-${HB_VF}-win-mingw64/bin/"*.dll > /dev/null 2>&1; then
     cp -f -p "../pkg/win/mingw64/harbour-${HB_VF}-win-mingw64/bin/"*.dll "${HB_ABSROOT}bin/"
-  elif ls    "../pkg/win/mingw64/harbour-${HB_VF}-win-clang64/bin/"*.dll > /dev/null 2>&1; then
-    cp -f -p "../pkg/win/mingw64/harbour-${HB_VF}-win-clang64/bin/"*.dll "${HB_ABSROOT}bin/"
+  elif ls    "../pkg/win/clang64/harbour-${HB_VF}-win-clang64/bin/"*.dll > /dev/null 2>&1; then
+    cp -f -p "../pkg/win/clang64/harbour-${HB_VF}-win-clang64/bin/"*.dll "${HB_ABSROOT}bin/"
   fi
   if [ -d    "../pkg/win/mingw/harbour-${HB_VF}-win-mingw" ]; then
     ( cd     "../pkg/win/mingw/harbour-${HB_VF}-win-mingw" && cp -f -p -R ./* "${HB_ABSROOT}" )
@@ -127,8 +127,8 @@ if [ "${_lib_target}" = '32' ]; then
 elif [ "${_lib_target}" = '64' ]; then
   if ls      "../pkg/win/mingw/harbour-${HB_VF}-win-mingw/bin/"*.dll > /dev/null 2>&1; then
     cp -f -p "../pkg/win/mingw/harbour-${HB_VF}-win-mingw/bin/"*.dll "${HB_ABSROOT}bin/"
-  elif ls    "../pkg/win/mingw/harbour-${HB_VF}-win-clang/bin/"*.dll > /dev/null 2>&1; then
-    cp -f -p "../pkg/win/mingw/harbour-${HB_VF}-win-clang/bin/"*.dll "${HB_ABSROOT}bin/"
+  elif ls    "../pkg/win/clang/harbour-${HB_VF}-win-clang/bin/"*.dll > /dev/null 2>&1; then
+    cp -f -p "../pkg/win/clang/harbour-${HB_VF}-win-clang/bin/"*.dll "${HB_ABSROOT}bin/"
   fi
   if [ -d    "../pkg/win/mingw64/harbour-${HB_VF}-win-mingw64" ]; then
     ( cd     "../pkg/win/mingw64/harbour-${HB_VF}-win-mingw64" && cp -f -p -R ./* "${HB_ABSROOT}" )
@@ -333,10 +333,7 @@ chmod +x \
 chmod -x \
   "${HB_ABSROOT}"bin/*.dll \
   "${HB_ABSROOT}"bin/*.exe \
-  "${HB_ABSROOT}"lib/win/mingw/*.a \
-  "${HB_ABSROOT}"lib/win/mingw64/*.a \
-  "${HB_ABSROOT}"lib/win/clang/*.a \
-  "${HB_ABSROOT}"lib/win/clang64/*.a
+  "$(find "${HB_ABSROOT}"lib/win -name '*.a')"
 
 if [ "${os}" = 'win' ]; then
   find "${HB_ABSROOT%/}" -exec attrib +A -R {} \;

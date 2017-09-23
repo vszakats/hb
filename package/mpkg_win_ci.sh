@@ -150,7 +150,7 @@ CODESIGN_KEY="$(realpath './package')/vszakats.p12"
 )
 [ -f "${CODESIGN_KEY}" ] || unset CODESIGN_KEY
 
-# mingw
+# mingw/clang
 
 if [ "${_BRANC4}" != 'msvc' ]; then
 
@@ -160,8 +160,10 @@ if [ "${_BRANC4}" != 'msvc' ]; then
 
   if [ "${_BRANCH#*clang*}" = "${_BRANCH}" ]; then
     HB_COMP_BASE=mingw
+    HB_COMP_TOOL=gcc
   else
     HB_COMP_BASE=clang
+    HB_COMP_TOOL=clang
   fi
 
   if [ "${os}" = 'win' ]; then
@@ -172,13 +174,13 @@ if [ "${_BRANC4}" != 'msvc' ]; then
     if [ -d "${HB_DIR_MINGW_64}" ]; then
       # Use the same toolchain for both targets
       export HB_DIR_MINGW_32="${HB_DIR_MINGW_64}"
-      _build_info_32='BUILD-mingw.txt'
+      _build_info_32="BUILD-${HB_COMP_BASE}.txt"
       _build_info_64=/dev/null
     else
       export HB_DIR_MINGW_32="${_msys_mingw32}/bin/"
       export HB_DIR_MINGW_64="${_msys_mingw64}/bin/"
-      _build_info_32='BUILD-mingw32.txt'
-      _build_info_64='BUILD-mingw64.txt'
+      _build_info_32="BUILD-${HB_COMP_BASE}32.txt"
+      _build_info_64="BUILD-${HB_COMP_BASE}64.txt"
     fi
     export HB_PFX_MINGW_32=
     export HB_PFX_MINGW_64=
@@ -191,10 +193,10 @@ if [ "${_BRANC4}" != 'msvc' ]; then
     export HB_PFX_MINGW_64='x86_64-w64-mingw32-'
     export HB_DIR_MINGW_32=
     export HB_DIR_MINGW_64=
-    HB_DIR_MINGW_32="$(dirname "$(which ${HB_PFX_MINGW_32}gcc)")"/
-    HB_DIR_MINGW_64="$(dirname "$(which ${HB_PFX_MINGW_64}gcc)")"/
-    _build_info_32='BUILD-mingw32.txt'
-    _build_info_64='BUILD-mingw64.txt'
+    HB_DIR_MINGW_32="$(dirname "$(which ${HB_PFX_MINGW_32}${HB_COMP_TOOL})")"/
+    HB_DIR_MINGW_64="$(dirname "$(which ${HB_PFX_MINGW_64}${HB_COMP_TOOL})")"/
+    _build_info_32="BUILD-${HB_COMP_BASE}32.txt"
+    _build_info_64="BUILD-${HB_COMP_BASE}64.txt"
     _bin_make='make'
 
     export HB_BUILD_3RDEXT='no'
@@ -252,7 +254,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
   export HB_CCPREFIX="${HB_PFX_MINGW_32}"
   [ "${HB_BUILD_MODE}" != 'cpp' ] && export HB_USER_CFLAGS="${HB_USER_CFLAGS} -fno-asynchronous-unwind-tables"
   [ "${os}" = 'win' ] && export PATH="${HB_DIR_MINGW_32}:${_ori_path}"
-  ${HB_CCPREFIX}gcc -v 2>&1 | tee "${_build_info_32}"
+  ${HB_CCPREFIX}${HB_COMP_TOOL} -v 2>&1 | tee "${_build_info_32}"
   if which osslsigncode > /dev/null 2>&1; then
     export HB_CODESIGN_KEY="${CODESIGN_KEY}"
   else
@@ -299,7 +301,7 @@ if [ "${_BRANC4}" != 'msvc' ]; then
   [ -n "${_libdir}" ] && export HB_BUILD_LIBPATH="${_libdir}"
   export HB_CCPREFIX="${HB_PFX_MINGW_64}"
   [ "${os}" = 'win' ] && export PATH="${HB_DIR_MINGW_64}:${_ori_path}"
-  ${HB_CCPREFIX}gcc -v 2>&1 | tee "${_build_info_64}"
+  ${HB_CCPREFIX}${HB_COMP_TOOL} -v 2>&1 | tee "${_build_info_64}"
   if which osslsigncode > /dev/null 2>&1; then
     export HB_CODESIGN_KEY="${CODESIGN_KEY}"
   else
@@ -329,7 +331,7 @@ if [ "${_BRANC4}" = 'msvc' ]; then
   [ "${_BRANCH}" = 'msvc2012' ] && _VCVARSALL=' 11.0\VC'
   [ "${_BRANCH}" = 'msvc2013' ] && _VCVARSALL=' 12.0\VC'
   [ "${_BRANCH}" = 'msvc2015' ] && _VCVARSALL=' 14.0\VC'
-  # Assume '\<YYYY>\Community\VC\Auxiliary\Build' for anything newer:
+  # Assume '\<YEAR>\Community\VC\Auxiliary\Build' for anything newer:
   [ -z "${_VCVARSALL}" ] && _VCVARSALL="\\$(echo "${_BRANCH}" | cut -c 5-8)\Community\VC\Auxiliary\Build"
 
   export _VCVARSALL="%ProgramFiles(x86)%\Microsoft Visual Studio${_VCVARSALL}\vcvarsall.bat"
