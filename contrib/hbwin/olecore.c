@@ -2208,7 +2208,7 @@ HB_FUNC( WIN_OLEAUTO___ONERROR )
    const char * szMethod;
    wchar_t      szMethodWide[ HB_SYMBOL_NAME_LEN + 1 ];
    OLECHAR *    pMemberArray;
-   DISPID       dispid;
+   DISPID       dispid = 0;
    DISPPARAMS   dispparam;
    VARIANTARG   variant;
    EXCEPINFO    excep;

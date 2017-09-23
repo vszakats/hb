@@ -107,33 +107,35 @@ mkdir -p "${HB_ABSROOT}bin/"
 
 # Copy these first to let 3rd party .dlls with overlapping names be
 # overwritten by selected native target's binaries.
-if ls      ../pkg/wce/mingwarm/harbour-${HB_VF}-wce-mingwarm/bin/*.dll > /dev/null 2>&1; then
-  cp -f -p ../pkg/wce/mingwarm/harbour-${HB_VF}-wce-mingwarm/bin/*.dll "${HB_ABSROOT}bin/"
+if ls      "../pkg/wce/mingwarm/harbour-${HB_VF}-wce-mingwarm/bin/"*.dll > /dev/null 2>&1; then
+  cp -f -p "../pkg/wce/mingwarm/harbour-${HB_VF}-wce-mingwarm/bin/"*.dll "${HB_ABSROOT}bin/"
 fi
 
 if [ "${_lib_target}" = '32' ]; then
-  if ls      ../pkg/win/mingw64/harbour-${HB_VF}-win-mingw64/bin/*.dll > /dev/null 2>&1; then
-    cp -f -p ../pkg/win/mingw64/harbour-${HB_VF}-win-mingw64/bin/*.dll "${HB_ABSROOT}bin/"
+  if ls      "../pkg/win/mingw64/harbour-${HB_VF}-win-mingw64/bin/"*.dll > /dev/null 2>&1; then
+    cp -f -p "../pkg/win/mingw64/harbour-${HB_VF}-win-mingw64/bin/"*.dll "${HB_ABSROOT}bin/"
   fi
   ( cd "../pkg/win/mingw/harbour-${HB_VF}-win-mingw" && cp -f -p -R ./* "${HB_ABSROOT}" )
 elif [ "${_lib_target}" = '64' ]; then
-  if ls      ../pkg/win/mingw/harbour-${HB_VF}-win-mingw/bin/*.dll > /dev/null 2>&1; then
-    cp -f -p ../pkg/win/mingw/harbour-${HB_VF}-win-mingw/bin/*.dll "${HB_ABSROOT}bin/"
+  if ls      "../pkg/win/mingw/harbour-${HB_VF}-win-mingw/bin/"*.dll > /dev/null 2>&1; then
+    cp -f -p "../pkg/win/mingw/harbour-${HB_VF}-win-mingw/bin/"*.dll "${HB_ABSROOT}bin/"
   fi
   ( cd "../pkg/win/mingw64/harbour-${HB_VF}-win-mingw64" && cp -f -p -R ./* "${HB_ABSROOT}" )
 fi
 
 for dir in \
-  "../pkg/dos/watcom/hb${HB_VL}wa" \
-  "../pkg/os2/watcom/harbour-${HB_VF}-os2-watcom" \
-  "../pkg/wce/mingwarm/harbour-${HB_VF}-wce-mingwarm" \
-  "../pkg/win/bcc/harbour-${HB_VF}-win-bcc" \
-  "../pkg/win/bcc64/harbour-${HB_VF}-win-bcc64" \
   "../pkg/win/mingw/harbour-${HB_VF}-win-mingw" \
   "../pkg/win/mingw64/harbour-${HB_VF}-win-mingw64" \
+  "../pkg/wce/mingwarm/harbour-${HB_VF}-wce-mingwarm" \
+  "../pkg/win/clang/harbour-${HB_VF}-win-clang" \
+  "../pkg/win/clang64/harbour-${HB_VF}-win-clang64" \
   "../pkg/win/msvc/harbour-${HB_VF}-win-msvc" \
   "../pkg/win/msvc64/harbour-${HB_VF}-win-msvc64" \
-  "../pkg/win/watcom/harbour-${HB_VF}-win-watcom"; do
+  "../pkg/win/bcc/harbour-${HB_VF}-win-bcc" \
+  "../pkg/win/bcc64/harbour-${HB_VF}-win-bcc64" \
+  "../pkg/win/watcom/harbour-${HB_VF}-win-watcom" \
+  "../pkg/os2/watcom/harbour-${HB_VF}-os2-watcom" \
+  "../pkg/dos/watcom/hb${HB_VL}wa"; do
   if [ -d "${dir}" ]; then
   (
     cd "${dir}" || exit

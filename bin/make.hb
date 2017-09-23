@@ -192,7 +192,7 @@ STATIC PROCEDURE BuildSingle( aParams, hProjectList )
       /* Find out which projects are in current dir, these will be our
          primary targets */
       FOR EACH tmp IN hProjectList
-         IF hb_LeftEq( hb_DirSepToOS( tmp:__enumKey() ) + hb_ps(), hb_FNameNameExt( hb_DirSepDel( hb_cwd() ) ) )  /* Not ultimate solution */
+         IF hb_LeftEq( hb_DirSepToOS( tmp:__enumKey() ) + hb_ps(), hb_FNameNameExt( hb_DirSepDel( hb_cwd() ) ) + hb_ps() )  /* Not ultimate solution */
             hProjectReqList[ tmp:__enumKey() ] := tmp:__enumKey()
          ENDIF
       NEXT
