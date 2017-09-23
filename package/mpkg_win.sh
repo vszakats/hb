@@ -328,6 +328,7 @@ fi
 
 chmod +x \
   "${HB_ABSROOT}"bin/*.hb
+# shellcheck disable=SC2046
 chmod -x \
   "${HB_ABSROOT}"bin/*.dll \
   "${HB_ABSROOT}"bin/*.exe \
