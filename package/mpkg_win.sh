@@ -359,15 +359,17 @@ cd "${HB_RT}" || exit
   echo 'tests/*'
 ) >> "${_ROOT}/_hbfiles"
 
-_pkgdate=
+_pkgsuffix=
 if [ "${_BRANCH#*prod*}" != "${_BRANCH}" ]; then
   case "${os}" in
-    bsd|mac) _pkgdate="$(TZ=UTC stat -f '-%Sm' -t '%Y%m%d-%H%M' "${HB_ABSROOT}README.md")";;
-    *)       _pkgdate="$(       stat -c '%Y' "${HB_ABSROOT}README.md" | TZ=UTC awk '{print "-" strftime("%Y%m%d-%H%M", $1)}')";;
+    bsd|mac) _pkgsuffix="$(TZ=UTC stat -f '-%Sm' -t '%Y%m%d-%H%M' "${HB_ABSROOT}README.md")";;
+    *)       _pkgsuffix="$(       stat -c '%Y' "${HB_ABSROOT}README.md" | TZ=UTC awk '{print "-" strftime("%Y%m%d-%H%M", $1)}')";;
   esac
+elif [ "${HB_TARGET}" != "${HB_TARGET_DISTR}" ]; then
+  _pkgsuffix="-${HB_TARGET}"
 fi
 
-_pkgname="${_ROOT}/harbour-${HB_VF}-win${_pkgdate}.7z"
+_pkgname="${_ROOT}/harbour-${HB_VF}-win${_pkgsuffix}.7z"
 
 rm -f "${_pkgname}"
 (
