@@ -28,7 +28,7 @@ if [ "${os}" = 'win' ]; then
   if [ "${HB_TARGET4}" = 'msvc' ]; then
     # Experimental, untested, requires 2015 Update 3 or upper
     # bzip2 cairo expat freeimage icu libmariadb libpng libpq libssh2 lzo pcre pcre2 qt5 sqlite3 zlib
-
+    vcpkg install --no-sendmetrics expat
     #vcpkg install --no-sendmetrics \
     #  curl curl:x64-windows openssl openssl:x64-windows
     #vcpkg integrate install
