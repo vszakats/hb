@@ -50,12 +50,12 @@ HB_ABSROOT="${HB_RT}/${HB_DR}"
 _BRANCH="${APPVEYOR_REPO_BRANCH}${TRAVIS_BRANCH}${CI_BUILD_REF_NAME}${GIT_BRANCH}"
 [ -n "${_BRANCH}" ] || _BRANCH="$(git symbolic-ref --short --quiet HEAD)"
 [ -n "${_BRANCH}" ] || _BRANCH='master'
-[ -n "${HB_TARGET}" ] || HB_TARGET="${_BRANCH}"
+[ -n "${HB_JOB}" ] || HB_JOB="${_BRANCH}"
 
 _SCRIPT="$(realpath 'mpkg.hb')"
 _ROOT="$(realpath '..')"
 
-echo "! Self: $0  Host OS: '${os}'  Branch: '${_BRANCH}'  Target: '${HB_TARGET}'"
+echo "! Self: $0  Host OS: '${os}'  Branch: '${_BRANCH}'  Job: '${HB_JOB}'"
 
 case "${os}" in
   win)
@@ -365,8 +365,8 @@ if [ "${_BRANCH#*prod*}" != "${_BRANCH}" ]; then
     bsd|mac) _pkgsuffix="$(TZ=UTC stat -f '-%Sm' -t '%Y%m%d-%H%M' "${HB_ABSROOT}README.md")";;
     *)       _pkgsuffix="$(       stat -c '%Y' "${HB_ABSROOT}README.md" | TZ=UTC awk '{print "-" strftime("%Y%m%d-%H%M", $1)}')";;
   esac
-elif [ "${HB_TARGET}" != "${HB_TARGET_DISTR}" ]; then
-  _pkgsuffix="-${HB_TARGET}"
+elif [ "${HB_JOB}" != "${HB_JOB_TO_RELEASE}" ]; then
+  _pkgsuffix="-${HB_JOB}"
 fi
 
 _pkgname="${_ROOT}/harbour-${HB_VF}-win${_pkgsuffix}.7z"
@@ -395,7 +395,7 @@ cd - || exit
 (
   set +x
   if [ "${_BRANCH#*prod*}" != "${_BRANCH}" ] && \
-     [ "${HB_TARGET}" = "${HB_TARGET_DISTR}" ] && \
+     [ "${HB_JOB}" = "${HB_JOB_TO_RELEASE}" ] && \
      [ -n "${PUSHOVER_USER}" ] && \
      [ -n "${PUSHOVER_TOKEN}" ]; then
     # https://pushover.net/api
@@ -403,7 +403,7 @@ cd - || exit
       --form-string "user=${PUSHOVER_USER}" \
       --form-string "token=${PUSHOVER_TOKEN}" \
       --form-string "title=${GITHUB_SLUG}" \
-      --form-string "message=Build ready: ${_BRANCH} (${HB_TARGET})" \
+      --form-string "message=Build ready: ${_BRANCH} / ${HB_JOB}" \
       --form-string 'html=1' \
       --form-string 'priority=1' \
       https://api.pushover.net/1/messages.json
@@ -411,7 +411,7 @@ cd - || exit
     echo "! Push notification: Build ready."
   fi
 
-  if [ "${HB_TARGET}" = "${HB_TARGET_DISTR}" ] && \
+  if [ "${HB_JOB}" = "${HB_JOB_TO_RELEASE}" ] && \
      [ -n "${GITHUB_TOKEN}" ]; then
 
     # Create tag update JSON request
