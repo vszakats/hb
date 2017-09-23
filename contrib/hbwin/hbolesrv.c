@@ -653,7 +653,7 @@ static HRESULT STDMETHODCALLTYPE classLockServer( IClassFactory * lpThis,
    return S_OK;
 }
 
-static const IClassFactoryVtbl IClassFactory_Vtbl = {
+static const IClassFactoryVtbl s_IClassFactory_Vtbl = {
    classQueryInterface,
    classAddRef,
    classRelease,
@@ -775,7 +775,7 @@ BOOL WINAPI DllMain( HINSTANCE hInstance, DWORD dwReason, PVOID pvReserved )
          s_hInstDll = ( HINSTANCE ) hInstance;
          s_lLockCount = s_lObjectCount = 0;
          s_IClassFactoryObj.lpVtbl = ( IClassFactoryVtbl * )
-                                     &IClassFactory_Vtbl;
+                                     HB_UNCONST( &s_IClassFactory_Vtbl );
 
          DisableThreadLibraryCalls( ( HMODULE ) hInstance );
 
@@ -846,7 +846,7 @@ HB_FUNC( WIN_OLESERVERINIT )
          LPCOLESTR lpOleClsId;
 
          lpOleClsId = hb_parstr_u16( 1, HB_CDP_ENDIAN_NATIVE, &hOleClsId, NULL );
-         if( CLSIDFromString( ( LPOLESTR ) lpOleClsId, &s_IID_IHbOleServer ) == S_OK )
+         if( CLSIDFromString( lpOleClsId, &s_IID_IHbOleServer ) == S_OK )
          {
             PHB_ITEM pAction;
 

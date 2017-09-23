@@ -405,7 +405,7 @@ HB_FUNC( WAPI_TABCTRL_INSERTITEM )
 
    item.mask    = TCIF_TEXT | TCIF_IMAGE;
    item.iImage  = hb_parnidef( 4, -1 );
-   item.pszText = ( LPTSTR ) HB_PARSTRDEF( 3, &hText, NULL );
+   item.pszText = ( LPTSTR ) HB_UNCONST( HB_PARSTRDEF( 3, &hText, NULL ) );
 
    hbwapi_ret_NI( TabCtrl_InsertItem( hbwapi_par_raw_HWND( 1 ), hbwapi_par_INT( 3 ), &item ) );
 
@@ -481,7 +481,7 @@ HB_FUNC( WAPI_TABCTRL_SETITEM )
 
    item.mask    = TCIF_TEXT | TCIF_IMAGE;
    item.iImage  = hb_parnidef( 4, -1 );
-   item.pszText = ( LPTSTR ) HB_PARSTRDEF( 3, &hText, NULL );
+   item.pszText = ( LPTSTR ) HB_UNCONST( HB_PARSTRDEF( 3, &hText, NULL ) );
 
    hbwapi_ret_L( TabCtrl_SetItem( hbwapi_par_raw_HWND( 1 ), hbwapi_par_INT( 2 ), &item ) );
 
@@ -693,7 +693,7 @@ HB_FUNC( WAPI_TABCTRL_ADDITEM )
 
    item.mask    = TCIF_TEXT | TCIF_IMAGE;
    item.iImage  = hb_parnidef( 3, -1 );
-   item.pszText = ( LPTSTR ) HB_PARSTRDEF( 2, &hText, NULL );
+   item.pszText = ( LPTSTR ) HB_UNCONST( HB_PARSTRDEF( 2, &hText, NULL ) );
 
    hbwapi_ret_NI( TabCtrl_InsertItem( hbwapi_par_raw_HWND( 1 ), iCount, &item ) );
 

@@ -412,15 +412,15 @@ HB_FUNC( __WAPI_DEVMODE_NEW )
 
    hb_retptr( NULL );
 
-   if( OpenPrinter( ( LPTSTR ) lpDeviceName, &hPrinter, NULL ) )
+   if( OpenPrinter( ( LPTSTR ) HB_UNCONST( lpDeviceName ), &hPrinter, NULL ) )
    {
-      LONG lSize = DocumentProperties( 0, hPrinter, ( LPTSTR ) lpDeviceName, NULL, NULL, 0 );
+      LONG lSize = DocumentProperties( 0, hPrinter, ( LPTSTR ) HB_UNCONST( lpDeviceName ), NULL, NULL, 0 );
 
       if( lSize > 0 )
       {
          PDEVMODE pDevMode = ( PDEVMODE ) hb_xgrabz( lSize );
 
-         if( DocumentProperties( 0, hPrinter, ( LPTSTR ) lpDeviceName, pDevMode, pDevMode, DM_OUT_BUFFER ) == IDOK )
+         if( DocumentProperties( 0, hPrinter, ( LPTSTR ) HB_UNCONST( lpDeviceName ), pDevMode, pDevMode, DM_OUT_BUFFER ) == IDOK )
             hbwapi_ret_PDEVMODE( pDevMode );
          else
             hb_xfree( pDevMode );

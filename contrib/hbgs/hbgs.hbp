@@ -25,7 +25,7 @@
 -depincpath=gs:/usr/local/opt/ghostscript/include
 -depimplibs=gs:${HB_WITH_GS_BIN}/gsdll32.dll{win&x86}
 -depimplibs=gs:${HB_WITH_GS_BIN}/gsdll64.dll{win&x86_64}
--depimplibs=gs:../../lib/libgs.dll.a{allmingw}
+-depimplibs=gs:../../lib/libgs.dll.a{allwinar}
 -depimplibs=gs:${HB_WITH_GS_BIN}/gsdll2.dll{os2}
 -depimplibd=gs:gs
 

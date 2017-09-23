@@ -626,7 +626,7 @@ HB_FUNC( __AXREGISTERHANDLER )  /* ( pDisp, bHandler [, cIID] ) --> pSink */
          if( szIID && szIID[ 0 ] == '{' )
          {
             const wchar_t * wCLSID = hb_parstr_u16( 3, HB_CDP_ENDIAN_NATIVE, &hCLSID, NULL );
-            lOleError = CLSIDFromString( ( wchar_t * ) wCLSID, &rriid );
+            lOleError = CLSIDFromString( ( LPCOLESTR ) wCLSID, &rriid );
             hb_strfree( hCLSID );
          }
          else

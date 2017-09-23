@@ -17,7 +17,7 @@
 -depcontrol=rabbitmq:${HB_WITH_RABBITMQ}
 -depincpath=rabbitmq:/usr/include
 -depincpath=rabbitmq:/usr/local/include
--depimplibs=rabbitmq:../lib/librabbitmq.dll.a{allmingw}
+-depimplibs=rabbitmq:../lib/librabbitmq.dll.a{allwinar}
 
 -hbx=${hb_name}
 

@@ -4115,7 +4115,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             ( hbmk[ _HBMK_cPLAT ] == "win" .AND. HBMK_ISCOMP( "clang|clang64" ) ) .OR. ;
             ( hbmk[ _HBMK_cPLAT ] == "os2" .AND. HBMK_ISCOMP( "gcc|gccomf" ) )
             /* For MinGW/EMX GCC family add .res files as source input, as they
-               will need to be converted to coff format with windres (just
+               will need to be converted to COFF format with windres (just
                like plain .rc files) before feeding them to gcc. */
             FOR EACH cParam IN FN_Expand( PathMakeAbsolute( hb_DirSepToOS( cParam ), aParam[ _PAR_cFileName ] ), aParam[ _PAR_cFileName ] == "" )
                AAdd( hbmk[ _HBMK_aRESSRC ], cParam )
@@ -12241,7 +12241,7 @@ STATIC FUNCTION HBC_ProcessOne( hbmk, cFileName, nNestingLevel )
                      ( hbmk[ _HBMK_cPLAT ] == "win" .AND. HBMK_ISCOMP( "clang|clang64" ) ) .OR. ;
                      ( hbmk[ _HBMK_cPLAT ] == "os2" .AND. HBMK_ISCOMP( "gcc|gccomf" ) )
                      /* For MinGW/EMX GCC family add .res files as source input, as they
-                        will need to be converted to coff format with windres (just
+                        will need to be converted to COFF format with windres (just
                         like plain .rc files) before feeding them to gcc. */
                      FOR EACH tmp IN FN_Expand( cItem, .F. )
                         AAddNew( hbmk[ _HBMK_aRESSRC ], tmp )
@@ -15196,6 +15196,7 @@ FUNCTION hbmk_KEYW( hbmk, cFileName, cKeyword, cValue, cOperator )
    CASE "winansi"  ; RETURN ! hbmk[ _HBMK_lWINUNI ]
    CASE "unix"     ; RETURN HBMK_ISPLAT( "bsd|hpux|sunos|beos|qnx|android|vxworks|symbian|linux|darwin|cygwin|minix|aix" )
    CASE "allwin"   ; RETURN HBMK_ISPLAT( "win|wce" )
+   CASE "allwinar" ; RETURN HBMK_ISPLAT( "win|wce" ) .AND. HBMK_ISCOMP( "mingw|mingw64|mingwarm|clang|clang64" )
    CASE "allgcc"   ; RETURN HBMK_ISCOMP( "gcc|mingw|mingw64|mingwarm|djgpp|gccomf|clang|clang64|open64|pcc" )
    CASE "allmingw" ; RETURN HBMK_ISCOMP( "mingw|mingw64|mingwarm" )
    CASE "allclang" ; RETURN HBMK_ISCOMP( "clang|clang64" )
@@ -19145,6 +19146,7 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
       { "{winansi}"               , I_( "Windows ANSI mode (see -winuni- option)" ) }, ;
       { "{unix}"                  , I_( "target platform is *nix compatible (bsd, hpux, sunos, beos, qnx, android, vxworks, symbian, linux, darwin, cygwin, minix, aix)" ) }, ;
       { "{allwin}"                , I_( "target platform is Windows compatible (win, wce)" ) }, ;
+      { "{allwinar}"              , I_( "target platform is Windows using .a libraries (mingw, mingw64, mingwarm, clang, clang64)" ) }, ;
       { "{allgcc}"                , I_( "target C compiler belongs to gcc family (gcc, mingw, mingw64, mingwarm, djgpp, gccomf, clang, clang64, open64, pcc)" ) }, ;
       { "{allmingw}"              , I_( "target C compiler is mingw* (mingw, mingw64, mingwarm)" ) }, ;
       { "{allclang}"              , I_( "target C compiler is clang* (clang, clang64)" ) }, ;

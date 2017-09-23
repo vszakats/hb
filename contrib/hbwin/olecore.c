@@ -1920,16 +1920,17 @@ HB_FUNC( WIN_OLECLASSEXISTS ) /* ( cOleName | cCLSID ) */
 
 HB_FUNC( __OLECREATEOBJECT ) /* ( cOleName | cCLSID  [, cIID ] ) */
 {
-   GUID         ClassID, iid = IID_IDispatch;
    IDispatch *  pDisp = NULL;
    const char * cOleName = hb_parc( 1 );
-   const char * cID = hb_parc( 2 );
    HRESULT      lOleError;
 
    hb_oleInit();
 
    if( cOleName )
    {
+      GUID         ClassID, iid = IID_IDispatch;
+      const char * cID = hb_parc( 2 );
+
       wchar_t * cCLSID = AnsiToWide( cOleName );
 
       if( cOleName[ 0 ] == '{' )
@@ -1971,19 +1972,20 @@ HB_FUNC( __OLEGETACTIVEOBJECT ) /* ( cOleName | cCLSID  [, cIID ] ) */
 #if defined( HB_OS_WIN_CE )
    hb_oleSetError( E_NOTIMPL );
 #else
-   BSTR         wCLSID;
-   IID          ClassID, iid = IID_IDispatch;
    IDispatch *  pDisp = NULL;
-   IUnknown *   pUnk = NULL;
    const char * cOleName = hb_parc( 1 );
-   const char * cID = hb_parc( 2 );
    HRESULT      lOleError;
 
    hb_oleInit();
 
    if( cOleName )
    {
-      wCLSID = ( BSTR ) AnsiToWide( ( LPSTR ) cOleName );
+      IID          ClassID, iid = IID_IDispatch;
+      IUnknown *   pUnk = NULL;
+      const char * cID = hb_parc( 2 );
+
+      BSTR wCLSID = ( BSTR ) AnsiToWide( cOleName );
+
       if( cOleName[ 0 ] == '{' )
          lOleError = CLSIDFromString( wCLSID, ( LPCLSID ) &ClassID );
       else
@@ -1994,7 +1996,7 @@ HB_FUNC( __OLEGETACTIVEOBJECT ) /* ( cOleName | cCLSID  [, cIID ] ) */
       {
          if( cID[ 0 ] == '{' )
          {
-            wCLSID = ( BSTR ) AnsiToWide( ( LPSTR ) cID );
+            wCLSID = ( BSTR ) AnsiToWide( cID );
             lOleError = CLSIDFromString( wCLSID, &iid );
             hb_xfree( wCLSID );
          }
@@ -2466,7 +2468,7 @@ HB_FUNC( __OLEGETNAMEID )
       void * hMethod;
       DISPID dispid;
 
-      pwszMethod = ( HB_WCHAR * ) hb_parstr_u16( 2, HB_CDP_ENDIAN_NATIVE, &hMethod, NULL );
+      pwszMethod = ( OLECHAR * ) HB_UNCONST( hb_parstr_u16( 2, HB_CDP_ENDIAN_NATIVE, &hMethod, NULL ) );
       lOleError = HB_VTBL( pDisp )->GetIDsOfNames( HB_THIS_( pDisp ) HB_ID_REF( IID_NULL ),
                                                    &pwszMethod, 1, LOCALE_USER_DEFAULT, &dispid );
       hb_strfree( hMethod );
@@ -2500,7 +2502,7 @@ static void hb_oleInvokeCall( WORD wFlags )
 
       uiClass = hb_objGetClass( pObject );
       ++uiOffset;
-      pwszMethod = ( HB_WCHAR * ) hb_parstr_u16( uiOffset, HB_CDP_ENDIAN_NATIVE, &hMethod, NULL );
+      pwszMethod = ( OLECHAR * ) HB_UNCONST( hb_parstr_u16( uiOffset, HB_CDP_ENDIAN_NATIVE, &hMethod, NULL ) );
       if( pwszMethod )
       {
          lOleError = HB_VTBL( pDisp )->GetIDsOfNames( HB_THIS_( pDisp ) HB_ID_REF( IID_NULL ),
