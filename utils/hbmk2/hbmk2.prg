@@ -4843,6 +4843,12 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
                AAdd( hbmk[ _HBMK_aOPTD ], "-Wl,-Map,{OM}" )
             ENDIF
          ENDIF
+         IF hbmk[ _HBMK_cPLAT ] == "win"
+            IF hbmk[ _HBMK_lIMPLIB ]
+               AAdd( hbmk[ _HBMK_aOPTL ], "-Wl,--out-implib,{OI}" )
+               AAdd( hbmk[ _HBMK_aOPTD ], "-Wl,--out-implib,{OI}" )
+            ENDIF
+         ENDIF
          IF hbmk[ _HBMK_lSTATICFULL ]
             IF hbmk[ _HBMK_cPLAT ] == "darwin" .AND. hbmk[ _HBMK_cCOMP ] == "clang"
                _hbmk_OutErr( hbmk, I_( "Warning: '-fullstatic' option not supported on this platform/compiler and it was therefore ignored." ) )

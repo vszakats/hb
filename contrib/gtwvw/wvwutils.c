@@ -1218,7 +1218,7 @@ HB_FUNC( WVW_CREATEDIALOGDYNAMIC )
 
                case 2:
                   hDlg = CreateDialogIndirect( GetModuleHandle( NULL ),
-                                               ( LPDLGTEMPLATE ) hb_parc( 1 ),
+                                               ( LPCDLGTEMPLATE ) hb_parc( 1 ),
                                                hb_parl( 2 ) ? wvw_zer->hWnd : NULL,
                                                ( DLGPROC ) hb_gt_wvw_DlgProcMLess );
                   break;
@@ -1316,7 +1316,7 @@ HB_FUNC( WVW_CREATEDIALOGMODAL )
 
             case 2:
                iResult = DialogBoxIndirectParam( GetModuleHandle( NULL ),
-                                                 ( LPDLGTEMPLATE ) hb_parc( 1 ),
+                                                 ( LPCDLGTEMPLATE ) hb_parc( 1 ),
                                                  hParent,
                                                  ( DLGPROC ) hb_gt_wvw_DlgProcModal,
                                                  ( LPARAM ) ( DWORD ) iIndex + 1 );

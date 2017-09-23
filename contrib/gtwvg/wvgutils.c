@@ -943,7 +943,7 @@ HB_FUNC( WVT_CREATEDIALOGDYNAMIC )
                case 2:
                   /* argument 1 is already unicode compliant, so no conversion */
                   hDlg = CreateDialogIndirect( GetModuleHandle( NULL ),
-                                               ( LPDLGTEMPLATE ) hb_parc( 1 ),
+                                               ( LPCDLGTEMPLATE ) hb_parc( 1 ),
                                                hb_parl( 2 ) ? _s->hWnd : NULL,
                                                ( DLGPROC ) hb_wvt_gtDlgProcMLess );
                   break;
@@ -1053,7 +1053,7 @@ HB_FUNC( WVT_CREATEDIALOGMODAL )
             case 2:
                /* argument 1 is already unicode compliant, so no conversion */
                iResult = DialogBoxIndirectParam( GetModuleHandle( NULL ),
-                                                 ( LPDLGTEMPLATE ) hb_parc( 1 ),
+                                                 ( LPCDLGTEMPLATE ) hb_parc( 1 ),
                                                  hParent,
                                                  ( DLGPROC ) hb_wvt_gtDlgProcModal,
                                                  ( LPARAM ) ( DWORD ) iIndex + 1 );
