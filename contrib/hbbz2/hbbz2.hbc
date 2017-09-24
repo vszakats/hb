@@ -4,7 +4,7 @@ incpaths=.
 
 headers=${hb_name}.ch
 
-# Hack to make clang find the symbol 'bz_internal_error'
+# Hack to make clang 5.0.0 find the symbol 'bz_internal_error'
 # This symbol is defined by hbbz2 and called by bz2
 libs=3rd/bz2/bz2.hbc{win&allclang}
 
