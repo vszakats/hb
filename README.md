@@ -1118,6 +1118,8 @@ Press `<Alt+D>` in the app.
 * msvc64   - Microsoft Visual C++ x86-64 (2010 and above)
 
 ### win (experimental)
+* clang-cl - LLVM/Clang-cl
+* clang-cl64 - LLVM/Clang-cl x86-64
 * watcom   - Open Watcom C/C++
 * icc      - Intel(R) C/C++
 
@@ -1211,6 +1213,8 @@ Press `<Alt+D>` in the app.
        | win      | win/mingw64       | x86-64
        | win      | win/msvc          | x86
        | win      | win/msvc64        | x86-64
+       | win      | win/clang-cl      | x86    (experimental)
+       | win      | win/clang-cl64    | x86-64 (experimental)
        | win      | win/msvcia64      | ia64   (deprecated)
        | win      | win/pocc          | x86    (deprecated)
        | win      | win/pocc64        | x86-64 (deprecated)

@@ -1,4 +1,4 @@
-ifneq ($(HB_COMPILER),clang-cl)
+ifneq ($(filter $(HB_COMPILER),clang-cl clang-cl64),)
    ifeq ($(HB_COMPILER_VER),)
       $(info ! Warning: HB_COMPILER_VER variable empty. Either stop manually setting HB_COMPILER to let auto-detection detect it, or set HB_COMPILER_VER manually according to your C compiler version (f.e. 1600 for 16.00.x).)
    endif
@@ -10,7 +10,7 @@ LIB_EXT := .lib
 
 HB_DYN_COPT := -DHB_DYNLIB
 
-ifeq ($(HB_COMPILER),clang-cl)
+ifneq ($(filter $(HB_COMPILER),clang-cl clang-cl64),)
 CC := clang-cl.exe
 HB_BUILD_MODE := c
 else
@@ -40,7 +40,7 @@ ifeq ($(filter $(HB_COMPILER_VER),1200 1300 1310 1400 1500 1600),)
 endif
 # enable this only for users of MSVS 2013 and upper
 ifeq ($(filter $(HB_COMPILER_VER),1200 1300 1310 1400 1500 1600 1700),)
-   ifneq ($(HB_COMPILER),clang-cl)
+   ifeq ($(filter $(HB_COMPILER),clang-cl clang-cl64),)
       ifeq ($(_HB_MSVC_ANALYZE),yes)
          CFLAGS += -analyze
       endif
@@ -114,8 +114,8 @@ RCFLAGS += -I. -I$(HB_HOST_INC) -c65001
 # endif
 
 # lld.exe crashes
-# ifeq ($(HB_COMPILER),clang-cl)
-# LD := lld.exe -flavor link
+# ifneq ($(filter $(HB_COMPILER),clang-cl clang-cl64),)
+#    LD := lld.exe -flavor link
 # else
 LD := link.exe
 # endif

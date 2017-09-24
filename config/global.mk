@@ -526,7 +526,7 @@ ifeq ($(HB_PLATFORM),)
       ifneq ($(filter $(HB_COMPILER),msvcarm msvcmips msvcsh mingwarm poccarm),)
          HB_PLATFORM := wce
       else
-      ifneq ($(filter $(HB_COMPILER),mingw mingw64 msvc msvc64 msvcia64 bcc bcc64 xcc pocc pocc64),)
+      ifneq ($(filter $(HB_COMPILER),mingw mingw64 clang clang64 msvc msvc64 msvcia64 clang-cl clang-cl64 bcc bcc64 xcc pocc pocc64),)
          HB_PLATFORM := win
       endif
       endif
@@ -1002,7 +1002,7 @@ ifeq ($(HB_COMPILER_VER),)
       HB_COMPILER_VER := $(_C_VER_MAJOR)$(_C_VER_MINOR)
 
    else
-   ifneq ($(filter $(HB_COMPILER),msvc msvc64 msvcia64 msvcarm),)
+   ifneq ($(filter $(HB_COMPILER),msvc msvc64 msvcia64 msvcarm clang-cl clang-cl64),)
 
       ifeq ($(HB_COMP_PATH),)
          HB_COMP_PATH := cl.exe
@@ -1414,7 +1414,7 @@ GRANDP := $(subst $(subst x,x, ),,$(foreach item, $(subst /, ,$(OBJ_DIR)), ../))
 # TODO: Set this in <plat>/<comp>.mk (compiler switches may influence it)
 ifeq ($(HB_CPU),)
    ifeq ($(HB_PLATFORM),win)
-      ifneq ($(filter $(HB_COMPILER),msvc64 mingw64 pocc64),)
+      ifneq ($(filter $(HB_COMPILER),mingw64 clang64 msvc64 clang-cl64 pocc64),)
          HB_CPU := x86_64
       else
       ifneq ($(filter $(HB_COMPILER),msvcia64 iccia64),)

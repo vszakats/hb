@@ -2368,8 +2368,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          { {|| FindInPath( "dmc.exe"  ) }, "dmc"    } }
 #endif
       aCOMPSUP := { ;
-         "mingw", "clang", "msvc", "watcom", "icc", "bcc", "pocc", "xcc", "tcc", ;
-         "mingw64", "clang64", "msvc64", "msvcia64", "iccia64", "bcc64", "pocc64" }
+         "mingw", "clang", "msvc", "clang-cl", "watcom", "icc", "bcc", "pocc", "xcc", "tcc", ;
+         "mingw64", "clang64", "msvc64", "clang-cl64", "msvcia64", "iccia64", "bcc64", "pocc64" }
 #ifdef HARBOUR_SUPPORT
       l_aLIBHBGT := { "gtwin", "gtwvt", "gtgui" }
       hbmk[ _HBMK_cGTDEFAULT ] := "gtwin"
@@ -2731,8 +2731,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
    /* Detect compiler version (where applicable) */
 
    IF hbmk[ _HBMK_cCOMPVer ] == "0"
-      IF hbmk[ _HBMK_cCOMP ] == "msvc64"
-         cPath_CompC := StrTran( cPath_CompC, "ml64.exe", "cl.exe" )
+      IF HBMK_ISCOMP( "msvc64|clang-cl64" )
+         cPath_CompC := StrTran( cPath_CompC, "ml64.exe", "cl.exe" )  /* for msvc64 only */
       ENDIF
       hbmk[ _HBMK_cCOMPVer ] := CompVersionDetect( hbmk, cPath_CompC, .T. )
    ELSE
@@ -6123,7 +6123,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
                   AAdd( hbmk[ _HBMK_aOPTL ], "-fixed:no" )  /* is this useful? */
                   AAdd( hbmk[ _HBMK_aOPTD ], "-nxcompat" )
                   AAdd( hbmk[ _HBMK_aOPTD ], "-dynamicbase" )
-                  IF hbmk[ _HBMK_cCOMPVer ] >= "1700" .AND. HBMK_ISCOMP( "msvc64|msvcia64|iccia64" )
+                  IF hbmk[ _HBMK_cCOMPVer ] >= "1700" .AND. HBMK_ISCOMP( "msvc64|msvcia64|iccia64|clang-cl64" )
                      AAdd( hbmk[ _HBMK_aOPTL ], "-highentropyva" )
                      AAdd( hbmk[ _HBMK_aOPTD ], "-highentropyva" )
                   ENDIF
@@ -6169,7 +6169,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             DO CASE
             CASE hbmk[ _HBMK_cCOMP ] == "msvcarm"
                AAdd( hbmk[ _HBMK_aOPTC ], "-D_M_ARM -DARM -D_ARM_" )
-            CASE hbmk[ _HBMK_cCOMP ] == "msvc"
+            CASE HBMK_ISCOMP( "msvc|clang-cl" )
                /* TODO */
             ENDCASE
             AAdd( hbmk[ _HBMK_aOPTL ], "-subsystem:windowsce" )
@@ -7226,7 +7226,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
                DO CASE
                CASE ! hbmk[ _HBMK_lSHARED ] .OR. ;
                     ! HBMK_ISPLAT( "win|wce" ) .OR. ;
-                    HBMK_ISCOMP( "msvc|msvc64|msvcia64|icc|iccia64" )
+                    HBMK_ISCOMP( "msvc|msvc64|msvcia64|icc|iccia64|clang|clang-cl64" )
 
                   /* NOTE: MSVC gives the warning:
                            "LNK4217: locally defined symbol ... imported in function ..."
@@ -8562,7 +8562,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             ENDIF
             IF ! Empty( l_aOBJ )
                AEval( l_aOBJ, {| tmp | hb_vfErase( tmp ) } )
-               IF HBMK_ISCOMP( "msvc|msvc64|msvcia64" ) .AND. hbmk[ _HBMK_cCOMPVer ] >= "1600"
+               IF HBMK_ISCOMP( "msvc|msvc64|msvcia64|clang-cl|clang-cl64" ) .AND. hbmk[ _HBMK_cCOMPVer ] >= "1600"
                   /* delete msvc code analysis outputs */
                   AEval( l_aOBJ, {| tmp | hb_vfErase( hb_FNameExtSet( tmp, ".nativecodeanalysis.xml" ) ) } )
                ENDIF
@@ -10907,7 +10907,7 @@ STATIC FUNCTION FindLib( hbmk, cLib, aLIBPATH, cLibPrefix, cLibExt )
    LOCAL tmp
 
    /* Check libs in their full paths */
-   IF HBMK_ISCOMP( "msvc|msvc64|msvcarm|bcc|bcc64|pocc|pocc64|poccarm|watcom" )
+   IF HBMK_ISCOMP( "msvc|msvc64|msvcarm|clang-cl|clang-cl64|bcc|bcc64|pocc|pocc64|poccarm|watcom" )
       IF ! Empty( hb_FNameDir( cLib ) )
          IF hb_vfExists( cLib := hb_FNameExtSet( cLib, cLibExt ) )
             RETURN cLib
@@ -10922,7 +10922,7 @@ STATIC FUNCTION FindLib( hbmk, cLib, aLIBPATH, cLibPrefix, cLibExt )
    ENDIF
 
    /* Check in current dir */
-   IF HBMK_ISCOMP( "msvc|msvc64|msvcarm|bcc|bcc64|pocc|pocc64|poccarm|watcom" )
+   IF HBMK_ISCOMP( "msvc|msvc64|msvcarm|clang-cl|clang-cl64|bcc|bcc64|pocc|pocc64|poccarm|watcom" )
       IF ! Empty( tmp := LibExists( hbmk, "", cLib, cLibPrefix, cLibExt ) )
          RETURN tmp
       ENDIF
@@ -13650,11 +13650,7 @@ STATIC PROCEDURE PlatformPRGFlags( hbmk, aOPTPRG )
          AAdd( aDf, "__ARCH32BIT__" )
       CASE HBMK_ISPLAT( "wce|win" )
          AAdd( aDf, "__LITTLE_ENDIAN__" ) /* Windows is currently little-endian on all supported CPUs. */
-         IF hbmk[ _HBMK_cCOMP ] == "mingw64" .OR. ;
-            hbmk[ _HBMK_cCOMP ] == "msvc64" .OR. ;
-            hbmk[ _HBMK_cCOMP ] == "pocc64" .OR. ;
-            hbmk[ _HBMK_cCOMP ] == "msvcia64" .OR. ;
-            hbmk[ _HBMK_cCOMP ] == "iccia64"
+         IF HBMK_ISCOMP( "mingw64|clang64|msvc64|clang-cl64|pocc64|msvcia64|iccia64" )
             AAdd( aDf, "__ARCH64BIT__" )
          ELSE
             AAdd( aDf, "__ARCH32BIT__" )
@@ -14685,7 +14681,7 @@ STATIC FUNCTION CompVersionDetect( hbmk, cPath_CompC, lEarly )
    LOCAL tmp, tmp1
 
    DO CASE
-   CASE HBMK_ISCOMP( "msvc|msvc64|msvcia64|msvcarm|pocc|pocc64|poccarm" )
+   CASE HBMK_ISCOMP( "msvc|msvc64|msvcia64|msvcarm|clang-cl|clang-cl64|pocc|pocc64|poccarm" )
       IF ! Empty( cPath_CompC )
          hb_processRun( '"' + cPath_CompC + '"',, @cStdOutErr, @cStdOutErr )
          tmp := hb_cdpSelect( "cp437" )
@@ -15129,10 +15125,10 @@ STATIC FUNCTION hbmk_CPU( hbmk )
 
    DO CASE
    CASE HBMK_ISPLAT( "dos|os2" ) .OR. ;
-        HBMK_ISCOMP( "mingw|msvc|pocc|watcom|bcc|tcc|xcc" ) .OR. ;
+        HBMK_ISCOMP( "mingw|clang|msvc|clang-cl|pocc|watcom|bcc|tcc|xcc" ) .OR. ;
         ( hbmk[ _HBMK_cPLAT ] == "win" .AND. hbmk[ _HBMK_cCOMP ] == "icc" )
       RETURN "x86"
-   CASE HBMK_ISCOMP( "mingw64|msvc64|bcc64|pocc64" )
+   CASE HBMK_ISCOMP( "mingw64|clang64|msvc64|clang-cl64|bcc64|pocc64" )
       RETURN "x86_64"
    CASE HBMK_ISCOMP( "msvcia64|iccia64" )
       RETURN "ia64"
@@ -15210,7 +15206,7 @@ FUNCTION hbmk_KEYW( hbmk, cFileName, cKeyword, cValue, cOperator )
    CASE "allgcc"   ; RETURN HBMK_ISCOMP( "gcc|mingw|mingw64|mingwarm|djgpp|gccomf|clang|clang64|open64|pcc" )
    CASE "allmingw" ; RETURN HBMK_ISCOMP( "mingw|mingw64|mingwarm" )
    CASE "allclang" ; RETURN HBMK_ISCOMP( "clang|clang64" )
-   CASE "allmsvc"  ; RETURN HBMK_ISCOMP( "msvc|msvc64|msvcia64|msvcarm" )
+   CASE "allmsvc"  ; RETURN HBMK_ISCOMP( "msvc|msvc64|msvcia64|msvcarm|clang-cl|clang-cl64" )
    CASE "allbcc"   ; RETURN HBMK_ISCOMP( "bcc|bcc64" )
    CASE "allpocc"  ; RETURN HBMK_ISCOMP( "pocc|pocc64|poccarm" )
    CASE "allicc"   ; RETURN HBMK_ISCOMP( "icc|iccia64" )
@@ -15231,6 +15227,7 @@ FUNCTION hbmk_KEYW( hbmk, cFileName, cKeyword, cValue, cOperator )
       "|win|wce|dos|os2" + ;
       "|bsd|hpux|sunos|beos|qnx|android|vxworks|symbian|linux|darwin|cygwin|minix|aix" + ;
       "|msvc|msvc64|msvcia64|msvcarm" + ;
+      "|clang-cl|clang-cl64" + ;
       "|pocc|pocc64|poccarm|xcc|tcc" + ;
       "|mingw|mingw64|mingwarm|bcc|bcc64|watcom" + ;
       "|gcc|gccomf|djgpp" + ;
@@ -18740,7 +18737,7 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
       , ;
       { "linux"   , "gcc, clang, icc, watcom, sunpro, open64" }, ;
       { "darwin"  , "gcc, clang, icc" }, ;
-      { "win"     , "mingw, mingw64, clang, clang64, msvc, msvc64, watcom, icc, iccia64, msvcia64, bcc, bcc64, pocc, pocc64, xcc" }, ;
+      { "win"     , "mingw, mingw64, clang, clang64, msvc, msvc64, clang-cl, clang-cl64, watcom, icc, iccia64, msvcia64, bcc, bcc64, pocc, pocc64, xcc" }, ;
       { "wce"     , "mingwarm, mingw, msvcarm, poccarm" }, ;
       { "os2"     , "gcc, gccomf, watcom" }, ;
       { "dos"     , "djgpp, watcom" }, ;
@@ -19160,7 +19157,7 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
       { "{allgcc}"                , I_( "target C compiler belongs to gcc family (gcc, mingw, mingw64, mingwarm, djgpp, gccomf, clang, clang64, open64, pcc)" ) }, ;
       { "{allmingw}"              , I_( "target C compiler is mingw* (mingw, mingw64, mingwarm)" ) }, ;
       { "{allclang}"              , I_( "target C compiler is clang* (clang, clang64)" ) }, ;
-      { "{allmsvc}"               , I_( "target C compiler is msvc* (msvc, msvc64, msvcia64, msvcarm)" ) }, ;
+      { "{allmsvc}"               , I_( "target C compiler is msvc* (msvc, msvc64, msvcia64, msvcarm, clang-cl, clang-cl64)" ) }, ;
       { "{allbcc}"                , I_( "target C compiler is bcc* (bcc, bcc64)" ) }, ;
       { "{allpocc}"               , I_( "target C compiler is pocc* (pocc, pocc64, poccarm)" ) }, ;
       { "{allicc}"                , I_( "target C compiler is icc* (icc, iccia64)" ) }, ;
