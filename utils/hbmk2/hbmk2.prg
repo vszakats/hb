@@ -1649,7 +1649,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
    LOCAL cOpt_Res
    LOCAL cOpt_Lib
    LOCAL cOpt_Dyn
-   LOCAL cOpt_LibHBX
+   LOCAL cOpt_SymLst
 #ifdef HARBOUR_SUPPORT
    LOCAL cBin_CompPRG
 #endif
@@ -1660,7 +1660,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
    LOCAL cBin_Res
    LOCAL cBin_Lib
    LOCAL cBin_Dyn
-   LOCAL cBin_LibHBX
+   LOCAL cBin_SymLst
    LOCAL cLibHBX_Regex
    LOCAL bBlk_ImpLib
    LOCAL cPath_CompC
@@ -4820,11 +4820,11 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             ENDIF
          ENDIF
          IF HBMK_ISCOMP( "clang|clang64" ) .AND. ! hbmk[ _HBMK_cPLAT ] == "darwin"
-            cBin_LibHBX := "llvm-nm"
+            cBin_SymLst := "llvm-nm"
          ELSE
-            cBin_LibHBX := hbmk[ _HBMK_cCCPREFIX ] + "nm"
+            cBin_SymLst := hbmk[ _HBMK_cCCPREFIX ] + "nm"
          ENDIF
-         cOpt_LibHBX := "-g" + iif( hbmk[ _HBMK_cPLAT ] == "darwin", "", " --defined-only -C" ) + " {FN} {LI}"
+         cOpt_SymLst := "-g" + iif( hbmk[ _HBMK_cPLAT ] == "darwin", "", " --defined-only -C" ) + " {FN} {LI}"
          IF hbmk[ _HBMK_cPLAT ] == "darwin"
             cLibHBX_Regex := R_( "[\s]T" ) + cLibHBX_Regex
          ENDIF
@@ -5271,8 +5271,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             cBin_CompC   := hbmk[ _HBMK_cCCPATH ] + hb_ps() + cBin_CompC
             cBin_Link    := hbmk[ _HBMK_cCCPATH ] + hb_ps() + cBin_Link
          ENDIF
-         cBin_LibHBX := hbmk[ _HBMK_cCCPREFIX ] + "nm" + hbmk[ _HBMK_cCCEXT ]
-         cOpt_LibHBX := "-g --defined-only -C {FN} {LI}"
+         cBin_SymLst := hbmk[ _HBMK_cCCPREFIX ] + "nm" + hbmk[ _HBMK_cCCEXT ]
+         cOpt_SymLst := "-g --defined-only -C {FN} {LI}"
          IF hbmk[ _HBMK_cCOMP ] == "tcc"
             DO CASE
             CASE hbmk[ _HBMK_cPLAT ] == "wce"
@@ -5566,8 +5566,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          cLibLibExt := ".a"
          cBin_Lib := hbmk[ _HBMK_cCCPREFIX ] + "ar" + hbmk[ _HBMK_cCCEXT ]
          cOpt_Lib := "rcs {FA} {OL} {LO}{SCRIPT}"
-         cBin_LibHBX := hbmk[ _HBMK_cCCPREFIX ] + "nm" + hbmk[ _HBMK_cCCEXT ]
-         cOpt_LibHBX := "-g --defined-only -C {FN} {LI}"
+         cBin_SymLst := hbmk[ _HBMK_cCCPREFIX ] + "nm" + hbmk[ _HBMK_cCCEXT ]
+         cOpt_SymLst := "-g --defined-only -C {FN} {LI}"
          IF l_lLIBGROUPING
             AAdd( hbmk[ _HBMK_aOPTL ], "-Wl,--start-group {LL} {LB} {LF} -Wl,--end-group" )
          ELSE
@@ -5744,8 +5744,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          ENDIF
          cBin_Lib := "wlib" + hbmk[ _HBMK_cCCEXT ]
          cOpt_Lib := "-q {FA} {OL} {LO}{SCRIPT}"
-         cBin_LibHBX := cBin_Lib
-         cOpt_LibHBX := "{LI}"
+         cBin_SymLst := cBin_Lib
+         cOpt_SymLst := "{LI}"
          IF HBMK_ISPLAT( "linux|dos|os2" )
             /* register calling convention (-6r, -5r) puts an underscore after names */
             cLibHBX_Regex := R_( "[\s]_?HB_FUN_([A-Z0-9_]*)_[\s]" )
@@ -5876,8 +5876,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          ENDIF
          /* Only forward slash is accepted here as option prefix. */
          cOpt_Lib := "/P128 {FA} {OL} {LO}{SCRIPT}"
-         cBin_LibHBX := cBin_Lib
-         cOpt_LibHBX := "{LI}, {OT}"
+         cBin_SymLst := cBin_Lib
+         cOpt_SymLst := "{LI}, {OT}"
          cLibLibExt := cLibExt
          cImpLibExt := cLibLibExt
          cLibObjPrefix := "-+ "
@@ -6063,8 +6063,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          cOpt_Lib := "-nologo {FA} -out:{OL} {LO}{SCRIPT}"
          cOpt_Dyn := "-nologo {FD} {IM} -dll -out:{OD} {DL} {LO} {LL} {LB} {LF} {LS}{SCRIPT}"
          cOpt_CompC := "-nologo -c"
-         cBin_LibHBX := "dumpbin.exe"
-         cOpt_LibHBX := "-symbols {LI}"
+         cBin_SymLst := "dumpbin.exe"
+         cOpt_SymLst := "-symbols {LI}"
          cLibHBX_Regex := R_( "SECT[0-9A-Z][0-9A-Z ].*[Ee]xternal.*_?HB_FUN_([A-Z0-9_]*)[\s]" )
          IF hbmk[ _HBMK_lOPTIM ]
             IF hbmk[ _HBMK_cPLAT ] == "wce"
@@ -6269,8 +6269,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          cOptIncMask := "-I{DI}"
          cOpt_Dyn := "{FD} {IM} -dll -out:{OD} {DL} {LO} {LL} {LB} {LF} {LS}"
          bBlk_ImpLib := {| cSourceDLL, cTargetLib, cFlags | win_implib_command_pocc( hbmk, cBin_Lib + " {ID} -out:{OL}", cSourceDLL, cTargetLib, cFlags ) }
-         cBin_LibHBX := "podump.exe"
-         cOpt_LibHBX := "-symbols {LI}"
+         cBin_SymLst := "podump.exe"
+         cOpt_SymLst := "-symbols {LI}"
          cLibHBX_Regex := R_( "SECT[0-9A-Z][0-9A-Z ].*[Ee]xternal.*_?HB_FUN_([A-Z0-9_]*)[\s]" )
          IF hbmk[ _HBMK_lWINUNI ]
             AAdd( hbmk[ _HBMK_aOPTC ], "-DUNICODE" )
@@ -7204,7 +7204,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          /* Do entry function detection on platform required and supported */
          IF ! hbmk[ _HBMK_lDONTEXEC ] .AND. ! lStopAfterCComp .AND. l_cMAIN == NIL
             tmp := iif( HBMK_IS_IN( Lower( hb_FNameExt( hbmk[ _HBMK_cFIRST ] ) ), ".prg|.hb|.clp" ) .OR. Empty( hb_FNameExt( hbmk[ _HBMK_cFIRST ] ) ), FNameDirExtSet( hbmk[ _HBMK_cFIRST ], hbmk[ _HBMK_cWorkDir ], ".c" ), hbmk[ _HBMK_cFIRST ] )
-            IF ! Empty( tmp := getFirstFunc( hbmk, tmp, cBin_LibHBX, cOpt_LibHBX ) )
+            IF ! Empty( tmp := getFirstFunc( hbmk, tmp, cBin_SymLst, cOpt_SymLst ) )
                l_cMAIN := tmp
             ENDIF
          ENDIF
@@ -8477,7 +8477,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
                   the switches and hunt for finding any useful
                   root reason for this behavior.
                   Try '-hbdyn rddado.hbp' for an example. */
-               mk_extern( hbmk, iif( Empty( l_cIMPLIBNAME ) .OR. ! hb_vfExists( l_cIMPLIBNAME ), hbmk[ _HBMK_cPROGNAME ], l_cIMPLIBNAME ), cBin_LibHBX, cOpt_LibHBX, cLibHBX_Regex, hbmk[ _HBMK_cHBX ] )
+               mk_extern( hbmk, iif( Empty( l_cIMPLIBNAME ) .OR. ! hb_vfExists( l_cIMPLIBNAME ), hbmk[ _HBMK_cPROGNAME ], l_cIMPLIBNAME ), cBin_SymLst, cOpt_SymLst, cLibHBX_Regex, hbmk[ _HBMK_cHBX ] )
             ENDIF
 
             DoLink( hbmk )
@@ -13463,7 +13463,7 @@ STATIC FUNCTION IsHexDigit( c )
  * locate it ourselves and pass it to HVM using our startup function
  * [druzus]
  */
-STATIC FUNCTION getFirstFunc( hbmk, cFile, cBin_LibHBX, cOpt_LibHBX )
+STATIC FUNCTION getFirstFunc( hbmk, cFile, cBin_SymLst, cOpt_SymLst )
 
    LOCAL cFuncList, cExecNM, cFuncName, cExt, cLine, n, c
 
@@ -13487,9 +13487,9 @@ STATIC FUNCTION getFirstFunc( hbmk, cFile, cBin_LibHBX, cOpt_LibHBX )
              Lower( cExt ) == ".cxx" .OR. ;
              Lower( cExt ) == ".cx"
          /* do nothing */
-      ELSEIF ! Empty( cExecNM := FindInPath( cBin_LibHBX ) )
+      ELSEIF ! Empty( cExecNM := FindInPath( cBin_SymLst ) )
          hb_processRun( cExecNM + " " + ;
-            hb_StrReplace( cOpt_LibHBX, { ;
+            hb_StrReplace( cOpt_SymLst, { ;
                "{FN}" => "-n", ;
                "{LI}" => FNameEscape( cFile, hbmk[ _HBMK_nCmd_Esc ], hbmk[ _HBMK_nCmd_FNF ] ), ;
                "{OT}" => "" } ),, @cFuncList )
@@ -15887,18 +15887,18 @@ STATIC FUNCTION __hb_extern_get_list_hrb( cInputName )
 
    RETURN aExtern
 
-STATIC FUNCTION mk_extern( hbmk, cInputName, cBin_LibHBX, cOpt_LibHBX, cLibHBX_Regex, cOutputName )
+STATIC FUNCTION mk_extern( hbmk, cInputName, cBin_SymLst, cOpt_SymLst, cLibHBX_Regex, cOutputName )
 
    LOCAL aExtern
 
-   IF ( aExtern := __hb_extern_get_list( hbmk, cInputName, cBin_LibHBX, cOpt_LibHBX, cLibHBX_Regex ) ) != NIL
+   IF ( aExtern := __hb_extern_get_list( hbmk, cInputName, cBin_SymLst, cOpt_SymLst, cLibHBX_Regex ) ) != NIL
       __hb_extern_gen( hbmk, aExtern, cOutputName )
       RETURN .T.
    ENDIF
 
    RETURN .F.
 
-STATIC FUNCTION __hb_extern_get_list( hbmk, cInputName, cBin_LibHBX, cOpt_LibHBX, cLibHBX_Regex )
+STATIC FUNCTION __hb_extern_get_list( hbmk, cInputName, cBin_SymLst, cOpt_SymLst, cLibHBX_Regex )
 
    LOCAL aExtern := NIL
    LOCAL hExtern
@@ -15910,12 +15910,12 @@ STATIC FUNCTION __hb_extern_get_list( hbmk, cInputName, cBin_LibHBX, cOpt_LibHBX
    LOCAL tmp
    LOCAL hFile
 
-   IF ! Empty( cBin_LibHBX ) .AND. ;
+   IF ! Empty( cBin_SymLst ) .AND. ;
       ! Empty( cLibHBX_Regex )
 
       IF hb_vfExists( cInputName )
 
-         IF "{OT}" $ cOpt_LibHBX
+         IF "{OT}" $ cOpt_SymLst
             IF ( hFile := hb_vfTempFile( @cTempFile,,, ".tmp" ) ) != NIL
                hb_vfClose( hFile )
             ENDIF
@@ -15923,12 +15923,12 @@ STATIC FUNCTION __hb_extern_get_list( hbmk, cInputName, cBin_LibHBX, cOpt_LibHBX
             cTempFile := ""
          ENDIF
 
-         cOpt_LibHBX := hb_StrReplace( cOpt_LibHBX, { ;
+         cOpt_SymLst := hb_StrReplace( cOpt_SymLst, { ;
             "{FN}" => "", ;
             "{LI}" => FNameEscape( cInputName, hbmk[ _HBMK_nCmd_Esc ], hbmk[ _HBMK_nCmd_FNF ] ), ;
             "{OT}" => FNameEscape( cTempFile, hbmk[ _HBMK_nCmd_Esc ], hbmk[ _HBMK_nCmd_FNF ] ) } )
 
-         IF hb_processRun( cBin_LibHBX + " " + cOpt_LibHBX,, @cStdOut, @cStdErr ) == 0
+         IF hb_processRun( cBin_SymLst + " " + cOpt_SymLst,, @cStdOut, @cStdErr ) == 0
             IF ! cTempFile == ""
                cStdOut := MemoRead( cTempFile )
             ENDIF
