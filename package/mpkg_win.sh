@@ -76,11 +76,11 @@ if [ -z "${HB_BASE}" ]; then
   if   [ -d "../pkg/win/mingw/harbour-${HB_VF}-win-mingw" ]; then
     _lib_target='32'  # MinGW 32-bit base system
   elif [ -d "../pkg/win/clang/harbour-${HB_VF}-win-clang" ]; then
-    _lib_target='32'  # Clang/LLVM 32-bit base system
+    _lib_target='32'  # LLVM/Clang 32-bit base system
   elif [ -d "../pkg/win/mingw64/harbour-${HB_VF}-win-mingw64" ]; then
     _lib_target='64'  # MinGW 64-bit base system
   elif [ -d "../pkg/win/clang64/harbour-${HB_VF}-win-clang64" ]; then
-    _lib_target='64'  # Clang/LLVM 64-bit base system
+    _lib_target='64'  # LLVM/Clang 64-bit base system
   fi
 else
   _lib_target="${HB_BASE}"

@@ -957,7 +957,7 @@ ifeq ($(HB_COMPILER_VER),)
       endif
       HB_COMPILER_VER := $(_C_VER_MAJOR)$(_C_VER_MINOR)
 
-      # Apple clang version vs. official LLVM/clang version
+      # Apple LLVM/clang version vs. official LLVM/Clang version
       # NOTE: Must keep this conversion table in sync with hbmk2.prg
       ifneq ($(_APPLE_VER),)
          HB_COMPILER_VER := $(subst 0700,0307,$(HB_COMPILER_VER))

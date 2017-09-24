@@ -695,14 +695,14 @@ for a cross-build process to succeed.
 >   `> log.txt 2>&1`
 
 ```batchfile
-:: MinGW-w64 Clang/LLVM via MSYS2 (x86 target)
+:: MinGW-w64 LLVM/Clang via MSYS2 (x86 target)
 set PATH=C:\msys64\mingw32\bin;C:\msys64\usr\bin;%PATH%
 set HB_COMPILER=clang
 mingw32-make
 ```
 
 ```batchfile
-:: MinGW-w64 Clang/LLVM via MSYS2 (x64 target)
+:: MinGW-w64 LLVM/Clang via MSYS2 (x64 target)
 set PATH=C:\msys64\mingw64\bin;C:\msys64\usr\bin;%PATH%
 set HB_COMPILER=clang64
 mingw32-make
@@ -761,7 +761,7 @@ mingw32-make
 ```
 
 ```batchfile
-:: Clang-cl/LLVM (pre-experimental)
+:: LLVM/Clang-cl (pre-experimental)
 call "%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
 set PATH=%ProgramFiles(x86)%\LLVM 3.6.svn;%PATH%
 mingw32-make
@@ -776,14 +776,14 @@ a cross-build. It's recommended to use a 64-bit environment for Windows
 development.
 
 ```batchfile
-:: MinGW-w64 Clang/LLVM via MSYS2 (x86 target)
+:: MinGW-w64 LLVM/Clang via MSYS2 (x86 target)
 set PATH=C:\msys64\mingw32\bin;C:\msys64\usr\bin;%PATH%
 set HB_COMPILER=clang
 mingw32-make
 ```
 
 ```batchfile
-:: MinGW-w64 Clang/LLVM via MSYS2 (x64 target)
+:: MinGW-w64 LLVM/Clang via MSYS2 (x64 target)
 :: (requires preceding build for x86 target)
 set PATH=C:\msys64\mingw64\bin;C:\msys64\usr\bin;%PATH%
 set HB_COMPILER=clang64
@@ -902,7 +902,7 @@ mingw32-make
 ```
 
 ```batchfile
-:: Clang-cl/LLVM (pre-experimental)
+:: LLVM/Clang-cl (pre-experimental)
 call "%ProgramFiles%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
 set PATH=%ProgramFiles%\LLVM 3.6.svn;%PATH%
 mingw32-make
@@ -1089,7 +1089,7 @@ Press `<Alt+D>` in the app.
 
 ### linux
 * gcc      - GNU C
-* clang    - Clang/LLVM
+* clang    - LLVM/Clang
 * watcom   - Open Watcom C/C++
 * icc      - Intel(R) C/C++
 * sunpro   - Sun Studio C/C++
@@ -1097,12 +1097,12 @@ Press `<Alt+D>` in the app.
 
 ### darwin
 * gcc      - GNU C
-* clang    - Apple Clang/LLVM
+* clang    - Apple LLVM/Clang
 * icc      - Intel(R) C/C++
 
 ### bsd
 * gcc      - GNU C
-* clang    - Clang/LLVM
+* clang    - LLVM/Clang
 * pcc      - Portable C Compiler (experimental)
 
 ### android
@@ -1112,8 +1112,8 @@ Press `<Alt+D>` in the app.
 ### win
 * mingw    - MinGW GNU C (4.4.0 and above)
 * mingw64  - MinGW GNU C x86-64
-* clang    - Clang/LLVM
-* clang64  - Clang/LLVM x86-64
+* clang    - LLVM/Clang
+* clang64  - LLVM/Clang x86-64
 * msvc     - Microsoft Visual C++ (2010 and above)
 * msvc64   - Microsoft Visual C++ x86-64 (2010 and above)
 
@@ -1163,7 +1163,7 @@ Press `<Alt+D>` in the app.
 * diab     - Wind River Compiler
 
 ### minix (experimental)
-* clang    - Clang/LLVM
+* clang    - LLVM/Clang
 * gcc      - GNU C
 
 ### cygwin (experimental)
@@ -1293,7 +1293,7 @@ Supported shells per host platforms:
      * MinGW-w64 via MSYS2 [win, free software, open-source] (recommended)
         * <https://msys2.github.io/>
         * `pacman -S git base-devel msys2-devel mingw-w64-{i686,x86_64}-toolchain`
-     * Clang/LLVM via MSYS2 [multi-platform, free software, open-source]
+     * LLVM/Clang via MSYS2 [multi-platform, free software, open-source]
         * <https://msys2.github.io/>
         * MinGW-w64 above + `pacman -S mingw-w64-{i686,x86_64}-clang`
      * MinGW-w64 [win, \*nix, free software, open-source]
@@ -1302,7 +1302,7 @@ Supported shells per host platforms:
             <https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/>
           * 32-bit: threads-posix, dwarf-2
             <https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/>
-     * Clang/LLVM [multi-platform, free software, open-source]
+     * LLVM/Clang [multi-platform, free software, open-source]
         * <https://releases.llvm.org/>
      * Xcode / Command Line Tools for Xcode [darwin, zero price, proprietary with open-source components]
         * <https://itunes.apple.com/us/app/xcode/id497799835>

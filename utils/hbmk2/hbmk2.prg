@@ -4526,7 +4526,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
       cLibHBX_Regex := R_( "[\s]_?HB_FUN_([A-Z0-9_]*)[\s]" )
 
       DO CASE
-      /* GCC and Clang/LLVM families */
+      /* GCC and LLVM/Clang families */
       CASE ( hbmk[ _HBMK_cPLAT ] == "bsd"     .AND. hbmk[ _HBMK_cCOMP ] == "gcc" ) .OR. ;
            ( hbmk[ _HBMK_cPLAT ] == "darwin"  .AND. hbmk[ _HBMK_cCOMP ] == "gcc" ) .OR. ;
            ( hbmk[ _HBMK_cPLAT ] == "hpux"    .AND. hbmk[ _HBMK_cCOMP ] == "gcc" ) .OR. ;
@@ -14744,7 +14744,7 @@ STATIC FUNCTION CompVersionDetect( hbmk, cPath_CompC, lEarly )
             tmp1 := hb_ATokens( SubStr( tmp1, Len( "Apple LLVM version " ) + 1 ), "." )
             cVer := StrZero( Val( tmp1[ 1 ] ), 2 ) + StrZero( Val( tmp1[ 2 ] ), 2 )
 
-            /* Apple clang version vs. official Clang/LLVM version:
+            /* Apple LLVM/clang version vs. official LLVM/Clang version
                  https://opensource.apple.com/source/clang/ -> clang-<version>/src/CMakeLists.txt
                  https://opensource.apple.com/source/clang/clang-800.0.42.1/src/CMakeLists.txt
                  https://opensource.apple.com/source/clang/clang-800.0.42.1/src/autoconf/configure.ac
