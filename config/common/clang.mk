@@ -51,7 +51,6 @@ ifeq ($(HB_PLATFORM),win)
    # This has potential risks for .dlls:
    #    https://sourceware.org/bugzilla/show_bug.cgi?id=16887
    #DFLAGS += -Wl,--no-insert-timestamp
-   ARFLAGS += -D
 endif
 
 ifneq ($(HB_BUILD_WARN),no)
@@ -113,7 +112,7 @@ ifeq ($(HB_PLATFORM),darwin)
 
    DY_RULE = $(DY) $(DFLAGS) -install_name "$(DYN_NAME_NVR)" -compatibility_version $(HB_VER_MAJOR).$(HB_VER_MINOR) -current_version $(HB_VER_MAJOR).$(HB_VER_MINOR).$(HB_VER_RELEASE) $(HB_USER_DFLAGS) $(DY_OUT)$(DYN_DIR)/$@ $^ $(DLIBS) $(DYSTRIP) && $(LN) $(@F) $(DYN_FILE_NVR) && $(LN) $(@F) $(DYN_FILE_CPT)
 else
-   AR := ar
+   AR := llvm-ar
    AR_RULE = ( $(AR) rcs $(ARFLAGS) $(HB_AFLAGS) $(HB_USER_AFLAGS) $(LIB_DIR)/$@ $(^F) $(ARSTRIP) ) || ( $(RM) $(LIB_DIR)/$@ && $(FALSE) )
 
    DY := $(CC)

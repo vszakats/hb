@@ -774,7 +774,9 @@ STATIC FUNCTION __hb_extern_get_list( cInputName )
 
    /* NOTE: non-gcc extractor configs don't support dynamic libs as input. */
    DO CASE
-   CASE "|" + GetEnv( "HB_COMPILER" ) + "|" $ "|gcc|mingw|mingw64|djgpp|"
+   CASE "|" + GetEnv( "HB_COMPILER" ) + "|" $ "|clang|clang64|" .AND. ! GetEnv( "HB_PLATFORM" ) == "darwin"
+      cCommand := "llvm-nm -g --defined-only -C {I}"
+   CASE "|" + GetEnv( "HB_COMPILER" ) + "|" $ "|gcc|mingw|mingw64|clang|djgpp|"
       cCommand := "nm -g" + iif( GetEnv( "HB_PLATFORM" ) == "darwin", "", " --defined-only -C" ) + " {I}"
    CASE "|" + GetEnv( "HB_COMPILER" ) + "|" $ "|msvc|msvc64|pocc|pocc64|"
       IF "|" + GetEnv( "HB_COMPILER" ) + "|" $ "|msvc|msvc64|"
