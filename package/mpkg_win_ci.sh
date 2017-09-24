@@ -362,7 +362,7 @@ fi
 
 # packaging
 
-[ "${HB_JOB4}" = 'msvc' ] || "$(dirname "$0")/mpkg_win.sh"
+"$(dirname "$0")/mpkg_win.sh"
 
 # documentation
 

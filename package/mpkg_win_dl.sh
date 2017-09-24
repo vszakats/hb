@@ -22,17 +22,19 @@ _BRANCH="${APPVEYOR_REPO_BRANCH}${TRAVIS_BRANCH}${CI_BUILD_REF_NAME}${GIT_BRANCH
 [ -n "${HB_JOB}" ] || HB_JOB="${_BRANCH}"
 HB_JOB4="$(echo "${HB_JOB}" | cut -c -4)"
 
-# Update/install MSYS2 pacman packages to fulfill dependencies
+# Update/install packages to fulfill dependencies
 
 if [ "${os}" = 'win' ]; then
   if [ "${HB_JOB4}" = 'msvc' ]; then
     # Experimental, untested, requires 2015 Update 3 or upper
     # bzip2 cairo expat freeimage icu libmariadb libpng libpq libssh2 lzo pcre pcre2 qt5 sqlite3 zlib
-    vcpkg install --no-sendmetrics expat
+    echo '.'
     #vcpkg install --no-sendmetrics \
     #  curl curl:x64-windows openssl openssl:x64-windows
     #vcpkg integrate install
   else
+    # MSYS2 pacman
+
     # clang toolchain
     if [ "${HB_JOB#*clang*}" != "${HB_JOB}" ]; then
       pacman --noconfirm --noprogressbar -S --needed mingw-w64-{i686,x86_64}-clang
