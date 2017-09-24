@@ -18,7 +18,7 @@ ifeq ($(filter $(HB_PLATFORM),darwin win),)
    HB_DYN_COPT := -DHB_DYNLIB -fPIC
 endif
 
-CC := $(HB_CCACHE) $(HB_CCPREFIX)$(HB_CMP)$(HB_CCSUFFIX)
+CC := $(HB_CCACHE) $(HB_CMP)$(HB_CCSUFFIX)
 CC_IN :=
 CC_OUT := -o
 
@@ -113,7 +113,7 @@ ifeq ($(HB_PLATFORM),darwin)
 
    DY_RULE = $(DY) $(DFLAGS) -install_name "$(DYN_NAME_NVR)" -compatibility_version $(HB_VER_MAJOR).$(HB_VER_MINOR) -current_version $(HB_VER_MAJOR).$(HB_VER_MINOR).$(HB_VER_RELEASE) $(HB_USER_DFLAGS) $(DY_OUT)$(DYN_DIR)/$@ $^ $(DLIBS) $(DYSTRIP) && $(LN) $(@F) $(DYN_FILE_NVR) && $(LN) $(@F) $(DYN_FILE_CPT)
 else
-   AR := $(HB_CCPREFIX)ar
+   AR := ar
    AR_RULE = ( $(AR) rcs $(ARFLAGS) $(HB_AFLAGS) $(HB_USER_AFLAGS) $(LIB_DIR)/$@ $(^F) $(ARSTRIP) ) || ( $(RM) $(LIB_DIR)/$@ && $(FALSE) )
 
    DY := $(CC)
