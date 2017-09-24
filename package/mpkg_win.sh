@@ -219,8 +219,7 @@ for _cpu in '' '64'; do
     "${HB_ABSROOT}lib/win/mingw${_cpu}/*-*.*" \
     "${HB_ABSROOT}lib/win/mingw${_cpu}/*_dll*.*" \
     "${HB_ABSROOT}lib/win/clang${_cpu}/*-*.*" \
-    "${HB_ABSROOT}lib/win/clang${_cpu}/*_dll*.*" \
-    "${HB_ABSROOT}lib/win/msvc${_cpu}/*.lib"; do
+    "${HB_ABSROOT}lib/win/clang${_cpu}/*_dll*.*"; do
     # shellcheck disable=SC2086
     if ls ${files} > /dev/null 2>&1; then
       "${_mingw_dir}${_mingw_pfx}strip" -p --enable-deterministic-archives -g ${files}
