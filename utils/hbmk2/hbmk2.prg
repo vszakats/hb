@@ -5049,7 +5049,6 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          ENDIF
 #endif
 
-#ifdef HARBOUR_SUPPORT
          IF hbmk[ _HBMK_cPLAT ] == "win"
             IF hbmk[ _HBMK_lWINUNI ]
                AAdd( hbmk[ _HBMK_aOPTC ], "-DUNICODE" )
@@ -5057,6 +5056,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
 
             l_aLIBSYS := ArrayAJoin( { l_aLIBSYS, l_aLIBSYSCORE, l_aLIBSYSMISC } )
 
+#ifdef HARBOUR_SUPPORT
             l_aLIBSHARED := { cHarbourDyn + hbmk_IMPSUFFIX( hbmk, cDL_Version_Alter ) }
 
             IF hbmk[ _HBMK_lGUI ]
@@ -5068,6 +5068,16 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
                l_aLIBSTATICPOST := l_aLIBSHAREDPOST
             ENDIF
 #endif
+
+            SWITCH hbmk[ _HBMK_cCOMP ]
+            CASE "mingw64"
+               AAdd( hbmk[ _HBMK_aOPTRES ], "--target=pe-x86-64" )
+               EXIT
+            CASE "mingw"
+               AAdd( hbmk[ _HBMK_aOPTRES ], "--target=pe-i386" )
+               EXIT
+            ENDSWITCH
+
             cBin_Res := hbmk[ _HBMK_cCCPREFIX ] + "windres"
             cResExt := ".reso"
             cOpt_Res := "{FR} {IR} -O coff -o {OS}"
@@ -15176,11 +15186,15 @@ STATIC FUNCTION hbmk_DYNSUFFIX( hbmk )
 
    RETURN ""
 
+#ifdef HARBOUR_SUPPORT
+
 /* Return standard dynamic lib implib name suffix used by Harbour */
 STATIC FUNCTION hbmk_IMPSUFFIX( hbmk, cDL_Version_Alter )
    RETURN iif( hbmk[ _HBMK_nHBMODE ] == _HBMODE_NATIVE, ;
       _HBMK_IMPLIB_DLL_SUFF, ;
       cDL_Version_Alter + hbmk_DYNSUFFIX( hbmk ) )
+
+#endif
 
 /* Keep this public, it is used from macro. */
 FUNCTION hbmk_KEYW( hbmk, cFileName, cKeyword, cValue, cOperator )

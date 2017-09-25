@@ -1,3 +1,9 @@
+ifeq ($(HB_COMPILER),clang64)
+   RCFLAGS += --target=pe-x86-64
+else
+   RCFLAGS += --target=pe-i386
+endif
+
 RC := $(HB_CCPATH)$(HB_CCPREFIX)windres
 RC_OUT := -o$(subst x,x, )
 RCFLAGS += -I. -I$(HB_HOST_INC) -O coff -c65001
