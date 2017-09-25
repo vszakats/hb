@@ -8,6 +8,8 @@ HB_CFLAGS += -DUNICODE
 
 HB_GT_LIBS += gtwvt gtgui gtwin
 
+HB_SIGN_TIMEURL := http://timestamp.digicert.com
+
 # kernel32: needed by some compilers (pocc/watcom)
 # user32: *Clipboard*(), GetKeyState(), GetKeyboardState(), SetKeyboardState(), gtwvt stuff
 # ws2_32/wsock32: hbsocket

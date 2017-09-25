@@ -157,7 +157,7 @@ ifneq ($(HB_CODESIGN_KEY),)
    define create_exe_signed
       $(LD) $(LDFLAGS) $(HB_LDFLAGS) $(HB_USER_LDFLAGS) $(LD_OUT)$(subst /,$(DIRSEP),$(BIN_DIR)/$@) $(^F) $(LDLIBS) $(LDSTRIP)
       @$(ECHO) $(ECHOQUOTE)! Code signing: $(subst /,$(DIRSEP),$(BIN_DIR)/$@)$(ECHOQUOTE)
-      @osslsigncode sign -h sha256 -pkcs12 $(HB_CODESIGN_KEY) -pass "$(HB_CODESIGN_KEY_PASS)" -ts http://timestamp.digicert.com -in $(subst /,$(DIRSEP),$(BIN_DIR)/$@) -out $(subst /,$(DIRSEP),$(BIN_DIR)/$@)-signed
+      @osslsigncode sign -h sha256 -pkcs12 $(HB_CODESIGN_KEY) -pass "$(HB_CODESIGN_KEY_PASS)" -ts $(HB_SIGN_TIMEURL) -in $(subst /,$(DIRSEP),$(BIN_DIR)/$@) -out $(subst /,$(DIRSEP),$(BIN_DIR)/$@)-signed
       @$(CP) $(subst /,$(DIRSEP),$(BIN_DIR)/$@)-signed $(subst /,$(DIRSEP),$(BIN_DIR)/$@)
       @$(RM) $(subst /,$(DIRSEP),$(BIN_DIR)/$@)-signed
    endef
@@ -195,7 +195,7 @@ ifneq ($(HB_CODESIGN_KEY),)
       $(foreach file,$^,$(dynlib_object))
       $(DY) $(DFLAGS) $(HB_USER_DFLAGS) $(DY_OUT)$(DYN_DIR)/$@ __dyn__.tmp $(DEF_FILE) $(DLIBS) -Wl,--out-implib,$(IMP_FILE),--output-def,$(DYN_DIR)/$(basename $@).def -Wl,--major-image-version,$(HB_VER_MAJOR) -Wl,--minor-image-version,$(HB_VER_MINOR) $(DYSTRIP)
       @$(ECHO) $(ECHOQUOTE)! Code signing: $(DYN_DIR)/$@$(ECHOQUOTE)
-      @osslsigncode sign -h sha256 -pkcs12 $(HB_CODESIGN_KEY) -pass $(HB_CODESIGN_KEY_PASS) -ts http://timestamp.digicert.com -in $(DYN_DIR)/$@ -out $(DYN_DIR)/$@-signed
+      @osslsigncode sign -h sha256 -pkcs12 $(HB_CODESIGN_KEY) -pass $(HB_CODESIGN_KEY_PASS) -ts $(HB_SIGN_TIMEURL) -in $(DYN_DIR)/$@ -out $(DYN_DIR)/$@-signed
       @$(CP) $(DYN_DIR)/$@-signed $(DYN_DIR)/$@
       @$(RM) $(DYN_DIR)/$@-signed
    endef
