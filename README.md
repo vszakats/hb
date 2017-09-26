@@ -515,7 +515,7 @@ settings are case-sensitive.
    - `HB_BUILD_CONTRIB_DYN=yes`
 
      Create contrib dynamic libraries. Default: `no`,
-     except Windows platform, where it's `yes`.
+     except Windows and darwin platforms, where it's `yes`.
 
    - `HB_BUILD_PKG=yes`
 

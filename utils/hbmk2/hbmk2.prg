@@ -2185,6 +2185,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
       CASE "msvc"
       CASE "msvc64"
       CASE "msvcia64"
+      CASE "clang-cl"
+      CASE "clang-cl64"
       CASE "bcc"
       CASE "bcc64"
       CASE "xcc"
@@ -2341,8 +2343,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          { {|| FindInPath( "arm-mingw32ce-gcc"       ) }, "mingwarm", "arm-mingw32ce-",, "wce" }, ;
          { {|| FindInPath( "arm-wince-mingw32ce-gcc" ) }, "mingwarm", "arm-wince-mingw32ce-",, "wce" }, ;
          { {|| FindInSamePath( "cygstart.exe", "gcc" ) }, "gcc",,, "cygwin" }, ;
-         { {|| FindInPath( "gcc-dw2" ) }, "mingw", "", "-dw2" }, ; /* tdragon DWARF-2 build */
-         { {|| FindInPath( "x86_64-pc-mingw32-gcc"   ) }, "mingw64" }, ; /* Equation Solution build */
+         { {|| FindInSamePath( "i686-w64-mingw32-gcc"  , "clang" ) }, "clang"   }, ; /* MSYS2 clang + mingw-w64 */
+         { {|| FindInSamePath( "x86_64-w64-mingw32-gcc", "clang" ) }, "clang64" }, ; /* MSYS2 clang + mingw-w64 */
          { {|| FindInPath( "i686-w64-mingw32-gcc"    ) }, "mingw" }, ; /* mingw-w64 build */
          { {|| FindInSamePath( "x86_64-w64-mingw32-gcc.exe", "gcc" ) }, "mingw64" }, ; /* mingw-w64 TDM build */
          { {|| FindInPath( "x86_64-w64-mingw32-gcc"  ) }, "mingw64", "x86_64-w64-mingw32-" }, ; /* mingw-w64 build */
@@ -2353,15 +2355,12 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          { {|| FindInPath( "clarm.exe"  ) }, "msvcarm",,, "wce" }, ;
          { {|| FindInPath( "armasm.exe" ) }, "msvcarm",,, "wce" }, ;
          { {|| FindInPath( "ml64.exe"   ) }, "msvc64" }, ;
-         { {|| FindInPath( "ias.exe"    ) }, "msvcia64" }, ;
-         { {|| FindInPath( "clang-cl.exe" ) }, "clang-cl" }, ;
          { {|| iif( FindInPath( "wcc386"   ) == NIL, ;
                     FindInPath( "cl.exe"   ), ;
                     NIL )                      }, "msvc"    }, ;
          { {|| FindInPath( "bcc32.exe" ) }, "bcc"   }, ;
          { {|| iif( FindInPath( "dbgeng.lib", GetEnv( "LIB" ) ) != NIL .AND. ( tmp1 := FindInPath( "pocc.exe" ) ) != NIL, tmp1, NIL ) }, "pocc64"  }, ;
          { {|| FindInPath( "pocc.exe" ) }, "pocc"   }, ;
-         { {|| iif( ( tmp1 := FindInPath( "icl.exe" ) ) != NIL .AND. "itanium" $ Lower( tmp1 ), tmp1, NIL ) }, "iccia64" }, ;
          { {|| FindInPath( "icl.exe"  ) }, "icc"    }, ;
          { {|| FindInPath( "xCC.exe"  ) }, "xcc"    }, ;
          { {|| FindInPath( "tcc.exe"  ) }, "tcc"    }, ;
@@ -2781,11 +2780,15 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
 
    /* Build with shared libs by default, if we're installed to default system locations. */
 
-   IF hbmk[ _HBMK_lSysLoc ] .AND. HBMK_ISPLAT( "darwin|bsd|hpux|sunos|beos|qnx|android|vxworks|linux|cygwin|aix" )
+   IF hbmk[ _HBMK_lSysLoc ] .AND. HBMK_ISPLAT( "bsd|hpux|sunos|beos|qnx|android|vxworks|linux|cygwin|aix" )
       hbmk[ _HBMK_lSHARED ] := .T.
       hbmk[ _HBMK_lSTATICFULL ] := .F.
    ELSE
-      hbmk[ _HBMK_lSHARED ] := .F.
+      IF HBMK_ISPLAT( "darwin" )
+         hbmk[ _HBMK_lSHARED ] := .T.
+      ELSE
+         hbmk[ _HBMK_lSHARED ] := .F.
+      ENDIF
       hbmk[ _HBMK_lSTATICFULL ] := .F.
    ENDIF
 
@@ -4576,14 +4579,6 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          cLibPrefix := "-l"
          cLibExt := ""
          cObjExt := ".o"
-#if 0
-         IF hbmk[ _HBMK_lSTATICFULL ]
-            IF ! hbmk[ _HBMK_cPLAT ] == "darwin"
-               cLibModePrefix :=       "-Wl,-Bstatic" + " "
-               cLibModeSuffix := " " + "-Wl,-Bdynamic"
-            ENDIF
-         ENDIF
-#endif
          IF hbmk[ _HBMK_cPLAT ] == "darwin"
             cBin_Lib := "libtool"
             cOpt_Lib := "-static -no_warning_for_no_symbols {FA} -o {OL} {LO}"
@@ -4797,7 +4792,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          AAddNotEmpty( hbmk[ _HBMK_aOPTCPPX ], gcc_opt_lngcpp_fill( hbmk ) )
          IF hbmk[ _HBMK_cPLAT ] == "darwin"
             cBin_Dyn := cBin_Lib
-            cOpt_Dyn := "-dynamic -o {OD} -flat_namespace -undefined suppress -single_module {FD} {DL} {LO} {LS}" /* NOTE: -single_module is now the default in ld/libtool. */
+            cOpt_Dyn := "-dynamic -o {OD} -flat_namespace -undefined dynamic_lookup {FD} {DL} {LO} {LS}"
          ELSE
             cBin_Dyn := cBin_CompC
             cOpt_Dyn := "-shared -o {OD} {LO} {FD} {DL} {LS}"
@@ -4858,18 +4853,14 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
                AAdd( hbmk[ _HBMK_aOPTD ], "-Wl,--out-implib,{OI}" )
             ENDIF
          ENDIF
-         IF hbmk[ _HBMK_lSTATICFULL ]
-            IF hbmk[ _HBMK_cPLAT ] == "darwin" .AND. hbmk[ _HBMK_cCOMP ] == "clang"
-               _hbmk_OutErr( hbmk, I_( "Warning: '-fullstatic' option not supported on this platform/compiler and it was therefore ignored." ) )
-            ELSE
-               AAdd( hbmk[ _HBMK_aOPTL ], "-static" )
-            ENDIF
+         IF hbmk[ _HBMK_lSTATICFULL ] .AND. ! hbmk[ _HBMK_cPLAT ] == "darwin"
+            AAdd( hbmk[ _HBMK_aOPTL ], "-static" )
          ENDIF
-         IF hbmk[ _HBMK_cPLAT ] == "darwin" .AND. hbmk[ _HBMK_cCOMP ] == "gcc"
-            IF hbmk[ _HBMK_lSHARED ]
-               AAdd( hbmk[ _HBMK_aOPTL ], "-bind_at_load" )
-            ENDIF
+#if 0
+         IF hbmk[ _HBMK_cPLAT ] == "darwin" .AND. hbmk[ _HBMK_lSHARED ]
+            AAdd( hbmk[ _HBMK_aOPTL ], "-bind_at_load" )
          ENDIF
+#endif
          IF hbmk[ _HBMK_cPLAT ] == "vxworks"
             IF hbmk[ _HBMK_lSHARED ]
                AAdd( hbmk[ _HBMK_aOPTL ], "-shared" )  /* FIXME: no entry point */
@@ -7630,12 +7621,33 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
       ENDIF
 #endif
 
+      /* Finalize lib list */
+
+      l_aLIB := {}
+      l_aLIBA := {}
+
+      /* darwin: Convert user libnames to absolute paths to force static linking */
+      IF ! hbmk[ _HBMK_lSHARED ] .AND. hbmk[ _HBMK_cPLAT ] == "darwin"
+         /* darwin can be forced to link the static flavour by passing
+            the full path of the .a file. */
+         FOR EACH tmp IN hbmk[ _HBMK_aLIBUSER ]
+            IF ( tmp1 := FindLib( hbmk, tmp, hbmk[ _HBMK_aLIBPATH ], cLibLibPrefix, cLibLibExt ) ) != NIL
+               AAdd( l_aLIBA, tmp1 )
+               tmp := NIL
+            ENDIF
+         NEXT
+         FOR EACH tmp IN hbmk[ _HBMK_aLIBUSER ] DESCEND
+            IF tmp == NIL
+               hb_ADel( tmp:__enumBase(), tmp:__enumIndex(), .T. )
+            ENDIF
+         NEXT
+      ENDIF
+
       /* Merge lib lists. */
       l_aLIBRAW := ArrayAJoin( { hbmk[ _HBMK_aLIBUSER ], l_aLIBHB, l_aLIB3RD, hbmk[ _HBMK_aLIBUSERSYSPRE ], l_aLIBSYS, hbmk[ _HBMK_aLIBUSERSYS ] } )
       /* Dress lib names. */
-      l_aLIB := {}
-      l_aLIBA := {}
       ListCookLib( hbmk, l_aLIB, l_aLIBA, l_aLIBRAW, , cLibExt )
+
 #ifdef HARBOUR_SUPPORT
       IF hbmk[ _HBMK_lSHARED ] .AND. ! Empty( l_aLIBSHARED )
          /* Do not link Harbour dynamic/static libs when in '-hbdyn -shared' mode */
@@ -7645,6 +7657,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          ENDIF
       ENDIF
 #endif
+
       /* Dress obj names. */
       IF cObjExt == NIL
          /* NOTE: May only happen if the plat/comp combination is not supported.

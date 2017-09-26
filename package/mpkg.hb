@@ -63,9 +63,9 @@ PROCEDURE Main( cMode )
          IF Empty( tDateHEAD )
             OutStd( "! mpkg.hb: Error: Failed to obtain last commit timestamp." + hb_eol() )
          ELSE
-            tDateHEAD -= ( ( ( iif( SubStr( cStdOut, 21, 1 ) == "-", -1, 1 ) * 60 * ;
-                             ( Val( SubStr( cStdOut, 22, 2 ) ) * 60 + ;
-                               Val( SubStr( cStdOut, 24, 2 ) ) ) ) - hb_UTCOffset() ) / 86400 )
+            tDateHEAD -= ( ( iif( SubStr( cStdOut, 21, 1 ) == "-", -1, 1 ) * 60 * ;
+                           ( Val( SubStr( cStdOut, 22, 2 ) ) * 60 + ;
+                             Val( SubStr( cStdOut, 24, 2 ) ) ) ) ) / 86400
          ENDIF
 
          _TRACE( "date HEAD:", hb_TToC( tDateHEAD ) )
@@ -106,9 +106,9 @@ PROCEDURE Main( cMode )
                      tDate := hb_CToT( cStdOut, "yyyy-mm-dd", "hh:mm:ss" )
 
                      IF ! Empty( tDate )
-                        tDate -= ( ( ( iif( SubStr( cStdOut, 21, 1 ) == "-", -1, 1 ) * 60 * ;
-                                     ( Val( SubStr( cStdOut, 22, 2 ) ) * 60 + ;
-                                       Val( SubStr( cStdOut, 24, 2 ) ) ) ) - hb_UTCOffset() ) / 86400 )
+                        tDate -= ( ( iif( SubStr( cStdOut, 21, 1 ) == "-", -1, 1 ) * 60 * ;
+                                   ( Val( SubStr( cStdOut, 22, 2 ) ) * 60 + ;
+                                     Val( SubStr( cStdOut, 24, 2 ) ) ) ) ) / 86400
                         hb_vfTimeSet( file, tDate )
                      ENDIF
                   ENDIF

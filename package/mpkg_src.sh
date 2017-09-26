@@ -5,10 +5,10 @@
 if [ "$1" = 'zip' ] || [ "$1" = 'ZIP' ]; then
   hb_archbin='zip'
   hb_ext='.zip'
-elif tar --version >/dev/null 2>&1; then
-  hb_archbin='tar'
 elif gtar --version >/dev/null 2>&1; then
   hb_archbin='gtar'
+elif tar --version >/dev/null 2>&1; then
+  hb_archbin='tar'
 else
   hb_archbin='tar'
   echo "Warning!!! Cannot find 'GNU tar'"
@@ -56,14 +56,18 @@ hb_flist='bin/hb_flist.tmp'
   else
     hb_collect_all_tree
   fi
-) > "$hb_rootdir/$hb_flist"
+) | LC_ALL=C sort > "$hb_rootdir/$hb_flist"
 
 (
   cd "$hb_rootdir" || exit
   if [ "$hb_archbin" = 'zip' ]; then
     $hb_archbin -X -9 -o -r -q "$hb_filename" . "-i@$hb_flist"
   else
-    $hb_archbin -c --files-from "$hb_flist" | gzip -n > "$hb_filename"
+    # https://lists.gnu.org/archive/html/help-tar/2015-05/msg00005.html
+    $hb_archbin -c --files-from "$hb_flist" \
+      --owner=0 --group=0 --numeric-owner \
+      --mode=go=rX,u+rw,a-s \
+    | gzip -9 -n > "$hb_filename"
   fi
 )
 rm -f "${hb_rootdir:?}/$hb_flist"
