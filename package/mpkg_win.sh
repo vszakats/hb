@@ -5,15 +5,15 @@
 # See LICENSE.txt for licensing terms.
 # ---------------------------------------------------------------
 
-# TODO: remove bcc*, win/watcom, mingwarm references
+# TODO: remove mingwarm, OS/2, MS-DOS references
 
 cd "$(dirname "$0")" || exit
 
 # - Requires MSYS2 or 'Git for Windows' to run on Windows
-# - Requires 7z in PATH
+# - Requires '7z' in PATH
 # - Adjust target dir, MinGW dirs, set HB_DIR_MINGW_32, HB_DIR_MINGW_64
-#   create required packages beforehand.
-# - Run this from vanilla official source tree only.
+#   create packages to be included beforehand.
+# - Run this from unmodified official source tree only.
 
 # https://en.wikipedia.org/wiki/Uname#Examples
 # https://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=HEAD
@@ -51,6 +51,7 @@ _BRANCH="${APPVEYOR_REPO_BRANCH}${TRAVIS_BRANCH}${CI_BUILD_REF_NAME}${GIT_BRANCH
 [ -n "${_BRANCH}" ] || _BRANCH="$(git symbolic-ref --short --quiet HEAD)"
 [ -n "${_BRANCH}" ] || _BRANCH='master'
 [ -n "${HB_JOB}" ] || HB_JOB="${_BRANCH}"
+[ -n "${HB_JOB_TO_RELEASE}" ] || HB_JOB_TO_RELEASE="${HB_JOB}"
 
 _SCRIPT="$(realpath 'mpkg.hb')"
 _ROOT="$(realpath '..')"
@@ -143,9 +144,6 @@ for dir in \
   "../pkg/win/clang64/harbour-${HB_VF}-win-clang64" \
   "../pkg/win/msvc/harbour-${HB_VF}-win-msvc" \
   "../pkg/win/msvc64/harbour-${HB_VF}-win-msvc64" \
-  "../pkg/win/bcc/harbour-${HB_VF}-win-bcc" \
-  "../pkg/win/bcc64/harbour-${HB_VF}-win-bcc64" \
-  "../pkg/win/watcom/harbour-${HB_VF}-win-watcom" \
   "../pkg/os2/watcom/harbour-${HB_VF}-os2-watcom" \
   "../pkg/dos/watcom/hb${HB_VL}wa"; do
   if [ -d "${dir}" ]; then

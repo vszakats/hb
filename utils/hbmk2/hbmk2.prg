@@ -13487,13 +13487,15 @@ STATIC FUNCTION IsHexDigit( c )
  */
 STATIC FUNCTION getFirstFunc( hbmk, cFile, cBin_SymLst, cOpt_SymLst )
 
-   LOCAL cFuncList, cExecNM, cFuncName, cExt, cLine, n, c
+   LOCAL cFuncList, cExecNM, cExt, cLine, n, c, cCommand
+   LOCAL cFuncName := ""
 
-   cFuncName := ""
    IF hb_vfExists( cFile ) .AND. ;
       HBMK_ISCOMP( "gcc|mingw|mingw64|mingwarm|gccomf|clang|clang64" )
+
       cExt := hb_FNameExt( cFile )
-      IF cExt == ".c"
+      DO CASE
+      CASE cExt == ".c"
          FOR EACH cLine IN hb_ATokens( hb_MemoRead( cFile ), .T. )
             cLine := AllTrim( cLine )
             IF hb_LeftEq( cLine, '{ "' ) .AND. "HB_FS_FIRST" $ cLine .AND. ! "HB_FS_STATIC" $ cLine
@@ -13504,22 +13506,31 @@ STATIC FUNCTION getFirstFunc( hbmk, cFile, cBin_SymLst, cOpt_SymLst )
                EXIT
             ENDIF
          NEXT
-      ELSEIF Lower( cExt ) == ".cpp" .OR. ;
-             Lower( cExt ) == ".cc" .OR. ;
-             Lower( cExt ) == ".cxx" .OR. ;
-             Lower( cExt ) == ".cx"
+      CASE Lower( cExt ) == ".cpp" .OR. ;
+           Lower( cExt ) == ".cc" .OR. ;
+           Lower( cExt ) == ".cxx" .OR. ;
+           Lower( cExt ) == ".cx"
          /* do nothing */
-      ELSEIF ! Empty( cExecNM := FindInPath( cBin_SymLst ) )
-         hb_processRun( cExecNM + " " + ;
+      CASE ! Empty( cExecNM := FindInPath( cBin_SymLst ) )
+
+         cCommand := cExecNM + " " + ;
             hb_StrReplace( cOpt_SymLst, { ;
                "{FN}" => "-n", ;
                "{LI}" => FNameEscape( cFile, hbmk[ _HBMK_nCmd_Esc ], hbmk[ _HBMK_nCmd_FNF ] ), ;
-               "{OT}" => "" } ),, @cFuncList )
-         IF ( n := At( " T HB_FUN_", cFuncList ) ) > 0
-            n += 10
-         ELSEIF ( n := At( " T _HB_FUN_", cFuncList ) ) > 0
-            n += 11
+               "{OT}" => "" } )
+
+         IF hbmk[ _HBMK_lTRACE ] .AND. hbmk[ _HBMK_lInfo ] .AND. ! hbmk[ _HBMK_lQuiet ]
+            _hbmk_OutStd( hbmk, I_( "Query symbols command:" ) )
+            OutStd( cCommand + _OUT_EOL )
          ENDIF
+
+         hb_processRun( cCommand,, @cFuncList )
+         DO CASE
+         CASE ( n := At( " T HB_FUN_", cFuncList ) ) > 0
+            n += 10
+         CASE ( n := At( " T _HB_FUN_", cFuncList ) ) > 0
+            n += 11
+         ENDCASE
          IF n > 0
             WHILE ( c := SubStr( cFuncList, n++, 1 ) ) == "_" .OR. ;
                      hb_asciiIsDigit( c ) .OR. hb_asciiIsAlpha( c )
@@ -13531,7 +13542,7 @@ STATIC FUNCTION getFirstFunc( hbmk, cFile, cBin_SymLst, cOpt_SymLst )
                cFuncName += c
             ENDDO
          ENDIF
-      ENDIF
+      ENDCASE
    ENDIF
 
    RETURN cFuncName
@@ -14772,7 +14783,7 @@ STATIC FUNCTION CompVersionDetect( hbmk, cPath_CompC, lEarly )
             tmp1 := hb_ATokens( SubStr( tmp1, Len( "Apple LLVM version " ) + 1 ), "." )
             cVer := StrZero( Val( tmp1[ 1 ] ), 2 ) + StrZero( Val( tmp1[ 2 ] ), 2 )
 
-            /* Apple LLVM/clang version vs. official LLVM/Clang version
+            /* Apple LLVM/Clang version vs. official LLVM/Clang version
                  https://opensource.apple.com/source/clang/ -> clang-<version>/src/CMakeLists.txt
                  https://opensource.apple.com/source/clang/clang-800.0.42.1/src/CMakeLists.txt
                  https://opensource.apple.com/source/clang/clang-800.0.42.1/src/autoconf/configure.ac
@@ -15929,6 +15940,7 @@ STATIC FUNCTION __hb_extern_get_list( hbmk, cInputName, cBin_SymLst, cOpt_SymLst
    LOCAL aExtern := NIL
    LOCAL hExtern
 
+   LOCAL cCommand
    LOCAL cStdOut, cStdErr
    LOCAL cTempFile
    LOCAL pRegex
@@ -15949,12 +15961,18 @@ STATIC FUNCTION __hb_extern_get_list( hbmk, cInputName, cBin_SymLst, cOpt_SymLst
             cTempFile := ""
          ENDIF
 
-         cOpt_SymLst := hb_StrReplace( cOpt_SymLst, { ;
-            "{FN}" => "", ;
-            "{LI}" => FNameEscape( cInputName, hbmk[ _HBMK_nCmd_Esc ], hbmk[ _HBMK_nCmd_FNF ] ), ;
-            "{OT}" => FNameEscape( cTempFile, hbmk[ _HBMK_nCmd_Esc ], hbmk[ _HBMK_nCmd_FNF ] ) } )
+         cCommand := cBin_SymLst + " " + ;
+            hb_StrReplace( cOpt_SymLst, { ;
+               "{FN}" => "", ;
+               "{LI}" => FNameEscape( cInputName, hbmk[ _HBMK_nCmd_Esc ], hbmk[ _HBMK_nCmd_FNF ] ), ;
+               "{OT}" => FNameEscape( cTempFile, hbmk[ _HBMK_nCmd_Esc ], hbmk[ _HBMK_nCmd_FNF ] ) } )
 
-         IF hb_processRun( cBin_SymLst + " " + cOpt_SymLst,, @cStdOut, @cStdErr ) == 0
+         IF hbmk[ _HBMK_lTRACE ] .AND. hbmk[ _HBMK_lInfo ] .AND. ! hbmk[ _HBMK_lQuiet ]
+            _hbmk_OutStd( hbmk, I_( "Query symbols command:" ) )
+            OutStd( hb_StrFormat( "%1$s | %2$s", cCommand, cLibHBX_Regex ) + _OUT_EOL )
+         ENDIF
+
+         IF hb_processRun( cCommand,, @cStdOut, @cStdErr ) == 0
             IF ! cTempFile == ""
                cStdOut := MemoRead( cTempFile )
             ENDIF

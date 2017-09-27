@@ -1758,8 +1758,13 @@ METHOD Input( cChar ) CLASS Get
          EXIT
 
       CASE "L"
-
-         IF ! Upper( cChar ) $ "YNTF"
+         #ifdef HB_CLP_STRICT
+            #define _YN_NAT  ""
+         #else
+            #define _YN_NAT  hb_langMessage( HB_LANG_ITEM_BASE_TEXT + 1 ) + ;
+                             hb_langMessage( HB_LANG_ITEM_BASE_TEXT + 2 )
+         #endif
+         IF ! Upper( cChar ) $ "YNTF" + _YN_NAT
             RETURN ""
          ENDIF
          EXIT

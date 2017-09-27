@@ -79,11 +79,11 @@ matrix:
       # https://hub.docker.com/_/ubuntu/
       env: [ HB_CI_THREADS=4, PKG_SUFFIX=linux, 'DOCKER_IMAGE=ubuntu:rolling', DOCKER_SCRIPT=./package/mpkg_win_docker.sh ]
     - os: osx
-      osx_image: xcode8.3
+      osx_image: xcode9
       compiler: clang
       env: HB_CI_THREADS=4
     - os: osx
-      osx_image: xcode8.3
+      osx_image: xcode9
       compiler: i686-w64-mingw32-gcc
       env: [ HB_CI_THREADS=4, PKG_SUFFIX=mac ]
 
@@ -124,7 +124,9 @@ script:
       if [ -z "${DOCKER_IMAGE}" ]; then
         ./package/mpkg_win_ci.sh
       fi
-      [ -f harbour-snapshot-win.7z ] && mv -f harbour-snapshot-win.7z "harbour-snapshot-win-built-on-${PKG_SUFFIX}.7z"
+      if [ -f harbour-snapshot-win.7z ]; then
+        mv -f harbour-snapshot-win.7z "harbour-snapshot-win-built-on-${PKG_SUFFIX}.7z"
+      fi
     elif [ -z "${DOCKER_IMAGE}" ]; then
       ls -lA "$(dirname "$(which "${CC}${HB_CCSUFFIX}")")/${CC}"*
       "${CC}${HB_CCSUFFIX}" -v
