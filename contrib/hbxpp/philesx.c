@@ -48,6 +48,8 @@
 #include "hbapifs.h"
 #include "hbapierr.h"
 
+/* Identical to hb_CurDrive() core function, except the description in the
+   RTE raised in case of an error. */
 HB_FUNC( CURDRIVE )
 {
 #if defined( HB_OS_HAS_DRIVE_LETTER )
