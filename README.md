@@ -767,6 +767,18 @@ set PATH=%ProgramFiles(x86)%\LLVM 3.6.svn;%PATH%
 mingw32-make
 ```
 
+```batchfile
+:: Intel(R) C++ (x86 target)
+call "%ProgramFiles(x86)%\Intel\Compiler\11.1\054\bin\ia32\iclvars_ia32.bat"
+mingw32-make
+```
+
+```batchfile
+:: Intel(R) C++ (x64 target)
+call "%ProgramFiles(x86)%\Intel\Compiler\11.1\054\bin\intel64\iclvars_intel64.bat"
+mingw32-make
+```
+
 ## on Windows 32-bit hosts
 
 Same as 64-bit Windows, with the difference that you will have to change
@@ -843,19 +855,6 @@ mingw32-make
 set PATH=C:\mingwce\opt\mingw32ce\bin;C:\cygwin\bin;%PATH%
 :: optional:
 set CYGWIN=nodosfilewarning
-mingw32-make
-```
-
-```batchfile
-:: Intel(R) C++
-call "%ProgramFiles%\Intel\Compiler\C++\10.1.014\IA32\Bin\iclvars.bat"
-mingw32-make
-```
-
-```batchfile
-:: Intel(R) C++ for Windows IA-64 Itanium
-:: (requires preceding build for native target)
-call "%ProgramFiles%\Intel\Compiler\C++\10.1.025\Itanium\Bin\iclvars.bat"
 mingw32-make
 ```
 
@@ -1122,6 +1121,7 @@ Press `<Alt+D>` in the app.
 * clang-cl64 - LLVM/Clang-cl x86-64
 * watcom   - Open Watcom C/C++
 * icc      - Intel(R) C/C++
+* icc64    - Intel(R) C/C++ x86-64
 
 ### win (deprecated)
 * bcc      - Borland/CodeGear/Embarcadero C++ 5.5 and above
