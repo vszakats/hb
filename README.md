@@ -1310,7 +1310,7 @@ Supported shells per host platforms:
         * <https://releases.llvm.org/>
      * Xcode / Command Line Tools for Xcode [darwin, zero price, proprietary with open-source components]
         * <https://itunes.apple.com/us/app/xcode/id497799835>
-        * <https://developer.apple.com/downloads/>
+        * <https://developer.apple.com/downloads/> (needs login)
      * MS Windows SDK [zero price, proprietary]
         * <https://developer.microsoft.com/windows/downloads/sdk-archive/>
      * MS Visual C++ Build Tools [win, zero price, proprietary]
@@ -1422,7 +1422,7 @@ Supported shells per host platforms:
   * [How to contribute](.github/CONTRIBUTING.md)
   * [Source code](https://github.com/vszakats/harbour-core)
   * [Issues](https://github.com/vszakats/harbour-core/issues)
-  * [Localization](https://www.transifex.com/harbour/harbour/) (Resource (needs login) [hbmk2-vszakats](https://www.transifex.com/harbour/harbour/hbmk2-vszakats/))
+  * [Localization](https://www.transifex.com/harbour/harbour/) (Resource [hbmk2-vszakats](https://www.transifex.com/harbour/harbour/hbmk2-vszakats/) (needs login))
   * Documents:
      * [hbmk2 documentation](utils/hbmk2/doc/hbmk2.en.md)
      * [hbrun documentation](contrib/hbrun/doc/hbrun.en.md)
