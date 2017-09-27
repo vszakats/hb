@@ -105,11 +105,11 @@ before_install:
           mxe-{i686,x86-64}-w64-mingw32.shared-{cairo,file,ghostscript,icu4c,libmysqlclient,postgresql} \
           mxe-{i686,x86-64}-w64-mingw32.static-{freeimage,gd}
       else
-      # brew install pcre zlib
+      # brew install pcre qt zlib
         brew install --force-bottle --build-bottle fontconfig || true
         brew install \
           bzip2 expat libharu liblzf libmxml libpng libxdiff lzo minizip pcre2 sqlite \
-          cairo curl freeimage gd ghostscript icu4c libmagic libyaml mariadb ncurses openssl@1.1 postgresql qt rabbitmq-c s-lang unixodbc
+          cairo curl freeimage gd ghostscript icu4c libmagic libyaml mariadb ncurses openssl@1.1 postgresql rabbitmq-c s-lang unixodbc
       fi
       export MACOSX_DEPLOYMENT_TARGET=10.10
     elif [ -n "${DOCKER_IMAGE}" ]; then
