@@ -130,14 +130,12 @@ _DET_VAR_INC_ := HB_INC_SLANG
 _DET_VAR_HAS_ := HB_HAS_SLANG
 _DET_FLT_PLAT :=
 _DET_FLT_COMP :=
-_DET_INC_DEFP :=
-_DET_INC_HEAD := /slang.h
-
-_DET_INC_DEFP += /usr/include /usr/include/slang
+_DET_INC_DEFP := /usr/include /usr/include/slang
 _DET_INC_DEFP += /usr/local/include /usr/local/include/slang
 _DET_INC_DEFP += /sw/include /sw/include/slang
 _DET_INC_DEFP += /opt/local/include /opt/local/include/slang
 _DET_INC_DEFP += /usr/pkg/include/slang2 /usr/pkg/include
+_DET_INC_HEAD := /slang.h
 
 include $(TOP)$(ROOT)config/detfun.mk
 
@@ -155,7 +153,9 @@ _DET_VAR_INC_ := HB_INC_CURSES
 _DET_VAR_HAS_ := HB_HAS_CURSES
 _DET_FLT_PLAT := !os2
 _DET_FLT_COMP :=
-_DET_INC_DEFP := /usr/local/opt/ncurses/include /usr/include /usr/include/ncurses /usr/local/include /sw/include /opt/local/include /boot/develop/headers/3rdparty
+_DET_INC_DEFP := /usr/local/opt/ncurses/include
+_DET_INC_DEFP += /usr/include /usr/include/ncurses /usr/local/include
+_DET_INC_DEFP += /sw/include /opt/local/include /boot/develop/headers/3rdparty
 ifeq ($(HB_PLATFORM),win)
 _DET_INC_HEAD := /ncursesw/curses.h
 else
@@ -181,7 +181,9 @@ _DET_VAR_INC_ := HB_INC_X11
 _DET_VAR_HAS_ := HB_HAS_X11
 _DET_FLT_PLAT :=
 _DET_FLT_COMP :=
-_DET_INC_DEFP := /usr/include /usr/local/include /usr/X11R6/include /usr/pkg/include /usr/pkg/X11R6/include /opt/X11/include
+_DET_INC_DEFP := /usr/include /usr/local/include
+_DET_INC_DEFP += /usr/X11R6/include /opt/X11/include
+_DET_INC_DEFP += /usr/pkg/include /usr/pkg/X11R6/include
 _DET_INC_HEAD := /X11/Xlib.h
 
 include $(TOP)$(ROOT)config/detfun.mk

@@ -46,6 +46,7 @@ addons:
 matrix:
   include:
     - os: linux
+      # https://docs.travis-ci.com/user/reference/trusty/
       dist: trusty
       sudo: false
       compiler: clang
@@ -79,6 +80,7 @@ matrix:
       # https://hub.docker.com/_/ubuntu/
       env: [ HB_CI_THREADS=4, PKG_SUFFIX=linux, 'DOCKER_IMAGE=ubuntu:rolling', DOCKER_SCRIPT=./package/mpkg_win_docker.sh ]
     - os: osx
+      # https://docs.travis-ci.com/user/reference/osx/
       osx_image: xcode9
       compiler: clang
       env: HB_CI_THREADS=4

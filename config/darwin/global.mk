@@ -21,10 +21,9 @@ AR_RULE = ( $(AR) -static \
    || ( $(RM) $(LIB_DIR)/$@ && $(FALSE) )
 
 DY := $(AR)
-DFLAGS += -dynamic -flat_namespace $(LIBPATHS)
 DY_OUT := -o$(subst x,x, )
 
-DY_RULE = $(DY) $(DFLAGS) \
+DY_RULE = $(DY) -dynamic -flat_namespace $(DFLAGS) \
    -install_name "$(DYN_NAME_NVR)" \
    -compatibility_version $(HB_VER_MAJOR).$(HB_VER_MINOR) \
    -current_version $(HB_VER_MAJOR).$(HB_VER_MINOR).$(HB_VER_RELEASE) \
