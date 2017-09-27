@@ -1201,7 +1201,6 @@ Press `<Alt+D>` in the app.
  linux    | vxworks/diab      | (CPU cross-builds possible: x86, arm, mips, ppc, sparc)
  win      | win/clang         | x86
  win      | win/clang64       | x86-64
- win      | win/gcc           | x86
  win      | win/mingw         | x86
  win      | win/mingw64       | x86-64
  win      | win/msvc          | x86
