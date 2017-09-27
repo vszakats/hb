@@ -1431,11 +1431,11 @@ Supported shells per host platforms:
      * CA-Cl*pper 5.3 [online documentation](https://harbour.github.io/ng/c53g01c/menu.html)
      * Harbour [online documentation](https://harbour.github.io/doc/)
      * Harbour [internal documents](doc/)
-     * [Harbour for Beginners (by Alexander Kresin)](https://www.kresin.ru/en/hrbfaq_3.html)
-     * [Harbour Wiki (by Pete D)](https://github.com/Petewg/V-harbour-core/wiki)
+     * [Harbour for Beginners - by Alexander Kresin](https://www.kresin.ru/en/hrbfaq_3.html)
+     * [Harbour Wiki - by Pete D](https://github.com/Petewg/V-harbour-core/wiki)
+     * [Harbour Magazine - by José Luis Sánchez](https://medium.com/harbour-magazine)
      * [Wikipedia](https://en.wikipedia.org/wiki/Harbour_compiler)
      * [Stack Overflow](https://stackoverflow.com/questions/tagged/clipper)
-     * [Medium](https://medium.com/harbour-magazine)
 
 
 # Guarantees and Liability
