@@ -56,8 +56,8 @@ typedef int my_socket;
 
 #if defined( HB_GCC_HAS_DIAG ) && defined( __clang__ )
    #pragma GCC diagnostic push
-   #pragma GCC diagnostic ignored "-Wignored-attributes"
-   #pragma GCC diagnostic ignored "-Wstrict-prototypes"
+   #pragma GCC diagnostic ignored "-Wignored-attributes"  /* Windows */
+   #pragma GCC diagnostic ignored "-Wstrict-prototypes"   /* darwin */
 #endif
 
 #include "mysql.h"
