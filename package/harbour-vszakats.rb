@@ -1,5 +1,5 @@
-class HarbourAT34 < Formula
-  desc "Portable, xBase-compatible programming language and environment"
+class HarbourVszakats < Formula
+  desc "Portable, xBase-compatible programming language and environment (vszakats fork)"
   homepage "https://github.com/vszakats/harbour-core/"
 
   head "https://github.com/vszakats/harbour-core.git"

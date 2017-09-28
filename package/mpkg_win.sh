@@ -357,6 +357,7 @@ cd "${HB_RT}" || exit
   echo 'tests/*'
 ) >> "${_ROOT}/_hbfiles"
 
+_pkgprefix=
 _pkgsuffix=
 if [ "${_BRANCH#*prod*}" != "${_BRANCH}" ]; then
   case "${os}" in
@@ -364,10 +365,11 @@ if [ "${_BRANCH#*prod*}" != "${_BRANCH}" ]; then
     *)       _pkgsuffix="$(       stat -c '%Y' "${HB_ABSROOT}README.md" | TZ=UTC awk '{print "-" strftime("%Y%m%d-%H%M", $1)}')";;
   esac
 elif [ "${HB_JOB}" != "${HB_JOB_TO_RELEASE}" ]; then
+  _pkgprefix="_"  # to avoid getting deployed
   _pkgsuffix="-${HB_JOB}"
 fi
 
-_pkgname="${_ROOT}/harbour-${HB_VF}-win${_pkgsuffix}.7z"
+_pkgname="${_ROOT}/${_pkgprefix}harbour-${HB_VF}-win${_pkgsuffix}.7z"
 
 rm -f "${_pkgname}"
 (

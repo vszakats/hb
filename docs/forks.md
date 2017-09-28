@@ -6,7 +6,7 @@ title: "Forks"
 
 # Harbour Forks
 
-## Harbour 3.4<br><span class="smaller">by [vszakats](https://github.com/vszakats)</span>
+## Harbour by [vszakats](https://github.com/vszakats) (version 3.4)
 
 Forked in April of 2013 in an attempt to focus on a narrower set of platforms
 and contrib libraries while also freeing up resources by distancing from
