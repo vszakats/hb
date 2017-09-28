@@ -1283,6 +1283,17 @@ STATIC FUNCTION hbmk_harbour_dirlayout_detect( hbmk, lIgnoreEnvVar )
 
    RETURN .T.
 
+STATIC FUNCTION compiler_compatibility_map( cCOMP )
+
+   /* clang can use mingw objects and vice versa */
+   STATIC sc_hCOMPAT := { ;
+      "clang"   => "mingw", ;
+      "clang64" => "mingw64", ;
+      "mingw"   => "clang", ;
+      "mingw64" => "clang64" }
+
+   RETURN iif( cCOMP $ sc_hCOMPAT, sc_hCOMPAT[ cCOMP ], NIL )
+
 /* This stage needs COMP and PLAT to be filled */
 STATIC PROCEDURE hbmk_harbour_dirlayout_init( hbmk )
 
@@ -1303,20 +1314,31 @@ STATIC PROCEDURE hbmk_harbour_dirlayout_init( hbmk )
    IF Empty( hbmk[ _HBMK_cHB_INSTALL_LIB ] )
       /* Auto-detect multi-compiler/platform lib structure */
       IF hb_vfDirExists( tmp := hb_PathNormalize( hb_DirSepAdd( hbmk[ _HBMK_cHB_INSTALL_PFX ] ) ) + "lib" + ;
+                                                    hb_ps() + hbmk[ _HBMK_cPLAT ] + ;
+                                                    hb_ps() + hbmk[ _HBMK_cCOMP ] + ;
+                                                    hb_DirSepToOS( hbmk[ _HBMK_cBUILD ] ) )
+         hbmk[ _HBMK_cHB_INSTALL_LIB ] := tmp
+      ELSEIF compiler_compatibility_map( hbmk[ _HBMK_cCOMP ] ) != NIL .AND. ;
+         hb_vfDirExists( tmp := hb_PathNormalize( hb_DirSepAdd( hbmk[ _HBMK_cHB_INSTALL_PFX ] ) ) + "lib" + ;
                                                   hb_ps() + hbmk[ _HBMK_cPLAT ] + ;
-                                                  hb_ps() + hbmk[ _HBMK_cCOMP ] + ;
+                                                  hb_ps() + compiler_compatibility_map( hbmk[ _HBMK_cCOMP ] ) + ;
                                                   hb_DirSepToOS( hbmk[ _HBMK_cBUILD ] ) )
          hbmk[ _HBMK_cHB_INSTALL_LIB ] := tmp
       ELSE
          hbmk[ _HBMK_cHB_INSTALL_LIB ] := hb_PathNormalize( hb_DirSepAdd( hbmk[ _HBMK_cHB_INSTALL_PFX ] ) + "lib" )
       ENDIF
    ENDIF
-   IF Empty( hbmk[ _HBMK_cHB_INSTALL_LI3 ] )
-      IF hbmk[ _HBMK_cPLAT ] == "win" .AND. ;
-         hb_vfDirExists( tmp := hb_PathNormalize( hb_DirSepAdd( hbmk[ _HBMK_cHB_INSTALL_PFX ] ) ) + "lib" + ;
+   IF Empty( hbmk[ _HBMK_cHB_INSTALL_LI3 ] ) .AND. hbmk[ _HBMK_cPLAT ] == "win"
+      IF hb_vfDirExists( tmp := hb_PathNormalize( hb_DirSepAdd( hbmk[ _HBMK_cHB_INSTALL_PFX ] ) ) + "lib" + ;
                                                   hb_ps() + "3rd" + ;
                                                   hb_ps() + hbmk[ _HBMK_cPLAT ] + ;
                                                   hb_ps() + hbmk[ _HBMK_cCOMP ] )
+         hbmk[ _HBMK_cHB_INSTALL_LI3 ] := tmp
+      ELSEIF compiler_compatibility_map( hbmk[ _HBMK_cCOMP ] ) != NIL .AND. ;
+         hb_vfDirExists( tmp := hb_PathNormalize( hb_DirSepAdd( hbmk[ _HBMK_cHB_INSTALL_PFX ] ) ) + "lib" + ;
+                                               hb_ps() + "3rd" + ;
+                                               hb_ps() + hbmk[ _HBMK_cPLAT ] + ;
+                                               hb_ps() + compiler_compatibility_map( hbmk[ _HBMK_cCOMP ] ) )
          hbmk[ _HBMK_cHB_INSTALL_LI3 ] := tmp
       ENDIF
    ENDIF
@@ -2576,7 +2598,12 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
                         hb_vfDirExists( hb_PathNormalize( hb_DirSepAdd( hbmk[ _HBMK_cHB_INSTALL_PFX ] ) ) + "lib" + ;
                                                           hb_ps() + hbmk[ _HBMK_cPLAT ] + ;
                                                           hb_ps() + hbmk[ _HBMK_cCOMP ] + ;
-                                                          hb_DirSepToOS( hbmk[ _HBMK_cBUILD ] ) )
+                                                          hb_DirSepToOS( hbmk[ _HBMK_cBUILD ] ) ) .OR. ;
+                        ( compiler_compatibility_map( hbmk[ _HBMK_cCOMP ] ) != NIL .AND. ;
+                          hb_vfDirExists( hb_PathNormalize( hb_DirSepAdd( hbmk[ _HBMK_cHB_INSTALL_PFX ] ) ) + "lib" + ;
+                                                         hb_ps() + hbmk[ _HBMK_cPLAT ] + ;
+                                                         hb_ps() + compiler_compatibility_map( hbmk[ _HBMK_cCOMP ] ) + ;
+                                                         hb_DirSepToOS( hbmk[ _HBMK_cBUILD ] ) ) )
 #endif
                         IF Len( tmp ) >= _COMPDET_cCCPREFIX .AND. tmp[ _COMPDET_cCCPREFIX ] != NIL
                            hbmk[ _HBMK_cCCPREFIX ] := tmp[ _COMPDET_cCCPREFIX ]
