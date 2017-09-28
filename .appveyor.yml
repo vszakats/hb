@@ -61,6 +61,8 @@ build_script:
 artifacts:
   - path: harbour-snapshot-win*.7z*
     name: pkg-win
+  - path: _harbour-snapshot-win*.7z*
+    name: pkg-win-nodeploy
 
 deploy:
   - provider: GitHub
