@@ -5177,7 +5177,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
 #endif
                ENDCASE
                /* It is also supported by official mingw 4.4.x and mingw64 4.4.x,
-                  but not supported by mingw tdm 4.4.x, so I only enable it on or
+                  but not supported by mingw TDM 4.4.x, so I only enable it on or
                   above 4.5.0 [vszakats] */
                IF hbmk[ _HBMK_cCOMPVer ] > "0404"
                   AAdd( hbmk[ _HBMK_aOPTL ], "-Wl,--nxcompat" )

@@ -43,7 +43,7 @@ ifneq ($(HB_COMPILER_VER),)
 endif
 
 # It is also supported by official mingw 4.4.x and mingw64 4.4.x,
-# but not supported by mingw tdm 4.4.x, so I only enable it on or
+# but not supported by mingw TDM 4.4.x, so I only enable it on or
 # above 4.5.0.
 ifneq ($(HB_COMPILER_VER),)
    ifeq ($(filter $(HB_COMPILER_VER),0209 0304 0400 0401 0402 0403 0404),)
