@@ -2340,14 +2340,14 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          watcom also keeps a cl.exe in its binary dir. */
 #if ! defined( __PLATFORM__UNIX )
       aCOMPDET := { ;
-         { {|| FindInPath( "arm-mingw32ce-gcc"       ) }, "mingwarm", "arm-mingw32ce-",, "wce" }, ;
-         { {|| FindInPath( "arm-wince-mingw32ce-gcc" ) }, "mingwarm", "arm-wince-mingw32ce-",, "wce" }, ;
-         { {|| FindInSamePath( "cygstart.exe", "gcc" ) }, "gcc",,, "cygwin" }, ;
-         { {|| FindInSamePath( "i686-w64-mingw32-gcc"  , "clang" ) }, "clang"   }, ; /* MSYS2 clang + mingw-w64 */
-         { {|| FindInSamePath( "x86_64-w64-mingw32-gcc", "clang" ) }, "clang64" }, ; /* MSYS2 clang + mingw-w64 */
-         { {|| FindInPath( "i686-w64-mingw32-gcc"    ) }, "mingw" }, ; /* mingw-w64 build */
-         { {|| FindInSamePath( "x86_64-w64-mingw32-gcc.exe", "gcc" ) }, "mingw64" }, ; /* mingw-w64 TDM build */
-         { {|| FindInPath( "x86_64-w64-mingw32-gcc"  ) }, "mingw64", "x86_64-w64-mingw32-" }, ; /* mingw-w64 build */
+         { {|| FindInPath(     "arm-mingw32ce-gcc"                   ) }, "mingwarm", "arm-mingw32ce-",, "wce" }, ;
+         { {|| FindInPath(     "arm-wince-mingw32ce-gcc"             ) }, "mingwarm", "arm-wince-mingw32ce-",, "wce" }, ;
+         { {|| FindInSamePath( "cygstart.exe"              , "gcc"   ) }, "gcc",,, "cygwin" }, ;
+         { {|| FindInSamePath( "i686-w64-mingw32-gcc"      , "clang" ) }, "clang"   }, ;  /* MSYS2 + mingw-w64-i686-clang   + mingw-w64-i686-toolchain */
+         { {|| FindInSamePath( "x86_64-w64-mingw32-gcc"    , "clang" ) }, "clang64" }, ;  /* MSYS2 + mingw-w64-x86_64-clang + mingw-w64-x86_64-toolchain */
+         { {|| FindInPath(     "i686-w64-mingw32-gcc"                ) }, "mingw"   }, ;  /* mingw-w64 build */
+         { {|| FindInSamePath( "x86_64-w64-mingw32-gcc.exe", "gcc"   ) }, "mingw64" }, ;  /* mingw-w64 build */
+         { {|| FindInPath(     "x86_64-w64-mingw32-gcc"              ) }, "mingw64", "x86_64-w64-mingw32-" }, ;  /* mingw-w64 build */
          { {|| FindInPath( hbmk[ _HBMK_cCCPREFIX ] + "gcc" + hbmk[ _HBMK_cCCSUFFIX ] ) }, "mingw" }, ;
          { {|| iif( Empty( GetEnv( "WATCOM" ) ), ;
                     NIL, ;

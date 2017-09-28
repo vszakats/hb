@@ -24,7 +24,7 @@ Source archives and Windows binaries are available for download:
 4. Install MSYS2. Follow steps on <https://msys2.github.io/>. Make
    sure to update MSYS2 to its current latest version, as described.
 5. Install MinGW-w64 using this command on the MSYS2 console:
-   `pacman -S git base-devel msys2-devel mingw-w64-{i686,x86_64}-toolchain`
+   `pacman --noconfirm -S git base-devel msys2-devel mingw-w64-{i686,x86_64}-toolchain`
 6. Build test 32-bit executable:
    ```
    set PATH=<path-to-msys2>\mingw32\bin;%PATH%
