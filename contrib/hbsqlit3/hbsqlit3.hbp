@@ -10,8 +10,8 @@
 -deppkgname=sqlite3:sqlite-devel{rpm}
 -deppkgname=sqlite3:sqlite{homebrew}
 -deppkgname=sqlite3:sqlite{pacman}
--deppkgname=sqlite3:mingw-w64-i686-sqlite3{msys2&mingw}
--deppkgname=sqlite3:mingw-w64-x86_64-sqlite3{msys2&mingw64}
+-deppkgname=sqlite3:mingw-w64-i686-sqlite3{msys2&x86}
+-deppkgname=sqlite3:mingw-w64-x86_64-sqlite3{msys2&x86_64}
 -depkeyhead=sqlite3:sqlite3.h
 -depcontrol=sqlite3:local{HB_BUILD_3RDEXT='no'}
 -depcontrol=sqlite3:${HB_WITH_SQLITE3}

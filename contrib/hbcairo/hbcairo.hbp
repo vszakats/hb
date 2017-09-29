@@ -14,8 +14,8 @@
 -deppkgname=cairo:cairo-devel{rpm}
 -deppkgname=cairo:cairo{homebrew}
 -deppkgname=cairo:cairo{pacman}
--deppkgname=cairo:mingw-w64-i686-cairo{msys2&mingw}
--deppkgname=cairo:mingw-w64-x86_64-cairo{msys2&mingw64}
+-deppkgname=cairo:mingw-w64-i686-cairo{msys2&x86}
+-deppkgname=cairo:mingw-w64-x86_64-cairo{msys2&x86_64}
 -depkeyhead=cairo:cairo.h
 -depcontrol=cairo:no{HB_BUILD_3RDEXT='no'}
 -depcontrol=cairo:${HB_WITH_CAIRO}

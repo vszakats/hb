@@ -15320,6 +15320,7 @@ FUNCTION hbmk_KEYW( hbmk, cFileName, cKeyword, cValue, cOperator )
    CASE "hb20"     ; RETURN hbmk[ _HBMK_nHBMODE ] == _HBMODE_HB20
    CASE "hb30"     ; RETURN hbmk[ _HBMK_nHBMODE ] == _HBMODE_HB30
    CASE "hb32"     ; RETURN hbmk[ _HBMK_nHBMODE ] == _HBMODE_HB32
+   CASE "msys2"    ; RETURN cKeyword == hbmk[ _HBMK_cPKGM ] .AND. HBMK_ISCOMP( "mingw|mingw64|clang|clang64" )
    ENDSWITCH
 
    IF cKeyword == hbmk_CPU( hbmk ) .OR. ;

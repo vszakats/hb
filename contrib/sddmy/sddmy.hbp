@@ -18,8 +18,8 @@ rddsql.hbc
 -deppkgname=mysql:mariadb{homebrew}
 -deppkgname=mysql:mysql{homebrew}
 -deppkgname=mysql:libmariadbclient{pacman}
--deppkgname=mysql:mingw-w64-i686-libmariadbclient{msys2&mingw}
--deppkgname=mysql:mingw-w64-x86_64-libmariadbclient{msys2&mingw64}
+-deppkgname=mysql:mingw-w64-i686-libmariadbclient{msys2&x86}
+-deppkgname=mysql:mingw-w64-x86_64-libmariadbclient{msys2&x86_64}
 -depkeyhead=mysql:mysql.h
 -depcontrol=mysql:no{HB_BUILD_3RDEXT='no'}
 -depcontrol=mysql:${HB_WITH_MYSQL}

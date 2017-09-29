@@ -16,8 +16,8 @@ hbbz2.hbc
 -deppkgname=bzip2:libbz2-dev{deb}
 -deppkgname=bzip2:bzip2-devel{rpm}
 -deppkgname=bzip2:bzip2{homebrew}
--deppkgname=bzip2:mingw-w64-i686-bzip2{msys2&mingw}
--deppkgname=bzip2:mingw-w64-x86_64-bzip2{msys2&mingw64}
+-deppkgname=bzip2:mingw-w64-i686-bzip2{msys2&x86}
+-deppkgname=bzip2:mingw-w64-x86_64-bzip2{msys2&x86_64}
 -depkeyhead=bzip2:bzlib.h
 -depcontrol=bzip2:local{HB_BUILD_3RDEXT='no'}
 -depcontrol=bzip2:${HB_WITH_BZIP2}

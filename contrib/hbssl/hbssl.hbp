@@ -8,10 +8,10 @@
 -depimplibs=openssl:../lib/libcrypto.dll.a:libeay32{allwinar}
 -depimplibs=openssl:../lib/libssl.dll.a:ssleay32{allwinar}
 
--instfile=depimplibsrc:${HBMK_DIR_OPENSSL}/../libcrypto-1_1.dll{hbdyn&mingw}
--instfile=depimplibsrc:${HBMK_DIR_OPENSSL}/../libssl-1_1.dll{hbdyn&mingw}
--instfile=depimplibsrc:${HBMK_DIR_OPENSSL}/../libcrypto-1_1-x64.dll{hbdyn&mingw64}
--instfile=depimplibsrc:${HBMK_DIR_OPENSSL}/../libssl-1_1-x64.dll{hbdyn&mingw64}
+-instfile=depimplibsrc:${HBMK_DIR_OPENSSL}/../libcrypto-1_1.dll{hbdyn&(mingw|clang)}
+-instfile=depimplibsrc:${HBMK_DIR_OPENSSL}/../libssl-1_1.dll{hbdyn&(mingw|clang)}
+-instfile=depimplibsrc:${HBMK_DIR_OPENSSL}/../libcrypto-1_1-x64.dll{hbdyn&(mingw64|clang64)}
+-instfile=depimplibsrc:${HBMK_DIR_OPENSSL}/../libssl-1_1-x64.dll{hbdyn&(mingw64|clang64)}
 
 hbssl.hbm
 

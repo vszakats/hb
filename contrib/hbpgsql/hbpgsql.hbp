@@ -10,8 +10,8 @@
 -deppkgname=pgsql:postgresql-devel{rpm}
 -deppkgname=pgsql:postgresql{homebrew}
 -deppkgname=pgsql:postgresql{pacman}
--deppkgname=pgsql:mingw-w64-i686-postgresql{msys2&mingw}
--deppkgname=pgsql:mingw-w64-x86_64-postgresql{msys2&mingw64}
+-deppkgname=pgsql:mingw-w64-i686-postgresql{msys2&x86}
+-deppkgname=pgsql:mingw-w64-x86_64-postgresql{msys2&x86_64}
 -depkeyhead=pgsql:libpq-fe.h
 -depcontrol=pgsql:no{HB_BUILD_3RDEXT='no'}
 -depcontrol=pgsql:${HB_WITH_PGSQL}

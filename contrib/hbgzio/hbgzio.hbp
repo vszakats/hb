@@ -15,8 +15,8 @@ ${hb_name}.hbx
 -deppkgname=zlib:zlib-devel{rpm}
 -deppkgname=zlib:zlib{homebrew}
 -deppkgname=zlib:zlib{pacman}
--deppkgname=zlib:mingw-w64-i686-zlib{msys2&mingw}
--deppkgname=zlib:mingw-w64-x86_64-zlib{msys2&mingw64}
+-deppkgname=zlib:mingw-w64-i686-zlib{msys2&x86}
+-deppkgname=zlib:mingw-w64-x86_64-zlib{msys2&x86_64}
 -depkeyhead=zlib:zlib.h
 -depcontrol=zlib:local{HB_BUILD_3RDEXT='no'}
 -depcontrol=zlib:${HB_WITH_ZLIB}

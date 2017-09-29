@@ -7,13 +7,13 @@
 -w3 -es2
 
 -depurlbase=curl:https://curl.haxx.se/
--depurlbase=curl:https://github.com/vszakats/harbour-deps{mingw|mingw64}
+-depurlbase=curl:https://github.com/vszakats/harbour-deps{win&(allmingw|allclang)}
 -deppkgname=curl:libcurl4-openssl-dev{deb}
 -deppkgname=curl:curl-devel{rpm}
 -deppkgname=curl:curl{homebrew}
 -deppkgname=curl:curl{pacman}
--deppkgname=curl:mingw-w64-i686-curl{msys2&mingw}
--deppkgname=curl:mingw-w64-x86_64-curl{msys2&mingw64}
+-deppkgname=curl:mingw-w64-i686-curl{msys2&x86}
+-deppkgname=curl:mingw-w64-x86_64-curl{msys2&x86_64}
 -depkeyhead=curl:curl/curl.h
 -depcontrol=curl:no{HB_BUILD_3RDEXT='no'}
 -depcontrol=curl:${HB_WITH_CURL}

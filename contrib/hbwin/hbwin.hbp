@@ -23,8 +23,8 @@
 -cflag=-DWIN32_LEAN_AND_MEAN
 
 -depurlbase=png:https://github.com/glennrp/libpng
--deppkgname=png:mingw-w64-i686-libpng{msys2&mingw}
--deppkgname=png:mingw-w64-x86_64-libpng{msys2&mingw64}
+-deppkgname=png:mingw-w64-i686-libpng{msys2&x86}
+-deppkgname=png:mingw-w64-x86_64-libpng{msys2&x86_64}
 -depkeyhead=png:png.h
 -depcontrol=png:local{HB_BUILD_3RDEXT='no'}
 -depcontrol=png:${HB_WITH_PNG}
