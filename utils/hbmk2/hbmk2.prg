@@ -4879,6 +4879,19 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
                AAdd( hbmk[ _HBMK_aOPTL ], "-Wl,--out-implib,{OI}" )
                AAdd( hbmk[ _HBMK_aOPTD ], "-Wl,--out-implib,{OI}" )
             ENDIF
+
+            IF ! hbmk[ _HBMK_cPLAT ] == "wce"
+               IF hbmk[ _HBMK_lGUI ]
+                  AAdd( hbmk[ _HBMK_aOPTL ], "-mwindows" )
+#ifdef HARBOUR_SUPPORT
+                  IF ! l_lNOHBLIB
+                     l_cCMAIN := "hb_forceLinkMainWin"
+                  ENDIF
+#endif
+               ELSE
+                  AAdd( hbmk[ _HBMK_aOPTL ], "-mconsole" )
+               ENDIF
+            ENDIF
          ENDIF
          IF hbmk[ _HBMK_lSTATICFULL ] .AND. ! hbmk[ _HBMK_cPLAT ] == "darwin"
             AAdd( hbmk[ _HBMK_aOPTL ], "-static" )
@@ -4984,7 +4997,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          ENDIF
 
 #ifdef HARBOUR_SUPPORT
-         IF ! HBMK_ISPLAT( "beos|vxworks" )
+         IF ! HBMK_ISPLAT( "win|beos|vxworks" )
             AAdd( l_aLIBSYS, "m" )
          ENDIF
          IF ! Empty( cLIB_BASE_PCRE ) .AND. ! hb_vfExists( _HBLIB_FULLPATH( cLIB_BASE_PCRE ) )
@@ -5104,8 +5117,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             ENDIF
          ENDIF
 
-      CASE ( hbmk[ _HBMK_cPLAT ] == "win" .AND. hbmk[ _HBMK_cCOMP ] == "gcc" ) .OR. ;
-           ( hbmk[ _HBMK_cPLAT ] == "win" .AND. hbmk[ _HBMK_cCOMP ] == "mingw" ) .OR. ;
+      CASE ( hbmk[ _HBMK_cPLAT ] == "win" .AND. hbmk[ _HBMK_cCOMP ] == "mingw" ) .OR. ;
            ( hbmk[ _HBMK_cPLAT ] == "win" .AND. hbmk[ _HBMK_cCOMP ] == "mingw64" ) .OR. ;
            ( hbmk[ _HBMK_cPLAT ] == "win" .AND. hbmk[ _HBMK_cCOMP ] == "tcc" ) .OR. ;
            ( hbmk[ _HBMK_cPLAT ] == "wce" .AND. hbmk[ _HBMK_cCOMP ] == "mingw" ) .OR. ;
