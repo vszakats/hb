@@ -2016,6 +2016,11 @@ ifeq ($(HB_INIT_DONE),)
 
          HB_DYNLIB_PLOC := -$(HB_VER_MAJOR)$(HB_VER_MINOR)
          HB_IMPLIB_PLOC := _dll
+         ifneq ($(filter $(HB_PLATFORM),win),)
+            ifneq ($(filter $(HB_PLATFORM),mingw mingw64 clang clang64),)
+               HB_IMPLIB_PLOC := .dll
+            endif
+         endif
 
          ifeq ($(HB_PLATFORM),win)
             ifeq ($(HB_COMPILER),bcc)

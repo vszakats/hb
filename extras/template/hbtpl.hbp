@@ -31,10 +31,5 @@ corec.c
 $hb_pkg_dynlib.hbm
 $hb_pkg_install.hbm
 
-# NOTE: Comment out this line if you don't want to link
-#       against _dynamic_ Harbour lib dependencies that follow
-#       the Harbour contrib conventions.
-{hbdyn}-env:_HB_DYNSUFF=_dll
-
 # Harbour lib dependencies
 hbct.hbc

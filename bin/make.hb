@@ -466,7 +466,8 @@ STATIC PROCEDURE build_projects( nAction, hProjectList, hProjectReqList, cOption
             /* Build dynamic lib */
             IF GetEnv( "HB_BUILD_CONTRIB_DYN" ) == "yes" .AND. hProjectList[ cProject ][ "cType" ] == "hblib"
                /* Is this a platform where import libs are used? */
-               IF "|" + hProjectList[ cProject ][ "cPlatform" ] + "|" $ "|win|dos|os2|"
+               IF "|" + hProjectList[ cProject ][ "cPlatform" ] + "|" $ "|win|dos|os2|" .AND. ;
+                  ! "|" + GetEnv( "HB_COMPILER" ) + "|" $ "|mingw|mingw64|clang|clang64|"
                   cDynSuffix := "_dll"
                ELSE
                   cDynSuffix := ""

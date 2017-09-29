@@ -311,7 +311,8 @@ EXTERNAL hbmk_KEYW
 #define _HBMK_SHELL             "__HBSCRIPT__HBSHELL"
 
 #define _HBMK_IMPLIB_EXE_SUFF   "_exe"
-#define _HBMK_IMPLIB_DLL_SUFF   "_dll"
+#define _HBMK_IMPLIB_DLL_SUFFH  "_dll"  /* Harbour convention (there is no general convention for this) */
+#define _HBMK_IMPLIB_DLL_SUFFG  ".dll"  /* GNU (Cygwin/MinGW) convention */
 
 #define _HBMK_TARGENAME_ADHOC   ".adhoc."
 
@@ -4606,6 +4607,10 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          cLibPrefix := "-l"
          cLibExt := ""
          cObjExt := ".o"
+         IF hbmk[ _HBMK_cPLAT ] == "win" .AND. ! hbmk[ _HBMK_lSHARED ]
+            cLibModePrefix :=       "-Wl,-Bstatic" + " "
+            cLibModeSuffix := " " + "-Wl,-Bdynamic"
+         ENDIF
          IF hbmk[ _HBMK_cPLAT ] == "darwin"
             cBin_Lib := "libtool"
             cOpt_Lib := "-static -no_warning_for_no_symbols {FA} -o {OL} {LO}"
@@ -5134,7 +5139,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          cLibPrefix := "-l"
          cLibExt := ""
          cObjExt := ".o"
-         IF hbmk[ _HBMK_lSTATICFULL ]
+         IF ! hbmk[ _HBMK_lSHARED ]
             cLibModePrefix :=       "-Wl,-Bstatic" + " "
             cLibModeSuffix := " " + "-Wl,-Bdynamic"
          ENDIF
@@ -5439,7 +5444,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             hbmk[ _HBMK_cCOMPVer ] := CompVersionDetect( hbmk, cBin_CompC, .F. )
          ENDIF
          cOpt_CompC := "-c"
-         IF hbmk[ _HBMK_lSTATICFULL ]
+         IF ! hbmk[ _HBMK_lSHARED ]
             cLibModePrefix :=       "-Wl,-Bstatic" + " "
             cLibModeSuffix := " " + "-Wl,-Bdynamic"
          ENDIF
@@ -5570,7 +5575,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             hbmk[ _HBMK_cCOMPVer ] := CompVersionDetect( hbmk, cBin_CompC, .F. )
          ENDIF
          cOpt_CompC := "-c"
-         IF hbmk[ _HBMK_lSTATICFULL ]
+         IF ! hbmk[ _HBMK_lSHARED ]
             cLibModePrefix :=       "-Wl,-Bstatic" + " "
             cLibModeSuffix := " " + "-Wl,-Bdynamic"
          ENDIF
@@ -6724,7 +6729,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          IF l_cIMPLIBNAME == NIL
             /* By default add default suffix to avoid collision with static lib
                with the same name. */
-            l_cIMPLIBNAME := cName + _HBMK_IMPLIB_DLL_SUFF
+            l_cIMPLIBNAME := cName + hbmk_IMPSUFFIX( hbmk )
          ENDIF
          IF hbmk[ _HBMK_lIMPLIB ] .AND. HBMK_ISPLAT( "win|os2|dos" )
             l_cLIBSELF := l_cIMPLIBNAME
@@ -15255,9 +15260,21 @@ STATIC FUNCTION hbmk_DYNSUFFIX( hbmk )
 
 /* Return standard dynamic lib implib name suffix used by Harbour */
 STATIC FUNCTION hbmk_IMPSUFFIX( hbmk, cDL_Version_Alter )
-   RETURN iif( hbmk[ _HBMK_nHBMODE ] == _HBMODE_NATIVE, ;
-      _HBMK_IMPLIB_DLL_SUFF, ;
-      cDL_Version_Alter + hbmk_DYNSUFFIX( hbmk ) )
+
+   IF hbmk[ _HBMK_nHBMODE ] == _HBMODE_NATIVE .OR. cDL_Version_Alter == NIL
+      IF HBMK_ISPLAT( "win" ) .AND. ;
+         HBMK_ISCOMP( "mingw|mingw64|clang|clang64" )
+         IF cDL_Version_Alter == NIL  /* use */
+            RETURN ""
+         ELSE  /* generate */
+            RETURN _HBMK_IMPLIB_DLL_SUFFG
+         ENDIF
+      ELSE
+         RETURN _HBMK_IMPLIB_DLL_SUFFH
+      ENDIF
+   ENDIF
+
+   RETURN cDL_Version_Alter + hbmk_DYNSUFFIX( hbmk )
 
 #endif
 

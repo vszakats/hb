@@ -1,8 +1,9 @@
-# Copyright 2012 Viktor Szakats (vszakats.net/harbour)
+# Copyright 2012-2017 Viktor Szakats (vszakats.net/harbour)
 
 # dynamic lib creation settings
 {hbdyn}-shared
 {hbdyn}-implib=lib/${hb_plat}/${hb_comp}${hb_build}/${hb_outputname}_dll
+{hbdyn&{win&(allmingw|allclang)}-implib=lib/${hb_plat}/${hb_comp}${hb_build}/${hb_outputname}.dll
 {hbdyn&unix&!cygwin}-ln=${hb_dynprefix}${hb_outputname}${hb_dynext}
 {hbdyn&unix&!darwin&!cygwin}-ln=${hb_dynprefix}${hb_outputname}${hb_dynext}.${hb_major}.${hb_minor}
 {hbdyn&unix&darwin}-ln=${hb_dynprefix}${hb_outputname}.${hb_major}.${hb_minor}${hb_dynext}
