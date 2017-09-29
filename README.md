@@ -113,8 +113,8 @@ Download source archive from any of these URLs and unpack:
 For all platforms you will need:
 
 * Supported ANSI C compiler
-* GNU Make (3.81 recommended, minimum 3.79 required, see also platform details)
-* Harbour sources (2.0.0 or upper)
+* GNU Make (3.81 or upper)
+* Harbour sources
 
 ## on Windows hosts
 
@@ -129,9 +129,9 @@ Platform specific prerequisites:
    different versions of the same compiler in `PATH` at the same time. For the
    list of supported compilers,
    look up [Supported Platforms and C Compilers](#supported-platforms-and-c-compilers).
-3. A native build of GNU Make 3.81 or upper is required. It is usually named
+3. A native build of GNU Make is required. It is usually named
    `mingw32-make.exe`. It's distributed in MSYS2, mingw-w64 packages. You can
-   find some links [here](#external-links).
+   find download links [here](#external-links).
    Unpack it to your `PATH` or Harbour source root directory, and run it as
    `mingw32-make`.
 
