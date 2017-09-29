@@ -385,8 +385,8 @@ touch -c -r "${HB_ABSROOT}README.md" "${_pkgname}"
 
 # <filename>: <size> bytes <YYYY-MM-DD> <HH:MM>
 case "${os}" in
-  bsd|mac) stat -f '%N: %z bytes %Sm' -t '%Y-%m-%d %H:%M' "${_pkgname}";;
-  *)       stat -c '%n: %s bytes %y' "${_pkgname}";;
+  bsd|mac) TZ=UTC stat -f '%N: %z bytes %Sm' -t '%Y-%m-%d %H:%M' "${_pkgname}";;
+  *)       TZ=UTC stat -c '%n: %s bytes %y' "${_pkgname}";;
 esac
 openssl dgst -sha256 "${_pkgname}"
 
