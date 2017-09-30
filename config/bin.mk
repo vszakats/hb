@@ -19,30 +19,22 @@ ifeq ($(BUILD_SHARED),yes)
 
    ifeq ($(HB_PLATFORM),cygwin)
       HB_LIBS_TPL += hbmainstd
-   else
-   ifneq ($(filter $(HB_PLATFORM),win wce),)
+   else ifneq ($(filter $(HB_PLATFORM),win wce),)
       ifneq ($(filter $(HB_COMPILER),mingw mingw64 mingwarm),)
          HB_LIBS_TPL += hbmainstd
-      else
-      ifeq ($(HB_COMPILER),watcom)
+      else ifeq ($(HB_COMPILER),watcom)
          HB_LDFLAGS += FILE $(LIB_DIR)/hbmainstd.lib
       else
          HB_LIBS_TPL += hbmainstd hbmainwin
       endif
-      endif
-   else
-   ifeq ($(HB_PLATFORM),os2)
+   else ifeq ($(HB_PLATFORM),os2)
       ifeq ($(HB_COMPILER),watcom)
          HB_LDFLAGS += FILE $(LIB_DIR)/hbmainstd.lib
       else
          HB_LIBS_TPL += hbmainstd
       endif
-   else
-   ifeq ($(HB_PLATFORM)-$(HB_COMPILER),dos-watcom)
+   else ifeq ($(HB_PLATFORM)-$(HB_COMPILER),dos-watcom)
       HB_LDFLAGS += FILE $(LIB_DIR)/hbmainstd.lib
-   endif
-   endif
-   endif
    endif
 
    HB_LIBS_ST_RDD := $(HB_LIBS_TPL) $(HB_IMPLIB_BASE)
@@ -71,10 +63,8 @@ else
 
    ifneq ($(HB_HAS_PCRE2_LOCAL),)
       HB_LIBS_TPL += hbpcre2
-   else
-   ifneq ($(HB_HAS_PCRE_LOCAL),)
+   else ifneq ($(HB_HAS_PCRE_LOCAL),)
       HB_LIBS_TPL += hbpcre
-   endif
    endif
    ifneq ($(HB_HAS_ZLIB_LOCAL),)
       HB_LIBS_TPL += hbzlib

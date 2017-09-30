@@ -18,12 +18,10 @@ ifneq ($(HB_LINKING_RTL),)
       ifeq ($(HB_HAS_PCRE2_LOCAL),)
          SYSLIBS += pcre2-8
       endif
-   else
-   ifneq ($(HB_HAS_PCRE),)
+   else ifneq ($(HB_HAS_PCRE),)
       ifeq ($(HB_HAS_PCRE_LOCAL),)
          SYSLIBS += pcre
       endif
-   endif
    endif
    ifeq ($(HB_HAS_ZLIB_LOCAL),)
       SYSLIBS += z

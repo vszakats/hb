@@ -22,14 +22,12 @@ CFLAGS += -I. -I$(HB_HOST_INC) -c
 ifeq ($(filter $(HB_COMPILER_VER),0209 0304 0400 0401 0402 0403 0404 0405 0406 0407 0408),)
    #CFLAGS += -fstack-protector-strong
    #SYSLIBS += ssp
-else
-ifeq ($(filter $(HB_COMPILER_VER),0209 0304 0400),)
+else ifeq ($(filter $(HB_COMPILER_VER),0209 0304 0400),)
    # too weak
    #CFLAGS += -fstack-protector
    # too slow
    #CFLAGS += -fstack-protector-all
    #SYSLIBS += ssp
-endif
 endif
 
 ifneq ($(HB_COMPILER_VER),)

@@ -71,22 +71,18 @@ ifeq ($($(_DET_VAR_HAS_)),)
                   $(_DET_VAR_HAS_) := $($(_DET_VAR_INC_))
                   ifeq ($($(_DET_VAR_INC_)),yes)
                      $(_DET_VAR_HAS_) :=
-                  else
+                  else ifeq ($($(_DET_VAR_INC_)),force)
                      # bypass local check
-                     ifeq ($($(_DET_VAR_INC_)),force)
-                        $(_DET_VAR_HAS_) := .
-                     endif
+                     $(_DET_VAR_HAS_) := .
                   endif
                   ifeq ($($(_DET_VAR_HAS_)),)
                      ifneq ($(HB_BUILD_3RDEXT),no)
                         $(_DET_VAR_HAS_) := $(subst $(subst x, ,x),$(PTHSEP),$(_DET_INC_DEFP))
                      endif
                      $(_DET_VAR_HAS_) := $($(_DET_VAR_HAS_))$(PTHSEP)$(_DET_INC_LOCL)
-                  else
-                     ifeq ($($(_DET_VAR_HAS_)),nolocal)
-                        ifneq ($(HB_BUILD_3RDEXT),no)
-                           $(_DET_VAR_HAS_) := $(subst $(subst x, ,x),$(PTHSEP),$(_DET_INC_DEFP))
-                        endif
+                  else ifeq ($($(_DET_VAR_HAS_)),nolocal)
+                     ifneq ($(HB_BUILD_3RDEXT),no)
+                        $(_DET_VAR_HAS_) := $(subst $(subst x, ,x),$(PTHSEP),$(_DET_INC_DEFP))
                      endif
                   endif
                   ifeq ($($(_DET_VAR_INC_)),local)

@@ -37,10 +37,8 @@ HB_DYN_LIBS := \
 
 ifneq ($(HB_HAS_PCRE2_LOCAL),)
    HB_DYN_LIBS += hbpcre2
-else
-ifneq ($(HB_HAS_PCRE_LOCAL),)
+else ifneq ($(HB_HAS_PCRE_LOCAL),)
    HB_DYN_LIBS += hbpcre
-endif
 endif
 ifneq ($(HB_HAS_ZLIB_LOCAL),)
    HB_DYN_LIBS += hbzlib

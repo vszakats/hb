@@ -23,8 +23,7 @@ else
 
 ifeq ($(HB_SHELL),sh)
    INSTALL_DIR_OS := $(subst \,/,$(INSTALL_DIR))
-else
-ifeq ($(HB_SHELL),os2)
+else ifeq ($(HB_SHELL),os2)
    # $(CP) and $(MDP) require forward slashes
    INSTALL_DIR_OS := $(subst \,/,$(INSTALL_DIR))
    INSTALL_FILES_OS := $(subst \,/,$(INSTALL_FILES))
@@ -32,28 +31,24 @@ else
    INSTALL_DIR_OS := $(subst /,\,$(INSTALL_DIR))
    INSTALL_FILES_OS := $(subst /,\,$(INSTALL_FILES))
 endif
-endif
 
 ifeq ($(HB_SHELL),sh)
 
    INSTALL_RULE := \
       @$(MDP) $(INSTALL_DIR_OS); \
-      if [ ! -d "$(INSTALL_DIR_OS)" ]; \
-      then \
-         $(ECHO) "! Cannot install, path not found: '$(INSTALL_DIR_OS)'" 1>&2; \
-         $(FALSE); \
+      if [ ! -d "$(INSTALL_DIR_OS)" ]; then \
+        $(ECHO) "! Cannot install, path not found: '$(INSTALL_DIR_OS)'" 1>&2; \
+        $(FALSE); \
       else \
-         for i in $(INSTALL_FILES); \
-         do \
-            if [ -r "$$i" ]; \
-            then \
-               $(ECHO) "! Installing $$i on $(INSTALL_DIR_OS)"; \
-               $(CP) $$i $(INSTALL_DIR_OS); \
-               true; \
-            else \
-               $(ECHO) "! Cannot install $$i, not found" 1>&2; \
-            fi \
-         done \
+        for i in $(INSTALL_FILES); do \
+          if [ -r "$$i" ]; then \
+            $(ECHO) "! Installing $$i on $(INSTALL_DIR_OS)"; \
+            $(CP) $$i $(INSTALL_DIR_OS); \
+            true; \
+          else \
+            $(ECHO) "! Cannot install $$i, not found" 1>&2; \
+          fi \
+        done \
       fi
 
 endif
