@@ -374,11 +374,10 @@ elif [ "${os}" != 'win' ] && \
   # script falls back to creating a stray Draft releases instead.
 
   # https://developer.github.com/v3/git/refs/#get-a-reference
-  _tag_id="$(curl -sS "https://api.github.com/repos/${GITHUB_SLUG}/git/refs/tags/v${HB_VF_DEF}" | jq .object.sha)"
+  _tag_id="$(curl -sS "https://api.github.com/repos/${GITHUB_SLUG}/git/refs/tags/v${HB_VF_DEF}" | jq -r .object.sha)"
   if [ "${_tag_id}" != "${_vcs_id}" ]; then
     echo "! Info: Tag '${HB_VF_DEF}' commit doesn't match this commit (${_tag_id} vs ${_vcs_id}): skip deploy."
     _pkgprefix="_"  # to avoid getting deployed
-    CC='none'
   fi
 fi
 
