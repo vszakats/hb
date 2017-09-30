@@ -49,11 +49,7 @@ ifneq ($($(subst HB_INC_,HB_WITH_,$(_DET_VAR_INC_))),)
    $(_DET_VAR_INC_) := $($(subst HB_INC_,HB_WITH_,$(_DET_VAR_INC_)))
 endif
 
-ifneq ($(HB_SRC_ROOTPATH),)
-   _DET_INC_LOCL := $(HB_SRC_ROOTPATH)$(_DET_INC_LOCL)
-else
-   _DET_INC_LOCL := $(realpath $(TOP)$(ROOT)$(_DET_INC_LOCL))
-endif
+_DET_INC_LOCL := $(realpath $(TOP)$(ROOT)$(_DET_INC_LOCL))
 
 _DET_RES_TEXT :=
 

@@ -22,9 +22,6 @@
 # GNU Make NEWS:
 #    https://git.savannah.gnu.org/cgit/make.git/tree/NEWS
 
-# NOTE: $(realpath/abspath) need GNU Make 3.81 or upper
-# NOTE: $(eval) needs GNU Make 3.80 or upper
-
 ifeq ($(GLOBAL_MK_),)
 GLOBAL_MK_ := yes
 
@@ -63,28 +60,7 @@ export LANG := C
 _make_ver_min := 3.81
 _make_ver_ok := $(filter $(_make_ver_min),$(firstword $(sort $(MAKE_VERSION) $(_make_ver_min))))
 ifeq ($(_make_ver_ok),)
-   ifeq ($(_make_ver_warn),)
-      $(warning ! Warning: GNU Make version $(MAKE_VERSION) found, $(_make_ver_min) or upper recommended for Harbour)
-      export _make_ver_warn := yes
-   endif
-endif
-
-# Detect GNU Make version compatibility (unsupported functions return empty value in GNU Make)
-ifneq ($(abspath .),)
-   _MAKE_COMPAT_381 := yes
-endif
-# $(eval _MAKE_COMPAT_380 := yes)
-
-# Users must specify HB_SRC_ROOTPATH only for < 3.81 GNU Make versions
-# (without '$(realpath)' function). For newer ones we clear it
-# to avoid messing things up.
-ifneq ($(_MAKE_COMPAT_381),)
-   HB_SRC_ROOTPATH :=
-else
-   # Condition it to have forward slashes, a guaranteed ending slash and no double slashes, if specified
-   ifneq ($(HB_SRC_ROOTPATH),)
-      HB_SRC_ROOTPATH := $(subst //,/,$(subst \,/,$(HB_SRC_ROOTPATH))/)
-   endif
+   $(error ! Error: GNU Make version $(MAKE_VERSION) found, $(_make_ver_min) or upper required for Harbour)
 endif
 
 find_in_path     = $(strip $(subst $(substpat), ,$(firstword $(subst |, ,$(subst $(subst x, ,x),$(substpat),$(filter-out |,$(foreach dir, $(subst $(PTHSEP), ,$(subst $(subst x, ,x),$(substpat),$(PATH))),|$(wildcard $(subst //,/,$(subst $(substpat),\ ,$(subst \,/,$(dir)))/$(1))$(HB_HOST_BIN_EXT)))))))))
@@ -120,13 +96,6 @@ ifeq ($(HB_INIT_DONE),)
 
    ifeq ($(HB_BUILD_PKG),yes)
 
-      # We need some >= 3.81 GNU Make feature to make this option work,
-      # or we need HB_SRC_ROOTPATH to be specified by user.
-      ifeq ($(_MAKE_COMPAT_381),)
-         ifeq ($(HB_SRC_ROOTPATH),)
-            export HB_BUILD_PKG := no
-         endif
-      endif
       # 'clean' and 'install' are required when building a release package
       ifeq ($(filter clean,$(HB_MAKECMDGOALS)),)
          $(warning ! Warning: HB_BUILD_PKG=yes set, please make sure that a 'make clean' was done before the build.)
@@ -188,12 +157,6 @@ else
 endif
 
 ifeq ($(HB_INIT_DONE),)
-
-   ifeq ($(_MAKE_COMPAT_381),)
-      ifeq ($(HB_SRC_ROOTPATH),)
-         $(warning ! Warning: Using < 3.81 GNU Make version and empty HB_SRC_ROOTPATH. Some features may not work.)
-      endif
-   endif
 
    $(info ! Building Harbour $(HB_VER_MAJOR).$(HB_VER_MINOR).$(HB_VER_RELEASE)$(HB_VER_STATUS) from source)
    $(info ! MAKE: $(MAKE) $(MAKE_VERSION) '$(SHELL)' $(HB_MAKECMDGOALS) $(MAKEFLAGS) $(if $(MAKESHELL),MAKESHELL: $(MAKESHELL),))
@@ -1237,11 +1200,7 @@ else
       IMP_DIR :=
    endif
    ifeq ($(HB_LD_PATH_SET),)
-      ifneq ($(HB_SRC_ROOTPATH),)
-         export $(HB_LD_LIBRARY_PATH) := $(HB_SRC_ROOTPATH)lib/$(PLAT_COMP):$($(HB_LD_LIBRARY_PATH))
-      else
-         export $(HB_LD_LIBRARY_PATH) := $(abspath $(DYN_DIR)):$($(HB_LD_LIBRARY_PATH))
-      endif
+      export $(HB_LD_LIBRARY_PATH) := $(abspath $(DYN_DIR)):$($(HB_LD_LIBRARY_PATH))
       export HB_LD_PATH_SET := yes
       ifneq ($($(HB_LD_LIBRARY_PATH)),)
          $(info ! $(HB_LD_LIBRARY_PATH): $($(HB_LD_LIBRARY_PATH)))
@@ -1251,12 +1210,7 @@ endif
 DYN_PREF :=
 # define PKG_DIR only if run from root Makefile
 ifeq ($(ROOT),./)
-   ifneq ($(HB_SRC_ROOTPATH),)
-      PKG_DIR := $(HB_SRC_ROOTPATH)
-   else
-      PKG_DIR := $(TOP)$(ROOT)
-   endif
-   PKG_DIR := $(PKG_DIR)pkg/$(PLAT_COMP)
+   PKG_DIR := $(TOP)$(ROOT)pkg/$(PLAT_COMP)
 else
    PKG_DIR :=
 endif
@@ -1404,16 +1358,9 @@ ifneq ($(HB_HOST_PLAT)$(HB_HOST_CPU),$(HB_PLATFORM)$(HB_CPU))
             ifneq ($(HB_HOST_PLAT)-$(HB_PLATFORM),win-cygwin)
                HB_CROSS_BUILD := yes
                # Try to auto-setup
-               ifneq ($(HB_SRC_ROOTPATH),)
-                  _HB_ROOT_BIN := $(HB_SRC_ROOTPATH)
-               else
-                  _HB_ROOT_BIN := $(TOP)$(ROOT)
-               endif
-               HB_HOST_BIN := $(dir $(firstword $(wildcard $(_HB_ROOT_BIN)bin/$(HB_HOST_PLAT)/*/harbour$(HB_HOST_BIN_EXT))))
+               HB_HOST_BIN := $(dir $(firstword $(wildcard $(TOP)$(ROOT)bin/$(HB_HOST_PLAT)/*/harbour$(HB_HOST_BIN_EXT))))
                ifneq ($(HB_HOST_BIN),)
-                  ifeq ($(HB_SRC_ROOTPATH),)
-                     HB_HOST_BIN := $(realpath $(HB_HOST_BIN))
-                  endif
+                  HB_HOST_BIN := $(realpath $(HB_HOST_BIN))
                else
                   # Look in PATH
                   HB_HOST_BIN := $(dir $(call find_in_path,harbour))
@@ -1565,13 +1512,8 @@ ifeq ($(HB_BUILD_PKG),yes)
       #   <HB_INSTALL_PREFIX                       >/bin
       #
 
-      ifneq ($(HB_SRC_ROOTPATH),)
-         export HB_TOP := $(subst /,$(DIRSEP),$(HB_SRC_ROOTPATH))
-         HB_INSTALL_PREFIX := $(PKG_DIR)
-      else
-         export HB_TOP := $(subst /,$(DIRSEP),$(realpath $(TOP)$(ROOT)))
-         HB_INSTALL_PREFIX := $(abspath $(PKG_DIR))
-      endif
+      export HB_TOP := $(subst /,$(DIRSEP),$(realpath $(TOP)$(ROOT)))
+      HB_INSTALL_PREFIX := $(abspath $(PKG_DIR))
 
       HB_INSTALL_PREFIX := $(subst /,$(DIRSEP),$(HB_INSTALL_PREFIX))
 
