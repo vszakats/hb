@@ -78,7 +78,7 @@ matrix:
       compiler: i686-w64-mingw32-gcc
       services: [ docker ]
       # https://hub.docker.com/_/ubuntu/
-      env: [ HB_CI_THREADS=4, PKG_SUFFIX=linux, 'DOCKER_IMAGE=ubuntu:rolling', DOCKER_SCRIPT=./package/mpkg_win_docker.sh ]
+      env: [ HB_CI_THREADS=4, 'DOCKER_IMAGE=ubuntu:rolling', DOCKER_SCRIPT=./package/mpkg_win_docker.sh ]
     - os: osx
       # https://docs.travis-ci.com/user/reference/osx/
       osx_image: xcode9
@@ -87,7 +87,7 @@ matrix:
     - os: osx
       osx_image: xcode9
       compiler: i686-w64-mingw32-gcc
-      env: [ HB_CI_THREADS=4, PKG_SUFFIX=mac ]
+      env: [ HB_CI_THREADS=4 ]
 
 before_install:
   - >
