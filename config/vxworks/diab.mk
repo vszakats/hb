@@ -68,7 +68,9 @@ endif
 LDFLAGS += $(LDLIBPATHS)
 
 AR := $(HB_CCPREFIX)dar
-AR_RULE = ( $(AR) rcs $(ARFLAGS) $(HB_AFLAGS) $(HB_USER_AFLAGS) $(LIB_DIR)/$@ $(^F) $(ARSTRIP) ) || ( $(RM) $(LIB_DIR)/$@ && $(FALSE) )
+AR_RULE = ( $(AR) rcs $(ARFLAGS) $(HB_AFLAGS) $(HB_USER_AFLAGS) \
+   $(LIB_DIR)/$@ $(^F) $(ARSTRIP) ) \
+   || ( $(RM) $(LIB_DIR)/$@ && $(FALSE) )
 
 DY := $(CC)
 DFLAGS += -Xpic -Wl, -Xshared -Wl, -Xdynamic $(DLIBPATHS)
@@ -83,7 +85,8 @@ endef
 define create_dynlib
    $(if $(wildcard __dyn__.tmp),@$(RM) __dyn__.tmp,)
    $(foreach file,$^,$(dynlib_object))
-   $(DY) $(DFLAGS) -soname="$(DYN_NAME_CPT)" $(HB_USER_DFLAGS) $(DY_OUT)$(DYN_DIR)/$@ -@__dyn__.tmp $(DLIBS) $(DYSTRIP)
+   $(DY) $(DFLAGS) -soname="$(DYN_NAME_CPT)" $(HB_USER_DFLAGS) \
+      $(DY_OUT)$(DYN_DIR)/$@ -@__dyn__.tmp $(DLIBS) $(DYSTRIP)
 endef
 
 DY_RULE = $(create_dynlib)

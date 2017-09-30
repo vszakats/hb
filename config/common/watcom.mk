@@ -26,8 +26,11 @@ else
    LDRES_LIST :=
 endif
 LDLIBS_COMMA := $(subst $(subst x,x, ),$(comma) ,$(strip $(LDLIBS)))
-LD_RULE = $(LD) $(LDFLAGS) $(HB_LDFLAGS) $(HB_USER_LDFLAGS) NAME $(BIN_DIR)/$@ FILE $(LDFILES_COMMA) $(LDRES_LIST) $(if $(LDLIBS_COMMA), LIB $(LDLIBS_COMMA),)
-AR_RULE = $(AR) $(ARFLAGS) $(HB_AFLAGS) $(HB_USER_AFLAGS) $(LIB_DIR)/$@ $(foreach file,$(^F),-+$(file))
+LD_RULE = $(LD) $(LDFLAGS) $(HB_LDFLAGS) $(HB_USER_LDFLAGS) \
+   NAME $(BIN_DIR)/$@ FILE $(LDFILES_COMMA) $(LDRES_LIST) \
+   $(if $(LDLIBS_COMMA), LIB $(LDLIBS_COMMA),)
+AR_RULE = $(AR) $(ARFLAGS) $(HB_AFLAGS) $(HB_USER_AFLAGS) \
+   $(LIB_DIR)/$@ $(foreach file,$(^F),-+$(file))
 
 ifeq ($(HB_SHELL),dos)
 
@@ -45,7 +48,8 @@ ifeq ($(HB_SHELL),dos)
    endef
 
    define link_exe_file
-      @$(ECHO) $(ECHOQUOTE)$(LDFLAGS) $(HB_LDFLAGS) NAME $(BIN_DIR)/$@$(ECHOQUOTE) > __link__.tmp
+      @$(ECHO) $(ECHOQUOTE)$(LDFLAGS) $(HB_LDFLAGS) \
+         NAME $(BIN_DIR)/$@$(ECHOQUOTE) > __link__.tmp
       $(foreach file,$(^F),$(link_file))
       $(foreach lib,$(LDLIBS),$(link_lib))
       -$(LD) @__link__.tmp

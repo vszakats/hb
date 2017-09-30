@@ -53,7 +53,9 @@ LDFLAGS += $(LIBPATHS)
 
 AR := $(HB_CCPREFIX)ar
 ifeq ($(HB_SHELL),sh)
-   AR_RULE = ( $(AR) rcs $(ARFLAGS) $(HB_AFLAGS) $(HB_USER_AFLAGS) $(LIB_DIR)/$@ $(^F) $(ARSTRIP) ) || ( $(RM) $(LIB_DIR)/$@ && $(FALSE) )
+   AR_RULE = ( $(AR) rcs $(ARFLAGS) $(HB_AFLAGS) $(HB_USER_AFLAGS) \
+      $(LIB_DIR)/$@ $(^F) $(ARSTRIP) ) \
+      || ( $(RM) $(LIB_DIR)/$@ && $(FALSE) )
 else
 
 # NOTE: The empty line directly before 'endef' HAS TO exist!
@@ -64,7 +66,9 @@ endef
 define create_library
    $(if $(wildcard __lib__.tmp),@$(RM) __lib__.tmp,)
    $(foreach file,$^,$(library_object))
-   ( $(AR) rcs $(ARFLAGS) $(HB_AFLAGS) $(HB_USER_AFLAGS) $(LIB_DIR)/$@ @__lib__.tmp $(ARSTRIP) ) || ( $(RM) $(subst /,$(DIRSEP),$(LIB_DIR)/$@) && $(FALSE) )
+   ( $(AR) rcs $(ARFLAGS) $(HB_AFLAGS) $(HB_USER_AFLAGS) \
+      $(LIB_DIR)/$@ @__lib__.tmp $(ARSTRIP) ) \
+      || ( $(RM) $(subst /,$(DIRSEP),$(LIB_DIR)/$@) && $(FALSE) )
 endef
 AR_RULE = $(create_library)
 
@@ -76,7 +80,10 @@ DY_OUT := -o$(subst x,x, )
 DLIBS := $(foreach lib,$(HB_USER_LIBS) $(SYSLIBS),-l$(lib))
 
 ifeq ($(HB_SHELL),sh)
-   DY_RULE = $(DY) $(DFLAGS) -Wl,-soname,$(DYN_NAME_CPT) $(HB_USER_DFLAGS) $(DY_OUT)$(DYN_DIR)/$@ $^ $(DLIBS) $(DYSTRIP) && ([ "$(@F)" = "$(notdir $(DYN_FILE_NVR))" ] || $(LN) $(@F) $(DYN_FILE_NVR)) && ([ "$(@F)" = "$(notdir $(DYN_FILE_CPT))" ] || $(LN) $(@F) $(DYN_FILE_CPT))
+   DY_RULE = $(DY) $(DFLAGS) -Wl,-soname,$(DYN_NAME_CPT) $(HB_USER_DFLAGS) \
+      $(DY_OUT)$(DYN_DIR)/$@ $^ $(DLIBS) $(DYSTRIP) \
+      && ([ "$(@F)" = "$(notdir $(DYN_FILE_NVR))" ] || $(LN) $(@F) $(DYN_FILE_NVR)) \
+      && ([ "$(@F)" = "$(notdir $(DYN_FILE_CPT))" ] || $(LN) $(@F) $(DYN_FILE_CPT))
 else
 
 # NOTE: The empty line directly before 'endef' HAS TO exist!
@@ -87,7 +94,10 @@ endef
 define create_dynlib
    $(if $(wildcard __dyn__.tmp),@$(RM) __dyn__.tmp,)
    $(foreach file,$^,$(dynlib_object))
-   $(DY) $(DFLAGS) -Wl,-soname,$(DYN_NAME_CPT) $(HB_USER_DFLAGS) $(DY_OUT)$(DYN_DIR)/$@ __dyn__.tmp $(DLIBS) $(DYSTRIP) && $(LN) $(subst /,$(DIRSEP),$(DYN_DIR)/$@ $(DYN_FILE_NVR)) && $(LN) $(subst /,$(DIRSEP),$(DYN_DIR)/$@ $(DYN_FILE_CPT))
+   $(DY) $(DFLAGS) -Wl,-soname,$(DYN_NAME_CPT) $(HB_USER_DFLAGS) \
+      $(DY_OUT)$(DYN_DIR)/$@ __dyn__.tmp $(DLIBS) $(DYSTRIP) \
+      && $(LN) $(subst /,$(DIRSEP),$(DYN_DIR)/$@ $(DYN_FILE_NVR)) \
+      && $(LN) $(subst /,$(DIRSEP),$(DYN_DIR)/$@ $(DYN_FILE_CPT))
 endef
 DY_RULE = $(create_dynlib)
 

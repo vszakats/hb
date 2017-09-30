@@ -105,7 +105,9 @@ ifeq ($(HB_BUILD_DYN),dostest)
    define create_dynlib
       $(if $(wildcard __dyn__.tmp),@$(RM) __dyn__.tmp,)
       $(foreach file,$^,$(dynlib_object))
-      $(DY) $(DFLAGS) $(HB_USER_DFLAGS) NAME '$(subst /,$(DIRSEP),$(DYN_DIR)/$@)' OP implib='$(IMP_FILE)' @__dyn__.tmp $(DLIBS_COMMA)
+      $(DY) $(DFLAGS) $(HB_USER_DFLAGS) \
+         NAME '$(subst /,$(DIRSEP),$(DYN_DIR)/$@)' \
+         OP implib='$(IMP_FILE)' @__dyn__.tmp $(DLIBS_COMMA)
    endef
 
    DY_RULE = $(create_dynlib)

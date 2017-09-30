@@ -50,12 +50,15 @@ endif
 LDFLAGS += $(LIBPATHS)
 
 AR := tiny_libmaker.exe
-AR_RULE = ( $(AR) $(ARFLAGS) $(HB_AFLAGS) $(HB_USER_AFLAGS) $(LIB_DIR)/$@ $^ ) || ( $(RM) $(subst /,$(DIRSEP),$(LIB_DIR)/$@) && $(FALSE) )
+AR_RULE = ( $(AR) $(ARFLAGS) $(HB_AFLAGS) $(HB_USER_AFLAGS) \
+   $(LIB_DIR)/$@ $^ ) \
+   || ( $(RM) $(subst /,$(DIRSEP),$(LIB_DIR)/$@) && $(FALSE) )
 
 DY := $(CC)
 DFLAGS += -shared $(LIBPATHS)
 DY_OUT := $(LD_OUT)
 DLIBS := $(foreach lib,$(HB_USER_LIBS) $(LIBS) $(SYSLIBS),-l$(lib))
-DY_RULE = $(DY) $(DFLAGS) $(HB_USER_DFLAGS) $(DY_OUT)$(DYN_DIR)/$@ $^ $(DLIBS)
+DY_RULE = $(DY) $(DFLAGS) $(HB_USER_DFLAGS) \
+   $(DY_OUT)$(DYN_DIR)/$@ $^ $(DLIBS)
 
 include $(TOP)$(ROOT)config/rules.mk

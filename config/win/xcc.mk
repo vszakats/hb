@@ -48,7 +48,8 @@ LDLIBS := $(foreach lib,$(HB_USER_LIBS) $(LIBS) $(SYSLIBS),$(lib)$(LIB_EXT))
 LDFLAGS += $(LIBPATHS)
 
 AR := xLib.exe
-AR_RULE = $(AR) $(ARFLAGS) $(HB_AFLAGS) $(HB_USER_AFLAGS) -out:$(LIB_DIR)/$@ $(^F)
+AR_RULE = $(AR) $(ARFLAGS) $(HB_AFLAGS) $(HB_USER_AFLAGS) \
+   -out:$(LIB_DIR)/$@ $(^F)
 
 DY := $(LD)
 DFLAGS += -nologo -dll -noexpobj $(LIBPATHS)
@@ -69,7 +70,8 @@ endef
 define create_dynlib
    $(if $(wildcard __dyn__.tmp),@$(RM) __dyn__.tmp,)
    $(foreach file,$^,$(dynlib_object))
-   $(DY) $(DFLAGS) $(HB_USER_DFLAGS) $(DY_OUT)"$(subst /,\,$(DYN_DIR)/$@)" @__dyn__.tmp $(DLIBS) $(DYNFIX)
+   $(DY) $(DFLAGS) $(HB_USER_DFLAGS) \
+      $(DY_OUT)"$(subst /,\,$(DYN_DIR)/$@)" @__dyn__.tmp $(DLIBS) $(DYNFIX)
 endef
 
 DY_RULE = $(create_dynlib)

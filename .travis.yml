@@ -147,5 +147,6 @@ deploy:
   prerelease: true
   overwrite: true
   on:
+    tag: true
     branch: master
     condition: "$CC = i686-w64-mingw32-gcc"

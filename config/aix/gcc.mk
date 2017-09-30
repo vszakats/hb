@@ -50,17 +50,23 @@ LDFLAGS += $(LIBPATHS) # -Wl,-bnoquiet
 # uncomment following block for AIX linker workaround (linking all symbols issue)
 # order of libraries is more important this way
 
+# NOTE: The empty line directly before 'endef' HAS TO exist!
 define aix_ld_hblib
-   $(LD) -Wl,-r,-bgc,-bkeepfile:__applnk__.o -nostartfiles $(LDFLAGS) $(HB_LDFLAGS) $(HB_USER_LDFLAGS) -o__apptmp__.o __applnk__.o -l$(lib)
+   $(LD) -Wl,-r,-bgc,-bkeepfile:__applnk__.o -nostartfiles \
+      $(LDFLAGS) $(HB_LDFLAGS) $(HB_USER_LDFLAGS) \
+      -o__apptmp__.o __applnk__.o -l$(lib)
    mv __apptmp__.o __applnk__.o
 
 endef
 
 define aix_ld
-   $(LD) -Wl,-r $(LDFLAGS) $(HB_LDFLAGS) $(HB_USER_LDFLAGS) -o__apptmp__.o $(^F)
+   $(LD) -Wl,-r $(LDFLAGS) $(HB_LDFLAGS) $(HB_USER_LDFLAGS) \
+      -o__apptmp__.o $(^F)
    mv __apptmp__.o __applnk__.o
    $(foreach lib,$(HB_USER_LIBS) $(LIBS),$(aix_ld_hblib))
-   $(LD) -nostartfiles $(LDFLAGS) $(HB_LDFLAGS) $(HB_USER_LDFLAGS) $(LD_OUT)$(subst /,$(DIRSEP),$(BIN_DIR)/$@) __applnk__.o $(foreach lib,$(SYSLIBS),-l$(lib)) $(LDSTRIP)
+   $(LD) -nostartfiles $(LDFLAGS) $(HB_LDFLAGS) $(HB_USER_LDFLAGS) \
+      $(LD_OUT)$(subst /,$(DIRSEP),$(BIN_DIR)/$@) __applnk__.o \
+      $(foreach lib,$(SYSLIBS),-l$(lib)) $(LDSTRIP)
    $(RM) __applnk__.o
 endef
 
@@ -69,7 +75,9 @@ LD_RULE = $(aix_ld)
 # end of workaround block
 
 AR := $(HB_CCPREFIX)ar
-AR_RULE = ( $(AR) rc $(ARFLAGS) $(HB_AFLAGS) $(HB_USER_AFLAGS) $(LIB_DIR)/$@ $(^F) $(ARSTRIP) ) || ( $(RM) $(LIB_DIR)/$@ && $(FALSE) )
+AR_RULE = ( $(AR) rc $(ARFLAGS) $(HB_AFLAGS) $(HB_USER_AFLAGS) \
+   $(LIB_DIR)/$@ $(^F) $(ARSTRIP) ) \
+   || ( $(RM) $(LIB_DIR)/$@ && $(FALSE) )
 
 DY := $(CC)
 DFLAGS += -shared -Wl,-G $(LIBPATHS)
@@ -86,11 +94,17 @@ DLIBS := $(foreach lib,$(HB_USER_LIBS) $(SYSLIBS),-l$(lib))
 #define create_dynlib
 #   $(if $(wildcard __dyn__.tmp),@$(RM) __dyn__.tmp,)
 #   $(foreach file,$^,$(dynlib_object))
-#   $(DY) $(DFLAGS) $(HB_USER_DFLAGS) $(DY_OUT)$(DYN_DIR)/$@ __dyn__.tmp $(DLIBS) $(DYSTRIP) && $(LN) $(@F) $(DYN_FILE_NVR) && $(LN) $(@F) $(DYN_FILE_CPT)
+#   $(DY) $(DFLAGS) $(HB_USER_DFLAGS) \
+#      $(DY_OUT)$(DYN_DIR)/$@ __dyn__.tmp $(DLIBS) $(DYSTRIP) \
+#      && $(LN) $(@F) $(DYN_FILE_NVR) \
+#      && $(LN) $(@F) $(DYN_FILE_CPT)
 #endef
 
 #DY_RULE = $(create_dynlib)
 
-DY_RULE = $(DY) $(DFLAGS) $(HB_USER_DFLAGS) $(DY_OUT)$(DYN_DIR)/$@ $^ $(DLIBS) $(DYSTRIP) && $(LN) $(@F) $(DYN_FILE_NVR) && $(LN) $(@F) $(DYN_FILE_CPT)
+DY_RULE = $(DY) $(DFLAGS) $(HB_USER_DFLAGS) \
+   $(DY_OUT)$(DYN_DIR)/$@ $^ $(DLIBS) $(DYSTRIP) \
+   && $(LN) $(@F) $(DYN_FILE_NVR) \
+   && $(LN) $(@F) $(DYN_FILE_CPT)
 
 include $(TOP)$(ROOT)config/rules.mk

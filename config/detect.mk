@@ -51,7 +51,8 @@ _DET_VAR_INC_ := HB_INC_ZLIB
 _DET_VAR_HAS_ := HB_HAS_ZLIB
 _DET_FLT_PLAT :=
 _DET_FLT_COMP :=
-_DET_INC_DEFP := /usr/local/opt/zlib/include /usr/include /usr/local/include /boot/develop/headers/3rdparty
+_DET_INC_DEFP := /usr/local/opt/zlib/include /usr/include /usr/local/include
+_DET_INC_DEFP += /boot/develop/headers/3rdparty
 _DET_INC_LOCL := src/3rd/zlib
 _DET_INC_HEAD := /zlib.h
 
@@ -155,7 +156,8 @@ _DET_FLT_PLAT := !os2
 _DET_FLT_COMP :=
 _DET_INC_DEFP := /usr/local/opt/ncurses/include
 _DET_INC_DEFP += /usr/include /usr/include/ncurses /usr/local/include
-_DET_INC_DEFP += /sw/include /opt/local/include /boot/develop/headers/3rdparty
+_DET_INC_DEFP += /sw/include /opt/local/include
+_DET_INC_DEFP += /boot/develop/headers/3rdparty
 ifeq ($(HB_PLATFORM),win)
 _DET_INC_HEAD := /ncursesw/curses.h
 else

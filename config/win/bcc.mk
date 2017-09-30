@@ -93,9 +93,21 @@ endif
 LIBPATHS := $(foreach dir,$(LIB_DIR),$(subst /,$(BACKSLASH),-L"$(dir)"))
 LDFLAGS += $(LIBPATHS) -Gn -Tpe
 ifeq ($(HB_COMPILER),bcc64)
-   LD_RULE = $(LD) $(LDFLAGS) $(HB_LDFLAGS) $(HB_USER_LDFLAGS) c0x64.obj $(filter-out %$(RES_EXT),$(^F)), "$(subst /,$(BACKSLASH),$(BIN_DIR)/$@)", nul, $(LDLIBS) cw64mt import64,, $(filter %$(RES_EXT),$(^F)) $(LDSTRIP)
+   LD_RULE = $(LD) $(LDFLAGS) $(HB_LDFLAGS) $(HB_USER_LDFLAGS) \
+      c0x64.obj \
+      $(filter-out %$(RES_EXT),$(^F)), \
+      "$(subst /,$(BACKSLASH),$(BIN_DIR)/$@)", \
+      nul, \
+      $(LDLIBS) cw64mt import64,, \
+      $(filter %$(RES_EXT),$(^F)) $(LDSTRIP)
 else
-   LD_RULE = $(LD) $(LDFLAGS) $(HB_LDFLAGS) $(HB_USER_LDFLAGS) c0x32.obj $(filter-out %$(RES_EXT),$(^F)), "$(subst /,$(BACKSLASH),$(BIN_DIR)/$@)", nul, $(LDLIBS) cw32mt import32,, $(filter %$(RES_EXT),$(^F)) $(LDSTRIP)
+   LD_RULE = $(LD) $(LDFLAGS) $(HB_LDFLAGS) $(HB_USER_LDFLAGS) \
+      c0x32.obj \
+      $(filter-out %$(RES_EXT),$(^F)), \
+      "$(subst /,$(BACKSLASH),$(BIN_DIR)/$@)", \
+      nul, \
+      $(LDLIBS) cw32mt import32,, \
+      $(filter %$(RES_EXT),$(^F)) $(LDSTRIP)
 endif
 
 LDLIBS := $(strip $(HB_USER_LIBS) $(LIBS) $(SYSLIBS))
@@ -106,7 +118,9 @@ else
    AR := tlib.exe
 endif
 ARFLAGS += /P128
-AR_RULE = $(AR) $(ARFLAGS) $(HB_AFLAGS) $(HB_USER_AFLAGS) "$(subst /,$(BACKSLASH),$(LIB_DIR)/$@)" $(foreach file,$(?F),-+$(file))
+AR_RULE = $(AR) $(ARFLAGS) $(HB_AFLAGS) $(HB_USER_AFLAGS) \
+   "$(subst /,$(BACKSLASH),$(LIB_DIR)/$@)" \
+   $(foreach file,$(?F),-+$(file))
 
 ifneq ($(HB_SHELL),sh)
    ifeq ($(HB_SHELL_XP),)
@@ -131,7 +145,8 @@ ifneq ($(HB_SHELL),sh)
          $(if $(wildcard __lib__.tmp),@$(RM) __lib__.tmp,)
          $(foreach file,$(?F),$(library_object))
          @$(ECHO) $(ECHOQUOTE)-+$(ECHOQUOTE)>> __lib__.tmp
-         $(AR) $(ARFLAGS) $(HB_AFLAGS) $(HB_USER_AFLAGS) "$(subst /,$(BACKSLASH),$(LIB_DIR)/$@)" @__lib__.tmp
+         $(AR) $(ARFLAGS) $(HB_AFLAGS) $(HB_USER_AFLAGS) \
+            "$(subst /,$(BACKSLASH),$(LIB_DIR)/$@)" @__lib__.tmp
       endef
 
       AR_RULE = $(create_library)

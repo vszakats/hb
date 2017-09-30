@@ -46,7 +46,8 @@ LDFLAGS += -subsystem:windows
 LDFLAGS += $(LIBPATHS)
 
 AR := polib.exe
-AR_RULE = $(AR) $(ARFLAGS) $(HB_AFLAGS) $(HB_USER_AFLAGS) -out:$(LIB_DIR)/$@ $(^F)
+AR_RULE = $(AR) $(ARFLAGS) $(HB_AFLAGS) $(HB_USER_AFLAGS) \
+   -out:$(LIB_DIR)/$@ $(^F)
 
 DY := $(LD)
 DFLAGS += -nologo -dll $(LIBPATHS)
@@ -61,7 +62,9 @@ endef
 define create_dynlib
    $(if $(wildcard __dyn__.tmp),@$(RM) __dyn__.tmp,)
    $(foreach file,$^,$(dynlib_object))
-   $(DY) $(DFLAGS) $(HB_USER_DFLAGS) $(DY_OUT)"$(subst /,$(DIRSEP),$(DYN_DIR)/$@)" -implib:"$(IMP_FILE)" @__dyn__.tmp $(DLIBS)
+   $(DY) $(DFLAGS) $(HB_USER_DFLAGS) \
+      $(DY_OUT)"$(subst /,$(DIRSEP),$(DYN_DIR)/$@)" \
+      -implib:"$(IMP_FILE)" @__dyn__.tmp $(DLIBS)
 endef
 
 DY_RULE = $(create_dynlib)

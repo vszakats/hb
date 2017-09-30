@@ -20,9 +20,8 @@ CXX := $(HB_CCACHE) $(HB_CCPATH)$(HB_CCPREFIX)sunCC$(HB_CCSUFFIX)
 
 CFLAGS += -I. -I$(HB_HOST_INC) -c
 
-# try to keep `-fast' as left as possible, as later optim
-# flags may override values set by `-fast', and this way
-# no warnings are generated.
+# Try to keep `-fast' as left as possible, as later optimization flags may
+# override values set by `-fast', and this way no warnings are generated.
 
 ifneq ($(HB_BUILD_OPTIM),no)
    # Together with $(HB_ISAOPT) above, these are supposed to (somewhat)
@@ -55,7 +54,9 @@ LDLIBS := $(foreach lib,$(HB_USER_LIBS) $(LIBS) $(SYSLIBS),-l$(lib))
 LDFLAGS += $(LIBPATHS)
 
 AR := ar
-AR_RULE = ( $(AR) rcs $(ARFLAGS) $(HB_AFLAGS) $(HB_USER_AFLAGS) $(LIB_DIR)/$@ $(^F) $(ARSTRIP) ) || ( $(RM) $(LIB_DIR)/$@ && $(FALSE) )
+AR_RULE = ( $(AR) rcs $(ARFLAGS) $(HB_AFLAGS) $(HB_USER_AFLAGS) \
+   $(LIB_DIR)/$@ $(^F) $(ARSTRIP) ) \
+   || ( $(RM) $(LIB_DIR)/$@ && $(FALSE) )
 
 DY := $(CC)
 DFLAGS += -G $(HB_ISAOPT) $(LIBPATHS)
@@ -65,6 +66,9 @@ endif
 DY_OUT := -o$(subst x,x, )
 DLIBS := $(foreach lib,$(HB_USER_LIBS) $(SYSLIBS),-l$(lib))
 
-DY_RULE = $(DY) $(DFLAGS) -h $(DYN_NAME_CPT) $(HB_USER_DFLAGS) $(DY_OUT)$(DYN_DIR)/$@ $^ $(DLIBS) $(DYSTRIP) && $(LN) $(@F) $(DYN_FILE_NVR) && $(LN) $(@F) $(DYN_FILE_CPT)
+DY_RULE = $(DY) $(DFLAGS) -h $(DYN_NAME_CPT) $(HB_USER_DFLAGS) \
+   $(DY_OUT)$(DYN_DIR)/$@ $^ $(DLIBS) $(DYSTRIP) \
+   && $(LN) $(@F) $(DYN_FILE_NVR) \
+   && $(LN) $(@F) $(DYN_FILE_CPT)
 
 include $(TOP)$(ROOT)config/rules.mk
