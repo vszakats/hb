@@ -140,9 +140,10 @@ deploy:
   skip_cleanup: true
   provider: releases
   api_key: ${GITHUB_TOKEN}
-  file: harbour-snapshot-win-built-on-${PKG_SUFFIX}.7z
-  file_glob: false
+  file_glob: true
+  file: harbour-snapshot-win-built-on-*.7z
   tag_name: v3.4.0dev
+  target_commitish: ${TRAVIS_COMMIT}
   draft: false
   prerelease: true
   overwrite: true

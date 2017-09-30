@@ -378,6 +378,7 @@ elif [ "${os}" != 'win' ] && \
   if [ "${_tag_id}" != "${_vcs_id}" ]; then
     echo "! Info: Tag '${HB_VF_DEF}' commit doesn't match this commit (${_tag_id} vs ${_vcs_id}): skip deploy."
     _pkgprefix="_"  # to avoid getting deployed
+    CC='none'
   fi
 fi
 
