@@ -367,6 +367,18 @@ if [ "${_BRANCH#*prod*}" != "${_BRANCH}" ]; then
 elif [ "${HB_JOB}" != "${HB_JOB_TO_RELEASE}" ]; then
   _pkgprefix="_"  # to avoid getting deployed
   _pkgsuffix="-${HB_JOB}"
+elif [ "${os}" != 'win' ] && \
+     [ "${_BRANCH#*master*}" != "${_BRANCH}" ]; then
+  # Upload a release only in case the Windows release has already updated the
+  # tag and it's matching with this particular build. Otherwise the release
+  # script falls back to creating a stray Draft releases instead.
+
+  # https://developer.github.com/v3/git/refs/#get-a-reference
+  _tag_id="$(curl -sS "https://api.github.com/repos/${GITHUB_SLUG}/git/refs/tags/v${HB_VF_DEF}" | jq .object.sha)"
+  if [ "${_tag_id}" != "${_vcs_id}" ]; then
+    echo "! Info: Tag '${HB_VF_DEF}' commit doesn't match this commit (${_tag_id} vs ${_vcs_id}): skip deploy."
+    _pkgprefix="_"  # to avoid getting deployed
+  fi
 fi
 
 _pkgname="${_ROOT}/${_pkgprefix}harbour-${HB_VF}-win${_pkgsuffix}.7z"
