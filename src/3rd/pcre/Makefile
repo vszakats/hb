@@ -70,7 +70,7 @@ endif
 # MAP    LICENCE
 # MAP    config.h.generic        config.h
 # MAP    pcre.h.generic          pcre.h
-# MAP    pcre_internal.h         pcre_internal.h
+# MAP    pcre_internal.h
 # MAP    ucp.h
 # MAP    pcre_chartables.c.dist  pcre_chartables.c
 # MAP    pcre_byte_order.c
