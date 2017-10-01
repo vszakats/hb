@@ -41,6 +41,7 @@ xhbcopyf.c
 xhbctbit.c
 xhbdate.c
 xhbenum.c
+xhberr2.c
 xhberrc.c
 xhbfs.c
 xhbfunc.c

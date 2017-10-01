@@ -357,7 +357,6 @@ cd "${HB_RT}" || exit
   echo 'tests/*'
 ) >> "${_ROOT}/_hbfiles"
 
-_pkgskip=
 _pkgprefix=
 _pkgsuffix=
 if [ "${_BRANCH#*prod*}" != "${_BRANCH}" ]; then
@@ -371,37 +370,25 @@ elif [ "${HB_JOB}" != "${HB_JOB_TO_RELEASE}" ]; then
 elif [ "${os}" != 'win' ]; then
   _pkgsuffix="-built-on-${os}"
 
-  if [ "${_BRANCH#*master*}" != "${_BRANCH}" ]; then
+  # Just FYI
 
-    # Deploy a release only in case the Windows release has already updated the
-    # tag and it's matching with this particular build. Without this, the
-    # release script would falls back to creating a stray Draft release instead.
+  _oldx=$-
+  set +x
+  if [ "${_BRANCH#*master*}" != "${_BRANCH}" ] && \
+     [ -n "${GITHUB_TOKEN}" ]; then
 
-    if [ -n "${GITHUB_TOKEN}" ]; then
+    # https://developer.github.com/v3/git/refs/#get-a-reference
+    _tag_id="$(set +x | curl -sS \
+      -H "Authorization: token ${GITHUB_TOKEN}" \
+      "https://api.github.com/repos/${GITHUB_SLUG}/git/refs/tags/v${HB_VF_DEF}" \
+      | jq -r .object.sha)"
 
-      _oldx=$-
-      set +x
-
-      # https://developer.github.com/v3/git/refs/#get-a-reference
-      _tag_id="$(set +x | curl -sS \
-        -H "Authorization: token ${GITHUB_TOKEN}" \
-        "https://api.github.com/repos/${GITHUB_SLUG}/git/refs/tags/v${HB_VF_DEF}" \
-        | jq -r .object.sha)"
-
-      [ "${_oldx#*x*}" != "${_oldx}" ] && set -x
-
-      if [ "${_tag_id}" != "${_vcs_id}" ]; then
-        echo "! Info: Tag '${HB_VF_DEF}' commit doesn't match this commit (${_tag_id} vs. ${_vcs_id})"
-      fi
-    else
-      _pkgskip='yes'
+    if [ "${_tag_id}" != "${_vcs_id}" ]; then
+      echo "! Info: Tag '${HB_VF_DEF}' commit mismatches this commit (${_tag_id} vs. ${_vcs_id})"
     fi
   fi
-fi
 
-if [ "${_pkgskip}" = 'yes' ]; then
-  echo '! Skip packaging.'
-  exit
+  [ "${_oldx#*x*}" != "${_oldx}" ] && set -x
 fi
 
 _pkgname="${_ROOT}/${_pkgprefix}harbour-${HB_VF}-win${_pkgsuffix}.7z"
@@ -448,16 +435,18 @@ cd - || exit
     echo "! Push notification: Build ready."
   fi
 
-  if [ "${HB_JOB}" = "${HB_JOB_TO_RELEASE}" ] && \
-     [ -n "${GITHUB_TOKEN}" ]; then
-
-    # Create tag update JSON request
-    # https://developer.github.com/v3/git/refs/#update-a-reference
-    jq -nc ".sha = \"${_vcs_id}\" | .force = true" \
-    | curl -sS \
-      -H "Authorization: token ${GITHUB_TOKEN}" \
-      -d @- \
-      -X PATCH "https://api.github.com/repos/${GITHUB_SLUG}/git/refs/tags/v${HB_VF_DEF}"
+  if [ "${HB_JOB}" = "${HB_JOB_TO_RELEASE}" ]; then
+    if [ -n "${GITHUB_TOKEN}" ]; then
+      # Create tag update JSON request
+      # https://developer.github.com/v3/git/refs/#update-a-reference
+      jq -nc ".sha = \"${_vcs_id}\" | .force = true" \
+      | curl -sS \
+        -H "Authorization: token ${GITHUB_TOKEN}" \
+        -d @- \
+        -X PATCH "https://api.github.com/repos/${GITHUB_SLUG}/git/refs/tags/v${HB_VF_DEF}"
+    else
+      echo '! Warning: GITHUB_TOKEN is empty. GitHub tag update skipped.'
+    fi
   fi
 
   if [ -n "${VIRUSTOTAL_APIKEY}" ]; then

@@ -98,6 +98,7 @@
    #xtranslate hb_WildMatch( [<x,...>] )       => WildMatch( <x> )
    #xtranslate hb_bitTest( [<x,...>] )         => hb_bitIsSet( <x> )
    #xtranslate hb_Deserialize( <x> )           => hb_DeserialNext( <x> )
+   #xtranslate Error()                         => ErrorNew()
 
    #xtranslate hb_HexToNum( [<c,...>] )        => HexToNum( <c> )
    #xtranslate hb_NumToHex( [<n,...>] )        => NumToHex( <n> )

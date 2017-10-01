@@ -50,6 +50,7 @@ DYNAMIC Default
 DYNAMIC DestroyMutex
 DYNAMIC DirectoryRecurse
 DYNAMIC DisableWaitLocks
+DYNAMIC Error
 DYNAMIC FCharCount
 DYNAMIC FileReader
 DYNAMIC FileStats
