@@ -33,7 +33,7 @@ Source archives and Windows binaries are available for download:
    ```
 7. Build test 64-bit executable:
    ```
-   set PATH=<path-to-msys2>\mingw32\bin;<path-to-harbour>\bin;%PATH%
+   set PATH=<path-to-msys2>\mingw64\bin;<path-to-harbour>\bin;%PATH%
    hbmk2 <path-to-harbour>/tests/hello.prg
    ```
 8. Further hints in section **Build Your Own Harbour App** of `README.md`.
