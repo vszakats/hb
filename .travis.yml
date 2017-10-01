@@ -126,9 +126,6 @@ script:
       if [ -z "${DOCKER_IMAGE}" ]; then
         ./package/mpkg_win_ci.sh
       fi
-      if [ -f harbour-snapshot-win.7z ]; then
-        mv -f harbour-snapshot-win.7z "harbour-snapshot-win-built-on-${PKG_SUFFIX}.7z"
-      fi
     elif [ -z "${DOCKER_IMAGE}" ]; then
       ls -lA "$(dirname "$(which "${CC}${HB_CCSUFFIX}")")/${CC}"*
       "${CC}${HB_CCSUFFIX}" -v
