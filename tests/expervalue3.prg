@@ -56,15 +56,15 @@ PROCEDURE Main()
             AAdd( aSelected, { nRow, nCol } )
             EXIT
          CASE 1
-            IF nRow == aSelected[ 1, 1 ] .AND. nCol == aSelected[ 1, 2 ]
+            IF nRow == aSelected[ 1 ][ 1 ] .AND. nCol == aSelected[ 1 ][ 2 ]
                LOOP
             ENDIF
-            IF Abs( nRow - aSelected[ 1, 1 ] ) > 1 .OR. Abs( nCol - aSelected[ 1, 2 ] ) > 1
+            IF Abs( nRow - aSelected[ 1 ][ 1 ] ) > 1 .OR. Abs( nCol - aSelected[ 1 ][ 2 ] ) > 1
                LOOP
             ENDIF
-            selValue := aArray[ aSelected[ 1, 1 ], aSelected[ 1, 2 ] ]
-            aArray[ aSelected[ 1, 1 ], aSelected[ 1, 2 ] ] := aArray[ nRow, nCol ]
-            aArray[ nRow, nCol ] := selValue
+            selValue := aArray[ aSelected[ 1 ][ 1 ], aSelected[ 1 ][ 2 ] ]
+            aArray[ aSelected[ 1 ][ 1 ], aSelected[ 1 ][ 2 ] ] := aArray[ nRow ][ nCol ]
+            aArray[ nRow ][ nCol ] := selValue
             aSelected := {}
             EXIT
 
@@ -90,8 +90,7 @@ STATIC PROCEDURE Show()
    LOCAL nCol
    LOCAL itm
    LOCAL color
-   LOCAL value
-
+ 
    DispBegin()
 
    FOR EACH nRow IN aArray
@@ -99,11 +98,10 @@ STATIC PROCEDURE Show()
          color := nCol
          FOR EACH itm IN aSelected
             IF nRow:__enumIndex == itm[ 1 ] .AND. nCol:__enumIndex == itm[ 2 ]
-               color := 0xB
+               color := 0xb
             ENDIF
          NEXT
-         value := iif( nCol == 0, " ", hb_ntos( nCol ) )
-         hb_DispOutAt( nRow:__enumIndex() - 1, nCol:__enumIndex() - 1, value, color )
+         hb_DispOutAt( nRow:__enumIndex() - 1, nCol:__enumIndex() - 1, iif( nCol == 0, " ", hb_ntos( nCol ) ), color )
       NEXT
    NEXT
 
@@ -117,8 +115,8 @@ STATIC PROCEDURE RemoveCells( nRow, nCol )
 
    FOR row := nRow TO 2 STEP -1
       FOR col := nCol TO nCol + CONSECUTIVE_CELLS - 1
-         aArray[ row, col ] := aArray[ row - 1, col ]
-         aArray[ row - 1, col ] := 0
+         aArray[ row ][ col ] := aArray[ row - 1 ][ col ]
+         aArray[ row - 1][ col ] := 0
       NEXT
    NEXT
 
