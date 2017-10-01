@@ -369,23 +369,6 @@ elif [ "${HB_JOB}" != "${HB_JOB_TO_RELEASE}" ]; then
   _pkgsuffix="-${HB_JOB}"
 elif [ "${os}" != 'win' ]; then
   _pkgsuffix="-built-on-${os}"
-
-  (
-    set +x
-    if [ "${_BRANCH#*master*}" != "${_BRANCH}" ] && \
-       [ -n "${GITHUB_TOKEN}" ]; then
-
-      # https://developer.github.com/v3/git/refs/#get-a-reference
-      _tag_id="$(curl -sS \
-        -H "Authorization: token ${GITHUB_TOKEN}" \
-        "https://api.github.com/repos/${GITHUB_SLUG}/git/refs/tags/v${HB_VF_DEF}" \
-        | jq -r .object.sha)"
-
-      if [ "${_tag_id}" != "${_vcs_id}" ]; then
-        echo "! Debug: Tag '${HB_VF_DEF}' commit mismatches this commit (${_tag_id} vs. ${_vcs_id})"
-      fi
-    fi
-  )
 fi
 
 _pkgname="${_ROOT}/${_pkgprefix}harbour-${HB_VF}-win${_pkgsuffix}.7z"
