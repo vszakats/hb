@@ -39,7 +39,7 @@ Source archives and Windows binaries are available for download:
 8. Further hints in section **Build Your Own Harbour App** of `README.md`.
 9. To customize/build/rebuild Harbour components as you like, download
    sources using `getsrc.sh` and continue as described in section
-   **How to Do a Partial Build** of `README.md`."
+   **How to Do a Partial Build** of `README.md`.
 
 ---
 Viktor Szakats
