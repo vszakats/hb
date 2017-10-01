@@ -28,12 +28,12 @@ Source archives and Windows binaries are available for download:
    `pacman --noconfirm -S git {base,msys2}-devel mingw-w64-{i686,x86_64}-{clang,toolchain}`
 6. Build test 32-bit executable:
    ```
-   set PATH=<path-to-msys2>\mingw32\bin;%PATH%
+   set PATH=<path-to-msys2>\mingw32\bin;<path-to-harbour>\bin;%PATH%
    hbmk2 <path-to-harbour>/tests/hello.prg
    ```
 7. Build test 64-bit executable:
    ```
-   set PATH=<path-to-msys2>\mingw64\bin;%PATH%
+   set PATH=<path-to-msys2>\mingw32\bin;<path-to-harbour>\bin;%PATH%
    hbmk2 <path-to-harbour>/tests/hello.prg
    ```
 8. Further hints in section **Build Your Own Harbour App** of `README.md`.
