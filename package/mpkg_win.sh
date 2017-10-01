@@ -391,8 +391,7 @@ elif [ "${os}" != 'win' ]; then
       [ "${_oldx#*x*}" != "${_oldx}" ] && set -x
 
       if [ "${_tag_id}" != "${_vcs_id}" ]; then
-        echo "! Info: Tag '${HB_VF_DEF}' commit doesn't match this commit (${_tag_id} vs ${_vcs_id}): skip deploy."
-        _pkgskip='yes'
+        echo "! Info: Tag '${HB_VF_DEF}' commit doesn't match this commit (${_tag_id} vs. ${_vcs_id})"
       fi
     else
       _pkgskip='yes'

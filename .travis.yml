@@ -99,7 +99,7 @@ before_install:
         sh -c "${DOCKER_SCRIPT}"
     elif [ "$TRAVIS_OS_NAME" = 'osx' ]; then
       if [ "$CC" = 'i686-w64-mingw32-gcc' ]; then
-        time brew install p7zip mingw-w64 jq osslsigncode dos2unix gpg coreutils || true
+        time brew install --force-bottle p7zip mingw-w64 jq osslsigncode dos2unix gpg coreutils || true
         time brew install --force-bottle --build-bottle wine || true
         export DISPLAY=:1
         time wineboot
@@ -113,7 +113,7 @@ before_install:
       else
       # brew install pcre qt zlib
         brew install --force-bottle --build-bottle fontconfig || true
-        brew install \
+        brew install --force-bottle \
           bzip2 expat libharu liblzf libmxml libpng libxdiff lzo minizip pcre2 sqlite \
           cairo curl freeimage gd ghostscript icu4c libmagic libyaml mariadb ncurses openssl@1.1 postgresql rabbitmq-c s-lang unixodbc
       fi
