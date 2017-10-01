@@ -9,6 +9,8 @@
 
 cd "$(dirname "$0")" || exit
 
+echo "DEBUG-aa: |${TEST_TEST}|"
+
 # - Requires MSYS2 or 'Git for Windows' to run on Windows
 # - Requires '7z' in PATH
 # - Adjust target dir, MinGW dirs, set HB_DIR_MINGW_32, HB_DIR_MINGW_64
@@ -357,6 +359,7 @@ cd "${HB_RT}" || exit
   echo 'tests/*'
 ) >> "${_ROOT}/_hbfiles"
 
+_pkgskip=
 _pkgprefix=
 _pkgsuffix=
 if [ "${_BRANCH#*prod*}" != "${_BRANCH}" ]; then
@@ -383,7 +386,7 @@ elif [ "${os}" != 'win' ]; then
       curl -sS \
         -H "Authorization: token ${GITHUB_TOKEN}" \
         "https://api.github.com/repos/${GITHUB_SLUG}/git/refs/tags/v${HB_VF_DEF}" \
-        | jq .
+      | jq .
 
       # https://developer.github.com/v3/git/refs/#get-a-reference
       _tag_id="$(set +x | curl -sS \
@@ -399,8 +402,14 @@ elif [ "${os}" != 'win' ]; then
     else
       # DEBUG
       _pkgprefix="__"  # to avoid getting deployed
+      _pkgskip='yes'
     fi
   fi
+fi
+
+if [ "${_pkgskip}" = 'yes' ]; then
+  echo '! Skip packaging'
+  exit
 fi
 
 _pkgname="${_ROOT}/${_pkgprefix}harbour-${HB_VF}-win${_pkgsuffix}.7z"
