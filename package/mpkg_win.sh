@@ -9,8 +9,6 @@
 
 cd "$(dirname "$0")" || exit
 
-echo "DEBUG-aa: |${TEST_TEST}|"
-
 # - Requires MSYS2 or 'Git for Windows' to run on Windows
 # - Requires '7z' in PATH
 # - Adjust target dir, MinGW dirs, set HB_DIR_MINGW_32, HB_DIR_MINGW_64
@@ -374,41 +372,36 @@ elif [ "${os}" != 'win' ]; then
   _pkgsuffix="-built-on-${os}"
 
   if [ "${_BRANCH#*master*}" != "${_BRANCH}" ]; then
+
     # Deploy a release only in case the Windows release has already updated the
     # tag and it's matching with this particular build. Without this, the
-    # release script would falls back to creating a stray Draft releases instead.
+    # release script would falls back to creating a stray Draft release instead.
 
     if [ -n "${GITHUB_TOKEN}" ]; then
+
       _oldx=$-
       set +x
-
-      # DEBUG
-      curl -sS \
-        -H "Authorization: token ${GITHUB_TOKEN}" \
-        "https://api.github.com/repos/${GITHUB_SLUG}/git/refs/tags/v${HB_VF_DEF}" \
-      | jq .
 
       # https://developer.github.com/v3/git/refs/#get-a-reference
       _tag_id="$(set +x | curl -sS \
         -H "Authorization: token ${GITHUB_TOKEN}" \
         "https://api.github.com/repos/${GITHUB_SLUG}/git/refs/tags/v${HB_VF_DEF}" \
         | jq -r .object.sha)"
-      if [ "${_tag_id}" != "${_vcs_id}" ]; then
-        echo "! Info: Tag '${HB_VF_DEF}' commit doesn't match this commit (${_tag_id} vs ${_vcs_id}): skip deploy."
-        _pkgprefix="_"  # to avoid getting deployed
-      fi
 
       [ "${_oldx#*x*}" != "${_oldx}" ] && set -x
+
+      if [ "${_tag_id}" != "${_vcs_id}" ]; then
+        echo "! Info: Tag '${HB_VF_DEF}' commit doesn't match this commit (${_tag_id} vs ${_vcs_id}): skip deploy."
+        _pkgskip='yes'
+      fi
     else
-      # DEBUG
-      _pkgprefix="__"  # to avoid getting deployed
       _pkgskip='yes'
     fi
   fi
 fi
 
 if [ "${_pkgskip}" = 'yes' ]; then
-  echo '! Skip packaging'
+  echo '! Skip packaging.'
   exit
 fi
 

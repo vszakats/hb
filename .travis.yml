@@ -115,7 +115,7 @@ before_install:
     elif [ -n "${DOCKER_IMAGE}" ]; then
       time docker pull "${DOCKER_IMAGE}"
       time docker run -it -v "${PWD}:${PWD}" -w "${PWD}" \
-        --env-file <(env | grep -E '^(TRAVIS|HB)_') \
+        --env-file <(env | grep -E '^(HB|TRAVIS|GITHUB)_') \
         "${DOCKER_IMAGE}" \
         sh -c "${DOCKER_SCRIPT}"
     fi
