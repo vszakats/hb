@@ -50,7 +50,7 @@ matrix:
       dist: trusty
       sudo: false
       compiler: clang
-      env: [ HB_CI_THREADS=4, HB_CCSUFFIX=-5.0 ]
+      env: [ HB_CCSUFFIX=-5.0 ]
       addons:
         apt:
           packages: [ *hb-linux-common, clang-5.0 ]
@@ -59,7 +59,7 @@ matrix:
       dist: trusty
       sudo: false
       compiler: gcc
-      env: [ HB_CI_THREADS=4, HB_CCSUFFIX=-7 ]
+      env: [ HB_CCSUFFIX=-7 ]
       addons:
         apt:
           packages: [ *hb-linux-common, gcc-7, g++-7 ]
@@ -70,7 +70,7 @@ matrix:
       group: edge
       compiler: gcc
       services: [ docker ]
-      env: [ HB_CI_THREADS=4, 'DOCKER_IMAGE=amazonlinux:latest', DOCKER_SCRIPT=./package/mpkg_rpm_docker.sh ]
+      env: [ 'DOCKER_IMAGE=amazonlinux:latest' ]
     - os: linux
       dist: trusty
       sudo: required
@@ -78,27 +78,31 @@ matrix:
       compiler: i686-w64-mingw32-gcc
       services: [ docker ]
       # https://hub.docker.com/_/ubuntu/
-      env: [ HB_CI_THREADS=4, 'DOCKER_IMAGE=ubuntu:rolling', DOCKER_SCRIPT=./package/mpkg_win_docker.sh ]
+      env: [ 'DOCKER_IMAGE=ubuntu:rolling' ]
     - os: osx
       # https://docs.travis-ci.com/user/reference/osx/
       osx_image: xcode9
       compiler: clang
-      env: HB_CI_THREADS=4
     - os: osx
       osx_image: xcode9
       compiler: i686-w64-mingw32-gcc
-      env: [ HB_CI_THREADS=4 ]
 
 before_install:
-  - >
+  - |
+    export HB_CI_THREADS=4
     if [ -n "${DOCKER_IMAGE}" ]; then
+      if [ "${CC}" = 'i686-w64-mingw32-gcc' ]; then
+        DOCKER_SCRIPT=./package/mpkg_win_docker.sh
+      elif [ "${TRAVIS_OS_NAME}" = 'linux' ]; then
+        DOCKER_SCRIPT=./package/mpkg_rpm_docker.sh
+      fi
       time docker pull "${DOCKER_IMAGE}"
       time docker run -it -v "${PWD}:${PWD}" -w "${PWD}" \
         --env-file <(env | grep -E '^(HB|TRAVIS|GITHUB)_') \
         "${DOCKER_IMAGE}" \
         sh -c "${DOCKER_SCRIPT}"
-    elif [ "$TRAVIS_OS_NAME" = 'osx' ]; then
-      if [ "$CC" = 'i686-w64-mingw32-gcc' ]; then
+    elif [ "${TRAVIS_OS_NAME}" = 'osx' ]; then
+      if [ "${CC}" = 'i686-w64-mingw32-gcc' ]; then
         time travis_retry brew install --force-bottle p7zip mingw-w64 jq osslsigncode dos2unix gpg coreutils || true
         time travis_retry brew install --force-bottle --build-bottle wine || true
         export DISPLAY=:1
@@ -122,15 +126,15 @@ before_install:
     fi
 
 script:
-  - >
+  - |
     if [ -z "${DOCKER_IMAGE}" ]; then
-      if [ "$CC" = 'i686-w64-mingw32-gcc' ]; then
+      if [ "${CC}" = 'i686-w64-mingw32-gcc' ]; then
         ./package/mpkg_win_ci.sh
       else
         ls -lA "$(dirname "$(which "${CC}${HB_CCSUFFIX}")")/${CC}"*
         "${CC}${HB_CCSUFFIX}" -v
         [ "${CC}" = 'gcc' ] && "${CC}${HB_CCSUFFIX}" -dumpversion && "${CC}${HB_CCSUFFIX}" -dumpfullversion
-        HB_COMPILER=$CC make -j "${HB_CI_THREADS}"
+        HB_COMPILER="${CC}" make -j "${HB_CI_THREADS}"
       fi
     fi
 
@@ -148,4 +152,4 @@ deploy:
   on:
     tag: true
     branch: master
-    condition: "$CC = i686-w64-mingw32-gcc"
+    condition: "${CC} = i686-w64-mingw32-gcc"
