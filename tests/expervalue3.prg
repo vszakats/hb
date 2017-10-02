@@ -5,10 +5,7 @@
 #include "inkey.ch"
 #include "setcurs.ch"
 
-STATIC aArray
-STATIC aSelected := {}
-
-#define CONSECUTIVE_CELLS   3
+#define CONSECUTIVE_CELLS  3
 
 PROCEDURE Main()
 
@@ -16,6 +13,9 @@ PROCEDURE Main()
    LOCAL lContinue := .T.
    LOCAL nRow, nCol
    LOCAL selValue
+
+   LOCAL aArray
+   LOCAL aSelected := {}
 
    WelcomeScreen()
 
@@ -27,9 +27,9 @@ PROCEDURE Main()
 
    DO WHILE lContinue
 
-      Show()
+      Show( aArray, aSelected )
 
-      IF ScanConsecutiveCells()
+      IF ScanConsecutiveCells( aArray )
          LOOP
       ENDIF
 
@@ -55,14 +55,16 @@ PROCEDURE Main()
             AAdd( aSelected, { nRow, nCol } )
             EXIT
          CASE 1
-            IF nRow == aSelected[ 1 ][ 1 ] .AND. nCol == aSelected[ 1 ][ 2 ]
+            IF nRow == aSelected[ 1 ][ 1 ] .AND. ;
+               nCol == aSelected[ 1 ][ 2 ]
                LOOP
             ENDIF
-            IF Abs( nRow - aSelected[ 1 ][ 1 ] ) > 1 .OR. Abs( nCol - aSelected[ 1 ][ 2 ] ) > 1
+            IF Abs( nRow - aSelected[ 1 ][ 1 ] ) > 1 .OR. ;
+               Abs( nCol - aSelected[ 1 ][ 2 ] ) > 1
                LOOP
             ENDIF
-            selValue := aArray[ aSelected[ 1 ][ 1 ], aSelected[ 1 ][ 2 ] ]
-            aArray[ aSelected[ 1 ][ 1 ], aSelected[ 1 ][ 2 ] ] := aArray[ nRow ][ nCol ]
+            selValue := aArray[ aSelected[ 1 ][ 1 ] ][ aSelected[ 1 ][ 2 ] ]
+            aArray[ aSelected[ 1 ][ 1 ] ][ aSelected[ 1 ][ 2 ] ] := aArray[ nRow ][ nCol ]
             aArray[ nRow ][ nCol ] := selValue
             aSelected := {}
             EXIT
@@ -79,24 +81,26 @@ PROCEDURE Main()
 
    RETURN
 
-STATIC PROCEDURE Show()
+STATIC PROCEDURE Show( aArray, aSelected )
 
    LOCAL nRow
    LOCAL nCol
    LOCAL itm
    LOCAL nColor
- 
+
    DispBegin()
 
    FOR EACH nRow IN aArray
       FOR EACH nCol IN nRow
          nColor := nCol
          FOR EACH itm IN aSelected
-            IF nRow:__enumIndex == itm[ 1 ] .AND. nCol:__enumIndex == itm[ 2 ]
+            IF nRow:__enumIndex == itm[ 1 ] .AND. ;
+               nCol:__enumIndex == itm[ 2 ]
                nColor := 0xb
             ENDIF
          NEXT
-         hb_DispOutAt( nRow:__enumIndex() - 1, nCol:__enumIndex() - 1, iif( nCol == 0, " ", hb_ntos( nCol ) ), nColor )
+         hb_DispOutAt( nRow:__enumIndex() - 1, nCol:__enumIndex() - 1, ;
+            iif( nCol == 0, " ", hb_ntos( nCol ) ), nColor )
       NEXT
    NEXT
 
@@ -104,20 +108,7 @@ STATIC PROCEDURE Show()
 
    RETURN
 
-STATIC PROCEDURE RemoveCells( nRow, nCol )
-
-   LOCAL row, col
-
-   FOR row := nRow TO 2 STEP - 1
-      FOR col := nCol TO nCol + CONSECUTIVE_CELLS - 1
-         aArray[ row ][ col ] := aArray[ row - 1 ][ col ]
-         aArray[ row - 1][ col ] := 0
-      NEXT
-   NEXT
-
-   RETURN
-
-STATIC FUNCTION ScanConsecutiveCells()
+STATIC FUNCTION ScanConsecutiveCells( aArray )
 
    LOCAL row, col
    LOCAL nPrev
@@ -137,7 +128,7 @@ STATIC FUNCTION ScanConsecutiveCells()
             numConsec := 0
          ENDIF
          IF numConsec == CONSECUTIVE_CELLS - 1
-            RemoveCells( row:__enumIndex, col:__enumIndex - CONSECUTIVE_CELLS + 1 )
+            RemoveCells( aArray, row:__enumIndex, col:__enumIndex - CONSECUTIVE_CELLS + 1 )
             rowChanged := .T.
             loopRowAgain := .T.
             EXIT
@@ -149,6 +140,19 @@ STATIC FUNCTION ScanConsecutiveCells()
     NEXT
 
    RETURN rowChanged
+
+STATIC PROCEDURE RemoveCells( aArray, nRow, nCol )
+
+   LOCAL row, col
+
+   FOR row := nRow TO 2 STEP -1
+      FOR col := nCol TO nCol + CONSECUTIVE_CELLS - 1
+         aArray[ row ][ col ] := aArray[ row - 1 ][ col ]
+         aArray[ row - 1 ][ col ] := 0
+      NEXT
+   NEXT
+
+   RETURN
 
 PROCEDURE WelcomeScreen()
 
