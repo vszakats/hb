@@ -20,6 +20,7 @@ reader.c
 scanner.c
 writer.c
 
+-cflag=-DNDEBUG{!debug}
 -cflag=-DHAVE_CONFIG_H
 {hblib}-cflag=-DYAML_DECLARE_STATIC
 {hbdyn}-cflag=-DYAML_DECLARE_EXPORT

@@ -9,6 +9,8 @@
 -cpp=no
 -pic
 
+-cflag=-DNDEBUG{!debug}
+
 crypto_scrypt-ref.c
 sha256.c
 insecure_memzero.c

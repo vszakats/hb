@@ -13,6 +13,7 @@ xmlparse.c
 xmlrole.c
 xmltok.c
 
+-cflag=-DNDEBUG{!debug}
 -cflag=-DHAVE_EXPAT_CONFIG_H
 # needed to have <expat_config.h> found:
 -I.

@@ -41,6 +41,7 @@
 -depincpath=zlib:/boot/develop/headers/3rdparty
 -depincpathlocal=zlib:../../../../src/3rd/zlib
 
+-cflag=-DNDEBUG{!debug}
 -cflag=-DHPDF_DLL_MAKE_CDECL{allwin&hbdyn}
 -cflag=-DPNG_ALLOCATED{allpocc}
 -cflag=-U__COREDLL__{mingwarm}
