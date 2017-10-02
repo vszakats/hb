@@ -477,26 +477,6 @@ settings are case-sensitive.
 
 ## General
 
-   - `HB_INSTALL_PREFIX`
-
-     Target root directory to install Harbour files.
-     On \*nix systems the default is set to `/usr/local/`
-     or `$(PREFIX)` if specified, and
-     `/usr/local/harbour-<arch>-<comp>` for cross-builds.
-     It's always set to `./pkg/<arch>/<comp>` when
-     `HB_BUILD_PKG` is set to `yes`. On non-\*nix systems,
-     you must set it to a valid directory when using
-     `install`. Use absolute paths only.
-     You have to use path format native to your shell.
-     E.g. to specify `C:\dir` on Windows.
-
-   - `HB_USER_PRGFLAGS`        User Harbour compiler options
-   - `HB_USER_CFLAGS`          User C compiler options
-   - `HB_USER_RESFLAGS`        User resource compiler options (on win, wce, os2)
-   - `HB_USER_LDFLAGS`         User linker options for executables
-   - `HB_USER_AFLAGS`          User linker options for libraries
-   - `HB_USER_DFLAGS`          User linker options for dynamic libraries
-
    Set these only if auto-detection doesn't suit your purpose:
 
    - `HB_PLATFORM`             Override platform auto-detection
@@ -505,55 +485,6 @@ settings are case-sensitive.
      See this for possible values:
      [Supported Platforms and C Compilers](#supported-platforms-and-c-compilers)
      See also: `HB_CC*` settings.
-
-## Special
-
-   - `HB_BUILD_DYN=no`
-
-     Create Harbour dynamic libraries. Default: `yes`
-
-   - `HB_BUILD_CONTRIB_DYN=yes`
-
-     Create contrib dynamic libraries. Default: `no`,
-     except Windows and darwin platforms, where it's `yes`.
-
-   - `HB_BUILD_PKG=yes`
-
-     Create release package. Default: `no`
-     Requires `clean install` in root source dir.
-
-   - `HB_BUILD_SHARED=yes`
-
-     Create Harbour executables in shared mode.
-     Default: `yes` when `HB_INSTALL_PREFIX` points
-     to a \*nix system location, otherwise `no`.
-
-   - `HB_BUILD_DEBUG=yes`
-
-     Create debug build. Default: `no`
-
-   - `HB_BUILD_STRIP=[all|bin|lib|no]`
-
-     Strip symbols and debug information from binaries.
-     Default: `no`
-
-   - `HB_BUILD_OPTIM=no`
-
-     Enable C compiler optimizations. Default: `yes`
-
-   - `HB_BUILD_PARTS=[all|compiler|lib]`
-
-     Build only specific part of Harbour.
-
-   - `HB_BUILD_NOGPLLIB=yes`
-
-     Disable components dependent on GPL 3rd party code, to allow using
-     Harbour for nonfree/proprietary projects. Default: `no`
-
-   - `HB_BUILD_3RDEXT=no`
-
-     Enable auto-detection of 3rd party components on default system
-     locations. Default: `yes`
 
    - `HB_BUILD_CONTRIBS=no [<l>]`
 
@@ -571,6 +502,96 @@ settings are case-sensitive.
 
      Build space separated <l> list of additional `.hbp`
      projects.
+
+   - `HB_BUILD_STRIP=[all|bin|lib|no]`
+
+     Strip symbols and debug information from binaries.
+     Default: `no`
+
+   - `HB_BUILD_3RDEXT=no`
+
+     Enable auto-detection of 3rd party components on default system
+     locations. Default: `yes`
+
+   - `HB_BUILD_NOGPLLIB=yes`
+
+     Disable components dependent on GPL 3rd party code, to allow using
+     Harbour for nonfree/proprietary projects. Default: `no`
+
+   - `HB_CCPATH=[<dir>/]`
+
+     Used with non-\*nix gcc family compilers (and sunpro) to specify path
+     to compiler/linker/archive tool to help them run from \*nix hosts as
+     cross-build tools. Ending slash must be added.
+
+   - `HB_CCPREFIX=[<prefix>]`
+
+     Used with gcc compiler family to specify compiler/linker/archive tool
+     name prefix.
+
+   - `HB_CCSUFFIX=[<suffix>]`
+
+     Used with gcc compiler family to specify compiler/linker tool name
+     suffix &ndash; usually version number.
+
+   - `HB_INSTALL_PREFIX`
+
+     Target root directory to install Harbour files.
+     On \*nix systems the default is set to `/usr/local/`
+     or `$(PREFIX)` if specified, and
+     `/usr/local/harbour-<arch>-<comp>` for cross-builds.
+     It's always set to `./pkg/<arch>/<comp>` when
+     `HB_BUILD_PKG` is set to `yes`. On non-\*nix systems,
+     you must set it to a valid directory when using
+     `install`. Use absolute paths only.
+     You have to use path format native to your shell.
+     E.g. to specify `C:\dir` on Windows.
+
+     > WARNING:
+     >
+     > Harbour is fully functionaly on all platforms, without installing it
+     > to any other directory. *nix systems, if you must install, please use
+     > a stable installer package instead.
+
+## For Harbour development
+
+   - `HB_USER_PRGFLAGS`        User Harbour compiler options
+   - `HB_USER_CFLAGS`          User C compiler options
+   - `HB_USER_RESFLAGS`        User resource compiler options (on win, wce, os2)
+   - `HB_USER_LDFLAGS`         User linker options for executables
+   - `HB_USER_AFLAGS`          User linker options for libraries
+   - `HB_USER_DFLAGS`          User linker options for dynamic libraries
+
+   - `HB_BUILD_DEBUG=yes`
+
+     Create debug build. Default: `no`
+
+   - `HB_BUILD_OPTIM=no`
+
+     Enable C compiler optimizations. Default: `yes`
+
+   - `HB_BUILD_PKG=yes`
+
+     Create release package. Default: `no`
+     Requires `clean install` in root source dir.
+
+   - `HB_BUILD_DYN=no`
+
+     Create Harbour dynamic libraries. Default: `yes`
+
+   - `HB_BUILD_CONTRIB_DYN=yes`
+
+     Create contrib dynamic libraries. Default: `no`,
+     except Windows and darwin platforms, where it's `yes`.
+
+   - `HB_BUILD_SHARED=yes`
+
+     Create Harbour executables in shared mode.
+     Default: `yes` when `HB_INSTALL_PREFIX` points
+     to a \*nix system location, otherwise `no`.
+   - `HB_BUILD_PARTS=[all|compiler|lib]`
+
+     Build only specific part of Harbour.
 
    - `HB_BUILD_NAME=[<name>]`
 
@@ -606,14 +627,6 @@ settings are case-sensitive.
      Copy dynamic libraries of external .dll dependencies to the dynamic
      library directory in `install` build phase. Default: `no`
 
-   - `HB_SRC_ROOTPATH=<dir>`
-
-     When using GNU Make older than 3.81, you shall set the root directory
-     of Harbour source tree as an absolute path. If not set, some build
-     functionality may fail, like detection of 3rd party packages with
-     locally hosted sources.
-     With newer make versions, this variable is ignored.
-
    - `HB_REBUILD_EXTERN=yes`
 
      Rebuild extern headers. It is meant for developers doing Harbour code
@@ -632,22 +645,6 @@ settings are case-sensitive.
      This option is meant for testing Harbour code base for issues revealed
      by stricter C++ compiler rules and/or for C/C++ interoperability issues.
      Do not use it for production builds.
-
-   - `HB_CCPATH=[<dir>/]`
-
-     Used with non-\*nix gcc family compilers (and sunpro) to specify path
-     to compiler/linker/archive tool to help them run from \*nix hosts as
-     cross-build tools. Ending slash must be added.
-
-   - `HB_CCPREFIX=[<prefix>]`
-
-     Used with gcc compiler family to specify compiler/linker/archive tool
-     name prefix.
-
-   - `HB_CCSUFFIX=[<suffix>]`
-
-     Used with gcc compiler family to specify compiler/linker tool name
-     suffix &ndash; usually version number.
 
    - `HB_BUILD_POSTRUN_HOST=[<l>]`
 
