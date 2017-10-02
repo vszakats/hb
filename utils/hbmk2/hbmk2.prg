@@ -12397,9 +12397,9 @@ STATIC FUNCTION HBC_ProcessOne( hbmk, cFileName, nNestingLevel )
                ELSE
                   IF CheckParamLib( hbmk, cItem, .T., _PAR_NEW_HBC() )
                      IF _IS_AUTOLIBSYSPRE( cItem )
-                        AAddNewNotEmpty( hbmk[ _HBMK_aLIBUSERSYSPRE ], cItem )
+                        AAddNotEmpty( hbmk[ _HBMK_aLIBUSERSYSPRE ], cItem )
                      ELSE
-                        AAddNewNotEmpty( hbmk[ _HBMK_aLIBUSER ], cItem )
+                        AAddNotEmpty( hbmk[ _HBMK_aLIBUSER ], cItem )
                      ENDIF
                   ENDIF
                ENDIF
