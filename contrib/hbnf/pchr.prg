@@ -11,7 +11,7 @@
  */
 
 /* NOTE: In original NF, control codes were also accepted when
-         having extra characters (f.e. "/GRAPHICMODE" instead of "/GRAPHIC"),
+         having extra characters (e.g. "/GRAPHICMODE" instead of "/GRAPHIC"),
          but only if _SET_EXACT was set to .F., Harbour accepts them
          that way regardless of _SET_EXACT setting. [vszakats] */
 

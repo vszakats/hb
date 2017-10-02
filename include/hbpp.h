@@ -438,7 +438,7 @@ HB_PP_TOKEN, * PHB_PP_TOKEN;
 #define HB_PP_PREC_NEG  7
 
 /* For platforms which does not use ASCII based character tables this macros
-   have to be changed to use valid C functions, f.e.:
+   have to be changed to use valid C functions, e.g.:
       isalpha(), isdigit(), ... */
 #ifdef HB_CLP_STRICT
 #  define HB_PP_ISILLEGAL(c)     ( (c) < 32 || (c) >= 126 )

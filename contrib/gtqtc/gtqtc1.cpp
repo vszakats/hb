@@ -2581,7 +2581,7 @@ QTConsole::QTConsole( PHB_GTQTC pStructQTC, QWidget *parnt ) : QWidget( parnt )
 
    /* Qt::WA_InputMethodEnabled disables support for
     * national characters in few European countries
-    * (f.e. Polish characters with ALT in macOS)
+    * (e.g. Polish characters with ALT in macOS)
     * If some Asian users needs it then we will have
     * to enable it optionally [druzus]
     */

@@ -168,7 +168,7 @@ STATIC FUNCTION FCM_OPEN( nWA, aOpenInfo )
    aField[ UR_FI_DEC ]     := 0
    UR_SUPER_ADDFIELD( nWA, aField )
 
-   /* Call SUPER OPEN to finish allocating work area (f.e.: alias settings) */
+   /* Call SUPER OPEN to finish allocating work area (e.g.: alias settings) */
    nResult := UR_SUPER_OPEN( nWA, aOpenInfo )
 
    IF nResult == HB_SUCCESS

@@ -45,7 +45,7 @@ STATIC sc_hActions := { ;
    _ACT_INC_REBUILD_INST => "rebuild and install" }
 
 STATIC s_cRoot    /* source tree root directory */
-STATIC s_cHome    /* project store root directory (f.e. 'contrib/') */
+STATIC s_cHome    /* project store root directory (e.g. 'contrib/') */
 STATIC s_cBinDir  /* directory where the hbmk2 executing this script resides */
 
 STATIC s_lCoreBuild
@@ -176,7 +176,7 @@ STATIC PROCEDURE BuildSingle( aParams, hProjectList )
          cOptionsUser += " " + tmp
 
          /* If anything else is passed than options or GNU Make keywords,
-            switch to hbmk2 pass-through mode, f.e. in tests */
+            switch to hbmk2 pass-through mode, e.g. in tests */
          IF ! hb_LeftEq( tmp, "-" )
             lPassThrough_hbmk2 := .T.
          ENDIF
@@ -267,7 +267,7 @@ STATIC PROCEDURE BuildAll( aParams, hProjectList )
          AScanL( aGNUMakeParams, "install" ) > 0 .AND. ;
          AScanL( aGNUMakeParams, "install" ) > AScanL( aGNUMakeParams, "clean" )
          /* Use rebuild mode. This is needed because the clean phase might not
-            have been called previously by core GNU Make, f.e. because hbrun
+            have been called previously by core GNU Make, e.g. because hbrun
             or hbmk2 wasn't available. -rebuildall is costless, so we do it to
             make sure to build cleanly. [vszakats] */
          nAction := _ACT_INC_REBUILD_INST

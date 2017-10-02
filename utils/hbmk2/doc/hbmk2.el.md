@@ -27,7 +27,7 @@ Besides building executables, hbmk2 is able to run Harbour scripts \(both source
  - **-hblib** δημιουργία στατικής βιβλιοθήκης
  - **-hbdyn** δημιουργία δυναμικής βιβλιοθήκης \(χωρίς συνδεδεμένη Harbour VM\)
  - **-hbdynvm** δημιουργία δυναμικής βιβλιοθήκης \(με συνδεδεμένη Harbour VM\)
- - **-strip\[-\]** strip \(or don't\) debugging \(and other extra\) information from target binary. They are included by default by certain C compilers, f.e.: gcc\*, clang, mingw\*, djgpp.
+ - **-strip\[-\]** strip \(or don't\) debugging \(and other extra\) information from target binary. They are included by default by certain C compilers, e.g.: gcc\*, clang, mingw\*, djgpp.
 
 
  - **-mt|-st** διασύνδεση με την πολυ/μονο-νηματική εικονική μηχανή Harbour VM

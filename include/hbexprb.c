@@ -1286,7 +1286,7 @@ static HB_EXPR_FUNC( hb_compExprUseArrayAt )
          PHB_EXPR pIdx;
 
          /* Clipper forces memvar context for undeclared variables used with
-          * array index, f.e.: var[ n ]
+          * array index, e.g.: var[ n ]
           * but not for code like: ( var )[ n ]
           */
          if( pSelf->value.asList.pExprList->ExprType == HB_ET_VARIABLE )

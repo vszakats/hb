@@ -5,7 +5,7 @@
 
 -w3 -es2
 
-# NOTE: On Linux, download 'Advantage Client Engine API for Linux' (f.e. 'aceapi-11.10.0.10.tar.gz')
+# NOTE: On Linux, download 'Advantage Client Engine API for Linux' (e.g. 'aceapi-11.10.0.10.tar.gz')
 
 -depurlbase=ads:https://devzone.advantagedatabase.com/dz/content.aspx?Key=20
 -depkeyhead=ads:ace.h

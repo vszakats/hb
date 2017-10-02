@@ -2573,7 +2573,7 @@ HB_BOOL hb_itemStrBuf( char * szResult, PHB_ITEM pNumber, int iSize, int iDec )
             dFract = modf( dFract * doBase, &dDig );
             iLast = ( int ) ( dDig + 0.01 );
 
-            /* hack for x.xxxx4999999999, f.e. 8.995 ~FL 8.994999999999999218.. */
+            /* hack for x.xxxx4999999999, e.g. 8.995 ~FL 8.994999999999999218.. */
             if( iLast == 4 && iZer < 0 )
             {
                for( iPos = -iZer; iPos > 0; --iPos )

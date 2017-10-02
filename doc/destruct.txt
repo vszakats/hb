@@ -43,7 +43,7 @@ and finally checks if reference counters reached zero before it will
 free the memory blocks. If they didn't then RT error is generated for
 the first memory block. All items which are still accessible, are not
 freed and if GC can recognize a type of an item then it will also try to
-convert it to some empty form (f.e. empty array).
+convert it to some empty form (e.g. empty array).
 The destructors are executed from cleanup functions so they all will be
 executed and then, if there is something wrong, RT error will be generated
 for the first memory block which was copied to some external structures.
@@ -90,7 +90,7 @@ because STATIC variables are integral part of this subsystem.
 
 Anomalies and exceptions
 ------------------------
-In some situations HVM may clear items when exception appear, f.e.
+In some situations HVM may clear items when exception appear, e.g.
 BREAK or QUIT request. In such case executing the exception type
 is stored and destructors are executed and finally the exception
 restored. But in destructors code new exception can appear. In such

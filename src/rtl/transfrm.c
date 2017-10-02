@@ -350,7 +350,7 @@ HB_FUNC( TRANSFORM )
              * but CA-Cl*pper uses static buffer for result and when current
              * one is smaller then 5 bytes then first two bytes are exchanged
              * with 4-5 bytes from previous result which was length enough,
-             * f.e.:
+             * e.g.:
              *          ? Transform( "0123456789", "" )
              *          ? Transform( "AB", "@E" )
              *          ? Transform( "ab", "@E" )

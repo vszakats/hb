@@ -127,7 +127,7 @@ HB_BOOL hb_printerIsReady( const char * pszPrinterName )
 
 /* Contrary to popular beliefs and such (mis)feature implemented
    in the Harbour derivative xHarbour, [hb_]IsPrinter() functions
-   are only meant to work on direct _devices_ (f.e. LPT1:, \\server\queue,
+   are only meant to work on direct _devices_ (e.g. LPT1:, \\server\queue,
    tcp:localhost:9100, /dev/lp0, etc...). Those that are writable
    just like a stream. Of these two functions, IsPrinter() will
    always use the same, OS-specific predefined device name, just

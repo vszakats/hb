@@ -27,7 +27,7 @@ Opcións:
  - **-hblib** crear biblioteca estática
  - **-hbdyn** Crear biblioteca dinámica \(sen incluir a máquina virtual -VM- de Harbour\)
  - **-hbdynvm** Crear biblioteca dinámica \(coa máquina virtual -VM- enlazada\)
- - **-strip\[-\]** strip \(or don't\) debugging \(and other extra\) information from target binary. They are included by default by certain C compilers, f.e.: gcc\*, clang, mingw\*, djgpp.
+ - **-strip\[-\]** strip \(or don't\) debugging \(and other extra\) information from target binary. They are included by default by certain C compilers, e.g.: gcc\*, clang, mingw\*, djgpp.
 
 
  - **-mt|-st** enlazar coa máquina virtual de Harbour para multifío/simple fío

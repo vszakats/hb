@@ -99,7 +99,7 @@ typedef struct _HB_HVAR
    const char *   szAlias;          /* variable alias namespace */
    int            iUsed;            /* number of times used */
    int            iDeclLine;        /* declaration line number */
-   HB_USHORT      uiFlags;          /* optional flags, f.e. THREAD STATIC */
+   HB_USHORT      uiFlags;          /* optional flags, e.g. THREAD STATIC */
    HB_BYTE        cType;            /* optional strong typing */
    PHB_HCLASS     pClass;
    struct _HB_HVAR * pNext;            /* pointer to next defined variable */

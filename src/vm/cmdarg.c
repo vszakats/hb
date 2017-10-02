@@ -385,7 +385,7 @@ void hb_cmdargUpdate( void )
                      /* even if the file is located using PATH then it does
                       * not mean we will have absolute path here. It's not
                       * good idea but PATH envvar can also contain relative
-                      * directories, f.e. "." or "bin" so we should add
+                      * directories, e.g. "." or "bin" so we should add
                       * current directory if necessary in code below.
                       */
                      hb_xfree( pFName );

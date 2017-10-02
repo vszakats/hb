@@ -416,7 +416,7 @@ PROCEDURE Main_TRANS()
     * In fact precise tests can show that it's not random behavior
     * but CA-Cl*pper uses static buffer for result and when current one
     * is smaller then 5 bytes then first two bytes are replaced with
-    * 4-5 bytes from previous result which was length enough, f.e.:
+    * 4-5 bytes from previous result which was length enough, e.g.:
     *          ? Transform( "0123456789", "" )
     *          ? Transform( "AB", "@E" )
     *          ? Transform( "ab", "@E" )

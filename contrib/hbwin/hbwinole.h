@@ -58,7 +58,7 @@
 #if defined( HB_OS_WIN )
 
 /* This option can resolve compilation problems in C++ mode for some
- * compilers like OpenWatcom but not for all, f.e. it will not help
+ * compilers like OpenWatcom but not for all, e.g. it will not help
  * BCC when used with -P (C++ mode) switch.
  */
 #if 0

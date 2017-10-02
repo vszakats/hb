@@ -1078,8 +1078,8 @@ static HB_ERRCODE hb_delimInfo( DELIMAREAP pArea, HB_USHORT uiIndex, PHB_ITEM pI
          /*
           * a small trick which allow to set character field delimiter and
           * field separator in COPY TO ... and APPEND FROM ... commands as
-          * array. F.e.:
-          *    COPY TO test DELIMITED WITH ({"","|"})
+          * array. e.g.:
+          *    COPY TO test DELIMITED WITH ({"", "|"})
           */
 #ifndef HB_CLP_STRICT
          else if( hb_itemType( pItem ) & HB_IT_ARRAY )

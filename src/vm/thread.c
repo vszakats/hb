@@ -300,7 +300,7 @@ void hb_threadReleaseCPU( void )
    }
 
    /* the code below is simpler but seems that some Linux kernels
-    * (f.e. from CentOS 5.1) have problems with nanosleep()
+    * (e.g. from CentOS 5.1) have problems with nanosleep()
     * so it was replaced by above code
     */
 
@@ -530,7 +530,7 @@ static HB_CRITICAL_NEW( s_atomicMtx );
 void hb_atomic_set( volatile HB_COUNTER * pCounter, HB_COUNTER value )
 {
    /* NOTE: on some platforms it may be necessary to protect this
-    * by critical section, f.e. when HB_COUNTER cannot be accessed
+    * by critical section, e.g. when HB_COUNTER cannot be accessed
     * using single memory access by CPU.
     */
    *pCounter = value;
@@ -539,7 +539,7 @@ void hb_atomic_set( volatile HB_COUNTER * pCounter, HB_COUNTER value )
 HB_COUNTER hb_atomic_get( volatile HB_COUNTER * pCounter )
 {
    /* NOTE: on some platforms it may be necessary to protect this
-    * by critical section, f.e. when HB_COUNTER cannot be accessed
+    * by critical section, e.g. when HB_COUNTER cannot be accessed
     * using single memory access by CPU.
     */
    return *pCounter;

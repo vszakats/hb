@@ -266,7 +266,7 @@ PHB_DYNS hb_dynsymNew( PHB_SYMB pSymbol )
           */
          if( pDynSym->pSymbol->value.pFunPtr == pSymbol->value.pFunPtr )
          {
-            /* The addresses have been updated, f.e. in such way works GCC
+            /* The addresses have been updated, e.g. in such way works GCC
              * in Linux (but not MinGW and DJGPP) if user will allow to create
              * binaries with multiple symbols by
              *    -Wl,--allow-multiple-definition
@@ -293,7 +293,7 @@ PHB_DYNS hb_dynsymNew( PHB_SYMB pSymbol )
             {
                /* It's dynamic module so we are guessing that HVM
                 * intentionally not updated function address allowing
-                * multiple functions, f.e. programmer asked about keeping
+                * multiple functions, e.g. programmer asked about keeping
                 * local references using hb_libLoad()/hb_hrbLoad() parameter.
                 * In such case update pDynSym address in the new symbol but
                 * do not register it as the main one

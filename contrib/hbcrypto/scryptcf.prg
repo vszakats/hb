@@ -46,7 +46,7 @@
  */
 
 /* Converts from high-level scrypt parameters to low-level ones.
-   Some calls (f.e. scryptenc_setup()) use high-level ones,
+   Some calls (e.g. scryptenc_setup()) use high-level ones,
    hb_scrypt()/crypto_scrypt() expect the low-level ones. */
 
 PROCEDURE hb_scrypt_setup( nOpsLimit, nMemLimit, /* @ */ N, /* @ */ r, /* @ */ p )

@@ -1202,7 +1202,7 @@ FUNCTION NameIsOperator( cName )
    RETURN ;
       hb_StrReplace( hb_asciiLower( cName ), "abcdefghijklmnopqrstuvwxyz" ) == hb_asciiLower( cName ) .OR. ;
       "|" + Upper( cName ) + "|" $ "|.AND.|.OR.|.NOT.|" .OR. ;
-      hb_LeftEq( cName, "= " )  // f.e. "= (assign)"
+      hb_LeftEq( cName, "= " )  // e.g. "= (assign)"
 
 FUNCTION NameIsDirective( cName )
 

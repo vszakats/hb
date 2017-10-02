@@ -55,30 +55,42 @@ FUNCTION hb_SendMail( ... )
    cServer     -> Required. IP or domain name of the mail server
    nPort       -> Optional. Port used my email server
    cFrom       -> Required. Email address of the sender
-   xTo         -> Required. Character string or array of email addresses to send the email to
-   xCC         -> Optional. Character string or array of email addresses for CC (Carbon Copy)
-   xBCC        -> Optional. Character string or array of email addresses for BCC (Blind Carbon Copy)
-   cBody       -> Optional. The body message of the email as text, or the filename of the HTML message to send.
+   xTo         -> Required. Character string or array of email addresses to send
+                            the email to
+   xCC         -> Optional. Character string or array of email addresses for
+                            CC (Carbon Copy)
+   xBCC        -> Optional. Character string or array of email addresses for
+                            BCC (Blind Carbon Copy)
+   cBody       -> Optional. The body message of the email as text, or the
+                            filename of the HTML message to send.
    cSubject    -> Optional. Subject of the sending email
    aFiles      -> Optional. Array of attachments to the email to send
    cUser       -> Required. User name for the POP3 server
    cPass       -> Required. Password for cUser
    cPopServer  -> Required. POP3 server name or address
    nPriority   -> Optional. Email priority: 1=High, 3=Normal (Standard), 5=Low
-   lRead       -> Optional. If set to .T., a confirmation request is send. Standard setting is .F.
-   xTrace      -> Optional. If set to .T., a log file is created (smtp-<n>.log). Standard setting is .F.
-                            If a block is passed, it will be called for each log event with the message a string, no param on session close.
+   lRead       -> Optional. If set to .T., a confirmation request is send.
+                            Standard setting is .F.
+   xTrace      -> Optional. If set to .T., a log file is created (smtp-<n>.log).
+                            Standard setting is .F.
+                            If a block is passed, it will be called for each
+                            log event with the message a string, no param on
+                            session close.
    lPopAuth    -> Optional. Do POP3 authentication before sending mail.
    lNoAuth     -> Optional. Disable authentication methods
    nTimeOut    -> Optional. Number os ms to wait default 10000 (10s)
    cReplyTo    -> Optional.
-   lSSL        -> Optional. Need SSL at connect time (TLS need this param set to False)
+   lSSL        -> Optional. Need SSL at connect time
+                            (TLS need this param set to False)
    cSMTPPass   -> Optional.
    cCharset    -> Optional.
    cEncoding   -> Optional.
-   cClientHost -> Optional. Domain name of the SMTP client in the format smtp.example.net OR
-                            client IP surrounded by brackets as [127.0.0.1] for IPv4 or as [ipv6:address] (f.e. '[ipv6:::1]') for IPv6
-                            Note: This parameter is optional for backwards compatibility, but should be provided to comply with RFC 2812.
+   cClientHost -> Optional. Domain name of the SMTP client in the format
+                            smtp.example.net OR client IP surrounded by brackets
+                            as [127.0.0.1] for IPv4 or as [ipv6:address]
+                            (e.g. '[ipv6:::1]') for IPv6
+                            Note: This parameter is optional for backwards
+                            compatibility, but should be provided to comply with RFC 2812.
  */
 FUNCTION tip_MailSend( cServer, nPort, cFrom, xTo, xCC, xBCC, cBody, cSubject, ;
       aFiles, cUser, cPass, cPopServer, nPriority, lRead, ;
@@ -183,7 +195,10 @@ FUNCTION tip_MailSend( cServer, nPort, cFrom, xTo, xCC, xBCC, cBody, cSubject, ;
    IF HB_ISSTRING( cPopServer ) .AND. lPopAuth
 
       BEGIN SEQUENCE WITH __BreakBlock()
-         oUrl1 := TUrl():New( iif( lSSL, "pop3s://", "pop://" ) + cUser + ":" + cPass + "@" + cPopServer + "/" )
+         oUrl1 := TUrl():New( ;
+            iif( lSSL, "pop3s://", "pop://" ) + ;
+            cUser + ":" + cPass + ;
+            "@" + cPopServer + "/" )
          oUrl1:cUserid := StrTran( cUser, "&at;", "@" )
          oPop := TIPClientPOP():New( oUrl1, xTrace )
       RECOVER
@@ -198,7 +213,10 @@ FUNCTION tip_MailSend( cServer, nPort, cFrom, xTo, xCC, xBCC, cBody, cSubject, ;
    ENDIF
 
    BEGIN SEQUENCE WITH __BreakBlock()
-      oUrl := TUrl():New( iif( lSSL, "smtps://", "smtp://" ) + cUser + iif( Empty( cSMTPPass ), "", ":" + cSMTPPass ) + "@" + cServer )
+      oUrl := TUrl():New( ;
+         iif( lSSL, "smtps://", "smtp://" ) + ;
+         cUser + iif( Empty( cSMTPPass ), "", ":" + cSMTPPass ) + ;
+         "@" + cServer )
    RECOVER
       RETURN .F.
    END SEQUENCE

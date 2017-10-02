@@ -27,7 +27,7 @@
          - gracefully shutting down server by waiting for connections to close and not accept new ones
          - pausing server
          - sort out console UI from server side output
-         - add support for subnet masks in allow/block lists, f.e. 172.16.0.0/12, and same for IPv6 */
+         - add support for subnet masks in allow/block lists, e.g. 172.16.0.0/12, and same for IPv6 */
 
 #include "fileio.ch"
 #include "inkey.ch"

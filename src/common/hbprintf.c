@@ -268,7 +268,7 @@ typedef struct
 
 #ifdef __NO_ARGPOS__
 
-/* this version does not support positional parameters (f.e. '%1$d')
+/* this version does not support positional parameters (e.g. '%1$d')
  * they can be added but it will force allocating additional
  * memory block in heap or stack and making second pass for
  * format decoding/coping.

@@ -133,7 +133,7 @@ HB_FUNC( SSL_INIT )
          were built with `-DOPENSSL_USE_APPLINK` option (which is the
          default in mingw 32-bit). This is required, otherwise the UP_*()
          macros will resolve to NULL pointers and crash those OpenSSL functions
-         that rely on them, f.e. BIO_write() on a BIO_new_fd(). The
+         that rely on them, e.g. BIO_write() on a BIO_new_fd(). The
          hack-free solution would be to build OpenSSL static libraries
          _without_ OPENSSL_USE_APPLINK option, and build shared libraries
          (.dlls) _with_ OPENSSL_USE_APPLINK in two separate build pass.

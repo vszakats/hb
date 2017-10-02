@@ -27,7 +27,7 @@ Kapcsolók:
  - **-hblib** statikus függvénykönyvtár létrehozása
  - **-hbdyn** dinamikus függvénykönyvtár létrehozása \(Harbour VM nélkül\)
  - **-hbdynvm** dinamikus függvénykönyvtár létrehozása \(Harbour VM-mel\)
- - **-strip\[-\]** strip \(or don't\) debugging \(and other extra\) information from target binary. They are included by default by certain C compilers, f.e.: gcc\*, clang, mingw\*, djgpp.
+ - **-strip\[-\]** strip \(or don't\) debugging \(and other extra\) information from target binary. They are included by default by certain C compilers, e.g.: gcc\*, clang, mingw\*, djgpp.
 
 
  - **-mt|-st** többszálú/egyszálú virtuális gép használata
@@ -296,8 +296,8 @@ Makró változók:
  - **$\{hb\_dynprefix\}** dynamic library prefix
  - **$\{hb\_dynsuffix\}** dynamic library suffix
  - **$\{hb\_dynext\}** dynamic library extension
- - **$\{hb\_ver\}** Harbour version in hexadecimal triple byte format. F.e.: 030400
- - **$\{hb\_verstr\}** Harbour version in human readable format &lt;major&gt;.&lt;minor&gt;.&lt;release&gt;&lt;status&gt;. F.e.: 3.4.0dev
+ - **$\{hb\_ver\}** Harbour version in hexadecimal triple byte format. E.g.: 030400
+ - **$\{hb\_verstr\}** Harbour version in human readable format &lt;major&gt;.&lt;minor&gt;.&lt;release&gt;&lt;status&gt;. E.g.: 3.4.0dev
  - **$\{hb\_major\}** Harbour major version number
  - **$\{hb\_minor\}** Harbour minor version number
  - **$\{hb\_release\}** Harbour release version number
@@ -679,7 +679,7 @@ Megjegyzések:
   - A szűrők az egyes .hbc sorokban használhatók és számos opció esetén támogatottak.  
 Szűrő formátum: \{\[\!\]\[&lt;platform&gt;|&lt;compiler&gt;|&lt;cpu&gt;|&lt;keyword&gt;\]\}. Szűrők kombinálhatók '&amp;', '|' operátorokkal és zárójelekkel csoportosíthatók. Pl.: \{win\}, \{gcc\}, \{linux|darwin\}, \{win&amp;\!pocc\}, \{\(win|linux\)&amp;\!watcom\}, \{unix&amp;mt&amp;gui\}, -cflag=\{win\}-DMYDEF, -stop\{dos\}, -stop\{\!allwin\}
   - A legtöbb .hbc opcióban és parancssori megfelelőikben \(libs=, hbcs=, prgflags=, cflags=, ldflags=, libpaths=, instfiles=, instpaths=, echo=\) használhatók makró változókat. libpaths= also accepts %\{hb\_name\} which translates to the name of the .hbc file under search.
-  - Options accepting macro variables also support command substitution. Enclose command inside \`\`, and, if the command contains space, also enclose in double quotes. Standard output of the command will be used as the value. F.e. "-cflag=\`wx-config --cflags\`", or ldflags=\{unix&amp;gcc\}"\`wx-config --libs\`".
+  - Options accepting macro variables also support command substitution. Enclose command inside \`\`, and, if the command contains space, also enclose in double quotes. Standard output of the command will be used as the value. E.g. "-cflag=\`wx-config --cflags\`", or ldflags=\{unix&amp;gcc\}"\`wx-config --libs\`".
   - When multiple build target type selection options \(-hblib, -hbdyn, etc.\) are specified, the first one will be significant, the rest will be silently ignored.
   - Libraries and object files built with/for CA-Cl\*pper will not work with any supported platform/compiler.
   - Defaults and feature support may vary by platform/compiler.

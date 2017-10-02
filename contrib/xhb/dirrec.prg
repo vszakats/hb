@@ -49,7 +49,7 @@
  * unlike the xHarbour version it's MT safe.
  * It also returns relative paths which are more similar to
  * *Directory() function results so they can be easy used
- * directly in other code, f.e. to create archive without
+ * directly in other code, e.g. to create archive without
  * absolute paths. Please note that user can easy convert
  * relative paths to absolute ones by simple adding CurDir()
  * and/or cPath parameter passed to DirectoryRecurse() but

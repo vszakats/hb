@@ -284,7 +284,7 @@ static int amf3_add_index( amfContext * context, PHB_ITEM pHash, PHB_ITEM pItem 
       result = ( int ) ( hb_hashLen( pHash ) - 1 + context->strstr_count );
       /* used only when some inner context inside
        * conversion function uses only strstr mode
-       * like amf3_FromWA() function f.e. */
+       * like amf3_FromWA() function e.g. */
    }
 
    if( ( HB_IS_STRING( pItem ) || HB_IS_MEMO( pItem ) ) && context->use_strstr )

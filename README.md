@@ -488,7 +488,7 @@ settings are case-sensitive.
      you must set it to a valid directory when using
      `install`. Use absolute paths only.
      You have to use path format native to your shell.
-     F.e. to specify `C:\dir` on Windows.
+     E.g. to specify `C:\dir` on Windows.
 
    - `HB_USER_PRGFLAGS`        User Harbour compiler options
    - `HB_USER_CFLAGS`          User C compiler options
@@ -575,7 +575,7 @@ settings are case-sensitive.
    - `HB_BUILD_NAME=[<name>]`
 
      Create named build. This allows keeping multiple builds in parallel for
-     any given platform/compiler. F.e. debug / release.
+     any given platform/compiler. E.g. debug / release.
 
      > In current implementation it's appended to compiler directory name, so
      > all file-system/platform name rules and limits apply. (Back)slashes will
@@ -662,10 +662,10 @@ settings are case-sensitive.
 
 ## Cross-builds
 
-You can build Harbour for target platforms different from host platform. F.e.
+You can build Harbour for target platforms different from host platform. E.g.
 you can create Windows build on \*nix systems, Linux builds on Windows systems,
 etc. It's also possible to build targets for different from host CPU
-architectures. F.e. you can create Windows 64-bit build on 32-bit Windows
+architectures. E.g. you can create Windows 64-bit build on 32-bit Windows
 platform, or Linux x86-64 build on x86 hosts, or Linux MIPS build on x86 host,
 etc.
 

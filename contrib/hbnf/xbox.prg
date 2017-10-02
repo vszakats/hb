@@ -17,7 +17,7 @@
 #include "box.ch"
 
 /* NOTE: In original NF, flag parameters were also accepted when
-         having extra characters (f.e. "DOUBLE" instead of "D"),
+         having extra characters (e.g. "DOUBLE" instead of "D"),
          but only if _SET_EXACT was set to .F., Harbour accepts them
          that way regardless of _SET_EXACT setting. [vszakats] */
 

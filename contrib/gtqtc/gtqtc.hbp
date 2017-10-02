@@ -14,7 +14,7 @@
 
 # NOTE: You can override auto-detection of QT 'moc' tool by using HB_QTPATH and
 #       optionally HB_QTSUFFIX envvars. This may only be necessary on some *nix
-#       systems. F.e.:
+#       systems. E.g.:
 #
 #       HB_QTPATH=/opt/qt5/bin/
 #       HB_QTSUFFIX=

@@ -33,7 +33,7 @@
 # $HB_ROOT/etc/harbour/hb-charmap.def, /etc/harbour/hb-charmap.def
 # terminal name is taken from 'HB_TERM' or 'TERM' environment variable
 # if terminal name contains '/' character then is divided to subsections
-# by this char and then each of them is included f.e.:
+# by this char and then each of them is included e.g.:
 #   export HB_TERM=linux/acsc/maz2iso
 # means that sections :linux, :acsc, :maz2iso will be loaded
 # remember that first subsection name (linux) will be used for terminfo

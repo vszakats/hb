@@ -28,7 +28,7 @@ making in last days.
       #define a   -1
       ? 1-a
    and it cannot be fixed with current code without breaking some
-   other things, f.e. match markers which depends on number of spaces
+   other things, e.g. match markers which depends on number of spaces
    between tokens. So at start we have to forget about updating current PP.
    It will never be Clipper compatible and cannot be because it's not a
    lexer.
@@ -39,7 +39,7 @@ making in last days.
    input data serialization. This can be seen in wild match marker <*marker*>
    behavior or optional clause in match pattern, operator tokenization, etc.
    It greatly simplify the code though introduce some limitations,
-   f.e.:
+   e.g.:
       #xcommand CMD [FROM] FROM <*x*> => ? #<x>
    or:
       #xcommand CMD <x,...> , <id>  => ? #<x>
@@ -55,7 +55,7 @@ making in last days.
    like accessing string characters with [] operator so I suggest to change
    this condition and not create string token when it follows also constant
    value of any type - not only strings. It will be usable for scalar
-   classes and overloading [] operator, f.e. someone can create LOGICAL
+   classes and overloading [] operator, e.g. someone can create LOGICAL
    class where:
       .T.[1] => ".T.", .T.[2] => "TRUE", .T.[3] => "YES"
 
@@ -71,7 +71,7 @@ making in last days.
    character and previous token is keyword or macro then it always checks
    for closing bracket and if in scanned text it will find odd numbers
    of other text delimiters ('") then ignore the type of previous token
-   and always creates strings. This behavior breaks some valid code. F.e.
+   and always creates strings. This behavior breaks some valid code. E.g.
    Clipper cannot compile code like:
       x := a[ f("]") ] $ "test"
    or:
@@ -82,7 +82,7 @@ making in last days.
    and allow to convert group of tokens inside to string by compiler.
    If something is not recognized by preprocessor as string token or
    open_array_index then it should never become string token. It doesn't
-   matter how it will be preprocessed later, f.e.:
+   matter how it will be preprocessed later, e.g.:
       #define O1 [
       #define O2 ]
       ? O1 b O2
@@ -128,7 +128,7 @@ making in last days.
    It's enough to create matching pattern for the code which have [] not
    translated to string and not bound
    with keyword. As I wrote above it will be possible when '[' is after
-   one of the closing brackets: ')', '}' or ']', f.e.:
+   one of the closing brackets: ')', '}' or ']', e.g.:
       #command A }\[C] => QOut("A }[C]")
       A }[C]
    Will be perfectly translated. For me it seems to be limitation of
@@ -455,7 +455,7 @@ making in last days.
 
 20. rule have to begin with non empty token or the rule will never be used.
    Generate warning for such rules? or maybe add support for such rules
-   to implement some language extensions, f.e. clasfunc{p1,p2,p3}
+   to implement some language extensions, e.g. clasfunc{p1,p2,p3}
 
 21. translation algorithm used by Clipper PP
 
@@ -547,7 +547,7 @@ making in last days.
    reasonable compatibility level and the body of indirect # directive will
    not be preprocessed. Please note that programmer still will be able to
    force preprocessing of indirect # directive body using additional
-   preprocessor rule(s) and even control the preprocessing level f.e.:
+   preprocessor rule(s) and even control the preprocessing level e.g.:
       #define   PREPROCESS_DIRECTIVE      DO_DIRECTIVE
       #xcommand HASH_DIRECTIVE [<*x*>] => PREPROCESS_DIRECTIVE <x>
       #xcommand DO_DIRECTIVE   [<*x*>] => \# <x>
@@ -561,7 +561,7 @@ making in last days.
    The second problem is stop condition in # directive body. When PP finds #
    as first token then always remove all tokens to the end of line and take
    them as part of # directive or ignore. It does not respect ';' token as
-   command separator. This also causes pleasure side effects, f.e. it's
+   command separator. This also causes pleasure side effects, e.g. it's
    not possible to insert indirect # directive without breaking commands
    after it because they will be always used as part of the inserted #
    directive by PP. Here I strongly prefer to define the following behavior:
@@ -587,7 +587,7 @@ making in last days.
 
    This will give programmer full control on preprocessed data when in
    Clipper the indirect # directive seems to be a hack added later and
-   can be used only in very limited way. F.e. in Class(y) as workaround
+   can be used only in very limited way. e.g. in Class(y) as workaround
    for Clipper PP behavior #include is used to execute# directive directly
    from included files.
 
@@ -633,7 +633,7 @@ making in last days.
       used as single token. Now it's impossible so things like @: matches
          @ <any_number_of_blank_characters> :
    b. token concatenation with new PP operator/marker or automatic in some
-      chosen cases, f.e. no spaces between two tokens and both tokens are
+      chosen cases, e.g. no spaces between two tokens and both tokens are
       valid keywords
    c. Something to stop result pattern definition in # directives and begin
       new command. ; does not interrupt it but it's included to result pattern.

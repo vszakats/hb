@@ -27,7 +27,7 @@ Opções:
  - **-hblib** criar biblioteca estática
  - **-hbdyn** criar biblioteca dinâmica \(não linkada com a Harbour VM\)
  - **-hbdynvm** criar biblioteca dinâmica \(ligada com a Harbour VM\)
- - **-strip\[-\]** strip \(or don't\) debugging \(and other extra\) information from target binary. They are included by default by certain C compilers, f.e.: gcc\*, clang, mingw\*, djgpp.
+ - **-strip\[-\]** strip \(or don't\) debugging \(and other extra\) information from target binary. They are included by default by certain C compilers, e.g.: gcc\*, clang, mingw\*, djgpp.
 
 
  - **-mt|-st** linkar com suporte multi ou single-thread na Harbour VM

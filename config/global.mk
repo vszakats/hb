@@ -1300,7 +1300,7 @@ ifeq ($(HB_INIT_DONE),)
       # NOTE: We do need DJGPP build of GNU Make on Windows
       #       systems. The reason is that this uses special
       #       trick to pass command-lines to other DJGPP tools
-      #       (f.e. to gcc) to overcome 126 chars MS-DOS command
+      #       (e.g. to gcc) to overcome 126 chars MS-DOS command
       #       line length limitation. IOW: mingw32-make.exe
       #       will not work with DJGPP on Windows hosts.
       #       [vszakats]

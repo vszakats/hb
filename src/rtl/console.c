@@ -171,7 +171,7 @@ void hb_conRelease( void )
     * If the low-level GT drive change some video adapter parameters which
     * have to be restored on exit then it should does it in its Exit()
     * method. Here we cannot force any actions because it may cause bad
-    * results in some GTs, f.e. when the screen size is controlled by remote
+    * results in some GTs, e.g. when the screen size is controlled by remote
     * user and not Harbour application (some terminal modes), [Druzus]
     */
 

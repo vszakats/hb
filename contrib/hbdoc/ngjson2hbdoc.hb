@@ -429,7 +429,7 @@ static procedure addentry( aEntry, e, fn, cat, cAlias )
         e[ 'TEMPLATE' ] := 'Statement'
       elseif ( upper( e[ 'NAME' ] ) == e[ 'NAME' ] .and. ;
            ( ! '(' $ e[ 'NAME' ] .or. e[ 'NAME' ] == '( )' ) ) .or. ;
-         hb_lefteq( e[ 'NAME' ], '= ' )  // f.e. "= (assign)"
+         hb_lefteq( e[ 'NAME' ], '= ' )  // e.g. "= (assign)"
         e[ 'TEMPLATE' ] := 'Command'
       elseif 'METHODSLINK' $ e
         e[ 'TEMPLATE' ] := 'Class'

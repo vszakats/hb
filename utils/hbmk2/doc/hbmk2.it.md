@@ -27,7 +27,7 @@ Opzioni:
  - **-hblib** creare la libreria statica
  - **-hbdyn** create dynamic library \(without linked Harbour VM\)
  - **-hbdynvm** create dynamic library \(with linked Harbour VM\)
- - **-strip\[-\]** strip \(or don't\) debugging \(and other extra\) information from target binary. They are included by default by certain C compilers, f.e.: gcc\*, clang, mingw\*, djgpp.
+ - **-strip\[-\]** strip \(or don't\) debugging \(and other extra\) information from target binary. They are included by default by certain C compilers, e.g.: gcc\*, clang, mingw\*, djgpp.
 
 
  - **-mt|-st** link with multi/single-thread Harbour VM
@@ -295,7 +295,7 @@ Variabili macro:
  - **$\{hb\_dynprefix\}** prefisso della libreria dinamica
  - **$\{hb\_dynsuffix\}** suffisso della libreria dinamica
  - **$\{hb\_dynext\}** estensione della libreria dinamica
- - **$\{hb\_ver\}** Harbour version in hexadecimal triple byte format. F.e.: 030400
+ - **$\{hb\_ver\}** Harbour version in hexadecimal triple byte format. E.g.: 030400
  - **$\{hb\_verstr\}** Versione di Harbour in un formato leggibile dall'uomo &lt;maggiore&gt;.&lt;minore&gt;.&lt;rilascio&gt;.&lt;stato&gt;. Per esempio: 3.4.0dev
  - **$\{hb\_major\}** numero primario di versione Harbour
  - **$\{hb\_minor\}** numero secondario di versione Harbour
@@ -679,7 +679,7 @@ Note:
   - Filters are accepted in each .hbc line and most options.  
 Filters can be combined using '&amp;' \(and\), '|' \(or\) operators, negated by '\!' operator and grouped by parentheses. Ex.: \{win\}, \{gcc\}, \{linux|darwin\}, \{win&amp;\!pocc\}, \{\(win|linux\)&amp;\!watcom\}, \{unix&amp;mt&amp;gui\}, -cflag=\{win\}-DMYDEF, -stop\{dos\}, -stop\{\!allwin\}
   - Most .hbc lines \(libs=, hbcs=, prgflags=, cflags=, ldflags=, libpaths=, instfiles=, instpaths=, echo=\) and corresponding command-line parameters will accept macro variables. libpaths= also accepts %\{hb\_name\} which translates to the name of the .hbc file under search.
-  - Options accepting macro variables also support command substitution. Enclose command inside \`\`, and, if the command contains space, also enclose in double quotes. Standard output of the command will be used as the value. F.e. "-cflag=\`wx-config --cflags\`", or ldflags=\{unix&amp;gcc\}"\`wx-config --libs\`".
+  - Options accepting macro variables also support command substitution. Enclose command inside \`\`, and, if the command contains space, also enclose in double quotes. Standard output of the command will be used as the value. E.g. "-cflag=\`wx-config --cflags\`", or ldflags=\{unix&amp;gcc\}"\`wx-config --libs\`".
   - When multiple build target type selection options \(-hblib, -hbdyn, etc.\) are specified, the first one will be significant, the rest will be silently ignored.
   - Libraries and object files built with/for CA-Cl\*pper will not work with any supported platform/compiler.
   - Comportamenti predefiniti e caratteristiche potrebbero essere differenti in altre piattaforme/compilatori.

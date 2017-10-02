@@ -116,7 +116,7 @@ HB_EXTERN_BEGIN
  * also hide bugs which should be exploited as soon as possible to
  * know that something is wrong and has to be fixed.
  * the version below which check only chosen bits allow compiler to
- * use some optimizations if used CPU supports it. F.e. on standard
+ * use some optimizations if used CPU supports it. E.g. on standard
  * x86 machines they can save few CPU cycles. [druzus]
  */
 
@@ -807,7 +807,7 @@ extern HB_EXPORT HB_BOOL      hb_arraySize( PHB_ITEM pArray, HB_SIZE nLen ); /* 
 extern HB_EXPORT HB_BOOL      hb_arrayLast( PHB_ITEM pArray, PHB_ITEM pResult ); /* retrieve last item in an array */
 extern HB_EXPORT HB_BOOL      hb_arrayGet( PHB_ITEM pArray, HB_SIZE nIndex, PHB_ITEM pItem ); /* retrieves an item */
 extern HB_EXPORT HB_BOOL      hb_arrayGetItemRef( PHB_ITEM pArray, HB_SIZE nIndex, PHB_ITEM pItem ); /* create a reference to an array element */
-/* hb_arrayGetItemPtr() is dangerous, be sure that base ARRAY value will not be changed (f.e. resized) */
+/* hb_arrayGetItemPtr() is dangerous, be sure that base ARRAY value will not be changed (e.g. resized) */
 extern HB_EXPORT PHB_ITEM     hb_arrayGetItemPtr( PHB_ITEM pArray, HB_SIZE nIndex ); /* returns pointer to specified element of the array */
 extern HB_EXPORT HB_SIZE      hb_arrayCopyC( PHB_ITEM pArray, HB_SIZE nIndex, char * szBuffer, HB_SIZE nLen ); /* copy a string from an array item */
 extern HB_EXPORT char *       hb_arrayGetC( PHB_ITEM pArray, HB_SIZE nIndex ); /* retrieves the string contained on an array element */

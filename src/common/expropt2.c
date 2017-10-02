@@ -1002,7 +1002,7 @@ PHB_EXPR hb_compExprReduceIN( PHB_EXPR pSelf, HB_COMP_DECL )
           *       But this bug exist only in compiler and CA-Cl*pper macro
           *       compiler does not have optimizer. This bug is replicated
           *       by us only when Harbour extensions in compiler (-kh) are
-          *       not enabled f.e. in strict Clipper compatible mode (-kc)
+          *       not enabled e.g. in strict Clipper compatible mode (-kc)
           *       [druzus]
           */
          if( pLeft->nLength == 0 )
@@ -1990,7 +1990,7 @@ HB_BOOL hb_compExprReduceAT( PHB_EXPR pSelf, HB_COMP_DECL )
        *       This bug exist only in compiler and CA-Cl*pper macro
        *       compiler does not have optimizer. This bug is replicated
        *       by us only when Harbour extensions in compiler (-kh) are
-       *       not enabled f.e. in strict Clipper compatible mode (-kc)
+       *       not enabled e.g. in strict Clipper compatible mode (-kc)
        *       [druzus]
        */
       if( pSub->nLength == 0 )
@@ -2046,7 +2046,7 @@ HB_BOOL hb_compExprReduceCHR( PHB_EXPR pSelf, HB_COMP_DECL )
        *       But this bug exist only in compiler and CA-Cl*pper macro
        *       compiler does not have optimizer. This bug is replicated
        *       by us only when Harbour extensions in compiler (-kh) are
-       *       not enabled f.e. in strict Clipper compatible mode (-kc)
+       *       not enabled e.g. in strict Clipper compatible mode (-kc)
        *       [druzus]
        */
 

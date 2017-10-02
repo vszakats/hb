@@ -28,7 +28,7 @@ Known open issues
 - MENUSYS minor Clipper incompatibility
 - Target specific C code generated for some numeric
   operations in -gc3 mode (preventing cross-compilation)
-- HBQT class creation not MT safe for multiple reasons (f.e. strtok)
+- HBQT class creation not MT safe for multiple reasons (e.g. strtok())
 - HBQT valgrind test shows double free at exit
 - GTWVW bugs (scrolling bug still there)
 
@@ -870,7 +870,7 @@ General
   who want to change the grammar files needs bison
 - removed all HB_COMPAT_XHB definitions from source code - now all covered
   extensions should be supported by hbcompat.ch and/or xhb library
-- removed 3rd party header files from SVN, f.e.: ace.h
+- removed 3rd party header files from SVN, e.g.: ace.h
 
 Portability
 -----------
@@ -904,8 +904,8 @@ syntax:
   as field name
 - added support for (@var):<msg>
 - fixed many syntax expressions which where accepted by grammar definition
-  but not supported by compiler, f.e. @func(p)
-- added support for HB_ENUM*([@]<varname>) functions - disabled
+  but not supported by compiler, e.g. @func( p )
+- added support for HB_ENUM*( [@]<varname> ) functions - disabled
   by default can be enabled by HB_USE_ENUM_FUNCTIONS macro
 - added support for DYNAMIC functions - references resolved at runtime.
 
@@ -946,7 +946,7 @@ preprocessor:
 -------------
 - added support for logical constants .T., .F., .Y., .N. in
   #IF ... / #ELIF ... PP directives
-- added support for changing all -k? switches by #pragma, f.e.;
+- added support for changing all -k? switches by #pragma, e.g.;
          #pragma -ks+
          #pragma -kM-
          #pragma -kx1
@@ -981,12 +981,12 @@ VM
 - added full support for passing object items by reference even if they
   are not real variables but SETGET methods
 - added support for setting string characters by assigning FOR EACH
-  iterator, f.e.: FOR EACH c IN (@cVar)
+  iterator, e.g.: FOR EACH c IN (@cVar)
                      c := Upper( c )
                   NEXT
 - added full support for FOR EACH overloading
 - extended ProcFile() function - now it can accept <nLevel> | <sFuncSym> |
-  <cFuncName> as first parameter, f.e.: ProcFile( @someFunc() ) or
+  <cFuncName> as first parameter, e.g.: ProcFile( @someFunc() ) or
   ProcFile( "PUBLICFUNC" ) or ProcFile( nStackLevel ). For non character
   parameters it fully works also for static functions even if source code
   have many static functions with the same name
@@ -1010,7 +1010,7 @@ RTL
 - added functions for bit manipulations: HB_BIT*() and for conversions
   to/from hexadecimal format
 - added set of functions with hb_ prefix supported extended parameters,
-  f.e.: hb_AIns(), hb_ADel(), hb_AScan(), hb_RAScan(), hb_GetEnv(),
+  e.g.: hb_AIns(), hb_ADel(), hb_AScan(), hb_RAScan(), hb_GetEnv(),
   hb_At(), ...
 - added hb_FileExists(), hb_DirExists()
 - new TBROWSE class which is now very highly compatible with Clipper
@@ -1148,8 +1148,8 @@ Utilities
    by Ron Pinkas but unlike xBaseScript is does not have preprocessor
    or simulated runtime environment but simply uses Harbour pp and
    compiler libraries to preprocess and compile commands. It means
-   that it supports all language constructions also statements, f.e.:
-         "for i:=1 to 10; ? i; next"
+   that it supports all language constructions also statements, e.g.:
+         "for i := 1 to 10; ? i; next"
    Additionally it can also compile and execute .prg files given as
    first parameter just like hbrun.
 - added many new tests to hbtest
@@ -1471,7 +1471,7 @@ RDD
 - Implemented RDD level transforms (COPY TO/APPEND FROM).
 - Long file support for all native RDDs. Now the maximum file size
   is reduced only by its structure if OS/file system supports 64-bit
-  file IO, f.e. for DBF it's 2^32 records. For memos it's:
+  file IO, e.g. for DBF it's 2^32 records. For memos it's:
   2^32 * MemoBlockSize, etc.
 - Synhronize RDD code with xHarbour.
 - New HSX RDD.

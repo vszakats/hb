@@ -1119,7 +1119,7 @@ static void amf3_conversion_in( amfContext * context, PHB_ITEM pItem )
 }
 
 /* much of deserialize_* functions are so much similar that we may
-   generalize them in one, f.e. adding another parameter specifying
+   generalize them in one, e.g. adding another parameter specifying
    pointer of a final decoding function... in case reference checking
    returns nothing */
 

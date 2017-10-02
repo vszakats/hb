@@ -27,7 +27,7 @@ Opciones:
  - **-hblib** crear librería estática
  - **-hbdyn** crea biblioteca dinámica \(sin enlace a Harbour VM\)
  - **-hbdynvm** crear librería dinámica \(con enlace a Harbour VM\)
- - **-strip\[-\]** strip \(or don't\) debugging \(and other extra\) information from target binary. They are included by default by certain C compilers, f.e.: gcc\*, clang, mingw\*, djgpp.
+ - **-strip\[-\]** strip \(or don't\) debugging \(and other extra\) information from target binary. They are included by default by certain C compilers, e.g.: gcc\*, clang, mingw\*, djgpp.
 
 
  - **-mt|-st** enlazar con soporte multi/single-thread Harbour VM
@@ -680,7 +680,7 @@ Notas:
   - filtros para plataformas son aceptados en cada linea de archivo .hbc y con varias opciones.  
 Formato de filtro: \{\[\!\]\[&lt;plataforma&gt;|&lt;compilador&gt;|&lt;cpu&gt;|&lt;palabra-clave&gt;\]\}. Filtros pueden ser combinados usando los operadores '&amp;', '|' y agrupados en parénteses. Ej.: \{win\}, \{gcc\}, \{linux|darwin\}, \{win&amp;\!pocc\}, \{\(win|linux\)&amp;\!watcom\}, \{unix&amp;mt&amp;gui\}, -cflag=\{win\}-DMYDEF, -stop\{dos\}, -stop\{\!allwin\}
   - La mayoría de las líneas .hbc \(libs=, hbcs=, prgflags=, cflags=, ldflags=, libpaths=, instfiles=, instpaths=, echo=\) y sus parámetros de línea de comando correspondientes aceptarán variables macro. libpaths= tambien acepta %\{hb\_name\} que se traduce al nombre del archivo .hbc buscado.
-  - Tambien acepta Opciones de macros sustitución de comandos. Incluya comando dentro de \`\`, y, si el comando contiene espacios, también entre comillas dobles. F.e. "-cflag==\`wx-config -cflags\`", o ldflags=\{unix&amp;gcc\}"\`wx-config --libs\`".
+  - Tambien acepta Opciones de macros sustitución de comandos. Incluya comando dentro de \`\`, y, si el comando contiene espacios, también entre comillas dobles. E.g. "-cflag==\`wx-config -cflags\`", o ldflags=\{unix&amp;gcc\}"\`wx-config --libs\`".
   - Cuando se especifican múltiples opciones de tipo de construcción destino \(-hblib, -hbdyn, etc.\), solo se utilizará la primera, las demás serán ignoradas silenciosamente.
   - Bibliotecas y archivos objeto construidos con/para CA-Cl\*pper no funcionaran con ninguna plataforma/compilador seleccionado.
   - Modos por defecto y soporte de características pueden variar por plataforma/compilador.

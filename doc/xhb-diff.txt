@@ -96,7 +96,7 @@ file system(s) and with different OS(s).
          FOR EACH a, b, c IN aVal, cVal, hVal
             ? a, b, c
          NEXT
-   b) it allows to set descending order by DESCEND flag, f.e.:
+   b) it allows to set descending order by DESCEND flag, e.g.:
          FOR EACH a, v IN aVal, cVal DESCEND
             ? a, b
          NEXT
@@ -104,7 +104,7 @@ file system(s) and with different OS(s).
          FOR EACH x IN { "ABC" => 123, "ASD" => 456, "ZXC" => 789 }
             ? x, "@", x:__enumKey()
          NEXT
-   d) it allows to assign string items, f.e.:
+   d) it allows to assign string items, e.g.:
          s := "abcdefghijk"
          FOR EACH c IN @s
             IF c $ "aei"
@@ -114,7 +114,7 @@ file system(s) and with different OS(s).
          ? s      // AbcdEfghIjk
    e) it gives OOP interface to control enumerator variables what
       is very important when more then one variable is iterated or
-      when FOR EACH is called recursively, f.e.:
+      when FOR EACH is called recursively, e.g.:
          hVal := { "ABC" => 123, "ASD" => 456, "ZXC" => 789 }
          FOR EACH x IN hVal
             ? x:__enumIndex(), ":", x:__enumKey(), "=>", x:__enumValue(), ;
@@ -126,7 +126,7 @@ file system(s) and with different OS(s).
       implement many different enumeration algorithms depending on used
       data
    g) it does not have any hardcoded limitations for recursive calls
-      (it's limited only by available memory and HVM stack size), f.e.:
+      (it's limited only by available memory and HVM stack size), e.g.:
          proc main()
             p( 0 )
          return
@@ -144,7 +144,7 @@ file system(s) and with different OS(s).
 
 2. WITH OBJECT / END[WITH]
    In Harbour it does not have any hardcoded limitations for recursive
-   calls (it's limited only by available memory and HVM stack size), f.e.:
+   calls (it's limited only by available memory and HVM stack size), e.g.:
       proc main()
          p( 0 )
       return
@@ -171,7 +171,7 @@ file system(s) and with different OS(s).
    reused for all statements so speed improvement is relatively
    small.
    In xHarbour instead of OTHERWISE the DEFAULT clause is used.
-   As SWITCH values Harbour supports integer numbers and strings, f.e.:
+   As SWITCH values Harbour supports integer numbers and strings, e.g.:
       switch x
          case 1         ; [...]
          case 10002     ; [...]
@@ -206,25 +206,25 @@ different way which does not cause any overhead and slowness for other code.
 =================================
 Both compilers support compile time extended codeblocks which allow
 to use statements but with a little bit different syntax. Harbour uses
-standard Clipper codeblock delimiters {}, f.e.:
+standard Clipper codeblock delimiters {}, e.g.:
       ? Eval( {| p1, p2, p3 |
                 ? p1, p2, p3
                 return p1 + p2 + p3
               }, 1, 2, 3 )
-and xHarbour <>, f.e.:
+and xHarbour <>, e.g.:
       ? Eval( <| p1, p2, p3 |
                 ? p1, p2, p3
                 return p1 + p2 + p3
               >, 1, 2, 3 )
 
 In Harbour extended codeblocks works like nested functions and supports
-all function attributes, f.e. they can have own static variables or
+all function attributes, e.g. they can have own static variables or
 other declarations which are local to extended codeblocks only and
 do not effect upper function body.
 In xHarbour the compiler was not fully updated for such functionality
 and extended codeblocks were added to existing compiler structures what
 causes that not all language constructs work in extended codeblocks
-and creates a set of very serious compiler bugs, f.e., like in this code
+and creates a set of very serious compiler bugs, e.g., like in this code
 with syntax errors but which is compiled by xHarbour without even single
 warning giving unexpected results at runtime:
       #ifndef __XHARBOUR__
@@ -255,13 +255,13 @@ Both compilers have support for hash arrays. They are similar to
 normal arrays but also allow to use non integer values as indexes
 like string, date, non integer number or pointer (in Harbour) items.
 They can be created using => for list of keys and values enclosed
-inside {}, f.e.:
+inside {}, e.g.:
       hVal := { "ABC"    => 123.45, ;
                 100.1    => Date(), ;
                 100.2    => 10,     ;
                 100      => 5,      ;
                 Date()-1 => .t. }
-and then items can be accessed using [] operator, f.e.:
+and then items can be accessed using [] operator, e.g.:
       ? hVal[ "ABC" ]      // 123.45
       ? hVal[ 100 ]        // 5
       ? hVal[ Date()-1 ]   // .t.
@@ -281,7 +281,7 @@ hash item by reference).
 
 Both compilers have set of functions to make different operations on hash
 arrays which give similar functionality. In Harbour they use HB_H prefix
-(f.e. hb_HScan()) in xHarbour H prefix (f.e. HScan())
+(e.g. hb_HScan()) in xHarbour H prefix (e.g. HScan())
 
 xHarbour has additional functionality which can be enabled for each hash
 array using HSetAACompatibility() function. It's an index where is stored
@@ -347,7 +347,7 @@ but xHarbour:
       A B C
 
 It's not Clipper compatible so in some cases it may cause portability
-problems. F.e. code like above was used in Clipper as workaround for
+problems. E.g. code like above was used in Clipper as workaround for
 limited number of parameters (32 in Clipper). But it allows to directly
 assign items of arrays returned by hb_AParams() and updating corresponding
 variables passed by references (see functions with variable number of
@@ -355,7 +355,7 @@ parameters below).
 Anyhow the fact that xHarbour does not have '...' operator which can
 respect existing references in passed parameters and does not support
 named parameters in functions with variable number of parameters causes
-that reverted references introduce limitation, f.e. it's not possible
+that reverted references introduce limitation, e.g. it's not possible
 to make code like:
    func f( ... )
       local aParams := hb_AParams()
@@ -374,7 +374,7 @@ which will respect references in parameters passed to f() function.
 
 ###    PASSING ARRAY AND HASH ITEMS BY REFERENCE    ###
 =======================================================
-Harbour supports passing array and hash items by reference, f.e.:
+Harbour supports passing array and hash items by reference, e.g.:
       proc main()
          local aVal := { "abc", "klm", "xyz" }, ;
                hVal := { "qwe"=>"123", "asd"=>"456", "zxc"=>"789" }
@@ -433,7 +433,7 @@ created. It's potentially very serious problem which have to be resolved
 to avoid internal VM structure corruption. In Clipper, Harbour and
 xHarbour special mechanism is used in such situation. Local variables
 are "detached" from VM stack so they are still accessible after leaving
-the function, f.e.:
+the function, e.g.:
       proc make_cb()
          local n := 123
          return {|| ++n  }
@@ -627,10 +627,10 @@ Harbour and xHarbour correctly report compile time error for it.
 ==========================================================
 Both compilers support them though xHarbour is limited to all parameters
 and does not support unnamed parameters. In Harbour you can declare some
-named parameters and then unnamed just like in many other languages, f.e.:
+named parameters and then unnamed just like in many other languages, e.g.:
       func f( p1, p2, p3, ... )
 The unnamed parameters can be used in different statements passing them
-by '...' operator, f.e. as array items:
+by '...' operator, e.g. as array items:
       proc main()
          AEval( F( "1", "2", "A", "B", "C" ), {|x, i| QOut( i, x ) } )
       func f( p1, p2, ... )
@@ -653,7 +653,7 @@ or as function parameters:
          QOut( "[" + msg +"]: ", ... )
 
 The '...' operator saves references when push parameters and it can be
-used also in codeblocks, f.e.:
+used also in codeblocks, e.g.:
       bCode := {| a, b, c, ... | QOut( a, b, c ), QOut( "[", ..., "]" ) }
 
 All parameters can be accessed also using hb_AParams() function but
@@ -684,7 +684,7 @@ passed parameters. This code illustrates it:
          ? ProcName()+"(), parameters:", PCount()
          AEval( hb_AParams(), {|x,i| QOut(i,"=>",x) } )
 
-In xHarbour it's only possible to declare all parameters as unnamed, f.e.:
+In xHarbour it's only possible to declare all parameters as unnamed, e.g.:
       func f( ... )
 and then access them using hb_AParams() or PValue() (in Harbour it's called
 hb_PValue()) function. There is no support for named parameters and ...
@@ -866,7 +866,7 @@ depends on the used context.
 ###    MULTI-VALUE MACROS    ###
 ================================
 In the early Harbour days was added basic support for multi-value macros
-which can be evaluated to list of values, f.e.:
+which can be evaluated to list of values, e.g.:
       ? &("1,2,3")
 should show:
       1,  2,  3
@@ -911,7 +911,7 @@ This code can be compiled and executed by both compilers:
 Warning!. There is one difference in above implementation introduced
 intentionally to Harbour. xHarbour never generates errors for wrong
 indexes in [] operator used for string items but simply returns "",
-f.e. add to above code:
+e.g. add to above code:
       ? ">" + s[0] + "<", ">" + s[1000] + "<"
 If [] operator is used for other type of items RTE is generated.
 Harbour will generate RTE in all cases. If someone needs strict XHB
@@ -923,7 +923,7 @@ for strings in XHB.LIB for his own preferences removing the RTE.
 ###    NEGATIVE INDEXES IN [] OPERATOR USED TO ACCESS ITEMS FROM TAIL    ###
 ============================================================================
 xHarbour supports negative indexes in [] operator. They are used
-to access items from tail, f.e. aVal[ -1 ] is the same as
+to access items from tail, e.g. aVal[ -1 ] is the same as
 aVal[ Len( aVal ) ] or ATail( aVal ).
 By default Harbour core code does not give such functionality but
 it has strong enough OOP API to allow adding such extension without
@@ -950,7 +950,7 @@ and string items.
 ###    USING ONE CHARACTER LENGTH STRING AS NUMERIC VALUE    ###
 ================================================================
 xHarbour uses one byte strings as numeric values corresponding to ASCII
-value of the byte in a string, f.e.:
+value of the byte in a string, e.g.:
       ? "A" * 10 // 650
 By default Harbour core code does not give such functionality but
 it has strong enough OOP API to allow adding such extension without
@@ -970,7 +970,7 @@ and gives the same results.
 Anyhow the emulation is not full here. It works only for .prg code.
 In xHarbour standard C API functions/macros were modified to use
 one byte string items as numbers. It's potential source of very serious
-problems, f.e. ordSetFocus("1") should chose index called "1" or maybe
+problems, e.g. ordSetFocus("1") should chose index called "1" or maybe
 index 49 or what should return AScan( {49,"1"}, "1" ) (1 or 2)? so
 Harbour developers decided to not add anything like that to core code
 so in Harbour functions written in C refuse to accept one byte string
@@ -1017,11 +1017,11 @@ each hash array separately.
 ###    $ OPERATOR EXTENSIONS (arrays and hashes)    ###
 =======================================================
 In Harbour and xHarbour $ operator can be used to check if some key
-or hash pair belongs to hash, f.e.:
+or hash pair belongs to hash, e.g.:
       ? "abc" $ { "qwe"=>100, "abc"=>200, "zxc"=>300 }
 In xHarbour $ operator can be also used to check if value belongs
 to array. It works like AScan() but with exact comparison for strings,
-f.e.:
+e.g.:
       ? "abc" $ { "qwe", "abc", "zxc" } // result .T.
       ? "a" $ { "qwe", "abc", "zxc", { "a" } } // result .F.
 By default Harbour core code does not allow to use $ operator for arrays
@@ -1203,7 +1203,7 @@ to his code before the 1st function in compiled .prg module and use
 -n compiler switch. Also, GLOBAL EXTERNAL declaration cannot be used
 in function body. Unlike other variables GLOBALs declared in xHarbour
 reserve used names so they cannot be used in the same module in local
-function declarations, f.e. xHarbour cannot compile code like:
+function declarations, e.g. xHarbour cannot compile code like:
       GLOBAL var
       GLOBAL EXTERNAL var2
       func F1( var )
@@ -1264,7 +1264,7 @@ In xHarbour DATE type was extended to hold information about time. Clipper
 compatible DATE arithmetic in HVM was modified to respect fractional part
 in numbers which was used for time part.
 The xHarbour DATETIME implementation introduces incompatibilities to Clipper
-(f.e. compare Clipper and xHarbour results in code like: '? Date() + 1.125'
+(e.g. compare Clipper and xHarbour results in code like: '? Date() + 1.125'
 so in some cases existing Clipper code has to be carefully adopted to work
 correctly with xHarbour but it's fully functional solution though it needs
 some minor fixes in conversions between datetime values and numbers.
@@ -1335,7 +1335,7 @@ macro-compiler and it can be disabled in the future so it's not suggested
 to use with Harbour programs.
 
 Only Harbour supports date constant (in compiler and macro-compiler) in the
-form d"YYYY-MM-DD" f.e.:
+form d"YYYY-MM-DD" e.g.:
       d"2009-05-20"
 Also delimiter "/" or "." can be used instead of "-".
 
@@ -1343,18 +1343,18 @@ Only Harbour supports timestamp constant (in compiler and macro-compiler)
 in the form t"YYYY-MM-DD HH:MM:SS.fff"
 The exact accepted timestamp pattern is is:
       YYYY-MM-DD [H[H][:M[M][:S[S][.f[f[f[f]]]]]]] [PM|AM]
-f.e.:
+e.g.:
       tValue := t"2009-03-21 5:31:45.437 PM"
 or:
       YYYY-MM-DDT[H[H][:M[M][:S[S][.f[f[f[f]]]]]]] [PM|AM]
 with literal "T" as date and time part delimiters (XML timestamp format),
-f.e.:
+e.g.:
       tValue := t"2009-03-21T17:31:45.437"
 The following characters can be used as date delimiters: "-", "/", "."
 if PM or AM is used HH is in range < 1 : 12 > otherwise in range < 0 : 23 >
 
 Harbour compiler and macro-compiler support also date constants in the
-form 0dYYYYMMDD f.e.:
+form 0dYYYYMMDD e.g.:
       0d20090520.
 
 
@@ -1362,7 +1362,7 @@ form 0dYYYYMMDD f.e.:
 ###    EXTENDED LITERAL STRING IN COMPILER AND MACRO-COMPILER    ###
 ====================================================================
 Harbour and xHarbour support extended strings with C like escaped values
-as e"...", f.e.:
+as e"...", e.g.:
       ? e"Helow\r\nWorld \x21\041\x21\000abcdefgh"
 They works in compiler and macro-compiler but xHarbour macro-compiler does
 not support strings with embedded 0 so they are not fully functional here.
@@ -1377,7 +1377,7 @@ SYMBOL objects in Class(y) and understands NAME, EXEC and EVAL messages.
 They can be created literally by compiler using @<funcName>(), f.e:
       funcSym := @Str()
 and in such case they also create explicit reference (link time binding)
-to given functions or by macro compiler, f.e.:
+to given functions or by macro compiler, e.g.:
       funcSym := &("@Upper()")
 what does not create any explicit bindings. This is simple code which
 uses symbol items:
@@ -1744,7 +1744,7 @@ work in the future.
 
 ###    TYPED OBJECT VARIABLES    ###
 ====================================
-Harbour supports strong typed object variables, f.e.:
+Harbour supports strong typed object variables, e.g.:
       CREATE CLASS MyClass
          VAR   var1 AS INTVAR
          VAR   var2 AS NUMERIC
@@ -1878,7 +1878,7 @@ are not planned to be part of Harbour core code.
 ###    ARRAY AND STRING PREALLOCATION    ###
 ============================================
 Both compilers uses array and string preallocation to optimize resize
-operation, f.e. in code like:
+operation, e.g. in code like:
       s := ""
       for i := 0 to 255
          s += Chr( i )
@@ -2332,7 +2332,7 @@ instead of_SET_BACKGROUNDTICK.
 Harbour does not have such functionality and probably will not have in
 such form for the following reasons:
       1. it works only from HVM loop so it will not work for code which
-         does not use it, f.e. generated with -gc3 compiler switch
+         does not use it, e.g. generated with -gc3 compiler switch
       2. such implementation causes same speed overhead even if programmer
          does not use background tasks
       3. the frequency of executing background task is very irregular
@@ -2619,7 +2619,7 @@ It's guaranteed that any valid expressions not longer then 8 MiB will be
 cleanly compiled and executed by Harbour. It's possible to compile and
 execute longer expressions (in practice there is no maximal size limit)
 but in such case it's not guaranteed that all expressions can be compiled,
-f.e. macro expressions containing string constant values longer then 16 MiB
+e.g. macro expressions containing string constant values longer then 16 MiB
 cannot be compiled. It's only guaranteed that if Harbour cannot compile
 macro expression then it generates RT error and never generates broken
 code.
@@ -2651,7 +2651,7 @@ Harbour has compiler library which allows to integrate Harbour compiler
 with user applications and use it at runtime to compile new code which
 can be also immediately executed or dynamically registered as part of
 code. In Harbour compiler code is fully MT safe so the compiler library
-can be safely used in MT programs, f.e. for parallel compilation.
+can be safely used in MT programs, e.g. for parallel compilation.
 Now compiler library is on pure GPL license so any programs which wants
 to use it have to respect the GPL license too.
 

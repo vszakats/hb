@@ -1467,7 +1467,7 @@
       will be rounded.
 
       SET DECIMAL setting has no effect on the returned value (ignored),
-      which means that, unlike f.e. Str(), all non-significant digits
+      which means that, unlike e.g. Str(), all non-significant digits
       (e.g.: trailing decimal zeros) will be removed. Likewise, all
       leading empty spaces will be trimmed.
 

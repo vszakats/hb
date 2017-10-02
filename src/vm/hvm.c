@@ -2,8 +2,10 @@
  * The Virtual Machine
  *
  * Copyright 1999 Antonio Linares <alinares@fivetech.com>
- * Copyright 1999-2001 Viktor Szakats (vszakats.net/harbour) (hb_vmPushLongConst(), hb_vmPushDoubleConst())
- * Copyright 1999 Eddie Runia <eddie@runia.com> (__dbgVMVarSGet(), __dbgVMVarSList())
+ * Copyright 1999-2001 Viktor Szakats (vszakats.net/harbour)
+ *   (hb_vmPushLongConst(), hb_vmPushDoubleConst())
+ * Copyright 1999 Eddie Runia <eddie@runia.com>
+ *   (__dbgVMVarSGet(), __dbgVMVarSList())
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -8579,7 +8581,7 @@ static void hb_vmMsgRefClear( void * value )
    PHB_MSGREF pMsgRef = ( PHB_MSGREF ) value;
 
    /* value were change by C code without calling RefWrite(),
-    *  f.e. hb_stor*() function
+    *  e.g. hb_stor*() function
     */
    if( ( pMsgRef->value.type & HB_IT_DEFAULT ) == 0 )
    {
@@ -8717,7 +8719,7 @@ static void hb_vmMsgIdxRefCopy( PHB_ITEM pDest )
    hb_xRefInc( pMsgIdxRef );
 
    /* value were change by C code without calling RefWrite(),
-    *  f.e. hb_stor*() function
+    *  e.g. hb_stor*() function
     */
    if( ( pMsgIdxRef->value.type & HB_IT_DEFAULT ) == 0 )
    {
@@ -8738,7 +8740,7 @@ static void hb_vmMsgIdxRefClear( void * value )
    PHB_MSGIDXREF pMsgIdxRef = ( PHB_MSGIDXREF ) value;
 
    /* value were change by C code without calling RefWrite(),
-    *  f.e. hb_stor*() function
+    *  e.g. hb_stor*() function
     */
    if( ( pMsgIdxRef->value.type & HB_IT_DEFAULT ) == 0 )
    {

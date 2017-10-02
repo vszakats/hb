@@ -129,7 +129,7 @@
         Show error if nothing is found
      3. If HB_COMPILER is set to one of them, select it.
         (TODO: handle multiple installations of the same compiler.
-        F.e. embedded mingw and one in PATH, or two versions of MSVC)
+        E.g. embedded mingw and one in PATH, or two versions of MSVC)
      4. If HB_COMPILER is set, but not to one of them, show warning and
         use the highest one on the priority list.
      5. If HB_COMPILER is not set,
@@ -768,7 +768,7 @@ STATIC PROCEDURE hbmk_local_entry( ... )
    /* Ugly hack to force GTCGI for command-line output on
       systems having a '--gttrm' option in the HARBOUR envvar.
       This may be the case when wanting to set a default
-      GTTRM flag, f.e. 'exclr=2' to enable Cl*pper compatible
+      GTTRM flag, e.g. 'exclr=2' to enable Cl*pper compatible
       high colors. [vszakats] */
    IF hb_argCheck( "gt" )
       hb_gtSelect( hb_gtCreate( _HBMK_GT_DEF_ ) )
@@ -7646,7 +7646,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
       /* Process build-time configuration */
 
       /* FIXME: This does not work well when doing cross-platform
-                build f.e. on a 32-bit *nix system to 64-bit target
+                build e.g. on a 32-bit *nix system to 64-bit target
                 where the 64-bit target does not happen to provide
                 64-bit flavor of gpm lib. This is the case when
                 building 64-bit target on a 32-bit *buntu 10.10
@@ -9260,7 +9260,7 @@ STATIC FUNCTION CheckParamLib( hbmk, cLibName, lHBC, aParam )
       ELSE
          /* Do not ignore such option, because it may be required in some cases
             where an arbitrary, non-standard library name needs to be forced,
-            f.e. one that doesn't have a `lib` prefix in its filename and still
+            e.g. one that doesn't have a `lib` prefix in its filename and still
             using it with gcc/mingw/clang. Anyhow the best practice would be to
             name all libs in-line with the C compilers' naming conventions. */
          _hbmk_OutErr( hbmk, hb_StrFormat( I_( "Warning: Non-portable parameter: %1$s. Use '%2$s' option(s) instead." ), ParamToString( aParam ), cSuggestion ) )
@@ -9797,7 +9797,7 @@ STATIC FUNCTION CompileCLoop( hbmk, aTO_DO, cBin_CompC, cOpt_CompC, hReplace, cO
          /* Delete output file in case of compile error.
             (only if we know for sure what is the output filename, that is when we
              specified it on the command-line)
-            This is to protect against compiler bugs (f.e. gcc with -pipe option)
+            This is to protect against compiler bugs (e.g. gcc with -pipe option)
             when dummy or wrong object file is left on the disk, and misleading
             next incremental build pass. [vszakats] */
          IF lOutputSpecified
@@ -11808,7 +11808,7 @@ STATIC FUNCTION ListCookLib( hbmk, aLIB, aLIBA, array, cPrefix, cExtNew )
          IF Empty( hb_FNameDir( cLibName ) )
             cLibNameCooked := cLibName
 #if 0
-            /* Do not attempt to strip this as it can be valid for libs which have double lib prefixes (f.e. libpng) */
+            /* Do not attempt to strip this as it can be valid for libs which have double lib prefixes (e.g. libpng) */
             IF hb_LeftEq( cLibNameCooked, "lib" )
                cLibNameCooked := SubStr( cLibNameCooked, Len( "lib" ) + 1 )
             ENDIF
@@ -14888,7 +14888,7 @@ STATIC FUNCTION NumberOfCPUs()
       cCPU := GetEnv( "NUMBER_OF_PROCESSORS" )
    #else
       /* Disabled after reports of slow and eventually
-         stalled builds on some systems (f.e. Windows 7) */
+         stalled builds on some systems (e.g. Windows 7) */
       cCPU := "1"
    #endif
    #elif defined( __PLATFORM__BSD )
@@ -15402,7 +15402,7 @@ STATIC PROCEDURE ParseCOMPPLATCPU( hbmk, cString, nMainTarget )
    in a non-standard (non-system) location. This is required because setting
    standard envvars (as LD_LIBRARY_PATH, DYLD_LIBRARY_PATH,
    DYLD_FALLBACK_LIBRARY_PATH) doesn't work if an executable is executed via
-   any executable that is SIP protected (f.e. via the `/usr/bin/env` tool),
+   any executable that is SIP protected (e.g. via the `/usr/bin/env` tool),
    since El Capitan.
    Note that by default, in non-standard installations shared executables are
    not enabled, but with a `HB_BUILD_CONTRIB_DYN=yes` setting, shared libs
@@ -16822,7 +16822,7 @@ FUNCTION hbshell_ext_load( cName )
                IF ! Empty( hbsh[ _HBSH_hbmk ][ _HBMK_aLIBUSER ] ) .OR. ;
                   ! Empty( hbsh[ _HBSH_hbmk ][ _HBMK_aLIBUSERGT ] )
                   /* NOTE: Hack. We detect if the .hbc had defined any libs to load.
-                           (f.e. there will not be any libs if the .hbc was skipped due
+                           (e.g. there will not be any libs if the .hbc was skipped due
                            to filters)
                      TODO: In the future the .hbc should specify a list of dynamic libs
                            to load, and we should load those, if any. */
@@ -18885,7 +18885,7 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
       { "-hbdyn"             , S_( "create dynamic library" ) }, ;
       { "-hbdyn"             , H_( "create dynamic library (without linked Harbour VM)" ) }, ;
       { "-hbdynvm"           , H_( "create dynamic library (with linked Harbour VM)" ) }, ;
-      { "-strip[-]"          , I_( "strip (or don't) debugging (and other extra) information from target binary. They are included by default by certain C compilers, f.e.: gcc*, clang*, mingw*, djgpp." ) } }
+      { "-strip[-]"          , I_( "strip (or don't) debugging (and other extra) information from target binary. They are included by default by certain C compilers, e.g.: gcc*, clang*, mingw*, djgpp." ) } }
 
    LOCAL aLst_Opt_Help := { ;
       { "-help"              , I_( "more help" ) } }
@@ -19218,8 +19218,8 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
       { "${hb_dynprefix}"      , I_( "dynamic library prefix" ) }, ;
       { "${hb_dynsuffix}"      , I_( "dynamic library suffix" ) }, ;
       { "${hb_dynext}"         , I_( "dynamic library extension" ) }, ;
-      { "${hb_ver}"            , hb_StrFormat( I_( "Harbour version in hexadecimal triple byte format. F.e.: %1$s" ), MacroGet( hbmk, "hb_ver" ) ) }, ;
-      { "${hb_verstr}"         , hb_StrFormat( I_( "Harbour version in human readable format <major>.<minor>.<release><status>. F.e.: %1$s" ), MacroGet( hbmk, "hb_verstr" ) ) }, ;
+      { "${hb_ver}"            , hb_StrFormat( I_( "Harbour version in hexadecimal triple byte format. E.g.: %1$s" ), MacroGet( hbmk, "hb_ver" ) ) }, ;
+      { "${hb_verstr}"         , hb_StrFormat( I_( "Harbour version in human readable format <major>.<minor>.<release><status>. E.g.: %1$s" ), MacroGet( hbmk, "hb_verstr" ) ) }, ;
       { "${hb_major}"          , I_( "Harbour major version number" ) }, ;
       { "${hb_minor}"          , I_( "Harbour minor version number" ) }, ;
       { "${hb_release}"        , I_( "Harbour release version number" ) }, ;
@@ -19513,7 +19513,7 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
       I_( e"Options accepting macro variables also support command substitution. " + ;
          e"Enclose command inside ``, and, if the command contains space, also " + ;
          e"enclose in double quotes. Standard output of the command will be used " + ;
-         e"as the value. F.e. \"-cflag=`wx-config --cflags`\", or " + ;
+         e"as the value. E.g. \"-cflag=`wx-config --cflags`\", or " + ;
          e"ldflags={unix&gcc}\"`wx-config --libs`\"." ), ;
       I_( "When multiple build target type selection options (-hblib, -hbdyn, etc.) are specified, " + ;
          "the first one will be significant, the rest will be silently ignored." ), ;

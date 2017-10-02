@@ -137,7 +137,7 @@
          REPLACE operations or to not use any locks at all.
          The last important notice is that if we set that automatic HSX
          index update by RDD which uses exclusive record locking for update
-         (f.e. DBF and related) then we do not have to set _any_ locks at
+         (e.g. DBF and related) then we do not have to set _any_ locks at
          all and we can use _only_ the REPLACE operation hacked to not
          check file size so the index will be automatically growing up by
          writing in the new offset related to appended records.
@@ -161,7 +161,7 @@
    They blocks other stations against reading from the locked region. It
    means that the original HS/CFTS locking schemes is buggy because it can
    cause unexpected errors in NEXT operation. To avoid this problem many
-   systems use "phantom locking" (f.e. DBF/CDX/NTX locks). If we want to
+   systems use "phantom locking" (e.g. DBF/CDX/NTX locks). If we want to
    use locks we should care about it. Now I made it safe by setting
    exclusive lock on the header area for each (whole to eliminate race
    condition) update operation and shared lock for header reading.

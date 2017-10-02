@@ -302,7 +302,7 @@ STATIC FUNCTION AR_CREATE( nWA, aOpenInfo )
    aWAData[ WADATA_WORKAREA ] := nWA
    aWAData[ WADATA_OPENINFO ] := aOpenInfo /* Put open informations */
 
-   /* Call SUPER OPEN to finish allocating work area (f.e.: alias settings) */
+   /* Call SUPER OPEN to finish allocating work area (e.g.: alias settings) */
    nResult := UR_SUPER_OPEN( nWA, aOpenInfo )
 
    IF nResult == HB_SUCCESS
@@ -375,7 +375,7 @@ STATIC FUNCTION AR_OPEN( nWA, aOpenInfo )
       UR_SUPER_ADDFIELD( nWA, aField )
    NEXT
 
-   /* Call SUPER OPEN to finish allocating work area (f.e.: alias settings) */
+   /* Call SUPER OPEN to finish allocating work area (e.g.: alias settings) */
    nResult := UR_SUPER_OPEN( nWA, aOpenInfo )
 
    /* Add a new open number */

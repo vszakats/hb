@@ -648,7 +648,7 @@ typedef HB_U32 HB_FATTR;
 
    /* I intentionaly move the first two #if/#elif to the beginning
       to avoid compiler error when this macro will be defined as
-      empty statement in next conditions, F.e. SunOS
+      empty statement in next conditions, e.g. SunOS
     */
 #  if ( defined( __LITTLE_ENDIAN__ ) && ! defined( __BIG_ENDIAN__ ) ) || \
       ( defined( __LITTLE_ENDIAN ) && ! defined( __BIG_ENDIAN ) ) || \
@@ -1273,7 +1273,7 @@ typedef HB_U32 HB_FATTR;
 /*
  * HB_FORCE_IEEE754_DOUBLE will can be used on platforms which use different
  * double format and we want to force storing double number as IEEE754
- * double value for sharing binary data (f.e. PCODE in .hrb files or CDX
+ * double value for sharing binary data (e.g. PCODE in .hrb files or CDX
  * indexes or DBFs with "B" fields.
  */
 #if defined( HB_FORCE_IEEE754_DOUBLE )

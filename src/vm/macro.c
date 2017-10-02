@@ -435,7 +435,7 @@ void hb_macroGetValue( PHB_ITEM pItem, int iContext, int flags )
       struMacro.length    = pItem->item.asString.length;
       /*
        * Clipper appears to expand nested macros statically vs. by
-       * Macro Parser, f.e.:
+       * Macro Parser, e.g.:
        *       PROCEDURE Main()
        *          LOCAL cText
        *          cText := "( v := 'A' ) + &v"

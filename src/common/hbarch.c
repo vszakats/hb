@@ -51,12 +51,12 @@
  * functions hb_put_ieee754() and hb_get_ieee754() stores / retrieve
  * IEEE754 double value making conversion from/to native C double type.
  * They should be used on platforms which does not use IEEE754 double
- * and user needs binary compatibility, f.e. he wants to share CDXs or
+ * and user needs binary compatibility, e.g. he wants to share CDXs or
  * or DBFs with "B" fields with other station or use common .hrb files
  * functions hb_put_ord_ieee754() and hb_get_ord_ieee754() converts
  * to/from special modified IEEE754 double form used by some index formats
  * like CDX or NSX to create index keys. In this form double numbers can
- * be sorted as 8-bytes character values (f.e. with memcmp())
+ * be sorted as 8-bytes character values (e.g. with memcmp())
  */
 
 #define HB_MANTISSA_BITS  52

@@ -3,7 +3,8 @@
  *
  * Copyright 1999 Bruno Cantero <bruno@issnet.net>
  * Copyright 2004-2007 Przemyslaw Czerpak <druzus / at / priv.onet.pl>
- * Copyright 2002 Horacio Roldan <harbour_ar@yahoo.com.ar> (hb_rddIterateWorkAreas(), hb_rddGetTempAlias())
+ * Copyright 2002 Horacio Roldan <harbour_ar@yahoo.com.ar>
+ *   (hb_rddIterateWorkAreas(), hb_rddGetTempAlias())
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -338,7 +339,7 @@ HB_FUNC( DBCREATE )
 
    /*
     * Clipper allows to use empty struct array for RDDs which does not
-    * support fields, f.e.: DBFBLOB in CL5.3
+    * support fields, e.g.: DBFBLOB in CL5.3
     * In CL5.3 it's also possible to create DBF file without fields.
     * if some RDD wants to block it then they should serve it in lower
     * level, [druzus]
@@ -395,7 +396,7 @@ HB_FUNC( HB_DBCREATETEMP )
 
    /*
     * Clipper allows to use empty struct array for RDDs which does not
-    * support fields, f.e.: DBFBLOB in CL5.3
+    * support fields, e.g.: DBFBLOB in CL5.3
     * In CL5.3 it's also possible to create DBF file without fields.
     * if some RDD wants to block it then they should serve it in lower
     * level, [druzus]

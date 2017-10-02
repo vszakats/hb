@@ -12,7 +12,7 @@
  * HTTP[S] Protocol
  *   http[s]://<sitename>/<path>?<query>
  *   - at the moment HTTP URI is not able to send data,
- *     (f.e. a form)
+ *     (e.g. a form)
  *
  * POP[S] Protocol
  *    pop[s]://<username>:<password>@<popserver>/[-][MsgNum]
@@ -25,11 +25,11 @@
  *    - (You have to provide a filename)
  *    - use &at; in mail-from message
  *    - Send the mail in filename (that must include
- *      headers) to RCPT f.e.
+ *      headers) to RCPT e.g.
  *      smtp[s]://user&at;example.org@smtp.example.org/gian@niccolai.ws
  *
  *      NOTE: In Unix, to use '&' from command-line you have to surround
- *      the URL with "", f.e. "smtp[s]://...&at;...@server/dest"
+ *      the URL with "", e.g. "smtp[s]://...&at;...@server/dest"
  *
  * FTP[S] Protocol
  *    ftp[s]://user:passwd@<ftpserver>/[<path>]

@@ -349,7 +349,7 @@ static HB_ERRCODE sqlite3Open( SQLBASEAREAP pArea )
 
       /* There are no field length limits stored in the SQLite3 database,
          so we're resorting to setting some arbitrary default values to
-         make apps relying on these (f.e. Browse()/GET) to behave somewhat
+         make apps relying on these (e.g. Browse()/GET) to behave somewhat
          better. For better results, update apps to untie UI metrics from
          any database field/value widths. [vszakats] */
 
