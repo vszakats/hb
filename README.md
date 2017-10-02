@@ -550,8 +550,8 @@ settings are case-sensitive.
      > WARNING:
      >
      > Harbour is fully functionaly on all platforms, without installing it
-     > to any other directory. *nix systems, if you must install, please use
-     > a stable installer package instead.
+     > to any other directory. On *nix systems, if you must install, please
+     > use a stable installer package instead.
 
 ## For Harbour development
 
