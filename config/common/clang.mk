@@ -116,6 +116,9 @@ else
 
    ifeq ($(HB_PLATFORM),win)
 
+      LDFLAGS += -static-libgcc
+      DFLAGS += -static-libgcc
+
       ifneq ($(HB_CODESIGN_KEY),)
          define create_exe_signed
             $(LD) $(LDFLAGS) $(HB_LDFLAGS) $(HB_USER_LDFLAGS) \
