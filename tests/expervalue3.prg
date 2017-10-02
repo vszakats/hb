@@ -2,7 +2,6 @@
 
 /* Experience Value 3 */
 
-#include "box.ch"
 #include "inkey.ch"
 #include "setcurs.ch"
 
@@ -22,7 +21,7 @@ PROCEDURE Main()
 
    FOR EACH nRow IN aArray := Array( MaxRow() + 1, MaxCol() + 1 )
       FOR EACH nCol IN nRow
-         nCol := hb_RandomInt( 1, 4 )
+         nCol := hb_RandomInt( 0x1, 0x4 )
       NEXT
    NEXT
 
@@ -72,10 +71,6 @@ PROCEDURE Main()
 
          EXIT
 
-      CASE K_MOUSEMOVE
-
-         EXIT
-
       ENDSWITCH
 
    ENDDO
@@ -89,19 +84,19 @@ STATIC PROCEDURE Show()
    LOCAL nRow
    LOCAL nCol
    LOCAL itm
-   LOCAL color
+   LOCAL nColor
  
    DispBegin()
 
    FOR EACH nRow IN aArray
       FOR EACH nCol IN nRow
-         color := nCol
+         nColor := nCol
          FOR EACH itm IN aSelected
             IF nRow:__enumIndex == itm[ 1 ] .AND. nCol:__enumIndex == itm[ 2 ]
-               color := 0xb
+               nColor := 0xb
             ENDIF
          NEXT
-         hb_DispOutAt( nRow:__enumIndex() - 1, nCol:__enumIndex() - 1, iif( nCol == 0, " ", hb_ntos( nCol ) ), color )
+         hb_DispOutAt( nRow:__enumIndex() - 1, nCol:__enumIndex() - 1, iif( nCol == 0, " ", hb_ntos( nCol ) ), nColor )
       NEXT
    NEXT
 
@@ -113,7 +108,7 @@ STATIC PROCEDURE RemoveCells( nRow, nCol )
 
    LOCAL row, col
 
-   FOR row := nRow TO 2 STEP -1
+   FOR row := nRow TO 2 STEP - 1
       FOR col := nCol TO nCol + CONSECUTIVE_CELLS - 1
          aArray[ row ][ col ] := aArray[ row - 1 ][ col ]
          aArray[ row - 1][ col ] := 0
@@ -135,14 +130,14 @@ STATIC FUNCTION ScanConsecutiveCells()
       nPrev := NIL
       loopRowAgain := .F.
       FOR EACH col IN row
-         IF col > 0 .AND. col = nPrev
+         IF col > 0 .AND. col == nPrev
             ++numConsec
          ELSE
             nPrev := col
             numConsec := 0
          ENDIF
          IF numConsec == CONSECUTIVE_CELLS - 1
-            removeCells( row:__enumIndex, col:__enumIndex - CONSECUTIVE_CELLS + 1 )
+            RemoveCells( row:__enumIndex, col:__enumIndex - CONSECUTIVE_CELLS + 1 )
             rowChanged := .T.
             loopRowAgain := .T.
             EXIT
