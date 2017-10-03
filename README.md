@@ -477,13 +477,19 @@ settings are case-sensitive.
 
 ## General
 
-   Set these only if auto-detection doesn't suit your purpose:
+   - `HB_BUILD_VERBOSE=yes`
+
+     Enable verbose build output. Redirect it to file by appending this to
+     the build command: `> log.txt 2>&1`<br />
+     Default: `no`
 
    - `HB_PLATFORM`             Override platform auto-detection
    - `HB_COMPILER`             Override C compiler auto-detection
 
+     Set these only if auto-detection doesn't suit your purpose.
+
      See this for possible values:
-     [Supported Platforms and C Compilers](#supported-platforms-and-c-compilers)
+     [Supported Platforms and C Compilers](#supported-platforms-and-c-compilers)<br />
      See also: `HB_CC*` settings.
 
    - `HB_BUILD_CONTRIBS=no [<l>]`
