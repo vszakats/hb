@@ -13,7 +13,9 @@ skip_tags: true
 skip_commits:
   message: /website/
   files:
+    - '*.md'
     - docs/*
+    - '**/tests/*'
 image: Visual Studio 2017
 clone_depth: 10
 clone_folder: C:\w\
