@@ -1,0 +1,103 @@
+diff --strip-trailing-cr -urN libharu.orig/hpdf_doc.c libharu/hpdf_doc.c
+--- libharu.orig/hpdf_doc.c	2013-10-30 13:11:59.000000000 +0000
++++ libharu/hpdf_doc.c	2017-08-06 18:29:06.000000000 +0000
+@@ -1784,7 +1784,7 @@
+     if (!HPDF_HasDoc (pdf))
+         return HPDF_INVALID_DOCUMENT;
+ 
+-    if (layout < 0 || layout >= HPDF_PAGE_LAYOUT_EOF)
++    if (/* layout < 0 || */ layout >= HPDF_PAGE_LAYOUT_EOF)
+         return HPDF_RaiseError (&pdf->error, HPDF_PAGE_LAYOUT_OUT_OF_RANGE,
+                 (HPDF_STATUS)layout);
+ 
+@@ -1821,7 +1821,7 @@
+     if (!HPDF_HasDoc (pdf))
+         return HPDF_INVALID_DOCUMENT;
+ 
+-    if (mode < 0 || mode >= HPDF_PAGE_MODE_EOF)
++    if (/* mode < 0 || */ mode >= HPDF_PAGE_MODE_EOF)
+         return HPDF_RaiseError (&pdf->error, HPDF_PAGE_MODE_OUT_OF_RANGE,
+                 (HPDF_STATUS)mode);
+ 
+@@ -1908,7 +1908,7 @@
+     if (!page_label)
+         return HPDF_CheckError (&pdf->error);
+ 
+-    if (style < 0 || style >= HPDF_PAGE_NUM_STYLE_EOF)
++    if (/* style < 0 || */ style >= HPDF_PAGE_NUM_STYLE_EOF)
+         return HPDF_RaiseError (&pdf->error, HPDF_PAGE_NUM_STYLE_OUT_OF_RANGE,
+                     (HPDF_STATUS)style);
+ 
+diff --strip-trailing-cr -urN libharu.orig/hpdf_image_ccitt.c libharu/hpdf_image_ccitt.c
+--- libharu.orig/hpdf_image_ccitt.c	2013-10-30 13:11:59.000000000 +0000
++++ libharu/hpdf_image_ccitt.c	2017-08-06 18:29:06.000000000 +0000
+@@ -18,7 +18,7 @@
+ #include "hpdf_conf.h"
+ #include "hpdf_utils.h"
+ #include "hpdf.h"
+-#include <memory.h>
++#include <string.h>
+ #include <assert.h>
+ 
+ #define	G3CODES
+@@ -78,7 +78,7 @@
+ 
+ #define	Fax3State(tif)		(&(tif)->tif_data->b)
+ #define	EncoderState(tif)	((tif)->tif_data)
+-#define	isAligned(p,t)	((((unsigned long)(p)) & (sizeof (t)-1)) == 0)
++#define	isAligned(p,t)	((((size_t)(p)) & (sizeof (t)-1)) == 0)
+ 
+ /* NB: the uint32 casts are to silence certain ANSI-C compilers */
+ #define TIFFhowmany(x, y) ((((uint32)(x))+(((uint32)(y))-1))/((uint32)(y)))
+diff --strip-trailing-cr -urN libharu.orig/hpdf_image_png.c libharu/hpdf_image_png.c
+--- libharu.orig/hpdf_image_png.c	2013-10-30 13:11:59.000000000 +0000
++++ libharu/hpdf_image_png.c	2017-08-06 18:29:06.000000000 +0000
+@@ -280,8 +280,8 @@
+ 		case PNG_COLOR_TYPE_RGB_ALPHA:
+ 			row_len = 3 * width * sizeof(png_byte);
+ 			for (j = 0; j < height; j++) {
++				row = row_ptr[j];
+ 				for (i = 0; i < width; i++) {
+-					row = row_ptr[j];
+ 					memmove(row + (3 * i), row + (4*i), 3);
+ 					smask_data[width * j + i] = row[4 * i + 3];
+ 				}
+@@ -295,8 +295,8 @@
+ 		case PNG_COLOR_TYPE_GRAY_ALPHA:
+ 			row_len = width * sizeof(png_byte);
+ 			for (j = 0; j < height; j++) {
++				row = row_ptr[j];
+ 				for (i = 0; i < width; i++) {
+-					row = row_ptr[j];
+ 					row[i] = row[2 * i];
+ 					smask_data[width * j + i] = row[2 * i + 1];
+ 				}
+@@ -706,4 +706,3 @@
+ 
+ 
+ #endif /* LIBHPDF_HAVE_NOPNGLIB */
+-
+diff --strip-trailing-cr -urN libharu.orig/hpdf_page_operator.c libharu/hpdf_page_operator.c
+--- libharu.orig/hpdf_page_operator.c	2013-10-30 13:11:59.000000000 +0000
++++ libharu/hpdf_page_operator.c	2017-08-06 18:29:06.000000000 +0000
+@@ -1155,7 +1155,7 @@
+         return HPDF_RaiseError (page->error, HPDF_PAGE_INVALID_FONT, 0);
+ 
+     if (size <= 0 || size > HPDF_MAX_FONTSIZE)
+-        return HPDF_RaiseError (page->error, HPDF_PAGE_INVALID_FONT_SIZE, size);
++        return HPDF_RaiseError (page->error, HPDF_PAGE_INVALID_FONT_SIZE, (HPDF_STATUS)size);
+ 
+     if (page->mmgr != font->mmgr)
+         return HPDF_RaiseError (page->error, HPDF_PAGE_INVALID_FONT, 0);
+diff --strip-trailing-cr -urN libharu.orig/hpdf_pages.c libharu/hpdf_pages.c
+--- libharu.orig/hpdf_pages.c	2013-10-30 13:11:59.000000000 +0000
++++ libharu/hpdf_pages.c	2017-08-06 18:29:06.000000000 +0000
+@@ -1369,7 +1369,7 @@
+     if (!HPDF_Page_Validate (page))
+         return HPDF_INVALID_PAGE;
+ 
+-    if (size < 0 || size > HPDF_PAGE_SIZE_EOF)
++    if (/* size < 0 || */ size > HPDF_PAGE_SIZE_EOF)
+         return HPDF_RaiseError (page->error, HPDF_PAGE_INVALID_SIZE,
+                 (HPDF_STATUS)direction);
+ 

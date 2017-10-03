@@ -17,7 +17,7 @@
 -depcontrol=libharu:${HB_WITH_LIBHARU}
 -depincpath=libharu:/usr/include
 -depincpath=libharu:/usr/local/include
--depincpathlocal=libharu:3rd/libhpdf
+-depincpathlocal=libharu:3rd/libharu
 -depimplibs=libharu:../libhpdf.dll
 -depimplibs=libharu:../lib_dll/libhpdf.dll
 -depfinish=libharu
@@ -41,7 +41,7 @@ pdfa.c
 errstr.prg
 misc.prg
 
-3rd/libhpdf/libhpdf.hbc{HBMK_HAS_LIBHARU_LOCAL}
+3rd/libharu/hpdf.hbc{HBMK_HAS_LIBHARU_LOCAL}
 
 -instfile=contrib_tests_files:tests/files/*.*
 {_HB_INST_CORE&_HB_INSTALL_CONTRIB&hblib}-instpath=contrib_tests_files:${_HB_INSTALL_CONTRIB}/${_HB_PROJECT_SUBDIR}/tests/files/
