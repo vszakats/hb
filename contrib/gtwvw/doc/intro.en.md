@@ -189,7 +189,7 @@ moment during run time by using `wvw_SetMainCoord()`):
   ```
 
   Note that the whole "text3" will be written to Main Window, but
-  "ext4" will be written to Window 1.<br />
+  "ext4" will be written to Window 1.<br>
   Note also that all window corners must be within MAIN window's scope.
 - User can change CurrentWindow by using `wvw_nSetCurWindow()`, BUT
   it is NOT recommended because it is ridiculous and probably dangerous!

@@ -82,7 +82,7 @@ PROCEDURE Main()
 
          cField := oIni:ReadString( "Header", "DataField" + hb_ntos( i ), "" )
          oIni:WriteString( "Entries", cField + hb_ntos( nEntry ), ;
-            StrTran( StrTran( oHTML:QueryFields( cField ), Chr( 13 ) ), Chr( 10 ), "<br />" ) )
+            StrTran( StrTran( oHTML:QueryFields( cField ), Chr( 13 ) ), Chr( 10 ), "<br>" ) )
       NEXT
 
       // Write fields to .ini file

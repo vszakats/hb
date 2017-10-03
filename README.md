@@ -3,7 +3,7 @@
 [![Download](https://img.shields.io/badge/download-snapshot_binary_(3.4)-ff4500.svg)](https://github.com/vszakats/harbour-core/releases "Download snapshot release")
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 [![PayPal Donate](https://img.shields.io/badge/PayPal-Donate_Now-ff4500.svg?colorA=00457c)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=BPSZQYKXMQJYG "Donate Now")
-<br />
+<br>
 [![Build Status](https://api.travis-ci.org/vszakats/harbour-core.svg?branch=master)](https://travis-ci.org/vszakats/harbour-core)
 [![Build Status](https://ci.appveyor.com/api/projects/status/1kx6w3y6qasymah3/branch/master?svg=true)](https://ci.appveyor.com/project/vsz/harbour-core/branch/master)
 [![Coverity Status](https://scan.coverity.com/projects/3208/badge.svg)](https://scan.coverity.com/projects/3208)
@@ -194,10 +194,10 @@ You should see `Hello, world!` on screen.
 
 > You can override default (host) architecture by adding
 > values below to `HB_USER_CFLAGS`, `HB_USER_LDFLAGS` envvars,
-> you can use multiple values:<br />
-> <br />
-> Intel 32-bit: `-arch i386`<br />
-> Intel 64-bit: `-arch x86_64`<br />
+> you can use multiple values:<br>
+> <br>
+> Intel 32-bit: `-arch i386`<br>
+> Intel 64-bit: `-arch x86_64`<br>
 
 ## on FreeBSD hosts
 
@@ -255,7 +255,7 @@ To test it, type:
 
 You should see `Hello, world!` on screen.
 
-> For sunpro on Solaris:<br />
+> For sunpro on Solaris:<br>
 > If you have any GNU binutils stuff installed, do make sure `/usr/ccs/bin`
 > (the location of the native Sun C compilation system tools) come *before*
 > the GNU binutils components in your `$PATH`.
@@ -480,7 +480,7 @@ settings are case-sensitive.
    - `HB_BUILD_VERBOSE=yes`
 
      Enable verbose build output. Redirect it to file by appending this to
-     the build command: `> log.txt 2>&1`<br />
+     the build command: `> log.txt 2>&1`<br>
      Default: `no`
 
    - `HB_PLATFORM`             Override platform auto-detection
@@ -489,7 +489,7 @@ settings are case-sensitive.
      Set these only if auto-detection doesn't suit your purpose.
 
      See this for possible values:
-     [Supported Platforms and C Compilers](#supported-platforms-and-c-compilers)<br />
+     [Supported Platforms and C Compilers](#supported-platforms-and-c-compilers)<br>
      See also: `HB_CC*` settings.
 
    - `HB_BUILD_CONTRIBS=no [<l>]`
@@ -622,7 +622,7 @@ settings are case-sensitive.
    - `HB_INSTALL_IMPLIB=no`
 
      Copy import libraries created for external .dll dependencies to the
-     library install directory in `install` build phase. Default: `yes`<br />
+     library install directory in `install` build phase. Default: `yes`<br>
      For Windows and OS/2 targets only. Please note that this feature doesn't
      work with all possible binary distributions of 3rd party packages.
      We test only the official/mainstream ones. Also note that the generated
@@ -1183,7 +1183,7 @@ Press `<Alt+D>` in the app.
 
 # Platform Matrix
 
- host<br />platform | target<br />platform/compiler | target CPU
+ host<br>platform | target<br>platform/compiler | target CPU
  :------- | :---------------- | :---------------------------------------
  linux    | linux/gcc         | (CPU cross-builds possible)
  linux    | linux/clang       | (CPU cross-builds possible)
@@ -1321,7 +1321,7 @@ Supported shells per host platforms:
             installed and be in `PATH` for the Cygwin runtime (`cygwin1.dll`).
           * Unpack using these commands:
 
-            `bzip2 -d cegcc_mingw32ce_cygwin1.7_r1399.tar.bz2`<br />
+            `bzip2 -d cegcc_mingw32ce_cygwin1.7_r1399.tar.bz2`<br>
             `tar -xvf cegcc_mingw32ce_cygwin1.7_r1399.tar -h`
 
           * Compiler will be in the `opt\mingw32ce` subdirectory.
@@ -1455,5 +1455,5 @@ Supported shells per host platforms:
    a subjective decision. If you don't like it, use what fits you best.
 
 ---
-This document Copyright &copy;&nbsp;2009&ndash;present Viktor Szakats (vszakats.net/harbour)<br />
+This document Copyright &copy;&nbsp;2009&ndash;present Viktor Szakats (vszakats.net/harbour)<br>
 [![Creative Commons Attribution-ShareAlike 4.0](https://mirrors.creativecommons.org/presskit/buttons/80x15/svg/by-sa.svg)](https://creativecommons.org/licenses/by-sa/4.0/)

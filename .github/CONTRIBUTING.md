@@ -72,7 +72,7 @@
 - And these:
   - <https://opensource.guide/how-to-contribute/>
   - <https://github.com/blog/1943-how-to-write-the-perfect-pull-request>
-- You can also participate in localization:<br />
+- You can also participate in localization:<br>
   [![Localization Status](https://chart.googleapis.com/chart?chxt=y%2Cr&chd=e%3A....8J4T4T4To8UeP.AAAAAAAAAA&chco=84CCFF%2CBFE4FF%2CF4F6FB&chbh=9&chs=350x196&cht=bhs&chxl=0%3A%7CSerbian+%28Latin%29%7CLithuanian%7CChinese+%28China%29+%28GB2312%29%7CIndonesian%7CRussian%7CHungarian%7CFrench%7CItalian%7CSpanish+%28Latin+America%29%7CSpanish%7CGalician%7CGreek%7CPortuguese+%28Brazil%29%7CEnglish%7C1%3A%7C0%25%7C0%25%7C0%25%7C0%25%7C0%25%7C25%25%7C32%25%7C64%25%7C88%25%7C88%25%7C88%25%7C94%25%7C100%25%7C100%25%7C)](https://www.transifex.com/harbour/harbour/)
 - If looking for known pending issues to work on, look for `TODO` and `FIXME`
   markers in the source code/ChangeLog or see this list of issues that need
@@ -158,9 +158,9 @@ Evaluate these points before reporting an issue:
     chars, make sure to mark the codepage/encoding used and use
     `Chr()`/`hb_BCode()` calls to form the strings. Use UTF-8 if possible.
     Notice that code examples are likely to be executed as `hbrun` scripts
-    for testing, so it's a good idea to make them work this way.<br />
+    for testing, so it's a good idea to make them work this way.<br>
     Also make sure not to report multiple issues under a single
-    GitHub Issue.<br />
+    GitHub Issue.<br>
     * See more on self-contained examples:
       * <http://sscce.org/>
       * <https://stackoverflow.com/help/mcve>
@@ -188,5 +188,5 @@ Evaluate these points before reporting an issue:
 
 
 ---
-This document Copyright &copy;&nbsp;2009&ndash;present Viktor Szakats (vszakats.net/harbour)<br />
+This document Copyright &copy;&nbsp;2009&ndash;present Viktor Szakats (vszakats.net/harbour)<br>
 [![Creative Commons Attribution-ShareAlike 4.0](https://mirrors.creativecommons.org/presskit/buttons/80x15/svg/by-sa.svg)](https://creativecommons.org/licenses/by-sa/4.0/)

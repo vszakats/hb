@@ -45,7 +45,7 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
    cHTML := ;
       e"<html><body>\r\n" + ;
       e"<p>This is the inline <strong>HTML</strong> message of the email.</p>" + ;
-      e"<br />\r\n" + ;
+      e"<br>\r\n" + ;
       e"<p>It could be a lot of HTML data that would be displayed by " + ;
       e"email viewers able to handle HTML.</p>" + ;
       e"</body></html>\r\n"

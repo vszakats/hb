@@ -405,7 +405,7 @@ METHOD Output() CLASS UWBrowse
          cUrl := Left( cUrl, nI - 1 )
       ENDIF
       cUrl += iif( "?" $ cUrl, "&", "?" ) + "_pos="
-      cRet := '<br />' + cRet
+      cRet := '<br>' + cRet
       IF ! Eof()
          cI := cUrl + hb_ntos( ::nPos + ::nPageSize )
          cRet := '<a href="' + iif( lValidate, UUrlChecksum( cI ), cI ) + '">&gt;&gt;</a>' + cRet
