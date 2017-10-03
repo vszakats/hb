@@ -114,12 +114,10 @@ STATIC FUNCTION ScanConsecutiveCells( aArray )
    LOCAL nPrev
    LOCAL numConsec
    LOCAL rowChanged := .F.
-   LOCAL loopRowAgain
 
    FOR EACH row IN aArray DESCEND
       numConsec := 0
       nPrev := NIL
-      loopRowAgain := .F.
       FOR EACH col IN row
          IF col > 0 .AND. col == nPrev
             ++numConsec
@@ -130,13 +128,9 @@ STATIC FUNCTION ScanConsecutiveCells( aArray )
          IF numConsec == CONSECUTIVE_CELLS - 1
             RemoveCells( aArray, row:__enumIndex, col:__enumIndex - CONSECUTIVE_CELLS + 1 )
             rowChanged := .T.
-            loopRowAgain := .T.
             EXIT
          ENDIF
       NEXT
-      IF loopRowAgain
-         LOOP
-      ENDIF
     NEXT
 
    RETURN rowChanged
