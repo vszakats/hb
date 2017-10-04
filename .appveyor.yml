@@ -7,7 +7,7 @@ branches:
   - /prod-clang.*/
   - /test-mingw.*/
   - /test-clang.*/
-  - test-appveyor
+  - /test-appveyor.*/
   - /msvc.*/
 skip_tags: true
 skip_commits:
