@@ -46,13 +46,6 @@ export CURL_HASH_32='37923f7c5cc3061967925fd06c8f9ea796e22b1751696a3bc6c378f9759
 export CURL_HASH_64='50fc0fda8487b56854884585b27d6453877d4aa2984eb9743a2a581fcb285bbc'
 #hashend
 
-# Temporary hack to enable a custom libcurl patch (1/3)
-if [ "${_BRANCH#*prod*}" != "${_BRANCH}" ]; then
-  CURL_HASH_32='5e4dee7c30c2101f7ec845d11e68f875249ce274beb980a97faade005569d6d0'
-  CURL_HASH_64='12d4caa79ce59a5d1c3fcdbc3177b102374435638667fcc1d3f6e53a46b6bc95'
-  echo "! Mod: Switching to curl-test (hashes)"
-fi
-
 # Install/update MSYS2 packages required for completing the build
 
 echo "! TZ: $(date +%Z) | ${TZ}"
@@ -114,12 +107,6 @@ unset HB_USER_LDFLAGS
 unset HB_USER_DFLAGS
 
 _HB_USER_CFLAGS=''
-
-# Temporary hack to enable a custom libcurl patch (2/3)
-if [ "${_BRANCH#*prod*}" != "${_BRANCH}" ]; then
-  _HB_USER_CFLAGS="${_HB_USER_CFLAGS} -DHB_CURL_SSH_COMPR"
-  echo "! Mod: Switching to curl-test (CFLAGS: -DHB_CURL_SSH_COMPR)"
-fi
 
 [ "${_BRANCH#*prod*}" != "${_BRANCH}" ] && export HB_BUILD_CONTRIBS='hbrun hbdoc hbformat/utils hbct hbcurl hbhpdf hbmzip hbwin hbtip hbssl hbexpat hbmemio rddsql hbzebra sddodbc hbunix hbmisc hbcups hbtest hbtcpio hbcomio hbcrypto hbnetio hbpipeio hbgzio hbbz2io hbicu'
 export HB_BUILD_STRIP='bin'

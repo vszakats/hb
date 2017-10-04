@@ -2045,7 +2045,7 @@ HB_FUNC( CURL_EASY_SETOPT )
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_SSH_AUTH_TYPES, hb_parnl( 3 ) );
                break;
 #endif
-#if LIBCURL_VERSION_NUM >= 0x073800 || defined( HB_CURL_SSH_COMPR )
+#if LIBCURL_VERSION_NUM >= 0x073800
             case HB_CURLOPT_SSH_COMPRESSION:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_SSH_COMPRESSION, HB_CURL_OPT_BOOL( 3 ) );
                break;

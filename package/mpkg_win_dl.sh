@@ -117,13 +117,7 @@ if [ "${HB_JOB4}" != 'msvc' ]; then
       'libssh2' \
       'curl' \
     ; do
-      test=''
-      # Temporary hack to enable a custom libcurl patch (3/3)
-      if [ "${_BRANCH#*prod*}" != "${_BRANCH}" ] && \
-         [ "${name}" = 'curl' ]; then
-        test='-test'
-        echo "! Mod: Switching to curl-test (download)"
-      fi
+      suffix=''
       if [ ! -d "${name}-mingw${plat}" ]; then
         eval ver="\$$(echo "${name}" | tr '[:lower:]' '[:upper:]' 2> /dev/null)_VER"
         eval hash="\$$(echo "${name}" | tr '[:lower:]' '[:upper:]' 2> /dev/null)_HASH_${plat}"
@@ -131,8 +125,8 @@ if [ "${HB_JOB4}" != 'msvc' ]; then
         (
           set -x
           curl -L --proto-redir =https \
-            -o pack.bin "${base}${name}-${ver}-win${plat}-mingw${test}.7z" \
-            -o pack.sig "${base}${name}-${ver}-win${plat}-mingw${test}.7z.asc"
+            -o pack.bin "${base}${name}-${ver}-win${plat}-mingw${suffix}.7z" \
+            -o pack.sig "${base}${name}-${ver}-win${plat}-mingw${suffix}.7z.asc"
           gpg --verify-options show-primary-uid-only --verify pack.sig pack.bin
           openssl dgst -sha256 pack.bin | grep -q "${hash}" || exit 1
           7z x -y pack.bin > /dev/null
