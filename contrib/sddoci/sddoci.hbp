@@ -23,7 +23,7 @@ rddsql.hbc
 -depimplibs=ocilib:../lib64/ocilibw.dll{win&x86_64}
 
 # Using prebuilt static libs with MinGW/Clang
--cflag=-DOCI_API=_stdcall{mingw|clang}
+-cflag=-DOCI_API=_stdcall{win&(mingw|clang)}
 # Required to link against generated implib
 -cflag=-DOCI_API=_stdcall{bcc}
 

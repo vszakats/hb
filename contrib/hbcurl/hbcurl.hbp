@@ -14,8 +14,9 @@ hbcurl.hbm
 
 -iflag={bcc}-a
 
-{hbdyn&win}-instfile=depimplibsrc:${HBMK_DIR_CURL}/../bin/*.dll
-{hbdyn&win}-instfile=depimplibsrc:${HBMK_DIR_CURL}/../dlls/*.dll
-{hbdyn&win}-instfile=depimplibsrc:${HBMK_DIR_CURL}/../lib/*.dll
+-instfile=depimplibsrc:${HBMK_DIR_CURL}/../dlls/libcurl.dll{hbdyn&win}
+-instfile=depimplibsrc:${HBMK_DIR_CURL}/../lib/libcurl.dll{hbdyn&win}
+-instfile=depimplibsrc:${HBMK_DIR_CURL}/../bin/libcurl.dll{hbdyn&win&(mingw|clang)}
+-instfile=depimplibsrc:${HBMK_DIR_CURL}/../bin/libcurl-x64.dll{hbdyn&win&(mingw64|clang64)}
 
 hbcurls.hbp
