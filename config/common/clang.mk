@@ -55,6 +55,7 @@ endif
 
 ifneq ($(HB_BUILD_WARN),no)
    CFLAGS += -W -Weverything
+   CFLAGS += -Wshadow -Wdouble-promotion -Wjump-misses-init -Wlogical-op -Wduplicated-branches -Wrestrict
    CFLAGS += -Wno-padded -Wno-cast-align -Wno-float-equal -Wno-missing-prototypes
    CFLAGS += -Wno-disabled-macro-expansion -Wno-undef -Wno-unused-macros -Wno-variadic-macros -Wno-documentation
    CFLAGS += -Wno-switch-enum
