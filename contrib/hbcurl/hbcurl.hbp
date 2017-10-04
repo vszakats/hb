@@ -8,7 +8,8 @@ hbcurl.hbm
 -depimplibs=curl:../lib/libcurl.dll{!(mingw|clang)}
 -depimplibs=curl:../lib/libcurl.nodef{mingw|clang}
 -depimplibs=curl:../lib/libcurldll.a{allwinar}
--depimplibd=curl:libcurl.a{allwinar}
+-depimplibs=curl:../lib/libcurl.dll.a{allwinar}
+-depimplibd=curl:curl
 -depfinish=curl
 
 -iflag={bcc}-a
