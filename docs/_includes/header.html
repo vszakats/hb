@@ -1,9 +1,5 @@
 <body>
 
-{% unless site.fork %}
-<a class="github-fork-ribbon right-top" href="https://github.com/{{ site.repo_slug }}" data-ribbon="Fork me on GitHub">Fork me on GitHub</a>
-{% endunless %}
-
 <header>
   <div class="banner">
     <div class="header-version header-version-narrow" dir="ltr">&lrm;{% unless site.fork %}Version {% endunless %}{{ site.short_version }}{% if site.fork %} Fork{% endif %}</div>

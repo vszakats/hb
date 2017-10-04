@@ -807,10 +807,6 @@ pre, code {
   font-family: $font-code;
 }
 
-.github-fork-ribbon.right-top::before {
-  background-color: #333;
-}
-
 .shot-window {
   background: #fff;
   border-radius: 6px;
@@ -977,12 +973,6 @@ pre, code {
 .dropdown:hover .dropbtn {
   color: $color-menu-text-hover;
   transition: color .5s;
-}
-
-@media screen and (max-width: 900px) {
-  .github-fork-ribbon {
-    display: none;
-  }
 }
 
 @media screen and (max-width: 760px) {

@@ -5,13 +5,6 @@ fontawesome:
     css:
       name: css/font-awesome.min.css
       sri: sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN
-github-fork-ribbon-css:
-  root: https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/
-  ver: 0.2.2
-  files:
-    css:
-      name: gh-fork-ribbon.min.css
-      sri: sha384-jUHnRx457Q15HVKSx5g+6jqsItdcFcR0BBu729dDIMmTM4HT1sbXZuxxOpuiaM/p
 prism:
   root: https://cdnjs.cloudflare.com/ajax/libs/prism/
   ver: 1.6.0
