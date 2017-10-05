@@ -5,11 +5,11 @@
 # See LICENSE.txt for licensing terms.
 # ---------------------------------------------------------------
 
-# for Linux Amazon
+# for Amazon Linux
 
 set -x; cat /etc/*-release; ulimit -a; df -h
 
-yum install -y gcc git rpm-build findutils \
+yum install -y gcc64 git rpm-build findutils \
   bzip2-devel \
   cairo-devel \
   cups-devel \
