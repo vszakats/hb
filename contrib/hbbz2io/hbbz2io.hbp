@@ -9,6 +9,9 @@ bz2io.c
 
 ${hb_name}.hbx
 
+# required for bz_internal_error()
+hbbz2.hbc
+
 # This is a dependency of bz2lib
 -depurlbase=bzip2:http://bzip.org/
 -deppkgname=bzip2:libbz2-dev{deb}
