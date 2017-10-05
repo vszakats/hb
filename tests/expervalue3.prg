@@ -39,18 +39,18 @@ PROCEDURE Main()
          aSelected := {}
          LOOP
 
-      CASE K_DOWN
-         IF nNumber_Range > 2
-            --nNumber_Range
+      CASE K_UP
+         IF nNumber_Range < 9
+            ++nNumber_Range
             aArray := BuildArrayGame( aArray, nNumber_Range )
             aSelected := {}
             LOOP
          ENDIF
          EXIT
 
-      CASE K_UP
-         IF nNumber_Range < 9
-            ++nNumber_Range
+      CASE K_DOWN
+         IF nNumber_Range > 2
+            --nNumber_Range
             aArray := BuildArrayGame( aArray, nNumber_Range )
             aSelected := {}
             LOOP
@@ -94,12 +94,12 @@ PROCEDURE Main()
                EXIT
             CASE 1
                IF nRow == aSelected[ 1 ][ 1 ] .AND. ;
-                  nCol == aSelected[ 1 ][ 2 ]
+                     nCol == aSelected[ 1 ][ 2 ]
                   aSelected := {}
                   LOOP
                ENDIF
                IF Abs( nRow - aSelected[ 1 ][ 1 ] ) > 1 .OR. ;
-                  Abs( nCol - aSelected[ 1 ][ 2 ] ) > 1
+                     Abs( nCol - aSelected[ 1 ][ 2 ] ) > 1
                   aSelected := {}
                   LOOP
                ENDIF
@@ -117,9 +117,9 @@ PROCEDURE Main()
 
          EXIT
 
-         CASE K_TAB
-            ShowScoreboard( nNumber_Range, nConsecutive_Cells )
-            EXIT
+      CASE K_TAB
+         ShowScoreboard( nNumber_Range, nConsecutive_Cells )
+         EXIT
 
       ENDSWITCH
 
@@ -130,6 +130,7 @@ PROCEDURE Main()
    RETURN
 
 STATIC FUNCTION BuildArrayGame( aArray, nNumber_Range )
+
    LOCAL nRow
    LOCAL nCol
 
@@ -155,7 +156,7 @@ STATIC PROCEDURE Show( aArray, aSelected )
          nColor := nCol
          FOR EACH itm IN aSelected
             IF nRow:__enumIndex == itm[ 1 ] .AND. ;
-               nCol:__enumIndex == itm[ 2 ]
+                  nCol:__enumIndex == itm[ 2 ]
                nColor := 0xb
             ENDIF
          NEXT
@@ -199,10 +200,10 @@ STATIC FUNCTION ScanConsecutiveCells( aArray, nConsecutive_Cells )
       IF loopRowAgain
          LOOP
       ENDIF
-      
+
       --row
 
-    ENDDO
+   ENDDO
 
    RETURN rowChanged
 
@@ -212,7 +213,7 @@ STATIC PROCEDURE RemoveCells( aArray, nRow, nCol, nConsecutive_Cells )
 
    FOR row := nRow TO 1 STEP - 1
       FOR col := nCol TO nCol + nConsecutive_Cells - 1
-         IF row > 1 
+         IF row > 1
             aArray[ row ][ col ] := aArray[ row - 1 ][ col ]
             aArray[ row - 1 ][ col ] := 0
          ELSE
@@ -231,8 +232,8 @@ STATIC PROCEDURE ShowScoreboard( nNumber_Range, nConsecutive_Cells )
 
    hb_DispOutAt( nRow, 0, hb_UPadC( "Experience Value 3 ", MaxCol() + 1 ), 0xf )
    hb_DispOutAt( ++nRow + 1, 0, hb_UPadR( "Range (up,down): 2.." + ;
-                hb_ntos( nNumber_Range ) + ", Consecutive Cells (left,right): " + ;
-                hb_ntos( nConsecutive_Cells ) + ". space: reset", MaxCol() + 1 ), 0xf0 )
+      hb_ntos( nNumber_Range ) + ", Consecutive Cells (left,right): " + ;
+      hb_ntos( nConsecutive_Cells ) + ". space: reset", MaxCol() + 1 ), 0xf0 )
 
    Inkey( 0 )
 
