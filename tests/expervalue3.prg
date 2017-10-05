@@ -94,12 +94,12 @@ PROCEDURE Main()
                EXIT
             CASE 1
                IF nRow == aSelected[ 1 ][ 1 ] .AND. ;
-                     nCol == aSelected[ 1 ][ 2 ]
+                  nCol == aSelected[ 1 ][ 2 ]
                   aSelected := {}
                   LOOP
                ENDIF
                IF Abs( nRow - aSelected[ 1 ][ 1 ] ) > 1 .OR. ;
-                     Abs( nCol - aSelected[ 1 ][ 2 ] ) > 1
+                  Abs( nCol - aSelected[ 1 ][ 2 ] ) > 1
                   aSelected := {}
                   LOOP
                ENDIF
@@ -110,7 +110,6 @@ PROCEDURE Main()
                EXIT
 
             ENDSWITCH
-
          ELSE
             aSelected := {}
          ENDIF
@@ -156,7 +155,7 @@ STATIC PROCEDURE Show( aArray, aSelected )
          nColor := nCol
          FOR EACH itm IN aSelected
             IF nRow:__enumIndex == itm[ 1 ] .AND. ;
-                  nCol:__enumIndex == itm[ 2 ]
+               nCol:__enumIndex == itm[ 2 ]
                nColor := 0xb
             ENDIF
          NEXT
