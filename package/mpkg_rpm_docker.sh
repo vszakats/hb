@@ -16,26 +16,26 @@ yum install -y gcc64 git rpm-build findutils \
   curl-devel \
   expat-devel \
   file-libs \
-  firebird-devel \
-  freeimage-devel \
+  firebird-devel \     # not currently offered
+  freeimage-devel \    # not currently offered
   gd-devel \
   ghostscript-devel \
   libicu-devel \
-  libmariadb-devel \
+  libmariadb-devel \   # not currently offered
   libpng-devel \
   libyaml-devel \
   lzo-devel \
   minizip-devel \
   openssl-devel \
-  pcre2-devel \
+  ocilib-devel \       # not currently offered
+  pcre-devel \
+  pcre2-devel \        # not currently offered
   postgresql-devel \
+  qt5-devel \          # not offered
   sqlite-devel \
   unixODBC-devel
 
-# qt5-devel: not currently offered
 # librabbitmq-devel: version 0.2, too old to be supported
-# ocilib-devel: not currently offered
-# pcre2-devel: not currently offered
 
 ./package/mpkg_rpm.sh
 
