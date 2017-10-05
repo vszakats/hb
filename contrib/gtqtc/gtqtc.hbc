@@ -15,7 +15,8 @@ depfinish=qt5
 {!HBMK_HAS_QT5&darwin}depincpath=qt:/usr/local/include
 {!HBMK_HAS_QT5&darwin}depfinish=qt
 
-{(allwin|os2)|HB_WITH_QT}libpaths=${HB_WITH_QT}/../lib
+{(allwin|os2)|HBMK_HAS_QT}libpaths=${HBMK_DIR_QT}/../lib
+{(allwin|os2)|HBMK_HAS_QT5}libpaths=${HBMK_DIR_QT5}/../lib
 {(allwin|os2)&!HBMK_HAS_QT5}libs=QtCore4 QtGui4
 {(allwin|os2|linux|beos|symbian)&HBMK_HAS_QT5}libs=Qt5Core Qt5Gui Qt5Widgets
 {(linux|beos|symbian)&!HBMK_HAS_QT5}libs=QtCore QtGui

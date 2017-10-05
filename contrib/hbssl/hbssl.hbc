@@ -14,6 +14,7 @@ skip={dos}
 libpaths=/usr/local/opt/openssl@1.1/lib{darwin}
 libpaths=/usr/local/opt/openssl/lib{darwin}
 libpaths=/usr/local/opt/libressl/lib{darwin}
+libpaths=${HBMK_DIR_OPENSSL}/../lib{allwinar&HBMK_HAS_OPENSSL}
 
 {!HB_DYNBIND_OPENSSL&unix}libs=ssl crypto
 {!HB_DYNBIND_OPENSSL&os2}libs=libssl_s libcrypto_s
