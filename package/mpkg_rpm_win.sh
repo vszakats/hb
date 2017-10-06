@@ -15,7 +15,7 @@ get_rpmmacro() {
   _R="$(rpm --showrc | sed -e "/^-14:.${1}[^a-z0-9A-Z_]/ !d" -e "s/^-14: ${1}.//")"
   _X="$(echo "${_R}" | sed -e 's/.*\(%{\([^}]*\)}\).*/\2/')"
   while [ "${_X}" != "${_R}" ]; do
-    _Y=$(get_rpmmacro "$_X")
+    _Y=$(get_rpmmacro "${_X}")
     if [ -n "${_Y}" ]; then
       _R="$(echo "${_R}" | sed -e "s!%{${_X}}!${_Y}!g")"
       _X="$(echo "${_R}" | sed -e 's/.*\(%{\([^}]*\)}\).*/\2/')"
@@ -28,10 +28,10 @@ get_rpmmacro() {
 
 for d in /usr /usr/local /usr/local/mingw32 /opt/xmingw /opt/cross; do
   if [ -z "${TARGET}" ]; then
-    TARGET=$(find $d/bin -maxdepth 1 -name 'i[3456]86*-mingw*-gcc' \
+    TARGET=$(find ${d}/bin -maxdepth 1 -name 'i[3456]86*-mingw*-gcc' \
             2>/dev/null \
             | sed -e '1 !d' -e 's/.*\(i[3456]86.*-mingw[^-]*\).*/\1/g')
-    MINGW_DIR=$d
+    MINGW_DIR=${d}
   fi
 done
 
@@ -41,8 +41,8 @@ if [ -z "${TARGET}" ]; then
   exit 1
 fi
 
-HB_CCPREFIX="$TARGET-"
-HB_CCPATH="$MINGW_DIR/bin"
+HB_CCPREFIX="${TARGET}-"
+HB_CCPATH="${MINGW_DIR}/bin"
 
 cd "$(dirname "$0")" || exit
 
@@ -65,7 +65,7 @@ done
 
 TOINST_LST=''
 for i in ${NEED_RPM}; do
-  test_reqrpm "$i" || TOINST_LST="${TOINST_LST} $i"
+  test_reqrpm "${i}" || TOINST_LST="${TOINST_LST} ${i}"
 done
 
 OLDPWD="${PWD}"

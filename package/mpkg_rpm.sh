@@ -34,7 +34,7 @@ while [ $# -gt 0 ]; do
   shift
 done
 
-if [ "$HB_WITH_ADS" != 'no' ]; then
+if [ "${HB_WITH_ADS}" != 'no' ]; then
   if [ -f /usr/local/ads/acesdk/ace.h ] || \
      [ -f "${HOME}/ads/acesdk/ace.h" ] || \
      [ -f "${HB_WITH_ADS}/ace.h" ]; then
@@ -42,65 +42,65 @@ if [ "$HB_WITH_ADS" != 'no' ]; then
   fi
 fi
 if test_reqrpm 'cairo-devel' && \
-   [ "$HB_WITH_CAIRO" != 'no' ]; then
+   [ "${HB_WITH_CAIRO}" != 'no' ]; then
   INST_PARAM="${INST_PARAM} --with cairo"
 fi
 if ( test_reqrpm 'libcups2-devel' || \
      test_reqrpm 'cups-devel' ) && \
-   [ "$HB_WITH_CUPS" != 'no' ]; then
+   [ "${HB_WITH_CUPS}" != 'no' ]; then
   INST_PARAM="${INST_PARAM} --with cups"
 fi
 if test_reqrpm 'curl-devel' && \
-   [ "$HB_WITH_CURL" != 'no' ]; then
+   [ "${HB_WITH_CURL}" != 'no' ]; then
   INST_PARAM="${INST_PARAM} --with curl"
 fi
 if test_reqrpm 'openssl-devel' && \
-   [ "$HB_WITH_OPENSSL" != 'no' ]; then
+   [ "${HB_WITH_OPENSSL}" != 'no' ]; then
   INST_PARAM="${INST_PARAM} --with openssl"
 fi
 if test_reqrpm 'firebird-devel' && \
-   [ "$HB_WITH_FIREBIRD" != 'no' ]; then
+   [ "${HB_WITH_FIREBIRD}" != 'no' ]; then
   INST_PARAM="${INST_PARAM} --with firebird"
 fi
 if test_reqrpm 'freeimage-devel' && \
-   [ "$HB_WITH_FREEIMAGE" != 'no' ]; then
+   [ "${HB_WITH_FREEIMAGE}" != 'no' ]; then
   INST_PARAM="${INST_PARAM} --with freeimage"
 fi
 if test_reqrpm 'gd-devel' && \
-   [ "$HB_WITH_GD" != 'no' ]; then
+   [ "${HB_WITH_GD}" != 'no' ]; then
   v="$(rpm -q --whatprovides gd-devel --qf "%{VERSION}" | sed -e 's/[^0-9]*\([0-9]*\).*/\1/g')"
-  [ "$v" -ge 2 ] && INST_PARAM="${INST_PARAM} --with gd"
+  [ "${v}" -ge 2 ] && INST_PARAM="${INST_PARAM} --with gd"
 fi
 if test_reqrpm 'ghostscript-devel' && \
-   [ "$HB_WITH_GS" != 'no' ]; then
+   [ "${HB_WITH_GS}" != 'no' ]; then
   INST_PARAM="${INST_PARAM} --with gs"
 fi
 if test_reqrpm 'file-libs' && \
-   [ "$HB_WITH_LIBMAGIC" != 'no' ]; then
+   [ "${HB_WITH_LIBMAGIC}" != 'no' ]; then
   INST_PARAM="${INST_PARAM} --with libmagic"
 fi
 if ( test_reqrpm 'libmariadb-devel' || \
      test_reqrpm 'libmysqlclient-devel' || \
      test_reqrpm 'MySQL-devel' || \
      test_reqrpm 'mysql-devel' ) && \
-   [ "$HB_WITH_MYSQL" != 'no' ]; then
+   [ "${HB_WITH_MYSQL}" != 'no' ]; then
   INST_PARAM="${INST_PARAM} --with mysql"
 fi
 if ( test_reqrpm 'unixodbc-devel' || \
      test_reqrpm 'unixODBC-devel' ) && \
-   [ "$HB_WITH_ODBC" != 'no' ]; then
+   [ "${HB_WITH_ODBC}" != 'no' ]; then
   INST_PARAM="${INST_PARAM} --with odbc"
 fi
 if test_reqrpm 'postgresql-devel' && \
-   [ "$HB_WITH_PGSQL" != 'no' ]; then
+   [ "${HB_WITH_PGSQL}" != 'no' ]; then
   INST_PARAM="${INST_PARAM} --with pgsql"
 fi
 if test_reqrpm 'qt5-devel' && \
-   [ "$HB_WITH_QT" != 'no' ]; then
+   [ "${HB_WITH_QT}" != 'no' ]; then
   INST_PARAM="${INST_PARAM} --with qt5"
 fi
 if test_reqrpm 'librabbitmq-devel' && \
-   [ "$HB_WITH_RABBITMQ" != 'no' ]; then
+   [ "${HB_WITH_RABBITMQ}" != 'no' ]; then
   INST_PARAM="${INST_PARAM} --with rabbitmq"
 fi
 
@@ -115,54 +115,54 @@ if [ "${HB_BUILD_NOGPLLIB}" = 'yes' ] || \
 fi
 if ( ! test_reqrpm 'xorg-x11-devel' && \
      ! test_reqrpm 'XFree86-devel' ) || \
-   [ "$HB_WITH_X11" = 'no' ]; then
+   [ "${HB_WITH_X11}" = 'no' ]; then
   INST_PARAM="${INST_PARAM} --without X11"
 fi
 if ! test_reqrpm 'ncurses' || \
    ! test_reqrpm 'ncurses-devel' || \
-   [ "$HB_WITH_CURSES" != 'no' ]; then
+   [ "${HB_WITH_CURSES}" != 'no' ]; then
   INST_PARAM="${INST_PARAM} --without curses"
 fi
 if ! test_reqrpm 'slang' || \
    ! test_reqrpm 'slang-devel' || \
-   [ "$HB_WITH_SLANG" != 'no' ]; then
+   [ "${HB_WITH_SLANG}" != 'no' ]; then
   INST_PARAM="${INST_PARAM} --without slang"
 fi
 if ( [ ! -f /usr/include/zlib.h ] && \
      [ ! -f /usr/local/include/zlib.h ] ) || \
-   [ "$HB_WITH_ZLIB" = 'local' ]; then
+   [ "${HB_WITH_ZLIB}" = 'local' ]; then
   INST_PARAM="${INST_PARAM} --with localzlib"
 fi
 if ( [ ! -f /usr/include/pcre2.h ] && \
      [ ! -f /usr/local/include/pcre2.h ] ) || \
-   [ "$HB_WITH_PCRE2" = 'local' ]; then
+   [ "${HB_WITH_PCRE2}" = 'local' ]; then
   INST_PARAM="${INST_PARAM} --with localpcre2"
 elif ( [ ! -f /usr/include/pcre.h ] && \
      [ ! -f /usr/local/include/pcre.h ] ) || \
-   [ "$HB_WITH_PCRE" = 'local' ]; then
+   [ "${HB_WITH_PCRE}" = 'local' ]; then
   INST_PARAM="${INST_PARAM} --with localpcre1"
 fi
 if ( [ ! -f /usr/include/bzlib.h ] && \
      [ ! -f /usr/local/include/bzlib.h ] ) || \
-   [ "$HB_WITH_BZIP2" = 'local' ]; then
+   [ "${HB_WITH_BZIP2}" = 'local' ]; then
   INST_PARAM="${INST_PARAM} --with localbz2"
 fi
 if ! test_reqrpm 'expat-devel' || \
-   [ "$HB_WITH_EXPAT" = 'local' ]; then
+   [ "${HB_WITH_EXPAT}" = 'local' ]; then
   INST_PARAM="${INST_PARAM} --with localexpat"
 fi
 if ! test_reqrpm 'libyaml-devel' || \
-   [ "$HB_WITH_LIBYAML" = 'local' ]; then
+   [ "${HB_WITH_LIBYAML}" = 'local' ]; then
   INST_PARAM="${INST_PARAM} --with locallibyaml"
 fi
 if ! test_reqrpm 'sqlite-devel' || \
-   [ "$HB_WITH_SQLITE3" = "local" ]; then
+   [ "${HB_WITH_SQLITE3}" = "local" ]; then
   INST_PARAM="${INST_PARAM} --with localsqlite3"
 fi
 
 TOINST_LST=''
 for i in ${NEED_RPM}; do
-  test_reqrpm "$i" || TOINST_LST="${TOINST_LST} $i"
+  test_reqrpm "${i}" || TOINST_LST="${TOINST_LST} ${i}"
 done
 
 OLDPWD="${PWD}"

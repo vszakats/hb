@@ -81,7 +81,7 @@ mxe_get_pkg() {
             rm -f pack.bin
 
             for i in ${deps//,/}; do
-              mxe_get_pkg "$i"  # recurse
+              mxe_get_pkg "${i}"  # recurse
             done
           else
             echo "! Error: Download failed."

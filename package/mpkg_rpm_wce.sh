@@ -15,7 +15,7 @@ get_rpmmacro() {
   _R="$(rpm --showrc | sed -e "/^-14:.${1}[^a-z0-9A-Z_]/ !d" -e "s/^-14: ${1}.//")"
   _X="$(echo "${_R}" | sed -e 's/.*\(%{\([^}]*\)}\).*/\2/')"
   while [ "${_X}" != "${_R}" ]; do
-    _Y=$(get_rpmmacro "$_X")
+    _Y=$(get_rpmmacro "${_X}")
     if [ -n "${_Y}" ]; then
       _R="$(echo "${_R}" | sed -e "s!%{${_X}}!${_Y}!g")"
       _X="$(echo "${_R}" | sed -e 's/.*\(%{\([^}]*\)}\).*/\2/')"
@@ -47,7 +47,7 @@ done
 
 TOINST_LST=''
 for i in ${NEED_RPM}; do
-  test_reqrpm "$i" || TOINST_LST="${TOINST_LST} $i"
+  test_reqrpm "${i}" || TOINST_LST="${TOINST_LST} ${i}"
 done
 
 OLDPWD="${PWD}"
