@@ -648,9 +648,9 @@ settings are case-sensitive.
 
      Set default build mode to C++ or C. Default: `c`
 
-     This option is meant for testing Harbour code base for issues revealed
+     This option serves only to test Harbour code base for issues revealed
      by stricter C++ compiler rules and/or for C/C++ interoperability issues.
-     Do not use it for production builds.
+     C++ mode is deprecated and not supported for production use.
 
    - `HB_BUILD_POSTRUN_HOST=[<l>]`
 
