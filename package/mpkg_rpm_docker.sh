@@ -9,6 +9,10 @@
 
 set -x; cat /etc/*-release; ulimit -a; df -h
 
+# librabbitmq-devel: version 0.2, too old to be supported
+# not currently offered: firebird-devel freeimage-devel libmariadb-devel ocilib-devel pcre2-devel
+# not offered: qt5-devel
+
 yum install -y gcc64 git rpm-build findutils \
   bzip2-devel \
   cairo-devel \
@@ -16,26 +20,24 @@ yum install -y gcc64 git rpm-build findutils \
   curl-devel \
   expat-devel \
   file-libs \
-  firebird-devel \     # not currently offered
-  freeimage-devel \    # not currently offered
+  firebird-devel \
+  freeimage-devel \
   gd-devel \
   ghostscript-devel \
   libicu-devel \
-  libmariadb-devel \   # not currently offered
+  libmariadb-devel \
   libpng-devel \
   libyaml-devel \
   lzo-devel \
   minizip-devel \
   openssl-devel \
-  ocilib-devel \       # not currently offered
+  ocilib-devel \
   pcre-devel \
-  pcre2-devel \        # not currently offered
+  pcre2-devel \
   postgresql-devel \
-  qt5-devel \          # not offered
+  qt5-devel \
   sqlite-devel \
   unixODBC-devel
-
-# librabbitmq-devel: version 0.2, too old to be supported
 
 ./package/mpkg_rpm.sh
 
