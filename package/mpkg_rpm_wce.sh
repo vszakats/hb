@@ -79,7 +79,7 @@ if [ -z "${TOINST_LST}" ] || [ "${FORCE}" = 'yes' ]; then
 
     mv -f "${hb_filename}" "${RPMDIR}/SOURCES/"
     # Required for rpmbuild versions < 4.13.0
-    chown "${UID}" "${RPMDIR}/SOURCES/$(basename "${hb_filename}")"
+    chown "$(id -u)" "${RPMDIR}/SOURCES/$(basename "${hb_filename}")"
 
     sed -e "s|^%define version .*$|%define version ${hb_verfull}|g" \
         -e "s|^%define verstat .*$|%define verstat ${hb_verstat}|g" \
