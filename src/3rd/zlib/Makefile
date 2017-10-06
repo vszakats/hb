@@ -35,6 +35,7 @@ C_SOURCES += \
 endif
 
 ifneq ($(HB_HAS_ZLIB_LOCAL),)
+   HB_CFLAGS += -DNOBYFOUR
    ifneq ($(filter $(HB_COMPILER),mingw mingw64),)
       # Required to enable 64-bit lseek() since version 1.2.9
       HB_CFLAGS += -D_LARGEFILE64_SOURCE=1 -D_LFS64_LARGEFILE=1

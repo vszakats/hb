@@ -1,15 +1,3 @@
-diff --strip-trailing-cr -urN zlib.orig/crc32.c zlib/crc32.c
---- zlib.orig/crc32.c	2017-01-15 17:29:40.000000000 +0000
-+++ zlib/crc32.c	2017-01-15 21:36:52.000000000 +0000
-@@ -21,6 +21,8 @@
-   DYNAMIC_CRC_TABLE and MAKECRCH can be #defined to write out crc32.h.
-  */
- 
-+#define NOBYFOUR
-+
- #ifdef MAKECRCH
- #  include <stdio.h>
- #  ifndef DYNAMIC_CRC_TABLE
 diff --strip-trailing-cr -urN zlib.orig/deflate.c zlib/deflate.c
 --- zlib.orig/deflate.c	2017-01-15 17:29:40.000000000 +0000
 +++ zlib/deflate.c	2017-01-15 21:36:52.000000000 +0000
