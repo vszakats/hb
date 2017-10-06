@@ -5,6 +5,8 @@
 
 -w3 -es2
 
+-cpp=no
+
 -depurlbase=libyaml:https://github.com/yaml/libyaml
 -deppkgname=libyaml:libyaml-dev{deb}
 -deppkgname=libyaml:libyaml-devel{rpm}

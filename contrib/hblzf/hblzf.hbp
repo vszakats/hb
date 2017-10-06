@@ -7,6 +7,8 @@
 
 -w3 -es2
 
+-cpp=no
+
 -depurlbase=lzf:http://oldhome.schmorp.de/marc/liblzf.html
 -deppkgname=lzf:liblzf{homebrew}
 -depkeyhead=lzf:lzf.h

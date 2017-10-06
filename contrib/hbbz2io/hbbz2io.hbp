@@ -5,6 +5,8 @@
 
 -w3 -es2
 
+-cpp=no
+
 bz2io.c
 
 ${hb_name}.hbx

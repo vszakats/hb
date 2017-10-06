@@ -1,6 +1,6 @@
 diff --strip-trailing-cr -urN minizip.orig/crypt.h minizip/crypt.h
 --- minizip.orig/crypt.h	2017-01-15 17:29:40.000000000 +0000
-+++ minizip/crypt.h	2017-08-13 18:56:42.000000000 +0000
++++ minizip/crypt.h	2017-01-15 21:37:15.000000000 +0000
 @@ -38,6 +38,8 @@
                       * unpredictable manner on 16-bit systems; not a problem
                       * with any known compiler so far, though */
@@ -22,7 +22,7 @@ diff --strip-trailing-cr -urN minizip.orig/crypt.h minizip/crypt.h
      for (n = 0; n < RAND_HEAD_LEN-2; n++)
 diff --strip-trailing-cr -urN minizip.orig/ioapi.c minizip/ioapi.c
 --- minizip.orig/ioapi.c	2017-01-15 17:29:40.000000000 +0000
-+++ minizip/ioapi.c	2017-08-13 18:56:42.000000000 +0000
++++ minizip/ioapi.c	2017-08-23 16:27:37.000000000 +0000
 @@ -27,6 +27,7 @@
  
  
@@ -145,47 +145,37 @@ diff --strip-trailing-cr -urN minizip.orig/ioapi.c minizip/ioapi.c
      pzlib_filefunc_def->zread_file = fread_file_func;
 diff --strip-trailing-cr -urN minizip.orig/ioapi.h minizip/ioapi.h
 --- minizip.orig/ioapi.h	2017-01-15 17:29:40.000000000 +0000
-+++ minizip/ioapi.h	2017-08-13 18:56:42.000000000 +0000
-@@ -21,30 +21,58 @@
++++ minizip/ioapi.h	2017-10-06 18:52:32.000000000 +0000
+@@ -21,30 +21,57 @@
  #ifndef _ZLIBIOAPI64_H
  #define _ZLIBIOAPI64_H
  
 -#if (!defined(_WIN32)) && (!defined(WIN32)) && (!defined(__APPLE__))
--
--  // Linux needs this to support file operation on files larger then 4+GB
--  // But might need better if/def to select just the platforms that needs them.
--
++#if !(defined(_WIN32) || defined(WIN32)) && \
++    !(defined(__MSDOS__) || defined(MSDOS)) && \
++    !(defined(OS_2) || defined(__OS2__) || defined(OS2)) && \
++    !defined(__WATCOMC__)
+ 
+   // Linux needs this to support file operation on files larger then 4+GB
+   // But might need better if/def to select just the platforms that needs them.
+ 
 -        #ifndef __USE_FILE_OFFSET64
 -                #define __USE_FILE_OFFSET64
 -        #endif
 -        #ifndef __USE_LARGEFILE64
 -                #define __USE_LARGEFILE64
--        #endif
--        #ifndef _LARGEFILE64_SOURCE
--                #define _LARGEFILE64_SOURCE
--        #endif
++        #ifndef _LARGEFILE_SOURCE
++                #define _LARGEFILE_SOURCE
+         #endif
+         #ifndef _LARGEFILE64_SOURCE
+                 #define _LARGEFILE64_SOURCE
+         #endif
 -        #ifndef _FILE_OFFSET_BIT
 -                #define _FILE_OFFSET_BIT 64
--        #endif
++        #ifndef _FILE_OFFSET_BITS
++                #define _FILE_OFFSET_BITS 64
+         #endif
 -
-+#if !(defined(_WIN32) || defined(WIN32)) && \
-+    !(defined(__MSDOS__) || defined(MSDOS)) && \
-+    !(defined(OS_2) || defined(__OS2__) || defined(OS2)) && \
-+    !defined(__WATCOMC__)
-+
-+  /* Linux needs this to support file operation on files larger then 4+GB
-+   * on 32bit platforms
-+   * But might need better if/def to select just the platforms that needs them.
-+   */
-+   #ifndef _LARGEFILE_SOURCE
-+      #define _LARGEFILE_SOURCE
-+   #endif
-+   #ifndef _LARGEFILE64_SOURCE
-+      #define _LARGEFILE64_SOURCE
-+   #endif
-+   #ifndef _FILE_OFFSET_BITS
-+      #define _FILE_OFFSET_BITS 64
-+   #endif
  #endif
  
  #include <stdio.h>
@@ -223,17 +213,6 @@ diff --strip-trailing-cr -urN minizip.orig/ioapi.h minizip/ioapi.h
  #if defined(USE_FILE32API)
  #define fopen64 fopen
  #define ftello64 ftell
-@@ -186,8 +214,8 @@
- 
- #define ZREAD64(filefunc,filestream,buf,size)     ((*((filefunc).zfile_func64.zread_file))   ((filefunc).zfile_func64.opaque,filestream,buf,size))
- #define ZWRITE64(filefunc,filestream,buf,size)    ((*((filefunc).zfile_func64.zwrite_file))  ((filefunc).zfile_func64.opaque,filestream,buf,size))
--//#define ZTELL64(filefunc,filestream)            ((*((filefunc).ztell64_file)) ((filefunc).opaque,filestream))
--//#define ZSEEK64(filefunc,filestream,pos,mode)   ((*((filefunc).zseek64_file)) ((filefunc).opaque,filestream,pos,mode))
-+/*#define ZTELL64(filefunc,filestream)            ((*((filefunc).ztell64_file)) ((filefunc).opaque,filestream))*/
-+/*#define ZSEEK64(filefunc,filestream,pos,mode)   ((*((filefunc).zseek64_file)) ((filefunc).opaque,filestream,pos,mode))*/
- #define ZCLOSE64(filefunc,filestream)             ((*((filefunc).zfile_func64.zclose_file))  ((filefunc).zfile_func64.opaque,filestream))
- #define ZERROR64(filefunc,filestream)             ((*((filefunc).zfile_func64.zerror_file))  ((filefunc).zfile_func64.opaque,filestream))
- 
 diff --strip-trailing-cr -urN minizip.orig/unzip.c minizip/unzip.c
 --- minizip.orig/unzip.c	2017-01-15 17:29:40.000000000 +0000
 +++ minizip/unzip.c	2017-10-04 00:20:46.000000000 +0000
@@ -507,15 +486,3 @@ diff --strip-trailing-cr -urN minizip.orig/zip.c minizip/zip.c
  
    if(pData == NULL || *dataLen < 4)
      return ZIP_PARAMERROR;
-diff --strip-trailing-cr -urN minizip.orig/zip.h minizip/zip.h
---- minizip.orig/zip.h	2017-01-15 17:29:40.000000000 +0000
-+++ minizip/zip.h	2017-08-13 18:56:42.000000000 +0000
-@@ -44,7 +44,7 @@
- extern "C" {
- #endif
- 
--//#define HAVE_BZIP2
-+/*#define HAVE_BZIP2*/
- 
- #ifndef _ZLIB_H
- #include "zlib.h"

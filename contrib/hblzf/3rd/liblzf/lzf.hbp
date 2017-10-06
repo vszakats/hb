@@ -20,7 +20,6 @@ lzf_d.c
 
 # ORIGIN http://oldhome.schmorp.de/marc/liblzf.html
 # URL    http://dist.schmorp.de/liblzf/liblzf-3.6.tar.gz
-# DIFF   lzf.diff
 #
 # MAP    LICENSE
 # MAP    crc32.h

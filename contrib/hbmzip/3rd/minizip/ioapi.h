@@ -26,19 +26,18 @@
     !(defined(OS_2) || defined(__OS2__) || defined(OS2)) && \
     !defined(__WATCOMC__)
 
-  /* Linux needs this to support file operation on files larger then 4+GB
-   * on 32bit platforms
-   * But might need better if/def to select just the platforms that needs them.
-   */
-   #ifndef _LARGEFILE_SOURCE
-      #define _LARGEFILE_SOURCE
-   #endif
-   #ifndef _LARGEFILE64_SOURCE
-      #define _LARGEFILE64_SOURCE
-   #endif
-   #ifndef _FILE_OFFSET_BITS
-      #define _FILE_OFFSET_BITS 64
-   #endif
+  // Linux needs this to support file operation on files larger then 4+GB
+  // But might need better if/def to select just the platforms that needs them.
+
+        #ifndef _LARGEFILE_SOURCE
+                #define _LARGEFILE_SOURCE
+        #endif
+        #ifndef _LARGEFILE64_SOURCE
+                #define _LARGEFILE64_SOURCE
+        #endif
+        #ifndef _FILE_OFFSET_BITS
+                #define _FILE_OFFSET_BITS 64
+        #endif
 #endif
 
 #include <stdio.h>
@@ -214,8 +213,8 @@ typedef struct zlib_filefunc64_32_def_s
 
 #define ZREAD64(filefunc,filestream,buf,size)     ((*((filefunc).zfile_func64.zread_file))   ((filefunc).zfile_func64.opaque,filestream,buf,size))
 #define ZWRITE64(filefunc,filestream,buf,size)    ((*((filefunc).zfile_func64.zwrite_file))  ((filefunc).zfile_func64.opaque,filestream,buf,size))
-/*#define ZTELL64(filefunc,filestream)            ((*((filefunc).ztell64_file)) ((filefunc).opaque,filestream))*/
-/*#define ZSEEK64(filefunc,filestream,pos,mode)   ((*((filefunc).zseek64_file)) ((filefunc).opaque,filestream,pos,mode))*/
+//#define ZTELL64(filefunc,filestream)            ((*((filefunc).ztell64_file)) ((filefunc).opaque,filestream))
+//#define ZSEEK64(filefunc,filestream,pos,mode)   ((*((filefunc).zseek64_file)) ((filefunc).opaque,filestream,pos,mode))
 #define ZCLOSE64(filefunc,filestream)             ((*((filefunc).zfile_func64.zclose_file))  ((filefunc).zfile_func64.opaque,filestream))
 #define ZERROR64(filefunc,filestream)             ((*((filefunc).zfile_func64.zerror_file))  ((filefunc).zfile_func64.opaque,filestream))
 

@@ -5,6 +5,8 @@
 
 -w3 -es2
 
+-cpp=no
+
 -stop{wce}
 
 -depurlbase=bzip2:http://bzip.org/
