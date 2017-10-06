@@ -5087,7 +5087,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
 
          IF hbmk[ _HBMK_cPLAT ] == "win"
             IF hbmk[ _HBMK_lWINUNI ]
-               AAdd( hbmk[ _HBMK_aOPTC ], "-DUNICODE" )
+               AAdd( hbmk[ _HBMK_aOPTC ], "-DUNICODE" )  /* for Win32 API */
+               AAdd( hbmk[ _HBMK_aOPTC ], "-D_UNICODE" )  /* for C runtime */
             ENDIF
 
             l_aLIBSYS := ArrayAJoin( { l_aLIBSYS, l_aLIBSYSCORE, l_aLIBSYSMISC } )
@@ -5388,7 +5389,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             AAdd( hbmk[ _HBMK_aOPTL ], "-o{OE}" )
          ENDIF
          IF hbmk[ _HBMK_lWINUNI ]
-            AAdd( hbmk[ _HBMK_aOPTC ], "-DUNICODE" )
+            AAdd( hbmk[ _HBMK_aOPTC ], "-DUNICODE" )  /* for Win32 API */
+            AAdd( hbmk[ _HBMK_aOPTC ], "-D_UNICODE" )  /* for C runtime */
          ENDIF
          IF hbmk[ _HBMK_cPLAT ] == "wce"
             AAdd( l_aLIBSYS, "mmtimer" )
@@ -5833,7 +5835,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          ENDIF
          IF hbmk[ _HBMK_cPLAT ] == "win"
             IF hbmk[ _HBMK_lWINUNI ]
-               AAdd( hbmk[ _HBMK_aOPTC ], "-DUNICODE" )
+               AAdd( hbmk[ _HBMK_aOPTC ], "-DUNICODE" )  /* for Win32 API */
+               AAdd( hbmk[ _HBMK_aOPTC ], "-D_UNICODE" )  /* for C runtime */
             ENDIF
          ENDIF
          DO CASE
@@ -5946,7 +5949,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             cLibBCC_CRTL := "cw32mt" + cLibExt
          ENDIF
          IF hbmk[ _HBMK_lWINUNI ]
-            AAdd( hbmk[ _HBMK_aOPTC ], "-DUNICODE" )
+            AAdd( hbmk[ _HBMK_aOPTC ], "-DUNICODE" )  /* for Win32 API */
+            AAdd( hbmk[ _HBMK_aOPTC ], "-D_UNICODE" )  /* for C runtime */
          ENDIF
          IF _HBMODE_IS_XHB( hbmk[ _HBMK_nHBMODE ] )
             /* Adding weird hack for xHarbour to make it possible to force ST C mode. */
@@ -6212,7 +6216,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             AAdd( hbmk[ _HBMK_aOPTD ], "-implib:{OI}" )
          ENDIF
          IF hbmk[ _HBMK_lWINUNI ]
-            AAdd( hbmk[ _HBMK_aOPTC ], "-DUNICODE" )
+            AAdd( hbmk[ _HBMK_aOPTC ], "-DUNICODE" )  /* for Win32 API */
+            AAdd( hbmk[ _HBMK_aOPTC ], "-D_UNICODE" )  /* for C runtime */
          ENDIF
          IF hbmk[ _HBMK_cPLAT ] == "wce"
             AAdd( l_aLIBSYS, "winmm" )
@@ -6318,7 +6323,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          cOpt_SymLst := "-symbols {LI}"
          cLibHBX_Regex := R_( "SECT[0-9A-Z][0-9A-Z ].*[Ee]xternal.*_?HB_FUN_([A-Z0-9_]*)[\s]" )
          IF hbmk[ _HBMK_lWINUNI ]
-            AAdd( hbmk[ _HBMK_aOPTC ], "-DUNICODE" )
+            AAdd( hbmk[ _HBMK_aOPTC ], "-DUNICODE" )  /* for Win32 API */
+            AAdd( hbmk[ _HBMK_aOPTC ], "-D_UNICODE" )  /* for C runtime */
          ENDIF
          IF hbmk[ _HBMK_cPLAT ] == "wce"
             AAdd( l_aLIBSYS, "winmm" )
@@ -18914,7 +18920,7 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
       { "-beep[-]"           , I_( "enable (or disable) single beep on successful exit, double beep on failure" ) }, ;
       { "-ignore[-]"         , I_( "ignore errors when running compiler tools (default: off)" ) }, ;
       { "-hbcppmm[-]"        , H_( "override standard C++ memory management functions with Harbour ones" ) }, ;
-      { "-winuni[-]"         , I_( "select between UNICODE (WIDE) and ANSI Windows API usage for C/C++ input files (default: ANSI) (Windows only. For WinCE it is always set to UNICODE)" ) }, ;
+      { "-winuni[-]"         , I_( "select between UNICODE (WIDE) and ANSI Windows API and C runtime usage for C/C++ input files (default: ANSI) (Windows only. For WinCE it is always set to UNICODE)" ) }, ;
       { "-nohblib[-]"        , H_( "do not use static core Harbour libraries when linking (default in -hbdyn mode or when neither .prg nor object files are specified as input)" ) }, ;
       { "-nodefgt[-]"        , H_( "do not link default GTs (effective in -static mode)" ) }, ;
       { "-nolibgrouping[-]"  , I_( "disable library grouping on gcc based compilers" ) }, ;

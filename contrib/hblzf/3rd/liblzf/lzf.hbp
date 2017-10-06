@@ -13,13 +13,14 @@
 -cflag=-DVERY_FAST=1
 -cflag=-DAVOID_ERRNO=1{wce}
 -cflag=-DWIN32{win}
+-cflag=-D_int64=__int64{mingw64&hb_comp_ver<'0501'}
 
 lzf_c.c
 lzf_d.c
 
 # ORIGIN http://oldhome.schmorp.de/marc/liblzf.html
 # URL    http://dist.schmorp.de/liblzf/liblzf-3.6.tar.gz
-# DIFF   liblzf.diff
+# DIFF   lzf.diff
 #
 # MAP    LICENSE
 # MAP    crc32.h

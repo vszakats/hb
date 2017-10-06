@@ -21,6 +21,7 @@ verify.c
 # DIFF   ed25519.diff
 #
 # MAP    license.txt
+# MAP    src/add_scalar.c    add_scalar.c
 # MAP    src/fe.c            fe.c
 # MAP    src/ge.c            ge.c
 # MAP    src/key_exchange.c  key_exchange.c

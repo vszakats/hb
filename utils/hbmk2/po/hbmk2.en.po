@@ -1623,7 +1623,7 @@ msgstr ""
 
 #: utils/hbmk2/hbmk2.prg:17463
 #, c-format
-msgid "select between UNICODE (WIDE) and ANSI Windows API usage for C/C++ input files (default: ANSI) (Windows only. For WinCE it is always set to UNICODE)"
+msgid "select between UNICODE (WIDE) and ANSI Windows API and C runtime usage for C/C++ input files (default: ANSI) (Windows only. For WinCE it is always set to UNICODE)"
 msgstr ""
 
 #: utils/hbmk2/hbmk2.prg:17463
