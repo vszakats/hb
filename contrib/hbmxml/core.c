@@ -1761,6 +1761,12 @@ static int custom_load_cb( mxml_node_t * node, const char * data )
    return 1;
 }
 
+static char * s_malloc_strdup( const char * pszText )
+{
+   size_t nLen = strlen( pszText ) + 1;
+   return memcpy( malloc( nLen ), pszText, nLen );
+}
+
 /* char * ( * mxml_custom_save_cb_t )( mxml_node_t * ) */
 
 static char * custom_save_cb( mxml_node_t * node )
@@ -1784,7 +1790,7 @@ static char * custom_save_cb( mxml_node_t * node )
          hb_vmSend( 1 );
 
          pszText   = hb_parstr_utf8( -1, &hText, NULL );
-         pszResult = pszText ? strdup( pszText ) : NULL;
+         pszResult = pszText ? s_malloc_strdup( pszText ) : NULL;
          hb_strfree( hText );
 
          hb_vmRequestRestore();
