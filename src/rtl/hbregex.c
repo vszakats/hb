@@ -252,11 +252,12 @@ HB_FUNC( HB_ATX )
          {
 #if defined( HB_HAS_PCRE2 )
             HB_REGMATCH * aMatches = pcre2_match_data_create( 1, NULL );
+
+            if( aMatches )
+            {
 #else
             HB_REGMATCH aMatches[ HB_REGMATCH_SIZE( 1 ) ];
 #endif
-            if( aMatches )
-            {
                const char * pszString = hb_itemGetCPtr( pString );
 
                if( nEnd < nLen )
@@ -279,10 +280,10 @@ HB_FUNC( HB_ATX )
 
 #if defined( HB_HAS_PCRE2 )
                pcre2_match_data_free( aMatches );
-#endif
             }
             else
                nStart = nLen = 0;
+#endif
          }
          else
             nStart = nLen = 0;

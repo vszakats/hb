@@ -1098,8 +1098,8 @@ Press `<Alt+D>` in the app.
 * open64   - Open64 C/C++
 
 ### darwin
-* gcc      - GNU C
 * clang    - Apple LLVM/Clang
+* gcc      - GNU C
 * icc      - Intel(R) C/C++
 
 ### bsd
@@ -1112,10 +1112,10 @@ Press `<Alt+D>` in the app.
 * gccarm   - GNU C ARM
 
 ### win
-* mingw    - MinGW GNU C (4.4.0 and above)
-* mingw64  - MinGW GNU C x86-64
 * clang    - LLVM/Clang
 * clang64  - LLVM/Clang x86-64
+* mingw    - MinGW GNU C (4.4.0 and above, 6.x or newer recommended)
+* mingw64  - MinGW GNU C x86-64
 * msvc     - Microsoft Visual C++ (2010 and above)
 * msvc64   - Microsoft Visual C++ x86-64 (2010 and above)
 
@@ -1290,20 +1290,20 @@ Supported shells per host platforms:
 
 * C/C++ Compilers/Shells:
 
-     * MinGW-w64 via MSYS2 [win, free software, open-source] (recommended)
-        * <https://msys2.github.io/>
-        * `pacman -S git base-devel msys2-devel mingw-w64-{i686,x86_64}-toolchain`
      * LLVM/Clang via MSYS2 [multi-platform, free software, open-source]
         * <https://msys2.github.io/>
         * MinGW-w64 above + `pacman -S mingw-w64-{i686,x86_64}-clang`
+     * LLVM/Clang [multi-platform, free software, open-source]
+        * <https://releases.llvm.org/>
+     * MinGW-w64 via MSYS2 [win, free software, open-source] (recommended)
+        * <https://msys2.github.io/>
+        * `pacman -S git base-devel msys2-devel mingw-w64-{i686,x86_64}-toolchain`
      * MinGW-w64 [win, \*nix, free software, open-source]
         * <https://mingw-w64.org/> <https://en.wikipedia.org/wiki/MinGW#MinGW-w64>
           * 64-bit: threads-posix, seh
             <https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/>
           * 32-bit: threads-posix, dwarf-2
             <https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/>
-     * LLVM/Clang [multi-platform, free software, open-source]
-        * <https://releases.llvm.org/>
      * Xcode / Command Line Tools for Xcode [darwin, zero price, proprietary with open-source components]
         * <https://itunes.apple.com/us/app/xcode/id497799835>
         * <https://developer.apple.com/downloads/> (needs login)
