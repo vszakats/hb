@@ -14,6 +14,10 @@
 
 {win}-cflag=-DWIN32
 {win|dos|os2}-cflag=-D_EOL_CRLF
+{allmsvc}-cflag=-D_CRT_SECURE_NO_DEPRECATE
+{allmsvc}-cflag=-D_CRT_SECURE_NO_WARNINGS
+-cflag=-DHAVE_LONG_LONG=1{!allbcc}
+-cflag=-DHB_USE_CORE_PRINTF
 
 mxml-attr.c
 mxml-entity.c

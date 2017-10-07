@@ -7,6 +7,8 @@
 
 -w3 -es2
 
+-cpp=no
+
 -depurlbase=mxml:https://michaelrsweet.github.io/mxml/
 -deppkgname=mxml:libmxml-dev{deb}
 -deppkgname=mxml:libmxml{homebrew}

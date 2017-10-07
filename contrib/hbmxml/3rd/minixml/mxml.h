@@ -21,12 +21,9 @@
 #ifndef _mxml_h_
 #  define _mxml_h_
 
-#include "config.h"
-
 /*
  * Include necessary headers...
  */
-
 #  include <stdio.h>
 #  include <stdlib.h>
 #  include <string.h>
@@ -34,13 +31,14 @@
 #  if defined( UNDER_CE ) || defined( __CEGCC__ ) || defined( __MINGW32CE__ ) || \
       defined( _WINCE )
 #     include <io.h>
-#     if !defined( UNDER_CE )
+#     if ! defined( UNDER_CE )
 #        define UNDER_CE
 #     endif
-#     define strerror(e)      ""
+#     define strerror( e )  ""
 #  else
 #     include <errno.h>
 #  endif
+
 
 /*
  * Constants...

@@ -1,6 +1,6 @@
 diff --strip-trailing-cr -urN minixml.orig/config.h minixml/config.h
 --- minixml.orig/config.h	2014-01-04 21:50:06.000000000 +0000
-+++ minixml/config.h	2017-03-21 18:31:18.000000000 +0000
++++ minixml/config.h	2017-10-07 11:59:44.000000000 +0000
 @@ -18,12 +18,30 @@
   * Include necessary headers...
   */
@@ -10,48 +10,48 @@ diff --strip-trailing-cr -urN minixml.orig/config.h minixml/config.h
 -#include <string.h>
 -#include <stdarg.h>
 -#include <ctype.h>
-+#define _CRT_SECURE_NO_DEPRECATE
-+#define _CRT_SECURE_NO_WARNINGS
- 
-+#include "hbdefs.h"
-+#include "hb_io.h"
-+
 +#include "hbapi.h"
-+#define HAVE_SNPRINTF 1
-+#undef snprintf
-+#define snprintf hb_snprintf
-+
-+#define HAVE_VSNPRINTF 1
-+#undef vsnprintf
-+#define vsnprintf hb_vsnprintf
-+
++#include "hb_io.h"
+ 
 +#if defined ( _MSC_VER )
 +#define close      _close
 +#define open       _open
 +#define read       _read
-+/* #define snprintf   _snprintf */
++#undef snprintf
++#define snprintf   _snprintf
 +#define strdup     _strdup
-+/* #define vsnprintf  _vsnprintf */
++#undef vsnprintf
++#define vsnprintf  _vsnprintf
 +#define write      _write
++#endif
++
++#ifdef HB_USE_CORE_PRINTF
++#  define HAVE_SNPRINTF  1
++#  undef snprintf
++#  define snprintf  hb_snprintf
++
++#  define HAVE_VSNPRINTF  1
++#  undef vsnprintf
++#  define vsnprintf  hb_vsnprintf
 +#endif
  
  /*
   * Version number...
-@@ -36,44 +54,51 @@
+@@ -36,36 +54,46 @@
   * Inline function support...
   */
  
--#define inline
-+/* #define inline */
++#if 0
+ #define inline
++#endif
  
  
  /*
   * Long long support...
   */
  
--#undef HAVE_LONG_LONG
-+#ifndef __BORLANDC__
-+#define HAVE_LONG_LONG 1
++#if 0
+ #undef HAVE_LONG_LONG
 +#endif
  
  
@@ -59,43 +59,40 @@ diff --strip-trailing-cr -urN minixml.orig/config.h minixml/config.h
   * Do we have the snprintf() and vsnprintf() functions?
   */
  
--#undef HAVE_SNPRINTF
--#undef HAVE_VSNPRINTF
-+/* #define HAVE_SNPRINTF 1 */
-+/* #define HAVE_VSNPRINTF 1 */
++#if 0
+ #undef HAVE_SNPRINTF
+ #undef HAVE_VSNPRINTF
++#endif
  
  
  /*
   * Do we have the strXXX() functions?
   */
  
--#undef HAVE_STRDUP
-+/* #define HAVE_STRDUP 1 */
++#if 0
+ #undef HAVE_STRDUP
++#endif
  
  
  /*
   * Do we have threading support?
   */
  
--#undef HAVE_PTHREAD_H
-+/* #undef HAVE_PTHREAD_H */
++#if 0
+ #undef HAVE_PTHREAD_H
++#endif
  
  
  /*
-  * Define prototypes for string functions as needed...
-  */
+@@ -74,6 +102,7 @@
  
-+#  ifdef __cplusplus
-+extern "C" {
-+#  endif /* __cplusplus */
-+
  #  ifndef HAVE_STRDUP
  extern char	*_mxml_strdup(const char *);
 +#    undef strdup
  #    define strdup _mxml_strdup
  #  endif /* !HAVE_STRDUP */
  
-@@ -82,14 +107,20 @@
+@@ -82,11 +111,13 @@
  
  #  ifndef HAVE_SNPRINTF
  extern int	_mxml_snprintf(char *, size_t, const char *, ...);
@@ -109,27 +106,9 @@ diff --strip-trailing-cr -urN minixml.orig/config.h minixml/config.h
  #    define vsnprintf _mxml_vsnprintf
  #  endif /* !HAVE_VSNPRINTF */
  
-+#  ifdef __cplusplus
-+}
-+#  endif /* __cplusplus */
-+
- /*
-  * End of "$Id: config.h.in 451 2014-01-04 21:50:06Z msweet $".
-  */
-diff --strip-trailing-cr -urN minixml.orig/mxml-attr.c minixml/mxml-attr.c
---- minixml.orig/mxml-attr.c	2014-01-04 21:50:06.000000000 +0000
-+++ minixml/mxml-attr.c	2017-03-21 18:31:18.000000000 +0000
-@@ -18,7 +18,6 @@
-  * Include necessary headers...
-  */
- 
--#include "config.h"
- #include "mxml.h"
- 
- 
 diff --strip-trailing-cr -urN minixml.orig/mxml-file.c minixml/mxml-file.c
 --- minixml.orig/mxml-file.c	2016-06-13 00:51:16.000000000 +0000
-+++ minixml/mxml-file.c	2017-03-21 18:31:18.000000000 +0000
++++ minixml/mxml-file.c	2017-03-21 21:20:46.000000000 +0000
 @@ -71,7 +71,7 @@
  static int		mxml_get_entity(mxml_node_t *parent, void *p,
  			                int *encoding,
@@ -228,40 +207,10 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-file.c minixml/mxml-file.c
  	      if ((*putc_cb)('\n', p) < 0)
  		return (-1);
  
-diff --strip-trailing-cr -urN minixml.orig/mxml-get.c minixml/mxml-get.c
---- minixml.orig/mxml-get.c	2014-01-04 21:50:06.000000000 +0000
-+++ minixml/mxml-get.c	2017-03-21 18:31:18.000000000 +0000
-@@ -18,7 +18,6 @@
-  * Include necessary headers...
-  */
- 
--#include "config.h"
- #include "mxml.h"
- 
- 
-diff --strip-trailing-cr -urN minixml.orig/mxml-index.c minixml/mxml-index.c
---- minixml.orig/mxml-index.c	2014-01-04 21:50:06.000000000 +0000
-+++ minixml/mxml-index.c	2017-03-21 18:31:18.000000000 +0000
-@@ -18,7 +18,6 @@
-  * Include necessary headers...
-  */
- 
--#include "config.h"
- #include "mxml.h"
- 
- 
 diff --strip-trailing-cr -urN minixml.orig/mxml-node.c minixml/mxml-node.c
 --- minixml.orig/mxml-node.c	2016-06-11 20:51:49.000000000 +0000
-+++ minixml/mxml-node.c	2017-03-21 18:31:18.000000000 +0000
-@@ -18,7 +18,6 @@
-  * Include necessary headers...
-  */
- 
--#include "config.h"
- #include "mxml.h"
- 
- 
-@@ -178,10 +177,6 @@
++++ minixml/mxml-node.c	2017-10-07 11:27:21.000000000 +0000
+@@ -178,10 +178,6 @@
  void
  mxmlDelete(mxml_node_t *node)		/* I - Node to delete */
  {
@@ -272,7 +221,7 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-node.c minixml/mxml-node.c
  #ifdef DEBUG
    fprintf(stderr, "mxmlDelete(node=%p)\n", node);
  #endif /* DEBUG */
-@@ -203,43 +198,11 @@
+@@ -203,43 +199,11 @@
    * Delete children...
    */
  
@@ -320,39 +269,10 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-node.c minixml/mxml-node.c
    }
  
   /*
-diff --strip-trailing-cr -urN minixml.orig/mxml-private.h minixml/mxml-private.h
---- minixml.orig/mxml-private.h	2014-01-04 21:50:06.000000000 +0000
-+++ minixml/mxml-private.h	2017-03-21 18:31:18.000000000 +0000
-@@ -18,7 +18,6 @@
-  * Include necessary headers...
-  */
- 
--#include "config.h"
- #include "mxml.h"
- 
- 
-diff --strip-trailing-cr -urN minixml.orig/mxml-search.c minixml/mxml-search.c
---- minixml.orig/mxml-search.c	2014-01-04 21:50:06.000000000 +0000
-+++ minixml/mxml-search.c	2017-03-21 18:31:18.000000000 +0000
-@@ -19,7 +19,6 @@
-  * Include necessary headers...
-  */
- 
--#include "config.h"
- #include "mxml.h"
- 
- 
 diff --strip-trailing-cr -urN minixml.orig/mxml-set.c minixml/mxml-set.c
 --- minixml.orig/mxml-set.c	2014-01-04 21:50:06.000000000 +0000
-+++ minixml/mxml-set.c	2017-03-21 18:31:18.000000000 +0000
-@@ -18,14 +18,13 @@
-  * Include necessary headers...
-  */
- 
--#include "config.h"
- #include "mxml.h"
- 
- 
++++ minixml/mxml-set.c	2017-10-07 11:27:31.000000000 +0000
+@@ -25,7 +25,7 @@
  /*
   * 'mxmlSetCDATA()' - Set the element name of a CDATA node.
   *
@@ -361,7 +281,7 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-set.c minixml/mxml-set.c
   *
   * @since Mini-XML 2.3@
   */
-@@ -38,12 +37,6 @@
+@@ -38,12 +38,6 @@
    * Range check input...
    */
  
@@ -374,7 +294,7 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-set.c minixml/mxml-set.c
    if (!node || node->type != MXML_ELEMENT || !data ||
        strncmp(node->value.element.name, "![CDATA[", 8))
      return (-1);
-@@ -64,7 +57,7 @@
+@@ -64,7 +58,7 @@
  /*
   * 'mxmlSetCustom()' - Set the data and destructor of a custom data node.
   *
@@ -383,7 +303,7 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-set.c minixml/mxml-set.c
   *
   * @since Mini-XML 2.1@
   */
-@@ -79,10 +72,6 @@
+@@ -79,10 +73,6 @@
    * Range check input...
    */
  
@@ -394,7 +314,7 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-set.c minixml/mxml-set.c
    if (!node || node->type != MXML_CUSTOM)
      return (-1);
  
-@@ -133,7 +122,7 @@
+@@ -133,7 +123,7 @@
  /*
   * 'mxmlSetInteger()' - Set the value of an integer node.
   *
@@ -403,7 +323,7 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-set.c minixml/mxml-set.c
   */
  
  int					/* O - 0 on success, -1 on failure */
-@@ -144,10 +133,6 @@
+@@ -144,10 +134,6 @@
    * Range check input...
    */
  
@@ -414,7 +334,7 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-set.c minixml/mxml-set.c
    if (!node || node->type != MXML_INTEGER)
      return (-1);
  
-@@ -164,7 +149,7 @@
+@@ -164,7 +150,7 @@
  /*
   * 'mxmlSetOpaque()' - Set the value of an opaque node.
   *
@@ -423,7 +343,7 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-set.c minixml/mxml-set.c
   */
  
  int					/* O - 0 on success, -1 on failure */
-@@ -175,10 +160,6 @@
+@@ -175,10 +161,6 @@
    * Range check input...
    */
  
@@ -434,7 +354,7 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-set.c minixml/mxml-set.c
    if (!node || node->type != MXML_OPAQUE || !opaque)
      return (-1);
  
-@@ -198,7 +179,7 @@
+@@ -198,7 +180,7 @@
  /*
   * 'mxmlSetReal()' - Set the value of a real number node.
   *
@@ -443,7 +363,7 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-set.c minixml/mxml-set.c
   */
  
  int					/* O - 0 on success, -1 on failure */
-@@ -209,10 +190,6 @@
+@@ -209,10 +191,6 @@
    * Range check input...
    */
  
@@ -454,7 +374,7 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-set.c minixml/mxml-set.c
    if (!node || node->type != MXML_REAL)
      return (-1);
  
-@@ -229,7 +206,7 @@
+@@ -229,7 +207,7 @@
  /*
   * 'mxmlSetText()' - Set the value of a text node.
   *
@@ -463,7 +383,7 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-set.c minixml/mxml-set.c
   */
  
  int					/* O - 0 on success, -1 on failure */
-@@ -241,10 +218,6 @@
+@@ -241,10 +219,6 @@
    * Range check input...
    */
  
@@ -474,7 +394,7 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-set.c minixml/mxml-set.c
    if (!node || node->type != MXML_TEXT || !string)
      return (-1);
  
-@@ -265,7 +238,7 @@
+@@ -265,7 +239,7 @@
  /*
   * 'mxmlSetTextf()' - Set the value of a text node to a formatted string.
   *
@@ -483,7 +403,7 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-set.c minixml/mxml-set.c
   */
  
  int					/* O - 0 on success, -1 on failure */
-@@ -281,10 +254,6 @@
+@@ -281,10 +255,6 @@
    * Range check input...
    */
  
@@ -496,13 +416,10 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-set.c minixml/mxml-set.c
  
 diff --strip-trailing-cr -urN minixml.orig/mxml-string.c minixml/mxml-string.c
 --- minixml.orig/mxml-string.c	2014-01-05 03:25:07.000000000 +0000
-+++ minixml/mxml-string.c	2017-03-21 18:31:18.000000000 +0000
-@@ -18,8 +18,11 @@
-  * Include necessary headers...
-  */
++++ minixml/mxml-string.c	2017-10-07 11:36:41.000000000 +0000
+@@ -20,6 +20,9 @@
  
--#include "config.h"
-+#include "mxml.h"
+ #include "config.h"
  
 +#ifndef HAVE_VSNPRINTF
 +#  include <ctype.h>
@@ -512,32 +429,27 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-string.c minixml/mxml-string.c
   * The va_copy macro is part of C99, but many compilers don't implement it.
 diff --strip-trailing-cr -urN minixml.orig/mxml.h minixml/mxml.h
 --- minixml.orig/mxml.h	2016-06-12 21:16:14.000000000 +0000
-+++ minixml/mxml.h	2017-03-21 18:31:18.000000000 +0000
-@@ -21,6 +21,8 @@
- #ifndef _mxml_h_
- #  define _mxml_h_
- 
-+#include "config.h"
-+
++++ minixml/mxml.h	2017-10-07 12:05:07.000000000 +0000
+@@ -24,12 +24,20 @@
  /*
   * Include necessary headers...
   */
-@@ -29,8 +31,16 @@
+-
+ #  include <stdio.h>
  #  include <stdlib.h>
  #  include <string.h>
  #  include <ctype.h>
 -#  include <errno.h>
--
 +#  if defined( UNDER_CE ) || defined( __CEGCC__ ) || defined( __MINGW32CE__ ) || \
 +      defined( _WINCE )
 +#     include <io.h>
-+#     if !defined( UNDER_CE )
++#     if ! defined( UNDER_CE )
 +#        define UNDER_CE
 +#     endif
-+#     define strerror(e)      ""
++#     define strerror( e )  ""
 +#  else
 +#     include <errno.h>
 +#  endif
  
+ 
  /*
-  * Constants...

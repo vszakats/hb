@@ -18,29 +18,29 @@
  * Include necessary headers...
  */
 
-#define _CRT_SECURE_NO_DEPRECATE
-#define _CRT_SECURE_NO_WARNINGS
-
-#include "hbdefs.h"
-#include "hb_io.h"
-
 #include "hbapi.h"
-#define HAVE_SNPRINTF 1
-#undef snprintf
-#define snprintf hb_snprintf
-
-#define HAVE_VSNPRINTF 1
-#undef vsnprintf
-#define vsnprintf hb_vsnprintf
+#include "hb_io.h"
 
 #if defined ( _MSC_VER )
 #define close      _close
 #define open       _open
 #define read       _read
-/* #define snprintf   _snprintf */
+#undef snprintf
+#define snprintf   _snprintf
 #define strdup     _strdup
-/* #define vsnprintf  _vsnprintf */
+#undef vsnprintf
+#define vsnprintf  _vsnprintf
 #define write      _write
+#endif
+
+#ifdef HB_USE_CORE_PRINTF
+#  define HAVE_SNPRINTF  1
+#  undef snprintf
+#  define snprintf  hb_snprintf
+
+#  define HAVE_VSNPRINTF  1
+#  undef vsnprintf
+#  define vsnprintf  hb_vsnprintf
 #endif
 
 /*
@@ -54,15 +54,17 @@
  * Inline function support...
  */
 
-/* #define inline */
+#if 0
+#define inline
+#endif
 
 
 /*
  * Long long support...
  */
 
-#ifndef __BORLANDC__
-#define HAVE_LONG_LONG 1
+#if 0
+#undef HAVE_LONG_LONG
 #endif
 
 
@@ -70,31 +72,33 @@
  * Do we have the snprintf() and vsnprintf() functions?
  */
 
-/* #define HAVE_SNPRINTF 1 */
-/* #define HAVE_VSNPRINTF 1 */
+#if 0
+#undef HAVE_SNPRINTF
+#undef HAVE_VSNPRINTF
+#endif
 
 
 /*
  * Do we have the strXXX() functions?
  */
 
-/* #define HAVE_STRDUP 1 */
+#if 0
+#undef HAVE_STRDUP
+#endif
 
 
 /*
  * Do we have threading support?
  */
 
-/* #undef HAVE_PTHREAD_H */
+#if 0
+#undef HAVE_PTHREAD_H
+#endif
 
 
 /*
  * Define prototypes for string functions as needed...
  */
-
-#  ifdef __cplusplus
-extern "C" {
-#  endif /* __cplusplus */
 
 #  ifndef HAVE_STRDUP
 extern char	*_mxml_strdup(const char *);
@@ -116,10 +120,6 @@ extern int	_mxml_vsnprintf(char *, size_t, const char *, va_list);
 #    undef vsnprintf
 #    define vsnprintf _mxml_vsnprintf
 #  endif /* !HAVE_VSNPRINTF */
-
-#  ifdef __cplusplus
-}
-#  endif /* __cplusplus */
 
 /*
  * End of "$Id: config.h.in 451 2014-01-04 21:50:06Z msweet $".

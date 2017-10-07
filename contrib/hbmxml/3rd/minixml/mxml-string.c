@@ -18,7 +18,7 @@
  * Include necessary headers...
  */
 
-#include "mxml.h"
+#include "config.h"
 
 #ifndef HAVE_VSNPRINTF
 #  include <ctype.h>
