@@ -22,16 +22,8 @@ diff --strip-trailing-cr -urN minizip.orig/crypt.h minizip/crypt.h
      for (n = 0; n < RAND_HEAD_LEN-2; n++)
 diff --strip-trailing-cr -urN minizip.orig/ioapi.c minizip/ioapi.c
 --- minizip.orig/ioapi.c	2017-01-15 17:29:40.000000000 +0000
-+++ minizip/ioapi.c	2017-08-23 16:27:37.000000000 +0000
-@@ -27,6 +27,7 @@
- 
- 
- #include "ioapi.h"
-+#include "hbapifs.h"
- 
- voidpf call_zopen64 (const zlib_filefunc64_32_def* pfilefunc,const void*filename,int mode)
- {
-@@ -96,6 +97,9 @@
++++ minizip/ioapi.c	2017-10-07 11:01:43.000000000 +0000
+@@ -96,6 +96,9 @@
  {
      FILE* file = NULL;
      const char* mode_fopen = NULL;
@@ -41,7 +33,7 @@ diff --strip-trailing-cr -urN minizip.orig/ioapi.c minizip/ioapi.c
      if ((mode & ZLIB_FILEFUNC_MODE_READWRITEFILTER)==ZLIB_FILEFUNC_MODE_READ)
          mode_fopen = "rb";
      else
-@@ -114,6 +118,9 @@
+@@ -114,6 +117,9 @@
  {
      FILE* file = NULL;
      const char* mode_fopen = NULL;
@@ -51,7 +43,7 @@ diff --strip-trailing-cr -urN minizip.orig/ioapi.c minizip/ioapi.c
      if ((mode & ZLIB_FILEFUNC_MODE_READWRITEFILTER)==ZLIB_FILEFUNC_MODE_READ)
          mode_fopen = "rb";
      else
-@@ -132,6 +139,9 @@
+@@ -132,6 +138,9 @@
  static uLong ZCALLBACK fread_file_func (voidpf opaque, voidpf stream, void* buf, uLong size)
  {
      uLong ret;
@@ -61,7 +53,7 @@ diff --strip-trailing-cr -urN minizip.orig/ioapi.c minizip/ioapi.c
      ret = (uLong)fread(buf, 1, (size_t)size, (FILE *)stream);
      return ret;
  }
-@@ -139,6 +149,9 @@
+@@ -139,6 +148,9 @@
  static uLong ZCALLBACK fwrite_file_func (voidpf opaque, voidpf stream, const void* buf, uLong size)
  {
      uLong ret;
@@ -71,7 +63,7 @@ diff --strip-trailing-cr -urN minizip.orig/ioapi.c minizip/ioapi.c
      ret = (uLong)fwrite(buf, 1, (size_t)size, (FILE *)stream);
      return ret;
  }
-@@ -146,6 +159,9 @@
+@@ -146,6 +158,9 @@
  static long ZCALLBACK ftell_file_func (voidpf opaque, voidpf stream)
  {
      long ret;
@@ -81,7 +73,7 @@ diff --strip-trailing-cr -urN minizip.orig/ioapi.c minizip/ioapi.c
      ret = ftell((FILE *)stream);
      return ret;
  }
-@@ -154,14 +170,20 @@
+@@ -154,14 +169,20 @@
  static ZPOS64_T ZCALLBACK ftell64_file_func (voidpf opaque, voidpf stream)
  {
      ZPOS64_T ret;
@@ -103,7 +95,7 @@ diff --strip-trailing-cr -urN minizip.orig/ioapi.c minizip/ioapi.c
      switch (origin)
      {
      case ZLIB_FILEFUNC_SEEK_CUR :
-@@ -183,8 +205,11 @@
+@@ -183,8 +204,11 @@
  
  static long ZCALLBACK fseek64_file_func (voidpf  opaque, voidpf stream, ZPOS64_T offset, int origin)
  {
@@ -116,7 +108,7 @@ diff --strip-trailing-cr -urN minizip.orig/ioapi.c minizip/ioapi.c
      switch (origin)
      {
      case ZLIB_FILEFUNC_SEEK_CUR :
-@@ -210,6 +235,9 @@
+@@ -210,6 +234,9 @@
  static int ZCALLBACK fclose_file_func (voidpf opaque, voidpf stream)
  {
      int ret;
@@ -126,7 +118,7 @@ diff --strip-trailing-cr -urN minizip.orig/ioapi.c minizip/ioapi.c
      ret = fclose((FILE *)stream);
      return ret;
  }
-@@ -217,12 +245,14 @@
+@@ -217,12 +244,14 @@
  static int ZCALLBACK ferror_file_func (voidpf opaque, voidpf stream)
  {
      int ret;
@@ -145,8 +137,8 @@ diff --strip-trailing-cr -urN minizip.orig/ioapi.c minizip/ioapi.c
      pzlib_filefunc_def->zread_file = fread_file_func;
 diff --strip-trailing-cr -urN minizip.orig/ioapi.h minizip/ioapi.h
 --- minizip.orig/ioapi.h	2017-01-15 17:29:40.000000000 +0000
-+++ minizip/ioapi.h	2017-10-06 18:52:32.000000000 +0000
-@@ -21,30 +21,57 @@
++++ minizip/ioapi.h	2017-10-07 10:40:41.000000000 +0000
+@@ -21,22 +21,22 @@
  #ifndef _ZLIBIOAPI64_H
  #define _ZLIBIOAPI64_H
  
@@ -175,10 +167,9 @@ diff --strip-trailing-cr -urN minizip.orig/ioapi.h minizip/ioapi.h
 +        #ifndef _FILE_OFFSET_BITS
 +                #define _FILE_OFFSET_BITS 64
          #endif
--
- #endif
  
- #include <stdio.h>
+ #endif
+@@ -45,6 +45,34 @@
  #include <stdlib.h>
  #include "zlib.h"
  
@@ -215,8 +206,8 @@ diff --strip-trailing-cr -urN minizip.orig/ioapi.h minizip/ioapi.h
  #define ftello64 ftell
 diff --strip-trailing-cr -urN minizip.orig/unzip.c minizip/unzip.c
 --- minizip.orig/unzip.c	2017-01-15 17:29:40.000000000 +0000
-+++ minizip/unzip.c	2017-10-04 00:20:46.000000000 +0000
-@@ -68,13 +68,28 @@
++++ minizip/unzip.c	2017-10-07 11:08:07.000000000 +0000
+@@ -68,13 +68,29 @@
  #include <stdlib.h>
  #include <string.h>
  
@@ -233,19 +224,20 @@ diff --strip-trailing-cr -urN minizip.orig/unzip.c minizip/unzip.c
 +#  define z_crc_t unsigned long
 +#endif
 +
-+#include "hbapi.h"      /* for hb_xgrab()/hb_xfree() */
-+
-+#ifndef ALLOC
-+# define ALLOC(size) hb_xgrab(size)
-+#endif
-+#ifndef TRYFREE
-+# define TRYFREE(p) do {if (p) hb_xfree(p);} while( 0 )
++#ifdef HB_USE_CORE_ALLOC
++#  include "hbapi.h"
++#  ifndef ALLOC
++#    define ALLOC(size) hb_xgrab(size)
++#  endif
++#  ifndef TRYFREE
++#    define TRYFREE(p) do {if (p) hb_xfree(p);} while( 0 )
++#  endif
 +#endif
 +
  #ifdef STDC
  #  include <stddef.h>
  #  include <string.h>
-@@ -1038,8 +1053,6 @@
+@@ -1038,8 +1054,6 @@
              /* ZIP64 extra fields */
              if (headerId == 0x0001)
              {
@@ -254,7 +246,7 @@ diff --strip-trailing-cr -urN minizip.orig/unzip.c minizip/unzip.c
                                                                  if(file_info.uncompressed_size == MAXU32)
                                                                  {
                                                                          if (unz64local_getLong64(&s->z_filefunc, s->filestream,&file_info.uncompressed_size) != UNZ_OK)
-@@ -1090,19 +1103,14 @@
+@@ -1090,19 +1104,14 @@
  
          if (lSeek!=0)
          {
@@ -275,7 +267,7 @@ diff --strip-trailing-cr -urN minizip.orig/unzip.c minizip/unzip.c
  
  
      if ((err==UNZ_OK) && (pfile_info!=NULL))
-@@ -1177,7 +1185,7 @@
+@@ -1177,7 +1186,7 @@
  */
  extern int ZEXPORT unzGoToFirstFile (unzFile file)
  {
@@ -284,7 +276,7 @@ diff --strip-trailing-cr -urN minizip.orig/unzip.c minizip/unzip.c
      unz64_s* s;
      if (file==NULL)
          return UNZ_PARAMERROR;
-@@ -1472,7 +1480,7 @@
+@@ -1472,7 +1481,7 @@
  extern int ZEXPORT unzOpenCurrentFile3 (unzFile file, int* method,
                                              int* level, int raw, const char* password)
  {
@@ -293,7 +285,7 @@ diff --strip-trailing-cr -urN minizip.orig/unzip.c minizip/unzip.c
      uInt iSizeVar;
      unz64_s* s;
      file_in_zip64_read_info_s* pfile_in_zip_read_info;
-@@ -1529,6 +1537,7 @@
+@@ -1529,6 +1538,7 @@
          }
      }
  
@@ -301,7 +293,7 @@ diff --strip-trailing-cr -urN minizip.orig/unzip.c minizip/unzip.c
      if ((s->cur_file_info.compression_method!=0) &&
  /* #ifdef HAVE_BZIP2 */
          (s->cur_file_info.compression_method!=Z_BZIP2ED) &&
-@@ -1536,6 +1545,7 @@
+@@ -1536,6 +1546,7 @@
          (s->cur_file_info.compression_method!=Z_DEFLATED))
  
          err=UNZ_BADZIPFILE;
@@ -311,8 +303,8 @@ diff --strip-trailing-cr -urN minizip.orig/unzip.c minizip/unzip.c
      pfile_in_zip_read_info->crc32=0;
 diff --strip-trailing-cr -urN minizip.orig/zip.c minizip/zip.c
 --- minizip.orig/zip.c	2017-01-15 17:29:40.000000000 +0000
-+++ minizip/zip.c	2017-10-04 00:19:37.000000000 +0000
-@@ -29,16 +29,31 @@
++++ minizip/zip.c	2017-10-07 11:08:14.000000000 +0000
+@@ -29,16 +29,32 @@
  #include "zlib.h"
  #include "zip.h"
  
@@ -320,13 +312,14 @@ diff --strip-trailing-cr -urN minizip.orig/zip.c minizip/zip.c
 +#  define z_crc_t unsigned long
 +#endif
 +
-+#include "hbapi.h"      /* for hb_xgrab()/hb_xfree() */
-+
-+#ifndef ALLOC
-+# define ALLOC(size) hb_xgrab(size)
-+#endif
-+#ifndef TRYFREE
-+# define TRYFREE(p) do {if (p) hb_xfree(p);} while( 0 )
++#ifdef HB_USE_CORE_ALLOC
++#  include "hbapi.h"
++#  ifndef ALLOC
++#    define ALLOC(size) hb_xgrab(size)
++#  endif
++#  ifndef TRYFREE
++#    define TRYFREE(p) do {if (p) hb_xfree(p);} while( 0 )
++#  endif
 +#endif
 +
  #ifdef STDC
@@ -344,11 +337,11 @@ diff --strip-trailing-cr -urN minizip.orig/zip.c minizip/zip.c
  
  
  #ifndef local
-@@ -186,6 +201,12 @@
+@@ -186,6 +202,12 @@
  #include "crypt.h"
  #endif
  
-+/* Forward definitions */
++/* Forward declarations */
 +local linkedlist_datablock_internal* allocate_new_datablock( void );
 +local void free_datablock( linkedlist_datablock_internal* ldi );
 +local void init_linkedlist( linkedlist_data* ll );
@@ -357,7 +350,7 @@ diff --strip-trailing-cr -urN minizip.orig/zip.c minizip/zip.c
  local linkedlist_datablock_internal* allocate_new_datablock()
  {
      linkedlist_datablock_internal* ldi;
-@@ -1034,10 +1055,10 @@
+@@ -1034,10 +1056,10 @@
        // Remember position of Zip64 extended info for the local file header. (needed when we update size after done with file)
        zi->ci.pos_zip64extrainfo = ZTELL64(zi->z_filefunc,zi->filestream);
  
@@ -371,7 +364,7 @@ diff --strip-trailing-cr -urN minizip.orig/zip.c minizip/zip.c
        err = zip64local_putValue(&zi->z_filefunc, zi->filestream, (ZPOS64_T)CompressedSize,8);
    }
  
-@@ -1064,7 +1085,7 @@
+@@ -1064,7 +1086,7 @@
      uInt size_filename;
      uInt size_comment;
      uInt i;
@@ -380,7 +373,7 @@ diff --strip-trailing-cr -urN minizip.orig/zip.c minizip/zip.c
  
  #    ifdef NOCRYPT
      (crcForCrypting);
-@@ -1370,7 +1391,7 @@
+@@ -1370,7 +1392,7 @@
          uInt i;
          int t;
          for (i=0;i<zi->ci.pos_in_buffered_data;i++)
@@ -389,7 +382,7 @@ diff --strip-trailing-cr -urN minizip.orig/zip.c minizip/zip.c
  #endif
      }
  
-@@ -1471,11 +1492,13 @@
+@@ -1471,11 +1493,13 @@
            {
                uLong uTotalOutBefore = zi->ci.stream.total_out;
                err=deflate(&zi->ci.stream,  Z_NO_FLUSH);
@@ -403,7 +396,7 @@ diff --strip-trailing-cr -urN minizip.orig/zip.c minizip/zip.c
  
                zi->ci.pos_in_buffered_data += (uInt)(zi->ci.stream.total_out - uTotalOutBefore) ;
            }
-@@ -1534,8 +1557,7 @@
+@@ -1534,8 +1558,7 @@
                                  uLong uTotalOutBefore;
                                  if (zi->ci.stream.avail_out == 0)
                                  {
@@ -413,7 +406,7 @@ diff --strip-trailing-cr -urN minizip.orig/zip.c minizip/zip.c
                                          zi->ci.stream.avail_out = (uInt)Z_BUFSIZE;
                                          zi->ci.stream.next_out = zi->ci.buffered_data;
                                  }
-@@ -1649,7 +1671,7 @@
+@@ -1649,7 +1672,7 @@
  
      if(datasize > 0)
      {
@@ -422,7 +415,7 @@ diff --strip-trailing-cr -urN minizip.orig/zip.c minizip/zip.c
  
        if((uLong)(datasize + 4) > zi->ci.size_centralExtraFree)
        {
-@@ -1680,7 +1702,9 @@
+@@ -1680,7 +1703,9 @@
        if(zi->ci.pos_local_header >= 0xffffffff)
        {
          zip64local_putValue_inmemory(p, zi->ci.pos_local_header, 8);
@@ -432,7 +425,7 @@ diff --strip-trailing-cr -urN minizip.orig/zip.c minizip/zip.c
        }
  
        // Update how much extra free space we got in the memory buffer
-@@ -1697,7 +1721,7 @@
+@@ -1697,7 +1722,7 @@
      if (err==ZIP_OK)
          err = add_data_in_datablock(&zi->central_dir, zi->ci.central_header, (uLong)zi->ci.size_centralheader);
  
@@ -441,7 +434,7 @@ diff --strip-trailing-cr -urN minizip.orig/zip.c minizip/zip.c
  
      if (err==ZIP_OK)
      {
-@@ -1754,7 +1778,7 @@
+@@ -1754,7 +1779,7 @@
  
  int Write_Zip64EndOfCentralDirectoryLocator(zip64_internal* zi, ZPOS64_T zip64eocd_pos_inzip)
  {
@@ -450,7 +443,7 @@ diff --strip-trailing-cr -urN minizip.orig/zip.c minizip/zip.c
    ZPOS64_T pos = zip64eocd_pos_inzip - zi->add_position_when_writing_offset;
  
    err = zip64local_putValue(&zi->z_filefunc,zi->filestream,(uLong)ZIP64ENDLOCHEADERMAGIC,4);
-@@ -1776,7 +1800,7 @@
+@@ -1776,7 +1801,7 @@
  
  int Write_Zip64EndOfCentralDirectoryRecord(zip64_internal* zi, uLong size_centraldir, ZPOS64_T centraldir_pos_inzip)
  {
@@ -459,7 +452,7 @@ diff --strip-trailing-cr -urN minizip.orig/zip.c minizip/zip.c
  
    uLong Zip64DataSize = 44;
  
-@@ -1815,7 +1839,7 @@
+@@ -1815,7 +1840,7 @@
  }
  int Write_EndOfCentralDirectoryRecord(zip64_internal* zi, uLong size_centraldir, ZPOS64_T centraldir_pos_inzip)
  {
@@ -468,7 +461,7 @@ diff --strip-trailing-cr -urN minizip.orig/zip.c minizip/zip.c
  
    /*signature*/
    err = zip64local_putValue(&zi->z_filefunc,zi->filestream,(uLong)ENDHEADERMAGIC,4);
-@@ -1863,7 +1887,7 @@
+@@ -1863,7 +1888,7 @@
  
  int Write_GlobalComment(zip64_internal* zi, const char* global_comment)
  {
@@ -477,7 +470,7 @@ diff --strip-trailing-cr -urN minizip.orig/zip.c minizip/zip.c
    uInt size_global_comment = 0;
  
    if(global_comment != NULL)
-@@ -1957,7 +1981,7 @@
+@@ -1957,7 +1982,7 @@
    short header;
    short dataSize;
  

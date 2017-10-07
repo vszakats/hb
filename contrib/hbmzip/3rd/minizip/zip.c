@@ -33,13 +33,14 @@
 #  define z_crc_t unsigned long
 #endif
 
-#include "hbapi.h"      /* for hb_xgrab()/hb_xfree() */
-
-#ifndef ALLOC
-# define ALLOC(size) hb_xgrab(size)
-#endif
-#ifndef TRYFREE
-# define TRYFREE(p) do {if (p) hb_xfree(p);} while( 0 )
+#ifdef HB_USE_CORE_ALLOC
+#  include "hbapi.h"
+#  ifndef ALLOC
+#    define ALLOC(size) hb_xgrab(size)
+#  endif
+#  ifndef TRYFREE
+#    define TRYFREE(p) do {if (p) hb_xfree(p);} while( 0 )
+#  endif
 #endif
 
 #ifdef STDC
@@ -201,7 +202,7 @@ typedef struct
 #include "crypt.h"
 #endif
 
-/* Forward definitions */
+/* Forward declarations */
 local linkedlist_datablock_internal* allocate_new_datablock( void );
 local void free_datablock( linkedlist_datablock_internal* ldi );
 local void init_linkedlist( linkedlist_data* ll );

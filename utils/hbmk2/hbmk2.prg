@@ -17206,7 +17206,11 @@ STATIC PROCEDURE __hbshell_prompt( aParams, aCommand )
 
       hb_DispOutAt( nMaxRow, 0, cPrompt := cDomain + "." )
 
-      GetList := { Get():New( nMaxRow, Len( cPrompt ), {| v | iif( PCount() == 0, cLine, cLine := v ) }, "cLine", "@KS" + hb_ntos( nMaxCol - Len( cPrompt ) + 1 ) ) }
+      GetList := { ;
+         Get():New( nMaxRow, Len( cPrompt ), ;
+            {| v | iif( PCount() == 0, cLine, cLine := v ) }, ;
+            "cLine", ;
+            "@KS" + hb_ntos( nMaxCol - Len( cPrompt ) + 1 ) ) }
       ATail( GetList ):display()
 
       SetCursor( iif( ReadInsert(), SC_INSERT, SC_NORMAL ) )

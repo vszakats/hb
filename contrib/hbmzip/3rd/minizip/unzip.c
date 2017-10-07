@@ -81,13 +81,14 @@
 #  define z_crc_t unsigned long
 #endif
 
-#include "hbapi.h"      /* for hb_xgrab()/hb_xfree() */
-
-#ifndef ALLOC
-# define ALLOC(size) hb_xgrab(size)
-#endif
-#ifndef TRYFREE
-# define TRYFREE(p) do {if (p) hb_xfree(p);} while( 0 )
+#ifdef HB_USE_CORE_ALLOC
+#  include "hbapi.h"
+#  ifndef ALLOC
+#    define ALLOC(size) hb_xgrab(size)
+#  endif
+#  ifndef TRYFREE
+#    define TRYFREE(p) do {if (p) hb_xfree(p);} while( 0 )
+#  endif
 #endif
 
 #ifdef STDC

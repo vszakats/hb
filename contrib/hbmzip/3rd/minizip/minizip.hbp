@@ -10,6 +10,7 @@
 -pic
 
 {wce}-cflag=-DNO_MSCVER_FILE64_FUNC
+-cflag=-DHB_USE_CORE_ALLOC
 
 # for f*64() functions
 #-c=gnu90
