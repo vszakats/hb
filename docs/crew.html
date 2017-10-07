@@ -19,31 +19,31 @@ title: "Crew"
     <p>Per country in alphabetical order:
 
     <div>
-{% assign countries_sorted = site.data.countries | sort: 'name' %}
-{% assign members_sorted = site.data.members | sort: 'name' %}
+{%- assign countries_sorted = site.data.countries | sort: 'name' %}
+{%- assign members_sorted = site.data.members | sort: 'name' %}
 
-{% for country in countries_sorted %}
+{%- for country in countries_sorted %}
       <h4 id="{{ country.id }}">{{ country.name }}</h4>
-{% for member in members_sorted %}
-{% if member.country == country.id %}
+{%- for member in members_sorted %}
+{%- if member.country == country.id %}
       <div>
         <p>
-{% if member.url != nil %}
+{%- if member.url != nil %}
         <a href="{{ member.url }}" class="crew-person-name crew-mail" id="{{ member.name | slugify }}">{{ member.name }}</a>
-{% else %}
+{%- else %}
         <span class="crew-person-name" id="{{ member.name | slugify }}">{{ member.name }}</span>
-{% endif %}
-{% for pic in member.photos %}
+{%- endif %}
+{%- for pic in member.photos %}
         <a href="https://harbour.github.io/images/crew_{{ pic }}"><img src="https://harbour.github.io/images/crew_{{ pic }}" height="40" alt="photo"></a>
-{% endfor %}
-{% if member.photos.size > 0 %}
+{%- endfor %}
+{%- if member.photos.size > 0 %}
         <br>
-{% endif %}
-{{ member.title }}
+{%- endif %}
+{{- member.title }}
       </div>
-{% endif %}
-{% endfor %}
-{% endfor %}
+{%- endif %}
+{%- endfor %}
+{%- endfor %}
     </div>
     <br>
   </section>
@@ -53,9 +53,9 @@ title: "Crew"
       <h1>Countries</h1>
       <hr>
       <ul class="crew-country-list">
-{% for country in countries_sorted %}
+{%- for country in countries_sorted %}
         <li><a href="#{{ country.id }}"><img src="{{ site.baseurl }}/images/flag-{{ country.id }}.svg" alt="flag" width="31" height="16">{{ country.name }}</a>
-{% endfor %}
+{%- endfor %}
       </ul>
     </div>
 
@@ -63,9 +63,9 @@ title: "Crew"
       <h1>First Name Alphabetical</h1>
       <hr>
       <ul class="crew-alphalist">
-{% for member in members_sorted %}
+{%- for member in members_sorted %}
         <li><a href="#{{ member.name | slugify }}">{{ member.name }}</a>
-{% endfor %}
+{%- endfor %}
       </ul>
     </div>
   </aside>

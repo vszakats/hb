@@ -13,8 +13,8 @@ layout: default
   <a href="{{ site.baseurl }}/about" class="readmore">Learn more</a>
 </div>
 
-{%- if site.fork -%}
-{%- assign ppurl = 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=BPSZQYKXMQJYG' -%}
+{%- if site.fork %}
+{% assign ppurl = 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=BPSZQYKXMQJYG' %}
 <h1 id="this-fork">This Fork</h1>
 <div><p>
   This fork contains all <a href="https://harbour.github.io/">mainline</a>
@@ -111,17 +111,17 @@ layout: default
     <hr>
 
     <dl class="news">
-{%- assign time_range = 7 | times: 365 | times: 86400 -%}
-{%- capture limit %}{{ site.time | date: '%s' | minus: time_range | date: '%F' }}{% endcapture -%}
-{%- for story in site.data.news -%}
-{%- capture itemd %}{{ story.date | date: '%F' }}{% endcapture -%}
-{%- if itemd >= limit -%}
+{%- assign time_range = 7 | times: 365 | times: 86400 %}
+{%- capture limit %}{{ site.time | date: '%s' | minus: time_range | date: '%F' }}{% endcapture %}
+{%- for story in site.data.news %}
+{%- capture itemd %}{{ story.date | date: '%F' }}{% endcapture %}
+{%- if itemd >= limit %}
 {%- if story.text %}
       <dt>{{ story.date }}
       <dd><strong>{{ story.title }}</strong>
         <p>{{ story.text }}
-{% endif -%}
-{%- endif -%}
+{% endif %}
+{%- endif %}
 {%- endfor %}
       <dd>See the <a href="{{ site.baseurl }}/news">news archive</a> for past articles.
     </dl>
@@ -131,15 +131,15 @@ layout: default
     <h2>Code Examples</h2>
     <hr>
     <dl class="miniexample">
-{%- assign selection = "hello|foreach|parseini|tbrowse|onidle" | split: "|" -%}
-{%- assign examples_sorted = site.example | sort: 'slug' -%}
-{%- for selected_example in selection -%}
-{%- for example in examples_sorted -%}
+{%- assign selection = "hello|foreach|parseini|tbrowse|onidle" | split: "|" %}
+{%- assign examples_sorted = site.example | sort: 'slug' %}
+{%- for selected_example in selection %}
+{%- for example in examples_sorted %}
 {%- if example.slug == selected_example %}
       <dt><a href="{{ site.baseurl }}/example/{{ example.slug }}">{{ example.title_long }}</a>
       <dd>{{ example.description }}
-{% endif -%}
-{%- endfor -%}
+{% endif %}
+{%- endfor %}
 {%- endfor %}
     </dl>
   </aside>
