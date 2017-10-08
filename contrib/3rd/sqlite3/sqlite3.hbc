@@ -1,4 +1,4 @@
-libs=${hb_name}
+libs=${_HB_3RDPREF}${hb_name}${_HB_3RDSUFF}
 
 cflags=-DSQLITE_OMIT_LOAD_EXTENSION=1{minix}
 

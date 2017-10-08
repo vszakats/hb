@@ -1,4 +1,4 @@
--stop{hbdyn}
+-stop{hbdyn&!(HB_BUILD_3RD_DYN='yes')} -env:__HB_3RD_DYN=yes{hbdyn}
 
 -stop{poccarm}
 # NOTE: old msvcarm can't cope with some PP directives. [vszakats]

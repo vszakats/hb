@@ -3,8 +3,10 @@
 
 #include "hbarc4.h"
 
-#define HAVE_ARC4RANDOM_BUF
-#define arc4random_buf hb_arc4random_buf
+#if defined( HB_FORCE_ARC4RANDOM )
+#  define HAVE_ARC4RANDOM_BUF
+#  define arc4random_buf hb_arc4random_buf
+#endif
 
 #if defined( HB_OS_WIN )
 #  define WIN32_LEAN_AND_MEAN

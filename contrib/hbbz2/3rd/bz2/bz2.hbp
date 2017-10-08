@@ -1,4 +1,4 @@
--stop{hbdyn}
+-stop{hbdyn&!(HB_BUILD_3RD_DYN='yes')} -env:__HB_3RD_DYN=yes{hbdyn}
 
 -stop{wce|pocc64}
 
@@ -22,7 +22,7 @@ randtable.c
 {bcc}-aflag=/C
 
 -cflag=-DBZ_STRICT_ANSI
--cflag=-DBZ_NO_STDIO
+-cflag=-DBZ_NO_STDIO{!hbdyn}
 
 # URL    http://bzip.org/1.0.6/bzip2-1.0.6.tar.gz
 #

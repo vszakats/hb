@@ -1,4 +1,4 @@
--stop{hbdyn}
+-stop{hbdyn&!(HB_BUILD_3RD_DYN='yes')} -env:__HB_3RD_DYN=yes{hbdyn}
 
 -hblib
 -inc
@@ -17,7 +17,7 @@
 {allmsvc}-cflag=-D_CRT_SECURE_NO_DEPRECATE
 {allmsvc}-cflag=-D_CRT_SECURE_NO_WARNINGS
 -cflag=-DHAVE_LONG_LONG=1{!allbcc}
--cflag=-DHB_USE_CORE_PRINTF
+-cflag=-DHB_USE_CORE_PRINTF{!hbdyn}
 
 mxml-attr.c
 mxml-entity.c

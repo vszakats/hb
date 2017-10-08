@@ -44,6 +44,7 @@ environment:
   HB_JOB_TO_RELEASE: clang
   HB_CI_THREADS: 4
   MSYS2_FC_CACHE_SKIP: yes
+  HB_BUILD_3RD_DYN: yes
 matrix:
   allow_failures:
     - HB_JOB: msvc2017

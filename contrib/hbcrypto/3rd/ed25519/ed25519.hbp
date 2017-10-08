@@ -1,4 +1,4 @@
--stop{hbdyn}
+-stop{hbdyn&!(HB_BUILD_3RD_DYN='yes')} -env:__HB_3RD_DYN=yes{hbdyn}
 
 -hblib
 -inc
@@ -16,6 +16,11 @@ key_exchange.c
 sc.c
 sign.c
 verify.c
+sha512.c{hbdyn}
+
+# Use Harbour core SHA-512 implementation only when building static lib.
+# This way the dynamic lib won't depend on Harbour dynlib.
+-cflag=-DHB_USE_CORE_SHA512{!hbdyn}
 
 # URL    https://github.com/orlp/ed25519/archive/7fa6712ef5d581a6981ec2b08ee623314cd1d1c4.tar.gz
 # DIFF   ed25519.diff
@@ -36,3 +41,4 @@ verify.c
 # MAP    src/precomp_data.h  precomp_data.h
 # MAP    src/sc.h            sc.h
 # MAP    src/sha512.h        sha512.h
+# MAP    src/sha512.c        sha512.c

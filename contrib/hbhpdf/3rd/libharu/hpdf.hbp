@@ -1,4 +1,4 @@
--stop{hbdyn}
+-stop{hbdyn&!(HB_BUILD_3RD_DYN='yes')}
 
 # pocc64 version 6.0 is OK, version 5.0 is not (->internal error).
 -stop{pocc64|(wce&!mingwarm)}

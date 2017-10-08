@@ -1,3 +1,3 @@
-libs=${hb_name}
+libs=${_HB_3RDPREF}${hb_name}${_HB_3RDSUFF}
 
 cflags=-DAVOID_ERRNO=1{wce}
