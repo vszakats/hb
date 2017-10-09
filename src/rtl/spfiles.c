@@ -44,6 +44,7 @@
  *
  */
 
+#include "hbapi.h"
 #include "hbapifs.h"
 #include "hbset.h"
 

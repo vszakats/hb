@@ -16,6 +16,7 @@
    Added a parameter to turn CapLock on or off.
  */
 
+#include "hbapi.h"
 #include "hbapigt.h"
 #include "hbapiitm.h"
 

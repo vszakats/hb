@@ -77,6 +77,7 @@
 #include "hbvm.h"
 #include "hbstack.h"
 #include "hbapifs.h"
+#include "hbapigt.h"
 #include "hbapierr.h"
 #include "hbapicdp.h"
 #include "hbdate.h"

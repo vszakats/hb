@@ -16,6 +16,7 @@
    Nanforum Toolkit
  */
 
+#include "hbapi.h"
 #include "hbapigt.h"
 #include "hbapiitm.h"
 

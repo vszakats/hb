@@ -75,6 +75,7 @@
      https://web.archive.org/web/oldweb.mit.bme.hu/services/codeconv/tema.html
  */
 
+#include "hbapi.h"
 #include "hbapicdp.h"
 
 #define NUMBER_OF_CHARS    256

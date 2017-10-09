@@ -44,6 +44,7 @@
  *
  */
 
+#include "hbapi.h"
 #include "hbapigt.h"
 
 #ifndef HB_CLP_STRICT

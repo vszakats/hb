@@ -45,6 +45,7 @@
  *
  */
 
+#include "hbapi.h"
 #include "hbgtcore.h"
 
 /* xHarbour compatible definitions */

@@ -44,6 +44,7 @@
  *
  */
 
+#include "hbapi.h"
 #include "hbhash.h"
 
 static PHB_HASH_ITEM hb_hashItemNew( HB_SIZE nKey, const void * pKey, const void * pValue )

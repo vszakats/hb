@@ -46,6 +46,7 @@
 
 #define _HB_ZLIB_INTERNAL_
 
+#include "hbapi.h"
 #include "hbzlib.h"
 
 static HB_SIZE s_zlibCompressBound( HB_SIZE nLen )

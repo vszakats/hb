@@ -44,6 +44,7 @@
  *
  */
 
+#include "hbapi.h"
 #include "hbapigt.h"
 
 #ifdef HB_CLP_UNDOC

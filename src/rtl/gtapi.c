@@ -55,6 +55,7 @@
  *
  */
 
+#include "hbapi.h"
 #include "hbgtcore.h"
 #include "hbset.h"
 

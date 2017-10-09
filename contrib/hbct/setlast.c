@@ -44,6 +44,7 @@
  *
  */
 
+#include "hbapi.h"
 #include "hbapigt.h"
 
 HB_FUNC( SETLASTKEY )

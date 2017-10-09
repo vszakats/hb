@@ -45,6 +45,7 @@
  *
  */
 
+#include "hbapi.h"
 #include "hbapigt.h"
 #include "hbstack.h"
 

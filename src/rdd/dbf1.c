@@ -46,6 +46,8 @@
 
 #define HB_TRIGVAR_BYREF
 
+#include "hbapi.h"
+#include "hbapifs.h"
 #include "hbrdddbf.h"
 #include "hbapiitm.h"
 #include "hbapistr.h"

@@ -49,6 +49,7 @@
 
 #define _HB_PP_INTERNAL
 
+#include "hbapi.h"
 #include "hbpp.h"
 #include "hbdate.h"
 

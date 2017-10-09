@@ -49,6 +49,7 @@
 /* This definition has to be placed before #include "hbapigt.h" */
 #define HB_GT_NAME  NUL
 
+#include "hbapi.h"
 #include "hbgtcore.h"
 
 /* NOTE: Must be in sync with hbgtcore.c */

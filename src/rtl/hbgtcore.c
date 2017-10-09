@@ -52,6 +52,7 @@
 
 #define HB_GT_NAME  NUL
 
+#include "hbapi.h"
 #include "hbgtcore.h"
 #include "hbapiitm.h"
 #include "hbapistr.h"

@@ -44,6 +44,7 @@
  *
  */
 
+#include "hbapi.h"
 #include "hbapiitm.h"
 
 HB_FUNC_TRANSLATE( HASH          , HB_HASH          )

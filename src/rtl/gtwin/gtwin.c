@@ -67,6 +67,7 @@
 /* TODO: include any standard headers here */
 /* *********************************************************************** */
 
+#include "hbapi.h"
 #include "hbgtcore.h"
 #include "hbinit.h"
 #include "hbapiitm.h"

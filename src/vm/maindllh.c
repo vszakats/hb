@@ -44,6 +44,7 @@
  *
  */
 
+#include "hbapi.h"
 #include "hbvm.h"
 #include "hbapiitm.h"
 

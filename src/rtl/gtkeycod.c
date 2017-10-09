@@ -51,6 +51,7 @@
 
 /* NOTE: User programs should never call this layer directly! */
 
+#include "hbapi.h"
 #include "hbgtcore.h"
 
 #if defined( HB_OS_DOS ) || defined( HB_OS_WIN ) || defined( HB_OS_OS2 )

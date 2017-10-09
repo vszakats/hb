@@ -1,6 +1,7 @@
 #ifndef _HBCONF_H
 #define _HBCONF_H
 
+#include "hbapi.h"
 #include "hbarc4.h"
 
 #if defined( HB_FORCE_ARC4RANDOM )

@@ -62,6 +62,7 @@
 
 #define HB_GT_UNICODE_BUF
 
+#include "hbapi.h"
 #include "hbgtcore.h"
 #include "hbinit.h"
 #include "hbapicdp.h"

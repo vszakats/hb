@@ -49,6 +49,7 @@
 
 #define HB_GT_NAME  WVT
 
+#include "hbapi.h"
 #include "hbset.h"
 #include "hbgtcore.h"
 #include "hbinit.h"

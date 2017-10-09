@@ -44,6 +44,7 @@
  *
  */
 
+#include "hbapi.h"
 #include "hbapifs.h"
 
 #ifdef HB_LEGACY_LEVEL5

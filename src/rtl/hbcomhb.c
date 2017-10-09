@@ -74,6 +74,7 @@
  * hb_comSend( nPort, cBuffer, [ nLen = Len( cBuffer ) ], [ nTimeout = 0 ] ) --> nBytesSent
  */
 
+#include "hbapi.h"
 #include "hbapiitm.h"
 #include "hbapierr.h"
 #include "hbvm.h"

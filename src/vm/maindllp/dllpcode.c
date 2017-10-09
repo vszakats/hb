@@ -46,9 +46,8 @@
  *
  */
 
-#include "hbapi.h"
-#include "hbvm.h"
 #include "hbtypes.h"
+#include "hbvm.h"
 
 #if defined( HB_OS_WIN )
    #include <windows.h>

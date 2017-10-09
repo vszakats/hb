@@ -49,6 +49,9 @@
  *
  */
 
+#include "hbapi.h"
+#include "hbapifs.h"
+#include "hbdate.h"
 #include "hbsxfunc.h"
 
 char * hb_sxDtoP( char * pDate, long lJulian )

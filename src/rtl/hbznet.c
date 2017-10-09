@@ -49,6 +49,7 @@
 /* this has to be declared before hbznet.h is included */
 #define _HB_ZNET_INTERNAL_
 
+#include "hbapi.h"
 #include "hbznet.h"
 #include "hbbfish.h"
 #include "hbzlib.ch"

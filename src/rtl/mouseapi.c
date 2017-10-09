@@ -45,6 +45,7 @@
  *
  */
 
+#include "hbapi.h"
 #include "hbgtcore.h"
 
 /* NOTE: Mouse initialization is called directly from low-level GT driver

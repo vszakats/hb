@@ -50,6 +50,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
+#include "hbapi.h"
 #include "hbapifs.h"
 #include "hbvm.h"
 #if defined( HB_OS_WIN )

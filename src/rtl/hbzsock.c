@@ -47,6 +47,7 @@
 /* this has to be declared before hbsocket.h is included */
 #define _HB_SOCKEX_IMPLEMENTATION_
 
+#include "hbapi.h"
 #include "hbapiitm.h"
 #include "hbapierr.h"
 #include "hbsocket.h"

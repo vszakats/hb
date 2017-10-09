@@ -46,6 +46,7 @@
  *
  */
 
+#include "hbapi.h"
 #include "hbapigt.h"
 #include "hbgtcore.h"
 #include "hbapiitm.h"

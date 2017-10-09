@@ -45,6 +45,7 @@
  */
 
 #define _HB_REGEX_INTERNAL_
+#include "hbapi.h"
 #include "hbregex.h"
 #include "hbapiitm.h"
 #include "hbapierr.h"

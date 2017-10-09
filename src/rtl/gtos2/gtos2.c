@@ -74,6 +74,7 @@
 
 #define HB_GT_NAME  OS2
 
+#include "hbapi.h"
 #include "hbgtcore.h"
 #include "hbinit.h"
 #include "hbapierr.h"

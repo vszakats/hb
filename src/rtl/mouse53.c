@@ -44,6 +44,7 @@
  *
  */
 
+#include "hbapi.h"
 #include "hbapigt.h"
 
 /* Harbour callable interface */

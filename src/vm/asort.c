@@ -53,6 +53,7 @@
          https://www.cs.auckland.ac.nz/~jmor159/PLDS210/niemann/s_man.htm */
 
 #include "hbvmint.h"
+#include "hbapi.h"
 #include "hbapiitm.h"
 #include "hbvm.h"
 

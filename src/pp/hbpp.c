@@ -212,7 +212,7 @@ static void hb_pp_generateRules( FILE * fout, PHB_PP_STATE pState, const char * 
             " *\n"
             " * This file is generated automatically by Harbour preprocessor\n"
             " * and is covered by the same license as Harbour PP\n"
-            " */\n\n#define _HB_PP_INTERNAL\n#include \"hbpp.h\"\n\n" );
+            " */\n\n#define _HB_PP_INTERNAL\n#include \"hbapi.h\"\n#include \"hbpp.h\"\n\n" );
 
    if( pState->pDefinitions )
       iDefs = hb_pp_writeRules( fout, pState->pDefinitions, "def" );

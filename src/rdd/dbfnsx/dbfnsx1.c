@@ -54,6 +54,8 @@
 #define HB_NSX_DEBUG_EXT
 */
 
+#include "hbapi.h"
+#include "hbapifs.h"
 #include "hbrddnsx.h"
 #include "hbapiitm.h"
 #include "hbapierr.h"

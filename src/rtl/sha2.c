@@ -35,6 +35,7 @@
 #define UNROLL_LOOPS /* Enable loops unrolling */
 #endif
 
+#include "hbapi.h"
 #include "hbcrypto.h"
 
 #define SHFR(x, n)    (x >> n)

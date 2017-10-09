@@ -49,6 +49,10 @@
  *
  */
 
+#include "hbapi.h"
+#include "hbapiitm.h"
+#include "hbapifs.h"
+#include "hbapirdd.h"
 #include "hbsxfunc.h"
 
 #define rnd_mul1  0x0de6d

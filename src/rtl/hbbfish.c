@@ -51,6 +51,7 @@
  *
  */
 
+#include "hbapi.h"
 #include "hbbfish.h"
 
 static const HB_BLOWFISH s_blowFishInit =

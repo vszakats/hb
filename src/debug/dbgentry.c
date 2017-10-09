@@ -44,6 +44,7 @@
  *
  */
 
+#include "hbapi.h"
 #include "hbapidbg.h"
 #include "hbapiitm.h"
 #include "hbapicls.h"
