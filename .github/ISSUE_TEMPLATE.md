@@ -1,7 +1,11 @@
 # Please follow the general troubleshooting steps first:
 
+You may erase parts of this template not applicable to your Issue. Deleting
+_all_ points is considered rude and may result in closing the issue as invalid.
+
 - [ ] Have you read the [CONTRIBUTING](CONTRIBUTING.md) document?
-- [ ] Have you tested with the _latest_ fork source code revision?
+- [ ] Have you tested with a **fresh fork source checkout into a new directory
+      with a full rebuild there**?
 - [ ] If this was working before, do you know which one was the latest working
       revision?
 - [ ] Does it also happen with latest
@@ -12,15 +16,15 @@
       you reported this to
       [mainline](https://groups.google.com/forum/#!forum/harbour-devel)
       already?
-
-You may erase parts of this template not applicable to your Issue. Deleting
-_all_ above points is considered rude though.
+- [ ] Have you included the top of the output (lines starting with `!`) and the
+      area where the issue occurred **first** from your `HB_BUILD_VERBOSE=yes`,
+      STDOUT/STDERR build output?
 
 ### Bug reports:
 
 Please replace this section with a brief summary of your issue, including
-self-contained example code, combined STDOUT/STDERR output, platform/compiler
-and version/revision details.
+self-contained example code, build output, platform/compiler and
+version/revision details.
 
 ### Notes:
 
