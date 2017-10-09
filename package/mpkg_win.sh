@@ -407,7 +407,7 @@ cd - || exit
       --form-string "user=${PUSHOVER_USER}" \
       --form-string "token=${PUSHOVER_TOKEN}" \
       --form-string "title=${GITHUB_SLUG}" \
-      --form-string "message=Build ready: ${_BRANCH} / ${HB_JOB}" \
+      --form-string "message=Build ready: ${_BRANCH} / ${HB_JOB} / ${os}" \
       --form-string 'html=1' \
       --form-string 'priority=1' \
       https://api.pushover.net/1/messages.json
