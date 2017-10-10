@@ -232,10 +232,12 @@ void hb_compGenCCode( HB_COMP_DECL, PHB_FNAME pFileName )       /* generates the
 
       hb_compGenCStdHeaders( HB_COMP_PARAM, yyc, fHasHbInline );
 
-      fprintf( yyc, "\n" );
-
       /* write functions prototypes */
       pSym = HB_COMP_PARAM->symbols.pFirst;
+
+      if( pSym )
+         fprintf( yyc, "\n" );
+
       while( pSym )
       {
          if( pSym->iFunc )
@@ -356,6 +358,8 @@ void hb_compGenCCode( HB_COMP_DECL, PHB_FNAME pFileName )       /* generates the
       {
          if( ( pFunc->funFlags & HB_FUNF_FILE_DECL ) == 0 )
          {
+            fprintf( yyc, "\n" );
+
             /* Is it _STATICS$ - static initialization function */
             if( pFunc == HB_COMP_PARAM->pInitFunc )
                fprintf( yyc, "HB_FUNC_INITSTATICS()\n" );
@@ -383,7 +387,6 @@ void hb_compGenCCode( HB_COMP_DECL, PHB_FNAME pFileName )       /* generates the
                else
                   hb_compGenCReadable( HB_COMP_PARAM, pFunc, yyc );
             }
-            fprintf( yyc, "\n" );
          }
          pFunc = pFunc->pNext;
       }
@@ -391,6 +394,10 @@ void hb_compGenCCode( HB_COMP_DECL, PHB_FNAME pFileName )       /* generates the
       /* Generate C inline functions
        */
       pInline = HB_COMP_PARAM->inlines.pFirst;
+
+      if( pInline )
+         fprintf( yyc, "\n" );
+
       while( pInline )
       {
          if( pInline->pCode )
@@ -418,6 +425,7 @@ void hb_compGenCCode( HB_COMP_DECL, PHB_FNAME pFileName )       /* generates the
             if( ! fHasHbInline )
             {
                hb_compGenCStdHeaders( HB_COMP_PARAM, yyc, HB_FALSE );
+               fprintf( yyc, "\n" );
                fHasHbInline = HB_TRUE;
             }
             fprintf( yyc, "#line %i ", pInline->iLine );
@@ -433,10 +441,7 @@ void hb_compGenCCode( HB_COMP_DECL, PHB_FNAME pFileName )       /* generates the
          pInline = pInline->pNext;
       }
       if( ! fHasHbInline )
-      {
-         fprintf( yyc, "\n/* Empty source file */\n" );
-         fprintf( yyc, "\nstatic void * dummy = &dummy;\n" );
-      }
+         fprintf( yyc, "static const void * dummy = &dummy;  /* Empty source file */\n" );
    }
 
    fclose( yyc );
@@ -459,7 +464,7 @@ static void hb_writeEndInit( HB_COMP_DECL, FILE * yyc, const char * szModulname,
             "#elif defined( HB_DATASEG_STARTUP )\n"
             "   #define HB_DATASEG_BODY    HB_DATASEG_FUNC( hb_vm_SymbolInit_%s )\n"
             "   #include \"hbiniseg.h\"\n"
-            "#endif\n\n",
+            "#endif\n",
             szModulname, szModulname );
 }
 
