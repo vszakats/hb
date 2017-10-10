@@ -106,6 +106,8 @@ PROCEDURE Main()
             NEXT
          ENDIF
       NEXT
+      hb_zipStoreFileMem( hZip, "Text to compress and store", "from_memory.txt", cPassword,, lUnicode )
+      hb_zipStoreFileMem( hZip, hb_randStr( 20000 ), "from_memory_large.txt", cPassword,, lUnicode )
       hb_zipClose( hZip, cComment )
    ENDIF
 

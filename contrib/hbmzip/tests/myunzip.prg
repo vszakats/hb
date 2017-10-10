@@ -52,7 +52,7 @@ REQUEST HB_CODEPAGE_UTF8EX
 
 PROCEDURE Main()
 
-   LOCAL hUnzip, aWild, cFileName, cExt, cPath, cFile
+   LOCAL hUnzip, aWild, cFileName, cFile
    LOCAL tDate, cTime, nSize, nCompSize, nErr
    LOCAL lCrypted, cPassword, cComment, tmp
 
@@ -99,12 +99,16 @@ PROCEDURE Main()
             ? "comment:", cComment
          ENDIF
 
-         IF AScan( aWild, {| cPattern | hb_WildMatch( cPattern, cFile, .T. ) } ) > 0
-            ?? " Extracting"
+         DO CASE
+         CASE hb_LeftEq( cFile, "from_memory" )
+            hb_unzipExtractCurrentFileToMem( hUnzip, cPassword, @tmp )
+            ?? " " + hb_ValToExp( iif( hb_BLen( tmp ) > 60, hb_BLen( tmp ), tmp ) )
+         CASE AScan( aWild, {| cPattern | hb_WildMatch( cPattern, cFile, .T. ) } ) > 0
+            ?? " " + "Extracting"
             hb_unzipExtractCurrentFile( hUnzip, , cPassword )
-         ELSE
-            ?? " Skipping"
-         ENDIF
+         OTHERWISE
+            ?? " " + "Skipping"
+         ENDCASE
 
          nErr := hb_unzipFileNext( hUnzip )
       ENDDO

@@ -25,6 +25,7 @@ DYNAMIC hb_unzipClose
 DYNAMIC hb_unzipErrorStr
 DYNAMIC hb_unzipExtractCurrentFile
 DYNAMIC hb_unzipExtractCurrentFileToHandle
+DYNAMIC hb_unzipExtractCurrentFileToMem
 DYNAMIC hb_unzipFileClose
 DYNAMIC hb_unzipFileFirst
 DYNAMIC hb_unzipFileGoto
@@ -45,6 +46,7 @@ DYNAMIC hb_zipFileWrite
 DYNAMIC hb_zipOpen
 DYNAMIC hb_zipStoreFile
 DYNAMIC hb_zipStoreFileHandle
+DYNAMIC hb_zipStoreFileMem
 
 #if defined( __HBEXTREQ__ ) .OR. defined( __HBEXTERN__HBMZIP__REQUEST )
    #uncommand DYNAMIC <fncs,...> => EXTERNAL <fncs>

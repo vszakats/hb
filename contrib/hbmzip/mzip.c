@@ -3,7 +3,8 @@
  * Some higher-level ZIP archive functions
  *
  * Copyright 2008 Mindaugas Kavaliauskas <dbtopas.at.dbtopas.lt>
- * Copyright 2011-2013 Viktor Szakats (vszakats.net/harbour) (codepage/unicode)
+ * Copyright 2011-2017 Viktor Szakats (vszakats.net/harbour)
+ *   (codepage/unicode/...Mem())
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -54,6 +55,7 @@
 #include "hbapiitm.h"
 #include "hbapierr.h"
 #include "hbapistr.h"
+#include "hbchksum.h"
 #include "hbdate.h"
 #include "hbset.h"
 
@@ -726,6 +728,42 @@ static HB_BOOL hb_zipGetFileInfoFromHandle( PHB_FILE pFile, HB_U32 * pulCRC, HB_
    return fResult;
 }
 
+static HB_BOOL hb_zipGetFileInfoFromMem( const unsigned char * pString, HB_SIZE nStringLen, HB_U32 * pulCRC, HB_BOOL * pfText )
+{
+   HB_BOOL fText = pfText != NULL;
+   HB_U32  ulCRC = 0;
+
+   if( pString && nStringLen )
+   {
+      ulCRC = hb_crc32( ulCRC, pString, nStringLen );
+      if( fText )
+      {
+         HB_SIZE u;
+         for( u = 0; u < nStringLen; ++u )
+         {
+            if( pString[ u ] < 0x20 ?
+                ( pString[ u ] != HB_CHAR_HT &&
+                  pString[ u ] != HB_CHAR_LF &&
+                  pString[ u ] != HB_CHAR_CR &&
+                  pString[ u ] != HB_CHAR_EOF ) :
+                ( pString[ u ] >= 0x7F && pString[ u ] < 0xA0 &&
+                  pString[ u ] != ( unsigned char ) HB_CHAR_SOFT1 ) )
+            {
+               fText = HB_FALSE;
+               break;
+            }
+         }
+      }
+   }
+
+   if( pulCRC )
+      *pulCRC = ulCRC;
+   if( pfText )
+      *pfText = fText;
+
+   return HB_TRUE;
+}
+
 static HB_BOOL hb_zipGetFileInfo( const char * pszFileName, HB_U32 * pulCRC, HB_BOOL * pfText )
 {
    PHB_FILE pFile;
@@ -1036,7 +1074,10 @@ static int hb_zipStoreFile( zipFile hZip, int iParamFileName, int iParamZipName,
             char * pString = ( char * ) hb_xgrab( HB_Z_IOBUF_SIZE );
 
             while( ( nLen = hb_fileResult( hb_fileRead( pFile, pString, HB_Z_IOBUF_SIZE, -1 ) ) ) > 0 )
-               zipWriteInFileInZip( hZip, pString, ( unsigned ) nLen );
+            {
+               if( ( iResult = zipWriteInFileInZip( hZip, pString, ( unsigned ) nLen ) ) != ZIP_OK )
+                  break;
+            }
 
             hb_xfree( pString );
 
@@ -1142,7 +1183,10 @@ static int hb_zipStoreFileHandle( zipFile hZip, PHB_FILE pFile, int iParamZipNam
       char * pString = ( char * ) hb_xgrab( HB_Z_IOBUF_SIZE );
       hb_fileSeek( pFile, 0, FS_SET );
       while( ( nLen = hb_fileResult( hb_fileRead( pFile, pString, HB_Z_IOBUF_SIZE, -1 ) ) ) > 0 )
-         zipWriteInFileInZip( hZip, pString, ( unsigned ) nLen );
+      {
+         if( ( iResult = zipWriteInFileInZip( hZip, pString, ( unsigned ) nLen ) ) != ZIP_OK )
+            break;
+      }
       hb_xfree( pString );
 
       zipCloseFileInZip( hZip );
@@ -1179,6 +1223,106 @@ HB_FUNC( HB_ZIPSTOREFILEHANDLE )
                hb_fileDetach( pFile );
          }
       }
+   }
+   else
+      hb_errRT_BASE_SubstR( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
+
+static int hb_zipStoreMem( zipFile hZip, const char * pContent, HB_SIZE nContentLen, int iParamZipName, const char * szPassword, int iParamComment, HB_BOOL fUnicode )
+{
+   HB_SIZE      nLen;
+   zip_fileinfo zfi;
+   int          iResult;
+   HB_BOOL      fText;
+   HB_U32       ulCRC;
+
+   uLong flags = 0;
+
+   void *       hZipName = NULL;
+   void *       hComment = NULL;
+   char *       szZipName;
+   const char * szComment;
+
+   if( fUnicode )
+   {
+      szZipName = hb_strdup( hb_parstr_utf8( iParamZipName, &hZipName, NULL ) );
+      szComment = hb_parstr_utf8( iParamComment, &hComment, NULL );
+      flags    |= _ZIP_FLAG_UNICODE;
+   }
+   else
+   {
+      szZipName = hb_strdup( hb_parc( iParamZipName ) );
+      szComment = hb_parc( iParamComment );
+   }
+
+   /* change path separators to '/' */
+
+   nLen = strlen( szZipName );
+   while( nLen-- )
+   {
+      if( szZipName[ nLen ] == '\\' )
+         szZipName[ nLen ] = '/';
+   }
+
+   memset( &zfi, 0, sizeof( zfi ) );
+
+   zfi.external_fa      = 0x81B60020;
+   zfi.tmz_date.tm_sec  = 0;
+   zfi.tmz_date.tm_min  = 0;
+   zfi.tmz_date.tm_hour = 0;
+   zfi.tmz_date.tm_mday = 1;
+   zfi.tmz_date.tm_mon  = 0;
+   zfi.tmz_date.tm_year = 0;
+
+   ulCRC = 0;
+   fText = HB_FALSE;
+   if( szPassword && hb_zipGetFileInfoFromMem( ( const unsigned char * ) pContent, nContentLen, &ulCRC, &fText ) )
+      zfi.internal_fa = fText ? 1 : 0;
+   else
+      /* TODO: zip.exe test: 0 for binary file, 1 for text. Does not depend on
+         extension. We should analyze content of file to determine this??? */
+      zfi.internal_fa = 0;
+
+   iResult = zipOpenNewFileInZip4( hZip, szZipName, &zfi, NULL, 0, NULL, 0, szComment,
+                                   Z_DEFLATED, Z_DEFAULT_COMPRESSION, 0,
+                                   -MAX_WBITS, DEF_MEM_LEVEL, Z_DEFAULT_STRATEGY,
+                                   szPassword, ulCRC, _version_made_by( fUnicode ), flags );
+   if( iResult == 0 )
+   {
+      while( nContentLen > 0 )
+      {
+         unsigned uiReadLen = ( unsigned ) ( HB_SIZE ) HB_MIN( UINT_MAX, nContentLen );
+         if( ( iResult = zipWriteInFileInZip( hZip, pContent, ( unsigned ) uiReadLen ) ) != ZIP_OK )
+            break;
+         pContent += uiReadLen;
+         nContentLen -= uiReadLen;
+      }
+
+      zipCloseFileInZip( hZip );
+   }
+
+   hb_xfree( szZipName );
+
+   if( fUnicode )
+   {
+      hb_strfree( hZipName );
+      hb_strfree( hComment );
+   }
+
+   return iResult;
+}
+
+
+/* hb_zipStoreFileMem( hZip, cContent, cZipName, [ cPassword ], [ cComment ], [ lUnicode ] ) --> nError */
+HB_FUNC( HB_ZIPSTOREFILEMEM )
+{
+   if( HB_ISCHAR( 3 ) )
+   {
+      zipFile hZip = hb_zipfileParam( 1 );
+
+      if( hZip )
+         hb_retni( hb_zipStoreMem( hZip, hb_parcx( 2 ), hb_parclen( 2 ), 3, hb_parc( 4 ), 5, hb_parl( 6 ) ) );
    }
    else
       hb_errRT_BASE_SubstR( EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
@@ -1417,7 +1561,7 @@ static int hb_unzipExtractCurrentFile( unzFile hUnzip, const char * szFileName, 
 }
 
 
-/* hb_unzipExtractCurrentFile( hZip, [ cFileName ], [ cPassword ] ) --> nError */
+/* hb_unzipExtractCurrentFile( hUnzip, [ cFileName ], [ cPassword ] ) --> nError */
 HB_FUNC( HB_UNZIPEXTRACTCURRENTFILE )
 {
    unzFile hUnzip = hb_unzipfileParam( 1 );
@@ -1483,7 +1627,7 @@ static int hb_unzipExtractCurrentFileToHandle( unzFile hUnzip, PHB_FILE pFile, c
 }
 
 
-/* hb_unzipExtractCurrentFileToHandle( hZip, fhnd, [ cPassword ] ) --> nError */
+/* hb_unzipExtractCurrentFileToHandle( hUnzip, fhnd, [ cPassword ] ) --> nError */
 HB_FUNC( HB_UNZIPEXTRACTCURRENTFILETOHANDLE )
 {
    unzFile hUnzip = hb_unzipfileParam( 1 );
@@ -1499,6 +1643,85 @@ HB_FUNC( HB_UNZIPEXTRACTCURRENTFILETOHANDLE )
          if( fFree )
             hb_fileDetach( pFile );
       }
+   }
+}
+
+
+static int hb_unzipExtractCurrentFileToMem( unzFile hUnzip, const char * szPassword, char ** pResult, HB_SIZE * pLen )
+{
+   unz_file_info ufi;
+   int iResult;
+
+   *pResult = NULL;
+   *pLen = 0;
+
+   iResult = unzGetCurrentFileInfo( hUnzip, &ufi, NULL, 0,
+                                    NULL, 0, NULL, 0 );
+   if( iResult != UNZ_OK )
+      return iResult;
+
+   if( ufi.uncompressed_size == 0 )
+      return UNZ_OK;
+
+   if( ufi.uncompressed_size + 1 > 256 * 1024 * 1024 )  /* avoiding exhausing memory */
+      return -300;
+
+   iResult = unzOpenCurrentFilePassword( hUnzip, szPassword );
+
+   if( iResult != UNZ_OK )
+      return iResult;
+
+   if( ! ( ufi.external_fa & 0x40000000 ) ) /* DIRECTORY */
+   {
+      char * pWindow;
+      HB_SIZE nLeft;
+      unsigned uiWriteLen;
+
+      *pLen = ( HB_SIZE ) ufi.uncompressed_size;
+      *pResult = ( char * ) hb_xgrab( *pLen + 1 );
+
+      pWindow = *pResult;
+      nLeft = *pLen;
+
+      while( nLeft > 0 &&
+         ( uiWriteLen = unzReadCurrentFile( hUnzip, pWindow, ( unsigned ) ( HB_SIZE ) HB_MIN( HB_Z_IOBUF_SIZE, nLeft ) ) ) > 0 )
+      {
+         pWindow += uiWriteLen;
+         nLeft -= uiWriteLen;
+      }
+
+      if( nLeft > 0 )
+      {
+         hb_xfree( *pResult );
+         iResult = -400;
+         *pResult = NULL;
+         *pLen = 0;
+      }
+   }
+   unzCloseCurrentFile( hUnzip );
+
+   return iResult;
+}
+
+/* hb_unzipExtractCurrentFileToMem( hUnzip, [ cPassword ], @cContent ) --> nError */
+HB_FUNC( HB_UNZIPEXTRACTCURRENTFILETOMEM )
+{
+   unzFile hUnzip = hb_unzipfileParam( 1 );
+
+   if( hUnzip )
+   {
+      char * pResult;
+      HB_SIZE nLen;
+
+      hb_retni( hb_unzipExtractCurrentFileToMem( hUnzip, hb_parc( 2 ), &pResult, &nLen ) );
+
+      if( pResult )
+      {
+         if( ! hb_storclen_buffer( pResult, nLen, 3 ) )
+            hb_xfree( pResult );
+      }
+      else
+         hb_storc( NULL, 3 );
    }
 }
 
@@ -1643,7 +1866,7 @@ static int hb_zipDeleteFile( const char * szZipFile, const char * szFileMask )
                   break;
                }
                iResult = zipWriteInFileInZip( hZip, ( voidp ) buffer, iRead );
-               if( iResult != UNZ_OK )
+               if( iResult != ZIP_OK )
                   break;
                ulLeft -= iRead;
             }
@@ -1653,7 +1876,7 @@ static int hb_zipDeleteFile( const char * szZipFile, const char * szFileMask )
          }
 
          iResult = zipCloseFileInZipRaw( hZip, ufi.uncompressed_size, ufi.crc );
-         if( iResult != UNZ_OK )
+         if( iResult != ZIP_OK )
             break;
 
          iResult = unzCloseCurrentFile( hUnzip );
