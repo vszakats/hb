@@ -4,7 +4,7 @@
  *
  * Copyright 2008 Mindaugas Kavaliauskas <dbtopas.at.dbtopas.lt>
  * Copyright 2011-2017 Viktor Szakats (vszakats.net/harbour)
- *   (codepage/unicode/...Mem())
+ *   (codepage, unicode, *Mem())
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
