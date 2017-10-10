@@ -1305,7 +1305,7 @@ Supported shells per host platforms:
           * 32-bit: threads-posix, dwarf-2
             <https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/>
      * Xcode / Command Line Tools for Xcode [darwin, zero price, proprietary with open-source components]
-        * <https://itunes.apple.com/us/app/xcode/id497799835>
+        * <https://itunes.apple.com/app/xcode/id497799835>
         * <https://developer.apple.com/downloads/> (needs login)
      * MS Windows SDK [zero price, proprietary]
         * <https://developer.microsoft.com/windows/downloads/sdk-archive/>
