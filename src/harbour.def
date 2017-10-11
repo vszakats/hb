@@ -2866,6 +2866,7 @@ hb_lppSendLen
 hb_lppSetLimit
 hb_macroGetType
 hb_macroGetValue
+hb_macroTextValue
 hb_mathGetErrMode
 hb_mathGetError
 hb_mathGetHandler
