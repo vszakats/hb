@@ -77,9 +77,10 @@ and a collection of libraries and bindings for popular APIs.
 ### Harbour live source repository
 
 You will need Git version control software installed on your system
-and to issue this command:
+and to issue this command (remove the `--depth` option to clone the
+complete history &mdash; useful for development):
 
-    git clone https://github.com/vszakats/harbour-core.git harbour-core
+    git clone --depth=10 https://github.com/vszakats/harbour-core.git harbour-core
 
 You can get subsequent updates using this command:
 
@@ -338,7 +339,7 @@ See: [How to Build](#how-to-build)
 
 # How to Enable Optional Components
 
-Certain Harbour parts &ndash; typically contrib packages &ndash; depend on
+Certain Harbour parts &mdash; typically contrib packages &mdash; depend on
 3rd party components. To make these Harbour parts built, you need to tell
 Harbour where to find the headers for these 3rd party components.
 
@@ -352,7 +353,7 @@ packages and for a few packages on \*nix which are not available via
 official package managers (e.g. ADS Client).
 
 Note that Harbour is tuned to use 3rd party **binary** packages in their
-default, unmodified &ndash; "vanilla" &ndash; install layout created by their
+default, unmodified &mdash; "vanilla" &mdash; install layout created by their
 official/mainstream install kits. If you manually move, rename, delete, add
 files under the 3rd party packages' root directory, or use a source package,
 the default Harbour build process (especially Windows implib generation)
@@ -495,8 +496,8 @@ settings are case-sensitive.
    - `HB_BUILD_CONTRIBS=no [<l>]`
 
      Do not build any, or space separated `<l>` list of, contrib packages.
-     Please note that packages which are dependencies of other &ndash;
-     enabled &ndash; packages will still be built, unless their dependents
+     Please note that packages which are dependencies of other &mdash;
+     enabled &mdash; packages will still be built, unless their dependents
      are disabled as well.
 
    - `HB_BUILD_CONTRIBS=[<l>]`
@@ -538,7 +539,7 @@ settings are case-sensitive.
    - `HB_CCSUFFIX=[<suffix>]`
 
      Used with gcc compiler family to specify compiler/linker tool name
-     suffix &ndash; usually version number.
+     suffix &mdash; usually version number.
 
    - `HB_INSTALL_PREFIX`
 
@@ -995,7 +996,7 @@ For all platforms you will need two things:
 
 * Supported ANSI C compiler
 
-    Your compiler of choice has to be placed in the `PATH` &ndash; and
+    Your compiler of choice has to be placed in the `PATH` &mdash; and
     configured appropriately according to instructions.
     If you use official Harbour binary distribution on Windows, you already
     have MinGW compiler embedded in the installation, which will automatically
@@ -1427,9 +1428,9 @@ Supported shells per host platforms:
      * CA-Cl*pper 5.3 [online documentation](https://harbour.github.io/ng/c53g01c/menu.html)
      * Harbour [online documentation](https://harbour.github.io/doc/)
      * Harbour [internal documents](doc/)
-     * [Harbour for Beginners](https://www.kresin.ru/en/hrbfaq_3.html) &ndash; by Alexander Kresin
-     * [Harbour Wiki](https://github.com/Petewg/V-harbour-core/wiki) &ndash; by Pete D
-     * [Harbour Magazine](https://medium.com/harbour-magazine) &ndash; by José Luis Sánchez
+     * [Harbour for Beginners](https://www.kresin.ru/en/hrbfaq_3.html) &mdash; by Alexander Kresin
+     * [Harbour Wiki](https://github.com/Petewg/V-harbour-core/wiki) &mdash; by Pete D
+     * [Harbour Magazine](https://medium.com/harbour-magazine) &mdash; by José Luis Sánchez
      * [Wikipedia](https://en.wikipedia.org/wiki/Harbour_compiler)
      * [Stack Overflow](https://stackoverflow.com/questions/tagged/clipper)
 

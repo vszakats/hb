@@ -170,8 +170,8 @@ Evaluate these points before reporting an issue:
       <http://www.catb.org/~esr/faqs/smart-questions.html>
     * "Does Not Work"
       <http://importblogkit.com/2015/07/does-not-work/>
-13. <a name="trbl-13"></a> Please do not report warnings or bugs &ndash; except
-    of _build errors_ &ndash; in 3rd party component hosted inside the Harbour
+13. <a name="trbl-13"></a> Please do not report warnings or bugs &mdash; except
+    of _build errors_ &mdash; in 3rd party component hosted inside the Harbour
     source tree. You can recognize these by their source path, which always
     contains a subdirectory named `/3rd/`. Report these to the maintainer(s)
     of the respective component instead.
