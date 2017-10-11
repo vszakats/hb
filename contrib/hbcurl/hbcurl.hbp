@@ -9,10 +9,9 @@ hbcurl.hbm
 -depimplibs=curl:../lib/libcurl.nodef{mingw|clang}
 -depimplibs=curl:../lib/libcurldll.a{allwinar}
 -depimplibs=curl:../lib/libcurl.dll.a{allwinar}
--depimplibd=curl:curl
+-depimplibd=curl:curl.dll{allwinar}
+-depimplibd=curl:curl{!allwinar}
 -depfinish=curl
-
--iflag={bcc}-a
 
 -instfile=depimplibsrc:${HBMK_DIR_CURL}/../dlls/libcurl.dll{hbdyn&win}
 -instfile=depimplibsrc:${HBMK_DIR_CURL}/../lib/libcurl.dll{hbdyn&win}

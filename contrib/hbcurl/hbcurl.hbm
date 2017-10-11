@@ -21,6 +21,8 @@
 -depincpath=curl:/usr/include
 -depincpath=curl:/usr/local/include
 
+-iflag={bcc}-a
+
 -cflag=-DCURL_NO_OLDIES
 
 date.c

@@ -19,6 +19,4 @@ hbssl.hbm
 
 {allwin&HBMK_HAS_OPENSSL}-cflag=-I${HB_WITH_OPENSSL}/../inc32
 
--iflag={bcc}-a
-
 hbssls.hbp
