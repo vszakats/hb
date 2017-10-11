@@ -171,20 +171,20 @@ Evaluate these points before reporting an issue:
     * "Does Not Work"
       <http://importblogkit.com/2015/07/does-not-work/>
 13. <a name="trbl-13"></a> Please do not report warnings or bugs &mdash; except
-    of _build errors_ &mdash; in 3rd party component hosted inside the Harbour
+    _build errors_ &mdash; in 3rd party components hosted inside the Harbour
     source tree. You can recognize these by their source path, which always
-    contains a subdirectory named `/3rd/`. Report these to the maintainer(s)
-    of the respective component instead.
+    contain a subdirectory named `/3rd/`. Report these directly to the
+    maintainer of the respective component instead.
 14. <a name="trbl-14"></a> If your example or report contains human readable
     text, use English only.
 15. <a name="trbl-15"></a> If your example involves compatibility components,
-    make sure to test it against original implementation (for example, test
-    legacy Cl\*pper core language elements against real CA-Cl\*pper 5.2e or
-    5.3b, or `hbct` functions against CT3 library, etc)
+    make sure to test it against original implementation (e.g. legacy Cl\*pper
+    core language elements against real CA-Cl\*pper 5.2e or 5.3b, or `hbct`
+    functions against CT3 library, etc.)
     Notice that Harbour is Cl\*pper Summer '87 compatible exactly as
     much as Cl\*pper 5.2e/5.3b is, meaning: almost, but not completely.
-    For Cl\*pper testing, use this free, open-source
-    [MS-DOS emulator](https://www.vdos.info/) (for Windows/Wine).
+    For tests with Cl\*pper, use this free, open-source
+    [MS-DOS emulator](https://www.vdos.info/) (requires Windows/Wine).
 
 
 ---
