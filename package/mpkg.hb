@@ -19,7 +19,7 @@
 PROCEDURE Main( cMode )
 
    LOCAL tmp, aFiles, file, cStdOut, tDate, tDateHEAD
-   LOCAL cGitRoot, lShallow, cBinMask
+   LOCAL cGitRoot, lShallow, cBinMask, nUTCOffsetLocal
 
    _TRACE( "BEGIN" )
 
@@ -58,14 +58,18 @@ PROCEDURE Main( cMode )
 
          hb_processRun( "git log -1 --format=format:%ci",, @cStdOut )
 
+         _TRACE( "date HEAD (raw):", cStdOut )
+
          tDateHEAD := hb_CToT( cStdOut, "yyyy-mm-dd", "hh:mm:ss" )
+
+         nUTCOffsetLocal := hb_UTCOffset()
 
          IF Empty( tDateHEAD )
             OutStd( "! mpkg.hb: Error: Failed to obtain last commit timestamp." + hb_eol() )
          ELSE
-            tDateHEAD -= ( ( iif( SubStr( cStdOut, 21, 1 ) == "-", -1, 1 ) * 60 * ;
-                           ( Val( SubStr( cStdOut, 22, 2 ) ) * 60 + ;
-                             Val( SubStr( cStdOut, 24, 2 ) ) ) ) ) / 86400
+            tDateHEAD -= ( ( ( iif( SubStr( cStdOut, 21, 1 ) == "-", -1, 1 ) * 60 * ;
+                             ( Val( SubStr( cStdOut, 22, 2 ) ) * 60 + ;
+                               Val( SubStr( cStdOut, 24, 2 ) ) ) ) - nUTCOffsetLocal ) / 86400 )
          ENDIF
 
          _TRACE( "date HEAD:", hb_TToC( tDateHEAD ) )
@@ -106,9 +110,9 @@ PROCEDURE Main( cMode )
                      tDate := hb_CToT( cStdOut, "yyyy-mm-dd", "hh:mm:ss" )
 
                      IF ! Empty( tDate )
-                        tDate -= ( ( iif( SubStr( cStdOut, 21, 1 ) == "-", -1, 1 ) * 60 * ;
-                                   ( Val( SubStr( cStdOut, 22, 2 ) ) * 60 + ;
-                                     Val( SubStr( cStdOut, 24, 2 ) ) ) ) ) / 86400
+                        tDate -= ( ( ( iif( SubStr( cStdOut, 21, 1 ) == "-", -1, 1 ) * 60 * ;
+                                     ( Val( SubStr( cStdOut, 22, 2 ) ) * 60 + ;
+                                       Val( SubStr( cStdOut, 24, 2 ) ) ) ) - nUTCOffsetLocal ) / 86400 )
                         hb_vfTimeSet( file, tDate )
                      ENDIF
                   ENDIF
