@@ -47,7 +47,7 @@ ${hb_prefix}/package/harbour.hbc{hbdyn&!__HB_3RD_DYN}
 # dynamic lib creation settings
 {hbdyn}-shared
 {hbdyn}-implib=${hb_lib}/${hb_outputname}_dll
-{hbdyn&win&(allmingw|allclang)}-implib=${hb_lib}/${hb_outputname}.dll
+{hbdyn&win&(allmingw|allclang)}-implib=${hb_lib}/${hb_outputname}
 {hbdyn&unix&!android&!cygwin}-ln=${hb_dynprefix}${hb_outputname}${hb_dynext}
 {hbdyn&unix&!darwin&!android&!cygwin}-ln=${hb_dynprefix}${hb_outputname}${hb_dynext}.${hb_major}.${hb_minor}
 {hbdyn&unix&darwin}-ln=${hb_dynprefix}${hb_outputname}.${hb_major}.${hb_minor}${hb_dynext}
