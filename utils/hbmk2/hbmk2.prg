@@ -9661,13 +9661,20 @@ STATIC PROCEDURE DoInstCopy( hbmk )
                IF hb_DirBuild( hb_FNameDir( cDestFileName ) )
                   ++nCopied
                   IF cLink != NIL
-                     hb_vfErase( cDestFileName )
-                     IF hb_vfLinkSym( cLink, cDestFileName ) == F_ERROR
-                        _hbmk_OutErr( hbmk, hb_StrFormat( I_( "Warning: Copying symbolic link %1$s to %2$s failed with %3$d." ), cInstFile, cDestFileName, FError() ) )
-                     ELSEIF hbmk[ _HBMK_lInfo ]
-                        _hbmk_OutStd( hbmk, hb_StrFormat( I_( "Copied symbolic link %1$s to %2$s" ), cInstFile, cDestFileName ) )
+
+                     IF hb_vfExists( cLink ) .OR. hbmk[ _HBMK_lInfo ]
+                        IF hb_vfExists( cLink )
+                           hb_vfErase( cDestFileName )
+                        ENDIF
+                        IF hb_vfLinkSym( cLink, cDestFileName ) == F_ERROR
+                           _hbmk_OutErr( hbmk, hb_StrFormat( I_( "Warning: Copying symbolic link %1$s to %2$s failed with %3$d." ), cInstFile, cDestFileName, FError() ) )
+                        ELSEIF hbmk[ _HBMK_lInfo ]
+                           _hbmk_OutStd( hbmk, hb_StrFormat( I_( "Copied symbolic link %1$s to %2$s" ), cInstFile, cDestFileName ) )
+                        ENDIF
                      ENDIF
-                  ELSE
+
+                  ELSEIF hb_vfExists( cInstFile ) .OR. hbmk[ _HBMK_lInfo ]
+
                      IF hbmk_hb_vfCopyFile( cInstFile, cDestFileName ) == F_ERROR
                         _hbmk_OutErr( hbmk, hb_StrFormat( I_( "Warning: Copying %1$s to %2$s failed with %3$d." ), cInstFile, cDestFileName, FError() ) )
                      ELSE
