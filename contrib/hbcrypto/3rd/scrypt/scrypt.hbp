@@ -3,7 +3,7 @@
 -hblib
 -inc
 
--o${hb_targetname}
+-o${hb_name}
 
 -warn=low
 -cpp=no

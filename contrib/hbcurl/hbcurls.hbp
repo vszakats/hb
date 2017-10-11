@@ -1,7 +1,0 @@
-hbcurl.hbm
-
-hbcurl.hbx
-
--stop{!allwin|hbdyn}
-
--cflag=-DCURL_STATICLIB

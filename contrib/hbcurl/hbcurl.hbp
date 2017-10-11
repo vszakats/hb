@@ -1,7 +1,24 @@
-hbcurl.hbm
+-hblib
+-inc
 
--hbx=${hb_name}
+-o${hb_name}
 
+-w3 -es2
+
+-depurlbase=curl:https://curl.haxx.se/
+-depurlbase=curl:https://github.com/vszakats/harbour-deps{win&(allmingw|allclang)}
+-deppkgname=curl:libcurl4-openssl-dev{deb}
+-deppkgname=curl:curl-devel{rpm}
+-deppkgname=curl:curl{homebrew}
+-deppkgname=curl:curl{pacman}
+-deppkgname=curl:mingw-w64-i686-curl{msys2&x86}
+-deppkgname=curl:mingw-w64-x86_64-curl{msys2&x86_64}
+-depkeyhead=curl:curl/curl.h
+-depcontrol=curl:no{HB_BUILD_3RDEXT='no'}
+-depcontrol=curl:${HB_WITH_CURL}
+-depincpath=curl:/usr/local/opt/curl/include
+-depincpath=curl:/usr/include
+-depincpath=curl:/usr/local/include
 -depimplibs=curl:../libcurl.dll
 -depimplibs=curl:../bin/libcurl.dll
 -depimplibs=curl:../dlls/libcurl.dll
@@ -17,4 +34,18 @@ hbcurl.hbm
 -instfile=depimplibsrc:${HBMK_DIR_CURL}/../bin/libcurl.dll{hbdyn&win&(mingw|clang)}
 -instfile=depimplibsrc:${HBMK_DIR_CURL}/../bin/libcurl-x64.dll{hbdyn&win&(mingw64|clang64)}
 
-hbcurls.hbp
+-iflag={bcc}-a
+
+-cflag=-DCURL_NO_OLDIES
+-cflag=-DCURL_STATICLIB{hblib}
+
+-hbx=${hb_name}
+
+date.c
+easy.c
+escold.c
+global.c
+miscc.c
+ver.c
+
+misc.prg

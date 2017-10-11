@@ -1,7 +1,7 @@
 -hblib
 -inc
 
--o${hb_targetname}
+-o${hb_name}
 -workdir=${hb_work}/${hb_plat}/${hb_comp}/${hb_targetname}
 
 -w3 -es2

@@ -1,4 +1,34 @@
-# Keep them at top
+-stop{wce}
+
+-hblib
+-inc
+
+-o${hb_name}
+
+-w3 -es2
+
+-depurlbase=openssl:https://www.openssl.org/
+-depurlbase=openssl:https://github.com/vszakats/harbour-deps{win&(allmingw|allclang)}
+-depurlbase=openssl:https://www.openssl.org/community/binaries.html
+-deppkgname=openssl:libssl-dev{deb}
+-deppkgname=openssl:openssl-devel{rpm}
+-deppkgname=openssl:openssl@1.1{homebrew}
+-deppkgname=openssl:openssl{homebrew}
+-deppkgname=openssl:libressl{homebrew}
+-deppkgname=openssl:openssl{pacman}
+-deppkgname=openssl:mingw-w64-i686-openssl{msys2&x86}
+-deppkgname=openssl:mingw-w64-x86_64-openssl{msys2&x86_64}
+-depkeyhead=openssl:openssl/ssl.h
+-depcontrol=openssl:no{HB_BUILD_3RDEXT='no'}
+-depcontrol=openssl:${HB_WITH_OPENSSL}
+-depincpath=openssl:/usr/local/opt/openssl@1.1/include
+-depincpath=openssl:/usr/local/opt/openssl/include
+-depincpath=openssl:/usr/local/opt/libressl/include
+-depincpath=openssl:/usr/include
+-depincpath=openssl:/usr/local/include
+-depincpath=openssl:/usr/local/ssl/include
+-depincpath=openssl:/boot/common/include
+-depincpath=openssl:/usr/pkg/include
 -depimplibs=openssl:../out32dll/libeay32.dll
 -depimplibs=openssl:../out32dll/ssleay32.dll
 -depimplibs=openssl:../dll/libeay32.dll
@@ -7,16 +37,43 @@
 -depimplibs=openssl:../ssleay32.dll
 -depimplibs=openssl:../lib/libcrypto.dll.a:crypto{allwinar}
 -depimplibs=openssl:../lib/libssl.dll.a:ssl{allwinar}
+-depfinish=openssl
 
 -instfile=depimplibsrc:${HBMK_DIR_OPENSSL}/../libcrypto-1_1.dll{hbdyn&(mingw|clang)}
 -instfile=depimplibsrc:${HBMK_DIR_OPENSSL}/../libssl-1_1.dll{hbdyn&(mingw|clang)}
 -instfile=depimplibsrc:${HBMK_DIR_OPENSSL}/../libcrypto-1_1-x64.dll{hbdyn&(mingw64|clang64)}
 -instfile=depimplibsrc:${HBMK_DIR_OPENSSL}/../libssl-1_1-x64.dll{hbdyn&(mingw64|clang64)}
 
-hbssl.hbm
+-iflag={bcc}-a
 
--hbx=${hb_name}
+# for openssl/applink.c
+-cflag={lngcpp&allgcc}-fpermissive
+
+# For _fileno() in openssl/applink.c
+#-c=gnu90
 
 {allwin&HBMK_HAS_OPENSSL}-cflag=-I${HB_WITH_OPENSSL}/../inc32
 
-hbssls.hbp
+{allwin&hblib}-cflag=-DHB_OPENSSL_STATIC
+
+-hbx=${hb_name}
+
+ssl_hbcon.prg
+
+ssl_hb.c
+ssl_inet.c
+ssl_sock.c
+bio.c
+err.c
+evp.c
+evpciph.c
+evpenc.c
+evpmd.c
+evppkey.c
+pem.c
+rand.c
+ssl.c
+sslciph.c
+sslctx.c
+sslsess.c
+x509.c
