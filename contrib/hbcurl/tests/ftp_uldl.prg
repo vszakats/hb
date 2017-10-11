@@ -14,7 +14,7 @@
 
 PROCEDURE Main( cDL, cUL )
 
-   LOCAL cCA := "cacert.pem"
+   LOCAL lSystemCA, cCA := "cacert.pem"
 
    LOCAL curl
    LOCAL info
@@ -54,6 +54,23 @@ PROCEDURE Main( cDL, cUL )
    ? "Available SSL backends:", hb_ValToExp( tmp )
 
    WAIT
+
+   #if defined( __PLATFORM__UNIX )
+      lSystemCA := .T.
+   #elif defined( __PLATFORM__WINDOWS )
+      /* Switch to SChannel SSL backend, if available (on Windows).
+         Doing this to use the OS certificate store. */
+      curl_global_sslset( -1,, @tmp )
+      IF ( lSystemCA := ;
+         HB_CURLSSLBACKEND_SCHANNEL $ tmp .AND. ;
+         curl_global_sslset( HB_CURLSSLBACKEND_SCHANNEL ) == HB_CURLSSLSET_OK )
+         cCA := NIL
+      ELSE
+         cCA := hb_DirBase() + hb_DirSepToOS( "../../../bin/" ) + cCA
+      ENDIF
+   #else
+      lSystemCA := .F.
+   #endif
 
    ? "curl_global_init():", curl_global_init()
 
@@ -141,12 +158,9 @@ PROCEDURE Main( cDL, cUL )
 
       WAIT
 
-      #if defined( __PLATFORM__WINDOWS )
-         cCA := hb_DirBase() + hb_DirSepToOS( "../../../bin/" ) + cCA
-      #endif
-      #if ! defined( __PLATFORM__UNIX ) .OR. defined( __PLATFORM__DARWIN )
+      IF ! lSystemCA
          IF ! hb_vfExists( cCA )
-            ? "Downloading", cCA
+            ? "Downloading (via unverified HTTPS)", cCA
             curl_easy_setopt( curl, HB_CURLOPT_DOWNLOAD )
             curl_easy_setopt( curl, HB_CURLOPT_SSL_VERIFYPEER, .F. )  /* we don't have a CA database yet, so skip checking */
             curl_easy_setopt( curl, HB_CURLOPT_URL, "https://curl.haxx.se/ca/cacert.pem" )
@@ -156,7 +170,7 @@ PROCEDURE Main( cDL, cUL )
             curl_easy_reset( curl )
          ENDIF
          curl_easy_setopt( curl, HB_CURLOPT_CAINFO, cCA )
-      #endif
+      ENDIF
 
       hb_default( @cDL, "https://www.example.org/index.html" )
 

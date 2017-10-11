@@ -7,7 +7,7 @@
 
 PROCEDURE Main( cFrom, cPassword, cTo, cHost )
 
-   LOCAL cCA := "cacert.pem"
+   LOCAL lSystemCA, cCA := "cacert.pem", tmp
 
    LOCAL curl
    LOCAL lAPI_curl := curl_version_info()[ HB_CURLVERINFO_VERSION_NUM ] >= 0x073800
@@ -83,24 +83,38 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
       cUser := StrTran( cUser, "@mailtrap.io" )
    CASE cHost == "localhost"
       cHost := "smtp://localhost:1025"  /* MailHog */
-      cUser := cPass := NIL
+      cUser := cPassword := NIL
    ENDCASE
 
    ? "libcurl:", curl_version_info()[ HB_CURLVERINFO_VERSION ]
    ? "Payload API:", iif( lAPI_curl, "libcurl native", "tip_MailAssemble()" )
    ? "Host:", cHost, iif( lSTARTTLS_force, "(must STARTTLS)", "" )
 
+   #if defined( __PLATFORM__UNIX )
+      lSystemCA := .T.
+   #elif defined( __PLATFORM__WINDOWS )
+      /* Switch to SChannel SSL backend, if available (on Windows).
+         Doing this to use the OS certificate store. */
+      curl_global_sslset( -1,, @tmp )
+      IF ( lSystemCA := ;
+         HB_CURLSSLBACKEND_SCHANNEL $ tmp .AND. ;
+         curl_global_sslset( HB_CURLSSLBACKEND_SCHANNEL ) == HB_CURLSSLSET_OK )
+         cCA := NIL
+      ELSE
+         cCA := hb_DirBase() + hb_DirSepToOS( "../../../bin/" ) + cCA
+      ENDIF
+   #else
+      lSystemCA := .F.
+   #endif
+
    curl_global_init()
 
    IF Empty( curl := curl_easy_init() )
       ? "Failed to init"
    ELSE
-      #if defined( __PLATFORM__WINDOWS )
-         cCA := hb_DirBase() + hb_DirSepToOS( "../../../bin/" ) + cCA
-      #endif
-      #if ! defined( __PLATFORM__UNIX ) .OR. defined( __PLATFORM__DARWIN )
+      IF ! lSystemCA
          IF ! hb_vfExists( cCA )
-            ? "Downloading", cCA
+            ? "Downloading (via unverified HTTPS)", cCA
             curl_easy_setopt( curl, HB_CURLOPT_DOWNLOAD )
             curl_easy_setopt( curl, HB_CURLOPT_SSL_VERIFYPEER, .F. )  /* we don't have a CA database yet, so skip checking */
             curl_easy_setopt( curl, HB_CURLOPT_URL, "https://curl.haxx.se/ca/cacert.pem" )
@@ -110,7 +124,7 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
             curl_easy_reset( curl )
          ENDIF
          curl_easy_setopt( curl, HB_CURLOPT_CAINFO, cCA )
-      #endif
+      ENDIF
       curl_easy_setopt( curl, HB_CURLOPT_USE_SSL, ;
          iif( lSTARTTLS_force, HB_CURLUSESSL_ALL, HB_CURLUSESSL_TRY ) )
       curl_easy_setopt( curl, HB_CURLOPT_UPLOAD )
