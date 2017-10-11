@@ -76,7 +76,7 @@ else
    include $(TOP)$(ROOT)config/none.mk
 endif
 
-# URL    https://github.com/glennrp/libpng/archive/v1.6.32.tar.gz
+# URL    https://download.sourceforge.net/libpng/libpng-1.6.34.tar.xz
 # DIFF   png.diff
 #
 # MAP    LICENSE

@@ -1,6 +1,6 @@
 diff --strip-trailing-cr -urN png.orig/pnglibconf.h png/pnglibconf.h
---- png.orig/pnglibconf.h	2017-08-24 21:39:02.000000000 +0000
-+++ png/pnglibconf.h	2017-10-06 19:15:58.000000000 +0000
+--- png.orig/pnglibconf.h	2017-09-29 08:40:57.000000000 +0000
++++ png/pnglibconf.h	2017-10-11 17:19:49.000000000 +0000
 @@ -217,4 +217,14 @@
  #define PNG_sCAL_PRECISION 5
  #define PNG_sRGB_PROFILE_CHECKS 2
