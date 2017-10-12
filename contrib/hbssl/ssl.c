@@ -116,39 +116,10 @@ typedef struct _HB_SSL
    #if defined( HB_GCC_HAS_DIAG ) && defined( __clang__ )
       #pragma GCC diagnostic pop
    #endif
-   #if defined( HB_OPENSSL_STATIC ) && \
-       OPENSSL_VERSION_NUMBER <= 0x1000206fL /* 1.0.2f or lower */
-      extern void * OPENSSL_UplinkTable[];  /* available when OpenSSL was built with -DOPENSSL_USE_APPLINK option */
-   #endif
 #endif
 
 HB_FUNC( SSL_INIT )
 {
-   #if defined( HB_OPENSSL_HAS_APPLINK ) && \
-       defined( HB_OPENSSL_STATIC ) && \
-       OPENSSL_VERSION_NUMBER <= 0x1000206fL /* 1.0.2f or lower */
-   {
-      /* Initialize "applink" function table with C RTL function pointers
-         when OpenSSL is statically linked and the static OpenSSL libraries
-         were built with `-DOPENSSL_USE_APPLINK` option (which is the
-         default in mingw 32-bit). This is required, otherwise the UP_*()
-         macros will resolve to NULL pointers and crash those OpenSSL functions
-         that rely on them, e.g. BIO_write() on a BIO_new_fd(). The
-         hack-free solution would be to build OpenSSL static libraries
-         _without_ OPENSSL_USE_APPLINK option, and build shared libraries
-         (.dlls) _with_ OPENSSL_USE_APPLINK in two separate build pass.
-         Unfortunately there is no way to find out if the OpenSSL build
-         we're linking against was built with or without OPENSSL_USE_APPLINK,
-         so this whole house of cards may fail with non-default configurations,
-         manifesting in an unresolved `OPENSSL_UplinkTable` external. */
-
-      void ** up = OPENSSL_Applink();
-      size_t count = ( size_t ) up[ 0 ];
-      for( ; count; --count )
-         OPENSSL_UplinkTable[ count ] = up[ count ];
-   }
-   #endif
-
    SSL_library_init();
    SSL_load_error_strings();
 }

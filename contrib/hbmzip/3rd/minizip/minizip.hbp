@@ -1,5 +1,5 @@
 # -lharbour required for the zlib API exported from there
--stop{hbdyn&!(HB_BUILD_3RD_DYN='yes')} -env:__HB_3RD_DYN=yes{hbdyn} -lharbour{hbdyn}
+-stop{hbdyn&!(HB_BUILD_3RD_DYN='yes')} -env:__HB_3RD_DYN=yes{hbdyn} -lharbour${hb_dynsuffix}{hbdyn}
 
 -hblib
 -inc
