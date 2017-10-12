@@ -47,6 +47,8 @@
 #include "hbapi.h"
 #include "hbapiitm.h"
 
+#if defined( HB_LEGACY_LEVEL4 )
+
 #define HB_STRFORMAT_PARNUM_MAX_  9
 #define POS_TO_PAR( pos )  ( pos + 2 )
 
@@ -146,3 +148,5 @@ HB_FUNC( STRFORMAT )
    else
       hb_retc_null();
 }
+
+#endif

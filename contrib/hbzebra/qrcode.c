@@ -64,7 +64,7 @@
    http://www.thonky.com/qr-code-tutorial/                 Tutorial
    https://github.com/zxing/zxing                          Java library
    http://goqr.me/                                         Online encode
-   http://www.pclviewer.com/rs2/calculator.html            Reed-Solomon ECC calculator
+   https://www.pclviewer.com/rs2/calculator.html           Reed-Solomon ECC calculator
    https://web.archive.org/web/raidenii.net/files/datasheets/misc/qr_code.pdf
 
  */
