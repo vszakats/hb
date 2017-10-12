@@ -54,6 +54,7 @@
 
 {allwin&HBMK_HAS_OPENSSL}-cflag=-I${HB_WITH_OPENSSL}/../inc32
 
+{allwin&hbdyn}-cflag=-DOPENSSL_OPT_WINDLL
 {allwin&hblib}-cflag=-DHB_OPENSSL_STATIC
 
 -hbx=${hb_name}
