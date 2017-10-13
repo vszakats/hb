@@ -14,7 +14,7 @@
 
 PROCEDURE Main( cDL, cUL )
 
-   LOCAL lSystemCA, cCA := "cacert.pem"
+   LOCAL lSystemCA, cCA := hb_PathJoin( iif( hb_DirBase() == "", hb_cwd(), hb_DirBase() ), "cacert.pem" )
 
    LOCAL curl
    LOCAL info
@@ -159,17 +159,16 @@ PROCEDURE Main( cDL, cUL )
       WAIT
 
       IF ! lSystemCA
-         IF ! hb_vfExists( cCA )
-            ? "Downloading (via unverified HTTPS)", cCA
-            curl_easy_setopt( curl, HB_CURLOPT_DOWNLOAD )
-            curl_easy_setopt( curl, HB_CURLOPT_SSL_VERIFYPEER, .F. )  /* we don't have a CA database yet, so skip checking */
-            curl_easy_setopt( curl, HB_CURLOPT_URL, "https://curl.haxx.se/ca/cacert.pem" )
-            curl_easy_setopt( curl, HB_CURLOPT_DL_FILE_SETUP, cCA )
-            curl_easy_setopt( curl, HB_CURLOPT_FAILONERROR, .T. )
-            curl_easy_perform( curl )
-            curl_easy_reset( curl )
+         IF hb_vfExists( cCA )
+            curl_easy_setopt( curl, HB_CURLOPT_CAINFO, cCA )
+         ELSE
+            ?
+            ? "Error: Trusted Root Certificates missing. Open this URL in your web browser:"
+            ? "  " + "https://curl.haxx.se/ca/cacert.pem"
+            ? "and save the file as:"
+            ? "  " + cCA
+            RETURN
          ENDIF
-         curl_easy_setopt( curl, HB_CURLOPT_CAINFO, cCA )
       ENDIF
 
       hb_default( @cDL, "https://www.example.org/index.html" )
