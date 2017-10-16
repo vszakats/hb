@@ -13,7 +13,7 @@ ifeq ($(HB_BUILD_PARTS),compiler)
 
 else
 
-   ifneq ($(HB_BUILD_DYN),no)
+   ifneq ($(__HB_BUILD_DYN),no)
 
       DYNDIRLIST_BASE := \
          src/common \
@@ -109,7 +109,7 @@ else
       hbextern$(HB_COMP_REF) \
       debug$(HB_COMP_REF)
 
-      ifneq ($(HB_BUILD_DYN),no)
+      ifneq ($(__HB_BUILD_DYN),no)
          DIRS += dynlib{3rd,codepage,common,hbextern,lang,macro,pp,rdd,rtl,vm}
       endif
 

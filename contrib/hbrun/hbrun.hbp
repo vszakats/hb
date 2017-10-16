@@ -4,7 +4,7 @@
 # extension loading. (only do that if HB_BUILD_CONTRIB_DYN is enabled, meaning
 # there exist actual dynamic extensions to be loaded.)
 # This must come before including hbmk2.hbp.
-{_HB_BUILD_&!(HB_BUILD_DYN='no')&!(HB_BUILD_CONTRIB_DYN='no')&(win|wce|os2)}-shared
+{_HB_BUILD_&!(HB_BUILD_SHARED='no')&!(HB_BUILD_CONTRIB_DYN='no')&(win|wce|os2)}-shared
 {shared}-env:__HBMKDYN=yes
 
 @../../utils/hbmk2/hbmk2.hbp

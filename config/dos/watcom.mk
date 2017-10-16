@@ -54,7 +54,7 @@ endif
 
 # different SYS values: dos4g (default), pmodew (commercial), causeway,
 # dos32a (DOS/32A LE executable), dos32x (DOS/32A LX executable)
-ifeq ($(HB_BUILD_DYN),dostest)
+ifeq ($(__HB_BUILD_DYN),dostest)
    LDFLAGS += SYS causeway
 else
    LDFLAGS += SYS dos32a
@@ -75,7 +75,7 @@ ifeq ($(CC),wcc386)
    LDLIBS += clib3r
 endif
 
-ifeq ($(HB_BUILD_DYN),dostest)
+ifeq ($(__HB_BUILD_DYN),dostest)
 
    HB_DYN_COPT := -DHB_DYNLIB -bd
 
@@ -112,6 +112,6 @@ ifeq ($(HB_BUILD_DYN),dostest)
 
    DY_RULE = $(create_dynlib)
 
-endif # HB_BUILD_DYN
+endif # __HB_BUILD_DYN
 
 include $(TOP)$(ROOT)config/common/watcom.mk

@@ -163,7 +163,7 @@ ifeq ($(HB_INIT_DONE),)
       endif
 
       # Enforce some basic settings for release packages
-      export HB_BUILD_DYN := yes
+      export __HB_BUILD_DYN := yes
       export HB_BUILD_OPTIM := yes
       export HB_BUILD_DEBUG := no
       export HB_BUILD_SHARED := no
@@ -173,7 +173,7 @@ ifeq ($(HB_INIT_DONE),)
    endif
 
    # Cannot build shared tools if we don't create dlls
-   ifeq ($(HB_BUILD_DYN),no)
+   ifeq ($(__HB_BUILD_DYN),no)
       export HB_BUILD_SHARED := no
    endif
 
@@ -261,9 +261,6 @@ ifeq ($(HB_INIT_DONE),)
    ifneq ($(HB_BUILD_PKG),)
       $(info ! HB_BUILD_PKG: $(HB_BUILD_PKG))
    endif
-   ifneq ($(HB_BUILD_DYN),)
-      $(info ! HB_BUILD_DYN: $(HB_BUILD_DYN))
-   endif
    ifneq ($(HB_BUILD_CONTRIB_DYN),)
       $(info ! HB_BUILD_CONTRIB_DYN: $(HB_BUILD_CONTRIB_DYN))
    endif
@@ -302,6 +299,9 @@ ifeq ($(HB_INIT_DONE),)
    endif
    ifneq ($(HB_INSTALL_IMPLIB),)
       $(info ! HB_INSTALL_IMPLIB: $(HB_INSTALL_IMPLIB))
+   endif
+   ifneq ($(__HB_BUILD_DYN),)
+      $(info ! __HB_BUILD_DYN: $(__HB_BUILD_DYN))
    endif
    ifneq ($(__HB_MT),)
       $(info ! __HB_MT: $(__HB_MT))
@@ -1779,7 +1779,7 @@ ifeq ($(HB_HOST_INC),)
 endif
 
 ifeq ($(HB_INIT_DONE),)
-   ifneq ($(HB_BUILD_DYN),no)
+   ifneq ($(__HB_BUILD_DYN),no)
 
       HB_IMPLIB_PLOC :=
       HB_DYNLIB_PLOC :=

@@ -582,10 +582,6 @@ settings are case-sensitive.
      Create release package. Default: `no`
      Requires `clean install` in root source dir.
 
-   - `HB_BUILD_DYN=no`
-
-     Create Harbour dynamic libraries. Default: `yes`
-
    - `HB_BUILD_CONTRIB_DYN=yes`
 
      Create contrib dynamic libraries. Default: `no`,
@@ -594,8 +590,10 @@ settings are case-sensitive.
    - `HB_BUILD_SHARED=yes`
 
      Create Harbour executables in shared mode.
-     Default: `yes` when `HB_INSTALL_PREFIX` points
-     to a \*nix system location, otherwise `no`.
+     Default: `yes` on non-\*nix platforms that support
+     is and on \*nix when `HB_INSTALL_PREFIX` points to
+     a system location, otherwise `no`.
+
    - `HB_BUILD_PARTS=[all|compiler|lib]`
 
      Build only specific part of Harbour.

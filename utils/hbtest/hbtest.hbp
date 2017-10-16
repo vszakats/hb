@@ -6,3 +6,5 @@ hbtest.prg
 hbtestc.c
 
 ../../package/harbour.hbc
+
+{!(HB_BUILD_SHARED='no')&(win|wce|os2)}-shared
