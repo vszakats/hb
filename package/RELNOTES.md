@@ -41,7 +41,7 @@ Source archives and Windows binaries are available for download:
    `C:\hb\getsrc.sh` to download sources and continue as
    described in section **How to Do a Partial Build** of `README.md`
 
-<a name="1"><sup>1</sup></a>In this document to: `C:\hb`<br>
+<a name="1"><sup>1</sup></a> This document uses `C:\hb`<br>
 
 ---
 Viktor Szakats
