@@ -560,7 +560,7 @@ settings are case-sensitive.
      > to any other directory. On \*nix systems, if you must install, please
      > use a stable installer package instead.
 
-## For Harbour development
+## For developing Harbour itself
 
    - `HB_USER_PRGFLAGS`        User Harbour compiler options
    - `HB_USER_CFLAGS`          User C compiler options
@@ -584,8 +584,14 @@ settings are case-sensitive.
 
    - `HB_BUILD_CONTRIB_DYN=yes`
 
-     Create contrib dynamic libraries. Default: `no`,
+     Create contrib dynamic libraries (in addition to static).
+     Default: `no`,
      except Windows and darwin platforms, where it's `yes`.
+
+   - `HB_BUILD_3RD_DYN=yes`
+
+     Create dynamic libraries of vendored 3rd party libaries
+     (in addition to static). Default: `no`
 
    - `HB_BUILD_SHARED=yes`
 
