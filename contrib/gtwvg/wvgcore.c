@@ -135,7 +135,7 @@ IPicture * hb_wvt_gtLoadPicture( const char * pszFileName )
 
                   if( CreateStreamOnHGlobal( hGlobal, FALSE, &pStream ) == S_OK && pStream )
                   {
-                     OleLoadPicture( pStream, nFileSize, TRUE, HB_ID_REF( IID_IPicture ), ( LPVOID * ) &pPicture );
+                     OleLoadPicture( pStream, ( LONG ) nFileSize, TRUE, HB_ID_REF( IID_IPicture ), ( LPVOID * ) &pPicture );
                      HB_VTBL( pStream )->Release( HB_THIS( pStream ) );
                   }
                }
@@ -350,7 +350,7 @@ static HB_BOOL hb_wvt_DrawImage( HDC hdc, int x, int y, int wd, int ht, const ch
                   IPicture * pPicture = NULL;
 
                   if( CreateStreamOnHGlobal( hGlobal, FALSE, &pStream ) == S_OK && pStream )
-                     OleLoadPicture( pStream, nFileSize, TRUE, HB_ID_REF( IID_IPicture ), ( LPVOID * ) &pPicture );
+                     OleLoadPicture( pStream, ( LONG ) nFileSize, TRUE, HB_ID_REF( IID_IPicture ), ( LPVOID * ) &pPicture );
 
                   if( pPicture )
                   {

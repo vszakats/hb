@@ -5397,7 +5397,7 @@ IPicture * hb_gt_wvw_LoadPicture( const char * szImage )
 
                   if( CreateStreamOnHGlobal( hGlobal, FALSE, &pStream ) == S_OK && pStream )
                   {
-                     OleLoadPicture( pStream, nFileSize, TRUE, HB_ID_REF( IID_IPicture ), ( LPVOID * ) &pPicture );
+                     OleLoadPicture( pStream, ( LONG ) nFileSize, TRUE, HB_ID_REF( IID_IPicture ), ( LPVOID * ) &pPicture );
                      HB_VTBL( pStream )->Release( HB_THIS( pStream ) );
                   }
                }
