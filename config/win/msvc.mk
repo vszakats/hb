@@ -10,8 +10,6 @@ OBJ_EXT := .obj
 LIB_PREF :=
 LIB_EXT := .lib
 
-HB_DYN_COPT := -DHB_DYNLIB
-
 ifneq ($(filter $(HB_COMPILER),clang-cl clang-cl64),)
    CC := clang-cl.exe
    HB_BUILD_MODE := c
@@ -147,7 +145,7 @@ define create_dynlib
    $(foreach file,$^,$(dynlib_object))
    $(DY) $(DFLAGS) $(HB_USER_DFLAGS) \
       $(DY_OUT)"$(subst /,$(DIRSEP),$(DYN_DIR)/$@)" \
-      -implib:"$(IMP_FILE)" @__dyn__.tmp $(DLIBS)
+      -implib:"$(IMP_FILE)" @__dyn__.tmp -def:$(DEF_FILE) $(DLIBS)
 endef
 
 DY_RULE = $(create_dynlib)

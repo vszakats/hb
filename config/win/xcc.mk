@@ -4,8 +4,6 @@ OBJ_EXT := .obj
 LIB_PREF :=
 LIB_EXT := .lib
 
-HB_DYN_COPT := -DHB_DYNLIB
-
 CC := xCC.exe
 CC_IN :=
 CC_OUT := -Fo
@@ -71,7 +69,7 @@ define create_dynlib
    $(if $(wildcard __dyn__.tmp),@$(RM) __dyn__.tmp,)
    $(foreach file,$^,$(dynlib_object))
    $(DY) $(DFLAGS) $(HB_USER_DFLAGS) \
-      $(DY_OUT)"$(subst /,\,$(DYN_DIR)/$@)" @__dyn__.tmp $(DLIBS) $(DYNFIX)
+      $(DY_OUT)"$(subst /,\,$(DYN_DIR)/$@)" @__dyn__.tmp -def:$(DEF_FILE) $(DLIBS) $(DYNFIX)
 endef
 
 DY_RULE = $(create_dynlib)

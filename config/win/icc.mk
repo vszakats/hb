@@ -4,8 +4,6 @@ OBJ_EXT := .obj
 LIB_PREF :=
 LIB_EXT := .lib
 
-HB_DYN_COPT := -DHB_DYNLIB
-
 CC := icl.exe
 CC_IN :=
 CC_OUT := -Fo
@@ -64,7 +62,7 @@ define create_dynlib
    $(foreach file,$^,$(dynlib_object))
    $(DY) $(DFLAGS) $(HB_USER_DFLAGS) \
       $(DY_OUT)"$(subst /,$(DIRSEP),$(DYN_DIR)/$@)" \
-      -implib:"$(IMP_FILE)" @__dyn__.tmp $(DLIBS)
+      -implib:"$(IMP_FILE)" @__dyn__.tmp -def:$(DEF_FILE) $(DLIBS)
 endef
 
 DY_RULE = $(create_dynlib)
