@@ -59,6 +59,8 @@
 /*
    Interesting C build overview from the author of a similar tool:
       http://nethack4.org/blog/building-c.html
+   About autotools:
+      https://autotools.io/
 
    Program Library HOWTO:
       https://www.dwheeler.com/program-library/Program-Library-HOWTO.pdf
