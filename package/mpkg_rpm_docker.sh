@@ -5,7 +5,7 @@
 # See LICENSE.txt for licensing terms.
 # ---------------------------------------------------------------
 
-# for Amazon Linux
+# for Linux: Amazon
 
 set -x; cat /etc/*-release; ulimit -a; df -h
 

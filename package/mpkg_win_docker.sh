@@ -5,7 +5,7 @@
 # See LICENSE.txt for licensing terms.
 # ---------------------------------------------------------------
 
-# for Linux Ubuntu Yakkety
+# for Linux: Ubuntu Yakkety
 
 set -x; cat /etc/*-release; ulimit -a; df -h
 

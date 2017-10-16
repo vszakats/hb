@@ -1460,5 +1460,5 @@ Supported shells per host platforms:
    a subjective decision. If you don't like it, use what fits you best.
 
 ---
-This document Copyright &copy;&nbsp;2009&ndash;present Viktor Szakats (vszakats.net/harbour)<br>
+This document Copyright &copy;&nbsp;2009&ndash;present [Viktor Szakats](https://vszakats.net/harbour)<br>
 [![Creative Commons Attribution-ShareAlike 4.0](https://mirrors.creativecommons.org/presskit/buttons/80x15/svg/by-sa.svg)](https://creativecommons.org/licenses/by-sa/4.0/)

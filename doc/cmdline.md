@@ -92,7 +92,5 @@ string separated by whitespace. (or just walk through all `argv[]`)
      `//` should always be used on the command-line.
 
 ---
-Copyright (c) 1999-2009 Viktor Szakats (vszakats.net/harbour)
-Licensed under Creative Commons Attribution-ShareAlike 4.0:
-<https://creativecommons.org/licenses/by-sa/4.0/>
-See LICENSE.txt
+Copyright &copy;&nbsp;1999&ndash;2009 [Viktor Szakats](https://vszakats.net/harbour)
+[![Creative Commons Attribution-ShareAlike 4.0](https://mirrors.creativecommons.org/presskit/buttons/80x15/svg/by-sa.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
