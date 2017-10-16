@@ -1113,8 +1113,8 @@ Press `<Alt+D>` in the app.
 * gccarm   - GNU C ARM
 
 ### win
-* clang    - LLVM/Clang
-* clang64  - LLVM/Clang x86-64
+* clang    - LLVM/Clang (5.0.0 and above)
+* clang64  - LLVM/Clang x86-64 (5.0.0 and above)
 * mingw    - MinGW GNU C (4.4.0 and above, 6.x or newer recommended)
 * mingw64  - MinGW GNU C x86-64
 * msvc     - Microsoft Visual C++ (2010 and above)
