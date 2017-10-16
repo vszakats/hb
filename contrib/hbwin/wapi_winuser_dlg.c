@@ -159,7 +159,7 @@ HB_FUNC( WAPI_GETDLGITEMTEXT )
    HB_SIZE nResult = ( HB_SIZE ) GetDlgItemText( hbwapi_par_raw_HWND( 1 ),
                                                  hbwapi_par_INT( 2 ),
                                                  lpResult,
-                                                 ( int ) ( nSize + 1 );
+                                                 ( int ) ( nSize + 1 ) );
 
    hbwapi_SetLastError( GetLastError() );
    HB_RETSTRLEN( lpResult, nResult );
