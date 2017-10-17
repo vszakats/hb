@@ -825,13 +825,28 @@ ifeq ($(HB_COMPILER_VER),)
       _C_VER := $(shell "$(HB_COMP_PATH_VER_DET)" -v 2>&1)
       _C_VER_BAK := $(_C_VER)
 
-      ifneq ($(findstring based on LLVM,$(_C_VER)),)  # 'Apple LLVM version 6.1.0 (clang-602.0.53) (based on LLVM 3.6.0svn)'
-         __temp := svn)
-         _C_VER := $(wordlist 9,9,$(subst $(__temp),,$(_C_VER)))
-      else ifneq ($(findstring Apple LLVM version,$(_C_VER)),)  # 'Apple LLVM version 8.1.0 (clang-802.0.42)'
-         _C_VER := $(wordlist 4,4,$(_C_VER))
-         _APPLE_VER := yes
-      else ifneq ($(findstring version,$(_C_VER)),)  # 'clang version 3.0 (tags/RELEASE_30/final)'
+      ifneq ($(findstring Apple LLVM,$(_C_VER)),)
+         ifneq ($(findstring based on LLVM,$(_C_VER)),)  # 'Apple LLVM version 6.1.0 (clang-602.0.53) (based on LLVM 3.6.0svn)'
+            __temp := )
+            _C_VER := $(subst $(__temp),,$(_C_VER))
+            __temp := svn
+            _C_VER := $(subst $(__temp),,$(_C_VER))
+            _C_VER := $(wordlist 9,9,$(_C_VER))
+         else                                            # 'Apple LLVM version 8.1.0 (clang-802.0.42)'
+            _C_VER := $(wordlist 4,4,$(_C_VER))
+            _APPLE_VER := yes
+         endif
+      else ifneq ($(findstring FreeBSD clang,$(_C_VER)),)
+         ifneq ($(findstring based on LLVM,$(_C_VER)),)  # 'FreeBSD clang version 4.0.0 (tags/RELEASE_400/final 297347) (based on LLVM 4.0.0)'
+            __temp := )
+            _C_VER := $(subst $(__temp),,$(_C_VER))
+            __temp := svn
+            _C_VER := $(subst $(__temp),,$(_C_VER))
+            _C_VER := $(wordlist 10,10,$(_C_VER))
+         else                                            # 'FreeBSD clang version 3.0 (tags/RELEASE_30/final 145349) 20111210'
+            _C_VER := $(wordlist 4,4,$(_C_VER))
+         endif
+      else ifneq ($(findstring version,$(_C_VER)),)      # 'clang version 3.0 (tags/RELEASE_30/final)'
          _C_VER := $(wordlist 3,3,$(_C_VER))
       else
          _C_VER := 1.0
