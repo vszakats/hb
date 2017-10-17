@@ -22,7 +22,7 @@ Source archives and Windows binaries are available for download:
 1. Unpack to any directory <sup>[1](#1)</sup></sup>
 2. Install MSYS2 by following steps at <https://msys2.github.io/><br>
    **Make sure you update MSYS2 to its current latest version, as described there.**
-3. Install MinGW-w64 + LLVM/Clang C compiler toolchain on the MSYS2 console:
+3. Install MinGW-w64 and LLVM/Clang C compiler toolchain on the MSYS2 console:
    ```shell
    pacman --noconfirm -S git {base,msys2}-devel mingw-w64-{i686,x86_64}-{clang,toolchain}
    ```
