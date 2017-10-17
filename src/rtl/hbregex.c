@@ -91,7 +91,7 @@ static int hb_regcomp( PHB_REGEX pRegEx, const char * szRegEx )
    pRegEx->iEFlags = ( ( pRegEx->iFlags & HBREG_NOTBOL ) ? PCRE2_NOTBOL : 0 ) |
                      ( ( pRegEx->iFlags & HBREG_NOTEOL ) ? PCRE2_NOTEOL : 0 );
 
-   /* use UTF8 in pcre when available and HVM CP is also UTF8. */
+   /* use UTF-8 in PCRE2 when available and HVM CP is also UTF-8. */
    if( s_iUTF8Enabled && hb_cdpIsUTF8( NULL ) )
       uiCFlags |= PCRE2_UTF;
 
@@ -112,7 +112,7 @@ static int hb_regcomp( PHB_REGEX pRegEx, const char * szRegEx )
    pRegEx->iEFlags = ( ( pRegEx->iFlags & HBREG_NOTBOL ) ? PCRE_NOTBOL : 0 ) |
                      ( ( pRegEx->iFlags & HBREG_NOTEOL ) ? PCRE_NOTEOL : 0 );
 
-   /* use UTF8 in pcre when available and HVM CP is also UTF8. */
+   /* use UTF-8 in PCRE1 when available and HVM CP is also UTF-8. */
    if( s_iUTF8Enabled && hb_cdpIsUTF8( NULL ) )
       iCFlags |= PCRE_UTF8;
 
