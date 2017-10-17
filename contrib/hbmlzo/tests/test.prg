@@ -1,6 +1,5 @@
 #require "hbmlzo"
 #require "hbbz2"
-#require "hblzf"
 
 #include "simpleio.ch"
 
@@ -89,7 +88,6 @@ PROCEDURE Main()
    ? "BZ2 ", hb_ntos( Len( hb_bz2_Compress( cStr, , @nResult ) ) )
    ? "GZIP", hb_ntos( Len( hb_gzCompress( cStr, , @nResult ) ) )
    ? "ZLIB", hb_ntos( Len( hb_ZCompress( cStr, ,  @nResult ) ) )
-   ? "LZF ", hb_ntos( Len( hb_lzf_compress( cStr, , @nResult ) ) )
    ? "LZO ", hb_ntos( Len( hb_lzo1x_1_compress( cStr, , @nResult ) ) )
 
    cStr := Replicate( hb_MemoRead( hb_ProgName() ), 50 )
@@ -97,7 +95,6 @@ PROCEDURE Main()
    ? "BZ2 ", hb_ntos( Len( hb_bz2_Compress( cStr, , @nResult ) ) )
    ? "GZIP", hb_ntos( Len( hb_gzCompress( cStr, , @nResult ) ) )
    ? "ZLIB", hb_ntos( Len( hb_ZCompress( cStr, ,  @nResult ) ) )
-   ? "LZF ", hb_ntos( Len( hb_lzf_compress( cStr, , @nResult ) ) )
    ? "LZO ", hb_ntos( Len( hb_lzo1x_1_compress( cStr, , @nResult ) ) )
 #endif
 

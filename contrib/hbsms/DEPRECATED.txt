@@ -1,6 +1,8 @@
-This contrib is deprecated and not maintained anymore.
+This contrib is deprecated, not maintained anymore and scheduled for removal.
 
 It also never leapt out of an experimental stage, so use it with caution.
 
 Please either copy this code to your local application to continue using it,
 or switch to a 3rd party solution ASAP.
+
+Date of removal from this repository: 2018-03-01

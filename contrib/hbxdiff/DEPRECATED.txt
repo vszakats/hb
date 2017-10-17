@@ -1,0 +1,14 @@
+This contrib is deprecated, not maintained anymore and scheduled for removal.
+
+Upstream project (libxdiff) is abandoned and development is only continued
+in its major users like git [1] and libgit2 [2] with diverged and
+incompatible code bases. The library also lacks a package in all major
+platforms (Homebrew being the only exception).
+
+Please copy this code to your local application to continue using it, or
+fork it to a separate project to take over its maintenance there.
+
+[1] https://github.com/git/git/tree/master/xdiff
+[2] https://github.com/libgit2/libgit2/tree/master/src/xdiff
+
+Date of removal from this repository: 2018-03-01

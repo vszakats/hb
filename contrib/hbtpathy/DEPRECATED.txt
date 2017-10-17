@@ -1,6 +1,8 @@
-This contrib is deprecated and not maintained anymore.
+This contrib is deprecated, not maintained anymore and scheduled for removal.
 
 It also hasn't been tested in a long time, so it likely contains bugs.
 it's also an incomplete implementation of the original API.
 
-Please switch to the Harbour core serial API ASAP.
+Please switch to the Harbour core serial API or hbct serial functions.
+
+Date of removal from this repository: 2018-03-01

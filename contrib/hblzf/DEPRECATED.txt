@@ -1,0 +1,19 @@
+This contrib is deprecated, not maintained anymore and scheduled for removal.
+
+Upstream project (liblzf) seems abandoned. The library also lacks a package
+in all major platforms (Homebrew being the only exception).
+
+Please copy this code to your local application to continue using it, or
+fork it to a separate project to take over its maintenance there.
+
+Harbour alternatives are zlib, bz2 and lzo.
+
+3rd party libs for potential replacement:
+https://github.com/facebook/zstd
+https://github.com/google/brotli
+https://github.com/lzfse/lzfse
+
+Benchmarks:
+https://github.com/inikep/lzbench/blob/master/lzbench171_sorted.md
+
+Date of removal from this repository: 2018-03-01

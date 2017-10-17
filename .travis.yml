@@ -120,7 +120,7 @@ before_install:
       # travis_retry brew install pcre zlib
         travis_retry brew install --force-bottle --build-bottle fontconfig || true
         travis_retry brew install --force-bottle \
-          bzip2 expat libharu liblzf libmxml libpng libxdiff lzo minizip pcre2 sqlite \
+          bzip2 expat libharu libmxml libpng lzo minizip pcre2 sqlite \
           cairo curl freeimage gd ghostscript icu4c libmagic libyaml mariadb ncurses openssl@1.1 postgresql qt rabbitmq-c s-lang unixodbc
       fi
       export MACOSX_DEPLOYMENT_TARGET=10.10
