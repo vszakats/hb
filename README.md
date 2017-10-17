@@ -1309,6 +1309,9 @@ Supported shells per host platforms:
             <https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/>
           * 32-bit: threads-posix, dwarf-2
             <https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/>
+     * Dr. Mingw Just-in-Time debugger [win, free software, open-source]
+        * <https://github.com/jrfonseca/drmingw>
+        * MSYS2 package: mingw-w64-{i686,x86_64}-drmingw
      * Xcode / Command Line Tools for Xcode [darwin, zero price, proprietary with open-source components]
         * <https://itunes.apple.com/app/xcode/id497799835>
         * <https://developer.apple.com/downloads/> (needs login)
