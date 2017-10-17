@@ -823,6 +823,7 @@ ifeq ($(HB_COMPILER_VER),)
          HB_COMP_PATH_VER_DET := $(HB_CCPREFIX)clang$(HB_CCSUFFIX)
       endif
       _C_VER := $(shell "$(HB_COMP_PATH_VER_DET)" -v 2>&1)
+      _C_VER_BAK := $(_C_VER)
 
       ifneq ($(findstring based on LLVM,$(_C_VER)),)  # 'Apple LLVM version 6.1.0 (clang-602.0.53) (based on LLVM 3.6.0svn)'
          __temp := svn)
@@ -863,11 +864,13 @@ ifeq ($(HB_COMPILER_VER),)
          HB_COMP_PATH_VER_DET := $(HB_CCPREFIX)gcc$(HB_CCSUFFIX)
       endif
       _C_VER := $(shell "$(HB_COMP_PATH_VER_DET)" -dumpversion 2>&1)
+      _C_VER_BAK := $(_C_VER)
 
       # Try new option if the returned version is 1 or 2 character long
       # (possibly a major version number only)
       ifneq ($(filter $(call strlen,$(_C_VER)),1 2),)
          _C_VER := $(shell "$(HB_COMP_PATH_VER_DET)" -dumpfullversion 2>&1)
+         _C_VER_BAK := $(_C_VER)
       endif
 
       ifeq ($(_C_VER),)
@@ -894,6 +897,7 @@ ifeq ($(HB_COMPILER_VER),)
          HB_COMP_PATH := cl.exe
       endif
       _C_VER := $(shell "$(HB_COMP_PATH)" 2>&1)
+      _C_VER_BAK := $(_C_VER)
 
       ifeq ($(wordlist 7,7,$(_C_VER)),Version)  # 'Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.30729.01 for 80x86'
          _C_VER := $(wordlist 8,8,$(_C_VER))
@@ -911,6 +915,7 @@ ifeq ($(HB_COMPILER_VER),)
    else ifneq ($(filter $(HB_COMPILER),pocc pocc64 poccarm),)
 
       _C_VER := $(shell "$(HB_COMP_PATH_VER_DET)" 2>&1)
+      _C_VER_BAK := $(_C_VER)
 
       # 'Pelles ISO C Compiler, Version 8.00.28'
       _C_VER := $(wordlist 6,6,$(_C_VER))
@@ -923,6 +928,14 @@ ifeq ($(HB_COMPILER_VER),)
       endif
       HB_COMPILER_VER := $(_C_VER_MAJOR)$(_C_VER_MINOR)
 
+   endif
+
+   # Something went wrong, reset to oldest possible version
+   ifneq ($(HB_COMPILER_VER),)
+      ifneq ($(call strlen,$(HB_COMPILER_VER)), 4)
+         HB_COMPILER_VER := 0000
+         $(info ! Warning: Failed to auto-detect C compiler version: |$(_C_VER_BAK)|)
+      endif
    endif
 endif
 
@@ -1633,7 +1646,7 @@ ifeq ($(HB_INIT_DONE),)
          $(shell $(_cmd) > $(TOP)$(ROOT)include$(DIRSEP)_repover.txt)
          $(shell git ls-remote --get-url >> $(TOP)$(ROOT)include$(DIRSEP)_repover.txt)
       else
-         $(info ! WARNING: Git not found in PATH. Version information might not be accurate.)
+         $(info ! Warning: Git not found in PATH. Version information might not be accurate.)
       endif
    endif
 endif
