@@ -226,9 +226,9 @@ if [ "${HB_JOB4}" != 'msvc' ]; then
     export HB_WITH_CAIRO="${_inc_df}/cairo"
     export HB_WITH_FREEIMAGE="${_inc_st}"
     export HB_WITH_GD="${_inc_st}"
-    # FIXME: Because mxe ghostscript packages misses a binary, version detection
-    #        falls back to using the native ghostscript package. Applies to
-    #        64-bit as well.
+    # FIXME: Because mxe ghostscript packages miss the 'gs' tool, version
+    #        detection falls back to using the native ghostscript package.
+    #        Applies to 64-bit as well.
     export HB_WITH_GS="${_inc_df}/ghostscript"
     export HB_WITH_ICU="${_inc_df}"
     export HB_WITH_LIBYAML="${_inc_df}"

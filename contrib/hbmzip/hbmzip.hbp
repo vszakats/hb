@@ -16,13 +16,11 @@
 -deppkgname=minizip:minizip{pacman}
 -deppkgname=minizip:mingw-w64-i686-zlib{msys2&x86}
 -deppkgname=minizip:mingw-w64-x86_64-zlib{msys2&x86_64}
-# component named libzip also has a header
-# named zip.h, so we look for unzip.h to detect minizip
 -depkeyhead=minizip:unzip.h
 -depcontrol=minizip:local{HB_BUILD_3RDEXT='no'}
 -depcontrol=minizip:${HB_WITH_MINIZIP}
--depincpath=minizip:/usr/include
--depincpath=minizip:/usr/local/include
+-depincpath=minizip:/usr/include/minizip
+-depincpath=minizip:/usr/local/include/minizip
 -depincpathlocal=minizip:3rd/minizip
 -depfinish=minizip
 

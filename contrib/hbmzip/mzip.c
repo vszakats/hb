@@ -239,10 +239,10 @@ HB_FUNC( HB_ZIPOPEN )
 
    if( szFileName )
    {
-      zipcharpc pszGlobalComment = NULL;
-      char *    pszFree;
-      zipFile   hZip = zipOpen2( hb_fsNameConv( szFileName, &pszFree ), hb_parnidef( 2, APPEND_STATUS_CREATE ),
-                                 &pszGlobalComment, NULL );
+      const char * pszGlobalComment = NULL;
+      char *       pszFree;
+      zipFile      hZip = zipOpen2( hb_fsNameConv( szFileName, &pszFree ), hb_parnidef( 2, APPEND_STATUS_CREATE ),
+                                    &pszGlobalComment, NULL );
 
       if( pszFree )
          hb_xfree( pszFree );
@@ -255,7 +255,7 @@ HB_FUNC( HB_ZIPOPEN )
          hb_retptrGC( phZip );
 
          if( pszGlobalComment )
-            hb_storc( ( const char * ) pszGlobalComment, 3 );
+            hb_storc( pszGlobalComment, 3 );
       }
    }
    else
