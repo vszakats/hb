@@ -43,8 +43,9 @@ environment:
     - HB_JOB: msvc2017
   HB_JOB_TO_RELEASE: clang
   HB_CI_THREADS: 4
-  MSYS2_FC_CACHE_SKIP: yes
   HB_BUILD_3RD_DYN: yes
+  MSYS2_FC_CACHE_SKIP: yes
+  DOTNET_CLI_TELEMETRY_OPTOUT: 1
 matrix:
   allow_failures:
     - HB_JOB: msvc2017

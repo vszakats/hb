@@ -90,6 +90,7 @@ matrix:
 before_install:
   - |
     export HB_CI_THREADS=4
+    export HB_BUILD_3RD_DYN=yes
     if [ -n "${DOCKER_IMAGE}" ]; then
       if [ "${CC}" = 'i686-w64-mingw32-gcc' ]; then
         DOCKER_SCRIPT=./package/mpkg_win_docker.sh
