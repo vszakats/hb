@@ -13,7 +13,8 @@ Source archives and Windows binaries are available for download:
 * Static and dynamic libraries of `libcurl`, `openssl`, `libssh2`, `nghttp2`
   for 32-bit and 64-bit apps
 * Example and test sources
-* `getsrc.sh` script to download source code
+* [`getsrc.sh`](https://github.com/vszakats/harbour-core/blob/master/package/getsrc.sh)
+  script to download source code
 * `BUILD*.txt` with build details in Harbour root directory
 
 ### Usage
