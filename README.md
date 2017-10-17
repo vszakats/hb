@@ -1406,8 +1406,6 @@ Supported shells per host platforms:
   * General:
      * [English](https://groups.google.com/forum/#!forum/harbour-users)
      * [Italian](https://groups.google.com/forum/#!forum/harbourita)
-     * [Portuguese](http://pctoledo.com.br/forum/viewforum.php?f=4)
-     * [Russian](http://clipper.borda.ru/?0-4)
 
   * Social media:
      * [Facebook](https://www.facebook.com/groups/harbour.project/)
@@ -1415,7 +1413,6 @@ Supported shells per host platforms:
 
   * Product-oriented:
      * [Harbour mainline development](https://groups.google.com/forum/#!forum/harbour-devel)
-     * [HMG (GUI)](http://hmgforum.com/viewforum.php?f=7)
      * [hbqt (GUI)](https://groups.google.com/forum/#!forum/qtcontribs)
      * [hwgui (GUI)](https://sourceforge.net/p/hwgui/mailman/hwgui-developers/)
      * [xHarbour fork](https://groups.google.com/forum/#!forum/comp.lang.xharbour)
