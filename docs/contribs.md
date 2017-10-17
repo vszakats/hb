@@ -251,7 +251,7 @@ these features are:
 * DLL handling functions
 * …and more
 
-{%- unless site.fork %}
+{% unless site.fork %}
 ## hbxdiff
 
 libxdiff bindings (diffing)
