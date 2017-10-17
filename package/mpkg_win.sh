@@ -272,13 +272,13 @@ _vcs_id="$(git rev-parse --verify HEAD)"
 _vcs_id_short="$(git rev-parse --verify --short HEAD)"
 _vcs_url="$(git ls-remote --get-url | sed 's|.git$||')/"
 
-sed -e "s|{HB_VER_COMMIT_ID_SHORT}|${_vcs_id_short}|g" \
-    -e "s|{HB_VER_ORIGIN_URL}|${_vcs_url}|g" \
-    -e "s|{HB_VERSION}|${_hb_ver}|g" \
+sed -e "s|@HB_VER_COMMIT_ID_SHORT@|${_vcs_id_short}|g" \
+    -e "s|@HB_VER_ORIGIN_URL@|${_vcs_url}|g" \
+    -e "s|@HB_VERSION@|${_hb_ver}|g" \
     'RELNOTES.md' | unix2dos > "${HB_ABSROOT}RELNOTES.md"
 touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}RELNOTES.md"
 
-sed "s|{HB_URL_SRC}|${_vcs_url}archive/${_vcs_id}.tar.gz|g" \
+sed "s|@HB_URL_SRC@|${_vcs_url}archive/${_vcs_id}.tar.gz|g" \
     'getsrc.sh' > "${HB_ABSROOT}getsrc.sh"
 chmod +x "${HB_ABSROOT}getsrc.sh"
 touch -c -r "${HB_ABSROOT}README.md" "${HB_ABSROOT}getsrc.sh"

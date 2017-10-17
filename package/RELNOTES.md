@@ -1,8 +1,8 @@
-## Harbour {HB_VERSION} ({HB_VER_COMMIT_ID_SHORT})
+## Harbour @HB_VERSION@ (@HB_VER_COMMIT_ID_SHORT@)
 
 Source archives and Windows binaries are available for download:
 
-  <{HB_VER_ORIGIN_URL}releases>
+  <@HB_VER_ORIGIN_URL@releases>
 
 ## Release Notes
 
