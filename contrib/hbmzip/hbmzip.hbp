@@ -8,6 +8,7 @@
 # localtime_r, gmtime_r
 #-c=gnu90
 
+# Refactored minizip (used by MSYS2): https://github.com/nmoinvaz/minizip
 -depurlbase=minizip:https://zlib.net/
 -depurlbase=minizip:http://winimage.com/zLibDll/minizip.html
 -deppkgname=minizip:libminizip-dev{deb}
