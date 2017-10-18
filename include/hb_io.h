@@ -56,7 +56,7 @@
 #elif ! defined( HB_OS_WIN_CE )
    #include <io.h>
 #endif
-#if defined( HB_OS_DOS ) && ! defined( __RSX32__ )
+#if defined( HB_OS_DOS )
    #include <dos.h>
 #endif
 

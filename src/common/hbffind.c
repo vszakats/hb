@@ -62,10 +62,10 @@
 
 #if defined( HB_OS_DOS )
 
-   #if defined( __DJGPP__ ) || defined( __RSX32__ )
+   #if defined( __DJGPP__ )
       #include <sys/param.h>
    #endif
-   #if defined( __DJGPP__ ) || defined( __RSX32__ ) || defined( __BORLANDC__ )
+   #if defined( __DJGPP__ ) || defined( __BORLANDC__ )
       #include <sys/stat.h>
    #endif
    #include <dos.h>

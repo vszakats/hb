@@ -73,7 +73,7 @@
    #include <time.h>
    #include <utime.h>
 #elif defined( HB_OS_DOS )
-   #if defined( __DJGPP__ ) || defined( __RSX32__ ) || defined( __GNUC__ )
+   #if defined( __DJGPP__ ) || defined( __GNUC__ )
       #include "hb_io.h"
       #include <sys/param.h>
       #if defined( HB_OS_DOS )

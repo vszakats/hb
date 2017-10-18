@@ -104,7 +104,7 @@
 /* For screen support */
 #if defined( __POWERC ) || ( defined( __TURBOC__ ) && ! defined( __BORLANDC__ ) ) || ( defined( __ZTC__ ) && ! defined( __SC__ ) )
    #define FAR  far
-#elif defined( HB_OS_DOS ) && ! defined( __DJGPP__ ) && ! defined( __RSX32__ ) && ! defined( __WATCOMC__ )
+#elif defined( HB_OS_DOS ) && ! defined( __DJGPP__ ) && ! defined( __WATCOMC__ )
    #define FAR  _far
 #else
    #define FAR
@@ -143,19 +143,7 @@ static int s_iScreenMode;
 
 static HB_BOOL s_bBreak; /* Used to signal Ctrl+Break to hb_inkeyPoll() */
 
-#if defined( __RSX32__ )
-static int kbhit( void )
-{
-   union REGS regs;
-
-   regs.h.ah = 0x0B;
-   HB_DOS_INT86( 0x21, &regs, &regs );
-
-   return regs.HB_XREGS.ax;
-}
-#endif
-
-#if ! defined( __DJGPP__ ) && ! defined( __RSX32__ )
+#if ! defined( __DJGPP__ )
 #if defined( __WATCOMC__ ) || defined( _MSC_VER )
 static void hb_gt_dos_CtrlBreak_Handler( int iSignal )
 {
@@ -818,10 +806,6 @@ static void hb_gt_dos_Init( PHB_GT pGT, HB_FHANDLE hFilenoStdin, HB_FHANDLE hFil
    __djgpp_set_ctrl_c( 0 );      /* Disable Ctrl+C */
    __djgpp_set_sigquit_key( 0 ); /* Disable Ctrl+\ */
 
-#elif defined( __RSX32__ )
-
-   /* TODO */
-
 #elif defined( __WATCOMC__ )
 
    break_off();
@@ -1014,10 +998,6 @@ static const char * hb_gt_dos_Version( PHB_GT pGT, int iType )
    #define outportw  outpw     /* Use correct function name */
    #define inportw   inpw      /* Use correct function name */
    #define inportb   inp       /* Use correct function name */
-#elif defined( __RSX32__ )
-   #define inportb( p )      0 /* Return 0 */
-   #define outportw( p, w )    /* Do nothing */
-   #define outportb( p, b )    /* Do nothing */
 #endif
 
 static void vmode12x40( void )

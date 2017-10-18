@@ -58,7 +58,7 @@
 #elif defined( HB_OS_DOS )
 
    #include "hb_io.h"
-   #if defined( __DJGPP__ ) || defined( __RSX32__ ) || defined( __GNUC__ )
+   #if defined( __DJGPP__ ) || defined( __GNUC__ )
       #include <sys/param.h>
    #endif
 
@@ -112,7 +112,7 @@ char * hb_netname( void )
 
 #elif defined( HB_OS_DOS )
 
-#  if defined( __DJGPP__ ) || defined( __RSX32__ ) || defined( __GNUC__ )
+#  if defined( __DJGPP__ ) || defined( __GNUC__ )
       char szValue[ MAXGETHOSTNAME + 1 ];
       szValue[ 0 ] = szValue[ MAXGETHOSTNAME ] = '\0';
       gethostname( szValue, MAXGETHOSTNAME );

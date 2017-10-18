@@ -115,10 +115,6 @@
       #define HB_DOS_INT86 int386
       #define HB_DOS_INT86X int386x
       #define HB_XREGS w
-   #elif defined( __RSX32__ )
-      #define HB_DOS_INT86 _int86
-      #define HB_DOS_INT86X _int86x
-      #define HB_XREGS x
    #elif defined( __DJGPP__ )
       #define HB_DOS_INT86 int86
       #define HB_DOS_INT86X int86x

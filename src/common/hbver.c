@@ -1222,8 +1222,6 @@ char * hb_verCompiler( void )
       pszName = "Cygwin GNU C";
    #elif defined( __MINGW32__ )
       pszName = "MinGW GNU C";
-   #elif defined( __RSX32__ )
-      pszName = "EMX/RSXNT/DOS GNU C";
    #elif defined( __EMX__ )
       pszName = "EMX GNU C";
    #else
