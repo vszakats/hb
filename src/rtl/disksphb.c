@@ -49,28 +49,28 @@
 #include "hbapifs.h"
 
 #if defined( HB_OS_DARWIN )
-   #include <sys/param.h>
-   #include <sys/mount.h>
+#  include <sys/param.h>
+#  include <sys/mount.h>
 #elif defined( HB_OS_ANDROID )
-   #include <sys/statfs.h>
+#  include <sys/statfs.h>
 #elif defined( HB_OS_UNIX ) && !( defined( __WATCOMC__ ) || defined( __CEGCC__ ) )
-   #if defined( HB_OS_VXWORKS ) || defined( HB_OS_SYMBIAN )
-      #include <sys/stat.h>
-   #else
-      #include <sys/statvfs.h>
-   #endif
+#  if defined( HB_OS_VXWORKS ) || defined( HB_OS_SYMBIAN )
+#     include <sys/stat.h>
+#  else
+#     include <sys/statvfs.h>
+#  endif
 #elif defined( HB_OS_WIN )
-   #include <windows.h>
-   #include "hbwinuni.h"
-   #if defined( HB_OS_WIN_CE )
-      #include "hbwince.h"
-   #endif
+#  include <windows.h>
+#  include "hbwinuni.h"
+#  if defined( HB_OS_WIN_CE )
+#     include "hbwince.h"
+#  endif
 #elif defined( HB_OS_OS2 )
-   #define INCL_BASE
-   #define INCL_DOSERRORS
-   #include <os2.h>
+#  define INCL_BASE
+#  define INCL_DOSERRORS
+#  include <os2.h>
 #elif defined( HB_OS_DOS )
-   #include <dos.h>
+#  include <dos.h>
 #endif
 
 double hb_fsDiskSpace( const char * pszPath, HB_USHORT uiType )
@@ -158,19 +158,16 @@ double hb_fsDiskSpace( const char * pszPath, HB_USHORT uiType )
          else
 #endif
          {
-#if defined( _MSC_VER ) || defined( __LCC__ ) || \
-    ( defined( __GNUC__ ) && ! defined( __RSXNT__ ) )
-
-   #define HB_GET_LARGE_UINT( v )  ( ( double ) (v).LowPart + \
-                                     ( double ) (v).HighPart * \
-                                     ( ( ( double ) 0xFFFFFFFF ) + 1 ) )
-
+#if defined( _MSC_VER ) || defined( __LCC__ ) || defined( __GNUC__ )
+#  define HB_GET_LARGE_UINT( v )  ( ( double ) (v).LowPart + \
+                                    ( double ) (v).HighPart * \
+                                    ( ( ( double ) 0xFFFFFFFF ) + 1 ) )
 #else
    /* NOTE: For compilers that don't seem to deal with the
             unnamed struct that is part of ULARGE_INTEGER [pt] */
-   #define HB_GET_LARGE_UINT( v )  ( ( double ) (v).u.LowPart + \
-                                     ( double ) (v).u.HighPart * \
-                                     ( ( ( double ) 0xFFFFFFFF ) + 1 ) )
+#  define HB_GET_LARGE_UINT( v )  ( ( double ) (v).u.LowPart + \
+                                    ( double ) (v).u.HighPart * \
+                                    ( ( ( double ) 0xFFFFFFFF ) + 1 ) )
 #endif
 
             ULARGE_INTEGER i64FreeBytesToCaller, i64TotalBytes, i64FreeBytes;

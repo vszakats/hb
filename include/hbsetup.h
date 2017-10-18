@@ -323,7 +323,7 @@
    #endif
 #endif
 
-#if defined( __EMX__ ) && ! defined( __RSXNT__ )
+#if defined( __EMX__ )
    #define HB_OS_OS2_GCC
 #endif
 #ifndef HB_OS_OS2

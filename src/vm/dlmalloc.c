@@ -572,7 +572,7 @@ MAX_RELEASE_CHECK_RATE   default: 4095 unless not HAVE_MMAP
 #endif /* WIN32 */
 
 #ifndef __OS2__
-#if defined(OS2) || defined(OS_2) || (defined(__EMX__) && !defined(__RSXNT__))
+#if defined(OS2) || defined(OS_2) || defined(__EMX__)
 #define __OS2__
 #endif
 #endif /* __OS2__ */

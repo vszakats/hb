@@ -141,23 +141,6 @@
 
 /* *********************************************************************** */
 
-#if defined( __RSXNT__ )
-   #ifndef FROM_LEFT_1ST_BUTTON_PRESSED
-      #define FROM_LEFT_1ST_BUTTON_PRESSED  0x0001
-   #endif
-   #ifndef RIGHTMOST_BUTTON_PRESSED
-      #define RIGHTMOST_BUTTON_PRESSED      0x0002
-   #endif
-   #ifndef MOUSE_MOVED
-      #define MOUSE_MOVED                   0x0001
-   #endif
-   #ifndef DOUBLE_CLICK
-      #define DOUBLE_CLICK                  0x0002
-   #endif
-#endif
-
-/* *********************************************************************** */
-
 static int s_GtId;
 static HB_GT_FUNCS SuperTable;
 #define HB_GTSUPER                          ( &SuperTable )

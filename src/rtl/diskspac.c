@@ -108,9 +108,7 @@ HB_FUNC( DISKSPACE )
    }
 #elif defined( HB_OS_WIN )
    {
-#if defined( _MSC_VER ) || defined( __LCC__ ) || \
-    ( defined( __GNUC__ ) && ! defined( __RSXNT__ ) )
-
+#if defined( _MSC_VER ) || defined( __LCC__ ) || defined( __GNUC__ )
 #  define HB_GET_LARGE_UINT( v )  ( ( double ) (v).LowPart + \
                                     ( double ) (v).HighPart * \
                                     ( ( ( double ) 0xFFFFFFFF ) + 1 ) )
