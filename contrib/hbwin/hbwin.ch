@@ -1128,6 +1128,7 @@
 #define WIN_MB_DEFMASK                     0x00000F00
 #define WIN_MB_MODEMASK                    0x00003000
 #define WIN_MB_MISCMASK                    0x0000C000
+#define WIN_MB_TIMEDOUT                    0x00007D00
 
 #define HB_WIN_MB_BEEP                     0xFFFFFFFF  /* Windows has no constant for that */
 

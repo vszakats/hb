@@ -177,6 +177,7 @@ DYNAMIC wapi_MAKELPARAM
 DYNAMIC wapi_MAKEWPARAM
 DYNAMIC wapi_MessageBeep
 DYNAMIC wapi_MessageBox
+DYNAMIC wapi_MessageBoxTimeout
 DYNAMIC wapi_MoveToEx
 DYNAMIC wapi_MoveWindow
 DYNAMIC wapi_MulDiv
