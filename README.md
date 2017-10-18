@@ -113,7 +113,7 @@ Download source archive from any of these URLs and unpack:
 
 For all platforms you will need:
 
-* Supported ANSI C compiler
+* Supported ANSI C89 compiler
 * GNU Make (3.81 or upper)
 * Harbour sources
 
