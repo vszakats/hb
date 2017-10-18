@@ -204,7 +204,7 @@ extern HB_EXPORT PHB_SYMB hb_vmProcessSymbols( PHB_SYMB pSymbols, HB_USHORT uiSy
 
 #elif defined( HB_PRAGMA_STARTUP ) || \
       defined( __BORLANDC__ ) || defined( __LCC__ ) || \
-      defined( __POCC__ ) || defined( __XCC__ )
+      defined( __POCC__ )
 
    #if ! defined( HB_PRAGMA_STARTUP )
       #define HB_PRAGMA_STARTUP

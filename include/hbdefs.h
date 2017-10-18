@@ -56,7 +56,7 @@
 #include "hbsetup.h"
 #include "hbver.h"
 
-#if defined( __XCC__ ) || defined( __POCC__ ) || defined( __LCC__ ) || \
+#if defined( __POCC__ ) || defined( __LCC__ ) || \
     defined( __MINGW32__ ) || defined( __DMC__ ) || defined( __TINYC__ ) || \
     ( defined( _MSC_VER ) && _MSC_VER >= 1600 ) || \
     ( defined( __BORLANDC__ ) && __BORLANDC__ >= 0x0582 ) || \
@@ -1484,7 +1484,7 @@ typedef HB_U32 HB_FATTR;
 #define HB_DECONST( c, p )    ( ( c ) HB_UNCONST( p ) )
 
 
-#if defined( __POCC__ ) || defined( __XCC__ )
+#if defined( __POCC__ )
    #define HB_SYMBOL_UNUSED( symbol )  do if( symbol ) {;} while( 0 )
 #else
    #define HB_SYMBOL_UNUSED( symbol )  ( void ) symbol

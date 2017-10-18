@@ -51,7 +51,7 @@
 
 #if ! defined( HB_OS_WIN_CE )
 
-#if defined( __POCC__ ) || defined( __XCC__ )
+#if defined( __POCC__ )
    #include <winsvc.h>   /* it's disabled by WIN32_LEAN_AND_MEAN */
 #endif
 

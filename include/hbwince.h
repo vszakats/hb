@@ -111,7 +111,7 @@ HB_EXTERN_BEGIN
    void abort( void );
 #endif
 
-#if defined( __POCC__ ) || defined( __XCC__ )
+#if defined( __POCC__ )
    #ifndef GlobalAlloc
    #define GlobalAlloc(flags, cb)      LocalAlloc(flags, cb)
    #endif

@@ -978,13 +978,6 @@ char * hb_verCompiler( void )
    iVerMinor = __POCC__ % 100;
    iVerPatch = 0;
 
-#elif defined( __XCC__ )
-
-   pszName = "Pelles ISO C Compiler (XCC)";
-   iVerMajor = __XCC__ / 100;
-   iVerMinor = __XCC__ % 100;
-   iVerPatch = 0;
-
 #elif defined( __LCC__ )
 
    pszName = "Logiciels/Informatique lcc-win32";

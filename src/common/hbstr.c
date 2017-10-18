@@ -508,7 +508,7 @@ double hb_numRound( double dNum, int iDec )
 
    ( void ) modf( doComplete5, &doComplete5i );
 
-#if defined( __XCC__ ) || defined( __POCC__ )
+#if defined( __POCC__ )
    if( iDec < 16 )
    {
       if( iDec >= 0 )
@@ -680,7 +680,7 @@ static HB_BOOL hb_str2number( HB_BOOL fPCode, const char * szNum, HB_SIZE nLen, 
    }
    if( iDec )
    {
-#if defined( __XCC__ ) || defined( __POCC__ )
+#if defined( __POCC__ )
       if( iDec < 16 )
          *dVal /= ( HB_LONGLONG ) hb_numPow10( iDec );
       else

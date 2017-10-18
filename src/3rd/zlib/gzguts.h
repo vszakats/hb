@@ -36,7 +36,7 @@
 #endif
 
 #if defined(__TURBOC__) || defined(_MSC_VER) || defined(_WIN32) || \
-    defined(__XCC__) || defined(__POCC__)
+    defined(__POCC__)
 #  include <io.h>
 #endif
 

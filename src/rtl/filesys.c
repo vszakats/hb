@@ -112,7 +112,7 @@
    #include <sys/stat.h>
    #include <fcntl.h>
    #include <process.h>
-   #if ! defined( __POCC__ ) && ! defined( __XCC__ )
+   #if ! defined( __POCC__ )
       #include <share.h>
    #endif
    #include <direct.h>
