@@ -962,16 +962,6 @@ export HB_BUILD_3RDEXT=no
 make
 ```
 
-## on Darwin (Mac) hosts
-
-```sh
-# To create "Universal" binaries, compatible with pre-Lion 32-bit Intel systems
-export HB_USER_LDFLAGS="-arch x86_64 -arch i386"
-export HB_USER_CFLAGS="$HB_USER_LDFLAGS"
-export HB_COMPILER=gcc
-make
-```
-
 ## on \*nix hosts in general
 
 ```sh
@@ -998,7 +988,7 @@ For all platforms you will need two things:
     Either a Harbour binary distribution or a local Harbour build will be okay.
     If you're reading this text, it's likely you have one of these already.
 
-* Supported ANSI C compiler
+* Supported ANSI C89 compiler
 
     Your compiler of choice has to be placed in the `PATH` &mdash; and
     configured appropriately according to instructions.
