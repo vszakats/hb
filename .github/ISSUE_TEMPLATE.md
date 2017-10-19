@@ -36,5 +36,5 @@ Consider creating a [Pull Request](https://github.com/vszakats/harbour-core/pull
 to address any problem found. This is in particular welcome or even expected
 for issues falling outside the focus of this fork, e.g. any C compiler except
 mingw/gcc/clang or regarding certain, non-priority or deprecated components
-(e.g. Windows CE, `hbtip`, `gtwvg`/`gtwvw`, `xhb`) and feature requests in
-general.
+(e.g. Windows CE, `hbtip`, `rddads`, `gtwvg`/`gtwvw`, `xhb`) and feature requests
+in general.
