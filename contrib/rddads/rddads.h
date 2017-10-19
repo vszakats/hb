@@ -95,7 +95,14 @@
    #define ADSHANDLE_DEFINED
 #endif
 
+#if defined( __clang__ )
+#  pragma GCC diagnostic push
+#  pragma GCC diagnostic ignored "-Wstrict-prototypes"
+#endif
 #include "ace.h"
+#if defined( __clang__ )
+#  pragma GCC diagnostic pop
+#endif
 
 /* Auto-detect ACE version. */
 #if   defined( ADS_ROOT_DD_ALIAS )
