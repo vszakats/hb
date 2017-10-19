@@ -9335,15 +9335,20 @@ STATIC PROCEDURE convert_incpaths_to_options( hbmk, cOptIncMask, lCHD_Comp )
 
    RETURN
 
-/* Same as hb_vfCopyFile() but it preserves timestamps */
+/* Same as hb_vfCopyFile() but it preserves timestamps
+   and removes read-only flag on systems supporting it */
 STATIC FUNCTION hbmk_hb_vfCopyFile( cSrc, cDst )
 
    LOCAL nResult
-   LOCAL tDate
+   LOCAL tDate, nAttr
 
    IF ( nResult := hb_vfCopyFile( cSrc, cDst ) ) != F_ERROR
       hb_vfTimeGet( cSrc, @tDate )
       hb_vfTimeSet( cDst, tDate )
+      hb_vfAttrGet( cSrc, @nAttr )
+      IF hb_bitAnd( nAttr, HB_FA_READONLY ) != 0
+         hb_vfAttrSet( cDst, hb_bitAnd( nAttr, hb_bitNot( HB_FA_READONLY ) ) )
+      ENDIF
    ENDIF
 
    RETURN nResult
