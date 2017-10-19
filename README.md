@@ -1396,6 +1396,7 @@ Supported shells per host platforms:
   * General:
      * [English](https://groups.google.com/forum/#!forum/harbour-users)
      * [Italian](https://groups.google.com/forum/#!forum/harbourita)
+     * [Portuguese](https://pctoledo.websiteseguro.com/forum/viewforum.php?f=4)
 
   * Social media:
      * [Facebook](https://www.facebook.com/groups/harbour.project/)
