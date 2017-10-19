@@ -2767,7 +2767,7 @@ static void hb_compGenCCompact( PHB_HFUNC pFunc, FILE * yyc )
       if( nChar > 1 )
          fprintf( yyc, "," );
 
-      if( nChar == 15 )
+      if( nChar == 20 )
       {
          fprintf( yyc, "\n\t\t" );
          nChar = 1;
