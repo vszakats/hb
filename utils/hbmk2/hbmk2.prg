@@ -382,6 +382,7 @@ EXTERNAL hbmk_KEYW
 #define _HBMK_IMPLIB_NOTFOUND   -1
 #define _HBMK_IMPLIB_OK         0
 #define _HBMK_IMPLIB_FAILED     1
+#define _HBMK_IMPLIB_COPYFAIL   2
 
 #define _CCOMP_PASS_C           1
 #define _CCOMP_PASS_CPP         2
@@ -9558,6 +9559,9 @@ STATIC FUNCTION DoIMPLIB( hbmk, bBlk_ImpLib, cLibLibPrefix, cImpLibExt, aIMPLIBS
                   CASE _HBMK_IMPLIB_FAILED
                      _hbmk_OutErr( hbmk, hb_StrFormat( I_( "Error: Failed creating import library %1$s from %2$s." ), cTargetLib, cMakeImpLibDLL ) )
                      EXIT
+                  CASE _HBMK_IMPLIB_COPYFAIL
+                     _hbmk_OutErr( hbmk, hb_StrFormat( I_( "Error: Failed creating import library %1$s from %2$s (while copying)." ), cTargetLib, cMakeImpLibDLL ) )
+                     EXIT
                   CASE _HBMK_IMPLIB_NOTFOUND
                      ++nNotFound
                      EXIT
@@ -14546,7 +14550,7 @@ STATIC FUNCTION win_implib_coff( hbmk, cSourceDLL, cTargetLib )
       ENDIF
       RETURN iif( ;
          hb_FileMatch( cSourceLib, cTargetLib ) .OR. ;
-         hbmk_hb_vfCopyFile( cSourceLib, cTargetLib ) != F_ERROR, _HBMK_IMPLIB_OK, _HBMK_IMPLIB_FAILED )
+         hbmk_hb_vfCopyFile( cSourceLib, cTargetLib ) != F_ERROR, _HBMK_IMPLIB_OK, _HBMK_IMPLIB_COPYFAIL )
    ENDIF
 
    RETURN _HBMK_IMPLIB_NOTFOUND
@@ -14564,7 +14568,7 @@ STATIC FUNCTION win_implib_omf( hbmk, cSourceDLL, cTargetLib )
       ENDIF
       RETURN iif( ;
          hb_FileMatch( cSourceLib, cTargetLib ) .OR. ;
-         hbmk_hb_vfCopyFile( cSourceLib, cTargetLib ) != F_ERROR, _HBMK_IMPLIB_OK, _HBMK_IMPLIB_FAILED )
+         hbmk_hb_vfCopyFile( cSourceLib, cTargetLib ) != F_ERROR, _HBMK_IMPLIB_OK, _HBMK_IMPLIB_COPYFAIL )
    ENDIF
 
    RETURN _HBMK_IMPLIB_NOTFOUND
@@ -14591,12 +14595,12 @@ STATIC FUNCTION win_implib_copy( hbmk, cSourceDLL, cTargetLib )
       /* Use .dll directly if all other attempts failed */
       RETURN iif( ;
          hb_FileMatch( cSourceDLL, cTargetLib ) .OR. ;
-         hbmk_hb_vfCopyFile( cSourceDLL, cTargetLib ) != F_ERROR, _HBMK_IMPLIB_OK, _HBMK_IMPLIB_FAILED )
+         hbmk_hb_vfCopyFile( cSourceDLL, cTargetLib ) != F_ERROR, _HBMK_IMPLIB_OK, _HBMK_IMPLIB_COPYFAIL )
    ENDIF
 
    RETURN _HBMK_IMPLIB_NOTFOUND
 
-/* NOTE: There is a big problem with mingw/cygwin 'ld' linker:
+/* NOTE: There is a problem with mingw/cygwin 'ld' linker:
          It cannot properly link stdcall decorated (_sym@nn) function names
          directly with .dlls, since in .dlls the decoration is stripped from
          the exported symbols. So, it _requires_ a .def file or a COFF import .lib
