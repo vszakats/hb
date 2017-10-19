@@ -170,6 +170,7 @@ METHOD NewFile() CLASS GenerateHTML
    ::OpenTag( "meta", "charset", "utf-8" )
    ::OpenTag( "meta", "name", "referrer", "content", "origin" )
    ::OpenTag( "meta", "name", "viewport", "content", "initial-scale=1" )
+   ::OpenTag( "meta", "http-equiv", "Content-Security-Policy", "content", "upgrade-insecure-requests" )
    ::Spacer()
 
    ::OpenTag( "meta", "name", "generator", "content", "hbdoc" )
