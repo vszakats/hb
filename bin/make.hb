@@ -549,7 +549,7 @@ STATIC PROCEDURE call_hbmk2_hbinfo( cProjectRoot, cProjectName, hProject )
          ENDIF
       NEXT
    ELSE
-      OutStd( hb_StrFormat( "! Warning: 'hbmk2 %1$s --hbinfo' failed with exit code %2$d", cProjectPath, nErrorLevel ) + hb_eol() )
+      OutStd( hb_StrFormat( "! Warning: 'hbmk2 %1$s --hbinfo' failed with exit status %2$d", cProjectPath, nErrorLevel ) + hb_eol() )
    ENDIF
 
    RETURN
