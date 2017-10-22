@@ -14544,11 +14544,11 @@ STATIC FUNCTION IsOMFLib( cFileName )
 
 STATIC PROCEDURE win_implib_force_ld_name( hbmk, /* @ */ cTargetLib )
 
-   /* Even though 'ld' tool is able to recognize and use COFF .lib and
-      .dll files directly, it can apparently only do so when the file has
-      either its original '<libname>.lib', or the '<libname>.a' filename.
-      If it has the name '<libname>.dll.a', the file won't be found, even
-      if its content is an import library in COFF .lib format (or a .dll).
+   /* Even though 'ld' tool is able to recognize and use COFF .lib and .dll
+      files directly, it can apparently only do so when the file has either
+      its original '<libname>.lib', or the '<libname>.a' filename. If it
+      has the name '<libname>.dll.a', the file won't be found, even if its
+      content is an import library in COFF .lib format (or a .dll).
       So let's make a trick and automatically revert to a recognized name
       here. */
    IF HBMK_ISCOMP( "mingw|mingw64|mingwarm|clang|clang64" ) .AND. hb_RightEq( cTargetLib, ".dll.a" )
