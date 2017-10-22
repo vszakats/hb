@@ -18,7 +18,7 @@ _all_ points is considered rude and may result in closing the issue as invalid.
       already?
 - [ ] Have you included the top of the output (lines starting with `!`) and the
       area where the issue occurred **first** from your `HB_BUILD_VERBOSE=yes`,
-      STDOUT/STDERR build output?
+      STDOUT/STDERR (`make > log.txt 2>&1`) build output?
 
 ### Bug reports:
 
