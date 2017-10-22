@@ -14552,6 +14552,9 @@ STATIC PROCEDURE win_implib_force_ld_name( hbmk, /* @ */ cTargetLib )
       So let's make a trick and automatically revert to a recognized name
       here. */
    IF HBMK_ISCOMP( "mingw|mingw64|mingwarm|clang|clang64" ) .AND. hb_RightEq( cTargetLib, ".dll.a" )
+      IF ! hbmk[ _HBMK_lQuiet ]
+         _hbmk_OutStd( hbmk, I_( "Reverting to .a extension (from .dll.a) for COFF .lib or .dll implib." ) )
+      ENDIF
       cTargetLib := Left( cTargetLib, Len( cTargetLib ) - Len( ".dll.a" ) ) + ".a"
    ENDIF
 
