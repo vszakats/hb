@@ -140,6 +140,7 @@ script:
         ./package/mpkg_win_ci.sh
       else
         ls -lA "$(dirname "$(which "${CC}${HB_CCSUFFIX}")")/${CC}"*
+        [ "${CC#*clang*}" != "${CC}" ] && ls -lA "$(dirname "$(which "${CC}${HB_CCSUFFIX}")")/llvm"*
         "${CC}${HB_CCSUFFIX}" -v
         [ "${CC}" = 'gcc' ] && "${CC}${HB_CCSUFFIX}" -dumpversion && "${CC}${HB_CCSUFFIX}" -dumpfullversion
         HB_COMPILER="${CC}" make -j "${HB_CI_THREADS}"
