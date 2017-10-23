@@ -41,9 +41,9 @@ export OPENSSL_HASH_64='c5bf3f5306fed5ca8b2694521456342082acab1e3e00dda332c16d40
 export LIBSSH2_VER='1.8.0'
 export LIBSSH2_HASH_32='ca5ad5e542ec5903fb485a2db43031e508a2a419ac789d0912fa91eb0b26000a'
 export LIBSSH2_HASH_64='1ed18b4b8cf8c031a5b87a2abe7de184a08bbcba0ed36af041d6562f2ba7b6ee'
-export CURL_VER='7.56.0'
-export CURL_HASH_32='c23769e7016ea551d57ea15eff964e87a40bdacbdc6cc5a8ece33f9654e21df6'
-export CURL_HASH_64='ed72509e4f6e266e0a8544b7e22af4684696c7435ef07edb77b4d574e58c9091'
+export CURL_VER='7.56.1'
+export CURL_HASH_32='c236e0d7e6918c47ce91f1c02065c196098dbc3f28934c005efce81d75cb4a80'
+export CURL_HASH_64='1040931a5b4a39c2438f451a3b85a1beab78d9ab89c00ad8cef834d4456f7479'
 #hashend
 
 # Install/update MSYS2 packages required for completing the build
