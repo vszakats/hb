@@ -1285,9 +1285,10 @@ Supported shells per host platforms:
 
 * C/C++ Compilers/Shells:
 
-     * LLVM/Clang via MSYS2 [multi-platform, free software, open-source]
+     * LLVM/Clang via MSYS2 [win, multi-platform, free software, open-source]
         * <https://msys2.github.io/>
         * MinGW-w64 above + `pacman -S mingw-w64-{i686,x86_64}-clang`
+        * <https://stackoverflow.com/questions/25019057/how-are-msys-msys2-and-msysgit-related-to-each-other>
      * LLVM/Clang [multi-platform, free software, open-source]
         * <https://releases.llvm.org/>
      * MinGW-w64 via MSYS2 [win, free software, open-source] (recommended)
