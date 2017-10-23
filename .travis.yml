@@ -130,7 +130,7 @@ before_install:
           bzip2 expat libharu libmxml libpng lzo minizip pcre2 sqlite \
           cairo curl freeimage gd ghostscript icu4c libmagic libyaml mariadb ncurses openssl@1.1 postgresql qt rabbitmq-c s-lang unixodbc
       fi
-      export MACOSX_DEPLOYMENT_TARGET=10.10
+      export MACOSX_DEPLOYMENT_TARGET=10.11
     fi
 
 script:
