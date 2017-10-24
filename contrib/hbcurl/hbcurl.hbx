@@ -45,6 +45,7 @@ DYNAMIC curl_version
 DYNAMIC curl_version_info
 DYNAMIC hb_curl_date
 DYNAMIC hb_curl_mail_address_to_email
+DYNAMIC hb_curl_mail_address_to_name
 
 #if defined( __HBEXTREQ__ ) .OR. defined( __HBEXTERN__HBCURL__REQUEST )
    #uncommand DYNAMIC <fncs,...> => EXTERNAL <fncs>

@@ -54,3 +54,14 @@ FUNCTION hb_curl_mail_address_to_email( cAddress )
    ENDIF
 
    RETURN cAddress
+
+FUNCTION hb_curl_mail_address_to_name( cAddress )
+
+   LOCAL tmp
+
+   IF ( tmp := At( "<", cAddress ) ) > 0 .AND. ;
+      hb_At( ">", cAddress, tmp + 1 ) > 0
+      RETURN RTrim( Left( cAddress, tmp - 1 ) )
+   ENDIF
+
+   RETURN cAddress

@@ -168,6 +168,8 @@ Evaluate these points before reporting an issue:
       <https://www.chiark.greenend.org.uk/~sgtatham/bugs.html>
     * "How To Ask Questions The Smart Way" article by Eric S. Raymond:
       <http://www.catb.org/~esr/faqs/smart-questions.html>
+    * "How to ask good questions" by Julia Evans
+      <https://jvns.ca/blog/good-questions/>
     * "Does Not Work"
       <http://importblogkit.com/2015/07/does-not-work/>
 13. <a name="trbl-13"></a> Please do not report warnings or bugs &mdash; except

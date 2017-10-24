@@ -1401,7 +1401,6 @@ Supported shells per host platforms:
 
   * Social media:
      * [Facebook](https://www.facebook.com/groups/harbour.project/)
-     * [Twitter](https://twitter.com/harbourproject)
 
   * Product-oriented:
      * [Harbour mainline development](https://groups.google.com/forum/#!forum/harbour-devel)
