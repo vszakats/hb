@@ -2,13 +2,13 @@ harbour (3.4.0-1) unstable; urgency=low
 
   * 3.4.0-1
 
- -- Viktor Szakats <address@hidden>  Wed, 1 Jan 2014 14:00:00 +0100
+ -- Viktor Szakats <address@hidden>  Wed, 1 Jan 2014 13:00:00 +0000
 
 harbour (3.2.0-1) unstable; urgency=low
 
   * 3.2.0-1
 
- -- Viktor Szakats <address@hidden>  Wed, 25 Apr 2012 14:04:00 +0200
+ -- Viktor Szakats <address@hidden>  Wed, 25 Apr 2012 12:04:00 +0000
 
 harbour (3.1.0-1) unstable; urgency=low
 
@@ -40,13 +40,13 @@ harbour (2.0.0beta1-1) unstable; urgency=low
 
   * 2.0.0beta1-1
 
- -- Viktor Szakats <address@hidden>  Wed, 10 Jun 2009 16:40:15 +0200
+ -- Viktor Szakats <address@hidden>  Wed, 10 Jun 2009 14:40:15 +0000
 
 harbour (1.0.1-1) unstable; urgency=low
 
   * Please see NEWS
 
- -- Viktor Szakats <address@hidden>  Tue, 16 Sep 2008 14:54:38 +0200
+ -- Viktor Szakats <address@hidden>  Tue, 16 Sep 2008 12:54:38 +0000
 
 harbour (1.0.0-1) unstable; urgency=low
 
