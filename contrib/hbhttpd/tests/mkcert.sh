@@ -28,14 +28,15 @@ DNS.2 = ::1
 DNS.3 = 127.0.0.1
 EOF
 
+openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:2048 > private.pem
+chmod 600 private.pem
 openssl req -new -sha256 \
   -config "${tmp}" \
-  -newkey rsa:2048 -nodes -keyout private.pem -out example.csr
-chmod 600 private.pem
+  -key private.pem -out example.csr
 
-openssl x509 -req -sha256 -days 730 \
-  -extfile "${tmp}" -extensions v3_req \
-  -in example.csr -signkey private.pem -out example.crt
+openssl req -x509 -sha256 -days 730 \
+  -config "${tmp}" -extensions v3_req \
+  -in example.csr -key private.pem -out example.crt
 rm "${tmp}"
 
 # Human-readable
@@ -45,7 +46,7 @@ openssl asn1parse -in example.csr              > example.csr.asn1.txt
 openssl x509      -in example.crt -text -noout > example.crt.txt
 openssl asn1parse -in example.crt              > example.crt.asn1.txt
 
-openssl rsa       -in private.pem -text -noout > private.pem.rsa.txt
-chmod 600 private.pem.rsa.txt
+openssl pkey      -in private.pem -text -noout > private.pem.txt
+chmod 600 private.pem.txt
 openssl asn1parse -in private.pem              > private.pem.asn1.txt
 chmod 600 private.pem.asn1.txt
