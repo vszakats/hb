@@ -62,7 +62,7 @@ include $(TOP)$(ROOT)config/detfun.mk
 
 # libpcre2-dev{deb}
 # pcre2-devel{rpm}
-# pcre2{homebrew}
+# pcre2{homebrew|pkg}
 # pcre2{pacman}
 # mingw-w64-i686-pcre2{msys2&mingw}
 # mingw-w64-x86_64-pcre2{msys2&mingw64}
@@ -84,7 +84,7 @@ ifeq ($(HB_HAS_PCRE2),)
 
    # libpcre3-dev{deb}
    # pcre-devel{rpm}
-   # pcre{homebrew}
+   # pcre{homebrew|pkg}
    # pcre{pacman}
    # mingw-w64-i686-pcre{msys2&mingw}
    # mingw-w64-x86_64-pcre{msys2&mingw64}
@@ -124,6 +124,7 @@ include $(TOP)$(ROOT)config/detfun.mk
 # libslang2-dev{deb}
 # slang-devel{rpm}
 # s-lang{homebrew}
+# libslang2{pkg}
 # slang{pacman}
 
 _DET_DSP_NAME := s-lang
@@ -144,7 +145,7 @@ include $(TOP)$(ROOT)config/detfun.mk
 
 # libncurses5-dev{deb}
 # ncurses-devel{rpm}
-# ncurses{homebrew}
+# ncurses{homebrew|pkg}
 # ncurses{pacman}
 # mingw-w64-i686-ncurses{msys2&mingw}
 # mingw-w64-x86_64-ncurses{msys2&mingw64}
@@ -176,6 +177,7 @@ include $(TOP)$(ROOT)config/detfun.mk
 # libX11-devel{rpm}
 # xorg-x11-devel{rpm}
 # XFree86-devel{rpm}
+# libX11{pkg}
 # libx11{pacman}
 
 _DET_DSP_NAME := x11

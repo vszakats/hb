@@ -205,19 +205,9 @@ You should see `Hello, world!` on screen.
 Platform specific prerequisites:
 
 1. You will need to have the developer tools installed.
-2. Then you will need to install gmake and optionally bison.
-   If you installed the ports collection, then all you need to do to install
-   bison and gmake is to run the following commands, which may require that
-   you run su root first to get the correct permissions:
+2. Then you will need to install gmake and optionally bison:
 
-        $ cd /usr/ports/devel/gmake
-        $ make
-        $ make install
-        $ make clean
-        $ cd /usr/ports/devel/bison
-        $ make
-        $ make install
-        $ make clean
+        $ pkg install gmake bison
 
 To build:
 
@@ -463,10 +453,7 @@ also need to install `libslang`. If you installed the ports collection, then
 all you need to do to install `libslang` is to run the following commands,
 which may require that you run `su` first to get the correct permissions:
 
-    $ cd /usr/ports/devel/libslang
-    $ make
-    $ make install
-    $ make clean
+    $ pkg install libslang2
 
 
 # Build Options
