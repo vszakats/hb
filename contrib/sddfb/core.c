@@ -55,7 +55,16 @@
 #include "hbapiitm.h"
 #include "hbvm.h"
 
+#if defined( HB_GCC_HAS_DIAG ) && defined( __clang__ )
+   #pragma GCC diagnostic push
+   #pragma GCC diagnostic ignored "-Wstrict-prototypes"  /* darwin, bsd */
+#endif
+
 #include "ibase.h"
+
+#if defined( HB_GCC_HAS_DIAG ) && defined( __clang__ )
+   #pragma GCC diagnostic pop
+#endif
 
 typedef struct
 {

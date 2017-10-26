@@ -54,10 +54,6 @@
 #include "hbset.h"
 #include "hbvm.h"
 
-#if defined( __clang__ )
-#  pragma GCC diagnostic ignored "-Wdocumentation-unknown-command"
-#endif
-
 #include "ocilib.h"
 
 #define HB_OCILIB_VERS( ma, mi, mu )  \

@@ -56,7 +56,16 @@
 #include "hbapierr.h"
 #include "hbapiitm.h"
 
+#if defined( HB_GCC_HAS_DIAG ) && defined( __clang__ )
+   #pragma GCC diagnostic push
+   #pragma GCC diagnostic ignored "-Wstrict-prototypes"  /* darwin, bsd */
+#endif
+
 #include "ibase.h"
+
+#if defined( HB_GCC_HAS_DIAG ) && defined( __clang__ )
+   #pragma GCC diagnostic pop
+#endif
 
 #ifndef ISC_INT64_FORMAT
    #define ISC_INT64_FORMAT  PFLL

@@ -66,6 +66,8 @@
 #  else
 #     include <winsock2.h>
 #  endif
+#elif defined( HB_OS_BSD )
+#  include <sys/time.h>
 #endif
 
 #define HB_AMQP_VERS( ma, mi, mu )  \

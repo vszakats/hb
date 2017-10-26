@@ -33,6 +33,7 @@ ${hb_prefix}/package/harbour.hbc{hbdyn&!__HB_3RD_DYN}
 #{win&(allclang|(allmingw&hb_comp_ver>'0401'))}-cflag=-Wstrict-overflow=4
 {((linux|darwin)&gcc)|(!win&clang)}-cflag=-D_FORTIFY_SOURCE=2
 {(linux|darwin)&((gcc&hb_comp_ver>'0408')|(clang&hb_comp_ver>'0304'))}-cflag=-fstack-protector-strong
+{allclang}-cflag=-Wno-documentation-unknown-command
 
 {HB_BUILD_DEBUG}-prgflag=-l-
 {HB_BUILD_DEBUG}-debug

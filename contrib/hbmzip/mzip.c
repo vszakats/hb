@@ -93,7 +93,7 @@
    #include <os2.h>
 #endif
 
-#if ! defined( HB_USE_LARGEFILE64 ) && defined( HB_OS_UNIX )
+#if ! defined( HB_USE_LARGEFILE64 ) && defined( HB_OS_UNIX ) && ! defined( HB_OS_BSD )
    #if defined( __USE_LARGEFILE64 )
       /*
        * The macro: __USE_LARGEFILE64 is set when _LARGEFILE64_SOURCE is

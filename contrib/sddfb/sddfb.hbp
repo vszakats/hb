@@ -12,11 +12,13 @@ rddsql.hbc
 -depurlbase=firebird:https://firebirdsql.org/
 -deppkgname=firebird:firebird2.5-dev{deb}
 -deppkgname=firebird:firebird-devel{rpm}
+-deppkgname=firebird:firebird25-client{pkg}
 -deppkgname=firebird:libfbclient{pacman}
 -depkeyhead=firebird:ibase.h
 -depcontrol=firebird:no{HB_BUILD_3RDEXT='no'}
 -depcontrol=firebird:${HB_WITH_FIREBIRD}
 -depincpath=firebird:/usr/include
+-depincpath=firebird:/usr/local/include
 -depincpath=firebird:/opt/firebird/include
 -depincpath=firebird:/Library/Frameworks/Firebird.framework/Headers
 -depimplibs=firebird:../bin/fbclient.dll{!(allgcc|allmsvc|allpocc)|hbdyn}
