@@ -1358,6 +1358,7 @@ Supported shells per host platforms:
      * deb (Ubuntu): <https://packages.ubuntu.com/>
      * rpm (Fedora): <https://apps.fedoraproject.org/packages/>
      * pacman (Arch Linux): <https://www.archlinux.org/packages/>
+     * FreeBSD: <https://www.freebsd.org/ports/>
      * Homebrew: <http://formulae.brew.sh/>
      * MSYS2: <https://github.com/Alexpux/MINGW-packages>
 
