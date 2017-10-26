@@ -105,7 +105,6 @@ PROCEDURE Main( ... )
    /* Load list of projects */
 
    LoadProjectListAutomatic( hProjectList )
-   LoadProjectListFromString( hProjectList, GetEnv( "HB_BUILD_ADDONS" ) )
 
    IF AScanL( aParams, "verbose" ) > 0
       hb_SetEnv( "HB_BUILD_VERBOSE", "yes" )
@@ -810,16 +809,6 @@ STATIC PROCEDURE LoadProjectListAutomatic( hProjectList )
             NEXT
          ENDIF
       ENDIF
-   NEXT
-
-   RETURN
-
-STATIC PROCEDURE LoadProjectListFromString( hProjectList, cString )
-
-   LOCAL cItem
-
-   FOR EACH cItem IN hb_ATokens( cString,, .T. )
-      AddProject( hProjectList, cItem )
    NEXT
 
    RETURN

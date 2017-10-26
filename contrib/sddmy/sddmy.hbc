@@ -4,6 +4,7 @@ libs=${_HB_DYNPREF}${hb_name}${_HB_DYNSUFF}
 
 {!dos}libs=mysqlclient
 {dos}libs=libmysql
+{bsd}libpaths=/usr/local/lib/mysql
 {darwin}libpaths=/usr/local/opt/mariadb/lib
 {darwin}libpaths=/usr/local/opt/mysql/lib
 

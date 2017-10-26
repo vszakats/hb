@@ -505,11 +505,6 @@ settings are case-sensitive.
      Build space separated `<l>` list of contrib libraries.
      Build all if left empty (default).
 
-   - `HB_BUILD_ADDONS=<l>`
-
-     Build space separated <l> list of additional `.hbp`
-     projects.
-
    - `HB_BUILD_STRIP=[all|bin|lib|no]`
 
      Strip symbols and debug information from binaries.

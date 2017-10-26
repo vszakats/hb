@@ -17,6 +17,7 @@
 -depcontrol=cups:no{HB_BUILD_3RDEXT='no'}
 -depcontrol=cups:${HB_WITH_CUPS}
 -depincpath=cups:/usr/include
+-depincpath=cups:/usr/local/include
 
 -hbx=${hb_name}
 

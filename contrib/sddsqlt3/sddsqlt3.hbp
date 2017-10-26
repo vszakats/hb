@@ -19,6 +19,7 @@ rddsql.hbc
 -depcontrol=sqlite3:${HB_WITH_SQLITE3}
 -depincpath=sqlite3:/usr/local/opt/sqlite/include
 -depincpath=sqlite3:/usr/include
+-depincpath=sqlite3:/usr/local/include
 -depincpath=sqlite3:/boot/common/include
 -depincpathlocal=sqlite3:../3rd/sqlite3
 -depfinish=sqlite3
