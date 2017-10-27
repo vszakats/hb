@@ -55,7 +55,7 @@
       be allowed to access the semaphore's resource.  If the value
       goes negative, then the application is placed in a queue.
       How long your app is in the queue is determined by how you
-      set the timeout parameter.  If you can't get the resource in
+      set the timeout parameter.  If you cannot get the resource in
       the time you allot, you're let out of the queue and the
       value increments by 1 again.
 
@@ -284,7 +284,7 @@
       app is that 1 station so the "lock" is granted.
 
       You can use a semaphore lock to control access to anything
-      that Clipper's RLock() and FLock() can't help you with, such
+      that Clipper's RLock() and FLock() cannot help you with, such
       as text files written with the low-level file I/O functions,
       etc.
    $EXAMPLES$

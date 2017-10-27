@@ -161,7 +161,7 @@
 
 /* *********************************************************************** */
 
-/* if we can not manipulate cursor state */
+/* if we cannot manipulate cursor state */
 #define SC_UNAVAIL          -1
 
 /* xHarbour compatible definitions */

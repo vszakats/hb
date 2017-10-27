@@ -486,7 +486,7 @@ There is no guarantee that GTWVW will always be compatible with GTWVT.
 
 ## Compiling GTWVW program in GTWVT
 
-I can't imagine that one will ever need to run his program in GTWVW and GTWVT
+I cannot imagine that one will ever need to run his program in GTWVW and GTWVT
 back and forth. Converting GTWVT program to GTWVW is fairly simple, but not the
 other way around. Well, except if the program never calls GTWVW specific functions.
 But then in that case why bother linking it with GTWVW anyway?
@@ -528,7 +528,7 @@ above paragraph :-).
 Additionally, some aspects of current GTWVW may not be accepted as a *good practice*
 by other developers. For example, I am using Windows native controls (toolbar,
 statusbar, scrollbar) which are intentionally avoided by GTWVT. At best, it is
-because I can't give a convincing arguments. At worst, it is really a bad design
+because I cannot give a convincing arguments. At worst, it is really a bad design
 of mine... :-)
 
 Well, frankly speaking my design decisions are driven by my actual need to port my

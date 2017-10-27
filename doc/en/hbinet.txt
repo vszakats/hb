@@ -1218,7 +1218,7 @@
       or not to use it together with a hb_inetConnect(). If this kind of situation
       should ever arise, you are advised to use a thread MUTEX.
 
-      On error, and if the server can't be found, the function returns NIL.
+      On error, and if the server cannot be found, the function returns NIL.
    $EXAMPLES$
 
    $STATUS$
@@ -1517,7 +1517,7 @@
       An INET socket
    $DESCRIPTION$
       Creates a datagram-oriented socket that will be able to send data and
-      eventually receive data. Since the socket is not bound, the program can't
+      eventually receive data. Since the socket is not bound, the program cannot
       retrieve the address at which this socket appears to be, but a second
       socket receiving a message sent from this one would be able to reply
       correctly with a datagram that can be read from a non-bound socket.

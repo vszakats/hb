@@ -18,7 +18,7 @@ PROCEDURE Main()
    Set( _SET_DATEFORMAT, "yyyy-mm-dd" )
 
    IF Empty( oObject := win_oleCreateObject( "MyOleRPCServer" ) )
-      ? "Can not access 'MyOleRPCServer' OLE server."
+      ? "Cannot access 'MyOleRPCServer' OLE server."
    ELSEIF oObject:connect( NETSERVER, NETPORT,, NETPASSWD )
       ? "Connected to the server:", NETSERVER
       /* execute some functions on the server side and display

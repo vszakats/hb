@@ -1915,7 +1915,7 @@ static void hb_gt_wvwCreateObjects( int nWin )
 
    /* 2004-09-21 IMPORTANT:
       All these PENs and BRUSHes creations are temporarily disabled
-      because WINDOW #1's CAN'T BE DELETED LATER!
+      because WINDOW #1's CANNOT BE DELETED LATER!
       See also hb_gt_wvwCloseWindow() and gt_Exit()
       TODO: pls choose:
       (1) store PENs and BRUSHes as application-wide
@@ -2549,7 +2549,7 @@ static LRESULT CALLBACK hb_gt_wvwWndProc( HWND hWnd, UINT message, WPARAM wParam
                _s.colStart = HB_MAX( 0, rcRect.left - 1 );
                _s.colStop  = HB_MIN( _s.COLS, rcRect.right + 1 );
 
-               WVW can't do that way, because we use TIMER method to repaint
+               WVW cannot do that way, because we use TIMER method to repaint
                WVW's pending repaint rect is stored in rPaintPending
              */
 
@@ -4416,7 +4416,7 @@ int hb_gt_wvw_OpenWindow( LPCTSTR szWinName, int iRow1, int iCol1, int iRow2, in
                         szWinName,         /* window name */
                         dwStyle,
                                            /* notes: do NOT use WS_CHILD style for subwindows
-                                                     child windows can NOT get input focus
+                                                     child windows CANNOT get input focus
                                               TODO: handle WM_MOVE to simulate behaviour similar to WS_CHILD's
                                                     at least to keep subwindow "nearby" the MAIN window */
                         0,                 /* x */

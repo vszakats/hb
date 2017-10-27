@@ -205,11 +205,11 @@
  * 5. NOTES
  * --------
  *
- * It seems that the Unix versions of GNU patch can not handle diff files with
+ * It seems that the Unix versions of GNU patch cannot handle diff files with
  * DOS-style path separators, whereas the Windows versions have no problem working
  * with Unix-style path separators. They however cannot be coerced into generating
  * diffs with Unix-style path separators, which results in diffs generated on
- * Windows hosts can not be applied on non-Windows hosts.
+ * Windows hosts cannot be applied on non-Windows hosts.
  *
  * To remedy this situation, 3rdpatch will change diffs to use Unix-style path
  * separators. Since this is a grave problem (the diff is unappliable on
@@ -751,7 +751,7 @@ STATIC FUNCTION FetchAndExtract( cArchiveURL )
    NEXT
 
    IF cArchiver == NIL
-      OutStd( hb_StrFormat( "E: Can not find archiver for `%1$s'", ;
+      OutStd( hb_StrFormat( "E: Cannot find archiver for `%1$s'", ;
          hb_FNameNameExt( cArchiveURL ) ) + hb_eol() )
       RETURN .F.
    ENDIF

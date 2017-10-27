@@ -32,7 +32,7 @@
       LOCAL nElem := 1, bGetFunc
 
       // This example will allow you to browse a 2 dimensional array
-      // But you can't edit it since there is no GetBlock UDF
+      // But you cannot edit it since there is no GetBlock UDF
       // It allows the user to hit <Enter> to select an element or <Esc>
       // to return 0
 

@@ -49,7 +49,7 @@
    $EXAMPLES$
       #include "fileio.ch"
       IF ( nH := FOpen( "test.txt", FO_READWRITE + FO_DENYNONE ) ) == F_ERROR
-         ? "File can't be opened"
+         ? "File cannot be opened"
       ENDIF
    $STATUS$
       R

@@ -582,7 +582,7 @@ static HB_BOOL hb_mixTagAddKey( PMIXTAG pTag, PMIXKEY pKey )
 
    i = hb_mixTagFindKey( pTag, pKey, pTag->uiKeyLen, &pNode, &ui, HB_FALSE );
 
-   /* Key can not be duplicated */
+   /* Key cannot be duplicated */
    if( ! i )
       return HB_FALSE;
 

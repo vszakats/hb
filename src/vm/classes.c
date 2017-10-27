@@ -4057,7 +4057,7 @@ HB_FUNC( __CLSASSOCTYPE )
       HB_TYPE nType = hb_clsGetItemType( pType, HB_IT_ANY );
 
       if( s_pClasses[ uiClass ]->uiDatas )
-         hb_errRT_BASE( EG_ARG, 3005, "Scalar class can not contain instance variables", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+         hb_errRT_BASE( EG_ARG, 3005, "Scalar class cannot contain instance variables", HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
       else if( nType != HB_IT_ANY )
       {
          switch( nType )

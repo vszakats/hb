@@ -17,7 +17,7 @@ PROCEDURE Main()
    Set( _SET_DATEFORMAT, "yyyy-mm-dd" )
 
    IF Empty( oObject := win_oleCreateObject( "MyOleObjServer" ) )
-      ? "Can not access 'MyOleObjServer' OLE server."
+      ? "Cannot access 'MyOleObjServer' OLE server."
    ELSE
       oTime := oObject:timer()
       ? "TIMER:"

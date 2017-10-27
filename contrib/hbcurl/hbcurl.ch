@@ -593,7 +593,7 @@
 #define HB_CURLE_PEER_FAILED_VERIFICATION     51 /* peer's certificate or fingerprint wasn't verified fine */
 #define HB_CURLE_GOT_NOTHING                  52 /* when this is a specific error */
 #define HB_CURLE_SSL_ENGINE_NOTFOUND          53 /* SSL crypto engine not found */
-#define HB_CURLE_SSL_ENGINE_SETFAILED         54 /* can not set SSL crypto engine as default */
+#define HB_CURLE_SSL_ENGINE_SETFAILED         54 /* cannot set SSL crypto engine as default */
 #define HB_CURLE_SEND_ERROR                   55 /* failed sending network data */
 #define HB_CURLE_RECV_ERROR                   56 /* failure in receiving network data */
 #define HB_CURLE_OBSOLETE57                   57 /* NOT IN USE */

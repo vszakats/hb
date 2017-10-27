@@ -19,7 +19,7 @@ PROCEDURE Main()
       oObject:Property1 := "!!! >>>" + Upper( oObject:Property1 ) + "<<< !!!"
       ? oObject:Property1
    RECOVER
-      ? "Can not access 'MyOleServer' OLE server."
+      ? "Cannot access 'MyOleServer' OLE server."
    END SEQUENCE
 
    WAIT

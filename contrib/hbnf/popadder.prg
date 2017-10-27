@@ -209,7 +209,7 @@ PROCEDURE ft_Adder()
                oGet:varPut( nSavTotal )
                EXIT
             ELSE
-               _ftError( "but I can not return the total from the " + ;
+               _ftError( "but I cannot return the total from the " + ;
                   "adder to this variable. You must quit the adder using" + ;
                   " the <ESC> key and then enter the total manually." )
             ENDIF
@@ -416,7 +416,7 @@ STATIC PROCEDURE _ftAddTotal( aAdder )
          CASE nAddMode == 3 ; nTotal *= nNumTotal
          CASE nAddMode == 4 ; nTotal := _ftDivide( aAdder, nTotal, nNumTotal )
             IF lDivError
-               _ftError( "you can't divide by ZERO!" )
+               _ftError( "you cannot divide by ZERO!" )
                lDivError := .F.
             ENDIF
          ENDCASE
@@ -521,7 +521,7 @@ STATIC PROCEDURE _ftMultDiv( aAdder, nKey )
          _ftUpdateTrans( aAdder, .F., nNumTotal )
          nTotal := _ftDivide( aAdder, nTotal, nNumTotal )
          IF lDivError
-            _ftError( "you can't divide by ZERO!" )
+            _ftError( "you cannot divide by ZERO!" )
             lDivError := .F.
          ENDIF
          nNumTotal := 0

@@ -588,7 +588,7 @@ STATIC PROCEDURE VXBscroller( oBrowse, nWinNum, XBid, XBmsg )
    LOCAL lNeedStabilize
 
 #if 0
-   // if we can't handle non topmost window we must return right away
+   // if we cannot handle non topmost window we must return right away
    IF nWinNum != wvw_nNumWindows() - 1
       RETURN
    ENDIF
@@ -644,7 +644,7 @@ STATIC PROCEDURE HXBscroller( oBrowse, nWinNum, XBid, XBmsg )
    LOCAL lNeedStabilize
 
 #if 0
-   // if we can't handle non topmost window we must return right away
+   // if we cannot handle non topmost window we must return right away
    IF nWinNum != wvw_nNumWindows() - 1
       RETURN
    ENDIF

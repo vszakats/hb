@@ -44,7 +44,7 @@
  *
  */
 
-/* WARNING: Can not use the preprocessor, otherwise
+/* WARNING: Cannot use the preprocessor, otherwise
             it will auto inherit from itself. */
 
 #include "hboo.ch"

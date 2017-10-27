@@ -154,11 +154,11 @@ Here is a (probably not complete) list of them :
     - a driver allows only 128 combinations of FgBg colors. It means you can
       use 16 colors for Fg, and only 8 colors for Bg.
 
-    - you can't get intensity/blinking background mode working (this is in
+    - you cannot get intensity/blinking background mode working (this is in
       fact the previous problem, just worded differently)
 
-    - you can't display characters with values below 32 (control characters).
-      It is a very important limitation because you can't use many useful
+    - you cannot display characters with values below 32 (control characters).
+      It is a very important limitation because you cannot use many useful
       chars which you used under CA-Cl*pper. This is an OS limitation which
       Slang also inherits
 
@@ -168,14 +168,14 @@ Here is a (probably not complete) list of them :
       You should not expect to see chars above 128 shown properly in all
       cases.
 
-    - a screen is automatically cleared on program's startup (you can't inherit
+    - a screen is automatically cleared on program's startup (you cannot inherit
       it from a system) and a cursor is set at 0,0
 
     - when you run external programs a screen is restored after execution so
       there is no possibility to interact with screen handling between two
       programs
 
-    - you can't expect cursor hiding and cursor style changing to work at
+    - you cannot expect cursor hiding and cursor style changing to work at
       all. Although on a text-mode Linux console it works, this is a Linux
       text-mode hack only and it is hardcoded. For example on xterm only
       cursor hiding works well.
@@ -189,7 +189,7 @@ Here is a (probably not complete) list of them :
 
     - CA-Cl*pper programs which utilized PC hardware specifications about screen
       construction (an array of char+attr)  (for example to make quick shadow
-      on a screen) can't run properly. There is no hardware emulation at all
+      on a screen) cannot run properly. There is no hardware emulation at all
 
     - Tone() support currently works for Linux console only.
 
@@ -210,7 +210,7 @@ Here is a (probably not complete) list of them :
 
     - Out<XXX>() functions do not work well. This is caused by a design of
       a gt layer where writing directly to STDOUT is done outside Slang,
-      so Slang can't maintain screen changes properly.
+      so Slang cannot maintain screen changes properly.
 
     - redirecting Out<XXX>() to a file results in writing control chars
       which were supposed to initialize a terminal, to that file

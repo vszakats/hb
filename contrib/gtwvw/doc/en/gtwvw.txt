@@ -226,7 +226,7 @@
       Find index of string in combobox in current window. This function is case
       insensitive.
    $RETURNS$
-      Index of string, or -1 if failed (or can't find).
+      Index of string, or -1 if failed (or cannot find).
    $PLATFORMS$
       Windows
    $END$

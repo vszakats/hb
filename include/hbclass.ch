@@ -223,7 +223,7 @@ DECLARE HBClass ;
       iif( <export>, HB_OO_CLSTP_EXPORTED , ;
       iif( <protect>, HB_OO_CLSTP_PROTECTED, ;
       iif( <hidde>, HB_OO_CLSTP_HIDDEN, nScope ) ) ) */
-#xtranslate __HB_CLS_SCOPE( <x,...> )        => ) __HB_CLS_ERR( Can not use multiple scope qualifiers! )
+#xtranslate __HB_CLS_SCOPE( <x,...> )        => ) __HB_CLS_ERR( Cannot use multiple scope qualifiers! )
 #xtranslate __HB_CLS_SCOPE( .T., .F., .F. )  => HB_OO_CLSTP_EXPORTED
 #xtranslate __HB_CLS_SCOPE( .F., .T., .F. )  => HB_OO_CLSTP_PROTECTED
 #xtranslate __HB_CLS_SCOPE( .F., .F., .T. )  => HB_OO_CLSTP_HIDDEN

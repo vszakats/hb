@@ -66,7 +66,7 @@ HB_EXTERN_BEGIN
 
 /* File inheritance flags */
 #define FO_INHERITED  0x0000   /* Spawned processes can inherit this file handle */
-#define FO_PRIVATE    0x0080   /* Spawned processes can not inherit this file handle */
+#define FO_PRIVATE    0x0080   /* Spawned processes cannot inherit this file handle */
 
 /* Extended file open mode flags */
 #define FXO_TRUNCATE  0x0100   /* Create (truncate if exists) */

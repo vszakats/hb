@@ -120,7 +120,7 @@
  *    6 == Block
  *    7 == Array
  *    8 == Object
- *    9 == can not be specified
+ *    9 == cannot be specified
  *
  * This can be useful for custom errorblocks, since the CT3 library allows
  * to set a return value when (for example) an argument error occurs.

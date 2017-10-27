@@ -334,7 +334,7 @@
               `_SET_PATH`        <cDirectories>
 
                    Specifies a path of directories to search through to
-                   locate a file that can't be located in the DEFAULT
+                   locate a file that cannot be located in the DEFAULT
                    directory. Defaults to no path `""`. Directories must
                    be separated by a semicolon (e.g., `/hb/bin;/hb/tests`).
 
