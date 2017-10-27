@@ -18,7 +18,7 @@ hbbz2.hbc
 -depurlbase=bzip2:http://bzip.org/
 -deppkgname=bzip2:libbz2-dev{deb}
 -deppkgname=bzip2:bzip2-devel{rpm}
--deppkgname=bzip2:bzip2{homebrew|pkg}
+-deppkgname=bzip2:bzip2{homebrew|pkgng}
 -deppkgname=bzip2:mingw-w64-i686-bzip2{msys2&x86}
 -deppkgname=bzip2:mingw-w64-x86_64-bzip2{msys2&x86_64}
 -depkeyhead=bzip2:bzlib.h

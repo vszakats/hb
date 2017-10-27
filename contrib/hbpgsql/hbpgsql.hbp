@@ -9,7 +9,7 @@
 -deppkgname=pgsql:libpq-dev{deb}
 -deppkgname=pgsql:postgresql-devel{rpm}
 -deppkgname=pgsql:postgresql{homebrew}
--deppkgname=pgsql:postgresql96-client{pkg}
+-deppkgname=pgsql:postgresql96-client{pkgng}
 -deppkgname=pgsql:postgresql{pacman}
 -deppkgname=pgsql:mingw-w64-i686-postgresql{msys2&x86}
 -deppkgname=pgsql:mingw-w64-x86_64-postgresql{msys2&x86_64}

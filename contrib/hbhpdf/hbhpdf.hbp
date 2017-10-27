@@ -8,7 +8,7 @@
 # NOTE: On *nix systems, download libharu sources -> `./configure` -> `make install`
 
 -depurlbase=libharu:https://github.com/libharu/libharu
--deppkgname=libharu:libharu{homebrew|pkg}
+-deppkgname=libharu:libharu{homebrew|pkgng}
 -deppkgname=libharu:libharu{pacman}
 -deppkgname=libharu:mingw-w64-i686-libharu{msys2&x86}
 -deppkgname=libharu:mingw-w64-x86_64-libharu{msys2&x86_64}

@@ -8,7 +8,7 @@
 -deppkgname=libmagic:libmagic-dev{deb}
 -deppkgname=libmagic:file-libs{rpm}
 -deppkgname=libmagic:libmagic{homebrew}
--deppkgname=libmagic:file{pkg}
+-deppkgname=libmagic:file{pkgng}
 -depkeyhead=libmagic:magic.h
 -depcontrol=libmagic:no{HB_BUILD_3RDEXT='no'}
 -depcontrol=libmagic:${HB_WITH_LIBMAGIC}

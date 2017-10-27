@@ -12,7 +12,7 @@
 -depurlbase=mxml:https://michaelrsweet.github.io/mxml/
 -deppkgname=mxml:libmxml-dev{deb}
 -deppkgname=mxml:libmxml{homebrew}
--deppkgname=mxml:mxml{pkg}
+-deppkgname=mxml:mxml{pkgng}
 -deppkgname=mxml:mxml{pacman}
 -depkeyhead=mxml:mxml.h
 -depcontrol=mxml:local{HB_BUILD_3RDEXT='no'}

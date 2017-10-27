@@ -9,7 +9,7 @@
 -deppkgname=rabbitmq:librabbitmq-dev{deb}
 -deppkgname=rabbitmq:librabbitmq-devel{rpm}
 -deppkgname=rabbitmq:rabbitmq-c{homebrew}
--deppkgname=rabbitmq:rabbitmq-c-devel{pkg}
+-deppkgname=rabbitmq:rabbitmq-c-devel{pkgng}
 -deppkgname=rabbitmq:rabbitmq-c{pacman}
 -deppkgname=rabbitmq:mingw-w64-i686-rabbitmq-c{msys2&x86}
 -deppkgname=rabbitmq:mingw-w64-x86_64-rabbitmq-c{msys2&x86_64}

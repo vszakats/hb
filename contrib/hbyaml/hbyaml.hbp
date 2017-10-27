@@ -10,7 +10,7 @@
 -depurlbase=libyaml:https://github.com/yaml/libyaml
 -deppkgname=libyaml:libyaml-dev{deb}
 -deppkgname=libyaml:libyaml-devel{rpm}
--deppkgname=libyaml:libyaml{homebrew|pkg}
+-deppkgname=libyaml:libyaml{homebrew|pkgng}
 -deppkgname=libyaml:libyaml{pacman}
 -deppkgname=libyaml:mingw-w64-i686-libyaml{msys2&x86}
 -deppkgname=libyaml:mingw-w64-x86_64-libyaml{msys2&x86_64}

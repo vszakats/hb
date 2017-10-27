@@ -11,7 +11,7 @@
 -deppkgname=cups:libcups2-dev{deb}
 -deppkgname=cups:libcups2-devel{rpm}
 -deppkgname=cups:cups-devel{rpm}
--deppkgname=cups:cups{pkg}
+-deppkgname=cups:cups{pkgng}
 -deppkgname=cups:libcups{pacman}
 -depkeyhead=cups:cups/cups.h
 -depcontrol=cups:force{darwin}

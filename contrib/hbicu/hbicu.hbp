@@ -9,7 +9,7 @@
 -deppkgname=icu:libicu-dev{deb}
 -deppkgname=icu:libicu-devel{rpm}
 -deppkgname=icu:icu4c{homebrew}
--deppkgname=icu:icu{pkg}
+-deppkgname=icu:icu{pkgng}
 -deppkgname=icu:icu{pacman}
 -deppkgname=icu:mingw-w64-i686-icu{msys2&x86}
 -deppkgname=icu:mingw-w64-x86_64-icu{msys2&x86_64}

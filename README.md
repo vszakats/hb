@@ -1358,9 +1358,10 @@ Supported shells per host platforms:
      * deb (Ubuntu): <https://packages.ubuntu.com/>
      * rpm (Fedora): <https://apps.fedoraproject.org/packages/>
      * pacman (Arch Linux): <https://www.archlinux.org/packages/>
-     * FreeBSD: <https://www.freebsd.org/ports/>
-     * Homebrew: <http://formulae.brew.sh/>
-     * MSYS2: <https://github.com/Alexpux/MINGW-packages>
+     * pkgng, ports (FreeBSD): <https://www.freebsd.org/ports/> <https://www.freshports.org/>
+     * homebrew (macOS): <http://formulae.brew.sh/>
+     * msys2 (Windows): <https://github.com/Alexpux/MINGW-packages>
+     * mxe (Windows): <https://github.com/mxe/mxe/tree/master/src>
 
 * Documentation:
 

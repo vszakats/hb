@@ -12,7 +12,7 @@
 -depurlbase=cairo:https://cairographics.org/download/
 -deppkgname=cairo:libcairo2-dev{deb}
 -deppkgname=cairo:cairo-devel{rpm}
--deppkgname=cairo:cairo{homebrew|pkg}
+-deppkgname=cairo:cairo{homebrew|pkgng}
 -deppkgname=cairo:cairo{pacman}
 -deppkgname=cairo:mingw-w64-i686-cairo{msys2&x86}
 -deppkgname=cairo:mingw-w64-x86_64-cairo{msys2&x86_64}

@@ -11,7 +11,7 @@ rddsql.hbc
 -deppkgname=sqlite3:libsqlite3-dev{deb}
 -deppkgname=sqlite3:sqlite-devel{rpm}
 -deppkgname=sqlite3:sqlite{homebrew}
--deppkgname=sqlite3:sqlite3{pkg}
+-deppkgname=sqlite3:sqlite3{pkgng}
 -deppkgname=sqlite3:sqlite{pacman}
 -deppkgname=sqlite3:mingw-w64-i686-sqlite3{msys2&x86}
 -deppkgname=sqlite3:mingw-w64-x86_64-sqlite3{msys2&x86_64}

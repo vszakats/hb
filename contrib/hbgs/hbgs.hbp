@@ -13,7 +13,7 @@
 -deppkgname=gs:libgs-dev{deb}
 -deppkgname=gs:ghostscript-devel{rpm}
 -deppkgname=gs:ghostscript{homebrew}
--deppkgname=gs:ghostscript9-base{pkg}
+-deppkgname=gs:ghostscript9-base{pkgng}
 -deppkgname=gs:ghostscript{pacman}
 -deppkgname=gs:mingw-w64-i686-ghostscript{msys2&x86}
 -deppkgname=gs:mingw-w64-x86_64-ghostscript{msys2&x86_64}

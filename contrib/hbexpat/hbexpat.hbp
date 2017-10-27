@@ -8,7 +8,7 @@
 -depurlbase=expat:https://github.com/libexpat/libexpat
 -deppkgname=expat:libexpat1-dev{deb}
 -deppkgname=expat:expat-devel{rpm}
--deppkgname=expat:expat{homebrew|pkg}
+-deppkgname=expat:expat{homebrew|pkgng}
 -deppkgname=expat:expat{pacman}
 -deppkgname=expat:mingw-w64-i686-expat{msys2&x86}
 -deppkgname=expat:mingw-w64-x86_64-expat{msys2&x86_64}

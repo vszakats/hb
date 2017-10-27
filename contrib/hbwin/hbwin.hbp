@@ -9,7 +9,7 @@
 #-depurlbase=wine:https://www.winehq.org/
 #-deppkgname=wine:wine-dev{deb}
 #-deppkgname=wine:wine-devel{rpm}
-#-deppkgname=wine:wine{homebrew|pkg}
+#-deppkgname=wine:wine{homebrew|pkgng}
 #-deppkgname=wine:wine{pacman}
 #-depkeyhead=wine:windows.h
 #-depcontrol=wine:no{HB_BUILD_3RDEXT='no'}

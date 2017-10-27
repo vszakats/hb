@@ -6,7 +6,7 @@
 -w3 -es2
 
 -depurlbase=xdiff:http://xmailserver.org/xdiff-lib.html
--deppkgname=xdiff:libxdiff{homebrew|pkg}
+-deppkgname=xdiff:libxdiff{homebrew|pkgng}
 -depkeyhead=xdiff:xdiff.h
 -depcontrol=xdiff:local{HB_BUILD_3RDEXT='no'}
 -depcontrol=xdiff:${HB_WITH_XDIFF}

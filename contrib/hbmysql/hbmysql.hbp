@@ -15,8 +15,8 @@
 -deppkgname=mysql:MySQL-devel{rpm}
 -deppkgname=mysql:mariadb{homebrew}
 -deppkgname=mysql:mysql{homebrew}
--deppkgname=mysql:mysql80-client{pkg}
--deppkgname=mysql:mariadb102-client{pkg}
+-deppkgname=mysql:mysql80-client{pkgng}
+-deppkgname=mysql:mariadb102-client{pkgng}
 -deppkgname=mysql:libmariadbclient{pacman}
 -deppkgname=mysql:mingw-w64-i686-libmariadbclient{msys2&x86}
 -deppkgname=mysql:mingw-w64-x86_64-libmariadbclient{msys2&x86_64}
