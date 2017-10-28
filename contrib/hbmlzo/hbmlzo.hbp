@@ -9,7 +9,6 @@
 -deppkgname=minilzo:liblzo2-dev{deb}
 -deppkgname=minilzo:lzo-devel{rpm}
 -deppkgname=minilzo:lzo{homebrew}
--deppkgname=minilzo:lzo2{pkgng}
 -deppkgname=minilzo:lzo{pacman}
 -deppkgname=minilzo:mingw-w64-i686-lzo2{msys2&x86}
 -deppkgname=minilzo:mingw-w64-x86_64-lzo2{msys2&x86_64}
