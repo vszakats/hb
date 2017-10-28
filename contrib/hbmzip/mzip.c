@@ -67,6 +67,11 @@
 #include "unzip.h"
 
 #if defined( HB_OS_UNIX )
+   /* Revert flag defined by minizip headers */
+   #if defined( __USE_LARGEFILE64 ) && defined( HB_OS_BSD )
+      #undef __USE_LARGEFILE64
+   #endif
+
    #include <sys/types.h>
    #include <sys/stat.h>
    #include <unistd.h>
@@ -93,7 +98,7 @@
    #include <os2.h>
 #endif
 
-#if ! defined( HB_USE_LARGEFILE64 ) && defined( HB_OS_UNIX ) && ! defined( HB_OS_BSD )
+#if ! defined( HB_USE_LARGEFILE64 ) && defined( HB_OS_UNIX )
    #if defined( __USE_LARGEFILE64 )
       /*
        * The macro: __USE_LARGEFILE64 is set when _LARGEFILE64_SOURCE is
