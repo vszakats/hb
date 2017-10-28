@@ -1361,7 +1361,6 @@ Supported shells per host platforms:
      * pkgng, ports (FreeBSD): <https://www.freebsd.org/ports/> <https://www.freshports.org/>
      * homebrew (macOS): <http://formulae.brew.sh/>
      * msys2 (Windows): <https://github.com/Alexpux/MINGW-packages>
-     * mxe (Windows): <https://github.com/mxe/mxe/tree/master/src>
 
 * Documentation:
 
