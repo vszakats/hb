@@ -1623,16 +1623,16 @@ msgid "options to be passed to resource compiler (before command-line options) (
 msgstr "opções a serem passadas ​​para o compilador de recursos (antes da linha de comando) (somente Windows)"
 
 #, c-format
-msgid "override C compiler executable directory (gcc compiler families only)"
+msgid "override C compiler executable directory (gcc compiler family only)"
 msgstr "sobrepor o diretório de execução do compilador C (apenas para família de compilador gcc)"
 
 #, c-format
-msgid "override C compiler executable prefix (gcc compiler families only)"
+msgid "override C compiler executable prefix (gcc compiler family only)"
 msgstr "sobrepor o prefixo do executável do compilador C (apenas para família de compilador gcc)"
 
 #, c-format
-msgid "override C compiler executable suffix (gcc compiler families only)"
-msgstr "sobrepor o sufixo executável do compilador C (apenas para família de compilador gcc)"
+msgid "override C compiler executable suffix (gcc/clang compiler families only)"
+msgstr "sobrepor o sufixo executável do compilador C (apenas para família de compilador gcc/clang)"
 
 #, c-format
 msgid "override C compiler version autodetection (gcc and msvc compiler families only). Format: <15><00> = <major><minor>"

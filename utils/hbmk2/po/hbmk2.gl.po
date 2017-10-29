@@ -1459,16 +1459,16 @@ msgid "options to be passed to resource compiler (before command-line options) (
 msgstr "opcións para enviar ao compilador de recursos (antes das opcións da liña de comandos) (Só Windows)"
 
 #, c-format
-msgid "override C compiler executable directory (gcc compiler families only)"
+msgid "override C compiler executable directory (gcc compiler family only)"
 msgstr "substituír o directorio do executable do compilador de C (só para a famila de compiladores gcc)"
 
 #, c-format
-msgid "override C compiler executable prefix (gcc compiler families only)"
+msgid "override C compiler executable prefix (gcc compiler family only)"
 msgstr "substituír o prefixo do executable do compilador de C (só para a famila de compiladores gcc)"
 
 #, c-format
-msgid "override C compiler executable suffix (gcc compiler families only)"
-msgstr "substituír o sufixo do executable do compilador de C (só para a famila de compiladores gcc)"
+msgid "override C compiler executable suffix (gcc/clang compiler families only)"
+msgstr "substituír o sufixo do executable do compilador de C (só para a famila de compiladores gcc/clang)"
 
 #, c-format
 msgid "override Harbour base add-ons directory"

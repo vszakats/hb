@@ -1583,16 +1583,16 @@ msgid "options to be passed to resource compiler (before command-line options) (
 msgstr "επιλογές που θα περαστούν στον resource compiler (πρίν από επιλογές γραμμής-εντολών) (μόνο για Windows)"
 
 #, c-format
-msgid "override C compiler executable directory (gcc compiler families only)"
+msgid "override C compiler executable directory (gcc compiler family only)"
 msgstr "επικάλυψη του καταλόγου εκτελέσιμων του μεταγλωττιστή C (μόνο σε gcc οικογένειες μεταγλωττιστών)"
 
 #, c-format
-msgid "override C compiler executable prefix (gcc compiler families only)"
+msgid "override C compiler executable prefix (gcc compiler family only)"
 msgstr "επικάλυψη του προθέματος εκτελέσιμου του μεταγλωττιστή C (μόνο σε gcc οικογένειες μεταγλωττιστών)"
 
 #, c-format
-msgid "override C compiler executable suffix (gcc compiler families only)"
-msgstr "επικάλυψη του επιθέματος εκτελέσιμου του μεταγλωττιστή C (μόνο σε gcc οικογένειες μεταγλωττιστών)"
+msgid "override C compiler executable suffix (gcc/clang compiler families only)"
+msgstr "επικάλυψη του επιθέματος εκτελέσιμου του μεταγλωττιστή C (μόνο σε gcc/clang οικογένειες μεταγλωττιστών)"
 
 #, c-format
 msgid "override Harbour base add-ons directory"

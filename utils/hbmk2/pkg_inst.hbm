@@ -1,9 +1,8 @@
-# Copyright 2012 Viktor Szakats (vszakats.net/harbour)
+# Copyright 2012-2017 Viktor Szakats (vszakats.net/harbour)
 
-# Include file to setup standard installation rules
-# for 3rd party packages. To use it just add the line
-# '$hb_pkg_install.hbm' to the beginning of your project
-# .hbp file. [vszakats]
+# Include file to setup standard installation rules for 3rd party packages.
+# To use it, add the line '$hb_pkg_install.hbm' to your .hbp project file.
+# [vszakats]
 
 # specify public/redistributable files
 # ------------------------------------

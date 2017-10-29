@@ -520,8 +520,8 @@ settings are case-sensitive.
 
    - `HB_CCSUFFIX=[<suffix>]`
 
-     Used with gcc compiler family to specify compiler/linker tool name
-     suffix &mdash; usually version number.
+     Used with gcc/clang compiler families to specify compiler/linker tool
+     name suffix &mdash; usually version number.
 
    - `HB_INSTALL_PREFIX`
 

@@ -4620,7 +4620,14 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          ELSE
             DO CASE
             CASE HBMK_ISCOMP( "clang|clang64" ) .AND. hbmk[ _HBMK_cPLAT ] == "win"
+#if 1
+               cBin_Lib := hbmk[ _HBMK_cCCPREFIX ] + "ar"
+               IF ! Empty( hbmk[ _HBMK_cCCPATH ] )
+                  cBin_Lib := hb_DirSepAdd( hbmk[ _HBMK_cCCPATH ] ) + cBin_Lib
+               ENDIF
+#else
                cBin_Lib := "llvm-ar"
+#endif
             CASE hbmk[ _HBMK_cCOMP ] == "wasm"
                cBin_Lib := GetEnv( "LLVM_ROOT" ) + hb_ps() + "llvm-ar"
             CASE hbmk[ _HBMK_cCOMP ] == "icc"
@@ -5122,7 +5129,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             cResExt := ".reso"
             cOpt_Res := "{FR} {IR} -O coff -o {OS}"
             IF ! Empty( hbmk[ _HBMK_cCCPATH ] )
-               cBin_Res := hbmk[ _HBMK_cCCPATH ] + hb_ps() + cBin_Res
+               cBin_Res := hb_DirSepAdd( hbmk[ _HBMK_cCCPATH ] ) + cBin_Res
             ENDIF
          ENDIF
 
@@ -5314,10 +5321,10 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          cOpt_Lib := "rcs {FA} {OL} {LO}"
          cLibObjPrefix := NIL
          IF ! Empty( hbmk[ _HBMK_cCCPATH ] )
-            cBin_Lib     := hbmk[ _HBMK_cCCPATH ] + hb_ps() + cBin_Lib
-            cBin_CompCPP := hbmk[ _HBMK_cCCPATH ] + hb_ps() + cBin_CompCPP
-            cBin_CompC   := hbmk[ _HBMK_cCCPATH ] + hb_ps() + cBin_CompC
-            cBin_Link    := hbmk[ _HBMK_cCCPATH ] + hb_ps() + cBin_Link
+            cBin_Lib     := hb_DirSepAdd( hbmk[ _HBMK_cCCPATH ] ) + cBin_Lib
+            cBin_CompCPP := hb_DirSepAdd( hbmk[ _HBMK_cCCPATH ] ) + cBin_CompCPP
+            cBin_CompC   := hb_DirSepAdd( hbmk[ _HBMK_cCCPATH ] ) + cBin_CompC
+            cBin_Link    := hb_DirSepAdd( hbmk[ _HBMK_cCCPATH ] ) + cBin_Link
          ENDIF
          cBin_SymLst := hbmk[ _HBMK_cCCPREFIX ] + "nm" + hbmk[ _HBMK_cCCEXT ]
          cOpt_SymLst := "-g --defined-only -C {FN} {LI}"
@@ -5431,7 +5438,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             cResExt := ".reso"
             cOpt_Res := "{FR} {IR} -O coff -o {OS}"
             IF ! Empty( hbmk[ _HBMK_cCCPATH ] )
-               cBin_Res := hbmk[ _HBMK_cCCPATH ] + hb_ps() + cBin_Res
+               cBin_Res := hb_DirSepAdd( hbmk[ _HBMK_cCCPATH ] ) + cBin_Res
             ENDIF
          ENDIF
 
@@ -5556,12 +5563,12 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
 #endif
 
          IF ! Empty( hbmk[ _HBMK_cCCPATH ] )
-            cBin_Lib     := hbmk[ _HBMK_cCCPATH ] + hb_ps() + cBin_Lib
-            cBin_CompCPP := hbmk[ _HBMK_cCCPATH ] + hb_ps() + cBin_CompCPP
-            cBin_CompC   := hbmk[ _HBMK_cCCPATH ] + hb_ps() + cBin_CompC
-            cBin_Link    := hbmk[ _HBMK_cCCPATH ] + hb_ps() + cBin_Link
+            cBin_Lib     := hb_DirSepAdd( hbmk[ _HBMK_cCCPATH ] ) + cBin_Lib
+            cBin_CompCPP := hb_DirSepAdd( hbmk[ _HBMK_cCCPATH ] ) + cBin_CompCPP
+            cBin_CompC   := hb_DirSepAdd( hbmk[ _HBMK_cCCPATH ] ) + cBin_CompC
+            cBin_Link    := hb_DirSepAdd( hbmk[ _HBMK_cCCPATH ] ) + cBin_Link
 #if 0
-            cBin_Res     := hbmk[ _HBMK_cCCPATH ] + hb_ps() + cBin_Res
+            cBin_Res     := hb_DirSepAdd( hbmk[ _HBMK_cCCPATH ] ) + cBin_Res
 #endif
          ENDIF
 
@@ -5666,10 +5673,10 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
 #endif
 
          IF ! Empty( hbmk[ _HBMK_cCCPATH ] )
-            cBin_Lib     := hbmk[ _HBMK_cCCPATH ] + hb_ps() + cBin_Lib
-            cBin_CompCPP := hbmk[ _HBMK_cCCPATH ] + hb_ps() + cBin_CompCPP
-            cBin_CompC   := hbmk[ _HBMK_cCCPATH ] + hb_ps() + cBin_CompC
-            cBin_Link    := hbmk[ _HBMK_cCCPATH ] + hb_ps() + cBin_Link
+            cBin_Lib     := hb_DirSepAdd( hbmk[ _HBMK_cCCPATH ] ) + cBin_Lib
+            cBin_CompCPP := hb_DirSepAdd( hbmk[ _HBMK_cCCPATH ] ) + cBin_CompCPP
+            cBin_CompC   := hb_DirSepAdd( hbmk[ _HBMK_cCCPATH ] ) + cBin_CompC
+            cBin_Link    := hb_DirSepAdd( hbmk[ _HBMK_cCCPATH ] ) + cBin_Link
          ENDIF
 
       /* Watcom family */
@@ -6535,9 +6542,9 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          ENDIF
 
          IF ! Empty( hbmk[ _HBMK_cCCPATH ] )
-            cBin_CompCPP := hbmk[ _HBMK_cCCPATH ] + hb_ps() + cBin_CompCPP
-            cBin_CompC   := hbmk[ _HBMK_cCCPATH ] + hb_ps() + cBin_CompC
-            cBin_Link    := hbmk[ _HBMK_cCCPATH ] + hb_ps() + cBin_Link
+            cBin_CompCPP := hb_DirSepAdd( hbmk[ _HBMK_cCCPATH ] ) + cBin_CompCPP
+            cBin_CompC   := hb_DirSepAdd( hbmk[ _HBMK_cCCPATH ] ) + cBin_CompC
+            cBin_Link    := hb_DirSepAdd( hbmk[ _HBMK_cCCPATH ] ) + cBin_Link
          ENDIF
 
       CASE hbmk[ _HBMK_cPLAT ] == "vxworks" .AND. hbmk[ _HBMK_cCOMP ] == "diab"
@@ -19231,9 +19238,9 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
       { "HB_USER_LDFLAGS"    , I_( "options to be passed to linker (executable) (before command-line options)" ) }, ;
       { "HB_USER_DFLAGS"     , I_( "options to be passed to linker (dynamic library) (before command-line options)" ) }, ;
       { "HB_USER_AFLAGS"     , I_( "options to be passed to linker (static library) (before command-line options)" ) }, ;
-      { "HB_CCPATH"          , I_( "override C compiler executable directory (gcc compiler families only)" ) }, ;
-      { "HB_CCPREFIX"        , I_( "override C compiler executable prefix (gcc compiler families only)" ) }, ;
-      { "HB_CCSUFFIX"        , I_( "override C compiler executable suffix (gcc compiler families only)" ) }, ;
+      { "HB_CCPATH"          , I_( "override C compiler executable directory (gcc compiler family only)" ) }, ;
+      { "HB_CCPREFIX"        , I_( "override C compiler executable prefix (gcc compiler family only)" ) }, ;
+      { "HB_CCSUFFIX"        , I_( "override C compiler executable suffix (gcc/clang compiler families only)" ) }, ;
       { _HBMK_ENV_INSTALL_PFX, H_( "override Harbour base installation directory" ) }, ;
       { "HB_INSTALL_ADDONS"  , H_( "override Harbour base add-ons directory" ) } }
 

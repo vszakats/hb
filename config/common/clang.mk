@@ -114,7 +114,8 @@ else
    DY_OUT := -o$(subst x,x, )
 
    ifeq ($(HB_PLATFORM),win)
-      AR := llvm-ar
+#     AR := llvm-ar
+      AR := $(HB_CCPATH)$(HB_CCPREFIX)ar
 
       LDFLAGS += -static-libgcc
       DFLAGS += -static-libgcc

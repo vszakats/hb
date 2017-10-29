@@ -727,19 +727,13 @@ ifeq ($(HB_COMPILER),)
       ifneq ($(HB_COMP_PATH),)
          HB_COMPILER := clang
       else
-         HB_COMP_PATH := $(call find_in_path_par,clang,/Developer/usr/bin/)
+         HB_COMP_PATH := $(call find_in_path,gcc)
          ifneq ($(HB_COMP_PATH),)
-            HB_CCPREFIX := /Developer/usr/bin/
-            HB_COMPILER := clang
+            HB_COMPILER := gcc
          else
-            HB_COMP_PATH := $(call find_in_path,gcc)
+            HB_COMP_PATH := $(call find_in_path,icc)
             ifneq ($(HB_COMP_PATH),)
-               HB_COMPILER := gcc
-            else
-               HB_COMP_PATH := $(call find_in_path,icc)
-               ifneq ($(HB_COMP_PATH),)
-                  HB_COMPILER := icc
-               endif
+               HB_COMPILER := icc
             endif
          endif
       endif
@@ -820,7 +814,7 @@ ifeq ($(HB_COMPILER_VER),)
    ifneq ($(filter $(HB_COMPILER),clang clang64),)
 
       ifeq ($(HB_COMP_PATH_VER_DET),)
-         HB_COMP_PATH_VER_DET := $(HB_CCPREFIX)clang$(HB_CCSUFFIX)
+         HB_COMP_PATH_VER_DET := clang$(HB_CCSUFFIX)
       endif
       _C_VER := $(shell "$(HB_COMP_PATH_VER_DET)" -v 2>&1)
       _C_VER_BAK := $(_C_VER)
