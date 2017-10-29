@@ -272,7 +272,7 @@ if [ "${HB_JOB4}" != 'msvc' ]; then
     unset HB_CODESIGN_KEY
   fi
   # shellcheck disable=SC2086
-  time ${_bin_make} install ${HB_MKFLAGS} "HB_COMPILER=${HB_COMP_BASE}" HB_CPU=x86 || exit 1
+  time ${_bin_make} install ${HB_MKFLAGS} HB_PLATFORM=win "HB_COMPILER=${HB_COMP_BASE}" HB_CPU=x86 || exit 1
 
   export HB_WITH_CURL="${HB_DIR_CURL_64}include"
   export HB_WITH_OPENSSL="${HB_DIR_OPENSSL_64}include"
@@ -328,7 +328,7 @@ if [ "${HB_JOB4}" != 'msvc' ]; then
     unset HB_CODESIGN_KEY
   fi
   # shellcheck disable=SC2086
-  time ${_bin_make} install ${HB_MKFLAGS} "HB_COMPILER=${HB_COMP_BASE}64" HB_CPU=x86_64 || exit 1
+  time ${_bin_make} install ${HB_MKFLAGS} HB_PLATFORM=win "HB_COMPILER=${HB_COMP_BASE}64" HB_CPU=x86_64 || exit 1
 fi
 
 # msvc
