@@ -147,6 +147,10 @@ if [ "${HB_JOB4}" != 'msvc' ]; then
 # [ "${_BRANCH#*prod*}" != "${_BRANCH}" ] && _HB_USER_CFLAGS="${_HB_USER_CFLAGS} -flto -ffat-lto-objects"
   [ "${HB_BUILD_MODE}" = 'cpp' ] && export HB_USER_LDFLAGS="${HB_USER_LDFLAGS} -static-libstdc++"
 
+  if [ "${os}" = 'mac' ] && [ "${HB_JOB}" = 'clang' ]; then
+    export PATH="/usr/local/opt/llvm/bin:${PATH}"
+  fi
+
   if [ "${HB_JOB#*clang*}" = "${HB_JOB}" ]; then
     HB_COMP_BASE=mingw
     HB_COMP_TOOL=gcc
@@ -178,8 +182,17 @@ if [ "${HB_JOB4}" != 'msvc' ]; then
     # Disable picking MSYS2 packages for now
     export HB_BUILD_3RDEXT='no'
   else
-    export HB_PFX_MINGW_32='i686-w64-mingw32-'
-    export HB_PFX_MINGW_64='x86_64-w64-mingw32-'
+    export HB_TRP_MINGW_32='i686-w64-mingw32'
+    export HB_TRP_MINGW_64='x86_64-w64-mingw32'
+    if [ "${os}" = 'mac' ]; then
+      export HB_SYS_MINGW_32='/usr/local/opt/mingw-w64/toolchain-i686'
+      export HB_SYS_MINGW_64='/usr/local/opt/mingw-w64/toolchain-x86_64'
+    else
+      export HB_SYS_MINGW_32="/usr/${HB_TRP_MINGW_32}"
+      export HB_SYS_MINGW_64="/usr/${HB_TRP_MINGW_64}"
+    fi
+    export HB_PFX_MINGW_32="${HB_TRP_MINGW_32}-"
+    export HB_PFX_MINGW_64="${HB_TRP_MINGW_64}-"
     export HB_DIR_MINGW_32=
     export HB_DIR_MINGW_64=
     HB_DIR_MINGW_32="$(dirname "$(which ${HB_PFX_MINGW_32}${HB_COMP_TOOL})")"/
@@ -238,6 +251,11 @@ if [ "${HB_JOB4}" != 'msvc' ]; then
   printenv | grep -E '^(HB_WITH_|HBMK_WITH_)' | sort
   unset HB_USER_CFLAGS
   [ -n "${_HB_USER_CFLAGS}" ] && export HB_USER_CFLAGS="${_HB_USER_CFLAGS}"
+  if [ "${HB_JOB}" = 'clang' ]; then
+    export HB_USER_CFLAGS="-target ${HB_TRP_MINGW_32} --sysroot ${HB_SYS_MINGW_32} ${HB_USER_CFLAGS}"
+    export HB_USER_LDFLAGS="${HB_USER_CFLAGS}"
+    export HB_USER_DFLAGS="${HB_USER_CFLAGS}"
+  fi
   unset HB_BUILD_LIBPATH
   [ -n "${_libdir}" ] && export HB_BUILD_LIBPATH="${_libdir}"
   export HB_CCPREFIX="${HB_PFX_MINGW_32}"
@@ -286,6 +304,11 @@ if [ "${HB_JOB4}" != 'msvc' ]; then
   printenv | grep -E '^(HB_WITH_|HBMK_WITH_)' | sort
   unset HB_USER_CFLAGS
   [ -n "${_HB_USER_CFLAGS}" ] && export HB_USER_CFLAGS="${_HB_USER_CFLAGS}"
+  if [ "${HB_JOB}" = 'clang' ]; then
+    export HB_USER_CFLAGS="-target ${HB_TRP_MINGW_64} --sysroot ${HB_SYS_MINGW_64} ${HB_USER_CFLAGS}"
+    export HB_USER_LDFLAGS="${HB_USER_CFLAGS}"
+    export HB_USER_DFLAGS="${HB_USER_CFLAGS}"
+  fi
   unset HB_BUILD_LIBPATH
   [ -n "${_libdir}" ] && export HB_BUILD_LIBPATH="${_libdir}"
   export HB_CCPREFIX="${HB_PFX_MINGW_64}"

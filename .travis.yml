@@ -82,24 +82,38 @@ matrix:
       dist: trusty
       sudo: required
       group: edge
+      compiler: i686-w64-mingw32-clang
+      services: [ docker ]
+      # https://hub.docker.com/_/ubuntu/
+      env: [ 'DOCKER_IMAGE=ubuntu:rolling', HB_JOB=clang ]
+    - os: linux
+      dist: trusty
+      sudo: required
+      group: edge
       compiler: i686-w64-mingw32-gcc
       services: [ docker ]
       # https://hub.docker.com/_/ubuntu/
-      env: [ 'DOCKER_IMAGE=ubuntu:rolling' ]
+      env: [ 'DOCKER_IMAGE=ubuntu:rolling', HB_JOB=mingw ]
     - os: osx
       # https://docs.travis-ci.com/user/reference/osx/
       osx_image: xcode9
       compiler: clang
     - os: osx
       osx_image: xcode9
+      compiler: i686-w64-mingw32-clang
+      env: [ HB_JOB=clang ]
+    - os: osx
+      osx_image: xcode9
       compiler: i686-w64-mingw32-gcc
+      env: [ HB_JOB=mingw ]
 
 before_install:
   - |
     export HB_CI_THREADS=4
     export HB_BUILD_3RD_DYN=yes
     if [ -n "${DOCKER_IMAGE}" ]; then
-      if [ "${CC}" = 'i686-w64-mingw32-gcc' ]; then
+      if [ "${CC}" = 'i686-w64-mingw32-gcc' ] || \
+         [ "${CC}" = 'i686-w64-mingw32-clang' ]; then
         DOCKER_SCRIPT=./package/mpkg_win_docker.sh
       elif [ "${TRAVIS_OS_NAME}" = 'linux' ]; then
         DOCKER_SCRIPT=./package/mpkg_rpm_docker.sh
@@ -110,8 +124,10 @@ before_install:
         "${DOCKER_IMAGE}" \
         sh -c "${DOCKER_SCRIPT}"
     elif [ "${TRAVIS_OS_NAME}" = 'osx' ]; then
-      if [ "${CC}" = 'i686-w64-mingw32-gcc' ]; then
-        time travis_retry brew install --force-bottle p7zip mingw-w64 jq osslsigncode dos2unix gpg coreutils || true
+      if [ "${CC}" = 'i686-w64-mingw32-gcc' ] || \
+         [ "${CC}" = 'i686-w64-mingw32-clang' ]; then
+        [ "${CC}" = 'i686-w64-mingw32-clang' ] && _llvm='llvm'
+        time travis_retry brew install --force-bottle p7zip mingw-w64 "${_llvm}" jq osslsigncode dos2unix gpg coreutils || true
         time travis_retry brew install --force-bottle --build-bottle wine || true
         export DISPLAY=:1
         time wineboot
@@ -136,7 +152,8 @@ before_install:
 script:
   - |
     if [ -z "${DOCKER_IMAGE}" ]; then
-      if [ "${CC}" = 'i686-w64-mingw32-gcc' ]; then
+      if [ "${CC}" = 'i686-w64-mingw32-gcc' ] || \
+         [ "${CC}" = 'i686-w64-mingw32-clang' ]; then
         ./package/mpkg_win_ci.sh
       else
         ls -lA "$(dirname "$(which "${CC}${HB_CCSUFFIX}")")/${CC}"*
@@ -161,4 +178,4 @@ deploy:
   on:
     tag: true
     branch: master
-    condition: "${CC} = i686-w64-mingw32-gcc"
+    condition: "${CC} = i686-w64-mingw32-clang"
