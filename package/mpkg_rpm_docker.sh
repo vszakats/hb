@@ -39,6 +39,6 @@ yum install -y gcc64 git rpm-build findutils \
   sqlite-devel \
   unixODBC-devel
 
-./package/mpkg_rpm.sh
+time ./package/mpkg_rpm.sh
 
 ls -l ./package/RPM/RPMS/x86_64/

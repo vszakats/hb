@@ -143,7 +143,7 @@ script:
         [ "${CC#*clang*}" != "${CC}" ] && ls -lA "$(dirname "$(which "${CC}${HB_CCSUFFIX}")")/llvm"*
         "${CC}${HB_CCSUFFIX}" -v
         [ "${CC}" = 'gcc' ] && "${CC}${HB_CCSUFFIX}" -dumpversion && "${CC}${HB_CCSUFFIX}" -dumpfullversion
-        HB_COMPILER="${CC}" make -j "${HB_CI_THREADS}"
+        HB_COMPILER="${CC}" time make -j "${HB_CI_THREADS}"
       fi
     fi
 
