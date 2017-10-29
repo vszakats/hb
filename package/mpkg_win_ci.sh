@@ -251,7 +251,7 @@ if [ "${HB_JOB4}" != 'msvc' ]; then
   printenv | grep -E '^(HB_WITH_|HBMK_WITH_)' | sort
   unset HB_USER_CFLAGS
   [ -n "${_HB_USER_CFLAGS}" ] && export HB_USER_CFLAGS="${_HB_USER_CFLAGS}"
-  if [ "${HB_JOB}" = 'clang' ]; then
+  if [ "${HB_JOB}" = 'clang' ] && [ "${os}" != 'win' ]; then
     export HB_USER_CFLAGS="-target ${HB_TRP_MINGW_32} --sysroot ${HB_SYS_MINGW_32} ${HB_USER_CFLAGS}"
     export HB_USER_LDFLAGS="${HB_USER_CFLAGS}"
     export HB_USER_DFLAGS="${HB_USER_CFLAGS}"
@@ -261,7 +261,11 @@ if [ "${HB_JOB4}" != 'msvc' ]; then
   export HB_CCPREFIX="${HB_PFX_MINGW_32}"
   [ "${HB_BUILD_MODE}" != 'cpp' ] && export HB_USER_CFLAGS="${HB_USER_CFLAGS} -fno-asynchronous-unwind-tables"
   [ "${os}" = 'win' ] && export PATH="${HB_DIR_MINGW_32}:${_ori_path}"
-  ${HB_CCPREFIX}${HB_COMP_TOOL} -v 2>&1 | tee "${_build_info_32}"
+  if [ "${HB_JOB}" = 'clang' ] && [ "${os}" != 'win' ]; then
+    ${HB_COMP_TOOL} -v 2>&1 | tee "${_build_info_32}"
+  else
+    ${HB_CCPREFIX}${HB_COMP_TOOL} -v 2>&1 | tee "${_build_info_32}"
+  fi
   if which osslsigncode > /dev/null 2>&1; then
     export HB_CODESIGN_KEY="${CODESIGN_KEY}"
   else
@@ -304,7 +308,7 @@ if [ "${HB_JOB4}" != 'msvc' ]; then
   printenv | grep -E '^(HB_WITH_|HBMK_WITH_)' | sort
   unset HB_USER_CFLAGS
   [ -n "${_HB_USER_CFLAGS}" ] && export HB_USER_CFLAGS="${_HB_USER_CFLAGS}"
-  if [ "${HB_JOB}" = 'clang' ]; then
+  if [ "${HB_JOB}" = 'clang' ] && [ "${os}" != 'win' ]; then
     export HB_USER_CFLAGS="-target ${HB_TRP_MINGW_64} --sysroot ${HB_SYS_MINGW_64} ${HB_USER_CFLAGS}"
     export HB_USER_LDFLAGS="${HB_USER_CFLAGS}"
     export HB_USER_DFLAGS="${HB_USER_CFLAGS}"
@@ -313,7 +317,11 @@ if [ "${HB_JOB4}" != 'msvc' ]; then
   [ -n "${_libdir}" ] && export HB_BUILD_LIBPATH="${_libdir}"
   export HB_CCPREFIX="${HB_PFX_MINGW_64}"
   [ "${os}" = 'win' ] && export PATH="${HB_DIR_MINGW_64}:${_ori_path}"
-  ${HB_CCPREFIX}${HB_COMP_TOOL} -v 2>&1 | tee "${_build_info_64}"
+  if [ "${HB_JOB}" = 'clang' ] && [ "${os}" != 'win' ]; then
+    ${HB_COMP_TOOL} -v 2>&1 | tee "${_build_info_64}"
+  else
+    ${HB_CCPREFIX}${HB_COMP_TOOL} -v 2>&1 | tee "${_build_info_64}"
+  fi
   if which osslsigncode > /dev/null 2>&1; then
     export HB_CODESIGN_KEY="${CODESIGN_KEY}"
   else
