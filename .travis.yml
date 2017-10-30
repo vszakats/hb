@@ -127,7 +127,7 @@ before_install:
       if [ "${CC}" = 'i686-w64-mingw32-gcc' ] || \
          [ "${CC}" = 'i686-w64-mingw32-clang' ]; then
         [ "${CC}" = 'i686-w64-mingw32-clang' ] && _clang='llvm'
-        time travis_retry brew install --force-bottle p7zip mingw-w64 "${_clang}" jq osslsigncode dos2unix gpg coreutils || true
+        time travis_retry brew install --force-bottle p7zip mingw-w64 ${_clang} jq osslsigncode dos2unix gpg coreutils || true
         time travis_retry brew install --force-bottle --build-bottle wine || true
         export DISPLAY=:1
         time wineboot

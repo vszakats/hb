@@ -17,7 +17,7 @@ dpkg --add-architecture i386
 apt-get -qq update
 apt-get -qq install \
   curl git make gcc binutils \
-  binutils-mingw-w64 gcc-mingw-w64 g++-mingw-w64 "${_clang}" \
+  binutils-mingw-w64 gcc-mingw-w64 g++-mingw-w64 ${_clang} \
   p7zip-full time jq dos2unix realpath osslsigncode wine-stable wine64 wine32
 
 echo 'deb http://pkg.mxe.cc/repos/apt/debian wheezy main' > /etc/apt/sources.list.d/mxeapt.list
