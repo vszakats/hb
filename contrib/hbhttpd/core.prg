@@ -191,6 +191,7 @@ METHOD Run( hConfig ) CLASS UHttpd
       "Trace"                => hb_noop(), ;
       "Idle"                 => hb_noop(), ;
       "PostProcessRequest"   => hb_noop(), ;
+      "ErrorHandler"         => {| oErr, oServer | UErrorHandler( oErr, oServer ) }, ;
       "Mount"                => { => }, ;
       "PrivateKeyFilename"   => "", ;
       "CertificateFilename"  => "", ;
@@ -551,7 +552,7 @@ STATIC FUNCTION ProcessConnection( oServer )
 
    LOCAL lRequestFilter := ! oServer:hConfig[ "RequestFilter" ] == hb_noop()
 
-   ErrorBlock( {| o | UErrorHandler( o, oServer ) } )
+   ErrorBlock( {| oErr | Eval( oServer:hConfig[ "ErrorHandler" ], oErr, oServer ) } )
 
    PRIVATE server, get, post, cookie, session, httpd
 
@@ -755,7 +756,7 @@ STATIC PROCEDURE ProcessRequest( oServer )
 
    IF cPath != NIL
       bEval := hMount[ cMount ]
-      BEGIN SEQUENCE WITH {| oErr | UErrorHandler( oErr, oServer ) }
+      BEGIN SEQUENCE WITH {| oErr | Eval( oServer:hConfig[ "ErrorHandler" ], oErr, oServer ) }
          xRet := Eval( bEval, cPath )
          DO CASE
          CASE HB_ISSTRING( xRet )
@@ -1006,7 +1007,8 @@ STATIC FUNCTION HttpDateUnformat( cDate, /* @ */ tDate )
 
 STATIC FUNCTION UErrorHandler( oErr, oServer )
 
-   Eval( oServer:hConfig[ "Trace" ], "UErrorHandler" )
+   Eval( oServer:hConfig[ "Trace" ], "UErrorHandler()" )
+
    DO CASE
    CASE oErr:genCode == EG_ZERODIV
       RETURN 0
@@ -1139,7 +1141,7 @@ STATIC FUNCTION ErrDescCode( nCode )
 
 STATIC FUNCTION cvt2str( xI, lLong )
 
-   LOCAL cValtype, cI, xJ
+   LOCAL cValtype
 
    hb_default( @lLong, .F. )
 
@@ -1160,26 +1162,7 @@ STATIC FUNCTION cvt2str( xI, lLong )
    CASE "H"
       RETURN "[H" + hb_ntos( Len( xI ) ) + "]"
    CASE "O"
-      cI := ""
-      IF __objHasMsg( xI, "ID" )
-         xJ := xI:ID
-         IF ! HB_ISOBJECT( xJ )
-            cI += ",ID=" + cvt2str( xJ )
-         ENDIF
-      ENDIF
-      IF __objHasMsg( xI, "nID" )
-         xJ := xI:nID
-         IF ! HB_ISOBJECT( xJ )
-            cI += ",NID=" + cvt2str( xJ )
-         ENDIF
-      ENDIF
-      IF __objHasMsg( xI, "xValue" )
-         xJ := xI:xValue
-         IF ! HB_ISOBJECT( xJ )
-            cI += ",XVALUE=" + cvt2str( xJ )
-         ENDIF
-      ENDIF
-      RETURN "[O:" + xI:ClassName() + cI + "]"
+      RETURN "[O:" + xI:ClassName() + "]"
    CASE "D"
       RETURN iif( lLong, "[D]:", "" ) + hb_DToC( xI, "yyyy-mm-dd" )
    CASE "L"
