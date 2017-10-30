@@ -190,6 +190,7 @@ METHOD Run( hConfig ) CLASS UHttpd
       "LogError"             => hb_noop(), ;
       "Trace"                => hb_noop(), ;
       "Idle"                 => hb_noop(), ;
+      "PostProcessRequest"   => hb_noop(), ;
       "Mount"                => { => }, ;
       "PrivateKeyFilename"   => "", ;
       "CertificateFilename"  => "", ;
@@ -696,7 +697,6 @@ STATIC FUNCTION ProcessConnection( oServer )
                   cBuf := Eval( oServer:hConfig[ "RequestFilter" ], oConnection, cRequest )
                ENDIF
                ProcessRequest( oServer )
-               dbCloseAll()
             ENDIF
          ENDIF /* request header ok */
 
@@ -767,7 +767,7 @@ STATIC PROCEDURE ProcessRequest( oServer )
          USetStatusCode( 500 )
          UAddHeader( "Connection", "close" )
       END SEQUENCE
-      dbCloseAll()
+      Eval( oServer:hConfig[ "PostProcessRequest" ] )
       // Unlock session
       IF t_aSessionData != NIL
          session := NIL

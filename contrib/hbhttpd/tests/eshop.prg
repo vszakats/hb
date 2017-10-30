@@ -99,6 +99,7 @@ PROCEDURE Main()
       "FirewallFilter"      => "", ;
       "LogAccess"           => {| m | oLogAccess:Add( m + hb_eol() ) }, ;
       "LogError"            => {| m | oLogError:Add( m + hb_eol() ) }, ;
+      "PostProcessRequest"  => {|| dbCloseAll() }, ;
       "Trace"               => {| ... | QOut( ... ) }, ;
       "Port"                => 8002, ;
       "Idle"                => {| o | iif( hb_vfExists( ".uhttpd.stop" ), ( hb_vfErase( ".uhttpd.stop" ), o:Stop() ), NIL ) }, ;
