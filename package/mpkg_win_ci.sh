@@ -147,7 +147,7 @@ if [ "${HB_JOB4}" != 'msvc' ]; then
 # [ "${_BRANCH#*prod*}" != "${_BRANCH}" ] && _HB_USER_CFLAGS="${_HB_USER_CFLAGS} -flto -ffat-lto-objects"
   [ "${HB_BUILD_MODE}" = 'cpp' ] && export HB_USER_LDFLAGS="${HB_USER_LDFLAGS} -static-libstdc++"
 
-  if [ "${os}" = 'mac' ] && [ "${HB_JOB}" = 'clang' ]; then
+  if [ "${HB_JOB}" = 'clang' ] && [ "${os}" = 'mac' ]; then
     export PATH="/usr/local/opt/llvm/bin:${PATH}"
   fi
 
