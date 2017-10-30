@@ -645,6 +645,7 @@ STATIC FUNCTION ProcessConnection( oServer )
          server := hb_HClone( aServer )
          get := { => }
          post := { => }
+         server[ "BODY_RAW" ] := NIL
          cookie := { => }
          session := NIL
 
@@ -870,6 +871,8 @@ STATIC PROCEDURE ParseRequestBody( cRequest )
 
    LOCAL nI, cPart, cEncoding
 
+   server[ "BODY_RAW" ] := cRequest
+
    IF "CONTENT_TYPE" $ server .AND. ;
       hb_LeftEq( server[ "CONTENT_TYPE" ], "application/x-www-form-urlencoded" )
 
@@ -902,6 +905,13 @@ STATIC PROCEDURE ParseRequestBody( cRequest )
 STATIC FUNCTION MakeResponse( hConfig )
 
    LOCAL cRet, cStatus
+   LOCAL itm
+
+   IF "ADD_HEADERS" $ server
+      FOR EACH itm IN hb_defaultValue( server[ "ADD_HEADERS" ], { => } )
+         UAddHeader( itm:__enumKey, itm )
+      NEXT
+   ENDIF
 
    IF UGetHeader( "Content-Type" ) == NIL
       UAddHeader( "Content-Type", "text/html" )
@@ -1617,7 +1627,7 @@ STATIC FUNCTION compile_file( cFileName, bTrace )
 
    LOCAL nPos, cTpl, aCode := {}
 
-   hb_default( @cFileName, MEMVAR->server[ "SCRIPT_NAME" ] )
+   hb_default( @cFileName, server[ "SCRIPT_NAME" ] )
 
    cFileName := UOsFileName( hb_DirBase() + "tpl/" + cFileName + ".html" )
    IF hb_vfExists( cFileName )
