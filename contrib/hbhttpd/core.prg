@@ -1640,32 +1640,35 @@ STATIC FUNCTION compile_buffer( cTpl, nStart, aCode )
 
    LOCAL nI, nS, nE, cTag, cParam
 
-   DO WHILE ( nS := hb_At( "{{", cTpl, nStart ) ) > 0
+   LOCAL cOpen := "{{", nOpen := Len( cOpen )
+   LOCAL cClose := "}}", nClose := Len( cClose )
+
+   DO WHILE ( nS := hb_At( cOpen, cTpl, nStart ) ) > 0
       IF nS > nStart
          AAdd( aCode, { "txt", SubStr( cTpl, nStart, nS - nStart ) } )
       ENDIF
-      IF ( nE := hb_At( "}}", cTpl, nS ) ) > 0
+      IF ( nE := hb_At( cClose, cTpl, nS ) ) > 0
          IF ( nI := hb_At( " ", cTpl, nS, nE ) ) == 0
             nI := nE
          ENDIF
-         cTag := SubStr( cTpl, nS + Len( "{{" ), nI - nS - Len( "{{" ) )
+         cTag := SubStr( cTpl, nS + nOpen, nI - nS - nOpen )
          cParam := SubStr( cTpl, nI + 1, nE - nI - 1 )
 
          SWITCH cTag
          CASE "="
          CASE ":"
             AAdd( aCode, { cTag, cParam } )
-            nStart := nE + Len( "}}" )
+            nStart := nE + nClose
             EXIT
 
          CASE "if"
             AAdd( aCode, { "if", cParam, {}, {} } )
-            nI := compile_buffer( cTpl, nE + Len( "}}" ), ATail( aCode )[ 3 ] )
-            IF SubStr( cTpl, nI, Len( "{{else}}" ) ) == "{{else}}"
-               nI := compile_buffer( cTpl, nI + Len( "{{else}}" ), ATail( aCode )[ 4 ] )
+            nI := compile_buffer( cTpl, nE + nClose, ATail( aCode )[ 3 ] )
+            IF SubStr( cTpl, nI, Len( cOpen + "else" + cClose ) ) == cOpen + "else" + cClose
+               nI := compile_buffer( cTpl, nI + Len( cOpen + "else" + cClose ), ATail( aCode )[ 4 ] )
             ENDIF
-            IF SubStr( cTpl, nI, Len( "{{endif}}" ) ) == "{{endif}}"
-               nStart := nI + Len( "{{endif}}" )
+            IF SubStr( cTpl, nI, nOpen + Len( "endif" ) + nClose ) == cOpen + "endif" + cClose
+               nStart := nI + nOpen + Len( "endif" ) + nClose
             ELSE
                Break( nI )
             ENDIF
@@ -1673,9 +1676,9 @@ STATIC FUNCTION compile_buffer( cTpl, nStart, aCode )
 
          CASE "loop"
             AAdd( aCode, { "loop", cParam, {} } )
-            nI := compile_buffer( cTpl, nE + Len( "}}" ), ATail( aCode )[ 3 ] )
-            IF SubStr( cTpl, nI, Len( "{{endloop}}" ) ) == "{{endloop}}"
-               nStart := nI + Len( "{{endloop}}" )
+            nI := compile_buffer( cTpl, nE + nClose, ATail( aCode )[ 3 ] )
+            IF SubStr( cTpl, nI, nOpen + Len( "endloop" ) + nClose ) == cOpen + "endloop" + cClose
+               nStart := nI + nOpen + Len( "endloop" ) + nClose
             ELSE
                Break( nI )
             ENDIF
@@ -1683,12 +1686,12 @@ STATIC FUNCTION compile_buffer( cTpl, nStart, aCode )
 
          CASE "extend"
             AAdd( aCode, { "extend", cParam } )
-            nStart := nE + Len( "}}" )
+            nStart := nE + nClose
             EXIT
 
          CASE "include"
             AAdd( aCode, { "include", cParam } )
-            nStart := nE + Len( "}}" )
+            nStart := nE + nClose
             EXIT
 
          OTHERWISE
