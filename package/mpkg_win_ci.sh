@@ -254,7 +254,7 @@ if [ "${HB_JOB4}" != 'msvc' ]; then
   if [ "${HB_JOB}" = 'clang' ] && [ "${os}" != 'win' ]; then
     export HB_USER_CFLAGS="-target ${HB_TRP_MINGW_32} --sysroot ${HB_SYS_MINGW_32} ${HB_USER_CFLAGS}"
     export HB_USER_LDFLAGS="${HB_USER_CFLAGS}"
-    [ "${os}" = 'linux' ] && HB_USER_LDFLAGS="${HB_USER_LDFLAGS} -L$(find /usr/lib/gcc/${HB_TRP_MINGW_32} -name '*posix' | head -n 1)"
+    [ "${os}" = 'linux' ] && HB_USER_LDFLAGS="${HB_USER_LDFLAGS} -L$(find "/usr/lib/gcc/${HB_TRP_MINGW_32}" -name '*posix' | head -n 1)"
     export HB_USER_DFLAGS="${HB_USER_LDFLAGS}"
   fi
   unset HB_BUILD_LIBPATH
@@ -312,7 +312,7 @@ if [ "${HB_JOB4}" != 'msvc' ]; then
   if [ "${HB_JOB}" = 'clang' ] && [ "${os}" != 'win' ]; then
     export HB_USER_CFLAGS="-target ${HB_TRP_MINGW_64} --sysroot ${HB_SYS_MINGW_64} ${HB_USER_CFLAGS}"
     export HB_USER_LDFLAGS="${HB_USER_CFLAGS}"
-    [ "${os}" = 'linux' ] && HB_USER_LDFLAGS="${HB_USER_LDFLAGS} -L$(find /usr/lib/gcc/${HB_TRP_MINGW_64} -name '*posix' | head -n 1)"
+    [ "${os}" = 'linux' ] && HB_USER_LDFLAGS="${HB_USER_LDFLAGS} -L$(find "/usr/lib/gcc/${HB_TRP_MINGW_64}" -name '*posix' | head -n 1)"
     export HB_USER_DFLAGS="${HB_USER_LDFLAGS}"
   fi
   unset HB_BUILD_LIBPATH
