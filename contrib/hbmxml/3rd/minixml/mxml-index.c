@@ -1,9 +1,7 @@
 /*
- * "$Id: mxml-index.c 451 2014-01-04 21:50:06Z msweet $"
+ * Index support code for Mini-XML, a small XML file parsing library.
  *
- * Index support code for Mini-XML, a small XML-like file parsing library.
- *
- * Copyright 2003-2014 by Michael R Sweet.
+ * Copyright 2003-2017 by Michael R Sweet.
  *
  * These coded instructions, statements, and computer programs are the
  * property of Michael R Sweet and are protected by Federal copyright
@@ -11,7 +9,7 @@
  * which should have been included with this file.  If this file is
  * missing or damaged, see the license at:
  *
- *     http://www.msweet.org/projects.php/Mini-XML
+ *     https://michaelrsweet.github.io/mxml
  */
 
 /*
@@ -64,10 +62,12 @@ mxmlIndexDelete(mxml_index_t *ind)	/* I - Index to delete */
 /*
  * 'mxmlIndexEnum()' - Return the next node in the index.
  *
- * Nodes are returned in the sorted order of the index.
+ * You should call @link mxmlIndexReset@ prior to using this function to get
+ * the first node in the index.  Nodes are returned in the sorted order of the
+ * index.
  */
 
-mxml_node_t *				/* O - Next node or NULL if there is none */
+mxml_node_t *				/* O - Next node or @code NULL@ if there is none */
 mxmlIndexEnum(mxml_index_t *ind)	/* I - Index to enumerate */
 {
  /*
@@ -91,13 +91,13 @@ mxmlIndexEnum(mxml_index_t *ind)	/* I - Index to enumerate */
 /*
  * 'mxmlIndexFind()' - Find the next matching node.
  *
- * You should call mxmlIndexReset() prior to using this function for
+ * You should call @link mxmlIndexReset@ prior to using this function for
  * the first time with a particular set of "element" and "value"
- * strings. Passing NULL for both "element" and "value" is equivalent
- * to calling mxmlIndexEnum().
+ * strings. Passing @code NULL@ for both "element" and "value" is equivalent
+ * to calling @link mxmlIndexEnum@.
  */
 
-mxml_node_t *				/* O - Node or NULL if none found */
+mxml_node_t *				/* O - Node or @code NULL@ if none found */
 mxmlIndexFind(mxml_index_t *ind,	/* I - Index to search */
               const char   *element,	/* I - Element name to find, if any */
 	      const char   *value)	/* I - Attribute value, if any */
@@ -121,7 +121,8 @@ mxmlIndexFind(mxml_index_t *ind,	/* I - Index to search */
   {
 #ifdef DEBUG
     puts("    returning NULL...");
-    printf("    ind->attr=\"%s\"\n", ind->attr ? ind->attr : "(null)");
+    if (ind)
+      printf("    ind->attr=\"%s\"\n", ind->attr ? ind->attr : "(null)");
 #endif /* DEBUG */
 
     return (NULL);
@@ -298,7 +299,7 @@ mxmlIndexGetCount(mxml_index_t *ind)	/* I - Index of nodes */
  * 'mxmlIndexNew()' - Create a new index.
  *
  * The index will contain all nodes that contain the named element and/or
- * attribute. If both "element" and "attr" are NULL, then the index will
+ * attribute.  If both "element" and "attr" are @code NULL@, then the index will
  * contain a sorted list of the elements in the node tree.  Nodes are
  * sorted by element name and optionally by attribute value if the "attr"
  * argument is not NULL.
@@ -306,8 +307,8 @@ mxmlIndexGetCount(mxml_index_t *ind)	/* I - Index of nodes */
 
 mxml_index_t *				/* O - New index */
 mxmlIndexNew(mxml_node_t *node,		/* I - XML node tree */
-             const char  *element,	/* I - Element to index or NULL for all */
-             const char  *attr)		/* I - Attribute to index or NULL for none */
+             const char  *element,	/* I - Element to index or @code NULL@ for all */
+             const char  *attr)		/* I - Attribute to index or @code NULL@ for none */
 {
   mxml_index_t	*ind;			/* New index */
   mxml_node_t	*current,		/* Current node in index */
@@ -458,11 +459,11 @@ mxmlIndexNew(mxml_node_t *node,		/* I - XML node tree */
  * 'mxmlIndexReset()' - Reset the enumeration/find pointer in the index and
  *                      return the first node in the index.
  *
- * This function should be called prior to using mxmlIndexEnum() or
- * mxmlIndexFind() for the first time.
+ * This function should be called prior to using @link mxmlIndexEnum@ or
+ * @link mxmlIndexFind@ for the first time.
  */
 
-mxml_node_t *				/* O - First node or NULL if there is none */
+mxml_node_t *				/* O - First node or @code NULL@ if there is none */
 mxmlIndexReset(mxml_index_t *ind)	/* I - Index to reset */
 {
 #ifdef DEBUG
@@ -538,8 +539,8 @@ index_compare(mxml_index_t *ind,	/* I - Index */
 
 static int				/* O - Result of comparison */
 index_find(mxml_index_t *ind,		/* I - Index */
-           const char   *element,	/* I - Element name or NULL */
-	   const char   *value,		/* I - Attribute value or NULL */
+           const char   *element,	/* I - Element name or @code NULL@ */
+	   const char   *value,		/* I - Attribute value or @code NULL@ */
            mxml_node_t  *node)		/* I - Node */
 {
   int	diff;				/* Difference */
@@ -652,8 +653,3 @@ index_sort(mxml_index_t *ind,		/* I - Index to sort */
   }
   while (right > (left = tempr + 1));
 }
-
-
-/*
- * End of "$Id: mxml-index.c 451 2014-01-04 21:50:06Z msweet $".
- */

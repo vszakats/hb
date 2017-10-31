@@ -1,9 +1,7 @@
 /*
- * "$Id: config.h.in 451 2014-01-04 21:50:06Z msweet $"
+ * Configuration file for Mini-XML, a small XML file parsing library.
  *
- * Configuration file for Mini-XML, a small XML-like file parsing library.
- *
- * Copyright 2003-2014 by Michael R Sweet.
+ * Copyright 2003-2017 by Michael R Sweet.
  *
  * These coded instructions, statements, and computer programs are the
  * property of Michael R Sweet and are protected by Federal copyright
@@ -11,7 +9,7 @@
  * which should have been included with this file.  If this file is
  * missing or damaged, see the license at:
  *
- *     http://www.msweet.org/projects.php/Mini-XML
+ *     https://michaelrsweet.github.io/mxml
  */
 
 /*
@@ -69,11 +67,21 @@
 
 
 /*
- * Do we have the snprintf() and vsnprintf() functions?
+ * Do we have <zlib.h>?
+ */
+
+#if 0
+#undef HAVE_ZLIB_H
+#endif
+
+
+/*
+ * Do we have the *printf() functions?
  */
 
 #if 0
 #undef HAVE_SNPRINTF
+#undef HAVE_VASPRINTF
 #undef HAVE_VSNPRINTF
 #endif
 
@@ -84,6 +92,8 @@
 
 #if 0
 #undef HAVE_STRDUP
+#undef HAVE_STRLCAT
+#undef HAVE_STRLCPY
 #endif
 
 
@@ -106,6 +116,16 @@ extern char	*_mxml_strdup(const char *);
 #    define strdup _mxml_strdup
 #  endif /* !HAVE_STRDUP */
 
+#  ifndef HAVE_STRLCAT
+extern size_t	_mxml_strlcat(char *, const char *, size_t);
+#    define strlcat _mxml_strlcat
+#  endif /* !HAVE_STRLCAT */
+
+#  ifndef HAVE_STRLCPY
+extern size_t	_mxml_strlcpy(char *, const char *, size_t);
+#    define strlcpy _mxml_strlcpy
+#  endif /* !HAVE_STRLCPY */
+
 extern char	*_mxml_strdupf(const char *, ...);
 extern char	*_mxml_vstrdupf(const char *, va_list);
 
@@ -120,7 +140,3 @@ extern int	_mxml_vsnprintf(char *, size_t, const char *, va_list);
 #    undef vsnprintf
 #    define vsnprintf _mxml_vsnprintf
 #  endif /* !HAVE_VSNPRINTF */
-
-/*
- * End of "$Id: config.h.in 451 2014-01-04 21:50:06Z msweet $".
- */

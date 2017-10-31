@@ -1,9 +1,7 @@
 /*
- * "$Id: mxml-set.c 451 2014-01-04 21:50:06Z msweet $"
+ * Node set functions for Mini-XML, a small XML file parsing library.
  *
- * Node set functions for Mini-XML, a small XML-like file parsing library.
- *
- * Copyright 2003-2014 by Michael R Sweet.
+ * Copyright 2003-2017 by Michael R Sweet.
  *
  * These coded instructions, statements, and computer programs are the
  * property of Michael R Sweet and are protected by Federal copyright
@@ -11,7 +9,7 @@
  * which should have been included with this file.  If this file is
  * missing or damaged, see the license at:
  *
- *     http://www.msweet.org/projects.php/Mini-XML
+ *     https://michaelrsweet.github.io/mxml
  */
 
 /*
@@ -178,6 +176,50 @@ mxmlSetOpaque(mxml_node_t *node,	/* I - Node to set */
 
 
 /*
+ * 'mxmlSetOpaquef()' - Set the value of an opaque string node to a formatted string.
+ *
+ * The node is not changed if it (or its first child) is not an opaque node.
+ *
+ * @since Mini-XML 2.11@
+ */
+
+int					/* O - 0 on success, -1 on failure */
+mxmlSetOpaquef(mxml_node_t *node,	/* I - Node to set */
+               const char  *format,	/* I - Printf-style format string */
+	       ...)			/* I - Additional arguments as needed */
+{
+  va_list	ap;			/* Pointer to arguments */
+
+
+ /*
+  * Range check input...
+  */
+
+  if (node && node->type == MXML_ELEMENT &&
+      node->child && node->child->type == MXML_OPAQUE)
+    node = node->child;
+
+  if (!node || node->type != MXML_OPAQUE || !format)
+    return (-1);
+
+ /*
+  * Free any old string value and set the new value...
+  */
+
+  if (node->value.opaque)
+    free(node->value.opaque);
+
+  va_start(ap, format);
+
+  node->value.opaque = _mxml_strdupf(format, ap);
+
+  va_end(ap);
+
+  return (0);
+}
+
+
+/*
  * 'mxmlSetReal()' - Set the value of a real number node.
  *
  * The node is not changed if it is not a real number node.
@@ -300,8 +342,3 @@ mxmlSetUserData(mxml_node_t *node,	/* I - Node to set */
   node->user_data = data;
   return (0);
 }
-
-
-/*
- * End of "$Id: mxml-set.c 451 2014-01-04 21:50:06Z msweet $".
- */

@@ -31,7 +31,7 @@ mxml-set.c
 mxml-string.c
 
 # ORIGIN https://michaelrsweet.github.io/mxml/
-# URL    https://github.com/michaelrsweet/mxml/releases/download/release-2.10/mxml-2.10.tar.gz
+# URL    https://github.com/michaelrsweet/mxml/releases/download/v2.11/mxml-2.11.tar.gz
 # DIFF   mxml.diff
 #
 # MAP    COPYING

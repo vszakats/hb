@@ -1,9 +1,7 @@
 /*
- * "$Id: mxml-attr.c 451 2014-01-04 21:50:06Z msweet $"
+ * Attribute support code for Mini-XML, a small XML file parsing library.
  *
- * Attribute support code for Mini-XML, a small XML-like file parsing library.
- *
- * Copyright 2003-2014 by Michael R Sweet.
+ * Copyright 2003-2017 by Michael R Sweet.
  *
  * These coded instructions, statements, and computer programs are the
  * property of Michael R Sweet and are protected by Federal copyright
@@ -11,7 +9,7 @@
  * which should have been included with this file.  If this file is
  * missing or damaged, see the license at:
  *
- *     http://www.msweet.org/projects.php/Mini-XML
+ *     https://michaelrsweet.github.io/mxml
  */
 
 /*
@@ -94,11 +92,11 @@ mxmlElementDeleteAttr(mxml_node_t *node,/* I - Element */
 /*
  * 'mxmlElementGetAttr()' - Get an attribute.
  *
- * This function returns NULL if the node is not an element or the
+ * This function returns @code NULL@ if the node is not an element or the
  * named attribute does not exist.
  */
 
-const char *				/* O - Attribute value or NULL */
+const char *				/* O - Attribute value or @code NULL@ */
 mxmlElementGetAttr(mxml_node_t *node,	/* I - Element node */
                    const char  *name)	/* I - Name of attribute */
 {
@@ -148,6 +146,48 @@ mxmlElementGetAttr(mxml_node_t *node,	/* I - Element node */
 #endif /* DEBUG */
 
   return (NULL);
+}
+
+
+/*
+ * 'mxmlElementGetAttrByIndex()' - Get an element attribute by index.
+ *
+ * The index ("idx") is 0-based.  @code NULL@ is returned if the specified index
+ * is out of range.
+ *
+ * @since Mini-XML 2.11@
+ */
+
+const char *                            /* O - Attribute value */
+mxmlElementGetAttrByIndex(
+    mxml_node_t *node,                  /* I - Node */
+    int         idx,                    /* I - Attribute index, starting at 0 */
+    const char  **name)                 /* O - Attribute name */
+{
+  if (!node || node->type != MXML_ELEMENT || idx < 0 || idx >= node->value.element.num_attrs)
+    return (NULL);
+
+  if (name)
+    *name = node->value.element.attrs[idx].name;
+
+  return (node->value.element.attrs[idx].value);
+}
+
+
+/*
+ * 'mxmlElementGetAttrCount()' - Get the number of element attributes.
+ *
+ * @since Mini-XML 2.11@
+ */
+
+int                                     /* O - Number of attributes */
+mxmlElementGetAttrCount(
+    mxml_node_t *node)                  /* I - Node */
+{
+  if (node && node->type == MXML_ELEMENT)
+    return (node->value.element.num_attrs);
+  else
+    return (0);
 }
 
 
@@ -307,8 +347,3 @@ mxml_set_attr(mxml_node_t *node,	/* I - Element node */
 
   return (0);
 }
-
-
-/*
- * End of "$Id: mxml-attr.c 451 2014-01-04 21:50:06Z msweet $".
- */

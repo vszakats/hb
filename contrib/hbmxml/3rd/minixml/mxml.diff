@@ -1,7 +1,7 @@
 diff --strip-trailing-cr -urN minixml.orig/config.h minixml/config.h
---- minixml.orig/config.h	2014-01-04 21:50:06.000000000 +0000
-+++ minixml/config.h	2017-10-07 11:59:44.000000000 +0000
-@@ -18,12 +18,30 @@
+--- minixml.orig/config.h	2017-10-28 16:23:11.000000000 +0000
++++ minixml/config.h	2017-10-31 16:50:58.000000000 +0000
+@@ -16,12 +16,30 @@
   * Include necessary headers...
   */
  
@@ -37,7 +37,7 @@ diff --strip-trailing-cr -urN minixml.orig/config.h minixml/config.h
  
  /*
   * Version number...
-@@ -36,36 +54,46 @@
+@@ -34,46 +52,58 @@
   * Inline function support...
   */
  
@@ -56,11 +56,21 @@ diff --strip-trailing-cr -urN minixml.orig/config.h minixml/config.h
  
  
  /*
-  * Do we have the snprintf() and vsnprintf() functions?
+  * Do we have <zlib.h>?
+  */
+ 
++#if 0
+ #undef HAVE_ZLIB_H
++#endif
+ 
+ 
+ /*
+  * Do we have the *printf() functions?
   */
  
 +#if 0
  #undef HAVE_SNPRINTF
+ #undef HAVE_VASPRINTF
  #undef HAVE_VSNPRINTF
 +#endif
  
@@ -71,6 +81,8 @@ diff --strip-trailing-cr -urN minixml.orig/config.h minixml/config.h
  
 +#if 0
  #undef HAVE_STRDUP
+ #undef HAVE_STRLCAT
+ #undef HAVE_STRLCPY
 +#endif
  
  
@@ -84,7 +96,7 @@ diff --strip-trailing-cr -urN minixml.orig/config.h minixml/config.h
  
  
  /*
-@@ -74,6 +102,7 @@
+@@ -82,6 +112,7 @@
  
  #  ifndef HAVE_STRDUP
  extern char	*_mxml_strdup(const char *);
@@ -92,7 +104,7 @@ diff --strip-trailing-cr -urN minixml.orig/config.h minixml/config.h
  #    define strdup _mxml_strdup
  #  endif /* !HAVE_STRDUP */
  
-@@ -82,11 +111,13 @@
+@@ -100,10 +131,12 @@
  
  #  ifndef HAVE_SNPRINTF
  extern int	_mxml_snprintf(char *, size_t, const char *, ...);
@@ -105,11 +117,10 @@ diff --strip-trailing-cr -urN minixml.orig/config.h minixml/config.h
 +#    undef vsnprintf
  #    define vsnprintf _mxml_vsnprintf
  #  endif /* !HAVE_VSNPRINTF */
- 
 diff --strip-trailing-cr -urN minixml.orig/mxml-file.c minixml/mxml-file.c
---- minixml.orig/mxml-file.c	2016-06-13 00:51:16.000000000 +0000
-+++ minixml/mxml-file.c	2017-03-21 21:20:46.000000000 +0000
-@@ -71,7 +71,7 @@
+--- minixml.orig/mxml-file.c	2017-10-28 16:23:11.000000000 +0000
++++ minixml/mxml-file.c	2017-10-31 16:50:14.000000000 +0000
+@@ -69,7 +69,7 @@
  static int		mxml_get_entity(mxml_node_t *parent, void *p,
  			                int *encoding,
  					_mxml_getc_cb_t getc_cb);
@@ -118,7 +129,7 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-file.c minixml/mxml-file.c
  			{
  			  return (ch == ' ' || ch == '\t' || ch == '\r' ||
  			          ch == '\n');
-@@ -294,8 +294,14 @@
+@@ -283,8 +283,14 @@
      return (-1);
  
    if (col > 0)
@@ -133,7 +144,7 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-file.c minixml/mxml-file.c
  
   /*
    * Flush and return...
-@@ -333,8 +339,14 @@
+@@ -322,8 +328,14 @@
      return (-1);
  
    if (col > 0)
@@ -148,7 +159,7 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-file.c minixml/mxml-file.c
  
   /*
    * Return 0 (success)...
-@@ -381,7 +393,12 @@
+@@ -370,7 +382,12 @@
      return (-1);
  
    if (col > 0)
@@ -161,8 +172,8 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-file.c minixml/mxml-file.c
  
   /*
    * Nul-terminate the buffer...
-@@ -1021,7 +1038,7 @@
-   while ((bytes = read(buf->fd, buf->buffer, sizeof(buf->buffer))) < 0)
+@@ -1001,7 +1018,7 @@
+   while ((bytes = (int)read(buf->fd, buf->buffer, sizeof(buf->buffer))) < 0)
  #ifdef EINTR
      if (errno != EAGAIN && errno != EINTR)
 -#else
@@ -170,7 +181,7 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-file.c minixml/mxml-file.c
      if (errno != EAGAIN)
  #endif /* EINTR */
        return (-1);
-@@ -2770,6 +2787,10 @@
+@@ -2774,6 +2791,10 @@
  
  	    if (global->wrap > 0 && (col + width) > global->wrap)
  	    {
@@ -181,7 +192,7 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-file.c minixml/mxml-file.c
  	      if ((*putc_cb)('\n', p) < 0)
  		return (-1);
  
-@@ -2878,6 +2899,10 @@
+@@ -2882,6 +2903,10 @@
  	  {
  	    if (global->wrap > 0 && col > global->wrap)
  	    {
@@ -192,7 +203,7 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-file.c minixml/mxml-file.c
  	      if ((*putc_cb)('\n', p) < 0)
  		return (-1);
  
-@@ -2901,6 +2926,14 @@
+@@ -2905,6 +2930,14 @@
  	  {
  	    if (global->wrap > 0 && col > global->wrap)
  	    {
@@ -208,9 +219,9 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-file.c minixml/mxml-file.c
  		return (-1);
  
 diff --strip-trailing-cr -urN minixml.orig/mxml-node.c minixml/mxml-node.c
---- minixml.orig/mxml-node.c	2016-06-11 20:51:49.000000000 +0000
-+++ minixml/mxml-node.c	2017-10-07 11:27:21.000000000 +0000
-@@ -178,10 +178,6 @@
+--- minixml.orig/mxml-node.c	2017-10-28 16:23:11.000000000 +0000
++++ minixml/mxml-node.c	2017-10-31 16:54:48.000000000 +0000
+@@ -176,10 +176,6 @@
  void
  mxmlDelete(mxml_node_t *node)		/* I - Node to delete */
  {
@@ -221,13 +232,12 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-node.c minixml/mxml-node.c
  #ifdef DEBUG
    fprintf(stderr, "mxmlDelete(node=%p)\n", node);
  #endif /* DEBUG */
-@@ -203,43 +199,11 @@
+@@ -201,37 +197,10 @@
    * Delete children...
    */
  
 -  for (current = node->child; current; current = next)
-+  while (node->child)
-   {
+-  {
 -   /*
 -    * Get the next node...
 -    */
@@ -244,25 +254,20 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-node.c minixml/mxml-node.c
 -
 -    if ((next = current->next) == NULL)
 -    {
--      mxml_node_t *temp = current->parent;
--					/* Pointer to parent node */
+-     /*
+-      * Next node is the parent, which we'll free as needed...
+-      */
 -
--      if (temp == node)
--      {
--       /*
--        * Got back to the top node...
--        */
--
+-      if ((next = current->parent) == node)
 -        next = NULL;
--      }
--      else if ((next = temp->next) == NULL)
--      {
--	if ((next = temp->parent) == node)
--	  next = NULL;
--      }
 -    }
 -
+-   /*
+-    * Free child...
+-    */
+-
 -    mxml_free(current);
++  while (node->child)
 +    mxml_node_t *child = node->child;
 +    mxmlRemove(child);
 +    mxmlRelease(child);
@@ -270,9 +275,9 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-node.c minixml/mxml-node.c
  
   /*
 diff --strip-trailing-cr -urN minixml.orig/mxml-set.c minixml/mxml-set.c
---- minixml.orig/mxml-set.c	2014-01-04 21:50:06.000000000 +0000
-+++ minixml/mxml-set.c	2017-10-07 11:27:31.000000000 +0000
-@@ -25,7 +25,7 @@
+--- minixml.orig/mxml-set.c	2017-10-28 16:23:11.000000000 +0000
++++ minixml/mxml-set.c	2017-10-31 16:50:14.000000000 +0000
+@@ -23,7 +23,7 @@
  /*
   * 'mxmlSetCDATA()' - Set the element name of a CDATA node.
   *
@@ -281,7 +286,7 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-set.c minixml/mxml-set.c
   *
   * @since Mini-XML 2.3@
   */
-@@ -38,12 +38,6 @@
+@@ -36,12 +36,6 @@
    * Range check input...
    */
  
@@ -294,7 +299,7 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-set.c minixml/mxml-set.c
    if (!node || node->type != MXML_ELEMENT || !data ||
        strncmp(node->value.element.name, "![CDATA[", 8))
      return (-1);
-@@ -64,7 +58,7 @@
+@@ -62,7 +56,7 @@
  /*
   * 'mxmlSetCustom()' - Set the data and destructor of a custom data node.
   *
@@ -303,7 +308,7 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-set.c minixml/mxml-set.c
   *
   * @since Mini-XML 2.1@
   */
-@@ -79,10 +73,6 @@
+@@ -77,10 +71,6 @@
    * Range check input...
    */
  
@@ -314,7 +319,7 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-set.c minixml/mxml-set.c
    if (!node || node->type != MXML_CUSTOM)
      return (-1);
  
-@@ -133,7 +123,7 @@
+@@ -131,7 +121,7 @@
  /*
   * 'mxmlSetInteger()' - Set the value of an integer node.
   *
@@ -323,7 +328,7 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-set.c minixml/mxml-set.c
   */
  
  int					/* O - 0 on success, -1 on failure */
-@@ -144,10 +134,6 @@
+@@ -142,10 +132,6 @@
    * Range check input...
    */
  
@@ -334,7 +339,7 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-set.c minixml/mxml-set.c
    if (!node || node->type != MXML_INTEGER)
      return (-1);
  
-@@ -164,7 +150,7 @@
+@@ -162,7 +148,7 @@
  /*
   * 'mxmlSetOpaque()' - Set the value of an opaque node.
   *
@@ -343,7 +348,7 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-set.c minixml/mxml-set.c
   */
  
  int					/* O - 0 on success, -1 on failure */
-@@ -175,10 +161,6 @@
+@@ -173,10 +159,6 @@
    * Range check input...
    */
  
@@ -354,7 +359,7 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-set.c minixml/mxml-set.c
    if (!node || node->type != MXML_OPAQUE || !opaque)
      return (-1);
  
-@@ -198,7 +180,7 @@
+@@ -240,7 +222,7 @@
  /*
   * 'mxmlSetReal()' - Set the value of a real number node.
   *
@@ -363,7 +368,7 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-set.c minixml/mxml-set.c
   */
  
  int					/* O - 0 on success, -1 on failure */
-@@ -209,10 +191,6 @@
+@@ -251,10 +233,6 @@
    * Range check input...
    */
  
@@ -374,7 +379,7 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-set.c minixml/mxml-set.c
    if (!node || node->type != MXML_REAL)
      return (-1);
  
-@@ -229,7 +207,7 @@
+@@ -271,7 +249,7 @@
  /*
   * 'mxmlSetText()' - Set the value of a text node.
   *
@@ -383,7 +388,7 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-set.c minixml/mxml-set.c
   */
  
  int					/* O - 0 on success, -1 on failure */
-@@ -241,10 +219,6 @@
+@@ -283,10 +261,6 @@
    * Range check input...
    */
  
@@ -394,7 +399,7 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-set.c minixml/mxml-set.c
    if (!node || node->type != MXML_TEXT || !string)
      return (-1);
  
-@@ -265,7 +239,7 @@
+@@ -307,7 +281,7 @@
  /*
   * 'mxmlSetTextf()' - Set the value of a text node to a formatted string.
   *
@@ -403,7 +408,7 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-set.c minixml/mxml-set.c
   */
  
  int					/* O - 0 on success, -1 on failure */
-@@ -281,10 +255,6 @@
+@@ -323,10 +297,6 @@
    * Range check input...
    */
  
@@ -415,9 +420,9 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-set.c minixml/mxml-set.c
      return (-1);
  
 diff --strip-trailing-cr -urN minixml.orig/mxml-string.c minixml/mxml-string.c
---- minixml.orig/mxml-string.c	2014-01-05 03:25:07.000000000 +0000
-+++ minixml/mxml-string.c	2017-10-07 11:36:41.000000000 +0000
-@@ -20,6 +20,9 @@
+--- minixml.orig/mxml-string.c	2017-10-28 16:23:11.000000000 +0000
++++ minixml/mxml-string.c	2017-10-31 16:50:14.000000000 +0000
+@@ -18,6 +18,9 @@
  
  #include "config.h"
  
@@ -428,9 +433,9 @@ diff --strip-trailing-cr -urN minixml.orig/mxml-string.c minixml/mxml-string.c
  /*
   * The va_copy macro is part of C99, but many compilers don't implement it.
 diff --strip-trailing-cr -urN minixml.orig/mxml.h minixml/mxml.h
---- minixml.orig/mxml.h	2016-06-12 21:16:14.000000000 +0000
-+++ minixml/mxml.h	2017-10-07 12:05:07.000000000 +0000
-@@ -24,12 +24,20 @@
+--- minixml.orig/mxml.h	2017-10-28 16:23:11.000000000 +0000
++++ minixml/mxml.h	2017-10-31 16:50:14.000000000 +0000
+@@ -22,12 +22,20 @@
  /*
   * Include necessary headers...
   */
