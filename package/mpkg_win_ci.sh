@@ -182,11 +182,13 @@ if [ "${CC4}" != 'msvc' ]; then
     # Disable picking MSYS2 packages for now
     export HB_BUILD_3RDEXT='no'
   else
-    export HB_TRP_MINGW_32='i686-w64-mingw32'
-    export HB_TRP_MINGW_64='x86_64-w64-mingw32'
+    machine_32='i686'
+    machine_64='x86_64'
+    export HB_TRP_MINGW_32="${machine_32}-w64-mingw32"
+    export HB_TRP_MINGW_64="${machine_64}-w64-mingw32"
     if [ "${os}" = 'mac' ]; then
-      export HB_SYS_MINGW_32='/usr/local/opt/mingw-w64/toolchain-i686'
-      export HB_SYS_MINGW_64='/usr/local/opt/mingw-w64/toolchain-x86_64'
+      export HB_SYS_MINGW_32="/usr/local/opt/mingw-w64/toolchain-${machine_32}"
+      export HB_SYS_MINGW_64="/usr/local/opt/mingw-w64/toolchain-${machine_64}"
     else
       export HB_SYS_MINGW_32="/usr/${HB_TRP_MINGW_32}"
       export HB_SYS_MINGW_64="/usr/${HB_TRP_MINGW_64}"
