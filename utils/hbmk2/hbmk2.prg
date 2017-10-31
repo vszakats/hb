@@ -15461,10 +15461,11 @@ STATIC PROCEDURE ParseCOMPPLATCPU( hbmk, cString, nMainTarget )
       NEXT
    ENDIF
 
+   /* Aliases */
    DO CASE
-   CASE hbmk[ _HBMK_cCPU ] == "i686" /* Alias */
+   CASE hbmk[ _HBMK_cCPU ] == "i686"
       hbmk[ _HBMK_cCPU ] := "x86"
-   CASE hbmk[ _HBMK_cCPU ] == "x64"  /* FUTURE */
+   CASE hbmk[ _HBMK_cCPU ] == "x64"
       hbmk[ _HBMK_cCPU ] := "x86_64"
    ENDCASE
 
