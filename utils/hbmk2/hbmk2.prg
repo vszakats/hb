@@ -15474,16 +15474,18 @@ STATIC PROCEDURE ParseCOMPPLATCPU( hbmk, cString, nMainTarget )
 /* Modify compiler name based on CPU name. */
 STATIC PROCEDURE FixupCOMPbyCPU( hbmk )
 
-   DO CASE
-   CASE hbmk[ _HBMK_cCOMP ] == "clang" .AND. hbmk[ _HBMK_cCPU ] == "x86_64"
-      hbmk[ _HBMK_cCOMP ] := "clang64"
-   CASE hbmk[ _HBMK_cCOMP ] == "clang64" .AND. hbmk[ _HBMK_cCPU ] == "x86"
-      hbmk[ _HBMK_cCOMP ] := "clang"
-   CASE hbmk[ _HBMK_cCOMP ] == "mingw" .AND. hbmk[ _HBMK_cCPU ] == "x86_64"
-      hbmk[ _HBMK_cCOMP ] := "mingw64"
-   CASE hbmk[ _HBMK_cCOMP ] == "mingw64" .AND. hbmk[ _HBMK_cCPU ] == "x86"
-      hbmk[ _HBMK_cCOMP ] := "mingw"
-   ENDCASE
+   IF hbmk[ _HBMK_cPLAT ] == "win"
+      DO CASE
+      CASE hbmk[ _HBMK_cCOMP ] == "clang" .AND. hbmk[ _HBMK_cCPU ] == "x86_64"
+         hbmk[ _HBMK_cCOMP ] := "clang64"
+      CASE hbmk[ _HBMK_cCOMP ] == "clang64" .AND. hbmk[ _HBMK_cCPU ] == "x86"
+         hbmk[ _HBMK_cCOMP ] := "clang"
+      CASE hbmk[ _HBMK_cCOMP ] == "mingw" .AND. hbmk[ _HBMK_cCPU ] == "x86_64"
+         hbmk[ _HBMK_cCOMP ] := "mingw64"
+      CASE hbmk[ _HBMK_cCOMP ] == "mingw64" .AND. hbmk[ _HBMK_cCPU ] == "x86"
+         hbmk[ _HBMK_cCOMP ] := "mingw"
+      ENDCASE
+   ENDIF
 
    RETURN
 
