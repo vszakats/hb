@@ -118,11 +118,13 @@ extern char	*_mxml_strdup(const char *);
 
 #  ifndef HAVE_STRLCAT
 extern size_t	_mxml_strlcat(char *, const char *, size_t);
+#    undef strlcat
 #    define strlcat _mxml_strlcat
 #  endif /* !HAVE_STRLCAT */
 
 #  ifndef HAVE_STRLCPY
 extern size_t	_mxml_strlcpy(char *, const char *, size_t);
+#    undef strlcpy
 #    define strlcpy _mxml_strlcpy
 #  endif /* !HAVE_STRLCPY */
 
