@@ -47,7 +47,7 @@ matrix:
   include:
     - os: linux
       # https://docs.travis-ci.com/user/reference/trusty/
-      dist: trusty
+      dist: &hb-linux-image trusty
       sudo: false
       compiler: clang
       env: [ HB_CCSUFFIX=-5.0 ]
@@ -56,7 +56,7 @@ matrix:
           packages: [ *hb-linux-common, clang-5.0 ]
           sources: llvm-toolchain-trusty-5.0
     - os: linux
-      dist: trusty
+      dist: *hb-linux-image
       sudo: false
       compiler: gcc
       env: [ HB_CCSUFFIX=-7 ]
@@ -65,14 +65,14 @@ matrix:
           packages: [ *hb-linux-common, gcc-7, g++-7 ]
           sources: ubuntu-toolchain-r-test
     - os: linux
-      dist: trusty
+      dist: *hb-linux-image
       sudo: required
       group: edge
       compiler: gcc
       services: [ docker ]
       env: [ 'DOCKER_IMAGE=amazonlinux:latest' ]
     - os: linux
-      dist: trusty
+      dist: *hb-linux-image
       sudo: required
       group: edge
       compiler: mingw-clang
@@ -80,7 +80,7 @@ matrix:
       # https://hub.docker.com/_/ubuntu/
       env: [ 'DOCKER_IMAGE=ubuntu:rolling' ]
     - os: linux
-      dist: trusty
+      dist: *hb-linux-image
       sudo: required
       group: edge
       compiler: mingw-gcc
@@ -89,13 +89,13 @@ matrix:
       env: [ 'DOCKER_IMAGE=ubuntu:rolling' ]
     - os: osx
       # https://docs.travis-ci.com/user/reference/osx/
-      osx_image: xcode9
+      osx_image: &hb-mac-image xcode9.1
       compiler: clang
     - os: osx
-      osx_image: xcode9
+      osx_image: *hb-mac-image
       compiler: mingw-clang
     - os: osx
-      osx_image: xcode9
+      osx_image: *hb-mac-image
       compiler: mingw-gcc
 
 before_install:
