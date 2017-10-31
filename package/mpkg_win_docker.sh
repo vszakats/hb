@@ -11,7 +11,7 @@ set -x; cat /etc/*-release; ulimit -a; df -h
 
 alias gpg='gpg --batch --keyid-format LONG'
 
-[ "${HB_JOB}" = 'clang' ] && _clang='clang'
+[ "${CC}" = 'mingw-clang' ] && _clang='clang'
 
 dpkg --add-architecture i386
 apt-get -qq update

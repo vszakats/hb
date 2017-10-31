@@ -82,51 +82,49 @@ matrix:
       dist: trusty
       sudo: required
       group: edge
-      compiler: i686-w64-mingw32-clang
+      compiler: mingw-clang
       services: [ docker ]
       # https://hub.docker.com/_/ubuntu/
-      env: [ 'DOCKER_IMAGE=ubuntu:rolling', HB_JOB=clang ]
+      env: [ 'DOCKER_IMAGE=ubuntu:rolling' ]
     - os: linux
       dist: trusty
       sudo: required
       group: edge
-      compiler: i686-w64-mingw32-gcc
+      compiler: mingw-gcc
       services: [ docker ]
       # https://hub.docker.com/_/ubuntu/
-      env: [ 'DOCKER_IMAGE=ubuntu:rolling', HB_JOB=mingw ]
+      env: [ 'DOCKER_IMAGE=ubuntu:rolling' ]
     - os: osx
       # https://docs.travis-ci.com/user/reference/osx/
       osx_image: xcode9
       compiler: clang
     - os: osx
       osx_image: xcode9
-      compiler: i686-w64-mingw32-clang
-      env: [ HB_JOB=clang ]
+      compiler: mingw-clang
     - os: osx
       osx_image: xcode9
-      compiler: i686-w64-mingw32-gcc
-      env: [ HB_JOB=mingw ]
+      compiler: mingw-gcc
 
 before_install:
   - |
     export HB_CI_THREADS=4
     export HB_BUILD_3RD_DYN=yes
     if [ -n "${DOCKER_IMAGE}" ]; then
-      if [ "${CC}" = 'i686-w64-mingw32-gcc' ] || \
-         [ "${CC}" = 'i686-w64-mingw32-clang' ]; then
+      if [ "${CC}" = 'mingw-gcc' ] || \
+         [ "${CC}" = 'mingw-clang' ]; then
         DOCKER_SCRIPT=./package/mpkg_win_docker.sh
       elif [ "${TRAVIS_OS_NAME}" = 'linux' ]; then
         DOCKER_SCRIPT=./package/mpkg_rpm_docker.sh
       fi
       time docker pull "${DOCKER_IMAGE}"
       time docker run -it -v "${PWD}:${PWD}" -w "${PWD}" \
-        --env-file <(env | grep -E '^(HB|TRAVIS|GITHUB)_') \
+        --env-file <(env | grep -E '^(HB_|TRAVIS_|GITHUB_|CC)') \
         "${DOCKER_IMAGE}" \
         sh -c "${DOCKER_SCRIPT}"
     elif [ "${TRAVIS_OS_NAME}" = 'osx' ]; then
-      if [ "${CC}" = 'i686-w64-mingw32-gcc' ] || \
-         [ "${CC}" = 'i686-w64-mingw32-clang' ]; then
-        [ "${CC}" = 'i686-w64-mingw32-clang' ] && _clang='llvm'
+      if [ "${CC}" = 'mingw-gcc' ] || \
+         [ "${CC}" = 'mingw-clang' ]; then
+        [ "${CC}" = 'mingw-clang' ] && _clang='llvm'
         time travis_retry brew install --force-bottle p7zip mingw-w64 ${_clang} jq osslsigncode dos2unix gpg coreutils || true
         time travis_retry brew install --force-bottle --build-bottle wine || true
         export DISPLAY=:1
@@ -152,8 +150,8 @@ before_install:
 script:
   - |
     if [ -z "${DOCKER_IMAGE}" ]; then
-      if [ "${CC}" = 'i686-w64-mingw32-gcc' ] || \
-         [ "${CC}" = 'i686-w64-mingw32-clang' ]; then
+      if [ "${CC}" = 'mingw-gcc' ] || \
+         [ "${CC}" = 'mingw-clang' ]; then
         ./package/mpkg_win_ci.sh
       else
         ls -lA "$(dirname "$(which "${CC}${HB_CCSUFFIX}")")/${CC}"*
@@ -178,4 +176,4 @@ deploy:
   on:
     tag: true
     branch: master
-    condition: "${CC} = i686-w64-mingw32-clang"
+    condition: "${CC} = mingw-clang"
