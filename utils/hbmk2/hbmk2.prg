@@ -1318,9 +1318,9 @@ STATIC PROCEDURE hbmk_harbour_dirlayout_init( hbmk )
    IF Empty( hbmk[ _HBMK_cHB_INSTALL_LIB ] )
       /* Auto-detect multi-compiler/platform lib structure */
       IF hb_vfDirExists( tmp := hb_PathNormalize( hb_DirSepAdd( hbmk[ _HBMK_cHB_INSTALL_PFX ] ) ) + "lib" + ;
-                                                    hb_ps() + hbmk[ _HBMK_cPLAT ] + ;
-                                                    hb_ps() + hbmk[ _HBMK_cCOMP ] + ;
-                                                    hb_DirSepToOS( hbmk[ _HBMK_cBUILD ] ) )
+                                                  hb_ps() + hbmk[ _HBMK_cPLAT ] + ;
+                                                  hb_ps() + hbmk[ _HBMK_cCOMP ] + ;
+                                                  hb_DirSepToOS( hbmk[ _HBMK_cBUILD ] ) )
          hbmk[ _HBMK_cHB_INSTALL_LIB ] := tmp
       ELSEIF compiler_compatibility_map( hbmk[ _HBMK_cCOMP ] ) != NIL .AND. ;
          hb_vfDirExists( tmp := hb_PathNormalize( hb_DirSepAdd( hbmk[ _HBMK_cHB_INSTALL_PFX ] ) ) + "lib" + ;
@@ -1340,9 +1340,9 @@ STATIC PROCEDURE hbmk_harbour_dirlayout_init( hbmk )
          hbmk[ _HBMK_cHB_INSTALL_LI3 ] := tmp
       ELSEIF compiler_compatibility_map( hbmk[ _HBMK_cCOMP ] ) != NIL .AND. ;
          hb_vfDirExists( tmp := hb_PathNormalize( hb_DirSepAdd( hbmk[ _HBMK_cHB_INSTALL_PFX ] ) ) + "lib" + ;
-                                               hb_ps() + "3rd" + ;
-                                               hb_ps() + hbmk[ _HBMK_cPLAT ] + ;
-                                               hb_ps() + compiler_compatibility_map( hbmk[ _HBMK_cCOMP ] ) )
+                                                  hb_ps() + "3rd" + ;
+                                                  hb_ps() + hbmk[ _HBMK_cPLAT ] + ;
+                                                  hb_ps() + compiler_compatibility_map( hbmk[ _HBMK_cCOMP ] ) )
          hbmk[ _HBMK_cHB_INSTALL_LI3 ] := tmp
       ENDIF
    ENDIF
@@ -2573,13 +2573,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
                   IF ! Empty( cPath_CompC := Eval( tmp[ _COMPDET_bBlock ] ) )
                      hbmk[ _HBMK_cCOMP ] := tmp[ _COMPDET_cCOMP ]
                      /* Allow override of compiler using the CPU setting for
-                        dual-target (multilib) mingw distros */
-                     DO CASE
-                     CASE hbmk[ _HBMK_cCOMP ] == "mingw" .AND. hbmk[ _HBMK_cCPU ] == "x86_64"
-                        hbmk[ _HBMK_cCOMP ] := "mingw64"
-                     CASE hbmk[ _HBMK_cCOMP ] == "mingw64" .AND. hbmk[ _HBMK_cCPU ] == "x86"
-                        hbmk[ _HBMK_cCOMP ] := "mingw"
-                     ENDCASE
+                        dual-target (multilib) mingw-based distros */
+                     FixupCOMPbyCPU( hbmk )
                      tmp1 := hbmk[ _HBMK_cPLAT ]
                      IF Len( tmp ) >= _COMPDET_cPLAT .AND. tmp[ _COMPDET_cPLAT ] != NIL
                         hbmk[ _HBMK_cPLAT ] := tmp[ _COMPDET_cPLAT ]
@@ -2636,13 +2631,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
                   ! Empty( cPath_CompC := Eval( tmp[ _COMPDETE_bBlock ], tmp[ _COMPDETE_cCCPREFIX ], tmp[ _COMPDETE_cCCPATH ] ) )
                   hbmk[ _HBMK_cCOMP ] := tmp[ _COMPDETE_cCOMP ]
                   /* Allow override of compiler using the CPU setting for
-                     dual-target (multilib) mingw distros */
-                  DO CASE
-                  CASE hbmk[ _HBMK_cCOMP ] == "mingw" .AND. hbmk[ _HBMK_cCPU ] == "x86_64"
-                     hbmk[ _HBMK_cCOMP ] := "mingw64"
-                  CASE hbmk[ _HBMK_cCOMP ] == "mingw64" .AND. hbmk[ _HBMK_cCPU ] == "x86"
-                     hbmk[ _HBMK_cCOMP ] := "mingw"
-                  ENDCASE
+                     dual-target (multilib) mingw-based distros */
+                  FixupCOMPbyCPU( hbmk )
                   hbmk[ _HBMK_cCCPREFIX ] := tmp[ _COMPDETE_cCCPREFIX ]
                   hbmk[ _HBMK_cCCPATH ] := cPath_CompC
                   IF HB_ISEVALITEM( tmp[ _COMPDETE_bSetup ] )
@@ -2670,6 +2660,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             _hbmk_OutErr( hbmk, hb_StrFormat( I_( "Error: Compiler value unrecognized: %1$s" ), hbmk[ _HBMK_cCOMP ] ) )
             RETURN _EXIT_UNKNCOMP
          ENDIF
+         FixupCOMPbyCPU( hbmk )
 #ifdef HARBOUR_SUPPORT
          /* Detect cross platform CCPREFIX and CCPATH if embedded installation is detected */
          FOR EACH tmp IN aCOMPDET_EMBED
@@ -15470,9 +15461,28 @@ STATIC PROCEDURE ParseCOMPPLATCPU( hbmk, cString, nMainTarget )
       NEXT
    ENDIF
 
-   IF hbmk[ _HBMK_cCPU ] == "x64"  /* FUTURE */
+   DO CASE
+   CASE hbmk[ _HBMK_cCPU ] == "i686" /* Alias */
+      hbmk[ _HBMK_cCPU ] := "x86"
+   CASE hbmk[ _HBMK_cCPU ] == "x64"  /* FUTURE */
       hbmk[ _HBMK_cCPU ] := "x86_64"
-   ENDIF
+   ENDCASE
+
+   RETURN
+
+/* Modify compiler name based on CPU name. */
+STATIC PROCEDURE FixupCOMPbyCPU( hbmk )
+
+   DO CASE
+   CASE hbmk[ _HBMK_cCOMP ] == "clang" .AND. hbmk[ _HBMK_cCPU ] == "x86_64"
+      hbmk[ _HBMK_cCOMP ] := "clang64"
+   CASE hbmk[ _HBMK_cCOMP ] == "clang64" .AND. hbmk[ _HBMK_cCPU ] == "x86"
+      hbmk[ _HBMK_cCOMP ] := "clang"
+   CASE hbmk[ _HBMK_cCOMP ] == "mingw" .AND. hbmk[ _HBMK_cCPU ] == "x86_64"
+      hbmk[ _HBMK_cCOMP ] := "mingw64"
+   CASE hbmk[ _HBMK_cCOMP ] == "mingw64" .AND. hbmk[ _HBMK_cCPU ] == "x86"
+      hbmk[ _HBMK_cCOMP ] := "mingw"
+   ENDCASE
 
    RETURN
 
