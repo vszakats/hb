@@ -57,7 +57,7 @@
 #include "hbver.h"
 
 #if defined( __POCC__ ) || defined( __LCC__ ) || \
-    defined( __MINGW32__ ) || defined( __DMC__ ) || defined( __TINYC__ ) || \
+    defined( __MINGW32__ ) || defined( __TINYC__ ) || \
     ( defined( _MSC_VER ) && _MSC_VER >= 1600 ) || \
     ( defined( __BORLANDC__ ) && __BORLANDC__ >= 0x0582 ) || \
     ( defined( __WATCOMC__ ) && __WATCOMC__ >= 1270 ) || \
@@ -1494,13 +1494,12 @@ typedef HB_U32 HB_FATTR;
  * starting procedure (due to unknown order of static data initialization)
  */
 #define HB_START_PROCEDURE "MAIN"
-#if defined( __WATCOMC__ ) || defined( __DMC__ ) || \
+#if defined( __WATCOMC__ ) || \
     ( defined( __GNUC__ ) && ! defined( __DJGPP__ ) && ! defined( HB_OS_OS2_GCC ) )
    #define HB_START_PROC_STRICT
 #endif
 
-#if defined( __WATCOMC__ ) || defined( __DMC__ ) || \
-    defined( _MSC_VER ) || defined( __POCC__ )
+#if defined( __WATCOMC__ ) || defined( _MSC_VER ) || defined( __POCC__ )
    #define HB_DLL_ENTRY_POINT    DllMain
 #else
    #define HB_DLL_ENTRY_POINT    DllEntryPoint

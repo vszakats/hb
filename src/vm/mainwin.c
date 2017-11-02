@@ -54,7 +54,7 @@
 #define HB_VM_STARTUP
 #include "hbwmain.c"
 
-#if ! defined( HB_DYNLIB ) && ( defined( __DMC__ ) || defined( __WATCOMC__ ) || defined( __MINGW32__ ) )
+#if ! defined( HB_DYNLIB ) && ( defined( __WATCOMC__ ) || defined( __MINGW32__ ) )
 HB_EXTERN_BEGIN
 void hb_forceLinkMainWin( void ) {}
 HB_EXTERN_END

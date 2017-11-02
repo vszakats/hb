@@ -60,8 +60,7 @@
 
 #if ( defined( HB_OS_WIN ) || defined( HB_OS_OS2 ) || defined( HB_OS_DOS ) ) && \
     ( defined( __WATCOMC__ ) || defined( _MSC_VER ) || \
-      defined( __MINGW32__ ) || defined( __BORLANDC__ ) || \
-      defined( __DMC__ ) ) && \
+      defined( __MINGW32__ ) || defined( __BORLANDC__ ) ) && \
     ! defined( __MINGW32CE__ ) && ! defined( __POCC__ )
    #define HB_USE_FSOPEN
    #include <share.h>

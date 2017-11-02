@@ -137,7 +137,7 @@ diff --strip-trailing-cr -urN minizip.orig/ioapi.c minizip/ioapi.c
      pzlib_filefunc_def->zread_file = fread_file_func;
 diff --strip-trailing-cr -urN minizip.orig/ioapi.h minizip/ioapi.h
 --- minizip.orig/ioapi.h	2017-01-15 17:29:40.000000000 +0000
-+++ minizip/ioapi.h	2017-10-07 10:40:41.000000000 +0000
++++ minizip/ioapi.h	2017-11-02 20:21:21.000000000 +0000
 @@ -21,22 +21,22 @@
  #ifndef _ZLIBIOAPI64_H
  #define _ZLIBIOAPI64_H
@@ -169,7 +169,7 @@ diff --strip-trailing-cr -urN minizip.orig/ioapi.h minizip/ioapi.h
          #endif
  
  #endif
-@@ -45,6 +45,34 @@
+@@ -45,6 +45,33 @@
  #include <stdlib.h>
  #include "zlib.h"
  
@@ -188,7 +188,6 @@ diff --strip-trailing-cr -urN minizip.orig/ioapi.h minizip/ioapi.h
 +#if defined( __BORLANDC__ ) || \
 +    defined( __WATCOMC__ ) || \
 +    defined( __MINGW32CE__ ) || \
-+    defined( __DMC__ ) || \
 +    defined( HB_OS_VXWORKS ) || \
 +    defined( HB_OS_BSD ) || \
 +    defined( HB_OS_DARWIN ) || \

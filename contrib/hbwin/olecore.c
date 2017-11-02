@@ -53,7 +53,6 @@
 
 /* enable workaround for wrong OLE variant structure definition */
 #if ( defined( __POCC__ ) && defined( HB_OS_WIN_CE ) ) || \
-   defined( __DMC__ ) || \
    ( defined( _MSC_VER ) && ( _MSC_VER <= 1500 ) )
    #define HB_OLE_NO_LL
 #endif
@@ -61,14 +60,12 @@
 #if ( defined( __POCC__ ) && defined( HB_OS_WIN_CE ) ) || \
    ( defined( __WATCOMC__ ) && ( __WATCOMC__ < 1280 ) ) || \
    defined( __MINGW32__ ) || \
-   defined( __DMC__ ) || \
    ( defined( _MSC_VER ) && ( _MSC_VER <= 1500 ) )
    #define HB_OLE_NO_LLREF
 #endif
 
 #if ! defined( HB_OLE_NO_SAFEARRAYGETVARTYPE ) && \
-    ( defined( __DMC__ ) || \
-      defined(  __MINGW32CE__ ) || \
+    ( defined(  __MINGW32CE__ ) || \
       ( defined( __WATCOMC__ ) && ( __WATCOMC__ < 1270 ) ) )
    #define HB_OLE_NO_SAFEARRAYGETVARTYPE
 #endif

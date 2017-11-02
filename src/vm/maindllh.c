@@ -79,7 +79,7 @@ BOOL WINAPI HB_DLL_ENTRY_POINT( HINSTANCE hInstance, DWORD fdwReason, PVOID pvRe
    return TRUE;
 }
 
-#if defined( __DMC__ ) || defined( __WATCOMC__ )
+#if defined( __WATCOMC__ )
 HB_EXTERN_BEGIN
 void hb_forceLinkMainWin( void ) {}
 void hb_forceLinkMainStd( void ) {}

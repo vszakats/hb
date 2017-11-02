@@ -39,7 +39,7 @@ diff --strip-trailing-cr -urN zlib.orig/deflate.c zlib/deflate.c
      for (;;) {
 diff --strip-trailing-cr -urN zlib.orig/gzguts.h zlib/gzguts.h
 --- zlib.orig/gzguts.h	2017-01-15 17:29:40.000000000 +0000
-+++ zlib/gzguts.h	2017-10-18 08:43:12.000000000 +0000
++++ zlib/gzguts.h	2017-10-18 09:17:05.000000000 +0000
 @@ -35,7 +35,8 @@
  #  include <stddef.h>
  #endif
@@ -62,13 +62,13 @@ diff --strip-trailing-cr -urN zlib.orig/gzguts.h zlib/gzguts.h
  #  endif
 diff --strip-trailing-cr -urN zlib.orig/gzlib.c zlib/gzlib.c
 --- zlib.orig/gzlib.c	2017-01-15 17:29:40.000000000 +0000
-+++ zlib/gzlib.c	2017-08-04 12:35:52.000000000 +0000
++++ zlib/gzlib.c	2017-11-02 20:25:44.000000000 +0000
 @@ -5,7 +5,11 @@
  
  #include "gzguts.h"
  
 -#if defined(_WIN32) && !defined(__BORLANDC__) && !defined(__MINGW32__)
-+#if defined(__XCC__) || defined(__DMC__) || defined(__MINGW32CE__)
++#if defined(__XCC__) || defined(__MINGW32CE__)
 +#  define LSEEK lseek
 +#elif defined(__POCC__)
 +#  define LSEEK _lseek64

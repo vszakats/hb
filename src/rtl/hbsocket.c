@@ -223,9 +223,7 @@
 #if defined( HB_OS_WIN )
 #  include <winsock2.h>
 #  include <ws2tcpip.h>
-#  if ! defined( __DMC__ )
-#     include <iphlpapi.h>
-#  endif
+#  include <iphlpapi.h>
 #else
 #  include <errno.h>
 #  if defined( HB_OS_DOS )
@@ -4005,7 +4003,7 @@ PHB_ITEM hb_socketGetIFaces( int af, HB_BOOL fNoAliases )
       hb_xfree( buf );
       hb_socketClose( sd );
    }
-#elif defined( HB_OS_WIN ) && ! defined( __DMC__ )
+#elif defined( HB_OS_WIN )
    HB_SOCKET sd;
 
    /* TODO: add support for IP6 */

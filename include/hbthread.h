@@ -462,7 +462,7 @@ extern HB_BOOL hb_threadMutexSyncWait( PHB_ITEM pItemMtx, HB_ULONG ulMilliSec, P
 #ifdef HB_USE_TLS
 #  if ( defined( __GNUC__ ) && __GNUC__ >= 3 ) || defined( __BORLANDC__ )
 #     define HB_TLS_ATTR      __thread
-#  elif defined( _MSC_VER ) || defined( __WATCOMC__ ) || defined( __DMC__ )
+#  elif defined( _MSC_VER ) || defined( __WATCOMC__ )
 #     define HB_TLS_ATTR      __declspec( thread )
 #  else
 #     undef HB_USE_TLS

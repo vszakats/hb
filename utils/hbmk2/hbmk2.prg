@@ -2389,8 +2389,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          { {|| FindInPath( "pocc.exe" ) }, "pocc"   }, ;
          { {|| FindInPath( "icl.exe"  ) }, "icc"    }, ;
          { {|| FindInPath( "xCC.exe"  ) }, "xcc"    }, ;
-         { {|| FindInPath( "tcc.exe"  ) }, "tcc"    }, ;
-         { {|| FindInPath( "dmc.exe"  ) }, "dmc"    } }
+         { {|| FindInPath( "tcc.exe"  ) }, "tcc"    } }
 #endif
       aCOMPSUP := { ;
          "mingw", "clang", "msvc", "clang-cl", "watcom", "icc", "bcc", "pocc", "xcc", "tcc", ;
@@ -15868,8 +15867,7 @@ STATIC FUNCTION ExtractHarbourSymbols( cString )
       "in function", ; /* gcc */
       "duplicate symbol", ; /* clang */
       "already defined", ; /* msvc */
-      "defined in both", ; /* bcc */
-      "previous definition different" } /* dmc */
+      "defined in both" } /* bcc */
 
    LOCAL aList := {}
 
