@@ -1477,8 +1477,6 @@ ifneq ($(HB_HOST_PLAT)$(HB_HOST_CPU),$(HB_PLATFORM)$(HB_CPU))
          HB_PRGFLAGS += -D__PLATFORM__ANDROID -D__PLATFORM__UNIX
       else ifeq ($(HB_PLATFORM),vxworks)
          HB_PRGFLAGS += -D__PLATFORM__VXWORKS -D__PLATFORM__UNIX
-      else ifeq ($(HB_PLATFORM),symbian)
-         HB_PRGFLAGS += -D__PLATFORM__SYMBIAN -D__PLATFORM__UNIX
       else ifeq ($(HB_PLATFORM),cygwin)
          HB_PRGFLAGS += -D__PLATFORM__CYGWIN -D__PLATFORM__UNIX
       else ifeq ($(HB_PLATFORM),minix)

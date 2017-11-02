@@ -266,8 +266,6 @@ const char * hb_verPlatformMacro( void )
    return "QNX";
 #elif defined( HB_OS_VXWORKS )
    return "VXWORKS";
-#elif defined( HB_OS_SYMBIAN )
-   return "SYMBIAN";
 #elif defined( HB_OS_CYGWIN )
    return "CYGWIN";
 #else

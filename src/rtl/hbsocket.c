@@ -47,8 +47,7 @@
 #include "hbapi.h"
 #include "hbsocket.h"
 
-#if ( defined( HB_OS_DOS ) && ! defined( HB_HAS_WATT ) ) || \
-   defined( HB_OS_SYMBIAN )
+#if defined( HB_OS_DOS ) && ! defined( HB_HAS_WATT )
 #  if ! defined( HB_SOCKET_OFF )
 #     define HB_SOCKET_OFF
 #  endif

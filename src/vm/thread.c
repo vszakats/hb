@@ -291,7 +291,7 @@ void hb_threadReleaseCPU( void )
 
       HB_DOS_INT86( 0x2F, &regs, &regs );
    }
-#elif defined( HB_OS_UNIX ) && ! defined( HB_OS_SYMBIAN )
+#elif defined( HB_OS_UNIX )
    {
       struct timeval tv;
       tv.tv_sec = 0;

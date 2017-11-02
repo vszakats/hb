@@ -60,7 +60,6 @@
 #elif defined( HB_OS_UNIX ) && \
    ! defined( __WATCOMC__ ) && \
    ! defined( HB_OS_VXWORKS ) && \
-   ! defined( HB_OS_SYMBIAN ) && \
    ! defined( HB_OS_QNX_BB10 )
    #include <syslog.h>
 #endif
@@ -264,7 +263,6 @@ static void hb_tracelog_( int level, const char * file, int line, const char * p
       ( defined( HB_OS_UNIX ) && \
       ! defined( __WATCOMC__ ) && \
       ! defined( HB_OS_VXWORKS ) && \
-      ! defined( HB_OS_SYMBIAN ) && \
       ! defined( HB_OS_QNX_BB10 ) )
 
       char message[ 1024 ];

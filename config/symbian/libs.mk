@@ -1,2 +1,0 @@
-SYSLIBPATHS :=
-SYSLIBS +=

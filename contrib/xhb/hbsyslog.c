@@ -57,8 +57,7 @@ static HANDLE s_RegHandle = NULL;
 
 #elif defined( HB_OS_UNIX ) && \
    ! defined( __WATCOMC__ ) && \
-   ! defined( HB_OS_VXWORKS ) && \
-   ! defined( HB_OS_SYMBIAN )
+   ! defined( HB_OS_VXWORKS )
 
 #  include <syslog.h>
 
@@ -147,8 +146,7 @@ HB_FUNC( HB_SYSLOGMESSAGE )
 
 #elif defined( HB_OS_UNIX ) && \
    ! defined( __WATCOMC__ ) && \
-   ! defined( HB_OS_VXWORKS ) && \
-   ! defined( HB_OS_SYMBIAN )
+   ! defined( HB_OS_VXWORKS )
 
    int logval;
 

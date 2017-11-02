@@ -50,8 +50,7 @@
 
 #include "hbapi.h"
 
-#if defined( HB_OS_UNIX ) && ( ! defined( __WATCOMC__ ) || __WATCOMC__ > 1290 ) && \
-    ! defined( HB_OS_SYMBIAN ) /* || defined( __DJGPP__ ) */
+#if defined( HB_OS_UNIX ) && ( ! defined( __WATCOMC__ ) || __WATCOMC__ > 1290 ) /* || defined( __DJGPP__ ) */
 #  if defined( HB_OS_VXWORKS )
 #     if ! defined( HB_HAS_SIOLIB )
 #        define HB_HAS_SIOLIB

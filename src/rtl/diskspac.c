@@ -55,8 +55,7 @@
 #if defined( HB_OS_UNIX )
 #  include <unistd.h>
 #  include <sys/types.h>
-#  if defined( __WATCOMC__ ) || defined( __CEGCC__ ) || \
-      defined( HB_OS_VXWORKS ) || defined( HB_OS_SYMBIAN )
+#  if defined( __WATCOMC__ ) || defined( __CEGCC__ ) || defined( HB_OS_VXWORKS )
 #     include <sys/stat.h>
 #  elif defined( HB_OS_ANDROID )
 #     include <sys/statfs.h>
@@ -221,7 +220,7 @@ HB_FUNC( DISKSPACE )
          szName = hb_fsNameConv( szName, &pszFree );
 
       {
-#if defined( __WATCOMC__ ) || defined( __CEGCC__ ) || defined( HB_OS_SYMBIAN )
+#if defined( __WATCOMC__ ) || defined( __CEGCC__ )
          int iTODO;
 
          bError = HB_FALSE;

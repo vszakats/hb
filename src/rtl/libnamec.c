@@ -48,7 +48,7 @@
 
 HB_FUNC( HB_LIBEXT )
 {
-#if defined( HB_OS_WIN ) || defined( HB_OS_OS2 ) || defined( HB_OS_SYMBIAN )
+#if defined( HB_OS_WIN ) || defined( HB_OS_OS2 )
    hb_retc_const( ".dll" );
 #elif defined( HB_OS_DOS )
    hb_retc_null();
@@ -63,7 +63,7 @@ HB_FUNC( HB_LIBEXT )
 
 HB_FUNC( HB_LIBPREFIX )
 {
-#if ! defined( HB_OS_UNIX ) || defined( HB_OS_SYMBIAN )
+#if ! defined( HB_OS_UNIX )
    hb_retc_null();
 #else
    hb_retc_const( "lib" );

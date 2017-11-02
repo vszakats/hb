@@ -1062,7 +1062,6 @@ Press `<Alt+D>` in the app.
 * minix    - Minix 3 (experimental, tested on 3.2.1; earlier releases will not work)
 * cygwin   - Cygwin (experimental)
 * beos     - BeOS / Haiku (deprecated)
-* symbian  - Symbian OS (deprecated)
 
 ## You can override C compiler auto-detection with these `HB_COMPILER` values:
 
@@ -1154,9 +1153,6 @@ Press `<Alt+D>` in the app.
 ### beos (deprecated)
 * gcc      - GNU C
 
-### symbian (deprecated)
-* gcc      - GNU C
-
 
 # Platform Matrix
 
@@ -1209,7 +1205,6 @@ Press `<Alt+D>` in the app.
  win      | win/pocc64        | x86-64 (deprecated)
  win      | wce/poccarm       | arm    (deprecated)
  win      | win/xcc           | x86    (deprecated)
- win      | symbian/gcc       | arm    (deprecated)
  os2      | os2/gcc           | x86
  os2      | os2/watcom        | x86
  os2      | win/watcom        | x86
