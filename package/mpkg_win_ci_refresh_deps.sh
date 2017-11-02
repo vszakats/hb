@@ -8,7 +8,7 @@
 # Extract dependency versions and their hashes from `harbour-deps` online build log
 # Requires: bash, curl, jq, awk
 
-readonly ci="${1:-appveyor}"
+readonly ci="${1:-travis}"
 readonly project='harbour-deps'
 branch='master'
 
