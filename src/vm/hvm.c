@@ -12535,7 +12535,7 @@ HB_LANG_REQUEST( HB_LANG_DEFAULT )
 
 #  define HB_FORCE_LINK_MAIN  hb_forceLinkMainWin
 
-#elif ( defined( __WATCOMC__ ) || defined( __TINYC__ ) ) && \
+#elif defined( __WATCOMC__ ) && \
    ( defined( HB_OS_LINUX ) || defined( HB_OS_OS2 ) || defined( HB_OS_WIN ) )
 
 #  define HB_FORCE_LINK_MAIN  hb_forceLinkMainStd

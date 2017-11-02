@@ -63,8 +63,7 @@ HB_FUNC( WAPI_GETUSERNAMEEX )
 {
    HB_BOOL fResult = HB_FALSE;
 
-#if ! defined( HB_OS_WIN_CE ) && \
-    ! defined( __TINYC__ )
+#if ! defined( HB_OS_WIN_CE )
    {
       typedef int ( WINAPI * _HB_GETUSERNAMEEX )( EXTENDED_NAME_FORMAT, LPTSTR, PULONG );
 

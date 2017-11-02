@@ -56,8 +56,7 @@
 #include "hbsetup.h"
 #include "hbver.h"
 
-#if defined( __POCC__ ) || \
-    defined( __MINGW32__ ) || defined( __TINYC__ ) || \
+#if defined( __POCC__ ) || defined( __MINGW32__ ) || \
     ( defined( _MSC_VER ) && _MSC_VER >= 1600 ) || \
     ( defined( __BORLANDC__ ) && __BORLANDC__ >= 0x0582 ) || \
     ( defined( __WATCOMC__ ) && __WATCOMC__ >= 1270 ) || \

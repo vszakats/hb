@@ -63,9 +63,7 @@
 #endif
 
 #if defined( HB_OS_WIN )
-#  if ! defined( __TINYC__ )
-#     include <wincrypt.h>
-#  endif
+#  include <wincrypt.h>
 #elif defined( HB_OS_DOS ) || defined( HB_OS_OS2 )
 #  include <sys/types.h>
 #else
@@ -170,7 +168,7 @@ static HB_ISIZ read_all( int fd, HB_U8 * buf, size_t count )
 }
 #endif /* HB_OS_UNIX */
 
-#if defined( HB_OS_WIN ) && ! defined( __TINYC__ )
+#if defined( HB_OS_WIN )
 
 #define TRY_SEED_MS_CRYPTOAPI
 static int arc4_seed_win( void )

@@ -103,15 +103,6 @@ static HB_CRITICAL_NEW( s_wvtMtx );
 #  define HB_GTWVT_LONG_PTR     LONG_PTR
 #endif
 
-#if defined( __TINYC__ )
-   #undef GetWindowLongPtr
-   #define GetWindowLongPtr     GetWindowLong
-   #undef SetWindowLongPtr
-   #define SetWindowLongPtr     SetWindowLong
-   #undef HB_GTWVT_LONG_PTR
-   #define HB_GTWVT_LONG_PTR    LONG
-#endif
-
 #ifndef WS_OVERLAPPEDWINDOW
    #define WS_OVERLAPPEDWINDOW  ( WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX )
 #endif
