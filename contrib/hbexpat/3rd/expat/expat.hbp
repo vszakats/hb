@@ -29,7 +29,7 @@ xmltok.c
 {bcc}-cflag=-w-8066
 
 # ORIGIN https://libexpat.github.io/
-# URL    https://downloads.sourceforge.net/project/expat/expat/2.2.4/expat-2.2.4.tar.bz2
+# URL    https://downloads.sourceforge.net/project/expat/expat/2.2.5/expat-2.2.5.tar.bz2
 #
 # MAP    COPYING
 # MAP    lib/xmlparse.c       xmlparse.c
