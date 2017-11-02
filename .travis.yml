@@ -120,7 +120,7 @@ before_install:
         [ "${CC}" = 'mingw-clang' ] && _clang='llvm'
         time travis_retry brew install --force-bottle p7zip mingw-w64 ${_clang} jq osslsigncode dos2unix gpg coreutils || true
         time travis_retry brew install --force-bottle --build-bottle wine || true
-        export DISPLAY=:1
+        export DISPLAY=:0
         time wineboot
         export MXE_DONT_INSTALL=gcc
       # travis_wait time ./package/mpkg_win_dl_mxe.sh \

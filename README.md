@@ -1093,8 +1093,8 @@ Press `<Alt+D>` in the app.
 * clang64  - LLVM/Clang x86-64 (5.0.0 and above)
 * mingw    - MinGW GNU C (4.4.0 and above, 6.x or newer recommended)
 * mingw64  - MinGW GNU C x86-64
-* msvc     - Microsoft Visual C++ (2010 and above)
-* msvc64   - Microsoft Visual C++ x86-64 (2010 and above)
+* msvc     - Microsoft Visual C++ (2013 and above)
+* msvc64   - Microsoft Visual C++ x86-64 (2013 and above)
 
 ### win (experimental)
 * clang-cl - LLVM/Clang-cl
