@@ -1,4 +1,4 @@
-Harbour Make \(hbmk2\) 3.4.0dev \(e8ace75ec7\) \(2017-08-23 10:58\)  
+Harbour Make \(hbmk2\) 3.4.0dev \(c390da90ad\) \(2017-10-10 16:11\)  
 Copyright &copy; 1999-present, Viktor Szakats  
 <https://github.com/vszakats/harbour-core/>  
 Traduzione \(it\): \(inserisci qui il tuo nome\)  
@@ -27,7 +27,7 @@ Opzioni:
  - **-hblib** creare la libreria statica
  - **-hbdyn** create dynamic library \(without linked Harbour VM\)
  - **-hbdynvm** create dynamic library \(with linked Harbour VM\)
- - **-strip\[-\]** strip \(or don't\) debugging \(and other extra\) information from target binary. They are included by default by certain C compilers, e.g.: gcc\*, clang, mingw\*, djgpp.
+ - **-strip\[-\]** strip \(or don't\) debugging \(and other extra\) information from target binary. They are included by default by certain C compilers, e.g.: gcc\*, clang\*, mingw\*, djgpp.
 
 
  - **-mt|-st** link with multi/single-thread Harbour VM
@@ -52,7 +52,7 @@ Opzioni:
  - **-beep\[-\]** attiva \(o disattiva\) un beep singolo in caso di successo in uscita, doppio beep in caso di errore
  - **-ignore\[-\]** ignore errors when running compiler tools \(default: off\)
  - **-hbcppmm\[-\]** override standard C\+\+ memory management functions with Harbour ones
- - **-winuni\[-\]** select between UNICODE \(WIDE\) and ANSI Windows API usage for C/C\+\+ input files \(default: ANSI\) \(Windows only. For WinCE it is always set to UNICODE\)
+ - **-winuni\[-\]** select between UNICODE \(WIDE\) and ANSI Windows API and C runtime usage for C/C\+\+ input files \(default: ANSI\) \(Windows only. For WinCE it is always set to UNICODE\)
  - **-nohblib\[-\]** do not use static core Harbour libraries when linking \(default in -hbdyn mode or when neither .prg nor object files are specified as input\)
  - **-nodefgt\[-\]** do not link default GTs \(effective in -static mode\)
  - **-nolibgrouping\[-\]** disable library grouping on gcc based compilers
@@ -296,7 +296,7 @@ Variabili macro:
  - **$\{hb\_dynsuffix\}** suffisso della libreria dinamica
  - **$\{hb\_dynext\}** estensione della libreria dinamica
  - **$\{hb\_ver\}** Harbour version in hexadecimal triple byte format. E.g.: 030400
- - **$\{hb\_verstr\}** Versione di Harbour in un formato leggibile dall'uomo &lt;maggiore&gt;.&lt;minore&gt;.&lt;rilascio&gt;.&lt;stato&gt;. Per esempio: 3.4.0dev
+ - **$\{hb\_verstr\}** Harbour version in human readable format &lt;major&gt;.&lt;minor&gt;.&lt;release&gt;&lt;status&gt;. E.g.: 3.4.0dev
  - **$\{hb\_major\}** numero primario di versione Harbour
  - **$\{hb\_minor\}** numero secondario di versione Harbour
  - **$\{hb\_release\}** numero di versione di rilascio di Harbour
@@ -339,14 +339,16 @@ Filtri \(è possibile combinarli e/o negarli\):
  - **\{lngc\}** modalità C forzata \(vedere l'opzione -cpp-\)
  - **\{winuni\}** Modalità Windows UNICODE \(WIDE\) \(vedere l'opzione -winuni\)
  - **\{winansi\}** Modalità ANSI Windows \(vedere l'opzione -winuni-\)
- - **\{unix\}** La piattaforma di destinazione è compatibile \*nix \(bsd, hpux, sunos, beos, qnx, android, vxworks, symbian, linux, darwin, cygwin, minix, aix\)
+ - **\{unix\}** La piattaforma di destinazione è compatibile \*nix \(bsd, hpux, sunos, beos, qnx, android, vxworks, linux, darwin, cygwin, minix, aix\)
  - **\{allwin\}** la piattaforma di destinazione è compatibile con Windows \(win, wce\)
- - **\{allgcc\}** target C compiler belongs to gcc family \(gcc, mingw, mingw64, mingwarm, djgpp, gccomf, clang, open64, pcc\)
+ - **\{allwinar\}** target platform is Windows using .a libraries \(mingw, mingw64, mingwarm, clang, clang64\)
+ - **\{allgcc\}** target C compiler belongs to gcc family \(gcc, mingw, mingw64, mingwarm, djgpp, gccomf, clang, clang64, open64, pcc\)
  - **\{allmingw\}** il compilatore C di destinazione è mingw\* \(mingw, mingw64, mingwarm\)
- - **\{allmsvc\}** il compilatore C di destinazione è msvc\* \(msvc, msvc64, msvcia64, msvcarm\)
+ - **\{allclang\}** target C compiler is clang\* \(clang, clang64\)
+ - **\{allmsvc\}** target C compiler is msvc\* \(msvc, msvc64, msvcia64, msvcarm, clang-cl, clang-cl64\)
  - **\{allbcc\}** il compilatore C di destinazione è bcc\* \(bcc, bcc64\)
  - **\{allpocc\}** il compilatore dell'eseguibile C è pocc\* \(pocc, pocc64, poccarm\)
- - **\{allicc\}** il compilatore dell'eseguibile C è icc\* \(icc, iccia64\)
+ - **\{allicc\}** target C compiler is icc\* \(icc, icc64, iccia64\)
  - **\{hb10\}** modalità di comaptibilità Harbour 1.0.x \(vedi l'opzione -hb10\)
  - **\{hb20\}** modalità di comaptibilità Harbour 2.0.x \(vedi l'opzione -hb20\)
  - **\{hb30\}** modalità di comaptibilità Harbour 3.0.x \(vedi l'opzione -hb30\)
@@ -398,7 +400,7 @@ Variabili d'ambiente:
  - **HB\_USER\_AFLAGS** opzioni da passare al linker \(libreria statica\) \(prima delle opzioni da linea di comando\)
  - **HB\_CCPATH** ignora la cartella del compilatore C \(solamente per la famiglia dei compilatori gcc\)
  - **HB\_CCPREFIX** ignora il prefisso del compilatore C \(solamente per la famiglia dei compilatori gcc\)
- - **HB\_CCSUFFIX** ignora il suffisso del compilatore C \(solamente per la famiglia dei compilatori gcc\)
+ - **HB\_CCSUFFIX** ignora il suffisso del compilatore C \(solamente per la famiglia dei compilatori gcc/clang\)
  - **HB\_INSTALL\_PREFIX** ignora la cartella base di installazione di Harbour
  - **HB\_INSTALL\_ADDONS** override Harbour base add-ons directory
 
@@ -697,7 +699,7 @@ Supported &lt;compiler&gt; values for each supported &lt;platform&gt; value:
 
  - **linux** gcc, clang, icc, watcom, sunpro, open64
  - **darwin** gcc, clang, icc
- - **win** mingw, msvc, clang, bcc, bcc64, watcom, icc, pocc, xcc, mingw64, msvc64, msvcia64, iccia64, pocc64
+ - **win** mingw, mingw64, clang, clang64, msvc, msvc64, clang-cl, clang-cl64, watcom, icc, icc64, iccia64, msvcia64, bcc, bcc64, pocc, pocc64, xcc
  - **wce** mingwarm, mingw, msvcarm, poccarm
  - **os2** gcc, gccomf, watcom
  - **dos** djgpp, watcom
@@ -707,7 +709,6 @@ Supported &lt;compiler&gt; values for each supported &lt;platform&gt; value:
  - **qnx** gcc
  - **android** gcc, gccarm
  - **vxworks** gcc, diab
- - **symbian** gcc
  - **cygwin** gcc
  - **minix** clang, gcc
  - **aix** gcc

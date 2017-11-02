@@ -1,4 +1,4 @@
-Harbour Make \(hbmk2\) 3.4.0dev \(e8ace75ec7\) \(2017-08-23 10:58\)  
+Harbour Make \(hbmk2\) 3.4.0dev \(c390da90ad\) \(2017-10-10 16:11\)  
 Copyright &copy; 1999-present, Viktor Szakats  
 <https://github.com/vszakats/harbour-core/>  
 Tradução \(pt\_BR\): Sami Laham &lt;sami@laham.com.br&gt; / Vailton Renato &lt;vailtom@gmail.com&gt;  
@@ -27,7 +27,7 @@ Opções:
  - **-hblib** criar biblioteca estática
  - **-hbdyn** criar biblioteca dinâmica \(não linkada com a Harbour VM\)
  - **-hbdynvm** criar biblioteca dinâmica \(ligada com a Harbour VM\)
- - **-strip\[-\]** strip \(or don't\) debugging \(and other extra\) information from target binary. They are included by default by certain C compilers, e.g.: gcc\*, clang, mingw\*, djgpp.
+ - **-strip\[-\]** strip \(or don't\) debugging \(and other extra\) information from target binary. They are included by default by certain C compilers, e.g.: gcc\*, clang\*, mingw\*, djgpp.
 
 
  - **-mt|-st** linkar com suporte multi ou single-thread na Harbour VM
@@ -52,7 +52,7 @@ Opções:
  - **-beep\[-\]** ativa \(ou desativa\) um beep simples em caso de sucesso ou um beep duplo em caso de erro
  - **-ignore\[-\]** ignore erros quando executar as ferramentas de compilação \(padrão: off\)
  - **-hbcppmm\[-\]** sobrepor o as funções padrão C\+\+ de gerenciamento de memoria pelas do Harbour
- - **-winuni\[-\]** seleciona entre UNICODE \(WIDE\) and ANSI no uso da API Windows para arquivos de entrada C/C\+\+ \(padrão: ANSI\) \(Somente Windows. Para WinCE ele é sempre colocado em UNICODE\)
+ - **-winuni\[-\]** select between UNICODE \(WIDE\) and ANSI Windows API and C runtime usage for C/C\+\+ input files \(default: ANSI\) \(Windows only. For WinCE it is always set to UNICODE\)
  - **-nohblib\[-\]** do not use static core Harbour libraries when linking \(default in -hbdyn mode or when neither .prg nor object files are specified as input\)
  - **-nodefgt\[-\]** Não link GTs padrão \(o modo -static é mais eficaz\)
  - **-nolibgrouping\[-\]** desativar agrupamento de LIBs em compiladores baseados no gcc.
@@ -299,8 +299,8 @@ Variáveis macro:
  - **$\{hb\_dynprefix\}** prefixo de biblioteca dinâmica
  - **$\{hb\_dynsuffix\}** sufixo de biblioteca dinâmica
  - **$\{hb\_dynext\}** extensão de biblioteca dinâmica
- - **$\{hb\_ver\}** Versão do Harbour no formato de tres bytes em hexadecimal. Exemplo: 030400
- - **$\{hb\_verstr\}** Versão do Harbour no formato legível por humanos &lt;maior&gt;.&lt;menor&gt;.&lt;release&gt;&lt;status&gt;. Ex.: 3.4.0dev
+ - **$\{hb\_ver\}** Harbour version in hexadecimal triple byte format. E.g.: 030400
+ - **$\{hb\_verstr\}** Harbour version in human readable format &lt;major&gt;.&lt;minor&gt;.&lt;release&gt;&lt;status&gt;. E.g.: 3.4.0dev
  - **$\{hb\_major\}** número da versão principal Harbour
  - **$\{hb\_minor\}** número da versão secundária Harbour
  - **$\{hb\_release\}** número da versão Harbour liberada
@@ -343,14 +343,16 @@ Filtros \(você pode combinar e/ou negá-los\):
  - **\{lngc\}** forçado modo C \(veja opção -cpp-\)
  - **\{winuni\}** Modo Windows UNICODE \(WIDE\) \(veja opção -winuni\)
  - **\{winansi\}** modo Windows ANSI \(veja opção -winuni-\)
- - **\{unix\}** plataforma alvo é compatível com \*nix \(bsd, hpux, sunos, beos, qnx, android, vxworks, symbian, linux, darwin, cygwin, minix, aix\)
+ - **\{unix\}** plataforma alvo é compatível com \*nix \(bsd, hpux, sunos, beos, qnx, android, vxworks, linux, darwin, cygwin, minix, aix\)
  - **\{allwin\}** plataforma alvo é compátivel com Windows \(win, wce\)
- - **\{allgcc\}** o compilador C alvo pertence a família gcc.\(gcc, mingw, mingw64, mingwarm, djgpp, gccomf, clang, open64, pcc\)
+ - **\{allwinar\}** target platform is Windows using .a libraries \(mingw, mingw64, mingwarm, clang, clang64\)
+ - **\{allgcc\}** o compilador C alvo pertence a família gcc.\(gcc, mingw, mingw64, mingwarm, djgpp, gccomf, clang, clang64, open64, pcc\)
  - **\{allmingw\}** compilador alvo C é mingw\* \(mingw, mingw64, mingwarm\)
- - **\{allmsvc\}** compilador C alvo é msvc\* \(msvc, msvc64, msvcia64, msvcarm\)
+ - **\{allclang\}** target C compiler is clang\* \(clang, clang64\)
+ - **\{allmsvc\}** target C compiler is msvc\* \(msvc, msvc64, msvcia64, msvcarm, clang-cl, clang-cl64\)
  - **\{allbcc\}** compilador C alvo é bcc\* \(bcc, bcc64\)
  - **\{allpocc\}** compilador alvo C é pocc\* \(pocc, pocc64, poccarm\)
- - **\{allicc\}** compilador alvo C é icc\* \(icc, iccia64\)
+ - **\{allicc\}** target C compiler is icc\* \(icc, icc64, iccia64\)
  - **\{hb10\}** habilita modo de compatibilidade 'Harbour 1.0.x' \(veja opção -hb10\)
  - **\{hb20\}** habilita modo de compatibilidade 'Harbour 2.0.x' \(veja opção -hb20\)
  - **\{hb30\}** habilita modo de compatibilidade 'Harbour 3.0.x' \(veja opção -hb30\)
@@ -402,7 +404,7 @@ Variáveis ​​de ambiente:
  - **HB\_USER\_AFLAGS** opções a serem passados ​​para o linkar \(biblioteca estática\) \(antes das opções da linha de comando\)
  - **HB\_CCPATH** sobrepor o diretório de execução do compilador C \(apenas para família de compilador gcc\)
  - **HB\_CCPREFIX** sobrepor o prefixo do executável do compilador C \(apenas para família de compilador gcc\)
- - **HB\_CCSUFFIX** sobrepor o sufixo executável do compilador C \(apenas para família de compilador gcc\)
+ - **HB\_CCSUFFIX** sobrepor o sufixo executável do compilador C \(apenas para família de compilador gcc/clang\)
  - **HB\_INSTALL\_PREFIX** sobrepor o diretório base de instalação Harbour
  - **HB\_INSTALL\_ADDONS** sobrepor o diretório base de instalação aducionais Harbour
 
@@ -683,7 +685,7 @@ Notas:
   - Os filtros são aceitos para cada uma das linhas de um arquivo .hbc e possuem diversas opções.  
 Filtros podem ser combinados usando os operadores '&amp;' \(e\), '|' \(ou\), negados pelo operador y '\!' e agrupados por parenteses. Ex.: \{win\}, \{gcc\}, \{linux|darwin\}, \{win&amp;\!pocc\}, \{\(win|linux\)&amp;\!watcom\}, \{unix&amp;mt&amp;gui\}, -cflag=\{win\}-DMYDEF, -stop\{dos\}, -stop\{\!allwin\}
   - A maioria das linhas de um arquivo .hbc \(libs =, HBCS =, prgflags =, cflags =, ldflags =, libpaths =, instfiles =, instpaths =, echo =\) e os parâmetros correspondentes de linha de comando aceitarão variáveis ​​macro. libpaths = também aceita%\{hb\_name\} que se transforama no nome do arquivo. hbc sob pesquisa.
-  - Também aceita opções de macros substituição de comando. Neste caso basta inserir o comando dentro de \`\`, e, se o comando contiver espaço, também adicione aspas duplas. Ex: "-cflag=\`wx-config --cflags\`", ou ldflags=\{unix&amp;gcc\}"\`wx-config --libs\`".
+  - Options accepting macro variables also support command substitution. Enclose command inside \`\`, and, if the command contains space, also enclose in double quotes. Standard output of the command will be used as the value. E.g. "-cflag=\`wx-config --cflags\`", or ldflags=\{unix&amp;gcc\}"\`wx-config --libs\`".
   - Quando vários tipos de opções de seleção \(-hblib, -hbdyn, etc.\) são especificados na compilação, o primeiro será o mais significativo o resto será ignorado silenciosamente.
   - Bibliotecas e arquivos de objetos construídos com/para CA-Cl\*pper não irá funcionar com qualquer plataforma /compilador suportada.
   - Padrões e especificações suportadas podem variar de acordo com plataforma/compilador.
@@ -701,7 +703,7 @@ Valores suportados para &lt;compiler&gt; conforme a &lt;platform&gt; disponível
 
  - **linux** gcc, clang, icc, watcom, sunpro, open64
  - **darwin** gcc, clang, icc
- - **win** mingw, msvc, clang, bcc, bcc64, watcom, icc, pocc, xcc, mingw64, msvc64, msvcia64, iccia64, pocc64
+ - **win** mingw, mingw64, clang, clang64, msvc, msvc64, clang-cl, clang-cl64, watcom, icc, icc64, iccia64, msvcia64, bcc, bcc64, pocc, pocc64, xcc
  - **wce** mingwarm, mingw, msvcarm, poccarm
  - **os2** gcc, gccomf, watcom
  - **dos** djgpp, watcom
@@ -711,7 +713,6 @@ Valores suportados para &lt;compiler&gt; conforme a &lt;platform&gt; disponível
  - **qnx** gcc
  - **android** gcc, gccarm
  - **vxworks** gcc, diab
- - **symbian** gcc
  - **cygwin** gcc
  - **minix** clang, gcc
  - **aix** gcc

@@ -2563,7 +2563,7 @@ msgstr ""
 
 #: utils/hbmk2/hbmk2.prg:17738
 #, c-format
-msgid "target platform is *nix compatible (bsd, hpux, sunos, beos, qnx, android, vxworks, symbian, linux, darwin, cygwin, minix, aix)"
+msgid "target platform is *nix compatible (bsd, hpux, sunos, beos, qnx, android, vxworks, linux, darwin, cygwin, minix, aix)"
 msgstr ""
 
 #: utils/hbmk2/hbmk2.prg:17738

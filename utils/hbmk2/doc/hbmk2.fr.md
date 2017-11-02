@@ -1,4 +1,4 @@
-Harbour Make \(hbmk2\) 3.4.0dev \(e8ace75ec7\) \(2017-08-23 10:58\)  
+Harbour Make \(hbmk2\) 3.4.0dev \(c390da90ad\) \(2017-10-10 16:11\)  
 Copyright &copy; 1999-present, Viktor Szakats  
 <https://github.com/vszakats/harbour-core/>  
 Traduction \(fr\): \(ajoutez votre nom ici\)  
@@ -27,7 +27,7 @@ Options:
  - **-hblib** create static library
  - **-hbdyn** create dynamic library \(without linked Harbour VM\)
  - **-hbdynvm** create dynamic library \(with linked Harbour VM\)
- - **-strip\[-\]** strip \(or don't\) debugging \(and other extra\) information from target binary. They are included by default by certain C compilers, e.g.: gcc\*, clang, mingw\*, djgpp.
+ - **-strip\[-\]** strip \(or don't\) debugging \(and other extra\) information from target binary. They are included by default by certain C compilers, e.g.: gcc\*, clang\*, mingw\*, djgpp.
 
 
  - **-mt|-st** link with multi/single-thread Harbour VM
@@ -52,7 +52,7 @@ Options:
  - **-beep\[-\]** enable \(or disable\) single beep on successful exit, double beep on failure
  - **-ignore\[-\]** ignore errors when running compiler tools \(default: off\)
  - **-hbcppmm\[-\]** override standard C\+\+ memory management functions with Harbour ones
- - **-winuni\[-\]** select between UNICODE \(WIDE\) and ANSI Windows API usage for C/C\+\+ input files \(default: ANSI\) \(Windows only. For WinCE it is always set to UNICODE\)
+ - **-winuni\[-\]** select between UNICODE \(WIDE\) and ANSI Windows API and C runtime usage for C/C\+\+ input files \(default: ANSI\) \(Windows only. For WinCE it is always set to UNICODE\)
  - **-nohblib\[-\]** do not use static core Harbour libraries when linking \(default in -hbdyn mode or when neither .prg nor object files are specified as input\)
  - **-nodefgt\[-\]** ne pas lier GT par défaut \(efficace en mode statique\)
  - **-nolibgrouping\[-\]** disable library grouping on gcc based compilers
@@ -340,14 +340,16 @@ Filters \(you can combine and/or negate them\):
  - **\{lngc\}** forced C mode \(see -cpp- option\)
  - **\{winuni\}** Windows UNICODE \(WIDE\) mode \(see -winuni option\)
  - **\{winansi\}** Windows ANSI mode \(see -winuni- option\)
- - **\{unix\}** target platform is \*nix compatible \(bsd, hpux, sunos, beos, qnx, android, vxworks, symbian, linux, darwin, cygwin, minix, aix\)
+ - **\{unix\}** target platform is \*nix compatible \(bsd, hpux, sunos, beos, qnx, android, vxworks, linux, darwin, cygwin, minix, aix\)
  - **\{allwin\}** target platform is Windows compatible \(win, wce\)
- - **\{allgcc\}** target C compiler belongs to gcc family \(gcc, mingw, mingw64, mingwarm, djgpp, gccomf, clang, open64, pcc\)
+ - **\{allwinar\}** target platform is Windows using .a libraries \(mingw, mingw64, mingwarm, clang, clang64\)
+ - **\{allgcc\}** target C compiler belongs to gcc family \(gcc, mingw, mingw64, mingwarm, djgpp, gccomf, clang, clang64, open64, pcc\)
  - **\{allmingw\}** target C compiler is mingw\* \(mingw, mingw64, mingwarm\)
- - **\{allmsvc\}** target C compiler is msvc\* \(msvc, msvc64, msvcia64, msvcarm\)
+ - **\{allclang\}** target C compiler is clang\* \(clang, clang64\)
+ - **\{allmsvc\}** target C compiler is msvc\* \(msvc, msvc64, msvcia64, msvcarm, clang-cl, clang-cl64\)
  - **\{allbcc\}** target C compiler is bcc\* \(bcc, bcc64\)
  - **\{allpocc\}** target C compiler is pocc\* \(pocc, pocc64, poccarm\)
- - **\{allicc\}** target C compiler is icc\* \(icc, iccia64\)
+ - **\{allicc\}** target C compiler is icc\* \(icc, icc64, iccia64\)
  - **\{hb10\}** Harbour 1.0.x compatibility mode \(see -hb10 option\)
  - **\{hb20\}** Harbour 2.0.x compatibility mode \(see -hb20 option\)
  - **\{hb30\}** Harbour 3.0.x compatibility mode \(see -hb30 option\)
@@ -397,9 +399,9 @@ Environment variables:
  - **HB\_USER\_LDFLAGS** options to be passed to linker \(executable\) \(before command-line options\)
  - **HB\_USER\_DFLAGS** options to be passed to linker \(dynamic library\) \(before command-line options\)
  - **HB\_USER\_AFLAGS** options to be passed to linker \(static library\) \(before command-line options\)
- - **HB\_CCPATH** override C compiler executable directory \(gcc compiler families only\)
- - **HB\_CCPREFIX** override C compiler executable prefix \(gcc compiler families only\)
- - **HB\_CCSUFFIX** override C compiler executable suffix \(gcc compiler families only\)
+ - **HB\_CCPATH** override C compiler executable directory \(gcc compiler family only\)
+ - **HB\_CCPREFIX** override C compiler executable prefix \(gcc compiler family only\)
+ - **HB\_CCSUFFIX** override C compiler executable suffix \(gcc/clang compiler families only\)
  - **HB\_INSTALL\_PREFIX** override Harbour base installation directory
  - **HB\_INSTALL\_ADDONS** override Harbour base add-ons directory
 
@@ -698,7 +700,7 @@ Supported &lt;compiler&gt; values for each supported &lt;platform&gt; value:
 
  - **linux** gcc, clang, icc, watcom, sunpro, open64
  - **darwin** gcc, clang, icc
- - **win** mingw, msvc, clang, bcc, bcc64, watcom, icc, pocc, xcc, mingw64, msvc64, msvcia64, iccia64, pocc64
+ - **win** mingw, mingw64, clang, clang64, msvc, msvc64, clang-cl, clang-cl64, watcom, icc, icc64, iccia64, msvcia64, bcc, bcc64, pocc, pocc64, xcc
  - **wce** mingwarm, mingw, msvcarm, poccarm
  - **os2** gcc, gccomf, watcom
  - **dos** djgpp, watcom
@@ -708,7 +710,6 @@ Supported &lt;compiler&gt; values for each supported &lt;platform&gt; value:
  - **qnx** gcc
  - **android** gcc, gccarm
  - **vxworks** gcc, diab
- - **symbian** gcc
  - **cygwin** gcc
  - **minix** clang, gcc
  - **aix** gcc
