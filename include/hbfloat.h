@@ -196,7 +196,7 @@
 #     define hb_isfinite( d )       _finite( ( double ) d )
 #  elif defined( __BORLANDC__ ) || defined( __WATCOMC__ )
 #     define hb_isfinite( d )       _finite( d )
-#  elif defined( __GNUC__ ) || defined( __DJGPP__ ) || defined( __LCC__ ) || \
+#  elif defined( __GNUC__ ) || defined( __DJGPP__ ) || \
       defined( HB_OS_SUNOS )
 #     define hb_isfinite( d )       finite( d )
 #  endif

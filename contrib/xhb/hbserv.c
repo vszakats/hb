@@ -77,10 +77,6 @@
 #include <signal.h>
 #endif
 
-#ifdef __LCC__
-#define EXCEPTION_ILLEGAL_INSTRUCTION  STATUS_ILLEGAL_INSTRUCTION
-#endif
-
 /* Global definition, valid for all systems */
 
 static void s_serviceSetHBSig( void );

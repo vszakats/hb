@@ -126,8 +126,7 @@
     defined( __DCC__ ) || defined( __TINYC__ ) || \
     ( defined( __DJGPP__ ) && \
       ( __DJGPP__ < 2 || ( __DJGPP__ == 2 && __DJGPP_MINOR__ <= 3 ) ) ) || \
-    ( defined( _MSC_VER ) && \
-      !( defined( __LCC__ ) || defined( __POCC__ ) ) )
+    ( defined( _MSC_VER ) && ! defined( __POCC__ ) )
    /* TODO: add other C compilers which does not support [u]intmax_t
     *       definitions (check C compiler version number).
     *       If compiler supports stdint.h then it should be added

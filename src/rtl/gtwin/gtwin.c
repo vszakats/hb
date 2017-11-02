@@ -85,9 +85,7 @@
 #  include "hbwince.h"
 #endif
 
-#if ! defined( __LCC__ )
-#  include <wincon.h>
-#endif
+#include <wincon.h>
 
 #if defined( _MSC_VER ) || defined( __WATCOMC__ )
 #  include <conio.h>

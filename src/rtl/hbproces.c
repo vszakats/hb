@@ -450,7 +450,7 @@ static int hb_fsProcessExec( const char * pszFileName,
          hb_fsSetIOError( HB_FALSE, 0 );
    }
 #else
-#  if defined( _MSC_VER ) || defined( __LCC__ ) || defined( __POCC__ )
+#  if defined( _MSC_VER ) || defined( __POCC__ )
       iResult = _spawnvp( _P_WAIT, argv[ 0 ], argv );
 #  elif defined( __MINGW32__ ) || defined( __WATCOMC__ )
       iResult = spawnvp( P_WAIT, argv[ 0 ], ( const char * const * ) argv );

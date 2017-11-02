@@ -618,8 +618,7 @@
 #if defined( __GNUC__ ) || defined( __SUNPRO_C )
    #define _HB_INLINE_  __inline__
 #elif defined( __BORLANDC__ ) || defined( _MSC_VER ) || \
-      defined( __WATCOMC__ ) || defined( __POCC__ ) || \
-      defined( __LCC__ )
+      defined( __WATCOMC__ ) || defined( __POCC__ )
    #define _HB_INLINE_  __inline
 #else /* __cplusplus */
    #define _HB_INLINE_  inline

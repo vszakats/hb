@@ -158,7 +158,7 @@ double hb_fsDiskSpace( const char * pszPath, HB_USHORT uiType )
          else
 #endif
          {
-#if defined( _MSC_VER ) || defined( __LCC__ ) || defined( __GNUC__ )
+#if defined( _MSC_VER ) || defined( __GNUC__ )
 #  define HB_GET_LARGE_UINT( v )  ( ( double ) (v).LowPart + \
                                     ( double ) (v).HighPart * \
                                     ( ( ( double ) 0xFFFFFFFF ) + 1 ) )

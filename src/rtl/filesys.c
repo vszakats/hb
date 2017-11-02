@@ -175,8 +175,7 @@
    #if defined( HB_OS_WIN_CE )
       #include "hbwince.h"
    #endif
-   #if ! defined( INVALID_SET_FILE_POINTER ) && \
-       ( defined( _MSC_VER ) || defined( __LCC__ ) )
+   #if ! defined( INVALID_SET_FILE_POINTER ) && defined( _MSC_VER )
       #define INVALID_SET_FILE_POINTER ( ( DWORD ) -1 )
    #endif
    #if ! defined( INVALID_FILE_ATTRIBUTES )

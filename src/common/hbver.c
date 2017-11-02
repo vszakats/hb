@@ -977,13 +977,6 @@ char * hb_verCompiler( void )
    iVerMinor = __POCC__ % 100;
    iVerPatch = 0;
 
-#elif defined( __LCC__ )
-
-   pszName = "Logiciels/Informatique lcc-win32";
-   iVerMajor = 0 /* __LCC__ / 100 */;
-   iVerMinor = 0 /* __LCC__ % 100 */;
-   iVerPatch = 0;
-
 #elif defined( __INTEL_COMPILER )
 
    pszName = "Intel(R) C";
