@@ -2379,11 +2379,10 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          { {|| iif( FindInPath( "dbgeng.lib", GetEnv( "LIB" ) ) != NIL .AND. ( tmp1 := FindInPath( "pocc.exe" ) ) != NIL, tmp1, NIL ) }, "pocc64"  }, ;
          { {|| FindInPath( "pocc.exe" ) }, "pocc"   }, ;
          { {|| FindInPath( "icl.exe"  ) }, "icc"    }, ;
-         { {|| FindInPath( "xCC.exe"  ) }, "xcc"    }, ;
-         { {|| FindInPath( "tcc.exe"  ) }, "tcc"    } }
+         { {|| FindInPath( "xCC.exe"  ) }, "xcc"    } }
 #endif
       aCOMPSUP := { ;
-         "mingw", "clang", "msvc", "clang-cl", "watcom", "icc", "bcc", "pocc", "xcc", "tcc", ;
+         "mingw", "clang", "msvc", "clang-cl", "watcom", "icc", "bcc", "pocc", "xcc", ;
          "mingw64", "clang64", "msvc64", "clang-cl64", "msvcia64", "icc64", "iccia64", "bcc64", "pocc64" }
 #ifdef HARBOUR_SUPPORT
       l_aLIBHBGT := { "gtwin", "gtwvt", "gtgui" }
@@ -5102,7 +5101,6 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
 
       CASE ( hbmk[ _HBMK_cPLAT ] == "win" .AND. hbmk[ _HBMK_cCOMP ] == "mingw" ) .OR. ;
            ( hbmk[ _HBMK_cPLAT ] == "win" .AND. hbmk[ _HBMK_cCOMP ] == "mingw64" ) .OR. ;
-           ( hbmk[ _HBMK_cPLAT ] == "win" .AND. hbmk[ _HBMK_cCOMP ] == "tcc" ) .OR. ;
            ( hbmk[ _HBMK_cPLAT ] == "wce" .AND. hbmk[ _HBMK_cCOMP ] == "mingw" ) .OR. ;
            ( hbmk[ _HBMK_cPLAT ] == "wce" .AND. hbmk[ _HBMK_cCOMP ] == "mingwarm" )
 
@@ -5121,13 +5119,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             cLibModePrefix :=       "-Wl,-Bstatic" + " "
             cLibModeSuffix := " " + "-Wl,-Bdynamic"
          ENDIF
-         IF hbmk[ _HBMK_cCOMP ] == "tcc"
-            cBin_CompCPP := "tcc.exe"
-            cBin_CompC := cBin_CompCPP
-         ELSE
-            cBin_CompCPP := hbmk[ _HBMK_cCCPREFIX ] + "g++" + hbmk[ _HBMK_cCCSUFFIX ] + hbmk[ _HBMK_cCCEXT ]
-            cBin_CompC := iif( hbmk[ _HBMK_lCPP ] != NIL .AND. hbmk[ _HBMK_lCPP ], cBin_CompCPP, hbmk[ _HBMK_cCCPREFIX ] + "gcc" + hbmk[ _HBMK_cCCSUFFIX ] + hbmk[ _HBMK_cCCEXT ] )
-         ENDIF
+         cBin_CompCPP := hbmk[ _HBMK_cCCPREFIX ] + "g++" + hbmk[ _HBMK_cCCSUFFIX ] + hbmk[ _HBMK_cCCEXT ]
+         cBin_CompC := iif( hbmk[ _HBMK_lCPP ] != NIL .AND. hbmk[ _HBMK_lCPP ], cBin_CompCPP, hbmk[ _HBMK_cCCPREFIX ] + "gcc" + hbmk[ _HBMK_cCCSUFFIX ] + hbmk[ _HBMK_cCCEXT ] )
          IF hbmk[ _HBMK_cCOMPVer ] == "0"
             hbmk[ _HBMK_cCOMPVer ] := CompVersionDetect( hbmk, cBin_CompC, .F. )
          ENDIF
@@ -5267,9 +5260,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          AAddNotEmpty( hbmk[ _HBMK_aOPTCPPX ], gcc_opt_lngcpp_fill( hbmk ) )
          cBin_Dyn := cBin_CompC
          cOpt_Dyn := "-shared -o {OD} {LO} {FD} {IM} {DL} {LS}"
-         IF ! hbmk[ _HBMK_cCOMP ] == "tcc"
-            cOpt_Dyn += "{SCRIPT_MINGW}"
-         ENDIF
+         cOpt_Dyn += "{SCRIPT_MINGW}"
          cBin_Link := cBin_CompC
          cOpt_Link := "{LO} {LA} {LS} {FL} {IM} {DL}"
          cLibPathPrefix := "-L"
@@ -5277,11 +5268,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          cLibLibExt := ".a"
          cImpLibExt := ".dll" + cLibLibExt
          bBlk_ImpLib := {| cSourceDLL, cTargetLib, cFlags | win_implib_command_gcc( hbmk, hbmk[ _HBMK_cCCPREFIX ] + "dlltool" + hbmk[ _HBMK_cCCSUFFIX ] + hbmk[ _HBMK_cCCEXT ] + " {FI} -d {ID} -l {OL}", @cSourceDLL, @cTargetLib, cFlags, cImpLibExt ) }
-         IF hbmk[ _HBMK_cCOMP ] == "tcc"
-            cBin_Lib := "tiny_libmaker.exe"
-         ELSE
-            cBin_Lib := hbmk[ _HBMK_cCCPREFIX ] + "ar" + hbmk[ _HBMK_cCCEXT ]
-         ENDIF
+         cBin_Lib := hbmk[ _HBMK_cCCPREFIX ] + "ar" + hbmk[ _HBMK_cCCEXT ]
 #if defined( __PLATFORM__WINDOWS )
          hbmk[ _HBMK_nCmd_Esc ] := _ESC_DBLQUOTE
 #endif
@@ -5295,32 +5282,16 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          ENDIF
          cBin_SymLst := hbmk[ _HBMK_cCCPREFIX ] + "nm" + hbmk[ _HBMK_cCCEXT ]
          cOpt_SymLst := "-g --defined-only -C {FN} {LI}"
-         IF hbmk[ _HBMK_cCOMP ] == "tcc"
-            DO CASE
-            CASE hbmk[ _HBMK_cPLAT ] == "wce"
-               AAdd( hbmk[ _HBMK_aOPTL ], "-Wl,-subsystem=wince" )
-            CASE hbmk[ _HBMK_lGUI ]
-               AAdd( hbmk[ _HBMK_aOPTL ], "-Wl,-subsystem=gui" )
+         IF ! hbmk[ _HBMK_cPLAT ] == "wce"
+            IF hbmk[ _HBMK_lGUI ]
+               AAdd( hbmk[ _HBMK_aOPTL ], "-mwindows" )
 #ifdef HARBOUR_SUPPORT
                IF ! l_lNOHBLIB
                   l_cCMAIN := "hb_forceLinkMainWin"
                ENDIF
 #endif
-            OTHERWISE
-               AAdd( hbmk[ _HBMK_aOPTL ], "-Wl,-subsystem=console" )
-            ENDCASE
-         ELSE
-            IF ! hbmk[ _HBMK_cPLAT ] == "wce"
-               IF hbmk[ _HBMK_lGUI ]
-                  AAdd( hbmk[ _HBMK_aOPTL ], "-mwindows" )
-#ifdef HARBOUR_SUPPORT
-                  IF ! l_lNOHBLIB
-                     l_cCMAIN := "hb_forceLinkMainWin"
-                  ENDIF
-#endif
-               ELSE
-                  AAdd( hbmk[ _HBMK_aOPTL ], "-mconsole" )
-               ENDIF
+            ELSE
+               AAdd( hbmk[ _HBMK_aOPTL ], "-mconsole" )
             ENDIF
          ENDIF
          IF hbmk[ _HBMK_lSTATICFULL ]
@@ -15255,7 +15226,7 @@ STATIC FUNCTION hbmk_CPU( hbmk )
 
    DO CASE
    CASE HBMK_ISPLAT( "dos|os2" ) .OR. ;
-        HBMK_ISCOMP( "mingw|clang|msvc|clang-cl|pocc|watcom|bcc|tcc|xcc" ) .OR. ;
+        HBMK_ISCOMP( "mingw|clang|msvc|clang-cl|pocc|watcom|bcc|xcc" ) .OR. ;
         ( hbmk[ _HBMK_cPLAT ] == "win" .AND. hbmk[ _HBMK_cCOMP ] == "icc" )
       RETURN "x86"
    CASE HBMK_ISCOMP( "mingw64|clang64|msvc64|clang-cl64|bcc64|pocc64" ) .OR. ;
@@ -15376,7 +15347,7 @@ FUNCTION hbmk_KEYW( hbmk, cFileName, cKeyword, cValue, cOperator )
       "|bsd|hpux|sunos|beos|qnx|android|vxworks|linux|darwin|cygwin|minix|aix" + ;
       "|msvc|msvc64|msvcia64|msvcarm" + ;
       "|clang-cl|clang-cl64" + ;
-      "|pocc|pocc64|poccarm|xcc|tcc" + ;
+      "|pocc|pocc64|poccarm|xcc" + ;
       "|mingw|mingw64|mingwarm|bcc|bcc64|watcom" + ;
       "|gcc|gccomf|djgpp" + ;
       "|hblib|hbdyn|hbdynvm|hbimplib|hbexe" + ;
