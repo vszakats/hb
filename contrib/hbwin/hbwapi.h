@@ -118,7 +118,7 @@
 #define hbwapi_arraySet_HANDLE( a, i, h )   hb_arraySetPtr( a, i, ( void * ) ( h ) )
 #define hbwapi_vmPush_HANDLE( h )           hb_vmPushPointer( ( void * ) ( h ) )
 
-#if ( defined( _MSC_VER ) && ( _MSC_VER <= 1200 || defined( HB_OS_WIN_CE ) ) ) && ! defined( HB_ARCH_64BIT )
+#if defined( _MSC_VER ) && ( _MSC_VER <= 1200 || defined( HB_OS_WIN_CE ) ) && ! defined( HB_ARCH_64BIT )
    #ifndef GetWindowLongPtr
    #define GetWindowLongPtr  GetWindowLong
    #endif

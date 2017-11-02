@@ -84,7 +84,7 @@ static HB_CRITICAL_NEW( s_wvtMtx );
 #define HB_WVT_LOCK()      hb_threadEnterCriticalSection( &s_wvtMtx )
 #define HB_WVT_UNLOCK()    hb_threadLeaveCriticalSection( &s_wvtMtx )
 
-#if ( defined( _MSC_VER ) && ( _MSC_VER <= 1200 || defined( HB_OS_WIN_CE ) ) ) && ! defined( HB_ARCH_64BIT )
+#if defined( _MSC_VER ) && ( _MSC_VER <= 1200 || defined( HB_OS_WIN_CE ) ) && ! defined( HB_ARCH_64BIT )
    #ifndef GetWindowLongPtr
    #define GetWindowLongPtr  GetWindowLong
    #endif
