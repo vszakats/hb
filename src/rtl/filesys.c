@@ -149,10 +149,6 @@
    #endif
 #endif
 
-#if defined( __MPW__ )
-   #include <fcntl.h>
-#endif
-
 #if defined( HB_OS_DOS )
    #include <dos.h>
    #include <time.h>

@@ -1131,13 +1131,6 @@ char * hb_verCompiler( void )
       iVerPatch = 0;
    #endif
 
-#elif defined( __MPW__ )
-
-   pszName = "MPW C";
-   iVerMajor = __MPW__ / 100;
-   iVerMinor = __MPW__ % 100;
-   iVerPatch = 0;
-
 #elif defined( __WATCOMC__ )
 
    #if __WATCOMC__ < 1200
