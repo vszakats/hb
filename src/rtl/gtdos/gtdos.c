@@ -102,9 +102,7 @@
 #endif
 
 /* For screen support */
-#if defined( __POWERC ) || ( ! defined( __BORLANDC__ ) ) || ( defined( __ZTC__ ) && ! defined( __SC__ ) )
-   #define FAR  far
-#elif defined( HB_OS_DOS ) && ! defined( __DJGPP__ ) && ! defined( __WATCOMC__ )
+#if defined( HB_OS_DOS ) && ! defined( __DJGPP__ ) && ! defined( __WATCOMC__ )
    #define FAR  _far
 #else
    #define FAR
@@ -893,7 +891,7 @@ static int hb_gt_dos_ReadKey( PHB_GT pGT, int iEventMask )
          if( iKey != -1 )
             iKey += 256;
       }
-#if ! ( defined( __WATCOMC__ ) || defined( __BORLANDC__ ) )
+#if ! defined( __WATCOMC__ )
       /* Watcom and Borland C use only 0x00 to indicate extended keycode
          and do not use 224 (0xE0) */
       else if( iKey == 224 && kbhit() )
@@ -960,7 +958,7 @@ static void hb_gt_dos_Tone( PHB_GT pGT, double dFrequency, double dDuration )
 
    dFrequency = HB_MIN( HB_MAX( 0.0, dFrequency ), 32767.0 );
 
-#if defined( __BORLANDC__ ) || defined( __WATCOMC__ )
+#if defined( __WATCOMC__ )
    sound( ( unsigned ) dFrequency );
 #elif defined( __DJGPP__ )
    sound( ( int ) dFrequency );
@@ -971,7 +969,7 @@ static void hb_gt_dos_Tone( PHB_GT pGT, double dFrequency, double dDuration )
    /* convert Clipper (DOS) timer tick units to seconds ( x / 18.2 ) */
    hb_idleSleep( dDuration / 18.2 );
 
-#if defined( __BORLANDC__ ) || defined( __WATCOMC__ )
+#if defined( __WATCOMC__ )
    nosound();
 #elif defined( __DJGPP__ )
    sound( 0 );

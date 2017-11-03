@@ -240,7 +240,7 @@
    #define HB_FS_GETDRIVE(n)  do { n = fs_win_get_drive(); } while( 0 )
    #define HB_FS_SETDRIVE(n)  fs_win_set_drive( n )
 
-#elif defined( __DJGPP__ ) || defined( __BORLANDC__ )
+#elif defined( __DJGPP__ )
    /* 0 based version */
 
    #define HB_FS_GETDRIVE(n)  do { n = getdisk(); } while( 0 )
@@ -1757,7 +1757,7 @@ HB_FHANDLE hb_fsOpenEx( const char * pszFileName, HB_USHORT uiFlags, HB_FATTR nA
 
 #if defined( HB_OS_DOS )
       if( attr != 0 && hFileHandle != ( HB_FHANDLE ) FS_ERROR )
-#     if defined( __DJGPP__ ) || defined( __BORLANDC__ )
+#     if defined( __DJGPP__ )
          _chmod( pszFileName, 1, attr );
 #     else
          _dos_setfileattr( pszFileName, attr );
@@ -2080,7 +2080,7 @@ HB_BOOL hb_fsGetAttr( const char * pszFileName, HB_FATTR * pnAttr )
 
 #  if defined( HB_OS_DOS )
       {
-#     if defined( __DJGPP__ ) || defined( __BORLANDC__ )
+#     if defined( __DJGPP__ )
          int attr = _chmod( pszFileName, 0, 0 );
          if( attr != -1 )
 #     else
@@ -2389,7 +2389,7 @@ HB_BOOL hb_fsSetAttr( const char * pszFileName, HB_FATTR nAttr )
 #  elif defined( HB_OS_DOS )
 
       nAttr &= ~( HB_FA_ARCHIVE | HB_FA_HIDDEN | HB_FA_READONLY | HB_FA_SYSTEM );
-#     if defined( __DJGPP__ ) || defined( __BORLANDC__ )
+#     if defined( __DJGPP__ )
       fResult = _chmod( pszFileName, 1, nAttr ) != -1;
 #     else
       fResult = _dos_setfileattr( pszFileName, nAttr ) != -1;

@@ -590,7 +590,7 @@ HB_BOOL hb_fsNameExists( const char * pszFileName )
 
       {
 #  if defined( HB_OS_DOS )
-#     if defined( __DJGPP__ ) || defined( __BORLANDC__ )
+#     if defined( __DJGPP__ )
          fExist = _chmod( pszFileName, 0, 0 ) != -1;
 #     else
          unsigned int iAttr = 0;
@@ -648,7 +648,7 @@ HB_BOOL hb_fsFileExists( const char * pszFileName )
 
       {
 #  if defined( HB_OS_DOS )
-#     if defined( __DJGPP__ ) || defined( __BORLANDC__ )
+#     if defined( __DJGPP__ )
          int iAttr = _chmod( pszFileName, 0, 0 );
          fExist = iAttr != -1 && ( iAttr & 0x10 ) == 0;
 #     else
@@ -709,7 +709,7 @@ HB_BOOL hb_fsDirExists( const char * pszDirName )
 
       {
 #  if defined( HB_OS_DOS )
-#     if defined( __DJGPP__ ) || defined( __BORLANDC__ )
+#     if defined( __DJGPP__ )
          int iAttr = _chmod( pszDirName, 0, 0 );
          fExist = iAttr != -1 && ( iAttr & 0x10 ) != 0;
 #     else
