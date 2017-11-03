@@ -40,10 +40,10 @@
 -depimplibs=openssl:../lib/libssl.dll.a:ssl{allwinar}
 -depfinish=openssl
 
--instfile=depimplibsrc:${HBMK_DIR_OPENSSL}/../libcrypto-1_1.dll{hbdyn&(mingw|clang)}
--instfile=depimplibsrc:${HBMK_DIR_OPENSSL}/../libssl-1_1.dll{hbdyn&(mingw|clang)}
--instfile=depimplibsrc:${HBMK_DIR_OPENSSL}/../libcrypto-1_1-x64.dll{hbdyn&(mingw64|clang64)}
--instfile=depimplibsrc:${HBMK_DIR_OPENSSL}/../libssl-1_1-x64.dll{hbdyn&(mingw64|clang64)}
+-instfile=depimplibsrc:${HBMK_DIR_OPENSSL}/../libcrypto-*.dll{hbdyn&(mingw|clang)}
+-instfile=depimplibsrc:${HBMK_DIR_OPENSSL}/../libssl-*.dll{hbdyn&(mingw|clang)}
+-instfile=depimplibsrc:${HBMK_DIR_OPENSSL}/../libcrypto-*-x64.dll{hbdyn&(mingw64|clang64)}
+-instfile=depimplibsrc:${HBMK_DIR_OPENSSL}/../libssl-*-x64.dll{hbdyn&(mingw64|clang64)}
 
 -iflag={bcc}-a
 

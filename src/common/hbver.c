@@ -1131,13 +1131,6 @@ char * hb_verCompiler( void )
       iVerPatch = 0;
    #endif
 
-#elif defined( __TURBOC__ )
-
-   pszName = "Borland Turbo C";
-   iVerMajor = __TURBOC__ >> 8;
-   iVerMinor = __TURBOC__ & 0xFF;
-   iVerPatch = 0;
-
 #elif defined( __MPW__ )
 
    pszName = "MPW C";
