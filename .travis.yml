@@ -121,8 +121,6 @@ before_install:
         time travis_retry brew update > /dev/null
         time travis_retry brew install --force-bottle p7zip mingw-w64 ${_clang} jq osslsigncode dos2unix gpg coreutils
         time travis_retry brew install --force-bottle --build-bottle wine
-        export DISPLAY=:0
-        time wineboot
         export MXE_DONT_INSTALL=gcc
       # travis_wait time ./package/mpkg_win_dl_mxe.sh \
       #   mxe-{i686,x86-64}-w64-mingw32.static-{bzip2,expat,libharu,libpng,lzo,minizip,mxml,pcre,sqlite,zlib}
