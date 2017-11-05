@@ -81,7 +81,7 @@ if [ "${os}" != 'win' ]; then
   [ "${CC4}" != 'msvc' ] || exit
 
   # Create native build for host OS
-  time make -j "${HB_CI_THREADS}" __HB_BUILD_DYN=no HB_BUILD_CONTRIBS=hbdoc
+  time make -j "${HB_CI_THREADS}" HB_BUILD_CONTRIBS=hbdoc
 fi
 
 "$(dirname "$0")/mpkg_win_dl.sh" || exit

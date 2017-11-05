@@ -118,9 +118,12 @@ before_install:
       if [ "${CC}" = 'mingw-gcc' ] || \
          [ "${CC}" = 'mingw-clang' ]; then
         [ "${CC}" = 'mingw-clang' ] && _clang='llvm'
+        export HOMEBREW_NO_AUTO_UPDATE=1
         time travis_retry brew update > /dev/null
-        time travis_retry brew install --force-bottle p7zip mingw-w64 ${_clang} jq osslsigncode dos2unix gpg coreutils
+        time travis_retry brew upgrade
+        time travis_retry brew install --force-bottle p7zip mingw-w64 ${_clang} jq osslsigncode dos2unix gpg
         time travis_retry brew install --force-bottle --build-bottle wine
+        wineboot --init
         export MXE_DONT_INSTALL=gcc
       # travis_wait time ./package/mpkg_win_dl_mxe.sh \
       #   mxe-{i686,x86-64}-w64-mingw32.static-{bzip2,expat,libharu,libpng,lzo,minizip,mxml,pcre,sqlite,zlib}
