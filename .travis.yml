@@ -115,12 +115,11 @@ before_install:
         "${DOCKER_IMAGE}" \
         sh -c "${DOCKER_SCRIPT}"
     elif [ "${TRAVIS_OS_NAME}" = 'osx' ]; then
+      export HOMEBREW_NO_AUTO_UPDATE=1
+      time travis_retry brew update > /dev/null
       if [ "${CC}" = 'mingw-gcc' ] || \
          [ "${CC}" = 'mingw-clang' ]; then
         [ "${CC}" = 'mingw-clang' ] && _clang='llvm'
-        export HOMEBREW_NO_AUTO_UPDATE=1
-        time travis_retry brew update > /dev/null
-        time travis_retry brew upgrade
         time travis_retry brew install --force-bottle p7zip mingw-w64 ${_clang} jq osslsigncode dos2unix gpg
         time travis_retry brew install --force-bottle --build-bottle wine
         wineboot --init
