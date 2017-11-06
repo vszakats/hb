@@ -100,6 +100,12 @@ HB_FUNC( CURL_VERSION_INFO )
 #else
       hb_arraySetC(  pArray, HB_CURLVERINFO_LIBSSH_VERSION, NULL );
 #endif
+#if defined( CURLVERSION_FIFTH )
+      hb_arraySetNI( pArray, HB_CURLVERINFO_BROTLI_VER_NUM, data->age >= CURLVERSION_FIFTH ? data->brotli_ver_num : 0 );
+      hb_arraySetC(  pArray, HB_CURLVERINFO_BROTLI_VERSION, data->age >= CURLVERSION_FIFTH ? data->brotli_version : NULL );
+#else
+      hb_arraySetNI( pArray, HB_CURLVERINFO_BROTLI_VER_NUM, 0 );
+#endif
       {
          PHB_ITEM pProtocols;
          int      nCount = 0;

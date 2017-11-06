@@ -647,7 +647,9 @@
 #define HB_CURLVERINFO_LIBIDN                 11
 #define HB_CURLVERINFO_ICONV_VER_NUM          12
 #define HB_CURLVERINFO_LIBSSH_VERSION         13
-#define HB_CURLVERINFO_LEN                    13
+#define HB_CURLVERINFO_BROTLI_VER_NUM         14
+#define HB_CURLVERINFO_BROTLI_VERSION         15
+#define HB_CURLVERINFO_LEN                    15
 
 /* HB_CURLVERINFO_FEATURES bit positions. */
 #define HB_CURL_VERSION_IPV6                  hb_bitShift( 1, 0 )   /* IPv6-enabled */
@@ -673,6 +675,7 @@
 #define HB_CURL_VERSION_PSL                   hb_bitShift( 1, 20 )  /* Mozilla's Public Suffix List, used for cookie domain verification */
 #define HB_CURL_VERSION_HTTPS_PROXY           hb_bitShift( 1, 21 )  /* HTTPS-proxy support built-in */
 #define HB_CURL_VERSION_MULTI_SSL             hb_bitShift( 1, 22 )  /* Multiple SSL backends available */
+#define HB_CURL_VERSION_BROTLI                hb_bitShift( 1, 23 )  /* Brotli features are present */
 
 /* HB_CURLOPT_HTTPPOST_FORM type. */
 #define HB_CURLOPT_HTTPPOST_FORM_CONTENT      1
