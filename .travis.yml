@@ -119,8 +119,8 @@ before_install:
       time travis_retry brew update > /dev/null
       if [ "${CC}" = 'mingw-gcc' ] || \
          [ "${CC}" = 'mingw-clang' ]; then
-        [ "${CC}" = 'mingw-clang' ] && _clang='llvm'
-        time travis_retry brew install --force-bottle p7zip mingw-w64 ${_clang} jq osslsigncode dos2unix gpg
+        [ "${CC}" = 'mingw-clang' ] && _optpkg='llvm'
+        time travis_retry brew install --force-bottle p7zip mingw-w64 ${_optpkg} jq osslsigncode dos2unix gpg
         time travis_retry brew install --force-bottle --build-bottle wine
         time wineboot --init
         export MXE_DONT_INSTALL=gcc
