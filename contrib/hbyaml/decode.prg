@@ -56,6 +56,7 @@ FUNCTION hb_yaml_decode( cFile, /* @ */ meta )
 
    LOCAL parser, token, root, parents, anchors, tags
    LOCAL key, val, node, exp, level, type, tmp
+   LOCAL anchor_stack := {}
 
    meta := { => }
 
@@ -94,6 +95,10 @@ FUNCTION hb_yaml_decode( cFile, /* @ */ meta )
             CASE YAML_VALUE_TOKEN
             CASE YAML_FLOW_ENTRY_TOKEN
             CASE YAML_BLOCK_ENTRY_TOKEN
+               IF Len( anchor_stack ) > 0 .AND. ATail( anchor_stack )[ 2 ] == level
+                  anchors[ ATail( anchor_stack )[ 1 ] ] := token[ "scalar" ]
+                  ASize( anchor_stack, Len( anchor_stack ) - 1 )
+               ENDIF
                s_add( token, meta, val, key, exp, token[ "scalar" ] )
                EXIT
             ENDSWITCH
@@ -107,16 +112,20 @@ FUNCTION hb_yaml_decode( cFile, /* @ */ meta )
 
          CASE YAML_ALIAS_TOKEN
             IF token[ "value" ] $ anchors
-               node := hb_HValueAt( anchors[ token[ "value" ] ], 1 )
+               node := anchors[ token[ "value" ] ]
                DO CASE
-               CASE HB_ISARRAY( node )
-                  FOR EACH tmp IN node
-                     s_add( token, meta, val, key, exp, tmp )
-                  NEXT
                CASE HB_ISHASH( node )
-                  FOR EACH tmp IN node
-                     s_add( token, meta, val, tmp:__enumKey(), exp, tmp )
-                  NEXT
+                  node := hb_HValueAt( node, 1 )
+                  DO CASE
+                  CASE HB_ISHASH( node )
+                     s_add( token, meta, val, val, exp, node )
+                  CASE HB_ISARRAY( node )
+                     FOR EACH tmp IN node
+                        s_add( token, meta, val, val, exp, tmp )
+                     NEXT
+                  ENDCASE
+               CASE HB_ISSTRING( node )
+                  s_add( token, meta, val, key, exp, node )
                ENDCASE
             ENDIF
             EXIT
@@ -139,6 +148,10 @@ FUNCTION hb_yaml_decode( cFile, /* @ */ meta )
          CASE YAML_FLOW_MAPPING_END_TOKEN
          CASE YAML_BLOCK_END_TOKEN
             node := val
+            IF Len( anchor_stack ) > 0 .AND. ATail( anchor_stack )[ 2 ] == level
+               anchors[ ATail( anchor_stack )[ 1 ] ] := hb_HClone( val )
+               ASize( anchor_stack, Len( anchor_stack ) - 1 )
+            ENDIF
             key := ATail( parents )[ 1 ]
             val := ATail( parents )[ 2 ]
             exp := ATail( parents )[ 3 ]
@@ -148,7 +161,7 @@ FUNCTION hb_yaml_decode( cFile, /* @ */ meta )
             EXIT
 
          CASE YAML_ANCHOR_TOKEN
-            anchors[ token[ "value" ] ] := val
+            AAdd( anchor_stack, { token[ "value" ], level } )
             EXIT
 
          CASE YAML_TAG_DIRECTIVE_TOKEN
