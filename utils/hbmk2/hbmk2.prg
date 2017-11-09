@@ -8642,7 +8642,8 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             ENDIF
          ENDIF
 
-         IF hbmk[ _HBMK_nCOMPR ] != _COMPR_OFF .AND. ! hbmk[ _HBMK_lCreateLib ]
+         IF hbmk[ _HBMK_nCOMPR ] != _COMPR_OFF .AND. ! hbmk[ _HBMK_lCreateLib ] .AND. ;
+            hbmk[ _HBMK_cPROGNAME ] != NIL .AND. ! hbmk[ _HBMK_cPROGNAME ] == ""
 
             /* Setup compressor for host platform */
 
