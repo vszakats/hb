@@ -816,7 +816,7 @@ ifeq ($(HB_COMPILER_VER),)
       ifeq ($(HB_COMP_PATH_VER_DET),)
          HB_COMP_PATH_VER_DET := clang$(HB_CCSUFFIX)
       endif
-      _C_VER := $(shell "$(HB_COMP_PATH_VER_DET)" -v 2>&1)
+      _C_VER := $(shell $(QUOTE)$(HB_COMP_PATH_VER_DET)$(QUOTE) -v 2>&1)
       _C_VER_BAK := $(_C_VER)
 
       ifneq ($(findstring Apple LLVM,$(_C_VER)),)
@@ -872,13 +872,13 @@ ifeq ($(HB_COMPILER_VER),)
       ifeq ($(HB_COMP_PATH_VER_DET),)
          HB_COMP_PATH_VER_DET := $(HB_CCPREFIX)gcc$(HB_CCSUFFIX)
       endif
-      _C_VER := $(shell "$(HB_COMP_PATH_VER_DET)" -dumpversion 2>&1)
+      _C_VER := $(shell $(QUOTE)$(HB_COMP_PATH_VER_DET)$(QUOTE) -dumpversion 2>&1)
       _C_VER_BAK := $(_C_VER)
 
       # Try new option if the returned version is 1 or 2 character long
       # (possibly a major version number only)
       ifneq ($(filter $(call strlen,$(_C_VER)),1 2),)
-         _C_VER := $(shell "$(HB_COMP_PATH_VER_DET)" -dumpfullversion 2>&1)
+         _C_VER := $(shell $(QUOTE)$(HB_COMP_PATH_VER_DET)$(QUOTE) -dumpfullversion 2>&1)
          _C_VER_BAK := $(_C_VER)
       endif
 
@@ -905,7 +905,7 @@ ifeq ($(HB_COMPILER_VER),)
       ifeq ($(HB_COMP_PATH),)
          HB_COMP_PATH := cl.exe
       endif
-      _C_VER := $(shell "$(HB_COMP_PATH)" 2>&1)
+      _C_VER := $(shell $(QUOTE)$(HB_COMP_PATH)$(QUOTE) 2>&1)
       _C_VER_BAK := $(_C_VER)
 
       ifeq ($(wordlist 7,7,$(_C_VER)),Version)  # 'Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.30729.01 for 80x86'
@@ -923,7 +923,7 @@ ifeq ($(HB_COMPILER_VER),)
 
    else ifneq ($(filter $(HB_COMPILER),pocc pocc64 poccarm),)
 
-      _C_VER := $(shell "$(HB_COMP_PATH_VER_DET)" 2>&1)
+      _C_VER := $(shell $(QUOTE)$(HB_COMP_PATH_VER_DET)$(QUOTE) 2>&1)
       _C_VER_BAK := $(_C_VER)
 
       # 'Pelles ISO C Compiler, Version 8.00.28'

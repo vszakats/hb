@@ -10,9 +10,9 @@ else
 ifeq ($(HB_SHELL),sh)
    DIR_RULE = \
       @for d in $(DIRS); do \
-         if [ -d "$$d" ]; then \
-            $(MK) $(MKFLAGS) -C $$d $@; \
-         fi \
+        if [ -d "$$d" ]; then \
+          $(MK) $(MKFLAGS) -C "$$d" $@; \
+        fi \
       done
 endif
 

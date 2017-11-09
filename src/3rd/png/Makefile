@@ -52,7 +52,7 @@ ifeq ($(filter $(HB_COMPILER),poccarm xcc tcc),)
 
       ifneq ($(HB_HAS_ZLIB),)
 
-         HB_CFLAGS += $(foreach d,$(HB_HAS_ZLIB),-I$(d))
+         HB_CFLAGS += $(QUOTE)-I$(HB_HAS_ZLIB)$(QUOTE)
          HB_CFLAGS_DYN := -DPNG_BUILD_DLL
 
          # requirement for wce and for win/msvc with -sdl option

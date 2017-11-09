@@ -15,7 +15,7 @@ C_SOURCES := \
 
 ifneq ($(HB_HAS_SLANG),)
 
-   HB_CFLAGS += $(foreach d,$(HB_HAS_SLANG),-I$(d))
+   HB_CFLAGS += $(QUOTE)-I$(HB_HAS_SLANG)$(QUOTE)
 
    ifneq ($(HB_HAS_GPM),)
       HB_CFLAGS += -DHB_HAS_GPM

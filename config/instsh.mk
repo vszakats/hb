@@ -35,15 +35,15 @@ endif
 ifeq ($(HB_SHELL),sh)
 
    INSTALL_RULE := \
-      @$(MDP) $(INSTALL_DIR_OS); \
-      if [ ! -d "$(INSTALL_DIR_OS)" ]; then \
+      @$(MDP) '$(INSTALL_DIR_OS)'; \
+      if [ ! -d '$(INSTALL_DIR_OS)' ]; then \
         $(ECHO) "! Cannot install, path not found: '$(INSTALL_DIR_OS)'" 1>&2; \
         $(FALSE); \
       else \
         for i in $(INSTALL_FILES); do \
           if [ -r "$$i" ]; then \
             $(ECHO) "! Installing $$i on $(INSTALL_DIR_OS)"; \
-            $(CP) $$i $(INSTALL_DIR_OS); \
+            $(CP) "$$i" '$(INSTALL_DIR_OS)'; \
             true; \
           else \
             $(ECHO) "! Cannot install $$i, not found" 1>&2; \

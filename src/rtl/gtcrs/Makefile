@@ -9,7 +9,7 @@ C_SOURCES := \
 
 ifneq ($(HB_HAS_CURSES),)
 
-   HB_CFLAGS += $(foreach d,$(HB_HAS_CURSES),-I$(d))
+   HB_CFLAGS += $(QUOTE)-I$(HB_HAS_CURSES)$(QUOTE)
 
    ifneq ($(HB_HAS_GPM),)
       HB_CFLAGS += -DHB_HAS_GPM

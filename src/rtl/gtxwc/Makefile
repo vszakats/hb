@@ -9,7 +9,7 @@ C_SOURCES := \
 
 ifneq ($(HB_HAS_X11),)
 
-   HB_CFLAGS += $(foreach d,$(HB_HAS_X11),-I$(d))
+   HB_CFLAGS += $(QUOTE)-I$(HB_HAS_X11)$(QUOTE)
 
    ifeq ($(HB_PLATFORM),darwin)
       HB_CFLAGS += -DX_HAVE_UTF8_STRING
