@@ -52,7 +52,7 @@ a supported C compiler. This implements a semi-OOP model and is a ready to use
 Harbour distribution that includes all needed components for your work.
 <span class="readmore-md">[Learn more](https://sourceforge.net/projects/harbourminigui/)</span>
 
-MiniGUI [fork](http://www.hmgextended.com/) with extended features.
+HMG Extended: MiniGUI fork with extended features.
 
 ## [ooHG](https://sourceforge.net/projects/oohg/)
 

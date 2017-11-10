@@ -29,7 +29,7 @@ This fork accepts
 This fork is largely compatible with mainline, with the notable exception
 for deprecated parts, which are disabled by default.
 
-## [xHarbour](http://xharbour.org/)
+## xHarbour
 
 Forked in 2001 with the goal of providing a more aggressive development path
 with a different approach to language extensions and compatibility and more
