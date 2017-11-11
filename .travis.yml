@@ -136,7 +136,8 @@ before_install:
         time travis_retry brew install --force-bottle --build-bottle fontconfig || true
         time travis_retry brew install --force-bottle \
           bzip2 expat libharu libmxml libpng lzo minizip pcre2 sqlite \
-          cairo curl freeimage gd ghostscript icu4c libmagic libyaml mariadb ncurses openssl@1.1 postgresql qt rabbitmq-c s-lang unixodbc
+          cairo curl freeimage gd ghostscript icu4c libmagic libyaml \
+          mariadb ncurses openssl@1.1 postgresql qt rabbitmq-c s-lang unixodbc
       fi
       export MACOSX_DEPLOYMENT_TARGET=10.11
     fi
@@ -149,9 +150,12 @@ script:
         ./package/mpkg_win_ci.sh
       else
         ls -lA "$(dirname "$(which "${CC}${HB_CCSUFFIX}")")/${CC}"*
-        [ "${CC#*clang*}" != "${CC}" ] && ls -lA "$(dirname "$(which "${CC}${HB_CCSUFFIX}")")/llvm"*
+        [ "${CC#*clang*}" != "${CC}" ] && \
+          ls -lA "$(dirname "$(which "${CC}${HB_CCSUFFIX}")")/llvm"*
         "${CC}${HB_CCSUFFIX}" -v
-        [ "${CC}" = 'gcc' ] && "${CC}${HB_CCSUFFIX}" -dumpversion && "${CC}${HB_CCSUFFIX}" -dumpfullversion
+        [ "${CC}" = 'gcc' ] && \
+          "${CC}${HB_CCSUFFIX}" -dumpversion && \
+          "${CC}${HB_CCSUFFIX}" -dumpfullversion
         HB_COMPILER="${CC}" time make -j "${HB_CI_THREADS}"
       fi
     fi
