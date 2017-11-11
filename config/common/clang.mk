@@ -101,6 +101,8 @@ LIBPATHS := $(foreach dir,$(LIB_DIR) $(SYSLIBPATHS),-L$(dir))
 LDLIBS := $(foreach lib,$(HB_USER_LIBS) $(LIBS) $(SYSLIBS),-l$(lib))
 LDFLAGS += $(LIBPATHS)
 
+DY := $(CC)
+
 ifeq ($(HB_PLATFORM),darwin)
    DLIBS := $(foreach lib,$(HB_USER_LIBS) $(SYSLIBS),-l$(lib))
    DFLAGS += $(LIBPATHS)
@@ -109,7 +111,6 @@ else
       $(LIB_DIR)/$@ $(^F) $(ARSTRIP) ) \
       || ( $(RM) $(LIB_DIR)/$@ && $(FALSE) )
 
-   DY := $(CC)
    DFLAGS += -shared $(LIBPATHS)
    DY_OUT := -o$(subst x,x, )
 

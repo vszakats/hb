@@ -4804,11 +4804,10 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          ENDIF
          AAddNotEmpty( hbmk[ _HBMK_aOPTCX ], gcc_opt_lngc_fill( hbmk ) )
          AAddNotEmpty( hbmk[ _HBMK_aOPTCPPX ], gcc_opt_lngcpp_fill( hbmk ) )
+         cBin_Dyn := cBin_CompC
          IF hbmk[ _HBMK_cPLAT ] == "darwin"
-            cBin_Dyn := cBin_Lib
-            cOpt_Dyn := "-dynamic -o {OD} -flat_namespace -undefined dynamic_lookup {FD} {DL} {LO} {LS}"
+            cOpt_Dyn := "-dynamiclib -o {OD} -flat_namespace -undefined dynamic_lookup {FD} {DL} {LO} {LS}"
          ELSE
-            cBin_Dyn := cBin_CompC
             cOpt_Dyn := "-shared -o {OD} {LO} {FD} {DL} {LS}"
          ENDIF
          cBin_Link := cBin_CompC
@@ -4847,7 +4846,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             /* Leave space for later modifying .dylib paths using `install_name_tool`.
                '400' is a hexadecimal value. */
             AAdd( hbmk[ _HBMK_aOPTL ], "-Wl,-headerpad,400" )
-            AAdd( hbmk[ _HBMK_aOPTD ], "-headerpad 400" )
+            AAdd( hbmk[ _HBMK_aOPTD ], "-Wl,-headerpad,400" )
          ENDIF
          IF hbmk[ _HBMK_lMAP ]
             IF hbmk[ _HBMK_cPLAT ] == "darwin"
