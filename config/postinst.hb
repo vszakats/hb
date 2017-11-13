@@ -209,10 +209,10 @@ PROCEDURE Main( ... )
          CASE GetEnvC( "HB_INSTALL_DYN" ) == "/usr/local/harbour/lib"
             /* FIXME: Rewrite this in .prg:
                ld='/usr/lib'
-               if [ -n "${HB_INST_PKGPREF}" ] || [ -w "$ld" ]; then
-                 mkdir -p "${HB_INST_PKGPREF}$ld"
-                 ln -sf "../local/harbour/lib/$l" "${HB_INST_PKGPREF}$ld/$ll"
-                 ln -sf "../local/harbour/lib/$l" "${HB_INST_PKGPREF}$ld/$l"
+               if [ -n "${HB_INST_PKGPREF}" ] || [ -w "${ld}" ]; then
+                 mkdir -p "${HB_INST_PKGPREF}${ld}"
+                 ln -sf "../local/harbour/lib/${l}" "${HB_INST_PKGPREF}${ld}/${ll}"
+                 ln -sf "../local/harbour/lib/${l}" "${HB_INST_PKGPREF}${ld}/${l}"
                fi
             */
          ENDCASE
@@ -467,17 +467,17 @@ STATIC FUNCTION sfx_tgz_sh()
 #pragma __cstream | RETURN %s
 #!/bin/sh
 if [ "$1" = '--extract' ]; then
-   tail -c %1$d "$0" > "%2$s"
-   exit
+  tail -c %1$d "$0" > '%2$s'
+  exit
 fi
 if [ "$(id -u)" != 0 ]; then
-   echo 'This package has to be installed from root account.'
-   exit 1
+  echo 'This package has to be installed from root account.'
+  exit 1
 fi
 echo 'Do you want to install Harbour (y/n)'
 read ASK
 if [ "${ASK}" != 'y' ] && [ "${ASK}" != 'Y' ]; then
-   exit 1
+  exit 1
 fi
 ( tail -c %1$d "$0" | gzip -cd | ( cd /; tar xvpf - ) )%3$s
 exit $?
