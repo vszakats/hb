@@ -117,7 +117,7 @@ For all platforms you will need:
 
 * Supported ANSI C89 compiler
 * GNU Make (3.81 or upper)
-* Harbour sources (in a path that doesn't contain spaces)
+* Harbour sources
 
 ## on Windows hosts
 
@@ -377,7 +377,6 @@ file and find occasional link notes inside their `.hbc` files.
 > NOTES:
 >
 >    * you need to use path format native to your shell/OS
->    * spaces in directory names aren't currently supported
 >    * don't put directory names inside double quotes
 >    * use absolute paths
 
@@ -682,7 +681,6 @@ for a cross-build process to succeed.
 >
 > - All code below should be copied to batch files or typed at command-line.
 > - Naturally, you will need to adapt path names to valid ones on your system.
->   Don't use spaces in dirs.
 > - You can use additional `clean`, `install` or `clean install` make
 >   parameters depending on what you want to do.
 > - To redirect all output to a log file, append this after the make command:
