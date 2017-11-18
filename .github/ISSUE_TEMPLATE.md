@@ -37,4 +37,4 @@ to address any problem found. This is in particular welcome or even expected
 for issues falling outside the focus of this fork, e.g. any C compiler except
 mingw/gcc/clang or regarding certain, non-priority or deprecated components
 (e.g. Windows CE, older MSVC versions, `hbtip`, `rddads`, `gtwvg`/`gtwvw`,
-`xhb`) and feature requests in general.
+`xhb`, legacy operating systems) and feature requests in general.
