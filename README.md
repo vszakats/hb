@@ -1428,7 +1428,7 @@ Supported shells per host platforms:
    tools *tested most*, *focused on*, *used and deployed* by the
    maintainer/developer of this fork. While this is strongly believed to result
    in the best Harbour experience for most situations, it's ultimately
-   a subjective decision. If you don't like it, use what fits you best.
+   a subjective decision. If you don't like it, use what fits your case best.
 
 ---
 This document Copyright &copy;&nbsp;2009&ndash;present [Viktor Szakats](https://vszakats.net/harbour)<br>
