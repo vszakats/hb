@@ -57,9 +57,9 @@
 
 /* Method or Data attribute (nScope)*/
 #define HB_OO_CLSTP_EXPORTED        1 /* No comment, default */
-#define HB_OO_CLSTP_PROTECTED       2 /* Only usable from one of the object's method (even sublclassed object) */
-#define HB_OO_CLSTP_HIDDEN          4 /* Only usable from one of the object's method (and not from sublclassed one) */
-#define HB_OO_CLSTP_CTOR            8 /* Constructor  (Not yet used) */
+#define HB_OO_CLSTP_PROTECTED       2 /* Only usable from one of the object's method (even subclassed object) */
+#define HB_OO_CLSTP_HIDDEN          4 /* Only usable from one of the object's method (and not from subclassed one) */
+#define HB_OO_CLSTP_CTOR            8 /* Constructor (not yet used) */
 #define HB_OO_CLSTP_READONLY       16 /* No comment */
 #define HB_OO_CLSTP_SHARED         32 /* Allow a classvar (or classmethod) to be shared by all the subclasses.
                                          Not the default behaviour as each subclass will have its own copy by default. */
