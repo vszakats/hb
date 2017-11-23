@@ -61,7 +61,7 @@
    https://qrcode.osdn.jp/
    https://zxing.org/w/decode.jspx                         Online decoder
    http://blog.qr4.nl/Online-QR-Code_Decoder.aspx          Online decoder (not all codes are decoded)
-   http://www.thonky.com/qr-code-tutorial/                 Tutorial
+   https://www.thonky.com/qr-code-tutorial/                Tutorial
    https://github.com/zxing/zxing                          Java library
    http://goqr.me/                                         Online encode
    https://www.pclviewer.com/rs2/calculator.html           Reed-Solomon ECC calculator

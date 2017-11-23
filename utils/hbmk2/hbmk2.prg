@@ -2460,6 +2460,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
 
          tmp3 := NIL; HB_SYMBOL_UNUSED( tmp3 )
 
+#if 0
          AAdd( aCOMPDET_EMBED, { {| cPrefix | tmp1 := hb_PathNormalize( hb_DirSepAdd( hbmk[ _HBMK_cHB_INSTALL_PFX ] ) + _HBMK_SPECDIR_COMP + hb_ps() + "mingw"    + hb_ps() + "bin"     ), iif( hb_vfExists( tmp1 + hb_ps() + cPrefix + "gcc" + hbmk[ _HBMK_cCCEXT ] ), tmp1, NIL ) }, "win"  , "mingw"   , ""                    , NIL, {| cARCH, cCOMP, cPathBin | hbmk_COMP_Setup( cARCH, cCOMP, cPathBin + hb_ps() + ".." ) } } )
          AAdd( aCOMPDET_EMBED, { {| cPrefix | tmp1 := hb_PathNormalize( hb_DirSepAdd( hbmk[ _HBMK_cHB_INSTALL_PFX ] ) + _HBMK_SPECDIR_COMP + hb_ps() + "mingw32"  + hb_ps() + "bin"     ), iif( hb_vfExists( tmp1 + hb_ps() + cPrefix + "gcc" + hbmk[ _HBMK_cCCEXT ] ), tmp1, NIL ) }, "win"  , "mingw"   , ""                    , NIL, {| cARCH, cCOMP, cPathBin | hbmk_COMP_Setup( cARCH, cCOMP, cPathBin + hb_ps() + ".." ) } } )
          AAdd( aCOMPDET_EMBED, { {| cPrefix | tmp1 := hb_PathNormalize( hb_DirSepAdd( hbmk[ _HBMK_cHB_INSTALL_PFX ] ) + _HBMK_SPECDIR_COMP + hb_ps() + "mingw"    + hb_ps() + "bin"     ), iif( hb_vfExists( tmp1 + hb_ps() + cPrefix + "gcc" + hbmk[ _HBMK_cCCEXT ] ), tmp1, NIL ) }, "win"  , "mingw"   , "i686-w64-mingw32-"   , NIL, {| cARCH, cCOMP, cPathBin | hbmk_COMP_Setup( cARCH, cCOMP, cPathBin + hb_ps() + ".." ) } } )
@@ -2477,25 +2478,30 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
          AAdd( aCOMPDET_EMBED, { {| cPrefix | tmp1 := hb_PathNormalize( hb_DirSepAdd( hbmk[ _HBMK_cHB_INSTALL_PFX ] ) + _HBMK_SPECDIR_COMP + hb_ps() + "pocc"     + hb_ps() + "Bin"     ), iif( hb_vfExists( tmp1 + hb_ps() + cPrefix + "pocc.exe"                   ), tmp1, NIL ) }, "win"  , "pocc"    , ""                    , NIL, {| cARCH, cCOMP, cPathBin | hbmk_COMP_Setup( cARCH, cCOMP, cPathBin + hb_ps() + ".." ) } } )
          AAdd( aCOMPDET_EMBED, { {| cPrefix | tmp1 := hb_PathNormalize( hb_DirSepAdd( hbmk[ _HBMK_cHB_INSTALL_PFX ] ) + _HBMK_SPECDIR_COMP + hb_ps() + "pocc"     + hb_ps() + "Bin"     ), iif( hb_vfExists( tmp1 + hb_ps() + cPrefix + "pocc.exe"                   ), tmp1, NIL ) }, "win"  , "pocc64"  , ""                    , NIL, {| cARCH, cCOMP, cPathBin | hbmk_COMP_Setup( cARCH, cCOMP, cPathBin + hb_ps() + ".." ) } } )
          AAdd( aCOMPDET_EMBED, { {| cPrefix | tmp1 := hb_PathNormalize( hb_DirSepAdd( hbmk[ _HBMK_cHB_INSTALL_PFX ] ) + _HBMK_SPECDIR_COMP + hb_ps() + "pocc"     + hb_ps() + "Bin"     ), iif( hb_vfExists( tmp1 + hb_ps() + cPrefix + "pocc.exe"                   ), tmp1, NIL ) }, "wce"  , "poccarm" , ""                    , NIL, {| cARCH, cCOMP, cPathBin | hbmk_COMP_Setup( cARCH, cCOMP, cPathBin + hb_ps() + ".." ) } } )
+#endif
 
       #elif defined( __PLATFORM__DOS )
 
          tmp3 := NIL; HB_SYMBOL_UNUSED( tmp3 )
 
+#if 0
          AAdd( aCOMPDET_EMBED, { {| cPrefix | tmp1 := hb_PathNormalize( hb_DirSepAdd( hbmk[ _HBMK_cHB_INSTALL_PFX ] ) + _HBMK_SPECDIR_COMP + hb_ps() + "djgpp"    + hb_ps() + "bin"     ), iif( hb_vfExists( tmp1 + hb_ps() + cPrefix + "gcc.exe"                    ), tmp1, NIL ) }, "dos"  , "djgpp"   , ""                    , NIL, {| cARCH, cCOMP, cPathBin | hbmk_COMP_Setup( cARCH, cCOMP, cPathBin + hb_ps() + ".." ) } } )
          AAdd( aCOMPDET_EMBED, { {| cPrefix | tmp1 := hb_PathNormalize( hb_DirSepAdd( hbmk[ _HBMK_cHB_INSTALL_PFX ] ) + _HBMK_SPECDIR_COMP + hb_ps() + "watcom"   + hb_ps() + "binw"    ), iif( hb_vfExists( tmp1 + hb_ps() + cPrefix + "wcc386.exe"                 ), tmp1, NIL ) }, "dos"  , "watcom"  , ""                    , NIL, {| cARCH, cCOMP, cPathBin | hbmk_COMP_Setup( cARCH, cCOMP, cPathBin + hb_ps() + ".." ) } } )
          AAdd( aCOMPDET_EMBED, { {| cPrefix | tmp1 := hb_PathNormalize( hb_DirSepAdd( hbmk[ _HBMK_cHB_INSTALL_PFX ] ) + _HBMK_SPECDIR_COMP + hb_ps() + "watcom"   + hb_ps() + "binw"    ), iif( hb_vfExists( tmp1 + hb_ps() + cPrefix + "wcc386.exe"                 ), tmp1, NIL ) }, "win"  , "watcom"  , ""                    , NIL, {| cARCH, cCOMP, cPathBin | hbmk_COMP_Setup( cARCH, cCOMP, cPathBin + hb_ps() + ".." ) } } )
          AAdd( aCOMPDET_EMBED, { {| cPrefix | tmp1 := hb_PathNormalize( hb_DirSepAdd( hbmk[ _HBMK_cHB_INSTALL_PFX ] ) + _HBMK_SPECDIR_COMP + hb_ps() + "watcom"   + hb_ps() + "binw"    ), iif( hb_vfExists( tmp1 + hb_ps() + cPrefix + "wcc386.exe"                 ), tmp1, NIL ) }, "os2"  , "watcom"  , ""                    , NIL, {| cARCH, cCOMP, cPathBin | hbmk_COMP_Setup( cARCH, cCOMP, cPathBin + hb_ps() + ".." ) } } )
          AAdd( aCOMPDET_EMBED, { {| cPrefix | tmp1 := hb_PathNormalize( hb_DirSepAdd( hbmk[ _HBMK_cHB_INSTALL_PFX ] ) + _HBMK_SPECDIR_COMP + hb_ps() + "watcom"   + hb_ps() + "binw"    ), iif( hb_vfExists( tmp1 + hb_ps() + cPrefix + "wcc386.exe"                 ), tmp1, NIL ) }, "linux", "watcom"  , ""                    , NIL, {| cARCH, cCOMP, cPathBin | hbmk_COMP_Setup( cARCH, cCOMP, cPathBin + hb_ps() + ".." ) } } )
+#endif
 
       #elif defined( __PLATFORM__OS2 )
 
          tmp3 := NIL; HB_SYMBOL_UNUSED( tmp3 )
 
+#if 0
          AAdd( aCOMPDET_EMBED, { {| cPrefix | tmp1 := hb_PathNormalize( hb_DirSepAdd( hbmk[ _HBMK_cHB_INSTALL_PFX ] ) + _HBMK_SPECDIR_COMP + hb_ps() + "watcom"   + hb_ps() + "binp"    ), iif( hb_vfExists( tmp1 + hb_ps() + cPrefix + "wcc386.exe"                 ), tmp1, NIL ) }, "os2"  , "watcom"  , ""                    , NIL, {| cARCH, cCOMP, cPathBin | hbmk_COMP_Setup( cARCH, cCOMP, cPathBin + hb_ps() + ".." ) } } )
          AAdd( aCOMPDET_EMBED, { {| cPrefix | tmp1 := hb_PathNormalize( hb_DirSepAdd( hbmk[ _HBMK_cHB_INSTALL_PFX ] ) + _HBMK_SPECDIR_COMP + hb_ps() + "watcom"   + hb_ps() + "binp"    ), iif( hb_vfExists( tmp1 + hb_ps() + cPrefix + "wcc386.exe"                 ), tmp1, NIL ) }, "win"  , "watcom"  , ""                    , NIL, {| cARCH, cCOMP, cPathBin | hbmk_COMP_Setup( cARCH, cCOMP, cPathBin + hb_ps() + ".." ) } } )
          AAdd( aCOMPDET_EMBED, { {| cPrefix | tmp1 := hb_PathNormalize( hb_DirSepAdd( hbmk[ _HBMK_cHB_INSTALL_PFX ] ) + _HBMK_SPECDIR_COMP + hb_ps() + "watcom"   + hb_ps() + "binp"    ), iif( hb_vfExists( tmp1 + hb_ps() + cPrefix + "wcc386.exe"                 ), tmp1, NIL ) }, "dos"  , "watcom"  , ""                    , NIL, {| cARCH, cCOMP, cPathBin | hbmk_COMP_Setup( cARCH, cCOMP, cPathBin + hb_ps() + ".." ) } } )
          AAdd( aCOMPDET_EMBED, { {| cPrefix | tmp1 := hb_PathNormalize( hb_DirSepAdd( hbmk[ _HBMK_cHB_INSTALL_PFX ] ) + _HBMK_SPECDIR_COMP + hb_ps() + "watcom"   + hb_ps() + "binp"    ), iif( hb_vfExists( tmp1 + hb_ps() + cPrefix + "wcc386.exe"                 ), tmp1, NIL ) }, "linux", "watcom"  , ""                    , NIL, {| cARCH, cCOMP, cPathBin | hbmk_COMP_Setup( cARCH, cCOMP, cPathBin + hb_ps() + ".." ) } } )
+#endif
 
       #elif defined( __PLATFORM__UNIX )
 
@@ -9120,7 +9126,7 @@ STATIC FUNCTION CheckParamInc( hbmk, cPath )
       RETURN .F.
    ENDIF
 
-#if ! defined( __PLATFORM__UNIX )
+#if ! defined( __PLATFORM__UNIX ) .AND. .F.
    /* check against any directory under embedded compiler directory */
    cComp := hb_DirSepDel( hb_PathNormalize( hb_DirSepAdd( hbmk[ _HBMK_cHB_INSTALL_PFX ] ) + _HBMK_SPECDIR_COMP ) )
    IF hb_FileMatch( Left( cPath, Len( cComp ) ), cComp )

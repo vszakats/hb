@@ -125,14 +125,17 @@ Platform specific prerequisites:
 
 1. Windows 7 or upper system is recommended to *build* Harbour. (64-bit
    edition is also recommended to make things simpler)
-2. Make sure to have your C compiler of choice installed in `PATH`. Refer to
+2. Consider using the binary release. On Windows, this is easier and
+   recommended for most use-cases. You can still rebuild specific contribs
+   this way.
+3. Make sure to have your C compiler of choice installed in `PATH`. Refer to
    your C compiler installation and setup instructions for details. Make sure
    no tools in your `PATH` belonging to other C compilers are interfering with
    your setup. Also avoid to keep multiple copies of the same compiler, or
    different versions of the same compiler in `PATH` at the same time. For the
    list of supported compilers,
    look up [Supported Platforms and C Compilers](#supported-platforms-and-c-compilers).
-3. A native build of GNU Make is required. It is usually named
+4. A native build of GNU Make is required. It is usually named
    `mingw32-make.exe`. It's distributed in MSYS2, mingw-w64 packages. You can
    find download links [here](#external-links).
    Unpack it to your `PATH` or Harbour source root directory, and run it as
