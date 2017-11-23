@@ -9115,7 +9115,7 @@ STATIC PROCEDURE AAddWithWarning( hbmk, aArray, cOption, aParam, lNew )
 
 STATIC FUNCTION CheckParamInc( hbmk, cPath )
 
-#if ! defined( __PLATFORM__UNIX )
+#if ! defined( __PLATFORM__UNIX ) .AND. .F.
    LOCAL cComp
 #endif
 
