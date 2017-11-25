@@ -6,7 +6,7 @@ HB_DYN_COPT := -DHB_DYNLIB
 
 CC := cl.exe
 ifeq ($(HB_COMPILER),msvcarm)
-   ifneq ($(filter $(HB_COMPILER_VER),1200 1300 1310),)
+   ifneq ($(filter $(__HB_COMPILER_VER),1200 1300 1310),)
       CC := clarm.exe
    endif
 endif
@@ -28,7 +28,7 @@ else ifeq ($(HB_COMPILER),msvc)
 endif
 
 # MSVS 2005 SP1 also supports it, but we only enable it for 2008 and upper.
-ifeq ($(filter $(HB_COMPILER_VER),1200 1300 1310 1400),)
+ifeq ($(filter $(__HB_COMPILER_VER),1200 1300 1310 1400),)
    LDFLAGS += -nxcompat -dynamicbase -fixed:no
    DFLAGS += -nxcompat -dynamicbase
 endif
@@ -41,7 +41,7 @@ ifeq ($(HB_BUILD_MODE),cpp)
 endif
 
 ifneq ($(HB_BUILD_WARN),no)
-   ifneq ($(filter $(HB_COMPILER_VER),1200 1300 1310),)
+   ifneq ($(filter $(__HB_COMPILER_VER),1200 1300 1310),)
       # Lowered warning level to avoid large amount of warnings in system headers.
       # Maybe this is related to the msvc2003 kit I was using. [vszakats]
       CFLAGS += -W3
@@ -53,7 +53,7 @@ else
 endif
 
 ifneq ($(HB_BUILD_OPTIM),no)
-   ifneq ($(filter $(HB_COMPILER_VER),1200 1300 1310),)
+   ifneq ($(filter $(__HB_COMPILER_VER),1200 1300 1310),)
       CFLAGS += -Oxsb1 -GF
    else
       CFLAGS += -Os -Gy
@@ -69,7 +69,7 @@ endif
 RC := rc.exe
 RC_OUT := -fo$(subst x,x, )
 RCFLAGS += -I. -I$(HB_HOST_INC)
-ifeq ($(filter $(HB_COMPILER_VER),1200 1300 1310 1400 1500),)
+ifeq ($(filter $(__HB_COMPILER_VER),1200 1300 1310 1400 1500),)
    RCFLAGS += -nologo
 endif
 
@@ -82,7 +82,7 @@ LIBPATHS := $(foreach dir,$(LIB_DIR),-libpath:$(dir))
 LDLIBS := $(foreach lib,$(HB_USER_LIBS) $(LIBS) $(SYSLIBS),$(lib)$(LIB_EXT))
 
 LDFLAGS += -nologo -subsystem:windowsce -nodefaultlib:oldnames.lib
-ifeq ($(filter $(HB_COMPILER_VER),1200 1300 1310),)
+ifeq ($(filter $(__HB_COMPILER_VER),1200 1300 1310),)
    LDFLAGS += -manifest:no
 endif
 LDFLAGS += $(LIBPATHS)

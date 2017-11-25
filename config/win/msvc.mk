@@ -1,8 +1,8 @@
 ifneq ($(filter $(HB_COMPILER),clang-cl clang-cl64),)
-   ifeq ($(HB_COMPILER_VER),)
-      $(info ! Warning: HB_COMPILER_VER variable empty. Either stop manually setting \
-         HB_COMPILER to let auto-detection detect it, or set HB_COMPILER_VER manually \
-         according to your C compiler version (e.g. 1600 for 16.00.x).)
+   ifeq ($(__HB_COMPILER_VER),)
+      $(info ! Warning: __HB_COMPILER_VER internal variable empty. If the variable \
+         was manually set, it must be removed and if it still/otherwise fails, this \
+         may indicate an auto-detection failure and should be reported.)
    endif
 endif
 
@@ -24,12 +24,12 @@ CFLAGS += -I. -I$(HB_HOST_INC) -c
 CFLAGS += -nologo
 
 # MSVS 2005 SP1 also supports it, but we only enable it for 2008 and upper.
-ifeq ($(filter $(HB_COMPILER_VER),1200 1300 1310 1400),)
+ifeq ($(filter $(__HB_COMPILER_VER),1200 1300 1310 1400),)
    LDFLAGS += -nxcompat -dynamicbase -fixed:no
    DFLAGS += -nxcompat -dynamicbase
 endif
 # MSVS 2012 and upper
-ifeq ($(filter $(HB_COMPILER_VER),1200 1300 1310 1400 1500 1600),)
+ifeq ($(filter $(__HB_COMPILER_VER),1200 1300 1310 1400 1500 1600),)
    ifneq ($(filter $(HB_COMPILER),msvc64 msvcia64),)
       LDFLAGS += -highentropyva
       DFLAGS += -highentropyva
@@ -39,7 +39,7 @@ ifeq ($(filter $(HB_COMPILER_VER),1200 1300 1310 1400 1500 1600),)
    endif
 endif
 # enable this only for users of MSVS 2013 and upper
-ifeq ($(filter $(HB_COMPILER_VER),1200 1300 1310 1400 1500 1600 1700),)
+ifeq ($(filter $(__HB_COMPILER_VER),1200 1300 1310 1400 1500 1600 1700),)
    ifeq ($(filter $(HB_COMPILER),clang-cl clang-cl64),)
       ifeq ($(_HB_MSVC_ANALYZE),yes)
          CFLAGS += -analyze
@@ -67,7 +67,7 @@ ifeq ($(__HB_COMPILER_LLVM),yes)
       CFLAGS += -Wno-padded -Wno-cast-align -Wno-float-equal -Wno-missing-prototypes
       CFLAGS += -Wno-disabled-macro-expansion -Wno-undef -Wno-unused-macros -Wno-variadic-macros -Wno-documentation
       CFLAGS += -Wno-switch-enum
-      ifeq ($(filter $(HB_COMPILER_VER),0305),)
+      ifeq ($(filter $(__HB_COMPILER_VER),0305),)
          CFLAGS += -Wno-reserved-id-macro
       endif
       # These are potentially useful. -Wsign-conversion would require proper HB_SIZE/HB_ISIZ cleanup.
@@ -82,7 +82,7 @@ ifeq ($(__HB_COMPILER_LLVM),yes)
 endif
 
 ifneq ($(HB_BUILD_OPTIM),no)
-   ifneq ($(filter $(HB_COMPILER_VER),1200 1300 1310),)
+   ifneq ($(filter $(__HB_COMPILER_VER),1200 1300 1310),)
       CFLAGS += -Ogt2yb1p -GX- -G6
    else
       CFLAGS += -O2
@@ -95,7 +95,7 @@ ifeq ($(HB_BUILD_DEBUG),yes)
    DFLAGS += -debug
 endif
 
-ifneq ($(filter $(HB_COMPILER_VER),1200 1300 1310),)
+ifneq ($(filter $(__HB_COMPILER_VER),1200 1300 1310),)
    ifeq ($(HB_BUILD_DEBUG),yes)
       CFLAGS += -MTd
    else
@@ -109,7 +109,7 @@ RCFLAGS += -I. -I$(HB_HOST_INC) -c65001
 
 # # NOTE: -GA flag should be disabled when building MT _.dlls_,
 # #       as it creates bad code according to MS docs [vszakats].
-# ifneq ($(filter $(HB_COMPILER_VER),1200),)
+# ifneq ($(filter $(__HB_COMPILER_VER),1200),)
 #    CFLAGS += -GA
 # endif
 

@@ -27,8 +27,8 @@ msgid "Processing environment options: %1$s"
 msgstr "Processando opções do ambiente: %1$s"
 
 #, c-format
-msgid "Warning: Old style HB_COMPILER_VER value (%1$d) detected. Update it to: %2$s"
-msgstr "Atenção: detectado valor antigo para HB_COMPILER_VER (%1$d). Atualize para: %2$s"
+msgid "Warning: Old style _HB_COMPILER_VER value (%1$d) detected. Update it to: %2$s"
+msgstr "Atenção: detectado valor antigo para _HB_COMPILER_VER (%1$d). Atualize para: %2$s"
 
 #, c-format
 msgid "Autodetected platform: %1$s"

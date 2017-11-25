@@ -28,7 +28,7 @@ ifeq ($(filter --analyze, $(HB_USER_CFLAGS)),)
 endif
 
 CFLAGS += -D_FORTIFY_SOURCE=2
-ifeq ($(filter $(HB_COMPILER_VER),0304),)
+ifeq ($(filter $(__HB_COMPILER_VER),0304),)
    ifneq ($(HB_PLATFORM),win)
       CFLAGS += -fstack-protector-strong
    endif
@@ -59,11 +59,11 @@ ifneq ($(HB_BUILD_WARN),no)
    CFLAGS += -Wno-disabled-macro-expansion -Wno-undef -Wno-unused-macros -Wno-variadic-macros -Wno-documentation
    CFLAGS += -Wno-switch-enum
    ifeq ($(HB_PLATFORM),darwin)
-      ifeq ($(filter $(HB_COMPILER_VER),0304 0305 0306),)
+      ifeq ($(filter $(__HB_COMPILER_VER),0304 0305 0306),)
          CFLAGS += -Wno-reserved-id-macro
       endif
    else
-      ifeq ($(filter $(HB_COMPILER_VER),0304 0305),)
+      ifeq ($(filter $(__HB_COMPILER_VER),0304 0305),)
          CFLAGS += -Wno-reserved-id-macro
       endif
    endif
@@ -79,7 +79,7 @@ endif
 
 ifneq ($(HB_BUILD_OPTIM),no)
    ifeq ($(HB_BUILD_DEBUG),yes)
-      ifeq ($(filter $(HB_COMPILER_VER),0304 0305 0306 0307 0308 0309),)
+      ifeq ($(filter $(__HB_COMPILER_VER),0304 0305 0306 0307 0308 0309),)
          CFLAGS += -Og
       else
          CFLAGS += -O1

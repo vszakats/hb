@@ -54,7 +54,7 @@ ifneq ($(HB_HAS_ZLIB_LOCAL),)
       endif
    endif
    ifneq ($(filter $(HB_COMPILER),msvc msvc64 msvcia64 msvcarm),)
-      ifeq ($(filter $(HB_COMPILER_VER),1200 1300 1310 1400 1500 1600),)
+      ifeq ($(filter $(__HB_COMPILER_VER),1200 1300 1310 1400 1500 1600),)
          HB_CFLAGS += -DWINAPI_FAMILY=WINAPI_FAMILY_DESKTOP_APP -D_CRT_SECURE_NO_WARNINGS
       endif
    endif

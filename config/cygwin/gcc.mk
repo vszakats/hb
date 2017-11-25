@@ -1,7 +1,7 @@
-ifeq ($(HB_COMPILER_VER),)
-   $(info ! Warning: HB_COMPILER_VER variable empty. Either stop manually setting \
-      HB_COMPILER to let auto-detection detect it, or set HB_COMPILER_VER manually \
-      according to your C compiler version (e.g. 0406 for 4.6.x).)
+ifeq ($(__HB_COMPILER_VER),)
+   $(info ! Warning: __HB_COMPILER_VER internal variable empty. If the variable \
+      was manually set, it must be removed and if it still/otherwise fails, this \
+      may indicate an auto-detection failure and should be reported.)
 endif
 
 ifeq ($(HB_BUILD_MODE),cpp)
@@ -32,7 +32,7 @@ endif
 ifneq ($(HB_BUILD_OPTIM),no)
    CFLAGS += -O3
    # It's the default in 4.6 and up
-   ifneq ($(filter $(HB_COMPILER_VER),0209 0304 0400 0401 0402 0403 0404 0405),)
+   ifneq ($(filter $(__HB_COMPILER_VER),0209 0304 0400 0401 0402 0403 0404 0405),)
       CFLAGS += -fomit-frame-pointer
    endif
 endif

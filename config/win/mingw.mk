@@ -1,7 +1,7 @@
-ifeq ($(HB_COMPILER_VER),)
-   $(info ! Warning: HB_COMPILER_VER variable empty. Either stop manually setting \
-      HB_COMPILER to let auto-detection detect it, or set HB_COMPILER_VER manually \
-      according to your C compiler version (e.g. 0406 for 4.6.x).)
+ifeq ($(__HB_COMPILER_VER),)
+   $(info ! Warning: __HB_COMPILER_VER internal variable empty. If the variable \
+      was manually set, it must be removed and if it still/otherwise fails, this \
+      may indicate an auto-detection failure and should be reported.)
 endif
 
 ifeq ($(HB_BUILD_MODE),cpp)
@@ -21,10 +21,10 @@ CC_OUT := -o
 CFLAGS += -I. -I$(HB_HOST_INC) -c
 
 # Similar to MSVC -GS (default) option:
-ifeq ($(filter $(HB_COMPILER_VER),0209 0304 0400 0401 0402 0403 0404 0405 0406 0407 0408),)
+ifeq ($(filter $(__HB_COMPILER_VER),0209 0304 0400 0401 0402 0403 0404 0405 0406 0407 0408),)
    #CFLAGS += -fstack-protector-strong
    #SYSLIBS += ssp
-else ifeq ($(filter $(HB_COMPILER_VER),0209 0304 0400),)
+else ifeq ($(filter $(__HB_COMPILER_VER),0209 0304 0400),)
    # too weak
    #CFLAGS += -fstack-protector
    # too slow
@@ -32,8 +32,8 @@ else ifeq ($(filter $(HB_COMPILER_VER),0209 0304 0400),)
    #SYSLIBS += ssp
 endif
 
-ifneq ($(HB_COMPILER_VER),)
-   ifeq ($(filter $(HB_COMPILER_VER),0209 0304 0400 0401 0402 0403 0404 0405 0406 0407),)
+ifneq ($(__HB_COMPILER_VER),)
+   ifeq ($(filter $(__HB_COMPILER_VER),0209 0304 0400 0401 0402 0403 0404 0405 0406 0407),)
       LDFLAGS += -static-libgcc
       DFLAGS += -static-libgcc
 #     ifeq ($(HB_BUILD_MODE),cpp)
@@ -45,8 +45,8 @@ endif
 # It is also supported by official mingw 4.4.x and mingw64 4.4.x,
 # but not supported by mingw TDM 4.4.x, so I only enable it on or
 # above 4.5.0.
-ifneq ($(HB_COMPILER_VER),)
-   ifeq ($(filter $(HB_COMPILER_VER),0209 0304 0400 0401 0402 0403 0404),)
+ifneq ($(__HB_COMPILER_VER),)
+   ifeq ($(filter $(__HB_COMPILER_VER),0209 0304 0400 0401 0402 0403 0404),)
       LDFLAGS += -Wl,--nxcompat -Wl,--dynamicbase
       DFLAGS += -Wl,--nxcompat -Wl,--dynamicbase
       ifeq ($(HB_COMPILER),mingw64)
@@ -54,7 +54,7 @@ ifneq ($(HB_COMPILER_VER),)
       else
          LDFLAGS += -Wl,--pic-executable,-e,_mainCRTStartup
       endif
-      ifeq ($(filter $(HB_COMPILER_VER),0405 0406 0407 0408 0409),)
+      ifeq ($(filter $(__HB_COMPILER_VER),0405 0406 0407 0408 0409),)
          ifeq ($(HB_COMPILER),mingw64)
             LDFLAGS += -Wl,--high-entropy-va -Wl,--image-base,0x140000000
             DFLAGS += -Wl,--high-entropy-va -Wl,--image-base,0x180000000
@@ -72,18 +72,18 @@ ifneq ($(HB_COMPILER_VER),)
 endif
 
 # Enable this, once better than a no-op
-#ifeq ($(filter $(HB_COMPILER_VER),0209 0304),)
+#ifeq ($(filter $(__HB_COMPILER_VER),0209 0304),)
 #   CFLAGS += -D_FORTIFY_SOURCE=2
 #endif
 
 ifneq ($(HB_BUILD_WARN),no)
    CFLAGS += -W -Wall
    # CFLAGS += -Wextra -Wformat-security
-#  ifeq ($(filter $(HB_COMPILER_VER),0209 0304 0400 0401),)
+#  ifeq ($(filter $(__HB_COMPILER_VER),0209 0304 0400 0401),)
 #     # https://gcc.gnu.org/gcc-4.2/changes.html
 #     CFLAGS += -Wstrict-overflow=4
 #  endif
-   ifeq ($(filter $(HB_COMPILER_VER),0209 0304 0400 0401 0402 0403 0404 0405 0406 0407 0408 0409 0501 0502 0503 0504),)
+   ifeq ($(filter $(__HB_COMPILER_VER),0209 0304 0400 0401 0402 0403 0404 0405 0406 0407 0408 0409 0501 0502 0503 0504),)
       CFLAGS += -Wlogical-op -Wduplicated-cond -Wshift-negative-value -Wnull-dereference
    endif
 else
@@ -101,7 +101,7 @@ ifneq ($(HB_BUILD_OPTIM),no)
       # It makes debugging hard or impossible on x86 systems.
       ifneq ($(HB_BUILD_DEBUG),yes)
          # It's the default in 4.6 and up
-         ifneq ($(filter $(HB_COMPILER_VER),0209 0304 0400 0401 0402 0403 0404 0405),)
+         ifneq ($(filter $(__HB_COMPILER_VER),0209 0304 0400 0401 0402 0403 0404 0405),)
             CFLAGS += -fomit-frame-pointer
          endif
       endif
