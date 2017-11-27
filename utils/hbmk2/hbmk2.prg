@@ -2189,11 +2189,11 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
 
 #if 1
    hbmk[ _HBMK_cCOMPVer ] := "0"
-   IF ! ( tmp := GetEnv( "_HB_COMPILER_VER" ) ) == ""
+   IF ! ( tmp := GetEnv( "__HB_COMPILER_VER" ) ) == ""
       IF Len( tmp ) == 4
          hbmk[ _HBMK_cCOMPVer ] := tmp
       ELSE
-         _hbmk_OutErr( hbmk, hb_StrFormat( I_( "Warning: Invalid _HB_COMPILER_VER value '%1$s' ignored. Format should be: <MMmm>, where <MM> is major version and <mm> is minor version." ), tmp ) )
+         _hbmk_OutErr( hbmk, hb_StrFormat( I_( "Warning: Invalid __HB_COMPILER_VER value '%1$s' ignored. Format should be: <MMmm>, where <MM> is major version and <mm> is minor version." ), tmp ) )
       ENDIF
    ENDIF
 #endif

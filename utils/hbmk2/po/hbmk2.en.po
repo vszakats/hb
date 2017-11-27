@@ -38,7 +38,7 @@ msgstr ""
 
 #: utils/hbmk2/hbmk2.prg:2019
 #, c-format
-msgid "Warning: Old style _HB_COMPILER_VER value (%1$d) detected. Update it to: %2$s"
+msgid "Warning: Old style __HB_COMPILER_VER value (%1$d) detected. Update it to: %2$s"
 msgstr ""
 
 #: utils/hbmk2/hbmk2.prg:2056
