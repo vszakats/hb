@@ -641,31 +641,26 @@ ifeq ($(HB_COMPILER),)
                                                       ifneq ($(HB_COMP_PATH),)
                                                          HB_COMPILER := xcc
                                                       else
-                                                         HB_COMP_PATH := $(call find_in_path_raw,dmc.exe)
+                                                         # mingw-w64 build (32-bit hosted)
+                                                         HB_COMP_PATH := $(call find_in_path,i686-w64-mingw32-gcc)
                                                          ifneq ($(HB_COMP_PATH),)
-                                                            HB_COMPILER := dmc
-                                                         else
-                                                            # mingw-w64 build (32-bit hosted)
-                                                            HB_COMP_PATH := $(call find_in_path,i686-w64-mingw32-gcc)
-                                                            ifneq ($(HB_COMP_PATH),)
-                                                               HB_CCPREFIX := i686-w64-mingw32-
-                                                               ifeq ($(HB_CPU),x86_64)
-                                                                  HB_COMPILER := mingw64
-                                                               else
-                                                                  HB_COMPILER := mingw
-                                                               endif
+                                                            HB_CCPREFIX := i686-w64-mingw32-
+                                                            ifeq ($(HB_CPU),x86_64)
+                                                               HB_COMPILER := mingw64
                                                             else
-                                                               ifeq ($(HB_HOST_CPU),x86_64)
-                                                                  # mingw-w64 build
-                                                                  HB_COMP_PATH := $(call find_in_path,x86_64-w64-mingw32-gcc)
-                                                                  ifneq ($(HB_COMP_PATH),)
-                                                                     HB_CCPREFIX := x86_64-w64-mingw32-
-                                                                     ifeq ($(HB_CPU),x86)
-                                                                        HB_COMPILER := mingw
-                                                                     else
-                                                                        HB_COMPILER := mingw64
-                                                                        HB_CPU := x86_64
-                                                                     endif
+                                                               HB_COMPILER := mingw
+                                                            endif
+                                                         else
+                                                            ifeq ($(HB_HOST_CPU),x86_64)
+                                                               # mingw-w64 build
+                                                               HB_COMP_PATH := $(call find_in_path,x86_64-w64-mingw32-gcc)
+                                                               ifneq ($(HB_COMP_PATH),)
+                                                                  HB_CCPREFIX := x86_64-w64-mingw32-
+                                                                  ifeq ($(HB_CPU),x86)
+                                                                     HB_COMPILER := mingw
+                                                                  else
+                                                                     HB_COMPILER := mingw64
+                                                                     HB_CPU := x86_64
                                                                   endif
                                                                endif
                                                             endif
