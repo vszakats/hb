@@ -1423,7 +1423,7 @@ int hb_vsnprintf( char * buffer, size_t nSize, const char * format, va_list argl
    #define _HB_SNPRINTF_ADD_EOS
 #elif defined( _MSC_VER ) && _MSC_VER >= 1400
    result = _vsnprintf_s( buffer, nSize, _TRUNCATE, format, arglist );
-#elif defined( _MSC_VER ) && ! defined( __XCC__ )
+#elif defined( _MSC_VER )
    result = _vsnprintf( buffer, nSize, format, arglist );
    #define _HB_SNPRINTF_ADD_EOS
 #elif defined( __WATCOMC__ ) && __WATCOMC__ < 1200

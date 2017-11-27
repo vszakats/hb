@@ -65,9 +65,6 @@ else
       ifeq ($(HB_COMPILER),watcom)
          DYNDIRLIST_BASE += src/vm/maindllh
       endif
-      ifeq ($(HB_COMPILER),xcc)
-         DYNDIRLIST_BASE += src/vm/maindllh
-      endif
 
       ifneq ($(HB_HAS_PCRE2_LOCAL),)
          DYNDIRLIST_BASE += src/3rd/pcre2

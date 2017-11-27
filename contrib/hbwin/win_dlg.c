@@ -47,9 +47,6 @@
 
 #include "hbwapi.h"
 
-#if defined( __XCC__ )
-#  include <ole2.h>
-#endif
 #include <commdlg.h>
 
 /* win_PrintDlgDC( [@<cDevice>], [<nFromPage>], [<nToPage>], [<nCopies>], [nFlags] )

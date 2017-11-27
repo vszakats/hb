@@ -475,7 +475,7 @@ ifeq ($(HB_PLATFORM),)
          HB_PLATFORM := dos
       else ifneq ($(filter $(HB_COMPILER),msvcarm msvcmips msvcsh mingwarm poccarm),)
          HB_PLATFORM := wce
-      else ifneq ($(filter $(HB_COMPILER),mingw mingw64 clang64 msvc msvc64 msvcia64 clang-cl clang-cl64 bcc bcc64 xcc pocc pocc64),)
+      else ifneq ($(filter $(HB_COMPILER),mingw mingw64 clang64 msvc msvc64 msvcia64 clang-cl clang-cl64 bcc bcc64 pocc pocc64),)
          HB_PLATFORM := win
       endif
    endif
@@ -637,31 +637,26 @@ ifeq ($(HB_COMPILER),)
                                                          endif
                                                       endif
                                                    else
-                                                      HB_COMP_PATH := $(call find_in_path_raw,xCC.exe)
+                                                      # mingw-w64 build (32-bit hosted)
+                                                      HB_COMP_PATH := $(call find_in_path,i686-w64-mingw32-gcc)
                                                       ifneq ($(HB_COMP_PATH),)
-                                                         HB_COMPILER := xcc
-                                                      else
-                                                         # mingw-w64 build (32-bit hosted)
-                                                         HB_COMP_PATH := $(call find_in_path,i686-w64-mingw32-gcc)
-                                                         ifneq ($(HB_COMP_PATH),)
-                                                            HB_CCPREFIX := i686-w64-mingw32-
-                                                            ifeq ($(HB_CPU),x86_64)
-                                                               HB_COMPILER := mingw64
-                                                            else
-                                                               HB_COMPILER := mingw
-                                                            endif
+                                                         HB_CCPREFIX := i686-w64-mingw32-
+                                                         ifeq ($(HB_CPU),x86_64)
+                                                            HB_COMPILER := mingw64
                                                          else
-                                                            ifeq ($(HB_HOST_CPU),x86_64)
-                                                               # mingw-w64 build
-                                                               HB_COMP_PATH := $(call find_in_path,x86_64-w64-mingw32-gcc)
-                                                               ifneq ($(HB_COMP_PATH),)
-                                                                  HB_CCPREFIX := x86_64-w64-mingw32-
-                                                                  ifeq ($(HB_CPU),x86)
-                                                                     HB_COMPILER := mingw
-                                                                  else
-                                                                     HB_COMPILER := mingw64
-                                                                     HB_CPU := x86_64
-                                                                  endif
+                                                            HB_COMPILER := mingw
+                                                         endif
+                                                      else
+                                                         ifeq ($(HB_HOST_CPU),x86_64)
+                                                            # mingw-w64 build
+                                                            HB_COMP_PATH := $(call find_in_path,x86_64-w64-mingw32-gcc)
+                                                            ifneq ($(HB_COMP_PATH),)
+                                                               HB_CCPREFIX := x86_64-w64-mingw32-
+                                                               ifeq ($(HB_CPU),x86)
+                                                                  HB_COMPILER := mingw
+                                                               else
+                                                                  HB_COMPILER := mingw64
+                                                                  HB_CPU := x86_64
                                                                endif
                                                             endif
                                                          endif

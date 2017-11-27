@@ -703,7 +703,7 @@ Valores suportados para &lt;compiler&gt; conforme a &lt;platform&gt; disponível
 
  - **linux** gcc, clang, icc, watcom, sunpro, open64
  - **darwin** gcc, clang, icc
- - **win** mingw, mingw64, clang, clang64, msvc, msvc64, clang-cl, clang-cl64, watcom, icc, icc64, iccia64, msvcia64, bcc, bcc64, pocc, pocc64, xcc
+ - **win** mingw, mingw64, clang, clang64, msvc, msvc64, clang-cl, clang-cl64, watcom, icc, icc64, iccia64, msvcia64, bcc, bcc64, pocc, pocc64
  - **wce** mingwarm, mingw, msvcarm, poccarm
  - **os2** gcc, gccomf, watcom
  - **dos** djgpp, watcom

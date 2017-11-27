@@ -62,13 +62,13 @@ diff --strip-trailing-cr -urN zlib.orig/gzguts.h zlib/gzguts.h
  #  endif
 diff --strip-trailing-cr -urN zlib.orig/gzlib.c zlib/gzlib.c
 --- zlib.orig/gzlib.c	2017-01-15 17:29:40.000000000 +0000
-+++ zlib/gzlib.c	2017-11-02 20:25:44.000000000 +0000
++++ zlib/gzlib.c	2017-11-27 22:26:11.000000000 +0000
 @@ -5,7 +5,11 @@
  
  #include "gzguts.h"
  
 -#if defined(_WIN32) && !defined(__BORLANDC__) && !defined(__MINGW32__)
-+#if defined(__XCC__) || defined(__MINGW32CE__)
++#if defined(__MINGW32CE__)
 +#  define LSEEK lseek
 +#elif defined(__POCC__)
 +#  define LSEEK _lseek64

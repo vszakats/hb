@@ -22,9 +22,6 @@ ifeq ($(HB_HVM_ALL),)
    ifeq ($(HB_COMPILER),poccarm)
       HB_HVM_ALL := no
    endif
-   ifeq ($(HB_COMPILER),xcc)
-      HB_HVM_ALL := no
-   endif
    ifeq ($(HB_COMPILER),dmc)
       HB_HVM_ALL := no
    endif

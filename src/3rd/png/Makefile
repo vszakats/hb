@@ -24,7 +24,7 @@ C_SOURCES := \
    pngwtran.c \
    pngwutil.c \
 
-ifeq ($(filter $(HB_COMPILER),poccarm xcc tcc),)
+ifeq ($(filter $(HB_COMPILER),poccarm tcc),)
 
    # Detect libpng
 

@@ -1112,7 +1112,6 @@ Press `<Alt+D>` in the app.
 * bcc64    - Embarcadero C++ 6.5 and above
 * pocc     - Pelles C 4.5 and above
 * pocc64   - Pelles C x86-64 5.0 and above
-* xcc      - Pelles C for xHarbour
 * iccia64  - Intel(R) C/C++ IA-64 (Itanium)
 * msvcia64 - Microsoft Visual C++ IA-64 (Itanium)
 
@@ -1209,7 +1208,6 @@ Press `<Alt+D>` in the app.
  win      | win/pocc          | x86    (deprecated)
  win      | win/pocc64        | x86-64 (deprecated)
  win      | wce/poccarm       | arm    (deprecated)
- win      | win/xcc           | x86    (deprecated)
  os2      | os2/gcc           | x86
  os2      | os2/watcom        | x86
  os2      | win/watcom        | x86
