@@ -388,21 +388,22 @@ static int _del_buff( PFT_TEXT ft_text, HB_ISIZ iLen )
 }
 
 /* writes a line of data to the file, including the terminating EOL */
-static int _writeLine( PFT_TEXT ft_text, const char * theData, HB_SIZE iDataLen )
+static HB_BOOL _writeLine( PFT_TEXT ft_text, const char * theData, HB_SIZE iDataLen )
 {
-   int err = 0;
+   HB_BOOL fSuccess = HB_FALSE;
 
    if( hb_fileWrite( ft_text->handles[ ft_text->area ], theData, iDataLen, -1 ) != iDataLen )
    {
-      err = 1;
+      fSuccess = HB_TRUE;
       ft_text->error[ ft_text->area ] = hb_fsError();
    }
    else if( ! _writeeol( ft_text->handles[ ft_text->area ] ) )
    {
-      err = 1;
+      fSuccess = HB_TRUE;
       ft_text->error[ ft_text->area ] = hb_fsError();
    }
-   return err;
+
+   return fSuccess;
 }
 
 /* internal routine to do buffer skips.  Passing a positive value performs
@@ -806,14 +807,14 @@ HB_FUNC( FT_FDELETE )
       hb_xfree( Buff );
    }
 
-   hb_retl( ft_text->error[ ft_text->area ] ? 0 : 1 );
+   hb_retl( ft_text->error[ ft_text->area ] == 0 );
 }
 
 HB_FUNC( FT_FINSERT )
 {
    PFT_TEXT ft_text = ( PFT_TEXT ) hb_stackGetTSD( &s_ft_text );
 
-   int err = 1;
+   HB_BOOL fSuccess = HB_TRUE;
 
    if( ft_text->handles[ ft_text->area ] )
    {
@@ -821,20 +822,22 @@ HB_FUNC( FT_FINSERT )
       HB_ISIZ no_bytes = no_lines * 2;
 
       if( _ins_buff( ft_text, no_bytes ) )
-         err = 0;
+         fSuccess = HB_FALSE;
       else
       {
          while( no_lines-- )
+         {
             if( ! _writeeol( ft_text->handles[ ft_text->area ] ) )
             {
                ft_text->error[ ft_text->area ] = hb_fsError();
-               err = 0;
+               fSuccess = HB_FALSE;
                break;
             }
+         }
       }
    }
 
-   hb_retl( err );
+   hb_retl( fSuccess );
 }
 
 HB_FUNC( FT_FAPPEND )
@@ -896,15 +899,14 @@ HB_FUNC( FT_FAPPEND )
       hb_xfree( buff );
    }
 
-   hb_retl( ft_text->error[ ft_text->area ] ? 0 : 1 );
-
+   hb_retl( ft_text->error[ ft_text->area ] == 0 );
 }
 
 HB_FUNC( FT_FWRITELN )
 {
    PFT_TEXT ft_text = ( PFT_TEXT ) hb_stackGetTSD( &s_ft_text );
 
-   int err = 1;
+   HB_BOOL fSuccess = HB_TRUE;
 
    if( ft_text->handles[ ft_text->area ] )
    {
@@ -917,11 +919,13 @@ HB_FUNC( FT_FWRITELN )
 
       if( bInsert )
       {
+         fSuccess = ( _ins_buff( ft_text, iDataLen + 2 ) == 0 );
+
          /* insert mode, insert the length of new string + EOL */
-         if( ( err = _ins_buff( ft_text, iDataLen + 2 ) ) == 0 )
+         if( fSuccess )
          {
             hb_fileSeek( ft_text->handles[ ft_text->area ], ft_text->offset[ ft_text->area ], FS_SET );
-            err = _writeLine( ft_text, theData, iDataLen );
+            fSuccess = _writeLine( ft_text, theData, iDataLen );
          }
       }
       else
@@ -967,11 +971,11 @@ HB_FUNC( FT_FWRITELN )
             hb_fileWrite( ft_text->handles[ ft_text->area ], theData, iDataLen, -1 );
          }
          ft_text->error[ ft_text->area ] = hb_fsError();
-         err = ( ft_text->error[ ft_text->area ] ) ? 0 : 1;
+         fSuccess = ( ft_text->error[ ft_text->area ] == 0 );
       }
    }
 
-   hb_retl( err );
+   hb_retl( fSuccess );
 }
 
 HB_FUNC_TRANSLATE( FT_FWRITEL, FT_FWRITELN )
