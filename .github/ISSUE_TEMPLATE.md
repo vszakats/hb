@@ -40,7 +40,7 @@ mingw/gcc/clang or regarding certain, non-priority or deprecated components
 `xhb`, legacy operating systems) and feature requests in general.
 
 Please note that this fork only accepts additional code if such code cannot
-(or impractical to) be implemented as 3rd party library/utility. It means
+(or is impractical to) be implemented as 3rd party library/utility. It means
 that for code that uses documented Harbour APIs and can be built (or can be
 made to build) as a separate component, it's recommended to maintain it
 separately and make it available for Harbour users by providing a standard
