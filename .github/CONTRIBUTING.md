@@ -123,13 +123,13 @@ Evaluate these points before reporting an issue:
     containing **both STDERR and STDOUT in one combined stream**
     (use `make > log.txt 2>&1`). Enable verbose mode using
     `HB_BUILD_VERBOSE=yes` and _do not_ enable multi-threaded (parallel) build.
-    Preferably, configure your tools to output English language messages.
-    Complete log output is rarely necessary, but make sure to include
-    the top of the output (lines starting with `!`) and the area where
-    problematic behavior occurred _first_. Make sure to not only include
-    a link failure or a make tool failure, as it's most of the time not
-    enough information. Compress your log using zip if it is larger
-    than 25 kB (use the extension `.zip`).
+    Configure your tools to output English language messages using `HB_LANG=en`
+    and `LANG=en_GB.UTF-8`.
+    Complete log output is rarely necessary, but make sure to include the top
+    of the output (lines starting with `!`) and the area where problematic
+    behavior occurred _first_. Make sure to not only include a link failure or
+    a make tool failure, as it's most often not enough information. Compress
+    your log using zip if it is larger than 25 kB (use the extension `.zip`).
     With these, you have much better chance to get useful or any response.
 10. <a name="trbl-10"></a> Do not alter the directory layout and files in
     Harbour and 3rd party packages and tools (including C compilers).
