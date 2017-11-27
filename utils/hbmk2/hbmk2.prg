@@ -949,9 +949,9 @@ FUNCTION hbmk( ... )
 
 #ifdef HARBOUR_SUPPORT
 
-#if defined( __PLATFORM__WINDOWS ) .OR. ;
-    defined( __PLATFORM__DOS ) .OR. ;
-    defined( __PLATFORM__OS2 )
+#if ( defined( __PLATFORM__WINDOWS ) .OR. ;
+      defined( __PLATFORM__DOS ) .OR. ;
+      defined( __PLATFORM__OS2 ) ) .AND. .F.
 
 STATIC PROCEDURE hbmk_COMP_Setup( cARCH, cCOMP, cBasePath )
 
