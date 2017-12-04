@@ -77,7 +77,9 @@ body {
   background-color: $color-bk-border;
   font: 16px $font-main;
   line-height: 150%;
+  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 {% if old_design %}
   font: 12px 'Verdana', sans-serif;
   line-height: 130%;
