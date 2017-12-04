@@ -212,6 +212,8 @@ if [ "${CC4}" != 'msvc' ]; then
   export HB_DIR_LIBSSH2_64="${HB_RT}/libssh2-mingw64/"
   export HB_DIR_NGHTTP2_32="${HB_RT}/nghttp2-mingw32/"
   export HB_DIR_NGHTTP2_64="${HB_RT}/nghttp2-mingw64/"
+  export HB_DIR_BROTLI_32="${HB_RT}/brotli-mingw32/"
+  export HB_DIR_BROTLI_64="${HB_RT}/brotli-mingw64/"
   export HB_DIR_CURL_32="${HB_RT}/curl-mingw32/"
   export HB_DIR_CURL_64="${HB_RT}/curl-mingw64/"
 

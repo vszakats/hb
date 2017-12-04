@@ -80,6 +80,7 @@ if [ -n "${jobid}" ] && [ ! "${jobid}" = 'null' ]; then
     out=
 
     for name in \
+       'brotli' \
        'nghttp2' \
        'openssl' \
        'libssh2' \

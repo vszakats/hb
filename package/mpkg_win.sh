@@ -232,6 +232,7 @@ if [ "${_HB_BUNDLE_3RDLIB}" = 'yes' ]; then
       'openssl' \
       'libssh2' \
       'nghttp2' \
+      'brotli' \
       'curl' \
   ; do
     eval dir_32="\$$(echo "HB_DIR_${name}_32" | tr '[:lower:]' '[:upper:]' 2> /dev/null)"
