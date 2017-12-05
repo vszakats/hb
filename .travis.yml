@@ -89,7 +89,7 @@ matrix:
       env: [ 'DOCKER_IMAGE=ubuntu:rolling' ]
     - os: osx
       # https://docs.travis-ci.com/user/reference/osx/#OS-X-Version
-      osx_image: &hb-mac-image xcode9.1
+      osx_image: &hb-mac-image xcode9.2
       compiler: clang
     - os: osx
       osx_image: *hb-mac-image
