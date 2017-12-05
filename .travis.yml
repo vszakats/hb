@@ -88,7 +88,7 @@ matrix:
       # https://hub.docker.com/_/ubuntu/
       env: [ 'DOCKER_IMAGE=ubuntu:rolling' ]
     - os: osx
-      # https://docs.travis-ci.com/user/reference/osx/
+      # https://docs.travis-ci.com/user/reference/osx/#OS-X-Version
       osx_image: &hb-mac-image xcode9.1
       compiler: clang
     - os: osx
