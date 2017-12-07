@@ -30,8 +30,7 @@ PROCEDURE Main()
    Set( _SET_EXCLUSIVE, .F. )
    rddSetDefault( "DBFCDX" )
 
-   pSockSrv := netio_MTServer( DBPORT,,, /* RPC */ .T., DBPASSWD )
-   IF Empty( pSockSrv )
+   IF Empty( pSockSrv := netio_MTServer( DBPORT,,, /* RPC */ .T., DBPASSWD ) )
       ? "Cannot start NETIO server !!!"
       WAIT "Press any key to exit..."
       RETURN
@@ -45,7 +44,7 @@ PROCEDURE Main()
    ? "netio_Connect():", netio_Connect( DBSERVER, DBPORT, , DBPASSWD )
    ?
 
-   lExists := netio_FuncExec( "HB_DirExists", "./data" )
+   lExists := netio_FuncExec( "hb_DirExists", "./data" )
    ? "Directory './data'", iif( lExists, "exists", "not exists" )
    IF ! lExists
       ? "Creating directory './data' ->", ;
@@ -83,9 +82,9 @@ PROCEDURE createdb( cName )  /* must be a public function */
       { "F2", "M",  4, 0 }, ;
       { "F3", "N", 10, 2 }, ;
       { "F4", "T",  8, 0 } } )
-   ? "create neterr:", NetErr(), hb_osError()
+   ? "create NetErr():", NetErr(), hb_osError()
    USE ( cName )
-   ? "use neterr:", NetErr(), hb_osError()
+   ? "use NetErr():", NetErr(), hb_osError()
    DO WHILE LastRec() < 100
       dbAppend()
       n := RecNo() - 1
@@ -97,7 +96,7 @@ PROCEDURE createdb( cName )  /* must be a public function */
    INDEX ON field->F1 TAG T1
    INDEX ON field->F3 TAG T3
    INDEX ON field->F4 TAG T4
-   CLOSE
+   dbCloseArea()
    ?
 
    RETURN
@@ -107,11 +106,11 @@ PROCEDURE testdb( cName )  /* must be a public function */
    LOCAL i, j
 
    USE ( cName )
-   ? "used:", Used()
-   ? "nterr:", NetErr()
-   ? "alias:", Alias()
-   ? "lastrec:", LastRec()
-   ? "ordCount:", ordCount()
+   ? "Used():", Used()
+   ? "NetErr():", NetErr()
+   ? "Alias():", Alias()
+   ? "LastRec():", LastRec()
+   ? "ordCount():", ordCount()
    FOR i := 1 TO ordCount()
       ordSetFocus( i )
       ? i, "name:", ordName(), "key:", ordKey(), "keycount:", ordKeyCount()
@@ -131,6 +130,6 @@ PROCEDURE testdb( cName )  /* must be a public function */
    dbGoTop()
    Browse()
    SetPos( i, j )
-   CLOSE
+   dbCloseArea()
 
    RETURN

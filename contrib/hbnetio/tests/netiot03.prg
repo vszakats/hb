@@ -31,8 +31,7 @@ PROCEDURE Main()
    Set( _SET_EXCLUSIVE, .F. )
    rddSetDefault( "DBFCDX" )
 
-   pSockSrv := netio_MTServer( DBPORT,,, /* RPC */ .T., DBPASSWD )
-   IF Empty( pSockSrv )
+   IF Empty( pSockSrv := netio_MTServer( DBPORT,,, /* RPC */ .T., DBPASSWD ) )
       ? "Cannot start NETIO server !!!"
       WAIT "Press any key to exit..."
       RETURN
@@ -53,13 +52,13 @@ PROCEDURE Main()
    WAIT
 
    nStream1 := netio_OpenItemStream( "reg_stream" )
-   ? "NETIO_OPENITEMSTREAM:", nStream1
+   ? "netio_OpenItemStream():", nStream1
    nStream2 := netio_OpenDataStream( "reg_charstream" )
-   ? "NETIO_OPENDATASTREAM:", nStream2
+   ? "netio_OpenDataStream():", nStream2
 
    hb_idleSleep( 3 )
-   ? "NETIO_GETDATA 1:", hb_ValToExp( netio_GetData( nStream1 ) )
-   ? "NETIO_GETDATA 2:", hb_ValToExp( netio_GetData( nStream2 ) )
+   ? "netio_GetData() 1:", hb_ValToExp( netio_GetData( nStream1 ) )
+   ? "netio_GetData() 2:", hb_ValToExp( netio_GetData( nStream2 ) )
    nSec := Seconds() + 3
    DO WHILE Seconds() < nSec
       xData := netio_GetData( nStream1 )
@@ -72,8 +71,8 @@ PROCEDURE Main()
       ENDIF
    ENDDO
    WAIT
-   ? "NETIO_GETDATA 1:", hb_ValToExp( netio_GetData( nStream1 ) )
-   ? "NETIO_GETDATA 2:", hb_ValToExp( netio_GetData( nStream2 ) )
+   ? "netio_GetData() 1:", hb_ValToExp( netio_GetData( nStream1 ) )
+   ? "netio_GetData() 2:", hb_ValToExp( netio_GetData( nStream2 ) )
    WAIT
 
    lExists := netio_FuncExec( "hb_DirExists", "./data" )
@@ -96,11 +95,11 @@ PROCEDURE Main()
    ? "table exists:", dbExists( DBNAME )
    WAIT
 
-   ? "NETIO_GETDATA 1:", hb_ValToExp( netio_GetData( nStream1 ) )
-   ? "NETIO_GETDATA 2:", hb_ValToExp( netio_GetData( nStream2 ) )
+   ? "netio_GetData() 1:", hb_ValToExp( netio_GetData( nStream1 ) )
+   ? "netio_GetData() 2:", hb_ValToExp( netio_GetData( nStream2 ) )
    ? "netio_Disconnect():", netio_Disconnect( DBSERVER, DBPORT )
-   ? "NETIO_CLOSESTREAM 1:", netio_CloseStream( nStream1 )
-   ? "NETIO_CLOSESTREAM 2:", netio_CloseStream( nStream2 )
+   ? "netio_CloseStream() 1:", netio_CloseStream( nStream1 )
+   ? "netio_CloseStream() 2:", netio_CloseStream( nStream2 )
    hb_idleSleep( 2 )
    ?
    ? "stopping the server..."
@@ -117,9 +116,9 @@ PROCEDURE createdb( cName )  /* must be a public function */
       { "F2", "M",  4, 0 }, ;
       { "F3", "N", 10, 2 }, ;
       { "F4", "T",  8, 0 } } )
-   ? "create neterr:", NetErr(), hb_osError()
+   ? "create NetErr():", NetErr(), hb_osError()
    USE ( cName )
-   ? "use neterr:", NetErr(), hb_osError()
+   ? "use NetErr():", NetErr(), hb_osError()
    DO WHILE LastRec() < 100
       dbAppend()
       n := RecNo() - 1
@@ -131,7 +130,7 @@ PROCEDURE createdb( cName )  /* must be a public function */
    INDEX ON field->F1 TAG T1
    INDEX ON field->F3 TAG T3
    INDEX ON field->F4 TAG T4
-   CLOSE
+   dbCloseArea()
    ?
 
    RETURN
@@ -141,11 +140,11 @@ PROCEDURE testdb( cName )  /* must be a public function */
    LOCAL i, j
 
    USE ( cName )
-   ? "used:", Used()
-   ? "nterr:", NetErr()
-   ? "alias:", Alias()
-   ? "lastrec:", LastRec()
-   ? "ordCount:", ordCount()
+   ? "Used():", Used()
+   ? "NetErr():", NetErr()
+   ? "Alias():", Alias()
+   ? "LastRec():", LastRec()
+   ? "ordCount():", ordCount()
    FOR i := 1 TO ordCount()
       ordSetFocus( i )
       ? i, "name:", ordName(), "key:", ordKey(), "keycount:", ordKeyCount()
@@ -165,7 +164,7 @@ PROCEDURE testdb( cName )  /* must be a public function */
    dbGoTop()
    Browse()
    SetPos( i, j )
-   CLOSE
+   dbCloseArea()
 
    RETURN
 
