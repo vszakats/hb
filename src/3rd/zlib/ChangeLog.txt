@@ -1,5 +1,5 @@
 /* Encoding: UTF-8 (No BOM)  Notation (in 5th column):
-     * Change, ! Fix, % Optimization, + Addition, - Removal, ; Comment */
+     * Change  ! Fix  % Optimize  + Add  - Remove  ; Comment */
 
 2009-08-12 23:47 UTC+0200 Przemyslaw Czerpak (druzus/at/priv.onet.pl)
   * harbour/source/hbzlib/zutil.c
