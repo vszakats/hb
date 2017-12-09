@@ -32,7 +32,7 @@ mxe_curl() {
 
 mxe_get_pkg() {
 
-  if [[ "$1" =~ ^(mxe-(i686|x86\-64)-(w64|unknown)-(mingw32|linux-gnu)(\.shared|\.static)?)-(.*)$ ]]; then
+  if [[ "$1" =~ ^(mxe-(i686|x86-64)-(w64|unknown)-(mingw32|linux-gnu)(.shared|.static)?)-(.*)$ ]]; then
 
     repo="${BASH_REMATCH[1]}"  # mxe-x86-64-w64-mingw32.shared
     plat="${BASH_REMATCH[4]}"  # mingw32 | linux-gnu

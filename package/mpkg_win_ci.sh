@@ -358,14 +358,14 @@ if [ "${CC4}" = 'msvc' ]; then
   [ "${CC}" = 'msvc2013' ] && _VCVARSALL=' 12.0\VC'
   [ "${CC}" = 'msvc2015' ] && _VCVARSALL=' 14.0\VC'
   # Assume '\<YEAR>\Community\VC\Auxiliary\Build' for anything newer:
-  [ -z "${_VCVARSALL}" ] && _VCVARSALL="\\$(echo "${CC}" | cut -c 5-8)\Community\VC\Auxiliary\Build"
+  [ -z "${_VCVARSALL}" ] && _VCVARSALL="\\$(echo "${CC}" | cut -c 5-8)\\Community\\VC\\Auxiliary\\Build"
 
-  export _VCVARSALL="%ProgramFiles(x86)%\Microsoft Visual Studio${_VCVARSALL}\vcvarsall.bat"
+  export _VCVARSALL="%ProgramFiles(x86)%\\Microsoft Visual Studio${_VCVARSALL}\\vcvarsall.bat"
 
   if [ -n "${_VCVARSALL}" ]; then
     cat << EOF > _make.bat
       call "${_VCVARSALL}" x86
-      C:\msys64\mingw64\bin\mingw32-make.exe install %HB_MKFLAGS% HB_COMPILER=msvc
+      C:\\msys64\\mingw64\\bin\\mingw32-make.exe install %HB_MKFLAGS% HB_COMPILER=msvc
 EOF
     ./_make.bat
     rm _make.bat
@@ -378,7 +378,7 @@ EOF
   if [ -n "${_VCVARSALL}" ]; then
     cat << EOF > _make.bat
       call "${_VCVARSALL}" x86_amd64
-      C:\msys64\mingw64\bin\mingw32-make.exe install %HB_MKFLAGS% HB_COMPILER=msvc64
+      C:\\msys64\\mingw64\\bin\\mingw32-make.exe install %HB_MKFLAGS% HB_COMPILER=msvc64
 EOF
     ./_make.bat
     rm _make.bat

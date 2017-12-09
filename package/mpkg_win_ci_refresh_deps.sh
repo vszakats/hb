@@ -88,7 +88,7 @@ if [ -n "${jobid}" ] && [ ! "${jobid}" = 'null' ]; then
     ; do
       nameu="$(echo "${name}" | tr '[:lower:]' '[:upper:]' 2> /dev/null)"
       for plat in '32' '64'; do
-        if [[ "${f}" =~ ${name}-([0-9a-zA-Z.\-]+)-win${plat}-mingw.7z\)=\ ([0-9a-z]{64}) ]]; then
+        if [[ "${f}" =~ ${name}-([0-9a-zA-Z.-]+)-win${plat}-mingw\.7z\)=\ ([0-9a-z]{64}) ]]; then
           if [ "${plat}" = '32' ]; then
             out="${out}export ${nameu}_VER='${BASH_REMATCH[1]}'"$'\n'
           fi
@@ -102,6 +102,7 @@ if [ -n "${jobid}" ] && [ ! "${jobid}" = 'null' ]; then
       # shellcheck disable=SC2116
       out="$(echo "${out}")"
       echo "${out}"
+      # shellcheck disable=SC1117
       awk -v "NEW=#hashbegin\n${out}\n#hashend" \
         'BEGIN{n=0} /#hashbegin/ {n=1} {if (n==0) {print $0}} /#hashend/ {print NEW; n=0}' \
         < mpkg_win_ci.sh > _tmp && cp _tmp mpkg_win_ci.sh && rm -f _tmp
