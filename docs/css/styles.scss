@@ -210,6 +210,10 @@ $donate-button-transition-time: .3s;
   color: $color-donate-normal !important;
 }
 
+.donate-button a svg {
+  fill: currentColor !important;
+}
+
 .donate-button:hover {
   background-color: #00457c;
 }
@@ -218,8 +222,13 @@ $donate-button-transition-time: .3s;
   color: $color-donate-reverse !important;
 }
 
+.donate-button:hover a svg {
+  fill: currentColor !important;
+}
+
 .feature-box {
   background-color: $color-bk-box2;
+  color: $color-icons;
   border-radius: 4px;
   display: table;
   float: left;
@@ -227,6 +236,12 @@ $donate-button-transition-time: .3s;
   margin-bottom: 1em;
   padding: .2em 1em;
   width: auto;
+}
+
+.feature-box svg {
+  fill: currentColor;
+  width: 48px;
+  height: 48px;
 }
 
 .feature-box > div {
@@ -237,6 +252,7 @@ $donate-button-transition-time: .3s;
   display: table-cell;
   padding: .1em .3em .6em .3em;
   text-align: center;
+  fill: currentColor;
 }
 
 .license-box {
@@ -263,16 +279,15 @@ a.readmode-dark:hover {
   text-align: center;
 }
 
-.feature-icon {
-  color: $color-icons;
-  display: block !important;
-  font-size: 340% !important;
-  margin-bottom: .2em;
-}
-
 .text-right {
   float: right;
   margin-bottom: 1em;
+}
+
+.text-right svg {
+  fill: currentColor;
+  width: 14px;
+  height: 14px;
 }
 
 .img-right {
@@ -281,16 +296,14 @@ a.readmode-dark:hover {
   margin: 1em;
 }
 
-.large-icon {
-  color: $color-icons;
-  float: right;
-  font-size: 425% !important;
-  margin: .1em .3em;
-}
-
 .example-list {
   color: $color-icons;
-  font-size: 180%;
+}
+
+.example-list svg {
+  fill: currentColor;
+  width: 26px;
+  height: 26px;
 }
 
 header {
@@ -446,6 +459,11 @@ footer a {
   text-decoration: none;
 }
 
+footer svg {
+  width: 12px;
+  height: 12px;
+}
+
 footer a:hover {
   color: lighten($color-footer, 30%);
   transition: color .25s;
@@ -494,6 +512,12 @@ footer svg {
   text-align: right;
 }
 
+.crew-layout svg {
+  fill: currentColor;
+  width: 14px;
+  height: 14px;
+}
+
 .crew-layout > section {
   float: left;
   text-align: center;
@@ -531,6 +555,11 @@ footer svg {
   width: 65%;
 }
 
+.list-bubble svg {
+  width: 48px;
+  height: 48px;
+}
+
 .list-bubble a {
   white-space: nowrap;
 }
@@ -558,6 +587,7 @@ footer svg {
 
 .bubble-alt div:nth-child(1) {
   color: $color-warn;
+  fill: currentColor;
   width: auto;
 }
 
@@ -605,6 +635,12 @@ footer svg {
 .news-box {
   float: left;
   width: 68%;
+}
+
+.news-box > h1 svg {
+  fill: currentColor;
+  width: 14px;
+  height: 14px;
 }
 
 .miniexample-box {
@@ -670,10 +706,8 @@ h2 {
 }
 
 @mixin readmore-char() {
-  // content: ' ›';
   // content: ' ⋯';
-  content: ' \f105';  /* fa-angle-right */
-  font-family: FontAwesome;
+  content: ' ›';
 }
 
 .readmore {
@@ -905,6 +939,13 @@ pre, code {
   transition: color .25s;
 }
 
+.dropbtn > svg {
+  fill: currentColor;
+  width: 34px;
+  height: 28px;
+  transition: fill .25s;
+}
+
 .menu {
   background-color: $color-menu-bk;
   font: 16px $font-main;
@@ -975,6 +1016,11 @@ pre, code {
 .dropdown:hover .dropbtn {
   color: $color-menu-text-hover;
   transition: color .5s;
+}
+
+.dropdown:hover .dropbtn svg {
+  fill: currentColor;
+  transition: fill .5s;
 }
 
 @media screen and (max-width: 760px) {

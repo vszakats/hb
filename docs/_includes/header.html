@@ -21,7 +21,7 @@
 
     <nav class="dropdown">
       <a class="dropbtn" href="{{ site.baseurl }}/about">
-      <i class="fa fa-comment-o" aria-hidden="true"></i><br><span class="menu-text">About</span></a>
+      <svg><use xlink:href="/images/fa-light.svg#comment"></use></svg><br><span class="menu-text">About</span></a>
       <nav class="dropdown-content">
         <a href="{{ site.baseurl }}/about">About Harbour</a>
         <hr>
@@ -33,7 +33,7 @@
 
     <nav class="dropdown">
       <a class="dropbtn" href="https://harbour.github.io/doc/">
-      <i class="fa fa-book" aria-hidden="true"></i><br><span class="menu-text">Documentation</span></a>
+      <svg><use xlink:href="/images/fa-light.svg#book"></use></svg><br><span class="menu-text">Documentation</span></a>
       <nav class="dropdown-content">
         <a href="https://github.com/{{ site.repo_slug }}/#readme">README</a>
         <a href="{{ site.baseurl }}/changelog">ChangeLog</a>
@@ -49,7 +49,7 @@
 
     <nav class="dropdown">
       <a class="dropbtn" href="{{ site.dl_url }}">
-      <i class="fa fa-cloud-download" aria-hidden="true"></i><br><span class="menu-text">Download</span></a>
+      <svg><use xlink:href="/images/fa-light.svg#cloud-download"></use></svg><br><span class="menu-text">Download</span></a>
       <nav class="dropdown-content">
         <a href="{{ site.dl_url }}">Source and Binaries</a>
 {%- if site.fork %}
@@ -67,7 +67,7 @@
 
     <nav class="dropdown">
       <a class="dropbtn" href="https://github.com/{{ site.repo_slug }}">
-      <i class="fa fa-cog" aria-hidden="true"></i><br><span class="menu-text">Development</span></a>
+      <svg><use xlink:href="/images/fa-light.svg#cog"></use></svg><br><span class="menu-text">Development</span></a>
       <nav class="dropdown-content">
 {%- unless site.fork %}
         <a href="{{ site.baseurl }}/mailing">Mailing Lists</a>
@@ -86,29 +86,29 @@
 
     <nav class="dropdown">
       <a class="dropbtn" href="{{ site.baseurl }}/news">
-      <i class="fa fa-newspaper-o" aria-hidden="true"></i><br><span class="menu-text">News</span></a>
+      <svg><use xlink:href="/images/fa-light.svg#newspaper"></use></svg><br><span class="menu-text">News</span></a>
     </nav>
 
     <nav class="dropdown">
       <a class="dropbtn" href="{{ site.baseurl }}/crew">
-      <i class="fa fa-globe" aria-hidden="true"></i><br><span class="menu-text">Crew</span></a>
+      <svg><use xlink:href="/images/fa-light.svg#globe"></use></svg><br><span class="menu-text">Crew</span></a>
     </nav>
 
     <nav class="dropdown">
       <a class="dropbtn" href="{{ site.baseurl }}/logo">
-      <i class="fa fa-paint-brush" aria-hidden="true"></i><br><span class="menu-text">Logo</span></a>
+      <svg><use xlink:href="/images/fa-light.svg#paint-brush"></use></svg><br><span class="menu-text">Logo</span></a>
     </nav>
 
 {%- if site.fork %}
 {% assign ppurl = 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=BPSZQYKXMQJYG' %}
     <nav class="dropdown donate-button">
       <a class="dropbtn" href="{{ ppurl }}">
-      <i class="fa fa-paypal" aria-hidden="true"></i><br><span class="menu-text">Donate Now</span></a>
+      <svg><use xlink:href="/images/fa-brands.svg#paypal"></use></svg><br><span class="menu-text">Donate Now</span></a>
     </nav>
 {%- else %}
     <nav class="dropdown">
       <a class="dropbtn">
-      <i class="fa fa-language" aria-hidden="true"></i><br><span class="menu-text">Language</span></a>
+      <svg><use xlink:href="/images/fa-light.svg#language"></use></svg><br><span class="menu-text">Language</span></a>
       <nav class="dropdown-content">
         <a href="{{ site.baseurl }}/">English</a>
       </nav>
@@ -120,5 +120,5 @@
 <main>
 {%- if page.layout != 'example' %}
   <a class="text-right edit-page" href="https://github.com/{{ site.site_slug }}/edit/{{ site.site_branch_and_root }}{{ page.path }}">
-  <i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;Improve this page</a>
+  <svg><use xlink:href="/images/fa-light.svg#pencil"></use></svg>&nbsp;Improve this page</a>
 {%- endif %}
