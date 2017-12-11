@@ -17,7 +17,7 @@ maintenance, this fork has the policy to disable all deprecated components by
 default (they can be enabled though, with no promises). Other goals are
 compatibility with mainline core, continuous maintenance, build automation and
 security ([`hbcrypto`]({% if site.fork %}{{ site.baseurl }}{% else %}https://vszakats.github.io/harbour-core{% endif %}/contribs#hbcrypto)
-contrib and [curl/OpenSSL builds](https://github.com/vszakats/harbour-deps)).
+contrib and [curl/OpenSSL builds](https://github.com/vszakats/curl-for-win)).
 It also features a large number of fixes and cleanups, many of which are
 eventually retrofitted to mainline.
 

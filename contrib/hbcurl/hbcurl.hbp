@@ -6,7 +6,7 @@
 -w3 -es2
 
 -depurlbase=curl:https://curl.haxx.se/
--depurlbase=curl:https://github.com/vszakats/harbour-deps{win&(allmingw|allclang)}
+-depurlbase=curl:https://github.com/vszakats/curl-for-win{win&(allmingw|allclang)}
 -deppkgname=curl:libcurl4-openssl-dev{deb}
 -deppkgname=curl:curl-devel{rpm}
 -deppkgname=curl:curl{homebrew|pkgng}

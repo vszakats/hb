@@ -5,11 +5,12 @@
 # See LICENSE.txt for licensing terms.
 # ---------------------------------------------------------------
 
-# Extract dependency versions and their hashes from `harbour-deps` online build log
+# Extract dependency versions and their hashes from `curl-for-win` online build log
 # Requires: bash, curl, jq, awk
 
 readonly ci="${1:-travis}"
-readonly project='harbour-deps'
+readonly username='vszakats'
+readonly project='curl-for-win'
 branch='master'
 
 echo "! CI: ${ci}"
@@ -22,7 +23,7 @@ case "${ci}" in
 
     # Query branch build state for a successfully finished job
     # .build.buildNumber
-    f="$(curl -fsS "https://ci.appveyor.com/api/projects/vsz/${project}/branch/${branch}" 2> /dev/null)"
+    f="$(curl -fsS "https://ci.appveyor.com/api/projects/${username}/${project}/branch/${branch}" 2> /dev/null)"
     jobid="$(echo "${f}" \
       | jq -r 'select(.build.jobs[0].status == "success") | .build.jobs[0].jobId')"
     bldid="$(echo "${f}" \
@@ -33,7 +34,7 @@ case "${ci}" in
 
     # Query for a finished or running branch build state and extract job id
     # job[0]: linux, job[1]: mac/64-bit, job[2]: mac/32-bit
-    f="$(curl -fsS "https://api.travis-ci.org/repos/vszakats/${project}/branches/${branch}" 2> /dev/null)"
+    f="$(curl -fsS "https://api.travis-ci.org/repos/${username}/${project}/branches/${branch}" 2> /dev/null)"
     jobid="$(echo "${f}" \
       | jq -r 'select(.branch.state | test("(started|finished|passed|restarted)")) | .branch.job_ids[1]')"
     jobid2="$(echo "${f}" \
