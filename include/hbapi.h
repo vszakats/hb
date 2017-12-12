@@ -798,7 +798,7 @@ extern HB_EXPORT HB_BOOL      hb_arrayNew( PHB_ITEM pItem, HB_SIZE nLen ); /* cr
 extern HB_EXPORT HB_SIZE      hb_arrayLen( PHB_ITEM pArray ); /* retrieves the array length */
 extern HB_EXPORT HB_BOOL      hb_arrayIsObject( PHB_ITEM pArray ); /* retrieves if the array is an object */
 extern HB_EXPORT void *       hb_arrayId( PHB_ITEM pArray ); /* retrieves the array unique ID */
-extern HB_EXPORT HB_COUNTER   hb_arrayRefs( PHB_ITEM pArray ); /* retrieves numer of references to the array */
+extern HB_EXPORT HB_COUNTER   hb_arrayRefs( PHB_ITEM pArray ); /* retrieves number of references to the array */
 extern HB_EXPORT PHB_ITEM     hb_arrayFromId( PHB_ITEM pItem, void * pArrayId );
 extern HB_EXPORT HB_BOOL      hb_arrayAdd( PHB_ITEM pArray, PHB_ITEM pItemValue ); /* add a new item to the end of an array item */
 extern HB_EXPORT HB_BOOL      hb_arrayAddForward( PHB_ITEM pArray, PHB_ITEM pValue ); /* add a new item to the end of an array item with no incrementing of reference counters */
@@ -903,7 +903,7 @@ extern HB_EXPORT void         hb_hashSetFlags( PHB_ITEM pHash, int iFlags );
 extern HB_EXPORT void         hb_hashClearFlags( PHB_ITEM pHash, int iFlags );
 extern HB_EXPORT int          hb_hashGetFlags( PHB_ITEM pHash );
 extern HB_EXPORT void *       hb_hashId( PHB_ITEM pHash ); /* retrieves the hash unique ID */
-extern HB_EXPORT HB_COUNTER   hb_hashRefs( PHB_ITEM pHash ); /* retrieves numer of references to the hash */
+extern HB_EXPORT HB_COUNTER   hb_hashRefs( PHB_ITEM pHash ); /* retrieves number of references to the hash */
 
 /* these hb_hashGet*() functions are dangerous, be sure that base HASH value will not be changed */
 extern HB_EXPORT PHB_ITEM    hb_hashGetItemPtr( PHB_ITEM pHash, PHB_ITEM pKey, int iFlags );
@@ -1076,7 +1076,7 @@ extern HB_EXPORT void          hb_winmainArgVFree( void );
 
 /* Codeblock management */
 extern HB_EXPORT void *       hb_codeblockId( PHB_ITEM pItem ); /* retrieves the codeblock unique ID */
-extern HB_EXPORT HB_COUNTER   hb_codeblockRefs( PHB_ITEM pItem ); /* retrieves numer of references to the codeblock */
+extern HB_EXPORT HB_COUNTER   hb_codeblockRefs( PHB_ITEM pItem ); /* retrieves number of references to the codeblock */
 extern PHB_CODEBLOCK    hb_codeblockNew( const HB_BYTE * pBuffer, HB_USHORT uiLocals, const HB_BYTE * pLocalPosTable, PHB_SYMB pSymbols, HB_SIZE nLen ); /* create a code-block */
 extern PHB_CODEBLOCK    hb_codeblockMacroNew( const HB_BYTE * pBuffer, HB_SIZE nLen );
 extern PHB_ITEM         hb_codeblockGetVar( PHB_ITEM pItem, int iItemPos ); /* get local variable referenced in a codeblock */
