@@ -4,9 +4,11 @@ title: "Forks"
 ---
 <div markdown="1" class="components">
 
+{%- assign forkurl = 'https://vszakats.github.io/hb/' %}
+
 # Harbour Forks
 
-## [Harbour](https://vszakats.github.io/harbour-core/) by [vszakats](https://github.com/vszakats) (version 3.4)
+## [Harbour]({% if site.fork %}{{ site.baseurl }}{% else %}{{ forkurl }}{% endif %}) by [vszakats](https://github.com/vszakats) (version 3.4)
 
 Forked in April of 2013 in an attempt to focus on a narrower set of platforms
 and contrib libraries while also freeing up resources by distancing from
@@ -16,13 +18,13 @@ goal to adapt all mainline (non-fork) updates with minimal delay. To ease
 maintenance, this fork has the policy to disable all deprecated components by
 default (they can be enabled though, with no promises). Other goals are
 compatibility with mainline core, continuous maintenance, build automation and
-security ([`hbcrypto`]({% if site.fork %}{{ site.baseurl }}{% else %}https://vszakats.github.io/harbour-core{% endif %}/contribs#hbcrypto)
+security ([`hbcrypto`]({% if site.fork %}{{ site.baseurl }}{% else %}{{ forkurl }}{% endif %}/contribs#hbcrypto)
 contrib and [curl/OpenSSL builds](https://github.com/vszakats/curl-for-win)).
 It also features a large number of fixes and cleanups, many of which are
 eventually retrofitted to mainline.
 
 This fork accepts
-[donations]({% if site.fork %}{{ site.baseurl }}{% else %}https://vszakats.github.io/harbour-core{% endif %}/#this-fork).
+[donations]({% if site.fork %}{{ site.baseurl }}{% else %}{{ forkurl }}{% endif %}/#this-fork).
 
 {% if site.fork %}
 ## [Mainline](https://harbour.github.io/) (non-fork) Harbour
