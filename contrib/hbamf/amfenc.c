@@ -275,7 +275,7 @@ static int amf3_add_index( amfContext * context, PHB_ITEM pHash, PHB_ITEM pItem 
          result = ( int ) ( hb_hashLen( pHash ) + context->strstr_count );
          /* ->strstr_count > 0 only when some inner context inside
           * user-defined conversion function uses only strstr mode
-          * like amf3_FromWA() function f.e. */
+          * like amf3_FromWA() function e.g. */
       else if( pHash == context->obj_ref )
          result = ( int ) ( hb_hashLen( pHash ) + context->objnref_count );
       else
