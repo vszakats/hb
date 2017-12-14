@@ -41,9 +41,7 @@ and a collection of libraries and bindings for popular APIs.
 
   You can donate to fund further maintenance of this fork:
 
-  [Donate Now.](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=BPSZQYKXMQJYG)
-
-  Thanks to all who did!
+  [Donate Now!](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=BPSZQYKXMQJYG)
 
 # Maintainer contacts
 

@@ -7,7 +7,9 @@ $font-copy: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $font-main: 'Open Sans', sans-serif;
 
 $fork-color: #f8981d;
-$fork-color: orangered;
+$fork-color: midnightblue;
+$fork-color: red;
+$fork-color: crimson;
 
 $color-base0: #4997d9;
 $color-base1: #0974c5;
@@ -215,7 +217,7 @@ $donate-button-transition-time: .3s;
 }
 
 .donate-button:hover {
-  background-color: #00457c;
+  background-color: $fork-color;
 }
 
 .donate-button:hover a {
