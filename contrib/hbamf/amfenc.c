@@ -319,7 +319,6 @@ static int amf3_get_index( amfContext * context, PHB_ITEM pHash, PHB_ITEM pItem 
    {
       PHB_ITEM pKey = hb_itemNew( NULL );
       HB_SIZE nPos;
-      PHB_ITEM pVal;
 
       _ref_realItemPtr( pKey, pItem );
       if( ! HB_IS_POINTER( pKey ) && ! HB_IS_DOUBLE( pKey ) )
@@ -330,7 +329,7 @@ static int amf3_get_index( amfContext * context, PHB_ITEM pHash, PHB_ITEM pItem 
 
       if( context->objnref_count )
       {
-         pVal = hb_hashGetItemPtr( pHash, pKey, 0 );
+         PHB_ITEM pVal = hb_hashGetItemPtr( pHash, pKey, 0 );
          hb_itemRelease( pKey );
          if( pVal )
             return ( int ) hb_itemGetNS( pVal );
