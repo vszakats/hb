@@ -26,6 +26,11 @@ eventually retrofitted to mainline.
 This fork accepts
 [donations]({% if site.fork %}{{ site.baseurl }}{% else %}{{ forkurl }}{% endif %}/#this-fork).
 
+* [Repository](https://github.com/vszakats/harbour-core)
+
+This fork is largely compatible with mainline, with the notable exception
+for deprecated parts, which are disabled by default.
+
 {% if site.fork %}
 ## [Mainline](https://harbour.github.io/) (non-fork) Harbour
 
@@ -34,11 +39,6 @@ This is the non-fork, original version of Harbour, started in 1999.
 * [Repository](https://github.com/harbour/core)
 * [Community](https://groups.google.com/group/harbour-users/)
 {% endif %}
-
-* [Repository](https://github.com/vszakats/harbour-core)
-
-This fork is largely compatible with mainline, with the notable exception
-for deprecated parts, which are disabled by default.
 
 ## xHarbour
 
@@ -61,7 +61,7 @@ components. There are a number of semi-connected forks found on the internet:
 
 * [HMG Extended](https://sourceforge.net/projects/hmgs-minigui/)
 * [HMG](https://sourceforge.net/projects/hmg/) / <https://sites.google.com/site/hmgweb/>
-* [HMG3 (hmgforum.com)](https://sourceforge.net/projects/harbourminigui/)
+* [HMG3](https://sourceforge.net/projects/harbourminigui/) / hmgforum.com
 
 Each use altered Harbour sources and may use non-standard toolchain elements
 (e.g. `hbmk2.bat` wrapper for standard `hbmk2.exe`). They feature certain

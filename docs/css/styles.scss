@@ -6,7 +6,6 @@ $font-code: Hack, Consolas, Menlo, 'Droid Sans Mono', 'Source Code Pro', 'Libera
 $font-copy: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $font-main: 'Open Sans', sans-serif;
 
-$fork-color: #f8981d;
 $fork-color: midnightblue;
 $fork-color: red;
 $fork-color: crimson;
@@ -119,6 +118,10 @@ nav hr {
   margin: auto;
   margin-bottom: 1em;
   padding: .2em 1em;
+}
+
+.text-j {
+  text-align: justify;
 }
 
 .why-items {
