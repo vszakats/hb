@@ -548,6 +548,7 @@ settings are case-sensitive.
 
    - `HB_USER_PRGFLAGS`        User Harbour compiler options
    - `HB_USER_CFLAGS`          User C compiler options
+   - `HB_USER_DCFLAGS`         User C compiler options (for dynamic libraries only)
    - `HB_USER_RESFLAGS`        User resource compiler options (on win, wce, os2)
    - `HB_USER_LDFLAGS`         User linker options for executables
    - `HB_USER_AFLAGS`          User linker options for libraries
