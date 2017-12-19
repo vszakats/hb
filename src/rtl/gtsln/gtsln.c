@@ -776,8 +776,6 @@ static void hb_gt_sln_Tone( PHB_GT pGT, double dFrequency, double dDuration )
 
    /* TODO: Implement this for other consoles than linux ? */
 
-   HB_SYMBOL_UNUSED( pGT );
-
    if( hb_sln_UnderLinuxConsole )
    {
       char escstr[ 64 ];
@@ -799,7 +797,7 @@ static void hb_gt_sln_Tone( PHB_GT pGT, double dFrequency, double dDuration )
       /* The conversion from Clipper (DOS) timer tick units to
          milliseconds is * 1000.0 / 18.2. */
       dDuration /= 18.2;
-      hb_idleSleep( dDuration );
+      hb_gtSleep( pGT, dDuration / 18.2 );
    }
 }
 

@@ -1469,7 +1469,7 @@ static void hb_gt_trm_LinuxTone( PHB_GTTRM pTerm, double dFrequency, double dDur
    hb_gt_trm_termFlush( pTerm );
 
    /* convert Clipper (DOS) timer tick units to seconds ( x / 18.2 ) */
-   hb_idleSleep( dDuration / 18.2 );
+   hb_gtSleep( pTerm->pGT, dDuration / 18.2 );
 }
 
 static void hb_gt_trm_LinuxSetCursorStyle( PHB_GTTRM pTerm, int iStyle )
@@ -1941,7 +1941,7 @@ static void hb_gt_trm_BsdTone( PHB_GTTRM pTerm, double dFrequency, double dDurat
    hb_gt_trm_termFlush( pTerm );
 
    /* convert Clipper (DOS) timer tick units to seconds ( x / 18.2 ) */
-   hb_idleSleep( dDuration / 18.2 );
+   hb_gtSleep( pTerm->pGT, dDuration / 18.2 );
 }
 
 
@@ -2272,7 +2272,7 @@ static void hb_gt_trm_AnsiTone( PHB_GTTRM pTerm, double dFrequency, double dDura
    HB_SYMBOL_UNUSED( dFrequency );
 
    /* convert Clipper (DOS) timer tick units to seconds ( x / 18.2 ) */
-   hb_idleSleep( dDuration / 18.2 );
+   hb_gtSleep( pTerm->pGT, dDuration / 18.2 );
 }
 
 static void hb_gt_trm_AnsiInit( PHB_GTTRM pTerm )
