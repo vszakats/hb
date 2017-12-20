@@ -1,19 +1,6 @@
 diff -urN expat.orig/xmlparse.c expat/xmlparse.c
 --- expat.orig/xmlparse.c	2017-07-12 21:55:49.000000000 +0000
 +++ expat/xmlparse.c	2017-07-30 20:44:40.000000000 +0000
-@@ -17,6 +17,12 @@
- 
- #ifdef _WIN32
- #define getpid GetCurrentProcessId
-+#elif defined(__WATCOMC__) && defined(__DOS__)
-+#include <process.h>                    /* getpid() */
-+#include <sys/timeb.h>                  /* ftime() */
-+#elif defined(__WATCOMC__) && defined(__OS2__)
-+#include <process.h>                    /* getpid() */
-+#include <sys/time.h>                   /* gettimeofday() */
- #else
- #include <sys/time.h>                   /* gettimeofday() */
- #include <sys/types.h>                  /* getpid() */
 @@ -790,7 +796,7 @@
  
    if (advapi32) {

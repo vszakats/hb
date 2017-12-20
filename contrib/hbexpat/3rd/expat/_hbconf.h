@@ -22,6 +22,16 @@
 #  endif
 #endif
 
+#if defined(__WATCOMC__)
+#  if defined(__DOS__)
+#     include <process.h>    /* getpid() */
+#     include <sys/timeb.h>  /* ftime() */
+#  elif defined(__OS2__)
+#     include <process.h>    /* getpid() */
+#     include <sys/time.h>   /* gettimeofday() */
+#  endif
+#endif
+
 /* 1234 = LITLE_ENDIAN, 4321 = BIG_ENDIAN */
 #if defined( HB_LITTLE_ENDIAN )
 #  define BYTEORDER 1234
