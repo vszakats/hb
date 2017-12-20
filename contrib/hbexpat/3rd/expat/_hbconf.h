@@ -15,8 +15,11 @@
 #  undef WIN32_LEAN_AND_MEAN
 #  include "hbwinuni.h"
 #endif
-#if defined( HB_OS_WIN_CE ) && ! defined( _WINCE )
-#  define _WINCE
+#if defined( HB_OS_WIN_CE )
+#  define getenv( e )  NULL
+#  if ! defined( _WINCE )
+#     define _WINCE
+#  endif
 #endif
 
 /* 1234 = LITLE_ENDIAN, 4321 = BIG_ENDIAN */
