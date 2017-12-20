@@ -112,7 +112,6 @@ if [ "${CC4}" != 'msvc' ]; then
 
   for plat in '32' '64'; do
     for name in \
-      'brotli' \
       'nghttp2' \
       'openssl' \
       'libssh2' \
