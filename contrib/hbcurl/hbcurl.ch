@@ -295,6 +295,7 @@
 #define HB_CURLOPT_SOCKS5_AUTH                248
 #define HB_CURLOPT_SSH_COMPRESSION            249
 #define HB_CURLOPT_MIMEPOST                   250
+#define HB_CURLOPT_TIMEVALUE_LARGE            HB_CURLOPT_TIMEVALUE
 #define HB_CURLOPT_DOWNLOAD                   1001  /* Harbour special ones */
 #define HB_CURLOPT_XFERINFOBLOCK              1002
 #define HB_CURLOPT_UL_FILE_SETUP              1003
@@ -535,6 +536,7 @@
 #define HB_CURLINFO_PROTOCOL                  45
 #define HB_CURLINFO_SCHEME                    46
 #define HB_CURLINFO_PROXY_SSL_VERIFYRESULT    47
+#define HB_CURLINFO_FILETIME_T                HB_CURLINFO_FILETIME
 
 /* curl result codes. */
 

@@ -1781,8 +1781,12 @@ HB_FUNC( CURL_EASY_SETOPT )
             case HB_CURLOPT_TIMECONDITION:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_TIMECONDITION, hb_parnl( 3 ) );
                break;
-            case HB_CURLOPT_TIMEVALUE:
+            case HB_CURLOPT_TIMEVALUE_LARGE:
+#if LIBCURL_VERSION_NUM >= 0x073B00
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_TIMEVALUE_LARGE, HB_CURL_OPT_LARGENUM( 3 ) );
+#else
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_TIMEVALUE, hb_parnl( 3 ) );
+#endif
                break;
 
             /* Connection */
@@ -2353,11 +2357,16 @@ HB_FUNC( CURL_EASY_GETINFO )
             res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_HTTP_CONNECTCODE, &ret_long );
             type = HB_CURL_INFO_TYPE_LONG;
             break;
-         case HB_CURLINFO_FILETIME:
-#if LIBCURL_VERSION_NUM >= 0x070500
+         case HB_CURLINFO_FILETIME_T:
+#if LIBCURL_VERSION_NUM >= 0x073B00
+            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_FILETIME_T, &ret_offset );
+            type = HB_CURL_INFO_TYPE_OFFSET;
+#elif LIBCURL_VERSION_NUM >= 0x070500
             res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_FILETIME, &ret_long );
-#endif
             type = HB_CURL_INFO_TYPE_LONG;
+#else
+            type = HB_CURL_INFO_TYPE_LONG;
+#endif
             break;
          case HB_CURLINFO_TOTAL_TIME:
             res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_TOTAL_TIME, &ret_double );
