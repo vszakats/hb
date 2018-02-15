@@ -634,6 +634,9 @@
 #define HB_CURLE_CHUNK_FAILED                 88 /* chunk callback reported error */
 #define HB_CURLE_NO_CONNECTION_AVAILABLE      89 /* No connection available, the session will be queued */
 #define HB_CURLE_SSL_PINNEDPUBKEYNOTMATCH     90 /* specified pinned public key did not match */
+#define HB_CURLE_SSL_INVALIDCERTSTATUS        91 /* invalid certificate status */
+#define HB_CURLE_HTTP2_STREAM                 92 /* stream error in HTTP/2 framing layer */
+#define HB_CURLE_RECURSIVE_API_CALL           93 /* an api function was called from inside a callback */
 
 #define HB_CURLE_OBSOLETE16                   HB_CURLE_HTTP2
 
