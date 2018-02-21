@@ -1870,6 +1870,11 @@ HB_FUNC( CURL_EASY_SETOPT )
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_ACCEPTTIMEOUT_MS, hb_parnl( 3 ) );
                break;
 #endif
+#if LIBCURL_VERSION_NUM >= 0x073B00
+            case HB_CURLOPT_HAPPY_EYEBALLS_TIMEOUT_MS:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_HAPPY_EYEBALLS_TIMEOUT_MS, hb_parnl( 3 ) );
+               break;
+#endif
 
             /* SSL and Security */
 

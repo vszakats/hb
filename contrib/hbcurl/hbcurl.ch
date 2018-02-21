@@ -296,6 +296,7 @@
 #define HB_CURLOPT_SSH_COMPRESSION            249
 #define HB_CURLOPT_MIMEPOST                   250
 #define HB_CURLOPT_TIMEVALUE_LARGE            HB_CURLOPT_TIMEVALUE
+#define HB_CURLOPT_HAPPY_EYEBALLS_TIMEOUT_MS  251
 #define HB_CURLOPT_DOWNLOAD                   1001  /* Harbour special ones */
 #define HB_CURLOPT_XFERINFOBLOCK              1002
 #define HB_CURLOPT_UL_FILE_SETUP              1003
