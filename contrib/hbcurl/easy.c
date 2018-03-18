@@ -1788,6 +1788,14 @@ HB_FUNC( CURL_EASY_SETOPT )
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_TIMEVALUE, hb_parnl( 3 ) );
 #endif
                break;
+#if LIBCURL_VERSION_NUM >= 0x073C00
+            case HB_CURLOPT_HAPROXYPROTOCOL:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_HAPROXYPROTOCOL, hb_parnl( 3 ) );
+               break;
+            case HB_CURLOPT_DNS_SHUFFLE_ADDRESSES:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_DNS_SHUFFLE_ADDRESSES, HB_CURL_OPT_BOOL( 3 ) );
+               break;
+#endif
 
             /* Connection */
 
