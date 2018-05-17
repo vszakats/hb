@@ -495,7 +495,7 @@
 #define HB_CURLINFO_EFFECTIVE_URL             1
 #define HB_CURLINFO_RESPONSE_CODE             2
 #define HB_CURLINFO_HTTP_CONNECTCODE          3
-#define HB_CURLINFO_FILETIME                  4
+#define HB_CURLINFO_FILETIME_T                4
 #define HB_CURLINFO_TOTAL_TIME                5
 #define HB_CURLINFO_NAMELOOKUP_TIME           6
 #define HB_CURLINFO_CONNECT_TIME              7
@@ -539,7 +539,14 @@
 #define HB_CURLINFO_PROTOCOL                  45
 #define HB_CURLINFO_SCHEME                    46
 #define HB_CURLINFO_PROXY_SSL_VERIFYRESULT    47
-#define HB_CURLINFO_FILETIME_T                HB_CURLINFO_FILETIME
+#define HB_CURLINFO_FILETIME                  HB_CURLINFO_FILETIME_T
+#define HB_CURLINFO_TOTAL_TIME_T              48
+#define HB_CURLINFO_NAMELOOKUP_TIME_T         49
+#define HB_CURLINFO_CONNECT_TIME_T            50
+#define HB_CURLINFO_PRETRANSFER_TIME_T        51
+#define HB_CURLINFO_STARTTRANSFER_TIME_T      52
+#define HB_CURLINFO_REDIRECT_TIME_T           53
+#define HB_CURLINFO_APPCONNECT_TIME_T         54
 
 /* curl result codes. */
 
