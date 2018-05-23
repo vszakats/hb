@@ -101,6 +101,7 @@ PROCEDURE Main( cDL, cUL )
 
       ? curl_easy_getinfo( curl, HB_CURLINFO_EFFECTIVE_URL )
       ? curl_easy_getinfo( curl, HB_CURLINFO_TOTAL_TIME )
+      ? curl_easy_getinfo( curl, HB_CURLINFO_TOTAL_TIME_T )
 
       info := curl_easy_getinfo( curl, HB_CURLINFO_SSL_ENGINES, @tmp )
       ? "SSL engines:", tmp, Len( info )
@@ -153,6 +154,7 @@ PROCEDURE Main( cDL, cUL )
 
       ? curl_easy_getinfo( curl, HB_CURLINFO_EFFECTIVE_URL )
       ? curl_easy_getinfo( curl, HB_CURLINFO_TOTAL_TIME )
+      ? curl_easy_getinfo( curl, HB_CURLINFO_TOTAL_TIME_T )
 
       curl_easy_reset( curl )
 
@@ -188,7 +190,7 @@ PROCEDURE Main( cDL, cUL )
       ? curl_easy_setopt( curl, HB_CURLOPT_CERTINFO, .T. )
 
       ? "Download file (to filename):", curl_easy_perform( curl )
-      ? "Server timestamp:", tDate := UnixTimeToT( curl_easy_getinfo( curl, HB_CURLINFO_FILETIME ) )
+      ? "Server timestamp:", tDate := UnixTimeToT( curl_easy_getinfo( curl, HB_CURLINFO_FILETIME_T ) )
       ? "CERTINFO:", hb_jsonEncode( curl_easy_getinfo( curl, HB_CURLINFO_CERTINFO ), .T. )
 
       curl_easy_reset( curl )
@@ -211,7 +213,7 @@ PROCEDURE Main( cDL, cUL )
       ? curl_easy_setopt( curl, HB_CURLOPT_CAINFO, cCA )
 
       ? "Download file (to VF file handle):", curl_easy_perform( curl )
-      ? "Server timestamp:", tDate := UnixTimeToT( curl_easy_getinfo( curl, HB_CURLINFO_FILETIME ) )
+      ? "Server timestamp:", tDate := UnixTimeToT( curl_easy_getinfo( curl, HB_CURLINFO_FILETIME_T ) )
 
       curl_easy_reset( curl )
 
@@ -235,7 +237,7 @@ PROCEDURE Main( cDL, cUL )
       ? curl_easy_setopt( curl, HB_CURLOPT_CAINFO, cCA )
 
       ? "Download file (to OS file handle):", curl_easy_perform( curl )
-      ? "Server timestamp:", tDate := UnixTimeToT( curl_easy_getinfo( curl, HB_CURLINFO_FILETIME ) )
+      ? "Server timestamp:", tDate := UnixTimeToT( curl_easy_getinfo( curl, HB_CURLINFO_FILETIME_T ) )
 
       curl_easy_reset( curl )
 
@@ -259,7 +261,7 @@ PROCEDURE Main( cDL, cUL )
       ? curl_easy_setopt( curl, HB_CURLOPT_CAINFO, cCA )
 
       ? "Download file (to memory):", curl_easy_perform( curl )
-      ? "Server timestamp:", tDate := UnixTimeToT( curl_easy_getinfo( curl, HB_CURLINFO_FILETIME ) )
+      ? "Server timestamp:", tDate := UnixTimeToT( curl_easy_getinfo( curl, HB_CURLINFO_FILETIME_T ) )
 
       ? "Writing to file:", cFileName := "test_dlm.bin"
 
