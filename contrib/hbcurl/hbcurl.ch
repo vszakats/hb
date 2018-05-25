@@ -347,6 +347,7 @@
 #define HB_CURLAUTH_NTLM                      hb_bitShift( 1, 3 )  /* NTLM */
 #define HB_CURLAUTH_DIGEST_IE                 hb_bitShift( 1, 4 )  /* Digest with IE flavour */
 #define HB_CURLAUTH_NTLM_WB                   hb_bitShift( 1, 5 )  /* NTLM delegating to winbind helper */
+#define HB_CURLAUTH_BEARER                    hb_bitShift( 1, 6 )  /* HTTP Bearer token authentication */
 #define HB_CURLAUTH_ONLY                      hb_bitShift( 1, 31 ) /* used together with a single other type to force no auth or just that single type */
 #define HB_CURLAUTH_ANY                       hb_bitNot( 0 )       /* all types set */
 #define HB_CURLAUTH_ANYSAFE                   hb_bitNot( hb_bitOr( HB_CURLAUTH_BASIC, HB_CURLAUTH_DIGEST_IE ) )
