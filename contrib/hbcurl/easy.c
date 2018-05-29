@@ -1939,6 +1939,11 @@ HB_FUNC( CURL_EASY_SETOPT )
             case HB_CURLOPT_SSL_CIPHER_LIST:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_SSL_CIPHER_LIST, hb_curl_StrHash( hb_curl, hb_parc( 3 ) ) );
                break;
+#if LIBCURL_VERSION_NUM >= 0x073D00
+            case HB_CURLOPT_TLS13_CIPHERS:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_TLS13_CIPHERS, hb_parc( 3 ) );
+               break;
+#endif
             case HB_CURLOPT_SSL_SESSIONID_CACHE:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_SSL_SESSIONID_CACHE, HB_CURL_OPT_BOOL( 3 ) );
                break;
@@ -2032,6 +2037,11 @@ HB_FUNC( CURL_EASY_SETOPT )
             case HB_CURLOPT_PROXY_SSL_CIPHER_LIST:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_PROXY_SSL_CIPHER_LIST, hb_curl_StrHash( hb_curl, hb_parc( 3 ) ) );
                break;
+#if LIBCURL_VERSION_NUM >= 0x073D00
+            case HB_CURLOPT_PROXY_TLS13_CIPHERS:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_PROXY_TLS13_CIPHERS, hb_parc( 3 ) );
+               break;
+#endif
             case HB_CURLOPT_PROXY_CRLFILE:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_PROXY_CRLFILE, hb_parc( 3 ) );
                break;
@@ -2448,6 +2458,7 @@ HB_FUNC( CURL_EASY_GETINFO )
             res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_APPCONNECT_TIME_T, &ret_offset );
 #endif
             type = HB_CURL_INFO_TYPE_OFFSET;
+            break;
          case HB_CURLINFO_REDIRECT_COUNT:
 #if LIBCURL_VERSION_NUM >= 0x070907
             res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_REDIRECT_COUNT, &ret_long );
