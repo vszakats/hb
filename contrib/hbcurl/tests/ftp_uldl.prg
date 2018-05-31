@@ -4,11 +4,12 @@
 
 #require "hbcurl"
 
-#define UPLOAD_FILE_AS  "test_ul.bin"
-#define RENAME_FILE_TO  "test_ul_renamed.bin"
-#define REMOTE_URL      "ftp://localhost/" + UPLOAD_FILE_AS
-#define REMOTE_URL_DEL  "ftp://localhost/" + RENAME_FILE_TO
-#define REMOTE_URL_MEM  "ftp://localhost/from_mem.txt"
+#define UPLOAD_FILE_AS   "test_ul.bin"
+#define RENAME_FILE_TO   "test_ul_renamed.bin"
+#define REMOTE_URL       "ftp://localhost/" + UPLOAD_FILE_AS
+#define REMOTE_URL_DEL   "ftp://localhost/" + RENAME_FILE_TO
+#define REMOTE_URL_MEM   "ftp://localhost/from_mem.txt"
+#define REMOTE_URL_AUTH  "username:password"
 
 #include "fileio.ch"
 
@@ -85,7 +86,7 @@ PROCEDURE Main( cDL, cUL )
 
       ? curl_easy_setopt( curl, HB_CURLOPT_UPLOAD )
       ? curl_easy_setopt( curl, HB_CURLOPT_URL, REMOTE_URL )
-      ? curl_easy_setopt( curl, HB_CURLOPT_USERPWD, "username:password" )
+      ? curl_easy_setopt( curl, HB_CURLOPT_USERPWD, REMOTE_URL_AUTH )
       ? curl_easy_setopt( curl, HB_CURLOPT_UL_FILE_SETUP, cUL )
       ? curl_easy_setopt( curl, HB_CURLOPT_INFILESIZE, hb_vfSize( cUL ) ), hb_vfSize( cUL )
       ? curl_easy_setopt( curl, HB_CURLOPT_XFERINFOBLOCK, {| nPos, nLen | hb_DispOutAt( 10, 10, Str( ( nPos / nLen ) * 100, 6, 2 ) + "%" ) } )
@@ -115,7 +116,7 @@ PROCEDURE Main( cDL, cUL )
       ? curl_easy_setopt( curl, HB_CURLOPT_UPLOAD )
       ? curl_easy_setopt( curl, HB_CURLOPT_UL_NULL_SETUP )
       ? curl_easy_setopt( curl, HB_CURLOPT_URL, REMOTE_URL_DEL )
-      ? curl_easy_setopt( curl, HB_CURLOPT_USERPWD, "username:password" )
+      ? curl_easy_setopt( curl, HB_CURLOPT_USERPWD, REMOTE_URL_AUTH )
       ? curl_easy_setopt( curl, HB_CURLOPT_NOPROGRESS )
       ? curl_easy_setopt( curl, HB_CURLOPT_POSTQUOTE, { "DELE " + RENAME_FILE_TO } )
       ? curl_easy_setopt( curl, HB_CURLOPT_VERBOSE, lVerbose )
@@ -133,7 +134,7 @@ PROCEDURE Main( cDL, cUL )
 
       ? curl_easy_setopt( curl, HB_CURLOPT_UPLOAD )
       ? curl_easy_setopt( curl, HB_CURLOPT_URL, REMOTE_URL_MEM )
-      ? curl_easy_setopt( curl, HB_CURLOPT_USERPWD, "username:password" )
+      ? curl_easy_setopt( curl, HB_CURLOPT_USERPWD, REMOTE_URL_AUTH )
       ? curl_easy_setopt( curl, HB_CURLOPT_UL_BUFF_SETUP, tmp )
       ? curl_easy_setopt( curl, HB_CURLOPT_INFILESIZE, hb_BLen( tmp ) ), hb_BLen( tmp )
       ? curl_easy_setopt( curl, HB_CURLOPT_XFERINFOBLOCK, {| nPos, nLen | hb_DispOutAt( 10, 10, Str( ( nPos / nLen ) * 100, 6, 2 ) + "%" ) } )
