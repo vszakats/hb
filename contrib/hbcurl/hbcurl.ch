@@ -301,6 +301,7 @@
 #define HB_CURLOPT_DNS_SHUFFLE_ADDRESSES      253
 #define HB_CURLOPT_TLS13_CIPHERS              254
 #define HB_CURLOPT_PROXY_TLS13_CIPHERS        255
+#define HB_CURLOPT_DISALLOW_USERNAME_IN_URL   256
 #define HB_CURLOPT_DOWNLOAD                   1001  /* Harbour special ones */
 #define HB_CURLOPT_XFERINFOBLOCK              1002
 #define HB_CURLOPT_UL_FILE_SETUP              1003

@@ -1133,6 +1133,11 @@ HB_FUNC( CURL_EASY_SETOPT )
             case HB_CURLOPT_USERPWD:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_USERPWD, hb_curl_StrHash( hb_curl, hb_parc( 3 ) ) );
                break;
+#if LIBCURL_VERSION_NUM >= 0x073D00
+            case HB_CURLOPT_DISALLOW_USERNAME_IN_URL:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_DISALLOW_USERNAME_IN_URL, HB_CURL_OPT_BOOL( 3 ) );
+               break;
+#endif
 #if LIBCURL_VERSION_NUM >= 0x071301
             case HB_CURLOPT_USERNAME:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_USERNAME, hb_parc( 3 ) );
