@@ -477,6 +477,9 @@
 #define HB_CURLPROTO_RTMPTE                   hb_bitShift( 1, 22 )
 #define HB_CURLPROTO_RTMPS                    hb_bitShift( 1, 23 )
 #define HB_CURLPROTO_RTMPTS                   hb_bitShift( 1, 24 )
+#define HB_CURLPROTO_GOPHER                   hb_bitShift( 1, 25 )
+#define HB_CURLPROTO_SMB                      hb_bitShift( 1, 26 )
+#define HB_CURLPROTO_SMBS                     hb_bitShift( 1, 27 )
 #define HB_CURLPROTO_ALL                      hb_bitNot( 0 )
 
 /* curl_easy_pause() parameters. They can be combined with hb_bitOr(). */
