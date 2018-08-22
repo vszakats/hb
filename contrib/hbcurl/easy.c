@@ -1850,6 +1850,11 @@ HB_FUNC( CURL_EASY_SETOPT )
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_IPRESOLVE, hb_parnl( 3 ) );
                break;
 #endif
+#if LIBCURL_VERSION_NUM >= 0x073E00
+            case HB_CURLOPT_DOH_URL:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_DOH_URL, hb_parc( 3 ) );
+               break;
+#endif
 #if LIBCURL_VERSION_NUM >= 0x070F02
             case HB_CURLOPT_CONNECT_ONLY:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_CONNECT_ONLY, HB_CURL_OPT_BOOL( 3 ) );
