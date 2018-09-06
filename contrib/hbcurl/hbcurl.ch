@@ -613,7 +613,7 @@
 #define HB_CURLE_UNKNOWN_TELNET_OPTION        HB_CURLE_UNKNOWN_OPTION
 #define HB_CURLE_TELNET_OPTION_SYNTAX         49 /* Malformed telnet option */
 #define HB_CURLE_OBSOLETE50                   50 /* NOT USED */
-#define HB_CURLE_PEER_FAILED_VERIFICATION     51 /* peer's certificate or fingerprint wasn't verified fine */
+#define HB_CURLE_OBSOLETE51                   51 /* peer's certificate or fingerprint wasn't verified fine */
 #define HB_CURLE_GOT_NOTHING                  52 /* when this is a specific error */
 #define HB_CURLE_SSL_ENGINE_NOTFOUND          53 /* SSL crypto engine not found */
 #define HB_CURLE_SSL_ENGINE_SETFAILED         54 /* cannot set SSL crypto engine as default */
@@ -622,7 +622,8 @@
 #define HB_CURLE_OBSOLETE57                   57 /* NOT IN USE */
 #define HB_CURLE_SSL_CERTPROBLEM              58 /* problem with the local certificate */
 #define HB_CURLE_SSL_CIPHER                   59 /* couldn't use specified cipher */
-#define HB_CURLE_SSL_CACERT                   60 /* problem with the CA cert (path?) */
+#define HB_CURLE_PEER_FAILED_VERIFICATION     60 /* peer's certificate or fingerprint wasn't verified fine */
+#define HB_CURLE_SSL_CACERT                   HB_CURLE_PEER_FAILED_VERIFICATION
 #define HB_CURLE_BAD_CONTENT_ENCODING         61 /* Unrecognized transfer encoding */
 #define HB_CURLE_LDAP_INVALID_URL             62 /* Invalid LDAP URL */
 #define HB_CURLE_FILESIZE_EXCEEDED            63 /* Maximum file size exceeded */
