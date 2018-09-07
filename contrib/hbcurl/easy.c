@@ -774,6 +774,24 @@ HB_FUNC( CURL_EASY_RECV )
       hb_errRT_BASE( EG_ARG, 2010, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
+/* NOTE: curl_easy_conn_upkeep( curl ) --> nResult */
+HB_FUNC( CURL_EASY_CONN_UPKEEP )
+{
+   if( PHB_CURL_is( 1 ) )
+   {
+      CURLcode res = ( CURLcode ) HB_CURLE_ERROR;
+#if LIBCURL_VERSION_NUM >= 0x073E00
+      PHB_CURL hb_curl = PHB_CURL_par( 1 );
+
+      if( hb_curl )
+         res = curl_easy_conn_upkeep( hb_curl->curl );
+#endif
+      hb_retnl( ( long ) res );
+   }
+   else
+      hb_errRT_BASE( EG_ARG, 2010, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
 #if LIBCURL_VERSION_NUM >= 0x073800
 
 /* #define HB_CURL_MIME_TRACE */
@@ -1535,6 +1553,11 @@ HB_FUNC( CURL_EASY_SETOPT )
 #if LIBCURL_VERSION_NUM >= 0x072400
             case HB_CURLOPT_EXPECT_100_TIMEOUT_MS:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_EXPECT_100_TIMEOUT_MS, hb_parnl( 3 ) );
+               break;
+#endif
+#if LIBCURL_VERSION_NUM >= 0x073E00
+            case HB_CURLOPT_CONN_UPKEEP_INTERVAL_MS:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_CONN_UPKEEP_INTERVAL_MS, hb_parnl( 3 ) );
                break;
 #endif
 
