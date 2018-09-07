@@ -304,7 +304,7 @@
 #define HB_CURLOPT_DISALLOW_USERNAME_IN_URL   256
 #define HB_CURLOPT_DOH_URL                    257
 #define HB_CURLOPT_UPLOAD_BUFFERSIZE          258
-#define HB_CURLOPT_CONN_UPKEEP_INTERVAL_MS    259
+#define HB_CURLOPT_UPKEEP_INTERVAL_MS         259
 #define HB_CURLOPT_DOWNLOAD                   1001  /* Harbour special ones */
 #define HB_CURLOPT_XFERINFOBLOCK              1002
 #define HB_CURLOPT_UL_FILE_SETUP              1003

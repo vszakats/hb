@@ -22,7 +22,6 @@
 #endif
 
 DYNAMIC curl_easy_cleanup
-DYNAMIC curl_easy_conn_upkeep
 DYNAMIC curl_easy_dl_buff_get
 DYNAMIC curl_easy_duplicate
 DYNAMIC curl_easy_escape
@@ -36,6 +35,7 @@ DYNAMIC curl_easy_send
 DYNAMIC curl_easy_setopt
 DYNAMIC curl_easy_strerror
 DYNAMIC curl_easy_unescape
+DYNAMIC curl_easy_upkeep
 DYNAMIC curl_escape
 DYNAMIC curl_getdate
 DYNAMIC curl_global_cleanup

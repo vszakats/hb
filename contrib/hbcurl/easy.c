@@ -774,8 +774,8 @@ HB_FUNC( CURL_EASY_RECV )
       hb_errRT_BASE( EG_ARG, 2010, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
-/* NOTE: curl_easy_conn_upkeep( curl ) --> nResult */
-HB_FUNC( CURL_EASY_CONN_UPKEEP )
+/* NOTE: curl_easy_upkeep( curl ) --> nResult */
+HB_FUNC( CURL_EASY_UPKEEP )
 {
    if( PHB_CURL_is( 1 ) )
    {
@@ -784,7 +784,7 @@ HB_FUNC( CURL_EASY_CONN_UPKEEP )
       PHB_CURL hb_curl = PHB_CURL_par( 1 );
 
       if( hb_curl )
-         res = curl_easy_conn_upkeep( hb_curl->curl );
+         res = curl_easy_upkeep( hb_curl->curl );
 #endif
       hb_retnl( ( long ) res );
    }
@@ -1556,8 +1556,8 @@ HB_FUNC( CURL_EASY_SETOPT )
                break;
 #endif
 #if LIBCURL_VERSION_NUM >= 0x073E00
-            case HB_CURLOPT_CONN_UPKEEP_INTERVAL_MS:
-               res = curl_easy_setopt( hb_curl->curl, CURLOPT_CONN_UPKEEP_INTERVAL_MS, hb_parnl( 3 ) );
+            case HB_CURLOPT_UPKEEP_INTERVAL_MS:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_UPKEEP_INTERVAL_MS, hb_parnl( 3 ) );
                break;
 #endif
 
