@@ -81,9 +81,6 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
       cHost := "smtps://smtps.uol.com.br"
    CASE cHost == "yahoo" .OR. "@yahoo.com" $ cFrom
       cHost := "smtps://smtp.mail.yahoo.com"
-   CASE cHost == "mailtrap.io" .OR. "@mailtrap.io" $ cFrom
-      cHost := "smtp://smtp.mailtrap.io:465"; lSTARTTLS_force := .T.
-      cUser := StrTran( cUser, "@mailtrap.io" )
    CASE cHost == "localhost"
       cHost := "smtp://localhost:1025"  /* MailHog */
       cUser := cPassword := NIL
