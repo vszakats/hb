@@ -1045,9 +1045,6 @@ HB_FUNC( CURL_EASY_SETOPT )
             case HB_CURLOPT_DNS_CACHE_TIMEOUT:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_DNS_CACHE_TIMEOUT, hb_parnl( 3 ) );
                break;
-            case HB_CURLOPT_DNS_USE_GLOBAL_CACHE: /* OBSOLETE */
-               res = curl_easy_setopt( hb_curl->curl, CURLOPT_DNS_USE_GLOBAL_CACHE, HB_CURL_OPT_BOOL( 3 ) );
-               break;
 #if LIBCURL_VERSION_NUM >= 0x070A00
             case HB_CURLOPT_BUFFERSIZE:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_BUFFERSIZE, hb_parnl( 3 ) );

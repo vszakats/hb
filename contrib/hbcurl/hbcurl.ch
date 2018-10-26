@@ -139,7 +139,7 @@
 #define HB_CURLOPT_SSLKEYTYPE                 88
 #define HB_CURLOPT_SSLENGINE                  89
 #define HB_CURLOPT_SSLENGINE_DEFAULT          90
-#define HB_CURLOPT_DNS_USE_GLOBAL_CACHE       91  /* To become OBSOLETE soon */
+#define HB_CURLOPT_DNS_USE_GLOBAL_CACHE       91  /* Deprecated. It's a no-op. */
 #define HB_CURLOPT_DNS_CACHE_TIMEOUT          92
 #define HB_CURLOPT_PREQUOTE                   93
 #define HB_CURLOPT_DEBUGFUNCTION              94
