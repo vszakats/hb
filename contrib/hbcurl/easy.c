@@ -1534,6 +1534,11 @@ HB_FUNC( CURL_EASY_SETOPT )
             case HB_CURLOPT_HTTP_VERSION:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_HTTP_VERSION, hb_parnl( 3 ) );
                break;
+#if LIBCURL_VERSION_NUM >= 0x074000
+            case HB_CURLOPT_HTTP09_ALLOWED:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_HTTP09_ALLOWED, HB_CURL_OPT_BOOL( 3 ) );
+               break;
+#endif
 #if LIBCURL_VERSION_NUM >= 0x070E01
             case HB_CURLOPT_IGNORE_CONTENT_LENGTH:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_IGNORE_CONTENT_LENGTH, HB_CURL_OPT_BOOL( 3 ) );

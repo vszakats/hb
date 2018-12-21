@@ -305,6 +305,7 @@
 #define HB_CURLOPT_DOH_URL                    257
 #define HB_CURLOPT_UPLOAD_BUFFERSIZE          258
 #define HB_CURLOPT_UPKEEP_INTERVAL_MS         259
+#define HB_CURLOPT_HTTP09_ALLOWED             260
 #define HB_CURLOPT_DOWNLOAD                   1001  /* Harbour special ones */
 #define HB_CURLOPT_XFERINFOBLOCK              1002
 #define HB_CURLOPT_UL_FILE_SETUP              1003
