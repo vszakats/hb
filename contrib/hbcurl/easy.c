@@ -1740,11 +1740,11 @@ HB_FUNC( CURL_EASY_SETOPT )
 
                      if( temp == NULL )
                      {
-                        hb_curl_slist_free( &hb_curl->pQUOTE );
+                        hb_curl_slist_free( &hb_curl->pPREQUOTE );
                         break;
                      }
                      else
-                        hb_curl->pQUOTE = temp;
+                        hb_curl->pPREQUOTE = temp;
                   }
 
                   res = curl_easy_setopt( hb_curl->curl, CURLOPT_PREQUOTE, hb_curl->pPREQUOTE );
