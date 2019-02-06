@@ -9,6 +9,7 @@
 -depurlbase=curl:https://github.com/curl/curl-for-win{win&(allmingw|allclang)}
 -deppkgname=curl:libcurl4-openssl-dev{deb}
 -deppkgname=curl:curl-devel{rpm}
+-deppkgname=curl:curl-openssl{homebrew}
 -deppkgname=curl:curl{homebrew|pkgng}
 -deppkgname=curl:curl{pacman}
 -deppkgname=curl:mingw-w64-i686-curl{msys2&x86}
@@ -16,6 +17,7 @@
 -depkeyhead=curl:curl/curl.h
 -depcontrol=curl:no{HB_BUILD_3RDEXT='no'}
 -depcontrol=curl:${HB_WITH_CURL}
+-depincpath=curl:/usr/local/opt/curl-openssl/include
 -depincpath=curl:/usr/local/opt/curl/include
 -depincpath=curl:/usr/include
 -depincpath=curl:/usr/include/x86_64-linux-gnu
