@@ -1103,6 +1103,14 @@ HB_FUNC( CURL_EASY_SETOPT )
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_SOCKS5_GSSAPI_SERVICE, hb_curl_StrHash( hb_curl, hb_parc( 3 ) ) );
                break;
 #endif
+#if LIBCURL_VERSION_NUM < 0x074001
+            case HB_CURLOPT_ALTSVC:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_ALTSVC, hb_parc( 3 ) );
+               break;
+            case HB_CURLOPT_ALTSVC_CTRL:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_ALTSVC_CTRL, hb_parnl( 3 ) );
+               break;
+#endif
             case HB_CURLOPT_SOCKS5_GSSAPI_NEC:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_SOCKS5_GSSAPI_NEC, HB_CURL_OPT_BOOL( 3 ) );
                break;

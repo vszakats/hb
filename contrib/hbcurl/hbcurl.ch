@@ -306,6 +306,8 @@
 #define HB_CURLOPT_UPLOAD_BUFFERSIZE          258
 #define HB_CURLOPT_UPKEEP_INTERVAL_MS         259
 #define HB_CURLOPT_HTTP09_ALLOWED             260
+#define HB_CURLOPT_ALTSVC                     261
+#define HB_CURLOPT_ALTSVC_CTRL                262
 #define HB_CURLOPT_DOWNLOAD                   1001  /* Harbour special ones */
 #define HB_CURLOPT_XFERINFOBLOCK              1002
 #define HB_CURLOPT_UL_FILE_SETUP              1003
@@ -370,6 +372,14 @@
 #define HB_CURL_HTTP_VERSION_2                  HB_CURL_HTTP_VERSION_2_0
 #define HB_CURL_HTTP_VERSION_2TLS               4
 #define HB_CURL_HTTP_VERSION_2_PRIOR_KNOWLEDGE  5
+
+/* HB_CURLOPT_ALTSVC_CTRL option */
+#define HB_CURLALTSVC_IMMEDIATELY             hb_bitShift( 1, 0 )
+#define HB_CURLALTSVC_ALTUSED                 hb_bitShift( 1, 1 )
+#define HB_CURLALTSVC_READONLYFILE            hb_bitShift( 1, 2 )
+#define HB_CURLALTSVC_H1                      hb_bitShift( 1, 3 )
+#define HB_CURLALTSVC_H2                      hb_bitShift( 1, 4 )
+#define HB_CURLALTSVC_H3                      hb_bitShift( 1, 5 )
 
 /* HB_CURLOPT_USE_SSL option */
 #define HB_CURLUSESSL_NONE                    0  /* do not attempt to use SSL */
