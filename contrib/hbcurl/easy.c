@@ -1116,6 +1116,11 @@ HB_FUNC( CURL_EASY_SETOPT )
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_MAXAGE_CONN, hb_parnl( 3 ) );
                break;
 #endif
+#if LIBCURL_VERSION_NUM >= 0x074200
+            case HB_CURLOPT_SASL_AUTHZID:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_SASL_AUTHZID, hb_parc( 3 ) );
+               break;
+#endif
             case HB_CURLOPT_SOCKS5_GSSAPI_NEC:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_SOCKS5_GSSAPI_NEC, HB_CURL_OPT_BOOL( 3 ) );
                break;
