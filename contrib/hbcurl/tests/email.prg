@@ -93,7 +93,7 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
    #if defined( __PLATFORM__UNIX )
       lSystemCA := .T.
    #elif defined( __PLATFORM__WINDOWS )
-      /* Switch to SChannel SSL backend, if available (on Windows).
+      /* Switch to Schannel SSL backend, if available (on Windows).
          Doing this to use the OS certificate store. */
       curl_global_sslset( -1,, @tmp )
       IF ( lSystemCA := ;
