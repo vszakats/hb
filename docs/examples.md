@@ -16,7 +16,7 @@ This is a small collection of short examples from Harbour's test directory.
 {% for cat in site.example_categories %}
 ## {{ cat | capitalize }}
 
-{% for example in site.example %}{% if example.category == cat %}* [{{ example.title_long }}]({{ site.baseurl }}/example/{{ example.slug }})
+{% for example in site.example %}{% if example.category == cat %}* [{{ example.title_long }}]({{ site.baseurl }}/example/{{ example.slug }}{{ site.ilink_suffix }})
 {% endif %}{% endfor %}
 {% endfor %}
 

@@ -1,3 +1,4 @@
+---
 # https://pages.github.com/versions/
 fork: true
 repo_slug: vszakats/harbour-core
@@ -7,6 +8,7 @@ dl_url: https://github.com/vszakats/harbour-core/releases
 short_version: "3.4"
 full_version: "3.4.0dev"
 license_file: LICENSE.txt
+ilink_suffix: ""
 
 example_categories:
   - basic

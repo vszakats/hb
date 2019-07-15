@@ -22,12 +22,12 @@ Do you have a question or concern regarding the functionality of this site?<br>
 ## Suggestions?
 
 To contribute to the project by sending us suggestions or other contributions,
-subscribe to our [mailing lists]({{ site.baseurl }}/mailing) and submit
-your topic.
+subscribe to our [mailing lists]({{ site.baseurl }}/mailing{{ site.ilink_suffix }})
+and submit your topic.
 
 ## Need support?
 
 Although this is an open project and without any implicit or explicit support,
 some professionals have joined our mailing lists with the intention of
 voluntarily helping users. For more info, visit our
-[mailing lists]({{ site.baseurl }}/mailing).
+[mailing lists]({{ site.baseurl }}/mailing{{ site.ilink_suffix }}).

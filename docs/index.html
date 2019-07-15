@@ -10,7 +10,7 @@ layout: default
   and a collection of libraries and bindings for popular APIs.
   With Harbour, you can build apps running on GNU/Linux, Windows (32/64-bit),
   macOS, iOS, Android, *BSD, *nix, and more.
-  <a href="{{ site.baseurl }}/about" class="readmore">Learn more</a>
+  <a href="{{ site.baseurl }}/about{{ site.ilink_suffix }}" class="readmore">Learn more</a>
 </div>
 
 {%- if site.fork %}
@@ -21,7 +21,7 @@ layout: default
   updates as well as local fixes, additions, extra contribs, better tooling
   and maintenance. <strong><a href="{{ ppurl }}">Donations</a> are welcome
   and appreciated</strong> to support this effort.
-  <a href="{{ site.baseurl }}/forks" class="readmore">Learn more</a>
+  <a href="{{ site.baseurl }}/forks{{ site.ilink_suffix }}" class="readmore">Learn more</a>
 </div>
 {%- endif %}
 
@@ -33,7 +33,7 @@ layout: default
       <li>Harbour is proven to be <strong>stable</strong>, <strong>robust</strong> and <strong>efficient</strong>.
       <li>Harbour is <strong>portable</strong> across multiple operating systems with the same code base.
       <li>You can use it to develop either free/open source or nonfree applications.
-        <a href="{{ site.baseurl }}/about#why-use-it" class="readmore readmore-dark">Learn more</a>
+        <a href="{{ site.baseurl }}/about{{ site.ilink_suffix }}#why-use-it" class="readmore readmore-dark">Learn more</a>
     </ul>
   </div>
   <div class="status-box">
@@ -51,15 +51,14 @@ layout: default
       <strong>{{ site.full_version }}</strong><br>
 {%- endif %}
       Source snapshot:&nbsp;
-      <a href="https://github.com/{{ site.repo_slug }}/archive/master.zip"><strong>ZIP</strong></a>&nbsp;
-      <a href="https://github.com/{{ site.repo_slug }}/archive/master.tar.gz"><strong>TAR.GZ</strong></a><br>
+      <a href="https://github.com/{{ site.repo_slug }}/archive/master.zip"><strong>.zip</strong></a>&nbsp;
+      <a href="https://github.com/{{ site.repo_slug }}/archive/master.tar.gz"><strong>.tar.gz</strong></a><br>
 {%- if site.fork %}
       Binary snapshot (Windows):&nbsp;
-      <a href="{{ site.dl_url }}/download/v{{ site.full_version }}/harbour-snapshot-win.7z" tooltip-text="clang / mingw-w64, 64-bit hosted, 32/64-bit targets, bundled with latest curl and OpenSSL libraries." class="tooltip"><strong>7Z</strong></a>
+      <a href="{{ site.dl_url }}/download/v{{ site.full_version }}/harbour-snapshot-win.zip" tooltip-text="clang / mingw-w64, 64-bit hosted, 32/64-bit targets, bundled with latest curl and OpenSSL libraries." class="tooltip"><strong>.zip</strong></a>
 {%- else %}
       Nightly binary (Win):&nbsp;
-      <a href="{{ site.dl_url }}binaries-windows/nightly/harbour-nightly-win.7z/download"><strong>7Z</strong></a>&nbsp;
-      <a href="{{ site.dl_url }}binaries-windows/nightly/harbour-nightly-win.exe/download"><strong>EXE</strong></a><br>
+      <a href="{{ site.dl_url }}binaries-windows/nightly/harbour-nightly-win.exe/download"><strong>.exe</strong></a><br>
 {%- endif %}
     </p>
     <span class="dl-button"><a href="{{ site.dl_url }}" class="readmore-norm">More downloads</a></span>
@@ -122,7 +121,7 @@ layout: default
 {% endif %}
 {%- endif %}
 {%- endfor %}
-      <dd>See the <a href="{{ site.baseurl }}/news">news archive</a> for past articles.
+      <dd>See the <a href="{{ site.baseurl }}/news{{ site.ilink_suffix }}">news archive</a> for past articles.
     </dl>
   </div>
 

@@ -1,6 +1,6 @@
 {% include head.html %}
 {% include header.html %}
-<a href="{{ site.baseurl }}/examples" class="example-list"><svg class="img-right"><use xlink:href="{{ site.baseurl }}/images/fa-light.svg#list"></use></svg></a>
+<a href="{{ site.baseurl }}/examples{{ site.ilink_suffix }}" class="example-list"><svg class="img-right"><use xlink:href="{{ site.baseurl }}/images/fa-light.svg#list"></use></svg></a>
 
 <h1>{{ page.title_long }}</h1>
 <p>{{ page.description }}
@@ -18,5 +18,5 @@
 </div>
 
 <h2>How to build/run:</h2>
-<p>To learn how to build/run this example, see <a href="{{ site.baseurl }}/examples#how-to-buildrun-applications">this</a> page.
+<p>To learn how to build/run this example, see <a href="{{ site.baseurl }}/examples{{ site.ilink_suffix }}#how-to-buildrun-applications">this</a> page.
 {% include footer.html -%}

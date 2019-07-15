@@ -21,8 +21,8 @@ on how to do that in the [README](https://github.com/{{ site.repo_slug }}/#readm
 
 While these packages are _not_ intended for production use; they are most of
 the time solid to use in production. It's worth to keep an eye on the latest
-commits and/or [ChangeLog]({{ site.baseurl }}/changelog) to see if there is
-any work in progress and what changes to expect.
+commits and/or [ChangeLog]({{ site.baseurl }}/changelog{{ site.ilink_suffix }})
+to see if there is any work in progress and what changes to expect.
 {% else %}
 You can find the latest development sources for Harbour directly on our website.
 Source code is checked out of version repository and packaged every night and

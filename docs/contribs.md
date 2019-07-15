@@ -11,7 +11,8 @@ but bundled with the main Harbour distribution. These components are part of
 the Harbour source package.
 
 Common to all contribs is that they are open/free software, but please note
-that [licensing terms]({{ site.baseurl }}/terms) may vary for each contrib.
+that [licensing terms]({{ site.baseurl }}/terms{{ site.ilink_suffix }}) may
+vary for each contrib.
 
 See respective authors inside the [source code](https://github.com/{{ site.repo_slug }}/tree/master/contrib).
 
@@ -57,10 +58,12 @@ bz2 bindings (compression)
 
 Cairo bindings (imaging)
 
+{%- unless site.fork %}
 ## hbcomm
 
 HBCOMM (xhb.com, MiniGUI) compatibility (serial communication)
 
+{% endunless %}
 {% if site.fork %}
 ## hbcrypto
 

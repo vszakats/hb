@@ -29,7 +29,7 @@ App icons for
   [2008](https://web.archive.org/web/20081011053452/www.harbour-project.org/)
   [2009](https://web.archive.org/web/20090321144714/www.harbour-project.org/)
   [2011](https://web.archive.org/web/20110723030605/www.harbour-project.org/)
-* [T-Shirt]({{ site.baseurl }}/tshirt)
+* [T-Shirt]({{ site.baseurl }}/tshirt{{ site.ilink_suffix }})
 * Badge<br>
   [![button](https://harbour.github.io/art/harbour-button.png)](https://harbour.github.io/art/harbour-button.png)
 * [Badge – animated](https://harbour.github.io/art/harbour-animgif.zip)

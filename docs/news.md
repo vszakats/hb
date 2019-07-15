@@ -6,7 +6,7 @@ title: "News Archive"
 
 A complete archive of important news and announcements related to Harbour.
 
-For technical details, view the latest [ChangeLog]({{ site.baseurl }}/changelog)
+For technical details, view the latest [ChangeLog]({{ site.baseurl }}/changelog{{ site.ilink_suffix }})
 or [download]({{ site.dl_url }}) a release of Harbour.
 
 You can also find release notes for older versions
