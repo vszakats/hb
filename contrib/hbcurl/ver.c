@@ -105,6 +105,14 @@ HB_FUNC( CURL_VERSION_INFO )
       hb_arraySetC(  pArray, HB_CURLVERINFO_BROTLI_VERSION, data->age >= CURLVERSION_FIFTH ? data->brotli_version : NULL );
 #else
       hb_arraySetNI( pArray, HB_CURLVERINFO_BROTLI_VER_NUM, 0 );
+      hb_arraySetC(  pArray, HB_CURLVERINFO_BROTLI_VERSION, NULL );
+#endif
+#if defined( CURLVERSION_SIXTH )
+      hb_arraySetNI( pArray, HB_CURLVERINFO_NGHTTP2_VER_NUM, data->age >= CURLVERSION_SIXTH ? data->nghttp2_ver_num : 0 );
+      hb_arraySetC(  pArray, HB_CURLVERINFO_NGHTTP2_VERSION, data->age >= CURLVERSION_SIXTH ? data->nghttp2_version : NULL );
+#else
+      hb_arraySetNI( pArray, HB_CURLVERINFO_NGHTTP2_VER_NUM, 0 );
+      hb_arraySetC(  pArray, HB_CURLVERINFO_NGHTTP2_VERSION, NULL );
 #endif
       {
          PHB_ITEM pProtocols;

@@ -690,7 +690,9 @@
 #define HB_CURLVERINFO_LIBSSH_VERSION         13
 #define HB_CURLVERINFO_BROTLI_VER_NUM         14
 #define HB_CURLVERINFO_BROTLI_VERSION         15
-#define HB_CURLVERINFO_LEN                    15
+#define HB_CURLVERINFO_NGHTTP2_VER_NUM        16
+#define HB_CURLVERINFO_NGHTTP2_VERSION        17
+#define HB_CURLVERINFO_LEN                    17
 
 /* HB_CURLVERINFO_FEATURES bit positions. */
 #define HB_CURL_VERSION_IPV6                  hb_bitShift( 1, 0 )   /* IPv6-enabled */
