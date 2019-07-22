@@ -309,7 +309,8 @@
 #define HB_CURLOPT_ALTSVC                     261
 #define HB_CURLOPT_ALTSVC_CTRL                262
 #define HB_CURLOPT_MAXAGE_CONN                263
-#define HB_CURLOPT_SASL_AUTHZID               264
+#define HB_CURLOPT_H3                         264
+#define HB_CURLOPT_SASL_AUTHZID               265
 #define HB_CURLOPT_DOWNLOAD                   1001  /* Harbour special ones */
 #define HB_CURLOPT_XFERINFOBLOCK              1002
 #define HB_CURLOPT_UL_FILE_SETUP              1003
@@ -497,6 +498,9 @@
 #define HB_CURLPROTO_SMB                      hb_bitShift( 1, 26 )
 #define HB_CURLPROTO_SMBS                     hb_bitShift( 1, 27 )
 #define HB_CURLPROTO_ALL                      hb_bitNot( 0 )
+
+/* HB_CURLOPT_H3 bit values */
+#define HB_CURLH3_DIRECT                      hb_bitshift( 1, 0 )  /* go QUIC + HTTP/3 directly to the given host + port */
 
 /* curl_easy_pause() parameters. They can be combined with hb_bitOr(). */
 #define HB_CURLPAUSE_RECV                     1
@@ -719,6 +723,8 @@
 #define HB_CURL_VERSION_HTTPS_PROXY           hb_bitShift( 1, 21 )  /* HTTPS-proxy support built-in */
 #define HB_CURL_VERSION_MULTI_SSL             hb_bitShift( 1, 22 )  /* Multiple SSL backends available */
 #define HB_CURL_VERSION_BROTLI                hb_bitShift( 1, 23 )  /* Brotli features are present */
+#define HB_CURL_VERSION_ALTSVC                hb_bitShift( 1, 24 )  /* Alt-Svc handling built-in */
+#define HB_CURL_VERSION_HTTP3                 hb_bitShift( 1, 25 )  /* HTTP3 support built-in */
 
 /* HB_CURLOPT_HTTPPOST_FORM type. */
 #define HB_CURLOPT_HTTPPOST_FORM_CONTENT      1
