@@ -2864,6 +2864,12 @@ HB_FUNC( CURL_EASY_GETINFO )
 #endif
             type = HB_CURL_INFO_TYPE_STR;
             break;
+         case HB_CURLINFO_RETRY_AFTER:
+#if LIBCURL_VERSION_NUM >= 0x074200
+            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_RETRY_AFTER, &ret_offset );
+#endif
+            type = HB_CURL_INFO_TYPE_OFFSET;
+            break;
       }
 
       switch( type )
