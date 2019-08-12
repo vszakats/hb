@@ -110,9 +110,11 @@ HB_FUNC( CURL_VERSION_INFO )
 #if defined( CURLVERSION_SIXTH )
       hb_arraySetNI( pArray, HB_CURLVERINFO_NGHTTP2_VER_NUM, data->age >= CURLVERSION_SIXTH ? data->nghttp2_ver_num : 0 );
       hb_arraySetC(  pArray, HB_CURLVERINFO_NGHTTP2_VERSION, data->age >= CURLVERSION_SIXTH ? data->nghttp2_version : NULL );
+      hb_arraySetC(  pArray, HB_CURLVERINFO_QUIC_VERSION, data->age >= CURLVERSION_SIXTH ? data->quic_version : NULL );
 #else
       hb_arraySetNI( pArray, HB_CURLVERINFO_NGHTTP2_VER_NUM, 0 );
       hb_arraySetC(  pArray, HB_CURLVERINFO_NGHTTP2_VERSION, NULL );
+      hb_arraySetC(  pArray, HB_CURLVERINFO_QUIC_VERSION, NULL );
 #endif
       {
          PHB_ITEM pProtocols;
