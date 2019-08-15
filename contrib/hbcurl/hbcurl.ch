@@ -378,7 +378,6 @@
 
 /* HB_CURLOPT_ALTSVC_CTRL option */
 #define HB_CURLALTSVC_IMMEDIATELY             hb_bitShift( 1, 0 )
-#define HB_CURLALTSVC_ALTUSED                 hb_bitShift( 1, 1 )
 #define HB_CURLALTSVC_READONLYFILE            hb_bitShift( 1, 2 )
 #define HB_CURLALTSVC_H1                      hb_bitShift( 1, 3 )
 #define HB_CURLALTSVC_H2                      hb_bitShift( 1, 4 )
