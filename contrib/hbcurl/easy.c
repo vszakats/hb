@@ -1120,10 +1120,12 @@ HB_FUNC( CURL_EASY_SETOPT )
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_MAXAGE_CONN, hb_parnl( 3 ) );
                break;
 #endif
-#if LIBCURL_VERSION_NUM >= 0x074200
+#if 0
             case HB_CURLOPT_H3:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_H3, hb_parnl( 3 ) );
                break;
+#endif
+#if LIBCURL_VERSION_NUM >= 0x074200
             case HB_CURLOPT_SASL_AUTHZID:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_SASL_AUTHZID, hb_parc( 3 ) );
                break;
