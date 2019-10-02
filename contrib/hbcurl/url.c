@@ -57,79 +57,46 @@
 
 #if LIBCURL_VERSION_NUM >= 0x073E00
 
-typedef struct _HB_CURLU
-{
-   CURLU * curlu;
-} HB_CURLU, * PHB_CURLU;
-
 /* Constructor/Destructor */
 
-static void PHB_CURLU_free( PHB_CURLU hb_curlu, HB_BOOL bFree )
+static HB_GARBAGE_FUNC( hb_CURLU_release )
 {
-   if( bFree )
-   {
-      curl_url_cleanup( hb_curlu->curlu );
-      hb_xfree( hb_curlu );
-   }
-}
-
-/* NOTE: Will create a new one. If 'from' is specified, the new one
-         will be based on the 'from' one. */
-
-static PHB_CURLU PHB_CURLU_create( PHB_CURLU from )
-{
-   CURLU * curlu = from && from->curlu ? curl_url_dup( from->curlu ) : curl_url();
-
-   if( curlu )
-   {
-      PHB_CURLU hb_curlu = ( PHB_CURLU ) hb_xgrabz( sizeof( HB_CURLU ) );
-
-      hb_curlu->curlu = curlu;
-
-      return hb_curlu;
-   }
-   else
-      return NULL;
-}
-
-static HB_GARBAGE_FUNC( PHB_CURLU_release )
-{
-   PHB_CURLU * hb_curlu_ptr = ( PHB_CURLU * ) Cargo;
+   CURLU ** ph = ( CURLU ** ) Cargo;
 
    /* Check if pointer is not NULL to avoid multiple freeing */
-   if( hb_curlu_ptr && *hb_curlu_ptr )
+   if( *ph )
    {
       /* Destroy the object */
-      PHB_CURLU_free( *hb_curlu_ptr, HB_TRUE );
-      *hb_curlu_ptr = NULL;
+      curl_url_cleanup( *ph );
+      *ph = NULL;
    }
 }
 
 static const HB_GC_FUNCS s_gcCURLUFuncs =
 {
-   PHB_CURLU_release,
+   hb_CURLU_release,
    NULL
 };
 
-static void PHB_CURLU_ret( PHB_CURLU from )
+static void hb_CURLU_ret( CURLU * from )
 {
-   void ** ph = ( void ** ) hb_gcAllocate( sizeof( PHB_CURLU ), &s_gcCURLUFuncs );
+   void ** ph = ( void ** ) hb_gcAllocate( sizeof( CURLU * ), &s_gcCURLUFuncs );
 
-   *ph = PHB_CURLU_create( from );
+   *ph = from ? curl_url_dup( from ) : curl_url();
 
    hb_retptrGC( ph );
 }
 
-static void * PHB_CURLU_is( int iParam )
+static void * hb_CURLU_is( int iParam )
 {
    return hb_parptrGC( &s_gcCURLUFuncs, iParam );
 }
 
-static PHB_CURLU PHB_CURLU_par( int iParam )
+static CURLU * hb_CURLU_par( int iParam )
 {
    void ** ph = ( void ** ) hb_parptrGC( &s_gcCURLUFuncs, iParam );
 
-   return ph ? ( PHB_CURLU ) *ph : NULL;
+   return ph ? ( CURLU * ) *ph : NULL;
 }
 
 #endif
@@ -139,7 +106,7 @@ static PHB_CURLU PHB_CURLU_par( int iParam )
 HB_FUNC( CURL_URL )
 {
 #if LIBCURL_VERSION_NUM >= 0x073E00
-   PHB_CURLU_ret( NULL );
+   hb_CURLU_ret( NULL );
 #else
    hb_ret();
 #endif
@@ -148,8 +115,8 @@ HB_FUNC( CURL_URL )
 HB_FUNC( CURL_URL_DUP )
 {
 #if LIBCURL_VERSION_NUM >= 0x073E00
-   if( PHB_CURLU_is( 1 ) )
-      PHB_CURLU_ret( PHB_CURLU_par( 1 ) );
+   if( hb_CURLU_is( 1 ) )
+      hb_CURLU_ret( hb_CURLU_par( 1 ) );
    else
       hb_errRT_BASE( EG_ARG, 2010, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 #else
@@ -162,12 +129,12 @@ HB_FUNC( CURL_URL_SET )
    CURLUcode res = ( CURLUcode ) HB_CURLUE_ERROR;
 
 #if LIBCURL_VERSION_NUM >= 0x073E00
-   if( PHB_CURLU_is( 1 ) )
+   if( hb_CURLU_is( 1 ) )
    {
-      PHB_CURLU hb_curlu = PHB_CURLU_par( 1 );
+      CURLU * url = hb_CURLU_par( 1 );
 
-      if( hb_curlu && hb_curlu->curlu )
-         res = curl_url_set( hb_curlu->curlu, ( CURLUPart ) hb_parni( 2 ), hb_parc( 3 ), hb_parnint( 4 ) );
+      if( url )
+         res = curl_url_set( url, ( CURLUPart ) hb_parni( 2 ), hb_parc( 3 ), hb_parnint( 4 ) );
    }
    else
       hb_errRT_BASE( EG_ARG, 2010, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
@@ -182,12 +149,12 @@ HB_FUNC( CURL_URL_GET )
    char * part = NULL;
 
 #if LIBCURL_VERSION_NUM >= 0x073E00
-   if( PHB_CURLU_is( 1 ) )
+   if( hb_CURLU_is( 1 ) )
    {
-      PHB_CURLU hb_curlu = PHB_CURLU_par( 1 );
+      CURLU * url = hb_CURLU_par( 1 );
 
-      if( hb_curlu && hb_curlu->curlu )
-         res = curl_url_get( hb_curlu->curlu, ( CURLUPart ) hb_parni( 2 ), &part, hb_parnint( 4 ) );
+      if( url )
+         res = curl_url_get( url, ( CURLUPart ) hb_parni( 2 ), &part, hb_parnint( 4 ) );
    }
    else
       hb_errRT_BASE( EG_ARG, 2010, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
