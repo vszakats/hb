@@ -2543,9 +2543,9 @@ HB_FUNC( CURL_EASY_GETINFO )
             break;
          case HB_CURLINFO_RESPONSE_CODE:
 #if LIBCURL_VERSION_NUM > 0x070A07
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_RESPONSE_CODE, &ret_long );
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_RESPONSE_CODE, &ret_long );
 #else
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_HTTP_CODE, &ret_long );
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_HTTP_CODE, &ret_long );
 #endif
             type = HB_CURL_INFO_TYPE_LONG;
             break;
@@ -2555,10 +2555,10 @@ HB_FUNC( CURL_EASY_GETINFO )
             break;
          case HB_CURLINFO_FILETIME_T:
 #if LIBCURL_VERSION_NUM >= 0x073B00
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_FILETIME_T, &ret_offset );
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_FILETIME_T, &ret_offset );
             type = HB_CURL_INFO_TYPE_OFFSET;
 #elif LIBCURL_VERSION_NUM >= 0x070500
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_FILETIME, &ret_long );
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_FILETIME, &ret_long );
             type = HB_CURL_INFO_TYPE_LONG;
 #else
             type = HB_CURL_INFO_TYPE_LONG;
@@ -2586,7 +2586,7 @@ HB_FUNC( CURL_EASY_GETINFO )
             break;
          case HB_CURLINFO_REDIRECT_TIME:
 #if LIBCURL_VERSION_NUM >= 0x070907
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_REDIRECT_TIME, &ret_double );
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_REDIRECT_TIME, &ret_double );
 #endif
             type = HB_CURL_INFO_TYPE_DOUBLE;
             break;
@@ -2622,7 +2622,7 @@ HB_FUNC( CURL_EASY_GETINFO )
             break;
          case HB_CURLINFO_REDIRECT_TIME_T:
 #if LIBCURL_VERSION_NUM >= 0x073D00
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_REDIRECT_TIME_T, &ret_offset );
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_REDIRECT_TIME_T, &ret_offset );
 #endif
             type = HB_CURL_INFO_TYPE_OFFSET;
             break;
@@ -2634,13 +2634,13 @@ HB_FUNC( CURL_EASY_GETINFO )
             break;
          case HB_CURLINFO_REDIRECT_COUNT:
 #if LIBCURL_VERSION_NUM >= 0x070907
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_REDIRECT_COUNT, &ret_long );
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_REDIRECT_COUNT, &ret_long );
 #endif
             type = HB_CURL_INFO_TYPE_LONG;
             break;
          case HB_CURLINFO_REDIRECT_URL:
 #if LIBCURL_VERSION_NUM >= 0x071202
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_REDIRECT_URL, &ret_string );
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_REDIRECT_URL, &ret_string );
 #endif
             type = HB_CURL_INFO_TYPE_STR;
             break;
@@ -2700,7 +2700,7 @@ HB_FUNC( CURL_EASY_GETINFO )
             break;
          case HB_CURLINFO_SSL_ENGINES:
 #if LIBCURL_VERSION_NUM >= 0x071203
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_SSL_ENGINES, &ret_slist );
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_SSL_ENGINES, &ret_slist );
 #endif
             type = HB_CURL_INFO_TYPE_SLIST;
             break;
@@ -2728,145 +2728,145 @@ HB_FUNC( CURL_EASY_GETINFO )
             break;
          case HB_CURLINFO_PRIVATE:
 #if LIBCURL_VERSION_NUM >= 0x070A03
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_PRIVATE, &ret_ptr );
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_PRIVATE, &ret_ptr );
 #endif
             type = HB_CURL_INFO_TYPE_PTR;
             break;
          case HB_CURLINFO_HTTPAUTH_AVAIL:
 #if LIBCURL_VERSION_NUM >= 0x070A08
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_HTTPAUTH_AVAIL, &ret_long );
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_HTTPAUTH_AVAIL, &ret_long );
 #endif
             type = HB_CURL_INFO_TYPE_LONG;
             break;
          case HB_CURLINFO_PROXYAUTH_AVAIL:
 #if LIBCURL_VERSION_NUM >= 0x070A08
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_PROXYAUTH_AVAIL, &ret_long );
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_PROXYAUTH_AVAIL, &ret_long );
 #endif
             type = HB_CURL_INFO_TYPE_LONG;
             break;
          case HB_CURLINFO_OS_ERRNO:
 #if LIBCURL_VERSION_NUM >= 0x070C02
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_OS_ERRNO, &ret_long );
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_OS_ERRNO, &ret_long );
 #endif
             type = HB_CURL_INFO_TYPE_LONG;
             break;
          case HB_CURLINFO_NUM_CONNECTS:
 #if LIBCURL_VERSION_NUM >= 0x070C03
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_NUM_CONNECTS, &ret_long );
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_NUM_CONNECTS, &ret_long );
 #endif
             type = HB_CURL_INFO_TYPE_LONG;
             break;
          case HB_CURLINFO_COOKIELIST:
 #if LIBCURL_VERSION_NUM >= 0x070E01
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_COOKIELIST, &ret_slist );
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_COOKIELIST, &ret_slist );
 #endif
             type = HB_CURL_INFO_TYPE_SLIST;
             break;
          case HB_CURLINFO_ACTIVESOCKET:
 #if LIBCURL_VERSION_NUM >= 0x072D00
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_ACTIVESOCKET, &ret_socket );
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_ACTIVESOCKET, &ret_socket );
 #endif
             type = HB_CURL_INFO_TYPE_SOCKET;
             break;
          case HB_CURLINFO_LASTSOCKET:  /* NOTE: Not compatible with 64-bit Windows builds */
 #if LIBCURL_VERSION_NUM >= 0x070F02
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_LASTSOCKET, &ret_long );
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_LASTSOCKET, &ret_long );
 #endif
             type = HB_CURL_INFO_TYPE_LONG;
             break;
          case HB_CURLINFO_FTP_ENTRY_PATH:
 #if LIBCURL_VERSION_NUM >= 0x070F04
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_FTP_ENTRY_PATH, &ret_string );
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_FTP_ENTRY_PATH, &ret_string );
 #endif
             type = HB_CURL_INFO_TYPE_STR;
             break;
          case HB_CURLINFO_PRIMARY_IP:
 #if LIBCURL_VERSION_NUM >= 0x071300
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_PRIMARY_IP, &ret_string );
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_PRIMARY_IP, &ret_string );
 #endif
             type = HB_CURL_INFO_TYPE_STR;
             break;
          case HB_CURLINFO_APPCONNECT_TIME:
 #if LIBCURL_VERSION_NUM >= 0x071300
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_APPCONNECT_TIME, &ret_double );
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_APPCONNECT_TIME, &ret_double );
 #endif
             type = HB_CURL_INFO_TYPE_DOUBLE;
             break;
          case HB_CURLINFO_CERTINFO:
 #if LIBCURL_VERSION_NUM >= 0x071301
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_CERTINFO, &ret_certinfo );
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_CERTINFO, &ret_certinfo );
 #endif
             type = HB_CURL_INFO_TYPE_CERTINFO;
             break;
          case HB_CURLINFO_CONDITION_UNMET:
 #if LIBCURL_VERSION_NUM >= 0x071304
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_CONDITION_UNMET, &ret_long );
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_CONDITION_UNMET, &ret_long );
 #endif
             type = HB_CURL_INFO_TYPE_LONG;
             break;
          case HB_CURLINFO_RTSP_SESSION_ID:
 #if LIBCURL_VERSION_NUM >= 0x071400
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_RTSP_SESSION_ID, &ret_string );
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_RTSP_SESSION_ID, &ret_string );
 #endif
             type = HB_CURL_INFO_TYPE_STR;
             break;
          case HB_CURLINFO_RTSP_CLIENT_CSEQ:
 #if LIBCURL_VERSION_NUM >= 0x071400
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_RTSP_CLIENT_CSEQ, &ret_long );
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_RTSP_CLIENT_CSEQ, &ret_long );
 #endif
             type = HB_CURL_INFO_TYPE_LONG;
             break;
          case HB_CURLINFO_RTSP_SERVER_CSEQ:
 #if LIBCURL_VERSION_NUM >= 0x071400
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_RTSP_SERVER_CSEQ, &ret_long );
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_RTSP_SERVER_CSEQ, &ret_long );
 #endif
             type = HB_CURL_INFO_TYPE_LONG;
             break;
          case HB_CURLINFO_RTSP_CSEQ_RECV:
 #if LIBCURL_VERSION_NUM >= 0x071400
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_RTSP_CSEQ_RECV, &ret_long );
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_RTSP_CSEQ_RECV, &ret_long );
 #endif
             type = HB_CURL_INFO_TYPE_LONG;
             break;
          case HB_CURLINFO_PRIMARY_PORT:
 #if LIBCURL_VERSION_NUM >= 0x071500
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_PRIMARY_PORT, &ret_long );
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_PRIMARY_PORT, &ret_long );
 #endif
             type = HB_CURL_INFO_TYPE_LONG;
             break;
          case HB_CURLINFO_LOCAL_IP:
 #if LIBCURL_VERSION_NUM >= 0x071500
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_LOCAL_IP, &ret_string );
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_LOCAL_IP, &ret_string );
 #endif
             type = HB_CURL_INFO_TYPE_STR;
             break;
          case HB_CURLINFO_LOCAL_PORT:
 #if LIBCURL_VERSION_NUM >= 0x071500
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_LOCAL_PORT, &ret_long );
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_LOCAL_PORT, &ret_long );
 #endif
             type = HB_CURL_INFO_TYPE_LONG;
             break;
          case HB_CURLINFO_HTTP_VERSION:
 #if LIBCURL_VERSION_NUM >= 0x073200
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_HTTP_VERSION, &ret_long );
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_HTTP_VERSION, &ret_long );
 #endif
             type = HB_CURL_INFO_TYPE_LONG;
             break;
          case HB_CURLINFO_PROTOCOL:
 #if LIBCURL_VERSION_NUM >= 0x073400
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_PROTOCOL, &ret_long );
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_PROTOCOL, &ret_long );
 #endif
             type = HB_CURL_INFO_TYPE_LONG;
             break;
          case HB_CURLINFO_SCHEME:
 #if LIBCURL_VERSION_NUM >= 0x073400
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_SCHEME, &ret_string );
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_SCHEME, &ret_string );
 #endif
             type = HB_CURL_INFO_TYPE_STR;
             break;
          case HB_CURLINFO_RETRY_AFTER:
 #if LIBCURL_VERSION_NUM >= 0x074200
-            res = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_RETRY_AFTER, &ret_offset );
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_RETRY_AFTER, &ret_offset );
 #endif
             type = HB_CURL_INFO_TYPE_OFFSET;
             break;

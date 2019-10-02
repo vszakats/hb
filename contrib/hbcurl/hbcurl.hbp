@@ -50,6 +50,7 @@ easy.c
 escold.c
 global.c
 miscc.c
+url.c
 ver.c
 
 misc.prg

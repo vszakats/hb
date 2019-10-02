@@ -42,6 +42,10 @@ DYNAMIC curl_global_cleanup
 DYNAMIC curl_global_init
 DYNAMIC curl_global_sslset
 DYNAMIC curl_unescape
+DYNAMIC curl_url
+DYNAMIC curl_url_dup
+DYNAMIC curl_url_get
+DYNAMIC curl_url_set
 DYNAMIC curl_version
 DYNAMIC curl_version_info
 DYNAMIC hb_curl_date

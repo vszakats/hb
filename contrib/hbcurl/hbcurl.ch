@@ -768,4 +768,51 @@
 #define HB_CURLSSLBACKEND_MESALINK            12
 #define HB_CURLSSLBACKEND_DARWINSSL           HB_CURLSSLBACKEND_SECURETRANSPORT
 
+/* the error codes for the URL API */
+#define HB_CURLUE_ERROR                       -1 /* request not passed to libcurl (e.g. unknown parameter) */
+#define HB_CURLUE_OK                          0
+#define HB_CURLUE_BAD_HANDLE                  1
+#define HB_CURLUE_BAD_PARTPOINTER             2
+#define HB_CURLUE_MALFORMED_INPUT             3
+#define HB_CURLUE_BAD_PORT_NUMBER             4
+#define HB_CURLUE_UNSUPPORTED_SCHEME          5
+#define HB_CURLUE_URLDECODE                   6
+#define HB_CURLUE_OUT_OF_MEMORY               7
+#define HB_CURLUE_USER_NOT_ALLOWED            8
+#define HB_CURLUE_UNKNOWN_PART                9
+#define HB_CURLUE_NO_SCHEME                   10
+#define HB_CURLUE_NO_USER                     11
+#define HB_CURLUE_NO_PASSWORD                 12
+#define HB_CURLUE_NO_OPTIONS                  13
+#define HB_CURLUE_NO_HOST                     14
+#define HB_CURLUE_NO_PORT                     15
+#define HB_CURLUE_NO_QUERY                    16
+#define HB_CURLUE_NO_FRAGMENT                 17
+
+/* URL parts */
+#define HB_CURLUPART_URL                      0
+#define HB_CURLUPART_SCHEME                   1
+#define HB_CURLUPART_USER                     2
+#define HB_CURLUPART_PASSWORD                 3
+#define HB_CURLUPART_OPTIONS                  4
+#define HB_CURLUPART_HOST                     5
+#define HB_CURLUPART_PORT                     6
+#define HB_CURLUPART_PATH                     7
+#define HB_CURLUPART_QUERY                    8
+#define HB_CURLUPART_FRAGMENT                 9
+#define HB_CURLUPART_ZONEID                   10
+
+/* URL flags */
+#define HB_CURLU_DEFAULT_PORT                 hb_bitShift( 1, 0 )   /* return default port number */
+#define HB_CURLU_NO_DEFAULT_PORT              hb_bitShift( 1, 1 )   /* act as if no port number was set, if the port number matches the default for the scheme */
+#define HB_CURLU_DEFAULT_SCHEME               hb_bitShift( 1, 2 )   /* return default scheme if missing */
+#define HB_CURLU_NON_SUPPORT_SCHEME           hb_bitShift( 1, 3 )   /* allow non-supported scheme */
+#define HB_CURLU_PATH_AS_IS                   hb_bitShift( 1, 4 )   /* leave dot sequences */
+#define HB_CURLU_DISALLOW_USER                hb_bitShift( 1, 5 )   /* no user+password allowed */
+#define HB_CURLU_URLDECODE                    hb_bitShift( 1, 6 )   /* URL decode on get */
+#define HB_CURLU_URLENCODE                    hb_bitShift( 1, 7 )   /* URL encode on set */
+#define HB_CURLU_APPENDQUERY                  hb_bitShift( 1, 8 )   /* append a form style part */
+#define HB_CURLU_GUESS_SCHEME                 hb_bitShift( 1, 9 )   /* legacy curl-style guessing */
+#define HB_CURLU_NO_AUTHORITY                 hb_bitShift( 1, 10 )  /* Allow empty authority when the scheme is unknown. */
+
 #endif /* HBCURL_CH_ */
