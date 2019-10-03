@@ -727,6 +727,7 @@
 #define HB_CURL_VERSION_BROTLI                hb_bitShift( 1, 23 )  /* Brotli features are present */
 #define HB_CURL_VERSION_ALTSVC                hb_bitShift( 1, 24 )  /* Alt-Svc handling built-in */
 #define HB_CURL_VERSION_HTTP3                 hb_bitShift( 1, 25 )  /* HTTP3 support built-in */
+#define HB_CURL_VERSION_ESNI                  hb_bitShift( 1, 26 )  /* ESNI support */
 
 /* HB_CURLOPT_HTTPPOST_FORM type. */
 #define HB_CURLOPT_HTTPPOST_FORM_CONTENT      1
