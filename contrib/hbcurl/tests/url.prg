@@ -11,7 +11,7 @@ PROCEDURE Main( cURL )
    LOCAL str
 
    ? url := curl_url()
-   ? res := curl_url_set( url, HB_CURLUPART_URL, hb_defaultValue( cURL, "https://example.org/" ), 0 )
+   ? res := curl_url_set( url, HB_CURLUPART_URL, hb_defaultValue( cURL, "https://example.net/" ), 0 )
    IF res == HB_CURLUE_OK
       ? curl_url_get( url, HB_CURLUPART_SCHEME,, 0 )
       ? curl_url_get( url, HB_CURLUPART_SCHEME, @str, 0 )
@@ -21,7 +21,7 @@ PROCEDURE Main( cURL )
       ?
    ENDIF
 
-   curl_url_set( url, HB_CURLUPART_URL, "https://user:passwd@example.org:443/mypages/mysite/page.html?avar=0&avar1=1" )
+   curl_url_set( url, HB_CURLUPART_URL, "https://user:passwd@example.net:443/mypages/mysite/page.html?avar=0&avar1=1" )
    dump( url )
 
    curl_url_set( url, HB_CURLUPART_URL, "http://1.1.1.1&@2.2.2.2# @3.3.3.3/" )

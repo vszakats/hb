@@ -30,7 +30,7 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
 
    hb_default( @cFrom    , "from@example.net" )
    hb_default( @cPassword, "password" )
-   hb_default( @cTo      , "to@example.org" )
+   hb_default( @cTo      , "to@example.com" )
    hb_default( @cHost    , "localhost" )
 
    cFrom := "<" + ( cUser := hb_curl_mail_address_to_email( cFrom ) ) + ">"
@@ -143,7 +143,7 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
             "To: " + cTo, ;
             "From: hbcurl " + cFrom, ;
             "Cc: " + cTo, ;
-            "Message-ID: <dcd7cb36-11db-487a-9f3a-e652a9458efd@rfcpedant.example.org>", ;
+            "Message-ID: <dcd7cb36-11db-487a-9f3a-e652a9458efd@rfcpedant.example.net>", ;
             "Reply-To: " + cFrom, ;
             "Disposition-Notification-To: " + cFrom, ;
             "X-Priority: " + hb_ntos( 3 ), ;  /* 1: high, 3: standard, 5: low */

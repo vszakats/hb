@@ -77,7 +77,7 @@ PROCEDURE Main( cDL, cUL )
 
    IF ! Empty( curl := curl_easy_init() )
 
-      ? "curl_easy_escape():", tmp := curl_easy_escape( curl, "https://example.org/my dir with space&more/" )
+      ? "curl_easy_escape():", tmp := curl_easy_escape( curl, "https://example.net/my dir with space&more/" )
       ? "curl_easy_unescape():", curl_easy_unescape( curl, tmp )
 
       WAIT
@@ -165,7 +165,7 @@ PROCEDURE Main( cDL, cUL )
          ENDIF
       ENDIF
 
-      hb_default( @cDL, "https://www.example.org/index.html" )
+      hb_default( @cDL, "https://www.example.net/index.html" )
 
       /* Now let's download to a file */
 
