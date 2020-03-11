@@ -1638,6 +1638,11 @@ HB_FUNC( CURL_EASY_SETOPT )
 
                /* SMTP options */
 
+#if LIBCURL_VERSION_NUM >= 0x074500
+            case HB_CURLOPT_MAIL_RCPT_ALLLOWFAILS:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_MAIL_RCPT_ALLLOWFAILS, HB_CURL_OPT_BOOL( 3 ) );
+               break;
+#endif
 #if LIBCURL_VERSION_NUM >= 0x071400
             case HB_CURLOPT_MAIL_FROM:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_MAIL_FROM, hb_curl_StrHash( hb_curl, hb_parc( 3 ) ) );
