@@ -116,6 +116,13 @@ HB_FUNC( CURL_VERSION_INFO )
       hb_arraySetC(  pArray, HB_CURLVERINFO_NGHTTP2_VERSION, NULL );
       hb_arraySetC(  pArray, HB_CURLVERINFO_QUIC_VERSION, NULL );
 #endif
+#if defined( CURLVERSION_SEVENTH )
+      hb_arraySetC(  pArray, HB_CURLVERINFO_CAINFO, data->age >= CURLVERSION_SEVENTH ? data->cainfo : NULL );
+      hb_arraySetC(  pArray, HB_CURLVERINFO_CAPATH, data->age >= CURLVERSION_SEVENTH ? data->capath : NULL );
+#else
+      hb_arraySetC(  pArray, HB_CURLVERINFO_CAINFO, NULL );
+      hb_arraySetC(  pArray, HB_CURLVERINFO_CAPATH, NULL );
+#endif
       {
          PHB_ITEM pProtocols;
          int      nCount = 0;
