@@ -353,6 +353,7 @@
 #define HB_CURLSSLOPT_NO_REVOKE               hb_bitShift( 1, 1 )
 #define HB_CURLSSLOPT_NO_PARTIALCHAIN         hb_bitShift( 1, 2 )
 #define HB_CURLSSLOPT_REVOKE_BEST_EFFORT      hb_bitShift( 1, 3 )
+#define HB_CURLSSLOPT_NATIVE_CA               hb_bitShift( 1, 4 )
 
 /* HB_CURLOPT_HTTPAUTH, HB_CURLOPT_PROXYAUTH, HB_CURLOPT_SOCKS5 options */
 #define HB_CURLAUTH_NONE                      0                    /* nothing */
