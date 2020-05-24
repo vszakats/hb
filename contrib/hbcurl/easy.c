@@ -934,6 +934,24 @@ static curl_mime * hb_curl_opt_mime( CURL * curl, PHB_ITEM pItem )
 }
 #endif
 
+#if LIBCURL_VERSION_NUM >= 0x074700
+CURLcode hb_curl_easy_setopt_blob( CURL * curl, CURLoption option, PHB_ITEM item )
+{
+   if( item )
+   {
+      struct curl_blob blob;
+
+      blob.data  = HB_UNCONST( hb_itemGetCPtr( item ) );
+      blob.len   = hb_itemGetCLen( item );
+      blob.flags = CURL_BLOB_COPY;
+
+      return curl_easy_setopt( curl, option, &blob );
+   }
+
+   return curl_easy_setopt( curl, option, NULL );
+}
+#endif
+
 HB_FUNC( CURL_EASY_SETOPT )
 {
    if( PHB_CURL_is( 1 ) && HB_ISNUM( 2 ) )
@@ -2057,6 +2075,11 @@ HB_FUNC( CURL_EASY_SETOPT )
             case HB_CURLOPT_SSLCERT:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_SSLCERT, hb_curl_StrHash( hb_curl, hb_parc( 3 ) ) );
                break;
+#if LIBCURL_VERSION_NUM >= 0x074700
+            case HB_CURLOPT_SSLCERT_BLOB:
+               res = hb_curl_easy_setopt_blob( hb_curl->curl, CURLOPT_SSLCERT_BLOB, hb_param( 3, HB_IT_STRING ) );
+               break;
+#endif
 #if LIBCURL_VERSION_NUM >= 0x070903
             case HB_CURLOPT_SSLCERTTYPE:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_SSLCERTTYPE, hb_curl_StrHash( hb_curl, hb_parc( 3 ) ) );
@@ -2065,6 +2088,11 @@ HB_FUNC( CURL_EASY_SETOPT )
             case HB_CURLOPT_SSLKEY:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_SSLKEY, hb_curl_StrHash( hb_curl, hb_parc( 3 ) ) );
                break;
+#if LIBCURL_VERSION_NUM >= 0x074700
+            case HB_CURLOPT_SSLKEY_BLOB:
+               res = hb_curl_easy_setopt_blob( hb_curl->curl, CURLOPT_SSLKEY_BLOB, hb_param( 3, HB_IT_STRING ) );
+               break;
+#endif
             case HB_CURLOPT_SSLKEYTYPE:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_SSLKEYTYPE, hb_curl_StrHash( hb_curl, hb_parc( 3 ) ) );
                break;
@@ -2130,6 +2158,11 @@ HB_FUNC( CURL_EASY_SETOPT )
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_ISSUERCERT, hb_parc( 3 ) );
                break;
 #endif
+#if LIBCURL_VERSION_NUM >= 0x074700
+            case HB_CURLOPT_ISSUERCERT_BLOB:
+               res = hb_curl_easy_setopt_blob( hb_curl->curl, CURLOPT_ISSUERCERT_BLOB, hb_param( 3, HB_IT_STRING ) );
+               break;
+#endif
 #if LIBCURL_VERSION_NUM >= 0x071301
             case HB_CURLOPT_CERTINFO:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_CERTINFO, HB_CURL_OPT_BOOL( 3 ) );
@@ -2175,12 +2208,28 @@ HB_FUNC( CURL_EASY_SETOPT )
             case HB_CURLOPT_PROXY_SSLCERT:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_PROXY_SSLCERT, hb_curl_StrHash( hb_curl, hb_parc( 3 ) ) );
                break;
+#if LIBCURL_VERSION_NUM >= 0x074700
+            case HB_CURLOPT_PROXY_SSLCERT_BLOB:
+               res = hb_curl_easy_setopt_blob( hb_curl->curl, CURLOPT_PROXY_SSLCERT_BLOB, hb_param( 3, HB_IT_STRING ) );
+               break;
+            case HB_CURLOPT_PROXY_ISSUERCERT:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_PROXY_ISSUERCERT, hb_parc( 3 ) );
+               break;
+            case HB_CURLOPT_PROXY_ISSUERCERT_BLOB:
+               res = hb_curl_easy_setopt_blob( hb_curl->curl, CURLOPT_PROXY_ISSUERCERT_BLOB, hb_param( 3, HB_IT_STRING ) );
+               break;
+#endif
             case HB_CURLOPT_PROXY_SSLCERTTYPE:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_PROXY_SSLCERTTYPE, hb_curl_StrHash( hb_curl, hb_parc( 3 ) ) );
                break;
             case HB_CURLOPT_PROXY_SSLKEY:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_PROXY_SSLKEY, hb_curl_StrHash( hb_curl, hb_parc( 3 ) ) );
                break;
+#if LIBCURL_VERSION_NUM >= 0x074700
+            case HB_CURLOPT_PROXY_SSLKEY_BLOB:
+               res = hb_curl_easy_setopt_blob( hb_curl->curl, CURLOPT_PROXY_SSLKEY_BLOB, hb_param( 3, HB_IT_STRING ) );
+               break;
+#endif
             case HB_CURLOPT_PROXY_SSLKEYTYPE:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_PROXY_SSLKEYTYPE, hb_curl_StrHash( hb_curl, hb_parc( 3 ) ) );
                break;

@@ -312,6 +312,13 @@
 #define HB_CURLOPT_H3                         264
 #define HB_CURLOPT_SASL_AUTHZID               265
 #define HB_CURLOPT_MAIL_RCPT_ALLLOWFAILS      266
+#define HB_CURLOPT_SSLCERT_BLOB               267
+#define HB_CURLOPT_PROXY_SSLCERT_BLOB         268
+#define HB_CURLOPT_SSLKEY_BLOB                269
+#define HB_CURLOPT_PROXY_SSLKEY_BLOB          270
+#define HB_CURLOPT_ISSUERCERT_BLOB            271
+#define HB_CURLOPT_PROXY_ISSUERCERT           272
+#define HB_CURLOPT_PROXY_ISSUERCERT_BLOB      273
 #define HB_CURLOPT_DOWNLOAD                   1001  /* Harbour special ones */
 #define HB_CURLOPT_XFERINFOBLOCK              1002
 #define HB_CURLOPT_UL_FILE_SETUP              1003
