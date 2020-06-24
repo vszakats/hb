@@ -24,7 +24,7 @@ PROCEDURE Main( cURL )
    curl_url_set( url, HB_CURLUPART_URL, "https://user:passwd@example.net:443/mypages/mysite/page.html?avar=0&avar1=1" )
    dump( url )
 
-   curl_url_set( url, HB_CURLUPART_URL, "http://1.1.1.1&@2.2.2.2# @3.3.3.3/" )
+   curl_url_set( url, HB_CURLUPART_URL, "http://127.0.0.1&@2.2.2.2# @3.3.3.3/" )
    dump( url )
 
    RETURN
