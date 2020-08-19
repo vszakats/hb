@@ -713,7 +713,9 @@
 #define HB_CURLVERINFO_QUIC_VERSION           18
 #define HB_CURLVERINFO_CAINFO                 19
 #define HB_CURLVERINFO_CAPATH                 20
-#define HB_CURLVERINFO_LEN                    20
+#define HB_CURLVERINFO_ZSTD_VER_NUM           21
+#define HB_CURLVERINFO_ZSTD_VERSION           22
+#define HB_CURLVERINFO_LEN                    22
 
 /* HB_CURLVERINFO_FEATURES bit positions. */
 #define HB_CURL_VERSION_IPV6                  hb_bitShift( 1, 0 )   /* IPv6-enabled */

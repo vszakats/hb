@@ -123,6 +123,13 @@ HB_FUNC( CURL_VERSION_INFO )
       hb_arraySetC(  pArray, HB_CURLVERINFO_CAINFO, NULL );
       hb_arraySetC(  pArray, HB_CURLVERINFO_CAPATH, NULL );
 #endif
+#if defined( CURLVERSION_EIGHTH )
+      hb_arraySetNI( pArray, HB_CURLVERINFO_ZSTD_VER_NUM, data->age >= CURLVERSION_EIGHTH ? data->zstd_ver_num : 0 );
+      hb_arraySetC(  pArray, HB_CURLVERINFO_ZSTD_VERSION, data->age >= CURLVERSION_EIGHTH ? data->zstd_version : NULL );
+#else
+      hb_arraySetNI( pArray, HB_CURLVERINFO_ZSTD_VER_NUM, 0 );
+      hb_arraySetC(  pArray, HB_CURLVERINFO_ZSTD_VERSION, NULL );
+#endif
       {
          PHB_ITEM pProtocols;
          int      nCount = 0;
