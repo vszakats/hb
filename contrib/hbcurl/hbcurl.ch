@@ -586,6 +586,7 @@
 #define HB_CURLINFO_REDIRECT_TIME_T           53
 #define HB_CURLINFO_APPCONNECT_TIME_T         54
 #define HB_CURLINFO_RETRY_AFTER               55
+#define HB_CURLINFO_EFFECTIVE_METHOD          56
 
 /* curl result codes. */
 

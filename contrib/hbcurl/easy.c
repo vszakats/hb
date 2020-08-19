@@ -2924,6 +2924,12 @@ HB_FUNC( CURL_EASY_GETINFO )
 #endif
             type = HB_CURL_INFO_TYPE_OFFSET;
             break;
+         case HB_CURLINFO_EFFECTIVE_METHOD:
+#if LIBCURL_VERSION_NUM >= 0x074800
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_EFFECTIVE_METHOD, &ret_string );
+#endif
+            type = HB_CURL_INFO_TYPE_STR;
+            break;
       }
 
       switch( type )
