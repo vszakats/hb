@@ -587,6 +587,43 @@
 #define HB_CURLINFO_APPCONNECT_TIME_T         54
 #define HB_CURLINFO_RETRY_AFTER               55
 #define HB_CURLINFO_EFFECTIVE_METHOD          56
+#define HB_CURLINFO_PROXY_ERROR               57
+
+/* HB_CURLINFO_PROXY_ERROR results. */
+#define HB_CURLPX_OK                                0
+#define HB_CURLPX_BAD_ADDRESS_TYPE                  1
+#define HB_CURLPX_BAD_VERSION                       2
+#define HB_CURLPX_CLOSED                            3
+#define HB_CURLPX_GSSAPI                            4
+#define HB_CURLPX_GSSAPI_PERMSG                     5
+#define HB_CURLPX_GSSAPI_PROTECTION                 6
+#define HB_CURLPX_IDENTD                            7
+#define HB_CURLPX_IDENTD_DIFFER                     8
+#define HB_CURLPX_LONG_HOSTNAME                     9
+#define HB_CURLPX_LONG_PASSWD                       10
+#define HB_CURLPX_LONG_USER                         11
+#define HB_CURLPX_NO_AUTH                           12
+#define HB_CURLPX_RECV_ADDRESS                      13
+#define HB_CURLPX_RECV_AUTH                         14
+#define HB_CURLPX_RECV_CONNECT                      15
+#define HB_CURLPX_RECV_REQACK                       16
+#define HB_CURLPX_REPLY_ADDRESS_TYPE_NOT_SUPPORTED  17
+#define HB_CURLPX_REPLY_COMMAND_NOT_SUPPORTED       18
+#define HB_CURLPX_REPLY_CONNECTION_REFUSED          19
+#define HB_CURLPX_REPLY_GENERAL_SERVER_FAILURE      20
+#define HB_CURLPX_REPLY_HOST_UNREACHABLE            21
+#define HB_CURLPX_REPLY_NETWORK_UNREACHABLE         22
+#define HB_CURLPX_REPLY_NOT_ALLOWED                 23
+#define HB_CURLPX_REPLY_TTL_EXPIRED                 24
+#define HB_CURLPX_REPLY_UNASSIGNED                  25
+#define HB_CURLPX_REQUEST_FAILED                    26
+#define HB_CURLPX_RESOLVE_HOST                      27
+#define HB_CURLPX_SEND_AUTH                         28
+#define HB_CURLPX_SEND_CONNECT                      29
+#define HB_CURLPX_SEND_REQUEST                      30
+#define HB_CURLPX_UNKNOWN_FAIL                      31
+#define HB_CURLPX_UNKNOWN_MODE                      32
+#define HB_CURLPX_USER_REJECTED                     33
 
 /* curl result codes. */
 
@@ -689,6 +726,9 @@
 #define HB_CURLE_HTTP2_STREAM                 92 /* stream error in HTTP/2 framing layer */
 #define HB_CURLE_RECURSIVE_API_CALL           93 /* an api function was called from inside a callback */
 #define HB_CURLE_AUTH_ERROR                   94 /* an authentication function returned an error */
+#define HB_CURLE_HTTP3                        95 /* An HTTP/3 layer problem */
+#define HB_CURLE_QUIC_CONNECT_ERROR           96 /* QUIC connection error */
+#define HB_CURLE_PROXY                        97 /* proxy handshake error */
 
 #define HB_CURLE_OBSOLETE16                   HB_CURLE_HTTP2
 
