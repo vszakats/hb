@@ -8,7 +8,7 @@ title: "Forks"
 
 # Harbour Forks
 
-## [Harbour]({% if site.fork %}{{ site.baseurl }}{% else %}{{ forkurl }}{% endif %}) by [vszakats](https://vszakats.net/) (version 3.4)
+## [Harbour]({% if site.fork %}{{ site.baseurl }}{% else %}{{ forkurl }}{% endif %}) by [vszakats](https://vsz.me/) (version 3.4)
 
 Forked in April of 2013 in an attempt to focus on a narrower set of platforms
 and contrib libraries while also freeing up resources by distancing from
@@ -26,7 +26,7 @@ eventually retrofitted to mainline.
 This fork accepts
 [donations]({% if site.fork %}{{ site.baseurl }}{% else %}{{ forkurl }}{% endif %}/#this-fork).
 
-* [Repository](https://github.com/vszakats/harbour-core)
+* [Repository](https://github.com/vszakats/hb)
 
 This fork is largely compatible with mainline, with the notable exception
 for deprecated parts, which are disabled by default.
@@ -61,7 +61,7 @@ components. There are a number of semi-connected forks found on the internet:
 
 * [HMG Extended](https://sourceforge.net/projects/hmgs-minigui/)
 * [HMG](https://sourceforge.net/projects/hmg/) / <https://sites.google.com/site/hmgweb/>
-* [HMG3](https://sourceforge.net/projects/harbourminigui/) / hmgforum.com
+* [HMG3](https://sourceforge.net/projects/harbourminigui/) / <https://hmgforum.com/>
 
 Each use altered Harbour sources and may use non-standard toolchain elements
 (e.g. `hbmk2.bat` wrapper for standard `hbmk2.exe`). They feature certain

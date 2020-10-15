@@ -7,8 +7,8 @@ title: "Logo"
 <a href="{{ site.baseurl }}/art/harbour-logo-2016.zip"><img src="{{ site.baseurl }}/images/harbour.svg" alt="icon" height="256"></a>
 
 App icons for
-[Windows](https://raw.githubusercontent.com/vszakats/harbour-core/master/package/harbour.ico) and
-[Apple](https://raw.githubusercontent.com/vszakats/harbour-core/master/package/harbour.icns).<br>
+[Windows](https://raw.githubusercontent.com/vszakats/hb/master/package/harbour.ico) and
+[Apple](https://raw.githubusercontent.com/vszakats/hb/master/package/harbour.icns).<br>
 
 # Former versions
 

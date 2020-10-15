@@ -5,7 +5,7 @@ title: "Mailing Lists"
 # Mailing Lists
 
 <div markdown="1" class="list-bubble">
-<div><svg><use xlink:href="{{ site.baseurl }}/images/fa-light.svg#user-circle"></use></svg></div>
+<div><svg><use xlink:href="{{ site.baseurl }}/images/fa-solid.svg#user-circle"></use></svg></div>
 <div markdown="1">
 
 ## for Using Harbour
@@ -21,7 +21,7 @@ Most Harbour developers are lurking on this list to assist Harbour users.
 </div>
 
 <div markdown="1" class="list-bubble">
-<div><svg><use xlink:href="{{ site.baseurl }}/images/fa-light.svg#wrench"></use></svg></div>
+<div><svg><use xlink:href="{{ site.baseurl }}/images/fa-solid.svg#wrench"></use></svg></div>
 <div markdown="1">
 
 {% if site.fork %}
@@ -63,7 +63,7 @@ Please read the following guidelines before posting to the list.
   of voluntarily helping users. Use common sense when posting your messages.
 
 <div markdown="1" class="list-bubble bubble-alt">
-<div><svg><use xlink:href="{{ site.baseurl }}/images/fa-light.svg#exclamation-circle"></use></svg></div>
+<div><svg><use xlink:href="{{ site.baseurl }}/images/fa-solid.svg#exclamation-circle"></use></svg></div>
 <div markdown="1">
 **Important**
 

@@ -1,10 +1,10 @@
 ---
 # https://pages.github.com/versions/
 fork: true
-repo_slug: vszakats/harbour-core
-site_slug: vszakats/harbour-core
+repo_slug: vszakats/hb
+site_slug: vszakats/hb
 site_branch_and_root: master/docs/
-dl_url: https://github.com/vszakats/harbour-core/releases
+dl_url: https://github.com/vszakats/hb/releases
 short_version: "3.4"
 full_version: "3.4.0dev"
 license_file: LICENSE.txt

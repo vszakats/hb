@@ -21,7 +21,7 @@
 
     <nav class="dropdown">
       <a class="dropbtn" href="{{ site.baseurl }}/about{{ site.ilink_suffix }}">
-      <svg><use xlink:href="{{ site.baseurl }}/images/fa-light.svg#comment"></use></svg><br><span class="menu-text">About</span></a>
+      <svg><use xlink:href="{{ site.baseurl }}/images/fa-solid.svg#comment"></use></svg><br><span class="menu-text">About</span></a>
       <nav class="dropdown-content">
         <a href="{{ site.baseurl }}/about{{ site.ilink_suffix }}">About Harbour</a>
         <hr>
@@ -33,7 +33,7 @@
 
     <nav class="dropdown">
       <a class="dropbtn" href="https://harbour.github.io/doc/">
-      <svg><use xlink:href="{{ site.baseurl }}/images/fa-light.svg#book"></use></svg><br><span class="menu-text">Documentation</span></a>
+      <svg><use xlink:href="{{ site.baseurl }}/images/fa-solid.svg#book"></use></svg><br><span class="menu-text">Documentation</span></a>
       <nav class="dropdown-content">
         <a href="https://github.com/{{ site.repo_slug }}/#readme">README</a>
         <a href="{{ site.baseurl }}/changelog{{ site.ilink_suffix }}">ChangeLog</a>
@@ -49,7 +49,7 @@
 
     <nav class="dropdown">
       <a class="dropbtn" href="{{ site.dl_url }}">
-      <svg><use xlink:href="{{ site.baseurl }}/images/fa-light.svg#cloud-download"></use></svg><br><span class="menu-text">Download</span></a>
+      <svg><use xlink:href="{{ site.baseurl }}/images/fa-solid.svg#cloud-download-alt"></use></svg><br><span class="menu-text">Download</span></a>
       <nav class="dropdown-content">
         <a href="{{ site.dl_url }}">Source and Binaries</a>
 {%- if site.fork %}
@@ -67,7 +67,7 @@
 
     <nav class="dropdown">
       <a class="dropbtn" href="https://github.com/{{ site.repo_slug }}">
-      <svg><use xlink:href="{{ site.baseurl }}/images/fa-light.svg#cog"></use></svg><br><span class="menu-text">Development</span></a>
+      <svg><use xlink:href="{{ site.baseurl }}/images/fa-solid.svg#cog"></use></svg><br><span class="menu-text">Development</span></a>
       <nav class="dropdown-content">
 {%- unless site.fork %}
         <a href="{{ site.baseurl }}/mailing{{ site.ilink_suffix }}">Mailing Lists</a>
@@ -76,7 +76,7 @@
         <a href="https://github.com/{{ site.repo_slug }}/commits">Commits</a>
         <a href="https://github.com/{{ site.repo_slug }}/issues">Report an Issue</a>
 {%- if site.fork %}
-        <a href="https://github.com/vszakats/harbour-core/blob/master/CONTRIBUTING.md">How to contribute</a>
+        <a href="https://github.com/vszakats/hb/blob/master/CONTRIBUTING.md">How to contribute</a>
         <a href="{{ site.baseurl }}/mailing{{ site.ilink_suffix }}">Community</a>
 {%- endif %}
         <hr>
@@ -86,17 +86,17 @@
 
     <nav class="dropdown">
       <a class="dropbtn" href="{{ site.baseurl }}/news{{ site.ilink_suffix }}">
-      <svg><use xlink:href="{{ site.baseurl }}/images/fa-light.svg#newspaper"></use></svg><br><span class="menu-text">News</span></a>
+      <svg><use xlink:href="{{ site.baseurl }}/images/fa-solid.svg#newspaper"></use></svg><br><span class="menu-text">News</span></a>
     </nav>
 
     <nav class="dropdown">
       <a class="dropbtn" href="{{ site.baseurl }}/crew{{ site.ilink_suffix }}">
-      <svg><use xlink:href="{{ site.baseurl }}/images/fa-light.svg#globe"></use></svg><br><span class="menu-text">Crew</span></a>
+      <svg><use xlink:href="{{ site.baseurl }}/images/fa-solid.svg#globe"></use></svg><br><span class="menu-text">Crew</span></a>
     </nav>
 
     <nav class="dropdown">
       <a class="dropbtn" href="{{ site.baseurl }}/logo{{ site.ilink_suffix }}">
-      <svg><use xlink:href="{{ site.baseurl }}/images/fa-light.svg#paint-brush"></use></svg><br><span class="menu-text">Logo</span></a>
+      <svg><use xlink:href="{{ site.baseurl }}/images/fa-solid.svg#paint-brush"></use></svg><br><span class="menu-text">Logo</span></a>
     </nav>
 
 {%- if site.fork %}
@@ -108,7 +108,7 @@
 {%- else %}
     <nav class="dropdown">
       <a class="dropbtn">
-      <svg><use xlink:href="{{ site.baseurl }}/images/fa-light.svg#language"></use></svg><br><span class="menu-text">Language</span></a>
+      <svg><use xlink:href="{{ site.baseurl }}/images/fa-solid.svg#language"></use></svg><br><span class="menu-text">Language</span></a>
       <nav class="dropdown-content">
         <a href="{{ site.baseurl }}/">English</a>
       </nav>
@@ -120,5 +120,5 @@
 <main>
 {%- if page.layout != 'example' %}
   <a class="text-right edit-page" href="https://github.com/{{ site.site_slug }}/edit/{{ site.site_branch_and_root }}{{ page.path }}">
-  <svg><use xlink:href="{{ site.baseurl }}/images/fa-light.svg#pencil"></use></svg>&nbsp;Improve this page</a>
+  <svg><use xlink:href="{{ site.baseurl }}/images/fa-solid.svg#pencil-alt"></use></svg>&nbsp;Improve this page</a>
 {%- endif %}

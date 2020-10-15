@@ -15,7 +15,7 @@
     much easier to update. Several pages have been converted to Markdown.
     Source size is now 64 kB (was 624 kB). Also added en edit button to
     each page.
-    <a href="https://vszakats.net/">vszakats</a>
+    <a href="https://vsz.me/">vszakats</a>
 - date: 2016-09-12
   title: Website refactor
   text: Website refactored to use Jekyll, use pure HTML5, drop table based
@@ -23,7 +23,7 @@
     broken, use vector images instead of bitmaps where possible, deduplicate
     markup and content. This means 7.5x size reduction of page sources.<br>
     Content and design remained the same, but much easier to update now.
-    <a href="https://vszakats.net/">vszakats</a>
+    <a href="https://vsz.me/">vszakats</a>
 - date: 2013-03-20
   title: Migration to Git and GitHub
   text: <a href="https://git-scm.com/"><span class="img-right"><svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 0 272.96 114.01">

@@ -324,7 +324,7 @@ header {
 
 .header-logo {
   margin-left: 2px;
-  margin-top: 2px;
+  margin-top: 2.3px;
 }
 
 .header-text {
@@ -930,7 +930,7 @@ pre, code {
 
 /* .shot-screen pre::selection { background-color: #aaa; } */
 
-/* drop-down menu magic --------------------------------------------------- */
+/* drop-down menu --------------------------------------------------- */
 
 .menu-text {
   font-family: $font-main;
@@ -1153,4 +1153,81 @@ pre, code {
   .header-text:hover .header-version {
     animation: none;
   }
+}
+
+@media (prefers-color-scheme: dark) {
+body {
+  background-color: #303030;
+  color: #eee;
+}
+main, header {
+  background-color: #303030;
+  color: #eee;
+}
+header {
+  border-bottom: 1px solid #3c3c3c;
+}
+.status-box {
+  color: #303030;
+}
+.status-box > h1, a {
+  color: darken(#008aff, 25%);
+}
+.feature-box {
+  background-color: #202020;
+  color: #eee;
+}
+.why-items {
+  background-color: #202020;
+  color: #eee;
+}
+.license-box {
+  background-color: #202020;
+  color: #eee;
+}
+.miniexample-box {
+  background-color: #404040;
+  color: #eee;
+}
+.example-list, .highlight {
+  background-color: #404040;
+  color: #eee;
+}
+h1, h2, h3, h4, a {
+  color: #008aff;
+}
+.crew-person-name {
+  color: lighten(#008aff, 20%);
+}
+.dropbtn {
+  color: #ccc;
+}
+.dropdown {
+  color: #eee;
+}
+.dropdown:hover .dropbtn {
+  color: #fff;
+}
+.dropdown-content {
+  background-color: $color-menu-text-drop-hover-bk;
+}
+.dropdown-content a {
+  color: $color-menu-text-drop-hover;
+}
+.dropdown-content a:hover {
+  background-color: $color-menu-text-drop-hover;
+  color: $color-menu-text-drop-hover-bk;
+}
+.menu {
+  background-color: #303030;
+  color: #0f0;
+}
+.bubble-alt {
+  background-color: #202020;
+  color: #eee;
+}
+.crew-content > div {
+  background-color: #202020 !important;
+  color: #eee !important;
+}
 }
