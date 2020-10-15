@@ -319,6 +319,7 @@
 #define HB_CURLOPT_ISSUERCERT_BLOB            271
 #define HB_CURLOPT_PROXY_ISSUERCERT           272
 #define HB_CURLOPT_PROXY_ISSUERCERT_BLOB      273
+#define HB_CURLOPT_SSL_EC_CURVES              274
 #define HB_CURLOPT_DOWNLOAD                   1001  /* Harbour special ones */
 #define HB_CURLOPT_XFERINFOBLOCK              1002
 #define HB_CURLOPT_UL_FILE_SETUP              1003

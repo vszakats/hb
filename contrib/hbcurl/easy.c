@@ -2117,6 +2117,11 @@ HB_FUNC( CURL_EASY_SETOPT )
             case HB_CURLOPT_SSL_VERIFYPEER:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_SSL_VERIFYPEER, HB_CURL_OPT_BOOL( 3 ) );
                break;
+#if LIBCURL_VERSION_NUM >= 0x074900
+            case HB_CURLOPT_SSL_EC_CURVES:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_SSL_EC_CURVES, hb_parc( 3 ) );
+               break;
+#endif
             case HB_CURLOPT_CAINFO:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_CAINFO, hb_curl_StrHash( hb_curl, hb_parc( 3 ) ) );
                break;
