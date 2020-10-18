@@ -4,7 +4,7 @@ title: "Forks"
 ---
 <div markdown="1" class="components">
 
-{%- assign forkurl = 'https://vszakats.gitlab.io/hb/' %}
+{%- assign forkurl = 'https://vszakats.github.io/hb/' %}
 
 # Harbour Forks
 
