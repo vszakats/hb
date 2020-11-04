@@ -168,7 +168,7 @@ PROCEDURE Main( cDL, cUL )
          ENDIF
       ENDIF
 
-      hb_default( @cDL, "https://www.example.net/index.html" )
+      hb_default( @cDL, "https://example.net/index.html" )
 
       /* Now let's download to a file */
 
