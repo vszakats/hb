@@ -2206,6 +2206,14 @@ HB_FUNC( CURL_EASY_SETOPT )
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_SSL_FALSESTART, hb_parnl( 3 ) );
                break;
 #endif
+#if LIBCURL_VERSION_NUM >= 0x074A00
+            case HB_CURLOPT_HSTS:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_HSTS, hb_parc( 3 ) );
+               break;
+            case HB_CURLOPT_HSTS_CTRL:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_HSTS_CTRL, hb_parnl( 3 ) );
+               break;
+#endif
 
             /* SSL proxy */
 

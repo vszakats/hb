@@ -320,6 +320,8 @@
 #define HB_CURLOPT_PROXY_ISSUERCERT           272
 #define HB_CURLOPT_PROXY_ISSUERCERT_BLOB      273
 #define HB_CURLOPT_SSL_EC_CURVES              274
+#define HB_CURLOPT_HSTS                       275
+#define HB_CURLOPT_HSTS_CTRL                  276
 #define HB_CURLOPT_DOWNLOAD                   1001  /* Harbour special ones */
 #define HB_CURLOPT_XFERINFOBLOCK              1002
 #define HB_CURLOPT_UL_FILE_SETUP              1003
@@ -785,6 +787,13 @@
 #define HB_CURL_VERSION_BROTLI                hb_bitShift( 1, 23 )  /* Brotli features are present */
 #define HB_CURL_VERSION_ALTSVC                hb_bitShift( 1, 24 )  /* Alt-Svc handling built-in */
 #define HB_CURL_VERSION_HTTP3                 hb_bitShift( 1, 25 )  /* HTTP3 support built-in */
+#define HB_CURL_VERSION_ZSTD                  hb_bitShift( 1, 26 )  /* zstd features are present */
+#define HB_CURL_VERSION_UNICODE               hb_bitShift( 1, 27 )  /* Unicode support on Windows */
+#define HB_CURL_VERSION_HSTS                  hb_bitShift( 1, 28 )  /* HSTS is supported */
+
+/* HB_CURLOPT_HSTS_CTRL */
+#define HB_CURLHSTS_ENABLE                    hb_bitShift( 1, 0 )
+#define HB_CURLHSTS_READONLYFILE              hb_bitShift( 1, 1 )
 
 /* HB_CURLOPT_HTTPPOST_FORM type. */
 #define HB_CURLOPT_HTTPPOST_FORM_CONTENT      1
