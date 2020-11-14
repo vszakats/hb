@@ -108,7 +108,7 @@ mkdir -p "${MXE_HOME}"
 (
   cd "${MXE_HOME}" || exit
 
-  base='http://pkg.mxe.cc/repos/apt/debian'  # APT root
+  base='https://pkg.mxe.cc/repos/apt/debian'  # APT root
   suid='D43A795B73B16ABE9643FE1AFD8FFF16DB45C6AB'  # Signer UID
 
   alias gpg='gpg --batch --keyid-format LONG'

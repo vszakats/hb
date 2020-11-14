@@ -10,7 +10,7 @@
 
 # Refactored minizip (used by MSYS2): https://github.com/nmoinvaz/minizip
 -depurlbase=minizip:https://zlib.net/
--depurlbase=minizip:http://winimage.com/zLibDll/minizip.html
+-depurlbase=minizip:https://winimage.com/zLibDll/minizip.html
 -deppkgname=minizip:libminizip-dev{deb}
 -deppkgname=minizip:minizip-devel{rpm}
 -deppkgname=minizip:minizip{homebrew|pkgng}

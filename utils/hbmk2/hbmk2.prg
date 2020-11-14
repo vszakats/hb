@@ -8582,7 +8582,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
             CASE HBMK_ISPLAT( "win|wce" )
                /* On MS Windows, code signing is just as a horrible mess as generally
                   everything else:
-                     http://www.davidegrayson.com/signing/
+                     https://www.davidegrayson.com/signing/
                 */
                DO CASE
                CASE ( cBin_Sign := FindInPath( "signtool.exe" ) ) != NIL /* in MS Windows SDK */
@@ -11902,7 +11902,7 @@ STATIC FUNCTION FN_Expand( cFileName, lCommandLine )
       /* Partial workaround for Windows filename matching behavior,
          where '*.ext' will match '*.ext*' because 8.3 matches are
          also considered valid by the OS (Thanks Microsoft):
-         https://blogs.msdn.com/b/oldnewthing/archive/2005/07/20/440918/
+         https://devblogs.microsoft.com/oldnewthing/?p=34883 [2005-07-20]
          [vszakats] */
       IF FNameHasWildcard( hb_FNameExt( cFileName ) ) .OR. ;
          hb_FileMatch( hb_FNameExt( aFile[ F_NAME ] ), hb_FNameExt( cFileName ) )

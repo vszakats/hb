@@ -15,7 +15,7 @@ ${hb_name}.hbx
 hbbz2.hbc
 
 # This is a dependency of bz2lib
--depurlbase=bzip2:http://bzip.org/
+-depurlbase=bzip2:https://sourceware.org/bzip2/
 -deppkgname=bzip2:libbz2-dev{deb}
 -deppkgname=bzip2:bzip2-devel{rpm}
 -deppkgname=bzip2:bzip2{homebrew|pkgng}

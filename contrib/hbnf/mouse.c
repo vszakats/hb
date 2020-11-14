@@ -7,7 +7,7 @@
    #include <dos.h>
 #endif
 
-/* http://www.delorie.com/djgpp/doc/rbinter/ix/33/00.html */
+/* https://www.delorie.com/djgpp/doc/rbinter/ix/33/00.html */
 
 HB_FUNC( _FT_MSETSENSITIVE )  /* nHoriz, nVert, nDouble */
 {

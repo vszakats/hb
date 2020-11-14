@@ -5,7 +5,7 @@
 
 # See batch docs here:
 #    https://www.computerhope.com/batch.htm
-#    http://www.robvanderwoude.com/batchcommands.php
+#    https://www.robvanderwoude.com/batchcommands.php
 
 ifneq ($(HB_SHELL),sh)
 
@@ -189,8 +189,8 @@ ifeq ($(HB_SHELL),dos)
 #       When using DJGPP GNU Make to invoke other DJGPP tools this limit
 #       is about 13 kB, as they do special trick to overcome it.
 #       See these DJGPP FAQs:
-#          http://www.delorie.com/djgpp/v2faq/faq16_4.html
-#          http://www.delorie.com/djgpp/v2faq/faq16_5.html
+#          https://www.delorie.com/djgpp/v2faq/faq16_4.html
+#          https://www.delorie.com/djgpp/v2faq/faq16_5.html
 #       [vszakats]
 
 MK := $(subst \,/,$(MAKE))

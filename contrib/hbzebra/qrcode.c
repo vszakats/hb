@@ -48,24 +48,27 @@
      QR Code is ISO/IEC18004
 
      JIS-X-0510  QR Code standard in Japanese language :)
-       https://osdn.jp/projects/qrcode/docs/qrcode_specification_ja/en/1/qrcode_specification_ja.pdf
+      https://osdn.net/projects/qrcode/docs/qrcode_specification_ja/en/1/qrcode_specification_ja.pdf
 
    https://en.wikipedia.org/wiki/QR_Code
-   http://www.qrcode.com/
+   https://www.nayuki.io/page/creating-a-qr-code-step-by-step
+   https://www.qrcode.com/
    https://foxdesignsstudio.com/uploads/pdf/Three_QR_Code.pdf
-   https://web.archive.org/web/www.qrme.co.uk/qr-code-resources/understanding-a-qr-code.html
-   http://www.swetake.com/qrcode/index-e.html
+   https://web.archive.org/web/20160530202101/www.qrme.co.uk/qr-code-resources/understanding-a-qr-code.html
+   https://web.archive.org/web/www.swetake.com/qrcode/index-e.html
    https://www.codeproject.com/Articles/20574/Open-Source-QRCode-Library
-   https://osdn.jp/projects/reedsolomon/
-   https://web.archive.org/web/twit88.com/platform/projects/show/mt-qrcode
+   https://osdn.net/projects/reedsolomon/
+   https://web.archive.org/web/platform.twit88.com/projects/mt-qrcode
    https://qrcode.osdn.jp/
    https://zxing.org/w/decode.jspx                         Online decoder
-   http://blog.qr4.nl/Online-QR-Code_Decoder.aspx          Online decoder (not all codes are decoded)
+   https://webqr.com/                                      Online decoder
    https://www.thonky.com/qr-code-tutorial/                Tutorial
    https://github.com/zxing/zxing                          Java library
-   http://goqr.me/                                         Online encode
+   https://qrcode.tec-it.com/                              Online encode
+   https://www.qrstuff.com/                                Online encode
+   https://www.the-qrcode-generator.com/                   Online encode
    https://www.pclviewer.com/rs2/calculator.html           Reed-Solomon ECC calculator
-   https://web.archive.org/web/raidenii.net/files/datasheets/misc/qr_code.pdf
+   https://web.archive.org/web/20141129033352/raidenii.net/files/datasheets/misc/qr_code.pdf
 
  */
 

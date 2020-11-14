@@ -24,7 +24,7 @@ randtable.c
 -cflag=-DBZ_STRICT_ANSI
 -cflag=-DBZ_NO_STDIO{!hbdyn}
 
-# URL    http://bzip.org/1.0.6/bzip2-1.0.6.tar.gz
+# URL    https://sourceware.org/pub/bzip2/bzip2-1.0.6.tar.gz
 #
 # MAP    LICENSE
 # MAP    blocksort.c

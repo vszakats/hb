@@ -20,7 +20,7 @@ apt-get -qq install \
   binutils-mingw-w64 gcc-mingw-w64 g++-mingw-w64 ${_optpkg} \
   p7zip-full time jq dos2unix realpath osslsigncode wine-stable wine64 wine32
 
-echo 'deb http://pkg.mxe.cc/repos/apt/debian wheezy main' > /etc/apt/sources.list.d/mxeapt.list
+echo 'deb https://pkg.mxe.cc/repos/apt/debian wheezy main' > /etc/apt/sources.list.d/mxeapt.list
 curl -fsS --connect-timeout 15 --retry 3 'https://keyserver.ubuntu.com/pks/lookup?search=0xD43A795B73B16ABE9643FE1AFD8FFF16DB45C6AB&op=get' \
 | gpg --import --status-fd 1
 gpg --export D43A795B73B16ABE9643FE1AFD8FFF16DB45C6AB \

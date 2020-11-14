@@ -103,7 +103,7 @@ HB_FUNC( POSIX_SETEGID )
 }
 
 /* https://linux.die.net/man/3/getgrnam
-   http://man7.org/linux/man-pages/man3/getgrnam.3.html */
+   https://man7.org/linux/man-pages/man3/getgrnam.3.html */
 HB_FUNC( POSIX_GETGRNAM )
 {
    if( HB_ISCHAR( 1 ) )
@@ -140,7 +140,7 @@ HB_FUNC( POSIX_GETGRNAM )
 }
 
 /* https://linux.die.net/man/3/getpwnam
-   http://man7.org/linux/man-pages/man3/getpwnam.3.html */
+   https://man7.org/linux/man-pages/man3/getpwnam.3.html */
 HB_FUNC( POSIX_GETPWNAM )
 {
    if( HB_ISCHAR( 1 ) )
