@@ -1,4 +1,4 @@
-/* Copyright 2008-2017 Viktor Szakats (vszakats.net/harbour) */
+/* Copyright 2008-2017 Viktor Szakats (vsz.me/hb) */
 
 /* NOTE: Redirect STDERR to a file to see the verbose output. */
 
@@ -164,7 +164,7 @@ PROCEDURE Main( cDL, cUL )
          ELSE
             ?
             ? "Error: Trusted Root Certificates missing. Open this URL in your web browser:"
-            ? "  " + "https://curl.haxx.se/ca/cacert.pem"
+            ? "  " + "https://curl.se/ca/cacert.pem"
             ? "and save the file as:"
             ? "  " + cCA
             RETURN

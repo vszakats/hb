@@ -2,7 +2,7 @@
  * RPC demo module for hbnetio server.
  *    Usage: 'hbnetio -rpc=rpcdemo.hb'
  *
- * Copyright 2010 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2010 Viktor Szakats (vsz.me/hb)
  *
  */
 

@@ -1,7 +1,7 @@
 /*
  * Advantage Database Server RDD (additional functions)
  *
- * Copyright 2008 Viktor Szakats (vszakats.net/harbour) (cleanups, AdsGetRecordCount())
+ * Copyright 2008 Viktor Szakats (vsz.me/hb) (cleanups, AdsGetRecordCount())
  * Copyright 2000 Alexander Kresin <alex@belacy.belgorod.su>
  *
  * This program is free software; you can redistribute it and/or modify

@@ -2,7 +2,7 @@
  * The Console API
  *
  * Copyright 1999 Antonio Linares <alinares@fivetech.com>
- * Copyright 1999-2015 Viktor Szakats (vszakats.net/harbour) (hb_conNewLine(), DispOutAt(), hb_StrEOL())
+ * Copyright 1999-2015 Viktor Szakats (vsz.me/hb) (hb_conNewLine(), DispOutAt(), hb_StrEOL())
  * Copyright 1999 David G. Holm <dholm@jsd-llc.com>
  *    hb_conOutAlt(), hb_conOutDev(), DevOut(), hb_conDevPos(),
  *    DevPos(), __Eject(),

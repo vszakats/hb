@@ -2,7 +2,7 @@
  * The Virtual Machine
  *
  * Copyright 1999 Antonio Linares <alinares@fivetech.com>
- * Copyright 1999-2001 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 1999-2001 Viktor Szakats (vsz.me/hb)
  *   (hb_vmPushLongConst(), hb_vmPushDoubleConst())
  * Copyright 1999 Eddie Runia <eddie@runia.com>
  *   (__dbgVMVarSGet(), __dbgVMVarSList())

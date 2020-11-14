@@ -1,7 +1,7 @@
 /*
  * BLAKE2b function wrapper (fast secure hash)
  *
- * Copyright 2015 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2015 Viktor Szakats (vsz.me/hb)
  * (Harbour wrapper and low-level code adaptation)
  *
  * Low-level BLAKE2 C code courtesy of

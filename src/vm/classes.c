@@ -15,7 +15,7 @@
  *    __objHasMsg()
  *    __objSendMsg()
  *
- * Copyright 1999-2001 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 1999-2001 Viktor Szakats (vsz.me/hb)
  *    __classNew()
  *    __classInstance()
  *    __classAdd()

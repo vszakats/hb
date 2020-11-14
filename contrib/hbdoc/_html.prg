@@ -1,7 +1,7 @@
 /*
  * Document generator - HTML output
  *
- * Copyright 2016 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2016 Viktor Szakats (vsz.me/hb)
  * Copyright 2009 April White <bright.tigra gmail.com>
  * Copyright 1999-2003 Luiz Rafael Culik <culikr@uol.com.br> (Portions of this project are based on hbdoc)
  *
@@ -335,7 +335,7 @@ METHOD Generate() CLASS GenerateHTML
 
    ::OpenTagInline( "div" )
    ::AppendInline( hb_StrFormat( I_( "Content processing, layout & design © %1$04d" ), Year( Date() ) ) + " " )
-   ::OpenTagInline( "a", "href", "https://vszakats.net/harbour" )
+   ::OpenTagInline( "a", "href", "https://vsz.me/hb" )
    ::AppendInline( "vszakats" )
    ::CloseTagInline( "a" )
    ::CloseTag( "div" )

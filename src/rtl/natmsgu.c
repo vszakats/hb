@@ -2,7 +2,7 @@
  * NATION undocumented functions
  *
  * Copyright 1999 Jose Lalin <dezac@corevia.com>
- * Copyright 1999-2001 Viktor Szakats (vszakats.net/harbour) (_NatSortVer(), _NatMsgVer())
+ * Copyright 1999-2001 Viktor Szakats (vsz.me/hb) (_NatSortVer(), _NatMsgVer())
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

@@ -2,7 +2,7 @@
  * hb_FTempCreate() function
  *
  * Copyright 2000-2001 Jose Lalin <dezac@corevia.com>
- * Copyright 2000-2010 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2000-2010 Viktor Szakats (vsz.me/hb)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

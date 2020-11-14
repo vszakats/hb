@@ -1,7 +1,7 @@
 /*
  * ACCEPT command related functions
  *
- * Copyright 1999-2001 Viktor Szakats (vszakats.net/harbour) (__AcceptStr())
+ * Copyright 1999-2001 Viktor Szakats (vsz.me/hb) (__AcceptStr())
  * Copyright 1999 Eddie Runia <eddie@runia.com>
  *
  * This program is free software; you can redistribute it and/or modify

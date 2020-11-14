@@ -1,7 +1,7 @@
 /*
  * hbwin header
  *
- * Copyright 2008 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2008 Viktor Szakats (vsz.me/hb)
  * Copyright 2004 Peter Rees <peter@rees.co.nz> Rees Software and Systems Ltd
  *
  * This program is free software; you can redistribute it and/or modify

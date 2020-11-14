@@ -13,7 +13,7 @@ Source archives and Windows binaries are available for download:
 * Static and dynamic libraries of `libcurl`, `openssl`, `libssh2`, `nghttp2`
   for 32-bit and 64-bit apps
 * Example and test sources
-* [`getsrc.sh`](https://github.com/vszakats/harbour-core/blob/master/package/getsrc.sh)
+* [`getsrc.sh`](https://github.com/vszakats/hb/blob/master/package/getsrc.sh)
   script to download source code
 * `BUILD*.txt` with build details in Harbour root directory
 
@@ -38,11 +38,11 @@ Source archives and Windows binaries are available for download:
    hbmk2 C:\hb\tests\hello.prg -run
    ```
 7. Further hints in section **Build Your Own Harbour App** of
-   [`README.md`](https://github.com/vszakats/harbour-core#build-your-own-harbour-app)
+   [`README.md`](https://github.com/vszakats/hb#build-your-own-harbour-app)
 8. To customize/build/rebuild Harbour components, run
    `C:\hb\getsrc.sh` to download sources and continue as described in
    section **How to Do a Partial Build** of
-   [`README.md`](https://github.com/vszakats/harbour-core#how-to-do-a-partial-build)
+   [`README.md`](https://github.com/vszakats/hb#how-to-do-a-partial-build)
 
 <a name="1"><sup>1</sup></a> This document uses `C:\hb`<br>
 

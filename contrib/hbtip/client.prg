@@ -5,7 +5,7 @@
  * Copyright 2007 Hannes Ziegler (INetErrorDesc(), lastErrorCode(), lastErrorMessage())
  * Copyright 2007 Toninho@fwi (::nWrite to work like ::nRead)
  * Copyright 2009 Luiz Rafael Culik (luiz at xharbour dot com dot br) (Proxy connection)
- * Copyright 2009 Viktor Szakats (vszakats.net/harbour) (SSL support)
+ * Copyright 2009 Viktor Szakats (vsz.me/hb) (SSL support)
  * Copyright 2015 Jean Lefebvre (STARTTLS support)
  *
  * This program is free software; you can redistribute it and/or modify

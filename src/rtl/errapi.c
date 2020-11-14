@@ -2,7 +2,7 @@
  * The Error API
  *
  * Copyright 1999 Antonio Linares <alinares@fivetech.com>
- * Copyright 1999-2016 Viktor Szakats (vszakats.net/harbour) (DosError(), __errInHandler(), __errRT*(), hb_errLaunch*(), hb_err*Flags(), hb_errRT*())
+ * Copyright 1999-2016 Viktor Szakats (vsz.me/hb) (DosError(), __errInHandler(), __errRT*(), hb_errLaunch*(), hb_err*Flags(), hb_errRT*())
  * Copyright 2007 Przemyslaw Czerpak <druzus / at / priv.onet.pl> (rewritten in C ERROR class and all hb_errGet*() and hb_errPut*() functions)
  *
  * This program is free software; you can redistribute it and/or modify

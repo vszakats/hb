@@ -1,7 +1,7 @@
 /*
  * Harbour Windows Printing support functions
  *
- * Copyright 2009 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2009 Viktor Szakats (vsz.me/hb)
  * Copyright 2002 Luiz Rafael Culik <culikr@uol.com.br>
  *
  * This program is free software; you can redistribute it and/or modify

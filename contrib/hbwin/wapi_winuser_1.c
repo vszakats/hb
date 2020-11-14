@@ -1,7 +1,7 @@
 /*
  * Windows API functions (winuser)
  *
- * Copyright 2009-2014 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2009-2014 Viktor Szakats (vsz.me/hb)
  * Copyright 2009 Pritpal Bedi <pritpal@vouchcac.com>
  *
  * This program is free software; you can redistribute it and/or modify

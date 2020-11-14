@@ -2,7 +2,7 @@
  * Regex functions
  *
  * Copyright 2007 Przemyslaw Czerpak <druzus / at / priv.onet.pl>
- * Copyright 2015 Viktor Szakats (vszakats.net/harbour) (PCRE2 support)
+ * Copyright 2015 Viktor Szakats (vsz.me/hb) (PCRE2 support)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

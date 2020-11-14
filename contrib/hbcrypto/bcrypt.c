@@ -1,7 +1,7 @@
 /*
  * Harbour interface to bcrypt password hashing
  *
- * Copyright 2015 Viktor Szakats (vszakats.net/harbour) (hb_bcrypt())
+ * Copyright 2015 Viktor Szakats (vsz.me/hb) (hb_bcrypt())
  * For additional Copyrights and Licenses, see below.
  *
  * This program is free software; you can redistribute it and/or modify

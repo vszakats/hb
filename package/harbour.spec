@@ -91,7 +91,7 @@ Version:        %{version}
 Release:        %{releasen}%{?verstat:.%{verstat}}%{?platform:.%{platform}}
 License:        GPL (plus exception)
 Group:          Development/Languages
-URL:            https://github.com/vszakats/harbour-core/
+URL:            https://github.com/vszakats/hb/
 Source:         %{name}-%{version}.src.tar.gz
 BuildRequires:  gcc binutils %{!?_without_curses: ncurses-devel} %{!?_without_gpm: gpm-devel}
 Requires:       gcc binutils sh-utils %{name}-lib = %{?epoch:%{epoch}:}%{version}-%{release}
@@ -769,10 +769,10 @@ rm -rf "$RPM_BUILD_ROOT"
 ######################################################################
 
 %changelog
-* Tue Mar 28 2017 Viktor Szakats (vszakats.net/harbour)
+* Tue Mar 28 2017 Viktor Szakats (vsz.me/hb)
 - lots of updates to sync with Harbour changes, see main ChangeLog.txt
 
-* Tue Aug 05 2008 Viktor Szakats (vszakats.net/harbour)
+* Tue Aug 05 2008 Viktor Szakats (vsz.me/hb)
 - removed hbdot, hbverfix, hbpptest
 - hbrun now fully replaces hbdot
 

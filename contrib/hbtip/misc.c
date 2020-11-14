@@ -2,7 +2,7 @@
  * TIP Class oriented Internet protocol library
  *
  * Copyright 2003 Giancarlo Niccolai <gian@niccolai.ws>
- * Copyright 1999-2017 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 1999-2017 Viktor Szakats (vsz.me/hb)
  *    (tip_TimeStamp() rework, cleanups)
  *
  * This program is free software; you can redistribute it and/or modify

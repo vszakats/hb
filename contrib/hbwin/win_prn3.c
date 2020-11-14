@@ -1,7 +1,7 @@
 /*
  * win_printerSetDefault()
  *
- * Copyright 2009 Viktor Szakats (vszakats.net/harbour) (based on MS sample code)
+ * Copyright 2009 Viktor Szakats (vsz.me/hb) (based on MS sample code)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

@@ -1,4 +1,4 @@
-/* Copyright 2010 Viktor Szakats (vszakats.net/harbour) */
+/* Copyright 2010 Viktor Szakats (vsz.me/hb) */
 
 /* Adapted to OS independent hb_gfxFilledRect() 2014 elch
    Choose a graphics-capable GT at link time.

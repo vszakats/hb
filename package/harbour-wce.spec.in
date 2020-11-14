@@ -31,7 +31,7 @@ Version:        %{version}
 Release:        %{releasen}%{?verstat:.%{verstat}}
 License:        GPL (plus exception)
 Group:          Development/Languages
-URL:            https://github.com/vszakats/harbour-core/
+URL:            https://github.com/vszakats/hb/
 Source:         harbour-%{version}.src.tar.gz
 BuildRequires:  gcc binutils
 Requires:       gcc binutils sh-utils cegcc-mingw32ce harbour = %{?epoch:%{epoch}:}%{version}-%{release}

@@ -1,7 +1,7 @@
 /*
  * hb_ntos() function
  *
- * Copyright 2008 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2008 Viktor Szakats (vsz.me/hb)
  * Copyright 2016 Przemyslaw Czerpak <druzus / at / priv.onet.pl>
  *
  * This program is free software; you can redistribute it and/or modify

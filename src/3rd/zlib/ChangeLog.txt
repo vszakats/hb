@@ -9,7 +9,7 @@
   * harbour/source/hbzlib/trees.c
     * cleaned casting
 
-2008-08-05 19:39 UTC Viktor Szakats (vszakats.net/harbour)
+2008-08-05 19:39 UTC Viktor Szakats (vsz.me/hb)
    * harbour/source/hbzlib/zconf.h
      + Setting ZLIB_DLL if HB_DYNLIB is defined.
 

@@ -1,6 +1,6 @@
 Harbour Make \(hbmk2\) 3.4.0dev \(c390da90ad\) \(2017-10-10 16:11\)  
 Copyright &copy; 1999-present, Viktor Szakats  
-<https://github.com/vszakats/harbour-core/>  
+<https://github.com/vszakats/hb/>  
 Traducción \(gl\): JLalín  
 
 Sintaxe:  
@@ -762,4 +762,4 @@ License extensions:
 Autor:  
 
 
- - Viktor Szakats \(vszakats.net/harbour\) 
+ - Viktor Szakats \(vsz.me/hb\) 

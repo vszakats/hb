@@ -2,7 +2,7 @@
  * Video subsystem for DOS compilers
  *
  * Copyright 1999 {list of individual authors and e-mail addresses}
- * Copyright 1999-2001 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 1999-2001 Viktor Szakats (vsz.me/hb)
  *    hb_gt_CtrlBrkHandler()
  *    hb_gt_CtrlBrkRestore()
  * Copyright 1999 David G. Holm <dholm@jsd-llc.com>

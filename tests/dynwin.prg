@@ -1,4 +1,4 @@
-/* Copyright 2008 Viktor Szakats (vszakats.net/harbour) */
+/* Copyright 2008 Viktor Szakats (vsz.me/hb) */
 
 /* Dynamic library call demonstration. (on Windows) */
 

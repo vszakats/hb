@@ -4,7 +4,7 @@
  *    __MinimalErrorHandler(), xhb_ErrorNew()
  *
  * Copyright 2010 Przemyslaw Czerpak <druzus / at / priv.onet.pl>
- * Copyright 2009 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2009 Viktor Szakats (vsz.me/hb)
  * Copyright 1999 Antonio Linares <alinares@fivetech.com>
  * Copyright 2001-2004 Ron Pinkas <ron@profit-master.com> (TraceLog())
  * Copyright 2002 Luiz Rafael Culik <culikr@uol.com.br> (strvalue(), LogError())

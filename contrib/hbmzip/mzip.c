@@ -3,7 +3,7 @@
  * Some higher-level ZIP archive functions
  *
  * Copyright 2008 Mindaugas Kavaliauskas <dbtopas.at.dbtopas.lt>
- * Copyright 2011-2017 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2011-2017 Viktor Szakats (vsz.me/hb)
  *   (codepage, unicode, *Mem())
  *
  * This program is free software; you can redistribute it and/or modify

@@ -1,7 +1,7 @@
 /*
  * Regression tests for classes TBrowse()/TBColumn()
  *
- * Copyright 1999-2007 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 1999-2007 Viktor Szakats (vsz.me/hb)
  * Copyright 2007 Przemyslaw Czerpak <druzus / at / priv.onet.pl> (eInstVar() - from RTL)
  *
  * This program is free software; you can redistribute it and/or modify

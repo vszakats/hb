@@ -1,4 +1,4 @@
-/* Viktor Szakats (vszakats.net/harbour) */
+/* Viktor Szakats (vsz.me/hb) */
 
 /* NOTE: Ä/ä have been added to work like sixhu852.obj
          for S*ccessWare SIx Driver, but they're not part

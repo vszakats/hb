@@ -1,4 +1,4 @@
-# Copyright 2016 Viktor Szakats (vszakats.net/harbour)
+# Copyright 2016 Viktor Szakats (vsz.me/hb)
 
 # UTF-8
 resflags=-c65001{allmingw|allmsvc|allbcc|allpocc|allicc}

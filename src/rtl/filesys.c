@@ -2,7 +2,7 @@
  * The FileSys API (C level)
  *
  * Copyright 1999 {list of individual authors and e-mail addresses}
- * Copyright 1999-2010 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 1999-2010 Viktor Szakats (vsz.me/hb)
  *    hb_fsSetError(), hb_fsSetDevMode(), hb_fsReadLarge(), hb_fsWriteLarge()
  *    hb_fsCurDirBuff(), hb_fsBaseDirBuff()
  *    fs_win_get_drive(), fs_win_set_drive()

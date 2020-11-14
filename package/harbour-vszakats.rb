@@ -1,19 +1,19 @@
 class HarbourVszakats < Formula
   desc "Portable, xBase-compatible programming language and environment (vszakats fork)"
-  homepage "https://github.com/vszakats/harbour-core/"
+  homepage "https://github.com/vszakats/hb/"
 
-  head "https://github.com/vszakats/harbour-core.git"
+  head "https://github.com/vszakats/hb.git"
 
   # Fix missing header that was deprecated by libcurl @ version 7.12.0
   # and deleted sometime after Harbour 3.0.0 release.
   stable do
     patch :DATA
-    url "https://github.com/vszakats/harbour-core/archive/v3.0.0.tar.gz"
+    url "https://github.com/vszakats/hb/archive/v3.0.0.tar.gz"
     sha256 "34196df52c5f9994b57936fd231f09b7307462a63cfdaa42fe8d3e1a8a388dfd"
   end
 
   devel do
-    url "https://github.com/vszakats/harbour-core/archive/4dd7c9b22d452986a350a5d1b2652b19e85d69b5.tar.gz"
+    url "https://github.com/vszakats/hb/archive/4dd7c9b22d452986a350a5d1b2652b19e85d69b5.tar.gz"
     sha256 "88a34c65e0ebd1383a51552e817d2672da8a9de87e8c239d398a5ca1354e82a7"
     version "3.4.0"
   end

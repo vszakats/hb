@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Copyright 2017 Viktor Szakats <https://vszakats.net/>
+# Copyright 2017 Viktor Szakats <https://vsz.me/>
 # License: The MIT license (MIT)
 
 set -ue
@@ -23,7 +23,7 @@ MXE_INST_LINUX    Install 'linux-gnu' packages. Default: no
 
 Required: ar (BSD), gpg, curl, openssl, awk, sed, tar, gzip
 
-Author: Viktor Szakats <https://vszakats.net/>"
+Author: Viktor Szakats <https://vsz.me/>"
 }
 
 mxe_curl() {

@@ -1,7 +1,7 @@
 /*
  * Harbour Make (alias mk/hbmk/hbmk2/hbrun)
  *
- * Copyright 1999-2017 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 1999-2017 Viktor Szakats (vsz.me/hb)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -58,7 +58,7 @@
 
 /*
    Interesting C build overview from the author of a similar tool:
-      http://nethack4.org/blog/building-c.html
+      https://web.archive.org/web/nethack4.org/blog/building-c.html
    About autotools:
       https://autotools.io/
 
@@ -67,7 +67,7 @@
 
    Markdown syntax:
       https://daringfireball.net/projects/markdown/syntax
-      http://spec.commonmark.org/ (CommonMark)
+      https://spec.commonmark.org/ (CommonMark)
       https://johnmacfarlane.net/babelmark2/
 
    Markdown to man page converter:
@@ -19460,7 +19460,7 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
 
    LOCAL aLst_Auth := { ;
       , ;
-      { "Viktor Szakats (vszakats.net/harbour)", "" } }
+      { "Viktor Szakats (vsz.me/hb)", "" } }
 
    /* Examples */
 

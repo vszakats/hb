@@ -1,7 +1,7 @@
 /*
  * OpenSSL API (EVP ENCODE) - Harbour interface.
  *
- * Copyright 2009-2016 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2009-2016 Viktor Szakats (vsz.me/hb)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

@@ -1,7 +1,7 @@
 /*
  * Demonstration/test code for NETIOSRV remote management
  *
- * Copyright 2010-2011 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2010-2011 Viktor Szakats (vsz.me/hb)
  */
 
 #require "hbnetio"

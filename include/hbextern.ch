@@ -1,7 +1,7 @@
 /*
  * The declarations for all Harbour defined functions/procedures. (Compatibility header)
  *
- * Copyright 2010 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2010 Viktor Szakats (vsz.me/hb)
  * Copyright 1999 Ryszard Glab <rglab@imid.med.pl>
  *
  * This program is free software; you can redistribute it and/or modify

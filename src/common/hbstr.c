@@ -1,7 +1,7 @@
 /*
  * Harbour common string functions (accessed from standalone utilities and the RTL)
  *
- * Copyright 1999-2001 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 1999-2001 Viktor Szakats (vsz.me/hb)
  * Copyright 1999 David G. Holm <dholm@jsd-llc.com> (hb_stricmp())
  *
  * This program is free software; you can redistribute it and/or modify

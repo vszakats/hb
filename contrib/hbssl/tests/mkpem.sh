@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Copyright 2016 Viktor Szakats (vszakats.net/harbour)
+# Copyright 2016 Viktor Szakats (vsz.me/hb)
 # See LICENSE.txt for licensing terms.
 
 # Generate key pair with encrypted private key

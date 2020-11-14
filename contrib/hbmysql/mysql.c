@@ -1,7 +1,7 @@
 /*
  * MySQL DBMS low-level (client API) interface code.
  *
- * Copyright 2010 Viktor Szakats (vszakats.net/harbour) (GC support)
+ * Copyright 2010 Viktor Szakats (vsz.me/hb) (GC support)
  * Copyright 2000 Maurilio Longo <maurilio.longo@libero.it>
  * Copyright 2001 Luiz Rafael Culik <culik@sl.conex.net> (DATATOSQL(), FILETOSQLBINARY())
  *

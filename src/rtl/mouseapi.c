@@ -1,7 +1,7 @@
 /*
  * Mouse API
  *
- * Copyright 1999-2001 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 1999-2001 Viktor Szakats (vsz.me/hb)
  * Copyright 1999 Jose Lalin <dezac@corevia.com> (API proposal)
  *
  * This program is free software; you can redistribute it and/or modify

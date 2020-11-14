@@ -1,7 +1,7 @@
 /*
  * Simple MAPI wrapper
  *
- * Copyright 2009 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2009 Viktor Szakats (vsz.me/hb)
  * Copyright 2009 Toninho (toninhofwi yahoo.com.br)
  *
  * This program is free software; you can redistribute it and/or modify

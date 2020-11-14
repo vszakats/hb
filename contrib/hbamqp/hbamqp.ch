@@ -1,7 +1,7 @@
 /*
  * AMQP Header
  *
- * Copyright 2017 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2017 Viktor Szakats (vsz.me/hb)
  * Copyright 2015 https://github.com/emazv72
  *
  * This program is free software; you can redistribute it and/or modify

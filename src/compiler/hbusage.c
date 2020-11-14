@@ -1,7 +1,7 @@
 /*
  * Compile help & info related functions
  *
- * Copyright 1999-2017 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 1999-2017 Viktor Szakats (vsz.me/hb)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -250,7 +250,7 @@ void hb_compPrintCredits( HB_COMP_DECL )
          "Tim Stone (timstone mstrlink.com)\n"
          "Tomaz Zupan (tomaz.zupan orpo.si)\n"
          "Vailton Renato (vailtom gmail com)\n"
-         "Viktor Szakats (vszakats.net/harbour)\n"
+         "Viktor Szakats (vsz.me/hb)\n"
          "Vladimir Kazimirchik (v_kazimirchik yahoo com)\n"
          "Walter Negro (anegro overnet.com.ar)\n"
          "Xavi (jarabal gmail com)\n"

@@ -1,4 +1,4 @@
-/* This is an original work from 2016 by Viktor Szakats (vszakats.net/harbour)
+/* This is an original work from 2016 by Viktor Szakats (vsz.me/hb)
    and is placed in the public domain. */
 
 THREAD STATIC t_hIdle

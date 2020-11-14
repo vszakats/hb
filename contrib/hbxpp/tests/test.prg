@@ -1,4 +1,4 @@
-/* Copyright 2014 Viktor Szakats (vszakats.net/harbour) */
+/* Copyright 2014 Viktor Szakats (vsz.me/hb) */
 
 #require "hbtest"
 #require "hbxpp"

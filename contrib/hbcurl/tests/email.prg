@@ -1,4 +1,4 @@
-/* Copyright 2014-2017 Viktor Szakats (vszakats.net/harbour) */
+/* Copyright 2014-2017 Viktor Szakats (vsz.me/hb) */
 
 #require "hbcurl"
 #require "hbtip"
@@ -121,7 +121,7 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
          ELSE
             ?
             ? "Error: Trusted Root Certificates missing. Open this URL in your web browser:"
-            ? "  " + "https://curl.haxx.se/ca/cacert.pem"
+            ? "  " + "https://curl.se/ca/cacert.pem"
             ? "and save the file as:"
             ? "  " + cCA
             RETURN

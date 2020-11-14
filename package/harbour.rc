@@ -1,4 +1,4 @@
-/* Copyright 2011-present Viktor Szakats (vszakats.net/harbour) */
+/* Copyright 2011-present Viktor Szakats (vsz.me/hb) */
 
 #if !( defined( OS2 ) || defined( __OS2__ ) || defined( OS_2 ) )
 

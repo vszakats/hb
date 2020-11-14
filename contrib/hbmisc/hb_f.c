@@ -1,4 +1,4 @@
-/* Copyright 2014 Viktor Szakats (vszakats.net/harbour) */
+/* Copyright 2014 Viktor Szakats (vsz.me/hb) */
 
 /* Redirecting a very old and limited copy-paste adaptation
    of NanFor lib's file handling functions into their originals.

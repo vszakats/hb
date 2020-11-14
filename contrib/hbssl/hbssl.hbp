@@ -8,7 +8,7 @@
 -w3 -es2
 
 -depurlbase=openssl:https://www.openssl.org/
--depurlbase=openssl:https://github.com/vszakats/curl-for-win{win&(allmingw|allclang)}
+-depurlbase=openssl:https://github.com/curl/curl-for-win{win&(allmingw|allclang)}
 -depurlbase=openssl:https://www.openssl.org/community/binaries.html{win&!(allmingw|allclang)}
 -deppkgname=openssl:libssl-dev{deb}
 -deppkgname=openssl:openssl-devel{rpm}

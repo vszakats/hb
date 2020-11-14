@@ -1,5 +1,5 @@
 /* Based on original code posted on this URL:
-   https://github.com/vszakats/harbour-core/issues/181#issue-121482480 */
+   https://github.com/vszakats/hb/issues/181#issue-121482480 */
 
 #require "hbmxml"
 

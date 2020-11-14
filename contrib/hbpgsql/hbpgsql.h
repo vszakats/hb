@@ -1,7 +1,7 @@
 /*
  * PostgreSQL RDBMS wrapper header.
  *
- * Copyright 2010 Viktor Szakats (vszakats.net/harbour) (GC support)
+ * Copyright 2010 Viktor Szakats (vsz.me/hb) (GC support)
  * Copyright 2003 Rodrigo Moreno rodrigo_moreno@yahoo.com
  *
  * This program is free software; you can redistribute it and/or modify

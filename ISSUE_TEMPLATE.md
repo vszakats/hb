@@ -29,15 +29,15 @@ version/revision details.
 ### Notes:
 
 In case of inquiries, questions, usage issues and general or feature specific
-discussion, please use available public forums. Popular ones are listed in
+discussion, please use available public forums. You can find popular ones in
 the [README](../README.md#external-links).
 
-Consider creating a [Pull Request](https://github.com/vszakats/harbour-core/pulls)
+Consider creating a [Pull Request](https://github.com/vszakats/hb/pulls)
 to address any problem found. This is in particular welcome or even expected
 for issues falling outside the focus of this fork, e.g. any C compiler except
-mingw/gcc/clang or regarding certain, non-priority or deprecated components
-(e.g. Windows CE, older MSVC versions, `hbtip`, `rddads`, `gtwvg`/`gtwvw`,
-`xhb`, legacy operating systems) and feature requests in general.
+mingw/gcc/clang or certain, non-priority or deprecated components (e.g.
+Windows CE, older MSVC versions, `hbtip`, `rddads`, `gtwvg`/`gtwvw`, `xhb`,
+legacy operating systems) and feature requests in general.
 
 Please note that this fork only accepts additional code if such code cannot
 (or is impractical to) be implemented as 3rd party library/utility. It means

@@ -1,7 +1,7 @@
 /*
  * Harbour NETIO server management client engine
  *
- * Copyright 2009-2017 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2009-2017 Viktor Szakats (vsz.me/hb)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

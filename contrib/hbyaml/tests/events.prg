@@ -1,4 +1,4 @@
-/* Copyright 2017 Viktor Szakats (vszakats.net/harbour) */
+/* Copyright 2017 Viktor Szakats (vsz.me/hb) */
 
 #require "hbyaml"
 

@@ -2,7 +2,7 @@
  * FreeImage graphic library low-level (client API) interface code.
  *
  * Copyright 2005 Francesco Saverio Giudice <info@fsgiudice.com>
- * Copyright 2012 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2012 Viktor Szakats (vsz.me/hb)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

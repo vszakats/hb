@@ -1,7 +1,7 @@
 /*
  * Harbour compatibility header for other Clipper compatible languages
  *
- * Copyright 2013-2015 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2013-2015 Viktor Szakats (vsz.me/hb)
  */
 
 #ifndef __HARBOUR__

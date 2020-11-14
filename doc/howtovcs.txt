@@ -83,7 +83,7 @@ by Viktor Szakats
 1.4 Here's how to use the Git server in read-only mode
 ======================================================
 
-   git clone https://github.com/vszakats/harbour-core.git harbour-core
+   git clone https://github.com/vszakats/hb.git
 
 1.5 Things to do to avoid damaging the Git repository
 =====================================================
@@ -114,7 +114,7 @@ by David G. Holm
    and the commit.
 
 
-[ Copyright (c) 1999-2014 Viktor Szakats (vszakats.net/harbour)
+[ Copyright (c) 1999-2014 Viktor Szakats (vsz.me/hb)
   Licensed under Creative Commons Attribution-ShareAlike 4.0:
   https://creativecommons.org/licenses/by-sa/4.0/
   See LICENSE.txt. ]

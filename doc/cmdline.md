@@ -92,5 +92,5 @@ string separated by whitespace. (or just walk through all `argv[]`)
      `//` should always be used on the command-line.
 
 ---
-Copyright &copy;&nbsp;1999&ndash;2009 [Viktor Szakats](https://vszakats.net/harbour)<br>
+Copyright &copy;&nbsp;1999&ndash;2009 [Viktor Szakats](https://vsz.me/hb)<br>
 [![Creative Commons Attribution-ShareAlike 4.0](https://mirrors.creativecommons.org/presskit/buttons/80x15/svg/by-sa.svg)](https://creativecommons.org/licenses/by-sa/4.0/)

@@ -1,7 +1,7 @@
 /*
  * TBColumn Class
  *
- * Copyright 2007-2008 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2007-2008 Viktor Szakats (vsz.me/hb)
  * Copyright 1999 Antonio Linares <alinares@fivetech.com>
  *
  * This program is free software; you can redistribute it and/or modify

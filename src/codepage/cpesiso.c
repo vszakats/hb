@@ -1,7 +1,7 @@
 /*
  * National Collation Support Module (ESISO - Modern Spanish)
  *
- * Copyright 2008 Viktor Szakats (vszakats.net/harbour)
+ * Copyright 2008 Viktor Szakats (vsz.me/hb)
  * Copyright Antonio Linares <alinares@fivetechsoft.com> (Spanish Windows support)
  *
  * This program is free software; you can redistribute it and/or modify

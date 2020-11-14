@@ -1,7 +1,7 @@
 /*
  * CharMix() CT3 function
  *
- * Copyright 1999-2001 Viktor Szakats (vszakats.net/harbour) (Initial code)
+ * Copyright 1999-2001 Viktor Szakats (vsz.me/hb) (Initial code)
  * Copyright 2001 IntTec GmbH, Neunlindenstr 32, 79106 Freiburg, Germany
  *        Author: Martin Vogel <vogel@inttec.de> (CT3 conformity)
  *
