@@ -90,7 +90,7 @@ URL transfer library, supporting SSL, HTTP GET/PUT/POST/forms, HTTP2, SCP, FTPS,
 SFTP, FTP, LDAP, LDAPS, SMTP, SMTPS, IMAP, IMAPS, POP3, POP3S, TFTP, TELNET,
 FILE/SMB, proxies, cookies, authentication (Basic, Digest, NTLM, Negotiate,
 Kerberos), file transfer resume, http proxy tunneling and more.
-<span class="readmore-md">[Learn more](https://curl.haxx.se/libcurl/)</span>
+<span class="readmore-md">[Learn more](https://curl.se/libcurl/)</span>
 
 ## hbexpat
 

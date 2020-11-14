@@ -10,6 +10,8 @@ full_version: "3.4.0dev"
 license_file: LICENSE.txt
 ilink_suffix: ""
 
+exclude: ['*.pem', '*.sh']
+
 example_categories:
   - basic
   - arrays
