@@ -1,7 +1,7 @@
 /*
  * curl_getdate()
  *
- * Copyright 2008-2010 Viktor Szakats
+ * Copyright 2008-present Viktor Szakats
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

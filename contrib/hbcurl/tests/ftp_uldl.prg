@@ -1,4 +1,4 @@
-/* Copyright 2008-2017 Viktor Szakats */
+/* Copyright 2008-present Viktor Szakats */
 
 /* NOTE: Redirect STDERR to a file to see the verbose output. */
 

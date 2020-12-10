@@ -1,4 +1,4 @@
-/* Copyright 2019 Viktor Szakats (vszakats.net/harbour) */
+/* Copyright 2019-present Viktor Szakats */
 
 #require "hbcurl"
 

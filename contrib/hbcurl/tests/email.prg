@@ -1,4 +1,4 @@
-/* Copyright 2014-2017 Viktor Szakats */
+/* Copyright 2014-present Viktor Szakats */
 
 #require "hbcurl"
 #require "hbtip"
