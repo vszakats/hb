@@ -2,7 +2,7 @@
 [![License](https://img.shields.io/badge/license-GPLv2%20%2B%20Library%20Exception-blue.svg)](LICENSE.txt "License")
 [![Download](https://img.shields.io/badge/download-snapshot_binary_(3.4)-blue.svg)](https://github.com/vszakats/hb/releases "Download snapshot release")
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-[![Donate](https://img.shields.io/badge/Donate-Now-ff4500.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=BPSZQYKXMQJYG "Donate Now")
+[![Donate](https://img.shields.io/badge/Donate-Now-ff4500.svg)](https://www.paypal.me/vszakats "Donate Now")
 <br>
 [![Build status](https://ci.appveyor.com/api/projects/status/4rd806hk73q83qo4/branch/master?svg=true)](https://ci.appveyor.com/project/vsz/hb/branch/master)
 [![Coverity Status](https://scan.coverity.com/projects/3208/badge.svg)](https://scan.coverity.com/projects/3208)
@@ -37,12 +37,11 @@ and a collection of libraries and bindings for popular APIs.
 
   You can donate to fund further maintenance of this fork:
 
-  [Donate Now!](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=BPSZQYKXMQJYG)
+  [Donate Now!](https://www.paypal.me/vszakats)
 
 # Maintainer contacts
 
   * [Homepage](https://vsz.me/)
-  * [PGP key](https://keybase.io/vszakats/key.asc)
 
 # How to Get
 

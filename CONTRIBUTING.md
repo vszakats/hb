@@ -13,7 +13,7 @@
 
   You can donate to support the effort that goes into responding to issues.
 
-  * [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=BPSZQYKXMQJYG)
+  * [PayPal](https://www.paypal.me/vszakats)
 
 
 # How to Share
