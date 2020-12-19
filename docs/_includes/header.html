@@ -21,7 +21,7 @@
 
     <nav class="dropdown">
       <a class="dropbtn" href="{{ site.baseurl }}/about{{ site.ilink_suffix }}">
-      <svg><use xlink:href="{{ site.baseurl }}/images/fa-solid.svg#comment"></use></svg><br><span class="menu-text">About</span></a>
+      {% include svg/fa-solid-comment.svg %}<br><span class="menu-text">About</span></a>
       <nav class="dropdown-content">
         <a href="{{ site.baseurl }}/about{{ site.ilink_suffix }}">About Harbour</a>
         <hr>
@@ -33,7 +33,7 @@
 
     <nav class="dropdown">
       <a class="dropbtn" href="https://harbour.github.io/doc/">
-      <svg><use xlink:href="{{ site.baseurl }}/images/fa-solid.svg#book"></use></svg><br><span class="menu-text">Documentation</span></a>
+      {% include svg/fa-solid-book.svg %}<br><span class="menu-text">Documentation</span></a>
       <nav class="dropdown-content">
         <a href="https://github.com/{{ site.repo_slug }}/#readme">README</a>
         <a href="{{ site.baseurl }}/changelog{{ site.ilink_suffix }}">ChangeLog</a>
@@ -49,7 +49,7 @@
 
     <nav class="dropdown">
       <a class="dropbtn" href="{{ site.dl_url }}">
-      <svg><use xlink:href="{{ site.baseurl }}/images/fa-solid.svg#cloud-download-alt"></use></svg><br><span class="menu-text">Download</span></a>
+      {% include svg/fa-solid-cloud-download-alt.svg %}<br><span class="menu-text">Download</span></a>
       <nav class="dropdown-content">
         <a href="{{ site.dl_url }}">Source and Binaries</a>
 {%- if site.fork %}
@@ -67,7 +67,7 @@
 
     <nav class="dropdown">
       <a class="dropbtn" href="https://github.com/{{ site.repo_slug }}">
-      <svg><use xlink:href="{{ site.baseurl }}/images/fa-solid.svg#cog"></use></svg><br><span class="menu-text">Development</span></a>
+      {% include svg/fa-solid-cog.svg %}<br><span class="menu-text">Development</span></a>
       <nav class="dropdown-content">
 {%- unless site.fork %}
         <a href="{{ site.baseurl }}/mailing{{ site.ilink_suffix }}">Mailing Lists</a>
@@ -86,29 +86,29 @@
 
     <nav class="dropdown">
       <a class="dropbtn" href="{{ site.baseurl }}/news{{ site.ilink_suffix }}">
-      <svg><use xlink:href="{{ site.baseurl }}/images/fa-solid.svg#newspaper"></use></svg><br><span class="menu-text">News</span></a>
+      {% include svg/fa-solid-newspaper.svg %}<br><span class="menu-text">News</span></a>
     </nav>
 
     <nav class="dropdown">
       <a class="dropbtn" href="{{ site.baseurl }}/crew{{ site.ilink_suffix }}">
-      <svg><use xlink:href="{{ site.baseurl }}/images/fa-solid.svg#globe"></use></svg><br><span class="menu-text">Crew</span></a>
+      {% include svg/fa-solid-globe.svg %}<br><span class="menu-text">Crew</span></a>
     </nav>
 
     <nav class="dropdown">
       <a class="dropbtn" href="{{ site.baseurl }}/logo{{ site.ilink_suffix }}">
-      <svg><use xlink:href="{{ site.baseurl }}/images/fa-solid.svg#paint-brush"></use></svg><br><span class="menu-text">Logo</span></a>
+      {% include svg/fa-solid-paint-brush.svg %}<br><span class="menu-text">Logo</span></a>
     </nav>
 
 {%- if site.fork %}
 {% assign ppurl = 'https://www.paypal.me/vszakats' %}
     <nav class="dropdown donate-button">
       <a class="dropbtn" href="{{ ppurl }}">
-      <svg><use xlink:href="{{ site.baseurl }}/images/fa-solid.svg#heart"></use></svg><br><span class="menu-text">Donate Now!</span></a>
+      {% include svg/fa-solid-heart.svg %}<br><span class="menu-text">Donate Now!</span></a>
     </nav>
 {%- else %}
     <nav class="dropdown">
       <a class="dropbtn">
-      <svg><use xlink:href="{{ site.baseurl }}/images/fa-solid.svg#language"></use></svg><br><span class="menu-text">Language</span></a>
+      {% include svg/fa-solid-language.svg %}<br><span class="menu-text">Language</span></a>
       <nav class="dropdown-content">
         <a href="{{ site.baseurl }}/">English</a>
       </nav>
@@ -120,5 +120,6 @@
 <main>
 {%- if page.layout != 'example' %}
   <a class="text-right edit-page" href="https://github.com/{{ site.site_slug }}/edit/{{ site.site_branch_and_root }}{{ page.path }}">
-  <svg><use xlink:href="{{ site.baseurl }}/images/fa-solid.svg#pencil-alt"></use></svg>&nbsp;Improve this page</a>
+  {% include svg/fa-solid-pencil-alt.svg %}
+  &nbsp;Improve this page</a>
 {%- endif %}
