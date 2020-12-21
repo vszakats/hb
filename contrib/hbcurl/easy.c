@@ -1475,6 +1475,11 @@ HB_FUNC( CURL_EASY_SETOPT )
                break;
             }
 #endif
+#if LIBCURL_VERSION_NUM >= 0x074B00
+            case HB_CURLOPT_AWS_SIGV4:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_AWS_SIGV4, hb_curl_StrHash( hb_curl, hb_parc( 3 ) ) );
+               break;
+#endif
             case HB_CURLOPT_REFERER:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_REFERER, hb_curl_StrHash( hb_curl, hb_parc( 3 ) ) );
                break;

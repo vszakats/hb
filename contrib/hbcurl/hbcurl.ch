@@ -322,6 +322,7 @@
 #define HB_CURLOPT_SSL_EC_CURVES              274
 #define HB_CURLOPT_HSTS                       275
 #define HB_CURLOPT_HSTS_CTRL                  276
+#define HB_CURLOPT_AWS_SIGV4                  277
 #define HB_CURLOPT_DOWNLOAD                   1001  /* Harbour special ones */
 #define HB_CURLOPT_XFERINFOBLOCK              1002
 #define HB_CURLOPT_UL_FILE_SETUP              1003
@@ -374,6 +375,7 @@
 #define HB_CURLAUTH_DIGEST_IE                 hb_bitShift( 1, 4 )  /* Digest with IE flavour */
 #define HB_CURLAUTH_NTLM_WB                   hb_bitShift( 1, 5 )  /* NTLM delegating to winbind helper */
 #define HB_CURLAUTH_BEARER                    hb_bitShift( 1, 6 )  /* HTTP Bearer token authentication */
+#define HB_CURLAUTH_AWS_SIGV4                 hb_bitShift( 1, 7 )  /* AWS HTTP v4 Signature */
 #define HB_CURLAUTH_ONLY                      hb_bitShift( 1, 31 ) /* used together with a single other type to force no auth or just that single type */
 #define HB_CURLAUTH_ANY                       hb_bitNot( 0 )       /* all types set */
 #define HB_CURLAUTH_ANYSAFE                   hb_bitNot( hb_bitOr( HB_CURLAUTH_BASIC, HB_CURLAUTH_DIGEST_IE ) )
@@ -391,7 +393,6 @@
 #define HB_CURL_HTTP_VERSION_2_PRIOR_KNOWLEDGE  5
 
 /* HB_CURLOPT_ALTSVC_CTRL option */
-#define HB_CURLALTSVC_IMMEDIATELY             hb_bitShift( 1, 0 )
 #define HB_CURLALTSVC_READONLYFILE            hb_bitShift( 1, 2 )
 #define HB_CURLALTSVC_H1                      hb_bitShift( 1, 3 )
 #define HB_CURLALTSVC_H2                      hb_bitShift( 1, 4 )
@@ -758,7 +759,8 @@
 #define HB_CURLVERINFO_CAPATH                 20
 #define HB_CURLVERINFO_ZSTD_VER_NUM           21
 #define HB_CURLVERINFO_ZSTD_VERSION           22
-#define HB_CURLVERINFO_LEN                    22
+#define HB_CURLVERINFO_HYPER_VERSION          23
+#define HB_CURLVERINFO_LEN                    23
 
 /* HB_CURLVERINFO_FEATURES bit positions. */
 #define HB_CURL_VERSION_IPV6                  hb_bitShift( 1, 0 )   /* IPv6-enabled */

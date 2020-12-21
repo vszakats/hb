@@ -130,6 +130,11 @@ HB_FUNC( CURL_VERSION_INFO )
       hb_arraySetNI( pArray, HB_CURLVERINFO_ZSTD_VER_NUM, 0 );
       hb_arraySetC(  pArray, HB_CURLVERINFO_ZSTD_VERSION, NULL );
 #endif
+#if defined( CURLVERSION_NINTH )
+      hb_arraySetC(  pArray, HB_CURLVERINFO_HYPER_VERSION, data->age >= CURLVERSION_NINETH ? data->hyper_version : NULL );
+#else
+      hb_arraySetC(  pArray, HB_CURLVERINFO_HYPER_VERSION, NULL );
+#endif
       {
          PHB_ITEM pProtocols;
          int      nCount = 0;
