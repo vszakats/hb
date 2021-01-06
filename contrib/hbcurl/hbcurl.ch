@@ -512,6 +512,7 @@
 #define HB_CURLPROTO_SMB                      hb_bitShift( 1, 26 )
 #define HB_CURLPROTO_SMBS                     hb_bitShift( 1, 27 )
 #define HB_CURLPROTO_MQTT                     hb_bitShift( 1, 28 )
+#define HB_CURLPROTO_GOPHERS                  hb_bitShift( 1, 29 )
 #define HB_CURLPROTO_ALL                      hb_bitNot( 0 )
 
 /* HB_CURLOPT_H3 bit values */
