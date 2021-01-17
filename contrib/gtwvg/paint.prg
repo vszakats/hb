@@ -511,16 +511,6 @@ FUNCTION wvt_GetSaveFileName( hWnd, cDefName, cTitle, acFilter, nFlags, cInitDir
 #include "hbgtinfo.ch"
 #include "hbgtwvg.ch"
 
-#ifdef HB_LEGACY_LEVEL4
-
-FUNCTION wvt_SetTitle( cTitle )
-   RETURN hb_gtInfo( HB_GTI_WINTITLE, cTitle )
-
-FUNCTION wvt_GetTitle()
-   RETURN hb_gtInfo( HB_GTI_WINTITLE )
-
-#endif
-
 PROCEDURE wvt_SetIcon( ncIconRes, cIconName )
 
    DO CASE
@@ -538,22 +528,6 @@ FUNCTION wvt_SetFont( cFontName, nSize, nWidth, nWeight, nQuality )
       hb_defaultValue( nWidth, hb_gtInfo( HB_GTI_FONTWIDTH ) ), ;
       hb_defaultValue( nWeight, hb_gtInfo( HB_GTI_FONTWEIGHT ) ), ;
       hb_defaultValue( nQuality, hb_gtInfo( HB_GTI_FONTQUALITY ) ) } )
-
-#ifdef HB_LEGACY_LEVEL4
-
-FUNCTION wvt_SetCodepage( nCodePage )
-   RETURN hb_gtInfo( HB_GTI_CODEPAGE, nCodePage )
-
-FUNCTION wvt_GetPalette()
-   RETURN hb_gtInfo( HB_GTI_PALETTE )
-
-FUNCTION wvt_SetPalette( aRGB )
-   RETURN hb_gtInfo( HB_GTI_PALETTE, aRGB )
-
-FUNCTION wvt_GetRGBColor( nIndex )
-   RETURN hb_gtInfo( HB_GTI_PALETTE, nIndex )
-
-#endif
 
 #define BLACK               WIN_RGB( 0x00, 0x00, 0x00 )
 #define BLUE                WIN_RGB( 0x00, 0x00, 0x85 )
@@ -615,13 +589,6 @@ FUNCTION wvt_GetScreenHeight()
 
 #endif
 
-#ifdef HB_LEGACY_LEVEL5
-
-FUNCTION wvt_GetWindowHandle()
-   RETURN hb_gtInfo( HB_GTI_WINHANDLE )
-
-#endif
-
 FUNCTION wvt_CenterWindow( lCenter, lRePaint )
    RETURN hb_gtInfo( HB_GTI_SPEC, HB_GTS_CENTERWINDOW, { hb_defaultValue( lCenter, .T. ), hb_defaultValue( lRePaint, .F. ) } )
 
@@ -639,16 +606,6 @@ PROCEDURE wvt_Keyboard( nKey )
    hb_gtInfo( HB_GTI_SPEC, HB_GTS_KEYBOARD, nKey )
 
    RETURN
-
-#ifdef HB_LEGACY_LEVEL4
-
-FUNCTION wvt_GetClipboard()
-   RETURN hb_gtInfo( HB_GTI_CLIPBOARDDATA )
-
-FUNCTION wvt_SetClipboard( cText )
-   RETURN hb_gtInfo( HB_GTI_CLIPBOARDDATA, cText )
-
-#endif
 
 PROCEDURE wvt_PasteFromClipboard()
 
@@ -914,16 +871,3 @@ FUNCTION wvg_PrepareBitmapFromResource( xNameOrID, nExpWidth, nExpHeight, lMap3D
       nExpWidth, nExpHeight, ;
       iif( hb_defaultValue( lMap3Dcolors, .F. ), WIN_LR_LOADMAP3DCOLORS, WIN_LR_DEFAULTCOLOR ) )
 
-#ifdef HB_LEGACY_LEVEL5
-
-FUNCTION wvg_PrepareBitmapFromResourceId( nID, nExpWidth, nExpHeight, lMap3Dcolors )
-   RETURN wapi_LoadImage( wapi_GetModuleHandle(), nID, WIN_IMAGE_BITMAP, ;
-      nExpWidth, nExpHeight, ;
-      iif( hb_defaultValue( lMap3Dcolors, .F. ), WIN_LR_LOADMAP3DCOLORS, WIN_LR_DEFAULTCOLOR ) )
-
-FUNCTION wvg_PrepareBitmapFromResourceName( cName, nExpWidth, nExpHeight, lMap3Dcolors )
-   RETURN wapi_LoadImage( wapi_GetModuleHandle(), cName, WIN_IMAGE_BITMAP, ;
-      nExpWidth, nExpHeight, ;
-      iif( hb_defaultValue( lMap3Dcolors, .F. ), WIN_LR_LOADMAP3DCOLORS, WIN_LR_DEFAULTCOLOR ) )
-
-#endif

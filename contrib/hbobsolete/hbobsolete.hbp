@@ -1,0 +1,11 @@
+-hblib
+-ohbobsolete
+-hbx=hbobsolete
+hbwin.hbc
+
+ohbmisc.prg
+ohbtip.prg
+ohbcore.prg
+ohbwin.c
+ohbwin.prg
+ohbgtinfo.prg

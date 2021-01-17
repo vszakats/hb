@@ -48,5 +48,5 @@
 
 /* NOTE: This compatibility function is clashing with a function
          using a similar name but different parameter list in hbmisc */
-FUNCTION CallDll( pFunc, ... )
+FUNCTION xhbCallDll( pFunc, ... )
    RETURN iif( Empty( pFunc ),, hb_DynCall( { pFunc, HB_DYN_CALLCONV_STDCALL }, ... ) )

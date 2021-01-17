@@ -46,11 +46,6 @@
  *
  */
 
-#if defined( HB_LEGACY_LEVEL4 )
-FUNCTION hb_SendMail( ... )
-   RETURN tip_MailSend( ... )
-#endif
-
 /*
    cServer     -> Required. IP or domain name of the mail server
    nPort       -> Optional. Port used my email server

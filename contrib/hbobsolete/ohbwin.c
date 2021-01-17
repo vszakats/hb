@@ -1,9 +1,7 @@
 /*
- * Functions deprecated from core Harbour by HB_LEGACY_LEVELn
- *   but kept in xHarbour, so they are made available here as well.
- *   Do not add internal functions (names starting with '__')
+ * Misc Windows API functions ( win_n2p(), win_p2n() )
  *
- * Copyright 2013 Viktor Szakats (vsz.me/hb)
+ * Copyright 2008-2009 Viktor Szakats (vsz.me/hb)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -46,23 +44,15 @@
  *
  */
 
-#ifndef HB_LEGACY_LEVEL4
+#include "hbwapi.h"
 
-#include "hbver.ch"
 
-#if 0
+HB_FUNC( WIN_N2P )  /* NOTE: Unsafe: allows to pass arbitary pointers to functions, potentially causing a crash or worse. */
+{
+   hb_retptr( HB_ISPOINTER( 1 ) ? hb_parptr( 1 ) : ( void * ) ( HB_PTRDIFF ) hb_parnint( 1 ) );
+}
 
-FUNCTION hb_PCodeVer()
-   RETURN hb_Version( HB_VERSION_PCODE_VER_STR )
-
-FUNCTION hb_BuildDate()
-   RETURN hb_Version( HB_VERSION_BUILD_DATE_STR )
-
-FUNCTION hb_regexMatch( ... )
-   RETURN iif( hb_defaultValue( hb_PValue( 5 ), .F. ), ;
-      hb_regexLike( ... ), ;
-      hb_regexHas( ... ) )
-
-#endif
-
-#endif
+HB_FUNC( WIN_P2N )  /* NOTE: Unsafe: will reveal the numeric value of a pointer */
+{
+   hb_retnint( HB_ISNUM( 1 ) ? hb_parnint( 1 ) : ( HB_PTRDIFF ) hb_parptr( 1 ) );
+}
