@@ -557,6 +557,9 @@ FUNCTION wvt_GetRGBColorByString( cColor, nForeBack )
             s := Left( cColor, n - 1 )
          ELSE
             s := SubStr( cColor, n + 1 )
+            IF "," $ s
+               s := Left( s, At( ",", s ) - 1 )
+            ENDIF
          ENDIF
       ELSE
          s := cColor
@@ -571,23 +574,12 @@ FUNCTION wvt_GetRGBColorByString( cColor, nForeBack )
             nIndex += 8
          ENDIF
          nIndex--
+      ELSEIF Val( s ) > 0 .AND. Val( s ) < 16
+         nIndex := Val( s )
       ENDIF
    ENDIF
 
    RETURN hb_gtInfo( HB_GTI_PALETTE, nIndex )
-
-#ifdef HB_LEGACY_LEVEL4
-
-FUNCTION wvt_SetAltF4Close( lSetClose )
-   RETURN hb_gtInfo( HB_GTI_CLOSABLE, lSetClose )
-
-FUNCTION wvt_GetScreenWidth()
-   RETURN hb_gtInfo( HB_GTI_DESKTOPWIDTH )
-
-FUNCTION wvt_GetScreenHeight()
-   RETURN hb_gtInfo( HB_GTI_DESKTOPHEIGHT )
-
-#endif
 
 FUNCTION wvt_CenterWindow( lCenter, lRePaint )
    RETURN hb_gtInfo( HB_GTI_SPEC, HB_GTS_CENTERWINDOW, { hb_defaultValue( lCenter, .T. ), hb_defaultValue( lRePaint, .F. ) } )
@@ -870,4 +862,3 @@ FUNCTION wvg_PrepareBitmapFromResource( xNameOrID, nExpWidth, nExpHeight, lMap3D
    RETURN wapi_LoadImage( wapi_GetModuleHandle(), xNameOrID, WIN_IMAGE_BITMAP, ;
       nExpWidth, nExpHeight, ;
       iif( hb_defaultValue( lMap3Dcolors, .F. ), WIN_LR_LOADMAP3DCOLORS, WIN_LR_DEFAULTCOLOR ) )
-
