@@ -2754,6 +2754,13 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
       DO CASE
       CASE Empty( cParam )
          /* do nothing */
+
+
+      /* trying a workaround, not sure if solve problem */
+      CASE cParamL == "-skip"
+         EXIT
+
+
       CASE hb_LeftEq( cParamL, "-comp=" ) .OR. ;
            hb_LeftEq( cParamL, "-plat=" ) .OR. ;
            hb_LeftEq( cParamL, "-compiler=" ) .OR. ; /* Compatibility HB_LEGACY_LEVEL4 */
