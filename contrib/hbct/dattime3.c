@@ -154,9 +154,11 @@ HB_FUNC( SETTIME )
       tm       = time( NULL );
       tm      += lNewTime - ( tm % 86400 );
 #  if defined( __GLIBC__ ) && ( ( __GLIBC__ > 2 ) || ( ( __GLIBC__ == 2 ) && ( __GLIBC_MINOR__ >= 31 ) ) )
-      /* stime() is deprecated in glibc 2.31+ */
-      struct timespec ts = { tm, 0 };
-      fResult = clock_settime( CLOCK_REALTIME, &ts ) == 0;
+      {
+         /* stime() is deprecated in glibc 2.31+ */
+         struct timespec ts = { tm, 0 };
+         fResult = clock_settime( CLOCK_REALTIME, &ts ) == 0;
+      }
 #  else
       /* stime() exists only in SVr4, SVID, X/OPEN and Linux */
       fResult = stime( &tm ) == 0;
