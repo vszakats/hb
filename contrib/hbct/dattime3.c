@@ -153,13 +153,13 @@ HB_FUNC( SETTIME )
       lNewTime = iTime[ 0 ] * 3600 + iTime[ 1 ] * 60 + iTime[ 2 ];
       tm       = time( NULL );
       tm      += lNewTime - ( tm % 86400 );
-#  if ( defined( __GLIBC__ ) && ( ( __GLIBC__ > 2 ) || ( ( __GLIBC__ == 2 ) && ( __GLIBC_MINOR__ >= 31 ) ) ) )
+#  if defined( __GLIBC__ ) && ( ( __GLIBC__ > 2 ) || ( ( __GLIBC__ == 2 ) && ( __GLIBC_MINOR__ >= 31 ) ) )
       /* stime() is deprecated in glibc 2.31+ */
       struct timespec ts = { tm, 0 };
-      fResult  = clock_settime( CLOCK_REALTIME, &ts ) == 0;
+      fResult = clock_settime( CLOCK_REALTIME, &ts ) == 0;
 #  else
       /* stime() exists only in SVr4, SVID, X/OPEN and Linux */
-      fResult  = stime( &tm ) == 0;
+      fResult = stime( &tm ) == 0;
 #  endif
 #elif defined( HB_OS_DOS )
       union REGS regs;
@@ -198,12 +198,12 @@ HB_FUNC( SETDATE )
 #elif defined( HB_OS_LINUX ) && ! defined( HB_OS_ANDROID ) && ! defined( __WATCOMC__ )
          /* stime() exists only in SVr4, SVID, X/OPEN and Linux */
          long lNewDate = lDate - hb_dateEncode( 1970, 1, 1 );
-#  if ( defined( __GLIBC__ ) && ( ( __GLIBC__ > 2 ) || ( ( __GLIBC__ == 2 ) && ( __GLIBC_MINOR__ >= 31 ) ) ) )
+#  if defined( __GLIBC__ ) && ( ( __GLIBC__ > 2 ) || ( ( __GLIBC__ == 2 ) && ( __GLIBC_MINOR__ >= 31 ) ) )
          /* stime() is deprecated in glibc 2.31+ */
          struct timespec ts = { 0 };
-         clock_gettime(CLOCK_REALTIME, &ts);  /* keep tv_nsec */
+         clock_gettime( CLOCK_REALTIME, &ts );  /* keep tv_nsec */
          ts.tv_sec = lNewDate * 86400 + ( ts.tv_sec % 86400 );
-         fResult  = clock_settime( CLOCK_REALTIME, &ts ) == 0;
+         fResult   = clock_settime( CLOCK_REALTIME, &ts ) == 0;
 #  else
          time_t tm;
 
