@@ -793,6 +793,7 @@
 #define HB_CURL_VERSION_ZSTD                  hb_bitShift( 1, 26 )  /* zstd features are present */
 #define HB_CURL_VERSION_UNICODE               hb_bitShift( 1, 27 )  /* Unicode support on Windows */
 #define HB_CURL_VERSION_HSTS                  hb_bitShift( 1, 28 )  /* HSTS is supported */
+#define HB_CURL_VERSION_GSASL                 hb_bitShift( 1, 29 )  /* libgsasl is supported */
 
 /* HB_CURLOPT_HSTS_CTRL */
 #define HB_CURLHSTS_ENABLE                    hb_bitShift( 1, 0 )
