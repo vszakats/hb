@@ -2727,6 +2727,12 @@ HB_FUNC( CURL_EASY_GETINFO )
 #endif
             type = HB_CURL_INFO_TYPE_STR;
             break;
+         case HB_CURLINFO_REFERER:
+#if LIBCURL_VERSION_NUM >= 0x074C00
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_REFERER, &ret_string );
+#endif
+            type = HB_CURL_INFO_TYPE_STR;
+            break;
          case HB_CURLINFO_SIZE_UPLOAD:
 #if LIBCURL_VERSION_NUM >= 0x073700
             res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_SIZE_UPLOAD_T, &ret_offset );

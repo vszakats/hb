@@ -596,6 +596,7 @@
 #define HB_CURLINFO_RETRY_AFTER               55
 #define HB_CURLINFO_EFFECTIVE_METHOD          56
 #define HB_CURLINFO_PROXY_ERROR               57
+#define HB_CURLINFO_REFERER                   58
 
 /* HB_CURLINFO_PROXY_ERROR results. */
 #define HB_CURLPX_OK                                0
