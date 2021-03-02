@@ -2,19 +2,11 @@
 
 # Table of Contents
 
-1. [How to Donate](#how-to-donate)
-2. [How to Share](#how-to-share)
-3. [How to Get Involved](#how-to-get-involved)
-4. [Troubleshooting](#troubleshooting)
+1. [How to Share](#how-to-share)
+1. [How to Get Involved](#how-to-get-involved)
+1. [Troubleshooting](#troubleshooting)
 
 ---
-
-# How to Donate
-
-  You can donate to support the effort that goes into responding to issues.
-
-  * [PayPal](https://www.paypal.me/vszakats)
-
 
 # How to Share
 

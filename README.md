@@ -1,8 +1,6 @@
 # Welcome to Harbour
 [![License](https://img.shields.io/badge/license-GPLv2%20%2B%20Library%20Exception-blue.svg)](LICENSE.txt "License")
 [![Download](https://img.shields.io/badge/download-snapshot_binary_(3.4)-blue.svg)](https://github.com/vszakats/hb/releases "Download snapshot release")
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-[![Donate](https://img.shields.io/badge/Donate-Now-ff4500.svg)](https://www.paypal.me/vszakats "Donate Now")
 <br>
 [![Build status](https://ci.appveyor.com/api/projects/status/4rd806hk73q83qo4/branch/master?svg=true)](https://ci.appveyor.com/project/vsz/hb/branch/master)
 [![Coverity Status](https://scan.coverity.com/projects/3208/badge.svg)](https://scan.coverity.com/projects/3208)
@@ -15,33 +13,22 @@ and a collection of libraries and bindings for popular APIs.
 
 # Table of Contents
 
-1. [How to Donate](#how-to-donate)
-2. [How to Get](#how-to-get)
-3. [How to Build](#how-to-build)
-4. [How to Do a Partial Build](#how-to-do-a-partial-build)
-5. [How to Create Packages for Distribution](#how-to-create-packages-for-distribution)
-6. [How to Enable Optional Components](#how-to-enable-optional-components)
-7. [Build Options](#build-options)
-8. [Build Examples](#build-examples)
-9. [Build Your Own Harbour App](#build-your-own-harbour-app)
-10. [Debugging Options](#debugging-options)
-11. [Supported Platforms and C Compilers](#supported-platforms-and-c-compilers)
-12. [Platform Matrix](#platform-matrix)
-13. [External Links](#external-links)
-14. [Harbour Links](#harbour-links)
-15. [Guarantees and Liability](#guarantees-and-liability)
+1. [How to Get](#how-to-get)
+2. [How to Build](#how-to-build)
+3. [How to Do a Partial Build](#how-to-do-a-partial-build)
+4. [How to Create Packages for Distribution](#how-to-create-packages-for-distribution)
+5. [How to Enable Optional Components](#how-to-enable-optional-components)
+6. [Build Options](#build-options)
+7. [Build Examples](#build-examples)
+8. [Build Your Own Harbour App](#build-your-own-harbour-app)
+9. [Debugging Options](#debugging-options)
+10. [Supported Platforms and C Compilers](#supported-platforms-and-c-compilers)
+11. [Platform Matrix](#platform-matrix)
+12. [External Links](#external-links)
+13. [Harbour Links](#harbour-links)
+14. [Guarantees and Liability](#guarantees-and-liability)
 
 ---
-
-# How to Donate
-
-  You can donate to fund further maintenance of this fork:
-
-  [Donate Now!](https://www.paypal.me/vszakats)
-
-# Maintainer contacts
-
-  * [Homepage](https://vsz.me/)
 
 # How to Get
 
