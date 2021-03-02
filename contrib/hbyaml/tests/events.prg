@@ -1,4 +1,4 @@
-/* Copyright 2017 Viktor Szakats (vsz.me/hb) */
+/* Copyright 2017-present Viktor Szakats (vsz.me/hb) */
 
 #require "hbyaml"
 
@@ -12,7 +12,7 @@ PROCEDURE Main( cFileName )
 
       yaml_parser_set_input_string( parser, ;
          hb_MemoRead( hb_defaultValue( cFileName, ;
-            hb_DirSepToOS( "../../../.travis.yml" ) ) ) )
+            hb_DirSepToOS( "test.yml" ) ) ) )
 
       DO WHILE HB_ISHASH( event := yaml_parser_parse( parser ) )
 

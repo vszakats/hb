@@ -16,7 +16,7 @@ case "$(uname)" in
   *BSD)    readonly os='bsd';;
 esac
 
-_BRANCH="${APPVEYOR_REPO_BRANCH}${TRAVIS_BRANCH}${CI_BUILD_REF_NAME}${GIT_BRANCH}"
+_BRANCH="${APPVEYOR_REPO_BRANCH}${CI_BUILD_REF_NAME}${GIT_BRANCH}"
 [ -n "${_BRANCH}" ] || _BRANCH="$(git symbolic-ref --short --quiet HEAD)"
 [ -n "${_BRANCH}" ] || _BRANCH='master'
 [ -n "${CC}" ] || CC="${_BRANCH}"

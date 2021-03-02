@@ -8,7 +8,7 @@
 # Extract dependency versions and their hashes from `curl-for-win` online build log
 # Requires: bash, curl, jq, awk
 
-readonly ci="${1:-travis}"
+readonly ci="${1:-appveyor}"
 readonly username='vszakats'
 readonly project='curl-for-win'
 branch='master'
@@ -29,19 +29,6 @@ case "${ci}" in
     bldid="$(echo "${f}" \
       | jq -r '.build.buildNumber')"
     ;;
-  travis)
-    # https://docs.travis-ci.com/api
-
-    # Query for a finished or running branch build state and extract job id
-    # job[0]: linux, job[1]: mac/64-bit, job[2]: mac/32-bit
-    f="$(curl -fsS "https://api.travis-ci.org/repos/${username}/${project}/branches/${branch}" 2> /dev/null)"
-    jobid="$(echo "${f}" \
-      | jq -r 'select(.branch.state | test("(started|finished|passed|restarted)")) | .branch.job_ids[1]')"
-    jobid2="$(echo "${f}" \
-      | jq -r 'select(.branch.state | test("(started|finished|passed|restarted)")) | .branch.job_ids[2]')"
-    bldid="$(echo "${f}" \
-      | jq -r '.branch.number')"
-    ;;
 esac
 
 if [ -n "${jobid}" ] && [ ! "${jobid}" = 'null' ]; then
@@ -54,22 +41,6 @@ if [ -n "${jobid}" ] && [ ! "${jobid}" = 'null' ]; then
     appveyor)
       bhost='windows'
       f="$(curl -fsS "https://ci.appveyor.com/api/buildjobs/${jobid}/log" | grep 'SHA256(')"
-      ;;
-    travis)
-      # Query for a successfully finished job
-      f=''
-      for _jobid in "${jobid}" "${jobid2}"; do
-        q="$(curl -fsS "https://api.travis-ci.org/jobs/${_jobid}")"
-        bldid="$(echo "${q}" | jq -r '.number')"
-        bhost="$(echo "${q}" | jq -r '.config.os')"
-        if [ "$(echo "${q}" | jq -r '.state')" = 'finished' ] && \
-           [ "$(echo "${q}" | jq -r '.result')" = '0' ]; then
-          # Download log
-          f="${f}$(curl -fsS -L --proto-redir =https "https://api.travis-ci.org/jobs/${_jobid}/log" | grep 'SHA256(')"
-        else
-          unset jobid
-        fi
-      done
       ;;
   esac
 

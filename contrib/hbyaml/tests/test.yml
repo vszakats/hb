@@ -1,15 +1,17 @@
-# https://lint.travis-ci.org/
+---
+# yamllint disable rule:line-length
 branches:
   only:
-  - master
-  - prod
-  - test-travis
+    - master
+    - prod
 notifications:
   email: false
 git:
   depth: 10
+  quiet: true
 language: c
 
+# yamllint disable rule:comments-indentation
 addons:
   apt:
     packages: &hb-linux-common
@@ -26,10 +28,10 @@ addons:
       - libicu-dev
       - liblzo2-dev
       - libmagic-dev
-    # - libminizip-dev (requires Ubuntu 'xenial')
+      - libminizip-dev
       - libmxml-dev
       - libmysqlclient-dev
-    # - libpcre2-dev (requires Ubuntu 'xenial')
+      - libpcre2-dev
       - libpcre3-dev
       - libpng12-dev
       - libncurses5-dev
@@ -42,54 +44,59 @@ addons:
       - libyaml-dev
       - unixodbc-dev
     # - zlib1g-dev
+# yamllint enable rule:comments-indentation
 
-matrix:
+jobs:
   include:
     - os: linux
-      # https://docs.travis-ci.com/user/reference/trusty/
-      dist: &hb-linux-image trusty
+      # comment
+      dist: &hb-linux-image bionic
       sudo: false
       compiler: clang
-      env: [ HB_CCSUFFIX=-5.0 ]
+      env: [HB_CCSUFFIX=-7]
       addons:
         apt:
-          packages: [ *hb-linux-common, clang-5.0 ]
-          sources: llvm-toolchain-trusty-5.0
+          config:
+            retries: true
+          sources: llvm-toolchain-bionic-7
+          packages: [*hb-linux-common, clang-7]
     - os: linux
       dist: *hb-linux-image
       sudo: false
       compiler: gcc
-      env: [ HB_CCSUFFIX=-7 ]
+      env: [HB_CCSUFFIX=-8]
       addons:
         apt:
-          packages: [ *hb-linux-common, gcc-7, g++-7 ]
+          config:
+            retries: true
           sources: ubuntu-toolchain-r-test
+          packages: [*hb-linux-common, gcc-10, g++-10]
     - os: linux
       dist: *hb-linux-image
       sudo: required
       group: edge
       compiler: gcc
-      services: [ docker ]
-      env: [ 'DOCKER_IMAGE=amazonlinux:latest' ]
+      services: [docker]
+      env: ['DOCKER_IMAGE=centos:latest']
     - os: linux
       dist: *hb-linux-image
       sudo: required
       group: edge
       compiler: mingw-clang
-      services: [ docker ]
-      # https://hub.docker.com/_/ubuntu/
-      env: [ 'DOCKER_IMAGE=ubuntu:rolling' ]
+      services: [docker]
+      # https://hub.docker.com/_/debian/
+      env: ['DOCKER_IMAGE=debian:unstable', HB_CCSUFFIX=-6.0]
     - os: linux
       dist: *hb-linux-image
       sudo: required
       group: edge
       compiler: mingw-gcc
-      services: [ docker ]
-      # https://hub.docker.com/_/ubuntu/
-      env: [ 'DOCKER_IMAGE=ubuntu:rolling' ]
+      services: [docker]
+      # https://hub.docker.com/_/debian/
+      env: ['DOCKER_IMAGE=debian:unstable', HB_CCSUFFIX=-6.0]
     - os: osx
-      # https://docs.travis-ci.com/user/reference/osx/#OS-X-Version
-      osx_image: &hb-mac-image xcode9.2
+      # comment-2
+      osx_image: &hb-mac-image xcode12
       compiler: clang
     - os: osx
       osx_image: *hb-mac-image
@@ -106,40 +113,41 @@ before_install:
       if [ "${CC}" = 'mingw-gcc' ] || \
          [ "${CC}" = 'mingw-clang' ]; then
         DOCKER_SCRIPT=./package/mpkg_win_docker.sh
-      elif [ "${TRAVIS_OS_NAME}" = 'linux' ]; then
+      elif [ "${EXAMPLE_OS_NAME}" = 'linux' ]; then
         DOCKER_SCRIPT=./package/mpkg_rpm_docker.sh
       fi
       time docker pull "${DOCKER_IMAGE}"
-      time docker run -it -v "${PWD}:${PWD}" -w "${PWD}" \
-        --env-file <(env | grep -E '^(HB_|TRAVIS_|GITHUB_|CC)') \
+      time docker run --volume "$(pwd):$(pwd)" --workdir "$(pwd)" \
+        --env-file <(env | grep -a -E '^(HB_|EXAMPLE_|GITHUB_|CC)') \
         "${DOCKER_IMAGE}" \
         sh -c "${DOCKER_SCRIPT}"
-    elif [ "${TRAVIS_OS_NAME}" = 'osx' ]; then
+    elif [ "${EXAMPLE_OS_NAME}" = 'osx' ]; then
       export HOMEBREW_NO_AUTO_UPDATE=1
-      time travis_retry brew update > /dev/null
+      time EXAMPLE_retry brew update >/dev/null
       if [ "${CC}" = 'mingw-gcc' ] || \
          [ "${CC}" = 'mingw-clang' ]; then
         [ "${CC}" = 'mingw-clang' ] && _optpkg='llvm'
-        time travis_retry brew install --force-bottle p7zip mingw-w64 ${_optpkg} jq osslsigncode dos2unix gpg
-        time travis_retry brew install --force-bottle --build-bottle wine
+        time EXAMPLE_retry brew install --force-bottle xz gnu-tar mingw-w64 ${_optpkg} jq osslsigncode dos2unix
+        time EXAMPLE_retry brew cask install wine-stable
         time wineboot --init
+        [ "${HB_BUILD_WIN64ONLY}" = 'yes' ] && export MXE_64BIT_ONLY='yes'
         export MXE_DONT_INSTALL=gcc
-      # time travis_wait ./package/mpkg_win_dl_mxe.sh \
+      # time EXAMPLE_wait ./package/mpkg_win_dl_mxe.sh \
       #   mxe-{i686,x86-64}-w64-mingw32.static-{bzip2,expat,libharu,libpng,lzo,minizip,mxml,pcre,sqlite,zlib}
-      # time travis_wait ./package/mpkg_win_dl_mxe.sh \
+      # time EXAMPLE_wait ./package/mpkg_win_dl_mxe.sh \
       #   mxe-{i686,x86-64}-w64-mingw32.shared-{cairo,file,ghostscript,icu4c,libmysqlclient,postgresql} \
       #   mxe-{i686,x86-64}-w64-mingw32.static-{freeimage,gd}
-        time travis_wait ./package/mpkg_win_dl_mxe.sh \
+        time EXAMPLE_wait ./package/mpkg_win_dl_mxe.sh \
           mxe-{i686,x86-64}-w64-mingw32.shared-pcre2
       else
-      # time travis_retry brew install pcre zlib
-        time travis_retry brew install --force-bottle --build-bottle fontconfig || true
-        time travis_retry brew install --force-bottle \
+      # time EXAMPLE_retry brew install pcre zlib
+        time EXAMPLE_retry brew install --force-bottle --build-bottle fontconfig || true
+        time EXAMPLE_retry brew install --force-bottle \
           bzip2 expat libharu libmxml libpng lzo minizip pcre2 sqlite \
           cairo curl freeimage gd ghostscript icu4c libmagic libyaml \
           mariadb ncurses openssl@1.1 postgresql qt rabbitmq-c s-lang unixodbc
       fi
-      export MACOSX_DEPLOYMENT_TARGET=10.11
+      export MACOSX_DEPLOYMENT_TARGET=10.13
     fi
 
 script:
@@ -149,14 +157,14 @@ script:
          [ "${CC}" = 'mingw-clang' ]; then
         ./package/mpkg_win_ci.sh
       else
-        ls -lA "$(dirname "$(which "${CC}${HB_CCSUFFIX}")")/${CC}"*
+        ls -lA "$(dirname "$(command -v "${CC}${HB_CCSUFFIX}")")/${CC}"*
         [ "${CC#*clang*}" != "${CC}" ] && \
-          ls -lA "$(dirname "$(which "${CC}${HB_CCSUFFIX}")")/llvm"*
+          ls -lA "$(dirname "$(command -v "${CC}${HB_CCSUFFIX}")")/llvm"*
         "${CC}${HB_CCSUFFIX}" -v
         [ "${CC}" = 'gcc' ] && \
           "${CC}${HB_CCSUFFIX}" -dumpversion && \
           "${CC}${HB_CCSUFFIX}" -dumpfullversion
-        HB_COMPILER="${CC}" time make -j "${HB_CI_THREADS}"
+        HB_COMPILER="${CC}" time make --jobs "${HB_CI_THREADS}"
       fi
     fi
 
@@ -165,13 +173,13 @@ deploy:
   provider: releases
   api_key: ${GITHUB_TOKEN}
   file_glob: true
-  file: harbour-snapshot-win-built-on-*.7z
+  file: harbour-snapshot-win-built-on-*.*
   tag_name: v3.4.0dev
-  target_commitish: ${TRAVIS_COMMIT}
+  target_commitish: ${EXAMPLE_COMMIT}
   draft: false
   prerelease: true
   overwrite: true
-  on:
+  !!str on:
     tag: true
     branch: master
     condition: "${CC} = mingw-clang"

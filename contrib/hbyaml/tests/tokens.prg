@@ -1,4 +1,4 @@
-/* Copyright 2017 Viktor Szakats (vsz.me/hb) */
+/* Copyright 2017-present Viktor Szakats (vsz.me/hb) */
 
 #require "hbyaml"
 
@@ -19,7 +19,7 @@ PROCEDURE Main( cFileName )
 
    yaml_parser_set_input_string( parser, ;
       hb_MemoRead( hb_defaultValue( cFileName, ;
-         hb_DirSepToOS( "../../../.travis.yml" ) ) ) )
+         hb_DirSepToOS( "test.yml" ) ) ) )
 
    DO WHILE HB_ISHASH( token := yaml_parser_scan( parser ) )
 
@@ -59,6 +59,9 @@ PROCEDURE Main( cFileName )
          EXIT
       CASE YAML_SCALAR_TOKEN
          ? "scalar", token[ "scalar" ]
+         EXIT
+      CASE YAML_TAG_TOKEN
+         ? "tag", token[ "handle" ] + token[ "suffix" ]
          EXIT
 
       /* Others */
