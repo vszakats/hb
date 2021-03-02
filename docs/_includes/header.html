@@ -99,13 +99,6 @@
       {% include svg/fa-solid-paint-brush.svg %}<br><span class="menu-text">Logo</span></a>
     </nav>
 
-{%- if site.fork %}
-{% assign ppurl = 'https://www.paypal.me/vszakats' %}
-    <nav class="dropdown donate-button">
-      <a class="dropbtn" href="{{ ppurl }}">
-      {% include svg/fa-solid-heart.svg %}<br><span class="menu-text">Donate Now!</span></a>
-    </nav>
-{%- else %}
     <nav class="dropdown">
       <a class="dropbtn">
       {% include svg/fa-solid-language.svg %}<br><span class="menu-text">Language</span></a>
@@ -113,7 +106,6 @@
         <a href="{{ site.baseurl }}/">English</a>
       </nav>
     </nav>
-{%- endif %}
   </nav>
 </header>
 
