@@ -377,7 +377,8 @@ header {
 {% if site.fork %}
   -webkit-font-smoothing: subpixel-antialiased;
   -webkit-backface-visibility: hidden;
-  transition: transform .2s ease-in-out;
+  will-change: transform;
+  animation: version-unbounce .4s forwards;
 {% endif %}
   height: 18px;
   text-shadow: none;
@@ -392,15 +393,18 @@ header {
 
 {% if site.fork %}
 .header-text:hover .header-version {
-  animation: bounce .5s .1s;
-  transform: rotate(10deg) scale(1.1);
+  animation: version-bounce .5s forwards;
 }
 {% endif %}
 
-@keyframes bounce {
+@keyframes version-bounce {
     0% { transform: rotate(10deg) scale(1.0); }
    50% { transform: rotate(10deg) scale(1.3); }
-  100% { transform: rotate(10deg) scale(1.1) }
+  100% { transform: rotate(10deg) scale(1.1); }
+}
+@keyframes version-unbounce {
+    0% { transform: rotate(10deg) scale(1.1); }
+  100% { transform: rotate(10deg) scale(1.0); }
 }
 
 .header-version-narrow {
@@ -1145,6 +1149,9 @@ pre, code {
 }
 
 @media (prefers-reduced-motion) {
+  .header-version {
+    animation: none;
+  }
   .header-text:hover .header-version {
     animation: none;
   }
