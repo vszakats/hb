@@ -2,7 +2,7 @@
 /*
  * Recalculate SRI hashes for hbdoc_assets.yml
  *
- * Copyright 2017 Viktor Szakats (vsz.me/hb)
+ * Copyright 2017-present Viktor Szakats (vsz.me/hb)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -46,7 +46,7 @@ procedure main( fn )
     next
   next
 
-  hb_memowrit( fn, hb_yaml_encode( r ) )
+  hb_memowrit( fn, hb_yaml_encode( r,, .T. ) )
 
   return
 
@@ -54,7 +54,7 @@ static function dl( url )
 
   local stdout
 
-  if hb_processrun( hb_strformat( 'curl -fsS -L --proto-redir =https "%1$s"', url ),, @stdout ) != 0
+  if hb_processrun( hb_strformat( 'curl --user-agent "" --fail --silent --show-error --location --proto-redir =https "%1$s"', url ),, @stdout ) != 0
     stdout := ''
   endif
 

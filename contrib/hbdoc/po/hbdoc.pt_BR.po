@@ -4,15 +4,11 @@
 
 #, c-format
 msgid ""
-msgstr "Project-Id-Version: hbdoc\nLast-Translator: Sami Laham <sami@laham.com.br>, 2016\nLanguage-Team: Portuguese (Brazil) (https://www.transifex.com/harbour/teams/12521/pt_BR/)\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nLanguage: pt_BR\nPlural-Forms: nplurals=2; plural=(n > 1);\n"
+msgstr "MIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nLanguage: pt_BR\nPlural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #, c-format
 msgid "%1$s · %2$s"
 msgstr "%1$s · %2$s"
-
-#, c-format
-msgid "%1$s flag"
-msgstr "%1$s bandeira"
 
 #, c-format
 msgid "%1$s index"

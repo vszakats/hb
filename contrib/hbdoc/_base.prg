@@ -95,7 +95,7 @@ CREATE CLASS TPLGenerate
    VAR cTitle AS STRING
    VAR cExtension AS STRING
    VAR cLang AS STRING
-   VAR cOutFileName AS STRING
+   VAR cOutFilename AS STRING
 
    VAR hComponents
 
@@ -116,14 +116,14 @@ METHOD NewDocument( cDir, cFilename, cTitle, cExtension, cLang, hComponents ) CL
 METHOD New( cDir, cFilename, cTitle, cExtension, cLang, nType, hComponents ) CLASS TPLGenerate
 
    ::cLang := hb_defaultValue( cLang, "en" )
-   ::cDir := hb_DirSepAdd( cDir ) + iif( Lower( ::cLang ) == "en", "", Lower( StrTran( ::cLang, "_", "-" ) ) + hb_ps() )
+   ::cDir := hb_DirSepAdd( cDir ) + iif( hb_asciiLower( ::cLang ) == "en", "", Lower( StrTran( ::cLang, "_", "-" ) ) + hb_ps() )
    ::cFilename := cFilename
    ::cTitle := cTitle
    ::cExtension := cExtension
    ::nType := nType
    ::hComponents := hComponents
 
-   ::cOutFileName := ::cDir + ::cFilename + ::cExtension
+   ::cOutFilename := ::cDir + ::cFilename + ::cExtension
 
    RETURN Self
 
@@ -131,14 +131,14 @@ METHOD Generate() CLASS TPLGenerate
 
    LOCAL cDir
 
-   IF ! hb_vfDirExists( cDir := hb_FNameDir( ::cOutFileName ) )
+   IF ! hb_vfDirExists( cDir := hb_FNameDir( ::cOutFilename ) )
       hb_DirBuild( cDir )
    ENDIF
 
-   IF ! hb_MemoWrit( ::cOutFileName, ::cFile )
-      OutErr( hb_StrFormat( "! Error: Cannot create file '%1$s'", ::cOutFileName ) + hb_eol() )
+   IF ! hb_MemoWrit( ::cOutFilename, ::cFile )
+      OutErr( hb_StrFormat( "! Error: Cannot create file '%1$s'", ::cOutFilename ) + hb_eol() )
    ELSEIF hbdoc_reproducible()
-      hb_vfTimeSet( ::cOutFileName, hb_Version( HB_VERSION_BUILD_TIMESTAMP_UTC ) )
+      hb_vfTimeSet( ::cOutFilename, hb_Version( HB_VERSION_BUILD_TIMESTAMP_UTC ) )
    ENDIF
 
    RETURN Self

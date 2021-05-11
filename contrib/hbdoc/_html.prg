@@ -1,7 +1,7 @@
 /*
  * Document generator - HTML output
  *
- * Copyright 2016 Viktor Szakats (vsz.me/hb)
+ * Copyright 2016-present Viktor Szakats (vsz.me/hb)
  * Copyright 2009 April White <bright.tigra gmail.com>
  * Copyright 1999-2003 Luiz Rafael Culik <culikr@uol.com.br> (Portions of this project are based on hbdoc)
  *
@@ -94,6 +94,8 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
 
    HIDDEN:
 
+   METHOD DeleteLocalAsset( cFilename )
+   METHOD RecreateLocalAsset( cFilename, cContent )
    METHOD RecreateStyleDocument( cStyleFile )
    METHOD OpenTagInline( cText, ... )
    METHOD OpenTag( cText, ... )
@@ -108,6 +110,12 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    METHOD NewLine() INLINE ::cFile += "<br>" + _FIL_EOL, Self
    METHOD NewFile()
    METHOD LinkAsset( cType, cPkg, cFile )
+
+   VAR cLinkAssetMode  INIT "local"  /* inline, local, remote */
+   VAR hLinkAssetCache INIT { => }
+
+   VAR cURLBase INIT hb_Version( HB_VERSION_URL_BASE )
+   VAR cBranch  INIT "master"
 
    CLASS VAR lCreateStyleDocument AS LOGICAL INIT .T.
    VAR TargetFilename AS STRING INIT ""
@@ -189,9 +197,6 @@ METHOD NewFile() CLASS GenerateHTML
    ::Spacer()
 
 #if 0
-   ::LinkAsset( "css", "fontawesome", "css" )
-#endif
-#if 0
    ::LinkAsset( "css", "hack", "css" )  /* https://sourcefoundry.org/hack/ */
 #endif
    ::LinkAsset( "css", "prism", "theme" )
@@ -256,18 +261,18 @@ METHOD NewFile() CLASS GenerateHTML
       ENDIF
 
       ::OpenTag( "nav", "class", "dropdown lang" )
-      ::OpenTagInline( "span", "class", "dropbtn flag" )
-      ::OpenTag( "img", "src", flag_for_lang( ::cLang ), "width", "18", "alt", hb_StrFormat( I_( "%1$s flag" ), ::cLang ) )
+      ::OpenTagInline( "span", "class", "dropbtn lang" )
+      ::AppendInline( name_for_lang( ::cLang ) )
       ::CloseTagInline( "span" )
 
       IF Len( hbdoc_LangList() ) > 1
          ::OpenTag( "nav", "class", "dropdown-content lang" )
          FOR EACH tmp IN ASort( hb_HKeys( hDoc := hbdoc_LangList() ) )
             ::OpenTagInline( "a", "href", GetLangDir( ::cLang, tmp ) + ;
-               iif( ::cLang == tmp .OR. tmp == "en" .OR. ( tmp $ hDoc .AND. ::cFileName $ hDoc[ tmp ][ "tree" ] ), ;
+               iif( ::cLang == tmp .OR. tmp == "en" .OR. ( tmp $ hDoc .AND. ::cFilename $ hDoc[ tmp ][ "tree" ] ), ;
                   ::cFilename, ;
                   "index" ) + ".html" )
-            ::OpenTagInline( "img", "src", flag_for_lang( tmp ), "width", "24", "alt", hb_StrFormat( "%1$s flag", tmp ) )
+            ::AppendInline( name_for_lang( tmp ) )
             ::CloseTag( "a" )
          NEXT
          ::CloseTag( "nav" )
@@ -296,20 +301,15 @@ STATIC FUNCTION GetLangDir( cCurLang, cTargetLang )
 
    RETURN ".." + "/"
 
-STATIC FUNCTION flag_for_lang( cLang )
+STATIC FUNCTION name_for_lang( cLang )
 
-   LOCAL cSrc := ""
+   LOCAL tmp
 
-   SWITCH Lower( cLang )
-   CASE "en"    ; cSrc := "flag-gb.svg" ; EXIT
-   CASE "pt_br" ; cSrc := "flag-br.svg" ; EXIT
-   ENDSWITCH
-
-   IF ! cSrc == ""
-      cSrc := "data:image/svg+xml;base64," + hb_base64Encode( _TO_LF( hb_MemoRead( hbdoc_dir_in() + hb_DirSepToOS( "docs/images/" + cSrc ) ) ) )
+   IF ( tmp := At( "_", cLang ) ) > 0
+      RETURN Left( cLang, tmp - 1 ) + "-" + Upper( SubStr( cLang, tmp + 1 ) )
    ENDIF
 
-   RETURN cSrc
+   RETURN Upper( cLang )
 
 STATIC FUNCTION GitRev()
 
@@ -328,7 +328,7 @@ METHOD Generate() CLASS GenerateHTML
 
    ::OpenTagInline( "div" )
    ::AppendInline( I_( "Based on revision" ) + " " )
-   ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "tree/" + s_cRevision )
+   ::OpenTagInline( "a", "href", ::cURLBase + "tree/" + s_cRevision )
    ::AppendInline( s_cRevision )
    ::CloseTagInline( "a" )
    ::CloseTag( "div" )
@@ -429,7 +429,7 @@ METHOD BeginSection( cSection, cFilename, cID ) CLASS GenerateHTML
       cH := "h" + hb_ntos( ::nDepth + 1 )
       ::Spacer()
       ::OpenTag( "section", "id", cID, "class", "d-x d-id" )
-      IF ! HB_ISSTRING( cFileName ) .OR. cFilename == ::cFilename
+      IF ! HB_ISSTRING( cFilename ) .OR. cFilename == ::cFilename
          ::OpenTagInline( cH )
          ::AppendInline( cSection )
          ::CloseTag( cH )
@@ -446,7 +446,7 @@ METHOD BeginSection( cSection, cFilename, cID ) CLASS GenerateHTML
       ::CloseTag( "div" )
    ENDIF
 
-   IF HB_ISSTRING( cFileName )
+   IF HB_ISSTRING( cFilename )
       ::TargetFilename := cFilename
    ENDIF
 
@@ -533,7 +533,7 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
                   ::AppendInline( _RESULT_ARROW + hb_UChar( 160 ) + cRedir )
                   ::CloseTagInline( "code" )
                ENDIF
-               ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "blob/" + s_cRevision + "/" + tmp + iif( nLine != 0, "#L" + hb_ntos( nLine ), "" ), "class", "d-so", "title", tmp )
+               ::OpenTagInline( "a", "href", ::cURLBase + "blob/" + s_cRevision + "/" + tmp + iif( nLine != 0, "#L" + hb_ntos( nLine ), "" ), "class", "d-so", "title", tmp )
                ::AppendInline( iif( hb_LeftEq( ::cFilename, "cl" ), I_( "Harbour implementation" ), I_( "Source code" ) ) )
                ::CloseTagInline( "a" )
             ENDIF
@@ -544,7 +544,7 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
                ::OpenTagInline( "nav", "class", "dropdown d-ebi" )
                ::AppendInline( "🔎" )
                ::OpenTagInline( "nav", "class", "dropdown-content" + " " + "d-dd" )
-               ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "search?type=Code&q=" + tmp )
+               ::OpenTagInline( "a", "href", ::cURLBase + "search?type=Code&q=" + tmp )
                ::AppendInline( "in Repository" ):CloseTagInline( "a" )
                ::OpenTagInline( "a", "href", "https://google.com/search?q=site:groups.google.com/d/msg/harbour+" + tmp )
                ::AppendInline( "in Discussions" ):CloseTagInline( "a" )
@@ -570,7 +570,7 @@ METHOD AddEntry( hEntry ) CLASS GenerateHTML
 
          IF ! hb_LeftEq( ::cFilename, "cl" )
             ::AppendInline( hb_UChar( 160 ) + "|" + hb_UChar( 160 ) )
-            ::OpenTagInline( "a", "href", hb_Version( HB_VERSION_URL_BASE ) + "edit/master/" + _TO_DIRSEPFWD( hEntry[ "_sourcefile" ] ) )
+            ::OpenTagInline( "a", "href", ::cURLBase + "edit/" + ::cBranch + "/" + _TO_DIRSEPFWD( hEntry[ "_sourcefile" ] ) )
             ::AppendInline( I_( "Improve this doc" ) )
             ::CloseTagInline( "a" )
          ENDIF
@@ -657,8 +657,8 @@ METHOD PROCEDURE WriteEntry( cField, cContent, lPreformatted, cID, lPlayground )
             TODO: better do this in the doc sources. */
 
          IF hb_LeftEqI( cContent, "PROCEDURE Main()" ) .OR. ;
-            Lower( cContent ) == "procedure main" .OR. ;
-            Lower( cContent ) == "proc main"
+            hb_asciiLower( cContent ) == "procedure main" .OR. ;
+            hb_asciiLower( cContent ) == "proc main"
 
             tmp1 := ""
             FOR EACH tmp IN hb_ATokens( cContent, .T. )
@@ -1110,11 +1110,11 @@ METHOD AppendInline( cText, cFormat, lCode, cField, cID ) CLASS GenerateHTML
       ENDIF
 
       IF ! "|" + hb_defaultValue( cField, "" ) + "|" $ "||NAME|ONELINER|"
-         cText := AutoLink( cText, ::cFilename, s_cRevision, ::hNameIDM, ::cLang, lCode, cID )
+         cText := AutoLink( cText, ::cFilename, s_cRevision, ::hNameIDM, ::cLang, lCode, cID, ::cURLBase )
 #if 0
          IF ! lCode .AND. "( " $ cText
             FOR EACH tmp1 IN en_hb_regexAll( "([a-zA-Z0-9]+)\( ", cText,,,,, .F. )
-               ? ::cFileName, hb_ValToExp( tmp1[ 1 ] )
+               ? ::cFilename, hb_ValToExp( tmp1[ 1 ] )
             NEXT
          ENDIF
 #endif
@@ -1142,36 +1142,106 @@ METHOD Append( cText, cFormat, lCode, cField, cID ) CLASS GenerateHTML
 
    RETURN Self
 
+STATIC FUNCTION s_DownloadWithCurlToMem( cURL )
+
+   LOCAL cStdOut
+
+   IF hb_ProcessRun( hb_StrFormat( ;
+         'curl --user-agent "" --fail --silent --show-error ' + ;
+         '--location --proto-redir =https "%1$s"', cURL ),, @cStdOut ) != 0
+      RETURN NIL
+   ENDIF
+
+   cStdOut := _TO_LF( cStdOut )
+
+   IF ! hb_BRight( cStdOut ) == _FIL_EOL
+      cStdOut += _FIL_EOL
+   ENDIF
+
+   RETURN cStdOut
+
 METHOD LinkAsset( cType, cPkg, cFile ) CLASS GenerateHTML
 
    LOCAL pkg := s_hAssets[ cPkg ]
 
-   LOCAL param := { ;
+   LOCAL cURL := ;
       pkg[ "root" ] + ;
       iif( "ver" $ pkg, pkg[ "ver" ] + "/", "" ) + ;
-      pkg[ "files" ][ cFile ][ "name" ] }
+      pkg[ "files" ][ cFile ][ "name" ]
 
-   IF "sri" $ pkg[ "files" ][ cFile ]
-      AAdd( param, "integrity" )
-      AAdd( param, pkg[ "files" ][ cFile ][ "sri" ] )
-   ENDIF
+   LOCAL cLinkAssetMode := hb_def( pkg, "files", cFile, "link", hb_def( pkg, "link", ::cLinkAssetMode ) )
+   LOCAL cFilename := hb_FNameNameExt( hb_DirSepToOS( pkg[ "files" ][ cFile ][ "name" ] ) )
+   LOCAL cContent
 
-   AAdd( param, "crossorigin" )
-   AAdd( param, "anonymous" )
+   LOCAL param := {}
+
+   SWITCH cLinkAssetMode
+   CASE "inline"
+      IF ! cURL $ ::hLinkAssetCache .AND. ;
+         HB_ISSTRING( cContent := s_DownloadWithCurlToMem( cURL ) )
+         ::hLinkAssetCache[ cURL ] := cContent
+         ::DeleteLocalAsset( cFilename )
+      ENDIF
+      EXIT
+   CASE "local"
+      IF ! cURL $ ::hLinkAssetCache .AND. ;
+         HB_ISSTRING( cContent := s_DownloadWithCurlToMem( cURL ) )
+         ::hLinkAssetCache[ cURL ] := cContent
+         cContent := NIL
+      ENDIF
+      IF cURL $ ::hLinkAssetCache
+         ::RecreateLocalAsset( cFilename, ::hLinkAssetCache[ cURL ] )
+         AAdd( param, iif( ::cLang == "en", "", "../" ) + cFilename )
+         EXIT
+      ENDIF
+      /* Fall-through */
+   OTHERWISE
+      ::DeleteLocalAsset( cFilename )
+
+      AAdd( param, cURL )
+
+      IF "sri" $ pkg[ "files" ][ cFile ]
+         AAdd( param, "integrity" )
+         AAdd( param, pkg[ "files" ][ cFile ][ "sri" ] )
+      ENDIF
+
+      AAdd( param, "crossorigin" )
+      AAdd( param, "anonymous" )
+   ENDSWITCH
 
    SWITCH cType
    CASE "css"
 
-      ::OpenTag( "link", ;
-         "rel", "stylesheet", ;
-         "referrerpolicy", "no-referrer", ;
-         "href", hb_ArrayToParams( param ) )
+      SWITCH cLinkAssetMode
+      CASE "inline"
+         ::OpenTag( "style" )
+         ::cFile += cContent
+         ::CloseTag( "style" )
+         EXIT
+      CASE "local"
+         ::OpenTag( "link", ;
+            "rel", "stylesheet", ;
+            "href", hb_ArrayToParams( param ) )
+         EXIT
+      CASE "remote"
+         ::OpenTag( "link", ;
+            "rel", "stylesheet", ;
+            "referrerpolicy", "no-referrer", ;
+            "href", hb_ArrayToParams( param ) )
+         EXIT
+      ENDSWITCH
       EXIT
 
    CASE "js"
 
-      ::OpenTagInline( "script", ;
-         "src", hb_ArrayToParams( param ) ):CloseTag( "script" )
+      IF HB_ISSTRING( cContent )
+         ::OpenTag( "script" )
+         ::cFile += cContent
+         ::CloseTag( "script" )
+      ELSE
+         ::OpenTagInline( "script", ;
+            "src", hb_ArrayToParams( param ) ):CloseTag( "script" )
+      ENDIF
       EXIT
 
    ENDSWITCH
@@ -1184,23 +1254,40 @@ STATIC FUNCTION hbdoc_assets_yaml()
 STATIC FUNCTION hbdoc_head_html()
    #pragma __streaminclude "hbdoc_head.html" | RETURN _TO_LF( %s )
 
-METHOD RecreateStyleDocument( cStyleFile ) CLASS GenerateHTML
+METHOD DeleteLocalAsset( cFilename ) CLASS GenerateHTML
 
-   #pragma __streaminclude "hbdoc.css" | LOCAL cString := %s
+   IF ::cLang == "en"
+
+      cFilename := hb_DirSepAdd( ::cDir ) + cFilename
+
+      IF hb_vfExists( cFilename )
+         hb_vfErase( cFilename )
+      ENDIF
+   ENDIF
+
+   RETURN Self
+
+METHOD RecreateLocalAsset( cFilename, cContent ) CLASS GenerateHTML
 
    IF ::cLang == "en"
       IF ! hb_vfDirExists( ::cDir )
          hb_DirBuild( ::cDir )
       ENDIF
 
-      IF ! hb_MemoWrit( cStyleFile := hb_DirSepAdd( ::cDir ) + cStyleFile, _TO_LF( cString ) )
-         OutErr( hb_StrFormat( "! Error: Cannot create file '%1$s'", cStyleFile ) + _OUT_EOL )
+      IF ! hb_MemoWrit( cFilename := hb_DirSepAdd( ::cDir ) + cFilename, _TO_LF( cContent ) )
+         OutErr( hb_StrFormat( "! Error: Cannot create file '%1$s'", cFilename ) + _OUT_EOL )
       ELSEIF hbdoc_reproducible()
-         hb_vfTimeSet( cStyleFile, hb_Version( HB_VERSION_BUILD_TIMESTAMP_UTC ) )
+         hb_vfTimeSet( cFilename, hb_Version( HB_VERSION_BUILD_TIMESTAMP_UTC ) )
       ENDIF
    ENDIF
 
    RETURN Self
+
+METHOD RecreateStyleDocument( cStyleFile ) CLASS GenerateHTML
+
+   #pragma __streaminclude "hbdoc.css" | LOCAL cString := %s
+
+   RETURN ::RecreateLocalAsset( cStyleFile, cString )
 
 STATIC FUNCTION SymbolToHTMLID( cID )
 
@@ -1236,7 +1323,7 @@ STATIC FUNCTION SymbolToHTMLID( cID )
    RETURN hb_StrReplace( cID, s_conv )
 
 /* Based on FixFuncCase() in hbmk2 */
-STATIC FUNCTION AutoLink( cFile, cComponent, cRevision, hNameIDM, cLang, lCodeAlready, cID )
+STATIC FUNCTION AutoLink( cFile, cComponent, cRevision, hNameIDM, cLang, lCodeAlready, cID, cURLBase )
 
    LOCAL match
    LOCAL cProper
@@ -1311,10 +1398,10 @@ STATIC FUNCTION AutoLink( cFile, cComponent, cRevision, hNameIDM, cLang, lCodeAl
                   cName := hb_asciiLower( cName )
 #if 0
                   /* link to the most-recent version */
-                  cTag := "<a href=" + '"' + hb_Version( HB_VERSION_URL_BASE ) + "tree/master/" + Lower( cTag ) + '"' + ">" + cName + "</a>"
+                  cTag := "<a href=" + '"' + cURLBase + "tree/" + ::cBranch + "/" + Lower( cTag ) + '"' + ">" + cName + "</a>"
 #endif
                   /* link to the matching source revision */
-                  cTag := "<a href=" + '"' + hb_Version( HB_VERSION_URL_BASE ) + "blob/" + cRevision + "/" + Lower( cTag ) + '"' + ">" + cName + "</a>"
+                  cTag := "<a href=" + '"' + cURLBase + "blob/" + cRevision + "/" + Lower( cTag ) + '"' + ">" + cName + "</a>"
                ELSE
                   cTag := cName
                ENDIF

@@ -1,32 +1,28 @@
-fontawesome:
-  root: https://cdnjs.cloudflare.com/ajax/libs/font-awesome/
-  ver: 4.7.0
-  files:
-    css:
-      name: css/font-awesome.min.css
-      sri: sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN
+---
 prism:
-  root: https://cdnjs.cloudflare.com/ajax/libs/prism/
-  ver: 1.6.0
+  root: https://cdn.jsdelivr.net/gh/PrismJS/prism@
+  ver: 1.17.1
+  link: inline
   files:
     theme:
       name: themes/prism-okaidia.min.css
-      sri: sha384-XHIkHrF2GAIZf8n8FpuN43YPTV4JE4h3je69N9L1dZavZmxbmZlQCO1X/6Y/cge2
+      sri: sha384-hzSQv7QKXE82WDQSeStIgfnGAwraLbz6JGoKT2+KSjyeg42Cg+G3vE2DphViuxCV
     js:
       name: prism.min.js
-      sri: sha384-rYrm3wzug6YeKl/b+fTQ97I5TVSAs/vakIvEwzeyXUXS2SxYvgi7sBHZuV/UqZWf
+      sri: sha384-bTbnCdEUtzR3UrrtJU1lkaqUK5L6WCdo0UGR5p820NJaSfBN3MotFIcVAW8gzuj9
     c:
       name: components/prism-c.min.js
-      sri: sha384-IDvyyshYqx4mSDbCy1jZXIyYtgY0TQ7yTX/qOQ93pN1I3ETUkZD9Nb5joIteiFIC
+      sri: sha384-MtYdRru3SDCV9LosOhivsVazH7EgJCuBmhh9bJiOoAr6ERv1fJ4Zw1wuMSjFZIWV
 jquery:
-  root: https://cdnjs.cloudflare.com/ajax/libs/jquery/
-  ver: 3.2.1
+  root: https://cdn.jsdelivr.net/npm/jquery@
+  ver: 3.4.1
   files:
     js:
-      name: jquery.min.js
-      sri: sha384-xBuQ/xzmlsLoJpyjoggmTEz8OWUFM0/RC5BsqQBDX2v5cMvDHcMakNTNrHIW2I5f
+      name: dist/jquery.min.js
+      sri: sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh
 hb-playground:
-  root: https://os.allcom.pl/harbour/static/
+  root: https://os.allcom.pl/hb/static/
+  link: remote
   files:
     embed:
       name: playground-embed.js

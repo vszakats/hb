@@ -2,7 +2,7 @@
 /*
  * Norton Guide JSON to HBDOC/NFDOC (.txt) format converter
  *
- * Copyright 2016 Viktor Szakats (vsz.me/hb)
+ * Copyright 2016-present Viktor Szakats (vsz.me/hb)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -97,7 +97,7 @@ static procedure loadngjson( fn, aEntry, savename )
     s_lcopy := .t.
   endif
 
-  /* deal with some content pecularities */
+  /* deal with some content peculiarities */
   for each menu in ng[ 'menu' ]
     for each cat in menu
       if hb_isarray( cat )

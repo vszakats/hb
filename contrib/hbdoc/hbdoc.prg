@@ -2,7 +2,7 @@
 /*
  * Document generator
  *
- * Copyright 2016-2017 Viktor Szakats (vsz.me/hb)
+ * Copyright 2016-present Viktor Szakats (vsz.me/hb)
  * Copyright 2009 April White <bright.tigra gmail.com>
  * Copyright 1999-2003 Luiz Rafael Culik <culikr@uol.com.br> (Portions of this project are based on hbdoc)
  *
@@ -439,7 +439,7 @@ STATIC PROCEDURE UseLang( cLang )
 
    IF ! s_cLangLast == cLang
       s_cLangLast := cLang
-      IF Lower( cLang ) == "en"
+      IF hb_asciiLower( cLang ) == "en"
          hb_i18n_Set( NIL )
       ELSE
          IF ! cLang $ s_hLang
@@ -584,10 +584,8 @@ STATIC FUNCTION ProcessDocDir( cDir, cArea, cComponent, hDoc )
    LOCAL hCountF := { => }
    LOCAL tmp
 
-   hb_HAutoAdd( hCountA, HB_HAUTOADD_ALWAYS )
-   hb_HDefault( hCountA, 0 )
-   hb_HAutoAdd( hCountF, HB_HAUTOADD_ALWAYS )
-   hb_HDefault( hCountF, 0 )
+   hb_HAutoAdd( hCountA, HB_HAUTOADD_ALWAYS, 0 )
+   hb_HAutoAdd( hCountF, HB_HAUTOADD_ALWAYS, 0 )
 
    IF ! Empty( aErrMsg )
       FOR EACH tmp IN aErrMsg
@@ -612,7 +610,7 @@ STATIC FUNCTION ProcessDocDir( cDir, cArea, cComponent, hDoc )
             hDoc[ tmp ] := { ;
                "entries" => {}, ;
                "tree"    => { => }, ;
-               "uid"     => { => } }  /* separate for each language. TODO: make it global by matching component+name accross languages */
+               "uid"     => { => } }  /* separate for each language. TODO: make it global by matching component+name across languages */
             s_hNameIDM[ tmp ] := { => }
             hb_HCaseMatch( s_hNameIDM[ tmp ], .F. )
          ENDIF
@@ -801,9 +799,9 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, hNameID, /* @ */ nCount, /* @ */ nC
 
          CASE IsField( hE, "RETURNS" ) .AND. cSectionName == "RETURNS" .AND. ( ;
                Empty( cSection ) .OR. ;
-               Upper( cSection ) == "NIL" .OR. ;
-               Lower( cSection ) == "none" .OR. ;
-               Lower( cSection ) == "none." )
+               hb_asciiUpper( cSection ) == "NIL" .OR. ;
+               hb_asciiLower( cSection ) == "none" .OR. ;
+               hb_asciiLower( cSection ) == "none." )
 
             ShowError( cFile, "'" + hE[ "NAME" ] + "' is identified as template " + hEntry[ "TEMPLATE" ] + " but has no RETURNS value (" + cSection + ")" )
 
@@ -834,9 +832,9 @@ STATIC PROCEDURE ProcessBlock( hEntry, docs, hNameID, /* @ */ nCount, /* @ */ nC
 #endif
       CASE hEntry[ "TEMPLATE" ] == "Function" .AND. ( ;
          Empty( hE[ "RETURNS" ] ) .OR. ;
-         Upper( hE[ "RETURNS" ] ) == "NIL" .OR. ;
-         Lower( hE[ "RETURNS" ] ) == "none" .OR. ;
-         Lower( hE[ "RETURNS" ] ) == "none." )
+         hb_asciiUpper( hE[ "RETURNS" ] ) == "NIL" .OR. ;
+         hb_asciiLower( hE[ "RETURNS" ] ) == "none" .OR. ;
+         hb_asciiLower( hE[ "RETURNS" ] ) == "none." )
 
          ShowError( cFile, "'" + hE[ "NAME" ] + "' is identified as template " + hEntry[ "TEMPLATE" ] + " but has no RETURNS value (" + hE[ "RETURNS" ] + ")" )
 #if 0
@@ -1138,27 +1136,31 @@ FUNCTION Indent( cText, nLeftMargin, nWidth, lRaw, lForceRaw )
                   DO CASE
                   CASE ! SubStr( cLine, idx, 1 ) $ " ,;.!?"
                      /* do nothing */
-                  CASE Upper( SubStr( cLine, idx, 3 ) ) == ".T." .OR. Upper( SubStr( cLine, idx, 3 ) ) == ".F."
+                  CASE hb_asciiUpper( SubStr( cLine, idx, 3 ) ) == ".T." .OR. ;
+                       hb_asciiUpper( SubStr( cLine, idx, 3 ) ) == ".F."
                      idx--
-                  CASE Upper( SubStr( cLine, idx - 2, 3 ) ) == ".T." .OR. Upper( SubStr( cLine, idx - 1, 3 ) ) == ".F."
+                  CASE hb_asciiUpper( SubStr( cLine, idx - 2, 3 ) ) == ".T." .OR. ;
+                       hb_asciiUpper( SubStr( cLine, idx - 1, 3 ) ) == ".F."
                      idx -= 3
-                  CASE Upper( SubStr( cLine, idx, 5 ) ) == ".AND." .OR. Upper( SubStr( cLine, idx, 5 ) ) == ".NOT."
+                  CASE hb_asciiUpper( SubStr( cLine, idx, 5 ) ) == ".AND." .OR. ;
+                       hb_asciiUpper( SubStr( cLine, idx, 5 ) ) == ".NOT."
                      idx--
-                  CASE Upper( SubStr( cLine, idx - 4, 5 ) ) == ".AND." .OR. Upper( SubStr( cLine, idx - 4, 5 ) ) == ".NOT."
+                  CASE hb_asciiUpper( SubStr( cLine, idx - 4, 5 ) ) == ".AND." .OR. ;
+                       hb_asciiUpper( SubStr( cLine, idx - 4, 5 ) ) == ".NOT."
                      idx -= 5
-                  CASE Upper( SubStr( cLine, idx, 4 ) ) == ".OR."
+                  CASE hb_asciiUpper( SubStr( cLine, idx, 4 ) ) == ".OR."
                      idx--
-                  CASE Upper( SubStr( cLine, idx - 3, 4 ) ) == ".OR."
+                  CASE hb_asciiUpper( SubStr( cLine, idx - 3, 4 ) ) == ".OR."
                      idx -= 4
-                  CASE Upper( SubStr( cLine, idx - 1, 4 ) ) == "i.e."
+                  CASE hb_asciiUpper( SubStr( cLine, idx - 1, 4 ) ) == "i.e."
                      idx -= 2
-                  CASE Upper( SubStr( cLine, idx - 3, 4 ) ) == "i.e."
+                  CASE hb_asciiUpper( SubStr( cLine, idx - 3, 4 ) ) == "i.e."
                      idx -= 4
-                  CASE Upper( SubStr( cLine, idx - 1, 4 ) ) == "e.g."
+                  CASE hb_asciiUpper( SubStr( cLine, idx - 1, 4 ) ) == "e.g."
                      idx -= 2
-                  CASE Upper( SubStr( cLine, idx - 3, 4 ) ) == "e.g."
+                  CASE hb_asciiUpper( SubStr( cLine, idx - 3, 4 ) ) == "e.g."
                      idx -= 4
-                  CASE Upper( SubStr( cLine, idx - 1, 2 ) ) == "*."
+                  CASE hb_asciiUpper( SubStr( cLine, idx - 1, 2 ) ) == "*."
                      idx -= 2
                   OTHERWISE
                      EXIT
@@ -1201,7 +1203,7 @@ FUNCTION NameIsCode( cName )
 FUNCTION NameIsOperator( cName )
    RETURN ;
       hb_StrReplace( hb_asciiLower( cName ), "abcdefghijklmnopqrstuvwxyz" ) == hb_asciiLower( cName ) .OR. ;
-      "|" + Upper( cName ) + "|" $ "|.AND.|.OR.|.NOT.|" .OR. ;
+      "|" + hb_asciiUpper( cName ) + "|" $ "|.AND.|.OR.|.NOT.|" .OR. ;
       hb_LeftEq( cName, "= " )  // e.g. "= (assign)"
 
 FUNCTION NameIsDirective( cName )
@@ -1398,8 +1400,7 @@ STATIC PROCEDURE init_Templates()
 
    LoadPO()
 
-   hb_HAutoAdd( s_hHBXStat, HB_HAUTOADD_ALWAYS )
-   hb_HDefault( s_hHBXStat, 0 )
+   hb_HAutoAdd( s_hHBXStat, HB_HAUTOADD_ALWAYS, 0 )
 
    hb_HCaseMatch( hSubCategories, .F. )
 
@@ -1573,21 +1574,21 @@ STATIC PROCEDURE ShowPlatformsHelp()
 STATIC PROCEDURE DirLoadHBX( cDir, hAll )
 
    LOCAL aFile
-   LOCAL cFileName
+   LOCAL cFilename
 
    cDir := hb_DirSepAdd( cDir )
 
    FOR EACH aFile IN hb_vfDirectory( cDir + "*.hbx" )
-      IF hb_vfExists( cFileName := cDir + aFile[ F_NAME ] )
-         LoadHBX( cFileName, hAll )
+      IF hb_vfExists( cFilename := cDir + aFile[ F_NAME ] )
+         LoadHBX( cFilename, hAll )
       ENDIF
    NEXT
 
    RETURN
 
-STATIC FUNCTION LoadHBX( cFileName, hAll )
+STATIC FUNCTION LoadHBX( cFilename, hAll )
 
-   LOCAL cName := hb_PathRelativize( s_hSwitches[ "dir_in" ], cFileName )
+   LOCAL cName := hb_PathRelativize( s_hSwitches[ "dir_in" ], cFilename )
 
    LOCAL cFile
    LOCAL pRegex
@@ -1596,7 +1597,7 @@ STATIC FUNCTION LoadHBX( cFileName, hAll )
 
    LOCAL cID := hb_FNameName( cName )
 
-   IF ! ( cFile := hb_MemoRead( cFileName ) ) == "" .AND. ;
+   IF ! ( cFile := hb_MemoRead( cFilename ) ) == "" .AND. ;
       ! Empty( pRegex := hb_regexComp( "^DYNAMIC ([a-zA-Z0-9_]*)$", .T., .T. ) )
 
       FOR EACH tmp IN hb_regexAll( pRegex, StrTran( cFile, Chr( 13 ) ),,,,, .T. )
