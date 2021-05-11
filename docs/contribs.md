@@ -14,7 +14,7 @@ Common to all contribs is that they are open/free software, but please note
 that [licensing terms]({{ site.baseurl }}/terms{{ site.ilink_suffix }}) may
 vary for each contrib.
 
-See respective authors inside the [source code](https://github.com/{{ site.repo_slug }}/tree/master/contrib).
+See respective authors inside the [source code](https://github.com/{{ site.repo_slug }}/tree/{{ site.repo_branch }}/contrib).
 
 ## gtqtc
 

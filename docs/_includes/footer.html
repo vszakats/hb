@@ -2,7 +2,7 @@
 
 <footer>
   <div class="footer-content">
-    <div><a href="https://raw.githubusercontent.com/{{ site.repo_slug }}/master/{{ site.license_file }}">© {{ site.time | date: '%Y' }}</a> <a href="{{ site.baseurl }}/">Harbour&nbsp;Project</a></div>
+    <div><a href="https://raw.githubusercontent.com/{{ site.repo_slug }}/{{ site.repo_branch }}/{{ site.license_file }}">© {{ site.time | date: '%Y' }}</a> <a href="{{ site.baseurl }}/">Harbour&nbsp;Project</a></div>
     <div><a href="{{ site.baseurl }}/terms{{ site.ilink_suffix }}">Terms of Service</a> | <a href="{{ site.baseurl }}/contact{{ site.ilink_suffix }}">Contact</a><!--<br>
       <a href="https://jigsaw.w3.org/css-validator/validator?profile=css3&usermedium=all&warning=1&uri={{ '/css/main.css' | absolute_url | url_encode }}">{% include svg/fa-brands-css3-alt.svg %}</a>
       <a href="https://validator.w3.org/nu/?doc={{ page.url | append: page_name | absolute_url | url_encode }}">{% include svg/fa-brands-html5.svg %}</a>--></div>

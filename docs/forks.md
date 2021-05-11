@@ -50,7 +50,7 @@ focus on the Windows platform along with commercial offerings.
 * [Community](https://groups.google.com/forum/#!forum/comp.lang.xharbour)
 
 Technical details on how this fork differs from the other variations,
-[here](https://raw.githubusercontent.com/{{ site.repo_slug }}/master/doc/xhb-diff.txt).
+[here](https://raw.githubusercontent.com/{{ site.repo_slug }}/{{ site.repo_branch }}/doc/xhb-diff.txt).
 
 ## MiniGUI forks
 

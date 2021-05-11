@@ -48,8 +48,8 @@ layout: default
       <strong>{{ site.full_version }}</strong><br>
 {%- endif %}
       Source snapshot:&nbsp;
-      <a href="https://github.com/{{ site.repo_slug }}/archive/master.zip"><strong>.zip</strong></a>&nbsp;
-      <a href="https://github.com/{{ site.repo_slug }}/archive/master.tar.gz"><strong>.tar.gz</strong></a><br>
+      <a href="https://github.com/{{ site.repo_slug }}/archive/{{ site.repo_branch }}.zip"><strong>.zip</strong></a>&nbsp;
+      <a href="https://github.com/{{ site.repo_slug }}/archive/{{ site.repo_branch }}.tar.gz"><strong>.tar.gz</strong></a><br>
 {%- if site.fork %}
       Binary snapshot (Windows):&nbsp;
       <a href="{{ site.dl_url }}/download/v{{ site.full_version }}/harbour-snapshot-win.zip" tooltip-text="clang / mingw-w64, 64-bit hosted, 32/64-bit targets, bundled with latest curl and OpenSSL libraries." class="tooltip"><strong>.zip</strong></a>
@@ -96,7 +96,7 @@ layout: default
   <h1>License</h1>
   <p>Harbour is a free and open-source project. It can be used to make open source
   applications, free or nonfree products.
-  <a href="https://raw.githubusercontent.com/{{ site.repo_slug }}/master/{{ site.license_file }}" class="readmore readmore-dark">Learn more</a>
+  <a href="https://raw.githubusercontent.com/{{ site.repo_slug }}/{{ site.repo_branch }}/{{ site.license_file }}" class="readmore readmore-dark">Learn more</a>
 </div>
 
 <div class="lower-box">

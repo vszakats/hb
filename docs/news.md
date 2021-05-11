@@ -10,7 +10,7 @@ For technical details, view the latest [ChangeLog]({{ site.baseurl }}/changelog{
 or [download]({{ site.dl_url }}) a release of Harbour.
 
 You can also find release notes for older versions
-[here](https://raw.githubusercontent.com/{{ site.repo_slug }}/master/doc/oldnews.txt).
+[here](https://raw.githubusercontent.com/{{ site.repo_slug }}/{{ site.repo_branch }}/doc/oldnews.txt).
 
 ---
 
