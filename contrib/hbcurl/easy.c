@@ -2141,6 +2141,11 @@ HB_FUNC( CURL_EASY_SETOPT )
             case HB_CURLOPT_CAINFO:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_CAINFO, hb_curl_StrHash( hb_curl, hb_parc( 3 ) ) );
                break;
+#if LIBCURL_VERSION_NUM >= 0x074D00
+            case HB_CURLOPT_CAINFO_BLOB:
+               res = hb_curl_easy_setopt_blob( hb_curl->curl, CURLOPT_CAINFO_BLOB, hb_param( 3, HB_IT_STRING ) );
+               break;
+#endif
             case HB_CURLOPT_CAPATH:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_CAPATH, hb_curl_StrHash( hb_curl, hb_parc( 3 ) ) );
                break;
@@ -2274,6 +2279,11 @@ HB_FUNC( CURL_EASY_SETOPT )
             case HB_CURLOPT_PROXY_CAINFO:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_PROXY_CAINFO, hb_curl_StrHash( hb_curl, hb_parc( 3 ) ) );
                break;
+#if LIBCURL_VERSION_NUM >= 0x074D00
+            case HB_CURLOPT_PROXY_CAINFO_BLOB:
+               res = hb_curl_easy_setopt_blob( hb_curl->curl, CURLOPT_PROXY_CAINFO_BLOB, hb_param( 3, HB_IT_STRING ) );
+               break;
+#endif
             case HB_CURLOPT_PROXY_CAPATH:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_PROXY_CAPATH, hb_curl_StrHash( hb_curl, hb_parc( 3 ) ) );
                break;
