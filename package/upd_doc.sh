@@ -57,13 +57,15 @@ if git diff-index --name-only HEAD~1 \
   # Constants
 
   readonly slug_3rd_hbdoc='harbour/ng-hbdoc'
+  readonly branch_3rd_hbdoc='master'
   readonly slug_doc_pages='harbour/doc'
+  readonly branch_doc_pages='master'
   readonly hbdoc_fmt='html'
 
   # Download and unpack 3rd party HBDOC files
   (
     cd contrib || exit
-    url="https://github.com/${slug_3rd_hbdoc}/archive/master.tar.gz"
+    url="https://github.com/${slug_3rd_hbdoc}/archive/${branch_3rd_hbdoc}.tar.gz"
     echo "! Downloading 3rd party docs '${url}'..."
     curl -fsS -L --proto-redir =https "${url}" \
     | tar --strip-components 1 -zx --exclude README.txt
@@ -126,13 +128,13 @@ if git diff-index --name-only HEAD~1 \
     if TZ=UTC git commit -a -m "update content
 
 Based on ${url_source}"; then
-      git push origin master || true
+      git push origin "${branch_doc_pages}" || true
     fi
 
     echo "! Update finished."
   )
   else
-    echo '! upd_doc: Not master branch or credentials missing, skip updating docs.'
+    echo '! upd_doc: Incorrect branch or credentials missing, skip updating docs.'
   fi
 else
   echo '! upd_doc: No changes detected, skip regenerating docs.'
