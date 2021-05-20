@@ -57,9 +57,9 @@ if git diff-index --name-only HEAD~1 \
   # Constants
 
   readonly slug_3rd_hbdoc='harbour/ng-hbdoc'
-  readonly branch_3rd_hbdoc='master'
+  readonly branch_3rd_hbdoc='main'
   readonly slug_doc_pages='harbour/doc'
-  readonly branch_doc_pages='master'
+  readonly branch_doc_pages='main'
   readonly hbdoc_fmt='html'
 
   # Download and unpack 3rd party HBDOC files
