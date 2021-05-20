@@ -1,17 +1,19 @@
 #!/usr/bin/env bash
 
 # ---------------------------------------------------------------
-# Copyright 2016-2017 Viktor Szakats (vsz.me/hb)
+# Copyright 2016-present Viktor Szakats (vsz.me/hb)
 # See LICENSE.txt for licensing terms.
 # ---------------------------------------------------------------
 
-# Extract dependency versions and their hashes from `curl-for-win` online build log
+# Extract dependency versions and their hashes from `curl-for-win`
+# online build log.
+#
 # Requires: bash, curl, jq, awk
 
 readonly ci="${1:-appveyor}"
-readonly username='vszakats'
+readonly username='curlorg'
 readonly project='curl-for-win'
-branch='master'
+readonly branch='main'
 
 echo "! CI: ${ci}"
 echo "! Project: ${project}"
