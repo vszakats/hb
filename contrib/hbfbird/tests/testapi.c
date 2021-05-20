@@ -14,7 +14,7 @@
 #endif
 
 #define USER                     "sysdba"
-#define PASSWORD                 "masterkey"
+#define PASSWORD                 "password"
 #define DATABASE                 "localhost:testapi.gdb"
 #define ERREXIT( status, rc )  { isc_print_status( status ); return rc; }
 #define MAX_BUFFER               1024
