@@ -111,7 +111,7 @@
 
 <main>
 {%- if page.layout != 'example' %}
-  <a class="text-right edit-page" href="https://github.com/{{ site.site_slug }}/edit/{{ site.site_branch_and_root }}{{ page.path }}">
+  <a class="text-right edit-page" href="https://github.com/{{ site.site_slug }}/edit/{{ site.site_branch }}/{{ site.site_root }}{{ page.path }}">
   {% include svg/fa-solid-pencil-alt.svg %}
   &nbsp;Improve this page</a>
 {%- endif %}
