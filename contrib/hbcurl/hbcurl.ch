@@ -370,6 +370,7 @@
 #define HB_CURLSSLOPT_NO_PARTIALCHAIN         hb_bitShift( 1, 2 )
 #define HB_CURLSSLOPT_REVOKE_BEST_EFFORT      hb_bitShift( 1, 3 )
 #define HB_CURLSSLOPT_NATIVE_CA               hb_bitShift( 1, 4 )
+#define HB_CURLSSLOPT_AUTO_CLIENT_CERT        hb_bitShift( 1, 5 )
 
 /* HB_CURLOPT_HTTPAUTH, HB_CURLOPT_PROXYAUTH, HB_CURLOPT_SOCKS5 options */
 #define HB_CURLAUTH_NONE                      0                    /* nothing */
@@ -740,6 +741,7 @@
 #define HB_CURLE_HTTP3                        95 /* An HTTP/3 layer problem */
 #define HB_CURLE_QUIC_CONNECT_ERROR           96 /* QUIC connection error */
 #define HB_CURLE_PROXY                        97 /* proxy handshake error */
+#define HB_CURLE_SSL_CLIENTCERT               98 /* client-side certificate required */
 
 #define HB_CURLE_OBSOLETE16                   HB_CURLE_HTTP2
 
