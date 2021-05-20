@@ -71,4 +71,9 @@ binary form only, making it difficult/impossible to find out what was the exact
 source code / patches they were built from. In practice it means that general
 Harbour support forums can't help with issues.
 
+* [OOHG](https://oohg.github.io/)
+
+Another MiniGUI fork that implements a full OOP model without altered Harbour
+sources nor overlapping libraries.
+
 </div>
