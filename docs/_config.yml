@@ -3,8 +3,8 @@
 fork: true
 repo_slug: vszakats/hb
 site_slug: vszakats/hb
-repo_branch: master
-site_branch: master
+repo_branch: main
+site_branch: main
 site_root: docs/
 dl_url: https://github.com/vszakats/hb/releases
 short_version: "3.4"

@@ -1,7 +1,7 @@
 version: 3.4.{build}
 branches:
   only:
-  - master
+  - main
   - prod
   - /prod-mingw.*/
   - /prod-clang.*/
@@ -76,11 +76,11 @@ deploy:
     description: 'Binaries generated after each commit.
 
 
-      Read [`RELNOTES.md`](../../blob/master/package/RELNOTES.md) in package root for release details and **Getting Started** instructions.'
+      Read [`RELNOTES.md`](../../blob/main/package/RELNOTES.md) in package root for release details and **Getting Started** instructions.'
     artifact: pkg-win
     draft: false
     prerelease: true
     force_update: true
     on:
-      branch: master
+      branch: main
       appveyor_repo_tag: false

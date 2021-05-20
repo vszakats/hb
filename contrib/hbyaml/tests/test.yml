@@ -2,7 +2,7 @@
 # yamllint disable rule:line-length
 branches:
   only:
-    - master
+    - main
     - prod
 notifications:
   email: false
@@ -181,5 +181,5 @@ deploy:
   overwrite: true
   !!str on:
     tag: true
-    branch: master
+    branch: main
     condition: "${CC} = mingw-clang"

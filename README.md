@@ -2,7 +2,7 @@
 [![License](https://img.shields.io/badge/license-GPLv2%20%2B%20Library%20Exception-blue.svg)](LICENSE.txt "License")
 [![Download](https://img.shields.io/badge/download-snapshot_binary_(3.4)-blue.svg)](https://github.com/vszakats/hb/releases "Download snapshot release")
 <br>
-[![Build status](https://ci.appveyor.com/api/projects/status/4rd806hk73q83qo4/branch/master?svg=true)](https://ci.appveyor.com/project/vsz/hb/branch/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/4rd806hk73q83qo4/branch/main?svg=true)](https://ci.appveyor.com/project/vsz/hb/branch/main)
 [![Coverity Status](https://scan.coverity.com/projects/3208/badge.svg)](https://scan.coverity.com/projects/3208)
 
 Harbour is the open/free software implementation of a cross-platform,
@@ -51,7 +51,7 @@ and a collection of libraries and bindings for popular APIs.
 > [For](https://groups.google.com/forum/#!msg/harbour-users/2fwUzdKwpKA/32nI4WhZLfYJ)
 > [users](https://groups.google.com/forum/#!msg/harbour-users/Ro99f8S6my0/KvfjhCx_jE4J)
 > [contributing](CONTRIBUTING.md) to development, it's recommended to follow
-> [commits](https://github.com/vszakats/hb/commits/master) and reading
+> [commits](https://github.com/vszakats/hb/commits/main) and reading
 > [ChangeLog.txt](ChangeLog.txt?raw=true).
 
 ### Harbour live source repository
@@ -70,8 +70,8 @@ You can get subsequent updates using this command:
 
 Download source archive from any of these URLs and unpack:
 
-* <https://github.com/vszakats/hb/archive/master.zip>
-* <https://github.com/vszakats/hb/archive/master.tar.gz>
+* <https://github.com/vszakats/hb/archive/main.zip>
+* <https://github.com/vszakats/hb/archive/main.tar.gz>
 
 ### Harbour unstable binaries (updated after each commit)
 
@@ -81,12 +81,12 @@ Download source archive from any of these URLs and unpack:
 
 #### Mac (using Homebrew)
 
-    brew install https://raw.githubusercontent.com/vszakats/hb/master/package/hb-vszakats.rb --HEAD
+    brew install https://raw.githubusercontent.com/vszakats/hb/main/package/hb-vszakats.rb --HEAD
 
 ### Follow commits using:
 
-* [Web browser](https://github.com/vszakats/hb/commits/master)
-* [RSS feed](https://github.com/vszakats/hb/commits/master.atom)
+* [Web browser](https://github.com/vszakats/hb/commits/main)
+* [RSS feed](https://github.com/vszakats/hb/commits/main.atom)
 * Any compatible mobile/desktop client app
 
 # How to Build

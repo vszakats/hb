@@ -115,7 +115,7 @@ CREATE CLASS GenerateHTML INHERIT TPLGenerate
    VAR hLinkAssetCache INIT { => }
 
    VAR cURLBase INIT hb_Version( HB_VERSION_URL_BASE )
-   VAR cBranch  INIT "master"
+   VAR cBranch  INIT "main"
 
    CLASS VAR lCreateStyleDocument AS LOGICAL INIT .T.
    VAR TargetFilename AS STRING INIT ""

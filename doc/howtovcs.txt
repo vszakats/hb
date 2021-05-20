@@ -40,7 +40,7 @@ by Viktor Szakats
  9. Save and exit in editor
 10. Git is now committing
 11. Do a 'git push' to publish your changes online to the
-    master repository
+    public repository
 
 NOTE:
    - Run once 'git config --global core.autocrlf true' on Windows

@@ -18,7 +18,7 @@ esac
 
 _BRANCH="${APPVEYOR_REPO_BRANCH}${CI_BUILD_REF_NAME}${GIT_BRANCH}"
 [ -n "${_BRANCH}" ] || _BRANCH="$(git symbolic-ref --short --quiet HEAD)"
-[ -n "${_BRANCH}" ] || _BRANCH='master'
+[ -n "${_BRANCH}" ] || _BRANCH='main'
 [ -n "${CC}" ] || CC="${_BRANCH}"
 CC4="$(echo "${CC}" | cut -c -4)"
 
