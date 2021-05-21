@@ -9,7 +9,7 @@ PROCEDURE Main()
    LOCAL cServer := "localhost:"
    LOCAL cDatabase := hb_FNameExtSet( hb_ProgName(), ".fdb" )
    LOCAL cUser := "SYSDBA"
-   LOCAL cPass := "password"
+   LOCAL cPass := "masterkey"
    LOCAL nPageSize := 1024
    LOCAL cCharSet := "UTF8"
    LOCAL nDialect := 1
