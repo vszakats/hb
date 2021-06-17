@@ -134,7 +134,15 @@ HB_FUNC( CURL_URL_SET )
       CURLU * url = hb_CURLU_par( 1 );
 
       if( url )
+      {
+         #ifdef HB_CURL_UTF8
+         void * hValue;
+         res = curl_url_set( url, ( CURLUPart ) hb_parni( 2 ), hb_parstr_utf8( 3, &hValue, NULL ), hb_parnint( 4 ) );
+         hb_strfree( hValue );
+         #else
          res = curl_url_set( url, ( CURLUPart ) hb_parni( 2 ), hb_parc( 3 ), hb_parnint( 4 ) );
+         #endif
+      }
    }
    else
       hb_errRT_BASE( EG_ARG, 2010, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
@@ -162,7 +170,11 @@ HB_FUNC( CURL_URL_GET )
 
    if( HB_ISBYREF( 3 ) )
    {
+      #ifdef HB_CURL_UTF8
+      hb_storstr_utf8( part, 3 );
+      #else
       hb_storc( part, 3 );
+      #endif
       hb_retnl( ( long ) res );
    }
    else
