@@ -328,6 +328,9 @@
 #define HB_CURLOPT_DOH_SSL_VERIFYSTATUS       280
 #define HB_CURLOPT_CAINFO_BLOB                281
 #define HB_CURLOPT_PROXY_CAINFO_BLOB          282
+#define HB_CURLOPT_TLSAUTH_PASSWORD           283
+#define HB_CURLOPT_TLSAUTH_TYPE               284
+#define HB_CURLOPT_TLSAUTH_USERNAME           285
 #define HB_CURLOPT_DOWNLOAD                   1001  /* Harbour special ones */
 #define HB_CURLOPT_XFERINFOBLOCK              1002
 #define HB_CURLOPT_UL_FILE_SETUP              1003

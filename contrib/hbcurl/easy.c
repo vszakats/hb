@@ -2048,10 +2048,10 @@ HB_FUNC( CURL_EASY_SETOPT )
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_SSLENGINE, hb_parc( 3 ) );  /* cp:ASCII */
                break;
             case HB_CURLOPT_SSLENGINE_DEFAULT:
-               res = curl_easy_setopt( hb_curl->curl, CURLOPT_SSLENGINE_DEFAULT, hb_parnl( 3 ) );  /* cp:ASCII */
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_SSLENGINE_DEFAULT, hb_parnl( 3 ) );
                break;
             case HB_CURLOPT_SSLVERSION:
-               res = curl_easy_setopt( hb_curl->curl, CURLOPT_SSLVERSION, hb_parnl( 3 ) );  /* cp:ASCII */
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_SSLVERSION, hb_parnl( 3 ) );
                break;
             case HB_CURLOPT_SSL_VERIFYPEER:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_SSL_VERIFYPEER, HB_CURL_OPT_BOOL( 3 ) );
@@ -2156,6 +2156,17 @@ HB_FUNC( CURL_EASY_SETOPT )
                break;
             case HB_CURLOPT_HSTS_CTRL:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_HSTS_CTRL, hb_parnl( 3 ) );
+               break;
+#endif
+#if LIBCURL_VERSION_NUM >= 0x071504
+            case HB_CURLOPT_TLSAUTH_PASSWORD:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_TLSAUTH_PASSWORD, hb_parc( 3 ) );  /* cp:raw? */
+               break;
+            case HB_CURLOPT_TLSAUTH_TYPE:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_TLSAUTH_TYPE, hb_parc( 3 ) );  /* cp:ASCII */
+               break;
+            case HB_CURLOPT_TLSAUTH_USERNAME:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_TLSAUTH_USERNAME, hb_parc( 3 ) );  /* cp:raw? */
                break;
 #endif
 
@@ -2400,7 +2411,7 @@ HB_FUNC( CURL_EASY_SETOPT )
                hb_curl_ul_free( hb_curl );
 
                if( HB_ISCHAR( 3 ) )
-                  hb_curl->ul_name = hb_strdup( hb_parc( 3 ) );  /* cp:UTF-8 */
+                  hb_curl->ul_name = hb_strdup( hb_parc( 3 ) );
                else if( hb_fileParamGet( 3 ) )
                   hb_curl->ul_file = hb_fileParamGet( 3 );
                else if( HB_ISNUM( 3 ) )
@@ -2430,7 +2441,7 @@ HB_FUNC( CURL_EASY_SETOPT )
                hb_curl_dl_free( hb_curl );
 
                if( HB_ISCHAR( 3 ) )
-                  hb_curl->dl_name = hb_strdup( hb_parc( 3 ) );  /* cp:UTF-8 */
+                  hb_curl->dl_name = hb_strdup( hb_parc( 3 ) );
                else if( hb_fileParamGet( 3 ) )
                   hb_curl->dl_file = hb_fileParamGet( 3 );
                else if( HB_ISNUM( 3 ) )
@@ -2462,7 +2473,7 @@ HB_FUNC( CURL_EASY_SETOPT )
                   hb_curl->ul_len = hb_parclen( 3 );
                   hb_curl->ul_ptr = ( unsigned char * ) hb_xgrab( hb_curl->ul_len + 1 );
 
-                  hb_xmemcpy( hb_curl->ul_ptr, hb_parc( 3 ), hb_curl->ul_len );  /* cp:binary */
+                  hb_xmemcpy( hb_curl->ul_ptr, hb_parc( 3 ), hb_curl->ul_len );
 
                   curl_easy_setopt( hb_curl->curl, CURLOPT_READFUNCTION, hb_curl_read_buff_callback );
                   res = curl_easy_setopt( hb_curl->curl, CURLOPT_READDATA, hb_curl );
@@ -2509,7 +2520,7 @@ HB_FUNC( CURL_EASY_DL_BUFF_GET )
       PHB_CURL hb_curl = PHB_CURL_par( 1 );
 
       if( hb_curl )
-         hb_retclen( ( char * ) hb_curl->dl_ptr, hb_curl->dl_pos );  /* cp:binary */
+         hb_retclen( ( char * ) hb_curl->dl_ptr, hb_curl->dl_pos );
       else
          hb_retc_null();
    }
