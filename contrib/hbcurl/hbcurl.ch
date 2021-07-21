@@ -694,7 +694,8 @@
 #define HB_CURLE_TOO_MANY_REDIRECTS           47 /* catch endless re-direct loops */
 #define HB_CURLE_UNKNOWN_OPTION               48 /* User specified an unknown option */
 #define HB_CURLE_UNKNOWN_TELNET_OPTION        HB_CURLE_UNKNOWN_OPTION
-#define HB_CURLE_TELNET_OPTION_SYNTAX         49 /* Malformed telnet option */
+#define HB_CURLE_SETOPT_OPTION_SYNTAX         49 /* Malformed telnet option */
+#define HB_CURLE_TELNET_OPTION_SYNTAX         HB_CURLE_SETOPT_OPTION_SYNTAX
 #define HB_CURLE_OBSOLETE50                   50 /* NOT USED */
 #define HB_CURLE_OBSOLETE51                   51 /* peer's certificate or fingerprint wasn't verified fine */
 #define HB_CURLE_GOT_NOTHING                  52 /* when this is a specific error */
