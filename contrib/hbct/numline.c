@@ -1,7 +1,7 @@
 /*
  * CT3 string functions: NumLine()
  *
- * Copyright 2011 Viktor Szakats (vsz.me/hb)
+ * Copyright 2011 Viktor Szakats
  * Copyright 2004 Pavel Tsarenko <tpe2.mail.ru>
  *
  * This program is free software; you can redistribute it and/or modify

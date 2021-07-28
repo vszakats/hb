@@ -1,7 +1,7 @@
 /*
  * libcurl 'easy' API - Harbour interface.
  *
- * Copyright 2008-2017 Viktor Szakats (vsz.me/hb)
+ * Copyright 2008-2017 Viktor Szakats
  * originally based on:
  * Copyright 2005 Luiz Rafael Culik Guimaraes <luiz at xharbour.com.br>
  *

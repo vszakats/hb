@@ -1,4 +1,4 @@
-/* Copyright 2011 Viktor Szakats (vsz.me/hb) */
+/* Copyright 2011 Viktor Szakats */
 
 #require "hbgs"
 

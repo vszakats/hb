@@ -2,7 +2,7 @@
  * The Keyboard API
  *
  * Copyright 1999 David G. Holm <dholm@jsd-llc.com>
- * Copyright 1999-2012 Viktor Szakats (vsz.me/hb) (hb_keyPut(), hb_keyNew())
+ * Copyright 1999-2012 Viktor Szakats (hb_keyPut(), hb_keyNew())
  * Copyright 2003-2012 Przemyslaw Czerpak <druzus@acn.waw.pl> (hb_keySetLast(), hb_keyChar(), hb_keyStd())
  *
  * This program is free software; you can redistribute it and/or modify

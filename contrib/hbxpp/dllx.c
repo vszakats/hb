@@ -1,7 +1,7 @@
 /*
  * Dynamic library handling functions (Xbase++ compatible)
  *
- * Copyright 2010 Viktor Szakats (vsz.me/hb)
+ * Copyright 2010 Viktor Szakats
  * Copyright 2006 Paul Tucker <ptucker@sympatico.ca>
  * Copyright 2002 Vic McClung <vicmcclung@vicmcclung.com>
  *

@@ -1,6 +1,6 @@
 #!/usr/bin/env hbmk2
 
-/* Copyright 2013 Viktor Szakats (vsz.me/hb) */
+/* Copyright 2013 Viktor Szakats */
 
 /* Strips leading EOLs from source files */
 

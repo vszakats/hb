@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # ---------------------------------------------------------------
-# Copyright 2015-2017 Viktor Szakats (vsz.me/hb)
+# Copyright 2015-2017 Viktor Szakats
 # See LICENSE.txt for licensing terms.
 # ---------------------------------------------------------------
 

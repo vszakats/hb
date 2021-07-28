@@ -1,7 +1,7 @@
 //NOTEST
 
 /* Pushing Harbour preprocessor to the line length limit. */
-/* Donated to the public domain by Viktor Szakats (vsz.me/hb) */
+/* Donated to the public domain by Viktor Szakats */
 
 PROCEDURE Main()
 

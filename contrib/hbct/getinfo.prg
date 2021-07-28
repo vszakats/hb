@@ -1,7 +1,7 @@
 /*
  * CT3 GET/READ Functions
  *
- * Copyright 1999-2001 Viktor Szakats (vsz.me/hb) (SaveGets(), RestGets())
+ * Copyright 1999-2001 Viktor Szakats (SaveGets(), RestGets())
  * Copyright 2004 Philip Chee <philip@aleytys.pc.my> (CountGets(), CurrentGet(), GetFldRow(), GetFldCol(), GetFldVar())
  *
  * This program is free software; you can redistribute it and/or modify

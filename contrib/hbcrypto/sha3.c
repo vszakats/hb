@@ -1,7 +1,7 @@
 /*
  * SHA3 function wrappers (secure hash)
  *
- * Copyright 2015 Viktor Szakats (vsz.me/hb)
+ * Copyright 2015 Viktor Szakats
  * (Harbour wrapper and low-level code adaptation)
  *
  * Low-level SHA3 C code:

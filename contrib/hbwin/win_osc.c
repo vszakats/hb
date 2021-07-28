@@ -1,7 +1,7 @@
 /*
  * Windows OS version information
  *
- * Copyright 2014 Viktor Szakats (vsz.me/hb)
+ * Copyright 2014 Viktor Szakats
  * Copyright 2004 Peter Rees <peter@rees.co.nz> Rees Software and Systems Ltd
  *
  * This program is free software; you can redistribute it and/or modify

@@ -1,6 +1,6 @@
 /* This is an original work by Brice de Ganahl and Steve Larsen
    and is placed in the public domain.
-   Viktor Szakats (vsz.me/hb): _findeol(), _findbol()
+   Viktor Szakats: _findeol(), _findbol()
    Doc headers by Glenn Scott, Don Caton, and Steve Larsen
    Extensively revised by Steve Larsen
 

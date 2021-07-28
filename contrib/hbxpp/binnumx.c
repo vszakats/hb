@@ -2,7 +2,7 @@
  * Bin2U(), W2Bin(), U2Bin() functions
  *
  * Copyright 2009 Przemyslaw Czerpak <druzus / at / priv.onet.pl>
- * Copyright 1999-2001 Viktor Szakats (vsz.me/hb)
+ * Copyright 1999-2001 Viktor Szakats
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

@@ -1,4 +1,4 @@
-/* Copyright 2010 Viktor Szakats (vsz.me/hb) */
+/* Copyright 2010 Viktor Szakats */
 {
   var tst2 = new ActiveXObject("MyOleTimeServer");
 

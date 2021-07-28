@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------
-# Copyright 2009-2017 Viktor Szakats (vsz.me/hb) (rework)
+# Copyright 2009-2017 Viktor Szakats (rework)
 # See LICENSE.txt for licensing terms.
 # ---------------------------------------------------------------
 

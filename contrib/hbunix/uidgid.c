@@ -1,7 +1,7 @@
 /*
  * POSIX function wrappers to get/set user and group IDs
  *
- * Copyright 2014 Viktor Szakats (vsz.me/hb) (posix_getpwnam(), posix_getgrnam())
+ * Copyright 2014 Viktor Szakats (posix_getpwnam(), posix_getgrnam())
  * Copyright 2011 Przemyslaw Czerpak <druzus / at / priv.onet.pl>
  *
  * This program is free software; you can redistribute it and/or modify

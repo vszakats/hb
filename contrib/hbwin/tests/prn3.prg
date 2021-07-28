@@ -1,4 +1,4 @@
-/* Copyright 2009 Viktor Szakats (vsz.me/hb) */
+/* Copyright 2009 Viktor Szakats */
 
 #require "hbwin"
 

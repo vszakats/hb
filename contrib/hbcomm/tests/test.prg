@@ -1,4 +1,4 @@
-/* Copyright 2009 Viktor Szakats (vsz.me/hb) (fixed, adapted to CLI, translated, formatted)
+/* Copyright 2009 Viktor Szakats (fixed, adapted to CLI, translated, formatted)
  * Copyright 2006 Marcelo Torres <lichitorres@yahoo.com.ar>
  */
 

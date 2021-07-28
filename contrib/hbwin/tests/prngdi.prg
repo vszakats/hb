@@ -1,4 +1,4 @@
-/* Copyright 2010-2017 Viktor Szakats (vsz.me/hb) */
+/* Copyright 2010-2017 Viktor Szakats */
 
 /* GDI calls and passing structures. */
 

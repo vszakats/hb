@@ -1,7 +1,7 @@
 /*
  * hb_scrypt_setup()
  *
- * Harbour adaptation 2015 Viktor Szakats (vsz.me/hb)
+ * Harbour adaptation 2015 Viktor Szakats
  * based on original C code by Colin Percival in scryptenc.c
  *
  * This program is free software; you can redistribute it and/or modify

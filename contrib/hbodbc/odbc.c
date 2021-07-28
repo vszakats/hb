@@ -1,7 +1,7 @@
 /*
  * This file contains source for first ODBC routines.
  *
- * Copyright 2009 Viktor Szakats (vsz.me/hb)
+ * Copyright 2009 Viktor Szakats
  * Copyright 2009 Mindaugas Kavaliauskas <dbtopas at dbtopas.lt>
  * Copyright 2006 Marcelo Lombardo <lombardo@uol.com.br>
  *   (SQLGetInfo(), SQLSetStmtAttr(), SQLGetStmtAttr(), SQLCommit(),

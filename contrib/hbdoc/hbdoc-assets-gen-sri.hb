@@ -2,7 +2,7 @@
 /*
  * Recalculate SRI hashes for hbdoc_assets.yml
  *
- * Copyright 2017-present Viktor Szakats (vsz.me/hb)
+ * Copyright 2017-present Viktor Szakats
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

@@ -1,7 +1,7 @@
 /*
  * The Date API (Harbour level)
  *
- * Copyright 1999-2001 Viktor Szakats (vsz.me/hb)
+ * Copyright 1999-2001 Viktor Szakats
  * Copyright 2004 Giancarlo Niccolai <gc@niccolai.ws>
  * Copyright 2006 Pavel Tsarenko <tpe2@mail.ru> (DaysInMonth(), DaysToMonth())
  * Copyright 2007 Walter Negro <anegro@overnet.com.ar>

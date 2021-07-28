@@ -1,7 +1,7 @@
 /*
  * NoSnow(), SetMode(), IsColor() functions
  *
- * Copyright 1999-2001 Viktor Szakats (vsz.me/hb)
+ * Copyright 1999-2001 Viktor Szakats
  * Copyright 1999 Paul Tucker <ptucker@sympatico.ca> (SetMode())
  *
  * This program is free software; you can redistribute it and/or modify

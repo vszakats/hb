@@ -1,4 +1,4 @@
-/* Copyright 2015 Viktor Szakats (vsz.me/hb) */
+/* Copyright 2015 Viktor Szakats */
 
 #require "hbicu"
 

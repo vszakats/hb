@@ -115,4 +115,4 @@ License extensions:
 Author:  
 
 
- - Viktor Szakats \(vsz.me/hb\) 
+ - Viktor Szakats 

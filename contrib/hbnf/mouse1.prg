@@ -1,4 +1,4 @@
-/* This is an original work from 2012 by Viktor Szakats (vsz.me/hb)
+/* This is an original work from 2012 by Viktor Szakats
    and is placed in the public domain. */
 
 THREAD STATIC t_lCrsState := .F.

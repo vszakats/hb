@@ -1,7 +1,7 @@
 /*
  * Misc Windows API functions
  *
- * Copyright 2008-2009 Viktor Szakats (vsz.me/hb)
+ * Copyright 2008-2009 Viktor Szakats
  * Copyright 2009 Francesco Saverio Giudice <info / at / fsgiudice.com> (win_SysRefresh())
  *
  * This program is free software; you can redistribute it and/or modify

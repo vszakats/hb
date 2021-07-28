@@ -1,4 +1,4 @@
-/* Copyright 2016 Viktor Szakats (vsz.me/hb) */
+/* Copyright 2016 Viktor Szakats */
 
 #include "inkey.ch"
 

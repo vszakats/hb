@@ -1,4 +1,4 @@
-# Copyright 2009-2017 Viktor Szakats (vsz.me/hb)
+# Copyright 2009-2017 Viktor Szakats
 
 # Build in shared mode for these platforms because it's required for dynamic
 # extension loading. (only do that if HB_BUILD_CONTRIB_DYN is enabled, meaning

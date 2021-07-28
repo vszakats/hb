@@ -1,4 +1,4 @@
-/* Copyright 2014 Viktor Szakats (vsz.me/hb) */
+/* Copyright 2014 Viktor Szakats */
 
 #require "rddsql"
 #require "sddoci"

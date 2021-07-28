@@ -1,7 +1,7 @@
 /*
  * xHarbour compatible disk type/status functions
  *
- * Copyright 2017 Viktor Szakats (vsz.me/hb)
+ * Copyright 2017 Viktor Szakats
  * Copyright 2012 Przemyslaw Czerpak <druzus / at / priv.onet.pl>
  *
  * This program is free software; you can redistribute it and/or modify

@@ -2,7 +2,7 @@
  * ProcName(), ProcLine() and ProcFile() functions
  *
  * Copyright 1999 Antonio Linares <alinares@fivetech.com>
- * Copyright 1999-2001 Viktor Szakats (vsz.me/hb) (ProcFile())
+ * Copyright 1999-2001 Viktor Szakats (ProcFile())
  * Copyright 2001 JFL (Mafact) <jfl@mafact.com>
  *    Adding the MethodName() just calling ProcName()
  *    Special treatment in case of Object and Eval (only for method mame)

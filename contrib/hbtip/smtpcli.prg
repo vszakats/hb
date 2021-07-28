@@ -3,7 +3,7 @@
  *
  * Copyright 2003 Giancarlo Niccolai <gian@niccolai.ws>
  * Copyright 2007 Hannes Ziegler <hz AT knowlexbase.com> (sendMail())
- * Copyright 2009 Viktor Szakats (vsz.me/hb) (SSL support)
+ * Copyright 2009 Viktor Szakats (SSL support)
  * Copyright 2015 Jean Lefebvre (STARTTLS support)
  *
  * This program is free software; you can redistribute it and/or modify

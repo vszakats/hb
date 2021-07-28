@@ -2,7 +2,7 @@
  * The Array API (C level)
  *
  * Copyright 1999 Antonio Linares <alinares@fivetech.com>
- * Copyright 1999-2001 Viktor Szakats (vsz.me/hb)
+ * Copyright 1999-2001 Viktor Szakats
  *   (hb_arrayIsObject(), hb_arrayCopyC(), hb_arrayGetC())
  * Copyright 2001 Ron Pinkas <ron@profit-master.com>
  *   (hb_arrayClone(), hb_arrayFromStack(), hb_arrayFromParams())

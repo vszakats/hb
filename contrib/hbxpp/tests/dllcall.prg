@@ -1,4 +1,4 @@
-/* Copyright 2008 Viktor Szakats (vsz.me/hb) */
+/* Copyright 2008 Viktor Szakats */
 
 /* DLL call demonstration. */
 

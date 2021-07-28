@@ -116,4 +116,4 @@ License extensions:
 Συγγραφέας:  
 
 
- - Viktor Szakats \(vsz.me/hb\) 
+ - Viktor Szakats 

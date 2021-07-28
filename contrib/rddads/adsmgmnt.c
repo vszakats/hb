@@ -1,7 +1,7 @@
 /*
  * Advantage Database Server RDD (Management functions)
  *
- * Copyright 2008 Viktor Szakats (vsz.me/hb)
+ * Copyright 2008 Viktor Szakats
  * Copyright 2001 Brian Hays <bhays@abacuslaw.com>
  *
  * This program is free software; you can redistribute it and/or modify

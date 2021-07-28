@@ -1,7 +1,7 @@
 /*
  * Printing subsystem for Windows using GUI printing
  *
- * Copyright 2010 Viktor Szakats (vsz.me/hb)
+ * Copyright 2010 Viktor Szakats
  * Copyright 2010 Xavi <jarabal/at/gmail.com>
  * Copyright 2004 Peter Rees <peter@rees.co.nz> Rees Software and Systems Ltd
  *

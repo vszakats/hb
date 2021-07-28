@@ -769,10 +769,10 @@ rm -rf "$RPM_BUILD_ROOT"
 ######################################################################
 
 %changelog
-* Tue Mar 28 2017 Viktor Szakats (vsz.me/hb)
+* Tue Mar 28 2017 Viktor Szakats
 - lots of updates to sync with Harbour changes, see main ChangeLog.txt
 
-* Tue Aug 05 2008 Viktor Szakats (vsz.me/hb)
+* Tue Aug 05 2008 Viktor Szakats
 - removed hbdot, hbverfix, hbpptest
 - hbrun now fully replaces hbdot
 

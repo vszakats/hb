@@ -1,4 +1,4 @@
-/* Copyright 2013-2016 Viktor Szakats (vsz.me/hb) */
+/* Copyright 2013-2016 Viktor Szakats */
 
 #require "hbcrypto"
 #require "hbtest"

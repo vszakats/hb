@@ -1,7 +1,7 @@
 /*
  * Windows dialogs
  *
- * Copyright 2010 Viktor Szakats (vsz.me/hb) (win_PrintDlgDC())
+ * Copyright 2010 Viktor Szakats (win_PrintDlgDC())
  * Copyright 2010 Przemyslaw Czerpak <druzus / at / priv.onet.pl> (win_GetOpenFileName(), win_GetSaveFileName())
  *
  * This program is free software; you can redistribute it and/or modify

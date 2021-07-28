@@ -1,4 +1,4 @@
-/* This is an original work from 2014 by Viktor Szakats (vsz.me/hb)
+/* This is an original work from 2014 by Viktor Szakats
    and is placed in the public domain. */
 
 FUNCTION ft_DosVer()

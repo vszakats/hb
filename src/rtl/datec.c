@@ -1,7 +1,7 @@
 /*
  * CMonth(), CDoW(), hb_CDay() functions
  *
- * Copyright 2014 Viktor Szakats (vsz.me/hb) (hb_CDay())
+ * Copyright 2014 Viktor Szakats (hb_CDay())
  * Copyright 1999 Jose Lalin <dezac@corevia.com>
  *
  * This program is free software; you can redistribute it and/or modify

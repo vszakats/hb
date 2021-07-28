@@ -2,7 +2,7 @@
  * Compatibility calls.
  *
  * Copyright 2011 Przemyslaw Czerpak <druzus / at / priv.onet.pl>
- * Copyright 2009 Viktor Szakats (vsz.me/hb)
+ * Copyright 2009 Viktor Szakats
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

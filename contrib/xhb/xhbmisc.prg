@@ -2,7 +2,7 @@
  * xHarbour compatibility functions
  *
  * Copyright 2012 Przemyslaw Czerpak <druzus / at / priv.onet.pl> (optimization and fixes)
- * Copyright 2012 Viktor Szakats (vsz.me/hb) (rework, xhb__Run())
+ * Copyright 2012 Viktor Szakats (rework, xhb__Run())
  * Copyright 2004 Eduardo Fernandes <modalsist@yahoo.com.br> (original)
  *
  * This program is free software; you can redistribute it and/or modify

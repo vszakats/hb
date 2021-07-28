@@ -1,7 +1,7 @@
 /*
  * Xbase++ compatible dbUpdate() function
  *
- * Copyright 1999-2007 Viktor Szakats (vsz.me/hb)
+ * Copyright 1999-2007 Viktor Szakats
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

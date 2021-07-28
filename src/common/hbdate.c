@@ -2,7 +2,7 @@
  * The Date conversion module
  *
  * Copyright 1999 Antonio Linares <alinares@fivetech.com>
- * Copyright 1999-2001 Viktor Szakats (vsz.me/hb)
+ * Copyright 1999-2001 Viktor Szakats
  *   (hb_dateEncStr(), hb_dateDecStr(), hb_dateStrPut(), hb_dateStrGet())
  * Copyright 1999 Jose Lalin <dezac@corevia.com> (hb_dateDOW())
  * Copyright 2009 Przemyslaw Czerpak <druzus / at / priv.onet.pl>

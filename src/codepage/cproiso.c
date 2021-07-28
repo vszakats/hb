@@ -1,7 +1,7 @@
 /*
  * National Collation Support Module (ROISO)
  *
- * Copyright 2008 Viktor Szakats (vsz.me/hb)
+ * Copyright 2008 Viktor Szakats
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

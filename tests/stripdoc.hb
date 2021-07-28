@@ -1,6 +1,6 @@
 #!/usr/bin/env hbmk2
 
-/* Copyright 2010 Viktor Szakats (vsz.me/hb) */
+/* Copyright 2010 Viktor Szakats */
 
 /* Strips HBDOC docs from source files */
 

@@ -1,4 +1,4 @@
-' Copyright 2010 Viktor Szakats (vsz.me/hb)
+' Copyright 2010 Viktor Szakats
 
 Dim tst2 : Set tst2 = WScript.CreateObject("MyOleTimeServer")
 

@@ -1,7 +1,7 @@
 /*
  * Oracle (via OCILIB) Database Driver
  *
- * Copyright 2010-2014 Viktor Szakats (vsz.me/hb)
+ * Copyright 2010-2014 Viktor Szakats
  * Originally based on ODBC driver by:
  * Copyright 2009 Mindaugas Kavaliauskas <dbtopas at dbtopas.lt>
  *

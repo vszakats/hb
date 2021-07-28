@@ -1,4 +1,4 @@
-/* Copyright 2017 Viktor Szakats (vsz.me/hb) */
+/* Copyright 2017 Viktor Szakats */
 /* Copyright 2015 https://github.com/emazv72 */
 
 /* Basic Publish and Consume API Test */

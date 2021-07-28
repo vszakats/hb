@@ -1,4 +1,4 @@
-/* Copyright 2014-2016 Viktor Szakats (vsz.me/hb) */
+/* Copyright 2014-2016 Viktor Szakats */
 
 #require "hbmac"
 

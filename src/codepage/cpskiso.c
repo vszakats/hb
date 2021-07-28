@@ -1,7 +1,7 @@
 /*
  * National Collation Support Module (SKISO)
  *
- * Copyright 2007-2010 Viktor Szakats (vsz.me/hb)
+ * Copyright 2007-2010 Viktor Szakats
  *
  * This file is generated automatically by cpinfo.prg
  */

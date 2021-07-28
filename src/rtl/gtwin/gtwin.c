@@ -10,7 +10,7 @@
  *     Copyright 1999-2000 Paul Tucker <ptucker@sympatico.ca>
  *     (with 2004 work on Readkey)
  *
- * Copyright 1999-2010 Viktor Szakats (vsz.me/hb)
+ * Copyright 1999-2010 Viktor Szakats
  *    hb_gt_win_CtrlHandler()
  *    hb_gt_win_SetCloseButton()
  *    hb_gt_win_SetPalette*()

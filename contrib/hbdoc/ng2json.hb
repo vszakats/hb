@@ -2,7 +2,7 @@
 /*
  * Norton Guide (.ng) to .json converter
  *
- * Copyright 2016-present Viktor Szakats (vsz.me/hb)
+ * Copyright 2016-present Viktor Szakats
  *
  * .ng parsing logic based on:
  *   Expert Guide - A Text Mode Norton Guide Reader

@@ -1,7 +1,7 @@
 /*
  * Zebra barcode library
  *
- * Copyright 2010 Viktor Szakats (vsz.me/hb)
+ * Copyright 2010 Viktor Szakats
  * Copyright 2010 Mindaugas Kavaliauskas <dbtopas at dbtopas.lt>
  *
  * This program is free software; you can redistribute it and/or modify

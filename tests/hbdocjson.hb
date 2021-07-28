@@ -1,6 +1,6 @@
 #!/usr/bin/env hbmk2
 
-/* Copyright 2016 Viktor Szakats (vsz.me/hb) */
+/* Copyright 2016 Viktor Szakats */
 
 /* Two-way HBDOC <-> JSON converter */
 

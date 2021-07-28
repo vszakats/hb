@@ -1,7 +1,7 @@
 /*
  * Harbour NETIO server daemon
  *
- * Copyright 2010-2012 Viktor Szakats (vsz.me/hb)
+ * Copyright 2010-2012 Viktor Szakats
  * Copyright 2009 Przemyslaw Czerpak <druzus / at / priv.onet.pl>
  *
  * This program is free software; you can redistribute it and/or modify

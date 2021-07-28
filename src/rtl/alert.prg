@@ -2,7 +2,7 @@
  * Alert(), hb_Alert() functions
  *
  * Released to Public Domain by Vladimir Kazimirchik <v_kazimirchik@yahoo.com>
- * Further modifications 1999-2017 Viktor Szakats (vsz.me/hb)
+ * Further modifications 1999-2017 Viktor Szakats
  *    Changes for higher Clipper compatibility, console mode, extensions, __NoNoAlert()
  *
  */

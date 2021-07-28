@@ -6,7 +6,7 @@
  * it will rebuild _all_ projects. Build order is determined according to
  * the dependency graph of involved projects.
  *
- * Copyright 2010-2017 Viktor Szakats (vsz.me/hb)
+ * Copyright 2010-2017 Viktor Szakats
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

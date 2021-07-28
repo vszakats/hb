@@ -1,7 +1,7 @@
 /*
  * curl_escape()/curl_unescape()
  *
- * Copyright 2008-2016 Viktor Szakats (vsz.me/hb)
+ * Copyright 2008-2016 Viktor Szakats
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

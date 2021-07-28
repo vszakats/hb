@@ -1,7 +1,7 @@
 /*
  * [S|G]ETKX[LAT|TAB] CA-T*ols functions (USE IT AT YOUR OWN RISK)
  *
- * Copyright 2012 Viktor Szakats (vsz.me/hb)
+ * Copyright 2012 Viktor Szakats
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

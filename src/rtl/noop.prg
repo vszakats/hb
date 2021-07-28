@@ -1,7 +1,7 @@
 /*
  * hb_noop() function to return an Eval() object that does nothing
  *
- * Copyright 2016 Viktor Szakats (vsz.me/hb)
+ * Copyright 2016 Viktor Szakats
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

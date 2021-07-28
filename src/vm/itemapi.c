@@ -2,7 +2,7 @@
  * The Item API
  *
  * Copyright 1999 Antonio Linares <alinares@fivetech.com>
- * Copyright 1999-2007 Viktor Szakats (vsz.me/hb)
+ * Copyright 1999-2007 Viktor Szakats
  *    hb_itemPCount(), hb_itemParamPtr(), hb_itemReturnPtr()
  *    hb_itemPutDL(), hb_itemPutNI(), hb_itemGetDL(), hb_itemGetNI(),
  *    hb_itemGetCPtr(), hb_itemPutCLPtr(), hb_itemGetCLen(), hb_itemGetNLen()

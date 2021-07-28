@@ -2,7 +2,7 @@
  * GetEnv(), GetE() functions
  *
  * Copyright 1999 Matthew Hamilton <mhamilton@bunge.com.au>
- * Copyright 1999-2001 Viktor Szakats (vsz.me/hb) (GetE())
+ * Copyright 1999-2001 Viktor Szakats (GetE())
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

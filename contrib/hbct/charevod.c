@@ -3,7 +3,7 @@
  *     - CharEven()
  *     - CharOdd()
  *
- * Copyright 2000-2001 Viktor Szakats (vsz.me/hb)
+ * Copyright 2000-2001 Viktor Szakats
  *
  * Merged into one file for optimization and some small corrections:
  * (c) 2001 IntTec GmbH, Neunlindenstr 32, 79106 Freiburg, Germany

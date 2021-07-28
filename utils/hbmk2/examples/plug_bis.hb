@@ -1,7 +1,7 @@
 /*
  * hbmk2 plugin script, implementing support for bison
  *
- * Copyright 2011-2013 Viktor Szakats (vsz.me/hb)
+ * Copyright 2011-2013 Viktor Szakats
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

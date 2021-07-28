@@ -1,7 +1,7 @@
 /*
  * Harbour Make (alias mk/hbmk/hbmk2/hbrun)
  *
- * Copyright 1999-2017 Viktor Szakats (vsz.me/hb)
+ * Copyright 1999-2017 Viktor Szakats
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19460,7 +19460,7 @@ STATIC PROCEDURE ShowHelp( hbmk, lMore, lLong )
 
    LOCAL aLst_Auth := { ;
       , ;
-      { "Viktor Szakats (vsz.me/hb)", "" } }
+      { "Viktor Szakats", "" } }
 
    /* Examples */
 

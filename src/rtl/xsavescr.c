@@ -1,7 +1,7 @@
 /*
  * __XSaveScreen()/__XRestScreen() functions
  *
- * Copyright 1999-2001 Viktor Szakats (vsz.me/hb) (Rewritten in C)
+ * Copyright 1999-2001 Viktor Szakats (Rewritten in C)
  * Copyright 1999 Paul Tucker <ptucker@sympatico.ca>
  *
  * This program is free software; you can redistribute it and/or modify

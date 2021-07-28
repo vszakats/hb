@@ -1,7 +1,7 @@
 /*
  * Supplementary functions (error strings)
  *
- * Copyright 2013 Viktor Szakats (vsz.me/hb)
+ * Copyright 2013 Viktor Szakats
  * Copyright 2009 P.Chornyj <myorg63@mail.ru>
  *
  * This program is free software; you can redistribute it and/or modify

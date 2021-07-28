@@ -1,4 +1,4 @@
-/* Rewritten in 2014 by Viktor Szakats (vsz.me/hb) and kept in the
+/* Rewritten in 2014 by Viktor Szakats and kept in the
    public domain.
    This is an original work by Glenn Scott/John Kaster and is placed in the
    public domain.

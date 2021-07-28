@@ -1,6 +1,6 @@
 #!/usr/bin/env hbmk2
 
-/* Copyright 2013-2017 Viktor Szakats (vsz.me/hb) */
+/* Copyright 2013-2017 Viktor Szakats */
 
 /* Update copyright headers */
 

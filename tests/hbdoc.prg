@@ -1,7 +1,7 @@
 /*
  * HBDOC reader test
  *
- * Copyright 2010 Viktor Szakats (vsz.me/hb)
+ * Copyright 2010 Viktor Szakats
  */
 
 #include "directry.ch"

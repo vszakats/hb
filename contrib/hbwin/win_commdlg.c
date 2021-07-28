@@ -1,7 +1,7 @@
 /*
  * Common dialogs
  *
- * Copyright 2014 Viktor Szakats (vsz.me/hb)
+ * Copyright 2014 Viktor Szakats
  * based on: Copyright 2007-2012 Pritpal Bedi <bedipritpal@hotmail.com>
  *
  * This program is free software; you can redistribute it and/or modify

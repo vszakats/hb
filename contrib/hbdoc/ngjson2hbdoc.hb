@@ -2,7 +2,7 @@
 /*
  * Norton Guide JSON to HBDOC/NFDOC (.txt) format converter
  *
- * Copyright 2016-present Viktor Szakats (vsz.me/hb)
+ * Copyright 2016-present Viktor Szakats
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

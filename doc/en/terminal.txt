@@ -368,7 +368,7 @@
 
 /* $DOC$
    $AUTHOR$
-      Copyright 1999-2001 Viktor Szakats (vsz.me/hb)
+      Copyright 1999-2001 Viktor Szakats
    $TEMPLATE$
       Function
    $NAME$

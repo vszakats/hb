@@ -7,7 +7,7 @@
  *    hb_gtDispBegin(), hb_gtDispEnd()
  *    hb_gtPreExt(), hb_gtPostExt()
  *    hb_gtGetColorStr(), hb_gtSetColorStr(), hb_gtSetMode()
- * Copyright 1999-2001 Viktor Szakats (vsz.me/hb)
+ * Copyright 1999-2001 Viktor Szakats
  *    hb_gtDrawShadow()
  * Copyright 2006 Przemyslaw Czerpak < druzus /at/ priv.onet.pl >
  *    The body of these functions which were usable in new GT API

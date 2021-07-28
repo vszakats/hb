@@ -2,7 +2,7 @@
  * hb_AtI() function
  *
  * Copyright 2012 Przemyslaw Czerpak <druzus / at / priv.onet.pl>
- * Copyright 1999-2009 Viktor Szakats (vsz.me/hb)
+ * Copyright 1999-2009 Viktor Szakats
  * Copyright 1999 Antonio Linares <alinares@fivetech.com>
  *
  * This program is free software; you can redistribute it and/or modify

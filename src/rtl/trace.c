@@ -1,7 +1,7 @@
 /*
  * The Clipper tracing API
  *
- * Copyright 2009 Viktor Szakats (vsz.me/hb)
+ * Copyright 2009 Viktor Szakats
  * Copyright 1999 Gonzalo A. Diethelm <gonzalo.diethelm@iname.com>
  *
  * This program is free software; you can redistribute it and/or modify

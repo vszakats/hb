@@ -2,7 +2,7 @@
  * PostgreSQL RDBMS low-level (client API) interface code.
  *
  * Copyright 2016 P.Chornyj <myorg63@mail.ru>
- * Copyright 2014 Viktor Szakats (vsz.me/hb)
+ * Copyright 2014 Viktor Szakats
  * Copyright 2003 Rodrigo Moreno rodrigo_moreno@yahoo.com
  *
  * This program is free software; you can redistribute it and/or modify

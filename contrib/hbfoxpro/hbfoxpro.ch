@@ -1,7 +1,7 @@
 /*
  * Visual FoxPro compatibility header
  *
- * Copyright 2010 Viktor Szakats (vsz.me/hb)
+ * Copyright 2010 Viktor Szakats
  * Copyright 2010 Przemyslaw Czerpak <druzus / at / priv.onet.pl>
  *
  * This program is free software; you can redistribute it and/or modify

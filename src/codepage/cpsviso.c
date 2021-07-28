@@ -1,7 +1,7 @@
 /*
  * National Collation Support Module (SVISO)
  *
- * Copyright 2008 Viktor Szakats (vsz.me/hb)
+ * Copyright 2008 Viktor Szakats
  * Copyright 2006 Klas Engwall <klas dot engwall at engwall dot com>
  *
  * This program is free software; you can redistribute it and/or modify

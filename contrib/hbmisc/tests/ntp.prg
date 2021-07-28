@@ -1,4 +1,4 @@
-/* Copyright 2013-2014 Viktor Szakats (vsz.me/hb) */
+/* Copyright 2013-2014 Viktor Szakats */
 
 #require "hbmisc"
 
