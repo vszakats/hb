@@ -400,14 +400,10 @@ STATIC FUNCTION GitFileList()
 STATIC FUNCTION GitUser()
 
    LOCAL cName
-   LOCAL cEMail
 
    hb_processRun( Shell() + " " + CmdEscape( "git config user.name" ),, @cName )
-   hb_processRun( Shell() + " " + CmdEscape( "git config user.email" ),, @cEMail )
 
-   RETURN hb_StrFormat( "%s (%s)", ;
-      AllTrim( hb_StrReplace( cName, Chr( 10 ) + Chr( 13 ) ) ), ;
-      StrTran( AllTrim( hb_StrReplace( cEMail, Chr( 10 ) + Chr( 13 ) ) ), "@", " " ) )
+   RETURN AllTrim( hb_StrReplace( cName, Chr( 10 ) + Chr( 13 ) ) )
 
 STATIC FUNCTION GitEditor()
 
