@@ -20,8 +20,7 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
    LOCAL cHTML
    LOCAL cSubject
 
-   /* Require STARTTLS on port 587 (true) or allow it to proceed without it (false) */
-   LOCAL lSTARTTLS_force
+   LOCAL lTLS_required
 
    IF hb_AScan( curl_version_info()[ HB_CURLVERINFO_PROTOCOLS ], "smtps",,, .T. ) == 0
       ? "Error: Requires libcurl 7.20.0 or newer, built with TLS/SSL and SMTP protocol support"
@@ -53,14 +52,16 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
       e"email viewers able to handle HTML.</p>" + ;
       e"</body></html>\r\n"
 
-   lSTARTTLS_force := .F.
+   /* Require STARTTLS on port 587 and TLS on port 465 (true)
+      or allow it to proceed without it (false) */
+   lTLS_required := .F.
 
    /* NOTE: Consult your provider for updated settings
             and create a Pull Request if necessary. */
 
    DO CASE
    CASE cHost == "apple" .OR. "@icloud.com" $ cFrom .OR. "@mac.com" $ cFrom .OR. "@me.com" $ cFrom
-      cHost := "smtp://smtp.mail.me.com:587"; lSTARTTLS_force := .T.
+      cHost := "smtp://smtp.mail.me.com:587"
    CASE cHost == "fastmail" .OR. "@fastmail.com" $ cFrom .OR. "@fastmail.fm" $ cFrom
       cHost := "smtps://smtp.fastmail.com"
    CASE cHost == "gmx.net" .OR. "@gmx.net" $ cFrom .OR. "@gmx.ch" $ cFrom .OR. "@gmx.de" $ cFrom
@@ -72,9 +73,9 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
    CASE cHost == "netease" .OR. "@163.com" $ cFrom
       cHost := "smtps://smtp.163.com"
    CASE cHost == "office365"
-      cHost := "smtp://smtp.office365.com:587"; lSTARTTLS_force := .T.
+      cHost := "smtp://smtp.office365.com:587"
    CASE cHost == "outlook" .OR. "@outlook.com" $ cFrom .OR. "@hotmail.com" $ cFrom
-      cHost := "smtp://smtp-mail.outlook.com:587"; lSTARTTLS_force := .T.
+      cHost := "smtp://smtp-mail.outlook.com:587"
    CASE cHost == "sina" .OR. "@sina.com" $ cFrom
       cHost := "smtps://smtp.vip.sina.com"
    CASE cHost == "uol" .OR. "@uol.com.br" $ cFrom
@@ -82,13 +83,18 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
    CASE cHost == "yahoo" .OR. "@yahoo.com" $ cFrom
       cHost := "smtps://smtp.mail.yahoo.com"
    CASE cHost == "localhost"
-      cHost := "smtp://localhost:1025"  /* MailHog */
+      cHost := "smtp://localhost:1025"; lTLS_required := .F.  /* MailHog */
       cUser := cPassword := NIL
+   OTHERWISE
+      /* WARNING: In this demo STARTTLS is not enforced for custom servers! */
+      lTLS_required := hb_LeftEq( cHost, "smtps://" )
    ENDCASE
 
    ? "libcurl:", curl_version_info()[ HB_CURLVERINFO_VERSION ]
    ? "Payload API:", iif( lAPI_curl, "libcurl native", "tip_MailAssemble()" )
-   ? "Host:", cHost, iif( lSTARTTLS_force, "(must STARTTLS)", "" )
+   ? "Host:", cHost, ;
+      iif( hb_LeftEq( cHost, "smtps://" ), "(SMTPS)", ;
+         iif( lTLS_required, "(must STARTTLS)", "(cleartext/insecure)" ) )
 
    #if defined( __PLATFORM__UNIX )
       lSystemCA := .T.
@@ -125,11 +131,11 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
          ENDIF
       ENDIF
       curl_easy_setopt( curl, HB_CURLOPT_USE_SSL, ;
-         iif( lSTARTTLS_force, HB_CURLUSESSL_ALL, HB_CURLUSESSL_TRY ) )
+         iif( lTLS_required, HB_CURLUSESSL_ALL, HB_CURLUSESSL_TRY ) )
       curl_easy_setopt( curl, HB_CURLOPT_UPLOAD )
       curl_easy_setopt( curl, HB_CURLOPT_URL, cHost )
       curl_easy_setopt( curl, HB_CURLOPT_PROTOCOLS, ;
-         hb_bitOr( HB_CURLPROTO_SMTPS, HB_CURLPROTO_SMTP ) )
+         iif( hb_LeftEq( cHost, "smtps://" ), HB_CURLPROTO_SMTPS, HB_CURLPROTO_SMTP ) )
       curl_easy_setopt( curl, HB_CURLOPT_TIMEOUT_MS, 15000 )
       curl_easy_setopt( curl, HB_CURLOPT_VERBOSE, .T. )
       curl_easy_setopt( curl, HB_CURLOPT_USERNAME, cUser )
