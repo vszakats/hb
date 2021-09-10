@@ -130,7 +130,7 @@ export HB_BUILD_POSTRUN='"./hbmk2 --version" "./hbrun --version" "./hbtest -noen
 
 # decrypt code signing key
 
-CODESIGN_KEY="$(realpath './package')/vszakats.p12"
+CODESIGN_KEY="$(realpath './package')/sign-code.p12"
 (
   set +x
   if [ -n "${HB_CODESIGN_GPG_PASS}" ]; then

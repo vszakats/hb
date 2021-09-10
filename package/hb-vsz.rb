@@ -1,5 +1,5 @@
-class HarbourVszakats < Formula
-  desc "Portable, xBase-compatible programming language and environment (vszakats fork)"
+class HbVsz < Formula
+  desc "Portable, xBase-compatible programming language and env (fork)"
   homepage "https://github.com/vszakats/hb/"
 
   head "https://github.com/vszakats/hb.git"
@@ -10,12 +10,6 @@ class HarbourVszakats < Formula
     patch :DATA
     url "https://github.com/vszakats/hb/archive/v3.0.0.tar.gz"
     sha256 "34196df52c5f9994b57936fd231f09b7307462a63cfdaa42fe8d3e1a8a388dfd"
-  end
-
-  devel do
-    url "https://github.com/vszakats/hb/archive/4dd7c9b22d452986a350a5d1b2652b19e85d69b5.tar.gz"
-    sha256 "88a34c65e0ebd1383a51552e817d2672da8a9de87e8c239d398a5ca1354e82a7"
-    version "3.4.0"
   end
 
   # These are "vendored", but system package used when found
@@ -38,16 +32,14 @@ class HarbourVszakats < Formula
   depends_on "libmagic" => :optional
   depends_on "libyaml" => :optional
   depends_on "mariadb" => :optional
-  depends_on :mysql => :optional
   depends_on "ncurses" => :optional
   depends_on "openssl" => :optional if build.stable?
   depends_on "openssl@1.1" => :optional unless build.stable?
-  depends_on :postgresql => :optional
+  depends_on "postgresql" => :optional
   depends_on "qt" => :optional
   depends_on "rabbitmq-c" => :optional
   depends_on "s-lang" => :optional
   depends_on "unixodbc" => :optional
-  depends_on :x11 => :optional
 
   def install
     ENV["HB_INSTALL_PREFIX"] = prefix
@@ -69,7 +61,7 @@ class HarbourVszakats < Formula
          return
     EOS
 
-    assert_match /Hello, world!/, shell_output("#{bin}/hbmk2 hello.prg -run")
+    assert_match(/Hello, world!/, shell_output("#{bin}/hbmk2 hello.prg -run"))
   end
 end
 
