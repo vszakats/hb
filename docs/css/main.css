@@ -1040,7 +1040,9 @@ pre, code {
 @media screen and (max-width: 760px) {
 }
 
-@media screen and (max-width: calc(var(--content-width) - 1px)) {
+/* https://github.com/w3c/csswg-drafts/issues/2627 */
+/* https://github.com/w3c/csswg-drafts/issues/3578 */
+@media screen and (max-width: 737px) { /* calc(var(--content-width) - 1px) */
   .menu-text {
     display: none;
   }
