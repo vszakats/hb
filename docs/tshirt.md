@@ -4,7 +4,7 @@ title: "T-Shirt"
 ---
 # The Harbour T-Shirt!
 
-You can order the Harbour-Project T-Shirt for $20 (USD) per piece (excluding
+You can order the Harbour T-Shirt for $20 (USD) per piece (excluding
 mail cost.)<br>
 We have them in sizes eXtra Large and Large. Click on the image to order!
 

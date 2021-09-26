@@ -8,8 +8,8 @@ layout: default
   compatible with xBase languages. Harbour consists of a compiler and runtime
   libraries with multiple UI, database and I/O backends, its own build system
   and a collection of libraries and bindings for popular APIs.
-  With Harbour, you can build apps running on GNU/Linux, Windows (32/64-bit),
-  macOS, iOS, Android, *BSD, *nix, and more.
+  With Harbour, you can build apps running on GNU/Linux, Windows, macOS, iOS,
+  Android, *BSD, *nix, and more.
   <a href="{{ site.baseurl }}/about{{ site.ilink_suffix }}" class="readmore">Learn more</a>
 </div>
 
@@ -52,7 +52,7 @@ layout: default
       <a href="https://github.com/{{ site.repo_slug }}/archive/{{ site.repo_branch }}.tar.gz"><strong>.tar.gz</strong></a><br>
 {%- if site.fork %}
       Binary snapshot (Windows):&nbsp;
-      <a href="{{ site.dl_url }}/download/v{{ site.full_version }}/harbour-snapshot-win.zip" tooltip-text="clang / mingw-w64, 64-bit hosted, 32/64-bit targets, bundled with latest curl and OpenSSL libraries." class="tooltip"><strong>.zip</strong></a>
+      <a href="{{ site.dl_url }}/download/v{{ site.full_version }}/harbour-snapshot-win.zip" tooltip-text="clang / mingw-w64, 64-bit hosted, 32/64-bit targets, bundled with latest curl and TLS/SSL libraries." class="tooltip"><strong>.zip</strong></a>
 {%- else %}
       Nightly binary (Win):&nbsp;
       <a href="{{ site.dl_url }}binaries-windows/nightly/harbour-nightly-win.exe/download"><strong>.exe</strong></a><br>
@@ -66,27 +66,27 @@ layout: default
   <h1>Features</h1>
   <div>
     <div>
-      {% include svg/fa-solid-database.svg %}
+      {% include svg/ri-database-2-line.svg %}
       Native RDDs, SQL, ODBC
     </div>
     <div>
-      {% include svg/fa-solid-cogs.svg %}
+      {% include svg/ri-dashboard-line.svg %}
       <br>Support for modern standards: JSON, SSL, TCP/IP, XML, …
     </div>
     <div>
-      {% include svg/fa-solid-mobile.svg %}
+      {% include svg/ri-smartphone-line.svg %}
       <br>Cross-platform: 64-bit, mobile, Mac, Linux, BSD, ARM, …
     </div>
     <div>
-      {% include svg/fa-solid-laptop.svg %}
+      {% include svg/ri-macbook-line.svg %}
       <br>Console, TUI, GUI, service/daemon, web apps
     </div>
     <div>
-      {% include svg/fa-solid-cubes.svg %}
+      {% include svg/ri-bubble-chart-line.svg %}
       <br>Third-party libs with additional features
     </div>
     <div>
-      {% include svg/fa-solid-lightbulb.svg %}
+      {% include svg/ri-lightbulb-line.svg %}
       <br>Team of experienced and capable developers
     </div>
   </div>
@@ -102,7 +102,7 @@ layout: default
 <div class="lower-box">
   <div class="news-box">
     <h1>Development News
-      &nbsp;<a href="https://github.com/{{ site.site_slug }}/edit/{{ site.site_branch }}/{{ site.site_root }}_data/news.yml">{% include svg/fa-solid-pencil-alt.svg %}</a></h1>
+      &nbsp;<a href="https://github.com/{{ site.site_slug }}/edit/{{ site.site_branch }}/{{ site.site_root }}_data/news.yml">{% include svg/ri-edit-line.svg %}</a></h1>
     <hr>
 
     <dl class="news">

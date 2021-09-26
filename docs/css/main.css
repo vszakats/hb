@@ -6,9 +6,7 @@
   --font-copy: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 
-  --fork-color: midnightblue;
-  --fork-color: red;
-  --fork-color: crimson;
+  --fork-color: #fff;
 
   --color-base0: #4997d9;
   --color-base1: #0974c5;  /* hsl(random(360), random(100), random(50)) ? */
@@ -27,7 +25,7 @@
   --color-a-active: var(--color-a-hover);
   --color-footer: #bbb;
 
-  --color-version: {% if site.fork %}#fff{% else %}#eee{% endif %};
+  --color-version: {% if site.fork %}#000{% else %}#eee{% endif %};
   --color-version-bk: {% if site.fork %}var(--fork-color){% else %}#015173{% endif %};
 
   --color-header-text-shadow: #0760a3;  /* darken(var(--color-base1), 7%) */
@@ -38,7 +36,7 @@
   --color-bk-tooltip: var(--color-bk-footer);
   --color-bk-head-def: #83b9e2;  /* mix(var(--color-menu-bk), var(--color-base1)) */
   --color-bk-code: #f2f2f2;
-  --color-bk-box1: #f6f6ee;
+  --color-bk-box1: #e9f2fa;
   --color-bk-box2: #e9f2fa;  /* mix(var(--color-bk-main), var(--color-base1), 91%) */
   --color-bk-boxs: #f5ce00;  /* darken(gold, 2%) */
 
@@ -496,14 +494,10 @@ footer a:active {
   width: 33.3%;
 }
 
-/*
-.cc {
-  font-size: smaller;
-  text-transform: uppercase;
-}
-*/
-.cc2 {
-  white-space: nowrap;
+.cc svg {
+  stroke: none;
+  width: 60px;
+  vertical-align: -3px;
 }
 
 .smaller {
@@ -953,8 +947,9 @@ pre, code {
 
 .dropbtn > svg {
   fill: currentColor;
-  width: 34px;
   height: 28px;
+  display: block;
+  margin: auto;
   transition: fill .25s;
 }
 
@@ -982,7 +977,11 @@ pre, code {
 /* The container <nav> - needed to position the dropdown content */
 .dropdown {
   display: inline-block !important;
+{%- if true %}
   padding: 8px 15.6px 6px 15.6px;
+{%- else %}
+  padding: 8px 25.7px 6px 25.7px;
+{%- endif %}
   position: relative;
 }
 
@@ -1178,23 +1177,23 @@ pre, code {
     color: #004580;  /* darken(#008aff, 25%) */
   }
   .feature-box {
-    background-color: #202020;
+    background-color: #282828;
     color: #eee;
   }
   .why-items {
-    background-color: #202020;
+    background-color: #282828;
     color: #eee;
   }
   .license-box {
-    background-color: #202020;
+    background-color: #282828;
     color: #eee;
   }
   .miniexample-box {
-    background-color: #404040;
+    background-color: #282828;
     color: #eee;
   }
   .example-list, .highlight {
-    background-color: #404040;
+    background-color: #282828;
     color: #eee;
   }
   h1, h2, h3, h4, a {
@@ -1227,20 +1226,20 @@ pre, code {
     color: #0f0;
   }
   .list-bubble {
-    background-color: #202020;
+    background-color: #282828;
   }
   .list-bubble svg {
     fill: #ccc;
   }
   .bubble-alt {
-    background-color: #202020;
+    background-color: #282828;
     color: #eee;
   }
   .crew-content > div {
-    background-color: #202020 !important;
+    background-color: #282828 !important;
     color: #eee !important;
   }
   .shot-toolbar {
-    background: #202020;
+    background: #282828;
   }
 }

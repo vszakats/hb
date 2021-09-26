@@ -8,7 +8,7 @@ title: "Logo"
 
 App icons for
 [Windows](https://raw.githubusercontent.com/vszakats/hb/main/package/harbour.ico) and
-[Apple](https://raw.githubusercontent.com/vszakats/hb/main/package/harbour.icns).<br>
+[Mac](https://raw.githubusercontent.com/vszakats/hb/main/package/harbour.icns).<br>
 
 # Former versions
 
@@ -34,3 +34,7 @@ App icons for
   [![button](https://harbour.github.io/art/harbour-button.png)](https://harbour.github.io/art/harbour-button.png)
 * [Badge – animated](https://harbour.github.io/art/harbour-animgif.zip)
 {% endunless %}
+
+# Website icons
+
+by [remix icon](https://remixicon.com/)

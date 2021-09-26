@@ -160,7 +160,7 @@ LZF bindings (compression)
 {%- endunless %}
 ## hbmac (Mac-only)
 
-Apple Mac specific functions
+OS-specific helper functions
 
 ## hbmagic (\*nix-only)
 

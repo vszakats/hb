@@ -21,7 +21,7 @@
 
     <nav class="dropdown">
       <a class="dropbtn" href="{{ site.baseurl }}/about{{ site.ilink_suffix }}">
-      {% include svg/fa-solid-comment.svg %}<br><span class="menu-text">About</span></a>
+      {% include svg/ri-chat-3-line.svg %}<span class="menu-text">About</span></a>
       <nav class="dropdown-content">
         <a href="{{ site.baseurl }}/about{{ site.ilink_suffix }}">About Harbour</a>
         <hr>
@@ -33,13 +33,13 @@
 
     <nav class="dropdown">
       <a class="dropbtn" href="https://harbour.github.io/doc/">
-      {% include svg/fa-solid-book.svg %}<br><span class="menu-text">Documentation</span></a>
+      {% include svg/ri-book-line.svg %}<span class="menu-text">Documentation</span></a>
       <nav class="dropdown-content">
         <a href="https://github.com/{{ site.repo_slug }}/#readme">README</a>
         <a href="{{ site.baseurl }}/changelog{{ site.ilink_suffix }}">ChangeLog</a>
         <a href="https://github.com/{{ site.repo_slug }}/blob/{{ site.repo_branch }}/utils/hbmk2/doc/hbmk2.en.md">Build Tool · hbmk2</a>
         <a href="https://github.com/{{ site.repo_slug }}/blob/{{ site.repo_branch }}/contrib/hbrun/doc/hbrun.en.md">Runner · hbrun</a>
-        <a href="https://harbour.github.io/doc/" class="updated">Reference Guides</a>
+        <a href="https://harbour.github.io/doc/">Reference Guides</a>
         <hr>
         <a href="{{ site.baseurl }}/faq{{ site.ilink_suffix }}">FAQ (archive)</a>
         <hr>
@@ -49,7 +49,7 @@
 
     <nav class="dropdown">
       <a class="dropbtn" href="{{ site.dl_url }}">
-      {% include svg/fa-solid-cloud-download-alt.svg %}<br><span class="menu-text">Download</span></a>
+      {% include svg/ri-download-2-line.svg %}<span class="menu-text">Download</span></a>
       <nav class="dropdown-content">
         <a href="{{ site.dl_url }}">Source and Binaries</a>
 {%- if site.fork %}
@@ -67,7 +67,7 @@
 
     <nav class="dropdown">
       <a class="dropbtn" href="https://github.com/{{ site.repo_slug }}">
-      {% include svg/fa-solid-cog.svg %}<br><span class="menu-text">Development</span></a>
+      {% include svg/ri-settings-3-line.svg %}<span class="menu-text">Development</span></a>
       <nav class="dropdown-content">
 {%- unless site.fork %}
         <a href="{{ site.baseurl }}/mailing{{ site.ilink_suffix }}">Mailing Lists</a>
@@ -86,32 +86,34 @@
 
     <nav class="dropdown">
       <a class="dropbtn" href="{{ site.baseurl }}/news{{ site.ilink_suffix }}">
-      {% include svg/fa-solid-newspaper.svg %}<br><span class="menu-text">News</span></a>
+      {% include svg/ri-newspaper-line.svg %}<span class="menu-text">News</span></a>
     </nav>
 
     <nav class="dropdown">
       <a class="dropbtn" href="{{ site.baseurl }}/crew{{ site.ilink_suffix }}">
-      {% include svg/fa-solid-globe.svg %}<br><span class="menu-text">Crew</span></a>
+      {% include svg/ri-global-line.svg %}<span class="menu-text">Crew</span></a>
     </nav>
 
     <nav class="dropdown">
       <a class="dropbtn" href="{{ site.baseurl }}/logo{{ site.ilink_suffix }}">
-      {% include svg/fa-solid-paint-brush.svg %}<br><span class="menu-text">Logo</span></a>
+      {% include svg/ri-brush-line.svg %}<span class="menu-text">Logo</span></a>
     </nav>
+{%- if true %}
 
     <nav class="dropdown">
       <a class="dropbtn">
-      {% include svg/fa-solid-language.svg %}<br><span class="menu-text">Language</span></a>
+      {% include svg/ri-translate.svg %}<span class="menu-text">Language</span></a>
       <nav class="dropdown-content">
         <a href="{{ site.baseurl }}/">English</a>
       </nav>
     </nav>
+{%- endif %}
   </nav>
 </header>
 
 <main>
 {%- if page.layout != 'example' %}
   <a class="text-right edit-page" href="https://github.com/{{ site.site_slug }}/edit/{{ site.site_branch }}/{{ site.site_root }}{{ page.path }}">
-  {% include svg/fa-solid-pencil-alt.svg %}
+  {% include svg/ri-edit-line.svg %}
   &nbsp;Improve this page</a>
 {%- endif %}

@@ -19,7 +19,7 @@ maintenance, this fork has the policy to disable all deprecated components by
 default (they can be enabled though, with no promises). Other goals are
 compatibility with mainline core, continuous maintenance, build automation and
 security ([`hbcrypto`]({% if site.fork %}{{ site.baseurl }}{% else %}{{ forkurl }}{% endif %}/contribs{{ site.ilink_suffix }}#hbcrypto)
-contrib and [curl/OpenSSL builds](https://github.com/curl/curl-for-win)).
+contrib and [curl builds](https://github.com/curl/curl-for-win)).
 It also features a large number of fixes and cleanups, many of which are
 eventually retrofitted to mainline.
 
@@ -69,7 +69,7 @@ libraries with names overlapping with Harbour contribs, but with slightly
 incompatible or completely different functionality. Some distros come in
 binary form only, making it difficult/impossible to find out what was the exact
 source code / patches they were built from. In practice it means that general
-Harbour support forums can't help with issues.
+Harbour support forums cannot help with issues.
 
 * [OOHG](https://oohg.github.io/)
 

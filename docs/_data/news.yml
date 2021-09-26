@@ -1,29 +1,26 @@
 ---
 - date: 2016-10-20
-  title: New logo and further website refresh
-  text: The logo received a refresh, dropping the "Hb" characters, making
-    it fit in a square shape and refreshed, fewer colors. The website evolved
+  title: <a href="https://github.com/harbour/core/commit/e9431133c503517e70b4d852fbf24eacac6be630">New logo and further website refresh</a>
+  text: The logo received a refresh, dropping "Hb" characters, making it
+    fit in a square shape and refreshed, fewer colors. The website evolved
     further as well, with brighter and more modern look, larger fonts,
-    responsive design and a new Donate button. A visual overview of the
-    website redesign steps
-    <a href="https://vsz.me/hb-evo">here</a>.
+    responsive design and a new Donate button. Website redesign steps,
+    <a href="https://vsz.me/hb-evo">a visual overview</a>.
 - date: 2016-09-20
-  title: Website refresh
+  title: <a href="https://github.com/harbour/core/commit/cd61ee722229784ba704252f4da296794dd1fa5b">Website refresh</a>
   text: Continuing with the refactor, the site is now fully vector-based,
     sources have been cleaned up and further minimized, the look refreshed.
     The crew page and code examples are now automatically generated, thus
     much easier to update. Several pages have been converted to Markdown.
     Source size is now 64 kB (was 624 kB). Also added en edit button to
     each page.
-    <a href="https://vsz.me/">vszakats</a>
 - date: 2016-09-12
-  title: Website refactor
+  title: <a href="https://github.com/harbour/core/commit/cd61ee722229784ba704252f4da296794dd1fa5b">Website refresh</a>
   text: Website refactored to use Jekyll, use pure HTML5, drop table based
     layout, drop JavaScript for a CSS menu, remove anything unused, fix things
     broken, use vector images instead of bitmaps where possible, deduplicate
     markup and content. This means 7.5x size reduction of page sources.<br>
     Content and design remained the same, but much easier to update now.
-    <a href="https://vsz.me/">vszakats</a>
 - date: 2013-03-20
   title: Migration to Git and GitHub
   text: <a href="https://git-scm.com/"><span class="img-right"><svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 0 272.96 114.01">
@@ -39,14 +36,12 @@
     version 3.0.0 is released. Sources are available for download, prebuilt
     binaries will follow shortly.
 - date: 2010-08-02
-  title: Successful port to VxWorks RTOS
+  title: <a href="https://github.com/harbour/core/commit/302211f9af601ed63dff84558e075be0ed3ffe45">Successful port to VxWorks RTOS</a>
   text: In 2010 July with few days of development effort, Harbour has been
     ported successfully to VxWorks 6.8 Real-Time Operating System (x86 CPU
     target for now) for both GCC and Wind River C Compiler. Thanks to Wind
     River Inc. for making their development package available to our open source
     project. This means Harbour can now run on cars, planes, rockets and robots!
-    Details in the
-    <a href="https://github.com/harbour/core/commit/302211f9af601ed63dff84558e075be0ed3ffe45">commit</a>.
 - date: 2010-06-03
   title: Mailing list address changes
   text: Thanking Phil Barnett for providing the Harbour community a great

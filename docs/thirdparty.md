@@ -80,7 +80,7 @@ a portable multi-platform GUI toolkit for Harbour.
 wxWidgets lets developers create applications for Windows, macOS, GTK+, X11,
 Motif and more, using a single codebase. Unlike other cross-platform toolkits,
 wxWidgets applications look and feel native. This is because wxWidgets uses
-the platform's own native controls rather than emulating them. It's also
+the platform's own native controls rather than emulating them. It is also
 extensive, free, open-source, and mature.
 
 ## [xHGtk](https://sourceforge.net/projects/xhgtk/)
