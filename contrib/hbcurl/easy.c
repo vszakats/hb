@@ -2272,6 +2272,11 @@ HB_FUNC( CURL_EASY_SETOPT )
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_SSH_HOST_PUBLIC_KEY_MD5, hb_parc( 3 ) );  /* cp:ASCII */
                break;
 #endif
+#if LIBCURL_VERSION_NUM >= 0x075000
+            case HB_CURLOPT_SSH_HOST_PUBLIC_KEY_SHA256:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_SSH_HOST_PUBLIC_KEY_SHA256, hb_parc( 3 ) );  /* cp:ASCII */
+               break;
+#endif
 #if LIBCURL_VERSION_NUM >= 0x071001
             case HB_CURLOPT_SSH_PUBLIC_KEYFILE:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_SSH_PUBLIC_KEYFILE, hb_parc( 3 ) );  /* cp:UTF-8 */
