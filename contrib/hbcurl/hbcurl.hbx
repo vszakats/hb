@@ -46,6 +46,7 @@ DYNAMIC curl_url
 DYNAMIC curl_url_dup
 DYNAMIC curl_url_get
 DYNAMIC curl_url_set
+DYNAMIC curl_url_strerror
 DYNAMIC curl_version
 DYNAMIC curl_version_info
 DYNAMIC hb_curl_date

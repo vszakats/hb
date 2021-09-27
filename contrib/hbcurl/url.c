@@ -182,3 +182,12 @@ HB_FUNC( CURL_URL_GET )
 
    curl_free( part );
 }
+
+HB_FUNC( CURL_URL_STRERROR )
+{
+#if LIBCURL_VERSION_NUM >= 0x075000
+   hb_retc_const( curl_url_strerror( ( CURLUcode ) hb_parnl( 1 ) );
+#else
+   hb_retc_null();
+#endif
+}
