@@ -4,8 +4,7 @@
   text: The logo received a refresh, dropping "Hb" characters, making it
     fit in a square shape and refreshed, fewer colors. The website evolved
     further as well, with brighter and more modern look, larger fonts,
-    responsive design and a new Donate button. Website redesign steps,
-    <a href="https://vsz.me/hb-evo">a visual overview</a>.
+    responsive design and a new Donate button.
 - date: 2016-09-20
   title: <a href="https://github.com/harbour/core/commit/cd61ee722229784ba704252f4da296794dd1fa5b">Website refresh</a>
   text: Continuing with the refactor, the site is now fully vector-based,
