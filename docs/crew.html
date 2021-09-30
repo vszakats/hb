@@ -29,9 +29,9 @@ title: "Crew"
       <div>
         <p>
 {%- if member.url != nil %}
-        <a href="{{ member.url }}" class="crew-person-name crew-mail" id="{{ member.name | slugify }}">{{ member.name }}</a>
+        <a href="{{ member.url }}" class="crew-person-name crew-mail" id="{{ member.name | slugify: "latin" | replace_regex: '-[a-z]+', '' }}">{{ member.name }}</a>
 {%- else %}
-        <span class="crew-person-name" id="{{ member.name | slugify }}">{{ member.name }}</span>
+        <span class="crew-person-name" id="{{ member.name | slugify: "latin" | replace_regex: '-[a-z]+', '' }}">{{ member.name }}</span>
 {%- endif %}
 {%- for pic in member.photos %}
         <a href="https://harbour.github.io/images/crew_{{ pic }}"><img src="https://harbour.github.io/images/crew_{{ pic }}" height="40" alt="photo"></a>
@@ -64,7 +64,7 @@ title: "Crew"
       <hr>
       <ul class="crew-alphalist">
 {%- for member in members_sorted %}
-        <li><a href="#{{ member.name | slugify }}">{{ member.name }}</a>
+        <li><a href="#{{ member.name | slugify: "latin" | replace_regex: '-[a-z]+', '' }}">{{ member.name }}</a>
 {%- endfor %}
       </ul>
     </div>

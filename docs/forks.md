@@ -8,7 +8,7 @@ title: "Forks"
 
 # Harbour Forks
 
-## [Harbour]({% if site.fork %}{{ site.baseurl }}{% else %}{{ forkurl }}{% endif %}) by [vszakats](https://vsz.me/) (version 3.4)
+## [Harbour version 3.4]({% if site.fork %}{{ site.baseurl }}{% else %}{{ forkurl }}{% endif %})
 
 Forked in April of 2013 in an attempt to focus on a narrower set of platforms
 and contrib libraries while also freeing up resources by distancing from
