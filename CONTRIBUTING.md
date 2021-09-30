@@ -186,4 +186,4 @@ Evaluate these points before reporting an issue:
 
 ---
 This document Copyright &copy;&nbsp;2009&ndash;present Viktor Szakats<br>
-[![Creative Commons Attribution-ShareAlike 4.0](https://vsz.me/assets/img/cc-by-sa.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
+[![Creative Commons Attribution-ShareAlike 4.0](https://mirrors.creativecommons.org/presskit/buttons/80x15/svg/by-sa.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
