@@ -81,7 +81,7 @@ Download source archive from any of these URLs and unpack:
 
 #### Mac (using Homebrew)
 
-    brew install https://raw.githubusercontent.com/vszakats/hb/main/package/hb-vszakats.rb --HEAD
+    brew install https://raw.githubusercontent.com/vszakats/hb/main/package/hb@3.4.rb --HEAD
 
 ### Follow commits using:
 

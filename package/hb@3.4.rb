@@ -1,4 +1,4 @@
-class HbVsz < Formula
+class HbAT34 < Formula
   desc "Portable, xBase-compatible programming language and env (fork)"
   homepage "https://github.com/vszakats/hb/"
 
