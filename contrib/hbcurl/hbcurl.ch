@@ -332,6 +332,7 @@
 #define HB_CURLOPT_TLSAUTH_TYPE               284
 #define HB_CURLOPT_TLSAUTH_USERNAME           285
 #define HB_CURLOPT_SSH_HOST_PUBLIC_KEY_SHA256 286
+#define HB_CURLOPT_MAXLIFETIME_CONN           287
 #define HB_CURLOPT_DOWNLOAD                   1001  /* Harbour special ones */
 #define HB_CURLOPT_XFERINFOBLOCK              1002
 #define HB_CURLOPT_UL_FILE_SETUP              1003

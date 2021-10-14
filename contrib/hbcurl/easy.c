@@ -1113,6 +1113,11 @@ HB_FUNC( CURL_EASY_SETOPT )
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_PIPEWAIT, HB_CURL_OPT_BOOL( 3 ) );
                break;
 #endif
+#if LIBCURL_VERSION_NUM >= 0x075000
+            case HB_CURLOPT_MAXLIFETIME_CONN:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_MAXLIFETIME_CONN, hb_parnl( 3 ) );
+               break;
+#endif
 
             /* Names and passwords options (Authentication) */
 
