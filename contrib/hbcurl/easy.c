@@ -1403,6 +1403,11 @@ HB_FUNC( CURL_EASY_SETOPT )
                break;
             }
 #endif
+#if LIBCURL_VERSION_NUM >= 0x075100
+            case HB_CURLOPT_MIME_OPTIONS:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_MIME_OPTIONS, hb_parnl( 3 ) );
+               break;
+#endif
 #if LIBCURL_VERSION_NUM >= 0x074B00
             case HB_CURLOPT_AWS_SIGV4:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_AWS_SIGV4, hb_parc( 3 ) );  /* cp:ASCII? */
