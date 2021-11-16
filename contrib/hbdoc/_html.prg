@@ -1169,7 +1169,7 @@ METHOD LinkAsset( cType, cPkg, cFile ) CLASS GenerateHTML
       iif( "ver" $ pkg, pkg[ "ver" ] + "/", "" ) + ;
       pkg[ "files" ][ cFile ][ "name" ]
 
-   LOCAL cLinkAssetMode := hb_def( pkg, "files", cFile, "link", hb_def( pkg, "link", ::cLinkAssetMode ) )
+   LOCAL cLinkAssetMode := hb_HGetDef( pkg, "link", ::cLinkAssetMode )
    LOCAL cFilename := hb_FNameNameExt( hb_DirSepToOS( pkg[ "files" ][ cFile ][ "name" ] ) )
    LOCAL cContent
 
