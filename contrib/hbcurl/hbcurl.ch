@@ -877,6 +877,18 @@
 #define HB_CURLUE_NO_PORT                     15
 #define HB_CURLUE_NO_QUERY                    16
 #define HB_CURLUE_NO_FRAGMENT                 17
+#define HB_CURLUE_NO_ZONEID                   18
+#define HB_CURLUE_BAD_FILE_URL                19
+#define HB_CURLUE_BAD_FRAGMENT                20
+#define HB_CURLUE_BAD_HOSTNAME                21
+#define HB_CURLUE_BAD_IPV6                    22
+#define HB_CURLUE_BAD_LOGIN                   23
+#define HB_CURLUE_BAD_PASSWORD                24
+#define HB_CURLUE_BAD_PATH                    25
+#define HB_CURLUE_BAD_QUERY                   26
+#define HB_CURLUE_BAD_SCHEME                  27
+#define HB_CURLUE_BAD_SLASHES                 28
+#define HB_CURLUE_BAD_USER                    29
 
 /* URL parts */
 #define HB_CURLUPART_URL                      0
