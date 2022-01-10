@@ -715,7 +715,8 @@
 #define HB_CURLE_PEER_FAILED_VERIFICATION     60 /* peer's certificate or fingerprint wasn't verified fine */
 #define HB_CURLE_SSL_CACERT                   HB_CURLE_PEER_FAILED_VERIFICATION
 #define HB_CURLE_BAD_CONTENT_ENCODING         61 /* Unrecognized transfer encoding */
-#define HB_CURLE_LDAP_INVALID_URL             62 /* Invalid LDAP URL */
+#define HB_CURLE_OBSOLETE62                   62 /* Invalid LDAP URL */
+#define HB_CURLE_LDAP_INVALID_URL             HB_CURLE_OBSOLETE62
 #define HB_CURLE_FILESIZE_EXCEEDED            63 /* Maximum file size exceeded */
 #define HB_CURLE_USE_SSL_FAILED               64 /* Requested FTP SSL level failed */
 #define HB_CURLE_SEND_FAIL_REWIND             65 /* Sending the data requires a rewind that failed */
