@@ -48,8 +48,8 @@
 #include "hbdate.h"
 
 /* Internet timestamp based on:
-   https://tools.ietf.org/html/rfc822
-   https://tools.ietf.org/html/rfc2822 */
+   https://datatracker.ietf.org/doc/html/rfc822
+   https://datatracker.ietf.org/doc/html/rfc2822 */
 HB_FUNC( HB_CURL_DATE )
 {
    static const char * s_days[]   = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
