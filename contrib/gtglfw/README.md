@@ -2,7 +2,7 @@
 
 Hi,
 
-Is there a possibility of creating a GT driver in order to use GLFW library’s in/out - of course in GUI version.
+Is there a possibility of creating a GT driver in order to use GLFW library’s in/out - of course in ~~GUI~~ graphics version.
 
 Also, is there a chance to make all of the updates to the newest version of the driver gtalleg?
 
