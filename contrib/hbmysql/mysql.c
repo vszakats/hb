@@ -636,3 +636,13 @@ HB_FUNC( MYSQL_VERSION_ID )
 {
    hb_retnl( MYSQL_VERSION_ID );
 }
+
+HB_FUNC( MYSQL_SET_CHARACTER_SET ) 
+{
+   MYSQL * mysql = hb_MYSQL_par( 1 );
+
+   if( mysql )
+      hb_retni( ( int ) mysql_set_character_set( mysql, ( const char * ) hb_parc( 2 ) ) );
+   else
+      hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
