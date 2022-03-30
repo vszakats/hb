@@ -251,6 +251,16 @@ HB_FUNC( MYSQL_GET_SSL_CIPHER )
       hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
+HB_FUNC( MYSQL_SET_CHARACTER_SET )
+{
+   MYSQL * mysql = hb_MYSQL_par( 1 );
+
+   if( mysql )
+      hb_retni( mysql_set_character_set( mysql, hb_parc( 2 ) ) );
+   else
+      hb_errRT_BASE( EG_ARG, 2020, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
+}
+
 HB_FUNC( MYSQL_COMMIT ) /* bool mysql_commit( MYSQL * mysql ) */
 {
    MYSQL * mysql = hb_MYSQL_par( 1 );
