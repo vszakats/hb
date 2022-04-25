@@ -1127,7 +1127,7 @@ STATIC FUNCTION __getAttributes( sAttrFunc )
    //Add Global Attributes
    //The global attributes below can be used on any HTML element
    if t_aGlbAttr==NIL
-      t_aGlbAttr:=_thtmlAttr_GlobalAttributes()
+      t_aGlbAttr:=THtmlAttr_GlobalAttributes()
    endif
    for nAttr:=1 to len(t_aGlbAttr)
       if (len(t_aGlbAttr[nAttr])>=1)
