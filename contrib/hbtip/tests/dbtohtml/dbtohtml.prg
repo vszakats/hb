@@ -189,7 +189,7 @@ PROCEDURE Main()
 
     end with
 
-    with object oDoc:body
+    with object oDoc:body:main
 
         /* Operator ":" returns first "h1" from body (creates if not existent) */
         oNode:=:h1
@@ -198,7 +198,7 @@ PROCEDURE Main()
         end with
 
         /* Operator "+" creates a new <p> node */
-        oNode:=oDoc:body+"p"
+        oNode:=oDoc:body:main+"p"
 
             /* Operator "+=" creates a new <font> node with attribute */
             oNode+='font size="5"'
@@ -223,7 +223,7 @@ PROCEDURE Main()
             oNode-="font"
             HB_SYMBOL_UNUSED( oNode )
 
-        oNode:=oDoc:body:AddNode(THtmlNode():New(oDoc:body,"/p"))
+        oNode:=oDoc:body:main:AddNode(THtmlNode():New(oDoc:body:main,"/p"))
         HB_SYMBOL_UNUSED( oNode )
 
         oNode+="hr"
@@ -278,11 +278,11 @@ PROCEDURE Main()
 
             END WHILE
 
-            oNode:=oDoc:body+"hr"
+            oNode:=oDoc:body:main+"hr"
             HB_SYMBOL_UNUSED( oNode )
-            oNode:=oDoc:body+"p"
+            oNode:=oDoc:body:main+"p"
             oNode:text:=hb_NToS((cAlias)->(RecCount()))+" records from database "+cAlias
-            oNode:=oDoc:body:AddNode(THtmlNode():New(oDoc:body,"/p"))
+            oNode:=oDoc:body:main:AddNode(THtmlNode():New(oDoc:body:main,"/p"))
             HB_SYMBOL_UNUSED( oNode )
 
         end with
@@ -297,7 +297,7 @@ PROCEDURE Main()
         ? "Error:", FError()
     ENDIF
 
-    ctip_HtmlToStr:=tip_HtmlToStr( oDoc:body:getText() )
+    ctip_HtmlToStr:=tip_HtmlToStr( oDoc:body:main:getText() )
 
     WAIT
     ? ctip_HtmlToStr

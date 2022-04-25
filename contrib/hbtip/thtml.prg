@@ -143,6 +143,10 @@ METHOD new( cHtmlString ) CLASS THtmlDocument
     <head>
     </head>
     <body>
+        <main>
+        </main>
+        <footer>
+        </footer>
     </body>
 </html>
 #pragma __endtext
