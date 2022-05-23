@@ -2846,6 +2846,18 @@ HB_FUNC( CURL_EASY_GETINFO )
 #endif
             type = HB_CURL_INFO_TYPE_CERTINFO;
             break;
+         case HB_CURLINFO_CAINFO:
+#if LIBCURL_VERSION_NUM >= 0x075400
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_CAINFO, &ret_string );  /* cp:UTF-8 */
+#endif
+            type = HB_CURL_INFO_TYPE_STR;
+            break;
+         case HB_CURLINFO_CAPATH:
+#if LIBCURL_VERSION_NUM >= 0x075400
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_CAPATH, &ret_string );  /* cp:UTF-8 */
+#endif
+            type = HB_CURL_INFO_TYPE_STR;
+            break;
          case HB_CURLINFO_CONDITION_UNMET:
 #if LIBCURL_VERSION_NUM >= 0x071304
             res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_CONDITION_UNMET, &ret_long );
