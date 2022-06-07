@@ -815,6 +815,7 @@
 #define HB_CURL_VERSION_UNICODE               hb_bitShift( 1, 27 )  /* Unicode support on Windows */
 #define HB_CURL_VERSION_HSTS                  hb_bitShift( 1, 28 )  /* HSTS is supported */
 #define HB_CURL_VERSION_GSASL                 hb_bitShift( 1, 29 )  /* libgsasl is supported */
+#define HB_CURL_VERSION_THREADSAFE_INIT       hb_bitShift( 1, 30 )  /* curl_global_init/cleanup() are thread-safe */
 
 /* HB_CURLOPT_HSTS_CTRL */
 #define HB_CURLHSTS_ENABLE                    hb_bitShift( 1, 0 )
