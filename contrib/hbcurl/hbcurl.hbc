@@ -18,4 +18,4 @@ libpaths=${HBMK_DIR_CURL}/../lib{allwinar&HBMK_HAS_CURL}
 #       enabled during the build of libcurl itself.
 {allwin&static&!hbdyn&allwinar}libs=ssh2 nghttp2 nghttp3 ngtcp2 ngtcp2_crypto_openssl ssl crypto gsasl idn2 brotlidec brotlicommon
 libs=${HB_CURL_LIBS_EXTRA}
-{allwin}libs=crypt32 bcrypt wldap32
+{allwin}libs=crypt32 wldap32
