@@ -2082,12 +2082,6 @@ HB_FUNC( CURL_EASY_SETOPT )
             case HB_CURLOPT_CAPATH:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_CAPATH, hb_parc( 3 ) );  /* cp:UTF-8 */
                break;
-            case HB_CURLOPT_RANDOM_FILE:
-               res = curl_easy_setopt( hb_curl->curl, CURLOPT_RANDOM_FILE, hb_parc( 3 ) );  /* cp:UTF-8 */
-               break;
-            case HB_CURLOPT_EGDSOCKET:
-               res = curl_easy_setopt( hb_curl->curl, CURLOPT_EGDSOCKET, hb_parc( 3 ) );  /* cp:UTF-8 */
-               break;
             case HB_CURLOPT_SSL_VERIFYHOST:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_SSL_VERIFYHOST, hb_parnl( 3 ) );
                break;

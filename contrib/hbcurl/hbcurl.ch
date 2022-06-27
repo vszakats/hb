@@ -124,8 +124,8 @@
 #define HB_CURLOPT_CLOSEPOLICY                72
 #define HB_CURLOPT_FRESH_CONNECT              74
 #define HB_CURLOPT_FORBID_REUSE               75
-#define HB_CURLOPT_RANDOM_FILE                76
-#define HB_CURLOPT_EGDSOCKET                  77
+#define HB_CURLOPT_RANDOM_FILE                76  /* deprecated */
+#define HB_CURLOPT_EGDSOCKET                  77  /* deprecated */
 #define HB_CURLOPT_CONNECTTIMEOUT             78
 #define HB_CURLOPT_HEADERFUNCTION             79
 #define HB_CURLOPT_HTTPGET                    80
