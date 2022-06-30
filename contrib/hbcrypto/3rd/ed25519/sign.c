@@ -10,12 +10,16 @@ void ed25519_get_pubkey(unsigned char *public_key, const unsigned char *private_
     ge_p3_tobytes(public_key, &A);
 }
 
-void ed25519_sign(unsigned char *signature, const unsigned char *message, size_t message_len, const unsigned char *public_key, const unsigned char *private_key) {
+void ed25519_sign(unsigned char *signature, const unsigned char *message, size_t message_len, const unsigned char *unused, const unsigned char *private_key) {
     sha512_context hash;
     unsigned char hram[64];
     unsigned char r[64];
     ge_p3 R;
+    unsigned char public_key[ 32 ];
 
+    (void)unused;
+
+    ed25519_get_pubkey(public_key, private_key);
 
     sha512_init(&hash);
     sha512_update(&hash, private_key + 32, 32);

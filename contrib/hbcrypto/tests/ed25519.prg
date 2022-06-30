@@ -9,7 +9,9 @@ PROCEDURE Main()
    LOCAL secret_key
    LOCAL public_key
    LOCAL signature
+#if 0
    LOCAL shared_secret
+#endif
 
    /* https://ed25519.cr.yp.to */
 
@@ -21,7 +23,7 @@ PROCEDURE Main()
    HBTEST hb_ed25519_sign()                                                         IS "E 1 BASE 3013 Argument error (HB_ED25519_SIGN) OS:0 #:0 F:S"
    message := hb_MemoRead( __FILE__ )
    HBTEST hb_ed25519_get_pubkey( secret_key ) == public_key                         IS .T.
-   signature := hb_ed25519_sign( message, public_key, secret_key )
+   signature := hb_ed25519_sign( message, secret_key )
    HBTEST ValType( signature )                                                      IS "C"
    HBTEST hb_BLen( signature )                                                      IS 64
    HBTEST hb_ed25519_verify( signature, message, public_key )                       IS .T.
@@ -37,6 +39,7 @@ PROCEDURE Main()
    message := "TEST MESSAGE"
    public_key := hb_base64Decode( "WHPNZbNuFk9ZlYCMxCLnWAKH936bj0ITv5RSKXhRoZ8=" )
    secret_key := hb_base64Decode( "4MJZ7MmqUmX5zUFLPScFa5PmctrHoUKv0Ah9aU6kREbYPhqR3UWGlQ8af0F9fSXOHaSDimjiTi3R8CQ0GhnxtQ==" )
-   HBTEST hb_base64Encode( hb_ed25519_sign( message, public_key, secret_key ) )     IS "VZuUsB2NEaMEbPilujIupXd8WxNEffSC5r9v0xO5gEmcF4g1mqxVJU8CsOYiAZPFE6h7nlQz2840K/JiwcblAQ=="
+   HBTEST hb_base64Encode( hb_ed25519_sign( message,, secret_key ) )                IS "VZuUsB2NEaMEbPilujIupXd8WxNEffSC5r9v0xO5gEmcF4g1mqxVJU8CsOYiAZPFE6h7nlQz2840K/JiwcblAQ=="
+   HBTEST hb_base64Encode( hb_ed25519_sign( message, secret_key ) )                 IS "VZuUsB2NEaMEbPilujIupXd8WxNEffSC5r9v0xO5gEmcF4g1mqxVJU8CsOYiAZPFE6h7nlQz2840K/JiwcblAQ=="
 
    RETURN
