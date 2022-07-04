@@ -1776,8 +1776,12 @@ HB_FUNC( CURL_EASY_SETOPT )
                break;
 #endif
 #if LIBCURL_VERSION_NUM >= 0x070A08
-            case HB_CURLOPT_FTP_RESPONSE_TIMEOUT:
+            case HB_CURLOPT_SERVER_RESPONSE_TIMEOUT:
+#if LIBCURL_VERSION_NUM >= 0x071400
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_SERVER_RESPONSE_TIMEOUT, hb_parnl( 3 ) );
+#else
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_FTP_RESPONSE_TIMEOUT, hb_parnl( 3 ) );
+#endif
                break;
 #endif
 #if LIBCURL_VERSION_NUM >= 0x070F05
