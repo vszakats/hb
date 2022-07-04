@@ -1029,6 +1029,14 @@ HB_FUNC( CURL_EASY_SETOPT )
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_DEFAULT_PROTOCOL, hb_parc( 3 ) );  /* cp:ASCII */
                break;
 #endif
+#if LIBCURL_VERSION_NUM >= 0x075500
+            case HB_CURLOPT_PROTOCOLS_STR:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_PROTOCOLS_STR, hb_parc( 3 ) );  /* cp:ASCII */
+               break;
+            case HB_CURLOPT_REDIR_PROTOCOLS_STR:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_REDIR_PROTOCOLS_STR, hb_parc( 3 ) );  /* cp:ASCII */
+               break;
+#endif
 #if LIBCURL_VERSION_NUM >= 0x071304
             case HB_CURLOPT_PROTOCOLS:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_PROTOCOLS, hb_parnl( 3 ) );

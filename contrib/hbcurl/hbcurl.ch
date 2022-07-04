@@ -228,8 +228,8 @@
 #define HB_CURLOPT_TFTP_BLKSIZE               178
 #define HB_CURLOPT_SOCKS5_GSSAPI_SERVICE      179
 #define HB_CURLOPT_SOCKS5_GSSAPI_NEC          180
-#define HB_CURLOPT_PROTOCOLS                  181
-#define HB_CURLOPT_REDIR_PROTOCOLS            182
+#define HB_CURLOPT_PROTOCOLS                  181  /* deprecated */
+#define HB_CURLOPT_REDIR_PROTOCOLS            182  /* deprecated */
 #define HB_CURLOPT_SSH_KNOWNHOSTS             183
 #define HB_CURLOPT_MAIL_FROM                  186
 #define HB_CURLOPT_MAIL_RCPT                  187
@@ -334,6 +334,8 @@
 #define HB_CURLOPT_SSH_HOST_PUBLIC_KEY_SHA256 286
 #define HB_CURLOPT_MAXLIFETIME_CONN           287
 #define HB_CURLOPT_MIME_OPTIONS               288
+#define HB_CURLOPT_PROTOCOLS_STR              289
+#define HB_CURLOPT_REDIR_PROTOCOLS_STR        290
 #define HB_CURLOPT_DOWNLOAD                   1001  /* Harbour special ones */
 #define HB_CURLOPT_XFERINFOBLOCK              1002
 #define HB_CURLOPT_UL_FILE_SETUP              1003
