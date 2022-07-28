@@ -51,7 +51,7 @@
 
 #include "ed25519.h"
 
-/* ed25519_create_keypair( @<public_key>, @<secret_key> ) --> NIL */
+/* hb_ed25519_create_keypair( @<public_key>, @<secret_key> ) --> NIL */
 HB_FUNC( HB_ED25519_CREATE_KEYPAIR )
 {
    unsigned char seed[ 32 ], public_key[ 32 ], secret_key[ 64 ];
@@ -66,34 +66,36 @@ HB_FUNC( HB_ED25519_CREATE_KEYPAIR )
    hb_ret();
 }
 
-/* ed25519_get_pubkey( <secret_key> ) --> <public_key> */
+/* hb_ed25519_get_pubkey( <secret_key> ) --> <public_key> */
 HB_FUNC( HB_ED25519_GET_PUBKEY )
 {
    if( hb_parclen( 1 ) == 64 )
    {
-      unsigned char secret_key[ 32 ];
+      unsigned char public_key[ 32 ];
 
-      ed25519_get_pubkey( secret_key, ( const unsigned char * ) hb_parc( 1 ) );
+      ed25519_get_pubkey( public_key, ( const unsigned char * ) hb_parc( 1 ) );
 
-      hb_retclen( ( char * ) secret_key, sizeof( secret_key ) );
+      hb_retclen( ( char * ) public_key, sizeof( public_key ) );
    }
    else
       hb_errRT_BASE_SubstR( EG_ARG, 3013, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
-/* ed25519_sign( <message>, <public_key>, <secret_key> ) --> <signature> */
+/* hb_ed25519_sign( <message>[, <public_key>], <secret_key> ) --> <signature>
+   NOTE: <public_key> is always ignored. This argument is deprecated. */
 HB_FUNC( HB_ED25519_SIGN )
 {
+   int secret_key_arg = hb_pcount() == 3 ? 3 : 2;  /* COMPATIBILITY */
+
    if( HB_ISCHAR( 1 ) &&
-       hb_parclen( 2 ) == 32 &&
-       hb_parclen( 3 ) == 64 )
+       hb_parclen( secret_key_arg ) == 64 )
    {
       unsigned char signature[ 64 ];
 
       ed25519_sign( signature,
                     ( const unsigned char * ) hb_parc( 1 ), ( size_t ) hb_parclen( 1 ),
-                    ( const unsigned char * ) hb_parc( 2 ),
-                    ( const unsigned char * ) hb_parc( 3 ) );
+                    NULL,
+                    ( const unsigned char * ) hb_parc( secret_key_arg ) );
 
       hb_retclen( ( char * ) signature, sizeof( signature ) );
    }
@@ -101,7 +103,7 @@ HB_FUNC( HB_ED25519_SIGN )
       hb_errRT_BASE_SubstR( EG_ARG, 3013, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
-/* ed25519_verify( <signature>, <message>, <public_key> ) --> <lOK> */
+/* hb_ed25519_verify( <signature>, <message>, <public_key> ) --> <lOK> */
 HB_FUNC( HB_ED25519_VERIFY )
 {
    if( hb_parclen( 1 ) == 64 &&
@@ -116,7 +118,7 @@ HB_FUNC( HB_ED25519_VERIFY )
 
 #if 0
 
-/* ed25519_key_exchange( <public_key>, <secret_key> ) --> <shared_secret> */
+/* hb_ed25519_key_exchange( <public_key>, <secret_key> ) --> <shared_secret> */
 HB_FUNC( HB_ED25519_KEY_EXCHANGE )
 {
    if( hb_parclen( 1 ) == 32 &&
