@@ -257,7 +257,7 @@
 #define HB_CURLOPT_LOGIN_OPTIONS              209
 #define HB_CURLOPT_EXPECT_100_TIMEOUT_MS      210
 #define HB_CURLOPT_SSL_ENABLE_ALPN            211
-#define HB_CURLOPT_SSL_ENABLE_NPN             212
+#define HB_CURLOPT_SSL_ENABLE_NPN             212  /* deprecated */
 #define HB_CURLOPT_HEADEROPT                  213
 #define HB_CURLOPT_PROXYHEADER                214
 #define HB_CURLOPT_PINNEDPUBLICKEY            215

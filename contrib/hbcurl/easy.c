@@ -2144,11 +2144,13 @@ HB_FUNC( CURL_EASY_SETOPT )
                break;
 #endif
 #if LIBCURL_VERSION_NUM >= 0x072400
+            case HB_CURLOPT_SSL_ENABLE_NPN:
+#if LIBCURL_VERSION_NUM <= 0x075500
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_SSL_ENABLE_NPN, hb_parnl( 3 ) );
+               break;
+#endif
             case HB_CURLOPT_SSL_ENABLE_ALPN:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_SSL_ENABLE_ALPN, hb_parnl( 3 ) );
-               break;
-            case HB_CURLOPT_SSL_ENABLE_NPN:
-               res = curl_easy_setopt( hb_curl->curl, CURLOPT_SSL_ENABLE_NPN, hb_parnl( 3 ) );
                break;
 #endif
 #if LIBCURL_VERSION_NUM >= 0x072700
