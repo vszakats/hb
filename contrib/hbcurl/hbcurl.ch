@@ -829,13 +829,13 @@
 #define HB_CURLOPT_HTTPPOST_FORM_FILE         2
 
 /* HB_CURLOPT_DEBUGBLOCK callback modes. */
-#define HB_CURLINFO_TEXT                      0
-#define HB_CURLINFO_HEADER_IN                 1
-#define HB_CURLINFO_HEADER_OUT                2
-#define HB_CURLINFO_DATA_IN                   3
-#define HB_CURLINFO_DATA_OUT                  4
-#define HB_CURLINFO_SSL_DATA_IN               5
-#define HB_CURLINFO_SSL_DATA_OUT              6
+#define HB_CURLINFO_TEXT                      0  /* Informational text. */
+#define HB_CURLINFO_HEADER_IN                 1  /* Header (or header-like) data received from the peer. */
+#define HB_CURLINFO_HEADER_OUT                2  /* Header (or header-like) data sent to the peer. */
+#define HB_CURLINFO_DATA_IN                   3  /* Protocol data received from the peer. */
+#define HB_CURLINFO_DATA_OUT                  4  /* Protocol data sent to the peer. */
+#define HB_CURLINFO_SSL_DATA_IN               5  /* SSL/TLS (binary) data received from the peer. */
+#define HB_CURLINFO_SSL_DATA_OUT              6  /* SSL/TLS (binary) data sent to the peer. */
 
 /* curl_global_sslset() return values. */
 #define HB_CURLSSLSET_NOT_IMPLEMENTED         -1  /* Harbour-specific value */
