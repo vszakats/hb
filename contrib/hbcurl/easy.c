@@ -907,6 +907,11 @@ HB_FUNC( CURL_EASY_SETOPT )
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_WILDCARDMATCH, HB_CURL_OPT_BOOL( 3 ) );
                break;
 #endif
+#if LIBCURL_VERSION_NUM >= 0x075600
+            case HB_CURLOPT_WS_OPTIONS:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_WS_OPTIONS, hb_parnl( 3 ) );
+               break;
+#endif
 
             /* Callback */
 
