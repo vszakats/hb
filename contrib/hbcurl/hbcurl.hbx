@@ -49,6 +49,8 @@ DYNAMIC curl_url_set
 DYNAMIC curl_url_strerror
 DYNAMIC curl_version
 DYNAMIC curl_version_info
+DYNAMIC curl_ws_recv
+DYNAMIC curl_ws_send
 DYNAMIC hb_curl_date
 DYNAMIC hb_curl_mail_address_to_email
 DYNAMIC hb_curl_mail_address_to_name

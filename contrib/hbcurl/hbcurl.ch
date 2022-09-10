@@ -927,6 +927,15 @@
 #define HB_CURLU_GUESS_SCHEME                 hb_bitShift( 1, 9 )   /* legacy curl-style guessing */
 #define HB_CURLU_NO_AUTHORITY                 hb_bitShift( 1, 10 )  /* Allow empty authority when the scheme is unknown. */
 
+/* curl_ws_send()/curl_ws_recv() flags */
+#define HB_CURLWS_TEXT                        hb_bitShift( 1, 0 )
+#define HB_CURLWS_BINARY                      hb_bitShift( 1, 1 )
+#define HB_CURLWS_CONT                        hb_bitShift( 1, 2 )
+#define HB_CURLWS_CLOSE                       hb_bitShift( 1, 3 )
+#define HB_CURLWS_PING                        hb_bitShift( 1, 4 )
+#define HB_CURLWS_NOCOMPRESS                  hb_bitShift( 1, 5 )
+#define HB_CURLWS_PONG                        hb_bitShift( 1, 6 )
+
 /* This is a return code for the progress callback that, when returned, will
    signal libcurl to continue executing the default progress function */
 #define HB_CURL_PROGRESSFUNC_CONTINUE         0x10000001
