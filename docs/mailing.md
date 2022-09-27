@@ -45,9 +45,8 @@ Harbour Users list instead of this one.
 Please read the following guidelines before posting to the list.
 
 **Send in plain text**
-: <p>Certain email client default to sending HTML email. Please configure
-  your email client to send plain text so that everyone will be able to
-  read your message.
+: <p>Certain email client default to sending HTML email. Configure your email
+  client to send plain text so that everyone is able to read your message.
 
 **Send English mails**
 : <p>This list is an English language mailing list. Post messages preferably
@@ -68,7 +67,7 @@ Please read the following guidelines before posting to the list.
 **Important**
 
 This website and all other parts of Harbour are distributed in the
-hope they will be useful, but WITHOUT GUARANTEE that they are complete,
+hope they are useful, but WITHOUT GUARANTEE that they are complete,
 accurate, non-infringing or usable for any purpose whatsoever.
 Contributors are NOT LIABLE for any damages that result from using
 Harbour in any ways. For more legal details, see
