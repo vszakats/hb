@@ -25,7 +25,7 @@ visit [here](https://raw.githubusercontent.com/{{ site.repo_slug }}/{{ site.repo
 
 * Because it is free software 100% compatible with Clipper compilers.
 * Because it removes some of the limits imposed by the base implementation
-  but the extent of this will depend on your chosen platform.
+  but the extent of this depends on your chosen platform.
 * Because Harbour is proven to be stable, robust and efficient.
 * Because Harbour supports RDDs (Replaceable Database Drivers) to allow
   multiple data sources which allows an application to scale.
@@ -39,4 +39,4 @@ visit [here](https://raw.githubusercontent.com/{{ site.repo_slug }}/{{ site.repo
   developers.
 
 Most importantly, try Harbour for yourself, decide for yourself why it has
-advantages for _you_. This product will be a harbour for Clipper.
+advantages for _you_. This product is a harbour for Clipper.
