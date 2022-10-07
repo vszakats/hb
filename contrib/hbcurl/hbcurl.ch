@@ -933,7 +933,7 @@
 #define HB_CURLWS_CONT                        hb_bitShift( 1, 2 )
 #define HB_CURLWS_CLOSE                       hb_bitShift( 1, 3 )
 #define HB_CURLWS_PING                        hb_bitShift( 1, 4 )
-#define HB_CURLWS_NOCOMPRESS                  hb_bitShift( 1, 5 )
+#define HB_CURLWS_OFFSET                      hb_bitShift( 1, 5 )
 #define HB_CURLWS_PONG                        hb_bitShift( 1, 6 )
 
 /* This is a return code for the progress callback that, when returned, will

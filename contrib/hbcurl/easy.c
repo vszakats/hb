@@ -3105,8 +3105,10 @@ HB_FUNC( CURL_EASY_STRERROR )
       hb_errRT_BASE( EG_ARG, 2010, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
-/* CURLcode curl_ws_send(struct Curl_easy *data, const void *buffer,
-                         size_t buflen, size_t *sent,
+/* CURLcode curl_ws_send(struct Curl_easy *data,
+                         const void *buffer, size_t buflen,
+                         size_t *sent,
+                         curl_off_t framesize,
                          unsigned int sendflags) */
 HB_FUNC( CURL_WS_SEND )
 {
@@ -3122,7 +3124,8 @@ HB_FUNC( CURL_WS_SEND )
          res = curl_ws_send( hb_curl->curl,
                              ( const void * ) hb_parc( 2 ), ( size_t ) hb_parclen( 2 ),
                              &sent,
-                             ( unsigned int ) hb_parnl( 4 ) );
+                             ( curl_off_t ) hb_parnint( 4 ),
+                             ( unsigned int ) hb_parnl( 5 ) );
 #endif
 
       hb_storns( ( HB_SIZE ) sent, 3 );
@@ -3132,18 +3135,21 @@ HB_FUNC( CURL_WS_SEND )
       hb_errRT_BASE( EG_ARG, 2010, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
-/* CURLcode curl_ws_recv(struct Curl_easy *data, void *buffer,
-                         size_t buflen,
-                         size_t *recv, unsigned int *recvflags) */
+/* CURLcode curl_ws_recv(struct Curl_easy *data,
+                         void *buffer, size_t buflen,
+                         size_t *recv, struct curl_ws_frame **meta) */
 HB_FUNC( CURL_WS_RECV )
 {
    if( PHB_CURL_is( 1 ) && HB_ISBYREF( 2 ) )
    {
       CURLcode     res       = HB_CURLE_ERROR;
       size_t       recv      = 0;
-      unsigned int recvflags = 0;
 
 #if LIBCURL_VERSION_NUM >= 0x075600
+      PHB_CURL hb_curl = PHB_CURL_par( 1 );
+
+      struct curl_ws_frame * meta = NULL;
+
       PHB_ITEM pBuffer = hb_param( 2, HB_IT_STRING );
       char *   buffer;
       HB_SIZE  buflen;
@@ -3152,11 +3158,18 @@ HB_FUNC( CURL_WS_RECV )
          res = curl_ws_recv( hb_curl->curl,
                              ( void * ) buffer, ( size_t ) buflen,
                              &recv,
-                             &recvflags );
+                             &meta );
+
+      hb_stornl( meta ? meta->flags : 0, 4 );
+      hb_stornint( meta ? meta->offset: 0, 5 );
+      hb_stornint( meta ? meta->bytesleft: 0, 6 );
+#else
+      hb_stornl( 0, 4 );
+      hb_stornint( 0, 5 );
+      hb_stornint( 0, 6 );
 #endif
 
       hb_storns( ( HB_SIZE ) recv, 3 );
-      hb_stornl( recvflags, 4 );
       hb_retnl( res );
    }
    else
