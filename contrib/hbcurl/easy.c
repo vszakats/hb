@@ -2705,7 +2705,7 @@ HB_FUNC( CURL_EASY_GETINFO )
 #endif
             type = HB_CURL_INFO_TYPE_STR;
             break;
-         case HB_CURLINFO_SIZE_UPLOAD:
+         case HB_CURLINFO_SIZE_UPLOAD_T:
 #if LIBCURL_VERSION_NUM >= 0x073700
             res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_SIZE_UPLOAD_T, &ret_offset );
             type = HB_CURL_INFO_TYPE_OFFSET;
@@ -2714,7 +2714,7 @@ HB_FUNC( CURL_EASY_GETINFO )
             type = HB_CURL_INFO_TYPE_DOUBLE;
 #endif
             break;
-         case HB_CURLINFO_SIZE_DOWNLOAD:
+         case HB_CURLINFO_SIZE_DOWNLOAD_T:
 #if LIBCURL_VERSION_NUM >= 0x073700
             res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_SIZE_DOWNLOAD_T, &ret_offset );
             type = HB_CURL_INFO_TYPE_OFFSET;
@@ -2723,7 +2723,7 @@ HB_FUNC( CURL_EASY_GETINFO )
             type = HB_CURL_INFO_TYPE_DOUBLE;
 #endif
             break;
-         case HB_CURLINFO_SPEED_DOWNLOAD:
+         case HB_CURLINFO_SPEED_DOWNLOAD_T:
 #if LIBCURL_VERSION_NUM >= 0x073700
             res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_SPEED_DOWNLOAD_T, &ret_offset );
             type = HB_CURL_INFO_TYPE_OFFSET;
@@ -2732,7 +2732,7 @@ HB_FUNC( CURL_EASY_GETINFO )
             type = HB_CURL_INFO_TYPE_DOUBLE;
 #endif
             break;
-         case HB_CURLINFO_SPEED_UPLOAD:
+         case HB_CURLINFO_SPEED_UPLOAD_T:
 #if LIBCURL_VERSION_NUM >= 0x073700
             res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_SPEED_UPLOAD_T, &ret_offset );
             type = HB_CURL_INFO_TYPE_OFFSET;
@@ -2765,7 +2765,7 @@ HB_FUNC( CURL_EASY_GETINFO )
 #endif
             type = HB_CURL_INFO_TYPE_SLIST;
             break;
-         case HB_CURLINFO_CONTENT_LENGTH_DOWNLOAD:
+         case HB_CURLINFO_CONTENT_LENGTH_DOWNLOAD_T:
 #if LIBCURL_VERSION_NUM >= 0x073700
             res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_CONTENT_LENGTH_DOWNLOAD_T, &ret_offset );
             type = HB_CURL_INFO_TYPE_OFFSET;
@@ -2774,7 +2774,7 @@ HB_FUNC( CURL_EASY_GETINFO )
             type = HB_CURL_INFO_TYPE_DOUBLE;
 #endif
             break;
-         case HB_CURLINFO_CONTENT_LENGTH_UPLOAD:
+         case HB_CURLINFO_CONTENT_LENGTH_UPLOAD_T:
 #if LIBCURL_VERSION_NUM >= 0x073700
             res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_CONTENT_LENGTH_UPLOAD_T, &ret_offset );
             type = HB_CURL_INFO_TYPE_OFFSET;

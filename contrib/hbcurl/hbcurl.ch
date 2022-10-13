@@ -566,16 +566,16 @@
 #define HB_CURLINFO_REDIRECT_TIME             10  /* deprecated */
 #define HB_CURLINFO_REDIRECT_COUNT            11
 #define HB_CURLINFO_REDIRECT_URL              12
-#define HB_CURLINFO_SIZE_UPLOAD               13
-#define HB_CURLINFO_SIZE_DOWNLOAD             14
-#define HB_CURLINFO_SPEED_DOWNLOAD            15
-#define HB_CURLINFO_SPEED_UPLOAD              16
+#define HB_CURLINFO_SIZE_UPLOAD_T             13
+#define HB_CURLINFO_SIZE_DOWNLOAD_T           14
+#define HB_CURLINFO_SPEED_DOWNLOAD_T          15
+#define HB_CURLINFO_SPEED_UPLOAD_T            16
 #define HB_CURLINFO_HEADER_SIZE               17
 #define HB_CURLINFO_REQUEST_SIZE              18
 #define HB_CURLINFO_SSL_VERIFYRESULT          19
 #define HB_CURLINFO_SSL_ENGINES               20
-#define HB_CURLINFO_CONTENT_LENGTH_DOWNLOAD   21
-#define HB_CURLINFO_CONTENT_LENGTH_UPLOAD     22
+#define HB_CURLINFO_CONTENT_LENGTH_DOWNLOAD_T 21
+#define HB_CURLINFO_CONTENT_LENGTH_UPLOAD_T   22
 #define HB_CURLINFO_CONTENT_TYPE              23
 #define HB_CURLINFO_PRIVATE                   24
 #define HB_CURLINFO_HTTPAUTH_AVAIL            25
@@ -601,7 +601,13 @@
 #define HB_CURLINFO_PROTOCOL                  45  /* deprecated */
 #define HB_CURLINFO_SCHEME                    46
 #define HB_CURLINFO_PROXY_SSL_VERIFYRESULT    47
-#define HB_CURLINFO_FILETIME                  HB_CURLINFO_FILETIME_T
+#define HB_CURLINFO_FILETIME                  HB_CURLINFO_FILETIME_T  /* deprecated */
+#define HB_CURLINFO_SIZE_DOWNLOAD             HB_CURLINFO_SIZE_DOWNLOAD_T  /* deprecated */
+#define HB_CURLINFO_SIZE_UPLOAD               HB_CURLINFO_SIZE_UPLOAD_T  /* deprecated */
+#define HB_CURLINFO_SPEED_DOWNLOAD            HB_CURLINFO_SPEED_DOWNLOAD_T  /* deprecated */
+#define HB_CURLINFO_SPEED_UPLOAD              HB_CURLINFO_SPEED_UPLOAD_T  /* deprecated */
+#define HB_CURLINFO_CONTENT_LENGTH_DOWNLOAD   HB_CURLINFO_CONTENT_LENGTH_DOWNLOAD_T  /* deprecated */
+#define HB_CURLINFO_CONTENT_LENGTH_UPLOAD     HB_CURLINFO_CONTENT_LENGTH_UPLOAD_T  /* deprecated */
 #define HB_CURLINFO_TOTAL_TIME_T              48
 #define HB_CURLINFO_NAMELOOKUP_TIME_T         49
 #define HB_CURLINFO_CONNECT_TIME_T            50
