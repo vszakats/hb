@@ -2648,42 +2648,63 @@ HB_FUNC( CURL_EASY_GETINFO )
          case HB_CURLINFO_TOTAL_TIME_T:
 #if LIBCURL_VERSION_NUM >= 0x073D00
             res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_TOTAL_TIME_T, &ret_offset );
+#else
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_TOTAL_TIME, &ret_double );
+            ret_offset = ( curl_off_t ) ( ret_double * 1000000.0 );
 #endif
             type = HB_CURL_INFO_TYPE_OFFSET;
             break;
          case HB_CURLINFO_NAMELOOKUP_TIME_T:
 #if LIBCURL_VERSION_NUM >= 0x073D00
             res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_NAMELOOKUP_TIME_T, &ret_offset );
+#else
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_NAMELOOKUP_TIME, &ret_double );
+            ret_offset = ( curl_off_t ) ( ret_double * 1000000.0 );
 #endif
             type = HB_CURL_INFO_TYPE_OFFSET;
             break;
          case HB_CURLINFO_CONNECT_TIME_T:
 #if LIBCURL_VERSION_NUM >= 0x073D00
             res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_CONNECT_TIME_T, &ret_offset );
+#else
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_CONNECT_TIME, &ret_double );
+            ret_offset = ( curl_off_t ) ( ret_double * 1000000.0 );
 #endif
             type = HB_CURL_INFO_TYPE_OFFSET;
             break;
          case HB_CURLINFO_PRETRANSFER_TIME_T:
 #if LIBCURL_VERSION_NUM >= 0x073D00
             res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_PRETRANSFER_TIME_T, &ret_offset );
+#else
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_PRETRANSFER_TIME, &ret_double );
+            ret_offset = ( curl_off_t ) ( ret_double * 1000000.0 );
 #endif
             type = HB_CURL_INFO_TYPE_OFFSET;
             break;
          case HB_CURLINFO_STARTTRANSFER_TIME_T:
 #if LIBCURL_VERSION_NUM >= 0x073D00
             res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_STARTTRANSFER_TIME_T, &ret_offset );
+#else
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_STARTTRANSFER_TIME, &ret_double );
+            ret_offset = ( curl_off_t ) ( ret_double * 1000000.0 );
 #endif
             type = HB_CURL_INFO_TYPE_OFFSET;
             break;
          case HB_CURLINFO_REDIRECT_TIME_T:
 #if LIBCURL_VERSION_NUM >= 0x073D00
             res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_REDIRECT_TIME_T, &ret_offset );
+#elif LIBCURL_VERSION_NUM >= 0x070907
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_REDIRECT_TIME, &ret_double );
+            ret_offset = ( curl_off_t ) ( ret_double * 1000000.0 );
 #endif
             type = HB_CURL_INFO_TYPE_OFFSET;
             break;
          case HB_CURLINFO_APPCONNECT_TIME_T:
 #if LIBCURL_VERSION_NUM >= 0x073D00
             res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_APPCONNECT_TIME_T, &ret_offset );
+#elif LIBCURL_VERSION_NUM >= 0x071300
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_APPCONNECT_TIME, &ret_double );
+            ret_offset = ( curl_off_t ) ( ret_double * 1000000.0 );
 #endif
             type = HB_CURL_INFO_TYPE_OFFSET;
             break;
