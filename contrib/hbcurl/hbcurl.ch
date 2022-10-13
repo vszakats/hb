@@ -558,12 +558,12 @@
 #define HB_CURLINFO_RESPONSE_CODE             2
 #define HB_CURLINFO_HTTP_CONNECTCODE          3
 #define HB_CURLINFO_FILETIME_T                4
-#define HB_CURLINFO_TOTAL_TIME                5
-#define HB_CURLINFO_NAMELOOKUP_TIME           6
-#define HB_CURLINFO_CONNECT_TIME              7
-#define HB_CURLINFO_PRETRANSFER_TIME          8
-#define HB_CURLINFO_STARTTRANSFER_TIME        9
-#define HB_CURLINFO_REDIRECT_TIME             10
+#define HB_CURLINFO_TOTAL_TIME                5   /* deprecated */
+#define HB_CURLINFO_NAMELOOKUP_TIME           6   /* deprecated */
+#define HB_CURLINFO_CONNECT_TIME              7   /* deprecated */
+#define HB_CURLINFO_PRETRANSFER_TIME          8   /* deprecated */
+#define HB_CURLINFO_STARTTRANSFER_TIME        9   /* deprecated */
+#define HB_CURLINFO_REDIRECT_TIME             10  /* deprecated */
 #define HB_CURLINFO_REDIRECT_COUNT            11
 #define HB_CURLINFO_REDIRECT_URL              12
 #define HB_CURLINFO_SIZE_UPLOAD               13
@@ -586,7 +586,7 @@
 #define HB_CURLINFO_LASTSOCKET                30  /* deprecated */
 #define HB_CURLINFO_FTP_ENTRY_PATH            31
 #define HB_CURLINFO_PRIMARY_IP                32
-#define HB_CURLINFO_APPCONNECT_TIME           33
+#define HB_CURLINFO_APPCONNECT_TIME           33  /* deprecated */
 #define HB_CURLINFO_CERTINFO                  34
 #define HB_CURLINFO_CONDITION_UNMET           35
 #define HB_CURLINFO_RTSP_SESSION_ID           36
@@ -598,7 +598,7 @@
 #define HB_CURLINFO_LOCAL_PORT                42
 #define HB_CURLINFO_ACTIVESOCKET              43
 #define HB_CURLINFO_HTTP_VERSION              44
-#define HB_CURLINFO_PROTOCOL                  45
+#define HB_CURLINFO_PROTOCOL                  45  /* deprecated */
 #define HB_CURLINFO_SCHEME                    46
 #define HB_CURLINFO_PROXY_SSL_VERIFYRESULT    47
 #define HB_CURLINFO_FILETIME                  HB_CURLINFO_FILETIME_T
