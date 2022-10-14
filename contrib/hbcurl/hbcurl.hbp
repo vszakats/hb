@@ -35,6 +35,7 @@
 -instfile=depimplibsrc:${HBMK_DIR_CURL}/../lib/libcurl.dll{hbdyn&win}
 -instfile=depimplibsrc:${HBMK_DIR_CURL}/../bin/libcurl.dll{hbdyn&win&(mingw|clang)}
 -instfile=depimplibsrc:${HBMK_DIR_CURL}/../bin/libcurl-x64.dll{hbdyn&win&(mingw64|clang64)}
+-instfile=depimplibsrc:${HBMK_DIR_CURL}/../bin/libcurl-arm64.dll{hbdyn&win&(clangarm64)}
 
 -iflag={bcc}-a
 
