@@ -1001,6 +1001,11 @@ HB_FUNC( CURL_EASY_SETOPT )
             case HB_CURLOPT_DNS_CACHE_TIMEOUT:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_DNS_CACHE_TIMEOUT, hb_parnl( 3 ) );
                break;
+#if LIBCURL_VERSION_NUM >= 0x075700
+            case HB_CURLOPT_CA_CACHE_TIMEOUT:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_CA_CACHE_TIMEOUT, hb_parnl( 3 ) );
+               break;
+#endif
 #if LIBCURL_VERSION_NUM >= 0x070A00
             case HB_CURLOPT_BUFFERSIZE:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_BUFFERSIZE, hb_parnl( 3 ) );
