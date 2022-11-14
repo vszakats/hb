@@ -79,11 +79,11 @@ HB_FUNC( CURL_VERSION_INFO )
       hb_arraySetNI( pArray, HB_CURLVERINFO_SSLVERSION_NUM, data->ssl_version_num );              /* not used anymore, always 0 */
       hb_arraySetC(  pArray, HB_CURLVERINFO_LIBZ_VERSION  , data->libz_version );                 /* human readable string */
 #if defined( CURLVERSION_SECOND )
-      hb_arraySetC(  pArray, HB_CURLVERINFO_PROTOCOLS     , data->age >= CURLVERSION_SECOND ? data->ares : NULL );
-      hb_arraySetNI( pArray, HB_CURLVERINFO_ARES          , data->age >= CURLVERSION_SECOND ? data->ares_num : 0 );
+      hb_arraySetC(  pArray, HB_CURLVERINFO_ARES          , data->age >= CURLVERSION_SECOND ? data->ares : NULL );
+      hb_arraySetNI( pArray, HB_CURLVERINFO_ARES_NUM      , data->age >= CURLVERSION_SECOND ? data->ares_num : 0 );
 #else
-      hb_arraySetC(  pArray, HB_CURLVERINFO_PROTOCOLS     , NULL );
-      hb_arraySetNI( pArray, HB_CURLVERINFO_ARES          , 0 );
+      hb_arraySetC(  pArray, HB_CURLVERINFO_ARES          , NULL );
+      hb_arraySetNI( pArray, HB_CURLVERINFO_ARES_NUM      , 0 );
 #endif
 #if defined( CURLVERSION_THIRD )
       hb_arraySetC(  pArray, HB_CURLVERINFO_LIBIDN        , data->age >= CURLVERSION_THIRD ? data->libidn : NULL );
