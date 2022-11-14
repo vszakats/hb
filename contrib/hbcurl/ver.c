@@ -141,18 +141,18 @@ HB_FUNC( CURL_VERSION_INFO )
       hb_arraySetC(  pArray, HB_CURLVERINFO_GSASL_VERSION, NULL );
 #endif
       {
-         PHB_ITEM pProtocols;
+         PHB_ITEM pList;
          int      nCount = 0;
-         const char * const * prot = data->protocols;
+         const char * const * item = data->protocols;
 
-         while( *( prot++ ) )
+         while( *( item++ ) )
             nCount++;
 
-         pProtocols = hb_arrayGetItemPtr( pArray, HB_CURLVERINFO_PROTOCOLS );
-         hb_arrayNew( pProtocols, nCount );
+         pList = hb_arrayGetItemPtr( pArray, HB_CURLVERINFO_PROTOCOLS );
+         hb_arrayNew( pList, nCount );
 
-         for( prot = data->protocols, nCount = 1; *prot; prot++ )
-            hb_arraySetC( pProtocols, nCount++, *prot );
+         for( item = data->protocols, nCount = 1; *item; item++ )
+            hb_arraySetC( pList, nCount++, *item );
       }
 
       hb_itemReturnRelease( pArray );
