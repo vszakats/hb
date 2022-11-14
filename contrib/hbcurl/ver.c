@@ -140,6 +140,23 @@ HB_FUNC( CURL_VERSION_INFO )
 #else
       hb_arraySetC(  pArray, HB_CURLVERINFO_GSASL_VERSION, NULL );
 #endif
+#if defined( CURLVERSION_ELEVENTH )
+      if( data->age >= CURLVERSION_ELEVENTH )
+      {
+         PHB_ITEM pList;
+         int      nCount = 0;
+         const char * const * item = data->feature_names;
+
+         while( *( item++ ) )
+            nCount++;
+
+         pList = hb_arrayGetItemPtr( pArray, HB_CURLVERINFO_FEATURE_NAMES );
+         hb_arrayNew( pList, nCount );
+
+         for( item = data->feature_names, nCount = 1; *item; item++ )
+            hb_arraySetC( pList, nCount++, *item );
+      }
+#endif
       {
          PHB_ITEM pList;
          int      nCount = 0;
