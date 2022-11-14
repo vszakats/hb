@@ -135,6 +135,11 @@ HB_FUNC( CURL_VERSION_INFO )
 #else
       hb_arraySetC(  pArray, HB_CURLVERINFO_HYPER_VERSION, NULL );
 #endif
+#if defined( CURLVERSION_TENTH )
+      hb_arraySetC(  pArray, HB_CURLVERINFO_GSASL_VERSION, data->age >= CURLVERSION_TENTH ? data->gsasl_version : NULL );
+#else
+      hb_arraySetC(  pArray, HB_CURLVERINFO_GSASL_VERSION, NULL );
+#endif
       {
          PHB_ITEM pProtocols;
          int      nCount = 0;
