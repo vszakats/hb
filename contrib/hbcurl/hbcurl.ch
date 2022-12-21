@@ -339,6 +339,7 @@
 #define HB_CURLOPT_REDIR_PROTOCOLS_STR        290
 #define HB_CURLOPT_WS_OPTIONS                 291
 #define HB_CURLOPT_CA_CACHE_TIMEOUT           292
+#define HB_CURLOPT_QUICK_EXIT                 293
 #define HB_CURLOPT_DOWNLOAD                   1001  /* Harbour special ones */
 #define HB_CURLOPT_XFERINFOBLOCK              1002
 #define HB_CURLOPT_UL_FILE_SETUP              1003
