@@ -910,6 +910,7 @@
 #define HB_CURLUE_BAD_SCHEME                  27
 #define HB_CURLUE_BAD_SLASHES                 28
 #define HB_CURLUE_BAD_USER                    29
+#define HB_CURLUE_LACKS_IDN                   30
 
 /* URL parts */
 #define HB_CURLUPART_URL                      0
@@ -936,6 +937,8 @@
 #define HB_CURLU_APPENDQUERY                  hb_bitShift( 1, 8 )   /* append a form style part */
 #define HB_CURLU_GUESS_SCHEME                 hb_bitShift( 1, 9 )   /* legacy curl-style guessing */
 #define HB_CURLU_NO_AUTHORITY                 hb_bitShift( 1, 10 )  /* Allow empty authority when the scheme is unknown. */
+#define HB_CURLU_ALLOW_SPACE                  hb_bitShift( 1, 11 )  /* Allow spaces in the URL */
+#define HB_CURLU_PUNYCODE                     hb_bitShift( 1, 12 )  /* get the host name in pynycode */
 
 /* curl_ws_send()/curl_ws_recv() flags */
 #define HB_CURLWS_TEXT                        hb_bitShift( 1, 0 )
