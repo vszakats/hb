@@ -405,13 +405,15 @@
 #define HB_CURLAUTH_GSSAPI                    HB_CURLAUTH_NEGOTIATE
 
 /* HB_CURLOPT_HTTP_VERSION option */
-#define HB_CURL_HTTP_VERSION_NONE               0  /* setting this means we don't care, and that we'd like the library to choose the best possible for us! */
-#define HB_CURL_HTTP_VERSION_1_0                1  /* please use HTTP 1.0 in the request */
-#define HB_CURL_HTTP_VERSION_1_1                2  /* please use HTTP 1.1 in the request */
-#define HB_CURL_HTTP_VERSION_2_0                3  /* please use HTTP 2.0 in the request */
+#define HB_CURL_HTTP_VERSION_NONE               0   /* setting this means we don't care, and that we'd like the library to choose the best possible for us! */
+#define HB_CURL_HTTP_VERSION_1_0                1   /* please use HTTP 1.0 in the request */
+#define HB_CURL_HTTP_VERSION_1_1                2   /* please use HTTP 1.1 in the request */
+#define HB_CURL_HTTP_VERSION_2_0                3   /* please use HTTP 2.0 in the request */
 #define HB_CURL_HTTP_VERSION_2                  HB_CURL_HTTP_VERSION_2_0
-#define HB_CURL_HTTP_VERSION_2TLS               4
-#define HB_CURL_HTTP_VERSION_2_PRIOR_KNOWLEDGE  5
+#define HB_CURL_HTTP_VERSION_2TLS               4   /* use version 2 for HTTPS, version 1.1 for HTTP */
+#define HB_CURL_HTTP_VERSION_2_PRIOR_KNOWLEDGE  5   /* please use HTTP 2 without HTTP/1.1 Upgrade */
+#define HB_CURL_HTTP_VERSION_3                  30  /* Use HTTP/3, fallback to HTTP/2 or HTTP/1 if needed. For HTTPS only. For HTTP, this option makes libcurl return error. */
+#define HB_CURL_HTTP_VERSION_3ONLY              31  /* Use HTTP/3 without fallback. For HTTPS only. For HTTP, this makes libcurl return error. */
 
 /* HB_CURLOPT_ALTSVC_CTRL option */
 #define HB_CURLALTSVC_READONLYFILE            hb_bitShift( 1, 2 )
