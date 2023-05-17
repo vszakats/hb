@@ -369,6 +369,8 @@
 /* HB_CURLOPT_PROXYTYPE option */
 #define HB_CURLPROXY_HTTP                     0  /* added in 7.10 */
 #define HB_CURLPROXY_HTTP_1_0                 1  /* added in 7.19.4, force to use CONNECT HTTP/1.0 */
+#define HB_CURLPROXY_HTTPS                    2  /* added in 7.52.0 */
+#define HB_CURLPROXY_HTTPS2                   3  /* added in 8.1.0 */
 #define HB_CURLPROXY_SOCKS4                   4  /* support added in 7.15.2, enum existed already in 7.10 */
 #define HB_CURLPROXY_SOCKS5                   5  /* added in 7.10 */
 #define HB_CURLPROXY_SOCKS4A                  6  /* added in 7.18.0 */
