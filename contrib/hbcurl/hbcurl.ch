@@ -312,7 +312,7 @@
 #define HB_CURLOPT_MAXAGE_CONN                263
 #define HB_CURLOPT_H3                         264
 #define HB_CURLOPT_SASL_AUTHZID               265
-#define HB_CURLOPT_MAIL_RCPT_ALLLOWFAILS      266
+#define HB_CURLOPT_MAIL_RCPT_ALLOWFAILS       266
 #define HB_CURLOPT_SSLCERT_BLOB               267
 #define HB_CURLOPT_PROXY_SSLCERT_BLOB         268
 #define HB_CURLOPT_SSLKEY_BLOB                269
@@ -353,7 +353,7 @@
 #define HB_CURLOPT_HTTPPOST_CONTENT           1013  /* deprecated */
 #define HB_CURLOPT_HTTPPOST_FORM              1014  /* deprecated */
 #define HB_CURLOPT_DEBUGBLOCK                 1015
-/* Compatibility ones. Please don't use these. */
+/* Compatibility ones. Don't use these. */
 #define HB_CURLOPT_UL_FHANDLE_SETUP           HB_CURLOPT_UL_FILE_SETUP
 #define HB_CURLOPT_SETUPLOADFILE              HB_CURLOPT_UL_FILE_SETUP
 #define HB_CURLOPT_CLOSEUPLOADFILE            HB_CURLOPT_UL_FILE_CLOSE
@@ -362,6 +362,7 @@
 #define HB_CURLOPT_CLOSEDOWNLOADFILE          HB_CURLOPT_DL_FILE_CLOSE
 #define HB_CURLOPT_SETPROGRESS                HB_CURLOPT_XFERINFOBLOCK
 #define HB_CURLOPT_PROGRESSBLOCK              HB_CURLOPT_XFERINFOBLOCK
+#define HB_CURLOPT_MAIL_RCPT_ALLLOWFAILS      HB_CURLOPT_MAIL_RCPT_ALLOWFAILS
 
 /* HB_CURLOPT_MIME_OPTIONS option */
 #define HB_CURLMIMEOPT_FORMESCAPE             hb_bitShift( 1, 0 )  /* added in 7.81.0 */
