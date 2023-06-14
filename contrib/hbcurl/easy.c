@@ -2988,6 +2988,18 @@ HB_FUNC( CURL_EASY_GETINFO )
 #endif
             type = HB_CURL_INFO_TYPE_LONG;
             break;
+         case HB_CURLINFO_CONN_ID:
+#if LIBCURL_VERSION_NUM >= 0x080200
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_CONN_ID, &ret_offset );
+#endif
+            type = HB_CURL_INFO_TYPE_OFFSET;
+            break;
+         case HB_CURLINFO_XFER_ID:
+#if LIBCURL_VERSION_NUM >= 0x080200
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_XFER_ID, &ret_offset );
+#endif
+            type = HB_CURL_INFO_TYPE_OFFSET;
+            break;
       }
 
       switch( type )
