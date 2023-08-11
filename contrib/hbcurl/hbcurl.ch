@@ -945,7 +945,7 @@
 #define HB_CURLU_GUESS_SCHEME                 hb_bitShift( 1, 9 )   /* legacy curl-style guessing */
 #define HB_CURLU_NO_AUTHORITY                 hb_bitShift( 1, 10 )  /* Allow empty authority when the scheme is unknown. */
 #define HB_CURLU_ALLOW_SPACE                  hb_bitShift( 1, 11 )  /* Allow spaces in the URL */
-#define HB_CURLU_PUNYCODE                     hb_bitShift( 1, 12 )  /* get the host name in pynycode */
+#define HB_CURLU_PUNYCODE                     hb_bitShift( 1, 12 )  /* get the host name in punycode */
 
 /* curl_ws_send()/curl_ws_recv() flags */
 #define HB_CURLWS_TEXT                        hb_bitShift( 1, 0 )
