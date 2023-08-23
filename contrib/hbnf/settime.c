@@ -65,6 +65,16 @@ HB_FUNC( FT_SETTIME )
       st.wMilliseconds = ( WORD ) iMillisec * 10;
       fResult = SetLocalTime( &st );
    }
+#elif defined( CLOCK_REALTIME ) && defined( _POSIX_C_SOURCE ) && _POSIX_C_SOURCE >= 199309L
+   {
+      HB_ULONG lNewTime;
+      struct timespec tp = { 0 };
+
+      lNewTime   = iHour * 3600 + iMinute * 60 + iSeconds;
+      tp.tv_sec  = time( NULL );
+      tp.tv_sec += lNewTime - ( tp.tv_sec % 86400 );
+      fResult    = clock_settime( CLOCK_REALTIME, &tp ) != -1;
+   }
 #elif defined( HB_OS_LINUX ) && ! defined( HB_OS_ANDROID ) && ! defined( __WATCOMC__ )
    {
       /* stime() exists only in SVr4, SVID, X/OPEN and Linux */

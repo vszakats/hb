@@ -55,6 +55,16 @@ HB_FUNC( FT_SETDATE )
       st.wDayOfWeek = ( WORD ) hb_dateJulianDOW( lDate );
       fResult       = SetLocalTime( &st );
    }
+#elif defined( CLOCK_REALTIME ) && defined( _POSIX_C_SOURCE ) && _POSIX_C_SOURCE >= 199309L
+   {
+      long   lNewDate;
+      struct timespec tp = { 0 };
+
+      lNewDate   = lDate - hb_dateEncode( 1970, 1, 1 );
+      tp.tv_sec  = time( NULL );
+      tp.tv_sec += lNewDate * 86400 + ( tp.tv_sec % 86400 );
+      fResult    = clock_settime( CLOCK_REALTIME, &tp ) != -1;
+   }
 #elif defined( HB_OS_LINUX ) && ! defined( HB_OS_ANDROID ) && ! defined( __WATCOMC__ )
    {
       /* stime() exists only in SVr4, SVID, X/OPEN and Linux */
