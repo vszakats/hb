@@ -6,6 +6,7 @@ headers=${hb_name}.ch
 
 libs=${_HB_DYNPREF}${hb_name}${_HB_DYNSUFF}
 
+libpaths=/opt/homebrew/opt/curl/lib{darwin}
 libpaths=/usr/local/opt/curl/lib{darwin}
 libpaths=${HBMK_DIR_CURL}/../lib{allwinar&HBMK_HAS_CURL}
 
