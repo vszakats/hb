@@ -1801,6 +1801,11 @@ HB_FUNC( CURL_EASY_SETOPT )
 #endif
                break;
 #endif
+#if LIBCURL_VERSION_NUM >= 0x080600
+            case HB_CURLOPT_SERVER_RESPONSE_TIMEOUT_MS:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_SERVER_RESPONSE_TIMEOUT_MS, hb_parnl( 3 ) );
+               break;
+#endif
 #if LIBCURL_VERSION_NUM >= 0x070F05
             case HB_CURLOPT_FTP_ALTERNATIVE_TO_USER:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_FTP_ALTERNATIVE_TO_USER, hb_parc( 3 ) );  /* cp:UTF-8? */
