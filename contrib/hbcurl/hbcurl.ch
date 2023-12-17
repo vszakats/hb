@@ -629,8 +629,9 @@
 #define HB_CURLINFO_REFERER                   58
 #define HB_CURLINFO_CAINFO                    59
 #define HB_CURLINFO_CAPATH                    60
-#define HB_CURLINFO_CONN_ID                   61
-#define HB_CURLINFO_XFER_ID                   62
+#define HB_CURLINFO_XFER_ID                   61
+#define HB_CURLINFO_CONN_ID                   62
+#define HB_CURLINFO_QUEUE_TIME_T              63
 
 /* HB_CURLINFO_PROXY_ERROR results. */
 #define HB_CURLPX_OK                                0
@@ -775,6 +776,8 @@
 #define HB_CURLE_QUIC_CONNECT_ERROR           96 /* QUIC connection error */
 #define HB_CURLE_PROXY                        97 /* proxy handshake error */
 #define HB_CURLE_SSL_CLIENTCERT               98 /* client-side certificate required */
+#define HB_CURLE_UNRECOVERABLE_POLL           99 /* poll/select returned fatal error */
+#define HB_CURLE_TOO_LARGE                    100 /* a value/data met its maximum */
 
 #define HB_CURLE_OBSOLETE16                   HB_CURLE_HTTP2
 
