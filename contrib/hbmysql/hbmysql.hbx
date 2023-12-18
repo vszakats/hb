@@ -52,6 +52,7 @@ DYNAMIC mysql_real_connect
 DYNAMIC mysql_real_escape_string
 DYNAMIC mysql_rollback
 DYNAMIC mysql_select_db
+DYNAMIC mysql_set_character_set
 DYNAMIC mysql_store_result
 DYNAMIC mysql_use_result
 DYNAMIC MYSQL_VERSION_ID
