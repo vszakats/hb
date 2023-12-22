@@ -38,12 +38,7 @@ PROCEDURE Main()
    LOCAL cLocalRoot
    LOCAL aFiles
    LOCAL aChanges
-   LOCAL cLog
-   LOCAL nStart, nEnd
-   LOCAL cMyName
    LOCAL cLogName
-   LOCAL lWasChangeLog
-   LOCAL cEOL
 
    IF "-c" $ cli_Options()
       CheckFileList( iif( Empty( cli_Values() ),, cli_Values() ) )
@@ -73,78 +68,10 @@ PROCEDURE Main()
       "-f" $ cli_Options() .OR. ;
       "--force" $ cli_Options()
 
-      cLogName := FindChangeLog( cVCS )
-      IF cLogName == ""
-         OutStd( hb_ProgName() + ": " + "cannot find ChangeLog file" + hb_eol() )
-         ErrorLevel( 2 )
-      ENDIF
+      IF ! "--check-only" $ cli_Options() .AND. ;
+         ! "--prepare-commit" $ cli_Options()
 
-      IF "--check-only" $ cli_Options() .OR. ;
-         "--prepare-commit" $ cli_Options()
-
-         IF hb_AScan( aFiles, hb_FNameNameExt( cLogName ),,, .T. ) == 0
-            OutStd( hb_ProgName() + ": " + hb_StrFormat( "%1$s not updated. Run '%2$s %3$s' and retry.", cLogName, hb_FNameNameExt( hbshell_ProgName() ), CommitScript() ) + hb_eol() )
-            ErrorLevel( 3 )
-            RETURN
-         ELSE
-            IF ! GitIsMerge( cVCSDir )
-               cLog := GetLastEntry( MemoRead( cLogName ), @nStart, @nEnd )
-               IF ! cLog == ""
-                  IF "--prepare-commit" $ cli_Options() .AND. ! Empty( cli_Values() )
-                     hb_MemoWrit( cli_Values()[ 1 ], EntryToCommitMsg( cLog ) + hb_MemoRead( cli_Values()[ 1 ] ) )
-                  ELSE
-                     hbshell_gtSelect()
-#if 0
-                     /* if clipboard already contains part of the entry, do not overwrite it */
-                     IF ! hb_StrReplace( hb_gtInfo( HB_GTI_CLIPBOARDDATA ), Chr( 13 ) + Chr( 10 ) ) $ hb_StrReplace( cLog, Chr( 13 ) + Chr( 10 ) )
-                        hb_gtInfo( HB_GTI_CLIPBOARDDATA, EntryToCommitMsg( cLog ) )
-                     ENDIF
-#endif
-                  ENDIF
-               ENDIF
-            ENDIF
-         ENDIF
-
-      ELSEIF ! cLogName == ""
-
-         IF cVCS == "git"
-            cMyName := GitUser()
-         ELSE
-            IF ! GetEnv( _CONFIGENV_ ) == ""
-               cMyName := GetEnv( _CONFIGENV_ )
-            ELSEIF hb_vfExists( cLocalRoot + _CONFIGFIL_ )
-               cMyName := AllTrim( hb_MemoRead( cLocalRoot + _CONFIGFIL_ ) )
-            ELSE
-               cMyName := "Firstname Lastname (me example.org)"
-            ENDIF
-         ENDIF
-
-         //
-
-         cLog := MemoRead( cLogName )
-         cEOL := hb_StrEOL( cLog )
-
-         GetLastEntry( cLog, @nStart, @nEnd )
-
-         IF nStart > 0
-
-            /* Strip last entry if it's empty to avoid adding double entries */
-            IF IsLastEntryEmpty( SubStr( cLog, nStart, nEnd - nStart ), cLogName, @lWasChangeLog )
-               OutStd( hb_ProgName() + ": " + hb_StrFormat( "Updating last empty %1$s entry", cLogName ) + hb_eol() )
-               cLog := Left( cLog, nStart - 1 ) + SubStr( cLog, nEnd )
-            ELSE
-               lWasChangelog := .T.
-            ENDIF
-
-            cLog := ;
-               Left( cLog, nStart - 1 ) + ;
-               MakeEntry( aChanges, cMyName, cLogName, lWasChangeLog, cEOL ) + cEOL + ;
-               SubStr( cLog, nStart )
-         ELSE
-            cLog += cEOL + MakeEntry( aChanges, cMyName, cLogName, .T., cEOL )
-         ENDIF
-
-         hb_MemoWrit( cLogName, cLog )
+         hb_MemoWrit( cLogName := cLocalRoot + "_commit.txt", MakeEntry( aChanges ) )
 
          OutStd( hb_ProgName() + ": " + hb_StrFormat( "Edit %1$s and commit", cLogName ) + hb_eol() )
 #if 0
@@ -226,25 +153,6 @@ STATIC FUNCTION InstallHook( cDir, cHookName, cCommand )
 
    RETURN hb_MemoWrit( cName, cFile + Chr( 10 ) + cCommand + Chr( 10 ) )
 
-STATIC FUNCTION FindChangeLog( cVCS )
-
-   LOCAL cDir
-   LOCAL cLogName
-
-   IF hb_vfExists( cLogName := "ChangeLog.txt" ) .OR. ;
-      hb_vfExists( cLogName := "ChangeLog" )
-      RETURN cLogName
-   ENDIF
-
-   cDir := iif( cVCS == "git", GitLocalRoot(), "" )
-
-   IF hb_vfExists( cLogName := cDir + "ChangeLog.txt" ) .OR. ;
-      hb_vfExists( cLogName := cDir + "ChangeLog" )
-      RETURN cLogName
-   ENDIF
-
-   RETURN ""
-
 STATIC FUNCTION GetLastEntry( cLog, /* @ */ nStart, /* @ */ nEnd )
 
    LOCAL cLogHeaderExp := "\n[1-2][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9] [0-2][0-9]:[0-6][0-9] [\S ]*"
@@ -277,63 +185,15 @@ STATIC FUNCTION GetLastEntry( cLog, /* @ */ nStart, /* @ */ nEnd )
 
    RETURN cLog
 
-STATIC FUNCTION MakeEntry( aChanges, cMyName, cLogName, lAllowChangeLog, cEOL )
+STATIC FUNCTION MakeEntry( aChanges )
 
-   LOCAL nOffset := hb_UTCOffset()
-   LOCAL tDate := hb_DateTime()
-
-   LOCAL cLog
+   LOCAL cLog := "module: edit my changes" + hb_eol() + hb_eol()
    LOCAL cLine
-
-   tDate -= ( nOffset / 86400 )
-   nOffset := 0
-
-   IF nOffset == 0
-      cLog := hb_StrFormat( "%1$s UTC", ;
-         hb_TToC( tDate, "yyyy-mm-dd", "hh:mm" ) )
-   ELSE
-      cLog := hb_StrFormat( "%1$s UTC+%2$s%3$02d%4$02d", ;
-         hb_TToC( tDate, "yyyy-mm-dd", "hh:mm" ), ;
-         iif( nOffset < 0, "-", "+" ), ;
-         Int( Abs( nOffset ) / 3600 ), ;
-         Int( Abs( nOffset ) % 3600 / 60 ) )
-   ENDIF
-
-   cLog += " " + cMyName + cEOL
 
    FOR EACH cLine IN aChanges
-      IF lAllowChangeLog .OR. ! SubStr( cLine, 5 ) == hb_FNameNameExt( cLogName )
-         cLog += cLine + cEOL
-      ENDIF
+      cLog += cLine + hb_eol()
    NEXT
 
-   RETURN cLog
-
-STATIC FUNCTION IsLastEntryEmpty( cLog, cLogName, /* @ */ lChangeLog )
-
-   LOCAL cLine
-
-   lChangeLog := .F.
-
-   FOR EACH cLine IN hb_ATokens( cLog, .T. )
-      IF ! cLine:__enumIsFirst()
-         IF Empty( Left( cLine, 2 ) ) .AND. ! Empty( SubStr( cLine, 3, 1 ) )
-            IF SubStr( cLine, 5 ) == hb_FNameNameExt( cLogName )
-               lChangeLog := .T.
-            ENDIF
-         ELSEIF ! Empty( cLine )
-            RETURN .F.
-         ENDIF
-      ENDIF
-   NEXT
-
-   RETURN .T.
-
-/* If it's a single mod, include only the change text,
-   otherwise include the whole entry.
-   NOTE: It was confusing to mix the two styles, so for
-         now always include the complete log message. */
-STATIC FUNCTION EntryToCommitMsg( cLog )
    RETURN cLog
 
 STATIC FUNCTION VCSDetect( /* @ */ cVCSDir, /* @ */ cLocalRoot )
@@ -377,9 +237,6 @@ STATIC FUNCTION GitLocalRoot()
 
    RETURN iif( nResult == 0, hb_DirSepAdd( hb_DirSepToOS( hb_StrReplace( cStdOut, Chr( 13 ) + Chr( 10 ) ) ) ), "" )
 
-STATIC FUNCTION GitIsMerge( cGitDir )
-   RETURN hb_vfExists( cGitDir + "MERGE_MSG" )
-
 STATIC FUNCTION GitFileList()
 
    LOCAL cStdOut
@@ -396,14 +253,6 @@ STATIC FUNCTION GitFileList()
    NEXT
 
    RETURN aList
-
-STATIC FUNCTION GitUser()
-
-   LOCAL cName
-
-   hb_processRun( Shell() + " " + CmdEscape( "git config user.name" ),, @cName )
-
-   RETURN AllTrim( hb_StrReplace( cName, Chr( 10 ) + Chr( 13 ) ) )
 
 STATIC FUNCTION GitEditor()
 
