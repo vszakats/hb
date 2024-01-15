@@ -3204,7 +3204,7 @@ HB_FUNC( CURL_WS_RECV )
 #if LIBCURL_VERSION_NUM >= 0x075600
       PHB_CURL hb_curl = PHB_CURL_par( 1 );
 
-      struct curl_ws_frame * meta = NULL;
+      const struct curl_ws_frame * meta = NULL;
 
       PHB_ITEM pBuffer = hb_param( 2, HB_IT_STRING );
       char *   buffer;
