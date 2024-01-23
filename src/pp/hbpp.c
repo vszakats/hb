@@ -50,7 +50,7 @@
 
 #define _DEFAULT_ORIGIN_URL  "https://github.com/vszakats/hb/"
 
-HB_ULONG hb_verCommitRev( void )
+HB_MAXINT hb_verCommitRev( void )
 {
    return 0;
 }
@@ -332,7 +332,7 @@ static char * hb_pp_escapeString( char * szString )
 
 static int hb_pp_generateVerInfo( char * szVerFile,
                                   char * szCommitYear,
-                                  HB_ULONG nCommitRev,
+                                  HB_MAXINT nCommitRev,
                                   char * szCommitInfo,
                                   char * szCommitID,
                                   char * szCommitIDShort,
@@ -391,7 +391,7 @@ static int hb_pp_generateVerInfo( char * szVerFile,
          hb_xfree( pszEscaped );
       }
 
-      fprintf( fout, "#define HB_VER_COMMIT_REV        %lu\n", nCommitRev );
+      fprintf( fout, "#define HB_VER_COMMIT_REV        %" PFHL "u\n", nCommitRev );
 
       if( szCommitInfo )
       {
@@ -474,7 +474,7 @@ static char * hb_fsFileFind( const char * pszFileMask )
    return NULL;
 }
 
-static HB_ULONG hb_pp_TimeStampToNum( PHB_PP_STATE pState, char * pszLog, char * pszYear )
+static HB_MAXINT hb_pp_TimeStampToNum( PHB_PP_STATE pState, char * pszLog, char * pszYear )
 {
    char szRevID[ 18 ];
    int iLen;
@@ -538,12 +538,12 @@ static HB_ULONG hb_pp_TimeStampToNum( PHB_PP_STATE pState, char * pszLog, char *
    hb_pp_addDefine( pState, "HB_VER_SVNID", szRevID );
 #endif
 
-   return ( HB_ULONG ) hb_strValInt( szRevID, &iLen );
+   return hb_strValInt( szRevID, &iLen );
 }
 
 static int hb_pp_parseChangelog( PHB_PP_STATE pState, const char * pszFileName,
                                  int iQuiet, char ** pszCommitYear,
-                                 HB_ULONG * pnCommitRev, char ** pszCommitInfo )
+                                 HB_MAXINT * pnCommitRev, char ** pszCommitInfo )
 {
    char * pszFree = NULL;
    int iResult = 0;
@@ -684,7 +684,7 @@ static int hb_pp_parseRepoVer( PHB_PP_STATE pState, const char * pszFileName,
                                int iQuiet,
                                char ** pszCommitID, char ** pszCommitIDShort,
                                char ** pszCommitYear,
-                               HB_ULONG * pnCommitRev, char ** pszCommitInfo,
+                               HB_MAXINT * pnCommitRev, char ** pszCommitInfo,
                                char ** pszURL )
 {
    FILE * file_in;
@@ -828,7 +828,7 @@ int main( int argc, char * argv[] )
    HB_BOOL fWrite = HB_FALSE, fChgLog = HB_FALSE, fRepoVer = HB_FALSE;
    char * szCommitID = NULL, * szCommitIDShort = NULL;
    char * szCommitYear = NULL, * szCommitInfo = NULL, * szURL = NULL;
-   HB_ULONG nCommitRev = 0, iResult = 0, iQuiet = 0;
+   HB_MAXINT nCommitRev = 0, iResult = 0, iQuiet = 0;
    char * szPPRuleFuncName = NULL;
    PHB_PP_STATE pState;
 

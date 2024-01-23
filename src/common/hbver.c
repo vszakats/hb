@@ -1290,7 +1290,7 @@ char * hb_verHarbour( void )
 
    HB_TRACE( HB_TR_DEBUG, ( "hb_verHarbour()" ) );
 
-   hb_snprintf( szDateRaw, sizeof( szDateRaw ), "%lu", hb_verCommitRev() );
+   hb_snprintf( szDateRaw, sizeof( szDateRaw ), "%" PFHL "u", hb_verCommitRev() );
 
    szDate[ 0 ] = '2';
    szDate[ 1 ] = '0';
