@@ -50,7 +50,7 @@
 
 #define _DEFAULT_ORIGIN_URL  "https://github.com/vszakats/hb/"
 
-int hb_verCommitRev( void )
+HB_ULONG hb_verCommitRev( void )
 {
    return 0;
 }
@@ -332,7 +332,7 @@ static char * hb_pp_escapeString( char * szString )
 
 static int hb_pp_generateVerInfo( char * szVerFile,
                                   char * szCommitYear,
-                                  int iCommitRev,
+                                  HB_ULONG nCommitRev,
                                   char * szCommitInfo,
                                   char * szCommitID,
                                   char * szCommitIDShort,
@@ -391,7 +391,7 @@ static int hb_pp_generateVerInfo( char * szVerFile,
          hb_xfree( pszEscaped );
       }
 
-      fprintf( fout, "#define HB_VER_COMMIT_REV        %d\n", iCommitRev );
+      fprintf( fout, "#define HB_VER_COMMIT_REV        %lu\n", nCommitRev );
 
       if( szCommitInfo )
       {
@@ -474,7 +474,7 @@ static char * hb_fsFileFind( const char * pszFileMask )
    return NULL;
 }
 
-static int hb_pp_TimeStampToNum( PHB_PP_STATE pState, char * pszLog, char * pszYear )
+static HB_ULONG hb_pp_TimeStampToNum( PHB_PP_STATE pState, char * pszLog, char * pszYear )
 {
    char szRevID[ 18 ];
    int iLen;
@@ -538,12 +538,12 @@ static int hb_pp_TimeStampToNum( PHB_PP_STATE pState, char * pszLog, char * pszY
    hb_pp_addDefine( pState, "HB_VER_SVNID", szRevID );
 #endif
 
-   return ( int ) hb_strValInt( szRevID, &iLen );
+   return ( HB_ULONG ) hb_strValInt( szRevID, &iLen );
 }
 
 static int hb_pp_parseChangelog( PHB_PP_STATE pState, const char * pszFileName,
                                  int iQuiet, char ** pszCommitYear,
-                                 int * piCommitRev, char ** pszCommitInfo )
+                                 HB_ULONG * pnCommitRev, char ** pszCommitInfo )
 {
    char * pszFree = NULL;
    int iResult = 0;
@@ -666,7 +666,7 @@ static int hb_pp_parseChangelog( PHB_PP_STATE pState, const char * pszFileName,
          hb_pp_addDefine( pState, "HB_VER_COMMIT_INFO", szLine );
          *pszCommitInfo = hb_strdup( szLog );
 
-         *piCommitRev = hb_pp_TimeStampToNum( pState, szLog, szCommitYear );
+         *pnCommitRev = hb_pp_TimeStampToNum( pState, szLog, szCommitYear );
 
          *pszCommitYear = hb_strdup( szCommitYear );
       }
@@ -684,7 +684,7 @@ static int hb_pp_parseRepoVer( PHB_PP_STATE pState, const char * pszFileName,
                                int iQuiet,
                                char ** pszCommitID, char ** pszCommitIDShort,
                                char ** pszCommitYear,
-                               int * piCommitRev, char ** pszCommitInfo,
+                               HB_ULONG * pnCommitRev, char ** pszCommitInfo,
                                char ** pszURL )
 {
    FILE * file_in;
@@ -792,7 +792,7 @@ static int hb_pp_parseRepoVer( PHB_PP_STATE pState, const char * pszFileName,
 
       *pszCommitInfo = hb_strdup( szCommitInfo );
 
-      *piCommitRev = hb_pp_TimeStampToNum( pState, szCommitInfo, szCommitYear );
+      *pnCommitRev = hb_pp_TimeStampToNum( pState, szCommitInfo, szCommitYear );
 
       *pszCommitYear = hb_strdup( szCommitYear );
    }
@@ -828,7 +828,7 @@ int main( int argc, char * argv[] )
    HB_BOOL fWrite = HB_FALSE, fChgLog = HB_FALSE, fRepoVer = HB_FALSE;
    char * szCommitID = NULL, * szCommitIDShort = NULL;
    char * szCommitYear = NULL, * szCommitInfo = NULL, * szURL = NULL;
-   int iCommitRev = 0, iResult = 0, iQuiet = 0;
+   HB_ULONG nCommitRev = 0, iResult = 0, iQuiet = 0;
    char * szPPRuleFuncName = NULL;
    PHB_PP_STATE pState;
 
@@ -989,16 +989,16 @@ int main( int argc, char * argv[] )
 
          if( fChgLog )
             iResult = hb_pp_parseChangelog( pState, szLogFile, iQuiet,
-                                            &szCommitYear, &iCommitRev, &szCommitInfo );
+                                            &szCommitYear, &nCommitRev, &szCommitInfo );
          if( fRepoVer )
             iResult = hb_pp_parseRepoVer( pState, szRepoVerFile, iQuiet,
-                                          &szCommitID, &szCommitIDShort, &szCommitYear, &iCommitRev, &szCommitInfo, &szURL );
+                                          &szCommitID, &szCommitIDShort, &szCommitYear, &nCommitRev, &szCommitInfo, &szURL );
 
          if( iResult == 0 )
             iResult = hb_pp_preprocesfile( pState, szRuleFile, szPPRuleFuncName );
 
          if( iResult == 0 && szVerFile && szRepoVerFile )
-            iResult = hb_pp_generateVerInfo( szVerFile, szCommitYear, iCommitRev, szCommitInfo, szCommitID, szCommitIDShort, szURL );
+            iResult = hb_pp_generateVerInfo( szVerFile, szCommitYear, nCommitRev, szCommitInfo, szCommitID, szCommitIDShort, szURL );
 
          if( iResult == 0 && hb_pp_errorCount( pState ) > 0 )
             iResult = 1;

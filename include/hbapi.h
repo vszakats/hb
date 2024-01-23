@@ -1195,7 +1195,7 @@ extern HB_EXPORT void         hb_verBuildInfo( void );       /* display Harbour,
 extern HB_EXPORT void         hb_verBuildInfoCB( PHB_OUT_FUNC );  /* pass Harbour, compiler and platform versions to callback function */
 extern HB_EXPORT const char * hb_verCommitID( void );        /* retrieves a static buffer containing source repository hash/id */
 extern HB_EXPORT const char * hb_verCommitIDShort( void );   /* retrieves a static buffer containing source repository hash/id (short version) */
-extern HB_EXPORT int          hb_verCommitRev( void );       /* retrieves source repository revision number */
+extern HB_EXPORT HB_ULONG     hb_verCommitRev( void );       /* retrieves source repository revision number */
 extern HB_EXPORT const char * hb_verCommitInfo( void );      /* retrieves a static buffer containing source repository last commit header */
 #if defined( HB_LEGACY_LEVEL4 )
 extern HB_EXPORT char *       hb_verBuildDate( void );       /* retrieves a newly allocated buffer containing build date and time */

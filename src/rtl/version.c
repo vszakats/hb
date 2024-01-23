@@ -81,7 +81,7 @@ HB_FUNC( HB_VERSION )
       case HB_VERSION_MINOR:          hb_retni( HB_VER_MINOR ); break;
       case HB_VERSION_RELEASE:        hb_retni( HB_VER_RELEASE ); break;
       case HB_VERSION_STATUS:         hb_retc_const( HB_VER_STATUS ); break;
-      case HB_VERSION_REVISION:       hb_retni( hb_verCommitRev() ); break;
+      case HB_VERSION_REVISION:       hb_retnint( hb_verCommitRev() ); break;
       case HB_VERSION_COMMIT_INFO:    hb_retc_const( hb_verCommitInfo() ); break;
       case HB_VERSION_ID:             hb_retc_const( hb_verCommitID() ); break;
       case HB_VERSION_ID_SHORT:       hb_retc_const( hb_verCommitIDShort() ); break;

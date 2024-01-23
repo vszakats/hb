@@ -891,7 +891,7 @@ const char * hb_verCommitIDShort( void )
 }
 
 /* Source repository revision number */
-int hb_verCommitRev( void )
+HB_ULONG hb_verCommitRev( void )
 {
    return HB_VER_COMMIT_REV;
 }
