@@ -15,7 +15,7 @@
 
 PROCEDURE Main( cDL, cUL )
 
-   LOCAL lSystemCA, cCA := hb_PathJoin( iif( hb_DirBase() == "", hb_cwd(), hb_DirBase() ), "cacert.pem" )
+   LOCAL cCA := hb_PathJoin( iif( hb_DirBase() == "", hb_cwd(), hb_DirBase() ), "cacert.pem" )
 
    LOCAL curl
    LOCAL info
@@ -55,23 +55,6 @@ PROCEDURE Main( cDL, cUL )
    ? "Available SSL backends:", hb_ValToExp( tmp )
 
    WAIT
-
-   #if defined( __PLATFORM__UNIX )
-      lSystemCA := .T.
-   #elif defined( __PLATFORM__WINDOWS )
-      /* Switch to Schannel SSL backend, if available (on Windows).
-         Doing this to use the OS certificate store. */
-      curl_global_sslset( -1,, @tmp )
-      IF ( lSystemCA := ;
-         HB_CURLSSLBACKEND_SCHANNEL $ tmp .AND. ;
-         curl_global_sslset( HB_CURLSSLBACKEND_SCHANNEL ) == HB_CURLSSLSET_OK )
-         cCA := NIL
-      ELSE
-         cCA := hb_DirBase() + hb_DirSepToOS( "../../../bin/" ) + cCA
-      ENDIF
-   #else
-      lSystemCA := .F.
-   #endif
 
    ? "curl_global_init():", curl_global_init()
 
@@ -153,18 +136,23 @@ PROCEDURE Main( cDL, cUL )
 
       WAIT
 
-      IF ! lSystemCA
-         IF hb_vfExists( cCA )
+      #if ! defined( __PLATFORM__UNIX )
+         IF hb_vfExists( cCA ) .OR. ;
+            hb_vfExists( cCA := hb_DirBase() + hb_DirSepToOS( "../../../bin/" ) + cCA
             curl_easy_setopt( curl, HB_CURLOPT_CAINFO, cCA )
          ELSE
+         #if defined( __PLATFORM__WINDOWS ) .AND. defined( HB_CURLSSLOPT_NATIVE_CA )
+            curl_easy_setopt( curl, HB_CURLOPT_SSL_OPTIONS, HB_CURLSSLOPT_NATIVE_CA )
+         #else
             ?
             ? "Error: Trusted Root Certificates missing. Open this URL in your web browser:"
             ? "  " + "https://curl.se/ca/cacert.pem"
             ? "and save the file as:"
             ? "  " + cCA
             RETURN
+         #endif
          ENDIF
-      ENDIF
+      #endif
 
       hb_default( @cDL, "https://example.net/index.html" )
 

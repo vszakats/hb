@@ -7,10 +7,7 @@
 
 PROCEDURE Main( cFrom, cPassword, cTo, cHost )
 
-   LOCAL lSystemCA, cCA := hb_PathJoin( iif( hb_DirBase() == "", hb_cwd(), hb_DirBase() ), "cacert.pem" )
-   #if defined( __PLATFORM__WINDOWS )
-   LOCAL tmp
-   #endif
+   LOCAL cCA := hb_PathJoin( iif( hb_DirBase() == "", hb_cwd(), hb_DirBase() ), "cacert.pem" )
 
    LOCAL curl
    LOCAL lAPI_curl := curl_version_info()[ HB_CURLVERINFO_VERSION_NUM ] >= 0x073800
@@ -96,40 +93,28 @@ PROCEDURE Main( cFrom, cPassword, cTo, cHost )
       iif( hb_LeftEq( cHost, "smtps://" ), "(SMTPS)", ;
          iif( lTLS_required, "(must STARTTLS)", "(cleartext/insecure)" ) )
 
-   #if defined( __PLATFORM__UNIX )
-      lSystemCA := .T.
-   #elif defined( __PLATFORM__WINDOWS )
-      /* Switch to Schannel SSL backend, if available (on Windows).
-         Doing this to use the OS certificate store. */
-      curl_global_sslset( -1,, @tmp )
-      IF ( lSystemCA := ;
-         HB_CURLSSLBACKEND_SCHANNEL $ tmp .AND. ;
-         curl_global_sslset( HB_CURLSSLBACKEND_SCHANNEL ) == HB_CURLSSLSET_OK )
-         cCA := NIL
-      ELSE
-         cCA := hb_DirBase() + hb_DirSepToOS( "../../../bin/" ) + cCA
-      ENDIF
-   #else
-      lSystemCA := .F.
-   #endif
-
    curl_global_init()
 
    IF Empty( curl := curl_easy_init() )
       ? "Failed to init"
    ELSE
-      IF ! lSystemCA
-         IF hb_vfExists( cCA )
+      #if ! defined( __PLATFORM__UNIX )
+         IF hb_vfExists( cCA ) .OR. ;
+            hb_vfExists( cCA := hb_DirBase() + hb_DirSepToOS( "../../../bin/" ) + cCA
             curl_easy_setopt( curl, HB_CURLOPT_CAINFO, cCA )
          ELSE
+         #if defined( __PLATFORM__WINDOWS ) .AND. defined( HB_CURLSSLOPT_NATIVE_CA )
+            curl_easy_setopt( curl, HB_CURLOPT_SSL_OPTIONS, HB_CURLSSLOPT_NATIVE_CA )
+         #else
             ?
             ? "Error: Trusted Root Certificates missing. Open this URL in your web browser:"
             ? "  " + "https://curl.se/ca/cacert.pem"
             ? "and save the file as:"
             ? "  " + cCA
             RETURN
+         #endif
          ENDIF
-      ENDIF
+      #endif
       curl_easy_setopt( curl, HB_CURLOPT_USE_SSL, ;
          iif( lTLS_required, HB_CURLUSESSL_ALL, HB_CURLUSESSL_TRY ) )
       curl_easy_setopt( curl, HB_CURLOPT_UPLOAD )
