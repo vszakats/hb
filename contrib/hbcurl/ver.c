@@ -157,6 +157,11 @@ HB_FUNC( CURL_VERSION_INFO )
             hb_arraySetC( pList, nCount++, *item );
       }
 #endif
+#if defined( CURLVERSION_TWELFTH )
+      hb_arraySetC(  pArray, HB_CURLVERINFO_RTMP_VERSION, data->age >= CURLVERSION_TWELFTH ? data->rtmp_version : NULL );
+#else
+      hb_arraySetC(  pArray, HB_CURLVERINFO_RTMP_VERSION, NULL );
+#endif
       {
          PHB_ITEM pList;
          int      nCount = 0;
