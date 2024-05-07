@@ -18,7 +18,7 @@
 -depcontrol=curl:${HB_WITH_CURL}
 -depincpath=curl:/usr/local/opt/curl/include
 -depincpath=curl:/usr/include
--depincpath=curl:/usr/include/x86_64-linux-gnu
+-depincpath=curl:/usr/include/x86_64-linux-gnu{linux}
 -depincpath=curl:/usr/local/include/curl
 -depincpath=curl:/usr/local/include
 -depimplibs=curl:../libcurl.dll
