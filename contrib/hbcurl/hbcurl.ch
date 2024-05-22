@@ -924,6 +924,7 @@
 #define HB_CURLUE_BAD_SLASHES                 28
 #define HB_CURLUE_BAD_USER                    29
 #define HB_CURLUE_LACKS_IDN                   30
+#define HB_CURLUE_TOO_LARGE                   31
 
 /* URL parts */
 #define HB_CURLUPART_URL                      0
@@ -953,6 +954,7 @@
 #define HB_CURLU_ALLOW_SPACE                  hb_bitShift( 1, 11 )  /* Allow spaces in the URL */
 #define HB_CURLU_PUNYCODE                     hb_bitShift( 1, 12 )  /* get the host name in punycode */
 #define HB_CURLU_PUNY2IDN                     hb_bitShift( 1, 13 )  /* punycode => IDN conversion */
+#define HB_CURLU_GET_EMPTY                    hb_bitShift( 1, 14 )  /* allow empty queries and fragments when extracting the URL or the components */
 
 /* curl_ws_send()/curl_ws_recv() flags */
 #define HB_CURLWS_TEXT                        hb_bitShift( 1, 0 )
