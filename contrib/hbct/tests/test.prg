@@ -1,11 +1,14 @@
 #require "hbct"
 #require "hbtest"
 
+
+
 PROCEDURE Main()
 
    LOCAL nTotal
    LOCAL a, b
-
+  
+     
    HBTEST AddAscii( "0000", 1, 1 )         IS "1000"
    HBTEST AddAscii( "0000", 1 )            IS "0001"
    HBTEST AddAscii( "AAAA", -255, 1 )      IS "BAAA"
@@ -116,16 +119,20 @@ PROCEDURE Main()
    HBTEST CharSub( "012345678", hb_BChar( 255 ) )                   IS "123456789"
    HBTEST CharSub( "012345678", hb_BChar( 255 ) + hb_BChar( 254 ) ) IS "133557799"
 
+   HBTEST CharRepl( "abcdefghij", "jhfdb", "12345" )      IS "55542" 
+   HBTEST CharRepl( "1234", "1234", "234A" )              IS "AAAA"
+   HBTEST CharRepl( "1234", "1234", "234A", .T. )         IS "234A"  
+   HBTEST CharRepl( "1234", "1x2y3z", "abcd" )            IS "axbycz"
+   HBTEST CharRepl( "abcdefghij", "jhfdb", "1234567890" ) IS "08642"
+
+
    HBTEST CharShl( hb_BChar( 1 ) + hb_BChar( 2 ) + hb_BChar( 4 ) + hb_BChar( 8 ) + hb_BChar( 16 ) + hb_BChar( 32 ) + hb_BChar( 64 ) + hb_BChar( 128 ), 3 ) IS hb_BChar( 8 ) + hb_BChar( 16 ) + hb_BChar( 32 ) + hb_BChar( 64 ) + hb_BChar( 128 ) + hb_BChar( 0 ) + hb_BChar( 0 ) + hb_BChar( 0 )
    HBTEST CharShr( hb_BChar( 1 ) + hb_BChar( 2 ) + hb_BChar( 4 ) + hb_BChar( 8 ) + hb_BChar( 16 ) + hb_BChar( 32 ) + hb_BChar( 64 ) + hb_BChar( 128 ), 3 ) IS hb_BChar( 0 ) + hb_BChar( 0 ) + hb_BChar( 0 ) + hb_BChar( 1 ) + hb_BChar( 2 ) + hb_BChar( 4 ) + hb_BChar( 8 ) + hb_BChar( 16 )
    HBTEST CharRll( hb_BChar( 1 ) + hb_BChar( 2 ) + hb_BChar( 4 ) + hb_BChar( 8 ) + hb_BChar( 16 ) + hb_BChar( 32 ) + hb_BChar( 64 ) + hb_BChar( 128 ), 3 ) IS hb_BChar( 8 ) + hb_BChar( 16 ) + hb_BChar( 32 ) + hb_BChar( 64 ) + hb_BChar( 128 ) + hb_BChar( 1 ) + hb_BChar( 2 ) + hb_BChar( 4 )
    HBTEST CharRlr( hb_BChar( 1 ) + hb_BChar( 2 ) + hb_BChar( 4 ) + hb_BChar( 8 ) + hb_BChar( 16 ) + hb_BChar( 32 ) + hb_BChar( 64 ) + hb_BChar( 128 ), 3 ) IS hb_BChar( 32 ) + hb_BChar( 64 ) + hb_BChar( 128 ) + hb_BChar( 1 ) + hb_BChar( 2 ) + hb_BChar( 4 ) + hb_BChar( 8 ) + hb_BChar( 16 )
 
-   HBTEST CharRepl( "1234", "1x2y3z", "abcd" )            IS "axbycz"
-   HBTEST CharRepl( "abcdefghij", "jhfdb", "1234567890" ) IS "08642"
-   HBTEST CharRepl( "abcdefghij", "jhfdb", "12345" )      IS "55542"
-   HBTEST CharRepl( "1234", "1234", "234A" )              IS "AAAA"
-   HBTEST CharRepl( "1234", "1234", "234A", .T. )         IS "234A"
+
+
 
    HBTEST CharSort( "qwert" )                     IS "eqrtw"
    HBTEST CharSort( "qwert", 2 )                  IS "erqwt"
@@ -261,7 +268,7 @@ PROCEDURE Main()
    HBTEST ( CSetAtMupa( .T. ), WordRepl( "aa", "1aaaa", "ba" ) )      IS "1abaa"
    HBTEST ( CSetAtMupa( .T. ), WordRepl( "aa", "1aaaa", "ba", .T. ) ) IS "1bbba"
 
-   hb_langSelect( "en" )
+   //hb_langSelect( "en" )
 
    HBTEST CToDoW()              IS 0
    HBTEST CToDoW( 1 )           IS 0
@@ -297,6 +304,7 @@ PROCEDURE Main()
    HBTEST StrSwap( NIL, NIL )                              IS ""
 
    HBTEST Crypt( "Hello World!", "pw" ) IS e"\222\365?\003{\375$\324\331\246\017\177"
-   HBTEST Crypt( e"\222\365?\003{\375$\324\331\246\017\177", "pw" ) IS "Hello World!"
+   HBTEST Crypt( e"\222\365?\003{\375$\324\331\246\017\177", "pw" ) IS "Hello World!"  
+   
 
    RETURN
