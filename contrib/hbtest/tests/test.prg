@@ -5,6 +5,7 @@
 PROCEDURE Main()
 
    LOCAL tmp, hbtest_Table_OK
+   
 
    hb_dbCreateTemp( "w_TEST", { { "TESTM", "M", 10, 0 } } )
    dbAppend()
