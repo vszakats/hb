@@ -149,39 +149,40 @@ HB_FUNC( FBCREATEDB )
       hb_retnl( 0 );
 }
 
-HB_FUNC( FBCONNECT )
+HB_FUNC(FBCONNECT)
 {
-   ISC_STATUS_ARRAY status;
-   isc_db_handle    db         = ( isc_db_handle ) 0;
-   const char *     db_connect = hb_parcx( 1 );
-   const char *     user       = hb_parcx( 2 );
-   const char *     passwd     = hb_parcx( 3 );
-   char  dpb[ 128 ];
-   short i = 0;
-   int   len;
+    ISC_STATUS_ARRAY status;
+    isc_db_handle db = (isc_db_handle)0;
+    const char *db_connect = hb_parcx(1);
+    const char *user = hb_parcx(2);
+    const char *passwd = hb_parcx(3);
+    char dpb[128];
+    short i = 0;
+    int len;
 
-   /* FIXME: Possible buffer overflow. Use hb_snprintf(). */
-   dpb[ i++ ] = isc_dpb_version1;
-   dpb[ i++ ] = isc_dpb_user_name;
-   len        = ( int ) strlen( user );
-   if( len > ( int ) ( sizeof( dpb ) - i - 4 ) )
-      len = ( int ) ( sizeof( dpb ) - i - 4 );
-   dpb[ i++ ] = ( char ) len;
-   hb_strncpy( &( dpb[ i ] ), user, len );
-   i += ( short ) len;
-   dpb[ i++ ] = isc_dpb_password;
-   len        = ( int ) strlen( passwd );
-   if( len > ( int ) ( sizeof( dpb ) - i - 2 ) )
-      len = ( int ) ( sizeof( dpb ) - i - 2 );
-   dpb[ i++ ] = ( char ) len;
-   hb_strncpy( &( dpb[ i ] ), passwd, len );
-   i += ( short ) len;
+    i += hb_snprintf(dpb + i, sizeof(dpb) - i, "%c", isc_dpb_version1);
+    i += hb_snprintf(dpb + i, sizeof(dpb) - i, "%c", isc_dpb_user_name);
+    len = (int)strlen(user);
+    if (len > (int)(sizeof(dpb) - i - 4))
+        len = (int)(sizeof(dpb) - i - 4);
+    i += hb_snprintf(dpb + i, sizeof(dpb) - i, "%c", (char)len);
+    hb_strncpy(&(dpb[i]), user, len);
+    i += (short)len;
+    i += hb_snprintf(dpb + i, sizeof(dpb) - i, "%c", isc_dpb_password);
+    len = (int)strlen(passwd);
+    if (len > (int)(sizeof(dpb) - i - 2))
+        len = (int)(sizeof(dpb) - i - 2);
+    i += hb_snprintf(dpb + i, sizeof(dpb) - i, "%c", (char)len);
+    hb_strncpy(&(dpb[i]), passwd, len);
+    i += (short)len;
 
-   if( isc_attach_database( status, 0, db_connect, &db, i, dpb ) )
-      hb_retnl( isc_sqlcode( status ) );
-   else
-      hb_FB_db_handle_ret( db );
+    if (isc_attach_database(status, 0, db_connect, &db, i, dpb))
+        hb_retnl(isc_sqlcode(status));
+    else
+        hb_FB_db_handle_ret(db);
 }
+
+
 
 
 HB_FUNC( FBCLOSE )

@@ -73,7 +73,7 @@
 #  include <sys/time.h>
 #  include <sys/types.h>
 #  ifdef HAVE_SYS_SYSCTL_H
-#     include <sys/sysctl.h>
+#     include <linux/sysctl.h>
 #     if ! defined( HB_OS_LINUX ) && defined( KERN_ARND )
 #        define HAVE_DECL_KERN_ARND
 #     endif
@@ -486,41 +486,36 @@ static void arc4_seed( void )
       arc4_seed_rand();
 }
 
-static void arc4_stir( void )
-{
-   int i;
+static void arc4_stir(void) {
+    int i;
+    unsigned char rnd[128];
 
-   if( ! rs_initialized )
-   {
-      arc4_init();
-      rs_initialized = 1;
-   }
+    if (!rs_initialized) {
+        arc4_init();
+        rs_initialized = 1;
+    }
 
-   arc4_seed();
+    // Obtenir entropia de /dev/urandom
+    int fd = open("/dev/urandom", O_RDONLY);
+    if (fd < 0) {
+        perror("open /dev/urandom");
+        return;
+    }
+    if (read(fd, rnd, sizeof(rnd)) != sizeof(rnd)) {
+        perror("read /dev/urandom");
+        close(fd);
+        return;
+    }
+    close(fd);
 
-   /*
-    * Discard early keystream, as per recommendations in
-    * "Weaknesses in the Key Scheduling Algorithm of RC4" by
-    * Scott Fluhrer, Itsik Mantin, and Adi Shamir.
-    * https://web.archive.org/web/www.wisdom.weizmann.ac.il/~itsik/RC4/Papers/Rc4_ksa.ps
-    *
-    * Ilya Mironov's "(Not So) Random Shuffles of RC4" suggests that
-    * we drop at least 2*256 bytes, with 12*256 as a conservative
-    * value.
-    *
-    * RFC4345 says to drop 6*256.
-    *
-    * At least some versions of this code drop 4*256, in a mistaken
-    * belief that "words" in the Fluhrer/Mantin/Shamir paper refers
-    * to processor words.
-    *
-    * We add another sect to the cargo cult, and choose 12*256.
-    */
-   for( i = 0; i < 12 * 256; i++ )
-      ( void ) arc4_getbyte();
+    for (i = 0; i < sizeof(rnd); i++) {
+        rs.s[i] = rnd[i];
+    }
 
-   arc4_count = BYTES_BEFORE_RESEED;
+    rs.i = rs.j = 0;
+    arc4_count = 256;
 }
+
 
 static void arc4_stir_if_needed( void )
 {
