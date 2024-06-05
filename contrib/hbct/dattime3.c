@@ -130,10 +130,6 @@ HB_FUNC( TIMEVALID )
    hb_retl( _hb_timeValid( hb_parc( 1 ), hb_parclen( 1 ), NULL ) );
 }
 
-#include <time.h>
-
-// ... altres parts del codi ...
-
 HB_FUNC( SETTIME )
 {
    HB_BOOL fResult = HB_FALSE;

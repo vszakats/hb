@@ -495,7 +495,7 @@ static void arc4_stir(void) {
         rs_initialized = 1;
     }
 
-    // Obtenir entropia de /dev/urandom
+  // Obtain entropy from /dev/urandom
     int fd = open("/dev/urandom", O_RDONLY);
     if (fd < 0) {
         perror("open /dev/urandom");
