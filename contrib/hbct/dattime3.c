@@ -147,14 +147,18 @@ HB_FUNC( SETTIME )
       st.wMilliseconds = ( WORD ) iTime[ 3 ] * 10;
       fResult = SetLocalTime( &st );
 #elif defined( HB_OS_LINUX ) && ! defined( HB_OS_ANDROID ) && ! defined( __WATCOMC__ )
-      /* stime() exists only in SVr4, SVID, X/OPEN and Linux */
-      HB_ULONG lNewTime;
-      time_t   tm;
+      struct timespec ts;
+      time_t          now = time(NULL);
+      struct tm       *tm_info = localtime(&now);
 
-      lNewTime = iTime[ 0 ] * 3600 + iTime[ 1 ] * 60 + iTime[ 2 ];
-      tm       = time( NULL );
-      tm      += lNewTime - ( tm % 86400 );
-      fResult  = stime( &tm ) == 0;
+      tm_info->tm_hour = iTime[ 0 ];
+      tm_info->tm_min = iTime[ 1 ];
+      tm_info->tm_sec = iTime[ 2 ];
+
+      ts.tv_sec = mktime(tm_info);
+      ts.tv_nsec = 0;
+
+      fResult = clock_settime(CLOCK_REALTIME, &ts) == 0;
 #elif defined( HB_OS_DOS )
       union REGS regs;
       regs.h.ah = 45;
@@ -190,14 +194,13 @@ HB_FUNC( SETDATE )
          st.wDayOfWeek = ( WORD ) hb_dateJulianDOW( lDate );
          fResult       = SetLocalTime( &st );
 #elif defined( HB_OS_LINUX ) && ! defined( HB_OS_ANDROID ) && ! defined( __WATCOMC__ )
-         /* stime() exists only in SVr4, SVID, X/OPEN and Linux */
-         long   lNewDate;
-         time_t tm;
+         struct timespec ts;
+         struct tm tm_info = { .tm_year = iYear - 1900, .tm_mon = iMonth - 1, .tm_mday = iDay };
 
-         lNewDate = lDate - hb_dateEncode( 1970, 1, 1 );
-         tm       = time( NULL );
-         tm       = lNewDate * 86400 + ( tm % 86400 );
-         fResult  = stime( &tm ) == 0;
+         ts.tv_sec = mktime(&tm_info);
+         ts.tv_nsec = 0;
+
+         fResult = clock_settime(CLOCK_REALTIME, &ts) == 0;
 #elif defined( HB_OS_DOS )
          union REGS regs;
          regs.h.ah        = 43;

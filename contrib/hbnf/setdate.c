@@ -1,4 +1,5 @@
-/* Rewritten in 2012 by Viktor Szakats and kept in the
+/*
+ * Rewritten in 2012 by Viktor Szakats and kept in the
    public domain.
    This is an original work by Glenn Scott and is placed in the public domain.
 
@@ -57,14 +58,14 @@ HB_FUNC( FT_SETDATE )
    }
 #elif defined( HB_OS_LINUX ) && ! defined( HB_OS_ANDROID ) && ! defined( __WATCOMC__ )
    {
-      /* stime() exists only in SVr4, SVID, X/OPEN and Linux */
-      long   lNewDate;
-      time_t tm;
+      /* clock_settime() per a sistemes Linux moderns */
+      struct timespec ts;
+      struct tm tm_info = { .tm_year = iYear - 1900, .tm_mon = iMonth - 1, .tm_mday = iDay };
 
-      lNewDate = lDate - hb_dateEncode( 1970, 1, 1 );
-      tm       = time( NULL );
-      tm       = lNewDate * 86400 + ( tm % 86400 );
-      fResult  = stime( &tm ) == 0;
+      ts.tv_sec = mktime(&tm_info);
+      ts.tv_nsec = 0;
+
+      fResult = clock_settime(CLOCK_REALTIME, &ts) == 0;
    }
 #elif defined( HB_OS_DOS )
    {
