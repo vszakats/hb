@@ -956,6 +956,7 @@
 #define HB_CURLU_PUNYCODE                     hb_bitShift( 1, 12 )  /* get the host name in punycode */
 #define HB_CURLU_PUNY2IDN                     hb_bitShift( 1, 13 )  /* punycode => IDN conversion */
 #define HB_CURLU_GET_EMPTY                    hb_bitShift( 1, 14 )  /* allow empty queries and fragments when extracting the URL or the components */
+#define HB_CURLU_NO_GUESS_SCHEME              hb_bitShift( 1, 15 )  /* for get, don't accept a guess */
 
 /* curl_ws_send()/curl_ws_recv() flags */
 #define HB_CURLWS_TEXT                        hb_bitShift( 1, 0 )
