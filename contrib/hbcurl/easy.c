@@ -1114,6 +1114,11 @@ HB_FUNC( CURL_EASY_SETOPT )
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_TCP_KEEPINTVL, hb_parnl( 3 ) );
                break;
 #endif
+#if LIBCURL_VERSION_NUM >= 0x080900
+            case HB_CURLOPT_TCP_KEEPCNT:
+               res = curl_easy_setopt( hb_curl->curl, CURLOPT_TCP_KEEPCNT, hb_parnl( 3 ) );
+               break;
+#endif
 #if LIBCURL_VERSION_NUM >= 0x072800
             case HB_CURLOPT_UNIX_SOCKET_PATH:
                res = curl_easy_setopt( hb_curl->curl, CURLOPT_UNIX_SOCKET_PATH, hb_parc( 3 ) );  /* cp:UTF-8 */
