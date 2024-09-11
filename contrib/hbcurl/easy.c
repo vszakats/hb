@@ -2741,6 +2741,12 @@ HB_FUNC( CURL_EASY_GETINFO )
 #endif
             type = HB_CURL_INFO_TYPE_OFFSET;
             break;
+         case HB_CURLINFO_POSTTRANSFER_TIME_T:
+#if LIBCURL_VERSION_NUM >= 0x080a00
+            res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_POSTTRANSFER_TIME_T, &ret_offset );
+#endif
+            type = HB_CURL_INFO_TYPE_OFFSET;
+            break;
          case HB_CURLINFO_REDIRECT_COUNT:
 #if LIBCURL_VERSION_NUM >= 0x070907
             res  = HB_CURL_EASY_GETINFO( hb_curl, CURLINFO_REDIRECT_COUNT, &ret_long );

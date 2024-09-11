@@ -634,6 +634,7 @@
 #define HB_CURLINFO_XFER_ID                   61
 #define HB_CURLINFO_CONN_ID                   62
 #define HB_CURLINFO_QUEUE_TIME_T              63
+#define HB_CURLINFO_POSTTRANSFER_TIME_T       64
 
 /* HB_CURLINFO_PROXY_ERROR results. */
 #define HB_CURLPX_OK                                0
