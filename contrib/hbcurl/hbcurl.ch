@@ -710,14 +710,14 @@
 #define HB_CURLE_FTP_COULDNT_USE_REST         31 /* the REST command failed */
 #define HB_CURLE_OBSOLETE32                   32 /* NOT USED */
 #define HB_CURLE_RANGE_ERROR                  33 /* RANGE "command" didn't work */
-#define HB_CURLE_HTTP_POST_ERROR              34 /* */
+#define HB_CURLE_HTTP_POST_ERROR              34 /* obsolete */
 #define HB_CURLE_SSL_CONNECT_ERROR            35 /* wrong when connecting with SSL */
 #define HB_CURLE_BAD_DOWNLOAD_RESUME          36 /* couldn't resume download */
 #define HB_CURLE_FILE_COULDNT_READ_FILE       37 /* */
 #define HB_CURLE_LDAP_CANNOT_BIND             38 /* */
 #define HB_CURLE_LDAP_SEARCH_FAILED           39 /* */
 #define HB_CURLE_OBSOLETE40                   40 /* NOT USED */
-#define HB_CURLE_FUNCTION_NOT_FOUND           41 /* */
+#define HB_CURLE_FUNCTION_NOT_FOUND           41 /* obsolete */
 #define HB_CURLE_ABORTED_BY_CALLBACK          42 /* */
 #define HB_CURLE_BAD_FUNCTION_ARGUMENT        43 /* */
 #define HB_CURLE_OBSOLETE44                   44 /* NOT USED */
@@ -783,6 +783,8 @@
 #define HB_CURLE_TOO_LARGE                    100 /* a value/data met its maximum */
 
 #define HB_CURLE_OBSOLETE16                   HB_CURLE_HTTP2
+#define HB_CURLE_OBSOLETE34                   HB_CURLE_HTTP_POST_ERROR
+#define HB_CURLE_OBSOLETE41                   HB_CURLE_FUNCTION_NOT_FOUND
 
 /* curl_version_info() returned array positions. */
 #define HB_CURLVERINFO_VERSION                1
