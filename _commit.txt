@@ -1,0 +1,4 @@
+hbcurl: multi interface implementation
+
+  * contrib/hbcurl/easy.c
+  * contrib/hbcurl/hbcurl.ch
