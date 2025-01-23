@@ -3249,17 +3249,13 @@ HB_FUNC( CURL_WS_RECV )
 }
 
 /* Multi interface */
-/* ----------------- */
 
 typedef struct _HB_CURLM
 {
    CURLM * curlm;
-
-} HB_CURLM, * PHB_CURLM;
-
+} HB_CURLM, *PHB_CURLM;
 
 /* Constructor/Destructor */
-/* ---------------------- */
 
 static void PHB_CURLM_free( PHB_CURLM hb_curlm )
 {
@@ -3267,7 +3263,7 @@ static void PHB_CURLM_free( PHB_CURLM hb_curlm )
    hb_xfree( hb_curlm );
 }
 
-static PHB_CURLM PHB_CURLM_create( )
+static PHB_CURLM PHB_CURLM_create( void )
 {
    CURLM * curlm = curl_multi_init();
 
@@ -3307,7 +3303,7 @@ static void PHB_CURLM_ret()
 {
    void ** ph = ( void ** ) hb_gcAllocate( sizeof( PHB_CURLM ), &s_gcCURLMFuncs );
 
-   *ph = PHB_CURLM_create( );
+   *ph = PHB_CURLM_create();
 
    hb_retptrGC( ph );
 }
@@ -3324,13 +3320,11 @@ static PHB_CURLM PHB_CURLM_par( int iParam )
    return ph ? ( PHB_CURLM ) *ph : NULL;
 }
 
-/* Harbour interface */
-/* ----------------- */
-
+/* Harbour wrappers */
 
 HB_FUNC( CURL_MULTI_INIT )
 {
-   PHB_CURLM_ret( );
+   PHB_CURLM_ret();
 }
 
 HB_FUNC( CURL_MULTI_CLEANUP )
@@ -3355,9 +3349,9 @@ HB_FUNC( CURL_MULTI_ADD_HANDLE )
    if( PHB_CURLM_is( 1 ) && PHB_CURL_is( 2 ) )
    {
       PHB_CURLM hb_curlm = PHB_CURLM_par( 1 );
-      PHB_CURL hb_curl = PHB_CURL_par( 2 );
+      PHB_CURL  hb_curl  = PHB_CURL_par( 2 );
 
-      hb_retnl( hb_curlm && hb_curl ? ( long ) curl_multi_add_handle( hb_curlm->curlm, hb_curl->curl) : HB_CURLM_INTERNAL_ERROR );
+      hb_retnl( hb_curlm && hb_curl ? ( long ) curl_multi_add_handle( hb_curlm->curlm, hb_curl->curl ) : HB_CURLM_ERROR );
    }
    else
       hb_errRT_BASE( EG_ARG, 2010, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
@@ -3368,9 +3362,9 @@ HB_FUNC( CURL_MULTI_REMOVE_HANDLE )
    if( PHB_CURLM_is( 1 ) && PHB_CURL_is( 2 ) )
    {
       PHB_CURLM hb_curlm = PHB_CURLM_par( 1 );
-      PHB_CURL hb_curl = PHB_CURL_par( 2 );
+      PHB_CURL  hb_curl  = PHB_CURL_par( 2 );
 
-      hb_retnl( hb_curlm && hb_curl ? ( long ) curl_multi_remove_handle( hb_curlm->curlm, hb_curl->curl) : HB_CURLM_INTERNAL_ERROR );
+      hb_retnl( hb_curlm && hb_curl ? ( long ) curl_multi_remove_handle( hb_curlm->curlm, hb_curl->curl ) : HB_CURLM_ERROR );
    }
    else
       hb_errRT_BASE( EG_ARG, 2010, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
@@ -3380,19 +3374,17 @@ HB_FUNC( CURL_MULTI_PERFORM )
 {
    if( PHB_CURLM_is( 1 ) && HB_ISBYREF( 2 ) )
    {
-
-      CURLMcode res = ( CURLMcode ) HB_CURLM_INTERNAL_ERROR;
+      CURLMcode res      = ( CURLMcode ) HB_CURLM_ERROR;
       PHB_CURLM hb_curlm = PHB_CURLM_par( 1 );
 
-      if ( hb_curlm )
+      if( hb_curlm )
       {
          int running_handles = 0;
-         res = curl_multi_perform( hb_curlm->curlm, &running_handles);
-         hb_stornl( running_handles, 2);
+         res = curl_multi_perform( hb_curlm->curlm, &running_handles );
+         hb_storni( running_handles, 2 );
       }
 
       hb_retnl( ( long ) res );
-
    }
    else
       hb_errRT_BASE( EG_ARG, 2010, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
@@ -3402,64 +3394,51 @@ HB_FUNC( CURL_MULTI_POLL )
 {
    if( PHB_CURLM_is( 1 ) && HB_ISNUM( 2 ) )
    {
-
-      CURLMcode res = ( CURLMcode ) HB_CURLM_INTERNAL_ERROR;
+      CURLMcode res      = ( CURLMcode ) HB_CURLM_ERROR;
       PHB_CURLM hb_curlm = PHB_CURLM_par( 1 );
 
-      if ( hb_curlm )
-      {
-         res = curl_multi_poll(  hb_curlm->curlm,
-                          NULL,
-                          0,
-                          hb_parni(2),
-                          NULL );
-      }
+      if( hb_curlm )
+         res = curl_multi_poll( hb_curlm->curlm,
+                                NULL,
+                                0,
+                                hb_parni( 2 ),
+                                NULL );
 
       hb_retnl( ( long ) res );
-
    }
    else
       hb_errRT_BASE( EG_ARG, 2010, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
 }
 
-
 HB_FUNC( CURL_MULTI_INFO_READ )
 {
    if( PHB_CURLM_is( 1 ) )
    {
-
-      PHB_ITEM pReturn = NULL;
       PHB_CURLM hb_curlm = PHB_CURLM_par( 1 );
 
-      if ( hb_curlm )
+      if( hb_curlm )
       {
-         int msgs_in_queue = 0;
+         int msgs_in_queue    = 0;
+         struct CURLMsg * msg = curl_multi_info_read( hb_curlm->curlm, &msgs_in_queue );
 
-         struct CURLMsg *msg = curl_multi_info_read(  hb_curlm->curlm, &msgs_in_queue );
-         if ( msg )
+         if( msg )
          {
+            PHB_ITEM pReturn;
+            long     response_code = 0;
 
-            CURLcode res     = ( CURLcode ) HB_CURLE_ERROR;
-            long   response_code   = 0;
-            res = curl_easy_getinfo( msg->easy_handle, CURLINFO_RESPONSE_CODE, &response_code );
+            ( void ) curl_easy_getinfo( msg->easy_handle, CURLINFO_RESPONSE_CODE, &response_code );
 
             pReturn = hb_itemArrayNew( HB_CURLMSG_RESP_LAST );
 
-            hb_arraySetNL( pReturn, HB_CURLMSG_RESP_LEN, ( long ) msgs_in_queue );
-            hb_arraySetNL( pReturn, HB_CURLMSG_RESP_RESPONSE_CODE, ( long ) response_code );
+            hb_arraySetNI( pReturn, HB_CURLMSG_RESP_LEN, msgs_in_queue );
+            hb_arraySetNL( pReturn, HB_CURLMSG_RESP_RESPONSE_CODE, response_code );
             hb_arraySetNL( pReturn, HB_CURLMSG_RESP_MSG, ( long ) msg->msg );
             hb_arraySetNL( pReturn, HB_CURLMSG_RESP_RESULT, ( long ) msg->data.result );
 
+            hb_itemReturnRelease( pReturn );
          }
       }
-
-      if ( pReturn )
-         hb_itemReturnRelease( pReturn );
-      else
-         hb_ret();
-
    }
    else
       hb_errRT_BASE( EG_ARG, 2010, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS );
-
 }
