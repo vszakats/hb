@@ -3214,8 +3214,8 @@ HB_FUNC( CURL_WS_RECV )
 {
    if( PHB_CURL_is( 1 ) && HB_ISBYREF( 2 ) )
    {
-      CURLcode     res       = HB_CURLE_ERROR;
-      size_t       recv      = 0;
+      CURLcode res  = HB_CURLE_ERROR;
+      size_t   recv = 0;
 
 #if LIBCURL_VERSION_NUM >= 0x075600
       PHB_CURL hb_curl = PHB_CURL_par( 1 );
