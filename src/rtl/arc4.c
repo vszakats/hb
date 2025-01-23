@@ -48,36 +48,11 @@
 #include "hbdate.h"
 #include "hbthread.h"
 
-/* XXX: Check and possibly extend this to other Unix-like platforms */
-#if ( defined( HB_OS_BSD ) && ! defined( HB_OS_DARWIN ) ) || \
-   ( defined( HB_OS_LINUX ) && \
-      ! defined( HB_OS_ANDROID ) && \
-      ! defined( __WATCOMC__ ) && \
-      ! defined( __EMSCRIPTEN__ ) )
-#  define HAVE_SYS_SYSCTL_H
-#  define HAVE_DECL_CTL_KERN
-#  define HAVE_DECL_KERN_RANDOM
-#  if defined( HB_OS_LINUX )
-#     define HAVE_DECL_RANDOM_UUID
-#  endif
-#endif
-
 #if defined( HB_OS_WIN )
 #  include <wincrypt.h>
 #elif defined( HB_OS_DOS ) || defined( HB_OS_OS2 )
 #  include <sys/types.h>
 #else
-#  if ! defined( __WATCOMC__ )
-#     include <sys/param.h>
-#  endif
-#  include <sys/time.h>
-#  include <sys/types.h>
-#  ifdef HAVE_SYS_SYSCTL_H
-#     include <sys/sysctl.h>
-#     if ! defined( HB_OS_LINUX ) && defined( KERN_ARND )
-#        define HAVE_DECL_KERN_ARND
-#     endif
-#  endif
 #  include <fcntl.h>
 #  include <unistd.h>
 #endif
@@ -203,182 +178,7 @@ static int arc4_seed_win( void )
 }
 #endif /* HB_OS_WIN */
 
-#if defined( HAVE_SYS_SYSCTL_H )
-
-#if defined( HAVE_DECL_CTL_KERN ) && defined( HAVE_DECL_KERN_RANDOM ) && \
-   defined( HAVE_DECL_RANDOM_UUID )
-
-#define TRY_SEED_SYSCTL_LINUX
-static int arc4_seed_sysctl_linux( void )
-{
-   /*
-    * Based on code by William Ahern, this function tries to use the
-    * RANDOM_UUID sysctl to get entropy from the kernel. This can work
-    * even if /dev/urandom is inaccessible for some reason (e.g., we're
-    * running in a chroot).
-    */
-   int          mib[] = { CTL_KERN, KERN_RANDOM, RANDOM_UUID };
-   HB_U8        buf[ ADD_ENTROPY ];
-   size_t       len, n;
-   unsigned int i;
-   int          any_set;
-
-   memset( buf, 0, sizeof( buf ) );
-
-   for( len = 0; len < sizeof( buf ); len += n )
-   {
-      n = sizeof( buf ) - len;
-
-      if( sysctl( mib, 3, &buf[ len ], &n, NULL, 0 ) != 0 )
-         return -1;
-   }
-
-   /* make sure that the buffer actually got set. */
-   for( i = 0, any_set = 0; i < sizeof( buf ); ++i )
-      any_set |= buf[ i ];
-
-   if( ! any_set )
-      return -1;
-
-   arc4_addrandom( buf, sizeof( buf ) );
-   memset( buf, 0, sizeof( buf ) );
-
-   return 0;
-}
-#endif /* HAVE_DECL_CTL_KERN && HAVE_DECL_KERN_RANDOM && HAVE_DECL_RANDOM_UUID */
-
-#if defined( HAVE_DECL_CTL_KERN ) && defined( HAVE_DECL_KERN_ARND )
-
-#define TRY_SEED_SYSCTL_BSD
-static int arc4_seed_sysctl_bsd( void )
-{
-   /*
-    * Based on code from William Ahern and from OpenBSD, this function
-    * tries to use the KERN_ARND syscall to get entropy from the kernel.
-    * This can work even if /dev/urandom is inaccessible for some reason
-    * (e.g., we're running in a chroot).
-    */
-   int    mib[] = { CTL_KERN, KERN_ARND };
-   HB_U8  buf[ ADD_ENTROPY ];
-   size_t len, n;
-   int    i, any_set;
-
-   memset( buf, 0, sizeof( buf ) );
-
-   len = sizeof( buf );
-   if( sysctl( mib, 2, buf, &len, NULL, 0 ) == -1 )
-   {
-      for( len = 0; len < sizeof( buf ); len += sizeof( unsigned ) )
-      {
-         n = sizeof( unsigned );
-
-         if( n + len > sizeof( buf ) )
-            n = len - sizeof( buf );
-
-         if( sysctl( mib, 2, &buf[ len ], &n, NULL, 0 ) == -1 )
-            return -1;
-      }
-   }
-
-   /* make sure that the buffer actually got set. */
-   for( i = any_set = 0; i < ( int ) sizeof( buf ); ++i )
-      any_set |= buf[ i ];
-
-   if( ! any_set )
-      return -1;
-
-   arc4_addrandom( buf, sizeof( buf ) );
-   memset( buf, 0, sizeof( buf ) );
-
-   return 0;
-}
-#endif   /* HAVE_DECL_CTL_KERN && HAVE_DECL_KERN_ARND */
-
-#endif   /* defined( HAVE_SYS_SYSCTL_H ) */
-
-#if defined( HB_OS_LINUX )
-
-#define TRY_SEED_PROC_SYS_KERNEL_RANDOM_UUID
-static _HB_INLINE_ int hex_char_to_int( char c )
-{
-   switch( c )
-   {
-      case '0':           return 0;
-      case '1':           return 1;
-      case '2':           return 2;
-      case '3':           return 3;
-      case '4':           return 4;
-      case '5':           return 5;
-      case '6':           return 6;
-      case '7':           return 7;
-      case '8':           return 8;
-      case '9':           return 9;
-      case 'A': case 'a': return 10;
-      case 'B': case 'b': return 11;
-      case 'C': case 'c': return 12;
-      case 'D': case 'd': return 13;
-      case 'E': case 'e': return 14;
-      case 'F': case 'f': return 15;
-   }
-
-   return -1;
-}
-
-static int arc4_seed_proc_sys_kernel_random_uuid( void )
-{
-   /*
-    * Occasionally, somebody will make /proc/sys accessible in a chroot,
-    * but not /dev/urandom.  Let's try /proc/sys/kernel/random/uuid.
-    * Its format is stupid, so we need to decode it from hex.
-    */
-   char  buf[ 128 ];
-   HB_U8 entropy[ 64 ];
-   int   bytes, i, nybbles;
-
-   for( bytes = 0; bytes < ADD_ENTROPY; )
-   {
-      int fd = open( "/proc/sys/kernel/random/uuid", O_RDONLY, 0 );
-      int n;
-
-      if( fd < 0 )
-         return -1;
-
-      n = read( fd, buf, sizeof( buf ) );
-      close( fd );
-
-      if( n <= 0 )
-         return -1;
-
-      memset( entropy, 0, sizeof( entropy ) );
-      for( i = nybbles = 0; i < n; ++i )
-      {
-         if( HB_ISXDIGIT( buf[ i ] ) )
-         {
-            int nyb = hex_char_to_int( buf[ i ] );
-
-            if( nybbles & 1 )
-               entropy[ nybbles / 2 ] |= nyb;
-            else
-               entropy[ nybbles / 2 ] |= nyb << 4;
-
-            ++nybbles;
-         }
-      }
-      if( nybbles < 2 )
-         return -1;
-
-      arc4_addrandom( entropy, nybbles / 2 );
-      bytes += nybbles / 2;
-   }
-
-   memset( entropy, 0, sizeof( entropy ) );
-   memset( buf, 0, sizeof( buf ) );
-
-   return 0;
-}
-#endif /* HB_OS_LINUX */
-
-#if defined( HB_OS_UNIX )
+#if defined( HB_OS_LINUX ) || defined( HB_OS_UNIX )
 
 #define TRY_SEED_URANDOM
 static int arc4_seed_urandom( void )
@@ -417,7 +217,7 @@ static int arc4_seed_urandom( void )
 
    return -1;
 }
-#endif /* HB_OS_UNIX */
+#endif /* HB_OS_LINUX || HB_OS_UNIX */
 
 static int arc4_seed_rand( void )
 {
@@ -455,32 +255,12 @@ static void arc4_seed( void )
       ok = 1;
 #endif
 
-#if defined( TRY_SEED_PROC_SYS_KERNEL_RANDOM_UUID )
-   if( arc4_seed_proc_sys_kernel_random_uuid() == 0 )
-      ok = 1;
-#endif
-
-#if defined( TRY_SEED_SYSCTL_LINUX )
    /*
-    * Apparently Linux is deprecating sysctl, and spewing warning
-    * messages when you try to use it. To avoid dmesg spamming,
-    * only try this if no previous method worked.
-    */
-   if( ! ok && arc4_seed_sysctl_linux() == 0 )
-      ok = 1;
-#endif
-
-#if defined( TRY_SEED_SYSCTL_BSD )
-   if( arc4_seed_sysctl_bsd() == 0 )
-      ok = 1;
-#endif
-
-   /*
-    * If nothing else worked or there is no specific seeding
-    * method for the current platform, fall back to rand().
-    * In case an existing platform-specific method had a
-    * (transient) failure, it will be re-tried at the next
-    * seeding cycle.
+    * If nothing else worked or hi ha cap mètode específic de seeding
+    * per a la plataforma actual, recorre a rand().
+    * Si un mètode de plataforma específic existent tenia un
+    * (fallada transitòria, es tornarà a intentar en el següent
+    * cicle de seeding.
     */
    if( ! ok )
       arc4_seed_rand();
@@ -660,7 +440,7 @@ HB_U32 hb_arc4random_uniform( HB_U32 upper_bound )
    }
    else
    {
-      /* (2**32 - (x * 2)) % x == 2**32 % x when x <= 2**31 */
+      /* (2**32 - (upper_bound * 2)) % upper_bound == 2**32 % upper_bound when upper_bound <= 2**31 */
       min = ( ( 0xffffffff - ( upper_bound * 2 ) ) + 1 ) % upper_bound;
    }
 #endif
@@ -679,4 +459,9 @@ HB_U32 hb_arc4random_uniform( HB_U32 upper_bound )
    }
 
    return r % upper_bound;
+}
+
+HB_FUNC( HB_ARC4RANDOM )
+{
+   hb_retni( hb_arc4random() );
 }

@@ -1,4 +1,5 @@
-/* Rewritten in 2012 by Viktor Szakats and kept in the
+/*
+ * Rewritten in 2012 by Viktor Szakats and kept in the
    public domain.
    This is an original work by Glenn Scott and is placed in the public domain.
 
@@ -67,14 +68,19 @@ HB_FUNC( FT_SETTIME )
    }
 #elif defined( HB_OS_LINUX ) && ! defined( HB_OS_ANDROID ) && ! defined( __WATCOMC__ )
    {
-      /* stime() exists only in SVr4, SVID, X/OPEN and Linux */
-      HB_ULONG lNewTime;
-      time_t   tm;
+      /* clock_settime() per a sistemes Linux moderns */
+      struct timespec ts;
+      time_t          now = time(NULL);
+      struct tm       *tm_info = localtime(&now);
 
-      lNewTime = iHour * 3600 + iMinute * 60 + iSeconds;
-      tm       = time( NULL );
-      tm      += lNewTime - ( tm % 86400 );
-      fResult  = stime( &tm ) == 0;
+      tm_info->tm_hour = iHour;
+      tm_info->tm_min = iMinute;
+      tm_info->tm_sec = iSeconds;
+
+      ts.tv_sec = mktime(tm_info);
+      ts.tv_nsec = 0;
+
+      fResult = clock_settime(CLOCK_REALTIME, &ts) == 0;
    }
 #elif defined( HB_OS_DOS )
    {
