@@ -157,25 +157,15 @@ HB_FUNC( FBCONNECT )
    const char *     user       = hb_parcx( 2 );
    const char *     passwd     = hb_parcx( 3 );
    char  dpb[ 128 ];
-   short i = 0;
-   int   len;
 
-   /* FIXME: Possible buffer overflow. Use hb_snprintf(). */
-   dpb[ i++ ] = isc_dpb_version1;
-   dpb[ i++ ] = isc_dpb_user_name;
-   len        = ( int ) strlen( user );
-   if( len > ( int ) ( sizeof( dpb ) - i - 4 ) )
-      len = ( int ) ( sizeof( dpb ) - i - 4 );
-   dpb[ i++ ] = ( char ) len;
-   hb_strncpy( &( dpb[ i ] ), user, len );
-   i += ( short ) len;
-   dpb[ i++ ] = isc_dpb_password;
-   len        = ( int ) strlen( passwd );
-   if( len > ( int ) ( sizeof( dpb ) - i - 2 ) )
-      len = ( int ) ( sizeof( dpb ) - i - 2 );
-   dpb[ i++ ] = ( char ) len;
-   hb_strncpy( &( dpb[ i ] ), passwd, len );
-   i += ( short ) len;
+   short i = hb_snprintf( dpb, sizeof( dpb ), "%c%c%c%s%c%c%s",
+      isc_dpb_version1,
+      isc_dpb_user_name,
+      ( char ) strlen( user ),
+      user,
+      isc_dpb_password,
+      ( char ) strlen( passwd ),
+      passwd );
 
    if( isc_attach_database( status, 0, db_connect, &db, i, dpb ) )
       hb_retnl( isc_sqlcode( status ) );
