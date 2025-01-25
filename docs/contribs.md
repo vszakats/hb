@@ -140,7 +140,7 @@ Miscellaneous functions for manipulating strings.
 
 ## hbhpdf
 
-Libharu bindings. Haru is a free, cross platform, open-source library for
+Libharu bindings. Haru is a free, cross platform, open source library for
 generating PDF, written in ANSI C.
 <span class="readmore-md">[Learn more](https://github.com/libharu/libharu)</span>
 

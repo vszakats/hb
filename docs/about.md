@@ -16,7 +16,7 @@ Harbour is a cross-platform compiler and is known to compile and run on:
 * *BSD
 * *nix
 
-Harbour is a free and open-source project. It can be used to make open
+Harbour is a free and open source project. It can be used to make open
 source applications, free or nonfree products. To learn more about
 Harbour license,
 visit [here](https://raw.githubusercontent.com/{{ site.repo_slug }}/{{ site.repo_branch }}/{{ site.license_file }}).
@@ -33,7 +33,7 @@ visit [here](https://raw.githubusercontent.com/{{ site.repo_slug }}/{{ site.repo
   code base.
 * Because Harbour's architecture is fully open and supports a third-party add
   on market.
-* Because Harbour is open-source and therefore you are not at the mercy of
+* Because Harbour is open source and therefore you are not at the mercy of
   the decisions of a private company.
 * Because Harbour is developed by an experienced and capable team of
   developers.

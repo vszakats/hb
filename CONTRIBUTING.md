@@ -180,7 +180,7 @@ Evaluate these points before reporting an issue:
     functions against CT3 library, etc.)
     Notice that Harbour is Cl\*pper Summer '87 compatible exactly as
     much as Cl\*pper 5.2e/5.3b is, meaning: almost, but not completely.
-    For tests with Cl\*pper, use this free, open-source
+    For tests with Cl\*pper, use this free, open source
     [MS-DOS emulator](https://www.vdos.info/) (requires Windows/Wine).
 
 

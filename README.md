@@ -1253,48 +1253,48 @@ Supported shells per host platforms:
 
 * C/C++ Compilers/Shells:
 
-     * [LLVM/Clang](https://releases.llvm.org/) [multi-platform, free software, open-source]
-     * LLVM/Clang via [MSYS2](https://www.msys2.org/) (recommended) [win, multi-platform, free software, open-source]
+     * [LLVM/Clang](https://releases.llvm.org/) [multi-platform, free software, open source]
+     * LLVM/Clang via [MSYS2](https://www.msys2.org/) (recommended) [win, multi-platform, free software, open source]
         * MinGW-w64 below + `pacman --sync mingw-w64-{i686,x86_64}-clang`
         * <https://stackoverflow.com/questions/25019057/how-are-msys-msys2-and-msysgit-related-to-each-other>
-     * MinGW-w64 via [MSYS2](https://www.msys2.org/) [win, free software, open-source]
+     * MinGW-w64 via [MSYS2](https://www.msys2.org/) [win, free software, open source]
         * `pacman --sync git base-devel msys2-devel mingw-w64-{i686,x86_64}-toolchain`
-     * [MinGW-w64](https://sourceforge.net/projects/mingw-w64/) ([more](https://en.wikipedia.org/wiki/MinGW#MinGW-w64)) [win, \*nix, free software, open-source]
+     * [MinGW-w64](https://sourceforge.net/projects/mingw-w64/) ([more](https://en.wikipedia.org/wiki/MinGW#MinGW-w64)) [win, \*nix, free software, open source]
         * [64-bit: threads-posix, seh](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/)
         * [32-bit: threads-posix, dwarf-2](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/)
-     * [Dr. Mingw](https://github.com/jrfonseca/drmingw) Just-in-Time debugger [win, free software, open-source]
+     * [Dr. Mingw](https://github.com/jrfonseca/drmingw) Just-in-Time debugger [win, free software, open source]
         * MSYS2 package: mingw-w64-{i686,x86_64}-drmingw
-     * [Xcode](https://apps.apple.com/app/xcode/id497799835) / [Command Line Tools for Xcode](https://developer.apple.com/downloads/) [darwin, zero price, proprietary with open-source components]
+     * [Xcode](https://apps.apple.com/app/xcode/id497799835) / [Command Line Tools for Xcode](https://developer.apple.com/downloads/) [darwin, zero price, proprietary with open source components]
      * [MS Windows SDK](https://developer.microsoft.com/windows/downloads/sdk-archive/) [zero price, proprietary]
      * [MS Visual C++ Build Tools](https://go.microsoft.com/fwlink/?LinkId=691126) [win, zero price, proprietary]
      * [MS Visual Studio Community](https://visualstudio.microsoft.com/vs/express/) [win, zero price, proprietary]
      * [MS Windows Mobile SDK](https://www.microsoft.com/download/details.aspx?id=42) [wce, zero price, proprietary]
-     * [MinGW CEGCC](https://sourceforge.net/projects/cegcc/files/cegcc/) [win, \*nix, free software, open-source]
-     * [Open Watcom](https://github.com/open-watcom) [multi-platform, free software, open-source]
+     * [MinGW CEGCC](https://sourceforge.net/projects/cegcc/files/cegcc/) [win, \*nix, free software, open source]
+     * [Open Watcom](https://github.com/open-watcom) [multi-platform, free software, open source]
      * [Intel Compiler](https://software.intel.com/c-compilers) [multi-platform, commercial, proprietary]
-     * [Cygwin](https://cygwin.com/) [win, free software, open-source]
+     * [Cygwin](https://cygwin.com/) [win, free software, open source]
 
 * Libraries:
 
-     * `HB_WITH_PCRE2`, `HB_WITH_PCRE` - [Perl Compatible Regular Expressions](https://pcre.org/) [multi-platform, free software, open-source]
-     * `HB_WITH_PNG` - [libpng](https://github.com/glennrp/libpng) [multi-platform, free software, open-source]
-     * `HB_WITH_WATT` - Watt-32 (TCP/IP sockets) [dos, free software, open-source, vendored]
-     * `HB_WITH_ZLIB` - [zlib](https://zlib.net/) [multi-platform, free software, open-source]
+     * `HB_WITH_PCRE2`, `HB_WITH_PCRE` - [Perl Compatible Regular Expressions](https://pcre.org/) [multi-platform, free software, open source]
+     * `HB_WITH_PNG` - [libpng](https://github.com/glennrp/libpng) [multi-platform, free software, open source]
+     * `HB_WITH_WATT` - Watt-32 (TCP/IP sockets) [dos, free software, open source, vendored]
+     * `HB_WITH_ZLIB` - [zlib](https://zlib.net/) [multi-platform, free software, open source]
 
 * Tools:
 
-     * [Git](https://git-scm.com/) (2.2.0 or upper) [multi-platform, free software, open-source]
+     * [Git](https://git-scm.com/) (2.2.0 or upper) [multi-platform, free software, open source]
         * on Windows:
            * <https://gitforwindows.org/>
            * via Windows Subsystem for Linux on Windows 10 Anniversary Update
      * [AppVeyor CI](https://www.appveyor.com/) [continuous integration, web service, free plan available]
-     * GNU Bison (grammar parser generator) [multi-platform, free software, open-source]
+     * GNU Bison (grammar parser generator) [multi-platform, free software, open source]
         * Windows binary: See at Git or MSYS2.
-     * [Cppcheck](https://github.com/danmar/cppcheck) (static analysis) [multi-platform, free software, open-source]
-     * [Valgrind](https://valgrind.org/) (dynamic executable analysis tool) [linux, darwin, free software, open-source]
-     * [Uncrustify](https://github.com/uncrustify/uncrustify) (source formatter) [multi-platform, free software, open-source]
-     * [UPX](https://upx.github.io/) (executable compressor) [multi-platform, free software, open-source]
-     * [GNU Make](https://www.gnu.org/software/make/) [multi-platform, free software, open-source]
+     * [Cppcheck](https://github.com/danmar/cppcheck) (static analysis) [multi-platform, free software, open source]
+     * [Valgrind](https://valgrind.org/) (dynamic executable analysis tool) [linux, darwin, free software, open source]
+     * [Uncrustify](https://github.com/uncrustify/uncrustify) (source formatter) [multi-platform, free software, open source]
+     * [UPX](https://upx.github.io/) (executable compressor) [multi-platform, free software, open source]
+     * [GNU Make](https://www.gnu.org/software/make/) [multi-platform, free software, open source]
 
 * Package searches
 
