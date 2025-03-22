@@ -151,73 +151,75 @@ HB_FUNC( FBCREATEDB )
 
 HB_FUNC( FBCONNECT )
 {
-    ISC_STATUS_ARRAY status;
-    isc_db_handle db = ( isc_db_handle )0;
-    const char *db_connect = hb_parcx(1);
-    const char *user      = hb_parcx(2);
-    const char *passwd    = hb_parcx(3);
-    char dpb[128];
-    short i = 0;
-    int len;
+   ISC_STATUS_ARRAY status;
+   isc_db_handle    db = ( isc_db_handle ) 0;
+   const char      *db_connect = hb_parcx( 1 );
+   const char      *user       = hb_parcx( 2 );
+   const char      *passwd     = hb_parcx( 3 );
+   char             dpb[ 128 ];
+   short            i = 0;
+   int              len;
 
-    if (i < sizeof(dpb))
-        dpb[i++] = isc_dpb_version1;
-    else
-        goto error;
+   if( i < sizeof( dpb ) )
+      dpb[ i++ ] = isc_dpb_version1;
+   else
+      goto error;
 
-    if (i < sizeof(dpb))
-        dpb[i++] = isc_dpb_user_name;
-    else
-        goto error;
+   if( i < sizeof( dpb ) )
+      dpb[ i++ ] = isc_dpb_user_name;
+   else
+      goto error;
 
-    len = (int)strlen(user);
-    if (len > (int)(sizeof(dpb) - i - 4))
-        len = sizeof(dpb) - i - 4;
+   len = ( int ) strlen( user );
+   if( len > ( int ) ( sizeof( dpb ) - i - 4 ) )
+      len = sizeof( dpb ) - i - 4;
 
-    if (i < sizeof(dpb))
-        dpb[i++] = (char)len;
-    else
-        goto error;
+   if( i < sizeof( dpb ) )
+      dpb[ i++ ] = ( char ) len;
+   else
+      goto error;
 
-    if ((size_t)len > 0)
-    {
-        if ((size_t)len > sizeof(dpb) - i)
-            goto error;
-        memcpy(dpb + i, user, len);
-        i += (short)len;
-    }
+   if( ( size_t ) len > 0 )
+   {
+      if( ( size_t ) len > sizeof( dpb ) - i )
+         goto error;
+      memcpy( dpb + i, user, len );
+      i += ( short ) len;
+   }
 
-    if (i < sizeof(dpb))
-        dpb[i++] = isc_dpb_password;
-    else
-        goto error;
+   if( i < sizeof( dpb ) )
+      dpb[ i++ ] = isc_dpb_password;
+   else
+      goto error;
 
-    len = (int)strlen(passwd);
-    if (len > (int)(sizeof(dpb) - i - 2))
-        len = sizeof(dpb) - i - 2;
+   len = ( int ) strlen( passwd );
+   if( len > ( int ) ( sizeof( dpb ) - i - 2 ) )
+      len = sizeof( dpb ) - i - 2;
 
-    if (i < sizeof(dpb))
-        dpb[i++] = (char)len;
-    else
-        goto error;
+   if( i < sizeof( dpb ) )
+      dpb[ i++ ] = ( char ) len;
+   else
+      goto error;
 
-    if ((size_t)len > 0)
-    {
-        if ((size_t)len > sizeof(dpb) - i)
-            goto error;
-        memcpy(dpb + i, passwd, len);
-        i += (short)len;
-    }
+   if( ( size_t ) len > 0 )
+   {
+      if( ( size_t ) len > sizeof( dpb ) - i )
+         goto error;
+      memcpy( dpb + i, passwd, len );
+      i += ( short ) len;
+   }
 
-    if (isc_attach_database(status, 0, db_connect, &db, i, dpb))
-        hb_retnl(isc_sqlcode(status));
-    else
-        hb_FB_db_handle_ret(db);
-    return;
+   if( isc_attach_database( status, 0, db_connect, &db, i, dpb ) )
+      hb_retnl( isc_sqlcode( status ) );
+   else
+      hb_FB_db_handle_ret( db );
+
+   return;
 
 error:
-    hb_retnl(-1);
+   hb_retnl( -1 );
 }
+
 
 HB_FUNC( FBCLOSE )
 {
