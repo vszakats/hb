@@ -36,9 +36,5 @@ obj
 # exceptions
 !/*.exe
 *~
-contrib/hbct/tests/
-contrib/hbnf/tests/
-contrib/hbtest/
 src/rtl/arc4.c~
-src/rtl/arc4.xc
-tests/
+

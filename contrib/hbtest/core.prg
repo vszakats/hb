@@ -137,10 +137,8 @@ PROCEDURE hbtest_Call( cBlock, bBlock, xResultExpected )
       cBlock := "[Preprocessor error]"
       lPPError := .T.
    ENDIF
-   
-   
-   cLangOld := __hb_langSelect( "en" )  /* to always have RTEs in one language */
-   
+
+   cLangOld := hb_langSelect( "en" )  /* to always have RTEs in one language */
 
    IF ! s_lBanner
       s_lBanner := .T.
@@ -155,7 +153,7 @@ PROCEDURE hbtest_Call( cBlock, bBlock, xResultExpected )
       lRTE := .T.
    END SEQUENCE
 
-   __hb_langSelect( cLangOld )
+   hb_langSelect( cLangOld )
 
    IF lRTE
       lFailed := ! XToStr( xResult ) == XToStr( xResultExpected )
