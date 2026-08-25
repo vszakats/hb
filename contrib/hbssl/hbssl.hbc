@@ -15,5 +15,7 @@ libpaths=${HBMK_DIR_OPENSSL}/../lib{allwinar&HBMK_HAS_OPENSSL}
 
 {!HB_DYNBIND_OPENSSL&(unix|allwinar)}libs=ssl crypto
 {!HB_DYNBIND_OPENSSL&os2}libs=libssl_s libcrypto_s
-{!HB_DYNBIND_OPENSSL&allwin&!allwinar}libs=ssleay32 libeay32
+{!HB_DYNBIND_OPENSSL&allwin&!allwinar&!allmsvc}libs=ssleay32 libeay32
+{!HB_DYNBIND_OPENSSL&allmsvc&!allwinar&HB_COMP_VER<'1910'}libs=ssleay32 libeay32
+{!HB_DYNBIND_OPENSSL&allmsvc&!allwinar&HB_COMP_VER>'1909'}libs=libssl libcrypto
 {!HB_DYNBIND_OPENSSL&allwin}libs=crypt32
