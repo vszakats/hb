@@ -2603,7 +2603,7 @@ STATIC FUNCTION __hbmk( aArgs, nArgTarget, nLevel, /* @ */ lPause, /* @ */ lExit
    /* Detect compiler version (where applicable) */
 
    IF hbmk[ _HBMK_cCOMPVer ] == "0"
-      IF HBMK_ISCOMP( "msvc64|clang-cl64" )
+      IF HBMK_ISCOMP( "msvc64|clang-cl64" ) .AND. ! Empty( cPath_CompC )
          cPath_CompC := StrTran( cPath_CompC, "ml64.exe", "cl.exe" )  /* for msvc64 only */
       ENDIF
       hbmk[ _HBMK_cCOMPVer ] := CompVersionDetect( hbmk, cPath_CompC, .T. )
