@@ -901,13 +901,14 @@ ifeq ($(__HB_COMPILER_VER),)
       _C_VER := $(shell $(QUOTE)$(HB_COMP_PATH)$(QUOTE) 2>&1)
       _C_VER_BAK := $(_C_VER)
 
-      ifeq ($(wordlist 7,7,$(_C_VER)),Version)  # 'Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.30729.01 for 80x86'
-         _C_VER := $(wordlist 8,8,$(_C_VER))
-      else ifeq ($(wordlist 6,6,$(_C_VER)),Version)  # 'Microsoft (R) C/C++ Optimizing Compiler Version 19.00.23026 for ...'
-         _C_VER := $(wordlist 7,7,$(_C_VER))
-      else
-         _C_VER := 12.00
+      # NOTE: do not key on the position of the word 'Version'. cl.exe
+      #       localises its banner, so any fixed position is wrong on
+      #       non-English Windows. Take the first dotted numeric token.
+      _C_VER_NUM := $(firstword $(foreach w,$(_C_VER),$(if $(findstring .,$(w)),$(w))))
+      ifeq ($(_C_VER_NUM),)
+         _C_VER_NUM := 12.00
       endif
+      _C_VER := $(_C_VER_NUM)
 
       # Convert <0-99>.<0-99>.<n> version number to __HB_COMPILER_VER format
       _C_VER_MAJOR := $(wordlist 1,1,$(subst ., ,$(_C_VER)))
