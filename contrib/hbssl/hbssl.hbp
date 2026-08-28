@@ -38,6 +38,8 @@
 -depimplibs=openssl:../ssleay32.dll
 -depimplibs=openssl:../lib/libcrypto.dll.a:crypto{allwinar}
 -depimplibs=openssl:../lib/libssl.dll.a:ssl{allwinar}
+-depimplibs=openssl:../lib/libcrypto.lib:libcrypto{allmsvc&!hbdyn}
+-depimplibs=openssl:../lib/libssl.lib:libssl{allmsvc&!hbdyn}
 -depfinish=openssl
 
 -instfile=depimplibsrc:${HBMK_DIR_OPENSSL}/../libcrypto-*.dll{hbdyn&(mingw|clang)}
