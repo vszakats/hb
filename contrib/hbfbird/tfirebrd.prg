@@ -679,7 +679,9 @@ METHOD FieldGet( nField ) CLASS TFbQuery
          EXIT
 
       CASE "D"
-         result := hb_SToD( result )
+         /* FBGetData() returns SQL_TYPE_DATE as "YYYY-MM-DD " while hb_SToD()
+            only accepts a bare "YYYYMMDD", so drop the separators first. */
+         result := iif( HB_ISSTRING( result ), hb_SToD( StrTran( AllTrim( result ), "-" ) ), hb_SToD() )
          EXIT
 
       CASE "L"
