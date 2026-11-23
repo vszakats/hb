@@ -1,0 +1,17 @@
+# doom_hb — Harbour 3.4 UCRT64 (64 bits) + SDL3
+-oDoom_hb
+-gtnul
+-inc
+-w1
+-i.
+-i../../contrib/xhb
+../../contrib/xhb/xhb.hbc
+-cflag=-std=gnu17
+-cflag=-I.
+-cflag=-I../../../sdl3/include
+sdl3/lib64/libSDL3.dll.a
+-lwinmm
+-lgdi32
+-luser32
+-lole32
+*.prg
