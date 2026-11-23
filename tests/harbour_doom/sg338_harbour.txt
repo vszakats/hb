@@ -1,0 +1,8 @@
+slope=-1275 ang=1107296256 rng=65
+pellet0 slope=-1275 rng=73
+pellet1 slope=-1275 rng=81
+pellet2 slope=-1275 rng=89
+pellet3 slope=-1275 rng=97
+pellet4 slope=-1275 rng=104
+pellet5 slope=-1275 rng=112
+pellet6 slope=-1275 rng=120

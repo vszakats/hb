@@ -1,0 +1,20 @@
+# doom_hb — Harbour / hbmk2
+-oDoom_hb
+-gtnul
+-lxhb
+-inc
+-w1
+-i.
+-Lc:\mingw-4.8.1\lib
+-Lc:\harbour\lib
+-cflag=-std=gnu99
+-cflag=-I.
+-cflag=-Ic:\mingw-4.8.1\include
+-cflag=-I../../../sdl3/include
+-Lsdl3/lib
+-lSDL3
+-lwinmm
+-lgdi32
+-luser32
+-lole32
+*.prg
